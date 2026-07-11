@@ -611,10 +611,11 @@
   // whether the current user may rearrange the library and reach the admin page.
   // Driven by the top-bar mode toggle; defaults to admin (undefined !== false) for backward compatibility.
   function isAdmin() {
+    if (SUPA_PROFILE) return SUPA_PROFILE.role === "admin";   // signed in online → the server-stored role decides (set it in Supabase → Table Editor → profiles)
     const u = currentUser();
-    if (u) return u.role === "admin";        // signed in → role decides (never demoted by a stale preview flag)
-    if (S && S.settings && S.settings.adminMode === false) return false;   // legacy "preview as visitor" (guest only)
-    return noAccounts();                      // guest → only before any account exists (legacy single-user)
+    if (u) return u.role === "admin";        // legacy local account → its role decides
+    if (S && S.settings && S.settings.adminMode === false) return false;   // "preview as visitor" (guest only)
+    return noAccounts();                      // guest on a fresh device → admin (the local dev machine)
   }
 
   function setGlossEdit(key, value) {
@@ -745,7 +746,8 @@
   }
   function save() {
     try { localStorage.setItem(STORE_KEY, JSON.stringify(S)); } catch (e) {}
-    syncProgressToAccount();   // mirror live study progress into the signed-in account (no-op if logged out)
+    syncProgressToAccount();   // mirror live study progress into a legacy local account (no-op normally)
+    supaQueuePush();           // debounced background push to the online account (no-op when signed out/offline)
   }
   // daily minigame results — each of the 4 home games records a per-day { played, won } so the tile shows a
   // checkmark once played today and the "Clean Sweep" badge unlocks when all four are won on the same day.
@@ -766,7 +768,9 @@
     return DAILY_GAMES.every((k) => g[k] && g[k].date === t && g[k].won);
   }
 
-  /* ---------- accounts (local-only: this browser, no server/email) ---------- */
+  /* ---------- LEGACY local accounts (superseded by the Supabase online accounts below) ----------
+     Kept for: the admin page's local-user manager, the guest-progress stash helpers (extractProgress /
+     applyProgress / emptyProgress), and older saves. The account page no longer signs in against this. */
   const ACCT_KEY = "folio_acct_v1";
   const PROGRESS_FIELDS = ["cards", "suspended", "daily", "chrono", "games", "intro", "streak", "active", "achievements"];
   const B32 = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
@@ -909,6 +913,184 @@
     saveAcct();
   }
   function acctRotateRecovery(key) { const u = ACCT.users[key]; if (!u) return null; u.recovery = genRecovery(); saveAcct(); return u.recovery; }
+
+  /* ---------- Supabase: online accounts + progress sync ----------
+     Plain fetch() against the project's REST + auth endpoints (no SDK — zero-dependency rule). The publishable key is
+     safe to ship; security lives in the row-level-security policies (.claude/supabase-schema.sql). The app stays
+     OFFLINE-FIRST: localStorage is the working copy; the server is a background sync target. Signed out = the old
+     device-local behaviour, unchanged. */
+  const SUPA_URL = "https://qnrnjjcjeggzndgxtyqx.supabase.co";
+  const SUPA_KEY = "sb_publishable_ew3iNcUTazB89PqZG32GWw_ayFyAc4q";
+  const SUPA_SESS_KEY = "folio_supa_v1";      // { access_token, refresh_token, expires_at, user:{id,email} }
+  const SUPA_GUEST_KEY = "folio_supa_guest_v1"; // the device/guest state stashed while someone is signed in
+  let SUPA = null;          // the live session (or null = signed out / guest)
+  let SUPA_PROFILE = null;  // cached profiles row { id, username, name, role, joined }
+  function supaLoggedIn() { return !!(SUPA && SUPA.user && SUPA.user.id); }
+  function supaSaveSession() { try { if (SUPA) localStorage.setItem(SUPA_SESS_KEY, JSON.stringify(SUPA)); else localStorage.removeItem(SUPA_SESS_KEY); } catch (e) {} }
+  function supaAdoptSession(d) {   // d = an auth response with access_token/refresh_token/expires_in/user
+    SUPA = {
+      access_token: d.access_token, refresh_token: d.refresh_token,
+      expires_at: Date.now() + Math.max(60, (d.expires_in || 3600) - 60) * 1000,
+      user: { id: d.user && d.user.id, email: d.user && d.user.email },
+    };
+    supaSaveSession();
+  }
+  async function supaFetch(path, opts) {
+    opts = opts || {};
+    const headers = Object.assign({ apikey: SUPA_KEY, "Content-Type": "application/json" }, opts.headers || {});
+    if (opts.auth !== false && SUPA && SUPA.access_token) headers.Authorization = "Bearer " + SUPA.access_token;
+    let res;
+    try { res = await fetch(SUPA_URL + path, { method: opts.method || "GET", headers, body: opts.body !== undefined ? JSON.stringify(opts.body) : undefined }); }
+    catch (e) { return { ok: false, status: 0, data: null }; }   // offline / network error
+    if (res.status === 401 && opts.auth !== false && SUPA && SUPA.refresh_token && !opts._retried) {
+      if (await supaRefresh()) return supaFetch(path, Object.assign({}, opts, { _retried: true }));   // expired token → refresh once, retry
+    }
+    let data = null;
+    const txt = await res.text();
+    if (txt) { try { data = JSON.parse(txt); } catch (e) { data = txt; } }
+    return { ok: res.ok, status: res.status, data };
+  }
+  function supaErrMsg(r, fallback) {
+    const d = r && r.data;
+    return (d && (d.error_description || d.msg || d.message || (d.error && d.error.message))) || fallback || "Something went wrong — try again.";
+  }
+  async function supaRefresh() {
+    if (!SUPA || !SUPA.refresh_token) return false;
+    const r = await supaFetch("/auth/v1/token?grant_type=refresh_token", { method: "POST", auth: false, body: { refresh_token: SUPA.refresh_token } });
+    if (r.ok && r.data && r.data.access_token) { supaAdoptSession(r.data); return true; }
+    if (r.status === 400 || r.status === 401 || r.status === 403) { SUPA = null; SUPA_PROFILE = null; supaSaveSession(); }   // token revoked/stale → signed out
+    return false;
+  }
+  async function supaLoadProfile() {
+    if (!supaLoggedIn()) return null;
+    const r = await supaFetch("/rest/v1/profiles?id=eq." + SUPA.user.id + "&select=id,username,name,role,joined");
+    if (r.ok && Array.isArray(r.data) && r.data[0]) SUPA_PROFILE = r.data[0];
+    return SUPA_PROFILE;
+  }
+  /* --- progress sync (debounced push on save(); pull + reconcile at boot/login) --- */
+  let _supaLastSent = null, _supaPushTimer = null;
+  async function supaPull() {
+    if (!supaLoggedIn()) return null;
+    const r = await supaFetch("/rest/v1/progress?user_id=eq." + SUPA.user.id + "&select=data,updated_at");
+    if (!r.ok || !Array.isArray(r.data)) return null;
+    if (!r.data.length) {   // the signup trigger seeds this row; recreate it if it's somehow missing
+      await supaFetch("/rest/v1/progress", { method: "POST", body: { user_id: SUPA.user.id }, headers: { Prefer: "resolution=merge-duplicates" } });
+      return { data: {}, updated_at: null };
+    }
+    return r.data[0];
+  }
+  async function supaPush() {
+    if (!supaLoggedIn()) return false;
+    const p = extractProgress(), sent = JSON.stringify(p);
+    const r = await supaFetch("/rest/v1/progress?user_id=eq." + SUPA.user.id + "&select=updated_at", { method: "PATCH", body: { data: p }, headers: { Prefer: "return=representation" } });
+    if (r.ok && Array.isArray(r.data) && r.data.length) {
+      _supaLastSent = sent;
+      S._supaTs = r.data[0].updated_at;   // device-local sync baseline (not in PROGRESS_FIELDS, so it never syncs itself)
+      try { localStorage.setItem(STORE_KEY, JSON.stringify(S)); } catch (e) {}   // write directly — save() would re-queue a push
+      return true;
+    }
+    return false;
+  }
+  function supaQueuePush() {   // called from save(); waits for a quiet moment, skips when nothing changed
+    if (!supaLoggedIn()) return;
+    clearTimeout(_supaPushTimer);
+    _supaPushTimer = setTimeout(() => {
+      _supaPushTimer = null;
+      if (JSON.stringify(extractProgress()) !== _supaLastSent) supaPush();
+    }, 6000);
+  }
+  window.addEventListener("online", () => supaQueuePush());   // flush anything written while offline
+  /* --- auth flows --- */
+  async function supaAfterSignIn() {
+    await supaLoadProfile();
+    try { localStorage.setItem(SUPA_GUEST_KEY, JSON.stringify({ name: S.user.name, joined: S.user.joined, progress: extractProgress() })); } catch (e) {}   // stash device state; restored on sign-out
+    const row = await supaPull();
+    const serverP = (row && row.data) || {};
+    const serverHas = Object.keys(serverP).length > 0;
+    const localHas = Object.keys(S.cards || {}).length > 0 || Object.keys(S.achievements || {}).length > 0;
+    if (serverHas) { applyProgress(serverP); S._supaTs = row.updated_at; }   // the account's saved progress wins on sign-in
+    else if (localHas) { await supaPush(); }                                 // first sign-in with local study history → migrate it up
+    if (SUPA_PROFILE && SUPA_PROFILE.name) S.user.name = SUPA_PROFILE.name;
+    if (SUPA_PROFILE && SUPA_PROFILE.joined) S.user.joined = new Date(SUPA_PROFILE.joined).getTime() || S.user.joined;
+    save();
+    applyMode();   // the server role may change admin visibility
+  }
+  async function supaSignUp(email, username, name, pw) {
+    const r = await supaFetch("/auth/v1/signup", { method: "POST", auth: false, body: { email, password: pw, data: { username, name } } });
+    if (!r.ok) return { error: supaErrMsg(r, "Could not create the account.") };
+    if (r.data && r.data.access_token) { supaAdoptSession(r.data); await supaAfterSignIn(); return { ok: true } }
+    return { ok: true, confirm: true };   // email confirmation is on: no session until the emailed link is clicked
+  }
+  async function supaSignIn(email, pw) {
+    const r = await supaFetch("/auth/v1/token?grant_type=password", { method: "POST", auth: false, body: { email, password: pw } });
+    if (!r.ok) return { error: supaErrMsg(r, "Sign-in failed — check your email and password.") };
+    supaAdoptSession(r.data);
+    await supaAfterSignIn();
+    return { ok: true };
+  }
+  async function supaSignOut() {
+    if (supaLoggedIn()) { clearTimeout(_supaPushTimer); _supaPushTimer = null; await supaPush(); }   // final sync of this device's progress
+    supaFetch("/auth/v1/logout", { method: "POST" });   // best-effort token revoke
+    SUPA = null; SUPA_PROFILE = null; supaSaveSession();
+    let g = null; try { g = JSON.parse(localStorage.getItem(SUPA_GUEST_KEY) || "null"); } catch (e) {}
+    try { localStorage.removeItem(SUPA_GUEST_KEY); } catch (e) {}
+    const base = g || { name: "Scholar", joined: Date.now(), progress: emptyProgress() };
+    applyProgress(base.progress); S.user.name = base.name; S.user.joined = base.joined || Date.now();
+    delete S._supaTs; _supaLastSent = null;
+    save();
+    applyMode();
+  }
+  async function supaRecover(email) {
+    const r = await supaFetch("/auth/v1/recover", { method: "POST", auth: false, body: { email } });
+    return r.ok ? { ok: true } : { error: supaErrMsg(r, "Could not send the reset email.") };
+  }
+  async function supaSetPassword(newPw) {
+    if (!newPw || newPw.length < 6) return { error: "Password must be at least 6 characters." };
+    const r = await supaFetch("/auth/v1/user", { method: "PUT", body: { password: newPw } });
+    return r.ok ? { ok: true } : { error: supaErrMsg(r, "Could not update the password.") };
+  }
+  async function supaSetName(name) {
+    if (!supaLoggedIn()) return;
+    const r = await supaFetch("/rest/v1/profiles?id=eq." + SUPA.user.id, { method: "PATCH", body: { name } });
+    if (r.ok && SUPA_PROFILE) SUPA_PROFILE.name = name;
+  }
+  /* --- boot: restore the session, handle emailed links, reconcile progress --- */
+  async function supaBoot() {
+    // a Supabase email link (recovery / confirmation) lands with tokens in the URL hash — adopt them, clean the URL
+    if (/[#&]access_token=/.test(location.hash || "") && /type=(recovery|signup|magiclink|invite)/.test(location.hash)) {
+      const q = {};
+      location.hash.slice(1).split("&").forEach((kv) => { const i = kv.indexOf("="); if (i > 0) q[kv.slice(0, i)] = decodeURIComponent(kv.slice(i + 1)); });
+      SUPA = { access_token: q.access_token, refresh_token: q.refresh_token, expires_at: Date.now() + (parseInt(q.expires_in || "3600", 10) - 60) * 1000, user: {} };
+      const u = await supaFetch("/auth/v1/user");
+      if (u.ok && u.data && u.data.id) {
+        SUPA.user = { id: u.data.id, email: u.data.email };
+        supaSaveSession();
+        await supaAfterSignIn();
+        toast(q.type === "recovery" ? "Signed in — set a new password under Account" : "Email confirmed — you're signed in");
+      } else { SUPA = null; supaSaveSession(); }
+      try { history.replaceState(null, "", location.pathname + location.search); } catch (e) {}
+      route("account");
+      return;
+    }
+    try { SUPA = JSON.parse(localStorage.getItem(SUPA_SESS_KEY) || "null"); } catch (e) { SUPA = null; }
+    if (!supaLoggedIn()) { SUPA = null; return; }
+    if (Date.now() > (SUPA.expires_at || 0)) { if (!(await supaRefresh())) { applyMode(); if (current && current.name === "account") render(); return; } }
+    await supaLoadProfile();
+    applyMode();
+    const row = await supaPull();
+    if (row && row.updated_at && row.updated_at !== S._supaTs) {
+      // another device wrote since this one last synced → adopt the server copy (last write wins)
+      applyProgress(row.data || {});
+      S._supaTs = row.updated_at;
+      if (SUPA_PROFILE && SUPA_PROFILE.name) S.user.name = SUPA_PROFILE.name;
+      save();
+      if (current && ["home", "decks", "account"].includes(current.name)) render();
+    } else if (row && JSON.stringify(extractProgress()) !== JSON.stringify(row.data || {})) {
+      supaPush();   // this device moved ahead while offline → send it up
+    } else if (current && current.name === "account") {
+      render();     // profile just arrived — refresh the page header
+    }
+  }
 
   /* ---------- helpers ---------- */
   const DAY = 86400000;
@@ -5351,8 +5533,8 @@
   }
 
   PAGES.account = function (root, params) {
-    if (params && params.viewUser && ACCT.users[params.viewUser]) return acctFriendView(root, params.viewUser);
-    if (!isLoggedIn()) return acctAuthView(root);
+    if (params && params.viewUser && supaLoggedIn()) return acctFriendView(root, params.viewUser);
+    if (!supaLoggedIn()) return acctAuthView(root);
     return acctSelfView(root);
   };
 
@@ -5366,27 +5548,26 @@
           <button class="auth-tab" data-av="forgot" type="button">Forgot password</button>
         </div>
         <form class="auth-form" data-form="signin">
-          <label>Username<input class="auth-in" name="u" autocomplete="username" required></label>
+          <label>Email<input class="auth-in" name="u" type="email" autocomplete="email" required></label>
           <label>Password<input class="auth-in" name="p" type="password" autocomplete="current-password" required></label>
           <div class="auth-msg" data-msg></div>
           <button class="auth-btn" type="submit">Sign in</button>
         </form>
         <form class="auth-form" data-form="register" hidden>
-          <label>Username<input class="auth-in" name="u" autocomplete="username" required></label>
+          <label>Email<input class="auth-in" name="e" type="email" autocomplete="email" required></label>
+          <label>Username<input class="auth-in" name="u" autocomplete="username" placeholder="letters, numbers, underscore" required></label>
           <label>Password<input class="auth-in" name="p" type="password" autocomplete="new-password" required></label>
           <label>Confirm password<input class="auth-in" name="p2" type="password" autocomplete="new-password" required></label>
           <div class="auth-msg" data-msg></div>
           <button class="auth-btn" type="submit">Create account</button>
         </form>
         <form class="auth-form" data-form="forgot" hidden>
-          <p class="auth-note">No email is sent — Folio runs entirely in your browser. Use the recovery code you saved when creating the account.</p>
-          <label>Username<input class="auth-in" name="u" autocomplete="username" required></label>
-          <label>Recovery code<input class="auth-in" name="c" placeholder="XXXX-XXXX" required></label>
-          <label>New password<input class="auth-in" name="p" type="password" autocomplete="new-password" required></label>
+          <p class="auth-note">Enter your account's email address — you'll receive a link to reset your password.</p>
+          <label>Email<input class="auth-in" name="u" type="email" autocomplete="email" required></label>
           <div class="auth-msg" data-msg></div>
-          <button class="auth-btn" type="submit">Reset password</button>
+          <button class="auth-btn" type="submit">Send reset link</button>
         </form>
-        <p class="auth-foot">Accounts are stored only in this browser. You can also keep studying without one — progress is saved on this device either way.</p>
+        <p class="auth-foot">Your account and study progress are stored online, so you can sign in from any device. You can also keep studying without an account — progress then stays on this device only.</p>
       </div>`;
     const tabs = root.querySelectorAll(".auth-tab"), forms = root.querySelectorAll(".auth-form");
     tabs.forEach((t) => t.addEventListener("click", () => {
@@ -5394,40 +5575,34 @@
       forms.forEach((f) => { f.hidden = f.dataset.form !== t.dataset.av; });
     }));
     const msg = (form, text, ok) => { const m = form.querySelector("[data-msg]"); m.textContent = text || ""; m.className = "auth-msg" + (text ? (ok ? " ok" : " err") : ""); };
+    const busy = (f, on) => { const b = f.querySelector(".auth-btn"); if (b) { b.disabled = on; b.textContent = on ? "…" : b.dataset.lbl || b.textContent; if (!b.dataset.lbl) b.dataset.lbl = b.textContent; } };
     root.querySelector('[data-form="signin"]').addEventListener("submit", async (e) => {
       e.preventDefault(); const f = e.target;
-      const r = await loginUser(f.u.value, f.p.value);
+      busy(f, true); const r = await supaSignIn(f.u.value.trim(), f.p.value); busy(f, false);
       if (r.error) return msg(f, r.error);
-      toast("Signed in as " + currentUser().name); afterAuthChange();
+      toast("Signed in as " + ((SUPA_PROFILE && SUPA_PROFILE.name) || "you")); afterAuthChange();
     });
     root.querySelector('[data-form="register"]').addEventListener("submit", async (e) => {
       e.preventDefault(); const f = e.target;
+      const uname = uKey(f.u.value);
+      if (!/^[a-z0-9_]{3,24}$/.test(uname)) return msg(f, "Username: 3–24 characters — letters, numbers and underscores only.");
       if (f.p.value !== f.p2.value) return msg(f, "Passwords don't match.");
-      const r = await registerUser(f.u.value, f.p.value);
+      if (f.p.value.length < 6) return msg(f, "Password must be at least 6 characters.");
+      busy(f, true); const r = await supaSignUp(f.e.value.trim(), uname, f.u.value.trim(), f.p.value); busy(f, false);
       if (r.error) return msg(f, r.error);
-      await loginUser(f.u.value, f.p.value);
-      showRecovery(r.recovery, r.admin);
+      if (r.confirm) return msg(f, "Account created — check your email inbox for a confirmation link, then sign in.", true);
+      toast("Account created — welcome!"); afterAuthChange();
     });
     root.querySelector('[data-form="forgot"]').addEventListener("submit", async (e) => {
       e.preventDefault(); const f = e.target;
-      const r = await resetWithRecovery(f.u.value, f.c.value, f.p.value);
+      busy(f, true); const r = await supaRecover(f.u.value.trim()); busy(f, false);
       if (r.error) return msg(f, r.error);
-      msg(f, "Password reset — you can sign in now.", true);
-      tabs.forEach((x) => x.classList.toggle("active", x.dataset.av === "signin"));
-      forms.forEach((fm) => { fm.hidden = fm.dataset.form !== "signin"; });
+      msg(f, "Reset link sent — check your email inbox.", true);
     });
-    function showRecovery(code, admin) {
-      root.innerHTML = '<div class="page-head"><span class="eyebrow">Account created</span><h1>Save your recovery code</h1></div>' +
-        '<div class="auth-card recovery"><p>Your account is ready' + (admin ? ' — as the first account, you’re an <b>Admin</b>.' : '.') +
-        ' Because nothing is emailed, this code is the <b>only</b> way to reset your password if you forget it. Write it down somewhere safe.</p>' +
-        '<div class="recovery-code">' + esc(code) + '</div>' +
-        '<button class="auth-btn" id="recoveryDone" type="button">I’ve saved it — continue</button></div>';
-      root.querySelector("#recoveryDone").addEventListener("click", afterAuthChange);
-    }
   }
 
   function acctSelfView(root) {
-    const me = currentUser();
+    const me = SUPA_PROFILE || { username: ((SUPA.user && SUPA.user.email) || "account").split("@")[0], role: "user" };   // profile may still be loading right after boot
     const joined = new Date(S.user.joined).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
     root.innerHTML = `
       <div class="page-head"><span class="eyebrow">Your record</span><h1>Account</h1></div>
@@ -5441,18 +5616,13 @@
       </div>
       <div class="acct-tools">
         <button class="ghost-btn" id="pwToggle" type="button">Change password</button>
-        <button class="ghost-btn" id="recToggle" type="button">Recovery code</button>
+        <span class="auth-note">${S._supaTs ? "Progress synced to your account ✓" : "Progress will sync automatically as you study"}</span>
       </div>
       <div class="acct-panel" id="pwPanel" hidden>
         <label>New password<input class="auth-in" id="pwNew" type="password" autocomplete="new-password"></label>
         <label>Confirm<input class="auth-in" id="pwNew2" type="password" autocomplete="new-password"></label>
         <div class="auth-msg" id="pwMsg"></div>
         <button class="auth-btn sm" id="pwSave" type="button">Update password</button>
-      </div>
-      <div class="acct-panel" id="recPanel" hidden>
-        <p class="auth-note">This is the only way to reset your password (nothing is emailed). Keep it safe.</p>
-        <div class="recovery-code">${esc(me.recovery)}</div>
-        <button class="ghost-btn" id="recNew" type="button">Generate a new code</button>
       </div>
       <div class="section-label">Friends</div>
       <div class="friends-box" id="friendsBox"></div>
@@ -5474,23 +5644,21 @@
     root.querySelector("#statWrap").innerHTML = statGridHTML(S, dueCountNow());
 
     const nameInput = root.querySelector("#name");
-    const sync = () => { const v = (nameInput.value.trim().replace(/[^a-z0-9_.\- ]/gi, "") || "Scholar").slice(0, 28); nameInput.value = v; S.user.name = v; root.querySelector("#mono").textContent = initialOf(v); save(); };
+    const sync = () => { const v = (nameInput.value.trim().replace(/[^a-z0-9_.\- ]/gi, "") || "Scholar").slice(0, 28); nameInput.value = v; S.user.name = v; root.querySelector("#mono").textContent = initialOf(v); save(); supaSetName(v); };
     nameInput.addEventListener("input", () => { root.querySelector("#mono").textContent = initialOf(nameInput.value || "S"); });
     nameInput.addEventListener("change", () => { sync(); toast("Name saved"); });
     nameInput.addEventListener("blur", sync);
 
-    root.querySelector("#signout").addEventListener("click", () => { logoutUser(); toast("Signed out"); afterAuthChange(); });
-    root.querySelector("#pwToggle").addEventListener("click", () => { const p = root.querySelector("#pwPanel"); p.hidden = !p.hidden; root.querySelector("#recPanel").hidden = true; });
-    root.querySelector("#recToggle").addEventListener("click", () => { const p = root.querySelector("#recPanel"); p.hidden = !p.hidden; root.querySelector("#pwPanel").hidden = true; });
+    root.querySelector("#signout").addEventListener("click", async (e) => { e.target.disabled = true; await supaSignOut(); toast("Signed out"); afterAuthChange(); });
+    root.querySelector("#pwToggle").addEventListener("click", () => { const p = root.querySelector("#pwPanel"); p.hidden = !p.hidden; });
     root.querySelector("#pwSave").addEventListener("click", async () => {
       const a = root.querySelector("#pwNew").value, b = root.querySelector("#pwNew2").value, m = root.querySelector("#pwMsg");
       if (a !== b) { m.textContent = "Passwords don't match."; m.className = "auth-msg err"; return; }
-      const r = await setPassword(ACCT.current, a);
+      const r = await supaSetPassword(a);
       if (r.error) { m.textContent = r.error; m.className = "auth-msg err"; return; }
       m.textContent = "Password updated."; m.className = "auth-msg ok";
       root.querySelector("#pwNew").value = ""; root.querySelector("#pwNew2").value = "";
     });
-    root.querySelector("#recNew").addEventListener("click", () => { root.querySelector("#recPanel .recovery-code").textContent = acctRotateRecovery(ACCT.current); toast("New recovery code generated"); });
 
     renderFriends(root.querySelector("#friendsBox"));
     checkAchievements(true);
@@ -5520,64 +5688,98 @@
   }
 
   function renderFriends(box) {
-    const me = currentUser();
-    const userRow = (key, extra, viewable) => {
-      const u = ACCT.users[key]; if (!u) return "";
+    if (!supaLoggedIn()) { box.innerHTML = ""; return; }
+    const me = SUPA.user.id;
+    box.innerHTML = '<div class="friend-empty">Loading friends…</div>';
+    const userRow = (id, profs, extra, viewable) => {
+      const u = profs[id]; if (!u) return "";
       const inner = '<span class="monogram sm">' + initialOf(u.name) + '</span><span class="friend-name">' + esc(u.name) + ' <small>@' + esc(u.username) + '</small></span>';
-      const link = viewable ? '<button class="friend-link" data-view="' + esc(key) + '">' + inner + '</button>' : '<div class="friend-link static">' + inner + '</div>';
+      const link = viewable ? '<button class="friend-link" data-view="' + esc(id) + '">' + inner + '</button>' : '<div class="friend-link static">' + inner + '</div>';
       return '<div class="friend-row">' + link + (extra || "") + '</div>';
     };
-    let html = '<div class="friend-add"><input class="auth-in" id="friendAdd" placeholder="Add a friend by username" autocomplete="off"><button class="auth-btn sm" id="friendAddBtn" type="button">Add</button></div><div class="friend-msg" id="friendMsg"></div>';
-    const inc = (me.requests.in || []).filter((k) => ACCT.users[k]);
-    if (inc.length) html += '<div class="friend-sub">Requests</div>' + inc.map((k) => userRow(k, '<span class="friend-acts"><button class="mini-btn ok" data-accept="' + esc(k) + '">Accept</button><button class="mini-btn" data-decline="' + esc(k) + '">Decline</button></span>', false)).join("");
-    const out = (me.requests.out || []).filter((k) => ACCT.users[k]);
-    if (out.length) html += '<div class="friend-sub">Pending</div>' + out.map((k) => userRow(k, '<span class="friend-acts"><button class="mini-btn" data-cancel="' + esc(k) + '">Cancel</button></span>', false)).join("");
-    const fr = (me.friends || []).filter((k) => ACCT.users[k]);
-    html += '<div class="friend-sub">Friends (' + fr.length + ')</div>';
-    html += fr.length ? fr.map((k) => userRow(k, '<span class="friend-acts"><button class="mini-btn" data-remove="' + esc(k) + '">Remove</button></span>', true)).join("") : '<div class="friend-empty">No friends yet. Add someone by their username above.</div>';
-    box.innerHTML = html;
-    const refresh = () => renderFriends(box);
-    const fmsg = (t, ok) => { const m = box.querySelector("#friendMsg"); m.textContent = t || ""; m.className = "friend-msg" + (t ? (ok ? " ok" : " err") : ""); };
-    box.querySelector("#friendAddBtn").addEventListener("click", () => {
-      const r = sendFriendReq(box.querySelector("#friendAdd").value);
-      if (r.error) return fmsg(r.error);
-      box.querySelector("#friendAdd").value = ""; if (r.accepted) checkAchievements(); refresh();
-      fmsg(r.accepted ? "You’re now friends!" : "Request sent.", true);
-    });
-    box.querySelectorAll("[data-view]").forEach((b) => b.addEventListener("click", () => route("account", { viewUser: b.dataset.view })));
-    box.querySelectorAll("[data-accept]").forEach((b) => b.addEventListener("click", () => { acceptFriendReq(b.dataset.accept); checkAchievements(); refresh(); }));
-    box.querySelectorAll("[data-decline]").forEach((b) => b.addEventListener("click", () => { declineFriendReq(b.dataset.decline); refresh(); }));
-    box.querySelectorAll("[data-cancel]").forEach((b) => b.addEventListener("click", () => { cancelFriendReq(b.dataset.cancel); refresh(); }));
-    box.querySelectorAll("[data-remove]").forEach((b) => b.addEventListener("click", () => { removeFriend(b.dataset.remove); refresh(); }));
+    (async () => {
+      const fr = await supaFetch("/rest/v1/friends?select=user_id,friend_id,status");   // RLS scopes this to rows involving me
+      if (!fr.ok) { box.innerHTML = '<div class="friend-empty">Couldn’t load friends — check your connection, then reopen this page.</div>'; return; }
+      const rows = Array.isArray(fr.data) ? fr.data : [];
+      const others = [...new Set(rows.map((r) => (r.user_id === me ? r.friend_id : r.user_id)))];
+      const profs = {};
+      if (others.length) {
+        const pr = await supaFetch("/rest/v1/profiles?id=in.(" + others.join(",") + ")&select=id,username,name,role");
+        if (pr.ok && Array.isArray(pr.data)) pr.data.forEach((p) => { profs[p.id] = p; });
+      }
+      const incoming = rows.filter((r) => r.status === "pending" && r.friend_id === me).map((r) => r.user_id).filter((k) => profs[k]);
+      const outgoing = rows.filter((r) => r.status === "pending" && r.user_id === me).map((r) => r.friend_id).filter((k) => profs[k]);
+      const accepted = rows.filter((r) => r.status === "accepted").map((r) => (r.user_id === me ? r.friend_id : r.user_id)).filter((k) => profs[k]);
+      let html = '<div class="friend-add"><input class="auth-in" id="friendAdd" placeholder="Add a friend by username" autocomplete="off"><button class="auth-btn sm" id="friendAddBtn" type="button">Add</button></div><div class="friend-msg" id="friendMsg"></div>';
+      if (incoming.length) html += '<div class="friend-sub">Requests</div>' + incoming.map((k) => userRow(k, profs, '<span class="friend-acts"><button class="mini-btn ok" data-accept="' + esc(k) + '">Accept</button><button class="mini-btn" data-decline="' + esc(k) + '">Decline</button></span>', false)).join("");
+      if (outgoing.length) html += '<div class="friend-sub">Pending</div>' + outgoing.map((k) => userRow(k, profs, '<span class="friend-acts"><button class="mini-btn" data-cancel="' + esc(k) + '">Cancel</button></span>', false)).join("");
+      html += '<div class="friend-sub">Friends (' + accepted.length + ')</div>';
+      html += accepted.length ? accepted.map((k) => userRow(k, profs, '<span class="friend-acts"><button class="mini-btn" data-remove="' + esc(k) + '">Remove</button></span>', true)).join("") : '<div class="friend-empty">No friends yet. Add someone by their username above.</div>';
+      box.innerHTML = html;
+      const refresh = () => renderFriends(box);
+      const fmsg = (t, ok) => { const m = box.querySelector("#friendMsg"); m.textContent = t || ""; m.className = "friend-msg" + (t ? (ok ? " ok" : " err") : ""); };
+      box.querySelector("#friendAddBtn").addEventListener("click", async () => {
+        const name = uKey(box.querySelector("#friendAdd").value);
+        if (!name) return;
+        const pr = await supaFetch("/rest/v1/profiles?username=eq." + encodeURIComponent(name) + "&select=id,username,name");
+        const t = pr.ok && Array.isArray(pr.data) ? pr.data[0] : null;
+        if (!t) return fmsg("No account with that username.");
+        if (t.id === me) return fmsg("You can't add yourself.");
+        if (accepted.includes(t.id)) return fmsg("You're already friends.");
+        if (outgoing.includes(t.id)) return fmsg("Request already sent.");
+        if (incoming.includes(t.id)) {   // they already asked you → accept instead
+          const a = await supaFetch("/rest/v1/friends?user_id=eq." + t.id + "&friend_id=eq." + me, { method: "PATCH", body: { status: "accepted" } });
+          if (!a.ok) return fmsg(supaErrMsg(a, "Could not accept the request."));
+          checkAchievements(); fmsg("You're now friends!", true); return refresh();
+        }
+        const r = await supaFetch("/rest/v1/friends", { method: "POST", body: { user_id: me, friend_id: t.id } });
+        if (!r.ok) return fmsg(supaErrMsg(r, "Could not send the request."));
+        box.querySelector("#friendAdd").value = "";
+        fmsg("Request sent.", true); refresh();
+      });
+      box.querySelectorAll("[data-view]").forEach((b) => b.addEventListener("click", () => route("account", { viewUser: b.dataset.view })));
+      box.querySelectorAll("[data-accept]").forEach((b) => b.addEventListener("click", async () => { await supaFetch("/rest/v1/friends?user_id=eq." + b.dataset.accept + "&friend_id=eq." + me, { method: "PATCH", body: { status: "accepted" } }); checkAchievements(); refresh(); }));
+      box.querySelectorAll("[data-decline]").forEach((b) => b.addEventListener("click", async () => { await supaFetch("/rest/v1/friends?user_id=eq." + b.dataset.decline + "&friend_id=eq." + me, { method: "DELETE" }); refresh(); }));
+      box.querySelectorAll("[data-cancel]").forEach((b) => b.addEventListener("click", async () => { await supaFetch("/rest/v1/friends?user_id=eq." + me + "&friend_id=eq." + b.dataset.cancel, { method: "DELETE" }); refresh(); }));
+      box.querySelectorAll("[data-remove]").forEach((b) => b.addEventListener("click", async () => { await supaFetch("/rest/v1/friends?or=(and(user_id.eq." + me + ",friend_id.eq." + b.dataset.remove + "),and(user_id.eq." + b.dataset.remove + ",friend_id.eq." + me + "))", { method: "DELETE" }); refresh(); }));
+    })();
   }
 
-  function acctFriendView(root, key) {
-    const me = currentUser(), u = ACCT.users[key];
-    const allowed = me && (me.friends.includes(key) || me.role === "admin");
-    if (!allowed) {
-      root.innerHTML = '<div class="page-head"><span class="eyebrow">Friends</span><h1>Not available</h1></div><p class="auth-foot">You can only view the progress of people on your friends list. <button class="auth-btn sm" id="backBtn" type="button">Back to your account</button></p>';
+  function acctFriendView(root, key) {   // key = the friend's user id (uuid)
+    root.innerHTML = '<div class="page-head"><span class="eyebrow">Friends</span><h1>Loading…</h1></div>';
+    (async () => {
+      const me = SUPA.user.id;
+      const pr = await supaFetch("/rest/v1/profiles?id=eq." + encodeURIComponent(key) + "&select=id,username,name,role");
+      const u = pr.ok && Array.isArray(pr.data) ? pr.data[0] : null;
+      const pg = await supaFetch("/rest/v1/progress?user_id=eq." + encodeURIComponent(key) + "&select=data");
+      const row = pg.ok && Array.isArray(pg.data) ? pg.data[0] : null;   // RLS: readable only once you're accepted friends
+      if (!u || !row) {
+        root.innerHTML = '<div class="page-head"><span class="eyebrow">Friends</span><h1>Not available</h1></div><p class="auth-foot">You can only view the progress of people on your friends list. <button class="auth-btn sm" id="backBtn" type="button">Back to your account</button></p>';
+        root.querySelector("#backBtn").addEventListener("click", () => route("account"));
+        return;
+      }
+      const prog = Object.assign(emptyProgress(), row.data || {});
+      root.innerHTML = `
+        <button class="back-link" id="backBtn" type="button">← Back to your account</button>
+        <div class="profile">
+          <div class="monogram">${initialOf(u.name)}</div>
+          <div class="who"><div class="friend-title">${esc(u.name)}</div><div class="since">@${esc(u.username)} · ${roleBadge(u.role)}</div></div>
+          <button class="ghost-btn" id="rmFriend" type="button">Remove friend</button>
+        </div>
+        <div id="fStat"></div>
+        <div class="section-label">Badges</div>
+        <div class="badges-box" id="fBadges"></div>
+        <div class="section-label">Progress by deck</div>
+        <div class="suspbox"><div class="suspbox-collapse"><div class="suspbox-collapse-inner"><div class="deckprog" id="fDeck"></div></div></div></div>`;
+      root.querySelector("#fStat").innerHTML = statGridHTML(prog, null);
+      root.querySelector("#fBadges").innerHTML = badgesHTML(prog.achievements);
+      renderDeckProgress(root.querySelector("#fDeck"), prog.cards || {});
       root.querySelector("#backBtn").addEventListener("click", () => route("account"));
-      return;
-    }
-    const prog = u.progress || emptyProgress(), nF = (u.friends || []).length;
-    root.innerHTML = `
-      <button class="back-link" id="backBtn" type="button">← Back to your account</button>
-      <div class="profile">
-        <div class="monogram">${initialOf(u.name)}</div>
-        <div class="who"><div class="friend-title">${esc(u.name)}</div><div class="since">@${esc(u.username)} · ${roleBadge(u.role)} · ${nF} friend${nF === 1 ? "" : "s"}</div></div>
-        ${me.friends.includes(key) ? '<button class="ghost-btn" id="rmFriend" type="button">Remove friend</button>' : ''}
-      </div>
-      <div id="fStat"></div>
-      <div class="section-label">Badges</div>
-      <div class="badges-box" id="fBadges"></div>
-      <div class="section-label">Progress by deck</div>
-      <div class="suspbox"><div class="suspbox-collapse"><div class="suspbox-collapse-inner"><div class="deckprog" id="fDeck"></div></div></div></div>`;
-    root.querySelector("#fStat").innerHTML = statGridHTML(prog, null);
-    root.querySelector("#fBadges").innerHTML = badgesHTML(prog.achievements);
-    renderDeckProgress(root.querySelector("#fDeck"), prog.cards || {});
-    root.querySelector("#backBtn").addEventListener("click", () => route("account"));
-    const rm = root.querySelector("#rmFriend");
-    if (rm) rm.addEventListener("click", () => { removeFriend(key); toast("Removed friend"); route("account"); });
+      root.querySelector("#rmFriend").addEventListener("click", async () => {
+        await supaFetch("/rest/v1/friends?or=(and(user_id.eq." + me + ",friend_id.eq." + key + "),and(user_id.eq." + key + ",friend_id.eq." + me + "))", { method: "DELETE" });
+        toast("Removed friend"); route("account");
+      });
+    })();
   }
 
   /* ============================================================
@@ -7466,6 +7668,7 @@
   render();
   checkAchievements(true);   // backfill any milestones already met by existing progress
   restoreGlossWins(_glossToRestore);   // re-open any gloss popups that were on screen before the reload
+  supaBoot();   // async: restore the online session, handle emailed auth links, pull/reconcile synced progress
 
   // Ctrl/Cmd+Z on the editor page undoes the last admin edit (native undo still handles typing inside a field)
   document.addEventListener("keydown", (e) => {

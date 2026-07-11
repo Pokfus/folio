@@ -571,10 +571,17 @@ dead code (never rendered).
 - Developed on Windows. Use forward-slash relative paths inside the site.
 - The project is a **Git repo** (initialized Jul 2026) so any change can be reviewed and rolled back — commit meaningful
   changes as you go.
-- **Going-online plan** (in progress): static hosting on Cloudflare Pages fed by GitHub pushes (develop locally exactly as
-  now; `git push` = deploy — content files like `data.js`/`glossary.js` ship with deploys). Accounts/progress/friends move to
-  **Supabase** (Postgres + auth via plain `fetch()`, no SDK — zero-dependency rule): the schema + RLS policies live in
-  `.claude/supabase-schema.sql` (apply via the Supabase SQL editor; header comments document the REST calls the app will make).
-  The app-side auth/sync layer is **NOT built yet** — accounts remain local-only (`folio_acct_v1`) until it is. The app must
-  stay offline-first: localStorage remains the working copy, the server is a background sync target, and everything except
-  login/sync keeps working from `file://`.
+- **Online accounts + sync (Supabase)** — LIVE in app.js (the `/* Supabase */` module after the legacy accounts block).
+  Static hosting on Cloudflare Pages fed by GitHub pushes (`git push` = deploy; content files like `data.js` ship with deploys).
+  Schema + RLS: `.claude/supabase-schema.sql` (applied; tables `profiles` / `progress` / `friends`; signup trigger creates the
+  profile + empty progress row). Plain `fetch()` (no SDK — zero-dependency rule); the publishable key in app.js is safe to ship
+  (security = RLS). **Offline-first**: localStorage stays the working copy; `save()` → `supaQueuePush()` (6s debounce, skips
+  no-ops) PATCHes the whole `PROGRESS_FIELDS` blob into `progress.data`; boot (`supaBoot`) refreshes the session, pulls, and
+  reconciles — server wins when its `updated_at` ≠ the device's `S._supaTs` baseline (another device wrote), else local pushes.
+  Sign-in adopts server progress (or MIGRATES local progress up if the server row is empty); the pre-sign-in device state is
+  stashed (`folio_supa_guest_v1`) and restored on sign-out. Auth = email+password (`/auth/v1/*`); emailed links (confirm/reset)
+  land with tokens in the URL hash → `supaBoot` adopts them (requires the Supabase **Site URL** to point at the deployed app).
+  The account page (auth/self/friends views) is fully server-backed; friends use the `friends` table (request → accept, RLS lets
+  accepted friends read each other's `progress` for the badges view). `isAdmin()`: a signed-in user's `profiles.role` decides
+  (set `role='admin'` via the dashboard Table Editor); guests keep the legacy local rules, so the dev machine stays admin.
+  The old local accounts (`folio_acct_v1`) remain only as legacy code (admin page user-manager + guest stash helpers).
