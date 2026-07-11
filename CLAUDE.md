@@ -379,6 +379,19 @@ ranges.js → admin1.js → cities.js → timeline.js → countries.js → count
 
 ## Generating cards & glossary entries
 
+**Content style rules (all card fields + glossary descriptions, current AND future):**
+- **Non-round numbers above 20 are numerals** ("27 chapters", never "twenty-seven chapters"). Round numbers may
+  stay as words ("thirty kings", "eight hundred years"). Proper names keep their words (*Twenty-Four Histories*,
+  *Twenty-four Filial Exemplars*).
+- **Centuries and millennia are always numbered** ("11th century", "2nd millennium BCE" — never "eleventh century"),
+  whatever the ordinal.
+- **Literature titles are italicised** (`<i>Bamboo Annals</i>`) — except in plain-text fields (`answerText`) and in
+  glossary alias/title keys, which must stay unstyled or matching breaks. Person-vs-book names (Zhuangzi, Mencius,
+  Laozi…) are italicised only when clearly the text — "the <i>Zhuangzi</i>" — never the person.
+- Enforcement: `node .claude/check-style.js` reports violations; `--fix` applies the safe ones (it masks the proper-name
+  exceptions, skips plain-text fields and the glossary alias sections). Run it after bulk content additions. **Card text
+  edits invalidate baked narration hashes — re-run `build-tts.js` for all four narrators after a style pass.**
+
 The deck and glossary are being regrown one entry at a time, each researched from **Wikipedia and
 academic sources** — accuracy is non-negotiable, never invent dates, names, or definitions. The kept
 template entries are the canonical format: card `cnh-001` in `data.js`, glossary term `Sima_Qian` in

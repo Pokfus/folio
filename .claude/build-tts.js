@@ -44,6 +44,13 @@ const NARRATORS = {
   "us-female": { model: "en_US-libritts_r-medium", base: HF + "en/en_US/libritts_r/medium/", speaker: 12,  label: "American female" },
   "gb-male":   { model: "en_GB-vctk-medium",       base: HF + "en/en_GB/vctk/medium/",       speaker: 13,  label: "British male" },
   "gb-female": { model: "en_GB-vctk-medium",       base: HF + "en/en_GB/vctk/medium/",       speaker: 14,  label: "British female" },
+  // ---- audition-only candidates (NOT shipped; use with --scan-speakers to bake listenable samples) ----
+  // en_US-libritts-high: CC BY 4.0, 904 speakers, HIGH quality — the free upgrade path for the American voices.
+  // en_GB-cori-high: MIT (public-domain LibriVox recordings), HIGH quality — single British female.
+  // en_GB-aru-medium: CC BY 4.0, 12 British speakers (Liverpool ARU corpus).
+  "us-hq":  { model: "en_US-libritts-high", base: HF + "en/en_US/libritts/high/", speaker: 0, label: "audition: American high-quality" },
+  "gb-cori": { model: "en_GB-cori-high",    base: HF + "en/en_GB/cori/high/",     speaker: 0, label: "audition: British female high-quality" },
+  "gb-aru":  { model: "en_GB-aru-medium",   base: HF + "en/en_GB/aru/medium/",    speaker: 0, label: "audition: British (12 speakers)" },
 };
 const LAME_URL = "https://cdn.jsdelivr.net/npm/lamejs@1.2.1/lame.all.js";
 const LENGTH_SCALE = "1.15";   // slightly slow, matching the app's unhurried reading style
@@ -207,7 +214,7 @@ function estimatePitch(pcm, rate) {
   if (args["scan-speakers"]) {
     const n = parseInt(args["scan-speakers"], 10) || 20;
     const line = "The Zhou dynasty ruled ancient China for nearly eight hundred years, longer than any other royal house.";
-    const dir = path.join(CACHE, "speaker-samples");
+    const dir = path.join(CACHE, "speaker-samples", VOICE);   // per-model subfolder so auditions don't overwrite each other
     fs.mkdirSync(dir, { recursive: true });
     const rows = [];
     console.log("Scanning " + n + " speakers (writing WAV samples to " + dir + ") …");
