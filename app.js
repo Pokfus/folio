@@ -969,6 +969,13 @@
   }
   /* --- progress sync (debounced push on save(); pull + reconcile at boot/login) --- */
   let _supaLastSent = null, _supaPushTimer = null;
+  // order-insensitive serialization for change detection — Postgres jsonb does NOT preserve key order,
+  // so a plain JSON.stringify comparison against a round-tripped row would almost always "differ"
+  function stableJson(x) {
+    if (x === null || typeof x !== "object") return JSON.stringify(x);
+    if (Array.isArray(x)) return "[" + x.map(stableJson).join(",") + "]";
+    return "{" + Object.keys(x).sort().map((k) => JSON.stringify(k) + ":" + stableJson(x[k])).join(",") + "}";
+  }
   async function supaPull() {
     if (!supaLoggedIn()) return null;
     const r = await supaFetch("/rest/v1/progress?user_id=eq." + SUPA.user.id + "&select=data,updated_at");
@@ -981,7 +988,7 @@
   }
   async function supaPush() {
     if (!supaLoggedIn()) return false;
-    const p = extractProgress(), sent = JSON.stringify(p);
+    const p = extractProgress(), sent = stableJson(p);
     const r = await supaFetch("/rest/v1/progress?user_id=eq." + SUPA.user.id + "&select=updated_at", { method: "PATCH", body: { data: p }, headers: { Prefer: "return=representation" } });
     if (r.ok && Array.isArray(r.data) && r.data.length) {
       _supaLastSent = sent;
@@ -996,7 +1003,7 @@
     clearTimeout(_supaPushTimer);
     _supaPushTimer = setTimeout(() => {
       _supaPushTimer = null;
-      if (JSON.stringify(extractProgress()) !== _supaLastSent) supaPush();
+      if (stableJson(extractProgress()) !== _supaLastSent) supaPush();
     }, 6000);
   }
   window.addEventListener("online", () => supaQueuePush());   // flush anything written while offline
@@ -1084,12 +1091,13 @@
       S._supaTs = row.updated_at;
       if (SUPA_PROFILE && SUPA_PROFILE.name) S.user.name = SUPA_PROFILE.name;
       save();
-      if (current && ["home", "decks", "account"].includes(current.name)) render();
-    } else if (row && JSON.stringify(extractProgress()) !== JSON.stringify(row.data || {})) {
+      if (current && ["home", "decks"].includes(current.name)) render();
+    } else if (row && stableJson(extractProgress()) !== stableJson(row.data || {})) {
       supaPush();   // this device moved ahead while offline → send it up
-    } else if (current && current.name === "account") {
-      render();     // profile just arrived — refresh the page header
+    } else {
+      _supaLastSent = row ? stableJson(row.data || {}) : null;   // in sync — remember it so the next save() can no-op
     }
+    if (current && current.name === "account") render();   // session/profile just arrived — swap the sign-in form for the signed-in view
   }
 
   /* ---------- helpers ---------- */
