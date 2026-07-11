@@ -717,7 +717,7 @@
   function defaultState() {
     return {
       user: { name: "Scholar", joined: Date.now() },
-      settings: { night: false, theme: "folio", newPerDay: 3, bgCollapsed: false, trCollapsed: true, adminMode: true, reviewRandom: false, lang: "en", tts: true, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", home: { name: "Netherlands", lon: 5.32, lat: 52.1 } },
+      settings: { night: false, theme: "folio", newPerDay: 3, bgCollapsed: false, trCollapsed: true, adminMode: true, reviewRandom: false, lang: "en", tts: true, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 } },
       cards: {}, // id -> {reps,lapses,ease,interval,due,status,last}
       suspended: {}, // id -> true (card set aside; never shown again)
       daily: { lastPlayed: 0, best: 0, games: 0, wins: 0, podiums: 0 },
@@ -735,6 +735,7 @@
   if (S.settings && S.settings.ttsMuted === undefined) S.settings.ttsMuted = false;
   if (S.settings && S.settings.ttsVoiceEn === undefined) S.settings.ttsVoiceEn = "";   // "" = auto-pick the best available voice
   if (S.settings && S.settings.ttsVoiceZh === undefined) S.settings.ttsVoiceZh = "";
+  if (S.settings && S.settings.ttsNarrator === undefined) S.settings.ttsNarrator = "us-male";   // baked narration voice
   function load() {
     try {
       const raw = localStorage.getItem(STORE_KEY);
@@ -2163,16 +2164,22 @@
     const male = /(kangkang|yunyang|yunxi|yunjian|yunye|\bmale\b|男)/i;
     return ttsPickVoice(vs, female, male, /^zh-CN/i);
   }
-  // Baked narration (neural TTS rendered at build time by .claude/build-tts.js into audio/cards/): when a card
-  // section has a baked MP3 whose text still matches the card, it plays instead of the device's speech engine —
-  // same warm male voice on every device. Missing/stale files fall back to the Web Speech engine per part.
-  let TTS_BAKED = null;   // manifest.json: { files: { "<cardId>": { q|a|bg: { h: <hashStr(text)>, b: bytes } } } }
-  try { fetch("audio/cards/manifest.json").then((r) => (r.ok ? r.json() : null)).then((m) => { TTS_BAKED = m; }).catch(() => {}); } catch (e) {}   // file:// or not baked → stays null
+  // Baked narration (neural TTS rendered at build time by .claude/build-tts.js into audio/cards/<narrator>/):
+  // when a card section has a baked MP3 whose text still matches the card, it plays instead of the device's speech
+  // engine — the same human voice on every device. Missing/stale files fall back to the Web Speech engine per part.
+  const TTS_NARRATORS = { "us-male": "American male", "us-female": "American female", "gb-male": "British male", "gb-female": "British female" };
+  function ttsNarrator() { return TTS_NARRATORS[S.settings.ttsNarrator] ? S.settings.ttsNarrator : "us-male"; }
+  let TTS_BAKED = null;   // the selected narrator's manifest.json: { files: { "<cardId>": { q|a|bg: { h: <hashStr(text)>, b: bytes } } } }
+  function loadBakedManifest() {
+    TTS_BAKED = null;
+    try { fetch("audio/cards/" + ttsNarrator() + "/manifest.json").then((r) => (r.ok ? r.json() : null)).then((m) => { TTS_BAKED = m; }).catch(() => {}); } catch (e) {}   // file:// or not baked → stays null (device voice)
+  }
+  loadBakedManifest();
   function bakedUrl(cardId, sec, text) {
     if (!TTS_BAKED || !TTS_BAKED.files || !cardId) return null;
     const f = TTS_BAKED.files[cardId];
     if (!f || !f[sec] || f[sec].h !== hashStr(text)) return null;   // card text edited since the bake → speak it instead
-    return "audio/cards/" + cardId + "-" + sec + ".mp3";
+    return "audio/cards/" + ttsNarrator() + "/" + cardId + "-" + sec + ".mp3";
   }
   let _ttsAudio = null;   // the <audio> playing a baked file (null while the speech engine is talking)
   function ttsStop() {
@@ -5876,7 +5883,7 @@
             <li><a href="https://www.naturalearthdata.com" target="_blank" rel="noopener">Natural Earth</a> <span class="cr-lic">public domain</span> — coastlines, borders, lakes, rivers and cities on the globe.</li>
             <li><a href="https://github.com/aourednik/historical-basemaps" target="_blank" rel="noopener">historical-basemaps</a> <span class="cr-lic">CC BY-SA 4.0</span> — the historical border eras on the Atlas timeline.</li>
             <li><a href="https://registry.opendata.aws/terrain-tiles/" target="_blank" rel="noopener">Terrain Tiles on AWS</a> — terrain relief, from open elevation data by NASA (SRTM), USGS (GMTED2010), NOAA (ETOPO1) and the EU (EU-DEM), among others.</li>
-            <li><a href="https://github.com/rhasspy/piper" target="_blank" rel="noopener">Piper</a> <span class="cr-lic">MIT</span> — the card narration voice, trained on <a href="https://www.openslr.org/141/" target="_blank" rel="noopener">LibriTTS-R</a> <span class="cr-lic">CC BY 4.0</span>.</li>
+            <li><a href="https://github.com/rhasspy/piper" target="_blank" rel="noopener">Piper</a> <span class="cr-lic">MIT</span> — the card narration voices, trained on <a href="https://www.openslr.org/141/" target="_blank" rel="noopener">LibriTTS-R</a> <span class="cr-lic">CC BY 4.0</span> and <a href="https://datashare.ed.ac.uk/handle/10283/3443" target="_blank" rel="noopener">VCTK</a> <span class="cr-lic">CC BY 4.0</span>.</li>
             <li><a href="https://fonts.google.com" target="_blank" rel="noopener">Google Fonts</a> <span class="cr-lic">OFL / Apache</span> — Fraunces, Newsreader, Inter, IBM Plex Mono, Noto Sans SC and the theme faces.</li>
             <li>Accounts &amp; sync run on <a href="https://supabase.com" target="_blank" rel="noopener">Supabase</a>; hosting by <a href="https://pages.cloudflare.com" target="_blank" rel="noopener">Cloudflare Pages</a>.</li>
             <li class="cr-note">Folio itself is built by hand in plain HTML, CSS and JavaScript — no frameworks, no build step.</li>
@@ -5984,7 +5991,13 @@
             <div class="ctl"><div class="switch ${S.settings.tts !== false ? "on" : ""}" id="sw-tts" role="switch" tabindex="0" aria-checked="${S.settings.tts !== false}"></div></div>
           </div>
           <div class="set-row">
-            <div class="info"><h3>Reading voices</h3><p>Pick which of this device's voices read your cards. Quality depends on what the device offers — voices named “Natural”, “Neural” or “Enhanced” sound the most human; “Auto” prefers them when present.</p></div>
+            <div class="info"><h3>Narrator</h3><p>The recorded human voice that reads your cards — the same on every device. Pick between American and British English.</p></div>
+            <div class="ctl ctl-col">
+              <div class="voice-row"><select class="set-sel" id="narrSel" aria-label="Card narrator voice">${Object.keys(TTS_NARRATORS).map((k) => `<option value="${k}"${k === (S.settings.ttsNarrator || "us-male") ? " selected" : ""}>${TTS_NARRATORS[k]}</option>`).join("")}</select><button class="btn ghost" id="narrTest" type="button">Test</button></div>
+            </div>
+          </div>
+          <div class="set-row">
+            <div class="info"><h3>Fallback reading voices</h3><p>This device's own voices, used for Chinese and wherever a recording isn't available (e.g. a freshly edited card). Voices named “Natural”, “Neural” or “Enhanced” sound the most human; “Auto” prefers them when present.</p></div>
             <div class="ctl ctl-col">
               <div class="voice-row"><span class="voice-lab">English</span><select class="set-sel" id="voiceEn" aria-label="English reading voice"></select><button class="btn ghost" id="voiceEnTest" type="button">Test</button></div>
               <div class="voice-row"><span class="voice-lab">Chinese</span><select class="set-sel" id="voiceZh" aria-label="Chinese reading voice"></select><button class="btn ghost" id="voiceZhTest" type="button">Test</button></div>
@@ -6035,6 +6048,19 @@
     };
     swTts.addEventListener("click", toggleTts);
     swTts.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleTts(); } });
+
+    // narrator picker — plays the selected narrator's baked sample as a preview
+    const narrSel = root.querySelector("#narrSel"), narrTest = root.querySelector("#narrTest");
+    const narrPreview = () => {
+      ttsStop();
+      const a = new Audio("audio/cards/" + ttsNarrator() + "/_sample.mp3");
+      _ttsAudio = a;
+      a.onerror = () => { toast("This narrator's recordings aren't available yet — the device voice will be used."); };
+      const pr = a.play();
+      if (pr && pr.catch) pr.catch(() => {});
+    };
+    if (narrSel) narrSel.addEventListener("change", () => { S.settings.ttsNarrator = narrSel.value; save(); loadBakedManifest(); narrPreview(); });
+    if (narrTest) narrTest.addEventListener("click", narrPreview);
 
     // reading-voice pickers — populated from the device's voice list (arrives async on mobile -> _ttsVoicesHook refills)
     const fillVoices = () => {

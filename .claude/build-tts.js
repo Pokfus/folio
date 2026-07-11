@@ -9,16 +9,19 @@
      - lamejs (LGPL, build-time only) — pure-JS MP3 encoder, fetched from jsdelivr, never shipped.
 
    Usage:
-     node .claude/build-tts.js                       bake all cards (incremental — skips unchanged text)
+     node .claude/build-tts.js                       bake all cards for the default narrator (incremental)
+     node .claude/build-tts.js --narrator=gb-male    bake another shipped narrator (see NARRATORS below)
      node .claude/build-tts.js --limit=3             bake only the first N cards (pipeline test)
      node .claude/build-tts.js --only=cnh-001,cnh-2  bake specific cards
-     node .claude/build-tts.js --speaker=451         use another libritts_r speaker id (0-903)
-     node .claude/build-tts.js --scan-speakers=40    synth a test line for speakers 0..39, estimate pitch (Hz),
-                                                     list male-sounding candidates + write WAVs to listen to
+     node .claude/build-tts.js --speaker=451         override the narrator's speaker id
+     node .claude/build-tts.js --scan-speakers=40    synth a test line for speakers 0..39 of the narrator's
+                                                     voice, estimate pitch (Hz), write WAVs to listen to
+     node .claude/build-tts.js --rehash              update manifest hashes to the current text WITHOUT
+                                                     re-synthesizing (after a canonicalization-only change)
      node .claude/build-tts.js --bitrate=32          smaller files (default 48 kbps mono)
      node .claude/build-tts.js --force               re-bake everything (ignore the manifest)
 
-   Output: audio/cards/<id>-q.mp3 / -a.mp3 / -bg.mp3 + manifest.json
+   Output: audio/cards/<narrator>/<id>-q.mp3 / -a.mp3 / -bg.mp3 + manifest.json + _sample.mp3
    Manifest hashes use the SAME FNV-1a as app.js hashStr(); the runtime skips a baked file whose card text
    changed since baking (falls back to Web Speech), so stale audio is never played. Windows-only (this dev
    machine); the Piper download URL is the only OS-specific bit. */
@@ -31,18 +34,31 @@ const { spawnSync } = require("child_process");
 
 const ROOT = path.join(__dirname, "..");
 const CACHE = path.join(__dirname, "tts-cache");
-const OUT = path.join(ROOT, "audio", "cards");
 const PIPER_ZIP_URL = "https://github.com/rhasspy/piper/releases/download/2023.11.14-2/piper_windows_amd64.zip";
-const VOICE = "en_US-libritts_r-medium";
-const VOICE_BASE = "https://huggingface.co/rhasspy/piper-voices/resolve/main/en/en_US/libritts_r/medium/";
+const HF = "https://huggingface.co/rhasspy/piper-voices/resolve/main/";
+// The narrators the site ships (audio/cards/<key>/). Each voice's dataset MUST allow commercial use —
+// libritts_r + vctk are CC BY 4.0 (verified in their MODEL_CARDs). hfc_male / ryan / lessac are CC BY-NC: never use.
+// Speakers were chosen by pitch-scanning (--scan-speakers) — male ≈ 85-135 Hz, female ≈ 160-255 Hz.
+const NARRATORS = {
+  "us-male":   { model: "en_US-libritts_r-medium", base: HF + "en/en_US/libritts_r/medium/", speaker: 5,   label: "American male" },
+  "us-female": { model: "en_US-libritts_r-medium", base: HF + "en/en_US/libritts_r/medium/", speaker: 12,  label: "American female" },
+  "gb-male":   { model: "en_GB-vctk-medium",       base: HF + "en/en_GB/vctk/medium/",       speaker: 13,  label: "British male" },
+  "gb-female": { model: "en_GB-vctk-medium",       base: HF + "en/en_GB/vctk/medium/",       speaker: 14,  label: "British female" },
+};
 const LAME_URL = "https://cdn.jsdelivr.net/npm/lamejs@1.2.1/lame.all.js";
 const LENGTH_SCALE = "1.15";   // slightly slow, matching the app's unhurried reading style
 
 /* ---------- args ---------- */
 const args = {};
 process.argv.slice(2).forEach((a) => { const m = /^--([^=]+)(?:=(.*))?$/.exec(a); if (m) args[m[1]] = m[2] === undefined ? true : m[2]; });
+const NARR_KEY = String(args.narrator || "us-male");
+const NARR = NARRATORS[NARR_KEY];
+if (!NARR) { console.error("Unknown --narrator=" + NARR_KEY + " (have: " + Object.keys(NARRATORS).join(", ") + ")"); process.exit(1); }
+const OUT = path.join(ROOT, "audio", "cards", NARR_KEY);
+const VOICE = NARR.model;
+const VOICE_BASE = NARR.base;
 const BITRATE = parseInt(args.bitrate || "48", 10);
-const SPEAKER = parseInt(args.speaker || "5", 10);   // libritts_r speaker 5 ≈ 96 Hz — a warm male narration voice (see --scan-speakers)
+const SPEAKER = parseInt(args.speaker || String(NARR.speaker), 10);
 
 /* ---------- tiny fetch with redirects ---------- */
 function fetchBin(url, redirects) {
@@ -127,7 +143,10 @@ function decodeEntities(s) {
   return s.replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"')
     .replace(/&#39;/g, "'").replace(/&nbsp;/g, " ").replace(/&middot;/g, "·").replace(/&mdash;/g, "—").replace(/&ndash;/g, "–");
 }
-function strip(html) { return decodeEntities(String(html || "").replace(/<[^>]*>/g, " ")).replace(/\s+/g, " ").trim(); }
+// tags are removed WITHOUT inserting a space — matching DOM textContent, which is what the app hashes at runtime.
+// (Replacing tags with " " once produced "…Liji , credited…" vs the DOM's "…Liji, credited…" — every background
+// hash mismatched and the runtime silently fell back to the device voice. Don't reintroduce that.)
+function strip(html) { return decodeEntities(String(html || "").replace(/<[^>]*>/g, "")).replace(/\s+/g, " ").trim(); }
 function qText(c) { return strip(String(c.question || "").replace(/<span class="blank"[^>]*>[\s\S]*?<\/span>/g, " blank ")); }
 function aText(c) { return (c.answerText && String(c.answerText).trim()) || strip(c.answer); }
 function bgText(c) { return strip(c.abstract); }
@@ -216,13 +235,38 @@ function estimatePitch(pcm, rate) {
 
   fs.mkdirSync(OUT, { recursive: true });
   const manifestPath = path.join(OUT, "manifest.json");
-  let manifest = { version: 1, voice: VOICE, speaker: SPEAKER, bitrate: BITRATE, files: {} };
+  let manifest = { version: 1, narrator: NARR_KEY, voice: VOICE, speaker: SPEAKER, bitrate: BITRATE, files: {} };
   if (fs.existsSync(manifestPath) && !args.force) {
-    try { const old = JSON.parse(fs.readFileSync(manifestPath, "utf8")); if (old.voice === VOICE && old.speaker === SPEAKER && old.bitrate === BITRATE) manifest = old; } catch (e) {}
+    try { const old = JSON.parse(fs.readFileSync(manifestPath, "utf8")); if (old.voice === VOICE && old.speaker === SPEAKER && old.bitrate === BITRATE) { manifest = old; manifest.narrator = NARR_KEY; } } catch (e) {}
   }
   manifest.files = manifest.files || {};
 
+  // --rehash: the text canonicalization changed but the spoken content didn't — update manifest hashes
+  // to the current text WITHOUT re-synthesizing (existing audio stays valid).
+  if (args.rehash) {
+    let updated = 0;
+    cards.forEach((c) => {
+      const sections = { q: qText(c), a: aText(c), bg: bgText(c) };
+      const entry = manifest.files[c.id];
+      if (!entry) return;
+      for (const sec of Object.keys(sections)) {
+        const h = hashStr(sections[sec]);
+        if (entry[sec] && entry[sec].h !== h && fs.existsSync(path.join(OUT, c.id + "-" + sec + ".mp3"))) { entry[sec].h = h; updated++; }
+      }
+    });
+    fs.writeFileSync(manifestPath, JSON.stringify(manifest));
+    console.log("Rehashed " + updated + " sections for " + NARR_KEY + " (audio unchanged — canonicalization update only).");
+    return;
+  }
+
   const tmpWav = path.join(CACHE, "work.wav");
+  // every narrator dir carries a short _sample.mp3 — the Settings page's narrator Test button plays it
+  const samplePath = path.join(OUT, "_sample.mp3");
+  if (!fs.existsSync(samplePath) || args.force) {
+    synthWav(piper, voice, "Hello — this is the voice that will read your cards aloud.", SPEAKER, tmpWav);
+    const sw = wavToPcm(fs.readFileSync(tmpWav));
+    fs.writeFileSync(samplePath, pcmToMp3(lamejs, sw.samples, sw.fmt.rate, BITRATE));
+  }
   let baked = 0, skipped = 0, bytes = 0;
   const t0 = Date.now();
   for (let ci = 0; ci < cards.length; ci++) {

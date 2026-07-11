@@ -232,16 +232,21 @@ ranges.js → admin1.js → cities.js → timeline.js → countries.js → count
   swallows a `speak()` issued synchronously after `cancel()`). Right-clicking a text selection inside the background paragraph
   shows a custom **Copy / Read aloud** menu (`wireReadAloudMenu` → `.ctx-menu`; native menu when TTS is off or nothing is
   selected). `render()` calls `ttsStop()` so navigation always silences reading.
-  **Baked narration** (`audio/cards/*.mp3` + `manifest.json`, built by `node .claude/build-tts.js`): card sections (question/
-  answer/background) pre-rendered with a local neural TTS (**Piper**, voice `en_US-libritts_r-medium` speaker 5 — dataset
-  **CC BY 4.0, commercial-safe**; do NOT switch to `hfc_male`/`ryan`/`lessac`, they're CC BY-**NC**) at 48 kbps mono MP3
-  (~100 MB for 155 cards). The runtime plays a baked file when `bakedUrl()` finds one whose manifest hash (`hashStr` of the
+  **Baked narration** (`audio/cards/<narrator>/*.mp3` + `manifest.json` + `_sample.mp3`, built by `node .claude/build-tts.js
+  [--narrator=key]`): card sections (question/answer/background) pre-rendered with a local neural TTS (**Piper**). FOUR shipped
+  narrators (Settings → **Narrator**, `S.settings.ttsNarrator`, default `us-male`): `us-male`/`us-female` =
+  `en_US-libritts_r-medium` speakers 5/12, `gb-male`/`gb-female` = `en_GB-vctk-medium` speakers 13/14 — both datasets
+  **CC BY 4.0, commercial-safe**; do NOT switch to `hfc_male`/`ryan`/`lessac`, they're CC BY-**NC**. 48 kbps mono MP3, ~85 MB
+  per narrator. The runtime loads the selected narrator's manifest (`loadBakedManifest()`; re-fetched on picker change; the
+  Test button plays `_sample.mp3`) and plays a baked file when `bakedUrl()` finds one whose manifest hash (`hashStr` of the
   section text) still matches — an admin-edited card silently falls back to the Web Speech engine, as do missing files,
-  `file://` (manifest fetch fails), and autoplay-blocked plays. `ttsSay` is a sequential part-driver (`runTTSPart`: baked
-  `<audio>` → engine fallback per part); `ttsStop()` also halts `_ttsAudio`. Chinese hanzi stays on the device voice (no
-  commercially-clear zh Piper voice). The bake is incremental (manifest hash check; `--force` re-bakes; `--scan-speakers=N`
-  pitch-scans voices; toolchain auto-downloads into gitignored `.claude/tts-cache/`). Gloss popups + selection read-aloud
-  always use the engine.
+  `file://` (manifest fetch fails), and autoplay-blocked plays. **Gotcha:** the build's text-canonicalization must mirror DOM
+  `textContent` EXACTLY — tags strip to "" (not a space), else every background hash mismatches and reads with the robotic
+  device voice (this happened; `--rehash` updates manifest hashes without re-synthesis after canonicalization-only changes).
+  `ttsSay` is a sequential part-driver (`runTTSPart`: baked `<audio>` → engine fallback per part); `ttsStop()` also halts
+  `_ttsAudio`. Chinese hanzi stays on the device voice (no commercially-clear zh Piper voice). The bake is incremental
+  (manifest hash check; `--force` re-bakes; `--scan-speakers=N` pitch-scans voices; toolchain auto-downloads into gitignored
+  `.claude/tts-cache/`). Gloss popups + selection read-aloud always use the engine.
 - **Home minigames** (game-grid tiles → `PAGES.*`): **Multiple Choice** (`PAGES.challenge`, formerly "Daily Challenge" — the
   rival bots + timer were removed; it's now a plain 5-question quiz whose 3 wrong options are the SAME `answerType()` as the
   answer — a person → other people, a dynasty → other dynasties), **Timeline** (`chrono`), **True or False** (`truefalse`), and
