@@ -14,7 +14,7 @@ window.CHANGELOG = [
       "Every card's question, answer and background now has pre-recorded narration by a single warm male voice on all devices, with the device's own speech as fallback.",
       "New Mission page: why spaced repetition, source credits, and this changelog.",
       "Mission page refined: its tab moved next to Atlas, the changelog now sits above the credits, glossary popups work inside the intro, and admins can click the intro title or paragraphs to edit them in place.",
-      "Two new Western Zhou cards: Feizi, the horse-breeder who founded the line of Qin, and the state of Qin itself — from despised frontier fief to unifier of China.",
+      "Three new Western Zhou cards: Feizi, the horse-breeder who founded the line of Qin; the state of Qin itself — from despised frontier fief to unifier of China; and King Yi the ninth king, who boiled Duke Ai of Qi alive.",
       "Card backgrounds now play their recorded narration too (a mismatch had them falling back to the robotic device voice), and Settings gained a Narrator picker: American or British English, male or female.",
     ],
   },
