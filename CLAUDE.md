@@ -18,7 +18,9 @@ It is a plain static website — open `index.html` and it runs.
   papering over them.
 - **Keep the changelog current.** Whenever a user-requested change ships to the live site (committed/pushed),
   append a one-line plain-English summary to TODAY's entry in `changelog.js` (create the day if missing; newest
-  day first). Reader-facing wording — what changed for the user, not how. The Mission page renders it.
+  day first). Reader-facing wording — what changed for the user, not how. **Card/glossary content changes are
+  summarized by count + deck only, never naming specific cards or terms** (e.g. "Three new cards in the Western
+  Zhou deck"). The Mission page renders it.
 
 ## File map
 

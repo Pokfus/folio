@@ -1232,7 +1232,7 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
 .ctx-menu button:hover{background:var(--paper-2);}
 /* ---------- Mission page (about: spaced repetition, credits, changelog) ---------- */
 .mission{display:flex; flex-direction:column; gap:18px; max-width:760px;}
-.msn-card{background:var(--card); border:1px solid var(--rule); border-radius:14px; padding:26px 30px; box-shadow:var(--shadow-sm);}
+.msn-card{position:relative; background:var(--card); border:1px solid var(--rule); border-radius:14px; padding:26px 30px; box-shadow:var(--shadow-sm);}   /* relative: hosts the intro's absolute read-aloud button */
 .msn-card h2{font-family:var(--display); font-weight:600; font-size:21px; letter-spacing:-.01em; margin:0 0 14px; color:var(--ink);}
 .msn-prose p{font-family:var(--serif); font-size:15.5px; line-height:1.72; color:var(--ink-soft); margin:0 0 13px;}
 .msn-prose p:last-child{margin-bottom:0;}

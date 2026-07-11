@@ -14,11 +14,12 @@ window.CHANGELOG = [
       "Every card's question, answer and background now has pre-recorded narration by a single warm male voice on all devices, with the device's own speech as fallback.",
       "New Mission page: why spaced repetition, source credits, and this changelog.",
       "Mission page refined: its tab moved next to Atlas, the changelog now sits above the credits, glossary popups work inside the intro, and admins can click the intro title or paragraphs to edit them in place.",
-      "Three new Western Zhou cards: Feizi, the horse-breeder who founded the line of Qin; the state of Qin itself — from despised frontier fief to unifier of China; and King Yi the ninth king, who boiled Duke Ai of Qi alive.",
+      "Three new cards in the Western Zhou deck.",
       "Card backgrounds now play their recorded narration too (a mismatch had them falling back to the robotic device voice), and Settings gained a Narrator picker: American or British English, male or female.",
       "New accounts now start with five new cards per day instead of three (adjustable in Settings as before).",
       "The minigame tiles now earn their colour: quiet with just a coloured edge until you play, filling with colour once completed, and turning gold for a perfect score.",
       "Completed game tiles now show your score for the day (e.g. “4/5 correct!”), light mode lost the dark corner on coloured tiles, and the Daily-review button moved to the bottom-left so the level bar runs the full width.",
+      "The Daily review now sits above the minigames (under a new “Minigames” heading), and the Mission intro gained a read-aloud button — silent until you click it.",
     ],
   },
   {

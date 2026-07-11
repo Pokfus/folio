@@ -2296,8 +2296,8 @@
       if (b.tagName !== "BUTTON") b.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); act(e); } });
     });
   }
-  function ttsMuteIconSVG() {
-    return S.settings.ttsMuted
+  function ttsMuteIconSVG(muted) {
+    return (muted === undefined ? S.settings.ttsMuted : muted)
       ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor" stroke="none"/><line x1="16" y1="9" x2="22" y2="15"/><line x1="22" y1="9" x2="16" y2="15"/></svg>'
       : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="currentColor" stroke="none"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>';
   }
@@ -2567,8 +2567,6 @@
       </div>
       ${dailyQuoteHTML()}
       <div class="banners">
-        ${gameGrid}
-
         <div class="review-group ${activeIds.length ? "has-active" : ""}">
         <button class="banner" id="b-review">
           ${levelBadgeMarkup(folioXP())}
@@ -2594,6 +2592,9 @@
         <button class="review-order" id="reviewOrder" type="button" title="Order your daily review by date, or shuffle it"><span class="${S.settings.reviewRandom ? "" : "on"}">Chrono</span><span class="${S.settings.reviewRandom ? "on" : ""}">Random</span></button>
         <div class="active-decks">${activeHTML}</div>
         </div>
+
+        <div class="section-label">Minigames</div>
+        ${gameGrid}
       </div>`;
 
     root.querySelector("#g-challenge").addEventListener("click", () => route("challenge"));
@@ -5878,6 +5879,7 @@
       <div class="page-head"><span class="eyebrow">About Folio</span><h1>Mission</h1></div>
       <div class="mission">
         <div class="msn-card">
+          ${ttsEnabled() ? `<button class="tts-mute muted" id="msnRead" type="button" aria-label="Read this section aloud" title="Read aloud">${ttsMuteIconSVG(true)}</button>` : ""}
           <h2 id="msnTitle">${esc(M.title)}</h2>
           <div class="msn-prose" id="msnProse">${(M.paras || []).map((p) => "<p>" + p + "</p>").join("")}</div>
         </div>
@@ -5909,6 +5911,24 @@
     const prose = root.querySelector("#msnProse");
     autoLinkGlossary(prose, null, null);
     setupTooltips(prose);
+    // read-aloud toggle for the intro — OFF by default; reads only when clicked, click again to stop
+    const readBtn = root.querySelector("#msnRead");
+    if (readBtn) {
+      let readingPoll = null;
+      const setIcon = (reading) => { readBtn.innerHTML = ttsMuteIconSVG(!reading); readBtn.classList.toggle("muted", !reading); readBtn.setAttribute("aria-label", reading ? "Stop reading" : "Read this section aloud"); };
+      readBtn.addEventListener("click", () => {
+        if (readingPoll) { ttsStop(); return; }   // reading → stop (the poll below resets the icon)
+        if (!ttsSupported()) { toast("Speech isn't available on this device"); return; }
+        const cur = missionMerged();
+        ttsSay([{ text: cur.title }].concat((cur.paras || []).map((p) => ({ text: ttsStrip(p) }))));
+        setIcon(true);
+        readingPoll = setInterval(() => {
+          if (!document.body.contains(readBtn)) { clearInterval(readingPoll); readingPoll = null; return; }   // navigated away (render() already stopped the audio)
+          const active = _ttsAudio || (ttsSupported() && (speechSynthesis.speaking || speechSynthesis.pending));
+          if (!active) { clearInterval(readingPoll); readingPoll = null; setIcon(false); }
+        }, 400);
+      });
+    }
     // admins: click the title or a paragraph to edit it in place (Esc cancels, Ctrl+Enter or clicking away saves)
     if (isAdmin()) {
       const wireEdit = (el, kind, idx) => {
