@@ -6,3 +6,6 @@ Desktop.ini
 # just in case tooling ever gets installed locally — the site itself has zero dependencies
 node_modules/
 *.log
+
+# Claude Code machine-local settings
+.claude/settings.local.json
