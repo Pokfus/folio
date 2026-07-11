@@ -2161,7 +2161,11 @@ window.GLOSSARY = {
 "Inner_Mongolia": "Inner Mongolia (內蒙古) is a vast autonomous region of northern China, stretching in a great arc along most of the border with Mongolia and touching Russia in the northeast. Its landscape ranges from steppe grasslands in the east to the Gobi Desert in the west, high open country long given over to pastoral herding. Established in 1947, the region holds the largest Mongol population in the world, and sections of the Great Wall run near its southern margins, marking the old frontier between agrarian China and the nomads of the steppe.",
 "Ningxia": "Ningxia (寧夏) is a small autonomous region of northwestern China, officially the Ningxia Hui Autonomous Region, lying on the upper Yellow River at the edge of the Loess Plateau. Sheltered by the Helan Mountains, its riverside plain has been irrigated by canals since ancient times, forming a band of farmland amid arid country. The region was the heartland of the Western Xia state founded by the Tanguts in the eleventh century, whose capital stood at modern Yinchuan, and it is today home to a large Hui Muslim population.",
 "Chongqing": "Chongqing (重慶) is a direct-administered municipality of southwestern China, a vast city-region on the upper Yangtze at its confluence with the Jialing River, separated from Sichuan in 1997. Built across steep ridges at the eastern edge of the Sichuan Basin, it is known as the mountain city, and the Yangtze flows east from it through the celebrated Three Gorges. The area was home to the ancient state of Ba, and from 1937 to 1946 the city served as the wartime capital of the Republic of China, enduring heavy Japanese bombing during the Second Sino-Japanese War.",
-"Hong_Kong": "Hong Kong (香港) is a special administrative region of China on the eastern side of the Pearl River estuary, comprising Hong Kong Island, the Kowloon Peninsula, and the New Territories with their many outlying islands. Its deep natural harbour amid hilly coastal terrain made it one of the world's great ports, and it grew into a leading international financial centre. Hong Kong Island was ceded to Britain in 1842 by the Treaty of Nanking after the First Opium War, the territory was later enlarged by the addition of Kowloon and a lease of the New Territories, and it was returned to China in 1997 under the principle of one country, two systems."
+"Hong_Kong": "Hong Kong (香港) is a special administrative region of China on the eastern side of the Pearl River estuary, comprising Hong Kong Island, the Kowloon Peninsula, and the New Territories with their many outlying islands. Its deep natural harbour amid hilly coastal terrain made it one of the world's great ports, and it grew into a leading international financial centre. Hong Kong Island was ceded to Britain in 1842 by the Treaty of Nanking after the First Opium War, the territory was later enlarged by the addition of Kowloon and a lease of the New Territories, and it was returned to China in 1997 under the principle of one country, two systems.",
+"Spaced_repetition": "Spaced repetition is a learning technique in which reviews of studied material are scheduled at increasing intervals of time. It exploits the spacing effect, the finding that information is retained more durably when practice is spread out rather than massed together. Flashcard systems commonly implement it by scheduling each item for review shortly before it would otherwise be forgotten.",
+"Forgetting_curve": "The forgetting curve is a graph describing how the ability to recall learned information declines over time when no attempt is made to retain it. It shows a loss that is steep in the first hours and days after learning and then gradually levels off. Each successful, well-timed review flattens the curve, so that the memory subsequently fades more slowly.",
+"Active_recall": "Active recall is a study technique in which the learner deliberately retrieves information from memory, typically by answering a question or completing a prompt. The act of retrieval itself strengthens the memory, a phenomenon known as the testing effect. It produces more durable long-term retention than passively re-reading or reviewing the same material.",
+"Hermann_Ebbinghaus": "Hermann Ebbinghaus was a German psychologist who pioneered the experimental study of memory. Testing himself with thousands of invented nonsense syllables, he charted how retention declines over time and how repetition and spacing slow that decline, publishing his findings in the 1885 monograph Über das Gedächtnis. His work helped establish memory research as a quantitative experimental science."
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3006,12 +3010,9 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Speech_at_Mu": "c. 1046 BCE",
 "Revolt_of_the_Three_Feudatories": "1673–1681",
 "Kangxi_Dictionary": "1716",
-"Muye": "c. 1046 BCE"
-});
-
-window.GLOSSARY_TITLES = Object.assign(window.GLOSSARY_TITLES || {}, {
-"She_altar": "she (soil altar)",
-"Ji_altar": "ji (grain altar)"
+"Muye": "c. 1046 BCE",
+"Forgetting_curve": "described 1885",
+"Hermann_Ebbinghaus": "1850–1909"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4000,7 +4001,7 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "King_Wen_of_Zhou": true
 });
 
-/* Category tags per term (slug -> [tags]) - shown in the admin glossary list and filterable from its left bar. */
+/* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
 window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Kangxi_Emperor": ["person","ruler","qing dynasty"],
 "Bohai_Sea": ["place","sea","geography"],
@@ -6162,5 +6163,9 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Inner_Mongolia": ["region","place","geography","modern"],
 "Ningxia": ["region","place","geography","modern"],
 "Chongqing": ["city","place","geography","modern"],
-"Hong_Kong": ["region","place","geography","trade","modern"]
+"Hong_Kong": ["region","place","geography","trade","modern"],
+"Spaced_repetition": ["concept","psychology","memory","education"],
+"Forgetting_curve": ["concept","psychology","memory"],
+"Active_recall": ["concept","psychology","memory","education"],
+"Hermann_Ebbinghaus": ["person","psychology","memory","germany"]
 });

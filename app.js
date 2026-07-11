@@ -5831,7 +5831,21 @@
   /* ============================================================
      PAGE: MISSION (about — spaced repetition, credits, changelog)
      ============================================================ */
+  // the Mission intro copy: shipped defaults (mission.js) overlaid with any admin edits
+  function missionMerged() {
+    const base = window.MISSION || { title: "", paras: [] };
+    const ov = ADMIN_EDITS.mission || {};
+    return { title: ov.title !== undefined ? ov.title : base.title, paras: Array.isArray(ov.paras) ? ov.paras : (base.paras || []) };
+  }
+  function serializeMission() {
+    const M = missionMerged();
+    return "/* Mission-page intro copy (title + paragraphs; raw HTML — <b>/<i> allowed, glossary links are auto-added\n" +
+      "   at render). Admins edit this in place on the Mission page: edits overlay via ADMIN_EDITS.mission and are\n" +
+      "   baked back into this file by auto-save / \"Save to project\" (serializeMission). Loaded before app.js. */\n" +
+      "window.MISSION = " + JSON.stringify({ title: M.title, paras: M.paras }, null, 2) + ";\n";
+  }
   PAGES.mission = function (root) {
+    const M = missionMerged();
     const fmtDay = (e) => e.label || new Date(e.d + "T12:00:00").toLocaleDateString(undefined, { day: "numeric", month: "long", year: "numeric" });
     const chev = '<span class="clog-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>';
     const log = (window.CHANGELOG || []).slice().sort((a, b) => (a.d < b.d ? 1 : -1));
@@ -5847,24 +5861,12 @@
       <div class="page-head"><span class="eyebrow">About Folio</span><h1>Mission</h1></div>
       <div class="mission">
         <div class="msn-card">
-          <h2>Study history the way memory actually works</h2>
-          <div class="msn-prose">
-            <p>In 1885 Hermann Ebbinghaus measured how quickly we forget: sharply at first, then more slowly — the
-            <b>forgetting curve</b>. He also found its remedy. Review something just as it is about to slip away and the
-            curve flattens; each successful recall lets the next review wait longer. That is <b>spaced repetition</b>:
-            a new fact returns within minutes, then a day, then days, weeks and months — a handful of well-timed
-            encounters doing the work of a hundred re-readings.</p>
-            <p>The second ingredient is <b>active recall</b>. Retrieving a memory strengthens it far more than looking
-            at it again, which is why every card here poses its statement with the key term blanked out — you produce
-            the answer before you see it. Grading yourself honestly (<i>Again, Hard, Good, Easy</i>) is not a score;
-            it is the signal the scheduler uses to decide when you should meet that card again.</p>
-            <p>History is where this method earns its keep. Names, dates, places, and the order of events are exactly
-            the details that fade first — yet they are the scaffolding that lets the larger story mean anything. When
-            you know <i>when</i> the Zhou fell and <i>who</i> came after, every new thing you read clicks into place
-            instead of washing past. Folio keeps that scaffolding standing, and surrounds it with context: a glossary
-            behind every term, an atlas that shows the borders of the year you are studying, and daily games that make
-            you meet the same material from a different angle. Facts you encounter in several forms are facts you keep.</p>
-          </div>
+          <h2 id="msnTitle">${esc(M.title)}</h2>
+          <div class="msn-prose" id="msnProse">${(M.paras || []).map((p) => "<p>" + p + "</p>").join("")}</div>
+        </div>
+        <div class="msn-card">
+          <h2>Changelog</h2>
+          <div class="clog">${logHTML}</div>
         </div>
         <div class="msn-card">
           <h2>Credits &amp; sources</h2>
@@ -5880,16 +5882,63 @@
             <li class="cr-note">Folio itself is built by hand in plain HTML, CSS and JavaScript — no frameworks, no build step.</li>
           </ul>
         </div>
-        <div class="msn-card">
-          <h2>Changelog</h2>
-          <div class="clog">${logHTML}</div>
-        </div>
       </div>`;
     root.querySelectorAll(".clog-head").forEach((b) => b.addEventListener("click", () => {
       const day = b.closest(".clog-day");
       const open = day.classList.toggle("open");
       b.setAttribute("aria-expanded", open ? "true" : "false");
     }));
+    // glossary terms in the intro become clickable popups, exactly like card backgrounds
+    const prose = root.querySelector("#msnProse");
+    autoLinkGlossary(prose, null, null);
+    setupTooltips(prose);
+    // admins: click the title or a paragraph to edit it in place (Esc cancels, Ctrl+Enter or clicking away saves)
+    if (isAdmin()) {
+      const wireEdit = (el, kind, idx) => {
+        el.classList.add("msn-editable");
+        el.setAttribute("title", "Click to edit (admin)");
+        el.addEventListener("click", () => {
+          if (el.isContentEditable) return;
+          if (String(window.getSelection() || "").trim()) return;   // a text-selection click, not an edit request
+          const cur = missionMerged();
+          el.classList.add("msn-editing");
+          if (kind === "title") el.textContent = cur.title;
+          else el.innerHTML = cur.paras[idx] || "";                  // edit the RAW source — auto-added gloss links never enter the saved text
+          el.contentEditable = "true";
+          el.focus();
+          // one finish path for blur, click-outside and Escape — blur alone is fragile (if focus never
+          // lands on the element, no blur can ever fire and the paragraph would stick in edit mode)
+          let finished = false;
+          const finish = (saveIt) => {
+            if (finished) return;
+            finished = true;
+            document.removeEventListener("pointerdown", onOutside, true);
+            el.removeEventListener("keydown", onKey);
+            if (saveIt) {
+              const next = { title: cur.title, paras: (cur.paras || []).slice() };
+              if (kind === "title") next.title = (el.textContent || "").trim() || cur.title;
+              else next.paras[idx] = (el.innerHTML || "").trim() || next.paras[idx];
+              const base = window.MISSION || { title: "", paras: [] };
+              if (next.title !== base.title || JSON.stringify(next.paras) !== JSON.stringify(base.paras || [])) ADMIN_EDITS.mission = next;
+              else delete ADMIN_EDITS.mission;   // edited back to the shipped text → drop the delta
+              saveAdminEdits();
+              toast("Mission text saved");
+            }
+            render();   // re-render restores the gloss auto-links (or reverts the cancelled edit)
+          };
+          const onKey = (e) => {
+            if (e.key === "Escape") { e.preventDefault(); finish(false); }
+            else if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); finish(true); }
+          };
+          const onOutside = (ev) => { if (!el.contains(ev.target)) finish(true); };
+          el.addEventListener("keydown", onKey);
+          el.addEventListener("blur", () => finish(true), { once: true });
+          setTimeout(() => document.addEventListener("pointerdown", onOutside, true), 0);   // a tick later so the opening click doesn't instantly finish
+        });
+      };
+      wireEdit(root.querySelector("#msnTitle"), "title");
+      prose.querySelectorAll("p").forEach((p, i) => wireEdit(p, "para", i));
+    }
   };
 
   /* ============================================================
@@ -6554,7 +6603,7 @@
     b.classList.toggle("on", s === "on" || s === "saving" || s === "saved");
     b.classList.toggle("warn", s === "reconnect" || s === "error");
   }
-  function autoSaveFiles() { const f = { "data.js": serializeCardData(), "glossary.js": serializeGlossary() }; if (Array.isArray(ADMIN_EDITS.timeline)) f["timeline.js"] = serializeTimeline(); return f; }
+  function autoSaveFiles() { const f = { "data.js": serializeCardData(), "glossary.js": serializeGlossary() }; if (Array.isArray(ADMIN_EDITS.timeline)) f["timeline.js"] = serializeTimeline(); if (ADMIN_EDITS.mission) f["mission.js"] = serializeMission(); return f; }
   async function autoSaveNow() {
     if (!autoSaveArmed || !autoSaveDir) return;
     if (_autoWriting) { autoSaveWrite(); return; }                                  // a write is in flight → coalesce into the next tick
@@ -6603,6 +6652,7 @@
     const download = (msg) => {
       const files = [["data.js", dataJs], ["glossary.js", glossJs]];
       if (hasTl) files.push(["timeline.js", serializeTimeline()]);
+      if (ADMIN_EDITS.mission) files.push(["mission.js", serializeMission()]);
       files.forEach(([n, t], i) => setTimeout(() => downloadText(n, t), i * 350));
       toast(msg);
     };
@@ -6627,6 +6677,7 @@
       await writeFileTo(dir, "data.js", dataJs);
       await writeFileTo(dir, "glossary.js", glossJs);
       if (hasTl) await writeFileTo(dir, "timeline.js", serializeTimeline());   // commit historical eras to timeline.js (then the overlay copy is dropped below)
+      if (ADMIN_EDITS.mission) await writeFileTo(dir, "mission.js", serializeMission());   // bake the Mission intro (overlay dropped below)
       // deck date labels + coming-soon pins live only in the delta overlay (not encoded in the files) — keep them so a
       // save never loses them; everything else is now baked into data.js / glossary.js, so drop it.
       try {
@@ -6649,6 +6700,7 @@
     files: function () {
       const out = { "data.js": serializeCardData(), "glossary.js": serializeGlossary() };
       if (Array.isArray(ADMIN_EDITS.timeline)) out["timeline.js"] = serializeTimeline();
+      if (ADMIN_EDITS.mission) out["mission.js"] = serializeMission();
       return out;
     },
     // the overlay to keep after files are written: only the overlay-only metadata (deck dates,

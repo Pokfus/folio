@@ -13,6 +13,7 @@ window.CHANGELOG = [
       "Friends are server-backed — send requests, accept, and browse a friend's badges and deck progress from any device.",
       "Every card's question, answer and background now has pre-recorded narration by a single warm male voice on all devices, with the device's own speech as fallback.",
       "New Mission page: why spaced repetition, source credits, and this changelog.",
+      "Mission page refined: its tab moved next to Atlas, the changelog now sits above the credits, glossary popups work inside the intro, and admins can click the intro title or paragraphs to edit them in place.",
     ],
   },
   {

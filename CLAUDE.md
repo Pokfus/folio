@@ -75,8 +75,13 @@ ranges.js → admin1.js → cities.js → timeline.js → countries.js → count
   reveal). **Adversarially fact-checked** for correct attribution (quote misattribution is rampant). The 4 answer options are the
   correct speaker + 3 other `who` names from the pool (all real people → plausible). Loaded before app.js (after `truefalse.js`).
 - `changelog.js` — `window.CHANGELOG = [ { d:"YYYY-MM-DD", label?, t, items:[…] } ]`, the day-grouped release notes
-  rendered as the **Mission** page's collapsible changelog (`PAGES.mission` — nav tab left of Account; also holds the
-  spaced-repetition explainer + the credits/licenses list). See the golden rule: append to today's entry on every ship.
+  rendered as the **Mission** page's collapsible changelog (`PAGES.mission` — nav tab in the LEFT group, right of Atlas;
+  section order: intro prose → changelog → credits/licenses). See the golden rule: append to today's entry on every ship.
+- `mission.js` — `window.MISSION = { title, paras:[…] }`, the Mission intro copy (raw HTML; gloss links are auto-added at
+  render via `autoLinkGlossary` + `setupTooltips`). **Admins click the title or a paragraph on the page to edit it in
+  place** (Esc cancels, Ctrl+Enter/blur saves): edits overlay via `ADMIN_EDITS.mission` (merged at render by
+  `missionMerged()`, so undo/reload need no special handling) and bake back into this file through auto-save /
+  "Save to project" / `folioSave.files` (`serializeMission`).
 - `lakes.js`, `rivers.js`, `water.js`, `ranges.js`, `admin1.js`, `cities.js` — extra
   Natural-Earth layers for the Atlas globe (lakes, rivers, water-body labels, mountain ranges,
   admin-1 borders, city pins); built by the `.claude/build-*.js` dev scripts. (A Forests layer

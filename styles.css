@@ -1246,6 +1246,11 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
 .clog-day.open .clog-body{display:block;}
 .clog-body ul{margin:0; padding:0 0 0 18px;}
 .clog-body li{font-family:var(--serif); font-size:14px; line-height:1.6; color:var(--ink-soft); margin-bottom:7px;}
+/* admin: the Mission title/paragraphs are click-to-edit */
+.msn-editable{cursor:text; border-radius:6px;}
+.msn-editable:hover{outline:1px dashed color-mix(in srgb, var(--indigo) 45%, transparent); outline-offset:6px;}
+.msn-editing, .msn-editing:hover{outline:1px solid var(--indigo); outline-offset:6px; background:color-mix(in srgb, var(--indigo) 5%, transparent);}
+.msn-editing .ttip{all:unset;}
 
 /* ============================================================
    TIMELINE GAME (chronological ordering)
