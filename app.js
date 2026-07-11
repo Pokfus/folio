@@ -5829,6 +5829,70 @@
   }
 
   /* ============================================================
+     PAGE: MISSION (about — spaced repetition, credits, changelog)
+     ============================================================ */
+  PAGES.mission = function (root) {
+    const fmtDay = (e) => e.label || new Date(e.d + "T12:00:00").toLocaleDateString(undefined, { day: "numeric", month: "long", year: "numeric" });
+    const chev = '<span class="clog-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>';
+    const log = (window.CHANGELOG || []).slice().sort((a, b) => (a.d < b.d ? 1 : -1));
+    const logHTML = log.map((e, i) =>
+      '<div class="clog-day' + (i === 0 ? " open" : "") + '">' +
+        '<button class="clog-head" type="button" aria-expanded="' + (i === 0 ? "true" : "false") + '">' +
+          '<span class="clog-date">' + esc(fmtDay(e)) + '</span>' +
+          '<span class="clog-title">' + esc(e.t || "") + '</span>' + chev +
+        '</button>' +
+        '<div class="clog-body"><ul>' + (e.items || []).map((it) => "<li>" + esc(it) + "</li>").join("") + "</ul></div>" +
+      "</div>").join("");
+    root.innerHTML = `
+      <div class="page-head"><span class="eyebrow">About Folio</span><h1>Mission</h1></div>
+      <div class="mission">
+        <div class="msn-card">
+          <h2>Study history the way memory actually works</h2>
+          <div class="msn-prose">
+            <p>In 1885 Hermann Ebbinghaus measured how quickly we forget: sharply at first, then more slowly — the
+            <b>forgetting curve</b>. He also found its remedy. Review something just as it is about to slip away and the
+            curve flattens; each successful recall lets the next review wait longer. That is <b>spaced repetition</b>:
+            a new fact returns within minutes, then a day, then days, weeks and months — a handful of well-timed
+            encounters doing the work of a hundred re-readings.</p>
+            <p>The second ingredient is <b>active recall</b>. Retrieving a memory strengthens it far more than looking
+            at it again, which is why every card here poses its statement with the key term blanked out — you produce
+            the answer before you see it. Grading yourself honestly (<i>Again, Hard, Good, Easy</i>) is not a score;
+            it is the signal the scheduler uses to decide when you should meet that card again.</p>
+            <p>History is where this method earns its keep. Names, dates, places, and the order of events are exactly
+            the details that fade first — yet they are the scaffolding that lets the larger story mean anything. When
+            you know <i>when</i> the Zhou fell and <i>who</i> came after, every new thing you read clicks into place
+            instead of washing past. Folio keeps that scaffolding standing, and surrounds it with context: a glossary
+            behind every term, an atlas that shows the borders of the year you are studying, and daily games that make
+            you meet the same material from a different angle. Facts you encounter in several forms are facts you keep.</p>
+          </div>
+        </div>
+        <div class="msn-card">
+          <h2>Credits &amp; sources</h2>
+          <ul class="credits-list">
+            <li><a href="https://en.wikipedia.org" target="_blank" rel="noopener">Wikipedia</a> <span class="cr-lic">CC BY-SA 4.0</span> — research base for the cards, glossary definitions and country summaries.</li>
+            <li><a href="https://www.wikidata.org" target="_blank" rel="noopener">Wikidata</a> <span class="cr-lic">CC0</span> — country statistics (population, area, GDP).</li>
+            <li><a href="https://www.naturalearthdata.com" target="_blank" rel="noopener">Natural Earth</a> <span class="cr-lic">public domain</span> — coastlines, borders, lakes, rivers and cities on the globe.</li>
+            <li><a href="https://github.com/aourednik/historical-basemaps" target="_blank" rel="noopener">historical-basemaps</a> <span class="cr-lic">CC BY-SA 4.0</span> — the historical border eras on the Atlas timeline.</li>
+            <li><a href="https://registry.opendata.aws/terrain-tiles/" target="_blank" rel="noopener">Terrain Tiles on AWS</a> — terrain relief, from open elevation data by NASA (SRTM), USGS (GMTED2010), NOAA (ETOPO1) and the EU (EU-DEM), among others.</li>
+            <li><a href="https://github.com/rhasspy/piper" target="_blank" rel="noopener">Piper</a> <span class="cr-lic">MIT</span> — the card narration voice, trained on <a href="https://www.openslr.org/141/" target="_blank" rel="noopener">LibriTTS-R</a> <span class="cr-lic">CC BY 4.0</span>.</li>
+            <li><a href="https://fonts.google.com" target="_blank" rel="noopener">Google Fonts</a> <span class="cr-lic">OFL / Apache</span> — Fraunces, Newsreader, Inter, IBM Plex Mono, Noto Sans SC and the theme faces.</li>
+            <li>Accounts &amp; sync run on <a href="https://supabase.com" target="_blank" rel="noopener">Supabase</a>; hosting by <a href="https://pages.cloudflare.com" target="_blank" rel="noopener">Cloudflare Pages</a>.</li>
+            <li class="cr-note">Folio itself is built by hand in plain HTML, CSS and JavaScript — no frameworks, no build step.</li>
+          </ul>
+        </div>
+        <div class="msn-card">
+          <h2>Changelog</h2>
+          <div class="clog">${logHTML}</div>
+        </div>
+      </div>`;
+    root.querySelectorAll(".clog-head").forEach((b) => b.addEventListener("click", () => {
+      const day = b.closest(".clog-day");
+      const open = day.classList.toggle("open");
+      b.setAttribute("aria-expanded", open ? "true" : "false");
+    }));
+  };
+
+  /* ============================================================
      PAGE: SETTINGS
      ============================================================ */
   PAGES.settings = function (root) {
@@ -7701,7 +7765,7 @@
   })();
 
   // initial route from hash
-  const valid = ["home", "decks", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "admin"];
+  const valid = ["home", "decks", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "admin", "mission"];
   const h = (location.hash || "").replace("#", "");
   let initName = valid.includes(h) ? h : "home";
   if (initName === "admin" && !isAdmin()) initName = "home";

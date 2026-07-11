@@ -1221,6 +1221,31 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
 .ctx-menu{position:fixed; z-index:9500; min-width:136px; background:var(--card); border:1px solid var(--rule); border-radius:10px; box-shadow:var(--shadow-lg); padding:5px; display:flex; flex-direction:column; gap:1px;}
 .ctx-menu button{appearance:none; border:none; background:transparent; text-align:left; font-family:var(--sans); font-size:13px; color:var(--ink); padding:7px 11px; border-radius:7px; cursor:pointer;}
 .ctx-menu button:hover{background:var(--paper-2);}
+/* ---------- Mission page (about: spaced repetition, credits, changelog) ---------- */
+.mission{display:flex; flex-direction:column; gap:18px; max-width:760px;}
+.msn-card{background:var(--card); border:1px solid var(--rule); border-radius:14px; padding:26px 30px; box-shadow:var(--shadow-sm);}
+.msn-card h2{font-family:var(--display); font-weight:600; font-size:21px; letter-spacing:-.01em; margin:0 0 14px; color:var(--ink);}
+.msn-prose p{font-family:var(--serif); font-size:15.5px; line-height:1.72; color:var(--ink-soft); margin:0 0 13px;}
+.msn-prose p:last-child{margin-bottom:0;}
+.msn-prose b{color:var(--ink); font-weight:600;}
+.credits-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:9px;}
+.credits-list li{font-family:var(--serif); font-size:14px; line-height:1.55; color:var(--ink-soft); padding-left:18px; position:relative;}
+.credits-list li::before{content:"—"; position:absolute; left:0; color:var(--ink-faint);}
+.credits-list a{color:var(--indigo); text-decoration:none; border-bottom:1px solid color-mix(in srgb, var(--indigo) 35%, transparent);}
+.credits-list a:hover{border-bottom-color:var(--indigo);}
+.cr-lic{font-family:var(--mono); font-size:10px; letter-spacing:.06em; color:var(--ink-faint); border:1px solid var(--rule); border-radius:5px; padding:1px 6px; white-space:nowrap; vertical-align:1px;}
+.cr-note{color:var(--ink-faint); font-style:italic;}
+.clog{display:flex; flex-direction:column; gap:8px;}
+.clog-head{appearance:none; width:100%; display:flex; align-items:baseline; gap:12px; background:none; border:0; padding:10px 2px; cursor:pointer; font:inherit; color:inherit; text-align:left; border-bottom:1px solid var(--rule);}
+.clog-date{font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--indigo); font-weight:600; white-space:nowrap;}
+.clog-title{flex:1; font-family:var(--display); font-weight:600; font-size:15px; color:var(--ink);}
+.clog-chev{color:var(--ink-faint); align-self:center;}
+.clog-chev svg{width:14px; height:14px; display:block; transition:transform .18s var(--ease);}
+.clog-day.open .clog-chev svg{transform:rotate(180deg);}
+.clog-body{display:none; padding:10px 2px 6px;}
+.clog-day.open .clog-body{display:block;}
+.clog-body ul{margin:0; padding:0 0 0 18px;}
+.clog-body li{font-family:var(--serif); font-size:14px; line-height:1.6; color:var(--ink-soft); margin-bottom:7px;}
 
 /* ============================================================
    TIMELINE GAME (chronological ordering)

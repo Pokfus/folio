@@ -16,6 +16,9 @@ It is a plain static website — open `index.html` and it runs.
   matters. If unsure about a fact, say so; don't invent dates, names, or definitions.
 - **Be honest about scope and tradeoffs.** Flag limitations and judgment calls plainly rather than
   papering over them.
+- **Keep the changelog current.** Whenever a user-requested change ships to the live site (committed/pushed),
+  append a one-line plain-English summary to TODAY's entry in `changelog.js` (create the day if missing; newest
+  day first). Reader-facing wording — what changed for the user, not how. The Mission page renders it.
 
 ## File map
 
@@ -71,6 +74,9 @@ ranges.js → admin1.js → cities.js → timeline.js → countries.js → count
   well-documented quotations by distinct historical figures; `who` = the speaker, `context` = a 2-sentence explanation shown on
   reveal). **Adversarially fact-checked** for correct attribution (quote misattribution is rampant). The 4 answer options are the
   correct speaker + 3 other `who` names from the pool (all real people → plausible). Loaded before app.js (after `truefalse.js`).
+- `changelog.js` — `window.CHANGELOG = [ { d:"YYYY-MM-DD", label?, t, items:[…] } ]`, the day-grouped release notes
+  rendered as the **Mission** page's collapsible changelog (`PAGES.mission` — nav tab left of Account; also holds the
+  spaced-repetition explainer + the credits/licenses list). See the golden rule: append to today's entry on every ship.
 - `lakes.js`, `rivers.js`, `water.js`, `ranges.js`, `admin1.js`, `cities.js` — extra
   Natural-Earth layers for the Atlas globe (lakes, rivers, water-body labels, mountain ranges,
   admin-1 borders, city pins); built by the `.claude/build-*.js` dev scripts. (A Forests layer
