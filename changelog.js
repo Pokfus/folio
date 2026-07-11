@@ -21,6 +21,7 @@ window.CHANGELOG = [
       "Completed game tiles now show your score for the day (e.g. “4/5 correct!”), light mode lost the dark corner on coloured tiles, and the Daily-review button moved to the bottom-right so the level bar runs the full width.",
       "The Daily review now sits above the minigame tiles, sharing one grid, and the Mission intro gained a read-aloud button — silent until you click it.",
       "This changelog became a true day-by-day record back to June 24th, its dates now always in English, and the review banner got a neutral left bar with its button on the stats line.",
+      "Eleven new cards in the Western Zhou deck.",
     ],
   },
   {
