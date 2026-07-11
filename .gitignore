@@ -1,0 +1,8 @@
+# OS junk
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# just in case tooling ever gets installed locally — the site itself has zero dependencies
+node_modules/
+*.log

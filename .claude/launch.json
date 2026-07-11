@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "folio-static",
+      "runtimeExecutable": "C:\\Program Files\\nodejs\\node.exe",
+      "runtimeArgs": [".claude/phone-preview.js"],
+      "port": 5599,
+      "autoPort": true
+    }
+  ]
+}
