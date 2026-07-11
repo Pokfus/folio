@@ -18,6 +18,7 @@ window.CHANGELOG = [
       "Card backgrounds now play their recorded narration too (a mismatch had them falling back to the robotic device voice), and Settings gained a Narrator picker: American or British English, male or female.",
       "New accounts now start with five new cards per day instead of three (adjustable in Settings as before).",
       "The minigame tiles now earn their colour: quiet with just a coloured edge until you play, filling with colour once completed, and turning gold for a perfect score.",
+      "Completed game tiles now show your score for the day (e.g. “4/5 correct!”), light mode lost the dark corner on coloured tiles, and the Daily-review button moved to the bottom-left so the level bar runs the full width.",
     ],
   },
   {

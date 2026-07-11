@@ -753,13 +753,17 @@
   // daily minigame results — each of the 4 home games records a per-day { played, won } so the tile shows a
   // checkmark once played today and the "Clean Sweep" badge unlocks when all four are won on the same day.
   const DAILY_GAMES = ["challenge", "chrono", "truefalse", "whosaid"];
-  function markGamePlayed(key, won) {
+  function markGamePlayed(key, won, score, total) {
     if (!S.games) S.games = {};
     const t = todayStr();
     let g = S.games[key];
     if (!g || g.date !== t) g = { date: t, played: false, won: false };
     g.played = true;
     if (won) g.won = true;
+    if (typeof score === "number" && typeof total === "number") {   // remember today's BEST score (games can be replayed) — shown on the home tile
+      if (!(typeof g.s === "number" && g.s >= score)) g.s = score;
+      g.n = total;
+    }
     S.games[key] = g;
   }
   function gamePlayedToday(key) { const g = S.games && S.games[key]; return !!(g && g.date === todayStr() && g.played); }
@@ -2541,11 +2545,17 @@
       </button>`;
     const blankTile = (g, color) =>
       `<div class="game-tile blank" style="--tile:${color}"><span class="gt-glyph${/^\s*<svg/.test(g) ? " gt-glyph-svg" : ""}">${g}</span><div class="gt-body"><span class="gt-eyebrow">Coming soon</span><span class="gt-title">—</span></div></div>`;
+    // once a game is played, its tagline becomes today's (best) score
+    const gameSub = (key, fallback, wording) => {
+      const g = S.games && S.games[key];
+      if (g && g.date === todayStr() && g.played && typeof g.s === "number" && typeof g.n === "number") return g.s + "/" + g.n + " " + (wording || "correct!");
+      return fallback;
+    };
     const gameGrid = `<div class="game-grid">
-      ${tile({ id: "g-challenge", cls: "g-challenge", color: "#D9544C", glyph: ICON.choices, title: "Multiple Choice", sub: "Pick the answer · 5 rounds", done: playedChallengeToday, won: wonToday.challenge })}
-      ${tile({ id: "g-chrono", cls: "g-chrono", color: "#4F74C2", glyph: ICON.timeline, title: "Timeline", sub: "Put the events in order", done: playedChronoToday, won: wonToday.chrono })}
-      ${tile({ id: "g-truefalse", cls: "g-truefalse", color: "#4F9D67", glyph: ICON.truefalse, title: "True or False", sub: "Myth or fact? 5 rounds", done: playedTrueFalseToday, won: wonToday.truefalse })}
-      ${tile({ id: "g-whosaid", cls: "g-whosaid", color: "#8257C2", glyph: ICON.whosaid, title: "Who said it?", sub: "Guess the speaker · 5 rounds", done: playedWhoSaidToday, won: wonToday.whosaid })}
+      ${tile({ id: "g-challenge", cls: "g-challenge", color: "#D9544C", glyph: ICON.choices, title: "Multiple Choice", sub: gameSub("challenge", "Pick the answer · 5 rounds"), done: playedChallengeToday, won: wonToday.challenge })}
+      ${tile({ id: "g-chrono", cls: "g-chrono", color: "#4F74C2", glyph: ICON.timeline, title: "Timeline", sub: gameSub("chrono", "Put the events in order", "in order!"), done: playedChronoToday, won: wonToday.chrono })}
+      ${tile({ id: "g-truefalse", cls: "g-truefalse", color: "#4F9D67", glyph: ICON.truefalse, title: "True or False", sub: gameSub("truefalse", "Myth or fact? 5 rounds"), done: playedTrueFalseToday, won: wonToday.truefalse })}
+      ${tile({ id: "g-whosaid", cls: "g-whosaid", color: "#8257C2", glyph: ICON.whosaid, title: "Who said it?", sub: gameSub("whosaid", "Guess the speaker · 5 rounds"), done: playedWhoSaidToday, won: wonToday.whosaid })}
       ${blankTile(ICON.help, "#DB8B3A")}
       ${blankTile(ICON.help, "#2BA6A0")}
     </div>`;
@@ -2575,10 +2585,10 @@
               <div class="stat"><b>${newN}</b><span>New</span></div>
               <div class="stat"><b>${Object.keys(S.cards).length}</b><span>Seen total</span></div>
             </div>
-          </div>
-          <span class="cta"><span class="btn ${dueN + newN ? "" : "ghost"}">${
+            <span class="cta"><span class="btn ${dueN + newN ? "" : "ghost"}">${
       dueN + newN ? "Start review" : "Browse collections"
     }</span></span>
+          </div>
           <span class="glyph glyph-svg">${ICON.review}</span>
         </button>
         <button class="review-order" id="reviewOrder" type="button" title="Order your daily review by date, or shuffle it"><span class="${S.settings.reviewRandom ? "" : "on"}">Chrono</span><span class="${S.settings.reviewRandom ? "on" : ""}">Random</span></button>
@@ -3509,7 +3519,7 @@
       S.daily.best = Math.max(S.daily.best || 0, score);
       S.daily.lastPlayed = now();
       if (won && S.daily.winDate !== todayStr()) { S.daily.wins = (S.daily.wins || 0) + 1; S.daily.winDate = todayStr(); }   // count at most one win per day (revives Victor/Champion; "win 10 daily challenges" = 10 distinct days, not farmable by replaying)
-      markGamePlayed("challenge", won);
+      markGamePlayed("challenge", won, score, Q.length);
       save();
       checkAchievements();
       const msg = score === Q.length ? "Perfect run — every one right." : score >= Q.length - 1 ? "Sharp — nearly flawless." : score >= Math.ceil(Q.length / 2) ? "Solid effort." : "Keep studying — try again.";
@@ -3577,7 +3587,7 @@
       rev.querySelector("#tf-next").addEventListener("click", () => { r++; (r < ROUNDS) ? renderRound() : renderEnd(); });
     }
     function renderEnd() {
-      markGamePlayed("truefalse", score === ROUNDS); save(); checkAchievements();
+      markGamePlayed("truefalse", score === ROUNDS, score, ROUNDS); save(); checkAchievements();
       const msg = score === 5 ? "Flawless — a true myth-buster." : score >= 4 ? "Excellent — you know your history." : score >= 3 ? "Solid effort." : score >= 2 ? "Plenty of myths still got you." : "History is full of surprises — try again.";
       root.innerHTML = `
         <div class="dc-shell">
@@ -3657,7 +3667,7 @@
       rev.querySelector("#ws-next").addEventListener("click", () => { r++; (r < ROUNDS) ? renderRound() : renderEnd(); });
     }
     function renderEnd() {
-      markGamePlayed("whosaid", score === ROUNDS); save(); checkAchievements();
+      markGamePlayed("whosaid", score === ROUNDS, score, ROUNDS); save(); checkAchievements();
       const msg = score === ROUNDS ? "Flawless — you know your history." : score >= ROUNDS - 1 ? "Excellent." : score >= Math.ceil(ROUNDS / 2) ? "Solid effort." : "History is full of voices — try again.";
       root.innerHTML = `
         <div class="dc-shell">
@@ -3840,7 +3850,7 @@
       S.chrono.plays++;
       S.chrono.best = Math.max(S.chrono.best, score);
       S.chrono.solved = S.chrono.solved || solved;
-      markGamePlayed("chrono", solved);
+      markGamePlayed("chrono", solved, score, N);
       save();
       checkAchievements();
       const res = root.querySelector("#chrono-result");

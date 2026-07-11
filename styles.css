@@ -263,7 +263,7 @@ body.night .banner .lb-num, body.night .collection-row .lb-num{color:#E6C765;}  
 .banner .stat{display:flex; flex-direction:column; gap:2px;}
 .banner .stat b{font-family:var(--display); font-weight:600; font-size:21px; line-height:1; color:var(--indigo);}
 .banner .stat span{font-family:var(--mono); font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint);}
-.banner .cta{flex:none;}
+.banner .cta{display:block; margin-top:16px;}   /* lives at the bottom-left of the banner body — the xp bar above it runs the full width */
 .banner .glyph{
   position:absolute; right:-10px; bottom:-26px; font-family:var(--han); font-weight:700;
   font-size:150px; line-height:1; color:var(--indigo); opacity:.05; pointer-events:none; user-select:none;
@@ -1185,6 +1185,10 @@ button.game-tile.done:not(.won){
 button.game-tile.done:not(.won) .gt-glyph{color:#000; opacity:.16;}
 button.game-tile.done:not(.won) .gt-title{color:#fff;}
 button.game-tile.done:not(.won) .gt-sub{color:rgba(255,255,255,.78);}
+/* light mode: the completed tile keeps its bright fill but skips the darkened far corner */
+body:not(.night) button.game-tile.done:not(.won){
+  background:linear-gradient(150deg, color-mix(in srgb, #fff 26%, var(--tile, var(--indigo))) 0%, var(--tile, var(--indigo)) 65%);
+}
 button.game-tile.won{
   border-color:#A8842B; border-left-color:#8C6A1D;
   background-image:
@@ -1315,7 +1319,7 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
   .page-head{text-align:center;}
   .page-head p{margin-left:auto; margin-right:auto;}
   .banner{flex-direction:column; align-items:flex-start; gap:16px; padding:22px 20px;}
-  .banner .cta{width:100%;} .banner .cta .btn{width:100%;}
+  /* the CTA sits bottom-left inside the body on mobile too (natural width, not full-bleed) */
   .study-card{padding:22px 18px 20px;}
   .study-card .num{font-size:26px;}
   .answer{flex-direction:column; align-items:stretch; gap:0;}
@@ -2066,7 +2070,7 @@ body:not([data-theme="folio"]) .game-tile::before{
   -webkit-mask:linear-gradient(to left, #000 50%, transparent 94%); mask:linear-gradient(to left, #000 50%, transparent 94%);
 }
 body:not([data-theme="folio"]) .banner > .body,
-body:not([data-theme="folio"]) .banner > .cta{ position:relative; z-index:1; }
+body:not([data-theme="folio"]) .banner .cta{ position:relative; z-index:1; }
 body:not([data-theme="folio"]) .game-tile > .gt-body{ position:relative; z-index:2; }
 body:not([data-theme="folio"]) .game-tile > .gt-glyph{ z-index:1; }
 
