@@ -9,3 +9,6 @@ node_modules/
 
 # Claude Code machine-local settings
 .claude/settings.local.json
+
+# build-time TTS toolchain + voice models (fetched by .claude/build-tts.js; ~150 MB, never shipped)
+.claude/tts-cache/

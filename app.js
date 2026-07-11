@@ -2163,8 +2163,21 @@
     const male = /(kangkang|yunyang|yunxi|yunjian|yunye|\bmale\b|男)/i;
     return ttsPickVoice(vs, female, male, /^zh-CN/i);
   }
+  // Baked narration (neural TTS rendered at build time by .claude/build-tts.js into audio/cards/): when a card
+  // section has a baked MP3 whose text still matches the card, it plays instead of the device's speech engine —
+  // same warm male voice on every device. Missing/stale files fall back to the Web Speech engine per part.
+  let TTS_BAKED = null;   // manifest.json: { files: { "<cardId>": { q|a|bg: { h: <hashStr(text)>, b: bytes } } } }
+  try { fetch("audio/cards/manifest.json").then((r) => (r.ok ? r.json() : null)).then((m) => { TTS_BAKED = m; }).catch(() => {}); } catch (e) {}   // file:// or not baked → stays null
+  function bakedUrl(cardId, sec, text) {
+    if (!TTS_BAKED || !TTS_BAKED.files || !cardId) return null;
+    const f = TTS_BAKED.files[cardId];
+    if (!f || !f[sec] || f[sec].h !== hashStr(text)) return null;   // card text edited since the bake → speak it instead
+    return "audio/cards/" + cardId + "-" + sec + ".mp3";
+  }
+  let _ttsAudio = null;   // the <audio> playing a baked file (null while the speech engine is talking)
   function ttsStop() {
     _ttsSeq++;
+    if (_ttsAudio) { try { _ttsAudio.onended = _ttsAudio.onerror = null; _ttsAudio.pause(); } catch (e) {} _ttsAudio = null; }
     if (ttsSupported()) try { speechSynthesis.cancel(); } catch (e) {}
     document.querySelectorAll(".tts-playing").forEach((b) => b.classList.remove("tts-playing"));
   }
@@ -2180,31 +2193,52 @@
     if (cur) out.push(cur);
     return out;
   }
-  // speak parts in order: [{ text, zh, btn }] — btn (if given) gets .tts-playing while its part reads.
+  // speak parts in order: [{ text, zh, btn, baked }] — btn (if given) gets .tts-playing while its part reads;
+  // baked = URL of a pre-rendered MP3 (plays instead of the engine; ANY failure falls back to speaking the text).
   // Replaces whatever is currently reading. delayMs = silence before the first word (the gloss popup's half-second pause).
   function ttsSay(parts, delayMs) {
-    if (!ttsSupported()) return;
+    const list = (Array.isArray(parts) ? parts : [parts]).filter((p) => p && (((p.text || "").trim()) || p.baked));
+    if (!list.length) return;
+    if (!ttsSupported() && !list.some((p) => p.baked)) return;   // no engine and nothing baked → nothing can play
     ttsStop();
     const gen = _ttsSeq;
-    const go = () => {
-      if (gen !== _ttsSeq) return;   // superseded while waiting
-      (Array.isArray(parts) ? parts : [parts]).forEach((p) => {
-        const text = ((p && p.text) || "").trim();
-        if (!text) return;
-        const chunks = p.zh ? [text] : ttsChunks(text);
-        chunks.forEach((chunk, i) => {
-          const u = new SpeechSynthesisUtterance(chunk);
-          if (p.zh) { u.lang = "zh-CN"; u.rate = TTS_RATE_ZH; const v = ttsVoiceZh(); if (v) u.voice = v; }
-          else { u.lang = "en-US"; u.rate = TTS_RATE_EN; u.pitch = 0.9; const v = ttsVoiceEn(); if (v) u.voice = v; }
-          if (p.btn) {
-            if (i === 0) u.onstart = () => p.btn.classList.add("tts-playing");
-            if (i === chunks.length - 1) { const done = () => p.btn.classList.remove("tts-playing"); u.onend = done; u.onerror = done; }
-          }
-          try { speechSynthesis.speak(u); } catch (e) {}
-        });
-      });
-    };
-    setTimeout(go, Math.max(60, delayMs || 0));   // ≥60ms: Chrome can swallow a speak() issued synchronously after cancel()
+    let i = 0;
+    const next = () => { if (gen !== _ttsSeq) return; const p = list[i++]; if (p) runTTSPart(p, gen, next); };
+    setTimeout(next, Math.max(60, delayMs || 0));   // ≥60ms: Chrome can swallow a speak() issued synchronously after cancel()
+  }
+  function runTTSPart(p, gen, done) {
+    if (p.baked) {
+      const a = new Audio(p.baked);
+      _ttsAudio = a;
+      if (p.btn) p.btn.classList.add("tts-playing");
+      let settled = false;   // onerror + play().catch can BOTH fire for one failure — fall back once
+      const clear = () => { if (p.btn) p.btn.classList.remove("tts-playing"); if (_ttsAudio === a) _ttsAudio = null; };
+      const finish = () => { if (settled) return; settled = true; clear(); if (gen === _ttsSeq) done(); };
+      const fallback = () => { if (settled) return; settled = true; clear(); if (gen === _ttsSeq) speakTTSPart(p, gen, done); };   // missing file / autoplay blocked → engine
+      a.onended = finish;
+      a.onerror = fallback;
+      const pr = a.play();
+      if (pr && pr.catch) pr.catch(fallback);
+      return;
+    }
+    speakTTSPart(p, gen, done);
+  }
+  function speakTTSPart(p, gen, done) {
+    if (!ttsSupported()) { done(); return; }
+    const text = ((p && p.text) || "").trim();
+    if (!text) { done(); return; }
+    const chunks = p.zh ? [text] : ttsChunks(text);
+    chunks.forEach((chunk, i) => {
+      const u = new SpeechSynthesisUtterance(chunk);
+      if (p.zh) { u.lang = "zh-CN"; u.rate = TTS_RATE_ZH; const v = ttsVoiceZh(); if (v) u.voice = v; }
+      else { u.lang = "en-US"; u.rate = TTS_RATE_EN; u.pitch = 0.9; const v = ttsVoiceEn(); if (v) u.voice = v; }
+      if (p.btn && i === 0) u.onstart = () => p.btn.classList.add("tts-playing");
+      if (i === chunks.length - 1) {
+        const fin = () => { if (p.btn) p.btn.classList.remove("tts-playing"); if (gen === _ttsSeq) done(); };
+        u.onend = fin; u.onerror = fin;
+      }
+      try { speechSynthesis.speak(u); } catch (e) {}
+    });
   }
   // an explicit play-button press: respects the master toggle + mute (with a hint instead of silence)
   function ttsPlayClick(parts, btn) {
@@ -2216,16 +2250,20 @@
   }
   function ttsStrip(html) { const d = document.createElement("div"); d.innerHTML = html || ""; return (d.textContent || "").replace(/\s+/g, " ").trim(); }
   function ttsQuestionText(c) { return ttsStrip(String((c && c.question) || "").replace(/<span class="blank"[^>]*>[\s\S]*?<\/span>/g, " blank ")); }   // the cloze ____ is read as "blank"
-  // the parts a section play-button reads (container = where the rendered .abstract lives, for the background)
+  // the parts a section play-button reads (container = where the rendered .abstract lives, for the background).
+  // Each English part carries its baked-MP3 URL when a fresh one exists (bakedUrl hash-checks the text).
   function ttsPartsFor(kind, c, container) {
-    if (kind === "question") return [{ text: ttsQuestionText(c) }];
+    const id = c && c.id;
+    if (kind === "question") { const t = ttsQuestionText(c); return [{ text: t, baked: bakedUrl(id, "q", t) }]; }
     if (kind === "answer") {
-      const parts = [{ text: ttsStrip((c && (c.answerText || c.answer)) || "") }];
-      if (c && c.hanzi) parts.push({ text: c.hanzi, zh: true });
+      const t = ttsStrip((c && (c.answerText || c.answer)) || "");
+      const parts = [{ text: t, baked: bakedUrl(id, "a", t) }];
+      if (c && c.hanzi) parts.push({ text: c.hanzi, zh: true });   // Chinese stays on the device voice (no commercially-safe zh Piper voice)
       return parts;
     }
     const abs = container && container.querySelector(".abstract");
-    return [{ text: abs ? (abs.textContent || "").replace(/\s+/g, " ").trim() : ttsStrip(c && c.abstract) }];
+    const t = abs ? (abs.textContent || "").replace(/\s+/g, " ").trim() : ttsStrip(c && c.abstract);
+    return [{ text: t, baked: bakedUrl(id, "bg", t) }];
   }
   const TTS_PLAY_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="7 4 19 12 7 20"/></svg>';
   // tiny play control behind a section title; span=true renders a role=button span (for inside the .bg-head <button>)
