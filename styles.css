@@ -244,7 +244,7 @@ body.night .banner .lb-num, body.night .collection-row .lb-num{color:#E6C765;}  
 /* ============================================================
    HOME — banners
    ============================================================ */
-.banners{display:flex; flex-direction:column; gap:18px;}
+.banners{display:flex; flex-direction:column; gap:14px;}   /* matches .game-grid's tile gap, so the review banner + tiles read as one grid */
 .banner{
   position:relative; overflow:hidden; cursor:pointer; text-align:left;
   background:var(--card); border:1px solid var(--rule); border-radius:14px;
@@ -263,7 +263,7 @@ body.night .banner .lb-num, body.night .collection-row .lb-num{color:#E6C765;}  
 .banner .stat{display:flex; flex-direction:column; gap:2px;}
 .banner .stat b{font-family:var(--display); font-weight:600; font-size:21px; line-height:1; color:var(--indigo);}
 .banner .stat span{font-family:var(--mono); font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint);}
-.banner .cta{display:block; margin-top:16px;}   /* lives at the bottom-left of the banner body — the xp bar above it runs the full width */
+.banner .cta{display:flex; justify-content:flex-end; margin-top:16px;}   /* bottom-RIGHT of the banner body (desktop + mobile) — the xp bar above it runs the full width */
 .banner .glyph{
   position:absolute; right:-10px; bottom:-26px; font-family:var(--han); font-weight:700;
   font-size:150px; line-height:1; color:var(--indigo); opacity:.05; pointer-events:none; user-select:none;
@@ -1319,7 +1319,7 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
   .page-head{text-align:center;}
   .page-head p{margin-left:auto; margin-right:auto;}
   .banner{flex-direction:column; align-items:flex-start; gap:16px; padding:22px 20px;}
-  /* the CTA sits bottom-left inside the body on mobile too (natural width, not full-bleed) */
+  .banner .body{width:100%;}   /* column + align-items:flex-start shrinks children — stretch the body so the CTA's right-alignment reaches the banner edge */
   .study-card{padding:22px 18px 20px;}
   .study-card .num{font-size:26px;}
   .answer{flex-direction:column; align-items:stretch; gap:0;}

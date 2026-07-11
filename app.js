@@ -2592,8 +2592,6 @@
         <button class="review-order" id="reviewOrder" type="button" title="Order your daily review by date, or shuffle it"><span class="${S.settings.reviewRandom ? "" : "on"}">Chrono</span><span class="${S.settings.reviewRandom ? "on" : ""}">Random</span></button>
         <div class="active-decks">${activeHTML}</div>
         </div>
-
-        <div class="section-label">Minigames</div>
         ${gameGrid}
       </div>`;
 
