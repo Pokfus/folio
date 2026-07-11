@@ -717,7 +717,7 @@
   function defaultState() {
     return {
       user: { name: "Scholar", joined: Date.now() },
-      settings: { night: false, theme: "folio", newPerDay: 3, bgCollapsed: false, trCollapsed: true, adminMode: true, reviewRandom: false, lang: "en", tts: true, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 } },
+      settings: { night: false, theme: "folio", newPerDay: 5, bgCollapsed: false, trCollapsed: true, adminMode: true, reviewRandom: false, lang: "en", tts: true, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 } },
       cards: {}, // id -> {reps,lapses,ease,interval,due,status,last}
       suspended: {}, // id -> true (card set aside; never shown again)
       daily: { lastPlayed: 0, best: 0, games: 0, wins: 0, podiums: 0 },
