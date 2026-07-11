@@ -1167,19 +1167,24 @@ button.game-tile:active{transform:translateY(0) scale(.99);}
 .game-tile.blank .gt-title{color:var(--ink-faint);}
 .game-tile.blank .gt-glyph{opacity:.16;}
 /* ---------- game-tile daily states ----------
-   Default (not yet played today): the tile is FILLED with its theme colour — same gradient geometry as the card look,
-   but the far corner DARKENS (black mix) instead of tinting, and the corner icon darkens instead of lighting.
-   .done (played today): opts back into the regular card look above, plus the green .gt-done check.
-   .won (perfect score today): shining gold — a soft white shine band sweeps across a gold fill; icon + gradient darken.
-   (Blank "coming soon" tiles are divs, not buttons, so they keep the muted card look.) */
+   Default (not yet played today): mostly colourless, like the "coming soon" tiles — plain card background, the
+   theme colour only in the left bar, a faint corner icon. Playing the game EARNS the colour:
+   .done (played today): the tile FILLS with its theme colour (bright top-left → darkened far corner, dark icon,
+   white text) plus the green .gt-done check.
+   .won (perfect score today): shining gold — a soft white shine band sweeps across a gold fill; icon + text darken. */
 button.game-tile:not(.done):not(.won){
+  background:var(--card);
+  box-shadow:var(--shadow-sm);
+}
+button.game-tile:not(.done):not(.won) .gt-glyph{opacity:.09;}
+button.game-tile.done:not(.won){
   background:linear-gradient(150deg, color-mix(in srgb, #fff 26%, var(--tile, var(--indigo))) 0%, var(--tile, var(--indigo)) 40%, color-mix(in srgb, #000 48%, var(--tile, var(--indigo))) 100%);
   border-color:color-mix(in srgb, #000 18%, var(--tile, var(--indigo)));
   border-left-color:color-mix(in srgb, #000 34%, var(--tile, var(--indigo)));
 }
-button.game-tile:not(.done):not(.won) .gt-glyph{color:#000; opacity:.16;}
-button.game-tile:not(.done):not(.won) .gt-title{color:#fff;}
-button.game-tile:not(.done):not(.won) .gt-sub{color:rgba(255,255,255,.78);}
+button.game-tile.done:not(.won) .gt-glyph{color:#000; opacity:.16;}
+button.game-tile.done:not(.won) .gt-title{color:#fff;}
+button.game-tile.done:not(.won) .gt-sub{color:rgba(255,255,255,.78);}
 button.game-tile.won{
   border-color:#A8842B; border-left-color:#8C6A1D;
   background-image:

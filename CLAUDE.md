@@ -253,11 +253,12 @@ ranges.js → admin1.js → cities.js → timeline.js → countries.js → count
   **Who said it?** (`whosaid`, from `quotes.js`). `BOTS`/`drawRace`/podium are now dead code.
   Each of the 4 games records a per-day result in `S.games[key] = { date, played, won }` (`markGamePlayed(key, won)` at each
   game's end; `won` = a perfect run, or `solved` for Timeline). The home tile has **three daily states** (state classes set by
-  `tile()`): **unplayed** = the tile is FILLED with its theme colour (`button.game-tile:not(.done):not(.won)` — same gradient
-  geometry but the far corner + top-right icon DARKEN, white text); **played today** (`done`, via `gamePlayedToday` — challenge/
-  chrono still also derive it from `S.daily.lastPlayed` / `S.chrono.date`) = reverts to the muted card look + the green
-  **✓ checkmark**; **perfect score today** (`won`, via `gameWonToday`) = a **shining gold** tile (`gt-gold-shine` sweeps a white
-  band across the gold via animated `background-position`; icon/text darken; check stays). The **"Clean Sweep" achievement**
+  `tile()`) — playing EARNS the colour: **unplayed** = mostly colourless like the "coming soon" tiles (plain card background,
+  theme colour only in the left bar, faint corner icon — `button.game-tile:not(.done):not(.won)`); **played today** (`done`, via
+  `gamePlayedToday` — challenge/chrono still also derive it from `S.daily.lastPlayed` / `S.chrono.date`) = the tile FILLS with
+  its theme colour (bright top-left → darkened far corner, dark icon, white text) + the green **✓ checkmark**; **perfect score
+  today** (`won`, via `gameWonToday`) = a **shining gold** tile (`gt-gold-shine` sweeps a white band across the gold via
+  animated `background-position`; icon/text darken; check stays). The **"Clean Sweep" achievement**
   (`sweep`, 🎯) unlocks when **all four are `won` on the same day**
   (`allGamesWonToday` → `progStats().dailySweep`). A perfect Multiple-choices run also increments `S.daily.wins`, which **revived
   the previously-dead `win1`/`win10` (Victor/Champion) badges** (`wins` was never written after the bot race was removed).

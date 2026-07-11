@@ -17,6 +17,7 @@ window.CHANGELOG = [
       "Three new Western Zhou cards: Feizi, the horse-breeder who founded the line of Qin; the state of Qin itself — from despised frontier fief to unifier of China; and King Yi the ninth king, who boiled Duke Ai of Qi alive.",
       "Card backgrounds now play their recorded narration too (a mismatch had them falling back to the robotic device voice), and Settings gained a Narrator picker: American or British English, male or female.",
       "New accounts now start with five new cards per day instead of three (adjustable in Settings as before).",
+      "The minigame tiles now earn their colour: quiet with just a coloured edge until you play, filling with colour once completed, and turning gold for a perfect score.",
     ],
   },
   {
