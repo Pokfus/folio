@@ -73,18 +73,8 @@ create table if not exists public.progress (
 
 alter table public.progress enable row level security;
 
-drop policy if exists "own progress read + friends" on public.progress;
-create policy "own progress read + friends"
-  on public.progress for select to authenticated
-  using (
-    user_id = auth.uid()
-    or exists (                       -- accepted friends may read (profile page shows a friend's badges/levels)
-      select 1 from public.friends f
-      where f.status = 'accepted'
-        and ((f.user_id = auth.uid() and f.friend_id = progress.user_id)
-          or (f.friend_id = auth.uid() and f.user_id  = progress.user_id))
-    )
-  );
+-- (the read policy for progress lives at the END of section 3 — it references the
+--  friends table, which must exist first)
 
 drop policy if exists "own progress write" on public.progress;
 create policy "own progress write"
@@ -147,6 +137,21 @@ drop policy if exists "either side removes" on public.friends;
 create policy "either side removes"
   on public.friends for delete to authenticated
   using (user_id = auth.uid() or friend_id = auth.uid());
+
+-- progress read policy — declared here (not in section 2) because it references
+-- public.friends, which has to exist before Postgres will accept the policy
+drop policy if exists "own progress read + friends" on public.progress;
+create policy "own progress read + friends"
+  on public.progress for select to authenticated
+  using (
+    user_id = auth.uid()
+    or exists (                       -- accepted friends may read (profile page shows a friend's badges/levels)
+      select 1 from public.friends f
+      where f.status = 'accepted'
+        and ((f.user_id = auth.uid() and f.friend_id = progress.user_id)
+          or (f.friend_id = auth.uid() and f.user_id  = progress.user_id))
+    )
+  );
 
 -- ----------------------------------------------------------------------------
 -- 4) SIGNUP TRIGGER — auto-create the profile + empty progress row when an
