@@ -2582,10 +2582,10 @@
               <div class="stat"><b>${dueN}</b><span>Due</span></div>
               <div class="stat"><b>${newN}</b><span>New</span></div>
               <div class="stat"><b>${Object.keys(S.cards).length}</b><span>Seen total</span></div>
-            </div>
-            <span class="cta"><span class="btn ${dueN + newN ? "" : "ghost"}">${
+              <span class="cta"><span class="btn ${dueN + newN ? "" : "ghost"}">${
       dueN + newN ? "Start review" : "Browse collections"
     }</span></span>
+            </div>
           </div>
           <span class="glyph glyph-svg">${ICON.review}</span>
         </button>
@@ -5862,7 +5862,7 @@
   }
   PAGES.mission = function (root) {
     const M = missionMerged();
-    const fmtDay = (e) => e.label || new Date(e.d + "T12:00:00").toLocaleDateString(undefined, { day: "numeric", month: "long", year: "numeric" });
+    const fmtDay = (e) => e.label || new Date(e.d + "T12:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });   // fixed English — the page isn't localised, so browser-locale dates (e.g. Dutch) looked out of place
     const chev = '<span class="clog-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>';
     const log = (window.CHANGELOG || []).slice().sort((a, b) => (a.d < b.d ? 1 : -1));
     const logHTML = log.map((e, i) =>

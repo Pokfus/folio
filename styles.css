@@ -253,17 +253,20 @@ body.night .banner .lb-num, body.night .collection-row .lb-num{color:#E6C765;}  
   display:flex; align-items:center; gap:24px;
 }
 .banner:hover{transform:translateY(-2px); box-shadow:var(--shadow-lg); border-color:color-mix(in srgb,var(--indigo) 30%, var(--rule));}
+/* a coloured left bar echoing the minigame tiles — neutral: black on light themes, white on dark */
+.banner, .banner:hover{border-left:4px solid #000;}
+body.night .banner, body.night .banner:hover{border-left-color:#fff;}
 .banner:active{transform:translateY(0) scale(.995);}
 .banner:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:3px;}
 .banner .body{flex:1; min-width:0;}
 .banner h2{font-family:var(--display); font-weight:600; font-size:25px; margin:7px 0 6px; letter-spacing:-.01em; color:var(--ink);}
 .banner h2.review-title{font-size:39px; margin:0 0 11px; line-height:1.0;}
 .banner .desc{color:var(--ink-soft); font-size:15px; margin:0; line-height:1.5;}
-.banner .meta{display:flex; gap:16px; margin-top:14px; flex-wrap:wrap;}
+.banner .meta{display:flex; gap:16px; margin-top:14px; flex-wrap:wrap; align-items:center;}
 .banner .stat{display:flex; flex-direction:column; gap:2px;}
 .banner .stat b{font-family:var(--display); font-weight:600; font-size:21px; line-height:1; color:var(--indigo);}
 .banner .stat span{font-family:var(--mono); font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint);}
-.banner .cta{display:flex; justify-content:flex-end; margin-top:16px;}   /* bottom-RIGHT of the banner body (desktop + mobile) — the xp bar above it runs the full width */
+.banner .cta{margin-left:auto;}   /* sits on the SAME line as the due/new/seen stats, pushed to the right edge (wraps below them on narrow screens) */
 .banner .glyph{
   position:absolute; right:-10px; bottom:-26px; font-family:var(--han); font-weight:700;
   font-size:150px; line-height:1; color:var(--indigo); opacity:.05; pointer-events:none; user-select:none;
