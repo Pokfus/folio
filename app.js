@@ -717,7 +717,7 @@
   function defaultState() {
     return {
       user: { name: "Scholar", joined: Date.now() },
-      settings: { night: false, theme: "folio", newPerDay: 5, bgCollapsed: false, trCollapsed: true, adminMode: true, reviewRandom: false, lang: "en", tts: true, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 } },
+      settings: { night: false, theme: "folio", newPerDay: 5, bgCollapsed: false, trCollapsed: true, adminMode: true, reviewRandom: false, lang: "en", tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 } },
       cards: {}, // id -> {reps,lapses,ease,interval,due,status,last}
       suspended: {}, // id -> true (card set aside; never shown again)
       daily: { lastPlayed: 0, best: 0, games: 0, wins: 0, podiums: 0 },
@@ -731,7 +731,7 @@
   }
   let S = load();
   if (S.settings && !S.settings.home) S.settings.home = { name: "Netherlands", lon: 5.32, lat: 52.1 };   // back-fill for saves made before Home location existed (settings are shallow-merged, so an older save's settings object lacks it)
-  if (S.settings && S.settings.tts === undefined) S.settings.tts = true;          // back-fill: TTS on by default for older saves
+  if (S.settings && S.settings.tts === undefined) S.settings.tts = false;         // back-fill: TTS is OFF by default (an explicit stored choice is kept)
   if (S.settings && S.settings.ttsMuted === undefined) S.settings.ttsMuted = false;
   if (S.settings && S.settings.ttsVoiceEn === undefined) S.settings.ttsVoiceEn = "";   // "" = auto-pick the best available voice
   if (S.settings && S.settings.ttsVoiceZh === undefined) S.settings.ttsVoiceZh = "";
