@@ -38,8 +38,10 @@ create table if not exists public.profiles (
   username text not null unique check (username ~ '^[a-z0-9_]{3,24}$'),
   name     text not null default 'Scholar',
   role     text not null default 'user' check (role in ('user','admin')),
+  avatar   text,               -- profile photo as a small data-URI (client resizes to 128px JPEG, ~6 KB)
   joined   timestamptz not null default now()
 );
+alter table public.profiles add column if not exists avatar text;   -- migration for databases created before avatars
 
 alter table public.profiles enable row level security;
 
@@ -52,9 +54,9 @@ create policy "own profile update"
   on public.profiles for update to authenticated
   using (id = auth.uid()) with check (id = auth.uid());
 
--- column-level guard: users may edit their username/name but NEVER their role
+-- column-level guard: users may edit their username/name/avatar but NEVER their role
 revoke update on table public.profiles from authenticated;
-grant  update (username, name) on table public.profiles to authenticated;
+grant  update (username, name, avatar) on table public.profiles to authenticated;
 
 -- (no insert policy: profiles are created by the auth trigger below)
 

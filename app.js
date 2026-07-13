@@ -968,9 +968,38 @@
   }
   async function supaLoadProfile() {
     if (!supaLoggedIn()) return null;
-    const r = await supaFetch("/rest/v1/profiles?id=eq." + SUPA.user.id + "&select=id,username,name,role,joined");
+    const r = await supaFetch("/rest/v1/profiles?id=eq." + SUPA.user.id + "&select=*");
     if (r.ok && Array.isArray(r.data) && r.data[0]) SUPA_PROFILE = r.data[0];
     return SUPA_PROFILE;
+  }
+  /* --- profile photos: stored as a small data-URI on the profiles row (client resizes to a 128px JPEG, ~6 KB) --- */
+  function monogramHTML(avatar, name, cls) {
+    return avatar
+      ? '<span class="monogram ' + (cls || "") + ' has-img"><img src="' + esc(avatar) + '" alt=""></span>'
+      : '<span class="monogram ' + (cls || "") + '">' + initialOf(name) + "</span>";
+  }
+  function avatarFromFile(file, cb) {   // centre-crop to a 128px square JPEG data-URI
+    if (!file || !/^image\//.test(file.type)) { toast("Choose an image file"); return; }
+    if (file.size > 8 * 1024 * 1024) { toast("That image is too large — pick one under 8 MB"); return; }
+    const img = new Image();
+    img.onload = () => {
+      const SIZE = 128, c = document.createElement("canvas");
+      c.width = SIZE; c.height = SIZE;
+      const ctx = c.getContext("2d");
+      const s = Math.min(img.naturalWidth, img.naturalHeight);
+      ctx.drawImage(img, (img.naturalWidth - s) / 2, (img.naturalHeight - s) / 2, s, s, 0, 0, SIZE, SIZE);
+      URL.revokeObjectURL(img.src);
+      cb(c.toDataURL("image/jpeg", 0.85));
+    };
+    img.onerror = () => { URL.revokeObjectURL(img.src); toast("Couldn't read that image"); };
+    img.src = URL.createObjectURL(file);
+  }
+  async function supaSetAvatar(dataUri) {   // null removes the photo
+    if (!supaLoggedIn()) return { error: "Sign in first" };
+    const r = await supaFetch("/rest/v1/profiles?id=eq." + SUPA.user.id, { method: "PATCH", body: { avatar: dataUri } });
+    if (!r.ok) return { error: supaErrMsg(r, "Couldn't save the photo — try again.") };
+    if (SUPA_PROFILE) SUPA_PROFILE.avatar = dataUri;
+    return { ok: true };
   }
   /* --- progress sync (debounced push on save(); pull + reconcile at boot/login) --- */
   let _supaLastSent = null, _supaPushTimer = null;
@@ -5669,7 +5698,11 @@
     root.innerHTML = `
       <div class="page-head"><span class="eyebrow">Your record</span><h1>Account</h1></div>
       <div class="profile">
-        <div class="monogram" id="mono">${initialOf(S.user.name)}</div>
+        <button class="mono-btn" id="monoBtn" type="button" title="Change profile photo" aria-label="Change profile photo">
+          <span id="mono">${monogramHTML(me.avatar, S.user.name)}</span>
+          <span class="mono-cam" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></span>
+        </button>
+        <input type="file" id="avatarFile" accept="image/*" hidden>
         <div class="who">
           <input class="namefield" id="name" value="${esc(S.user.name)}" maxlength="28" aria-label="Display name" />
           <div class="since">@${esc(me.username)} · ${roleBadge(me.role)} · since ${joined}</div>
@@ -5678,6 +5711,7 @@
       </div>
       <div class="acct-tools">
         <button class="ghost-btn" id="pwToggle" type="button">Change password</button>
+        ${me.avatar ? '<button class="ghost-btn" id="avatarRemove" type="button">Remove photo</button>' : ""}
         <span class="auth-note">${S._supaTs ? "Progress synced to your account ✓" : "Progress will sync automatically as you study"}</span>
       </div>
       <div class="acct-panel" id="pwPanel" hidden>
@@ -5706,10 +5740,32 @@
     root.querySelector("#statWrap").innerHTML = statGridHTML(S, dueCountNow());
 
     const nameInput = root.querySelector("#name");
-    const sync = () => { const v = (nameInput.value.trim().replace(/[^a-z0-9_.\- ]/gi, "") || "Scholar").slice(0, 28); nameInput.value = v; S.user.name = v; root.querySelector("#mono").textContent = initialOf(v); save(); supaSetName(v); };
-    nameInput.addEventListener("input", () => { root.querySelector("#mono").textContent = initialOf(nameInput.value || "S"); });
+    const monoInitial = (v) => { const m = root.querySelector("#mono .monogram:not(.has-img)"); if (m) m.textContent = initialOf(v); };   // only when no photo is set
+    const sync = () => { const v = (nameInput.value.trim().replace(/[^a-z0-9_.\- ]/gi, "") || "Scholar").slice(0, 28); nameInput.value = v; S.user.name = v; monoInitial(v); save(); supaSetName(v); };
+    nameInput.addEventListener("input", () => monoInitial(nameInput.value || "S"));
     nameInput.addEventListener("change", () => { sync(); toast("Name saved"); });
     nameInput.addEventListener("blur", sync);
+
+    // profile photo: click the monogram to pick an image (resized client-side), Remove photo to clear it
+    const avatarInput = root.querySelector("#avatarFile");
+    root.querySelector("#monoBtn").addEventListener("click", () => avatarInput.click());
+    avatarInput.addEventListener("change", () => {
+      const f = avatarInput.files && avatarInput.files[0];
+      if (!f) return;
+      avatarFromFile(f, async (uri) => {
+        const r = await supaSetAvatar(uri);
+        if (r.error) return toast(r.error);
+        toast("Profile photo updated");
+        render();
+      });
+    });
+    const avatarRemove = root.querySelector("#avatarRemove");
+    if (avatarRemove) avatarRemove.addEventListener("click", async () => {
+      const r = await supaSetAvatar(null);
+      if (r.error) return toast(r.error);
+      toast("Profile photo removed");
+      render();
+    });
 
     root.querySelector("#signout").addEventListener("click", async (e) => { e.target.disabled = true; await supaSignOut(); toast("Signed out"); afterAuthChange(); });
     root.querySelector("#pwToggle").addEventListener("click", () => { const p = root.querySelector("#pwPanel"); p.hidden = !p.hidden; });
@@ -5755,7 +5811,7 @@
     box.innerHTML = '<div class="friend-empty">Loading friends…</div>';
     const userRow = (id, profs, extra, viewable) => {
       const u = profs[id]; if (!u) return "";
-      const inner = '<span class="monogram sm">' + initialOf(u.name) + '</span><span class="friend-name">' + esc(u.name) + ' <small>@' + esc(u.username) + '</small></span>';
+      const inner = monogramHTML(u.avatar, u.name, "sm") + '<span class="friend-name">' + esc(u.name) + ' <small>@' + esc(u.username) + '</small></span>';
       const link = viewable ? '<button class="friend-link" data-view="' + esc(id) + '">' + inner + '</button>' : '<div class="friend-link static">' + inner + '</div>';
       return '<div class="friend-row">' + link + (extra || "") + '</div>';
     };
@@ -5766,7 +5822,7 @@
       const others = [...new Set(rows.map((r) => (r.user_id === me ? r.friend_id : r.user_id)))];
       const profs = {};
       if (others.length) {
-        const pr = await supaFetch("/rest/v1/profiles?id=in.(" + others.join(",") + ")&select=id,username,name,role");
+        const pr = await supaFetch("/rest/v1/profiles?id=in.(" + others.join(",") + ")&select=*");
         if (pr.ok && Array.isArray(pr.data)) pr.data.forEach((p) => { profs[p.id] = p; });
       }
       const incoming = rows.filter((r) => r.status === "pending" && r.friend_id === me).map((r) => r.user_id).filter((k) => profs[k]);
@@ -5811,7 +5867,7 @@
     root.innerHTML = '<div class="page-head"><span class="eyebrow">Friends</span><h1>Loading…</h1></div>';
     (async () => {
       const me = SUPA.user.id;
-      const pr = await supaFetch("/rest/v1/profiles?id=eq." + encodeURIComponent(key) + "&select=id,username,name,role");
+      const pr = await supaFetch("/rest/v1/profiles?id=eq." + encodeURIComponent(key) + "&select=*");
       const u = pr.ok && Array.isArray(pr.data) ? pr.data[0] : null;
       const pg = await supaFetch("/rest/v1/progress?user_id=eq." + encodeURIComponent(key) + "&select=data");
       const row = pg.ok && Array.isArray(pg.data) ? pg.data[0] : null;   // RLS: readable only once you're accepted friends
@@ -5824,7 +5880,7 @@
       root.innerHTML = `
         <button class="back-link" id="backBtn" type="button">← Back to your account</button>
         <div class="profile">
-          <div class="monogram">${initialOf(u.name)}</div>
+          ${monogramHTML(u.avatar, u.name)}
           <div class="who"><div class="friend-title">${esc(u.name)}</div><div class="since">@${esc(u.username)} · ${roleBadge(u.role)}</div></div>
           <button class="ghost-btn" id="rmFriend" type="button">Remove friend</button>
         </div>

@@ -11,6 +11,7 @@ window.CHANGELOG = [
       "A consistency pass across every card and glossary entry: precise numbers above 20 are now written as numerals, centuries and millennia are always numbered (“11th century”), and literature titles are properly italicised — nearly 400 corrections in all.",
       "Three new cards in the Western Zhou deck.",
       "Seventeen new cards in the Eastern Zhou deck.",
+      "Profile photos: click your avatar on the Account page to add a picture — it shows on your profile and in your friends' lists.",
     ],
   },
   {
