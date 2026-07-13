@@ -154,18 +154,23 @@
     TREE.collections.forEach((c) => walk(c, null));
   })();
   let ADMIN_EDITS = loadAdminEdits();
+  // canonical overlay shape — every section present whatever the input, so a partial blob (an older save,
+  // a cloud-published overlay, or a bare {}) can never leave a section undefined for applyAdminEdits
+  function normalizeAdminEdits(o) {
+    if (!o || typeof o !== "object") o = {};
+    const t = o.tree || {};
+    return {
+      cards: o.cards || {}, glossary: o.glossary || {}, glossaryDates: o.glossaryDates || {}, glossaryTitles: o.glossaryTitles || {}, glossaryAliases: o.glossaryAliases || {}, glossaryTags: o.glossaryTags || {}, glossaryDeleted: o.glossaryDeleted || {},
+      created: o.created || {}, deleted: o.deleted || {},
+      membership: o.membership || {}, meta: o.meta || {}, chrono: o.chrono || {}, cardColor: o.cardColor || {}, glossColor: o.glossColor || {}, glossOff: o.glossOff || {},
+      mission: o.mission && typeof o.mission === "object" ? o.mission : null,   // Mission-intro override ({ title, paras }) — rides in the overlay like every other delta
+      timeline: Array.isArray(o.timeline) ? o.timeline : null,   // null = untouched (use shipped timeline.js); array = the working set of historical border eras
+      tree: { renames: t.renames || {}, created: t.created || {}, deleted: t.deleted || {}, moved: t.moved || {}, order: t.order || {}, soon: t.soon || {}, dates: t.dates || {}, cardOrder: t.cardOrder || {} },
+    };
+  }
   function loadAdminEdits() {
-    try {
-      const o = JSON.parse(localStorage.getItem(ADMIN_KEY));
-      if (o && typeof o === "object") { const t = o.tree || {}; return {
-        cards: o.cards || {}, glossary: o.glossary || {}, glossaryDates: o.glossaryDates || {}, glossaryTitles: o.glossaryTitles || {}, glossaryAliases: o.glossaryAliases || {}, glossaryTags: o.glossaryTags || {}, glossaryDeleted: o.glossaryDeleted || {},
-        created: o.created || {}, deleted: o.deleted || {},
-        membership: o.membership || {}, meta: o.meta || {}, chrono: o.chrono || {}, cardColor: o.cardColor || {}, glossColor: o.glossColor || {}, glossOff: o.glossOff || {},
-        timeline: Array.isArray(o.timeline) ? o.timeline : null,   // null = untouched (use shipped timeline.js); array = the working set of historical border eras
-        tree: { renames: t.renames || {}, created: t.created || {}, deleted: t.deleted || {}, moved: t.moved || {}, order: t.order || {}, soon: t.soon || {}, dates: t.dates || {}, cardOrder: t.cardOrder || {} },
-      }; }
-    } catch (e) {}
-    return { cards: {}, glossary: {}, glossaryDates: {}, glossaryTitles: {}, glossaryAliases: {}, glossaryTags: {}, glossaryDeleted: {}, created: {}, deleted: {}, membership: {}, meta: {}, chrono: {}, cardColor: {}, glossColor: {}, glossOff: {}, timeline: null, tree: { renames: {}, created: {}, deleted: {}, moved: {}, order: {}, soon: {}, dates: {}, cardOrder: {} } };
+    try { return normalizeAdminEdits(JSON.parse(localStorage.getItem(ADMIN_KEY))); } catch (e) {}
+    return normalizeAdminEdits(null);
   }
   function writeAdminEdits() { try { localStorage.setItem(ADMIN_KEY, JSON.stringify(ADMIN_EDITS)); } catch (e) {} autoSaveWrite(); cloudQueuePush(); }   // autoSaveWrite: no-op unless auto-save-to-files is armed; cloudQueuePush: no-op unless a signed-in admin (live editing)
   let adminSaveTimer = null;
@@ -210,7 +215,7 @@
     CARDS.length = 0;
     Object.keys(CARD_BY_ID).forEach((id) => delete CARD_BY_ID[id]);
     BASE_CARD_IDS.forEach((id) => { const c = Object.assign({}, PRISTINE_CARDS[id]); CARD_BY_ID[id] = c; CARDS.push(c); });
-    ADMIN_EDITS = snap;
+    ADMIN_EDITS = normalizeAdminEdits(snap);
     applyAdminEdits();   // rebuilds the tree from SHIPPED_NODES, re-creates admin-made cards, re-applies field/glossary/membership/order deltas
     glossIndex = null;   // the glossary linkify memo may reference reverted aliases/titles/terms — force a rebuild
   }
@@ -1109,11 +1114,12 @@
      content_overrides (a single row, id=1) holds the published ADMIN_EDITS blob. EVERYONE — anonymous
      visitors included — pulls it at boot and applies it over the shipped data files, so an admin editing on
      the live site is visible to the world within seconds. Publishing requires a signed-in admin (RLS-checked
-     server-side). The dev machine's guest editing stays purely local (it ships through git instead), and its
-     in-flight overlay is never clobbered by the cloud copy. */
+     server-side). Dev origins are excluded from BOTH directions, signed-in or not: their editing stays purely
+     local (it ships through git instead), their in-flight overlay is never clobbered by the cloud copy, and
+     they never publish (a dev overlay empties when baked into the data files — pushing it would wipe live edits). */
   const CLOUD_TS_KEY = "folio_cloud_ts_v1";
   let _cloudPushTimer = null, _cloudLastSent = null;
-  function cloudCanPublish() { return supaLoggedIn() && SUPA_PROFILE && SUPA_PROFILE.role === "admin"; }
+  function cloudCanPublish() { return supaLoggedIn() && SUPA_PROFILE && SUPA_PROFILE.role === "admin" && !isDevOrigin(); }   // dev machines never publish: their overlay empties whenever it's baked into the data files, and pushing that would clobber live edits
   function cloudQueuePush() {   // called on every admin edit; debounced, no-op for everyone who can't publish
     if (!cloudCanPublish()) return;
     clearTimeout(_cloudPushTimer);
@@ -1132,7 +1138,7 @@
     const r = await supaFetch("/rest/v1/content_overrides?id=eq.1&select=data,updated_at");
     if (!r.ok || !Array.isArray(r.data) || !r.data.length) return;   // table not migrated yet / offline → shipped files only
     const row = r.data[0];
-    if (!supaLoggedIn() && isDevOrigin()) return;   // the dev machine's local overlay is its working copy — never overwrite it
+    if (isDevOrigin()) return;   // the dev machine's local overlay is its working copy — never overwrite it, signed-in or not
     let baseline = null; try { baseline = localStorage.getItem(CLOUD_TS_KEY); } catch (e) {}
     const remote = stableJson(row.data || {});
     if (row.updated_at !== baseline) {

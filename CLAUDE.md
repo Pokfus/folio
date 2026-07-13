@@ -641,7 +641,13 @@ dead code (never rendered).
   from the device's baseline (`localStorage["folio_cloud_ts_v1"]`), the overlay is adopted via `reapplyAdminOverlay(row.data)` +
   persisted, so live-site edits reach all visitors within seconds of their next load. A **signed-in admin** publishes automatically:
   `writeAdminEdits()` (the single overlay write choke-point) calls `cloudQueuePush()` (4s debounce, skips no-ops) which PATCHes
-  `ADMIN_EDITS` into the row (RLS update = admins only). **Dev-origin guests neither publish nor adopt** (`cloudBootOverrides`
-  returns early when `!supaLoggedIn() && isDevOrigin()`) — the dev machine's in-flight local overlay is never clobbered, and its
-  content ships via git/deploy instead. **Hygiene:** after baking the overlay into `data.js`/`glossary.js`/`timeline.js` and
+  `ADMIN_EDITS` into the row (RLS update = admins only). **Dev origins neither publish nor adopt, signed-in or not**
+  (`cloudBootOverrides` returns early on `isDevOrigin()`; `cloudCanPublish()` requires `!isDevOrigin()`): the dev machine's
+  in-flight local overlay is never clobbered by the cloud copy, and it never publishes — a dev overlay empties whenever it's
+  baked into the data files, so publishing it would wipe live edits (this actually happened in testing: a signed-in localhost
+  tab auto-published its empty overlay over a fresh live edit; don't weaken these guards). Live editing is therefore
+  live-site-only. Adopted/loaded overlays pass through `normalizeAdminEdits()` (used by `loadAdminEdits` +
+  `reapplyAdminOverlay`), which guarantees every overlay section exists whatever the input (a bare `{}` row can't crash
+  `applyAdminEdits`) and **must list every overlay key — `mission` was once missing from the load path, silently dropping
+  Mission-page edits on reload**. **Hygiene:** after baking the overlay into `data.js`/`glossary.js`/`timeline.js` and
   deploying, reset `content_overrides.data` to `{}` (Table Editor) so a stale cloud overlay can't shadow the newer shipped files.
