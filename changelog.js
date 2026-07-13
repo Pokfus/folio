@@ -10,6 +10,8 @@ window.CHANGELOG = [
     items: [
       "Content edits made by an admin on the live site now publish to the cloud and reach every visitor within seconds — no redeploy needed.",
       "The Edit page and the Editor/Visitor switch are now visible only to signed-in admin accounts; visitors and regular accounts no longer see them.",
+      "Nineteen new cards in the Eastern Zhou deck.",
+      "Pre-recorded narration for five more cards.",
     ],
   },
   {
