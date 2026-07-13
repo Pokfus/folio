@@ -167,7 +167,7 @@
     } catch (e) {}
     return { cards: {}, glossary: {}, glossaryDates: {}, glossaryTitles: {}, glossaryAliases: {}, glossaryTags: {}, glossaryDeleted: {}, created: {}, deleted: {}, membership: {}, meta: {}, chrono: {}, cardColor: {}, glossColor: {}, glossOff: {}, timeline: null, tree: { renames: {}, created: {}, deleted: {}, moved: {}, order: {}, soon: {}, dates: {}, cardOrder: {} } };
   }
-  function writeAdminEdits() { try { localStorage.setItem(ADMIN_KEY, JSON.stringify(ADMIN_EDITS)); } catch (e) {} autoSaveWrite(); }   // autoSaveWrite is a no-op unless auto-save-to-files is armed
+  function writeAdminEdits() { try { localStorage.setItem(ADMIN_KEY, JSON.stringify(ADMIN_EDITS)); } catch (e) {} autoSaveWrite(); cloudQueuePush(); }   // autoSaveWrite: no-op unless auto-save-to-files is armed; cloudQueuePush: no-op unless a signed-in admin (live editing)
   let adminSaveTimer = null;
   // Immediate save (structural actions: create/delete/rename/move/reorder) — each is its own undo boundary.
   function saveAdminEdits() { if (adminSaveTimer) { clearTimeout(adminSaveTimer); adminSaveTimer = null; } adminCheckpoint(); writeAdminEdits(); }
@@ -610,12 +610,22 @@
   }
   // whether the current user may rearrange the library and reach the admin page.
   // Driven by the top-bar mode toggle; defaults to admin (undefined !== false) for backward compatibility.
-  function isAdmin() {
-    if (SUPA_PROFILE) return SUPA_PROFILE.role === "admin";   // signed in online → the server-stored role decides (set it in Supabase → Table Editor → profiles)
+  // The editor is for admins ONLY: a signed-in account whose profiles.role is 'admin', a legacy local admin
+  // account, or — purely as a development convenience — a guest on a LOCAL origin (localhost/LAN/file:).
+  // Ordinary visitors on the live site (first-timers, signed out, or signed in without the admin role) are
+  // never eligible: no Edit tab, no Editor/Visitor switch, no admin route.
+  function isDevOrigin() {
+    return location.protocol === "file:" || /^(localhost|127\.|10\.|192\.168\.|\[::1\]?$)/.test(location.hostname);
+  }
+  function adminEligible() {
+    if (SUPA_PROFILE) return SUPA_PROFILE.role === "admin";   // signed in online → the server-stored role decides
+    if (supaLoggedIn()) return false;                          // signed in but the profile hasn't loaded → treat as non-admin (applyMode re-runs when it arrives)
     const u = currentUser();
-    if (u) return u.role === "admin";        // legacy local account → its role decides
-    if (S && S.settings && S.settings.adminMode === false) return false;   // "preview as visitor" (guest only)
-    return noAccounts();                      // guest on a fresh device → admin (the local dev machine)
+    if (u) return u.role === "admin";                          // legacy local account
+    return noAccounts() && isDevOrigin();                      // guest → only on the dev machine, never on the live site
+  }
+  function isAdmin() {
+    return adminEligible() && !(S && S.settings && S.settings.adminMode === false);   // adminMode=false = the "preview as visitor" toggle
   }
 
   function setGlossEdit(key, value) {
@@ -1095,6 +1105,48 @@
     const r = await supaFetch("/rest/v1/profiles?id=eq." + SUPA.user.id, { method: "PATCH", body: { name } });
     if (r.ok && SUPA_PROFILE) SUPA_PROFILE.name = name;
   }
+  /* --- live content overrides: the admin's edit overlay, published to every visitor ---
+     content_overrides (a single row, id=1) holds the published ADMIN_EDITS blob. EVERYONE — anonymous
+     visitors included — pulls it at boot and applies it over the shipped data files, so an admin editing on
+     the live site is visible to the world within seconds. Publishing requires a signed-in admin (RLS-checked
+     server-side). The dev machine's guest editing stays purely local (it ships through git instead), and its
+     in-flight overlay is never clobbered by the cloud copy. */
+  const CLOUD_TS_KEY = "folio_cloud_ts_v1";
+  let _cloudPushTimer = null, _cloudLastSent = null;
+  function cloudCanPublish() { return supaLoggedIn() && SUPA_PROFILE && SUPA_PROFILE.role === "admin"; }
+  function cloudQueuePush() {   // called on every admin edit; debounced, no-op for everyone who can't publish
+    if (!cloudCanPublish()) return;
+    clearTimeout(_cloudPushTimer);
+    _cloudPushTimer = setTimeout(async () => {
+      _cloudPushTimer = null;
+      const body = stableJson(ADMIN_EDITS);
+      if (body === _cloudLastSent) return;
+      const r = await supaFetch("/rest/v1/content_overrides?id=eq.1&select=updated_at", { method: "PATCH", body: { data: ADMIN_EDITS }, headers: { Prefer: "return=representation" } });
+      if (r.ok && Array.isArray(r.data) && r.data.length) {
+        _cloudLastSent = body;
+        try { localStorage.setItem(CLOUD_TS_KEY, r.data[0].updated_at); } catch (e) {}
+      }
+    }, 4000);
+  }
+  async function cloudBootOverrides() {
+    const r = await supaFetch("/rest/v1/content_overrides?id=eq.1&select=data,updated_at");
+    if (!r.ok || !Array.isArray(r.data) || !r.data.length) return;   // table not migrated yet / offline → shipped files only
+    const row = r.data[0];
+    if (!supaLoggedIn() && isDevOrigin()) return;   // the dev machine's local overlay is its working copy — never overwrite it
+    let baseline = null; try { baseline = localStorage.getItem(CLOUD_TS_KEY); } catch (e) {}
+    const remote = stableJson(row.data || {});
+    if (row.updated_at !== baseline) {
+      // the published content changed since this device last saw it → adopt it (reset to pristine + re-apply)
+      reapplyAdminOverlay(row.data || {});
+      try { localStorage.setItem(ADMIN_KEY, JSON.stringify(row.data || {})); localStorage.setItem(CLOUD_TS_KEY, row.updated_at); } catch (e) {}
+      _cloudLastSent = remote;
+      if (current) render();
+    } else {
+      _cloudLastSent = remote;
+      if (cloudCanPublish() && stableJson(ADMIN_EDITS) !== remote) cloudQueuePush();   // this admin device edited while offline → publish
+    }
+  }
+
   /* --- boot: restore the session, handle emailed links, reconcile progress --- */
   async function supaBoot() {
     // a Supabase email link (recovery / confirmation) lands with tokens in the URL hash — adopt them, clean the URL
@@ -1770,8 +1822,8 @@
     if (editTab) editTab.style.display = admin ? "" : "none";   // Edit page is admin-only
     const sw = document.getElementById("mode-switch");
     if (sw) {
-      // the legacy "Editor / Visitor" preview toggle only applies before accounts exist; roles govern after
-      sw.style.display = noAccounts() ? "" : "none";
+      // the "Editor / Visitor" preview toggle shows only for accounts/devices that can hold the editor at all
+      sw.style.display = adminEligible() ? "" : "none";
       sw.classList.toggle("on", admin);
       sw.setAttribute("aria-checked", admin ? "true" : "false");
       sw.title = admin
@@ -7940,7 +7992,7 @@
   render();
   checkAchievements(true);   // backfill any milestones already met by existing progress
   restoreGlossWins(_glossToRestore);   // re-open any gloss popups that were on screen before the reload
-  supaBoot();   // async: restore the online session, handle emailed auth links, pull/reconcile synced progress
+  supaBoot().then(cloudBootOverrides);   // async: restore the session, handle emailed auth links, reconcile progress — then adopt the published content overrides (live edits)
 
   // Ctrl/Cmd+Z on the editor page undoes the last admin edit (native undo still handles typing inside a field)
   document.addEventListener("keydown", (e) => {

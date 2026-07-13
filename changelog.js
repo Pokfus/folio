@@ -5,6 +5,14 @@
    user, not how). Loaded before app.js. */
 window.CHANGELOG = [
   {
+    d: "2026-07-13",
+    t: "Live editing",
+    items: [
+      "Content edits made by an admin on the live site now publish to the cloud and reach every visitor within seconds — no redeploy needed.",
+      "The Edit page and the Editor/Visitor switch are now visible only to signed-in admin accounts; visitors and regular accounts no longer see them.",
+    ],
+  },
+  {
     d: "2026-07-12",
     t: "Style pass",
     items: [

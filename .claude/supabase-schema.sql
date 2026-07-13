@@ -156,6 +156,40 @@ create policy "own progress read + friends"
   );
 
 -- ----------------------------------------------------------------------------
+-- 3b) CONTENT OVERRIDES — live editing. A single row (id=1) holding the admin
+--     edit overlay (the same delta format as localStorage folio_admin_v1).
+--     EVERYONE (anonymous visitors included) reads it at boot and applies it
+--     over the shipped data files; only signed-in admins may write it.
+--     After the overlay is baked into data.js/glossary.js and deployed, reset
+--     data to '{}' (Table Editor) so a stale overlay can't shadow newer files.
+-- ----------------------------------------------------------------------------
+create table if not exists public.content_overrides (
+  id         int primary key default 1,
+  data       jsonb not null default '{}'::jsonb,
+  updated_at timestamptz not null default now(),
+  constraint content_overrides_single_row check (id = 1)
+);
+
+alter table public.content_overrides enable row level security;
+
+drop policy if exists "overrides are public" on public.content_overrides;
+create policy "overrides are public"
+  on public.content_overrides for select to anon, authenticated using (true);
+
+drop policy if exists "admins publish overrides" on public.content_overrides;
+create policy "admins publish overrides"
+  on public.content_overrides for update to authenticated
+  using (exists (select 1 from public.profiles p where p.id = auth.uid() and p.role = 'admin'))
+  with check (exists (select 1 from public.profiles p where p.id = auth.uid() and p.role = 'admin'));
+
+insert into public.content_overrides (id) values (1) on conflict (id) do nothing;
+
+drop trigger if exists content_overrides_touch on public.content_overrides;
+create trigger content_overrides_touch
+  before update on public.content_overrides
+  for each row execute function public.touch_updated_at();
+
+-- ----------------------------------------------------------------------------
 -- 4) SIGNUP TRIGGER — auto-create the profile + empty progress row when an
 --    auth user is created. Username comes from the signup call's data{}
 --    (raw_user_meta_data); falls back to scholar_<id-prefix> if taken/invalid.

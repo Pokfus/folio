@@ -627,6 +627,21 @@ dead code (never rendered).
   stashed (`folio_supa_guest_v1`) and restored on sign-out. Auth = email+password (`/auth/v1/*`); emailed links (confirm/reset)
   land with tokens in the URL hash → `supaBoot` adopts them (requires the Supabase **Site URL** to point at the deployed app).
   The account page (auth/self/friends views) is fully server-backed; friends use the `friends` table (request → accept, RLS lets
-  accepted friends read each other's `progress` for the badges view). `isAdmin()`: a signed-in user's `profiles.role` decides
-  (set `role='admin'` via the dashboard Table Editor); guests keep the legacy local rules, so the dev machine stays admin.
+  accepted friends read each other's `progress` for the badges view). **Admin gating** (`adminEligible()` / `isAdmin()`): a
+  signed-in user is admin-eligible iff `profiles.role === 'admin'` (set via the dashboard Table Editor); a signed-in non-admin is
+  NEVER eligible; a signed-out guest is eligible only on a **dev origin** (`isDevOrigin()`: `file://` or
+  localhost/127./10./192.168.) with no legacy local accounts — so the dev machine keeps its editor, while first-time visitors and
+  non-admin accounts on the live site see no Edit tab or Editor/Visitor switch (`applyMode` shows the switch only when
+  `adminEligible()`). `isAdmin()` additionally honours the Editor/Visitor toggle (`S.settings.adminMode === false` → visitor view).
   The old local accounts (`folio_acct_v1`) remain only as legacy code (admin page user-manager + guest stash helpers).
+- **Live content editing (cloud overrides)** — the `/* cloud content overrides */` module in app.js + the `content_overrides`
+  table (single row `id=1`, in `.claude/supabase-schema.sql`; **the user must run the SQL once** — until then every fetch 404s and
+  the module degrades silently). The row's `data` holds an admin-edit overlay in the exact `folio_admin_v1` delta format. Every
+  visitor (anonymous included, RLS select = public) runs `cloudBootOverrides()` after `supaBoot`: if the row's `updated_at` differs
+  from the device's baseline (`localStorage["folio_cloud_ts_v1"]`), the overlay is adopted via `reapplyAdminOverlay(row.data)` +
+  persisted, so live-site edits reach all visitors within seconds of their next load. A **signed-in admin** publishes automatically:
+  `writeAdminEdits()` (the single overlay write choke-point) calls `cloudQueuePush()` (4s debounce, skips no-ops) which PATCHes
+  `ADMIN_EDITS` into the row (RLS update = admins only). **Dev-origin guests neither publish nor adopt** (`cloudBootOverrides`
+  returns early when `!supaLoggedIn() && isDevOrigin()`) — the dev machine's in-flight local overlay is never clobbered, and its
+  content ships via git/deploy instead. **Hygiene:** after baking the overlay into `data.js`/`glossary.js`/`timeline.js` and
+  deploying, reset `content_overrides.data` to `{}` (Table Editor) so a stale cloud overlay can't shadow the newer shipped files.
