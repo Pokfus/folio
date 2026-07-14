@@ -268,8 +268,13 @@ ranges.js → admin1.js → cities.js → timeline.js → countries.js → count
   (`allGamesWonToday` → `progStats().dailySweep`). A perfect Multiple-choices run also increments `S.daily.wins`, which **revived
   the previously-dead `win1`/`win10` (Victor/Champion) badges** (`wins` was never written after the bot race was removed).
   `S.games` is in `defaultState()` (back-fills old saves) and `PROGRESS_FIELDS` (mirrors to the account).
-- **China's collection level** renders as a **Chinese numeral** (`一 二 三 …` via `cnNumeral()`, Han font) — `levelBadgeMarkup(xp, zh)`
-  with `zh = d.id === "china"`. (`一` for level 1 is a single horizontal stroke, so it reads as a bar until level 2+.)
+- **Collections count their level in their own script** (`levelBadgeMarkup(xp, sys)` + `numeralIn(sys, n)`; the id→system map is
+  `COLLECTION_NUMERALS`): China → Chinese numerals (`一 二 三 …` via `cnNumeral()`, Han font — `一` for level 1 is a single
+  horizontal stroke, so it reads as a bar until level 2+), Ancient Rome (col-40) → Roman numerals, Ancient Greece (col-13) →
+  ancient Greek alphabetic numerals (`αʹ ιαʹ`, ϛ = 6, keraia U+0374), India (col-43) → Devanagari digits (`१ २`), Russia
+  (col-42) → Cyrillic/Church-Slavonic numerals (`а҃ в҃`, titlo over the second-to-last letter, 11–19 unit-before-ten). The
+  level-up popup (`congratsPopup`, items carry `sys`) uses the same map; sizes tuned per script in styles.css
+  (`.level-badge.num-*`). World History + United States stay Western digits.
 - **Mobile** (`@media max-width:640px`): page content is centred (`.page-head{text-align:center}`); the top nav is condensed
   (the admin-only Editor/Visitor `.mode-switch` is hidden, controls shrunk) and horizontally scrollable so every item fits and
   the bar spans edge-to-edge.

@@ -5,6 +5,13 @@
    user, not how). Loaded before app.js. */
 window.CHANGELOG = [
   {
+    d: "2026-07-14",
+    t: "Counting in every script",
+    items: [
+      "The upcoming collections on the Library page now count their levels in their own script: Roman numerals for Ancient Rome, ancient Greek numerals for Ancient Greece, Devanagari for India, and Cyrillic numerals for Russia — joining China's Chinese numerals.",
+    ],
+  },
+  {
     d: "2026-07-13",
     t: "Live editing",
     items: [

@@ -1886,14 +1886,14 @@
   }
   function inlinePrompt(message, defaultValue, onOk) { inlineModal(message, true, defaultValue, onOk); }
   function inlineConfirm(message, onOk, okLabel) { inlineModal(message, false, null, () => onOk(), okLabel || "OK"); }
-  // full-screen level-up congratulations; items = [{ title, level, zh }]. Dismissed by clicking ANYWHERE on screen or Escape.
+  // full-screen level-up congratulations; items = [{ title, level, sys }]. Dismissed by clicking ANYWHERE on screen or Escape.
   function congratsPopup(items) {
     if (!items || !items.length) return;
     const ex = document.querySelector(".levelup-pop"); if (ex) ex.remove();
     const ov = document.createElement("div");
     ov.className = "levelup-pop";
     const rows = items.map((it) =>
-      '<div class="lu-row"><span class="lu-badge' + (it.zh ? " zh" : "") + '">' + (it.zh ? esc(cnNumeral(it.level)) : it.level) + '</span>' +
+      '<div class="lu-row"><span class="lu-badge' + (it.sys ? (it.sys === "zh" ? " zh" : " num-" + it.sys) : "") + '">' + esc(numeralIn(it.sys, it.level)) + '</span>' +
       '<span class="lu-text"><b>' + esc(it.title) + '</b> reached <b>Level ' + it.level + '</b></span></div>'
     ).join("");
     ov.innerHTML = '<div class="lu-card" role="dialog" aria-live="polite"><div class="lu-star">⭐</div>' +
@@ -2484,10 +2484,10 @@
   function announceLevelUps(id) {
     const items = [];
     const g = Object.keys(S.cards).length;
-    if (levelFromXP(g).level > levelFromXP(g - 1).level) items.push({ title: "Folio", level: levelFromXP(g).level, zh: false });
+    if (levelFromXP(g).level > levelFromXP(g - 1).level) items.push({ title: "Folio", level: levelFromXP(g).level, sys: null });
     cardCollections(id).forEach((c) => {
       const n = studiedInNode(c);
-      if (levelFromXP(n).level > levelFromXP(n - 1).level) items.push({ title: c.title, level: levelFromXP(n).level, zh: c.id === "china" });
+      if (levelFromXP(n).level > levelFromXP(n - 1).level) items.push({ title: c.title, level: levelFromXP(n).level, sys: COLLECTION_NUMERALS[c.id] });
     });
     if (items.length) congratsPopup(items);   // a click-anywhere-to-dismiss popup naming each collection/Folio that leveled up
   }
@@ -2501,11 +2501,54 @@
     if (n < 100) { const t = Math.floor(n / 10), o = n % 10; return d[t] + "十" + (o ? d[o] : ""); }
     return String(n);
   }
-  // large level numeral shown at the left of a collection / review banner (zh → render the number as a Chinese numeral)
-  function levelBadgeMarkup(xp, zh) {
+  // number → Roman numeral (I II III … XII …), subtractive notation
+  function romanNumeral(n) {
+    n = n | 0;
+    if (n <= 0 || n >= 4000) return String(n);
+    const V = [[1000, "M"], [900, "CM"], [500, "D"], [400, "CD"], [100, "C"], [90, "XC"], [50, "L"], [40, "XL"], [10, "X"], [9, "IX"], [5, "V"], [4, "IV"], [1, "I"]];
+    let s = "";
+    V.forEach(([v, r]) => { while (n >= v) { s += r; n -= v; } });
+    return s;
+  }
+  // number → ancient Greek (Ionian alphabetic) numeral: αʹ βʹ … ιʹ ιαʹ …, with ϛ = 6, closed by the keraia
+  function greekNumeral(n) {
+    n = n | 0;
+    if (n <= 0 || n >= 1000) return String(n);
+    const u = ["", "α", "β", "γ", "δ", "ε", "ϛ", "ζ", "η", "θ"],
+      t = ["", "ι", "κ", "λ", "μ", "ν", "ξ", "ο", "π", "ϟ"],
+      h = ["", "ρ", "σ", "τ", "υ", "φ", "χ", "ψ", "ω", "ϡ"];
+    return h[Math.floor(n / 100)] + t[Math.floor(n / 10) % 10] + u[n % 10] + "ʹ";
+  }
+  // number → Devanagari digits (१ २ ३ …), positional like Western digits
+  function devanagariNumeral(n) { return String(n | 0).replace(/\d/g, (d) => "०१२३४५६७८९"[+d]); }
+  // number → Cyrillic (Church Slavonic) numeral: а҃ в҃ г҃ … — letters valued like the Greek system, marked with a
+  // titlo; 11–19 put the unit before the ten (а҃і = 11)
+  function cyrillicNumeral(n) {
+    n = n | 0;
+    if (n <= 0 || n >= 1000) return String(n);
+    const u = ["", "а", "в", "г", "д", "є", "ѕ", "з", "и", "ѳ"],
+      t = ["", "і", "к", "л", "м", "н", "ѯ", "о", "п", "ч"],
+      h = ["", "р", "с", "т", "у", "ф", "х", "ѱ", "ѡ", "ц"];
+    const te = Math.floor(n / 10) % 10;
+    const s = h[Math.floor(n / 100)] + (te === 1 ? u[n % 10] + t[1] : t[te] + u[n % 10]);
+    const i = Math.max(1, s.length - 1);   // titlo sits over the second-to-last letter (or the only one)
+    return s.slice(0, i) + "҃" + s.slice(i);
+  }
+  // each civilisation's collection counts its level in its own script (Library banner badge)
+  const COLLECTION_NUMERALS = { china: "zh", "col-40": "roman", "col-13": "greek", "col-43": "devanagari", "col-42": "cyrillic" };
+  function numeralIn(sys, n) {
+    if (sys === "zh") return cnNumeral(n);
+    if (sys === "roman") return romanNumeral(n);
+    if (sys === "greek") return greekNumeral(n);
+    if (sys === "devanagari") return devanagariNumeral(n);
+    if (sys === "cyrillic") return cyrillicNumeral(n);
+    return String(n);
+  }
+  // large level numeral shown at the left of a collection / review banner (sys → render in that numeral system)
+  function levelBadgeMarkup(xp, sys) {
     const lvl = levelFromXP(xp).level;
     // just the large numeral — the "Level N" text lives in the blue xp-bar head (xpBarMarkup) beside it, so a label here is redundant.
-    return '<div class="level-badge' + (zh ? " zh" : "") + '" aria-hidden="true"><span class="lb-num">' + (zh ? cnNumeral(lvl) : lvl) + '</span></div>';
+    return '<div class="level-badge' + (sys ? (sys === "zh" ? " zh" : " num-" + sys) : "") + '" aria-hidden="true"><span class="lb-num">' + esc(numeralIn(sys, lvl)) + '</span></div>';
   }
   // XP progress bar toward the next level (replaces the old studied/total progress bar)
   function xpBarMarkup(xp, zh) {
@@ -3016,7 +3059,7 @@
         <div class="collection-row" tabindex="${hasSubs ? 0 : -1}" role="button" data-libitem="${esc(d.id)}" data-libkind="col">
           <div class="collection-deco" aria-hidden="true"></div>
           ${libGripHTML(d.id)}
-          ${levelBadgeMarkup(studied, d.id === "china")}
+          ${levelBadgeMarkup(studied, COLLECTION_NUMERALS[d.id])}
           <div class="collection-main">
             <div class="collection-title-row">
               <span class="collection-title">${esc(d.title)}</span>

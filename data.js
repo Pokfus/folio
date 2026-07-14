@@ -711,6 +711,48 @@ window.COLLECTION_TREE = {
           ]
         }
       ]
+    },
+    {
+      "id": "col-8",
+      "title": "World History",
+      "total": 0,
+      "placeholder": false,
+      "cardIds": []
+    },
+    {
+      "id": "col-13",
+      "title": "Ancient Greece",
+      "total": 0,
+      "placeholder": false,
+      "cardIds": []
+    },
+    {
+      "id": "col-40",
+      "title": "Ancient Rome",
+      "total": 0,
+      "placeholder": false,
+      "cardIds": []
+    },
+    {
+      "id": "col-41",
+      "title": "United States",
+      "total": 0,
+      "placeholder": false,
+      "cardIds": []
+    },
+    {
+      "id": "col-42",
+      "title": "Russia",
+      "total": 0,
+      "placeholder": false,
+      "cardIds": []
+    },
+    {
+      "id": "col-43",
+      "title": "India",
+      "total": 0,
+      "placeholder": false,
+      "cardIds": []
     }
   ]
 };

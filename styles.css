@@ -227,6 +227,11 @@ body.visitor-mode .tab-admin{display:none;}
 body.night .banner .lb-num, body.night .collection-row .lb-num{color:#E6C765;}   /* brighter gold so it reads over the dark card/wash */
 /* China's level shows a Chinese numeral — render it in the Han font */
 .level-badge.zh .lb-num{font-family:var(--han); font-weight:600; font-size:40px;}
+/* the other civilisations count in their own script too — letter numerals sit a touch smaller than digits */
+.level-badge.num-roman .lb-num{font-size:36px; letter-spacing:0;}
+.level-badge.num-greek .lb-num, .level-badge.num-cyrillic .lb-num{font-size:38px;}
+.level-badge.num-devanagari .lb-num{font-size:40px;}
+.lu-badge.num-roman, .lu-badge.num-greek, .lu-badge.num-cyrillic{font-size:19px;}
 /* Home Daily-review banner: a large plain golden numeral (no shield) */
 .banner .level-badge{min-width:74px;}
 .banner .lb-num{font-size:62px;}
