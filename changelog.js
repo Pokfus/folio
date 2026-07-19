@@ -15,6 +15,8 @@ window.CHANGELOG = [
       "The About page went quiet: no more read-aloud there, on the intro or in its glossary popups.",
       "A fresh coat of colour in the Library: every collection now has its own identity — Aegean blue for Greece, imperial purple for Rome, saffron for India, lacquer red for Russia — with a gold seal, a soft colour wash and a drifting motif on every theme, including the default.",
       "The About page brightened too: coloured section accents with small icons, the forgetting curve on a soft panel, the changelog drawn as a timeline, and a drop cap on the intro — plus an accent line under page titles and deck rows tinted in their collection's colour.",
+      "Seven brand-new themes in Settings, each a complete makeover of the site: Arcade (16-bit console), Academy (formal faculty), Scroll (aged parchment), Marble (classical inscriptions), Dynasty (vermilion and gold), Grove (deep forest) and Gazette (1940s newsprint, with two-column reading).",
+      "The drifting patterns on the Library banners are gone — collection banners are now calm and still on every theme.",
     ],
   },
   {

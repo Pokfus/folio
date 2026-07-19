@@ -216,7 +216,12 @@ ranges.js → admin1.js → cities.js → timeline.js → countries.js → count
   `answerDate` (HTML), `traditional, hanzi, pinyin, translations` (HTML), `abstract` (rich HTML
   card background; may carry `ttip` glossary links, but newly generated cards omit them),
   `citation, answerText`.
-- **Themes (8):** folio, atlas, press, bloom, tide, clay, garden, synth — each light + dark.
+- **Themes (15):** folio, atlas, press, bloom, tide, clay, garden, synth + seven full-overhaul themes: arcade (16-bit),
+  academy (formal faculty), scroll (parchment), marble (antiquity inscriptions), dynasty (traditional Chinese), grove
+  (deep forest), gazette (1940s newsprint, two-column About prose) — each light + dark, tokens hex-only. The overhaul
+  themes change layout/chrome/ornament per theme (scoped `body[data-theme="…"]` blocks in styles.css; fonts added to the
+  single @import). **Collection banners and all theme decorations are STATIC — no animated/moving patterns (removed on
+  request; don't reintroduce).** New themes register in `THEMES` (app.js) + the settings picker buttons.
 - **Language switcher** (`#lang-switch` in the top bar, right of Settings): a dropdown of 7 languages (en/es/fr/de/it/nl/ru)
   stored in `S.settings.lang`. **The site is NOT localised yet** — selecting a language is a no-op (just persists + toasts).
 - **Read-aloud TTS** (Web Speech API, zero-dependency; the `/* text-to-speech */` block in app.js): a slow MALE English voice
@@ -285,14 +290,14 @@ ranges.js → admin1.js → cities.js → timeline.js → countries.js → count
   (`allGamesWonToday` → `progStats().dailySweep`). A perfect Multiple-choices run also increments `S.daily.wins`, which **revived
   the previously-dead `win1`/`win10` (Victor/Champion) badges** (`wins` was never written after the bot race was removed).
   `S.games` is in `defaultState()` (back-fills old saves) and `PROGRESS_FIELDS` (mirrors to the account).
-- **Collection identity (Library)**: `COLL_THEME` (app.js) maps each collection id → `{ bg, pat }` — a signature hue
-  (`--coll-bg`, consumed by EVERY theme's banner art in styles.css) + a motif colour (`--coll-pat`, an SVG data-URI from
-  `collectionDecoSVG`: China gold stars, Greece meander, Rome laurels, US stars, Russia onion domes, India dharma wheels,
-  World History globes). `COLL_SEAL` adds a gold-embossed emblem circle per banner (`.collection-seal`). The **default
-  folio theme has its own "bookplate" deco** (quiet hue wash + fine inner rule + ghosted motif) — it is no longer the
-  undecorated theme; coming-soon rows show a ghost of their hue (row opacity .62). Deck rows inside a collection take
-  the collection hue as their left hairline (`--coll-bg` inherits from the `.collection` root; branches stay ochre).
-  If a collection is ever recreated under a new id, update `COLL_THEME`/`COLL_SEAL` (and `COLLECTION_NUMERALS`).
+- **Collection identity (Library)**: `COLL_THEME` (app.js) maps each collection id → `{ bg }`, a signature hue
+  (`--coll-bg`, consumed by every theme's STATIC banner treatment in styles.css — the old drifting SVG motif system was
+  removed on request; banners must stay still). `COLL_SEAL` adds a gold-embossed emblem circle per banner
+  (`.collection-seal`: 中 China, globe World History, Ω Greece, laurel Rome, ★ US, onion dome Russia, dharma wheel
+  India). The **default folio theme has a "bookplate" deco** (quiet hue wash + fine inner rule); coming-soon rows show
+  a ghost of their hue (row opacity .62). Deck rows inside a collection take the collection hue as their left hairline
+  (`--coll-bg` inherits from the `.collection` root; branches stay ochre). If a collection is ever recreated under a
+  new id, update `COLL_THEME`/`COLL_SEAL` (and `COLLECTION_NUMERALS`).
 - **Collections count their level in their own script** (`levelBadgeMarkup(xp, sys)` + `numeralIn(sys, n)`; the id→system map is
   `COLLECTION_NUMERALS`): China → Chinese numerals (`一 二 三 …` via `cnNumeral()`, Han font — `一` for level 1 is a single
   horizontal stroke, so it reads as a bar until level 2+), Ancient Rome (col-40) → Roman numerals, Ancient Greece (col-13) →

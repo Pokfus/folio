@@ -1798,7 +1798,7 @@
     (PAGES[current.name] || PAGES.home)(root, current.params);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
-  const THEMES = ["folio", "atlas", "press", "bloom", "tide", "clay", "garden", "synth"];
+  const THEMES = ["folio", "atlas", "press", "bloom", "tide", "clay", "garden", "synth", "arcade", "academy", "scroll", "marble", "dynasty", "grove", "gazette"];
   function applyTheme() {
     const night = !!S.settings.night;
     document.body.classList.toggle("night", night);
@@ -3177,16 +3177,16 @@
 
   // Per-collection banner theme: background wash colour + sparse motif (golden on the wash).
   // Tile widths are all 120 so the diagonal drift loops seamlessly (see @keyframes collDecoScroll).
-  // per-collection identity: a signature hue (--coll-bg, feeds every theme's banner art) + a motif colour.
+  // per-collection identity: a signature hue (--coll-bg, feeds every theme's banner treatment).
   // Keyed by collection id — update here if a collection is ever recreated under a new id.
   const COLL_THEME = {
-    china:    { bg: "#C8453C", pat: "#EAC15C" }, // gold stars on vermilion
-    "col-8":  { bg: "#8A6D3F", pat: "#E3D3AC" }, // parchment globes on sepia (World History)
-    "col-13": { bg: "#2E6E8E", pat: "#EAF2F5" }, // marble meander on Aegean blue (Ancient Greece)
-    "col-40": { bg: "#664C9A", pat: "#DCB652" }, // gold laurels on imperial purple (Ancient Rome)
-    "col-41": { bg: "#2F4373", pat: "#EDE8DC" }, // pale stars on navy (United States)
-    "col-42": { bg: "#9E2B25", pat: "#E8B84B" }, // gold onion domes on lacquer red (Russia)
-    "col-43": { bg: "#C2701E", pat: "#F2E4C2" }, // cream chakras on saffron (India)
+    china:    { bg: "#C8453C" }, // vermilion
+    "col-8":  { bg: "#8A6D3F" }, // sepia (World History)
+    "col-13": { bg: "#2E6E8E" }, // Aegean blue (Ancient Greece)
+    "col-40": { bg: "#664C9A" }, // imperial purple (Ancient Rome)
+    "col-41": { bg: "#2F4373" }, // navy (United States)
+    "col-42": { bg: "#9E2B25" }, // lacquer red (Russia)
+    "col-43": { bg: "#C2701E" }, // saffron (India)
   };
   // gold-embossed seal on each collection banner — a character or a small stroke SVG (colour from CSS)
   const COLL_SEAL = {
@@ -3202,38 +3202,8 @@
     const s = COLL_SEAL[id]; if (!s) return "";
     return '<span class="collection-seal' + (s.han ? " han" : "") + '" aria-hidden="true">' + (s.svg || esc(s.ch)) + "</span>";
   }
-  function collectionDecoSVG(id) {
-    const t = COLL_THEME[id]; if (!t) return "";
-    const STAR = "M12 2l2.9 6.9 7.1.6-5.4 4.7 1.6 7-6.2-3.7-6.2 3.7 1.6-7-5.4-4.7 7.1-.6z";
-    if (id === "china") // a few sparse gold stars
-      return "<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'><g fill='" + t.pat + "'><path transform='translate(20,18)' d='" + STAR + "'/><path transform='translate(80,72) scale(.62)' d='" + STAR + "'/></g></svg>";
-    if (id === "col-41") // sparse pale stars
-      return "<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'><g fill='" + t.pat + "'><path transform='translate(22,20) scale(.8)' d='" + STAR + "'/><path transform='translate(78,74) scale(.55)' d='" + STAR + "'/></g></svg>";
-    if (id === "col-13") // one Greek-key meander per tile
-      return "<svg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'><path d='M28 62 V34 h40 v22 h-26 v-12 h12' fill='none' stroke='" + t.pat + "' stroke-width='4'/></svg>";
-    if (id === "col-8") // two little globes
-      return "<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'><g fill='none' stroke='" + t.pat + "' stroke-width='2.2'><g><circle cx='38' cy='34' r='16'/><ellipse cx='38' cy='34' rx='7' ry='16'/><line x1='22' y1='34' x2='54' y2='34'/></g><g transform='translate(60,60) scale(.62)'><circle cx='38' cy='34' r='16'/><ellipse cx='38' cy='34' rx='7' ry='16'/><line x1='22' y1='34' x2='54' y2='34'/></g></g></svg>";
-    if (id === "col-42") // two onion domes
-      return "<svg xmlns='http://www.w3.org/2000/svg' width='130' height='130' viewBox='0 0 130 130'><g fill='none' stroke='" + t.pat + "' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'><g><line x1='36' y1='12' x2='36' y2='17'/><path d='M36 17c8 5.2 12 10.4 12 16.6 0 7.1-5 11.9-12 11.9s-12-4.8-12-11.9c0-6.2 4-11.4 12-16.6z'/></g><g transform='translate(52,58) scale(.72)'><line x1='36' y1='12' x2='36' y2='17'/><path d='M36 17c8 5.2 12 10.4 12 16.6 0 7.1-5 11.9-12 11.9s-12-4.8-12-11.9c0-6.2 4-11.4 12-16.6z'/></g></g></svg>";
-    if (id === "col-43") // two dharma wheels
-      return "<svg xmlns='http://www.w3.org/2000/svg' width='130' height='130' viewBox='0 0 130 130'><g fill='none' stroke='" + t.pat + "' stroke-width='2.2' stroke-linecap='round'><g><circle cx='36' cy='34' r='17'/><circle cx='36' cy='34' r='3.2'/><path d='M36 17v34M19 34h34M24 22l24 24M48 22 24 46'/></g><g transform='translate(56,58) scale(.6)'><circle cx='36' cy='34' r='17'/><circle cx='36' cy='34' r='3.2'/><path d='M36 17v34M19 34h34M24 22l24 24M48 22 24 46'/></g></g></svg>";
-    if (id === "col-40") { // exactly two large laurel branches in a tall tile
-      const laurel = (oy) => {
-        let s = "<rect x='59.1' y='" + oy + "' width='1.8' height='98' rx='.9'/>";
-        for (let k = 0; k < 6; k++) { const yy = oy + 9 + k * 15;
-          s += "<g transform='translate(62," + yy + ") rotate(40)'><ellipse rx='4.2' ry='9.5'/></g>";
-          s += "<g transform='translate(58," + (yy + 6) + ") rotate(-40)'><ellipse rx='4.2' ry='9.5'/></g>";
-        }
-        return s;
-      };
-      return "<svg xmlns='http://www.w3.org/2000/svg' width='120' height='240' viewBox='0 0 120 240'><g fill='" + t.pat + "'>" + laurel(16) + laurel(136) + "</g></svg>";
-    }
-    return "";
-  }
-  function collectionDecoBg(id) {
-    const svg = collectionDecoSVG(id);
-    return svg ? 'url("data:image/svg+xml,' + encodeURIComponent(svg) + '")' : "";
-  }
+  // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were
+  //  removed on request; collection banners stay static, coloured only by --coll-bg + the seal)
 
   function buildCollection(d) {
     const studied = studiedInNode(d);
@@ -3271,7 +3241,6 @@
       if (theme && deco) {
         const rowEl0 = collEl.querySelector(".collection-row");
         rowEl0.style.setProperty("--coll-bg", theme.bg);
-        rowEl0.style.setProperty("--coll-pat", collectionDecoBg(d.id));
         collEl.style.setProperty("--coll-bg", theme.bg);   // inherited by the deck rows inside (their left hairline takes the collection's hue)
       } else if (deco) { deco.remove(); }
       const collAddBtn = collEl.querySelector(".collection-add");
@@ -6400,6 +6369,13 @@
               <button class="theme-opt" data-theme="clay" type="button"><span class="theme-swatches"><i style="background:#B5532A"></i><i style="background:#9A3324"></i><i style="background:#F5ECE0"></i></span><span class="theme-name">Clay</span><span class="theme-tag">Earthen</span></button>
               <button class="theme-opt" data-theme="garden" type="button"><span class="theme-swatches"><i style="background:#2F7D4F"></i><i style="background:#C0492E"></i><i style="background:#EBF2E8"></i></span><span class="theme-name">Garden</span><span class="theme-tag">Botanical</span></button>
               <button class="theme-opt" data-theme="synth" type="button"><span class="theme-swatches"><i style="background:#7C2DFF"></i><i style="background:#FF2D7A"></i><i style="background:#F2EEFB"></i></span><span class="theme-name">Synth</span><span class="theme-tag">Neon</span></button>
+              <button class="theme-opt" data-theme="arcade" type="button"><span class="theme-swatches"><i style="background:#0968C4"></i><i style="background:#C98E06"></i><i style="background:#EDF3F7"></i></span><span class="theme-name">Arcade</span><span class="theme-tag">16-bit console</span></button>
+              <button class="theme-opt" data-theme="academy" type="button"><span class="theme-swatches"><i style="background:#16305B"></i><i style="background:#8E2233"></i><i style="background:#F5F0E4"></i></span><span class="theme-name">Academy</span><span class="theme-tag">Formal faculty</span></button>
+              <button class="theme-opt" data-theme="scroll" type="button"><span class="theme-swatches"><i style="background:#7A4517"></i><i style="background:#A32C1B"></i><i style="background:#E9DCBB"></i></span><span class="theme-name">Scroll</span><span class="theme-tag">Aged parchment</span></button>
+              <button class="theme-opt" data-theme="marble" type="button"><span class="theme-swatches"><i style="background:#8C6A3F"></i><i style="background:#7E2F27"></i><i style="background:#F2F0EA"></i></span><span class="theme-name">Marble</span><span class="theme-tag">Marble &amp; bronze</span></button>
+              <button class="theme-opt" data-theme="dynasty" type="button"><span class="theme-swatches"><i style="background:#B03A2E"></i><i style="background:#B9862B"></i><i style="background:#F6EFE0"></i></span><span class="theme-name">Dynasty</span><span class="theme-tag">Vermilion &amp; gold</span></button>
+              <button class="theme-opt" data-theme="grove" type="button"><span class="theme-swatches"><i style="background:#2E5D3E"></i><i style="background:#A8402F"></i><i style="background:#EBF1DF"></i></span><span class="theme-name">Grove</span><span class="theme-tag">Forest canopy</span></button>
+              <button class="theme-opt" data-theme="gazette" type="button"><span class="theme-swatches"><i style="background:#1D1C1A"></i><i style="background:#B5271D"></i><i style="background:#DAD8CF"></i></span><span class="theme-name">Gazette</span><span class="theme-tag">1940s newsprint</span></button>
             </div>
           </div>
         </div>
