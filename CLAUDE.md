@@ -285,6 +285,14 @@ ranges.js → admin1.js → cities.js → timeline.js → countries.js → count
   (`allGamesWonToday` → `progStats().dailySweep`). A perfect Multiple-choices run also increments `S.daily.wins`, which **revived
   the previously-dead `win1`/`win10` (Victor/Champion) badges** (`wins` was never written after the bot race was removed).
   `S.games` is in `defaultState()` (back-fills old saves) and `PROGRESS_FIELDS` (mirrors to the account).
+- **Collection identity (Library)**: `COLL_THEME` (app.js) maps each collection id → `{ bg, pat }` — a signature hue
+  (`--coll-bg`, consumed by EVERY theme's banner art in styles.css) + a motif colour (`--coll-pat`, an SVG data-URI from
+  `collectionDecoSVG`: China gold stars, Greece meander, Rome laurels, US stars, Russia onion domes, India dharma wheels,
+  World History globes). `COLL_SEAL` adds a gold-embossed emblem circle per banner (`.collection-seal`). The **default
+  folio theme has its own "bookplate" deco** (quiet hue wash + fine inner rule + ghosted motif) — it is no longer the
+  undecorated theme; coming-soon rows show a ghost of their hue (row opacity .62). Deck rows inside a collection take
+  the collection hue as their left hairline (`--coll-bg` inherits from the `.collection` root; branches stay ochre).
+  If a collection is ever recreated under a new id, update `COLL_THEME`/`COLL_SEAL` (and `COLLECTION_NUMERALS`).
 - **Collections count their level in their own script** (`levelBadgeMarkup(xp, sys)` + `numeralIn(sys, n)`; the id→system map is
   `COLLECTION_NUMERALS`): China → Chinese numerals (`一 二 三 …` via `cnNumeral()`, Han font — `一` for level 1 is a single
   horizontal stroke, so it reads as a bar until level 2+), Ancient Rome (col-40) → Roman numerals, Ancient Greece (col-13) →

@@ -3177,19 +3177,47 @@
 
   // Per-collection banner theme: background wash colour + sparse motif (golden on the wash).
   // Tile widths are all 120 so the diagonal drift loops seamlessly (see @keyframes collDecoScroll).
+  // per-collection identity: a signature hue (--coll-bg, feeds every theme's banner art) + a motif colour.
+  // Keyed by collection id — update here if a collection is ever recreated under a new id.
   const COLL_THEME = {
-    china: { bg: "#C8453C", pat: "#EAC15C" }, // gold stars on red
-    rome:  { bg: "#664C9A", pat: "#DCB652" }, // gold laurels on purple
-    japan: { bg: "#C0392E", pat: "#F4EEE2" }, // pale rising-sun discs on red
+    china:    { bg: "#C8453C", pat: "#EAC15C" }, // gold stars on vermilion
+    "col-8":  { bg: "#8A6D3F", pat: "#E3D3AC" }, // parchment globes on sepia (World History)
+    "col-13": { bg: "#2E6E8E", pat: "#EAF2F5" }, // marble meander on Aegean blue (Ancient Greece)
+    "col-40": { bg: "#664C9A", pat: "#DCB652" }, // gold laurels on imperial purple (Ancient Rome)
+    "col-41": { bg: "#2F4373", pat: "#EDE8DC" }, // pale stars on navy (United States)
+    "col-42": { bg: "#9E2B25", pat: "#E8B84B" }, // gold onion domes on lacquer red (Russia)
+    "col-43": { bg: "#C2701E", pat: "#F2E4C2" }, // cream chakras on saffron (India)
   };
+  // gold-embossed seal on each collection banner — a character or a small stroke SVG (colour from CSS)
+  const COLL_SEAL = {
+    china: { ch: "中", han: true },
+    "col-8": { svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4.2" ry="9"/><line x1="3" y1="12" x2="21" y2="12"/></svg>' },
+    "col-13": { ch: "Ω" },
+    "col-40": { svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M7 3.5C4.2 7.5 4.2 13 7 16.5"/><path d="M17 3.5c2.8 4 2.8 9.5 0 13"/><path d="M7 16.5c1.4 1.9 3 3 5 3.3 2-.3 3.6-1.4 5-3.3"/><path d="M6.2 6.5 4.4 5.6M5.7 9.6H3.8M5.9 12.6l-1.9.4M6.7 15.4l-1.7 1M17.8 6.5l1.8-.9M18.3 9.6h1.9M18.1 12.6l1.9.4M17.3 15.4l1.7 1"/></svg>' },
+    "col-41": { ch: "★" },
+    "col-42": { svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2.5" x2="12" y2="4.5"/><path d="M12 4.5c3.4 2.2 5 4.4 5 7 0 3-2.1 5-5 5s-5-2-5-5c0-2.6 1.6-4.8 5-7z"/><path d="M8.5 16.5V20h7v-3.5"/></svg>' },
+    "col-43": { svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="1.6"/><path d="M12 3.5v17M3.5 12h17M6 6l12 12M18 6 6 18"/></svg>' },
+  };
+  function collSealHTML(id) {
+    const s = COLL_SEAL[id]; if (!s) return "";
+    return '<span class="collection-seal' + (s.han ? " han" : "") + '" aria-hidden="true">' + (s.svg || esc(s.ch)) + "</span>";
+  }
   function collectionDecoSVG(id) {
     const t = COLL_THEME[id]; if (!t) return "";
     const STAR = "M12 2l2.9 6.9 7.1.6-5.4 4.7 1.6 7-6.2-3.7-6.2 3.7 1.6-7-5.4-4.7 7.1-.6z";
     if (id === "china") // a few sparse gold stars
       return "<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'><g fill='" + t.pat + "'><path transform='translate(20,18)' d='" + STAR + "'/><path transform='translate(80,72) scale(.62)' d='" + STAR + "'/></g></svg>";
-    if (id === "japan") // one rising-sun disc per tile
-      return "<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'><g fill='none' stroke='" + t.pat + "' stroke-width='2.4'><circle cx='60' cy='60' r='30'/><circle cx='60' cy='60' r='19'/></g><circle cx='60' cy='60' r='7' fill='" + t.pat + "'/></svg>";
-    if (id === "rome") { // exactly two large laurel branches in a tall tile
+    if (id === "col-41") // sparse pale stars
+      return "<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'><g fill='" + t.pat + "'><path transform='translate(22,20) scale(.8)' d='" + STAR + "'/><path transform='translate(78,74) scale(.55)' d='" + STAR + "'/></g></svg>";
+    if (id === "col-13") // one Greek-key meander per tile
+      return "<svg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'><path d='M28 62 V34 h40 v22 h-26 v-12 h12' fill='none' stroke='" + t.pat + "' stroke-width='4'/></svg>";
+    if (id === "col-8") // two little globes
+      return "<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'><g fill='none' stroke='" + t.pat + "' stroke-width='2.2'><g><circle cx='38' cy='34' r='16'/><ellipse cx='38' cy='34' rx='7' ry='16'/><line x1='22' y1='34' x2='54' y2='34'/></g><g transform='translate(60,60) scale(.62)'><circle cx='38' cy='34' r='16'/><ellipse cx='38' cy='34' rx='7' ry='16'/><line x1='22' y1='34' x2='54' y2='34'/></g></g></svg>";
+    if (id === "col-42") // two onion domes
+      return "<svg xmlns='http://www.w3.org/2000/svg' width='130' height='130' viewBox='0 0 130 130'><g fill='none' stroke='" + t.pat + "' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'><g><line x1='36' y1='12' x2='36' y2='17'/><path d='M36 17c8 5.2 12 10.4 12 16.6 0 7.1-5 11.9-12 11.9s-12-4.8-12-11.9c0-6.2 4-11.4 12-16.6z'/></g><g transform='translate(52,58) scale(.72)'><line x1='36' y1='12' x2='36' y2='17'/><path d='M36 17c8 5.2 12 10.4 12 16.6 0 7.1-5 11.9-12 11.9s-12-4.8-12-11.9c0-6.2 4-11.4 12-16.6z'/></g></g></svg>";
+    if (id === "col-43") // two dharma wheels
+      return "<svg xmlns='http://www.w3.org/2000/svg' width='130' height='130' viewBox='0 0 130 130'><g fill='none' stroke='" + t.pat + "' stroke-width='2.2' stroke-linecap='round'><g><circle cx='36' cy='34' r='17'/><circle cx='36' cy='34' r='3.2'/><path d='M36 17v34M19 34h34M24 22l24 24M48 22 24 46'/></g><g transform='translate(56,58) scale(.6)'><circle cx='36' cy='34' r='17'/><circle cx='36' cy='34' r='3.2'/><path d='M36 17v34M19 34h34M24 22l24 24M48 22 24 46'/></g></g></svg>";
+    if (id === "col-40") { // exactly two large laurel branches in a tall tile
       const laurel = (oy) => {
         let s = "<rect x='59.1' y='" + oy + "' width='1.8' height='98' rx='.9'/>";
         for (let k = 0; k < 6; k++) { const yy = oy + 9 + k * 15;
@@ -3230,6 +3258,7 @@
             </div>
             ${xpBarMarkup(studied)}
           </div>
+          ${collSealHTML(d.id)}
           <div class="collection-actions">
             ${!soon ? `<button class="collection-add${isActive(d.id) ? " added" : ""}" data-id="${d.id}" aria-label="${isActive(d.id) ? "Remove from review" : "Add to review"}">${addIcon(isActive(d.id))}</button>` : ""}
             ${hasSubs ? `<button class="chev" aria-label="Expand children"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>` : ""}
@@ -3243,6 +3272,7 @@
         const rowEl0 = collEl.querySelector(".collection-row");
         rowEl0.style.setProperty("--coll-bg", theme.bg);
         rowEl0.style.setProperty("--coll-pat", collectionDecoBg(d.id));
+        collEl.style.setProperty("--coll-bg", theme.bg);   // inherited by the deck rows inside (their left hairline takes the collection's hue)
       } else if (deco) { deco.remove(); }
       const collAddBtn = collEl.querySelector(".collection-add");
       if (collAddBtn) wireAddButton(collAddBtn, d.id);
@@ -6227,16 +6257,25 @@
     </figure>`;
     const step = (n, b, s) => `<li><span class="hi-num">${n}</span><div class="ms-body"><b>${b}</b><span>${s}</span></div></li>`;
     const faq = (q, a) => `<div class="faq-item"><button class="faq-q" type="button" aria-expanded="false">${esc(q)}${chev}</button><div class="faq-a"><p>${a}</p></div></div>`;
+    // small accent chip beside each section title (icon inherits the card's --msn-accent hue)
+    const chip = (svg) => `<span class="msn-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${svg}</svg></span>`;
+    const CHIP = {
+      intro: chip('<polyline points="3 6 8 16.5 8 6 14 16.5 14 6 21 14.5"/>'),   // the sawtooth of the forgetting curve
+      howto: chip('<circle cx="4.5" cy="6" r="1.5" fill="currentColor" stroke="none"/><line x1="9" y1="6" x2="20" y2="6"/><circle cx="4.5" cy="12" r="1.5" fill="currentColor" stroke="none"/><line x1="9" y1="12" x2="20" y2="12"/><circle cx="4.5" cy="18" r="1.5" fill="currentColor" stroke="none"/><line x1="9" y1="18" x2="20" y2="18"/>'),
+      faq: chip('<path d="M8.7 9a3.2 3.2 0 0 1 6 1.7c0 2.1-3.2 2.7-3.2 4.4"/><line x1="11.5" y1="18.5" x2="11.5" y2="18.5"/>'),
+      clog: chip('<circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 14"/>'),
+      credits: chip('<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>'),
+    };
     root.innerHTML = `
       <div class="page-head"><span class="eyebrow">Folio</span><h1>About</h1></div>
       <div class="mission">
-        <div class="msn-card">
-          <h2 id="msnTitle">${esc(M.title)}</h2>
+        <div class="msn-card msn-intro">
+          <div class="msn-head">${CHIP.intro}<h2 id="msnTitle">${esc(M.title)}</h2></div>
           <div class="msn-prose" id="msnProse">${(M.paras || []).map((p) => "<p>" + p + "</p>").join("")}</div>
           ${curveSVG}
         </div>
-        <div class="msn-card">
-          <h2>How to use Folio</h2>
+        <div class="msn-card msn-howto">
+          <div class="msn-head">${CHIP.howto}<h2>How to use Folio</h2></div>
           <ol class="msn-steps">
             ${step(1, "Pick a subject", "Open the <b>Library</b> and choose a collection. Its cards join your daily review.")}
             ${step(2, "Study today's cards", "The Home page deals you a small stack every day: new cards, plus any that are due to come back.")}
@@ -6250,8 +6289,8 @@
             <div class="mf-row"><b>The glossary</b> sits behind every underlined term on a card — click one for a short explanation.</div>
           </div>
         </div>
-        <div class="msn-card">
-          <h2>Common questions</h2>
+        <div class="msn-card msn-faq">
+          <div class="msn-head">${CHIP.faq}<h2>Common questions</h2></div>
           <div class="faq">
             ${faq("What do Again, Hard, Good and Easy actually do?", "They tell Folio when to show the card next. <b>Again</b> brings it back in about a minute, <b>Hard</b> in a few minutes. <b>Good</b> moves it a real step ahead — first ten minutes, then a day, then longer each time. <b>Easy</b> jumps it several days ahead. No grade is a punishment; they only tune the timing.")}
             ${faq("What happens if I miss a day?", "Nothing bad. Your due cards simply wait for you, and the schedule picks up where it left off — only your day streak resets. Miss a week and the pile is bigger, but it clears quickly.")}
@@ -6259,12 +6298,12 @@
             ${faq("Do I need an account?", "No. Your progress is saved on this device automatically. An account only matters if you want the same progress on several devices, or to add friends.")}
           </div>
         </div>
-        <div class="msn-card">
-          <h2>Changelog</h2>
+        <div class="msn-card msn-clog">
+          <div class="msn-head">${CHIP.clog}<h2>Changelog</h2></div>
           <div class="clog">${logHTML}</div>
         </div>
-        <div class="msn-card">
-          <h2>Credits &amp; sources</h2>
+        <div class="msn-card msn-credits">
+          <div class="msn-head">${CHIP.credits}<h2>Credits &amp; sources</h2></div>
           <ul class="credits-list">
             <li><a href="https://en.wikipedia.org" target="_blank" rel="noopener">Wikipedia</a> <span class="cr-lic">CC BY-SA 4.0</span> — research base for the cards, glossary definitions and country summaries.</li>
             <li><a href="https://www.wikidata.org" target="_blank" rel="noopener">Wikidata</a> <span class="cr-lic">CC0</span> — country statistics (population, area, GDP).</li>

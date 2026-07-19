@@ -181,6 +181,9 @@ body.visitor-mode .tab-admin{display:none;}
 .page-head{margin:2px 0 22px;}
 .page-head h1{font-family:var(--display); font-weight:600; font-size:clamp(28px,5vw,38px); margin:6px 0 0; letter-spacing:-.015em;}
 .page-head p{color:var(--ink-faint); margin:8px 0 0; font-size:15.5px; max-width:60ch;}
+/* a slim accent hairline under every page title (centred fade on mobile, where the head is centred) */
+.page-head::after{content:""; display:block; width:190px; max-width:38%; height:2px; margin-top:14px; border-radius:2px;
+  background:linear-gradient(90deg, color-mix(in srgb, var(--indigo) 55%, transparent), transparent);}
 
 /* ============================================================
    BUTTONS
@@ -383,17 +386,41 @@ body.night .banner, body.night .banner:hover{border-left-color:#fff;}
 /* drift up and to the right at ~31° from vertical; 720/1200 keeps every tile (120 wide, 120/240 tall) seamless */
 @keyframes collDecoScroll{from{background-position:0 0;} to{background-position:720px -1200px;}}
 @media (prefers-reduced-motion: reduce){.collection-deco::before{animation:none;}}
-/* Default (folio) theme: flat collection banners — no colour wash, no drifting motif.
-   (Layout, title, gray timespan, progress bar/count are untouched; other themes unaffected.) */
+/* Default (folio) theme — "bookplate": a quiet wash of the collection's hue fading into the card,
+   a fine inner rule like a book plate, and the collection's motif ghosted (brightens + drifts on
+   hover via the base ::before rules, same as the other themes — just far more restrained). */
 body[data-theme="folio"] .collection-deco,
-body[data-theme="folio"].night .collection-deco{ background:none; }
-body[data-theme="folio"] .collection-deco::before{ content:none; }
+body[data-theme="folio"].night .collection-deco{
+  background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, #888) 14%, var(--card)), var(--card) 64%);
+}
+body[data-theme="folio"].night .collection-deco{
+  background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, #888) 22%, var(--card)), var(--card) 64%);
+}
+body[data-theme="folio"] .collection-deco::after{
+  content:""; position:absolute; inset:6px; border-radius:9px; pointer-events:none;
+  border:1px solid color-mix(in srgb, var(--coll-bg, #888) 24%, transparent);
+}
+body[data-theme="folio"] .collection-deco::before{ opacity:.2; }
+body[data-theme="folio"] .collection-row:hover .collection-deco::before,
+body[data-theme="folio"] .collection-row:focus-within .collection-deco::before,
+body[data-theme="folio"] .collection.open .collection-deco::before{ opacity:.48; }
 /* the studied/total count sits in a small solid box so it stays legible over the colour wash */
 .collection-row .prog .count{background:var(--coll-bg, var(--card)); color:#fff; padding:2px 9px; border-radius:6px; box-shadow:0 0 0 1px rgba(0,0,0,.08);}
 .collection.placeholder{background:var(--paper-2); box-shadow:var(--shadow-sm);}
-.collection.placeholder .collection-row{opacity:.5; cursor:default;}
+.collection.placeholder .collection-row{opacity:.62; cursor:default;}   /* a ghost of the collection's identity colour shows through — a shelf awaiting opening, not an empty carton */
 .collection.placeholder .collection-row:hover{background:none;}
 .collection.placeholder .collection-title{color:var(--ink-faint);}
+/* gold-embossed collection seal (emblem character or small stroke SVG) */
+.collection-seal{
+  flex:none; width:52px; height:52px; border-radius:50%; position:relative; z-index:1;
+  display:flex; align-items:center; justify-content:center;
+  color:#C39A2E; border:1.5px solid color-mix(in srgb, #C39A2E 55%, transparent);
+  box-shadow:inset 0 0 0 3px color-mix(in srgb, #C39A2E 16%, transparent);
+  font-family:var(--display); font-weight:600; font-size:22px; line-height:1; user-select:none;
+}
+.collection-seal.han{font-family:var(--han); font-size:24px;}
+.collection-seal svg{width:26px; height:26px; display:block;}
+body.night .collection-seal{color:#E6C765; border-color:color-mix(in srgb, #E6C765 55%, transparent); box-shadow:inset 0 0 0 3px color-mix(in srgb, #E6C765 14%, transparent);}
 .collection-main{flex:1; min-width:0;}
 .collection-title-row{display:flex; align-items:center; gap:10px; margin-bottom:9px;}
 .collection-title{font-family:var(--display); font-weight:600; font-size:23px; letter-spacing:-.01em; line-height:1;}
@@ -430,6 +457,11 @@ body[data-theme="folio"] .collection-deco::before{ content:none; }
 .node:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
 .node.placeholder{border-left-color:var(--ink-faint); cursor:default; background:var(--paper-2); filter:opacity(.5);}
 .node.placeholder:hover{transform:none; background:var(--paper-2);}
+/* deck rows take their collection's identity hue for the left hairline (--coll-bg inherits from the
+   .collection root); branches keep ochre and placeholders grey so the hierarchy still reads */
+.collection .node{border-left-color:var(--coll-bg, var(--indigo));}
+.collection .node.branch{border-left-color:var(--ochre);}
+.collection .node.placeholder{border-left-color:var(--ink-faint);}
 /* nested branches (sub-subdecks) */
 .node-group{display:flex; flex-direction:column;}
 
@@ -450,6 +482,7 @@ body[data-theme="folio"] .collection-deco::before{ content:none; }
 .lib-drop-before{box-shadow:inset 0 3px 0 -1px var(--indigo-bright);}
 .lib-drop-into{outline:2px dashed color-mix(in srgb, var(--indigo) 45%, transparent); outline-offset:4px; border-radius:14px;}
 .lib-empty{padding:22px; text-align:center; border:1.5px dashed var(--rule); border-radius:14px; color:var(--ink-faint); font-family:var(--mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase;}
+.lib-empty::before{content:"✦"; display:block; font-size:18px; margin-bottom:6px; opacity:.55; color:var(--indigo);}
 .node.branch{cursor:pointer; border-left-color:var(--ochre); background:var(--card);}
 .node.branch:hover{transform:translateX(2px);}
 .node.branch.placeholder{border-left-color:var(--ink-faint);}
@@ -1331,10 +1364,35 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
 .clog-day.open .clog-body{display:block;}
 .clog-body ul{margin:0; padding:0 0 0 18px;}
 .clog-body li{font-family:var(--serif); font-size:14px; line-height:1.6; color:var(--ink-soft); margin-bottom:7px;}
-/* about page: forgetting-curve diagram, how-to steps, FAQ */
-.msn-curve{margin:22px 0 4px; padding:0;}
+/* about page: per-card accent hue + icon chip, forgetting-curve diagram, how-to steps, FAQ */
+.msn-card{border-top:3px solid var(--msn-accent, var(--rule));}
+.msn-intro{--msn-accent:var(--indigo);}
+.msn-howto{--msn-accent:#4F9D67;}
+.msn-faq{--msn-accent:#8257C2;}
+.msn-clog{--msn-accent:#C39A2E;}
+.msn-credits{--msn-accent:#2BA6A0;}
+.msn-head{display:flex; align-items:center; gap:12px; margin-bottom:14px;}
+.msn-head h2{margin:0;}
+.msn-chip{flex:none; width:34px; height:34px; border-radius:10px; display:flex; align-items:center; justify-content:center;
+  background:color-mix(in srgb, var(--msn-accent, var(--indigo)) 12%, transparent); color:var(--msn-accent, var(--indigo));}
+.msn-chip svg{width:18px; height:18px; display:block;}
+.msn-curve{margin:22px 0 4px; padding:18px 16px 14px; background:color-mix(in srgb, var(--indigo) 5%, transparent); border-radius:12px;}
 .msn-curve svg{display:block; width:100%; height:auto;}
 .msn-curve figcaption{font-family:var(--mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); text-align:center; margin-top:10px;}
+/* editorial drop cap on the intro's first paragraph (suppressed while that paragraph is being edited) */
+.msn-intro .msn-prose > p:first-of-type::first-letter{
+  font-family:var(--display); font-weight:600; font-size:46px; line-height:.8; float:left; padding:5px 9px 0 0; color:var(--indigo);}
+.msn-intro .msn-prose > p.msn-editing::first-letter{
+  font-family:inherit; font-weight:inherit; font-size:inherit; line-height:inherit; float:none; padding:0; color:inherit;}
+/* the changelog reads as a timeline: a thin rail with a gold dot per day */
+.msn-clog .clog{position:relative; padding-left:22px;}
+.msn-clog .clog::before{content:""; position:absolute; left:6px; top:16px; bottom:14px; width:2px; border-radius:2px;
+  background:color-mix(in srgb, var(--msn-accent) 24%, transparent);}
+.msn-clog .clog-day{position:relative;}
+.msn-clog .clog-day::after{content:""; position:absolute; left:-19px; top:17px; width:8px; height:8px; border-radius:50%;
+  background:var(--msn-accent); opacity:.45; box-shadow:0 0 0 3px color-mix(in srgb, var(--msn-accent) 14%, transparent); transition:opacity .2s;}
+.msn-clog .clog-day.open::after{opacity:1;}
+.msn-clog .clog-date{background:color-mix(in srgb, var(--msn-accent) 12%, transparent); border-radius:6px; padding:2px 8px;}
 .msn-steps{list-style:none; margin:0 0 18px; padding:0; display:flex; flex-direction:column; gap:15px;}
 .msn-steps li{display:flex; gap:14px; align-items:flex-start;}
 .ms-body{display:flex; flex-direction:column; gap:2px; min-width:0;}
@@ -1414,6 +1472,7 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
   /* centre page content on phones instead of hugging the top-left */
   .stage{padding-top:20px;}
   .page-head{text-align:center;}
+  .page-head::after{margin-left:auto; margin-right:auto; background:linear-gradient(90deg, transparent, color-mix(in srgb, var(--indigo) 55%, transparent), transparent);}
   .page-head p{margin-left:auto; margin-right:auto;}
   .banner{flex-direction:column; align-items:flex-start; gap:16px; padding:22px 20px;}
   .banner .body{width:100%;}   /* column + align-items:flex-start shrinks children — stretch the body so the CTA's right-alignment reaches the banner edge */

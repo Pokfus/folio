@@ -13,6 +13,8 @@ window.CHANGELOG = [
       "The review banner now shows your day streak and tells 'all caught up' apart from 'not started yet'; the daily quote now rotates through history's great voices, East and West — Confucius and Sima Qian alongside Seneca, Cicero and Plato.",
       "The Mission page became the About page, rewritten in plain language anyone can follow: a picture of the forgetting curve, a five-step guide to using Folio, and answers to common questions — with the changelog and credits below.",
       "The About page went quiet: no more read-aloud there, on the intro or in its glossary popups.",
+      "A fresh coat of colour in the Library: every collection now has its own identity — Aegean blue for Greece, imperial purple for Rome, saffron for India, lacquer red for Russia — with a gold seal, a soft colour wash and a drifting motif on every theme, including the default.",
+      "The About page brightened too: coloured section accents with small icons, the forgetting curve on a soft panel, the changelog drawn as a timeline, and a drop cap on the intro — plus an accent line under page titles and deck rows tinted in their collection's colour.",
     ],
   },
   {
