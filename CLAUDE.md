@@ -249,6 +249,18 @@ ranges.js → admin1.js → cities.js → timeline.js → countries.js → count
   `_ttsAudio`. Chinese hanzi stays on the device voice (no commercially-clear zh Piper voice). The bake is incremental
   (manifest hash check; `--force` re-bakes; `--scan-speakers=N` pitch-scans voices; toolchain auto-downloads into gitignored
   `.claude/tts-cache/`). Gloss popups + selection read-aloud always use the engine.
+- **Home page** (`PAGES.home`): greeting → daily quote (`QUOTES`, **Chinese sources only** — standard published
+  translations, no loose internet attributions) → review banner → (first-run only) a 3-step how-it-works strip → game
+  tiles → a **discovery row** (`.explore-grid`): **Card of the day** (a real card, CSS-3D flip to its answer, gloss
+  links stripped, "Study <deck>" button), **Term of the day** (a dated glossary term → `openGlossWin`), and an **Atlas
+  teaser** with a slowly turning decorative mini globe (`startMiniGlobe` — decimated `WORLD_GEO`, orthographic,
+  theme-coloured like the Atlas, stops when the canvas leaves the DOM, static under `prefers-reduced-motion`). Both
+  daily picks come from `dailyPick(arr, salt)` (date-seeded). **Until the first card is ever graded**
+  (`S.cards` empty) the banner is a **first-run hero**: purpose sentence + "Study your first cards", which sets
+  `S.active = ["china"]` (replacing the bare `cn-qing` default) and routes straight into a session; the level badge,
+  xp bar, stats, review-order toggle and active-deck list appear only after that. The banner shows a **🔥 day-streak
+  chip** (`S.streak`, shown at 2+ when the run is alive) and a faint `史` watermark (the pre-existing `.banner .glyph`
+  Han slot).
 - **Home minigames** (game-grid tiles → `PAGES.*`): **Multiple Choice** (`PAGES.challenge`, formerly "Daily Challenge" — the
   rival bots + timer were removed; it's now a plain 5-question quiz whose 3 wrong options are the SAME `answerType()` as the
   answer — a person → other people, a dynasty → other dynasties), **Timeline** (`chrono`), **True or False** (`truefalse`), and

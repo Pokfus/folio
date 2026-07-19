@@ -5,6 +5,15 @@
    user, not how). Loaded before app.js. */
 window.CHANGELOG = [
   {
+    d: "2026-07-19",
+    t: "A more welcoming home",
+    items: [
+      "First-time visitors now get a proper welcome: the home page explains what Folio is in one sentence, walks through spaced repetition in three short steps, and starts your first study session with a single button.",
+      "Three new doorways on the home page: a Card of the day you can flip over, a Term of the day from the glossary, and a slowly spinning mini globe that opens the Atlas.",
+      "The review banner now shows your day streak, tells 'all caught up' apart from 'not started yet', and the daily quote is now always from a Chinese source — Confucius, Laozi, Zhuangzi, Sun Tzu, Mencius or Sima Qian.",
+    ],
+  },
+  {
     d: "2026-07-14",
     t: "Counting in every script",
     items: [

@@ -2563,37 +2563,86 @@
      PAGE: HOME
      ============================================================ */
   // Short, public-domain reflections on learning, history and knowledge from historical thinkers.
+  // daily quote — Chinese sources only (the site's own civilisation sets the scene); standard published
+  // translations of well-documented passages, no loose internet attributions
   const QUOTES = [
-    { t: "Study the past if you would define the future.", a: "Confucius" },
+    { t: "To learn, and at due times to repeat what one has learnt — is that not after all a pleasure?", a: "Confucius" },
+    { t: "He who by reanimating the old can gain knowledge of the new is fit to be a teacher.", a: "Confucius" },
+    { t: "Learning without thought is labour lost; thought without learning is perilous.", a: "Confucius" },
     { t: "Real knowledge is to know the extent of one's ignorance.", a: "Confucius" },
-    { t: "By three methods we may learn wisdom: by reflection, which is noblest; by imitation, which is easiest; and by experience, which is the bitterest.", a: "Confucius" },
-    { t: "The mind is not a vessel to be filled, but a fire to be kindled.", a: "Plutarch" },
-    { t: "The roots of education are bitter, but the fruit is sweet.", a: "Aristotle" },
-    { t: "Knowing yourself is the beginning of all wisdom.", a: "Aristotle" },
-    { t: "The only true wisdom is in knowing you know nothing.", a: "Socrates" },
-    { t: "It is impossible for a man to learn what he thinks he already knows.", a: "Epictetus" },
-    { t: "Knowledge which is acquired under compulsion obtains no hold on the mind.", a: "Plato" },
-    { t: "As long as you live, keep learning how to live.", a: "Seneca" },
-    { t: "While we teach, we learn.", a: "Seneca" },
-    { t: "To be ignorant of what occurred before you were born is to remain forever a child.", a: "Cicero" },
-    { t: "If you have a garden and a library, you have everything you need.", a: "Cicero" },
-    { t: "Look back over the past, with its changing empires that rose and fell, and you can foresee the future too.", a: "Marcus Aurelius" },
-    { t: "Knowing others is wisdom; knowing yourself is enlightenment.", a: "Lao Tzu" },
-    { t: "The journey of a thousand miles begins with a single step.", a: "Lao Tzu" },
+    { t: "Knowing others is wisdom; knowing yourself is enlightenment.", a: "Laozi" },
+    { t: "The journey of a thousand miles begins with a single step.", a: "Laozi" },
     { t: "Life has a limit, but knowledge has none.", a: "Zhuangzi" },
-    { t: "No man ever steps in the same river twice.", a: "Heraclitus" },
-    { t: "Histories make men wise.", a: "Francis Bacon" },
-    { t: "Knowledge is power.", a: "Francis Bacon" },
-    { t: "Learning never exhausts the mind.", a: "Leonardo da Vinci" },
-    { t: "There is no royal road to geometry.", a: "Euclid" },
-    { t: "I grow old ever learning many things.", a: "Solon" },
-    { t: "Teach thy tongue to say 'I do not know,' and thou shalt progress.", a: "Maimonides" },
-    { t: "The life of the dead is set in the memory of the living.", a: "Cicero" },
-    { t: "Wonder is the beginning of wisdom.", a: "Socrates" },
+    { t: "If you know the enemy and know yourself, you need not fear the result of a hundred battles.", a: "Sun Tzu" },
+    { t: "The great man is he who does not lose his child's heart.", a: "Mencius" },
+    { t: "A man has only one death; it may be as weighty as Mount Tai or as light as a goose feather.", a: "Sima Qian" },
   ];
   function dailyQuoteHTML() {
     const q = QUOTES[Math.floor(Date.now() / DAY) % QUOTES.length];
     return '<figure class="daily-quote"><blockquote>' + esc(q.t) + '</blockquote><figcaption>— ' + esc(q.a) + '</figcaption></figure>';
+  }
+  // same pick all day, a different one tomorrow (card of the day, term of the day)
+  function dailyPick(arr, salt) {
+    if (!arr || !arr.length) return null;
+    return arr[(hashStr(salt + todayStr()) >>> 0) % arr.length];
+  }
+  // small decorative globe on the home page's Atlas tile: present-day landmasses (world.js), orthographic,
+  // slowly turning. Decimated vertices — it's a 170px ornament, not the Atlas.
+  function startMiniGlobe(canvas) {
+    const GEO = window.WORLD_GEO || [];
+    if (!canvas || !GEO.length) return;
+    const rings = [];
+    GEO.forEach((c) => (c.p || []).forEach((r) => {
+      if (r.length < 8) return;
+      const s = [];
+      for (let i = 0; i < r.length; i += 4) s.push(r[i]);
+      s.push(r[r.length - 1]);
+      rings.push(s);
+    }));
+    const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+    const size = canvas.clientWidth || 170;
+    canvas.width = size * dpr; canvas.height = size * dpr;
+    const cs = getComputedStyle(document.body);
+    const cv = (n) => cs.getPropertyValue(n).trim() || "#888888";
+    const hex2rgb = (h) => { h = h.replace("#", ""); if (h.length === 3) h = h.split("").map((c) => c + c).join(""); const n = parseInt(h, 16); return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; };
+    const mix = (a, b, t) => { const A = hex2rgb(a), B = hex2rgb(b); return "rgb(" + Math.round(A[0] + (B[0] - A[0]) * t) + "," + Math.round(A[1] + (B[1] - A[1]) * t) + "," + Math.round(A[2] + (B[2] - A[2]) * t) + ")"; };
+    const ink = cv("--ink"), paper = cv("--paper"), paper2 = cv("--paper-2"), indigo = cv("--indigo");
+    const L = hex2rgb(paper), dark = L[0] * 0.299 + L[1] * 0.587 + L[2] * 0.114 < 128;
+    const ocean = dark ? mix(paper2, indigo, 0.30) : "#b3ebff";   // same water as the Atlas
+    const land = mix(paper, ink, 0.12), border = mix(paper, ink, 0.40), rim = mix(paper, ink, 0.32);
+    const ctx = canvas.getContext("2d");
+    const cx = canvas.width / 2, cy = canvas.height / 2, R = canvas.width / 2 - dpr;
+    const rad = Math.PI / 180, phi0 = 18 * rad, sp0 = Math.sin(phi0), cp0 = Math.cos(phi0);
+    let lon0 = -20;
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.beginPath(); ctx.arc(cx, cy, R, 0, 2 * Math.PI); ctx.fillStyle = ocean; ctx.fill();
+      ctx.save(); ctx.beginPath(); ctx.arc(cx, cy, R, 0, 2 * Math.PI); ctx.clip();
+      ctx.fillStyle = land; ctx.strokeStyle = border; ctx.lineWidth = dpr * 0.5;
+      for (const ring of rings) {
+        let started = false;
+        ctx.beginPath();
+        for (let i = 0; i < ring.length; i++) {
+          const lam = (ring[i][0] - lon0) * rad, phi = ring[i][1] * rad;
+          const cp = Math.cos(phi), sp = Math.sin(phi), cl = Math.cos(lam);
+          if (sp0 * sp + cp0 * cp * cl <= 0) continue;   // behind the globe (a horizon-crossing ring closes with a chord — fine at this size)
+          const x = cx + R * cp * Math.sin(lam), y = cy - R * (cp0 * sp - sp0 * cp * cl);
+          if (started) ctx.lineTo(x, y); else { ctx.moveTo(x, y); started = true; }
+        }
+        if (started) { ctx.closePath(); ctx.fill(); ctx.stroke(); }
+      }
+      ctx.restore();
+      ctx.beginPath(); ctx.arc(cx, cy, R - dpr / 2, 0, 2 * Math.PI); ctx.strokeStyle = rim; ctx.lineWidth = dpr; ctx.stroke();
+    }
+    draw();
+    if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let last = 0;
+    function frame(t) {
+      if (!canvas.isConnected) return;   // navigated away — render() replaced #view
+      if (t - last >= 40) { last = t; lon0 = (lon0 + 0.15) % 360; draw(); }
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
   }
 
   PAGES.home = function (root) {
@@ -2690,6 +2739,97 @@
       ${blankTile(ICON.help, "#2BA6A0")}
     </div>`;
 
+    // --- discovery row: a real card to flip, a glossary term, and the Atlas ---
+    const fresh = Object.keys(S.cards).length === 0;   // never studied anything → first-run hero + how-it-works strip
+    const cod = dailyPick(CARDS.filter((c) => c.question && c.answerText), "cod-");
+    const codLeaf = cod ? cardLeaves(cod.id)[0] || null : null;
+    const todKeys = window.GLOSSARY ? Object.keys(window.GLOSSARY).filter((k) => (window.GLOSSARY_DATES || {})[k]) : [];
+    const tod = dailyPick(todKeys, "term-");
+    const exploreGrid = `<div class="explore-grid">
+      ${cod ? `<button class="exp-tile exp-card" id="exp-card" type="button" aria-label="Card of the day — click to flip it over">
+        <div class="flip">
+          <div class="flip-face flip-front">
+            <span class="exp-eyebrow">Card of the day</span>
+            <div class="cod-q">${cod.question}</div>
+            <span class="exp-hint">Click to turn the card over</span>
+          </div>
+          <div class="flip-face flip-back">
+            <span class="exp-eyebrow">Card of the day</span>
+            <div class="cod-a">${esc(cod.answerText)}</div>
+            ${cod.hanzi ? `<div class="cod-han">${esc(cod.hanzi)}${cod.pinyin ? ` <span class="cod-pin">${esc(cod.pinyin)}</span>` : ""}</div>` : ""}
+            ${codLeaf ? `<span class="btn cod-study" id="cod-study">Study ${esc(codLeaf.title)}</span>` : ""}
+          </div>
+        </div>
+      </button>` : ""}
+      ${tod ? `<button class="exp-tile exp-term" id="exp-term" type="button">
+        <span class="exp-eyebrow">From the glossary</span>
+        <span class="term-title">${esc(glossTitle(tod))}</span>
+        ${glossDates(tod) ? `<span class="term-dates">${esc(glossDates(tod))}</span>` : ""}
+        <span class="term-desc" id="term-desc"></span>
+        <span class="exp-hint">Term of the day — click to read</span>
+      </button>` : ""}
+      <button class="exp-tile exp-atlas" id="exp-atlas" type="button">
+        <div class="atlas-copy">
+          <span class="exp-eyebrow">The Atlas</span>
+          <span class="atlas-title">See the world's borders move</span>
+          <span class="atlas-sub">A globe you can spin and rewind — four centuries of political maps, every country clickable, back to 1600.</span>
+          <span class="exp-hint">Open the Atlas</span>
+        </div>
+        <canvas id="miniGlobe" class="mini-globe" aria-hidden="true"></canvas>
+      </button>
+    </div>`;
+    // shown until the first card is graded: the three-beat explanation of the method
+    const howit = fresh ? `<div class="howit" aria-label="How Folio works">
+      <div class="hi-step"><span class="hi-num">1</span><div class="hi-body"><b>Study a card</b><span>Each one asks you to recall the missing name, date or term.</span></div></div>
+      <div class="hi-step"><span class="hi-num">2</span><div class="hi-body"><b>Grade yourself</b><span>Again, Hard, Good or Easy — honesty sets the schedule.</span></div></div>
+      <div class="hi-step"><span class="hi-num">3</span><div class="hi-body"><b>It comes back</b><span>Right before you would forget it. That is spaced repetition.</span></div></div>
+    </div>` : "";
+
+    // streak chip: shown once a run of 2+ days is alive (studied today, or yesterday with today still open)
+    const streakChip = (() => {
+      const st = S.streak || {};
+      const yest = new Date(Date.now() - DAY).toISOString().slice(0, 10);
+      if ((st.last === todayStr() || st.last === yest) && st.count >= 2) return `<div class="stat streak" title="Days studied in a row"><b>🔥 ${st.count}</b><span>Day streak</span></div>`;
+      return "";
+    })();
+    // first-run hero: one sentence of purpose and a single way in — the normal banner takes over after the first card
+    const bannerHTML = fresh
+      ? `<button class="banner hero" id="b-review">
+          <div class="body">
+            <span class="hero-eyebrow">Start here</span>
+            <h2 class="review-title">Master Chinese history, a few minutes a day</h2>
+            <p class="desc">Folio deals you flashcards and brings each one back just before you would forget it — spaced repetition, the schedule that makes what you learn stay learned.</p>
+            <div class="meta">
+              <span class="cta"><span class="btn">Study your first cards</span></span>
+              <span class="hero-alt" id="hero-browse">or browse the collections</span>
+            </div>
+          </div>
+          <span class="glyph" aria-hidden="true">史</span>
+        </button>`
+      : `<button class="banner" id="b-review">
+          ${levelBadgeMarkup(folioXP())}
+          <div class="body">
+            <h2 class="review-title">Daily review</h2>
+            <p class="desc">${
+              dueN + newN > 0
+                ? "Cards scheduled for today, plus a few new ones from your active decks."
+                : activeIds.length
+                  ? "All caught up — nothing due right now. Come back tomorrow; the schedule does the rest."
+                  : "No decks in your daily review yet — add one from the collections to build your pile."
+            }</p>
+            ${xpBarMarkup(folioXP())}
+            <div class="meta">
+              <div class="stat"><b>${dueN}</b><span>Due</span></div>
+              <div class="stat"><b>${newN}</b><span>New</span></div>
+              <div class="stat"><b>${Object.keys(S.cards).length}</b><span>Seen total</span></div>
+              ${streakChip}
+              <span class="cta"><span class="btn ${dueN + newN ? "" : "ghost"}">${
+          dueN + newN ? "Start review" : "Browse collections"
+        }</span></span>
+            </div>
+          </div>
+          <span class="glyph" aria-hidden="true">史</span>
+        </button>`;
     root.innerHTML = `
       <div class="page-head">
         <span class="eyebrow">${greeting}, ${esc(S.user.name)}</span>
@@ -2697,32 +2837,14 @@
       </div>
       ${dailyQuoteHTML()}
       <div class="banners">
-        <div class="review-group ${activeIds.length ? "has-active" : ""}">
-        <button class="banner" id="b-review">
-          ${levelBadgeMarkup(folioXP())}
-          <div class="body">
-            <h2 class="review-title">Daily review</h2>
-            <p class="desc">${
-              dueN + newN > 0
-                ? "Cards scheduled for today, plus a few new ones from your active decks."
-                : "Nothing due right now — start a deck to build your review pile."
-            }</p>
-            ${xpBarMarkup(folioXP())}
-            <div class="meta">
-              <div class="stat"><b>${dueN}</b><span>Due</span></div>
-              <div class="stat"><b>${newN}</b><span>New</span></div>
-              <div class="stat"><b>${Object.keys(S.cards).length}</b><span>Seen total</span></div>
-              <span class="cta"><span class="btn ${dueN + newN ? "" : "ghost"}">${
-      dueN + newN ? "Start review" : "Browse collections"
-    }</span></span>
-            </div>
-          </div>
-          <span class="glyph glyph-svg">${ICON.review}</span>
-        </button>
-        <button class="review-order" id="reviewOrder" type="button" title="Order your daily review by date, or shuffle it"><span class="${S.settings.reviewRandom ? "" : "on"}">Chrono</span><span class="${S.settings.reviewRandom ? "on" : ""}">Random</span></button>
-        <div class="active-decks">${activeHTML}</div>
+        <div class="review-group ${activeIds.length && !fresh ? "has-active" : ""}">
+        ${bannerHTML}
+        ${fresh ? "" : `<button class="review-order" id="reviewOrder" type="button" title="Order your daily review by date, or shuffle it"><span class="${S.settings.reviewRandom ? "" : "on"}">Chrono</span><span class="${S.settings.reviewRandom ? "on" : ""}">Random</span></button>
+        <div class="active-decks">${activeHTML}</div>`}
         </div>
+        ${howit}
         ${gameGrid}
+        ${exploreGrid}
       </div>`;
 
     root.querySelector("#g-challenge").addEventListener("click", () => route("challenge"));
@@ -2736,10 +2858,40 @@
         render();
       })
     );
-    root.querySelector("#b-review").addEventListener("click", () => {
+    root.querySelector("#b-review").addEventListener("click", (e) => {
+      if (e.target.closest("#hero-browse")) { route("decks"); return; }
+      if (fresh) {
+        // first session: put the whole China collection in the daily review (replacing the bare default) and go
+        if (!activeIds.length || (activeIds.length === 1 && activeIds[0] === "cn-qing")) S.active = ["china"];
+        else if (activeIds.indexOf("china") < 0) S.active.push("china");
+        save();
+        route("study", { scope: { type: "review" } });
+        return;
+      }
       if (dueN + newN > 0) route("study", { scope: { type: "review" } });
       else route("decks");
     });
+    // discovery row: flip the card of the day, open the term's gloss popup, launch the Atlas
+    const expCard = root.querySelector("#exp-card");
+    if (expCard) {
+      expCard.querySelectorAll(".ttip").forEach((t) => t.replaceWith(t.textContent || ""));   // gloss links inside the question stay plain here
+      expCard.addEventListener("click", (e) => {
+        if (e.target.closest("#cod-study") && codLeaf) { route("study", { scope: { type: "deck", id: codLeaf.id } }); return; }
+        expCard.classList.toggle("flipped");
+      });
+    }
+    const expTerm = root.querySelector("#exp-term");
+    if (expTerm && tod) {
+      const tmp = document.createElement("div");
+      tmp.innerHTML = glossText(tod);
+      expTerm.querySelector("#term-desc").textContent = (tmp.textContent || "").trim();
+      expTerm.addEventListener("click", () => openGlossWin(tod, expTerm));
+    }
+    const expAtlas = root.querySelector("#exp-atlas");
+    if (expAtlas) {
+      expAtlas.addEventListener("click", () => route("map"));
+      startMiniGlobe(expAtlas.querySelector("#miniGlobe"));
+    }
     const reviewOrderBtn = root.querySelector("#reviewOrder");
     if (reviewOrderBtn) reviewOrderBtn.addEventListener("click", (e) => { e.stopPropagation(); S.settings.reviewRandom = !S.settings.reviewRandom; save(); render(); });
     // click a deck/subdeck in the daily-review list → review just that deck's cards (the trash button stops its own propagation)
