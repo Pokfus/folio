@@ -6174,9 +6174,9 @@
   }
   function serializeMission() {
     const M = missionMerged();
-    return "/* Mission-page intro copy (title + paragraphs; raw HTML — <b>/<i> allowed, glossary links are auto-added\n" +
-      "   at render). Admins edit this in place on the Mission page: edits overlay via ADMIN_EDITS.mission and are\n" +
-      "   baked back into this file by auto-save / \"Save to project\" (serializeMission). Loaded before app.js. */\n" +
+    return "/* Mission-page intro copy (title + paragraphs; raw HTML — <b>/<i> allowed; kept deliberately jargon-free,\n" +
+      "   no glossary links). Admins edit this in place on the About page: edits overlay via ADMIN_EDITS.mission and\n" +
+      "   are baked back into this file by auto-save / \"Save to project\" (serializeMission). Loaded before app.js. */\n" +
       "window.MISSION = " + JSON.stringify({ title: M.title, paras: M.paras }, null, 2) + ";\n";
   }
   PAGES.mission = function (root) {
@@ -6192,12 +6192,72 @@
         '</button>' +
         '<div class="clog-body"><ul>' + (e.items || []).map((it) => "<li>" + esc(it) + "</li>").join("") + "</ul></div>" +
       "</div>").join("");
+    // the forgetting curve, drawn in theme colours: memory fading without help (dashed), and the same
+    // memory lifted by reviews timed just before the fall — each hop longer than the last
+    const curveSVG = `<figure class="msn-curve">
+      <svg viewBox="0 0 640 230" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <line x1="42" y1="24" x2="42" y2="192" stroke="var(--rule)" stroke-width="1.5"/>
+        <line x1="42" y1="192" x2="624" y2="192" stroke="var(--rule)" stroke-width="1.5"/>
+        <text x="36" y="29" text-anchor="end" font-size="9.5" fill="var(--ink-faint)" font-family="var(--mono)">100%</text>
+        <text x="36" y="195" text-anchor="end" font-size="9.5" fill="var(--ink-faint)" font-family="var(--mono)">0%</text>
+        <text x="42" y="14" font-size="9.5" fill="var(--ink-faint)" font-family="var(--mono)" letter-spacing="1">HOW WELL YOU REMEMBER</text>
+        <text x="624" y="208" text-anchor="end" font-size="9.5" fill="var(--ink-faint)" font-family="var(--mono)" letter-spacing="1">TIME →</text>
+        <path d="M 42,24 C 90,110 150,160 250,178 S 470,190 624,190" fill="none" stroke="var(--ink-faint)" stroke-width="1.8" stroke-dasharray="5 5" opacity=".65"/>
+        <path d="M 150,96 L 150,24" stroke="var(--indigo)" stroke-width="1.4" opacity=".35"/>
+        <path d="M 280,78 L 280,24" stroke="var(--indigo)" stroke-width="1.4" opacity=".35"/>
+        <path d="M 440,64 L 440,24" stroke="var(--indigo)" stroke-width="1.4" opacity=".35"/>
+        <path d="M 42,24 Q 96,52 150,96" fill="none" stroke="var(--indigo)" stroke-width="2.4"/>
+        <path d="M 150,24 Q 215,44 280,78" fill="none" stroke="var(--indigo)" stroke-width="2.4"/>
+        <path d="M 280,24 Q 360,40 440,64" fill="none" stroke="var(--indigo)" stroke-width="2.4"/>
+        <path d="M 440,24 Q 532,34 624,46" fill="none" stroke="var(--indigo)" stroke-width="2.4"/>
+        <circle cx="150" cy="96" r="4.2" fill="var(--indigo)" stroke="var(--card)" stroke-width="1.6"/>
+        <circle cx="280" cy="78" r="4.2" fill="var(--indigo)" stroke="var(--card)" stroke-width="1.6"/>
+        <circle cx="440" cy="64" r="4.2" fill="var(--indigo)" stroke="var(--card)" stroke-width="1.6"/>
+        <text x="150" y="114" text-anchor="middle" font-size="9.5" fill="var(--indigo)" font-family="var(--mono)">REVIEW</text>
+        <text x="280" y="96" text-anchor="middle" font-size="9.5" fill="var(--indigo)" font-family="var(--mono)">REVIEW</text>
+        <text x="440" y="82" text-anchor="middle" font-size="9.5" fill="var(--indigo)" font-family="var(--mono)">REVIEW</text>
+        <g font-family="var(--mono)" font-size="10">
+          <line x1="330" y1="146" x2="362" y2="146" stroke="var(--indigo)" stroke-width="2.4"/>
+          <text x="370" y="149.5" fill="var(--ink-soft)">remembering with reviews</text>
+          <line x1="330" y1="166" x2="362" y2="166" stroke="var(--ink-faint)" stroke-width="1.8" stroke-dasharray="5 5"/>
+          <text x="370" y="169.5" fill="var(--ink-soft)">without</text>
+        </g>
+      </svg>
+      <figcaption>Each review lands just before you would forget — and each one makes the memory last longer.</figcaption>
+    </figure>`;
+    const step = (n, b, s) => `<li><span class="hi-num">${n}</span><div class="ms-body"><b>${b}</b><span>${s}</span></div></li>`;
+    const faq = (q, a) => `<div class="faq-item"><button class="faq-q" type="button" aria-expanded="false">${esc(q)}${chev}</button><div class="faq-a"><p>${a}</p></div></div>`;
     root.innerHTML = `
-      <div class="page-head"><span class="eyebrow">About Folio</span><h1>Mission</h1></div>
+      <div class="page-head"><span class="eyebrow">Folio</span><h1>About</h1></div>
       <div class="mission">
         <div class="msn-card">
           <h2 id="msnTitle">${esc(M.title)}</h2>
           <div class="msn-prose" id="msnProse">${(M.paras || []).map((p) => "<p>" + p + "</p>").join("")}</div>
+          ${curveSVG}
+        </div>
+        <div class="msn-card">
+          <h2>How to use Folio</h2>
+          <ol class="msn-steps">
+            ${step(1, "Pick a subject", "Open the <b>Library</b> and choose a collection. Its cards join your daily review.")}
+            ${step(2, "Study today's cards", "The Home page deals you a small stack every day: new cards, plus any that are due to come back.")}
+            ${step(3, "Try to remember", "Every card is a sentence with a blank. Say the answer to yourself first — really try — then flip the card. The trying is what builds the memory.")}
+            ${step(4, "Grade yourself", "Press <b>Again</b> if you missed it, <b>Hard</b> if it was a struggle, <b>Good</b> if you got it, <b>Easy</b> if it took no effort. Be honest: the buttons are not points, they set the schedule.")}
+            ${step(5, "Come back tomorrow", "Cards you know well wait for weeks. Cards you miss return within minutes. A few minutes a day is all it takes.")}
+          </ol>
+          <div class="msn-feats">
+            <div class="mf-row"><b>The games</b> repeat the same facts from new angles — one more proven way to make them stick.</div>
+            <div class="mf-row"><b>The Atlas</b> is a globe of world history: spin it, drag the timeline, click any country.</div>
+            <div class="mf-row"><b>The glossary</b> sits behind every underlined term on a card — click one for a short explanation.</div>
+          </div>
+        </div>
+        <div class="msn-card">
+          <h2>Common questions</h2>
+          <div class="faq">
+            ${faq("What do Again, Hard, Good and Easy actually do?", "They tell Folio when to show the card next. <b>Again</b> brings it back in about a minute, <b>Hard</b> in a few minutes. <b>Good</b> moves it a real step ahead — first ten minutes, then a day, then longer each time. <b>Easy</b> jumps it several days ahead. No grade is a punishment; they only tune the timing.")}
+            ${faq("What happens if I miss a day?", "Nothing bad. Your due cards simply wait for you, and the schedule picks up where it left off — only your day streak resets. Miss a week and the pile is bigger, but it clears quickly.")}
+            ${faq("Why only a few new cards a day?", "Every new card you learn today will come back tomorrow, and again after that. Add fifty at once and next week's reviews pile up. A steady handful a day keeps studying light — you can change the number in Settings.")}
+            ${faq("Do I need an account?", "No. Your progress is saved on this device automatically. An account only matters if you want the same progress on several devices, or to add friends.")}
+          </div>
         </div>
         <div class="msn-card">
           <h2>Changelog</h2>
@@ -6223,11 +6283,13 @@
       const open = day.classList.toggle("open");
       b.setAttribute("aria-expanded", open ? "true" : "false");
     }));
-    // glossary terms in the intro become clickable popups, exactly like card backgrounds
+    root.querySelectorAll(".faq-q").forEach((b) => b.addEventListener("click", () => {
+      const it = b.closest(".faq-item");
+      const open = it.classList.toggle("open");
+      b.setAttribute("aria-expanded", open ? "true" : "false");
+    }));
+    // the intro stays jargon-free: no glossary auto-linking here, and no read-aloud anywhere on this page
     const prose = root.querySelector("#msnProse");
-    autoLinkGlossary(prose, null, null);
-    setupTooltips(prose);
-    // (no read-aloud here: the Mission page is deliberately TTS-free, gloss popups included)
     // admins: click the title or a paragraph to edit it in place (Esc cancels, Ctrl+Enter or clicking away saves)
     if (isAdmin()) {
       const wireEdit = (el, kind, idx) => {

@@ -1331,6 +1331,27 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
 .clog-day.open .clog-body{display:block;}
 .clog-body ul{margin:0; padding:0 0 0 18px;}
 .clog-body li{font-family:var(--serif); font-size:14px; line-height:1.6; color:var(--ink-soft); margin-bottom:7px;}
+/* about page: forgetting-curve diagram, how-to steps, FAQ */
+.msn-curve{margin:22px 0 4px; padding:0;}
+.msn-curve svg{display:block; width:100%; height:auto;}
+.msn-curve figcaption{font-family:var(--mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); text-align:center; margin-top:10px;}
+.msn-steps{list-style:none; margin:0 0 18px; padding:0; display:flex; flex-direction:column; gap:15px;}
+.msn-steps li{display:flex; gap:14px; align-items:flex-start;}
+.ms-body{display:flex; flex-direction:column; gap:2px; min-width:0;}
+.ms-body b{font-family:var(--display); font-weight:600; font-size:15.5px; color:var(--ink);}
+.ms-body span{font-family:var(--serif); font-size:14.5px; line-height:1.6; color:var(--ink-soft);}
+.ms-body span b{color:var(--ink); font-weight:600;}
+.msn-feats{border-top:1px solid var(--rule); padding-top:15px; display:flex; flex-direction:column; gap:9px;}
+.mf-row{font-family:var(--serif); font-size:14.5px; line-height:1.6; color:var(--ink-soft);}
+.mf-row b{color:var(--ink); font-weight:600;}
+.faq{display:flex; flex-direction:column; gap:6px;}
+.faq-q{appearance:none; width:100%; display:flex; align-items:center; gap:12px; background:none; border:0; border-bottom:1px solid var(--rule); padding:11px 2px; cursor:pointer; font-family:var(--display); font-weight:600; font-size:15px; color:var(--ink); text-align:left;}
+.faq-q .clog-chev{margin-left:auto;}
+.faq-item.open .clog-chev svg{transform:rotate(180deg);}
+.faq-a{display:none; padding:10px 2px 8px;}
+.faq-item.open .faq-a{display:block;}
+.faq-a p{font-family:var(--serif); font-size:14.5px; line-height:1.65; color:var(--ink-soft); margin:0;}
+.faq-a b{color:var(--ink); font-weight:600;}
 /* admin: the Mission title/paragraphs are click-to-edit */
 .msn-editable{cursor:text; border-radius:6px;}
 .msn-editable:hover{outline:1px dashed color-mix(in srgb, var(--indigo) 45%, transparent); outline-offset:6px;}
