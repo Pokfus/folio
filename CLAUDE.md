@@ -277,7 +277,7 @@ ranges.js → admin1.js → cities.js → timeline.js → countries.js → count
   **Who said it?** (`whosaid`, from `quotes.js`). `BOTS`/`drawRace`/podium are now dead code.
   Each of the 4 games records a per-day result in `S.games[key] = { date, played, won }` (`markGamePlayed(key, won)` at each
   game's end; `won` = a perfect run, or `solved` for Timeline). The home tile has **three daily states** (state classes set by
-  `tile()`) — playing EARNS the colour: **unplayed** = mostly colourless like the "coming soon" tiles (plain card background,
+  `tile()`) — playing EARNS the colour: **unplayed** = a whisper of the tile's hue (a ~10% wash + hue-tinted title,
   theme colour only in the left bar, faint corner icon — `button.game-tile:not(.done):not(.won)`); **played today** (`done`, via
   `gamePlayedToday` — challenge/chrono still also derive it from `S.daily.lastPlayed` / `S.chrono.date`) = the tile FILLS with
   its theme colour (bright top-left → darkened far corner, dark icon, white text) + the green **✓ checkmark**; **perfect score
