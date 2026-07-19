@@ -2829,8 +2829,8 @@
             }</p>
             ${xpBarMarkup(folioXP())}
             <div class="meta">
-              <div class="stat"><b>${dueN}</b><span>Due</span></div>
-              <div class="stat"><b>${newN}</b><span>New</span></div>
+              <div class="stat${dueN ? " st-due" : ""}"><b>${dueN}</b><span>Due</span></div>
+              <div class="stat${newN ? " st-new" : ""}"><b>${newN}</b><span>New</span></div>
               <div class="stat"><b>${Object.keys(S.cards).length}</b><span>Seen total</span></div>
               ${streakChip}
               <span class="cta"><span class="btn ${dueN + newN ? "" : "ghost"}">${
@@ -5810,12 +5810,20 @@
       '<div class="statcard"><b>' + wins + '</b><span>Challenge wins</span></div>' +
       '<div class="statcard"><b>' + best + '</b><span>Best score</span></div></div>';
   }
+  // the root collection an item belongs to (walk up the tree) — used to tint profile rows in the collection's hue
+  function rootCollectionOf(node) {
+    let n = node;
+    while (n && n.parentId && NODE_BY_ID[n.parentId]) n = NODE_BY_ID[n.parentId];
+    return n;
+  }
   function renderDeckProgress(container, cards) {
     LEAF_NODES.filter((n) => subtreeCardIds(n).length > 0).forEach((n) => {
       const total = subtreeCardIds(n).length;
       const studied = subtreeCardIds(n).filter((id) => !!(cards && cards[id])).length;
       if (studied === 0) return;   // only show decks with actual progress in them
       const row = document.createElement("div"); row.className = "dp-row";
+      const rc = rootCollectionOf(n);
+      if (rc && COLL_THEME[rc.id]) row.style.setProperty("--coll-bg", COLL_THEME[rc.id].bg);
       row.innerHTML = '<div class="dp-name">' + esc(n.title) + "<small>" + esc(nodeParentPath(n)) + "</small></div>" + '<div class="prog-slot" style="flex:1"></div>';
       row.querySelector(".prog-slot").appendChild(progressBar(studied, total, isComingSoon(n)));
       container.appendChild(row);
@@ -5824,14 +5832,17 @@
     if (!n) container.innerHTML = '<div class="dp-empty">No decks studied yet — progress appears here once you start reviewing.</div>';
     return n;
   }
-  // the level a user holds in each collection (distinct cards studied within it → its XP level)
-  function renderCollectionLevels(container, cards) {
+  // the level a user holds in each collection (distinct cards studied within it → its XP level).
+  // compareCards (optional, the viewer's own progress) adds a "You: …" chip per row for the friend view.
+  function renderCollectionLevels(container, cards, compareCards) {
     const cols = TREE.collections.filter((c) => subtreeCardIds(c).length > 0 && !isComingSoon(c));
     if (!cols.length) { container.innerHTML = '<div class="cl-empty">No collections studied yet — your level in each appears here as you study.</div>'; return 0; }
     container.innerHTML = cols.map((c) => {
       const xp = collectionXPFrom(c, cards);
-      return '<div class="cl-row">' + levelBadgeMarkup(xp) +
-        '<div class="cl-main"><div class="cl-name">' + esc(c.title) + '</div>' + xpBarMarkup(xp) + '</div></div>';
+      const hue = COLL_THEME[c.id] ? ' style="--coll-bg:' + COLL_THEME[c.id].bg + '"' : "";
+      const you = compareCards ? '<span class="cl-you" title="Your own level in this collection">You: Lv ' + levelFromXP(collectionXPFrom(c, compareCards)).level + "</span>" : "";
+      return '<div class="cl-row"' + hue + '>' + levelBadgeMarkup(xp, COLLECTION_NUMERALS[c.id]) +
+        '<div class="cl-main"><div class="cl-name">' + esc(c.title) + you + '</div>' + xpBarMarkup(xp) + '</div></div>';
     }).join("");
     animateProgs(container);
     return cols.length;
@@ -5840,22 +5851,23 @@
   function afterAuthChange() { applyMode(); route("account"); }
 
   /* ---------- achievements ---------- */
+  // prog: [current, goal] for the locked-badge progress hint; omitted for one-shot badges
   const ACHIEVEMENTS = [
-    { id: "seen1", icon: "📖", name: "First Card", desc: "Study your first card", test: (s) => s.seen >= 1 },
-    { id: "seen25", icon: "📚", name: "Bookworm", desc: "Study 25 cards", test: (s) => s.seen >= 25 },
-    { id: "seen100", icon: "🎓", name: "Scholar", desc: "Study 100 cards", test: (s) => s.seen >= 100 },
-    { id: "seen500", icon: "🏛️", name: "Sage", desc: "Study 500 cards", test: (s) => s.seen >= 500 },
-    { id: "mature50", icon: "🧠", name: "Committed to Memory", desc: "Mature 50 cards (21 days +)", test: (s) => s.mature >= 50 },
-    { id: "mature200", icon: "💎", name: "Deep Recall", desc: "Mature 200 cards", test: (s) => s.mature >= 200 },
-    { id: "streak3", icon: "🔥", name: "On a Roll", desc: "Reach a 3-day streak", test: (s) => s.streak >= 3 },
-    { id: "streak7", icon: "⚡", name: "Weeklong", desc: "Reach a 7-day streak", test: (s) => s.streak >= 7 },
-    { id: "streak30", icon: "☄️", name: "Unstoppable", desc: "Reach a 30-day streak", test: (s) => s.streak >= 30 },
+    { id: "seen1", icon: "📖", name: "First Card", desc: "Study your first card", test: (s) => s.seen >= 1, prog: (s) => [s.seen, 1] },
+    { id: "seen25", icon: "📚", name: "Bookworm", desc: "Study 25 cards", test: (s) => s.seen >= 25, prog: (s) => [s.seen, 25] },
+    { id: "seen100", icon: "🎓", name: "Scholar", desc: "Study 100 cards", test: (s) => s.seen >= 100, prog: (s) => [s.seen, 100] },
+    { id: "seen500", icon: "🏛️", name: "Sage", desc: "Study 500 cards", test: (s) => s.seen >= 500, prog: (s) => [s.seen, 500] },
+    { id: "mature50", icon: "🧠", name: "Committed to Memory", desc: "Mature 50 cards (21 days +)", test: (s) => s.mature >= 50, prog: (s) => [s.mature, 50] },
+    { id: "mature200", icon: "💎", name: "Deep Recall", desc: "Mature 200 cards", test: (s) => s.mature >= 200, prog: (s) => [s.mature, 200] },
+    { id: "streak3", icon: "🔥", name: "On a Roll", desc: "Reach a 3-day streak", test: (s) => s.streak >= 3, prog: (s) => [s.streak, 3] },
+    { id: "streak7", icon: "⚡", name: "Weeklong", desc: "Reach a 7-day streak", test: (s) => s.streak >= 7, prog: (s) => [s.streak, 7] },
+    { id: "streak30", icon: "☄️", name: "Unstoppable", desc: "Reach a 30-day streak", test: (s) => s.streak >= 30, prog: (s) => [s.streak, 30] },
     { id: "deck1", icon: "✅", name: "Deck Complete", desc: "Finish every card in one deck", test: (s) => s.decksDone >= 1 },
-    { id: "deck3", icon: "🗂️", name: "Polymath", desc: "Make progress in 3 decks", test: (s) => s.decksStarted >= 3 },
+    { id: "deck3", icon: "🗂️", name: "Polymath", desc: "Make progress in 3 decks", test: (s) => s.decksStarted >= 3, prog: (s) => [s.decksStarted, 3] },
     { id: "friend1", icon: "🤝", name: "First Friend", desc: "Add your first friend", test: (s) => s.friends >= 1 },
-    { id: "friend5", icon: "🌐", name: "Well Connected", desc: "Have 5 friends", test: (s) => s.friends >= 5 },
+    { id: "friend5", icon: "🌐", name: "Well Connected", desc: "Have 5 friends", test: (s) => s.friends >= 5, prog: (s) => [s.friends, 5] },
     { id: "win1", icon: "🏅", name: "Victor", desc: "Win a daily challenge", test: (s) => s.wins >= 1 },
-    { id: "win10", icon: "👑", name: "Champion", desc: "Win 10 daily challenges", test: (s) => s.wins >= 10 },
+    { id: "win10", icon: "👑", name: "Champion", desc: "Win 10 daily challenges", test: (s) => s.wins >= 10, prog: (s) => [s.wins, 10] },
     { id: "sweep", icon: "🎯", name: "Clean Sweep", desc: "Win all four daily games in one day", test: (s) => s.dailySweep },
   ];
   function progStats(prog, friendsCount) {
@@ -5875,13 +5887,17 @@
     if (newly.length) { save(); if (!silent) toast(newly.length === 1 ? newly[0].icon + " Achievement unlocked: " + newly[0].name : "🏆 " + newly.length + " achievements unlocked: " + newly.map((a) => a.name).join(", ")); }
     return newly;
   }
-  function badgesHTML(achObj) {
+  function badgesHTML(achObj, stats) {
     const got = (id) => achObj && achObj[id];
     const earned = ACHIEVEMENTS.filter((a) => got(a.id)).length;
     return '<div class="badges-head"><span class="badges-count">' + earned + ' of ' + ACHIEVEMENTS.length + ' unlocked</span></div>' +
       '<div class="badges">' + ACHIEVEMENTS.map((a) => {
         const has = got(a.id);
-        return '<div class="badge ' + (has ? "got" : "locked") + '" title="' + esc(a.name + " — " + a.desc + (has ? "" : " (locked)")) + '"><span class="badge-ic">' + a.icon + '</span><span class="badge-name">' + esc(a.name) + '</span></div>';
+        // earned → its unlock date; locked with a countable goal → a "6/10" progress hint
+        let sub = "";
+        if (has && typeof achObj[a.id] === "number") sub = new Date(achObj[a.id]).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+        else if (!has && a.prog && stats) { const [cur, goal] = a.prog(stats); sub = Math.min(cur, goal) + " / " + goal; }
+        return '<div class="badge ' + (has ? "got" : "locked") + '" title="' + esc(a.name + " — " + a.desc + (has ? "" : " (locked)")) + '"><span class="badge-ic">' + a.icon + '</span><span class="badge-name">' + esc(a.name) + '</span>' + (sub ? '<span class="badge-sub">' + esc(sub) + '</span>' : "") + '</div>';
       }).join("") + '</div>';
   }
 
@@ -5920,7 +5936,11 @@
           <div class="auth-msg" data-msg></div>
           <button class="auth-btn" type="submit">Send reset link</button>
         </form>
-        <p class="auth-foot">Your account and study progress are stored online, so you can sign in from any device. You can also keep studying without an account — progress then stays on this device only.</p>
+        <div class="auth-perks">
+          <div class="perk"><span class="perk-ic" style="--pk:var(--indigo)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="13" height="10" rx="2"/><path d="M18 8h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2v-1"/></svg></span><span>Your progress on every device</span></div>
+          <div class="perk"><span class="perk-ic" style="--pk:#4F9D67"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span>Friends, badges and levels</span></div>
+          <div class="perk"><span class="perk-ic" style="--pk:#C39A2E"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.7 1.6 7-6.2-3.7-6.2 3.7 1.6-7L2 9.5l7.1-.6z"/></svg></span><span>Free — no account needed to study on this device</span></div>
+        </div>
       </div>`;
     const tabs = root.querySelectorAll(".auth-tab"), forms = root.querySelectorAll(".auth-form");
     tabs.forEach((t) => t.addEventListener("click", () => {
@@ -5957,19 +5977,39 @@
   function acctSelfView(root) {
     const me = SUPA_PROFILE || { username: ((SUPA.user && SUPA.user.email) || "account").split("@")[0], role: "user" };   // profile may still be loading right after boot
     const joined = new Date(S.user.joined).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+    // profile hero: a level-progress ring around the avatar + a row of headline stat tiles
+    const info = levelFromXP(folioXP());
+    const ringC = 2 * Math.PI * 34;   // r=34 in a 76×76 viewBox
+    const frac = info.need > 0 ? Math.min(1, info.into / info.need) : 1;
+    const st = progStats(S, 0);
+    const earnedBadges = Object.keys(S.achievements || {}).filter((k) => S.achievements[k]).length;
+    const statTile = (cls, val, label) => `<div class="ph-stat ${cls}"><b>${val}</b><span>${label}</span></div>`;
     root.innerHTML = `
       <div class="page-head"><span class="eyebrow">Your record</span><h1>Account</h1></div>
       <div class="profile">
-        <button class="mono-btn" id="monoBtn" type="button" title="Change profile photo" aria-label="Change profile photo">
-          <span id="mono">${monogramHTML(me.avatar, S.user.name)}</span>
-          <span class="mono-cam" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></span>
-        </button>
+        <div class="ph-ava">
+          <svg class="ph-ring" viewBox="0 0 76 76" aria-hidden="true">
+            <circle cx="38" cy="38" r="34" fill="none" stroke="color-mix(in srgb, var(--indigo) 16%, transparent)" stroke-width="4"/>
+            <circle cx="38" cy="38" r="34" fill="none" stroke="#C39A2E" stroke-width="4" stroke-linecap="round" stroke-dasharray="${ringC.toFixed(1)}" stroke-dashoffset="${(ringC * (1 - frac)).toFixed(1)}" transform="rotate(-90 38 38)"/>
+          </svg>
+          <button class="mono-btn" id="monoBtn" type="button" title="Change profile photo" aria-label="Change profile photo">
+            <span id="mono">${monogramHTML(me.avatar, S.user.name)}</span>
+            <span class="mono-cam" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></span>
+          </button>
+          <span class="ph-lvl" title="Folio level — the ring fills toward the next level">Lv ${info.level}</span>
+        </div>
         <input type="file" id="avatarFile" accept="image/*" hidden>
         <div class="who">
           <input class="namefield" id="name" value="${esc(S.user.name)}" maxlength="28" aria-label="Display name" />
           <div class="since">@${esc(me.username)} · ${roleBadge(me.role)} · since ${joined}</div>
         </div>
         <button class="ghost-btn" id="signout" type="button">Sign out</button>
+      </div>
+      <div class="ph-stats">
+        ${statTile("st-seen", st.seen, "Cards studied")}
+        ${statTile("st-streak", "🔥 " + st.streak, "Day streak")}
+        ${statTile("st-badges", earnedBadges, "Badges")}
+        ${statTile("st-wins", st.wins, "Quiz wins")}
       </div>
       <div class="acct-tools">
         <button class="ghost-btn" id="pwToggle" type="button">Change password</button>
@@ -6042,7 +6082,7 @@
 
     renderFriends(root.querySelector("#friendsBox"));
     checkAchievements(true);
-    root.querySelector("#badgesBox").innerHTML = badgesHTML(S.achievements);
+    root.querySelector("#badgesBox").innerHTML = badgesHTML(S.achievements, progStats(S, 0));
     renderCollectionLevels(root.querySelector("#collLevels"), S.cards);
 
     const dp = root.querySelector("#deckprog");
@@ -6149,10 +6189,13 @@
         <div id="fStat"></div>
         <div class="section-label">Badges</div>
         <div class="badges-box" id="fBadges"></div>
+        <div class="section-label">Collection levels</div>
+        <div class="coll-levels" id="fLevels"></div>
         <div class="section-label">Progress by deck</div>
         <div class="suspbox"><div class="suspbox-collapse"><div class="suspbox-collapse-inner"><div class="deckprog" id="fDeck"></div></div></div></div>`;
       root.querySelector("#fStat").innerHTML = statGridHTML(prog, null);
-      root.querySelector("#fBadges").innerHTML = badgesHTML(prog.achievements);
+      root.querySelector("#fBadges").innerHTML = badgesHTML(prog.achievements, progStats(prog, 0));
+      renderCollectionLevels(root.querySelector("#fLevels"), prog.cards || {}, S.cards);   // their levels, with a "You: …" chip beside each
       renderDeckProgress(root.querySelector("#fDeck"), prog.cards || {});
       root.querySelector("#backBtn").addEventListener("click", () => route("account"));
       root.querySelector("#rmFriend").addEventListener("click", async () => {
@@ -6350,57 +6393,79 @@
   /* ============================================================
      PAGE: SETTINGS
      ============================================================ */
+  // settings picker data: [id, name, tag, primary, accent, paper]
+  const THEME_OPTS = [
+    ["folio", "Folio", "Editorial serif", "#36357A", "#C8453C", "#F6F5F1"],
+    ["atlas", "Atlas", "Electric modern", "#1D5BFF", "#F4365E", "#EAF0FA"],
+    ["press", "Press", "Vintage gazette", "#1C5D6B", "#C0392B", "#F3EBDA"],
+    ["bloom", "Bloom", "Soft pastel", "#7B3FF2", "#FF4D8D", "#F4F0FE"],
+    ["tide", "Tide", "Marine serif", "#0E8AAD", "#E63E5C", "#E6F3F4"],
+    ["clay", "Clay", "Earthen", "#B5532A", "#9A3324", "#F5ECE0"],
+    ["garden", "Garden", "Botanical", "#2F7D4F", "#C0492E", "#EBF2E8"],
+    ["synth", "Synth", "Neon", "#7C2DFF", "#FF2D7A", "#F2EEFB"],
+    ["arcade", "Arcade", "16-bit console", "#0968C4", "#C98E06", "#EDF3F7"],
+    ["academy", "Academy", "Formal faculty", "#16305B", "#8E2233", "#F5F0E4"],
+    ["scroll", "Scroll", "Aged parchment", "#7A4517", "#A32C1B", "#E9DCBB"],
+    ["marble", "Marble", "Marble &amp; bronze", "#8C6A3F", "#7E2F27", "#F2F0EA"],
+    ["dynasty", "Dynasty", "Vermilion &amp; gold", "#B03A2E", "#B9862B", "#F6EFE0"],
+    ["grove", "Grove", "Forest canopy", "#2E5D3E", "#A8402F", "#EBF1DF"],
+    ["gazette", "Gazette", "1940s newsprint", "#1D1C1A", "#B5271D", "#DAD8CF"],
+  ];
   PAGES.settings = function (root) {
     const homeName = (S.settings.home && S.settings.home.name) || "Netherlands";
     const homeOpts = (window.WORLD_GEO || []).map((c) => c.n).filter((n) => n && n.trim()).sort((a, b) => a.localeCompare(b))
       .map((n) => `<option value="${n.replace(/"/g, "&quot;")}"${n === homeName ? " selected" : ""}>${n}</option>`).join("");
+    // each theme option shows a tiny mockup of itself: paper, a title bar, two text lines, an accent dot
+    const themeBtn = (t) => `<button class="theme-opt" data-theme="${t[0]}" type="button">
+      <span class="theme-mock" style="--tm-a:${t[3]};--tm-b:${t[4]};--tm-p:${t[5]}" aria-hidden="true"><i class="tm-bar"></i><i class="tm-line"></i><i class="tm-line short"></i><i class="tm-dot"></i></span>
+      <span class="theme-name">${t[1]}</span><span class="theme-tag">${t[2]}</span></button>`;
+    const setHead = (accent, svg, title) => `<div class="set-head" style="--msn-accent:${accent}"><span class="msn-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${svg}</svg></span><h2>${title}</h2></div>`;
+    const narrCards = Object.keys(TTS_NARRATORS).map((k) => `
+      <button class="narr-card${k === ttsNarrator() ? " active" : ""}" data-narr="${k}" type="button">
+        <span class="nc-flag">${k.slice(0, 2).toUpperCase()}</span>
+        <span class="nc-name">${TTS_NARRATORS[k]}</span>
+        <span class="nc-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+      </button>`).join("");
     root.innerHTML = `
-      <div class="page-head"><span class="eyebrow">Preferences</span><h1>Settings</h1></div>
+      <div class="page-head"><span class="eyebrow">Preferences</span><h1>Settings</h1>
+        <p>Settings apply to this device. Your study progress is what follows your account across devices.</p></div>
       <div class="settings">
         <div class="set-card">
+          ${setHead("var(--indigo)", '<circle cx="13.5" cy="6.5" r="2.5"/><circle cx="19" cy="13" r="2"/><circle cx="6" cy="12" r="2.5"/><path d="M12 2a10 10 0 1 0 10 10c0-1.2-1-2-2.2-2H16a3 3 0 0 1-3-3V4.2C13 3 12.8 2 12 2z"/>', "Appearance")}
           <div class="set-row set-row-block">
-            <div class="info"><h3>Theme</h3><p>Each theme has its own colour scheme and typography. Night mode works within every theme.</p></div>
-            <div class="theme-grid" id="themeGrid">
-              <button class="theme-opt" data-theme="folio" type="button"><span class="theme-swatches"><i style="background:#36357A"></i><i style="background:#C8453C"></i><i style="background:#F6F5F1"></i></span><span class="theme-name">Folio</span><span class="theme-tag">Editorial serif</span></button>
-              <button class="theme-opt" data-theme="atlas" type="button"><span class="theme-swatches"><i style="background:#1D5BFF"></i><i style="background:#F4365E"></i><i style="background:#EAF0FA"></i></span><span class="theme-name">Atlas</span><span class="theme-tag">Electric modern</span></button>
-              <button class="theme-opt" data-theme="press" type="button"><span class="theme-swatches"><i style="background:#1C5D6B"></i><i style="background:#C0392B"></i><i style="background:#F3EBDA"></i></span><span class="theme-name">Press</span><span class="theme-tag">Vintage gazette</span></button>
-              <button class="theme-opt" data-theme="bloom" type="button"><span class="theme-swatches"><i style="background:#7B3FF2"></i><i style="background:#FF4D8D"></i><i style="background:#F4F0FE"></i></span><span class="theme-name">Bloom</span><span class="theme-tag">Soft pastel</span></button>
-              <button class="theme-opt" data-theme="tide" type="button"><span class="theme-swatches"><i style="background:#0E8AAD"></i><i style="background:#E63E5C"></i><i style="background:#E6F3F4"></i></span><span class="theme-name">Tide</span><span class="theme-tag">Marine serif</span></button>
-              <button class="theme-opt" data-theme="clay" type="button"><span class="theme-swatches"><i style="background:#B5532A"></i><i style="background:#9A3324"></i><i style="background:#F5ECE0"></i></span><span class="theme-name">Clay</span><span class="theme-tag">Earthen</span></button>
-              <button class="theme-opt" data-theme="garden" type="button"><span class="theme-swatches"><i style="background:#2F7D4F"></i><i style="background:#C0492E"></i><i style="background:#EBF2E8"></i></span><span class="theme-name">Garden</span><span class="theme-tag">Botanical</span></button>
-              <button class="theme-opt" data-theme="synth" type="button"><span class="theme-swatches"><i style="background:#7C2DFF"></i><i style="background:#FF2D7A"></i><i style="background:#F2EEFB"></i></span><span class="theme-name">Synth</span><span class="theme-tag">Neon</span></button>
-              <button class="theme-opt" data-theme="arcade" type="button"><span class="theme-swatches"><i style="background:#0968C4"></i><i style="background:#C98E06"></i><i style="background:#EDF3F7"></i></span><span class="theme-name">Arcade</span><span class="theme-tag">16-bit console</span></button>
-              <button class="theme-opt" data-theme="academy" type="button"><span class="theme-swatches"><i style="background:#16305B"></i><i style="background:#8E2233"></i><i style="background:#F5F0E4"></i></span><span class="theme-name">Academy</span><span class="theme-tag">Formal faculty</span></button>
-              <button class="theme-opt" data-theme="scroll" type="button"><span class="theme-swatches"><i style="background:#7A4517"></i><i style="background:#A32C1B"></i><i style="background:#E9DCBB"></i></span><span class="theme-name">Scroll</span><span class="theme-tag">Aged parchment</span></button>
-              <button class="theme-opt" data-theme="marble" type="button"><span class="theme-swatches"><i style="background:#8C6A3F"></i><i style="background:#7E2F27"></i><i style="background:#F2F0EA"></i></span><span class="theme-name">Marble</span><span class="theme-tag">Marble &amp; bronze</span></button>
-              <button class="theme-opt" data-theme="dynasty" type="button"><span class="theme-swatches"><i style="background:#B03A2E"></i><i style="background:#B9862B"></i><i style="background:#F6EFE0"></i></span><span class="theme-name">Dynasty</span><span class="theme-tag">Vermilion &amp; gold</span></button>
-              <button class="theme-opt" data-theme="grove" type="button"><span class="theme-swatches"><i style="background:#2E5D3E"></i><i style="background:#A8402F"></i><i style="background:#EBF1DF"></i></span><span class="theme-name">Grove</span><span class="theme-tag">Forest canopy</span></button>
-              <button class="theme-opt" data-theme="gazette" type="button"><span class="theme-swatches"><i style="background:#1D1C1A"></i><i style="background:#B5271D"></i><i style="background:#DAD8CF"></i></span><span class="theme-name">Gazette</span><span class="theme-tag">1940s newsprint</span></button>
+            <div class="info"><h3>Theme</h3><p>Each theme has its own colours, typography and layout. Hover a tile to try it on; click to keep it. Night mode works within every theme.</p></div>
+            <div id="themeGrid">
+              <div class="theme-group-label">Classics</div>
+              <div class="theme-grid">${THEME_OPTS.slice(0, 8).map(themeBtn).join("")}</div>
+              <div class="theme-group-label">Worlds</div>
+              <div class="theme-grid">${THEME_OPTS.slice(8).map(themeBtn).join("")}</div>
             </div>
           </div>
-        </div>
-        <div class="set-card">
           <div class="set-row">
             <div class="info"><h3>Night mode</h3><p>Switch to the deck's dark paper palette.</p></div>
             <div class="ctl"><div class="switch ${S.settings.night ? "on" : ""}" id="sw-night" role="switch" tabindex="0" aria-checked="${S.settings.night}"></div></div>
           </div>
+        </div>
+        <div class="set-card">
+          ${setHead("#4F9D67", '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>', "Study")}
           <div class="set-row">
             <div class="info"><h3>New cards per day</h3><p>How many unseen cards enter your review each day.</p></div>
             <div class="ctl"><div class="stepper"><button id="np-dn" aria-label="Fewer">−</button><span class="val" id="np-val">${S.settings.newPerDay}</span><button id="np-up" aria-label="More">+</button></div></div>
           </div>
           <div class="set-row">
-            <div class="info"><h3>Home location</h3><p>The Atlas globe opens centred on this place.</p></div>
-            <div class="ctl"><select class="set-sel" id="homeSel" aria-label="Atlas home location">${homeOpts}</select></div>
+            <div class="info"><h3>Random review order</h3><p>Shuffle each day's session and draw its new cards at random from your active decks, instead of chronologically.</p></div>
+            <div class="ctl"><div class="switch ${S.settings.reviewRandom ? "on" : ""}" id="sw-random" role="switch" tabindex="0" aria-checked="${!!S.settings.reviewRandom}"></div></div>
           </div>
+        </div>
+        <div class="set-card">
+          ${setHead("#8257C2", '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>', "Audio")}
           <div class="set-row">
             <div class="info"><h3>Text-to-speech</h3><p>Read cards aloud while you study — the question, answer, Chinese, and background. Turning this off hides the card's mute button and every play control.</p></div>
             <div class="ctl"><div class="switch ${S.settings.tts !== false ? "on" : ""}" id="sw-tts" role="switch" tabindex="0" aria-checked="${S.settings.tts !== false}"></div></div>
           </div>
-          <div class="set-row">
-            <div class="info"><h3>Narrator</h3><p>The recorded human voice that reads your cards — the same on every device. Pick between American and British English.</p></div>
-            <div class="ctl ctl-col">
-              <div class="voice-row"><select class="set-sel" id="narrSel" aria-label="Card narrator voice">${Object.keys(TTS_NARRATORS).map((k) => `<option value="${k}"${k === (S.settings.ttsNarrator || "us-male") ? " selected" : ""}>${TTS_NARRATORS[k]}</option>`).join("")}</select><button class="btn ghost" id="narrTest" type="button">Test</button></div>
-            </div>
+          <div class="set-row set-row-block">
+            <div class="info"><h3>Narrator</h3><p>The recorded human voice that reads your cards. Pick a card to hear a sample.</p></div>
+            <div class="narr-grid" id="narrGrid">${narrCards}</div>
           </div>
           <div class="set-row">
             <div class="info"><h3>Fallback reading voices</h3><p>This device's own voices, used for Chinese and wherever a recording isn't available (e.g. a freshly edited card). Voices named “Natural”, “Neural” or “Enhanced” sound the most human; “Auto” prefers them when present.</p></div>
@@ -6410,21 +6475,25 @@
             </div>
           </div>
         </div>
-
         <div class="set-card">
+          ${setHead("var(--geo)", '<circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><line x1="3" y1="12" x2="21" y2="12"/>', "Atlas")}
           <div class="set-row">
-            <div class="info"><h3>Reset progress</h3><p>Clear every card's study history and start fresh. This can't be undone.</p></div>
-            <div class="ctl"><button class="btn ghost" id="reset">Reset</button></div>
+            <div class="info"><h3>Home location</h3><p>The Atlas globe opens centred on this place.</p></div>
+            <div class="ctl"><select class="set-sel" id="homeSel" aria-label="Atlas home location">${homeOpts}</select></div>
           </div>
+        </div>
+        <div class="set-card">
+          ${setHead("#2BA6A0", '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>', "Data")}
           <div class="set-row">
             <div class="info"><h3>Export data</h3><p>Download your progress as a JSON backup.</p></div>
             <div class="ctl"><button class="btn ghost" id="export">Export</button></div>
           </div>
         </div>
-
-        <div class="set-card">
+        <div class="set-card danger">
+          ${setHead("var(--zh)", '<path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12" y2="17"/>', "Danger zone")}
           <div class="set-row">
-            <div class="info"><h3>About Folio</h3><p>A study companion built around the China Modern History deck. Decks are fixed; cards come from the source collection. Daily Challenge opponents are practice bots — the structure is there for live play later.</p></div>
+            <div class="info"><h3>Reset progress</h3><p>Clear every card's study history and start fresh. This can't be undone.</p></div>
+            <div class="ctl"><button class="btn ghost danger-btn" id="reset">Reset…</button></div>
           </div>
         </div>
       </div>`;
@@ -6436,7 +6505,12 @@
     const themeGrid = root.querySelector("#themeGrid");
     const markTheme = () => themeGrid.querySelectorAll(".theme-opt").forEach((b) => b.classList.toggle("active", b.dataset.theme === (S.settings.theme || "folio")));
     markTheme();
-    themeGrid.querySelectorAll(".theme-opt").forEach((b) => b.addEventListener("click", () => { setTheme(b.dataset.theme); markTheme(); }));
+    themeGrid.querySelectorAll(".theme-opt").forEach((b) => {
+      b.addEventListener("click", () => { setTheme(b.dataset.theme); markTheme(); });
+      // live try-on: rest the pointer on a tile to preview that theme, leave to snap back to the kept one
+      b.addEventListener("mouseenter", () => { document.body.dataset.theme = b.dataset.theme; });
+      b.addEventListener("mouseleave", () => { document.body.dataset.theme = THEMES.includes(S.settings.theme) ? S.settings.theme : "folio"; });
+    });
     sw.addEventListener("keydown", (e) => {
       if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
@@ -6455,8 +6529,7 @@
     swTts.addEventListener("click", toggleTts);
     swTts.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleTts(); } });
 
-    // narrator picker — plays the selected narrator's baked sample as a preview
-    const narrSel = root.querySelector("#narrSel"), narrTest = root.querySelector("#narrTest");
+    // narrator cards — selecting one plays that narrator's baked sample; clicking the active card replays it
     const narrPreview = () => {
       ttsStop();
       const a = new Audio("audio/cards/" + ttsNarrator() + "/_sample.mp3");
@@ -6465,8 +6538,21 @@
       const pr = a.play();
       if (pr && pr.catch) pr.catch(() => {});
     };
-    if (narrSel) narrSel.addEventListener("change", () => { S.settings.ttsNarrator = narrSel.value; save(); loadBakedManifest(); narrPreview(); });
-    if (narrTest) narrTest.addEventListener("click", narrPreview);
+    const narrGrid = root.querySelector("#narrGrid");
+    if (narrGrid) narrGrid.querySelectorAll(".narr-card").forEach((c) => c.addEventListener("click", () => {
+      S.settings.ttsNarrator = c.dataset.narr; save(); loadBakedManifest();
+      narrGrid.querySelectorAll(".narr-card").forEach((x) => x.classList.toggle("active", x === c));
+      narrPreview();
+    }));
+
+    // random review order (also togglable from the home banner's Chrono/Random pill)
+    const swRandom = root.querySelector("#sw-random");
+    const toggleRandom = () => {
+      S.settings.reviewRandom = !S.settings.reviewRandom; save();
+      swRandom.classList.toggle("on", !!S.settings.reviewRandom);
+      swRandom.setAttribute("aria-checked", String(!!S.settings.reviewRandom));
+    };
+    if (swRandom) { swRandom.addEventListener("click", toggleRandom); swRandom.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleRandom(); } }); }
 
     // reading-voice pickers — populated from the device's voice list (arrives async on mobile -> _ttsVoicesHook refills)
     const fillVoices = () => {
@@ -6515,14 +6601,15 @@
     });
 
     root.querySelector("#reset").addEventListener("click", () => {
-      inlineConfirm("Reset all study progress? This cannot be undone.", () => {
+      inlinePrompt("This clears every card's study history, your streak and your badges, and cannot be undone. Type RESET to confirm.", "", (val) => {
+        if (String(val || "").trim().toUpperCase() !== "RESET") { toast("Reset cancelled — confirmation didn't match"); return; }
         const keepName = S.user.name;
         S = defaultState();
         S.user.name = keepName;
         save();
         toast("Progress reset");
         render();
-      }, "Reset");
+      });
     });
 
     root.querySelector("#export").addEventListener("click", () => {

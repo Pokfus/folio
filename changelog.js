@@ -17,6 +17,9 @@ window.CHANGELOG = [
       "The About page brightened too: coloured section accents with small icons, the forgetting curve on a soft panel, the changelog drawn as a timeline, and a drop cap on the intro — plus an accent line under page titles and deck rows tinted in their collection's colour.",
       "Seven brand-new themes in Settings, each a complete makeover of the site: Arcade (16-bit console), Academy (formal faculty), Scroll (aged parchment), Marble (classical inscriptions), Dynasty (vermilion and gold), Grove (deep forest) and Gazette (1940s newsprint, with two-column reading).",
       "The drifting patterns on the Library banners are gone — collection banners are now calm and still on every theme.",
+      "The default theme found its colour: minigame tiles now hint at their hue before you play them, a fine indigo-vermilion-gold ribbon runs under the navigation, due and new counts colour themselves, Library bars fill in each collection's shade, and the discovery tiles wear their own accents.",
+      "Settings reorganised into titled sections — Appearance, Study, Audio, Atlas, Data and a fenced-off Danger zone that asks you to type RESET. Themes now show little previews of themselves and try on live as you hover; narrators became pickable cards; random review order joined the page.",
+      "The Account page got a profile makeover: a golden level ring around your photo, headline tiles for cards, streak, badges and quiz wins, badges that show their unlock date or your progress toward them, collection levels in their own colours and numerals — and on a friend's page, your level beside theirs.",
     ],
   },
   {

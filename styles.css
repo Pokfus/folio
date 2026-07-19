@@ -64,6 +64,12 @@ body:not(.night)::before{
 a{color:var(--indigo-bright);}
 ::selection{background:rgba(54,53,122,.16);}
 .night ::selection{background:rgba(166,164,240,.22);}
+/* default theme signature: a bookbinder's ribbon — one hairline of indigo → vermilion → gold under the nav */
+body[data-theme="folio"] .topbar::after{
+  content:""; position:absolute; left:0; right:0; bottom:-2px; height:2px; pointer-events:none;
+  background:linear-gradient(90deg, var(--indigo), var(--zh) 52%, #C39A2E);
+  opacity:.6;
+}
 
 /* utility eyebrow */
 .eyebrow{
@@ -221,6 +227,11 @@ body.visitor-mode .tab-admin{display:none;}
 .xp-track{height:8px; border-radius:99px; background:var(--paper-2); overflow:hidden; border:1px solid var(--rule);}
 .xp-fill{height:100%; border-radius:99px; background:linear-gradient(90deg, var(--indigo), var(--indigo-bright)); width:0; transition:width .9s var(--ease);}
 .xp.zh .xp-fill{background:linear-gradient(90deg, var(--zh), #E0786F);}
+/* Library: each collection's xp bar fills in its own identity hue */
+.collection-row .xp-fill{background:linear-gradient(90deg, var(--coll-bg, var(--indigo)), color-mix(in srgb, var(--coll-bg, var(--indigo)) 62%, white));}
+/* home banner stats: colour as information — vermilion when cards wait, green for fresh ones */
+.banner .stat.st-due b{color:var(--zh);}
+.banner .stat.st-new b{color:var(--good, #4F9D67);}
 /* large level numeral shown at the left of a collection / review banner */
 .level-badge{flex:none; display:flex; flex-direction:column; align-items:center; justify-content:center; min-width:56px; line-height:1;}
 .lb-num{font-family:var(--display); font-weight:600; font-size:44px; line-height:.82; color:var(--indigo); letter-spacing:-.02em;}
@@ -317,6 +328,13 @@ body.night .banner, body.night .banner:hover{border-left-color:#fff;}
 .exp-tile:hover{transform:translateY(-2px); box-shadow:var(--shadow-lg); border-color:color-mix(in srgb,var(--indigo) 30%, var(--rule));}
 .exp-tile:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:3px;}
 .exp-eyebrow{font-family:var(--mono); font-size:9.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-faint);}
+/* each discovery tile carries its own accent, echoing the game tiles' coloured edges */
+.exp-card .flip-face{border-left:4px solid var(--ochre);}
+.exp-card .exp-eyebrow{color:var(--ochre);}
+.exp-term{border-left:4px solid var(--indigo);}
+.exp-term .exp-eyebrow{color:var(--indigo);}
+.exp-atlas{border-left:4px solid var(--geo);}
+.exp-atlas .exp-eyebrow, .exp-atlas .exp-hint{color:var(--geo);}
 .exp-hint{font-family:var(--mono); font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--indigo); margin-top:auto;}
 /* card of the day — a real flashcard, flipping over on click */
 .exp-card{grid-column:span 2; background:transparent; border:none; box-shadow:none; padding:0; perspective:1200px; display:block;}
@@ -876,9 +894,11 @@ body.grading .stage{padding-bottom:150px;}
 .acct-admin-empty{font-family:var(--sans); font-size:14px; color:var(--ink-faint); padding:28px 24px; line-height:1.6;}
 
 /* daily quote (home) */
-.daily-quote{margin:0 0 26px; padding:38px 0; text-align:center; background:none; box-shadow:none;}
+.daily-quote{position:relative; margin:0 0 26px; padding:38px 0; text-align:center; background:none; box-shadow:none;}
 .daily-quote blockquote{margin:0; font-family:var(--serif); font-size:18px; font-style:italic; line-height:1.5; color:var(--ink);}
+.daily-quote blockquote::before{content:"\201C"; display:block; font-family:var(--display); font-style:normal; font-size:34px; line-height:.4; color:var(--zh); opacity:.75; margin-bottom:8px;}
 .daily-quote figcaption{margin-top:9px; font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint);}
+.daily-quote figcaption::before{content:""; display:inline-block; width:16px; height:1.5px; background:#C39A2E; vertical-align:3px; margin-right:8px;}
 
 /* badges (profile) */
 .dp-empty{padding:18px 20px; font-family:var(--sans); font-size:13px; color:var(--ink-faint);}
@@ -890,6 +910,33 @@ body.grading .stage{padding-bottom:150px;}
 .badge.got{background:var(--card); border-color:color-mix(in srgb, var(--indigo) 35%, var(--rule));}
 .badge-ic{font-size:26px; line-height:1;}
 .badge-name{font-family:var(--mono); font-size:9.5px; letter-spacing:.04em; text-transform:uppercase; color:var(--ink); line-height:1.3;}
+.badge-sub{font-family:var(--mono); font-size:9px; color:var(--ink-faint); line-height:1;}
+.badge.got .badge-sub{color:#C39A2E;}
+/* profile hero: level ring around the avatar + headline stat tiles */
+.ph-ava{position:relative; flex:none; width:88px; height:88px; display:grid; place-items:center;}
+.ph-ring{position:absolute; inset:0; width:100%; height:100%; pointer-events:none;}
+.ph-ava .mono-btn{margin:0;}
+.ph-ava .monogram{width:64px; height:64px; border-radius:50%; font-size:28px;}
+.ph-lvl{position:absolute; bottom:-4px; left:50%; transform:translateX(-50%); font-family:var(--mono); font-size:9px; font-weight:600; letter-spacing:.06em; color:#7A5E12; background:#EAD9A8; border:1px solid #C39A2E; border-radius:99px; padding:2px 8px; white-space:nowrap;}
+body.night .ph-lvl{color:#F3E3B2; background:#4A3B10; border-color:#E6C765;}
+.ph-stats{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:-8px 0 18px;}
+.ph-stat{background:var(--card); border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow-sm); padding:14px 16px; display:flex; flex-direction:column; gap:3px; border-top:3px solid var(--ph, var(--rule));}
+.ph-stat b{font-family:var(--display); font-weight:600; font-size:24px; line-height:1; color:var(--ph, var(--ink));}
+.ph-stat span{font-family:var(--mono); font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint);}
+.ph-stat.st-seen{--ph:var(--indigo);}
+.ph-stat.st-streak{--ph:var(--zh);}
+.ph-stat.st-badges{--ph:#C39A2E;}
+.ph-stat.st-wins{--ph:var(--good, #4F9D67);}
+/* collection-level rows: hue-tinted bar + the friend view's "You: …" chip */
+.cl-row .xp-fill{background:linear-gradient(90deg, var(--coll-bg, var(--indigo)), color-mix(in srgb, var(--coll-bg, var(--indigo)) 62%, white));}
+.cl-you{font-family:var(--mono); font-size:10px; color:var(--ink-faint); background:var(--paper-2); border:1px solid var(--rule); border-radius:99px; padding:2px 9px; margin-left:10px; vertical-align:2px;}
+.dp-row .prog .fill{background:var(--coll-bg, var(--indigo));}
+/* signed-out pitch: three icon bullets */
+.auth-perks{display:flex; flex-direction:column; gap:10px; margin-top:18px; border-top:1px solid var(--rule); padding-top:16px;}
+.perk{display:flex; align-items:center; gap:11px; font-family:var(--sans); font-size:13px; color:var(--ink-soft);}
+.perk-ic{flex:none; width:28px; height:28px; border-radius:8px; display:flex; align-items:center; justify-content:center; background:color-mix(in srgb, var(--pk, var(--indigo)) 12%, transparent); color:var(--pk, var(--indigo));}
+.perk-ic svg{width:15px; height:15px; display:block;}
+@media (max-width:640px){ .ph-stats{grid-template-columns:repeat(2,1fr);} }
 
 /* ============================================================
    SETTINGS
@@ -924,6 +971,7 @@ body.grading .stage{padding-bottom:150px;}
 .toast{
   position:fixed; left:50%; bottom:30px; transform:translateX(-50%) translateY(20px);
   background:var(--ink); color:var(--paper); font-family:var(--mono); font-size:12.5px; letter-spacing:.04em;
+  border-left:4px solid #C39A2E;
   padding:12px 20px; border-radius:10px; box-shadow:var(--shadow-lg); opacity:0; pointer-events:none;
   transition:opacity .25s var(--ease), transform .25s var(--ease); z-index:100;
 }
@@ -1226,6 +1274,8 @@ body.grading .wb-tools{bottom:108px;}
 .collection-group + .collection-group{margin-top:32px;}
 .group-head{display:flex; align-items:center; gap:14px; margin:0 0 15px; padding:0 2px;}
 .group-label{font-family:var(--mono); font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-soft); font-weight:600; flex:none;}
+.group-label::before{content:""; display:inline-block; width:7px; height:7px; border-radius:50%; background:var(--indigo); margin-right:9px; vertical-align:1px;}
+.collection-group + .collection-group .group-label::before{background:var(--ochre);}
 .group-line{flex:1; height:1px; background:var(--rule);}
 .group-count{font-family:var(--mono); font-size:11px; color:var(--ink-faint); flex:none;}
 
@@ -1264,11 +1314,13 @@ button.game-tile:active{transform:translateY(0) scale(.99);}
    .done (played today): the tile FILLS with its theme colour (bright top-left → darkened far corner, dark icon,
    white text) plus the green .gt-done check.
    .won (perfect score today): shining gold — a soft white shine band sweeps across a gold fill; icon + text darken. */
+/* unplayed: a whisper of the tile's hue — the full saturated fill stays earned by playing */
 button.game-tile:not(.done):not(.won){
-  background:var(--card);
+  background:linear-gradient(135deg, color-mix(in srgb, var(--tile, var(--indigo)) 10%, var(--card)), var(--card) 72%);
   box-shadow:var(--shadow-sm);
 }
-button.game-tile:not(.done):not(.won) .gt-glyph{opacity:.09;}
+button.game-tile:not(.done):not(.won) .gt-title{color:color-mix(in srgb, var(--tile, var(--indigo)) 45%, var(--ink));}
+button.game-tile:not(.done):not(.won) .gt-glyph{opacity:.14;}
 button.game-tile.done:not(.won){
   background:linear-gradient(150deg, color-mix(in srgb, #fff 26%, var(--tile, var(--indigo))) 0%, var(--tile, var(--indigo)) 40%, color-mix(in srgb, #000 48%, var(--tile, var(--indigo))) 100%);
   border-color:color-mix(in srgb, #000 18%, var(--tile, var(--indigo)));
@@ -1526,7 +1578,7 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
 @keyframes glossFlash{ 0%,100%{box-shadow:var(--shadow-lg);} 35%{box-shadow:var(--shadow-lg), 0 0 0 3px color-mix(in srgb,var(--indigo) 45%,transparent);} }
 .gloss-bar{
   display:flex; align-items:center; gap:8px; padding:13px 11px 5px 16px;
-  background:transparent; border-bottom:0;
+  background:linear-gradient(90deg, color-mix(in srgb, var(--indigo) 9%, transparent), transparent 78%); border-bottom:0;
   cursor:grab; user-select:none; touch-action:none;
 }
 .gloss-bar:active{ cursor:grabbing; }
@@ -3151,5 +3203,38 @@ body[data-theme="arcade"] .mini-globe{ border-radius:50% !important; }
 .theme-opt[data-theme="clay"] .theme-name{font-family:"Spectral",Georgia,serif;}
 .theme-opt[data-theme="garden"] .theme-name{font-family:"Cormorant Garamond",Georgia,serif; font-weight:700;}
 .theme-opt[data-theme="synth"] .theme-name{font-family:"Sora",sans-serif;}
+.theme-opt[data-theme="arcade"] .theme-name{font-family:"Press Start 2P",monospace; font-size:10px; font-weight:400; line-height:1.4;}
+.theme-opt[data-theme="academy"] .theme-name{font-family:"EB Garamond",Georgia,serif; font-variant:small-caps;}
+.theme-opt[data-theme="scroll"] .theme-name{font-family:"IM Fell English",Georgia,serif;}
+.theme-opt[data-theme="marble"] .theme-name{font-family:"Cinzel",Georgia,serif; font-size:13.5px; letter-spacing:.08em; text-transform:uppercase;}
+.theme-opt[data-theme="dynasty"] .theme-name{font-family:"Ma Shan Zheng",cursive; font-weight:400; font-size:18px;}
+.theme-opt[data-theme="grove"] .theme-name{font-family:"Fraunces",Georgia,serif;}
+.theme-opt[data-theme="gazette"] .theme-name{font-family:"Oswald","Arial Narrow",sans-serif; text-transform:uppercase; letter-spacing:.04em;}
 .theme-tag{font-family:var(--mono); font-size:9.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint);}
-@media (max-width: 640px){ .theme-grid{grid-template-columns:repeat(2,1fr);} }
+/* mini mockup: the theme's paper with a title bar, two text lines and an accent dot */
+.theme-mock{position:relative; display:block; width:100%; height:46px; border-radius:7px; background:var(--tm-p); border:1px solid color-mix(in srgb,var(--ink) 14%, transparent); overflow:hidden;}
+.theme-mock i{position:absolute; display:block; border-radius:2px;}
+.theme-mock .tm-bar{left:8px; top:8px; width:46%; height:7px; background:var(--tm-a);}
+.theme-mock .tm-line{left:8px; top:22px; width:72%; height:3.5px; background:color-mix(in srgb,var(--tm-a) 32%, var(--tm-p));}
+.theme-mock .tm-line.short{top:30px; width:52%;}
+.theme-mock .tm-dot{right:8px; top:8px; width:12px; height:12px; border-radius:50%; background:var(--tm-b);}
+.theme-group-label{font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-faint); margin:14px 0 8px;}
+#themeGrid > .theme-group-label:first-child{margin-top:0;}
+/* settings section heads (reuse the About page's chip language) */
+.set-head{display:flex; align-items:center; gap:12px; padding:16px 0 4px;}
+.set-head h2{margin:0; font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:-.01em; color:var(--ink);}
+/* narrator cards */
+.narr-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:9px;}
+.narr-card{display:flex; align-items:center; gap:10px; appearance:none; cursor:pointer; text-align:left; padding:11px 13px; border:1.5px solid var(--rule); border-radius:10px; background:var(--card); font:inherit; color:var(--ink); transition:border-color .15s, box-shadow .15s;}
+.narr-card:hover{border-color:var(--ink-faint);}
+.narr-card.active{border-color:var(--indigo); box-shadow:0 0 0 3px var(--indigo-wash);}
+.nc-flag{flex:none; font-family:var(--mono); font-size:10px; font-weight:600; letter-spacing:.06em; color:var(--indigo); background:var(--indigo-wash); border-radius:6px; padding:4px 7px;}
+.nc-name{flex:1; font-family:var(--sans); font-size:13.5px; font-weight:600;}
+.nc-play{flex:none; width:24px; height:24px; display:flex; align-items:center; justify-content:center; border-radius:50%; background:color-mix(in srgb,var(--indigo) 10%, transparent); color:var(--indigo);}
+.nc-play svg{width:11px; height:11px; display:block;}
+/* danger zone */
+.set-card.danger{border-color:color-mix(in srgb,var(--zh) 45%, var(--rule));}
+.set-card.danger .set-head h2{color:var(--zh);}
+.danger-btn{border-color:color-mix(in srgb,var(--zh) 55%, var(--rule)); color:var(--zh);}
+.danger-btn:hover{background:var(--zh-wash);}
+@media (max-width: 640px){ .theme-grid{grid-template-columns:repeat(2,1fr);} .narr-grid{grid-template-columns:1fr;} }
