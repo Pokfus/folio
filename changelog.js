@@ -20,6 +20,8 @@ window.CHANGELOG = [
       "The default theme found its colour: minigame tiles now hint at their hue before you play them, a fine indigo-vermilion-gold ribbon runs under the navigation, due and new counts colour themselves, Library bars fill in each collection's shade, and the discovery tiles wear their own accents.",
       "Settings reorganised into titled sections — Appearance, Study, Audio, Atlas, Data and a fenced-off Danger zone that asks you to type RESET. Themes now show little previews of themselves and try on live as you hover; narrators became pickable cards; random review order joined the page.",
       "The Account page got a profile makeover: a golden level ring around your photo, headline tiles for cards, streak, badges and quiz wins, badges that show their unlock date or your progress toward them, collection levels in their own colours and numerals — and on a friend's page, your level beside theirs.",
+      "A pruning: the gold seals left the Library banners, Marble lost its patterned top band, and seven themes (Scroll, Grove, Dynasty, Tide, Press, Bloom, Atlas) were retired — eight distinct ones remain.",
+      "On the Atlas, Capitals and Borders are now separate legend layers in every year — historical capitals can be switched on and off just like today's.",
     ],
   },
   {

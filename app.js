@@ -1798,7 +1798,7 @@
     (PAGES[current.name] || PAGES.home)(root, current.params);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
-  const THEMES = ["folio", "atlas", "press", "bloom", "tide", "clay", "garden", "synth", "arcade", "academy", "scroll", "marble", "dynasty", "grove", "gazette"];
+  const THEMES = ["folio", "clay", "garden", "synth", "arcade", "academy", "marble", "gazette"];
   function applyTheme() {
     const night = !!S.settings.night;
     document.body.classList.toggle("night", night);
@@ -3188,20 +3188,7 @@
     "col-42": { bg: "#9E2B25" }, // lacquer red (Russia)
     "col-43": { bg: "#C2701E" }, // saffron (India)
   };
-  // gold-embossed seal on each collection banner — a character or a small stroke SVG (colour from CSS)
-  const COLL_SEAL = {
-    china: { ch: "中", han: true },
-    "col-8": { svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4.2" ry="9"/><line x1="3" y1="12" x2="21" y2="12"/></svg>' },
-    "col-13": { ch: "Ω" },
-    "col-40": { svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M7 3.5C4.2 7.5 4.2 13 7 16.5"/><path d="M17 3.5c2.8 4 2.8 9.5 0 13"/><path d="M7 16.5c1.4 1.9 3 3 5 3.3 2-.3 3.6-1.4 5-3.3"/><path d="M6.2 6.5 4.4 5.6M5.7 9.6H3.8M5.9 12.6l-1.9.4M6.7 15.4l-1.7 1M17.8 6.5l1.8-.9M18.3 9.6h1.9M18.1 12.6l1.9.4M17.3 15.4l1.7 1"/></svg>' },
-    "col-41": { ch: "★" },
-    "col-42": { svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2.5" x2="12" y2="4.5"/><path d="M12 4.5c3.4 2.2 5 4.4 5 7 0 3-2.1 5-5 5s-5-2-5-5c0-2.6 1.6-4.8 5-7z"/><path d="M8.5 16.5V20h7v-3.5"/></svg>' },
-    "col-43": { svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="1.6"/><path d="M12 3.5v17M3.5 12h17M6 6l12 12M18 6 6 18"/></svg>' },
-  };
-  function collSealHTML(id) {
-    const s = COLL_SEAL[id]; if (!s) return "";
-    return '<span class="collection-seal' + (s.han ? " han" : "") + '" aria-hidden="true">' + (s.svg || esc(s.ch)) + "</span>";
-  }
+  // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were
   //  removed on request; collection banners stay static, coloured only by --coll-bg + the seal)
 
@@ -3228,7 +3215,6 @@
             </div>
             ${xpBarMarkup(studied)}
           </div>
-          ${collSealHTML(d.id)}
           <div class="collection-actions">
             ${!soon ? `<button class="collection-add${isActive(d.id) ? " added" : ""}" data-id="${d.id}" aria-label="${isActive(d.id) ? "Remove from review" : "Add to review"}">${addIcon(isActive(d.id))}</button>` : ""}
             ${hasSubs ? `<button class="chev" aria-label="Expand children"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>` : ""}
@@ -4763,8 +4749,9 @@
     // a legend row only appears once zoomed in far enough for that layer to matter — at full zoom-out only Borders shows
     const LEGEND_MINZOOM = { bordersToggle: 0, countryToggle: 0, heightmapToggle: 0, waterToggle: CAP_Z, rangesToggle: 1.2, riversToggle: 1.25, riverLabelsToggle: RIVER_LABEL_Z, citiesToggle: CAP_Z, majorToggle: MAJOR_Z };
     let _legendSig = "";
-    // present-day-only layers (political) — hidden from the legend on historical / no-map years, which show only borders + physical layers
-    const PRESENT_ONLY = { countryToggle: 1, citiesToggle: 1, majorToggle: 1 };
+    // present-day-only layers (political) — hidden from the legend on historical / no-map years. Capitals (citiesToggle)
+    // are NOT here: every era ships period capitals, so the Capitals layer is selectable in every year, separate from Borders.
+    const PRESENT_ONLY = { countryToggle: 1, majorToggle: 1 };
     function updateLegendVisibility() {
       // every legend layer is shown at ALL zoom levels (no per-layer min-zoom gate). The only thing still hidden is a present-day-
       // only layer (cities/divisions/…) on a HISTORICAL era, which genuinely has no data there.
@@ -5401,7 +5388,7 @@
       if (onPresent) {
         const showCap = zoom >= CAP_Z && citiesOn, showCities = zoom >= MAJOR_Z && majorCitiesOn, showDiv = zoom >= MAJOR_Z && divCapsOn;
         if (showCap || showCities || showDiv) drawCities(showCap, showCities, showDiv);
-      } else if (zoom >= CAP_Z && eraNow && !eraNow.present && eraNow.cities && eraNow.cities.length) drawEraCities(eraNow, false);   // a historical era's capitals — same zoom cutoff (CAP_Z) as present-day capitals
+      } else if (citiesOn && zoom >= CAP_Z && eraNow && !eraNow.present && eraNow.cities && eraNow.cities.length) drawEraCities(eraNow, false);   // a historical era's capitals — same Capitals legend toggle + zoom cutoff (CAP_Z) as present-day
       // country names are no longer tied to hover/selection — they're a persistent layer via the "Country names" legend toggle (drawn in renderStatic)
     }
     // Some embedded webviews (e.g. the Claude Code live preview) DON'T repaint the <canvas> after a preventDefault'd wheel gesture:
@@ -6396,19 +6383,12 @@
   // settings picker data: [id, name, tag, primary, accent, paper]
   const THEME_OPTS = [
     ["folio", "Folio", "Editorial serif", "#36357A", "#C8453C", "#F6F5F1"],
-    ["atlas", "Atlas", "Electric modern", "#1D5BFF", "#F4365E", "#EAF0FA"],
-    ["press", "Press", "Vintage gazette", "#1C5D6B", "#C0392B", "#F3EBDA"],
-    ["bloom", "Bloom", "Soft pastel", "#7B3FF2", "#FF4D8D", "#F4F0FE"],
-    ["tide", "Tide", "Marine serif", "#0E8AAD", "#E63E5C", "#E6F3F4"],
     ["clay", "Clay", "Earthen", "#B5532A", "#9A3324", "#F5ECE0"],
     ["garden", "Garden", "Botanical", "#2F7D4F", "#C0492E", "#EBF2E8"],
     ["synth", "Synth", "Neon", "#7C2DFF", "#FF2D7A", "#F2EEFB"],
     ["arcade", "Arcade", "16-bit console", "#0968C4", "#C98E06", "#EDF3F7"],
     ["academy", "Academy", "Formal faculty", "#16305B", "#8E2233", "#F5F0E4"],
-    ["scroll", "Scroll", "Aged parchment", "#7A4517", "#A32C1B", "#E9DCBB"],
     ["marble", "Marble", "Marble &amp; bronze", "#8C6A3F", "#7E2F27", "#F2F0EA"],
-    ["dynasty", "Dynasty", "Vermilion &amp; gold", "#B03A2E", "#B9862B", "#F6EFE0"],
-    ["grove", "Grove", "Forest canopy", "#2E5D3E", "#A8402F", "#EBF1DF"],
     ["gazette", "Gazette", "1940s newsprint", "#1D1C1A", "#B5271D", "#DAD8CF"],
   ];
   PAGES.settings = function (root) {
@@ -6434,12 +6414,7 @@
           ${setHead("var(--indigo)", '<circle cx="13.5" cy="6.5" r="2.5"/><circle cx="19" cy="13" r="2"/><circle cx="6" cy="12" r="2.5"/><path d="M12 2a10 10 0 1 0 10 10c0-1.2-1-2-2.2-2H16a3 3 0 0 1-3-3V4.2C13 3 12.8 2 12 2z"/>', "Appearance")}
           <div class="set-row set-row-block">
             <div class="info"><h3>Theme</h3><p>Each theme has its own colours, typography and layout. Hover a tile to try it on; click to keep it. Night mode works within every theme.</p></div>
-            <div id="themeGrid">
-              <div class="theme-group-label">Classics</div>
-              <div class="theme-grid">${THEME_OPTS.slice(0, 8).map(themeBtn).join("")}</div>
-              <div class="theme-group-label">Worlds</div>
-              <div class="theme-grid">${THEME_OPTS.slice(8).map(themeBtn).join("")}</div>
-            </div>
+            <div id="themeGrid"><div class="theme-grid">${THEME_OPTS.map(themeBtn).join("")}</div></div>
           </div>
           <div class="set-row">
             <div class="info"><h3>Night mode</h3><p>Switch to the deck's dark paper palette.</p></div>

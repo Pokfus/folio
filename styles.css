@@ -5,7 +5,7 @@
    monospace eyebrows.
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Playfair+Display:wght@400;600;700;800&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Quicksand:wght@400;500;600;700&family=Nunito+Sans:wght@400;600;700&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;700&family=Spectral:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Sora:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Orbitron:wght@500;700;900&Press+Start+2P&family=VT323&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&family=Cinzel:wght@400;600;700&family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;600&family=Oswald:wght@400;500;600;700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Special+Elite&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Nunito+Sans:wght@400;600;700&family=Spectral:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Sora:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Orbitron:wght@500;700;900&Press+Start+2P&family=VT323&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Cinzel:wght@400;600;700&family=Oswald:wght@400;500;600;700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Special+Elite&display=swap');
 
 /* ---------- tokens ---------- */
 :root{
@@ -252,7 +252,7 @@ body.night .banner .lb-num, body.night .collection-row .lb-num{color:#E6C765;}  
 /* breathing room between the desc line above and the blue "Level X / X of X cards" row */
 .banner .xp{margin-top:12px;}
 /* profile: level held in each collection */
-.coll-levels{display:flex; flex-direction:column; gap:12px;}
+.coll-levels{display:flex; flex-direction:column; gap:12px; margin-bottom:16px;}
 .cl-row{display:flex; align-items:center; gap:16px; background:var(--card); border:1px solid var(--rule); border-radius:12px; padding:12px 18px;}
 .cl-row .level-badge{min-width:46px;}
 .cl-row .lb-num{font-size:34px; color:var(--indigo);}
@@ -411,17 +411,7 @@ body[data-theme="folio"] .collection-deco::after{
 .collection.placeholder .collection-row{opacity:.62; cursor:default;}   /* a ghost of the collection's identity colour shows through — a shelf awaiting opening, not an empty carton */
 .collection.placeholder .collection-row:hover{background:none;}
 .collection.placeholder .collection-title{color:var(--ink-faint);}
-/* gold-embossed collection seal (emblem character or small stroke SVG) */
-.collection-seal{
-  flex:none; width:52px; height:52px; border-radius:50%; position:relative; z-index:1;
-  display:flex; align-items:center; justify-content:center;
-  color:#C39A2E; border:1.5px solid color-mix(in srgb, #C39A2E 55%, transparent);
-  box-shadow:inset 0 0 0 3px color-mix(in srgb, #C39A2E 16%, transparent);
-  font-family:var(--display); font-weight:600; font-size:22px; line-height:1; user-select:none;
-}
-.collection-seal.han{font-family:var(--han); font-size:24px;}
-.collection-seal svg{width:26px; height:26px; display:block;}
-body.night .collection-seal{color:#E6C765; border-color:color-mix(in srgb, #E6C765 55%, transparent); box-shadow:inset 0 0 0 3px color-mix(in srgb, #E6C765 14%, transparent);}
+/* (the gold collection seals were removed on request) */
 .collection-main{flex:1; min-width:0;}
 .collection-title-row{display:flex; align-items:center; gap:10px; margin-bottom:9px;}
 .collection-title{font-family:var(--display); font-weight:600; font-size:23px; letter-spacing:-.01em; line-height:1;}
@@ -1533,7 +1523,6 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
   body.grading .wb-tools{bottom:170px;}
   .wb-tools{right:12px; bottom:12px;}
   .collection-row{padding:18px 16px; gap:14px;}
-  .collection-seal{width:46px; height:46px; font-size:20px;}
   .collection-title{font-size:20px;}
   .counts{width:100%; margin-left:0; margin-top:4px;}
   .dp-name{width:120px;}
@@ -1961,84 +1950,6 @@ body.grading .admin-edit-fab{bottom:108px;}
 .susp-restore{flex:none; appearance:none; border:1px solid var(--rule); background:var(--paper); color:var(--ink-soft); font-family:var(--mono); font-size:10px; letter-spacing:.06em; text-transform:uppercase; font-weight:600; padding:7px 12px; border-radius:7px; cursor:pointer; transition:color .15s, border-color .15s, background .15s;}
 .susp-restore:hover{color:var(--good); border-color:color-mix(in srgb,var(--good) 45%,var(--rule)); background:color-mix(in srgb,var(--good) 10%,transparent);}
 
-/* ============================================================
-   THEMES — each overrides the colour + font tokens.
-   "folio" is the default (:root / body.night). Every dark block
-   defines the FULL colour set so it always wins in night mode.
-   ============================================================ */
-
-/* ---- ATLAS — electric blue, modern, geometric ---- */
-body[data-theme="atlas"]{
-  --paper:#EAF0FA; --paper-2:#DBE6F6; --card:#FFFFFF;
-  --ink:#0F1A2E; --ink-soft:#3A4A66; --ink-faint:#7E90AE; --rule:#D2DFF0;
-  --indigo:#1D5BFF; --indigo-bright:#4D80FF; --indigo-wash:#DEE9FF; --ochre:#00A6C4;
-  --zh:#F4365E; --zh-wash:#FFE1E8; --geo:#0096C7; --good:#00A878;
-  --serif:"Inter", ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --display:"Space Grotesk", "Inter", sans-serif;
-  --mono:"Space Mono", ui-monospace, Menlo, Consolas, monospace;
-  --sans:"Inter", ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
-}
-body[data-theme="atlas"].night{
-  --paper:#0A0F1C; --paper-2:#111A2C; --card:#16223A;
-  --ink:#E4ECFA; --ink-soft:#AEBFDB; --ink-faint:#6B7C9E; --rule:#243352;
-  --indigo:#5B8CFF; --indigo-bright:#8FB0FF; --indigo-wash:#16294F; --ochre:#34D2EC;
-  --zh:#FF6B86; --zh-wash:#2E1622; --geo:#4DD0E8; --good:#2DDB9A;
-}
-
-/* ---- PRESS — vintage gazette, warm sepia + teal-navy + brick ---- */
-body[data-theme="press"]{
-  --paper:#F3EBDA; --paper-2:#E9DFC9; --card:#FBF6EA;
-  --ink:#2A2018; --ink-soft:#5C4D3A; --ink-faint:#9A8870; --rule:#DDCDB2;
-  --indigo:#1C5D6B; --indigo-bright:#2A7E91; --indigo-wash:#DCEAEC; --ochre:#C2872E;
-  --zh:#C0392B; --zh-wash:#F6E2DC; --geo:#8A6D3B; --good:#4A7A3F;
-  --serif:"Lora", Georgia, "Times New Roman", serif;
-  --display:"Playfair Display", Georgia, serif;
-  --mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
-  --sans:"Inter", ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
-}
-body[data-theme="press"].night{
-  --paper:#14100A; --paper-2:#1C160E; --card:#241D14;
-  --ink:#EFE6D2; --ink-soft:#CDBFA0; --ink-faint:#97876E; --rule:#3A2F1F;
-  --indigo:#5FB5C4; --indigo-bright:#84CEDB; --indigo-wash:#14333A; --ochre:#E0A94A;
-  --zh:#E07A6A; --zh-wash:#2E1A14; --geo:#CBA368; --good:#82B36E;
-}
-
-/* ---- BLOOM — vivid violet + pink, soft rounded ---- */
-body[data-theme="bloom"]{
-  --paper:#F4F0FE; --paper-2:#E9E1FB; --card:#FFFFFF;
-  --ink:#281E3E; --ink-soft:#4E4170; --ink-faint:#9384BC; --rule:#E4D9F7;
-  --indigo:#7B3FF2; --indigo-bright:#9A66FF; --indigo-wash:#ECE2FE; --ochre:#FF8FB1;
-  --zh:#FF4D8D; --zh-wash:#FFE0EC; --geo:#00C2B2; --good:#10C77E;
-  --serif:"Nunito Sans", ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --display:"Quicksand", "Nunito Sans", sans-serif;
-  --mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
-  --sans:"Nunito Sans", ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
-}
-body[data-theme="bloom"].night{
-  --paper:#16101F; --paper-2:#1E1630; --card:#271C3D;
-  --ink:#ECE4FA; --ink-soft:#C6B8E6; --ink-faint:#8B7BB4; --rule:#352A4F;
-  --indigo:#B08CFF; --indigo-bright:#CBB0FF; --indigo-wash:#2A1C46; --ochre:#FFA3C0;
-  --zh:#FF6FA8; --zh-wash:#2E1626; --geo:#2DE0CE; --good:#34D98E;
-}
-
-/* ---- TIDE — marine ocean, teal + aqua + coral ---- */
-body[data-theme="tide"]{
-  --paper:#E6F3F4; --paper-2:#D4EAEB; --card:#FBFEFE;
-  --ink:#0C2A33; --ink-soft:#2E5560; --ink-faint:#6E969F; --rule:#C2DFE1;
-  --indigo:#0E8AAD; --indigo-bright:#1AA8CC; --indigo-wash:#D6EEF4; --ochre:#FF7A59;
-  --zh:#E63E5C; --zh-wash:#FCE0E4; --geo:#0E9AA0; --good:#12A07A;
-  --serif:"DM Sans", ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --display:"DM Serif Display", Georgia, serif;
-  --mono:"Space Mono", ui-monospace, Menlo, Consolas, monospace;
-  --sans:"DM Sans", ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
-}
-body[data-theme="tide"].night{
-  --paper:#061A20; --paper-2:#0B2530; --card:#11303B;
-  --ink:#DDF0F2; --ink-soft:#A6CCD2; --ink-faint:#689096; --rule:#1F3E48;
-  --indigo:#3FC3E0; --indigo-bright:#74D6EC; --indigo-wash:#0C2E3A; --ochre:#FF9576;
-  --zh:#FF6E84; --zh-wash:#2A1518; --geo:#3FD0CE; --good:#2FCFA0;
-}
-
 /* ---- CLAY — terracotta + olive, earthen ---- */
 body[data-theme="clay"]{
   --paper:#F5ECE0; --paper-2:#EBDDCC; --card:#FBF5EC;
@@ -2093,69 +2004,6 @@ body[data-theme="synth"].night{
   --zh:#FF5C9A; --zh-wash:#2E1428; --geo:#3DE0F0; --good:#3DE0B8;
 }
 
-/* ============================================================
-   THEME OVERHAULS — beyond colour + type, each theme restyles
-   the ambient field, top bar, surface radius/shadow/border,
-   controls and a signature ornament. Tokens stay hex above.
-   ============================================================ */
-
-/* —— ATLAS · navigator's blueprint: gridded, sharp, technical —— */
-body[data-theme="atlas"]::before{
-  background:
-    linear-gradient(color-mix(in srgb,var(--indigo) 9%, transparent) 1px, transparent 1px) 0 0/27px 27px,
-    linear-gradient(90deg, color-mix(in srgb,var(--indigo) 9%, transparent) 1px, transparent 1px) 0 0/27px 27px,
-    radial-gradient(55% 50% at 82% 8%, color-mix(in srgb,var(--ochre) 18%, transparent), transparent 70%),
-    radial-gradient(52% 56% at 8% 94%, color-mix(in srgb,var(--zh) 12%, transparent), transparent 72%);
-  filter:none; opacity:.55;
-}
-body[data-theme="atlas"] .topbar{ backdrop-filter:none; -webkit-backdrop-filter:none; background:color-mix(in srgb,var(--card) 92%, transparent); border-bottom:2px solid var(--ink); }
-body[data-theme="atlas"] .brand .tag{ color:var(--ochre); }
-body[data-theme="atlas"] .page-head h1{ text-transform:uppercase; letter-spacing:0; }
-body[data-theme="atlas"] .eyebrow::before{ content:"⌖ "; }
-body[data-theme="atlas"] .collection, body[data-theme="atlas"] .study-card, body[data-theme="atlas"] .card,
-body[data-theme="atlas"] .placard, body[data-theme="atlas"] .btn, body[data-theme="atlas"] .grade,
-body[data-theme="atlas"] .collection-add, body[data-theme="atlas"] .admin-search input,
-body[data-theme="atlas"] .namefield, body[data-theme="atlas"] .tab{ border-radius:3px; }
-body[data-theme="atlas"] .collection, body[data-theme="atlas"] .study-card, body[data-theme="atlas"] .card{ box-shadow:none; border:1.5px solid var(--rule); }
-body[data-theme="atlas"] .study-card{ border-left:4px solid var(--indigo); }
-
-/* —— PRESS · vintage gazette: flat, hairline-ruled, letterpress —— */
-body[data-theme="press"]::before{ background:none; opacity:0; }
-body[data-theme="press"] .topbar{ backdrop-filter:none; -webkit-backdrop-filter:none; background:var(--paper); border-bottom:3px double var(--ink); box-shadow:none; }
-body[data-theme="press"] .brand .mark{ font-weight:800; }
-body[data-theme="press"] .brand .tag{ text-transform:none; font-style:italic; letter-spacing:.02em; font-family:var(--serif); }
-body[data-theme="press"] .tab{ font-family:var(--serif); text-transform:uppercase; letter-spacing:.1em; font-size:11px; font-weight:600; border-radius:0; }
-body[data-theme="press"] .page-head h1{ font-weight:800; border-bottom:2px solid var(--ink); padding-bottom:8px; }
-body[data-theme="press"] .collection, body[data-theme="press"] .study-card, body[data-theme="press"] .card,
-body[data-theme="press"] .placard, body[data-theme="press"] .btn, body[data-theme="press"] .grade,
-body[data-theme="press"] .collection-add{ border-radius:0; }
-body[data-theme="press"] .study-card, body[data-theme="press"] .card{ box-shadow:none; border:1px solid var(--ink); }
-body[data-theme="press"] .collection{ box-shadow:4px 4px 0 color-mix(in srgb,var(--ink) 16%, transparent); border:1px solid var(--ink); }
-body[data-theme="press"] .btn{ border-width:1.5px; box-shadow:none; }
-
-/* —— BLOOM · soft pastel: pillowy, rounded, friendly —— */
-body[data-theme="bloom"] .topbar{ background:color-mix(in srgb,var(--card) 78%, transparent); border-bottom:1px solid color-mix(in srgb,var(--indigo) 12%, var(--rule)); }
-body[data-theme="bloom"] .page-head h1{ letter-spacing:-.01em; }
-body[data-theme="bloom"] .collection, body[data-theme="bloom"] .study-card, body[data-theme="bloom"] .card,
-body[data-theme="bloom"] .placard{ border-radius:26px; border-color:transparent; box-shadow:0 12px 34px color-mix(in srgb,var(--indigo) 18%, transparent); }
-body[data-theme="bloom"] .btn, body[data-theme="bloom"] .grade, body[data-theme="bloom"] .collection-add{ border-radius:99px; }
-body[data-theme="bloom"] .tab{ border-radius:99px; }
-body[data-theme="bloom"] .tab.active{ background:var(--indigo-wash); }
-body[data-theme="bloom"] .tab.active .ink{ opacity:0; }
-
-/* —— TIDE · coastal serene: flowing gradients, airy, elegant serif —— */
-body[data-theme="tide"]::before{
-  background:
-    radial-gradient(55% 60% at 10% 6%, color-mix(in srgb,var(--indigo) 30%, transparent), transparent 70%),
-    radial-gradient(60% 60% at 92% 88%, color-mix(in srgb,var(--ochre) 24%, transparent), transparent 72%),
-    radial-gradient(55% 50% at 86% 6%, color-mix(in srgb,var(--geo) 22%, transparent), transparent 70%);
-  filter:blur(58px) saturate(122%); opacity:.92;
-}
-body[data-theme="tide"] .topbar{ background:color-mix(in srgb,var(--card) 64%, transparent); }
-body[data-theme="tide"] .collection, body[data-theme="tide"] .study-card, body[data-theme="tide"] .card,
-body[data-theme="tide"] .placard{ border-radius:20px; box-shadow:0 16px 44px color-mix(in srgb,var(--indigo) 20%, transparent); }
-body[data-theme="tide"] .btn{ border-radius:13px; }
-
 /* —— CLAY · earthen ceramic: matte, warm, hand-pressed —— */
 body[data-theme="clay"]::before{ filter:blur(82px) saturate(104%); opacity:.66; }
 body[data-theme="clay"] .topbar{ background:color-mix(in srgb,var(--paper) 90%, transparent); border-bottom:1px solid var(--rule); }
@@ -2193,40 +2041,6 @@ body[data-theme="synth"] .btn, body[data-theme="synth"] .grade{ border-radius:4p
 body[data-theme="synth"] .btn.zh{ box-shadow:0 0 22px color-mix(in srgb,var(--zh) 52%, transparent); }
 body[data-theme="synth"] .tab{ border-radius:4px; }
 body[data-theme="synth"] a{ text-shadow:0 0 12px color-mix(in srgb,var(--indigo-bright) 45%, transparent); }
-
-/* ============================================================
-   THEME — library banners (.collection) + home game tiles
-   (.game-tile) + the daily-review banner (.banner), each given
-   a distinct treatment per theme.
-   ============================================================ */
-
-/* —— ATLAS · flat technical plates: top accent rule, hairline frame, corner registration tick —— */
-body[data-theme="atlas"] .game-tile{ background:var(--card); border-radius:3px; border:1.5px solid var(--rule); border-left-width:1.5px; border-top:3px solid var(--tile, var(--indigo)); box-shadow:none; }
-body[data-theme="atlas"] .game-tile::after{ content:""; position:absolute; top:8px; right:8px; width:9px; height:9px; border-top:1.5px solid var(--tile, var(--indigo)); border-right:1.5px solid var(--tile, var(--indigo)); opacity:.55; }
-body[data-theme="atlas"] .gt-glyph{ opacity:.07; }
-body[data-theme="atlas"] .gt-title{ text-transform:uppercase; letter-spacing:.01em; font-size:16px; }
-body[data-theme="atlas"] .banner{ border-radius:3px; box-shadow:none; border:1.5px solid var(--rule); border-left:4px solid var(--indigo); }
-body[data-theme="atlas"] .collection-row .prog .count{ border-radius:2px; }
-
-/* —— PRESS · newsprint blocks: square inked frame, top rule, flat —— */
-body[data-theme="press"] .game-tile{ background:var(--card); border-radius:0; border:1px solid var(--ink); border-left-width:1px; box-shadow:none; }
-body[data-theme="press"] .game-tile::before{ content:""; position:absolute; left:14px; right:14px; top:13px; border-top:2px solid var(--ink); }
-body[data-theme="press"] .gt-eyebrow{ color:var(--ink-soft); }
-body[data-theme="press"] .gt-glyph{ opacity:.06; }
-body[data-theme="press"] .banner{ border-radius:0; border:1px solid var(--ink); box-shadow:5px 5px 0 color-mix(in srgb,var(--ink) 15%, transparent); }
-body[data-theme="press"] .collection-row .prog .count{ border-radius:0; }
-
-/* —— BLOOM · pillows: deep radius, soft colour-shadows, no borders —— */
-body[data-theme="bloom"] .game-tile{ border-radius:22px; border:none; box-shadow:0 10px 28px color-mix(in srgb,var(--tile, var(--indigo)) 22%, transparent); }
-body[data-theme="bloom"] .game-tile::after{ content:""; position:absolute; right:-30px; top:-30px; width:96px; height:96px; border-radius:50%; background:color-mix(in srgb,var(--tile, var(--indigo)) 14%, transparent); pointer-events:none; }
-body[data-theme="bloom"] .gt-glyph{ opacity:.14; }
-body[data-theme="bloom"] .banner{ border-radius:28px; border-color:transparent; box-shadow:0 14px 36px color-mix(in srgb,var(--indigo) 18%, transparent); }
-body[data-theme="bloom"] .collection-row .prog .count{ border-radius:99px; }
-
-/* —— TIDE · tide pools: rounded, aqua wash, soft —— */
-body[data-theme="tide"] .game-tile{ border-radius:18px; box-shadow:0 14px 36px color-mix(in srgb,var(--tile, var(--indigo)) 18%, transparent); }
-body[data-theme="tide"] .banner{ border-radius:20px; box-shadow:0 16px 42px color-mix(in srgb,var(--indigo) 18%, transparent); background:linear-gradient(135deg, var(--card) 52%, color-mix(in srgb,var(--indigo) 13%, var(--card))); }
-body[data-theme="tide"] .collection-row .prog .count{ border-radius:99px; }
 
 /* —— CLAY · pressed earthenware: matte, soft layered shadow, organic —— */
 body[data-theme="clay"] .game-tile{ border-radius:16px; box-shadow:0 2px 0 color-mix(in srgb,var(--ink) 7%, transparent), 0 10px 22px color-mix(in srgb,var(--ink) 8%, transparent); }
@@ -2269,92 +2083,6 @@ body:not([data-theme="folio"]) .banner > .body,
 body:not([data-theme="folio"]) .banner .cta{ position:relative; z-index:1; }
 body:not([data-theme="folio"]) .game-tile > .gt-body{ position:relative; z-index:2; }
 body:not([data-theme="folio"]) .game-tile > .gt-glyph{ z-index:1; }
-
-/* ===== ATLAS — radar survey: faint grid + rotating sweep + pinging blip ===== */
-body[data-theme="atlas"] .collection-deco{
-  background:
-    repeating-linear-gradient(0deg, color-mix(in srgb,var(--coll-bg) 15%, transparent) 0 1px, transparent 1px 24px),
-    repeating-linear-gradient(90deg, color-mix(in srgb,var(--coll-bg) 15%, transparent) 0 1px, transparent 1px 24px),
-    linear-gradient(120deg, color-mix(in srgb,var(--coll-bg) 20%, var(--card)), var(--card) 72%);
-}
-body[data-theme="atlas"] .banner::before{
-  background:repeating-linear-gradient(0deg, color-mix(in srgb,var(--indigo) 13%, transparent) 0 1px, transparent 1px 26px),
-            repeating-linear-gradient(90deg, color-mix(in srgb,var(--indigo) 13%, transparent) 0 1px, transparent 1px 26px);
-}
-body[data-theme="atlas"] .game-tile::before{
-  opacity:.4;
-  background:repeating-linear-gradient(0deg, color-mix(in srgb,var(--tile) 16%, transparent) 0 1px, transparent 1px 17px),
-            repeating-linear-gradient(90deg, color-mix(in srgb,var(--tile) 16%, transparent) 0 1px, transparent 1px 17px);
-}
-
-/* ===== PRESS — letterpress: CMYK halftone dots + a sweeping ink-roller sheen ===== */
-body[data-theme="press"] .collection-deco{
-  background:
-    radial-gradient(color-mix(in srgb,var(--coll-bg) 60%, transparent) 1.5px, transparent 2px) 0 0/8px 8px,
-    radial-gradient(color-mix(in srgb,var(--coll-bg) 60%, transparent) 1.5px, transparent 2px) 4px 4px/8px 8px,
-    var(--card);
-  -webkit-mask:linear-gradient(to left, #000 58%, transparent 96%); mask:linear-gradient(to left, #000 58%, transparent 96%);
-}
-body[data-theme="press"] .banner::before{
-  background:radial-gradient(color-mix(in srgb,var(--ochre) 55%, transparent) 1.5px, transparent 2px) 0 0/8px 8px,
-            radial-gradient(color-mix(in srgb,var(--ochre) 55%, transparent) 1.5px, transparent 2px) 4px 4px/8px 8px;
-}
-body[data-theme="press"] .game-tile::before{
-  opacity:.45;
-  background:radial-gradient(color-mix(in srgb,var(--tile) 55%, transparent) 1.3px, transparent 1.8px) 0 0/7px 7px,
-            radial-gradient(color-mix(in srgb,var(--tile) 55%, transparent) 1.3px, transparent 1.8px) 3.5px 3.5px/7px 7px;
-}
-
-/* ===== BLOOM — floating bubbles drifting over a soft pastel wash ===== */
-body[data-theme="bloom"] .collection-deco{
-  background:linear-gradient(120deg, color-mix(in srgb,var(--coll-bg) 24%, var(--card)), color-mix(in srgb,var(--coll-bg) 8%, var(--card)) 82%);
-}
-body[data-theme="bloom"] .collection-deco::before{
-  content:""; position:absolute; inset:-30% 0; background-image:none; opacity:.85;
-  background:
-    radial-gradient(circle 15px at 30% 80%, color-mix(in srgb,#fff 55%, var(--coll-bg)), transparent 72%),
-    radial-gradient(circle 24px at 55% 130%, color-mix(in srgb,var(--coll-bg) 42%, transparent), transparent 70%),
-    radial-gradient(circle 10px at 72% 68%, color-mix(in srgb,#fff 60%, var(--coll-bg)), transparent 72%),
-    radial-gradient(circle 30px at 86% 120%, color-mix(in srgb,var(--coll-bg) 36%, transparent), transparent 70%),
-    radial-gradient(circle 8px at 95% 58%, color-mix(in srgb,#fff 50%, var(--coll-bg)), transparent 72%);
-  -webkit-mask:linear-gradient(to left, #000 52%, transparent 96%); mask:linear-gradient(to left, #000 52%, transparent 96%);
-}
-body[data-theme="bloom"] .banner::before{
-  background:
-    radial-gradient(circle 22px at 60% 120%, color-mix(in srgb,var(--ochre) 40%, transparent), transparent 70%),
-    radial-gradient(circle 14px at 78% 70%, color-mix(in srgb,#fff 55%, var(--indigo)), transparent 72%),
-    radial-gradient(circle 30px at 90% 130%, color-mix(in srgb,var(--indigo) 30%, transparent), transparent 70%);
-  opacity:.7;
-}
-body[data-theme="bloom"] .game-tile::before{
-  opacity:.6;
-  background:
-    radial-gradient(circle 16px at 75% 120%, color-mix(in srgb,var(--tile) 35%, transparent), transparent 70%),
-    radial-gradient(circle 9px at 90% 60%, color-mix(in srgb,#fff 55%, var(--tile)), transparent 72%);
-}
-
-/* ===== TIDE — rolling waves: two scalloped layers drifting at different speeds ===== */
-body[data-theme="tide"] .collection-deco{
-  background:linear-gradient(180deg, color-mix(in srgb,var(--coll-bg) 20%, var(--card)), color-mix(in srgb,var(--coll-bg) 40%, var(--card)));
-}
-body[data-theme="tide"] .collection-deco::before{
-  content:""; position:absolute; inset:0; background-image:none; opacity:.6;
-  background:radial-gradient(circle at 50% 150%, transparent 0 8px, color-mix(in srgb,var(--coll-bg) 50%, transparent) 9px 11px, transparent 12px) 0 0/40px 20px;
-  -webkit-mask:linear-gradient(to left, #000 58%, transparent 96%); mask:linear-gradient(to left, #000 58%, transparent 96%);
-}
-body[data-theme="tide"] .collection-deco::after{
-  content:""; position:absolute; inset:0; opacity:.4;
-  background:radial-gradient(circle at 50% 150%, transparent 0 12px, color-mix(in srgb,var(--coll-bg) 34%, transparent) 13px 15px, transparent 16px) 8px 7px/62px 30px;
-  -webkit-mask:linear-gradient(to left, #000 58%, transparent 96%); mask:linear-gradient(to left, #000 58%, transparent 96%);
-}
-body[data-theme="tide"] .banner::before{
-  background:radial-gradient(circle at 50% 150%, transparent 0 10px, color-mix(in srgb,var(--indigo) 40%, transparent) 11px 13px, transparent 14px) 0 0/48px 24px;
-  opacity:.55;
-}
-body[data-theme="tide"] .game-tile::before{
-  opacity:.5;
-  background:radial-gradient(circle at 50% 150%, transparent 0 8px, color-mix(in srgb,var(--tile) 40%, transparent) 9px 11px, transparent 12px) 0 0/36px 18px;
-}
 
 /* ===== CLAY — potter's wheel: a slow broad warm sweep over earthy grain ===== */
 body[data-theme="clay"] .collection-deco{
@@ -2452,7 +2180,6 @@ body[data-theme="arcade"].night{
 body[data-theme="arcade"]::before{ background:repeating-linear-gradient(0deg, color-mix(in srgb,var(--ink) 5%, transparent) 0 1px, transparent 1px 3px); opacity:.5; filter:none; }
 /* pixel geometry: zero rounded corners (the gold seal alone stays a coin) */
 body[data-theme="arcade"] *{ border-radius:0 !important; }
-body[data-theme="arcade"] .collection-seal{ border-radius:50% !important; border-width:2px; background:color-mix(in srgb,#C39A2E 12%, transparent); }
 /* top bar = console chrome */
 body[data-theme="arcade"] .topbar{ background:var(--paper); backdrop-filter:none; -webkit-backdrop-filter:none; border-bottom:3px solid var(--ink); box-shadow:0 3px 0 var(--hard); }
 body[data-theme="arcade"] .brand .mark{ font-family:var(--px); font-weight:400; font-size:14px; letter-spacing:0; }
@@ -2615,117 +2342,6 @@ body[data-theme="academy"] .placard{ border-radius:2px; font-family:var(--displa
 body[data-theme="academy"] .msn-chip{ border-radius:2px; }
 body[data-theme="academy"] .faq-q{ font-family:var(--display); font-variant:small-caps; letter-spacing:.02em; }
 
-/* ===== SCROLL — old scroll / ancient scholar ===== */
-/* tokens (day) */
-body[data-theme="scroll"]{
-  --paper:#E9DCBB; --paper-2:#DCCB9F; --card:#F4EBD3;
-  --ink:#37260F; --ink-soft:#6A5433; --ink-faint:#99835C; --rule:#C9B68B;
-  --indigo:#7A4517; --indigo-bright:#9A5E22; --indigo-wash:#EDDFB9; --ochre:#B07D2A;
-  --zh:#A32C1B; --zh-wash:#EDD3BC; --geo:#75702F; --good:#5F7434;
-  --serif:"IM Fell English", Georgia, serif; --display:"IM Fell English", Georgia, serif;
-  --mono:"IBM Plex Mono", ui-monospace, monospace; --sans:"IM Fell English", Georgia, serif;
-}
-/* tokens (night — candlelit study) */
-body[data-theme="scroll"].night{
-  --paper:#1B1206; --paper-2:#140D04; --card:#271A0A;
-  --ink:#EAD9B4; --ink-soft:#C0A472; --ink-faint:#8A744E; --rule:#3E2D14;
-  --indigo:#D98F3A; --indigo-bright:#F2AC52; --indigo-wash:#3A2810; --ochre:#C99A3F;
-  --zh:#E0603C; --zh-wash:#43200F; --geo:#9C9A55; --good:#96A455;
-}
-/* ambient: aged blotches + vertical fibre grain (static) */
-body[data-theme="scroll"]::before{
-  background:
-    radial-gradient(46% 34% at 14% 10%, color-mix(in srgb,var(--ochre) 14%, transparent), transparent 70%),
-    radial-gradient(40% 30% at 88% 20%, color-mix(in srgb,var(--geo) 10%, transparent), transparent 70%),
-    radial-gradient(52% 42% at 72% 90%, color-mix(in srgb,var(--ink) 9%, transparent), transparent 72%),
-    radial-gradient(30% 24% at 30% 72%, color-mix(in srgb,var(--zh) 6%, transparent), transparent 70%),
-    repeating-linear-gradient(90deg, color-mix(in srgb,var(--ink) 4%, transparent) 0 1px, transparent 1px 4px);
-  opacity:.55; filter:none;
-}
-body[data-theme="scroll"].night::before{
-  background:
-    radial-gradient(58% 46% at 50% 26%, color-mix(in srgb,var(--ochre) 13%, transparent), transparent 72%),
-    radial-gradient(40% 32% at 12% 86%, color-mix(in srgb,var(--zh) 8%, transparent), transparent 70%),
-    repeating-linear-gradient(90deg, color-mix(in srgb,#000000 22%, transparent) 0 1px, transparent 1px 4px);
-  opacity:.8;
-}
-/* topbar: flat parchment header, ink stroke below */
-body[data-theme="scroll"] .topbar{ backdrop-filter:none; background:var(--paper); border-bottom:2px solid color-mix(in srgb,var(--ink) 70%, var(--paper)); box-shadow:0 2px 0 color-mix(in srgb,var(--ink) 12%, transparent); }
-body[data-theme="scroll"] .brand .mark{ font-family:var(--display); font-weight:400; letter-spacing:.02em; }
-body[data-theme="scroll"] .brand .tag{ font-family:var(--serif); font-style:italic; color:var(--ink-faint); }
-body[data-theme="scroll"] .tab{ font-family:"IM Fell English SC","IM Fell English",serif; font-size:13px; letter-spacing:.09em; border-radius:2px; }
-body[data-theme="scroll"] .tab.active{ color:var(--indigo); }
-body[data-theme="scroll"] .tab .ink{ background:var(--zh); height:2px; }
-body[data-theme="scroll"] .mode-switch{ background:var(--paper-2); border:1px solid var(--rule); border-radius:2px; }
-/* page head: rubricated initial + ink-stroke hairline */
-body[data-theme="scroll"] .page-head h1{ font-weight:400; letter-spacing:.01em; }
-body[data-theme="scroll"] .page-head h1::first-letter{ color:var(--zh); }
-body[data-theme="scroll"] .page-head p{ font-style:italic; color:var(--ink-soft); }
-body[data-theme="scroll"] .eyebrow{ font-family:"IM Fell English SC","IM Fell English",serif; letter-spacing:.16em; color:color-mix(in srgb,var(--zh) 80%, var(--ink)); }
-body[data-theme="scroll"] .page-head::after{ border:none; height:2px; background:linear-gradient(90deg, var(--zh), var(--ink) 30%, transparent 94%); }
-/* parchment sheets: slight radius, aged-edge inner vignette */
-body[data-theme="scroll"] .card, body[data-theme="scroll"] .study-card, body[data-theme="scroll"] .collection, body[data-theme="scroll"] .gloss-win{
-  border:1px solid color-mix(in srgb,var(--ink) 30%, var(--rule)); border-radius:4px;
-  box-shadow:inset 0 0 38px color-mix(in srgb,#4A3210 12%, transparent), 0 2px 6px color-mix(in srgb,#1E1206 18%, transparent);
-}
-body[data-theme="scroll"].night .card, body[data-theme="scroll"].night .study-card, body[data-theme="scroll"].night .collection, body[data-theme="scroll"].night .gloss-win{
-  box-shadow:inset 0 0 38px color-mix(in srgb,#000000 32%, transparent), 0 2px 8px color-mix(in srgb,#000000 50%, transparent);
-}
-body[data-theme="scroll"] .study-card{ background:repeating-linear-gradient(90deg, color-mix(in srgb,var(--ink) 3%, transparent) 0 1px, transparent 1px 5px), var(--card); }
-body[data-theme="scroll"] .placard{ font-family:"IM Fell English SC","IM Fell English",serif; letter-spacing:.12em; }
-/* home banner: a scroll with roller ends (static cylinder gradients) */
-body[data-theme="scroll"] .banner{
-  background:
-    linear-gradient(90deg, color-mix(in srgb,var(--ink) 52%, var(--paper-2)), color-mix(in srgb,var(--ink) 16%, var(--paper-2)) 50%, color-mix(in srgb,var(--ink) 55%, var(--paper-2))) 0 0/11px 100% no-repeat,
-    linear-gradient(90deg, color-mix(in srgb,var(--ink) 55%, var(--paper-2)), color-mix(in srgb,var(--ink) 16%, var(--paper-2)) 50%, color-mix(in srgb,var(--ink) 52%, var(--paper-2))) 100% 0/11px 100% no-repeat,
-    var(--card);
-  border:1px solid color-mix(in srgb,var(--ink) 35%, var(--rule)); border-radius:3px;
-  box-shadow:inset 0 0 34px color-mix(in srgb,#4A3210 10%, transparent), 0 2px 6px color-mix(in srgb,#1E1206 18%, transparent);
-}
-@media (min-width:641px){ body[data-theme="scroll"] .banner{ padding-left:30px; padding-right:30px; } }
-body[data-theme="scroll"] .banner .review-title h2{ font-weight:400; }
-/* buttons: ink-stamped labels */
-body[data-theme="scroll"] .btn{
-  font-family:"IM Fell English SC","IM Fell English",serif; font-weight:400; letter-spacing:.08em;
-  background:var(--indigo); color:var(--card); border:1px solid color-mix(in srgb,var(--ink) 40%, var(--indigo)); border-radius:2px;
-  box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--card) 25%, transparent), 1px 2px 0 color-mix(in srgb,var(--ink) 25%, transparent);
-  transition:background .15s ease;
-}
-body[data-theme="scroll"] .btn:hover{ background:var(--indigo-bright); }
-body[data-theme="scroll"] .btn.ghost{ background:transparent; color:var(--indigo); border:1px solid var(--indigo); box-shadow:none; }
-body[data-theme="scroll"] .grades .grade{ background:var(--card); border:1px solid color-mix(in srgb,var(--ink) 35%, var(--rule)); border-radius:2px; font-family:var(--serif); box-shadow:inset 0 0 14px color-mix(in srgb,#4A3210 8%, transparent); transition:background .15s ease; }
-body[data-theme="scroll"] .grades .grade:hover{ background:var(--indigo-wash); }
-/* game tiles: quiet vellum; checkmark becomes a wax seal */
-body[data-theme="scroll"] .game-tile{ border-radius:3px; box-shadow:inset 0 0 26px color-mix(in srgb,#4A3210 9%, transparent); }
-body[data-theme="scroll"] .game-tile .gt-title{ font-family:var(--serif); font-weight:400; }
-body[data-theme="scroll"] .game-tile .gt-done{
-  width:24px; height:24px; display:flex; align-items:center; justify-content:center; border-radius:50%; color:#F6EDD6;
-  background:radial-gradient(circle at 32% 28%, color-mix(in srgb,var(--zh) 55%, #F4EBD3), var(--zh) 55%, color-mix(in srgb,var(--zh) 60%, #000000) 100%);
-  box-shadow:0 1px 3px color-mix(in srgb,#000000 35%, transparent);
-}
-/* collections: painted margin band with rough fibrous edge (static) */
-body[data-theme="scroll"] .collection-deco{
-  background:
-    repeating-linear-gradient(90deg, color-mix(in srgb,var(--coll-bg) 58%, transparent) 0 2px, color-mix(in srgb,var(--coll-bg) 26%, transparent) 2px 7px, color-mix(in srgb,var(--coll-bg) 46%, transparent) 7px 12px),
-    var(--card);
-  -webkit-mask:linear-gradient(to left,#000 52%, transparent 94%); mask:linear-gradient(to left,#000 52%, transparent 94%);
-}
-body[data-theme="scroll"] .collection-title{ font-weight:400; }
-body[data-theme="scroll"] .pill.soon{ background:var(--paper-2); color:var(--ink-soft); border:1px solid var(--rule); border-radius:2px; }
-body[data-theme="scroll"] .chev{ background:var(--card); border:1px solid var(--rule); }
-/* epigraph: Fell italic */
-body[data-theme="scroll"] .daily-quote blockquote{ font-family:var(--serif); font-style:italic; }
-body[data-theme="scroll"] .daily-quote figcaption{ font-family:"IM Fell English SC","IM Fell English",serif; letter-spacing:.1em; color:var(--ink-soft); }
-/* xp bar: inked groove + sepia-to-gold fill */
-body[data-theme="scroll"] .xp .xp-track{ background:color-mix(in srgb,var(--ink) 14%, var(--paper-2)); border-radius:2px; box-shadow:inset 0 1px 2px color-mix(in srgb,var(--ink) 28%, transparent); }
-body[data-theme="scroll"] .xp .xp-fill{ background:linear-gradient(90deg,var(--indigo),var(--ochre)); border-radius:2px; }
-/* glossary popups: parchment scraps */
-body[data-theme="scroll"] .gloss-bar{ background:var(--paper-2); border-bottom:1px solid var(--rule); font-family:"IM Fell English SC","IM Fell English",serif; letter-spacing:.06em; }
-body[data-theme="scroll"] .gloss-body{ font-family:var(--serif); }
-/* about page: vignetted plates (border-top --msn-accent left untouched) */
-body[data-theme="scroll"] .msn-card{ border-radius:4px; box-shadow:inset 0 0 30px color-mix(in srgb,#4A3210 9%, transparent), 0 2px 6px color-mix(in srgb,#1E1206 16%, transparent); }
-body[data-theme="scroll"] .faq-q{ font-family:var(--serif); }
-
 /* ================= MARBLE — classical antiquity: white marble, bronze, inscriptions ================= */
 /* tokens (light: gallery marble + bronze) */
 body[data-theme="marble"]{
@@ -2846,16 +2462,11 @@ body[data-theme="marble"].night .game-tile:not(.done):not(.won){
   box-shadow: inset 0 1px 0 rgba(255,255,255,.06), inset 0 -1px 0 rgba(0,0,0,.5);
 }
 body[data-theme="marble"] .gt-sub{ font-family:var(--serif); font-style:italic; font-size:1.05em; }
-/* collections: static meander frieze band in the collection hue */
+/* collections: plain stone — a quiet wash of the collection hue (the meander frieze band was removed on request) */
 body[data-theme="marble"] .collection-deco{
-  background:
-    repeating-linear-gradient(90deg, color-mix(in srgb,var(--coll-bg) 85%, transparent) 0 3px, transparent 3px 8px, color-mix(in srgb,var(--coll-bg) 85%, transparent) 8px 11px, transparent 11px 22px) 0 0/22px 5px repeat-x,
-    repeating-linear-gradient(90deg, transparent 0 8px, color-mix(in srgb,var(--coll-bg) 85%, transparent) 8px 11px, transparent 11px 22px) 0 5px/22px 4px repeat-x,
-    linear-gradient(color-mix(in srgb,var(--coll-bg) 60%, transparent), color-mix(in srgb,var(--coll-bg) 60%, transparent)) 0 11px/100% 1px repeat-x,
-    linear-gradient(180deg, color-mix(in srgb,var(--coll-bg) 12%, transparent), transparent 55%);
+  background:linear-gradient(105deg, color-mix(in srgb,var(--coll-bg) 14%, var(--card)), var(--card) 66%);
   -webkit-mask:none; mask:none;
 }
-body[data-theme="marble"] .collection-seal{ box-shadow:0 0 0 1px var(--ochre), 0 1px 3px rgba(0,0,0,.2); }
 body[data-theme="marble"] .pill.soon{ border-radius:0; letter-spacing:.06em; }
 body[data-theme="marble"] .node{ border-radius:0; }
 /* glossary popups, xp bar, epigraph */
@@ -2864,229 +2475,6 @@ body[data-theme="marble"] .xp .xp-track{ border-radius:0; box-shadow:inset 0 1px
 body[data-theme="marble"] .xp .xp-fill{ border-radius:0; background:linear-gradient(180deg,var(--indigo-bright),var(--indigo)); }
 body[data-theme="marble"] .level-badge .lb-num{ font-family:var(--display); }
 body[data-theme="marble"] .daily-quote{ font-family:var(--serif); font-style:italic; font-size:1.08em; }
-
-/* ---- DYNASTY — vermilion, imperial gold, ink, jade on rice paper ---- */
-body[data-theme="dynasty"]{
-  --paper:#F6EFE0; --paper-2:#EDE2C9; --card:#FCF7E8;
-  --ink:#241B12; --ink-soft:#5A4A36; --ink-faint:#9C8A6E; --rule:#E0D2B2;
-  --indigo:#B03A2E; --indigo-bright:#C94F3B; --indigo-wash:#F5DFD3; --ochre:#B9862B;
-  --zh:#8E2320; --zh-wash:#F2D8CE; --geo:#5E8767; --good:#2F7D57;
-  --serif:"Lora", "Noto Serif SC", Georgia, "Times New Roman", serif;
-  --display:"Ma Shan Zheng", "Noto Serif SC", "Lora", serif;
-  --mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
-  --sans:"Inter", "Noto Sans SC", ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
-}
-body[data-theme="dynasty"].night{
-  --paper:#151011; --paper-2:#1C1512; --card:#211915;
-  --ink:#F0E4C8; --ink-soft:#CDBB96; --ink-faint:#97856A; --rule:#3B2E21;
-  --indigo:#E2593F; --indigo-bright:#F27A5C; --indigo-wash:#41160E; --ochre:#D9A845;
-  --zh:#DE5240; --zh-wash:#38120C; --geo:#7FAE8B; --good:#6FBE8F;
-}
-
-/* ambient: laid rice-paper lines + faint gold/vermilion breath (lacquer at night via tokens) */
-body[data-theme="dynasty"]::before{
-  background:
-    radial-gradient(56% 44% at 10% 6%, color-mix(in srgb, var(--ochre) 11%, transparent), transparent 70%),
-    radial-gradient(48% 42% at 90% 94%, color-mix(in srgb, var(--indigo) 8%, transparent), transparent 72%),
-    repeating-linear-gradient(0deg, color-mix(in srgb, var(--ink) 4%, transparent) 0 1px, transparent 1px 27px);
-  filter:none; opacity:1;
-}
-
-/* topbar: flat paper over an ink beam carrying a gold key-fret (回纹) strip */
-body[data-theme="dynasty"] .topbar{
-  backdrop-filter:none; -webkit-backdrop-filter:none; box-shadow:none; border-bottom:none;
-  background-color:var(--paper);
-  background-image:
-    repeating-linear-gradient(90deg, var(--ochre) 0 9px, transparent 9px 13px, var(--ochre) 13px 15px, transparent 15px 26px),
-    linear-gradient(to top, var(--ink) 0 6px, transparent 6px);
-  background-repeat:no-repeat; background-size:100% 3px, 100% 100%;
-  background-position:left 0 bottom 1px, left top;
-}
-body[data-theme="dynasty"].night .topbar{
-  background-image:
-    repeating-linear-gradient(90deg, var(--ochre) 0 9px, transparent 9px 13px, var(--ochre) 13px 15px, transparent 15px 26px),
-    linear-gradient(to top, #4C170D 0 6px, transparent 6px);
-}
-body[data-theme="dynasty"] .brand .mark{ font-family:var(--display); font-weight:400; font-size:26px; letter-spacing:.02em; }
-body[data-theme="dynasty"] .brand .tag{ font-family:var(--serif); font-style:italic; text-transform:none; letter-spacing:.03em; }
-
-/* tabs: hanging scroll tags — squared top, rounded tail, vermilion cord when active */
-body[data-theme="dynasty"] .tab{ font-family:var(--serif); font-weight:600; font-size:12px; letter-spacing:.06em; border-radius:0 0 9px 9px; border-top:2px solid transparent; }
-body[data-theme="dynasty"] .tab:hover{ border-top-color:color-mix(in srgb, var(--ochre) 70%, transparent); }
-body[data-theme="dynasty"] .tab.active{ border-top-color:var(--indigo); background:color-mix(in srgb, var(--ochre) 14%, transparent); }
-body[data-theme="dynasty"] .tab .ink{ background:var(--ochre); }
-
-/* seal-stamp eyebrow: a vermilion chop */
-body[data-theme="dynasty"] .eyebrow{
-  display:inline-block; color:#FFF8EE; background:var(--indigo);
-  padding:3px 9px; border-radius:5px; font-size:10.5px; letter-spacing:.22em; text-indent:.22em;
-  box-shadow:inset 0 0 0 1px color-mix(in srgb, #FFF8EE 34%, transparent);
-}
-body[data-theme="dynasty"].night .eyebrow{ color:#240D07; box-shadow:inset 0 0 0 1px color-mix(in srgb, #240D07 28%, transparent); }
-body[data-theme="dynasty"] .page-head h1{ font-family:var(--display); font-weight:400; font-size:clamp(34px,6vw,50px); letter-spacing:.015em; }
-body[data-theme="dynasty"] .page-head::after{ height:3px; background:none; border-top:1px solid var(--ochre); border-bottom:1px solid var(--ochre); border-radius:0; }
-
-/* cards: outer frame + gold inner hairline (double-happiness framing) */
-body[data-theme="dynasty"] .study-card, body[data-theme="dynasty"] .card, body[data-theme="dynasty"] .placard{
-  border-radius:10px; border:1.5px solid color-mix(in srgb, var(--indigo) 38%, var(--rule));
-  box-shadow:inset 0 0 0 4px var(--card), inset 0 0 0 5px color-mix(in srgb, var(--ochre) 65%, transparent),
-    0 10px 26px color-mix(in srgb, #2A1207 12%, transparent);
-}
-body[data-theme="dynasty"] .btn{ border-radius:7px; }
-body[data-theme="dynasty"] .btn:not(.ghost){ box-shadow:inset 0 0 0 1px color-mix(in srgb, #FFF3DC 28%, transparent); }
-body[data-theme="dynasty"] .btn.ghost{ border-color:color-mix(in srgb, var(--indigo) 45%, var(--rule)); }
-body[data-theme="dynasty"] .grade{ border-radius:7px; border-top:2px solid color-mix(in srgb, var(--ochre) 55%, transparent); }
-
-/* banner: flanked by thin vermilion column rules, gilded inner hairline */
-body[data-theme="dynasty"] .banner, body[data-theme="dynasty"] .banner:hover{
-  border-left:3px solid var(--indigo); border-right:3px solid var(--indigo); border-radius:10px;
-  box-shadow:inset 0 0 0 4px var(--card), inset 0 0 0 5px color-mix(in srgb, var(--ochre) 55%, transparent);
-}
-body[data-theme="dynasty"] .lb-num{ font-family:var(--display); font-weight:400; }
-body[data-theme="dynasty"] .xp-track{ background:color-mix(in srgb, var(--ochre) 18%, var(--paper-2)); }
-body[data-theme="dynasty"] .xp-fill{ background:linear-gradient(90deg, var(--indigo), var(--ochre)); }
-
-/* game tiles: quiet until earned; the done-check becomes a tilted vermilion chop */
-body[data-theme="dynasty"] .game-tile{ border-radius:10px; }
-body[data-theme="dynasty"] .gt-done{
-  border-radius:6px; background:var(--zh); transform:rotate(-6deg);
-  box-shadow:inset 0 0 0 1px color-mix(in srgb, #FFF6E4 45%, transparent);
-}
-
-/* library: silk-wash collection banners with a gold inset frame */
-body[data-theme="dynasty"] .collection{ border:1px solid color-mix(in srgb, var(--indigo) 30%, var(--rule)); border-radius:10px; box-shadow:0 8px 22px color-mix(in srgb, #2A1207 10%, transparent); }
-body[data-theme="dynasty"] .collection-title{ font-family:var(--display); font-weight:400; font-size:30px; letter-spacing:.02em; }
-body[data-theme="dynasty"] .collection-seal{ border-radius:12px; }
-body[data-theme="dynasty"] .collection-deco{
-  background:linear-gradient(115deg, color-mix(in srgb, var(--coll-bg, #888) 40%, var(--card)), color-mix(in srgb, var(--coll-bg, #888) 16%, var(--card)) 58%, var(--card));
-}
-body[data-theme="dynasty"].night .collection-deco{
-  background:linear-gradient(115deg, color-mix(in srgb, var(--coll-bg, #888) 48%, var(--card)), color-mix(in srgb, var(--coll-bg, #888) 20%, var(--card)) 58%, var(--card));
-}
-body[data-theme="dynasty"] .collection-deco::after{
-  content:""; position:absolute; inset:6px; pointer-events:none; border-radius:7px;
-  border:1px solid color-mix(in srgb, var(--ochre) 60%, transparent);
-}
-
-/* glossary popups: gilded scroll windows */
-body[data-theme="dynasty"] .gloss-win{
-  border:1px solid color-mix(in srgb, var(--indigo) 35%, var(--rule)); border-radius:10px;
-  box-shadow:0 14px 34px color-mix(in srgb, #2A1207 25%, transparent), inset 0 0 0 1px color-mix(in srgb, var(--ochre) 30%, transparent);
-}
-body[data-theme="dynasty"] .gloss-bar{ border-bottom:1px solid color-mix(in srgb, var(--ochre) 45%, var(--rule)); }
-body[data-theme="dynasty"] ::selection{ background:#B03A2E2B; }
-body[data-theme="dynasty"].night ::selection{ background:#E2593F3D; }
-
-/* ================= GROVE — deep forest ================= */
-/* tokens: morning forest (light) */
-body[data-theme="grove"]{
-  --paper:#EBF1DF; --paper-2:#DDE7C8; --card:#F6FAEC;
-  --ink:#1F2A1D; --ink-soft:#48563F; --ink-faint:#7E8B6D; --rule:#CBD8B4;
-  --indigo:#2E5D3E; --indigo-bright:#3E7A52; --indigo-wash:#D9E8D2; --ochre:#B27E24;
-  --zh:#A8402F; --zh-wash:#F3DFD5; --geo:#5C7C40; --good:#46803D;
-  --bark:#6B4E2E;
-  --serif:"Nunito Sans","Inter",sans-serif; --display:"Fraunces",Georgia,serif;
-  --mono:"IBM Plex Mono",ui-monospace,monospace; --sans:"Nunito Sans","Inter",sans-serif;
-}
-/* tokens: moonlit forest (night) */
-body[data-theme="grove"].night{
-  --paper:#0F150D; --paper-2:#0A0F08; --card:#182114;
-  --ink:#DCE6CF; --ink-soft:#A5B394; --ink-faint:#6E7D5E; --rule:#28351F;
-  --indigo:#85C08D; --indigo-bright:#A3D6A9; --indigo-wash:#1E3020; --ochre:#E2B44C;
-  --zh:#DE7C5F; --zh-wash:#3A2118; --geo:#7EA35B; --good:#84BE70;
-  --bark:#8A6B42;
-}
-/* ambient: layered canopy glows + faint leaf speckle (static) */
-body[data-theme="grove"]::before{
-  background:
-    radial-gradient(1100px 720px at 5% -10%, color-mix(in srgb,#3E7A52 17%, transparent), transparent 68%),
-    radial-gradient(950px 640px at 96% -8%, color-mix(in srgb,#86A85B 19%, transparent), transparent 70%),
-    radial-gradient(1400px 860px at 52% -14%, color-mix(in srgb,#2E5D3E 10%, transparent), transparent 74%),
-    radial-gradient(color-mix(in srgb,#41693F 7%, transparent) 1px, transparent 1.5px) 0 0/23px 23px,
-    radial-gradient(color-mix(in srgb,#8FAE6B 9%, transparent) 1px, transparent 1.5px) 11px 14px/31px 31px;
-  filter:none; opacity:1;
-}
-/* night: deep canopy + sparse static firefly-amber specks */
-body[data-theme="grove"].night::before{
-  background:
-    radial-gradient(1100px 720px at 6% -10%, color-mix(in srgb,#2E5D3E 30%, transparent), transparent 70%),
-    radial-gradient(950px 640px at 94% -8%, color-mix(in srgb,#173322 52%, transparent), transparent 72%),
-    radial-gradient(#E2B44C2B 1.2px, transparent 2.2px) 0 0/173px 127px,
-    radial-gradient(#E2B44C1E 1px, transparent 2px) 87px 61px/211px 157px,
-    radial-gradient(color-mix(in srgb,#41693F 12%, transparent) 1px, transparent 1.5px) 0 0/29px 29px;
-  opacity:1;
-}
-/* wooden topbar — subtle vertical grain */
-body[data-theme="grove"] .topbar{
-  backdrop-filter:none; box-shadow:none;
-  background:
-    repeating-linear-gradient(90deg, color-mix(in srgb,var(--bark) 9%, transparent) 0 2px, transparent 2px 13px),
-    repeating-linear-gradient(90deg, color-mix(in srgb,var(--bark) 5%, transparent) 0 1px, transparent 1px 31px),
-    linear-gradient(color-mix(in srgb,var(--bark) 14%, var(--paper-2)), color-mix(in srgb,var(--bark) 22%, var(--paper-2)));
-  border-bottom:2px solid color-mix(in srgb,var(--bark) 65%, var(--rule));
-}
-body[data-theme="grove"] .brand .mark{ font-family:var(--display); font-variation-settings:"opsz" 40; font-weight:600; }
-body[data-theme="grove"] .brand .tag{ color:var(--ink-soft); }
-/* pebble tabs */
-body[data-theme="grove"] .tab{ border-radius:999px; font-family:var(--sans); font-weight:700; transition:background .15s ease,color .15s ease; }
-body[data-theme="grove"] .tab.active{ background:var(--indigo-wash); }
-body[data-theme="grove"] .tab .ink{ border-radius:999px; }
-body[data-theme="grove"] .mode-switch{ border-radius:999px; }
-/* page head — soft Fraunces at high optical size, vine hairline */
-body[data-theme="grove"] .page-head h1{ font-family:var(--display); font-variation-settings:"opsz" 72; font-weight:600; letter-spacing:.005em; }
-body[data-theme="grove"] .page-head p{ color:var(--ink-soft); }
-body[data-theme="grove"] .eyebrow{ color:var(--geo); }
-body[data-theme="grove"] .page-head::after{ height:3px; border-radius:999px; background:linear-gradient(90deg,var(--indigo),var(--ochre) 55%,transparent); }
-/* daily-review banner — bark spine, leaf corners */
-body[data-theme="grove"] .banner{
-  border-left:4px solid var(--bark);
-  border-radius:8px 28px 8px 28px;
-  background:linear-gradient(115deg, color-mix(in srgb,var(--indigo) 8%, var(--card)), var(--card) 62%);
-  box-shadow:0 16px 34px -22px color-mix(in srgb,var(--indigo) 45%, transparent);
-}
-body[data-theme="grove"] .review-title h2{ font-family:var(--display); font-variation-settings:"opsz" 60; font-weight:600; }
-/* game tiles — alternating leaf corners; unplayed stays quiet */
-body[data-theme="grove"] .game-tile{ border-radius:24px 8px 24px 8px; border:1px solid var(--rule); transition:transform .15s ease, box-shadow .15s ease; }
-body[data-theme="grove"] .game-tile:nth-child(even){ border-radius:8px 24px 8px 24px; }
-body[data-theme="grove"] .game-tile:hover{ transform:translateY(-2px); box-shadow:0 12px 26px -16px color-mix(in srgb,var(--ink) 45%, transparent); }
-/* library collections — moss deco with a bark edge, knot chevron */
-body[data-theme="grove"] .collection, body[data-theme="grove"] .collection-row{
-  border:1px solid var(--rule); border-radius:10px 24px 10px 24px;
-  box-shadow:0 14px 30px -20px color-mix(in srgb,var(--indigo) 40%, transparent);
-}
-body[data-theme="grove"] .collection-deco{
-  background:
-    linear-gradient(90deg, color-mix(in srgb,var(--bark) 46%, transparent) 0 12%, transparent 30%),
-    radial-gradient(130% 150% at 100% 6%, color-mix(in srgb,var(--coll-bg) 56%, transparent), color-mix(in srgb,var(--coll-bg) 18%, transparent) 56%, transparent 80%),
-    radial-gradient(color-mix(in srgb,var(--coll-bg) 42%, transparent) 1px, transparent 1.7px) 0 0/10px 10px;
-  -webkit-mask:linear-gradient(to left,#000 55%, transparent 95%);
-  mask:linear-gradient(to left,#000 55%, transparent 95%);
-}
-body[data-theme="grove"] .collection-title{ font-family:var(--display); font-variation-settings:"opsz" 50; font-weight:600; }
-body[data-theme="grove"] .pill.soon{ border-radius:999px; }
-body[data-theme="grove"] .chev{
-  border-radius:50%;
-  background:repeating-radial-gradient(circle at 44% 40%, transparent 0 3px, color-mix(in srgb,var(--bark) 16%, transparent) 3px 4px) var(--card);
-  border:1px solid color-mix(in srgb,var(--bark) 38%, var(--rule));
-}
-/* study card + buttons — big leaf shapes */
-body[data-theme="grove"] .study-card{
-  border-radius:32px 10px 32px 10px; border:1px solid var(--rule);
-  box-shadow:0 22px 48px -26px color-mix(in srgb,var(--indigo) 50%, transparent);
-}
-body[data-theme="grove"] .btn{ border-radius:16px 6px 16px 6px; transition:background .15s ease, box-shadow .15s ease, transform .15s ease; }
-body[data-theme="grove"] .btn.ghost{ border-color:color-mix(in srgb,var(--indigo) 45%, var(--rule)); }
-body[data-theme="grove"] .grades .grade{ border-radius:18px 7px 18px 7px; }
-body[data-theme="grove"] .grades .grade:nth-child(even){ border-radius:7px 18px 7px 18px; }
-body[data-theme="grove"] .card, body[data-theme="grove"] .placard, body[data-theme="grove"] .msn-card,
-body[data-theme="grove"] .msn-curve, body[data-theme="grove"] .exp-card{ border-radius:20px 7px 20px 7px; }
-/* xp bar as a vine */
-body[data-theme="grove"] .xp .xp-track{ border-radius:999px; background:color-mix(in srgb,var(--geo) 16%, var(--paper-2)); }
-body[data-theme="grove"] .xp .xp-fill{ border-radius:999px; background:linear-gradient(90deg,var(--geo),var(--indigo-bright)); }
-/* epigraph + glossary popups */
-body[data-theme="grove"] .daily-quote{ font-family:var(--display); font-variation-settings:"opsz" 40; border-left:3px solid var(--bark); padding-left:14px; border-radius:0 16px 0 16px; }
-body[data-theme="grove"] .gloss-win{ border-radius:16px 6px 16px 6px; border:1px solid var(--rule); box-shadow:0 18px 40px -20px color-mix(in srgb,var(--ink) 55%, transparent); }
-body[data-theme="grove"] .gloss-bar{ background:linear-gradient(90deg,var(--indigo-wash), color-mix(in srgb,var(--indigo-wash) 30%, transparent)); font-family:var(--display); }
 
 /* ---- GAZETTE — 1940s newspaper press: black on newsprint grey, one rubber-stamp red ---- */
 body[data-theme="gazette"]{
@@ -3196,19 +2584,12 @@ body[data-theme="arcade"] .mini-globe{ border-radius:50% !important; }
 .theme-swatches i{width:26px; height:26px; border-radius:6px; border:1px solid color-mix(in srgb,var(--ink) 14%,transparent);}
 .theme-name{font-family:var(--display); font-size:16px; font-weight:600; color:var(--ink); line-height:1;}
 .theme-opt[data-theme="folio"] .theme-name{font-family:"Fraunces",Georgia,serif;}
-.theme-opt[data-theme="atlas"] .theme-name{font-family:"Space Grotesk","Inter",sans-serif;}
-.theme-opt[data-theme="press"] .theme-name{font-family:"Playfair Display",Georgia,serif;}
-.theme-opt[data-theme="bloom"] .theme-name{font-family:"Quicksand","Nunito Sans",sans-serif;}
-.theme-opt[data-theme="tide"] .theme-name{font-family:"DM Serif Display",Georgia,serif;}
 .theme-opt[data-theme="clay"] .theme-name{font-family:"Spectral",Georgia,serif;}
 .theme-opt[data-theme="garden"] .theme-name{font-family:"Cormorant Garamond",Georgia,serif; font-weight:700;}
 .theme-opt[data-theme="synth"] .theme-name{font-family:"Sora",sans-serif;}
 .theme-opt[data-theme="arcade"] .theme-name{font-family:"Press Start 2P",monospace; font-size:10px; font-weight:400; line-height:1.4;}
 .theme-opt[data-theme="academy"] .theme-name{font-family:"EB Garamond",Georgia,serif; font-variant:small-caps;}
-.theme-opt[data-theme="scroll"] .theme-name{font-family:"IM Fell English",Georgia,serif;}
 .theme-opt[data-theme="marble"] .theme-name{font-family:"Cinzel",Georgia,serif; font-size:13.5px; letter-spacing:.08em; text-transform:uppercase;}
-.theme-opt[data-theme="dynasty"] .theme-name{font-family:"Ma Shan Zheng",cursive; font-weight:400; font-size:18px;}
-.theme-opt[data-theme="grove"] .theme-name{font-family:"Fraunces",Georgia,serif;}
 .theme-opt[data-theme="gazette"] .theme-name{font-family:"Oswald","Arial Narrow",sans-serif; text-transform:uppercase; letter-spacing:.04em;}
 .theme-tag{font-family:var(--mono); font-size:9.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint);}
 /* mini mockup: the theme's paper with a title bar, two text lines and an accent dot */

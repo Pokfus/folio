@@ -216,12 +216,13 @@ ranges.js → admin1.js → cities.js → timeline.js → countries.js → count
   `answerDate` (HTML), `traditional, hanzi, pinyin, translations` (HTML), `abstract` (rich HTML
   card background; may carry `ttip` glossary links, but newly generated cards omit them),
   `citation, answerText`.
-- **Themes (15):** folio, atlas, press, bloom, tide, clay, garden, synth + seven full-overhaul themes: arcade (16-bit),
-  academy (formal faculty), scroll (parchment), marble (antiquity inscriptions), dynasty (traditional Chinese), grove
-  (deep forest), gazette (1940s newsprint, two-column About prose) — each light + dark, tokens hex-only. The overhaul
-  themes change layout/chrome/ornament per theme (scoped `body[data-theme="…"]` blocks in styles.css; fonts added to the
-  single @import). **Collection banners and all theme decorations are STATIC — no animated/moving patterns (removed on
-  request; don't reintroduce).** New themes register in `THEMES` (app.js) + the settings picker buttons.
+- **Themes (8):** folio, clay, garden, synth + four full-overhaul themes: arcade (16-bit), academy (formal faculty),
+  marble (antiquity inscriptions), gazette (1940s newsprint, two-column About prose) — each light + dark, tokens
+  hex-only. The overhaul themes change layout/chrome/ornament per theme (scoped `body[data-theme="…"]` blocks in
+  styles.css; fonts in the single @import). **Seven themes — atlas, press, bloom, tide, scroll, grove, dynasty — were
+  REMOVED on request** (a saved selection of one falls back to folio via the `THEMES` whitelist); don't reintroduce
+  them. **Collection banners and all theme decorations are STATIC — no animated/moving patterns (removed on request).**
+  Themes register in `THEMES` (app.js) + the `THEME_OPTS` settings-picker table (mini-mockup previews, hover try-on).
 - **Language switcher** (`#lang-switch` in the top bar, right of Settings): a dropdown of 7 languages (en/es/fr/de/it/nl/ru)
   stored in `S.settings.lang`. **The site is NOT localised yet** — selecting a language is a no-op (just persists + toasts).
 - **Read-aloud TTS** (Web Speech API, zero-dependency; the `/* text-to-speech */` block in app.js): a slow MALE English voice
@@ -291,13 +292,12 @@ ranges.js → admin1.js → cities.js → timeline.js → countries.js → count
   the previously-dead `win1`/`win10` (Victor/Champion) badges** (`wins` was never written after the bot race was removed).
   `S.games` is in `defaultState()` (back-fills old saves) and `PROGRESS_FIELDS` (mirrors to the account).
 - **Collection identity (Library)**: `COLL_THEME` (app.js) maps each collection id → `{ bg }`, a signature hue
-  (`--coll-bg`, consumed by every theme's STATIC banner treatment in styles.css — the old drifting SVG motif system was
-  removed on request; banners must stay still). `COLL_SEAL` adds a gold-embossed emblem circle per banner
-  (`.collection-seal`: 中 China, globe World History, Ω Greece, laurel Rome, ★ US, onion dome Russia, dharma wheel
-  India). The **default folio theme has a "bookplate" deco** (quiet hue wash + fine inner rule); coming-soon rows show
-  a ghost of their hue (row opacity .62). Deck rows inside a collection take the collection hue as their left hairline
-  (`--coll-bg` inherits from the `.collection` root; branches stay ochre). If a collection is ever recreated under a
-  new id, update `COLL_THEME`/`COLL_SEAL` (and `COLLECTION_NUMERALS`).
+  (`--coll-bg`, consumed by every theme's STATIC banner treatment in styles.css — the old drifting SVG motif system
+  AND the gold `COLL_SEAL` emblem circles were both removed on request; banners carry only the hue wash + level
+  numeral). The **default folio theme has a "bookplate" deco** (quiet hue wash + fine inner rule); coming-soon rows
+  show a ghost of their hue (row opacity .62). Deck rows inside a collection take the collection hue as their left
+  hairline (`--coll-bg` inherits from the `.collection` root; branches stay ochre). If a collection is ever recreated
+  under a new id, update `COLL_THEME` (and `COLLECTION_NUMERALS`).
 - **Collections count their level in their own script** (`levelBadgeMarkup(xp, sys)` + `numeralIn(sys, n)`; the id→system map is
   `COLLECTION_NUMERALS`): China → Chinese numerals (`一 二 三 …` via `cnNumeral()`, Han font — `一` for level 1 is a single
   horizontal stroke, so it reads as a bar until level 2+), Ancient Rome (col-40) → Roman numerals, Ancient Greece (col-13) →
@@ -576,8 +576,9 @@ the whole group territory (so single-click selects the union, double-click drill
 A past era's **territories are
 clickable/selectable** exactly like present-day countries (hover/select hit-tests the era geometry via
 `histTerr()`). Every legend layer now shows at **ALL zoom levels** (`updateLegendVisibility` no longer applies a per-layer
-min-zoom gate); the only remaining legend gate is that cities, capitals and country names are
-present-day-only and are **hidden from the legend** on past eras (only Borders + the physical layers show there). The **"Divisions"
+min-zoom gate). **Capitals (`citiesToggle`) and Borders (`bordersToggle`) are separate legend layers in EVERY year** —
+every era ships period capitals, so `citiesToggle` is not in `PRESENT_ONLY` and gates `drawEraCities` on historical eras
+too; only major cities (`majorToggle`) and country names (`countryToggle`) remain present-day-only (hidden on past eras). The **"Divisions"
 (admin-1 borders, `drawAdmin`) and "Division capitals" legend layers were removed** — like Mountains, their toggle + `wire()` are
 gone, `adminOn`/`divCapsOn` default `false` with no way to enable them, so `drawAdmin` + the division-capital city tier are inert
 dead code (never rendered).
