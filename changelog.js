@@ -10,7 +10,8 @@ window.CHANGELOG = [
     items: [
       "First-time visitors now get a proper welcome: the home page explains what Folio is in one sentence, walks through spaced repetition in three short steps, and starts your first study session with a single button.",
       "Three new doorways on the home page: a Card of the day you can flip over, a Term of the day from the glossary, and a slowly spinning mini globe that opens the Atlas.",
-      "The review banner now shows your day streak, tells 'all caught up' apart from 'not started yet', and the daily quote is now always from a Chinese source — Confucius, Laozi, Zhuangzi, Sun Tzu, Mencius or Sima Qian.",
+      "The review banner now shows your day streak and tells 'all caught up' apart from 'not started yet'; the daily quote now rotates through history's great voices, East and West — Confucius and Sima Qian alongside Seneca, Cicero and Plato.",
+      "The Mission page went quiet: no more read-aloud there, on the intro or in its glossary popups.",
     ],
   },
   {

@@ -83,7 +83,8 @@ ranges.js → admin1.js → cities.js → timeline.js → countries.js → count
   render via `autoLinkGlossary` + `setupTooltips`). **Admins click the title or a paragraph on the page to edit it in
   place** (Esc cancels, Ctrl+Enter/blur saves): edits overlay via `ADMIN_EDITS.mission` (merged at render by
   `missionMerged()`, so undo/reload need no special handling) and bake back into this file through auto-save /
-  "Save to project" / `folioSave.files` (`serializeMission`).
+  "Save to project" / `folioSave.files` (`serializeMission`). **The Mission page is TTS-free**: no read-aloud button,
+  and `openGlossWin` skips its play button + auto-read when `current.name === "mission"`.
 - `lakes.js`, `rivers.js`, `water.js`, `ranges.js`, `admin1.js`, `cities.js` — extra
   Natural-Earth layers for the Atlas globe (lakes, rivers, water-body labels, mountain ranges,
   admin-1 borders, city pins); built by the `.claude/build-*.js` dev scripts. (A Forests layer
@@ -249,9 +250,9 @@ ranges.js → admin1.js → cities.js → timeline.js → countries.js → count
   `_ttsAudio`. Chinese hanzi stays on the device voice (no commercially-clear zh Piper voice). The bake is incremental
   (manifest hash check; `--force` re-bakes; `--scan-speakers=N` pitch-scans voices; toolchain auto-downloads into gitignored
   `.claude/tts-cache/`). Gloss popups + selection read-aloud always use the engine.
-- **Home page** (`PAGES.home`): greeting → daily quote (`QUOTES`, **Chinese sources only** — standard published
-  translations, no loose internet attributions) → review banner → (first-run only) a 3-step how-it-works strip → game
-  tiles → a **discovery row** (`.explore-grid`): **Card of the day** (a real card, CSS-3D flip to its answer, gloss
+- **Home page** (`PAGES.home`): greeting → daily quote (`QUOTES` — world sources East and West, standard published
+  translations only, no loose internet attributions) → review banner → (first-run only) a 3-step how-it-works strip →
+  game tiles → a **discovery row** (`.explore-grid`): **Card of the day** (a real card, CSS-3D flip to its answer, gloss
   links stripped, "Study <deck>" button), **Term of the day** (a dated glossary term → `openGlossWin`), and an **Atlas
   teaser** with a slowly turning decorative mini globe (`startMiniGlobe` — decimated `WORLD_GEO`, orthographic,
   theme-coloured like the Atlas, stops when the canvas leaves the DOM, static under `prefers-reduced-motion`). Both
@@ -259,8 +260,8 @@ ranges.js → admin1.js → cities.js → timeline.js → countries.js → count
   (`S.cards` empty) the banner is a **first-run hero**: purpose sentence + "Study your first cards", which sets
   `S.active = ["china"]` (replacing the bare `cn-qing` default) and routes straight into a session; the level badge,
   xp bar, stats, review-order toggle and active-deck list appear only after that. The banner shows a **🔥 day-streak
-  chip** (`S.streak`, shown at 2+ when the run is alive) and a faint `史` watermark (the pre-existing `.banner .glyph`
-  Han slot).
+  chip** (`S.streak`, shown at 2+ when the run is alive). **The home page must not read as China-centric** — Folio
+  covers many history topics; copy stays subject-neutral (China is just the first live collection).
 - **Home minigames** (game-grid tiles → `PAGES.*`): **Multiple Choice** (`PAGES.challenge`, formerly "Daily Challenge" — the
   rival bots + timer were removed; it's now a plain 5-question quiz whose 3 wrong options are the SAME `answerType()` as the
   answer — a person → other people, a dynasty → other dynasties), **Timeline** (`chrono`), **True or False** (`truefalse`), and

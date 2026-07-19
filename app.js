@@ -1561,7 +1561,7 @@
     }
     win.querySelector(".gloss-close").addEventListener("click", () => removeGlossWin(win, true));
     { const eb = win.querySelector(".gloss-edit"); if (eb) eb.addEventListener("click", () => { removeGlossWin(win, true); route("admin", { gloss: key }); }); }   // admin: jump to this term's editor
-    if (ttsEnabled()) {
+    if (ttsEnabled() && !(current && current.name === "mission")) {   // the Mission page is TTS-free, its gloss popups included
       // whole-window text: the title, its dates line, then the full description
       const glossParts = () => {
         const desc = win.querySelector(".gloss-desc");
@@ -2563,8 +2563,8 @@
      PAGE: HOME
      ============================================================ */
   // Short, public-domain reflections on learning, history and knowledge from historical thinkers.
-  // daily quote — Chinese sources only (the site's own civilisation sets the scene); standard published
-  // translations of well-documented passages, no loose internet attributions
+  // daily quote — voices from across the world's history; standard published translations of
+  // well-documented passages, no loose internet attributions
   const QUOTES = [
     { t: "To learn, and at due times to repeat what one has learnt — is that not after all a pleasure?", a: "Confucius" },
     { t: "He who by reanimating the old can gain knowledge of the new is fit to be a teacher.", a: "Confucius" },
@@ -2576,6 +2576,16 @@
     { t: "If you know the enemy and know yourself, you need not fear the result of a hundred battles.", a: "Sun Tzu" },
     { t: "The great man is he who does not lose his child's heart.", a: "Mencius" },
     { t: "A man has only one death; it may be as weighty as Mount Tai or as light as a goose feather.", a: "Sima Qian" },
+    { t: "As long as you live, keep learning how to live.", a: "Seneca" },
+    { t: "While we teach, we learn.", a: "Seneca" },
+    { t: "To be ignorant of what occurred before you were born is to remain forever a child.", a: "Cicero" },
+    { t: "The life of the dead is set in the memory of the living.", a: "Cicero" },
+    { t: "Look back over the past, with its changing empires that rose and fell, and you can foresee the future too.", a: "Marcus Aurelius" },
+    { t: "Knowledge which is acquired under compulsion obtains no hold on the mind.", a: "Plato" },
+    { t: "It is impossible for a man to learn what he thinks he already knows.", a: "Epictetus" },
+    { t: "Histories make men wise.", a: "Francis Bacon" },
+    { t: "There is no royal road to geometry.", a: "Euclid" },
+    { t: "I grow old ever learning many things.", a: "Solon" },
   ];
   function dailyQuoteHTML() {
     const q = QUOTES[Math.floor(Date.now() / DAY) % QUOTES.length];
@@ -2797,14 +2807,14 @@
       ? `<button class="banner hero" id="b-review">
           <div class="body">
             <span class="hero-eyebrow">Start here</span>
-            <h2 class="review-title">Master Chinese history, a few minutes a day</h2>
+            <h2 class="review-title">Master history, a few minutes a day</h2>
             <p class="desc">Folio deals you flashcards and brings each one back just before you would forget it — spaced repetition, the schedule that makes what you learn stay learned.</p>
             <div class="meta">
               <span class="cta"><span class="btn">Study your first cards</span></span>
               <span class="hero-alt" id="hero-browse">or browse the collections</span>
             </div>
           </div>
-          <span class="glyph" aria-hidden="true">史</span>
+          <span class="glyph glyph-svg">${ICON.review}</span>
         </button>`
       : `<button class="banner" id="b-review">
           ${levelBadgeMarkup(folioXP())}
@@ -2828,7 +2838,7 @@
         }</span></span>
             </div>
           </div>
-          <span class="glyph" aria-hidden="true">史</span>
+          <span class="glyph glyph-svg">${ICON.review}</span>
         </button>`;
     root.innerHTML = `
       <div class="page-head">
@@ -6186,7 +6196,6 @@
       <div class="page-head"><span class="eyebrow">About Folio</span><h1>Mission</h1></div>
       <div class="mission">
         <div class="msn-card">
-          ${ttsEnabled() ? `<button class="tts-mute muted" id="msnRead" type="button" aria-label="Read this section aloud" title="Read aloud">${ttsMuteIconSVG(true)}</button>` : ""}
           <h2 id="msnTitle">${esc(M.title)}</h2>
           <div class="msn-prose" id="msnProse">${(M.paras || []).map((p) => "<p>" + p + "</p>").join("")}</div>
         </div>
@@ -6218,24 +6227,7 @@
     const prose = root.querySelector("#msnProse");
     autoLinkGlossary(prose, null, null);
     setupTooltips(prose);
-    // read-aloud toggle for the intro — OFF by default; reads only when clicked, click again to stop
-    const readBtn = root.querySelector("#msnRead");
-    if (readBtn) {
-      let readingPoll = null;
-      const setIcon = (reading) => { readBtn.innerHTML = ttsMuteIconSVG(!reading); readBtn.classList.toggle("muted", !reading); readBtn.setAttribute("aria-label", reading ? "Stop reading" : "Read this section aloud"); };
-      readBtn.addEventListener("click", () => {
-        if (readingPoll) { ttsStop(); return; }   // reading → stop (the poll below resets the icon)
-        if (!ttsSupported()) { toast("Speech isn't available on this device"); return; }
-        const cur = missionMerged();
-        ttsSay([{ text: cur.title }].concat((cur.paras || []).map((p) => ({ text: ttsStrip(p) }))));
-        setIcon(true);
-        readingPoll = setInterval(() => {
-          if (!document.body.contains(readBtn)) { clearInterval(readingPoll); readingPoll = null; return; }   // navigated away (render() already stopped the audio)
-          const active = _ttsAudio || (ttsSupported() && (speechSynthesis.speaking || speechSynthesis.pending));
-          if (!active) { clearInterval(readingPoll); readingPoll = null; setIcon(false); }
-        }, 400);
-      });
-    }
+    // (no read-aloud here: the Mission page is deliberately TTS-free, gloss popups included)
     // admins: click the title or a paragraph to edit it in place (Esc cancels, Ctrl+Enter or clicking away saves)
     if (isAdmin()) {
       const wireEdit = (el, kind, idx) => {
