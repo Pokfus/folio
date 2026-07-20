@@ -43,6 +43,12 @@ ranges.js → admin1.js → cities.js → timeline.js → countries.js → count
   filter). **Currently ~2,100+ terms**, grown from the `Sima_Qian` template, one at a time.
 - `glossary-wikipedia.js` — `Object.assign`s extra summaries onto `window.GLOSSARY` (loads *after*
   `glossary.js`). **Currently an empty stub.**
+- `glossary-i18n.js` — `window.GLOSSARY_I18N[slug][lang]`, glossary descriptions translated into the 8 site
+  languages (es/fr/de/it/nl/ru/ar/zh); written by `.claude/add-glossary.js` from the entry JSON's
+  `translations` field, read by `glossText()` when the site language isn't English.
+- `i18n.js` — the site-chrome translation tables (`window.I18N` exact strings / `I18N_RULES` regex patterns /
+  `I18N_HTML` whole prose blocks per language, keyed by English source text) consumed by app.js's
+  localisation engine. Loaded right before `app.js`. See the "Language switcher + i18n" bullet below.
 - `world.js` (~1.6 MB) — `window.WORLD_GEO`, country-border polygons (Natural Earth 110m, ~117k verts) for the
   Atlas globe.
 - `uk.js` (~47 KB) — `window.UK_SUBUNITS = [ { n, p:[rings], c:[mask] } ]`, the UK's constituent countries (England,
@@ -223,9 +229,22 @@ ranges.js → admin1.js → cities.js → timeline.js → countries.js → count
   REMOVED on request** (a saved selection of one falls back to folio via the `THEMES` whitelist); don't reintroduce
   them. **Collection banners and all theme decorations are STATIC — no animated/moving patterns (removed on request).**
   Themes register in `THEMES` (app.js) + the `THEME_OPTS` settings-picker table (mini-mockup previews, hover try-on).
-- **Language switcher** (`#lang-switch` in the top bar, right of Settings): a dropdown of 7 languages (en/es/fr/de/it/nl/ru)
-  stored in `S.settings.lang`. **The site is NOT localised yet** — selecting a language is a no-op (just persists + toasts).
-- **Read-aloud TTS** (Web Speech API, zero-dependency; the `/* text-to-speech */` block in app.js): a slow MALE English voice
+- **Language switcher + i18n** (`#lang-switch` in the top bar, right of Settings): a custom dropdown of 9 languages
+  (en/es/fr/de/it/nl/ru/ar/zh) stored in `S.settings.lang`, each option showing an **inline SVG country flag**
+  (`FLAG_SVG` in app.js — NOT emoji flags, which render as bare letter pairs on Windows) plus the language's native
+  name. **The site chrome IS localised**: `i18n.js` holds per-language tables (`window.I18N` exact strings /
+  `I18N_RULES` regex patterns for dynamic labels / `I18N_HTML` whole prose blocks, all keyed by the ENGLISH source
+  text), and app.js's engine (`t()`, `localizeTree()`, `applyLang()`) walks rendered text nodes +
+  title/aria-label/placeholder/alt attributes after render, with a MutationObserver localizing later DOM (toasts,
+  popups, menus). Originals are stashed on the nodes so switching back restores cleanly; anything untranslated stays
+  English (graceful fallback). Arabic flips `<html dir="rtl">`. Elements with class `notranslate` are skipped.
+  **Content localisation is separate**: cards carry per-language `i18n` blocks (`cardLocalized()`), glossary
+  descriptions live in `glossary-i18n.js` (`window.GLOSSARY_I18N`, read by `glossText()`).
+- **Read-aloud TTS — SET ASIDE (July 2026)**: the whole system is disabled site-wide — `ttsEnabled()` in app.js
+  returns `false` unconditionally, which hides every play control, the card mute button, the pronunciation button,
+  auto-read and the selection Read-aloud menu; the Settings "Audio" card was removed. The machinery below and the
+  baked `audio/` files stay dormant for a later revival — everything in this bullet describes that dormant system.
+  (Web Speech API, zero-dependency; the `/* text-to-speech */` block in app.js): a slow MALE English voice
   (`ttsVoiceEn`, rate 0.85) + a slow FEMALE Chinese voice (`ttsVoiceZh`, rate 0.7 — also used by the `.tr-play` pronunciation
   buttons via `speak()`). **Voice choice is quality-scored** (`ttsPickVoice`): neural/natural/enhanced/premium names +8, network
   (`localService===false`) +2, wanted gender +4, wrong gender −3 — so Edge's free "… Online (Natural)" neural voices and iOS
@@ -432,6 +451,14 @@ academic sources** — accuracy is non-negotiable, never invent dates, names, or
 template entries are the canonical format: card `cnh-001` in `data.js`, glossary term `Sima_Qian` in
 `glossary.js`. The full pre-trim originals are backed up in `.claude/backup/`.
 
+**Current direction (July 2026): the China collection is SET ASIDE** — its tree node carries
+`placeholder: true`, so it sits under "Coming soon" and `availableCardIdSet()` (app.js) keeps its cards
+out of the daily review, the games, the card of the day and study deep-links. **New cards go to the
+World History collection (`col-8`)** — create leaf decks under it as topics demand. **Every NEW card and
+glossary entry also ships in the 8 site languages** (es, fr, de, it, nl, ru, ar, zh — see the i18n bullets
+below and in the file map); the helpers refuse a new entry without its translations (escape hatch:
+`skipTranslations: true`, only for deliberate English-only maintenance edits of old entries).
+
 **Add a card** — build a card object with all 13 fields, write it to a temp `.json` file, then run:
 
 ```
@@ -457,9 +484,22 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   never put information between parentheses. **No glossary links** — plain text only (`cnh-001`
   still uses the old `ttip`/`data-k` links and bolded facts; new cards omit both).
 - `answerText` — the answer as plain text, no HTML.
+- `i18n` — **REQUIRED for every new card**: the card translated into all 8 site languages,
+  `"i18n": { "es": { "question": …, "answer": …, "answerDate": …, "abstract": …, "answerText": … }, "fr": …,
+  "de": …, "it": …, "nl": …, "ru": …, "ar": …, "zh": … }`. Each language mirrors the English fields under the
+  SAME formatting rules (blank `<span class="blank">_____</span>` mid-sentence, 2×5-sentence abstract with one
+  `<b>` on the answer term, `<i>` for titles, no parentheses, dt-block markup in `answerDate`). Translate
+  meaning-for-meaning at native quality — do not transliterate proper names that have established forms in the
+  target language. The study page, card of the day and games show the `i18n[lang]` fields when the site
+  language matches (`cardLocalized()` in app.js); English is the fallback. `add-card.js` refuses a new card
+  with a missing language/field.
 
 **Add a glossary term** — write `{ "slug": "Wikipedia_Article_Slug", "description": "<3 sentences>",
-"date": "<optional>", "tags": ["<kind>", "<subject>", "<specific>"] }` to a temp `.json` file, then run:
+"date": "<optional>", "tags": ["<kind>", "<subject>", "<specific>"],
+"translations": { "es": "<3 sentences>", "fr": …, "de": …, "it": …, "nl": …, "ru": …, "ar": …, "zh": … } }`
+(translations REQUIRED for new terms — the description in all 8 site languages, same three-sentence,
+impartial, self-contained rules; they land in `glossary-i18n.js` → `window.GLOSSARY_I18N`) to a temp
+`.json` file, then run:
 
 ```
 node .claude/add-glossary.js <entry.json>

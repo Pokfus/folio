@@ -1239,7 +1239,20 @@
   }
   function glossText(k) {
     const G = window.GLOSSARY || {};
+    if (uiLang() !== "en") {                       // translated description when the entry carries one (glossary-i18n.js)
+      const tr = (window.GLOSSARY_I18N || {})[k];
+      if (tr && tr[uiLang()]) return tr[uiLang()];
+    }
     return G[k] || fallbackSentence(k);
+  }
+  // localized view of a card: whole-field translations ride on card.i18n[lang] (question / answer / answerDate /
+  // abstract / answerText, same formatting rules as English). Missing language → the English card unchanged.
+  function cardLocalized(c) {
+    const lang = uiLang();
+    if (!c || lang === "en" || !c.i18n || !c.i18n[lang]) return c;
+    const o = Object.assign({}, c), tr = c.i18n[lang];
+    ["question", "answer", "answerDate", "abstract", "answerText"].forEach((f) => { if (tr[f]) o[f] = tr[f]; });
+    return o;
   }
   // optional start/end dates for a glossary entry (e.g. "1644–1912", "551–479 BCE"); blank if none
   function glossDates(k) {
@@ -2763,7 +2776,7 @@
     // --- discovery row: a real card to flip, a glossary term, and the Atlas ---
     const fresh = Object.keys(S.cards).length === 0;   // never studied anything → first-run hero + how-it-works strip
     const availSet = availableCardIdSet();
-    const cod = dailyPick(CARDS.filter((c) => availSet.has(c.id) && c.question && c.answerText), "cod-");
+    const cod = cardLocalized(dailyPick(CARDS.filter((c) => availSet.has(c.id) && c.question && c.answerText), "cod-"));
     const codLeaf = cod ? cardLeaves(cod.id)[0] || null : null;
     const todKeys = window.GLOSSARY ? Object.keys(window.GLOSSARY).filter((k) => (window.GLOSSARY_DATES || {})[k]) : [];
     const tod = dailyPick(todKeys, "term-");
@@ -3383,7 +3396,7 @@
       revealed = false;
       hideGradeBar();
       const id = queue[0];
-      const c = CARD_BY_ID[id];
+      const c = cardLocalized(CARD_BY_ID[id]);   // study shows the card in the selected site language when translated
       const rc = remainingCounts();
 
       root.innerHTML = `
@@ -3743,6 +3756,11 @@
       }
       const options = pick([correct, ...uniq]);
       return { card, options, correct };
+    }).map((q) => {   // display in the site language when translations exist (typing/distractor matching stays English)
+      const loc = cardLocalized(q.card);
+      if (loc === q.card) return q;
+      const lat = (s) => { const src = CARDS.find((c) => c.answerText === s); const l = src && cardLocalized(src); return (l && l.answerText) || s; };
+      return { card: loc, options: q.options.map(lat), correct: lat(q.correct) };
     });
   }
 
@@ -3986,7 +4004,7 @@
   }
   function chronoPool() {
     const avail = availableCardIdSet();
-    return CARDS.filter((c) => avail.has(c.id)).map((c) => ({ id: c.id, name: c.answerText, year: chronoYear(c) })).filter(
+    return CARDS.filter((c) => avail.has(c.id)).map((c) => ({ id: c.id, name: cardLocalized(c).answerText, year: chronoYear(c) })).filter(
       (x) => x.year != null && x.name
     );
   }
@@ -6965,7 +6983,7 @@
   function adminSetListCount(n, noun) { const el = document.getElementById("adminListCount"); if (el) el.textContent = n + " " + noun + (n === 1 ? "" : "s"); }
   // serialize the live (delta-applied) in-memory data back into data.js / glossary.js source text
   function serializeCardData() {
-    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); return o; });
+    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (c.i18n) o.i18n = c.i18n; return o; });   // i18n translations ride along untouched
     const countIds = (node) => { const s = new Set(); (function w(n) { (n.cardIds || []).forEach((i) => s.add(i)); (n.children || []).forEach(w); })(node); return s.size; };
     function ser(node, isTop) {
       const o = { id: node.id, title: node.title };

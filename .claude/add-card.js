@@ -4,10 +4,17 @@
 //
 //   node .claude/add-card.js <card.json> [deckId]
 //
-// <card.json>  a file holding ONE card object (all 13 fields). deckId defaults to the first leaf deck.
+// <card.json>  a file holding ONE card object (all 13 fields), PLUS an `i18n` block with the card
+//              translated into all 8 site languages (see CLAUDE.md):
+//                "i18n": { "es": { "question": …, "answer": …, "answerDate": …, "abstract": …, "answerText": … },
+//                          "fr": …, "de": …, "it": …, "nl": …, "ru": …, "ar": …, "zh": … }
+//              (pass "skipTranslations": true only for a deliberate English-only maintenance edit).
+//              deckId defaults to the first leaf deck.
 const fs = require("fs"), path = require("path");
 const dataPath = path.join(__dirname, "..", "data.js");
 const FIELDS = ["id","num","category","question","answer","answerDate","traditional","hanzi","pinyin","translations","abstract","citation","answerText"];
+const I18N_LANGS = ["es","fr","de","it","nl","ru","ar","zh"];
+const I18N_FIELDS = ["question","answer","answerDate","abstract","answerText"];
 
 function loadWindow(file) { const win = {}; new Function("window", fs.readFileSync(file, "utf8"))(win); return win; }
 function leafDecks(node, acc) { for (const ch of node.children || []) { if (ch.cardIds) acc.push(ch); if (ch.children) leafDecks(ch, acc); } return acc; }
@@ -18,6 +25,15 @@ if (!cardFile) { console.error("usage: node .claude/add-card.js <card.json> [dec
 const card = JSON.parse(fs.readFileSync(cardFile, "utf8"));
 for (const f of FIELDS) if (!(f in card)) { console.error("ERROR: card is missing field:", f); process.exit(1); }
 if (!card.id) { console.error("ERROR: card.id is empty"); process.exit(1); }
+if (!card.skipTranslations) {   // every new card ships in all 8 site languages (i18n block -> shown by the language switcher)
+  const missing = [];
+  for (const l of I18N_LANGS) {
+    const tr = (card.i18n || {})[l] || {};
+    for (const f of I18N_FIELDS) if (!(typeof tr[f] === "string" && tr[f].trim())) missing.push(l + "." + f);
+  }
+  if (missing.length) { console.error("ERROR: card needs `i18n` translations for all 8 languages × 5 fields (missing: " + missing.slice(0, 10).join(", ") + (missing.length > 10 ? " … +" + (missing.length - 10) : "") + ") — or set skipTranslations:true for a deliberate English-only maintenance edit"); process.exit(1); }
+}
+delete card.skipTranslations;   // control flag only — never written to data.js
 
 const win = loadWindow(dataPath), cards = win.CARD_DATA, tree = win.COLLECTION_TREE;
 if (cards.some(c => c.id === card.id)) { console.error("ERROR: duplicate id:", card.id); process.exit(1); }
