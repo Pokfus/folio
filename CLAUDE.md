@@ -434,6 +434,21 @@ ranges.js → admin1.js → cities.js → timeline.js → countries.js → count
 ## Generating cards & glossary entries
 
 **Content style rules (all card fields + glossary descriptions, current AND future):**
+- **Reading level: a bright 14-year-old must understand it.** Two levers, both required:
+  1. **Short sentences.** One idea per sentence; aim **12–20 words**, and **never over ~24**. Break up long chains of
+     clauses and "ranging from A and B … to C and D" pile-ups into separate sentences. (Long sentences are the biggest
+     barrier for teens — a plain-word sentence of 45 words is still too hard.) The abstract stays **exactly 10
+     sentences in two blocks of 5**, so this means each sentence carries less — the abstract runs shorter and lighter
+     than the old dense ~330-word style; **that is intended**, readability beats density.
+  2. **Plain words.** Common everyday words in place of academic vocabulary (say "chipped stone", "shaped in advance",
+     "hunting and gathering", "spread out", "died out", not "knapped", "prepared-core", "foraging", "dispersed",
+     "diachronous", "florescence", "percussion", "sedentism"). When a real technical term is unavoidable (Neanderthal,
+     Levallois, Mousterian, Mesolithic), keep it **and explain it in plain words** the first time.
+  Keep the tone that of an engaging school textbook or museum label for teens — never childish, and **never at the cost
+  of accuracy or of the hedges**: contested facts stay hedged, just in plain words ("scientists still argue about
+  exactly when…", not "the boundary is diachronous"). This applies to every field, in English **and** in all 8
+  translations. (Flesch–Kincaid grade is a rough check, but proper nouns like "Paleolithic"/"Neanderthal" keep the
+  number near 10–12 even when the writing is genuinely easy — judge by sentence length + word choice, not the score.)
 - **Non-round numbers above 20 are numerals** ("27 chapters", never "twenty-seven chapters"). Round numbers may
   stay as words ("thirty kings", "eight hundred years"). Proper names keep their words (*Twenty-Four Histories*,
   *Twenty-four Filial Exemplars*).
@@ -489,8 +504,11 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   "de": …, "it": …, "nl": …, "ru": …, "ar": …, "zh": … }`. Each language mirrors the English fields under the
   SAME formatting rules (blank `<span class="blank">_____</span>` mid-sentence, 2×5-sentence abstract with one
   `<b>` on the answer term, `<i>` for titles, no parentheses, dt-block markup in `answerDate`). Translate
-  meaning-for-meaning at native quality — do not transliterate proper names that have established forms in the
-  target language. The study page, card of the day and games show the `i18n[lang]` fields when the site
+  meaning-for-meaning at native quality — **not a literal, word-for-word rendering of the English.** Each language
+  must read as though it were written by a native speaker for teenagers in that language: use its own natural phrasing,
+  idiom and word order, at the same plain 14-year-old reading level as the English. Do not transliterate proper names
+  that have established forms in the target language, and use each language's own standard scholarly term for the
+  answer. The study page, card of the day and games show the `i18n[lang]` fields when the site
   language matches (`cardLocalized()` in app.js); English is the fallback. `add-card.js` refuses a new card
   with a missing language/field.
 
