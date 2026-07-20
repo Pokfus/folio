@@ -1718,9 +1718,18 @@
   function entryCardIds(id) {
     return subtreeCardIds(NODE_BY_ID[id]);
   }
+  // cards inside at least one collection that is NOT coming soon — everything a visitor may study or be quizzed on.
+  // (A collection set aside as coming soon — e.g. China while its deck is rebuilt — keeps its cards out of the daily
+  // review, the games and the card of the day, even for users who still have it in S.active.)
+  function availableCardIdSet() {
+    const s = new Set();
+    (TREE.collections || []).forEach((c) => { if (!isComingSoon(c)) subtreeCardIds(c).forEach((id) => s.add(id)); });
+    return s;
+  }
   function activeCardIds() {
+    const avail = availableCardIdSet();
     const set = new Set();
-    activeEntryIds().forEach((id) => entryCardIds(id).forEach((c) => set.add(c)));
+    activeEntryIds().forEach((id) => entryCardIds(id).forEach((c) => { if (avail.has(c)) set.add(c); }));
     return [...set];
   }
   function addActive(id) {
@@ -2671,7 +2680,7 @@
         rows.push({ node, depth, active: activeSet.has(node.id) });
         nodeChildren(node).forEach((ch) => walk(ch, depth + 1));
       }
-      TREE.collections.forEach((d) => walk(d, 0));
+      TREE.collections.forEach((d) => { if (!isComingSoon(d)) walk(d, 0); });   // a coming-soon collection's decks sit the review out
       return rows
         .map((r) => {
           const pad = 22 + r.depth * 21;
@@ -2751,7 +2760,8 @@
 
     // --- discovery row: a real card to flip, a glossary term, and the Atlas ---
     const fresh = Object.keys(S.cards).length === 0;   // never studied anything → first-run hero + how-it-works strip
-    const cod = dailyPick(CARDS.filter((c) => c.question && c.answerText), "cod-");
+    const availSet = availableCardIdSet();
+    const cod = dailyPick(CARDS.filter((c) => availSet.has(c.id) && c.question && c.answerText), "cod-");
     const codLeaf = cod ? cardLeaves(cod.id)[0] || null : null;
     const todKeys = window.GLOSSARY ? Object.keys(window.GLOSSARY).filter((k) => (window.GLOSSARY_DATES || {})[k]) : [];
     const tod = dailyPick(todKeys, "term-");
@@ -2810,8 +2820,8 @@
             <h2 class="review-title">Master history, a few minutes a day</h2>
             <p class="desc">Folio deals you flashcards and brings each one back just before you would forget it — spaced repetition, the schedule that makes what you learn stay learned.</p>
             <div class="meta">
-              <span class="cta"><span class="btn">Study your first cards</span></span>
-              <span class="hero-alt" id="hero-browse">or browse the collections</span>
+              <span class="cta"><span class="btn">${(TREE.collections || []).some((c) => !isComingSoon(c)) ? "Study your first cards" : "Browse the collections"}</span></span>
+              ${(TREE.collections || []).some((c) => !isComingSoon(c)) ? '<span class="hero-alt" id="hero-browse">or browse the collections</span>' : ""}
             </div>
           </div>
           <span class="glyph glyph-svg">${ICON.review}</span>
@@ -2871,10 +2881,10 @@
     root.querySelector("#b-review").addEventListener("click", (e) => {
       if (e.target.closest("#hero-browse")) { route("decks"); return; }
       if (fresh) {
-        // first session: put the whole China collection in the daily review (replacing the bare default) and go
-        if (!activeIds.length || (activeIds.length === 1 && activeIds[0] === "cn-qing")) S.active = ["china"];
-        else if (activeIds.indexOf("china") < 0) S.active.push("china");
-        save();
+        // first session: activate the first available collection and go — or browse the library while everything is still coming soon
+        const first = (TREE.collections || []).find((c) => !isComingSoon(c));
+        if (!first) { route("decks"); return; }
+        if (activeIds.indexOf(first.id) < 0) { S.active = activeIds.concat(first.id); save(); }
         route("study", { scope: { type: "review" } });
         return;
       }
@@ -3268,7 +3278,8 @@
       const sd = NODE_BY_ID[scope.id];
       if (!sd) return null;
       where = nodeWhere(sd);
-      const ids = subtreeCardIds(sd).filter((id) => !isSuspended(id));
+      const availDeck = availableCardIdSet();   // a coming-soon collection's cards are set aside, even via a deep link
+      const ids = subtreeCardIds(sd).filter((id) => !isSuspended(id) && availDeck.has(id));
       // due cards in this deck first, then new (respecting daily new limit), then any unseen if you want to push on
       const due = ids.filter((id) => isDueNow(id)).sort((a, b) => S.cards[a].due - S.cards[b].due);
       const unseen = ids.filter((id) => !isSeen(id));
@@ -3290,8 +3301,9 @@
     }
     const sd = params.scope.type === "deck" ? NODE_BY_ID[params.scope.id] : null;
 
-    // placeholder / coming-soon deck
-    if (sd && isComingSoon(sd)) {
+    // placeholder / coming-soon deck — or a deck whose cards are all inside coming-soon collections (e.g. China set aside)
+    const availStudy = availableCardIdSet();
+    if (sd && (isComingSoon(sd) || !subtreeCardIds(sd).some((id) => availStudy.has(id)))) {
       root.innerHTML = emptyPlacard(
         sd.title,
         sd.hanzi || initialOf(sd.title),
@@ -3308,7 +3320,7 @@
 
     if (queue.length === 0) {
       // nothing due / no new left — offer to cram remaining unseen, or report all caught up
-      const remainingUnseen = sd ? subtreeCardIds(sd).filter((id) => !isSeen(id) && !isSuspended(id)) : [];
+      const remainingUnseen = sd ? subtreeCardIds(sd).filter((id) => availStudy.has(id) && !isSeen(id) && !isSuspended(id)) : [];
       if (sd && remainingUnseen.length) {
         root.innerHTML = emptyPlacard(
           "Daily limit reached",
@@ -3713,16 +3725,17 @@
     return "figure";   // default: a person / deity / named figure
   }
   function buildChallengeQuestions() {
-    const poolIds = ALL_CARD_IDS.slice();
+    const avail = availableCardIdSet();
+    const poolIds = ALL_CARD_IDS.filter((id) => avail.has(id));
     const chosen = pick(poolIds, Math.min(5, poolIds.length)).map((id) => CARD_BY_ID[id]);
     return chosen.map((card) => {
       const correct = card.answerText, t = answerType(card);
       // prefer distractors of the same type; top up with any others if there aren't three
-      const sameType = pick(CARDS.filter((c) => c.answerText && c.answerText !== correct && answerType(c) === t).map((c) => c.answerText));
+      const sameType = pick(CARDS.filter((c) => avail.has(c.id) && c.answerText && c.answerText !== correct && answerType(c) === t).map((c) => c.answerText));
       const uniq = [];
       for (const d of sameType) { if (uniq.length >= 3) break; if (!uniq.includes(d) && d !== correct) uniq.push(d); }
       if (uniq.length < 3) {
-        const other = pick(CARDS.filter((c) => c.answerText && c.answerText !== correct && !uniq.includes(c.answerText)).map((c) => c.answerText));
+        const other = pick(CARDS.filter((c) => avail.has(c.id) && c.answerText && c.answerText !== correct && !uniq.includes(c.answerText)).map((c) => c.answerText));
         for (const d of other) { if (uniq.length >= 3) break; if (!uniq.includes(d)) uniq.push(d); }
       }
       const options = pick([correct, ...uniq]);
@@ -3969,7 +3982,8 @@
     return y ? y : null;          // 0 = timeless → excluded from the puzzle
   }
   function chronoPool() {
-    return CARDS.map((c) => ({ id: c.id, name: c.answerText, year: chronoYear(c) })).filter(
+    const avail = availableCardIdSet();
+    return CARDS.filter((c) => avail.has(c.id)).map((c) => ({ id: c.id, name: c.answerText, year: chronoYear(c) })).filter(
       (x) => x.year != null && x.name
     );
   }

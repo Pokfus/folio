@@ -235,7 +235,7 @@ window.COLLECTION_TREE = {
       "hanzi": "中国",
       "blurb": "Template deck — one example card. Generate more with Claude.",
       "total": 225,
-      "placeholder": false,
+      "placeholder": true,
       "children": [
         {
           "id": "cn-myth",
