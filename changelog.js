@@ -5,6 +5,15 @@
    user, not how). Loaded before app.js. */
 window.CHANGELOG = [
   {
+    d: "2026-07-20",
+    t: "A wider world, in many tongues",
+    items: [
+      "Folio is opening up to all of history: the China collection has been set aside as 'coming soon' while we build a brand-new World History collection, which begins today with its first card.",
+      "The language menu in the top corner now shows a country flag beside each language, and gained two more: Arabic and Mandarin Chinese. Newly written cards and glossary terms come translated into all of them, and switching language now translates the site itself, not just the menu.",
+      "Read-aloud has been set aside for now — the spoken-audio buttons and the Audio settings are gone while we rework how it sounds.",
+    ],
+  },
+  {
     d: "2026-07-19",
     t: "A more welcoming home",
     items: [

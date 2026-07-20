@@ -8260,7 +8260,7 @@
     }
     return s;
   }
-  const I18N_ATTRS = ["title", "aria-label", "placeholder", "alt"];
+  const I18N_ATTRS = ["title", "aria-label", "placeholder", "alt", "data-tip"];   // data-tip: the Atlas stat-source speech bubbles
   function restoreTree(root) {   // put every stashed original back (before re-localizing, or returning to English)
     if (!root || !root.querySelectorAll) return;
     [root, ...root.querySelectorAll("*")].forEach((el) => {
