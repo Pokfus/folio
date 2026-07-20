@@ -173,6 +173,14 @@ body.visitor-mode .tab-admin{display:none;}
 .lo-code{font-family:var(--mono); font-size:10px; letter-spacing:.08em; font-weight:700; width:24px; flex:none; color:var(--ink-faint);}
 .lang-opt.on .lo-code{color:var(--indigo);}
 .lo-label{font-size:14px;}
+/* SVG country flags in the language menu + top-bar button (emoji flags render as letter pairs on Windows) */
+.lo-flag{width:21px; height:14px; flex:none; border-radius:2.5px; overflow:hidden; box-shadow:0 0 0 1px color-mix(in srgb, var(--ink) 18%, transparent); display:inline-flex;}
+.lo-flag svg{width:100%; height:100%; display:block;}
+.lang-flag{width:18px; height:12px; flex:none; border-radius:2px; overflow:hidden; box-shadow:0 0 0 1px color-mix(in srgb, var(--ink) 18%, transparent); display:inline-flex;}
+.lang-flag svg{width:100%; height:100%; display:block;}
+/* RTL (Arabic): flip the reading direction; flex/grid layouts follow the dir attribute on <html> */
+html[dir="rtl"] .lang-opt{text-align:right;}
+html[dir="rtl"] .page-head{text-align:right;}
 
 /* mobile nav condense */
 .nav-toggle{display:none;}

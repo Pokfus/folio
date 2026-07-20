@@ -8213,17 +8213,128 @@
     modeSwitch.addEventListener("click", () => setMode(!isAdmin()));
   }
 
-  // language switcher (top bar). Stores the choice in S.settings.lang; the site is not localised yet, so it's a no-op for now.
+  /* ---------- i18n: site-chrome localisation ----------
+     Translations live in i18n.js (window.I18N exact strings / I18N_RULES regex patterns / I18N_HTML whole
+     prose blocks), keyed by the English source text. Pages keep rendering in English; localizeTree() then
+     swaps matching text nodes + title/aria-label/placeholder/alt attributes into the selected language, and
+     a MutationObserver keeps any later DOM (toasts, popups, menus, re-renders) localized. Originals are
+     stashed on the nodes so switching language (or back to English) restores static chrome cleanly.
+     English is always the fallback: an untranslated string simply stays English. Arabic flips the page RTL. */
+  function uiLang() { const l = (S.settings && S.settings.lang) || "en"; return l !== "en" && window.I18N && window.I18N[l] ? l : "en"; }
+  const _i18nRuleCache = {}, _i18nMissCache = new Map();
+  function i18nRules(lang) {
+    if (!_i18nRuleCache[lang]) _i18nRuleCache[lang] = ((window.I18N_RULES || {})[lang] || []).map((r) => { try { return [new RegExp(r[0]), r[1]]; } catch (e) { return null; } }).filter(Boolean);
+    return _i18nRuleCache[lang];
+  }
+  function t(s) {
+    const lang = uiLang();
+    if (lang === "en" || s == null) return s;
+    const key = String(s), kt = key.trim();
+    if (!kt) return s;
+    const dict = window.I18N[lang] || {};
+    if (dict[kt] !== undefined) return key.replace(kt, dict[kt]);
+    if (kt.length <= 160) {                                    // parameterized labels are short — cap the regex scan
+      const cacheKey = lang + " " + kt;
+      if (_i18nMissCache.has(cacheKey)) return s;
+      for (const [re, rep] of i18nRules(lang)) { if (re.test(kt)) return key.replace(kt, kt.replace(re, rep)); }
+      if (_i18nMissCache.size > 6000) _i18nMissCache.clear();
+      _i18nMissCache.set(cacheKey, 1);
+    }
+    return s;
+  }
+  const I18N_ATTRS = ["title", "aria-label", "placeholder", "alt"];
+  function restoreTree(root) {   // put every stashed original back (before re-localizing, or returning to English)
+    if (!root || !root.querySelectorAll) return;
+    [root, ...root.querySelectorAll("*")].forEach((el) => {
+      if (el._i18nHtmlSrc !== undefined) { el.innerHTML = el._i18nHtmlSrc; delete el._i18nHtmlSrc; el.removeAttribute("data-i18n-done"); }
+      if (el._i18nAttrSrc) { for (const a in el._i18nAttrSrc) el.setAttribute(a, el._i18nAttrSrc[a]); delete el._i18nAttrSrc; }
+    });
+    const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+    let n; while ((n = w.nextNode())) if (n._i18nSrc !== undefined) { n.nodeValue = n._i18nSrc; delete n._i18nSrc; }
+  }
+  function localizeTree(root) {
+    const lang = uiLang();
+    if (lang === "en" || !root) return;
+    if (root.nodeType === 3) { const src = root._i18nSrc !== undefined ? root._i18nSrc : root.nodeValue, tv = t(src); if (tv !== src) { root._i18nSrc = src; root.nodeValue = tv; } return; }
+    if (!root.querySelectorAll) return;
+    const htmlDict = (window.I18N_HTML || {})[lang] || {};
+    const els = [root, ...root.querySelectorAll("*")];
+    // whole-block prose (About-page paragraphs, FAQ bodies): swap an element whose entire markup matches
+    if (Object.keys(htmlDict).length) {
+      els.forEach((el) => {
+        if (!/^(P|LI|H1|H2|H3|H4|BLOCKQUOTE|SUMMARY|FIGCAPTION)$/.test(el.nodeName) && !/\bfaq-/.test(el.className || "")) return;
+        if (el.dataset.i18nDone || (el.closest && el.closest(".notranslate")) || el.isContentEditable) return;
+        const src = el._i18nHtmlSrc !== undefined ? el._i18nHtmlSrc : (el.innerHTML || "").trim();
+        if (src && htmlDict[src] !== undefined) { el._i18nHtmlSrc = src; el.innerHTML = htmlDict[src]; el.setAttribute("data-i18n-done", "1"); }
+      });
+    }
+    els.forEach((el) => {
+      if (el.closest && el.closest(".notranslate")) return;
+      I18N_ATTRS.forEach((a) => {
+        if (!el.hasAttribute || !el.hasAttribute(a)) return;
+        const src = (el._i18nAttrSrc && el._i18nAttrSrc[a] !== undefined) ? el._i18nAttrSrc[a] : el.getAttribute(a);
+        const tv = t(src);
+        if (tv !== src) { el._i18nAttrSrc = el._i18nAttrSrc || {}; el._i18nAttrSrc[a] = src; el.setAttribute(a, tv); }
+      });
+    });
+    const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+    let n; const nodes = [];
+    while ((n = w.nextNode())) nodes.push(n);
+    nodes.forEach((node) => {
+      const p = node.parentNode;
+      if (!p || p.nodeName === "SCRIPT" || p.nodeName === "STYLE" || p.nodeName === "TEXTAREA") return;
+      if (p.isContentEditable || (p.closest && p.closest(".notranslate"))) return;
+      const src = node._i18nSrc !== undefined ? node._i18nSrc : node.nodeValue;
+      if (!src || !src.trim()) return;
+      const tv = t(src);
+      if (tv !== src) { node._i18nSrc = src; node.nodeValue = tv; }
+    });
+  }
+  let _i18nObserver = null;
+  function applyLang() {
+    const lang = uiLang();
+    document.documentElement.lang = lang === "zh" ? "zh-CN" : lang;
+    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+    document.body.classList.toggle("rtl", lang === "ar");
+    if (_i18nObserver) { _i18nObserver.disconnect(); _i18nObserver = null; }
+    _i18nMissCache.clear();
+    restoreTree(document.body);
+    if (lang === "en") return;
+    localizeTree(document.body);
+    _i18nObserver = new MutationObserver((muts) => {
+      muts.forEach((m) => m.addedNodes && m.addedNodes.forEach((nd) => localizeTree(nd)));
+    });
+    _i18nObserver.observe(document.body, { childList: true, subtree: true });
+  }
+
+  // language switcher (top bar): SVG country flags + native language names; picking one re-renders the site
+  // in that language (see the i18n block above). Emoji flags are NOT used — Windows renders them as bare
+  // letter pairs ("ES"), which is exactly what the flags are meant to replace.
+  const FLAG_SVG = {
+    en: '<svg viewBox="0 0 60 40" preserveAspectRatio="none" aria-hidden="true"><rect width="60" height="40" fill="#012169"/><path d="M0 0L60 40M60 0L0 40" stroke="#fff" stroke-width="8"/><path d="M0 0L60 40M60 0L0 40" stroke="#C8102E" stroke-width="4"/><path d="M30 0v40M0 20h60" stroke="#fff" stroke-width="14"/><path d="M30 0v40M0 20h60" stroke="#C8102E" stroke-width="8"/></svg>',
+    es: '<svg viewBox="0 0 60 40" preserveAspectRatio="none" aria-hidden="true"><rect width="60" height="40" fill="#AA151B"/><rect y="10" width="60" height="20" fill="#F1BF00"/></svg>',
+    fr: '<svg viewBox="0 0 60 40" preserveAspectRatio="none" aria-hidden="true"><rect width="60" height="40" fill="#fff"/><rect width="20" height="40" fill="#0055A4"/><rect x="40" width="20" height="40" fill="#EF4135"/></svg>',
+    de: '<svg viewBox="0 0 60 40" preserveAspectRatio="none" aria-hidden="true"><rect width="60" height="40" fill="#FFCE00"/><rect width="60" height="26.7" fill="#DD0000"/><rect width="60" height="13.3" fill="#000"/></svg>',
+    it: '<svg viewBox="0 0 60 40" preserveAspectRatio="none" aria-hidden="true"><rect width="60" height="40" fill="#fff"/><rect width="20" height="40" fill="#009246"/><rect x="40" width="20" height="40" fill="#CE2B37"/></svg>',
+    nl: '<svg viewBox="0 0 60 40" preserveAspectRatio="none" aria-hidden="true"><rect width="60" height="40" fill="#21468B"/><rect width="60" height="26.7" fill="#fff"/><rect width="60" height="13.3" fill="#AE1C28"/></svg>',
+    ru: '<svg viewBox="0 0 60 40" preserveAspectRatio="none" aria-hidden="true"><rect width="60" height="40" fill="#D52B1E"/><rect width="60" height="26.7" fill="#0039A6"/><rect width="60" height="13.3" fill="#fff"/></svg>',
+    ar: '<svg viewBox="0 0 60 40" preserveAspectRatio="none" aria-hidden="true"><rect width="60" height="40" fill="#1B7A43"/><rect x="12" y="10" width="36" height="7" rx="3.5" fill="#fff" opacity=".95"/><rect x="12" y="24" width="28" height="3.5" rx="1.75" fill="#fff"/><path d="M41.5 25.75h7" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/></svg>',
+    zh: '<svg viewBox="0 0 60 40" preserveAspectRatio="none" aria-hidden="true"><rect width="60" height="40" fill="#DE2910"/><polygon fill="#FFDE00" points="12,6 13.6,10.8 18.7,10.8 14.6,13.8 16.1,18.7 12,15.7 7.9,18.7 9.4,13.8 5.3,10.8 10.4,10.8"/><path fill="#FFDE00" d="M23 4l1.2 1.9L23 7.8l-1.2-1.9zM27 9l1.2 1.9-1.2 1.9-1.2-1.9zM27 16l1.2 1.9-1.2 1.9-1.2-1.9zM23 21l1.2 1.9-1.2 1.9-1.2-1.9z"/></svg>',
+  };
   const LANGS = [
     { code: "en", label: "English" }, { code: "es", label: "Español" }, { code: "fr", label: "Français" },
-    { code: "de", label: "Deutsch" }, { code: "it", label: "Italiano" }, { code: "nl", label: "Nederlands" }, { code: "ru", label: "Русский" },
+    { code: "de", label: "Deutsch" }, { code: "it", label: "Italiano" }, { code: "nl", label: "Nederlands" },
+    { code: "ru", label: "Русский" }, { code: "ar", label: "العربية" }, { code: "zh", label: "中文" },
   ];
   (function setupLangSwitch() {
-    const btn = document.getElementById("lang-switch"), codeEl = document.getElementById("lang-code");
+    const btn = document.getElementById("lang-switch"), codeEl = document.getElementById("lang-code"), flagEl = document.getElementById("lang-flag");
     if (!btn || !codeEl) return;
     if (!S.settings.lang) S.settings.lang = "en";
     const cur = () => LANGS.find((l) => l.code === S.settings.lang) || LANGS[0];
-    const refresh = () => { codeEl.textContent = cur().code.toUpperCase(); };
+    const refresh = () => {
+      codeEl.textContent = cur().code.toUpperCase();
+      if (flagEl) flagEl.innerHTML = FLAG_SVG[cur().code] || "";
+    };
     refresh();
     let menu = null;
     function close() { if (menu) { menu.remove(); menu = null; } btn.setAttribute("aria-expanded", "false"); document.removeEventListener("pointerdown", onOutside, true); document.removeEventListener("keydown", onKey, true); }
@@ -8231,17 +8342,18 @@
     function onKey(e) { if (e.key === "Escape") close(); }
     function open() {
       menu = document.createElement("div");
-      menu.className = "lang-menu"; menu.setAttribute("role", "listbox");
-      menu.innerHTML = LANGS.map((l) => '<button class="lang-opt' + (l.code === S.settings.lang ? " on" : "") + '" type="button" role="option" data-lang="' + l.code + '"><span class="lo-code">' + l.code.toUpperCase() + '</span><span class="lo-label">' + esc(l.label) + '</span></button>').join("");
+      menu.className = "lang-menu notranslate"; menu.setAttribute("role", "listbox");
+      menu.innerHTML = LANGS.map((l) => '<button class="lang-opt' + (l.code === S.settings.lang ? " on" : "") + '" type="button" role="option" data-lang="' + l.code + '"><span class="lo-flag" aria-hidden="true">' + (FLAG_SVG[l.code] || "") + '</span><span class="lo-label">' + esc(l.label) + "</span></button>").join("");
       document.body.appendChild(menu);
       const r = btn.getBoundingClientRect();
       menu.style.top = (r.bottom + 8) + "px";
       menu.style.right = Math.max(8, window.innerWidth - r.right) + "px";
       btn.setAttribute("aria-expanded", "true");
       menu.querySelectorAll(".lang-opt").forEach((o) => o.addEventListener("click", () => {
-        S.settings.lang = o.dataset.lang; save(); refresh();
-        toast((LANGS.find((l) => l.code === o.dataset.lang) || {}).label + " selected — localisation coming soon");
-        close();
+        S.settings.lang = o.dataset.lang; save();
+        refresh(); close();
+        applyLang();   // flip dir/lang and localize the static chrome…
+        render();      // …then rebuild the page; the observer localizes the fresh DOM
       }));
       setTimeout(() => { document.addEventListener("pointerdown", onOutside, true); document.addEventListener("keydown", onKey, true); }, 0);
     }
@@ -8260,6 +8372,7 @@
   _adminLastSnapshot = JSON.stringify(ADMIN_EDITS);   // undo baseline (so the first edit after load is undoable)
   _adminUndoReady = true;
   render();
+  applyLang();   // localize the freshly rendered page + static chrome, set dir/lang, install the i18n observer
   checkAchievements(true);   // backfill any milestones already met by existing progress
   restoreGlossWins(_glossToRestore);   // re-open any gloss popups that were on screen before the reload
   supaBoot().then(cloudBootOverrides);   // async: restore the session, handle emailed auth links, reconcile progress — then adopt the published content overrides (live edits)
