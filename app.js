@@ -2219,7 +2219,9 @@
      persisted so leaving a card muted keeps every future card muted until the user unmutes). */
   const TTS_RATE_EN = 0.85, TTS_RATE_ZH = 0.7;   // "slow" voices
   function ttsSupported() { return !!(window.speechSynthesis && typeof SpeechSynthesisUtterance !== "undefined"); }
-  function ttsEnabled() { return ttsSupported() && S.settings.tts !== false; }
+  // TTS is SET ASIDE site-wide for now: the whole read-aloud system is disabled — no play buttons, no card mute
+  // button, no auto-read, no Settings controls. The machinery below stays dormant so it can be revived later.
+  function ttsEnabled() { return false; }
   function ttsActive() { return ttsEnabled() && !S.settings.ttsMuted; }
   let _ttsSeq = 0;   // generation counter — bumped by ttsStop() so a pending delayed read (e.g. the gloss 0.5s pause) dies
   let _ttsVoicesHook = null;   // the Settings page hangs its voice-list refresher here (mobile delivers getVoices() async)
@@ -3650,9 +3652,10 @@
         if (c.traditional)
           html += '<div class="tr-tradline"><span class="tr-trad">' + esc(c.traditional) + "</span></div>";
         html +=
-          '<div class="tr-cn"><button class="tr-play" type="button" data-say="' + esc(c.hanzi) + '" aria-label="Play pronunciation">' +
-          '<svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="6 4 20 12 6 20 6 4"/></svg>' +
-          '</button><span class="hz">' + esc(c.hanzi) + "</span></div>";
+          '<div class="tr-cn">' + (ttsEnabled()
+            ? '<button class="tr-play" type="button" data-say="' + esc(c.hanzi) + '" aria-label="Play pronunciation">' +
+              '<svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="6 4 20 12 6 20 6 4"/></svg></button>'
+            : "") + '<span class="hz">' + esc(c.hanzi) + "</span></div>";
         html += c.translations || "";
         html += "</div></div></div></div>";
       }
@@ -6414,12 +6417,6 @@
       <span class="theme-mock" style="--tm-a:${t[3]};--tm-b:${t[4]};--tm-p:${t[5]}" aria-hidden="true"><i class="tm-bar"></i><i class="tm-line"></i><i class="tm-line short"></i><i class="tm-dot"></i></span>
       <span class="theme-name">${t[1]}</span><span class="theme-tag">${t[2]}</span></button>`;
     const setHead = (accent, svg, title) => `<div class="set-head" style="--msn-accent:${accent}"><span class="msn-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${svg}</svg></span><h2>${title}</h2></div>`;
-    const narrCards = Object.keys(TTS_NARRATORS).map((k) => `
-      <button class="narr-card${k === ttsNarrator() ? " active" : ""}" data-narr="${k}" type="button">
-        <span class="nc-flag">${k.slice(0, 2).toUpperCase()}</span>
-        <span class="nc-name">${TTS_NARRATORS[k]}</span>
-        <span class="nc-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
-      </button>`).join("");
     root.innerHTML = `
       <div class="page-head"><span class="eyebrow">Preferences</span><h1>Settings</h1>
         <p>Settings apply to this device. Your study progress is what follows your account across devices.</p></div>
@@ -6444,24 +6441,6 @@
           <div class="set-row">
             <div class="info"><h3>Random review order</h3><p>Shuffle each day's session and draw its new cards at random from your active decks, instead of chronologically.</p></div>
             <div class="ctl"><div class="switch ${S.settings.reviewRandom ? "on" : ""}" id="sw-random" role="switch" tabindex="0" aria-checked="${!!S.settings.reviewRandom}"></div></div>
-          </div>
-        </div>
-        <div class="set-card">
-          ${setHead("#8257C2", '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>', "Audio")}
-          <div class="set-row">
-            <div class="info"><h3>Text-to-speech</h3><p>Read cards aloud while you study — the question, answer, Chinese, and background. Turning this off hides the card's mute button and every play control.</p></div>
-            <div class="ctl"><div class="switch ${S.settings.tts !== false ? "on" : ""}" id="sw-tts" role="switch" tabindex="0" aria-checked="${S.settings.tts !== false}"></div></div>
-          </div>
-          <div class="set-row set-row-block">
-            <div class="info"><h3>Narrator</h3><p>The recorded human voice that reads your cards. Pick a card to hear a sample.</p></div>
-            <div class="narr-grid" id="narrGrid">${narrCards}</div>
-          </div>
-          <div class="set-row">
-            <div class="info"><h3>Fallback reading voices</h3><p>This device's own voices, used for Chinese and wherever a recording isn't available (e.g. a freshly edited card). Voices named “Natural”, “Neural” or “Enhanced” sound the most human; “Auto” prefers them when present.</p></div>
-            <div class="ctl ctl-col">
-              <div class="voice-row"><span class="voice-lab">English</span><select class="set-sel" id="voiceEn" aria-label="English reading voice"></select><button class="btn ghost" id="voiceEnTest" type="button">Test</button></div>
-              <div class="voice-row"><span class="voice-lab">Chinese</span><select class="set-sel" id="voiceZh" aria-label="Chinese reading voice"></select><button class="btn ghost" id="voiceZhTest" type="button">Test</button></div>
-            </div>
           </div>
         </div>
         <div class="set-card">
@@ -6507,33 +6486,6 @@
       }
     });
 
-    const swTts = root.querySelector("#sw-tts");
-    const toggleTts = () => {
-      S.settings.tts = S.settings.tts === false;   // flip: false -> true, anything else -> false
-      save();
-      if (!S.settings.tts) ttsStop();
-      swTts.classList.toggle("on", S.settings.tts);
-      swTts.setAttribute("aria-checked", String(S.settings.tts));
-    };
-    swTts.addEventListener("click", toggleTts);
-    swTts.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleTts(); } });
-
-    // narrator cards — selecting one plays that narrator's baked sample; clicking the active card replays it
-    const narrPreview = () => {
-      ttsStop();
-      const a = new Audio("audio/cards/" + ttsNarrator() + "/_sample.mp3");
-      _ttsAudio = a;
-      a.onerror = () => { toast("This narrator's recordings aren't available yet — the device voice will be used."); };
-      const pr = a.play();
-      if (pr && pr.catch) pr.catch(() => {});
-    };
-    const narrGrid = root.querySelector("#narrGrid");
-    if (narrGrid) narrGrid.querySelectorAll(".narr-card").forEach((c) => c.addEventListener("click", () => {
-      S.settings.ttsNarrator = c.dataset.narr; save(); loadBakedManifest();
-      narrGrid.querySelectorAll(".narr-card").forEach((x) => x.classList.toggle("active", x === c));
-      narrPreview();
-    }));
-
     // random review order (also togglable from the home banner's Chrono/Random pill)
     const swRandom = root.querySelector("#sw-random");
     const toggleRandom = () => {
@@ -6542,34 +6494,6 @@
       swRandom.setAttribute("aria-checked", String(!!S.settings.reviewRandom));
     };
     if (swRandom) { swRandom.addEventListener("click", toggleRandom); swRandom.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleRandom(); } }); }
-
-    // reading-voice pickers — populated from the device's voice list (arrives async on mobile -> _ttsVoicesHook refills)
-    const fillVoices = () => {
-      const build = (sel, list, cur) => {
-        if (!sel) return;
-        sel.innerHTML = ['<option value="">Auto — best available</option>'].concat(list.map((v) => {
-          const id = v.voiceURI || v.name;
-          return '<option value="' + esc(id).replace(/"/g, "&quot;") + '"' + (id === cur ? " selected" : "") + ">" +
-            esc(v.name + " (" + v.lang + ")" + (v.localService === false ? " · online" : "")) + "</option>";
-        })).join("");
-      };
-      build(root.querySelector("#voiceEn"), ttsEnVoices(), S.settings.ttsVoiceEn || "");
-      build(root.querySelector("#voiceZh"), ttsZhVoices(), S.settings.ttsVoiceZh || "");
-    };
-    fillVoices();
-    _ttsVoicesHook = fillVoices;
-    const wireVoice = (selId, key, sample) => {
-      const sel = root.querySelector(selId), test = root.querySelector(selId + "Test");
-      const preview = () => {
-        if (!ttsSupported()) { toast("Speech isn't available on this device"); return; }
-        if (!ttsEnabled()) { toast("Text-to-speech is turned off"); return; }
-        ttsSay([sample], 0);   // preview bypasses the card mute — choosing a voice is an explicit listen request
-      };
-      if (sel) sel.addEventListener("change", () => { S.settings[key] = sel.value; save(); preview(); });
-      if (test) test.addEventListener("click", preview);
-    };
-    wireVoice("#voiceEn", "ttsVoiceEn", { text: "This is the voice that will read your cards aloud." });
-    wireVoice("#voiceZh", "ttsVoiceZh", { text: "你好，我来朗读中文。", zh: true });
 
     const npVal = root.querySelector("#np-val");
     const setNp = (d) => {
