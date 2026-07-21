@@ -337,8 +337,8 @@ body.night .banner, body.night .banner:hover{border-left-color:#fff;}
 .exp-tile:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:3px;}
 .exp-eyebrow{font-family:var(--mono); font-size:9.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-faint);}
 /* each discovery tile carries its own accent, echoing the game tiles' coloured edges
-   (the card-of-day's ochre left edge lives in the .flip-face base rule below — the border: shorthand there would reset it) */
-.exp-card .exp-eyebrow{color:var(--ochre);}
+   (the card-of-day's raspberry left edge lives in the .flip-face base rule below — the border: shorthand there would reset it) */
+.exp-card .exp-eyebrow{color:#B5476B;}
 .exp-term{border-left:4px solid var(--indigo);}
 .exp-term .exp-eyebrow{color:var(--indigo);}
 .exp-atlas{border-left:4px solid var(--geo);}
@@ -351,7 +351,7 @@ body.night .banner, body.night .banner:hover{border-left-color:#fff;}
 .exp-card.flipped .flip{transform:rotateY(180deg);}
 .exp-card .flip-face{
   position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden; overflow:hidden;
-  background:var(--card); border:1px solid var(--rule); border-left:4px solid var(--ochre); border-radius:14px; box-shadow:var(--shadow-md);
+  background:var(--card); border:1px solid var(--rule); border-left:4px solid #B5476B; border-radius:14px; box-shadow:var(--shadow-md);   /* raspberry — the card-of-day's own hue, used nowhere else */
   padding:18px 20px; display:flex; flex-direction:column; gap:9px;
   transition:box-shadow .25s var(--ease), border-color .2s;
 }
