@@ -2644,7 +2644,7 @@
   ];
   function dailyQuoteHTML() {
     const q = QUOTES[Math.floor(Date.now() / DAY) % QUOTES.length];
-    return '<figure class="daily-quote"><blockquote>' + esc(q.t) + '</blockquote><figcaption>— ' + esc(q.a) + '</figcaption></figure>';
+    return '<figure class="daily-quote"><blockquote>' + esc(q.t) + '</blockquote><figcaption>' + esc(q.a) + '</figcaption></figure>';   // the caption's dash is the gold ::before rule, not a text em-dash
   }
   // same pick all day, a different one tomorrow (card of the day, term of the day)
   function dailyPick(arr, salt) {
