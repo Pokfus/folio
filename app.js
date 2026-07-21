@@ -358,6 +358,21 @@
     touchModified(id);
     queueAdminSave();
   }
+  // edit one field of one language's i18n block. The card's i18n object is REPLACED with a deep copy
+  // (never mutated in place — PRISTINE_CARDS shares the original object reference), and the whole copy
+  // is stored as an "i18n" delta, which applyAdminEdits re-applies via Object.assign like any field.
+  function setCardI18nEdit(id, lang, field, value) {
+    const c = CARD_BY_ID[id]; if (!c) return;
+    const next = JSON.parse(JSON.stringify(c.i18n || {}));
+    if (!next[lang]) next[lang] = {};
+    if (value) next[lang][field] = value; else delete next[lang][field];
+    if (!Object.keys(next[lang]).length) delete next[lang];   // a language cleared entirely drops its block
+    c.i18n = next;
+    if (isCreatedCard(id)) ADMIN_EDITS.created[id].i18n = next;
+    else { if (!ADMIN_EDITS.cards[id]) ADMIN_EDITS.cards[id] = {}; ADMIN_EDITS.cards[id].i18n = next; }
+    touchModified(id);
+    queueAdminSave();
+  }
   // manual chronology (sort-year) override — overlay-only admin metadata, like deck dates
   function parseChronoYear(str) {
     const t = String(str == null ? "" : str).trim();
@@ -393,6 +408,7 @@
   function revertCard(id) {
     const p = PRISTINE_CARDS[id]; if (!p) return;
     CARD_FIELDS.forEach((f) => { if (f in p) CARD_BY_ID[id][f] = p[f]; });
+    CARD_BY_ID[id].i18n = p.i18n;   // translations revert with the card (pristine keeps the shipped object)
     if (isCreatedCard(id)) { ADMIN_EDITS.created[id] = {}; CARD_FIELDS.forEach((f) => { ADMIN_EDITS.created[id][f] = CARD_BY_ID[id][f]; }); }
     else delete ADMIN_EDITS.cards[id];
     if (ADMIN_EDITS.meta[id]) delete ADMIN_EDITS.meta[id].modified;
@@ -1247,8 +1263,8 @@
   }
   // localized view of a card: whole-field translations ride on card.i18n[lang] (question / answer / answerDate /
   // abstract / answerText, same formatting rules as English). Missing language → the English card unchanged.
-  function cardLocalized(c) {
-    const lang = uiLang();
+  function cardLocalized(c, lang) {   // lang defaults to the site language; pass one explicitly (e.g. the editor's language tab)
+    lang = lang || uiLang();
     if (!c || lang === "en" || !c.i18n || !c.i18n[lang]) return c;
     const o = Object.assign({}, c), tr = c.i18n[lang];
     ["question", "answer", "answerDate", "abstract", "answerText"].forEach((f) => { if (tr[f]) o[f] = tr[f]; });
@@ -6596,7 +6612,9 @@
     return arr; // "order" keeps natural order of appearance
   }
 
-  const adminState = { tab: "cards", node: null, card: null, search: "", treeCollapsed: false, glossKey: null, glossTag: null, expanded: {}, selected: new Set(), sort: "order", glossSort: "az", lastSelId: null, preview: false };
+  const adminState = { tab: "cards", node: null, card: null, search: "", treeCollapsed: false, glossKey: null, glossTag: null, expanded: {}, selected: new Set(), sort: "order", glossSort: "az", lastSelId: null, preview: false, cardLang: "en" };
+  const CARD_I18N_LANGS = ["es", "fr", "de", "it", "nl", "ru", "ar", "zh"];   // the 8 site languages a card can carry (en = the base fields)
+  const CARD_I18N_FIELDS = { question: 1, answer: 1, answerDate: 1, abstract: 1, answerText: 1 };   // translated per language; everything else is shared
   // Remember where the editor was (open card / deck / tab / search / scroll) across FULL page reloads. Auto-save-to-files can make a
   // file-watching dev server live-reload the page after every edit; without this you'd land back at the top of the deck each time.
   const ADMIN_UI_KEY = "folio_admin_ui_v1";
@@ -7619,16 +7637,27 @@
     });
     deckHtml += '</div></div>';
 
-    const fieldsHtml = EDITOR_FIELDS.map((f) => {
+    // language tabs: EN edits the base fields; the 8 site languages edit the card's i18n block
+    const cardLang = CARD_I18N_LANGS.includes(adminState.cardLang) ? adminState.cardLang : "en";
+    const isEnLang = cardLang === "en";
+    const dirAttr = cardLang === "ar" ? ' dir="rtl"' : "";
+    const langBtn = (l) => {
+      const missing = l !== "en" && !(c.i18n && c.i18n[l] && Object.keys(c.i18n[l]).length);
+      return '<button type="button" class="al-btn' + (l === cardLang ? " active" : "") + (missing ? " missing" : "") + '" data-cardlang="' + l + '" title="' + (l === "en" ? "English (base card)" : (missing ? "No translation yet — editing creates one" : "Edit the " + l.toUpperCase() + " translation")) + '">' + l.toUpperCase() + "</button>";
+    };
+    const langBarHtml = '<div class="admin-langbar" id="adminLangBar"><span class="al-lab">Edit in</span>' + ["en"].concat(CARD_I18N_LANGS).map(langBtn).join("") + "</div>";
+    const trNote = isEnLang ? "" : '<div class="admin-field-note">Editing the <b>' + cardLang.toUpperCase() + '</b> translation of this card. Shared fields — hanzi, pinyin, traditional, translations, citation, decks and chronology — are edited in the <b>EN</b> view.</div>';
+    const editorFields = isEnLang ? EDITOR_FIELDS : EDITOR_FIELDS.filter((f) => CARD_I18N_FIELDS[f.key]);
+    const fieldsHtml = editorFields.map((f) => {
       if (EDITOR_LONG[f.key]) {   // rich fields → WYSIWYG contenteditable that renders like the card
         const sp = (f.key === "abstract" || f.key === "question") ? "true" : "false";
         return '<div class="admin-field"><span class="af-label">' + esc(f.label) + '</span>' +
-          '<div class="af-input af-rich af-rich-' + f.key + '" contenteditable="true" data-field="' + f.key + '" data-rich="1" spellcheck="' + sp + '"></div>' +
+          '<div class="af-input af-rich af-rich-' + f.key + '" contenteditable="true" data-field="' + f.key + '" data-rich="1" spellcheck="' + sp + '"' + dirAttr + '></div>' +
           '<button type="button" class="af-src-toggle" data-src-toggle="' + f.key + '"><span class="afs-chev">&#9656;</span> HTML source</button>' +
           '<textarea class="af-src" data-src-for="' + f.key + '" spellcheck="false" hidden></textarea></div>';
       }
       return '<label class="admin-field"><span class="af-label">' + esc(f.label) + '</span>' +
-        '<input class="af-input" data-field="' + f.key + '" type="text" spellcheck="false" /></label>';
+        '<input class="af-input" data-field="' + f.key + '" type="text" spellcheck="false"' + dirAttr + ' /></label>';
     }).join("");
     const autoYear = (() => { const y = cardYears(c); return y.length ? Math.min(...y) : null; })();
     const chronoHtml = '<label class="admin-field"><span class="af-label">chronology</span><input class="af-input" id="adminChrono" type="text" spellcheck="false" placeholder="' + esc("auto: " + (chronoLabel(autoYear) || "—")) + '" /></label>' +
@@ -7638,15 +7667,26 @@
       '<div class="admin-ed-head"><div class="admin-ed-headinfo"><h2 class="admin-ed-title">' + esc(c.answer || "(untitled)") + '</h2><div class="admin-ed-key">' + esc(id) + (whereTxt ? ' &middot; ' + esc(whereTxt) : "") + '</div></div>' +
       '<div class="admin-ed-actions"><span class="admin-saved" id="adminSaved"></span><button class="admin-preview" id="adminPreview" type="button">Preview</button><button class="admin-revert" id="adminRevert" type="button"' + (cardIsEdited(id) ? "" : " hidden") + '>Revert card</button><button class="admin-delete" id="adminDelete" type="button">Delete card</button></div></div>' +
       '<div class="card-edit-cols">' +
-        '<div class="card-edit-fields">' + rtRibbonHtml() + deckHtml +
-          '<div class="admin-fields"><label class="admin-field"><span class="af-label">id</span><input class="af-input af-readonly" type="text" value="' + esc(id) + '" readonly /></label>' + chronoHtml + fieldsHtml + '</div>' +
+        '<div class="card-edit-fields">' + rtRibbonHtml() + langBarHtml + (isEnLang ? deckHtml : trNote) +
+          '<div class="admin-fields">' + (isEnLang ? '<label class="admin-field"><span class="af-label">id</span><input class="af-input af-readonly" type="text" value="' + esc(id) + '" readonly /></label>' + chronoHtml : "") + fieldsHtml + '</div>' +
         '</div>' +
         '<div class="ed-resizer" id="cardPvResizer" title="Drag to resize the preview"></div>' +
         '<div class="card-edit-preview"><div class="gloss-preview-label">Card preview</div><div class="admin-card-pvbox" id="adminCardPreview"></div></div>' +
       '</div>';
     wirePreviewDivider(host.querySelector("#cardPvResizer"), host.querySelector(".card-edit-preview"), "--card-preview-w", "cardPreviewW");
-    // load each field's value: innerHTML for the WYSIWYG fields, .value for inputs
-    EDITOR_FIELDS.forEach((f) => { const el = host.querySelector('[data-field="' + f.key + '"]'); if (!el) return; const v = c[f.key] == null ? "" : String(c[f.key]); if (el.dataset.rich) { el.innerHTML = v; if (f.key === "abstract") autoLinkGlossary(el, c.answer, glossOffList(c.id)); } else el.value = v; });   // show the auto gloss links in the background so they can be clicked/edited (stripped on save)
+    // load each field's value: innerHTML for the WYSIWYG fields, .value for inputs. Non-EN reads the i18n block
+    // (blank when untranslated — typing creates it); gloss auto-linking is EN-only (glossary surfaces are English).
+    editorFields.forEach((f) => {
+      const el = host.querySelector('[data-field="' + f.key + '"]'); if (!el) return;
+      const v = isEnLang ? (c[f.key] == null ? "" : String(c[f.key])) : ((c.i18n && c.i18n[cardLang] && c.i18n[cardLang][f.key]) || "");
+      if (el.dataset.rich) { el.innerHTML = v; if (isEnLang && f.key === "abstract") autoLinkGlossary(el, c.answer, glossOffList(c.id)); } else el.value = v;
+    });   // show the auto gloss links in the background so they can be clicked/edited (stripped on save)
+    // language tabs re-render the editor in the chosen language
+    host.querySelectorAll("[data-cardlang]").forEach((b) => b.addEventListener("click", () => {
+      if (b.dataset.cardlang === cardLang) return;
+      adminState.cardLang = b.dataset.cardlang;
+      adminRenderEditor();
+    }));
     const chronoI = host.querySelector("#adminChrono");
     if (chronoI) {
       const ov = (ADMIN_EDITS.chrono && id in ADMIN_EDITS.chrono) ? ADMIN_EDITS.chrono[id] : null;
@@ -7658,17 +7698,19 @@
       });
     }
     const pvBox = host.querySelector("#adminCardPreview");
-    const refreshPreview = () => { clearTimeout(adminPvTimer); adminPvTimer = setTimeout(() => renderCardPreviewInto(pvBox, c), 160); };   // debounce the re-render
-    renderCardPreviewInto(pvBox, c);
+    const pvCard = () => (isEnLang ? c : cardLocalized(c, cardLang));   // the preview follows the language being edited
+    const refreshPreview = () => { clearTimeout(adminPvTimer); adminPvTimer = setTimeout(() => renderCardPreviewInto(pvBox, pvCard()), 160); };   // debounce the re-render
+    renderCardPreviewInto(pvBox, pvCard());
     host.querySelectorAll("[data-field]").forEach((el) => el.addEventListener("input", () => {
       const f = el.dataset.field;
-      setCardEdit(id, f, fieldVal(el));
+      if (isEnLang) setCardEdit(id, f, fieldVal(el));
+      else setCardI18nEdit(id, cardLang, f, fieldVal(el));
       adminFlashSaved(); adminUpdateCount(); refreshPreview();
-      if (f === "answer") {
+      if (isEnLang && f === "answer") {
         const t = host.querySelector(".admin-ed-title"); if (t) t.textContent = el.value || "(untitled)";
         const row = adminFindRow("card", id); if (row) { const rt = row.querySelector(".acr-title"); if (rt) rt.textContent = el.value || "(untitled)"; }
       }
-      if (f === "answerDate") { const row = adminFindRow("card", id); if (row) { const rs = row.querySelector(".acr-sub"); if (rs) rs.textContent = fmtYear(c); } }
+      if (isEnLang && f === "answerDate") { const row = adminFindRow("card", id); if (row) { const rs = row.querySelector(".acr-sub"); if (rs) rs.textContent = fmtYear(c); } }
       const row = adminFindRow("card", id); if (row) row.classList.toggle("edited", cardIsEdited(id));
       const rev = host.querySelector("#adminRevert"); if (rev) rev.hidden = !cardIsEdited(id);
     }));

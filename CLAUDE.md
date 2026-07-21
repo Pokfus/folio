@@ -148,7 +148,14 @@ ranges.js → admin1.js → cities.js → timeline.js → countries.js → count
   settings, challenge, chrono, admin). `render()` clears `#view` and calls the current page fn.
 - **State:** `localStorage["folio_v1"]` holds settings and spaced-repetition scheduling.
 - **Admin edits:** `localStorage["folio_admin_v1"]` stores edits as *deltas*, applied at startup
-  by mutating the in-memory globals (`CARD_BY_ID`, `window.GLOSSARY`, the collection tree). The
+  by mutating the in-memory globals (`CARD_BY_ID`, `window.GLOSSARY`, the collection tree). **The card editor
+  edits every language**: a language tab bar (EN + the 8 site languages, `adminState.cardLang`) switches the form —
+  EN edits the base fields via `setCardEdit`; a non-EN tab shows ONLY the 5 translated fields (question, answer,
+  answerDate, abstract, answerText; Arabic gets `dir="rtl"`) editing `card.i18n[lang]` via `setCardI18nEdit`, which
+  REPLACES the card's `i18n` with a deep copy (never mutate in place — `PRISTINE_CARDS` shares the object) and stores
+  the whole copy as an `i18n` delta (`applyAdminEdits` re-applies it via `Object.assign`; `serializeCardData` bakes
+  `c.i18n` as-is; `revertCard` restores `p.i18n`). Untranslated languages show dashed tabs; typing creates the block.
+  The editor preview renders in the selected language (`cardLocalized(c, lang)`). Gloss auto-linking stays EN-only. The
   shipped data files are never rewritten by the app; edits live in this override layer and can be
   exported as JSON. **"Save to project"** (`adminExport`) writes `data.js`/`glossary.js`/`timeline.js` via the File System Access
   API (Chrome over `http://localhost`) then prunes the overlay + reloads. **"Auto-save: on"** (`adminAutosave` toggle, pref

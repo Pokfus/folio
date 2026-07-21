@@ -1841,6 +1841,13 @@ textarea.af-input{resize:vertical; min-height:42px;}
 .gp-empty{padding:12px 9px; color:var(--ink-faint); font-size:12.5px; text-align:center;}
 .af-readonly{color:var(--ink-faint); background:var(--paper-2); cursor:not-allowed;}
 .admin-field-note{font-size:12px; color:var(--ink-faint); line-height:1.5;}
+/* card editor: language tabs (EN = base card, the rest edit the i18n translations) */
+.admin-langbar{display:flex; align-items:center; gap:5px; flex-wrap:wrap; margin:2px 0 10px;}
+.al-lab{font-family:var(--mono); font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint); margin-right:4px;}
+.al-btn{appearance:none; cursor:pointer; font-family:var(--mono); font-size:10.5px; font-weight:600; letter-spacing:.05em; color:var(--ink-soft); background:var(--paper-2); border:1px solid var(--rule); border-radius:7px; padding:5px 9px; transition:border-color .15s, background .15s, color .15s;}
+.al-btn:hover{border-color:var(--ink-faint);}
+.al-btn.active{background:var(--indigo); border-color:var(--indigo); color:#fff;}
+.al-btn.missing:not(.active){color:var(--ink-faint); border-style:dashed;}
 
 /* list tools: count + new-card + sort */
 .admin-list-tools{flex:none; display:flex; align-items:center; justify-content:space-between; gap:10px; padding:2px 14px 8px;}

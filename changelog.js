@@ -12,6 +12,7 @@ window.CHANGELOG = [
       "Every card has been rewritten in plainer language with shorter sentences, so a curious 14-year-old can follow it — and the translations were redone to sound natural in each language rather than word-for-word. Nothing was simplified away: the facts, dates and the careful 'scientists still argue about this' notes are all still there.",
       "Three more cards in the World History › Prehistory deck.",
       "The China collection has been emptied while it sits in 'coming soon' — it will be rebuilt from the ground up.",
+      "The card editor speaks every language too: language tabs above the fields let a card's Spanish, French, German, Italian, Dutch, Russian, Arabic or Mandarin translation be edited directly, with the live preview following along.",
     ],
   },
   {
