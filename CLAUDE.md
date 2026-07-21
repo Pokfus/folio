@@ -229,6 +229,17 @@ ranges.js → admin1.js → cities.js → timeline.js → countries.js → count
   `answerDate` (HTML), `traditional, hanzi, pinyin, translations` (HTML), `abstract` (rich HTML
   card background; may carry `ttip` glossary links, but newly generated cards omit them),
   `citation, answerText`.
+- **Card image (optional):** `card.image = { src, title, desc, credit }` — rendered by `buildBack` as a **16:9
+  frame** (`.card-img`, `cardImageHTML`) at the top of the Background section, above the prose (the section now
+  renders when a card has an image even without an abstract). Clicking it opens the **fullscreen viewer**
+  (`openImageViewer`: wheel zoom toward the cursor 1–8×, click toggles 1↔2.5×, drag pans when zoomed, Esc/×/backdrop
+  closes, `closeImageViewer()` runs in `render()`), with title/description/source in a bottom caption bar (a URL
+  source becomes a link). One **delegated** document click/keydown listener opens it from any `.card-img` (study,
+  previews, editor) via the figure's `data-img-*` attributes — no per-render wiring. The editor's EN view has the
+  four image fields (`data-imgfield` → `setCardImageEdit`), which — like i18n — deep-copies the object and stores it
+  whole as an `image` delta (clearing every field stores a **null tombstone** that hides a shipped image);
+  `serializeCardData` bakes `c.image` when it has a `src`, `revertCard` restores `p.image`. Image metadata is shared
+  across languages (not in the i18n blocks).
 - **Themes (8):** folio, clay, garden, synth + four full-overhaul themes: arcade (16-bit), academy (formal faculty),
   marble (antiquity inscriptions), gazette (1940s newsprint, two-column About prose) — each light + dark, tokens
   hex-only. The overhaul themes change layout/chrome/ornament per theme (scoped `body[data-theme="…"]` blocks in

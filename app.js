@@ -373,6 +373,19 @@
     touchModified(id);
     queueAdminSave();
   }
+  // edit one property of the card's image ({ src, title, desc, credit }) — same deep-copy/whole-object
+  // delta pattern as i18n; clearing every property stores a null tombstone that hides a shipped image
+  function setCardImageEdit(id, key, value) {
+    const c = CARD_BY_ID[id]; if (!c) return;
+    const next = JSON.parse(JSON.stringify(c.image || {}));
+    if (value) next[key] = value; else delete next[key];
+    const empty = !Object.keys(next).length;
+    c.image = empty ? undefined : next;
+    const target = isCreatedCard(id) ? ADMIN_EDITS.created[id] : (ADMIN_EDITS.cards[id] = ADMIN_EDITS.cards[id] || {});
+    target.image = empty ? null : next;
+    touchModified(id);
+    queueAdminSave();
+  }
   // manual chronology (sort-year) override — overlay-only admin metadata, like deck dates
   function parseChronoYear(str) {
     const t = String(str == null ? "" : str).trim();
@@ -409,6 +422,7 @@
     const p = PRISTINE_CARDS[id]; if (!p) return;
     CARD_FIELDS.forEach((f) => { if (f in p) CARD_BY_ID[id][f] = p[f]; });
     CARD_BY_ID[id].i18n = p.i18n;   // translations revert with the card (pristine keeps the shipped object)
+    CARD_BY_ID[id].image = p.image; // the card image too
     if (isCreatedCard(id)) { ADMIN_EDITS.created[id] = {}; CARD_FIELDS.forEach((f) => { ADMIN_EDITS.created[id][f] = CARD_BY_ID[id][f]; }); }
     else delete ADMIN_EDITS.cards[id];
     if (ADMIN_EDITS.meta[id]) delete ADMIN_EDITS.meta[id].modified;
@@ -1824,6 +1838,7 @@
     ttsStop();        // navigating away silences any in-progress read-aloud
     closeCtxMenu();   // …and dismisses the selection context menu
     closeAllGloss();
+    closeImageViewer();   // the fullscreen image viewer never outlives its page
     closeColorMenu();   // the colour menu lives on document.body — make sure it can't outlive its page on hashchange/back nav
     closeGlossPicker();
     closeRtColorMenu();
@@ -3690,7 +3705,8 @@
       }
       html += "</div>";
     }
-    if (c.abstract) {
+    const hasImg = !!(c.image && c.image.src);
+    if (c.abstract || hasImg) {
       const bgCol = !!S.settings.bgCollapsed;
       html +=
         '<button class="bg-head" type="button" aria-expanded="' + (bgCol ? "false" : "true") + '" aria-label="Show or hide background">' +
@@ -3699,10 +3715,82 @@
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>' +
         "</span>" + ttsPlayHTML("background", true) + "</button>";
       html += '<div class="bg-collapse' + (bgCol ? " collapsed" : "") + '"><div class="bg-collapse-inner">';
+      if (hasImg) html += cardImageHTML(c.image);   // sits at the top of the background, above the prose
       if (c.abstract) html += '<p class="abstract">' + c.abstract + "</p>";
       html += "</div></div>";
     }
     return html;
+  }
+  // the card's illustration: a 16:9 frame at the top of the Background section; clicking opens the
+  // fullscreen viewer (a single delegated listener reads the data- attributes — no per-render wiring)
+  function cardImageHTML(img) {
+    return '<figure class="card-img" role="button" tabindex="0" title="Click to enlarge"' +
+      ' data-img-src="' + esc(img.src) + '" data-img-title="' + esc(img.title || "") + '"' +
+      ' data-img-desc="' + esc(img.desc || "") + '" data-img-credit="' + esc(img.credit || "") + '">' +
+      '<img src="' + esc(img.src) + '" alt="' + esc(img.title || "Card illustration") + '" loading="lazy" draggable="false">' +
+      '<span class="ci-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></span>' +
+      "</figure>";
+  }
+  /* ---------- fullscreen image viewer: wheel/click zoom, drag pan, caption bar ---------- */
+  let _imgViewer = null;
+  function closeImageViewer() {
+    if (!_imgViewer) return;
+    _imgViewer.remove(); _imgViewer = null;
+    document.removeEventListener("keydown", _ivKey, true);
+  }
+  function _ivKey(e) { if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); closeImageViewer(); } }
+  function openImageViewer(img) {
+    closeImageViewer();
+    const ov = document.createElement("div");
+    ov.className = "img-viewer";
+    const credit = (img.credit || "").trim();
+    const creditHTML = credit
+      ? (/^https?:\/\//i.test(credit)
+        ? 'Source: <a href="' + esc(credit) + '" target="_blank" rel="noopener">' + esc(credit.replace(/^https?:\/\//i, "").replace(/\/$/, "")) + "</a>"
+        : "Source: " + esc(credit))
+      : "";
+    ov.innerHTML =
+      '<div class="iv-stage"><img class="iv-img" src="' + esc(img.src) + '" alt="' + esc(img.title || "") + '" draggable="false"></div>' +
+      '<button class="iv-close" type="button" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>' +
+      ((img.title || img.desc || credit)
+        ? '<div class="iv-meta">' +
+          (img.title ? '<div class="iv-title">' + esc(img.title) + "</div>" : "") +
+          (img.desc ? '<p class="iv-desc">' + esc(img.desc) + "</p>" : "") +
+          (creditHTML ? '<div class="iv-credit">' + creditHTML + "</div>" : "") +
+          "</div>"
+        : "");
+    document.body.appendChild(ov);
+    _imgViewer = ov;
+    document.addEventListener("keydown", _ivKey, true);
+    const stage = ov.querySelector(".iv-stage"), im = ov.querySelector(".iv-img");
+    let scale = 1, tx = 0, ty = 0, drag = null;
+    const apply = () => { im.style.transform = "translate(" + tx + "px," + ty + "px) scale(" + scale + ")"; stage.classList.toggle("zoomed", scale > 1); };
+    const clampPan = () => { const lim = (scale - 1) * Math.max(stage.clientWidth, stage.clientHeight) * 0.5 + 40; tx = Math.max(-lim, Math.min(lim, tx)); ty = Math.max(-lim, Math.min(lim, ty)); };
+    stage.addEventListener("wheel", (e) => {
+      e.preventDefault();
+      const ns = Math.max(1, Math.min(8, scale * Math.exp(-e.deltaY * 0.0016)));
+      const r = stage.getBoundingClientRect(), px = e.clientX - r.left - r.width / 2, py = e.clientY - r.top - r.height / 2;
+      tx = px - (px - tx) * (ns / scale); ty = py - (py - ty) * (ns / scale);   // zoom toward the cursor
+      scale = ns; if (scale === 1) { tx = 0; ty = 0; } clampPan(); apply();
+    }, { passive: false });
+    stage.addEventListener("pointerdown", (e) => { drag = { x: e.clientX, y: e.clientY, tx, ty, moved: false }; try { stage.setPointerCapture(e.pointerId); } catch (x) {} });
+    stage.addEventListener("pointermove", (e) => {
+      if (!drag) return;
+      const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+      if (Math.abs(dx) + Math.abs(dy) > 4) drag.moved = true;
+      if (scale > 1 && drag.moved) { tx = drag.tx + dx; ty = drag.ty + dy; clampPan(); apply(); }
+    });
+    stage.addEventListener("pointerup", (e) => {
+      const wasDrag = drag && drag.moved; drag = null;
+      if (wasDrag) return;
+      if (e.target === im) {   // plain click on the image toggles zoom; on the backdrop it closes
+        if (scale > 1) { scale = 1; tx = 0; ty = 0; } else scale = 2.5;
+        apply();
+      } else closeImageViewer();
+    });
+    stage.addEventListener("pointercancel", () => { drag = null; });
+    ov.querySelector(".iv-close").addEventListener("click", closeImageViewer);
+    requestAnimationFrame(() => ov.classList.add("show"));
   }
   // render a static, fully-expanded card preview (question + back) into a box — used by the admin editor's live preview
   function renderCardPreviewInto(box, c) {
@@ -7001,7 +7089,7 @@
   function adminSetListCount(n, noun) { const el = document.getElementById("adminListCount"); if (el) el.textContent = n + " " + noun + (n === 1 ? "" : "s"); }
   // serialize the live (delta-applied) in-memory data back into data.js / glossary.js source text
   function serializeCardData() {
-    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (c.i18n) o.i18n = c.i18n; return o; });   // i18n translations ride along untouched
+    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; return o; });   // i18n translations + the card image ride along untouched
     const countIds = (node) => { const s = new Set(); (function w(n) { (n.cardIds || []).forEach((i) => s.add(i)); (n.children || []).forEach(w); })(node); return s.size; };
     function ser(node, isTop) {
       const o = { id: node.id, title: node.title };
@@ -7659,6 +7747,14 @@
       return '<label class="admin-field"><span class="af-label">' + esc(f.label) + '</span>' +
         '<input class="af-input" data-field="' + f.key + '" type="text" spellcheck="false"' + dirAttr + ' /></label>';
     }).join("");
+    // card image (shared across languages): URL + the caption shown in the fullscreen viewer
+    const imgFieldsHtml = isEnLang
+      ? '<div class="admin-imgbox"><div class="aib-head">Image <span class="aib-hint">— shown 16:9 at the top of the Background; clicking it opens the fullscreen viewer with this caption</span></div>' +
+        '<label class="admin-field"><span class="af-label">image URL</span><input class="af-input" data-imgfield="src" type="text" spellcheck="false" placeholder="https://… or images/file.jpg" /></label>' +
+        '<label class="admin-field"><span class="af-label">image title</span><input class="af-input" data-imgfield="title" type="text" /></label>' +
+        '<div class="admin-field"><span class="af-label">image description</span><textarea class="af-input af-imgdesc" data-imgfield="desc" rows="2" spellcheck="true"></textarea></div>' +
+        '<label class="admin-field"><span class="af-label">image source</span><input class="af-input" data-imgfield="credit" type="text" spellcheck="false" placeholder="e.g. Wikimedia Commons, public domain — or a URL" /></label></div>'
+      : "";
     const autoYear = (() => { const y = cardYears(c); return y.length ? Math.min(...y) : null; })();
     const chronoHtml = '<label class="admin-field"><span class="af-label">chronology</span><input class="af-input" id="adminChrono" type="text" spellcheck="false" placeholder="' + esc("auto: " + (chronoLabel(autoYear) || "—")) + '" /></label>' +
       '<div class="admin-field-note">Sort / timeline year — overrides the date above for ordering. e.g. <b>200 BCE</b>, <b>618</b>, <b>1644</b>. Leave blank to use the automatic value, or type <b>none</b> for no year (kept out of the timeline).</div>';
@@ -7668,7 +7764,7 @@
       '<div class="admin-ed-actions"><span class="admin-saved" id="adminSaved"></span><button class="admin-preview" id="adminPreview" type="button">Preview</button><button class="admin-revert" id="adminRevert" type="button"' + (cardIsEdited(id) ? "" : " hidden") + '>Revert card</button><button class="admin-delete" id="adminDelete" type="button">Delete card</button></div></div>' +
       '<div class="card-edit-cols">' +
         '<div class="card-edit-fields">' + rtRibbonHtml() + langBarHtml + (isEnLang ? deckHtml : trNote) +
-          '<div class="admin-fields">' + (isEnLang ? '<label class="admin-field"><span class="af-label">id</span><input class="af-input af-readonly" type="text" value="' + esc(id) + '" readonly /></label>' + chronoHtml : "") + fieldsHtml + '</div>' +
+          '<div class="admin-fields">' + (isEnLang ? '<label class="admin-field"><span class="af-label">id</span><input class="af-input af-readonly" type="text" value="' + esc(id) + '" readonly /></label>' + chronoHtml : "") + fieldsHtml + imgFieldsHtml + '</div>' +
         '</div>' +
         '<div class="ed-resizer" id="cardPvResizer" title="Drag to resize the preview"></div>' +
         '<div class="card-edit-preview"><div class="gloss-preview-label">Card preview</div><div class="admin-card-pvbox" id="adminCardPreview"></div></div>' +
@@ -7687,6 +7783,16 @@
       adminState.cardLang = b.dataset.cardlang;
       adminRenderEditor();
     }));
+    // image fields (EN view): load current values and save each keystroke as an image delta
+    host.querySelectorAll("[data-imgfield]").forEach((el) => {
+      el.value = (c.image && c.image[el.dataset.imgfield]) || "";
+      el.addEventListener("input", () => {
+        setCardImageEdit(id, el.dataset.imgfield, el.value.trim());
+        adminFlashSaved(); adminUpdateCount(); refreshPreview();
+        const row = adminFindRow("card", id); if (row) row.classList.toggle("edited", cardIsEdited(id));
+        const rev = host.querySelector("#adminRevert"); if (rev) rev.hidden = !cardIsEdited(id);
+      });
+    });
     const chronoI = host.querySelector("#adminChrono");
     if (chronoI) {
       const ov = (ADMIN_EDITS.chrono && id in ADMIN_EDITS.chrono) ? ADMIN_EDITS.chrono[id] : null;
@@ -8436,6 +8542,18 @@
   checkAchievements(true);   // backfill any milestones already met by existing progress
   restoreGlossWins(_glossToRestore);   // re-open any gloss popups that were on screen before the reload
   supaBoot().then(cloudBootOverrides);   // async: restore the session, handle emailed auth links, reconcile progress — then adopt the published content overrides (live edits)
+
+  // card images: one delegated listener opens the fullscreen viewer from any .card-img (study, previews, editor)
+  document.addEventListener("click", (e) => {
+    const fig = e.target.closest(".card-img"); if (!fig) return;
+    openImageViewer({ src: fig.dataset.imgSrc, title: fig.dataset.imgTitle, desc: fig.dataset.imgDesc, credit: fig.dataset.imgCredit });
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    const fig = e.target.closest && e.target.closest(".card-img"); if (!fig) return;
+    e.preventDefault();
+    openImageViewer({ src: fig.dataset.imgSrc, title: fig.dataset.imgTitle, desc: fig.dataset.imgDesc, credit: fig.dataset.imgCredit });
+  });
 
   // Ctrl/Cmd+Z on the editor page undoes the last admin edit (native undo still handles typing inside a field)
   document.addEventListener("keydown", (e) => {

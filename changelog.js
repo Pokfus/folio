@@ -13,6 +13,7 @@ window.CHANGELOG = [
       "Three more cards in the World History › Prehistory deck.",
       "The China collection has been emptied while it sits in 'coming soon' — it will be rebuilt from the ground up.",
       "The card editor speaks every language too: language tabs above the fields let a card's Spanish, French, German, Italian, Dutch, Russian, Arabic or Mandarin translation be edited directly, with the live preview following along.",
+      "Cards can now carry an image: a widescreen picture at the top of the Background section that opens fullscreen when clicked — zoom in with the scroll wheel or a click, drag to look around, and read the picture's title, description and source at the bottom. Admins add and edit all of it from the card editor.",
     ],
   },
   {
