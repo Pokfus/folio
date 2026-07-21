@@ -14,7 +14,7 @@ window.CHANGELOG = [
       "The China collection has been emptied while it sits in 'coming soon' — it will be rebuilt from the ground up.",
       "The card editor speaks every language too: language tabs above the fields let a card's Spanish, French, German, Italian, Dutch, Russian, Arabic or Mandarin translation be edited directly, with the live preview following along.",
       "Cards can now carry an image: a widescreen picture at the top of the Background section that opens fullscreen when clicked — zoom in with the scroll wheel or a click, drag to look around, and read the picture's title, description and source at the bottom. Admins add and edit all of it from the card editor.",
-      "Fixed a doubled dash before the author's name under the daily quote.",
+      "Fixed a doubled dash before the author's name under the daily quote, and the Card of the day tile got its missing coloured left edge.",
     ],
   },
   {
