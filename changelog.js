@@ -5,6 +5,13 @@
    user, not how). Loaded before app.js. */
 window.CHANGELOG = [
   {
+    d: "2026-07-22",
+    t: "A quiet voice for the interface",
+    items: [
+      "The site now makes gentle sounds: a soft tick on buttons, a chirp on switches, a little pop when a card reveals, warm and low notes for the grade buttons, and a tiny fanfare for level-ups, achievements and perfect games. Turn them off any time under Settings → Audio.",
+    ],
+  },
+  {
     d: "2026-07-21",
     t: "Plainer words, in every language",
     items: [

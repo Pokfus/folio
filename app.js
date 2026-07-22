@@ -762,7 +762,7 @@
   function defaultState() {
     return {
       user: { name: "Scholar", joined: Date.now() },
-      settings: { night: false, theme: "folio", newPerDay: 5, bgCollapsed: false, trCollapsed: true, adminMode: true, reviewRandom: false, lang: "en", tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 } },
+      settings: { night: false, theme: "folio", newPerDay: 5, bgCollapsed: false, trCollapsed: true, adminMode: true, reviewRandom: false, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 } },
       cards: {}, // id -> {reps,lapses,ease,interval,due,status,last}
       suspended: {}, // id -> true (card set aside; never shown again)
       daily: { lastPlayed: 0, best: 0, games: 0, wins: 0, podiums: 0 },
@@ -795,6 +795,40 @@
     syncProgressToAccount();   // mirror live study progress into a legacy local account (no-op normally)
     supaQueuePush();           // debounced background push to the online account (no-op when signed out/offline)
   }
+  /* ---------- UI sound effects — synthesized with the Web Audio API (no files, zero deps) ----------
+     sfx(name): click (buttons), toggle (switches), pop (reveal / image viewer), good / bad (grades),
+     win (level-ups, achievements, perfect games). Gated by Settings → Sound effects (S.settings.sfx,
+     on by default); the shared AudioContext is created lazily and resumed inside the click gesture,
+     which satisfies every browser's autoplay policy. Volumes are deliberately tiny. */
+  let _sfxCtx = null;
+  function sfxEnabled() { return !!(S && S.settings && S.settings.sfx !== false); }
+  function sfxCtx() {
+    if (!_sfxCtx) { try { _sfxCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { return null; } }
+    if (_sfxCtx && _sfxCtx.state === "suspended") { try { _sfxCtx.resume(); } catch (e) {} }
+    return _sfxCtx;
+  }
+  function sfxTone(ctx, t0, freq, dur, vol, type, slideTo) {
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.type = type || "sine";
+    o.frequency.setValueAtTime(freq, t0);
+    if (slideTo) o.frequency.exponentialRampToValueAtTime(slideTo, t0 + dur);
+    g.gain.setValueAtTime(0.0001, t0);
+    g.gain.linearRampToValueAtTime(vol, t0 + 0.005);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+    o.connect(g); g.connect(ctx.destination);
+    o.start(t0); o.stop(t0 + dur + 0.03);
+  }
+  function sfx(name) {
+    if (!sfxEnabled()) return;
+    const ctx = sfxCtx(); if (!ctx) return;
+    const t = ctx.currentTime + 0.001;
+    if (name === "click") sfxTone(ctx, t, 1900, 0.04, 0.045, "triangle", 1300);
+    else if (name === "toggle") { sfxTone(ctx, t, 1150, 0.04, 0.045, "triangle"); sfxTone(ctx, t + 0.055, 1650, 0.05, 0.045, "triangle"); }
+    else if (name === "pop") sfxTone(ctx, t, 460, 0.1, 0.06, "sine", 940);
+    else if (name === "good") { sfxTone(ctx, t, 660, 0.09, 0.05, "sine"); sfxTone(ctx, t + 0.08, 880, 0.13, 0.05, "sine"); }
+    else if (name === "bad") sfxTone(ctx, t, 230, 0.13, 0.06, "sine", 155);
+    else if (name === "win") [523, 659, 784, 1047].forEach((f, i) => sfxTone(ctx, t + i * 0.085, f, 0.16, 0.05, "triangle"));
+  }
   // daily minigame results — each of the 4 home games records a per-day { played, won } so the tile shows a
   // checkmark once played today and the "Clean Sweep" badge unlocks when all four are won on the same day.
   const DAILY_GAMES = ["challenge", "chrono", "truefalse", "whosaid"];
@@ -804,6 +838,7 @@
     let g = S.games[key];
     if (!g || g.date !== t) g = { date: t, played: false, won: false };
     g.played = true;
+    if (won && !g.won) sfx("win");   // a perfect run earns the gold tile — and a little fanfare, once per day
     if (won) g.won = true;
     if (typeof score === "number" && typeof total === "number") {   // remember today's BEST score (games can be replayed) — shown on the home tile
       if (!(typeof g.s === "number" && g.s >= score)) g.s = score;
@@ -1942,6 +1977,7 @@
   // full-screen level-up congratulations; items = [{ title, level, sys }]. Dismissed by clicking ANYWHERE on screen or Escape.
   function congratsPopup(items) {
     if (!items || !items.length) return;
+    sfx("win");
     const ex = document.querySelector(".levelup-pop"); if (ex) ex.remove();
     const ov = document.createElement("div");
     ov.className = "levelup-pop";
@@ -6010,7 +6046,7 @@
     const s = progStats(S, currentUser() ? (currentUser().friends || []).length : 0);
     const newly = [];
     ACHIEVEMENTS.forEach((a) => { if (!S.achievements[a.id] && a.test(s)) { S.achievements[a.id] = Date.now(); newly.push(a); } });
-    if (newly.length) { save(); if (!silent) toast(newly.length === 1 ? newly[0].icon + " Achievement unlocked: " + newly[0].name : "🏆 " + newly.length + " achievements unlocked: " + newly.map((a) => a.name).join(", ")); }
+    if (newly.length) { save(); if (!silent) { sfx("win"); toast(newly.length === 1 ? newly[0].icon + " Achievement unlocked: " + newly[0].name : "🏆 " + newly.length + " achievements unlocked: " + newly.map((a) => a.name).join(", ")); } }
     return newly;
   }
   function badgesHTML(achObj, stats) {
@@ -6566,6 +6602,13 @@
           </div>
         </div>
         <div class="set-card">
+          ${setHead("#8257C2", '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>', "Audio")}
+          <div class="set-row">
+            <div class="info"><h3>Sound effects</h3><p>Soft clicks and chimes for buttons, card reveals, grades and level-ups.</p></div>
+            <div class="ctl"><div class="switch ${S.settings.sfx !== false ? "on" : ""}" id="sw-sfx" role="switch" tabindex="0" aria-checked="${S.settings.sfx !== false}"></div></div>
+          </div>
+        </div>
+        <div class="set-card">
           ${setHead("var(--geo)", '<circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><line x1="3" y1="12" x2="21" y2="12"/>', "Atlas")}
           <div class="set-row">
             <div class="info"><h3>Home location</h3><p>The Atlas globe opens centred on this place.</p></div>
@@ -6591,6 +6634,18 @@
     const sw = root.querySelector("#sw-night");
     const toggleNight = () => setNight(!S.settings.night);
     sw.addEventListener("click", toggleNight);
+
+    // sound effects toggle — turning it ON plays the toggle chirp as confirmation (the delegated
+    // capture listener already sounded the OFF click while sfx was still enabled)
+    const swSfx = root.querySelector("#sw-sfx");
+    const toggleSfx = () => {
+      S.settings.sfx = S.settings.sfx === false;   // flip: false -> true, anything else -> false
+      save();
+      swSfx.classList.toggle("on", S.settings.sfx !== false);
+      swSfx.setAttribute("aria-checked", String(S.settings.sfx !== false));
+      if (S.settings.sfx !== false) sfx("toggle");
+    };
+    if (swSfx) { swSfx.addEventListener("click", toggleSfx); swSfx.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleSfx(); } }); }
 
     const themeGrid = root.querySelector("#themeGrid");
     const markTheme = () => themeGrid.querySelectorAll(".theme-opt").forEach((b) => b.classList.toggle("active", b.dataset.theme === (S.settings.theme || "folio")));
@@ -8548,6 +8603,18 @@
     const fig = e.target.closest(".card-img"); if (!fig) return;
     openImageViewer({ src: fig.dataset.imgSrc, title: fig.dataset.imgTitle, desc: fig.dataset.imgDesc, credit: fig.dataset.imgCredit });
   });
+  // UI sounds: one delegated capture-phase listener covers every button-like element (capture so a
+  // handler's stopPropagation can't swallow the tick). Semantic sounds for grades, reveals and switches.
+  document.addEventListener("click", (e) => {
+    if (!sfxEnabled()) return;
+    const el = e.target.closest('button, .btn, .switch, [role="button"], [role="switch"], .tab');
+    if (!el || el.disabled) return;
+    const g = el.closest(".grade");
+    if (g) { sfx(g.classList.contains("again") ? "bad" : (g.classList.contains("good") || g.classList.contains("easy")) ? "good" : "click"); return; }
+    if (el.id === "reveal-btn" || el.closest(".card-img")) { sfx("pop"); return; }
+    if (el.classList.contains("switch") || el.getAttribute("role") === "switch") { sfx("toggle"); return; }
+    sfx("click");
+  }, true);
   document.addEventListener("keydown", (e) => {
     if (e.key !== "Enter" && e.key !== " ") return;
     const fig = e.target.closest && e.target.closest(".card-img"); if (!fig) return;

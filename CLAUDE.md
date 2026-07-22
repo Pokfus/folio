@@ -258,6 +258,13 @@ ranges.js → admin1.js → cities.js → timeline.js → countries.js → count
   English (graceful fallback). Arabic flips `<html dir="rtl">`. Elements with class `notranslate` are skipped.
   **Content localisation is separate**: cards carry per-language `i18n` blocks (`cardLocalized()`), glossary
   descriptions live in `glossary-i18n.js` (`window.GLOSSARY_I18N`, read by `glossText()`).
+- **UI sound effects** (the `/* UI sound effects */` block in app.js): tiny synthesized Web-Audio sounds, no files —
+  `sfx(name)` with click / toggle / pop / good / bad / win, played by ONE delegated **capture-phase** click listener
+  (so a handler's `stopPropagation` can't swallow the tick) that maps button-likes to sounds (grades → good/bad,
+  `#reveal-btn` + `.card-img` → pop, switches → toggle, everything else → click), plus hooks in `congratsPopup`,
+  `checkAchievements` and `markGamePlayed(won)` → win. Gated by **Settings → Audio → Sound effects**
+  (`S.settings.sfx`, default ON); the shared `AudioContext` is lazily created + resumed inside the gesture (autoplay-safe).
+  Volumes are deliberately tiny — keep them subtle.
 - **Read-aloud TTS — SET ASIDE (July 2026)**: the whole system is disabled site-wide — `ttsEnabled()` in app.js
   returns `false` unconditionally, which hides every play control, the card mute button, the pronunciation button,
   auto-read and the selection Read-aloud menu; the Settings "Audio" card was removed. The machinery below and the
@@ -452,21 +459,24 @@ ranges.js → admin1.js → cities.js → timeline.js → countries.js → count
 ## Generating cards & glossary entries
 
 **Content style rules (all card fields + glossary descriptions, current AND future):**
-- **Reading level: a bright 14-year-old must understand it.** Two levers, both required:
-  1. **Short sentences.** One idea per sentence; aim **12–20 words**, and **never over ~24**. Break up long chains of
-     clauses and "ranging from A and B … to C and D" pile-ups into separate sentences. (Long sentences are the biggest
-     barrier for teens — a plain-word sentence of 45 words is still too hard.) The abstract stays **exactly 10
-     sentences in two blocks of 5**, so this means each sentence carries less — the abstract runs shorter and lighter
-     than the old dense ~330-word style; **that is intended**, readability beats density.
-  2. **Plain words.** Common everyday words in place of academic vocabulary (say "chipped stone", "shaped in advance",
-     "hunting and gathering", "spread out", "died out", not "knapped", "prepared-core", "foraging", "dispersed",
-     "diachronous", "florescence", "percussion", "sedentism"). When a real technical term is unavoidable (Neanderthal,
-     Levallois, Mousterian, Mesolithic), keep it **and explain it in plain words** the first time.
-  Keep the tone that of an engaging school textbook or museum label for teens — never childish, and **never at the cost
-  of accuracy or of the hedges**: contested facts stay hedged, just in plain words ("scientists still argue about
-  exactly when…", not "the boundary is diachronous"). This applies to every field, in English **and** in all 8
-  translations. (Flesch–Kincaid grade is a rough check, but proper nouns like "Paleolithic"/"Neanderthal" keep the
-  number near 10–12 even when the writing is genuinely easy — judge by sentence length + word choice, not the score.)
+- **Reading level: a bright 17-year-old must understand it — and the length is fixed.** Two requirements:
+  1. **Length: about 300 words** for the abstract, and always within **270–330** (a 10% margin). Treat this as a hard
+     target — under 270 reads thin, over 330 turns dense. The abstract stays **exactly 10 sentences in two blocks of
+     5**, so sentences now average about **30 words**. Vary the rhythm: mix shorter, punchier sentences with longer
+     well-structured ones, rather than making all ten the same length. (This supersedes an earlier, shorter
+     ~190–230-word house style — the cards were rewritten up to this length and level in July 2026.)
+  2. **Vocabulary: upper-secondary — neither childish nor academic.** Precise words are welcome and need no apology at
+     this level: *sedentary*, *surplus*, *hierarchy*, *reciprocity*, *domestication*, *subsistence*, *nomadic*,
+     *successive*. What still earns a brief gloss on first use is genuinely specialist vocabulary a general reader
+     would not meet outside the field (*conchoidal fracture*, *Levallois*, *Mousterian*, *debitage*, *knapping*,
+     *immediate-return*). Avoid jargon for its own sake, but equally avoid over-explaining what a 17-year-old already
+     knows.
+  Keep the tone of a good popular-history book or a well-written museum panel for older students — never childish,
+  never a lecture, and **never at the cost of accuracy or of the hedges**: contested facts stay hedged, in clear prose
+  ("scholars still disagree about exactly when…"). This applies to every field, in English **and** in all 8
+  translations, which must hit the same length and register in their own natural idiom — never a literal calque of the
+  English. (Flesch–Kincaid lands around **11–13** for this register; treat it as a rough check only, since proper nouns
+  like "Paleolithic" inflate it — judge by sentence construction and word choice.)
 - **Non-round numbers above 20 are numerals** ("27 chapters", never "twenty-seven chapters"). Round numbers may
   stay as words ("thirty kings", "eight hundred years"). Proper names keep their words (*Twenty-Four Histories*,
   *Twenty-four Filial Exemplars*).
@@ -510,9 +520,9 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   form, else `""`. `translations` wraps the pinyin: `<div class="tr-pinline"><span class="tr-pin">…</span></div>`.
 - `answerDate` — a `<div class="dt"><span class="dt-k">Date</span><span class="dt-v">…</span></div>`
   block (key date / reign / era, or an etymology line).
-- `abstract` (the background) — **exactly 10 sentences**, as two blocks of 5 split by ` <br><br> `:
-  sentences 1–5 give the general meaning/context, 6–10 the meaning in this card's question.
-  Information-heavy and precise. **The only `<b>` bold is the answer term, at its first mention
+- `abstract` (the background) — **exactly 10 sentences and about 300 words** (keep within 270–330), as two
+  blocks of 5 split by ` <br><br> `: sentences 1–5 give the general meaning/context, 6–10 the meaning in this
+  card's question. Information-heavy and precise, at the 17-year-old register set out above. **The only `<b>` bold is the answer term, at its first mention
   opening the background**; use `<i>` for titles (and foreign terms). **No parenthetical asides** —
   never put information between parentheses. **No glossary links** — plain text only (`cnh-001`
   still uses the old `ttip`/`data-k` links and bolded facts; new cards omit both).
