@@ -9,6 +9,7 @@ window.CHANGELOG = [
     t: "A quiet voice for the interface",
     items: [
       "The site now makes gentle sounds: a soft tick on buttons, a chirp on switches, a little pop when a card reveals, warm and low notes for the grade buttons, and a tiny fanfare for level-ups, achievements and perfect games. Turn them off any time under Settings → Audio.",
+      "The daily quote on the home page now appears in your language — established translations of each passage, with authors under their familiar names (Confucio, Konfuzius, Конфуций…). Readers in Chinese see the classical originals: 学而时习之，不亦说乎？",
     ],
   },
   {
