@@ -708,10 +708,13 @@ dead code (never rendered).
   rail snaps to the nearest map-year, and the chevrons / arrow keys step between adjacent map-years, so blank
   years are skipped entirely (`mapYears` / `snapYear` / `stepYear`). Small rail ticks (`.tl-mark`, drawn by
   `renderMapYearMarks`) mark the stops; the "no map yet" note is therefore effectively unreachable now.
-  Shipped eras: **1900, 1920, 1938, 1960, 1994, 2000, 2010, 2015, 2020** (+ the present-day map) — roughly every other
-  decade of the 20th c. (1900-era snapshots are sparse: 1900/1914/1920/1930/1938/1945/1960 then a gap to 1994, so "1940"→1938
-  and "1980"→1994 land on the nearest snapshot, stored at the snapshot's real year). 1900/1920/1938 are `geo` (their
-  borders genuinely differ from today); 1960/1994/2000/2010 are merger-only `groups` (rendered from world.js — e.g.
+  Shipped eras: **1500, 1600, 1700, 1800, 1900, 1920, 1938, 1960, 1994, 2000, 2010, 2015, 2020** (+ the present-day map)
+  — a century apart back through 1500, then roughly every other decade of the 20th c. (1900-era snapshots are sparse:
+  1900/1914/1920/1930/1938/1945/1960 then a gap to 1994, so "1940"→1938
+  and "1980"→1994 land on the nearest snapshot, stored at the snapshot's real year). 1500–1938 are `geo` (their
+  borders genuinely differ from today; the pre-1900 eras carry period capitals + researched descriptions/spans/year
+  paragraphs merged as trailing `Object.assign` blocks in `countries.js`/`country-spans.js`/`country-years.js`);
+  1960/1994/2000/2010 are merger-only `groups` (rendered from world.js — e.g.
   1960 correctly merges the 15 post-Soviet states into one "USSR"). The dataset's latest snapshot is **2010**, so there is
   **no distinct 2015/2020 source**: those two eras carry **empty `groups: {}`** (which `synthGroups` renders as the full
   present-day `world.js` map — South Sudan correctly separate since 2011) plus 2010's period capitals + Juba, so they're

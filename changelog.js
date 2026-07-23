@@ -5,6 +5,13 @@
    user, not how). Loaded before app.js. */
 window.CHANGELOG = [
   {
+    d: "2026-07-24",
+    t: "The world of 1500",
+    items: [
+      "The Atlas timeline now reaches back to 1500 — the world on the eve of the modern age, with the Ming, the Ottomans, the Aztec and Inca empires, and over 140 states and peoples drawn on the globe. Each comes with a researched description, the years it existed, a note on what was happening there in 1500, and 69 period-accurate capitals — Tenochtitlan, Vijayanagara, Constantinople and the rest.",
+    ],
+  },
+  {
     d: "2026-07-23",
     t: "Fuller cards, for older readers",
     items: [
