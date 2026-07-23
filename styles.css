@@ -1888,8 +1888,10 @@ textarea.af-input{resize:vertical; min-height:42px;}
 .gp-empty{padding:12px 9px; color:var(--ink-faint); font-size:12.5px; text-align:center;}
 .af-readonly{color:var(--ink-faint); background:var(--paper-2); cursor:not-allowed;}
 .admin-field-note{font-size:12px; color:var(--ink-faint); line-height:1.5;}
-/* single-surface card editor: the live card IS the editor (double-click a section to edit in place) */
-.card-edit-single{display:flex; flex-direction:column; gap:14px; max-width:780px;}
+/* single-surface card editor: the live card IS the editor (double-click a section to edit in place).
+   The column (and the header above it) is centred within the editor pane. */
+.card-edit-single{display:flex; flex-direction:column; gap:14px; max-width:780px; width:100%; margin-left:auto; margin-right:auto;}
+#adminEditor:has(.card-edit-single) .admin-ed-head{max-width:780px; margin-left:auto; margin-right:auto;}
 .ces-top{display:flex; flex-direction:column; gap:12px;}
 .ces-meta{display:flex; gap:12px; flex-wrap:wrap;}
 .ces-m{display:flex; flex-direction:column; gap:4px; flex:1 1 150px; min-width:130px;}
