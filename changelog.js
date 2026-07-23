@@ -13,6 +13,7 @@ window.CHANGELOG = [
       "Editing translations is now simpler: switch the site language in the top-right corner and the card and glossary editors edit that language directly — the separate language tabs inside the editor are gone, and glossary translations became editable for the first time.",
       "The card editor was rebuilt around the card itself: one live card — centred in the page — where double-clicking the question, answer, date or background edits it in place, with the formatting toolbar and the off-card details (decks, id, chronology, answer text) above and a collapsible HTML view of the whole card below. Cards without a picture show an add-image spot (editor only), and the little-used Chinese text fields left the form.",
       "In the editor's collection tree, decks and collections can now be dragged onto a sibling to reorder them — the Library page follows the same order.",
+      "The glossary has been reset to be regrown entry by entry, like the card deck before it — terms and their translations will return as the new collections take shape.",
     ],
   },
   {
