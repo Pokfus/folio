@@ -6770,19 +6770,9 @@
 
   // Fields shown in the editor, stacked in the order they appear on the study card.
   // 'num' and 'category' are intentionally omitted; two labels are renamed per spec.
-  const EDITOR_FIELDS = [
-    { key: "question", label: "question" },
-    { key: "answer", label: "answer" },
-    { key: "answerDate", label: "answer date" },
-    { key: "traditional", label: "traditional" },
-    { key: "hanzi", label: "hanzi" },
-    { key: "pinyin", label: "pinyin" },
-    { key: "translations", label: "translations" },
-    { key: "abstract", label: "background" },
-    { key: "citation", label: "citation" },
-    { key: "answerText", label: "answer text" },
-  ];
-  const EDITOR_LONG = { question: 3, answerDate: 3, translations: 3, abstract: 16 };
+  // (the old EDITOR_FIELDS form list is gone — the single-surface editor edits question/answer/answerDate/
+  //  abstract in place on the live card, plus answerText above it. traditional/hanzi/pinyin/translations/
+  //  citation were removed from the editor on request; the DATA fields still exist and render on study cards.)
   function fmtYear(c) { const y = cardStartYear(c); if (!y) return "—"; return y < 0 ? -y + " BCE" : y + " CE"; }
   function adminSortIds(ids) {
     const mode = adminState.sort;
@@ -7496,7 +7486,10 @@
       }, "Delete");
     }));
     // ----- drag & drop: drop a deck/collection onto another to nest it; onto "All cards" to promote -----
-    function clearDropFx() { host.querySelectorAll(".drop-ok, .drop-top").forEach((x) => x.classList.remove("drop-ok", "drop-top")); }
+    function clearDropFx() { host.querySelectorAll(".drop-ok, .drop-top, .drop-before").forEach((x) => x.classList.remove("drop-ok", "drop-top", "drop-before")); }
+    // SAME-PARENT drop = reorder (insert before the target — this order IS the Library order);
+    // different-parent drop = move into the target, as before.
+    const sameParentAs = (a, b) => a && b && a !== b && NODE_BY_ID[a] && NODE_BY_ID[b] && (NODE_BY_ID[a].parentId || "") === (NODE_BY_ID[b].parentId || "");
     host.querySelectorAll("[data-drag]").forEach((el) => {
       el.addEventListener("dragstart", (e) => {
         _dragNodeId = el.dataset.drag;
@@ -7507,12 +7500,26 @@
       el.addEventListener("dragover", (e) => {
         if (!_dragNodeId) return;
         const target = el.dataset.node;
+        if (sameParentAs(_dragNodeId, target)) { e.preventDefault(); if (e.dataTransfer) e.dataTransfer.dropEffect = "move"; el.classList.add("drop-before"); return; }
         if (canMoveNode(_dragNodeId, target)) { e.preventDefault(); if (e.dataTransfer) e.dataTransfer.dropEffect = "move"; el.classList.add("drop-ok"); }
       });
-      el.addEventListener("dragleave", () => el.classList.remove("drop-ok"));
+      el.addEventListener("dragleave", () => el.classList.remove("drop-ok", "drop-before"));
       el.addEventListener("drop", (e) => {
         if (!_dragNodeId) return;
         const target = el.dataset.node;
+        if (sameParentAs(_dragNodeId, target)) {
+          e.preventDefault();
+          const moved = _dragNodeId; _dragNodeId = null; clearDropFx();
+          const pid = NODE_BY_ID[moved].parentId || "";
+          const sibs = (pid ? nodeChildren(NODE_BY_ID[pid]) : TREE.collections).map((n) => n.id).filter((x) => x !== moved);
+          const i = sibs.indexOf(target); if (i >= 0) sibs.splice(i, 0, moved); else sibs.push(moved);
+          reorderSiblings(pid, sibs);
+          _treeChanged();
+          adminState.node = moved;
+          adminUpdateCount(); adminRenderTree(); adminRenderList(); adminRenderEditor();
+          toast("Order updated — the Library follows it");
+          return;
+        }
         if (!canMoveNode(_dragNodeId, target)) return;
         e.preventDefault();
         const moved = _dragNodeId; _dragNodeId = null; clearDropFx();
@@ -7840,58 +7847,96 @@
     const isEnLang = cardLang === "en";
     const dirAttr = cardLang === "ar" ? ' dir="rtl"' : "";
     const trMissing = !isEnLang && !(c.i18n && c.i18n[cardLang] && Object.keys(c.i18n[cardLang]).length);
-    const trNote = isEnLang ? "" : '<div class="admin-field-note admin-langnote">Editing the <b>' + cardLang.toUpperCase() + '</b> translation of this card' + (trMissing ? " — <b>no translation yet</b>, typing creates one" : "") + '. The editing language follows the site language (top-right switcher); switch back to <b>EN</b> for the base card and the shared fields — hanzi, pinyin, traditional, translations, citation, image, decks and chronology.</div>';
-    const editorFields = isEnLang ? EDITOR_FIELDS : EDITOR_FIELDS.filter((f) => CARD_I18N_FIELDS[f.key]);
-    const fieldsHtml = editorFields.map((f) => {
-      if (EDITOR_LONG[f.key]) {   // rich fields → WYSIWYG contenteditable that renders like the card
-        const sp = (f.key === "abstract" || f.key === "question") ? "true" : "false";
-        return '<div class="admin-field"><span class="af-label">' + esc(f.label) + '</span>' +
-          '<div class="af-input af-rich af-rich-' + f.key + '" contenteditable="true" data-field="' + f.key + '" data-rich="1" spellcheck="' + sp + '"' + dirAttr + '></div>' +
-          '<button type="button" class="af-src-toggle" data-src-toggle="' + f.key + '"><span class="afs-chev">&#9656;</span> HTML source</button>' +
-          '<textarea class="af-src" data-src-for="' + f.key + '" spellcheck="false" hidden></textarea></div>';
-      }
-      return '<label class="admin-field"><span class="af-label">' + esc(f.label) + '</span>' +
-        '<input class="af-input" data-field="' + f.key + '" type="text" spellcheck="false"' + dirAttr + ' /></label>';
-    }).join("");
-    // card image (shared across languages): URL + the caption shown in the fullscreen viewer
-    const imgFieldsHtml = isEnLang
-      ? '<div class="admin-imgbox"><div class="aib-head">Image <span class="aib-hint">— shown 16:9 at the top of the Background; clicking it opens the fullscreen viewer with this caption</span></div>' +
-        '<label class="admin-field"><span class="af-label">image URL</span><input class="af-input" data-imgfield="src" type="text" spellcheck="false" placeholder="https://… or images/file.jpg" /></label>' +
-        '<label class="admin-field"><span class="af-label">image title</span><input class="af-input" data-imgfield="title" type="text" /></label>' +
-        '<div class="admin-field"><span class="af-label">image description</span><textarea class="af-input af-imgdesc" data-imgfield="desc" rows="2" spellcheck="true"></textarea></div>' +
-        '<label class="admin-field"><span class="af-label">image source</span><input class="af-input" data-imgfield="credit" type="text" spellcheck="false" placeholder="e.g. Wikimedia Commons, public domain — or a URL" /></label></div>'
-      : "";
+    const trNote = isEnLang ? "" : '<div class="admin-field-note admin-langnote">Editing the <b>' + cardLang.toUpperCase() + '</b> translation of this card' + (trMissing ? " — <b>no translation yet</b>, typing creates one" : "") + '. The editing language follows the site language (top-right switcher); switch back to <b>EN</b> for the base card, image, decks and chronology.</div>';
     const autoYear = (() => { const y = cardYears(c); return y.length ? Math.min(...y) : null; })();
-    const chronoHtml = '<label class="admin-field"><span class="af-label">chronology</span><input class="af-input" id="adminChrono" type="text" spellcheck="false" placeholder="' + esc("auto: " + (chronoLabel(autoYear) || "—")) + '" /></label>' +
-      '<div class="admin-field-note">Sort / timeline year — overrides the date above for ordering. e.g. <b>200 BCE</b>, <b>618</b>, <b>1644</b>. Leave blank to use the automatic value, or type <b>none</b> for no year (kept out of the timeline).</div>';
+    // ---- single-surface editor: the card preview IS the editor; double-click a section to edit it in place ----
+    const fieldOf = (f) => (isEnLang ? (c[f] == null ? "" : String(c[f])) : ((c.i18n && c.i18n[cardLang] && c.i18n[cardLang][f]) || ""));
+    const PH = { question: "Double-click to write the question (blank the answer as _____)…", answer: "Double-click to set the answer", answerDate: "Double-click to add the date line", abstract: "Double-click to write the background…" };
+    const live = (f, cls) => '<div class="' + cls + ' ces-field" data-field="' + f + '" data-rich="1" data-ph="' + esc(PH[f] || "") + '" title="Double-click to edit" spellcheck="' + (f === "answer" ? "false" : "true") + '"' + dirAttr + '></div>';
+    const metaRow = isEnLang
+      ? '<div class="ces-meta">' +
+          '<label class="ces-m"><span>id</span><input class="af-input af-readonly" type="text" value="' + esc(id) + '" readonly /></label>' +
+          '<label class="ces-m"><span>chronology</span><input class="af-input" id="adminChrono" type="text" spellcheck="false" placeholder="' + esc("auto: " + (chronoLabel(autoYear) || "—")) + '" title="Sort / timeline year — overrides the date for ordering, e.g. 200 BCE or 618. Blank = automatic; type none for no year." /></label>' +
+          '<label class="ces-m ces-m-wide"><span>answer text — plain, used by the games</span><input class="af-input" id="cesAnswerText" type="text" spellcheck="false" /></label>' +
+        '</div>' +
+        '<div class="ces-decks"><button class="ces-decks-head" id="cesDecksHead" type="button" aria-expanded="false"><span class="afs-chev">&#9656;</span> Appears in <b id="cesDeckCount">' + memberLeaves.size + '</b> deck' + (memberLeaves.size === 1 ? "" : "s") + '</button><div class="ces-decks-body" id="cesDecksBody" hidden>' + deckHtml + '</div></div>'
+      : trNote + '<div class="ces-meta"><label class="ces-m ces-m-wide"><span>answer text (' + cardLang + ') — plain, used by the games</span><input class="af-input" id="cesAnswerText" type="text"' + dirAttr + ' /></label></div>';
+    const imgPanelHtml = isEnLang
+      ? '<div class="ces-imgpanel" id="cesImgPanel" hidden>' +
+          '<div class="aib-head">Image <span class="aib-hint">— shown 16:9 at the top of the Background; title, description and source appear in the fullscreen viewer. Clear the URL to remove it.</span></div>' +
+          '<label class="admin-field"><span class="af-label">image URL</span><input class="af-input" data-imgfield="src" type="text" spellcheck="false" placeholder="https://… or images/file.jpg" /></label>' +
+          '<label class="admin-field"><span class="af-label">image title</span><input class="af-input" data-imgfield="title" type="text" /></label>' +
+          '<div class="admin-field"><span class="af-label">image description</span><textarea class="af-input af-imgdesc" data-imgfield="desc" rows="2" spellcheck="true"></textarea></div>' +
+          '<label class="admin-field"><span class="af-label">image source</span><input class="af-input" data-imgfield="credit" type="text" spellcheck="false" placeholder="e.g. Wikimedia Commons, public domain — or a URL" /></label>' +
+        '</div>'
+      : "";
     const whereTxt = node ? nodeWhere(node) : (memberLeaves.size ? "" : "no deck");
     host.innerHTML =
       '<div class="admin-ed-head"><div class="admin-ed-headinfo"><h2 class="admin-ed-title">' + esc(c.answer || "(untitled)") + '</h2><div class="admin-ed-key">' + esc(id) + (whereTxt ? ' &middot; ' + esc(whereTxt) : "") + '</div></div>' +
       '<div class="admin-ed-actions"><span class="admin-saved" id="adminSaved"></span><button class="admin-preview" id="adminPreview" type="button">Preview</button><button class="admin-revert" id="adminRevert" type="button"' + (cardIsEdited(id) ? "" : " hidden") + '>Revert card</button><button class="admin-delete" id="adminDelete" type="button">Delete card</button></div></div>' +
-      '<div class="card-edit-cols">' +
-        '<div class="card-edit-fields">' + rtRibbonHtml() + (isEnLang ? deckHtml : trNote) +
-          '<div class="admin-fields">' + (isEnLang ? '<label class="admin-field"><span class="af-label">id</span><input class="af-input af-readonly" type="text" value="' + esc(id) + '" readonly /></label>' + chronoHtml : "") + fieldsHtml + imgFieldsHtml + '</div>' +
+      '<div class="card-edit-single">' +
+        '<div class="ces-top">' + rtRibbonHtml() + metaRow + '</div>' +
+        '<div class="study-card admin-pv-card admin-live-card">' +
+          '<span class="label">Question</span>' + live("question", "question") +
+          '<div class="reveal show"><div class="reveal-inner">' +
+            '<div class="answer"><div class="answer-main"><span class="label">Answer</span>' +
+              '<div class="answer-av">' + live("answer", "val") + '<div class="av-row">' + live("answerDate", "ces-date") + '</div></div></div></div>' +
+            '<span class="label">Background</span>' +
+            '<div id="cesImgSlot"></div>' + imgPanelHtml +
+            live("abstract", "abstract") +
+          '</div></div>' +
         '</div>' +
-        '<div class="ed-resizer" id="cardPvResizer" title="Drag to resize the preview"></div>' +
-        '<div class="card-edit-preview"><div class="gloss-preview-label">Card preview</div><div class="admin-card-pvbox" id="adminCardPreview"></div></div>' +
+        '<div class="ces-src"><button class="af-src-toggle" id="cesSrcToggle" type="button"><span class="afs-chev">&#9656;</span> HTML source — whole card</button><textarea class="af-src ces-src-ta" id="cesSrcTa" spellcheck="false" hidden></textarea></div>' +
       '</div>';
-    wirePreviewDivider(host.querySelector("#cardPvResizer"), host.querySelector(".card-edit-preview"), "--card-preview-w", "cardPreviewW");
-    // load each field's value: innerHTML for the WYSIWYG fields, .value for inputs. Non-EN reads the i18n block
-    // (blank when untranslated — typing creates it); gloss auto-linking is EN-only (glossary surfaces are English).
-    editorFields.forEach((f) => {
-      const el = host.querySelector('[data-field="' + f.key + '"]'); if (!el) return;
-      const v = isEnLang ? (c[f.key] == null ? "" : String(c[f.key])) : ((c.i18n && c.i18n[cardLang] && c.i18n[cardLang][f.key]) || "");
-      if (el.dataset.rich) { el.innerHTML = v; if (isEnLang && f.key === "abstract") autoLinkGlossary(el, c.answer, glossOffList(c.id)); } else el.value = v;
-    });   // show the auto gloss links in the background so they can be clicked/edited (stripped on save)
-    // image fields (EN view): load current values and save each keystroke as an image delta
+    // load the live fields (non-EN reads the i18n block; gloss auto-linking is EN-only)
+    const LIVE_FIELDS = ["question", "answer", "answerDate", "abstract"];
+    const syncEmpty = (el) => el.classList.toggle("is-empty", !el.textContent.trim() && !el.querySelector("img,hr"));
+    LIVE_FIELDS.forEach((f) => {
+      const el = host.querySelector('[data-field="' + f + '"]');
+      el.innerHTML = fieldOf(f);
+      if (isEnLang && f === "abstract") autoLinkGlossary(el, c.answer, glossOffList(c.id));
+      syncEmpty(el);
+    });
+    // double-click enters editing; blur leaves it (each keystroke saves either way)
+    host.querySelectorAll(".ces-field").forEach((el) => {
+      el.addEventListener("dblclick", () => {
+        if (el.isContentEditable) return;
+        el.contentEditable = "true"; el.classList.add("editing"); el.focus();
+      });
+      el.addEventListener("blur", () => { el.contentEditable = "false"; el.classList.remove("editing"); });
+    });
+    const editedFx = () => {
+      const row = adminFindRow("card", id); if (row) row.classList.toggle("edited", cardIsEdited(id));
+      const rev0 = host.querySelector("#adminRevert"); if (rev0) rev0.hidden = !cardIsEdited(id);
+    };
+    // ---- image slot: the real image (click = edit panel), or an editor-only "add image" placeholder ----
+    const imgSlotEl = host.querySelector("#cesImgSlot");
+    const imgPanel = host.querySelector("#cesImgPanel");
+    function renderImgSlot() {
+      const im = c.image && c.image.src ? c.image : null;
+      if (im) imgSlotEl.innerHTML = '<figure class="card-img ces-img" title="Click to edit the image"><img src="' + esc(im.src) + '" alt="" draggable="false"><span class="ces-img-edit">Edit image</span></figure>';
+      else imgSlotEl.innerHTML = isEnLang
+        ? '<div class="ces-img-ph" role="button" tabindex="0" title="Click to add an image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><span>Add an image <small>— editor only; nothing shows on the study page until one is set</small></span></div>'
+        : "";
+      const t = imgSlotEl.firstElementChild;
+      if (t) t.addEventListener("click", (e) => { e.stopPropagation(); if (isEnLang && imgPanel) { imgPanel.hidden = !imgPanel.hidden; if (!imgPanel.hidden) { const s = imgPanel.querySelector('[data-imgfield="src"]'); if (s) s.focus(); } } });   // stopPropagation also keeps the fullscreen viewer shut inside the editor
+    }
+    renderImgSlot();
     host.querySelectorAll("[data-imgfield]").forEach((el) => {
       el.value = (c.image && c.image[el.dataset.imgfield]) || "";
       el.addEventListener("input", () => {
         setCardImageEdit(id, el.dataset.imgfield, el.value.trim());
-        adminFlashSaved(); adminUpdateCount(); refreshPreview();
-        const row = adminFindRow("card", id); if (row) row.classList.toggle("edited", cardIsEdited(id));
-        const rev = host.querySelector("#adminRevert"); if (rev) rev.hidden = !cardIsEdited(id);
+        adminFlashSaved(); adminUpdateCount(); editedFx();
+        if (el.dataset.imgfield === "src") renderImgSlot();
       });
+    });
+    // ---- answer text (plain; lives above the card since it never shows on it) ----
+    const atI = host.querySelector("#cesAnswerText");
+    atI.value = fieldOf("answerText");
+    atI.addEventListener("input", () => {
+      if (isEnLang) setCardEdit(id, "answerText", atI.value);
+      else setCardI18nEdit(id, cardLang, "answerText", atI.value);
+      adminFlashSaved(); adminUpdateCount(); editedFx(); syncSrc();
     });
     const chronoI = host.querySelector("#adminChrono");
     if (chronoI) {
@@ -7903,30 +7948,60 @@
         const row = adminFindRow("card", id); if (row) { const rs = row.querySelector(".acr-sub"); if (rs) rs.textContent = fmtYear(c); }
       });
     }
-    const pvBox = host.querySelector("#adminCardPreview");
-    const pvCard = () => (isEnLang ? c : cardLocalized(c, cardLang));   // the preview follows the language being edited
-    const refreshPreview = () => { clearTimeout(adminPvTimer); adminPvTimer = setTimeout(() => renderCardPreviewInto(pvBox, pvCard()), 160); };   // debounce the re-render
-    renderCardPreviewInto(pvBox, pvCard());
-    host.querySelectorAll("[data-field]").forEach((el) => el.addEventListener("input", () => {
+    // ---- live-field saves (the card IS the preview — no separate re-render, focus is never lost) ----
+    host.querySelectorAll(".ces-field").forEach((el) => el.addEventListener("input", () => {
       const f = el.dataset.field;
       if (isEnLang) setCardEdit(id, f, fieldVal(el));
       else setCardI18nEdit(id, cardLang, f, fieldVal(el));
-      adminFlashSaved(); adminUpdateCount(); refreshPreview();
+      adminFlashSaved(); adminUpdateCount(); syncEmpty(el); syncSrc();
       if (isEnLang && f === "answer") {
-        const t = host.querySelector(".admin-ed-title"); if (t) t.textContent = el.value || "(untitled)";
-        const row = adminFindRow("card", id); if (row) { const rt = row.querySelector(".acr-title"); if (rt) rt.textContent = el.value || "(untitled)"; }
+        const txt = el.textContent.trim();
+        const t = host.querySelector(".admin-ed-title"); if (t) t.textContent = txt || "(untitled)";
+        const row = adminFindRow("card", id); if (row) { const rt = row.querySelector(".acr-title"); if (rt) rt.textContent = txt || "(untitled)"; }
       }
       if (isEnLang && f === "answerDate") { const row = adminFindRow("card", id); if (row) { const rs = row.querySelector(".acr-sub"); if (rs) rs.textContent = fmtYear(c); } }
-      const row = adminFindRow("card", id); if (row) row.classList.toggle("edited", cardIsEdited(id));
-      const rev = host.querySelector("#adminRevert"); if (rev) rev.hidden = !cardIsEdited(id);
+      editedFx();
     }));
+    // ---- collapsible HTML source for the whole card (marker-delimited sections, two-way sync) ----
+    const srcTa = host.querySelector("#cesSrcTa"), srcToggle = host.querySelector("#cesSrcToggle");
+    const SRC_FIELDS = ["question", "answer", "answerDate", "abstract", "answerText"];
+    let srcSyncing = false;
+    const srcCompose = () => SRC_FIELDS.map((f) => "<!-- " + f.toUpperCase() + " -->\n" + (f === "answerText" ? atI.value : fieldVal(host.querySelector('[data-field="' + f + '"]')))).join("\n\n");
+    function syncSrc() { if (!srcTa.hidden && !srcSyncing) { srcSyncing = true; srcTa.value = srcCompose(); srcSyncing = false; } }
+    srcToggle.addEventListener("click", () => {
+      const show = srcTa.hidden; srcTa.hidden = !show; srcToggle.classList.toggle("open", show);
+      if (show) { srcSyncing = true; srcTa.value = srcCompose(); srcSyncing = false; }
+    });
+    srcTa.addEventListener("input", () => {
+      if (srcSyncing) return; srcSyncing = true;
+      const rx = /<!--\s*(QUESTION|ANSWERDATE|ANSWERTEXT|ANSWER|ABSTRACT)\s*-->/gi;
+      const segs = []; let m;
+      while ((m = rx.exec(srcTa.value))) segs.push({ f: m[1].toUpperCase(), end: rx.lastIndex, at: m.index });
+      const map = { QUESTION: "question", ANSWER: "answer", ANSWERDATE: "answerDate", ABSTRACT: "abstract", ANSWERTEXT: "answerText" };
+      segs.forEach((seg, i) => {
+        const f = map[seg.f]; if (!f) return;
+        const val = srcTa.value.slice(seg.end, i + 1 < segs.length ? segs[i + 1].at : srcTa.value.length).trim();
+        if (f === "answerText") { if (atI.value !== val) { atI.value = val; atI.dispatchEvent(new Event("input", { bubbles: true })); } return; }
+        const el = host.querySelector('[data-field="' + f + '"]');
+        if (el && fieldVal(el) !== val) {
+          el.innerHTML = val;
+          if (isEnLang && f === "abstract") autoLinkGlossary(el, c.answer, glossOffList(c.id));
+          el.dispatchEvent(new Event("input", { bubbles: true }));
+          syncEmpty(el);
+        }
+      });
+      srcSyncing = false;
+    });
     wireRichEditor(host);
-    // deck-picker toggles
+    // deck-picker toggles (inside the collapsible "Appears in N decks" box)
+    const dh = host.querySelector("#cesDecksHead"), db = host.querySelector("#cesDecksBody");
+    if (dh && db) dh.addEventListener("click", () => { const show = db.hidden; db.hidden = !show; dh.classList.toggle("open", show); dh.setAttribute("aria-expanded", String(show)); });
     host.querySelectorAll("[data-leaf]").forEach((el) => el.addEventListener("change", () => {
       const leaves = [...host.querySelectorAll("[data-leaf]")].filter((x) => x.checked).map((x) => x.dataset.leaf);
       setCardMembership(id, leaves);
       adminUpdateCount();
       const item = el.closest(".deck-pick-item"); if (item) item.classList.toggle("on", el.checked);
+      const dc = host.querySelector("#cesDeckCount"); if (dc) dc.textContent = leaves.length;
       const node2 = CARD_TO_NODE[id];
       const key = host.querySelector(".admin-ed-key");
       if (key) { const w = node2 ? nodeWhere(node2) : (leaves.length ? "" : "no deck"); key.innerHTML = esc(id) + (w ? " &middot; " + esc(w) : ""); }

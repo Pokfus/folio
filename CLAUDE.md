@@ -40,7 +40,9 @@ ranges.js → admin1.js → cities.js → timeline.js → countries.js → count
   (see "Generating cards & glossary entries" below).
 - `glossary.js` — `window.GLOSSARY` plus `window.GLOSSARY_DATES`, `GLOSSARY_TITLES`, `GLOSSARY_ALIASES`,
   `GLOSSARY_CASESENSITIVE`, and `GLOSSARY_TAGS` (per-term category tags — the admin glossary's left-bar
-  filter). **Currently ~2,100+ terms**, grown from the `Sima_Qian` template, one at a time.
+  filter). **TRIMMED 2026-07-23 to the single `Sima_Qian` template entry** — the glossary is being regrown
+  from scratch, one fully-formed entry at a time (description + date + tags + all 8 translations); the full
+  pre-trim glossary (2,165 terms) and its partial translations are backed up in `.claude/backup/`.
 - `glossary-wikipedia.js` — `Object.assign`s extra summaries onto `window.GLOSSARY` (loads *after*
   `glossary.js`). **Currently an empty stub.**
 - `glossary-i18n.js` — `window.GLOSSARY_I18N[slug][lang]`, glossary descriptions translated into the 8 site
@@ -162,7 +164,19 @@ ranges.js → admin1.js → cities.js → timeline.js → countries.js → count
   baked to `glossary-i18n.js` by `serializeGlossaryI18n` via auto-save / Save to project / `folioSave.files`;
   `PRISTINE_GLOSS_I18N` + `revertGloss` cover undo/revert); title/dates/aliases/tags stay EN-view-only. The editor
   previews render in the editing language. Gloss auto-linking stays EN-only. The language switcher's own handler
-  already calls `render()`, so the editor re-renders in the new language on switch. The
+  already calls `render()`, so the editor re-renders in the new language on switch.
+- **Card editor = single live card** (`.card-edit-single` in `adminRenderEditor`): no fields/preview split — ONE
+  card-styled surface (`.admin-live-card`) whose question / answer / answerDate / abstract are `.ces-field`
+  contenteditables, **double-click to edit in place** (blur locks again; every keystroke saves). Above it: the
+  formatting ribbon + a meta row (id, chronology, plain `answerText`) + a collapsible "Appears in N decks" picker.
+  Below: a collapsible **whole-card HTML source** (`#cesSrcTa`, sections delimited by `<!-- QUESTION -->`-style
+  markers, two-way synced). The image renders in place (click = edit panel with the 4 image fields; the fullscreen
+  viewer is suppressed inside the editor via stopPropagation); a card with no image shows an **editor-only**
+  "Add an image" placeholder (`.ces-img-ph` — deliberately NOT `.card-img`, so the delegated viewer/study page
+  never see it). **traditional / hanzi / pinyin / translations / citation were REMOVED from the editor on request**
+  (the data fields still exist and render on study cards). **The admin tree drags two ways**: dropping on a
+  same-parent sibling REORDERS (insert-before, `reorderSiblings` — the Library follows this order); dropping on a
+  node with a different parent MOVES INTO it, as before. The
   shipped data files are never rewritten by the app; edits live in this override layer and can be
   exported as JSON. **"Save to project"** (`adminExport`) writes `data.js`/`glossary.js`/`timeline.js` via the File System Access
   API (Chrome over `http://localhost`) then prunes the overlay + reloads. **"Auto-save: on"** (`adminAutosave` toggle, pref
