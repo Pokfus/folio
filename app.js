@@ -139,10 +139,12 @@
   window.GLOSSARY_ALIASES = window.GLOSSARY_ALIASES || {}; // optional alternative background spellings that also open a term's popup (slug -> [forms])
   window.GLOSSARY_CASESENSITIVE = window.GLOSSARY_CASESENSITIVE || {}; // slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven)
   window.GLOSSARY_TAGS = window.GLOSSARY_TAGS || {};       // per-term category tags (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar
+  window.GLOSSARY_I18N = window.GLOSSARY_I18N || {};       // slug -> { lang: translated description } (glossary-i18n.js)
   const PRISTINE_GLOSS_DATES = Object.assign({}, window.GLOSSARY_DATES);
   const PRISTINE_GLOSS_TITLES = Object.assign({}, window.GLOSSARY_TITLES);
   const PRISTINE_GLOSS_ALIASES = Object.assign({}, window.GLOSSARY_ALIASES);
   const PRISTINE_GLOSS_TAGS = Object.assign({}, window.GLOSSARY_TAGS);
+  const PRISTINE_GLOSS_I18N = Object.assign({}, window.GLOSSARY_I18N);   // slug -> shipped lang-map reference (edits REPLACE a slug's map, never mutate it)
   const PRISTINE_TREE_TITLES = {}; Object.values(NODE_BY_ID).forEach((n) => { PRISTINE_TREE_TITLES[n.id] = n.title; });
   // snapshot of the shipped tree structure (used to rebuild after create/rename/delete/move)
   const SHIPPED_NODES = [];
@@ -160,7 +162,7 @@
     if (!o || typeof o !== "object") o = {};
     const t = o.tree || {};
     return {
-      cards: o.cards || {}, glossary: o.glossary || {}, glossaryDates: o.glossaryDates || {}, glossaryTitles: o.glossaryTitles || {}, glossaryAliases: o.glossaryAliases || {}, glossaryTags: o.glossaryTags || {}, glossaryDeleted: o.glossaryDeleted || {},
+      cards: o.cards || {}, glossary: o.glossary || {}, glossaryDates: o.glossaryDates || {}, glossaryTitles: o.glossaryTitles || {}, glossaryAliases: o.glossaryAliases || {}, glossaryTags: o.glossaryTags || {}, glossaryDeleted: o.glossaryDeleted || {}, glossaryI18n: o.glossaryI18n || {},
       created: o.created || {}, deleted: o.deleted || {},
       membership: o.membership || {}, meta: o.meta || {}, chrono: o.chrono || {}, cardColor: o.cardColor || {}, glossColor: o.glossColor || {}, glossOff: o.glossOff || {},
       mission: o.mission && typeof o.mission === "object" ? o.mission : null,   // Mission-intro override ({ title, paras }) — rides in the overlay like every other delta
@@ -209,6 +211,7 @@
     reset(window.GLOSSARY_TITLES, PRISTINE_GLOSS_TITLES);
     reset(window.GLOSSARY_ALIASES, PRISTINE_GLOSS_ALIASES);
     reset(window.GLOSSARY_TAGS, PRISTINE_GLOSS_TAGS);
+    reset(window.GLOSSARY_I18N, PRISTINE_GLOSS_I18N);
   }
   function reapplyAdminOverlay(snap) {
     glossaryResetToPristine();
@@ -277,6 +280,7 @@
     Object.keys(ADMIN_EDITS.glossaryTitles || {}).forEach((k) => { const v = ADMIN_EDITS.glossaryTitles[k]; if (v) window.GLOSSARY_TITLES[k] = v; else delete window.GLOSSARY_TITLES[k]; });
     Object.keys(ADMIN_EDITS.glossaryAliases || {}).forEach((k) => { const v = ADMIN_EDITS.glossaryAliases[k]; if (v && v.length) window.GLOSSARY_ALIASES[k] = v; else delete window.GLOSSARY_ALIASES[k]; });
     Object.keys(ADMIN_EDITS.glossaryTags || {}).forEach((k) => { const v = ADMIN_EDITS.glossaryTags[k]; if (v && v.length) window.GLOSSARY_TAGS[k] = v; else delete window.GLOSSARY_TAGS[k]; });
+    Object.keys(ADMIN_EDITS.glossaryI18n || {}).forEach((k) => { const v = ADMIN_EDITS.glossaryI18n[k]; if (v && Object.keys(v).length) window.GLOSSARY_I18N[k] = v; else delete window.GLOSSARY_I18N[k]; });   // whole per-slug lang-maps
     // glossary deletions: drop the term from the live glossary, but only while the shipped text is unchanged.
     // If the slug was re-added or edited out-of-band (e.g. add-glossary.js rewrote glossary.js), retire the tombstone
     // so the term isn't silently re-hidden — and isn't wiped from glossary.js on the next Save to project.
@@ -670,6 +674,16 @@
     else ADMIN_EDITS.glossary[key] = value;
     queueAdminSave();
   }
+  // edit one language's translation of a term's description (site language ≠ EN in the editor).
+  // The slug's lang-map is REPLACED with a deep copy (PRISTINE_GLOSS_I18N shares the shipped object)
+  // and stored whole as a glossaryI18n delta, like the card i18n/image deltas.
+  function setGlossI18nEdit(key, lang, value) {
+    const next = JSON.parse(JSON.stringify(window.GLOSSARY_I18N[key] || {}));
+    if (value) next[lang] = value; else delete next[lang];
+    window.GLOSSARY_I18N[key] = next;
+    ADMIN_EDITS.glossaryI18n[key] = next;
+    queueAdminSave();
+  }
   function setGlossDateEdit(key, value) {
     const v = (value || "").trim();
     if (v) window.GLOSSARY_DATES[key] = v; else delete window.GLOSSARY_DATES[key];
@@ -713,6 +727,8 @@
     delete ADMIN_EDITS.glossaryAliases[key];
     if (key in PRISTINE_GLOSS_TAGS) window.GLOSSARY_TAGS[key] = PRISTINE_GLOSS_TAGS[key]; else delete window.GLOSSARY_TAGS[key];
     delete ADMIN_EDITS.glossaryTags[key];
+    if (key in PRISTINE_GLOSS_I18N) window.GLOSSARY_I18N[key] = PRISTINE_GLOSS_I18N[key]; else delete window.GLOSSARY_I18N[key];
+    delete ADMIN_EDITS.glossaryI18n[key];
     glossIndex = null;
     saveAdminEdits();
   }
@@ -745,7 +761,7 @@
     t.replace(/\b(\d{3,4})\b/g, (m, n) => { ys.push(+n); return " "; });   // remaining bare years are read as CE
     return ys.length ? Math.min(...ys) : null;
   }
-  function glossIsEdited(key) { return key in ADMIN_EDITS.glossary || key in ADMIN_EDITS.glossaryDates || key in ADMIN_EDITS.glossaryTitles || key in ADMIN_EDITS.glossaryAliases || key in (ADMIN_EDITS.glossaryTags || {}); }
+  function glossIsEdited(key) { return key in ADMIN_EDITS.glossary || key in ADMIN_EDITS.glossaryDates || key in ADMIN_EDITS.glossaryTitles || key in ADMIN_EDITS.glossaryAliases || key in (ADMIN_EDITS.glossaryTags || {}) || key in (ADMIN_EDITS.glossaryI18n || {}); }
   function adminEditCount() {
     const ids = new Set([
       ...Object.keys(ADMIN_EDITS.cards), ...Object.keys(ADMIN_EDITS.created),
@@ -753,7 +769,7 @@
     ]);
     const T = ADMIN_EDITS.tree || { renames: {}, created: {}, deleted: {}, dates: {} };
     const treeN = Object.keys(T.renames).length + Object.keys(T.created).length + Object.keys(T.deleted).length + Object.keys(T.dates || {}).length + Object.keys(T.cardOrder || {}).length;
-    return ids.size + Object.keys(ADMIN_EDITS.glossary).length + Object.keys(ADMIN_EDITS.glossaryDates || {}).length + Object.keys(ADMIN_EDITS.glossaryTitles || {}).length + Object.keys(ADMIN_EDITS.glossaryAliases || {}).length + Object.keys(ADMIN_EDITS.glossaryTags || {}).length + Object.keys(ADMIN_EDITS.glossaryDeleted || {}).length + Object.keys(ADMIN_EDITS.chrono || {}).length + Object.keys(ADMIN_EDITS.cardColor || {}).length + Object.keys(ADMIN_EDITS.glossColor || {}).length + treeN;
+    return ids.size + Object.keys(ADMIN_EDITS.glossary).length + Object.keys(ADMIN_EDITS.glossaryDates || {}).length + Object.keys(ADMIN_EDITS.glossaryTitles || {}).length + Object.keys(ADMIN_EDITS.glossaryAliases || {}).length + Object.keys(ADMIN_EDITS.glossaryTags || {}).length + Object.keys(ADMIN_EDITS.glossaryI18n || {}).length + Object.keys(ADMIN_EDITS.glossaryDeleted || {}).length + Object.keys(ADMIN_EDITS.chrono || {}).length + Object.keys(ADMIN_EDITS.cardColor || {}).length + Object.keys(ADMIN_EDITS.glossColor || {}).length + treeN;
   }
   applyAdminEdits();
 
@@ -6388,6 +6404,17 @@
     const ov = ADMIN_EDITS.mission || {};
     return { title: ov.title !== undefined ? ov.title : base.title, paras: Array.isArray(ov.paras) ? ov.paras : (base.paras || []) };
   }
+  function serializeGlossaryI18n() {
+    const G = window.GLOSSARY_I18N || {};
+    return "/* Glossary translations — window.GLOSSARY_I18N[slug][lang] = the entry's description translated into that\n" +
+      "   language (same three-sentence rules as the English text in glossary.js). Languages: es, fr, de, it, nl,\n" +
+      "   ru, ar, zh. Grown alongside glossary.js by .claude/add-glossary.js (the entry JSON's \"translations\"\n" +
+      "   field); the gloss popup shows the translation matching the site language, falling back to English.\n" +
+      "   Loaded after glossary.js / glossary-wikipedia.js, before app.js. */\n" +
+      "window.GLOSSARY_I18N = {\n" +
+      Object.keys(G).map((k) => JSON.stringify(k) + ": " + JSON.stringify(G[k])).join(",\n") +
+      "\n};\n";
+  }
   function serializeMission() {
     const M = missionMerged();
     return "/* Mission-page intro copy (title + paragraphs; raw HTML — <b>/<i> allowed; kept deliberately jargon-free,\n" +
@@ -6767,7 +6794,7 @@
     return arr; // "order" keeps natural order of appearance
   }
 
-  const adminState = { tab: "cards", node: null, card: null, search: "", treeCollapsed: false, glossKey: null, glossTag: null, expanded: {}, selected: new Set(), sort: "order", glossSort: "az", lastSelId: null, preview: false, cardLang: "en" };
+  const adminState = { tab: "cards", node: null, card: null, search: "", treeCollapsed: false, glossKey: null, glossTag: null, expanded: {}, selected: new Set(), sort: "order", glossSort: "az", lastSelId: null, preview: false };
   const CARD_I18N_LANGS = ["es", "fr", "de", "it", "nl", "ru", "ar", "zh"];   // the 8 site languages a card can carry (en = the base fields)
   const CARD_I18N_FIELDS = { question: 1, answer: 1, answerDate: 1, abstract: 1, answerText: 1 };   // translated per language; everything else is shared
   // Remember where the editor was (open card / deck / tab / search / scroll) across FULL page reloads. Auto-save-to-files can make a
@@ -7226,7 +7253,7 @@
     b.classList.toggle("on", s === "on" || s === "saving" || s === "saved");
     b.classList.toggle("warn", s === "reconnect" || s === "error");
   }
-  function autoSaveFiles() { const f = { "data.js": serializeCardData(), "glossary.js": serializeGlossary() }; if (Array.isArray(ADMIN_EDITS.timeline)) f["timeline.js"] = serializeTimeline(); if (ADMIN_EDITS.mission) f["mission.js"] = serializeMission(); return f; }
+  function autoSaveFiles() { const f = { "data.js": serializeCardData(), "glossary.js": serializeGlossary() }; if (Array.isArray(ADMIN_EDITS.timeline)) f["timeline.js"] = serializeTimeline(); if (ADMIN_EDITS.mission) f["mission.js"] = serializeMission(); if (Object.keys(ADMIN_EDITS.glossaryI18n || {}).length) f["glossary-i18n.js"] = serializeGlossaryI18n(); return f; }
   async function autoSaveNow() {
     if (!autoSaveArmed || !autoSaveDir) return;
     if (_autoWriting) { autoSaveWrite(); return; }                                  // a write is in flight → coalesce into the next tick
@@ -7276,6 +7303,7 @@
       const files = [["data.js", dataJs], ["glossary.js", glossJs]];
       if (hasTl) files.push(["timeline.js", serializeTimeline()]);
       if (ADMIN_EDITS.mission) files.push(["mission.js", serializeMission()]);
+      if (Object.keys(ADMIN_EDITS.glossaryI18n || {}).length) files.push(["glossary-i18n.js", serializeGlossaryI18n()]);
       files.forEach(([n, t], i) => setTimeout(() => downloadText(n, t), i * 350));
       toast(msg);
     };
@@ -7301,6 +7329,7 @@
       await writeFileTo(dir, "glossary.js", glossJs);
       if (hasTl) await writeFileTo(dir, "timeline.js", serializeTimeline());   // commit historical eras to timeline.js (then the overlay copy is dropped below)
       if (ADMIN_EDITS.mission) await writeFileTo(dir, "mission.js", serializeMission());   // bake the Mission intro (overlay dropped below)
+      if (Object.keys(ADMIN_EDITS.glossaryI18n || {}).length) await writeFileTo(dir, "glossary-i18n.js", serializeGlossaryI18n());   // bake edited glossary translations
       // deck date labels + coming-soon pins live only in the delta overlay (not encoded in the files) — keep them so a
       // save never loses them; everything else is now baked into data.js / glossary.js, so drop it.
       try {
@@ -7324,6 +7353,7 @@
       const out = { "data.js": serializeCardData(), "glossary.js": serializeGlossary() };
       if (Array.isArray(ADMIN_EDITS.timeline)) out["timeline.js"] = serializeTimeline();
       if (ADMIN_EDITS.mission) out["mission.js"] = serializeMission();
+      if (Object.keys(ADMIN_EDITS.glossaryI18n || {}).length) out["glossary-i18n.js"] = serializeGlossaryI18n();
       return out;
     },
     // the overlay to keep after files are written: only the overlay-only metadata (deck dates,
@@ -7706,24 +7736,35 @@
       const k = adminState.glossKey;
       if (!k || !window.GLOSSARY || !(k in window.GLOSSARY)) { host.innerHTML = '<div class="admin-editor-empty">Select a glossary term from the list to edit it.</div>'; return; }
       const closeSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>';
+      // the editing language IS the site language (top-right switcher): EN edits the base description,
+      // any other language edits that language's translation (glossary-i18n.js); title/dates/aliases/tags are shared
+      const gLang = CARD_I18N_LANGS.includes(uiLang()) ? uiLang() : "en";
+      const gEn = gLang === "en";
+      const gDir = gLang === "ar" ? ' dir="rtl"' : "";
+      const gMissing = !gEn && !((window.GLOSSARY_I18N[k] || {})[gLang]);
+      const gNote = gEn ? "" : '<div class="admin-field-note admin-langnote">Editing the <b>' + gLang.toUpperCase() + '</b> translation of this term’s description' + (gMissing ? " — <b>no translation yet</b>, typing creates one" : "") + '. The editing language follows the site language (top-right switcher); switch back to <b>EN</b> for the base description, title, dates, aliases and tags.</div>';
       host.innerHTML =
         '<div class="admin-ed-head"><div class="admin-ed-headinfo"><h2 class="admin-ed-title" id="adminGlossHead">' + esc(glossTitle(k)) + '</h2><div class="admin-ed-key">' + esc(k) + '</div></div>' +
         '<div class="admin-ed-actions"><span class="admin-saved" id="adminSaved"></span><button class="admin-revert" id="adminRevert" type="button"' + (glossIsEdited(k) ? "" : " hidden") + '>Revert</button><button class="admin-delete" id="adminGlossDelete" type="button">Delete term</button></div></div>' +
         '<div class="gloss-edit-cols">' +
-          '<div class="gloss-edit-fields">' + rtRibbonHtml() +
-            '<label class="admin-field"><span class="af-label">title</span><input class="af-input" id="adminGlossTitle" type="text" spellcheck="true" /></label>' +
-            '<div class="admin-field-note">The popup heading. Leave blank to use the term key (<b>' + esc(glossKeyTitle(k)) + '</b>); the key itself never changes.</div>' +
-            '<label class="admin-field"><span class="af-label">dates</span><input class="af-input" id="adminGlossDates" type="text" spellcheck="false" placeholder="e.g. c. 145–86 BCE" /></label>' +
-            '<div class="admin-field-note">Optional. Shown under the title; leave blank for no date line.</div>' +
-            '<div class="admin-field"><span class="af-label">description</span>' +
-              '<div class="af-input af-rich af-rich-glossdesc" contenteditable="true" id="adminGlossField" data-field="glossdesc" data-rich="1" spellcheck="true"></div>' +
+          '<div class="gloss-edit-fields">' + rtRibbonHtml() + gNote +
+            (gEn
+              ? '<label class="admin-field"><span class="af-label">title</span><input class="af-input" id="adminGlossTitle" type="text" spellcheck="true" /></label>' +
+                '<div class="admin-field-note">The popup heading. Leave blank to use the term key (<b>' + esc(glossKeyTitle(k)) + '</b>); the key itself never changes.</div>' +
+                '<label class="admin-field"><span class="af-label">dates</span><input class="af-input" id="adminGlossDates" type="text" spellcheck="false" placeholder="e.g. c. 145–86 BCE" /></label>' +
+                '<div class="admin-field-note">Optional. Shown under the title; leave blank for no date line.</div>'
+              : "") +
+            '<div class="admin-field"><span class="af-label">description' + (gEn ? "" : " (" + gLang + ")") + '</span>' +
+              '<div class="af-input af-rich af-rich-glossdesc" contenteditable="true" id="adminGlossField" data-field="glossdesc" data-rich="1" spellcheck="true"' + gDir + '></div>' +
               '<button type="button" class="af-src-toggle" data-src-toggle="glossdesc"><span class="afs-chev">&#9656;</span> HTML source</button>' +
               '<textarea class="af-src" data-src-for="glossdesc" spellcheck="false" hidden></textarea></div>' +
-            '<div class="admin-field-note">Appears in the popup. Other terms become clickable automatically — click a blue word to change or remove its link, or select text and use “Link term”.</div>' +
-            '<label class="admin-field"><span class="af-label">aliases</span><input class="af-input" id="adminGlossAliases" type="text" spellcheck="false" placeholder="e.g. culture heroes, divine ancestors" /></label>' +
-            '<div class="admin-field-note">Comma-separated alternative spellings in card backgrounds that open this same popup. Plural forms (e.g. dragons for dragon) are linked automatically.</div>' +
-            '<label class="admin-field"><span class="af-label">tags</span><input class="af-input" id="adminGlossTags" type="text" spellcheck="false" placeholder="e.g. person, ruler, han dynasty" /></label>' +
-            '<div class="admin-field-note">Comma-separated category tags, shown in the term list — the bar on the left filters by them. Aim for at least three per term.</div>' +
+            (gEn
+              ? '<div class="admin-field-note">Appears in the popup. Other terms become clickable automatically — click a blue word to change or remove its link, or select text and use “Link term”.</div>' +
+                '<label class="admin-field"><span class="af-label">aliases</span><input class="af-input" id="adminGlossAliases" type="text" spellcheck="false" placeholder="e.g. culture heroes, divine ancestors" /></label>' +
+                '<div class="admin-field-note">Comma-separated alternative spellings in card backgrounds that open this same popup. Plural forms (e.g. dragons for dragon) are linked automatically.</div>' +
+                '<label class="admin-field"><span class="af-label">tags</span><input class="af-input" id="adminGlossTags" type="text" spellcheck="false" placeholder="e.g. person, ruler, han dynasty" /></label>' +
+                '<div class="admin-field-note">Comma-separated category tags, shown in the term list — the bar on the left filters by them. Aim for at least three per term.</div>'
+              : "") +
           '</div>' +
           '<div class="ed-resizer" id="glossPvResizer" title="Drag to resize the preview"></div>' +
           '<div class="gloss-edit-preview"><div class="gloss-preview-label">Popup preview</div>' +
@@ -7734,15 +7775,16 @@
       const titleI = host.querySelector("#adminGlossTitle"), datesI = host.querySelector("#adminGlossDates"), ta = host.querySelector("#adminGlossField"), aliasesI = host.querySelector("#adminGlossAliases"), tagsI = host.querySelector("#adminGlossTags");
       const headEl = host.querySelector("#adminGlossHead"), rev = host.querySelector("#adminRevert"), pv = host.querySelector("#adminGlossPreview");
       const pvTitle = pv.querySelector(".gloss-title"), pvDates = pv.querySelector(".gloss-dates"), pvDesc = pv.querySelector(".gloss-desc");
-      titleI.value = (window.GLOSSARY_TITLES && window.GLOSSARY_TITLES[k]) || "";
-      datesI.value = (window.GLOSSARY_DATES && window.GLOSSARY_DATES[k]) || "";
-      ta.innerHTML = window.GLOSSARY[k] || ""; richAutoLink(ta);   // show the auto gloss links in the description (clickable/editable; stripped on save)
-      aliasesI.value = ((window.GLOSSARY_ALIASES && window.GLOSSARY_ALIASES[k]) || []).join(", ");
-      tagsI.value = glossTags(k).join(", ");
+      if (titleI) titleI.value = (window.GLOSSARY_TITLES && window.GLOSSARY_TITLES[k]) || "";
+      if (datesI) datesI.value = (window.GLOSSARY_DATES && window.GLOSSARY_DATES[k]) || "";
+      if (gEn) { ta.innerHTML = window.GLOSSARY[k] || ""; richAutoLink(ta); }   // show the auto gloss links in the description (clickable/editable; stripped on save)
+      else ta.innerHTML = (window.GLOSSARY_I18N[k] || {})[gLang] || "";          // translations carry no gloss links — plain text
+      if (aliasesI) aliasesI.value = ((window.GLOSSARY_ALIASES && window.GLOSSARY_ALIASES[k]) || []).join(", ");
+      if (tagsI) tagsI.value = glossTags(k).join(", ");
       function renderPreview() {
-        const dates = datesI.value.trim();
+        const dates = (datesI ? datesI.value : ((window.GLOSSARY_DATES || {})[k] || "")).trim();
         let desc = fieldVal(ta); if (dates) desc = stripDupDates(desc, dates);
-        pvTitle.textContent = titleI.value.trim() || glossKeyTitle(k);
+        pvTitle.textContent = (titleI ? titleI.value.trim() : ((window.GLOSSARY_TITLES || {})[k] || "")) || glossKeyTitle(k);
         pvDates.textContent = dates; pvDates.style.display = dates ? "" : "none";
         renderGlossDesc(pvDesc, k, desc);
         setupTooltips(pvDesc);   // wire the linked terms so clicking one opens its own glossary popup
@@ -7755,11 +7797,11 @@
         headEl.textContent = glossTitle(k);
         renderPreview();
       }
-      titleI.addEventListener("input", () => { setGlossTitleEdit(k, titleI.value); afterEdit(); });
-      datesI.addEventListener("input", () => { setGlossDateEdit(k, datesI.value); afterEdit(); });
-      ta.addEventListener("input", () => { setGlossEdit(k, fieldVal(ta)); afterEdit(); });
-      aliasesI.addEventListener("input", () => { setGlossAliasEdit(k, aliasesI.value); afterEdit(); });
-      tagsI.addEventListener("input", () => { setGlossTagsEdit(k, tagsI.value); afterEdit(); adminRenderTree(); });   // tree = the tag filter; keep its counts current
+      if (titleI) titleI.addEventListener("input", () => { setGlossTitleEdit(k, titleI.value); afterEdit(); });
+      if (datesI) datesI.addEventListener("input", () => { setGlossDateEdit(k, datesI.value); afterEdit(); });
+      ta.addEventListener("input", () => { if (gEn) setGlossEdit(k, fieldVal(ta)); else setGlossI18nEdit(k, gLang, fieldVal(ta)); afterEdit(); });
+      if (aliasesI) aliasesI.addEventListener("input", () => { setGlossAliasEdit(k, aliasesI.value); afterEdit(); });
+      if (tagsI) tagsI.addEventListener("input", () => { setGlossTagsEdit(k, tagsI.value); afterEdit(); adminRenderTree(); });   // tree = the tag filter; keep its counts current
       renderPreview();
       wireRichEditor(host);
       if (rev) rev.addEventListener("click", () => { revertGloss(k); adminUpdateCount(); adminRenderEditor(); adminRenderList(); });
@@ -7792,16 +7834,13 @@
     });
     deckHtml += '</div></div>';
 
-    // language tabs: EN edits the base fields; the 8 site languages edit the card's i18n block
-    const cardLang = CARD_I18N_LANGS.includes(adminState.cardLang) ? adminState.cardLang : "en";
+    // the editing language IS the site language (the top-right switcher): EN edits the base fields,
+    // any other site language edits the card's i18n block for that language
+    const cardLang = CARD_I18N_LANGS.includes(uiLang()) ? uiLang() : "en";
     const isEnLang = cardLang === "en";
     const dirAttr = cardLang === "ar" ? ' dir="rtl"' : "";
-    const langBtn = (l) => {
-      const missing = l !== "en" && !(c.i18n && c.i18n[l] && Object.keys(c.i18n[l]).length);
-      return '<button type="button" class="al-btn' + (l === cardLang ? " active" : "") + (missing ? " missing" : "") + '" data-cardlang="' + l + '" title="' + (l === "en" ? "English (base card)" : (missing ? "No translation yet — editing creates one" : "Edit the " + l.toUpperCase() + " translation")) + '">' + l.toUpperCase() + "</button>";
-    };
-    const langBarHtml = '<div class="admin-langbar" id="adminLangBar"><span class="al-lab">Edit in</span>' + ["en"].concat(CARD_I18N_LANGS).map(langBtn).join("") + "</div>";
-    const trNote = isEnLang ? "" : '<div class="admin-field-note">Editing the <b>' + cardLang.toUpperCase() + '</b> translation of this card. Shared fields — hanzi, pinyin, traditional, translations, citation, decks and chronology — are edited in the <b>EN</b> view.</div>';
+    const trMissing = !isEnLang && !(c.i18n && c.i18n[cardLang] && Object.keys(c.i18n[cardLang]).length);
+    const trNote = isEnLang ? "" : '<div class="admin-field-note admin-langnote">Editing the <b>' + cardLang.toUpperCase() + '</b> translation of this card' + (trMissing ? " — <b>no translation yet</b>, typing creates one" : "") + '. The editing language follows the site language (top-right switcher); switch back to <b>EN</b> for the base card and the shared fields — hanzi, pinyin, traditional, translations, citation, image, decks and chronology.</div>';
     const editorFields = isEnLang ? EDITOR_FIELDS : EDITOR_FIELDS.filter((f) => CARD_I18N_FIELDS[f.key]);
     const fieldsHtml = editorFields.map((f) => {
       if (EDITOR_LONG[f.key]) {   // rich fields → WYSIWYG contenteditable that renders like the card
@@ -7830,7 +7869,7 @@
       '<div class="admin-ed-head"><div class="admin-ed-headinfo"><h2 class="admin-ed-title">' + esc(c.answer || "(untitled)") + '</h2><div class="admin-ed-key">' + esc(id) + (whereTxt ? ' &middot; ' + esc(whereTxt) : "") + '</div></div>' +
       '<div class="admin-ed-actions"><span class="admin-saved" id="adminSaved"></span><button class="admin-preview" id="adminPreview" type="button">Preview</button><button class="admin-revert" id="adminRevert" type="button"' + (cardIsEdited(id) ? "" : " hidden") + '>Revert card</button><button class="admin-delete" id="adminDelete" type="button">Delete card</button></div></div>' +
       '<div class="card-edit-cols">' +
-        '<div class="card-edit-fields">' + rtRibbonHtml() + langBarHtml + (isEnLang ? deckHtml : trNote) +
+        '<div class="card-edit-fields">' + rtRibbonHtml() + (isEnLang ? deckHtml : trNote) +
           '<div class="admin-fields">' + (isEnLang ? '<label class="admin-field"><span class="af-label">id</span><input class="af-input af-readonly" type="text" value="' + esc(id) + '" readonly /></label>' + chronoHtml : "") + fieldsHtml + imgFieldsHtml + '</div>' +
         '</div>' +
         '<div class="ed-resizer" id="cardPvResizer" title="Drag to resize the preview"></div>' +
@@ -7844,12 +7883,6 @@
       const v = isEnLang ? (c[f.key] == null ? "" : String(c[f.key])) : ((c.i18n && c.i18n[cardLang] && c.i18n[cardLang][f.key]) || "");
       if (el.dataset.rich) { el.innerHTML = v; if (isEnLang && f.key === "abstract") autoLinkGlossary(el, c.answer, glossOffList(c.id)); } else el.value = v;
     });   // show the auto gloss links in the background so they can be clicked/edited (stripped on save)
-    // language tabs re-render the editor in the chosen language
-    host.querySelectorAll("[data-cardlang]").forEach((b) => b.addEventListener("click", () => {
-      if (b.dataset.cardlang === cardLang) return;
-      adminState.cardLang = b.dataset.cardlang;
-      adminRenderEditor();
-    }));
     // image fields (EN view): load current values and save each keystroke as an image delta
     host.querySelectorAll("[data-imgfield]").forEach((el) => {
       el.value = (c.image && c.image[el.dataset.imgfield]) || "";

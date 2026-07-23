@@ -45,7 +45,9 @@ ranges.js → admin1.js → cities.js → timeline.js → countries.js → count
   `glossary.js`). **Currently an empty stub.**
 - `glossary-i18n.js` — `window.GLOSSARY_I18N[slug][lang]`, glossary descriptions translated into the 8 site
   languages (es/fr/de/it/nl/ru/ar/zh); written by `.claude/add-glossary.js` from the entry JSON's
-  `translations` field, read by `glossText()` when the site language isn't English.
+  `translations` field, read by `glossText()` when the site language isn't English. **Admin-editable**: with the
+  site language switched to a non-EN language, the glossary editor edits that language's translation
+  (`glossaryI18n` overlay deltas; baked back into this file by `serializeGlossaryI18n`).
 - `i18n.js` — the site-chrome translation tables (`window.I18N` exact strings / `I18N_RULES` regex patterns /
   `I18N_HTML` whole prose blocks per language, keyed by English source text) consumed by app.js's
   localisation engine. Loaded right before `app.js`. See the "Language switcher + i18n" bullet below.
@@ -148,14 +150,19 @@ ranges.js → admin1.js → cities.js → timeline.js → countries.js → count
   settings, challenge, chrono, admin). `render()` clears `#view` and calls the current page fn.
 - **State:** `localStorage["folio_v1"]` holds settings and spaced-repetition scheduling.
 - **Admin edits:** `localStorage["folio_admin_v1"]` stores edits as *deltas*, applied at startup
-  by mutating the in-memory globals (`CARD_BY_ID`, `window.GLOSSARY`, the collection tree). **The card editor
-  edits every language**: a language tab bar (EN + the 8 site languages, `adminState.cardLang`) switches the form —
-  EN edits the base fields via `setCardEdit`; a non-EN tab shows ONLY the 5 translated fields (question, answer,
-  answerDate, abstract, answerText; Arabic gets `dir="rtl"`) editing `card.i18n[lang]` via `setCardI18nEdit`, which
-  REPLACES the card's `i18n` with a deep copy (never mutate in place — `PRISTINE_CARDS` shares the object) and stores
-  the whole copy as an `i18n` delta (`applyAdminEdits` re-applies it via `Object.assign`; `serializeCardData` bakes
-  `c.i18n` as-is; `revertCard` restores `p.i18n`). Untranslated languages show dashed tabs; typing creates the block.
-  The editor preview renders in the selected language (`cardLocalized(c, lang)`). Gloss auto-linking stays EN-only. The
+  by mutating the in-memory globals (`CARD_BY_ID`, `window.GLOSSARY`, the collection tree). **The editing language
+  IS the site language** (the top-right switcher; there is NO in-editor language picker — it was replaced on request):
+  with the site in EN the card editor edits the base fields via `setCardEdit`; any other site language shows ONLY the
+  5 translated fields (question, answer, answerDate, abstract, answerText; Arabic gets `dir="rtl"`) editing
+  `card.i18n[lang]` via `setCardI18nEdit`, which REPLACES the card's `i18n` with a deep copy (never mutate in place —
+  `PRISTINE_CARDS` shares the object) and stores the whole copy as an `i18n` delta (`applyAdminEdits` re-applies it
+  via `Object.assign`; `serializeCardData` bakes `c.i18n` as-is; `revertCard` restores `p.i18n`). **The glossary
+  editor follows the same rule**: non-EN site language edits that language's description translation
+  (`setGlossI18nEdit` → whole per-slug lang-map stored as a `glossaryI18n` delta, applied onto `window.GLOSSARY_I18N`,
+  baked to `glossary-i18n.js` by `serializeGlossaryI18n` via auto-save / Save to project / `folioSave.files`;
+  `PRISTINE_GLOSS_I18N` + `revertGloss` cover undo/revert); title/dates/aliases/tags stay EN-view-only. The editor
+  previews render in the editing language. Gloss auto-linking stays EN-only. The language switcher's own handler
+  already calls `render()`, so the editor re-renders in the new language on switch. The
   shipped data files are never rewritten by the app; edits live in this override layer and can be
   exported as JSON. **"Save to project"** (`adminExport`) writes `data.js`/`glossary.js`/`timeline.js` via the File System Access
   API (Chrome over `http://localhost`) then prunes the overlay + reloads. **"Auto-save: on"** (`adminAutosave` toggle, pref
