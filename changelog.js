@@ -9,6 +9,7 @@ window.CHANGELOG = [
     t: "Fuller cards, for older readers",
     items: [
       "Every card's background is now longer and richer — about 300 words — and written for an older student rather than a young teenager: more of the detail and nuance is back, the vocabulary is a step up, and the careful 'scholars still disagree' notes remain. The same fuller version was rewritten fresh in all eight languages, to read naturally in each.",
+      "The little spinning globe on the home page no longer shows false seas and gaps between neighbouring countries.",
     ],
   },
   {

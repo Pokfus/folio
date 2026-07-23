@@ -2692,11 +2692,14 @@
   function startMiniGlobe(canvas) {
     const GEO = window.WORLD_GEO || [];
     if (!canvas || !GEO.length) return;
+    // decimate gently (every 2nd vertex). Each ring is decimated independently, so shared borders
+    // diverge slightly — the draw pass welds the seams by stroking every ring in the LAND colour
+    // before the thin border pass, otherwise ocean shows through as gaps between countries.
     const rings = [];
     GEO.forEach((c) => (c.p || []).forEach((r) => {
       if (r.length < 8) return;
       const s = [];
-      for (let i = 0; i < r.length; i += 4) s.push(r[i]);
+      for (let i = 0; i < r.length; i += 2) s.push(r[i]);
       s.push(r[r.length - 1]);
       rings.push(s);
     }));
@@ -2719,19 +2722,28 @@
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.beginPath(); ctx.arc(cx, cy, R, 0, 2 * Math.PI); ctx.fillStyle = ocean; ctx.fill();
       ctx.save(); ctx.beginPath(); ctx.arc(cx, cy, R, 0, 2 * Math.PI); ctx.clip();
-      ctx.fillStyle = land; ctx.strokeStyle = border; ctx.lineWidth = dpr * 0.5;
+      // pass 1 — land: fill each ring AND stroke it in the land colour, welding the hairline gaps
+      // that independent per-ring decimation opens along shared borders
+      const paths = [];
       for (const ring of rings) {
         let started = false;
-        ctx.beginPath();
+        const p = new Path2D();
         for (let i = 0; i < ring.length; i++) {
           const lam = (ring[i][0] - lon0) * rad, phi = ring[i][1] * rad;
           const cp = Math.cos(phi), sp = Math.sin(phi), cl = Math.cos(lam);
           if (sp0 * sp + cp0 * cp * cl <= 0) continue;   // behind the globe (a horizon-crossing ring closes with a chord — fine at this size)
           const x = cx + R * cp * Math.sin(lam), y = cy - R * (cp0 * sp - sp0 * cp * cl);
-          if (started) ctx.lineTo(x, y); else { ctx.moveTo(x, y); started = true; }
+          if (started) p.lineTo(x, y); else { p.moveTo(x, y); started = true; }
         }
-        if (started) { ctx.closePath(); ctx.fill(); ctx.stroke(); }
+        if (!started) continue;
+        p.closePath();
+        paths.push(p);
       }
+      ctx.fillStyle = land; ctx.strokeStyle = land; ctx.lineWidth = dpr * 1.7; ctx.lineJoin = "round";
+      for (const p of paths) { ctx.fill(p); ctx.stroke(p); }
+      // pass 2 — thin borders on top of the welded landmass
+      ctx.strokeStyle = border; ctx.lineWidth = dpr * 0.5;
+      for (const p of paths) ctx.stroke(p);
       ctx.restore();
       ctx.beginPath(); ctx.arc(cx, cy, R - dpr / 2, 0, 2 * Math.PI); ctx.strokeStyle = rim; ctx.lineWidth = dpr; ctx.stroke();
     }
