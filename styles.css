@@ -1067,8 +1067,13 @@ body.night .lu-badge{color:#E6C765;}
 .globe-zoom{position:absolute; right:clamp(16px,4vw,40px); bottom:14px; z-index:5; display:flex; flex-direction:column; gap:6px;}   /* bottom-right — the legend owns the top-right (they collided at top:50% on short viewports) */
 .gz-help{font-size:15px; font-weight:600;}
 .globe-stage canvas:focus-visible{outline:2px solid var(--indigo); outline-offset:-3px;}
-/* "Find it on the map" game mode: the globe is the board — everything that would reveal answers hides, the timebar locks */
-.atlas-game .globe-search, .atlas-game .globe-legend, .atlas-game .globe-hovername, .atlas-game .globe-hint, .atlas-game .country-pop{display:none !important;}
+/* limb shading + atmosphere halo as DOM layers (glow under the canvas, shade over it) — always visible, even while
+   moving/zooming, and immune to the canvas-compositor ghosting that forced the old canvas gradients to settle-only */
+.globe-limb-glow, .globe-limb-shade{position:absolute; border-radius:50%; pointer-events:none;}
+.globe-limb-shade{z-index:1;}
+/* "Find it on the map" game mode: the globe is the board — everything that would reveal answers hides, the timebar locks.
+   The country info panel STAYS available: it opens on every guess (right or wrong) so the game still teaches. */
+.atlas-game .globe-search, .atlas-game .globe-legend, .atlas-game .globe-hovername, .atlas-game .globe-hint{display:none !important;}
 .atlas-game .atlas-timebar{pointer-events:none; opacity:.8;}
 .map-game{position:absolute; top:14px; left:50%; transform:translateX(-50%); z-index:8; width:min(430px, calc(100% - 28px));}
 .map-game[hidden]{display:none;}

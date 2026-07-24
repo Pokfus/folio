@@ -413,11 +413,14 @@ cities.js → timeline.js → countries.js → country-stats.js → country-year
   map-less 1000 BCE – 1500 CE span compresses into the left `TL_KNEE_F = 15%` and 1500 → present stretches over the rest.
   The `.tl-mark` map-year ticks are **focusable buttons** (click = jump, title/aria-label = "1500 CE — <era label>").
   A **plate-title cartouche** (`#mapCartouche`, top-centre, hidden ≤640px, updated by `paintYear`) shows "THE WORLD ·
-  1938" / "THE WORLD TODAY". The disk gets **limb shading + an atmosphere halo** (`drawLimb()` replaces the three rim
-  strokes; halo gradient at the top of `renderStatic` — colours `limbA/limbB/haloIn/haloOut` from `readColors`, so
-  theme-aware, zero per-frame cost via the base cache). **Both gradients draw ONLY on settled renders (`!moving`)** —
-  a limb-sized gradient that shifts every frame during a wheel/drag/fly is exactly the frame-to-frame difference some
-  hosts onion-skin into a page-wide gold bloom (the "everything turns gold" bug); moving frames keep the plain rim. **Hovering names the entity under the cursor** via a **DOM chip**
+  1938" / "THE WORLD TODAY". The disk gets **limb shading + an atmosphere halo** as **two DOM layers, NOT canvas
+  gradients**: `#globeHalo` (below the canvas) + `#globeShade` (above it, `z-index:1`), radial-gradient divs sized to
+  the disk by `updateLimbDom()` each draw (style-update only, keyed so it no-ops unless the disk moved) and tinted by
+  `paintLimbDom()` (colours `limbA/limbB/haloIn/haloOut` from `readColors`; re-applied by the theme observer). They
+  were canvas gradients once, gated to settled frames — a limb-sized gradient shifting per frame is exactly what some
+  hosts onion-skin into a page-wide gold bloom (the "everything turns gold" bug) — but that made them vanish during
+  every drag/zoom; as GPU-composited DOM they are **always visible** and give the compositor artifact no fuel.
+  `drawLimb()` now draws only the rim stroke. **Hovering names the entity under the cursor** via a **DOM chip**
   (`#globeHoverName` / `updateHoverName()` — deliberately NOT canvas: following the cursor is a style update, so the
   canvas only redraws when the hovered ENTITY changes, never per-move; on a geo era it shows "empire · territory" via
   `.mother`/`empireName`; hidden while dragging / map-editing / whiteboard-drawing and on touch (`@media (hover:none)`);
@@ -458,10 +461,14 @@ cities.js → timeline.js → countries.js → country-stats.js → country-year
   `buildGameRounds()` (2 present-day countries, 2 historical territories, 1 capital; **one seeded RNG stream PER pool**
   so intraday data changes can't reshuffle the day; a `used`-names Set dedupes targets across rounds; quality gates =
   bbox area + `countryDesc` exists + an ETHNO name regex). Taps route to `gameTap` (countryAt name match, or
-  haversine ≤300 km for capitals) — one retry with a km-distance hint, then `gameReveal` (gold pulse of ALL same-named
-  polygons; capitals get a **geo-anchored `pulsePin` ring** since the fly alone is cancellable). Scoring: first-try
+  haversine ≤300 km for capitals) — a wrong pick **flashes RED and opens ITS info panel** (`GAME_RED` via the shared
+  `pulseCol`; a miss still teaches), one retry with a km-distance hint, then `gameReveal`: **GREEN pulse when found,
+  gold when missed**, over ALL same-named polygons (capitals get a **geo-anchored `pulsePin` ring** since the fly alone
+  is cancellable), and the **answer's info panel opens** (capitals → the owning state via `ownerIdxAt`). The country
+  popup is therefore NOT in the `.atlas-game` hide list — it is the game's learning surface; `gameShowRound` closes it
+  per round. `pulseCol` resets to gold wherever pulses fire outside the game (`pulseChanges` does). Scoring: first-try
   finds; `won` needs `n >= 5` AND all first-try; `gameEnd` → `markGamePlayed("findit", …)` + `save()` +
-  `checkAchievements()`. **Anti-cheat gating**: `.atlas-game` CSS hides search/legend/hover-chip/hint/popup, game mode
+  `checkAchievements()`. **Anti-cheat gating**: `.atlas-game` CSS hides search/legend/hover-chip/hint, game mode
   **forces `citiesOn`/`majorCitiesOn`/`countryNamesOn` false** (a capital label on the board IS the answer), the timebar
   is **`inert`** (not just pointer-events:none — buttons stay keyboard-focusable otherwise) + `stepYear`/`playTick`
   carry GAME guards, and the whiteboard never mounts. **Same-day replays are PRACTICE** (`gamePractice` — playable,

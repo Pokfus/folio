@@ -4383,7 +4383,9 @@
     root.innerHTML = `
       <div class="atlas${GAME ? " atlas-game" : ""}">
         <div class="globe-stage" id="globeStage">
+          <div class="globe-limb-glow" id="globeHalo" aria-hidden="true"></div>
           <canvas id="globe" tabindex="0" aria-label="Interactive globe — arrow keys rotate, plus and minus zoom, Enter selects the centre, [ and ] step the map years"></canvas>
+          <div class="globe-limb-shade" id="globeShade" aria-hidden="true"></div>
           <div class="atlas-wip" id="atlasWip" role="status" aria-live="polite">
             <strong>No map for this year yet</strong>
             <span>The Atlas is a work in progress — so far only the present-day map (${MAXY} CE) has been drawn. Slide the timeline back to the present year to return to a map.</span>
@@ -5661,6 +5663,7 @@
     // change pulse: territory indices (of the CURRENT map) that changed hands vs the era just stepped away from
     let pulseSet = null, pulseT0 = 0, _lastPulseAt = 0;
     let pulsePin = null;   // [lon, lat] — an expanding-ring marker (the game's capital reveal; survives a cancelled fly)
+    let pulseCol = "rgba(255,178,46,1)";   // the flash colour: gold (change pulse / reveal), game green (right), game red (wrong)
     // which map applies at a given timeline year: present-day at the present year, else the most recent historical era
     // whose year <= y; null when no era covers that year (the globe then shows the work-in-progress note).
     function activeEra(y) {
@@ -5679,27 +5682,37 @@
       _stippleP = ctx.createPattern(t, "repeat");
       return _stippleP;
     }
-    // limb shading + rim: a radial whisper of darkening toward the disk edge (so the flat disk reads as a sphere), then the rim
-    // stroke. The gradient draws ONLY on settled renders (`!moving`): during a wheel/drag/fly the disk radius changes every
-    // frame, and a large soft gradient that shifts per frame is exactly the kind of frame-to-frame limb difference some hosts
-    // onion-skin into a huge gold bloom over the whole page (the documented "amber ghost glow" compositor artifact — the
-    // settled base cache replays identical pixels, which is safe). Moving frames keep the plain rim, as before this feature.
+    // limb shading + atmosphere halo now live in two DOM layers (#globeShade above the canvas, #globeHalo below it) instead
+    // of canvas gradients: drawn on canvas they had to be gated to settled frames (a limb-sized gradient shifting per frame
+    // during wheel/fly is exactly what some hosts onion-skin into a page-wide gold bloom), which made them pop in and out
+    // during motion. As standalone GPU-composited elements they are ALWAYS visible — following the disk is a style update on
+    // pointer-events-none divs, no canvas pixels involved, so the compositor artifact has no fuel. drawLimb keeps the rim.
     function drawLimb() {
-      if (!moving) {
-        const g = ctx.createRadialGradient(cx, cy, R * 0.62, cx, cy, R);
-        g.addColorStop(0, "rgba(0,0,0,0)"); g.addColorStop(0.8, limbA); g.addColorStop(1, limbB);
-        ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.fillStyle = g; ctx.fill();
-      }
       ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.lineWidth = 1.2; ctx.strokeStyle = rim; ctx.stroke();
     }
+    const haloEl = root.querySelector("#globeHalo"), shadeEl = root.querySelector("#globeShade");
+    function paintLimbDom() {   // theme-aware gradients (re-applied when readColors runs)
+      if (!haloEl) return;
+      // div radius = R·1.075 → the disk edge sits at 93% of it; the glow rises there and fades to the rim of the div
+      haloEl.style.background = "radial-gradient(circle closest-side, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 90.5%, " + haloIn + " 93%, " + haloOut + " 100%)";
+      // matches the old canvas gradient (transparent to 0.62R, limbA at ~0.92R, limbB at the edge)
+      shadeEl.style.background = "radial-gradient(circle closest-side, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 62%, " + limbA + " 92%, " + limbB + " 100%)";
+    }
+    let _limbKey = "";
+    function updateLimbDom() {   // size/position both layers to the disk — only touches style when the disk actually moved
+      if (!haloEl) return;
+      const key = cx + "," + cy + "," + R;
+      if (key === _limbKey) return; _limbKey = key;
+      const rh = R * 1.075;
+      haloEl.style.left = (cx - rh) + "px"; haloEl.style.top = (cy - rh) + "px";
+      haloEl.style.width = haloEl.style.height = rh * 2 + "px";
+      shadeEl.style.left = (cx - R) + "px"; shadeEl.style.top = (cy - R) + "px";
+      shadeEl.style.width = shadeEl.style.height = R * 2 + "px";
+    }
+    paintLimbDom();
     function renderStatic(bw) {
       ctx.clearRect(0, 0, W, H);
       countryLabelRects.length = 0;   // repopulated by drawCountryNames() below if the layer is on; empty otherwise so cities don't avoid stale boxes
-      if (!moving) { // atmosphere halo: a soft glow ring just outside the disk (settled renders only — see drawLimb)
-        const hg = ctx.createRadialGradient(cx, cy, R * 0.99, cx, cy, R * 1.075);
-        hg.addColorStop(0, haloIn); hg.addColorStop(1, haloOut);
-        ctx.beginPath(); ctx.arc(cx, cy, R * 1.075, 0, TAU); ctx.fillStyle = hg; ctx.fill();
-      }
       ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.fillStyle = ocean; ctx.fill();   // ocean
       drawGraticule();
       ctx.save(); ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.clip();
@@ -5825,6 +5838,7 @@
       ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, canvas.width, canvas.height);   // ALWAYS start from a fully clean canvas (device px). If any prior frame under-cleared (e.g. a transient bad W/H mid-gesture), its rim would otherwise persist as a stray ghost ring outside the disk.
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       cx = W / 2; cy = H / 2; R = baseR * zoom; setBasis();
+      updateLimbDom();   // keep the DOM halo/shade glued to the disk (no-op unless the disk moved/zoomed)
       atlasView.rotLon = rotLon; atlasView.rotLat = rotLat; atlasView.zoom = zoom;   // persist so a re-render restores the view
       updateLegendVisibility();   // reveal legend rows progressively with zoom (cheap: only touches the DOM when the set changes)
       const bw = Math.max(0.5, 0.65 * Math.min(2.2, zoom));
@@ -5868,7 +5882,7 @@
           const a = Math.max(0, (1 - t) * (0.26 + 0.14 * Math.sin(t * Math.PI * 4)));
           const terr = histTerr() || GEO;
           ctx.save(); ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.clip();
-          ctx.globalAlpha = a; ctx.fillStyle = "rgba(255,178,46,1)";
+          ctx.globalAlpha = a; ctx.fillStyle = pulseCol;
           for (let k = 0; k < pulseSet.length; k++) { const i = pulseSet[k]; if (i >= terr.length) continue; const rings = terr[i].p || []; ctx.beginPath(); for (let r = 0; r < rings.length; r++) addClipped(rings[r], true); ctx.fill("evenodd"); }
           ctx.restore(); scheduleDraw();
         }
@@ -5881,8 +5895,8 @@
           proj(pulsePin[0], pulsePin[1]);
           if (PV >= 0) {
             ctx.save(); ctx.globalAlpha = Math.max(0, 1 - t);
-            ctx.beginPath(); ctx.arc(PX, PY, 4, 0, TAU); ctx.fillStyle = "rgba(255,178,46,1)"; ctx.fill();
-            ctx.lineWidth = 3; ctx.strokeStyle = "rgba(255,178,46,1)";
+            ctx.beginPath(); ctx.arc(PX, PY, 4, 0, TAU); ctx.fillStyle = pulseCol; ctx.fill();
+            ctx.lineWidth = 3; ctx.strokeStyle = pulseCol;
             ctx.beginPath(); ctx.arc(PX, PY, 8 + t * 30, 0, TAU); ctx.stroke();
             ctx.restore();
           }
@@ -6306,7 +6320,7 @@
     // re-read theme colours and repaint when the user toggles light/night (or switches theme)
     const themeObs = new MutationObserver(() => {
       if (!canvas.isConnected) { cleanupGlobe(); return; }
-      readColors(); cityW = null; cityCacheKey = ""; baseValid = false; draw();   // font may change → rebuild label-width cache + layout
+      readColors(); paintLimbDom(); cityW = null; cityCacheKey = ""; baseValid = false; draw();   // font may change → rebuild label-width cache + layout; the DOM halo/shade re-tint too
     });
     themeObs.observe(document.body, { attributes: true, attributeFilter: ["class", "data-theme"] });
 
@@ -6500,7 +6514,7 @@
       } else {
         for (let i = 0; i < GEO.length; i++) { const c = GEO[i]; if (!c.n || !c.c) continue; const was = ownerAt(oldEra, c.c[0], c.c[1]); if (was && was !== c.n) idxs.push(i); }
       }
-      if (idxs.length) { pulseSet = idxs; pulseT0 = performance.now(); }
+      if (idxs.length) { pulseSet = idxs; pulseT0 = performance.now(); pulseCol = "rgba(255,178,46,1)"; }
     }
     function step(dir) { stepYear(dir); }   // chevrons / arrow keys move one mapped year at a time (amt arg from hold-repeat is ignored — there are only a few stops)
     const clientFrac = (clientX) => { const r = track.getBoundingClientRect(); return clamp((clientX - r.left) / r.width, 0, 1); };
@@ -6611,6 +6625,7 @@
     const mgEl = root.querySelector("#mapGame"), mgRoundEl = root.querySelector("#mgRound"), mgScoreEl = root.querySelector("#mgScore"),
       mgQEl = root.querySelector("#mgQ"), mgFeedbackEl = root.querySelector("#mgFeedback"), mgNextEl = root.querySelector("#mgNext");
     let gameRounds = [], gameRi = 0, gameTries = 0, gameFirstTry = 0, gameLock = false, gameOver = false, gamePractice = false;
+    const GAME_GREEN = "rgba(46,164,90,1)", GAME_RED = "rgba(224,68,56,1)";   // right / wrong flash colours (fixed, theme-independent like the gold highlight)
     const havKm = (lon1, lat1, lon2, lat2) => {   // great-circle distance, km
       const dLa = (lat2 - lat1) * DEG, dLo = (lon2 - lon1) * DEG;
       const a = Math.sin(dLa / 2) * Math.sin(dLa / 2) + Math.cos(lat1 * DEG) * Math.cos(lat2 * DEG) * Math.sin(dLo / 2) * Math.sin(dLo / 2);
@@ -6658,6 +6673,7 @@
     const fmtYearG = (y) => (y >= MAXY ? "today" : y < 0 ? -y + " BCE" : String(y));
     function gameShowRound() {
       const r = gameRounds[gameRi]; gameTries = 0; gameLock = false; pulsePin = null;
+      hideCountryPopup();   // the previous round's learn-panel closes with the round
       setYear(r.year);
       mgRoundEl.textContent = (gamePractice ? "Practice · " : "") + "Round " + (gameRi + 1) + " / " + gameRounds.length;
       mgScoreEl.textContent = gameFirstTry + (gameFirstTry === 1 ? " point" : " points");
@@ -6668,11 +6684,20 @@
     function gameReveal(r, ok) {
       gameLock = true;
       const tgt = gameTargetLL(r);
-      if (r.kind !== "capital") {   // flash ALL same-named polygons gold via the pulse machinery (the 1900 map has 35 "Fiji" pieces)
+      pulseCol = ok ? GAME_GREEN : "rgba(255,178,46,1)";   // green = you found it; gold = "here's the one you missed"
+      if (r.kind !== "capital") {   // flash ALL same-named polygons via the pulse machinery (the 1900 map has 35 "Fiji" pieces)
         const terr = histTerr() || GEO, k = r.n.toLowerCase(), idxs = [];
         for (let i = 0; i < terr.length; i++) if ((terr[i].n || "").toLowerCase() === k) idxs.push(i);
-        if (idxs.length) { pulseSet = idxs; pulseT0 = performance.now(); }
-      } else { pulsePin = [r.lon, r.lat]; pulseT0 = performance.now(); }   // capitals: a geo-anchored ring marker (the fly alone is cancellable — the marker isn't)
+        if (idxs.length) {
+          pulseSet = idxs; pulseT0 = performance.now();
+          if (tgt) popPointLL = [tgt[0], tgt[1]];
+          showCountryPopup(idxs[0]);   // the answer's info panel — the round ends on something learned
+        }
+      } else {   // capitals: a geo-anchored ring marker (the fly alone is cancellable — the marker isn't) + the owning state's panel
+        pulsePin = [r.lon, r.lat]; pulseT0 = performance.now();
+        const oi = ownerIdxAt(activeEra(year), r.lon, r.lat);
+        if (oi >= 0) { popPointLL = [r.lon, r.lat]; showCountryPopup(oi); }
+      }
       if (tgt) flyTo(tgt[0], tgt[1], Math.max(zoom, r.kind === "capital" ? 2.8 : 1.5), null);
       mgFeedbackEl.textContent = ok ? (gameTries === 0 ? "Found it — first try!" : "Found it!") : "It was here.";
       mgFeedbackEl.hidden = false;
@@ -6685,13 +6710,13 @@
       if (!GAME || gameOver || gameLock || gameRi >= gameRounds.length) return;
       const r = gameRounds[gameRi];
       const ll = screenToLonLat(px, py); if (!ll) return;   // clicked the sky
+      const clickedIdx = countryAt(px, py);   // whatever entity the guess landed on (feeds the red flash + its learn-panel)
       let correct = false, distKm = null;
       if (r.kind === "capital") {
         distKm = havKm(ll[0], ll[1], r.lon, r.lat);
         correct = distKm <= 300;   // within ~300 km of the city counts — zoom in for precision
       } else {
-        const idx = countryAt(px, py);
-        correct = idx >= 0 && (entityName(idx) || "").toLowerCase() === r.n.toLowerCase();
+        correct = clickedIdx >= 0 && (entityName(clickedIdx) || "").toLowerCase() === r.n.toLowerCase();
         if (!correct) { const tgt = gameTargetLL(r); if (tgt) distKm = havKm(ll[0], ll[1], tgt[0], tgt[1]); }
       }
       if (correct) {
@@ -6700,8 +6725,13 @@
         gameReveal(r, true);
       } else if (gameTries === 0) {
         gameTries = 1; sfx("bad");
+        if (clickedIdx >= 0) {   // the wrong pick flashes red and its info panel opens — a miss still teaches something
+          pulseSet = [clickedIdx]; pulseCol = GAME_RED; pulseT0 = performance.now();
+          showCountryPopup(clickedIdx);   // popPointLL was set by the tap handler, so "Through the ages" works too
+        }
         mgFeedbackEl.textContent = (distKm != null ? Math.round(distKm).toLocaleString("en-US") + " km away — " : "Not there — ") + "one more try!";
         mgFeedbackEl.hidden = false;
+        scheduleDraw();
       } else {
         sfx("bad");
         gameReveal(r, false);
