@@ -5562,17 +5562,22 @@
     function eraKey(y) { const e = activeEra(y); return e ? (e.present ? "P" : "E" + (e.id || e.year)) : "none"; }
     function viewKey() { return rotLon.toFixed(2) + "," + rotLat.toFixed(2) + "," + zoom.toFixed(3) + "," + W + "," + H + "," + (bordersOn ? 1 : 0) + (riversOn ? 1 : 0) + (riverLabelsOn ? 1 : 0) + (waterOn ? 1 : 0) + (rangesOn ? 1 : 0) + (adminOn ? 1 : 0) + (forestsOn ? 1 : 0) + (countryNamesOn ? 1 : 0) + (heightmapOn ? 1 : 0) + "," + eraKey(year) + "," + mapEditRev + "," + land + "|" + ocean + "|" + border + "|" + rim + "|" + grat; }
     // limb shading + rim: a radial whisper of darkening toward the disk edge (so the flat disk reads as a sphere), then the rim
-    // stroke. One gradient fill per settled render — zero per-frame cost (renderStatic output is cached in baseCv).
+    // stroke. The gradient draws ONLY on settled renders (`!moving`): during a wheel/drag/fly the disk radius changes every
+    // frame, and a large soft gradient that shifts per frame is exactly the kind of frame-to-frame limb difference some hosts
+    // onion-skin into a huge gold bloom over the whole page (the documented "amber ghost glow" compositor artifact — the
+    // settled base cache replays identical pixels, which is safe). Moving frames keep the plain rim, as before this feature.
     function drawLimb() {
-      const g = ctx.createRadialGradient(cx, cy, R * 0.62, cx, cy, R);
-      g.addColorStop(0, "rgba(0,0,0,0)"); g.addColorStop(0.8, limbA); g.addColorStop(1, limbB);
-      ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.fillStyle = g; ctx.fill();
+      if (!moving) {
+        const g = ctx.createRadialGradient(cx, cy, R * 0.62, cx, cy, R);
+        g.addColorStop(0, "rgba(0,0,0,0)"); g.addColorStop(0.8, limbA); g.addColorStop(1, limbB);
+        ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.fillStyle = g; ctx.fill();
+      }
       ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.lineWidth = 1.2; ctx.strokeStyle = rim; ctx.stroke();
     }
     function renderStatic(bw) {
       ctx.clearRect(0, 0, W, H);
       countryLabelRects.length = 0;   // repopulated by drawCountryNames() below if the layer is on; empty otherwise so cities don't avoid stale boxes
-      { // atmosphere halo: a soft glow ring just outside the disk that separates the globe from the page (theme-aware)
+      if (!moving) { // atmosphere halo: a soft glow ring just outside the disk (settled renders only — see drawLimb)
         const hg = ctx.createRadialGradient(cx, cy, R * 0.99, cx, cy, R * 1.075);
         hg.addColorStop(0, haloIn); hg.addColorStop(1, haloOut);
         ctx.beginPath(); ctx.arc(cx, cy, R * 1.075, 0, TAU); ctx.fillStyle = hg; ctx.fill();
@@ -8140,9 +8145,11 @@
       ? '<div class="ces-imgpanel" id="cesImgPanel" hidden>' +
           '<div class="aib-head">Image <span class="aib-hint">— shown 16:9 at the top of the Background; title, description and source appear in the fullscreen viewer. Clear the URL to remove it.</span></div>' +
           '<label class="admin-field"><span class="af-label">image URL</span><input class="af-input" data-imgfield="src" type="text" spellcheck="false" placeholder="https://… or images/file.jpg" /></label>' +
-          '<label class="admin-field"><span class="af-label">image title</span><input class="af-input" data-imgfield="title" type="text" /></label>' +
-          '<div class="admin-field"><span class="af-label">image description</span><textarea class="af-input af-imgdesc" data-imgfield="desc" rows="2" spellcheck="true"></textarea></div>' +
-          '<label class="admin-field"><span class="af-label">image source</span><input class="af-input" data-imgfield="credit" type="text" spellcheck="false" placeholder="e.g. Wikimedia Commons, public domain — or a URL" /></label>' +
+          '<div id="cesImgMeta" hidden>' +   // title/description/source only make sense once an image URL is set
+            '<label class="admin-field"><span class="af-label">image title</span><input class="af-input" data-imgfield="title" type="text" /></label>' +
+            '<div class="admin-field"><span class="af-label">image description</span><textarea class="af-input af-imgdesc" data-imgfield="desc" rows="2" spellcheck="true"></textarea></div>' +
+            '<label class="admin-field"><span class="af-label">image source</span><input class="af-input" data-imgfield="credit" type="text" spellcheck="false" placeholder="e.g. Wikimedia Commons, public domain — or a URL" /></label>' +
+          '</div>' +
         '</div>'
       : "";
     const whereTxt = node ? nodeWhere(node) : (memberLeaves.size ? "" : "no deck");
@@ -8197,12 +8204,15 @@
       if (t) t.addEventListener("click", (e) => { e.stopPropagation(); if (isEnLang && imgPanel) { imgPanel.hidden = !imgPanel.hidden; if (!imgPanel.hidden) { const s = imgPanel.querySelector('[data-imgfield="src"]'); if (s) s.focus(); } } });   // stopPropagation also keeps the fullscreen viewer shut inside the editor
     }
     renderImgSlot();
+    const imgMeta = host.querySelector("#cesImgMeta");
+    const syncImgMeta = () => { if (imgMeta) imgMeta.hidden = !(c.image && String(c.image.src || "").trim()); };   // title/desc/source appear only once a URL is set
+    syncImgMeta();
     host.querySelectorAll("[data-imgfield]").forEach((el) => {
       el.value = (c.image && c.image[el.dataset.imgfield]) || "";
       el.addEventListener("input", () => {
         setCardImageEdit(id, el.dataset.imgfield, el.value.trim());
         adminFlashSaved(); adminUpdateCount(); editedFx();
-        if (el.dataset.imgfield === "src") renderImgSlot();
+        if (el.dataset.imgfield === "src") { renderImgSlot(); syncImgMeta(); }
       });
     });
     // ---- answer text (plain; lives above the card since it never shows on it) ----
@@ -8791,6 +8801,9 @@
       root.querySelectorAll(".admin-tab").forEach((t) => t.classList.toggle("active", t.dataset.atab === adminState.tab));
       const accounts = adminState.tab === "accounts", cards = adminState.tab === "cards", timeline = adminState.tab === "timeline";
       const admEl = root.querySelector(".admin"); if (admEl) { admEl.classList.toggle("accounts-mode", accounts); admEl.classList.toggle("timeline-mode", timeline); }
+      // the accounts/timeline branches return before adminRenderList(), which owns this class — clear it here or the
+      // glossary tab's column divider lingers as a stray vertical line over those pages
+      { const al = root.querySelector(".admin-list"); if (al) al.classList.toggle("gloss-cols", adminState.tab === "glossary"); }
       if (accounts) { adminState.selected.clear(); adminRenderAccounts(); return; }
       if (timeline) { adminState.selected.clear(); adminRenderTimeline(); return; }
       search.placeholder = cards ? "Search cards by title, id, hanzi…" : "Search glossary terms…";

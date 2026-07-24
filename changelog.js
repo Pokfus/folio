@@ -14,6 +14,9 @@ window.CHANGELOG = [
       "The timeline is easier to use: the mapped centuries now spread across most of the rail instead of crowding the right edge, every map-year tick is clickable and names its era, and a plate title above the globe always shows which year you're looking at.",
       "The globe itself got a quiet polish — a soft shading toward the edge and a faint atmospheric glow, so it reads as a sphere rather than a flat disk.",
       "The Atlas also loads faster: two data files for long-removed map layers (about 1.7 MB) no longer ship with every page.",
+      "The country info card now opens as a tall panel on the left of the globe instead of a bar across the bottom, so you can read about a place while looking at it; the legend moved to the top-right under the search box. On phones it still slides up from the bottom.",
+      "Fixed a glitch where zooming or flying across the Atlas could wash the whole page in a golden glow.",
+      "Editor tidy-ups: the image title, description and source fields now appear only after an image URL is set; the HTML source box stays collapsed until you open it; the card preview sits properly centred; and a stray divider line no longer cuts across the Timeline editing page.",
     ],
   },
   {

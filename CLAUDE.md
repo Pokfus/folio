@@ -173,10 +173,14 @@ cities.js → timeline.js → countries.js → country-stats.js → country-year
   contenteditables, **double-click to edit in place** (blur locks again; every keystroke saves). Above it: the
   formatting ribbon + a meta row (id, chronology, plain `answerText`) + a collapsible "Appears in N decks" picker.
   Below: a collapsible **whole-card HTML source** (`#cesSrcTa`, sections delimited by `<!-- QUESTION -->`-style
-  markers, two-way synced). The image renders in place (click = edit panel with the 4 image fields; the fullscreen
+  markers, two-way synced; `.af-src[hidden]{display:none}` is required — the author `display:block` would defeat the
+  hidden attribute and leave it permanently expanded). The image renders in place (click = edit panel; the **title /
+  description / source fields (`#cesImgMeta`) only appear once an image URL is set** — `syncImgMeta()` gates them on
+  `c.image.src`; the fullscreen
   viewer is suppressed inside the editor via stopPropagation); a card with no image shows an **editor-only**
   "Add an image" placeholder (`.ces-img-ph` — deliberately NOT `.card-img`, so the delegated viewer/study page
-  never see it). **traditional / hanzi / pinyin / translations / citation were REMOVED from the editor on request**
+  never see it). `.card-edit-single .admin-live-card` carries auto margins (the card caps at 680px inside the 780px
+  column — without them it sat off-centre). **traditional / hanzi / pinyin / translations / citation were REMOVED from the editor on request**
   (the data fields still exist and render on study cards). **The admin tree drags two ways**: dropping on a
   same-parent sibling REORDERS (insert-before, `reorderSiblings` — the Library follows this order); dropping on a
   node with a different parent MOVES INTO it, as before. The
@@ -410,7 +414,9 @@ cities.js → timeline.js → countries.js → country-stats.js → country-year
   A **plate-title cartouche** (`#mapCartouche`, top-centre, hidden ≤640px, updated by `paintYear`) shows "THE WORLD ·
   1938" / "THE WORLD TODAY". The disk gets **limb shading + an atmosphere halo** (`drawLimb()` replaces the three rim
   strokes; halo gradient at the top of `renderStatic` — colours `limbA/limbB/haloIn/haloOut` from `readColors`, so
-  theme-aware, zero per-frame cost via the base cache). **Hovering names the entity under the cursor** via a **DOM chip**
+  theme-aware, zero per-frame cost via the base cache). **Both gradients draw ONLY on settled renders (`!moving`)** —
+  a limb-sized gradient that shifts every frame during a wheel/drag/fly is exactly the frame-to-frame difference some
+  hosts onion-skin into a page-wide gold bloom (the "everything turns gold" bug); moving frames keep the plain rim. **Hovering names the entity under the cursor** via a **DOM chip**
   (`#globeHoverName` / `updateHoverName()` — deliberately NOT canvas: following the cursor is a style update, so the
   canvas only redraws when the hovered ENTITY changes, never per-move; on a geo era it shows "empire · territory" via
   `.mother`/`empireName`; hidden while dragging / map-editing / whiteboard-drawing and on touch (`@media (hover:none)`);
@@ -429,14 +435,13 @@ cities.js → timeline.js → countries.js → country-stats.js → country-year
   required (author `display:flex` beats the UA hidden rule — codebase convention, cf. `.country-pop[hidden]`). Clicking a country
   (present-day or a historical era's territory) highlights it and shows a single info popup above the
   timeline — its name + a 5-sentence description from `countries.js`; one at a time, cleared on a second
-  click / ocean click / era change. The popup is **capped on EVERY viewport** (the base `.country-pop` rule, not just a mobile
-  media query): `max-height:70%` of the `.globe-stage` (which has a definite height — `position:fixed` with top+bottom, so the `%`
-  resolves), `display:flex; flex-direction:column`, and its **`.cp-cols` scroll internally** (`overflow-y:auto; min-height:0`) — so
-  on a phone, a tablet, OR a short/landscape window the box can't fill the screen and push the × off the top; the globe stays visible
-  above it and the absolutely-positioned **`.cp-close` (×) stays pinned** at the top-right instead of scrolling away. (Earlier the cap
-  lived only in `@media max-width:720px`, so tablets/landscape >720px went uncapped and the × scrolled off — the real bug behind "the
-  box fills the screen".) The `@media max-width:720px` block now only switches `.cp-cols` to a single column. Don't put `overflow` on
-  `.country-pop` itself (the × would scroll off). The popup (`#countryPop`) is three columns: the state's **full legal official name**
+  click / ocean click / era change. The popup is a **vertical panel on the LEFT of the stage** (the base `.country-pop` rule:
+  `left:clamp(16px,4vw,40px); top:16px; bottom:16px; width:min(360px,…)`, single-column `.cp-cols`) — the legend moved to the
+  **top-right under the search box** (`.globe-legend{right:…; top:60px}`) to free the left edge. On **≤720px** it reverts to a
+  **bottom sheet** capped at `max-height:70%` of the stage. In both layouts it is `display:flex; flex-direction:column` and its
+  **`.cp-cols` scroll internally** (`overflow-y:auto; min-height:0`) so the box never pushes the absolutely-positioned
+  **`.cp-close` (×) off screen** — the × stays pinned while the columns scroll. Don't put `overflow` on
+  `.country-pop` itself (the × would scroll off). The popup (`#countryPop`) stacks: the state's **full legal official name**
   (`officialName()` — from the summary's "officially …", or a leading "Full Name, commonly known as …" form, with a state-type
   keyword fallback so e.g. USSR → "Union of Soviet Socialist Republics"), with the **years that iteration of the state existed** in
   **thin grey directly under the title** (`.cp-span` ← `countrySpan()` / `country-spans.js`; missing → the line collapses); + a
