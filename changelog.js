@@ -28,6 +28,9 @@ window.CHANGELOG = [
       "The home-page game tiles now wear their colour as a wash fading to the right, matching the Library's collection banners — and in daylight both are noticeably more colourful (they were nearly invisible); night mode keeps its quieter shading.",
       "The home page's glossary tile is now called \"Gloss of the day\", and clicking it opens the term right beside the tile instead of far away in the corner of the screen.",
       "Studying is one key faster: once the answer is showing, pressing Enter marks the card Good and moves on — the same as clicking the green button.",
+      "The Card of the day, Gloss of the day and Atlas tiles now wear the same rightward colour wash as the game tiles — and all of them kept their soft glow in the bottom-right corner.",
+      "Levelling up is a proper celebration now: confetti rains across the whole screen, a golden flash bursts behind the card as it springs in, and a little fanfare plays.",
+      "In the card editor, the text-formatting toolbar now stays pinned at the top while you scroll down a long card.",
     ],
   },
   {

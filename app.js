@@ -844,6 +844,12 @@
     else if (name === "good") { sfxTone(ctx, t, 660, 0.09, 0.05, "sine"); sfxTone(ctx, t + 0.08, 880, 0.13, 0.05, "sine"); }
     else if (name === "bad") sfxTone(ctx, t, 230, 0.13, 0.06, "sine", 155);
     else if (name === "win") [523, 659, 784, 1047].forEach((f, i) => sfxTone(ctx, t + i * 0.085, f, 0.16, 0.05, "triangle"));
+    else if (name === "levelup") {   // the level-up fanfare: a quick rising run into a held major chord with a sparkle on top
+      [392, 523, 659, 784].forEach((f, i) => sfxTone(ctx, t + i * 0.07, f, 0.14, 0.05, "triangle"));
+      [523, 659, 784, 1047].forEach((f) => sfxTone(ctx, t + 0.32, f, 0.55, 0.03, "triangle"));
+      sfxTone(ctx, t + 0.44, 1568, 0.4, 0.025, "sine");
+      sfxTone(ctx, t + 0.58, 2093, 0.35, 0.02, "sine");
+    }
   }
   // daily minigame results — each of the 4 home games records a per-day { played, won } so the tile shows a
   // checkmark once played today and the "Clean Sweep" badge unlocks when all four are won on the same day.
@@ -2001,7 +2007,7 @@
   // full-screen level-up congratulations; items = [{ title, level, sys }]. Dismissed by clicking ANYWHERE on screen or Escape.
   function congratsPopup(items) {
     if (!items || !items.length) return;
-    sfx("win");
+    sfx("levelup");
     const ex = document.querySelector(".levelup-pop"); if (ex) ex.remove();
     const ov = document.createElement("div");
     ov.className = "levelup-pop";
@@ -2009,7 +2015,21 @@
       '<div class="lu-row"><span class="lu-badge' + (it.sys ? (it.sys === "zh" ? " zh" : " num-" + it.sys) : "") + '">' + esc(numeralIn(it.sys, it.level)) + '</span>' +
       '<span class="lu-text"><b>' + esc(it.title) + '</b> reached <b>Level ' + it.level + '</b></span></div>'
     ).join("");
-    ov.innerHTML = '<div class="lu-card" role="dialog" aria-live="polite"><div class="lu-star">⭐</div>' +
+    // full-screen celebration: a falling-confetti burst + an expanding gold flash behind the card (skipped under
+    // prefers-reduced-motion; everything is transient and removed with the overlay — no standing animations)
+    let confetti = "";
+    if (!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)) {
+      const CCOL = ["#C39A2E", "#E6C765", "#D9544C", "#4F74C2", "#4F9D67", "#8257C2", "#2BA6A0", "#B5476B"];
+      let bits = "";
+      for (let i = 0; i < 90; i++) {
+        const round = Math.random() < 0.3, size = 6 + Math.random() * 7;
+        bits += '<i class="lu-conf" style="left:' + (Math.random() * 100).toFixed(1) + '%;width:' + size.toFixed(1) + 'px;height:' + (size * (round ? 1 : 0.55)).toFixed(1) +
+          'px;background:' + CCOL[i % CCOL.length] + ';animation-delay:' + (Math.random() * 0.7).toFixed(2) + 's;animation-duration:' + (2.2 + Math.random() * 1.8).toFixed(2) +
+          's;--dx:' + (Math.random() * 180 - 90).toFixed(0) + 'px;--spin:' + (Math.random() * 720 + 360).toFixed(0) + 'deg;' + (round ? "border-radius:50%;" : "") + '"></i>';
+      }
+      confetti = '<div class="lu-confetti" aria-hidden="true">' + bits + '</div><div class="lu-burst" aria-hidden="true"></div>';
+    }
+    ov.innerHTML = confetti + '<div class="lu-card" role="dialog" aria-live="polite"><div class="lu-star">⭐</div>' +
       '<div class="lu-title">Level up!</div><div class="lu-rows">' + rows + '</div>' +
       '<div class="lu-hint">Click anywhere to continue</div></div>';
     document.body.appendChild(ov);
@@ -8689,7 +8709,8 @@
       '<div class="admin-ed-head"><div class="admin-ed-headinfo"><h2 class="admin-ed-title">' + esc(c.answer || "(untitled)") + '</h2><div class="admin-ed-key">' + esc(id) + (whereTxt ? ' &middot; ' + esc(whereTxt) : "") + '</div></div>' +
       '<div class="admin-ed-actions"><span class="admin-saved" id="adminSaved"></span><button class="admin-preview" id="adminPreview" type="button">Preview</button><button class="admin-revert" id="adminRevert" type="button"' + (cardIsEdited(id) ? "" : " hidden") + '>Revert card</button><button class="admin-delete" id="adminDelete" type="button">Delete card</button></div></div>' +
       '<div class="card-edit-single">' +
-        '<div class="ces-top">' + rtRibbonHtml() + metaRow + '</div>' +
+        rtRibbonHtml() +   // OUTSIDE .ces-top: position:sticky can't escape its parent, and .ces-top ends just below the ribbon — as a direct child of the full-height column it stays pinned while the whole card scrolls
+        '<div class="ces-top">' + metaRow + '</div>' +
         '<div class="study-card admin-pv-card admin-live-card">' +
           '<span class="label">Question</span>' + live("question", "question") +
           '<div class="reveal show"><div class="reveal-inner">' +

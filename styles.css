@@ -339,10 +339,19 @@ body.night .banner, body.night .banner:hover{border-left-color:#fff;}
 /* each discovery tile carries its own accent, echoing the game tiles' coloured edges
    (the card-of-day's raspberry left edge lives in the .flip-face base rule below — the border: shorthand there would reset it) */
 .exp-card .exp-eyebrow{color:#B5476B;}
-.exp-term{border-left:4px solid var(--indigo);}
+.exp-term{border-left:4px solid var(--indigo); --exp:var(--indigo);}
 .exp-term .exp-eyebrow{color:var(--indigo);}
-.exp-atlas{border-left:4px solid var(--geo);}
+.exp-atlas{border-left:4px solid var(--geo); --exp:var(--geo);}
 .exp-atlas .exp-eyebrow, .exp-atlas .exp-hint{color:var(--geo);}
+/* discovery tiles carry the same two-layer wash as the game tiles: accent hue washing in from the left + the soft glow bottom-right */
+.exp-term, .exp-atlas{
+  background:linear-gradient(105deg, color-mix(in srgb, var(--exp) 20%, transparent), transparent 64%),
+             linear-gradient(150deg, var(--card) 56%, color-mix(in srgb, var(--exp) 14%, var(--card)));
+}
+body.night .exp-term, body.night .exp-atlas{
+  background:linear-gradient(105deg, color-mix(in srgb, var(--exp) 10%, transparent), transparent 64%),
+             linear-gradient(150deg, var(--card) 56%, color-mix(in srgb, var(--exp) 14%, var(--card)));
+}
 .exp-hint{font-family:var(--mono); font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--indigo); margin-top:auto;}
 /* card of the day — a real flashcard, flipping over on click */
 .exp-card{grid-column:span 2; background:transparent; border:none; box-shadow:none; padding:0; perspective:1200px; display:block;}
@@ -351,9 +360,15 @@ body.night .banner, body.night .banner:hover{border-left-color:#fff;}
 .exp-card.flipped .flip{transform:rotateY(180deg);}
 .exp-card .flip-face{
   position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden; overflow:hidden;
-  background:var(--card); border:1px solid var(--rule); border-left:4px solid #B5476B; border-radius:14px; box-shadow:var(--shadow-md);   /* raspberry — the card-of-day's own hue, used nowhere else */
+  background:linear-gradient(105deg, color-mix(in srgb, #B5476B 20%, transparent), transparent 64%),
+             linear-gradient(150deg, var(--card) 56%, color-mix(in srgb, #B5476B 14%, var(--card)));   /* raspberry — the card-of-day's own hue, used nowhere else */
+  border:1px solid var(--rule); border-left:4px solid #B5476B; border-radius:14px; box-shadow:var(--shadow-md);
   padding:18px 20px; display:flex; flex-direction:column; gap:9px;
   transition:box-shadow .25s var(--ease), border-color .2s;
+}
+body.night .exp-card .flip-face{
+  background:linear-gradient(105deg, color-mix(in srgb, #B5476B 10%, transparent), transparent 64%),
+             linear-gradient(150deg, var(--card) 56%, color-mix(in srgb, #B5476B 14%, var(--card)));
 }
 .exp-card:hover .flip-face{box-shadow:var(--shadow-lg); border-color:color-mix(in srgb,var(--indigo) 30%, var(--rule));}
 .exp-card .flip-back{transform:rotateY(180deg);}
@@ -1034,11 +1049,25 @@ body.night .ph-lvl{color:#F3E3B2; background:#4A3B10; border-color:#E6C765;}
 .ip-actions .ip-ok:hover{filter:brightness(1.08);}
 
 /* full-screen "level up!" congratulations — dismissed by clicking anywhere on screen (see congratsPopup) */
-.levelup-pop{position:fixed; inset:0; z-index:500; display:flex; align-items:center; justify-content:center; padding:24px; background:color-mix(in srgb,var(--ink) 42%,transparent); opacity:0; transition:opacity .18s ease; cursor:pointer;}
+.levelup-pop{position:fixed; inset:0; z-index:500; display:flex; align-items:center; justify-content:center; padding:24px; background:color-mix(in srgb,var(--ink) 42%,transparent); opacity:0; transition:opacity .18s ease; cursor:pointer; overflow:hidden;}
 .levelup-pop.show{opacity:1;}
-.lu-card{width:min(340px,92vw); background:var(--card); border:1px solid var(--rule); border-radius:16px; box-shadow:0 26px 64px rgba(0,0,0,.4); padding:26px 28px 20px; text-align:center; transform:translateY(10px) scale(.97); transition:transform .22s cubic-bezier(.2,.8,.3,1);}
+.lu-card{position:relative; width:min(340px,92vw); background:var(--card); border:1px solid var(--rule); border-radius:16px; box-shadow:0 26px 64px rgba(0,0,0,.4); padding:26px 28px 20px; text-align:center; transform:translateY(26px) scale(.6); transition:transform .5s cubic-bezier(.18,1.45,.32,1);}   /* springy overshoot entrance */
 .levelup-pop.show .lu-card{transform:none;}
 .lu-star{font-size:38px; line-height:1;}
+.levelup-pop.show .lu-star{animation:lu-star .8s cubic-bezier(.2,1.5,.35,1) both .12s;}
+@keyframes lu-star{0%{transform:scale(0) rotate(-50deg);}60%{transform:scale(1.4) rotate(10deg);}100%{transform:scale(1) rotate(0);}}
+/* full-screen falling confetti — one pass, pieces fade out at the bottom; removed with the overlay */
+.lu-confetti{position:absolute; inset:0; overflow:hidden; pointer-events:none;}
+.lu-conf{position:absolute; top:-5vh; display:block; opacity:0; animation:lu-fall linear both;}
+@keyframes lu-fall{0%{transform:translate(0,0) rotate(0); opacity:1;} 78%{opacity:1;} 100%{transform:translate(var(--dx,0px),110vh) rotate(var(--spin,540deg)); opacity:0;}}
+/* an expanding gold flash behind the card at the moment it lands */
+.lu-burst{position:absolute; left:50%; top:50%; width:130px; height:130px; margin:-65px 0 0 -65px; border-radius:50%; pointer-events:none; background:radial-gradient(circle, rgba(230,199,101,.6), rgba(230,199,101,0) 70%); animation:lu-burst 1.1s ease-out both;}
+@keyframes lu-burst{0%{transform:scale(.15); opacity:0;} 25%{opacity:1;} 100%{transform:scale(7); opacity:0;}}
+@media (prefers-reduced-motion: reduce){
+  .lu-conf,.lu-burst{display:none;}
+  .levelup-pop.show .lu-star{animation:none;}
+  .lu-card{transition-duration:.2s; transform:translateY(8px) scale(.97);}
+}
 .lu-title{font-family:var(--display); font-weight:600; font-size:25px; letter-spacing:-.01em; color:var(--ink); margin:4px 0 15px;}
 .lu-rows{display:flex; flex-direction:column; gap:9px; margin-bottom:16px;}
 .lu-row{display:flex; align-items:center; gap:12px; text-align:left; border:1px solid var(--rule); border-radius:10px; padding:9px 12px;}
@@ -1419,8 +1448,9 @@ body.grading .wb-tools{bottom:108px;}
 .game-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
 .game-tile{
   position:relative; overflow:hidden; text-align:left; min-height:130px;
-  /* hue on the left fading to the right, like the Library collection banners */
-  background:linear-gradient(105deg, color-mix(in srgb, var(--tile, var(--indigo)) 20%, var(--card)), var(--card) 64%);
+  /* two layers: the hue washing in from the left (like the Library banners) OVER the original soft glow in the bottom-right corner */
+  background:linear-gradient(105deg, color-mix(in srgb, var(--tile, var(--indigo)) 20%, transparent), transparent 64%),
+             linear-gradient(150deg, var(--card) 56%, color-mix(in srgb, var(--tile, var(--indigo)) 16%, var(--card)));
   border:1px solid var(--rule); border-left:4px solid var(--tile, var(--rule)); border-radius:14px;
   padding:18px; box-shadow:var(--shadow-md);
   display:flex; flex-direction:column; justify-content:flex-end;
@@ -1453,14 +1483,17 @@ button.game-tile:active{transform:translateY(0) scale(.99);}
    fill stays earned by playing. Daylight needs a far stronger mix than night to read at all; night keeps the
    original whisper strength. */
 button.game-tile:not(.done):not(.won){
-  background:linear-gradient(105deg, color-mix(in srgb, var(--tile, var(--indigo)) 26%, var(--card)), var(--card) 64%);
+  background:linear-gradient(105deg, color-mix(in srgb, var(--tile, var(--indigo)) 26%, transparent), transparent 64%),
+             linear-gradient(150deg, var(--card) 56%, color-mix(in srgb, var(--tile, var(--indigo)) 16%, var(--card)));
   box-shadow:var(--shadow-sm);
 }
 body.night button.game-tile:not(.done):not(.won){
-  background:linear-gradient(105deg, color-mix(in srgb, var(--tile, var(--indigo)) 10%, var(--card)), var(--card) 64%);
+  background:linear-gradient(105deg, color-mix(in srgb, var(--tile, var(--indigo)) 10%, transparent), transparent 64%),
+             linear-gradient(150deg, var(--card) 56%, color-mix(in srgb, var(--tile, var(--indigo)) 16%, var(--card)));
 }
 body.night .game-tile{
-  background:linear-gradient(105deg, color-mix(in srgb, var(--tile, var(--indigo)) 12%, var(--card)), var(--card) 64%);
+  background:linear-gradient(105deg, color-mix(in srgb, var(--tile, var(--indigo)) 12%, transparent), transparent 64%),
+             linear-gradient(150deg, var(--card) 56%, color-mix(in srgb, var(--tile, var(--indigo)) 16%, var(--card)));
 }
 button.game-tile:not(.done):not(.won) .gt-title{color:color-mix(in srgb, var(--tile, var(--indigo)) 45%, var(--ink));}
 button.game-tile:not(.done):not(.won) .gt-glyph{opacity:.14;}
