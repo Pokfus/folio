@@ -4425,8 +4425,14 @@
             <button class="cp-close" id="cpClose" type="button" aria-label="Close">×</button>
             <div class="cp-cols">
               <div class="cp-main">
+                <div class="cp-crumb" id="cpCrumb" hidden></div>
                 <div class="cp-name" id="cpName"></div>
                 <div class="cp-span" id="cpSpan"></div>
+                <div class="cp-tools">
+                  <button class="cp-tool" id="cpHistory" type="button" title="Who ruled this spot in every mapped year?"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 14"/></svg>Through the ages</button>
+                  <button class="cp-tool" id="cpCopyLink" type="button" title="Copy a link to this year + place"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>Copy link</button>
+                </div>
+                <div class="cp-hist" id="cpHistList" hidden></div>
                 <div class="cp-desc" id="cpDesc"></div>
               </div>
               <div class="cp-year">
@@ -4443,6 +4449,7 @@
           </div>
         </div>
         <div class="atlas-timebar">
+          <button class="tl-play" id="tlPlay" type="button" aria-label="Play through the map years" title="Play through the map years"></button>
           <div class="atlas-timeline">
             <div class="tl-track" id="tlTrack">
               <div class="tl-rail"></div>
@@ -4463,7 +4470,7 @@
     function hex2rgb(h) { h = h.replace("#", ""); if (h.length === 3) h = h.split("").map((c) => c + c).join(""); const n = parseInt(h, 16); return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; }
     function mix(a, b, t) { const A = hex2rgb(a), B = hex2rgb(b); return `rgb(${Math.round(A[0] + (B[0] - A[0]) * t)},${Math.round(A[1] + (B[1] - A[1]) * t)},${Math.round(A[2] + (B[2] - A[2]) * t)})`; }
     function rgba(a, al) { const A = hex2rgb(a); return `rgba(${A[0]},${A[1]},${A[2]},${al})`; }
-    let ocean, land, landWild, border, grat, rim, labelFont, riverCol, adminCol, rangeCol, waterCol, lblHaloSoft, LBL_TEXT, LBL_HALO, forestCol, forestColD, forestColT, limbA, limbB, haloIn, haloOut;
+    let ocean, land, landWild, border, grat, rim, labelFont, riverCol, adminCol, rangeCol, waterCol, lblHaloSoft, LBL_TEXT, LBL_HALO, forestCol, forestColD, forestColT, limbA, limbB, haloIn, haloOut, stippleCol, _stippleP;
     function readColors() {
       const cs = getComputedStyle(document.body);
       const cv = (n) => cs.getPropertyValue(n).trim() || "#888888";
@@ -4486,6 +4493,7 @@
       // limb shading (a whisper of darkening toward the disk edge, so the globe reads as a sphere) + atmosphere halo just outside it
       limbA = "rgba(0,0,0," + (dark ? 0.10 : 0.05) + ")"; limbB = "rgba(0,0,0," + (dark ? 0.32 : 0.15) + ")";
       haloIn = rgba(dark ? indigo : ink, dark ? 0.42 : 0.20); haloOut = rgba(dark ? indigo : ink, 0);
+      stippleCol = dark ? "rgba(255,255,255,0.09)" : "rgba(0,0,0,0.11)"; _stippleP = null;   // terra-incognita dots (pattern rebuilt lazily per theme)
       labelFont = cv("--sans") || "system-ui, sans-serif";
     }
     readColors();
@@ -4542,7 +4550,10 @@
     // Empire of Japan, Austria Hungary …) map to themselves. Descriptions for these names live in countries.js.
     const EMPIRE_NAME = { "United Kingdom": "British Empire", "France": "French colonial empire", "Germany": "German colonial empire", "Italy": "Italian colonial empire", "Netherlands": "Dutch colonial empire", "Portugal": "Portuguese Empire", "Spain": "Spanish Empire", "Belgium": "Belgian colonial empire", "Denmark": "Danish Realm", "Chinese Warlords": "Warlord-era China", "United States": "United States of America" };
     const empireName = (mother) => EMPIRE_NAME[mother] || mother;
-    let cpEl = null, cpNameEl = null, cpSpanEl = null, cpDescEl = null, cpYearNumEl = null, cpYearDescEl = null, cpPopEl = null, cpAreaEl = null, cpGdpEl = null, cpGdppcEl = null;   // the country info popup (one at a time, above the timeline)
+    let cpEl = null, cpNameEl = null, cpSpanEl = null, cpDescEl = null, cpYearNumEl = null, cpYearDescEl = null, cpPopEl = null, cpAreaEl = null, cpGdpEl = null, cpGdppcEl = null;   // the country info popup (one at a time, left panel)
+    let cpCrumbEl = null, cpHistListEl = null;   // drill breadcrumb + the "Through the ages" strip
+    let popPointLL = null;    // the lon/lat that opened the popup (the click point, or a search anchor) — feeds the crumb parent + "Who ruled here?"
+    let popEntityName = "";   // the ENTITY name behind the popup (cpName shows the official long-form) — feeds Copy link
     function entityName(idx) { const ht = histTerr(), terr = ht || GEO; return (idx >= 0 && idx < terr.length) ? (terr[idx].n || "") : ""; }
     function countryDesc(name) { const k = (name || "").trim().toLowerCase().replace(/\s+/g, " "); return (window.COUNTRY_INFO || {})[k] || UK_DESC[k] || ""; }
     function countryStats(name) { const k = (name || "").trim().toLowerCase().replace(/\s+/g, " "); return (window.COUNTRY_STATS || {})[k] || null; }
@@ -4594,6 +4605,27 @@
       // forceGeneral (a UK constituent): just its name + its general description, no year paragraph or stats.
       cpNameEl.textContent = forceGeneral ? name : officialName(name, desc);
       if (cpSpanEl) cpSpanEl.textContent = forceGeneral ? "" : countrySpan(name);   // the years this state/iteration existed (thin grey under the title); "" → the line collapses
+      popEntityName = name;
+      if (cpHistListEl) { cpHistListEl.hidden = true; cpHistListEl.innerHTML = ""; }   // the ages strip belongs to the previous entity
+      // drill breadcrumb: name the PARENT level (empire / merged group / the era's UK) and make it clickable — the upward
+      // half of the single/double/triple-click hierarchy, finally visible on screen. Selection state is set by every caller
+      // before this runs, so it is current here.
+      if (cpCrumbEl) {
+        let crumb = null;
+        const ht = histTerr(), eraNow = activeEra(year);
+        if (subSelUK.length || subSelGeo >= 0) {   // a drilled UK constituent / present-day country inside a bigger entity — parent = whatever holds the click point at this year
+          const parent = popPointLL ? ownerAt(eraNow, popPointLL[0], popPointLL[1]) : (subSelUK.length && present ? "United Kingdom" : "");
+          if (parent && parent !== name) crumb = { label: parent, act: "name", key: parent };
+        } else if (ht && selSet.size === 1 && eraNow && eraNow.geo && eraNow.geo.length) {   // a geo-era territory — parent = its empire (mother)
+          const i = selSet.values().next().value, m = ht[i] && ht[i].mother;
+          const em = m ? empireName(m) : "";
+          if (em && em !== name) crumb = { label: em, act: "empire", key: m };
+        }
+        if (crumb) {
+          cpCrumbEl.innerHTML = '<button class="cp-crumb-link" type="button" data-act="' + esc(crumb.act) + '" data-key="' + esc(crumb.key) + '">' + esc(crumb.label) + '</button><span class="cp-crumb-sep">›</span><span class="cp-crumb-cur">' + esc(name) + '</span>';
+          cpCrumbEl.hidden = false;
+        } else { cpCrumbEl.hidden = true; cpCrumbEl.innerHTML = ""; }
+      }
       const mainDesc = stripInfoNoise(desc);
       cpDescEl.textContent = mainDesc || ("No description for " + name + " yet.");
       if (mainDesc) { autoLinkGlossary(cpDescEl, name, []); setupTooltips(cpDescEl); }   // auto-link glossary terms (skip the place's own name), like card backgrounds
@@ -4624,11 +4656,11 @@
 
     // ===== Map editor (Edit → Timeline → "Edit on globe"): draw/edit/delete territories + place capitals & cities, per year =====
     let mapEdit = false, mapEditEra = null, mapTool = "select", mapSelTerr = -1, mapSelCity = -1, mapDraw = null, mapEditRev = 0, mapBar = null, mapDragV = -1, mapDragCity = -1, mapDragging = false;
-    function mapBump() { mapEditRev++; _htId = null; persistTimeline(); scheduleDraw(); }   // an edit changed the era → re-render + rebuild histTerr's bbox/matte caches (keyed by era.id, which doesn't change in-place) + persist
+    function mapBump() { mapEditRev++; _htId = null; _terrCache.clear(); persistTimeline(); scheduleDraw(); }   // an edit changed the era → re-render + rebuild histTerr's bbox/matte caches AND the cross-era terrOf cache (both keyed by era.id, which doesn't change in-place) + persist
     function enterMapEdit(era) {
       // a merger-only era stores only a grouping (no editable geometry) — materialize world.js-derived rings (deep-copied so
       // edits never mutate GEO) so it can be hand-edited; it then becomes a normal geo-based era.
-      if (era.groups && (!era.geo || !era.geo.length)) { era.geo = synthGroups(era).map((t) => ({ n: t.n, p: t.p.map((r) => r.map((pt) => [pt[0], pt[1]])), c: t.c.slice() })); delete era.groups; _htId = null; }
+      if (era.groups && (!era.geo || !era.geo.length)) { era.geo = synthGroups(era).map((t) => ({ n: t.n, p: t.p.map((r) => r.map((pt) => [pt[0], pt[1]])), c: t.c.slice() })); delete era.groups; _htId = null; _terrCache.clear(); }
       mapEditEra = era; mapEdit = true; mapTool = "select"; mapSelTerr = -1; mapSelCity = -1; mapDraw = null;
       if (!era.cities) era.cities = [];
       if (WB.enabled) { WB.enabled = false; if (typeof applyWBState === "function") applyWBState(); }   // whiteboard + map-edit can't both own the pointer
@@ -4908,6 +4940,48 @@
         _htMatte = _htTerr.map((_, i) => { const h = (Math.imul(i + 9, 2654435761) >>> 0); return "hsl(" + (h % 360) + "," + (34 + (h >> 9) % 16) + "%," + (58 + (h >> 17) % 12) + "%)"; });
       }
       return _htTerr;
+    }
+    // territories (+ bboxes) of ANY era — the cross-era lookup behind the change pulse, "Through the ages" and deep links.
+    // histTerr() caches only the ACTIVE era; this caches per era.id (groups eras synthesize once, geo eras use their own rings;
+    // the synth output is refs into GEO, so ~13 entries stay light). Cleared by mapBump() (editor edits mutate eras in place).
+    const _terrCache = new Map();
+    function terrOf(era) {
+      if (!era) return null;
+      const key = era.present ? "__present" : era.id;
+      let e = _terrCache.get(key);
+      if (!e) {
+        const terr = era.present ? GEO : ((era.groups && (!era.geo || !era.geo.length)) ? synthGroups(era) : (era.geo || []));
+        const bb = terr.map((t) => { let x0 = 180, y0 = 90, x1 = -180, y1 = -90; (t.p || []).forEach((ring) => ring.forEach((p) => { if (p[0] < x0) x0 = p[0]; if (p[0] > x1) x1 = p[0]; if (p[1] < y0) y0 = p[1]; if (p[1] > y1) y1 = p[1]; })); return [x0, y0, x1, y1]; });
+        e = { terr: terr, bb: bb }; _terrCache.set(key, e);
+      }
+      return e;
+    }
+    function ownerIdxAt(era, lon, lat) {   // index (into terrOf(era).terr) of the named entity holding a lon/lat; -1 = unclaimed/ocean.
+      const te = terrOf(era); if (!te) return -1;
+      let best = -1, ba = Infinity;   // smallest-bbox wins, so an enclave (Vatican in Italy) beats the country around it — same rule as countryAt
+      for (let i = 0; i < te.terr.length; i++) {
+        const b = te.bb[i]; if (lon < b[0] || lon > b[2] || lat < b[1] || lat > b[3]) continue;
+        if (!te.terr[i].n) continue;
+        const ar = (b[2] - b[0]) * (b[3] - b[1]); if (ar >= ba) continue;
+        if (pointInRings(te.terr[i].p, lon, lat)) { best = i; ba = ar; }
+      }
+      return best;
+    }
+    function ownerAt(era, lon, lat) {   // the named entity holding a lon/lat in a given era ("" = unclaimed land or ocean)
+      const te = terrOf(era); if (!te) return "";
+      const i = ownerIdxAt(era, lon, lat);
+      return i >= 0 ? te.terr[i].n : "";
+    }
+    function selectEntityByName(name, atLL) {   // select + popup an entity of the CURRENT map (breadcrumb, ages strip, deep links).
+      // Territory names are NOT unique (1900 has 35 "Fiji" polygons), so when a point is given, prefer the polygon CONTAINING it
+      // — the ages strip / crumb answered for that spot, and the highlight must land on the same polygon.
+      const terr = histTerr() || GEO, k = (name || "").toLowerCase();
+      let idx = -1;
+      if (atLL) { const i = ownerIdxAt(activeEra(year), atLL[0], atLL[1]); if (i >= 0 && i < terr.length && (terr[i].n || "").toLowerCase() === k) idx = i; }
+      if (idx < 0) for (let i = 0; i < terr.length; i++) if ((terr[i].n || "").toLowerCase() === k) { idx = i; break; }
+      if (idx < 0) return -1;
+      selSet.clear(); selSet.add(idx); subSelGeo = -1; subSelUK = []; hoverIdx = -1;
+      showCountryPopup(idx); scheduleDraw(); return idx;
     }
     // present-day coastline = GEO polygon edges that are NOT shared with another country (internal borders are shared, so the
     // remainder is the land/ocean boundary). Cached. Lets historical eras draw the exact present-day coast, crisp like the modern map.
@@ -5461,7 +5535,7 @@
           a = Math.abs(a / 2); if (a > bestA) { bestA = a; best = ring; }
         }
         if (!best) continue;
-        const an = ringLabelAnchor(best); out.push({ n: terr[t].n, lon: an.lon, lat: an.lat, a: bestA });
+        const an = ringLabelAnchor(best); out.push({ n: terr[t].n, lon: an.lon, lat: an.lat, a: bestA, i: t });   // i = territory index (names are NOT unique — 1900 has 35 "Fiji" polygons)
       }
       out.sort((x, y) => y.a - x.a);
       _lblEraId = _htId; _lblAnchors = out; _lblRev = mapEditRev;
@@ -5551,6 +5625,12 @@
     // so hover/select/ink redraws only blit it + overlays instead of re-stroking ~117k points
     const baseCv = document.createElement("canvas");
     let baseKey = "", baseValid = false;
+    const REDUCED = !!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
+    // era crossfade: a snapshot of the outgoing era's pixels fades out over the incoming era (~280ms, settled frames only)
+    const fadeCv = document.createElement("canvas");
+    let fadeT0 = 0, fadeActive = false;
+    // change pulse: territory indices (of the CURRENT map) that changed hands vs the era just stepped away from
+    let pulseSet = null, pulseT0 = 0, _lastPulseAt = 0;
     // which map applies at a given timeline year: present-day at the present year, else the most recent historical era
     // whose year <= y; null when no era covers that year (the globe then shows the work-in-progress note).
     function activeEra(y) {
@@ -5561,6 +5641,14 @@
     }
     function eraKey(y) { const e = activeEra(y); return e ? (e.present ? "P" : "E" + (e.id || e.year)) : "none"; }
     function viewKey() { return rotLon.toFixed(2) + "," + rotLat.toFixed(2) + "," + zoom.toFixed(3) + "," + W + "," + H + "," + (bordersOn ? 1 : 0) + (riversOn ? 1 : 0) + (riverLabelsOn ? 1 : 0) + (waterOn ? 1 : 0) + (rangesOn ? 1 : 0) + (adminOn ? 1 : 0) + (forestsOn ? 1 : 0) + (countryNamesOn ? 1 : 0) + (heightmapOn ? 1 : 0) + "," + eraKey(year) + "," + mapEditRev + "," + land + "|" + ocean + "|" + border + "|" + rim + "|" + grat; }
+    function stipplePattern() {   // 7px dot tile in the theme's stipple colour; rebuilt lazily after every readColors()
+      if (_stippleP) return _stippleP;
+      const t = document.createElement("canvas"); t.width = 7; t.height = 7;
+      const tc = t.getContext("2d"); tc.fillStyle = stippleCol;
+      tc.beginPath(); tc.arc(2, 2, 0.9, 0, TAU); tc.fill();
+      _stippleP = ctx.createPattern(t, "repeat");
+      return _stippleP;
+    }
     // limb shading + rim: a radial whisper of darkening toward the disk edge (so the flat disk reads as a sphere), then the rim
     // stroke. The gradient draws ONLY on settled renders (`!moving`): during a wheel/drag/fly the disk radius changes every
     // frame, and a large soft gradient that shifts per frame is exactly the kind of frame-to-frame limb difference some hosts
@@ -5610,6 +5698,10 @@
         if (_wild) {
           ctx.fillStyle = landWild; fillGEO();
           if (_seams) { ctx.strokeStyle = landWild; strokeGEO(); }                     // dark seams — invisible over the dark wilderness (no modern borders show)
+          // terra-incognita stipple: the cartographer's mark for "no state mapped here in this source", so wilderness stops
+          // reading as an anonymous country. Painted over ALL land — the opaque claimed-land refill below covers it inside
+          // territories, leaving dots only on the unclaimed remainder. Settled renders only (screen-anchored dots shimmer while moving).
+          if (_seams) { ctx.fillStyle = stipplePattern(); fillGEO(); }
           ctx.save();
           ctx.beginPath(); for (let t = 0; t < _terr.length; t++) { const rings = _terr[t].p || []; for (let r = 0; r < rings.length; r++) addClipped(rings[r], true); } ctx.clip((era.geo && era.geo.length) ? "nonzero" : "evenodd");   // geo eras: CCW-normalized rings + NONZERO so OVERLAPPING territories fill as land (even-odd would punch a dark hole at every overlap); merger eras use raw world.js geometry → keep even-odd
           ctx.fillStyle = land; fillGEO();
@@ -5738,6 +5830,29 @@
         if (showCap || showCities || showDiv) drawCities(showCap, showCities, showDiv);
       } else if (citiesOn && zoom >= CAP_Z && eraNow && !eraNow.present && eraNow.cities && eraNow.cities.length) drawEraCities(eraNow, false);   // a historical era's capitals — same Capitals legend toggle + zoom cutoff (CAP_Z) as present-day
       // country names are no longer tied to hover/selection — they're a persistent layer via the "Country names" legend toggle (drawn in renderStatic)
+      // "what changed?" pulse: two soft gold throbs (~1.6s) over the territories that changed hands on the last timeline step
+      if (pulseSet) {
+        const t = (performance.now() - pulseT0) / 1600;
+        if (t >= 1) pulseSet = null;
+        else {
+          const a = Math.max(0, (1 - t) * (0.26 + 0.14 * Math.sin(t * Math.PI * 4)));
+          const terr = histTerr() || GEO;
+          ctx.save(); ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.clip();
+          ctx.globalAlpha = a; ctx.fillStyle = "rgba(255,178,46,1)";
+          for (let k = 0; k < pulseSet.length; k++) { const i = pulseSet[k]; if (i >= terr.length) continue; const rings = terr[i].p || []; ctx.beginPath(); for (let r = 0; r < rings.length; r++) addClipped(rings[r], true); ctx.fill("evenodd"); }
+          ctx.restore(); scheduleDraw();
+        }
+      }
+      // era crossfade: the outgoing era's snapshot dissolves over the freshly drawn one (~280ms; killed by any motion)
+      if (fadeActive) {
+        const a = 1 - (performance.now() - fadeT0) / 280;
+        if (a <= 0 || moving || fadeCv.width !== canvas.width || fadeCv.height !== canvas.height) fadeActive = false;
+        else {
+          ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = a; ctx.drawImage(fadeCv, 0, 0);
+          ctx.globalAlpha = 1; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+          scheduleDraw();
+        }
+      }
     }
     // Some embedded webviews (e.g. the Claude Code live preview) DON'T repaint the <canvas> after a preventDefault'd wheel gesture:
     // draw() updates the backing store but the screen never refreshes, so the disk looks frozen while it redraws every notch
@@ -5794,7 +5909,7 @@
       }
       wheelActive = false;
     }
-    function startMotion() { moving = true; if (settleT) { clearTimeout(settleT); settleT = 0; } }
+    function startMotion() { moving = true; fadeActive = false; if (settleT) { clearTimeout(settleT); settleT = 0; } }   // motion kills the era crossfade (a rotated globe no longer aligns with the snapshot)
     function endMotion(ms) { if (settleT) clearTimeout(settleT); settleT = setTimeout(settle, ms == null ? 130 : ms); }
     // geo-anchored whiteboard input (active only when WB draw-mode is on)
     const localXY = (e) => { const r = canvas.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
@@ -5897,6 +6012,7 @@
           const r = canvas.getBoundingClientRect(), tpx = e.clientX - r.left, tpy = e.clientY - r.top;
           if (mapEdit) { mapTapSelect(tpx, tpy); }
           else {
+            { const pll = screenToLonLat(tpx, tpy); popPointLL = pll ? [pll[0], pll[1]] : null; }   // the geographic point that (maybe) opens the popup — feeds the crumb + "Through the ages"
             const now = e.timeStamp || performance.now();
             const sameSpot = (now - lastTapT < 400) && Math.hypot(tpx - lastTapX, tpy - lastTapY) < 14;
             tapCount = sameSpot ? tapCount + 1 : 1;   // 1 = single, 2 = double, 3 = triple (same spot within 400ms)
@@ -6061,6 +6177,7 @@
       if (!entry) return;
       gsHide(); gsInput.blur();
       if (mapEdit) return;   // after closing the dropdown — the editor pins the year, so search can't navigate
+      playStop();   // a search pick pauses the timeline player even when the entity is on the CURRENT map (no setYear then — a later tick would cancel the flight mid-air and wipe the landing selection)
       const key = gsFold(entry.n);
       const findNow = () => { const terr = histTerr() || GEO; for (let i = 0; i < terr.length; i++) if (gsFold(terr[i].n) === key) return i; return -1; };
       if (entry.kind === "capital") {   // capitals: jump to a year that has the pin (stay if the current one does), fly close enough for its label
@@ -6074,10 +6191,10 @@
         idx = findNow(); if (idx < 0) return;
       }
       const terr = histTerr(); let lon = null, lat = null;
-      if (!terr) { const cc = countryCenter(entry.n); if (cc) { lon = cc.lon; lat = cc.lat; } }
+      if (!terr) { const lp = GEO[idx] && GEO[idx].c; if (lp) { lon = lp[0]; lat = lp[1]; } else { const cc = countryCenter(entry.n); if (cc) { lon = cc.lon; lat = cc.lat; } } }   // the label point is guaranteed inside the country — a concave country's bbox centre can land in a NEIGHBOUR (wrong "Through the ages")
       else { const an = (eraLabelAnchors() || []).find((a) => gsFold(a.n) === key); if (an) { lon = an.lon; lat = an.lat; } }
       const wantEra = eraKey(year);   // if the user navigates the timeline mid-flight, the landing selection must not resurrect on the new era (setYear also flyStops, this guards the post-landing 90ms window)
-      const sel = () => { if (eraKey(year) !== wantEra) return; const i2 = findNow(); if (i2 >= 0) { selSet.clear(); selSet.add(i2); subSelGeo = -1; subSelUK = []; hoverIdx = -1; showCountryPopup(i2); scheduleDraw(); } };
+      const sel = () => { if (eraKey(year) !== wantEra) return; const i2 = findNow(); if (i2 >= 0) { selSet.clear(); selSet.add(i2); subSelGeo = -1; subSelUK = []; hoverIdx = -1; popPointLL = lon != null ? [lon, lat] : null; showCountryPopup(i2); scheduleDraw(); } };
       if (lon == null) { sel(); return; }
       flyTo(lon, lat, Math.max(zoom, 1.5), sel);
     }
@@ -6097,7 +6214,7 @@
     gsResults.addEventListener("focusout", (e) => { if (e.relatedTarget && (gsResults.contains(e.relatedTarget) || e.relatedTarget === gsInput)) return; gsHide(); });   // list closes once keyboard focus leaves the widget
 
     // tear everything down once the globe leaves the DOM (navigating away) so nothing leaks per visit
-    function cleanupGlobe() { try { ro.disconnect(); } catch (e) {} try { themeObs.disconnect(); } catch (e) {} try { window.removeEventListener("blur", stopHold); } catch (e) {} try { if (dprMedia) dprMedia.removeEventListener("change", onDPRChange); } catch (e) {} try { document.removeEventListener("keydown", onGlobeKey); } catch (e) {} try { window.removeEventListener("wheel", onGlobeWheel, true); } catch (e) {} stopSpin(); if (flyRAF) { cancelAnimationFrame(flyRAF); flyRAF = 0; } if (flyDoneT) { clearTimeout(flyDoneT); flyDoneT = 0; } if (settleT) { clearTimeout(settleT); settleT = 0; } if (_drawTimer) { clearTimeout(_drawTimer); _drawTimer = 0; } if (_drawReq) { cancelAnimationFrame(_drawReq); _drawReq = 0; } }
+    function cleanupGlobe() { try { ro.disconnect(); } catch (e) {} try { themeObs.disconnect(); } catch (e) {} try { window.removeEventListener("blur", stopHold); } catch (e) {} try { if (dprMedia) dprMedia.removeEventListener("change", onDPRChange); } catch (e) {} try { document.removeEventListener("keydown", onGlobeKey); } catch (e) {} try { window.removeEventListener("wheel", onGlobeWheel, true); } catch (e) {} stopSpin(); playStop(); if (flyRAF) { cancelAnimationFrame(flyRAF); flyRAF = 0; } if (flyDoneT) { clearTimeout(flyDoneT); flyDoneT = 0; } if (settleT) { clearTimeout(settleT); settleT = 0; } if (_drawTimer) { clearTimeout(_drawTimer); _drawTimer = 0; } if (_drawReq) { cancelAnimationFrame(_drawReq); _drawReq = 0; } }
     const ro = new ResizeObserver(() => { if (!canvas.isConnected) { cleanupGlobe(); return; } resize(); });
     ro.observe(stage);
     resize();
@@ -6172,7 +6289,56 @@
     cpEl = root.querySelector("#countryPop"); cpNameEl = root.querySelector("#cpName"); cpSpanEl = root.querySelector("#cpSpan"); cpDescEl = root.querySelector("#cpDesc");
     cpYearNumEl = root.querySelector("#cpYearNum"); cpYearDescEl = root.querySelector("#cpYearDesc");
     cpPopEl = root.querySelector("#cpPop"); cpAreaEl = root.querySelector("#cpArea"); cpGdpEl = root.querySelector("#cpGdp"); cpGdppcEl = root.querySelector("#cpGdppc");
+    cpCrumbEl = root.querySelector("#cpCrumb"); cpHistListEl = root.querySelector("#cpHistList");
     { const cpClose = root.querySelector("#cpClose"); if (cpClose) cpClose.addEventListener("click", hideCountryPopup); }
+    // breadcrumb: climb back up the drill hierarchy (territory → its empire; drilled country/constituent → its holder)
+    if (cpCrumbEl) cpCrumbEl.addEventListener("click", (e) => {
+      const b = e.target.closest(".cp-crumb-link"); if (!b) return;
+      const ht = histTerr();
+      if (b.dataset.act === "empire" && ht) {
+        const mother = b.dataset.key;
+        selSet.clear(); subSelGeo = -1; subSelUK = []; hoverIdx = -1;
+        for (let i = 0; i < ht.length; i++) if ((ht[i].mother || ht[i].n) === mother) selSet.add(i);
+        showCountryPopupName(empireName(mother)); scheduleDraw();
+      } else selectEntityByName(b.dataset.key, popPointLL);
+    });
+    // "Through the ages": who held this spot in every mapped year — consecutive same owners collapse into one run
+    { const histBtn = root.querySelector("#cpHistory");
+      if (histBtn) histBtn.addEventListener("click", () => {
+        if (!cpHistListEl) return;
+        if (!cpHistListEl.hidden) { cpHistListEl.hidden = true; cpHistListEl.innerHTML = ""; return; }
+        if (!popPointLL) return;
+        const rows = []; let prev = null;
+        mapYears().forEach((yy) => {
+          const era = activeEra(yy); if (!era) return;
+          const owner = ownerAt(era, popPointLL[0], popPointLL[1]);
+          const label = owner || "no state mapped";
+          if (prev && prev.label === label) { prev.to = yy; return; }
+          prev = { from: yy, to: yy, label: label, owner: owner }; rows.push(prev);
+        });
+        const fy = (v) => (v >= MAXY ? "Today" : v < 0 ? -v + " BCE" : String(v));
+        cpHistListEl.innerHTML = rows.map((r) =>
+          '<button class="cph-row' + (year >= r.from && year <= r.to ? " cur" : "") + '" type="button" data-y="' + r.from + '" data-n="' + esc(r.owner || "") + '">' +
+          '<span class="cph-years">' + fy(r.from) + (r.to !== r.from ? " – " + fy(r.to) : "") + '</span><span class="cph-name">' + esc(r.label) + "</span></button>").join("");
+        cpHistListEl.hidden = false;
+      });
+    }
+    if (cpHistListEl) cpHistListEl.addEventListener("click", (e) => {
+      const b = e.target.closest(".cph-row"); if (!b) return;
+      const pt = popPointLL;   // setYear clears popup state, so re-select using the SAME spot the strip answered for (names aren't unique)
+      setYear(+b.dataset.y);
+      if (b.dataset.n) { popPointLL = pt; if (selectEntityByName(b.dataset.n, pt) < 0) hideCountryPopup(); } else hideCountryPopup();
+    });
+    // Copy link: a shareable #map/<year>/<entity-slug> deep link for the current view
+    { const copyBtn = root.querySelector("#cpCopyLink");
+      const slugOf = (s) => gsFold(s).replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+      if (copyBtn) copyBtn.addEventListener("click", () => {
+        const url = location.href.split("#")[0] + "#map/" + year + (popEntityName ? "/" + slugOf(popEntityName) : "");
+        const ok = () => toast("Link copied");
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(ok, () => toast(url));
+        else toast(url);
+      });
+    }
     mapBar = root.querySelector("#mapEditBar");
     if (mapBar) {
       mapBar.querySelectorAll(".meb-tool").forEach((b) => b.addEventListener("click", () => mapSetTool(b.dataset.tool)));
@@ -6221,10 +6387,46 @@
     function setYear(y) {
       if (mapEdit) return;   // while editing an era the year is pinned to it — the timeline/chevrons must not change it out from under the editor
       flyStop();             // navigating the timeline cancels a search fly-to (and its pending selection callback). gsPick is unaffected: it calls setYear BEFORE starting its flight
+      if (!_playStepping) playStop();   // any user-driven year change pauses the timeline player
+      const prevYear = year, prevEra = activeEra(prevYear);
       year = snapYear(Math.round(y));   // only mapped years are reachable when browsing — a raw year snaps to the nearest one
       const e = activeEra(year), eid = e ? (e.present ? "__present" : e.id) : "__none";   // crossing into a different era invalidates the selection (indices belong to the old era's territory set)
-      if (eid !== _lastEraId) { _lastEraId = eid; if (selSet.size) selSet.clear(); subSelGeo = -1; subSelUK = []; hoverIdx = -1; hideCountryPopup(); }
+      if (eid !== _lastEraId) {
+        // crossfade: snapshot the outgoing era's pixels BEFORE the redraw so the new borders fade in over them
+        // (skipped while scrubbing the pin — a full-canvas snapshot per boundary crossing, many times a second, for fades nobody can see)
+        if (!REDUCED && !tlDrag && _lastEraId !== "__init" && canvas.width > 0) {
+          fadeCv.width = canvas.width; fadeCv.height = canvas.height;
+          fadeCv.getContext("2d").drawImage(canvas, 0, 0);
+          fadeT0 = performance.now(); fadeActive = true;
+        }
+        _lastEraId = eid; if (selSet.size) selSet.clear(); subSelGeo = -1; subSelUK = []; hoverIdx = -1; hideCountryPopup();
+        pulseChanges(prevEra, prevYear);   // flash what changed hands (single-step moves only)
+      }
       paintYear(); scheduleDraw();
+    }
+    // "What changed?" pulse: compare each CURRENT-map territory's label anchor against the era just left — a different owner
+    // name there (appeared, vanished-into, renamed iteration, changed sovereign) earns a brief gold throb. Anchor-sampled, so
+    // a same-name border shift doesn't pulse (honest limitation); only single steps pulse — a jump across centuries would
+    // flash half the world and teach nothing.
+    function pulseChanges(oldEra, oldYear) {
+      pulseSet = null;
+      if (REDUCED || !oldEra || oldYear === year) return;
+      if (tlDrag) return;   // scrubbing the pin crosses eras many times a second — pulses there are noise and point-in-polygon cost
+      if (performance.now() - _lastPulseAt < 450) return;   // chevron hold-repeat: at most ~2 pulse computations a second
+      const ys = mapYears(), ai = ys.indexOf(oldYear), bi = ys.indexOf(year);
+      if (ai < 0 || bi < 0 || Math.abs(ai - bi) !== 1) return;
+      _lastPulseAt = performance.now();
+      const idxs = [];
+      const anchors = eraLabelAnchors();   // null on the present-day map
+      if (anchors) {
+        if (anchors.length > 320) return;   // the tribal-mosaic eras (1600 has ~650 territories) — the sync point-in-polygon sweep would jank setYear and the flash would be noise
+        for (const an of anchors) {
+          if (ownerAt(oldEra, an.lon, an.lat) !== an.n) idxs.push(an.i);   // anchors carry their own territory index — never resolved by (non-unique) name
+        }
+      } else {
+        for (let i = 0; i < GEO.length; i++) { const c = GEO[i]; if (!c.n || !c.c) continue; const was = ownerAt(oldEra, c.c[0], c.c[1]); if (was && was !== c.n) idxs.push(i); }
+      }
+      if (idxs.length) { pulseSet = idxs; pulseT0 = performance.now(); }
     }
     function step(dir) { stepYear(dir); }   // chevrons / arrow keys move one mapped year at a time (amt arg from hold-repeat is ignored — there are only a few stops)
     const clientFrac = (clientX) => { const r = track.getBoundingClientRect(); return clamp((clientX - r.left) / r.width, 0, 1); };
@@ -6256,8 +6458,81 @@
     });
     window.addEventListener("blur", stopHold);
 
+    // timeline player: auto-step through the mapped years (~2.4s per stop) as a border time-lapse; any user-driven
+    // year change (rail, marks, chevrons, search) pauses it via setYear's playStop — its own steps are flagged
+    const playBtn = root.querySelector("#tlPlay");
+    const PLAY_SVG = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
+    const PAUSE_SVG = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h3.6v14H7zM13.4 5H17v14h-3.6z"/></svg>';
+    let playT = 0, _playStepping = false;
+    function playStop() {
+      if (playT) { clearTimeout(playT); playT = 0; }
+      if (playBtn && playBtn.classList.contains("on")) { playBtn.innerHTML = PLAY_SVG; playBtn.classList.remove("on"); playBtn.setAttribute("aria-label", "Play through the map years"); }
+    }
+    function playTick() {
+      playT = setTimeout(() => {
+        playT = 0;
+        if (mapEdit || !canvas.isConnected) { playStop(); return; }
+        _playStepping = true; stepYear(1); _playStepping = false;
+        if (year >= MAXY) { playStop(); return; }   // reached the present — the show is over
+        playTick();
+      }, 2400);
+    }
+    if (playBtn) {
+      playBtn.innerHTML = PLAY_SVG;
+      playBtn.addEventListener("click", () => {
+        if (playT) { playStop(); return; }
+        if (year >= MAXY) { _playStepping = true; setYear(MINY); _playStepping = false; }   // pressed at the end: restart from the first mapped year
+        playBtn.innerHTML = PAUSE_SVG; playBtn.classList.add("on"); playBtn.setAttribute("aria-label", "Pause");
+        playTick();
+      });
+    }
+
     year = snapYear(year); renderMapYearMarks();   // start on a mapped year and mark the stops on the rail
     paintYear();
+    if (atlasDeepSel) {   // #map/<year>/<slug>: the year is already applied (atlasPendingYear) — now select + fly to the entity
+      const norm = (s) => gsFold(s).replace(/[^a-z0-9]+/g, " ").trim();
+      const want = norm(atlasDeepSel); atlasDeepSel = null;
+      const ht = histTerr(), terr = ht || GEO; let idx = -1;
+      for (let i = 0; i < terr.length; i++) if (norm(terr[i].n || "") === want) { idx = i; break; }
+      if (idx >= 0) {   // a territory / country of this map
+        const an = ht ? (eraLabelAnchors() || []).find((a) => norm(a.n) === want) : { lon: (GEO[idx].c || [0, 0])[0], lat: (GEO[idx].c || [0, 0])[1] };
+        popPointLL = an ? [an.lon, an.lat] : null;
+        selSet.clear(); selSet.add(idx); showCountryPopup(idx);
+        if (an) flyTo(an.lon, an.lat, Math.max(zoom, 1.5), null);
+      } else if (ht) {   // Copy link can also capture an EMPIRE popup ("french colonial empire") — resolve via the territories' .mother
+        const era0 = activeEra(year);
+        if (era0 && era0.geo && era0.geo.length) {
+          let mother = null;
+          for (let i = 0; i < ht.length; i++) { const m = ht[i].mother; if (m && norm(empireName(m)) === want) { mother = m; break; } }
+          if (mother) {
+            selSet.clear(); subSelGeo = -1; subSelUK = [];
+            for (let i = 0; i < ht.length; i++) if ((ht[i].mother || ht[i].n) === mother) selSet.add(i);
+            const ans = eraLabelAnchors() || []; const an = ans.find((a) => selSet.has(a.i));   // biggest member (anchors are area-sorted)
+            popPointLL = an ? [an.lon, an.lat] : null;
+            showCountryPopupName(empireName(mother));
+            if (an) flyTo(an.lon, an.lat, Math.max(zoom, 1.5), null);
+          }
+        }
+      }
+      if (idx < 0 && !selSet.size) {   // …or a drilled present-day country ("russia" inside the 1960 USSR) or a UK constituent ("scotland")
+        let g = -1; for (let i = 0; i < GEO.length; i++) if (norm(GEO[i].n || "") === want) { g = i; break; }
+        if (ht && g >= 0) {
+          subSelGeo = g; selSet.clear(); subSelUK = [];
+          const lp = GEO[g].c; popPointLL = lp ? [lp[0], lp[1]] : null;
+          showCountryPopupName(GEO[g].n);
+          if (lp) flyTo(lp[0], lp[1], Math.max(zoom, 1.5), null);
+        } else if (g < 0) {
+          for (let u = 0; u < UK.length; u++) if (norm(UK[u].n || "") === want) {
+            subSelUK = [u]; selSet.clear(); subSelGeo = -1;
+            const b = UKBB[u], clon = (b[0] + b[2]) / 2, clat = (b[1] + b[3]) / 2;
+            popPointLL = [clon, clat];
+            showCountryPopupName(UK[u].n, true);
+            flyTo(clon, clat, Math.max(zoom, 2), null);
+            break;
+          }
+        }
+      }
+    }
     if (atlasEditEraId != null) { const _e = (window.TIMELINE || []).find((x) => x.id === atlasEditEraId); atlasEditEraId = null; if (_e) enterMapEdit(_e); }
   };
 
@@ -8382,6 +8657,14 @@
      TIMELINE MAPS — trace a world-map PNG into vector border eras
      ============================================================ */
   let atlasPendingYear = null;   // set by "View on globe" so the Atlas opens at a chosen era's year instead of the present
+  let atlasDeepSel = null;       // entity slug from a #map/<year>/<slug> deep link — consumed once by PAGES.map (select + fly)
+  function parseMapHash(parts) {  // parts = ["map", "<year>", "<entity-slug>?"] — the year rides atlasPendingYear, the slug atlasDeepSel
+    const y = parseInt(parts[1], 10);
+    if (isFinite(y)) atlasPendingYear = y;
+    let slug = parts[2] || null;
+    if (slug) { try { slug = decodeURIComponent(slug); } catch (e) {} }   // a truncated/mangled %-escape must NOT throw at boot — keep the raw string
+    atlasDeepSel = slug;
+  }
   let atlasEditEraId = null;     // set by "Edit on globe" → the Atlas opens in map-edit mode for this era
   let tlObjUrl = null;           // object URL of the map image being traced — module-level so it's revoked across editor re-renders
 
@@ -8992,7 +9275,9 @@
   // initial route from hash
   const valid = ["home", "decks", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "admin", "mission"];
   const h = (location.hash || "").replace("#", "");
-  let initName = valid.includes(h) ? h : "home";
+  const hParts = h.split("/");
+  let initName = valid.includes(hParts[0]) ? hParts[0] : "home";
+  if (initName === "map" && hParts.length > 1) parseMapHash(hParts);   // #map/<year>/<slug> deep link
   if (initName === "admin" && !isAdmin()) initName = "home";
   current = { name: initName, params: {} };
   applyTheme();
@@ -9044,6 +9329,12 @@
   window.addEventListener("hashchange", () => {
     const hh = (location.hash || "").replace("#", "");
     if (hh === "admin" && !isAdmin()) { route("home"); return; }
+    const parts = hh.split("/");
+    if (parts[0] === "map" && parts.length > 1) {   // #map/<year>/<slug> deep link pasted or followed mid-session
+      parseMapHash(parts);
+      if (current.name === "map") render(); else route("map");   // route() rewrites the hash to "map"; the extra hashchange is a no-op
+      return;
+    }
     if (valid.includes(hh) && hh !== current.name) route(hh);
     else if (!hh && current.name !== "home") route("home");
   });

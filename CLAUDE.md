@@ -432,7 +432,26 @@ cities.js → timeline.js → countries.js → country-stats.js → country-year
   navigation mid-flight aborts it) / `cleanupGlobe`; the landing selection runs ~90ms after touchdown via a **tracked**
   `flyDoneT` timeout and re-checks `eraKey(year)` against the era it took off for, so it can never resurrect a
   selection on an era the user navigated to meanwhile. The dropdown's `.gs-results[hidden]{display:none}` override is
-  required (author `display:flex` beats the UA hidden rule — codebase convention, cf. `.country-pop[hidden]`). Clicking a country
+  required (author `display:flex` beats the UA hidden rule — codebase convention, cf. `.country-pop[hidden]`).
+  **Change-over-time features (batch 2):** `terrOf(era)`/`ownerAt`/`ownerIdxAt` are the cross-era lookup (per-era.id cache
+  `_terrCache`, cleared by `mapBump` + the groups→geo materialization in `enterMapEdit`; smallest-bbox tie-break so enclaves
+  beat their surrounder, like `countryAt`). Stepping ONE map-year pulses the territories that changed hands (`pulseChanges` —
+  each new-map label anchor sampled against the old era's owner; anchors carry their territory index `i` because names are
+  NOT unique — 1900 has 35 "Fiji" polygons; skipped while `tlDrag`, throttled 450ms for chevron-holds, skipped on eras with
+  >320 territories, and under `prefers-reduced-motion` (`REDUCED`)). Era changes **crossfade** (~280ms — `fadeCv` snapshot in
+  `setYear`, composited with falling alpha in `draw()`, killed by `startMotion`/`tlDrag`; the settled base cache is snapshotted
+  BEFORE overlays, so pulse/fade never leak into `baseCv`). A **play button** (`#tlPlay`) auto-steps the mapped years every
+  2.4s (`_playStepping` flag; any user-driven `setYear` AND any search pick calls `playStop` — a pick on the current year has
+  no setYear, and a later tick would cancel its flight mid-air). The info panel gained a **drill breadcrumb** (`#cpCrumb` —
+  parent = the empire via `.mother`, or `ownerAt(popPointLL)` for drilled countries/UK constituents; clicking climbs back up),
+  **"Through the ages"** (`#cpHistory` — `ownerAt(popPointLL)` across all mapYears, consecutive runs collapsed; a row click
+  jumps + re-selects **by point, not name** via `selectEntityByName(name, atLL)`), and **Copy link** → `#map/<year>/<slug>`
+  deep links (parsed at boot + hashchange by `parseMapHash` — `decodeURIComponent` is try/caught so a mangled %-escape can't
+  kill boot; the consumer resolves territory names, then EMPIRE names via `.mother`, then drilled present-day countries
+  (`subSelGeo`), then UK constituents (`subSelUK`); `popPointLL` (the click point / search anchor — GEO label point `c`, NOT
+  the bbox centre, which can land in a neighbour) + `popEntityName` feed all three). Unclaimed land on historical eras gets a
+  **terra-incognita stipple** (`stipplePattern()`, theme-aware via `stippleCol`, drawn settled-only under the claimed-land
+  refill so it survives only on wilderness). Clicking a country
   (present-day or a historical era's territory) highlights it and shows a single info popup above the
   timeline — its name + a 5-sentence description from `countries.js`; one at a time, cleared on a second
   click / ocean click / era change. The popup is a **vertical panel on the LEFT of the stage** (the base `.country-pop` rule:

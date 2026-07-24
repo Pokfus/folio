@@ -17,6 +17,10 @@ window.CHANGELOG = [
       "The country info card now opens as a tall panel on the left of the globe instead of a bar across the bottom, so you can read about a place while looking at it; the legend moved to the top-right under the search box. On phones it still slides up from the bottom.",
       "Fixed a glitch where zooming or flying across the Atlas could wash the whole page in a golden glow.",
       "Editor tidy-ups: the image title, description and source fields now appear only after an image URL is set; the HTML source box stays collapsed until you open it; the card preview sits properly centred; and a stray divider line no longer cuts across the Timeline editing page.",
+      "The timeline now teaches change: stepping between years briefly flashes gold over every territory that changed hands, old borders crossfade into new ones instead of snapping, and a play button walks the whole timeline as a time-lapse from 1500 to today.",
+      "The country panel learned history: a \"Through the ages\" button lists who held that exact spot in every mapped year — Ming, then Qing, then the Republic — with each entry clickable to jump there. A breadcrumb above the title shows the empire a territory belongs to, one click to climb up.",
+      "You can now share the Atlas: a Copy-link button gives a link straight to a year and place — send someone the Ottoman Empire in 1500 and their globe opens right on it.",
+      "On old maps, land that no source records as any state's is now stippled with fine dots — the mapmaker's mark for terra incognita — so it no longer reads as a mystery country.",
     ],
   },
   {
