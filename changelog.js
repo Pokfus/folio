@@ -32,6 +32,7 @@ window.CHANGELOG = [
       "Levelling up is a proper celebration now: confetti rains across the whole screen, a golden flash bursts behind the card as it springs in, and a little fanfare plays.",
       "In the card editor, the text-formatting toolbar now stays pinned at the top while you scroll down a long card.",
       "The Session complete screen now closes with a simple checkmark instead of a Chinese character — Folio covers many histories, not just China's.",
+      "The little spinning globe on the home page now follows the day/night switch instead of keeping its daylight colours in the dark.",
     ],
   },
   {

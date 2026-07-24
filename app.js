@@ -2750,14 +2750,20 @@
     const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
     const size = canvas.clientWidth || 170;
     canvas.width = size * dpr; canvas.height = size * dpr;
-    const cs = getComputedStyle(document.body);
-    const cv = (n) => cs.getPropertyValue(n).trim() || "#888888";
     const hex2rgb = (h) => { h = h.replace("#", ""); if (h.length === 3) h = h.split("").map((c) => c + c).join(""); const n = parseInt(h, 16); return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; };
     const mix = (a, b, t) => { const A = hex2rgb(a), B = hex2rgb(b); return "rgb(" + Math.round(A[0] + (B[0] - A[0]) * t) + "," + Math.round(A[1] + (B[1] - A[1]) * t) + "," + Math.round(A[2] + (B[2] - A[2]) * t) + ")"; };
-    const ink = cv("--ink"), paper = cv("--paper"), paper2 = cv("--paper-2"), indigo = cv("--indigo");
-    const L = hex2rgb(paper), dark = L[0] * 0.299 + L[1] * 0.587 + L[2] * 0.114 < 128;
-    const ocean = dark ? mix(paper2, indigo, 0.30) : "#b3ebff";   // same water as the Atlas
-    const land = mix(paper, ink, 0.12), border = mix(paper, ink, 0.40), rim = mix(paper, ink, 0.32);
+    // theme colours are re-read on day/night or theme switches (the toggle doesn't re-render the page,
+    // so colours captured once would go stale — the globe kept its daylight water in night mode)
+    let ocean, land, border, rim;
+    function readCols() {
+      const cs = getComputedStyle(document.body);
+      const cv = (n) => cs.getPropertyValue(n).trim() || "#888888";
+      const ink = cv("--ink"), paper = cv("--paper"), paper2 = cv("--paper-2"), indigo = cv("--indigo");
+      const L = hex2rgb(paper), dark = L[0] * 0.299 + L[1] * 0.587 + L[2] * 0.114 < 128;
+      ocean = dark ? mix(paper2, indigo, 0.30) : "#b3ebff";   // same water as the Atlas
+      land = mix(paper, ink, 0.12); border = mix(paper, ink, 0.40); rim = mix(paper, ink, 0.32);
+    }
+    readCols();
     const ctx = canvas.getContext("2d");
     const cx = canvas.width / 2, cy = canvas.height / 2, R = canvas.width / 2 - dpr;
     const rad = Math.PI / 180, phi0 = 18 * rad, sp0 = Math.sin(phi0), cp0 = Math.cos(phi0);
@@ -2792,6 +2798,13 @@
       ctx.beginPath(); ctx.arc(cx, cy, R - dpr / 2, 0, 2 * Math.PI); ctx.strokeStyle = rim; ctx.lineWidth = dpr; ctx.stroke();
     }
     draw();
+    // repaint in the new palette when the user flips day/night or switches theme (covers the
+    // reduced-motion static globe too); disconnects itself once the canvas leaves the DOM
+    const mo = new MutationObserver(() => {
+      if (!canvas.isConnected) { mo.disconnect(); return; }
+      readCols(); draw();
+    });
+    mo.observe(document.body, { attributes: true, attributeFilter: ["class", "data-theme"] });
     if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     let last = 0;
     function frame(t) {
