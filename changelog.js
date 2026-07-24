@@ -26,6 +26,8 @@ window.CHANGELOG = [
       "The globe's edge shading and atmospheric glow no longer blink out while you drag or zoom — they now stay put through every movement.",
       "Find it on the map now teaches as you play: a wrong guess flashes the country you actually clicked red and opens its info panel, a right guess flashes green, and every reveal opens the answer's panel — so each round ends on something learned.",
       "The home-page game tiles now wear their colour as a wash fading to the right, matching the Library's collection banners — and in daylight both are noticeably more colourful (they were nearly invisible); night mode keeps its quieter shading.",
+      "The home page's glossary tile is now called \"Gloss of the day\", and clicking it opens the term right beside the tile instead of far away in the corner of the screen.",
+      "Studying is one key faster: once the answer is showing, pressing Enter marks the card Good and moves on — the same as clicking the green button.",
     ],
   },
   {

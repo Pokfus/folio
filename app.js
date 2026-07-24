@@ -1563,13 +1563,21 @@
     const w = win.offsetWidth, h = win.offsetHeight, gap = 16;
     const ref = (triggerEl && triggerEl.closest(".gloss-win")) ||
       document.querySelector(".study-card") || document.querySelector(".cardwrap");
-    if (!ref || !triggerEl) {
+    if (!triggerEl) {   // no trigger at all (restored popups handle their own position) — fall back to the top-right
       win.style.left = Math.max(12, vw - w - 24) + "px";
       win.style.top = "92px"; win.style.right = "auto";
       return;
     }
-    const refR = ref.getBoundingClientRect();
     const tR = triggerEl.getBoundingClientRect();
+    if (!ref) {   // no anchoring card on this page (e.g. the home page's gloss tile) — sit directly beside the trigger, preferring its right
+      let left = tR.right + gap;
+      if (left + w > vw - 6) left = tR.left - w - gap;   // no room on the right -> flip to the left
+      left = Math.max(6, Math.min(left, vw - w - 6));
+      const top = Math.max(6, Math.min(tR.top, vh - h - 6));
+      win.style.left = left + "px"; win.style.top = top + "px"; win.style.right = "auto";
+      return;
+    }
+    const refR = ref.getBoundingClientRect();
     const tCenter = tR.left + tR.width / 2;
     const putLeft = (tCenter - refR.left) <= (refR.right - tCenter);
     let left;
@@ -2895,7 +2903,7 @@
         </div>
       </button>` : ""}
       ${tod ? `<button class="exp-tile exp-term" id="exp-term" type="button">
-        <span class="exp-eyebrow">From the glossary</span>
+        <span class="exp-eyebrow">Gloss of the day</span>
         <span class="term-title">${esc(glossTitle(tod))}</span>
         ${glossDates(tod) ? `<span class="term-dates">${esc(glossDates(tod))}</span>` : ""}
         <span class="term-desc" id="term-desc"></span>
@@ -3642,6 +3650,12 @@
         } else if (revealed && ["1", "2", "3", "4"].includes(e.key)) {
           e.preventDefault();
           doGrade({ 1: "again", 2: "hard", 3: "good", 4: "easy" }[e.key]);
+        } else if (revealed && e.key === "Enter") {
+          // Enter = "Good" (the default grade) → next card. Skip when a gradebar button has keyboard focus,
+          // or its own native Enter-click would grade too and the card would be graded twice.
+          if (document.activeElement && document.activeElement.closest && document.activeElement.closest("#gradebar")) return;
+          e.preventDefault();
+          doGrade("good");
         }
       };
       attachKeys(cardRoot._keys);
