@@ -402,9 +402,9 @@ body.night .banner, body.night .banner:hover{border-left-color:#fff;}
 .collection-row > .collection-main, .collection-row > .collection-actions, .collection-row > .level-badge{position:relative; z-index:1;}
 /* Default (folio) theme — "bookplate": a quiet wash of the collection's hue fading into the card
    and a fine inner rule like a book plate. */
-body[data-theme="folio"] .collection-deco,
-body[data-theme="folio"].night .collection-deco{
-  background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, #888) 14%, var(--card)), var(--card) 64%);
+body[data-theme="folio"] .collection-deco{
+  /* daylight needs a much stronger mix than night: the hue sinks into the bright card (14% was near-invisible) */
+  background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, #888) 30%, var(--card)), var(--card) 64%);
 }
 body[data-theme="folio"].night .collection-deco{
   background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, #888) 22%, var(--card)), var(--card) 64%);
@@ -1419,7 +1419,8 @@ body.grading .wb-tools{bottom:108px;}
 .game-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
 .game-tile{
   position:relative; overflow:hidden; text-align:left; min-height:130px;
-  background:linear-gradient(150deg, var(--card) 56%, color-mix(in srgb, var(--tile, var(--indigo)) 16%, var(--card)));
+  /* hue on the left fading to the right, like the Library collection banners */
+  background:linear-gradient(105deg, color-mix(in srgb, var(--tile, var(--indigo)) 20%, var(--card)), var(--card) 64%);
   border:1px solid var(--rule); border-left:4px solid var(--tile, var(--rule)); border-radius:14px;
   padding:18px; box-shadow:var(--shadow-md);
   display:flex; flex-direction:column; justify-content:flex-end;
@@ -1448,10 +1449,18 @@ button.game-tile:active{transform:translateY(0) scale(.99);}
    .done (played today): the tile FILLS with its theme colour (bright top-left → darkened far corner, dark icon,
    white text) plus the green .gt-done check.
    .won (perfect score today): shining gold — a soft white shine band sweeps across a gold fill; icon + text darken. */
-/* unplayed: a whisper of the tile's hue — the full saturated fill stays earned by playing */
+/* unplayed: the tile's hue on the left fading rightward (matching the Library banners) — the full saturated
+   fill stays earned by playing. Daylight needs a far stronger mix than night to read at all; night keeps the
+   original whisper strength. */
 button.game-tile:not(.done):not(.won){
-  background:linear-gradient(135deg, color-mix(in srgb, var(--tile, var(--indigo)) 10%, var(--card)), var(--card) 72%);
+  background:linear-gradient(105deg, color-mix(in srgb, var(--tile, var(--indigo)) 26%, var(--card)), var(--card) 64%);
   box-shadow:var(--shadow-sm);
+}
+body.night button.game-tile:not(.done):not(.won){
+  background:linear-gradient(105deg, color-mix(in srgb, var(--tile, var(--indigo)) 10%, var(--card)), var(--card) 64%);
+}
+body.night .game-tile{
+  background:linear-gradient(105deg, color-mix(in srgb, var(--tile, var(--indigo)) 12%, var(--card)), var(--card) 64%);
 }
 button.game-tile:not(.done):not(.won) .gt-title{color:color-mix(in srgb, var(--tile, var(--indigo)) 45%, var(--ink));}
 button.game-tile:not(.done):not(.won) .gt-glyph{opacity:.14;}

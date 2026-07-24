@@ -25,6 +25,7 @@ window.CHANGELOG = [
       "The Atlas greets first-time visitors with a short how-to card (reopen it any time with the ? button), the zoom buttons returned to the bottom-right corner, and the whole globe now works from the keyboard — arrows rotate, Enter selects, [ and ] step through the years.",
       "The globe's edge shading and atmospheric glow no longer blink out while you drag or zoom — they now stay put through every movement.",
       "Find it on the map now teaches as you play: a wrong guess flashes the country you actually clicked red and opens its info panel, a right guess flashes green, and every reveal opens the answer's panel — so each round ends on something learned.",
+      "The home-page game tiles now wear their colour as a wash fading to the right, matching the Library's collection banners — and in daylight both are noticeably more colourful (they were nearly invisible); night mode keeps its quieter shading.",
     ],
   },
   {
