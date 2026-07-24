@@ -6,9 +6,14 @@
 window.CHANGELOG = [
   {
     d: "2026-07-24",
-    t: "The world of 1500",
+    t: "The world of 1500, and a more readable Atlas",
     items: [
       "The Atlas timeline now reaches back to 1500 — the world on the eve of the modern age, with the Ming, the Ottomans, the Aztec and Inca empires, and over 140 states and peoples drawn on the globe. Each comes with a researched description, the years it existed, a note on what was happening there in 1500, and 69 period-accurate capitals — Tenochtitlan, Vijayanagara, Constantinople and the rest.",
+      "Historical maps finally name their states: switch on \"Country names\" in any year and the territories label themselves — empires in larger type, small states appearing as you zoom. Hovering anywhere also shows what's under your cursor, with its empire when it belongs to one.",
+      "You can now search the Atlas. Type any country, historical territory or capital — Ottoman Empire, Tenochtitlan, Kalmar Union — and the globe flies there, jumping the timeline to the right era and opening the info card.",
+      "The timeline is easier to use: the mapped centuries now spread across most of the rail instead of crowding the right edge, every map-year tick is clickable and names its era, and a plate title above the globe always shows which year you're looking at.",
+      "The globe itself got a quiet polish — a soft shading toward the edge and a faint atmospheric glow, so it reads as a sphere rather than a flat disk.",
+      "The Atlas also loads faster: two data files for long-removed map layers (about 1.7 MB) no longer ship with every page.",
     ],
   },
   {

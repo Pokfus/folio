@@ -4362,11 +4362,16 @@
     const MINY = -1000, MAXY = new Date().getFullYear();
     const chevL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>';
     const chevR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>';
-    const ticks = [
-      { y: -1000, t: "1000 BCE" }, { y: 1, t: "1 CE" }, { y: 1000, t: "1000 CE" }, { y: MAXY, t: "present" },
+    // piecewise (non-linear) rail scale: the map-less antiquity span (1000 BCE – 1500 CE) compresses into the left 15% of the
+    // rail and the densely-mapped 1500 → present span stretches over the remaining 85% — so the 13 map stops aren't crowded
+    // into the right edge. year2frac/frac2year are exact inverses; every rail position (pin, fill, ticks, marks) uses them.
+    const TL_KNEE = 1500, TL_KNEE_F = 0.15;
+    const year2frac = (y) => y <= TL_KNEE ? (y - MINY) / (TL_KNEE - MINY) * TL_KNEE_F : TL_KNEE_F + (y - TL_KNEE) / (MAXY - TL_KNEE) * (1 - TL_KNEE_F);
+    const ticks = [   // no "1 CE" tick: at ~6% of the rail it collides with the left-anchored "1000 BCE" label on narrow tracks
+      { y: -1000, t: "1000 BCE" }, { y: 1500, t: "1500" }, { y: 1700, t: "1700" }, { y: 1900, t: "1900" }, { y: MAXY, t: "present" },
     ];
     const tickHTML = ticks.map((k) => {
-      const f = ((k.y - MINY) / (MAXY - MINY)) * 100;
+      const f = year2frac(k.y) * 100;
       return `<span class="tl-tick" style="left:${f}%">${k.t}</span>`;
     }).join("");
 
@@ -4379,6 +4384,12 @@
             <span>The Atlas is a work in progress — so far only the present-day map (${MAXY} CE) has been drawn. Slide the timeline back to the present year to return to a map.</span>
           </div>
           <div class="globe-hint">Drag to rotate · scroll or +/− to zoom · v12</div>
+          <div class="map-cartouche" id="mapCartouche" aria-hidden="true"></div>
+          <div class="globe-hovername" id="globeHoverName" hidden aria-hidden="true"><span class="ghn-top" id="ghnTop"></span><span class="ghn-main" id="ghnMain"></span></div>
+          <div class="globe-search" id="globeSearch">
+            <input type="text" id="gsInput" placeholder="Search the atlas…" autocomplete="off" spellcheck="false" aria-label="Search countries, territories and capitals" />
+            <div class="gs-results" id="gsResults" role="listbox" hidden></div>
+          </div>
           <div class="globe-legend" id="globeLegend" role="group" aria-labelledby="legendTitle">
             <div class="legend-head" id="legendHead">
               <span class="legend-title" id="legendTitle">Legend</span>
@@ -4452,7 +4463,7 @@
     function hex2rgb(h) { h = h.replace("#", ""); if (h.length === 3) h = h.split("").map((c) => c + c).join(""); const n = parseInt(h, 16); return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; }
     function mix(a, b, t) { const A = hex2rgb(a), B = hex2rgb(b); return `rgb(${Math.round(A[0] + (B[0] - A[0]) * t)},${Math.round(A[1] + (B[1] - A[1]) * t)},${Math.round(A[2] + (B[2] - A[2]) * t)})`; }
     function rgba(a, al) { const A = hex2rgb(a); return `rgba(${A[0]},${A[1]},${A[2]},${al})`; }
-    let ocean, land, landWild, border, grat, rim, labelFont, riverCol, adminCol, rangeCol, waterCol, lblHaloSoft, LBL_TEXT, LBL_HALO, forestCol, forestColD, forestColT;
+    let ocean, land, landWild, border, grat, rim, labelFont, riverCol, adminCol, rangeCol, waterCol, lblHaloSoft, LBL_TEXT, LBL_HALO, forestCol, forestColD, forestColT, limbA, limbB, haloIn, haloOut;
     function readColors() {
       const cs = getComputedStyle(document.body);
       const cv = (n) => cs.getPropertyValue(n).trim() || "#888888";
@@ -4472,6 +4483,9 @@
       forestColD = dark ? "rgba(96,158,116,0.92)" : "rgba(28,92,58,0.88)";        // conifer trees (deep green)
       forestColT = dark ? "rgba(126,196,120,0.9)" : "rgba(36,124,74,0.85)";       // tropical trees (rich green)
       LBL_TEXT = dark ? "#ffffff" : "#221808"; LBL_HALO = dark ? "rgba(0,0,0,0.9)" : "rgba(255,255,255,0.92)";   // country/city/river labels — night: white text + black outline; day: dark text + white outline
+      // limb shading (a whisper of darkening toward the disk edge, so the globe reads as a sphere) + atmosphere halo just outside it
+      limbA = "rgba(0,0,0," + (dark ? 0.10 : 0.05) + ")"; limbB = "rgba(0,0,0," + (dark ? 0.32 : 0.15) + ")";
+      haloIn = rgba(dark ? indigo : ink, dark ? 0.42 : 0.20); haloOut = rgba(dark ? indigo : ink, 0);
       labelFont = cv("--sans") || "system-ui, sans-serif";
     }
     readColors();
@@ -4484,7 +4498,30 @@
     const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
     const wrap = (d) => ((d + 180) % 360 + 360) % 360 - 180;
     const GEO = window.WORLD_GEO || [];
-    let hoverIdx = -1;
+    let hoverIdx = -1, hoverPx = 0, hoverPy = 0, hoverOn = false;   // hovered entity + the cursor's canvas position (anchors the hover name tag); hoverOn = pointer is over the canvas
+    // hover name tag — a DOM chip (not canvas): following the cursor is a cheap style update, so the canvas only redraws when
+    // the hovered ENTITY changes (never per-move). Hidden while dragging / editing / drawing; era-aware (empire over territory).
+    const ghnEl = root.querySelector("#globeHoverName"), ghnTopEl = root.querySelector("#ghnTop"), ghnMainEl = root.querySelector("#ghnMain");
+    function updateHoverName() {
+      if (!ghnEl) return;
+      if (hoverIdx < 0 || !hoverOn || dragging || mapEdit || WB.enabled) { ghnEl.hidden = true; return; }
+      const nm = entityName(hoverIdx);
+      if (!nm) { ghnEl.hidden = true; return; }
+      let top = "";
+      const era = activeEra(year);
+      if (era && !era.present && era.geo && era.geo.length) {   // geo era: show the empire the territory belongs to
+        const ht = histTerr(), m = ht && ht[hoverIdx] && ht[hoverIdx].mother;
+        const em = m ? empireName(m) : ""; if (em && em !== nm) top = em;
+      }
+      ghnTopEl.textContent = top; ghnTopEl.style.display = top ? "" : "none";
+      ghnMainEl.textContent = nm;
+      ghnEl.hidden = false;
+      const gw = ghnEl.offsetWidth, gh = ghnEl.offsetHeight;
+      let x = hoverPx + 16, y = hoverPy - gh - 10;
+      if (x + gw > W - 8) x = hoverPx - gw - 14;    // flip left near the right edge
+      if (y < 8) y = hoverPy + 20;                  // flip below near the top
+      ghnEl.style.left = Math.max(4, x) + "px"; ghnEl.style.top = y + "px";
+    }
     const selSet = new Set();            // multi-select: indices of chosen countries (era territories, or present-day countries)
     let subSelGeo = -1;                  // double-click drill-down inside a historical era: index of a present-day country picked WITHIN a larger era entity (a "country that is part of another"); -1 = none
     // UK constituent countries (England / Scotland / Wales / Northern Ireland; + Ireland, the whole island, for the pre-1922
@@ -4676,7 +4713,12 @@
         const tier = c.cap ? 0 : 1, dot = cityDot(tier);
         if (sel) { ctx.beginPath(); ctx.arc(PX, PY, dot + 0.6, 0, TAU); ctx.fillStyle = "rgba(255,176,38,1)"; ctx.fill(); ctx.lineWidth = 1.3; ctx.strokeStyle = "rgba(0,0,0,0.55)"; ctx.stroke(); }
         else drawPin({ x: PX, y: PY, dot: dot, tier: tier });   // identical pin to the present-day map: vermilion CITY_DOT + white CITY_RING
-        if (showLabels && c.n) { const fs = tier === 0 ? baseFs : baseFs - 1.5, g = dot + 4; ctx.font = (tier === 0 ? "600 " : "500 ") + fs + "px " + labelFont; ctx.fillStyle = LBL_TEXT; ctx.strokeStyle = LBL_HALO; ctx.lineWidth = 3; ctx.strokeText(c.n, PX + g, PY); ctx.fillText(c.n, PX + g, PY); }
+        if (showLabels && c.n) {
+          const fs = tier === 0 ? baseFs : baseFs - 1.5, g = dot + 4; ctx.font = (tier === 0 ? "600 " : "500 ") + fs + "px " + labelFont;
+          const tw = ctx.measureText(c.n).width, lr = [PX + g - 2, PY - 8, tw + 4, 16];   // yield to the era territory-name labels (countryLabelRects)
+          let lhit = false; for (let k = 0; k < countryLabelRects.length; k++) if (rectsHit(lr, countryLabelRects[k])) { lhit = true; break; }
+          if (!lhit) { ctx.fillStyle = LBL_TEXT; ctx.strokeStyle = LBL_HALO; ctx.lineWidth = 3; ctx.strokeText(c.n, PX + g, PY); ctx.fillText(c.n, PX + g, PY); }
+        }
       }
       ctx.restore();
     }
@@ -4954,15 +4996,20 @@
     let _legendSig = "";
     // present-day-only layers (political) — hidden from the legend on historical / no-map years. Capitals (citiesToggle)
     // are NOT here: every era ships period capitals, so the Capitals layer is selectable in every year, separate from Borders.
-    const PRESENT_ONLY = { countryToggle: 1, majorToggle: 1 };
+    const PRESENT_ONLY = { majorToggle: 1 };   // layers with no historical data (country names now draw on every era via drawEraNames)
     function updateLegendVisibility() {
-      // every legend layer is shown at ALL zoom levels (no per-layer min-zoom gate). The only thing still hidden is a present-day-
-      // only layer (cities/divisions/…) on a HISTORICAL era, which genuinely has no data there.
+      // every legend layer is shown at ALL zoom levels (no per-layer min-zoom gate). A present-day-only layer (major cities) on a
+      // HISTORICAL era is DIMMED + disabled — not hidden — so students learn the layer model instead of thinking the row vanished.
       const ids = Object.keys(LEGEND_MINZOOM);
       const present = !!(activeEra(year) || {}).present;
       const sig = present ? "P" : "H";
       if (sig === _legendSig) return; _legendSig = sig;
-      for (let i = 0; i < ids.length; i++) { const cb = document.getElementById(ids[i]); const row = cb && cb.closest(".legend-row"); if (row) row.style.display = (!present && PRESENT_ONLY[ids[i]]) ? "none" : ""; }
+      for (let i = 0; i < ids.length; i++) {
+        const cb = document.getElementById(ids[i]); const row = cb && cb.closest(".legend-row"); if (!row) continue;
+        const na = !present && PRESENT_ONLY[ids[i]];
+        row.classList.toggle("legend-na", !!na); cb.disabled = !!na;
+        if (na) row.title = "Present-day map only"; else row.removeAttribute("title");
+      }
     }
 
     // orthographic projection through a 3D basis — lets us clip geometry exactly at the horizon
@@ -5370,6 +5417,85 @@
       }
       ctx.restore();
     }
+    // ---- historical-era territory name labels (the "Country names" legend layer on past eras) ----
+    // Era territories carry no precomputed label point (their `c` is the coast mask), so anchors are computed once per era and
+    // cached: the centroid of each territory's largest ring (lon-unwrapped so antimeridian rings don't fold), nudged inside the
+    // ring when the centroid of a concave shape falls outside it. Sorted by area so big states win the label de-collision.
+    let _lblEraId = null, _lblAnchors = null, _lblRev = -1;   // _lblRev: mapBump() only nulls _htId, which histTerr() refills with the SAME era.id — so the anchor cache must also key on mapEditRev or editor edits (delete/draw/reshape) keep stale labels
+    function ringLabelAnchor(ring) {
+      let a = 0, sx = 0, sy = 0, px = ring[0][0], py = ring[0][1], ox = 0;
+      let bx0 = px, bx1 = px, by0 = py, by1 = py;
+      for (let i = 1; i < ring.length; i++) {
+        let x = ring[i][0] + ox; const y = ring[i][1];
+        if (x - px > 180) { ox -= 360; x -= 360; } else if (px - x > 180) { ox += 360; x += 360; }
+        const cr = px * y - x * py; a += cr; sx += (px + x) * cr; sy += (py + y) * cr;
+        px = x; py = y; if (x < bx0) bx0 = x; if (x > bx1) bx1 = x; if (y < by0) by0 = y; if (y > by1) by1 = y;
+      }
+      const A = a / 2, area = Math.abs(A);
+      let lon = area > 1e-6 ? sx / (6 * A) : (bx0 + bx1) / 2, lat = area > 1e-6 ? sy / (6 * A) : (by0 + by1) / 2;
+      // a concave territory (crescent empires are common on old maps) can put its centroid outside itself — sample a small
+      // grid over the bbox and take the inside point nearest the centroid instead
+      if (!pointInRings([ring], wrap(lon), lat)) {
+        let best = null, bd = Infinity;
+        for (let gy = 1; gy <= 4; gy++) for (let gx = 1; gx <= 6; gx++) {
+          const tx = bx0 + (bx1 - bx0) * gx / 7, ty = by0 + (by1 - by0) * gy / 5;
+          if (!pointInRings([ring], wrap(tx), ty)) continue;
+          const d = (tx - lon) * (tx - lon) + (ty - lat) * (ty - lat);
+          if (d < bd) { bd = d; best = [tx, ty]; }
+        }
+        if (best) { lon = best[0]; lat = best[1]; }
+      }
+      return { lon: wrap(lon), lat: clamp(lat, -89, 89), a: area };
+    }
+    function eraLabelAnchors() {
+      const terr = histTerr(); if (!terr) return null;
+      if (_lblEraId === _htId && _lblRev === mapEditRev && _lblAnchors) return _lblAnchors;
+      const out = [];
+      for (let t = 0; t < terr.length; t++) {
+        const rings = terr[t].p || []; if (!rings.length || !terr[t].n) continue;
+        let best = null, bestA = -1;
+        for (let r = 0; r < rings.length; r++) {   // largest ring hosts the label
+          const ring = rings[r]; if (!ring || ring.length < 4) continue;
+          let a = 0, px = ring[0][0], py = ring[0][1], ox = 0;
+          for (let i = 1; i < ring.length; i++) { let x = ring[i][0] + ox; if (x - px > 180) { ox -= 360; x -= 360; } else if (px - x > 180) { ox += 360; x += 360; } a += px * ring[i][1] - x * py; px = x; py = ring[i][1]; }
+          a = Math.abs(a / 2); if (a > bestA) { bestA = a; best = ring; }
+        }
+        if (!best) continue;
+        const an = ringLabelAnchor(best); out.push({ n: terr[t].n, lon: an.lon, lat: an.lat, a: bestA });
+      }
+      out.sort((x, y) => y.a - x.a);
+      _lblEraId = _htId; _lblAnchors = out; _lblRev = mapEditRev;
+      return out;
+    }
+    function drawEraNames() {
+      const anchors = eraLabelAnchors(); if (!anchors) return;
+      ctx.save(); ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.lineJoin = "round";
+      countryLabelRects.length = 0; const placed = countryLabelRects;   // era capital labels yield to these (same contract as present-day)
+      const minA = 26 / (zoom * zoom);   // small territories earn a label as you zoom in
+      for (let i = 0; i < anchors.length; i++) {
+        const an = anchors[i]; if (an.a < minA) continue;
+        proj(an.lon, an.lat); if (PV < 0) continue;
+        const x = PX, y = PY; if (x < 0 || x > W || y < 0 || y > H) continue;
+        const fs = Math.round(clamp(9.5 + zoom * 0.6 + Math.min(4.5, Math.sqrt(an.a) * 0.22), 10, 17));
+        ctx.font = "600 " + fs + "px " + labelFont;
+        // wrap long (often ethnographic) names onto two lines at the space nearest the middle
+        let l1 = an.n, l2 = "";
+        if (an.n.length > 20) {
+          const mid = an.n.length / 2; let cut = -1, bd = Infinity;
+          for (let c = an.n.indexOf(" "); c >= 0; c = an.n.indexOf(" ", c + 1)) { const d = Math.abs(c - mid); if (d < bd) { bd = d; cut = c; } }
+          if (cut > 0) { l1 = an.n.slice(0, cut); l2 = an.n.slice(cut + 1); }
+        }
+        const tw = Math.max(ctx.measureText(l1).width, l2 ? ctx.measureText(l2).width : 0);
+        const lh = fs + 3, hh = l2 ? lh : lh / 2 + 1;
+        const r = [x - tw / 2 - 3, y - hh, tw + 6, hh * 2];
+        let hit = false; for (let k = 0; k < placed.length; k++) if (rectsHit(r, placed[k])) { hit = true; break; }
+        if (hit) continue; placed.push(r);
+        ctx.lineWidth = 3.5; ctx.strokeStyle = LBL_HALO; ctx.fillStyle = LBL_TEXT;
+        if (l2) { ctx.strokeText(l1, x, y - lh / 2); ctx.fillText(l1, x, y - lh / 2); ctx.strokeText(l2, x, y + lh / 2); ctx.fillText(l2, x, y + lh / 2); }
+        else { ctx.strokeText(l1, x, y); ctx.fillText(l1, x, y); }
+      }
+      ctx.restore();
+    }
     // river names, curved along each river, drawn with the Rivers layer once zoomed in a little (too many at low zoom)
     function drawRiverLabels() {
       if (zoom < RIVER_LABEL_Z) return;
@@ -5435,9 +5561,22 @@
     }
     function eraKey(y) { const e = activeEra(y); return e ? (e.present ? "P" : "E" + (e.id || e.year)) : "none"; }
     function viewKey() { return rotLon.toFixed(2) + "," + rotLat.toFixed(2) + "," + zoom.toFixed(3) + "," + W + "," + H + "," + (bordersOn ? 1 : 0) + (riversOn ? 1 : 0) + (riverLabelsOn ? 1 : 0) + (waterOn ? 1 : 0) + (rangesOn ? 1 : 0) + (adminOn ? 1 : 0) + (forestsOn ? 1 : 0) + (countryNamesOn ? 1 : 0) + (heightmapOn ? 1 : 0) + "," + eraKey(year) + "," + mapEditRev + "," + land + "|" + ocean + "|" + border + "|" + rim + "|" + grat; }
+    // limb shading + rim: a radial whisper of darkening toward the disk edge (so the flat disk reads as a sphere), then the rim
+    // stroke. One gradient fill per settled render — zero per-frame cost (renderStatic output is cached in baseCv).
+    function drawLimb() {
+      const g = ctx.createRadialGradient(cx, cy, R * 0.62, cx, cy, R);
+      g.addColorStop(0, "rgba(0,0,0,0)"); g.addColorStop(0.8, limbA); g.addColorStop(1, limbB);
+      ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.fillStyle = g; ctx.fill();
+      ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.lineWidth = 1.2; ctx.strokeStyle = rim; ctx.stroke();
+    }
     function renderStatic(bw) {
       ctx.clearRect(0, 0, W, H);
       countryLabelRects.length = 0;   // repopulated by drawCountryNames() below if the layer is on; empty otherwise so cities don't avoid stale boxes
+      { // atmosphere halo: a soft glow ring just outside the disk that separates the globe from the page (theme-aware)
+        const hg = ctx.createRadialGradient(cx, cy, R * 0.99, cx, cy, R * 1.075);
+        hg.addColorStop(0, haloIn); hg.addColorStop(1, haloOut);
+        ctx.beginPath(); ctx.arc(cx, cy, R * 1.075, 0, TAU); ctx.fillStyle = hg; ctx.fill();
+      }
       ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.fillStyle = ocean; ctx.fill();   // ocean
       drawGraticule();
       ctx.save(); ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.clip();
@@ -5445,7 +5584,7 @@
       const era = activeEra(year);
       if (!era) {   // no map for this year → empty ocean + graticule (the WIP note overlays it)
         ctx.restore();
-        ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.lineWidth = 1.2; ctx.strokeStyle = rim; ctx.stroke();
+        drawLimb();
         return;
       }
       if (!era.present) {
@@ -5500,7 +5639,8 @@
         if (riverLabelsOn && RIVERS.length) drawRiverLabels();
         if (waterOn && WATER.length) drawWaterLabels();
         ctx.restore();
-        ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.lineWidth = 1.2; ctx.strokeStyle = rim; ctx.stroke();
+        drawLimb();
+        if (countryNamesOn) drawEraNames();   // era territory names (unclipped, like the present-day layer, so names aren't cut at the limb)
         return;
       }
       const close = zoom >= CAP_Z;   // admin (province) borders appear at the same zoom as capitals
@@ -5544,7 +5684,7 @@
       if (riverLabelsOn && RIVERS.length) drawRiverLabels();
       if (waterOn && WATER.length) drawWaterLabels();
       ctx.restore();
-      ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.lineWidth = 1.2; ctx.strokeStyle = rim; ctx.stroke();   // rim
+      drawLimb();   // rim
       if (countryNamesOn) drawCountryNames();   // persistent country-name layer (unclipped so names aren't cut at the limb)
     }
     // coalesce high-frequency input (mouse move, wheel) to at most one render per animation frame. We back the rAF with a
@@ -5639,7 +5779,16 @@
     function stopSpin() { if (spinRAF) { cancelAnimationFrame(spinRAF); spinRAF = 0; } }
     // motion gate: mark `moving` during drag/spin/zoom (gates base-cache reuse); repaint + re-cache when settled
     let settleT = 0;
-    function settle() { settleT = 0; if (moving) { moving = false; if (wheelActive) forceComposite(); draw(); } wheelActive = false; }   // ONE backing realloc per wheel gesture (only when it stops) → the host repaints the settled frame cleanly. Per-frame reallocs onion-skinned into a ghost glow, so we don't repaint mid-gesture (the disk snaps to size on release).
+    function settle() {   // ONE backing realloc per wheel gesture (only when it stops) → the host repaints the settled frame cleanly. Per-frame reallocs onion-skinned into a ghost glow, so we don't repaint mid-gesture (the disk snaps to size on release).
+      settleT = 0;
+      if (moving) {
+        moving = false; if (wheelActive) forceComposite();
+        // the globe rotated/zoomed under a stationary cursor — re-derive what's under it so the hover fill + name tag aren't stale
+        if (hoverOn && ptrs.size === 0 && !mapEdit) { const ni = countryAt(hoverPx, hoverPy); if (ni !== hoverIdx) { hoverIdx = ni; canvas.style.cursor = ni >= 0 ? "pointer" : "grab"; } }
+        draw(); updateHoverName();
+      }
+      wheelActive = false;
+    }
     function startMotion() { moving = true; if (settleT) { clearTimeout(settleT); settleT = 0; } }
     function endMotion(ms) { if (settleT) clearTimeout(settleT); settleT = setTimeout(settle, ms == null ? 130 : ms); }
     // geo-anchored whiteboard input (active only when WB draw-mode is on)
@@ -5696,19 +5845,22 @@
       if (WB.enabled && !mapEdit) wbRotating = true;         // draw-mode right/middle → rotate the globe instead
       if (mapEdit && !rotateBtn && mapEditPointerDown(e)) { try { canvas.setPointerCapture(e.pointerId); } catch (x) {} return; }   // editor: grab a vertex / place to drag (else fall through to rotate)
       try { canvas.setPointerCapture(e.pointerId); } catch (x) {}
-      stopSpin(); velLon = 0; velLat = 0;
+      stopSpin(); flyStop(); velLon = 0; velLat = 0;   // grabbing the globe cancels a search fly-to
       ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY });
       if (ptrs.size === 1) { dragging = true; last = { x: e.clientX, y: e.clientY }; lastMoveT = e.timeStamp; downX = e.clientX; downY = e.clientY; moved = false; }
       else if (ptrs.size === 2) { dragging = false; pinch = ptrDist(); moved = true; velLon = 0; velLat = 0; }
+      updateHoverName();   // grabbing the globe hides the hover name tag
     });
     canvas.addEventListener("pointermove", (e) => {
       if (WB.enabled && !mapEdit && !wbRotating) { wbMove(e); return; }   // draw-mode: extend the stroke — unless rotating via right/middle button
       if (mapEdit && mapDragging) { mapEditPointerMove(e); return; }   // editor: drag the grabbed vertex / place
-      if (ptrs.size === 0) { // hover (no button down): highlight the country under the cursor
-        if (spinRAF) return;                              // don't chase the globe while it coasts
+      if (ptrs.size === 0) { // hover (no button down): highlight + name the country under the cursor
         const r = canvas.getBoundingClientRect();
-        const idx = countryAt(e.clientX - r.left, e.clientY - r.top);
+        hoverPx = e.clientX - r.left; hoverPy = e.clientY - r.top; hoverOn = true;   // recorded even while coasting, so settle() can recompute from the true position
+        if (spinRAF) return;                              // don't chase the globe while it coasts
+        const idx = countryAt(hoverPx, hoverPy);
         if (idx !== hoverIdx) { hoverIdx = idx; canvas.style.cursor = idx >= 0 ? "pointer" : "grab"; scheduleDraw(); }
+        updateHoverName();                                // the name tag is DOM — following the cursor never redraws the canvas
         return;
       }
       if (!ptrs.has(e.pointerId)) return;
@@ -5780,7 +5932,7 @@
     }
     canvas.addEventListener("pointerup", ptrUp);
     canvas.addEventListener("pointercancel", ptrUp);
-    canvas.addEventListener("pointerleave", () => { if (hoverIdx !== -1) { hoverIdx = -1; canvas.style.cursor = "grab"; draw(); } });
+    canvas.addEventListener("pointerleave", () => { hoverOn = false; updateHoverName(); if (hoverIdx !== -1) { hoverIdx = -1; canvas.style.cursor = "grab"; draw(); } });
     canvas.addEventListener("contextmenu", (e) => e.preventDefault());   // right-drag rotates; don't pop the browser menu
     // Wheel-zoom. Bound to WINDOW in the CAPTURE phase (not just the canvas) so it fires whichever element the host routes the
     // wheel to — some embedded hosts (e.g. the Claude Code live preview) deliver `wheel` to a scroll container / parent rather
@@ -5792,7 +5944,7 @@
       const sr = stage.getBoundingClientRect();
       if (e.clientX < sr.left || e.clientX > sr.right || e.clientY < sr.top || e.clientY > sr.bottom) return;   // pointer isn't over the globe → let normal scrolling happen
       try { e.preventDefault(); e.stopPropagation(); } catch (_e) {}
-      stopSpin(); startMotion(); wheelActive = true;   // wheelActive → draw() reallocates the backing so the host repaints (cleared by settle())
+      stopSpin(); flyStop(); startMotion(); wheelActive = true;   // wheelActive → draw() reallocates the backing so the host repaints (cleared by settle()); a wheel also cancels a search fly-to
       const px = e.deltaY * (e.deltaMode === 1 ? 33 : e.deltaMode === 2 ? (H || 800) : 1);   // normalize lines/pages → pixels
       // zoom TOWARD the cursor: note the geo point under the pointer, zoom, then rotate so that same point stays under it.
       // Wrapped in try/catch so a projection hiccup can NEVER abort the redraw below.
@@ -5818,7 +5970,7 @@
     // On-screen +/− zoom buttons and keyboard (+ = -) — a wheel-free way to zoom that works everywhere, incl. embedded
     // previews / touchpads / hosts that don't forward wheel events to the page. Zooms toward the disk centre (rotLon/rotLat,
     // which is always the centre) and draws immediately so the disk visibly grows on each press.
-    function zoomStep(mult) { stopSpin(); startMotion(); zoom = clamp(zoom * mult, ZMIN, ZMAX); draw(); endMotion(150); }
+    function zoomStep(mult) { stopSpin(); flyStop(); startMotion(); zoom = clamp(zoom * mult, ZMIN, ZMAX); draw(); endMotion(150); }   // manual zoom cancels a search fly-to
     { const zi = root.querySelector("#gzIn"), zo = root.querySelector("#gzOut");
       if (zi) zi.addEventListener("click", () => zoomStep(1.45));
       if (zo) zo.addEventListener("click", () => zoomStep(1 / 1.45)); }
@@ -5830,8 +5982,117 @@
     }
     document.addEventListener("keydown", onGlobeKey);
 
+    /* ---------- atlas search (present-day countries · era territories · capitals across all eras) with an animated fly-to ---------- */
+    const gsInput = root.querySelector("#gsInput"), gsResults = root.querySelector("#gsResults");
+    const gsFold = (s) => (s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");   // case + diacritic fold ("Salaçıq" matches "salaciq")
+    let _gsIdx = null, _gsRev = -1, gsRows = [], gsActive = -1;
+    function gsIndex() {   // built lazily on first keystroke; rebuilt after an era edit (mapEditRev)
+      if (_gsIdx && _gsRev === mapEditRev) return _gsIdx;
+      const map = new Map();
+      const add = (n, kind, yr, lon, lat) => {
+        if (!n) return; const k = kind + "|" + gsFold(n);
+        let e = map.get(k); if (!e) { e = { n: n, kind: kind, years: [] }; map.set(k, e); }
+        if (e.years.indexOf(yr) < 0) e.years.push(yr);
+        if (e.lon == null && lon != null) { e.lon = lon; e.lat = lat; }
+      };
+      for (let i = 0; i < GEO.length; i++) add(GEO[i].n, "country", MAXY);
+      (window.TIMELINE || []).forEach((e) => {
+        if (!e || typeof e.year !== "number") return;
+        if (e.geo && e.geo.length) e.geo.forEach((t) => add(t.n, "territory", e.year));
+        else if (e.groups) Object.keys(e.groups).forEach((k) => add(e.groups[k], "territory", e.year));
+        (e.cities || []).forEach((c) => { if (c.cap) add(c.n, "capital", e.year, c.lon, c.lat); });
+      });
+      for (let i = 0; i < CITIES.length; i++) if (CITIES[i].r === 0) add(CITIES[i].n, "capital", MAXY, CITIES[i].c[0], CITIES[i].c[1]);
+      const out = [];
+      map.forEach((e) => {
+        // a territory sharing a present-day country's name folds into the country entry (one row, all its years)
+        if (e.kind === "territory") { const c = map.get("country|" + gsFold(e.n)); if (c) { e.years.forEach((y) => { if (c.years.indexOf(y) < 0) c.years.push(y); }); return; } }
+        out.push(e);
+      });
+      out.forEach((e) => e.years.sort((a, b) => a - b));
+      out.sort((a, b) => a.n.length - b.n.length);   // shorter names first → the exact thing typed tops its prefix-mates
+      _gsIdx = out; _gsRev = mapEditRev; return out;
+    }
+    // animated fly-to: ease rotation (shortest way around) + zoom to a target over ~0.7s, then run the follow-up (selection)
+    let flyRAF = 0, flyDoneT = 0;
+    function flyStop() { if (flyRAF) { cancelAnimationFrame(flyRAF); flyRAF = 0; endMotion(0); } if (flyDoneT) { clearTimeout(flyDoneT); flyDoneT = 0; } }
+    function flyTo(lon, lat, zt, done) {
+      stopSpin(); flyStop(); velLon = 0; velLat = 0;
+      const sLon = rotLon, sLat = rotLat, sZ = zoom;
+      const dLon = wrap(lon - sLon), dLat = clamp(lat, -85, 85) - sLat, dZ = clamp(zt || sZ, ZMIN, ZMAX) - sZ;
+      const t0 = performance.now(), DUR = 700;
+      startMotion();
+      const stepFly = (t) => {
+        const u = clamp((t - t0) / DUR, 0, 1), k = u < 0.5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2;   // easeInOutQuad
+        rotLon = wrap(sLon + dLon * k); rotLat = clamp(sLat + dLat * k, -88, 88); zoom = clamp(sZ + dZ * k, ZMIN, ZMAX);
+        scheduleDraw();
+        if (u < 1) flyRAF = requestAnimationFrame(stepFly);
+        else { flyRAF = 0; endMotion(40); if (done) flyDoneT = setTimeout(() => { flyDoneT = 0; done(); }, 90); }
+      };
+      flyRAF = requestAnimationFrame(stepFly);
+    }
+    function gsYears(e) {
+      const f = (y) => (y >= MAXY ? "Today" : y < 0 ? -y + " BCE" : String(y));
+      return e.years.length === 1 ? f(e.years[0]) : f(e.years[0]) + " – " + f(e.years[e.years.length - 1]);
+    }
+    const GS_KIND = { country: "Country", territory: "Territory", capital: "Capital" };
+    function gsHide() { gsResults.hidden = true; gsResults.innerHTML = ""; gsRows = []; gsActive = -1; }
+    function gsShow(q) {
+      const qq = gsFold(q.trim());
+      if (qq.length < 2) { gsHide(); return; }
+      const idx = gsIndex(), starts = [], words = [], subs = [];
+      for (let i = 0; i < idx.length && starts.length < 10; i++) {
+        const f = gsFold(idx[i].n), p = f.indexOf(qq);
+        if (p < 0) continue;
+        (p === 0 ? starts : f[p - 1] === " " || f[p - 1] === "(" ? words : subs).push(idx[i]);
+      }
+      const list = starts.concat(words, subs).slice(0, 9);
+      if (!list.length) { gsHide(); return; }
+      gsRows = list; gsActive = 0;
+      gsResults.innerHTML = list.map((e, i) => '<button type="button" class="gs-row' + (i === 0 ? " active" : "") + '" role="option" data-i="' + i + '"><span class="gs-name">' + esc(e.n) + '</span><span class="gs-kind">' + GS_KIND[e.kind] + " · " + gsYears(e) + "</span></button>").join("");
+      gsResults.hidden = false;
+    }
+    function gsPick(entry) {
+      if (!entry) return;
+      gsHide(); gsInput.blur();
+      if (mapEdit) return;   // after closing the dropdown — the editor pins the year, so search can't navigate
+      const key = gsFold(entry.n);
+      const findNow = () => { const terr = histTerr() || GEO; for (let i = 0; i < terr.length; i++) if (gsFold(terr[i].n) === key) return i; return -1; };
+      if (entry.kind === "capital") {   // capitals: jump to a year that has the pin (stay if the current one does), fly close enough for its label
+        if (entry.years.indexOf(year) < 0) setYear(entry.years.indexOf(MAXY) >= 0 ? MAXY : entry.years[0]);
+        flyTo(entry.lon, entry.lat, Math.max(zoom, 2.6), null);
+        return;
+      }
+      let idx = findNow();
+      if (idx < 0) {   // not on the current map → jump to the present if it exists there, else the entity's earliest era
+        setYear(entry.years.indexOf(MAXY) >= 0 ? MAXY : entry.years[0]);
+        idx = findNow(); if (idx < 0) return;
+      }
+      const terr = histTerr(); let lon = null, lat = null;
+      if (!terr) { const cc = countryCenter(entry.n); if (cc) { lon = cc.lon; lat = cc.lat; } }
+      else { const an = (eraLabelAnchors() || []).find((a) => gsFold(a.n) === key); if (an) { lon = an.lon; lat = an.lat; } }
+      const wantEra = eraKey(year);   // if the user navigates the timeline mid-flight, the landing selection must not resurrect on the new era (setYear also flyStops, this guards the post-landing 90ms window)
+      const sel = () => { if (eraKey(year) !== wantEra) return; const i2 = findNow(); if (i2 >= 0) { selSet.clear(); selSet.add(i2); subSelGeo = -1; subSelUK = []; hoverIdx = -1; showCountryPopup(i2); scheduleDraw(); } };
+      if (lon == null) { sel(); return; }
+      flyTo(lon, lat, Math.max(zoom, 1.5), sel);
+    }
+    gsInput.addEventListener("input", () => gsShow(gsInput.value));
+    gsInput.addEventListener("focus", () => { if (gsInput.value.trim().length >= 2) gsShow(gsInput.value); });
+    gsInput.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+        e.preventDefault(); if (!gsRows.length) return;
+        gsActive = (gsActive + (e.key === "ArrowDown" ? 1 : gsRows.length - 1)) % gsRows.length;
+        gsResults.querySelectorAll(".gs-row").forEach((r, i) => r.classList.toggle("active", i === gsActive));
+      } else if (e.key === "Enter") { e.preventDefault(); gsPick(gsRows[gsActive]); }
+      else if (e.key === "Escape") { gsHide(); gsInput.blur(); }
+    });
+    gsResults.addEventListener("pointerdown", (e) => e.preventDefault());   // keep the input focused so its blur doesn't hide the list before the click lands
+    gsResults.addEventListener("click", (e) => { const b = e.target.closest(".gs-row"); if (b) gsPick(gsRows[+b.dataset.i]); });
+    gsInput.addEventListener("blur", (e) => { if (e.relatedTarget && gsResults.contains(e.relatedTarget)) return; setTimeout(gsHide, 150); });   // Tab into the results must not destroy the row that just took focus
+    gsResults.addEventListener("focusout", (e) => { if (e.relatedTarget && (gsResults.contains(e.relatedTarget) || e.relatedTarget === gsInput)) return; gsHide(); });   // list closes once keyboard focus leaves the widget
+
     // tear everything down once the globe leaves the DOM (navigating away) so nothing leaks per visit
-    function cleanupGlobe() { try { ro.disconnect(); } catch (e) {} try { themeObs.disconnect(); } catch (e) {} try { window.removeEventListener("blur", stopHold); } catch (e) {} try { if (dprMedia) dprMedia.removeEventListener("change", onDPRChange); } catch (e) {} try { document.removeEventListener("keydown", onGlobeKey); } catch (e) {} try { window.removeEventListener("wheel", onGlobeWheel, true); } catch (e) {} stopSpin(); if (settleT) { clearTimeout(settleT); settleT = 0; } if (_drawTimer) { clearTimeout(_drawTimer); _drawTimer = 0; } if (_drawReq) { cancelAnimationFrame(_drawReq); _drawReq = 0; } }
+    function cleanupGlobe() { try { ro.disconnect(); } catch (e) {} try { themeObs.disconnect(); } catch (e) {} try { window.removeEventListener("blur", stopHold); } catch (e) {} try { if (dprMedia) dprMedia.removeEventListener("change", onDPRChange); } catch (e) {} try { document.removeEventListener("keydown", onGlobeKey); } catch (e) {} try { window.removeEventListener("wheel", onGlobeWheel, true); } catch (e) {} stopSpin(); if (flyRAF) { cancelAnimationFrame(flyRAF); flyRAF = 0; } if (flyDoneT) { clearTimeout(flyDoneT); flyDoneT = 0; } if (settleT) { clearTimeout(settleT); settleT = 0; } if (_drawTimer) { clearTimeout(_drawTimer); _drawTimer = 0; } if (_drawReq) { cancelAnimationFrame(_drawReq); _drawReq = 0; } }
     const ro = new ResizeObserver(() => { if (!canvas.isConnected) { cleanupGlobe(); return; } resize(); });
     ro.observe(stage);
     resize();
@@ -5857,7 +6118,7 @@
     WB.enabled = false;
     ensureWBTools().classList.add("on-atlas");
     showWBTools();
-    WB.onToggle = () => { stopSpin(); moving = false; wbRotating = false; if (settleT) { clearTimeout(settleT); settleT = 0; } if (WB.enabled) hoverIdx = -1; else { activeStroke = null; erasing = false; } canvas.style.cursor = WB.enabled ? "crosshair" : "grab"; draw(); };
+    WB.onToggle = () => { stopSpin(); moving = false; wbRotating = false; if (settleT) { clearTimeout(settleT); settleT = 0; } if (WB.enabled) hoverIdx = -1; else { activeStroke = null; erasing = false; } canvas.style.cursor = WB.enabled ? "crosshair" : "grab"; draw(); updateHoverName(); };
     WB.onClear = () => { strokes.length = 0; activeStroke = null; erasing = false; draw(); gSnapshot(); };
     WB.onUndo = () => { if (gUndo.length <= 1) return; gRedo.push(gUndo.pop()); applyStrokes(gUndo[gUndo.length - 1]); };
     WB.onRedo = () => { if (!gRedo.length) return; const s = gRedo.pop(); gUndo.push(s); applyStrokes(s); };
@@ -5902,7 +6163,7 @@
     /* ---------- timeline + year ---------- */
     const track = root.querySelector("#tlTrack"), pin = root.querySelector("#tlPin"), fill = root.querySelector("#tlFill"), tip = root.querySelector("#tlTip");
     const ayNum = root.querySelector("#ayNum"), ayEra = root.querySelector("#ayEra");
-    const wipEl = root.querySelector("#atlasWip");
+    const wipEl = root.querySelector("#atlasWip"), cartEl = root.querySelector("#mapCartouche");
     cpEl = root.querySelector("#countryPop"); cpNameEl = root.querySelector("#cpName"); cpSpanEl = root.querySelector("#cpSpan"); cpDescEl = root.querySelector("#cpDesc");
     cpYearNumEl = root.querySelector("#cpYearNum"); cpYearDescEl = root.querySelector("#cpYearDesc");
     cpPopEl = root.querySelector("#cpPop"); cpAreaEl = root.querySelector("#cpArea"); cpGdpEl = root.querySelector("#cpGdp"); cpGdppcEl = root.querySelector("#cpGdppc");
@@ -5917,9 +6178,10 @@
     // `year` was already set when the Atlas opened (present, or an era's year via "View on globe"); the timeline UI below drives it
     const fmt = (y) => (y < 0 ? { n: String(-y), e: "BCE" } : { n: String(y || 1), e: "CE" });
     function paintYear() {
-      const f = (year - MINY) / (MAXY - MINY) * 100;
+      const f = year2frac(year) * 100;
       pin.style.left = f + "%"; fill.style.width = f + "%";
       const ff = fmt(year); ayNum.textContent = ff.n; ayEra.textContent = ff.e; tip.textContent = ff.n + " " + ff.e;
+      if (cartEl) cartEl.textContent = year >= MAXY ? "THE WORLD TODAY" : "THE WORLD · " + ff.n + (ff.e === "BCE" ? " BCE" : "");   // plate-title cartouche
       // show the work-in-progress note only when no map (present-day or a historical era) covers this year
       if (wipEl) wipEl.classList.toggle("show", activeEra(year) == null);
     }
@@ -5936,14 +6198,24 @@
       for (let i = ys.length - 1; i >= 0; i--) if (ys[i] < year) return setYear(ys[i]);
       return setYear(ys[0]);
     }
-    function renderMapYearMarks() {   // ticks on the rail marking the mapped years you can stop on
+    function renderMapYearMarks() {   // ticks on the rail marking the mapped years — focusable buttons, each naming its stop
       if (!track) return;
       track.querySelectorAll(".tl-mark").forEach((m) => m.remove());
-      mapYears().forEach((y) => { const mk = document.createElement("div"); mk.className = "tl-mark"; mk.style.left = ((y - MINY) / (MAXY - MINY) * 100) + "%"; if (pin) track.insertBefore(mk, pin); else track.appendChild(mk); });
+      mapYears().forEach((y) => {
+        const mk = document.createElement("button"); mk.type = "button"; mk.className = "tl-mark";
+        mk.style.left = (year2frac(y) * 100) + "%";
+        const ff = fmt(y); let label = ff.n + " " + ff.e;
+        if (y >= MAXY) label = "Present-day map";
+        else { const e = (window.TIMELINE || []).find((x) => x && x.year === y); if (e && e.n && String(e.n) !== String(y)) label += " — " + e.n; }
+        mk.title = label; mk.setAttribute("aria-label", label);
+        mk.addEventListener("click", () => setYear(y));
+        if (pin) track.insertBefore(mk, pin); else track.appendChild(mk);
+      });
     }
     let _lastEraId = "__init";
     function setYear(y) {
       if (mapEdit) return;   // while editing an era the year is pinned to it — the timeline/chevrons must not change it out from under the editor
+      flyStop();             // navigating the timeline cancels a search fly-to (and its pending selection callback). gsPick is unaffected: it calls setYear BEFORE starting its flight
       year = snapYear(Math.round(y));   // only mapped years are reachable when browsing — a raw year snaps to the nearest one
       const e = activeEra(year), eid = e ? (e.present ? "__present" : e.id) : "__none";   // crossing into a different era invalidates the selection (indices belong to the old era's territory set)
       if (eid !== _lastEraId) { _lastEraId = eid; if (selSet.size) selSet.clear(); subSelGeo = -1; subSelUK = []; hoverIdx = -1; hideCountryPopup(); }
@@ -5951,12 +6223,15 @@
     }
     function step(dir) { stepYear(dir); }   // chevrons / arrow keys move one mapped year at a time (amt arg from hold-repeat is ignored — there are only a few stops)
     const clientFrac = (clientX) => { const r = track.getBoundingClientRect(); return clamp((clientX - r.left) / r.width, 0, 1); };
-    const frac2year = (fr) => { let y = Math.round(MINY + fr * (MAXY - MINY)); if (y === 0) y = 1; return clamp(y, MINY, MAXY); };
+    const frac2year = (fr) => {   // inverse of the piecewise year2frac rail scale
+      let y = fr <= TL_KNEE_F ? Math.round(MINY + (fr / TL_KNEE_F) * (TL_KNEE - MINY)) : Math.round(TL_KNEE + ((fr - TL_KNEE_F) / (1 - TL_KNEE_F)) * (MAXY - TL_KNEE));
+      if (y === 0) y = 1; return clamp(y, MINY, MAXY);
+    };
 
     let tlDrag = false;
     function tlStart(e) { tlDrag = true; pin.classList.add("dragging"); try { pin.setPointerCapture(e.pointerId); } catch (x) {} setYear(frac2year(clientFrac(e.clientX))); }
     pin.addEventListener("pointerdown", (e) => { e.preventDefault(); e.stopPropagation(); tlStart(e); });
-    track.addEventListener("pointerdown", (e) => { if (e.target === pin || pin.contains(e.target)) return; tlStart(e); });
+    track.addEventListener("pointerdown", (e) => { if (e.target === pin || pin.contains(e.target)) return; if (e.target.classList && e.target.classList.contains("tl-mark")) return; tlStart(e); });   // let a map-year mark's own click handler win
     pin.addEventListener("pointermove", (e) => { if (tlDrag) setYear(frac2year(clientFrac(e.clientX))); });
     const tlEnd = () => { tlDrag = false; pin.classList.remove("dragging"); };
     pin.addEventListener("pointerup", tlEnd);
@@ -6901,7 +7176,7 @@
     panel.style.left = Math.max(6, Math.min(x, window.innerWidth - panel.offsetWidth - 8)) + "px";
     panel.style.top = Math.max(6, Math.min(y, window.innerHeight - panel.offsetHeight - 8)) + "px";
     const search = panel.querySelector(".gp-search"), list = panel.querySelector(".gp-list");
-    const fold = (s) => String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");   // diacritic-insensitive: "nuwa" matches "Nuwa"
+    const fold = (s) => String(s).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");   // diacritic-insensitive: "nuwa" matches "Nuwa"
     function render() {
       const q = fold(search.value.trim());
       const items = Object.keys(window.GLOSSARY || {}).map((k) => ({ k: k, t: glossTitle(k), tg: glossTags(k) }))

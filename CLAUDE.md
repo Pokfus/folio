@@ -26,8 +26,10 @@ It is a plain static website — open `index.html` and it runs.
 
 Script load order in `index.html` is significant:
 `data.js → truefalse.js → glossary.js → glossary-wikipedia.js → world.js → uk.js → lakes.js → rivers.js → water.js →
-ranges.js → admin1.js → cities.js → timeline.js → countries.js → country-stats.js → country-years.js → app.js`.
-(`heightmap.js` + `heightmap-ultra.js` are **not** in this list — they are lazy-loaded when the Heightmap layer is enabled / zoomed in.)
+cities.js → timeline.js → countries.js → country-stats.js → country-years.js → app.js`.
+(`heightmap.js` + `heightmap-ultra.js` are **not** in this list — they are lazy-loaded when the Heightmap layer is enabled / zoomed in.
+`ranges.js` + `admin1.js` — the removed Mountains / Divisions layers — are **no longer loaded at all**; app.js reads
+`window.RANGES`/`window.ADMIN1` with empty-fallbacks, so the files stay on disk for a future lazy revival.)
 
 - `index.html` — app shell. `<main class="stage"><div id="view"></div></main>`.
 - `styles.css` (~94 KB) — editorial design system; 8 themes via CSS custom properties.
@@ -104,8 +106,9 @@ ranges.js → admin1.js → cities.js → timeline.js → countries.js → count
   admin-1 borders, city pins); built by the `.claude/build-*.js` dev scripts. (A Forests layer
   was removed; `forests.js`/`build-forests.js` remain on disk but are no longer loaded or rendered.)
   The **Mountains layer was likewise removed** from the globe: its legend toggle + `wire("#rangesToggle",…)` are
-  gone and `rangesOn` defaults `false` with no way to enable it, so `drawRanges` is never called (ranges.js is still
-  loaded and `drawRanges`/`RANGES` remain as inert dead code — the layer just no longer renders or appears in the legend).
+  gone and `rangesOn` defaults `false` with no way to enable it, so `drawRanges` is never called. **`ranges.js` and
+  `admin1.js` are no longer loaded by `index.html`** (~1.7 MB less per page load; `drawRanges`/`drawAdmin` remain as
+  inert dead code over the empty fallbacks) — the files stay on disk for a future heightmap-style lazy revival.
   `lakes.js` = `window.LAKES` (**~302 major inland seas & lakes**, NE 10m), kept by `build-lakes.js` when
   `scalerank ≤ 4 OR area ≥ 0.1 deg² OR` a well-known name (a `FAMOUS` regex ensures the Alpine lakes,
   Dead Sea, rift lakes, etc.). **Outer rings only** (island holes dropped) so every lake fills solid — otherwise an
@@ -400,7 +403,30 @@ ranges.js → admin1.js → cities.js → timeline.js → countries.js → count
   **Settings → Home location**, a country `<select>` (`.set-sel`) built from `window.WORLD_GEO` names; picking one stores the
   largest-ring bbox centre via `countryCenter(name)` and re-centres `atlasView` (zoom reset to 1). Home lives in device settings,
   not the synced account record.
-  Full-bleed between the top nav and a fixed bottom timeline (1000 BCE → present). Clicking a country
+  Full-bleed between the top nav and a fixed bottom timeline (1000 BCE → present). **The timeline rail is
+  NON-LINEAR** (`year2frac`/`frac2year`, exact inverses used by every rail position — pin, fill, ticks, marks): the
+  map-less 1000 BCE – 1500 CE span compresses into the left `TL_KNEE_F = 15%` and 1500 → present stretches over the rest.
+  The `.tl-mark` map-year ticks are **focusable buttons** (click = jump, title/aria-label = "1500 CE — <era label>").
+  A **plate-title cartouche** (`#mapCartouche`, top-centre, hidden ≤640px, updated by `paintYear`) shows "THE WORLD ·
+  1938" / "THE WORLD TODAY". The disk gets **limb shading + an atmosphere halo** (`drawLimb()` replaces the three rim
+  strokes; halo gradient at the top of `renderStatic` — colours `limbA/limbB/haloIn/haloOut` from `readColors`, so
+  theme-aware, zero per-frame cost via the base cache). **Hovering names the entity under the cursor** via a **DOM chip**
+  (`#globeHoverName` / `updateHoverName()` — deliberately NOT canvas: following the cursor is a style update, so the
+  canvas only redraws when the hovered ENTITY changes, never per-move; on a geo era it shows "empire · territory" via
+  `.mother`/`empireName`; hidden while dragging / map-editing / whiteboard-drawing and on touch (`@media (hover:none)`);
+  `settle()` re-derives `hoverIdx` from the recorded `hoverPx/hoverPy` after a drag/coast/zoom so the tag and hover fill
+  are never stale under a stationary cursor). **`eraLabelAnchors` caches on `_htId` AND `mapEditRev`** — mapBump() only
+  nulls `_htId`, which `histTerr()` refills with the same era.id, so without the rev key editor edits kept stale labels.
+  An **atlas search box** (`#globeSearch`, top-right) typeaheads over present-day countries, every era's territories and
+  all capitals (index built lazily by `gsIndex()`, folded case/diacritics, rebuilt when `mapEditRev` changes; a territory
+  sharing a present-day name folds into one row spanning its years). Picking a result keeps the current year when the
+  entity exists there, else jumps to the present (if listed) or the entity's earliest era, then **flies the globe**
+  (`flyTo` — easeInOutQuad rotLon/rotLat/zoom over ~0.7s) and selects it + opens its popup (capitals just fly close
+  enough for the pin label, no popup). The fly is cancelled by pointerdown / wheel / `zoomStep` / `setYear` (so timeline
+  navigation mid-flight aborts it) / `cleanupGlobe`; the landing selection runs ~90ms after touchdown via a **tracked**
+  `flyDoneT` timeout and re-checks `eraKey(year)` against the era it took off for, so it can never resurrect a
+  selection on an era the user navigated to meanwhile. The dropdown's `.gs-results[hidden]{display:none}` override is
+  required (author `display:flex` beats the UA hidden rule — codebase convention, cf. `.country-pop[hidden]`). Clicking a country
   (present-day or a historical era's territory) highlights it and shows a single info popup above the
   timeline — its name + a 5-sentence description from `countries.js`; one at a time, cleared on a second
   click / ocean click / era change. The popup is **capped on EVERY viewport** (the base `.country-pop` rule, not just a mobile
@@ -685,7 +711,11 @@ clickable/selectable** exactly like present-day countries (hover/select hit-test
 `histTerr()`). Every legend layer now shows at **ALL zoom levels** (`updateLegendVisibility` no longer applies a per-layer
 min-zoom gate). **Capitals (`citiesToggle`) and Borders (`bordersToggle`) are separate legend layers in EVERY year** —
 every era ships period capitals, so `citiesToggle` is not in `PRESENT_ONLY` and gates `drawEraCities` on historical eras
-too; only major cities (`majorToggle`) and country names (`countryToggle`) remain present-day-only (hidden on past eras). The **"Divisions"
+too. **Country names (`countryToggle`) also draw in every era**: on a past era `drawEraNames` labels the era territories
+(anchors computed once per era by `eraLabelAnchors` — largest-ring lon-unwrapped centroid, nudged inside concave shapes —
+sized by territory area, de-collided big-first, long ethnographic names wrapped to two lines; era capital labels yield to
+them via `countryLabelRects`). Only major cities (`majorToggle`) remains present-day-only, and its legend row is now
+**dimmed + disabled (`.legend-na`, title "Present-day map only") on past eras rather than hidden**. The **"Divisions"
 (admin-1 borders, `drawAdmin`) and "Division capitals" legend layers were removed** — like Mountains, their toggle + `wire()` are
 gone, `adminOn`/`divCapsOn` default `false` with no way to enable them, so `drawAdmin` + the division-capital city tier are inert
 dead code (never rendered).

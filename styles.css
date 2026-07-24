@@ -1137,13 +1137,47 @@ body.night .lu-badge{color:#E6C765;}
 .tl-track{position:relative; height:32px; display:flex; align-items:center; cursor:pointer;}
 .tl-rail{position:absolute; left:0; right:0; height:4px; border-radius:99px; background:var(--rule);}
 .tl-fill{position:absolute; left:0; height:4px; border-radius:99px; background:color-mix(in srgb,var(--indigo) 52%, var(--rule));}
-.tl-mark{position:absolute; top:50%; transform:translate(-50%,-50%); width:3px; height:12px; border-radius:2px; background:color-mix(in srgb,var(--indigo) 70%, var(--rule)); opacity:.72; pointer-events:none;}
+.tl-mark{position:absolute; top:50%; transform:translate(-50%,-50%); width:3px; height:12px; border-radius:2px; background:color-mix(in srgb,var(--indigo) 70%, var(--rule)); opacity:.72; appearance:none; -webkit-appearance:none; border:0; padding:0; cursor:pointer;}
+.tl-mark:hover{opacity:1; height:15px;}
+.tl-mark:focus-visible{opacity:1; outline:2px solid var(--indigo); outline-offset:3px;}
 .tl-pin{position:absolute; top:50%; left:100%; transform:translate(-50%,-50%); width:18px; height:18px; border-radius:50%; background:var(--indigo); border:2.5px solid var(--card); box-shadow:var(--shadow-sm); cursor:grab; padding:0; appearance:none; transition:background .15s;}
 .tl-pin:hover, .tl-pin.dragging{background:var(--indigo-bright);}
 .tl-pin:active, .tl-pin.dragging{cursor:grabbing;}
 .tl-pin:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:3px;}
 .tl-tip{position:absolute; bottom:calc(100% + 9px); top:auto; left:50%; transform:translateX(-50%); white-space:nowrap; font-family:var(--mono); font-size:10.5px; letter-spacing:.03em; color:var(--ink-soft); background:var(--card); border:1px solid var(--rule); border-radius:6px; padding:2px 8px; box-shadow:var(--shadow-sm); opacity:0; transition:opacity .15s; pointer-events:none;}
 .tl-pin:hover .tl-tip, .tl-pin.dragging .tl-tip, .tl-pin:focus-visible .tl-tip{opacity:1;}
+/* present-day-only legend layers on a historical era: dimmed + disabled, not hidden (the layer model stays visible) */
+.globe-legend .legend-row.legend-na{opacity:.42; cursor:not-allowed;}
+.globe-legend .legend-row.legend-na input{cursor:not-allowed;}
+/* plate-title cartouche — "THE WORLD · 1938" in the theme display face, top-centre of the globe stage */
+.map-cartouche{position:absolute; top:14px; left:50%; transform:translateX(-50%); z-index:4; pointer-events:none; user-select:none;
+  font-family:var(--display); font-weight:600; font-size:14px; letter-spacing:.22em; color:var(--ink); white-space:nowrap;
+  padding:7px 18px 6px 20px; background:color-mix(in srgb, var(--card) 88%, transparent); border:1px solid var(--rule); border-radius:3px;
+  box-shadow:inset 0 0 0 3px color-mix(in srgb, var(--card) 88%, transparent), inset 0 0 0 4px var(--rule), var(--shadow-sm);}
+@media (max-width:640px){.map-cartouche{display:none;}}
+/* hover name tag — a DOM chip following the cursor (naming the entity under it); never triggers a canvas redraw */
+.globe-hovername{position:absolute; z-index:4; pointer-events:none; user-select:none; display:flex; flex-direction:column; gap:0;
+  max-width:280px; padding:4px 10px 5px; background:color-mix(in srgb, var(--card) 90%, transparent); border:1px solid var(--rule);
+  border-radius:8px; box-shadow:var(--shadow-sm); backdrop-filter:saturate(150%) blur(6px); -webkit-backdrop-filter:saturate(150%) blur(6px);}
+.globe-hovername[hidden]{display:none;}
+.ghn-top{font-family:var(--mono); font-size:8.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-faint); line-height:1.5;}
+.ghn-main{font-size:13px; font-weight:600; color:var(--ink); line-height:1.25;}
+@media (hover:none){.globe-hovername{display:none;}}
+/* atlas search — top-right of the stage; typeahead over countries, era territories and capitals */
+.globe-search{position:absolute; right:clamp(16px,4vw,40px); top:16px; z-index:6; width:min(240px, 38vw);}
+.globe-search input{width:100%; padding:7px 12px; font:inherit; font-size:13px; color:var(--ink);
+  background:color-mix(in srgb, var(--card) 92%, transparent); border:1px solid var(--rule); border-radius:9px; box-shadow:var(--shadow-sm);
+  backdrop-filter:saturate(150%) blur(9px); -webkit-backdrop-filter:saturate(150%) blur(9px);}
+.globe-search input:focus{outline:2px solid color-mix(in srgb, var(--indigo) 55%, transparent); outline-offset:1px;}
+.globe-search input::placeholder{color:var(--ink-faint);}
+.gs-results{position:absolute; top:calc(100% + 6px); left:0; right:0; display:flex; flex-direction:column; overflow:hidden;
+  background:var(--card); border:1px solid var(--rule); border-radius:11px; box-shadow:var(--shadow-md, var(--shadow-sm));}
+.gs-results[hidden]{display:none;}   /* the author display:flex would otherwise defeat the hidden attribute (codebase convention, cf. .country-pop[hidden]) */
+.gs-row{display:flex; flex-direction:column; align-items:flex-start; gap:1px; padding:7px 12px; border:0; background:none; cursor:pointer; text-align:left; font:inherit; color:var(--ink);}
+.gs-row + .gs-row{border-top:1px solid color-mix(in srgb, var(--rule) 55%, transparent);}
+.gs-row:hover, .gs-row.active{background:color-mix(in srgb, var(--indigo) 10%, transparent);}
+.gs-name{font-size:13px; font-weight:600; line-height:1.2;}
+.gs-kind{font-family:var(--mono); font-size:9.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-faint);}
 .tl-ticks{position:relative; height:13px; margin-top:8px;}
 .tl-tick{position:absolute; transform:translateX(-50%); font-family:var(--mono); font-size:9.5px; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint); white-space:nowrap;}
 .tl-tick:first-child{transform:none;}
