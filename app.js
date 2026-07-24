@@ -3689,7 +3689,7 @@
       const card = document.createElement("div");
       card.className = "placard";
       card.innerHTML = `
-        <div class="big">畢</div>
+        <div class="big">✓</div>
         <h2>Session complete</h2>
         <p>You worked through ${studiedThisSession} card${studiedThisSession === 1 ? "" : "s"}. Your progress is saved.</p>
         <div class="row">

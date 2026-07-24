@@ -31,6 +31,7 @@ window.CHANGELOG = [
       "The Card of the day, Gloss of the day and Atlas tiles now wear the same rightward colour wash as the game tiles — and all of them kept their soft glow in the bottom-right corner.",
       "Levelling up is a proper celebration now: confetti rains across the whole screen, a golden flash bursts behind the card as it springs in, and a little fanfare plays.",
       "In the card editor, the text-formatting toolbar now stays pinned at the top while you scroll down a long card.",
+      "The Session complete screen now closes with a simple checkmark instead of a Chinese character — Folio covers many histories, not just China's.",
     ],
   },
   {
