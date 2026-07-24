@@ -21,6 +21,8 @@ window.CHANGELOG = [
       "The country panel learned history: a \"Through the ages\" button lists who held that exact spot in every mapped year — Ming, then Qing, then the Republic — with each entry clickable to jump there. A breadcrumb above the title shows the empire a territory belongs to, one click to climb up.",
       "You can now share the Atlas: a Copy-link button gives a link straight to a year and place — send someone the Ottoman Empire in 1500 and their globe opens right on it.",
       "On old maps, land that no source records as any state's is now stippled with fine dots — the mapmaker's mark for terra incognita — so it no longer reads as a mystery country.",
+      "A fifth daily game: Find it on the map. Five places a day — countries, historical territories, even a period capital — and you hunt them down on the real globe, with a distance hint if your first click misses. First-try finds count; five of five turns the tile gold, and the Clean Sweep badge now asks for all five games.",
+      "The Atlas greets first-time visitors with a short how-to card (reopen it any time with the ? button), the zoom buttons returned to the bottom-right corner, and the whole globe now works from the keyboard — arrows rotate, Enter selects, [ and ] step through the years.",
     ],
   },
   {

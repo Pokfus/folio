@@ -847,7 +847,7 @@
   }
   // daily minigame results — each of the 4 home games records a per-day { played, won } so the tile shows a
   // checkmark once played today and the "Clean Sweep" badge unlocks when all four are won on the same day.
-  const DAILY_GAMES = ["challenge", "chrono", "truefalse", "whosaid"];
+  const DAILY_GAMES = ["challenge", "chrono", "truefalse", "whosaid", "findit"];   // "findit" joined July 2026 — the Clean Sweep needs all five now
   function markGamePlayed(key, won, score, total) {
     if (!S.games) S.games = {};
     const t = todayStr();
@@ -2823,8 +2823,9 @@
     const playedChronoToday = !!S.chrono && S.chrono.date === todayStr();
     const playedTrueFalseToday = gamePlayedToday("truefalse");
     const playedWhoSaidToday = gamePlayedToday("whosaid");
+    const playedFindItToday = gamePlayedToday("findit");
     // perfect run today → the tile turns shining gold (won implies played: markGamePlayed sets both)
-    const wonToday = { challenge: gameWonToday("challenge"), chrono: gameWonToday("chrono"), truefalse: gameWonToday("truefalse"), whosaid: gameWonToday("whosaid") };
+    const wonToday = { challenge: gameWonToday("challenge"), chrono: gameWonToday("chrono"), truefalse: gameWonToday("truefalse"), whosaid: gameWonToday("whosaid"), findit: gameWonToday("findit") };
     // Decorative background icons for the home game tiles (replace the old Han glyphs).
     // Inline stroke SVGs (viewBox 0 0 24 24) inherit the tile colour via currentColor.
     const ICON = {
@@ -2840,6 +2841,8 @@
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>',
       help:
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.2 9.3a3 3 0 0 1 5.5 1.6c0 2-3 2.5-3 4.1"/><line x1="12" y1="17.5" x2="12" y2="17.5"/></svg>',
+      findit:
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>',
     };
     const tile = (o) =>
       `<button class="game-tile ${o.cls || ""}${o.done ? " done" : ""}${o.won ? " won" : ""}" id="${o.id}" style="--tile:${o.color}">
@@ -2864,8 +2867,8 @@
       ${tile({ id: "g-chrono", cls: "g-chrono", color: "#4F74C2", glyph: ICON.timeline, title: "Timeline", sub: gameSub("chrono", "Put the events in order", "in order!"), done: playedChronoToday, won: wonToday.chrono })}
       ${tile({ id: "g-truefalse", cls: "g-truefalse", color: "#4F9D67", glyph: ICON.truefalse, title: "True or False", sub: gameSub("truefalse", "Myth or fact? 5 rounds"), done: playedTrueFalseToday, won: wonToday.truefalse })}
       ${tile({ id: "g-whosaid", cls: "g-whosaid", color: "#8257C2", glyph: ICON.whosaid, title: "Who said it?", sub: gameSub("whosaid", "Guess the speaker · 5 rounds"), done: playedWhoSaidToday, won: wonToday.whosaid })}
+      ${tile({ id: "g-findit", cls: "g-findit", color: "#2BA6A0", glyph: ICON.findit, title: "Find it on the map", sub: gameSub("findit", "Click the globe · 5 rounds", "found first try!"), done: playedFindItToday, won: wonToday.findit })}
       ${blankTile(ICON.help, "#DB8B3A")}
-      ${blankTile(ICON.help, "#2BA6A0")}
     </div>`;
 
     // --- discovery row: a real card to flip, a glossary term, and the Atlas ---
@@ -2981,6 +2984,7 @@
     root.querySelector("#g-chrono").addEventListener("click", () => route("chrono"));
     root.querySelector("#g-truefalse").addEventListener("click", () => route("truefalse"));
     root.querySelector("#g-whosaid").addEventListener("click", () => route("whosaid"));
+    { const gf = root.querySelector("#g-findit"); if (gf) gf.addEventListener("click", () => route("findit")); }
     root.querySelectorAll(".ad-trash").forEach((btn) =>
       btn.addEventListener("click", (e) => {
         e.stopPropagation();
@@ -4358,7 +4362,8 @@
   // centre is the scholar's home location (Settings → Home location; the Netherlands by default).
   const _home = (S.settings && S.settings.home) || null;
   const atlasView = { rotLon: _home && isFinite(_home.lon) ? _home.lon : 90, rotLat: _home && isFinite(_home.lat) ? _home.lat : 22, zoom: 1 };
-  PAGES.map = function (root) {
+  PAGES.map = function (root, params) {
+    const GAME = !!(params && params.game);   // "Find it on the map" mode (PAGES.findit): the globe is the game board — search/legend/popup/hover-name/timebar are off, taps answer the round
     const MINY = -1000, MAXY = new Date().getFullYear();
     const chevL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>';
     const chevR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>';
@@ -4376,9 +4381,9 @@
     }).join("");
 
     root.innerHTML = `
-      <div class="atlas">
+      <div class="atlas${GAME ? " atlas-game" : ""}">
         <div class="globe-stage" id="globeStage">
-          <canvas id="globe"></canvas>
+          <canvas id="globe" tabindex="0" aria-label="Interactive globe — arrow keys rotate, plus and minus zoom, Enter selects the centre, [ and ] step the map years"></canvas>
           <div class="atlas-wip" id="atlasWip" role="status" aria-live="polite">
             <strong>No map for this year yet</strong>
             <span>The Atlas is a work in progress — so far only the present-day map (${MAXY} CE) has been drawn. Slide the timeline back to the present year to return to a map.</span>
@@ -4386,9 +4391,32 @@
           <div class="globe-hint">Drag to rotate · scroll or +/− to zoom · v12</div>
           <div class="map-cartouche" id="mapCartouche" aria-hidden="true"></div>
           <div class="globe-hovername" id="globeHoverName" hidden aria-hidden="true"><span class="ghn-top" id="ghnTop"></span><span class="ghn-main" id="ghnMain"></span></div>
+          <div class="map-game" id="mapGame" hidden>
+            <div class="mg-card">
+              <div class="mg-head"><span class="mg-round" id="mgRound"></span><span class="mg-score" id="mgScore"></span></div>
+              <div class="mg-q" id="mgQ"></div>
+              <div class="mg-feedback" id="mgFeedback" hidden></div>
+              <button class="btn mg-next" id="mgNext" type="button" hidden></button>
+            </div>
+          </div>
+          <div class="atlas-help" id="atlasHelp" hidden>
+            <div class="ah-card">
+              <button class="ah-close" id="ahClose" type="button" aria-label="Close">×</button>
+              <h3>Reading the Atlas</h3>
+              <div class="ah-tip"><b>Move</b> — drag to spin the globe; scroll, pinch or the +/− buttons zoom. Arrow keys rotate too.</div>
+              <div class="ah-tip"><b>Click</b> — one click selects a state (on old maps, its whole empire); a double-click drills into a single territory; a triple-click reaches the UK's home nations.</div>
+              <div class="ah-tip"><b>Time-travel</b> — the dots on the timeline are the mapped years: click one, press ▶ to play through them, or search any place across the centuries (top-right).</div>
+              <button class="btn" id="ahGo" type="button">Explore</button>
+            </div>
+          </div>
           <div class="globe-search" id="globeSearch">
             <input type="text" id="gsInput" placeholder="Search the atlas…" autocomplete="off" spellcheck="false" aria-label="Search countries, territories and capitals" />
             <div class="gs-results" id="gsResults" role="listbox" hidden></div>
+          </div>
+          <div class="globe-zoom">
+            <button class="gz-btn" id="gzIn" type="button" aria-label="Zoom in">+</button>
+            <button class="gz-btn" id="gzOut" type="button" aria-label="Zoom out">−</button>
+            <button class="gz-btn gz-help" id="gzHelp" type="button" aria-label="How to use the Atlas">?</button>
           </div>
           <div class="globe-legend" id="globeLegend" role="group" aria-labelledby="legendTitle">
             <div class="legend-head" id="legendHead">
@@ -4448,7 +4476,7 @@
             </div>
           </div>
         </div>
-        <div class="atlas-timebar">
+        <div class="atlas-timebar"${GAME ? " inert" : ""}>
           <button class="tl-play" id="tlPlay" type="button" aria-label="Play through the map years" title="Play through the map years"></button>
           <div class="atlas-timeline">
             <div class="tl-track" id="tlTrack">
@@ -4512,7 +4540,7 @@
     const ghnEl = root.querySelector("#globeHoverName"), ghnTopEl = root.querySelector("#ghnTop"), ghnMainEl = root.querySelector("#ghnMain");
     function updateHoverName() {
       if (!ghnEl) return;
-      if (hoverIdx < 0 || !hoverOn || dragging || mapEdit || WB.enabled) { ghnEl.hidden = true; return; }
+      if (hoverIdx < 0 || !hoverOn || dragging || mapEdit || WB.enabled || GAME) { ghnEl.hidden = true; return; }   // GAME: naming what's under the cursor would be the whole answer
       const nm = entityName(hoverIdx);
       if (!nm) { ghnEl.hidden = true; return; }
       let top = "";
@@ -4773,6 +4801,7 @@
     }
     let moving = false;                  // during drag / spin / zoom
     let bordersOn = true, citiesOn = true, majorCitiesOn = false, divCapsOn = false, riversOn = false, riverLabelsOn = false, waterOn = false, rangesOn = false, adminOn = false, countryNamesOn = false, forestsOn = false, heightmapOn = false;   // legend toggles (default: Borders + Capitals)
+    if (GAME) { citiesOn = false; majorCitiesOn = false; countryNamesOn = false; }   // game mode: no labeled pins or name layers — a capital label on the board IS the capital round's answer
     // bounding cap (centroid unit vector + sin of max angular radius) of each country — robust to antimeridian / pole
     // spans (Russia, USA, Antarctica, Fiji) unlike a lon/lat bbox. Lets renderStatic skip fully off-view countries.
     function countryCap(c) {
@@ -5631,6 +5660,7 @@
     let fadeT0 = 0, fadeActive = false;
     // change pulse: territory indices (of the CURRENT map) that changed hands vs the era just stepped away from
     let pulseSet = null, pulseT0 = 0, _lastPulseAt = 0;
+    let pulsePin = null;   // [lon, lat] — an expanding-ring marker (the game's capital reveal; survives a cancelled fly)
     // which map applies at a given timeline year: present-day at the present year, else the most recent historical era
     // whose year <= y; null when no era covers that year (the globe then shows the work-in-progress note).
     function activeEra(y) {
@@ -5843,6 +5873,22 @@
           ctx.restore(); scheduleDraw();
         }
       }
+      // expanding-ring marker (the game's capital reveal) — geo-anchored, so it survives a cancelled fly
+      if (pulsePin) {
+        const t = (performance.now() - pulseT0) / 1600;
+        if (t >= 1) pulsePin = null;
+        else {
+          proj(pulsePin[0], pulsePin[1]);
+          if (PV >= 0) {
+            ctx.save(); ctx.globalAlpha = Math.max(0, 1 - t);
+            ctx.beginPath(); ctx.arc(PX, PY, 4, 0, TAU); ctx.fillStyle = "rgba(255,178,46,1)"; ctx.fill();
+            ctx.lineWidth = 3; ctx.strokeStyle = "rgba(255,178,46,1)";
+            ctx.beginPath(); ctx.arc(PX, PY, 8 + t * 30, 0, TAU); ctx.stroke();
+            ctx.restore();
+          }
+          scheduleDraw();
+        }
+      }
       // era crossfade: the outgoing era's snapshot dissolves over the freshly drawn one (~280ms; killed by any motion)
       if (fadeActive) {
         const a = 1 - (performance.now() - fadeT0) / 280;
@@ -6013,6 +6059,7 @@
           if (mapEdit) { mapTapSelect(tpx, tpy); }
           else {
             { const pll = screenToLonLat(tpx, tpy); popPointLL = pll ? [pll[0], pll[1]] : null; }   // the geographic point that (maybe) opens the popup — feeds the crumb + "Through the ages"
+            if (GAME) { gameTap(tpx, tpy); return; }   // game mode: a tap IS the answer — no selection/popup/drill
             const now = e.timeStamp || performance.now();
             const sameSpot = (now - lastTapT < 400) && Math.hypot(tpx - lastTapX, tpy - lastTapY) < 14;
             tapCount = sameSpot ? tapCount + 1 : 1;   // 1 = single, 2 = double, 3 = triple (same spot within 400ms)
@@ -6102,6 +6149,33 @@
       else if (e.key === "-" || e.key === "_") { zoomStep(1 / 1.45); e.preventDefault(); }
     }
     document.addEventListener("keydown", onGlobeKey);
+    // keyboard globe navigation (the canvas is tabindex=0): arrows rotate, Enter selects/answers at the disk centre,
+    // Esc clears the selection, [ / ] step the mapped years — the whole Atlas is usable without a pointer
+    canvas.addEventListener("keydown", (e) => {
+      if (mapEdit) return;
+      const k = e.key;
+      if (k === "ArrowLeft" || k === "ArrowRight" || k === "ArrowUp" || k === "ArrowDown") {
+        e.preventDefault(); stopSpin(); flyStop(); startMotion();
+        const st = 9 / zoom;
+        if (k === "ArrowLeft") rotLon = wrap(rotLon - st);
+        else if (k === "ArrowRight") rotLon = wrap(rotLon + st);
+        else if (k === "ArrowUp") rotLat = clamp(rotLat + st, -88, 88);
+        else rotLat = clamp(rotLat - st, -88, 88);
+        scheduleDraw(); endMotion(160);
+      } else if (k === "Enter") {
+        e.preventDefault();
+        if (GAME) { gameTap(W / 2, H / 2); return; }
+        const idx = countryAt(W / 2, H / 2);
+        if (idx >= 0) {
+          const pll = screenToLonLat(W / 2, H / 2); popPointLL = pll ? [pll[0], pll[1]] : null;
+          selSet.clear(); selSet.add(idx); subSelGeo = -1; subSelUK = []; showCountryPopup(idx); draw();
+        }
+      } else if (k === "Escape") {
+        hideCountryPopup(); selSet.clear(); subSelGeo = -1; subSelUK = []; draw();
+      } else if ((k === "[" || k === "]") && !GAME) {
+        e.preventDefault(); stepYear(k === "[" ? -1 : 1);
+      }
+    });
 
     /* ---------- atlas search (present-day countries · era territories · capitals across all eras) with an animated fly-to ---------- */
     const gsInput = root.querySelector("#gsInput"), gsResults = root.querySelector("#gsResults");
@@ -6238,8 +6312,7 @@
 
     // whiteboard: reuse the study toolbar, but back it with geo-anchored strokes drawn into the globe
     WB.enabled = false;
-    ensureWBTools().classList.add("on-atlas");
-    showWBTools();
+    if (!GAME) { ensureWBTools().classList.add("on-atlas"); showWBTools(); }   // no whiteboard in game mode — drawing would intercept the answer taps
     WB.onToggle = () => { stopSpin(); moving = false; wbRotating = false; if (settleT) { clearTimeout(settleT); settleT = 0; } if (WB.enabled) hoverIdx = -1; else { activeStroke = null; erasing = false; } canvas.style.cursor = WB.enabled ? "crosshair" : "grab"; draw(); updateHoverName(); };
     WB.onClear = () => { strokes.length = 0; activeStroke = null; erasing = false; draw(); gSnapshot(); };
     WB.onUndo = () => { if (gUndo.length <= 1) return; gRedo.push(gUndo.pop()); applyStrokes(gUndo[gUndo.length - 1]); };
@@ -6364,6 +6437,7 @@
     }
     function snapYear(y) { const ys = mapYears(); let best = ys[0], bd = Infinity; for (let i = 0; i < ys.length; i++) { const d = Math.abs(ys[i] - y); if (d < bd) { bd = d; best = ys[i]; } } return best; }
     function stepYear(dir) {   // jump to the adjacent mapped year, skipping every year with no map
+      if (GAME) return;   // the round pins the year (the timebar is inert in game mode; this guards any other path)
       const ys = mapYears();
       if (dir > 0) { for (let i = 0; i < ys.length; i++) if (ys[i] > year) return setYear(ys[i]); return setYear(ys[ys.length - 1]); }
       for (let i = ys.length - 1; i >= 0; i--) if (ys[i] < year) return setYear(ys[i]);
@@ -6410,7 +6484,7 @@
     // flash half the world and teach nothing.
     function pulseChanges(oldEra, oldYear) {
       pulseSet = null;
-      if (REDUCED || !oldEra || oldYear === year) return;
+      if (REDUCED || GAME || !oldEra || oldYear === year) return;   // GAME drives pulseSet itself (the reveal flash)
       if (tlDrag) return;   // scrubbing the pin crosses eras many times a second — pulses there are noise and point-in-polygon cost
       if (performance.now() - _lastPulseAt < 450) return;   // chevron hold-repeat: at most ~2 pulse computations a second
       const ys = mapYears(), ai = ys.indexOf(oldYear), bi = ys.indexOf(year);
@@ -6471,7 +6545,7 @@
     function playTick() {
       playT = setTimeout(() => {
         playT = 0;
-        if (mapEdit || !canvas.isConnected) { playStop(); return; }
+        if (mapEdit || GAME || !canvas.isConnected) { playStop(); return; }
         _playStepping = true; stepYear(1); _playStepping = false;
         if (year >= MAXY) { playStop(); return; }   // reached the present — the show is over
         playTick();
@@ -6533,8 +6607,147 @@
         }
       }
     }
+    /* ---------- "Find it on the map" — the daily geography game, played on the real globe ---------- */
+    const mgEl = root.querySelector("#mapGame"), mgRoundEl = root.querySelector("#mgRound"), mgScoreEl = root.querySelector("#mgScore"),
+      mgQEl = root.querySelector("#mgQ"), mgFeedbackEl = root.querySelector("#mgFeedback"), mgNextEl = root.querySelector("#mgNext");
+    let gameRounds = [], gameRi = 0, gameTries = 0, gameFirstTry = 0, gameLock = false, gameOver = false, gamePractice = false;
+    const havKm = (lon1, lat1, lon2, lat2) => {   // great-circle distance, km
+      const dLa = (lat2 - lat1) * DEG, dLo = (lon2 - lon1) * DEG;
+      const a = Math.sin(dLa / 2) * Math.sin(dLa / 2) + Math.cos(lat1 * DEG) * Math.cos(lat2 * DEG) * Math.sin(dLo / 2) * Math.sin(dLo / 2);
+      return 2 * 6371 * Math.asin(Math.sqrt(a));
+    };
+    function buildGameRounds() {   // 5 date-seeded rounds: 2 present-day countries, 2 historical territories, 1 capital
+      // each pool gets its OWN seeded stream — a shared stream would reshuffle every later pool whenever an earlier
+      // pool's size shifts (e.g. an admin materializing a groups era intraday), breaking "same rounds all day"
+      const rngC = mulberry32(hashStr("findit-c-" + todayStr())), rngT = mulberry32(hashStr("findit-t-" + todayStr())), rngK = mulberry32(hashStr("findit-k-" + todayStr()));
+      const bbA = (t) => { let best = 0; (t.p || []).forEach((ring) => { let x0 = 180, y0 = 90, x1 = -180, y1 = -90; ring.forEach((p) => { if (p[0] < x0) x0 = p[0]; if (p[0] > x1) x1 = p[0]; if (p[1] < y0) y0 = p[1]; if (p[1] > y1) y1 = p[1]; }); const a = (x1 - x0) * (y1 - y0); if (a > best) best = a; }); return best; };
+      // quality gates: big enough to click at a fair zoom, documented (a countries.js description exists), not an ethnographic grouping
+      const ETHNO = /people|forager|hunter|fisher|gatherer|nomad|tribe|khoisan|bantu|aborigin|inuit|paleo/i;
+      const countries = seededShuffle(GEO.filter((g) => g.n && countryDesc(g.n) && bbA(g) > 30), rngC);
+      const terrPool = [];
+      (window.TIMELINE || []).forEach((e) => {
+        if (!e.geo || !e.geo.length) return;
+        e.geo.forEach((t) => { if (t.n && !ETHNO.test(t.n) && countryDesc(t.n) && bbA(t) > 60) terrPool.push({ n: t.n, year: e.year }); });
+      });
+      const terrs = seededShuffle(terrPool, rngT);
+      const capPool = [];
+      (window.TIMELINE || []).forEach((e) => (e.cities || []).forEach((c) => { if (c.cap && c.n) capPool.push({ n: c.n, lon: c.lon, lat: c.lat, year: e.year }); }));
+      for (let i = 0; i < CITIES.length; i++) if (CITIES[i].r === 0) capPool.push({ n: CITIES[i].n, lon: CITIES[i].c[0], lat: CITIES[i].c[1], year: MAXY });
+      const caps = seededShuffle(capPool, rngK);
+      // one target per NAME across the whole day (France-today + France-1800 would make the second round a freebie)
+      const used = new Set();
+      const pick = (pool) => { for (let i = 0; i < pool.length; i++) { const k = pool[i].n.toLowerCase(); if (!used.has(k)) { used.add(k); return pool[i]; } } return null; };
+      const c1 = pick(countries), t1 = pick(terrs), c2 = pick(countries), t2 = pick(terrs), k1 = pick(caps);
+      const rounds = [
+        c1 && { kind: "entity", n: c1.n, year: MAXY },
+        t1 && { kind: "entity", n: t1.n, year: t1.year },
+        c2 && { kind: "entity", n: c2.n, year: MAXY },
+        t2 && { kind: "entity", n: t2.n, year: t2.year },
+        k1 && { kind: "capital", n: k1.n, lon: k1.lon, lat: k1.lat, year: k1.year },
+      ].filter(Boolean);
+      return rounds;
+    }
+    function gameTargetLL(r) {   // where the round's answer lives (for distance feedback + the reveal fly)
+      if (r.kind === "capital") return [r.lon, r.lat];
+      const k = r.n.toLowerCase();
+      const ht = histTerr();
+      if (ht) { const an = (eraLabelAnchors() || []).find((a) => (a.n || "").toLowerCase() === k); if (an) return [an.lon, an.lat]; }
+      else for (let i = 0; i < GEO.length; i++) if ((GEO[i].n || "").toLowerCase() === k && GEO[i].c) return [GEO[i].c[0], GEO[i].c[1]];
+      return null;
+    }
+    const fmtYearG = (y) => (y >= MAXY ? "today" : y < 0 ? -y + " BCE" : String(y));
+    function gameShowRound() {
+      const r = gameRounds[gameRi]; gameTries = 0; gameLock = false; pulsePin = null;
+      setYear(r.year);
+      mgRoundEl.textContent = (gamePractice ? "Practice · " : "") + "Round " + (gameRi + 1) + " / " + gameRounds.length;
+      mgScoreEl.textContent = gameFirstTry + (gameFirstTry === 1 ? " point" : " points");
+      mgQEl.innerHTML = (r.kind === "capital" ? "Find the city of <b>" + esc(r.n) + "</b>" : "Find <b>" + esc(r.n) + "</b>") + (r.year >= MAXY ? " on today's map" : " — in " + fmtYearG(r.year));
+      mgFeedbackEl.hidden = true; mgNextEl.hidden = true;
+      selSet.clear(); subSelGeo = -1; subSelUK = []; pulseSet = null; scheduleDraw();
+    }
+    function gameReveal(r, ok) {
+      gameLock = true;
+      const tgt = gameTargetLL(r);
+      if (r.kind !== "capital") {   // flash ALL same-named polygons gold via the pulse machinery (the 1900 map has 35 "Fiji" pieces)
+        const terr = histTerr() || GEO, k = r.n.toLowerCase(), idxs = [];
+        for (let i = 0; i < terr.length; i++) if ((terr[i].n || "").toLowerCase() === k) idxs.push(i);
+        if (idxs.length) { pulseSet = idxs; pulseT0 = performance.now(); }
+      } else { pulsePin = [r.lon, r.lat]; pulseT0 = performance.now(); }   // capitals: a geo-anchored ring marker (the fly alone is cancellable — the marker isn't)
+      if (tgt) flyTo(tgt[0], tgt[1], Math.max(zoom, r.kind === "capital" ? 2.8 : 1.5), null);
+      mgFeedbackEl.textContent = ok ? (gameTries === 0 ? "Found it — first try!" : "Found it!") : "It was here.";
+      mgFeedbackEl.hidden = false;
+      mgScoreEl.textContent = gameFirstTry + (gameFirstTry === 1 ? " point" : " points");
+      mgNextEl.textContent = gameRi + 1 >= gameRounds.length ? "See your score" : "Next round";
+      mgNextEl.hidden = false;
+      scheduleDraw();
+    }
+    function gameTap(px, py) {
+      if (!GAME || gameOver || gameLock || gameRi >= gameRounds.length) return;
+      const r = gameRounds[gameRi];
+      const ll = screenToLonLat(px, py); if (!ll) return;   // clicked the sky
+      let correct = false, distKm = null;
+      if (r.kind === "capital") {
+        distKm = havKm(ll[0], ll[1], r.lon, r.lat);
+        correct = distKm <= 300;   // within ~300 km of the city counts — zoom in for precision
+      } else {
+        const idx = countryAt(px, py);
+        correct = idx >= 0 && (entityName(idx) || "").toLowerCase() === r.n.toLowerCase();
+        if (!correct) { const tgt = gameTargetLL(r); if (tgt) distKm = havKm(ll[0], ll[1], tgt[0], tgt[1]); }
+      }
+      if (correct) {
+        if (gameTries === 0) gameFirstTry++;
+        sfx("good");
+        gameReveal(r, true);
+      } else if (gameTries === 0) {
+        gameTries = 1; sfx("bad");
+        mgFeedbackEl.textContent = (distKm != null ? Math.round(distKm).toLocaleString("en-US") + " km away — " : "Not there — ") + "one more try!";
+        mgFeedbackEl.hidden = false;
+      } else {
+        sfx("bad");
+        gameReveal(r, false);
+      }
+    }
+    function gameEnd() {
+      gameOver = true;
+      const n = gameRounds.length, perfect = n >= 5 && gameFirstTry >= n;   // a short game (thin pools) can never count as a perfect run
+      if (!gamePractice) { markGamePlayed("findit", perfect, gameFirstTry, n); save(); checkAchievements(); }   // achievements: the Clean Sweep now includes this game
+      mgRoundEl.textContent = gamePractice ? "Practice over" : "Done!";
+      mgScoreEl.textContent = "";
+      mgQEl.innerHTML = "<b>" + gameFirstTry + " / " + n + "</b> found on the first try" + (perfect ? " — perfect!" : ".");
+      mgFeedbackEl.textContent = gamePractice ? "Practice runs don't count — today's score is already on the board." : "Come back tomorrow for five new places.";
+      mgFeedbackEl.hidden = false;
+      mgNextEl.textContent = "Back to Home"; mgNextEl.hidden = false;
+    }
+    if (GAME && mgEl) {
+      // the day's rounds are date-seeded and every answer is revealed during play, so a same-day replay is
+      // PRACTICE: playable, but it never records a score (a second run with known answers isn't a result)
+      gamePractice = gamePlayedToday("findit");
+      mgNextEl.addEventListener("click", () => {
+        if (gameOver) { route("home"); return; }
+        gameRi++;
+        if (gameRi >= gameRounds.length) gameEnd(); else gameShowRound();
+      });
+      gameRounds = buildGameRounds();
+      if (gameRounds.length) { mgEl.hidden = false; gameShowRound(); }
+      else route("map");   // no data to play with (should never happen) — fall back to the plain Atlas
+    }
+    /* ---------- first-visit coach marks + the "?" help button ---------- */
+    { const helpEl = root.querySelector("#atlasHelp"), helpBtn = root.querySelector("#gzHelp");
+      const hideHelp = () => { if (helpEl) helpEl.hidden = true; try { localStorage.setItem("folio_atlas_tour_v1", "1"); } catch (err) {} };
+      if (helpEl) {
+        helpEl.addEventListener("click", (e) => { if (e.target === helpEl) hideHelp(); });   // backdrop click closes
+        const c1 = root.querySelector("#ahClose"), c2 = root.querySelector("#ahGo");
+        if (c1) c1.addEventListener("click", hideHelp);
+        if (c2) c2.addEventListener("click", hideHelp);
+      }
+      if (helpBtn) helpBtn.addEventListener("click", () => { if (helpEl) helpEl.hidden = false; });
+      let seen = "1"; try { seen = localStorage.getItem("folio_atlas_tour_v1") || ""; } catch (err) {}
+      if (!GAME && !seen && helpEl) helpEl.hidden = false;   // first Atlas visit: a 20-second orientation
+    }
     if (atlasEditEraId != null) { const _e = (window.TIMELINE || []).find((x) => x.id === atlasEditEraId); atlasEditEraId = null; if (_e) enterMapEdit(_e); }
   };
+  // "Find it on the map" — the daily geography minigame IS the Atlas page in game mode (same globe, same eras, same renderer)
+  PAGES.findit = function (root) { PAGES.map(root, { game: true }); };
 
   /* ============================================================
      PAGE: ACCOUNT
@@ -6613,7 +6826,7 @@
     { id: "friend5", icon: "🌐", name: "Well Connected", desc: "Have 5 friends", test: (s) => s.friends >= 5, prog: (s) => [s.friends, 5] },
     { id: "win1", icon: "🏅", name: "Victor", desc: "Win a daily challenge", test: (s) => s.wins >= 1 },
     { id: "win10", icon: "👑", name: "Champion", desc: "Win 10 daily challenges", test: (s) => s.wins >= 10, prog: (s) => [s.wins, 10] },
-    { id: "sweep", icon: "🎯", name: "Clean Sweep", desc: "Win all four daily games in one day", test: (s) => s.dailySweep },
+    { id: "sweep", icon: "🎯", name: "Clean Sweep", desc: "Win every daily game in one day", test: (s) => s.dailySweep },
   ];
   function progStats(prog, friendsCount) {
     const cards = prog.cards || {};
@@ -9273,7 +9486,7 @@
   })();
 
   // initial route from hash
-  const valid = ["home", "decks", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "admin", "mission"];
+  const valid = ["home", "decks", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "admin", "mission"];
   const h = (location.hash || "").replace("#", "");
   const hParts = h.split("/");
   let initName = valid.includes(hParts[0]) ? hParts[0] : "home";

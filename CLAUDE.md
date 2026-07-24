@@ -346,9 +346,10 @@ cities.js → timeline.js → countries.js → country-stats.js → country-year
   covers many history topics; copy stays subject-neutral (China is just the first live collection).
 - **Home minigames** (game-grid tiles → `PAGES.*`): **Multiple Choice** (`PAGES.challenge`, formerly "Daily Challenge" — the
   rival bots + timer were removed; it's now a plain 5-question quiz whose 3 wrong options are the SAME `answerType()` as the
-  answer — a person → other people, a dynasty → other dynasties), **Timeline** (`chrono`), **True or False** (`truefalse`), and
-  **Who said it?** (`whosaid`, from `quotes.js`). `BOTS`/`drawRace`/podium are now dead code.
-  Each of the 4 games records a per-day result in `S.games[key] = { date, played, won }` (`markGamePlayed(key, won)` at each
+  answer — a person → other people, a dynasty → other dynasties), **Timeline** (`chrono`), **True or False** (`truefalse`),
+  **Who said it?** (`whosaid`, from `quotes.js`), and **Find it on the map** (`findit` — see the Atlas game-mode bullet
+  below; 5 date-seeded locate-on-the-globe rounds, score = first-try finds). `BOTS`/`drawRace`/podium are now dead code.
+  Each of the 5 games records a per-day result in `S.games[key] = { date, played, won }` (`markGamePlayed(key, won)` at each
   game's end; `won` = a perfect run, or `solved` for Timeline). The home tile has **three daily states** (state classes set by
   `tile()`) — playing EARNS the colour: **unplayed** = a whisper of the tile's hue (a ~10% wash + hue-tinted title,
   theme colour only in the left bar, faint corner icon — `button.game-tile:not(.done):not(.won)`); **played today** (`done`, via
@@ -359,8 +360,8 @@ cities.js → timeline.js → countries.js → country-stats.js → country-year
   darkened far corner (`body:not(.night)` override). A played tile's tagline becomes **today's best score** ("4/5 correct!",
   chrono: "in order!") — `markGamePlayed(key, won, score, total)` stores `{s, n}` per day, `gameSub()` renders it. The
   Daily-review banner's CTA sits at the **bottom-left inside `.body`** (below the full-width xp bar), on mobile too. The **"Clean Sweep" achievement**
-  (`sweep`, 🎯) unlocks when **all four are `won` on the same day**
-  (`allGamesWonToday` → `progStats().dailySweep`). A perfect Multiple-choices run also increments `S.daily.wins`, which **revived
+  (`sweep`, 🎯) unlocks when **all five are `won` on the same day** (`DAILY_GAMES` includes `findit`;
+  `allGamesWonToday` → `progStats().dailySweep`). A perfect Multiple-choices run also increments `S.daily.wins`, which **revived
   the previously-dead `win1`/`win10` (Victor/Champion) badges** (`wins` was never written after the bot race was removed).
   `S.games` is in `defaultState()` (back-fills old saves) and `PROGRESS_FIELDS` (mirrors to the account).
 - **Collection identity (Library)**: `COLL_THEME` (app.js) maps each collection id → `{ bg }`, a signature hue
@@ -451,7 +452,25 @@ cities.js → timeline.js → countries.js → country-stats.js → country-year
   (`subSelGeo`), then UK constituents (`subSelUK`); `popPointLL` (the click point / search anchor — GEO label point `c`, NOT
   the bbox centre, which can land in a neighbour) + `popEntityName` feed all three). Unclaimed land on historical eras gets a
   **terra-incognita stipple** (`stipplePattern()`, theme-aware via `stippleCol`, drawn settled-only under the claimed-land
-  refill so it survives only on wilderness). Clicking a country
+  refill so it survives only on wilderness).
+  **Game mode + approachability (batch 3):** `PAGES.findit` routes to `PAGES.map(root, {game:true})` — the **"Find it on
+  the map" daily minigame** plays on the real globe (`const GAME` gates everything): 5 date-seeded rounds from
+  `buildGameRounds()` (2 present-day countries, 2 historical territories, 1 capital; **one seeded RNG stream PER pool**
+  so intraday data changes can't reshuffle the day; a `used`-names Set dedupes targets across rounds; quality gates =
+  bbox area + `countryDesc` exists + an ETHNO name regex). Taps route to `gameTap` (countryAt name match, or
+  haversine ≤300 km for capitals) — one retry with a km-distance hint, then `gameReveal` (gold pulse of ALL same-named
+  polygons; capitals get a **geo-anchored `pulsePin` ring** since the fly alone is cancellable). Scoring: first-try
+  finds; `won` needs `n >= 5` AND all first-try; `gameEnd` → `markGamePlayed("findit", …)` + `save()` +
+  `checkAchievements()`. **Anti-cheat gating**: `.atlas-game` CSS hides search/legend/hover-chip/hint/popup, game mode
+  **forces `citiesOn`/`majorCitiesOn`/`countryNamesOn` false** (a capital label on the board IS the answer), the timebar
+  is **`inert`** (not just pointer-events:none — buttons stay keyboard-focusable otherwise) + `stepYear`/`playTick`
+  carry GAME guards, and the whiteboard never mounts. **Same-day replays are PRACTICE** (`gamePractice` — playable,
+  never records: the rounds are deterministic and every answer was revealed). The Atlas also gained **first-visit coach
+  marks** (`#atlasHelp` overlay, auto-shown once via `localStorage["folio_atlas_tour_v1"]`, reopened by the `#gzHelp`
+  "?" button) and **keyboard navigation** (canvas `tabindex=0`: arrows rotate, Enter selects/answers at the disk
+  centre, Esc clears, `[`/`]` step map-years). The **`#gzIn`/`#gzOut` zoom buttons' markup was restored** (wiring + CSS
+  existed but the DOM had been lost in an old refactor); the `.globe-zoom` column now sits **bottom-right** — at
+  top:50% it collided with the (top-right) legend on short viewports. Clicking a country
   (present-day or a historical era's territory) highlights it and shows a single info popup above the
   timeline — its name + a 5-sentence description from `countries.js`; one at a time, cleared on a second
   click / ocean click / era change. The popup is a **vertical panel on the LEFT of the stage** (the base `.country-pop` rule:
