@@ -10,7 +10,7 @@ window.CHANGELOG = [
     items: [
       "The glossary is being rebuilt from the ground up, and every new term now carries a pop-up definition translated into all eight site languages — so switching Folio to Spanish, Chinese, Arabic or any other language translates the glossary too. A first set of foundational terms on deep prehistory has landed.",
       "One new card in the World History prehistory deck, in English and all eight site languages.",
-      "Seven more glossary terms, in English and all eight site languages.",
+      "Eleven more glossary terms, in English and all eight site languages.",
     ],
   },
   {

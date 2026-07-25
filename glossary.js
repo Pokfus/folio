@@ -23,7 +23,11 @@ window.GLOSSARY = {
 "John_Lubbock,_1st_Baron_Avebury": "John Lubbock, from 1900 the 1st Baron Avebury, was a British banker, member of parliament and naturalist who helped turn the study of prehistory into a scientific discipline. His survey <i>Pre-historic Times</i>, published in 1865 and revised through seven editions, introduced the terms Paleolithic and Neolithic for the earlier and later phases of the Stone Age, and both remain in everyday use. In parliament he carried the act that gave ancient monuments their first legal protection in Britain and the act that created the country's first statutory public holidays, which were popularly called St Lubbock's Days.",
 "Neanderthal": "Neanderthals, classified as <i>Homo neanderthalensis</i>, were a population of archaic humans who lived across Europe and western and central Asia from at least 400,000 years ago until roughly 40,000 years ago. They take their name from the Neander valley near Düsseldorf, where a partial skeleton found in 1856 became the type specimen of the species, and the hundreds of fossils recovered since show a stocky, powerfully built body with a large braincase and prominent brow ridges. They made prepared-core stone tools, hunted large game, controlled fire and buried some of their dead, and genetic evidence shows they interbred with the ancestors of people living today, leaving a small proportion of Neanderthal DNA in most present-day populations outside Africa.",
 "Homo_sapiens": "<i>Homo sapiens</i> is the species to which all living people belong and the only surviving member of the human genus <i>Homo</i>. Fossils combining the modern small face, rounded braincase and distinct chin appear in Africa by about 300,000 years ago, though these features seem to have emerged piecemeal in populations spread across the continent rather than all at once in a single place. Members of the species later settled every continent and are associated with symbolic art, complex language, and eventually agriculture, cities and writing.",
-"Homo_erectus": "<i>Homo erectus</i> is an extinct species of early human that appeared in Africa about 2 million years ago and survived on the island of Java until roughly 110,000 years ago, making it one of the longest-lived species in the human genus. It was the first known human with body proportions close to those of people today, having long legs, short arms and a narrow trunk suited to walking and running across open country. It was also the first human species known to have spread beyond Africa, reaching eastern and southeastern Asia, and its African sites yield the teardrop-shaped hand axes of the Acheulean industry along with some of the earliest evidence for the controlled use of fire."
+"Homo_erectus": "<i>Homo erectus</i> is an extinct species of early human that appeared in Africa about 2 million years ago and survived on the island of Java until roughly 110,000 years ago, making it one of the longest-lived species in the human genus. It was the first known human with body proportions close to those of people today, having long legs, short arms and a narrow trunk suited to walking and running across open country. It was also the first human species known to have spread beyond Africa, reaching eastern and southeastern Asia, and its African sites yield the teardrop-shaped hand axes of the Acheulean industry along with some of the earliest evidence for the controlled use of fire.",
+"Oldowan": "The Oldowan is the earliest widespread stone tool industry, made across much of Africa and later in parts of Eurasia from roughly 2.6 million years ago until about 1.7 million years ago, with recent finds in Kenya suggesting an origin closer to 2.9 million. Its toolkit is simple: rounded cores struck a few times with a hammerstone to produce sharp-edged flakes, together with the choppers and battered stones left behind, all used for cutting meat from carcasses, breaking bones for marrow and pounding plant food. It takes its name from Olduvai Gorge in Tanzania, where Louis Leakey identified such tools in the 1930s, and the hominins who made it are thought to include <i>Homo habilis</i>, early <i>Homo erectus</i> and possibly <i>Paranthropus</i>.",
+"Acheulean": "The Acheulean is a stone tool industry defined by the large bifacial hand axe, a core worked on both faces into a symmetrical oval or teardrop shape with a continuous cutting edge, usually accompanied by cleavers, picks and the flakes struck off in shaping them. It began in Africa about 1.7 million years ago and lasted until somewhere between 200,000 and 130,000 years ago depending on the region, which makes it the longest-running toolmaking tradition known, and its products are found across Africa, the Middle East, Europe and southern Asia. Named after the gravels of Saint-Acheul near Amiens in northern France, where such tools were recovered in the 1850s, it is attributed mainly to <i>Homo erectus</i> and later <i>Homo heidelbergensis</i>.",
+"Neolithic": "The Neolithic, or New Stone Age, is the final phase of the Stone Age, in which people came to depend on cultivated crops and domesticated animals rather than on wild food alone. Its characteristic traits are permanent villages, pottery, weaving, and stone tools finished by grinding and polishing instead of flaking alone, and it is the phase in which the first monumental structures and the first clear signs of social ranking appear. Because farming was taken up at different times in different places, the period has no single span: it begins around 10,000 BCE in the Middle East and only in the 3rd millennium BCE elsewhere, ending wherever metalworking took hold.",
+"Mesolithic": "The Mesolithic is a phase of the Stone Age falling between the Paleolithic and the Neolithic, covering the hunter-gatherer societies that adapted to the warmer, wetter conditions after the last Ice Age. Its tools are dominated by microliths, small blades and points struck from carefully prepared cores and set into wooden or bone hafts to make arrows, harpoons and composite knives, and its sites show heavy use of fish, shellfish, waterfowl and hazelnuts, along with domesticated dogs and some of the oldest boats known. The term was introduced by the antiquarian Hodder Westropp in 1866 and is used mainly for Europe, since the sequence it describes fits some regions poorly: the equivalent period in the Levant is usually called the Epipalaeolithic, and in Africa the label is rarely applied at all."
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -42,7 +46,11 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "John_Lubbock,_1st_Baron_Avebury": "1834–1913",
 "Neanderthal": "c. 400,000 – 40,000 BP",
 "Homo_sapiens": "from c. 300,000 BP",
-"Homo_erectus": "c. 2 Mya – 110,000 BP"
+"Homo_erectus": "c. 2 Mya – 110,000 BP",
+"Oldowan": "c. 2.6 – 1.7 Mya",
+"Acheulean": "c. 1.7 Mya – 130,000 BP",
+"Neolithic": "c. 10,000 – 3000 BCE",
+"Mesolithic": "c. 10,000 – 4000 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -61,7 +69,10 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "John_Lubbock,_1st_Baron_Avebury": ["John Lubbock","Lubbock","Lord Avebury"],
 "Neanderthal": ["Neanderthals","Neandertal","Homo neanderthalensis"],
 "Homo_sapiens": ["H. sapiens","anatomically modern human"],
-"Homo_erectus": ["H. erectus"]
+"Homo_erectus": ["H. erectus"],
+"Oldowan": ["Oldowan industry"],
+"Acheulean": ["Acheulian","Acheulean industry"],
+"Neolithic": ["New Stone Age"]
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -88,5 +99,9 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "John_Lubbock,_1st_Baron_Avebury": ["person","archaeology","science","history"],
 "Neanderthal": ["hominin","palaeontology","evolution","prehistory"],
 "Homo_sapiens": ["hominin","palaeontology","evolution","prehistory"],
-"Homo_erectus": ["hominin","palaeontology","evolution","prehistory"]
+"Homo_erectus": ["hominin","palaeontology","evolution","prehistory"],
+"Oldowan": ["industry","archaeology","prehistory","technology"],
+"Acheulean": ["industry","archaeology","prehistory","technology"],
+"Neolithic": ["era","archaeology","prehistory","history"],
+"Mesolithic": ["era","archaeology","prehistory","history"]
 });
