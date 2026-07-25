@@ -842,6 +842,18 @@ dead code (never rendered).
 - Developed on Windows. Use forward-slash relative paths inside the site.
 - The project is a **Git repo** (initialized Jul 2026) so any change can be reviewed and rolled back — commit meaningful
   changes as you go.
+- **Cloud sessions (claude.ai/code, driven from the phone)** — when this project is worked on from an Anthropic cloud
+  sandbox instead of the desktop: (1) the sandbox clones from **GitHub** — anything uncommitted on the desktop is
+  invisible, and desktop sessions must push before/after a travel period; (2) cloud sessions **cannot push to `main`** —
+  work lands on a feature branch and a PR, which the user merges from the GitHub mobile app (merge to main = the
+  Cloudflare Pages deploy); (3) there is **no live-preview browser panel** — verify with `node --check`, Node scripts
+  (`global.window = {}` then `require(...)` for the data files), and if visual verification is needed install
+  Playwright + headless Chromium in-session (see Testing above); (4) the desktop machine's Claude memory files do NOT
+  load in the cloud — **this CLAUDE.md is the only operational memory**, so keep it current exactly as the golden rule
+  says; (5) the user may also make content edits from their phone via the LIVE site's admin editor (the
+  `content_overrides` cloud overlay) — before shipping content-file changes from a cloud session, check that overlay
+  isn't carrying unbaked live edits, and after baking remind the user to reset `content_overrides.data` to `{}`
+  (Supabase Table Editor) per the hygiene rule above.
 - **Online accounts + sync (Supabase)** — LIVE in app.js (the `/* Supabase */` module after the legacy accounts block).
   Static hosting on Cloudflare Pages fed by GitHub pushes (`git push` = deploy; content files like `data.js` ship with deploys).
   Schema + RLS: `.claude/supabase-schema.sql` (applied; tables `profiles` / `progress` / `friends`; signup trigger creates the
