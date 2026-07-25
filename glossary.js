@@ -18,7 +18,12 @@ window.GLOSSARY = {
 "Megafauna": "Megafauna are the large animals of a given region or geological period, conventionally those whose adult body mass exceeds a set threshold, most often placed at about 44 kilograms, although proposed limits range from roughly 10 kilograms to well over 1,000 kilograms. The Pleistocene epoch supported an especially rich megafauna, among them mammoths, mastodons, giant ground sloths and woolly rhinoceroses. Many of these large animals died out toward the end of the last Ice Age, in a wave of extinctions that most researchers attribute to a combination of climatic change and human hunting, though the relative weight of each cause remains debated.",
 "Australopithecus": "<i>Australopithecus</i> is an extinct genus of early hominins that lived in Africa between roughly 4.2 and 2 million years ago, walking upright on two legs while keeping a small, ape-sized brain. Among its best-known fossils is the roughly 3.2-million-year-old partial skeleton nicknamed Lucy, a member of the species <i>Australopithecus afarensis</i>. The genus is widely regarded as ancestral to, or closely related to, the human genus <i>Homo</i>.",
 "Sonia_Harmand": "Sonia Harmand is a French archaeologist and lithic technologist whose work focuses on the earliest stone tools and the origins of tool-making. She has led the West Turkana Archaeological Project in northern Kenya since 2012, dividing her career between the Centre National de la Recherche Scientifique in France and Stony Brook University in New York. In 2011 her team found flaked stone artifacts at the site of Lomekwi 3 that were dated to 3.3 million years ago, about 700,000 years older than any previously known, pushing the start of the archaeological record back before the appearance of the genus <i>Homo</i>.",
-"Jason_E._Lewis": "Jason E. Lewis is an American paleoanthropologist whose research spans the earliest stone tools, the fossil record of eastern Africa, and the history of physical anthropology. Based at Stony Brook University and its Turkana Basin Institute, he co-directs the West Turkana Archaeological Project in northern Kenya. He was a co-discoverer of the 3.3-million-year-old artifacts at Lomekwi 3, the oldest stone tools yet found, and he also led a re-measurement of the 19th-century collection of human skulls assembled by Samuel George Morton, which challenged the widely repeated claim that Morton had skewed his data."
+"Jason_E._Lewis": "Jason E. Lewis is an American paleoanthropologist whose research spans the earliest stone tools, the fossil record of eastern Africa, and the history of physical anthropology. Based at Stony Brook University and its Turkana Basin Institute, he co-directs the West Turkana Archaeological Project in northern Kenya. He was a co-discoverer of the 3.3-million-year-old artifacts at Lomekwi 3, the oldest stone tools yet found, and he also led a re-measurement of the 19th-century collection of human skulls assembled by Samuel George Morton, which challenged the widely repeated claim that Morton had skewed his data.",
+"Greece": "Greece is a country in southeastern Europe occupying the southern end of the Balkan peninsula together with several thousand islands in the Aegean, Ionian and Mediterranean seas. Mountains cover about four-fifths of its territory and its deeply indented coastline is the longest of any country in the Mediterranean basin, conditions that favored seafaring and left inland communities divided by hard terrain. Its ancient city-states produced the earliest known democratic government along with lasting traditions of philosophy, drama, mathematics and historical writing, while the modern Greek state grew out of a war of independence against Ottoman rule and was recognized as sovereign in 1830.",
+"John_Lubbock,_1st_Baron_Avebury": "John Lubbock, from 1900 the 1st Baron Avebury, was a British banker, member of parliament and naturalist who helped turn the study of prehistory into a scientific discipline. His survey <i>Pre-historic Times</i>, published in 1865 and revised through seven editions, introduced the terms Paleolithic and Neolithic for the earlier and later phases of the Stone Age, and both remain in everyday use. In parliament he carried the act that gave ancient monuments their first legal protection in Britain and the act that created the country's first statutory public holidays, which were popularly called St Lubbock's Days.",
+"Neanderthal": "Neanderthals, classified as <i>Homo neanderthalensis</i>, were a population of archaic humans who lived across Europe and western and central Asia from at least 400,000 years ago until roughly 40,000 years ago. They take their name from the Neander valley near Düsseldorf, where a partial skeleton found in 1856 became the type specimen of the species, and the hundreds of fossils recovered since show a stocky, powerfully built body with a large braincase and prominent brow ridges. They made prepared-core stone tools, hunted large game, controlled fire and buried some of their dead, and genetic evidence shows they interbred with the ancestors of people living today, leaving a small proportion of Neanderthal DNA in most present-day populations outside Africa.",
+"Homo_sapiens": "<i>Homo sapiens</i> is the species to which all living people belong and the only surviving member of the human genus <i>Homo</i>. Fossils combining the modern small face, rounded braincase and distinct chin appear in Africa by about 300,000 years ago, though these features seem to have emerged piecemeal in populations spread across the continent rather than all at once in a single place. Members of the species later settled every continent and are associated with symbolic art, complex language, and eventually agriculture, cities and writing.",
+"Homo_erectus": "<i>Homo erectus</i> is an extinct species of early human that appeared in Africa about 2 million years ago and survived on the island of Java until roughly 110,000 years ago, making it one of the longest-lived species in the human genus. It was the first known human with body proportions close to those of people today, having long legs, short arms and a narrow trunk suited to walking and running across open country. It was also the first human species known to have spread beyond Africa, reaching eastern and southeastern Asia, and its African sites yield the teardrop-shaped hand axes of the Acheulean industry along with some of the earliest evidence for the controlled use of fire."
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -33,7 +38,11 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Lower_Paleolithic": "c. 3.3 Mya – 300,000 BP",
 "Pleistocene": "c. 2.58 Mya – 11,700 BP",
 "Australopithecus": "c. 4.2 - 2 Mya",
-"Sonia_Harmand": "b. 1974"
+"Sonia_Harmand": "b. 1974",
+"John_Lubbock,_1st_Baron_Avebury": "1834–1913",
+"Neanderthal": "c. 400,000 – 40,000 BP",
+"Homo_sapiens": "from c. 300,000 BP",
+"Homo_erectus": "c. 2 Mya – 110,000 BP"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -47,7 +56,12 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Lower_Paleolithic": ["Lower Palaeolithic"],
 "Archaeology": ["archaeological","archaeologist","archaeologists"],
 "Australopithecus": ["australopithecine"],
-"Jason_E._Lewis": ["Jason Lewis"]
+"Jason_E._Lewis": ["Jason Lewis"],
+"Greece": ["Greek","Greeks"],
+"John_Lubbock,_1st_Baron_Avebury": ["John Lubbock","Lubbock","Lord Avebury"],
+"Neanderthal": ["Neanderthals","Neandertal","Homo neanderthalensis"],
+"Homo_sapiens": ["H. sapiens","anatomically modern human"],
+"Homo_erectus": ["H. erectus"]
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -69,5 +83,10 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Megafauna": ["concept","biology","palaeontology","prehistory","nature"],
 "Australopithecus": ["hominin","palaeontology","evolution","prehistory"],
 "Sonia_Harmand": ["person","archaeology","prehistory","science"],
-"Jason_E._Lewis": ["person","archaeology","prehistory","science"]
+"Jason_E._Lewis": ["person","archaeology","prehistory","science"],
+"Greece": ["place","geography","history","greece"],
+"John_Lubbock,_1st_Baron_Avebury": ["person","archaeology","science","history"],
+"Neanderthal": ["hominin","palaeontology","evolution","prehistory"],
+"Homo_sapiens": ["hominin","palaeontology","evolution","prehistory"],
+"Homo_erectus": ["hominin","palaeontology","evolution","prehistory"]
 });
