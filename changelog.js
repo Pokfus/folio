@@ -5,6 +5,13 @@
    user, not how). Loaded before app.js. */
 window.CHANGELOG = [
   {
+    d: "2026-07-25",
+    t: "A glossary that speaks eight languages",
+    items: [
+      "The glossary is being rebuilt from the ground up, and every new term now carries a pop-up definition translated into all eight site languages — so switching Folio to Spanish, Chinese, Arabic or any other language translates the glossary too. A first set of foundational terms on deep prehistory has landed.",
+    ],
+  },
+  {
     d: "2026-07-24",
     t: "The world of 1500, and a more readable Atlas",
     items: [
