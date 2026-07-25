@@ -12,6 +12,7 @@ window.CHANGELOG = [
       "One new card in the World History prehistory deck, in English and all eight site languages.",
       "Thirty-two more glossary terms, in English and all eight site languages.",
       "Ten more glossary terms, in English and all eight site languages.",
+      "Ten more glossary terms covering the world's continents, regions and major countries, in English and all eight site languages.",
     ],
   },
   {
