@@ -48,7 +48,17 @@ window.GLOSSARY = {
 "Arctic": "The Arctic is the northernmost region of the Earth, usually defined as the area within the Arctic Circle at about 66.5° north, though it is also drawn at the northern tree line or at the limit where average summer temperatures stay near 10 °C. It centers on an ocean rather than a continent, the ice-covered Arctic Ocean, ringed by the northern edges of North America, Europe and Asia, and its year runs to extremes of light, with continuous daylight in summer and continuous darkness in winter. Tundra, sea ice and permafrost dominate its landscapes, it supports specially adapted life from lichens and mosses to caribou, polar bears, seals and whales, and it has been inhabited for thousands of years by peoples whose livelihoods rest on hunting and fishing.",
 "Levallois": "Levallois is a method of stone toolmaking in which a core is first trimmed and shaped so that a single flake of predetermined size and outline can then be struck from it in one blow. Because the finished flake exists in the knapper's intention before it exists in the stone, the method is often taken as evidence of planning several steps ahead, and it yields thin, sharp-edged flakes and leaves a distinctive tortoise-shell pattern of scars on the discarded core. It appears in Africa and Eurasia by about 300,000 years ago, with contested claims for earlier examples, and it takes its name from Levallois-Perret, a suburb of Paris where such cores turned up in 19th-century gravel quarries.",
 "Mousterian": "The Mousterian is a stone tool industry of the Middle Paleolithic, current in Europe, western Asia and North Africa from roughly 160,000 to 40,000 years ago. Its assemblages consist of flake tools rather than large core tools, chiefly side-scrapers, points and toothed pieces struck from prepared cores, and they vary enough from site to site that archaeologists have long argued over whether the differences mark separate groups, different activities, or simply how far a core had already been worked down. In Europe it is the work of Neanderthals, and it goes out of use at about the time they do, while in the Levant assemblages of the same character are associated with early modern humans as well.",
-"Le_Moustier": "Le Moustier is a group of three superimposed rock shelters in the valley of the Vézère in the Dordogne, southwestern France, cut into limestone cliffs in a region unusually rich in Paleolithic sites. Excavated from the 1860s onward, its deep sequence of occupation layers supplied archaeologists with the reference collection of Middle Paleolithic flake tools, and the site's name was taken for the Mousterian industry as a whole. Two Neanderthal individuals were recovered there in the early 20th century, among them a well-known adolescent skeleton whose removal and sale to a German museum caused lasting controversy in France."
+"Le_Moustier": "Le Moustier is a group of three superimposed rock shelters in the valley of the Vézère in the Dordogne, southwestern France, cut into limestone cliffs in a region unusually rich in Paleolithic sites. Excavated from the 1860s onward, its deep sequence of occupation layers supplied archaeologists with the reference collection of Middle Paleolithic flake tools, and the site's name was taken for the Mousterian industry as a whole. Two Neanderthal individuals were recovered there in the early 20th century, among them a well-known adolescent skeleton whose removal and sale to a German museum caused lasting controversy in France.",
+"Prehistory": "Prehistory is the long stretch of the human past that came before written records, beginning with the first stone tools around 3.3 million years ago and closing with the appearance of writing. Because it left no documents, it is known almost entirely from material traces such as tools, bones, hearths, dwellings, burials and art, which archaeology reconstructs with help from geology, genetics and the study of ancient climates. It has no single end date: writing appeared in Mesopotamia and Egypt by about 3200 BCE but reached other regions thousands of years later, and a people first described in the records of its literate neighbours is said to belong to protohistory.",
+"Denmark": "Denmark is a Nordic country in northern Europe, made up of the Jutland peninsula, which reaches north from the German border, and an archipelago of some 400 islands, of which Zealand and Funen are the largest. It is low-lying and intensively farmed, with no point much above 170 m and no district far from the sea, and its capital, Copenhagen, stands on the eastern side of Zealand facing Sweden across a narrow strait. A constitutional monarchy with a parliamentary government, it forms together with the self-governing territories of the Faroe Islands and Greenland the wider realm known as the Kingdom of Denmark.",
+"Christian_Jürgensen_Thomsen": "Christian Jürgensen Thomsen was a Danish antiquarian and museum curator who devised the three-age system, the division of prehistory into a Stone Age, a Bronze Age and an Iron Age. Put in charge of Denmark's national collection of antiquities in 1816, he faced a mass of objects that carried no dates and sorted them by the material of their tools and weapons, checking the order against groups of finds recovered together in a single grave or hoard, then arranged the museum so that visitors walked through the sequence. He set the scheme out in the guidebook <i>Ledetraad til Nordisk Oldkyndighed</i> in 1836, which appeared in German the following year and in English in 1848, and it became the framework on which prehistoric chronology was built.",
+"National_Museum_of_Denmark": "The National Museum of Denmark, in Copenhagen, is the country's largest museum of cultural history, with holdings that run from the Stone Age to the present and take in ethnographic, classical and coin collections from around the world. It grew out of a royal commission for the preservation of antiquities set up in 1807, whose collection opened to the public in 1819 and was arranged by Christian Jürgensen Thomsen; it moved into the 18th-century Prince's Mansion in the middle of the 19th century and took its present name in 1892, when smaller collections were absorbed into it. Among its best-known objects are the Trundholm sun chariot, the Gundestrup cauldron and the Bronze Age burials in hollowed oak coffins, including the young woman known as the Egtved Girl.",
+"Near_East": "The Near East is a name for the lands of western Asia around the eastern Mediterranean, usually taken to cover Anatolia, the Levant, Mesopotamia, the Arabian peninsula and Iran, and sometimes extended to Egypt and the Caucasus. The term arose in 19th-century Europe, from the habit of ranking the regions of Asia by their distance from Europe, so it describes a position rather than any shared frontier, culture or language. It is used today mainly by archaeologists, historians and biblical scholars, for whom it names the region where farming, cities and writing first appeared, while writing on current affairs generally calls much the same area the Middle East.",
+"Europe": "Europe is a continent occupying the western part of the Eurasian landmass, bounded by the Arctic Ocean to the north, the Atlantic to the west and the Mediterranean to the south, and divided from Asia by a conventional line running along the Ural Mountains and the Ural River, the Caspian Sea, the Caucasus and the Black Sea. At about 10.2 million km² it is the second-smallest of the continents, yet its deeply indented coastline, navigable rivers and mild, well-watered climate have long supported dense settlement, and it holds roughly 745 million people in about 50 countries. Its outline is broken by unusually large peninsulas and island groups, among them Scandinavia, Iberia, Italy, the Balkans and the British Isles, while much of its land lies in the wide plain that runs east from France into Russia.",
+"Asia": "Asia is the largest and most populous continent, covering roughly 44.5 million km², close to 30 percent of the world's land, and holding about 4.7 billion people, some 60 percent of humanity. It fills the eastern and greater part of the Eurasian landmass, reaching from the Arctic coast to the equatorial islands of Indonesia and from the Mediterranean and the Urals east to the Pacific, and its terrain runs from the Himalaya and the Tibetan plateau through the Siberian forests and the deserts of Arabia and central Asia to the crowded plains of the Indus, Ganges, Mekong, Yangtze and Yellow rivers. It holds both the highest point on land, the summit of Everest, and the lowest, the shore of the Dead Sea, and its river valleys were the setting for several of the earliest farming societies, cities and writing systems.",
+"Homo": "<i>Homo</i> is the genus of hominins that takes in modern people together with their closest extinct relatives, its name simply the Latin word for a human being. It was established by Carl Linnaeus in 1758 for living humans and later widened to fossil forms such as <i>Homo habilis</i>, <i>Homo erectus</i> and <i>Homo neanderthalensis</i>, and the oldest fossil generally assigned to it is a jaw from Ethiopia dated to about 2.8 million years ago. Its members are set apart by larger brains relative to body size, smaller teeth and jaws and a long association with stone toolmaking, though how many species the genus holds and where its boundary should be drawn are still argued over, and only <i>Homo sapiens</i> survives today.",
+"Neolithic_Revolution": "The Neolithic Revolution was the shift from hunting and gathering to farming and settled village life, a change named by the archaeologist V. Gordon Childe in 1936 and now understood as a slow transition rather than a sudden one. It began around 12,000 years ago and happened independently in at least 11 regions, among them western Asia, China, Mesoamerica, the Andes, New Guinea and eastern North America, each domesticating its own crops and animals over many generations. Its consequences reached far: permanent settlements, stored surpluses of food, rapid population growth, private property and inherited rank, and the new diseases that came with crowding and close contact with livestock.",
+"Fertile_Crescent": "The Fertile Crescent is a curved band of comparatively well-watered land in western Asia, named by the American Egyptologist James Henry Breasted in 1916, that sweeps from the Levantine coast north through southern Anatolia and then southeast along the Tigris and Euphrates to the Gulf. Its rains, rivers and stands of wild grasses and pulses gave it an unusual concentration of species suited to domestication, and it is where wheat, barley, lentils, sheep, goats, cattle and pigs were first brought under human control. Some of the earliest known farming villages, walled towns, cities and writing systems appeared there, which is why it is often described as a cradle of civilization."
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -77,7 +87,12 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Homo_habilis": "c. 2.3 – 1.5 Mya",
 "Dmanisi": "c. 1.85 – 1.77 Mya",
 "Levallois": "from c. 300,000 BP",
-"Mousterian": "c. 160,000 – 40,000 BP"
+"Mousterian": "c. 160,000 – 40,000 BP",
+"Prehistory": "c. 3.3 Mya – c. 3200 BCE",
+"Christian_Jürgensen_Thomsen": "1788–1865",
+"National_Museum_of_Denmark": "est. 1807",
+"Homo": "from c. 2.8 Mya",
+"Neolithic_Revolution": "from c. 10,000 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -109,7 +124,19 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Cedar": ["cedars","red cedar","redcedar","western redcedar","western red cedar"],
 "Hadza_people": ["Hadza","Hadzabe"],
 "San_peoples": ["San people"],
-"Levallois": ["Levallois technique"]
+"Levallois": ["Levallois technique"],
+"Denmark": ["Danish"],
+"Christian_Jürgensen_Thomsen": ["Thomsen","Christian Thomsen","C. J. Thomsen"],
+"National_Museum_of_Denmark": ["Nationalmuseet"],
+"Near_East": ["Near Eastern"],
+"Europe": ["European"],
+"Homo": ["genus Homo"],
+"Neolithic_Revolution": ["Agricultural Revolution","First Agricultural Revolution"]
+});
+
+/* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
+window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {}, {
+"Homo": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -161,5 +188,15 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Arctic": ["place","geography","nature","science"],
 "Levallois": ["practice","archaeology","prehistory","technology"],
 "Mousterian": ["industry","archaeology","prehistory","technology"],
-"Le_Moustier": ["place","archaeology","prehistory","france"]
+"Le_Moustier": ["place","archaeology","prehistory","france"],
+"Prehistory": ["era","archaeology","prehistory","history"],
+"Denmark": ["place","geography","history","denmark"],
+"Christian_Jürgensen_Thomsen": ["person","archaeology","history","science","denmark"],
+"National_Museum_of_Denmark": ["institution","archaeology","history","denmark"],
+"Near_East": ["place","geography","history","archaeology"],
+"Europe": ["place","geography","history"],
+"Asia": ["place","geography","history"],
+"Homo": ["hominin","palaeontology","evolution","prehistory"],
+"Neolithic_Revolution": ["concept","archaeology","prehistory","history"],
+"Fertile_Crescent": ["place","geography","archaeology","prehistory"]
 });
