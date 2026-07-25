@@ -16,7 +16,9 @@ window.GLOSSARY = {
 "Pleistocene": "The Pleistocene is the geological epoch spanning roughly 2.58 million to 11,700 years ago, the first epoch of the Quaternary Period. It was marked by repeated cycles of glaciation, the ice ages, during which vast sheets of ice spread across large parts of the Northern Hemisphere and sea levels fell sharply. The epoch saw the rise of large mammals such as mammoths, many of which later went extinct, along with the evolution of anatomically modern humans and their spread across nearly every continent.",
 "Archaeology": "Archaeology is the study of human history and prehistory through the excavation and analysis of material remains. It examines artifacts, architecture, and other physical evidence to understand how past peoples lived. It is especially valuable for prehistoric societies that left no written records.",
 "Megafauna": "Megafauna are the large animals of a given region or geological period, conventionally those whose adult body mass exceeds a set threshold, most often placed at about 44 kilograms, although proposed limits range from roughly 10 kilograms to well over 1,000 kilograms. The Pleistocene epoch supported an especially rich megafauna, among them mammoths, mastodons, giant ground sloths and woolly rhinoceroses. Many of these large animals died out toward the end of the last Ice Age, in a wave of extinctions that most researchers attribute to a combination of climatic change and human hunting, though the relative weight of each cause remains debated.",
-"Australopithecus": "<i>Australopithecus</i> is an extinct genus of early hominins that lived in Africa between roughly 4.2 and 2 million years ago, walking upright on two legs while keeping a small, ape-sized brain. Among its best-known fossils is the roughly 3.2-million-year-old partial skeleton nicknamed Lucy, a member of the species <i>Australopithecus afarensis</i>. The genus is widely regarded as ancestral to, or closely related to, the human genus <i>Homo</i>."
+"Australopithecus": "<i>Australopithecus</i> is an extinct genus of early hominins that lived in Africa between roughly 4.2 and 2 million years ago, walking upright on two legs while keeping a small, ape-sized brain. Among its best-known fossils is the roughly 3.2-million-year-old partial skeleton nicknamed Lucy, a member of the species <i>Australopithecus afarensis</i>. The genus is widely regarded as ancestral to, or closely related to, the human genus <i>Homo</i>.",
+"Sonia_Harmand": "Sonia Harmand is a French archaeologist and lithic technologist whose work focuses on the earliest stone tools and the origins of tool-making. She has led the West Turkana Archaeological Project in northern Kenya since 2012, dividing her career between the Centre National de la Recherche Scientifique in France and Stony Brook University in New York. In 2011 her team found flaked stone artifacts at the site of Lomekwi 3 that were dated to 3.3 million years ago, about 700,000 years older than any previously known, pushing the start of the archaeological record back before the appearance of the genus <i>Homo</i>.",
+"Jason_E._Lewis": "Jason E. Lewis is an American paleoanthropologist whose research spans the earliest stone tools, the fossil record of eastern Africa, and the history of physical anthropology. Based at Stony Brook University and its Turkana Basin Institute, he co-directs the West Turkana Archaeological Project in northern Kenya. He was a co-discoverer of the 3.3-million-year-old artifacts at Lomekwi 3, the oldest stone tools yet found, and he also led a re-measurement of the 19th-century collection of human skulls assembled by Samuel George Morton, which challenged the widely repeated claim that Morton had skewed his data."
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -30,7 +32,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Upper_Paleolithic": "c. 50,000 - 12,000 BP",
 "Lower_Paleolithic": "c. 3.3 Mya – 300,000 BP",
 "Pleistocene": "c. 2.58 Mya – 11,700 BP",
-"Australopithecus": "c. 4.2 - 2 Mya"
+"Australopithecus": "c. 4.2 - 2 Mya",
+"Sonia_Harmand": "b. 1974"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -43,7 +46,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Hunter-gatherer": ["hunter-gatherers","hunter gatherer"],
 "Lower_Paleolithic": ["Lower Palaeolithic"],
 "Archaeology": ["archaeological","archaeologist","archaeologists"],
-"Australopithecus": ["australopithecine"]
+"Australopithecus": ["australopithecine"],
+"Jason_E._Lewis": ["Jason Lewis"]
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -63,5 +67,7 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Pleistocene": ["era","geology","science","nature"],
 "Archaeology": ["concept","archaeology","history","science"],
 "Megafauna": ["concept","biology","palaeontology","prehistory","nature"],
-"Australopithecus": ["hominin","palaeontology","evolution","prehistory"]
+"Australopithecus": ["hominin","palaeontology","evolution","prehistory"],
+"Sonia_Harmand": ["person","archaeology","prehistory","science"],
+"Jason_E._Lewis": ["person","archaeology","prehistory","science"]
 });
