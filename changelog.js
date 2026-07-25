@@ -16,6 +16,7 @@ window.CHANGELOG = [
       "Forty-five more glossary terms, one for every country in Europe, in English and all eight site languages.",
       "Forty-one more glossary terms, one for every country in Asia, in English and all eight site languages.",
       "Sixty-five more glossary terms, one for every country in Africa and Oceania, in English and all eight site languages.",
+      "Thirty-four more glossary terms, one for every country in the Americas, in English and all eight site languages — every country in the world now has a glossary entry.",
     ],
   },
   {
