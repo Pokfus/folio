@@ -15,6 +15,7 @@ window.CHANGELOG = [
       "Ten more glossary terms covering the world's continents, regions and major countries, in English and all eight site languages.",
       "Forty-five more glossary terms, one for every country in Europe, in English and all eight site languages.",
       "Forty-one more glossary terms, one for every country in Asia, in English and all eight site languages.",
+      "Sixty-five more glossary terms, one for every country in Africa and Oceania, in English and all eight site languages.",
     ],
   },
   {
