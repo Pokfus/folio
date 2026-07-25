@@ -456,6 +456,29 @@ cities.js → timeline.js → countries.js → country-stats.js → country-year
   the bbox centre, which can land in a neighbour) + `popEntityName` feed all three). Unclaimed land on historical eras gets a
   **terra-incognita stipple** (`stipplePattern()`, theme-aware via `stippleCol`, drawn settled-only under the claimed-land
   refill so it survives only on wilderness).
+  **Frame-cost rules (smoothness batch, July 2026) — keep these when touching the render path:**
+  · **Coalesce input renders.** `onGlobeWheel` calls `scheduleDraw()` (one render per rAF), EXCEPT right after its paced
+    `forceComposite()` realloc, which needs a synchronous `draw()` (the realloc clears the backing).
+  · **Borders are PRE-CHAINED, not per-edge.** `histTerr()` builds `_htRuns` = `{r0, r2}`, maximal same-mask polylines
+    (rebuilt per era; entries reference the ring vertex arrays so editor vertex-drags flow through). The render strokes
+    runs — never re-walk masks per frame — and skips the `'2'` pass when `r2` is empty (all geo eras).
+  · **Cull before projecting.** Coast chains have bounding caps (`coastCaps()`, the `ADMC`/`cullHidden` pattern); the
+    coast pass skips chains behind the horizon or off-screen. Any new global layer should get the same treatment.
+  · **`_wild` is geo-eras-only.** Merger (groups) eras claim every country, so the wilderness double-fill + clip is
+    skipped. Accepted delta: merger-era coasts lost a sub-pixel dark `landWild` seam fringe (an artifact of that pass).
+  · **Motion frames are cheaper on purpose.** While `moving`: city labels don't lay out (pins only), era-capital labels
+    and their `measureText` are skipped, and selection glows drop `shadowBlur`. Everything returns on the settled frame.
+  · **The selection overlay is cached.** `drawSelectionOverlay()` renders selSet/subSelGeo/subSelUK once into `selCv`
+    (key = `baseKey` + selection ids) and blits it, so pulse/crossfade rAF frames never re-blur dozens of territories;
+    motion frames paint direct. It temporarily reassigns `ctx` (hence `let ctx`) — restored in a `finally`.
+  · **Reuse buffers, release big ones.** `drawHeightmap` keeps one `_hmId` ImageData per size; `fadeCv` frees its
+    backing when the crossfade retires; `selCv` frees when nothing is selected.
+  · **Heightmap grays live on `window.__folioHM`, NOT in the page closure** — the loader frees the multi-MB data-URI
+    (`window[L.vn] = null`) and zeroes the decode canvas, so the extracted grays are the only surviving copy; per-mount
+    state would force a script re-inject + re-decode on every Atlas revisit.
+  · **The idle warm must never fire mid-gesture.** `coastEdges()`/`worldEdgeOwners()` (~1.3s combined) are warmed after
+    mount via `requestIdleCallback`, but the callback **reschedules itself while `moving || dragging || ptrs.size ||
+    flyRAF || playT || mapDragging`** — an rIC timeout landing during a drag would freeze the globe under the pointer.
   **Game mode + approachability (batch 3):** `PAGES.findit` routes to `PAGES.map(root, {game:true})` — the **"Find it on
   the map" daily minigame** plays on the real globe (`const GAME` gates everything): 5 date-seeded rounds from
   `buildGameRounds()` (2 present-day countries, 2 historical territories, 1 capital; **one seeded RNG stream PER pool**

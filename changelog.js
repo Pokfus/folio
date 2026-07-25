@@ -42,6 +42,7 @@ window.CHANGELOG = [
       "In the card editor, the text-formatting toolbar now stays pinned at the top while you scroll down a long card.",
       "The Session complete screen now closes with a simple checkmark instead of a Chinese character — Folio covers many histories, not just China's.",
       "The little spinning globe on the home page now follows the day/night switch instead of keeping its daylight colours in the dark.",
+      "The Atlas runs markedly smoother. Spinning and zooming do far less work per frame, the first jump to a historical map no longer freezes for a second while it prepares the coastlines, zooming with a trackpad stopped rendering frames nobody sees, and having a whole empire selected no longer bogs the globe down while you drag it. It also holds on to a lot less memory.",
     ],
   },
   {

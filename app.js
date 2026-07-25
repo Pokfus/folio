@@ -4587,21 +4587,27 @@
     // hover name tag — a DOM chip (not canvas): following the cursor is a cheap style update, so the canvas only redraws when
     // the hovered ENTITY changes (never per-move). Hidden while dragging / editing / drawing; era-aware (empire over territory).
     const ghnEl = root.querySelector("#globeHoverName"), ghnTopEl = root.querySelector("#ghnTop"), ghnMainEl = root.querySelector("#ghnMain");
+    let _ghnSig = "", _ghnW = 0, _ghnH = 0;   // memo: writing textContent + reading offsetWidth per pointermove forced a layout reflow even when the name hadn't changed
     function updateHoverName() {
       if (!ghnEl) return;
-      if (hoverIdx < 0 || !hoverOn || dragging || mapEdit || WB.enabled || GAME) { ghnEl.hidden = true; return; }   // GAME: naming what's under the cursor would be the whole answer
+      if (hoverIdx < 0 || !hoverOn || dragging || mapEdit || WB.enabled || GAME) { ghnEl.hidden = true; _ghnSig = ""; return; }   // GAME: naming what's under the cursor would be the whole answer
       const nm = entityName(hoverIdx);
-      if (!nm) { ghnEl.hidden = true; return; }
+      if (!nm) { ghnEl.hidden = true; _ghnSig = ""; return; }
       let top = "";
       const era = activeEra(year);
       if (era && !era.present && era.geo && era.geo.length) {   // geo era: show the empire the territory belongs to
         const ht = histTerr(), m = ht && ht[hoverIdx] && ht[hoverIdx].mother;
         const em = m ? empireName(m) : ""; if (em && em !== nm) top = em;
       }
-      ghnTopEl.textContent = top; ghnTopEl.style.display = top ? "" : "none";
-      ghnMainEl.textContent = nm;
-      ghnEl.hidden = false;
-      const gw = ghnEl.offsetWidth, gh = ghnEl.offsetHeight;
+      const sig = nm + "|" + top;
+      if (sig !== _ghnSig) {
+        _ghnSig = sig;
+        ghnTopEl.textContent = top; ghnTopEl.style.display = top ? "" : "none";
+        ghnMainEl.textContent = nm;
+        ghnEl.hidden = false;
+        _ghnW = ghnEl.offsetWidth; _ghnH = ghnEl.offsetHeight;   // measure once per name — the follow-the-cursor path below is pure style writes
+      } else if (ghnEl.hidden) ghnEl.hidden = false;
+      const gw = _ghnW, gh = _ghnH;
       let x = hoverPx + 16, y = hoverPy - gh - 10;
       if (x + gw > W - 8) x = hoverPx - gw - 14;    // flip left near the right edge
       if (y < 8) y = hoverPy + 20;                  // flip below near the top
@@ -4817,7 +4823,7 @@
     function drawEraCities(era, editable) {   // place markers (+ labels when zoomed) for an era's capitals/cities
       const cs = era.cities || []; if (!cs.length) return;
       ctx.save(); ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.clip();
-      const showLabels = zoom >= CAP_Z; const baseFs = clamp(10 + (zoom - 2) * 1.1, 10, 13.5); ctx.textAlign = "left"; ctx.textBaseline = "middle";   // same label sizing as the present-day map
+      const showLabels = zoom >= CAP_Z && !moving; const baseFs = clamp(10 + (zoom - 2) * 1.1, 10, 13.5); ctx.textAlign = "left"; ctx.textBaseline = "middle";   // same label sizing as the present-day map; labels (and their per-city measureText) wait for the settled frame
       for (let i = 0; i < cs.length; i++) { const c = cs[i]; proj(c.lon, c.lat); if (PV < 0) continue; const sel = editable && i === mapSelCity;
         const tier = c.cap ? 0 : 1, dot = cityDot(tier);
         if (sel) { ctx.beginPath(); ctx.arc(PX, PY, dot + 0.6, 0, TAU); ctx.fillStyle = "rgba(255,176,38,1)"; ctx.fill(); ctx.lineWidth = 1.3; ctx.strokeStyle = "rgba(0,0,0,0.55)"; ctx.stroke(); }
@@ -4884,19 +4890,22 @@
     // raster onto the orthographic globe, clipped to land, drawn SEMI-TRANSPARENT so it reads as relief shading over the map
     // (not a stark dark grayscale overlay). Two LOD levels, both LAZY-loaded: a base (z=5, 6144x3072, ~3.5 MB) fetched when the
     // layer is first enabled, and a sharper ULTRA (z=6, 10240x5120, ~8.9 MB) fetched only once zoomed in past HMULTRA_Z. The
-    // per-pixel reprojection is expensive, so the caller runs it ONLY on the settled (!moving) static render, which is cached. =====
-    const HM_LEVELS = {
+    // per-pixel reprojection is expensive, so the caller runs it ONLY on the settled (!moving) static render, which is cached.
+    // HM_LEVELS lives on window (module-lifetime), NOT in this page closure: the loader frees the multi-MB data-URI wrapper
+    // (window[L.vn]) after decoding, so the extracted grays here are the ONLY surviving copy — per-mount state would force a
+    // full script re-inject + re-decode on every Atlas revisit. =====
+    const HM_LEVELS = window.__folioHM = window.__folioHM || {
       base: { src: "heightmap.js", vn: "HEIGHTMAP", gray: null, w: 0, h: 0, lo: 0, hi: 0, ready: false, loading: false },
       ultra: { src: "heightmap-ultra.js", vn: "HEIGHTMAP_ULTRA", gray: null, w: 0, h: 0, lo: 0, hi: 0, ready: false, loading: false },
     };
     const HMULTRA_Z = 4, HM_OPACITY = 0.82, HM_CONTRAST = 1.6;   // the sharper ultra level kicks in past this zoom; HM_OPACITY = strength of the relief, blended onto the map with an "overlay" composite (darks/lights modulate the map's colours); HM_CONTRAST expands the grey ramp around sea level so the relief reads with more punch
-    let hmCv = null;
+    let hmCv = null, _hmId = null;
     function loadHeightmapLevel(L) {
       if (L.ready || L.loading) return; L.loading = true;
       const decode = () => { const HM = window[L.vn]; if (!HM || !HM.png) { L.loading = false; return; }
         L.w = HM.w; L.h = HM.h; L.lo = HM.lo; L.hi = HM.hi;
         const img = new Image();
-        img.onload = function () { try { const c = document.createElement("canvas"); c.width = L.w; c.height = L.h; const x = c.getContext("2d"); x.drawImage(img, 0, 0); const d = x.getImageData(0, 0, L.w, L.h).data; L.gray = new Uint8Array(L.w * L.h); for (let i = 0; i < L.w * L.h; i++) L.gray[i] = d[i * 4]; L.ready = true; L.loading = false; if (heightmapOn) { baseValid = false; scheduleDraw(); } } catch (e) { L.loading = false; } };
+        img.onload = function () { try { const c = document.createElement("canvas"); c.width = L.w; c.height = L.h; const x = c.getContext("2d"); x.drawImage(img, 0, 0); const d = x.getImageData(0, 0, L.w, L.h).data; L.gray = new Uint8Array(L.w * L.h); for (let i = 0; i < L.w * L.h; i++) L.gray[i] = d[i * 4]; c.width = 0; c.height = 0; try { window[L.vn] = null; } catch (e2) {} L.ready = true; L.loading = false; if (heightmapOn) { baseValid = false; scheduleDraw(); } } catch (e) { L.loading = false; } };   // zero the decode canvas + drop the multi-MB data-URI wrapper — only L.gray is needed from here on
         img.src = HM.png;
       };
       if (window[L.vn]) { decode(); return; }
@@ -4912,8 +4921,12 @@
       // FULL canvas resolution when settled + zoomed in, so the ultra raster renders as crisply as the data allows at deep zoom
       const cap = moving ? 360 : clamp(800 + zoom * 200, 900, Math.max(W, H)), scale = Math.min(1, cap / Math.max(W, H)), hw = Math.max(2, Math.round(W * scale)), hh = Math.max(2, Math.round(H * scale));
       if (!hmCv) hmCv = document.createElement("canvas");
-      if (hmCv.width !== hw || hmCv.height !== hh) { hmCv.width = hw; hmCv.height = hh; }
-      const hx = hmCv.getContext("2d"), id = hx.createImageData(hw, hh), data = id.data;
+      if (hmCv.width !== hw || hmCv.height !== hh) { hmCv.width = hw; hmCv.height = hh; _hmId = null; }
+      const hx = hmCv.getContext("2d");
+      // reuse ONE ImageData per size — a fresh createImageData every moving frame was ~280 KB of garbage per frame
+      // (~17 MB/s of minor-GC food mid-drag). Safe to reuse: the loop writes every pixel's alpha (0 off-disk).
+      if (!_hmId) _hmId = hx.createImageData(hw, hh);
+      const id = _hmId, data = id.data;
       const SL = 128, HI = 250, aBase = (HM_OPACITY * 255) | 0;   // SL = mid-grey (128) so SEA LEVEL is neutral under the overlay blend (no colour shift); ocean floor < 128 darkens, peaks > 128 lighten
       for (let j = 0; j < hh; j++) {
         const v = (cy - (j + 0.5) / scale) / R;
@@ -5008,7 +5021,7 @@
       return out;
     }
     // active historical-era territories (when the timeline is on a past era) — cached geo + bboxes + matte colours, parallel to GEO/BBOX/MATTE
-    let _htId = null, _htTerr = null, _htBB = null, _htMatte = null;
+    let _htId = null, _htTerr = null, _htBB = null, _htMatte = null, _htRuns = null;
     function histTerr() {
       const era = activeEra(year);
       if (!era || era.present) return null;
@@ -5016,6 +5029,28 @@
         _htId = era.id; _htTerr = (era.groups && (!era.geo || !era.geo.length)) ? synthGroups(era) : (era.geo || []);
         _htBB = _htTerr.map((t) => { let x0 = 180, y0 = 90, x1 = -180, y1 = -90; (t.p || []).forEach((ring) => ring.forEach((p) => { if (p[0] < x0) x0 = p[0]; if (p[0] > x1) x1 = p[0]; if (p[1] < y0) y0 = p[1]; if (p[1] > y1) y1 = p[1]; })); return [x0, y0, x1, y1]; });
         _htMatte = _htTerr.map((_, i) => { const h = (Math.imul(i + 9, 2654435761) >>> 0); return "hsl(" + (h % 360) + "," + (34 + (h >> 9) % 16) + "%," + (58 + (h >> 17) % 12) + "%)"; });
+        // pre-chain the border edges into maximal same-mask polylines, ONCE per era. The render used to walk every ring's
+        // mask per frame and stroke each drawn edge as its own 2-point subpath — every shared vertex projected twice, plus
+        // a full ~113k-edge mask rescan per frame on merger eras (and a '2' pass over geo eras that have zero '2' edges).
+        // Run entries reference the ring vertex ARRAYS, so in-place vertex drags in the era editor flow through; structural
+        // edits rebuild via mapBump() → _htId = null.
+        const r0 = [], r2 = [];
+        for (let t = 0; t < _htTerr.length; t++) {
+          const rings = _htTerr[t].p || [], cm = _htTerr[t].c || [];
+          for (let r = 0; r < rings.length; r++) {
+            const ring = rings[r], mask = cm[r];
+            if (!mask) { if (ring.length > 1) r0.push(ring); continue; }   // editor-drawn territory → its full outline is the border
+            let run = null, runCode = 0;
+            for (let i = 0; i + 1 < ring.length; i++) {
+              const c = mask.charCodeAt(i);
+              if (c === 48 || c === 50) {
+                if (run && runCode === c) run.push(ring[i + 1]);
+                else { run = [ring[i], ring[i + 1]]; runCode = c; (c === 48 ? r0 : r2).push(run); }
+              } else run = null;
+            }
+          }
+        }
+        _htRuns = { r0: r0, r2: r2 };
       }
       return _htTerr;
     }
@@ -5135,7 +5170,7 @@
     for (let lon = -180; lon < 180; lon += 30) { const L = []; for (let lat = -90; lat <= 90; lat += 3) L.push([lon, lat]); GRAT.push(L); }
     for (let lat = -60; lat <= 60; lat += 30) { const L = []; for (let lon = -180; lon <= 180; lon += 3) L.push([lon, lat]); GRAT.push(L); }
     const canvas = root.querySelector("#globe"), stage = root.querySelector("#globeStage");
-    const ctx = canvas.getContext("2d");
+    let ctx = canvas.getContext("2d");   // `let`, not const: drawSelectionOverlay temporarily retargets the shared paint helpers at an offscreen canvas
     canvas.style.touchAction = "none";
     let dpr = 1, W = 0, H = 0, baseR = 0;
     let rotLon = atlasView.rotLon, rotLat = atlasView.rotLat, zoom = atlasView.zoom, year = MAXY;   // restore persisted view; `year` = the timeline year (declared early so renderStatic/viewKey + the initial draw can read it)
@@ -5293,7 +5328,7 @@
       ctx.fillStyle = selected ? "rgba(255,178,46,0.24)" : "rgba(255,178,46,0.12)"; ctx.fill("evenodd");
       ctx.restore();
       ctx.save();
-      if (selected) { ctx.shadowColor = "rgba(255,184,60,0.75)"; ctx.shadowBlur = 9; }
+      if (selected && !moving) { ctx.shadowColor = "rgba(255,184,60,0.75)"; ctx.shadowBlur = 9; }   // shadowBlur is a full Gaussian pass per stroke — invisible mid-drag, so motion frames skip it
       ctx.lineWidth = selected ? 2.6 : 1.5; ctx.strokeStyle = selected ? "rgba(255,192,74,1)" : "rgba(255,178,46,0.82)";
       ctx.beginPath();
       const seg = [0, 0];
@@ -5310,11 +5345,26 @@
     const edgeKey = (a, b) => _rnd1e3(a[0]) + "," + _rnd1e3(a[1]) + "|" + _rnd1e3(b[0]) + "," + _rnd1e3(b[1]);
     let _coastBB = null;
     function coastBBoxes() { if (_coastBB) return _coastBB; const ce = coastEdges(); _coastBB = ce.map((line) => { let x0 = 180, y0 = 90, x1 = -180, y1 = -90; for (const p of line) { if (p[0] < x0) x0 = p[0]; if (p[0] > x1) x1 = p[0]; if (p[1] < y0) y0 = p[1]; if (p[1] > y1) y1 = p[1]; } return [x0, y0, x1, y1]; }); return _coastBB; }
+    // per-coast-chain bounding caps (centre unit vector + sin angular radius, the ADMC pattern) so the per-frame coast pass
+    // can skip back-hemisphere / off-screen chains — it used to project all ~91k coast vertices every moving frame. A chain
+    // crossing the antimeridian gets a whole-sphere cap (radius saturates) → never culled, just never wrongly culled.
+    let _coastCaps = null;
+    function coastCaps() {
+      if (_coastCaps) return _coastCaps;
+      const bb = coastBBoxes();
+      _coastCaps = new Float32Array(bb.length * 4);
+      for (let i = 0; i < bb.length; i++) {
+        const b = bb[i], rlo = (b[0] + b[2]) / 2 * DEG, rla = (b[1] + b[3]) / 2 * DEG, cl = Math.cos(rla), o = i * 4;
+        _coastCaps[o] = cl * Math.cos(rlo); _coastCaps[o + 1] = cl * Math.sin(rlo); _coastCaps[o + 2] = Math.sin(rla);
+        _coastCaps[o + 3] = Math.sin(Math.min(Math.PI / 2, 0.5 * Math.hypot(b[2] - b[0], b[3] - b[1]) * DEG));
+      }
+      return _coastCaps;
+    }
     function strokeCoastClipped(rings, selected) {   // stroke the present-day coastline (coastEdges), clipped to `rings`, in the gold highlight style
       let x0 = 180, y0 = 90, x1 = -180, y1 = -90; for (const ring of rings) for (const p of ring) { if (p[0] < x0) x0 = p[0]; if (p[0] > x1) x1 = p[0]; if (p[1] < y0) y0 = p[1]; if (p[1] > y1) y1 = p[1]; }
       const ce = coastEdges(), bb = coastBBoxes();
       ctx.save();
-      if (selected) { ctx.shadowColor = "rgba(255,184,60,0.75)"; ctx.shadowBlur = 7; }
+      if (selected && !moving) { ctx.shadowColor = "rgba(255,184,60,0.75)"; ctx.shadowBlur = 7; }   // no Gaussian passes mid-drag
       ctx.lineWidth = selected ? 2.2 : 1.3; ctx.strokeStyle = selected ? "rgba(255,192,74,1)" : "rgba(255,178,46,0.82)";
       ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.clip();
       ctx.beginPath(); for (let r = 0; r < rings.length; r++) addClipped(rings[r], true); ctx.clip("evenodd");
@@ -5450,6 +5500,16 @@
     function drawCities(showCap, showCities, showDiv) {
       ctx.save();
       ctx.textAlign = "left"; ctx.textBaseline = "middle"; ctx.lineJoin = "round";
+      if (moving) {   // motion frames: PINS only — the label layout (spatial grid + thousands of short-lived rect arrays per
+        for (let i = 0; i < CITIES.length; i++) {   // frame) waits for the settled frame; labels reappearing on release is standard map behaviour
+          const ci = CITIES[i], tier = ci.r;
+          if (tier === 0 ? !showCap : tier === 1 ? !showCities : !showDiv) continue;
+          proj(ci.c[0], ci.c[1]); if (PV < 0) continue;
+          if (PX < -20 || PX > W + 20 || PY < -20 || PY > H + 20) continue;
+          drawPin({ x: PX, y: PY, dot: cityDot(tier), tier: tier });
+        }
+        ctx.restore(); return;
+      }
       const key = rotLon.toFixed(2) + "," + rotLat.toFixed(2) + "," + zoom.toFixed(3) + "," + W + "," + H + "," + (showCap ? 1 : 0) + (showCities ? 1 : 0) + (showDiv ? 1 : 0) + (countryNamesOn ? "C" : "");
       if (key !== cityCacheKey) { cityCache = computeCityLayout(showCap, showCities, showDiv); cityCacheKey = key; }
       const L = cityCache;
@@ -5707,6 +5767,39 @@
     // era crossfade: a snapshot of the outgoing era's pixels fades out over the incoming era (~280ms, settled frames only)
     const fadeCv = document.createElement("canvas");
     let fadeT0 = 0, fadeActive = false;
+    // selection overlay cache: the gold fills/glows re-derived from raw geometry EVERY frame made an empire selection
+    // (dozens of territories × two shadowBlur passes each) the slowest interactive path — especially through the 1.6s
+    // pulse and 280ms crossfade rAF loops, whose frames change nothing about the selection. Settled frames render the
+    // selection ONCE into selCv (full glow) and blit it; motion frames paint direct (with shadowBlur skipped — see
+    // paintFillRings). Freed whenever the selection empties.
+    const selCv = document.createElement("canvas");
+    let selKey = "";
+    function paintSelection() {
+      selSet.forEach((idx) => paintFill(idx, true));
+      if (subSelGeo >= 0 && subSelGeo < GEO.length) paintFillRings(GEO[subSelGeo].p, true, null, hiddenEdgeSet(), false);   // double-click drill: present-day country within a merger era — its full outline minus any border the era hides
+      for (let u = 0; u < subSelUK.length; u++) { const ui = subSelUK[u]; if (ui >= 0 && ui < UK.length) paintFillRings(UK[ui].p, true, UK[ui].c, null, true); }   // drilled UK constituent(s): internal '0' borders + present-day coast clipped to it
+    }
+    function drawSelectionOverlay() {
+      if (!selSet.size && subSelGeo < 0 && !subSelUK.length) {
+        if (selCv.width) { selCv.width = 0; selCv.height = 0; selKey = ""; }   // nothing selected — release the backing
+        return;
+      }
+      if (moving) { paintSelection(); return; }   // the view changes every frame anyway — direct paint (blur-free via the !moving guards)
+      const sig = baseKey + "|" + Array.from(selSet).join(",") + "|" + subSelGeo + "|" + subSelUK.join(",");
+      if (sig !== selKey || selCv.width !== canvas.width || selCv.height !== canvas.height) {
+        selCv.width = canvas.width; selCv.height = canvas.height;
+        const sctx = selCv.getContext("2d");
+        const prev = ctx; ctx = sctx;   // retarget the shared paint helpers (proj/addClipped write through `ctx`)
+        try {
+          ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.lineJoin = "round"; ctx.lineCap = "round";
+          ctx.save(); ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.clip();
+          paintSelection();
+          ctx.restore();
+        } finally { ctx = prev; }
+        selKey = sig;
+      }
+      ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.drawImage(selCv, 0, 0); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
     // change pulse: territory indices (of the CURRENT map) that changed hands vs the era just stepped away from
     let pulseSet = null, pulseT0 = 0, _lastPulseAt = 0;
     let pulsePin = null;   // [lon, lat] — an expanding-ring marker (the game's capital reveal; survives a cancelled fly)
@@ -5779,7 +5872,11 @@
         // wilderness), then re-fill the CLICKABLE land (inside an era territory) in the normal colour + light seams,
         // clipped to the territories so the light region follows the world.js coastline. Always on (also while rotating).
         const _terr = histTerr() || era.geo || [];
-        const _wild = _terr.length > 0;
+        // merger-only (groups) eras synthesize EVERY present-day country, so no land is ever unclaimed — skip the wilderness
+        // double-fill + the ~117k-vertex clip build (~3× the land cost). Known, accepted delta: the old path left a sub-pixel
+        // DARK (landWild) fringe on the ocean side of every coast seam — an artifact of the wilderness pass; merger-era coasts
+        // now carry the light land seam, matching the present-day map's styling.
+        const _wild = _terr.length > 0 && !!(era.geo && era.geo.length);
         const _lw = Math.max(0.8, bw);
         const fillGEO = () => { for (let p = 0; p < GEO.length; p++) { if (!VIS[p]) continue; const rings = GEO[p].p; ctx.beginPath(); for (let r = 0; r < rings.length; r++) addClipped(rings[r], true); ctx.fill("evenodd"); } };
         const strokeGEO = () => { for (let p = 0; p < GEO.length; p++) { if (!VIS[p]) continue; const rings = GEO[p].p; ctx.beginPath(); for (let r = 0; r < rings.length; r++) addClipped(rings[r], false); ctx.stroke(); } };
@@ -5799,7 +5896,7 @@
           ctx.restore();
         } else {
           ctx.fillStyle = land; fillGEO();
-          ctx.strokeStyle = land; strokeGEO();                                         // close present-day coastline seams
+          if (_seams) { ctx.strokeStyle = land; strokeGEO(); }                         // close present-day coastline seams — settled frames only, like the wild branch (a moving 117k-vertex stroke pass buys nothing visible mid-drag)
         }
         if (heightmapOn) drawHeightmap();                                                // terrain + sea-floor relief (same in every era); low-res while moving, crisp + cached when settled
         ctx.fillStyle = ocean;                                                         // lakes (present-day)
@@ -5808,16 +5905,27 @@
         if (rangesOn && RANGES.length) drawRanges();
         if (forestsOn && FORESTS.length) drawForests();
         if (bordersOn) {                                                               // era political borders — ONE geometry source per era (no source-mixing → no double borders):
-          const terr = histTerr() || era.geo || [];                                    // merger-only eras synthesize from world.js (full 2026 res); older eras use their own (topology-preserving) geometry
-          const seg = [0, 0];
+          histTerr();                                                                  // merger-only eras synthesize from world.js (full 2026 res); older eras use their own geometry — either way _htRuns holds the borders PRE-CHAINED into polylines (built once per era; the old per-frame walk re-scanned every ring's mask and projected every shared vertex twice)
+          const runs = _htRuns || { r0: [], r2: [] };
           ctx.lineWidth = bw; ctx.strokeStyle = border; ctx.beginPath();                // '0' = main era political border (inter-group / interior), drawn bold
-          for (let p = 0; p < terr.length; p++) { const rings = terr[p].p || [], cm = terr[p].c || []; for (let r = 0; r < rings.length; r++) { const ring = rings[r], mask = cm[r] || "", noMask = !mask; for (let i = 0; i + 1 < ring.length; i++) { if (!noMask && mask.charCodeAt(i) !== 48) continue; seg[0] = ring[i]; seg[1] = ring[i + 1]; addClipped(seg, false); } } }   // noMask = an editor-drawn territory → stroke its full outline
+          for (let i = 0; i < runs.r0.length; i++) addClipped(runs.r0[i], false);
           ctx.stroke();
-          // '2' = sub-country border (a present-day country INSIDE a merged era entity, e.g. a Soviet republic within the USSR) — drawn light so the merged unit still reads as one
-          ctx.save(); ctx.globalAlpha = 0.5; ctx.lineWidth = Math.max(0.5, bw * 0.62); ctx.beginPath();
-          for (let p = 0; p < terr.length; p++) { const rings = terr[p].p || [], cm = terr[p].c || []; for (let r = 0; r < rings.length; r++) { const ring = rings[r], mask = cm[r] || ""; for (let i = 0; i + 1 < ring.length; i++) { if (mask.charCodeAt(i) !== 50) continue; seg[0] = ring[i]; seg[1] = ring[i + 1]; addClipped(seg, false); } } }
-          ctx.stroke(); ctx.restore();
-          const ce = coastEdges(); ctx.beginPath(); for (let i = 0; i < ce.length; i++) addClipped(ce[i], false);   // exact present-day coastline → coasts look identical to the modern map
+          // '2' = sub-country border (a present-day country INSIDE a merged era entity, e.g. a Soviet republic within the USSR) — drawn light so the merged unit still reads as one. Geo eras have none → the pass is skipped entirely.
+          if (runs.r2.length) {
+            ctx.save(); ctx.globalAlpha = 0.5; ctx.lineWidth = Math.max(0.5, bw * 0.62); ctx.beginPath();
+            for (let i = 0; i < runs.r2.length; i++) addClipped(runs.r2[i], false);
+            ctx.stroke(); ctx.restore();
+          }
+          // exact present-day coastline → coasts look identical to the modern map. Cap-culled per chain (back-hemisphere /
+          // off-screen coasts used to pay full projection every frame — ~91k vertices, the biggest constant of a moving frame).
+          const ce = coastEdges(), cc = coastCaps(); ctx.beginPath();
+          for (let i = 0; i < ce.length; i++) {
+            const o = i * 4, x = cc[o], y = cc[o + 1], z = cc[o + 2], sr = cc[o + 3];
+            if (x * Cx + y * Cy + z * Cz + sr < -0.1) continue;                        // chain entirely behind the horizon
+            const px = cx + R * (x * Ex + y * Ey + z * Ez), py = cy - R * (x * Nx + y * Ny + z * Nz), rad = R * sr + 8;
+            if (px + rad < 0 || px - rad > W || py + rad < 0 || py - rad > H) continue; // chain entirely off-screen
+            addClipped(ce[i], false);
+          }
           if (era.groups && !(era.geo && era.geo.length)) { const pb = presentBorderEdges(); for (let i = 0; i < pb.length; i++) addClipped(pb[i], false); }   // + present-day inter-country borders world.js left un-shared — ONLY on groups eras (their borders ARE present-day); older eras get their borders from their own geo, so no anachronistic squiggles
           ctx.stroke();
           drawUKConstituents(bw);                                                      // England–Scotland / England–Wales internal borders, light
@@ -5908,9 +6016,7 @@
       const eraNow = activeEra(year), onPresent = !!(eraNow && eraNow.present), fillsOn = onPresent || !!histTerr();
       ctx.save(); ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.clip(); ctx.lineJoin = "round"; ctx.lineCap = "round";
       if (fillsOn) {   // clickable countries (present-day) or era territories (historical) — hover + selection fills
-        selSet.forEach((idx) => paintFill(idx, true));
-        if (subSelGeo >= 0 && subSelGeo < GEO.length) paintFillRings(GEO[subSelGeo].p, true, null, hiddenEdgeSet(), false);   // double-click drill: present-day country within a merger era — its full outline minus any border the era hides
-        for (let u = 0; u < subSelUK.length; u++) { const ui = subSelUK[u]; if (ui >= 0 && ui < UK.length) paintFillRings(UK[ui].p, true, UK[ui].c, null, true); }   // drilled UK constituent(s): internal '0' borders + present-day coast clipped to it
+        drawSelectionOverlay();   // selection (cached offscreen while settled — pulse/fade animation frames blit instead of re-blurring dozens of territories)
         if (hoverIdx >= 0 && !selSet.has(hoverIdx)) paintFill(hoverIdx, false);
       }
       drawStrokes();
@@ -5953,7 +6059,7 @@
       // era crossfade: the outgoing era's snapshot dissolves over the freshly drawn one (~280ms; killed by any motion)
       if (fadeActive) {
         const a = 1 - (performance.now() - fadeT0) / 280;
-        if (a <= 0 || moving || fadeCv.width !== canvas.width || fadeCv.height !== canvas.height) fadeActive = false;
+        if (a <= 0 || moving || fadeCv.width !== canvas.width || fadeCv.height !== canvas.height) { fadeActive = false; if (fadeCv.width) { fadeCv.width = 0; fadeCv.height = 0; } }   // release the ~22 MB snapshot backing — setYear re-sizes it before each new fade
         else {
           ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = a; ctx.drawImage(fadeCv, 0, 0);
           ctx.globalAlpha = 1; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -6016,7 +6122,7 @@
       }
       wheelActive = false;
     }
-    function startMotion() { moving = true; fadeActive = false; if (settleT) { clearTimeout(settleT); settleT = 0; } }   // motion kills the era crossfade (a rotated globe no longer aligns with the snapshot)
+    function startMotion() { moving = true; if (fadeActive) { fadeActive = false; if (fadeCv.width) { fadeCv.width = 0; fadeCv.height = 0; } } if (settleT) { clearTimeout(settleT); settleT = 0; } }   // motion kills the era crossfade (a rotated globe no longer aligns with the snapshot) and frees its snapshot
     function endMotion(ms) { if (settleT) clearTimeout(settleT); settleT = setTimeout(settle, ms == null ? 130 : ms); }
     // geo-anchored whiteboard input (active only when WB draw-mode is on)
     const localXY = (e) => { const r = canvas.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
@@ -6189,8 +6295,9 @@
       // enough apart that each frame fully composites → no accumulation) plus once more when the gesture settles. draw() just
       // updates the backing between reallocs (invisible on such hosts until the next realloc); a normal browser paints every frame.
       const _now = e.timeStamp || performance.now();
-      if (_now - _lastComposite > 130) { _lastComposite = _now; forceComposite(); }
-      draw(); endMotion(130);
+      if (_now - _lastComposite > 130) { _lastComposite = _now; forceComposite(); draw(); }   // the realloc just cleared the backing — repaint NOW, or the canvas flashes blank until the next rAF
+      else scheduleDraw();   // COALESCE: trackpads fire several wheel events per frame; a direct draw() here ran a full renderStatic per event, most of which never reached the screen
+      endMotion(130);
     }
     if (window.__globeWheel) { try { window.removeEventListener("wheel", window.__globeWheel, true); } catch (e) {} }   // never stack listeners across map setups
     window.__globeWheel = onGlobeWheel;
@@ -6820,6 +6927,20 @@
       if (helpBtn) helpBtn.addEventListener("click", () => { if (helpEl) helpEl.hidden = false; });
       let seen = "1"; try { seen = localStorage.getItem("folio_atlas_tour_v1") || ""; } catch (err) {}
       if (!GAME && !seen && helpEl) helpEl.hidden = false;   // first Atlas visit: a 20-second orientation
+    }
+    // warm the expensive one-time caches in idle time — the coastline chaining + flood-fill classification (~1s) and the
+    // border-ownership map (~0.3s) used to run synchronously inside the FIRST frame of the first historical-era visit,
+    // freezing the exact click that opened it. Warmed here, that first timeline step lands on hot caches.
+    // NEVER while the user is mid-gesture: the build is one long synchronous task, and an rIC timeout / setTimeout fallback
+    // firing during a drag would freeze the globe under the pointer — reschedule until the hand is off the globe.
+    { let warmTries = 0;
+      const scheduleWarm = () => { if (window.requestIdleCallback) requestIdleCallback(warm, { timeout: 3000 }); else setTimeout(warm, 1200); };
+      function warm() {
+        if (!canvas.isConnected) return;
+        if (moving || dragging || ptrs.size || flyRAF || playT || mapDragging) { if (warmTries++ < 30) scheduleWarm(); return; }
+        try { coastEdges(); coastCaps(); worldEdgeOwners(); } catch (e) {}
+      }
+      scheduleWarm();
     }
     if (atlasEditEraId != null) { const _e = (window.TIMELINE || []).find((x) => x.id === atlasEditEraId); atlasEditEraId = null; if (_e) enterMapEdit(_e); }
   };
