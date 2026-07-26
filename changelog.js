@@ -9,6 +9,8 @@ window.CHANGELOG = [
     t: "The first toolmakers",
     items: [
       "Fifteen more glossary terms covering the earliest human ancestors and the places their fossils and tools come from, in English and all eight site languages.",
+      "Ten more glossary terms on early human ancestors and the African places tied to them, in English and all eight site languages.",
+      "Ten more glossary terms on the ice ages, the geological timescale and how the world is divided up, in English and all eight site languages.",
       "Folio now opens far faster. The Atlas's maps used to download on every page, even if you never opened it; now they load only when you go there, and everything else arrives in about an eighth of the data it used to take.",
       "Folio can be installed to your home screen, and once you've visited it works without a connection.",
       "A new Review statistics panel on your account page: a year-long map of the days you studied, how much of what you've learned you're holding on to, and what's due over the next two weeks.",
