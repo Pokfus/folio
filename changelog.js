@@ -5,6 +5,13 @@
    user, not how). Loaded before app.js. */
 window.CHANGELOG = [
   {
+    d: "2026-07-26",
+    t: "The first toolmakers",
+    items: [
+      "Fifteen more glossary terms covering the earliest human ancestors and the places their fossils and tools come from, in English and all eight site languages.",
+    ],
+  },
+  {
     d: "2026-07-25",
     t: "A glossary that speaks eight languages",
     items: [
