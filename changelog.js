@@ -8,6 +8,7 @@ window.CHANGELOG = [
     d: "2026-07-26",
     t: "The first toolmakers",
     items: [
+      "On phones, the Atlas country panel is now half as tall, so it covers much less of the globe.",
       "Sixteen new cards in the World History prehistory deck, in English and all eight site languages.",
       "Corrected the age given for a fossil boy on one prehistory card, in every language.",
       "Forty-five more glossary terms, one for every president of the United States, each with the years they lived and held office, in English and all eight site languages.",

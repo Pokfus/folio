@@ -1199,7 +1199,7 @@ body.night .lu-badge{color:#E6C765;}
 .gz-btn:hover{background:var(--card); color:var(--ink); border-color:var(--indigo);}
 .gz-btn:active{transform:translateY(1px);}
 /* country info popup — one at a time, just above the timeline. Three columns: summary | year | stat tiles */
-/* max-height caps the box at 70% of the globe-stage (which has a definite height — position:fixed with top+bottom),
+/* max-height caps the box at a fraction of the globe-stage (which has a definite height — position:fixed with top+bottom),
    on EVERY viewport, not just phones — so on a tablet or a short/landscape window the popup can't fill the screen and
    push the × off the top. It's a flex column whose .cp-cols scrolls internally, keeping the globe + the × always visible. */
 /* desktop: a vertical panel on the LEFT of the stage (the legend lives top-right, under the search). ≤720px reverts to a
@@ -1245,9 +1245,9 @@ body.night .lu-badge{color:#E6C765;}
 .cp-v[data-tip]:hover::after, .cp-v[data-tip]:focus::after{opacity:1; transform:translateY(0);}
 .cp-v[data-tip]:hover::before, .cp-v[data-tip]:focus::before{opacity:1;}
 @media (max-width:720px){
-  /* phones: back to a BOTTOM sheet capped at 70% of the stage, so the globe + the × stay visible. The columns scroll
+  /* phones: back to a BOTTOM sheet capped at 35% of the stage, so the globe + the × stay visible. The columns scroll
      (not the whole box) so the absolutely-positioned .cp-close stays pinned instead of scrolling away. */
-  .country-pop{left:50%; top:auto; bottom:14px; transform:translateX(-50%); width:calc(100% - 28px); max-height:70%;}
+  .country-pop{left:50%; top:auto; bottom:14px; transform:translateX(-50%); width:calc(100% - 28px); max-height:35%;}
   .cp-cols{-webkit-overflow-scrolling:touch;}
 }
 /* map editor toolbar (Edit → Timeline → "Edit on globe") */
