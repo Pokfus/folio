@@ -750,6 +750,31 @@ body.grading .stage{padding-bottom:150px;}
 .placard p{color:var(--ink-soft); margin:0 auto 20px; max-width:42ch; font-size:15.5px;}
 .placard .row{display:flex; gap:12px; justify-content:center; flex-wrap:wrap;}
 
+/* lazy-data loading state — shown while a DATA_BUNDLES fetch is in flight (currently only the Atlas,
+   whose map layers are several MB and no longer ship with the page). */
+.data-loading{
+  display:flex; flex-direction:column; align-items:center; gap:12px; text-align:center;
+  padding:64px 24px; margin:0 auto; max-width:460px; min-height:52vh; justify-content:center;
+}
+.data-loading strong{font-family:var(--display); font-weight:600; font-size:21px; color:var(--ink);}
+.data-loading .dl-note{font-family:var(--sans); font-size:14px; line-height:1.55; color:var(--ink-soft); max-width:34ch;}
+.data-loading .btn{margin-top:6px;}
+/* a wireframe globe: two rings, one spinning — the meridian sweep reads as a turning sphere */
+.data-loading .dl-globe{
+  width:54px; height:54px; border-radius:50%; border:2px solid var(--rule); position:relative;
+  border-top-color:var(--indigo); animation:dl-spin 1.15s linear infinite;
+}
+.data-loading .dl-globe::before{
+  content:""; position:absolute; inset:-2px; border-radius:50%;
+  border:2px solid transparent; border-bottom-color:var(--gold, var(--indigo)); opacity:.55;
+  animation:dl-spin 1.9s linear infinite reverse;
+}
+.data-loading.dl-fail .dl-globe{display:none;}
+@keyframes dl-spin{to{transform:rotate(360deg);}}
+@media (prefers-reduced-motion:reduce){
+  .data-loading .dl-globe, .data-loading .dl-globe::before{animation:none; border-color:var(--rule); border-top-color:var(--indigo);}
+}
+
 /* ============================================================
    DAILY CHALLENGE
    ============================================================ */
@@ -842,6 +867,50 @@ body.grading .stage{padding-bottom:150px;}
 .statcard span{font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint); display:block; margin-top:8px;}
 
 .section-label{font-family:var(--mono); font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--indigo); font-weight:600; margin:26px 0 12px;}
+
+/* ---------- review statistics: study-history heatmap, retention, due forecast ---------- */
+.revstats{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+.rs-heat{grid-column:1 / -1;}                     /* the heatmap wants the full width; retention + forecast share the row below */
+.rs-card{background:var(--card); border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow-sm); padding:16px 18px 15px; display:flex; flex-direction:column; gap:11px; min-width:0;}
+.rs-head{display:flex; align-items:baseline; justify-content:space-between; gap:12px;}
+.rs-head h3{font-family:var(--display); font-weight:600; font-size:16px; color:var(--ink); margin:0;}
+.rs-meta{font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); text-align:right;}
+.rs-sub{font-family:var(--sans); font-size:12.5px; line-height:1.5; color:var(--ink-soft);}
+.rs-big{font-family:var(--display); font-weight:600; font-size:44px; line-height:1; color:var(--indigo); display:block;}
+.rs-big i{font-style:normal; font-size:22px; margin-left:2px; color:var(--ink-faint);}
+.rs-big.rs-none{color:var(--ink-faint);}
+.rs-ret{justify-content:flex-start;}
+
+/* heatmap — whole weeks in columns, Monday at the top. Scrolls inside its own box on narrow screens
+   so a year of squares can never push the page sideways. */
+.hm-scroll{overflow-x:auto; overflow-y:hidden; margin:0 -2px; padding:0 2px 4px;}
+.hm-inner{display:inline-flex; flex-direction:column; gap:4px; min-width:100%;}
+.hm-months, .hm-grid{display:grid; grid-auto-flow:column; grid-auto-columns:11px; gap:3px;}
+.hm-grid{grid-template-rows:repeat(7,11px);}
+.hm-mon{font-family:var(--mono); font-size:9px; letter-spacing:.04em; color:var(--ink-faint); white-space:nowrap; overflow:visible;}
+.hm-cell{width:11px; height:11px; border-radius:2.5px; background:var(--paper-2); border:1px solid color-mix(in srgb, var(--rule) 60%, transparent);}
+.hm-1{background:color-mix(in srgb, var(--indigo) 26%, var(--paper-2)); border-color:transparent;}
+.hm-2{background:color-mix(in srgb, var(--indigo) 50%, var(--paper-2)); border-color:transparent;}
+.hm-3{background:color-mix(in srgb, var(--indigo) 74%, var(--paper-2)); border-color:transparent;}
+.hm-4{background:var(--indigo); border-color:transparent;}
+.hm-legend{display:flex; align-items:center; gap:5px; flex-wrap:wrap; font-family:var(--mono); font-size:10px; letter-spacing:.06em; color:var(--ink-faint);}
+.hm-legend i{display:inline-block;}
+.hm-best{margin-left:auto; text-align:right;}
+
+/* forecast — one bar per day, today first and marked */
+.fc-bars{display:flex; align-items:flex-end; gap:5px; height:96px; padding-top:4px;}
+.fc-bar{flex:1; min-width:0; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%; gap:5px;}
+.fc-bar i{display:block; width:100%; max-width:22px; border-radius:3px 3px 0 0; background:color-mix(in srgb, var(--indigo) 42%, var(--paper-2)); transition:height .35s var(--ease);}
+.fc-bar.fc-today i{background:var(--zh);}
+.fc-bar em{font-family:var(--mono); font-style:normal; font-size:9px; letter-spacing:.04em; color:var(--ink-faint); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%;}
+/* "Today" is wider than one narrow weekday letter — let it overhang its column rather than clip to "To…" */
+.fc-bar.fc-today em{color:var(--zh); font-weight:600; overflow:visible; max-width:none;}
+.fc-bar.fc-zero i{height:2px !important; background:var(--rule);}   /* nothing due — a flat tick keeps the axis continuous */
+@media (max-width:720px){
+  .revstats{grid-template-columns:1fr;}
+  .hm-best{margin-left:0; width:100%;}
+}
+
 .deckprog{background:var(--card); border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow-sm); overflow:hidden;}
 .dp-row{display:flex; align-items:center; gap:16px; padding:15px 20px;}
 .dp-row + .dp-row{border-top:1px solid var(--rule);}
@@ -1441,6 +1510,20 @@ body.grading .wb-tools{bottom:108px;}
 .collection-group + .collection-group .group-label::before{background:var(--ochre);}
 .group-line{flex:1; height:1px; background:var(--rule);}
 .group-count{font-family:var(--mono); font-size:11px; color:var(--ink-faint); flex:none;}
+
+/* "Coming soon" is a <details> disclosure — the collections still being written outnumber the
+   finished ones, and listing them flat made the Library read as empty. */
+.collection-group-soon{margin-top:32px;}
+.collection-group-soon > summary{cursor:pointer; list-style:none; border-radius:8px; transition:opacity .18s var(--ease);}
+.collection-group-soon > summary::-webkit-details-marker{display:none;}
+.collection-group-soon > summary:hover{opacity:.72;}
+.collection-group-soon > summary:focus-visible{outline:2px solid var(--indigo); outline-offset:4px;}
+.group-chev{width:15px; height:15px; flex:none; color:var(--ink-faint); transition:transform .2s var(--ease);}
+.collection-group-soon[open] > summary .group-chev{transform:rotate(180deg);}
+@media (prefers-reduced-motion:reduce){ .group-chev{transition:none;} }
+
+/* card count on a live collection — the one number that says "there is something here" */
+.collection-count{font-family:var(--mono); font-size:11px; letter-spacing:.02em; color:var(--ink-faint); white-space:nowrap;}
 
 /* ============================================================
    HOME — daily game grid (6 tiles)

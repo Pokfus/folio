@@ -1,0 +1,5 @@
+<!-- Folio app icon: the vermilion seal on warm paper, matching the inline favicon in index.html. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Folio">
+  <rect width="512" height="512" rx="112" fill="#F6F5F1"/>
+  <circle cx="256" cy="256" r="104" fill="#C8453C"/>
+</svg>

@@ -1,0 +1,23 @@
+{
+  "name": "Folio — a study companion",
+  "short_name": "Folio",
+  "description": "Spaced-repetition flashcards for history, daily games and an interactive atlas.",
+  "id": "/",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#F6F5F1",
+  "theme_color": "#F6F5F1",
+  "lang": "en",
+  "dir": "auto",
+  "categories": ["education", "books"],
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "icon-maskable.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Study", "short_name": "Study", "url": "./#decks", "description": "Open the Library and start a session" },
+    { "name": "Atlas", "short_name": "Atlas", "url": "./#map", "description": "Open the interactive globe" }
+  ]
+}
