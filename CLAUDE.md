@@ -24,27 +24,42 @@ It is a plain static website — open `index.html` and it runs.
 
 ## File map
 
-Script load order in `index.html` is significant:
-`data.js → truefalse.js → glossary.js → glossary-wikipedia.js → world.js → uk.js → lakes.js → rivers.js → water.js →
-cities.js → timeline.js → countries.js → country-stats.js → country-years.js → app.js`.
-(`heightmap.js` + `heightmap-ultra.js` are **not** in this list — they are lazy-loaded when the Heightmap layer is enabled / zoomed in.
-`ranges.js` + `admin1.js` — the removed Mountains / Divisions layers — are **no longer loaded at all**; app.js reads
-`window.RANGES`/`window.ADMIN1` with empty-fallbacks, so the files stay on disk for a future lazy revival.)
+**Only the study-critical files load eagerly** (~1.4 MB), in this order — it is significant:
+`data.js → truefalse.js → quotes.js → changelog.js → mission.js → glossary.js → glossary-wikipedia.js → app.js`.
 
-- `index.html` — app shell. `<main class="stage"><div id="view"></div></main>`.
-- `styles.css` (~94 KB) — editorial design system; 8 themes via CSS custom properties.
+**Everything else is LAZY**, injected on demand by `DATA_BUNDLES` / `ensureData(name)` in app.js (see the
+"Lazy data bundles" bullet under "How the app is wired"). Before this split every visitor downloaded ~11.3 MB
+of blocking JS to flip a card; the Atlas layers and the translation tables are ~9.9 MB of that.
+
+| bundle | files | loaded when |
+|---|---|---|
+| `world` | `world.js` | the Atlas mounts; the home page's mini globe (at idle); the Settings home picker |
+| `atlas` | `uk` `lakes` `rivers` `water` `cities` `timeline` `countries` `country-stats` `country-spans` `country-years` | the Atlas mounts |
+| `uiI18n` | `i18n.js` | the site language isn't English |
+| `glossI18n` | `glossary-i18n.js` | ditto |
+
+(`heightmap.js` + `heightmap-ultra.js` are lazy too, but on their own older path — `loadHeightmapLevel`, keyed off
+the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
+`ranges.js` + `admin1.js` — the removed Mountains / Divisions layers — are **never loaded**; app.js reads
+`window.RANGES`/`window.ADMIN1` with empty-fallbacks, so the files stay on disk for a future revival.)
+
+- `index.html` — app shell. `<main class="stage"><div id="view"></div></main>`. Also the static
+  `<title>`/description/OG baseline (link-preview crawlers don't run JS) and the `<link rel="manifest">`.
+- `styles.css` (~235 KB) — editorial design system; 8 themes via CSS custom properties.
   **All theme color variables are hex** (e.g. `--ink:#1B1A17`) so the canvas globe can parse and
   blend them — keep them hex, not `rgb()`/`hsl()`.
-- `app.js` (~175 KB) — all logic, written as a single IIFE. Hash-based routing via the `PAGES`
+- `app.js` (~684 KB) — all logic, written as a single IIFE. Hash-based routing via the `PAGES`
   map. No ES modules.
-- `data.js` — `window.CARD_DATA` and `window.COLLECTION_TREE`. **Currently ~23 cards** (regrown from
-  the `cnh-001` template, which remains the canonical format); the deck is grown one card at a time
-  (see "Generating cards & glossary entries" below).
+- `manifest.json` + `icon.svg` + `icon-maskable.svg` + `sw.js` — the PWA. See the "PWA" bullet below.
+- `data.js` — `window.CARD_DATA` and `window.COLLECTION_TREE`. **Currently 14 cards**, all in the
+  `wh-prehistory` deck under World History (regrown from the `cnh-001` template, which remains the canonical
+  format); the deck is grown one card at a time (see "Generating cards & glossary entries" below).
 - `glossary.js` — `window.GLOSSARY` plus `window.GLOSSARY_DATES`, `GLOSSARY_TITLES`, `GLOSSARY_ALIASES`,
   `GLOSSARY_CASESENSITIVE`, and `GLOSSARY_TAGS` (per-term category tags — the admin glossary's left-bar
-  filter). **TRIMMED 2026-07-23 to the single `Sima_Qian` template entry** — the glossary is being regrown
-  from scratch, one fully-formed entry at a time (description + date + tags + all 8 translations); the full
-  pre-trim glossary (2,165 terms) and its partial translations are backed up in `.claude/backup/`.
+  filter). Trimmed to the single `Sima_Qian` template entry on 2026-07-23 and **regrown since to ~268 terms**
+  (every country in the world, plus prehistory/paleoanthropology vocabulary), one fully-formed entry at a time
+  (description + date + tags + all 8 translations); the full pre-trim glossary (2,165 terms) and its partial
+  translations are backed up in `.claude/backup/`.
 - `glossary-wikipedia.js` — `Object.assign`s extra summaries onto `window.GLOSSARY` (loads *after*
   `glossary.js`). **Currently an empty stub.**
 - `glossary-i18n.js` — `window.GLOSSARY_I18N[slug][lang]`, glossary descriptions translated into the 8 site
@@ -54,7 +69,8 @@ cities.js → timeline.js → countries.js → country-stats.js → country-year
   (`glossaryI18n` overlay deltas; baked back into this file by `serializeGlossaryI18n`).
 - `i18n.js` — the site-chrome translation tables (`window.I18N` exact strings / `I18N_RULES` regex patterns /
   `I18N_HTML` whole prose blocks per language, keyed by English source text) consumed by app.js's
-  localisation engine. Loaded right before `app.js`. See the "Language switcher + i18n" bullet below.
+  localisation engine. **Lazy** (bundle `uiI18n`) — an English reader never fetches it. See the
+  "Language switcher + i18n" bullet below.
 - `world.js` (~1.6 MB) — `window.WORLD_GEO`, country-border polygons (Natural Earth 110m, ~117k verts) for the
   Atlas globe.
 - `uk.js` (~47 KB) — `window.UK_SUBUNITS = [ { n, p:[rings], c:[mask] } ]`, the UK's constituent countries (England,
@@ -153,6 +169,37 @@ cities.js → timeline.js → countries.js → country-stats.js → country-year
 
 - **Routing:** `location.hash` → the `PAGES` map (home, decks/library, study, map/atlas, account,
   settings, challenge, chrono, admin). `render()` clears `#view` and calls the current page fn.
+  It also calls **`setPageMeta(current.name)`**, which sets `document.title` and the
+  description / `og:` / `twitter:` meta from the **`PAGE_META`** table (route → `[title, description]`,
+  run through `t()` so it localises where a translation exists, English otherwise). Add a route → add its
+  `PAGE_META` row, or it inherits the home page's title. `index.html` carries the home-page values as the
+  static baseline because most link-preview crawlers don't execute JS — **keep the two in step.**
+- **Lazy data bundles:** `DATA_BUNDLES` + `ensureData(name)` / `dataReady(name)` / `whenIdle(fn)` (defined
+  just above the ROUTER block). See the table in the File map for what's in each bundle. `ensureData`
+  resolves `true`/`false` and **never rejects**, so a fire-and-forget caller can't raise an unhandled
+  rejection; a failed bundle is retried on the next call. Consumers:
+  · **`PAGES.map`** holds a `.data-loading` placard until `world` + `atlas` land, then re-renders (`render()`
+    re-invokes the *current* page, so this covers `PAGES.findit` too).
+  · **`startMiniGlobe`** (home) fetches `world` at **idle** so a 170px ornament never delays first paint,
+    and skips entirely under `navigator.connection.saveData`.
+  · **Settings' home-location picker** holds just the current home until `world` arrives, then fills.
+  · **`loadLangData`** pulls `uiI18n` + `glossI18n` whenever the language isn't English.
+  **A bundle's `after` hook re-establishes what boot would have done had the file been present** — this is
+  the part that bites. `timeline.js` assigns `window.TIMELINE` over the empty array `applyAdminEdits()` left
+  at boot, so the atlas hook re-applies `ADMIN_EDITS.timeline` on top or **the admin's working era set is
+  silently lost**; `glossary-i18n.js` arrives after `PRISTINE_GLOSS_I18N` was snapshotted empty, so its hook
+  re-seeds that baseline (revert/undo compare against it) and re-applies the `glossaryI18n` deltas. Any new
+  lazy file whose global is read at boot needs the same treatment.
+- **PWA:** `manifest.json` (installable, `icon.svg` + `icon-maskable.svg`) and **`sw.js`**, registered by
+  app.js on `load`. **Never registered on a dev origin** (`isDevOrigin()` — same guard, and same reason, as
+  the cloud content overrides): a file-watching dev server's live-reload against a caching worker serves
+  files you have already fixed. **Test the PWA on the deployed site, not localhost.** Strategy: navigations
+  are network-first (a deploy is picked up at once, and the app still opens offline); same-origin
+  JS/CSS/JSON/images are stale-while-revalidate, so **content files land one reload late** — the deliberate
+  trade for instant loads. Live admin edits are unaffected (they arrive through the Supabase
+  `content_overrides` overlay at runtime, not through these files). The multi-MB lazy bundles are **not**
+  precached — that would undo the split; they enter the cache when a page actually asks for them, so one
+  Atlas visit makes it available offline. Bump `VERSION` in sw.js to invalidate everything.
 - **State:** `localStorage["folio_v1"]` holds settings and spaced-repetition scheduling.
 - **Admin edits:** `localStorage["folio_admin_v1"]` stores edits as *deltas*, applied at startup
   by mutating the in-memory globals (`CARD_BY_ID`, `window.GLOSSARY`, the collection tree). **The editing language
@@ -253,6 +300,19 @@ cities.js → timeline.js → countries.js → country-stats.js → country-year
   next "Good"** (Anki-like; before this it jumped straight to tomorrow). "Again"/"Hard" on a new/learning card also requeue
   (1 min / 6 min); "Easy" graduates immediately (4 days). `S.intro.count` (the daily new-card cap via `newRemainingToday`) is
   incremented only on a card's FIRST grade (`fresh`), so a requeued learning card is never re-counted.
+- **Review history + statistics:** `grade()` calls **`logReview(mature, correct)`**, which tallies
+  `S.reviewLog["YYYY-MM-DD"] = [reviews, matureCorrect, matureTotal]` (in `defaultState()` so old saves
+  back-fill, and in `PROGRESS_FIELDS` so it syncs and a friend's shows too). **This log has to exist**: a card
+  record keeps only its *last* review, so a card studied on ten days is indistinguishable from one studied
+  once — past-day history is unreconstructable from `S.cards`. "Mature" = the card's status was `review`
+  *before* the grade (a real recall attempt, not a learning step — hence `preStatus`, captured before the
+  scheduler rewrites it); correct = anything but Again. Pruned to `REVIEW_LOG_DAYS` (400).
+  Read by `reviewHistory` / `retentionRate` / `dueForecast` and rendered by **`reviewStatsHTML(prog)`** on
+  the account page and a friend's: a year-long **study heatmap** (whole weeks in columns, Monday-first,
+  scrolling inside `.hm-scroll` so it can never widen the page), a **90-day true-retention** figure (`—`
+  when nothing mature has been reviewed — never a made-up 0% or 100%), and a **14-day due forecast**
+  (overdue cards fold into today rather than hiding in a past bucket). `dueForecast` skips suspended cards
+  and anything in a coming-soon collection, matching `availableCardIdSet()`.
 - **Card fields (13):** `id, num, category, question` (HTML cloze with blanks), `answer`,
   `answerDate` (HTML), `traditional, hanzi, pinyin, translations` (HTML), `abstract` (rich HTML
   card background; may carry `ttip` glossary links, but newly generated cards omit them),
@@ -286,6 +346,17 @@ cities.js → timeline.js → countries.js → country-stats.js → country-year
   English (graceful fallback). Arabic flips `<html dir="rtl">`. Elements with class `notranslate` are skipped.
   **Content localisation is separate**: cards carry per-language `i18n` blocks (`cardLocalized()`), glossary
   descriptions live in `glossary-i18n.js` (`window.GLOSSARY_I18N`, read by `glossText()`).
+  **`setLang(code)` is the single entry point** for a language change (the switcher calls it; don't set
+  `S.settings.lang` directly): it validates against `LANG_CODES`, persists, and — since `i18n.js` +
+  `glossary-i18n.js` are now **lazy** — calls `loadLangData()` first, repainting with `applyLang(); render();`
+  once the chrome table lands. A non-English reader therefore sees English for the moment the table takes to
+  arrive; an English reader never fetches either file, and never pays a second render.
+  **`?lang=xx` links the site in a given language** (e.g. `/?lang=es#decks`) and, like the switcher, becomes
+  the stored preference. Its IIFE runs **before `setupLangSwitch`** so the switcher's flag and code chip render
+  in the chosen language — move it after and the chip shows the previous language until the next reload.
+  Base-tag matching (`es-ES` → `es`); an unknown code is ignored, not stored.
+  **Known gap:** the `PAGE_META` titles/descriptions have no `i18n.js` entries yet, so `document.title` stays
+  English in other languages (the documented graceful fallback). Adding them is a content task.
 - **UI sound effects** (the `/* UI sound effects */` block in app.js): tiny synthesized Web-Audio sounds, no files —
   `sfx(name)` with click / toggle / pop / good / bad / win, played by ONE delegated **capture-phase** click listener
   (so a handler's `stopPropagation` can't swallow the tick) that maps button-likes to sounds (grades → good/bad,
@@ -371,6 +442,12 @@ cities.js → timeline.js → countries.js → country-stats.js → country-year
   show a ghost of their hue (row opacity .62). Deck rows inside a collection take the collection hue as their left
   hairline (`--coll-bg` inherits from the `.collection` root; branches stay ochre). If a collection is ever recreated
   under a new id, update `COLL_THEME` (and `COLLECTION_NUMERALS`).
+- **Library layout (`PAGES.decks`)**: "All decks" is a plain group; **"Coming soon" is a `<details>` disclosure**
+  (`.collection-group-soon`), collapsed for visitors and **`open` for admins** — the library drag-and-drop needs its
+  drop targets reachable, and moving a collection between the two groups is an editor workflow. This exists because
+  the collections still being written far outnumber the finished ones (currently 6 to 1), and listing them flat made
+  the Library read as empty. A live collection's banner also carries a **card count** (`.collection-count`, from
+  `subtreeCardIds`) — the one number that says there is something to study here.
 - **Collections count their level in their own script** (`levelBadgeMarkup(xp, sys)` + `numeralIn(sys, n)`; the id→system map is
   `COLLECTION_NUMERALS`): China → Chinese numerals (`一 二 三 …` via `cnNumeral()`, Han font — `一` for level 1 is a single
   horizontal stroke, so it reads as a bar until level 2+), Ancient Rome (col-40) → Roman numerals, Ancient Greece (col-13) →
@@ -381,6 +458,15 @@ cities.js → timeline.js → countries.js → country-stats.js → country-year
 - **Mobile** (`@media max-width:640px`): page content is centred (`.page-head{text-align:center}`); the top nav is condensed
   (the admin-only Editor/Visitor `.mode-switch` is hidden, controls shrunk) and horizontally scrollable so every item fits and
   the bar spans edge-to-edge.
+- **Reduced motion:** styles.css ends with a **global killswitch** — `@media (prefers-reduced-motion:reduce){ *,*::before,*::after
+  { animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; } }`.
+  It covers every CSS animation and transition in the file (entrance animations land on their end state), so a new one usually
+  needs no extra handling — only add a targeted override when the *end* state is wrong (e.g. `.lu-conf`/`.lu-burst` are
+  `display:none`, the gold tile shine is `animation:none`). What it **cannot** reach is JS-driven motion, which must be gated
+  by hand: `prefersReducedMotion()` (module-level, read live so the OS setting can change mid-session) covers `render()`'s
+  smooth `scrollTo` and the home mini globe; inside the Atlas closure the same check is cached as `REDUCED`, gating
+  `pulseChanges`, the era crossfade and `flyTo`'s duration. Globe drag inertia is deliberately left alone — it's the
+  continuation of a direct gesture, not decorative motion.
 - **Atlas:** an orthographic Canvas-2D globe (drag to rotate, wheel/pinch zoom, **on-screen `+`/`−` buttons (`#gzIn`/`#gzOut`,
   `.globe-zoom`) + keyboard `+`/`−`** via `zoomStep()`; `ZMIN 0.82 … ZMAX 10`). Zooming scales the disk
   radius (`R = baseR·zoom`), so the globe fills the screen by ~zoom 2.1 (`R ≥ dist(centre,corner)`). The **wheel-zoom listener is

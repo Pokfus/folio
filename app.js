@@ -785,6 +785,11 @@
       chrono: { date: "", best: 0, plays: 0, solved: false }, // timeline game daily record
       games: {}, // minigame id ("challenge"/"chrono"/"truefalse"/"whosaid") -> { date, played, won } for today's tile checkmarks + the daily-sweep badge
       intro: { date: "", count: 0 }, // new cards introduced today
+      // per-day review tally feeding the account page's statistics: "YYYY-MM-DD" -> [reviews, matureCorrect, matureTotal].
+      // A card record only keeps its LAST review, so the history a heatmap and a retention rate need can't be
+      // reconstructed from S.cards — it has to be logged as it happens. "Mature" = the card was in review status
+      // when graded (a real recall attempt, not a learning step); correct = anything but Again. Pruned to REVIEW_LOG_DAYS.
+      reviewLog: {},
       streak: { count: 0, last: "" },
       active: ["cn-qing"], // deck/subdeck ids added to the daily review
       achievements: {}, // achievement id -> unlock timestamp
@@ -879,7 +884,7 @@
      Kept for: the admin page's local-user manager, the guest-progress stash helpers (extractProgress /
      applyProgress / emptyProgress), and older saves. The account page no longer signs in against this. */
   const ACCT_KEY = "folio_acct_v1";
-  const PROGRESS_FIELDS = ["cards", "suspended", "daily", "chrono", "games", "intro", "streak", "active", "achievements"];
+  const PROGRESS_FIELDS = ["cards", "suspended", "daily", "chrono", "games", "intro", "reviewLog", "streak", "active", "achievements"];
   const B32 = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
   function defaultAcct() { return { users: {}, current: null, guest: null }; }
   let ACCT = (function () {
@@ -1736,6 +1741,7 @@
     let c =
       S.cards[id] ||
       { reps: 0, lapses: 0, ease: 2.5, interval: 0, due: now(), status: "new", last: 0 };
+    const preStatus = c.status;   // captured before the scheduler rewrites it — the retention rate counts only cards that were genuinely due for recall
 
     if (c.status === "new" || c.status === "learning") {
       if (g === "again") {
@@ -1792,6 +1798,7 @@
     }
     c.last = now();
     S.cards[id] = c;
+    logReview(preStatus === "review", g !== "again");
 
     // count new-card introductions per day
     if (fresh) {
@@ -1805,6 +1812,65 @@
     // requeue within session if it will be due again very soon (learning step)
     return { requeue: c.due - now() < 11 * 60 * 1000 };
   }
+  /* ---------- review history ----------
+     S.reviewLog is the only record of what happened on a PAST day: a card keeps just its latest
+     review, so a card reviewed on ten days is indistinguishable from one reviewed once. Each day
+     holds [reviews, matureCorrect, matureTotal] — see defaultState(). */
+  const REVIEW_LOG_DAYS = 400;   // ~13 months: enough for a full-year heatmap plus a margin, and bounded
+  function logReview(mature, correct) {
+    if (!S.reviewLog || typeof S.reviewLog !== "object") S.reviewLog = {};   // back-fill for saves made before the log existed
+    const d = todayStr();
+    const e = S.reviewLog[d] || [0, 0, 0];
+    e[0] += 1;
+    if (mature) { e[2] += 1; if (correct) e[1] += 1; }
+    S.reviewLog[d] = e;
+    // prune on the day-roll only — cheap, and the log can't grow without bound
+    if (Object.keys(S.reviewLog).length > REVIEW_LOG_DAYS + 30) {
+      const cut = new Date(Date.now() - REVIEW_LOG_DAYS * DAY).toISOString().slice(0, 10);
+      Object.keys(S.reviewLog).forEach((k) => { if (k < cut) delete S.reviewLog[k]; });
+    }
+  }
+  // reviews per day over the last `days` days, oldest first: [{ d:"YYYY-MM-DD", n, date }]
+  function reviewHistory(prog, days) {
+    const log = (prog && prog.reviewLog) || {};
+    const out = [];
+    const start = new Date(); start.setHours(12, 0, 0, 0);   // midday, so a DST shift can't roll the date backwards
+    for (let i = days - 1; i >= 0; i--) {
+      const dt = new Date(start.getTime() - i * DAY);
+      const key = dt.toISOString().slice(0, 10);
+      out.push({ d: key, date: dt, n: (log[key] && log[key][0]) || 0 });
+    }
+    return out;
+  }
+  // true retention: of the mature cards recalled in the window, how many were remembered.
+  // null when nothing mature has been reviewed yet — an honest blank beats a made-up 0% or 100%.
+  function retentionRate(prog, days) {
+    const log = (prog && prog.reviewLog) || {};
+    const cut = new Date(Date.now() - days * DAY).toISOString().slice(0, 10);
+    let ok = 0, tot = 0;
+    Object.keys(log).forEach((k) => { if (k >= cut) { ok += log[k][1] || 0; tot += log[k][2] || 0; } });
+    return tot ? { pct: Math.round((ok / tot) * 100), ok, tot } : null;
+  }
+  // how many cards fall due on each of the next `days` days, today first. Anything already overdue
+  // is folded into day 0 — it is due now, and burying it in a past bucket would understate today.
+  function dueForecast(prog, days) {
+    const cards = (prog && prog.cards) || {};
+    const susp = (prog && prog.suspended) || {};
+    const avail = availableCardIdSet();
+    const end = new Date(); end.setHours(23, 59, 59, 999);
+    const buckets = new Array(days).fill(0);
+    let backlog = 0;
+    Object.keys(cards).forEach((id) => {
+      if (susp[id] || !avail.has(id)) return;                 // suspended, or inside a coming-soon collection
+      const due = cards[id].due;
+      if (!due) return;
+      if (due <= end.getTime()) { buckets[0] += 1; if (due < Date.now()) backlog += 1; return; }
+      const i = Math.ceil((due - end.getTime()) / DAY);
+      if (i >= 0 && i < days) buckets[i] += 1;
+    });
+    return { buckets, backlog };
+  }
+
   function bumpStreak() {
     const t = todayStr();
     if (S.streak.last === t) return;
@@ -1879,6 +1945,77 @@
   }
 
   /* ============================================================
+     LAZY DATA BUNDLES
+
+     The Atlas layers and the translation tables are ~9.9 MB of what used to be ~11.3 MB of
+     blocking JS on EVERY page load, and none of it is needed to render the home page, the
+     Library or a study session. index.html now ships only the study-critical files; these
+     bundles are injected on demand (the same pattern heightmap.js has always used).
+
+     Each bundle loads once. Its optional `after` hook re-establishes the invariants that
+     app.js's boot-time setup would have established had the file been present from the
+     start — without them a late-arriving file silently clobbers the admin overlay.
+     ============================================================ */
+  const DATA_BUNDLES = {
+    // present-day country borders — the Atlas, the home page's decorative mini globe and the
+    // Settings home-location picker all read window.WORLD_GEO
+    world: { files: ["world.js"] },
+    // everything else the Atlas needs: historical eras, physical layers, per-country prose + figures
+    atlas: {
+      files: ["uk.js", "lakes.js", "rivers.js", "water.js", "cities.js", "timeline.js", "countries.js", "country-stats.js", "country-spans.js", "country-years.js"],
+      after: function () {
+        // timeline.js has just assigned the shipped eras over the empty array applyAdminEdits()
+        // left at boot — re-apply the admin overlay's working set on top, exactly as it does
+        if (Array.isArray(ADMIN_EDITS.timeline)) window.TIMELINE = ADMIN_EDITS.timeline;
+        if (!Array.isArray(window.TIMELINE)) window.TIMELINE = [];
+      },
+    },
+    // site-chrome translation tables — only fetched when the site language isn't English
+    uiI18n: { files: ["i18n.js"] },
+    // glossary descriptions in the 8 site languages — ditto
+    glossI18n: {
+      files: ["glossary-i18n.js"],
+      after: function () {
+        // the pristine snapshot taken at boot was empty (the file wasn't loaded yet); re-seed it so
+        // revert/undo compare against the shipped text, then re-apply the overlay's own translations
+        Object.assign(PRISTINE_GLOSS_I18N, window.GLOSSARY_I18N);
+        Object.keys(ADMIN_EDITS.glossaryI18n || {}).forEach((k) => {
+          const v = ADMIN_EDITS.glossaryI18n[k];
+          if (v && Object.keys(v).length) window.GLOSSARY_I18N[k] = v; else delete window.GLOSSARY_I18N[k];
+        });
+      },
+    },
+  };
+  const _bundlePromises = {};
+  function loadScriptOnce(src) {
+    return new Promise((resolve, reject) => {
+      const s = document.createElement("script");
+      s.src = src;
+      s.onload = () => resolve();
+      s.onerror = () => reject(new Error("Failed to load " + src));
+      document.head.appendChild(s);
+    });
+  }
+  // Load a bundle's files (in parallel — each one only assigns its own global, so order is
+  // irrelevant). Resolves true on success, false on failure; never rejects, so a caller that
+  // doesn't care about the outcome can fire and forget. A failed bundle is retried next call.
+  function ensureData(name) {
+    if (_bundlePromises[name]) return _bundlePromises[name];
+    const b = DATA_BUNDLES[name];
+    if (!b) return Promise.resolve(true);
+    return (_bundlePromises[name] = Promise.all(b.files.map(loadScriptOnce)).then(
+      () => { if (b.after) b.after(); b.ready = true; return true; },
+      () => { _bundlePromises[name] = null; return false; }
+    ));
+  }
+  function dataReady(name) { const b = DATA_BUNDLES[name]; return !!(b && b.ready); }
+  // run once the browser is idle, so a background fetch never competes with first paint
+  function whenIdle(fn) {
+    if (window.requestIdleCallback) requestIdleCallback(fn, { timeout: 2500 });
+    else setTimeout(fn, 300);
+  }
+
+  /* ============================================================
      ROUTER
      ============================================================ */
   const view = document.getElementById("view");
@@ -1889,6 +2026,44 @@
     document.querySelectorAll(".tab").forEach((t) => {
       t.classList.toggle("active", t.dataset.route === name);
     });
+  }
+
+  /* ---------- per-route <title> + description / Open Graph meta ----------
+     Folio is one document with hash routes, so without this every page carries the home page's
+     title: browser tabs, history entries and bookmarks all read "Folio — a study companion".
+     index.html ships the home-page values as the static baseline (link-preview crawlers generally
+     don't run JS, so that baseline is what most of them will see); this keeps them in step for
+     everything that does — the tab strip, history, bookmarks and in-app share sheets. */
+  const PAGE_META = {
+    home:      ["Folio — a study companion", "Spaced-repetition flashcards for history, daily games and an interactive atlas."],
+    decks:     ["Library — Folio", "Browse Folio's collections and decks, and pick what to review each day."],
+    study:     ["Study — Folio", "Review the cards that are due, one at a time."],
+    map:       ["Atlas — Folio", "An interactive globe: present-day borders, physical geography and world maps back to 1500."],
+    mission:   ["About — Folio", "What Folio is, how to use it, and what has changed lately."],
+    account:   ["Account — Folio", "Your study progress, statistics and badges."],
+    settings:  ["Settings — Folio", "Themes, study options, language and your Atlas home location."],
+    challenge: ["Multiple Choice — Folio", "Today's five-question history quiz."],
+    chrono:    ["Timeline — Folio", "Put today's historical events into the right order."],
+    truefalse: ["True or False — Folio", "Today's historical myths and surprising truths."],
+    whosaid:   ["Who said it? — Folio", "Match today's famous quotations to the people who said them."],
+    findit:    ["Find it on the map — Folio", "Locate five places on the globe."],
+    admin:     ["Editor — Folio", "Folio's content editor."],
+  };
+  function setMetaTag(attr, key, val) {
+    let el = document.head.querySelector('meta[' + attr + '="' + key + '"]');
+    if (!el) { el = document.createElement("meta"); el.setAttribute(attr, key); document.head.appendChild(el); }
+    el.setAttribute("content", val);
+  }
+  function setPageMeta(name) {
+    const m = PAGE_META[name] || PAGE_META.home;
+    const title = t(m[0]), desc = t(m[1]);   // t() falls through to English until the lazy i18n table lands
+    document.title = title;
+    setMetaTag("name", "description", desc);
+    setMetaTag("property", "og:title", title);
+    setMetaTag("property", "og:description", desc);
+    setMetaTag("property", "og:url", location.href);
+    setMetaTag("name", "twitter:title", title);
+    setMetaTag("name", "twitter:description", desc);
   }
   function route(name, params) {
     if (name === "admin" && !isAdmin()) name = "home";
@@ -1910,11 +2085,18 @@
     closeGlossBubble();
     applyTheme();
     setActiveTab(current.name);
+    setPageMeta(current.name);
     document.body.classList.toggle("admin-mode", current.name === "admin");
     view.innerHTML = '<div class="page"></div>';
     const root = view.firstElementChild;
     (PAGES[current.name] || PAGES.home)(root, current.params);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    // a smooth scroll is a JS scroll option, so the stylesheet's reduced-motion killswitch can't reach it
+    window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? "auto" : "smooth" });
+  }
+  // Motion the CSS `prefers-reduced-motion` block can't cover — JS scroll options, canvas camera
+  // moves. Read live rather than cached: the OS setting can change while the tab is open.
+  function prefersReducedMotion() {
+    return !!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
   }
   const THEMES = ["folio", "clay", "garden", "synth", "arcade", "academy", "marble", "gazette"];
   function applyTheme() {
@@ -2734,8 +2916,18 @@
   // small decorative globe on the home page's Atlas tile: present-day landmasses (world.js), orthographic,
   // slowly turning. Decimated vertices — it's a 170px ornament, not the Atlas.
   function startMiniGlobe(canvas) {
+    if (!canvas) return;
+    // world.js is lazy (see DATA_BUNDLES). This globe is a 170px ornament on the landing page, so
+    // it must never delay first paint: fetch at idle and start once the borders arrive.
+    if (!dataReady("world")) {
+      // 1.6 MB of borders for a decorative ornament isn't a fair trade on a metered connection
+      const conn = navigator.connection || {};
+      if (conn.saveData) { canvas.remove(); return; }
+      whenIdle(() => ensureData("world").then((ok) => { if (ok && document.body.contains(canvas)) startMiniGlobe(canvas); }));
+      return;
+    }
     const GEO = window.WORLD_GEO || [];
-    if (!canvas || !GEO.length) return;
+    if (!GEO.length) return;
     // decimate gently (every 2nd vertex). Each ring is decimated independently, so shared borders
     // diverge slightly — the draw pass welds the seams by stroking every ring in the LAND colour
     // before the thin border pass, otherwise ocean shows through as gaps between countries.
@@ -2805,7 +2997,7 @@
       readCols(); draw();
     });
     mo.observe(document.body, { attributes: true, attributeFilter: ["class", "data-theme"] });
-    if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (prefersReducedMotion()) return;   // the globe still draws — it just doesn't turn
     let last = 0;
     function frame(t) {
       if (!canvas.isConnected) return;   // navigated away — render() replaced #view
@@ -3085,11 +3277,23 @@
     const available = TREE.collections.filter((d) => !isComingSoon(d));
     const comingSoon = TREE.collections.filter((d) => isComingSoon(d));
     const admin = isAdmin();
+    const slot = (slotId, count) => `<div class="collection-list" id="${slotId}">${count === 0 && admin ? '<div class="lib-empty">Drag a collection here</div>' : ""}</div>`;
     const section = (label, n, slotId, count) =>
       `<div class="collection-group">
         <div class="group-head"><span class="group-label">${label}</span><span class="group-line"></span><span class="group-count">${n}</span></div>
-        <div class="collection-list" id="${slotId}">${count === 0 && admin ? '<div class="lib-empty">Drag a collection here</div>' : ""}</div>
+        ${slot(slotId, count)}
       </div>`;
+    // The collections still being written far outnumber the finished ones, so listing them flat makes the
+    // Library read as empty. They fold into a disclosure — open for admins, whose drag-and-drop needs the
+    // drop targets reachable, and because moving a collection between the two groups is an editor workflow.
+    const soonSection = (n, slotId, count) =>
+      `<details class="collection-group collection-group-soon"${admin ? " open" : ""}>
+        <summary class="group-head group-head-toggle">
+          <span class="group-label">Coming soon</span><span class="group-line"></span><span class="group-count">${n}</span>
+          <svg class="group-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </summary>
+        ${slot(slotId, count)}
+      </details>`;
 
     root.innerHTML = `
       <div class="page-head">
@@ -3098,7 +3302,7 @@
         <p>Curated collections. New subjects are on the way.</p>
       </div>
       ${available.length || admin ? section("All decks", available.length, "collection-list-all", available.length) : ""}
-      ${comingSoon.length || admin ? section("Coming soon", comingSoon.length, "collection-list-soon", comingSoon.length) : ""}`;
+      ${comingSoon.length || admin ? soonSection(comingSoon.length, "collection-list-soon", comingSoon.length) : ""}`;
 
     const allList = root.querySelector("#collection-list-all");
     const soonList = root.querySelector("#collection-list-soon");
@@ -3376,7 +3580,7 @@
             <div class="collection-title-row">
               <span class="collection-title">${esc(d.title)}</span>
               ${spanHTML}
-              ${soon ? '<span class="pill soon">Coming soon</span>' : ""}
+              ${soon ? '<span class="pill soon">Coming soon</span>' : `<span class="collection-count">${total} ${total === 1 ? "card" : "cards"}</span>`}
             </div>
             ${xpBarMarkup(studied)}
           </div>
@@ -4410,6 +4614,28 @@
   const _home = (S.settings && S.settings.home) || null;
   const atlasView = { rotLon: _home && isFinite(_home.lon) ? _home.lon : 90, rotLat: _home && isFinite(_home.lat) ? _home.lat : 22, zoom: 1 };
   PAGES.map = function (root, params) {
+    // The Atlas data is lazy (see DATA_BUNDLES) — hold the page on a loading state until it lands,
+    // then re-render for real. render() re-invokes the CURRENT page, so this covers PAGES.findit too.
+    if (!dataReady("world") || !dataReady("atlas")) {
+      root.innerHTML = `
+        <div class="data-loading" role="status" aria-live="polite">
+          <span class="dl-globe" aria-hidden="true"></span>
+          <strong>Drawing the Atlas</strong>
+          <span class="dl-note">Fetching the world's borders, rivers and historical maps — once per visit.</span>
+        </div>`;
+      const want = current.name;
+      Promise.all([ensureData("world"), ensureData("atlas")]).then((ok) => {
+        if (current.name !== want || !view.contains(root)) return;   // navigated away while it loaded
+        if (ok.every(Boolean)) render();
+        else root.innerHTML = `
+          <div class="data-loading dl-fail" role="alert">
+            <strong>The Atlas couldn't load</strong>
+            <span class="dl-note">Its map data didn't arrive. Check your connection and try again.</span>
+            <button class="btn" type="button" onclick="location.reload()">Reload</button>
+          </div>`;
+      });
+      return;
+    }
     const GAME = !!(params && params.game);   // "Find it on the map" mode (PAGES.findit): the globe is the game board — search/legend/popup/hover-name/timebar are off, taps answer the round
     const MINY = -1000, MAXY = new Date().getFullYear();
     const chevL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>';
@@ -6383,7 +6609,7 @@
       stopSpin(); flyStop(); velLon = 0; velLat = 0;
       const sLon = rotLon, sLat = rotLat, sZ = zoom;
       const dLon = wrap(lon - sLon), dLat = clamp(lat, -85, 85) - sLat, dZ = clamp(zt || sZ, ZMIN, ZMAX) - sZ;
-      const t0 = performance.now(), DUR = 700;
+      const t0 = performance.now(), DUR = REDUCED ? 1 : 700;   // reduced motion: land on the target immediately (1ms, not 0 — the first frame must not divide by zero)
       startMotion();
       const stepFly = (t) => {
         const u = clamp((t - t0) / DUR, 0, 1), k = u < 0.5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2;   // easeInOutQuad
@@ -6966,6 +7192,86 @@
       '<div class="statcard"><b>' + wins + '</b><span>Challenge wins</span></div>' +
       '<div class="statcard"><b>' + best + '</b><span>Best score</span></div></div>';
   }
+  /* ---------- review statistics: heatmap, forecast, retention ----------
+     The three numbers a spaced-repetition user actually wants: how consistently have I shown up,
+     what is coming, and am I remembering. Rendered for the signed-in profile and for a friend's. */
+  const HEAT_WEEKS = 53, FORECAST_DAYS = 14;
+  const MONTH_ABBR = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  function heatLevel(n) { return n === 0 ? 0 : n < 5 ? 1 : n < 15 ? 2 : n < 30 ? 3 : 4; }
+
+  function reviewStatsHTML(prog) {
+    // ---- heatmap: whole weeks, Monday-first, ending on today's column
+    const today = new Date(); today.setHours(12, 0, 0, 0);
+    const dow = (today.getDay() + 6) % 7;                     // Mon = 0
+    const span = (HEAT_WEEKS - 1) * 7 + dow + 1;              // whole weeks + the part-week we're in, so day 0 is a Monday
+    const hist = reviewHistory(prog, span);
+    const total = hist.reduce((a, b) => a + b.n, 0);
+    const active = hist.filter((d) => d.n > 0).length;
+    const busiest = hist.reduce((a, b) => (b.n > a.n ? b : a), { n: 0, d: "" });
+
+    const cells = hist.map((d) => {
+      const lbl = d.date.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
+      return `<span class="hm-cell hm-${heatLevel(d.n)}" title="${d.n} ${d.n === 1 ? "review" : "reviews"} · ${lbl}"></span>`;
+    }).join("");
+    // one label per week column, printed when that week opens a new month
+    let lastMonth = -1;
+    const months = hist.filter((_, i) => i % 7 === 0).map((d) => {
+      const m = d.date.getMonth();
+      if (m === lastMonth) return '<span class="hm-mon"></span>';
+      lastMonth = m;
+      return `<span class="hm-mon">${MONTH_ABBR[m]}</span>`;
+    }).join("");
+
+    // ---- retention (90-day window: long enough to be meaningful, short enough to reflect current habits)
+    const ret = retentionRate(prog, 90);
+    const retBody = ret
+      ? `<b class="rs-big">${ret.pct}<i>%</i></b><span class="rs-sub">${ret.ok} of ${ret.tot} mature cards recalled, last 90 days</span>`
+      : `<b class="rs-big rs-none">—</b><span class="rs-sub">No mature cards reviewed yet. This fills in once cards start coming back after a few days.</span>`;
+
+    // ---- forecast
+    const fc = dueForecast(prog, FORECAST_DAYS);
+    const peak = Math.max(1, ...fc.buckets);
+    const bars = fc.buckets.map((n, i) => {
+      const dt = new Date(today.getTime() + i * DAY);
+      const lbl = i === 0 ? "Today" : dt.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" });
+      // a day with nothing due still gets a hairline stub, so the run of days reads as a continuous axis
+      const h = n === 0 ? 0 : Math.max(4, Math.round((n / peak) * 100));
+      return `<span class="fc-bar${i === 0 ? " fc-today" : ""}${n === 0 ? " fc-zero" : ""}" title="${n} due · ${lbl}">
+        <i style="height:${h}%"></i>
+        <em>${i === 0 ? "Today" : dt.toLocaleDateString(undefined, { weekday: "narrow" })}</em>
+      </span>`;
+    }).join("");
+    const fcTotal = fc.buckets.reduce((a, b) => a + b, 0);
+    const fcNote = fcTotal === 0
+      ? "Nothing scheduled yet — cards appear here once you've studied them."
+      : `${fcTotal} ${fcTotal === 1 ? "review" : "reviews"} scheduled over the next ${FORECAST_DAYS} days` +
+        (fc.backlog ? ` · ${fc.backlog} overdue, folded into today` : "");
+
+    return `
+      <div class="revstats">
+        <div class="rs-card rs-heat">
+          <div class="rs-head"><h3>Study history</h3><span class="rs-meta">${total} ${total === 1 ? "review" : "reviews"} · ${active} ${active === 1 ? "day" : "days"} studied</span></div>
+          <div class="hm-scroll">
+            <div class="hm-inner">
+              <div class="hm-months" aria-hidden="true">${months}</div>
+              <div class="hm-grid" role="img" aria-label="Daily review counts over the past year. ${total} reviews across ${active} days.">${cells}</div>
+            </div>
+          </div>
+          <div class="hm-legend"><span>Less</span><i class="hm-cell hm-0"></i><i class="hm-cell hm-1"></i><i class="hm-cell hm-2"></i><i class="hm-cell hm-3"></i><i class="hm-cell hm-4"></i><span>More</span>
+            ${busiest.n ? `<span class="hm-best">Busiest day: ${busiest.n} on ${new Date(busiest.d + "T12:00:00").toLocaleDateString(undefined, { month: "short", day: "numeric" })}</span>` : ""}</div>
+        </div>
+        <div class="rs-card rs-ret">
+          <div class="rs-head"><h3>Retention</h3><span class="rs-meta" title="A card counts once it has graduated to review. Anything but Again counts as remembered.">Mature recall</span></div>
+          ${retBody}
+        </div>
+        <div class="rs-card rs-fc">
+          <div class="rs-head"><h3>Coming up</h3><span class="rs-meta">Next ${FORECAST_DAYS} days</span></div>
+          <div class="fc-bars">${bars}</div>
+          <span class="rs-sub">${fcNote}</span>
+        </div>
+      </div>`;
+  }
+
   // the root collection an item belongs to (walk up the tree) — used to tint profile rows in the collection's hue
   function rootCollectionOf(node) {
     let n = node;
@@ -7185,6 +7491,8 @@
       <div class="section-label">Collection levels</div>
       <div class="coll-levels" id="collLevels"></div>
       <div id="statWrap"></div>
+      <div class="section-label">Review statistics</div>
+      <div id="reviewStats"></div>
       <div class="section-label">Progress by deck</div>
       <div class="suspbox">
         <button class="suspbox-head open" id="dpHead" type="button" aria-expanded="true"><span class="suspbox-title">By deck <span class="suspbox-count" id="dpCount"></span></span><span class="suspbox-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></button>
@@ -7196,6 +7504,7 @@
         <div class="suspbox-collapse collapsed" id="suspCollapse"><div class="suspbox-collapse-inner"><div class="susplist" id="susplist"></div></div></div>
       </div>`;
     root.querySelector("#statWrap").innerHTML = statGridHTML(S, dueCountNow());
+    root.querySelector("#reviewStats").innerHTML = reviewStatsHTML(S);
 
     const nameInput = root.querySelector("#name");
     const monoInitial = (v) => { const m = root.querySelector("#mono .monogram:not(.has-img)"); if (m) m.textContent = initialOf(v); };   // only when no photo is set
@@ -7343,6 +7652,8 @@
           <button class="ghost-btn" id="rmFriend" type="button">Remove friend</button>
         </div>
         <div id="fStat"></div>
+        <div class="section-label">Review statistics</div>
+        <div id="fReviewStats"></div>
         <div class="section-label">Badges</div>
         <div class="badges-box" id="fBadges"></div>
         <div class="section-label">Collection levels</div>
@@ -7350,6 +7661,7 @@
         <div class="section-label">Progress by deck</div>
         <div class="suspbox"><div class="suspbox-collapse"><div class="suspbox-collapse-inner"><div class="deckprog" id="fDeck"></div></div></div></div>`;
       root.querySelector("#fStat").innerHTML = statGridHTML(prog, null);
+      root.querySelector("#fReviewStats").innerHTML = reviewStatsHTML(prog);   // their reviewLog rides along in the synced progress blob
       root.querySelector("#fBadges").innerHTML = badgesHTML(prog.achievements, progStats(prog, 0));
       renderCollectionLevels(root.querySelector("#fLevels"), prog.cards || {}, S.cards);   // their levels, with a "You: …" chip beside each
       renderDeckProgress(root.querySelector("#fDeck"), prog.cards || {});
@@ -7573,8 +7885,11 @@
   ];
   PAGES.settings = function (root) {
     const homeName = (S.settings.home && S.settings.home.name) || "Netherlands";
-    const homeOpts = (window.WORLD_GEO || []).map((c) => c.n).filter((n) => n && n.trim()).sort((a, b) => a.localeCompare(b))
-      .map((n) => `<option value="${n.replace(/"/g, "&quot;")}"${n === homeName ? " selected" : ""}>${n}</option>`).join("");
+    // world.js is lazy (see DATA_BUNDLES) — until it lands the picker holds just the current home,
+    // and fillHomeOpts() below swaps in the full country list once it arrives
+    const homeOptsFor = (names) => names.map((n) => `<option value="${n.replace(/"/g, "&quot;")}"${n === homeName ? " selected" : ""}>${n}</option>`).join("");
+    const worldNames = () => (window.WORLD_GEO || []).map((c) => c.n).filter((n) => n && n.trim()).sort((a, b) => a.localeCompare(b));
+    const homeOpts = homeOptsFor(dataReady("world") ? worldNames() : [homeName]);
     // each theme option shows a tiny mockup of itself: paper, a title bar, two text lines, an accent dot
     const themeBtn = (t) => `<button class="theme-opt" data-theme="${t[0]}" type="button">
       <span class="theme-mock" style="--tm-a:${t[3]};--tm-b:${t[4]};--tm-p:${t[5]}" aria-hidden="true"><i class="tm-bar"></i><i class="tm-line"></i><i class="tm-line short"></i><i class="tm-dot"></i></span>
@@ -7687,6 +8002,16 @@
     root.querySelector("#np-dn").addEventListener("click", () => setNp(-1));
 
     const homeSel = root.querySelector("#homeSel");
+    // fill the picker once world.js lands (it holds only the current home until then)
+    if (homeSel && !dataReady("world")) {
+      homeSel.disabled = true;
+      ensureData("world").then((ok) => {
+        if (!ok || !view.contains(homeSel)) return;
+        homeSel.innerHTML = homeOptsFor(worldNames());
+        homeSel.value = homeName;
+        homeSel.disabled = false;
+      });
+    }
     if (homeSel) homeSel.addEventListener("change", () => {
       const name = homeSel.value, c = countryCenter(name);
       if (!c) return;
@@ -9650,6 +9975,34 @@
     { code: "de", label: "Deutsch" }, { code: "it", label: "Italiano" }, { code: "nl", label: "Nederlands" },
     { code: "ru", label: "Русский" }, { code: "ar", label: "العربية" }, { code: "zh", label: "中文" },
   ];
+  const LANG_CODES = LANGS.map((l) => l.code);
+  // ?lang=xx makes the site linkable in a given language (e.g. /?lang=es#decks). Like the switcher, it
+  // becomes the stored preference — someone who follows a Spanish link stays in Spanish. This runs
+  // BEFORE setupLangSwitch below, so the switcher's flag and code chip render in the chosen language
+  // rather than showing the old one until the next reload.
+  (function langFromURL() {
+    let q = null;
+    try { q = new URLSearchParams(location.search).get("lang"); } catch (e) {}
+    if (!q) return;
+    q = String(q).toLowerCase().split("-")[0];   // accept es-ES / pt-BR style tags, match on the base language
+    if (LANG_CODES.includes(q) && q !== S.settings.lang) { S.settings.lang = q; save(); }
+  })();
+  // The translation tables are lazy (see DATA_BUNDLES): i18n.js carries the site chrome and
+  // glossary-i18n.js the glossary descriptions, ~2.3 MB that English readers never fetch. Both are
+  // pulled the moment the language goes non-English; `then` fires once the chrome table has landed.
+  function loadLangData(then) {
+    if ((S.settings.lang || "en") === "en") { if (then) then(); return; }
+    ensureData("glossI18n");   // background — gloss popups read it as soon as it lands
+    ensureData("uiI18n").then(() => { if (then) then(); });
+  }
+  // the one place the site language changes: validates, persists, loads what it needs, repaints
+  function setLang(code) {
+    if (!LANG_CODES.includes(code) || code === S.settings.lang) return;
+    S.settings.lang = code;
+    save();
+    const paint = () => { applyLang(); render(); };   // flip dir/lang + the static chrome, then rebuild the page
+    if (code === "en" || dataReady("uiI18n")) paint(); else loadLangData(paint);
+  }
   (function setupLangSwitch() {
     const btn = document.getElementById("lang-switch"), codeEl = document.getElementById("lang-code"), flagEl = document.getElementById("lang-flag");
     if (!btn || !codeEl) return;
@@ -9674,10 +10027,8 @@
       menu.style.right = Math.max(8, window.innerWidth - r.right) + "px";
       btn.setAttribute("aria-expanded", "true");
       menu.querySelectorAll(".lang-opt").forEach((o) => o.addEventListener("click", () => {
-        S.settings.lang = o.dataset.lang; save();
+        setLang(o.dataset.lang);   // persists, lazy-loads the translation tables, then repaints
         refresh(); close();
-        applyLang();   // flip dir/lang and localize the static chrome…
-        render();      // …then rebuild the page; the observer localizes the fresh DOM
       }));
       setTimeout(() => { document.addEventListener("pointerdown", onOutside, true); document.addEventListener("keydown", onKey, true); }, 0);
     }
@@ -9699,9 +10050,26 @@
   _adminUndoReady = true;
   render();
   applyLang();   // localize the freshly rendered page + static chrome, set dir/lang, install the i18n observer
+  // A non-English reader paints in English for the moment it takes the lazy translation tables to
+  // arrive, then repaints translated. English readers never fetch them, and never pay a second render.
+  if ((S.settings.lang || "en") !== "en") loadLangData(() => { applyLang(); render(); });
   checkAchievements(true);   // backfill any milestones already met by existing progress
   restoreGlossWins(_glossToRestore);   // re-open any gloss popups that were on screen before the reload
   supaBoot().then(cloudBootOverrides);   // async: restore the session, handle emailed auth links, reconcile progress — then adopt the published content overrides (live edits)
+
+  // Service worker (sw.js) — makes Folio installable and usable offline. Registered after boot so
+  // it never competes with first paint, and NEVER on a dev origin: a file-watching dev server's
+  // live-reload against a caching worker serves files you've already fixed. Same guard as the
+  // cloud content overrides, for the same reason. Test the PWA on the deployed site.
+  if ("serviceWorker" in navigator && !isDevOrigin()) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("sw.js").then((reg) => {
+        // a worker that installs while a tab is open takes over on the NEXT navigation — never
+        // mid-session, which would swap the code out from under a study session
+        if (reg.waiting) reg.waiting.postMessage("skipWaiting");
+      }).catch(() => {});   // an unregistrable worker (private mode, blocked scope) is not an error worth surfacing
+    });
+  }
 
   // card images: one delegated listener opens the fullscreen viewer from any .card-img (study, previews, editor)
   document.addEventListener("click", (e) => {

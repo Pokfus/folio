@@ -3,8 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <!-- The home page's values are the static baseline; app.js's setPageMeta() keeps title/description/OG
+       in step with the current hash route (most link-preview crawlers don't run JS, so what they see
+       is what's written here). Keep these matching PAGE_META.home in app.js. -->
   <title>Folio — a study companion</title>
-  <meta name="description" content="Folio — an editorial flashcard study companion for history. Fixed decks, spaced repetition, daily challenges." />
+  <meta name="description" content="Spaced-repetition flashcards for history, daily games and an interactive atlas." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Folio" />
+  <meta property="og:title" content="Folio — a study companion" />
+  <meta property="og:description" content="Spaced-repetition flashcards for history, daily games and an interactive atlas." />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Folio — a study companion" />
+  <meta name="twitter:description" content="Spaced-repetition flashcards for history, daily games and an interactive atlas." />
   <meta name="theme-color" content="#F6F5F1" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#161619" media="(prefers-color-scheme: dark)" />
   <meta name="color-scheme" content="light dark" />
@@ -15,6 +25,13 @@
 
   <!-- Inline SVG favicon: a vermilion seal on warm paper -->
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23F6F5F1'/%3E%3Ccircle cx='16' cy='16' r='6.5' fill='%23C8453C'/%3E%3C/svg%3E" />
+
+  <!-- PWA: installable, and offline once the service worker (registered by app.js) has run -->
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icon.svg" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Folio" />
+  <meta name="mobile-web-app-capable" content="yes" />
 
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -67,28 +84,34 @@
     </div>
   </noscript>
 
-  <!-- data first (defines window.CARD_DATA + window.DECK_TREE), then the app -->
+  <!-- ============================================================
+       SCRIPTS
+
+       Only the study-critical data ships here (~1.4 MB): the cards, the glossary, the
+       minigame pools and the app itself. Everything else is LAZY — app.js's DATA_BUNDLES
+       injects it on demand:
+
+         bundle "world"      world.js                     — Atlas, home-page mini globe, Settings home picker
+         bundle "atlas"      uk / lakes / rivers / water / cities / timeline /
+                             countries / country-stats / country-spans / country-years
+         bundle "uiI18n"     i18n.js                      — only when the site language isn't English
+         bundle "glossI18n"  glossary-i18n.js             — ditto
+
+       That is ~9.9 MB a visitor no longer downloads to flip a card. Don't move a lazy file
+       back into this list without also dropping it from DATA_BUNDLES — a bundle whose files
+       are already present still works (the browser serves them from cache), but the eager
+       download is exactly the cost this split exists to avoid.
+
+       ranges.js + admin1.js (the removed Mountains / Divisions layers) are not loaded at
+       all — app.js falls back to empty data.
+       ============================================================ -->
   <script src="data.js"></script>
   <script src="truefalse.js"></script>
   <script src="quotes.js"></script>
   <script src="changelog.js"></script>
   <script src="mission.js"></script>
   <script src="glossary.js"></script>
-	<script src="glossary-wikipedia.js"></script>
-  <script src="glossary-i18n.js"></script>
-  <script src="world.js"></script>
-  <script src="uk.js"></script>
-  <script src="lakes.js"></script>
-  <script src="rivers.js"></script>
-  <script src="water.js"></script>
-  <!-- ranges.js + admin1.js (the removed Mountains / Divisions layers) are no longer loaded — app.js falls back to empty data -->
-  <script src="cities.js"></script>
-  <script src="timeline.js"></script>
-  <script src="countries.js"></script>
-  <script src="country-stats.js"></script>
-  <script src="country-spans.js"></script>
-  <script src="country-years.js"></script>
-  <script src="i18n.js"></script>
+  <script src="glossary-wikipedia.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
