@@ -8,7 +8,8 @@ window.CHANGELOG = [
     d: "2026-07-26",
     t: "The first toolmakers",
     items: [
-      "Five new cards in the World History prehistory deck, in English and all eight site languages.",
+      "Six new cards in the World History prehistory deck, in English and all eight site languages.",
+      "Corrected the age given for a fossil boy on one prehistory card, in every language.",
       "Forty-five more glossary terms, one for every president of the United States, each with the years they lived and held office, in English and all eight site languages.",
       "Fifteen more glossary terms covering the earliest human ancestors and the places their fossils and tools come from, in English and all eight site languages.",
       "Ten more glossary terms on early human ancestors and the African places tied to them, in English and all eight site languages.",
