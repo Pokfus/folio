@@ -431,3 +431,106 @@ create policy "admins close reports"
   on public.deck_reports for update to authenticated
   using (exists (select 1 from public.profiles p where p.id = auth.uid() and p.role = 'admin'))
   with check (exists (select 1 from public.profiles p where p.id = auth.uid() and p.role = 'admin'));
+
+-- ----------------------------------------------------------------------------
+-- 6) RATINGS (phase 3) — one row per user per deck, plus the denormalised
+--    summary columns the browse list sorts and filters on.
+--
+--    Re-run safe, and additive to section 5: existing installs just gain the
+--    new columns and the ratings table.
+-- ----------------------------------------------------------------------------
+create table if not exists public.deck_ratings (
+  deck_id    uuid not null references public.user_decks(id) on delete cascade,
+  user_id    uuid not null references auth.users(id) on delete cascade,
+  stars      int  not null check (stars between 1 and 5),
+  body       text not null default '' check (char_length(body) <= 500),
+  author     text not null default '',      -- display name copied at write time, so listing reviews needs no join
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  primary key (deck_id, user_id)
+);
+create index if not exists deck_ratings_deck on public.deck_ratings (deck_id, updated_at desc);
+
+alter table public.deck_ratings enable row level security;
+
+-- Reviews of a publicly readable deck are public: the whole point is to help a stranger judge it.
+drop policy if exists "ratings of readable decks" on public.deck_ratings;
+create policy "ratings of readable decks"
+  on public.deck_ratings for select to anon, authenticated
+  using (exists (select 1 from public.user_decks d where d.id = deck_ratings.deck_id
+                   and (d.status = 'published' or d.owner = auth.uid())));
+
+-- You may only write your own rating, only on a published deck, and NOT on your own deck.
+drop policy if exists "rate as yourself" on public.deck_ratings;
+create policy "rate as yourself"
+  on public.deck_ratings for insert to authenticated
+  with check (user_id = auth.uid()
+              and exists (select 1 from public.user_decks d
+                            where d.id = deck_ratings.deck_id and d.status = 'published' and d.owner <> auth.uid()));
+
+drop policy if exists "change your own rating" on public.deck_ratings;
+create policy "change your own rating"
+  on public.deck_ratings for update to authenticated
+  using (user_id = auth.uid()) with check (user_id = auth.uid());
+
+drop policy if exists "withdraw your own rating" on public.deck_ratings;
+create policy "withdraw your own rating"
+  on public.deck_ratings for delete to authenticated
+  using (user_id = auth.uid());
+
+drop trigger if exists deck_ratings_touch on public.deck_ratings;
+create trigger deck_ratings_touch before update on public.deck_ratings
+  for each row execute function public.touch_updated_at();
+
+-- per-star counts, so the deck page can draw a distribution without an aggregate query
+alter table public.user_decks add column if not exists rating_1 int not null default 0;
+alter table public.user_decks add column if not exists rating_2 int not null default 0;
+alter table public.user_decks add column if not exists rating_3 int not null default 0;
+alter table public.user_decks add column if not exists rating_4 int not null default 0;
+alter table public.user_decks add column if not exists rating_5 int not null default 0;
+-- an editor's endorsement: the one strong quality signal on a page of unvetted content
+alter table public.user_decks add column if not exists staff_pick boolean not null default false;
+-- where a forked deck came from, as {slug, title, author}; shown as "based on ..." for attribution
+alter table public.user_decks add column if not exists forked_from jsonb;
+
+-- Ranking. A plain mean puts a single 5-star review above a deck with fifty 4.5s, so browse orders by a
+-- Bayesian-adjusted score instead: pull each deck's average towards a prior until enough votes exist.
+-- PRIOR_N = 10 votes, PRIOR_AVG = 3.5. A generated column may only read its own row, so the prior is a
+-- constant rather than the live site mean — close enough, and it keeps the sort indexable.
+alter table public.user_decks drop column if exists rank_score;
+alter table public.user_decks add column rank_score numeric(6,4)
+  generated always as (
+    (rating_count::numeric / (rating_count + 10)) * rating_avg
+    + (10::numeric / (rating_count + 10)) * 3.5
+  ) stored;
+create index if not exists user_decks_rank on public.user_decks (status, rank_score desc);
+create index if not exists user_decks_pick on public.user_decks (status, staff_pick) where staff_pick;
+
+-- keep every summary column honest; clients can never write them directly
+create or replace function public.sync_deck_rating()
+returns trigger language plpgsql security definer set search_path = public as $$
+declare d uuid;
+begin
+  d := coalesce(new.deck_id, old.deck_id);
+  update public.user_decks x set
+    rating_count = (select count(*)             from public.deck_ratings r where r.deck_id = d),
+    rating_avg   = (select coalesce(round(avg(r.stars)::numeric, 2), 0) from public.deck_ratings r where r.deck_id = d),
+    rating_1     = (select count(*) from public.deck_ratings r where r.deck_id = d and r.stars = 1),
+    rating_2     = (select count(*) from public.deck_ratings r where r.deck_id = d and r.stars = 2),
+    rating_3     = (select count(*) from public.deck_ratings r where r.deck_id = d and r.stars = 3),
+    rating_4     = (select count(*) from public.deck_ratings r where r.deck_id = d and r.stars = 4),
+    rating_5     = (select count(*) from public.deck_ratings r where r.deck_id = d and r.stars = 5)
+  where x.id = d;
+  return coalesce(new, old);
+end $$;
+
+drop trigger if exists deck_ratings_sync on public.deck_ratings;
+create trigger deck_ratings_sync after insert or update or delete on public.deck_ratings
+  for each row execute function public.sync_deck_rating();
+
+-- staff picks are an editorial act: only an admin may set the flag
+drop policy if exists "admins set staff picks" on public.user_decks;
+create policy "admins set staff picks"
+  on public.user_decks for update to authenticated
+  using (exists (select 1 from public.profiles p where p.id = auth.uid() and p.role = 'admin'))
+  with check (exists (select 1 from public.profiles p where p.id = auth.uid() and p.role = 'admin'));

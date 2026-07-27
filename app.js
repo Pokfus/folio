@@ -2337,6 +2337,11 @@
     o.publishedVersion = Number(m && m.publishedVersion) || 0;
     o.installedVersion = Number(m && m.installedVersion) || 0;
     o.ownerName = sanitizePlain(m && m.ownerName).slice(0, 80);
+    // attribution for a duplicated deck — travels in the file and in a publish, so credit survives a copy
+    const ff = m && m.forkedFrom;
+    o.forkedFrom = (ff && typeof ff === "object" && (ff.title || ff.slug))
+      ? { slug: sanitizePlain(ff.slug).slice(0, 64), title: sanitizePlain(ff.title).slice(0, 200), author: sanitizePlain(ff.author).slice(0, 80) }
+      : null;
     return o;
   }
   function uCardSanitize(raw, deckId, idx) {
@@ -2403,7 +2408,7 @@
     norm.cards.forEach((c) => { UCARDS[c.id] = c; });
     return d;
   }
-  const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language", "tags", "glossMode", "version", "createdAt", "updatedAt"];
+  const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language", "tags", "glossMode", "version", "createdAt", "updatedAt", "forkedFrom"];
   const UDECK_PUBLISH_KEYS = ["remoteId", "slug", "origin", "remoteStatus", "publishedVersion", "installedVersion", "ownerName"];
   function uDeckRecord(deckId) {   // the on-disk shape (also the export shape, minus the publishing keys)
     const d = UDECKS[deckId];
@@ -2628,6 +2633,7 @@
       slug: d.slug, title: d.title || "Untitled deck", subtitle: d.subtitle || "", description: d.desc || "",
       author: d.author || (SUPA_PROFILE ? SUPA_PROFILE.name : "") || "", language: d.language || "en",
       tags: d.tags || [], gloss_mode: d.glossMode || "site", status: "published", version: (d.publishedVersion || 0) + 1,
+      forked_from: d.forkedFrom || null,
     };
   }
   // returns { ok } | { error }
@@ -2709,12 +2715,15 @@
     if (/does not exist|schema cache/i.test(String(msg)) || (r && r.status === 404 && !d)) return "Deck sharing isn't set up on this site yet.";
     return supaErrMsg(r, fallback);
   }
-  const COMMUNITY_SORTS = { recent: "updated_at.desc", installs: "install_count.desc,updated_at.desc", title: "title.asc" };
+  // "Top rated" sorts by rank_score, the Bayesian-adjusted average kept as a generated column, not the raw
+  // mean — otherwise one 5-star review outranks a deck with fifty good ones forever.
+  const COMMUNITY_SORTS = { rated: "rank_score.desc,rating_count.desc", recent: "updated_at.desc", installs: "install_count.desc,updated_at.desc", title: "title.asc" };
   async function communityBrowse(opts) {
     opts = opts || {};
     const sort = COMMUNITY_SORTS[opts.sort] || COMMUNITY_SORTS.recent;
-    let q = "/rest/v1/user_decks?select=id,slug,title,subtitle,description,author,language,tags,card_count,install_count,version,updated_at,status" +
+    let q = "/rest/v1/user_decks?select=id,slug,title,subtitle,description,author,language,tags,card_count,install_count,version,updated_at,status,rating_avg,rating_count,staff_pick" +
       "&status=eq.published&order=" + sort + "&limit=" + (opts.limit || 60);
+    if (opts.picks) q += "&staff_pick=is.true";
     if (opts.q) {
       const term = String(opts.q).replace(/[,()*]/g, " ").trim();
       if (term) q += "&or=(title.ilike.*" + encodeURIComponent(term) + "*,subtitle.ilike.*" + encodeURIComponent(term) + "*,description.ilike.*" + encodeURIComponent(term) + "*)";
@@ -2751,7 +2760,7 @@
         id: localId, title: row.title, subtitle: row.subtitle, desc: row.description, author: row.author,
         language: row.language, tags: row.tags || [], glossMode: row.gloss_mode, version: 1,
         createdAt: Date.parse(row.created_at) || Date.now(), updatedAt: Date.now(),
-        remoteId: row.id, slug: row.slug, origin: "installed", remoteStatus: row.status,
+        remoteId: row.id, slug: row.slug, origin: "installed", remoteStatus: row.status, forkedFrom: row.forked_from || null,
         installedVersion: row.version, ownerName: row.author,
       },
       cards: cards.map((c, i) => Object.assign({}, c.data, { id: clash ? "u_" + localId + "_" + (i + 1) : c.id })),
@@ -2795,6 +2804,64 @@
     });
     return out;
   }
+  /* ---------- ratings ----------
+     One rating per person per deck, editable and withdrawable. Writing one needs an account (RLS keys off
+     auth.uid()) and the server also refuses a rating on your own deck. */
+  const RATE_MIN_STUDIED = 5;   // cards of the deck you must have studied before the form unlocks
+  // How many of a deck's cards this device has actually seen. A friction gate, NOT a security control —
+  // it stops drive-by star-bombing, but a determined person could still study five cards. Enforcing it
+  // properly would mean shipping per-deck progress to the server, which is not worth the privacy cost.
+  function deckStudiedCount(localDeck) {
+    if (!localDeck) return 0;
+    return (localDeck.cardIds || []).filter((id) => isSeen(id)).length;
+  }
+  async function deckRatings(remoteId) {
+    const r = await supaFetch("/rest/v1/deck_ratings?deck_id=eq." + encodeURIComponent(remoteId) +
+      "&select=user_id,stars,body,author,updated_at&order=updated_at.desc&limit=50");
+    if (!r.ok || !Array.isArray(r.data)) return [];
+    return r.data;
+  }
+  async function deckRateSet(remoteId, stars, body) {
+    if (!supaLoggedIn()) return { error: "Sign in on the Account page to rate a deck." };
+    const row = {
+      deck_id: remoteId, user_id: SUPA.user.id, stars: Math.max(1, Math.min(5, Math.round(stars))),
+      body: sanitizePlain(body).slice(0, 500), author: (SUPA_PROFILE && SUPA_PROFILE.name) || "",
+    };
+    // upsert: one row per (deck, user), so re-rating replaces rather than stacking
+    const r = await supaFetch("/rest/v1/deck_ratings", { method: "POST", body: row, headers: { Prefer: "resolution=merge-duplicates,return=representation" } });
+    if (!r.ok) return { error: communityErr(r, "Couldn't save your rating.") };
+    return { ok: true };
+  }
+  async function deckRateClear(remoteId) {
+    if (!supaLoggedIn()) return { error: "Sign in first." };
+    const r = await supaFetch("/rest/v1/deck_ratings?deck_id=eq." + encodeURIComponent(remoteId) + "&user_id=eq." + SUPA.user.id, { method: "DELETE" });
+    if (!r.ok) return { error: communityErr(r, "Couldn't remove your rating.") };
+    return { ok: true };
+  }
+  async function deckSetStaffPick(remoteId, on) {
+    const r = await supaFetch("/rest/v1/user_decks?id=eq." + encodeURIComponent(remoteId), { method: "PATCH", body: { staff_pick: !!on } });
+    if (!r.ok) return { error: communityErr(r, "Couldn't change that.") };
+    return { ok: true };
+  }
+  async function decksByOwner(ownerId, exceptId) {
+    const r = await supaFetch("/rest/v1/user_decks?owner=eq." + encodeURIComponent(ownerId) +
+      "&status=eq.published&select=id,slug,title,subtitle,author,card_count,install_count,rating_avg,rating_count,staff_pick&order=rank_score.desc&limit=7");
+    if (!r.ok || !Array.isArray(r.data)) return [];
+    return r.data.filter((d) => d.id !== exceptId).slice(0, 6);
+  }
+  // a compact star display: full/half/empty out of five
+  function starsHTML(avg, count, extraClass) {
+    const a = Number(avg) || 0;
+    let s = '<span class="stars' + (extraClass ? " " + extraClass : "") + '" aria-label="' + (count ? a.toFixed(1) + " out of 5" : "not yet rated") + '">';
+    for (let i = 1; i <= 5; i++) {
+      const fill = Math.max(0, Math.min(1, a - (i - 1)));
+      s += '<span class="star' + (fill >= 0.75 ? " on" : fill >= 0.25 ? " half" : "") + '">★</span>';
+    }
+    s += "</span>";
+    if (count) s += '<span class="stars-n">' + a.toFixed(1) + " (" + count + ")</span>";
+    return s;
+  }
+
   async function deckReport(remoteId, reason, note) {
     if (!supaLoggedIn()) return { error: "Sign in on the Account page to report a deck." };
     const r = await supaFetch("/rest/v1/deck_reports", { method: "POST", body: { deck_id: remoteId, reporter: SUPA.user.id, reason: reason, note: sanitizePlain(note).slice(0, 1000) } });
@@ -4948,6 +5015,8 @@
       const rec = uDeckRecord(d.id);
       const r = uDeckImportText(JSON.stringify({ folioDeck: UDECK_FORMAT, meta: rec.meta, cards: rec.cards, gloss: rec.gloss }), true);
       if (r.error) { toast(r.error); return; }
+      r.deck.forkedFrom = { slug: d.slug || "", title: d.title || "", author: d.ownerName || d.author || "" };   // credit the original
+      uDeckSave(r.deck.id);
       studioState.deck = r.deck.id; studioState.card = null;
       toast("Duplicated — this copy is yours to edit");
       render();
@@ -5010,14 +5079,16 @@
   /* ============================================================
      COMMUNITY — browse published decks, and one deck's page
      ============================================================ */
-  const communityState = { q: "", sort: "recent", decks: null, loading: false, error: "" };
+  const communityState = { q: "", sort: "rated", picks: false, decks: null, loading: false, error: "" };
 
   function deckCardHTML(row) {
     const local = localDeckForRemote(row.id);
     const n = row.card_count || 0;
     return '<button class="cdeck" type="button" data-slug="' + esc(row.slug) + '">' +
+      (row.staff_pick ? '<span class="cdeck-pick" title="Chosen by Folio&rsquo;s editors">✦ Staff pick</span>' : "") +
       '<span class="cdeck-title">' + esc(row.title) + '</span>' +
       (row.subtitle ? '<span class="cdeck-sub">' + esc(row.subtitle) + '</span>' : "") +
+      '<span class="cdeck-rate">' + (row.rating_count ? starsHTML(row.rating_avg, row.rating_count) : '<span class="stars-none">Not yet rated</span>') + '</span>' +
       '<span class="cdeck-meta">' +
         '<span>' + n + " " + (n === 1 ? "card" : "cards") + '</span>' +
         (row.author ? '<span>by ' + esc(row.author) + '</span>' : "") +
@@ -5034,10 +5105,12 @@
       '<div class="cbrowse-bar">' +
         '<input class="af-input cbrowse-q" id="cq" type="search" placeholder="Search decks…" value="' + esc(communityState.q) + '" />' +
         '<select class="set-sel" id="csort">' +
+          '<option value="rated"' + (communityState.sort === "rated" ? " selected" : "") + '>Top rated</option>' +
           '<option value="recent"' + (communityState.sort === "recent" ? " selected" : "") + '>Newest</option>' +
           '<option value="installs"' + (communityState.sort === "installs" ? " selected" : "") + '>Most installed</option>' +
           '<option value="title"' + (communityState.sort === "title" ? " selected" : "") + '>A–Z</option>' +
         '</select>' +
+        '<button class="btn ghost tiny' + (communityState.picks ? " on" : "") + '" type="button" id="cpicks" aria-pressed="' + (communityState.picks ? "true" : "false") + '">✦ Staff picks</button>' +
         '<button class="btn ghost tiny" type="button" id="cmine">Your decks</button>' +
       '</div>' +
       '<div id="cresults">' + (communityState.loading ? '<div class="data-loading">Loading decks…</div>' : "") + '</div>';
@@ -5054,7 +5127,7 @@
     const load = async () => {
       communityState.loading = true; communityState.error = "";
       results.innerHTML = '<div class="data-loading">Loading decks…</div>';
-      const r = await communityBrowse({ q: communityState.q, sort: communityState.sort });
+      const r = await communityBrowse({ q: communityState.q, sort: communityState.sort, picks: communityState.picks });
       communityState.loading = false;
       if (r.error) { communityState.error = r.error; communityState.decks = []; }
       else { communityState.decks = r.decks; }
@@ -5065,6 +5138,7 @@
     let qT = 0;
     qEl.addEventListener("input", () => { clearTimeout(qT); qT = setTimeout(() => { communityState.q = qEl.value.trim(); load(); }, 300); });
     root.querySelector("#csort").addEventListener("change", (e) => { communityState.sort = e.target.value; load(); });
+    root.querySelector("#cpicks").addEventListener("click", () => { communityState.picks = !communityState.picks; render(); });
     root.querySelector("#cmine").addEventListener("click", () => route("studio"));
 
     if (communityState.decks && !communityState.loading) paint();
@@ -5129,13 +5203,17 @@
         '<h1>' + esc(row.title) + '</h1>' +
         (row.subtitle ? '<p class="ddetail-sub">' + esc(row.subtitle) + '</p>' : "") +
       '</div>' +
+      (row.staff_pick ? '<div class="ddetail-pick">✦ Staff pick — an editor has read this one</div>' : "") +
       '<div class="ddetail-meta">' +
+        '<span class="ddetail-stars">' + (row.rating_count ? starsHTML(row.rating_avg, row.rating_count) : '<span class="stars-none">Not yet rated</span>') + '</span>' +
         (row.author ? '<span>by <b>' + esc(row.author) + '</b></span>' : "") +
         '<span>' + n + " " + (n === 1 ? "card" : "cards") + '</span>' +
         (row.install_count ? '<span>' + row.install_count + " installed" + '</span>' : "") +
         '<span>updated ' + esc(fmtWhen(Date.parse(row.updated_at) || Date.now())) + '</span>' +
       '</div>' +
       (row.tags && row.tags.length ? '<div class="ddetail-tags">' + row.tags.map((t) => '<span class="pill">' + esc(t) + '</span>').join("") + '</div>' : "") +
+      (row.forked_from && row.forked_from.title
+        ? '<p class="ddetail-fork">Based on <b>' + esc(row.forked_from.title) + '</b>' + (row.forked_from.author ? " by " + esc(row.forked_from.author) : "") + '</p>' : "") +
       (row.description ? '<p class="ddetail-desc">' + esc(row.description) + '</p>' : "") +
       '<div class="ddetail-warn">Written by a Folio user, not by Folio. Nothing here has been fact-checked — check anything that matters against a source you trust.</div>' +
       '<div class="ddetail-actions">' +
@@ -5146,8 +5224,11 @@
         (mine ? "" : '<button class="btn ghost" type="button" id="ddReport">Report</button>') +
         (isAdmin() && row.status === "published" ? '<button class="btn ghost danger" type="button" id="ddHide">Hide (admin)</button>' : "") +
         (isAdmin() && row.status === "hidden" ? '<button class="btn ghost" type="button" id="ddUnhide">Restore (admin)</button>' : "") +
+        (isAdmin() ? '<button class="btn ghost" type="button" id="ddPick">' + (row.staff_pick ? "Remove staff pick" : "Mark staff pick") + "</button>" : "") +
       '</div>' +
-      '<div class="ddetail-sample"><h2>A card from this deck</h2><div id="ddSample"></div></div>';
+      '<div class="ddetail-sample"><h2>A card from this deck</h2><div id="ddSample"></div></div>' +
+      '<div class="ddetail-reviews" id="ddReviews"></div>' +
+      '<div class="ddetail-more" id="ddMore"></div>';
 
     root.querySelector("#ddBack").addEventListener("click", () => route("community"));
 
@@ -5189,6 +5270,101 @@
     if (hide) hide.addEventListener("click", async () => { await deckSetStatus(row.id, "hidden"); toast("Deck hidden"); route("community"); });
     const unhide = root.querySelector("#ddUnhide");
     if (unhide) unhide.addEventListener("click", async () => { await deckSetStatus(row.id, "published"); toast("Deck restored"); render(); });
+    const pick = root.querySelector("#ddPick");
+    if (pick) pick.addEventListener("click", async () => {
+      const r = await deckSetStaffPick(row.id, !row.staff_pick);
+      toast(r.error ? r.error : (row.staff_pick ? "Staff pick removed" : "Marked as a staff pick"));
+      if (!r.error) render();
+    });
+
+    deckRenderReviews(root.querySelector("#ddReviews"), row, local, mine);
+    decksByOwner(row.owner, row.id).then((others) => {
+      const box = root.querySelector("#ddMore");
+      if (!box || !others.length || !current || current.name !== "deck") return;
+      box.innerHTML = '<h2>More from ' + esc(row.author || "this author") + '</h2>' +
+        '<div class="cdeck-grid">' + others.map(deckCardHTML).join("") + '</div>';
+      box.querySelectorAll("[data-slug]").forEach((b) => b.addEventListener("click", () => route("deck", { slug: b.dataset.slug })));
+    });
+  }
+
+  /* Ratings on a deck page: the summary + distribution, your own rating, and what other people wrote.
+     The form only unlocks once this device has studied RATE_MIN_STUDIED of the deck's cards — a rating
+     from someone who never opened it is noise, and the whole point of the number is to be worth trusting. */
+  function deckRenderReviews(box, row, local, mine) {
+    if (!box) return;
+    const total = row.rating_count || 0;
+    const dist = [row.rating_5, row.rating_4, row.rating_3, row.rating_2, row.rating_1].map((n) => Number(n) || 0);
+    box.innerHTML = '<h2>Ratings</h2><div class="rv-summary">' +
+      '<div class="rv-big">' + (total ? '<span class="rv-avg">' + (Number(row.rating_avg) || 0).toFixed(1) + '</span>' + starsHTML(row.rating_avg, 0) +
+        '<span class="rv-count">' + total + " " + (total === 1 ? "rating" : "ratings") + '</span>'
+        : '<span class="stars-none">No ratings yet</span>') + '</div>' +
+      (total ? '<div class="rv-dist">' + dist.map((n, i) =>
+        '<div class="rv-bar"><span class="rv-bar-k">' + (5 - i) + '★</span>' +
+        '<span class="rv-bar-track"><span class="rv-bar-fill" style="width:' + Math.round((n / total) * 100) + '%"></span></span>' +
+        '<span class="rv-bar-n">' + n + '</span></div>').join("") + '</div>' : "") +
+      '</div><div id="rvMine"></div><div id="rvList"></div>';
+
+    const mineBox = box.querySelector("#rvMine");
+    const studied = deckStudiedCount(local);
+    if (mine) mineBox.innerHTML = '<p class="rv-note">This is your deck, so you can&rsquo;t rate it.</p>';
+    else if (!supaLoggedIn()) mineBox.innerHTML = '<p class="rv-note">Sign in on the Account page to rate this deck.</p>';
+    else if (!local) mineBox.innerHTML = '<p class="rv-note">Add the deck and study a few cards before rating it.</p>';
+    else if (studied < RATE_MIN_STUDIED) mineBox.innerHTML = '<p class="rv-note">Study ' + (RATE_MIN_STUDIED - studied) + ' more ' +
+      ((RATE_MIN_STUDIED - studied) === 1 ? "card" : "cards") + ' from this deck to rate it. <span class="rv-why">Ratings come from people who have actually used the deck.</span></p>';
+    else renderRateForm(mineBox, row);
+
+    const listBox = box.querySelector("#rvList");
+    deckRatings(row.id).then((rows) => {
+      if (!current || current.name !== "deck") return;
+      const mineId = supaLoggedIn() ? SUPA.user.id : null;
+      const withText = rows.filter((r) => (r.body || "").trim());
+      if (!withText.length) { listBox.innerHTML = ""; return; }
+      listBox.innerHTML = '<div class="rv-list">' + withText.map((r) =>
+        '<div class="rv-item' + (r.user_id === mineId ? " own" : "") + '">' +
+          '<div class="rv-head">' + starsHTML(r.stars, 0) +
+            '<span class="rv-who">' + esc(sanitizePlain(r.author) || "A reader") + (r.user_id === mineId ? " (you)" : "") + '</span>' +
+            '<span class="rv-when">' + esc(fmtWhen(Date.parse(r.updated_at) || Date.now())) + '</span>' +
+          '</div><p class="rv-body">' + esc(r.body) + '</p>' +
+        '</div>').join("") + '</div>';
+    });
+  }
+  function renderRateForm(host, row) {
+    let chosen = 0;
+    const paint = () => {
+      host.innerHTML = '<div class="rv-form"><div class="rv-form-head">Rate this deck</div>' +
+        '<div class="rv-pick" role="radiogroup" aria-label="Your rating">' +
+          [1, 2, 3, 4, 5].map((n) => '<button class="rv-star' + (n <= chosen ? " on" : "") + '" type="button" data-star="' + n + '" role="radio" aria-checked="' + (n === chosen) + '" aria-label="' + n + ' out of 5">★</button>').join("") +
+        '</div>' +
+        '<textarea class="af-input rv-text" id="rvBody" rows="3" maxlength="500" placeholder="What did you make of it? (optional)"></textarea>' +
+        '<div class="rv-form-acts"><button class="btn tiny" type="button" id="rvSend"' + (chosen ? "" : " disabled") + '>Post rating</button>' +
+        '<button class="btn tiny ghost" type="button" id="rvClear">Remove my rating</button></div></div>';
+      host.querySelectorAll("[data-star]").forEach((b) => b.addEventListener("click", () => {
+        const body = host.querySelector("#rvBody").value;
+        chosen = Number(b.dataset.star);
+        paint();
+        host.querySelector("#rvBody").value = body;
+      }));
+      host.querySelector("#rvSend").addEventListener("click", async () => {
+        const r = await deckRateSet(row.id, chosen, host.querySelector("#rvBody").value);
+        toast(r.error ? r.error : "Thanks — your rating is in.");
+        if (!r.error) render();
+      });
+      host.querySelector("#rvClear").addEventListener("click", async () => {
+        const r = await deckRateClear(row.id);
+        toast(r.error ? r.error : "Rating removed.");
+        if (!r.error) render();
+      });
+    };
+    paint();
+    // pre-fill from an existing rating, so re-rating edits rather than starting blank
+    if (supaLoggedIn()) supaFetch("/rest/v1/deck_ratings?deck_id=eq." + encodeURIComponent(row.id) + "&user_id=eq." + SUPA.user.id + "&select=stars,body").then((r) => {
+      const cur = r.ok && Array.isArray(r.data) ? r.data[0] : null;
+      if (!cur || !host.isConnected) return;
+      chosen = cur.stars;
+      paint();
+      const t = host.querySelector("#rvBody");
+      if (t) t.value = cur.body || "";
+    });
   }
 
   const REPORT_REASONS = [["inaccurate", "Factually wrong"], ["offensive", "Offensive or hateful"], ["copyright", "Copied from somewhere else"], ["spam", "Spam or nonsense"], ["other", "Something else"]];

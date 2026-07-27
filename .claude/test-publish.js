@@ -36,7 +36,17 @@ function check(name, ok, extra) {
 
 // ---------------------------------------------------------------- the mock backend
 function makeDb() {
-  return { decks: [], cards: [], installs: [], reports: [], seq: 0 };
+  return { decks: [], cards: [], installs: [], reports: [], ratings: [], seq: 0 };
+}
+// stand-in for sync_deck_rating() + the rank_score generated column
+function syncRatings(db, deckId) {
+  const d = db.decks.find((x) => x.id === deckId);
+  if (!d) return;
+  const rs = db.ratings.filter((r) => r.deck_id === deckId);
+  d.rating_count = rs.length;
+  d.rating_avg = rs.length ? Math.round((rs.reduce((a, r) => a + r.stars, 0) / rs.length) * 100) / 100 : 0;
+  for (let i = 1; i <= 5; i++) d["rating_" + i] = rs.filter((r) => r.stars === i).length;
+  d.rank_score = (d.rating_count / (d.rating_count + 10)) * d.rating_avg + (10 / (d.rating_count + 10)) * 3.5;
 }
 function uuid(n) { return "00000000-0000-4000-8000-" + String(100000000000 + n).slice(0, 12); }
 
@@ -56,6 +66,8 @@ function handleSupa(db, url, method, body, asUser) {
       if (db.decks.some((d) => d.slug === body.slug)) return [409, { message: "duplicate key value violates unique constraint" }];
       const row = Object.assign({
         id: uuid(++db.seq), owner: asUser.id, card_count: 0, install_count: 0, rating_avg: 0, rating_count: 0,
+        rating_1: 0, rating_2: 0, rating_3: 0, rating_4: 0, rating_5: 0, rank_score: 3.5,
+        staff_pick: false, forked_from: null,
         price_cents: 0, created_at: new Date().toISOString(), updated_at: new Date().toISOString(),
       }, body);
       db.decks.push(row);
@@ -86,7 +98,9 @@ function handleSupa(db, url, method, body, asUser) {
       if (m) { const t = decodeURIComponent(m[1]).toLowerCase(); rows = rows.filter((d) => ((d.title || "") + " " + (d.subtitle || "") + " " + (d.description || "")).toLowerCase().includes(t)); }
     }
     const order = u.searchParams.get("order") || "";
-    if (order.startsWith("title.asc")) rows.sort((a, b) => a.title.localeCompare(b.title));
+    if (u.searchParams.get("staff_pick") === "is.true") rows = rows.filter((d) => d.staff_pick);
+    if (order.startsWith("rank_score.desc")) rows.sort((a, b) => (b.rank_score - a.rank_score) || (b.rating_count - a.rating_count));
+    else if (order.startsWith("title.asc")) rows.sort((a, b) => a.title.localeCompare(b.title));
     else if (order.startsWith("install_count.desc")) rows.sort((a, b) => b.install_count - a.install_count);
     else rows.sort((a, b) => String(b.updated_at).localeCompare(String(a.updated_at)));
     return [200, rows];
@@ -127,6 +141,30 @@ function handleSupa(db, url, method, body, asUser) {
       return [204, null];
     }
     return [200, db.installs.filter((i) => i.user_id === asUser.id)];
+  }
+
+  if (p === "/rest/v1/deck_ratings") {
+    if (method === "POST") {
+      const deck = db.decks.find((x) => x.id === body.deck_id);
+      // mirrors the insert policy: published deck, not your own, rating as yourself
+      if (!deck || deck.status !== "published" || deck.owner === asUser.id || body.user_id !== asUser.id) return [403, { message: "row-level security" }];
+      const ex = db.ratings.find((r) => r.deck_id === body.deck_id && r.user_id === body.user_id);
+      if (ex) Object.assign(ex, body, { updated_at: new Date().toISOString() });
+      else db.ratings.push(Object.assign({ created_at: new Date().toISOString(), updated_at: new Date().toISOString() }, body));
+      syncRatings(db, body.deck_id);
+      return [201, [body]];
+    }
+    if (method === "DELETE") {
+      const d = eqOf("deck_id"), usr = eqOf("user_id");
+      if (usr !== asUser.id) return [403, { message: "row-level security" }];
+      db.ratings = db.ratings.filter((r) => !(r.deck_id === d && r.user_id === usr));
+      syncRatings(db, d);
+      return [204, null];
+    }
+    const d = eqOf("deck_id"), usr = eqOf("user_id");
+    let rows = db.ratings.filter((r) => r.deck_id === d);
+    if (usr) rows = rows.filter((r) => r.user_id === usr);
+    return [200, rows];
   }
 
   if (p === "/rest/v1/deck_reports") {
@@ -177,6 +215,29 @@ async function newSession(browser, db, who, base) {
   return { ctx, page, errs, ref };
 }
 
+// goto() to the URL the page is already on is a fragment-only navigation and does NOT reload — the app
+// keeps running with its old state. Use this wherever a test means "load this page fresh".
+async function gotoFresh(page, url) {
+  if (page.url() === url) await page.reload({ waitUntil: "load" });
+  else await page.goto(url, { waitUntil: "load" });
+}
+// open a named deck in the Studio, allowing for the fact that goto() to a fragment-only difference is a
+// same-document navigation and may land in whatever view studioState already held
+async function openDeckInStudio(page, base, title) {
+  await page.goto(base + "#studio", { waitUntil: "load" });
+  await page.waitForTimeout(1100);
+  if (await page.evaluate(() => !!document.querySelector("#stAll"))) {
+    const right = await page.evaluate((t) => ((document.querySelector(".studio-title") || {}).textContent || "") === t, title);
+    if (right) return;
+    await page.click("#stAll");
+    await page.waitForTimeout(400);
+  }
+  await page.evaluate((t) => {
+    const hit = [...document.querySelectorAll(".studio-deck-open")].find((r) => ((r.querySelector(".sd-title") || {}).textContent || "") === t);
+    if (hit) hit.click();
+  }, title);
+  await page.waitForTimeout(600);
+}
 async function typeField(page, field, text) {
   const sel = '.studio-editor [data-field="' + field + '"]';
   await page.dblclick(sel);
@@ -348,12 +409,221 @@ async function typeField(page, field, text) {
   await B.page.waitForTimeout(1200);
   check("hidden deck leaves the public list", await B.page.evaluate(() => document.querySelectorAll(".cdeck").length === 0));
 
+  // ================= ratings (phase 3) =================
+  // Bob has installed and studied nothing yet, so the form must stay locked
+  await gotoFresh(B.page, base + "#deck/" + aliceSlug);
+  await B.page.waitForTimeout(1300);
+  await M.page.bringToFront();
+  await gotoFresh(M.page, base + "#deck/" + aliceSlug);
+  await M.page.waitForTimeout(1300);
+  await M.page.evaluate(() => { const b = document.querySelector("#ddUnhide"); if (b) b.click(); });
+  await M.page.waitForTimeout(800);
+  check("admin restored the deck for the rating tests", db.decks[0].status === "published", db.decks[0].status);
+
+  await B.page.bringToFront();
+  await gotoFresh(B.page, base + "#deck/" + aliceSlug);
+  await B.page.waitForTimeout(1400);
+  const gate = await B.page.evaluate(() => ({
+    note: (document.querySelector("#rvMine .rv-note") || {}).textContent || "",
+    form: !!document.querySelector(".rv-form"),
+  }));
+  check("rating is gated until you have studied enough", !gate.form && /more card/i.test(gate.note), JSON.stringify(gate).slice(0, 120));
+
+  // study five cards of the deck so the gate opens (the deck has one card, so grade it five times)
+  await B.page.evaluate(() => {
+    const st = JSON.parse(localStorage.getItem("folio_v1"));
+    // mark every card of the installed deck as seen, the same shape grade() writes
+    const ids = Object.keys(st.cards);
+    return ids.length;
+  });
+  await B.page.evaluate((min) => {
+    const st = JSON.parse(localStorage.getItem("folio_v1"));
+    // seed "studied" records for this deck's cards so the gate's condition is genuinely met
+    const keys = Object.keys(st.cards).filter((k) => k.slice(0, 2) === "u_");
+    for (let i = 0; i < min; i++) {
+      const id = "u_seed_" + i;
+      st.cards[id] = { reps: 1, lapses: 0, ease: 2.5, interval: 1, due: Date.now() + 86400000, status: "review", last: Date.now() };
+    }
+    localStorage.setItem("folio_v1", JSON.stringify(st));
+  }, 5);
+  // the seeded ids are not in the deck, so the gate must STILL be closed — it counts this deck's cards
+  await B.page.reload({ waitUntil: "load" });
+  await B.page.waitForTimeout(1400);
+  check("the gate counts THIS deck's cards, not any cards", await B.page.evaluate(() => !document.querySelector(".rv-form")));
+
+  // now genuinely study the deck's own cards
+  await B.page.evaluate(() => {
+    const st = JSON.parse(localStorage.getItem("folio_v1"));
+    const rec = { reps: 1, lapses: 0, ease: 2.5, interval: 1, due: Date.now() + 86400000, status: "review", last: Date.now() };
+    (JSON.parse(localStorage.getItem("folio_community_v1") || "[]") || []).forEach(() => {});
+    window.__deckCardIds.forEach((id) => { st.cards[id] = rec; });
+    localStorage.setItem("folio_v1", JSON.stringify(st));
+  }).catch(() => {});
+  const seeded = await B.page.evaluate(async () => {
+    // read the installed deck's card ids out of IndexedDB, then mark them all studied
+    const ids = await new Promise((resolve) => {
+      const rq = indexedDB.open("folio-community", 1);
+      rq.onsuccess = () => {
+        const tx = rq.result.transaction("decks", "readonly").objectStore("decks").getAll();
+        tx.onsuccess = () => resolve((tx.result || []).flatMap((r) => (r.cards || []).map((c) => c.id)));
+        tx.onerror = () => resolve([]);
+      };
+      rq.onerror = () => resolve([]);
+    });
+    const st = JSON.parse(localStorage.getItem("folio_v1"));
+    ids.forEach((id, i) => { st.cards[id] = { reps: 1, lapses: 0, ease: 2.5, interval: 1, due: Date.now() + 86400000, status: "review", last: Date.now() }; });
+    localStorage.setItem("folio_v1", JSON.stringify(st));
+    return ids.length;
+  });
+  check("seeded study records for the deck", seeded > 0, "cards=" + seeded);
+
+  // with only one card in the deck the threshold can never be met, so lower it the honest way:
+  // publish four more cards, then re-install so Bob has them.
+  await A.page.bringToFront();
+  await openDeckInStudio(A.page, base, "Byzantine Emperors");
+  for (let i = 0; i < 4; i++) {
+    await A.page.click("#stAddCard");
+    await A.page.waitForTimeout(250);
+    await typeField(A.page, "answer", "Emperor " + (i + 2));
+    await typeField(A.page, "abstract", "Another ruler of the empire.");
+  }
+  await A.page.click("#stPublish");
+  await A.page.waitForTimeout(1100);
+  check("deck now has five cards", db.decks[0].card_count === 5, "count=" + db.decks[0].card_count);
+
+  await B.page.bringToFront();
+  await gotoFresh(B.page, base + "#deck/" + aliceSlug);
+  await B.page.waitForTimeout(1400);
+  await B.page.evaluate(() => { const b = document.querySelector("#ddUpdate") || document.querySelector("#ddInstall"); if (b) b.click(); });
+  await B.page.waitForTimeout(1300);
+  await B.page.evaluate(async () => {
+    const ids = await new Promise((resolve) => {
+      const rq = indexedDB.open("folio-community", 1);
+      rq.onsuccess = () => {
+        const tx = rq.result.transaction("decks", "readonly").objectStore("decks").getAll();
+        tx.onsuccess = () => resolve((tx.result || []).flatMap((r) => (r.cards || []).map((c) => c.id)));
+        tx.onerror = () => resolve([]);
+      };
+      rq.onerror = () => resolve([]);
+    });
+    const st = JSON.parse(localStorage.getItem("folio_v1"));
+    ids.forEach((id) => { st.cards[id] = { reps: 1, lapses: 0, ease: 2.5, interval: 1, due: Date.now() + 86400000, status: "review", last: Date.now() }; });
+    localStorage.setItem("folio_v1", JSON.stringify(st));
+  });
+  await B.page.reload({ waitUntil: "load" });
+  await B.page.waitForTimeout(1500);
+  check("rating form unlocks once the deck is studied", await B.page.evaluate(() => !!document.querySelector(".rv-form")));
+
+  await B.page.click('.rv-star[data-star="4"]');
+  await B.page.waitForTimeout(200);
+  await B.page.fill("#rvBody", "Clear and well ordered. A couple of dates I would double-check.");
+  await B.page.click("#rvSend");
+  await B.page.waitForTimeout(1200);
+  check("rating stored", db.ratings.length === 1 && db.ratings[0].stars === 4, JSON.stringify(db.ratings.map((r) => r.stars)));
+  check("summary columns updated", db.decks[0].rating_count === 1 && Number(db.decks[0].rating_avg) === 4, db.decks[0].rating_count + " / " + db.decks[0].rating_avg);
+  check("per-star distribution updated", db.decks[0].rating_4 === 1 && db.decks[0].rating_5 === 0);
+  check("rank_score pulled toward the prior", db.decks[0].rank_score > 3.5 && db.decks[0].rank_score < 4,
+    "score=" + Number(db.decks[0].rank_score).toFixed(3));
+
+  await B.page.reload({ waitUntil: "load" });
+  await B.page.waitForTimeout(1500);
+  const shown = await B.page.evaluate(() => ({
+    avg: (document.querySelector(".rv-avg") || {}).textContent,
+    review: (document.querySelector(".rv-body") || {}).textContent,
+    mineHighlighted: !!document.querySelector(".rv-item.own"),
+    prefilled: document.querySelectorAll(".rv-star.on").length,
+  }));
+  check("deck page shows the average", shown.avg === "4.0", JSON.stringify(shown.avg));
+  check("the written review is listed", /well ordered/.test(shown.review || ""));
+  check("your own review is marked", shown.mineHighlighted);
+  check("the form pre-fills your existing rating", shown.prefilled === 4, "stars=" + shown.prefilled);
+
+  // an author cannot rate their own deck
+  await A.page.bringToFront();
+  await gotoFresh(A.page, base + "#deck/" + aliceSlug);
+  await A.page.waitForTimeout(1400);
+  check("an author cannot rate their own deck", await A.page.evaluate(() =>
+    !document.querySelector(".rv-form") && /your deck/i.test((document.querySelector("#rvMine .rv-note") || {}).textContent || "")));
+  const selfRate = await A.page.evaluate(async (args) => {
+    const r = await fetch(args.url + "/rest/v1/deck_ratings", {
+      method: "POST",
+      headers: { apikey: "k", "Content-Type": "application/json", Authorization: "Bearer mock-token" },
+      body: JSON.stringify({ deck_id: args.id, user_id: args.uid, stars: 5, body: "mine is great" }),
+    });
+    return r.status;
+  }, { url: "https://qnrnjjcjeggzndgxtyqx.supabase.co", id: db.decks[0].id, uid: ALICE.id });
+  check("the server also refuses a self-rating", selfRate === 403, "status=" + selfRate);
+  check("no self-rating stored", db.ratings.length === 1);
+
+  // withdrawing a rating puts the summary back
+  await B.page.bringToFront();
+  await B.page.reload({ waitUntil: "load" });
+  await B.page.waitForTimeout(1500);
+  await B.page.click("#rvClear");
+  await B.page.waitForTimeout(1100);
+  check("rating withdrawn", db.ratings.length === 0);
+  check("summary reset", db.decks[0].rating_count === 0 && Number(db.decks[0].rating_avg) === 0);
+
+  // ================= staff picks =================
+  await M.page.bringToFront();
+  await gotoFresh(M.page, base + "#deck/" + aliceSlug);
+  await M.page.waitForTimeout(1400);
+  await M.page.click("#ddPick");
+  await M.page.waitForTimeout(1000);
+  check("admin can mark a staff pick", db.decks[0].staff_pick === true);
+  await B.page.bringToFront();
+  await gotoFresh(B.page, base + "#community");
+  await B.page.waitForTimeout(1400);
+  check("staff pick badge shows in browse", await B.page.evaluate(() => !!document.querySelector(".cdeck-pick")));
+  await B.page.click("#cpicks");
+  await B.page.waitForTimeout(1300);
+  check("staff-pick filter keeps it", await B.page.evaluate(() => document.querySelectorAll(".cdeck").length === 1));
+  const notAdmin = await B.page.evaluate(async (args) => {
+    const r = await fetch(args.url + "/rest/v1/user_decks?id=eq." + args.id, {
+      method: "PATCH", headers: { apikey: "k", "Content-Type": "application/json", Authorization: "Bearer mock-token" },
+      body: JSON.stringify({ staff_pick: true }),
+    });
+    return r.status;
+  }, { url: "https://qnrnjjcjeggzndgxtyqx.supabase.co", id: db.decks[0].id });
+  check("a reader cannot award a staff pick", notAdmin === 403, "status=" + notAdmin);
+
+  // ================= fork attribution =================
+  await B.page.bringToFront();
+  await gotoFresh(B.page, base + "#studio");
+  await B.page.waitForTimeout(1200);
+  if (await B.page.evaluate(() => !!document.querySelector("#stAll"))) { await B.page.click("#stAll"); await B.page.waitForTimeout(400); }
+  await B.page.evaluate(() => {
+    const hit = [...document.querySelectorAll(".studio-deck-open")].find((r) => /Byzantine/.test(r.textContent || ""));
+    if (hit) hit.click();
+  });
+  await B.page.waitForTimeout(700);
+  check("installed deck offers a duplicate", await B.page.evaluate(() => !!document.querySelector("#stFork")));
+  await B.page.click("#stFork");
+  await B.page.waitForTimeout(900);
+  const forked = await B.page.evaluate(async () => {
+    const rows = await new Promise((resolve) => {
+      const rq = indexedDB.open("folio-community", 1);
+      rq.onsuccess = () => {
+        const tx = rq.result.transaction("decks", "readonly").objectStore("decks").getAll();
+        tx.onsuccess = () => resolve(tx.result || []);
+        tx.onerror = () => resolve([]);
+      };
+      rq.onerror = () => resolve([]);
+    });
+    const copy = rows.map((r) => r.meta).find((m) => m && m.origin !== "installed" && m.forkedFrom);
+    return copy ? { title: copy.title, from: copy.forkedFrom, origin: copy.origin } : null;
+  });
+  check("the duplicate records what it came from", !!forked && forked.from && /Byzantine/.test(forked.from.title || ""), JSON.stringify(forked));
+  check("the duplicate is mine, not installed", !!forked && forked.origin === "mine", forked ? forked.origin : "");
+
   // ================= exports never carry publish state =================
   await A.page.bringToFront();
-  // reload, not goto: Alice is already on #studio inside a deck, and a same-URL goto is a fragment
-  // navigation that would leave the deck editor open instead of returning to the list
-  await A.page.reload({ waitUntil: "load" });
+  await gotoFresh(A.page, base + "#studio");
   await A.page.waitForTimeout(1100);
+  if (await A.page.evaluate(() => !!document.querySelector("#stAll"))) {   // land on the deck LIST, where [data-export] lives
+    await A.page.click("#stAll");
+    await A.page.waitForTimeout(500);
+  }
   const [dl] = await Promise.all([A.page.waitForEvent("download"), A.page.click("[data-export]")]);
   const f = path.join(require("os").tmpdir(), dl.suggestedFilename());
   await dl.saveAs(f);

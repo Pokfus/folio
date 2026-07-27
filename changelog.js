@@ -8,6 +8,9 @@ window.CHANGELOG = [
     d: "2026-07-27",
     t: "Write your own decks",
     items: [
+      "Shared decks can now be rated out of five, with a short review if you want to leave one. You can only rate a deck once you've actually studied a few of its cards, and the list sorts by rating in a way that doesn't let a single glowing review beat a deck with fifty good ones.",
+      "Decks an editor has read and vouched for now carry a Staff pick mark, and you can filter the list down to just those.",
+      "A deck page now shows more decks by the same author, and a deck you duplicated says what it was based on.",
       "A deck you write can now have its own glossary. Add your terms in the Studio and they underline themselves wherever they appear in that deck's backgrounds, exactly like Folio's do — and only inside your deck. You can choose whether a deck uses Folio's glossary, only your own terms, or both.",
       "You can now share a deck you've written with everyone else. Publish it from the Studio and it appears under \"Browse shared decks\", where anyone can read what it covers, flip through a sample card and add it to their own collection.",
       "Decks you install from other people update when their author improves them, and your progress on the cards that didn't change is kept.",

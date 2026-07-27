@@ -1,11 +1,11 @@
 # Community decks — design plan
 
-**Status:** **Phases 0, 1, 2 and 4 shipped** (2026-07-27) — see §12. Phases 3 and 5 are still proposal.
+**Status:** **Phases 0–4 shipped** (2026-07-27) — see §12. Only Phase 5 (the paid tier) remains a proposal.
 Decision taken with the project owner: build free-only first; the paid tier (§9) comes last.
 
-> **Phase 2 needs a one-off manual step:** run the `5) COMMUNITY DECKS` block at the end of
-> `.claude/supabase-schema.sql` in the Supabase SQL Editor. Until then the app degrades to
-> "Deck sharing isn't set up on this site yet." and everything else keeps working.
+> **Phases 2 and 3 need a one-off manual step:** run the `5) COMMUNITY DECKS` and `6) RATINGS`
+> blocks at the end of `.claude/supabase-schema.sql` in the Supabase SQL Editor. Until then the app
+> degrades to "Deck sharing isn't set up on this site yet." and everything else keeps working.
 **Scope:** users create their own decks, cards and (optionally) their own glossary; publish them; other
 users browse, install, study and rate them; creators may put part of a deck behind a paywall from which
 Folio takes a percentage.
@@ -287,7 +287,7 @@ Ko-fi/Stripe page — Folio takes nothing, needs no server, and tests whether th
 | **0 — foundations** ✅ | Shipped: `sanitizeHTML()`/`sanitizePlain()` (42 XSS vectors tested), the `UCARDS`/`cardById()` shim on the study path, scope-aware glossary indexes (`glossIndexFor`/`invalidateGlossIndex`, verified behaviourally identical), and the CSP `_headers` (0 violations across every route). **Deferred:** extracting `renderLiveCardEditor` — ~14 collaborators and only one caller today, so the seam is cut in Phase 1 against a real second caller rather than guessed at now. | S |
 | **1 — local decks + file sharing** ✅ | Shipped: the Studio (`#studio`), the `UDECKS`/`UCARDS` store on IndexedDB with a localStorage fallback for `file://`, `.folio-deck.json` export/import with fresh ids on collision, a "Your decks" Library section, and community decks studying through the normal scheduler and daily review. The card surface was extracted out of the admin editor here, against the Studio as a real second caller. Sanitizing happens at one ingest choke point (`uDeckNormalize`) plus on write. 40 end-to-end assertions in `.claude/test-community.js`. **Not included:** the per-deck glossary UI — `glossMode` is stored and exported, but every card links against the curated glossary until Phase 4. | L |
 | **2 — publish & discover** ✅ | Shipped: the five tables + RLS at the end of `.claude/supabase-schema.sql` (**run it once**), publish/unpublish from the Studio, `#community` browse with search and sort, `#deck/<slug>` as a shareable deep link with a real flippable sample card, install/update/remove with progress preserved across updates, reports, and an admin hide/restore queue. Cards go up as rows so Phase 5 can gate them in RLS; `price_cents`/`is_demo` ship now so that needs no migration. Installed decks are read-only, with an explicit "Duplicate to edit". 36 assertions in `.claude/test-publish.js`, run against a mock of the REST API so no test ever writes to the live project. | L |
-| **3 — ratings & social** | Ratings, reviews, Bayesian ranking, creator profiles, staff picks, fork/remix. | M |
+| **3 — ratings & social** ✅ | Shipped: `deck_ratings` with trigger-maintained summary and per-star columns, a `rank_score` generated column driving a Bayesian "Top rated" sort, a rating + review form gated on having studied 5 of the deck's cards, a distribution chart and review list, admin staff picks with a browse filter, fork attribution surviving export/import, and "More from this author". **Creator profile pages were deliberately not built** — they would require making `profiles` readable by anonymous visitors, which publishes every user's name; that is the owner's call, and "More from this author" gets most of the value without it. 26 new assertions in `.claude/test-publish.js`. | M |
 | **4 — own glossary** ✅ | Shipped: a Glossary tab in the Studio, the three `glossMode`s, keys namespaced `u:<deckId>:<slug>` so a deck's terms resolve inside that deck and nowhere else, `glossSourcesFor`/`glossScopeForCard`/`glossScopeForKey` wired through card backgrounds and popups, and the glossary travelling in both the deck file and a publish. Also closed a hole Phase 1 left: the `gloss` block is now sanitized on ingest, which mattered the moment it started being rendered. 22 assertions in `.claude/test-deck-glossary.js`, mostly about isolation. | M |
 | **5 — money** | MoR integration, Edge Functions, entitlements, demo/full split, payouts, ToS/tax/refunds. | L + legal |
 

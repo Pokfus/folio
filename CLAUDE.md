@@ -807,6 +807,32 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     install pulls it down — re-sanitized on arrival, since the server copy is not trusted.
   · The **admin "edit this term" button is hidden on deck terms** — it routes into the curated glossary
     editor, which knows nothing about them.
+- **Community decks — Phase 3: ratings, staff picks, attribution (July 2026).** **⚠ Needs the `6) RATINGS`
+  block at the end of `.claude/supabase-schema.sql` run once**, on top of the phase-2 block.
+  · **`deck_ratings`** — one row per (deck, user), 1–5 stars plus an optional ≤500-char review and the
+    rater's display name copied in at write time so listing reviews needs no join to `profiles` (whose RLS
+    is sign-in-only). Insert policy refuses a rating on an unpublished deck **or on your own deck**;
+    update/delete are limited to your own row. Re-rating is an upsert (`Prefer: resolution=merge-duplicates`).
+  · **Summary columns on `user_decks`** — `rating_avg`, `rating_count`, `rating_1..rating_5`, all
+    trigger-maintained by `sync_deck_rating()`. Clients cannot write them. The per-star counts exist so the
+    deck page can draw a distribution without an aggregate query, which PostgREST does badly.
+  · **`rank_score` is a STORED generated column** — `(v/(v+10))·avg + (10/(v+10))·3.5`, the Bayesian pull
+    toward a prior that stops one 5-star review outranking a deck with fifty good ones. Browse's "Top
+    rated" orders by it. A generated column may only read its own row, so the prior is the **constant 3.5**
+    rather than the live site mean; that keeps the sort indexable and is close enough.
+  · **The rating form is gated on having studied `RATE_MIN_STUDIED` (5) of the deck's own cards**
+    (`deckStudiedCount`). This is **friction, not security** — it is a localStorage check and a determined
+    person could study five cards. Enforcing it properly would mean shipping per-deck progress to the
+    server, which is not worth the privacy cost. Said plainly in the code comment too.
+  · **`staff_pick`** — an admin-only boolean and the one strong quality signal on a page of unvetted
+    content. Toggled from the deck page; browse has a filter and a badge. Its own RLS policy.
+  · **`forked_from`** — `{slug, title, author}` recorded when "Duplicate to edit" copies an installed deck,
+    rendered as "Based on X by Y". It rides in `UDECK_META_KEYS`, so unlike the publish keys it **survives
+    export/import** — attribution should not be shed by round-tripping through a file.
+  · **No creator profile page, deliberately.** It would need `profiles` readable by anonymous visitors,
+    which publishes every user's username and display name — a privacy decision for the site owner, not
+    one to make in passing. "More from this author" queries `user_decks` by `owner` instead, which is
+    already public, and gets most of the value.
 
 ## Generating cards & glossary entries
 
@@ -1107,8 +1133,8 @@ dead code (never rendered).
   · `node .claude/test-admin-editor.js` — the curated-content editor: open a card, type, confirm the
     overlay records it, revert, the HTML source box, and gloss popups. **Re-run after touching
     `liveCardEditorHTML` / `wireLiveCardEditor`** — that surface is shared with the Studio.
-  · `node .claude/test-publish.js` — 36 assertions across three browser sessions (an author, a reader, an
-    admin) driving publish → browse → install → update → report → hide → export. It runs against an
+  · `node .claude/test-publish.js` — 62 assertions across three browser sessions (an author, a reader, an
+    admin) driving publish → browse → install → update → report → hide → rate → staff-pick → fork → export. It runs against an
     **in-memory mock of the Supabase REST API**, deliberately: the publishable key in app.js points at the
     real project, so a test that really published would write rows into it. The mock also enforces the
     ownership rule, which is how "a stranger cannot patch someone's deck" is asserted. **Re-run after
