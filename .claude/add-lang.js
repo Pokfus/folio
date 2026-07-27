@@ -8,32 +8,33 @@
 //   node .claude/add-lang.js <batch.json>
 //
 // <batch.json>  { "lang": "ja",
-//                 "chrome":   { "exact": { "English string": "translation", … },     // -> i18n.js  window.I18N[lang]
-//                               "rules": [ ["^Good morning, (.+)$", "…, $1"], … ],   // -> i18n.js  window.I18N_RULES[lang]
-//                               "html":  { "<innerHTML>": "<translated innerHTML>" } },  // -> i18n.js  window.I18N_HTML[lang]
+//                 "chrome":   { "exact": { "English string": "translation", … },     // -> i18n/ui-<lang>.js  I18N[lang]
+//                               "rules": [ ["^Good morning, (.+)$", "…, $1"], … ],   // -> i18n/ui-<lang>.js  I18N_RULES[lang]
+//                               "html":  { "<innerHTML>": "<translated innerHTML>" } },  // -> i18n/ui-<lang>.js  I18N_HTML[lang]
 //                 "cards":    { "wh-001": { "question": …, "answer": …, "answerDate": …,
 //                                           "abstract": …, "answerText": … }, … },   // -> data.js  card.i18n[lang]
-//                 "glossary": { "Sima_Qian": "<3 sentences>", … } }                  // -> glossary-i18n.js  [slug][lang]
+//                 "glossary": { "Sima_Qian": "<3 sentences>", … } }                  // -> i18n/gloss-<lang>.js
 //
 // Every section is OPTIONAL — run it once per batch of work. Only the files a batch actually touches
-// are rewritten, and each is re-parsed afterwards to confirm it is still valid JS.
+// are rewritten, and each is re-parsed afterwards to confirm it is still valid JS. Translation files are
+// per-language (see CLAUDE.md), so a batch only ever writes the one language it names.
 //
 //   --partial   allow a card entry with fewer than the 5 translated fields (default: all 5 required,
 //               so a half-translated card can't quietly ship)
 const fs = require("fs"), path = require("path");
 const root = path.join(__dirname, "..");
+const glossI18nIO = require("./gloss-i18n-io");   // the per-language i18n/gloss-<lang>.js files
 const P = {
-  i18n: path.join(root, "i18n.js"),
+  i18nDir: path.join(root, "i18n"),
   data: path.join(root, "data.js"),
   gloss: path.join(root, "glossary.js"),
-  glossI18n: path.join(root, "glossary-i18n.js"),
 };
+const uiFile = (l) => path.join(P.i18nDir, "ui-" + l + ".js");
 // mirrors LANGS in app.js — en is the source language and carries no translation tables
 const LANGS = ["es", "fr", "de", "it", "nl", "ru", "ar", "zh", "ja"];
 const CARD_I18N_FIELDS = ["question", "answer", "answerDate", "abstract", "answerText"];
 
 function loadWindow(file) { const win = {}; new Function("window", fs.readFileSync(file, "utf8"))(win); return win; }
-const obj = (o) => "{\n" + Object.keys(o).map((k) => JSON.stringify(k) + ": " + JSON.stringify(o[k])).join(",\n") + "\n}";
 function die(msg) { console.error("ERROR: " + msg); process.exit(1); }
 
 const args = process.argv.slice(2);
@@ -46,10 +47,14 @@ if (!LANGS.includes(lang)) die("unknown `lang`: " + JSON.stringify(lang) + " —
 
 const done = [];
 
-/* ---- chrome -> i18n.js (exact strings / regex rules / whole HTML blocks) ------------------------ */
+/* ---- chrome -> i18n/ui-<lang>.js (exact strings / regex rules / whole HTML blocks) -------------- */
 if (batch.chrome && Object.keys(batch.chrome).length) {
   const c = batch.chrome;
-  const win = loadWindow(P.i18n);   // loading applies the appended merge block, so we get the full tables
+  // load every language's chrome file: the target language to merge into, the rest to validate keys against
+  const win = {};
+  for (const f of (fs.existsSync(P.i18nDir) ? fs.readdirSync(P.i18nDir) : [])) {
+    if (/^ui-[\w-]+\.js$/.test(f)) new Function("window", fs.readFileSync(path.join(P.i18nDir, f), "utf8"))(win);
+  }
   const I = win.I18N || {}, R = win.I18N_RULES || {}, H = win.I18N_HTML || {};
   // The English keys must already exist in another language, or the string is one the walker will never
   // look up (a typo, or text that has since changed) and the translation would be dead weight.
@@ -68,17 +73,23 @@ if (batch.chrome && Object.keys(batch.chrome).length) {
       if (at >= 0) R[lang][at] = [pat, repl]; else R[lang].push([pat, repl]);
     }
   }
-  // Keep the file's explanatory header and drop everything after it: the appended "daily-quote pool"
-  // merge block was only ever an append convenience, and loadWindow above has already folded its keys
-  // into I18N, so rewriting the three tables whole loses nothing and keeps the file scriptable.
-  const head = fs.readFileSync(P.i18n, "utf8").split("window.I18N = ")[0];
-  fs.writeFileSync(P.i18n,
-    head +
-    "window.I18N = " + JSON.stringify(I) + ";\n" +
-    "window.I18N_RULES = " + JSON.stringify(R) + ";\n" +
-    "window.I18N_HTML = " + JSON.stringify(H) + ";\n");
-  loadWindow(P.i18n);   // re-parse to confirm valid JS
-  done.push("i18n.js: +" + Object.keys(c.exact || {}).length + " exact, +" + ((c.rules || []).length) + " rules, +" + Object.keys(c.html || {}).length + " html" +
+  fs.mkdirSync(P.i18nDir, { recursive: true });
+  fs.writeFileSync(uiFile(lang),
+    "/* Folio site-chrome translations — " + lang + ". Lazy: fetched by the `uiI18n:" + lang + "` data bundle only when the\n" +
+    "   site language is " + lang + ", so a reader downloads their own language and nothing else. English is the source\n" +
+    "   language and the universal fallback — anything missing here simply stays English on screen.\n" +
+    "     window.I18N[" + lang + "]       — exact-match text: { \"English string\": \"translation\" }, keyed by the trimmed text node.\n" +
+    "     window.I18N_RULES[" + lang + "] — parameterized text: [ [\"^regex with (groups)$\", \"replacement with $1\"], … ], tried in order.\n" +
+    "     window.I18N_HTML[" + lang + "]  — whole prose blocks: an element's exact trimmed innerHTML -> the translated innerHTML.\n" +
+    "   Written by .claude/add-lang.js. The walker in app.js (localizeTree/applyLang) does the swapping. */\n" +
+    "(function () {\n" +
+    "  var L = " + JSON.stringify(lang) + ";\n" +
+    "  (window.I18N = window.I18N || {})[L] = " + JSON.stringify(I[lang]) + ";\n" +
+    "  (window.I18N_RULES = window.I18N_RULES || {})[L] = " + JSON.stringify(R[lang] || []) + ";\n" +
+    "  (window.I18N_HTML = window.I18N_HTML || {})[L] = " + JSON.stringify(H[lang] || {}) + ";\n" +
+    "})();\n");
+  loadWindow(uiFile(lang));   // re-parse to confirm valid JS
+  done.push("i18n/ui-" + lang + ".js: +" + Object.keys(c.exact || {}).length + " exact, +" + ((c.rules || []).length) + " rules, +" + Object.keys(c.html || {}).length + " html" +
     " (" + lang + " now " + Object.keys(I[lang]).length + " exact / " + (R[lang] || []).length + " rules / " + Object.keys(H[lang] || {}).length + " html)");
 }
 
@@ -107,26 +118,19 @@ if (batch.cards && Object.keys(batch.cards).length) {
   done.push("data.js: " + Object.keys(batch.cards).length + " card(s) (" + lang + " now complete on " + full + "/" + cards.length + ")");
 }
 
-/* ---- glossary -> glossary-i18n.js ([slug][lang]) ----------------------------------------------- */
+/* ---- glossary -> i18n/gloss-<lang>.js ---------------------------------------------------------- */
 if (batch.glossary && Object.keys(batch.glossary).length) {
   const GLOSS = loadWindow(P.gloss).GLOSSARY || {};
-  const G = (fs.existsSync(P.glossI18n) ? (loadWindow(P.glossI18n).GLOSSARY_I18N || {}) : {});
+  const G = {};   // just this language: { slug: text } — the other languages live in their own files
+  Object.assign(G, glossI18nIO.read(lang));
   for (const [slug, text] of Object.entries(batch.glossary)) {
     if (!(slug in GLOSS)) die("no glossary term with slug " + slug + " (add the English entry first with add-glossary.js)");
     if (!(typeof text === "string" && text.trim())) die("empty translation for " + slug);
-    G[slug] = G[slug] || {};
-    G[slug][lang] = text;
+    G[slug] = text;
   }
-  fs.writeFileSync(P.glossI18n,   // byte-identical header to add-glossary.js + app.js's serializeGlossaryI18n
-    "/* Glossary translations — window.GLOSSARY_I18N[slug][lang] = the entry's description translated into that\n" +
-    "   language (same three-sentence rules as the English text in glossary.js). Languages: es, fr, de, it, nl,\n" +
-    "   ru, ar, zh, ja. Grown alongside glossary.js by .claude/add-glossary.js (the entry JSON's \"translations\"\n" +
-    "   field); the gloss popup shows the translation matching the site language, falling back to English.\n" +
-    "   Loaded after glossary.js / glossary-wikipedia.js, before app.js. */\n" +
-    "window.GLOSSARY_I18N = " + obj(G) + ";\n");
-  loadWindow(P.glossI18n);   // re-parse to confirm valid JS
-  const have = Object.keys(GLOSS).filter((s) => (G[s] || {})[lang]).length;
-  done.push("glossary-i18n.js: " + Object.keys(batch.glossary).length + " term(s) (" + lang + " now " + have + "/" + Object.keys(GLOSS).length + ")");
+  glossI18nIO.write(lang, G);   // re-parses to confirm valid JS
+  const have = Object.keys(GLOSS).filter((s) => G[s]).length;
+  done.push("i18n/gloss-" + lang + ".js: " + Object.keys(batch.glossary).length + " term(s) (" + lang + " now " + have + "/" + Object.keys(GLOSS).length + ")");
 }
 
 if (!done.length) die("batch has no `chrome`, `cards` or `glossary` section — nothing to do");

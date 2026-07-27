@@ -155,13 +155,15 @@
   window.GLOSSARY_CASESENSITIVE = window.GLOSSARY_CASESENSITIVE || {}; // slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven)
   window.GLOSSARY_TAGS = window.GLOSSARY_TAGS || {};       // per-term category tags (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar
   window.GLOSSARY_IMAGES = window.GLOSSARY_IMAGES || {};   // optional per-term illustration (slug -> { src, title, desc, credit }) shown at the foot of the popup, same shape + viewer as a card image
-  window.GLOSSARY_I18N = window.GLOSSARY_I18N || {};       // slug -> { lang: translated description } (glossary-i18n.js)
+  window.GLOSSARY_I18N = window.GLOSSARY_I18N || {};       // slug -> { lang: translated description } (i18n/gloss-<lang>.js)
   const PRISTINE_GLOSS_DATES = Object.assign({}, window.GLOSSARY_DATES);
   const PRISTINE_GLOSS_TITLES = Object.assign({}, window.GLOSSARY_TITLES);
   const PRISTINE_GLOSS_ALIASES = Object.assign({}, window.GLOSSARY_ALIASES);
   const PRISTINE_GLOSS_TAGS = Object.assign({}, window.GLOSSARY_TAGS);
   const PRISTINE_GLOSS_IMAGES = Object.assign({}, window.GLOSSARY_IMAGES);   // slug -> shipped image object (edits REPLACE a slug's object, never mutate it)
-  const PRISTINE_GLOSS_I18N = Object.assign({}, window.GLOSSARY_I18N);   // slug -> shipped lang-map reference (edits REPLACE a slug's map, never mutate it)
+  // slug -> shipped lang-map (edits REPLACE a slug's map, never mutate it). Filled in as each language's
+  // i18n/gloss-<lang>.js lands (glossI18nIngest), NOT at boot — the files are lazy and per-language now.
+  const PRISTINE_GLOSS_I18N = Object.assign({}, window.GLOSSARY_I18N);
   const PRISTINE_TREE_TITLES = {}; Object.values(NODE_BY_ID).forEach((n) => { PRISTINE_TREE_TITLES[n.id] = n.title; });
   // snapshot of the shipped tree structure (used to rebuild after create/rename/delete/move)
   const SHIPPED_NODES = [];
@@ -299,7 +301,7 @@
     Object.keys(ADMIN_EDITS.glossaryAliases || {}).forEach((k) => { const v = ADMIN_EDITS.glossaryAliases[k]; if (v && v.length) window.GLOSSARY_ALIASES[k] = v; else delete window.GLOSSARY_ALIASES[k]; });
     Object.keys(ADMIN_EDITS.glossaryTags || {}).forEach((k) => { const v = ADMIN_EDITS.glossaryTags[k]; if (v && v.length) window.GLOSSARY_TAGS[k] = v; else delete window.GLOSSARY_TAGS[k]; });
     Object.keys(ADMIN_EDITS.glossaryImages || {}).forEach((k) => { const v = ADMIN_EDITS.glossaryImages[k]; if (v && v.src) window.GLOSSARY_IMAGES[k] = v; else delete window.GLOSSARY_IMAGES[k]; });   // whole image objects; a null tombstone hides a shipped one
-    Object.keys(ADMIN_EDITS.glossaryI18n || {}).forEach((k) => { const v = ADMIN_EDITS.glossaryI18n[k]; if (v && Object.keys(v).length) window.GLOSSARY_I18N[k] = v; else delete window.GLOSSARY_I18N[k]; });   // whole per-slug lang-maps
+    Object.keys(ADMIN_EDITS.glossaryI18n || {}).forEach(glossI18nApply);   // per-language deltas, LAYERED over the shipped text
     // glossary deletions: drop the term from the live glossary, but only while the shipped text is unchanged.
     // If the slug was re-added or edited out-of-band (e.g. add-glossary.js rewrote glossary.js), retire the tombstone
     // so the term isn't silently re-hidden — and isn't wiped from glossary.js on the next Save to project.
@@ -693,14 +695,30 @@
     else ADMIN_EDITS.glossary[key] = value;
     queueAdminSave();
   }
-  // edit one language's translation of a term's description (site language ≠ EN in the editor).
-  // The slug's lang-map is REPLACED with a deep copy (PRISTINE_GLOSS_I18N shares the shipped object)
-  // and stored whole as a glossaryI18n delta, like the card i18n/image deltas.
+  // The live lang-map of a term is shipped ⊕ overlay, resolved per LANGUAGE rather than per slug. That
+  // matters because the gloss translations are lazy and per-language: a delta captured as a whole lang-map
+  // (as it once was) would contain only the languages whose file happened to be loaded when the admin
+  // typed, and re-applying it on the next load would wipe the shipped text of all the others. `null` is a
+  // cleared translation, the same tombstone convention as the card/glossary image deltas.
+  function glossI18nMerged(key) {
+    const base = PRISTINE_GLOSS_I18N[key], d = (ADMIN_EDITS.glossaryI18n || {})[key];
+    if (!d) return base;
+    const out = Object.assign({}, base);
+    Object.keys(d).forEach((l) => { if (d[l] == null) delete out[l]; else out[l] = d[l]; });
+    return out;
+  }
+  function glossI18nApply(key) {
+    const m = glossI18nMerged(key);
+    if (m && Object.keys(m).length) window.GLOSSARY_I18N[key] = m; else delete window.GLOSSARY_I18N[key];
+  }
+  // edit one language's translation of a term's description (site language ≠ EN in the editor); only that
+  // language is recorded, and typing the shipped text back clears the delta.
   function setGlossI18nEdit(key, lang, value) {
-    const next = JSON.parse(JSON.stringify(window.GLOSSARY_I18N[key] || {}));
-    if (value) next[lang] = value; else delete next[lang];
-    window.GLOSSARY_I18N[key] = next;
-    ADMIN_EDITS.glossaryI18n[key] = next;
+    const d = Object.assign({}, (ADMIN_EDITS.glossaryI18n || {})[key]);
+    const shipped = (PRISTINE_GLOSS_I18N[key] || {})[lang] || "";
+    if ((value || "") === shipped) delete d[lang]; else d[lang] = value || null;
+    if (Object.keys(d).length) ADMIN_EDITS.glossaryI18n[key] = d; else delete ADMIN_EDITS.glossaryI18n[key];
+    glossI18nApply(key);
     queueAdminSave();
   }
   function setGlossDateEdit(key, value) {
@@ -770,8 +788,8 @@
     delete ADMIN_EDITS.glossaryTags[key];
     if (key in PRISTINE_GLOSS_IMAGES) window.GLOSSARY_IMAGES[key] = PRISTINE_GLOSS_IMAGES[key]; else delete window.GLOSSARY_IMAGES[key];
     delete ADMIN_EDITS.glossaryImages[key];
-    if (key in PRISTINE_GLOSS_I18N) window.GLOSSARY_I18N[key] = PRISTINE_GLOSS_I18N[key]; else delete window.GLOSSARY_I18N[key];
     delete ADMIN_EDITS.glossaryI18n[key];
+    glossI18nApply(key);   // back to the shipped lang-map (whatever languages have been loaded)
     invalidateGlossIndex();
     saveAdminEdits();
   }
@@ -1528,7 +1546,7 @@
     const u = uGlossParse(k);
     if (u) return u.entry.desc || "";                // a deck's own term — never translated, decks are single-language
     const G = window.GLOSSARY || {};
-    if (uiLang() !== "en") {                       // translated description when the entry carries one (glossary-i18n.js)
+    if (uiLang() !== "en") {                       // translated description when the entry carries one (i18n/gloss-<lang>.js)
       const tr = (window.GLOSSARY_I18N || {})[k];
       if (tr && tr[uiLang()]) return tr[uiLang()];
     }
@@ -2983,22 +3001,34 @@
         if (!Array.isArray(window.TIMELINE)) window.TIMELINE = [];
       },
     },
-    // site-chrome translation tables — only fetched when the site language isn't English
-    uiI18n: { files: ["i18n.js"] },
-    // glossary descriptions in the 8 site languages — ditto
-    glossI18n: {
-      files: ["glossary-i18n.js"],
-      after: function () {
-        // the pristine snapshot taken at boot was empty (the file wasn't loaded yet); re-seed it so
-        // revert/undo compare against the shipped text, then re-apply the overlay's own translations
-        Object.assign(PRISTINE_GLOSS_I18N, window.GLOSSARY_I18N);
-        Object.keys(ADMIN_EDITS.glossaryI18n || {}).forEach((k) => {
-          const v = ADMIN_EDITS.glossaryI18n[k];
-          if (v && Object.keys(v).length) window.GLOSSARY_I18N[k] = v; else delete window.GLOSSARY_I18N[k];
-        });
-      },
-    },
   };
+  // The translation tables are split ONE FILE PER LANGUAGE (i18n/ui-<lang>.js, i18n/gloss-<lang>.js) and
+  // registered as bundles on demand, so a Spanish reader fetches ~310 KB of Spanish instead of the 2.7 MB
+  // of all-languages tables the single-file layout made everyone download. Registering lazily (rather than
+  // listing 18 static bundles) also means a session only ever knows about the languages it actually visits.
+  function langBundle(kind, lang) {
+    const name = kind + ":" + lang;
+    if (!DATA_BUNDLES[name]) {
+      DATA_BUNDLES[name] = kind === "uiI18n"
+        ? { files: ["i18n/ui-" + lang + ".js"] }
+        : { files: ["i18n/gloss-" + lang + ".js"], after: glossI18nIngest };
+    }
+    return name;
+  }
+  // A gloss language file pushes its shipped slug -> text map onto window.GLOSSARY_I18N_IN rather than
+  // writing the live table itself: the shipped text is the baseline revert/undo compares against, so it
+  // has to reach PRISTINE_GLOSS_I18N *before* any admin edits are layered back on top. Draining a QUEUE
+  // (not a single handoff slot) keeps that correct when two languages' scripts land before either hook.
+  function glossI18nIngest() {
+    const q = window.GLOSSARY_I18N_IN || [];
+    window.GLOSSARY_I18N_IN = [];
+    const touched = new Set();
+    q.forEach((inc) => Object.keys(inc.data).forEach((k) => {
+      (PRISTINE_GLOSS_I18N[k] = PRISTINE_GLOSS_I18N[k] || {})[inc.lang] = inc.data[k];
+      touched.add(k);
+    }));
+    touched.forEach(glossI18nApply);
+  }
   const _bundlePromises = {};
   function loadScriptOnce(src) {
     return new Promise((resolve, reject) => {
@@ -9500,16 +9530,36 @@
     const ov = ADMIN_EDITS.mission || {};
     return { title: ov.title !== undefined ? ov.title : base.title, paras: Array.isArray(ov.paras) ? ov.paras : (base.paras || []) };
   }
-  function serializeGlossaryI18n() {
-    const G = window.GLOSSARY_I18N || {};
-    return "/* Glossary translations — window.GLOSSARY_I18N[slug][lang] = the entry's description translated into that\n" +
-      "   language (same three-sentence rules as the English text in glossary.js). Languages: es, fr, de, it, nl,\n" +
-      "   ru, ar, zh, ja. Grown alongside glossary.js by .claude/add-glossary.js (the entry JSON's \"translations\"\n" +
-      "   field); the gloss popup shows the translation matching the site language, falling back to English.\n" +
-      "   Loaded after glossary.js / glossary-wikipedia.js, before app.js. */\n" +
-      "window.GLOSSARY_I18N = {\n" +
-      Object.keys(G).map((k) => JSON.stringify(k) + ": " + JSON.stringify(G[k])).join(",\n") +
-      "\n};\n";
+  // One language's i18n/gloss-<lang>.js. Byte-for-byte the same shape .claude/add-lang.js writes, so a
+  // file baked here and one grown by the script stay interchangeable.
+  function serializeGlossaryI18n(lang) {
+    const G = window.GLOSSARY_I18N || {}, flat = {};
+    Object.keys(G).forEach((k) => { if (G[k] && G[k][lang]) flat[k] = G[k][lang]; });
+    return "/* Glossary descriptions translated into " + lang + " (slug -> text; same three-sentence rules as the English in\n" +
+      "   glossary.js). Lazy: fetched by the `glossI18n:" + lang + "` data bundle only when the site language is " + lang + ".\n" +
+      "   The bundle's `after` hook in app.js drains window.GLOSSARY_I18N_IN into the shipped baseline\n" +
+      "   (PRISTINE_GLOSS_I18N) and layers any admin edits on top, producing window.GLOSSARY_I18N[slug][lang] —\n" +
+      "   which is what glossText() reads. Grown by .claude/add-glossary.js / .claude/add-lang.js. */\n" +
+      "(function () {\n" +
+      "  var d = {\n" +
+      Object.keys(flat).map((k) => JSON.stringify(k) + ": " + JSON.stringify(flat[k])).join(",\n") +
+      "\n};\n" +
+      "  (window.GLOSSARY_I18N_IN = window.GLOSSARY_I18N_IN || []).push({ lang: " + JSON.stringify(lang) + ", data: d });\n" +
+      "})();\n";
+  }
+  // Which gloss language files an admin's edits require rewriting. A language is only safe to bake if its
+  // file has actually been loaded — otherwise the in-memory table holds just the edited slugs and writing
+  // it would truncate the shipped file to those. (You can only edit a language you're reading the site in,
+  // so this excludes nothing in practice; it is a guard against a stale overlay from another device.)
+  function editedGlossI18nLangs() {
+    const langs = new Set();
+    Object.values(ADMIN_EDITS.glossaryI18n || {}).forEach((d) => Object.keys(d || {}).forEach((l) => langs.add(l)));
+    return [...langs].filter((l) => dataReady("glossI18n:" + l));
+  }
+  function glossI18nFiles() {
+    const out = {};
+    editedGlossI18nLangs().forEach((l) => { out["i18n/gloss-" + l + ".js"] = serializeGlossaryI18n(l); });
+    return out;
   }
   function serializeMission() {
     const M = missionMerged();
@@ -10337,7 +10387,14 @@
     const a = document.createElement("a"); a.href = url; a.download = name;
     document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
   }
-  async function writeFileTo(dir, name, text) { const fh = await dir.getFileHandle(name, { create: true }); const w = await fh.createWritable(); await w.write(text); await w.close(); }
+  // `name` may be a relative path ("i18n/gloss-es.js") — walk (and create) the directories on the way down
+  async function writeFileTo(dir, name, text) {
+    const parts = String(name).split("/");
+    let d = dir;
+    for (let i = 0; i < parts.length - 1; i++) d = await d.getDirectoryHandle(parts[i], { create: true });
+    const fh = await d.getFileHandle(parts[parts.length - 1], { create: true });
+    const w = await fh.createWritable(); await w.write(text); await w.close();
+  }
   // ---------- Auto-save to project files (Chrome + File System Access API, served over http://localhost) ----------
   // When ON, every admin edit is written straight into data.js / glossary.js / timeline.js (debounced ~20s) — no "Save to project"
   // click needed. The chosen folder handle is persisted in IndexedDB so it survives reloads; Chrome's WRITE permission is per-
@@ -10370,7 +10427,7 @@
     b.classList.toggle("on", s === "on" || s === "saving" || s === "saved");
     b.classList.toggle("warn", s === "reconnect" || s === "error");
   }
-  function autoSaveFiles() { const f = { "data.js": serializeCardData(), "glossary.js": serializeGlossary() }; if (Array.isArray(ADMIN_EDITS.timeline)) f["timeline.js"] = serializeTimeline(); if (ADMIN_EDITS.mission) f["mission.js"] = serializeMission(); if (Object.keys(ADMIN_EDITS.glossaryI18n || {}).length) f["glossary-i18n.js"] = serializeGlossaryI18n(); return f; }
+  function autoSaveFiles() { const f = { "data.js": serializeCardData(), "glossary.js": serializeGlossary() }; if (Array.isArray(ADMIN_EDITS.timeline)) f["timeline.js"] = serializeTimeline(); if (ADMIN_EDITS.mission) f["mission.js"] = serializeMission(); Object.assign(f, glossI18nFiles()); return f; }
   async function autoSaveNow() {
     if (!autoSaveArmed || !autoSaveDir) return;
     if (_autoWriting) { autoSaveWrite(); return; }                                  // a write is in flight → coalesce into the next tick
@@ -10420,9 +10477,10 @@
       const files = [["data.js", dataJs], ["glossary.js", glossJs]];
       if (hasTl) files.push(["timeline.js", serializeTimeline()]);
       if (ADMIN_EDITS.mission) files.push(["mission.js", serializeMission()]);
-      if (Object.keys(ADMIN_EDITS.glossaryI18n || {}).length) files.push(["glossary-i18n.js", serializeGlossaryI18n()]);
-      files.forEach(([n, t], i) => setTimeout(() => downloadText(n, t), i * 350));
-      toast(msg);
+      Object.entries(glossI18nFiles()).forEach((e) => files.push(e));
+      // a browser download can't carry a folder — send the basename and say where the i18n ones belong
+      files.forEach(([n, t], i) => setTimeout(() => downloadText(n.split("/").pop(), t), i * 350));
+      toast(msg + (files.some(([n]) => n.indexOf("/") >= 0) ? " The gloss-<lang>.js files go in the i18n/ subfolder." : ""));
     };
     // file:// is an opaque origin — showDirectoryPicker rejects there with SecurityError, so don't flash a doomed picker; go straight to download with a localhost tip.
     if (location.protocol === "file:" || !window.showDirectoryPicker) {
@@ -10446,7 +10504,7 @@
       await writeFileTo(dir, "glossary.js", glossJs);
       if (hasTl) await writeFileTo(dir, "timeline.js", serializeTimeline());   // commit historical eras to timeline.js (then the overlay copy is dropped below)
       if (ADMIN_EDITS.mission) await writeFileTo(dir, "mission.js", serializeMission());   // bake the Mission intro (overlay dropped below)
-      if (Object.keys(ADMIN_EDITS.glossaryI18n || {}).length) await writeFileTo(dir, "glossary-i18n.js", serializeGlossaryI18n());   // bake edited glossary translations
+      for (const [n, txt] of Object.entries(glossI18nFiles())) await writeFileTo(dir, n, txt);   // bake edited glossary translations, one file per language
       // deck date labels + coming-soon pins live only in the delta overlay (not encoded in the files) — keep them so a
       // save never loses them; everything else is now baked into data.js / glossary.js, so drop it.
       try {
@@ -10470,7 +10528,7 @@
       const out = { "data.js": serializeCardData(), "glossary.js": serializeGlossary() };
       if (Array.isArray(ADMIN_EDITS.timeline)) out["timeline.js"] = serializeTimeline();
       if (ADMIN_EDITS.mission) out["mission.js"] = serializeMission();
-      if (Object.keys(ADMIN_EDITS.glossaryI18n || {}).length) out["glossary-i18n.js"] = serializeGlossaryI18n();
+      Object.assign(out, glossI18nFiles());
       return out;
     },
     // the overlay to keep after files are written: only the overlay-only metadata (deck dates,
@@ -11033,7 +11091,7 @@
       if (!k || !window.GLOSSARY || !(k in window.GLOSSARY)) { host.innerHTML = '<div class="admin-editor-empty">Select a glossary term from the list to edit it.</div>'; return; }
       const closeSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>';
       // the editing language IS the site language (top-right switcher): EN edits the base description,
-      // any other language edits that language's translation (glossary-i18n.js); title/dates/aliases/tags are shared
+      // any other language edits that language's translation (i18n/gloss-<lang>.js); title/dates/aliases/tags are shared
       const gLang = CARD_I18N_LANGS.includes(uiLang()) ? uiLang() : "en";
       const gEn = gLang === "en";
       const gDir = gLang === "ar" ? ' dir="rtl"' : "";
@@ -11911,13 +11969,15 @@
     q = String(q).toLowerCase().split("-")[0];   // accept es-ES / pt-BR style tags, match on the base language
     if (LANG_CODES.includes(q) && q !== S.settings.lang) { S.settings.lang = q; save(); }
   })();
-  // The translation tables are lazy (see DATA_BUNDLES): i18n.js carries the site chrome and
-  // glossary-i18n.js the glossary descriptions, ~2.3 MB that English readers never fetch. Both are
-  // pulled the moment the language goes non-English; `then` fires once the chrome table has landed.
+  // The translation tables are lazy AND per-language (see langBundle): i18n/ui-<lang>.js carries the site
+  // chrome and i18n/gloss-<lang>.js the glossary descriptions — ~310 KB for the one language being read,
+  // which an English reader never fetches at all. Both are pulled the moment the language goes
+  // non-English; `then` fires once the chrome table has landed.
   function loadLangData(then) {
-    if ((S.settings.lang || "en") === "en") { if (then) then(); return; }
-    ensureData("glossI18n");   // background — gloss popups read it as soon as it lands
-    ensureData("uiI18n").then(() => { if (then) then(); });
+    const lang = S.settings.lang || "en";
+    if (lang === "en") { if (then) then(); return; }
+    ensureData(langBundle("glossI18n", lang));   // background — gloss popups read it as soon as it lands
+    ensureData(langBundle("uiI18n", lang)).then(() => { if (then) then(); });
   }
   // the one place the site language changes: validates, persists, loads what it needs, repaints
   function setLang(code) {
@@ -11925,7 +11985,7 @@
     S.settings.lang = code;
     save();
     const paint = () => { applyLang(); render(); };   // flip dir/lang + the static chrome, then rebuild the page
-    if (code === "en" || dataReady("uiI18n")) paint(); else loadLangData(paint);
+    if (code === "en" || dataReady(langBundle("uiI18n", code))) paint(); else loadLangData(paint);
   }
   (function setupLangSwitch() {
     const btn = document.getElementById("lang-switch"), codeEl = document.getElementById("lang-code"), flagEl = document.getElementById("lang-flag");

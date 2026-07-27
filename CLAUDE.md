@@ -35,8 +35,8 @@ of blocking JS to flip a card; the Atlas layers and the translation tables are ~
 |---|---|---|
 | `world` | `world.js` | the Atlas mounts; the home page's mini globe (at idle); the Settings home picker |
 | `atlas` | `uk` `lakes` `rivers` `water` `cities` `timeline` `countries` `country-stats` `country-spans` `country-years` | the Atlas mounts |
-| `uiI18n` | `i18n.js` | the site language isn't English |
-| `glossI18n` | `glossary-i18n.js` | ditto |
+| `uiI18n:<lang>` | `i18n/ui-<lang>.js` | the site language isn't English |
+| `glossI18n:<lang>` | `i18n/gloss-<lang>.js` | ditto |
 
 (`heightmap.js` + `heightmap-ultra.js` are lazy too, but on their own older path — `loadHeightmapLevel`, keyed off
 the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
@@ -74,16 +74,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   translations are backed up in `.claude/backup/`.
 - `glossary-wikipedia.js` — `Object.assign`s extra summaries onto `window.GLOSSARY` (loads *after*
   `glossary.js`). **Currently an empty stub.**
-- `glossary-i18n.js` — `window.GLOSSARY_I18N[slug][lang]`, glossary descriptions translated into the 9 site
-  languages (es/fr/de/it/nl/ru/ar/zh/ja); written by `.claude/add-glossary.js` from the entry JSON's
-  `translations` field (or backfilled one language at a time by `.claude/add-lang.js`), read by
-  `glossText()` when the site language isn't English. **Admin-editable**: with the
+- `i18n/gloss-<lang>.js` — glossary descriptions translated into that one language (slug → text); written by
+  `.claude/add-glossary.js` from the entry JSON's `translations` field, or backfilled a language at a time by
+  `.claude/add-lang.js` (both go through `.claude/gloss-i18n-io.js`). A file **pushes onto
+  `window.GLOSSARY_I18N_IN`** rather than writing the live table: the bundle's `after` hook (`glossI18nIngest`)
+  drains that queue into the shipped baseline `PRISTINE_GLOSS_I18N` and then layers the admin overlay on top,
+  producing `window.GLOSSARY_I18N[slug][lang]` — which is what `glossText()` reads. **Admin-editable**: with the
   site language switched to a non-EN language, the glossary editor edits that language's translation
   (`glossaryI18n` overlay deltas; baked back into this file by `serializeGlossaryI18n`).
-- `i18n.js` — the site-chrome translation tables (`window.I18N` exact strings / `I18N_RULES` regex patterns /
-  `I18N_HTML` whole prose blocks per language, keyed by English source text) consumed by app.js's
-  localisation engine. **Lazy** (bundle `uiI18n`) — an English reader never fetches it. See the
-  "Language switcher + i18n" bullet below.
+- `i18n/ui-<lang>.js` — the site-chrome translation tables for one language (`window.I18N` exact strings /
+  `I18N_RULES` regex patterns / `I18N_HTML` whole prose blocks, keyed by English source text) consumed by
+  app.js's localisation engine. **Lazy** (bundle `uiI18n:<lang>`) — an English reader never fetches any of
+  them. See the "Language switcher + i18n" bullet below.
 - `world.js` (~1.6 MB) — `window.WORLD_GEO`, country-border polygons (Natural Earth 110m, ~117k verts) for the
   Atlas globe.
 - `uk.js` (~47 KB) — `window.UK_SUBUNITS = [ { n, p:[rings], c:[mask] } ]`, the UK's constituent countries (England,
@@ -200,9 +202,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **A bundle's `after` hook re-establishes what boot would have done had the file been present** — this is
   the part that bites. `timeline.js` assigns `window.TIMELINE` over the empty array `applyAdminEdits()` left
   at boot, so the atlas hook re-applies `ADMIN_EDITS.timeline` on top or **the admin's working era set is
-  silently lost**; `glossary-i18n.js` arrives after `PRISTINE_GLOSS_I18N` was snapshotted empty, so its hook
-  re-seeds that baseline (revert/undo compare against it) and re-applies the `glossaryI18n` deltas. Any new
-  lazy file whose global is read at boot needs the same treatment.
+  silently lost**; a gloss language file arrives after `PRISTINE_GLOSS_I18N` was snapshotted empty, so its hook
+  (`glossI18nIngest`) re-seeds that baseline (revert/undo compare against it) and re-applies the `glossaryI18n`
+  deltas. Because those files are **per language** the hook runs once per language and the baseline accumulates —
+  and it drains a QUEUE (`window.GLOSSARY_I18N_IN`), not a single slot, so two languages whose scripts land before
+  either hook both get seeded. Any new lazy file whose global is read at boot needs the same treatment.
 - **PWA:** `manifest.json` (installable, `icon.svg` + `icon-maskable.svg`) and **`sw.js`**, registered by
   app.js on `load`. **Never registered on a dev origin** (`isDevOrigin()` — same guard, and same reason, as
   the cloud content overrides): a file-watching dev server's live-reload against a caching worker serves
@@ -223,8 +227,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `PRISTINE_CARDS` shares the object) and stores the whole copy as an `i18n` delta (`applyAdminEdits` re-applies it
   via `Object.assign`; `serializeCardData` bakes `c.i18n` as-is; `revertCard` restores `p.i18n`). **The glossary
   editor follows the same rule**: non-EN site language edits that language's description translation
-  (`setGlossI18nEdit` → whole per-slug lang-map stored as a `glossaryI18n` delta, applied onto `window.GLOSSARY_I18N`,
-  baked to `glossary-i18n.js` by `serializeGlossaryI18n` via auto-save / Save to project / `folioSave.files`;
+  (`setGlossI18nEdit` → a **per-(slug, language)** `glossaryI18n` delta **LAYERED** over the shipped text by
+  `glossI18nMerged`/`glossI18nApply` — `null` is a cleared translation, and typing the shipped text back clears the
+  delta. It must stay per-language rather than a whole lang-map: the gloss files are lazy and per-language, so a
+  whole-map delta would hold only the languages loaded when the admin typed and would wipe the rest on the next
+  load. Baked to `i18n/gloss-<lang>.js` by `serializeGlossaryI18n(lang)`, one file per edited language and **only
+  for languages whose file is loaded** (`editedGlossI18nLangs`) — writing an unloaded one would truncate the shipped
+  file to just the edited slugs — via auto-save / Save to project / `folioSave.files`;
   `PRISTINE_GLOSS_I18N` + `revertGloss` cover undo/revert); title/dates/aliases/tags stay EN-view-only. The editor
   previews render in the editing language. Gloss auto-linking stays EN-only. The language switcher's own handler
   already calls `render()`, so the editor re-renders in the new language on switch.
@@ -364,7 +373,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - **Language switcher + i18n** (`#lang-switch` in the top bar, right of Settings): a custom dropdown of 9 languages
   (en/es/fr/de/it/nl/ru/ar/zh) stored in `S.settings.lang`, each option showing an **inline SVG country flag**
   (`FLAG_SVG` in app.js — NOT emoji flags, which render as bare letter pairs on Windows) plus the language's native
-  name. **The site chrome IS localised**: `i18n.js` holds per-language tables (`window.I18N` exact strings /
+  name. **The site chrome IS localised**: `i18n/ui-<lang>.js` holds one language's tables (`window.I18N` exact strings /
   `I18N_RULES` regex patterns for dynamic labels / `I18N_HTML` whole prose blocks, all keyed by the ENGLISH source
   text), and app.js's engine (`t()`, `localizeTree()`, `applyLang()`) walks rendered text nodes +
   title/aria-label/placeholder/alt attributes after render, with a MutationObserver localizing later DOM (toasts,
@@ -378,17 +387,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   translated, so the switcher never offers a language that renders as English. **Japanese (`ja`) is mid-rollout**:
   the plumbing and `FLAG_SVG.ja` have shipped, the `LANGS` entry has not.
   **Content localisation is separate**: cards carry per-language `i18n` blocks (`cardLocalized()`), glossary
-  descriptions live in `glossary-i18n.js` (`window.GLOSSARY_I18N`, read by `glossText()`).
+  descriptions live in `i18n/gloss-<lang>.js` (`window.GLOSSARY_I18N`, read by `glossText()`).
   **`setLang(code)` is the single entry point** for a language change (the switcher calls it; don't set
-  `S.settings.lang` directly): it validates against `LANG_CODES`, persists, and — since `i18n.js` +
-  `glossary-i18n.js` are now **lazy** — calls `loadLangData()` first, repainting with `applyLang(); render();`
+  `S.settings.lang` directly): it validates against `LANG_CODES`, persists, and — since the translation files are
+  **lazy and per-language** (`langBundle`) — calls `loadLangData()` first, repainting with `applyLang(); render();`
   once the chrome table lands. A non-English reader therefore sees English for the moment the table takes to
-  arrive; an English reader never fetches either file, and never pays a second render.
+  arrive; an English reader never fetches any of them, and never pays a second render. Switching language pulls
+  only the new language's two files; the previous one stays resident.
   **`?lang=xx` links the site in a given language** (e.g. `/?lang=es#decks`) and, like the switcher, becomes
   the stored preference. Its IIFE runs **before `setupLangSwitch`** so the switcher's flag and code chip render
   in the chosen language — move it after and the chip shows the previous language until the next reload.
   Base-tag matching (`es-ES` → `es`); an unknown code is ignored, not stored.
-  **Known gap:** the `PAGE_META` titles/descriptions have no `i18n.js` entries yet, so `document.title` stays
+  **Known gap:** the `PAGE_META` titles/descriptions have no `i18n/ui-<lang>.js` entries yet, so `document.title` stays
   English in other languages (the documented graceful fallback). Adding them is a content task.
 - **UI sound effects** (the `/* UI sound effects */` block in app.js): tiny synthesized Web-Audio sounds, no files —
   `sfx(name)` with click / toggle / pop / good / bad / win, played by ONE delegated **capture-phase** click listener
@@ -953,7 +963,7 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
 "date": "<optional>", "tags": ["<kind>", "<subject>", "<specific>"],
 "translations": { "es": "<3 sentences>", "fr": …, "de": …, "it": …, "nl": …, "ru": …, "ar": …, "zh": …, "ja": … } }`
 (translations REQUIRED for new terms — the description in all 9 site languages, same three-sentence,
-impartial, self-contained rules; they land in `glossary-i18n.js` → `window.GLOSSARY_I18N`) to a temp
+impartial, self-contained rules; they land in `i18n/gloss-<lang>.js` → `window.GLOSSARY_I18N`) to a temp
 `.json` file, then run:
 
 ```
@@ -1022,12 +1032,11 @@ node .claude/add-lang.js <batch.json> [--partial]
 `{ "lang": "ja", "chrome": { "exact": {…}, "rules": [[pattern, replacement], …], "html": {…} },
 "cards": { "<cardId>": { question, answer, answerDate, abstract, answerText }, … },
 "glossary": { "<slug>": "<3 sentences>", … } }` — every section optional, so one batch can be as small as
-20 glossary terms. It writes `i18n.js` / `data.js` / `glossary-i18n.js`, **merging** in every case (a language
+20 glossary terms. It writes `i18n/ui-<lang>.js` / `data.js` / `i18n/gloss-<lang>.js`, **merging** in every case (a language
 never overwrites its neighbours), refuses a card missing any of the 5 translated fields unless `--partial`,
 refuses a glossary slug that has no English entry, warns on a chrome key no other language has (a sign the
 English source string has changed), and re-parses each file it writes. It reports running coverage
-("ja now 140/333"), which is how a multi-batch language rollout is tracked. **Rewriting `i18n.js` folds the
-old appended daily-quote merge block into the three main tables** — same keys, nothing lost.
+("ja now 140/333"), which is how a multi-batch language rollout is tracked.
 **Gotcha this exists to avoid:** `update-cards.js` assigns whole fields, so passing it an `i18n` patch replaces
 the card's entire `i18n` object and silently drops the other languages. `add-glossary.js` used to do the same
 to `GLOSSARY_I18N[slug]` and now merges instead.

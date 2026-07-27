@@ -94,8 +94,9 @@
          bundle "world"      world.js                     — Atlas, home-page mini globe, Settings home picker
          bundle "atlas"      uk / lakes / rivers / water / cities / timeline /
                              countries / country-stats / country-spans / country-years
-         bundle "uiI18n"     i18n.js                      — only when the site language isn't English
-         bundle "glossI18n"  glossary-i18n.js             — ditto
+         bundle "uiI18n:<lang>"     i18n/ui-<lang>.js      — only when the site language isn't English
+         bundle "glossI18n:<lang>"  i18n/gloss-<lang>.js   — ditto (one file per language, ~310 KB
+                                                              for the language actually being read)
 
        That is ~9.9 MB a visitor no longer downloads to flip a card. Don't move a lazy file
        back into this list without also dropping it from DATA_BUNDLES — a bundle whose files
