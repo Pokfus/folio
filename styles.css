@@ -628,7 +628,8 @@ body[data-theme="folio"] .collection-deco::after{
 .card-img:hover .ci-zoom{opacity:1;}
 /* fullscreen image viewer */
 .img-viewer{
-  position:fixed; inset:0; z-index:120; background:rgba(10,9,8,.92);
+  /* above the gloss popups (8000–9400) and the mobile gloss sheet (9600) — a term's illustration opens it from inside one */
+  position:fixed; inset:0; z-index:9800; background:rgba(10,9,8,.92);
   opacity:0; transition:opacity .22s var(--ease);
   display:flex; flex-direction:column;
 }
@@ -1862,6 +1863,11 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
 .gloss-edit:focus-visible{ outline:2px solid var(--indigo); outline-offset:1px; }
 .gloss-body{ padding:4px 16px 16px; max-height:48vh; overflow-y:auto; }
 .gloss-desc{ margin:0; font-family:var(--sans); font-size:13.5px; line-height:1.58; color:var(--ink-soft); }
+/* a term's illustration: the same 16:9 frame + fullscreen viewer as a card image, at the foot of the popup */
+.gloss-imgslot[hidden]{ display:none; }
+.gloss-imgslot .card-img{ margin:12px 0 0; border-radius:8px; }
+.gloss-imgslot .ci-zoom{ right:8px; bottom:8px; width:24px; height:24px; border-radius:7px; }
+.gloss-imgslot .ci-zoom svg{ width:13px; height:13px; }
 
 /* ---- glossary bottom sheet (mobile) ---- */
 .gloss-win.gloss-sheet{
@@ -1879,6 +1885,7 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
 .gloss-sheet .gloss-dates{ font-size:12px; }
 .gloss-sheet .gloss-body{ padding:15px 18px calc(20px + env(safe-area-inset-bottom)); max-height:55vh; }
 .gloss-sheet .gloss-desc{ font-size:15px; }
+.gloss-sheet .gloss-imgslot .card-img{ margin-top:15px; border-radius:10px; }
 
 /* glossary editor: fields on the left, a live popup preview on the right */
 .gloss-edit-cols{ display:flex; gap:0; align-items:flex-start; flex-wrap:wrap; }
@@ -2131,6 +2138,11 @@ textarea.af-input{resize:vertical; min-height:42px;}
 .ces-img-ph span{font-family:var(--sans); font-size:13px;}
 .ces-img-ph small{display:block; font-size:11px; color:var(--ink-faint); margin-top:2px;}
 .ces-imgpanel{display:flex; flex-direction:column; gap:10px; border:1px dashed color-mix(in srgb, var(--indigo) 35%, var(--rule)); border-radius:10px; padding:12px 14px; margin:-6px 0 16px; background:var(--paper-2);}
+/* the same panel in the glossary editors (curated + Studio), where it is always open rather than toggled */
+.gloss-imgpanel{margin:14px 0 0;}
+.gloss-imgpanel .admin-field{margin-top:0;}
+.gloss-imgpanel #adminGlossImgMeta, .gloss-imgpanel #stImgMeta{display:flex; flex-direction:column; gap:10px;}
+.gloss-imgpanel #adminGlossImgMeta[hidden], .gloss-imgpanel #stImgMeta[hidden]{display:none;}
 .ces-src-ta{width:100%; min-height:240px; resize:vertical; font-family:var(--mono); font-size:12px; line-height:1.55;}
 /* admin tree: same-parent drop = reorder (insert-before indicator) */
 .admin-node.drop-before{box-shadow:inset 0 3px 0 -1px var(--indigo-bright);}

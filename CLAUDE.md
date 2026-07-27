@@ -66,8 +66,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `wh-prehistory` deck under World History (regrown from the `cnh-001` template, which remains the canonical
   format); the deck is grown one card at a time (see "Generating cards & glossary entries" below).
 - `glossary.js` — `window.GLOSSARY` plus `window.GLOSSARY_DATES`, `GLOSSARY_TITLES`, `GLOSSARY_ALIASES`,
-  `GLOSSARY_CASESENSITIVE`, and `GLOSSARY_TAGS` (per-term category tags — the admin glossary's left-bar
-  filter). Trimmed to the single `Sima_Qian` template entry on 2026-07-23 and **regrown since to ~268 terms**
+  `GLOSSARY_CASESENSITIVE`, `GLOSSARY_TAGS` (per-term category tags — the admin glossary's left-bar
+  filter) and `GLOSSARY_IMAGES` (per-term illustration — see the "Glossary image" bullet below).
+  Trimmed to the single `Sima_Qian` template entry on 2026-07-23 and **regrown since to ~268 terms**
   (every country in the world, plus prehistory/paleoanthropology vocabulary), one fully-formed entry at a time
   (description + date + tags + all 8 translations); the full pre-trim glossary (2,165 terms) and its partial
   translations are backed up in `.claude/backup/`.
@@ -339,6 +340,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   whole as an `image` delta (clearing every field stores a **null tombstone** that hides a shipped image);
   `serializeCardData` bakes `c.image` when it has a `src`, `revertCard` restores `p.image`. Image metadata is shared
   across languages (not in the i18n blocks).
+- **Glossary image (optional):** a term can carry the **same `{ src, title, desc, credit }` object as a card**,
+  read through `glossImage(key)` and rendered by `renderGlossImage` into the `.gloss-imgslot` at the **foot of
+  the popup body**, below the description. It reuses `cardImageHTML`/`.card-img`, so the existing delegated
+  listener opens the **shared** fullscreen viewer — no wiring of its own. Curated terms live in
+  `window.GLOSSARY_IMAGES` (slug → object, in `glossary.js`, baked by `serializeGlossary`); a community deck's
+  terms carry `entry.image` inside `UGLOSS` and travel with the deck (the `user_gloss` `data` jsonb takes the
+  whole term object, so publishing needed **no** schema change), re-sanitized on ingest by `uGlossSanitize` /
+  written by `uGlossSetImage`. Editing: the curated glossary editor's **EN view only** (`data-gimgfield` →
+  `setGlossImageEdit`, a whole-object `glossaryImages` delta with a null tombstone, exactly like the card image
+  — image metadata is shared across languages), and the Studio's term form (`data-gimg`). **The viewer's
+  `z-index` (9800) must stay above the gloss stack** — popups sit at 8000+ and the mobile sheet at 9600, and a
+  gloss image opens the viewer *from inside* a popup; `focusGlossWin` renormalizes its counter at
+  `GLOSS_Z_CAP` so a long session can't climb past it.
 - **Themes (8):** folio, clay, garden, synth + four full-overhaul themes: arcade (16-bit), academy (formal faculty),
   marble (antiquity inscriptions), gazette (1940s newsprint, two-column About prose) — each light + dark, tokens
   hex-only. The overhaul themes change layout/chrome/ornament per theme (scoped `body[data-theme="…"]` blocks in
@@ -977,6 +991,13 @@ page.
 Optional `"aliases": ["alt spelling", …]` lists extra background spellings that should open the same
 popup (lands in `window.GLOSSARY_ALIASES`); **plural forms link automatically**, so only add aliases
 for forms the auto-pluralizer misses. Aliases are also editable per-term on the admin glossary page.
+
+Optional `"image": { "src": "https://…", "title": "…", "desc": "…", "credit": "…" }` adds an illustration
+shown at the foot of the term's popup, clickable into the fullscreen viewer (lands in
+`window.GLOSSARY_IMAGES`; same shape and rules as a card image, and likewise **not** translated — the
+metadata is shared across all 9 languages). Also editable per-term on the admin glossary page. Only add
+one where the picture genuinely teaches something, and put its provenance in `credit`.
+
 To remove a term, run the helper on `{ "slug": "Some_Slug", "delete": true }`.
 
 When the user pastes one of the generation prompts and then sends bare terms one per message, treat
@@ -1126,7 +1147,7 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Six committed Playwright regression tests** (in `.claude/`, not loaded by the site). Each slices what
+- **Seven committed Playwright regression tests** (in `.claude/`, not loaded by the site). Each slices what
   it tests out of the real `app.js`/`_headers` by text, so they can't drift from what ships.
   **Gotcha when writing more of them:** `page.goto()` to a URL that differs only in the `#fragment` is a
   same-document navigation — the app keeps running and its module state survives. Use `page.reload()` when
@@ -1153,6 +1174,11 @@ dead code (never rendered).
     the popup, and above all **isolation** (a curated card never links a deck's term; a second deck never
     sees the first's), plus a hostile glossary in an imported deck. **Re-run after touching
     `glossSourcesFor` / `buildGlossIndex` / `uGlossSanitize`.**
+  · `node .claude/test-gloss-image.js` — 35 assertions on glossary images: the popup renders one at the
+    foot of the body, it opens the SHARED fullscreen viewer and that viewer stacks **above** the popup,
+    the curated editor's overlay delta survives a reload and clears cleanly, and a deck's own term images
+    are sanitized on ingest (a `javascript:` src is dropped). **Re-run after touching `glossImage` /
+    `renderGlossImage` / `setGlossImageEdit` / `uGlossSetImage`, or any z-index in the gloss/viewer stack.**
   Playwright is a dev dependency and must NOT be installed into the repo (the zero-dependency rule, and
   `node_modules/` is gitignored) — install it in a scratch folder and run with
   `NODE_PATH=<that>/node_modules`. Set `FOLIO_CHROMIUM=<path to chrome>` if Chromium lives outside the
