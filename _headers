@@ -1,0 +1,30 @@
+# Cloudflare Pages response headers.
+#
+# The Content-Security-Policy is defence in depth for community decks: once Folio renders content it did
+# not author, a sanitizer bug should not be the only thing standing between a stranger's markup and a
+# reader's session token. app.js runs the sanitizer at ingest; this stops anything that slips past it
+# from loading or executing.
+#
+# Only served over HTTP, so opening index.html from file:// is unaffected and the site still runs by
+# double-clicking it.
+#
+# Why each directive is what it is:
+#   script-src 'self'   index.html carries no inline <script>, and app.js uses neither eval nor
+#                       new Function, so no 'unsafe-inline' or 'unsafe-eval' escape hatch is needed.
+#                       Keep it that way — an inline handler anywhere would need this weakened.
+#   style-src           app.js sets inline style attributes throughout (the globe's limb layers, drag
+#                       positions, colour tags), which needs 'unsafe-inline'; styles.css @imports the
+#                       font stylesheet from fonts.googleapis.com.
+#   img-src             data: for the heightmap PNG data-URIs and profile avatars, blob: for the avatar
+#                       upload preview, https: for card images hosted off-site.
+#   connect-src         the Supabase project: auth, progress sync and the content_overrides overlay.
+#   frame-ancestors     Folio is never meant to be embedded; this blocks clickjacking.
+#
+# If this ever breaks something on the live site, rename the header to
+# Content-Security-Policy-Report-Only to keep the page working while violations still show in devtools.
+
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; media-src 'self'; connect-src 'self' https://qnrnjjcjeggzndgxtyqx.supabase.co; worker-src 'self'; manifest-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=()

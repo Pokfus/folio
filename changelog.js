@@ -5,6 +5,13 @@
    user, not how). Loaded before app.js. */
 window.CHANGELOG = [
   {
+    d: "2026-07-27",
+    t: "Groundwork",
+    items: [
+      "Tightened the site's security settings, so the browser now refuses to run anything Folio didn't ship itself.",
+    ],
+  },
+  {
     d: "2026-07-26",
     t: "The first toolmakers",
     items: [

@@ -11,6 +11,19 @@
   const COLLECTION_META = {}; (TREE.collections || []).forEach((col) => { COLLECTION_META[col.id] = { blurb: col.blurb, total: col.total }; });
   const CARD_BY_ID = Object.fromEntries(CARDS.map((c) => [c.id, c]));
 
+  /* Community cards (user-created decks) live in their OWN store and never enter CARDS / CARD_BY_ID /
+     TREE / window.GLOSSARY / ADMIN_EDITS. Four existing behaviours make that separation mandatory:
+     serializeCardData() maps over CARDS, so anything merged there is baked into data.js by auto-save;
+     applyAdminEdits() rebuilds the tree from SHIPPED_NODES on every admin edit; adminUndo rebuilds CARDS
+     from PRISTINE_CARDS restricted to BASE_CARD_IDS; and the daily games draw from ALL_CARD_IDS, which is
+     derived from TREE and must stay fact-checked content only.
+     Empty until the community layer lands — cardById() is a no-op passthrough today. */
+  const UCARDS = {};
+  function isCommunityCard(id) { return typeof id === "string" && id.slice(0, 2) === "u_"; }
+  // The lookup for the STUDY path (scheduling, rendering, progress), which must see both stores.
+  // The admin editor deliberately keeps reading CARD_BY_ID directly: it may only ever edit curated cards.
+  function cardById(id) { return CARD_BY_ID[id] || UCARDS[id] || null; }
+
   // recursive node registry (collection → deck → subdeck, arbitrary depth)
   const COLLECTION_BY_ID = {};
   const NODE_BY_ID = {};
@@ -93,7 +106,7 @@
     if (!node) return null;
     let lo = Infinity, hi = -Infinity;
     subtreeCardIds(node).forEach((id) => {
-      const ys = cardSpanYears(CARD_BY_ID[id]);
+      const ys = cardSpanYears(cardById(id));
       for (let i = 0; i < ys.length; i++) { if (ys[i] < lo) lo = ys[i]; if (ys[i] > hi) hi = ys[i]; }
     });
     return lo === Infinity ? null : { lo, hi };
@@ -220,7 +233,7 @@
     BASE_CARD_IDS.forEach((id) => { const c = Object.assign({}, PRISTINE_CARDS[id]); CARD_BY_ID[id] = c; CARDS.push(c); });
     ADMIN_EDITS = normalizeAdminEdits(snap);
     applyAdminEdits();   // rebuilds the tree from SHIPPED_NODES, re-creates admin-made cards, re-applies field/glossary/membership/order deltas
-    glossIndex = null;   // the glossary linkify memo may reference reverted aliases/titles/terms — force a rebuild
+    invalidateGlossIndex();   // the glossary linkify memo may reference reverted aliases/titles/terms — force a rebuild
   }
   function adminUndo() {
     if (!adminUndoStack.length) { toast("Nothing to undo"); return; }
@@ -704,7 +717,7 @@
     if (arr.length) window.GLOSSARY_ALIASES[key] = arr; else delete window.GLOSSARY_ALIASES[key];
     if (JSON.stringify(arr) === JSON.stringify(PRISTINE_GLOSS_ALIASES[key] || [])) delete ADMIN_EDITS.glossaryAliases[key];
     else ADMIN_EDITS.glossaryAliases[key] = arr;
-    glossIndex = null;   // rebuild the linkify index so new aliases take effect
+    invalidateGlossIndex();   // rebuild the linkify index so new aliases take effect
     queueAdminSave();
   }
   // category tags (comma-separated) shown in the glossary list's second column and used by the left-bar tag filter
@@ -729,7 +742,7 @@
     delete ADMIN_EDITS.glossaryTags[key];
     if (key in PRISTINE_GLOSS_I18N) window.GLOSSARY_I18N[key] = PRISTINE_GLOSS_I18N[key]; else delete window.GLOSSARY_I18N[key];
     delete ADMIN_EDITS.glossaryI18n[key];
-    glossIndex = null;
+    invalidateGlossIndex();
     saveAdminEdits();
   }
   // remove a glossary term: drop it from the live glossary, clear any of its edits, and record the deletion delta
@@ -743,7 +756,7 @@
     if (window.GLOSSARY_TAGS) delete window.GLOSSARY_TAGS[key];
     delete ADMIN_EDITS.glossary[key]; delete ADMIN_EDITS.glossaryDates[key]; delete ADMIN_EDITS.glossaryTitles[key]; delete ADMIN_EDITS.glossaryAliases[key]; delete ADMIN_EDITS.glossaryTags[key];
     if (ADMIN_EDITS.glossOff) delete ADMIN_EDITS.glossOff[key];   // don't strand a deleted term's gloss-removal list
-    glossIndex = null;
+    invalidateGlossIndex();
     if (ADMIN_EDITS.glossColor) delete ADMIN_EDITS.glossColor[key];   // don't strand the colour mark of a deleted term
     ADMIN_EDITS.glossaryDeleted[key] = txt;
     saveAdminEdits();
@@ -1292,6 +1305,142 @@
     return (s || "").replace(/[&<>"]/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[m]));
   }
   function stripHtml(s) { return (s || "").replace(/<[^>]*>/g, " ").replace(/&[a-z]+;/gi, " ").replace(/\s+/g, " ").trim(); }
+
+  /* ---------- HTML sanitizer, for content Folio did NOT author ----------
+     Curated cards and glossary entries are written by admins and render as authored. Anything else —
+     a community deck's card fields, its own glossary descriptions — MUST pass through here before it
+     reaches innerHTML. Card fields are rich HTML, so a stranger's markup would otherwise run as script
+     in a reader's page, and the Supabase access token lives in localStorage: that is account takeover
+     for a learner, and for an admin the ability to write content_overrides and deface the live site.
+
+     Allowlist, never blocklist: an unrecognised tag is unwrapped (its text survives, its structure does
+     not), a dangerous one is dropped whole, and every attribute not named below is removed. Parsing runs
+     in an inert document — nothing loads, nothing executes, no side effects.
+
+     Call it on INGEST (as a payload enters the client's store), not at each render, so every downstream
+     render is safe by construction and a single missed call site can't reintroduce the hole. */
+
+  // dropped with their contents — these can carry or become script, or confuse the parser's namespaces
+  const SANITIZE_DROP = new Set(["script", "style", "iframe", "frame", "frameset", "object", "embed", "applet",
+    "link", "meta", "base", "form", "input", "button", "select", "option", "textarea", "svg", "math",
+    "template", "noscript", "audio", "video", "source", "track", "canvas", "portal", "dialog"]);
+  // kept — everything a card's question / answer / date line / background legitimately needs
+  const SANITIZE_TAGS = new Set(["p", "div", "span", "br", "hr", "b", "strong", "i", "em", "u", "s", "sub", "sup",
+    "small", "mark", "abbr", "code", "pre", "kbd", "blockquote", "q", "cite", "ul", "ol", "li", "dl", "dt", "dd",
+    "h3", "h4", "h5", "h6", "a", "img", "figure", "figcaption"]);
+  const SANITIZE_ATTRS = {
+    "*": new Set(["class", "dir", "lang", "title"]),
+    a: new Set(["href", "rel", "target"]),
+    img: new Set(["src", "alt", "width", "height", "loading"]),
+    span: new Set(["data-k"]),
+  };
+  // Folio class names that carry meaning on a card. An arbitrary class is dropped: styles.css is ~235 KB
+  // of them, and letting untrusted content borrow site-chrome classes invites visual spoofing.
+  // "uc-*" is reserved for community content's own styling.
+  const SANITIZE_CLASSES = new Set(["blank", "dt", "dt-k", "dt-v", "tr-pinline", "tr-pin", "ttip", "ans-term",
+    "card-img", "note", "quote", "small", "center"]);
+  const SANITIZE_URL_SCHEMES = ["http", "https", "mailto"];
+
+  // Resolve an attribute URL to something safe, or "" to drop it. Values arrive entity-decoded from the
+  // parser, so a plain scheme test is sound; leading whitespace/control characters are stripped by
+  // browsers before the scheme is read, hence the tolerant prefix.
+  function sanitizeUrl(raw, schemes) {
+    const s = String(raw == null ? "" : raw).trim();
+    if (!s) return "";
+    // Browsers ignore ASCII whitespace and control characters *inside* a scheme, so "java<TAB>script:x" is
+    // javascript:. Test a copy stripped of them; the original is returned only once its scheme has cleared.
+    let probe = "";
+    for (let i = 0; i < s.length; i++) { if (s.charCodeAt(i) > 32) probe += s.charAt(i); }
+    if (/^(?:javascript|data|vbscript|blob|file|about):/i.test(probe)) return "";
+    if (/^(?:#|\/(?!\/)|\.{1,2}\/)/.test(probe)) return s;   // fragment or relative path — same origin
+    const m = /^([a-z][a-z0-9+.\-]*):/i.exec(probe);
+    if (!m) return s;                                        // schemeless relative ("images/x.jpg")
+    return schemes.indexOf(m[1].toLowerCase()) >= 0 ? s : "";
+  }
+  function sanitizeUnwrap(el) {
+    const p = el.parentNode; if (!p) return;
+    while (el.firstChild) p.insertBefore(el.firstChild, el);
+    p.removeChild(el);
+  }
+  function sanitizeAttrs(el, tag) {
+    const own = SANITIZE_ATTRS[tag];
+    const attrs = [];
+    for (let i = 0; i < el.attributes.length; i++) attrs.push(el.attributes[i].name);
+    attrs.forEach((name) => {
+      const n = name.toLowerCase();
+      if (/^on/.test(n) || !(SANITIZE_ATTRS["*"].has(n) || (own && own.has(n)))) { el.removeAttribute(name); return; }
+      const v = el.getAttribute(name);
+      if (n === "class") {
+        const keep = String(v || "").split(/\s+/).filter((c) => c && (SANITIZE_CLASSES.has(c) || /^uc-[\w-]+$/.test(c)));
+        if (keep.length) el.setAttribute("class", keep.join(" ")); else el.removeAttribute("class");
+      } else if (n === "href" || n === "src") {
+        const u = sanitizeUrl(v, n === "src" ? ["http", "https"] : SANITIZE_URL_SCHEMES);
+        if (u) el.setAttribute(n, u); else el.removeAttribute(name);
+      } else if (n === "data-k") {
+        if (!/^[\w:.\-]{1,120}$/.test(String(v || ""))) el.removeAttribute(name);
+      } else if (n === "target" || n === "rel") {
+        el.removeAttribute(name);   // re-added below for links that survive, so a crafted target can't leak an opener
+      }
+    });
+    if (tag === "a" && el.getAttribute("href")) {
+      const h = el.getAttribute("href");
+      if (/^[a-z][a-z0-9+.\-]*:/i.test(h)) { el.setAttribute("target", "_blank"); el.setAttribute("rel", "noopener noreferrer nofollow"); }
+    }
+  }
+  function sanitizeChildren(el) {
+    const kids = [];
+    for (let i = 0; i < el.children.length; i++) kids.push(el.children[i]);
+    kids.forEach((child) => {
+      const tag = String(child.tagName || "").toLowerCase();
+      if (SANITIZE_DROP.has(tag)) { child.remove(); return; }
+      sanitizeChildren(child);                                   // clean the subtree first, so an unwrap moves clean nodes up
+      if (SANITIZE_TAGS.has(tag)) sanitizeAttrs(child, tag);
+      else sanitizeUnwrap(child);
+    });
+  }
+  function sanitizePass(src) {
+    const doc = new DOMParser().parseFromString("<body>" + src + "</body>", "text/html");
+    const body = doc && doc.body;
+    if (!body) return "";
+    const dead = [];
+    const cw = doc.createTreeWalker(body, NodeFilter.SHOW_COMMENT, null);
+    while (cw.nextNode()) dead.push(cw.currentNode);
+    dead.forEach((n) => { if (n.parentNode) n.parentNode.removeChild(n); });
+    sanitizeChildren(body);
+    return body.innerHTML;
+  }
+  function sanitizeHTML(html) {
+    const src = String(html == null ? "" : html);
+    if (!src || src.indexOf("<") < 0) return src;               // plain text needs no work
+    let out;
+    try { out = sanitizePass(src); } catch (e) { return escHtml(src); }   // no parser → show it as text rather than raw
+    // Re-sanitize until the output stops changing. Re-serializing a parsed tree can mutate it (mXSS), and a
+    // fixed point is the cheap guarantee that what we store is what a browser will re-parse. Ingest-time
+    // only, so the extra passes cost nothing at render. Still unstable after three → refuse and escape.
+    for (let i = 0; i < 3; i++) {
+      let next;
+      try { next = sanitizePass(out); } catch (e) { return escHtml(src); }
+      if (next === out) return out;
+      out = next;
+    }
+    return escHtml(src);
+  }
+  // plain-text field (a title, an answerText, a deck description): no markup survives at all
+  function sanitizePlain(s) {
+    const v = String(s == null ? "" : s);
+    if (!v) return "";
+    try {
+      const doc = new DOMParser().parseFromString("<body>" + v + "</body>", "text/html");
+      const body = doc && doc.body;
+      if (!body) return stripHtml(v);
+      // drop script/style/etc first: their bodies are text nodes, so textContent alone would surface
+      // "alert(1)" as visible prose in a deck description
+      const dead = [];
+      body.querySelectorAll("*").forEach((el) => { if (SANITIZE_DROP.has(el.tagName.toLowerCase())) dead.push(el); });
+      dead.forEach((el) => el.remove());
+      return (body.textContent || "").replace(/\s+/g, " ").trim();
+    } catch (e) { return stripHtml(v); }
+  }
   function pick(arr, n) {
     const a = arr.slice();
     for (let i = a.length - 1; i > 0; i--) {
@@ -1381,15 +1530,32 @@
     else out.push(pre + w + "s");                                                       // dragon -> dragons
     return out;
   }
-  // lazily build an index of glossary display-names (+ aliases + plurals) -> keys + a matching regex
-  let glossIndex = null;
+  /* Lazily built index of glossary display-names (+ aliases + plurals) -> keys, plus a matching regex.
+     Indexes are per SCOPE. "site" is the curated glossary and is what every existing caller uses; a
+     community deck gets its own scope so its terms auto-link inside its own cards and NOWHERE else —
+     a single global index would leak a stranger's terms into curated backgrounds. */
+  const _glossIndexes = new Map();   // scope -> { byName, byNameCS, re }
+  const GLOSS_SCOPE_SITE = "site";
+  function invalidateGlossIndex(scope) { if (scope == null) _glossIndexes.clear(); else _glossIndexes.delete(scope); }
+  // The term tables a scope draws on. Community scopes ("deck:<id>") resolve to the deck's own terms,
+  // optionally layered over the site's, once the community layer lands.
+  function glossSourcesFor(scope) {
+    return { G: window.GLOSSARY || {}, A: window.GLOSSARY_ALIASES || {}, CS: window.GLOSSARY_CASESENSITIVE || {} };
+  }
+  function glossIndexFor(scope) {
+    const key = scope || GLOSS_SCOPE_SITE;
+    let ix = _glossIndexes.get(key);
+    if (!ix) { ix = buildGlossIndex(key); _glossIndexes.set(key, ix); }
+    return ix;
+  }
   // a surface is treated case-sensitive if it looks like a proper name (has an internal capital,
   // e.g. "Great Wall of China", "United States", "NATO") — so "great walls" / "us" won't link.
   function isProperCS(surface) { return /[A-Z]/.test(String(surface || "").slice(1)); }
-  function buildGlossIndex() {
-    const G = window.GLOSSARY || {};
-    const A = window.GLOSSARY_ALIASES || {};
-    const CS = window.GLOSSARY_CASESENSITIVE || {};   // explicit per-key flags (e.g. Heaven, God, Gun)
+  function buildGlossIndex(scope) {
+    const srcs = glossSourcesFor(scope);
+    const G = srcs.G;
+    const A = srcs.A;
+    const CS = srcs.CS;                               // explicit per-key flags (e.g. Heaven, God, Gun)
     const byName = {};      // lowercased surface -> key (case-insensitive common nouns)
     const byNameCS = {};    // exact-case surface -> key (proper names + flagged terms)
     const names = [];
@@ -1416,25 +1582,25 @@
     // Unicode-aware word boundary (\b only sees ASCII \w, so terms/aliases that begin or end with a
     // diacritic letter — Æsir, Vé — would never match). Bound on letters/numbers/underscore instead.
     const re = names.length ? new RegExp("(?<![\\p{L}\\p{N}_])(" + names.map(esc).join("|") + ")(?![\\p{L}\\p{N}_])", "giu") : null;
-    glossIndex = { byName, byNameCS, re };
+    return { byName, byNameCS, re };
   }
   // resolve a matched surface to a glossary key: exact-case (proper names) first, else lowercased (common nouns)
-  function resolveGlossKey(surface) {
-    if (!glossIndex) return null;
-    return glossIndex.byNameCS[surface] || glossIndex.byName[String(surface).toLowerCase()] || null;
+  function resolveGlossKey(idx, surface) {
+    if (!idx) return null;
+    return idx.byNameCS[surface] || idx.byName[String(surface).toLowerCase()] || null;
   }
   function escHtml(s) {
     return (s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
   // wrap any glossary terms found in a description in clickable .ttip spans (skipping self)
-  function linkifyGloss(text, selfKey) {
-    if (!glossIndex) buildGlossIndex();
-    const re = glossIndex && glossIndex.re;
+  function linkifyGloss(text, selfKey, scope) {
+    const idx = glossIndexFor(scope);
+    const re = idx && idx.re;
     if (!re) return escHtml(text);
     let out = "", last = 0, m; const seen = new Set();
     re.lastIndex = 0;
     while ((m = re.exec(text))) {
-      const key = resolveGlossKey(m[0]);
+      const key = resolveGlossKey(idx, m[0]);
       out += escHtml(text.slice(last, m.index));
       if (key && key !== selfKey && !seen.has(key)) {   // link only the first occurrence of each term in the popup (case routing handled by resolveGlossKey)
         seen.add(key);
@@ -1452,10 +1618,11 @@
   // occurrence of each glossary term in a clickable .ttip span so links never have to
   // be hand-added to a card. The card's answer term is never linked, and text already
   // inside a link or inside the bold answer term is skipped.
-  function autoLinkGlossary(rootEl, answerText, offKeys) {
+  // `scope` selects which term table to link against — omitted means the curated site glossary,
+  // which is every existing caller.
+  function autoLinkGlossary(rootEl, answerText, offKeys, scope) {
     if (!rootEl) return;
-    if (!glossIndex) buildGlossIndex();
-    const idx = glossIndex;
+    const idx = glossIndexFor(scope);
     if (!idx || !idx.re) return;
     const answer = (answerText || "").trim().toLowerCase();
     const linked = new Set();
@@ -1486,7 +1653,7 @@
       let m, last = 0, frag = null;
       while ((m = idx.re.exec(text))) {
         const surface = m[0];
-        const key = resolveGlossKey(surface);
+        const key = resolveGlossKey(idx, surface);
         if (!key || linked.has(key) || surface.toLowerCase() === answer) continue;
         if (!frag) frag = document.createDocumentFragment();
         if (m.index > last) frag.appendChild(document.createTextNode(text.slice(last, m.index)));
@@ -3629,7 +3796,7 @@
       else {                                                                                   // "Chrono" = the cards' order of appearance within their decks (set by drag-reordering in the editor)
         const seq = TREE.collections.flatMap(subtreeCardIds), oi = {};
         for (let i = 0; i < seq.length; i++) if (!(seq[i] in oi)) oi[seq[i]] = i;
-        queue.sort((a, b) => ((oi[a] == null ? 1e9 : oi[a]) - (oi[b] == null ? 1e9 : oi[b])) || (cardStartYear(CARD_BY_ID[a]) - cardStartYear(CARD_BY_ID[b])));
+        queue.sort((a, b) => ((oi[a] == null ? 1e9 : oi[a]) - (oi[b] == null ? 1e9 : oi[b])) || (cardStartYear(cardById(a)) - cardStartYear(cardById(b))));
       }
       where = "Review";
       total = queue.length;
@@ -3740,7 +3907,7 @@
       revealed = false;
       hideGradeBar();
       const id = queue[0];
-      const c = cardLocalized(CARD_BY_ID[id]);   // study shows the card in the selected site language when translated
+      const c = cardLocalized(cardById(id));   // study shows the card in the selected site language when translated
       const rc = remainingCounts();
 
       root.innerHTML = `
@@ -7557,12 +7724,12 @@
 
     const suspHead = root.querySelector("#suspHead"), suspCollapse = root.querySelector("#suspCollapse"), suspList = root.querySelector("#susplist"), suspCount = root.querySelector("#suspCount");
     function renderSuspended() {
-      const ids = Object.keys(S.suspended || {}).filter((id) => S.suspended[id] && CARD_BY_ID[id]);
+      const ids = Object.keys(S.suspended || {}).filter((id) => S.suspended[id] && cardById(id));
       ids.sort((a, b) => (Number(S.suspended[b]) || 0) - (Number(S.suspended[a]) || 0));
       suspCount.textContent = "(" + ids.length + ")";
       if (!ids.length) { suspList.innerHTML = '<div class="susp-empty">No cards are set aside. Cards you suspend during review will appear here.</div>'; return; }
       suspList.innerHTML = ids.map((id) => {
-        const c = CARD_BY_ID[id], ts = S.suspended[id];
+        const c = cardById(id), ts = S.suspended[id];
         const when = (typeof ts === "number") ? new Date(ts).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" }) : "date unknown";
         return '<div class="susp-row" data-id="' + esc(id) + '"><div class="susp-info"><span class="susp-name">' + esc(c.answer || "(untitled)") + '</span><span class="susp-meta">' + esc(id) + ' &middot; suspended ' + esc(when) + '</span></div><button class="susp-restore" type="button" data-id="' + esc(id) + '" aria-label="Remove from suspension">Unsuspend</button></div>';
       }).join("");

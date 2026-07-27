@@ -51,6 +51,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `app.js` (~684 KB) — all logic, written as a single IIFE. Hash-based routing via the `PAGES`
   map. No ES modules.
 - `manifest.json` + `icon.svg` + `icon-maskable.svg` + `sw.js` — the PWA. See the "PWA" bullet below.
+- `_headers` — Cloudflare Pages response headers: the **Content-Security-Policy** (plus nosniff /
+  Referrer-Policy / Permissions-Policy). Verified against every route with 0 violations. `script-src 'self'`
+  holds only because index.html has **no inline `<script>`** and app.js uses neither `eval` nor `new Function`
+  — adding either would need the policy weakened, so don't. `style-src` needs `'unsafe-inline'` (app.js sets
+  inline style attributes everywhere) and `fonts.googleapis.com` (styles.css `@import`s it); `img-src` needs
+  `data:` (heightmap PNGs, avatars) and `blob:` (the avatar upload preview). Headers only apply over HTTP, so
+  opening index.html from `file://` is unaffected. If it ever breaks the live site, rename the header to
+  `Content-Security-Policy-Report-Only` — violations keep showing in devtools without blocking anything.
+- `docs/user-decks-plan.md` — the design plan for **community decks** (user-created decks, sharing,
+  ratings, an optional per-deck glossary, and a later paid tier). Phase 0 has shipped; see the bullet in
+  "How the app is wired". Not part of the site.
 - `data.js` — `window.CARD_DATA` and `window.COLLECTION_TREE`. **Currently 14 cards**, all in the
   `wh-prehistory` deck under World History (regrown from the `cnh-001` template, which remains the canonical
   format); the deck is grown one card at a time (see "Generating cards & glossary entries" below).
@@ -661,6 +672,42 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     states, `SOVIET` set) are overlaid **clipped to the era's USSR extent**, light like a `'2'` sub-border — an accurate proxy
     for the union-republic boundaries (the Central-Asian/Caucasus borders were settled by 1936). Clipping to the era polygon
     keeps e.g. the still-independent 1938 Baltics out. Drawn on the map in `renderStatic` next to `drawUKConstituents`.
+- **Community decks — Phase 0 foundations (July 2026).** Groundwork for user-created decks
+  (`docs/user-decks-plan.md`). Nothing user-visible yet; these are the seams the feature will attach to, and
+  they exist so the later phases can't be built the wrong way.
+  · **`sanitizeHTML()` / `sanitizePlain()`** (in the helpers block, beside `esc`/`stripHtml`) — an allowlist
+    sanitizer for content Folio did NOT author. Card fields are rich HTML rendered with `innerHTML`, and the
+    Supabase access token lives in localStorage, so unsanitized user markup is account takeover for a learner
+    and site defacement via `content_overrides` for an admin. Unknown tags are **unwrapped** (text survives),
+    dangerous ones (`SANITIZE_DROP`) removed whole; attributes are dropped unless allowlisted; `class` is
+    filtered to `SANITIZE_CLASSES` + `uc-*` (arbitrary classes let untrusted content borrow site chrome and
+    spoof the UI); URL schemes are tested against a copy stripped of whitespace/control characters, because
+    browsers read `java\tscript:` as `javascript:`. It re-sanitizes to a **fixed point** (mXSS) and escapes
+    the input outright if it won't settle. **Call it on INGEST, not per render** — one missed render site
+    would otherwise reopen the hole. Curated content never passes through it. 42 XSS vectors are covered by
+    a Playwright test; re-run it after touching the allowlists.
+  · **`UCARDS` / `cardById(id)` / `isCommunityCard(id)`** (beside `CARD_BY_ID`) — community cards get their
+    OWN store and must never enter `CARDS` / `CARD_BY_ID` / `TREE` / `window.GLOSSARY` / `ADMIN_EDITS`.
+    Four existing behaviours force this: `serializeCardData()` maps over `CARDS` (auto-save would bake user
+    cards into `data.js`), `applyAdminEdits()` rebuilds the tree from `SHIPPED_NODES` on every admin edit,
+    `adminUndo` rebuilds `CARDS` from `PRISTINE_CARDS`∩`BASE_CARD_IDS`, and the daily games draw from
+    `ALL_CARD_IDS` (TREE-derived), which must stay fact-checked content only. `cardById()` is the lookup for
+    the **study path** (scheduling, rendering, progress, the suspended list); the **admin editor deliberately
+    keeps reading `CARD_BY_ID` directly** so it can only ever edit curated cards. `UCARDS` is empty today, so
+    `cardById()` is currently a passthrough. Ids will be `u_<deck8>_<n>`.
+  · **Scoped glossary indexes** — `buildGlossIndex()` now takes a scope and **returns** its index instead of
+    assigning a single global; `glossIndexFor(scope)` caches per scope in `_glossIndexes`, `glossSourcesFor
+    (scope)` picks the term tables, and `invalidateGlossIndex(scope)` (scope omitted = all) replaced the four
+    `glossIndex = null` sites. `autoLinkGlossary(rootEl, answerText, offKeys, scope)` and `linkifyGloss(text,
+    selfKey, scope)` take a trailing scope that **defaults to `"site"`, so every existing caller is
+    unchanged**; `resolveGlossKey(idx, surface)` now takes the index. A deck with its own glossary gets scope
+    `"deck:<id>"` so its terms auto-link inside its own cards and nowhere else — a single global index would
+    leak a stranger's terms into curated backgrounds. Verified behaviourally identical to the previous code
+    (same 125 auto-linked terms across 8 study cards).
+  · **Still to do, deliberately deferred:** extracting `renderLiveCardEditor` out of `adminRenderEditor` so
+    the Studio can reuse the `.admin-live-card` surface. It has ~14 collaborators (`adminState`,
+    `adminFindRow`, `adminFlashSaved`, `setCard*Edit`, `adminRender*`, …) and only one caller today; the seam
+    should be cut in Phase 1 against a real second caller, not guessed at now.
 
 ## Generating cards & glossary entries
 
@@ -945,6 +992,16 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
+- **Two committed Playwright regression tests** (in `.claude/`, not loaded by the site). Both slice what
+  they test out of the real `app.js`/`_headers` by text, so they can't drift from what ships:
+  · `node .claude/test-sanitize.js` — 42 XSS vectors through `sanitizeHTML()`, each one also injected into
+    a live DOM to confirm nothing executes. **Re-run after touching `SANITIZE_*` or `sanitizeUrl`.**
+  · `node .claude/test-csp.js` — serves the site with the real `_headers` CSP and walks every route,
+    failing on any violation. **Re-run after changing `_headers`, or adding an inline script/`eval`.**
+  Playwright is a dev dependency and must NOT be installed into the repo (the zero-dependency rule, and
+  `node_modules/` is gitignored) — install it in a scratch folder and run with
+  `NODE_PATH=<that>/node_modules`. Set `FOLIO_CHROMIUM=<path to chrome>` if Chromium lives outside the
+  playwright package; otherwise the default launch is used.
 
 ## Environment
 

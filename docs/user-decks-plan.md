@@ -1,6 +1,7 @@
 # Community decks — design plan
 
-**Status:** proposal, nothing implemented yet.
+**Status:** **Phase 0 shipped** (2026-07-27) — see §12. Phases 1–5 are still proposal.
+Decision taken with the project owner: build free-only first; the paid tier (§9) comes last.
 **Scope:** users create their own decks, cards and (optionally) their own glossary; publish them; other
 users browse, install, study and rate them; creators may put part of a deck behind a paywall from which
 Folio takes a percentage.
@@ -279,7 +280,7 @@ Ko-fi/Stripe page — Folio takes nothing, needs no server, and tests whether th
 
 | Phase | Content | Size |
 |---|---|---|
-| **0 — foundations** | `sanitizeHTML()`; `cardById()` shim; extract `renderLiveCardEditor`; scope-aware glossary index; CSP `_headers`. No user-visible feature; ships safely on its own. | S |
+| **0 — foundations** ✅ | Shipped: `sanitizeHTML()`/`sanitizePlain()` (42 XSS vectors tested), the `UCARDS`/`cardById()` shim on the study path, scope-aware glossary indexes (`glossIndexFor`/`invalidateGlossIndex`, verified behaviourally identical), and the CSP `_headers` (0 violations across every route). **Deferred:** extracting `renderLiveCardEditor` — ~14 collaborators and only one caller today, so the seam is cut in Phase 1 against a real second caller rather than guessed at now. | S |
 | **1 — local decks + file sharing** | Studio writing to IDB, deck JSON export/import, installed decks in the Library studying normally. No server, no account needed. Already delivers "users create and share decks". | L |
 | **2 — publish & discover** | Supabase tables + RLS, publish flow, `#community`, `#deck/<slug>`, install/update, moderation queue, reports. | L |
 | **3 — ratings & social** | Ratings, reviews, Bayesian ranking, creator profiles, staff picks, fork/remix. | M |
