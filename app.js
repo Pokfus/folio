@@ -11956,6 +11956,7 @@
     { code: "en", label: "English" }, { code: "es", label: "Español" }, { code: "fr", label: "Français" },
     { code: "de", label: "Deutsch" }, { code: "it", label: "Italiano" }, { code: "nl", label: "Nederlands" },
     { code: "ru", label: "Русский" }, { code: "ar", label: "العربية" }, { code: "zh", label: "中文" },
+    { code: "ja", label: "日本語" },
   ];
   const LANG_CODES = LANGS.map((l) => l.code);
   // ?lang=xx makes the site linkable in a given language (e.g. /?lang=es#decks). Like the switcher, it

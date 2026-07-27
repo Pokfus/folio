@@ -370,8 +370,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   REMOVED on request** (a saved selection of one falls back to folio via the `THEMES` whitelist); don't reintroduce
   them. **Collection banners and all theme decorations are STATIC — no animated/moving patterns (removed on request).**
   Themes register in `THEMES` (app.js) + the `THEME_OPTS` settings-picker table (mini-mockup previews, hover try-on).
-- **Language switcher + i18n** (`#lang-switch` in the top bar, right of Settings): a custom dropdown of 9 languages
-  (en/es/fr/de/it/nl/ru/ar/zh) stored in `S.settings.lang`, each option showing an **inline SVG country flag**
+- **Language switcher + i18n** (`#lang-switch` in the top bar, right of Settings): a custom dropdown of 10 languages
+  (en/es/fr/de/it/nl/ru/ar/zh/ja) stored in `S.settings.lang`, each option showing an **inline SVG country flag**
   (`FLAG_SVG` in app.js — NOT emoji flags, which render as bare letter pairs on Windows) plus the language's native
   name. **The site chrome IS localised**: `i18n/ui-<lang>.js` holds one language's tables (`window.I18N` exact strings /
   `I18N_RULES` regex patterns for dynamic labels / `I18N_HTML` whole prose blocks, all keyed by the ENGLISH source
@@ -384,8 +384,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   validation list in `.claude/add-card.js` and `.claude/add-glossary.js`. Everything else is keyed off
   `S.settings.lang` and needs no change. Backfill the CONTENT with **`node .claude/add-lang.js <batch.json>`**
   (see "Backfilling a site language" below) — and add the code to `LANGS` **last**, once the chrome table is
-  translated, so the switcher never offers a language that renders as English. **Japanese (`ja`) is mid-rollout**:
-  the plumbing and `FLAG_SVG.ja` have shipped, the `LANGS` entry has not.
+  translated, so the switcher never offers a language that renders as English. Ship an EMPTY
+  `i18n/gloss-<lang>.js` at that point too, or every page load 404s on it until the glossary is translated
+  (`ensureData` degrades gracefully, but the console noise is real). **Japanese (`ja`) is mid-rollout**: the
+  chrome is fully translated (531 strings / 72 rules / 12 prose blocks) and live in the switcher; the cards
+  and the glossary are still English and are being backfilled with `add-lang.js`.
   **Content localisation is separate**: cards carry per-language `i18n` blocks (`cardLocalized()`), glossary
   descriptions live in `i18n/gloss-<lang>.js` (`window.GLOSSARY_I18N`, read by `glossText()`).
   **`setLang(code)` is the single entry point** for a language change (the switcher calls it; don't set
