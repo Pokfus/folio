@@ -779,6 +779,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **Update checks** — `communityCheckUpdates()` runs once at idle after boot, in ONE request for all
     installed decks, and fills `_deckUpdates` (Library and Studio show an "update" pill). A failed or
     offline check just leaves it empty.
+  · **The column guard — `guard_user_deck_columns()`.** RLS decides which ROWS you may write, **never which
+    COLUMNS**. "edit your own decks" therefore let an owner PATCH their own `install_count`, `rating_avg`,
+    `staff_pick` or even `owner` — inventing an editorial endorsement and a five-star average for
+    themselves. A BEFORE INSERT/UPDATE trigger now restores those fields for any non-admin caller (silently,
+    since a hard error over a field the client shouldn't have sent is the worse experience). **The
+    maintenance triggers are exempt via a transaction-local `folio.sync` flag** — without it the guard would
+    undo `sync_card_count` / `sync_install_count` / `sync_deck_rating`'s own writes. Phase 3's block
+    `create or replace`s the guard to cover the columns it adds. **If you add a server-maintained column,
+    add it to the guard**, or it is client-writable the moment it exists.
 - **Community decks — Phase 4: a deck's own glossary (July 2026).** A deck can define its own terms, which
   auto-link inside its cards and **nowhere else**. This is what the Phase 0 glossary scoping was built for.
   · **`deck.glossMode`** — `site` (default: link the curated glossary, exactly as before), `own` (only the
@@ -814,7 +823,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     is sign-in-only). Insert policy refuses a rating on an unpublished deck **or on your own deck**;
     update/delete are limited to your own row. Re-rating is an upsert (`Prefer: resolution=merge-duplicates`).
   · **Summary columns on `user_decks`** — `rating_avg`, `rating_count`, `rating_1..rating_5`, all
-    trigger-maintained by `sync_deck_rating()`. Clients cannot write them. The per-star counts exist so the
+    trigger-maintained by `sync_deck_rating()` and unwritable by clients (see the column guard below). The per-star counts exist so the
     deck page can draw a distribution without an aggregate query, which PostgREST does badly.
   · **`rank_score` is a STORED generated column** — `(v/(v+10))·avg + (10/(v+10))·3.5`, the Bayesian pull
     toward a prior that stops one 5-star review outranking a deck with fifty good ones. Browse's "Top

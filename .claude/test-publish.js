@@ -48,6 +48,9 @@ function syncRatings(db, deckId) {
   for (let i = 1; i <= 5; i++) d["rating_" + i] = rs.filter((r) => r.stars === i).length;
   d.rank_score = (d.rating_count / (d.rating_count + 10)) * d.rating_avg + (10 / (d.rating_count + 10)) * 3.5;
 }
+// columns a non-admin client may never set: maintained by triggers or reserved for editors
+const GUARDED = ["owner", "card_count", "install_count", "rating_avg", "rating_count",
+  "rating_1", "rating_2", "rating_3", "rating_4", "rating_5", "staff_pick", "created_at"];
 function uuid(n) { return "00000000-0000-4000-8000-" + String(100000000000 + n).slice(0, 12); }
 
 function handleSupa(db, url, method, body, asUser) {
@@ -69,7 +72,8 @@ function handleSupa(db, url, method, body, asUser) {
         rating_1: 0, rating_2: 0, rating_3: 0, rating_4: 0, rating_5: 0, rank_score: 3.5,
         staff_pick: false, forked_from: null,
         price_cents: 0, created_at: new Date().toISOString(), updated_at: new Date().toISOString(),
-      }, body);
+      }, (function () { const b = Object.assign({}, body); if (asUser.role !== "admin") GUARDED.forEach((k) => delete b[k]); return b; })());
+      row.owner = asUser.role === "admin" && body.owner ? body.owner : asUser.id;
       db.decks.push(row);
       return [201, [row]];
     }
@@ -78,7 +82,9 @@ function handleSupa(db, url, method, body, asUser) {
       const row = db.decks.find((d) => d.id === id);
       if (!row) return [404, { message: "not found" }];
       if (row.owner !== asUser.id && asUser.role !== "admin") return [403, { message: "row-level security" }];   // mirrors the RLS policy
-      Object.assign(row, body, { updated_at: new Date().toISOString() });
+      const patch = Object.assign({}, body);
+      if (asUser.role !== "admin") GUARDED.forEach((k) => delete patch[k]);   // mirrors guard_user_deck_columns()
+      Object.assign(row, patch, { updated_at: new Date().toISOString() });
       return [200, [row]];
     }
     // GET
@@ -586,6 +592,30 @@ async function typeField(page, field, text) {
     return r.status;
   }, { url: "https://qnrnjjcjeggzndgxtyqx.supabase.co", id: db.decks[0].id });
   check("a reader cannot award a staff pick", notAdmin === 403, "status=" + notAdmin);
+
+  // ================= an owner cannot write the columns the server maintains =================
+  // RLS controls which ROWS you may write, not which COLUMNS, so this is enforced by a trigger. Alice owns
+  // this deck and may legitimately PATCH it — the point is that these particular fields are ignored.
+  const beforeCheat = {
+    installs: db.decks[0].install_count, avg: db.decks[0].rating_avg,
+    count: db.decks[0].rating_count, pick: db.decks[0].staff_pick, owner: db.decks[0].owner,
+  };
+  const cheatStatus = await A.page.evaluate(async (args) => {
+    const r = await fetch(args.url + "/rest/v1/user_decks?id=eq." + args.id, {
+      method: "PATCH",
+      headers: { apikey: "k", "Content-Type": "application/json", Authorization: "Bearer mock-token" },
+      body: JSON.stringify({ subtitle: "a legitimate edit", install_count: 9999, rating_avg: 5,
+                             rating_count: 500, rating_5: 500, staff_pick: true, owner: args.other }),
+    });
+    return r.status;
+  }, { url: "https://qnrnjjcjeggzndgxtyqx.supabase.co", id: db.decks[0].id, other: BOB.id });
+  check("an owner's own PATCH is accepted", cheatStatus >= 200 && cheatStatus < 300, "status=" + cheatStatus);
+  check("the legitimate field did change", db.decks[0].subtitle === "a legitimate edit", db.decks[0].subtitle);
+  check("install_count cannot be faked", db.decks[0].install_count === beforeCheat.installs, String(db.decks[0].install_count));
+  check("rating_avg cannot be faked", Number(db.decks[0].rating_avg) === Number(beforeCheat.avg), String(db.decks[0].rating_avg));
+  check("rating_count cannot be faked", db.decks[0].rating_count === beforeCheat.count, String(db.decks[0].rating_count));
+  check("staff_pick cannot be self-awarded", db.decks[0].staff_pick === beforeCheat.pick, String(db.decks[0].staff_pick));
+  check("owner cannot be reassigned", db.decks[0].owner === beforeCheat.owner);
 
   // ================= fork attribution =================
   await B.page.bringToFront();

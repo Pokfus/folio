@@ -380,9 +380,11 @@ create policy "remove your own installs"
 create or replace function public.sync_install_count()
 returns trigger language plpgsql security definer set search_path = public as $$
 begin
+  perform set_config('folio.sync', 'on', true);   -- transaction-local: tells the column guard this write is ours
   update public.user_decks d
      set install_count = (select count(*) from public.deck_installs i where i.deck_id = d.id)
    where d.id = coalesce(new.deck_id, old.deck_id);
+  perform set_config('folio.sync', 'off', true);
   return coalesce(new, old);
 end $$;
 
@@ -394,15 +396,53 @@ create trigger deck_installs_count after insert or delete on public.deck_install
 create or replace function public.sync_card_count()
 returns trigger language plpgsql security definer set search_path = public as $$
 begin
+  perform set_config('folio.sync', 'on', true);   -- transaction-local: tells the column guard this write is ours
   update public.user_decks d
      set card_count = (select count(*) from public.user_cards c where c.deck_id = d.id)
    where d.id = coalesce(new.deck_id, old.deck_id);
+  perform set_config('folio.sync', 'off', true);
   return coalesce(new, old);
 end $$;
 
 drop trigger if exists user_cards_count on public.user_cards;
 create trigger user_cards_count after insert or delete on public.user_cards
   for each row execute function public.sync_card_count();
+
+-- ---- column guard ----
+-- RLS decides WHICH ROWS you may write, never which COLUMNS. "edit your own decks" would therefore let an
+-- owner PATCH their own install_count or card_count -- or, once phase 3 lands, award themselves a staff
+-- pick and a five-star average. These columns are maintained by triggers or reserved for editors, so any
+-- value a non-admin supplies is silently restored rather than rejected (a PostgREST error here would be a
+-- worse experience than simply ignoring a field the client had no business sending).
+create or replace function public.guard_user_deck_columns()
+returns trigger language plpgsql security definer set search_path = public as $$
+declare is_admin boolean;
+begin
+  -- our own maintenance triggers set this; without the exemption the guard would undo their writes
+  if coalesce(current_setting('folio.sync', true), 'off') = 'on' then return new; end if;
+  select exists (select 1 from public.profiles p where p.id = auth.uid() and p.role = 'admin') into is_admin;
+  if coalesce(is_admin, false) then return new; end if;
+  if tg_op = 'INSERT' then
+    new.owner         := auth.uid();
+    new.card_count    := 0;
+    new.install_count := 0;
+    new.rating_avg    := 0;
+    new.rating_count  := 0;
+    new.created_at    := now();
+  else
+    new.owner         := old.owner;
+    new.card_count    := old.card_count;
+    new.install_count := old.install_count;
+    new.rating_avg    := old.rating_avg;
+    new.rating_count  := old.rating_count;
+    new.created_at    := old.created_at;
+  end if;
+  return new;
+end $$;
+
+drop trigger if exists user_decks_guard on public.user_decks;
+create trigger user_decks_guard before insert or update on public.user_decks
+  for each row execute function public.guard_user_deck_columns();
 
 -- ---- reports: how a reader flags a deck for the site owner ----
 create table if not exists public.deck_reports (
@@ -512,6 +552,7 @@ returns trigger language plpgsql security definer set search_path = public as $$
 declare d uuid;
 begin
   d := coalesce(new.deck_id, old.deck_id);
+  perform set_config('folio.sync', 'on', true);   -- transaction-local: tells the column guard this write is ours
   update public.user_decks x set
     rating_count = (select count(*)             from public.deck_ratings r where r.deck_id = d),
     rating_avg   = (select coalesce(round(avg(r.stars)::numeric, 2), 0) from public.deck_ratings r where r.deck_id = d),
@@ -521,12 +562,41 @@ begin
     rating_4     = (select count(*) from public.deck_ratings r where r.deck_id = d and r.stars = 4),
     rating_5     = (select count(*) from public.deck_ratings r where r.deck_id = d and r.stars = 5)
   where x.id = d;
+  perform set_config('folio.sync', 'off', true);
   return coalesce(new, old);
 end $$;
 
 drop trigger if exists deck_ratings_sync on public.deck_ratings;
 create trigger deck_ratings_sync after insert or update or delete on public.deck_ratings
   for each row execute function public.sync_deck_rating();
+
+-- extend the column guard to the columns phase 3 adds. Without this an owner could PATCH staff_pick on
+-- their own deck and manufacture an editorial endorsement.
+create or replace function public.guard_user_deck_columns()
+returns trigger language plpgsql security definer set search_path = public as $$
+declare is_admin boolean;
+begin
+  if coalesce(current_setting('folio.sync', true), 'off') = 'on' then return new; end if;
+  select exists (select 1 from public.profiles p where p.id = auth.uid() and p.role = 'admin') into is_admin;
+  if coalesce(is_admin, false) then return new; end if;
+  if tg_op = 'INSERT' then
+    new.owner := auth.uid();
+    new.card_count := 0; new.install_count := 0;
+    new.rating_avg := 0; new.rating_count := 0;
+    new.rating_1 := 0; new.rating_2 := 0; new.rating_3 := 0; new.rating_4 := 0; new.rating_5 := 0;
+    new.staff_pick := false;
+    new.created_at := now();
+  else
+    new.owner := old.owner;
+    new.card_count := old.card_count; new.install_count := old.install_count;
+    new.rating_avg := old.rating_avg; new.rating_count := old.rating_count;
+    new.rating_1 := old.rating_1; new.rating_2 := old.rating_2; new.rating_3 := old.rating_3;
+    new.rating_4 := old.rating_4; new.rating_5 := old.rating_5;
+    new.staff_pick := old.staff_pick;
+    new.created_at := old.created_at;
+  end if;
+  return new;
+end $$;
 
 -- staff picks are an editorial act: only an admin may set the flag
 drop policy if exists "admins set staff picks" on public.user_decks;
