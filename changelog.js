@@ -8,6 +8,8 @@ window.CHANGELOG = [
     d: "2026-07-27",
     t: "Write your own decks",
     items: [
+      "The daily quote on the home page now says where the words come from — the work and chapter — in small type under the speaker's name.",
+      "Badges on your profile now turn over when you click them, showing on the back what you have to do to earn each one. Click again to turn it back.",
       "Glossary terms can now carry a picture. It sits at the bottom of the term's popup and opens full screen when you click it, just like the picture on a card.",
       "Shared decks can now be rated out of five, with a short review if you want to leave one. You can only rate a deck once you've actually studied a few of its cards, and the list sorts by rating in a way that doesn't let a single glowing review beat a deck with fifty good ones.",
       "Decks an editor has read and vouched for now carry a Staff pick mark, and you can filter the list down to just those.",
