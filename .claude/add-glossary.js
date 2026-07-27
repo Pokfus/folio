@@ -10,7 +10,9 @@
 //                 "translations": { "es": "…", "fr": "…", "de": "…", "it": "…", "nl": "…", "ru": "…", "ar": "…", "zh": "…" },
 //                                              // REQUIRED for new terms: the description in all 8 site languages (-> glossary-i18n.js);
 //                                              // pass "skipTranslations": true only for maintenance edits of old English-only terms
-//                 "caseSensitive": true }   // optional: only auto-link when the surface matches the term's capitalization
+//                 "caseSensitive": true,   // optional: only auto-link when the surface matches the term's capitalization
+//                 "image": { "src": "https://…", "title": "…", "desc": "…", "credit": "…" } }
+//                                              // optional illustration, shown at the foot of the term's popup (click = fullscreen viewer)
 //   delete:     { "slug": "Some_Slug", "delete": true }
 const fs = require("fs"), path = require("path");
 const glossPath = path.join(__dirname, "..", "glossary.js");
@@ -26,13 +28,13 @@ const e = JSON.parse(fs.readFileSync(entryFile, "utf8"));
 if (!e.slug) { console.error("ERROR: entry needs `slug`"); process.exit(1); }
 
 const win = loadWindow(glossPath);
-const GLOSS = win.GLOSSARY || {}, DATES = win.GLOSSARY_DATES || {}, ALIASES = win.GLOSSARY_ALIASES || {}, CASE = win.GLOSSARY_CASESENSITIVE || {}, TAGS = win.GLOSSARY_TAGS || {};
+const GLOSS = win.GLOSSARY || {}, DATES = win.GLOSSARY_DATES || {}, ALIASES = win.GLOSSARY_ALIASES || {}, CASE = win.GLOSSARY_CASESENSITIVE || {}, TAGS = win.GLOSSARY_TAGS || {}, IMAGES = win.GLOSSARY_IMAGES || {};
 const I18N = (fs.existsSync(i18nPath) ? (loadWindow(i18nPath).GLOSSARY_I18N || {}) : {});
 
 let action;
 if (e.delete) {
   action = (e.slug in GLOSS) ? "deleted" : "absent";
-  delete GLOSS[e.slug]; delete DATES[e.slug]; delete ALIASES[e.slug]; delete CASE[e.slug]; delete TAGS[e.slug]; delete I18N[e.slug];
+  delete GLOSS[e.slug]; delete DATES[e.slug]; delete ALIASES[e.slug]; delete CASE[e.slug]; delete TAGS[e.slug]; delete IMAGES[e.slug]; delete I18N[e.slug];
 } else {
   if (!e.description) { console.error("ERROR: entry needs `description` (or `delete: true`)"); process.exit(1); }
   const isNew = !(e.slug in GLOSS);
@@ -55,6 +57,12 @@ if (e.delete) {
   else if ("tags" in e) delete TAGS[e.slug];
   if (e.caseSensitive) CASE[e.slug] = true;
   else if ("caseSensitive" in e) delete CASE[e.slug];
+  // optional illustration ({ src, title, desc, credit }) — same shape as a card image, shown at the foot of the popup
+  if (e.image && e.image.src) {
+    const im = { src: String(e.image.src) };
+    ["title", "desc", "credit"].forEach((f) => { if (e.image[f]) im[f] = String(e.image[f]); });
+    IMAGES[e.slug] = im;
+  } else if ("image" in e) delete IMAGES[e.slug];
 }
 
 let out =
@@ -77,6 +85,11 @@ if (Object.keys(TAGS).length) {
   out +=
     "\n/* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */\n" +
     "window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, " + obj(TAGS) + ");\n";
+}
+if (Object.keys(IMAGES).length) {
+  out +=
+    "\n/* Optional illustration per term (slug -> { src, title, desc, credit }) — shown at the foot of the term's popup. */\n" +
+    "window.GLOSSARY_IMAGES = Object.assign(window.GLOSSARY_IMAGES || {}, " + obj(IMAGES) + ");\n";
 }
 fs.writeFileSync(glossPath, out);
 loadWindow(glossPath);   // re-parse to confirm valid JS

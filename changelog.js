@@ -8,6 +8,7 @@ window.CHANGELOG = [
     d: "2026-07-27",
     t: "Write your own decks",
     items: [
+      "Glossary terms can now carry a picture. It sits at the bottom of the term's popup and opens full screen when you click it, just like the picture on a card.",
       "Shared decks can now be rated out of five, with a short review if you want to leave one. You can only rate a deck once you've actually studied a few of its cards, and the list sorts by rating in a way that doesn't let a single glowing review beat a deck with fifty good ones.",
       "Decks an editor has read and vouched for now carry a Staff pick mark, and you can filter the list down to just those.",
       "A deck page now shows more decks by the same author, and a deck you duplicated says what it was based on.",

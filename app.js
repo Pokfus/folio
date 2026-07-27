@@ -154,11 +154,13 @@
   window.GLOSSARY_ALIASES = window.GLOSSARY_ALIASES || {}; // optional alternative background spellings that also open a term's popup (slug -> [forms])
   window.GLOSSARY_CASESENSITIVE = window.GLOSSARY_CASESENSITIVE || {}; // slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven)
   window.GLOSSARY_TAGS = window.GLOSSARY_TAGS || {};       // per-term category tags (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar
+  window.GLOSSARY_IMAGES = window.GLOSSARY_IMAGES || {};   // optional per-term illustration (slug -> { src, title, desc, credit }) shown at the foot of the popup, same shape + viewer as a card image
   window.GLOSSARY_I18N = window.GLOSSARY_I18N || {};       // slug -> { lang: translated description } (glossary-i18n.js)
   const PRISTINE_GLOSS_DATES = Object.assign({}, window.GLOSSARY_DATES);
   const PRISTINE_GLOSS_TITLES = Object.assign({}, window.GLOSSARY_TITLES);
   const PRISTINE_GLOSS_ALIASES = Object.assign({}, window.GLOSSARY_ALIASES);
   const PRISTINE_GLOSS_TAGS = Object.assign({}, window.GLOSSARY_TAGS);
+  const PRISTINE_GLOSS_IMAGES = Object.assign({}, window.GLOSSARY_IMAGES);   // slug -> shipped image object (edits REPLACE a slug's object, never mutate it)
   const PRISTINE_GLOSS_I18N = Object.assign({}, window.GLOSSARY_I18N);   // slug -> shipped lang-map reference (edits REPLACE a slug's map, never mutate it)
   const PRISTINE_TREE_TITLES = {}; Object.values(NODE_BY_ID).forEach((n) => { PRISTINE_TREE_TITLES[n.id] = n.title; });
   // snapshot of the shipped tree structure (used to rebuild after create/rename/delete/move)
@@ -177,7 +179,7 @@
     if (!o || typeof o !== "object") o = {};
     const t = o.tree || {};
     return {
-      cards: o.cards || {}, glossary: o.glossary || {}, glossaryDates: o.glossaryDates || {}, glossaryTitles: o.glossaryTitles || {}, glossaryAliases: o.glossaryAliases || {}, glossaryTags: o.glossaryTags || {}, glossaryDeleted: o.glossaryDeleted || {}, glossaryI18n: o.glossaryI18n || {},
+      cards: o.cards || {}, glossary: o.glossary || {}, glossaryDates: o.glossaryDates || {}, glossaryTitles: o.glossaryTitles || {}, glossaryAliases: o.glossaryAliases || {}, glossaryTags: o.glossaryTags || {}, glossaryImages: o.glossaryImages || {}, glossaryDeleted: o.glossaryDeleted || {}, glossaryI18n: o.glossaryI18n || {},
       created: o.created || {}, deleted: o.deleted || {},
       membership: o.membership || {}, meta: o.meta || {}, chrono: o.chrono || {}, cardColor: o.cardColor || {}, glossColor: o.glossColor || {}, glossOff: o.glossOff || {},
       mission: o.mission && typeof o.mission === "object" ? o.mission : null,   // Mission-intro override ({ title, paras }) — rides in the overlay like every other delta
@@ -226,6 +228,7 @@
     reset(window.GLOSSARY_TITLES, PRISTINE_GLOSS_TITLES);
     reset(window.GLOSSARY_ALIASES, PRISTINE_GLOSS_ALIASES);
     reset(window.GLOSSARY_TAGS, PRISTINE_GLOSS_TAGS);
+    reset(window.GLOSSARY_IMAGES, PRISTINE_GLOSS_IMAGES);
     reset(window.GLOSSARY_I18N, PRISTINE_GLOSS_I18N);
   }
   function reapplyAdminOverlay(snap) {
@@ -295,6 +298,7 @@
     Object.keys(ADMIN_EDITS.glossaryTitles || {}).forEach((k) => { const v = ADMIN_EDITS.glossaryTitles[k]; if (v) window.GLOSSARY_TITLES[k] = v; else delete window.GLOSSARY_TITLES[k]; });
     Object.keys(ADMIN_EDITS.glossaryAliases || {}).forEach((k) => { const v = ADMIN_EDITS.glossaryAliases[k]; if (v && v.length) window.GLOSSARY_ALIASES[k] = v; else delete window.GLOSSARY_ALIASES[k]; });
     Object.keys(ADMIN_EDITS.glossaryTags || {}).forEach((k) => { const v = ADMIN_EDITS.glossaryTags[k]; if (v && v.length) window.GLOSSARY_TAGS[k] = v; else delete window.GLOSSARY_TAGS[k]; });
+    Object.keys(ADMIN_EDITS.glossaryImages || {}).forEach((k) => { const v = ADMIN_EDITS.glossaryImages[k]; if (v && v.src) window.GLOSSARY_IMAGES[k] = v; else delete window.GLOSSARY_IMAGES[k]; });   // whole image objects; a null tombstone hides a shipped one
     Object.keys(ADMIN_EDITS.glossaryI18n || {}).forEach((k) => { const v = ADMIN_EDITS.glossaryI18n[k]; if (v && Object.keys(v).length) window.GLOSSARY_I18N[k] = v; else delete window.GLOSSARY_I18N[k]; });   // whole per-slug lang-maps
     // glossary deletions: drop the term from the live glossary, but only while the shipped text is unchanged.
     // If the slug was re-added or edited out-of-band (e.g. add-glossary.js rewrote glossary.js), retire the tombstone
@@ -304,7 +308,7 @@
       Object.keys(ADMIN_EDITS.glossaryDeleted || {}).forEach((k) => {
         const rec = ADMIN_EDITS.glossaryDeleted[k];
         if (!(k in window.GLOSSARY)) { delete ADMIN_EDITS.glossaryDeleted[k]; gdChanged = true; return; }   // nothing to hide
-        if (rec === true || window.GLOSSARY[k] === rec) { delete window.GLOSSARY[k]; if (window.GLOSSARY_DATES) delete window.GLOSSARY_DATES[k]; if (window.GLOSSARY_TITLES) delete window.GLOSSARY_TITLES[k]; }
+        if (rec === true || window.GLOSSARY[k] === rec) { delete window.GLOSSARY[k]; if (window.GLOSSARY_DATES) delete window.GLOSSARY_DATES[k]; if (window.GLOSSARY_TITLES) delete window.GLOSSARY_TITLES[k]; if (window.GLOSSARY_IMAGES) delete window.GLOSSARY_IMAGES[k]; }
         else { delete ADMIN_EDITS.glossaryDeleted[k]; gdChanged = true; }   // re-added/changed → let it show again
       });
       if (gdChanged) saveAdminEdits();
@@ -730,10 +734,28 @@
     else ADMIN_EDITS.glossaryTags[key] = arr;
     queueAdminSave();
   }
+  // edit one property of a term's illustration ({ src, title, desc, credit }) — same deep-copy/whole-object
+  // delta pattern as the card image; clearing every property stores a null tombstone that hides a shipped one
+  function setGlossImageEdit(key, field, value) {
+    const next = JSON.parse(JSON.stringify(window.GLOSSARY_IMAGES[key] || {}));
+    if (value) next[field] = value; else delete next[field];
+    const empty = !next.src;
+    if (empty) delete window.GLOSSARY_IMAGES[key]; else window.GLOSSARY_IMAGES[key] = next;
+    const base = PRISTINE_GLOSS_IMAGES[key] || null;
+    if (JSON.stringify(empty ? null : next) === JSON.stringify(base)) delete ADMIN_EDITS.glossaryImages[key];
+    else ADMIN_EDITS.glossaryImages[key] = empty ? null : next;
+    queueAdminSave();
+  }
   function glossTags(k) {
     const u = uGlossParse(k);
     if (u) return u.entry.tags || [];
     return (window.GLOSSARY_TAGS && window.GLOSSARY_TAGS[k]) || [];
+  }
+  // a term's illustration, or null — shown at the foot of its popup and opened in the shared fullscreen viewer
+  function glossImage(k) {
+    const u = uGlossParse(k);
+    const img = u ? u.entry.image : (window.GLOSSARY_IMAGES || {})[k];
+    return img && img.src ? img : null;
   }
   function revertGloss(key) {
     if (window.GLOSSARY && key in PRISTINE_GLOSS) window.GLOSSARY[key] = PRISTINE_GLOSS[key];
@@ -746,6 +768,8 @@
     delete ADMIN_EDITS.glossaryAliases[key];
     if (key in PRISTINE_GLOSS_TAGS) window.GLOSSARY_TAGS[key] = PRISTINE_GLOSS_TAGS[key]; else delete window.GLOSSARY_TAGS[key];
     delete ADMIN_EDITS.glossaryTags[key];
+    if (key in PRISTINE_GLOSS_IMAGES) window.GLOSSARY_IMAGES[key] = PRISTINE_GLOSS_IMAGES[key]; else delete window.GLOSSARY_IMAGES[key];
+    delete ADMIN_EDITS.glossaryImages[key];
     if (key in PRISTINE_GLOSS_I18N) window.GLOSSARY_I18N[key] = PRISTINE_GLOSS_I18N[key]; else delete window.GLOSSARY_I18N[key];
     delete ADMIN_EDITS.glossaryI18n[key];
     invalidateGlossIndex();
@@ -760,7 +784,8 @@
     if (window.GLOSSARY_TITLES) delete window.GLOSSARY_TITLES[key];
     if (window.GLOSSARY_ALIASES) delete window.GLOSSARY_ALIASES[key];
     if (window.GLOSSARY_TAGS) delete window.GLOSSARY_TAGS[key];
-    delete ADMIN_EDITS.glossary[key]; delete ADMIN_EDITS.glossaryDates[key]; delete ADMIN_EDITS.glossaryTitles[key]; delete ADMIN_EDITS.glossaryAliases[key]; delete ADMIN_EDITS.glossaryTags[key];
+    if (window.GLOSSARY_IMAGES) delete window.GLOSSARY_IMAGES[key];
+    delete ADMIN_EDITS.glossary[key]; delete ADMIN_EDITS.glossaryDates[key]; delete ADMIN_EDITS.glossaryTitles[key]; delete ADMIN_EDITS.glossaryAliases[key]; delete ADMIN_EDITS.glossaryTags[key]; delete ADMIN_EDITS.glossaryImages[key];
     if (ADMIN_EDITS.glossOff) delete ADMIN_EDITS.glossOff[key];   // don't strand a deleted term's gloss-removal list
     invalidateGlossIndex();
     if (ADMIN_EDITS.glossColor) delete ADMIN_EDITS.glossColor[key];   // don't strand the colour mark of a deleted term
@@ -780,7 +805,7 @@
     t.replace(/\b(\d{3,4})\b/g, (m, n) => { ys.push(+n); return " "; });   // remaining bare years are read as CE
     return ys.length ? Math.min(...ys) : null;
   }
-  function glossIsEdited(key) { return key in ADMIN_EDITS.glossary || key in ADMIN_EDITS.glossaryDates || key in ADMIN_EDITS.glossaryTitles || key in ADMIN_EDITS.glossaryAliases || key in (ADMIN_EDITS.glossaryTags || {}) || key in (ADMIN_EDITS.glossaryI18n || {}); }
+  function glossIsEdited(key) { return key in ADMIN_EDITS.glossary || key in ADMIN_EDITS.glossaryDates || key in ADMIN_EDITS.glossaryTitles || key in ADMIN_EDITS.glossaryAliases || key in (ADMIN_EDITS.glossaryTags || {}) || key in (ADMIN_EDITS.glossaryImages || {}) || key in (ADMIN_EDITS.glossaryI18n || {}); }
   function adminEditCount() {
     const ids = new Set([
       ...Object.keys(ADMIN_EDITS.cards), ...Object.keys(ADMIN_EDITS.created),
@@ -788,7 +813,7 @@
     ]);
     const T = ADMIN_EDITS.tree || { renames: {}, created: {}, deleted: {}, dates: {} };
     const treeN = Object.keys(T.renames).length + Object.keys(T.created).length + Object.keys(T.deleted).length + Object.keys(T.dates || {}).length + Object.keys(T.cardOrder || {}).length;
-    return ids.size + Object.keys(ADMIN_EDITS.glossary).length + Object.keys(ADMIN_EDITS.glossaryDates || {}).length + Object.keys(ADMIN_EDITS.glossaryTitles || {}).length + Object.keys(ADMIN_EDITS.glossaryAliases || {}).length + Object.keys(ADMIN_EDITS.glossaryTags || {}).length + Object.keys(ADMIN_EDITS.glossaryI18n || {}).length + Object.keys(ADMIN_EDITS.glossaryDeleted || {}).length + Object.keys(ADMIN_EDITS.chrono || {}).length + Object.keys(ADMIN_EDITS.cardColor || {}).length + Object.keys(ADMIN_EDITS.glossColor || {}).length + treeN;
+    return ids.size + Object.keys(ADMIN_EDITS.glossary).length + Object.keys(ADMIN_EDITS.glossaryDates || {}).length + Object.keys(ADMIN_EDITS.glossaryTitles || {}).length + Object.keys(ADMIN_EDITS.glossaryAliases || {}).length + Object.keys(ADMIN_EDITS.glossaryTags || {}).length + Object.keys(ADMIN_EDITS.glossaryImages || {}).length + Object.keys(ADMIN_EDITS.glossaryI18n || {}).length + Object.keys(ADMIN_EDITS.glossaryDeleted || {}).length + Object.keys(ADMIN_EDITS.chrono || {}).length + Object.keys(ADMIN_EDITS.cardColor || {}).length + Object.keys(ADMIN_EDITS.glossColor || {}).length + treeN;
   }
   applyAdminEdits();
 
@@ -1755,7 +1780,8 @@
 
   /* ---------- glossary windows (desktop: draggable, up to 4; mobile: single bottom sheet) ---------- */
   const glossWins = [];
-  let glossZ = 8000;
+  const GLOSS_Z_BASE = 8000, GLOSS_Z_CAP = 9400;   // stays below .img-viewer (9800) — see focusGlossWin
+  let glossZ = GLOSS_Z_BASE;
   let glossGlobalsWired = false;
   const glossMobileMQ = window.matchMedia("(max-width: 640px)");
   const isMobileGloss = () => glossMobileMQ.matches;
@@ -1805,7 +1831,17 @@
     glossWins.length = 0;
     try { sessionStorage.removeItem(GLOSS_OPEN_KEY); } catch (e) {}   // navigation dismisses popups; don't resurrect them on the next reload
   }
-  function focusGlossWin(win) { win.style.zIndex = ++glossZ; }
+  // Raise a popup to the top of the gloss stack. The counter is renormalized before it can reach the
+  // fullscreen image viewer's layer — a gloss illustration opens that viewer from inside a popup, so the
+  // viewer has to stay above every window, however many focus clicks a long session accumulates.
+  function focusGlossWin(win) {
+    if (glossZ >= GLOSS_Z_CAP) {
+      glossZ = GLOSS_Z_BASE;
+      glossWins.slice().sort((a, b) => (parseInt(a.style.zIndex, 10) || 0) - (parseInt(b.style.zIndex, 10) || 0))
+        .forEach((w) => { w.style.zIndex = ++glossZ; });
+    }
+    win.style.zIndex = ++glossZ;
+  }
   function flashGloss(win) { win.classList.remove("flash"); void win.offsetWidth; win.classList.add("flash"); }
   function clampGlossWin(win) {
     const vw = document.documentElement.clientWidth, vh = document.documentElement.clientHeight;
@@ -1901,7 +1937,7 @@
         (isAdmin() && !isDeckGlossKey(key) ? '<button class="gloss-edit" type="button" aria-label="Edit this term" title="Edit this term"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>' : "") +
         '<button class="gloss-close" type="button" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>' +
       '</div>' +
-      '<div class="gloss-body"><span class="gloss-dates"></span><p class="gloss-desc"></p></div>';
+      '<div class="gloss-body"><span class="gloss-dates"></span><p class="gloss-desc"></p><div class="gloss-imgslot"></div></div>';
     win.querySelector(".gloss-title").textContent = glossTitle(key);
     const dEl = win.querySelector(".gloss-dates");
     const dates = glossDates(key);
@@ -1909,6 +1945,7 @@
     let descText = glossText(key);
     if (dates) descText = stripDupDates(descText, dates); // drop a parenthetical date identical to the label
     renderGlossDesc(win.querySelector(".gloss-desc"), key, descText);   // render its HTML + auto-link other terms
+    renderGlossImage(win.querySelector(".gloss-imgslot"), key);         // the term's illustration, below the prose
     document.body.appendChild(win);
     setupTooltips(win.querySelector(".gloss-body")); // wire nested glossary terms
 
@@ -2379,6 +2416,10 @@
         tags: Array.isArray(t.tags) ? t.tags.map((x) => sanitizePlain(x).slice(0, 40)).filter(Boolean).slice(0, 12) : [],
         aliases: Array.isArray(t.aliases) ? t.aliases.map((x) => sanitizePlain(x).slice(0, 80)).filter(Boolean).slice(0, 12) : [],
       };
+      if (t.image && t.image.src) {   // the term's illustration, on the same footing as a card image
+        const src = sanitizeUrl(String(t.image.src), ["http", "https"]);
+        if (src) e.image = { src: src, title: sanitizePlain(t.image.title).slice(0, 200), desc: sanitizePlain(t.image.desc).slice(0, 1000), credit: sanitizePlain(t.image.credit).slice(0, 300) };
+      }
       if (!e.desc && !e.title) return;
       out[slug] = e;
     });
@@ -2511,6 +2552,18 @@
     else if (field === "date") t.date = sanitizePlain(value).slice(0, 60);
     else if (field === "tags" || field === "aliases") t[field] = String(value || "").split(",").map((x) => sanitizePlain(x).slice(0, 80)).filter(Boolean).slice(0, 12);
     else return;
+    uGlossTouched(deckId);
+  }
+  // one property of a term's illustration; clearing the URL drops the image entirely (sanitized on write,
+  // like every other field, so an exported deck is clean at the source)
+  function uGlossSetImage(deckId, slug, field, value) {
+    const t = UGLOSS[deckId] && UGLOSS[deckId][slug];
+    if (!t) return;
+    const next = Object.assign({}, t.image);
+    if (field === "src") next.src = sanitizeUrl(String(value || ""), ["http", "https"]) || "";
+    else if (field === "title" || field === "desc" || field === "credit") next[field] = sanitizePlain(value).slice(0, field === "desc" ? 1000 : field === "title" ? 200 : 300);
+    else return;
+    if (next.src) t.image = next; else delete t.image;
     uGlossTouched(deckId);
   }
   function uGlossDelete(deckId, slug) {
@@ -4940,6 +4993,15 @@
                   '<div class="af-input gloss-desc-edit" data-gf="desc" data-rich="1" contenteditable="true" spellcheck="true"></div></div>' +
                 '<label class="admin-field"><span class="af-label">Also written as <small>— comma separated; plurals link automatically</small></span><input class="af-input" data-gf="aliases" type="text" value="' + esc((t.aliases || []).join(", ")) + '" /></label>' +
                 '<label class="admin-field"><span class="af-label">Tags <small>— comma separated</small></span><input class="af-input" data-gf="tags" type="text" value="' + esc((t.tags || []).join(", ")) + '" /></label>' +
+                '<div class="ces-imgpanel gloss-imgpanel">' +
+                  '<div class="aib-head">Image <span class="aib-hint">— shown at the foot of the term&rsquo;s popup; clear the URL to remove it.</span></div>' +
+                  '<label class="admin-field"><span class="af-label">Image URL</span><input class="af-input" data-gimg="src" type="text" spellcheck="false" value="' + esc((t.image || {}).src || "") + '" placeholder="https://…" /></label>' +
+                  '<div id="stImgMeta"' + (t.image && t.image.src ? "" : " hidden") + '>' +
+                    '<label class="admin-field"><span class="af-label">Image title</span><input class="af-input" data-gimg="title" type="text" value="' + esc((t.image || {}).title || "") + '" /></label>' +
+                    '<div class="admin-field"><span class="af-label">Image description</span><textarea class="af-input af-imgdesc" data-gimg="desc" rows="2" spellcheck="true">' + esc((t.image || {}).desc || "") + '</textarea></div>' +
+                    '<label class="admin-field"><span class="af-label">Image source</span><input class="af-input" data-gimg="credit" type="text" spellcheck="false" value="' + esc((t.image || {}).credit || "") + '" /></label>' +
+                  '</div>' +
+                '</div>' +
                 '<p class="af-note">The term links automatically wherever it appears in this deck&rsquo;s card backgrounds — you don&rsquo;t add the links by hand.</p>' +
               '</div>'
             : '<div class="admin-editor-empty">Add a term to start your deck&rsquo;s own glossary.</div>') +
@@ -4960,6 +5022,12 @@
       descEl.innerHTML = (UGLOSS[d.id][slug] || {}).desc || "";
       descEl.addEventListener("input", () => { uGlossSet(d.id, slug, "desc", fieldVal(descEl)); adminFlashSaved(); });
     }
+    const stImgMeta = root.querySelector("#stImgMeta");
+    root.querySelectorAll("[data-gimg]").forEach((el) => el.addEventListener("input", () => {
+      uGlossSetImage(d.id, slug, el.dataset.gimg, el.value.trim());
+      adminFlashSaved();
+      if (el.dataset.gimg === "src" && stImgMeta) stImgMeta.hidden = !((UGLOSS[d.id][slug] || {}).image || {}).src;
+    }));
     root.querySelectorAll("[data-gf]").forEach((el) => {
       if (el.dataset.gf === "desc") return;
       el.addEventListener("input", () => {
@@ -10042,6 +10110,14 @@
     autoLinkGlossary(el, "", [key].concat(glossOffList(key)), glossScopeForKey(key));
     boldFirstTerm(el, glossTitle(key));
   }
+  // a term's illustration at the foot of its popup. It reuses .card-img, so the delegated listener that
+  // opens the fullscreen viewer from any card image covers it too — no wiring of its own.
+  function renderGlossImage(el, key, img) {
+    if (!el) return;
+    const im = img === undefined ? glossImage(key) : (img && img.src ? img : null);
+    el.innerHTML = im ? cardImageHTML(im) : "";
+    el.hidden = !im;
+  }
   // bold the term's first mention in its own gloss description (like the answer term opening a card background)
   function boldFirstTerm(el, title) {
     if (!el || !title) return;
@@ -10243,6 +10319,8 @@
     if (Object.keys(Cs).length) s += "\nwindow.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {}, " + ob(Cs) + ");\n";   // preserve case-sensitive link flags (e.g. God/Heaven/Gun) — otherwise a Save-to-project silently strips them
     const Tg = window.GLOSSARY_TAGS || {};
     if (Object.keys(Tg).length) s += "\nwindow.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, " + ob(Tg) + ");\n";   // preserve category tags (slug -> [tags]) — they power the admin tag filter
+    const Im = window.GLOSSARY_IMAGES || {};
+    if (Object.keys(Im).length) s += "\nwindow.GLOSSARY_IMAGES = Object.assign(window.GLOSSARY_IMAGES || {}, " + ob(Im) + ");\n";   // preserve per-term illustrations — they live only in the overlay otherwise
     return s;
   }
   function downloadText(name, text) {
@@ -10972,18 +11050,27 @@
                 '<label class="admin-field"><span class="af-label">aliases</span><input class="af-input" id="adminGlossAliases" type="text" spellcheck="false" placeholder="e.g. culture heroes, divine ancestors" /></label>' +
                 '<div class="admin-field-note">Comma-separated alternative spellings in card backgrounds that open this same popup. Plural forms (e.g. dragons for dragon) are linked automatically.</div>' +
                 '<label class="admin-field"><span class="af-label">tags</span><input class="af-input" id="adminGlossTags" type="text" spellcheck="false" placeholder="e.g. person, ruler, han dynasty" /></label>' +
-                '<div class="admin-field-note">Comma-separated category tags, shown in the term list — the bar on the left filters by them. Aim for at least three per term.</div>'
+                '<div class="admin-field-note">Comma-separated category tags, shown in the term list — the bar on the left filters by them. Aim for at least three per term.</div>' +
+                '<div class="ces-imgpanel gloss-imgpanel">' +
+                  '<div class="aib-head">Image <span class="aib-hint">— shown 16:9 at the foot of the popup; title, description and source appear in the fullscreen viewer. Clear the URL to remove it.</span></div>' +
+                  '<label class="admin-field"><span class="af-label">image URL</span><input class="af-input" data-gimgfield="src" type="text" spellcheck="false" placeholder="https://… or images/file.jpg" /></label>' +
+                  '<div id="adminGlossImgMeta" hidden>' +   // title/description/source only make sense once an image URL is set
+                    '<label class="admin-field"><span class="af-label">image title</span><input class="af-input" data-gimgfield="title" type="text" /></label>' +
+                    '<div class="admin-field"><span class="af-label">image description</span><textarea class="af-input af-imgdesc" data-gimgfield="desc" rows="2" spellcheck="true"></textarea></div>' +
+                    '<label class="admin-field"><span class="af-label">image source</span><input class="af-input" data-gimgfield="credit" type="text" spellcheck="false" placeholder="e.g. Wikimedia Commons, public domain — or a URL" /></label>' +
+                  '</div>' +
+                '</div>'
               : "") +
           '</div>' +
           '<div class="ed-resizer" id="glossPvResizer" title="Drag to resize the preview"></div>' +
           '<div class="gloss-edit-preview"><div class="gloss-preview-label">Popup preview</div>' +
-            '<div class="gloss-win gloss-preview-win" id="adminGlossPreview"><div class="gloss-bar"><span class="gloss-title"></span><button class="gloss-close" type="button" tabindex="-1" aria-hidden="true">' + closeSvg + '</button></div><div class="gloss-body"><span class="gloss-dates"></span><p class="gloss-desc"></p></div></div>' +
+            '<div class="gloss-win gloss-preview-win" id="adminGlossPreview"><div class="gloss-bar"><span class="gloss-title"></span><button class="gloss-close" type="button" tabindex="-1" aria-hidden="true">' + closeSvg + '</button></div><div class="gloss-body"><span class="gloss-dates"></span><p class="gloss-desc"></p><div class="gloss-imgslot"></div></div></div>' +
           '</div>' +
         '</div>';
       wirePreviewDivider(host.querySelector("#glossPvResizer"), host.querySelector(".gloss-edit-preview"), "--gloss-preview-w", "glossPreviewW");
       const titleI = host.querySelector("#adminGlossTitle"), datesI = host.querySelector("#adminGlossDates"), ta = host.querySelector("#adminGlossField"), aliasesI = host.querySelector("#adminGlossAliases"), tagsI = host.querySelector("#adminGlossTags");
       const headEl = host.querySelector("#adminGlossHead"), rev = host.querySelector("#adminRevert"), pv = host.querySelector("#adminGlossPreview");
-      const pvTitle = pv.querySelector(".gloss-title"), pvDates = pv.querySelector(".gloss-dates"), pvDesc = pv.querySelector(".gloss-desc");
+      const pvTitle = pv.querySelector(".gloss-title"), pvDates = pv.querySelector(".gloss-dates"), pvDesc = pv.querySelector(".gloss-desc"), pvImg = pv.querySelector(".gloss-imgslot");
       if (titleI) titleI.value = (window.GLOSSARY_TITLES && window.GLOSSARY_TITLES[k]) || "";
       if (datesI) datesI.value = (window.GLOSSARY_DATES && window.GLOSSARY_DATES[k]) || "";
       if (gEn) { ta.innerHTML = window.GLOSSARY[k] || ""; richAutoLink(ta); }   // show the auto gloss links in the description (clickable/editable; stripped on save)
@@ -10997,6 +11084,7 @@
         pvDates.textContent = dates; pvDates.style.display = dates ? "" : "none";
         renderGlossDesc(pvDesc, k, desc);
         setupTooltips(pvDesc);   // wire the linked terms so clicking one opens its own glossary popup
+        renderGlossImage(pvImg, k);
       }
       function afterEdit() {
         adminFlashSaved(); adminUpdateCount();
@@ -11011,6 +11099,19 @@
       ta.addEventListener("input", () => { if (gEn) setGlossEdit(k, fieldVal(ta)); else setGlossI18nEdit(k, gLang, fieldVal(ta)); afterEdit(); });
       if (aliasesI) aliasesI.addEventListener("input", () => { setGlossAliasEdit(k, aliasesI.value); afterEdit(); });
       if (tagsI) tagsI.addEventListener("input", () => { setGlossTagsEdit(k, tagsI.value); afterEdit(); adminRenderTree(); });   // tree = the tag filter; keep its counts current
+      // ---- the term's illustration (EN view only — image metadata is shared across languages, like a card's) ----
+      const gImgMeta = host.querySelector("#adminGlossImgMeta");
+      const syncGImgMeta = () => { if (gImgMeta) gImgMeta.hidden = !glossImage(k); };
+      syncGImgMeta();
+      host.querySelectorAll("[data-gimgfield]").forEach((el) => {
+        const cur = (window.GLOSSARY_IMAGES || {})[k] || {};
+        el.value = cur[el.dataset.gimgfield] || "";
+        el.addEventListener("input", () => {
+          setGlossImageEdit(k, el.dataset.gimgfield, el.value.trim());
+          if (el.dataset.gimgfield === "src") syncGImgMeta();
+          afterEdit();
+        });
+      });
       renderPreview();
       wireRichEditor(host);
       if (rev) rev.addEventListener("click", () => { revertGloss(k); adminUpdateCount(); adminRenderEditor(); adminRenderList(); });
