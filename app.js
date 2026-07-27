@@ -76,6 +76,22 @@
   }
   rebuildDerived();
 
+  /* ---------- deep time ----------
+     Prehistory cards are dated in millions of years, not in BCE, so the year machinery has to speak both.
+     A signed year is still just a number (-3300000 = 3.3 Mya); these helpers only read and write it. */
+  const DEEP_MAG = { thousand: 1e3, k: 1e3, ka: 1e3, kya: 1e3, kyr: 1e3, million: 1e6, m: 1e6, mn: 1e6, ma: 1e6, mya: 1e6, myr: 1e6, billion: 1e9, b: 1e9, ga: 1e9, gya: 1e9, gyr: 1e9, bya: 1e9 };
+  const deepNum = (s) => parseFloat(String(s).replace(/,/g, ""));
+  // a signed year written for a human. Deep time gets its own units so a sort key stays readable, and
+  // every form below parses back through parseChronoYear \u2014 the editor's chronology field round-trips.
+  function yearLabel(y) {
+    if (y == null || isNaN(y)) return "";
+    if (y >= 0) return y + " CE";
+    const a = -y, trim = (n) => String(Math.round(n * 1000) / 1000);
+    if (a >= 1e9) return trim(a / 1e9) + " Gya";
+    if (a >= 1e6) return trim(a / 1e6) + " Mya";
+    if (a >= 1e4) return trim(a / 1e3) + " kya";
+    return a + " BCE";
+  }
   // every signed year mentioned in a card's answer term (BCE negative, CE positive)
   const _SY_DASH = /[\u2010\u2011\u2012\u2013\u2014\u2015\u2212]/g;
   function cardYears(c) {
@@ -84,11 +100,27 @@
       .replace(/&amp;/gi, "&").replace(/&#39;/g, "'").replace(/&quot;/gi, '"').replace(/&nbsp;/gi, " ")
       .replace(/\s+/g, " ").replace(_SY_DASH, "-").trim();
     const years = [];
-    t = t.replace(/(\d{1,4})\s*(BCE|BC|CE|AD)\s*-\s*(\d{1,4})\s*(BCE|BC|CE|AD)\b/gi, (m, a, e1, b, e2) => { years.push((/B/i.test(e1) ? -1 : 1) * +a, (/B/i.test(e2) ? -1 : 1) * +b); return " "; });
-    t = t.replace(/(\d{1,4})\s*-\s*(\d{1,4})\s*(BCE|BC|CE|AD)\b/gi, (m, a, b, era) => { const s = /B/i.test(era) ? -1 : 1; years.push(s * +a, s * +b); return " "; });
-    t = t.replace(/(\d{1,4})\s*(BCE|BC|CE|AD)\b/gi, (m, n, era) => { years.push((/B/i.test(era) ? -1 : 1) * +n); return " "; });
+    // deep time first, consumed as it matches so the BCE/CE rules below can't re-read its digits.
+    // A range's units carry leftwards only when the first number is small and ungrouped: "3.3 to 2.6
+    // million years ago" is two millions, but "700,000 and 1.5 million years ago" is not.
+    t = t.replace(/([\d][\d,]*(?:\.\d+)?)\s*(thousand|million|billion)?\s*(?:to|and|or|-)\s*(?:about|around|roughly|approximately|some|c\.|ca\.)?\s*([\d][\d,]*(?:\.\d+)?)\s*(thousand|million|billion)?\s+years?\s+ago\b/gi,
+      (m0, a, u1, b, u2) => {
+        const k2 = u2 ? DEEP_MAG[u2.toLowerCase()] : 1;
+        const k1 = u1 ? DEEP_MAG[u1.toLowerCase()] : (a.indexOf(",") < 0 && deepNum(a) < 1000 ? k2 : 1);
+        years.push(-Math.round(deepNum(a) * k1), -Math.round(deepNum(b) * k2));
+        return " ";
+      });
+    t = t.replace(/([\d][\d,]*(?:\.\d+)?)\s*(thousand|million|billion)?\s*years?\s+ago\b/gi,
+      (m0, a, u) => { years.push(-Math.round(deepNum(a) * (u ? DEEP_MAG[u.toLowerCase()] : 1))); return " "; });
+    // the unambiguous abbreviations only \u2014 bare "ka"/"ma"/"ga" are too easy to hit inside ordinary prose
+    t = t.replace(/([\d][\d,]*(?:\.\d+)?)\s*(kya|kyr|mya|myr|gya|gyr|bya)\b/gi,
+      (m0, a, u) => { years.push(-Math.round(deepNum(a) * DEEP_MAG[u.toLowerCase()])); return " "; });
+    // comma grouping is allowed here too, or "around 10,000 BCE" would read as the year 0
+    t = t.replace(/([\d][\d,]*)\s*(BCE|BC|CE|AD)\s*-\s*([\d][\d,]*)\s*(BCE|BC|CE|AD)\b/gi, (m, a, e1, b, e2) => { years.push((/B/i.test(e1) ? -1 : 1) * deepNum(a), (/B/i.test(e2) ? -1 : 1) * deepNum(b)); return " "; });
+    t = t.replace(/([\d][\d,]*)\s*-\s*([\d][\d,]*)\s*(BCE|BC|CE|AD)\b/gi, (m, a, b, era) => { const s = /B/i.test(era) ? -1 : 1; years.push(s * deepNum(a), s * deepNum(b)); return " "; });
+    t = t.replace(/([\d][\d,]*)\s*(BCE|BC|CE|AD)\b/gi, (m, n, era) => { years.push((/B/i.test(era) ? -1 : 1) * deepNum(n)); return " "; });
     t = t.replace(/\b(1\d{3}|20\d{2})\b/g, (m, n) => { years.push(+n); return " "; });
-    return years;
+    return years.filter((y) => !isNaN(y));
   }
   // start year of a card's answer term (signed; BCE negative; 0 if timeless) — for chronological sort.
   // A manual per-card chronology override (set in the editor) wins over the date parsed from answerDate.
@@ -116,10 +148,11 @@
   // editorial label for a year span; collapses a modern end year to "present"
   function fmtYearSpan(lo, hi) {
     const cur = new Date().getFullYear();
-    const lab = (y) => (y < 0 ? -y + " BCE" : y + " CE");
+    const lab = yearLabel;
     const present = hi >= cur;
+    const deep = Math.abs(lo) >= 1e4 || Math.abs(hi) >= 1e4;   // a deep-time end carries its own unit, so it can't share the other's
     if (lo === hi && !present) return lab(lo);
-    if (!present && (lo < 0) === (hi < 0)) return Math.abs(lo) + " – " + lab(hi);
+    if (!present && !deep && (lo < 0) === (hi < 0)) return Math.abs(lo) + " – " + lab(hi);
     return lab(lo) + " – " + (present ? "present" : lab(hi));
   }
   // the date text shown behind a deck/collection title — a manual override (set on the edit page)
@@ -411,18 +444,29 @@
     touchModified(id);
     queueAdminSave();
   }
-  // manual chronology (sort-year) override — overlay-only admin metadata, like deck dates
+  // manual chronology (sort-year) override — overlay-only admin metadata, like deck dates.
+  // Accepts ordinary history ("200 BCE", "618") and deep time, which prehistory decks need:
+  // "3.3 Mya", "12 kya", "2.5 million BCE", "4.5 billion years ago", "780,000 years ago".
   function parseChronoYear(str) {
-    const t = String(str == null ? "" : str).trim();
+    const t = String(str == null ? "" : str).trim().replace(_SY_DASH, "-");
     if (!t) return null;
-    let y = null;
-    if (/^-?\d{1,4}$/.test(t)) y = +t;                          // explicit signed year ("-200", "618")
-    else { let m = /\b(\d{1,4})\s*(BCE|BC)\b/i.exec(t); if (m) y = -(+m[1]);
-      else { m = /\b(\d{1,4})\s*(CE|AD)\b/i.exec(t); if (m) y = +m[1];
-        else { m = /\b(\d{1,4})\b/.exec(t); if (m) y = +m[1]; } } }   // bare number → read as CE; \b-anchored so "12345" is rejected, not truncated
+    let y = null, m;
+    // a number with a magnitude unit — "years ago" by default, since Mya/kya mean exactly that
+    if ((m = /^([+-]?[\d][\d,]*(?:\.\d+)?)\s*(thousand|million|billion|kya|kyr|mya|myr|gya|gyr|bya|ka|ma|ga|mn|k|m)\.?\s*(?:years?|yrs?|y)?\.?\s*(ago|bp|b\.p\.|before present|bce|bc|ce|ad)?\.?$/i.exec(t))) {
+      const mult = DEEP_MAG[m[2].toLowerCase()];
+      const sign = /^(ce|ad)$/i.test(m[3] || "") ? 1 : -1;
+      y = Math.round(Math.abs(deepNum(m[1])) * mult) * sign;
+    // a plain count of years before the present — "780,000 years ago", "12000 BP"
+    } else if ((m = /^([+-]?[\d][\d,]*(?:\.\d+)?)\s*(?:years?|yrs?)?\s*(?:ago|bp|b\.p\.|before present)\.?$/i.exec(t))) {
+      y = -Math.round(Math.abs(deepNum(m[1])));
+    } else if (/^[+-]?[\d][\d,]*$/.test(t)) y = deepNum(t);     // explicit signed year ("-200", "618", "-300,000")
+    else { m = /\b([\d][\d,]*)\s*(BCE|BC)\b/i.exec(t); if (m) y = -deepNum(m[1]);
+      else { m = /\b([\d][\d,]*)\s*(CE|AD)\b/i.exec(t); if (m) y = deepNum(m[1]);
+        else { m = /\b([\d][\d,]*)\b/.exec(t); if (m) y = deepNum(m[1]); } } }   // bare number → read as CE
+    if (y == null || isNaN(y)) return null;
     return y === 0 ? null : y;                                  // year 0 doesn't exist (and is the timeless sentinel) → treat as blank
   }
-  function chronoLabel(y) { return y === "none" ? "no year" : (y == null ? "" : (y < 0 ? -y + " BCE" : y + " CE")); }
+  function chronoLabel(y) { return y === "none" ? "no year" : (y == null ? "" : yearLabel(y)); }
   function setCardChrono(id, str) {
     const t = String(str == null ? "" : str).trim().toLowerCase();
     if (/^(none|no\s*-?year|nil|n\/a|—|-)$/.test(t)) { ADMIN_EDITS.chrono[id] = "none"; queueAdminSave(); return; }   // explicit "no year" (distinct from blank = auto)
@@ -2173,6 +2217,14 @@
     }
     return out;
   }
+  // the earliest day a review was ever logged ("YYYY-MM-DD"), or "" — the heatmap never starts after
+  // this, so progress carried up from a guest device isn't hidden by a later account-creation date
+  function firstLoggedDay(prog) {
+    const log = (prog && prog.reviewLog) || {};
+    let first = "";
+    Object.keys(log).forEach((k) => { if (!first || k < first) first = k; });
+    return first;
+  }
   // true retention: of the mature cards recalled in the window, how many were remembered.
   // null when nothing mature has been reviewed yet — an honest blank beats a made-up 0% or 100%.
   function retentionRate(prog, days) {
@@ -3903,14 +3955,15 @@
     V.forEach(([v, r]) => { while (n >= v) { s += r; n -= v; } });
     return s;
   }
-  // number → ancient Greek (Ionian alphabetic) numeral: αʹ βʹ … ιʹ ιαʹ …, with ϛ = 6, closed by the keraia
+  // number → ancient Greek (Ionian alphabetic) numeral: α β … ι ια …, with ϛ = 6.
+  // The closing keraia was dropped on request — the banner shows the bare Greek letters.
   function greekNumeral(n) {
     n = n | 0;
     if (n <= 0 || n >= 1000) return String(n);
     const u = ["", "α", "β", "γ", "δ", "ε", "ϛ", "ζ", "η", "θ"],
       t = ["", "ι", "κ", "λ", "μ", "ν", "ξ", "ο", "π", "ϟ"],
       h = ["", "ρ", "σ", "τ", "υ", "φ", "χ", "ψ", "ω", "ϡ"];
-    return h[Math.floor(n / 100)] + t[Math.floor(n / 10) % 10] + u[n % 10] + "ʹ";
+    return h[Math.floor(n / 100)] + t[Math.floor(n / 10) % 10] + u[n % 10];
   }
   // number → Devanagari digits (१ २ ३ …), positional like Western digits
   function devanagariNumeral(n) { return String(n | 0).replace(/\d/g, (d) => "०१२३४५६७८९"[+d]); }
@@ -9071,28 +9124,56 @@
   const MONTH_ABBR = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   function heatLevel(n) { return n === 0 ? 0 : n < 5 ? 1 : n < 15 ? 2 : n < 30 ? 3 : 4; }
 
-  function reviewStatsHTML(prog) {
-    // ---- heatmap: whole weeks, Monday-first, ending on today's column
+  function reviewStatsHTML(prog, joined) {
+    // ---- heatmap: whole weeks, Monday-first, ending on today's column.
+    // It starts on the day the account was created (`joined`) rather than always showing a bare year of
+    // empty squares — but never later than the first logged review, so history migrated up from a guest
+    // device can't be hidden by a later sign-up date. Day 0 must stay a Monday for the column layout, so
+    // the range is rounded back to that week's Monday and the days before the start render as blanks.
     const today = new Date(); today.setHours(12, 0, 0, 0);
     const dow = (today.getDay() + 6) % 7;                     // Mon = 0
-    const span = (HEAT_WEEKS - 1) * 7 + dow + 1;              // whole weeks + the part-week we're in, so day 0 is a Monday
-    const hist = reviewHistory(prog, span);
-    const total = hist.reduce((a, b) => a + b.n, 0);
-    const active = hist.filter((d) => d.n > 0).length;
-    const busiest = hist.reduce((a, b) => (b.n > a.n ? b : a), { n: 0, d: "" });
+    const full = (HEAT_WEEKS - 1) * 7 + dow + 1;              // whole weeks + the part-week we're in, so day 0 is a Monday
+    const todayKey = today.toISOString().slice(0, 10);        // keyed exactly as reviewHistory keys its days
+    let startKey = "";                                        // first day that actually belongs to this account
+    if (joined) {
+      const jd = new Date(joined);
+      if (!isNaN(jd.getTime())) {
+        jd.setHours(12, 0, 0, 0);
+        startKey = jd.toISOString().slice(0, 10);
+        const firstLog = firstLoggedDay(prog);
+        if (firstLog && firstLog < startKey) startKey = firstLog;
+        if (startKey > todayKey) startKey = todayKey;         // a clock-skewed "joined" in the future
+      }
+    }
+    // slice the full year back to the week the account opened in (whole weeks, so day 0 stays a Monday)
+    let hist = reviewHistory(prog, full);
+    if (startKey) {
+      let i = hist.findIndex((d) => d.d >= startKey);
+      if (i < 0) i = hist.length - 1;
+      hist = hist.slice(Math.floor(i / 7) * 7);
+    }
+    const inRange = (d) => !startKey || d.d >= startKey;
+    const total = hist.reduce((a, b) => a + (inRange(b) ? b.n : 0), 0);
+    const active = hist.filter((d) => inRange(d) && d.n > 0).length;
+    const busiest = hist.reduce((a, b) => (inRange(b) && b.n > a.n ? b : a), { n: 0, d: "" });
+    const firstShown = hist.find(inRange) || hist[hist.length - 1];
+    const fromLbl = firstShown ? firstShown.date.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" }) : "";
 
     const cells = hist.map((d) => {
+      // days before the account existed keep the column aligned but aren't drawn as missed days
+      if (!inRange(d)) return '<span class="hm-cell hm-pre" aria-hidden="true"></span>';
       const lbl = d.date.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
       return `<span class="hm-cell hm-${heatLevel(d.n)}" title="${d.n} ${d.n === 1 ? "review" : "reviews"} · ${lbl}"></span>`;
     }).join("");
-    // one label per week column, printed when that week opens a new month
-    let lastMonth = -1;
-    const months = hist.filter((_, i) => i % 7 === 0).map((d) => {
-      const m = d.date.getMonth();
-      if (m === lastMonth) return '<span class="hm-mon"></span>';
-      lastMonth = m;
-      return `<span class="hm-mon">${MONTH_ABBR[m]}</span>`;
-    }).join("");
+    // one label per week column, printed when that week opens a new month. A column is only 11px wide,
+    // so two labels closer than three columns overlap — that never happened over a full year, but a
+    // short (new-account) range can open on the tail of one month and start the next a column later.
+    // The later of a colliding pair wins: it's the one sitting over a real month boundary in view.
+    const cols = hist.filter((_, i) => i % 7 === 0);
+    const cand = []; let lastMonth = -1;
+    cols.forEach((d, col) => { const m = d.date.getMonth(); if (m !== lastMonth) { cand.push({ col: col, m: m }); lastMonth = m; } });
+    const keep = new Set(cand.filter((c, i) => !(cand[i + 1] && cand[i + 1].col - c.col < 3)).map((c) => c.col));
+    const months = cols.map((d, col) => '<span class="hm-mon">' + (keep.has(col) ? MONTH_ABBR[d.date.getMonth()] : "") + '</span>').join("");
 
     // ---- retention (90-day window: long enough to be meaningful, short enough to reflect current habits)
     const ret = retentionRate(prog, 90);
@@ -9122,11 +9203,11 @@
     return `
       <div class="revstats">
         <div class="rs-card rs-heat">
-          <div class="rs-head"><h3>Study history</h3><span class="rs-meta">${total} ${total === 1 ? "review" : "reviews"} · ${active} ${active === 1 ? "day" : "days"} studied</span></div>
+          <div class="rs-head"><h3>Study history</h3><span class="rs-meta">${total} ${total === 1 ? "review" : "reviews"} · ${active} ${active === 1 ? "day" : "days"} studied${fromLbl ? ` · since ${esc(fromLbl)}` : ""}</span></div>
           <div class="hm-scroll">
             <div class="hm-inner">
               <div class="hm-months" aria-hidden="true">${months}</div>
-              <div class="hm-grid" role="img" aria-label="Daily review counts over the past year. ${total} reviews across ${active} days.">${cells}</div>
+              <div class="hm-grid" role="img" aria-label="Daily review counts${fromLbl ? " since " + fromLbl : " over the past year"}. ${total} reviews across ${active} days.">${cells}</div>
             </div>
           </div>
           <div class="hm-legend"><span>Less</span><i class="hm-cell hm-0"></i><i class="hm-cell hm-1"></i><i class="hm-cell hm-2"></i><i class="hm-cell hm-3"></i><i class="hm-cell hm-4"></i><span>More</span>
@@ -9382,7 +9463,7 @@
         <div class="suspbox-collapse collapsed" id="suspCollapse"><div class="suspbox-collapse-inner"><div class="susplist" id="susplist"></div></div></div>
       </div>`;
     root.querySelector("#statWrap").innerHTML = statGridHTML(S, dueCountNow());
-    root.querySelector("#reviewStats").innerHTML = reviewStatsHTML(S);
+    root.querySelector("#reviewStats").innerHTML = reviewStatsHTML(S, S.user && S.user.joined);   // the heatmap opens on the day the account was created
 
     const nameInput = root.querySelector("#name");
     const monoInitial = (v) => { const m = root.querySelector("#mono .monogram:not(.has-img)"); if (m) m.textContent = initialOf(v); };   // only when no photo is set
@@ -9539,7 +9620,7 @@
         <div class="section-label">Progress by deck</div>
         <div class="suspbox"><div class="suspbox-collapse"><div class="suspbox-collapse-inner"><div class="deckprog" id="fDeck"></div></div></div></div>`;
       root.querySelector("#fStat").innerHTML = statGridHTML(prog, null);
-      root.querySelector("#fReviewStats").innerHTML = reviewStatsHTML(prog);   // their reviewLog rides along in the synced progress blob
+      root.querySelector("#fReviewStats").innerHTML = reviewStatsHTML(prog, u.joined);   // their reviewLog rides along in the synced progress blob
       root.querySelector("#fBadges").innerHTML = badgesHTML(prog.achievements, progStats(prog, 0));
       renderCollectionLevels(root.querySelector("#fLevels"), prog.cards || {}, S.cards);   // their levels, with a "You: …" chip beside each
       renderDeckProgress(root.querySelector("#fDeck"), prog.cards || {});
@@ -9962,7 +10043,7 @@
   // (the old EDITOR_FIELDS form list is gone — the single-surface editor edits question/answer/answerDate/
   //  abstract in place on the live card, plus answerText above it. traditional/hanzi/pinyin/translations/
   //  citation were removed from the editor on request; the DATA fields still exist and render on study cards.)
-  function fmtYear(c) { const y = cardStartYear(c); if (!y) return "—"; return y < 0 ? -y + " BCE" : y + " CE"; }
+  function fmtYear(c) { const y = cardStartYear(c); return y ? yearLabel(y) : "—"; }
   function adminSortIds(ids) {
     const mode = adminState.sort;
     const arr = ids.slice();
@@ -11254,7 +11335,7 @@
     const metaRow = isEnLang
       ? '<div class="ces-meta">' +
           '<label class="ces-m"><span>id</span><input class="af-input af-readonly" type="text" value="' + esc(id) + '" readonly /></label>' +
-          '<label class="ces-m"><span>chronology</span><input class="af-input" id="adminChrono" type="text" spellcheck="false" placeholder="' + esc("auto: " + (chronoLabel(autoYear) || "—")) + '" title="Sort / timeline year — overrides the date for ordering, e.g. 200 BCE or 618. Blank = automatic; type none for no year." /></label>' +
+          '<label class="ces-m"><span>chronology</span><input class="af-input" id="adminChrono" type="text" spellcheck="false" placeholder="' + esc("auto: " + (chronoLabel(autoYear) || "—")) + '" title="Sort / timeline year — overrides the date for ordering, e.g. 200 BCE, 618, 12 kya, 3.3 Mya, 2.5 million BCE, 780,000 years ago. Blank = automatic; type none for no year." /></label>' +
           '<label class="ces-m ces-m-wide"><span>answer text — plain, used by the games</span><input class="af-input" id="cesAnswerText" type="text" spellcheck="false" /></label>' +
         '</div>' +
         '<div class="ces-decks"><button class="ces-decks-head" id="cesDecksHead" type="button" aria-expanded="false"><span class="afs-chev">&#9656;</span> Appears in <b id="cesDeckCount">' + memberLeaves.size + '</b> deck' + (memberLeaves.size === 1 ? "" : "s") + '</button><div class="ces-decks-body" id="cesDecksBody" hidden>' + deckHtml + '</div></div>'

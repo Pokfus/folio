@@ -8,6 +8,10 @@ window.CHANGELOG = [
     d: "2026-07-27",
     t: "Write your own decks",
     items: [
+      "Badges you've earned now stand out in gold on your profile, so a glance tells you which ones you have and which are still locked.",
+      "Your study history chart now starts on the day you made your account, instead of always showing a full year with months of blank squares before you joined.",
+      "The Ancient Greece level badge now shows the plain Greek letter, without the small mark after it.",
+      "Cards can now be dated in deep time — millions or thousands of years ago — so prehistory cards sort and appear in the right order rather than being pinned to the year they were discovered.",
       "Signing in to a brand-new account now starts you at level 1 with no badges, instead of showing the levels, badges and streak from the account you were using before on the same device. Study history you built up before you ever made an account still comes with you into your first account, as it always did.",
       "Fifteen new cards in the World History deck, in all ten site languages.",
       "The Atlas welcome note now warns that historical borders are rough estimates and shouldn't be read as exact.",

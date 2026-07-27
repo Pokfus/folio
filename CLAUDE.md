@@ -329,12 +329,33 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   once — past-day history is unreconstructable from `S.cards`. "Mature" = the card's status was `review`
   *before* the grade (a real recall attempt, not a learning step — hence `preStatus`, captured before the
   scheduler rewrites it); correct = anything but Again. Pruned to `REVIEW_LOG_DAYS` (400).
-  Read by `reviewHistory` / `retentionRate` / `dueForecast` and rendered by **`reviewStatsHTML(prog)`** on
-  the account page and a friend's: a year-long **study heatmap** (whole weeks in columns, Monday-first,
+  Read by `reviewHistory` / `retentionRate` / `dueForecast` and rendered by **`reviewStatsHTML(prog, joined)`**
+  on the account page and a friend's: a **study heatmap** (whole weeks in columns, Monday-first,
   scrolling inside `.hm-scroll` so it can never widen the page), a **90-day true-retention** figure (`—`
   when nothing mature has been reviewed — never a made-up 0% or 100%), and a **14-day due forecast**
   (overdue cards fold into today rather than hiding in a past bucket). `dueForecast` skips suspended cards
   and anything in a coming-soon collection, matching `availableCardIdSet()`.
+  **The heatmap starts on the day the account was created** (`joined` — `S.user.joined` for yourself, the
+  friend's `profiles.joined` for theirs), capped at `HEAT_WEEKS` (53), rather than always showing a year of
+  blank squares. Two things that look optional but aren't: it never starts **later than
+  `firstLoggedDay(prog)`**, or a guest's study history migrated up into their first account would be hidden
+  by the later sign-up date; and the range is rounded **back to that week's Monday**, because the grid is
+  `grid-auto-flow:column` over 7 rows and day 0 must be a Monday or every column shifts. The days in that
+  first column that precede the account render as `.hm-pre` blanks (aligned, but not drawn as missed days)
+  and are excluded from the totals. Month labels drop the earlier of any pair closer than 3 columns — at
+  11px per column two labels collide, which a full year never triggered but a short new-account range does.
+- **Deep time (years before the present).** A card's sort year is a plain signed number, so a prehistory
+  card is just a very negative one (`-3300000` = 3.3 Mya). Three pieces carry that: **`cardYears(c)`** reads
+  `answerDate` and now understands `"2.6 million years ago"`, `"3.3 to 2.6 million years ago"`,
+  `"780,000 years ago"` and `kya`/`Mya`/`Gya`, consuming each match so the BCE/CE rules can't re-read its
+  digits (before this the prehistory deck sorted on the *discovery* years in the prose — `1925`, `2011` —
+  because `\b(1\d{3}|20\d{2})\b` was the only rule that matched); the BCE rules also accept comma grouping
+  now, or `"around 10,000 BCE"` parsed as the year 0. **`yearLabel(y)`** is the single formatter — `Gya` /
+  `Mya` / `kya` above 10,000 years, `BCE`/`CE` below — used by `chronoLabel` and `fmtYearSpan`.
+  **`parseChronoYear`** (the editor's chronology field) accepts everything `yearLabel` emits, so the field
+  **round-trips**; keep that true if you touch either. In a range like `"3.3 to 2.6 million years ago"` the
+  unit carries leftwards only when the first number is small and ungrouped — `"700,000 and 1.5 million
+  years ago"` is not two millions.
 - **Card fields (13):** `id, num, category, question` (HTML cloze with blanks), `answer`,
   `answerDate` (HTML), `traditional, hanzi, pinyin, translations` (HTML), `abstract` (rich HTML
   card background; may carry `ttip` glossary links, but newly generated cards omit them),
@@ -502,7 +523,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - **Collections count their level in their own script** (`levelBadgeMarkup(xp, sys)` + `numeralIn(sys, n)`; the id→system map is
   `COLLECTION_NUMERALS`): China → Chinese numerals (`一 二 三 …` via `cnNumeral()`, Han font — `一` for level 1 is a single
   horizontal stroke, so it reads as a bar until level 2+), Ancient Rome (col-40) → Roman numerals, Ancient Greece (col-13) →
-  ancient Greek alphabetic numerals (`αʹ ιαʹ`, ϛ = 6, keraia U+0374), India (col-43) → Devanagari digits (`१ २`), Russia
+  ancient Greek alphabetic numerals (`α ια`, ϛ = 6; the closing keraia was removed on request — don't reintroduce it), India (col-43) → Devanagari digits (`१ २`), Russia
   (col-42) → Cyrillic/Church-Slavonic numerals (`а҃ в҃`, titlo over the second-to-last letter, 11–19 unit-before-ten). The
   level-up popup (`congratsPopup`, items carry `sys`) uses the same map; sizes tuned per script in styles.css
   (`.level-badge.num-*`). World History + United States stay Western digits.

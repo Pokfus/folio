@@ -890,6 +890,8 @@ body.grading .stage{padding-bottom:150px;}
 .hm-grid{grid-template-rows:repeat(7,11px);}
 .hm-mon{font-family:var(--mono); font-size:9px; letter-spacing:.04em; color:var(--ink-faint); white-space:nowrap; overflow:visible;}
 .hm-cell{width:11px; height:11px; border-radius:2.5px; background:var(--paper-2); border:1px solid color-mix(in srgb, var(--rule) 60%, transparent);}
+/* days before the account existed: they hold the Monday-first column alignment but must not read as missed days */
+.hm-cell.hm-pre{background:none; border-color:transparent;}
 .hm-1{background:color-mix(in srgb, var(--indigo) 26%, var(--paper-2)); border-color:transparent;}
 .hm-2{background:color-mix(in srgb, var(--indigo) 50%, var(--paper-2)); border-color:transparent;}
 .hm-3{background:color-mix(in srgb, var(--indigo) 74%, var(--paper-2)); border-color:transparent;}
@@ -1045,13 +1047,23 @@ body.grading .stage{padding-bottom:150px;}
 .badge-face{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:6px; padding:13px 8px; border:1px solid var(--rule); border-radius:11px; background:var(--paper-2); overflow:hidden; backface-visibility:hidden; -webkit-backface-visibility:hidden;}
 .badge-back{transform:rotateY(180deg); gap:5px;}
 .badge.locked{opacity:.42; filter:grayscale(1);}
-.badge.got .badge-face{background:var(--card); border-color:color-mix(in srgb, var(--indigo) 35%, var(--rule));}
+/* an earned badge is unmistakable at a glance: the site's achievement gold (#C39A2E, as on the level
+   numerals and the unlock date) washes the whole tile, so "got" reads as colour, not as a subtle rule. */
+.badge.got .badge-front{background:linear-gradient(155deg, color-mix(in srgb, #C39A2E 30%, var(--card)), color-mix(in srgb, #C39A2E 12%, var(--card)));
+  border-color:color-mix(in srgb, #C39A2E 60%, var(--rule)); box-shadow:0 1px 0 color-mix(in srgb, #FFF 45%, transparent) inset;}
+.badge.got .badge-back{background:color-mix(in srgb, #C39A2E 10%, var(--card)); border-color:color-mix(in srgb, #C39A2E 40%, var(--rule));}
+.badge.got .badge-name{color:#6E5410;}
+body.night .badge.got .badge-front{background:linear-gradient(155deg, color-mix(in srgb, #E6C765 26%, var(--card)), color-mix(in srgb, #E6C765 9%, var(--card)));
+  border-color:color-mix(in srgb, #E6C765 50%, var(--rule)); box-shadow:0 1px 0 color-mix(in srgb, #E6C765 18%, transparent) inset;}
+body.night .badge.got .badge-back{background:color-mix(in srgb, #E6C765 8%, var(--card)); border-color:color-mix(in srgb, #E6C765 32%, var(--rule));}
+body.night .badge.got .badge-name{color:#F3E3B2;}
 .badge:focus-visible{outline:none;}
 .badge:focus-visible .badge-face{border-color:var(--indigo); box-shadow:0 0 0 2px color-mix(in srgb, var(--indigo) 30%, transparent);}
 .badge-ic{font-size:26px; line-height:1;}
 .badge-name{font-family:var(--mono); font-size:9.5px; letter-spacing:.04em; text-transform:uppercase; color:var(--ink); line-height:1.3;}
 .badge-sub{font-family:var(--mono); font-size:9px; color:var(--ink-faint); line-height:1;}
-.badge.got .badge-sub{color:#C39A2E;}
+.badge.got .badge-sub{color:#8A6A14;}
+body.night .badge.got .badge-sub{color:#E6C765;}
 .badge-back-h{font-family:var(--mono); font-size:8px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint);}
 .badge-how{font-family:var(--sans); font-size:10.5px; line-height:1.35; color:var(--ink-soft);}
 /* profile hero: level ring around the avatar + headline stat tiles */
