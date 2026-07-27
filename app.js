@@ -11993,6 +11993,16 @@
     const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
     let n; while ((n = w.nextNode())) if (n._i18nSrc !== undefined) { n.nodeValue = n._i18nSrc; delete n._i18nSrc; }
   }
+  // longest key in a language's I18N_HTML table, memoized — the length bound that lets localizeTree skip
+  // serializing innerHTML for the vast majority of elements (no prose block is longer than the longest key)
+  const _i18nHtmlCapCache = {};
+  function _i18nHtmlCap(lang, dict) {
+    if (_i18nHtmlCapCache[lang] === undefined) {
+      let m = 0; for (const k in dict) if (k.length > m) m = k.length;
+      _i18nHtmlCapCache[lang] = m;
+    }
+    return _i18nHtmlCapCache[lang];
+  }
   function localizeTree(root) {
     const lang = uiLang();
     if (lang === "en" || !root) return;
@@ -12000,11 +12010,18 @@
     if (!root.querySelectorAll) return;
     const htmlDict = (window.I18N_HTML || {})[lang] || {};
     const els = [root, ...root.querySelectorAll("*")];
-    // whole-block prose (About-page paragraphs, FAQ bodies): swap an element whose entire markup matches
+    // Whole-block prose (About-page paragraphs, FAQ bodies): swap an element whose entire markup matches.
+    // The gate is key membership, NOT the element's tag: the About walkthrough steps are <span>s inside
+    // .ms-body and the feature blurbs are <div class="mf-row">, so a block-level allowlist skipped them
+    // and left them to the exact-string pass — which translated only their inline <b>s and stranded the
+    // surrounding prose in English ("Open the <b>Biblioteca</b> and choose a collection.").
     if (Object.keys(htmlDict).length) {
+      const cap = _i18nHtmlCap(lang, htmlDict);
       els.forEach((el) => {
-        if (!/^(P|LI|H1|H2|H3|H4|BLOCKQUOTE|SUMMARY|FIGCAPTION)$/.test(el.nodeName) && !/\bfaq-/.test(el.className || "")) return;
-        if (el.dataset.i18nDone || (el.closest && el.closest(".notranslate")) || el.isContentEditable) return;
+        if (!el.dataset || el.dataset.i18nDone || !el.isConnected) return;
+        if ((el.closest && el.closest(".notranslate")) || el.isContentEditable) return;
+        // cheap bounds before serializing innerHTML on every element: a prose block is small and shallow
+        if (el._i18nHtmlSrc === undefined && (el.children.length > 8 || (el.textContent || "").length > cap)) return;
         const src = el._i18nHtmlSrc !== undefined ? el._i18nHtmlSrc : (el.innerHTML || "").trim();
         if (src && htmlDict[src] !== undefined) { el._i18nHtmlSrc = src; el.innerHTML = htmlDict[src]; el.setAttribute("data-i18n-done", "1"); }
       });

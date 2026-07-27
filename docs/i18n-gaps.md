@@ -140,14 +140,24 @@ My recommendation is **option 2**, and to treat it as a separate programme after
 Batches are ordered so each one ships something visible. Every batch goes through
 `node .claude/add-lang.js <batch.json>` unless it needs new machinery, which is called out.
 
-### Batch 0 — engine fix (no translation work)
-Widen the `I18N_HTML` element gate in `localizeTree()`; add a containment guard. Unlocks 8 already
-translated About-page blocks in all 9 languages. **~1 hour.**
+### Batch 0 — engine fix ✅ SHIPPED
+`localizeTree()`'s `I18N_HTML` pass is now gated on **key membership rather than tag name**, with an
+`isConnected` guard and cheap `children.length` / `textContent.length` bounds (memoized via
+`_i18nHtmlCap`) so it does not serialize `innerHTML` for every element on the page. Unlocked 8
+already-translated About-page blocks in all 9 languages.
 
-### Batch 1 — chrome strings (95 strings × 9)
-One `add-lang.js` batch per language, `chrome.exact` plus `chrome.rules` for the generated labels in B.
-Split into 1a Atlas (37), 1b Community/Studio/Library (18), 1c Home/Settings/games (11), skipping the
-proper-noun credits. **No code change.**
+### Batch 1 — chrome strings ✅ SHIPPED
+72 exact strings, 3 rules and 7 HTML blocks per language (× 9 = 738 translations), applied through
+`add-lang.js`: the Atlas coach-mark card, search, zoom and timeline chrome; the 14 timeline tick titles;
+Community / Studio / Library; Settings → Audio; the Home game tile and term-of-the-day; the Find-it
+scoreboard; and the 20 daily-quote source citations (work titles translated, reference numbers kept
+verbatim). Generated labels went in as rules — `THE WORLD · <year>`, `Round n / m`, `n points`, the last
+two recast as "label: number" in ru/ar where one pattern cannot carry plural agreement.
+
+Verified by re-running the runtime probe: the untranslated-chrome count fell from 279 to 198, and every
+one of the 198 survivors is deliberate or belongs to a later batch — 195 changelog lines (Batch 5),
+`World · History` (Batch 3), `c. 1.85 – 1.77 Mya` (Batch 7), and proper nouns (`Folio`,
+`.folio-deck.json`, the credits links and licence identifiers).
 
 ### Batch 2 — PAGE_META (32 strings × 9)
 Straight `chrome.exact` additions; `setPageMeta` already runs them through `t()`. **No code change.**

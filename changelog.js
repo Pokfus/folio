@@ -8,6 +8,10 @@ window.CHANGELOG = [
     d: "2026-07-27",
     t: "Write your own decks",
     items: [
+      "The Atlas is now in your language: the welcome guide, the search box, the zoom and timeline buttons, the year labels and the country panel's own controls all read in whichever language you have chosen.",
+      "The Shared decks pages, the \"Your decks\" section of the Library and the deck Studio now read in your language too, along with the Find it on the map scoreboard and the Sound effects setting.",
+      "The daily quote's source line — the work and chapter under the speaker's name — is now translated as well.",
+      "Fixed the About page walkthrough, which was showing a mix of English and your own language instead of translating properly.",
       "Five new cards in the World History deck, in all ten site languages.",
       "Badges you've earned now stand out in gold on your profile, so a glance tells you which ones you have and which are still locked.",
       "Your study history chart now starts on the day you made your account, instead of always showing a full year with months of blank squares before you joined.",
