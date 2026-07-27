@@ -387,8 +387,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   translated, so the switcher never offers a language that renders as English. Ship an EMPTY
   `i18n/gloss-<lang>.js` at that point too, or every page load 404s on it until the glossary is translated
   (`ensureData` degrades gracefully, but the console noise is real). **Japanese (`ja`) is mid-rollout**: the
-  chrome is fully translated (531 strings / 72 rules / 12 prose blocks) and live in the switcher; the cards
-  and the glossary are still English and are being backfilled with `add-lang.js`.
+  chrome (531 strings / 72 rules / 12 prose blocks) and all 30 cards are translated and live; the glossary is
+  still English and is being backfilled with `add-lang.js`.
   **Content localisation is separate**: cards carry per-language `i18n` blocks (`cardLocalized()`), glossary
   descriptions live in `i18n/gloss-<lang>.js` (`window.GLOSSARY_I18N`, read by `glossText()`).
   **`setLang(code)` is the single entry point** for a language change (the switcher calls it; don't set
