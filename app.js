@@ -44,10 +44,16 @@
     return n.cardIds || [];
   }
   function nodeHasCards(n) { return subtreeCardIds(n).length > 0; }
+  // A collection/deck title in the reading language. Tree titles are DATA, not chrome, so they are
+  // deliberately NOT routed through the I18N exact table: titles like "Prehistory", "Paleolithic",
+  // "Neolithic" and "Bronze Age" also occur as answer terms and glossary links inside card prose, and a
+  // global exact key would rewrite text the card/glossary pipeline has already translated. English is
+  // the fallback, exactly as it is for a card with no i18n block.
+  function nodeTitle(n) { return (n && n.i18n && n.i18n[uiLang()]) || (n && n.title) || ""; }
   function nodePath(n) {
     const parts = [];
     let cur = n;
-    while (cur) { parts.unshift(cur.title); cur = cur.parentId ? NODE_BY_ID[cur.parentId] : null; }
+    while (cur) { parts.unshift(nodeTitle(cur)); cur = cur.parentId ? NODE_BY_ID[cur.parentId] : null; }
     return parts;
   }
   function nodeWhere(n) { return nodePath(n).join(" · "); }
@@ -202,7 +208,7 @@
   const SHIPPED_NODES = [];
   (function () {
     function walk(node, parentId) {
-      SHIPPED_NODES.push({ id: node.id, title: node.title, parentId: parentId, placeholder: !!node.placeholder, hanzi: node.hanzi || "", cardIds: (node.cardIds || []).slice() });
+      SHIPPED_NODES.push({ id: node.id, title: node.title, i18n: node.i18n, parentId: parentId, placeholder: !!node.placeholder, hanzi: node.hanzi || "", cardIds: (node.cardIds || []).slice() });
       (node.children || []).forEach((ch) => walk(ch, node.id));
     }
     TREE.collections.forEach((c) => walk(c, null));
@@ -571,6 +577,9 @@
       specs.set(s.id, {
         id: s.id,
         title: T.renames[s.id] != null ? T.renames[s.id] : s.title,
+        // a rename retires the shipped translations — showing the old title in nine languages beside a
+        // new English one is worse than falling back to the new English everywhere
+        i18n: T.renames[s.id] != null ? null : s.i18n,
         parentId: ep === undefined ? s.parentId : ep,
         placeholder: s.placeholder, hanzi: s.hanzi,
         cardIds: s.cardIds.slice(),
@@ -592,7 +601,7 @@
       while (cur && hops++ < 9999) { if (seen[cur] || cur === s.id) { s.parentId = null; break; } seen[cur] = 1; const p = specs.get(cur); cur = p ? p.parentId : null; }
     });
     const nodeById = {};
-    specs.forEach((s) => { nodeById[s.id] = { id: s.id, title: s.title, placeholder: s.placeholder, hanzi: s.hanzi, cardIds: s.cardIds, children: [] }; });
+    specs.forEach((s) => { nodeById[s.id] = { id: s.id, title: s.title, i18n: s.i18n, placeholder: s.placeholder, hanzi: s.hanzi, cardIds: s.cardIds, children: [] }; });
     const order = [], seen = {};
     SHIPPED_NODES.forEach((s) => { if (nodeById[s.id] && !seen[s.id]) { order.push(s.id); seen[s.id] = 1; } });
     Object.values(T.created).sort((a, b) => _seqOf(a.id) - _seqOf(b.id)).forEach((c) => { if (nodeById[c.id] && !seen[c.id]) { order.push(c.id); seen[c.id] = 1; } });
@@ -2313,7 +2322,7 @@
     if (ud) return { title: ud.title, parent: "Your decks", count: (ud.cardIds || []).length };
     const n = NODE_BY_ID[id];
     if (!n) return { title: id, parent: "", count: 0 };
-    return { title: n.title, parent: nodeParentPath(n), count: subtreeCardIds(n).length };
+    return { title: nodeTitle(n), parent: nodeParentPath(n), count: subtreeCardIds(n).length };
   }
   function newRemainingToday() {
     const count = S.intro.date === todayStr() ? S.intro.count : 0;
@@ -3932,7 +3941,7 @@
     if (levelFromXP(g).level > levelFromXP(g - 1).level) items.push({ title: "Folio", level: levelFromXP(g).level, sys: null });
     cardCollections(id).forEach((c) => {
       const n = studiedInNode(c);
-      if (levelFromXP(n).level > levelFromXP(n - 1).level) items.push({ title: c.title, level: levelFromXP(n).level, sys: COLLECTION_NUMERALS[c.id] });
+      if (levelFromXP(n).level > levelFromXP(n - 1).level) items.push({ title: nodeTitle(c), level: levelFromXP(n).level, sys: COLLECTION_NUMERALS[c.id] });
     });
     if (items.length) congratsPopup(items);   // a click-anywhere-to-dismiss popup naming each collection/Folio that leveled up
   }
@@ -4164,7 +4173,7 @@
             return `<div class="active-deck" data-review="${esc(r.node.id)}" role="button" tabindex="0" data-depth="${r.depth}" style="padding-left:${pad}px" title="Review just ${esc(r.node.title)}">
               <span class="ad-dot"></span>
               <div class="ad-body">
-                <div class="ad-line"><span class="ad-title">${esc(r.node.title)}</span><span class="ad-count">${info.count} card${info.count === 1 ? "" : "s"}</span></div>
+                <div class="ad-line"><span class="ad-title">${esc(nodeTitle(r.node))}</span><span class="ad-count">${info.count} card${info.count === 1 ? "" : "s"}</span></div>
               </div>
               <button class="ad-trash" data-id="${esc(r.node.id)}" aria-label="Remove from review">${trashSVG}</button>
             </div>`;
@@ -4172,7 +4181,7 @@
           return `<div class="active-deck context" data-depth="${r.depth}" style="padding-left:${pad}px">
             <span class="ad-branch"></span>
             <div class="ad-body">
-              <div class="ad-line"><span class="ad-title">${esc(r.node.title)}</span></div>
+              <div class="ad-line"><span class="ad-title">${esc(nodeTitle(r.node))}</span></div>
             </div>
           </div>`;
         })
@@ -4722,7 +4731,7 @@
           <span class="node-num">${num}</span>
           <div class="node-main">
             <div class="node-title-row">
-              <span class="node-title">${esc(node.title)}</span>
+              <span class="node-title">${esc(nodeTitle(node))}</span>
               ${nodeSpanHTML}
               ${soon ? '<span class="pill soon">Coming soon</span>' : ""}
             </div>
@@ -4753,7 +4762,7 @@
       <span class="node-num">${num}</span>
       <div class="node-main">
         <div class="node-title-row">
-          <span class="node-title">${esc(node.title)}</span>
+          <span class="node-title">${esc(nodeTitle(node))}</span>
           ${nodeSpanHTML}
           ${soon ? '<span class="pill soon">Coming soon</span>' : ""}
         </div>
@@ -4803,7 +4812,7 @@
           ${levelBadgeMarkup(studied, COLLECTION_NUMERALS[d.id])}
           <div class="collection-main">
             <div class="collection-title-row">
-              <span class="collection-title">${esc(d.title)}</span>
+              <span class="collection-title">${esc(nodeTitle(d))}</span>
               ${spanHTML}
               ${soon ? '<span class="pill soon">Coming soon</span>' : `<span class="collection-count">${total} ${total === 1 ? "card" : "cards"}</span>`}
             </div>
@@ -9239,7 +9248,7 @@
       const row = document.createElement("div"); row.className = "dp-row";
       const rc = rootCollectionOf(n);
       if (rc && COLL_THEME[rc.id]) row.style.setProperty("--coll-bg", COLL_THEME[rc.id].bg);
-      row.innerHTML = '<div class="dp-name">' + esc(n.title) + "<small>" + esc(nodeParentPath(n)) + "</small></div>" + '<div class="prog-slot" style="flex:1"></div>';
+      row.innerHTML = '<div class="dp-name">' + esc(nodeTitle(n)) + "<small>" + esc(nodeParentPath(n)) + "</small></div>" + '<div class="prog-slot" style="flex:1"></div>';
       row.querySelector(".prog-slot").appendChild(progressBar(studied, total, isComingSoon(n)));
       container.appendChild(row);
     });
@@ -9257,7 +9266,7 @@
       const hue = COLL_THEME[c.id] ? ' style="--coll-bg:' + COLL_THEME[c.id].bg + '"' : "";
       const you = compareCards ? '<span class="cl-you" title="Your own level in this collection">You: Lv ' + levelFromXP(collectionXPFrom(c, compareCards)).level + "</span>" : "";
       return '<div class="cl-row"' + hue + '>' + levelBadgeMarkup(xp, COLLECTION_NUMERALS[c.id]) +
-        '<div class="cl-main"><div class="cl-name">' + esc(c.title) + you + '</div>' + xpBarMarkup(xp) + '</div></div>';
+        '<div class="cl-main"><div class="cl-name">' + esc(nodeTitle(c)) + you + '</div>' + xpBarMarkup(xp) + '</div></div>';
     }).join("");
     animateProgs(container);
     return cols.length;
@@ -10463,6 +10472,7 @@
     const countIds = (node) => { const s = new Set(); (function w(n) { (n.cardIds || []).forEach((i) => s.add(i)); (n.children || []).forEach(w); })(node); return s.size; };
     function ser(node, isTop) {
       const o = { id: node.id, title: node.title };
+      if (node.i18n) o.i18n = node.i18n;   // the tree's own translations ride along untouched, like a card's
       if (node.hanzi) o.hanzi = node.hanzi;
       if (isTop) { const m = COLLECTION_META[node.id]; if (m && m.blurb != null) o.blurb = m.blurb; o.total = Math.max(countIds(node), (m && m.total) || 0); }   // total >= live card count
       o.placeholder = !!node.placeholder;
@@ -11313,7 +11323,7 @@
     TREE.collections.forEach((col) => {
       const leaves = LEAF_NODES.filter((l) => { let cur = l; while (cur) { if (cur.id === col.id) return true; cur = cur.parentId ? NODE_BY_ID[cur.parentId] : null; } return false; });
       if (!leaves.length) return;
-      deckHtml += '<div class="deck-pick-group"><div class="dpg-title">' + esc(col.title) + '</div>';
+      deckHtml += '<div class="deck-pick-group"><div class="dpg-title">' + esc(nodeTitle(col)) + '</div>';
       leaves.forEach((l) => {
         const path = nodeParentPath(l);
         deckHtml += '<label class="deck-pick-item' + (memberLeaves.has(l.id) ? " on" : "") + '"><input type="checkbox" data-leaf="' + esc(l.id) + '"' + (memberLeaves.has(l.id) ? " checked" : "") + ' /><span class="dpi-box"></span><span class="dpi-name">' + esc(l.title) + '</span>' + (path ? '<span class="dpi-path">' + esc(path) + '</span>' : "") + '</label>';

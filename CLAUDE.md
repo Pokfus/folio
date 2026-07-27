@@ -416,7 +416,23 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   (531 strings / 72 rules / 12 prose blocks), all 30 cards and all 333 glossary terms are translated and live,
   at full parity with the other eight languages.
   **Content localisation is separate**: cards carry per-language `i18n` blocks (`cardLocalized()`), glossary
-  descriptions live in `i18n/gloss-<lang>.js` (`window.GLOSSARY_I18N`, read by `glossText()`).
+  descriptions live in `i18n/gloss-<lang>.js` (`window.GLOSSARY_I18N`, read by `glossText()`), and **collection /
+  deck titles carry their own `node.i18n` lang-map in `data.js`, read by `nodeTitle(n)`** — deliberately NOT the
+  I18N exact table, because titles like `Prehistory`, `Paleolithic`, `Neolithic` and `Bronze Age` also occur as
+  answer terms and glossary links inside card prose, where a global exact key would override wording the card and
+  glossary pipelines have already translated (verified empirically before choosing the helper). `nodeTitle` feeds
+  `nodePath`/`nodeWhere`/`nodeParentPath`, so the Library, study bar, home review list, account rows, deck picker
+  and level-up popup all follow; the **admin tree deliberately keeps reading `node.title`** so the editor always
+  edits the English base, like the glossary editor's EN-view-only fields. An admin **rename retires** that node's
+  translations (`i18n: null`), since a stale translation beside a new English title is worse than falling back.
+  `SHIPPED_NODES`, the `applyAdminEdits` rebuild and `serializeCardData` all carry `i18n` through — **a new node
+  field must be added to all three or it is silently dropped on the first admin edit** (this bit once: the rebuild's
+  `nodeById` literal omitted it and every title stayed English).
+  **The `I18N_HTML` whole-block pass is gated on key membership, not tag name.** It was once limited to
+  `P|LI|H1…`, which skipped the About walkthrough's `<span>`s and `div.mf-row` blurbs; the exact pass then
+  translated only their inline `<b>`s and stranded the surrounding prose in English. It now tests any element,
+  with an `isConnected` guard and cheap `children.length`/`textContent.length` bounds against `_i18nHtmlCap`
+  (the longest key in that language's table) so it does not serialize `innerHTML` for every element on the page.
   **`setLang(code)` is the single entry point** for a language change (the switcher calls it; don't set
   `S.settings.lang` directly): it validates against `LANG_CODES`, persists, and — since the translation files are
   **lazy and per-language** (`langBundle`) — calls `loadLangData()` first, repainting with `applyLang(); render();`
@@ -1060,10 +1076,13 @@ node .claude/add-lang.js <batch.json> [--partial]
 
 `{ "lang": "ja", "chrome": { "exact": {…}, "rules": [[pattern, replacement], …], "html": {…} },
 "cards": { "<cardId>": { question, answer, answerDate, abstract, answerText }, … },
+"tree": { "<nodeId>": "<translated collection/deck title>", … },
 "glossary": { "<slug>": "<3 sentences>", … } }` — every section optional, so one batch can be as small as
 20 glossary terms. It writes `i18n/ui-<lang>.js` / `data.js` / `i18n/gloss-<lang>.js`, **merging** in every case (a language
 never overwrites its neighbours), refuses a card missing any of the 5 translated fields unless `--partial`,
-refuses a glossary slug that has no English entry, warns on a chrome key no other language has (a sign the
+refuses a glossary slug that has no English entry, refuses a `tree` id that is not in `COLLECTION_TREE`
+(keyed by **node id**, not title — titles repeat across the tree, e.g. two `Jin`s and two `Prehistory`s),
+warns on a chrome key no other language has (a sign the
 English source string has changed), and re-parses each file it writes. It reports running coverage
 ("ja now 140/333"), which is how a multi-batch language rollout is tracked.
 **Gotcha this exists to avoid:** `update-cards.js` assigns whole fields, so passing it an `i18n` patch replaces

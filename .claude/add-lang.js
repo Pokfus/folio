@@ -13,6 +13,7 @@
 //                               "html":  { "<innerHTML>": "<translated innerHTML>" } },  // -> i18n/ui-<lang>.js  I18N_HTML[lang]
 //                 "cards":    { "wh-001": { "question": …, "answer": …, "answerDate": …,
 //                                           "abstract": …, "answerText": … }, … },   // -> data.js  card.i18n[lang]
+//                 "tree":     { "col-51": "Eisenzeit", … },                          // -> data.js  node.i18n[lang]
 //                 "glossary": { "Sima_Qian": "<3 sentences>", … } }                  // -> i18n/gloss-<lang>.js
 //
 // Every section is OPTIONAL — run it once per batch of work. Only the files a batch actually touches
@@ -118,6 +119,31 @@ if (batch.cards && Object.keys(batch.cards).length) {
   done.push("data.js: " + Object.keys(batch.cards).length + " card(s) (" + lang + " now complete on " + full + "/" + cards.length + ")");
 }
 
+/* ---- tree -> data.js (collection/deck node.i18n[lang]) ----------------------------------------- */
+// Deck and collection titles are data, not chrome: they are read by nodeTitle() in app.js, NOT through
+// the I18N exact table, because titles like "Prehistory" or "Bronze Age" also occur as answer terms and
+// glossary links inside card prose, where a global key would override the card pipeline's own wording.
+if (batch.tree && Object.keys(batch.tree).length) {
+  const win = loadWindow(P.data), cards = win.CARD_DATA, tree = win.COLLECTION_TREE;
+  const byId = new Map();
+  (function walk(a) { (a || []).forEach((n) => { byId.set(n.id, n); walk(n.children); }); })(tree.collections);
+  for (const [id, title] of Object.entries(batch.tree)) {
+    const node = byId.get(id);
+    if (!node) die("no collection/deck node with id " + id);
+    if (!(typeof title === "string" && title.trim())) die("empty title translation for node " + id);
+    node.i18n = node.i18n || {};           // merge, never replace: a language must not drop its neighbours
+    node.i18n[lang] = title.trim();
+  }
+  fs.writeFileSync(P.data,
+    "/* Card data. Add cards one at a time with `node .claude/add-card.js <card.json> [deckId]` (see CLAUDE.md). */\n" +
+    "window.CARD_DATA = [\n" + cards.map((c) => JSON.stringify(c)).join(",\n") + "\n];\n\n" +
+    "/* Collection -> deck -> sub-deck tree. Leaf decks carry a `cardIds` array. */\n" +
+    "window.COLLECTION_TREE = " + JSON.stringify(tree, null, 2) + ";\n");
+  loadWindow(P.data);   // re-parse to confirm valid JS
+  const have = [...byId.values()].filter((n) => (n.i18n || {})[lang]).length;
+  done.push("data.js tree: " + Object.keys(batch.tree).length + " node(s) (" + lang + " now " + have + "/" + byId.size + ")");
+}
+
 /* ---- glossary -> i18n/gloss-<lang>.js ---------------------------------------------------------- */
 if (batch.glossary && Object.keys(batch.glossary).length) {
   const GLOSS = loadWindow(P.gloss).GLOSSARY || {};
@@ -133,5 +159,5 @@ if (batch.glossary && Object.keys(batch.glossary).length) {
   done.push("i18n/gloss-" + lang + ".js: " + Object.keys(batch.glossary).length + " term(s) (" + lang + " now " + have + "/" + Object.keys(GLOSS).length + ")");
 }
 
-if (!done.length) die("batch has no `chrome`, `cards` or `glossary` section — nothing to do");
+if (!done.length) die("batch has no `chrome`, `cards`, `tree` or `glossary` section — nothing to do");
 console.log(lang + " backfill:\n  " + done.join("\n  "));

@@ -159,14 +159,30 @@ one of the 198 survivors is deliberate or belongs to a later batch — 195 chang
 `World · History` (Batch 3), `c. 1.85 – 1.77 Mya` (Batch 7), and proper nouns (`Folio`,
 `.folio-deck.json`, the credits links and licence identifiers).
 
-### Batch 2 — PAGE_META (32 strings × 9)
-Straight `chrome.exact` additions; `setPageMeta` already runs them through `t()`. **No code change.**
+### Batch 2 — PAGE_META ✅ SHIPPED
+31 strings per language (15 route names carrying the `— Folio` brand suffix, 16 descriptions) as plain
+`chrome.exact` additions; `setPageMeta` already ran them through `t()`. No code change.
 
-### Batch 3 — deck & collection names (68 strings × 9)
-Needs a decision on mechanism. Cheapest is `chrome.exact` — the walker already sees these text nodes and
-no code changes. Risk: short titles (`Han`, `Ancient`, `Modern`, `Early`) are collision-prone as global
-exact keys. Cleaner is an `i18n` map on the tree node read by a `nodeTitle()` helper, mirroring
-`cardLocalized()`. **Recommend the helper**; it is ~20 lines and cannot mistranslate prose elsewhere.
+### Batch 3 — deck & collection names ✅ SHIPPED
+The mechanism question was settled empirically rather than by judgement: a probe scanning every route
+and interaction for tree titles appearing as standalone text nodes elsewhere found that `Prehistory`,
+`Paleolithic`, `Neolithic` and `Bronze Age` **also occur as card answer terms and glossary links inside
+card prose**. A global `chrome.exact` key would therefore have overridden wording the card and glossary
+pipelines already translate — so the `nodeTitle()` helper was the right call, not merely the tidier one.
+
+Shipped as `node.i18n` lang-maps on all 67 tree nodes in `data.js`, read by `nodeTitle(n)`, which feeds
+`nodePath`/`nodeWhere`/`nodeParentPath` — so the Library, study bar, home review list, account progress
+lists, deck picker and level-up popup all follow from one helper. `add-lang.js` gained a `tree` section
+keyed by **node id** (titles repeat: two `Jin`s, two `Prehistory`s). The admin tree deliberately still
+reads `node.title` so the editor edits the English base, and an admin rename retires that node's
+translations rather than leaving a stale one beside a new English title.
+
+**Gotcha worth keeping:** `i18n` had to be threaded through `SHIPPED_NODES`, the `applyAdminEdits`
+rebuild *and* `serializeCardData`. The rebuild's `nodeById` object literal omitted it at first and every
+title silently stayed English — any new tree-node field needs all three.
+
+Verified: the tree bucket fell from 62 survivors to 4, and all four belong elsewhere (a `4.2 Mya – 2022
+CE` deck span → Batch 7; `China`/`India`/`Russia` in the Settings country picker → Batch 6).
 
 ### Batch 4 — daily games (143 items, 9,158 words × 9)
 Add `i18n` blocks to `truefalse.js` and `quotes.js` plus `tfLocalized()` / `quoteLocalized()` readers,

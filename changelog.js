@@ -8,6 +8,8 @@ window.CHANGELOG = [
     d: "2026-07-27",
     t: "Write your own decks",
     items: [
+      "Collection and deck names now read in your language throughout — the Library, the bar at the top of a study session, your daily review list, the progress lists on your profile and the level-up message.",
+      "Browser tabs, bookmarks and shared links now carry the page name in your language instead of always in English.",
       "The Atlas is now in your language: the welcome guide, the search box, the zoom and timeline buttons, the year labels and the country panel's own controls all read in whichever language you have chosen.",
       "The Shared decks pages, the \"Your decks\" section of the Library and the deck Studio now read in your language too, along with the Find it on the map scoreboard and the Sound effects setting.",
       "The daily quote's source line — the work and chapter under the speaker's name — is now translated as well.",
