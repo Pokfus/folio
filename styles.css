@@ -2992,3 +2992,41 @@ body[data-theme="arcade"] .mini-globe{ border-radius:50% !important; }
   .studio-cardlist{position:static;}
   .studio-cardrows{max-height:280px;}
 }
+
+/* --- Community: browse + one deck's page (phase 2) --- */
+.cbrowse-bar{display:flex; flex-wrap:wrap; gap:9px; align-items:center; margin-bottom:18px;}
+.cbrowse-q{flex:1; min-width:180px;}
+.cdeck-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:13px;}
+.cdeck{display:flex; flex-direction:column; gap:5px; text-align:left; padding:15px 16px; border:1px solid var(--rule); border-radius:13px; background:var(--card); cursor:pointer; position:relative; transition:border-color .18s var(--ease), transform .12s var(--ease);}
+.cdeck:hover{border-color:var(--indigo); transform:translateY(-1px);}
+.cdeck-title{font-family:var(--display); font-size:17px; font-weight:600; letter-spacing:-.01em; color:var(--ink);}
+.cdeck-sub{font-family:var(--sans); font-size:12.5px; color:var(--ink-soft); line-height:1.45;}
+.cdeck-meta{display:flex; flex-wrap:wrap; gap:9px; margin-top:3px; font-family:var(--mono); font-size:10px; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint);}
+.cdeck-have{position:absolute; top:11px; right:12px; font-family:var(--mono); font-size:9px; letter-spacing:.07em; text-transform:uppercase; color:var(--indigo); background:var(--indigo-wash); border-radius:5px; padding:3px 6px;}
+.ddetail-head{display:flex; align-items:center; gap:10px; margin-bottom:8px;}
+.ddetail-title{margin-bottom:8px;}
+.ddetail-sub{font-family:var(--sans); font-size:15px; color:var(--ink-soft);}
+.ddetail-meta{display:flex; flex-wrap:wrap; gap:14px; font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:12px;}
+.ddetail-tags{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:13px;}
+.ddetail-desc{font-family:var(--sans); font-size:14.5px; line-height:1.65; color:var(--ink-soft); max-width:66ch; margin:0 0 15px;}
+.ddetail-warn{border-left:3px solid var(--ochre,var(--ink-faint)); background:color-mix(in srgb,var(--ochre,#8A6D3F) 7%, transparent); padding:11px 14px; border-radius:0 9px 9px 0; font-family:var(--sans); font-size:13px; line-height:1.55; color:var(--ink-soft); max-width:66ch; margin-bottom:18px;}
+.ddetail-actions{display:flex; flex-wrap:wrap; gap:9px; margin-bottom:28px;}
+.ddetail-sample h2{font-family:var(--mono); font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-faint); font-weight:600; margin:0 0 12px;}
+.creports{margin-top:34px; border:1.5px dashed color-mix(in srgb,var(--zh) 45%, var(--rule)); border-radius:13px; padding:15px 17px;}
+.creports-head{font-family:var(--mono); font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--zh); margin:0 0 11px; font-weight:600;}
+.creports-head span{opacity:.65;}
+.creport{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px; padding:9px 0; border-top:1px solid var(--rule);}
+.creport-main{font-family:var(--sans); font-size:13.5px; color:var(--ink-soft);}
+.creport-note{display:block; font-size:12.5px; color:var(--ink-faint); margin-top:2px;}
+.creport-acts{display:flex; gap:6px;}
+/* publish strip in the Studio */
+.studio-publish{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:11px; padding:12px 15px; margin-bottom:16px; border:1px solid var(--rule); border-radius:12px; background:var(--card);}
+.studio-publish.on{border-color:color-mix(in srgb,var(--indigo) 40%, var(--rule)); background:var(--indigo-wash);}
+.studio-publish.installed{border-style:dashed;}
+.sp-state{font-family:var(--sans); font-size:13px; color:var(--ink-soft); line-height:1.5;}
+.sp-link{color:var(--indigo); text-decoration:underline; text-underline-offset:2px;}
+.sp-acts{display:flex; gap:7px; flex-wrap:wrap;}
+.studio-cardlist-ro .scr-open{cursor:default;}
+.udeck-tag{font-size:9px; letter-spacing:.07em;}
+.udeck-upd{font-size:9px; letter-spacing:.07em; color:#fff; background:var(--indigo); border-color:var(--indigo);}
+.collection.udeck-installed > .collection-row{border-left-color:var(--indigo);}

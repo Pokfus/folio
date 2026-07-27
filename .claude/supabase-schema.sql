@@ -221,3 +221,213 @@ drop trigger if exists on_auth_user_created on auth.users;
 create trigger on_auth_user_created
   after insert on auth.users
   for each row execute function public.handle_new_user();
+
+-- ----------------------------------------------------------------------------
+-- 5) COMMUNITY DECKS — decks users write themselves and publish for others.
+--
+--    Phase 1 kept these purely local (IndexedDB + .folio-deck.json files).
+--    Phase 2 adds publishing: a deck row plus its cards as ROWS, not one blob.
+--    That split is deliberate — it is what lets a later paid tier gate the
+--    non-demo cards in RLS (`is_demo or entitled`) rather than in the client,
+--    where devtools would defeat it. price_cents / is_demo are carried now so
+--    that phase needs no migration.
+--
+--    Cards published here are NOT fact-checked by Folio and never mix with the
+--    curated content: the app keeps them in a separate store and keeps them out
+--    of the daily games.
+-- ----------------------------------------------------------------------------
+create table if not exists public.user_decks (
+  id           uuid primary key default gen_random_uuid(),
+  owner        uuid not null references auth.users(id) on delete cascade,
+  slug         text not null unique check (slug ~ '^[a-z0-9][a-z0-9-]{2,63}$'),
+  title        text not null check (char_length(title) between 1 and 200),
+  subtitle     text not null default '',
+  description  text not null default '',
+  author       text not null default '',
+  language     text not null default 'en',
+  tags         text[] not null default '{}',
+  gloss_mode   text not null default 'site' check (gloss_mode in ('site','own','both')),
+  status       text not null default 'published' check (status in ('draft','published','hidden','removed')),
+  card_count   int  not null default 0,
+  install_count int not null default 0,
+  rating_avg   numeric(3,2) not null default 0,   -- phase 3
+  rating_count int  not null default 0,           -- phase 3
+  price_cents  int  not null default 0,           -- phase 5 (0 = free; everything is free today)
+  version      int  not null default 1,           -- bumped on every publish; drives "update available"
+  created_at   timestamptz not null default now(),
+  updated_at   timestamptz not null default now()
+);
+create index if not exists user_decks_browse on public.user_decks (status, updated_at desc);
+create index if not exists user_decks_owner  on public.user_decks (owner);
+
+alter table public.user_decks enable row level security;
+
+drop policy if exists "published decks are public" on public.user_decks;
+create policy "published decks are public"
+  on public.user_decks for select to anon, authenticated
+  using (status = 'published' or owner = auth.uid()
+         or exists (select 1 from public.profiles p where p.id = auth.uid() and p.role = 'admin'));
+
+drop policy if exists "publish your own decks" on public.user_decks;
+create policy "publish your own decks"
+  on public.user_decks for insert to authenticated with check (owner = auth.uid());
+
+drop policy if exists "edit your own decks" on public.user_decks;
+create policy "edit your own decks"
+  on public.user_decks for update to authenticated
+  using (owner = auth.uid()) with check (owner = auth.uid());
+
+-- moderation: an admin may hide or restore any deck
+drop policy if exists "admins moderate decks" on public.user_decks;
+create policy "admins moderate decks"
+  on public.user_decks for update to authenticated
+  using (exists (select 1 from public.profiles p where p.id = auth.uid() and p.role = 'admin'))
+  with check (exists (select 1 from public.profiles p where p.id = auth.uid() and p.role = 'admin'));
+
+drop policy if exists "delete your own decks" on public.user_decks;
+create policy "delete your own decks"
+  on public.user_decks for delete to authenticated
+  using (owner = auth.uid()
+         or exists (select 1 from public.profiles p where p.id = auth.uid() and p.role = 'admin'));
+
+drop trigger if exists user_decks_touch on public.user_decks;
+create trigger user_decks_touch before update on public.user_decks
+  for each row execute function public.touch_updated_at();
+
+-- ---- cards: one row per card, so a paid tier can gate them individually ----
+create table if not exists public.user_cards (
+  deck_id  uuid not null references public.user_decks(id) on delete cascade,
+  id       text not null check (id ~ '^u_[a-z0-9]{4,16}_[0-9a-z]{1,8}$'),
+  ord      int  not null default 0,
+  is_demo  boolean not null default true,   -- phase 5: false = behind the paywall
+  data     jsonb not null default '{}'::jsonb,
+  primary key (deck_id, id)
+);
+create index if not exists user_cards_deck on public.user_cards (deck_id, ord);
+
+alter table public.user_cards enable row level security;
+
+-- THE paywall seam. Today every published card is readable because every deck is free and is_demo
+-- defaults true; phase 5 flips non-demo cards to false and adds `or exists (entitlement)` here. Keep
+-- this check in the database — a client-side filter is not a paywall.
+drop policy if exists "cards of readable decks" on public.user_cards;
+create policy "cards of readable decks"
+  on public.user_cards for select to anon, authenticated
+  using (exists (
+    select 1 from public.user_decks d
+    where d.id = user_cards.deck_id
+      and (d.owner = auth.uid()
+           or (d.status = 'published' and (is_demo or d.price_cents = 0))
+           or exists (select 1 from public.profiles p where p.id = auth.uid() and p.role = 'admin'))
+  ));
+
+drop policy if exists "write cards of your own decks" on public.user_cards;
+create policy "write cards of your own decks"
+  on public.user_cards for all to authenticated
+  using (exists (select 1 from public.user_decks d where d.id = user_cards.deck_id and d.owner = auth.uid()))
+  with check (exists (select 1 from public.user_decks d where d.id = user_cards.deck_id and d.owner = auth.uid()));
+
+-- ---- per-deck glossary (phase 4 edits it; the column exists so a deck file round-trips) ----
+create table if not exists public.user_gloss (
+  deck_id uuid not null references public.user_decks(id) on delete cascade,
+  slug    text not null,
+  data    jsonb not null default '{}'::jsonb,
+  primary key (deck_id, slug)
+);
+alter table public.user_gloss enable row level security;
+
+drop policy if exists "gloss of readable decks" on public.user_gloss;
+create policy "gloss of readable decks"
+  on public.user_gloss for select to anon, authenticated
+  using (exists (select 1 from public.user_decks d where d.id = user_gloss.deck_id
+                   and (d.status = 'published' or d.owner = auth.uid())));
+
+drop policy if exists "write gloss of your own decks" on public.user_gloss;
+create policy "write gloss of your own decks"
+  on public.user_gloss for all to authenticated
+  using (exists (select 1 from public.user_decks d where d.id = user_gloss.deck_id and d.owner = auth.uid()))
+  with check (exists (select 1 from public.user_decks d where d.id = user_gloss.deck_id and d.owner = auth.uid()));
+
+-- ---- installs: lets a signed-in learner's installed decks follow them between devices,
+--      and gives install_count an honest source (one row per user per deck) ----
+create table if not exists public.deck_installs (
+  deck_id   uuid not null references public.user_decks(id) on delete cascade,
+  user_id   uuid not null references auth.users(id) on delete cascade,
+  version   int  not null default 1,
+  installed_at timestamptz not null default now(),
+  primary key (deck_id, user_id)
+);
+alter table public.deck_installs enable row level security;
+
+drop policy if exists "see your own installs" on public.deck_installs;
+create policy "see your own installs"
+  on public.deck_installs for select to authenticated using (user_id = auth.uid());
+
+drop policy if exists "record your own installs" on public.deck_installs;
+create policy "record your own installs"
+  on public.deck_installs for insert to authenticated with check (user_id = auth.uid());
+
+drop policy if exists "update your own installs" on public.deck_installs;
+create policy "update your own installs"
+  on public.deck_installs for update to authenticated
+  using (user_id = auth.uid()) with check (user_id = auth.uid());
+
+drop policy if exists "remove your own installs" on public.deck_installs;
+create policy "remove your own installs"
+  on public.deck_installs for delete to authenticated using (user_id = auth.uid());
+
+-- keep user_decks.install_count honest (clients cannot write the column directly)
+create or replace function public.sync_install_count()
+returns trigger language plpgsql security definer set search_path = public as $$
+begin
+  update public.user_decks d
+     set install_count = (select count(*) from public.deck_installs i where i.deck_id = d.id)
+   where d.id = coalesce(new.deck_id, old.deck_id);
+  return coalesce(new, old);
+end $$;
+
+drop trigger if exists deck_installs_count on public.deck_installs;
+create trigger deck_installs_count after insert or delete on public.deck_installs
+  for each row execute function public.sync_install_count();
+
+-- keep user_decks.card_count honest the same way
+create or replace function public.sync_card_count()
+returns trigger language plpgsql security definer set search_path = public as $$
+begin
+  update public.user_decks d
+     set card_count = (select count(*) from public.user_cards c where c.deck_id = d.id)
+   where d.id = coalesce(new.deck_id, old.deck_id);
+  return coalesce(new, old);
+end $$;
+
+drop trigger if exists user_cards_count on public.user_cards;
+create trigger user_cards_count after insert or delete on public.user_cards
+  for each row execute function public.sync_card_count();
+
+-- ---- reports: how a reader flags a deck for the site owner ----
+create table if not exists public.deck_reports (
+  id         uuid primary key default gen_random_uuid(),
+  deck_id    uuid not null references public.user_decks(id) on delete cascade,
+  reporter   uuid references auth.users(id) on delete set null,
+  reason     text not null check (reason in ('inaccurate','offensive','copyright','spam','other')),
+  note       text not null default '',
+  status     text not null default 'open' check (status in ('open','closed')),
+  created_at timestamptz not null default now()
+);
+alter table public.deck_reports enable row level security;
+
+drop policy if exists "file a report" on public.deck_reports;
+create policy "file a report"
+  on public.deck_reports for insert to authenticated with check (reporter = auth.uid());
+
+drop policy if exists "admins read reports" on public.deck_reports;
+create policy "admins read reports"
+  on public.deck_reports for select to authenticated
+  using (reporter = auth.uid()
+         or exists (select 1 from public.profiles p where p.id = auth.uid() and p.role = 'admin'));
+
+drop policy if exists "admins close reports" on public.deck_reports;
+create policy "admins close reports"
+  on public.deck_reports for update to authenticated
+  using (exists (select 1 from public.profiles p where p.id = auth.uid() and p.role = 'admin'))
+  with check (exists (select 1 from public.profiles p where p.id = auth.uid() and p.role = 'admin'));

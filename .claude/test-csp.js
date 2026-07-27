@@ -38,7 +38,7 @@ const server = http.createServer((req, res) => {
   });
 });
 
-const ROUTES = ["", "decks", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "mission", "studio"];
+const ROUTES = ["", "decks", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "mission", "studio", "community", "deck/does-not-exist"];
 
 (async () => {
   await new Promise((r) => server.listen(5599, r));

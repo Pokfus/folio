@@ -747,6 +747,40 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **Not yet done, by design:** the per-deck glossary UI. `deck.glossMode` (`site`/`own`/`both`) is stored
     and travels in the file, but every card currently links against the curated glossary
     (`glossScope: GLOSS_SCOPE_SITE`). Phase 4 fills in `glossSourcesFor` and the editor.
+- **Community decks — Phase 2: publishing, discovery, moderation (July 2026).** A deck can now go online.
+  **⚠ The phase-2 SQL at the end of `.claude/supabase-schema.sql` must be run once** (Dashboard → SQL
+  Editor) or every community call 404s; `communityErr()` turns that into "Deck sharing isn't set up on this
+  site yet." rather than leaking PostgREST's error, and nothing else breaks.
+  · **Tables** — `user_decks` (one row per published deck, with `slug`/`status`/`version`/denormalised
+    `card_count` + `install_count`), `user_cards` (**one row per card**, PK `(deck_id, id)`), `user_gloss`,
+    `deck_installs`, `deck_reports`. Cards are rows and not one jsonb blob **because that is the paywall
+    seam**: the `user_cards` select policy already reads `is_demo or d.price_cents = 0`, so Phase 5 only has
+    to flip non-demo cards and add `or exists (entitlement)`. A blob cannot be partially gated, and a
+    client-side filter is not a paywall. `price_cents` / `is_demo` ship now so that phase needs no migration.
+  · **Ownership** — a local deck is **mine** (`origin !== "installed"`) or **installed**. Mine can be
+    published (`uDeckPublish` → insert/patch `user_decks`, then delete + re-insert every `user_cards` row,
+    which is simpler than diffing and safe because **card ids are stable across a publish, so a learner's
+    scheduling survives an update**). Installed decks are **read-only in the Studio** — editing would
+    silently fork them and then the author's next update would either clobber the edits or be refused;
+    "Duplicate to edit" makes the copy explicit (it round-trips through `uDeckImportText(..., true)`).
+  · **`UDECK_PUBLISH_KEYS` never leave the device.** `uDeckExport` strips them and `uDeckImportText` zeroes
+    them, so a deck *file* can't claim someone else's slug, masquerade as installed, or suppress an update
+    prompt. Only `UDECK_META_KEYS` travel in a `.folio-deck.json`.
+  · **Pages** — `PAGES.community` (`#community`: search, sort, grid) and `PAGES.deck` (`#deck/<slug>`, a
+    shareable deep link parsed at boot and on `hashchange`, the same shape as `#map/<year>/<slug>`). The
+    deck page renders **a real flippable sample card**, re-sanitized through `uCardSanitize` — the server
+    copy is never trusted just because it came from our own API.
+  · **Installs** — `deck_installs` is one row per user per deck, which both syncs a signed-in learner's
+    installs and gives `install_count` an honest trigger-maintained source. Installing works **signed out**
+    too (the deck lands in IndexedDB; only the row and the count need an account).
+  · **Card-id collisions** — `remoteToLocal` remaps a deck's card ids if any already belong to a *different*
+    local deck, so two installs can never collide in `UCARDS` / `S.cards`.
+  · **Moderation** — a Report control on every deck page (`deck_reports`, reasons are a CHECK constraint),
+    and an admin-only queue on `#community` with Hide / Restore / Dismiss. Hiding sets `status='hidden'`,
+    which the RLS select policy already excludes from everyone but the owner and admins.
+  · **Update checks** — `communityCheckUpdates()` runs once at idle after boot, in ONE request for all
+    installed decks, and fills `_deckUpdates` (Library and Studio show an "update" pill). A failed or
+    offline check just leaves it empty.
 
 ## Generating cards & glossary entries
 
@@ -1031,7 +1065,7 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Four committed Playwright regression tests** (in `.claude/`, not loaded by the site). Each slices what
+- **Five committed Playwright regression tests** (in `.claude/`, not loaded by the site). Each slices what
   it tests out of the real `app.js`/`_headers` by text, so they can't drift from what ships:
   · `node .claude/test-sanitize.js` — 48 XSS vectors through `sanitizeHTML()`, each one also injected into
     a live DOM to confirm nothing executes. **Re-run after touching `SANITIZE_*` or `sanitizeUrl`.**
@@ -1044,6 +1078,13 @@ dead code (never rendered).
   · `node .claude/test-admin-editor.js` — the curated-content editor: open a card, type, confirm the
     overlay records it, revert, the HTML source box, and gloss popups. **Re-run after touching
     `liveCardEditorHTML` / `wireLiveCardEditor`** — that surface is shared with the Studio.
+  · `node .claude/test-publish.js` — 36 assertions across three browser sessions (an author, a reader, an
+    admin) driving publish → browse → install → update → report → hide → export. It runs against an
+    **in-memory mock of the Supabase REST API**, deliberately: the publishable key in app.js points at the
+    real project, so a test that really published would write rows into it. The mock also enforces the
+    ownership rule, which is how "a stranger cannot patch someone's deck" is asserted. **Re-run after
+    touching the publishing functions or `.claude/supabase-schema.sql` — and keep the mock in step with
+    the policies, since it is only a stand-in for them, never a proof that the real RLS is right.**
   Playwright is a dev dependency and must NOT be installed into the repo (the zero-dependency rule, and
   `node_modules/` is gitignored) — install it in a scratch folder and run with
   `NODE_PATH=<that>/node_modules`. Set `FOLIO_CHROMIUM=<path to chrome>` if Chromium lives outside the

@@ -2266,6 +2266,14 @@
     o.updatedAt = Number(m && m.updatedAt) || o.createdAt;
     if (!o.title) o.title = "Untitled deck";
     if (!o.language) o.language = "en";
+    // publishing state (phase 2). A deck is "mine" unless it was installed from someone else's.
+    o.remoteId = /^[0-9a-fA-F-]{36}$/.test(String(m && m.remoteId)) ? String(m.remoteId) : "";
+    o.slug = /^[a-z0-9][a-z0-9-]{2,63}$/.test(String(m && m.slug)) ? String(m.slug) : "";
+    o.origin = (m && m.origin === "installed") ? "installed" : "mine";
+    o.remoteStatus = ["draft", "published", "hidden", "removed"].indexOf(m && m.remoteStatus) >= 0 ? m.remoteStatus : "";
+    o.publishedVersion = Number(m && m.publishedVersion) || 0;
+    o.installedVersion = Number(m && m.installedVersion) || 0;
+    o.ownerName = sanitizePlain(m && m.ownerName).slice(0, 80);
     return o;
   }
   function uCardSanitize(raw, deckId, idx) {
@@ -2310,11 +2318,13 @@
     norm.cards.forEach((c) => { UCARDS[c.id] = c; });
     return d;
   }
-  function uDeckRecord(deckId) {   // the on-disk / in-file shape
+  const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language", "tags", "glossMode", "version", "createdAt", "updatedAt"];
+  const UDECK_PUBLISH_KEYS = ["remoteId", "slug", "origin", "remoteStatus", "publishedVersion", "installedVersion", "ownerName"];
+  function uDeckRecord(deckId) {   // the on-disk shape (also the export shape, minus the publishing keys)
     const d = UDECKS[deckId];
     if (!d) return null;
     const meta = {};
-    ["id", "title", "subtitle", "desc", "author", "language", "tags", "glossMode", "version", "createdAt", "updatedAt"].forEach((f) => { meta[f] = d[f]; });
+    UDECK_META_KEYS.concat(UDECK_PUBLISH_KEYS).forEach((f) => { meta[f] = d[f]; });
     return { id: d.id, meta: meta, cards: uDeckCards(d).map((c) => { const o = {}; Object.keys(c).forEach((k) => { if (k !== "deckId") o[k] = c[k]; }); return o; }), gloss: UGLOSS[d.id] || {} };
   }
   function uDeckSave(deckId) {
@@ -2411,7 +2421,11 @@
   function uDeckExport(deckId) {
     const rec = uDeckRecord(deckId);
     if (!rec) return;
-    const out = { folioDeck: UDECK_FORMAT, exportedAt: new Date().toISOString(), meta: rec.meta, cards: rec.cards, gloss: rec.gloss };
+    // A file is a copy, never the published deck: strip the publishing keys so importing it somewhere else
+    // can't claim someone's slug, masquerade as installed, or suppress an update prompt.
+    const meta = {};
+    UDECK_META_KEYS.forEach((f) => { meta[f] = rec.meta[f]; });
+    const out = { folioDeck: UDECK_FORMAT, exportedAt: new Date().toISOString(), meta: meta, cards: rec.cards, gloss: rec.gloss };
     const name = (rec.meta.title || "deck").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 48) || "deck";
     const url = URL.createObjectURL(new Blob([JSON.stringify(out, null, 2)], { type: "application/json" }));
     const a = document.createElement("a");
@@ -2431,6 +2445,7 @@
     const norm = uDeckNormalize(raw);
     if (!norm) return { error: "That deck file couldn't be read." };
     if (!norm.cards.length) return { error: "That deck has no cards in it." };
+    UDECK_PUBLISH_KEYS.forEach((f) => { norm.meta[f] = (f === "origin") ? "mine" : (typeof norm.meta[f] === "number" ? 0 : ""); });   // an imported file is always a fresh, unpublished deck of your own
     if (asCopy || UDECKS[norm.id]) {
       // a fresh id (and fresh card ids) so an import can never overwrite a deck you are working on, and
       // so two copies of the same deck keep separate study progress
@@ -2464,6 +2479,199 @@
     inp.click();
   }
 
+  /* ---------- publishing & discovery ----------
+     A deck is either MINE (written here, optionally published) or INSTALLED (someone else's, pulled down
+     and read-only). Publishing needs an account; browsing and installing do not — a signed-out visitor can
+     still find a deck and study it, they just don't get their install list synced between devices.
+
+     Cards go up as ROWS, not one blob, because that is what lets a later paid tier gate the non-demo ones
+     in RLS. Card ids stay stable across a publish so that when a creator ships an update, a learner's
+     scheduling on the cards that didn't change survives. */
+  function uDeckIsMine(d) { return !d || d.origin !== "installed"; }
+  function uDeckIsPublished(d) { return !!(d && d.remoteId && d.remoteStatus === "published"); }
+  function slugify(s, salt) {
+    let base = sanitizePlain(s).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 48);
+    if (base.length < 3) base = "deck-" + base;
+    return (base + "-" + (salt || uid(4))).replace(/-+/g, "-").slice(0, 64);
+  }
+  function uDeckRemotePayload(d) {
+    return {
+      slug: d.slug, title: d.title || "Untitled deck", subtitle: d.subtitle || "", description: d.desc || "",
+      author: d.author || (SUPA_PROFILE ? SUPA_PROFILE.name : "") || "", language: d.language || "en",
+      tags: d.tags || [], gloss_mode: d.glossMode || "site", status: "published", version: (d.publishedVersion || 0) + 1,
+    };
+  }
+  // returns { ok } | { error }
+  async function uDeckPublish(deckId) {
+    const d = UDECKS[deckId];
+    if (!d) return { error: "That deck is gone." };
+    if (!uDeckIsMine(d)) return { error: "This deck belongs to someone else. Duplicate it first if you want to publish your own version." };
+    if (!supaLoggedIn()) return { error: "Sign in on the Account page to publish a deck." };
+    const cards = uDeckCards(d);
+    if (!cards.length) return { error: "Write at least one card before publishing." };
+    if (!sanitizePlain(d.title).trim() || d.title === "Untitled deck") return { error: "Give the deck a title before publishing." };
+
+    if (!d.slug) d.slug = slugify(d.title);
+    let row = null;
+    if (d.remoteId) {
+      const r = await supaFetch("/rest/v1/user_decks?id=eq." + encodeURIComponent(d.remoteId), {
+        method: "PATCH", body: uDeckRemotePayload(d), headers: { Prefer: "return=representation" },
+      });
+      if (!r.ok) return { error: communityErr(r, "Couldn't update the published deck.") };
+      row = Array.isArray(r.data) ? r.data[0] : r.data;
+    } else {
+      let attempt = 0;
+      while (attempt < 3 && !row) {
+        const body = Object.assign({ owner: SUPA.user.id }, uDeckRemotePayload(d));
+        const r = await supaFetch("/rest/v1/user_decks", { method: "POST", body: body, headers: { Prefer: "return=representation" } });
+        if (r.ok) { row = Array.isArray(r.data) ? r.data[0] : r.data; break; }
+        // 409 = the slug is taken; try another suffix before giving up
+        if (r.status === 409) { d.slug = slugify(d.title); attempt++; continue; }
+        return { error: communityErr(r, "Couldn't publish the deck.") };
+      }
+      if (!row) return { error: "That deck name is taken — try a different title." };
+    }
+
+    // replace the card rows wholesale: simpler than diffing, and card ids are stable so progress survives
+    const del = await supaFetch("/rest/v1/user_cards?deck_id=eq." + encodeURIComponent(row.id), { method: "DELETE" });
+    if (!del.ok && del.status !== 404) return { error: supaErrMsg(del, "Couldn't replace the deck's cards.") };
+    const rows = cards.map((c, i) => {
+      const data = {};
+      CARD_FIELDS.forEach((f) => { data[f] = c[f] == null ? "" : c[f]; });
+      if (c.image && c.image.src) data.image = c.image;
+      return { deck_id: row.id, id: c.id, ord: i, is_demo: true, data: data };
+    });
+    const ins = await supaFetch("/rest/v1/user_cards", { method: "POST", body: rows });
+    if (!ins.ok) return { error: supaErrMsg(ins, "Couldn't upload the deck's cards.") };
+
+    d.remoteId = row.id;
+    d.slug = row.slug;
+    d.remoteStatus = row.status;
+    d.publishedVersion = row.version;
+    d.ownerName = row.author;
+    uDeckSave(deckId);
+    return { ok: true, deck: d, row: row };
+  }
+  async function uDeckUnpublish(deckId) {
+    const d = UDECKS[deckId];
+    if (!d || !d.remoteId) return { error: "That deck isn't published." };
+    const r = await supaFetch("/rest/v1/user_decks?id=eq." + encodeURIComponent(d.remoteId), { method: "PATCH", body: { status: "draft" } });
+    if (!r.ok) return { error: supaErrMsg(r, "Couldn't unpublish the deck.") };
+    d.remoteStatus = "draft";
+    uDeckSave(deckId);
+    return { ok: true };
+  }
+
+  // Until the phase-2 SQL in .claude/supabase-schema.sql has been run, every one of these calls 404s with
+  // PostgREST's "relation ... does not exist". Say what actually needs doing rather than leaking that.
+  function communityErr(r, fallback) {
+    const d = r && r.data;
+    const msg = (d && (d.message || d.msg)) || "";
+    if (r && r.status === 0) return "You appear to be offline — shared decks need a connection.";
+    if (/does not exist|schema cache/i.test(String(msg)) || (r && r.status === 404 && !d)) return "Deck sharing isn't set up on this site yet.";
+    return supaErrMsg(r, fallback);
+  }
+  const COMMUNITY_SORTS = { recent: "updated_at.desc", installs: "install_count.desc,updated_at.desc", title: "title.asc" };
+  async function communityBrowse(opts) {
+    opts = opts || {};
+    const sort = COMMUNITY_SORTS[opts.sort] || COMMUNITY_SORTS.recent;
+    let q = "/rest/v1/user_decks?select=id,slug,title,subtitle,description,author,language,tags,card_count,install_count,version,updated_at,status" +
+      "&status=eq.published&order=" + sort + "&limit=" + (opts.limit || 60);
+    if (opts.q) {
+      const term = String(opts.q).replace(/[,()*]/g, " ").trim();
+      if (term) q += "&or=(title.ilike.*" + encodeURIComponent(term) + "*,subtitle.ilike.*" + encodeURIComponent(term) + "*,description.ilike.*" + encodeURIComponent(term) + "*)";
+    }
+    const r = await supaFetch(q);
+    if (!r.ok) return { error: communityErr(r, "Couldn't reach the deck library.") };
+    return { ok: true, decks: Array.isArray(r.data) ? r.data : [] };
+  }
+  async function communityFetchDeck(slug) {
+    const r = await supaFetch("/rest/v1/user_decks?slug=eq." + encodeURIComponent(slug) + "&select=*&limit=1");
+    if (!r.ok) return { error: communityErr(r, "Couldn't load that deck.") };
+    const row = Array.isArray(r.data) ? r.data[0] : null;
+    if (!row) return { error: "notfound" };
+    const c = await supaFetch("/rest/v1/user_cards?deck_id=eq." + encodeURIComponent(row.id) + "&select=id,ord,is_demo,data&order=ord.asc");
+    if (!c.ok) return { error: communityErr(c, "Couldn't load that deck's cards.") };
+    return { ok: true, row: row, cards: Array.isArray(c.data) ? c.data : [] };
+  }
+  function localDeckForRemote(remoteId) {
+    const k = Object.keys(UDECKS).find((x) => UDECKS[x].remoteId === remoteId);
+    return k ? UDECKS[k] : null;
+  }
+  // Build the local record for a remote deck. Card ids come down as published so an update keeps the
+  // learner's scheduling — unless one already belongs to a DIFFERENT local deck, in which case this deck's
+  // ids are remapped so two installs can never collide in UCARDS / S.cards.
+  function remoteToLocal(row, cards, existingLocalId) {
+    const localId = existingLocalId || uid(8);
+    const clash = cards.some((c) => UCARDS[c.id] && UCARDS[c.id].deckId !== localId);
+    const rec = {
+      id: localId,
+      meta: {
+        id: localId, title: row.title, subtitle: row.subtitle, desc: row.description, author: row.author,
+        language: row.language, tags: row.tags || [], glossMode: row.gloss_mode, version: 1,
+        createdAt: Date.parse(row.created_at) || Date.now(), updatedAt: Date.now(),
+        remoteId: row.id, slug: row.slug, origin: "installed", remoteStatus: row.status,
+        installedVersion: row.version, ownerName: row.author,
+      },
+      cards: cards.map((c, i) => Object.assign({}, c.data, { id: clash ? "u_" + localId + "_" + (i + 1) : c.id })),
+      gloss: {},
+    };
+    return uDeckNormalize(rec);
+  }
+  async function uDeckInstall(row, cards) {
+    const existing = localDeckForRemote(row.id);
+    const norm = remoteToLocal(row, cards, existing ? existing.id : null);
+    if (!norm) return { error: "That deck couldn't be read." };
+    if (existing) (existing.cardIds || []).forEach((id) => { if (norm.cards.every((c) => c.id !== id)) delete UCARDS[id]; });   // cards the update removed
+    const d = uDeckMount(norm);
+    await cdbPut(uDeckRecord(d.id));
+    if (supaLoggedIn()) {
+      await supaFetch("/rest/v1/deck_installs", {
+        method: "POST", body: { deck_id: row.id, user_id: SUPA.user.id, version: row.version },
+        headers: { Prefer: "resolution=merge-duplicates" },
+      });
+    }
+    return { ok: true, deck: d };
+  }
+  async function uDeckUninstall(deckId) {
+    const d = UDECKS[deckId];
+    if (!d) return;
+    const remote = d.remoteId;
+    uDeckDelete(deckId);
+    if (remote && supaLoggedIn()) await supaFetch("/rest/v1/deck_installs?deck_id=eq." + encodeURIComponent(remote) + "&user_id=eq." + SUPA.user.id, { method: "DELETE" });
+  }
+  // Ask the server which installed decks have a newer version. Cheap: one request for all of them.
+  async function communityCheckUpdates() {
+    const installed = uDeckList().filter((d) => d.origin === "installed" && d.remoteId);
+    if (!installed.length) return {};
+    const ids = installed.map((d) => d.remoteId);
+    const r = await supaFetch("/rest/v1/user_decks?id=in.(" + ids.join(",") + ")&select=id,version,status");
+    if (!r.ok || !Array.isArray(r.data)) return {};
+    const out = {};
+    r.data.forEach((row) => {
+      const d = localDeckForRemote(row.id);
+      if (d && row.status === "published" && Number(row.version) > Number(d.installedVersion || 0)) out[d.id] = row.version;
+    });
+    return out;
+  }
+  async function deckReport(remoteId, reason, note) {
+    if (!supaLoggedIn()) return { error: "Sign in on the Account page to report a deck." };
+    const r = await supaFetch("/rest/v1/deck_reports", { method: "POST", body: { deck_id: remoteId, reporter: SUPA.user.id, reason: reason, note: sanitizePlain(note).slice(0, 1000) } });
+    if (!r.ok) return { error: supaErrMsg(r, "Couldn't send that report.") };
+    return { ok: true };
+  }
+  async function deckSetStatus(remoteId, status) {   // admin moderation
+    const r = await supaFetch("/rest/v1/user_decks?id=eq." + encodeURIComponent(remoteId), { method: "PATCH", body: { status: status } });
+    if (!r.ok) return { error: supaErrMsg(r, "Couldn't change that deck's status.") };
+    return { ok: true };
+  }
+  async function deckReportsOpen() {
+    const r = await supaFetch("/rest/v1/deck_reports?status=eq.open&select=id,deck_id,reason,note,created_at&order=created_at.desc&limit=50");
+    if (!r.ok || !Array.isArray(r.data)) return [];
+    return r.data;
+  }
+  async function deckReportClose(id) { return supaFetch("/rest/v1/deck_reports?id=eq." + encodeURIComponent(id), { method: "PATCH", body: { status: "closed" } }); }
+
   /* ---------- boot ----------
      Async, like the lazy data bundles: the first paint never waits for it, and the pages that show decks
      re-render once the store has landed. */
@@ -2476,6 +2684,15 @@
     // Re-render even when nothing was found: the Studio holds a "loading" placard until this lands, so
     // skipping the repaint on an empty store would leave a first-time visitor staring at it forever.
     if (current && (current.name === "decks" || current.name === "studio" || current.name === "home")) render();
+    // then, quietly, ask whether any installed deck has a newer version. Never blocks anything: a failed
+    // or offline check just leaves _deckUpdates empty and no badges appear.
+    if (n) whenIdle(() => {
+      communityCheckUpdates().then((u) => {
+        if (!u || !Object.keys(u).length) return;
+        _deckUpdates = u;
+        if (current && (current.name === "decks" || current.name === "studio")) render();
+      });
+    });
   }
   function communityReady() { return _communityReady; }
 
@@ -2584,6 +2801,8 @@
     findit:    ["Find it on the map — Folio", "Locate five places on the globe."],
     admin:     ["Editor — Folio", "Folio's content editor."],
     studio:    ["Studio — Folio", "Write your own decks of flashcards and share them as a file."],
+    community: ["Shared decks — Folio", "Decks written and shared by other people using Folio."],
+    deck:      ["Shared deck — Folio", "A deck of flashcards shared by a Folio user."],
   };
   function setMetaTag(attr, key, val) {
     let el = document.head.querySelector('meta[' + attr + '="' + key + '"]');
@@ -2604,7 +2823,8 @@
   function route(name, params) {
     if (name === "admin" && !isAdmin()) name = "home";
     current = { name, params: params || {} };
-    location.hash = name === "home" ? "" : name;
+    // #deck/<slug> is a shareable address, so the slug rides in the hash (the same shape as #map/<year>/<slug>)
+    location.hash = name === "home" ? "" : (name === "deck" && current.params.slug ? "deck/" + encodeURIComponent(current.params.slug) : name);
     render();
   }
   function render() {
@@ -3873,15 +4093,18 @@
   function udeckRowHTML(d) {
     const n = (d.cardIds || []).length, studied = uDeckStudied(d);
     const entry = uDeckEntry(d.id), on = isActive(entry);
-    return '<div class="collection udeck">' +
+    const installed = !uDeckIsMine(d);
+    return '<div class="collection udeck' + (installed ? " udeck-installed" : "") + '">' +
       '<div class="collection-row" role="button" tabindex="0" data-udeck="' + esc(d.id) + '">' +
         levelBadgeMarkup(studied) +
         '<div class="collection-main">' +
           '<div class="collection-title-row">' +
             '<span class="collection-title">' + esc(d.title) + '</span>' +
+            (installed ? '<span class="pill udeck-tag">installed</span>' : uDeckIsPublished(d) ? '<span class="pill udeck-tag">shared</span>' : "") +
+            (_deckUpdates[d.id] ? '<span class="pill udeck-upd">update</span>' : "") +
             (n ? '<span class="collection-count">' + n + " " + (n === 1 ? "card" : "cards") + '</span>' : '<span class="pill soon">Empty</span>') +
           '</div>' +
-          (d.subtitle ? '<div class="udeck-sub">' + esc(d.subtitle) + '</div>' : "") +
+          (d.subtitle ? '<div class="udeck-sub">' + esc(d.subtitle) + '</div>' : (installed && d.ownerName ? '<div class="udeck-sub">by ' + esc(d.ownerName) + '</div>' : "")) +
           xpBarMarkup(studied) +
         '</div>' +
         '<div class="collection-actions">' +
@@ -3896,9 +4119,10 @@
     const decks = uDeckList();
     return '<div class="collection-group community-group">' +
       '<div class="group-head"><span class="group-label">Your decks</span><span class="group-line"></span><span class="group-count">' + decks.length + '</span></div>' +
-      '<p class="udeck-intro">Decks you write yourself. They study exactly like Folio’s own, but they are <b>not fact-checked by Folio</b> — and they stay on this device until you export one to a file.</p>' +
+      '<p class="udeck-intro">Decks you write yourself, and decks you install from other people. They study exactly like Folio’s own, but they are <b>not fact-checked by Folio</b>.</p>' +
       '<div class="udeck-actions">' +
         '<button class="btn" type="button" id="udNew">New deck</button>' +
+        '<button class="btn ghost" type="button" id="udBrowse">Browse shared decks</button>' +
         '<button class="btn ghost" type="button" id="udImport">Import a deck…</button>' +
         (decks.length ? '<button class="btn ghost" type="button" id="udStudio">Open the Studio</button>' : "") +
       '</div>' +
@@ -3918,6 +4142,8 @@
     }));
     const st = root.querySelector("#udStudio");
     if (st) st.addEventListener("click", () => route("studio"));
+    const br = root.querySelector("#udBrowse");
+    if (br) br.addEventListener("click", () => route("community"));
     root.querySelectorAll("[data-uadd]").forEach((b) => wireAddButton(b, uDeckEntry(b.dataset.uadd)));
     root.querySelectorAll("[data-uedit]").forEach((b) => b.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -4295,6 +4521,7 @@
      the card SURFACE, via liveCardEditorHTML / wireLiveCardEditor.
      ============================================================ */
   const studioState = { deck: null, card: null };
+  let _deckUpdates = {};   // local deckId -> the newer remote version, filled after boot by communityCheckUpdates()
   const STUDIO_META_FIELDS = [
     ["title", "Title", "text", "What is this deck about?"],
     ["subtitle", "Subtitle", "text", "One short line under the title"],
@@ -4366,6 +4593,10 @@
     const cards = uDeckCards(d);
     if (studioState.card && !UCARDS[studioState.card]) studioState.card = null;
     if (!studioState.card && cards.length) studioState.card = cards[0].id;
+    if (!uDeckIsMine(d)) { studioRenderInstalled(root, d, cards); return; }
+
+    const pubState = uDeckIsPublished(d) ? (Number(d.publishedVersion || 0) < Number(d.version || 1) ? "stale" : "live")
+      : (d.remoteId ? "unlisted" : "none");
 
     root.innerHTML =
       '<div class="studio-head">' +
@@ -4374,6 +4605,19 @@
         '<div class="studio-head-actions">' +
           (cards.length ? '<button class="btn tiny" type="button" id="stStudy">Study</button>' : "") +
           '<button class="btn tiny ghost" type="button" id="stExport">Export</button>' +
+        '</div>' +
+      '</div>' +
+      '<div class="studio-publish' + (pubState === "live" || pubState === "stale" ? " on" : "") + '">' +
+        '<div class="sp-state">' +
+          (pubState === "none" ? "<b>Not shared.</b> This deck is on this device only."
+           : pubState === "unlisted" ? "<b>Unpublished.</b> It has a page but nobody can find it."
+           : pubState === "stale" ? "<b>Shared</b> — with edits you haven't published yet."
+           : "<b>Shared.</b> Anyone can find and install it.") +
+          (d.slug && pubState !== "none" ? ' <a class="sp-link" href="#deck/' + encodeURIComponent(d.slug) + '">View its page</a>' : "") +
+        '</div>' +
+        '<div class="sp-acts">' +
+          '<button class="btn tiny" type="button" id="stPublish">' + (pubState === "none" || pubState === "unlisted" ? "Publish" : "Publish changes") + '</button>' +
+          (pubState === "live" || pubState === "stale" ? '<button class="btn tiny ghost" type="button" id="stUnpublish">Unpublish</button>' : "") +
         '</div>' +
       '</div>' +
       '<details class="studio-settings"><summary>Deck details</summary><div class="studio-settings-body">' +
@@ -4417,7 +4661,68 @@
     root.querySelectorAll("[data-up]").forEach((b) => b.addEventListener("click", () => { uCardMove(b.dataset.up, -1); render(); }));
     root.querySelectorAll("[data-down]").forEach((b) => b.addEventListener("click", () => { uCardMove(b.dataset.down, 1); render(); }));
 
+    const pub = root.querySelector("#stPublish");
+    if (pub) pub.addEventListener("click", async () => {
+      const label = pub.textContent;
+      pub.disabled = true; pub.textContent = "Publishing…";
+      const r = await uDeckPublish(d.id);
+      if (r.error) { toast(r.error); pub.disabled = false; pub.textContent = label; return; }
+      toast("Published — anyone can find this deck now");
+      render();
+    });
+    const unpub = root.querySelector("#stUnpublish");
+    if (unpub) unpub.addEventListener("click", () => inlineConfirm(
+      "Unpublish “" + d.title + "”? It disappears from the shared list. People who already installed it keep their copy.",
+      async () => { const r = await uDeckUnpublish(d.id); toast(r.error || "Unpublished"); render(); }, "Unpublish"));
+
     studioRenderCardEditor(root.querySelector("#stEditor"));
+  }
+
+  // Someone else's deck: read-only here. Editing it would silently fork it, and then an update from the
+  // author would either clobber the edits or be refused — better to make the copy explicit.
+  function studioRenderInstalled(root, d, cards) {
+    const upd = _deckUpdates[d.id];
+    root.innerHTML =
+      '<div class="studio-head">' +
+        '<button class="btn tiny ghost" type="button" id="stAll">&larr; All decks</button>' +
+        '<h1 class="studio-title">' + esc(d.title) + '</h1>' +
+        '<div class="studio-head-actions">' +
+          (cards.length ? '<button class="btn tiny" type="button" id="stStudy">Study</button>' : "") +
+          '<button class="btn tiny ghost" type="button" id="stExport">Export</button>' +
+        '</div>' +
+      '</div>' +
+      '<div class="studio-publish installed">' +
+        '<div class="sp-state"><b>Installed from the community.</b>' + (d.ownerName ? " Written by " + esc(d.ownerName) + "." : "") +
+          ' It stays read-only so the author&rsquo;s updates can reach you.' +
+          (d.slug ? ' <a class="sp-link" href="#deck/' + encodeURIComponent(d.slug) + '">Its page</a>' : "") + '</div>' +
+        '<div class="sp-acts">' +
+          (upd ? '<button class="btn tiny" type="button" id="stUpdate">Update available</button>' : "") +
+          '<button class="btn tiny ghost" type="button" id="stFork">Duplicate to edit</button>' +
+          '<button class="btn tiny danger" type="button" id="stRemove">Remove</button>' +
+        '</div>' +
+      '</div>' +
+      '<div class="studio-cardlist studio-cardlist-ro">' +
+        '<div class="studio-cardlist-head"><span>' + cards.length + " " + (cards.length === 1 ? "card" : "cards") + '</span></div>' +
+        '<div class="studio-cardrows">' + cards.map((c, i) =>
+          '<div class="studio-cardrow"><span class="scr-open"><span class="scr-n">' + (i + 1) + '</span>' +
+          '<span class="scr-title">' + esc(sanitizePlain(c.answer) || "(untitled)") + '</span></span></div>').join("") + '</div>' +
+      '</div>';
+    root.querySelector("#stAll").addEventListener("click", () => { studioState.deck = null; studioState.card = null; render(); });
+    const sy = root.querySelector("#stStudy"); if (sy) sy.addEventListener("click", () => route("study", { scope: { type: "udeck", id: d.id } }));
+    const ex = root.querySelector("#stExport"); if (ex) ex.addEventListener("click", () => uDeckExport(d.id));
+    const up = root.querySelector("#stUpdate");
+    if (up) up.addEventListener("click", () => route("deck", { slug: d.slug }));
+    root.querySelector("#stFork").addEventListener("click", () => {
+      const rec = uDeckRecord(d.id);
+      const r = uDeckImportText(JSON.stringify({ folioDeck: UDECK_FORMAT, meta: rec.meta, cards: rec.cards, gloss: rec.gloss }), true);
+      if (r.error) { toast(r.error); return; }
+      studioState.deck = r.deck.id; studioState.card = null;
+      toast("Duplicated — this copy is yours to edit");
+      render();
+    });
+    root.querySelector("#stRemove").addEventListener("click", () => inlineConfirm(
+      "Remove “" + d.title + "” from this device? Your progress on its cards goes too.",
+      async () => { await uDeckUninstall(d.id); studioState.deck = null; toast("Removed"); render(); }, "Remove"));
   }
 
   function studioRenderCardEditor(host) {
@@ -4469,6 +4774,212 @@
     });
   }
   function cssEsc(s) { return String(s).replace(/["\\]/g, "\\$&"); }
+
+  /* ============================================================
+     COMMUNITY — browse published decks, and one deck's page
+     ============================================================ */
+  const communityState = { q: "", sort: "recent", decks: null, loading: false, error: "" };
+
+  function deckCardHTML(row) {
+    const local = localDeckForRemote(row.id);
+    const n = row.card_count || 0;
+    return '<button class="cdeck" type="button" data-slug="' + esc(row.slug) + '">' +
+      '<span class="cdeck-title">' + esc(row.title) + '</span>' +
+      (row.subtitle ? '<span class="cdeck-sub">' + esc(row.subtitle) + '</span>' : "") +
+      '<span class="cdeck-meta">' +
+        '<span>' + n + " " + (n === 1 ? "card" : "cards") + '</span>' +
+        (row.author ? '<span>by ' + esc(row.author) + '</span>' : "") +
+        (row.install_count ? '<span>' + row.install_count + " installed" + '</span>' : "") +
+      '</span>' +
+      (local ? '<span class="cdeck-have">Installed</span>' : "") +
+    '</button>';
+  }
+
+  PAGES.community = function (root) {
+    root.innerHTML =
+      '<div class="page-head"><span class="eyebrow">Community</span><h1>Shared decks</h1>' +
+        '<p>Decks written by other people using Folio. They are <b>not fact-checked by Folio</b> — treat them as you would any notes a classmate lends you.</p></div>' +
+      '<div class="cbrowse-bar">' +
+        '<input class="af-input cbrowse-q" id="cq" type="search" placeholder="Search decks…" value="' + esc(communityState.q) + '" />' +
+        '<select class="set-sel" id="csort">' +
+          '<option value="recent"' + (communityState.sort === "recent" ? " selected" : "") + '>Newest</option>' +
+          '<option value="installs"' + (communityState.sort === "installs" ? " selected" : "") + '>Most installed</option>' +
+          '<option value="title"' + (communityState.sort === "title" ? " selected" : "") + '>A–Z</option>' +
+        '</select>' +
+        '<button class="btn ghost tiny" type="button" id="cmine">Your decks</button>' +
+      '</div>' +
+      '<div id="cresults">' + (communityState.loading ? '<div class="data-loading">Loading decks…</div>' : "") + '</div>';
+
+    const results = root.querySelector("#cresults");
+    const paint = () => {
+      if (communityState.error) { results.innerHTML = '<div class="lib-empty">' + esc(communityState.error) + '</div>'; return; }
+      const list = communityState.decks || [];
+      results.innerHTML = list.length
+        ? '<div class="cdeck-grid">' + list.map(deckCardHTML).join("") + '</div>'
+        : '<div class="lib-empty">' + (communityState.q ? "No decks match that search." : "No decks have been shared yet. Yours could be the first.") + '</div>';
+      results.querySelectorAll("[data-slug]").forEach((b) => b.addEventListener("click", () => route("deck", { slug: b.dataset.slug })));
+    };
+    const load = async () => {
+      communityState.loading = true; communityState.error = "";
+      results.innerHTML = '<div class="data-loading">Loading decks…</div>';
+      const r = await communityBrowse({ q: communityState.q, sort: communityState.sort });
+      communityState.loading = false;
+      if (r.error) { communityState.error = r.error; communityState.decks = []; }
+      else { communityState.decks = r.decks; }
+      if (current && current.name === "community") paint();
+    };
+
+    const qEl = root.querySelector("#cq");
+    let qT = 0;
+    qEl.addEventListener("input", () => { clearTimeout(qT); qT = setTimeout(() => { communityState.q = qEl.value.trim(); load(); }, 300); });
+    root.querySelector("#csort").addEventListener("change", (e) => { communityState.sort = e.target.value; load(); });
+    root.querySelector("#cmine").addEventListener("click", () => route("studio"));
+
+    if (communityState.decks && !communityState.loading) paint();
+    load();
+    if (isAdmin()) communityRenderReports(root);
+  };
+
+  // admin-only moderation strip: what people have flagged, and the one action that matters (hide it)
+  async function communityRenderReports(root) {
+    const reports = await deckReportsOpen();
+    if (!reports.length || !current || current.name !== "community") return;
+    const ids = [...new Set(reports.map((r) => r.deck_id))];
+    const dr = await supaFetch("/rest/v1/user_decks?id=in.(" + ids.join(",") + ")&select=id,slug,title,status");
+    const byId = {};
+    if (dr.ok && Array.isArray(dr.data)) dr.data.forEach((d) => { byId[d.id] = d; });
+    const box = document.createElement("div");
+    box.className = "creports";
+    box.innerHTML = '<h2 class="creports-head">Reported decks <span>' + reports.length + '</span></h2>' +
+      reports.map((rep) => {
+        const d = byId[rep.deck_id];
+        return '<div class="creport">' +
+          '<div class="creport-main"><b>' + esc(d ? d.title : "(deleted deck)") + '</b> — ' + esc(rep.reason) +
+            (rep.note ? '<span class="creport-note">' + esc(rep.note) + '</span>' : "") + '</div>' +
+          '<div class="creport-acts">' +
+            (d && d.status === "published" ? '<button class="btn tiny danger" type="button" data-hide="' + esc(rep.deck_id) + '">Hide deck</button>' : "") +
+            (d && d.status === "hidden" ? '<button class="btn tiny ghost" type="button" data-unhide="' + esc(rep.deck_id) + '">Restore</button>' : "") +
+            '<button class="btn tiny ghost" type="button" data-close="' + esc(rep.id) + '">Dismiss</button>' +
+          '</div></div>';
+      }).join("");
+    root.appendChild(box);
+    box.querySelectorAll("[data-hide]").forEach((b) => b.addEventListener("click", async () => { await deckSetStatus(b.dataset.hide, "hidden"); toast("Deck hidden"); render(); }));
+    box.querySelectorAll("[data-unhide]").forEach((b) => b.addEventListener("click", async () => { await deckSetStatus(b.dataset.unhide, "published"); toast("Deck restored"); render(); }));
+    box.querySelectorAll("[data-close]").forEach((b) => b.addEventListener("click", async () => { await deckReportClose(b.dataset.close); toast("Report dismissed"); render(); }));
+  }
+
+  PAGES.deck = function (root, params) {
+    const slug = (params && params.slug) || "";
+    root.innerHTML = '<div class="data-loading">Loading deck…</div>';
+    communityFetchDeck(slug).then((r) => {
+      if (!current || current.name !== "deck") return;
+      if (r.error === "notfound") {
+        root.innerHTML = emptyPlacard("Deck not found", "—", "That deck doesn't exist, or it isn't shared any more.", () => route("community"), "Browse shared decks");
+        return;
+      }
+      if (r.error) { root.innerHTML = emptyPlacard("Couldn't load that deck", "—", r.error, () => route("community"), "Browse shared decks"); return; }
+      deckDetailRender(root, r.row, r.cards);
+    });
+  };
+
+  function deckDetailRender(root, row, cards) {
+    const local = localDeckForRemote(row.id);
+    const mine = supaLoggedIn() && SUPA.user && row.owner === SUPA.user.id;
+    const hasUpdate = local && Number(row.version) > Number(local.installedVersion || 0) && local.origin === "installed";
+    const n = row.card_count || cards.length;
+    root.innerHTML =
+      '<div class="ddetail-head">' +
+        '<button class="btn tiny ghost" type="button" id="ddBack">&larr; Shared decks</button>' +
+        (row.status !== "published" ? '<span class="pill soon">' + esc(row.status) + '</span>' : "") +
+      '</div>' +
+      '<div class="page-head ddetail-title">' +
+        '<span class="eyebrow">Community deck</span>' +
+        '<h1>' + esc(row.title) + '</h1>' +
+        (row.subtitle ? '<p class="ddetail-sub">' + esc(row.subtitle) + '</p>' : "") +
+      '</div>' +
+      '<div class="ddetail-meta">' +
+        (row.author ? '<span>by <b>' + esc(row.author) + '</b></span>' : "") +
+        '<span>' + n + " " + (n === 1 ? "card" : "cards") + '</span>' +
+        (row.install_count ? '<span>' + row.install_count + " installed" + '</span>' : "") +
+        '<span>updated ' + esc(fmtWhen(Date.parse(row.updated_at) || Date.now())) + '</span>' +
+      '</div>' +
+      (row.tags && row.tags.length ? '<div class="ddetail-tags">' + row.tags.map((t) => '<span class="pill">' + esc(t) + '</span>').join("") + '</div>' : "") +
+      (row.description ? '<p class="ddetail-desc">' + esc(row.description) + '</p>' : "") +
+      '<div class="ddetail-warn">Written by a Folio user, not by Folio. Nothing here has been fact-checked — check anything that matters against a source you trust.</div>' +
+      '<div class="ddetail-actions">' +
+        (local
+          ? (hasUpdate ? '<button class="btn" type="button" id="ddUpdate">Update to the latest version</button>' : '<button class="btn" type="button" id="ddStudy">Study</button>') +
+            '<button class="btn ghost" type="button" id="ddRemove">Remove from this device</button>'
+          : '<button class="btn" type="button" id="ddInstall">Add to my decks</button>') +
+        (mine ? "" : '<button class="btn ghost" type="button" id="ddReport">Report</button>') +
+        (isAdmin() && row.status === "published" ? '<button class="btn ghost danger" type="button" id="ddHide">Hide (admin)</button>' : "") +
+        (isAdmin() && row.status === "hidden" ? '<button class="btn ghost" type="button" id="ddUnhide">Restore (admin)</button>' : "") +
+      '</div>' +
+      '<div class="ddetail-sample"><h2>A card from this deck</h2><div id="ddSample"></div></div>';
+
+    root.querySelector("#ddBack").addEventListener("click", () => route("community"));
+
+    // a real, flippable card so a reader can judge the deck before installing
+    const sampleBox = root.querySelector("#ddSample");
+    const first = cards[0];
+    if (first && first.data) {
+      const norm = uCardSanitize(first.data, "preview0", 0);   // never trust the server copy
+      renderCardPreviewInto(sampleBox, norm);
+    } else {
+      sampleBox.innerHTML = '<div class="lib-empty">This deck has no cards to preview.</div>';
+    }
+
+    const inst = root.querySelector("#ddInstall");
+    if (inst) inst.addEventListener("click", async () => {
+      inst.disabled = true; inst.textContent = "Adding…";
+      const r = await uDeckInstall(row, cards);
+      if (r.error) { toast(r.error); inst.disabled = false; inst.textContent = "Add to my decks"; return; }
+      toast("Added to your decks");
+      render();
+    });
+    const upd = root.querySelector("#ddUpdate");
+    if (upd) upd.addEventListener("click", async () => {
+      upd.disabled = true; upd.textContent = "Updating…";
+      const r = await uDeckInstall(row, cards);
+      if (r.error) { toast(r.error); upd.disabled = false; return; }
+      toast("Updated — your progress on unchanged cards is kept");
+      render();
+    });
+    const study = root.querySelector("#ddStudy");
+    if (study) study.addEventListener("click", () => route("study", { scope: { type: "udeck", id: local.id } }));
+    const rem = root.querySelector("#ddRemove");
+    if (rem) rem.addEventListener("click", () => inlineConfirm("Remove “" + row.title + "” from this device? Your progress on its cards goes too.", async () => {
+      await uDeckUninstall(local.id); toast("Removed"); render();
+    }, "Remove"));
+    const rep = root.querySelector("#ddReport");
+    if (rep) rep.addEventListener("click", () => deckReportPrompt(row));
+    const hide = root.querySelector("#ddHide");
+    if (hide) hide.addEventListener("click", async () => { await deckSetStatus(row.id, "hidden"); toast("Deck hidden"); route("community"); });
+    const unhide = root.querySelector("#ddUnhide");
+    if (unhide) unhide.addEventListener("click", async () => { await deckSetStatus(row.id, "published"); toast("Deck restored"); render(); });
+  }
+
+  const REPORT_REASONS = [["inaccurate", "Factually wrong"], ["offensive", "Offensive or hateful"], ["copyright", "Copied from somewhere else"], ["spam", "Spam or nonsense"], ["other", "Something else"]];
+  function deckReportPrompt(row) {
+    if (!supaLoggedIn()) { toast("Sign in on the Account page to report a deck."); return; }
+    const ov = document.createElement("div");
+    ov.className = "inline-prompt";
+    ov.innerHTML = '<div class="ip-box" role="dialog" aria-modal="true">' +
+      '<div class="ip-msg">Report “' + esc(row.title) + '” to Folio&rsquo;s editors</div>' +
+      '<select class="af-input" id="rpReason">' + REPORT_REASONS.map(([v, l]) => '<option value="' + v + '">' + esc(l) + '</option>').join("") + '</select>' +
+      '<textarea class="af-input" id="rpNote" rows="3" placeholder="Anything else we should know (optional)"></textarea>' +
+      '<div class="ip-actions"><button type="button" class="ip-cancel">Cancel</button><button type="button" class="ip-ok">Send report</button></div></div>';
+    document.body.appendChild(ov);
+    const close = () => ov.remove();
+    ov.querySelector(".ip-cancel").addEventListener("click", close);
+    ov.addEventListener("mousedown", (e) => { if (e.target === ov) close(); });
+    ov.querySelector(".ip-ok").addEventListener("click", async () => {
+      const reason = ov.querySelector("#rpReason").value, note = ov.querySelector("#rpNote").value;
+      close();
+      const r = await deckReport(row.id, reason, note);
+      toast(r.error ? r.error : "Thank you — an editor will look at it.");
+    });
+  }
 
   PAGES.study = function (root, params) {
     const sess = buildSession(params.scope);
@@ -10920,13 +11431,15 @@
   })();
 
   // initial route from hash
-  const valid = ["home", "decks", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "admin", "mission", "studio"];
+  const valid = ["home", "decks", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "admin", "mission", "studio", "community", "deck"];
   const h = (location.hash || "").replace("#", "");
   const hParts = h.split("/");
   let initName = valid.includes(hParts[0]) ? hParts[0] : "home";
   if (initName === "map" && hParts.length > 1) parseMapHash(hParts);   // #map/<year>/<slug> deep link
+  let initParams = {};
+  if (initName === "deck") { try { initParams.slug = decodeURIComponent(hParts[1] || ""); } catch (e) { initParams.slug = hParts[1] || ""; } }   // a mangled %-escape must not kill boot
   if (initName === "admin" && !isAdmin()) initName = "home";
-  current = { name: initName, params: {} };
+  current = { name: initName, params: initParams };
   applyTheme();
   applyMode();
   const _glossToRestore = readGlossOpen();   // capture before render()'s closeAllGloss clears the record
@@ -10998,6 +11511,12 @@
     if (parts[0] === "map" && parts.length > 1) {   // #map/<year>/<slug> deep link pasted or followed mid-session
       parseMapHash(parts);
       if (current.name === "map") render(); else route("map");   // route() rewrites the hash to "map"; the extra hashchange is a no-op
+      return;
+    }
+    if (parts[0] === "deck") {   // #deck/<slug> pasted or followed mid-session
+      let slug = "";
+      try { slug = decodeURIComponent(parts[1] || ""); } catch (e) { slug = parts[1] || ""; }
+      if (!(current.name === "deck" && current.params.slug === slug)) route("deck", { slug: slug });
       return;
     }
     if (valid.includes(hh) && hh !== current.name) route(hh);

@@ -8,6 +8,9 @@ window.CHANGELOG = [
     d: "2026-07-27",
     t: "Write your own decks",
     items: [
+      "You can now share a deck you've written with everyone else. Publish it from the Studio and it appears under \"Browse shared decks\", where anyone can read what it covers, flip through a sample card and add it to their own collection.",
+      "Decks you install from other people update when their author improves them, and your progress on the cards that didn't change is kept.",
+      "Every shared deck has a Report button if something is wrong with it.",
       "You can now write your own decks of flashcards. There's a new Studio — find it under \"Your decks\" at the bottom of the Library — where you can add cards, write the question, answer, date and background, and put them in the order you want.",
       "Your own decks study exactly like Folio's: add one to your daily review, and it turns up alongside everything else with the same spacing and the same level badge.",
       "Share a deck by exporting it to a file, which anyone can bring in with Import. Your decks stay on your own device until you do.",
