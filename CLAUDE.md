@@ -386,7 +386,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   (see "Backfilling a site language" below) — and add the code to `LANGS` **last**, once the chrome table is
   translated, so the switcher never offers a language that renders as English. Ship an EMPTY
   `i18n/gloss-<lang>.js` at that point too, or every page load 404s on it until the glossary is translated
-  (`ensureData` degrades gracefully, but the console noise is real). **Japanese (`ja`) is COMPLETE**: the chrome
+  (`ensureData` degrades gracefully, but the console noise is real). **No CJK webfont is loaded, deliberately**: `--serif` ends in the generic
+  `serif` and none of the Latin faces carry CJK glyphs, so Chinese and Japanese body text falls through to
+  the reader's own system CJK font — correct glyph forms per language. The imported `Noto Sans SC` sits only
+  in `--han` (level numerals, hanzi lines) and is NOT in the body chain, so it can't impose Chinese glyph
+  forms on Japanese text. Don't "fix" this by adding a CJK webfont; it would be a multi-MB download for no
+  gain. **Japanese (`ja`) is COMPLETE**: the chrome
   (531 strings / 72 rules / 12 prose blocks), all 30 cards and all 333 glossary terms are translated and live,
   at full parity with the other eight languages.
   **Content localisation is separate**: cards carry per-language `i18n` blocks (`cardLocalized()`), glossary
@@ -1188,7 +1193,7 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Seven committed Playwright regression tests** (in `.claude/`, not loaded by the site). Each slices what
+- **Eight committed Playwright regression tests** (in `.claude/`, not loaded by the site). Each slices what
   it tests out of the real `app.js`/`_headers` by text, so they can't drift from what ships.
   **Gotcha when writing more of them:** `page.goto()` to a URL that differs only in the `#fragment` is a
   same-document navigation — the app keeps running and its module state survives. Use `page.reload()` when
@@ -1215,6 +1220,14 @@ dead code (never rendered).
     the popup, and above all **isolation** (a curated card never links a deck's term; a second deck never
     sees the first's), plus a hostile glossary in an imported deck. **Re-run after touching
     `glossSourcesFor` / `buildGlossIndex` / `uGlossSanitize`.**
+  · `node .claude/test-i18n-lang.js` — 20 assertions on the PER-LANGUAGE translation files: that a
+    reader downloads one language and not all of them (an English reader downloads none), that switching
+    pulls only the new language, that Japanese is at parity with the other languages across chrome/cards/
+    glossary, and — the sharp edge of this layout — that a `glossaryI18n` overlay delta records ONLY the
+    edited language, LAYERS over the shipped text so an edit made in one language cannot wipe another's,
+    bakes to one file per edited language holding every term, and NEVER bakes a language whose file isn't
+    loaded. **Re-run after touching `langBundle` / `glossI18nIngest` / `glossI18nMerged` /
+    `setGlossI18nEdit` / `serializeGlossaryI18n` / `editedGlossI18nLangs`, or after adding a language.**
   · `node .claude/test-gloss-image.js` — 35 assertions on glossary images: the popup renders one at the
     foot of the body, it opens the SHARED fullscreen viewer and that viewer stacks **above** the popup,
     the curated editor's overlay delta survives a reload and clears cleanly, and a deck's own term images
