@@ -8,7 +8,7 @@ window.CHANGELOG = [
     d: "2026-07-27",
     t: "Write your own decks",
     items: [
-      "Four new cards in the World History deck, in all ten site languages.",
+      "Five new cards in the World History deck, in all ten site languages.",
       "Badges you've earned now stand out in gold on your profile, so a glance tells you which ones you have and which are still locked.",
       "Your study history chart now starts on the day you made your account, instead of always showing a full year with months of blank squares before you joined.",
       "The Ancient Greece level badge now shows the plain Greek letter, without the small mark after it.",
