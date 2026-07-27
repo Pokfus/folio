@@ -9,6 +9,7 @@ window.CHANGELOG = [
     t: "Write your own decks",
     items: [
       "Signing in to a brand-new account now starts you at level 1 with no badges, instead of showing the levels, badges and streak from the account you were using before on the same device. Study history you built up before you ever made an account still comes with you into your first account, as it always did.",
+      "Fifteen new cards in the World History deck, in all ten site languages.",
       "The Atlas welcome note now warns that historical borders are rough estimates and shouldn't be read as exact.",
       "New readers now start with three new cards a day instead of five. You can still change it in Settings.",
       "Folio now speaks Japanese. Pick 日本語 from the language menu and the whole site is in Japanese — buttons, pages, the About guide, the daily quotes, every card and every glossary explanation.",
