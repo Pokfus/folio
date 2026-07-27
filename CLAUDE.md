@@ -51,6 +51,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `app.js` (~684 KB) — all logic, written as a single IIFE. Hash-based routing via the `PAGES`
   map. No ES modules.
 - `manifest.json` + `icon.svg` + `icon-maskable.svg` + `sw.js` — the PWA. See the "PWA" bullet below.
+- `_headers` — Cloudflare Pages response headers: the **Content-Security-Policy** (plus nosniff /
+  Referrer-Policy / Permissions-Policy). Verified against every route with 0 violations. `script-src 'self'`
+  holds only because index.html has **no inline `<script>`** and app.js uses neither `eval` nor `new Function`
+  — adding either would need the policy weakened, so don't. `style-src` needs `'unsafe-inline'` (app.js sets
+  inline style attributes everywhere) and `fonts.googleapis.com` (styles.css `@import`s it); `img-src` needs
+  `data:` (heightmap PNGs, avatars) and `blob:` (the avatar upload preview). Headers only apply over HTTP, so
+  opening index.html from `file://` is unaffected. If it ever breaks the live site, rename the header to
+  `Content-Security-Policy-Report-Only` — violations keep showing in devtools without blocking anything.
+- `docs/user-decks-plan.md` — the design plan for **community decks** (user-created decks, sharing,
+  ratings, an optional per-deck glossary, and a later paid tier). Phases 0–1 have shipped; see the bullet
+  in "How the app is wired". Not part of the site.
 - `data.js` — `window.CARD_DATA` and `window.COLLECTION_TREE`. **Currently 14 cards**, all in the
   `wh-prehistory` deck under World History (regrown from the `cnh-001` template, which remains the canonical
   format); the deck is grown one card at a time (see "Generating cards & glossary entries" below).
@@ -661,6 +672,167 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     states, `SOVIET` set) are overlaid **clipped to the era's USSR extent**, light like a `'2'` sub-border — an accurate proxy
     for the union-republic boundaries (the Central-Asian/Caucasus borders were settled by 1936). Clipping to the era polygon
     keeps e.g. the still-independent 1938 Baltics out. Drawn on the map in `renderStatic` next to `drawUKConstituents`.
+- **Community decks — Phase 0 foundations (July 2026).** Groundwork for user-created decks
+  (`docs/user-decks-plan.md`). Nothing user-visible yet; these are the seams the feature will attach to, and
+  they exist so the later phases can't be built the wrong way.
+  · **`sanitizeHTML()` / `sanitizePlain()`** (in the helpers block, beside `esc`/`stripHtml`) — an allowlist
+    sanitizer for content Folio did NOT author. Card fields are rich HTML rendered with `innerHTML`, and the
+    Supabase access token lives in localStorage, so unsanitized user markup is account takeover for a learner
+    and site defacement via `content_overrides` for an admin. Unknown tags are **unwrapped** (text survives),
+    dangerous ones (`SANITIZE_DROP`) removed whole; attributes are dropped unless allowlisted; `class` is
+    filtered to `SANITIZE_CLASSES` + `uc-*` (arbitrary classes let untrusted content borrow site chrome and
+    spoof the UI); URL schemes are tested against a copy stripped of whitespace/control characters, because
+    browsers read `java\tscript:` as `javascript:`. It re-sanitizes to a **fixed point** (mXSS) and escapes
+    the input outright if it won't settle. **Call it on INGEST, not per render** — one missed render site
+    would otherwise reopen the hole. Curated content never passes through it. 42 XSS vectors are covered by
+    a Playwright test; re-run it after touching the allowlists.
+  · **`UCARDS` / `cardById(id)` / `isCommunityCard(id)`** (beside `CARD_BY_ID`) — community cards get their
+    OWN store and must never enter `CARDS` / `CARD_BY_ID` / `TREE` / `window.GLOSSARY` / `ADMIN_EDITS`.
+    Four existing behaviours force this: `serializeCardData()` maps over `CARDS` (auto-save would bake user
+    cards into `data.js`), `applyAdminEdits()` rebuilds the tree from `SHIPPED_NODES` on every admin edit,
+    `adminUndo` rebuilds `CARDS` from `PRISTINE_CARDS`∩`BASE_CARD_IDS`, and the daily games draw from
+    `ALL_CARD_IDS` (TREE-derived), which must stay fact-checked content only. `cardById()` is the lookup for
+    the **study path** (scheduling, rendering, progress, the suspended list); the **admin editor deliberately
+    keeps reading `CARD_BY_ID` directly** so it can only ever edit curated cards. `UCARDS` is empty today, so
+    `cardById()` is currently a passthrough. Ids will be `u_<deck8>_<n>`.
+  · **Scoped glossary indexes** — `buildGlossIndex()` now takes a scope and **returns** its index instead of
+    assigning a single global; `glossIndexFor(scope)` caches per scope in `_glossIndexes`, `glossSourcesFor
+    (scope)` picks the term tables, and `invalidateGlossIndex(scope)` (scope omitted = all) replaced the four
+    `glossIndex = null` sites. `autoLinkGlossary(rootEl, answerText, offKeys, scope)` and `linkifyGloss(text,
+    selfKey, scope)` take a trailing scope that **defaults to `"site"`, so every existing caller is
+    unchanged**; `resolveGlossKey(idx, surface)` now takes the index. A deck with its own glossary gets scope
+    `"deck:<id>"` so its terms auto-link inside its own cards and nowhere else — a single global index would
+    leak a stranger's terms into curated backgrounds. Verified behaviourally identical to the previous code
+    (same 125 auto-linked terms across 8 study cards).
+  · **The shared card surface** (`liveCardEditorHTML(opts)` + `wireLiveCardEditor(host, opts)`, just above
+    `adminRenderEditor`) — the `.card-edit-single` surface: ribbon, the four double-click-to-edit
+    `.ces-field` contenteditables, the image slot/panel, the `#cesAnswerText` hook and the two-way HTML
+    source box. **The admin editor and the Studio both render through it.** What stays with each caller is
+    its own chrome: the admin's head bar, chronology field, deck picker and revert/delete; the Studio's
+    equivalents. Callers pass `metaHtml` for the row above the card and receive every edit through
+    `setField` / `afterEdit`, so neither editor knows anything about the other's store. Extracted in
+    Phase 1, once the Studio existed as a real second caller — guessing the seam in Phase 0 would have
+    meant refactoring the main content tool blind. `.claude/test-admin-editor.js` guards it.
+- **Community decks — Phase 1: local decks + deck files (July 2026).** Users can write their own decks.
+  Entirely local: no server, no account, no publishing (Phases 2+ in `docs/user-decks-plan.md`).
+  · **Stores** — `UDECKS` (deckId → meta + `cardIds`), `UCARDS` (cardId → the 13 `CARD_FIELDS` + optional
+    `image`), `UGLOSS` (reserved for the per-deck glossary). Card ids are `u_<deck8>_<n>`; a deck's active
+    entry in `S.active` is `"u:<deckId>"` (`uDeckIdOf` / `uDeckEntry`). The whole module sits under the
+    `COMMUNITY DECKS` banner in app.js.
+  · **Persistence** — IndexedDB `folio-community`, store `decks`, one record per deck
+    (`{ id, meta, cards, gloss }` — also the export-file shape). **An unusable IndexedDB silently falls back
+    to `localStorage["folio_community_v1"]`** (`_communityLS`): the golden rule is that opening index.html
+    directly keeps working, and private mode / blocked storage are real too. Verified both ways.
+  · **`uDeckNormalize` is the single ingest choke point** — everything entering the store passes through it,
+    imports *and* what comes back out of IndexedDB, because that store is writable by anything on the origin.
+    Rich fields go through `sanitizeHTML`, plain ones through `sanitizePlain`, image `src` through
+    `sanitizeUrl`. `uCardSet` sanitizes on write too, so an exported deck is clean at the source. **The
+    contenteditable is never rewritten mid-keystroke** — only the stored value is sanitized, or the caret
+    would fight the sanitizer.
+  · **Bridges into the rest of the app** are deliberately few: `entryCardIds` / `entryInfo` /
+    `activeEntryIds` (accept `u:` entries), `availableCardIdSet` (adds community cards so they reach the
+    daily review), `buildSession`'s `scope.type === "udeck"`, and `cardById`. **The daily games are NOT
+    bridged** — they draw from `ALL_CARD_IDS`, which is TREE-derived, so unvetted cards can't reach them.
+    That's asserted by the test, not just intended.
+  · **Studio** (`PAGES.studio`, `#studio`, `studioState`) — deck list → one deck (details, card list with
+    reorder, the shared card surface). Reached from the Library's **"Your decks"** section, not the nav bar.
+    Community rows are visually distinct (dashed rule, no collection hue) and the section says plainly that
+    these decks are **not fact-checked by Folio** — Folio's content rules can't be imposed on a stranger, and
+    the credibility of the curated decks is the whole product.
+  · **Deck files** — `uDeckExport` writes `<name>.folio-deck.json` (`{ folioDeck: 1, meta, cards, gloss }`);
+    `uDeckPickFile` → `uDeckImportText` reads one back. An import always takes a **fresh deck id and fresh
+    card ids** when the id already exists, so importing can never overwrite a deck you're working on and two
+    copies keep separate study progress. Blob URLs are revoked on a timer, not synchronously — an immediate
+    revoke can cancel the download.
+  · (The per-deck glossary that `deck.glossMode` refers to landed in Phase 4 — see below.)
+- **Community decks — Phase 2: publishing, discovery, moderation (July 2026).** A deck can now go online.
+  **⚠ The phase-2 SQL at the end of `.claude/supabase-schema.sql` must be run once** (Dashboard → SQL
+  Editor) or every community call 404s; `communityErr()` turns that into "Deck sharing isn't set up on this
+  site yet." rather than leaking PostgREST's error, and nothing else breaks.
+  · **Tables** — `user_decks` (one row per published deck, with `slug`/`status`/`version`/denormalised
+    `card_count` + `install_count`), `user_cards` (**one row per card**, PK `(deck_id, id)`), `user_gloss`,
+    `deck_installs`, `deck_reports`. Cards are rows and not one jsonb blob **because that is the paywall
+    seam**: the `user_cards` select policy already reads `is_demo or d.price_cents = 0`, so Phase 5 only has
+    to flip non-demo cards and add `or exists (entitlement)`. A blob cannot be partially gated, and a
+    client-side filter is not a paywall. `price_cents` / `is_demo` ship now so that phase needs no migration.
+  · **Ownership** — a local deck is **mine** (`origin !== "installed"`) or **installed**. Mine can be
+    published (`uDeckPublish` → insert/patch `user_decks`, then delete + re-insert every `user_cards` row,
+    which is simpler than diffing and safe because **card ids are stable across a publish, so a learner's
+    scheduling survives an update**). Installed decks are **read-only in the Studio** — editing would
+    silently fork them and then the author's next update would either clobber the edits or be refused;
+    "Duplicate to edit" makes the copy explicit (it round-trips through `uDeckImportText(..., true)`).
+  · **`UDECK_PUBLISH_KEYS` never leave the device.** `uDeckExport` strips them and `uDeckImportText` zeroes
+    them, so a deck *file* can't claim someone else's slug, masquerade as installed, or suppress an update
+    prompt. Only `UDECK_META_KEYS` travel in a `.folio-deck.json`.
+  · **Pages** — `PAGES.community` (`#community`: search, sort, grid) and `PAGES.deck` (`#deck/<slug>`, a
+    shareable deep link parsed at boot and on `hashchange`, the same shape as `#map/<year>/<slug>`). The
+    deck page renders **a real flippable sample card**, re-sanitized through `uCardSanitize` — the server
+    copy is never trusted just because it came from our own API.
+  · **Installs** — `deck_installs` is one row per user per deck, which both syncs a signed-in learner's
+    installs and gives `install_count` an honest trigger-maintained source. Installing works **signed out**
+    too (the deck lands in IndexedDB; only the row and the count need an account).
+  · **Card-id collisions** — `remoteToLocal` remaps a deck's card ids if any already belong to a *different*
+    local deck, so two installs can never collide in `UCARDS` / `S.cards`.
+  · **Moderation** — a Report control on every deck page (`deck_reports`, reasons are a CHECK constraint),
+    and an admin-only queue on `#community` with Hide / Restore / Dismiss. Hiding sets `status='hidden'`,
+    which the RLS select policy already excludes from everyone but the owner and admins.
+  · **Update checks** — `communityCheckUpdates()` runs once at idle after boot, in ONE request for all
+    installed decks, and fills `_deckUpdates` (Library and Studio show an "update" pill). A failed or
+    offline check just leaves it empty.
+- **Community decks — Phase 4: a deck's own glossary (July 2026).** A deck can define its own terms, which
+  auto-link inside its cards and **nowhere else**. This is what the Phase 0 glossary scoping was built for.
+  · **`deck.glossMode`** — `site` (default: link the curated glossary, exactly as before), `own` (only the
+    deck's terms; the site glossary is invisible), `both` (deck terms layered over the site's). Set in the
+    Studio under **Deck details**; stored, exported and published.
+  · **Keys are namespaced `u:<deckId>:<slug>`** (`uGlossKey` / `uGlossParse` / `isDeckGlossKey`). That
+    namespacing is the isolation mechanism: `glossText` / `glossTitle` / `glossDates` / `glossTags` each
+    branch on it and read `UGLOSS`, so a deck term resolves inside its deck and does not exist outside it.
+  · **`glossSourcesFor(scope)`** now resolves `deck:<id>` to the deck's tables per its mode, and
+    `glossScopeForCard(cardId)` picks the scope when a background is rendered (`processAbstract` passes it
+    to `autoLinkGlossary` **and** uses it to prune hand-added `.ttip`s). `glossScopeForKey` derives the
+    scope from the KEY when a popup opens nested links, so a curated description never starts linking a
+    stranger's terms just because the reader arrived from a community card.
+  · **Gotcha that bit once:** `buildGlossIndex` derived the matchable surface from `glossKeyTitle(key)`.
+    For a namespaced deck key that humanizes to the literal `u:abc:Slug`, so nothing ever matched in prose.
+    It now uses `surfaceOf(k)`, which reads a deck term's own title. **Curated keys still go through
+    `glossKeyTitle`** — deliberately not `glossTitle`, since pass 1 matches the humanized slug, not a
+    display-title override. The equivalence test (125 auto-linked terms over 8 curated cards) guards this.
+  · **Every mutation invalidates only that deck's index** (`uGlossTouched` → `invalidateGlossIndex("deck:"+id)`),
+    including deck deletion — otherwise a re-created deck with the same id would inherit a stale index.
+  · **`uGlossSanitize` closes a hole Phase 1 left open**: `uDeckNormalize` used to pass `gloss` through
+    untouched, which was harmless only because nothing rendered it. Descriptions are rich HTML and now DO
+    render in a popup, so they go through `sanitizeHTML` on ingest like every other field, and slugs are
+    restricted to `[\w.-]{1,80}` because they end up inside a `data-k` and a `u:` key.
+  · **Publishing** carries the glossary (`user_gloss` rows, replaced wholesale like the cards) and an
+    install pulls it down — re-sanitized on arrival, since the server copy is not trusted.
+  · The **admin "edit this term" button is hidden on deck terms** — it routes into the curated glossary
+    editor, which knows nothing about them.
+- **Community decks — Phase 3: ratings, staff picks, attribution (July 2026).** **⚠ Needs the `6) RATINGS`
+  block at the end of `.claude/supabase-schema.sql` run once**, on top of the phase-2 block.
+  · **`deck_ratings`** — one row per (deck, user), 1–5 stars plus an optional ≤500-char review and the
+    rater's display name copied in at write time so listing reviews needs no join to `profiles` (whose RLS
+    is sign-in-only). Insert policy refuses a rating on an unpublished deck **or on your own deck**;
+    update/delete are limited to your own row. Re-rating is an upsert (`Prefer: resolution=merge-duplicates`).
+  · **Summary columns on `user_decks`** — `rating_avg`, `rating_count`, `rating_1..rating_5`, all
+    trigger-maintained by `sync_deck_rating()`. Clients cannot write them. The per-star counts exist so the
+    deck page can draw a distribution without an aggregate query, which PostgREST does badly.
+  · **`rank_score` is a STORED generated column** — `(v/(v+10))·avg + (10/(v+10))·3.5`, the Bayesian pull
+    toward a prior that stops one 5-star review outranking a deck with fifty good ones. Browse's "Top
+    rated" orders by it. A generated column may only read its own row, so the prior is the **constant 3.5**
+    rather than the live site mean; that keeps the sort indexable and is close enough.
+  · **The rating form is gated on having studied `RATE_MIN_STUDIED` (5) of the deck's own cards**
+    (`deckStudiedCount`). This is **friction, not security** — it is a localStorage check and a determined
+    person could study five cards. Enforcing it properly would mean shipping per-deck progress to the
+    server, which is not worth the privacy cost. Said plainly in the code comment too.
+  · **`staff_pick`** — an admin-only boolean and the one strong quality signal on a page of unvetted
+    content. Toggled from the deck page; browse has a filter and a badge. Its own RLS policy.
+  · **`forked_from`** — `{slug, title, author}` recorded when "Duplicate to edit" copies an installed deck,
+    rendered as "Based on X by Y". It rides in `UDECK_META_KEYS`, so unlike the publish keys it **survives
+    export/import** — attribution should not be shed by round-tripping through a file.
+  · **No creator profile page, deliberately.** It would need `profiles` readable by anonymous visitors,
+    which publishes every user's username and display name — a privacy decision for the site owner, not
+    one to make in passing. "More from this author" queries `user_decks` by `owner` instead, which is
+    already public, and gets most of the value.
 
 ## Generating cards & glossary entries
 
@@ -945,6 +1117,37 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
+- **Six committed Playwright regression tests** (in `.claude/`, not loaded by the site). Each slices what
+  it tests out of the real `app.js`/`_headers` by text, so they can't drift from what ships.
+  **Gotcha when writing more of them:** `page.goto()` to a URL that differs only in the `#fragment` is a
+  same-document navigation — the app keeps running and its module state survives. Use `page.reload()` when
+  a test means "start fresh", or navigate through the UI. Several early failures were this, not real bugs.
+  · `node .claude/test-sanitize.js` — 48 XSS vectors through `sanitizeHTML()`, each one also injected into
+    a live DOM to confirm nothing executes. **Re-run after touching `SANITIZE_*` or `sanitizeUrl`.**
+  · `node .claude/test-csp.js` — serves the site with the real `_headers` CSP and walks every route,
+    failing on any violation. **Re-run after changing `_headers`, or adding an inline script/`eval`.**
+  · `node .claude/test-community.js` — 40 assertions end-to-end: write a deck in the Studio, reload,
+    study it, export, import, delete; plus that a hostile deck file executes nothing, and that community
+    content never reaches `CARD_DATA` / the tree / the glossary / the admin overlay / the daily games.
+    **Re-run after touching the `COMMUNITY DECKS` module or the Studio.**
+  · `node .claude/test-admin-editor.js` — the curated-content editor: open a card, type, confirm the
+    overlay records it, revert, the HTML source box, and gloss popups. **Re-run after touching
+    `liveCardEditorHTML` / `wireLiveCardEditor`** — that surface is shared with the Studio.
+  · `node .claude/test-publish.js` — 62 assertions across three browser sessions (an author, a reader, an
+    admin) driving publish → browse → install → update → report → hide → rate → staff-pick → fork → export. It runs against an
+    **in-memory mock of the Supabase REST API**, deliberately: the publishable key in app.js points at the
+    real project, so a test that really published would write rows into it. The mock also enforces the
+    ownership rule, which is how "a stranger cannot patch someone's deck" is asserted. **Re-run after
+    touching the publishing functions or `.claude/supabase-schema.sql` — and keep the mock in step with
+    the policies, since it is only a stand-in for them, never a proof that the real RLS is right.**
+  · `node .claude/test-deck-glossary.js` — 22 assertions on per-deck glossaries: the three `glossMode`s,
+    the popup, and above all **isolation** (a curated card never links a deck's term; a second deck never
+    sees the first's), plus a hostile glossary in an imported deck. **Re-run after touching
+    `glossSourcesFor` / `buildGlossIndex` / `uGlossSanitize`.**
+  Playwright is a dev dependency and must NOT be installed into the repo (the zero-dependency rule, and
+  `node_modules/` is gitignored) — install it in a scratch folder and run with
+  `NODE_PATH=<that>/node_modules`. Set `FOLIO_CHROMIUM=<path to chrome>` if Chromium lives outside the
+  playwright package; otherwise the default launch is used.
 
 ## Environment
 
