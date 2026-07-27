@@ -2927,3 +2927,68 @@ body[data-theme="arcade"] .mini-globe{ border-radius:50% !important; }
 .danger-btn{border-color:color-mix(in srgb,var(--zh) 55%, var(--rule)); color:var(--zh);}
 .danger-btn:hover{background:var(--zh-wash);}
 @media (max-width: 640px){ .theme-grid{grid-template-columns:repeat(2,1fr);} .narr-grid{grid-template-columns:1fr;} }
+
+/* ============================================================
+   COMMUNITY DECKS — the Library's "Your decks" section + the Studio
+   ============================================================ */
+.btn.tiny{padding:8px 13px; font-size:11px; letter-spacing:.07em; box-shadow:none;}
+.btn.tiny:hover{box-shadow:var(--shadow-sm);}
+.btn.danger{background:transparent; color:var(--zh); border-color:color-mix(in srgb,var(--zh) 45%, var(--rule));}
+.btn.danger:hover{background:var(--zh); color:#fff; border-color:var(--zh);}
+
+/* --- Library section --- */
+.community-group{margin-top:34px;}
+.udeck-intro{margin:0 0 14px; font-family:var(--sans); font-size:13.5px; line-height:1.6; color:var(--ink-soft); max-width:62ch;}
+.udeck-actions{display:flex; flex-wrap:wrap; gap:9px; margin-bottom:16px;}
+/* a deck of your own reads as clearly not-curated: a dashed rule instead of a collection's hue wash */
+.collection.udeck > .collection-row{background:var(--card); border:1.5px dashed var(--rule); border-left-width:3px; border-left-style:solid; border-left-color:var(--ink-faint);}
+.collection.udeck > .collection-row:hover{border-left-color:var(--indigo);}
+.collection.udeck .collection-deco{display:none;}
+.udeck-sub{font-family:var(--sans); font-size:12.5px; color:var(--ink-faint); margin:1px 0 5px;}
+.udeck-edit{display:flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:8px; border:1px solid var(--rule); background:transparent; color:var(--ink-faint); cursor:pointer; transition:color .18s var(--ease), border-color .18s var(--ease), background .18s var(--ease);}
+.udeck-edit svg{width:14px; height:14px; display:block;}
+.udeck-edit:hover{color:var(--indigo); border-color:var(--indigo); background:var(--indigo-wash);}
+
+/* --- Studio: deck list --- */
+.studio-actions{margin:4px 0 20px;}
+.studio-list{display:flex; flex-direction:column; gap:11px;}
+.studio-deck{display:flex; align-items:stretch; gap:10px; background:var(--card); border:1px solid var(--rule); border-radius:13px; padding:13px 15px; transition:border-color .18s var(--ease);}
+.studio-deck:hover{border-color:var(--ink-faint);}
+.studio-deck-open{flex:1; min-width:0; display:flex; flex-direction:column; gap:3px; text-align:left; background:none; border:0; padding:0; cursor:pointer; color:inherit;}
+.sd-title{font-family:var(--display); font-size:18px; font-weight:600; letter-spacing:-.01em; color:var(--ink);}
+.sd-meta{font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint);}
+.sd-sub{font-family:var(--sans); font-size:13px; color:var(--ink-soft);}
+.studio-deck-actions{display:flex; align-items:center; gap:7px; flex-wrap:wrap;}
+.studio-empty{margin-top:6px;}
+.studio-empty code{font-family:var(--mono); font-size:11px;}
+
+/* --- Studio: one deck --- */
+.studio-head{display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:16px;}
+.studio-title{flex:1; min-width:200px; margin:0; font-family:var(--display); font-size:30px; font-weight:600; letter-spacing:-.02em; color:var(--ink);}
+.studio-head-actions{display:flex; gap:7px;}
+.studio-settings{margin-bottom:18px; border:1px solid var(--rule); border-radius:13px; background:var(--card); overflow:hidden;}
+.studio-settings > summary{cursor:pointer; padding:13px 16px; font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft);}
+.studio-settings > summary:hover{color:var(--indigo);}
+.studio-settings-body{padding:4px 16px 16px; display:flex; flex-direction:column; gap:11px; border-top:1px solid var(--rule);}
+.af-note{margin:2px 0 0; font-family:var(--sans); font-size:12.5px; line-height:1.55; color:var(--ink-faint);}
+.studio-cols{display:grid; grid-template-columns:262px minmax(0,1fr); gap:18px; align-items:start;}
+.studio-cardlist{border:1px solid var(--rule); border-radius:13px; background:var(--card); overflow:hidden; position:sticky; top:14px;}
+.studio-cardlist-head{display:flex; align-items:center; justify-content:space-between; gap:8px; padding:11px 12px; border-bottom:1px solid var(--rule); font-family:var(--mono); font-size:10.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-faint);}
+.studio-cardrows{max-height:min(64vh,620px); overflow-y:auto;}
+.studio-cardrow{display:flex; align-items:center; gap:4px; padding:2px 8px 2px 4px; border-bottom:1px solid var(--rule-faint,var(--rule));}
+.studio-cardrow:last-child{border-bottom:0;}
+.studio-cardrow.active{background:var(--indigo-wash);}
+.scr-open{flex:1; min-width:0; display:flex; align-items:center; gap:8px; background:none; border:0; padding:9px 4px; cursor:pointer; text-align:left; color:inherit;}
+.scr-n{flex:none; width:20px; font-family:var(--mono); font-size:10px; color:var(--ink-faint);}
+.scr-title{flex:1; min-width:0; font-family:var(--sans); font-size:13px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.studio-cardrow.active .scr-title{font-weight:600; color:var(--indigo);}
+.scr-move{display:flex; flex-direction:column; gap:1px;}
+.scr-btn{width:19px; height:14px; display:flex; align-items:center; justify-content:center; font-size:8px; line-height:1; border:0; border-radius:4px; background:none; color:var(--ink-faint); cursor:pointer;}
+.scr-btn:hover:not([disabled]){color:var(--indigo); background:var(--indigo-wash);}
+.scr-btn[disabled]{opacity:.25; cursor:default;}
+.studio-editor{min-width:0;}
+@media (max-width: 860px){
+  .studio-cols{grid-template-columns:1fr;}
+  .studio-cardlist{position:static;}
+  .studio-cardrows{max-height:280px;}
+}

@@ -6,8 +6,11 @@
 window.CHANGELOG = [
   {
     d: "2026-07-27",
-    t: "Groundwork",
+    t: "Write your own decks",
     items: [
+      "You can now write your own decks of flashcards. There's a new Studio — find it under \"Your decks\" at the bottom of the Library — where you can add cards, write the question, answer, date and background, and put them in the order you want.",
+      "Your own decks study exactly like Folio's: add one to your daily review, and it turns up alongside everything else with the same spacing and the same level badge.",
+      "Share a deck by exporting it to a file, which anyone can bring in with Import. Your decks stay on your own device until you do.",
       "Tightened the site's security settings, so the browser now refuses to run anything Folio didn't ship itself.",
     ],
   },

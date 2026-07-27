@@ -60,8 +60,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   opening index.html from `file://` is unaffected. If it ever breaks the live site, rename the header to
   `Content-Security-Policy-Report-Only` — violations keep showing in devtools without blocking anything.
 - `docs/user-decks-plan.md` — the design plan for **community decks** (user-created decks, sharing,
-  ratings, an optional per-deck glossary, and a later paid tier). Phase 0 has shipped; see the bullet in
-  "How the app is wired". Not part of the site.
+  ratings, an optional per-deck glossary, and a later paid tier). Phases 0–1 have shipped; see the bullet
+  in "How the app is wired". Not part of the site.
 - `data.js` — `window.CARD_DATA` and `window.COLLECTION_TREE`. **Currently 14 cards**, all in the
   `wh-prehistory` deck under World History (regrown from the `cnh-001` template, which remains the canonical
   format); the deck is grown one card at a time (see "Generating cards & glossary entries" below).
@@ -704,10 +704,49 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `"deck:<id>"` so its terms auto-link inside its own cards and nowhere else — a single global index would
     leak a stranger's terms into curated backgrounds. Verified behaviourally identical to the previous code
     (same 125 auto-linked terms across 8 study cards).
-  · **Still to do, deliberately deferred:** extracting `renderLiveCardEditor` out of `adminRenderEditor` so
-    the Studio can reuse the `.admin-live-card` surface. It has ~14 collaborators (`adminState`,
-    `adminFindRow`, `adminFlashSaved`, `setCard*Edit`, `adminRender*`, …) and only one caller today; the seam
-    should be cut in Phase 1 against a real second caller, not guessed at now.
+  · **The shared card surface** (`liveCardEditorHTML(opts)` + `wireLiveCardEditor(host, opts)`, just above
+    `adminRenderEditor`) — the `.card-edit-single` surface: ribbon, the four double-click-to-edit
+    `.ces-field` contenteditables, the image slot/panel, the `#cesAnswerText` hook and the two-way HTML
+    source box. **The admin editor and the Studio both render through it.** What stays with each caller is
+    its own chrome: the admin's head bar, chronology field, deck picker and revert/delete; the Studio's
+    equivalents. Callers pass `metaHtml` for the row above the card and receive every edit through
+    `setField` / `afterEdit`, so neither editor knows anything about the other's store. Extracted in
+    Phase 1, once the Studio existed as a real second caller — guessing the seam in Phase 0 would have
+    meant refactoring the main content tool blind. `.claude/test-admin-editor.js` guards it.
+- **Community decks — Phase 1: local decks + deck files (July 2026).** Users can write their own decks.
+  Entirely local: no server, no account, no publishing (Phases 2+ in `docs/user-decks-plan.md`).
+  · **Stores** — `UDECKS` (deckId → meta + `cardIds`), `UCARDS` (cardId → the 13 `CARD_FIELDS` + optional
+    `image`), `UGLOSS` (reserved for the per-deck glossary). Card ids are `u_<deck8>_<n>`; a deck's active
+    entry in `S.active` is `"u:<deckId>"` (`uDeckIdOf` / `uDeckEntry`). The whole module sits under the
+    `COMMUNITY DECKS` banner in app.js.
+  · **Persistence** — IndexedDB `folio-community`, store `decks`, one record per deck
+    (`{ id, meta, cards, gloss }` — also the export-file shape). **An unusable IndexedDB silently falls back
+    to `localStorage["folio_community_v1"]`** (`_communityLS`): the golden rule is that opening index.html
+    directly keeps working, and private mode / blocked storage are real too. Verified both ways.
+  · **`uDeckNormalize` is the single ingest choke point** — everything entering the store passes through it,
+    imports *and* what comes back out of IndexedDB, because that store is writable by anything on the origin.
+    Rich fields go through `sanitizeHTML`, plain ones through `sanitizePlain`, image `src` through
+    `sanitizeUrl`. `uCardSet` sanitizes on write too, so an exported deck is clean at the source. **The
+    contenteditable is never rewritten mid-keystroke** — only the stored value is sanitized, or the caret
+    would fight the sanitizer.
+  · **Bridges into the rest of the app** are deliberately few: `entryCardIds` / `entryInfo` /
+    `activeEntryIds` (accept `u:` entries), `availableCardIdSet` (adds community cards so they reach the
+    daily review), `buildSession`'s `scope.type === "udeck"`, and `cardById`. **The daily games are NOT
+    bridged** — they draw from `ALL_CARD_IDS`, which is TREE-derived, so unvetted cards can't reach them.
+    That's asserted by the test, not just intended.
+  · **Studio** (`PAGES.studio`, `#studio`, `studioState`) — deck list → one deck (details, card list with
+    reorder, the shared card surface). Reached from the Library's **"Your decks"** section, not the nav bar.
+    Community rows are visually distinct (dashed rule, no collection hue) and the section says plainly that
+    these decks are **not fact-checked by Folio** — Folio's content rules can't be imposed on a stranger, and
+    the credibility of the curated decks is the whole product.
+  · **Deck files** — `uDeckExport` writes `<name>.folio-deck.json` (`{ folioDeck: 1, meta, cards, gloss }`);
+    `uDeckPickFile` → `uDeckImportText` reads one back. An import always takes a **fresh deck id and fresh
+    card ids** when the id already exists, so importing can never overwrite a deck you're working on and two
+    copies keep separate study progress. Blob URLs are revoked on a timer, not synchronously — an immediate
+    revoke can cancel the download.
+  · **Not yet done, by design:** the per-deck glossary UI. `deck.glossMode` (`site`/`own`/`both`) is stored
+    and travels in the file, but every card currently links against the curated glossary
+    (`glossScope: GLOSS_SCOPE_SITE`). Phase 4 fills in `glossSourcesFor` and the editor.
 
 ## Generating cards & glossary entries
 
@@ -992,12 +1031,19 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Two committed Playwright regression tests** (in `.claude/`, not loaded by the site). Both slice what
-  they test out of the real `app.js`/`_headers` by text, so they can't drift from what ships:
-  · `node .claude/test-sanitize.js` — 42 XSS vectors through `sanitizeHTML()`, each one also injected into
+- **Four committed Playwright regression tests** (in `.claude/`, not loaded by the site). Each slices what
+  it tests out of the real `app.js`/`_headers` by text, so they can't drift from what ships:
+  · `node .claude/test-sanitize.js` — 48 XSS vectors through `sanitizeHTML()`, each one also injected into
     a live DOM to confirm nothing executes. **Re-run after touching `SANITIZE_*` or `sanitizeUrl`.**
   · `node .claude/test-csp.js` — serves the site with the real `_headers` CSP and walks every route,
     failing on any violation. **Re-run after changing `_headers`, or adding an inline script/`eval`.**
+  · `node .claude/test-community.js` — 40 assertions end-to-end: write a deck in the Studio, reload,
+    study it, export, import, delete; plus that a hostile deck file executes nothing, and that community
+    content never reaches `CARD_DATA` / the tree / the glossary / the admin overlay / the daily games.
+    **Re-run after touching the `COMMUNITY DECKS` module or the Studio.**
+  · `node .claude/test-admin-editor.js` — the curated-content editor: open a card, type, confirm the
+    overlay records it, revert, the HTML source box, and gloss popups. **Re-run after touching
+    `liveCardEditorHTML` / `wireLiveCardEditor`** — that surface is shared with the Studio.
   Playwright is a dev dependency and must NOT be installed into the repo (the zero-dependency rule, and
   `node_modules/` is gitignored) — install it in a scratch folder and run with
   `NODE_PATH=<that>/node_modules`. Set `FOLIO_CHROMIUM=<path to chrome>` if Chromium lives outside the

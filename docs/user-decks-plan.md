@@ -1,6 +1,6 @@
 # Community decks — design plan
 
-**Status:** **Phase 0 shipped** (2026-07-27) — see §12. Phases 1–5 are still proposal.
+**Status:** **Phases 0 and 1 shipped** (2026-07-27) — see §12. Phases 2–5 are still proposal.
 Decision taken with the project owner: build free-only first; the paid tier (§9) comes last.
 **Scope:** users create their own decks, cards and (optionally) their own glossary; publish them; other
 users browse, install, study and rate them; creators may put part of a deck behind a paywall from which
@@ -281,7 +281,7 @@ Ko-fi/Stripe page — Folio takes nothing, needs no server, and tests whether th
 | Phase | Content | Size |
 |---|---|---|
 | **0 — foundations** ✅ | Shipped: `sanitizeHTML()`/`sanitizePlain()` (42 XSS vectors tested), the `UCARDS`/`cardById()` shim on the study path, scope-aware glossary indexes (`glossIndexFor`/`invalidateGlossIndex`, verified behaviourally identical), and the CSP `_headers` (0 violations across every route). **Deferred:** extracting `renderLiveCardEditor` — ~14 collaborators and only one caller today, so the seam is cut in Phase 1 against a real second caller rather than guessed at now. | S |
-| **1 — local decks + file sharing** | Studio writing to IDB, deck JSON export/import, installed decks in the Library studying normally. No server, no account needed. Already delivers "users create and share decks". | L |
+| **1 — local decks + file sharing** ✅ | Shipped: the Studio (`#studio`), the `UDECKS`/`UCARDS` store on IndexedDB with a localStorage fallback for `file://`, `.folio-deck.json` export/import with fresh ids on collision, a "Your decks" Library section, and community decks studying through the normal scheduler and daily review. The card surface was extracted out of the admin editor here, against the Studio as a real second caller. Sanitizing happens at one ingest choke point (`uDeckNormalize`) plus on write. 40 end-to-end assertions in `.claude/test-community.js`. **Not included:** the per-deck glossary UI — `glossMode` is stored and exported, but every card links against the curated glossary until Phase 4. | L |
 | **2 — publish & discover** | Supabase tables + RLS, publish flow, `#community`, `#deck/<slug>`, install/update, moderation queue, reports. | L |
 | **3 — ratings & social** | Ratings, reviews, Bayesian ranking, creator profiles, staff picks, fork/remix. | M |
 | **4 — own glossary** | Per-deck glossary editor and the `site`/`own`/`both` modes. Independent — could slide earlier. | M |
