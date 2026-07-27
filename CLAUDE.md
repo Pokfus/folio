@@ -1193,7 +1193,7 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Eight committed Playwright regression tests** (in `.claude/`, not loaded by the site). Each slices what
+- **Nine committed Playwright regression tests** (in `.claude/`, not loaded by the site). Each slices what
   it tests out of the real `app.js`/`_headers` by text, so they can't drift from what ships.
   **Gotcha when writing more of them:** `page.goto()` to a URL that differs only in the `#fragment` is a
   same-document navigation — the app keeps running and its module state survives. Use `page.reload()` when
@@ -1228,6 +1228,12 @@ dead code (never rendered).
     bakes to one file per edited language holding every term, and NEVER bakes a language whose file isn't
     loaded. **Re-run after touching `langBundle` / `glossI18nIngest` / `glossI18nMerged` /
     `setGlossI18nEdit` / `serializeGlossaryI18n` / `editedGlossI18nLangs`, or after adding a language.**
+  · `node .claude/test-account-switch.js` — 22 assertions on switching accounts on one device, against an
+    in-memory mock of the Supabase **auth + progress** endpoints (a test that really signed up would create
+    users in the live project). It asserts both halves of the rule: a guest's study history still migrates
+    into their FIRST account, and a newly created second account starts at level 1 with no badges, no streak
+    and no heatmap — in the store, on the server row, and on the page (first-run hero, "0 unlocked"). **Re-run
+    after touching `supaAfterSignIn` / `supaSignOut` / `supaBoot` / `_supaOwner` / `PROGRESS_FIELDS`.**
   · `node .claude/test-gloss-image.js` — 35 assertions on glossary images: the popup renders one at the
     foot of the body, it opens the SHARED fullscreen viewer and that viewer stacks **above** the popup,
     the curated editor's overlay delta survives a reload and clears cleanly, and a deck's own term images
@@ -1263,7 +1269,15 @@ dead code (never rendered).
   no-ops) PATCHes the whole `PROGRESS_FIELDS` blob into `progress.data`; boot (`supaBoot`) refreshes the session, pulls, and
   reconciles — server wins when its `updated_at` ≠ the device's `S._supaTs` baseline (another device wrote), else local pushes.
   Sign-in adopts server progress (or MIGRATES local progress up if the server row is empty); the pre-sign-in device state is
-  stashed (`folio_supa_guest_v1`) and restored on sign-out. Auth = email+password (`/auth/v1/*`); emailed links (confirm/reset)
+  stashed (`folio_supa_guest_v1`) and restored on sign-out. **That migration is OWNERSHIP-GATED by `S._supaOwner`** —
+  the account id the progress currently in localStorage belongs to (device-local like `_supaTs`, so it never syncs
+  itself). Migrating up is right for a guest who studied before ever making an account and WRONG for every account
+  after the first: without the gate, creating a second account on a device silently adopted — and then permanently
+  owned, since we push it up — the previous account's levels, badges, streak and heatmap. So `supaAfterSignIn` migrates
+  only when the local progress is unclaimed or already this account's, and otherwise **wipes to `emptyProgress()`**;
+  `supaClaimGuestStash()` marks the stash claimed at the moment it migrates (or signing out and into a THIRD account
+  would inherit it again), the stash carries its `owner` back on sign-out, and `supaBoot` back-fills ownership for
+  sessions signed in before the field existed. Guarded by `.claude/test-account-switch.js`. Auth = email+password (`/auth/v1/*`); emailed links (confirm/reset)
   land with tokens in the URL hash → `supaBoot` adopts them (requires the Supabase **Site URL** to point at the deployed app).
   The account page (auth/self/friends views) is fully server-backed; friends use the `friends` table (request → accept, RLS lets
   accepted friends read each other's `progress` for the badges view). **Admin gating** (`adminEligible()` / `isAdmin()`): a
