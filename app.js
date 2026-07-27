@@ -9504,7 +9504,7 @@
     const G = window.GLOSSARY_I18N || {};
     return "/* Glossary translations — window.GLOSSARY_I18N[slug][lang] = the entry's description translated into that\n" +
       "   language (same three-sentence rules as the English text in glossary.js). Languages: es, fr, de, it, nl,\n" +
-      "   ru, ar, zh. Grown alongside glossary.js by .claude/add-glossary.js (the entry JSON's \"translations\"\n" +
+      "   ru, ar, zh, ja. Grown alongside glossary.js by .claude/add-glossary.js (the entry JSON's \"translations\"\n" +
       "   field); the gloss popup shows the translation matching the site language, falling back to English.\n" +
       "   Loaded after glossary.js / glossary-wikipedia.js, before app.js. */\n" +
       "window.GLOSSARY_I18N = {\n" +
@@ -9894,7 +9894,7 @@
   }
 
   const adminState = { tab: "cards", node: null, card: null, search: "", treeCollapsed: false, glossKey: null, glossTag: null, expanded: {}, selected: new Set(), sort: "order", glossSort: "az", lastSelId: null, preview: false };
-  const CARD_I18N_LANGS = ["es", "fr", "de", "it", "nl", "ru", "ar", "zh"];   // the 8 site languages a card can carry (en = the base fields)
+  const CARD_I18N_LANGS = ["es", "fr", "de", "it", "nl", "ru", "ar", "zh", "ja"];   // the 9 site languages a card can carry (en = the base fields)
   const CARD_I18N_FIELDS = { question: 1, answer: 1, answerDate: 1, abstract: 1, answerText: 1 };   // translated per language; everything else is shared
   // Remember where the editor was (open card / deck / tab / search / scroll) across FULL page reloads. Auto-save-to-files can make a
   // file-watching dev server live-reload the page after every edit; without this you'd land back at the top of the deck each time.
@@ -11891,6 +11891,7 @@
     nl: '<svg viewBox="0 0 60 40" preserveAspectRatio="none" aria-hidden="true"><rect width="60" height="40" fill="#21468B"/><rect width="60" height="26.7" fill="#fff"/><rect width="60" height="13.3" fill="#AE1C28"/></svg>',
     ru: '<svg viewBox="0 0 60 40" preserveAspectRatio="none" aria-hidden="true"><rect width="60" height="40" fill="#D52B1E"/><rect width="60" height="26.7" fill="#0039A6"/><rect width="60" height="13.3" fill="#fff"/></svg>',
     ar: '<svg viewBox="0 0 60 40" preserveAspectRatio="none" aria-hidden="true"><rect width="60" height="40" fill="#1B7A43"/><rect x="12" y="10" width="36" height="7" rx="3.5" fill="#fff" opacity=".95"/><rect x="12" y="24" width="28" height="3.5" rx="1.75" fill="#fff"/><path d="M41.5 25.75h7" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/></svg>',
+    ja: '<svg viewBox="0 0 60 40" preserveAspectRatio="none" aria-hidden="true"><rect width="60" height="40" fill="#fff"/><circle cx="30" cy="20" r="12" fill="#BC002D"/></svg>',
     zh: '<svg viewBox="0 0 60 40" preserveAspectRatio="none" aria-hidden="true"><rect width="60" height="40" fill="#DE2910"/><polygon fill="#FFDE00" points="12,6 13.6,10.8 18.7,10.8 14.6,13.8 16.1,18.7 12,15.7 7.9,18.7 9.4,13.8 5.3,10.8 10.4,10.8"/><path fill="#FFDE00" d="M23 4l1.2 1.9L23 7.8l-1.2-1.9zM27 9l1.2 1.9-1.2 1.9-1.2-1.9zM27 16l1.2 1.9-1.2 1.9-1.2-1.9zM23 21l1.2 1.9-1.2 1.9-1.2-1.9z"/></svg>',
   };
   const LANGS = [

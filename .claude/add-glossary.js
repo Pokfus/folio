@@ -7,8 +7,8 @@
 // <entry.json>  { "slug": "Wikipedia_Article_Slug", "description": "<3 sentences>",
 //                 "date": "<optional>", "aliases": ["<optional alternative background spellings>"],
 //                 "tags": ["person", "ruler", "han dynasty"],   // REQUIRED for new terms: >=3 lowercase category tags (admin tag filter)
-//                 "translations": { "es": "…", "fr": "…", "de": "…", "it": "…", "nl": "…", "ru": "…", "ar": "…", "zh": "…" },
-//                                              // REQUIRED for new terms: the description in all 8 site languages (-> glossary-i18n.js);
+//                 "translations": { "es": "…", "fr": "…", "de": "…", "it": "…", "nl": "…", "ru": "…", "ar": "…", "zh": "…", "ja": "…" },
+//                                              // REQUIRED for new terms: the description in all 9 site languages (-> glossary-i18n.js);
 //                                              // pass "skipTranslations": true only for maintenance edits of old English-only terms
 //                 "caseSensitive": true,   // optional: only auto-link when the surface matches the term's capitalization
 //                 "image": { "src": "https://…", "title": "…", "desc": "…", "credit": "…" } }
@@ -17,7 +17,7 @@
 const fs = require("fs"), path = require("path");
 const glossPath = path.join(__dirname, "..", "glossary.js");
 const i18nPath = path.join(__dirname, "..", "glossary-i18n.js");
-const I18N_LANGS = ["es", "fr", "de", "it", "nl", "ru", "ar", "zh"];
+const I18N_LANGS = ["es", "fr", "de", "it", "nl", "ru", "ar", "zh", "ja"];
 
 function loadWindow(file) { const win = {}; new Function("window", fs.readFileSync(file, "utf8"))(win); return win; }
 const obj = (o) => "{\n" + Object.keys(o).map(k => JSON.stringify(k) + ": " + JSON.stringify(o[k])).join(",\n") + "\n}";
@@ -42,10 +42,12 @@ if (e.delete) {
   if (isNew && !e.skipTranslations) {
     const tr = e.translations || {};
     const missing = I18N_LANGS.filter((l) => !(typeof tr[l] === "string" && tr[l].trim()));
-    if (missing.length) { console.error("ERROR: a new term needs `translations` for all 8 site languages (missing: " + missing.join(", ") + ") — or pass skipTranslations:true for a deliberate English-only maintenance edit"); process.exit(1); }
+    if (missing.length) { console.error("ERROR: a new term needs `translations` for all 9 site languages (missing: " + missing.join(", ") + ") — or pass skipTranslations:true for a deliberate English-only maintenance edit"); process.exit(1); }
   }
+  // MERGE, never replace: an update that carries only some languages (e.g. backfilling a newly added
+  // site language into an old term) must not drop the translations already on the entry.
   if (e.translations && Object.keys(e.translations).length) {
-    I18N[e.slug] = {};
+    I18N[e.slug] = I18N[e.slug] || {};
     I18N_LANGS.forEach((l) => { if (typeof e.translations[l] === "string" && e.translations[l].trim()) I18N[e.slug][l] = e.translations[l]; });
   }
   action = isNew ? "added" : "updated";
@@ -98,7 +100,7 @@ loadWindow(glossPath);   // re-parse to confirm valid JS
 const i18nOut =
   "/* Glossary translations — window.GLOSSARY_I18N[slug][lang] = the entry's description translated into that\n" +
   "   language (same three-sentence rules as the English text in glossary.js). Languages: es, fr, de, it, nl,\n" +
-  "   ru, ar, zh. Grown alongside glossary.js by .claude/add-glossary.js (the entry JSON's \"translations\"\n" +
+  "   ru, ar, zh, ja. Grown alongside glossary.js by .claude/add-glossary.js (the entry JSON's \"translations\"\n" +
   "   field); the gloss popup shows the translation matching the site language, falling back to English.\n" +
   "   Loaded after glossary.js / glossary-wikipedia.js, before app.js. */\n" +
   "window.GLOSSARY_I18N = " + obj(I18N) + ";\n";

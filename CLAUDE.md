@@ -62,21 +62,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `docs/user-decks-plan.md` — the design plan for **community decks** (user-created decks, sharing,
   ratings, an optional per-deck glossary, and a later paid tier). Phases 0–1 have shipped; see the bullet
   in "How the app is wired". Not part of the site.
-- `data.js` — `window.CARD_DATA` and `window.COLLECTION_TREE`. **Currently 14 cards**, all in the
+- `data.js` — `window.CARD_DATA` and `window.COLLECTION_TREE`. **Currently 30 cards**, all in the
   `wh-prehistory` deck under World History (regrown from the `cnh-001` template, which remains the canonical
   format); the deck is grown one card at a time (see "Generating cards & glossary entries" below).
 - `glossary.js` — `window.GLOSSARY` plus `window.GLOSSARY_DATES`, `GLOSSARY_TITLES`, `GLOSSARY_ALIASES`,
   `GLOSSARY_CASESENSITIVE`, `GLOSSARY_TAGS` (per-term category tags — the admin glossary's left-bar
   filter) and `GLOSSARY_IMAGES` (per-term illustration — see the "Glossary image" bullet below).
-  Trimmed to the single `Sima_Qian` template entry on 2026-07-23 and **regrown since to ~268 terms**
+  Trimmed to the single `Sima_Qian` template entry on 2026-07-23 and **regrown since to 333 terms**
   (every country in the world, plus prehistory/paleoanthropology vocabulary), one fully-formed entry at a time
-  (description + date + tags + all 8 translations); the full pre-trim glossary (2,165 terms) and its partial
+  (description + date + tags + all 9 translations); the full pre-trim glossary (2,165 terms) and its partial
   translations are backed up in `.claude/backup/`.
 - `glossary-wikipedia.js` — `Object.assign`s extra summaries onto `window.GLOSSARY` (loads *after*
   `glossary.js`). **Currently an empty stub.**
-- `glossary-i18n.js` — `window.GLOSSARY_I18N[slug][lang]`, glossary descriptions translated into the 8 site
-  languages (es/fr/de/it/nl/ru/ar/zh); written by `.claude/add-glossary.js` from the entry JSON's
-  `translations` field, read by `glossText()` when the site language isn't English. **Admin-editable**: with the
+- `glossary-i18n.js` — `window.GLOSSARY_I18N[slug][lang]`, glossary descriptions translated into the 9 site
+  languages (es/fr/de/it/nl/ru/ar/zh/ja); written by `.claude/add-glossary.js` from the entry JSON's
+  `translations` field (or backfilled one language at a time by `.claude/add-lang.js`), read by
+  `glossText()` when the site language isn't English. **Admin-editable**: with the
   site language switched to a non-EN language, the glossary editor edits that language's translation
   (`glossaryI18n` overlay deltas; baked back into this file by `serializeGlossaryI18n`).
 - `i18n.js` — the site-chrome translation tables (`window.I18N` exact strings / `I18N_RULES` regex patterns /
@@ -369,6 +370,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   title/aria-label/placeholder/alt attributes after render, with a MutationObserver localizing later DOM (toasts,
   popups, menus). Originals are stashed on the nodes so switching back restores cleanly; anything untranslated stays
   English (graceful fallback). Arabic flips `<html dir="rtl">`. Elements with class `notranslate` are skipped.
+  **Adding a language** — the language set is defined in exactly three code sites: `LANGS` + `FLAG_SVG` (app.js,
+  the switcher) and `CARD_I18N_LANGS` (app.js, the card editor's translated fields); plus the `I18N_LANGS`
+  validation list in `.claude/add-card.js` and `.claude/add-glossary.js`. Everything else is keyed off
+  `S.settings.lang` and needs no change. Backfill the CONTENT with **`node .claude/add-lang.js <batch.json>`**
+  (see "Backfilling a site language" below) — and add the code to `LANGS` **last**, once the chrome table is
+  translated, so the switcher never offers a language that renders as English. **Japanese (`ja`) is mid-rollout**:
+  the plumbing and `FLAG_SVG.ja` have shipped, the `LANGS` entry has not.
   **Content localisation is separate**: cards carry per-language `i18n` blocks (`cardLocalized()`), glossary
   descriptions live in `glossary-i18n.js` (`window.GLOSSARY_I18N`, read by `glossText()`).
   **`setLang(code)` is the single entry point** for a language change (the switcher calls it; don't set
@@ -899,7 +907,7 @@ template entries are the canonical format: card `cnh-001` in `data.js`, glossary
 `placeholder: true`, so it sits under "Coming soon" and `availableCardIdSet()` (app.js) keeps its cards
 out of the daily review, the games, the card of the day and study deep-links. **New cards go to the
 World History collection (`col-8`)** — create leaf decks under it as topics demand. **Every NEW card and
-glossary entry also ships in the 8 site languages** (es, fr, de, it, nl, ru, ar, zh — see the i18n bullets
+glossary entry also ships in the 9 site languages** (es, fr, de, it, nl, ru, ar, zh, ja — see the i18n bullets
 below and in the file map); the helpers refuse a new entry without its translations (escape hatch:
 `skipTranslations: true`, only for deliberate English-only maintenance edits of old entries).
 
@@ -928,9 +936,9 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   never put information between parentheses. **No glossary links** — plain text only (`cnh-001`
   still uses the old `ttip`/`data-k` links and bolded facts; new cards omit both).
 - `answerText` — the answer as plain text, no HTML.
-- `i18n` — **REQUIRED for every new card**: the card translated into all 8 site languages,
+- `i18n` — **REQUIRED for every new card**: the card translated into all 9 site languages,
   `"i18n": { "es": { "question": …, "answer": …, "answerDate": …, "abstract": …, "answerText": … }, "fr": …,
-  "de": …, "it": …, "nl": …, "ru": …, "ar": …, "zh": … }`. Each language mirrors the English fields under the
+  "de": …, "it": …, "nl": …, "ru": …, "ar": …, "zh": …, "ja": … }`. Each language mirrors the English fields under the
   SAME formatting rules (blank `<span class="blank">_____</span>` mid-sentence, 2×5-sentence abstract with one
   `<b>` on the answer term, `<i>` for titles, no parentheses, dt-block markup in `answerDate`). Translate
   meaning-for-meaning at native quality — **not a literal, word-for-word rendering of the English.** Each language
@@ -943,8 +951,8 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
 
 **Add a glossary term** — write `{ "slug": "Wikipedia_Article_Slug", "description": "<3 sentences>",
 "date": "<optional>", "tags": ["<kind>", "<subject>", "<specific>"],
-"translations": { "es": "<3 sentences>", "fr": …, "de": …, "it": …, "nl": …, "ru": …, "ar": …, "zh": … } }`
-(translations REQUIRED for new terms — the description in all 8 site languages, same three-sentence,
+"translations": { "es": "<3 sentences>", "fr": …, "de": …, "it": …, "nl": …, "ru": …, "ar": …, "zh": …, "ja": … } }`
+(translations REQUIRED for new terms — the description in all 9 site languages, same three-sentence,
 impartial, self-contained rules; they land in `glossary-i18n.js` → `window.GLOSSARY_I18N`) to a temp
 `.json` file, then run:
 
@@ -1002,6 +1010,27 @@ To remove a term, run the helper on `{ "slug": "Some_Slug", "delete": true }`.
 
 When the user pastes one of the generation prompts and then sends bare terms one per message, treat
 each as "research it and add it via the helper script," then reload to confirm no console errors.
+
+**Backfilling a site language** — `add-card.js` / `add-glossary.js` only handle a whole NEW entry in every
+language at once. To add a language to content that already exists (a new site language, or topping up a
+partial one), batch it through:
+
+```
+node .claude/add-lang.js <batch.json> [--partial]
+```
+
+`{ "lang": "ja", "chrome": { "exact": {…}, "rules": [[pattern, replacement], …], "html": {…} },
+"cards": { "<cardId>": { question, answer, answerDate, abstract, answerText }, … },
+"glossary": { "<slug>": "<3 sentences>", … } }` — every section optional, so one batch can be as small as
+20 glossary terms. It writes `i18n.js` / `data.js` / `glossary-i18n.js`, **merging** in every case (a language
+never overwrites its neighbours), refuses a card missing any of the 5 translated fields unless `--partial`,
+refuses a glossary slug that has no English entry, warns on a chrome key no other language has (a sign the
+English source string has changed), and re-parses each file it writes. It reports running coverage
+("ja now 140/333"), which is how a multi-batch language rollout is tracked. **Rewriting `i18n.js` folds the
+old appended daily-quote merge block into the three main tables** — same keys, nothing lost.
+**Gotcha this exists to avoid:** `update-cards.js` assigns whole fields, so passing it an `i18n` patch replaces
+the card's entire `i18n` object and silently drops the other languages. `add-glossary.js` used to do the same
+to `GLOSSARY_I18N[slug]` and now merges instead.
 
 ## Generating timeline eras (historical globe maps)
 
