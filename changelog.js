@@ -8,6 +8,7 @@ window.CHANGELOG = [
     d: "2026-07-27",
     t: "Write your own decks",
     items: [
+      "A deck you write can now have its own glossary. Add your terms in the Studio and they underline themselves wherever they appear in that deck's backgrounds, exactly like Folio's do — and only inside your deck. You can choose whether a deck uses Folio's glossary, only your own terms, or both.",
       "You can now share a deck you've written with everyone else. Publish it from the Studio and it appears under \"Browse shared decks\", where anyone can read what it covers, flip through a sample card and add it to their own collection.",
       "Decks you install from other people update when their author improves them, and your progress on the cards that didn't change is kept.",
       "Every shared deck has a Report button if something is wrong with it.",

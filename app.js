@@ -730,7 +730,11 @@
     else ADMIN_EDITS.glossaryTags[key] = arr;
     queueAdminSave();
   }
-  function glossTags(k) { return (window.GLOSSARY_TAGS && window.GLOSSARY_TAGS[k]) || []; }
+  function glossTags(k) {
+    const u = uGlossParse(k);
+    if (u) return u.entry.tags || [];
+    return (window.GLOSSARY_TAGS && window.GLOSSARY_TAGS[k]) || [];
+  }
   function revertGloss(key) {
     if (window.GLOSSARY && key in PRISTINE_GLOSS) window.GLOSSARY[key] = PRISTINE_GLOSS[key];
     delete ADMIN_EDITS.glossary[key];
@@ -1496,6 +1500,8 @@
     return name + " is a person, place, or concept referenced in this card's background.";
   }
   function glossText(k) {
+    const u = uGlossParse(k);
+    if (u) return u.entry.desc || "";                // a deck's own term — never translated, decks are single-language
     const G = window.GLOSSARY || {};
     if (uiLang() !== "en") {                       // translated description when the entry carries one (glossary-i18n.js)
       const tr = (window.GLOSSARY_I18N || {})[k];
@@ -1514,6 +1520,8 @@
   }
   // optional start/end dates for a glossary entry (e.g. "1644–1912", "551–479 BCE"); blank if none
   function glossDates(k) {
+    const u = uGlossParse(k);
+    if (u) return (u.entry.date || "").trim();
     const D = window.GLOSSARY_DATES || {};
     const v = D[k];
     return v ? String(v).trim() : "";
@@ -1536,7 +1544,12 @@
       .trim();
   }
   function glossKeyTitle(k) { return (k || "").replace(/_\([^)]*\)$/, "").replace(/_/g, " ").trim(); }   // humanized slug
-  function glossTitle(k) { const T = window.GLOSSARY_TITLES || {}; return T[k] || glossKeyTitle(k); }     // display-title override, else the slug
+  function glossTitle(k) {
+    const u = uGlossParse(k);
+    if (u) return u.entry.title || glossKeyTitle(u.slug);
+    const T = window.GLOSSARY_TITLES || {};
+    return T[k] || glossKeyTitle(k);                  // display-title override, else the slug
+  }
   // likely English plural form(s) of a term, pluralizing its last word (e.g. "culture hero" -> "culture heroes")
   function pluralForms(name) {
     const m = String(name || "").match(/^(.*?)(\S+)$/);
@@ -1554,10 +1567,56 @@
   const _glossIndexes = new Map();   // scope -> { byName, byNameCS, re }
   const GLOSS_SCOPE_SITE = "site";
   function invalidateGlossIndex(scope) { if (scope == null) _glossIndexes.clear(); else _glossIndexes.delete(scope); }
-  // The term tables a scope draws on. Community scopes ("deck:<id>") resolve to the deck's own terms,
-  // optionally layered over the site's, once the community layer lands.
+  /* The term tables a scope draws on.
+     "site" is the curated glossary. A community deck's scope is "deck:<id>", and what it resolves to
+     depends on the deck's own glossMode: `site` reuses the curated tables untouched, `own` sees ONLY the
+     deck's terms, `both` layers the deck's over the site's. Deck terms are added FIRST in `both` so that
+     when a deck defines a word the site also defines, the deck's meaning wins inside that deck — the
+     author knows what their own cards mean. Keys are namespaced `u:<deckId>:<slug>`, which is what keeps a
+     stranger's terms from ever resolving anywhere but inside their own deck. */
   function glossSourcesFor(scope) {
-    return { G: window.GLOSSARY || {}, A: window.GLOSSARY_ALIASES || {}, CS: window.GLOSSARY_CASESENSITIVE || {} };
+    const siteSrc = { G: window.GLOSSARY || {}, A: window.GLOSSARY_ALIASES || {}, CS: window.GLOSSARY_CASESENSITIVE || {} };
+    const deckId = (typeof scope === "string" && scope.slice(0, 5) === "deck:") ? scope.slice(5) : null;
+    const deck = deckId && UDECKS[deckId];
+    if (!deck) return siteSrc;
+    const mode = deck.glossMode || "site";
+    if (mode === "site") return siteSrc;
+    const terms = UGLOSS[deckId] || {};
+    const G = {}, A = {}, CS = {};
+    Object.keys(terms).forEach((slug) => {
+      const t = terms[slug] || {};
+      const k = uGlossKey(deckId, slug);
+      G[k] = t.desc || "";
+      if (t.aliases && t.aliases.length) A[k] = t.aliases;
+    });
+    if (mode === "both") {
+      Object.keys(siteSrc.G).forEach((k) => { if (!(k in G)) G[k] = siteSrc.G[k]; });
+      Object.keys(siteSrc.A).forEach((k) => { if (!(k in A)) A[k] = siteSrc.A[k]; });
+      Object.assign(CS, siteSrc.CS);
+    }
+    return { G: G, A: A, CS: CS };
+  }
+  /* ---------- per-deck glossary terms ----------
+     A deck term's key is "u:<deckId>:<slug>". Every reader of a glossary key (text, title, dates, tags)
+     branches here first, so a deck term behaves exactly like a curated one inside its own deck and does
+     not exist at all outside it. */
+  function uGlossKey(deckId, slug) { return "u:" + deckId + ":" + slug; }
+  function uGlossParse(k) {
+    if (typeof k !== "string" || k.slice(0, 2) !== "u:") return null;
+    const i = k.indexOf(":", 2);
+    if (i < 0) return null;
+    const deckId = k.slice(2, i), slug = k.slice(i + 1);
+    const e = UGLOSS[deckId] && UGLOSS[deckId][slug];
+    return e ? { deckId: deckId, slug: slug, entry: e } : null;
+  }
+  function isDeckGlossKey(k) { return typeof k === "string" && k.slice(0, 2) === "u:"; }
+  // which glossary a card's background links against
+  function glossScopeForCard(cardId) {
+    const c = UCARDS[cardId];
+    if (!c || !c.deckId) return GLOSS_SCOPE_SITE;
+    const d = UDECKS[c.deckId];
+    if (!d || (d.glossMode || "site") === "site") return GLOSS_SCOPE_SITE;
+    return "deck:" + c.deckId;
   }
   function glossIndexFor(scope) {
     const key = scope || GLOSS_SCOPE_SITE;
@@ -1583,14 +1642,18 @@
       else { const low = s.toLowerCase(); if (!byName[low]) { byName[low] = k; names.push(s); } }
     };
     const keys = Object.keys(G);
+    // The surface to match is the humanized SLUG for a curated term, but a deck term's key is namespaced
+    // ("u:<deckId>:<slug>"), so humanizing that would try to match the literal key in the prose. Deck terms
+    // resolve through their own entry instead.
+    const surfaceOf = (k) => { const u = uGlossParse(k); return u ? (u.entry.title || glossKeyTitle(u.slug)) : glossKeyTitle(k); };
     // pass 1: primary term names (singular) — win any collision
-    keys.forEach((k) => add(glossKeyTitle(k), k));
+    keys.forEach((k) => add(surfaceOf(k), k));
     // pass 2: admin-defined alias spellings (singular)
     keys.forEach((k) => (A[k] || []).forEach((al) => add(al, k)));
     // pass 3: plurals — only for case-insensitive surfaces (proper names are not pluralized/linked lowercase)
     keys.forEach((k) => {
       if (CS[k]) return;
-      const t = glossKeyTitle(k);
+      const t = surfaceOf(k);
       if (!isProperCS(t)) pluralForms(t).forEach((p) => add(p, k));
       (A[k] || []).forEach((al) => { if (!isProperCS(al)) pluralForms(al).forEach((p) => add(p, k)); });
     });
@@ -1835,7 +1898,7 @@
     win.innerHTML =
       '<div class="gloss-bar">' +
         '<span class="gloss-title"></span>' +
-        (isAdmin() ? '<button class="gloss-edit" type="button" aria-label="Edit this term" title="Edit this term"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>' : "") +
+        (isAdmin() && !isDeckGlossKey(key) ? '<button class="gloss-edit" type="button" aria-label="Edit this term" title="Edit this term"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>' : "") +
         '<button class="gloss-close" type="button" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>' +
       '</div>' +
       '<div class="gloss-body"><span class="gloss-dates"></span><p class="gloss-desc"></p></div>';
@@ -2293,7 +2356,29 @@
     }
     return c;
   }
-  const UDECK_MAX_CARDS = 500;
+  const UDECK_MAX_CARDS = 500, UDECK_MAX_TERMS = 400;
+  // A deck's own glossary, cleaned. Descriptions are rich HTML and DO get rendered (in the popup), so this
+  // is on the same footing as the card fields — it goes through the sanitizer, not around it. Slugs are
+  // restricted because they end up inside a data-k attribute and a "u:<deckId>:<slug>" key.
+  function uGlossSanitize(raw) {
+    const out = {};
+    if (!raw || typeof raw !== "object") return out;
+    Object.keys(raw).slice(0, UDECK_MAX_TERMS).forEach((slugRaw) => {
+      const slug = String(slugRaw).trim().replace(/\s+/g, "_");
+      if (!/^[\w.-]{1,80}$/.test(slug)) return;
+      const t = raw[slugRaw] || {};
+      const e = {
+        desc: sanitizeHTML(t.desc == null ? "" : String(t.desc)).slice(0, 4000),
+        title: sanitizePlain(t.title).slice(0, 120),
+        date: sanitizePlain(t.date).slice(0, 60),
+        tags: Array.isArray(t.tags) ? t.tags.map((x) => sanitizePlain(x).slice(0, 40)).filter(Boolean).slice(0, 12) : [],
+        aliases: Array.isArray(t.aliases) ? t.aliases.map((x) => sanitizePlain(x).slice(0, 80)).filter(Boolean).slice(0, 12) : [],
+      };
+      if (!e.desc && !e.title) return;
+      out[slug] = e;
+    });
+    return out;
+  }
   // Turn an arbitrary record (IDB row or imported file) into a clean deck, or null if it isn't one.
   function uDeckNormalize(rec) {
     if (!rec || typeof rec !== "object") return null;
@@ -2307,7 +2392,7 @@
       seen.add(c.id);
       cards.push(c);
     });
-    return { id: meta.id, meta: meta, cards: cards, gloss: (rec.gloss && typeof rec.gloss === "object") ? rec.gloss : {} };
+    return { id: meta.id, meta: meta, cards: cards, gloss: uGlossSanitize(rec.gloss) };
   }
   // install a normalized record into the live in-memory stores
   function uDeckMount(norm) {
@@ -2386,6 +2471,49 @@
     if (!im.src) delete c.image; else c.image = im;
     if (c.deckId) uDeckSave(c.deckId);
   }
+  /* ---------- a deck's own glossary terms ----------
+     Every mutation invalidates that deck's scoped index, or the linkify regex would keep matching the old
+     set of surfaces. Only the one deck's index is thrown away; the site's is untouched. */
+  function uGlossTouched(deckId) { invalidateGlossIndex("deck:" + deckId); uDeckSave(deckId); }
+  function uDeckSetGlossMode(deckId, mode) {
+    const d = UDECKS[deckId];
+    if (!d || ["site", "own", "both"].indexOf(mode) < 0) return;
+    d.glossMode = mode;
+    uGlossTouched(deckId);
+  }
+  function uGlossList(deckId) {
+    const t = UGLOSS[deckId] || {};
+    return Object.keys(t).sort((a, b) => glossTitle(uGlossKey(deckId, a)).localeCompare(glossTitle(uGlossKey(deckId, b))));
+  }
+  function uGlossCreate(deckId, name) {
+    const d = UDECKS[deckId];
+    if (!d) return null;
+    if (!UGLOSS[deckId]) UGLOSS[deckId] = {};
+    if (Object.keys(UGLOSS[deckId]).length >= UDECK_MAX_TERMS) { toast("A deck holds at most " + UDECK_MAX_TERMS + " glossary terms."); return null; }
+    const title = sanitizePlain(name).slice(0, 120) || "New term";
+    let slug = title.replace(/\s+/g, "_").replace(/[^\w.-]/g, "").slice(0, 80) || "term";
+    let n = 2;
+    while (UGLOSS[deckId][slug]) slug = (title.replace(/\s+/g, "_").replace(/[^\w.-]/g, "").slice(0, 74) || "term") + "_" + n++;
+    UGLOSS[deckId][slug] = { desc: "", title: title, date: "", tags: [], aliases: [] };
+    uGlossTouched(deckId);
+    return slug;
+  }
+  function uGlossSet(deckId, slug, field, value) {
+    const t = UGLOSS[deckId] && UGLOSS[deckId][slug];
+    if (!t) return;
+    if (field === "desc") t.desc = sanitizeHTML(value == null ? "" : String(value)).slice(0, 4000);
+    else if (field === "title") t.title = sanitizePlain(value).slice(0, 120);
+    else if (field === "date") t.date = sanitizePlain(value).slice(0, 60);
+    else if (field === "tags" || field === "aliases") t[field] = String(value || "").split(",").map((x) => sanitizePlain(x).slice(0, 80)).filter(Boolean).slice(0, 12);
+    else return;
+    uGlossTouched(deckId);
+  }
+  function uGlossDelete(deckId, slug) {
+    if (!UGLOSS[deckId]) return;
+    delete UGLOSS[deckId][slug];
+    uGlossTouched(deckId);
+  }
+
   function uCardDelete(cardId) {
     const c = UCARDS[cardId];
     if (!c) return;
@@ -2410,6 +2538,7 @@
     (d.cardIds || []).forEach((id) => { delete UCARDS[id]; });
     delete UDECKS[deckId];
     delete UGLOSS[deckId];
+    invalidateGlossIndex("deck:" + deckId);   // else a re-created deck with the same id would inherit a stale index
     S.active = (Array.isArray(S.active) ? S.active : []).filter((x) => x !== uDeckEntry(deckId));
     save();
     cdbDel(deckId);
@@ -2542,7 +2671,16 @@
       return { deck_id: row.id, id: c.id, ord: i, is_demo: true, data: data };
     });
     const ins = await supaFetch("/rest/v1/user_cards", { method: "POST", body: rows });
-    if (!ins.ok) return { error: supaErrMsg(ins, "Couldn't upload the deck's cards.") };
+    if (!ins.ok) return { error: communityErr(ins, "Couldn't upload the deck's cards.") };
+
+    // the deck's own glossary travels with it, so an installed copy links the same terms the author saw
+    const terms = UGLOSS[d.id] || {};
+    await supaFetch("/rest/v1/user_gloss?deck_id=eq." + encodeURIComponent(row.id), { method: "DELETE" });
+    const gRows = Object.keys(terms).map((slug) => ({ deck_id: row.id, slug: slug, data: terms[slug] }));
+    if (gRows.length) {
+      const gi = await supaFetch("/rest/v1/user_gloss", { method: "POST", body: gRows });
+      if (!gi.ok) return { error: communityErr(gi, "Couldn't upload the deck's glossary.") };
+    }
 
     d.remoteId = row.id;
     d.slug = row.slug;
@@ -2592,7 +2730,10 @@
     if (!row) return { error: "notfound" };
     const c = await supaFetch("/rest/v1/user_cards?deck_id=eq." + encodeURIComponent(row.id) + "&select=id,ord,is_demo,data&order=ord.asc");
     if (!c.ok) return { error: communityErr(c, "Couldn't load that deck's cards.") };
-    return { ok: true, row: row, cards: Array.isArray(c.data) ? c.data : [] };
+    const g = await supaFetch("/rest/v1/user_gloss?deck_id=eq." + encodeURIComponent(row.id) + "&select=slug,data");
+    const gloss = {};
+    if (g.ok && Array.isArray(g.data)) g.data.forEach((t) => { gloss[t.slug] = t.data; });   // sanitized on ingest, below
+    return { ok: true, row: row, cards: Array.isArray(c.data) ? c.data : [], gloss: gloss };
   }
   function localDeckForRemote(remoteId) {
     const k = Object.keys(UDECKS).find((x) => UDECKS[x].remoteId === remoteId);
@@ -2601,7 +2742,7 @@
   // Build the local record for a remote deck. Card ids come down as published so an update keeps the
   // learner's scheduling — unless one already belongs to a DIFFERENT local deck, in which case this deck's
   // ids are remapped so two installs can never collide in UCARDS / S.cards.
-  function remoteToLocal(row, cards, existingLocalId) {
+  function remoteToLocal(row, cards, existingLocalId, gloss) {
     const localId = existingLocalId || uid(8);
     const clash = cards.some((c) => UCARDS[c.id] && UCARDS[c.id].deckId !== localId);
     const rec = {
@@ -2614,13 +2755,13 @@
         installedVersion: row.version, ownerName: row.author,
       },
       cards: cards.map((c, i) => Object.assign({}, c.data, { id: clash ? "u_" + localId + "_" + (i + 1) : c.id })),
-      gloss: {},
+      gloss: gloss || {},
     };
-    return uDeckNormalize(rec);
+    return uDeckNormalize(rec);   // sanitizes the glossary too — the server copy is not trusted
   }
-  async function uDeckInstall(row, cards) {
+  async function uDeckInstall(row, cards, gloss) {
     const existing = localDeckForRemote(row.id);
-    const norm = remoteToLocal(row, cards, existing ? existing.id : null);
+    const norm = remoteToLocal(row, cards, existing ? existing.id : null, gloss);
     if (!norm) return { error: "That deck couldn't be read." };
     if (existing) (existing.cardIds || []).forEach((id) => { if (norm.cards.every((c) => c.id !== id)) delete UCARDS[id]; });   // cards the update removed
     const d = uDeckMount(norm);
@@ -4520,7 +4661,7 @@
      ADMIN_EDITS, adminUndo, Save-to-project) and may only ever touch curated cards. What the two share is
      the card SURFACE, via liveCardEditorHTML / wireLiveCardEditor.
      ============================================================ */
-  const studioState = { deck: null, card: null };
+  const studioState = { deck: null, card: null, tab: "cards", term: null };
   let _deckUpdates = {};   // local deckId -> the newer remote version, filled after boot by communityCheckUpdates()
   const STUDIO_META_FIELDS = [
     ["title", "Title", "text", "What is this deck about?"],
@@ -4625,8 +4766,21 @@
           '<label class="admin-field"><span class="af-label">' + esc(label) + '</span><input class="af-input" data-meta="' + f + '" type="' + type + '" value="' + esc(d[f] || "") + '" placeholder="' + esc(ph) + '" /></label>').join("") +
         '<div class="admin-field"><span class="af-label">Description</span><textarea class="af-input" data-meta="desc" rows="3" placeholder="What a learner gets from this deck.">' + esc(d.desc || "") + '</textarea></div>' +
         '<label class="admin-field"><span class="af-label">Tags <small>— comma separated</small></span><input class="af-input" id="stTags" type="text" value="' + esc((d.tags || []).join(", ")) + '" placeholder="rome, republic, senate" /></label>' +
-        '<p class="af-note">Sharing, ratings and a per-deck glossary are still to come. For now a deck travels as a file: <b>Export</b> writes it out, and whoever you send it to uses <b>Import</b>.</p>' +
+        '<div class="admin-field"><span class="af-label">Glossary <small>— which terms link inside this deck&rsquo;s backgrounds</small></span>' +
+          '<div class="gm-picker">' + [
+            ["site", "Folio&rsquo;s glossary", "Link the site&rsquo;s own terms, like the curated decks do."],
+            ["own", "Only my own terms", "Nothing from Folio&rsquo;s glossary — just the terms you write here."],
+            ["both", "Mine, then Folio&rsquo;s", "Your terms win; Folio&rsquo;s fill in the rest."],
+          ].map(([v, label, hint]) =>
+            '<label class="gm-opt' + ((d.glossMode || "site") === v ? " on" : "") + '"><input type="radio" name="glossmode" value="' + v + '"' + ((d.glossMode || "site") === v ? " checked" : "") + ' />' +
+            '<span class="gm-label">' + label + '</span><span class="gm-hint">' + hint + '</span></label>').join("") +
+          '</div></div>' +
       '</div></details>' +
+      '<div class="studio-tabs">' +
+        '<button class="studio-tab' + (studioState.tab !== "gloss" ? " active" : "") + '" type="button" data-tab="cards">Cards <span>' + cards.length + '</span></button>' +
+        '<button class="studio-tab' + (studioState.tab === "gloss" ? " active" : "") + '" type="button" data-tab="gloss">Glossary <span>' + uGlossList(d.id).length + '</span></button>' +
+      '</div>' +
+      (studioState.tab === "gloss" ? studioGlossHTML(d) :
       '<div class="studio-cols">' +
         '<div class="studio-cardlist">' +
           '<div class="studio-cardlist-head"><span>' + cards.length + " " + (cards.length === 1 ? "card" : "cards") + '</span><button class="btn tiny" type="button" id="stAddCard">Add a card</button></div>' +
@@ -4643,7 +4797,11 @@
           '</div>' +
         '</div>' +
         '<div class="studio-editor" id="stEditor"></div>' +
-      '</div>';
+      '</div>');
+
+    root.querySelectorAll("[data-tab]").forEach((b) => b.addEventListener("click", () => { studioState.tab = b.dataset.tab; render(); }));
+    root.querySelectorAll('input[name="glossmode"]').forEach((r) => r.addEventListener("change", () => { uDeckSetGlossMode(d.id, r.value); render(); }));
+    if (studioState.tab === "gloss") { studioWireGloss(root, d); }
 
     root.querySelector("#stAll").addEventListener("click", () => { studioState.deck = null; studioState.card = null; render(); });
     const ex = root.querySelector("#stExport"); if (ex) ex.addEventListener("click", () => uDeckExport(d.id));
@@ -4653,7 +4811,8 @@
       if (el.dataset.meta === "title") { const h = root.querySelector("#stTitleH"); if (h) h.textContent = d.title; }
     }));
     const tg = root.querySelector("#stTags"); if (tg) tg.addEventListener("input", () => uDeckSetTags(d.id, tg.value));
-    root.querySelector("#stAddCard").addEventListener("click", () => {
+    const addC = root.querySelector("#stAddCard");   // absent on the Glossary tab
+    if (addC) addC.addEventListener("click", () => {
       const c = uCardCreate(d.id);
       if (c) { studioState.card = c.id; render(); }
     });
@@ -4675,7 +4834,80 @@
       "Unpublish “" + d.title + "”? It disappears from the shared list. People who already installed it keep their copy.",
       async () => { const r = await uDeckUnpublish(d.id); toast(r.error || "Unpublished"); render(); }, "Unpublish"));
 
-    studioRenderCardEditor(root.querySelector("#stEditor"));
+    if (studioState.tab !== "gloss") studioRenderCardEditor(root.querySelector("#stEditor"));
+  }
+
+  /* ---------- the Studio's glossary tab ----------
+     A deck's own terms. They auto-link inside this deck's card backgrounds and nowhere else, so a term
+     here can safely mean whatever the author needs it to mean. */
+  function studioGlossHTML(d) {
+    const slugs = uGlossList(d.id);
+    const mode = d.glossMode || "site";
+    if (studioState.term && !(UGLOSS[d.id] || {})[studioState.term]) studioState.term = null;
+    if (!studioState.term && slugs.length) studioState.term = slugs[0];
+    const t = studioState.term ? UGLOSS[d.id][studioState.term] : null;
+    return (mode === "site"
+      ? '<div class="gm-warn">This deck links <b>Folio&rsquo;s glossary</b>, so the terms below won&rsquo;t appear on its cards. Change the glossary setting in <b>Deck details</b> to use them.</div>'
+      : "") +
+      '<div class="studio-cols">' +
+        '<div class="studio-cardlist">' +
+          '<div class="studio-cardlist-head"><span>' + slugs.length + " " + (slugs.length === 1 ? "term" : "terms") + '</span><button class="btn tiny" type="button" id="stAddTerm">Add a term</button></div>' +
+          '<div class="studio-cardrows">' +
+            (slugs.length ? slugs.map((s) =>
+              '<div class="studio-cardrow' + (s === studioState.term ? " active" : "") + '">' +
+                '<button class="scr-open" type="button" data-topen="' + esc(s) + '"><span class="scr-title">' + esc(glossTitle(uGlossKey(d.id, s))) + '</span></button>' +
+              '</div>').join("")
+              : '<div class="admin-empty">No terms yet.</div>') +
+          '</div>' +
+        '</div>' +
+        '<div class="studio-editor">' +
+          (t
+            ? '<div class="admin-ed-head"><div class="admin-ed-headinfo"><h2 class="admin-ed-title">' + esc(t.title || studioState.term) + '</h2>' +
+                '<div class="admin-ed-key">' + esc(studioState.term) + '</div></div>' +
+                '<div class="admin-ed-actions"><span class="admin-saved" id="adminSaved"></span>' +
+                '<button class="admin-delete" id="stDelTerm" type="button">Delete term</button></div></div>' +
+              '<div class="gloss-edit-form">' +
+                '<label class="admin-field"><span class="af-label">Term</span><input class="af-input" data-gf="title" type="text" value="' + esc(t.title || "") + '" /></label>' +
+                '<label class="admin-field"><span class="af-label">Date <small>— optional, e.g. 44 BCE or 1642–1651</small></span><input class="af-input" data-gf="date" type="text" value="' + esc(t.date || "") + '" /></label>' +
+                '<div class="admin-field"><span class="af-label">Description</span>' +
+                  '<div class="af-input gloss-desc-edit" data-gf="desc" data-rich="1" contenteditable="true" spellcheck="true"></div></div>' +
+                '<label class="admin-field"><span class="af-label">Also written as <small>— comma separated; plurals link automatically</small></span><input class="af-input" data-gf="aliases" type="text" value="' + esc((t.aliases || []).join(", ")) + '" /></label>' +
+                '<label class="admin-field"><span class="af-label">Tags <small>— comma separated</small></span><input class="af-input" data-gf="tags" type="text" value="' + esc((t.tags || []).join(", ")) + '" /></label>' +
+                '<p class="af-note">The term links automatically wherever it appears in this deck&rsquo;s card backgrounds — you don&rsquo;t add the links by hand.</p>' +
+              '</div>'
+            : '<div class="admin-editor-empty">Add a term to start your deck&rsquo;s own glossary.</div>') +
+        '</div>' +
+      '</div>';
+  }
+  function studioWireGloss(root, d) {
+    const add = root.querySelector("#stAddTerm");
+    if (add) add.addEventListener("click", () => inlinePrompt("What is the term called?", "", (name) => {
+      const slug = uGlossCreate(d.id, name);
+      if (slug) { studioState.term = slug; render(); }
+    }));
+    root.querySelectorAll("[data-topen]").forEach((b) => b.addEventListener("click", () => { studioState.term = b.dataset.topen; render(); }));
+    const slug = studioState.term;
+    if (!slug) return;
+    const descEl = root.querySelector('[data-gf="desc"]');
+    if (descEl) {
+      descEl.innerHTML = (UGLOSS[d.id][slug] || {}).desc || "";
+      descEl.addEventListener("input", () => { uGlossSet(d.id, slug, "desc", fieldVal(descEl)); adminFlashSaved(); });
+    }
+    root.querySelectorAll("[data-gf]").forEach((el) => {
+      if (el.dataset.gf === "desc") return;
+      el.addEventListener("input", () => {
+        uGlossSet(d.id, slug, el.dataset.gf, el.value);
+        adminFlashSaved();
+        if (el.dataset.gf === "title") {
+          const h = root.querySelector(".admin-ed-title"); if (h) h.textContent = el.value || slug;
+          const row = root.querySelector('[data-topen="' + cssEsc(slug) + '"] .scr-title'); if (row) row.textContent = el.value || slug;
+        }
+      });
+    });
+    const del = root.querySelector("#stDelTerm");
+    if (del) del.addEventListener("click", () => inlineConfirm("Delete the term “" + glossTitle(uGlossKey(d.id, slug)) + "”?", () => {
+      uGlossDelete(d.id, slug); studioState.term = null; toast("Term deleted"); render();
+    }, "Delete"));
   }
 
   // Someone else's deck: read-only here. Editing it would silently fork it, and then an update from the
@@ -4878,11 +5110,11 @@
         return;
       }
       if (r.error) { root.innerHTML = emptyPlacard("Couldn't load that deck", "—", r.error, () => route("community"), "Browse shared decks"); return; }
-      deckDetailRender(root, r.row, r.cards);
+      deckDetailRender(root, r.row, r.cards, r.gloss);
     });
   };
 
-  function deckDetailRender(root, row, cards) {
+  function deckDetailRender(root, row, cards, gloss) {
     const local = localDeckForRemote(row.id);
     const mine = supaLoggedIn() && SUPA.user && row.owner === SUPA.user.id;
     const hasUpdate = local && Number(row.version) > Number(local.installedVersion || 0) && local.origin === "installed";
@@ -4932,7 +5164,7 @@
     const inst = root.querySelector("#ddInstall");
     if (inst) inst.addEventListener("click", async () => {
       inst.disabled = true; inst.textContent = "Adding…";
-      const r = await uDeckInstall(row, cards);
+      const r = await uDeckInstall(row, cards, gloss);
       if (r.error) { toast(r.error); inst.disabled = false; inst.textContent = "Add to my decks"; return; }
       toast("Added to your decks");
       render();
@@ -4940,7 +5172,7 @@
     const upd = root.querySelector("#ddUpdate");
     if (upd) upd.addEventListener("click", async () => {
       upd.disabled = true; upd.textContent = "Updating…";
-      const r = await uDeckInstall(row, cards);
+      const r = await uDeckInstall(row, cards, gloss);
       if (r.error) { toast(r.error); upd.disabled = false; return; }
       toast("Updated — your progress on unchanged cards is kept");
       render();
@@ -5279,13 +5511,15 @@
     if (!abs) return;
     const first = abs.querySelector("b, strong");
     if (first) first.classList.add("ans-term");
-    const G = window.GLOSSARY || {};
+    // a community card's background links against ITS deck's glossary, not the curated one
+    const scope = glossScopeForCard(card && card.id);
+    const G = glossSourcesFor(scope).G;
     abs.querySelectorAll(".ttip").forEach((el) => {
       const k = el.getAttribute("data-k");
       if (el.hasAttribute("data-auto") || !k || !G[k]) el.replaceWith(document.createTextNode(el.textContent));
     });
     abs.normalize();
-    autoLinkGlossary(abs, card && card.answer, glossOffList(card && card.id));
+    autoLinkGlossary(abs, card && card.answer, glossOffList(card && card.id), scope);
   }
 
   // Turn each cloze blank in a question into a typed-answer field. Focuses the first one.
@@ -9623,7 +9857,15 @@
     else if (f === "glossdesc") autoLinkGlossary(el, "", [adminState.glossKey].concat(glossOffList(adminState.glossKey)));
   }
   // render a glossary description into el: its HTML (styling + hand-added links) + auto-linked other terms (never itself / removed ones). Caller wires tooltips.
-  function renderGlossDesc(el, key, descText) { el.innerHTML = descText || ""; autoLinkGlossary(el, "", [key].concat(glossOffList(key))); boldFirstTerm(el, glossTitle(key)); }
+  // Nested links inside a popup resolve in the scope the KEY belongs to, not the scope of whatever page
+  // opened it: a curated description must not start linking a stranger's terms just because the reader
+  // arrived from a community card.
+  function glossScopeForKey(k) { const u = uGlossParse(k); return u ? "deck:" + u.deckId : GLOSS_SCOPE_SITE; }
+  function renderGlossDesc(el, key, descText) {
+    el.innerHTML = descText || "";
+    autoLinkGlossary(el, "", [key].concat(glossOffList(key)), glossScopeForKey(key));
+    boldFirstTerm(el, glossTitle(key));
+  }
   // bold the term's first mention in its own gloss description (like the answer term opening a card background)
   function boldFirstTerm(el, title) {
     if (!el || !title) return;

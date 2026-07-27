@@ -744,9 +744,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     card ids** when the id already exists, so importing can never overwrite a deck you're working on and two
     copies keep separate study progress. Blob URLs are revoked on a timer, not synchronously — an immediate
     revoke can cancel the download.
-  · **Not yet done, by design:** the per-deck glossary UI. `deck.glossMode` (`site`/`own`/`both`) is stored
-    and travels in the file, but every card currently links against the curated glossary
-    (`glossScope: GLOSS_SCOPE_SITE`). Phase 4 fills in `glossSourcesFor` and the editor.
+  · (The per-deck glossary that `deck.glossMode` refers to landed in Phase 4 — see below.)
 - **Community decks — Phase 2: publishing, discovery, moderation (July 2026).** A deck can now go online.
   **⚠ The phase-2 SQL at the end of `.claude/supabase-schema.sql` must be run once** (Dashboard → SQL
   Editor) or every community call 404s; `communityErr()` turns that into "Deck sharing isn't set up on this
@@ -781,6 +779,34 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **Update checks** — `communityCheckUpdates()` runs once at idle after boot, in ONE request for all
     installed decks, and fills `_deckUpdates` (Library and Studio show an "update" pill). A failed or
     offline check just leaves it empty.
+- **Community decks — Phase 4: a deck's own glossary (July 2026).** A deck can define its own terms, which
+  auto-link inside its cards and **nowhere else**. This is what the Phase 0 glossary scoping was built for.
+  · **`deck.glossMode`** — `site` (default: link the curated glossary, exactly as before), `own` (only the
+    deck's terms; the site glossary is invisible), `both` (deck terms layered over the site's). Set in the
+    Studio under **Deck details**; stored, exported and published.
+  · **Keys are namespaced `u:<deckId>:<slug>`** (`uGlossKey` / `uGlossParse` / `isDeckGlossKey`). That
+    namespacing is the isolation mechanism: `glossText` / `glossTitle` / `glossDates` / `glossTags` each
+    branch on it and read `UGLOSS`, so a deck term resolves inside its deck and does not exist outside it.
+  · **`glossSourcesFor(scope)`** now resolves `deck:<id>` to the deck's tables per its mode, and
+    `glossScopeForCard(cardId)` picks the scope when a background is rendered (`processAbstract` passes it
+    to `autoLinkGlossary` **and** uses it to prune hand-added `.ttip`s). `glossScopeForKey` derives the
+    scope from the KEY when a popup opens nested links, so a curated description never starts linking a
+    stranger's terms just because the reader arrived from a community card.
+  · **Gotcha that bit once:** `buildGlossIndex` derived the matchable surface from `glossKeyTitle(key)`.
+    For a namespaced deck key that humanizes to the literal `u:abc:Slug`, so nothing ever matched in prose.
+    It now uses `surfaceOf(k)`, which reads a deck term's own title. **Curated keys still go through
+    `glossKeyTitle`** — deliberately not `glossTitle`, since pass 1 matches the humanized slug, not a
+    display-title override. The equivalence test (125 auto-linked terms over 8 curated cards) guards this.
+  · **Every mutation invalidates only that deck's index** (`uGlossTouched` → `invalidateGlossIndex("deck:"+id)`),
+    including deck deletion — otherwise a re-created deck with the same id would inherit a stale index.
+  · **`uGlossSanitize` closes a hole Phase 1 left open**: `uDeckNormalize` used to pass `gloss` through
+    untouched, which was harmless only because nothing rendered it. Descriptions are rich HTML and now DO
+    render in a popup, so they go through `sanitizeHTML` on ingest like every other field, and slugs are
+    restricted to `[\w.-]{1,80}` because they end up inside a `data-k` and a `u:` key.
+  · **Publishing** carries the glossary (`user_gloss` rows, replaced wholesale like the cards) and an
+    install pulls it down — re-sanitized on arrival, since the server copy is not trusted.
+  · The **admin "edit this term" button is hidden on deck terms** — it routes into the curated glossary
+    editor, which knows nothing about them.
 
 ## Generating cards & glossary entries
 
@@ -1065,8 +1091,11 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Five committed Playwright regression tests** (in `.claude/`, not loaded by the site). Each slices what
-  it tests out of the real `app.js`/`_headers` by text, so they can't drift from what ships:
+- **Six committed Playwright regression tests** (in `.claude/`, not loaded by the site). Each slices what
+  it tests out of the real `app.js`/`_headers` by text, so they can't drift from what ships.
+  **Gotcha when writing more of them:** `page.goto()` to a URL that differs only in the `#fragment` is a
+  same-document navigation — the app keeps running and its module state survives. Use `page.reload()` when
+  a test means "start fresh", or navigate through the UI. Several early failures were this, not real bugs.
   · `node .claude/test-sanitize.js` — 48 XSS vectors through `sanitizeHTML()`, each one also injected into
     a live DOM to confirm nothing executes. **Re-run after touching `SANITIZE_*` or `sanitizeUrl`.**
   · `node .claude/test-csp.js` — serves the site with the real `_headers` CSP and walks every route,
@@ -1085,6 +1114,10 @@ dead code (never rendered).
     ownership rule, which is how "a stranger cannot patch someone's deck" is asserted. **Re-run after
     touching the publishing functions or `.claude/supabase-schema.sql` — and keep the mock in step with
     the policies, since it is only a stand-in for them, never a proof that the real RLS is right.**
+  · `node .claude/test-deck-glossary.js` — 22 assertions on per-deck glossaries: the three `glossMode`s,
+    the popup, and above all **isolation** (a curated card never links a deck's term; a second deck never
+    sees the first's), plus a hostile glossary in an imported deck. **Re-run after touching
+    `glossSourcesFor` / `buildGlossIndex` / `uGlossSanitize`.**
   Playwright is a dev dependency and must NOT be installed into the repo (the zero-dependency rule, and
   `node_modules/` is gitignored) — install it in a scratch folder and run with
   `NODE_PATH=<that>/node_modules`. Set `FOLIO_CHROMIUM=<path to chrome>` if Chromium lives outside the
