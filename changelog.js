@@ -8,8 +8,9 @@ window.CHANGELOG = [
     d: "2026-07-27",
     t: "Write your own decks",
     items: [
-      "Folio now speaks Japanese. Pick 日本語 from the language menu and the whole site — buttons, pages, the About guide and the daily quotes — is in Japanese. The glossary is being translated next, and its explanations stay in English until it is.",
+      "Folio now speaks Japanese. Pick 日本語 from the language menu and the whole site is in Japanese — buttons, pages, the About guide, the daily quotes, every card and every glossary explanation.",
       "All 30 cards in the World History deck now read in Japanese as well — question, answer, dates and the full background, written as Japanese rather than translated word for word.",
+      "All 333 glossary terms now have a Japanese explanation, so tapping an underlined word in Japanese gives you the same three-sentence definition everyone else gets.",
       "Switching to a language other than English is much quicker now, and uses far less data: your device only downloads the language you are actually reading, instead of all of them at once.",
       "The daily quote on the home page now says where the words come from — the work and chapter — in small type under the speaker's name.",
       "Badges on your profile now turn over when you click them, showing on the back what you have to do to earn each one. Click again to turn it back.",
