@@ -8,6 +8,8 @@ window.CHANGELOG = [
     d: "2026-07-27",
     t: "Write your own decks",
     items: [
+      "The Atlas welcome note now warns that historical borders are rough estimates and shouldn't be read as exact.",
+      "New readers now start with three new cards a day instead of five. You can still change it in Settings.",
       "Folio now speaks Japanese. Pick 日本語 from the language menu and the whole site is in Japanese — buttons, pages, the About guide, the daily quotes, every card and every glossary explanation.",
       "All 30 cards in the World History deck now read in Japanese as well — question, answer, dates and the full background, written as Japanese rather than translated word for word.",
       "All 333 glossary terms now have a Japanese explanation, so tapping an underlined word in Japanese gives you the same three-sentence definition everyone else gets.",
