@@ -1211,15 +1211,40 @@
   }
   window.addEventListener("online", () => supaQueuePush());   // flush anything written while offline
   /* --- auth flows --- */
+  // `S._supaOwner` records WHICH account the progress currently in localStorage belongs to. It is device-local
+  // (not in PROGRESS_FIELDS, like _supaTs, so it never syncs itself) and it is what stops one account's levels,
+  // badges and streak from being adopted by the next account signed in on the same device.
+  function supaClaimLocal() { if (supaLoggedIn()) S._supaOwner = SUPA.user.id; }
+  function supaClaimGuestStash() {   // the stash was taken pre-sign-in; once we migrate it up, this account owns it
+    if (!supaLoggedIn()) return;
+    try {
+      const g = JSON.parse(localStorage.getItem(SUPA_GUEST_KEY) || "null");
+      if (g) { g.owner = SUPA.user.id; localStorage.setItem(SUPA_GUEST_KEY, JSON.stringify(g)); }
+    } catch (e) {}
+  }
   async function supaAfterSignIn() {
     await supaLoadProfile();
-    try { localStorage.setItem(SUPA_GUEST_KEY, JSON.stringify({ name: S.user.name, joined: S.user.joined, progress: extractProgress() })); } catch (e) {}   // stash device state; restored on sign-out
+    // stash device state; restored on sign-out. `owner` travels with it so the restored progress stays
+    // attributable — without it a second account created on this device would re-inherit the first one's.
+    try { localStorage.setItem(SUPA_GUEST_KEY, JSON.stringify({ name: S.user.name, joined: S.user.joined, progress: extractProgress(), owner: S._supaOwner || null })); } catch (e) {}
     const row = await supaPull();
     const serverP = (row && row.data) || {};
     const serverHas = Object.keys(serverP).length > 0;
     const localHas = Object.keys(S.cards || {}).length > 0 || Object.keys(S.achievements || {}).length > 0;
+    // Who does the progress sitting in localStorage belong to? Unclaimed (a guest who studied before ever
+    // making an account) or this same account = ours to migrate up. Claimed by a DIFFERENT account = not ours:
+    // signing into a fresh account on a device that has studied must start at level 1 with no badges, or the
+    // new account silently adopts — and then permanently owns, since we push it up — a stranger's history.
+    const claimedByOther = !!(S._supaOwner && S._supaOwner !== SUPA.user.id);
     if (serverHas) { applyProgress(serverP); S._supaTs = row.updated_at; }   // the account's saved progress wins on sign-in
-    else if (localHas) { await supaPush(); }                                 // first sign-in with local study history → migrate it up
+    else if (localHas && !claimedByOther) {
+      await supaPush();                       // first sign-in with unclaimed local study history → migrate it up
+      supaClaimGuestStash();                  // …and mark the stash claimed, so signing out and into a THIRD account starts clean
+    } else if (localHas) {
+      applyProgress(emptyProgress());         // empty account + someone else's progress on the device → a clean slate
+      await supaPush();                       // seed the row so this device has a sync baseline
+    }
+    supaClaimLocal();
     if (SUPA_PROFILE && SUPA_PROFILE.name) S.user.name = SUPA_PROFILE.name;
     if (SUPA_PROFILE && SUPA_PROFILE.joined) S.user.joined = new Date(SUPA_PROFILE.joined).getTime() || S.user.joined;
     save();
@@ -1244,9 +1269,10 @@
     SUPA = null; SUPA_PROFILE = null; supaSaveSession();
     let g = null; try { g = JSON.parse(localStorage.getItem(SUPA_GUEST_KEY) || "null"); } catch (e) {}
     try { localStorage.removeItem(SUPA_GUEST_KEY); } catch (e) {}
-    const base = g || { name: "Scholar", joined: Date.now(), progress: emptyProgress() };
+    const base = g || { name: "Scholar", joined: Date.now(), progress: emptyProgress(), owner: null };
     applyProgress(base.progress); S.user.name = base.name; S.user.joined = base.joined || Date.now();
     delete S._supaTs; _supaLastSent = null;
+    if (base.owner) S._supaOwner = base.owner; else delete S._supaOwner;   // hand the restored progress back with its ownership intact
     save();
     applyMode();
   }
@@ -1328,6 +1354,9 @@
     try { SUPA = JSON.parse(localStorage.getItem(SUPA_SESS_KEY) || "null"); } catch (e) { SUPA = null; }
     if (!supaLoggedIn()) { SUPA = null; return; }
     if (Date.now() > (SUPA.expires_at || 0)) { if (!(await supaRefresh())) { applyMode(); if (current && current.name === "account") render(); return; } }
+    // back-fill ownership for sessions signed in before _supaOwner existed: the progress on this device is
+    // this account's. Without it, an older save's progress reads as unclaimed and the NEXT account would inherit it.
+    if (S._supaOwner !== SUPA.user.id) { supaClaimLocal(); try { localStorage.setItem(STORE_KEY, JSON.stringify(S)); } catch (e) {} }
     await supaLoadProfile();
     applyMode();
     const row = await supaPull();
