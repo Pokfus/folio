@@ -3898,32 +3898,35 @@
      ============================================================ */
   // Short, public-domain reflections on learning, history and knowledge from historical thinkers.
   // daily quote — voices from across the world's history; standard published translations of
-  // well-documented passages, no loose internet attributions
+  // well-documented passages, no loose internet attributions. s = where the words come from (the work
+  // and its book/chapter/letter), shown small under the speaker; a quote whose wording is traditional
+  // rather than traceable to a passage says so plainly rather than borrowing a citation it hasn't earned.
   const QUOTES = [
-    { t: "To learn, and at due times to repeat what one has learnt — is that not after all a pleasure?", a: "Confucius" },
-    { t: "He who by reanimating the old can gain knowledge of the new is fit to be a teacher.", a: "Confucius" },
-    { t: "Learning without thought is labour lost; thought without learning is perilous.", a: "Confucius" },
-    { t: "Real knowledge is to know the extent of one's ignorance.", a: "Confucius" },
-    { t: "Knowing others is wisdom; knowing yourself is enlightenment.", a: "Laozi" },
-    { t: "The journey of a thousand miles begins with a single step.", a: "Laozi" },
-    { t: "Life has a limit, but knowledge has none.", a: "Zhuangzi" },
-    { t: "If you know the enemy and know yourself, you need not fear the result of a hundred battles.", a: "Sun Tzu" },
-    { t: "The great man is he who does not lose his child's heart.", a: "Mencius" },
-    { t: "A man has only one death; it may be as weighty as Mount Tai or as light as a goose feather.", a: "Sima Qian" },
-    { t: "As long as you live, keep learning how to live.", a: "Seneca" },
-    { t: "While we teach, we learn.", a: "Seneca" },
-    { t: "To be ignorant of what occurred before you were born is to remain forever a child.", a: "Cicero" },
-    { t: "The life of the dead is set in the memory of the living.", a: "Cicero" },
-    { t: "Look back over the past, with its changing empires that rose and fell, and you can foresee the future too.", a: "Marcus Aurelius" },
-    { t: "Knowledge which is acquired under compulsion obtains no hold on the mind.", a: "Plato" },
-    { t: "It is impossible for a man to learn what he thinks he already knows.", a: "Epictetus" },
-    { t: "Histories make men wise.", a: "Francis Bacon" },
-    { t: "There is no royal road to geometry.", a: "Euclid" },
-    { t: "I grow old ever learning many things.", a: "Solon" },
+    { t: "To learn, and at due times to repeat what one has learnt — is that not after all a pleasure?", a: "Confucius", s: "Analects I.1" },
+    { t: "He who by reanimating the old can gain knowledge of the new is fit to be a teacher.", a: "Confucius", s: "Analects II.11" },
+    { t: "Learning without thought is labour lost; thought without learning is perilous.", a: "Confucius", s: "Analects II.15" },
+    { t: "Real knowledge is to know the extent of one's ignorance.", a: "Confucius", s: "Attributed; cf. Analects II.17" },
+    { t: "Knowing others is wisdom; knowing yourself is enlightenment.", a: "Laozi", s: "Tao Te Ching, ch. 33" },
+    { t: "The journey of a thousand miles begins with a single step.", a: "Laozi", s: "Tao Te Ching, ch. 64" },
+    { t: "Life has a limit, but knowledge has none.", a: "Zhuangzi", s: "Zhuangzi, ch. 3" },
+    { t: "If you know the enemy and know yourself, you need not fear the result of a hundred battles.", a: "Sun Tzu", s: "The Art of War, ch. 3" },
+    { t: "The great man is he who does not lose his child's heart.", a: "Mencius", s: "Mencius IV.B.12" },
+    { t: "A man has only one death; it may be as weighty as Mount Tai or as light as a goose feather.", a: "Sima Qian", s: "Letter to Ren An" },
+    { t: "As long as you live, keep learning how to live.", a: "Seneca", s: "Moral Letters to Lucilius 76" },
+    { t: "While we teach, we learn.", a: "Seneca", s: "Moral Letters to Lucilius 7" },
+    { t: "To be ignorant of what occurred before you were born is to remain forever a child.", a: "Cicero", s: "Orator 34.120" },
+    { t: "The life of the dead is set in the memory of the living.", a: "Cicero", s: "Philippics 9.5" },
+    { t: "Look back over the past, with its changing empires that rose and fell, and you can foresee the future too.", a: "Marcus Aurelius", s: "Meditations VII.49" },
+    { t: "Knowledge which is acquired under compulsion obtains no hold on the mind.", a: "Plato", s: "Republic VII, 536e" },
+    { t: "It is impossible for a man to learn what he thinks he already knows.", a: "Epictetus", s: "Discourses II.17" },
+    { t: "Histories make men wise.", a: "Francis Bacon", s: "Essays: Of Studies, 1625" },
+    { t: "There is no royal road to geometry.", a: "Euclid", s: "Reported by Proclus, Commentary on Euclid I" },
+    { t: "I grow old ever learning many things.", a: "Solon", s: "Quoted in Plutarch, Life of Solon 31" },
   ];
   function dailyQuoteHTML() {
     const q = QUOTES[Math.floor(Date.now() / DAY) % QUOTES.length];
-    return '<figure class="daily-quote"><blockquote>' + esc(q.t) + '</blockquote><figcaption>' + esc(q.a) + '</figcaption></figure>';   // the caption's dash is the gold ::before rule, not a text em-dash
+    return '<figure class="daily-quote"><blockquote>' + esc(q.t) + '</blockquote><figcaption>' + esc(q.a) +   // the caption's dash is the gold ::before rule, not a text em-dash
+      (q.s ? '<span class="dq-src">' + esc(q.s) + '</span>' : "") + '</figcaption></figure>';
   }
   // same pick all day, a different one tomorrow (card of the day, term of the day)
   function dailyPick(arr, salt) {
@@ -9168,7 +9171,13 @@
         let sub = "";
         if (has && typeof achObj[a.id] === "number") sub = new Date(achObj[a.id]).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
         else if (!has && a.prog && stats) { const [cur, goal] = a.prog(stats); sub = Math.min(cur, goal) + " / " + goal; }
-        return '<div class="badge ' + (has ? "got" : "locked") + '" title="' + esc(a.name + " — " + a.desc + (has ? "" : " (locked)")) + '"><span class="badge-ic">' + a.icon + '</span><span class="badge-name">' + esc(a.name) + '</span>' + (sub ? '<span class="badge-sub">' + esc(sub) + '</span>' : "") + '</div>';
+        // a badge is a button that flips: the front is the badge, the back says how it is earned
+        // (the delegated .badge click listener at the foot of this file toggles .flipped)
+        return '<button type="button" class="badge ' + (has ? "got" : "locked") + '" aria-pressed="false" title="' + esc(a.name + " — " + a.desc + (has ? "" : " (locked)")) + '">' +
+          '<span class="badge-inner">' +
+            '<span class="badge-face badge-front"><span class="badge-ic">' + a.icon + '</span><span class="badge-name">' + esc(a.name) + '</span>' + (sub ? '<span class="badge-sub">' + esc(sub) + '</span>' : "") + '</span>' +
+            '<span class="badge-face badge-back"><span class="badge-back-h">How to earn</span><span class="badge-how">' + esc(a.desc) + '</span></span>' +
+          '</span></button>';
       }).join("") + '</div>';
   }
 
@@ -11992,6 +12001,12 @@
   document.addEventListener("click", (e) => {
     const fig = e.target.closest(".card-img"); if (!fig) return;
     openImageViewer({ src: fig.dataset.imgSrc, title: fig.dataset.imgTitle, desc: fig.dataset.imgDesc, credit: fig.dataset.imgCredit });
+  });
+  // badges: one delegated listener flips a badge over to its "how to earn it" back, and back again on a
+  // second click (covers both the profile and a friend's badge grid, which render the same markup)
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest(".badge"); if (!b) return;
+    b.setAttribute("aria-pressed", b.classList.toggle("flipped") ? "true" : "false");
   });
   // UI sounds: one delegated capture-phase listener covers every button-like element (capture so a
   // handler's stopPropagation can't swallow the tick). Semantic sounds for grades, reveals and switches.
