@@ -8,7 +8,7 @@ window.CHANGELOG = [
     d: "2026-07-27",
     t: "Write your own decks",
     items: [
-      "Nine new cards in the World History deck, in all ten site languages.",
+      "Ten new cards in the World History deck, in all ten site languages.",
       "The Atlas welcome note now warns that historical borders are rough estimates and shouldn't be read as exact.",
       "New readers now start with three new cards a day instead of five. You can still change it in Settings.",
       "Folio now speaks Japanese. Pick 日本語 from the language menu and the whole site is in Japanese — buttons, pages, the About guide, the daily quotes, every card and every glossary explanation.",
