@@ -414,7 +414,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - **Glossary image (optional):** a term can carry the **same `{ src, title, desc, credit }` object as a card**,
   read through `glossImage(key)` and rendered by `renderGlossImage` into the `.gloss-imgslot` at the **foot of
   the popup body**, below the description. It reuses `cardImageHTML`/`.card-img`, so the existing delegated
-  listener opens the **shared** fullscreen viewer — no wiring of its own. Curated terms live in
+  listener opens the **shared** fullscreen viewer — no wiring of its own. **In the popup that frame is sized by
+  HEIGHT, not by the card's fixed 16:9 box** (`.gloss-imgslot`): the `<img>` carries only `max-height:180px` +
+  `max-width:100%` with `width/height:auto`, and the figure shrink-wraps it — so every term's picture displays
+  at the same height, the width follows its shape, and nothing is cropped or letterboxed (a picture too wide
+  for the popup scales down whole, the one case where it ends shorter). The **home page's Gloss-of-the-day tile**
+  shows the same image to the right of the copy, but as a **profile-picture plate** — a 3:4 frame running the
+  tile's full height and **bleeding to its top, bottom and right edges** (negative margins cancelling the
+  `.exp-tile` padding, which is 18/20px in every theme; arcade's blanket `*{border-radius:0}` already flattens
+  the plate's right corners), filled with `object-fit:cover` (crop biased to 40% so a portrait's subject isn't
+  cut off), so the tile keeps one silhouette whatever shape the day's picture is (`.term-img`, a plain `<img>`
+  — the tile is a `<button>`, so the `role="button"` figure can't be nested inside it); the discovery row
+  splits **half and half** with the card of the day instead of 2:1 on days its term has one
+  (`.explore-grid.has-term-img`) — at a third of the row the copy was down to four words a line. Curated terms live in
   `window.GLOSSARY_IMAGES` (slug → object, in `glossary.js`, baked by `serializeGlossary`); a community deck's
   terms carry `entry.image` inside `UGLOSS` and travel with the deck (the `user_gloss` `data` jsonb takes the
   whole term object, so publishing needed **no** schema change), re-sanitized on ingest by `uGlossSanitize` /

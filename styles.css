@@ -326,6 +326,11 @@ body.night .banner, body.night .banner:hover{border-left-color:#fff;}
 
 /* ---------- home: discovery row (card of the day / term of the day / Atlas) ---------- */
 .explore-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
+/* the term of the day takes a little more of the row on the days its term has an illustration —
+   at one third of the row the copy is squeezed to three words a line beside the picture */
+.explore-grid.has-term-img{grid-template-columns:repeat(2,1fr);}
+.explore-grid.has-term-img .exp-card{grid-column:span 1;}
+.explore-grid.has-term-img .exp-term{grid-column:span 1;}
 .exp-tile{
   position:relative; text-align:left; cursor:pointer;
   background:var(--card); border:1px solid var(--rule); border-radius:14px;
@@ -379,7 +384,22 @@ body.night .exp-card .flip-face{
 .cod-han{font-family:var(--han); font-size:17px; color:var(--ink-soft);}
 .cod-han .cod-pin{font-family:var(--serif); font-style:italic; font-size:13.5px; color:var(--ink-faint); margin-left:6px;}
 .cod-study{align-self:flex-start; margin-top:auto;}
-/* term of the day */
+/* term of the day — copy on the left, the term's illustration (when it has one) on the right.
+   With no image the single .term-copy child fills the tile, so the layout is unchanged. */
+.exp-term{flex-direction:row; align-items:stretch; gap:14px;}
+.term-copy{display:flex; flex-direction:column; gap:8px; flex:1 1 auto; min-width:0;}
+/* a portrait plate, the shape of a profile picture: every term's picture is the same 3:4 frame whatever its
+   own proportions, so the tile keeps one silhouette from day to day. It runs the full height of the tile and
+   bleeds to the top, bottom and right edges — the negative margins cancel the tile's own padding, and the
+   right corners carry the tile's radius less its 1px border. Unlike the popup (which shows the picture whole)
+   this one fills the frame and crops; the crop sits a little above centre, where a portrait's subject is. */
+.term-img{
+  flex:none; align-self:stretch; width:auto; aspect-ratio:3/4; max-width:46%;
+  margin:-18px 0; margin-inline-end:-20px; overflow:hidden; line-height:0;
+  border-radius:0; border-start-end-radius:13px; border-end-end-radius:13px;   /* logical: the plate is on the left in Arabic */
+  background:var(--paper-2);
+}
+.term-img img{display:block; width:100%; height:100%; object-fit:cover; object-position:center 40%;}
 .term-title{font-family:var(--display); font-weight:600; font-size:20px; letter-spacing:-.01em; color:var(--ink);}
 .term-dates{font-family:var(--mono); font-size:10px; letter-spacing:.08em; color:var(--ink-faint);}
 .term-desc{font-family:var(--serif); font-size:13.5px; line-height:1.5; color:var(--ink-soft); display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;}
@@ -1808,8 +1828,8 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
   .grade-wrap .suspendbtn{grid-area:suspend; justify-self:end;}
   .game-grid{grid-template-columns:repeat(2,1fr); gap:12px;}
   .howit{grid-template-columns:1fr; gap:10px;}
-  .explore-grid{grid-template-columns:1fr; gap:12px;}
-  .exp-card{grid-column:auto;}
+  .explore-grid, .explore-grid.has-term-img{grid-template-columns:1fr; gap:12px;}
+  .exp-card, .explore-grid.has-term-img .exp-card, .explore-grid.has-term-img .exp-term{grid-column:auto;}
   .exp-atlas{flex-direction:column; align-items:flex-start; gap:14px;}
   .mini-globe{align-self:center; width:150px; height:150px;}
   .chrono-actions{flex-direction:column;} .chrono-actions .btn{width:100%;}
@@ -1887,9 +1907,17 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
 .gloss-edit:focus-visible{ outline:2px solid var(--indigo); outline-offset:1px; }
 .gloss-body{ padding:4px 16px 16px; max-height:48vh; overflow-y:auto; }
 .gloss-desc{ margin:0; font-family:var(--sans); font-size:13.5px; line-height:1.58; color:var(--ink-soft); }
-/* a term's illustration: the same 16:9 frame + fullscreen viewer as a card image, at the foot of the popup */
+/* a term's illustration at the foot of the popup: the same frame + fullscreen viewer as a card image, but
+   sized by HEIGHT rather than by a fixed 16:9 box. Every term's picture is displayed at the same height and
+   the frame shrink-wraps it, so the width varies with the shape and nothing is cropped to fit. A picture too
+   wide for the popup is scaled down as a whole (the one case where it ends up shorter than the rest). */
+.gloss-imgslot{ display:flex; justify-content:center; }
 .gloss-imgslot[hidden]{ display:none; }
-.gloss-imgslot .card-img{ margin:12px 0 0; border-radius:8px; }
+.gloss-imgslot .card-img{
+  margin:12px 0 0; border-radius:8px; line-height:0;
+  aspect-ratio:auto; width:auto; max-width:100%;
+}
+.gloss-imgslot .card-img img{ width:auto; height:auto; max-height:180px; max-width:100%; object-fit:contain; }
 .gloss-imgslot .ci-zoom{ right:8px; bottom:8px; width:24px; height:24px; border-radius:7px; }
 .gloss-imgslot .ci-zoom svg{ width:13px; height:13px; }
 
