@@ -230,9 +230,9 @@ golden-rule update so **new** changelog lines ship translated; whether to backfi
 items or only the 22 day titles plus the last few months is a judgement call — I would backfill the day
 titles and the most recent 3 months, and leave older items English.
 
-### Batch 6 — place names — ⏳ MECHANISM SHIPPED, content pending
+### Batch 6 — place names ✅ SHIPPED
 
-The machinery is in and proven end to end; what remains is 1,744 names × 9 languages of content.
+The machinery, then 1,744 names × 9 languages of content in three passes.
 
 Shipped: the lazy `placeI18n:<lang>` bundle over `i18n/places-<lang>.js`, the `placeI18nIngest` queue
 hook, the `placeName(n)` reader, `.claude/places-i18n-io.js`, and a `places` section in `add-lang.js`
@@ -273,14 +273,25 @@ colonial `Country (Power)` forms, and the map's own prose labels for pre-state a
 hunter-gatherers", "Northeastern Woodlands nations"). Those last are descriptions rather than names, so
 leaving them English would have been a real gap.
 
-Running totals: es 492 / fr 481 / de 474 / it 454 / nl 466 / ru 633 / ar 635 / zh 635 / ja 635 of 1,744.
 Verified on the 1900 map in Russian — every label on the visible hemisphere now reads in Cyrillic.
 
-**Still pending — the 556 era capitals.** Only a subset warrants translation: world capitals and famous
-historical cities whose local forms are established (Constantinople, Peking, Saigon, Kristiania, Urga).
-Obscure historical seats — Bal Batsinâng, Danamombe, Xieng Dong Xieng Thong — have no established form in
-Spanish or Japanese, and inventing a transliteration would be fabrication, so they stay as they are for the
-same reason as the uninhabited reefs.
+**Content, part 3 — era capitals, all nine languages ✅.** Every sovereign capital plus the notable
+historical city names the timeline actually turns on: Constantinople, Peking, Saigon, Kristiania, Urga,
+Batavia, Danzig, Memel, Hsinking, Keijo, Hanseong, Taihoku, Salisbury, Lourenço Marques, Fort-Lamy,
+Léopoldville, Edo, Tenochtitlan, Timbuktu. Verified zoomed in over Europe in Russian and Japanese, where
+every pin label — down to Вадуц and ファドゥーツ — now reads in script.
+
+The Latin-script counts here are much lower than the Cyrillic/Arabic/CJK ones for a structural reason
+worth remembering: `Madrid`, `Lima` and `Ottawa` are the *same string* in Spanish, so the generator drops
+them and `placeName` falls back. In Russian every one of them differs, so every one needs a row.
+
+Running totals: es 609 / fr 555 / de 547 / it 517 / nl 516 / ru 922 / ar 924 / zh 924 / ja 924 of 1,744.
+
+**What is deliberately left in English**, and will stay that way: the ~750 ethnonyms above; the uninhabited
+banks, reefs, glaciers and military zones; and the obscure historical seats — Bal Batsinâng, Danamombe,
+Mwibele, Xieng Dong Xieng Thong. None of those has an established form in Spanish or Japanese, and inventing
+a transliteration would be fabrication. Batch 6 is therefore **done** at 1,744 names minus that residue, not
+paused partway.
 
 ### Batch 7 — date and era formatting ✅ SHIPPED
 26 rules + 1 exact string per language, covering `yearLabel()`'s five forms (CE / BCE / kya / Mya / Gya),

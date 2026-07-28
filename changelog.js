@@ -14,6 +14,7 @@ window.CHANGELOG = [
       "True or False is now fully in your language too — the statement, its category and the explanation that follows. Together with Who said it?, every daily game now reads in all ten site languages.",
       "The Atlas globe now labels countries in your language. Every present-day country reads in the language you are browsing in — on the map itself, in the name that follows your cursor, and in the home-location picker in Settings.",
       "The historical maps are labelled in your language too. Empires, colonies and old kingdoms — and the map's own descriptions of the peoples who lived beyond them — now read in whichever language you are browsing in, at every year on the timeline.",
+      "Capital cities on the globe now read in your language as well, including the names cities went by at the time — Constantinople, Peking, Saigon, Edo. That completes the Atlas: zoom in at any year, in any of the ten languages, and the map speaks it.",
     ],
   },
   {

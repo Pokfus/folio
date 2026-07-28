@@ -127,8 +127,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   Era names are localised **before** the two-line wrap, or the wrap measures the English. The Settings home
   picker localises only the option LABEL: the `value` stays the English name, since it keys `countryCenter()`
   and is stored in `S.settings.home`. Not routed through the I18N exact table, and for the same reason as
-  `nodeTitle` — most of these names are also glossary terms and card answers. An empty file ships for every
-  language so an untranslated one can't 404 on each page load.
+  `nodeTitle` — most of these names are also glossary terms and card answers. A file ships for every language
+  so an untranslated one can't 404 on each page load.
+  **Coverage — es 609 / fr 555 / de 547 / it 517 / nl 516 / ru 922 / ar 924 / zh 924 / ja 924.** The gap
+  between the Latin and non-Latin counts is structural, not a backlog: **a name identical to the English is
+  deliberately NOT written** (`placeName` falls back), so `Madrid` needs no Spanish row while every name needs
+  a Russian one. Three things stay English on purpose and should not be "finished": the **~750 ethnonyms**
+  among the era territories (Wiradjuri, Kwakwaka'wakw, Yukagir) — an endonym keeps its own form in every
+  language; the uninhabited **banks, reefs, glaciers and military zones** (Bajo Nuevo Bank, Siachen Glacier);
+  and the **obscure historical seats** (Bal Batsinâng, Danamombe, Xieng Dong Xieng Thong). None has an
+  established form in Spanish or Japanese, and inventing a transliteration would be fabrication.
 - `i18n/games-<lang>.js` — the two daily-game pools translated into one language, keyed by each item's
   **English `q`** (unique in both pools, and stable against reordering in a way an array index is not).
   **Lazy** (bundle `gamesI18n:<lang>`); the `after` hook `gamesI18nIngest` drains `window.GAMES_I18N_IN`
