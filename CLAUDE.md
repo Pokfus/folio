@@ -678,10 +678,31 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     runs — never re-walk masks per frame — and skips the `'2'` pass when `r2` is empty (all geo eras).
   · **Cull before projecting.** Coast chains have bounding caps (`coastCaps()`, the `ADMC`/`cullHidden` pattern); the
     coast pass skips chains behind the horizon or off-screen. Any new global layer should get the same treatment.
-  · **`_wild` is geo-eras-only.** Merger (groups) eras claim every country, so the wilderness double-fill + clip is
-    skipped. Accepted delta: merger-era coasts lost a sub-pixel dark `landWild` seam fringe (an artifact of that pass).
+  · **`_wild` is geo-eras-only.** Merger (groups) eras claim every country, so the wilderness pass is skipped entirely.
+    Accepted delta: merger-era coasts lost a sub-pixel dark `landWild` seam fringe (an artifact of that pass).
+  · **The wilderness pass COMPOSITES, it does not clip** (`landLayer()` / `landCv`, the `_wild` branch — the fix that
+    made 1500–1938 as smooth as the present-day map, July 2026). Dark land, stipple and the claimed-land refill are
+    painted into a transparent offscreen layer whose later passes run under `globalCompositeOperation = "source-atop"`,
+    so they reach land pixels and nothing else; one `drawImage` puts the layer on the globe. The old path filled all
+    117k GEO vertices dark, filled them again with the stipple pattern, then built a clip out of every era-territory
+    ring and filled + stroked all 117k a third and fourth time inside it — **four world-sized passes where the
+    present-day map does one, each of the 258 fills rasterized against a 20–45k-vertex clip mask.** Under the composite
+    the stipple needs no geometry at all (one `fillRect`) and the refill is one territory-sized fill. The claimed fill
+    is followed by a `stroke()` of the SAME path so a claimed coast keeps its light edge over the dark base's own
+    stroke — drop that and every coast grows a dark hairline. `landCv` is freed on present-day/merger eras and in
+    `cleanupGlobe`, so only a geo era pays for the buffer. **Never reintroduce a per-frame `ctx.clip()` over
+    world-scale geometry** — that, not the vertex count, is what made the older maps unusable.
   · **Motion frames are cheaper on purpose.** While `moving`: city labels don't lay out (pins only), era-capital labels
-    and their `measureText` are skipped, and selection glows drop `shadowBlur`. Everything returns on the settled frame.
+    and their `measureText` are skipped, selection glows drop `shadowBlur`, and the selection's gold COASTLINE
+    (`strokeCoastClipped`, two more clips + a scan of every coast chain in the region) is skipped — the fill is still
+    clipped to the land, so only the bright coast edge waits for the settled frame. Everything returns when settled.
+  · **A selection paints as ONE batch** (`paintFillGroups`; `paintFillRings` is now a single-group wrapper). A click on
+    a geo era selects a whole EMPIRE — dozens of territories — and painting them one at a time meant one GEO-derived
+    clip mask, one coastline scan and two full Gaussian `shadowBlur` passes **per territory, per frame**: dragging with
+    an empire selected cost ~4× dragging with nothing selected, and was the likeliest source of the browser hanging.
+    Batched, the whole selection shares one clip (bbox- **and** `cullHidden`-filtered, or a world-spanning empire drags
+    the far side of the globe into the mask), one stroke path and one coast pass. Fills stay per-entity so ring holes
+    survive.
   · **The selection overlay is cached.** `drawSelectionOverlay()` renders selSet/subSelGeo/subSelUK once into `selCv`
     (key = `baseKey` + selection ids) and blits it, so pulse/crossfade rAF frames never re-blur dozens of territories;
     motion frames paint direct. It temporarily reassigns `ctx` (hence `let ctx`) — restored in a `finally`.
@@ -786,9 +807,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   - **Soviet republics on the geo eras** (`drawSovietRepublics`): the source's 1920/1938 USSR is a single polygon with **no
     internal republic borders**. To show its union republics (as the merger eras 1960+ already do via `synthGroups`, and the UK
     shows its constituents), the present-day **post-Soviet internal borders** (edges shared between two of the 15 successor
-    states, `SOVIET` set) are overlaid **clipped to the era's USSR extent**, light like a `'2'` sub-border — an accurate proxy
-    for the union-republic boundaries (the Central-Asian/Caucasus borders were settled by 1936). Clipping to the era polygon
+    states, `SOVIET` set) are overlaid **limited to the era's USSR extent**, light like a `'2'` sub-border — an accurate proxy
+    for the union-republic boundaries (the Central-Asian/Caucasus borders were settled by 1936). Limiting to the era polygon
     keeps e.g. the still-independent 1938 Baltics out. Drawn on the map in `renderStatic` next to `drawUKConstituents`.
+    That limit is a **per-era cached midpoint test** (`sovietSegsForEra`, keyed on `_htId` + `mapEditRev`), not a canvas
+    clip: it used to build a complex clip mask from the USSR polygon on **every frame** of 1920/1938 for a layer whose
+    geometry can't change within an era.
 - **Community decks — Phase 0 foundations (July 2026).** Groundwork for user-created decks
   (`docs/user-decks-plan.md`). Nothing user-visible yet; these are the seams the feature will attach to, and
   they exist so the later phases can't be built the wrong way.
