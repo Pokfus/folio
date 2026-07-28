@@ -553,7 +553,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   (manifest hash check; `--force` re-bakes; `--scan-speakers=N` pitch-scans voices; toolchain auto-downloads into gitignored
   `.claude/tts-cache/`). Gloss popups + selection read-aloud always use the engine.
 - **Home page** (`PAGES.home`): greeting → daily quote (`QUOTES` — world sources East and West, standard published
-  translations only, no loose internet attributions) → review banner → (first-run only) a 3-step how-it-works strip →
+  translations only, no loose internet attributions; **clicking one flips it to the original** — text, speaker and
+  source from the entry's `o` block, `wireDailyQuote` swapping `hidden` on the `.dq-live`/`.dq-orig` spans, clicking
+  again returns to the site language. The original carries **`notranslate`**, or the i18n engine would translate the
+  one thing on the page that must stay as written. A quote has an `o` only where the original wording is documented —
+  Bacon wrote in English, and Meditations VII.49's exact Greek could not be verified, so both render exactly as before
+  with no `dq-flip` class, no cursor and no handler; **don't fill those in from memory**) → review banner → (first-run only) a 3-step how-it-works strip →
   game tiles → a **discovery row** (`.explore-grid`): **Card of the day** (a real card, CSS-3D flip to its answer, gloss
   links stripped, "Study <deck>" button), **Term of the day** (a dated glossary term → `openGlossWin`), and an **Atlas
   teaser** with a slowly turning decorative mini globe (`startMiniGlobe` — decimated `WORLD_GEO`, orthographic,
