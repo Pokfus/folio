@@ -412,13 +412,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `serializeCardData` bakes `c.image` when it has a `src`, `revertCard` restores `p.image`. Image metadata is shared
   across languages (not in the i18n blocks).
 - **Glossary image (optional):** a term can carry the **same `{ src, title, desc, credit }` object as a card**,
-  read through `glossImage(key)` and rendered by `renderGlossImage` into the `.gloss-imgslot` at the **foot of
-  the popup body**, below the description. It reuses `cardImageHTML`/`.card-img`, so the existing delegated
-  listener opens the **shared** fullscreen viewer — no wiring of its own. **In the popup that frame is sized by
-  HEIGHT, not by the card's fixed 16:9 box** (`.gloss-imgslot`): the `<img>` carries only `max-height:180px` +
-  `max-width:100%` with `width/height:auto`, and the figure shrink-wraps it — so every term's picture displays
-  at the same height, the width follows its shape, and nothing is cropped or letterboxed (a picture too wide
-  for the popup scales down whole, the one case where it ends shorter). The **home page's Gloss-of-the-day tile**
+  read through `glossImage(key)` and rendered by `renderGlossImage` into the `.gloss-imgslot`, which is
+  **floated to the TOP-RIGHT of the popup body** — so the opening sentences run down its left and the
+  description resumes the popup's full width below it. It reuses `cardImageHTML`/`.card-img`, so the existing
+  delegated
+  listener opens the **shared** fullscreen viewer — no wiring of its own. The slot is therefore **first in
+  `.gloss-body`, before `.gloss-dates`/`.gloss-desc`** — a float only wraps content that follows it, so don't
+  move it back after the prose (both markup sites: `openGlossWin` and the admin glossary editor's preview).
+  **In the popup that frame is sized by HEIGHT, not by the card's fixed 16:9 box** (`.gloss-imgslot`): the
+  `<img>` is a fixed `height:150px` (170 on the mobile sheet) with `width:auto`, and the float carries
+  `max-width:50%` — so every term's picture displays at the same height and never takes more than half the
+  popup, whatever its shape. A picture wider than that half is cropped by `object-fit:cover` (the whole of it
+  is one click away in the fullscreen viewer); that crop is the deliberate price of one silhouette per popup.
+  The **home page's Gloss-of-the-day tile**
   shows the same image to the right of the copy, but as a **profile-picture plate** — a 3:4 frame running the
   tile's full height and **bleeding to its top, bottom and right edges** (negative margins cancelling the
   `.exp-tile` padding, which is 18/20px in every theme; arcade's blanket `*{border-radius:0}` already flattens
@@ -1363,8 +1369,9 @@ dead code (never rendered).
     into their FIRST account, and a newly created second account starts at level 1 with no badges, no streak
     and no heatmap — in the store, on the server row, and on the page (first-run hero, "0 unlocked"). **Re-run
     after touching `supaAfterSignIn` / `supaSignOut` / `supaBoot` / `_supaOwner` / `PROGRESS_FIELDS`.**
-  · `node .claude/test-gloss-image.js` — 35 assertions on glossary images: the popup renders one at the
-    foot of the body, it opens the SHARED fullscreen viewer and that viewer stacks **above** the popup,
+  · `node .claude/test-gloss-image.js` — 40 assertions on glossary images: the popup floats one to the
+    top-right of the body at a fixed height and at most half its width, with the prose beside rather than
+    below it; it opens the SHARED fullscreen viewer and that viewer stacks **above** the popup,
     the curated editor's overlay delta survives a reload and clears cleanly, and a deck's own term images
     are sanitized on ingest (a `javascript:` src is dropped). **Re-run after touching `glossImage` /
     `renderGlossImage` / `setGlossImageEdit` / `uGlossSetImage`, or any z-index in the gloss/viewer stack.**

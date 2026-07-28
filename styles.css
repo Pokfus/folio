@@ -1907,17 +1907,19 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
 .gloss-edit:focus-visible{ outline:2px solid var(--indigo); outline-offset:1px; }
 .gloss-body{ padding:4px 16px 16px; max-height:48vh; overflow-y:auto; }
 .gloss-desc{ margin:0; font-family:var(--sans); font-size:13.5px; line-height:1.58; color:var(--ink-soft); }
-/* a term's illustration at the foot of the popup: the same frame + fullscreen viewer as a card image, but
-   sized by HEIGHT rather than by a fixed 16:9 box. Every term's picture is displayed at the same height and
-   the frame shrink-wraps it, so the width varies with the shape and nothing is cropped to fit. A picture too
-   wide for the popup is scaled down as a whole (the one case where it ends up shorter than the rest). */
-.gloss-imgslot{ display:flex; justify-content:center; }
+/* a term's illustration: the same frame + fullscreen viewer as a card image, but FLOATED to the top-right of
+   the popup body (it is first in the DOM, which is what a float needs) rather than sized by a fixed 16:9 box.
+   The opening sentences run down its left, and the description resumes the popup's full width below it.
+   Every term's picture is shown at the SAME height; its width follows its own shape but never passes half the
+   popup, so the popup keeps one silhouette whatever shape the day's picture is. A picture wider than that half
+   is cropped by object-fit — the whole of it is still one click away in the fullscreen viewer. */
+.gloss-imgslot{ float:right; max-width:50%; margin:0 0 10px 12px; }
 .gloss-imgslot[hidden]{ display:none; }
 .gloss-imgslot .card-img{
-  margin:12px 0 0; border-radius:8px; line-height:0;
+  margin:0; border-radius:8px; line-height:0;
   aspect-ratio:auto; width:auto; max-width:100%;
 }
-.gloss-imgslot .card-img img{ width:auto; height:auto; max-height:180px; max-width:100%; object-fit:contain; }
+.gloss-imgslot .card-img img{ width:auto; height:150px; max-width:100%; object-fit:cover; }
 .gloss-imgslot .ci-zoom{ right:8px; bottom:8px; width:24px; height:24px; border-radius:7px; }
 .gloss-imgslot .ci-zoom svg{ width:13px; height:13px; }
 
@@ -1937,7 +1939,9 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
 .gloss-sheet .gloss-dates{ font-size:12px; }
 .gloss-sheet .gloss-body{ padding:15px 18px calc(20px + env(safe-area-inset-bottom)); max-height:55vh; }
 .gloss-sheet .gloss-desc{ font-size:15px; }
-.gloss-sheet .gloss-imgslot .card-img{ margin-top:15px; border-radius:10px; }
+.gloss-sheet .gloss-imgslot{ margin-left:15px; }
+.gloss-sheet .gloss-imgslot .card-img{ border-radius:10px; }
+.gloss-sheet .gloss-imgslot .card-img img{ height:170px; }
 
 /* glossary editor: fields on the left, a live popup preview on the right */
 .gloss-edit-cols{ display:flex; gap:0; align-items:flex-start; flex-wrap:wrap; }

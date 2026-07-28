@@ -85,7 +85,30 @@ async function openGlossEditor(page, base) {
   const fig = page.locator(".gloss-win .gloss-imgslot .card-img");
   check("the popup carries the term's image", await fig.count() === 1);
   const order = await page.evaluate(() => [...document.querySelector(".gloss-win .gloss-body").children].map((e) => e.className));
-  check("the image is last in the popup body", String(order[order.length - 1]).includes("gloss-imgslot"), order.join(" | "));
+  // it floats to the top-right, so it must come FIRST in the body for the prose to wrap down its left
+  check("the image is first in the popup body", String(order[0]).includes("gloss-imgslot"), order.join(" | "));
+  const box = await page.evaluate(() => {
+    const slot = document.querySelector(".gloss-win .gloss-imgslot");
+    const body = document.querySelector(".gloss-win .gloss-body");
+    const desc = document.querySelector(".gloss-win .gloss-desc");
+    const cs = getComputedStyle(body);
+    const inner = body.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    return {
+      float: getComputedStyle(slot).float,
+      imgH: document.querySelector(".gloss-win .gloss-imgslot img").getBoundingClientRect().height,
+      w: slot.getBoundingClientRect().width, inner: inner,
+      slotTop: slot.getBoundingClientRect().top, descTop: desc.getBoundingClientRect().top,
+      slotRight: slot.getBoundingClientRect().right, bodyRight: body.getBoundingClientRect().right,
+      padR: parseFloat(cs.paddingRight),
+    };
+  });
+  check("the image floats right", box.float === "right", box.float);
+  check("...at a fixed height", Math.abs(box.imgH - 150) < 1, box.imgH);
+  check("...never wider than half the popup", box.w <= box.inner / 2 + 1, box.w + " of " + box.inner);
+  check("...pinned to the top-right with the body's padding",
+    Math.abs(box.bodyRight - box.slotRight - box.padR) < 1.5, box.bodyRight - box.slotRight);
+  check("the prose starts beside it, not below it", box.descTop < box.slotTop + box.imgH,
+    "desc " + box.descTop + " vs image bottom " + (box.slotTop + box.imgH));
   check("the figure is a focusable button, like a card image",
     await page.evaluate(() => { const f = document.querySelector(".gloss-win .card-img"); return f.getAttribute("role") === "button" && f.tabIndex === 0; }));
 
