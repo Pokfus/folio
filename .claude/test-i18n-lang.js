@@ -85,9 +85,12 @@ function serve() {
   pg.on("request", (r) => { if (r.url().includes("/i18n/")) fetched.push(r.url().split("/").pop()); });
   await pg.goto(url("?lang=ja"), { waitUntil: "networkidle" });
   await pg.waitForTimeout(1500);
-  // ui-, gloss- and games- for that language and nothing else: the point is that a reader downloads
-  // their own language only, never the other eight (see langBundle in app.js)
-  ok("only the current language's three files are fetched", fetched.length === 3 && fetched.every((f) => f.endsWith("-ja.js")), fetched);
+  // Every per-language family for that language and NOTHING for the other eight (see langBundle in
+  // app.js). Asserted as a property rather than a count, so adding a family doesn't need a new number
+  // here — what must never change is that no other language is fetched.
+  const FAMILIES = ["ui-", "gloss-", "games-", "places-"];
+  ok("only the current language's files are fetched", fetched.length > 0 && fetched.every((f) => f.endsWith("-ja.js")), fetched);
+  ok("every per-language family is fetched", FAMILIES.every((p) => fetched.some((f) => f.startsWith(p))), fetched);
   ok("the chrome is localized", (await pg.$$eval(".tab", (ts) => ts.map((t) => t.textContent.trim()))).includes("ホーム"));
   ok("the glossary table is complete", (await pg.evaluate(() => Object.keys(window.GLOSSARY_I18N).length)) === Object.keys(GLOSS).length);
 
@@ -96,7 +99,7 @@ function serve() {
   await pg.waitForTimeout(250);
   await pg.evaluate(() => { const o = document.querySelector('.lang-opt[data-lang="ru"]'); if (o) o.click(); });
   await pg.waitForTimeout(1500);
-  ok("switching pulls only the new language", fetched.length === 3 && fetched.every((f) => f.endsWith("-ru.js")), fetched);
+  ok("switching pulls only the new language", fetched.length > 0 && fetched.every((f) => f.endsWith("-ru.js")), fetched);
 
   // The game pools are in the EAGER load path, so their translations must live in the lazy
   // i18n/games-<lang>.js and NOT inline in truefalse.js / quotes.js — an inline copy would put nine

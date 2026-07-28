@@ -1659,6 +1659,18 @@
     fields.forEach((f) => { if (tr[f]) o[f] = tr[f]; });
     return o;
   }
+  // Place names — countries (world.js), era territories and era capitals (timeline.js). Content, not
+  // chrome: they are read through placeName() rather than the I18N exact table because most of them are
+  // ALSO glossary terms and card answers, where a global key would override wording the card and glossary
+  // pipelines already translate — the same reason nodeTitle() exists for deck titles. English is the
+  // fallback, so an untranslated name simply stays as it is.
+  function placeName(n) {
+    if (!n) return n;
+    const l = uiLang();
+    if (l === "en") return n;
+    const t = (window.PLACE_I18N || {})[n];
+    return (t && t[l]) || n;
+  }
   const TF_I18N_FIELDS = ["q", "why", "cat"];          // a true/false statement: claim, explanation, category
   const QUOTE_I18N_FIELDS = ["q", "who", "context"];   // a quotation: the words, the speaker, the explanation
   function tfLocalized(it, lang) { return gameLocalized(it, "truefalse", TF_I18N_FIELDS, lang); }
@@ -3121,6 +3133,8 @@
     if (!DATA_BUNDLES[name]) {
       DATA_BUNDLES[name] = kind === "uiI18n"
         ? { files: ["i18n/ui-" + lang + ".js"] }
+        : kind === "placeI18n"
+        ? { files: ["i18n/places-" + lang + ".js"], after: placeI18nIngest }
         : kind === "gamesI18n"
         ? { files: ["i18n/games-" + lang + ".js"], after: gamesI18nIngest }
         : { files: ["i18n/gloss-" + lang + ".js"], after: glossI18nIngest };
@@ -3154,6 +3168,16 @@
       const d = inc[pool] || {};
       Object.keys(d).forEach((k) => { (GAMES_I18N[pool][k] = GAMES_I18N[pool][k] || {})[inc.lang] = d[k]; });
     }));
+  }
+  // A places file pushes { lang, data } onto window.PLACE_I18N_IN; this hook drains that QUEUE into
+  // PLACE_I18N[englishName][lang], which placeName() reads. A queue, not a slot, so two languages whose
+  // scripts land before either hook both survive — the same shape as the gloss and games ingests.
+  const PLACE_I18N = (window.PLACE_I18N = window.PLACE_I18N || {});
+  function placeI18nIngest() {
+    const q = window.PLACE_I18N_IN || [];
+    window.PLACE_I18N_IN = [];
+    q.forEach((inc) => { const d = inc.data || {}; for (const k in d) (PLACE_I18N[k] = PLACE_I18N[k] || {})[inc.lang] = d[k]; });
+    if (q.length && typeof mapBump === "function") mapBump();   // the globe caches label layouts by view key
   }
   const _bundlePromises = {};
   function loadScriptOnce(src) {
@@ -6813,8 +6837,8 @@
       const sig = nm + "|" + top;
       if (sig !== _ghnSig) {
         _ghnSig = sig;
-        ghnTopEl.textContent = top; ghnTopEl.style.display = top ? "" : "none";
-        ghnMainEl.textContent = nm;
+        ghnTopEl.textContent = placeName(top); ghnTopEl.style.display = top ? "" : "none";
+        ghnMainEl.textContent = placeName(nm);
         ghnEl.hidden = false;
         _ghnW = ghnEl.offsetWidth; _ghnH = ghnEl.offsetHeight;   // measure once per name — the follow-the-cursor path below is pure style writes
       } else if (ghnEl.hidden) ghnEl.hidden = false;
@@ -7043,7 +7067,7 @@
           const fs = tier === 0 ? baseFs : baseFs - 1.5, g = dot + 4; ctx.font = (tier === 0 ? "600 " : "500 ") + fs + "px " + labelFont;
           const tw = ctx.measureText(c.n).width, lr = [PX + g - 2, PY - 8, tw + 4, 16];   // yield to the era territory-name labels (countryLabelRects)
           let lhit = false; for (let k = 0; k < countryLabelRects.length; k++) if (rectsHit(lr, countryLabelRects[k])) { lhit = true; break; }
-          if (!lhit) { ctx.fillStyle = LBL_TEXT; ctx.strokeStyle = LBL_HALO; ctx.lineWidth = 3; ctx.strokeText(c.n, PX + g, PY); ctx.fillText(c.n, PX + g, PY); }
+          if (!lhit) { const cn = placeName(c.n); ctx.fillStyle = LBL_TEXT; ctx.strokeStyle = LBL_HALO; ctx.lineWidth = 3; ctx.strokeText(cn, PX + g, PY); ctx.fillText(cn, PX + g, PY); }
         }
       }
       ctx.restore();
@@ -7729,8 +7753,9 @@
         if (e.lead) { ctx.strokeStyle = CITY_LEAD; ctx.lineWidth = 0.7; ctx.beginPath(); ctx.moveTo(e.x, e.y); ctx.lineTo(e.lx < e.x ? e.lx + e.tw : e.lx, e.ly); ctx.stroke(); }
         drawPin(e);
         ctx.font = (e.tier === 0 ? "600 " : "500 ") + e.fs + "px " + labelFont;
-        ctx.lineWidth = 3; ctx.strokeStyle = LBL_HALO; ctx.strokeText(e.name, e.lx, e.ly);
-        ctx.fillStyle = LBL_TEXT; ctx.fillText(e.name, e.lx, e.ly);
+        const en = placeName(e.name);
+        ctx.lineWidth = 3; ctx.strokeStyle = LBL_HALO; ctx.strokeText(en, e.lx, e.ly);
+        ctx.fillStyle = LBL_TEXT; ctx.fillText(en, e.lx, e.ly);
       }
       ctx.restore();
     }
@@ -7832,11 +7857,12 @@
         if (!VIS[p]) continue; const c = GEO[p];
         proj(c.c[0], c.c[1]); if (PV < 0) continue;
         const x = PX, y = PY; if (x < 0 || x > W || y < 0 || y > H) continue;
-        const tw = ctx.measureText(c.n).width, r = [x - tw / 2 - 3, y - 8, tw + 6, 16];
+        const cn = placeName(c.n);
+        const tw = ctx.measureText(cn).width, r = [x - tw / 2 - 3, y - 8, tw + 6, 16];
         let hit = false; for (let k = 0; k < placed.length; k++) if (rectsHit(r, placed[k])) { hit = true; break; }
         if (hit) continue; placed.push(r);
-        ctx.lineWidth = 3.5; ctx.strokeStyle = LBL_HALO; ctx.strokeText(c.n, x, y);
-        ctx.fillStyle = LBL_TEXT; ctx.fillText(c.n, x, y);
+        ctx.lineWidth = 3.5; ctx.strokeStyle = LBL_HALO; ctx.strokeText(cn, x, y);
+        ctx.fillStyle = LBL_TEXT; ctx.fillText(cn, x, y);
       }
       ctx.restore();
     }
@@ -7902,11 +7928,12 @@
         const fs = Math.round(clamp(9.5 + zoom * 0.6 + Math.min(4.5, Math.sqrt(an.a) * 0.22), 10, 17));
         ctx.font = "600 " + fs + "px " + labelFont;
         // wrap long (often ethnographic) names onto two lines at the space nearest the middle
-        let l1 = an.n, l2 = "";
-        if (an.n.length > 20) {
-          const mid = an.n.length / 2; let cut = -1, bd = Infinity;
-          for (let c = an.n.indexOf(" "); c >= 0; c = an.n.indexOf(" ", c + 1)) { const d = Math.abs(c - mid); if (d < bd) { bd = d; cut = c; } }
-          if (cut > 0) { l1 = an.n.slice(0, cut); l2 = an.n.slice(cut + 1); }
+        const anN = placeName(an.n);   // localise before wrapping — the wrap measures the drawn string
+        let l1 = anN, l2 = "";
+        if (anN.length > 20) {
+          const mid = anN.length / 2; let cut = -1, bd = Infinity;
+          for (let c = anN.indexOf(" "); c >= 0; c = anN.indexOf(" ", c + 1)) { const d = Math.abs(c - mid); if (d < bd) { bd = d; cut = c; } }
+          if (cut > 0) { l1 = anN.slice(0, cut); l2 = anN.slice(cut + 1); }
         }
         const tw = Math.max(ctx.measureText(l1).width, l2 ? ctx.measureText(l2).width : 0);
         const lh = fs + 3, hh = l2 ? lh : lh / 2 + 1;
@@ -9926,8 +9953,10 @@
     const homeName = (S.settings.home && S.settings.home.name) || "Netherlands";
     // world.js is lazy (see DATA_BUNDLES) — until it lands the picker holds just the current home,
     // and fillHomeOpts() below swaps in the full country list once it arrives
-    const homeOptsFor = (names) => names.map((n) => `<option value="${n.replace(/"/g, "&quot;")}"${n === homeName ? " selected" : ""}>${n}</option>`).join("");
-    const worldNames = () => (window.WORLD_GEO || []).map((c) => c.n).filter((n) => n && n.trim()).sort((a, b) => a.localeCompare(b));
+    // The option VALUE stays the English name — it keys countryCenter() and is stored in S.settings.home
+    // — while only the visible label is localised, and the list sorts by what the reader actually sees.
+    const homeOptsFor = (names) => names.map((n) => `<option value="${n.replace(/"/g, "&quot;")}"${n === homeName ? " selected" : ""}>${esc(placeName(n))}</option>`).join("");
+    const worldNames = () => (window.WORLD_GEO || []).map((c) => c.n).filter((n) => n && n.trim()).sort((a, b) => placeName(a).localeCompare(placeName(b)));
     const homeOpts = homeOptsFor(dataReady("world") ? worldNames() : [homeName]);
     // each theme option shows a tiny mockup of itself: paper, a title bar, two text lines, an accent dot
     const themeBtn = (t) => `<button class="theme-opt" data-theme="${t[0]}" type="button">
@@ -12168,6 +12197,7 @@
     if (lang === "en") { if (then) then(); return; }
     ensureData(langBundle("glossI18n", lang));   // background — gloss popups read it as soon as it lands
     ensureData(langBundle("gamesI18n", lang));   // background — the two game pages also await it themselves
+    ensureData(langBundle("placeI18n", lang));   // background — the Atlas re-renders its labels when it lands
     ensureData(langBundle("uiI18n", lang)).then(() => { if (then) then(); });
   }
   // the one place the site language changes: validates, persists, loads what it needs, repaints

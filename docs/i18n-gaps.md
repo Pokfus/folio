@@ -230,11 +230,29 @@ golden-rule update so **new** changelog lines ship translated; whether to backfi
 items or only the 22 day titles plus the last few months is a judgement call — I would backfill the day
 titles and the most recent 3 months, and leave older items English.
 
-### Batch 6 — place-name gazetteer (1,744 names × 9)
-New lazy bundle `i18n/places-<lang>.js` (name → translated name) with a `placeName(n)` helper, called
-from both the DOM sites **and** the canvas `fillText` label draws (`drawEraNames`, `drawPin`, the
-country-names layer). Seed 182 of them from existing glossary titles. This is the one batch with real
-render-path code in it. **Do batch 1a first** so the Atlas chrome is already translated.
+### Batch 6 — place names — ⏳ MECHANISM SHIPPED, content pending
+
+The machinery is in and proven end to end; what remains is 1,744 names × 9 languages of content.
+
+Shipped: the lazy `placeI18n:<lang>` bundle over `i18n/places-<lang>.js`, the `placeI18nIngest` queue
+hook, the `placeName(n)` reader, `.claude/places-i18n-io.js`, and a `places` section in `add-lang.js`
+that validates every key against the real 1,744 names in `world.js` + `timeline.js` and refuses an
+unknown one.
+
+**`placeName` is called at canvas draw time**, which is the whole reason this batch needed code:
+`drawCountryNames`, `drawEraNames`, `drawCities` and `drawEraCities` label the globe with `ctx.fillText`,
+and the `localizeTree` DOM walker can never reach a canvas. Verified by screenshot rather than by DOM
+assertion — with eight German names seeded, the globe drew `Italien` where English draws `Italy`.
+
+Two details that would be easy to get wrong: era territory names are localised **before** the two-line
+wrap, or the wrap measures the English string and breaks in the wrong place; and the Settings home picker
+localises only the option **label**, keeping the English `value`, because that value keys `countryCenter()`
+and is what gets stored in `S.settings.home`.
+
+An **empty** `places-<lang>.js` ships for all nine languages — an absent file would 404 on every page load
+for that language, the same trap CLAUDE.md records for the gloss files.
+
+Content next, one complete language at a time, as with the game pools.
 
 ### Batch 7 — date and era formatting ✅ SHIPPED
 26 rules + 1 exact string per language, covering `yearLabel()`'s five forms (CE / BCE / kya / Mya / Gya),

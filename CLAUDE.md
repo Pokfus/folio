@@ -38,6 +38,7 @@ of blocking JS to flip a card; the Atlas layers and the translation tables are ~
 | `uiI18n:<lang>` | `i18n/ui-<lang>.js` | the site language isn't English |
 | `glossI18n:<lang>` | `i18n/gloss-<lang>.js` | ditto |
 | `gamesI18n:<lang>` | `i18n/games-<lang>.js` | ditto (the True-or-False / Who-said-it pools) |
+| `placeI18n:<lang>` | `i18n/places-<lang>.js` | ditto (country / territory / capital names on the globe) |
 
 (`heightmap.js` + `heightmap-ultra.js` are lazy too, but on their own older path — `loadHeightmapLevel`, keyed off
 the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
@@ -116,6 +117,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `truefalse.js` (~34 KB) — `window.TRUEFALSE = [ { q, a, why, cat } ]`, the statement pool for the **True or False** home-page
   minigame (79 historical myths/misconceptions + surprising truths; `a` is a boolean, `why` the explanation). Generated and
   **adversarially fact-checked** for accuracy by a workflow (`q` statement, `a` true|false, `why` reality, `cat` category).
+- `i18n/places-<lang>.js` — place names translated into one language (English name → local name): the
+  countries in `world.js` plus the era territories and era capitals in `timeline.js`, **1,744 distinct names**.
+  **Lazy** (bundle `placeI18n:<lang>`); the `after` hook `placeI18nIngest` drains `window.PLACE_I18N_IN` into
+  `window.PLACE_I18N[englishName][lang]`, which **`placeName(n)`** reads. They live outside `world.js` /
+  `timeline.js` because those are multi-megabyte geometry files. **`placeName` is called at CANVAS DRAW TIME**
+  (`drawCountryNames`, `drawEraNames`, `drawCities`, `drawEraCities`) as well as in the DOM — the map labels are
+  `ctx.fillText`, which the `localizeTree` walker can never reach, so this is the only route to translating them.
+  Era names are localised **before** the two-line wrap, or the wrap measures the English. The Settings home
+  picker localises only the option LABEL: the `value` stays the English name, since it keys `countryCenter()`
+  and is stored in `S.settings.home`. Not routed through the I18N exact table, and for the same reason as
+  `nodeTitle` — most of these names are also glossary terms and card answers. An empty file ships for every
+  language so an untranslated one can't 404 on each page load.
 - `i18n/games-<lang>.js` — the two daily-game pools translated into one language, keyed by each item's
   **English `q`** (unique in both pools, and stable against reordering in a way an array index is not).
   **Lazy** (bundle `gamesI18n:<lang>`); the `after` hook `gamesI18nIngest` drains `window.GAMES_I18N_IN`
@@ -1269,7 +1282,7 @@ dead code (never rendered).
     the popup, and above all **isolation** (a curated card never links a deck's term; a second deck never
     sees the first's), plus a hostile glossary in an imported deck. **Re-run after touching
     `glossSourcesFor` / `buildGlossIndex` / `uGlossSanitize`.**
-  · `node .claude/test-i18n-lang.js` — 23 assertions on the PER-LANGUAGE translation files: that a
+  · `node .claude/test-i18n-lang.js` — 24 assertions on the PER-LANGUAGE translation files: that a
     reader downloads one language and not all of them (an English reader downloads none), that switching
     pulls only the new language, that Japanese is at parity with the other languages across chrome/cards/
     glossary, and — the sharp edge of this layout — that a `glossaryI18n` overlay delta records ONLY the
