@@ -213,9 +213,9 @@ or absent, never half-done, and an untranslated language falls back to English e
 | | es | fr | de | it | nl | ru | ar | zh | ja |
 |---|---|---|---|---|---|---|---|---|---|
 | quotes (64) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| truefalse (79) | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — | — |
+| truefalse (79) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — | — | — |
 
-Remaining: 4 languages × 79 statements (ru, ar, zh, ja) (`q`, `why`, `cat`), ~5,000 words each. Pure content — the
+Remaining: 3 languages × 79 statements (ar, zh, ja) (`q`, `why`, `cat`), ~5,000 words each. Pure content — the
 mechanism, tooling and category labels are done, and the pipeline is verified end to end on Spanish
 (statement, category, verdict line and explanation all render translated).
 
