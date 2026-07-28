@@ -1643,6 +1643,23 @@
     ["question", "answer", "answerDate", "abstract", "answerText"].forEach((f) => { if (tr[f]) o[f] = tr[f]; });
     return o;
   }
+  // The daily-game pools are content, like cards: each item carries an `i18n` lang-map of its own
+  // translatable fields and falls back to English, exactly as cardLocalized() does. They are NOT routed
+  // through the I18N chrome table — a statement is prose, and `who` names are data the quiz compares
+  // against, so the whole pool is localized once up front and every comparison stays self-consistent.
+  function gameLocalized(it, pool, fields, lang) {
+    lang = lang || uiLang();
+    if (!it || lang === "en") return it;
+    const tr = ((GAMES_I18N[pool] || {})[it.q] || {})[lang];   // keyed by the item's ENGLISH q
+    if (!tr) return it;
+    const o = Object.assign({}, it);
+    fields.forEach((f) => { if (tr[f]) o[f] = tr[f]; });
+    return o;
+  }
+  const TF_I18N_FIELDS = ["q", "why", "cat"];          // a true/false statement: claim, explanation, category
+  const QUOTE_I18N_FIELDS = ["q", "who", "context"];   // a quotation: the words, the speaker, the explanation
+  function tfLocalized(it, lang) { return gameLocalized(it, "truefalse", TF_I18N_FIELDS, lang); }
+  function quoteLocalized(it, lang) { return gameLocalized(it, "quotes", QUOTE_I18N_FIELDS, lang); }
   // optional start/end dates for a glossary entry (e.g. "1644–1912", "551–479 BCE"); blank if none
   function glossDates(k) {
     const u = uGlossParse(k);
@@ -3101,6 +3118,8 @@
     if (!DATA_BUNDLES[name]) {
       DATA_BUNDLES[name] = kind === "uiI18n"
         ? { files: ["i18n/ui-" + lang + ".js"] }
+        : kind === "gamesI18n"
+        ? { files: ["i18n/games-" + lang + ".js"], after: gamesI18nIngest }
         : { files: ["i18n/gloss-" + lang + ".js"], after: glossI18nIngest };
     }
     return name;
@@ -3118,6 +3137,20 @@
       touched.add(k);
     }));
     touched.forEach(glossI18nApply);
+  }
+  // The daily-game pools live in the EAGER load path (truefalse.js / quotes.js load before app.js), so
+  // their translations must not: nine languages inline took quotes.js from 27 KB to 312 KB downloaded by
+  // every visitor, which is exactly what the bundle split exists to prevent. A games language file pushes
+  // onto window.GAMES_I18N_IN and this hook drains that QUEUE into GAMES_I18N[pool][englishQ][lang] —
+  // a queue, not a slot, so two languages landing before either hook both survive.
+  const GAMES_I18N = { truefalse: {}, quotes: {} };
+  function gamesI18nIngest() {
+    const q = window.GAMES_I18N_IN || [];
+    window.GAMES_I18N_IN = [];
+    q.forEach((inc) => ["truefalse", "quotes"].forEach((pool) => {
+      const d = inc[pool] || {};
+      Object.keys(d).forEach((k) => { (GAMES_I18N[pool][k] = GAMES_I18N[pool][k] || {})[inc.lang] = d[k]; });
+    }));
   }
   const _bundlePromises = {};
   function loadScriptOnce(src) {
@@ -6208,9 +6241,23 @@
   /* ============================================================
      PAGE: TRUE OR FALSE (myth-or-fact quiz, 5 rounds)
      ============================================================ */
+  // A game page must not paint English and then flip to the reading language a moment later, so both
+  // pools' pages hold on a loading line until i18n/games-<lang>.js lands. Returns true when it held.
+  // English readers never wait — and never fetch it. A failed load just falls through to English.
+  function gamesI18nPending(root) {
+    const lang = uiLang();
+    if (lang === "en") return false;
+    const name = langBundle("gamesI18n", lang);
+    if (dataReady(name)) return false;
+    root.innerHTML = '<div class="data-loading" role="status" aria-live="polite">Loading…</div>';
+    const want = current.name;
+    ensureData(name).then(() => { if (current.name === want) render(); });
+    return true;
+  }
   PAGES.truefalse = function (root) {
     detachKeys();
-    const POOL = window.TRUEFALSE || [];
+    if (gamesI18nPending(root)) return;
+    const POOL = (window.TRUEFALSE || []).map((x) => tfLocalized(x));
     const ROUNDS = 5;
     if (POOL.length < ROUNDS) { root.innerHTML = emptyPlacard("Coming soon", "真", "Not enough statements to play yet.", () => route("home"), "Back home"); return; }
     // pick ROUNDS distinct statements at random
@@ -6275,7 +6322,7 @@
      PAGE: WHO SAID IT? (guess the speaker of a famous quote)
      ============================================================ */
   function buildWhoSaidRounds() {
-    const POOL = window.QUOTEGAME || [];
+    const POOL = (window.QUOTEGAME || []).map((x) => quoteLocalized(x));
     const picks = pick(POOL, Math.min(5, POOL.length));
     const allWho = [...new Set(POOL.map((x) => x.who))];
     return picks.map((it) => {
@@ -6285,7 +6332,8 @@
   }
   PAGES.whosaid = function (root) {
     detachKeys();
-    const POOL = window.QUOTEGAME || [];
+    if (gamesI18nPending(root)) return;
+    const POOL = (window.QUOTEGAME || []).map((x) => quoteLocalized(x));
     if (POOL.length < 4) { root.innerHTML = emptyPlacard("Coming soon", "言", "Not enough quotes to play yet.", () => route("home"), "Back home"); return; }
     const rounds = buildWhoSaidRounds(), ROUNDS = rounds.length;
     let r = 0, score = 0; const results = [];
@@ -12116,6 +12164,7 @@
     const lang = S.settings.lang || "en";
     if (lang === "en") { if (then) then(); return; }
     ensureData(langBundle("glossI18n", lang));   // background — gloss popups read it as soon as it lands
+    ensureData(langBundle("gamesI18n", lang));   // background — the two game pages also await it themselves
     ensureData(langBundle("uiI18n", lang)).then(() => { if (then) then(); });
   }
   // the one place the site language changes: validates, persists, loads what it needs, repaints

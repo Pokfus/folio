@@ -5,6 +5,14 @@
    user, not how). Loaded before app.js. */
 window.CHANGELOG = [
   {
+    d: "2026-07-28",
+    t: "Who said it? in your language",
+    items: [
+      "The Who said it? game is now fully in your language: the quotation, the four names you choose between, and the explanation that follows. Famous lines use the wording they are actually known by in each language.",
+      "The result line after each answer in the daily games now reads in your language too.",
+    ],
+  },
+  {
     d: "2026-07-27",
     t: "Write your own decks",
     items: [

@@ -13,6 +13,8 @@
 //                               "html":  { "<innerHTML>": "<translated innerHTML>" } },  // -> i18n/ui-<lang>.js  I18N_HTML[lang]
 //                 "cards":    { "wh-001": { "question": …, "answer": …, "answerDate": …,
 //                                           "abstract": …, "answerText": … }, … },   // -> data.js  card.i18n[lang]
+//                 "games":    { "truefalse": { "<English q>": { q, why, cat }, … },   // -> i18n/games-<lang>.js
+//                               "quotes":    { "<English q>": { q, who, context }, … } },
 //                 "tree":     { "col-51": "Eisenzeit", … },                          // -> data.js  node.i18n[lang]
 //                 "glossary": { "Sima_Qian": "<3 sentences>", … } }                  // -> i18n/gloss-<lang>.js
 //
@@ -25,6 +27,7 @@
 const fs = require("fs"), path = require("path");
 const root = path.join(__dirname, "..");
 const glossI18nIO = require("./gloss-i18n-io");   // the per-language i18n/gloss-<lang>.js files
+const gamesI18nIO = require("./games-i18n-io");   // the per-language i18n/games-<lang>.js files
 const P = {
   i18nDir: path.join(root, "i18n"),
   data: path.join(root, "data.js"),
@@ -119,6 +122,39 @@ if (batch.cards && Object.keys(batch.cards).length) {
   done.push("data.js: " + Object.keys(batch.cards).length + " card(s) (" + lang + " now complete on " + full + "/" + cards.length + ")");
 }
 
+/* ---- games -> i18n/games-<lang>.js (per-language, LAZY) ---------------------------------------- */
+// The pools themselves (truefalse.js / quotes.js) are in the EAGER load path, so their translations
+// must NOT live inline: nine languages inside quotes.js took it from 27 KB to 312 KB downloaded by
+// every visitor. Items are keyed by their ENGLISH `q` (verified unique in both pools) rather than by
+// array index, so a batch can't be mis-applied if a pool is ever reordered or an item inserted.
+const GAME_POOLS = {
+  truefalse: { file: path.join(root, "truefalse.js"), global: "TRUEFALSE", fields: ["q", "why", "cat"] },
+  quotes: { file: path.join(root, "quotes.js"), global: "QUOTEGAME", fields: ["q", "who", "context"] },
+};
+if (batch.games && Object.keys(batch.games).length) {
+  const store = gamesI18nIO.read(lang);
+  const counts = [];
+  for (const [pool, entries] of Object.entries(batch.games)) {
+    const G = GAME_POOLS[pool];
+    if (!G) die("unknown game pool " + JSON.stringify(pool) + " — expected one of " + Object.keys(GAME_POOLS).join(", "));
+    const items = loadWindow(G.file)[G.global];
+    const byQ = new Set(items.map((x) => x.q));
+    store[pool] = store[pool] || {};
+    for (const [q, tr] of Object.entries(entries)) {
+      if (!byQ.has(q)) die(pool + ": no item whose English `q` is " + JSON.stringify(q).slice(0, 90));
+      const missing = G.fields.filter((f) => !(typeof tr[f] === "string" && tr[f].trim()));
+      if (missing.length && !partial) die(pool + " item is missing translated field(s): " + missing.join(", ") + " — pass --partial to allow");
+      const extra = Object.keys(tr).filter((f) => !G.fields.includes(f));
+      if (extra.length) die(pool + " item has field(s) that are not translated per language: " + extra.join(", "));
+      store[pool][q] = Object.assign({}, store[pool][q] || {}, tr);   // merge, never replace
+    }
+    const full = items.filter((x) => G.fields.every((f) => (store[pool][x.q] || {})[f])).length;
+    counts.push(pool + " " + full + "/" + items.length);
+  }
+  gamesI18nIO.write(lang, store);   // re-parses to confirm valid JS
+  done.push("i18n/games-" + lang + ".js: " + counts.join(", "));
+}
+
 /* ---- tree -> data.js (collection/deck node.i18n[lang]) ----------------------------------------- */
 // Deck and collection titles are data, not chrome: they are read by nodeTitle() in app.js, NOT through
 // the I18N exact table, because titles like "Prehistory" or "Bronze Age" also occur as answer terms and
@@ -159,5 +195,5 @@ if (batch.glossary && Object.keys(batch.glossary).length) {
   done.push("i18n/gloss-" + lang + ".js: " + Object.keys(batch.glossary).length + " term(s) (" + lang + " now " + have + "/" + Object.keys(GLOSS).length + ")");
 }
 
-if (!done.length) die("batch has no `chrome`, `cards`, `tree` or `glossary` section — nothing to do");
+if (!done.length) die("batch has no `chrome`, `cards`, `games`, `tree` or `glossary` section — nothing to do");
 console.log(lang + " backfill:\n  " + done.join("\n  "));

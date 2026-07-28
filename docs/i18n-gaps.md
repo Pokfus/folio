@@ -184,10 +184,28 @@ title silently stayed English — any new tree-node field needs all three.
 Verified: the tree bucket fell from 62 survivors to 4, and all four belong elsewhere (a `4.2 Mya – 2022
 CE` deck span → Batch 7; `China`/`India`/`Russia` in the Settings country picker → Batch 6).
 
-### Batch 4 — daily games (143 items, 9,158 words × 9)
-Add `i18n` blocks to `truefalse.js` and `quotes.js` plus `tfLocalized()` / `quoteLocalized()` readers,
-extend `add-lang.js` with a `games` section, then translate in sub-batches of ~20 items per language.
-Also the two verdict strings and 5 category labels (chrome). **Largest genuinely-worth-it batch.**
+### Batch 4 — daily games — ⏳ HALF SHIPPED (Who said it? done, True or False pending)
+Mechanism complete, and **all 64 quotations are live in all 9 languages** — the quotation, the speaker's
+name and the explanation, so the four answer options are localised too and the quiz stays
+self-consistent. Famous lines use the established target-language wording where one exists (Rousseau's
+*L'homme est né libre*, Dante's *Lasciate ogne speranza*, Marx's *Die Philosophen haben die Welt nur
+verschieden interpretiert*), and German/Italian/Chinese-origin lines are given in their original.
+The three verdict lines (`Correct — <speaker>`, `… — it's <True/False>`) shipped as chrome; both the
+curly and straight apostrophe variants are registered, because app.js uses a different one per page.
+
+**A design correction worth recording.** The obvious implementation — an `i18n` block on each pool item,
+mirroring cards — is wrong here: `truefalse.js` and `quotes.js` are in the **eager** load path, and nine
+languages inline took `quotes.js` from 27 KB to **312 KB downloaded by every visitor to flip a card**,
+which is precisely what the lazy-bundle split exists to prevent. Translations therefore live in
+`i18n/games-<lang>.js` (bundle `gamesI18n:<lang>`, `after` hook `gamesI18nIngest` draining a queue into
+`GAMES_I18N[pool][englishQ][lang]`), keyed by the item's **English `q`** — unique in both pools, and
+stable against reordering in a way an array index is not. The two game pages hold on a loading line
+until the bundle lands so they never paint English and flip. Eager payload is unchanged; an English
+reader still fetches nothing. Guarded by three new assertions in `.claude/test-i18n-lang.js`, including
+one that fails if translations ever get put back inline.
+
+**Still to do:** the 79 True/False statements (`q`, `why`, `cat`) — ~5,000 words × 9. The mechanism and
+tooling are done, so this is now pure content: `add-lang.js` batches with a `games.truefalse` section.
 
 ### Batch 5 — changelog (185 strings, 4,757 words × 9)
 Add per-day `i18n` to `changelog.js` and an `add-lang.js` `changelog` section. Worth pairing with a

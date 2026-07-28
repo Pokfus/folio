@@ -37,6 +37,7 @@ of blocking JS to flip a card; the Atlas layers and the translation tables are ~
 | `atlas` | `uk` `lakes` `rivers` `water` `cities` `timeline` `countries` `country-stats` `country-spans` `country-years` | the Atlas mounts |
 | `uiI18n:<lang>` | `i18n/ui-<lang>.js` | the site language isn't English |
 | `glossI18n:<lang>` | `i18n/gloss-<lang>.js` | ditto |
+| `gamesI18n:<lang>` | `i18n/games-<lang>.js` | ditto (the True-or-False / Who-said-it pools) |
 
 (`heightmap.js` + `heightmap-ultra.js` are lazy too, but on their own older path — `loadHeightmapLevel`, keyed off
 the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
@@ -115,6 +116,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `truefalse.js` (~34 KB) — `window.TRUEFALSE = [ { q, a, why, cat } ]`, the statement pool for the **True or False** home-page
   minigame (79 historical myths/misconceptions + surprising truths; `a` is a boolean, `why` the explanation). Generated and
   **adversarially fact-checked** for accuracy by a workflow (`q` statement, `a` true|false, `why` reality, `cat` category).
+- `i18n/games-<lang>.js` — the two daily-game pools translated into one language, keyed by each item's
+  **English `q`** (unique in both pools, and stable against reordering in a way an array index is not).
+  **Lazy** (bundle `gamesI18n:<lang>`); the `after` hook `gamesI18nIngest` drains `window.GAMES_I18N_IN`
+  into `GAMES_I18N[pool][englishQ][lang]`, which `tfLocalized()` / `quoteLocalized()` read. **These must
+  NOT go inline into `truefalse.js` / `quotes.js`** — both are in the EAGER load path, and nine languages
+  inline took `quotes.js` from 27 KB to 312 KB downloaded by every visitor to flip a card. `PAGES.truefalse`
+  and `PAGES.whosaid` hold on a loading line (`gamesI18nPending`) until it lands so they never paint English
+  and flip. `quotes` is complete in all 9; `truefalse` is not yet translated.
 - `quotes.js` — `window.QUOTEGAME = [ { q, who, context } ]`, the pool for the **Who said it?** home-page minigame (64 famous,
   well-documented quotations by distinct historical figures; `who` = the speaker, `context` = a 2-sentence explanation shown on
   reveal). **Adversarially fact-checked** for correct attribution (quote misattribution is rampant). The 4 answer options are the
@@ -1260,7 +1269,7 @@ dead code (never rendered).
     the popup, and above all **isolation** (a curated card never links a deck's term; a second deck never
     sees the first's), plus a hostile glossary in an imported deck. **Re-run after touching
     `glossSourcesFor` / `buildGlossIndex` / `uGlossSanitize`.**
-  · `node .claude/test-i18n-lang.js` — 20 assertions on the PER-LANGUAGE translation files: that a
+  · `node .claude/test-i18n-lang.js` — 23 assertions on the PER-LANGUAGE translation files: that a
     reader downloads one language and not all of them (an English reader downloads none), that switching
     pulls only the new language, that Japanese is at parity with the other languages across chrome/cards/
     glossary, and — the sharp edge of this layout — that a `glossaryI18n` overlay delta records ONLY the
