@@ -388,15 +388,15 @@ body.night .exp-card .flip-face{
    With no image the single .term-copy child fills the tile, so the layout is unchanged. */
 .exp-term{flex-direction:row; align-items:stretch; gap:14px;}
 .term-copy{display:flex; flex-direction:column; gap:8px; flex:1 1 auto; min-width:0;}
-/* fixed height, width follows the picture: every illustration lines up at the same height whatever its shape.
-   The frame shrink-wraps the picture, so a portrait one is narrow and a wide one broad, and nothing is ever
-   cropped or stretched. The width is budgeted at half the tile, which holds a 16:9 picture at the full
-   height; anything wider than that still scales down as a whole rather than crowding the copy out. */
+/* a portrait plate, the shape of a profile picture: every term's picture is the same 3:4 frame whatever its
+   own proportions, so the tile keeps one silhouette from day to day and the copy always gets the same width.
+   Unlike the popup (which shows the picture whole) this one fills the frame and crops — the crop sits a
+   little above centre, where the subject of a portrait usually is. */
 .term-img{
-  flex:none; align-self:center; max-width:50%; overflow:hidden; line-height:0;
+  flex:none; align-self:center; width:84px; aspect-ratio:3/4; overflow:hidden; line-height:0;
   border-radius:10px; border:1px solid var(--rule); background:var(--paper-2); box-shadow:var(--shadow-sm);
 }
-.term-img img{display:block; width:auto; height:auto; max-height:72px; max-width:100%;}
+.term-img img{display:block; width:100%; height:100%; object-fit:cover; object-position:center 40%;}
 .term-title{font-family:var(--display); font-weight:600; font-size:20px; letter-spacing:-.01em; color:var(--ink);}
 .term-dates{font-family:var(--mono); font-size:10px; letter-spacing:.08em; color:var(--ink-faint);}
 .term-desc{font-family:var(--serif); font-size:13.5px; line-height:1.5; color:var(--ink-soft); display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;}
