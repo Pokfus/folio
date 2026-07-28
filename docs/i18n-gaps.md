@@ -131,7 +131,9 @@ job on the existing pipeline.
 3. **All of it.** ~2.0M words, 13.5 MB of new lazy bundles that must be split per language *and*
    probably per region to stay loadable.
 
-My recommendation is **option 2**, and to treat it as a separate programme after batches 0–8 ship.
+My recommendation was **option 2**. **Decision (2026-07-28): deferred** — the Atlas prose is out of
+scope for this programme. Batches 0–7 proceed without it; the country panel stays English in every
+language until it is picked up separately.
 
 ---
 
@@ -204,8 +206,18 @@ until the bundle lands so they never paint English and flip. Eager payload is un
 reader still fetches nothing. Guarded by three new assertions in `.claude/test-i18n-lang.js`, including
 one that fails if translations ever get put back inline.
 
-**Still to do:** the 79 True/False statements (`q`, `why`, `cat`) — ~5,000 words × 9. The mechanism and
-tooling are done, so this is now pure content: `add-lang.js` batches with a `games.truefalse` section.
+**True or False is rolling out one language at a time** — the same pattern the Japanese rollout used, and
+what `add-lang.js`'s per-language coverage report ("es now 79/79") exists for. Each language is complete
+or absent, never half-done, and an untranslated language falls back to English exactly as designed.
+
+| | es | fr | de | it | nl | ru | ar | zh | ja |
+|---|---|---|---|---|---|---|---|---|---|
+| quotes (64) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| truefalse (79) | ✅ | — | — | — | — | — | — | — | — |
+
+Remaining: 8 languages × 79 statements (`q`, `why`, `cat`), ~5,000 words each. Pure content — the
+mechanism, tooling and category labels are done, and the pipeline is verified end to end on Spanish
+(statement, category, verdict line and explanation all render translated).
 
 ### Batch 5 — changelog (185 strings, 4,757 words × 9)
 Add per-day `i18n` to `changelog.js` and an `add-lang.js` `changelog` section. Worth pairing with a

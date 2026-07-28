@@ -10,6 +10,7 @@ window.CHANGELOG = [
     items: [
       "The Who said it? game is now fully in your language: the quotation, the four names you choose between, and the explanation that follows. Famous lines use the wording they are actually known by in each language.",
       "The result line after each answer in the daily games now reads in your language too.",
+      "True or False now reads in Spanish — the statement, its category and the explanation that follows. The other languages are on their way; until then that game stays in English for them.",
     ],
   },
   {
