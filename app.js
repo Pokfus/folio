@@ -44,10 +44,16 @@
     return n.cardIds || [];
   }
   function nodeHasCards(n) { return subtreeCardIds(n).length > 0; }
+  // A collection/deck title in the reading language. Tree titles are DATA, not chrome, so they are
+  // deliberately NOT routed through the I18N exact table: titles like "Prehistory", "Paleolithic",
+  // "Neolithic" and "Bronze Age" also occur as answer terms and glossary links inside card prose, and a
+  // global exact key would rewrite text the card/glossary pipeline has already translated. English is
+  // the fallback, exactly as it is for a card with no i18n block.
+  function nodeTitle(n) { return (n && n.i18n && n.i18n[uiLang()]) || (n && n.title) || ""; }
   function nodePath(n) {
     const parts = [];
     let cur = n;
-    while (cur) { parts.unshift(cur.title); cur = cur.parentId ? NODE_BY_ID[cur.parentId] : null; }
+    while (cur) { parts.unshift(nodeTitle(cur)); cur = cur.parentId ? NODE_BY_ID[cur.parentId] : null; }
     return parts;
   }
   function nodeWhere(n) { return nodePath(n).join(" · "); }
@@ -148,12 +154,15 @@
   // editorial label for a year span; collapses a modern end year to "present"
   function fmtYearSpan(lo, hi) {
     const cur = new Date().getFullYear();
-    const lab = yearLabel;
+    // Localise each SIDE, not the finished span: only one I18N rule fires per text node, so a joined
+    // "4.2 Mya – 2022 CE" could never have both units translated by a single pattern. yearLabel itself
+    // stays English — parseChronoYear round-trips against it in the editor's chronology field.
+    const lab = (y) => t(yearLabel(y));
     const present = hi >= cur;
     const deep = Math.abs(lo) >= 1e4 || Math.abs(hi) >= 1e4;   // a deep-time end carries its own unit, so it can't share the other's
     if (lo === hi && !present) return lab(lo);
     if (!present && !deep && (lo < 0) === (hi < 0)) return Math.abs(lo) + " – " + lab(hi);
-    return lab(lo) + " – " + (present ? "present" : lab(hi));
+    return lab(lo) + " – " + (present ? t("present") : lab(hi));
   }
   // the date text shown behind a deck/collection title — a manual override (set on the edit page)
   // takes precedence over the automatic earliest→latest computation
@@ -202,7 +211,7 @@
   const SHIPPED_NODES = [];
   (function () {
     function walk(node, parentId) {
-      SHIPPED_NODES.push({ id: node.id, title: node.title, parentId: parentId, placeholder: !!node.placeholder, hanzi: node.hanzi || "", cardIds: (node.cardIds || []).slice() });
+      SHIPPED_NODES.push({ id: node.id, title: node.title, i18n: node.i18n, parentId: parentId, placeholder: !!node.placeholder, hanzi: node.hanzi || "", cardIds: (node.cardIds || []).slice() });
       (node.children || []).forEach((ch) => walk(ch, node.id));
     }
     TREE.collections.forEach((c) => walk(c, null));
@@ -571,6 +580,9 @@
       specs.set(s.id, {
         id: s.id,
         title: T.renames[s.id] != null ? T.renames[s.id] : s.title,
+        // a rename retires the shipped translations — showing the old title in nine languages beside a
+        // new English one is worse than falling back to the new English everywhere
+        i18n: T.renames[s.id] != null ? null : s.i18n,
         parentId: ep === undefined ? s.parentId : ep,
         placeholder: s.placeholder, hanzi: s.hanzi,
         cardIds: s.cardIds.slice(),
@@ -592,7 +604,7 @@
       while (cur && hops++ < 9999) { if (seen[cur] || cur === s.id) { s.parentId = null; break; } seen[cur] = 1; const p = specs.get(cur); cur = p ? p.parentId : null; }
     });
     const nodeById = {};
-    specs.forEach((s) => { nodeById[s.id] = { id: s.id, title: s.title, placeholder: s.placeholder, hanzi: s.hanzi, cardIds: s.cardIds, children: [] }; });
+    specs.forEach((s) => { nodeById[s.id] = { id: s.id, title: s.title, i18n: s.i18n, placeholder: s.placeholder, hanzi: s.hanzi, cardIds: s.cardIds, children: [] }; });
     const order = [], seen = {};
     SHIPPED_NODES.forEach((s) => { if (nodeById[s.id] && !seen[s.id]) { order.push(s.id); seen[s.id] = 1; } });
     Object.values(T.created).sort((a, b) => _seqOf(a.id) - _seqOf(b.id)).forEach((c) => { if (nodeById[c.id] && !seen[c.id]) { order.push(c.id); seen[c.id] = 1; } });
@@ -1634,6 +1646,35 @@
     ["question", "answer", "answerDate", "abstract", "answerText"].forEach((f) => { if (tr[f]) o[f] = tr[f]; });
     return o;
   }
+  // The daily-game pools are content, like cards: each item carries an `i18n` lang-map of its own
+  // translatable fields and falls back to English, exactly as cardLocalized() does. They are NOT routed
+  // through the I18N chrome table — a statement is prose, and `who` names are data the quiz compares
+  // against, so the whole pool is localized once up front and every comparison stays self-consistent.
+  function gameLocalized(it, pool, fields, lang) {
+    lang = lang || uiLang();
+    if (!it || lang === "en") return it;
+    const tr = ((GAMES_I18N[pool] || {})[it.q] || {})[lang];   // keyed by the item's ENGLISH q
+    if (!tr) return it;
+    const o = Object.assign({}, it);
+    fields.forEach((f) => { if (tr[f]) o[f] = tr[f]; });
+    return o;
+  }
+  // Place names — countries (world.js), era territories and era capitals (timeline.js). Content, not
+  // chrome: they are read through placeName() rather than the I18N exact table because most of them are
+  // ALSO glossary terms and card answers, where a global key would override wording the card and glossary
+  // pipelines already translate — the same reason nodeTitle() exists for deck titles. English is the
+  // fallback, so an untranslated name simply stays as it is.
+  function placeName(n) {
+    if (!n) return n;
+    const l = uiLang();
+    if (l === "en") return n;
+    const t = (window.PLACE_I18N || {})[n];
+    return (t && t[l]) || n;
+  }
+  const TF_I18N_FIELDS = ["q", "why", "cat"];          // a true/false statement: claim, explanation, category
+  const QUOTE_I18N_FIELDS = ["q", "who", "context"];   // a quotation: the words, the speaker, the explanation
+  function tfLocalized(it, lang) { return gameLocalized(it, "truefalse", TF_I18N_FIELDS, lang); }
+  function quoteLocalized(it, lang) { return gameLocalized(it, "quotes", QUOTE_I18N_FIELDS, lang); }
   // optional start/end dates for a glossary entry (e.g. "1644–1912", "551–479 BCE"); blank if none
   function glossDates(k) {
     const u = uGlossParse(k);
@@ -2313,7 +2354,7 @@
     if (ud) return { title: ud.title, parent: "Your decks", count: (ud.cardIds || []).length };
     const n = NODE_BY_ID[id];
     if (!n) return { title: id, parent: "", count: 0 };
-    return { title: n.title, parent: nodeParentPath(n), count: subtreeCardIds(n).length };
+    return { title: nodeTitle(n), parent: nodeParentPath(n), count: subtreeCardIds(n).length };
   }
   function newRemainingToday() {
     const count = S.intro.date === todayStr() ? S.intro.count : 0;
@@ -3092,6 +3133,10 @@
     if (!DATA_BUNDLES[name]) {
       DATA_BUNDLES[name] = kind === "uiI18n"
         ? { files: ["i18n/ui-" + lang + ".js"] }
+        : kind === "placeI18n"
+        ? { files: ["i18n/places-" + lang + ".js"], after: placeI18nIngest }
+        : kind === "gamesI18n"
+        ? { files: ["i18n/games-" + lang + ".js"], after: gamesI18nIngest }
         : { files: ["i18n/gloss-" + lang + ".js"], after: glossI18nIngest };
     }
     return name;
@@ -3109,6 +3154,30 @@
       touched.add(k);
     }));
     touched.forEach(glossI18nApply);
+  }
+  // The daily-game pools live in the EAGER load path (truefalse.js / quotes.js load before app.js), so
+  // their translations must not: nine languages inline took quotes.js from 27 KB to 312 KB downloaded by
+  // every visitor, which is exactly what the bundle split exists to prevent. A games language file pushes
+  // onto window.GAMES_I18N_IN and this hook drains that QUEUE into GAMES_I18N[pool][englishQ][lang] —
+  // a queue, not a slot, so two languages landing before either hook both survive.
+  const GAMES_I18N = { truefalse: {}, quotes: {} };
+  function gamesI18nIngest() {
+    const q = window.GAMES_I18N_IN || [];
+    window.GAMES_I18N_IN = [];
+    q.forEach((inc) => ["truefalse", "quotes"].forEach((pool) => {
+      const d = inc[pool] || {};
+      Object.keys(d).forEach((k) => { (GAMES_I18N[pool][k] = GAMES_I18N[pool][k] || {})[inc.lang] = d[k]; });
+    }));
+  }
+  // A places file pushes { lang, data } onto window.PLACE_I18N_IN; this hook drains that QUEUE into
+  // PLACE_I18N[englishName][lang], which placeName() reads. A queue, not a slot, so two languages whose
+  // scripts land before either hook both survive — the same shape as the gloss and games ingests.
+  const PLACE_I18N = (window.PLACE_I18N = window.PLACE_I18N || {});
+  function placeI18nIngest() {
+    const q = window.PLACE_I18N_IN || [];
+    window.PLACE_I18N_IN = [];
+    q.forEach((inc) => { const d = inc.data || {}; for (const k in d) (PLACE_I18N[k] = PLACE_I18N[k] || {})[inc.lang] = d[k]; });
+    if (q.length && typeof mapBump === "function") mapBump();   // the globe caches label layouts by view key
   }
   const _bundlePromises = {};
   function loadScriptOnce(src) {
@@ -3932,7 +4001,7 @@
     if (levelFromXP(g).level > levelFromXP(g - 1).level) items.push({ title: "Folio", level: levelFromXP(g).level, sys: null });
     cardCollections(id).forEach((c) => {
       const n = studiedInNode(c);
-      if (levelFromXP(n).level > levelFromXP(n - 1).level) items.push({ title: c.title, level: levelFromXP(n).level, sys: COLLECTION_NUMERALS[c.id] });
+      if (levelFromXP(n).level > levelFromXP(n - 1).level) items.push({ title: nodeTitle(c), level: levelFromXP(n).level, sys: COLLECTION_NUMERALS[c.id] });
     });
     if (items.length) congratsPopup(items);   // a click-anywhere-to-dismiss popup naming each collection/Folio that leveled up
   }
@@ -4164,7 +4233,7 @@
             return `<div class="active-deck" data-review="${esc(r.node.id)}" role="button" tabindex="0" data-depth="${r.depth}" style="padding-left:${pad}px" title="Review just ${esc(r.node.title)}">
               <span class="ad-dot"></span>
               <div class="ad-body">
-                <div class="ad-line"><span class="ad-title">${esc(r.node.title)}</span><span class="ad-count">${info.count} card${info.count === 1 ? "" : "s"}</span></div>
+                <div class="ad-line"><span class="ad-title">${esc(nodeTitle(r.node))}</span><span class="ad-count">${info.count} card${info.count === 1 ? "" : "s"}</span></div>
               </div>
               <button class="ad-trash" data-id="${esc(r.node.id)}" aria-label="Remove from review">${trashSVG}</button>
             </div>`;
@@ -4172,7 +4241,7 @@
           return `<div class="active-deck context" data-depth="${r.depth}" style="padding-left:${pad}px">
             <span class="ad-branch"></span>
             <div class="ad-body">
-              <div class="ad-line"><span class="ad-title">${esc(r.node.title)}</span></div>
+              <div class="ad-line"><span class="ad-title">${esc(nodeTitle(r.node))}</span></div>
             </div>
           </div>`;
         })
@@ -4722,7 +4791,7 @@
           <span class="node-num">${num}</span>
           <div class="node-main">
             <div class="node-title-row">
-              <span class="node-title">${esc(node.title)}</span>
+              <span class="node-title">${esc(nodeTitle(node))}</span>
               ${nodeSpanHTML}
               ${soon ? '<span class="pill soon">Coming soon</span>' : ""}
             </div>
@@ -4753,7 +4822,7 @@
       <span class="node-num">${num}</span>
       <div class="node-main">
         <div class="node-title-row">
-          <span class="node-title">${esc(node.title)}</span>
+          <span class="node-title">${esc(nodeTitle(node))}</span>
           ${nodeSpanHTML}
           ${soon ? '<span class="pill soon">Coming soon</span>' : ""}
         </div>
@@ -4803,7 +4872,7 @@
           ${levelBadgeMarkup(studied, COLLECTION_NUMERALS[d.id])}
           <div class="collection-main">
             <div class="collection-title-row">
-              <span class="collection-title">${esc(d.title)}</span>
+              <span class="collection-title">${esc(nodeTitle(d))}</span>
               ${spanHTML}
               ${soon ? '<span class="pill soon">Coming soon</span>' : `<span class="collection-count">${total} ${total === 1 ? "card" : "cards"}</span>`}
             </div>
@@ -6199,9 +6268,23 @@
   /* ============================================================
      PAGE: TRUE OR FALSE (myth-or-fact quiz, 5 rounds)
      ============================================================ */
+  // A game page must not paint English and then flip to the reading language a moment later, so both
+  // pools' pages hold on a loading line until i18n/games-<lang>.js lands. Returns true when it held.
+  // English readers never wait — and never fetch it. A failed load just falls through to English.
+  function gamesI18nPending(root) {
+    const lang = uiLang();
+    if (lang === "en") return false;
+    const name = langBundle("gamesI18n", lang);
+    if (dataReady(name)) return false;
+    root.innerHTML = '<div class="data-loading" role="status" aria-live="polite">Loading…</div>';
+    const want = current.name;
+    ensureData(name).then(() => { if (current.name === want) render(); });
+    return true;
+  }
   PAGES.truefalse = function (root) {
     detachKeys();
-    const POOL = window.TRUEFALSE || [];
+    if (gamesI18nPending(root)) return;
+    const POOL = (window.TRUEFALSE || []).map((x) => tfLocalized(x));
     const ROUNDS = 5;
     if (POOL.length < ROUNDS) { root.innerHTML = emptyPlacard("Coming soon", "真", "Not enough statements to play yet.", () => route("home"), "Back home"); return; }
     // pick ROUNDS distinct statements at random
@@ -6266,7 +6349,7 @@
      PAGE: WHO SAID IT? (guess the speaker of a famous quote)
      ============================================================ */
   function buildWhoSaidRounds() {
-    const POOL = window.QUOTEGAME || [];
+    const POOL = (window.QUOTEGAME || []).map((x) => quoteLocalized(x));
     const picks = pick(POOL, Math.min(5, POOL.length));
     const allWho = [...new Set(POOL.map((x) => x.who))];
     return picks.map((it) => {
@@ -6276,7 +6359,8 @@
   }
   PAGES.whosaid = function (root) {
     detachKeys();
-    const POOL = window.QUOTEGAME || [];
+    if (gamesI18nPending(root)) return;
+    const POOL = (window.QUOTEGAME || []).map((x) => quoteLocalized(x));
     if (POOL.length < 4) { root.innerHTML = emptyPlacard("Coming soon", "言", "Not enough quotes to play yet.", () => route("home"), "Back home"); return; }
     const rounds = buildWhoSaidRounds(), ROUNDS = rounds.length;
     let r = 0, score = 0; const results = [];
@@ -6753,8 +6837,8 @@
       const sig = nm + "|" + top;
       if (sig !== _ghnSig) {
         _ghnSig = sig;
-        ghnTopEl.textContent = top; ghnTopEl.style.display = top ? "" : "none";
-        ghnMainEl.textContent = nm;
+        ghnTopEl.textContent = placeName(top); ghnTopEl.style.display = top ? "" : "none";
+        ghnMainEl.textContent = placeName(nm);
         ghnEl.hidden = false;
         _ghnW = ghnEl.offsetWidth; _ghnH = ghnEl.offsetHeight;   // measure once per name — the follow-the-cursor path below is pure style writes
       } else if (ghnEl.hidden) ghnEl.hidden = false;
@@ -6983,7 +7067,7 @@
           const fs = tier === 0 ? baseFs : baseFs - 1.5, g = dot + 4; ctx.font = (tier === 0 ? "600 " : "500 ") + fs + "px " + labelFont;
           const tw = ctx.measureText(c.n).width, lr = [PX + g - 2, PY - 8, tw + 4, 16];   // yield to the era territory-name labels (countryLabelRects)
           let lhit = false; for (let k = 0; k < countryLabelRects.length; k++) if (rectsHit(lr, countryLabelRects[k])) { lhit = true; break; }
-          if (!lhit) { ctx.fillStyle = LBL_TEXT; ctx.strokeStyle = LBL_HALO; ctx.lineWidth = 3; ctx.strokeText(c.n, PX + g, PY); ctx.fillText(c.n, PX + g, PY); }
+          if (!lhit) { const cn = placeName(c.n); ctx.fillStyle = LBL_TEXT; ctx.strokeStyle = LBL_HALO; ctx.lineWidth = 3; ctx.strokeText(cn, PX + g, PY); ctx.fillText(cn, PX + g, PY); }
         }
       }
       ctx.restore();
@@ -7669,8 +7753,9 @@
         if (e.lead) { ctx.strokeStyle = CITY_LEAD; ctx.lineWidth = 0.7; ctx.beginPath(); ctx.moveTo(e.x, e.y); ctx.lineTo(e.lx < e.x ? e.lx + e.tw : e.lx, e.ly); ctx.stroke(); }
         drawPin(e);
         ctx.font = (e.tier === 0 ? "600 " : "500 ") + e.fs + "px " + labelFont;
-        ctx.lineWidth = 3; ctx.strokeStyle = LBL_HALO; ctx.strokeText(e.name, e.lx, e.ly);
-        ctx.fillStyle = LBL_TEXT; ctx.fillText(e.name, e.lx, e.ly);
+        const en = placeName(e.name);
+        ctx.lineWidth = 3; ctx.strokeStyle = LBL_HALO; ctx.strokeText(en, e.lx, e.ly);
+        ctx.fillStyle = LBL_TEXT; ctx.fillText(en, e.lx, e.ly);
       }
       ctx.restore();
     }
@@ -7772,11 +7857,12 @@
         if (!VIS[p]) continue; const c = GEO[p];
         proj(c.c[0], c.c[1]); if (PV < 0) continue;
         const x = PX, y = PY; if (x < 0 || x > W || y < 0 || y > H) continue;
-        const tw = ctx.measureText(c.n).width, r = [x - tw / 2 - 3, y - 8, tw + 6, 16];
+        const cn = placeName(c.n);
+        const tw = ctx.measureText(cn).width, r = [x - tw / 2 - 3, y - 8, tw + 6, 16];
         let hit = false; for (let k = 0; k < placed.length; k++) if (rectsHit(r, placed[k])) { hit = true; break; }
         if (hit) continue; placed.push(r);
-        ctx.lineWidth = 3.5; ctx.strokeStyle = LBL_HALO; ctx.strokeText(c.n, x, y);
-        ctx.fillStyle = LBL_TEXT; ctx.fillText(c.n, x, y);
+        ctx.lineWidth = 3.5; ctx.strokeStyle = LBL_HALO; ctx.strokeText(cn, x, y);
+        ctx.fillStyle = LBL_TEXT; ctx.fillText(cn, x, y);
       }
       ctx.restore();
     }
@@ -7842,11 +7928,12 @@
         const fs = Math.round(clamp(9.5 + zoom * 0.6 + Math.min(4.5, Math.sqrt(an.a) * 0.22), 10, 17));
         ctx.font = "600 " + fs + "px " + labelFont;
         // wrap long (often ethnographic) names onto two lines at the space nearest the middle
-        let l1 = an.n, l2 = "";
-        if (an.n.length > 20) {
-          const mid = an.n.length / 2; let cut = -1, bd = Infinity;
-          for (let c = an.n.indexOf(" "); c >= 0; c = an.n.indexOf(" ", c + 1)) { const d = Math.abs(c - mid); if (d < bd) { bd = d; cut = c; } }
-          if (cut > 0) { l1 = an.n.slice(0, cut); l2 = an.n.slice(cut + 1); }
+        const anN = placeName(an.n);   // localise before wrapping — the wrap measures the drawn string
+        let l1 = anN, l2 = "";
+        if (anN.length > 20) {
+          const mid = anN.length / 2; let cut = -1, bd = Infinity;
+          for (let c = anN.indexOf(" "); c >= 0; c = anN.indexOf(" ", c + 1)) { const d = Math.abs(c - mid); if (d < bd) { bd = d; cut = c; } }
+          if (cut > 0) { l1 = anN.slice(0, cut); l2 = anN.slice(cut + 1); }
         }
         const tw = Math.max(ctx.measureText(l1).width, l2 ? ctx.measureText(l2).width : 0);
         const lh = fs + 3, hh = l2 ? lh : lh / 2 + 1;
@@ -9239,7 +9326,7 @@
       const row = document.createElement("div"); row.className = "dp-row";
       const rc = rootCollectionOf(n);
       if (rc && COLL_THEME[rc.id]) row.style.setProperty("--coll-bg", COLL_THEME[rc.id].bg);
-      row.innerHTML = '<div class="dp-name">' + esc(n.title) + "<small>" + esc(nodeParentPath(n)) + "</small></div>" + '<div class="prog-slot" style="flex:1"></div>';
+      row.innerHTML = '<div class="dp-name">' + esc(nodeTitle(n)) + "<small>" + esc(nodeParentPath(n)) + "</small></div>" + '<div class="prog-slot" style="flex:1"></div>';
       row.querySelector(".prog-slot").appendChild(progressBar(studied, total, isComingSoon(n)));
       container.appendChild(row);
     });
@@ -9257,7 +9344,7 @@
       const hue = COLL_THEME[c.id] ? ' style="--coll-bg:' + COLL_THEME[c.id].bg + '"' : "";
       const you = compareCards ? '<span class="cl-you" title="Your own level in this collection">You: Lv ' + levelFromXP(collectionXPFrom(c, compareCards)).level + "</span>" : "";
       return '<div class="cl-row"' + hue + '>' + levelBadgeMarkup(xp, COLLECTION_NUMERALS[c.id]) +
-        '<div class="cl-main"><div class="cl-name">' + esc(c.title) + you + '</div>' + xpBarMarkup(xp) + '</div></div>';
+        '<div class="cl-main"><div class="cl-name">' + esc(nodeTitle(c)) + you + '</div>' + xpBarMarkup(xp) + '</div></div>';
     }).join("");
     animateProgs(container);
     return cols.length;
@@ -9681,7 +9768,13 @@
   }
   PAGES.mission = function (root) {
     const M = missionMerged();
-    const fmtDay = (e) => e.label || new Date(e.d + "T12:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });   // fixed English — the page isn't localised, so browser-locale dates (e.g. Dutch) looked out of place
+    // The changelog dates follow the SITE language, not the browser's: en-GB for English (so a reader with a
+    // US browser still gets "28 July 2026" beside English release notes), otherwise the site language's own
+    // conventions — 28 de julio de 2026, 2026年7月28日, ٢٨ يوليو ٢٠٢٦. This was fixed English back when the
+    // About page itself was English; now that the page is localised, a browser-locale date is no longer the
+    // odd one out — a mismatched one is.
+    const dayLocale = () => { const l = uiLang(); return l === "en" ? "en-GB" : l === "zh" ? "zh-CN" : l; };
+    const fmtDay = (e) => e.label || new Date(e.d + "T12:00:00").toLocaleDateString(dayLocale(), { day: "numeric", month: "long", year: "numeric" });
     const chev = '<span class="clog-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>';
     const log = (window.CHANGELOG || []).slice().sort((a, b) => (a.d < b.d ? 1 : -1));
     const logHTML = log.map((e, i) =>
@@ -9866,8 +9959,10 @@
     const homeName = (S.settings.home && S.settings.home.name) || "Netherlands";
     // world.js is lazy (see DATA_BUNDLES) — until it lands the picker holds just the current home,
     // and fillHomeOpts() below swaps in the full country list once it arrives
-    const homeOptsFor = (names) => names.map((n) => `<option value="${n.replace(/"/g, "&quot;")}"${n === homeName ? " selected" : ""}>${n}</option>`).join("");
-    const worldNames = () => (window.WORLD_GEO || []).map((c) => c.n).filter((n) => n && n.trim()).sort((a, b) => a.localeCompare(b));
+    // The option VALUE stays the English name — it keys countryCenter() and is stored in S.settings.home
+    // — while only the visible label is localised, and the list sorts by what the reader actually sees.
+    const homeOptsFor = (names) => names.map((n) => `<option value="${n.replace(/"/g, "&quot;")}"${n === homeName ? " selected" : ""}>${esc(placeName(n))}</option>`).join("");
+    const worldNames = () => (window.WORLD_GEO || []).map((c) => c.n).filter((n) => n && n.trim()).sort((a, b) => placeName(a).localeCompare(placeName(b)));
     const homeOpts = homeOptsFor(dataReady("world") ? worldNames() : [homeName]);
     // each theme option shows a tiny mockup of itself: paper, a title bar, two text lines, an accent dot
     const themeBtn = (t) => `<button class="theme-opt" data-theme="${t[0]}" type="button">
@@ -10463,6 +10558,7 @@
     const countIds = (node) => { const s = new Set(); (function w(n) { (n.cardIds || []).forEach((i) => s.add(i)); (n.children || []).forEach(w); })(node); return s.size; };
     function ser(node, isTop) {
       const o = { id: node.id, title: node.title };
+      if (node.i18n) o.i18n = node.i18n;   // the tree's own translations ride along untouched, like a card's
       if (node.hanzi) o.hanzi = node.hanzi;
       if (isTop) { const m = COLLECTION_META[node.id]; if (m && m.blurb != null) o.blurb = m.blurb; o.total = Math.max(countIds(node), (m && m.total) || 0); }   // total >= live card count
       o.placeholder = !!node.placeholder;
@@ -11313,7 +11409,7 @@
     TREE.collections.forEach((col) => {
       const leaves = LEAF_NODES.filter((l) => { let cur = l; while (cur) { if (cur.id === col.id) return true; cur = cur.parentId ? NODE_BY_ID[cur.parentId] : null; } return false; });
       if (!leaves.length) return;
-      deckHtml += '<div class="deck-pick-group"><div class="dpg-title">' + esc(col.title) + '</div>';
+      deckHtml += '<div class="deck-pick-group"><div class="dpg-title">' + esc(nodeTitle(col)) + '</div>';
       leaves.forEach((l) => {
         const path = nodeParentPath(l);
         deckHtml += '<label class="deck-pick-item' + (memberLeaves.has(l.id) ? " on" : "") + '"><input type="checkbox" data-leaf="' + esc(l.id) + '"' + (memberLeaves.has(l.id) ? " checked" : "") + ' /><span class="dpi-box"></span><span class="dpi-name">' + esc(l.title) + '</span>' + (path ? '<span class="dpi-path">' + esc(path) + '</span>' : "") + '</label>';
@@ -11993,6 +12089,16 @@
     const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
     let n; while ((n = w.nextNode())) if (n._i18nSrc !== undefined) { n.nodeValue = n._i18nSrc; delete n._i18nSrc; }
   }
+  // longest key in a language's I18N_HTML table, memoized — the length bound that lets localizeTree skip
+  // serializing innerHTML for the vast majority of elements (no prose block is longer than the longest key)
+  const _i18nHtmlCapCache = {};
+  function _i18nHtmlCap(lang, dict) {
+    if (_i18nHtmlCapCache[lang] === undefined) {
+      let m = 0; for (const k in dict) if (k.length > m) m = k.length;
+      _i18nHtmlCapCache[lang] = m;
+    }
+    return _i18nHtmlCapCache[lang];
+  }
   function localizeTree(root) {
     const lang = uiLang();
     if (lang === "en" || !root) return;
@@ -12000,11 +12106,18 @@
     if (!root.querySelectorAll) return;
     const htmlDict = (window.I18N_HTML || {})[lang] || {};
     const els = [root, ...root.querySelectorAll("*")];
-    // whole-block prose (About-page paragraphs, FAQ bodies): swap an element whose entire markup matches
+    // Whole-block prose (About-page paragraphs, FAQ bodies): swap an element whose entire markup matches.
+    // The gate is key membership, NOT the element's tag: the About walkthrough steps are <span>s inside
+    // .ms-body and the feature blurbs are <div class="mf-row">, so a block-level allowlist skipped them
+    // and left them to the exact-string pass — which translated only their inline <b>s and stranded the
+    // surrounding prose in English ("Open the <b>Biblioteca</b> and choose a collection.").
     if (Object.keys(htmlDict).length) {
+      const cap = _i18nHtmlCap(lang, htmlDict);
       els.forEach((el) => {
-        if (!/^(P|LI|H1|H2|H3|H4|BLOCKQUOTE|SUMMARY|FIGCAPTION)$/.test(el.nodeName) && !/\bfaq-/.test(el.className || "")) return;
-        if (el.dataset.i18nDone || (el.closest && el.closest(".notranslate")) || el.isContentEditable) return;
+        if (!el.dataset || el.dataset.i18nDone || !el.isConnected) return;
+        if ((el.closest && el.closest(".notranslate")) || el.isContentEditable) return;
+        // cheap bounds before serializing innerHTML on every element: a prose block is small and shallow
+        if (el._i18nHtmlSrc === undefined && (el.children.length > 8 || (el.textContent || "").length > cap)) return;
         const src = el._i18nHtmlSrc !== undefined ? el._i18nHtmlSrc : (el.innerHTML || "").trim();
         if (src && htmlDict[src] !== undefined) { el._i18nHtmlSrc = src; el.innerHTML = htmlDict[src]; el.setAttribute("data-i18n-done", "1"); }
       });
@@ -12089,6 +12202,8 @@
     const lang = S.settings.lang || "en";
     if (lang === "en") { if (then) then(); return; }
     ensureData(langBundle("glossI18n", lang));   // background — gloss popups read it as soon as it lands
+    ensureData(langBundle("gamesI18n", lang));   // background — the two game pages also await it themselves
+    ensureData(langBundle("placeI18n", lang));   // background — the Atlas re-renders its labels when it lands
     ensureData(langBundle("uiI18n", lang)).then(() => { if (then) then(); });
   }
   // the one place the site language changes: validates, persists, loads what it needs, repaints

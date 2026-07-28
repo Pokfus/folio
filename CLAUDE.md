@@ -20,7 +20,17 @@ It is a plain static website — open `index.html` and it runs.
   append a one-line plain-English summary to TODAY's entry in `changelog.js` (create the day if missing; newest
   day first). Reader-facing wording — what changed for the user, not how. **Card/glossary content changes are
   summarized by count + deck only, never naming specific cards or terms** (e.g. "Three new cards in the Western
-  Zhou deck"). The Mission page renders it.
+  Zhou deck"). **One line per kind of addition per day** — if the day already has a "N new cards" or "N more
+  glossary terms" line, RAISE ITS COUNT and fold in the new subject rather than adding a second line; several
+  days once carried the same kind of entry two to seven times over. The Mission page renders it.
+  **A new line ships with its nine translations.** The whole changelog (23 day titles + 164 items) is live in
+  es/fr/de/it/nl/ru/ar/zh/ja as `chrome.exact` rows in `i18n/ui-<lang>.js` — the items are plain text nodes, so
+  `localizeTree` picks them up with no code. They must NOT go inline into `changelog.js`, which is in the eager
+  load path (the `quotes.js` mistake: 27 KB → 312 KB for every visitor). Add them with `.claude/add-lang.js`
+  chrome batches. **If you reword or merge an existing line, retire the old translations** in the same pass via
+  the `chrome.remove` list, or nine files keep a dead row that matches nothing and reads like coverage.
+  The changelog **dates follow the site language** (`fmtDay` → `dayLocale()`, en-GB for English), not the
+  browser's.
 
 ## File map
 
@@ -37,6 +47,8 @@ of blocking JS to flip a card; the Atlas layers and the translation tables are ~
 | `atlas` | `uk` `lakes` `rivers` `water` `cities` `timeline` `countries` `country-stats` `country-spans` `country-years` | the Atlas mounts |
 | `uiI18n:<lang>` | `i18n/ui-<lang>.js` | the site language isn't English |
 | `glossI18n:<lang>` | `i18n/gloss-<lang>.js` | ditto |
+| `gamesI18n:<lang>` | `i18n/games-<lang>.js` | ditto (the True-or-False / Who-said-it pools) |
+| `placeI18n:<lang>` | `i18n/places-<lang>.js` | ditto (country / territory / capital names on the globe) |
 
 (`heightmap.js` + `heightmap-ultra.js` are lazy too, but on their own older path — `loadHeightmapLevel`, keyed off
 the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
@@ -115,6 +127,34 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `truefalse.js` (~34 KB) — `window.TRUEFALSE = [ { q, a, why, cat } ]`, the statement pool for the **True or False** home-page
   minigame (79 historical myths/misconceptions + surprising truths; `a` is a boolean, `why` the explanation). Generated and
   **adversarially fact-checked** for accuracy by a workflow (`q` statement, `a` true|false, `why` reality, `cat` category).
+- `i18n/places-<lang>.js` — place names translated into one language (English name → local name): the
+  countries in `world.js` plus the era territories and era capitals in `timeline.js`, **1,744 distinct names**.
+  **Lazy** (bundle `placeI18n:<lang>`); the `after` hook `placeI18nIngest` drains `window.PLACE_I18N_IN` into
+  `window.PLACE_I18N[englishName][lang]`, which **`placeName(n)`** reads. They live outside `world.js` /
+  `timeline.js` because those are multi-megabyte geometry files. **`placeName` is called at CANVAS DRAW TIME**
+  (`drawCountryNames`, `drawEraNames`, `drawCities`, `drawEraCities`) as well as in the DOM — the map labels are
+  `ctx.fillText`, which the `localizeTree` walker can never reach, so this is the only route to translating them.
+  Era names are localised **before** the two-line wrap, or the wrap measures the English. The Settings home
+  picker localises only the option LABEL: the `value` stays the English name, since it keys `countryCenter()`
+  and is stored in `S.settings.home`. Not routed through the I18N exact table, and for the same reason as
+  `nodeTitle` — most of these names are also glossary terms and card answers. A file ships for every language
+  so an untranslated one can't 404 on each page load.
+  **Coverage — es 609 / fr 555 / de 547 / it 517 / nl 516 / ru 922 / ar 924 / zh 924 / ja 924.** The gap
+  between the Latin and non-Latin counts is structural, not a backlog: **a name identical to the English is
+  deliberately NOT written** (`placeName` falls back), so `Madrid` needs no Spanish row while every name needs
+  a Russian one. Three things stay English on purpose and should not be "finished": the **~750 ethnonyms**
+  among the era territories (Wiradjuri, Kwakwaka'wakw, Yukagir) — an endonym keeps its own form in every
+  language; the uninhabited **banks, reefs, glaciers and military zones** (Bajo Nuevo Bank, Siachen Glacier);
+  and the **obscure historical seats** (Bal Batsinâng, Danamombe, Xieng Dong Xieng Thong). None has an
+  established form in Spanish or Japanese, and inventing a transliteration would be fabrication.
+- `i18n/games-<lang>.js` — the two daily-game pools translated into one language, keyed by each item's
+  **English `q`** (unique in both pools, and stable against reordering in a way an array index is not).
+  **Lazy** (bundle `gamesI18n:<lang>`); the `after` hook `gamesI18nIngest` drains `window.GAMES_I18N_IN`
+  into `GAMES_I18N[pool][englishQ][lang]`, which `tfLocalized()` / `quoteLocalized()` read. **These must
+  NOT go inline into `truefalse.js` / `quotes.js`** — both are in the EAGER load path, and nine languages
+  inline took `quotes.js` from 27 KB to 312 KB downloaded by every visitor to flip a card. `PAGES.truefalse`
+  and `PAGES.whosaid` hold on a loading line (`gamesI18nPending`) until it lands so they never paint English
+  and flip. Both pools are complete in all 9.
 - `quotes.js` — `window.QUOTEGAME = [ { q, who, context } ]`, the pool for the **Who said it?** home-page minigame (64 famous,
   well-documented quotations by distinct historical figures; `who` = the speaker, `context` = a 2-sentence explanation shown on
   reveal). **Adversarially fact-checked** for correct attribution (quote misattribution is rampant). The 4 answer options are the
@@ -416,7 +456,23 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   (531 strings / 72 rules / 12 prose blocks), all 30 cards and all 333 glossary terms are translated and live,
   at full parity with the other eight languages.
   **Content localisation is separate**: cards carry per-language `i18n` blocks (`cardLocalized()`), glossary
-  descriptions live in `i18n/gloss-<lang>.js` (`window.GLOSSARY_I18N`, read by `glossText()`).
+  descriptions live in `i18n/gloss-<lang>.js` (`window.GLOSSARY_I18N`, read by `glossText()`), and **collection /
+  deck titles carry their own `node.i18n` lang-map in `data.js`, read by `nodeTitle(n)`** — deliberately NOT the
+  I18N exact table, because titles like `Prehistory`, `Paleolithic`, `Neolithic` and `Bronze Age` also occur as
+  answer terms and glossary links inside card prose, where a global exact key would override wording the card and
+  glossary pipelines have already translated (verified empirically before choosing the helper). `nodeTitle` feeds
+  `nodePath`/`nodeWhere`/`nodeParentPath`, so the Library, study bar, home review list, account rows, deck picker
+  and level-up popup all follow; the **admin tree deliberately keeps reading `node.title`** so the editor always
+  edits the English base, like the glossary editor's EN-view-only fields. An admin **rename retires** that node's
+  translations (`i18n: null`), since a stale translation beside a new English title is worse than falling back.
+  `SHIPPED_NODES`, the `applyAdminEdits` rebuild and `serializeCardData` all carry `i18n` through — **a new node
+  field must be added to all three or it is silently dropped on the first admin edit** (this bit once: the rebuild's
+  `nodeById` literal omitted it and every title stayed English).
+  **The `I18N_HTML` whole-block pass is gated on key membership, not tag name.** It was once limited to
+  `P|LI|H1…`, which skipped the About walkthrough's `<span>`s and `div.mf-row` blurbs; the exact pass then
+  translated only their inline `<b>`s and stranded the surrounding prose in English. It now tests any element,
+  with an `isConnected` guard and cheap `children.length`/`textContent.length` bounds against `_i18nHtmlCap`
+  (the longest key in that language's table) so it does not serialize `innerHTML` for every element on the page.
   **`setLang(code)` is the single entry point** for a language change (the switcher calls it; don't set
   `S.settings.lang` directly): it validates against `LANG_CODES`, persists, and — since the translation files are
   **lazy and per-language** (`langBundle`) — calls `loadLangData()` first, repainting with `applyLang(); render();`
@@ -1060,10 +1116,13 @@ node .claude/add-lang.js <batch.json> [--partial]
 
 `{ "lang": "ja", "chrome": { "exact": {…}, "rules": [[pattern, replacement], …], "html": {…} },
 "cards": { "<cardId>": { question, answer, answerDate, abstract, answerText }, … },
+"tree": { "<nodeId>": "<translated collection/deck title>", … },
 "glossary": { "<slug>": "<3 sentences>", … } }` — every section optional, so one batch can be as small as
 20 glossary terms. It writes `i18n/ui-<lang>.js` / `data.js` / `i18n/gloss-<lang>.js`, **merging** in every case (a language
 never overwrites its neighbours), refuses a card missing any of the 5 translated fields unless `--partial`,
-refuses a glossary slug that has no English entry, warns on a chrome key no other language has (a sign the
+refuses a glossary slug that has no English entry, refuses a `tree` id that is not in `COLLECTION_TREE`
+(keyed by **node id**, not title — titles repeat across the tree, e.g. two `Jin`s and two `Prehistory`s),
+warns on a chrome key no other language has (a sign the
 English source string has changed), and re-parses each file it writes. It reports running coverage
 ("ja now 140/333"), which is how a multi-batch language rollout is tracked.
 **Gotcha this exists to avoid:** `update-cards.js` assigns whole fields, so passing it an `i18n` patch replaces
@@ -1241,7 +1300,7 @@ dead code (never rendered).
     the popup, and above all **isolation** (a curated card never links a deck's term; a second deck never
     sees the first's), plus a hostile glossary in an imported deck. **Re-run after touching
     `glossSourcesFor` / `buildGlossIndex` / `uGlossSanitize`.**
-  · `node .claude/test-i18n-lang.js` — 20 assertions on the PER-LANGUAGE translation files: that a
+  · `node .claude/test-i18n-lang.js` — 24 assertions on the PER-LANGUAGE translation files: that a
     reader downloads one language and not all of them (an English reader downloads none), that switching
     pulls only the new language, that Japanese is at parity with the other languages across chrome/cards/
     glossary, and — the sharp edge of this layout — that a `glossaryI18n` overlay delta records ONLY the

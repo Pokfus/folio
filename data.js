@@ -67,7 +67,18 @@ window.COLLECTION_TREE = {
           "id": "cn-myth",
           "title": "Mythology",
           "placeholder": false,
-          "cardIds": []
+          "cardIds": [],
+          "i18n": {
+            "es": "Mitología",
+            "fr": "Mythologie",
+            "de": "Mythologie",
+            "it": "Mitologia",
+            "nl": "Mythologie",
+            "ru": "Мифология",
+            "ar": "الأساطير",
+            "zh": "神话",
+            "ja": "神話"
+          }
         },
         {
           "id": "col-1",
@@ -78,13 +89,35 @@ window.COLLECTION_TREE = {
               "id": "col-2",
               "title": "Xia",
               "placeholder": false,
-              "cardIds": []
+              "cardIds": [],
+              "i18n": {
+                "es": "Xia",
+                "fr": "Xia",
+                "de": "Xia",
+                "it": "Xia",
+                "nl": "Xia",
+                "ru": "Ся",
+                "ar": "شيا",
+                "zh": "夏",
+                "ja": "夏"
+              }
             },
             {
               "id": "col-3",
               "title": "Shang",
               "placeholder": false,
-              "cardIds": []
+              "cardIds": [],
+              "i18n": {
+                "es": "Shang",
+                "fr": "Shang",
+                "de": "Shang",
+                "it": "Shang",
+                "nl": "Shang",
+                "ru": "Шан",
+                "ar": "شانغ",
+                "zh": "商",
+                "ja": "殷"
+              }
             },
             {
               "id": "col-14",
@@ -95,17 +128,61 @@ window.COLLECTION_TREE = {
                   "id": "col-4",
                   "title": "Western Zhou",
                   "placeholder": false,
-                  "cardIds": []
+                  "cardIds": [],
+                  "i18n": {
+                    "es": "Zhou occidental",
+                    "fr": "Zhou occidentaux",
+                    "de": "Westliche Zhou",
+                    "it": "Zhou occidentali",
+                    "nl": "Westelijke Zhou",
+                    "ru": "Западная Чжоу",
+                    "ar": "تشو الغربية",
+                    "zh": "西周",
+                    "ja": "西周"
+                  }
                 },
                 {
                   "id": "col-5",
                   "title": "Eastern Zhou",
                   "placeholder": false,
-                  "cardIds": []
+                  "cardIds": [],
+                  "i18n": {
+                    "es": "Zhou oriental",
+                    "fr": "Zhou orientaux",
+                    "de": "Östliche Zhou",
+                    "it": "Zhou orientali",
+                    "nl": "Oostelijke Zhou",
+                    "ru": "Восточная Чжоу",
+                    "ar": "تشو الشرقية",
+                    "zh": "东周",
+                    "ja": "東周"
+                  }
                 }
-              ]
+              ],
+              "i18n": {
+                "es": "Zhou",
+                "fr": "Zhou",
+                "de": "Zhou",
+                "it": "Zhou",
+                "nl": "Zhou",
+                "ru": "Чжоу",
+                "ar": "تشو",
+                "zh": "周",
+                "ja": "周"
+              }
             }
-          ]
+          ],
+          "i18n": {
+            "es": "Antigüedad",
+            "fr": "Antiquité",
+            "de": "Altertum",
+            "it": "Antichità",
+            "nl": "Oudheid",
+            "ru": "Древность",
+            "ar": "العصور القديمة",
+            "zh": "上古",
+            "ja": "古代"
+          }
         },
         {
           "id": "col-6",
@@ -116,13 +193,35 @@ window.COLLECTION_TREE = {
               "id": "col-7",
               "title": "Qin",
               "placeholder": false,
-              "cardIds": []
+              "cardIds": [],
+              "i18n": {
+                "es": "Qin",
+                "fr": "Qin",
+                "de": "Qin",
+                "it": "Qin",
+                "nl": "Qin",
+                "ru": "Цинь",
+                "ar": "تشين",
+                "zh": "秦",
+                "ja": "秦"
+              }
             },
             {
               "id": "col-9",
               "title": "Xin",
               "placeholder": false,
-              "cardIds": []
+              "cardIds": [],
+              "i18n": {
+                "es": "Xin",
+                "fr": "Xin",
+                "de": "Xin",
+                "it": "Xin",
+                "nl": "Xin",
+                "ru": "Синь",
+                "ar": "شين",
+                "zh": "新",
+                "ja": "新"
+              }
             },
             {
               "id": "col-15",
@@ -133,27 +232,82 @@ window.COLLECTION_TREE = {
                   "id": "col-10",
                   "title": "Western Han",
                   "placeholder": false,
-                  "cardIds": []
+                  "cardIds": [],
+                  "i18n": {
+                    "es": "Han occidental",
+                    "fr": "Han occidentaux",
+                    "de": "Westliche Han",
+                    "it": "Han occidentali",
+                    "nl": "Westelijke Han",
+                    "ru": "Западная Хань",
+                    "ar": "هان الغربية",
+                    "zh": "西汉",
+                    "ja": "前漢"
+                  }
                 },
                 {
                   "id": "col-11",
                   "title": "Xin",
                   "placeholder": false,
-                  "cardIds": []
+                  "cardIds": [],
+                  "i18n": {
+                    "es": "Xin",
+                    "fr": "Xin",
+                    "de": "Xin",
+                    "it": "Xin",
+                    "nl": "Xin",
+                    "ru": "Синь",
+                    "ar": "شين",
+                    "zh": "新",
+                    "ja": "新"
+                  }
                 },
                 {
                   "id": "col-12",
                   "title": "Eastern Han",
                   "placeholder": false,
-                  "cardIds": []
+                  "cardIds": [],
+                  "i18n": {
+                    "es": "Han oriental",
+                    "fr": "Han orientaux",
+                    "de": "Östliche Han",
+                    "it": "Han orientali",
+                    "nl": "Oostelijke Han",
+                    "ru": "Восточная Хань",
+                    "ar": "هان الشرقية",
+                    "zh": "东汉",
+                    "ja": "後漢"
+                  }
                 }
-              ]
+              ],
+              "i18n": {
+                "es": "Han",
+                "fr": "Han",
+                "de": "Han",
+                "it": "Han",
+                "nl": "Han",
+                "ru": "Хань",
+                "ar": "هان",
+                "zh": "汉",
+                "ja": "漢"
+              }
             },
             {
               "id": "col-16",
               "title": "Three Kingdoms",
               "placeholder": false,
-              "cardIds": []
+              "cardIds": [],
+              "i18n": {
+                "es": "Tres Reinos",
+                "fr": "Trois Royaumes",
+                "de": "Drei Reiche",
+                "it": "Tre Regni",
+                "nl": "Drie Koninkrijken",
+                "ru": "Три царства",
+                "ar": "الممالك الثلاث",
+                "zh": "三国",
+                "ja": "三国"
+              }
             },
             {
               "id": "col-17",
@@ -164,51 +318,150 @@ window.COLLECTION_TREE = {
                   "id": "col-18",
                   "title": "Western Jin",
                   "placeholder": false,
-                  "cardIds": []
+                  "cardIds": [],
+                  "i18n": {
+                    "es": "Jin occidental",
+                    "fr": "Jin occidentaux",
+                    "de": "Westliche Jin",
+                    "it": "Jin occidentali",
+                    "nl": "Westelijke Jin",
+                    "ru": "Западная Цзинь",
+                    "ar": "جين الغربية",
+                    "zh": "西晋",
+                    "ja": "西晋"
+                  }
                 },
                 {
                   "id": "col-19",
                   "title": "Sixteen Kingdoms",
                   "placeholder": false,
-                  "cardIds": []
+                  "cardIds": [],
+                  "i18n": {
+                    "es": "Dieciséis Reinos",
+                    "fr": "Seize Royaumes",
+                    "de": "Sechzehn Reiche",
+                    "it": "Sedici Regni",
+                    "nl": "Zestien Koninkrijken",
+                    "ru": "Шестнадцать варварских государств",
+                    "ar": "الممالك الست عشرة",
+                    "zh": "十六国",
+                    "ja": "五胡十六国"
+                  }
                 },
                 {
                   "id": "col-20",
                   "title": "Eastern Jin",
                   "placeholder": false,
-                  "cardIds": []
+                  "cardIds": [],
+                  "i18n": {
+                    "es": "Jin oriental",
+                    "fr": "Jin orientaux",
+                    "de": "Östliche Jin",
+                    "it": "Jin orientali",
+                    "nl": "Oostelijke Jin",
+                    "ru": "Восточная Цзинь",
+                    "ar": "جين الشرقية",
+                    "zh": "东晋",
+                    "ja": "東晋"
+                  }
                 }
-              ]
+              ],
+              "i18n": {
+                "es": "Jin",
+                "fr": "Jin",
+                "de": "Jin",
+                "it": "Jin",
+                "nl": "Jin",
+                "ru": "Цзинь",
+                "ar": "جين",
+                "zh": "晋",
+                "ja": "晋"
+              }
             },
             {
               "id": "col-21",
               "title": "Northern and Southern dynasties",
               "placeholder": false,
-              "cardIds": []
+              "cardIds": [],
+              "i18n": {
+                "es": "Dinastías del Norte y del Sur",
+                "fr": "Dynasties du Nord et du Sud",
+                "de": "Nord- und Süddynastien",
+                "it": "Dinastie del Nord e del Sud",
+                "nl": "Noordelijke en Zuidelijke dynastieën",
+                "ru": "Южные и Северные династии",
+                "ar": "الأسرتان الشمالية والجنوبية",
+                "zh": "南北朝",
+                "ja": "南北朝"
+              }
             },
             {
               "id": "col-22",
               "title": "Sui",
               "placeholder": false,
-              "cardIds": []
+              "cardIds": [],
+              "i18n": {
+                "es": "Sui",
+                "fr": "Sui",
+                "de": "Sui",
+                "it": "Sui",
+                "nl": "Sui",
+                "ru": "Суй",
+                "ar": "سوي",
+                "zh": "隋",
+                "ja": "隋"
+              }
             },
             {
               "id": "col-23",
               "title": "Tang",
               "placeholder": false,
-              "cardIds": []
+              "cardIds": [],
+              "i18n": {
+                "es": "Tang",
+                "fr": "Tang",
+                "de": "Tang",
+                "it": "Tang",
+                "nl": "Tang",
+                "ru": "Тан",
+                "ar": "تانغ",
+                "zh": "唐",
+                "ja": "唐"
+              }
             },
             {
               "id": "col-24",
               "title": "Five Dynasties and Ten Kingdoms",
               "placeholder": false,
-              "cardIds": []
+              "cardIds": [],
+              "i18n": {
+                "es": "Cinco Dinastías y Diez Reinos",
+                "fr": "Cinq Dynasties et Dix Royaumes",
+                "de": "Fünf Dynastien und Zehn Reiche",
+                "it": "Cinque Dinastie e Dieci Regni",
+                "nl": "Vijf Dynastieën en Tien Koninkrijken",
+                "ru": "Пять династий и десять царств",
+                "ar": "الأسر الخمس والممالك العشر",
+                "zh": "五代十国",
+                "ja": "五代十国"
+              }
             },
             {
               "id": "col-25",
               "title": "Liao",
               "placeholder": false,
-              "cardIds": []
+              "cardIds": [],
+              "i18n": {
+                "es": "Liao",
+                "fr": "Liao",
+                "de": "Liao",
+                "it": "Liao",
+                "nl": "Liao",
+                "ru": "Ляо",
+                "ar": "لياو",
+                "zh": "辽",
+                "ja": "遼"
+              }
             },
             {
               "id": "col-26",
@@ -219,47 +472,146 @@ window.COLLECTION_TREE = {
                   "id": "col-27",
                   "title": "Northern Song",
                   "placeholder": false,
-                  "cardIds": []
+                  "cardIds": [],
+                  "i18n": {
+                    "es": "Song del Norte",
+                    "fr": "Song du Nord",
+                    "de": "Nördliche Song",
+                    "it": "Song settentrionali",
+                    "nl": "Noordelijke Song",
+                    "ru": "Северная Сун",
+                    "ar": "سونغ الشمالية",
+                    "zh": "北宋",
+                    "ja": "北宋"
+                  }
                 },
                 {
                   "id": "col-28",
                   "title": "Southern Song",
                   "placeholder": false,
-                  "cardIds": []
+                  "cardIds": [],
+                  "i18n": {
+                    "es": "Song del Sur",
+                    "fr": "Song du Sud",
+                    "de": "Südliche Song",
+                    "it": "Song meridionali",
+                    "nl": "Zuidelijke Song",
+                    "ru": "Южная Сун",
+                    "ar": "سونغ الجنوبية",
+                    "zh": "南宋",
+                    "ja": "南宋"
+                  }
                 }
-              ]
+              ],
+              "i18n": {
+                "es": "Song",
+                "fr": "Song",
+                "de": "Song",
+                "it": "Song",
+                "nl": "Song",
+                "ru": "Сун",
+                "ar": "سونغ",
+                "zh": "宋",
+                "ja": "宋"
+              }
             },
             {
               "id": "col-29",
               "title": "Western Xia",
               "placeholder": false,
-              "cardIds": []
+              "cardIds": [],
+              "i18n": {
+                "es": "Xia occidental",
+                "fr": "Xia occidentaux",
+                "de": "Westliche Xia",
+                "it": "Xia occidentali",
+                "nl": "Westelijke Xia",
+                "ru": "Западная Ся",
+                "ar": "شيا الغربية",
+                "zh": "西夏",
+                "ja": "西夏"
+              }
             },
             {
               "id": "col-30",
               "title": "Jin",
               "placeholder": false,
-              "cardIds": []
+              "cardIds": [],
+              "i18n": {
+                "es": "Jin",
+                "fr": "Jin",
+                "de": "Jin",
+                "it": "Jin",
+                "nl": "Jin",
+                "ru": "Цзинь",
+                "ar": "جين",
+                "zh": "金",
+                "ja": "金"
+              }
             },
             {
               "id": "col-31",
               "title": "Yuan",
               "placeholder": false,
-              "cardIds": []
+              "cardIds": [],
+              "i18n": {
+                "es": "Yuan",
+                "fr": "Yuan",
+                "de": "Yuan",
+                "it": "Yuan",
+                "nl": "Yuan",
+                "ru": "Юань",
+                "ar": "يوان",
+                "zh": "元",
+                "ja": "元"
+              }
             },
             {
               "id": "col-32",
               "title": "Ming",
               "placeholder": false,
-              "cardIds": []
+              "cardIds": [],
+              "i18n": {
+                "es": "Ming",
+                "fr": "Ming",
+                "de": "Ming",
+                "it": "Ming",
+                "nl": "Ming",
+                "ru": "Мин",
+                "ar": "مينغ",
+                "zh": "明",
+                "ja": "明"
+              }
             },
             {
               "id": "col-33",
               "title": "Qing",
               "placeholder": false,
-              "cardIds": []
+              "cardIds": [],
+              "i18n": {
+                "es": "Qing",
+                "fr": "Qing",
+                "de": "Qing",
+                "it": "Qing",
+                "nl": "Qing",
+                "ru": "Цин",
+                "ar": "تشينغ",
+                "zh": "清",
+                "ja": "清"
+              }
             }
-          ]
+          ],
+          "i18n": {
+            "es": "Época imperial",
+            "fr": "Époque impériale",
+            "de": "Kaiserzeit",
+            "it": "Epoca imperiale",
+            "nl": "Keizertijd",
+            "ru": "Имперский период",
+            "ar": "العصر الإمبراطوري",
+            "zh": "帝制时期",
+            "ja": "帝政期"
+          }
         },
         {
           "id": "col-34",
@@ -270,35 +622,112 @@ window.COLLECTION_TREE = {
               "id": "col-35",
               "title": "Early Republic",
               "placeholder": false,
-              "cardIds": []
+              "cardIds": [],
+              "i18n": {
+                "es": "Primera República",
+                "fr": "Première République",
+                "de": "Frühe Republik",
+                "it": "Prima Repubblica",
+                "nl": "Vroege Republiek",
+                "ru": "Ранняя республика",
+                "ar": "الجمهورية المبكّرة",
+                "zh": "民国初年",
+                "ja": "中華民国初期"
+              }
             },
             {
               "id": "col-36",
               "title": "Civil War",
               "placeholder": false,
-              "cardIds": []
+              "cardIds": [],
+              "i18n": {
+                "es": "Guerra Civil",
+                "fr": "Guerre civile",
+                "de": "Bürgerkrieg",
+                "it": "Guerra civile",
+                "nl": "Burgeroorlog",
+                "ru": "Гражданская война",
+                "ar": "الحرب الأهلية",
+                "zh": "国共内战",
+                "ja": "国共内戦"
+              }
             },
             {
               "id": "col-37",
               "title": "World War II",
               "placeholder": false,
-              "cardIds": []
+              "cardIds": [],
+              "i18n": {
+                "es": "Segunda Guerra Mundial",
+                "fr": "Seconde Guerre mondiale",
+                "de": "Zweiter Weltkrieg",
+                "it": "Seconda guerra mondiale",
+                "nl": "Tweede Wereldoorlog",
+                "ru": "Вторая мировая война",
+                "ar": "الحرب العالمية الثانية",
+                "zh": "第二次世界大战",
+                "ja": "第二次世界大戦"
+              }
             },
             {
               "id": "col-38",
               "title": "People's Republic of China",
               "placeholder": false,
-              "cardIds": []
+              "cardIds": [],
+              "i18n": {
+                "es": "República Popular China",
+                "fr": "République populaire de Chine",
+                "de": "Volksrepublik China",
+                "it": "Repubblica Popolare Cinese",
+                "nl": "Volksrepubliek China",
+                "ru": "Китайская Народная Республика",
+                "ar": "جمهورية الصين الشعبية",
+                "zh": "中华人民共和国",
+                "ja": "中華人民共和国"
+              }
             },
             {
               "id": "col-39",
               "title": "Republic of China (Taiwan)",
               "placeholder": false,
-              "cardIds": []
+              "cardIds": [],
+              "i18n": {
+                "es": "República de China (Taiwán)",
+                "fr": "République de Chine (Taïwan)",
+                "de": "Republik China (Taiwan)",
+                "it": "Repubblica di Cina (Taiwan)",
+                "nl": "Republiek China (Taiwan)",
+                "ru": "Китайская Республика (Тайвань)",
+                "ar": "جمهورية الصين (تايوان)",
+                "zh": "中华民国（台湾）",
+                "ja": "中華民国（台湾）"
+              }
             }
-          ]
+          ],
+          "i18n": {
+            "es": "Época contemporánea",
+            "fr": "Époque contemporaine",
+            "de": "Moderne",
+            "it": "Età contemporanea",
+            "nl": "Moderne tijd",
+            "ru": "Новейшее время",
+            "ar": "العصر الحديث",
+            "zh": "近现代",
+            "ja": "近現代"
+          }
         }
-      ]
+      ],
+      "i18n": {
+        "es": "China",
+        "fr": "Chine",
+        "de": "China",
+        "it": "Cina",
+        "nl": "China",
+        "ru": "Китай",
+        "ar": "الصين",
+        "zh": "中国",
+        "ja": "中国"
+      }
     },
     {
       "id": "col-8",
@@ -361,7 +790,18 @@ window.COLLECTION_TREE = {
             "wh-048",
             "wh-049",
             "wh-050"
-          ]
+          ],
+          "i18n": {
+            "es": "Prehistoria",
+            "fr": "Préhistoire",
+            "de": "Urgeschichte",
+            "it": "Preistoria",
+            "nl": "Prehistorie",
+            "ru": "Доисторическая эпоха",
+            "ar": "ما قبل التاريخ",
+            "zh": "史前时期",
+            "ja": "先史時代"
+          }
         },
         {
           "id": "col-44",
@@ -372,21 +812,65 @@ window.COLLECTION_TREE = {
               "id": "col-45",
               "title": "Paleolithic",
               "placeholder": false,
-              "cardIds": []
+              "cardIds": [],
+              "i18n": {
+                "es": "Paleolítico",
+                "fr": "Paléolithique",
+                "de": "Altsteinzeit",
+                "it": "Paleolitico",
+                "nl": "Paleolithicum",
+                "ru": "Палеолит",
+                "ar": "العصر الحجري القديم",
+                "zh": "旧石器时代",
+                "ja": "旧石器時代"
+              }
             },
             {
               "id": "col-46",
               "title": "Mesolithic",
               "placeholder": false,
-              "cardIds": []
+              "cardIds": [],
+              "i18n": {
+                "es": "Mesolítico",
+                "fr": "Mésolithique",
+                "de": "Mittelsteinzeit",
+                "it": "Mesolitico",
+                "nl": "Mesolithicum",
+                "ru": "Мезолит",
+                "ar": "العصر الحجري الأوسط",
+                "zh": "中石器时代",
+                "ja": "中石器時代"
+              }
             },
             {
               "id": "col-47",
               "title": "Neolithic",
               "placeholder": false,
-              "cardIds": []
+              "cardIds": [],
+              "i18n": {
+                "es": "Neolítico",
+                "fr": "Néolithique",
+                "de": "Jungsteinzeit",
+                "it": "Neolitico",
+                "nl": "Neolithicum",
+                "ru": "Неолит",
+                "ar": "العصر الحجري الحديث",
+                "zh": "新石器时代",
+                "ja": "新石器時代"
+              }
             }
-          ]
+          ],
+          "i18n": {
+            "es": "Prehistoria",
+            "fr": "Préhistoire",
+            "de": "Urgeschichte",
+            "it": "Preistoria",
+            "nl": "Prehistorie",
+            "ru": "Доисторическая эпоха",
+            "ar": "ما قبل التاريخ",
+            "zh": "史前时期",
+            "ja": "先史時代"
+          }
         },
         {
           "id": "col-48",
@@ -397,27 +881,82 @@ window.COLLECTION_TREE = {
               "id": "col-49",
               "title": "Copper Age",
               "placeholder": false,
-              "cardIds": []
+              "cardIds": [],
+              "i18n": {
+                "es": "Edad del Cobre",
+                "fr": "Âge du cuivre",
+                "de": "Kupferzeit",
+                "it": "Età del rame",
+                "nl": "Kopertijd",
+                "ru": "Медный век",
+                "ar": "العصر النحاسي",
+                "zh": "铜石并用时代",
+                "ja": "銅器時代"
+              }
             },
             {
               "id": "col-50",
               "title": "Bronze Age",
               "placeholder": false,
-              "cardIds": []
+              "cardIds": [],
+              "i18n": {
+                "es": "Edad del Bronce",
+                "fr": "Âge du bronze",
+                "de": "Bronzezeit",
+                "it": "Età del bronzo",
+                "nl": "Bronstijd",
+                "ru": "Бронзовый век",
+                "ar": "العصر البرونزي",
+                "zh": "青铜时代",
+                "ja": "青銅器時代"
+              }
             },
             {
               "id": "col-51",
               "title": "Iron Age",
               "placeholder": false,
-              "cardIds": []
+              "cardIds": [],
+              "i18n": {
+                "es": "Edad del Hierro",
+                "fr": "Âge du fer",
+                "de": "Eisenzeit",
+                "it": "Età del ferro",
+                "nl": "IJzertijd",
+                "ru": "Железный век",
+                "ar": "العصر الحديدي",
+                "zh": "铁器时代",
+                "ja": "鉄器時代"
+              }
             },
             {
               "id": "col-52",
               "title": "Classical Antiquity",
               "placeholder": false,
-              "cardIds": []
+              "cardIds": [],
+              "i18n": {
+                "es": "Antigüedad clásica",
+                "fr": "Antiquité classique",
+                "de": "Klassische Antike",
+                "it": "Antichità classica",
+                "nl": "Klassieke oudheid",
+                "ru": "Классическая древность",
+                "ar": "العصر الكلاسيكي القديم",
+                "zh": "古典时代",
+                "ja": "古典古代"
+              }
             }
-          ]
+          ],
+          "i18n": {
+            "es": "Antigüedad",
+            "fr": "Antiquité",
+            "de": "Altertum",
+            "it": "Antichità",
+            "nl": "Oudheid",
+            "ru": "Древний мир",
+            "ar": "العصور القديمة",
+            "zh": "古代",
+            "ja": "古代"
+          }
         },
         {
           "id": "col-53",
@@ -428,27 +967,82 @@ window.COLLECTION_TREE = {
               "id": "col-54",
               "title": "Early",
               "placeholder": false,
-              "cardIds": []
+              "cardIds": [],
+              "i18n": {
+                "es": "Alta",
+                "fr": "Haut",
+                "de": "Frühmittelalter",
+                "it": "Alto",
+                "nl": "Vroeg",
+                "ru": "Раннее",
+                "ar": "المبكّرة",
+                "zh": "前期",
+                "ja": "前期"
+              }
             },
             {
               "id": "col-55",
               "title": "High",
               "placeholder": false,
-              "cardIds": []
+              "cardIds": [],
+              "i18n": {
+                "es": "Plena",
+                "fr": "Central",
+                "de": "Hochmittelalter",
+                "it": "Centrale",
+                "nl": "Hoog",
+                "ru": "Высокое",
+                "ar": "الوسطى",
+                "zh": "中期",
+                "ja": "盛期"
+              }
             },
             {
               "id": "col-56",
               "title": "Late",
               "placeholder": false,
-              "cardIds": []
+              "cardIds": [],
+              "i18n": {
+                "es": "Baja",
+                "fr": "Bas",
+                "de": "Spätmittelalter",
+                "it": "Basso",
+                "nl": "Laat",
+                "ru": "Позднее",
+                "ar": "المتأخّرة",
+                "zh": "后期",
+                "ja": "後期"
+              }
             }
-          ]
+          ],
+          "i18n": {
+            "es": "Edad Media",
+            "fr": "Moyen Âge",
+            "de": "Mittelalter",
+            "it": "Medioevo",
+            "nl": "Middeleeuwen",
+            "ru": "Средние века",
+            "ar": "العصور الوسطى",
+            "zh": "中世纪",
+            "ja": "中世"
+          }
         },
         {
           "id": "col-58",
           "title": "Early Modern",
           "placeholder": false,
-          "cardIds": []
+          "cardIds": [],
+          "i18n": {
+            "es": "Edad Moderna",
+            "fr": "Époque moderne",
+            "de": "Frühe Neuzeit",
+            "it": "Età moderna",
+            "nl": "Vroegmoderne tijd",
+            "ru": "Раннее Новое время",
+            "ar": "بدايات العصر الحديث",
+            "zh": "近代早期",
+            "ja": "近世"
+          }
         },
         {
           "id": "col-57",
@@ -459,76 +1053,219 @@ window.COLLECTION_TREE = {
               "id": "col-59",
               "title": "19th century",
               "placeholder": false,
-              "cardIds": []
+              "cardIds": [],
+              "i18n": {
+                "es": "Siglo XIX",
+                "fr": "XIXe siècle",
+                "de": "19. Jahrhundert",
+                "it": "XIX secolo",
+                "nl": "19e eeuw",
+                "ru": "XIX век",
+                "ar": "القرن التاسع عشر",
+                "zh": "19 世纪",
+                "ja": "19世紀"
+              }
             },
             {
               "id": "col-60",
               "title": "Great War",
               "placeholder": false,
-              "cardIds": []
+              "cardIds": [],
+              "i18n": {
+                "es": "Gran Guerra",
+                "fr": "Grande Guerre",
+                "de": "Erster Weltkrieg",
+                "it": "Grande Guerra",
+                "nl": "Grote Oorlog",
+                "ru": "Первая мировая война",
+                "ar": "الحرب العظمى",
+                "zh": "第一次世界大战",
+                "ja": "第一次世界大戦"
+              }
             },
             {
               "id": "col-61",
               "title": "Interbellum",
               "placeholder": false,
-              "cardIds": []
+              "cardIds": [],
+              "i18n": {
+                "es": "Período de entreguerras",
+                "fr": "Entre-deux-guerres",
+                "de": "Zwischenkriegszeit",
+                "it": "Periodo tra le due guerre",
+                "nl": "Interbellum",
+                "ru": "Межвоенный период",
+                "ar": "فترة ما بين الحربين",
+                "zh": "两战之间",
+                "ja": "戦間期"
+              }
             },
             {
               "id": "col-62",
               "title": "World War II",
               "placeholder": false,
-              "cardIds": []
+              "cardIds": [],
+              "i18n": {
+                "es": "Segunda Guerra Mundial",
+                "fr": "Seconde Guerre mondiale",
+                "de": "Zweiter Weltkrieg",
+                "it": "Seconda guerra mondiale",
+                "nl": "Tweede Wereldoorlog",
+                "ru": "Вторая мировая война",
+                "ar": "الحرب العالمية الثانية",
+                "zh": "第二次世界大战",
+                "ja": "第二次世界大戦"
+              }
             },
             {
               "id": "col-63",
               "title": "Cold War",
               "placeholder": false,
-              "cardIds": []
+              "cardIds": [],
+              "i18n": {
+                "es": "Guerra Fría",
+                "fr": "Guerre froide",
+                "de": "Kalter Krieg",
+                "it": "Guerra fredda",
+                "nl": "Koude Oorlog",
+                "ru": "Холодная война",
+                "ar": "الحرب الباردة",
+                "zh": "冷战",
+                "ja": "冷戦"
+              }
             },
             {
               "id": "col-64",
               "title": "21st century",
               "placeholder": false,
-              "cardIds": []
+              "cardIds": [],
+              "i18n": {
+                "es": "Siglo XXI",
+                "fr": "XXIe siècle",
+                "de": "21. Jahrhundert",
+                "it": "XXI secolo",
+                "nl": "21e eeuw",
+                "ru": "XXI век",
+                "ar": "القرن الحادي والعشرون",
+                "zh": "21 世纪",
+                "ja": "21世紀"
+              }
             }
-          ]
+          ],
+          "i18n": {
+            "es": "Época contemporánea",
+            "fr": "Époque contemporaine",
+            "de": "Moderne",
+            "it": "Età contemporanea",
+            "nl": "Moderne tijd",
+            "ru": "Новейшее время",
+            "ar": "العصر الحديث",
+            "zh": "现代",
+            "ja": "近現代"
+          }
         }
-      ]
+      ],
+      "i18n": {
+        "es": "Historia universal",
+        "fr": "Histoire mondiale",
+        "de": "Weltgeschichte",
+        "it": "Storia mondiale",
+        "nl": "Wereldgeschiedenis",
+        "ru": "Всемирная история",
+        "ar": "التاريخ العالمي",
+        "zh": "世界历史",
+        "ja": "世界史"
+      }
     },
     {
       "id": "col-13",
       "title": "Ancient Greece",
       "total": 0,
       "placeholder": false,
-      "cardIds": []
+      "cardIds": [],
+      "i18n": {
+        "es": "Antigua Grecia",
+        "fr": "Grèce antique",
+        "de": "Antikes Griechenland",
+        "it": "Antica Grecia",
+        "nl": "Oude Griekenland",
+        "ru": "Древняя Греция",
+        "ar": "اليونان القديمة",
+        "zh": "古希腊",
+        "ja": "古代ギリシャ"
+      }
     },
     {
       "id": "col-40",
       "title": "Ancient Rome",
       "total": 0,
       "placeholder": false,
-      "cardIds": []
+      "cardIds": [],
+      "i18n": {
+        "es": "Antigua Roma",
+        "fr": "Rome antique",
+        "de": "Antikes Rom",
+        "it": "Antica Roma",
+        "nl": "Oude Rome",
+        "ru": "Древний Рим",
+        "ar": "روما القديمة",
+        "zh": "古罗马",
+        "ja": "古代ローマ"
+      }
     },
     {
       "id": "col-41",
       "title": "United States",
       "total": 0,
       "placeholder": false,
-      "cardIds": []
+      "cardIds": [],
+      "i18n": {
+        "es": "Estados Unidos",
+        "fr": "États-Unis",
+        "de": "Vereinigte Staaten",
+        "it": "Stati Uniti",
+        "nl": "Verenigde Staten",
+        "ru": "Соединённые Штаты",
+        "ar": "الولايات المتحدة",
+        "zh": "美国",
+        "ja": "アメリカ合衆国"
+      }
     },
     {
       "id": "col-42",
       "title": "Russia",
       "total": 0,
       "placeholder": false,
-      "cardIds": []
+      "cardIds": [],
+      "i18n": {
+        "es": "Rusia",
+        "fr": "Russie",
+        "de": "Russland",
+        "it": "Russia",
+        "nl": "Rusland",
+        "ru": "Россия",
+        "ar": "روسيا",
+        "zh": "俄罗斯",
+        "ja": "ロシア"
+      }
     },
     {
       "id": "col-43",
       "title": "India",
       "total": 0,
       "placeholder": false,
-      "cardIds": []
+      "cardIds": [],
+      "i18n": {
+        "es": "India",
+        "fr": "Inde",
+        "de": "Indien",
+        "it": "India",
+        "nl": "India",
+        "ru": "Индия",
+        "ar": "الهند",
+        "zh": "印度",
+        "ja": "インド"
+      }
     }
   ]
 };
