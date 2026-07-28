@@ -328,9 +328,9 @@ body.night .banner, body.night .banner:hover{border-left-color:#fff;}
 .explore-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
 /* the term of the day takes a little more of the row on the days its term has an illustration —
    at one third of the row the copy is squeezed to three words a line beside the picture */
-.explore-grid.has-term-img{grid-template-columns:repeat(5,1fr);}
-.explore-grid.has-term-img .exp-card{grid-column:span 3;}
-.explore-grid.has-term-img .exp-term{grid-column:span 2;}
+.explore-grid.has-term-img{grid-template-columns:repeat(2,1fr);}
+.explore-grid.has-term-img .exp-card{grid-column:span 1;}
+.explore-grid.has-term-img .exp-term{grid-column:span 1;}
 .exp-tile{
   position:relative; text-align:left; cursor:pointer;
   background:var(--card); border:1px solid var(--rule); border-radius:14px;
@@ -389,12 +389,15 @@ body.night .exp-card .flip-face{
 .exp-term{flex-direction:row; align-items:stretch; gap:14px;}
 .term-copy{display:flex; flex-direction:column; gap:8px; flex:1 1 auto; min-width:0;}
 /* a portrait plate, the shape of a profile picture: every term's picture is the same 3:4 frame whatever its
-   own proportions, so the tile keeps one silhouette from day to day and the copy always gets the same width.
-   Unlike the popup (which shows the picture whole) this one fills the frame and crops — the crop sits a
-   little above centre, where the subject of a portrait usually is. */
+   own proportions, so the tile keeps one silhouette from day to day. It runs the full height of the tile and
+   bleeds to the top, bottom and right edges — the negative margins cancel the tile's own padding, and the
+   right corners carry the tile's radius less its 1px border. Unlike the popup (which shows the picture whole)
+   this one fills the frame and crops; the crop sits a little above centre, where a portrait's subject is. */
 .term-img{
-  flex:none; align-self:center; width:84px; aspect-ratio:3/4; overflow:hidden; line-height:0;
-  border-radius:10px; border:1px solid var(--rule); background:var(--paper-2); box-shadow:var(--shadow-sm);
+  flex:none; align-self:stretch; width:auto; aspect-ratio:3/4; max-width:46%;
+  margin:-18px 0; margin-inline-end:-20px; overflow:hidden; line-height:0;
+  border-radius:0; border-start-end-radius:13px; border-end-end-radius:13px;   /* logical: the plate is on the left in Arabic */
+  background:var(--paper-2);
 }
 .term-img img{display:block; width:100%; height:100%; object-fit:cover; object-position:center 40%;}
 .term-title{font-family:var(--display); font-weight:600; font-size:20px; letter-spacing:-.01em; color:var(--ink);}
