@@ -123,7 +123,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   NOT go inline into `truefalse.js` / `quotes.js`** — both are in the EAGER load path, and nine languages
   inline took `quotes.js` from 27 KB to 312 KB downloaded by every visitor to flip a card. `PAGES.truefalse`
   and `PAGES.whosaid` hold on a loading line (`gamesI18nPending`) until it lands so they never paint English
-  and flip. `quotes` is complete in all 9; `truefalse` is not yet translated.
+  and flip. Both pools are complete in all 9.
 - `quotes.js` — `window.QUOTEGAME = [ { q, who, context } ]`, the pool for the **Who said it?** home-page minigame (64 famous,
   well-documented quotations by distinct historical figures; `who` = the speaker, `context` = a 2-sentence explanation shown on
   reveal). **Adversarially fact-checked** for correct attribution (quote misattribution is rampant). The 4 answer options are the

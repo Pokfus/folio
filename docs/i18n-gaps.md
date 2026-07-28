@@ -186,7 +186,7 @@ title silently stayed English — any new tree-node field needs all three.
 Verified: the tree bucket fell from 62 survivors to 4, and all four belong elsewhere (a `4.2 Mya – 2022
 CE` deck span → Batch 7; `China`/`India`/`Russia` in the Settings country picker → Batch 6).
 
-### Batch 4 — daily games — ⏳ HALF SHIPPED (Who said it? done, True or False pending)
+### Batch 4 — daily games ✅ SHIPPED
 Mechanism complete, and **all 64 quotations are live in all 9 languages** — the quotation, the speaker's
 name and the explanation, so the four answer options are localised too and the quiz stays
 self-consistent. Famous lines use the established target-language wording where one exists (Rousseau's
@@ -213,11 +213,16 @@ or absent, never half-done, and an untranslated language falls back to English e
 | | es | fr | de | it | nl | ru | ar | zh | ja |
 |---|---|---|---|---|---|---|---|---|---|
 | quotes (64) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| truefalse (79) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — |
+| truefalse (79) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 
-Remaining: 1 language × 79 statements (ja) (`q`, `why`, `cat`), ~5,000 words each. Pure content — the
-mechanism, tooling and category labels are done, and the pipeline is verified end to end on Spanish
-(statement, category, verdict line and explanation all render translated).
+Both pools are now complete in all nine languages — 143 items × 9 — verified by counting every field of
+every item in each `i18n/games-<lang>.js` and by rendering both game pages in each language.
+
+Two faults the render check caught that a coverage count never would have. In Arabic, "Correct" and
+"True" both rendered صحيح, so a right answer read *"correct — it's correct"*; the verdict now uses أحسنت.
+And two stray CJK characters had slipped into Russian prose — after which the batch generator gained a
+CJK-in-non-CJK guard beside its Cyrillic and Arabic ones, since script bleed between languages is the one
+authoring error this pipeline can catch mechanically rather than by proofreading.
 
 ### Batch 5 — changelog (185 strings, 4,757 words × 9)
 Add per-day `i18n` to `changelog.js` and an `add-lang.js` `changelog` section. Worth pairing with a
