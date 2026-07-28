@@ -252,7 +252,24 @@ and is what gets stored in `S.settings.home`.
 An **empty** `places-<lang>.js` ships for all nine languages — an absent file would 404 on every page load
 for that language, the same trap CLAUDE.md records for the gloss files.
 
-Content next, one complete language at a time, as with the game pools.
+**Content, part 1 — present-day countries, all nine languages ✅.** Every country in `world.js` that has an
+established form in the target language: es 135 / fr 137 / de 128 / it 109 / nl 125 / ru 236 / ar 238 /
+zh 238 / ja 238. The Latin-script counts are lower because the generator **drops any entry identical to
+the English** — `placeName` falls back, so `Chad` needs no Spanish row and the shipped file stays small.
+Uninhabited banks, reefs, glaciers and military zones (Bajo Nuevo Bank, Siachen Glacier, Akrotiri) are
+deliberately omitted: they have no established local form anywhere, and inventing one would be fabrication.
+Verified by screenshot on the live globe in Japanese and Arabic — canvas `fillText` shapes both scripts
+correctly — and by a script-bleed check that fails if, say, a Cyrillic string lands in the Japanese file.
+
+**Content, part 2 — era territories and era capitals, still pending.** 1,194 territory names and 556
+capitals. The shape of that work is not what the raw numbers suggest: **roughly 750 of the territory names
+are ethnonyms** — Aboriginal Australian, Native American, Siberian and African peoples (Wiradjuri, Kwakwaka'wakw,
+Yukagir). Those are endonyms and stay in their own form in every language, which is correct atlas practice
+rather than a shortcut; the generator drops them as identical. What genuinely needs translating is the
+~370 polities and regions (Ottoman Empire, British Raj, Denmark–Norway, Qing dynasty, Cape Colony) and the
+subset of capitals with established local forms — the world capitals and the famous historical cities
+(Constantinople, Peking, Saigon, Kristiania). Obscure historical seats with no established form in the
+target language are left alone for the same reason as the reefs.
 
 ### Batch 7 — date and era formatting ✅ SHIPPED
 26 rules + 1 exact string per language, covering `yearLabel()`'s five forms (CE / BCE / kya / Mya / Gya),
