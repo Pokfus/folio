@@ -4083,32 +4083,82 @@
   // well-documented passages, no loose internet attributions. s = where the words come from (the work
   // and its book/chapter/letter), shown small under the speaker; a quote whose wording is traditional
   // rather than traceable to a passage says so plainly rather than borrowing a citation it hasn't earned.
+  // o = the passage as its writer set it down (text, speaker and source in that language, plus its BCP-47
+  // tag), revealed by clicking the quote. A quote carries one ONLY where the wording is documented:
+  // Bacon wrote his essay in English, and where the exact original could not be verified there is no `o`
+  // rather than a plausible-looking reconstruction — the same rule the cards and glossary run on.
   const QUOTES = [
-    { t: "To learn, and at due times to repeat what one has learnt — is that not after all a pleasure?", a: "Confucius", s: "Analects I.1" },
-    { t: "He who by reanimating the old can gain knowledge of the new is fit to be a teacher.", a: "Confucius", s: "Analects II.11" },
-    { t: "Learning without thought is labour lost; thought without learning is perilous.", a: "Confucius", s: "Analects II.15" },
-    { t: "Real knowledge is to know the extent of one's ignorance.", a: "Confucius", s: "Attributed; cf. Analects II.17" },
-    { t: "Knowing others is wisdom; knowing yourself is enlightenment.", a: "Laozi", s: "Tao Te Ching, ch. 33" },
-    { t: "The journey of a thousand miles begins with a single step.", a: "Laozi", s: "Tao Te Ching, ch. 64" },
-    { t: "Life has a limit, but knowledge has none.", a: "Zhuangzi", s: "Zhuangzi, ch. 3" },
-    { t: "If you know the enemy and know yourself, you need not fear the result of a hundred battles.", a: "Sun Tzu", s: "The Art of War, ch. 3" },
-    { t: "The great man is he who does not lose his child's heart.", a: "Mencius", s: "Mencius IV.B.12" },
-    { t: "A man has only one death; it may be as weighty as Mount Tai or as light as a goose feather.", a: "Sima Qian", s: "Letter to Ren An" },
-    { t: "As long as you live, keep learning how to live.", a: "Seneca", s: "Moral Letters to Lucilius 76" },
-    { t: "While we teach, we learn.", a: "Seneca", s: "Moral Letters to Lucilius 7" },
-    { t: "To be ignorant of what occurred before you were born is to remain forever a child.", a: "Cicero", s: "Orator 34.120" },
-    { t: "The life of the dead is set in the memory of the living.", a: "Cicero", s: "Philippics 9.5" },
+    { t: "To learn, and at due times to repeat what one has learnt — is that not after all a pleasure?", a: "Confucius", s: "Analects I.1",
+      o: { lang: "lzh", t: "學而時習之，不亦說乎？", a: "孔子", s: "《論語·學而》" } },
+    { t: "He who by reanimating the old can gain knowledge of the new is fit to be a teacher.", a: "Confucius", s: "Analects II.11",
+      o: { lang: "lzh", t: "溫故而知新，可以為師矣。", a: "孔子", s: "《論語·為政》" } },
+    { t: "Learning without thought is labour lost; thought without learning is perilous.", a: "Confucius", s: "Analects II.15",
+      o: { lang: "lzh", t: "學而不思則罔，思而不學則殆。", a: "孔子", s: "《論語·為政》" } },
+    { t: "Real knowledge is to know the extent of one's ignorance.", a: "Confucius", s: "Attributed; cf. Analects II.17",
+      o: { lang: "lzh", t: "知之為知之，不知為不知，是知也。", a: "孔子", s: "傳世格言；參《論語·為政》" } },
+    { t: "Knowing others is wisdom; knowing yourself is enlightenment.", a: "Laozi", s: "Tao Te Ching, ch. 33",
+      o: { lang: "lzh", t: "知人者智，自知者明。", a: "老子", s: "《道德經》第三十三章" } },
+    { t: "The journey of a thousand miles begins with a single step.", a: "Laozi", s: "Tao Te Ching, ch. 64",
+      o: { lang: "lzh", t: "千里之行，始於足下。", a: "老子", s: "《道德經》第六十四章" } },
+    { t: "Life has a limit, but knowledge has none.", a: "Zhuangzi", s: "Zhuangzi, ch. 3",
+      o: { lang: "lzh", t: "吾生也有涯，而知也無涯。", a: "莊子", s: "《莊子·養生主》" } },
+    { t: "If you know the enemy and know yourself, you need not fear the result of a hundred battles.", a: "Sun Tzu", s: "The Art of War, ch. 3",
+      o: { lang: "lzh", t: "知彼知己，百戰不殆。", a: "孫子", s: "《孫子兵法·謀攻》" } },
+    { t: "The great man is he who does not lose his child's heart.", a: "Mencius", s: "Mencius IV.B.12",
+      o: { lang: "lzh", t: "大人者，不失其赤子之心者也。", a: "孟子", s: "《孟子·離婁下》" } },
+    { t: "A man has only one death; it may be as weighty as Mount Tai or as light as a goose feather.", a: "Sima Qian", s: "Letter to Ren An",
+      o: { lang: "lzh", t: "人固有一死，或重於泰山，或輕於鴻毛。", a: "司馬遷", s: "《報任安書》" } },
+    { t: "As long as you live, keep learning how to live.", a: "Seneca", s: "Moral Letters to Lucilius 76",
+      o: { lang: "la", t: "Tamdiu discendum est, quemadmodum vivas, quamdiu vivas.", a: "Lucius Annaeus Seneca", s: "Epistulae morales ad Lucilium 76.3" } },
+    { t: "While we teach, we learn.", a: "Seneca", s: "Moral Letters to Lucilius 7",
+      o: { lang: "la", t: "Homines dum docent discunt.", a: "Lucius Annaeus Seneca", s: "Epistulae morales ad Lucilium 7.8" } },
+    { t: "To be ignorant of what occurred before you were born is to remain forever a child.", a: "Cicero", s: "Orator 34.120",
+      o: { lang: "la", t: "Nescire autem quid ante quam natus sis acciderit, id est semper esse puerum.", a: "Marcus Tullius Cicero", s: "Orator 34.120" } },
+    { t: "The life of the dead is set in the memory of the living.", a: "Cicero", s: "Philippics 9.5",
+      o: { lang: "la", t: "Vita enim mortuorum in memoria est posita vivorum.", a: "Marcus Tullius Cicero", s: "Philippicae IX.5" } },
     { t: "Look back over the past, with its changing empires that rose and fell, and you can foresee the future too.", a: "Marcus Aurelius", s: "Meditations VII.49" },
-    { t: "Knowledge which is acquired under compulsion obtains no hold on the mind.", a: "Plato", s: "Republic VII, 536e" },
-    { t: "It is impossible for a man to learn what he thinks he already knows.", a: "Epictetus", s: "Discourses II.17" },
+    { t: "Knowledge which is acquired under compulsion obtains no hold on the mind.", a: "Plato", s: "Republic VII, 536e",
+      o: { lang: "grc", t: "ψυχῇ δὲ βίαιον οὐδὲν ἔμμονον μάθημα.", a: "Πλάτων", s: "Πολιτεία Ζ΄, 536e" } },
+    { t: "It is impossible for a man to learn what he thinks he already knows.", a: "Epictetus", s: "Discourses II.17",
+      o: { lang: "grc", t: "ἀμήχανον γάρ, ἅ τις οἴεται εἰδέναι, ταῦτα ἄρχεσθαι μανθάνειν.", a: "Ἐπίκτητος", s: "Διατριβαί Β΄.17" } },
     { t: "Histories make men wise.", a: "Francis Bacon", s: "Essays: Of Studies, 1625" },
-    { t: "There is no royal road to geometry.", a: "Euclid", s: "Reported by Proclus, Commentary on Euclid I" },
-    { t: "I grow old ever learning many things.", a: "Solon", s: "Quoted in Plutarch, Life of Solon 31" },
+    { t: "There is no royal road to geometry.", a: "Euclid", s: "Reported by Proclus, Commentary on Euclid I",
+      o: { lang: "grc", t: "μὴ εἶναι βασιλικὴν ἀτραπὸν ἐπὶ γεωμετρίαν.", a: "Εὐκλείδης", s: "Πρόκλος, Εἰς τὸ πρῶτον τῶν Εὐκλείδου Στοιχείων" } },
+    { t: "I grow old ever learning many things.", a: "Solon", s: "Quoted in Plutarch, Life of Solon 31",
+      o: { lang: "grc", t: "γηράσκω δ' αἰεὶ πολλὰ διδασκόμενος.", a: "Σόλων", s: "Πλούταρχος, Σόλων 31" } },
   ];
+  // Clicking the quote turns it into the original — words, speaker and source — and clicking again
+  // returns it to the reader's own language. Both halves are in the DOM and one is `hidden`, so the
+  // toggle is a class flip with nothing to re-render. The original carries `notranslate`: it is the one
+  // thing on the page the i18n engine must leave alone, or a Spanish reader would click through to
+  // Spanish. A quote with no verified original is rendered exactly as before — no cursor, no handler.
   function dailyQuoteHTML() {
     const q = QUOTES[Math.floor(Date.now() / DAY) % QUOTES.length];
-    return '<figure class="daily-quote"><blockquote>' + esc(q.t) + '</blockquote><figcaption>' + esc(q.a) +   // the caption's dash is the gold ::before rule, not a text em-dash
-      (q.s ? '<span class="dq-src">' + esc(q.s) + '</span>' : "") + '</figcaption></figure>';
+    const o = q.o;
+    const pair = (en, orig) =>
+      '<span class="dq-live">' + esc(en) + "</span>" +
+      (o ? '<span class="dq-orig notranslate" lang="' + esc(o.lang) + '" hidden>' + esc(orig) + "</span>" : "");
+    return '<figure class="daily-quote' + (o ? " dq-flip" : "") + '"' +
+      (o ? ' tabindex="0" role="button" title="Show the original" aria-label="Show the original"' : "") + ">" +
+      "<blockquote>" + pair(q.t, o && o.t) + "</blockquote>" +
+      "<figcaption>" + pair(q.a, o && o.a) +   // the caption's dash is the gold ::before rule, not a text em-dash
+      (q.s ? '<span class="dq-src">' + pair(q.s, o && o.s) + "</span>" : "") +
+      "</figcaption></figure>";
+  }
+  // flip the whole figure between the reader's language and the original
+  function wireDailyQuote(root) {
+    const fig = root.querySelector(".daily-quote.dq-flip");
+    if (!fig) return;
+    const flip = () => {
+      const toOriginal = !fig.classList.contains("dq-showing-original");
+      fig.classList.toggle("dq-showing-original", toOriginal);
+      fig.querySelectorAll(".dq-live").forEach((el) => { el.hidden = toOriginal; });
+      fig.querySelectorAll(".dq-orig").forEach((el) => { el.hidden = !toOriginal; });
+      const label = t(toOriginal ? "Show the translation" : "Show the original");
+      fig.title = label; fig.setAttribute("aria-label", label);
+    };
+    fig.addEventListener("click", flip);
+    fig.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); flip(); } });
   }
   // same pick all day, a different one tomorrow (card of the day, term of the day)
   function dailyPick(arr, salt) {
@@ -4477,6 +4527,7 @@
       expAtlas.addEventListener("click", () => route("map"));
       startMiniGlobe(expAtlas.querySelector("#miniGlobe"));
     }
+    wireDailyQuote(root);
     const reviewOrderBtn = root.querySelector("#reviewOrder");
     if (reviewOrderBtn) reviewOrderBtn.addEventListener("click", (e) => { e.stopPropagation(); S.settings.reviewRandom = !S.settings.reviewRandom; save(); render(); });
     // click a deck/subdeck in the daily-review list → review just that deck's cards (the trash button stops its own propagation)
