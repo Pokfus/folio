@@ -261,15 +261,26 @@ deliberately omitted: they have no established local form anywhere, and inventin
 Verified by screenshot on the live globe in Japanese and Arabic — canvas `fillText` shapes both scripts
 correctly — and by a script-bleed check that fails if, say, a Cyrillic string lands in the Japanese file.
 
-**Content, part 2 — era territories and era capitals, still pending.** 1,194 territory names and 556
-capitals. The shape of that work is not what the raw numbers suggest: **roughly 750 of the territory names
-are ethnonyms** — Aboriginal Australian, Native American, Siberian and African peoples (Wiradjuri, Kwakwaka'wakw,
-Yukagir). Those are endonyms and stay in their own form in every language, which is correct atlas practice
-rather than a shortcut; the generator drops them as identical. What genuinely needs translating is the
-~370 polities and regions (Ottoman Empire, British Raj, Denmark–Norway, Qing dynasty, Cape Colony) and the
-subset of capitals with established local forms — the world capitals and the famous historical cities
-(Constantinople, Peking, Saigon, Kristiania). Obscure historical seats with no established form in the
-target language are left alone for the same reason as the reefs.
+**Content, part 2 — era territories, all nine languages ✅.** The timeline carries 1,194 territory names,
+but the shape of that work is not what the number suggests: **roughly 750 of them are ethnonyms** —
+Aboriginal Australian, Native American, Siberian and African peoples (Wiradjuri, Kwakwaka'wakw, Yukagir).
+Those are endonyms and keep their own form in every language, which is correct atlas practice rather than
+a shortcut; the generator drops them as identical to the English. What genuinely needed translating was
+done in two passes: the **206 named polities** (Ottoman Empire, British Raj, Cape Colony, Grand Duchy of
+Moscow, Viceroyalty of New Spain), then the **~190 remaining regions and descriptive labels** — historical
+states without a "Kingdom of" in the name (Abyssinia, Siam, Rhodesia, Austria-Hungary, Cochin China), the
+colonial `Country (Power)` forms, and the map's own prose labels for pre-state areas ("Plateau fishers and
+hunter-gatherers", "Northeastern Woodlands nations"). Those last are descriptions rather than names, so
+leaving them English would have been a real gap.
+
+Running totals: es 492 / fr 481 / de 474 / it 454 / nl 466 / ru 633 / ar 635 / zh 635 / ja 635 of 1,744.
+Verified on the 1900 map in Russian — every label on the visible hemisphere now reads in Cyrillic.
+
+**Still pending — the 556 era capitals.** Only a subset warrants translation: world capitals and famous
+historical cities whose local forms are established (Constantinople, Peking, Saigon, Kristiania, Urga).
+Obscure historical seats — Bal Batsinâng, Danamombe, Xieng Dong Xieng Thong — have no established form in
+Spanish or Japanese, and inventing a transliteration would be fabrication, so they stay as they are for the
+same reason as the uninhabited reefs.
 
 ### Batch 7 — date and era formatting ✅ SHIPPED
 26 rules + 1 exact string per language, covering `yearLabel()`'s five forms (CE / BCE / kya / Mya / Gya),

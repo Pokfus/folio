@@ -13,6 +13,7 @@ window.CHANGELOG = [
       "Dates now read in your language across the site: the years under a deck title, the lifespans and reigns on glossary terms, and the spans on the Atlas country panel. Eras are written the way each language writes them — n. Chr., av. J.-C., 公元前 — and ages in deep time are spelled out rather than left as Mya.",
       "True or False is now fully in your language too — the statement, its category and the explanation that follows. Together with Who said it?, every daily game now reads in all ten site languages.",
       "The Atlas globe now labels countries in your language. Every present-day country reads in the language you are browsing in — on the map itself, in the name that follows your cursor, and in the home-location picker in Settings.",
+      "The historical maps are labelled in your language too. Empires, colonies and old kingdoms — and the map's own descriptions of the peoples who lived beyond them — now read in whichever language you are browsing in, at every year on the timeline.",
     ],
   },
   {
