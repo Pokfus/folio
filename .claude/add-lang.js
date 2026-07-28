@@ -10,7 +10,8 @@
 // <batch.json>  { "lang": "ja",
 //                 "chrome":   { "exact": { "English string": "translation", … },     // -> i18n/ui-<lang>.js  I18N[lang]
 //                               "rules": [ ["^Good morning, (.+)$", "…, $1"], … ],   // -> i18n/ui-<lang>.js  I18N_RULES[lang]
-//                               "html":  { "<innerHTML>": "<translated innerHTML>" } },  // -> i18n/ui-<lang>.js  I18N_HTML[lang]
+//                               "html":  { "<innerHTML>": "<translated innerHTML>" },  // -> i18n/ui-<lang>.js  I18N_HTML[lang]
+//                               "remove": ["English string whose source text is gone", …] },  // retire dead rows
 //                 "cards":    { "wh-001": { "question": …, "answer": …, "answerDate": …,
 //                                           "abstract": …, "answerText": … }, … },   // -> data.js  card.i18n[lang]
 //                 "games":    { "truefalse": { "<English q>": { q, why, cat }, … },   // -> i18n/games-<lang>.js
@@ -74,6 +75,10 @@ if (batch.chrome && Object.keys(batch.chrome).length) {
 
   I[lang] = Object.assign(I[lang] || {}, c.exact || {});
   H[lang] = Object.assign(H[lang] || {}, c.html || {});
+  // `remove`: retire translations whose English source string is gone (an item reworded, or several
+  // merged into one). Without this the old rows sit in every language file for ever, matching nothing
+  // and reading like coverage that exists. Removal is per language, like every other write here.
+  for (const k of (c.remove || [])) { delete (I[lang] || {})[k]; delete (H[lang] || {})[k]; }
   if (c.rules && c.rules.length) {   // rules are an ordered array — replace by pattern, else append
     R[lang] = R[lang] || [];
     for (const [pat, repl] of c.rules) {
@@ -98,6 +103,7 @@ if (batch.chrome && Object.keys(batch.chrome).length) {
     "})();\n");
   loadWindow(uiFile(lang));   // re-parse to confirm valid JS
   done.push("i18n/ui-" + lang + ".js: +" + Object.keys(c.exact || {}).length + " exact, +" + ((c.rules || []).length) + " rules, +" + Object.keys(c.html || {}).length + " html" +
+    ((c.remove || []).length ? ", −" + c.remove.length + " retired" : "") +
     " (" + lang + " now " + Object.keys(I[lang]).length + " exact / " + (R[lang] || []).length + " rules / " + Object.keys(H[lang] || {}).length + " html)");
 }
 
