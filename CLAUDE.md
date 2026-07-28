@@ -555,7 +555,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - **Home page** (`PAGES.home`): greeting → daily quote (`QUOTES` — world sources East and West, standard published
   translations only, no loose internet attributions; **clicking one flips it to the original** — text, speaker and
   source from the entry's `o` block, `wireDailyQuote` swapping `hidden` on the `.dq-live`/`.dq-orig` spans, clicking
-  again returns to the site language. The original carries **`notranslate`**, or the i18n engine would translate the
+  again returns to the site language. The swap **crossfades**: the words fade out (`dq-out`), the swap happens while
+  nothing is visible, the incoming ones are held at their start (`dq-in`, `transition:none` — removing the class is
+  what animates them) and the figure's height eases between the two languages (`dq-sizing` + an inline height, since
+  a Greek line and its English rarely wrap the same), so nothing cuts and the page below never jumps. `DQ_FADE` /
+  `DQ_SIZE` in app.js must stay in step with the `.dq-*` transition durations in styles.css; a `busy` guard ignores
+  clicks mid-flight and `prefersReducedMotion()` swaps outright instead of waiting out the timings. `.dq-flip` also
+  carries **`user-select:none`** — it is a button, and clicking it twice to toggle back otherwise swept the
+  `::selection` wash across the whole quote (the "it lights up" bug); the trade is that the quote can no longer be
+  selected for copying. The original carries **`notranslate`**, or the i18n engine would translate the
   one thing on the page that must stay as written. A quote has an `o` only where the original wording is documented —
   Bacon wrote in English, and Meditations VII.49's exact Greek could not be verified, so both render exactly as before
   with no `dq-flip` class, no cursor and no handler; **don't fill those in from memory**) → review banner → (first-run only) a 3-step how-it-works strip →
