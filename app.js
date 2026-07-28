@@ -2069,7 +2069,8 @@
         (isAdmin() && !isDeckGlossKey(key) ? '<button class="gloss-edit" type="button" aria-label="Edit this term" title="Edit this term"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>' : "") +
         '<button class="gloss-close" type="button" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>' +
       '</div>' +
-      '<div class="gloss-body"><span class="gloss-dates"></span><p class="gloss-desc"></p><div class="gloss-imgslot"></div></div>';
+      // the image slot comes FIRST: it floats to the top-right and the prose wraps down its left
+      '<div class="gloss-body"><div class="gloss-imgslot"></div><span class="gloss-dates"></span><p class="gloss-desc"></p></div>';
     win.querySelector(".gloss-title").textContent = glossTitle(key);
     const dEl = win.querySelector(".gloss-dates");
     const dates = glossDates(key);
@@ -2077,7 +2078,7 @@
     let descText = glossText(key);
     if (dates) descText = stripDupDates(descText, dates); // drop a parenthetical date identical to the label
     renderGlossDesc(win.querySelector(".gloss-desc"), key, descText);   // render its HTML + auto-link other terms
-    renderGlossImage(win.querySelector(".gloss-imgslot"), key);         // the term's illustration, below the prose
+    renderGlossImage(win.querySelector(".gloss-imgslot"), key);         // the term's illustration, floated top-right
     document.body.appendChild(win);
     setupTooltips(win.querySelector(".gloss-body")); // wire nested glossary terms
 
@@ -10450,8 +10451,8 @@
     autoLinkGlossary(el, "", [key].concat(glossOffList(key)), glossScopeForKey(key));
     boldFirstTerm(el, glossTitle(key));
   }
-  // a term's illustration at the foot of its popup. It reuses .card-img, so the delegated listener that
-  // opens the fullscreen viewer from any card image covers it too — no wiring of its own.
+  // a term's illustration, floated to the top-right of its popup. It reuses .card-img, so the delegated
+  // listener that opens the fullscreen viewer from any card image covers it too — no wiring of its own.
   function renderGlossImage(el, key, img) {
     if (!el) return;
     const im = img === undefined ? glossImage(key) : (img && img.src ? img : null);
@@ -11413,7 +11414,7 @@
           '</div>' +
           '<div class="ed-resizer" id="glossPvResizer" title="Drag to resize the preview"></div>' +
           '<div class="gloss-edit-preview"><div class="gloss-preview-label">Popup preview</div>' +
-            '<div class="gloss-win gloss-preview-win" id="adminGlossPreview"><div class="gloss-bar"><span class="gloss-title"></span><button class="gloss-close" type="button" tabindex="-1" aria-hidden="true">' + closeSvg + '</button></div><div class="gloss-body"><span class="gloss-dates"></span><p class="gloss-desc"></p><div class="gloss-imgslot"></div></div></div>' +
+            '<div class="gloss-win gloss-preview-win" id="adminGlossPreview"><div class="gloss-bar"><span class="gloss-title"></span><button class="gloss-close" type="button" tabindex="-1" aria-hidden="true">' + closeSvg + '</button></div><div class="gloss-body"><div class="gloss-imgslot"></div><span class="gloss-dates"></span><p class="gloss-desc"></p></div></div>' +
           '</div>' +
         '</div>';
       wirePreviewDivider(host.querySelector("#glossPvResizer"), host.querySelector(".gloss-edit-preview"), "--gloss-preview-w", "glossPreviewW");
