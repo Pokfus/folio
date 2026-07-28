@@ -231,9 +231,21 @@ from both the DOM sites **and** the canvas `fillText` label draws (`drawEraNames
 country-names layer). Seed 182 of them from existing glossary titles. This is the one batch with real
 render-path code in it. **Do batch 1a first** so the Atlas chrome is already translated.
 
-### Batch 7 — date and era formatting
-`I18N_RULES` for BCE/CE/Mya/kya/`Present`, covering `yearLabel()`, `GLOSSARY_DATES`, `COUNTRY_SPANS` and
-the deep-time labels. Small, but touches every historical surface. **~30 rules per language.**
+### Batch 7 — date and era formatting ✅ SHIPPED
+26 rules + 1 exact string per language, covering `yearLabel()`'s five forms (CE / BCE / kya / Mya / Gya),
+the `– Present` country spans, the `N–N; president N–N` glossary dates and the circa / born / BP prefixes
+those use. Ordered most-specific-first, since only the first matching rule fires per text node.
+
+**One code change was required.** `fmtYearSpan` joined two labels into one text node
+(`4.2 Mya – 2022 CE`), which no single rule could ever fully translate. It now localises **each side**
+before joining. `yearLabel` itself stays English on purpose — `parseChronoYear` round-trips against it in
+the editor's chronology field, which CLAUDE.md calls out as an invariant to preserve.
+
+Two things the sanity-check caught before they shipped: the numeric sub-pattern was over-escaped, so every
+deep-time rule silently matched nothing; and CJK places the era marker **before** a range
+(`约公元前145–86年`), not after the second number, so zh/ja need their own range template rather than
+reusing the single-year one. Pure-digit ranges like `1644–1912` correctly match no rule — there is nothing
+in them to translate.
 
 ### Batch 8 — Atlas prose
 Per the scope decision above. If option 2: a new lazy per-language bundle for `COUNTRY_INFO`, 258

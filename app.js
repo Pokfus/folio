@@ -154,12 +154,15 @@
   // editorial label for a year span; collapses a modern end year to "present"
   function fmtYearSpan(lo, hi) {
     const cur = new Date().getFullYear();
-    const lab = yearLabel;
+    // Localise each SIDE, not the finished span: only one I18N rule fires per text node, so a joined
+    // "4.2 Mya – 2022 CE" could never have both units translated by a single pattern. yearLabel itself
+    // stays English — parseChronoYear round-trips against it in the editor's chronology field.
+    const lab = (y) => t(yearLabel(y));
     const present = hi >= cur;
     const deep = Math.abs(lo) >= 1e4 || Math.abs(hi) >= 1e4;   // a deep-time end carries its own unit, so it can't share the other's
     if (lo === hi && !present) return lab(lo);
     if (!present && !deep && (lo < 0) === (hi < 0)) return Math.abs(lo) + " – " + lab(hi);
-    return lab(lo) + " – " + (present ? "present" : lab(hi));
+    return lab(lo) + " – " + (present ? t("present") : lab(hi));
   }
   // the date text shown behind a deck/collection title — a manual override (set on the edit page)
   // takes precedence over the automatic earliest→latest computation
