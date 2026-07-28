@@ -4324,7 +4324,8 @@
     const codLeaf = cod ? cardLeaves(cod.id)[0] || null : null;
     const todKeys = window.GLOSSARY ? Object.keys(window.GLOSSARY).filter((k) => (window.GLOSSARY_DATES || {})[k]) : [];
     const tod = dailyPick(todKeys, "term-");
-    const exploreGrid = `<div class="explore-grid">
+    const todImg = tod ? glossImage(tod) : null;   // the term's illustration, shown at the right of the tile
+    const exploreGrid = `<div class="explore-grid${todImg ? " has-term-img" : ""}">
       ${cod ? `<button class="exp-tile exp-card" id="exp-card" type="button" aria-label="Card of the day — click to flip it over">
         <div class="flip">
           <div class="flip-face flip-front">
@@ -4341,11 +4342,14 @@
         </div>
       </button>` : ""}
       ${tod ? `<button class="exp-tile exp-term" id="exp-term" type="button">
-        <span class="exp-eyebrow">Gloss of the day</span>
-        <span class="term-title">${esc(glossTitle(tod))}</span>
-        ${glossDates(tod) ? `<span class="term-dates">${esc(glossDates(tod))}</span>` : ""}
-        <span class="term-desc" id="term-desc"></span>
-        <span class="exp-hint">Term of the day — click to read</span>
+        <span class="term-copy">
+          <span class="exp-eyebrow">Gloss of the day</span>
+          <span class="term-title">${esc(glossTitle(tod))}</span>
+          ${glossDates(tod) ? `<span class="term-dates">${esc(glossDates(tod))}</span>` : ""}
+          <span class="term-desc" id="term-desc"></span>
+          <span class="exp-hint">Term of the day — click to read</span>
+        </span>
+        ${todImg ? `<span class="term-img"><img src="${esc(todImg.src)}" alt="${esc(todImg.title || glossTitle(tod))}" loading="lazy" draggable="false"></span>` : ""}
       </button>` : ""}
       <button class="exp-tile exp-atlas" id="exp-atlas" type="button">
         <div class="atlas-copy">

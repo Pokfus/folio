@@ -414,7 +414,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - **Glossary image (optional):** a term can carry the **same `{ src, title, desc, credit }` object as a card**,
   read through `glossImage(key)` and rendered by `renderGlossImage` into the `.gloss-imgslot` at the **foot of
   the popup body**, below the description. It reuses `cardImageHTML`/`.card-img`, so the existing delegated
-  listener opens the **shared** fullscreen viewer — no wiring of its own. Curated terms live in
+  listener opens the **shared** fullscreen viewer — no wiring of its own. **In the popup that frame is sized by
+  HEIGHT, not by the card's fixed 16:9 box** (`.gloss-imgslot`): the `<img>` carries only `max-height:180px` +
+  `max-width:100%` with `width/height:auto`, and the figure shrink-wraps it — so every term's picture displays
+  at the same height, the width follows its shape, and nothing is cropped or letterboxed (a picture too wide
+  for the popup scales down whole, the one case where it ends shorter). The **home page's Gloss-of-the-day tile**
+  shows the same image to the right of the copy under the same rule (`.term-img`, 72px, plain `<img>` — the tile
+  is a `<button>`, so the `role="button"` figure can't be nested inside it); the tile takes 2/5 of the discovery
+  row instead of 1/3 on days its term has one (`.explore-grid.has-term-img`). Curated terms live in
   `window.GLOSSARY_IMAGES` (slug → object, in `glossary.js`, baked by `serializeGlossary`); a community deck's
   terms carry `entry.image` inside `UGLOSS` and travel with the deck (the `user_gloss` `data` jsonb takes the
   whole term object, so publishing needed **no** schema change), re-sanitized on ingest by `uGlossSanitize` /
