@@ -9768,7 +9768,13 @@
   }
   PAGES.mission = function (root) {
     const M = missionMerged();
-    const fmtDay = (e) => e.label || new Date(e.d + "T12:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });   // fixed English — the page isn't localised, so browser-locale dates (e.g. Dutch) looked out of place
+    // The changelog dates follow the SITE language, not the browser's: en-GB for English (so a reader with a
+    // US browser still gets "28 July 2026" beside English release notes), otherwise the site language's own
+    // conventions — 28 de julio de 2026, 2026年7月28日, ٢٨ يوليو ٢٠٢٦. This was fixed English back when the
+    // About page itself was English; now that the page is localised, a browser-locale date is no longer the
+    // odd one out — a mismatched one is.
+    const dayLocale = () => { const l = uiLang(); return l === "en" ? "en-GB" : l === "zh" ? "zh-CN" : l; };
+    const fmtDay = (e) => e.label || new Date(e.d + "T12:00:00").toLocaleDateString(dayLocale(), { day: "numeric", month: "long", year: "numeric" });
     const chev = '<span class="clog-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>';
     const log = (window.CHANGELOG || []).slice().sort((a, b) => (a.d < b.d ? 1 : -1));
     const logHTML = log.map((e, i) =>
