@@ -20,7 +20,17 @@ It is a plain static website — open `index.html` and it runs.
   append a one-line plain-English summary to TODAY's entry in `changelog.js` (create the day if missing; newest
   day first). Reader-facing wording — what changed for the user, not how. **Card/glossary content changes are
   summarized by count + deck only, never naming specific cards or terms** (e.g. "Three new cards in the Western
-  Zhou deck"). The Mission page renders it.
+  Zhou deck"). **One line per kind of addition per day** — if the day already has a "N new cards" or "N more
+  glossary terms" line, RAISE ITS COUNT and fold in the new subject rather than adding a second line; several
+  days once carried the same kind of entry two to seven times over. The Mission page renders it.
+  **A new line ships with its nine translations.** The whole changelog (23 day titles + 164 items) is live in
+  es/fr/de/it/nl/ru/ar/zh/ja as `chrome.exact` rows in `i18n/ui-<lang>.js` — the items are plain text nodes, so
+  `localizeTree` picks them up with no code. They must NOT go inline into `changelog.js`, which is in the eager
+  load path (the `quotes.js` mistake: 27 KB → 312 KB for every visitor). Add them with `.claude/add-lang.js`
+  chrome batches. **If you reword or merge an existing line, retire the old translations** in the same pass via
+  the `chrome.remove` list, or nine files keep a dead row that matches nothing and reads like coverage.
+  The changelog **dates follow the site language** (`fmtDay` → `dayLocale()`, en-GB for English), not the
+  browser's.
 
 ## File map
 

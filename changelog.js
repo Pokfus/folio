@@ -15,6 +15,7 @@ window.CHANGELOG = [
       "The Atlas globe now labels countries in your language. Every present-day country reads in the language you are browsing in — on the map itself, in the name that follows your cursor, and in the home-location picker in Settings.",
       "The historical maps are labelled in your language too. Empires, colonies and old kingdoms — and the map's own descriptions of the peoples who lived beyond them — now read in whichever language you are browsing in, at every year on the timeline.",
       "Capital cities on the globe now read in your language as well, including the names cities went by at the time — Constantinople, Peking, Saigon, Edo. That completes the Atlas: zoom in at any year, in any of the ten languages, and the map speaks it.",
+      "These release notes now read in your language too, every day of them back to the first, and the date beside each day follows your language as well. Several days that listed the same kind of addition over and over are now a single line carrying the full count.",
     ],
   },
   {

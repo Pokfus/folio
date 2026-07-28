@@ -224,11 +224,36 @@ And two stray CJK characters had slipped into Russian prose — after which the 
 CJK-in-non-CJK guard beside its Cyrillic and Arabic ones, since script bleed between languages is the one
 authoring error this pipeline can catch mechanically rather than by proofreading.
 
-### Batch 5 — changelog (185 strings, 4,757 words × 9)
-Add per-day `i18n` to `changelog.js` and an `add-lang.js` `changelog` section. Worth pairing with a
-golden-rule update so **new** changelog lines ship translated; whether to backfill all 163 historical
-items or only the 22 day titles plus the last few months is a judgement call — I would backfill the day
-titles and the most recent 3 months, and leave older items English.
+### Batch 5 — changelog ✅ SHIPPED — 23 day titles + 164 items × 9, complete
+
+**No new mechanism was needed, and the plan that called for one was wrong.** The earlier sketch here
+proposed per-day `i18n` inside `changelog.js` plus an `add-lang.js` `changelog` section. `changelog.js` is
+in the **eager** load path, so nine languages of release notes inline would have repeated the mistake
+already made once with `quotes.js` — 27 KB to 312 KB, paid by every visitor who only wants to flip a card.
+The items render as plain text nodes in `<li>`s, so they belong in each language's `chrome.exact` table,
+which is already lazy and per-language. Zero code, zero bytes for an English reader.
+
+**One code change was required**, and it was a stale comment as much as a bug. `fmtDay` was pinned to
+`en-GB` with a note explaining that the About page wasn't localised — true when it was written, false for
+several batches now. Dates follow the **site** language (not the browser's), so an English reader on a US
+browser still gets `28 July 2026` while `de` gets `28. Juli 2026`, `ja` `2026年7月28日`, `ar` `٢٨ يوليو ٢٠٢٦`.
+
+**The English was consolidated first, on request.** Five days repeated the same kind of line — 25 July alone
+had seven separate "N more glossary terms" entries. Each day's card additions and each day's glossary
+additions became one item carrying the combined count and every subject the separate lines named
+(07-27, 07-26, 07-25, 07-12, 07-11). 176 items → 164, nothing lost.
+
+**That exposed a real gap in `add-lang.js`, now fixed.** Merging rewrites the English source string, which
+orphans translations already shipped for the old one — and the tool could only ever *add*. It now accepts
+`chrome.remove`, a per-language list of English keys to retire. Without it, every future reword would leave
+dead rows in all nine files, matching nothing and counting as coverage that does not exist. 11 rows retired.
+
+**Worth keeping for the next batch:** the batch generator strips any script run the English key itself
+contains before testing for script bleed, so a line of Confucius quoted verbatim in Chinese inside otherwise
+Russian prose passes while a genuinely stray character still fails.
+
+**Standing obligation:** the golden rule in CLAUDE.md now says a changelog line ships with its nine
+translations, so this batch stays at 100% instead of decaying from the top.
 
 ### Batch 6 — place names ✅ SHIPPED
 
