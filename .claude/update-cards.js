@@ -25,6 +25,10 @@ for (const u of updates) {
   const card = byId.get(u.id);
   if (!card) { console.error("ERROR: no card with id", u.id); process.exit(1); }
   for (const k of Object.keys(u)) { if (k === "id") continue; card[k] = u[k]; }
+  if ("question" in u) {   // a question is ONE short clue, ~28 words (see CLAUDE.md); warn only, this script also does maintenance edits
+    const n = String(u.question || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim().split(" ").filter(Boolean).length;
+    if (n < 20 || n > 34) console.warn("WARNING: " + u.id + " question is " + n + " words — aim for 20–34 (~28).");
+  }
   applied.push(u.id);
 }
 

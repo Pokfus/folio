@@ -17,6 +17,7 @@ window.CHANGELOG = [
       "The Atlas map of 1900 was missing the Ottoman Empire and Greece, leaving a blank stretch from the southern Balkans across Turkey, the Middle East and Libya. Both are now on the map, and clicking either one opens its description as usual.",
       "Click the daily quote on the home page and it turns into the original: the words, the speaker's name and the source in the language they were written in, whether that is classical Chinese, Latin or Greek. Click again to come back to your own language. A few quotes stay as they are, either because they were written in English or because the original wording could not be confirmed.",
       "When the Gloss of the day on the home page has a picture, it now fills the right-hand side of the tile as a portrait. In a term's own panel the picture now sits in the top-right corner with the opening sentences running beside it: it is always the same height and never wider than half the panel.",
+      "Card questions are now about a third shorter — one tight clue instead of a paragraph — in all ten site languages.",
     ],
   },
   {
