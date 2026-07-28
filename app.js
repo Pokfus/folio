@@ -4145,17 +4145,46 @@
       (q.s ? '<span class="dq-src">' + pair(q.s, o && o.s) + "</span>" : "") +
       "</figcaption></figure>";
   }
-  // flip the whole figure between the reader's language and the original
+  // flip the whole figure between the reader's language and the original. The swap itself is still the
+  // instant `hidden` toggle — it just happens behind a fade, with the figure's height easing between the
+  // two languages (a Greek line and its English rarely wrap the same), so nothing cuts and nothing jumps.
+  const DQ_FADE = 170, DQ_SIZE = 240;   // keep in step with the .dq-* transitions in styles.css
   function wireDailyQuote(root) {
     const fig = root.querySelector(".daily-quote.dq-flip");
     if (!fig) return;
-    const flip = () => {
-      const toOriginal = !fig.classList.contains("dq-showing-original");
+    let busy = false;
+    const swap = (toOriginal) => {
       fig.classList.toggle("dq-showing-original", toOriginal);
       fig.querySelectorAll(".dq-live").forEach((el) => { el.hidden = toOriginal; });
       fig.querySelectorAll(".dq-orig").forEach((el) => { el.hidden = !toOriginal; });
       const label = t(toOriginal ? "Show the translation" : "Show the original");
       fig.title = label; fig.setAttribute("aria-label", label);
+    };
+    const flip = () => {
+      if (busy) return;
+      const toOriginal = !fig.classList.contains("dq-showing-original");
+      if (prefersReducedMotion()) { swap(toOriginal); return; }
+      busy = true;
+      const h0 = fig.offsetHeight;
+      fig.classList.add("dq-out");                 // the words on screen fade out and lift
+      setTimeout(() => {
+        swap(toOriginal);                          // nothing is visible, so the cut can't be seen
+        fig.classList.add("dq-in");                // hold the incoming words invisible and a touch low
+        fig.classList.remove("dq-out");
+        fig.style.height = "";
+        const h1 = fig.offsetHeight;               // what the other language actually needs
+        fig.style.height = h0 + "px";
+        void fig.offsetHeight;                     // flush, or the height jumps instead of easing
+        fig.classList.add("dq-sizing");
+        fig.style.height = h1 + "px";
+        // two frames: the start state has to be painted before removing the class can animate away from it
+        requestAnimationFrame(() => requestAnimationFrame(() => fig.classList.remove("dq-in")));
+        setTimeout(() => {
+          fig.classList.remove("dq-sizing");
+          fig.style.height = "";
+          busy = false;
+        }, DQ_SIZE);
+      }, DQ_FADE);
     };
     fig.addEventListener("click", flip);
     fig.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); flip(); } });

@@ -1057,8 +1057,20 @@ body.grading .stage{padding-bottom:150px;}
    face: no mono and no uppercasing in the caption (which mangles the accents on a Greek name), and no
    synthetic oblique on Chinese — the body serif chain ends in generic `serif`, so CJK falls through to
    the reader's own system font, as everywhere else on the site. */
-.daily-quote.dq-flip{cursor:pointer;}
+/* the figure is a button, so it must not select as text: clicking it twice to toggle back would
+   otherwise sweep the ::selection wash across the whole quote. */
+.daily-quote.dq-flip{cursor:pointer; -webkit-user-select:none; user-select:none; -webkit-tap-highlight-color:transparent;}
+.daily-quote.dq-flip:focus{outline:none;}
 .daily-quote.dq-flip:focus-visible{outline:2px solid var(--zh); outline-offset:8px; border-radius:4px;}
+/* The two languages dissolve into each other rather than cutting: the words on screen fade out and
+   lift, the incoming ones rise into place, and the figure's height eases between the two so the page
+   below never jumps. `dq-in` holds the incoming words at their start with no transition, so removing
+   the class is what animates them. The global prefers-reduced-motion killswitch flattens all of this,
+   and wireDailyQuote swaps outright in that case rather than waiting out the timings. */
+.daily-quote.dq-flip blockquote, .daily-quote.dq-flip figcaption{transition:opacity .17s ease, transform .17s ease;}
+.daily-quote.dq-flip.dq-out blockquote, .daily-quote.dq-flip.dq-out figcaption{opacity:0; transform:translateY(-5px);}
+.daily-quote.dq-flip.dq-in blockquote, .daily-quote.dq-flip.dq-in figcaption{opacity:0; transform:translateY(6px); transition:none;}
+.daily-quote.dq-flip.dq-sizing{overflow:hidden; transition:height .24s ease;}
 .daily-quote figcaption .dq-orig{font-family:var(--serif); font-style:normal; font-size:13px; letter-spacing:.02em; text-transform:none;}
 .daily-quote .dq-src .dq-orig{font-size:11.5px; font-style:italic;}
 .daily-quote .dq-orig[lang="lzh"]{font-style:normal; letter-spacing:.05em;}
