@@ -15,6 +15,13 @@ const dataPath = path.join(__dirname, "..", "data.js");
 const FIELDS = ["id","num","category","question","answer","answerDate","traditional","hanzi","pinyin","translations","abstract","citation","answerText"];
 const I18N_LANGS = ["es","fr","de","it","nl","ru","ar","zh","ja"];
 const I18N_FIELDS = ["question","answer","answerDate","abstract","answerText"];
+// A question is ONE short clue — about 28 words (see CLAUDE.md "Add a card"). The blank counts as a word.
+const Q_MIN = 20, Q_MAX = 34;
+// Translations are checked loosely: Chinese/Japanese by character, the rest by word, both generous enough
+// that only a question that was never shortened trips them.
+const Q_TR_MAX_WORDS = 40, Q_TR_MAX_CHARS = 95;
+const plain = (s) => String(s || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+const qWords = (s) => plain(s).split(" ").filter(Boolean).length;
 
 function loadWindow(file) { const win = {}; new Function("window", fs.readFileSync(file, "utf8"))(win); return win; }
 function leafDecks(node, acc) { for (const ch of node.children || []) { if (ch.cardIds) acc.push(ch); if (ch.children) leafDecks(ch, acc); } return acc; }
@@ -25,6 +32,11 @@ if (!cardFile) { console.error("usage: node .claude/add-card.js <card.json> [dec
 const card = JSON.parse(fs.readFileSync(cardFile, "utf8"));
 for (const f of FIELDS) if (!(f in card)) { console.error("ERROR: card is missing field:", f); process.exit(1); }
 if (!card.id) { console.error("ERROR: card.id is empty"); process.exit(1); }
+const qn = qWords(card.question);
+if (qn < Q_MIN || qn > Q_MAX) {
+  console.error("ERROR: question is " + qn + " words — it must be " + Q_MIN + "–" + Q_MAX + " (aim for ~28; see CLAUDE.md). Keep one identifying clue and move the rest into the abstract.");
+  process.exit(1);
+}
 if (!card.skipTranslations) {   // every new card ships in all 9 site languages (i18n block -> shown by the language switcher)
   const missing = [];
   for (const l of I18N_LANGS) {
@@ -32,6 +44,11 @@ if (!card.skipTranslations) {   // every new card ships in all 9 site languages 
     for (const f of I18N_FIELDS) if (!(typeof tr[f] === "string" && tr[f].trim())) missing.push(l + "." + f);
   }
   if (missing.length) { console.error("ERROR: card needs `i18n` translations for all 9 languages × 5 fields (missing: " + missing.slice(0, 10).join(", ") + (missing.length > 10 ? " … +" + (missing.length - 10) : "") + ") — or set skipTranslations:true for a deliberate English-only maintenance edit"); process.exit(1); }
+  for (const l of I18N_LANGS) {   // a translation must be as short as the English, in its own idiom
+    const q = card.i18n[l].question;
+    const long = (l === "zh" || l === "ja") ? plain(q).length > Q_TR_MAX_CHARS : qWords(q) > Q_TR_MAX_WORDS;
+    if (long) console.warn("WARNING: the " + l + " question looks much longer than the English — shorten it to match (see CLAUDE.md).");
+  }
 }
 delete card.skipTranslations;   // control flag only — never written to data.js
 

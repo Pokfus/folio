@@ -1070,6 +1070,13 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   `<span class="blank">_____</span>`; use `<i>…</i>` for work titles. **Place the blank in the MIDDLE
   of the sentence, never at the end** — the clue must keep going after the blank, not stop on it
   (write "The `___` is the god of the east…", not "…the god of the east is `___`.").
+  **Length: ONE sentence of about 28 words, and always within 20–34** (the blank counts as a word).
+  The questions were rewritten down to this length in July 2026 — they had grown to ~46 words on
+  average, which reads as a paragraph on the study card. Keep one strong identifying clue and the
+  detail that makes it guessable; push the rest into the background, which is where the depth belongs.
+  `add-card.js` refuses an English question outside 20–34 words and warns on a translation that has
+  not been shortened with it. **The translations follow the same rule in their own idiom** — a
+  language does not get to keep the long version.
 - Chinese fields (`hanzi, pinyin, traditional, translations`) — fill only if the term has a Chinese
   form, else `""`. `translations` wraps the pinyin: `<div class="tr-pinline"><span class="tr-pin">…</span></div>`.
 - `answerDate` — a `<div class="dt"><span class="dt-k">Date</span><span class="dt-v">…</span></div>`
@@ -1084,7 +1091,8 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
 - `i18n` — **REQUIRED for every new card**: the card translated into all 9 site languages,
   `"i18n": { "es": { "question": …, "answer": …, "answerDate": …, "abstract": …, "answerText": … }, "fr": …,
   "de": …, "it": …, "nl": …, "ru": …, "ar": …, "zh": …, "ja": … }`. Each language mirrors the English fields under the
-  SAME formatting rules (blank `<span class="blank">_____</span>` mid-sentence, 2×5-sentence abstract with one
+  SAME formatting rules (blank `<span class="blank">_____</span>` mid-sentence, a question of the same
+  ~28-word brevity as the English, 2×5-sentence abstract with one
   `<b>` on the answer term, `<i>` for titles, no parentheses, dt-block markup in `answerDate`). Translate
   meaning-for-meaning at native quality — **not a literal, word-for-word rendering of the English.** Each language
   must read as though it were written by a native speaker for teenagers in that language: use its own natural phrasing,
