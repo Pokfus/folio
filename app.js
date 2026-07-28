@@ -7549,32 +7549,49 @@
     // '2' sub-country) — NOT its own '1' coast (the map draws the present-day coastline via coastEdges) nor '3' hidden borders.
     // `hidden` (a directed-edge Set) lets the un-masked present-day drill skip borders the era omits (e.g. S. Sudan pre-2011).
     // `clipCoast` adds the present-day coastline clipped to the region, so the highlighted coast matches the drawn coast.
-    function paintFillRings(rings, selected, masks, hidden, clipCoast) {
+    function paintFillRings(rings, selected, masks, hidden, clipCoast) { paintFillGroups([{ p: rings, c: masks }], selected, hidden, clipCoast); }
+    // Paint one or MORE entities as a single batch. A single-click on a geo era selects a whole empire — dozens of
+    // territories — and painting them one at a time meant one GEO-derived clip mask, one coastline scan and (settled)
+    // two full Gaussian shadowBlur passes PER TERRITORY, every frame. That made dragging with a colonial empire
+    // selected roughly four times the cost of dragging with nothing selected: the single most expensive thing on the
+    // map. Batched, the whole selection shares one clip, one stroke path and one coast pass.
+    function paintFillGroups(groups, selected, hidden, clipCoast) {
+      if (!groups.length) return;
       // cohesive amber highlight: a subtle warm tint (lets the map read through) + a crisp bright outline, with a soft glow when selected
       ctx.save();
       // On a historical era, clip the FILL to the present-day world.js land so the gold follows the DRAWN coastline
       // instead of the low-res era polygon's offset coast (fixes the "overlay is slightly off the coast" mismatch).
       if (clipCoast) {
-        let x0 = 180, y0 = 90, x1 = -180, y1 = -90; for (const ring of rings) for (const p of ring) { if (p[0] < x0) x0 = p[0]; if (p[0] > x1) x1 = p[0]; if (p[1] < y0) y0 = p[1]; if (p[1] > y1) y1 = p[1]; }
+        let x0 = 180, y0 = 90, x1 = -180, y1 = -90; for (const g of groups) for (const ring of g.p) for (const p of ring) { if (p[0] < x0) x0 = p[0]; if (p[0] > x1) x1 = p[0]; if (p[1] < y0) y0 = p[1]; if (p[1] > y1) y1 = p[1]; }
         ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.clip();
-        ctx.beginPath(); for (let g = 0; g < GEO.length; g++) { const b = BBOX[g]; if (b[2] < x0 || b[0] > x1 || b[3] < y0 || b[1] > y1) continue; const gr = GEO[g].p; for (let r = 0; r < gr.length; r++) addClipped(gr[r], true); } ctx.clip("evenodd");
+        ctx.beginPath(); for (let g = 0; g < GEO.length; g++) { const b = BBOX[g]; if (b[2] < x0 || b[0] > x1 || b[3] < y0 || b[1] > y1) continue; if (cullHidden(g)) continue; const gr = GEO[g].p; for (let r = 0; r < gr.length; r++) addClipped(gr[r], true); } ctx.clip("evenodd");   // horizon/viewport cull too: a world-spanning empire's bbox otherwise drags every country on the far side of the globe into the clip mask
       }
-      ctx.beginPath(); for (let r = 0; r < rings.length; r++) addClipped(rings[r], true);
-      ctx.fillStyle = selected ? "rgba(255,178,46,0.24)" : "rgba(255,178,46,0.12)"; ctx.fill("evenodd");
+      ctx.fillStyle = selected ? "rgba(255,178,46,0.24)" : "rgba(255,178,46,0.12)";
+      for (const g of groups) { ctx.beginPath(); const rings = g.p; for (let r = 0; r < rings.length; r++) addClipped(rings[r], true); ctx.fill("evenodd"); }   // per entity, so a ring hole stays a hole
       ctx.restore();
       ctx.save();
       if (selected && !moving) { ctx.shadowColor = "rgba(255,184,60,0.75)"; ctx.shadowBlur = 9; }   // shadowBlur is a full Gaussian pass per stroke — invisible mid-drag, so motion frames skip it
       ctx.lineWidth = selected ? 2.6 : 1.5; ctx.strokeStyle = selected ? "rgba(255,192,74,1)" : "rgba(255,178,46,0.82)";
       ctx.beginPath();
       const seg = [0, 0];
-      if (masks) {   // era / constituent geometry: draw EXACTLY the edges the base map strokes — the political borders '0' (48) + '2' (50); skip '1' coast (coastEdges draws it) + '3' hidden + anything else, so the gold overlay matches the drawn border 1:1
-        for (let r = 0; r < rings.length; r++) { const ring = rings[r], m = masks[r] || ""; for (let i = 0; i + 1 < ring.length; i++) { const c = m.charCodeAt(i); if (c !== 48 && c !== 50) continue; seg[0] = ring[i]; seg[1] = ring[i + 1]; addClipped(seg, false); } }
-      } else if (hidden) {   // un-masked present-day rings drilled within a merger era: draw every edge EXCEPT ones the era hides
-        for (let r = 0; r < rings.length; r++) { const ring = rings[r]; for (let i = 0; i + 1 < ring.length; i++) { if (hidden.has(edgeKey(ring[i], ring[i + 1]))) continue; seg[0] = ring[i]; seg[1] = ring[i + 1]; addClipped(seg, false); } }
-      } else { for (let r = 0; r < rings.length; r++) addClipped(rings[r], false); }   // present-day map: full outline (matches the map's full GEO stroke)
+      for (const g of groups) {
+        const rings = g.p, masks = g.c;
+        if (masks) {   // era / constituent geometry: draw EXACTLY the edges the base map strokes — the political borders '0' (48) + '2' (50); skip '1' coast (coastEdges draws it) + '3' hidden + anything else, so the gold overlay matches the drawn border 1:1
+          for (let r = 0; r < rings.length; r++) { const ring = rings[r], m = masks[r] || ""; for (let i = 0; i + 1 < ring.length; i++) { const c = m.charCodeAt(i); if (c !== 48 && c !== 50) continue; seg[0] = ring[i]; seg[1] = ring[i + 1]; addClipped(seg, false); } }
+        } else if (hidden) {   // un-masked present-day rings drilled within a merger era: draw every edge EXCEPT ones the era hides
+          for (let r = 0; r < rings.length; r++) { const ring = rings[r]; for (let i = 0; i + 1 < ring.length; i++) { if (hidden.has(edgeKey(ring[i], ring[i + 1]))) continue; seg[0] = ring[i]; seg[1] = ring[i + 1]; addClipped(seg, false); } }
+        } else { for (let r = 0; r < rings.length; r++) addClipped(rings[r], false); }   // present-day map: full outline (matches the map's full GEO stroke)
+      }
       ctx.stroke();
       ctx.restore();
-      if (clipCoast && selected) strokeCoastClipped(rings, selected);   // gold coastline = present-day coastEdges clipped to the region (matches the drawn coast exactly)
+      // gold coastline = present-day coastEdges clipped to the region (matches the drawn coast exactly). SETTLED frames only:
+      // it costs two more clips + a scan of every coast chain in the region, and the settled frame is the one that gets
+      // cached into selCv and actually looked at. Mid-drag the selection keeps its amber fill (still clipped to the land) and
+      // its border outline, and gains the coast back on release — the same bargain motion frames already make for the glow.
+      if (clipCoast && selected && !moving) {
+        const all = []; for (const g of groups) for (const ring of g.p) all.push(ring);
+        strokeCoastClipped(all, selected);
+      }
     }
     const _rnd1e3 = (v) => Math.round(v * 1e3) / 1e3;
     const edgeKey = (a, b) => _rnd1e3(a[0]) + "," + _rnd1e3(a[1]) + "|" + _rnd1e3(b[0]) + "," + _rnd1e3(b[1]);
@@ -7597,13 +7614,22 @@
     }
     function strokeCoastClipped(rings, selected) {   // stroke the present-day coastline (coastEdges), clipped to `rings`, in the gold highlight style
       let x0 = 180, y0 = 90, x1 = -180, y1 = -90; for (const ring of rings) for (const p of ring) { if (p[0] < x0) x0 = p[0]; if (p[0] > x1) x1 = p[0]; if (p[1] < y0) y0 = p[1]; if (p[1] > y1) y1 = p[1]; }
-      const ce = coastEdges(), bb = coastBBoxes();
+      const ce = coastEdges(), bb = coastBBoxes(), cc = coastCaps();
       ctx.save();
       if (selected && !moving) { ctx.shadowColor = "rgba(255,184,60,0.75)"; ctx.shadowBlur = 7; }   // no Gaussian passes mid-drag
       ctx.lineWidth = selected ? 2.2 : 1.3; ctx.strokeStyle = selected ? "rgba(255,192,74,1)" : "rgba(255,178,46,0.82)";
       ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.clip();
       ctx.beginPath(); for (let r = 0; r < rings.length; r++) addClipped(rings[r], true); ctx.clip("evenodd");
-      ctx.beginPath(); for (let i = 0; i < ce.length; i++) { const b = bb[i]; if (b[2] < x0 || b[0] > x1 || b[3] < y0 || b[1] > y1) continue; addClipped(ce[i], false); } ctx.stroke();
+      ctx.beginPath();
+      for (let i = 0; i < ce.length; i++) {
+        const b = bb[i]; if (b[2] < x0 || b[0] > x1 || b[3] < y0 || b[1] > y1) continue;
+        const o = i * 4, x = cc[o], y = cc[o + 1], z = cc[o + 2], sr = cc[o + 3];   // same horizon/off-screen cap cull as the base coast pass — an empire's bbox spans the globe, so the lon/lat filter alone leaves the whole far side to project
+        if (x * Cx + y * Cy + z * Cz + sr < -0.1) continue;
+        const px = cx + R * (x * Ex + y * Ey + z * Ez), py = cy - R * (x * Nx + y * Ny + z * Nz), rad = R * sr + 8;
+        if (px + rad < 0 || px - rad > W || py + rad < 0 || py - rad > H) continue;
+        addClipped(ce[i], false);
+      }
+      ctx.stroke();
       ctx.restore();
     }
     let _hiddenId = null, _hiddenSet = null;   // directed edges the current era HIDES ('3' sub-borders, e.g. S. Sudan pre-2011) — so a present-day drill never draws a border the map omits
@@ -7650,15 +7676,26 @@
       for (let g = 0; g < GEO.length; g++) { if (!inBloc[g]) continue; for (const ring of GEO[g].p) for (let i = 0; i + 1 < ring.length; i++) { const rev = owner.get(edgeKey(ring[i + 1], ring[i])); if (rev !== undefined && rev > g) segs.push([ring[i], ring[i + 1]]); } }   // shared between two bloc states, counted once
       return (_sovietBorders = segs);
     }
+    // The segments of that overlay that actually fall inside a given era's USSR, resolved ONCE per era. This used to be a
+    // per-frame canvas clip built from the USSR polygon — a complex clip mask rebuilt on every drag frame of 1920/1938 for a
+    // layer whose geometry never changes within an era. Testing each segment's midpoint against the polygon instead gives the
+    // same result in lon/lat space, cached, and leaves the render with a plain stroke.
+    let _sovietEraKey = "", _sovietEraSegs = null;
+    function sovietSegsForEra(ussr) {
+      const key = _htId + "|" + mapEditRev;
+      if (key === _sovietEraKey && _sovietEraSegs) return _sovietEraSegs;
+      const segs = sovietRepublicBorders(), keep = [];
+      for (let i = 0; i < segs.length; i++) { const a = segs[i][0], b = segs[i][1]; if (pointInRings(ussr.p, (a[0] + b[0]) / 2, (a[1] + b[1]) / 2)) keep.push(segs[i]); }
+      _sovietEraKey = key; _sovietEraSegs = keep;
+      return keep;
+    }
     function drawSovietRepublics(bw) {
       const era = activeEra(year); if (!era || era.present || !era.geo) return;   // geo eras only (merger eras already show republics via synthGroups)
       const ht = histTerr(); if (!ht) return;
       let ussr = null; for (const t of ht) if (/^ussr$/i.test((t.n || "").trim())) { ussr = t; break; }
       if (!ussr) return;
-      const segs = sovietRepublicBorders(); if (!segs.length) return;
+      const segs = sovietSegsForEra(ussr); if (!segs.length) return;   // pre-limited to the era's actual USSR extent (so e.g. the still-independent 1938 Baltics are excluded)
       ctx.save();
-      ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.clip();
-      ctx.beginPath(); for (const ring of ussr.p) addClipped(ring, true); ctx.clip("evenodd");   // clip to the era's actual USSR extent (so e.g. the still-independent 1938 Baltics are excluded)
       ctx.globalAlpha = 0.5; ctx.lineWidth = Math.max(0.5, bw * 0.62); ctx.strokeStyle = border; ctx.beginPath();
       const seg = [0, 0]; for (let i = 0; i < segs.length; i++) { seg[0] = segs[i][0]; seg[1] = segs[i][1]; addClipped(seg, false); }
       ctx.stroke(); ctx.restore();
@@ -8001,6 +8038,19 @@
     // so hover/select/ink redraws only blit it + overlays instead of re-stroking ~117k points
     const baseCv = document.createElement("canvas");
     let baseKey = "", baseValid = false;
+    // land compositing layer for GEO (historical, non-merger) eras — see the `_wild` branch in renderStatic. Allocated only
+    // while such an era is on screen and released the moment one isn't, so the present-day map carries no extra backing.
+    const landCv = document.createElement("canvas");
+    let landCtx = null;
+    function landLayer() {
+      if (landCv.width !== canvas.width || landCv.height !== canvas.height) { landCv.width = canvas.width; landCv.height = canvas.height; landCtx = null; }
+      if (!landCtx) landCtx = landCv.getContext("2d");
+      landCtx.setTransform(1, 0, 0, 1, 0, 0); landCtx.clearRect(0, 0, landCv.width, landCv.height);
+      landCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      landCtx.globalCompositeOperation = "source-over"; landCtx.globalAlpha = 1;
+      return landCtx;
+    }
+    function freeLandLayer() { if (landCv.width) { landCv.width = 0; landCv.height = 0; landCtx = null; } }
     const REDUCED = !!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
     // era crossfade: a snapshot of the outgoing era's pixels fades out over the incoming era (~280ms, settled frames only)
     const fadeCv = document.createElement("canvas");
@@ -8013,9 +8063,14 @@
     const selCv = document.createElement("canvas");
     let selKey = "";
     function paintSelection() {
-      selSet.forEach((idx) => paintFill(idx, true));
+      const ht = histTerr(), terr = ht || GEO;
+      const sel = [];
+      selSet.forEach((idx) => { if (idx >= 0 && idx < terr.length) sel.push({ p: terr[idx].p, c: terr[idx].c }); });
+      paintFillGroups(sel, true, null, !!ht);   // ONE batch for the whole selection — an empire is dozens of territories (see paintFillGroups)
       if (subSelGeo >= 0 && subSelGeo < GEO.length) paintFillRings(GEO[subSelGeo].p, true, null, hiddenEdgeSet(), false);   // double-click drill: present-day country within a merger era — its full outline minus any border the era hides
-      for (let u = 0; u < subSelUK.length; u++) { const ui = subSelUK[u]; if (ui >= 0 && ui < UK.length) paintFillRings(UK[ui].p, true, UK[ui].c, null, true); }   // drilled UK constituent(s): internal '0' borders + present-day coast clipped to it
+      const uk = [];
+      for (let u = 0; u < subSelUK.length; u++) { const ui = subSelUK[u]; if (ui >= 0 && ui < UK.length) uk.push({ p: UK[ui].p, c: UK[ui].c }); }   // drilled UK constituent(s): internal '0' borders + present-day coast clipped to them
+      paintFillGroups(uk, true, null, true);
     }
     function drawSelectionOverlay() {
       if (!selSet.size && subSelGeo < 0 && !subSelUK.length) {
@@ -8121,18 +8176,33 @@
         ctx.lineWidth = _lw;
         const _seams = !moving;                                                        // seam strokes (~half the added cost) only when settled; fills stay on so the darkening shows while rotating
         if (_wild) {
-          ctx.fillStyle = landWild; fillGEO();
-          if (_seams) { ctx.strokeStyle = landWild; strokeGEO(); }                     // dark seams — invisible over the dark wilderness (no modern borders show)
-          // terra-incognita stipple: the cartographer's mark for "no state mapped here in this source", so wilderness stops
-          // reading as an anonymous country. Painted over ALL land — the opaque claimed-land refill below covers it inside
-          // territories, leaving dots only on the unclaimed remainder. Settled renders only (screen-anchored dots shimmer while moving).
-          if (_seams) { ctx.fillStyle = stipplePattern(); fillGEO(); }
-          ctx.save();
-          ctx.beginPath(); for (let t = 0; t < _terr.length; t++) { const rings = _terr[t].p || []; for (let r = 0; r < rings.length; r++) addClipped(rings[r], true); } ctx.clip((era.geo && era.geo.length) ? "nonzero" : "evenodd");   // geo eras: CCW-normalized rings + NONZERO so OVERLAPPING territories fill as land (even-odd would punch a dark hole at every overlap); merger eras use raw world.js geometry → keep even-odd
-          ctx.fillStyle = land; fillGEO();
-          if (_seams) { ctx.strokeStyle = land; strokeGEO(); }                         // light seams, clipped to the clickable land
-          ctx.restore();
+          // Wilderness vs claimed land, WITHOUT a per-frame complex clip. This block used to fill all 117k GEO vertices
+          // dark, fill them AGAIN with the stipple pattern, then build a clip out of every era-territory ring and fill +
+          // stroke all 117k a third and fourth time inside it — four world-sized passes where the present-day map does
+          // one, with each of the 258 fills rasterized against a 20–45k-vertex clip mask. That is the whole reason a
+          // GEO era (1500–1938) crawled while the merger eras (1960+) and the present-day map stayed smooth.
+          // Instead the land is painted into a transparent offscreen layer, and everything after the dark base uses
+          // "source-atop" — it lands only where land pixels already exist, which is exactly what the clip bought. The
+          // claimed refill becomes one territory-sized fill (~20–45k verts) and the stipple stops needing geometry at
+          // all: a single full-canvas rect. One composite blit puts the finished layer on the globe.
+          const _prevCtx = ctx;
+          ctx = landLayer();
+          try {
+            ctx.lineJoin = "round"; ctx.lineCap = "round"; ctx.lineWidth = _lw;
+            ctx.fillStyle = landWild; fillGEO();
+            if (_seams) { ctx.strokeStyle = landWild; strokeGEO(); }                   // dark seams — invisible over the dark wilderness (no modern borders show)
+            ctx.globalCompositeOperation = "source-atop";                              // from here on, paint reaches land pixels and nothing else
+            // terra-incognita stipple: the cartographer's mark for "no state mapped here in this source", so wilderness stops
+            // reading as an anonymous country. Painted over ALL land — the opaque claimed-land refill below covers it inside
+            // territories, leaving dots only on the unclaimed remainder. Settled renders only (screen-anchored dots shimmer while moving).
+            if (_seams) { ctx.fillStyle = stipplePattern(); ctx.fillRect(0, 0, W, H); }
+            ctx.beginPath(); for (let t = 0; t < _terr.length; t++) { const rings = _terr[t].p || []; for (let r = 0; r < rings.length; r++) addClipped(rings[r], true); }
+            ctx.fillStyle = land; ctx.fill("nonzero");                                 // geo eras carry CCW-normalized rings → NONZERO so OVERLAPPING territories fill as land (even-odd would punch a dark hole at every overlap)
+            ctx.strokeStyle = land; ctx.stroke();                                      // widen the claimed land over the dark base's own outer stroke, so a claimed coast keeps its light edge (source-atop can't spill into the ocean) and adjacent territories can't leave a dark hairline between them
+          } finally { ctx = _prevCtx; }
+          ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.drawImage(landCv, 0, 0); ctx.restore();   // the disk clip is held in device space, so it still applies
         } else {
+          freeLandLayer();
           ctx.fillStyle = land; fillGEO();
           if (_seams) { ctx.strokeStyle = land; strokeGEO(); }                         // close present-day coastline seams — settled frames only, like the wild branch (a moving 117k-vertex stroke pass buys nothing visible mid-drag)
         }
@@ -8176,6 +8246,7 @@
         if (countryNamesOn) drawEraNames();   // era territory names (unclipped, like the present-day layer, so names aren't cut at the limb)
         return;
       }
+      freeLandLayer();   // present-day map: the GEO-era land layer isn't needed — release its backing rather than hold a canvas-sized buffer
       const close = zoom >= CAP_Z;   // admin (province) borders appear at the same zoom as capitals
       for (let p = 0; p < GEO.length; p++) VIS[p] = cullHidden(p) ? 0 : 1;   // skip countries wholly behind the horizon / off-screen
       // land — always full detail, even while moving, so coastlines/borders never drop resolution
@@ -8694,7 +8765,7 @@
     gsResults.addEventListener("focusout", (e) => { if (e.relatedTarget && (gsResults.contains(e.relatedTarget) || e.relatedTarget === gsInput)) return; gsHide(); });   // list closes once keyboard focus leaves the widget
 
     // tear everything down once the globe leaves the DOM (navigating away) so nothing leaks per visit
-    function cleanupGlobe() { try { ro.disconnect(); } catch (e) {} try { themeObs.disconnect(); } catch (e) {} try { window.removeEventListener("blur", stopHold); } catch (e) {} try { if (dprMedia) dprMedia.removeEventListener("change", onDPRChange); } catch (e) {} try { document.removeEventListener("keydown", onGlobeKey); } catch (e) {} try { window.removeEventListener("wheel", onGlobeWheel, true); } catch (e) {} stopSpin(); playStop(); if (flyRAF) { cancelAnimationFrame(flyRAF); flyRAF = 0; } if (flyDoneT) { clearTimeout(flyDoneT); flyDoneT = 0; } if (settleT) { clearTimeout(settleT); settleT = 0; } if (_drawTimer) { clearTimeout(_drawTimer); _drawTimer = 0; } if (_drawReq) { cancelAnimationFrame(_drawReq); _drawReq = 0; } }
+    function cleanupGlobe() { freeLandLayer(); try { ro.disconnect(); } catch (e) {} try { themeObs.disconnect(); } catch (e) {} try { window.removeEventListener("blur", stopHold); } catch (e) {} try { if (dprMedia) dprMedia.removeEventListener("change", onDPRChange); } catch (e) {} try { document.removeEventListener("keydown", onGlobeKey); } catch (e) {} try { window.removeEventListener("wheel", onGlobeWheel, true); } catch (e) {} stopSpin(); playStop(); if (flyRAF) { cancelAnimationFrame(flyRAF); flyRAF = 0; } if (flyDoneT) { clearTimeout(flyDoneT); flyDoneT = 0; } if (settleT) { clearTimeout(settleT); settleT = 0; } if (_drawTimer) { clearTimeout(_drawTimer); _drawTimer = 0; } if (_drawReq) { cancelAnimationFrame(_drawReq); _drawReq = 0; } }
     const ro = new ResizeObserver(() => { if (!canvas.isConnected) { cleanupGlobe(); return; } resize(); });
     ro.observe(stage);
     resize();
