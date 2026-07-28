@@ -18,6 +18,7 @@ window.CHANGELOG = [
       "Capital cities on the globe now read in your language as well, including the names cities went by at the time — Constantinople, Peking, Saigon, Edo. That completes the Atlas: zoom in at any year, in any of the ten languages, and the map speaks it.",
       "These release notes now read in your language too, every day of them back to the first, and the date beside each day follows your language as well. Several days that listed the same kind of addition over and over are now a single line carrying the full count.",
       "The historical maps in the Atlas now turn as smoothly as the present-day one. The older years used to stutter badly while you dragged or zoomed, and could bring the browser to a halt once you had clicked an empire; they now draw at the same speed as the map of today.",
+      "The Atlas map of 1900 was missing the Ottoman Empire and Greece, leaving a blank stretch from the southern Balkans across Turkey, the Middle East and Libya. Both are now on the map, and clicking either one opens its description as usual.",
     ],
   },
   {

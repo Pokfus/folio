@@ -31,6 +31,15 @@ const SUPPLEMENT = {
     return true;
   } },
 };
+// A feature belongs to the supplemented region only if this much of it lies inside. It is a FRACTION-OF-THE-FEATURE test,
+// deliberately NOT a centroid test: a state spanning the region's edge has a centroid that says nothing about where its
+// land is. The 1900 Ottoman Empire (Anatolia + the Balkans + the Levant + Mesopotamia + Arabia) centres on the eastern
+// Mediterranean at 31.8E 34.4N — open sea, inside the Africa box — so the centroid rule deleted the empire from the 1900
+// map and the 1914 snapshot, whose Ottoman centroid sits outside the box, never put it back. Greece went the same way.
+const SUP_MIN = 0.8;
+// Source names the site has standardised on something else. The popup data (countries.js / country-spans.js /
+// country-years.js) is keyed by the DISPLAYED name, so a rebuild must not reintroduce the source's variant.
+const RENAME = { "Manchu Empire": "Qing dynasty" };
 const GRID = 1000;        // 3dp quantization grid (~110m) — matches world.js coordinate precision; keeps shared borders bit-identical
 const TOL_INT = 0.0025;   // interior borders are DRAWN → keep them detailed
 const TOL_COAST = 0.02;   // coasts are hit-test/fill only (the coast itself is drawn from world.js) → thin more to save size
@@ -101,11 +110,12 @@ function removeOverlaps(feats) {
   // region supplement: replace a sparsely-digitized region's features with a better snapshot's (e.g. 1900 Africa ← 1914)
   const sup = SUPPLEMENT[snap];
   if (sup) {
-    const cen = (g) => { const polys = g.type === "Polygon" ? [g.coordinates] : g.type === "MultiPolygon" ? g.coordinates : []; let x = 0, y = 0, n = 0; for (const poly of polys) for (const ring of poly) for (const p of ring) { x += p[0]; y += p[1]; n++; } return n ? [x / n, y / n] : null; };
+    // share of a feature's vertices inside the region (see SUP_MIN) — a state straddling the edge stays with its own snapshot
+    const inFrac = (g) => { const polys = g.type === "Polygon" ? [g.coordinates] : g.type === "MultiPolygon" ? g.coordinates : []; let n = 0, hit = 0; for (const poly of polys) for (const ring of poly) for (const p of ring) { n++; if (sup.inRegion(p[0], p[1])) hit++; } return n ? hit / n : 0; };
     try {
       const r2 = await fetch(RAW + fileFor(sup.src)); const gj2 = JSON.parse(await r2.text());
-      const keep = (gj.features || []).filter((f) => { const c = f.geometry && cen(f.geometry); return !(c && sup.inRegion(c[0], c[1])); });
-      const add = (gj2.features || []).filter((f) => { const c = f.geometry && cen(f.geometry); return c && sup.inRegion(c[0], c[1]); });
+      const keep = (gj.features || []).filter((f) => !(f.geometry && inFrac(f.geometry) >= SUP_MIN));
+      const add = (gj2.features || []).filter((f) => f.geometry && inFrac(f.geometry) >= SUP_MIN);
       gj = { type: "FeatureCollection", features: keep.concat(add) };
       console.log("supplemented region from " + fileFor(sup.src) + ": kept " + keep.length + " + added " + add.length + " features");
     } catch (e) { console.error("supplement fetch error: " + e.message); }
@@ -116,7 +126,8 @@ function removeOverlaps(feats) {
   for (const f of (gj.features || [])) {
     if (!f || !f.geometry) continue;
     const rings = featRings(f.geometry); if (!rings.length) continue;
-    feats.push({ n: (f.properties && (f.properties.NAME || f.properties.name)) || "", rings });
+    const nm = (f.properties && (f.properties.NAME || f.properties.name)) || "";
+    feats.push({ n: RENAME[nm] || nm, rings });
   }
   if (!feats.length) { console.error("no polygons converted"); process.exit(1); }
   const rawN = feats.length; feats = removeOverlaps(feats);   // drop the source's stale/duplicate/anachronistic overlapping features (→ no double borders)
@@ -228,9 +239,16 @@ function removeOverlaps(feats) {
   global.window = {}; require(TL);
   let list = Array.isArray(global.window.TIMELINE) ? global.window.TIMELINE : [];
   const yr = Math.min(new Date().getFullYear(), snap);   // snap is already ≥ -1000 (filtered above), so no floor-clamp collision
-  list = list.filter((e) => !(e && e.src === "historical-basemaps" && e.year === yr));
-  const id = "era_" + Date.now().toString(36) + Math.floor(Math.random() * 1e4).toString(36);
-  const label2 = label || ("The world in " + (snap < 0 ? (-snap + " BCE") : snap));
+  // Rebuilding a year REPLACES its era, so anything hand-added to it afterwards has to be carried across or it is lost:
+  // the era's id (deep links + the admin overlay reference it), its label, its researched period capitals, and the
+  // per-territory `.mother` (the sovereign/colonial power, assigned by a separate pass — the click model groups an empire
+  // by it). Mothers travel by territory NAME; a territory the rebuild introduces has none and needs one assigning.
+  const prev = list.find((e) => e && e.src === "historical-basemaps" && e.year === yr) || null;
+  list = list.filter((e) => e !== prev);
+  const prevMothers = new Map();
+  if (prev && Array.isArray(prev.geo)) for (const t of prev.geo) if (t && t.n && t.mother && !prevMothers.has(t.n)) prevMothers.set(t.n, t.mother);
+  const id = (prev && prev.id) || ("era_" + Date.now().toString(36) + Math.floor(Math.random() * 1e4).toString(36));
+  const label2 = label || (prev && prev.n) || ("The world in " + (snap < 0 ? (-snap + " BCE") : snap));
   let era;
   if (mergerOnly) {   // store the grouping (present-country name → group name); the renderer reuses world.js geometry
     const members = {};   // era territory index → present-day countries that fall in it
@@ -245,8 +263,15 @@ function removeOverlaps(feats) {
     }
     era = { id: id, year: yr, n: label2, src: "historical-basemaps", groups: groups };
   } else {
+    // A territory with no carried-over mother falls back to being its OWN mother (an independent state is, per the click
+    // model); that is right for a sovereign state the rebuild introduces and wrong for a colony, so they are listed here
+    // to be checked by eye rather than assumed correct.
+    let kept = 0, orphan = [];
+    for (const t of geo) { const m = prevMothers.get(t.n); if (m) { t.mother = m; kept++; } else { t.mother = t.n; if (prevMothers.size) orphan.push(t.n); } }
+    if (prevMothers.size) console.log("carried " + kept + " territory mother(s) over from the previous build" + (orphan.length ? "; self-mothered (CHECK — a colony needs its power): " + [...new Set(orphan)].join(", ") : ""));
     era = { id: id, year: yr, n: label2, src: "historical-basemaps", geo: geo };
   }
+  if (prev && Array.isArray(prev.cities) && prev.cities.length) { era.cities = prev.cities; console.log("carried " + prev.cities.length + " period capitals/cities over from the previous build"); }
   list.push(era);
   list.sort((a, b) => a.year - b.year);
   const out = "/* Historical border eras for the Atlas globe timeline (Edit → Timeline).\n" +
