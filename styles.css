@@ -1076,14 +1076,15 @@ body.grading .stage{padding-bottom:150px;}
 .friend-title{font-family:var(--display); font-weight:600; font-size:26px; color:var(--ink);}
 .back-link{font-family:var(--mono); font-size:11px; letter-spacing:.05em; text-transform:uppercase; color:var(--indigo); background:none; border:0; cursor:pointer; padding:4px 0; margin-bottom:14px;}
 
-.admin.accounts-mode .admin-tree,.admin.accounts-mode .admin-side-foot,.admin.accounts-mode .admin-collapse,.admin.accounts-mode .admin-editor,.admin.accounts-mode .admin-search,.admin.accounts-mode .alt-right,.admin.accounts-mode .admin-sel-bar{display:none;}
-.admin.accounts-mode .admin-list{width:auto; flex:1; border-right:0;}
-/* timeline-mode: the historical-era editor takes over the admin area (like accounts) */
+/* feedback-mode: the readers' message queue takes over the admin area (as the old Accounts tab did) */
+.admin.feedback-mode .admin-tree,.admin.feedback-mode .admin-side-foot,.admin.feedback-mode .admin-collapse,.admin.feedback-mode .admin-editor,.admin.feedback-mode .admin-search,.admin.feedback-mode .alt-right,.admin.feedback-mode .alt-right-gloss,.admin.feedback-mode .admin-sel-bar,.admin.feedback-mode .admin-resizer{display:none;}
+.admin.feedback-mode .admin-list{width:auto; flex:1; border-right:0;}
+/* timeline-mode: the historical-era editor takes over the admin area (like feedback) */
 .admin.timeline-mode .admin-tree,.admin.timeline-mode .admin-side-foot,.admin.timeline-mode .admin-collapse,.admin.timeline-mode .admin-editor,.admin.timeline-mode .admin-search,.admin.timeline-mode .alt-right,.admin.timeline-mode .alt-right-gloss,.admin.timeline-mode .admin-sel-bar,.admin.timeline-mode .admin-resizer{display:none;}
 .admin.timeline-mode .admin-list{width:auto; flex:1; border-right:0;}
 /* with the deck tree hidden, the side panel is just the tab strip — drop its full-height right border + fill so it
    doesn't leave a floating vertical divider running down the empty column below the tabs. */
-.admin.accounts-mode .admin-side,.admin.timeline-mode .admin-side{background:transparent; border-right:0;}
+.admin.feedback-mode .admin-side,.admin.timeline-mode .admin-side{background:transparent; border-right:0;}
 .tl-edit{padding:22px 26px; max-width:900px;}
 .tl-intro{font-family:var(--serif); font-size:14px; line-height:1.6; color:var(--ink-soft); margin-bottom:20px;}
 .tl-add{border:1px solid var(--rule); border-radius:12px; background:var(--paper-2); padding:18px; margin-bottom:24px;}
@@ -1112,15 +1113,62 @@ body.grading .stage{padding-bottom:150px;}
 .tl-era-name{font-weight:600;}
 .tl-era-meta small{display:block; font-family:var(--mono); font-size:10px; letter-spacing:.04em; color:var(--ink-faint); margin-top:3px;}
 .tl-era-acts{display:flex; gap:7px; flex-shrink:0;}
-.acct-admin-row{display:flex; align-items:center; gap:12px; padding:13px 22px; border-bottom:1px solid var(--rule);}
-.acct-admin-id{flex:1; min-width:0; font-family:var(--serif); font-size:15px;}
-.acct-admin-id b{font-weight:600;}
-.acct-admin-id small{display:block; font-family:var(--mono); font-size:10px; letter-spacing:.04em; color:var(--ink-faint); margin-top:3px;}
-.acct-you{font-family:var(--mono); font-size:8px; letter-spacing:.1em; text-transform:uppercase; background:var(--paper-2); color:var(--ink-faint); padding:1px 5px; border-radius:5px; vertical-align:middle;}
-.acct-admin-acts{display:flex; align-items:center; gap:8px; flex:none;}
-.acct-role{font-family:var(--mono); font-size:11px; padding:6px 8px; border:1px solid var(--rule); border-radius:7px; background:var(--paper-2); color:var(--ink); cursor:pointer;}
-.acct-code{font-family:var(--mono); font-size:12px; letter-spacing:.1em; color:var(--indigo); background:var(--paper-2); border:1px dashed var(--rule); border-radius:6px; padding:5px 8px; user-select:all;}
-.acct-admin-empty{font-family:var(--sans); font-size:14px; color:var(--ink-faint); padding:28px 24px; line-height:1.6;}
+/* ---- Edit → Feedback: the readers' message queue ----
+   Every row wears its triage colour on the left edge (--fb-col, set inline from FEEDBACK_STATUS in app.js),
+   so scanning the list for what still needs a decision is a glance rather than a read. */
+.admin-tab-badge{display:inline-block; min-width:16px; margin-left:6px; padding:0 4px; border-radius:8px; background:var(--indigo); color:#fff; font-family:var(--mono); font-size:9px; line-height:15px; text-align:center; vertical-align:1px;}
+.admin-tab-badge[hidden]{display:none;}
+.fbq-wrap{padding:18px 22px 40px; max-width:1000px;}
+.fbq-bar{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:16px;}
+.fbq-filters{display:flex; gap:6px; flex-wrap:wrap; flex:1;}
+.fbq-chip{display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:10px; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-soft); background:var(--paper-2); border:1px solid var(--rule); border-left:3px solid var(--sw,var(--rule)); border-radius:7px; padding:6px 9px; cursor:pointer;}
+.fbq-chip:hover{border-color:var(--ink-soft); border-left-color:var(--sw,var(--ink-soft));}
+.fbq-chip.on{background:var(--ink); color:var(--paper); border-color:var(--ink);}
+.fbq-n{font-size:9px; opacity:.7;}
+.fbq-empty{font-family:var(--sans); font-size:14px; color:var(--ink-faint); padding:28px 4px; line-height:1.6;}
+.fbq-row{display:flex; gap:16px; align-items:flex-start; padding:15px 16px 15px 17px; margin-bottom:10px; background:var(--card); border:1px solid var(--rule); border-left:4px solid var(--fb-col,var(--rule)); border-radius:10px;}
+.fbq-row.st-discarded{opacity:.6;}
+.fbq-main{flex:1; min-width:0;}
+.fbq-head{display:flex; align-items:baseline; gap:9px; flex-wrap:wrap; margin-bottom:8px;}
+.fbq-kind{font-family:var(--mono); font-size:9px; letter-spacing:.08em; text-transform:uppercase; color:var(--paper); background:var(--fb-col,var(--ink-faint)); border-radius:5px; padding:2px 6px;}
+.fbq-who{font-family:var(--serif); font-size:15px; font-weight:600;}
+.fbq-anon{font-family:var(--mono); font-size:8px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); font-weight:400;}
+.fbq-mail{font-family:var(--mono); font-size:11px; color:var(--indigo);}
+.fbq-meta{font-family:var(--mono); font-size:10px; letter-spacing:.04em; color:var(--ink-faint);}
+.fbq-state{margin-left:auto; font-family:var(--mono); font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:var(--fb-col,var(--ink-faint));}
+.fbq-msg{font-family:var(--serif); font-size:14.5px; line-height:1.6; color:var(--ink); white-space:normal; overflow-wrap:anywhere;}
+.fbq-ua{margin-top:7px; font-family:var(--mono); font-size:9.5px; color:var(--ink-faint); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.fbq-note{display:block; width:100%; margin-top:10px; resize:none; overflow:hidden; font-family:var(--sans); font-size:12.5px; line-height:1.5; color:var(--ink); background:var(--paper-2); border:1px solid var(--rule); border-radius:8px; padding:7px 9px;}
+.fbq-note:focus{outline:none; border-color:var(--indigo);}
+.fbq-acts{display:flex; flex-direction:column; gap:5px; flex:none; width:118px;}
+.fbq-sw{font-family:var(--mono); font-size:9.5px; letter-spacing:.06em; text-transform:uppercase; text-align:left; color:var(--ink-soft); background:var(--paper-2); border:1px solid var(--rule); border-left:4px solid var(--sw); border-radius:7px; padding:6px 8px; cursor:pointer;}
+.fbq-sw:hover{border-color:var(--ink-soft); border-left-color:var(--sw);}
+.fbq-sw.on{color:#fff; background:var(--sw); border-color:var(--sw);}
+.fbq-del{margin-top:4px; text-align:center;}
+@media (max-width:640px){
+  .fbq-wrap{padding:14px 12px 32px;}
+  .fbq-row{flex-direction:column; gap:10px;}
+  .fbq-acts{flex-direction:row; flex-wrap:wrap; width:auto;}
+}
+
+/* ---- About page: the beta feedback form ---- */
+.fb-intro{font-family:var(--serif); font-size:15px; line-height:1.65; color:var(--ink-soft); margin:0 0 18px;}
+.fb-form{display:flex; flex-direction:column; gap:14px;}
+.fb-row{display:flex; gap:14px; flex-wrap:wrap;}
+.fb-row .fb-field{flex:1; min-width:210px;}
+.fb-field{display:flex; flex-direction:column; gap:6px;}
+.fb-field>span{font-family:var(--mono); font-size:10px; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint);}
+.fb-field>span small{text-transform:none; letter-spacing:0;}
+.fb-field-kind{max-width:320px;}
+.fb-field input,.fb-field select,.fb-field textarea{font-family:var(--sans); font-size:14px; line-height:1.55; color:var(--ink); background:var(--card); border:1px solid var(--rule); border-radius:9px; padding:10px 12px; width:100%;}
+.fb-field textarea{resize:vertical; min-height:110px;}
+.fb-field input:focus,.fb-field select:focus,.fb-field textarea:focus{outline:none; border-color:var(--indigo);}
+.fb-foot{display:flex; align-items:center; gap:18px; flex-wrap:wrap;}
+.fb-privacy{flex:1; min-width:220px; font-family:var(--sans); font-size:11.5px; line-height:1.5; color:var(--ink-faint);}
+.fb-foot .btn{flex:none;}
+.fb-status{font-family:var(--mono); font-size:11px; letter-spacing:.04em; min-height:14px;}
+.fb-status.ok{color:var(--indigo);}
+.fb-status.bad{color:var(--danger,#c8453c);}
 
 /* daily quote (home) */
 .daily-quote{position:relative; margin:0 0 26px; padding:38px 0; text-align:center; background:none; box-shadow:none;}

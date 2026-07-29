@@ -26,7 +26,7 @@ It is a plain static website — open `index.html` and it runs.
   lines**: a day gets ONE localisation line per area (the daily games, the Atlas, the site chrome), extended as
   more of that area lands — 2026-07-27/28 once carried eight and five of them, each announcing another corner of
   the same rollout. The Mission page renders it.
-  **A new line ships with its nine translations.** The whole changelog (23 day titles + 159 items) is live in
+  **A new line ships with its nine translations.** The whole changelog (24 day titles + 170 items) is live in
   es/fr/de/it/nl/ru/ar/zh/ja as `chrome.exact` rows in `i18n/ui-<lang>.js` — the items are plain text nodes, so
   `localizeTree` picks them up with no code. They must NOT go inline into `changelog.js`, which is in the eager
   load path (the `quotes.js` mistake: 27 KB → 312 KB for every visitor). Add them with `.claude/add-lang.js`
@@ -167,8 +167,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `changelog.js` — `window.CHANGELOG = [ { d:"YYYY-MM-DD", label?, t, items:[…] } ]`, the day-grouped release notes
   rendered as the **About** page's collapsible changelog (`PAGES.mission`, hash `#mission` — the nav tab is LABELLED
   "About" but the route/hash stay `mission`; section order: intro prose + forgetting-curve SVG → "How to use Folio"
-  walkthrough + feature blurbs → FAQ (collapsible `.faq-item`s) → changelog → credits/licenses). See the golden rule:
-  append to today's entry on every ship.
+  walkthrough + feature blurbs → FAQ (collapsible `.faq-item`s) → **beta feedback form** → changelog →
+  credits/licenses). See the golden rule: append to today's entry on every ship.
 - `mission.js` — `window.MISSION = { title, paras:[…] }`, the About-page intro copy (raw HTML; **deliberately
   jargon-free and written at a low reading level — NO glossary auto-linking on this page**, `autoLinkGlossary` is not
   called). **Admins click the title or a paragraph on the page to edit it in place** (Esc cancels, Ctrl+Enter/blur
@@ -1116,6 +1116,41 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     which publishes every user's username and display name — a privacy decision for the site owner, not
     one to make in passing. "More from this author" queries `user_decks` by `owner` instead, which is
     already public, and gets most of the value.
+- **Reader feedback (beta, July 2026).** Readers write to the editors from the **foot of the About page**
+  (`.msn-feedback`, between the FAQ and the changelog); admins triage the messages in **Edit → Feedback**,
+  which **replaced the Accounts tab** — that tab managed the legacy device-local accounts (`folio_acct_v1`)
+  and had had nothing to manage since accounts moved to Supabase. **⚠ Needs the `7) FEEDBACK` block at the
+  end of `.claude/supabase-schema.sql` run once**, on top of the phase-2/3 blocks; until then every call
+  404s and `feedbackErr()` says "Feedback isn't set up on this site yet." rather than leaking PostgREST's
+  error, and nothing else breaks.
+  · **`public.feedback`** — one row per message: `kind` (bug / correction / suggestion / praise / other),
+    `message`, the optional `name` + `email`, the `page` the reader was on, a `meta` jsonb (`lang`, `ua`),
+    and the triage pair `status` (**new / seen / approved / done / discarded**) + `admin_note`.
+  · **Anonymous inserts are allowed, deliberately.** The reader most likely to spot a wrong date is the one
+    who never made an account, and a sign-in wall is exactly the friction that loses that correction. The
+    cost is that the publishable key lets anyone POST; the only rate limit is a **device-local cooldown**
+    (`folio_feedback_sent_v1`, 30s) — honest friction, **not security**. If it is ever abused, narrow the
+    insert policy to `to authenticated`; no application code has to change.
+  · **`guard_feedback_columns()` is what actually matters**, and it is the same lesson as
+    `guard_user_deck_columns`: RLS picks the ROWS you may write, never the COLUMNS. Without it a sender
+    could POST `status:'done'` alongside their message and file it away before an editor saw it, or plant
+    an `admin_note`. A non-admin's triage columns are silently restored on insert, and a non-admin update
+    returns `old` unchanged. **If you add a server-maintained column here, add it to the guard.**
+  · **The message is sanitized on INGEST** (`feedbackPlain` → `sanitizePlain` **per line**, because
+    `sanitizePlain` collapses all whitespace and a textarea's paragraph breaks have to survive). It is
+    escaped again on render in the queue — the server copy is not trusted just because it came from our
+    own API, and this one is written by anonymous strangers.
+  · **The status IS the colour** (`FEEDBACK_STATUS`, hex per status, set inline as `--fb-col`): the row's
+    left edge, its kind chip and its state label all take it, so scanning for what still needs a decision
+    is a glance. The swatches **toggle** — clicking the status a row already carries clears it back to New.
+    Changes are applied optimistically and rolled back if the PATCH fails, so a triage pass never waits on
+    the network between clicks. The queue opens on "Needs a decision" (new + seen), and the tab carries an
+    unread badge fetched once per admin-page mount.
+  · **The user-facing strings are localised in all 9 languages** (`chrome.exact` + two `chrome.html` rows
+    for the `<small>(optional)</small>` labels); the **queue itself stays English**, like the rest of the
+    editor.
+  · `adminState.tab === "accounts"` is a **retired value**: `restoreAdminUI` drops it so a session saved
+    before this change opens on Cards rather than a tab that no longer exists.
 
 ## Generating cards & glossary entries
 
@@ -1457,7 +1492,7 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Ten committed regression tests** (in `.claude/`, not loaded by the site): nine drive a real browser with
+- **Eleven committed regression tests** (in `.claude/`, not loaded by the site): ten drive a real browser with
   Playwright, and `test-daily-quote.js` is plain Node with no dependencies at all. Each slices what
   it tests out of the real `app.js`/`_headers` by text, so they can't drift from what ships.
   **Gotcha when writing more of them:** `page.goto()` to a URL that differs only in the `#fragment` is a
@@ -1515,6 +1550,15 @@ dead code (never rendered).
     the curated editor's overlay delta survives a reload and clears cleanly, and a deck's own term images
     are sanitized on ingest (a `javascript:` src is dropped). **Re-run after touching `glossImage` /
     `renderGlossImage` / `setGlossImageEdit` / `uGlossSetImage`, or any z-index in the gloss/viewer stack.**
+  · `node .claude/test-feedback.js` — 39 assertions on reader feedback: the About-page form (a message
+    that reaches the row with its line breaks intact and its markup gone, the device-local cooldown, and
+    that **the sender never supplies a triage status** — the client half of what the column guard enforces)
+    and the Edit-page queue (the filters, that **no two statuses paint the same row edge**, the toggling
+    swatches, the private note, the two-step delete, and that a session saved on the retired Accounts tab
+    opens on Cards). Supabase is an in-memory stand-in, deliberately: the publishable key in app.js points
+    at the REAL project, so a test that actually sent a message would write rows into it — and like
+    `test-publish.js`'s mock, it is a stand-in for the policies, never a proof they are right. **Re-run
+    after touching the feedback functions, the queue, or the `7) FEEDBACK` schema block.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it
     simulates 400 days off the real `QUOTE_ORDER` and checks every seven-day window in them, so a repeat
     two days running or a third appearance inside a week fails here rather than on the live page. **No
@@ -1568,7 +1612,8 @@ dead code (never rendered).
   localhost/127./10./192.168.) with no legacy local accounts — so the dev machine keeps its editor, while first-time visitors and
   non-admin accounts on the live site see no Edit tab or Editor/Visitor switch (`applyMode` shows the switch only when
   `adminEligible()`). `isAdmin()` additionally honours the Editor/Visitor toggle (`S.settings.adminMode === false` → visitor view).
-  The old local accounts (`folio_acct_v1`) remain only as legacy code (admin page user-manager + guest stash helpers).
+  The old local accounts (`folio_acct_v1`) remain only as legacy code (guest stash helpers); their admin-page
+  user-manager went with the Accounts tab when the reader-feedback queue replaced it.
 - **Live content editing (cloud overrides)** — the `/* cloud content overrides */` module in app.js + the `content_overrides`
   table (single row `id=1`, in `.claude/supabase-schema.sql`; **the user must run the SQL once** — until then every fetch 404s and
   the module degrades silently). The row's `data` holds an admin-edit overlay in the exact `folio_admin_v1` delta format. Every

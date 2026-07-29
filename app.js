@@ -1203,20 +1203,9 @@
     if (f) f.friends = (f.friends || []).filter((x) => x !== mkey);
     saveAcct();
   }
-  // admin operations
-  function acctSetRole(key, role) { const u = ACCT.users[key]; if (u) { u.role = role === "admin" ? "admin" : "user"; saveAcct(); } }
-  function acctDelete(key) {
-    if (!ACCT.users[key]) return;
-    if (ACCT.current === key) logoutUser();
-    delete ACCT.users[key];
-    Object.values(ACCT.users).forEach((u) => {
-      u.friends = (u.friends || []).filter((x) => x !== key);
-      u.requests.in = (u.requests.in || []).filter((x) => x !== key);
-      u.requests.out = (u.requests.out || []).filter((x) => x !== key);
-    });
-    saveAcct();
-  }
-  function acctRotateRecovery(key) { const u = ACCT.users[key]; if (!u) return null; u.recovery = genRecovery(); saveAcct(); return u.recovery; }
+  // (the set-role / delete / rotate-recovery admin operations lived here for the Edit page's Accounts tab.
+  //  That tab is gone — replaced by the reader-feedback queue — and accounts themselves moved to Supabase
+  //  long before it, so nothing called them any more.)
 
   /* ---------- Supabase: online accounts + progress sync ----------
      Plain fetch() against the project's REST + auth endpoints (no SDK — zero-dependency rule). The publishable key is
@@ -3221,6 +3210,87 @@
     return r.data;
   }
   async function deckReportClose(id) { return supaFetch("/rest/v1/deck_reports?id=eq." + encodeURIComponent(id), { method: "PATCH", body: { status: "closed" } }); }
+
+  /* ---------- Reader feedback (beta) ----------
+     A message written on the About page and sent straight to the editors, plus the helpers behind the
+     triage queue in Edit → Feedback. Anonymous senders are allowed on purpose (see the policy note in
+     .claude/supabase-schema.sql): the reader most likely to spot a wrong date is the one who never made
+     an account, and a sign-in wall is exactly the friction that loses that correction. The only rate
+     limit is the device-local cooldown below — honest friction, not security, since anyone holding the
+     publishable key can POST regardless. The column guard in the schema is what actually stops a sender
+     filing their own message away as "done". */
+  const FEEDBACK_KINDS = [
+    ["bug", "Something is broken"],
+    ["correction", "A fact looks wrong"],
+    ["suggestion", "An idea or a request"],
+    ["praise", "Just saying hello"],
+    ["other", "Something else"],
+  ];
+  // The triage colours. The point of the queue is that a glance says what still needs a decision, so the
+  // status IS the colour — new (blue) and seen (slate) are still open, approved (green) and done (gold)
+  // are settled, discarded (red) is closed.
+  const FEEDBACK_STATUS = [
+    { k: "new", label: "New", hex: "#3a6ea8" },
+    { k: "seen", label: "Seen", hex: "#64748b" },
+    { k: "approved", label: "Approved", hex: "#3a9d5b" },
+    { k: "done", label: "Done", hex: "#c39a2e" },
+    { k: "discarded", label: "Discarded", hex: "#d8453c" },
+  ];
+  const FEEDBACK_BY_STATUS = Object.fromEntries(FEEDBACK_STATUS.map((s) => [s.k, s]));
+  const FEEDBACK_MAX = 4000, FB_SENT_KEY = "folio_feedback_sent_v1", FB_COOLDOWN_MS = 30000;
+  function feedbackErr(r, fallback) {
+    const d = r && r.data, msg = (d && (d.message || d.msg)) || "";
+    if (r && r.status === 0) return "You appear to be offline — sending a message needs a connection.";
+    if (/does not exist|schema cache/i.test(String(msg)) || (r && r.status === 404 && !d)) return "Feedback isn't set up on this site yet.";
+    return supaErrMsg(r, fallback);
+  }
+  // The message comes from a textarea, so it has to keep its line breaks — sanitizePlain() collapses all
+  // whitespace, so run it a line at a time and rejoin rather than writing a second sanitizer.
+  function feedbackPlain(s) {
+    return String(s == null ? "" : s).split(/\r?\n/).map(sanitizePlain).join("\n").replace(/\n{3,}/g, "\n\n").trim();
+  }
+  async function feedbackSend(f) {
+    const message = feedbackPlain(f && f.message);
+    if (!message) return { error: "Write a message first." };
+    let last = 0; try { last = +localStorage.getItem(FB_SENT_KEY) || 0; } catch (e) {}
+    if (Date.now() - last < FB_COOLDOWN_MS) return { error: "Just a moment — give the last message a few seconds to land." };
+    const body = {
+      kind: FEEDBACK_KINDS.some((k) => k[0] === (f && f.kind)) ? f.kind : "other",
+      message: message.slice(0, FEEDBACK_MAX),
+      name: sanitizePlain(f && f.name).slice(0, 80),
+      email: sanitizePlain(f && f.email).slice(0, 160),
+      page: (location.hash || "#home").slice(0, 200),
+      meta: { lang: (S.settings && S.settings.lang) || "en", ua: String(navigator.userAgent || "").slice(0, 300) },
+    };
+    if (supaLoggedIn()) {   // signed in → the row carries the account, and the reply address is already known
+      body.author = SUPA.user.id;
+      if (!body.name) body.name = (SUPA_PROFILE && (SUPA_PROFILE.name || SUPA_PROFILE.username)) || "";
+      if (!body.email) body.email = SUPA.user.email || "";
+    }
+    const r = await supaFetch("/rest/v1/feedback", { method: "POST", body: body });
+    if (!r.ok) return { error: feedbackErr(r, "Couldn't send that — try again in a moment.") };
+    try { localStorage.setItem(FB_SENT_KEY, String(Date.now())); } catch (e) {}
+    return { ok: true };
+  }
+  async function feedbackList() {   // admins get the whole queue; RLS is what makes this an admin-only view
+    const r = await supaFetch("/rest/v1/feedback?select=*&order=created_at.desc&limit=300");
+    if (!r.ok || !Array.isArray(r.data)) return { error: feedbackErr(r, "Couldn't load the messages.") };
+    return { ok: true, rows: r.data };
+  }
+  async function feedbackNewCount() {   // for the Edit-tab badge; ids only, so it stays a small request
+    const r = await supaFetch("/rest/v1/feedback?select=id&status=eq.new&limit=200");
+    return r.ok && Array.isArray(r.data) ? r.data.length : 0;
+  }
+  async function feedbackPatch(id, patch) {
+    const r = await supaFetch("/rest/v1/feedback?id=eq." + encodeURIComponent(id), { method: "PATCH", body: patch });
+    if (!r.ok) return { error: feedbackErr(r, "Couldn't save that change.") };
+    return { ok: true };
+  }
+  async function feedbackDelete(id) {
+    const r = await supaFetch("/rest/v1/feedback?id=eq." + encodeURIComponent(id), { method: "DELETE" });
+    if (!r.ok) return { error: feedbackErr(r, "Couldn't delete that message.") };
+    return { ok: true };
+  }
 
   /* ---------- boot ----------
      Async, like the lazy data bundles: the first paint never waits for it, and the pages that show decks
@@ -10408,6 +10478,7 @@
       howto: chip('<circle cx="4.5" cy="6" r="1.5" fill="currentColor" stroke="none"/><line x1="9" y1="6" x2="20" y2="6"/><circle cx="4.5" cy="12" r="1.5" fill="currentColor" stroke="none"/><line x1="9" y1="12" x2="20" y2="12"/><circle cx="4.5" cy="18" r="1.5" fill="currentColor" stroke="none"/><line x1="9" y1="18" x2="20" y2="18"/>'),
       faq: chip('<path d="M8.7 9a3.2 3.2 0 0 1 6 1.7c0 2.1-3.2 2.7-3.2 4.4"/><line x1="11.5" y1="18.5" x2="11.5" y2="18.5"/>'),
       clog: chip('<circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 14"/>'),
+      feedback: chip('<path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9.6 9.6 0 0 1-2.9-.4L3 21l1.6-4.6A8.2 8.2 0 0 1 3.6 11.5 8.4 8.4 0 0 1 12 3.1a8.4 8.4 0 0 1 9 8.4z"/>'),
       credits: chip('<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>'),
     };
     root.innerHTML = `
@@ -10442,6 +10513,27 @@
             ${faq("Do I need an account?", "No. Your progress is saved on this device automatically. An account only matters if you want the same progress on several devices, or to add friends.")}
           </div>
         </div>
+        <div class="msn-card msn-feedback">
+          <div class="msn-head">${CHIP.feedback}<h2>Folio is in beta — tell us what you think</h2></div>
+          <p class="fb-intro">Spotted a wrong date, hit something broken, or thought of something Folio ought to do? Write it here and it goes straight to the people who edit the site. You don't need an account, and every message is read.</p>
+          <form class="fb-form" id="fbForm" novalidate>
+            <label class="fb-field fb-field-kind"><span>What is this about?</span>
+              <select id="fbKind">${FEEDBACK_KINDS.map(([v, l]) => `<option value="${v}">${esc(l)}</option>`).join("")}</select>
+            </label>
+            <label class="fb-field"><span>Your message</span>
+              <textarea id="fbMsg" rows="6" maxlength="${FEEDBACK_MAX}" placeholder="If it's a correction, the card or term it's on helps us find it. If something broke, what you were doing when it did."></textarea>
+            </label>
+            ${supaLoggedIn() ? "" : `<div class="fb-row">
+              <label class="fb-field"><span>Your name <small>(optional)</small></span><input id="fbName" type="text" maxlength="80" autocomplete="name" /></label>
+              <label class="fb-field"><span>Email <small>(optional — only if you'd like a reply)</small></span><input id="fbEmail" type="email" maxlength="160" autocomplete="email" /></label>
+            </div>`}
+            <div class="fb-foot">
+              <span class="fb-privacy">Sent with your message: the page you were on, your site language and your browser version. Nothing else.${supaLoggedIn() ? " <span>You're signed in, so your account name comes with it too.</span>" : ""}</span>
+              <button class="btn" type="submit" id="fbSend">Send to the editors</button>
+            </div>
+            <div class="fb-status" id="fbStatus" role="status"></div>
+          </form>
+        </div>
         <div class="msn-card msn-clog">
           <div class="msn-head">${CHIP.clog}<h2>Changelog</h2></div>
           <div class="clog">${logHTML}</div>
@@ -10471,6 +10563,22 @@
       const open = it.classList.toggle("open");
       b.setAttribute("aria-expanded", open ? "true" : "false");
     }));
+    // beta feedback → straight into the editors' queue (Edit → Feedback)
+    const fbForm = root.querySelector("#fbForm");
+    if (fbForm) fbForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const btn = fbForm.querySelector("#fbSend"), out = fbForm.querySelector("#fbStatus");
+      const msg = fbForm.querySelector("#fbMsg"), nameEl = fbForm.querySelector("#fbName"), mailEl = fbForm.querySelector("#fbEmail");
+      const say = (text, ok) => { out.textContent = text; out.classList.toggle("ok", !!ok); out.classList.toggle("bad", !ok); };
+      if (!msg.value.trim()) { say("Write a message first.", false); msg.focus(); return; }
+      btn.disabled = true; say("Sending…", true);
+      const r = await feedbackSend({ kind: fbForm.querySelector("#fbKind").value, message: msg.value, name: nameEl ? nameEl.value : "", email: mailEl ? mailEl.value : "" });
+      btn.disabled = false;
+      if (r.error) { say(r.error, false); return; }
+      // clear the message but keep the name/email — someone reporting one thing often reports the next
+      msg.value = "";
+      say("Thank you — that's with the editors now.", true);
+    });
     // the intro stays jargon-free: no glossary auto-linking here, and no read-aloud anywhere on this page
     const prose = root.querySelector("#msnProse");
     // admins: click the title or a paragraph to edit it in place (Esc cancels, Ctrl+Enter or clicking away saves)
@@ -10746,7 +10854,8 @@
   function saveAdminUI() { clearTimeout(_adminUIT); _adminUIT = setTimeout(saveAdminUINow, 200); }   // debounced; also flushed on pagehide below
   (function restoreAdminUI() {   // seed adminState from the last session (card/node validity is re-checked at render, once the tree is built)
     const u = loadAdminUI(); if (!u || typeof u !== "object") return;
-    if (typeof u.tab === "string") adminState.tab = u.tab;
+    // "accounts" is a retired tab (replaced by Feedback) — a session saved before that lands on Cards
+    if (typeof u.tab === "string" && u.tab !== "accounts") adminState.tab = u.tab;
     if (typeof u.search === "string") adminState.search = u.search;
     if (typeof u.sort === "string") adminState.sort = u.sort;
     if (typeof u.glossSort === "string") adminState.glossSort = u.glossSort;
@@ -12526,7 +12635,7 @@
             '<button class="admin-tab" type="button" data-atab="cards">Cards</button>' +
             '<button class="admin-tab" type="button" data-atab="glossary">Glossary</button>' +
             '<button class="admin-tab" type="button" data-atab="timeline">Timeline</button>' +
-            '<button class="admin-tab" type="button" data-atab="accounts">Accounts</button>' +
+            '<button class="admin-tab" type="button" data-atab="feedback">Feedback<span class="admin-tab-badge" id="fbTabBadge" hidden></span></button>' +
           '</div>' +
           '<div class="admin-tree" id="adminTree"></div>' +
           '<div class="admin-side-foot"><span class="admin-edit-count" id="adminEditCount"></span><button class="admin-autosave" id="adminAutosave" type="button" title="Automatically write every edit into the project files (Chrome, served over http://localhost). Click to turn on / off.">Auto-save: off</button><button class="admin-export" id="adminExport" type="button" title="Write data.js + glossary.js in the project folder">Save to project</button></div>' +
@@ -12646,53 +12755,122 @@
       adminRefresh();
     }));
 
-    function adminRenderAccounts() {
-      const items = root.querySelector("#adminListItems");
-      const countEl = root.querySelector("#adminListCount");
-      const keys = Object.keys(ACCT.users).sort((a, b) => (ACCT.users[a].created || 0) - (ACCT.users[b].created || 0));
-      if (countEl) countEl.textContent = keys.length + (keys.length === 1 ? " account" : " accounts");
-      if (!keys.length) { items.innerHTML = '<div class="acct-admin-empty">No accounts yet. People create accounts from the <b>Account</b> page — the first account becomes an Admin.</div>'; return; }
-      const adminCount = keys.filter((x) => ACCT.users[x].role === "admin").length;
-      items.innerHTML = '<div class="acct-admin-list">' + keys.map((k) => {
-        const u = ACCT.users[k];
-        const created = new Date(u.created || 0).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
-        const seen = Object.keys((u.progress && u.progress.cards) || {}).length;
-        const youTag = ACCT.current === k ? ' <span class="acct-you">you</span>' : "";
-        return '<div class="acct-admin-row">' +
-          '<span class="monogram sm">' + initialOf(u.name) + '</span>' +
-          '<span class="acct-admin-id"><b>' + esc(u.name) + '</b>' + youTag +
-            '<small>@' + esc(u.username) + ' · ' + seen + ' cards seen · ' + (u.friends || []).length + ' friends · joined ' + created + '</small></span>' +
-          '<span class="acct-admin-acts">' +
-            '<select class="acct-role" data-role="' + esc(k) + '"><option value="user"' + (u.role !== "admin" ? " selected" : "") + '>User</option><option value="admin"' + (u.role === "admin" ? " selected" : "") + '>Admin</option></select>' +
-            '<button class="mini-btn" data-reset="' + esc(k) + '" title="Issue a new recovery code">Reset code</button>' +
-            '<button class="mini-btn danger" data-del="' + esc(k) + '">Delete</button>' +
-          '</span></div>';
-      }).join("") + '</div>';
-      items.querySelectorAll(".acct-role").forEach((sel) => sel.addEventListener("change", () => {
-        const k = sel.dataset.role;
-        if (sel.value !== "admin" && ACCT.users[k].role === "admin" && adminCount <= 1) { toast("There must be at least one admin"); sel.value = "admin"; return; }
-        acctSetRole(k, sel.value);
-        toast(ACCT.users[k].name + " is now " + (sel.value === "admin" ? "an Admin" : "a User"));
-        if (k === ACCT.current) { applyMode(); if (!isAdmin()) { route("home"); return; } }   // dropped my own rights
-        adminRenderAccounts();
-      }));
-      items.querySelectorAll("[data-reset]").forEach((b) => b.addEventListener("click", () => {
-        const code = acctRotateRecovery(b.dataset.reset);
-        b.outerHTML = '<span class="acct-code" title="New recovery code — give this to the user">' + esc(code) + '</span>';
-      }));
-      items.querySelectorAll("[data-del]").forEach((b) => {
+    /* ---- Feedback: the readers' messages, and the one decision each one needs ----
+       The queue replaced the old Accounts tab, which managed the legacy device-local accounts and has had
+       nothing to manage since accounts moved to Supabase. Rows are fetched once per visit to the tab and
+       held in _fbRows; status changes are applied optimistically and rolled back if the PATCH fails, so a
+       triage pass never waits on the network between clicks. */
+    let _fbRows = null, _fbErr = "", _fbLoading = false, _fbFilter = "open";
+    const FB_FILTERS = [["open", "Needs a decision"], ["all", "All"]].concat(FEEDBACK_STATUS.map((s) => [s.k, s.label]));
+    const fbIsOpen = (row) => row.status === "new" || row.status === "seen";
+    function fbWhen(iso) {
+      const d = new Date(iso || 0);
+      if (!iso || isNaN(d)) return "";
+      return d.toLocaleDateString(undefined, { day: "numeric", month: "short", year: "numeric" }) + ", " + d.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
+    }
+    function fbTabBadge() {
+      const b = root.querySelector("#fbTabBadge"); if (!b) return;
+      const n = (_fbRows || []).filter((r) => r.status === "new").length;
+      b.textContent = n ? String(n) : ""; b.hidden = !n;
+    }
+    function adminRenderFeedback() {
+      const items = root.querySelector("#adminListItems"), countEl = root.querySelector("#adminListCount");
+      if (_fbRows === null) {
+        if (countEl) countEl.textContent = "";
+        items.innerHTML = '<div class="fbq-wrap"><div class="fbq-empty">' + (_fbErr ? esc(_fbErr) : "Loading messages…") +
+          (_fbErr ? ' <button class="mini-btn" id="fbRetry" type="button">Try again</button>' : "") + "</div></div>";
+        const retry = items.querySelector("#fbRetry");
+        if (retry) retry.addEventListener("click", () => { _fbErr = ""; adminRenderFeedback(); });
+        if (!_fbLoading && !_fbErr) {
+          _fbLoading = true;
+          feedbackList().then((r) => {
+            _fbLoading = false;
+            if (r.error) _fbErr = r.error; else _fbRows = r.rows;
+            if (current && current.name === "admin" && adminState.tab === "feedback") adminRenderFeedback();
+          });
+        }
+        return;
+      }
+      const counts = { open: _fbRows.filter(fbIsOpen).length, all: _fbRows.length };
+      FEEDBACK_STATUS.forEach((s) => { counts[s.k] = _fbRows.filter((r) => r.status === s.k).length; });
+      const shown = _fbRows.filter((r) => (_fbFilter === "all" ? true : _fbFilter === "open" ? fbIsOpen(r) : r.status === _fbFilter));
+      if (countEl) countEl.textContent = _fbRows.length + (_fbRows.length === 1 ? " message" : " messages");
+
+      const kindLabel = (k) => (FEEDBACK_KINDS.find((x) => x[0] === k) || [k, k])[1];
+      const row = (m) => {
+        const st = FEEDBACK_BY_STATUS[m.status] || FEEDBACK_BY_STATUS.new;
+        const who = (m.name || "").trim() || "Anonymous";
+        const meta = m.meta || {};
+        const bits = [];
+        if (m.page) bits.push(esc(m.page));
+        if (meta.lang && meta.lang !== "en") bits.push(esc(String(meta.lang)));
+        bits.push(esc(fbWhen(m.created_at)));
+        return '<div class="fbq-row st-' + esc(m.status) + '" data-fb="' + esc(m.id) + '" style="--fb-col:' + st.hex + '">' +
+          '<div class="fbq-main">' +
+            '<div class="fbq-head">' +
+              '<span class="fbq-kind">' + esc(kindLabel(m.kind)) + "</span>" +
+              '<b class="fbq-who">' + esc(who) + (m.author ? "" : ' <span class="fbq-anon">signed out</span>') + "</b>" +
+              (m.email ? '<a class="fbq-mail" href="mailto:' + esc(m.email) + '">' + esc(m.email) + "</a>" : "") +
+              '<span class="fbq-meta">' + bits.join(" · ") + "</span>" +
+              '<span class="fbq-state">' + esc(st.label) + "</span>" +
+            "</div>" +
+            '<div class="fbq-msg">' + esc(m.message).replace(/\n/g, "<br>") + "</div>" +
+            (meta.ua ? '<div class="fbq-ua" title="' + esc(String(meta.ua)) + '">' + esc(String(meta.ua).slice(0, 120)) + "</div>" : "") +
+            '<textarea class="fbq-note" rows="1" placeholder="Private note — only editors see this">' + esc(m.admin_note || "") + "</textarea>" +
+          "</div>" +
+          '<div class="fbq-acts">' +
+            FEEDBACK_STATUS.filter((s) => s.k !== "new").map((s) =>
+              '<button class="fbq-sw' + (m.status === s.k ? " on" : "") + '" type="button" data-st="' + s.k + '" style="--sw:' + s.hex + '" title="Mark as ' + s.label + '">' + esc(s.label) + "</button>").join("") +
+            '<button class="mini-btn danger fbq-del" type="button">Delete</button>' +
+          "</div></div>";
+      };
+      items.innerHTML =
+        '<div class="fbq-wrap">' +
+          '<div class="fbq-bar">' +
+            '<div class="fbq-filters">' + FB_FILTERS.map(([k, l]) =>
+              '<button class="fbq-chip' + (_fbFilter === k ? " on" : "") + '" type="button" data-flt="' + k + '"' +
+              (FEEDBACK_BY_STATUS[k] ? ' style="--sw:' + FEEDBACK_BY_STATUS[k].hex + '"' : "") + ">" + esc(l) +
+              '<span class="fbq-n">' + (counts[k] || 0) + "</span></button>").join("") + "</div>" +
+            '<button class="mini-btn" id="fbRefresh" type="button">Refresh</button>' +
+          "</div>" +
+          (shown.length ? shown.map(row).join("")
+            : '<div class="fbq-empty">' + (_fbRows.length ? "Nothing here under this filter." : "No messages yet. Readers write them at the foot of the About page — there is no account needed, so anyone can.") + "</div>") +
+        "</div>";
+
+      items.querySelectorAll("[data-flt]").forEach((b) => b.addEventListener("click", () => { _fbFilter = b.dataset.flt; adminRenderFeedback(); }));
+      items.querySelector("#fbRefresh").addEventListener("click", () => { _fbRows = null; _fbErr = ""; adminRenderFeedback(); });
+      items.querySelectorAll(".fbq-row").forEach((el) => {
+        const id = el.dataset.fb, m = _fbRows.find((x) => x.id === id);
+        if (!m) return;
+        el.querySelectorAll("[data-st]").forEach((b) => b.addEventListener("click", async () => {
+          // clicking the status a row already carries clears it back to New — the swatches are a toggle,
+          // so a mis-click is one click to undo rather than a trip through the other four
+          const next = m.status === b.dataset.st ? "new" : b.dataset.st, was = m.status;
+          m.status = next; adminRenderFeedback(); fbTabBadge();
+          const r = await feedbackPatch(id, { status: next });
+          if (r.error) { m.status = was; toast(r.error); adminRenderFeedback(); fbTabBadge(); }
+        }));
+        const note = el.querySelector(".fbq-note");
+        const grow = () => { note.style.height = "auto"; note.style.height = Math.min(220, note.scrollHeight + 2) + "px"; };
+        grow(); note.addEventListener("input", grow);
+        note.addEventListener("change", async () => {
+          const v = note.value.slice(0, 2000);
+          if (v === (m.admin_note || "")) return;
+          const was = m.admin_note; m.admin_note = v;
+          const r = await feedbackPatch(id, { admin_note: v });
+          if (r.error) { m.admin_note = was; note.value = was || ""; toast(r.error); }
+        });
+        const del = el.querySelector(".fbq-del");
         let armed = false;
-        b.addEventListener("click", () => {
-          const k = b.dataset.del;
-          if (ACCT.users[k].role === "admin" && adminCount <= 1) { toast("Can't delete the last admin"); return; }
-          if (!armed) { armed = true; b.textContent = "Confirm?"; b.classList.add("armed"); setTimeout(() => { if (b.isConnected) { armed = false; b.textContent = "Delete"; b.classList.remove("armed"); } }, 2500); return; }
-          const wasMe = k === ACCT.current;
-          acctDelete(k);
-          toast("Account deleted");
-          if (wasMe) { applyMode(); if (!isAdmin()) { route("home"); return; } }   // deleted myself → leave admin
-          adminRenderAccounts();
+        del.addEventListener("click", async () => {
+          if (!armed) { armed = true; del.textContent = "Confirm?"; del.classList.add("armed"); setTimeout(() => { if (del.isConnected) { armed = false; del.textContent = "Delete"; del.classList.remove("armed"); } }, 2500); return; }
+          const r = await feedbackDelete(id);
+          if (r.error) { toast(r.error); return; }
+          _fbRows = _fbRows.filter((x) => x.id !== id);
+          adminRenderFeedback(); fbTabBadge(); toast("Message deleted");
         });
       });
+      fbTabBadge();
     }
     function adminRenderTimeline() {
       const items = root.querySelector("#adminListItems");
@@ -12741,12 +12919,12 @@
     }
     function adminRefresh() {
       root.querySelectorAll(".admin-tab").forEach((t) => t.classList.toggle("active", t.dataset.atab === adminState.tab));
-      const accounts = adminState.tab === "accounts", cards = adminState.tab === "cards", timeline = adminState.tab === "timeline";
-      const admEl = root.querySelector(".admin"); if (admEl) { admEl.classList.toggle("accounts-mode", accounts); admEl.classList.toggle("timeline-mode", timeline); }
-      // the accounts/timeline branches return before adminRenderList(), which owns this class — clear it here or the
+      const feedback = adminState.tab === "feedback", cards = adminState.tab === "cards", timeline = adminState.tab === "timeline";
+      const admEl = root.querySelector(".admin"); if (admEl) { admEl.classList.toggle("feedback-mode", feedback); admEl.classList.toggle("timeline-mode", timeline); }
+      // the feedback/timeline branches return before adminRenderList(), which owns this class — clear it here or the
       // glossary tab's column divider lingers as a stray vertical line over those pages
       { const al = root.querySelector(".admin-list"); if (al) al.classList.toggle("gloss-cols", adminState.tab === "glossary"); }
-      if (accounts) { adminState.selected.clear(); adminRenderAccounts(); return; }
+      if (feedback) { adminState.selected.clear(); adminRenderFeedback(); return; }
       if (timeline) { adminState.selected.clear(); adminRenderTimeline(); return; }
       search.placeholder = cards ? "Search cards by title, id, hanzi…" : "Search glossary terms…";
       const tools = root.querySelector(".alt-right:not(.alt-right-gloss)"); if (tools) tools.style.display = cards ? "" : "none";
@@ -12758,6 +12936,12 @@
       adminRenderEditor();
     }
     adminRefresh();
+    // the unread count on the Feedback tab, so a waiting message is visible from the Cards tab too. Only
+    // worth a request when signed in — RLS returns nothing to a guest, and a dev-origin admin has no session.
+    if (supaLoggedIn() && adminState.tab !== "feedback") feedbackNewCount().then((n) => {
+      const b = root.querySelector("#fbTabBadge");
+      if (b && n) { b.textContent = String(n); b.hidden = false; }
+    });
     // after a reload, restore the list scroll and bring the previously-open card / term back into view (so you don't have to
     // re-browse to the card you were editing), and keep the saved scroll fresh as you browse.
     requestAnimationFrame(() => {
