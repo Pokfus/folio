@@ -1523,11 +1523,15 @@ body.night .lu-badge{color:#E6C765;}
   padding:14px 22px; animation:pageIn .3s var(--ease) both;
 }
 .active-deck:last-child{border-bottom-left-radius:14px; border-bottom-right-radius:14px;}
-.active-deck .ad-dot{width:8px; height:8px; border-radius:50%; background:var(--indigo); flex:none; margin-top:6px;}
-.active-deck .ad-body{flex:1; min-width:0; display:flex; flex-direction:column; gap:9px;}
+.active-deck .ad-body{flex:1; min-width:0; display:flex; flex-direction:column; gap:8px;}
 .active-deck .ad-line{display:flex; align-items:baseline; gap:10px; justify-content:space-between;}
 .active-deck .ad-title{font-family:var(--display); font-weight:600; font-size:16.5px; color:var(--ink); letter-spacing:-.01em;}
 .active-deck .ad-count{font-family:var(--mono); font-size:11px; color:var(--ink-faint); white-space:nowrap; flex:none;}
+/* how far through the deck the reader is — this took the place of the blue dot that used to sit at the left,
+   and its label carries the total the title line used to repeat */
+.active-deck .ad-prog{gap:11px;}
+.active-deck .ad-prog .track{height:6px;}
+.active-deck .ad-prog .count{font-family:var(--mono); font-size:10.5px; letter-spacing:.02em; color:var(--ink-faint); white-space:nowrap; flex:none;}
 .active-deck .ad-trash{
   flex:none; appearance:none; cursor:pointer; width:32px; height:32px; border-radius:8px;
   border:1px solid transparent; background:none; color:var(--ink-faint);
@@ -1544,10 +1548,9 @@ body.night .lu-badge{color:#E6C765;}
 .active-deck[data-review]:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px;}
 .active-deck.context{padding-top:10px; padding-bottom:10px; background:var(--paper-2);}
 .active-deck.context .ad-title{font-size:14px; color:var(--ink-faint); font-weight:600;}
-.active-deck .ad-branch{
-  width:7px; height:7px; flex:none; border-radius:50%; margin-top:6px;
-  border:1.5px solid var(--ink-faint); opacity:.6; box-sizing:border-box;
-}
+/* the ancestor rows' hollow marker went with the active rows' blue dot: it existed to line the two up, and
+   left on its own it would have pushed every parent title 21px right of the deck sitting under it. The
+   indent (data-depth padding) carries the hierarchy on its own. */
 .active-deck.context .prog .track{background:var(--paper);}
 .active-deck.context .prog .fill{opacity:.65;}
 

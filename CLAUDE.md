@@ -348,8 +348,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   on the left (`.level-badge` — just the numeral now; the small "Level" label under it was removed since the blue "Level N"
   in the xp-bar head beside it already says it), rendered in a **golden colour** (`.banner .lb-num` + `.collection-row .lb-num`
   = `#C39A2E`, brighter `#E6C765` on `body.night`; the profile `.cl-row .lb-num` stays indigo). The old studied/total
-  **progress bars were removed from Library decks + collections and the Daily-review list** (progress bars remain only on the
-  account page's "Progress by deck"). Each collection's level is also listed on the **profile** (`renderCollectionLevels` in
+  **progress bars were removed from Library decks + collections** (they remain on the account page's "Progress by deck").
+  **The Daily-review list got one back** in July 2026, on request: each added row carries an `X/X cards studied` bar
+  (`adProg` in `PAGES.home` → `.prog.ad-prog`, animated by the existing `animateProgs`) where a blue `.ad-dot` used to
+  sit. The dot and the ancestor rows' hollow `.ad-branch` went together — the branch existed only to line the two up,
+  and alone it would have pushed every parent title 21px right of the deck beneath it; the `data-depth` indent carries
+  the hierarchy. The bar's label also replaced the `.ad-count` "N cards" chip, which stated the same total twice. Each collection's level is also listed on the **profile** (`renderCollectionLevels` in
   `acctSelfView`). `grade()` calls `announceLevelUps(id)` on a freshly-studied card → a **full-screen "Level up!" popup**
   (`congratsPopup(items)`, a `.levelup-pop` overlay modelled on `inlineModal`) naming each Folio/collection level that ticks
   over (China's shown as its Chinese numeral); it is **dismissed by clicking anywhere on screen** (or Esc/Enter) — the
@@ -358,6 +362,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   whole subtree** (`wireExpander`'s optional `rowClick` → `route("study",{scope:{type:"deck",id}})`, since a collection is in
   `NODE_BY_ID` and `subtreeCardIds` covers it); its **chevron still expands/collapses** the decks within (the chevron's
   `stopPropagation` keeps it from also studying). A coming-soon / empty collection falls back to toggling.
+- **Card-of-the-day additions** (`COTD_ENTRY` / `cotdIds` / `cotdAdd`, beside the other entry helpers): the home tile's
+  button studies **that one card** (`scope {type:"card", id, addTo:"cotd"}`), and **grading it** — not opening it — drops
+  the card into the daily review. It can't be added the usual way: `S.active` holds whole decks, and pulling a deck in
+  for one card is not what the tile offers. So the ids collect in **`S.cards`-independent `S.cotd`** (in `defaultState`
+  + `PROGRESS_FIELDS`) and ride in under ONE pseudo-entry, `"cotd:added"`, which `activeEntryIds` / `entryCardIds` /
+  `entryInfo` / `removeActive` each special-case so it lists, studies (`scope {type:"cotd"}`) and trashes like an added
+  collection — its trash **empties the whole list**, and the entry only exists while it holds cards, so an emptied list
+  retires its own row. The id carries a **colon** so it can never collide with a node id (plain slugs) or a `u:` deck.
+  Two study-session details go with it: a **one-card session does not requeue** a learning step (`res.requeue &&
+  scope.type !== "card"`) — with no other card between, the card would reappear instantly and read as a grade that
+  never landed, and it is scheduled properly regardless — and `fromHome` (review / card / cotd scopes) sends the exit
+  button, the completion screen and the caught-up placard back to **Home** rather than the collections.
 - **Daily review order** (`reviewOrder` toggle → `S.settings.reviewRandom`): **Chrono** presents cards in their in-deck order;
   **Random** shuffles the session order AND **draws the day's NEW cards at random from across the active decks** (rather than the
   first-N in set order) — `reviewQueue` seeded-shuffles the unseen pool by the date (`seededShuffle(pool, mulberry32(hashStr("review-"+todayStr())))`) so the same new cards surface all day.
@@ -622,7 +638,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   an author with more than `2n/7` lines (5 of 20 today) cannot be spread by any arrangement, and the fallback is
   the best attempt, not a guarantee. Guarded by `.claude/test-daily-quote.js`) → review banner → (first-run only) a 3-step how-it-works strip →
   game tiles → a **discovery row** (`.explore-grid`): **Card of the day** (a real card, CSS-3D flip to its answer, gloss
-  links stripped, "Study <deck>" button), **Term of the day** (a dated glossary term → `openGlossWin`), and an **Atlas
+  links stripped, **"Study this card"** button — see the CotD-additions bullet below), **Term of the day** (a dated glossary term → `openGlossWin`), and an **Atlas
   teaser** with a slowly turning decorative mini globe (`startMiniGlobe` — decimated `WORLD_GEO`, orthographic,
   theme-coloured like the Atlas, stops when the canvas leaves the DOM, static under `prefers-reduced-motion`). Both
   daily picks come from `dailyPick(arr, salt)` (date-seeded). **Until the first card is ever graded**

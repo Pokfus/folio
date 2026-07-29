@@ -8,6 +8,8 @@ window.CHANGELOG = [
     d: "2026-07-29",
     t: "Video on your cards",
     items: [
+      "The Card of the day on the home page now opens that one card when you press Study this card. Grade it and the card joins your daily review on its own, without its whole deck coming with it: the cards you pick up this way gather under Card of the Day additions below the review tile, and you can clear the lot whenever you like.",
+      "Every deck in the daily review list now shows how far through it you are, as a bar reading how many of its cards you have studied. It takes the place of the dot that used to sit beside the name.",
       "The quote on the home page now moves between voices: the same writer never appears two days running, and never more than twice in one week.",
       "The Daily review tile on the home page now has a colour of its own: a bronze edge and wash while today's cards are still waiting, a full bronze fill once you have cleared them, and shining gold when every card came back right on the first try.",
       "Cards and glossary terms can now show a video in place of a picture. Paste a YouTube or Vimeo link, or a link straight to a video file, and it plays inside the card in the same frame a picture would have used, with a button in the corner to open it full screen. A card shows one or the other, never both. Anyone writing their own deck can add videos to their cards and terms the same way. Videos are linked rather than uploaded, so the file stays wherever it already lives.",

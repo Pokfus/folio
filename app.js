@@ -979,6 +979,10 @@
       // grade (a learning card is graded again 10 minutes later) and only tracks mature ones.
       reviewDay: { d: "", n: 0, miss: 0 },
       streak: { count: 0, last: "" },
+      // cards picked up one at a time from the home page's Card of the day (studied from the tile and then
+      // graded). They join the daily review under the COTD_ENTRY pseudo-entry, so a card can be added
+      // without its whole deck coming with it — see the COTD block below.
+      cotd: [],
       active: ["cn-qing"], // deck/subdeck ids added to the daily review
       achievements: {}, // achievement id -> unlock timestamp
     };
@@ -1072,7 +1076,7 @@
      Kept for: the admin page's local-user manager, the guest-progress stash helpers (extractProgress /
      applyProgress / emptyProgress), and older saves. The account page no longer signs in against this. */
   const ACCT_KEY = "folio_acct_v1";
-  const PROGRESS_FIELDS = ["cards", "suspended", "daily", "chrono", "games", "intro", "reviewLog", "reviewDay", "streak", "active", "achievements"];
+  const PROGRESS_FIELDS = ["cards", "suspended", "daily", "chrono", "games", "intro", "reviewLog", "reviewDay", "streak", "active", "cotd", "achievements"];
   const B32 = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
   function defaultAcct() { return { users: {}, current: null, guest: null }; }
   let ACCT = (function () {
@@ -2394,14 +2398,36 @@
   function studiedInNode(n) {
     return subtreeCardIds(n).filter((id) => isSeen(id)).length;
   }
-  // An active entry is a curated node id, or "u:<deckId>" for one of the user's own decks.
+  /* ---------- cards added one at a time from the Card of the day ----------
+     The home tile's button studies that ONE card, and grading it drops the card into the daily review. It
+     can't be added the normal way — S.active holds whole decks, and pulling a deck in for the sake of one
+     card is not what the tile offers — so the cards collect in S.cotd and ride into the review under a
+     single pseudo-entry that behaves like an added collection: it lists, it studies, and its trash button
+     clears the lot. The entry id carries a colon so it can never collide with a node id (those are plain
+     slugs) or with the "u:" of a user's own deck. */
+  const COTD_ENTRY = "cotd:added";
+  const COTD_TITLE = "Card of the Day additions";
+  function cotdIds() { return (Array.isArray(S.cotd) ? S.cotd : []).filter((id) => cardById(id)); }
+  function cotdAdd(id) {
+    if (!cardById(id)) return;
+    const list = cotdIds();
+    if (list.indexOf(id) !== -1) return;
+    list.push(id);
+    S.cotd = list;
+    addActive(COTD_ENTRY);   // saves, but only if the entry wasn't already there — hence the save below
+    save();
+  }
+  // An active entry is a curated node id, "u:<deckId>" for one of the user's own decks, or the Card-of-the-day
+  // pseudo-entry — which exists only while it holds cards, so emptying it retires the row on its own.
   function activeEntryIds() {
-    return (Array.isArray(S.active) ? S.active : []).filter((id) => NODE_BY_ID[id] || UDECKS[uDeckIdOf(id)]);
+    return (Array.isArray(S.active) ? S.active : [])
+      .filter((id) => NODE_BY_ID[id] || UDECKS[uDeckIdOf(id)] || (id === COTD_ENTRY && cotdIds().length));
   }
   function isActive(id) {
     return activeEntryIds().indexOf(id) !== -1;
   }
   function entryCardIds(id) {
+    if (id === COTD_ENTRY) return cotdIds();
     const ud = UDECKS[uDeckIdOf(id)];
     if (ud) return (ud.cardIds || []).slice();
     return subtreeCardIds(NODE_BY_ID[id]);
@@ -2432,11 +2458,13 @@
     }
   }
   function removeActive(id) {
+    if (id === COTD_ENTRY) S.cotd = [];   // the row stands for the whole list, so its trash empties it
     S.active = activeEntryIds().filter((x) => x !== id);
     save();
   }
-  // label + card count for an active entry (deck, subdeck, or one of the user's own decks)
+  // label + card count for an active entry (deck, subdeck, one of the user's own decks, or the CotD additions)
   function entryInfo(id) {
+    if (id === COTD_ENTRY) return { title: COTD_TITLE, parent: "", count: cotdIds().length };
     const ud = UDECKS[uDeckIdOf(id)];
     if (ud) return { title: ud.title, parent: "Your decks", count: (ud.cardIds || []).length };
     const n = NODE_BY_ID[id];
@@ -4489,6 +4517,15 @@
     const newN = q.fresh.length;
     const activeIds = activeEntryIds();
     const trashSVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>';
+    // every row in the review list carries how far through it the reader is — the bar replaced a bare blue dot,
+    // and its label replaced the plain card count beside the title, which said the same total twice
+    const adProg = (ids) => {
+      const total = ids.length, studied = ids.filter(isSeen).length;
+      return `<div class="prog ad-prog" data-pct="${total ? ((studied / total) * 100).toFixed(2) : 0}">
+        <div class="track"><div class="fill"></div></div>
+        <div class="count">${studied}/${total} cards studied</div>
+      </div>`;
+    };
     const activeHTML = (function () {
       const activeSet = new Set(activeIds);
       const show = new Set();
@@ -4504,17 +4541,15 @@
         .map((r) => {
           const pad = 22 + r.depth * 21;
           if (r.active) {
-            const info = entryInfo(r.node.id);
             return `<div class="active-deck" data-review="${esc(r.node.id)}" role="button" tabindex="0" data-depth="${r.depth}" style="padding-left:${pad}px" title="Review just ${esc(r.node.title)}">
-              <span class="ad-dot"></span>
               <div class="ad-body">
-                <div class="ad-line"><span class="ad-title">${esc(nodeTitle(r.node))}</span><span class="ad-count">${info.count} card${info.count === 1 ? "" : "s"}</span></div>
+                <div class="ad-line"><span class="ad-title">${esc(nodeTitle(r.node))}</span></div>
+                ${adProg(entryCardIds(r.node.id))}
               </div>
               <button class="ad-trash" data-id="${esc(r.node.id)}" aria-label="Remove from review">${trashSVG}</button>
             </div>`;
           }
           return `<div class="active-deck context" data-depth="${r.depth}" style="padding-left:${pad}px">
-            <span class="ad-branch"></span>
             <div class="ad-body">
               <div class="ad-line"><span class="ad-title">${esc(nodeTitle(r.node))}</span></div>
             </div>
@@ -4524,15 +4559,24 @@
         // the user's own decks aren't in TREE, so they're listed after it — otherwise a community deck
         // in the review could never be seen or removed from here
         activeIds.filter((id) => UDECKS[uDeckIdOf(id)]).map((id) => {
-          const d = UDECKS[uDeckIdOf(id)], info = entryInfo(id);
+          const d = UDECKS[uDeckIdOf(id)];
           return `<div class="active-deck" data-review="${esc(id)}" role="button" tabindex="0" data-depth="0" style="padding-left:22px" title="Review just ${esc(d.title)}">
-              <span class="ad-dot"></span>
               <div class="ad-body">
-                <div class="ad-line"><span class="ad-title">${esc(d.title)}</span><span class="ad-count">${info.count} card${info.count === 1 ? "" : "s"}</span></div>
+                <div class="ad-line"><span class="ad-title">${esc(d.title)}</span></div>
+                ${adProg(entryCardIds(id))}
               </div>
               <button class="ad-trash" data-id="${esc(id)}" aria-label="Remove from review">${trashSVG}</button>
             </div>`;
-        }).join("");
+        }).join("") +
+        // …and last, the cards picked up one at a time from the Card of the day, which belong to no deck the
+        // reader added. It reads as one more added collection, and its trash empties the whole list.
+        (activeIds.indexOf(COTD_ENTRY) === -1 ? "" : `<div class="active-deck" data-review="${esc(COTD_ENTRY)}" role="button" tabindex="0" data-depth="0" style="padding-left:22px" title="Review just ${esc(COTD_TITLE)}">
+              <div class="ad-body">
+                <div class="ad-line"><span class="ad-title">${esc(COTD_TITLE)}</span></div>
+                ${adProg(entryCardIds(COTD_ENTRY))}
+              </div>
+              <button class="ad-trash" data-id="${esc(COTD_ENTRY)}" aria-label="Remove from review">${trashSVG}</button>
+            </div>`);
     })();
     const greeting = (() => {
       const h = new Date().getHours();
@@ -4596,7 +4640,6 @@
     const fresh = Object.keys(S.cards).length === 0;   // never studied anything → first-run hero + how-it-works strip
     const availSet = availableCardIdSet();
     const cod = cardLocalized(dailyPick(CARDS.filter((c) => availSet.has(c.id) && c.question && c.answerText), "cod-"));
-    const codLeaf = cod ? cardLeaves(cod.id)[0] || null : null;
     const todKeys = window.GLOSSARY ? Object.keys(window.GLOSSARY).filter((k) => (window.GLOSSARY_DATES || {})[k]) : [];
     const tod = dailyPick(todKeys, "term-");
     const todImg = tod ? glossImage(tod) : null;   // the term's illustration, shown at the right of the tile
@@ -4612,7 +4655,7 @@
             <span class="exp-eyebrow">Card of the day</span>
             <div class="cod-a">${esc(cod.answerText)}</div>
             ${cod.hanzi ? `<div class="cod-han">${esc(cod.hanzi)}${cod.pinyin ? ` <span class="cod-pin">${esc(cod.pinyin)}</span>` : ""}</div>` : ""}
-            ${codLeaf ? `<span class="btn cod-study" id="cod-study">Study ${esc(codLeaf.title)}</span>` : ""}
+            <span class="btn cod-study" id="cod-study">Study this card</span>
           </div>
         </div>
       </button>` : ""}
@@ -4741,7 +4784,8 @@
     if (expCard) {
       expCard.querySelectorAll(".ttip").forEach((t) => t.replaceWith(t.textContent || ""));   // gloss links inside the question stay plain here
       expCard.addEventListener("click", (e) => {
-        if (e.target.closest("#cod-study") && codLeaf) { route("study", { scope: { type: "deck", id: codLeaf.id } }); return; }
+        // the button studies THIS card, not its deck — and grading it is what adds it to the daily review
+        if (e.target.closest("#cod-study")) { route("study", { scope: { type: "card", id: cod.id, addTo: "cotd" } }); return; }
         expCard.classList.toggle("flipped");
       });
     }
@@ -4763,8 +4807,8 @@
     // click a deck/subdeck in the daily-review list → review just that deck's cards (the trash button stops its own propagation)
     root.querySelectorAll(".active-deck[data-review]").forEach((el) => {
       const go = () => {
-        const ud = uDeckIdOf(el.dataset.review);
-        route("study", { scope: ud ? { type: "udeck", id: ud } : { type: "deck", id: el.dataset.review } });
+        const id = el.dataset.review, ud = uDeckIdOf(id);
+        route("study", { scope: id === COTD_ENTRY ? { type: "cotd" } : ud ? { type: "udeck", id: ud } : { type: "deck", id } });
       };
       el.addEventListener("click", (e) => { if (e.target.closest(".ad-trash")) return; go(); });
       el.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
@@ -5213,6 +5257,20 @@
         queue.sort((a, b) => ((oi[a] == null ? 1e9 : oi[a]) - (oi[b] == null ? 1e9 : oi[b])) || (cardStartYear(cardById(a)) - cardStartYear(cardById(b))));
       }
       where = "Review";
+      total = queue.length;
+    } else if (scope.type === "card") {
+      // one card on its own — the home page's Card of the day. No new-card allowance is spent deciding
+      // whether to show it: the reader asked for this card by name.
+      if (!cardById(scope.id)) return null;
+      queue = [scope.id];
+      const leaf = cardLeaves(scope.id)[0];
+      where = leaf ? nodeWhere(leaf) : "Card of the day";
+      total = 1;
+    } else if (scope.type === "cotd") {
+      const ids = cotdIds().filter((id) => !isSuspended(id));
+      const due = ids.filter((id) => isDueNow(id)).sort((a, b) => S.cards[a].due - S.cards[b].due);
+      queue = [...due, ...ids.filter((id) => !isSeen(id))];   // every card here was added BY being studied, so unseen is rare
+      where = COTD_TITLE;
       total = queue.length;
     } else if (scope.type === "udeck") {
       const d = UDECKS[scope.id];
@@ -5973,8 +6031,13 @@
 
   PAGES.study = function (root, params) {
     const sess = buildSession(params.scope);
+    // a session that starts from the home page goes back there: the daily review, the Card of the day and the
+    // cards it has added are all launched from that page, and "Collections" would strand the reader
+    const fromHome = params.scope.type === "review" || params.scope.type === "card" || params.scope.type === "cotd";
     if (!sess) {
-      root.innerHTML = emptyPlacard("Deck not found", "—", "We couldn't find that deck.", () => route("decks"), "Back to collections");
+      root.innerHTML = params.scope.type === "card"
+        ? emptyPlacard("Card not found", "—", "We couldn't find that card.", () => route("home"), "Back home")
+        : emptyPlacard("Deck not found", "—", "We couldn't find that deck.", () => route("decks"), "Back to collections");
       return;
     }
     const sd = params.scope.type === "deck" ? NODE_BY_ID[params.scope.id] : null;
@@ -6031,7 +6094,7 @@
         sess.scope.type === "review"
           ? "No cards are due right now. New cards unlock as you keep a streak going."
           : "You've studied everything available in this deck for now.",
-        () => route(sess.scope.type === "review" ? "home" : "decks"),
+        () => route(fromHome ? "home" : "decks"),
         "Done"
       );
       return;
@@ -6068,7 +6131,7 @@
         <div class="study-shell">
           <div class="study-bar">
             <button class="backbtn" id="exit"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg> ${
-              sess.scope.type === "review" ? "Home" : "Collections"
+              fromHome ? "Home" : "Collections"
             }</button>
             <span class="study-where">${esc(sess.where)}</span>
             <div class="counts">
@@ -6107,7 +6170,7 @@
       wireTTS(cardRoot, c);
       if (ttsActive()) ttsSay(ttsPartsFor("question", c));   // the slow male voice reads the question ("blank" for the ____)
       root.querySelector("#exit").addEventListener("click", () =>
-        route(sess.scope.type === "review" ? "home" : "decks")
+        route(fromHome ? "home" : "decks")
       );
       function suspendCurrent() {
         if (!S.suspended) S.suspended = {};
@@ -6190,8 +6253,14 @@
         const res = grade(id, g);
         if (!wasSeen) studiedThisSession++;
         else studiedThisSession++; // count every review as a study event for the session tally
+        // grading the Card of the day is what adds it to the reader's daily review — reading it and walking
+        // away does not, which is why this sits here and not in the tile's button
+        if (params.scope.addTo === "cotd") cotdAdd(id);
         queue.shift();
-        if (res.requeue) queue.push(id); // relearn within session
+        // a learning step normally comes back later in the same session; in a ONE-card session there is no
+        // "later" — the card would reappear instantly, looking like the grade never landed. It is properly
+        // scheduled either way, and it has just joined the daily review, so it comes back there instead.
+        if (res.requeue && params.scope.type !== "card") queue.push(id); // relearn within session
         // swap animation handled by re-render
         renderCard();
       }
@@ -6232,11 +6301,11 @@
         <p>You worked through ${studiedThisSession} card${studiedThisSession === 1 ? "" : "s"}. Your progress is saved.</p>
         <div class="row">
           <button class="btn" id="more">Keep studying</button>
-          <button class="btn ghost" id="home">Back ${sess.scope.type === "review" ? "home" : "to collections"}</button>
+          <button class="btn ghost" id="home">Back ${fromHome ? "home" : "to collections"}</button>
         </div>`;
       root.appendChild(card);
       card.querySelector("#home").addEventListener("click", () =>
-        route(sess.scope.type === "review" ? "home" : "decks")
+        route(fromHome ? "home" : "decks")
       );
       card.querySelector("#more").addEventListener("click", () => route("study", params));
     }
