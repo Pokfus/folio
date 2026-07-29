@@ -18,7 +18,7 @@ window.CHANGELOG = [
       "Cards and glossary terms can now show a video in place of a picture. Paste a YouTube or Vimeo link, or a link straight to a video file, and it plays inside the card in the same frame a picture would have used, with a button in the corner to open it full screen. A card shows one or the other, never both. Anyone writing their own deck can add videos to their cards and terms the same way. Videos are linked rather than uploaded, so the file stays wherever it already lives.",
       "Adding a picture or a video to a card or a glossary term now asks where it came from. Until you give a source it is not saved: the panel says so plainly, and a small box asks you for the credit, so nothing on Folio can go out uncredited.",
       "Your account page now shows statistics for one deck at a time — pick a deck to see how far through it you are, how much of it has settled into long-term memory and what it owes you today. A new Beyond the cards panel sits beside it, counting the glossary terms you have opened, the places you have looked up in the Atlas, your longest run of study days and how the daily games have gone.",
-      "Five new cards in the World History prehistory deck, in all ten site languages.",
+      "Six new cards in the World History prehistory deck, in all ten site languages.",
     ],
   },
   {
