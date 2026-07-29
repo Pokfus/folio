@@ -259,6 +259,14 @@ body.night .banner .lb-num, body.night .collection-row .lb-num{color:#E6C765;}  
 .banner .lb-num{font-size:62px;}
 /* breathing room between the desc line above and the blue "Level X / X of X cards" row */
 .banner .xp{margin-top:12px;}
+/* the Daily-review banner's xp bar is GOLD, in the same metal as the level numeral beside it — downstairs the
+   Library bars run in each collection's own hue and the account's in indigo, and one blue bar looked like
+   another. The earned .done / .won fills override this with their own on-fill colour (gold on gold reads as
+   nothing), which their higher specificity already handles. */
+.banner .xp-fill{background:linear-gradient(90deg, #C39A2E, #E6C765);}
+body.night .banner .xp-fill{background:linear-gradient(90deg, #D4AA3C, #F2DC96);}   /* brighter, like the numeral's night gold */
+.banner .xp-lvl{color:#8A6A1E;}   /* a deeper gold than the bar: at 10px this text needs the contrast, and #C39A2E on the card is only 3.6:1 */
+body.night .banner .xp-lvl{color:#E6C765;}
 /* profile: level held in each collection */
 .coll-levels{display:flex; flex-direction:column; gap:12px; margin-bottom:16px;}
 .cl-row{display:flex; align-items:center; gap:16px; background:var(--card); border:1px solid var(--rule); border-radius:12px; padding:12px 18px;}

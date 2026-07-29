@@ -347,7 +347,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `Object.keys(S.cards).length`) shown on the **home Daily-review banner**. Both banners carry a **large level numeral**
   on the left (`.level-badge` — just the numeral now; the small "Level" label under it was removed since the blue "Level N"
   in the xp-bar head beside it already says it), rendered in a **golden colour** (`.banner .lb-num` + `.collection-row .lb-num`
-  = `#C39A2E`, brighter `#E6C765` on `body.night`; the profile `.cl-row .lb-num` stays indigo). The old studied/total
+  = `#C39A2E`, brighter `#E6C765` on `body.night`; the profile `.cl-row .lb-num` stays indigo). **The review
+  banner's xp bar runs in the same metal** (`.banner .xp-fill` + `.xp-lvl`, gold): the Library's bars take each
+  collection's hue and the account's are indigo, so one indigo bar read as another. Its "Level N" label is a
+  DEEPER gold than the fill — `#C39A2E` on the card is only 3.6:1, too thin for 10px text. The earned
+  `.done`/`.won` fills override both with their own on-fill colour, since gold on gold reads as nothing. The old studied/total
   **progress bars were removed from Library decks + collections** (they remain on the account page's "Progress by deck").
   **The Daily-review list got one back** in July 2026, on request: each added row carries an `X/X cards studied` bar
   (`adProg` in `PAGES.home` → `.prog.ad-prog`, animated by the existing `animateProgs`) where a blue `.ad-dot` used to
