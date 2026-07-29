@@ -8,7 +8,7 @@ window.CHANGELOG = [
     d: "2026-07-28",
     t: "Who said it? in your language",
     items: [
-      "Thirty-one more cards in the World History deck, in all ten site languages.",
+      "Thirty-two more cards in the World History deck, in all ten site languages.",
       "A question in the World History deck has been rewritten to read more clearly.",
       "Who said it? and True or False are now fully in your language — the quotation or statement, the four names you choose between, the category, the explanation that follows and the result line after each answer. Famous lines use the wording they are actually known by in each language. Every daily game now reads in all ten site languages.",
       "Dates now read in your language across the site: the years under a deck title, the lifespans and reigns on glossary terms, and the spans on the Atlas country panel. Eras are written the way each language writes them — n. Chr., av. J.-C., 公元前 — and ages in deep time are spelled out rather than left as Mya.",
