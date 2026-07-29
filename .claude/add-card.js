@@ -37,6 +37,14 @@ if (qn < Q_MIN || qn > Q_MAX) {
   console.error("ERROR: question is " + qn + " words — it must be " + Q_MIN + "–" + Q_MAX + " (aim for ~28; see CLAUDE.md). Keep one identifying clue and move the rest into the abstract.");
   process.exit(1);
 }
+// nothing Folio shows is uncredited — the editors gate this too (wireMediaSource in app.js), and a card
+// written straight into data.js has to meet the same rule or the credit is simply never added
+for (const m of ["image", "video"]) {
+  if (card[m] && String(card[m].src || "").trim() && !String(card[m].credit || "").trim()) {
+    console.error("ERROR: card." + m + " has a src but no `credit` — every picture and clip carries its source (see CLAUDE.md).");
+    process.exit(1);
+  }
+}
 if (!card.skipTranslations) {   // every new card ships in all 9 site languages (i18n block -> shown by the language switcher)
   const missing = [];
   for (const l of I18N_LANGS) {

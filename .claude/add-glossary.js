@@ -60,6 +60,13 @@ if (e.delete) {
   else if ("tags" in e) delete TAGS[e.slug];
   if (e.caseSensitive) CASE[e.slug] = true;
   else if ("caseSensitive" in e) delete CASE[e.slug];
+  // nothing Folio shows is uncredited — the glossary editors gate this too (wireMediaSource in app.js)
+  for (const m of ["image", "video"]) {
+    if (e[m] && String(e[m].src || "").trim() && !String(e[m].credit || "").trim()) {
+      console.error("ERROR: " + e.slug + "." + m + " has a src but no `credit` — every picture and clip carries its source (see CLAUDE.md).");
+      process.exit(1);
+    }
+  }
   // optional illustration ({ src, title, desc, credit }) — same shape as a card image, shown at the foot of the popup
   if (e.image && e.image.src) {
     const im = { src: String(e.image.src) };
