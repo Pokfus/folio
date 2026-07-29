@@ -8,7 +8,7 @@ window.CHANGELOG = [
     d: "2026-07-28",
     t: "Who said it? in your language",
     items: [
-      "Sixteen new cards in the World History deck, in all ten site languages.",
+      "Seventeen new cards in the World History deck, in all ten site languages.",
       "Who said it? and True or False are now fully in your language — the quotation or statement, the four names you choose between, the category, the explanation that follows and the result line after each answer. Famous lines use the wording they are actually known by in each language. Every daily game now reads in all ten site languages.",
       "Dates now read in your language across the site: the years under a deck title, the lifespans and reigns on glossary terms, and the spans on the Atlas country panel. Eras are written the way each language writes them — n. Chr., av. J.-C., 公元前 — and ages in deep time are spelled out rather than left as Mya.",
       "The Atlas globe now reads in your language at every year on the timeline: present-day countries, the empires, colonies and old kingdoms of the historical maps, the map's own descriptions of the peoples who lived beyond them, and capital cities under the names they went by at the time — Constantinople, Peking, Saigon, Edo. Country names follow you everywhere — on the map itself, in the name that follows your cursor, and in the home-location picker in Settings. That completes the Atlas: zoom in at any year, in any of the ten languages, and the map speaks it.",
