@@ -115,14 +115,36 @@ async function openGlossEditor(page, base) {
   check("the edit is recorded as a glossaryVideos overlay delta", !!(stored.v && stored.v.title === "A short film"), JSON.stringify(stored.v));
   check("the term counts as edited (Revert is offered)", await page.locator("#adminRevert").isVisible());
 
+  // one frame per term: giving the same term a picture must retire the video, in the store and in the fields
+  await page.fill('[data-gimgfield="src"]', PNG);
+  await page.waitForTimeout(700);
+  const gExcl = await page.evaluate((k) => {
+    const o = JSON.parse(localStorage.getItem("folio_admin_v1") || "{}");
+    return {
+      vidDelta: (o.glossaryVideos || {})[k],
+      live: !!(window.GLOSSARY_VIDEOS || {})[k],
+      field: (document.querySelector('[data-gvidfield="src"]') || {}).value,
+      pvVid: document.querySelectorAll("#adminGlossPreview .card-vid").length,
+      pvImg: document.querySelectorAll("#adminGlossPreview .card-img").length,
+    };
+  }, stored.k);
+  check("a picture retires the term's video", !gExcl.vidDelta && gExcl.live === false, JSON.stringify(gExcl));
+  check("...clearing the video URL field with it", !gExcl.field, String(gExcl.field));
+  check("...and the preview shows one frame, the picture", gExcl.pvImg === 1 && gExcl.pvVid === 0);
+  await page.fill('[data-gimgfield="src"]', "");
+  await page.fill('[data-gvidfield="src"]', YT);
+  await page.fill('[data-gvidfield="title"]', "A short film");
+  await page.waitForTimeout(700);
+
   await page.reload({ waitUntil: "load" });
   await page.waitForFunction(() => !!window.GLOSSARY);
   check("the overlay re-applies on reload",
     await page.evaluate((k) => (window.GLOSSARY_VIDEOS[k] || {}).title, stored.k) === "A short film");
 
-  /* ---------- 3. the popup renders it, in the image's frame ---------- */
+  /* ---------- 3. the popup renders it, in the image's frame, ONE frame only ---------- */
   await page.goto(base, { waitUntil: "load" });
   await page.waitForFunction(() => !!window.GLOSSARY && Object.keys(window.GLOSSARY).length > 0);
+  // both fields set at once — only a hand-authored glossary.js can do this, and the picture must win
   await page.evaluate((args) => {
     Object.keys(window.GLOSSARY).forEach((k) => {
       window.GLOSSARY_IMAGES[k] = { src: args.png, title: "Plate", desc: "A plate.", credit: "Someone" };
@@ -132,8 +154,15 @@ async function openGlossEditor(page, base) {
   await closeGloss(page);
   await page.click("#exp-term");
   await page.waitForTimeout(400);
-  check("the popup carries the term's video", await page.locator(".gloss-win .gloss-imgslot .card-vid").count() === 1);
-  check("...alongside the image, both in the same slot", await page.locator(".gloss-win .gloss-imgslot .card-img").count() === 2);
+  check("a term carrying both renders ONE frame", await page.locator(".gloss-win .gloss-imgslot .card-img").count() === 1);
+  check("...and it is the picture", await page.locator(".gloss-win .gloss-imgslot .card-vid").count() === 0);
+
+  await page.evaluate(() => { Object.keys(window.GLOSSARY).forEach((k) => { delete window.GLOSSARY_IMAGES[k]; }); });
+  await closeGloss(page);
+  await page.click("#exp-term");
+  await page.waitForTimeout(400);
+  check("with no picture, the popup carries the term's video", await page.locator(".gloss-win .gloss-imgslot .card-vid").count() === 1);
+  check("...as the only frame in the slot", await page.locator(".gloss-win .gloss-imgslot .card-img").count() === 1);
   const gbox = await page.evaluate(() => {
     const v = document.querySelector(".gloss-win .gloss-imgslot .card-vid");
     const slot = document.querySelector(".gloss-win .gloss-imgslot");
@@ -188,9 +217,22 @@ async function openGlossEditor(page, base) {
       abstract: "A handaxe is a shaped stone tool.",
       // an https URL, not the inline PNG: community content is held to http/https, data: is refused
       image: { src: "https://example.org/plate.png", title: "Plate", desc: "A plate.", credit: "Someone" },
-      video: { src: MP4, title: "Knapping", desc: "How it is made.", credit: "An archive" },
     }, {
       id: "u_viddeck1_2",
+      question: 'A <span class="blank">_____</span> strikes the core.',
+      answer: "Hammerstone", answerText: "Hammerstone",
+      abstract: "A hammerstone is the percussor.",
+      video: { src: MP4, title: "Knapping", desc: "How it is made.", credit: "An archive" },
+    }, {
+      id: "u_viddeck1_3",
+      question: 'A <span class="blank">_____</span> is struck from the core.',
+      answer: "Flake", answerText: "Flake",
+      abstract: "A flake is the piece removed.",
+      // both at once: one frame per card, so the picture wins and the video is dropped at ingest
+      image: { src: "https://example.org/flake.png", title: "Flake", desc: "d", credit: "c" },
+      video: { src: MP4, title: "Dropped", desc: "d", credit: "c" },
+    }, {
+      id: "u_viddeck1_4",
       question: 'A <span class="blank">_____</span> follows the herd.',
       answer: "Band", answerText: "Band",
       abstract: 'Hostile: <video src="x.mp4" onerror="window.__vidPwned=1"></video><iframe src="https://evil.example"></iframe> and prose.',
@@ -215,49 +257,61 @@ async function openGlossEditor(page, base) {
   await page.evaluate(() => document.querySelector("#reveal-btn").click());
   await page.waitForTimeout(500);
 
-  const frame = await page.evaluate(() => {
-    const img = document.querySelector(".reveal .card-img:not(.card-vid)");
-    const vid = document.querySelector(".reveal .card-vid");
-    if (!img || !vid) return { img: !!img, vid: !!vid };
-    const a = getComputedStyle(img), b = getComputedStyle(vid);
-    const inner = vid.querySelector(".cv-media");
+  // the frames are measured one card apart, in the same column, so they are directly comparable
+  const measure = () => page.evaluate(() => {
+    const fig = document.querySelector(".reveal .card-img");
+    if (!fig) return null;
+    const cs = getComputedStyle(fig), r = fig.getBoundingClientRect(), inner = fig.querySelector(".cv-media");
     return {
-      img: true, vid: true,
-      same: ["borderRadius", "aspectRatio", "borderTopWidth", "borderTopColor", "overflow", "boxShadow"].every((p) => a[p] === b[p]),
-      radius: a.borderRadius + " / " + b.borderRadius,
-      widthEq: Math.abs(img.getBoundingClientRect().width - vid.getBoundingClientRect().width) < 1,
-      heightEq: Math.abs(img.getBoundingClientRect().height - vid.getBoundingClientRect().height) < 1,
+      style: ["borderRadius", "aspectRatio", "borderTopWidth", "borderTopColor", "overflow", "boxShadow", "marginTop", "marginBottom"].map((p) => cs[p]).join("|"),
+      w: Math.round(r.width), h: Math.round(r.height),
+      isVid: fig.classList.contains("card-vid"),
+      frames: document.querySelectorAll(".reveal .card-img").length,
       order: [...document.querySelectorAll(".reveal .bg-collapse-inner > *")].map((e) => e.className.split(" ")[0]).join(","),
       tag: inner ? inner.tagName.toLowerCase() : null,
       src: inner ? inner.getAttribute("src") : null,
-      isButton: vid.getAttribute("role"),
+      role: fig.getAttribute("role"),
     };
   });
-  check("a community card's video renders when studied", frame.vid === true, JSON.stringify(frame).slice(0, 140));
-  check("...in the image's exact frame", frame.same === true, frame.radius);
-  check("...at the image's exact size", frame.widthEq && frame.heightEq);
-  check("...below the image, above the prose", /card-img,card-img,abstract/.test(frame.order || ""), frame.order);
-  check("...as a <video> for a direct file link", frame.tag === "video" && frame.src === "https://example.org/clips/handaxe.mp4", frame.tag + " " + frame.src);
-  check("the video figure is not itself a button (the player owns its clicks)", !frame.isButton, String(frame.isButton));
+  const imgCard = await measure();
+  check("a card with a picture renders one frame", imgCard && imgCard.frames === 1 && !imgCard.isVid, JSON.stringify(imgCard).slice(0, 120));
+  const next = async () => { await page.evaluate(() => { const g = document.querySelector(".grade.good"); if (g) g.click(); }); await page.waitForTimeout(700); await page.evaluate(() => { const b = document.querySelector("#reveal-btn"); if (b) b.click(); }); await page.waitForTimeout(500); };
+  await next();
+  const vidCard = await measure();
+  check("a card with a video renders one frame", vidCard && vidCard.frames === 1 && vidCard.isVid === true, JSON.stringify(vidCard).slice(0, 120));
+  check("...in the image's exact frame", vidCard && vidCard.style === imgCard.style, (vidCard || {}).style + "  vs  " + imgCard.style);
+  check("...at the image's exact size", vidCard && vidCard.w === imgCard.w && vidCard.h === imgCard.h, (vidCard || {}).w + "x" + (vidCard || {}).h + " vs " + imgCard.w + "x" + imgCard.h);
+  check("...above the prose, where the picture sits", /^card-img,abstract$/.test((vidCard || {}).order || ""), (vidCard || {}).order);
+  check("...as a <video> for a direct file link", vidCard && vidCard.tag === "video" && vidCard.src === MP4, (vidCard || {}).tag + " " + (vidCard || {}).src);
+  check("the video figure is not itself a button (the player owns its clicks)", vidCard && !vidCard.role, String((vidCard || {}).role));
+
+  await next();
+  const bothCard = await measure();
+  check("a card given both renders ONE frame", bothCard && bothCard.frames === 1, JSON.stringify(bothCard).slice(0, 120));
+  check("...and it is the picture", bothCard && bothCard.isVid === false);
 
   await page.evaluate(() => { const g = document.querySelector(".grade.good"); if (g) g.click(); });
   await page.waitForTimeout(700);
-  const second = await page.evaluate(() => ({
+  const hostile = await page.evaluate(() => ({
     pwned: !!window.__vidPwned,
     media: document.querySelectorAll(".reveal video, .reveal iframe").length,
   }));
-  check("the hostile card renders no video at all", second.media === 0, String(second.media));
-  check("nothing in a stranger's prose executed", !second.pwned);
+  check("the hostile card renders no video at all", hostile.media === 0, String(hostile.media));
+  check("nothing in a stranger's prose executed", !hostile.pwned);
 
   /* ---------- 6. the Studio's own video fields ---------- */
   await page.goto(base + "#studio", { waitUntil: "load" });
   await page.waitForTimeout(900);
   await page.evaluate(() => { const b = document.querySelector("[data-open]"); if (b) b.click(); });
   await page.waitForTimeout(600);
-  await page.evaluate(() => { const b = document.querySelector(".studio-cardrow .scr-open"); if (b) b.click(); });
+  await page.evaluate(() => { const rows = document.querySelectorAll(".studio-cardrow .scr-open"); if (rows[1]) rows[1].click(); });   // the video card
   await page.waitForTimeout(700);
   check("the Studio card editor offers a video panel", await page.locator('[data-vidfield="src"]').count() === 1);
   check("...showing the card's existing video in the slot", await page.locator("#cesVidSlot .card-vid .cv-media").count() === 1);
+  check("...and offering the picture only as a swap, not a second empty box",
+    await page.locator("#cesImgSlot .ces-media-swap").count() === 1 && await page.locator("#cesImgSlot .ces-img-ph").count() === 0);
+  await page.evaluate(() => { const b = document.querySelector("#cesVidSlot .ces-vid-edit"); if (b) b.click(); });
+  await page.waitForTimeout(300);
   await page.fill('[data-vidfield="src"]', YT);
   await page.waitForTimeout(700);
   const st = await page.evaluate(() => {
@@ -266,6 +320,21 @@ async function openGlossEditor(page, base) {
   });
   check("editing the URL re-renders the player live", st.tag === "iframe" && /youtube-nocookie/.test(st.src || ""), st.tag + " " + st.src);
   check("...and reports what it recognised", /YouTube/.test(st.note), st.note);
+
+  // one frame per card: giving this same card a picture must retire the video, in the store AND on screen
+  await page.evaluate(() => { const b = document.querySelector("#cesImgSlot .ces-media-swap"); if (b) b.click(); });
+  await page.waitForTimeout(300);
+  await page.fill('[data-imgfield="src"]', "https://example.org/swap.png");
+  await page.waitForTimeout(800);
+  const swapped = await page.evaluate(() => ({
+    vidFrames: document.querySelectorAll("#cesVidSlot .card-vid").length,
+    imgFrames: document.querySelectorAll("#cesImgSlot .card-img").length,
+    vidField: (document.querySelector('[data-vidfield="src"]') || {}).value,
+    vidSwap: document.querySelectorAll("#cesVidSlot .ces-media-swap").length,
+  }));
+  check("setting a picture replaces the video on screen", swapped.imgFrames === 1 && swapped.vidFrames === 0, JSON.stringify(swapped));
+  check("...clears the video URL field", !swapped.vidField, String(swapped.vidField));
+  check("...and leaves a swap back to video", swapped.vidSwap === 1);
 
   await page.evaluate(() => { const b = document.querySelector('[data-tab="gloss"]'); if (b) b.click(); });
   await page.waitForTimeout(500);
@@ -285,16 +354,22 @@ async function openGlossEditor(page, base) {
         const all = db.transaction("decks").objectStore("decks").getAll();
         all.onsuccess = () => {
           const d = all.result.find((x) => x.id === "viddeck1") || {};
-          const c = (d.cards || [])[0] || {}, c2 = (d.cards || [])[1] || {};
-          res({ src: (c.video || {}).src, title: (c.video || {}).title, bad: !!c2.video, abstract: c2.abstract || "",
-            gloss: !!((d.gloss || {}).Flint || {}).video, evil: !!((d.gloss || {}).Evil || {}).video });
+          const cs = d.cards || [];
+          res({
+            src: ((cs[1] || {}).image || {}).src,             // the video card, now swapped to a picture
+            vid: !!(cs[1] || {}).video,
+            both: !!(cs[2] || {}).video, bothImg: !!(cs[2] || {}).image,   // the card given both at once
+            bad: !!(cs[3] || {}).video, abstract: (cs[3] || {}).abstract || "",
+            gloss: !!((d.gloss || {}).Flint || {}).video, evil: !!((d.gloss || {}).Evil || {}).video,
+          });
         };
       };
       req.onerror = () => res(null);
     });
   });
-  check("the video persists to the deck store", survived && /youtube\.com/.test(survived.src || ""), JSON.stringify(survived));
-  check("...keeping its title", survived && survived.title === "Knapping", survived && survived.title);
+  check("the swap persisted to the deck store", survived && /swap\.png/.test(survived.src || ""), JSON.stringify(survived));
+  check("...with the video gone, not merely hidden", survived && survived.vid === false);
+  check("a card given both keeps only the picture", survived && survived.both === false && survived.bothImg === true);
   check("a term's video survives ingest", survived && survived.gloss === true);
   check("a javascript: term video does not", survived && survived.evil === false);
   check("a javascript: card video does not", survived && survived.bad === false);
@@ -312,27 +387,73 @@ async function openGlossEditor(page, base) {
   await page.waitForTimeout(500);
   await page.evaluate(() => { const r = document.querySelector(".admin-card-row .acr-open"); if (r) r.click(); });
   await page.waitForTimeout(800);
+  // the first shipped card (wh-001) carries an image, which is exactly the interesting case: the video
+  // side must offer a swap rather than a second empty box, and taking it must retire the shipped image
   check("the card editor offers a video panel", await page.locator('[data-vidfield="src"]').count() === 1);
-  check("...with an add-a-video placeholder while empty", await page.locator("#cesVidSlot .ces-vid-ph").count() === 1);
+  check("a card with a picture shows no second empty box",
+    await page.locator("#cesImgSlot .card-img").count() === 1 && await page.locator("#cesVidSlot .ces-vid-ph").count() === 0);
+  check("...only a swap to video", await page.locator("#cesVidSlot .ces-media-swap").count() === 1);
+  check("...and both panels closed until asked for", await page.evaluate(() =>
+    !document.querySelector("#cesImgPanel").checkVisibility() && !document.querySelector("#cesVidPanel").checkVisibility()));
+
+  await page.click("#cesVidSlot .ces-media-swap");
+  await page.waitForTimeout(300);
+  check("the swap opens the video panel", await page.evaluate(() => document.querySelector("#cesVidPanel").checkVisibility()));
   await page.fill('[data-vidfield="src"]', MP4);
   await page.fill('[data-vidfield="title"]', "A demonstration");
   await page.waitForTimeout(800);
   const cardDelta = await page.evaluate(() => {
     const o = JSON.parse(localStorage.getItem("folio_admin_v1") || "{}");
     const id = Object.keys(o.cards || {}).find((k) => o.cards[k].video);
-    return { id: id, v: id ? o.cards[id].video : null, player: document.querySelectorAll("#cesVidSlot .card-vid video").length };
+    const d = id ? o.cards[id] : {};
+    return {
+      id: id, v: d.video, imgDelta: d.image,
+      player: document.querySelectorAll("#cesVidSlot .card-vid video").length,
+      imgFrames: document.querySelectorAll("#cesImgSlot .card-img").length,
+      imgSwap: document.querySelectorAll("#cesImgSlot .ces-media-swap").length,
+      imgField: (document.querySelector('[data-imgfield="src"]') || {}).value,
+    };
   });
   check("the edit is recorded as a card video delta", !!(cardDelta.v && cardDelta.v.title === "A demonstration"), JSON.stringify(cardDelta.v));
   check("...and the editor shows the player in place", cardDelta.player === 1);
+  check("the shipped image is retired by a null tombstone", cardDelta.imgDelta === null, JSON.stringify(cardDelta.imgDelta));
+  check("...its frame replaced by a swap back to a picture", cardDelta.imgFrames === 0 && cardDelta.imgSwap === 1);
+  check("...and its URL field cleared", !cardDelta.imgField, String(cardDelta.imgField));
+
   await page.reload({ waitUntil: "load" });
   await page.waitForTimeout(1000);
-  check("the card video survives a reload",
-    await page.evaluate((id) => (window.CARD_DATA, (function () { const o = JSON.parse(localStorage.getItem("folio_admin_v1") || "{}"); return !!(o.cards[id] || {}).video; })()), cardDelta.id));
+  const afterReload = await page.evaluate((id) => {
+    const d = JSON.parse(localStorage.getItem("folio_admin_v1") || "{}").cards[id] || {};
+    return {
+      delta: !!d.video, tombstone: d.image,
+      // the shipped card object after the overlay has been applied — the tombstone should have blanked it
+      liveImage: !!((window.CARD_DATA.find((c) => c.id === id) || {}).image || {}).src,
+    };
+  }, cardDelta.id);
+  check("the card video survives a reload", afterReload.delta);
+  // the regression this pins: the tombstone was written on the first keystroke and erased by the second,
+  // so the retired picture came back the moment the page reloaded and the card showed two frames again
+  check("...and the retired picture stays retired", afterReload.tombstone === null && afterReload.liveImage === false,
+    JSON.stringify(afterReload));
   await page.waitForTimeout(400);
+  // reverting must put the shipped picture back and take the video away — one frame, as it started
+  await page.evaluate(() => {
+    const b = [...document.querySelectorAll("button")].find((x) => /^cards$/i.test(x.textContent.trim()));
+    if (b) b.click();
+  });
+  await page.waitForTimeout(500);
+  await page.evaluate(() => { const r = document.querySelector(".admin-card-row .acr-open"); if (r) r.click(); });
+  await page.waitForTimeout(700);
   await page.evaluate(() => { const b = document.querySelector("#adminRevert"); if (b) b.click(); });
-  await page.waitForTimeout(600);
-  check("Revert card drops the video with everything else",
-    await page.evaluate((id) => { const o = JSON.parse(localStorage.getItem("folio_admin_v1") || "{}"); return !(o.cards || {})[id]; }, cardDelta.id));
+  await page.waitForTimeout(700);
+  const reverted = await page.evaluate((id) => ({
+    delta: (JSON.parse(localStorage.getItem("folio_admin_v1") || "{}").cards || {})[id],
+    imgFrames: document.querySelectorAll("#cesImgSlot .card-img").length,
+    vidFrames: document.querySelectorAll("#cesVidSlot .card-vid").length,
+  }), cardDelta.id);
+  check("Revert card drops the video with everything else", !reverted.delta, JSON.stringify(reverted.delta));
+  check("...and the shipped picture comes back as the one frame",
+    reverted.imgFrames === 1 && reverted.vidFrames === 0, JSON.stringify(reverted));
 
   /* ---------- 8. no console errors anywhere in the above ---------- */
   check("no page errors", errs.length === 0, errs.slice(0, 3).join(" | "));

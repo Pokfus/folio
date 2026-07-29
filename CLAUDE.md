@@ -417,8 +417,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `serializeCardData` bakes `c.image` when it has a `src`, `revertCard` restores `p.image`. Image metadata is shared
   across languages (not in the i18n blocks).
 - **Card video (optional):** `card.video = { src, title, desc, credit }` — the **same four fields and the same
-  frame as the image** (`.card-img` plus a `.card-vid` modifier), rendered by `cardVideoHTML` directly **below**
-  the image in the Background section. **Links only — there is deliberately no upload path**: the only place an
+  frame as the image** (`.card-img` plus a `.card-vid` modifier), rendered by `cardVideoHTML`.
+  **ONE FRAME PER CARD: the image and the video are alternatives, never companions.** Every writer enforces
+  it — `setCardImageEdit`/`setCardVideoEdit` (via `retireOtherCardMedia`), `uCardSetImage`/`uCardSetVideo`,
+  the glossary pair (via `retireOtherGlossMedia`), and the deck-ingest sanitizers — and `buildBack`,
+  `renderGlossImage`, `serializeCardData`, `serializeGlossary` and the publish payload all keep the rule as a
+  backstop, **with the picture winning** so a hand-authored `data.js` carrying both renders as it always did.
+  **`retireOtherCardMedia` asks `PRISTINE_CARDS`, not the live card**, when deciding whether to write a null
+  tombstone: it runs on every keystroke, and by the second one the live field is already gone — reading it
+  erased the tombstone the first keystroke wrote and the retired picture came back on the next reload.
+  **Links only — there is deliberately no upload path**: the only place an
   uploaded file could live is inline as a data-URI, which for a curated card rides into `data.js` (eagerly
   downloaded by every visitor) and for a community deck into its published jsonb payload. Host it elsewhere,
   link it here. **`videoSource(src)`** is the single resolver → `{ kind: "youtube"|"vimeo"|"file", url }` or
@@ -436,11 +444,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   it entirely (the control is a real `<button>`). Editing: `setCardVideoEdit` (curated, a `video` delta exactly
   like `image`, null tombstone and all) / `uCardSetVideo` (community); `serializeCardData` bakes `c.video`,
   `revertCard` restores `p.video`, publish sends `data.video`. `_headers` carries **`media-src 'self' https:`**
-  and **`frame-src`** for the two embed hosts. Guarded by `.claude/test-video.js` (62 assertions).
+  and **`frame-src`** for the two embed hosts. In the editors the unused side is **not** a second empty box:
+  it collapses to a slim `.ces-media-swap` pill ("Use a video instead") that opens the other panel, and
+  setting either URL clears the other panel's fields and hides it. `.ces-imgpanel[hidden]{display:none}` is
+  **required** — the author `display:flex` beats the UA `[hidden]` rule, and without it BOTH panels sit
+  permanently open and the click-to-edit toggle does nothing (the image panel shipped that way until the
+  video panel made it obvious). Guarded by `.claude/test-video.js` (83 assertions).
 - **Glossary video (optional):** `window.GLOSSARY_VIDEOS` (slug → the same object; `glossVideo(key)`,
   `ADMIN_EDITS.glossaryVideos`, baked by `serializeGlossary`), or `entry.video` inside `UGLOSS` for a
-  community deck's own term. `renderGlossImage` puts it in the **same `.gloss-imgslot`** under the picture, at
-  the same fixed height, so a term can carry both. Edited in the curated glossary editor's **EN view only**
+  community deck's own term. `renderGlossImage` puts it in the **same `.gloss-imgslot`** at the same fixed
+  height — **one frame per term, like a card**, so setting one retires the other and the picture wins if a
+  hand-authored `glossary.js` carries both. Edited in the curated glossary editor's **EN view only**
   (`data-gvidfield` → `setGlossVideoEdit`) and in the Studio's term form (`data-gvid` → `uGlossSetVideo`) —
   metadata is shared across languages, like an image's. The home page's Gloss-of-the-day plate stays
   image-only on purpose: it is a silhouette, not a player.
@@ -1200,7 +1214,8 @@ one where the picture genuinely teaches something, and put its provenance in `cr
 Optional `"video": { "src": "https://…", "title": "…", "desc": "…", "credit": "…" }` adds a clip shown in
 the same frame in the popup (lands in `window.GLOSSARY_VIDEOS`). **Links only** — a YouTube or Vimeo page
 URL, or a URL ending in `.mp4`/`.m4v`/`.webm`/`.ogv`/`.ogg`/`.mov`; anything else silently renders nothing.
-Not translated, like the image metadata, and also editable per-term on the admin glossary page.
+**A term shows one frame, so `image` and `video` are alternatives** — giving an entry both renders only the
+image. Not translated, like the image metadata, and also editable per-term on the admin glossary page.
 
 To remove a term, run the helper on `{ "slug": "Some_Slug", "delete": true }`.
 
@@ -1428,13 +1443,16 @@ dead code (never rendered).
     into their FIRST account, and a newly created second account starts at level 1 with no badges, no streak
     and no heatmap — in the store, on the server row, and on the page (first-run hero, "0 unlocked"). **Re-run
     after touching `supaAfterSignIn` / `supaSignOut` / `supaBoot` / `_supaOwner` / `PROGRESS_FIELDS`.**
-  · `node .claude/test-video.js` — 62 assertions on card + glossary videos: that every accepted link shape
+  · `node .claude/test-video.js` — 83 assertions on card + glossary videos: that every accepted link shape
     resolves to the embed this code builds and **every other URL resolves to no player at all** (the check
     that keeps an `<iframe src>` off untrusted input), that the frame is byte-for-byte the image's frame
     (computed border-radius / aspect-ratio / border / size), that the expand control opens the viewer and a
-    click on the player does not, that the curated overlay deltas survive a reload and a revert, and that a
-    community deck's `javascript:` video src is dropped on ingest. **Re-run after touching `videoSource` /
-    `cardVideoHTML` / `openMediaViewer` / the video panels, or the `media-src`/`frame-src` CSP.**
+    click on the player does not, and that a community deck's `javascript:` video src is dropped on ingest.
+    Above all it pins the **one-frame rule** from every side: a card or term given both renders one frame,
+    setting either URL retires the other in the store *and* in the other panel's fields, the tombstone
+    survives a reload (the keystroke bug above), and Revert brings the shipped picture back. **Re-run after
+    touching `videoSource` / `cardVideoHTML` / `openMediaViewer` / `retireOther*Media` / the image or video
+    panels, or the `media-src`/`frame-src` CSP.**
   · `node .claude/test-gloss-image.js` — 40 assertions on glossary images: the popup floats one to the
     top-right of the body at a fixed height and at most half its width, with the prose beside rather than
     below it; it opens the SHARED fullscreen viewer and that viewer stacks **above** the popup,

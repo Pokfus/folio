@@ -1953,9 +1953,8 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
   aspect-ratio:auto; width:auto; max-width:100%;
 }
 .gloss-imgslot .card-img img{ width:auto; height:150px; max-width:100%; object-fit:cover; }
-/* a video keeps its 16:9 shape at that same height, so a term carrying both stacks two frames of one height */
+/* a video keeps its 16:9 shape at that same height — a term shows one frame, a picture or a clip */
 .gloss-imgslot .card-vid{ aspect-ratio:16/9; height:150px; width:auto; }
-.gloss-imgslot .card-vid + .card-vid, .gloss-imgslot .card-img + .card-vid{ margin-top:8px; }
 .gloss-imgslot .ci-zoom{ right:8px; bottom:8px; width:24px; height:24px; border-radius:7px; }
 .gloss-imgslot .card-vid .ci-zoom{ top:8px; bottom:auto; }
 .gloss-imgslot .ci-zoom svg{ width:13px; height:13px; }
@@ -2235,10 +2234,22 @@ textarea.af-input{resize:vertical; min-height:42px;}
 .ces-vid .ces-vid-edit{opacity:.72; pointer-events:auto; border:0; padding:0; cursor:pointer;}
 .ces-vid:hover .ces-vid-edit{opacity:1;}
 .ces-vid-ph svg{width:30px; height:30px;}
+/* a card shows ONE frame, so the side that isn't in use collapses to this slim switch rather than
+   offering a second empty 16:9 box */
+.ces-media-swap{
+  display:block; margin:-10px auto 16px; padding:5px 12px; border:1px dashed var(--rule); border-radius:999px;
+  background:none; color:var(--ink-faint); font-family:var(--sans); font-size:12px; cursor:pointer;
+  transition:border-color .15s, color .15s;
+}
+.ces-media-swap:hover{border-color:color-mix(in srgb, var(--indigo) 50%, var(--rule)); color:var(--indigo);}
 .af-vidnote{font-family:var(--sans); font-size:11.5px; color:var(--ink-faint); margin:-4px 0 0;}
 .af-vidnote.bad{color:var(--zh);}
 .af-vidnote[hidden]{display:none;}
 .ces-imgpanel{display:flex; flex-direction:column; gap:10px; border:1px dashed color-mix(in srgb, var(--indigo) 35%, var(--rule)); border-radius:10px; padding:12px 14px; margin:-6px 0 16px; background:var(--paper-2);}
+/* required, codebase convention: the author display:flex above beats the UA [hidden] rule, so without this
+   the card editor's image/video panels are permanently open and the click-to-edit toggle does nothing.
+   (The glossary editors' copies carry no hidden attribute and stay open, which is what they want.) */
+.ces-imgpanel[hidden]{display:none;}
 /* the same panel in the glossary editors (curated + Studio), where it is always open rather than toggled */
 .gloss-imgpanel{margin:14px 0 0;}
 .gloss-imgpanel .admin-field{margin-top:0;}

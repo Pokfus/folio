@@ -444,6 +444,22 @@
     touchModified(id);
     queueAdminSave();
   }
+  // ONE FRAME PER CARD. An image and a video are alternatives, never companions: giving a card either one
+  // retires the other, here and in every other writer (uCardSetImage/Video, the glossary pair, the deck
+  // ingest sanitizers). The renderers keep the same rule as a backstop for hand-authored data files.
+  function retireOtherCardMedia(id, keep) {
+    const c = CARD_BY_ID[id]; if (!c) return;
+    const other = keep === "image" ? "video" : "image";
+    c[other] = undefined;
+    const target = isCreatedCard(id) ? ADMIN_EDITS.created[id] : ADMIN_EDITS.cards[id];
+    if (!target) return;
+    // A tombstone is needed only to hide something that SHIPS, so ask the pristine card, not the live one:
+    // this runs on every keystroke, and by the second one the live field is already gone — reading it would
+    // delete the tombstone written by the first and let the shipped picture return on the next reload.
+    // A created card has no shipped baseline (its pristine is blank), so absence is the right overlay state.
+    if (!isCreatedCard(id) && ((PRISTINE_CARDS[id] || {})[other] || {}).src) target[other] = null;
+    else delete target[other];
+  }
   // edit one property of the card's image ({ src, title, desc, credit }) — same deep-copy/whole-object
   // delta pattern as i18n; clearing every property stores a null tombstone that hides a shipped image
   function setCardImageEdit(id, key, value) {
@@ -454,11 +470,11 @@
     c.image = empty ? undefined : next;
     const target = isCreatedCard(id) ? ADMIN_EDITS.created[id] : (ADMIN_EDITS.cards[id] = ADMIN_EDITS.cards[id] || {});
     target.image = empty ? null : next;
+    if (next.src) retireOtherCardMedia(id, "image");
     touchModified(id);
     queueAdminSave();
   }
-  // and the card's video ({ src, title, desc, credit }) — the identical delta shape, a separate field so a
-  // card can carry both an illustration and a clip
+  // and the card's video ({ src, title, desc, credit }) — the identical delta shape, in the other field
   function setCardVideoEdit(id, key, value) {
     const c = CARD_BY_ID[id]; if (!c) return;
     const next = JSON.parse(JSON.stringify(c.video || {}));
@@ -467,6 +483,7 @@
     c.video = empty ? undefined : next;
     const target = isCreatedCard(id) ? ADMIN_EDITS.created[id] : (ADMIN_EDITS.cards[id] = ADMIN_EDITS.cards[id] || {});
     target.video = empty ? null : next;
+    if (next.src) retireOtherCardMedia(id, "video");
     touchModified(id);
     queueAdminSave();
   }
@@ -826,6 +843,14 @@
     else ADMIN_EDITS.glossaryTags[key] = arr;
     queueAdminSave();
   }
+  // one frame per term, exactly as for a card: setting an image retires the video and vice versa
+  function retireOtherGlossMedia(key, keep) {
+    const live = keep === "image" ? window.GLOSSARY_VIDEOS : window.GLOSSARY_IMAGES;
+    const base = keep === "image" ? PRISTINE_GLOSS_VIDEOS : PRISTINE_GLOSS_IMAGES;
+    const deltas = keep === "image" ? ADMIN_EDITS.glossaryVideos : ADMIN_EDITS.glossaryImages;
+    delete live[key];
+    if (base[key]) deltas[key] = null; else delete deltas[key];   // a tombstone only where something shipped
+  }
   // edit one property of a term's illustration ({ src, title, desc, credit }) — same deep-copy/whole-object
   // delta pattern as the card image; clearing every property stores a null tombstone that hides a shipped one
   function setGlossImageEdit(key, field, value) {
@@ -836,6 +861,7 @@
     const base = PRISTINE_GLOSS_IMAGES[key] || null;
     if (JSON.stringify(empty ? null : next) === JSON.stringify(base)) delete ADMIN_EDITS.glossaryImages[key];
     else ADMIN_EDITS.glossaryImages[key] = empty ? null : next;
+    if (!empty) retireOtherGlossMedia(key, "image");
     queueAdminSave();
   }
   // and the term's video — the identical delta shape, in its own table
@@ -847,6 +873,7 @@
     const base = PRISTINE_GLOSS_VIDEOS[key] || null;
     if (JSON.stringify(empty ? null : next) === JSON.stringify(base)) delete ADMIN_EDITS.glossaryVideos[key];
     else ADMIN_EDITS.glossaryVideos[key] = empty ? null : next;
+    if (!empty) retireOtherGlossMedia(key, "video");
     queueAdminSave();
   }
   function glossTags(k) {
@@ -2575,8 +2602,8 @@
       const src = sanitizeUrl(String(raw.image.src), ["http", "https"]);
       if (src) c.image = { src: src, title: sanitizePlain(raw.image.title).slice(0, 200), desc: sanitizePlain(raw.image.desc).slice(0, 1000), credit: sanitizePlain(raw.image.credit).slice(0, 300) };
     }
-    const v = uMediaSanitize(raw && raw.video);
-    if (v) c.video = v;
+    // one frame per card: a record carrying both resolves the same way the renderers do — the picture wins
+    if (!c.image) { const v = uMediaSanitize(raw && raw.video); if (v) c.video = v; }
     return c;
   }
   // A card's or term's video, cleaned on ingest like every other field. An http/https src is kept even when
@@ -2611,8 +2638,7 @@
         const src = sanitizeUrl(String(t.image.src), ["http", "https"]);
         if (src) e.image = { src: src, title: sanitizePlain(t.image.title).slice(0, 200), desc: sanitizePlain(t.image.desc).slice(0, 1000), credit: sanitizePlain(t.image.credit).slice(0, 300) };
       }
-      const tv = uMediaSanitize(t.video);   // the term's video, on the same footing
-      if (tv) e.video = tv;
+      if (!e.image) { const tv = uMediaSanitize(t.video); if (tv) e.video = tv; }   // the term's video — one frame, so only when there is no picture
       if (!e.desc && !e.title) return;
       out[slug] = e;
     });
@@ -2707,16 +2733,16 @@
     if (!c) return;
     const im = Object.assign({ src: "", title: "", desc: "", credit: "" }, c.image || {});
     im[field] = field === "src" ? sanitizeUrl(String(value || "").trim(), ["http", "https"]) : sanitizePlain(value).slice(0, 1000);
-    if (!im.src) delete c.image; else c.image = im;
+    if (!im.src) delete c.image; else { c.image = im; delete c.video; }   // one frame per card
     if (c.deckId) uDeckSave(c.deckId);
   }
-  // the card's video — clearing the URL drops it, exactly like the image
+  // the card's video — clearing the URL drops it, exactly like the image, and setting one retires the image
   function uCardSetVideo(cardId, field, value) {
     const c = UCARDS[cardId];
     if (!c) return;
     const v = Object.assign({ src: "", title: "", desc: "", credit: "" }, c.video || {});
     v[field] = field === "src" ? (sanitizeUrl(String(value || "").trim(), ["http", "https"]) || "") : sanitizePlain(value).slice(0, 1000);
-    if (!v.src) delete c.video; else c.video = v;
+    if (!v.src) delete c.video; else { c.video = v; delete c.image; }
     if (c.deckId) uDeckSave(c.deckId);
   }
   /* ---------- a deck's own glossary terms ----------
@@ -2765,7 +2791,7 @@
     if (field === "src") next.src = sanitizeUrl(String(value || ""), ["http", "https"]) || "";
     else if (field === "title" || field === "desc" || field === "credit") next[field] = sanitizePlain(value).slice(0, field === "desc" ? 1000 : field === "title" ? 200 : 300);
     else return;
-    if (next.src) t.image = next; else delete t.image;
+    if (next.src) { t.image = next; delete t.video; } else delete t.image;   // one frame per term
     uGlossTouched(deckId);
   }
   // one property of a term's video — same shape, same rules
@@ -2776,7 +2802,7 @@
     if (field === "src") next.src = sanitizeUrl(String(value || "").trim(), ["http", "https"]) || "";
     else if (field === "title" || field === "desc" || field === "credit") next[field] = sanitizePlain(value).slice(0, field === "desc" ? 1000 : field === "title" ? 200 : 300);
     else return;
-    if (next.src) t.video = next; else delete t.video;
+    if (next.src) { t.video = next; delete t.image; } else delete t.video;
     uGlossTouched(deckId);
   }
   function uGlossDelete(deckId, slug) {
@@ -2940,7 +2966,7 @@
       const data = {};
       CARD_FIELDS.forEach((f) => { data[f] = c[f] == null ? "" : c[f]; });
       if (c.image && c.image.src) data.image = c.image;
-      if (c.video && c.video.src) data.video = c.video;
+      else if (c.video && c.video.src) data.video = c.video;   // one frame per card
       return { deck_id: row.id, id: c.id, ord: i, is_demo: true, data: data };
     });
     const ins = await supaFetch("/rest/v1/user_cards", { method: "POST", body: rows });
@@ -5336,7 +5362,7 @@
                 '<label class="admin-field"><span class="af-label">Also written as <small>— comma separated; plurals link automatically</small></span><input class="af-input" data-gf="aliases" type="text" value="' + esc((t.aliases || []).join(", ")) + '" /></label>' +
                 '<label class="admin-field"><span class="af-label">Tags <small>— comma separated</small></span><input class="af-input" data-gf="tags" type="text" value="' + esc((t.tags || []).join(", ")) + '" /></label>' +
                 '<div class="ces-imgpanel gloss-imgpanel">' +
-                  '<div class="aib-head">Image <span class="aib-hint">— shown at the foot of the term&rsquo;s popup; clear the URL to remove it.</span></div>' +
+                  '<div class="aib-head">Image <span class="aib-hint">— shown at the foot of the term&rsquo;s popup; clear the URL to remove it. A term shows one frame, so setting an image removes any video.</span></div>' +
                   '<label class="admin-field"><span class="af-label">Image URL</span><input class="af-input" data-gimg="src" type="text" spellcheck="false" value="' + esc((t.image || {}).src || "") + '" placeholder="https://…" /></label>' +
                   '<div id="stImgMeta"' + (t.image && t.image.src ? "" : " hidden") + '>' +
                     '<label class="admin-field"><span class="af-label">Image title</span><input class="af-input" data-gimg="title" type="text" value="' + esc((t.image || {}).title || "") + '" /></label>' +
@@ -5345,7 +5371,7 @@
                   '</div>' +
                 '</div>' +
                 '<div class="ces-imgpanel gloss-imgpanel">' +
-                  '<div class="aib-head">Video <span class="aib-hint">— a YouTube or Vimeo link, or a direct .mp4 / .webm URL; shown in the term&rsquo;s popup. Clear the URL to remove it.</span></div>' +
+                  '<div class="aib-head">Video <span class="aib-hint">— a YouTube or Vimeo link, or a direct .mp4 / .webm URL; shown in the term&rsquo;s popup. Clear the URL to remove it. A term shows one frame, so setting a video removes any image.</span></div>' +
                   '<label class="admin-field"><span class="af-label">Video URL</span><input class="af-input" data-gvid="src" type="text" spellcheck="false" value="' + esc((t.video || {}).src || "") + '" placeholder="https://www.youtube.com/watch?v=…" /></label>' +
                   '<div class="af-vidnote" id="stVidNote" hidden></div>' +
                   '<div id="stVidMeta"' + (t.video && t.video.src ? "" : " hidden") + '>' +
@@ -5375,10 +5401,23 @@
       descEl.addEventListener("input", () => { uGlossSet(d.id, slug, "desc", fieldVal(descEl)); adminFlashSaved(); });
     }
     const stImgMeta = root.querySelector("#stImgMeta");
+    const syncStImg = () => { if (stImgMeta) stImgMeta.hidden = !((UGLOSS[d.id][slug] || {}).image || {}).src; };
+    // one frame per term: the retired side's fields follow the store (see syncGMedia in the curated editor)
+    const syncStMedia = (justSet) => {
+      syncStImg(); syncStVid();
+      if (justSet !== "image") {
+        const im = (UGLOSS[d.id][slug] || {}).image || {};
+        root.querySelectorAll("[data-gimg]").forEach((f) => { f.value = im[f.dataset.gimg] || ""; });
+      }
+      if (justSet !== "video") {
+        const v = (UGLOSS[d.id][slug] || {}).video || {};
+        root.querySelectorAll("[data-gvid]").forEach((f) => { f.value = v[f.dataset.gvid] || ""; });
+      }
+    };
     root.querySelectorAll("[data-gimg]").forEach((el) => el.addEventListener("input", () => {
       uGlossSetImage(d.id, slug, el.dataset.gimg, el.value.trim());
       adminFlashSaved();
-      if (el.dataset.gimg === "src" && stImgMeta) stImgMeta.hidden = !((UGLOSS[d.id][slug] || {}).image || {}).src;
+      if (el.dataset.gimg === "src") syncStMedia("image");
     }));
     const stVidMeta = root.querySelector("#stVidMeta"), stVidNote = root.querySelector("#stVidNote");
     const syncStVid = () => {
@@ -5395,7 +5434,7 @@
     root.querySelectorAll("[data-gvid]").forEach((el) => el.addEventListener("input", () => {
       uGlossSetVideo(d.id, slug, el.dataset.gvid, el.value.trim());
       adminFlashSaved();
-      if (el.dataset.gvid === "src") syncStVid();
+      if (el.dataset.gvid === "src") syncStMedia("video");
     }));
     root.querySelectorAll("[data-gf]").forEach((el) => {
       if (el.dataset.gf === "desc") return;
@@ -6207,7 +6246,9 @@
       html += "</div>";
     }
     const hasImg = !!(c.image && c.image.src);
-    const hasVid = !!(c.video && c.video.src && videoSource(c.video.src));
+    // one frame per card. Every writer retires the other field, so this only decides a hand-authored data.js
+    // that carries both — and there the picture wins, so existing cards keep rendering as they always did.
+    const hasVid = !hasImg && !!(c.video && c.video.src && videoSource(c.video.src));
     if (c.abstract || hasImg || hasVid) {
       const bgCol = !!S.settings.bgCollapsed;
       html +=
@@ -6218,7 +6259,7 @@
         "</span>" + ttsPlayHTML("background", true) + "</button>";
       html += '<div class="bg-collapse' + (bgCol ? " collapsed" : "") + '"><div class="bg-collapse-inner">';
       if (hasImg) html += cardImageHTML(c.image);   // sits at the top of the background, above the prose
-      if (hasVid) html += cardVideoHTML(c.video);   // and the video below it, in the identical frame
+      else if (hasVid) html += cardVideoHTML(c.video);   // or the video, in the identical frame — never both
       if (c.abstract) html += '<p class="abstract">' + c.abstract + "</p>";
       html += "</div></div>";
     }
@@ -10701,14 +10742,14 @@
     autoLinkGlossary(el, "", [key].concat(glossOffList(key)), glossScopeForKey(key));
     boldFirstTerm(el, glossTitle(key));
   }
-  // a term's illustration (and/or its video), floated to the top-right of its popup. Both reuse .card-img,
-  // so the delegated listener that opens the fullscreen viewer from any card image covers them too — no
-  // wiring of its own. A video sits under the picture when a term carries both.
+  // a term's illustration OR its video, floated to the top-right of its popup — one frame, like a card's.
+  // Both reuse .card-img, so the delegated listener that opens the fullscreen viewer from any card image
+  // covers them too — no wiring of its own.
   function renderGlossImage(el, key, img) {
     if (!el) return;
     const im = img === undefined ? glossImage(key) : (img && img.src ? img : null);
-    const vid = glossVideo(key);
-    el.innerHTML = (im ? cardImageHTML(im) : "") + (vid ? cardVideoHTML(vid) : "");
+    const vid = im ? null : glossVideo(key);
+    el.innerHTML = im ? cardImageHTML(im) : vid ? cardVideoHTML(vid) : "";
     el.hidden = !im && !vid;
   }
   // bold the term's first mention in its own gloss description (like the answer term opening a card background)
@@ -10882,7 +10923,7 @@
   function adminSetListCount(n, noun) { const el = document.getElementById("adminListCount"); if (el) el.textContent = n + " " + noun + (n === 1 ? "" : "s"); }
   // serialize the live (delta-applied) in-memory data back into data.js / glossary.js source text
   function serializeCardData() {
-    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; if (c.video && c.video.src) o.video = c.video; return o; });   // i18n translations + the card image/video ride along untouched
+    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // i18n translations ride along untouched; the card's ONE frame is its image or its video
     const countIds = (node) => { const s = new Set(); (function w(n) { (n.cardIds || []).forEach((i) => s.add(i)); (n.children || []).forEach(w); })(node); return s.size; };
     function ser(node, isTop) {
       const o = { id: node.id, title: node.title };
@@ -10915,8 +10956,10 @@
     if (Object.keys(Tg).length) s += "\nwindow.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, " + ob(Tg) + ");\n";   // preserve category tags (slug -> [tags]) — they power the admin tag filter
     const Im = window.GLOSSARY_IMAGES || {};
     if (Object.keys(Im).length) s += "\nwindow.GLOSSARY_IMAGES = Object.assign(window.GLOSSARY_IMAGES || {}, " + ob(Im) + ");\n";   // preserve per-term illustrations — they live only in the overlay otherwise
-    const Vd = window.GLOSSARY_VIDEOS || {};
-    if (Object.keys(Vd).length) s += "\nwindow.GLOSSARY_VIDEOS = Object.assign(window.GLOSSARY_VIDEOS || {}, " + ob(Vd) + ");\n";   // and per-term videos, for the same reason
+    // and per-term videos, for the same reason — minus any slug that also has a picture, since a term shows
+    // one frame and the renderers give it to the picture
+    const Vd = {}; Object.keys(window.GLOSSARY_VIDEOS || {}).forEach((k) => { if (!Im[k]) Vd[k] = window.GLOSSARY_VIDEOS[k]; });
+    if (Object.keys(Vd).length) s += "\nwindow.GLOSSARY_VIDEOS = Object.assign(window.GLOSSARY_VIDEOS || {}, " + ob(Vd) + ");\n";
     return s;
   }
   function downloadText(name, text) {
@@ -11490,7 +11533,7 @@
     const live = (f, cls) => '<div class="' + cls + ' ces-field" data-field="' + f + '" data-rich="1" data-ph="' + esc(LIVE_CARD_PH[f] || "") + '" title="Double-click to edit" spellcheck="' + (f === "answer" ? "false" : "true") + '"' + o.dirAttr + '></div>';
     const imgPanelHtml = o.imagePanel
       ? '<div class="ces-imgpanel" id="cesImgPanel" hidden>' +
-          '<div class="aib-head">Image <span class="aib-hint">— shown 16:9 at the top of the Background; title, description and source appear in the fullscreen viewer. Clear the URL to remove it.</span></div>' +
+          '<div class="aib-head">Image <span class="aib-hint">— shown 16:9 at the top of the Background; title, description and source appear in the fullscreen viewer. Clear the URL to remove it. A card shows one frame, so setting an image removes any video.</span></div>' +
           '<label class="admin-field"><span class="af-label">image URL</span><input class="af-input" data-imgfield="src" type="text" spellcheck="false" placeholder="https://… or images/file.jpg" /></label>' +
           '<div id="cesImgMeta" hidden>' +   // title/description/source only make sense once an image URL is set
             '<label class="admin-field"><span class="af-label">image title</span><input class="af-input" data-imgfield="title" type="text" /></label>' +
@@ -11501,7 +11544,7 @@
       : "";
     const vidPanelHtml = o.videoPanel
       ? '<div class="ces-imgpanel" id="cesVidPanel" hidden>' +
-          '<div class="aib-head">Video <span class="aib-hint">— a YouTube or Vimeo link, or a direct .mp4 / .webm URL. Shown in the same 16:9 frame as the image, below it. Clear the URL to remove it.</span></div>' +
+          '<div class="aib-head">Video <span class="aib-hint">— a YouTube or Vimeo link, or a direct .mp4 / .webm URL, shown in the same 16:9 frame an image would use. Clear the URL to remove it. A card shows one frame, so setting a video removes any image.</span></div>' +
           '<label class="admin-field"><span class="af-label">video URL</span><input class="af-input" data-vidfield="src" type="text" spellcheck="false" placeholder="https://www.youtube.com/watch?v=… or https://…/clip.mp4" /></label>' +
           '<div class="af-vidnote" id="cesVidNote" hidden></div>' +
           '<div id="cesVidMeta" hidden>' +   // title/description/source only make sense once a video URL is set
@@ -11554,14 +11597,19 @@
     // ---- image slot: the real image (click = edit panel), or an editor-only "add image" placeholder ----
     const imgSlotEl = host.querySelector("#cesImgSlot");
     const imgPanel = host.querySelector("#cesImgPanel");
+    // A card carries ONE frame. Whichever of the two is set owns the slot; the other side collapses to a
+    // slim "use … instead" switch, so the choice stays reachable without ever offering two empty boxes.
+    const mediaSwap = (label) => '<button class="ces-media-swap" type="button" title="A card shows one frame — this replaces what is there now">' + label + "</button>";
+    const imgSet = () => !!((o.getImage ? o.getImage() : null) || {}).src;
+    const vidSet = () => !!((o.getVideo ? o.getVideo() : null) || {}).src;
     function renderImgSlot() {
       if (!imgSlotEl) return;
       const cur = o.getImage ? o.getImage() : null;
       const im = cur && cur.src ? cur : null;
       if (im) imgSlotEl.innerHTML = '<figure class="card-img ces-img" title="Click to edit the image"><img src="' + esc(im.src) + '" alt="" draggable="false"><span class="ces-img-edit">Edit image</span></figure>';
-      else imgSlotEl.innerHTML = o.imagePanel
-        ? '<div class="ces-img-ph" role="button" tabindex="0" title="Click to add an image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><span>Add an image <small>— editor only; nothing shows on the study page until one is set</small></span></div>'
-        : "";
+      else if (!o.imagePanel) imgSlotEl.innerHTML = "";
+      else if (vidSet()) imgSlotEl.innerHTML = mediaSwap("Use an image instead");
+      else imgSlotEl.innerHTML = '<div class="ces-img-ph" role="button" tabindex="0" title="Click to add an image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><span>Add an image <small>— editor only; nothing shows on the study page until one is set</small></span></div>';
       const t = imgSlotEl.firstElementChild;
       if (t) t.addEventListener("click", (e) => { e.stopPropagation(); if (o.imagePanel && imgPanel) { imgPanel.hidden = !imgPanel.hidden; if (!imgPanel.hidden) { const s = imgPanel.querySelector('[data-imgfield="src"]'); if (s) s.focus(); } } });   // stopPropagation also keeps the fullscreen viewer shut inside the editor
     }
@@ -11575,7 +11623,7 @@
       el.addEventListener("input", () => {
         if (o.setImage) o.setImage(el.dataset.imgfield, el.value.trim());
         afterImage(el.dataset.imgfield);
-        if (el.dataset.imgfield === "src") { renderImgSlot(); syncImgMeta(); }
+        if (el.dataset.imgfield === "src") syncMedia("image");
       });
     });
 
@@ -11604,10 +11652,12 @@
         vidSlotEl.innerHTML = '<div class="ces-img-ph ces-vid-ph" role="button" tabindex="0" title="Click to fix the video link">' +
           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="13"/><line x1="12" y1="16" x2="12" y2="16"/></svg>' +
           "<span>That link isn’t a video Folio can play <small>— use a YouTube or Vimeo link, or a direct .mp4 / .webm / .ogv URL</small></span></div>";
+      } else if (!o.videoPanel) {
+        vidSlotEl.innerHTML = "";
+      } else if (imgSet()) {
+        vidSlotEl.innerHTML = mediaSwap("Use a video instead");
       } else {
-        vidSlotEl.innerHTML = o.videoPanel
-          ? '<div class="ces-img-ph ces-vid-ph" role="button" tabindex="0" title="Click to add a video"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="14" height="14" rx="2"/><path d="m16.5 10.5 5-3v9l-5-3Z"/></svg><span>Add a video <small>— a YouTube or Vimeo link, or a direct video file URL</small></span></div>'
-          : "";
+        vidSlotEl.innerHTML = '<div class="ces-img-ph ces-vid-ph" role="button" tabindex="0" title="Click to add a video"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="14" height="14" rx="2"/><path d="m16.5 10.5 5-3v9l-5-3Z"/></svg><span>Add a video <small>— a YouTube or Vimeo link, or a direct video file URL</small></span></div>';
       }
       const t = vidSlotEl.firstElementChild;
       if (t) {
@@ -11635,9 +11685,25 @@
       el.addEventListener("input", () => {
         if (o.setVideo) o.setVideo(el.dataset.vidfield, el.value.trim());
         (o.afterVideo || afterImage)(el.dataset.vidfield);
-        if (el.dataset.vidfield === "src") { renderVidSlot(); syncVidMeta(); }
+        if (el.dataset.vidfield === "src") syncMedia("video");
       });
     });
+    // One frame per card, so giving either side a URL retires the other in the store — the editor has to
+    // show that. The side just typed into is never rewritten: the store sanitizes, and pushing its value
+    // back mid-keystroke would fight the caret.
+    function syncMedia(justSet) {
+      renderImgSlot(); renderVidSlot(); syncImgMeta(); syncVidMeta();
+      if (justSet !== "image") {
+        const im = (o.getImage ? o.getImage() : null) || {};
+        host.querySelectorAll("[data-imgfield]").forEach((f) => { f.value = im[f.dataset.imgfield] || ""; });
+        if (imgPanel && !im.src) imgPanel.hidden = true;
+      }
+      if (justSet !== "video") {
+        const v = (o.getVideo ? o.getVideo() : null) || {};
+        host.querySelectorAll("[data-vidfield]").forEach((f) => { f.value = v[f.dataset.vidfield] || ""; });
+        if (vidPanel && !v.src) vidPanel.hidden = true;
+      }
+    }
 
     // ---- answer text (plain; supplied by the caller's meta row since it never shows on the card) ----
     const atI = host.querySelector("#cesAnswerText");
@@ -11731,7 +11797,7 @@
                 '<label class="admin-field"><span class="af-label">tags</span><input class="af-input" id="adminGlossTags" type="text" spellcheck="false" placeholder="e.g. person, ruler, han dynasty" /></label>' +
                 '<div class="admin-field-note">Comma-separated category tags, shown in the term list — the bar on the left filters by them. Aim for at least three per term.</div>' +
                 '<div class="ces-imgpanel gloss-imgpanel">' +
-                  '<div class="aib-head">Image <span class="aib-hint">— shown 16:9 at the foot of the popup; title, description and source appear in the fullscreen viewer. Clear the URL to remove it.</span></div>' +
+                  '<div class="aib-head">Image <span class="aib-hint">— shown 16:9 at the foot of the popup; title, description and source appear in the fullscreen viewer. Clear the URL to remove it. A term shows one frame, so setting an image removes any video.</span></div>' +
                   '<label class="admin-field"><span class="af-label">image URL</span><input class="af-input" data-gimgfield="src" type="text" spellcheck="false" placeholder="https://… or images/file.jpg" /></label>' +
                   '<div id="adminGlossImgMeta" hidden>' +   // title/description/source only make sense once an image URL is set
                     '<label class="admin-field"><span class="af-label">image title</span><input class="af-input" data-gimgfield="title" type="text" /></label>' +
@@ -11740,7 +11806,7 @@
                   '</div>' +
                 '</div>' +
                 '<div class="ces-imgpanel gloss-imgpanel">' +
-                  '<div class="aib-head">Video <span class="aib-hint">— a YouTube or Vimeo link, or a direct .mp4 / .webm URL. Shown in the popup in the same frame as the image. Clear the URL to remove it.</span></div>' +
+                  '<div class="aib-head">Video <span class="aib-hint">— a YouTube or Vimeo link, or a direct .mp4 / .webm URL, shown in the popup in the frame an image would use. Clear the URL to remove it. A term shows one frame, so setting a video removes any image.</span></div>' +
                   '<label class="admin-field"><span class="af-label">video URL</span><input class="af-input" data-gvidfield="src" type="text" spellcheck="false" placeholder="https://www.youtube.com/watch?v=… or https://…/clip.mp4" /></label>' +
                   '<div class="af-vidnote" id="adminGlossVidNote" hidden></div>' +
                   '<div id="adminGlossVidMeta" hidden>' +
@@ -11792,12 +11858,25 @@
       const gImgMeta = host.querySelector("#adminGlossImgMeta");
       const syncGImgMeta = () => { if (gImgMeta) gImgMeta.hidden = !glossImage(k); };
       syncGImgMeta();
+      // one frame per term: whichever side is given a URL retires the other, so the other side's fields
+      // have to follow the store rather than keep showing a URL that no longer exists
+      function syncGMedia(justSet) {
+        syncGImgMeta(); syncGVid();
+        if (justSet !== "image") {
+          const im = (window.GLOSSARY_IMAGES || {})[k] || {};
+          host.querySelectorAll("[data-gimgfield]").forEach((f) => { f.value = im[f.dataset.gimgfield] || ""; });
+        }
+        if (justSet !== "video") {
+          const v = (window.GLOSSARY_VIDEOS || {})[k] || {};
+          host.querySelectorAll("[data-gvidfield]").forEach((f) => { f.value = v[f.dataset.gvidfield] || ""; });
+        }
+      }
       host.querySelectorAll("[data-gimgfield]").forEach((el) => {
         const cur = (window.GLOSSARY_IMAGES || {})[k] || {};
         el.value = cur[el.dataset.gimgfield] || "";
         el.addEventListener("input", () => {
           setGlossImageEdit(k, el.dataset.gimgfield, el.value.trim());
-          if (el.dataset.gimgfield === "src") syncGImgMeta();
+          if (el.dataset.gimgfield === "src") syncGMedia("image");
           afterEdit();
         });
       });
@@ -11819,7 +11898,7 @@
         el.value = cur[el.dataset.gvidfield] || "";
         el.addEventListener("input", () => {
           setGlossVideoEdit(k, el.dataset.gvidfield, el.value.trim());
-          if (el.dataset.gvidfield === "src") syncGVid();
+          if (el.dataset.gvidfield === "src") syncGMedia("video");
           afterEdit();
         });
       });
