@@ -197,12 +197,14 @@
   window.GLOSSARY_CASESENSITIVE = window.GLOSSARY_CASESENSITIVE || {}; // slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven)
   window.GLOSSARY_TAGS = window.GLOSSARY_TAGS || {};       // per-term category tags (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar
   window.GLOSSARY_IMAGES = window.GLOSSARY_IMAGES || {};   // optional per-term illustration (slug -> { src, title, desc, credit }) shown at the foot of the popup, same shape + viewer as a card image
+  window.GLOSSARY_VIDEOS = window.GLOSSARY_VIDEOS || {};   // optional per-term video (slug -> the same 4 fields, src a file/YouTube/Vimeo link) shown in the same slot, in the same frame
   window.GLOSSARY_I18N = window.GLOSSARY_I18N || {};       // slug -> { lang: translated description } (i18n/gloss-<lang>.js)
   const PRISTINE_GLOSS_DATES = Object.assign({}, window.GLOSSARY_DATES);
   const PRISTINE_GLOSS_TITLES = Object.assign({}, window.GLOSSARY_TITLES);
   const PRISTINE_GLOSS_ALIASES = Object.assign({}, window.GLOSSARY_ALIASES);
   const PRISTINE_GLOSS_TAGS = Object.assign({}, window.GLOSSARY_TAGS);
   const PRISTINE_GLOSS_IMAGES = Object.assign({}, window.GLOSSARY_IMAGES);   // slug -> shipped image object (edits REPLACE a slug's object, never mutate it)
+  const PRISTINE_GLOSS_VIDEOS = Object.assign({}, window.GLOSSARY_VIDEOS);   // ditto for the term's video
   // slug -> shipped lang-map (edits REPLACE a slug's map, never mutate it). Filled in as each language's
   // i18n/gloss-<lang>.js lands (glossI18nIngest), NOT at boot — the files are lazy and per-language now.
   const PRISTINE_GLOSS_I18N = Object.assign({}, window.GLOSSARY_I18N);
@@ -223,7 +225,7 @@
     if (!o || typeof o !== "object") o = {};
     const t = o.tree || {};
     return {
-      cards: o.cards || {}, glossary: o.glossary || {}, glossaryDates: o.glossaryDates || {}, glossaryTitles: o.glossaryTitles || {}, glossaryAliases: o.glossaryAliases || {}, glossaryTags: o.glossaryTags || {}, glossaryImages: o.glossaryImages || {}, glossaryDeleted: o.glossaryDeleted || {}, glossaryI18n: o.glossaryI18n || {},
+      cards: o.cards || {}, glossary: o.glossary || {}, glossaryDates: o.glossaryDates || {}, glossaryTitles: o.glossaryTitles || {}, glossaryAliases: o.glossaryAliases || {}, glossaryTags: o.glossaryTags || {}, glossaryImages: o.glossaryImages || {}, glossaryVideos: o.glossaryVideos || {}, glossaryDeleted: o.glossaryDeleted || {}, glossaryI18n: o.glossaryI18n || {},
       created: o.created || {}, deleted: o.deleted || {},
       membership: o.membership || {}, meta: o.meta || {}, chrono: o.chrono || {}, cardColor: o.cardColor || {}, glossColor: o.glossColor || {}, glossOff: o.glossOff || {},
       mission: o.mission && typeof o.mission === "object" ? o.mission : null,   // Mission-intro override ({ title, paras }) — rides in the overlay like every other delta
@@ -273,6 +275,7 @@
     reset(window.GLOSSARY_ALIASES, PRISTINE_GLOSS_ALIASES);
     reset(window.GLOSSARY_TAGS, PRISTINE_GLOSS_TAGS);
     reset(window.GLOSSARY_IMAGES, PRISTINE_GLOSS_IMAGES);
+    reset(window.GLOSSARY_VIDEOS, PRISTINE_GLOSS_VIDEOS);
     reset(window.GLOSSARY_I18N, PRISTINE_GLOSS_I18N);
   }
   function reapplyAdminOverlay(snap) {
@@ -343,6 +346,7 @@
     Object.keys(ADMIN_EDITS.glossaryAliases || {}).forEach((k) => { const v = ADMIN_EDITS.glossaryAliases[k]; if (v && v.length) window.GLOSSARY_ALIASES[k] = v; else delete window.GLOSSARY_ALIASES[k]; });
     Object.keys(ADMIN_EDITS.glossaryTags || {}).forEach((k) => { const v = ADMIN_EDITS.glossaryTags[k]; if (v && v.length) window.GLOSSARY_TAGS[k] = v; else delete window.GLOSSARY_TAGS[k]; });
     Object.keys(ADMIN_EDITS.glossaryImages || {}).forEach((k) => { const v = ADMIN_EDITS.glossaryImages[k]; if (v && v.src) window.GLOSSARY_IMAGES[k] = v; else delete window.GLOSSARY_IMAGES[k]; });   // whole image objects; a null tombstone hides a shipped one
+    Object.keys(ADMIN_EDITS.glossaryVideos || {}).forEach((k) => { const v = ADMIN_EDITS.glossaryVideos[k]; if (v && v.src) window.GLOSSARY_VIDEOS[k] = v; else delete window.GLOSSARY_VIDEOS[k]; });   // ditto for the term's video
     Object.keys(ADMIN_EDITS.glossaryI18n || {}).forEach(glossI18nApply);   // per-language deltas, LAYERED over the shipped text
     // glossary deletions: drop the term from the live glossary, but only while the shipped text is unchanged.
     // If the slug was re-added or edited out-of-band (e.g. add-glossary.js rewrote glossary.js), retire the tombstone
@@ -352,7 +356,7 @@
       Object.keys(ADMIN_EDITS.glossaryDeleted || {}).forEach((k) => {
         const rec = ADMIN_EDITS.glossaryDeleted[k];
         if (!(k in window.GLOSSARY)) { delete ADMIN_EDITS.glossaryDeleted[k]; gdChanged = true; return; }   // nothing to hide
-        if (rec === true || window.GLOSSARY[k] === rec) { delete window.GLOSSARY[k]; if (window.GLOSSARY_DATES) delete window.GLOSSARY_DATES[k]; if (window.GLOSSARY_TITLES) delete window.GLOSSARY_TITLES[k]; if (window.GLOSSARY_IMAGES) delete window.GLOSSARY_IMAGES[k]; }
+        if (rec === true || window.GLOSSARY[k] === rec) { delete window.GLOSSARY[k]; if (window.GLOSSARY_DATES) delete window.GLOSSARY_DATES[k]; if (window.GLOSSARY_TITLES) delete window.GLOSSARY_TITLES[k]; if (window.GLOSSARY_IMAGES) delete window.GLOSSARY_IMAGES[k]; if (window.GLOSSARY_VIDEOS) delete window.GLOSSARY_VIDEOS[k]; }
         else { delete ADMIN_EDITS.glossaryDeleted[k]; gdChanged = true; }   // re-added/changed → let it show again
       });
       if (gdChanged) saveAdminEdits();
@@ -453,6 +457,19 @@
     touchModified(id);
     queueAdminSave();
   }
+  // and the card's video ({ src, title, desc, credit }) — the identical delta shape, a separate field so a
+  // card can carry both an illustration and a clip
+  function setCardVideoEdit(id, key, value) {
+    const c = CARD_BY_ID[id]; if (!c) return;
+    const next = JSON.parse(JSON.stringify(c.video || {}));
+    if (value) next[key] = value; else delete next[key];
+    const empty = !Object.keys(next).length;
+    c.video = empty ? undefined : next;
+    const target = isCreatedCard(id) ? ADMIN_EDITS.created[id] : (ADMIN_EDITS.cards[id] = ADMIN_EDITS.cards[id] || {});
+    target.video = empty ? null : next;
+    touchModified(id);
+    queueAdminSave();
+  }
   // manual chronology (sort-year) override — overlay-only admin metadata, like deck dates.
   // Accepts ordinary history ("200 BCE", "618") and deep time, which prehistory decks need:
   // "3.3 Mya", "12 kya", "2.5 million BCE", "4.5 billion years ago", "780,000 years ago".
@@ -501,6 +518,7 @@
     CARD_FIELDS.forEach((f) => { if (f in p) CARD_BY_ID[id][f] = p[f]; });
     CARD_BY_ID[id].i18n = p.i18n;   // translations revert with the card (pristine keeps the shipped object)
     CARD_BY_ID[id].image = p.image; // the card image too
+    CARD_BY_ID[id].video = p.video; // and its video
     if (isCreatedCard(id)) { ADMIN_EDITS.created[id] = {}; CARD_FIELDS.forEach((f) => { ADMIN_EDITS.created[id][f] = CARD_BY_ID[id][f]; }); }
     else delete ADMIN_EDITS.cards[id];
     if (ADMIN_EDITS.meta[id]) delete ADMIN_EDITS.meta[id].modified;
@@ -820,6 +838,17 @@
     else ADMIN_EDITS.glossaryImages[key] = empty ? null : next;
     queueAdminSave();
   }
+  // and the term's video — the identical delta shape, in its own table
+  function setGlossVideoEdit(key, field, value) {
+    const next = JSON.parse(JSON.stringify(window.GLOSSARY_VIDEOS[key] || {}));
+    if (value) next[field] = value; else delete next[field];
+    const empty = !next.src;
+    if (empty) delete window.GLOSSARY_VIDEOS[key]; else window.GLOSSARY_VIDEOS[key] = next;
+    const base = PRISTINE_GLOSS_VIDEOS[key] || null;
+    if (JSON.stringify(empty ? null : next) === JSON.stringify(base)) delete ADMIN_EDITS.glossaryVideos[key];
+    else ADMIN_EDITS.glossaryVideos[key] = empty ? null : next;
+    queueAdminSave();
+  }
   function glossTags(k) {
     const u = uGlossParse(k);
     if (u) return u.entry.tags || [];
@@ -830,6 +859,12 @@
     const u = uGlossParse(k);
     const img = u ? u.entry.image : (window.GLOSSARY_IMAGES || {})[k];
     return img && img.src ? img : null;
+  }
+  // a term's video, or null — shown in the same popup slot, in the same frame, and opened in the same viewer
+  function glossVideo(k) {
+    const u = uGlossParse(k);
+    const v = u ? u.entry.video : (window.GLOSSARY_VIDEOS || {})[k];
+    return v && v.src && videoSource(v.src) ? v : null;
   }
   function revertGloss(key) {
     if (window.GLOSSARY && key in PRISTINE_GLOSS) window.GLOSSARY[key] = PRISTINE_GLOSS[key];
@@ -844,6 +879,8 @@
     delete ADMIN_EDITS.glossaryTags[key];
     if (key in PRISTINE_GLOSS_IMAGES) window.GLOSSARY_IMAGES[key] = PRISTINE_GLOSS_IMAGES[key]; else delete window.GLOSSARY_IMAGES[key];
     delete ADMIN_EDITS.glossaryImages[key];
+    if (key in PRISTINE_GLOSS_VIDEOS) window.GLOSSARY_VIDEOS[key] = PRISTINE_GLOSS_VIDEOS[key]; else delete window.GLOSSARY_VIDEOS[key];
+    delete ADMIN_EDITS.glossaryVideos[key];
     delete ADMIN_EDITS.glossaryI18n[key];
     glossI18nApply(key);   // back to the shipped lang-map (whatever languages have been loaded)
     invalidateGlossIndex();
@@ -859,7 +896,8 @@
     if (window.GLOSSARY_ALIASES) delete window.GLOSSARY_ALIASES[key];
     if (window.GLOSSARY_TAGS) delete window.GLOSSARY_TAGS[key];
     if (window.GLOSSARY_IMAGES) delete window.GLOSSARY_IMAGES[key];
-    delete ADMIN_EDITS.glossary[key]; delete ADMIN_EDITS.glossaryDates[key]; delete ADMIN_EDITS.glossaryTitles[key]; delete ADMIN_EDITS.glossaryAliases[key]; delete ADMIN_EDITS.glossaryTags[key]; delete ADMIN_EDITS.glossaryImages[key];
+    if (window.GLOSSARY_VIDEOS) delete window.GLOSSARY_VIDEOS[key];
+    delete ADMIN_EDITS.glossary[key]; delete ADMIN_EDITS.glossaryDates[key]; delete ADMIN_EDITS.glossaryTitles[key]; delete ADMIN_EDITS.glossaryAliases[key]; delete ADMIN_EDITS.glossaryTags[key]; delete ADMIN_EDITS.glossaryImages[key]; delete ADMIN_EDITS.glossaryVideos[key];
     if (ADMIN_EDITS.glossOff) delete ADMIN_EDITS.glossOff[key];   // don't strand a deleted term's gloss-removal list
     invalidateGlossIndex();
     if (ADMIN_EDITS.glossColor) delete ADMIN_EDITS.glossColor[key];   // don't strand the colour mark of a deleted term
@@ -879,7 +917,7 @@
     t.replace(/\b(\d{3,4})\b/g, (m, n) => { ys.push(+n); return " "; });   // remaining bare years are read as CE
     return ys.length ? Math.min(...ys) : null;
   }
-  function glossIsEdited(key) { return key in ADMIN_EDITS.glossary || key in ADMIN_EDITS.glossaryDates || key in ADMIN_EDITS.glossaryTitles || key in ADMIN_EDITS.glossaryAliases || key in (ADMIN_EDITS.glossaryTags || {}) || key in (ADMIN_EDITS.glossaryImages || {}) || key in (ADMIN_EDITS.glossaryI18n || {}); }
+  function glossIsEdited(key) { return key in ADMIN_EDITS.glossary || key in ADMIN_EDITS.glossaryDates || key in ADMIN_EDITS.glossaryTitles || key in ADMIN_EDITS.glossaryAliases || key in (ADMIN_EDITS.glossaryTags || {}) || key in (ADMIN_EDITS.glossaryImages || {}) || key in (ADMIN_EDITS.glossaryVideos || {}) || key in (ADMIN_EDITS.glossaryI18n || {}); }
   function adminEditCount() {
     const ids = new Set([
       ...Object.keys(ADMIN_EDITS.cards), ...Object.keys(ADMIN_EDITS.created),
@@ -887,7 +925,7 @@
     ]);
     const T = ADMIN_EDITS.tree || { renames: {}, created: {}, deleted: {}, dates: {} };
     const treeN = Object.keys(T.renames).length + Object.keys(T.created).length + Object.keys(T.deleted).length + Object.keys(T.dates || {}).length + Object.keys(T.cardOrder || {}).length;
-    return ids.size + Object.keys(ADMIN_EDITS.glossary).length + Object.keys(ADMIN_EDITS.glossaryDates || {}).length + Object.keys(ADMIN_EDITS.glossaryTitles || {}).length + Object.keys(ADMIN_EDITS.glossaryAliases || {}).length + Object.keys(ADMIN_EDITS.glossaryTags || {}).length + Object.keys(ADMIN_EDITS.glossaryImages || {}).length + Object.keys(ADMIN_EDITS.glossaryI18n || {}).length + Object.keys(ADMIN_EDITS.glossaryDeleted || {}).length + Object.keys(ADMIN_EDITS.chrono || {}).length + Object.keys(ADMIN_EDITS.cardColor || {}).length + Object.keys(ADMIN_EDITS.glossColor || {}).length + treeN;
+    return ids.size + Object.keys(ADMIN_EDITS.glossary).length + Object.keys(ADMIN_EDITS.glossaryDates || {}).length + Object.keys(ADMIN_EDITS.glossaryTitles || {}).length + Object.keys(ADMIN_EDITS.glossaryAliases || {}).length + Object.keys(ADMIN_EDITS.glossaryTags || {}).length + Object.keys(ADMIN_EDITS.glossaryImages || {}).length + Object.keys(ADMIN_EDITS.glossaryVideos || {}).length + Object.keys(ADMIN_EDITS.glossaryI18n || {}).length + Object.keys(ADMIN_EDITS.glossaryDeleted || {}).length + Object.keys(ADMIN_EDITS.chrono || {}).length + Object.keys(ADMIN_EDITS.cardColor || {}).length + Object.keys(ADMIN_EDITS.glossColor || {}).length + treeN;
   }
   applyAdminEdits();
 
@@ -2537,7 +2575,19 @@
       const src = sanitizeUrl(String(raw.image.src), ["http", "https"]);
       if (src) c.image = { src: src, title: sanitizePlain(raw.image.title).slice(0, 200), desc: sanitizePlain(raw.image.desc).slice(0, 1000), credit: sanitizePlain(raw.image.credit).slice(0, 300) };
     }
+    const v = uMediaSanitize(raw && raw.video);
+    if (v) c.video = v;
     return c;
+  }
+  // A card's or term's video, cleaned on ingest like every other field. An http/https src is kept even when
+  // videoSource() can't play it — validity is the renderer's business (it draws nothing), and dropping the
+  // field here would silently eat an author's typo on the next reload. Safety does not rest on the check:
+  // an <iframe src> is only ever built by videoSource() from a matched YouTube/Vimeo id, never from raw input.
+  function uMediaSanitize(raw) {
+    if (!raw || !raw.src) return null;
+    const src = sanitizeUrl(String(raw.src), ["http", "https"]);
+    if (!src) return null;
+    return { src: src, title: sanitizePlain(raw.title).slice(0, 200), desc: sanitizePlain(raw.desc).slice(0, 1000), credit: sanitizePlain(raw.credit).slice(0, 300) };
   }
   const UDECK_MAX_CARDS = 500, UDECK_MAX_TERMS = 400;
   // A deck's own glossary, cleaned. Descriptions are rich HTML and DO get rendered (in the popup), so this
@@ -2561,6 +2611,8 @@
         const src = sanitizeUrl(String(t.image.src), ["http", "https"]);
         if (src) e.image = { src: src, title: sanitizePlain(t.image.title).slice(0, 200), desc: sanitizePlain(t.image.desc).slice(0, 1000), credit: sanitizePlain(t.image.credit).slice(0, 300) };
       }
+      const tv = uMediaSanitize(t.video);   // the term's video, on the same footing
+      if (tv) e.video = tv;
       if (!e.desc && !e.title) return;
       out[slug] = e;
     });
@@ -2658,6 +2710,15 @@
     if (!im.src) delete c.image; else c.image = im;
     if (c.deckId) uDeckSave(c.deckId);
   }
+  // the card's video — clearing the URL drops it, exactly like the image
+  function uCardSetVideo(cardId, field, value) {
+    const c = UCARDS[cardId];
+    if (!c) return;
+    const v = Object.assign({ src: "", title: "", desc: "", credit: "" }, c.video || {});
+    v[field] = field === "src" ? (sanitizeUrl(String(value || "").trim(), ["http", "https"]) || "") : sanitizePlain(value).slice(0, 1000);
+    if (!v.src) delete c.video; else c.video = v;
+    if (c.deckId) uDeckSave(c.deckId);
+  }
   /* ---------- a deck's own glossary terms ----------
      Every mutation invalidates that deck's scoped index, or the linkify regex would keep matching the old
      set of surfaces. Only the one deck's index is thrown away; the site's is untouched. */
@@ -2705,6 +2766,17 @@
     else if (field === "title" || field === "desc" || field === "credit") next[field] = sanitizePlain(value).slice(0, field === "desc" ? 1000 : field === "title" ? 200 : 300);
     else return;
     if (next.src) t.image = next; else delete t.image;
+    uGlossTouched(deckId);
+  }
+  // one property of a term's video — same shape, same rules
+  function uGlossSetVideo(deckId, slug, field, value) {
+    const t = UGLOSS[deckId] && UGLOSS[deckId][slug];
+    if (!t) return;
+    const next = Object.assign({}, t.video);
+    if (field === "src") next.src = sanitizeUrl(String(value || "").trim(), ["http", "https"]) || "";
+    else if (field === "title" || field === "desc" || field === "credit") next[field] = sanitizePlain(value).slice(0, field === "desc" ? 1000 : field === "title" ? 200 : 300);
+    else return;
+    if (next.src) t.video = next; else delete t.video;
     uGlossTouched(deckId);
   }
   function uGlossDelete(deckId, slug) {
@@ -2868,6 +2940,7 @@
       const data = {};
       CARD_FIELDS.forEach((f) => { data[f] = c[f] == null ? "" : c[f]; });
       if (c.image && c.image.src) data.image = c.image;
+      if (c.video && c.video.src) data.video = c.video;
       return { deck_id: row.id, id: c.id, ord: i, is_demo: true, data: data };
     });
     const ins = await supaFetch("/rest/v1/user_cards", { method: "POST", body: rows });
@@ -5271,6 +5344,16 @@
                     '<label class="admin-field"><span class="af-label">Image source</span><input class="af-input" data-gimg="credit" type="text" spellcheck="false" value="' + esc((t.image || {}).credit || "") + '" /></label>' +
                   '</div>' +
                 '</div>' +
+                '<div class="ces-imgpanel gloss-imgpanel">' +
+                  '<div class="aib-head">Video <span class="aib-hint">— a YouTube or Vimeo link, or a direct .mp4 / .webm URL; shown in the term&rsquo;s popup. Clear the URL to remove it.</span></div>' +
+                  '<label class="admin-field"><span class="af-label">Video URL</span><input class="af-input" data-gvid="src" type="text" spellcheck="false" value="' + esc((t.video || {}).src || "") + '" placeholder="https://www.youtube.com/watch?v=…" /></label>' +
+                  '<div class="af-vidnote" id="stVidNote" hidden></div>' +
+                  '<div id="stVidMeta"' + (t.video && t.video.src ? "" : " hidden") + '>' +
+                    '<label class="admin-field"><span class="af-label">Video title</span><input class="af-input" data-gvid="title" type="text" value="' + esc((t.video || {}).title || "") + '" /></label>' +
+                    '<div class="admin-field"><span class="af-label">Video description</span><textarea class="af-input af-imgdesc" data-gvid="desc" rows="2" spellcheck="true">' + esc((t.video || {}).desc || "") + '</textarea></div>' +
+                    '<label class="admin-field"><span class="af-label">Video source</span><input class="af-input" data-gvid="credit" type="text" spellcheck="false" value="' + esc((t.video || {}).credit || "") + '" /></label>' +
+                  '</div>' +
+                '</div>' +
                 '<p class="af-note">The term links automatically wherever it appears in this deck&rsquo;s card backgrounds — you don&rsquo;t add the links by hand.</p>' +
               '</div>'
             : '<div class="admin-editor-empty">Add a term to start your deck&rsquo;s own glossary.</div>') +
@@ -5296,6 +5379,23 @@
       uGlossSetImage(d.id, slug, el.dataset.gimg, el.value.trim());
       adminFlashSaved();
       if (el.dataset.gimg === "src" && stImgMeta) stImgMeta.hidden = !((UGLOSS[d.id][slug] || {}).image || {}).src;
+    }));
+    const stVidMeta = root.querySelector("#stVidMeta"), stVidNote = root.querySelector("#stVidNote");
+    const syncStVid = () => {
+      const src = String(((UGLOSS[d.id][slug] || {}).video || {}).src || "").trim();
+      if (stVidMeta) stVidMeta.hidden = !src;
+      if (stVidNote) {
+        const s = src ? videoSource(src) : null;
+        stVidNote.hidden = !src;
+        stVidNote.className = "af-vidnote" + (src && !s ? " bad" : "");
+        stVidNote.textContent = !src ? "" : s ? "Recognised as a " + videoSourceLabel(s.kind) + "." : "Not a link Folio can play — YouTube, Vimeo, or a direct .mp4 / .webm / .ogv URL.";
+      }
+    };
+    syncStVid();
+    root.querySelectorAll("[data-gvid]").forEach((el) => el.addEventListener("input", () => {
+      uGlossSetVideo(d.id, slug, el.dataset.gvid, el.value.trim());
+      adminFlashSaved();
+      if (el.dataset.gvid === "src") syncStVid();
     }));
     root.querySelectorAll("[data-gf]").forEach((el) => {
       if (el.dataset.gf === "desc") return;
@@ -5377,13 +5477,14 @@
         '<div class="admin-ed-key">' + esc(d ? d.title : "") + '</div></div>' +
         '<div class="admin-ed-actions"><span class="admin-saved" id="adminSaved"></span>' +
         '<button class="admin-delete" id="stDelCard" type="button">Delete card</button></div></div>' +
-      liveCardEditorHTML({ dirAttr: "", metaHtml: metaRow, imagePanel: true });
+      liveCardEditorHTML({ dirAttr: "", metaHtml: metaRow, imagePanel: true, videoPanel: true });
 
     wireLiveCardEditor(host, {
       card: c,
       isEn: true,
       dirAttr: "",
       imagePanel: true,
+      videoPanel: true,
       glossOff: [],
       // Phase 1 links a user's cards against the curated site glossary. Per-deck glossaries (deck.glossMode
       // 'own'/'both') are stored but not yet editable — the scope plumbing from phase 0 is what they'll use.
@@ -5392,6 +5493,8 @@
       setField: (f, v) => uCardSet(c.id, f, v),
       getImage: () => c.image || null,
       setImage: (f, v) => uCardSetImage(c.id, f, v),
+      getVideo: () => c.video || null,
+      setVideo: (f, v) => uCardSetVideo(c.id, f, v),
       afterEdit: (f) => {
         adminFlashSaved();
         if (f === "answer") {
@@ -5403,6 +5506,7 @@
         }
       },
       afterImage: () => adminFlashSaved(),
+      afterVideo: () => adminFlashSaved(),
     });
 
     host.querySelector("#stDelCard").addEventListener("click", () => {
@@ -6103,7 +6207,8 @@
       html += "</div>";
     }
     const hasImg = !!(c.image && c.image.src);
-    if (c.abstract || hasImg) {
+    const hasVid = !!(c.video && c.video.src && videoSource(c.video.src));
+    if (c.abstract || hasImg || hasVid) {
       const bgCol = !!S.settings.bgCollapsed;
       html +=
         '<button class="bg-head" type="button" aria-expanded="' + (bgCol ? "false" : "true") + '" aria-label="Show or hide background">' +
@@ -6113,6 +6218,7 @@
         "</span>" + ttsPlayHTML("background", true) + "</button>";
       html += '<div class="bg-collapse' + (bgCol ? " collapsed" : "") + '"><div class="bg-collapse-inner">';
       if (hasImg) html += cardImageHTML(c.image);   // sits at the top of the background, above the prose
+      if (hasVid) html += cardVideoHTML(c.video);   // and the video below it, in the identical frame
       if (c.abstract) html += '<p class="abstract">' + c.abstract + "</p>";
       html += "</div></div>";
     }
@@ -6128,6 +6234,55 @@
       '<span class="ci-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></span>' +
       "</figure>";
   }
+  /* ---------- card video: the same frame as the image, playing instead of enlarging ----------
+     A video is LINK-ONLY — a direct media URL, or a YouTube / Vimeo page URL, which is turned into that
+     site's privacy-friendly embed. There is deliberately no upload path: the only place an uploaded file
+     could live is inline as a data-URI, and a card's data-URI would ride into data.js (downloaded eagerly
+     by every visitor) or into a published deck's jsonb payload. Host the file elsewhere and link it.
+
+     videoSource() returns { kind, url } or null for anything it can't play — the caller renders nothing
+     rather than an empty box, and the editors use the same null to tell the author the URL wasn't understood. */
+  // (the extension test is inline rather than a module-level const: videoSource is called from the community
+  // store's ingest path, whose declaration sits far above this line — a const here would still be in its TDZ)
+  function videoSource(raw) {
+    const s = sanitizeUrl(String(raw == null ? "" : raw).trim(), ["http", "https"]);
+    if (!s) return null;
+    let m;
+    // youtube: watch?v= / youtu.be / embed / shorts / live, with an optional start time
+    if ((m = /^(?:https?:)?\/\/(?:www\.|m\.)?youtube(?:-nocookie)?\.com\/(?:watch\?(?:[^#]*&)?v=|embed\/|shorts\/|live\/|v\/)([\w-]{6,24})/i.exec(s)) ||
+        (m = /^(?:https?:)?\/\/youtu\.be\/([\w-]{6,24})/i.exec(s))) {
+      const t = /[?&](?:t|start)=(\d+)/i.exec(s);
+      // youtube-nocookie.com is YouTube's own no-tracking-until-play host — same player, no cookie on load
+      return { kind: "youtube", url: "https://www.youtube-nocookie.com/embed/" + m[1] + "?rel=0" + (t ? "&start=" + t[1] : "") };
+    }
+    if ((m = /^(?:https?:)?\/\/(?:www\.)?vimeo\.com\/(?:video\/|channels\/[\w-]+\/|groups\/[\w-]+\/videos\/)?(\d{6,12})/i.exec(s)) ||
+        (m = /^(?:https?:)?\/\/player\.vimeo\.com\/video\/(\d{6,12})/i.exec(s)))
+      return { kind: "vimeo", url: "https://player.vimeo.com/video/" + m[1] };
+    if (/\.(mp4|m4v|webm|ogv|ogg|mov)(?:[?#]|$)/i.test(s)) return { kind: "file", url: s };
+    return null;
+  }
+  function videoSourceLabel(kind) { return kind === "youtube" ? "YouTube" : kind === "vimeo" ? "Vimeo" : "video file"; }
+  // the player markup for a resolved source, at whatever size its frame gives it
+  function videoPlayerHTML(s, title, cls, autoplay) {
+    if (s.kind === "file")
+      return '<video class="' + cls + '" src="' + esc(s.url) + '" controls playsinline preload="metadata"' + (autoplay ? " autoplay" : "") + "></video>";
+    return '<iframe class="' + cls + '" src="' + esc(s.url + (autoplay ? (s.url.indexOf("?") >= 0 ? "&" : "?") + "autoplay=1" : "")) + '"' +
+      ' title="' + esc(title || "Video") + '" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"' +
+      ' allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
+  }
+  // The frame is the card image's frame exactly (.card-img). What differs is that the figure is NOT itself a
+  // button — the player owns clicks inside it — so the fullscreen viewer is reached by an explicit expand
+  // control in the corner, where an image's zoom hint sits.
+  function cardVideoHTML(vid) {
+    const s = videoSource(vid.src);
+    if (!s) return "";
+    return '<figure class="card-img card-vid" data-vid-src="' + esc(vid.src) + '" data-vid-title="' + esc(vid.title || "") + '"' +
+      ' data-vid-desc="' + esc(vid.desc || "") + '" data-vid-credit="' + esc(vid.credit || "") + '">' +
+      videoPlayerHTML(s, vid.title, "cv-media", false) +
+      '<button class="ci-zoom cv-expand" type="button" title="Open full screen" aria-label="Open the video full screen">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>' +
+      "</button></figure>";
+  }
   /* ---------- fullscreen image viewer: wheel/click zoom, drag pan, caption bar ---------- */
   let _imgViewer = null;
   function closeImageViewer() {
@@ -6136,10 +6291,15 @@
     document.removeEventListener("keydown", _ivKey, true);
   }
   function _ivKey(e) { if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); closeImageViewer(); } }
-  function openImageViewer(img) {
+  function openVideoViewer(vid) {   // the same overlay and caption bar, with the player in place of the image
+    const s = videoSource(vid.src);
+    if (s) openMediaViewer(vid, s);
+  }
+  function openImageViewer(img) { openMediaViewer(img, null); }
+  function openMediaViewer(img, vsrc) {
     closeImageViewer();
     const ov = document.createElement("div");
-    ov.className = "img-viewer";
+    ov.className = "img-viewer" + (vsrc ? " vid-viewer" : "");
     const credit = (img.credit || "").trim();
     const creditHTML = credit
       ? (/^https?:\/\//i.test(credit)
@@ -6147,7 +6307,9 @@
         : "Source: " + esc(credit))
       : "";
     ov.innerHTML =
-      '<div class="iv-stage"><img class="iv-img" src="' + esc(img.src) + '" alt="' + esc(img.title || "") + '" draggable="false"></div>' +
+      (vsrc
+        ? '<div class="iv-stage iv-vidstage">' + videoPlayerHTML(vsrc, img.title, "iv-vid", true) + "</div>"
+        : '<div class="iv-stage"><img class="iv-img" src="' + esc(img.src) + '" alt="' + esc(img.title || "") + '" draggable="false"></div>') +
       '<button class="iv-close" type="button" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>' +
       ((img.title || img.desc || credit)
         ? '<div class="iv-meta">' +
@@ -6159,6 +6321,14 @@
     document.body.appendChild(ov);
     _imgViewer = ov;
     document.addEventListener("keydown", _ivKey, true);
+    // a video owns every pointer gesture inside its own frame (scrub, volume, fullscreen), so the
+    // zoom/pan wiring below is for images only — the backdrop and the × are what close a video
+    if (vsrc) {
+      ov.addEventListener("pointerup", (e) => { if (e.target === ov || e.target.classList.contains("iv-vidstage")) closeImageViewer(); });
+      ov.querySelector(".iv-close").addEventListener("click", closeImageViewer);
+      requestAnimationFrame(() => ov.classList.add("show"));
+      return;
+    }
     const stage = ov.querySelector(".iv-stage"), im = ov.querySelector(".iv-img");
     let scale = 1, tx = 0, ty = 0, drag = null;
     const apply = () => { im.style.transform = "translate(" + tx + "px," + ty + "px) scale(" + scale + ")"; stage.classList.toggle("zoomed", scale > 1); };
@@ -10531,13 +10701,15 @@
     autoLinkGlossary(el, "", [key].concat(glossOffList(key)), glossScopeForKey(key));
     boldFirstTerm(el, glossTitle(key));
   }
-  // a term's illustration, floated to the top-right of its popup. It reuses .card-img, so the delegated
-  // listener that opens the fullscreen viewer from any card image covers it too — no wiring of its own.
+  // a term's illustration (and/or its video), floated to the top-right of its popup. Both reuse .card-img,
+  // so the delegated listener that opens the fullscreen viewer from any card image covers them too — no
+  // wiring of its own. A video sits under the picture when a term carries both.
   function renderGlossImage(el, key, img) {
     if (!el) return;
     const im = img === undefined ? glossImage(key) : (img && img.src ? img : null);
-    el.innerHTML = im ? cardImageHTML(im) : "";
-    el.hidden = !im;
+    const vid = glossVideo(key);
+    el.innerHTML = (im ? cardImageHTML(im) : "") + (vid ? cardVideoHTML(vid) : "");
+    el.hidden = !im && !vid;
   }
   // bold the term's first mention in its own gloss description (like the answer term opening a card background)
   function boldFirstTerm(el, title) {
@@ -10710,7 +10882,7 @@
   function adminSetListCount(n, noun) { const el = document.getElementById("adminListCount"); if (el) el.textContent = n + " " + noun + (n === 1 ? "" : "s"); }
   // serialize the live (delta-applied) in-memory data back into data.js / glossary.js source text
   function serializeCardData() {
-    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; return o; });   // i18n translations + the card image ride along untouched
+    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; if (c.video && c.video.src) o.video = c.video; return o; });   // i18n translations + the card image/video ride along untouched
     const countIds = (node) => { const s = new Set(); (function w(n) { (n.cardIds || []).forEach((i) => s.add(i)); (n.children || []).forEach(w); })(node); return s.size; };
     function ser(node, isTop) {
       const o = { id: node.id, title: node.title };
@@ -10743,6 +10915,8 @@
     if (Object.keys(Tg).length) s += "\nwindow.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, " + ob(Tg) + ");\n";   // preserve category tags (slug -> [tags]) — they power the admin tag filter
     const Im = window.GLOSSARY_IMAGES || {};
     if (Object.keys(Im).length) s += "\nwindow.GLOSSARY_IMAGES = Object.assign(window.GLOSSARY_IMAGES || {}, " + ob(Im) + ");\n";   // preserve per-term illustrations — they live only in the overlay otherwise
+    const Vd = window.GLOSSARY_VIDEOS || {};
+    if (Object.keys(Vd).length) s += "\nwindow.GLOSSARY_VIDEOS = Object.assign(window.GLOSSARY_VIDEOS || {}, " + ob(Vd) + ");\n";   // and per-term videos, for the same reason
     return s;
   }
   function downloadText(name, text) {
@@ -11297,11 +11471,13 @@
        dirAttr      ' dir="rtl"' for Arabic, else ""
        metaHtml     caller's markup for the row above the card (may contain #cesAnswerText)
        imagePanel   show the image URL/title/description/source panel
+       videoPanel   show the video URL/title/description/source panel (links only — see videoSource)
        getField(f)  / setField(f, v)      read + persist a card field
        getImage()   / setImage(f, v)      read + persist the card image (omit for no image UI)
+       getVideo()   / setVideo(f, v)      read + persist the card video (omit for no video UI)
        glossOff     glossary keys to leave un-linked in the background
        glossScope   which glossary the background auto-links against (undefined = the curated site one)
-       afterEdit(f) / afterImage(f)       the caller's own save/flash/refresh hooks
+       afterEdit(f) / afterImage(f) / afterVideo(f)   the caller's own save/flash/refresh hooks
      returns { syncSrc, renderImgSlot } for callers that need to re-sync after changing things themselves. */
   const LIVE_CARD_PH = {
     question: "Double-click to write the question (blank the answer as _____)…",
@@ -11323,6 +11499,18 @@
           '</div>' +
         '</div>'
       : "";
+    const vidPanelHtml = o.videoPanel
+      ? '<div class="ces-imgpanel" id="cesVidPanel" hidden>' +
+          '<div class="aib-head">Video <span class="aib-hint">— a YouTube or Vimeo link, or a direct .mp4 / .webm URL. Shown in the same 16:9 frame as the image, below it. Clear the URL to remove it.</span></div>' +
+          '<label class="admin-field"><span class="af-label">video URL</span><input class="af-input" data-vidfield="src" type="text" spellcheck="false" placeholder="https://www.youtube.com/watch?v=… or https://…/clip.mp4" /></label>' +
+          '<div class="af-vidnote" id="cesVidNote" hidden></div>' +
+          '<div id="cesVidMeta" hidden>' +   // title/description/source only make sense once a video URL is set
+            '<label class="admin-field"><span class="af-label">video title</span><input class="af-input" data-vidfield="title" type="text" /></label>' +
+            '<div class="admin-field"><span class="af-label">video description</span><textarea class="af-input af-imgdesc" data-vidfield="desc" rows="2" spellcheck="true"></textarea></div>' +
+            '<label class="admin-field"><span class="af-label">video source</span><input class="af-input" data-vidfield="credit" type="text" spellcheck="false" placeholder="e.g. the channel or archive it came from — or a URL" /></label>' +
+          '</div>' +
+        '</div>'
+      : "";
     return '<div class="card-edit-single">' +
         rtRibbonHtml() +   // OUTSIDE .ces-top: position:sticky can't escape its parent, and .ces-top ends just below the ribbon — as a direct child of the full-height column it stays pinned while the whole card scrolls
         '<div class="ces-top">' + (o.metaHtml || "") + '</div>' +
@@ -11333,6 +11521,7 @@
               '<div class="answer-av">' + live("answer", "val") + '<div class="av-row">' + live("answerDate", "ces-date") + '</div></div></div></div>' +
             '<span class="label">Background</span>' +
             '<div id="cesImgSlot"></div>' + imgPanelHtml +
+            '<div id="cesVidSlot"></div>' + vidPanelHtml +
             live("abstract", "abstract") +
           '</div></div>' +
         '</div>' +
@@ -11390,6 +11579,66 @@
       });
     });
 
+    // ---- video slot: the real player (so the author sees what a reader sees), with an "Edit video" chip
+    // in the corner opening the panel. The chip is deliberately NOT .cv-expand — inside the editor the
+    // corner control edits rather than opening the fullscreen viewer. ----
+    const vidSlotEl = host.querySelector("#cesVidSlot");
+    const vidPanel = host.querySelector("#cesVidPanel");
+    const vidNote = host.querySelector("#cesVidNote");
+    function toggleVidPanel() {
+      if (!o.videoPanel || !vidPanel) return;
+      vidPanel.hidden = !vidPanel.hidden;
+      if (!vidPanel.hidden) { const s = vidPanel.querySelector('[data-vidfield="src"]'); if (s) s.focus(); }
+    }
+    function renderVidSlot() {
+      if (!vidSlotEl) return;
+      const cur = o.getVideo ? o.getVideo() : null;
+      const src = cur && String(cur.src || "").trim();
+      const s = src ? videoSource(src) : null;
+      if (s) {
+        vidSlotEl.innerHTML = '<figure class="card-img card-vid ces-vid" title="Click the corner control to edit this video">' +
+          videoPlayerHTML(s, cur.title, "cv-media", false) +
+          '<button class="ci-zoom ces-vid-edit" type="button" title="Edit the video">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button></figure>';
+      } else if (src) {
+        vidSlotEl.innerHTML = '<div class="ces-img-ph ces-vid-ph" role="button" tabindex="0" title="Click to fix the video link">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="13"/><line x1="12" y1="16" x2="12" y2="16"/></svg>' +
+          "<span>That link isn’t a video Folio can play <small>— use a YouTube or Vimeo link, or a direct .mp4 / .webm / .ogv URL</small></span></div>";
+      } else {
+        vidSlotEl.innerHTML = o.videoPanel
+          ? '<div class="ces-img-ph ces-vid-ph" role="button" tabindex="0" title="Click to add a video"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="14" height="14" rx="2"/><path d="m16.5 10.5 5-3v9l-5-3Z"/></svg><span>Add a video <small>— a YouTube or Vimeo link, or a direct video file URL</small></span></div>'
+          : "";
+      }
+      const t = vidSlotEl.firstElementChild;
+      if (t) {
+        t.addEventListener("click", (e) => { e.stopPropagation(); if (e.target.closest(".cv-media")) return; toggleVidPanel(); });   // clicks on the player itself belong to the player
+        t.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleVidPanel(); } });
+      }
+    }
+    renderVidSlot();
+    const vidMeta = host.querySelector("#cesVidMeta");
+    function syncVidMeta() {
+      const cur = o.getVideo ? o.getVideo() : null;
+      const src = cur && String(cur.src || "").trim();
+      if (vidMeta) vidMeta.hidden = !src;
+      if (vidNote) {
+        const s = src ? videoSource(src) : null;
+        vidNote.hidden = !src;
+        vidNote.className = "af-vidnote" + (src && !s ? " bad" : "");
+        vidNote.textContent = !src ? "" : s ? "Recognised as a " + videoSourceLabel(s.kind) + "." : "Not a link Folio can play — YouTube, Vimeo, or a direct .mp4 / .webm / .ogv URL.";
+      }
+    }
+    syncVidMeta();
+    host.querySelectorAll("[data-vidfield]").forEach((el) => {
+      const cur = o.getVideo ? o.getVideo() : null;
+      el.value = (cur && cur[el.dataset.vidfield]) || "";
+      el.addEventListener("input", () => {
+        if (o.setVideo) o.setVideo(el.dataset.vidfield, el.value.trim());
+        (o.afterVideo || afterImage)(el.dataset.vidfield);
+        if (el.dataset.vidfield === "src") { renderVidSlot(); syncVidMeta(); }
+      });
+    });
+
     // ---- answer text (plain; supplied by the caller's meta row since it never shows on the card) ----
     const atI = host.querySelector("#cesAnswerText");
     if (atI) {
@@ -11440,7 +11689,7 @@
       });
     }
     wireRichEditor(host);
-    return { syncSrc: syncSrc, renderImgSlot: renderImgSlot };
+    return { syncSrc: syncSrc, renderImgSlot: renderImgSlot, renderVidSlot: renderVidSlot };
   }
 
   function adminRenderEditor() {
@@ -11488,6 +11737,16 @@
                     '<label class="admin-field"><span class="af-label">image title</span><input class="af-input" data-gimgfield="title" type="text" /></label>' +
                     '<div class="admin-field"><span class="af-label">image description</span><textarea class="af-input af-imgdesc" data-gimgfield="desc" rows="2" spellcheck="true"></textarea></div>' +
                     '<label class="admin-field"><span class="af-label">image source</span><input class="af-input" data-gimgfield="credit" type="text" spellcheck="false" placeholder="e.g. Wikimedia Commons, public domain — or a URL" /></label>' +
+                  '</div>' +
+                '</div>' +
+                '<div class="ces-imgpanel gloss-imgpanel">' +
+                  '<div class="aib-head">Video <span class="aib-hint">— a YouTube or Vimeo link, or a direct .mp4 / .webm URL. Shown in the popup in the same frame as the image. Clear the URL to remove it.</span></div>' +
+                  '<label class="admin-field"><span class="af-label">video URL</span><input class="af-input" data-gvidfield="src" type="text" spellcheck="false" placeholder="https://www.youtube.com/watch?v=… or https://…/clip.mp4" /></label>' +
+                  '<div class="af-vidnote" id="adminGlossVidNote" hidden></div>' +
+                  '<div id="adminGlossVidMeta" hidden>' +
+                    '<label class="admin-field"><span class="af-label">video title</span><input class="af-input" data-gvidfield="title" type="text" /></label>' +
+                    '<div class="admin-field"><span class="af-label">video description</span><textarea class="af-input af-imgdesc" data-gvidfield="desc" rows="2" spellcheck="true"></textarea></div>' +
+                    '<label class="admin-field"><span class="af-label">video source</span><input class="af-input" data-gvidfield="credit" type="text" spellcheck="false" placeholder="e.g. the channel or archive it came from — or a URL" /></label>' +
                   '</div>' +
                 '</div>'
               : "") +
@@ -11539,6 +11798,28 @@
         el.addEventListener("input", () => {
           setGlossImageEdit(k, el.dataset.gimgfield, el.value.trim());
           if (el.dataset.gimgfield === "src") syncGImgMeta();
+          afterEdit();
+        });
+      });
+      // ---- and the term's video (EN view only, for the same reason: the metadata is shared across languages) ----
+      const gVidMeta = host.querySelector("#adminGlossVidMeta"), gVidNote = host.querySelector("#adminGlossVidNote");
+      const syncGVid = () => {
+        const src = String(((window.GLOSSARY_VIDEOS || {})[k] || {}).src || "").trim();
+        if (gVidMeta) gVidMeta.hidden = !src;
+        if (gVidNote) {
+          const s = src ? videoSource(src) : null;
+          gVidNote.hidden = !src;
+          gVidNote.className = "af-vidnote" + (src && !s ? " bad" : "");
+          gVidNote.textContent = !src ? "" : s ? "Recognised as a " + videoSourceLabel(s.kind) + "." : "Not a link Folio can play — YouTube, Vimeo, or a direct .mp4 / .webm / .ogv URL.";
+        }
+      };
+      syncGVid();
+      host.querySelectorAll("[data-gvidfield]").forEach((el) => {
+        const cur = (window.GLOSSARY_VIDEOS || {})[k] || {};
+        el.value = cur[el.dataset.gvidfield] || "";
+        el.addEventListener("input", () => {
+          setGlossVideoEdit(k, el.dataset.gvidfield, el.value.trim());
+          if (el.dataset.gvidfield === "src") syncGVid();
           afterEdit();
         });
       });
@@ -11596,7 +11877,7 @@
     host.innerHTML =
       '<div class="admin-ed-head"><div class="admin-ed-headinfo"><h2 class="admin-ed-title">' + esc(c.answer || "(untitled)") + '</h2><div class="admin-ed-key">' + esc(id) + (whereTxt ? ' &middot; ' + esc(whereTxt) : "") + '</div></div>' +
       '<div class="admin-ed-actions"><span class="admin-saved" id="adminSaved"></span><button class="admin-preview" id="adminPreview" type="button">Preview</button><button class="admin-revert" id="adminRevert" type="button"' + (cardIsEdited(id) ? "" : " hidden") + '>Revert card</button><button class="admin-delete" id="adminDelete" type="button">Delete card</button></div></div>' +
-      liveCardEditorHTML({ dirAttr: dirAttr, metaHtml: metaRow, imagePanel: isEnLang });
+      liveCardEditorHTML({ dirAttr: dirAttr, metaHtml: metaRow, imagePanel: isEnLang, videoPanel: isEnLang });
     const editedFx = () => {
       const row = adminFindRow("card", id); if (row) row.classList.toggle("edited", cardIsEdited(id));
       const rev0 = host.querySelector("#adminRevert"); if (rev0) rev0.hidden = !cardIsEdited(id);
@@ -11606,11 +11887,14 @@
       isEn: isEnLang,
       dirAttr: dirAttr,
       imagePanel: isEnLang,
+      videoPanel: isEnLang,
       glossOff: glossOffList(c.id),
       getField: fieldOf,
       setField: (f, v) => { if (isEnLang) setCardEdit(id, f, v); else setCardI18nEdit(id, cardLang, f, v); },
       getImage: () => c.image || null,
       setImage: (f, v) => setCardImageEdit(id, f, v),
+      getVideo: () => c.video || null,
+      setVideo: (f, v) => setCardVideoEdit(id, f, v),
       afterEdit: (f) => {
         adminFlashSaved(); adminUpdateCount();
         if (isEnLang && f === "answer") {
@@ -11623,6 +11907,7 @@
         editedFx();
       },
       afterImage: () => { adminFlashSaved(); adminUpdateCount(); editedFx(); },
+      afterVideo: () => { adminFlashSaved(); adminUpdateCount(); editedFx(); },
     });
     const chronoI = host.querySelector("#adminChrono");
     if (chronoI) {
@@ -12441,9 +12726,16 @@
     });
   }
 
-  // card images: one delegated listener opens the fullscreen viewer from any .card-img (study, previews, editor)
+  // card images: one delegated listener opens the fullscreen viewer from any .card-img (study, previews, editor).
+  // A .card-vid wears the same frame but plays in place, so only its corner expand control opens the viewer —
+  // every other click inside it belongs to the player.
   document.addEventListener("click", (e) => {
     const fig = e.target.closest(".card-img"); if (!fig) return;
+    if (fig.classList.contains("card-vid")) {
+      if (!e.target.closest(".cv-expand")) return;
+      openVideoViewer({ src: fig.dataset.vidSrc, title: fig.dataset.vidTitle, desc: fig.dataset.vidDesc, credit: fig.dataset.vidCredit });
+      return;
+    }
     openImageViewer({ src: fig.dataset.imgSrc, title: fig.dataset.imgTitle, desc: fig.dataset.imgDesc, credit: fig.dataset.imgCredit });
   });
   // badges: one delegated listener flips a badge over to its "how to earn it" back, and back again on a
@@ -12467,6 +12759,7 @@
   document.addEventListener("keydown", (e) => {
     if (e.key !== "Enter" && e.key !== " ") return;
     const fig = e.target.closest && e.target.closest(".card-img"); if (!fig) return;
+    if (fig.classList.contains("card-vid")) return;   // the expand control is a real <button> — the browser fires its click itself
     e.preventDefault();
     openImageViewer({ src: fig.dataset.imgSrc, title: fig.dataset.imgTitle, desc: fig.dataset.imgDesc, credit: fig.dataset.imgCredit });
   });

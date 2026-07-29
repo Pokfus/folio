@@ -71,7 +71,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   holds only because index.html has **no inline `<script>`** and app.js uses neither `eval` nor `new Function`
   — adding either would need the policy weakened, so don't. `style-src` needs `'unsafe-inline'` (app.js sets
   inline style attributes everywhere) and `fonts.googleapis.com` (styles.css `@import`s it); `img-src` needs
-  `data:` (heightmap PNGs, avatars) and `blob:` (the avatar upload preview). Headers only apply over HTTP, so
+  `data:` (heightmap PNGs, avatars) and `blob:` (the avatar upload preview); **`media-src` allows `https:`**
+  (linked card/glossary videos) and **`frame-src` allows exactly `youtube-nocookie.com` + `player.vimeo.com`**
+  — nothing else may ever be framed. Headers only apply over HTTP, so
   opening index.html from `file://` is unaffected. If it ever breaks the live site, rename the header to
   `Content-Security-Policy-Report-Only` — violations keep showing in devtools without blocking anything.
 - `docs/user-decks-plan.md` — the design plan for **community decks** (user-created decks, sharing,
@@ -414,6 +416,34 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   whole as an `image` delta (clearing every field stores a **null tombstone** that hides a shipped image);
   `serializeCardData` bakes `c.image` when it has a `src`, `revertCard` restores `p.image`. Image metadata is shared
   across languages (not in the i18n blocks).
+- **Card video (optional):** `card.video = { src, title, desc, credit }` — the **same four fields and the same
+  frame as the image** (`.card-img` plus a `.card-vid` modifier), rendered by `cardVideoHTML` directly **below**
+  the image in the Background section. **Links only — there is deliberately no upload path**: the only place an
+  uploaded file could live is inline as a data-URI, which for a curated card rides into `data.js` (eagerly
+  downloaded by every visitor) and for a community deck into its published jsonb payload. Host it elsewhere,
+  link it here. **`videoSource(src)`** is the single resolver → `{ kind: "youtube"|"vimeo"|"file", url }` or
+  **null** for anything else, and null renders NOTHING (the editors show "Not a link Folio can play" rather
+  than an empty box). YouTube (watch / youtu.be / embed / shorts / live, `?t=` carried over as `&start=`) and
+  Vimeo become `<iframe>`s on **youtube-nocookie.com** / **player.vimeo.com**; a `.mp4/.m4v/.webm/.ogv/.ogg/.mov`
+  URL becomes a `<video controls>`. **An iframe src is only ever built by `videoSource` from a matched video
+  id — never from raw input**, which is what keeps a stranger's deck from framing an arbitrary page; the
+  regexes are the security boundary, so don't loosen them to "anything that looks like an embed URL".
+  The figure is **not** a `role="button"` like an image's (the player owns clicks inside it): the fullscreen
+  viewer is reached by an explicit `.cv-expand` control, placed **top**-right because a `<video>`'s native
+  control bar owns the bottom edge. `openImageViewer`/`openVideoViewer` both call **`openMediaViewer`**, which
+  skips the zoom/pan wiring for video and just plays it big (`.iv-vid`). The delegated `.card-img` click
+  listener returns early on a `.card-vid` unless the expand control was hit, and the Enter/Space handler skips
+  it entirely (the control is a real `<button>`). Editing: `setCardVideoEdit` (curated, a `video` delta exactly
+  like `image`, null tombstone and all) / `uCardSetVideo` (community); `serializeCardData` bakes `c.video`,
+  `revertCard` restores `p.video`, publish sends `data.video`. `_headers` carries **`media-src 'self' https:`**
+  and **`frame-src`** for the two embed hosts. Guarded by `.claude/test-video.js` (62 assertions).
+- **Glossary video (optional):** `window.GLOSSARY_VIDEOS` (slug → the same object; `glossVideo(key)`,
+  `ADMIN_EDITS.glossaryVideos`, baked by `serializeGlossary`), or `entry.video` inside `UGLOSS` for a
+  community deck's own term. `renderGlossImage` puts it in the **same `.gloss-imgslot`** under the picture, at
+  the same fixed height, so a term can carry both. Edited in the curated glossary editor's **EN view only**
+  (`data-gvidfield` → `setGlossVideoEdit`) and in the Studio's term form (`data-gvid` → `uGlossSetVideo`) —
+  metadata is shared across languages, like an image's. The home page's Gloss-of-the-day plate stays
+  image-only on purpose: it is a silhouette, not a player.
 - **Glossary image (optional):** a term can carry the **same `{ src, title, desc, credit }` object as a card**,
   read through `glossImage(key)` and rendered by `renderGlossImage` into the `.gloss-imgslot`, which is
   **floated to the TOP-RIGHT of the popup body** — so the opening sentences run down its left and the
@@ -1167,6 +1197,11 @@ shown at the foot of the term's popup, clickable into the fullscreen viewer (lan
 metadata is shared across all 9 languages). Also editable per-term on the admin glossary page. Only add
 one where the picture genuinely teaches something, and put its provenance in `credit`.
 
+Optional `"video": { "src": "https://…", "title": "…", "desc": "…", "credit": "…" }` adds a clip shown in
+the same frame in the popup (lands in `window.GLOSSARY_VIDEOS`). **Links only** — a YouTube or Vimeo page
+URL, or a URL ending in `.mp4`/`.m4v`/`.webm`/`.ogv`/`.ogg`/`.mov`; anything else silently renders nothing.
+Not translated, like the image metadata, and also editable per-term on the admin glossary page.
+
 To remove a term, run the helper on `{ "slug": "Some_Slug", "delete": true }`.
 
 When the user pastes one of the generation prompts and then sends bare terms one per message, treat
@@ -1393,6 +1428,13 @@ dead code (never rendered).
     into their FIRST account, and a newly created second account starts at level 1 with no badges, no streak
     and no heatmap — in the store, on the server row, and on the page (first-run hero, "0 unlocked"). **Re-run
     after touching `supaAfterSignIn` / `supaSignOut` / `supaBoot` / `_supaOwner` / `PROGRESS_FIELDS`.**
+  · `node .claude/test-video.js` — 62 assertions on card + glossary videos: that every accepted link shape
+    resolves to the embed this code builds and **every other URL resolves to no player at all** (the check
+    that keeps an `<iframe src>` off untrusted input), that the frame is byte-for-byte the image's frame
+    (computed border-radius / aspect-ratio / border / size), that the expand control opens the viewer and a
+    click on the player does not, that the curated overlay deltas survive a reload and a revert, and that a
+    community deck's `javascript:` video src is dropped on ingest. **Re-run after touching `videoSource` /
+    `cardVideoHTML` / `openMediaViewer` / the video panels, or the `media-src`/`frame-src` CSP.**
   · `node .claude/test-gloss-image.js` — 40 assertions on glossary images: the popup floats one to the
     top-right of the body at a fixed height and at most half its width, with the prose beside rather than
     below it; it opens the SHARED fullscreen viewer and that viewer stacks **above** the popup,
