@@ -433,8 +433,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     down as it happens. `markSeen` no-ops (and so skips `save()`) on a key already known, and prunes
     oldest-first at `SEEN_CAP` (1500) because the Atlas alone can name well over a thousand places. Deck
     glossary keys are **not** recorded: the terms-opened figure is measured against the curated glossary,
-    and a stranger's deck would let it pass 100%. Both registers start the day they were added, and the
-    meters say so rather than implying a long-standing reader has never opened a term.
+    and a stranger's deck would let it pass 100%. Both registers start the day they were added, so an
+    existing reader's count begins at zero — said plainly here rather than on the meter, which was
+    carrying a sentence about it until it was removed on request.
 - **Deep time (years before the present).** A card's sort year is a plain signed number, so a prehistory
   card is just a very negative one (`-3300000` = 3.3 Mya). Three pieces carry that: **`cardYears(c)`** reads
   `answerDate` and now understands `"2.6 million years ago"`, `"3.3 to 2.6 million years ago"`,

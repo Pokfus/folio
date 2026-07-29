@@ -10258,7 +10258,7 @@
     const tile = (v, label, hint) => '<div class="ds-tile" title="' + esc(hint) + '"><b>' + v + "</b><span>" + esc(label) + "</span></div>";
     return '<div class="revstats">' +
         meter(gloss, glossTotal, "Glossary terms opened", glossTotal
-          ? "Every term whose popup you have opened. Counting started when this panel was added, so terms read before then aren't included."
+          ? "Every term whose popup you have opened."
           : "The glossary hasn't loaded yet.") +
         meter(places, placeTotal, "Places opened on the Atlas", placeTotal
           ? "Present-day countries and historical territories whose info panel you have opened."
