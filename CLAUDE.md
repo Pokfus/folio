@@ -610,7 +610,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   selected for copying. The original carries **`notranslate`**, or the i18n engine would translate the
   one thing on the page that must stay as written. A quote has an `o` only where the original wording is documented —
   Bacon wrote in English, and Meditations VII.49's exact Greek could not be verified, so both render exactly as before
-  with no `dq-flip` class, no cursor and no handler; **don't fill those in from memory**) → review banner → (first-run only) a 3-step how-it-works strip →
+  with no `dq-flip` class, no cursor and no handler; **don't fill those in from memory**.
+  **The day's quote follows `QUOTE_ORDER`, not the array** (`quoteRunningOrder`): the same author never speaks
+  two days running and never more than twice in any seven days — in array order Confucius held the page for four
+  days straight. The order is laid on a **circle** of `QUOTES.length` days and checked on every arc of it, wrap
+  included: a reader sees that circle repeated, and a week is shorter than the cycle, so a circle that is legal
+  all the way round is legal forever — which is why the order does **not** reshuffle per cycle (the join between
+  two cycles is the one window neither can see). Greedy seating, busiest author first, plus a soft "a turn every
+  n/c days" preference that is what makes the spread even rather than merely legal; seeded retries when a seating
+  gets stuck. It rebuilds at load, so **adding quotes needs no thought here** — but the pool must stay solvable:
+  an author with more than `2n/7` lines (5 of 20 today) cannot be spread by any arrangement, and the fallback is
+  the best attempt, not a guarantee. Guarded by `.claude/test-daily-quote.js`) → review banner → (first-run only) a 3-step how-it-works strip →
   game tiles → a **discovery row** (`.explore-grid`): **Card of the day** (a real card, CSS-3D flip to its answer, gloss
   links stripped, "Study <deck>" button), **Term of the day** (a dated glossary term → `openGlossWin`), and an **Atlas
   teaser** with a slowly turning decorative mini globe (`startMiniGlobe` — decimated `WORLD_GEO`, orthographic,
@@ -1411,7 +1421,8 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Nine committed Playwright regression tests** (in `.claude/`, not loaded by the site). Each slices what
+- **Ten committed regression tests** (in `.claude/`, not loaded by the site): nine drive a real browser with
+  Playwright, and `test-daily-quote.js` is plain Node with no dependencies at all. Each slices what
   it tests out of the real `app.js`/`_headers` by text, so they can't drift from what ships.
   **Gotcha when writing more of them:** `page.goto()` to a URL that differs only in the `#fragment` is a
   same-document navigation — the app keeps running and its module state survives. Use `page.reload()` when
@@ -1468,6 +1479,12 @@ dead code (never rendered).
     the curated editor's overlay delta survives a reload and clears cleanly, and a deck's own term images
     are sanitized on ingest (a `javascript:` src is dropped). **Re-run after touching `glossImage` /
     `renderGlossImage` / `setGlossImageEdit` / `uGlossSetImage`, or any z-index in the gloss/viewer stack.**
+  · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it
+    simulates 400 days off the real `QUOTE_ORDER` and checks every seven-day window in them, so a repeat
+    two days running or a third appearance inside a week fails here rather than on the live page. **No
+    browser and no dependencies** — the pieces are sliced out of `app.js` and run in a `new Function`.
+    The rule is a property of the ARRANGEMENT, so it breaks silently: **re-run after adding or removing
+    quotes** (a fifth Confucius line tightens the pool) as well as after touching `quoteRunningOrder`.
   Playwright is a dev dependency and must NOT be installed into the repo (the zero-dependency rule, and
   `node_modules/` is gitignored) — install it in a scratch folder and run with
   `NODE_PATH=<that>/node_modules`. Set `FOLIO_CHROMIUM=<path to chrome>` if Chromium lives outside the

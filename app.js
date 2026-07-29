@@ -4247,13 +4247,88 @@
     { t: "I grow old ever learning many things.", a: "Solon", s: "Quoted in Plutarch, Life of Solon 31",
       o: { lang: "grc", t: "γηράσκω δ' αἰεὶ πολλὰ διδασκόμενος.", a: "Σόλων", s: "Πλούταρχος, Σόλων 31" } },
   ];
+  /* ---------- the running order the daily quote follows ----------
+     The pool leans on a few voices — four of the twenty lines are Confucius, and in the array's own order
+     he held the home page four days running, then Laozi for two, then Seneca for two. So the quote steps
+     through a spread-out running order instead: the same author never speaks two days in a row, and never
+     more than twice in any seven days.
+     The order is laid out on a CIRCLE of QUOTES.length days and the rule is checked on every arc of that
+     circle, wrap included — what a reader sees is the circle repeated, and since a week is shorter than
+     the cycle, every window they ever meet is an arc of it. An arrangement legal all the way round is
+     therefore legal forever, which a per-cycle reshuffle could not promise: the join between one cycle and
+     the next is the one window no cycle can see.
+     Greedy seating, the author with the most lines left going first (he is the hardest to place late),
+     with seeded retries when a seating paints itself into a corner. If the pool ever grew so lopsided that
+     NO arrangement can obey the rule — one author owning more than two days in seven — the best attempt
+     is used rather than nothing. Adding quotes needs no thought here; the order rebuilds itself at load. */
+  const DQ_WEEK = 7, DQ_MAX_PER_WEEK = 2;
+  function quoteRunningOrder(quotes) {
+    const n = quotes.length;
+    const all = quotes.map((_, i) => i);
+    if (n < 3) return all;
+    const who = (i) => quotes[i].a;
+    // would seating `idx` at position p keep every window ENDING at p legal? (windows that end later are
+    // checked as their own last seat is filled, so a left-to-right pass covers all of them)
+    const fits = (seq, idx) => {
+      const p = seq.length;
+      if (p && who(seq[p - 1]) === who(idx)) return false;
+      let seen = 0;
+      for (let k = Math.max(0, p - DQ_WEEK + 1); k < p; k++) if (who(seq[k]) === who(idx)) seen++;
+      return seen < DQ_MAX_PER_WEEK;
+    };
+    // the finished circle, read from every starting point. The look-back is capped at n: a pool shorter than
+    // a week would otherwise walk off the front of the array (p + n - k goes negative once k > n, and a
+    // negative remainder is a negative index), and a circle it has already been all the way round tells it
+    // nothing new anyway.
+    const back = Math.min(DQ_WEEK, n);
+    const legalCircle = (seq) => seq.every((_, p) => {
+      const a = who(seq[p]);
+      if (who(seq[(p + n - 1) % n]) === a) return false;
+      let seen = 0;
+      for (let k = 1; k < back; k++) if (who(seq[(p + n - k) % n]) === a) seen++;
+      return seen < DQ_MAX_PER_WEEK;
+    });
+    // an author with c lines gets a turn every n/c days at best, so hold him back until that much time has
+    // passed. It is a PREFERENCE, not a rule — obeyed only while some other quote can take the day — and it
+    // is what turns "legal" into "evenly spread": without it the greedy seats the busiest author as early as
+    // the rule allows, and four Confucius lines land on days 0, 2, 7, 14 rather than 0, 5, 10, 15.
+    const total = {};
+    quotes.forEach((q) => { total[q.a] = (total[q.a] || 0) + 1; });
+    const turn = {};
+    Object.keys(total).forEach((a) => { turn[a] = Math.floor(n / total[a]); });
+    let best = all;
+    for (let attempt = 0; attempt < 64; attempt++) {
+      const pool = seededShuffle(all.slice(), mulberry32(hashStr("dq-order-" + attempt)));
+      const left = {}, last = {};
+      quotes.forEach((q) => { left[q.a] = (left[q.a] || 0) + 1; });
+      const seated = new Set(), seq = [];
+      while (seq.length < n) {
+        const p = seq.length;
+        let pick = -1, anyLegal = -1;
+        for (const idx of pool) {
+          if (seated.has(idx) || !fits(seq, idx)) continue;
+          const a = who(idx);
+          // the most lines left goes first: he is the hardest to place once the days run out
+          if (anyLegal < 0 || left[a] > left[who(anyLegal)]) anyLegal = idx;
+          if (p - (last[a] === undefined ? -n : last[a]) < turn[a]) continue;   // spoke too recently
+          if (pick < 0 || left[a] > left[who(pick)]) pick = idx;
+        }
+        if (pick < 0) pick = anyLegal;   // nobody is rested enough — the rule still holds, the spacing gives
+        if (pick < 0) break;             // stuck — this seating can't be finished, try the next seed
+        seated.add(pick); left[who(pick)] -= 1; last[who(pick)] = p; seq.push(pick);
+      }
+      if (seq.length === n) { best = seq; if (legalCircle(seq)) return seq; }
+    }
+    return best;
+  }
+  const QUOTE_ORDER = quoteRunningOrder(QUOTES);
   // Clicking the quote turns it into the original — words, speaker and source — and clicking again
   // returns it to the reader's own language. Both halves are in the DOM and one is `hidden`, so the
   // toggle is a class flip with nothing to re-render. The original carries `notranslate`: it is the one
   // thing on the page the i18n engine must leave alone, or a Spanish reader would click through to
   // Spanish. A quote with no verified original is rendered exactly as before — no cursor, no handler.
   function dailyQuoteHTML() {
-    const q = QUOTES[Math.floor(Date.now() / DAY) % QUOTES.length];
+    const q = QUOTES[QUOTE_ORDER[Math.floor(Date.now() / DAY) % QUOTE_ORDER.length]];
     const o = q.o;
     const pair = (en, orig) =>
       '<span class="dq-live">' + esc(en) + "</span>" +
