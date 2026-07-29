@@ -45,6 +45,22 @@ async function closeGloss(page) {
     await page.waitForTimeout(280);
   }
 }
+// Nothing is stored uncredited (wireMediaSource in app.js): typing a URL with an empty source box stages
+// it and pops a modal asking for one. These two keep that out of the way of the tests that are about
+// something else — the gate itself is exercised by test-gloss-image.js and in section 2 below.
+async function dismissSourcePrompt(page) {
+  if (await page.locator(".inline-prompt").count()) { await page.locator(".inline-prompt .ip-cancel").click(); await page.waitForTimeout(200); }
+}
+async function creditMedia(page, attr, credit) {
+  await dismissSourcePrompt(page);
+  // set it the way a keystroke does. page.fill() sometimes lands on this field without the panel having
+  // settled from the URL keystroke that revealed it, and the value never reaches the input.
+  await page.evaluate((a) => {
+    const el = document.querySelector("[data-" + a.attr + '="credit"]');
+    if (el) { el.value = a.credit; el.dispatchEvent(new Event("input", { bubbles: true })); }
+  }, { attr: attr, credit: credit });
+  await page.waitForTimeout(500);
+}
 async function openGlossEditor(page, base) {
   await page.goto(base + "#admin", { waitUntil: "load" });
   await page.waitForTimeout(800);
@@ -80,6 +96,11 @@ async function openGlossEditor(page, base) {
     [MP4, "video", MP4, "video file"],
     ["https://example.org/clips/reel.webm?x=1", "video", "https://example.org/clips/reel.webm?x=1", "video file"],
   ];
+  // give the term a source once, up front: it stays in the panel across every URL edit below, and without
+  // it the gate would (rightly) keep each URL out of the store and there would be nothing to preview
+  await page.fill('[data-gvidfield="src"]', YT);
+  await page.waitForTimeout(300);
+  await creditMedia(page, "gvidfield", "Test archive");
   for (const [url, tag, want, label] of CASES) {
     await page.fill('[data-gvidfield="src"]', url);
     await page.waitForTimeout(400);
@@ -107,6 +128,7 @@ async function openGlossEditor(page, base) {
   check("...and the meta fields appear once a URL is set", await page.locator('[data-gvidfield="title"]').isVisible());
   await page.fill('[data-gvidfield="title"]', "A short film");
   await page.waitForTimeout(700);
+  check("...and nothing is pending, because the term carries a source", !(await page.locator(".gloss-imgpanel .af-reqnote").first().isVisible()));
   const stored = await page.evaluate(() => {
     const o = JSON.parse(localStorage.getItem("folio_admin_v1") || "{}");
     const k = Object.keys(o.glossaryVideos || {})[0];
@@ -117,6 +139,7 @@ async function openGlossEditor(page, base) {
 
   // one frame per term: giving the same term a picture must retire the video, in the store and in the fields
   await page.fill('[data-gimgfield="src"]', PNG);
+  await creditMedia(page, "gimgfield", "A museum");
   await page.waitForTimeout(700);
   const gExcl = await page.evaluate((k) => {
     const o = JSON.parse(localStorage.getItem("folio_admin_v1") || "{}");
@@ -133,6 +156,7 @@ async function openGlossEditor(page, base) {
   check("...and the preview shows one frame, the picture", gExcl.pvImg === 1 && gExcl.pvVid === 0);
   await page.fill('[data-gimgfield="src"]', "");
   await page.fill('[data-gvidfield="src"]', YT);
+  await creditMedia(page, "gvidfield", "Test archive");   // the picture retired the video, which cleared its source with it
   await page.fill('[data-gvidfield="title"]', "A short film");
   await page.waitForTimeout(700);
 
@@ -325,6 +349,7 @@ async function openGlossEditor(page, base) {
   await page.evaluate(() => { const b = document.querySelector("#cesImgSlot .ces-media-swap"); if (b) b.click(); });
   await page.waitForTimeout(300);
   await page.fill('[data-imgfield="src"]', "https://example.org/swap.png");
+  await creditMedia(page, "imgfield", "A museum");
   await page.waitForTimeout(800);
   const swapped = await page.evaluate(() => ({
     vidFrames: document.querySelectorAll("#cesVidSlot .card-vid").length,
@@ -400,6 +425,7 @@ async function openGlossEditor(page, base) {
   await page.waitForTimeout(300);
   check("the swap opens the video panel", await page.evaluate(() => document.querySelector("#cesVidPanel").checkVisibility()));
   await page.fill('[data-vidfield="src"]', MP4);
+  await creditMedia(page, "vidfield", "An archive");
   await page.fill('[data-vidfield="title"]', "A demonstration");
   await page.waitForTimeout(800);
   const cardDelta = await page.evaluate(() => {

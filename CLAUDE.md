@@ -409,6 +409,32 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   first column that precede the account render as `.hm-pre` blanks (aligned, but not drawn as missed days)
   and are excluded from the totals. Month labels drop the earlier of any pair closer than 3 columns — at
   11px per column two labels collide, which a full year never triggered but a short new-account range does.
+- **Deck statistics + "Beyond the cards"** (the account page, and a friend's — both take a `prog`, so the
+  friend view gets them for free). Two sections below Review statistics:
+  · **`renderDeckStats(container, prog, withCommunity)`** — an `<optgroup>`ed picker over `statScopes()`
+    (each live collection, every deck inside it, and — for your own account only — your community decks,
+    which live outside the tree and outside a friend's synced blob) driving `deckStatsPanelHTML`: a
+    studied/total bar plus eight tiles (mature / young / learning / not started / due now / lapses /
+    average gap / set aside) and when the deck was last studied. It opens on the deck with the most
+    studied cards, and the selection is UI-only — a glance, not a setting. **Everything is DERIVED from
+    the card records** (`deckStats(prog, ids)`), deliberately: a per-deck review log would only start on
+    the day it was added, so every deck already worked through would read as empty, and it would multiply
+    the synced blob by the number of decks. The day-by-day history stays global.
+  · **`exploreStatsHTML(prog)`** — what a scholar does *around* the cards. Two meters (glossary terms
+    opened, places opened on the Atlas — the latter shows "of N" only once `world.js` has actually loaded,
+    since that bundle is lazy), six derived tiles (all-time reviews, days studied, **longest streak** —
+    `longestStreakDays`, computable from `reviewLog` where `S.streak` only holds the current one —
+    card-of-the-day picks, games played, perfect runs) and a per-game row from the lifetime log.
+  · **Three new progress fields feed them** (in `defaultState` + `PROGRESS_FIELDS`, so old saves back-fill
+    and a friend's shows too): **`glossSeen`** and **`placesSeen`** (key → first-seen timestamp, written by
+    `markSeen` from `openGlossWin` and `showCountryPopupName`) and **`gameLog`** (key → `{plays, wins}`,
+    written by `markGamePlayed`). These exist because **a popup and an Atlas panel leave no other trace** —
+    nothing in the state records that they were ever opened, so the reading is invisible unless written
+    down as it happens. `markSeen` no-ops (and so skips `save()`) on a key already known, and prunes
+    oldest-first at `SEEN_CAP` (1500) because the Atlas alone can name well over a thousand places. Deck
+    glossary keys are **not** recorded: the terms-opened figure is measured against the curated glossary,
+    and a stranger's deck would let it pass 100%. Both registers start the day they were added, and the
+    meters say so rather than implying a long-standing reader has never opened a term.
 - **Deep time (years before the present).** A card's sort year is a plain signed number, so a prehistory
   card is just a very negative one (`-3300000` = 3.3 Mya). Three pieces carry that: **`cardYears(c)`** reads
   `answerDate` and now understands `"2.6 million years ago"`, `"3.3 to 2.6 million years ago"`,
@@ -470,6 +496,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **required** — the author `display:flex` beats the UA `[hidden]` rule, and without it BOTH panels sit
   permanently open and the click-to-edit toggle does nothing (the image panel shipped that way until the
   video panel made it obvious). Guarded by `.claude/test-video.js` (83 assertions).
+- **Nothing is saved uncredited — the media source gate** (`wireMediaSource` / `askMediaSource`, beside
+  `videoSourceLabel`). The editors save on every keystroke, so a picture URL pasted in and then forgotten
+  about used to ship credited to nobody — the one mistake that stays invisible until someone else points it
+  out. The gate sits **between a media panel's fields and the store**: while the source box is empty a typed
+  URL is **staged only**, an `.af-reqnote` says so where it was typed (with an "Add the source" button), and
+  a modal asks for the source the moment the URL field is left (`change`, not every keystroke). The whole
+  staged object enters the store together as soon as a source exists; **clearing the source takes it back
+  out**, so `src` and `credit` can never come apart in stored data. `render()` toasts on the way out if a
+  panel is still pending, rather than losing the URL in silence. **All four surfaces use it**: the shared
+  card surface's image + video panels (so the admin editor and the Studio both), the curated glossary
+  editor, and the Studio's term form — each passing its own `get`/`set`/`after`, so the writers stay dumb.
+  Because a staged picture is deliberately NOT in the store, the panels' meta rows, the slot renderers and
+  `imgSet()`/`vidSet()` **read `gate.staged()`, never the store** (an author must see the picture they just
+  pasted, flagged `.ces-media-pending`, not an "Add an image" box over a panel they have just filled in);
+  the one-frame sync calls the *other* gate's `reload()`. It is **editor-side on purpose** — a hand-authored
+  `data.js`, an imported deck file and an installed community deck are untouched, since this is a guard
+  against forgetting while writing, not a validity rule imposed on other people's decks. `add-card.js` and
+  `add-glossary.js` enforce the same rule at the content-pipeline end. Guarded by
+  `.claude/test-media-source.js` (35 assertions).
 - **Glossary video (optional):** `window.GLOSSARY_VIDEOS` (slug → the same object; `glossVideo(key)`,
   `ADMIN_EDITS.glossaryVideos`, baked by `serializeGlossary`), or `entry.video` inside `UGLOSS` for a
   community deck's own term. `renderGlossImage` puts it in the **same `.gloss-imgslot`** at the same fixed
@@ -1230,6 +1275,8 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   never put information between parentheses. **No glossary links** — plain text only (`cnh-001`
   still uses the old `ttip`/`data-k` links and bolded facts; new cards omit both).
 - `answerText` — the answer as plain text, no HTML.
+- `image` / `video` (optional, one or the other) — `{ src, title, desc, credit }`. **`credit` is required**:
+  `add-card.js` refuses a `src` with no source line, matching the editors' media gate.
 - `i18n` — **REQUIRED for every new card**: the card translated into all 9 site languages,
   `"i18n": { "es": { "question": …, "answer": …, "answerDate": …, "abstract": …, "answerText": … }, "fr": …,
   "de": …, "it": …, "nl": …, "ru": …, "ar": …, "zh": …, "ja": … }`. Each language mirrors the English fields under the
@@ -1299,7 +1346,9 @@ Optional `"image": { "src": "https://…", "title": "…", "desc": "…", "credi
 shown at the foot of the term's popup, clickable into the fullscreen viewer (lands in
 `window.GLOSSARY_IMAGES`; same shape and rules as a card image, and likewise **not** translated — the
 metadata is shared across all 9 languages). Also editable per-term on the admin glossary page. Only add
-one where the picture genuinely teaches something, and put its provenance in `credit`.
+one where the picture genuinely teaches something, and put its provenance in `credit`. **`credit` is
+required** — `add-glossary.js` refuses an `image` or `video` that has a `src` and no source line, the same
+rule the editors' media gate enforces (see the "Nothing is saved uncredited" bullet above).
 
 Optional `"video": { "src": "https://…", "title": "…", "desc": "…", "credit": "…" }` adds a clip shown in
 the same frame in the popup (lands in `window.GLOSSARY_VIDEOS`). **Links only** — a YouTube or Vimeo page
@@ -1492,7 +1541,7 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Eleven committed regression tests** (in `.claude/`, not loaded by the site): ten drive a real browser with
+- **Twelve committed regression tests** (in `.claude/`, not loaded by the site): eleven drive a real browser with
   Playwright, and `test-daily-quote.js` is plain Node with no dependencies at all. Each slices what
   it tests out of the real `app.js`/`_headers` by text, so they can't drift from what ships.
   **Gotcha when writing more of them:** `page.goto()` to a URL that differs only in the `#fragment` is a
@@ -1550,6 +1599,16 @@ dead code (never rendered).
     the curated editor's overlay delta survives a reload and clears cleanly, and a deck's own term images
     are sanitized on ingest (a `javascript:` src is dropped). **Re-run after touching `glossImage` /
     `renderGlossImage` / `setGlossImageEdit` / `uGlossSetImage`, or any z-index in the gloss/viewer stack.**
+  · `node .claude/test-media-source.js` — 35 assertions on the media source gate: that an uncredited URL
+    really is **absent from the store** rather than merely marked, that it is still shown to the author
+    and flagged (so the gate reads as "not yet", not "nothing happened"), that leaving the URL field asks
+    for the source and navigating away warns instead of losing it, that an answer commits the whole object
+    at once, that **clearing the source takes the picture back out**, and that a shipped credited picture
+    is untouched by any of it — on all four surfaces (card image, card video, curated glossary, Studio
+    term). **Re-run after touching `wireMediaSource` / `askMediaSource` or any media panel's wiring.**
+    Its `typeInto` sets a field's value and dispatches `input` by hand: `page.fill()` can land on a box the
+    URL keystroke has only just revealed and the value never arrives — and a programmatic value fires no
+    `change`, so the blur-asks-for-a-source case dispatches that itself.
   · `node .claude/test-feedback.js` — 39 assertions on reader feedback: the About-page form (a message
     that reaches the row with its line breaks intact and its markup gone, the device-local cooldown, and
     that **the sender never supplies a triage status** — the client half of what the column guard enforces)

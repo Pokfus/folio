@@ -157,8 +157,18 @@ async function openGlossEditor(page, base) {
   await page.fill('[data-gimgfield="src"]', PNG);
   await page.waitForTimeout(250);
   check("...and appear once a URL is set", await page.locator('[data-gimgfield="title"]').isVisible());
+  // the source gate: a URL with no credit line is STAGED, not stored, so nothing can ship uncredited
+  if (await page.locator(".inline-prompt").count()) await page.locator(".inline-prompt .ip-cancel").click();
+  await page.waitForTimeout(200);
+  check("an uncredited URL is held back", await page.locator(".gloss-imgpanel .af-reqnote").first().isVisible());
+  check("...and is not written to the overlay", await page.evaluate(() => {
+    const o = JSON.parse(localStorage.getItem("folio_admin_v1") || "{}");
+    return !Object.keys(o.glossaryImages || {}).some((k) => o.glossaryImages[k] && o.glossaryImages[k].src);
+  }));
   await page.fill('[data-gimgfield="title"]', "Editor plate");
+  await page.fill('[data-gimgfield="credit"]', "Test source");
   await page.waitForTimeout(700);
+  check("...and saves as soon as a source is given", !(await page.locator(".gloss-imgpanel .af-reqnote").first().isVisible()));
   check("the popup preview shows the image live", await page.locator("#adminGlossPreview .gloss-imgslot .card-img").count() === 1);
 
   const stored = await page.evaluate(() => {

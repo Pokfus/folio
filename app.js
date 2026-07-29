@@ -985,6 +985,15 @@
       cotd: [],
       active: ["cn-qing"], // deck/subdeck ids added to the daily review
       achievements: {}, // achievement id -> unlock timestamp
+      // ---- learning that happens outside the scheduler, for the account page's "Beyond the cards" panel.
+      // Neither of these can be reconstructed after the fact: a glossary popup and an Atlas click leave no
+      // other trace anywhere in the state. Both are key -> first-seen timestamp, and both are pruned at
+      // SEEN_CAP so a long session can't grow the synced progress blob without bound.
+      glossSeen: {},   // glossary slug -> when its popup was first opened (curated terms only)
+      placesSeen: {},  // Atlas place name -> when its info panel was first opened
+      // cumulative daily-game record: game key -> { plays, wins }. S.games only ever holds TODAY, so the
+      // lifetime tally had nowhere to live before this.
+      gameLog: {},
     };
   }
   let S = load();
@@ -1008,6 +1017,29 @@
     syncProgressToAccount();   // mirror live study progress into a legacy local account (no-op normally)
     supaQueuePush();           // debounced background push to the online account (no-op when signed out/offline)
   }
+  /* ---------- "seen" registers (glossary terms, Atlas places) ----------
+     A glossary popup and an Atlas info panel teach something and then vanish without a trace — nothing
+     else in the state records that they were ever opened, so the reading a scholar does around the cards
+     is invisible on the account page unless it is written down as it happens. Each register is
+     key -> first-seen timestamp; re-opening something is a no-op, which is also what keeps this off the
+     save path for all but the first visit to a term. Capped, oldest dropped first: these ride in the
+     synced progress blob, and the Atlas alone can name well over a thousand places. */
+  const SEEN_CAP = 1500;
+  function markSeen(field, key) {
+    if (!key) return false;
+    if (!S[field] || typeof S[field] !== "object") S[field] = {};   // back-fill for saves made before the register existed
+    const reg = S[field];
+    if (reg[key]) return false;                                     // already known — nothing to write
+    reg[key] = Date.now();
+    const keys = Object.keys(reg);
+    if (keys.length > SEEN_CAP) {
+      keys.sort((a, b) => (reg[a] || 0) - (reg[b] || 0)).slice(0, keys.length - SEEN_CAP).forEach((k) => delete reg[k]);
+    }
+    save();
+    return true;
+  }
+  function seenCount(prog, field) { return Object.keys((prog && prog[field]) || {}).length; }
+
   /* ---------- UI sound effects — synthesized with the Web Audio API (no files, zero deps) ----------
      sfx(name): click (buttons), toggle (switches), pop (reveal / image viewer), good / bad (grades),
      win (level-ups, achievements, perfect games). Gated by Settings → Sound effects (S.settings.sfx,
@@ -1057,6 +1089,10 @@
     let g = S.games[key];
     if (!g || g.date !== t) g = { date: t, played: false, won: false };
     g.played = true;
+    if (!S.gameLog || typeof S.gameLog !== "object") S.gameLog = {};   // lifetime tally — S.games only holds today
+    const gl = S.gameLog[key] || { plays: 0, wins: 0 };
+    gl.plays += 1; if (won) gl.wins += 1;
+    S.gameLog[key] = gl;
     if (won && !g.won) sfx("win");   // a perfect run earns the gold tile — and a little fanfare, once per day
     if (won) g.won = true;
     if (typeof score === "number" && typeof total === "number") {   // remember today's BEST score (games can be replayed) — shown on the home tile
@@ -1076,7 +1112,7 @@
      Kept for: the admin page's local-user manager, the guest-progress stash helpers (extractProgress /
      applyProgress / emptyProgress), and older saves. The account page no longer signs in against this. */
   const ACCT_KEY = "folio_acct_v1";
-  const PROGRESS_FIELDS = ["cards", "suspended", "daily", "chrono", "games", "intro", "reviewLog", "reviewDay", "streak", "active", "cotd", "achievements"];
+  const PROGRESS_FIELDS = ["cards", "suspended", "daily", "chrono", "games", "intro", "reviewLog", "reviewDay", "streak", "active", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog"];
   const B32 = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
   function defaultAcct() { return { users: {}, current: null, guest: null }; }
   let ACCT = (function () {
@@ -2116,6 +2152,10 @@
       });
       window.addEventListener("resize", () => { if (!isMobileGloss()) glossWins.forEach(clampGlossWin); });
     }
+    // a term read counts as read, whether the popup is new or being brought back to the front. Deck terms
+    // are skipped: the "terms opened" figure is measured against the curated glossary, and a stranger's
+    // deck would let it pass 100%.
+    if (!isDeckGlossKey(key)) markSeen("glossSeen", key);
     const mobile = isMobileGloss();
     const existing = glossWins.find((w) => w.dataset.k === key);
     if (existing) { if (!mobile) { focusGlossWin(existing); flashGloss(existing); } return; }
@@ -3503,6 +3543,10 @@
     setActiveTab(current.name);
     setPageMeta(current.name);
     document.body.classList.toggle("admin-mode", current.name === "admin");
+    // A picture or clip typed without a source was never put in the store (see wireMediaSource) — say so
+    // on the way out rather than let it disappear quietly. Read off the live panel, so there is no
+    // "pending" flag to keep in step with an editor that has already been torn down.
+    if (document.querySelector(".af-reqnote:not([hidden])")) toast("Not saved — an image or video was left without a source.");
     view.innerHTML = '<div class="page"></div>';
     const root = view.firstElementChild;
     (PAGES[current.name] || PAGES.home)(root, current.params);
@@ -5630,28 +5674,32 @@
       descEl.innerHTML = (UGLOSS[d.id][slug] || {}).desc || "";
       descEl.addEventListener("input", () => { uGlossSet(d.id, slug, "desc", fieldVal(descEl)); adminFlashSaved(); });
     }
+    // Both media panels go through the source gate — a deck author forgets to credit as easily as an
+    // editor does, and this deck may well be published. The meta rows read the gate's stage, since an
+    // uncredited URL is deliberately still out of the store (see wireMediaSource).
     const stImgMeta = root.querySelector("#stImgMeta");
-    const syncStImg = () => { if (stImgMeta) stImgMeta.hidden = !((UGLOSS[d.id][slug] || {}).image || {}).src; };
-    // one frame per term: the retired side's fields follow the store (see syncGMedia in the curated editor)
-    const syncStMedia = (justSet) => {
-      syncStImg(); syncStVid();
-      if (justSet !== "image") {
-        const im = (UGLOSS[d.id][slug] || {}).image || {};
-        root.querySelectorAll("[data-gimg]").forEach((f) => { f.value = im[f.dataset.gimg] || ""; });
-      }
-      if (justSet !== "video") {
-        const v = (UGLOSS[d.id][slug] || {}).video || {};
-        root.querySelectorAll("[data-gvid]").forEach((f) => { f.value = v[f.dataset.gvid] || ""; });
-      }
-    };
-    root.querySelectorAll("[data-gimg]").forEach((el) => el.addEventListener("input", () => {
-      uGlossSetImage(d.id, slug, el.dataset.gimg, el.value.trim());
-      adminFlashSaved();
-      if (el.dataset.gimg === "src") syncStMedia("image");
-    }));
     const stVidMeta = root.querySelector("#stVidMeta"), stVidNote = root.querySelector("#stVidNote");
+    const stImgPanel = root.querySelector('[data-gimg="src"]') ? root.querySelector('[data-gimg="src"]').closest(".ces-imgpanel") : null;
+    const stVidPanel = root.querySelector('[data-gvid="src"]') ? root.querySelector('[data-gvid="src"]').closest(".ces-imgpanel") : null;
+    const stImgGate = stImgPanel ? wireMediaSource({
+      panel: stImgPanel, attr: "gimg", kind: "image",
+      get: () => (UGLOSS[d.id][slug] || {}).image,
+      set: (f, v) => uGlossSetImage(d.id, slug, f, v),
+      after: () => adminFlashSaved(),
+      onChange: (f) => { if (f === "src" || f === "credit") syncStMedia("image"); },
+    }) : null;
+    const stVidGate = stVidPanel ? wireMediaSource({
+      panel: stVidPanel, attr: "gvid", kind: "video",
+      get: () => (UGLOSS[d.id][slug] || {}).video,
+      set: (f, v) => uGlossSetVideo(d.id, slug, f, v),
+      after: () => adminFlashSaved(),
+      onChange: (f) => { if (f === "src" || f === "credit") syncStMedia("video"); },
+    }) : null;
+    const stImgSrc = () => String((stImgGate ? stImgGate.staged() : ((UGLOSS[d.id][slug] || {}).image || {})).src || "").trim();
+    const stVidSrc = () => String((stVidGate ? stVidGate.staged() : ((UGLOSS[d.id][slug] || {}).video || {})).src || "").trim();
+    const syncStImg = () => { if (stImgMeta) stImgMeta.hidden = !stImgSrc(); };
     const syncStVid = () => {
-      const src = String(((UGLOSS[d.id][slug] || {}).video || {}).src || "").trim();
+      const src = stVidSrc();
       if (stVidMeta) stVidMeta.hidden = !src;
       if (stVidNote) {
         const s = src ? videoSource(src) : null;
@@ -5660,12 +5708,13 @@
         stVidNote.textContent = !src ? "" : s ? "Recognised as a " + videoSourceLabel(s.kind) + "." : "Not a link Folio can play — YouTube, Vimeo, or a direct .mp4 / .webm / .ogv URL.";
       }
     };
-    syncStVid();
-    root.querySelectorAll("[data-gvid]").forEach((el) => el.addEventListener("input", () => {
-      uGlossSetVideo(d.id, slug, el.dataset.gvid, el.value.trim());
-      adminFlashSaved();
-      if (el.dataset.gvid === "src") syncStMedia("video");
-    }));
+    // one frame per term: the retired side re-reads the store through its own gate
+    const syncStMedia = (justSet) => {
+      if (justSet !== "image" && stImgGate) stImgGate.reload();
+      if (justSet !== "video" && stVidGate) stVidGate.reload();
+      syncStImg(); syncStVid();
+    };
+    syncStImg(); syncStVid();
     root.querySelectorAll("[data-gf]").forEach((el) => {
       if (el.dataset.gf === "desc") return;
       el.addEventListener("input", () => {
@@ -6544,6 +6593,101 @@
     return null;
   }
   function videoSourceLabel(kind) { return kind === "youtube" ? "YouTube" : kind === "vimeo" ? "Vimeo" : "video file"; }
+
+  /* ---------- media source gate: nothing is saved uncredited ----------
+     Every picture and clip Folio shows carries a source line, and the editors save on every keystroke — so
+     a URL pasted in and then forgotten about would ship credited to nobody, which is the one mistake that
+     is invisible until someone else points it out. The gate sits BETWEEN a media panel's fields and the
+     store: while the source box is empty a typed URL is staged only, the panel says in so many words that
+     nothing has been saved, and a modal asks for the source the moment the URL field is left. The whole
+     staged object enters the store together as soon as a source exists, and clearing the source takes it
+     back out again — so "has a src" and "has a credit" can never come apart in stored data.
+
+     Deliberately editor-side. The writers (setCardImageEdit / setGlossImageEdit / uCardSetImage /
+     uGlossSetImage) stay dumb, so the ingest paths are untouched: a hand-authored data.js, an imported
+     deck file and an installed community deck all render exactly as before. This is a guard against
+     forgetting while writing, not a validity rule imposed on other people's decks. */
+  const MEDIA_FIELDS = ["src", "title", "desc", "credit"];
+  function mediaKindLabel(kind) { return kind === "video" ? "video" : "image"; }
+  function askMediaSource(kind, onGot) {
+    const k = mediaKindLabel(kind);
+    inlineModal(
+      "A source is required before this " + k + " can be saved. Where does it come from? — e.g. Wikimedia Commons, public domain, a museum, or a URL.",
+      true, "",
+      (v) => {
+        const s = String(v == null ? "" : v).trim();
+        if (s) onGot(s);
+        else toast("Not saved — the " + k + " still needs a source.");
+      },
+      "Save the " + k);
+  }
+  /* Takes over the wiring of one media panel's four fields.
+       o = { panel, attr, kind, get(), set(field, value), after(field), onChange(field) }
+     `attr` is the panel's data-attribute name minus "data-" (imgfield / vidfield / gimgfield / gimg / …).
+     Returns { staged, pending, reload } — callers read staged() rather than the store when deciding what
+     the slot shows, since a pasted-but-uncredited picture has deliberately not reached the store yet. */
+  function wireMediaSource(o) {
+    const fields = {};
+    Array.prototype.forEach.call(o.panel.querySelectorAll("[data-" + o.attr + "]"), (el) => { fields[el.dataset[o.attr]] = el; });
+    const stage = { src: "", title: "", desc: "", credit: "" };
+    let inStore = false;
+    const note = document.createElement("div");
+    note.className = "af-reqnote";
+    note.hidden = true;
+    note.innerHTML = '<span class="afr-txt"></span><button type="button" class="afr-btn">Add the source</button>';
+    if (fields.src) (fields.src.closest(".admin-field") || fields.src).insertAdjacentElement("afterend", note);
+
+    function readStore() {
+      const cur = o.get() || {};
+      MEDIA_FIELDS.forEach((f) => { stage[f] = String(cur[f] == null ? "" : cur[f]); });
+      inStore = MEDIA_FIELDS.some((f) => stage[f]);
+    }
+    // only ever called when this panel is NOT the one being typed into — pushing a value back into the
+    // field under the caret would fight it
+    function paint() { MEDIA_FIELDS.forEach((f) => { if (fields[f] && fields[f].value !== stage[f]) fields[f].value = stage[f]; }); }
+    function pending() { return !!stage.src.trim() && !stage.credit.trim(); }
+    function syncNote() {
+      note.hidden = !pending();
+      if (!note.hidden) note.querySelector(".afr-txt").textContent = "Not saved — a source is required before this " + mediaKindLabel(o.kind) + " can be kept.";
+    }
+    // stage → store, all four fields together, or hold the whole thing back until it carries a source.
+    // `inStore` keeps the held-back case from re-clearing an already-empty store on every keystroke.
+    function push() {
+      if (stage.src.trim() && stage.credit.trim()) {
+        // an untouched optional box is left alone rather than written as "": some stores keep an empty
+        // string where the curated writers delete the key, and a published deck should not carry either
+        const cur = o.get() || {};
+        MEDIA_FIELDS.forEach((f) => { const v = stage[f].trim(); if (v || cur[f]) o.set(f, v); });
+        inStore = true;
+      } else if (inStore) { MEDIA_FIELDS.forEach((f) => o.set(f, "")); inStore = false; }
+      syncNote();
+    }
+    function ask() {
+      askMediaSource(o.kind, (credit) => {
+        stage.credit = credit;
+        if (fields.credit) fields.credit.value = credit;
+        push();
+        if (o.after) o.after("credit");
+        if (o.onChange) o.onChange("credit");
+        toast("Source saved — the " + mediaKindLabel(o.kind) + " is kept.");
+      });
+    }
+    readStore(); paint(); syncNote();
+    MEDIA_FIELDS.forEach((f) => {
+      const el = fields[f]; if (!el) return;
+      el.addEventListener("input", () => {
+        stage[f] = el.value;
+        push();
+        if (o.after) o.after(f);
+        if (o.onChange) o.onChange(f);
+      });
+    });
+    // `change` = the URL field was left (blur or Enter) — the natural moment to ask, and late enough that
+    // the modal never interrupts someone mid-paste
+    if (fields.src) fields.src.addEventListener("change", () => { if (pending()) ask(); });
+    note.querySelector(".afr-btn").addEventListener("click", ask);
+    return { staged: () => Object.assign({}, stage), pending: pending, reload: () => { readStore(); paint(); syncNote(); } };
+  }
   // the player markup for a resolved source, at whatever size its frame gives it
   function videoPlayerHTML(s, title, cls, autoplay) {
     if (s.kind === "file")
@@ -7473,6 +7617,7 @@
     function showCountryPopupName(name, forceGeneral) {   // populate the info popup from a place name (era entity, a drilled present-day country, or — forceGeneral — a UK constituent shown with its general description)
       if (!cpEl) return;
       if (!name) { hideCountryPopup(); return; }
+      markSeen("placesSeen", name);   // opening a place's panel is the Atlas equivalent of reading a gloss term
       const present = !!(activeEra(year) || {}).present;
       const desc = countryDesc(name), yd = countryYear(name, year);   // present-day summary + the per-year paragraph for THIS map-year
       // Title: the state's full legal official name (extracted from the summary's "officially …"), else its name. Main paragraph:
@@ -9963,6 +10108,173 @@
       </div>`;
   }
 
+  /* ---------- deck-specific statistics ----------
+     Everything below is DERIVED from the card records rather than logged per deck. That is deliberate: a
+     per-deck review log would only start on the day it was added — so every deck a scholar has already
+     worked through would read as empty — and it would multiply the synced progress blob by the number of
+     decks. What a card record can answer (how far through a deck you are, how much of it has gone mature,
+     what it owes you today) is the deck-shaped part anyway; the day-by-day history stays global above. */
+  const MATURE_DAYS = 21;
+  function deckStats(prog, ids) {
+    const cards = prog.cards || {}, susp = prog.suspended || {};
+    const t = Date.now();
+    const s = { total: ids.length, studied: 0, mature: 0, young: 0, learning: 0, unseen: 0, suspended: 0, due: 0, lapses: 0, ivSum: 0, ivN: 0, last: 0 };
+    ids.forEach((id) => {
+      const c = cards[id];
+      if (susp[id]) s.suspended++;
+      if (!c) { s.unseen++; return; }
+      s.studied++;
+      s.lapses += c.lapses || 0;
+      if (c.last && c.last > s.last) s.last = c.last;
+      if (c.status === "review") {
+        if ((c.interval || 0) >= MATURE_DAYS) s.mature++; else s.young++;
+        s.ivSum += c.interval || 0; s.ivN++;
+      } else s.learning++;
+      if (!susp[id] && c.due && c.due <= t) s.due++;
+    });
+    s.avgInterval = s.ivN ? s.ivSum / s.ivN : 0;
+    return s;
+  }
+  function fmtIntervalDays(d) {
+    if (!d) return "—";
+    if (d < 1) return "<1d";
+    if (d < 60) return Math.round(d) + "d";
+    if (d < 730) return (d / 30.44).toFixed(d < 180 ? 1 : 0) + "mo";
+    return (d / 365.25).toFixed(1) + "y";
+  }
+  function fmtDaysAgo(ts) {
+    if (!ts) return "Never";
+    const d = Math.floor((Date.now() - ts) / DAY);
+    return d <= 0 ? "Today" : d === 1 ? "Yesterday" : d < 30 ? d + " days ago" : new Date(ts).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
+  }
+  // every scope the deck-statistics picker can show: each live collection, each deck inside it, and — for
+  // your own account only — your community decks, which live outside the tree and outside a friend's blob
+  function statScopes(withCommunity) {
+    const out = [];
+    TREE.collections.forEach((c) => {
+      const cids = subtreeCardIds(c);
+      if (!cids.length || isComingSoon(c)) return;
+      const g = nodeTitle(c);
+      out.push({ id: c.id, label: "All of " + g, group: g, ids: cids });
+      Object.keys(NODE_BY_ID).forEach((nid) => {
+        const n = NODE_BY_ID[nid];
+        if (n === c || COLLECTION_BY_ID[nid] || rootCollectionOf(n) !== c) return;
+        const ids = subtreeCardIds(n);
+        if (ids.length) out.push({ id: nid, label: nodeTitle(n), group: g, ids: ids });
+      });
+    });
+    if (withCommunity) uDeckList().forEach((d) => { if ((d.cardIds || []).length) out.push({ id: "u:" + d.id, label: d.title || "Untitled deck", group: "Your decks", ids: d.cardIds.slice() }); });
+    return out;
+  }
+  function deckStatsPanelHTML(prog, scope) {
+    if (!scope) return '<div class="ds-empty">No decks with cards yet.</div>';
+    const s = deckStats(prog, scope.ids);
+    const pct = s.total ? Math.round((s.studied / s.total) * 100) : 0;
+    const tile = (v, label, hint) => '<div class="ds-tile"' + (hint ? ' title="' + esc(hint) + '"' : "") + "><b>" + v + "</b><span>" + esc(label) + "</span></div>";
+    return '<div class="ds-bar-row"><div class="ds-bar" role="img" aria-label="' + s.studied + " of " + s.total + ' cards studied"><i style="width:' + pct + '%"></i></div>' +
+        '<span class="ds-bar-lbl">' + s.studied + " / " + s.total + " cards studied · " + pct + "%</span></div>" +
+      '<div class="ds-tiles">' +
+        tile(s.mature, "Mature", "In review with an interval of " + MATURE_DAYS + " days or more") +
+        tile(s.young, "Young", "In review, but still coming back within " + MATURE_DAYS + " days") +
+        tile(s.learning, "Learning", "Still on a learning step, or lapsed back onto one") +
+        tile(s.unseen, "Not started", "Cards in this deck you have never been shown") +
+        tile(s.due, "Due now", "Cards from this deck waiting for you right now") +
+        tile(s.lapses, "Lapses", "Times a card in this deck was forgotten after graduating") +
+        tile(fmtIntervalDays(s.avgInterval), "Avg. gap", "The average interval its review cards now wait between showings") +
+        tile(s.suspended, "Set aside", "Cards from this deck you have suspended") +
+      "</div>" +
+      '<div class="ds-foot">Last studied: <b>' + esc(fmtDaysAgo(s.last)) + "</b>" + (s.studied ? "" : " — nothing from this deck has been reviewed yet") + "</div>";
+  }
+  // the picker + panel. `prog` is whose progress to read (yours, or a friend's); the selection is UI-only
+  // and deliberately not persisted — it is a glance, not a setting.
+  function renderDeckStats(container, prog, withCommunity) {
+    const scopes = statScopes(withCommunity);
+    if (!scopes.length) { container.innerHTML = '<div class="ds-empty">No decks with cards yet — deck statistics appear here once a collection has content.</div>'; return; }
+    // open on the deck with the most studied cards: the one they are actually working through
+    let best = scopes[0], bestN = -1;
+    scopes.forEach((sc) => { const n = deckStats(prog, sc.ids).studied; if (n > bestN) { bestN = n; best = sc; } });
+    const groups = [];
+    scopes.forEach((sc) => { let g = groups.find((x) => x.name === sc.group); if (!g) groups.push((g = { name: sc.group, items: [] })); g.items.push(sc); });
+    container.innerHTML = '<label class="ds-pick"><span>Deck</span><select class="set-sel" id="dsSel">' +
+        groups.map((g) => '<optgroup label="' + esc(g.name) + '">' + g.items.map((sc) => '<option value="' + esc(sc.id) + '"' + (sc.id === best.id ? " selected" : "") + ">" + esc(sc.label) + "</option>").join("") + "</optgroup>").join("") +
+      '</select></label><div class="ds-panel" id="dsPanel"></div>';
+    const sel = container.querySelector("#dsSel"), panel = container.querySelector("#dsPanel");
+    const paint = () => { panel.innerHTML = deckStatsPanelHTML(prog, scopes.find((sc) => sc.id === sel.value) || best); };
+    sel.addEventListener("change", paint);
+    paint();
+  }
+
+  /* ---------- statistics that aren't about cards ----------
+     Studying is only part of what a scholar does here: they read glossary terms, open places on the Atlas
+     and play the daily games. None of that touches the scheduler, so none of it showed up anywhere until
+     the "seen" registers above started recording it. Figures a register can't answer honestly are simply
+     not shown — the registers begin the day they were added, so a scholar who has been reading terms for
+     months starts from zero here, and it says so rather than implying they never read one. */
+  function longestStreakDays(prog) {
+    const days = Object.keys((prog && prog.reviewLog) || {}).filter((k) => (prog.reviewLog[k] || [])[0] > 0).sort();
+    let best = 0, run = 0, prev = null;
+    days.forEach((k) => {
+      const t = new Date(k + "T12:00:00").getTime();
+      run = (prev != null && Math.round((t - prev) / DAY) === 1) ? run + 1 : 1;
+      prev = t;
+      if (run > best) best = run;
+    });
+    return best;
+  }
+  function reviewLogTotals(prog) {
+    const log = (prog && prog.reviewLog) || {};
+    let reviews = 0, days = 0;
+    Object.keys(log).forEach((k) => { const n = (log[k] || [])[0] || 0; reviews += n; if (n > 0) days++; });
+    return { reviews, days };
+  }
+  const GAME_TITLES = { challenge: "Multiple choice", chrono: "Timeline", truefalse: "True or False", whosaid: "Who said it?", findit: "Find it on the map" };
+  function exploreStatsHTML(prog) {
+    const gloss = seenCount(prog, "glossSeen");
+    // only the curated glossary counts, and only terms that still exist — a term retired since it was read
+    // would otherwise push the figure past the total
+    const glossTotal = Object.keys(window.GLOSSARY || {}).length;
+    const places = seenCount(prog, "placesSeen");
+    // the Atlas country list is a lazy bundle, so "of N" is only honest once world.js has actually loaded
+    const placeTotal = (window.WORLD_GEO && window.WORLD_GEO.length) || 0;
+    const tot = reviewLogTotals(prog);
+    const best = longestStreakDays(prog);
+    const gl = (prog && prog.gameLog) || {};
+    const plays = Object.keys(gl).reduce((a, k) => a + ((gl[k] || {}).plays || 0), 0);
+    const wins = Object.keys(gl).reduce((a, k) => a + ((gl[k] || {}).wins || 0), 0);
+    const cotd = ((prog && prog.cotd) || []).length;
+    const meter = (n, total, label, note) => {
+      const pct = total ? Math.min(100, Math.round((n / total) * 100)) : 0;
+      return '<div class="rs-card ex-meter"><div class="rs-head"><h3>' + esc(label) + "</h3>" +
+        '<span class="rs-meta">' + (total ? n + " of " + total : String(n)) + "</span></div>" +
+        (total ? '<div class="ds-bar"><i style="width:' + pct + '%"></i></div>' : "") +
+        '<span class="rs-sub">' + esc(note) + "</span></div>";
+    };
+    const gameRows = DAILY_GAMES.map((k) => {
+      const g = gl[k] || { plays: 0, wins: 0 };
+      return '<div class="ex-grow"><span class="exg-name">' + esc(t(GAME_TITLES[k] || k)) + "</span>" +
+        '<span class="exg-n">' + g.plays + (g.plays === 1 ? " play" : " plays") + "</span>" +
+        '<span class="exg-w">' + g.wins + " perfect</span></div>";
+    }).join("");
+    const tile = (v, label, hint) => '<div class="ds-tile" title="' + esc(hint) + '"><b>' + v + "</b><span>" + esc(label) + "</span></div>";
+    return '<div class="revstats">' +
+        meter(gloss, glossTotal, "Glossary terms opened", glossTotal
+          ? "Every term whose popup you have opened. Counting started when this panel was added, so terms read before then aren't included."
+          : "The glossary hasn't loaded yet.") +
+        meter(places, placeTotal, "Places opened on the Atlas", placeTotal
+          ? "Present-day countries and historical territories whose info panel you have opened."
+          : "Open the Atlas once and the total appears here — the map data loads on demand.") +
+      "</div>" +
+      '<div class="ds-tiles ex-tiles">' +
+        tile(tot.reviews, "Reviews, all time", "Every grade you have given, from the day-by-day log") +
+        tile(tot.days, "Days studied", "Days with at least one review") +
+        tile("🔥 " + best, "Longest streak", "The longest run of consecutive days with a review") +
+        tile(cotd, "Card-of-the-day picks", "Cards you added to your review from the home page's card of the day") +
+        tile(plays, "Games played", "Every daily minigame you have finished") +
+        tile(wins, "Perfect runs", "Games finished without a single mistake") +
+      "</div>" +
+      '<div class="ex-games">' + gameRows + "</div>";
+  }
+
   // the root collection an item belongs to (walk up the tree) — used to tint profile rows in the collection's hue
   function rootCollectionOf(node) {
     let n = node;
@@ -10190,6 +10502,10 @@
       <div id="statWrap"></div>
       <div class="section-label">Review statistics</div>
       <div id="reviewStats"></div>
+      <div class="section-label">Deck statistics</div>
+      <div id="deckStats"></div>
+      <div class="section-label">Beyond the cards</div>
+      <div id="exploreStats"></div>
       <div class="section-label">Progress by deck</div>
       <div class="suspbox">
         <button class="suspbox-head open" id="dpHead" type="button" aria-expanded="true"><span class="suspbox-title">By deck <span class="suspbox-count" id="dpCount"></span></span><span class="suspbox-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></button>
@@ -10202,6 +10518,8 @@
       </div>`;
     root.querySelector("#statWrap").innerHTML = statGridHTML(S, dueCountNow());
     root.querySelector("#reviewStats").innerHTML = reviewStatsHTML(S, S.user && S.user.joined);   // the heatmap opens on the day the account was created
+    renderDeckStats(root.querySelector("#deckStats"), S, true);   // your own community decks belong in your picker
+    root.querySelector("#exploreStats").innerHTML = exploreStatsHTML(S);
 
     const nameInput = root.querySelector("#name");
     const monoInitial = (v) => { const m = root.querySelector("#mono .monogram:not(.has-img)"); if (m) m.textContent = initialOf(v); };   // only when no photo is set
@@ -10351,6 +10669,10 @@
         <div id="fStat"></div>
         <div class="section-label">Review statistics</div>
         <div id="fReviewStats"></div>
+        <div class="section-label">Deck statistics</div>
+        <div id="fDeckStats"></div>
+        <div class="section-label">Beyond the cards</div>
+        <div id="fExploreStats"></div>
         <div class="section-label">Badges</div>
         <div class="badges-box" id="fBadges"></div>
         <div class="section-label">Collection levels</div>
@@ -10359,6 +10681,8 @@
         <div class="suspbox"><div class="suspbox-collapse"><div class="suspbox-collapse-inner"><div class="deckprog" id="fDeck"></div></div></div></div>`;
       root.querySelector("#fStat").innerHTML = statGridHTML(prog, null);
       root.querySelector("#fReviewStats").innerHTML = reviewStatsHTML(prog, u.joined);   // their reviewLog rides along in the synced progress blob
+      renderDeckStats(root.querySelector("#fDeckStats"), prog, false);   // their community decks live on their device, not in the blob
+      root.querySelector("#fExploreStats").innerHTML = exploreStatsHTML(prog);
       root.querySelector("#fBadges").innerHTML = badgesHTML(prog.achievements, progStats(prog, 0));
       renderCollectionLevels(root.querySelector("#fLevels"), prog.cards || {}, S.cards);   // their levels, with a "You: …" chip beside each
       renderDeckProgress(root.querySelector("#fDeck"), prog.cards || {});
@@ -11920,16 +12244,33 @@
     // ---- image slot: the real image (click = edit panel), or an editor-only "add image" placeholder ----
     const imgSlotEl = host.querySelector("#cesImgSlot");
     const imgPanel = host.querySelector("#cesImgPanel");
+    const vidSlotEl = host.querySelector("#cesVidSlot");
+    const vidPanel = host.querySelector("#cesVidPanel");
+    const vidNote = host.querySelector("#cesVidNote");
+    // Nothing ships uncredited: both panels write through a source gate (see wireMediaSource), which holds
+    // a typed URL out of the store until a source is given. The slots below therefore read the GATE's
+    // staged value rather than the store — an author has to see the picture they just pasted, flagged as
+    // unsaved, instead of an "Add an image" placeholder sitting over a panel they have just filled in.
+    const imgGate = (imgPanel && o.setImage)
+      ? wireMediaSource({ panel: imgPanel, attr: "imgfield", kind: "image", get: () => (o.getImage ? o.getImage() : null), set: o.setImage, after: afterImage, onChange: (f) => { if (f === "src" || f === "credit") syncMedia("image"); } })
+      : null;
+    const vidGate = (vidPanel && o.setVideo)
+      ? wireMediaSource({ panel: vidPanel, attr: "vidfield", kind: "video", get: () => (o.getVideo ? o.getVideo() : null), set: o.setVideo, after: (o.afterVideo || afterImage), onChange: (f) => { if (f === "src" || f === "credit") syncMedia("video"); } })
+      : null;
+    const curImg = () => (imgGate ? imgGate.staged() : ((o.getImage ? o.getImage() : null) || {}));
+    const curVid = () => (vidGate ? vidGate.staged() : ((o.getVideo ? o.getVideo() : null) || {}));
     // A card carries ONE frame. Whichever of the two is set owns the slot; the other side collapses to a
     // slim "use … instead" switch, so the choice stays reachable without ever offering two empty boxes.
     const mediaSwap = (label) => '<button class="ces-media-swap" type="button" title="A card shows one frame — this replaces what is there now">' + label + "</button>";
-    const imgSet = () => !!((o.getImage ? o.getImage() : null) || {}).src;
-    const vidSet = () => !!((o.getVideo ? o.getVideo() : null) || {}).src;
+    const pendFlag = (kind) => '<span class="ces-media-flag">Not saved — this ' + kind + " needs a source</span>";
+    const imgSet = () => !!String(curImg().src || "").trim();
+    const vidSet = () => !!String(curVid().src || "").trim();
     function renderImgSlot() {
       if (!imgSlotEl) return;
-      const cur = o.getImage ? o.getImage() : null;
-      const im = cur && cur.src ? cur : null;
-      if (im) imgSlotEl.innerHTML = '<figure class="card-img ces-img" title="Click to edit the image"><img src="' + esc(im.src) + '" alt="" draggable="false"><span class="ces-img-edit">Edit image</span></figure>';
+      const cur = curImg();
+      const im = String(cur.src || "").trim() ? cur : null;
+      const pend = !!(imgGate && imgGate.pending());
+      if (im) imgSlotEl.innerHTML = '<figure class="card-img ces-img' + (pend ? " ces-media-pending" : "") + '" title="Click to edit the image"><img src="' + esc(im.src) + '" alt="" draggable="false"><span class="ces-img-edit">Edit image</span>' + (pend ? pendFlag("image") : "") + "</figure>";
       else if (!o.imagePanel) imgSlotEl.innerHTML = "";
       else if (vidSet()) imgSlotEl.innerHTML = mediaSwap("Use an image instead");
       else imgSlotEl.innerHTML = '<div class="ces-img-ph" role="button" tabindex="0" title="Click to add an image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><span>Add an image <small>— editor only; nothing shows on the study page until one is set</small></span></div>';
@@ -11938,24 +12279,12 @@
     }
     renderImgSlot();
     const imgMeta = host.querySelector("#cesImgMeta");
-    const syncImgMeta = () => { const cur = o.getImage ? o.getImage() : null; if (imgMeta) imgMeta.hidden = !(cur && String(cur.src || "").trim()); };   // title/desc/source appear only once a URL is set
+    const syncImgMeta = () => { if (imgMeta) imgMeta.hidden = !imgSet(); };   // title/desc/source appear only once a URL is TYPED — the gate holds the store empty until the source lands, so this can't ask the store
     syncImgMeta();
-    host.querySelectorAll("[data-imgfield]").forEach((el) => {
-      const cur = o.getImage ? o.getImage() : null;
-      el.value = (cur && cur[el.dataset.imgfield]) || "";
-      el.addEventListener("input", () => {
-        if (o.setImage) o.setImage(el.dataset.imgfield, el.value.trim());
-        afterImage(el.dataset.imgfield);
-        if (el.dataset.imgfield === "src") syncMedia("image");
-      });
-    });
 
     // ---- video slot: the real player (so the author sees what a reader sees), with an "Edit video" chip
     // in the corner opening the panel. The chip is deliberately NOT .cv-expand — inside the editor the
     // corner control edits rather than opening the fullscreen viewer. ----
-    const vidSlotEl = host.querySelector("#cesVidSlot");
-    const vidPanel = host.querySelector("#cesVidPanel");
-    const vidNote = host.querySelector("#cesVidNote");
     function toggleVidPanel() {
       if (!o.videoPanel || !vidPanel) return;
       vidPanel.hidden = !vidPanel.hidden;
@@ -11963,14 +12292,16 @@
     }
     function renderVidSlot() {
       if (!vidSlotEl) return;
-      const cur = o.getVideo ? o.getVideo() : null;
-      const src = cur && String(cur.src || "").trim();
+      const cur = curVid();
+      const src = String(cur.src || "").trim();
       const s = src ? videoSource(src) : null;
+      const pend = !!(vidGate && vidGate.pending());
       if (s) {
-        vidSlotEl.innerHTML = '<figure class="card-img card-vid ces-vid" title="Click the corner control to edit this video">' +
+        vidSlotEl.innerHTML = '<figure class="card-img card-vid ces-vid' + (pend ? " ces-media-pending" : "") + '" title="Click the corner control to edit this video">' +
           videoPlayerHTML(s, cur.title, "cv-media", false) +
           '<button class="ci-zoom ces-vid-edit" type="button" title="Edit the video">' +
-          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button></figure>';
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>' +
+          (pend ? pendFlag("video") : "") + "</figure>";
       } else if (src) {
         vidSlotEl.innerHTML = '<div class="ces-img-ph ces-vid-ph" role="button" tabindex="0" title="Click to fix the video link">' +
           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="13"/><line x1="12" y1="16" x2="12" y2="16"/></svg>' +
@@ -11991,8 +12322,7 @@
     renderVidSlot();
     const vidMeta = host.querySelector("#cesVidMeta");
     function syncVidMeta() {
-      const cur = o.getVideo ? o.getVideo() : null;
-      const src = cur && String(cur.src || "").trim();
+      const src = String(curVid().src || "").trim();
       if (vidMeta) vidMeta.hidden = !src;
       if (vidNote) {
         const s = src ? videoSource(src) : null;
@@ -12002,30 +12332,15 @@
       }
     }
     syncVidMeta();
-    host.querySelectorAll("[data-vidfield]").forEach((el) => {
-      const cur = o.getVideo ? o.getVideo() : null;
-      el.value = (cur && cur[el.dataset.vidfield]) || "";
-      el.addEventListener("input", () => {
-        if (o.setVideo) o.setVideo(el.dataset.vidfield, el.value.trim());
-        (o.afterVideo || afterImage)(el.dataset.vidfield);
-        if (el.dataset.vidfield === "src") syncMedia("video");
-      });
-    });
     // One frame per card, so giving either side a URL retires the other in the store — the editor has to
-    // show that. The side just typed into is never rewritten: the store sanitizes, and pushing its value
-    // back mid-keystroke would fight the caret.
+    // show that. The side just typed into is never rewritten (the store sanitizes, and pushing its value
+    // back mid-keystroke would fight the caret); the OTHER side re-reads the store through its own gate.
     function syncMedia(justSet) {
+      if (justSet !== "image" && imgGate) imgGate.reload();
+      if (justSet !== "video" && vidGate) vidGate.reload();
       renderImgSlot(); renderVidSlot(); syncImgMeta(); syncVidMeta();
-      if (justSet !== "image") {
-        const im = (o.getImage ? o.getImage() : null) || {};
-        host.querySelectorAll("[data-imgfield]").forEach((f) => { f.value = im[f.dataset.imgfield] || ""; });
-        if (imgPanel && !im.src) imgPanel.hidden = true;
-      }
-      if (justSet !== "video") {
-        const v = (o.getVideo ? o.getVideo() : null) || {};
-        host.querySelectorAll("[data-vidfield]").forEach((f) => { f.value = v[f.dataset.vidfield] || ""; });
-        if (vidPanel && !v.src) vidPanel.hidden = true;
-      }
+      if (justSet !== "image" && imgPanel && !imgSet()) imgPanel.hidden = true;
+      if (justSet !== "video" && vidPanel && !vidSet()) vidPanel.hidden = true;
     }
 
     // ---- answer text (plain; supplied by the caller's meta row since it never shows on the card) ----
@@ -12178,35 +12493,31 @@
       if (aliasesI) aliasesI.addEventListener("input", () => { setGlossAliasEdit(k, aliasesI.value); afterEdit(); });
       if (tagsI) tagsI.addEventListener("input", () => { setGlossTagsEdit(k, tagsI.value); afterEdit(); adminRenderTree(); });   // tree = the tag filter; keep its counts current
       // ---- the term's illustration (EN view only — image metadata is shared across languages, like a card's) ----
+      // Both panels write through the source gate, so an uncredited picture never reaches the store; the
+      // meta rows and the one-frame sync therefore read the gate's stage, not the store (see wireMediaSource).
+      const gImgPanel = host.querySelector('[data-gimgfield="src"]') ? host.querySelector('[data-gimgfield="src"]').closest(".ces-imgpanel") : null;
+      const gVidPanel = host.querySelector('[data-gvidfield="src"]') ? host.querySelector('[data-gvidfield="src"]').closest(".ces-imgpanel") : null;
       const gImgMeta = host.querySelector("#adminGlossImgMeta");
-      const syncGImgMeta = () => { if (gImgMeta) gImgMeta.hidden = !glossImage(k); };
-      syncGImgMeta();
-      // one frame per term: whichever side is given a URL retires the other, so the other side's fields
-      // have to follow the store rather than keep showing a URL that no longer exists
-      function syncGMedia(justSet) {
-        syncGImgMeta(); syncGVid();
-        if (justSet !== "image") {
-          const im = (window.GLOSSARY_IMAGES || {})[k] || {};
-          host.querySelectorAll("[data-gimgfield]").forEach((f) => { f.value = im[f.dataset.gimgfield] || ""; });
-        }
-        if (justSet !== "video") {
-          const v = (window.GLOSSARY_VIDEOS || {})[k] || {};
-          host.querySelectorAll("[data-gvidfield]").forEach((f) => { f.value = v[f.dataset.gvidfield] || ""; });
-        }
-      }
-      host.querySelectorAll("[data-gimgfield]").forEach((el) => {
-        const cur = (window.GLOSSARY_IMAGES || {})[k] || {};
-        el.value = cur[el.dataset.gimgfield] || "";
-        el.addEventListener("input", () => {
-          setGlossImageEdit(k, el.dataset.gimgfield, el.value.trim());
-          if (el.dataset.gimgfield === "src") syncGMedia("image");
-          afterEdit();
-        });
-      });
-      // ---- and the term's video (EN view only, for the same reason: the metadata is shared across languages) ----
       const gVidMeta = host.querySelector("#adminGlossVidMeta"), gVidNote = host.querySelector("#adminGlossVidNote");
+      const gImgGate = gImgPanel ? wireMediaSource({
+        panel: gImgPanel, attr: "gimgfield", kind: "image",
+        get: () => (window.GLOSSARY_IMAGES || {})[k],
+        set: (f, v) => setGlossImageEdit(k, f, v),
+        after: () => afterEdit(),
+        onChange: (f) => { if (f === "src" || f === "credit") syncGMedia("image"); },
+      }) : null;
+      const gVidGate = gVidPanel ? wireMediaSource({
+        panel: gVidPanel, attr: "gvidfield", kind: "video",
+        get: () => (window.GLOSSARY_VIDEOS || {})[k],
+        set: (f, v) => setGlossVideoEdit(k, f, v),
+        after: () => afterEdit(),
+        onChange: (f) => { if (f === "src" || f === "credit") syncGMedia("video"); },
+      }) : null;
+      const gImgSrc = () => String((gImgGate ? gImgGate.staged() : ((window.GLOSSARY_IMAGES || {})[k] || {})).src || "").trim();
+      const gVidSrc = () => String((gVidGate ? gVidGate.staged() : ((window.GLOSSARY_VIDEOS || {})[k] || {})).src || "").trim();
+      const syncGImgMeta = () => { if (gImgMeta) gImgMeta.hidden = !gImgSrc(); };
       const syncGVid = () => {
-        const src = String(((window.GLOSSARY_VIDEOS || {})[k] || {}).src || "").trim();
+        const src = gVidSrc();
         if (gVidMeta) gVidMeta.hidden = !src;
         if (gVidNote) {
           const s = src ? videoSource(src) : null;
@@ -12215,16 +12526,14 @@
           gVidNote.textContent = !src ? "" : s ? "Recognised as a " + videoSourceLabel(s.kind) + "." : "Not a link Folio can play — YouTube, Vimeo, or a direct .mp4 / .webm / .ogv URL.";
         }
       };
-      syncGVid();
-      host.querySelectorAll("[data-gvidfield]").forEach((el) => {
-        const cur = (window.GLOSSARY_VIDEOS || {})[k] || {};
-        el.value = cur[el.dataset.gvidfield] || "";
-        el.addEventListener("input", () => {
-          setGlossVideoEdit(k, el.dataset.gvidfield, el.value.trim());
-          if (el.dataset.gvidfield === "src") syncGMedia("video");
-          afterEdit();
-        });
-      });
+      // one frame per term: whichever side is given a URL retires the other, so the other side re-reads
+      // the store through its own gate rather than keep showing a URL that no longer exists
+      function syncGMedia(justSet) {
+        if (justSet !== "image" && gImgGate) gImgGate.reload();
+        if (justSet !== "video" && gVidGate) gVidGate.reload();
+        syncGImgMeta(); syncGVid();
+      }
+      syncGImgMeta(); syncGVid();
       renderPreview();
       wireRichEditor(host);
       if (rev) rev.addEventListener("click", () => { revertGloss(k); adminUpdateCount(); adminRenderEditor(); adminRenderList(); });
