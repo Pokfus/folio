@@ -11,7 +11,8 @@
 //                                              // REQUIRED for new terms: the description in all 9 site languages (-> i18n/gloss-<lang>.js);
 //                                              // pass "skipTranslations": true only for maintenance edits of old English-only terms
 //                 "caseSensitive": true,   // optional: only auto-link when the surface matches the term's capitalization
-//                 "image": { "src": "https://…", "title": "…", "desc": "…", "credit": "…" } }
+//                 "image": { "src": "https://…", "title": "…", "desc": "…", "credit": "…" },
+//                 "video": { "src": "https://www.youtube.com/watch?v=… | https://…/clip.mp4", "title": …, "desc": …, "credit": … } }
 //                                              // optional illustration, shown at the foot of the term's popup (click = fullscreen viewer)
 //   delete:     { "slug": "Some_Slug", "delete": true }
 const fs = require("fs"), path = require("path");
@@ -28,13 +29,13 @@ const e = JSON.parse(fs.readFileSync(entryFile, "utf8"));
 if (!e.slug) { console.error("ERROR: entry needs `slug`"); process.exit(1); }
 
 const win = loadWindow(glossPath);
-const GLOSS = win.GLOSSARY || {}, DATES = win.GLOSSARY_DATES || {}, ALIASES = win.GLOSSARY_ALIASES || {}, CASE = win.GLOSSARY_CASESENSITIVE || {}, TAGS = win.GLOSSARY_TAGS || {}, IMAGES = win.GLOSSARY_IMAGES || {};
+const GLOSS = win.GLOSSARY || {}, DATES = win.GLOSSARY_DATES || {}, ALIASES = win.GLOSSARY_ALIASES || {}, CASE = win.GLOSSARY_CASESENSITIVE || {}, TAGS = win.GLOSSARY_TAGS || {}, IMAGES = win.GLOSSARY_IMAGES || {}, VIDEOS = win.GLOSSARY_VIDEOS || {};
 const I18N = glossI18nIO.readAll();   // { slug: { lang: text } }, merged from every i18n/gloss-<lang>.js
 
 let action;
 if (e.delete) {
   action = (e.slug in GLOSS) ? "deleted" : "absent";
-  delete GLOSS[e.slug]; delete DATES[e.slug]; delete ALIASES[e.slug]; delete CASE[e.slug]; delete TAGS[e.slug]; delete IMAGES[e.slug]; delete I18N[e.slug];
+  delete GLOSS[e.slug]; delete DATES[e.slug]; delete ALIASES[e.slug]; delete CASE[e.slug]; delete TAGS[e.slug]; delete IMAGES[e.slug]; delete VIDEOS[e.slug]; delete I18N[e.slug];
 } else {
   if (!e.description) { console.error("ERROR: entry needs `description` (or `delete: true`)"); process.exit(1); }
   const isNew = !(e.slug in GLOSS);
@@ -65,6 +66,13 @@ if (e.delete) {
     ["title", "desc", "credit"].forEach((f) => { if (e.image[f]) im[f] = String(e.image[f]); });
     IMAGES[e.slug] = im;
   } else if ("image" in e) delete IMAGES[e.slug];
+  // optional video ({ src, title, desc, credit }) — LINKS ONLY: a YouTube/Vimeo page URL or a direct
+  // .mp4/.webm/.ogv URL. Shown in the popup in the same frame as the illustration (see videoSource in app.js).
+  if (e.video && e.video.src) {
+    const vd = { src: String(e.video.src) };
+    ["title", "desc", "credit"].forEach((f) => { if (e.video[f]) vd[f] = String(e.video[f]); });
+    VIDEOS[e.slug] = vd;
+  } else if ("video" in e) delete VIDEOS[e.slug];
 }
 
 let out =
@@ -92,6 +100,11 @@ if (Object.keys(IMAGES).length) {
   out +=
     "\n/* Optional illustration per term (slug -> { src, title, desc, credit }) — shown at the foot of the term's popup. */\n" +
     "window.GLOSSARY_IMAGES = Object.assign(window.GLOSSARY_IMAGES || {}, " + obj(IMAGES) + ");\n";
+}
+if (Object.keys(VIDEOS).length) {
+  out +=
+    "\n/* Optional video per term (slug -> { src, title, desc, credit }) — a YouTube/Vimeo or direct file link, shown in the term's popup. */\n" +
+    "window.GLOSSARY_VIDEOS = Object.assign(window.GLOSSARY_VIDEOS || {}, " + obj(VIDEOS) + ");\n";
 }
 fs.writeFileSync(glossPath, out);
 loadWindow(glossPath);   // re-parse to confirm valid JS

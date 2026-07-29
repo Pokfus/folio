@@ -5,6 +5,13 @@
    user, not how). Loaded before app.js. */
 window.CHANGELOG = [
   {
+    d: "2026-07-29",
+    t: "Video on your cards",
+    items: [
+      "Cards and glossary terms can now show a video in place of a picture. Paste a YouTube or Vimeo link, or a link straight to a video file, and it plays inside the card in the same frame a picture would have used, with a button in the corner to open it full screen. A card shows one or the other, never both. Anyone writing their own deck can add videos to their cards and terms the same way. Videos are linked rather than uploaded, so the file stays wherever it already lives.",
+    ],
+  },
+  {
     d: "2026-07-28",
     t: "Who said it? in your language",
     items: [

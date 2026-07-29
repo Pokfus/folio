@@ -17,6 +17,11 @@
 #                       font stylesheet from fonts.googleapis.com.
 #   img-src             data: for the heightmap PNG data-URIs and profile avatars, blob: for the avatar
 #                       upload preview, https: for card images hosted off-site.
+#   media-src           https: for card and glossary videos linked from off-site (a <video src>). Videos are
+#                       link-only — nothing is uploaded — so no data: or blob: is needed here.
+#   frame-src           the two video hosts a link can be turned into a player for. youtube-nocookie.com is
+#                       YouTube's own no-tracking-until-play domain. Nothing else may be framed, and the
+#                       embed URL is always built by app.js from a matched video id, never from raw input.
 #   connect-src         the Supabase project: auth, progress sync and the content_overrides overlay.
 #   frame-ancestors     Folio is never meant to be embedded; this blocks clickjacking.
 #
@@ -24,7 +29,7 @@
 # Content-Security-Policy-Report-Only to keep the page working while violations still show in devtools.
 
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; media-src 'self'; connect-src 'self' https://qnrnjjcjeggzndgxtyqx.supabase.co; worker-src 'self'; manifest-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; media-src 'self' https:; frame-src https://www.youtube-nocookie.com https://player.vimeo.com; connect-src 'self' https://qnrnjjcjeggzndgxtyqx.supabase.co; worker-src 'self'; manifest-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), microphone=(), camera=()

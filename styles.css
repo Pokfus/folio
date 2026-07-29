@@ -646,6 +646,15 @@ body[data-theme="folio"] .collection-deco::after{
 }
 .ci-zoom svg{width:15px; height:15px;}
 .card-img:hover .ci-zoom{opacity:1;}
+/* card video: the identical frame, playing in place. The figure is not itself a button — the player owns
+   clicks inside it — so the corner control is a real button and stays visible (there is no hover on touch). */
+.card-vid{cursor:default;}
+.card-vid .cv-media{width:100%; height:100%; display:block; border:0; background:#000;}
+/* the corner control sits TOP-right, not where an image's zoom hint sits: a <video> with native controls
+   owns its bottom edge, and a chip at bottom-right lands on the browser's own fullscreen button */
+.card-vid .ci-zoom{opacity:.72; pointer-events:auto; border:0; padding:0; cursor:pointer; top:10px; bottom:auto;}
+.card-vid:hover .ci-zoom, .card-vid .ci-zoom:focus-visible{opacity:1;}
+.card-vid .ci-zoom:focus-visible{outline:2px solid #fff; outline-offset:1px;}
 /* fullscreen image viewer */
 .img-viewer{
   /* above the gloss popups (8000–9400) and the mobile gloss sheet (9600) — a term's illustration opens it from inside one */
@@ -658,6 +667,9 @@ body[data-theme="folio"] .collection-deco::after{
 .iv-stage.zoomed{cursor:grab;}
 .iv-stage.zoomed:active{cursor:grabbing;}
 .iv-img{max-width:94%; max-height:94%; object-fit:contain; transition:transform .18s var(--ease); user-select:none;}
+/* the same overlay for a video: no zoom/pan, just the biggest 16:9 the viewport allows */
+.iv-vidstage{cursor:default;}
+.iv-vid{width:min(94%, calc((94vh - 120px) * 16 / 9)); aspect-ratio:16/9; max-height:94%; border:0; display:block; background:#000; border-radius:8px;}
 .iv-close{
   position:absolute; top:14px; right:14px; width:42px; height:42px; border-radius:50%; border:0;
   background:rgba(255,255,255,.12); color:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center;
@@ -1941,7 +1953,10 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
   aspect-ratio:auto; width:auto; max-width:100%;
 }
 .gloss-imgslot .card-img img{ width:auto; height:150px; max-width:100%; object-fit:cover; }
+/* a video keeps its 16:9 shape at that same height — a term shows one frame, a picture or a clip */
+.gloss-imgslot .card-vid{ aspect-ratio:16/9; height:150px; width:auto; }
 .gloss-imgslot .ci-zoom{ right:8px; bottom:8px; width:24px; height:24px; border-radius:7px; }
+.gloss-imgslot .card-vid .ci-zoom{ top:8px; bottom:auto; }
 .gloss-imgslot .ci-zoom svg{ width:13px; height:13px; }
 
 /* ---- glossary bottom sheet (mobile) ---- */
@@ -1963,6 +1978,7 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
 .gloss-sheet .gloss-imgslot{ margin-left:15px; }
 .gloss-sheet .gloss-imgslot .card-img{ border-radius:10px; }
 .gloss-sheet .gloss-imgslot .card-img img{ height:170px; }
+.gloss-sheet .gloss-imgslot .card-vid{ height:170px; border-radius:10px; }
 
 /* glossary editor: fields on the left, a live popup preview on the right */
 .gloss-edit-cols{ display:flex; gap:0; align-items:flex-start; flex-wrap:wrap; }
@@ -2214,7 +2230,26 @@ textarea.af-input{resize:vertical; min-height:42px;}
 .ces-img-ph svg{width:30px; height:30px;}
 .ces-img-ph span{font-family:var(--sans); font-size:13px;}
 .ces-img-ph small{display:block; font-size:11px; color:var(--ink-faint); margin-top:2px;}
+/* the video slot in the editor: the real player, with an edit chip where the image's zoom hint sits */
+.ces-vid .ces-vid-edit{opacity:.72; pointer-events:auto; border:0; padding:0; cursor:pointer;}
+.ces-vid:hover .ces-vid-edit{opacity:1;}
+.ces-vid-ph svg{width:30px; height:30px;}
+/* a card shows ONE frame, so the side that isn't in use collapses to this slim switch rather than
+   offering a second empty 16:9 box */
+.ces-media-swap{
+  display:block; margin:-10px auto 16px; padding:5px 12px; border:1px dashed var(--rule); border-radius:999px;
+  background:none; color:var(--ink-faint); font-family:var(--sans); font-size:12px; cursor:pointer;
+  transition:border-color .15s, color .15s;
+}
+.ces-media-swap:hover{border-color:color-mix(in srgb, var(--indigo) 50%, var(--rule)); color:var(--indigo);}
+.af-vidnote{font-family:var(--sans); font-size:11.5px; color:var(--ink-faint); margin:-4px 0 0;}
+.af-vidnote.bad{color:var(--zh);}
+.af-vidnote[hidden]{display:none;}
 .ces-imgpanel{display:flex; flex-direction:column; gap:10px; border:1px dashed color-mix(in srgb, var(--indigo) 35%, var(--rule)); border-radius:10px; padding:12px 14px; margin:-6px 0 16px; background:var(--paper-2);}
+/* required, codebase convention: the author display:flex above beats the UA [hidden] rule, so without this
+   the card editor's image/video panels are permanently open and the click-to-edit toggle does nothing.
+   (The glossary editors' copies carry no hidden attribute and stay open, which is what they want.) */
+.ces-imgpanel[hidden]{display:none;}
 /* the same panel in the glossary editors (curated + Studio), where it is always open rather than toggled */
 .gloss-imgpanel{margin:14px 0 0;}
 .gloss-imgpanel .admin-field{margin-top:0;}
