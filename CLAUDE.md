@@ -347,9 +347,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `Object.keys(S.cards).length`) shown on the **home Daily-review banner**. Both banners carry a **large level numeral**
   on the left (`.level-badge` — just the numeral now; the small "Level" label under it was removed since the blue "Level N"
   in the xp-bar head beside it already says it), rendered in a **golden colour** (`.banner .lb-num` + `.collection-row .lb-num`
-  = `#C39A2E`, brighter `#E6C765` on `body.night`; the profile `.cl-row .lb-num` stays indigo). The old studied/total
-  **progress bars were removed from Library decks + collections and the Daily-review list** (progress bars remain only on the
-  account page's "Progress by deck"). Each collection's level is also listed on the **profile** (`renderCollectionLevels` in
+  = `#C39A2E`, brighter `#E6C765` on `body.night`; the profile `.cl-row .lb-num` stays indigo). **The review
+  banner's xp bar runs in the same metal** (`.banner .xp-fill` + `.xp-lvl`, gold): the Library's bars take each
+  collection's hue and the account's are indigo, so one indigo bar read as another. Its "Level N" label is a
+  DEEPER gold than the fill — `#C39A2E` on the card is only 3.6:1, too thin for 10px text. The earned
+  `.done`/`.won` fills override both with their own on-fill colour, since gold on gold reads as nothing. The old studied/total
+  **progress bars were removed from Library decks + collections** (they remain on the account page's "Progress by deck").
+  **The Daily-review list got one back** in July 2026, on request: each added row carries an `X/X cards studied` bar
+  (`adProg` in `PAGES.home` → `.prog.ad-prog`, animated by the existing `animateProgs`) where a blue `.ad-dot` used to
+  sit. The dot and the ancestor rows' hollow `.ad-branch` went together — the branch existed only to line the two up,
+  and alone it would have pushed every parent title 21px right of the deck beneath it; the `data-depth` indent carries
+  the hierarchy. The bar's label also replaced the `.ad-count` "N cards" chip, which stated the same total twice. Each collection's level is also listed on the **profile** (`renderCollectionLevels` in
   `acctSelfView`). `grade()` calls `announceLevelUps(id)` on a freshly-studied card → a **full-screen "Level up!" popup**
   (`congratsPopup(items)`, a `.levelup-pop` overlay modelled on `inlineModal`) naming each Folio/collection level that ticks
   over (China's shown as its Chinese numeral); it is **dismissed by clicking anywhere on screen** (or Esc/Enter) — the
@@ -358,6 +366,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   whole subtree** (`wireExpander`'s optional `rowClick` → `route("study",{scope:{type:"deck",id}})`, since a collection is in
   `NODE_BY_ID` and `subtreeCardIds` covers it); its **chevron still expands/collapses** the decks within (the chevron's
   `stopPropagation` keeps it from also studying). A coming-soon / empty collection falls back to toggling.
+- **Card-of-the-day additions** (`COTD_ENTRY` / `cotdIds` / `cotdAdd`, beside the other entry helpers): the home tile's
+  button studies **that one card** (`scope {type:"card", id, addTo:"cotd"}`), and **grading it** — not opening it — drops
+  the card into the daily review. It can't be added the usual way: `S.active` holds whole decks, and pulling a deck in
+  for one card is not what the tile offers. So the ids collect in **`S.cards`-independent `S.cotd`** (in `defaultState`
+  + `PROGRESS_FIELDS`) and ride in under ONE pseudo-entry, `"cotd:added"`, which `activeEntryIds` / `entryCardIds` /
+  `entryInfo` / `removeActive` each special-case so it lists, studies (`scope {type:"cotd"}`) and trashes like an added
+  collection — its trash **empties the whole list**, and the entry only exists while it holds cards, so an emptied list
+  retires its own row. The id carries a **colon** so it can never collide with a node id (plain slugs) or a `u:` deck.
+  Two study-session details go with it: a **one-card session does not requeue** a learning step (`res.requeue &&
+  scope.type !== "card"`) — with no other card between, the card would reappear instantly and read as a grade that
+  never landed, and it is scheduled properly regardless — and `fromHome` (review / card / cotd scopes) sends the exit
+  button, the completion screen and the caught-up placard back to **Home** rather than the collections.
 - **Daily review order** (`reviewOrder` toggle → `S.settings.reviewRandom`): **Chrono** presents cards in their in-deck order;
   **Random** shuffles the session order AND **draws the day's NEW cards at random from across the active decks** (rather than the
   first-N in set order) — `reviewQueue` seeded-shuffles the unseen pool by the date (`seededShuffle(pool, mulberry32(hashStr("review-"+todayStr())))`) so the same new cards surface all day.
@@ -610,16 +630,35 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   selected for copying. The original carries **`notranslate`**, or the i18n engine would translate the
   one thing on the page that must stay as written. A quote has an `o` only where the original wording is documented —
   Bacon wrote in English, and Meditations VII.49's exact Greek could not be verified, so both render exactly as before
-  with no `dq-flip` class, no cursor and no handler; **don't fill those in from memory**) → review banner → (first-run only) a 3-step how-it-works strip →
+  with no `dq-flip` class, no cursor and no handler; **don't fill those in from memory**.
+  **The day's quote follows `QUOTE_ORDER`, not the array** (`quoteRunningOrder`): the same author never speaks
+  two days running and never more than twice in any seven days — in array order Confucius held the page for four
+  days straight. The order is laid on a **circle** of `QUOTES.length` days and checked on every arc of it, wrap
+  included: a reader sees that circle repeated, and a week is shorter than the cycle, so a circle that is legal
+  all the way round is legal forever — which is why the order does **not** reshuffle per cycle (the join between
+  two cycles is the one window neither can see). Greedy seating, busiest author first, plus a soft "a turn every
+  n/c days" preference that is what makes the spread even rather than merely legal; seeded retries when a seating
+  gets stuck. It rebuilds at load, so **adding quotes needs no thought here** — but the pool must stay solvable:
+  an author with more than `2n/7` lines (5 of 20 today) cannot be spread by any arrangement, and the fallback is
+  the best attempt, not a guarantee. Guarded by `.claude/test-daily-quote.js`) → review banner → (first-run only) a 3-step how-it-works strip →
   game tiles → a **discovery row** (`.explore-grid`): **Card of the day** (a real card, CSS-3D flip to its answer, gloss
-  links stripped, "Study <deck>" button), **Term of the day** (a dated glossary term → `openGlossWin`), and an **Atlas
+  links stripped, **"Study this card"** button — see the CotD-additions bullet below), **Term of the day** (a dated glossary term → `openGlossWin`), and an **Atlas
   teaser** with a slowly turning decorative mini globe (`startMiniGlobe` — decimated `WORLD_GEO`, orthographic,
   theme-coloured like the Atlas, stops when the canvas leaves the DOM, static under `prefers-reduced-motion`). Both
   daily picks come from `dailyPick(arr, salt)` (date-seeded). **Until the first card is ever graded**
   (`S.cards` empty) the banner is a **first-run hero**: purpose sentence + "Study your first cards", which sets
   `S.active = ["china"]` (replacing the bare `cn-qing` default) and routes straight into a session; the level badge,
   xp bar, stats, review-order toggle and active-deck list appear only after that. The banner shows a **🔥 day-streak
-  chip** (`S.streak`, shown at 2+ when the run is alive). **The home page must not read as China-centric** — Folio
+  chip** (`S.streak`, shown at 2+ when the run is alive). **The Daily-review banner earns its colour like a game
+  tile**, in **bronze** (`--tile:#9A6634`, set on `.banner` in styles.css): the idle wash from the left; **`.done`**
+  = the day's pile is cleared → the full bronze fill; **`.won`** = every card today was right on the first try →
+  the same shining gold (`gt-gold-shine`) as a perfect game tile. It reads `S.reviewDay = { d, n, miss }` (in
+  `defaultState` + `PROGRESS_FIELDS`), written by **`logReviewDay`** from `grade()`: only a card's FIRST attempt
+  of the day counts (`firstToday`, from the pre-grade `c.last`), since a learning card is graded again ten minutes
+  later; correct = anything but Again, as in `logReview`. `reviewLog` can't answer this — it counts every grade
+  and only tracks mature ones. Both fills carry `.review-group` in their selector **for specificity**: marble and
+  academy dress `.banner` with a surface of their own, and the earned fill must outrank it in every theme; the
+  gold is `.done.won`, since a perfect day carries both classes. **The home page must not read as China-centric** — Folio
   covers many history topics; copy stays subject-neutral (China is just the first live collection).
 - **Home minigames** (game-grid tiles → `PAGES.*`): **Multiple Choice** (`PAGES.challenge`, formerly "Daily Challenge" — the
   rival bots + timer were removed; it's now a plain 5-question quiz whose 3 wrong options are the SAME `answerType()` as the
@@ -822,7 +861,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **bottom sheet** capped at `max-height:70%` of the stage. In both layouts it is `display:flex; flex-direction:column` and its
   **`.cp-cols` scroll internally** (`overflow-y:auto; min-height:0`) so the box never pushes the absolutely-positioned
   **`.cp-close` (×) off screen** — the × stays pinned while the columns scroll. Don't put `overflow` on
-  `.country-pop` itself (the × would scroll off). The popup (`#countryPop`) stacks: the state's **full legal official name**
+  `.country-pop` itself (the × would scroll off). **`.cp-cols` is also scrolled back to 0 on every populate**
+  (`showCountryPopupName`) — the popup element is REUSED, so without it the next place opens at however far down
+  the previous one the reader had got, which on the phone's short sheet lands mid-panel.
+  **Its three parts each fold** (`.cp-sec` + `.cp-sec-head`/`.cp-sec-body`, one delegated click listener on
+  `#countryPop`): the description, the year paragraph (whose header IS the year number, so it still reads while
+  shut) and the figures grid. `cpSection(sec, hasContent)` sets each one as the popup is filled — **open when it
+  has something, closed when it doesn't**, so a place with no year paragraph and no figures shows two quiet
+  headers instead of a dash and a grid of dashes. That **resets per entity**: a reader's manual toggles belong to
+  the popup they were made in, not to the next country.
+  The popup (`#countryPop`) stacks: the state's **full legal official name**
   (`officialName()` — from the summary's "officially …", or a leading "Full Name, commonly known as …" form, with a state-type
   keyword fallback so e.g. USSR → "Union of Soviet Socialist Republics"), with the **years that iteration of the state existed** in
   **thin grey directly under the title** (`.cp-span` ← `countrySpan()` / `country-spans.js`; missing → the line collapses); + a
@@ -874,6 +922,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     Stats (the number grid) are present-day Wikidata figures → shown only at the
     present year, a dash otherwise. (Earlier the historical box used the year paragraph AS the main text; it now mirrors the
     present-day layout.)
+  - **`c` means two different things, and it bit once.** On an era territory (`timeline.js`) and a UK subunit
+    (`uk.js`) `c` is the per-ring **edge mask**; on a `world.js` country it is the **label centre `[lon,lat]`**.
+    `paintFill` / `paintSelection` read `terr[idx].c` off `terr = histTerr() || GEO` and passed the centre in as
+    a mask, so `masks[r].charCodeAt(i)` threw for **every selection on the present-day map** — aborting the paint
+    before anything was blitted, which meant clicking a country there produced **no highlight at all** (fixed
+    July 2026 by passing `ht ? terr[idx].c : null`; the historical eras were always fine). Every other reader of
+    `GEO[i].c` treats it as a point. If you touch either painter, keep the mask era-only.
   - **The golden overlay traces EXACTLY the edges the map draws** (`paintFillRings`) — it must match the displayed borders +
     coastlines. For masked geometry (era territory / merger group / UK constituent) it strokes only the political borders
     (`'0'` inter-group + `'2'` sub-country) and **skips `'1'` (the entity's own coast) and `'3'` (hidden)**; the coast is then
@@ -1402,7 +1457,8 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Nine committed Playwright regression tests** (in `.claude/`, not loaded by the site). Each slices what
+- **Ten committed regression tests** (in `.claude/`, not loaded by the site): nine drive a real browser with
+  Playwright, and `test-daily-quote.js` is plain Node with no dependencies at all. Each slices what
   it tests out of the real `app.js`/`_headers` by text, so they can't drift from what ships.
   **Gotcha when writing more of them:** `page.goto()` to a URL that differs only in the `#fragment` is a
   same-document navigation — the app keeps running and its module state survives. Use `page.reload()` when
@@ -1459,6 +1515,12 @@ dead code (never rendered).
     the curated editor's overlay delta survives a reload and clears cleanly, and a deck's own term images
     are sanitized on ingest (a `javascript:` src is dropped). **Re-run after touching `glossImage` /
     `renderGlossImage` / `setGlossImageEdit` / `uGlossSetImage`, or any z-index in the gloss/viewer stack.**
+  · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it
+    simulates 400 days off the real `QUOTE_ORDER` and checks every seven-day window in them, so a repeat
+    two days running or a third appearance inside a week fails here rather than on the live page. **No
+    browser and no dependencies** — the pieces are sliced out of `app.js` and run in a `new Function`.
+    The rule is a property of the ARRANGEMENT, so it breaks silently: **re-run after adding or removing
+    quotes** (a fifth Confucius line tightens the pool) as well as after touching `quoteRunningOrder`.
   Playwright is a dev dependency and must NOT be installed into the repo (the zero-dependency rule, and
   `node_modules/` is gitignored) — install it in a scratch folder and run with
   `NODE_PATH=<that>/node_modules`. Set `FOLIO_CHROMIUM=<path to chrome>` if Chromium lives outside the
