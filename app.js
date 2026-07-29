@@ -7115,6 +7115,8 @@
     const MINY = -1000, MAXY = new Date().getFullYear();
     const chevL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>';
     const chevR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>';
+    // the country popup's collapsible section headers (description / year / figures)
+    const cpChev = '<svg class="cp-sec-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
     // piecewise (non-linear) rail scale: the map-less antiquity span (1000 BCE – 1500 CE) compresses into the left 15% of the
     // rail and the densely-mapped 1500 → present span stretches over the remaining 85% — so the 13 map stops aren't crowded
     // into the right edge. year2frac/frac2year are exact inverses; every rail position (pin, fill, ticks, marks) uses them.
@@ -7212,17 +7214,25 @@
                   <button class="cp-tool" id="cpCopyLink" type="button" title="Copy a link to this year + place"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>Copy link</button>
                 </div>
                 <div class="cp-hist" id="cpHistList" hidden></div>
-                <div class="cp-desc" id="cpDesc"></div>
+                <div class="cp-sec" id="cpDescSec">
+                  <button class="cp-sec-head" type="button" aria-expanded="true"><span class="cp-sec-t">Description</span>${cpChev}</button>
+                  <div class="cp-sec-body"><div class="cp-desc" id="cpDesc"></div></div>
+                </div>
               </div>
-              <div class="cp-year">
-                <div class="cp-year-num" id="cpYearNum"></div>
-                <div class="cp-year-desc" id="cpYearDesc"></div>
+              <div class="cp-year cp-sec" id="cpYearSec">
+                <button class="cp-sec-head" type="button" aria-expanded="true"><span class="cp-year-num" id="cpYearNum"></span>${cpChev}</button>
+                <div class="cp-sec-body"><div class="cp-year-desc" id="cpYearDesc"></div></div>
               </div>
-              <div class="cp-stats">
-                <div class="cp-tile"><span class="cp-k">Population</span><span class="cp-v" id="cpPop" tabindex="0" data-tip="Source: Wikidata">—</span></div>
-                <div class="cp-tile"><span class="cp-k">Area</span><span class="cp-v" id="cpArea" tabindex="0" data-tip="Source: Wikidata">—</span></div>
-                <div class="cp-tile"><span class="cp-k">GDP</span><span class="cp-v" id="cpGdp" tabindex="0" data-tip="Source: Wikidata">—</span></div>
-                <div class="cp-tile"><span class="cp-k">GDP / capita</span><span class="cp-v" id="cpGdppc" tabindex="0" data-tip="Calculated: GDP ÷ Population">—</span></div>
+              <div class="cp-statsec cp-sec" id="cpStatsSec">
+                <button class="cp-sec-head" type="button" aria-expanded="true"><span class="cp-sec-t">Figures</span>${cpChev}</button>
+                <div class="cp-sec-body">
+                  <div class="cp-stats">
+                    <div class="cp-tile"><span class="cp-k">Population</span><span class="cp-v" id="cpPop" tabindex="0" data-tip="Source: Wikidata">—</span></div>
+                    <div class="cp-tile"><span class="cp-k">Area</span><span class="cp-v" id="cpArea" tabindex="0" data-tip="Source: Wikidata">—</span></div>
+                    <div class="cp-tile"><span class="cp-k">GDP</span><span class="cp-v" id="cpGdp" tabindex="0" data-tip="Source: Wikidata">—</span></div>
+                    <div class="cp-tile"><span class="cp-k">GDP / capita</span><span class="cp-v" id="cpGdppc" tabindex="0" data-tip="Calculated: GDP ÷ Population">—</span></div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -7337,6 +7347,17 @@
     const empireName = (mother) => EMPIRE_NAME[mother] || mother;
     let cpEl = null, cpNameEl = null, cpSpanEl = null, cpDescEl = null, cpYearNumEl = null, cpYearDescEl = null, cpPopEl = null, cpAreaEl = null, cpGdpEl = null, cpGdppcEl = null;   // the country info popup (one at a time, left panel)
     let cpCrumbEl = null, cpHistListEl = null;   // drill breadcrumb + the "Through the ages" strip
+    let cpColsEl = null, cpDescSecEl = null, cpYearSecEl = null, cpStatsSecEl = null;   // the scroller + the three collapsible sections
+    /* Each section opens or closes as the popup is filled: open when it has something to say, closed when it
+       doesn't, so a place with no year paragraph and no figures shows two quiet headers instead of a dash and
+       a grid of dashes. This RESETS on every entity — the reader's manual toggles belong to the popup they
+       were made in, not to the next country. */
+    function cpSection(sec, hasContent) {
+      if (!sec) return;
+      sec.classList.toggle("collapsed", !hasContent);
+      const head = sec.querySelector(".cp-sec-head");
+      if (head) head.setAttribute("aria-expanded", hasContent ? "true" : "false");
+    }
     let popPointLL = null;    // the lon/lat that opened the popup (the click point, or a search anchor) — feeds the crumb parent + "Who ruled here?"
     let popEntityName = "";   // the ENTITY name behind the popup (cpName shows the official long-form) — feeds Copy link
     function entityName(idx) { const ht = histTerr(), terr = ht || GEO; return (idx >= 0 && idx < terr.length) ? (terr[idx].n || "") : ""; }
@@ -7414,10 +7435,12 @@
       const mainDesc = stripInfoNoise(desc);
       cpDescEl.textContent = mainDesc || ("No description for " + name + " yet.");
       if (mainDesc) { autoLinkGlossary(cpDescEl, name, []); setupTooltips(cpDescEl); }   // auto-link glossary terms (skip the place's own name), like card backgrounds
+      cpSection(cpDescSecEl, !!mainDesc);
       cpYearNumEl.textContent = year < 0 ? (-year) + " BCE" : year + " CE";
       const colDesc = forceGeneral ? "" : stripInfoNoise(yd);   // the per-year paragraph for THIS map-year (the general description above stays constant)
       cpYearDescEl.textContent = colDesc || "—";
       if (colDesc) { autoLinkGlossary(cpYearDescEl, name, []); setupTooltips(cpYearDescEl); }
+      cpSection(cpYearSecEl, !!colDesc);
       const st = forceGeneral ? null : (present ? countryStats(name) : countryStatsYear(name, year));   // present-day figures at the present year; per-year figures (COUNTRY_STATS_YEARS) for a historical map-year
       // Each tile shows ONLY the bare figure; any parenthetical nuance/source ("(1800 census)", "(1990 int$, Maddison)", a
       // breakdown, …) moves into the hover "Source" bubble, so the grid stays clean and the detail is one hover away.
@@ -7435,7 +7458,13 @@
       setStat(cpGdpEl, st && st.gdp);
       const popN = st ? statNum(st.pop) : NaN, gdpN = st ? statNum(st.gdp) : NaN;   // GDP / capita is computed from GDP ÷ Population (statNum reads the leading figure, ignoring any parenthetical)
       cpGdppcEl.textContent = (popN > 0 && gdpN > 0) ? "$" + Math.round(gdpN / popN).toLocaleString("en-US") : "—";
+      // the grid counts as empty only when all four tiles are a dash — one real figure is worth opening for
+      cpSection(cpStatsSecEl, [cpPopEl, cpAreaEl, cpGdpEl, cpGdppcEl].some((el) => el && el.textContent.trim() !== "—"));
       cpEl.hidden = false;
+      // a fresh entity starts at the top of its own panel. The popup element is REUSED, so without this the
+      // scroller keeps however far down the previous country the reader had got — on the phone's short bottom
+      // sheet that opens the next country halfway through it.
+      if (cpColsEl) cpColsEl.scrollTop = 0;
     }
     function hideCountryPopup() { if (cpEl) cpEl.hidden = true; }
 
@@ -8010,7 +8039,11 @@
     function paintFill(idx, selected) {
       const ht = histTerr(), terr = ht || GEO;
       if (idx < 0 || idx >= terr.length) return;
-      paintFillRings(terr[idx].p, selected, terr[idx].c, null, !!ht);   // historical era → highlight the present-day coast (coastEdges), not the era geometry's own '1' edges
+      // `c` means two different things: a per-ring EDGE MASK on era territories and UK subunits, but the label
+      // CENTRE [lon,lat] on a world.js country. Passing a present-day country's centre as its mask threw
+      // (`m.charCodeAt is not a function`) mid-paint, before the gold outline was stroked — so only on an ERA
+      // is `c` a mask, and the present-day map takes the un-masked "full outline" path the code already had.
+      paintFillRings(terr[idx].p, selected, ht ? terr[idx].c : null, null, !!ht);   // historical era → highlight the present-day coast (coastEdges), not the era geometry's own '1' edges
     }
     // The golden highlight must trace EXACTLY the edges the map draws for this entity: its political borders ('0' inter-group,
     // '2' sub-country) — NOT its own '1' coast (the map draws the present-day coastline via coastEdges) nor '3' hidden borders.
@@ -8532,7 +8565,7 @@
     function paintSelection() {
       const ht = histTerr(), terr = ht || GEO;
       const sel = [];
-      selSet.forEach((idx) => { if (idx >= 0 && idx < terr.length) sel.push({ p: terr[idx].p, c: terr[idx].c }); });
+      selSet.forEach((idx) => { if (idx >= 0 && idx < terr.length) sel.push({ p: terr[idx].p, c: ht ? terr[idx].c : null }); });   // only an era's `c` is an edge mask — a world.js country's is its label centre (see paintFill)
       paintFillGroups(sel, true, null, !!ht);   // ONE batch for the whole selection — an empire is dozens of territories (see paintFillGroups)
       if (subSelGeo >= 0 && subSelGeo < GEO.length) paintFillRings(GEO[subSelGeo].p, true, null, hiddenEdgeSet(), false);   // double-click drill: present-day country within a merger era — its full outline minus any border the era hides
       const uk = [];
@@ -9307,7 +9340,17 @@
     cpYearNumEl = root.querySelector("#cpYearNum"); cpYearDescEl = root.querySelector("#cpYearDesc");
     cpPopEl = root.querySelector("#cpPop"); cpAreaEl = root.querySelector("#cpArea"); cpGdpEl = root.querySelector("#cpGdp"); cpGdppcEl = root.querySelector("#cpGdppc");
     cpCrumbEl = root.querySelector("#cpCrumb"); cpHistListEl = root.querySelector("#cpHistList");
+    cpColsEl = root.querySelector(".cp-cols");
+    cpDescSecEl = root.querySelector("#cpDescSec"); cpYearSecEl = root.querySelector("#cpYearSec"); cpStatsSecEl = root.querySelector("#cpStatsSec");
     { const cpClose = root.querySelector("#cpClose"); if (cpClose) cpClose.addEventListener("click", hideCountryPopup); }
+    // one delegated listener folds any of the three sections open or shut, so a reader can put away the part
+    // they aren't reading — a long description on a phone sheet buries the year paragraph under it
+    if (cpEl) cpEl.addEventListener("click", (e) => {
+      const head = e.target.closest(".cp-sec-head"); if (!head || !cpEl.contains(head)) return;
+      const sec = head.closest(".cp-sec"); if (!sec) return;
+      const open = sec.classList.toggle("collapsed") === false;
+      head.setAttribute("aria-expanded", open ? "true" : "false");
+    });
     // breadcrumb: climb back up the drill hierarchy (territory → its empire; drilled country/constituent → its holder)
     if (cpCrumbEl) cpCrumbEl.addEventListener("click", (e) => {
       const b = e.target.closest(".cp-crumb-link"); if (!b) return;

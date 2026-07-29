@@ -1367,10 +1367,20 @@ body.night .lu-badge{color:#E6C765;}
 .cp-span{font-family:var(--mono); font-weight:400; font-size:10.5px; letter-spacing:.03em; color:var(--ink-faint); margin:0 0 7px;}
 .cp-span:empty{display:none;}
 .cp-desc{font-size:12px; line-height:1.5; color:var(--ink-soft);}
-.cp-year{border-top:1px solid var(--rule); padding-top:12px;}
-.cp-year-num{font-family:var(--display); font-weight:600; font-size:15px; letter-spacing:-.01em; color:var(--ink); margin-bottom:6px;}
+/* the popup's three sections (description / year / figures) fold away individually. The head is the whole row,
+   so the year number doubles as its own section's header and stays readable while the paragraph is shut. */
+.cp-sec-head{display:flex; align-items:center; justify-content:space-between; gap:8px; width:100%; appearance:none; border:0; background:none; padding:0 0 6px; cursor:pointer; text-align:left; color:var(--ink);}
+.cp-sec-t{font-family:var(--mono); font-size:9.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-faint);}
+.cp-sec-head:hover .cp-sec-t{color:var(--ink-soft);}
+.cp-sec-chev{width:13px; height:13px; flex:none; color:var(--ink-faint); transition:transform .18s var(--ease);}
+.cp-sec.collapsed .cp-sec-chev{transform:rotate(-90deg);}
+.cp-sec.collapsed .cp-sec-body{display:none;}
+.cp-sec.collapsed .cp-sec-head{padding-bottom:0;}
+.cp-year{border-top:1px solid var(--rule); padding-top:10px;}
+.cp-year-num{font-family:var(--display); font-weight:600; font-size:15px; letter-spacing:-.01em; color:var(--ink);}
 .cp-year-desc{font-size:12px; line-height:1.5; color:var(--ink-soft);}
-.cp-stats{display:grid; grid-template-columns:1fr 1fr; gap:7px; align-content:start; border-top:1px solid var(--rule); padding-top:12px;}
+.cp-statsec{border-top:1px solid var(--rule); padding-top:10px;}
+.cp-stats{display:grid; grid-template-columns:1fr 1fr; gap:7px; align-content:start;}
 .cp-tile{position:relative; border:1px solid var(--rule); border-radius:8px; padding:7px 9px; display:flex; flex-direction:column; gap:3px;}
 .cp-k{font-family:var(--mono); font-size:9px; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint);}
 .cp-v{font-family:var(--display); font-size:13.5px; font-weight:600; color:var(--ink); line-height:1.1; cursor:help; align-self:flex-start; outline:none;}

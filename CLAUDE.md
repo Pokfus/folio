@@ -857,7 +857,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **bottom sheet** capped at `max-height:70%` of the stage. In both layouts it is `display:flex; flex-direction:column` and its
   **`.cp-cols` scroll internally** (`overflow-y:auto; min-height:0`) so the box never pushes the absolutely-positioned
   **`.cp-close` (×) off screen** — the × stays pinned while the columns scroll. Don't put `overflow` on
-  `.country-pop` itself (the × would scroll off). The popup (`#countryPop`) stacks: the state's **full legal official name**
+  `.country-pop` itself (the × would scroll off). **`.cp-cols` is also scrolled back to 0 on every populate**
+  (`showCountryPopupName`) — the popup element is REUSED, so without it the next place opens at however far down
+  the previous one the reader had got, which on the phone's short sheet lands mid-panel.
+  **Its three parts each fold** (`.cp-sec` + `.cp-sec-head`/`.cp-sec-body`, one delegated click listener on
+  `#countryPop`): the description, the year paragraph (whose header IS the year number, so it still reads while
+  shut) and the figures grid. `cpSection(sec, hasContent)` sets each one as the popup is filled — **open when it
+  has something, closed when it doesn't**, so a place with no year paragraph and no figures shows two quiet
+  headers instead of a dash and a grid of dashes. That **resets per entity**: a reader's manual toggles belong to
+  the popup they were made in, not to the next country.
+  The popup (`#countryPop`) stacks: the state's **full legal official name**
   (`officialName()` — from the summary's "officially …", or a leading "Full Name, commonly known as …" form, with a state-type
   keyword fallback so e.g. USSR → "Union of Soviet Socialist Republics"), with the **years that iteration of the state existed** in
   **thin grey directly under the title** (`.cp-span` ← `countrySpan()` / `country-spans.js`; missing → the line collapses); + a
@@ -909,6 +918,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     Stats (the number grid) are present-day Wikidata figures → shown only at the
     present year, a dash otherwise. (Earlier the historical box used the year paragraph AS the main text; it now mirrors the
     present-day layout.)
+  - **`c` means two different things, and it bit once.** On an era territory (`timeline.js`) and a UK subunit
+    (`uk.js`) `c` is the per-ring **edge mask**; on a `world.js` country it is the **label centre `[lon,lat]`**.
+    `paintFill` / `paintSelection` read `terr[idx].c` off `terr = histTerr() || GEO` and passed the centre in as
+    a mask, so `masks[r].charCodeAt(i)` threw for **every selection on the present-day map** — aborting the paint
+    before anything was blitted, which meant clicking a country there produced **no highlight at all** (fixed
+    July 2026 by passing `ht ? terr[idx].c : null`; the historical eras were always fine). Every other reader of
+    `GEO[i].c` treats it as a point. If you touch either painter, keep the mask era-only.
   - **The golden overlay traces EXACTLY the edges the map draws** (`paintFillRings`) — it must match the displayed borders +
     coastlines. For masked geometry (era territory / merger group / UK constituent) it strokes only the political borders
     (`'0'` inter-group + `'2'` sub-country) and **skips `'1'` (the entity's own coast) and `'3'` (hidden)**; the coast is then

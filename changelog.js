@@ -8,6 +8,8 @@ window.CHANGELOG = [
     d: "2026-07-29",
     t: "Video on your cards",
     items: [
+      "The place panel in the Atlas now folds: the description, the year paragraph and the figures each open and shut on their own, and a part with nothing to show starts closed instead of taking up the panel with a dash. On a phone, opening a new place also starts you at the top of its panel rather than wherever you had scrolled to in the last one.",
+      "Clicking a country on the present-day Atlas map lights it up again. The gold highlight had stopped being drawn on that map, so a country you picked stayed exactly as it looked before; the historical maps were unaffected.",
       "The Card of the day on the home page now opens that one card when you press Study this card. Grade it and the card joins your daily review on its own, without its whole deck coming with it: the cards you pick up this way gather under Card of the Day additions below the review tile, and you can clear the lot whenever you like.",
       "Every deck in the daily review list now shows how far through it you are, as a bar reading how many of its cards you have studied. It takes the place of the dot that used to sit beside the name.",
       "The quote on the home page now moves between voices: the same writer never appears two days running, and never more than twice in one week.",
