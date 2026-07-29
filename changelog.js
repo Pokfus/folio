@@ -14,6 +14,7 @@ window.CHANGELOG = [
       "Every deck in the daily review list now shows how far through it you are, as a bar reading how many of its cards you have studied. It takes the place of the dot that used to sit beside the name.",
       "The quote on the home page now moves between voices: the same writer never appears two days running, and never more than twice in one week.",
       "The Daily review tile on the home page now has a colour of its own: a bronze edge and wash while today's cards are still waiting, a full bronze fill once you have cleared them, and shining gold when every card came back right on the first try. Its level bar is gold as well, so it no longer reads as one more deck progress bar.",
+      "You can now write to the people who make Folio without leaving the site: there is a message box at the foot of the About page for a wrong date, something broken, an idea, or anything else you want to say while Folio is in beta. It needs no account, and every message goes straight to the editors.",
       "Cards and glossary terms can now show a video in place of a picture. Paste a YouTube or Vimeo link, or a link straight to a video file, and it plays inside the card in the same frame a picture would have used, with a button in the corner to open it full screen. A card shows one or the other, never both. Anyone writing their own deck can add videos to their cards and terms the same way. Videos are linked rather than uploaded, so the file stays wherever it already lives.",
     ],
   },

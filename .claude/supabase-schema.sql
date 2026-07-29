@@ -604,3 +604,92 @@ create policy "admins set staff picks"
   on public.user_decks for update to authenticated
   using (exists (select 1 from public.profiles p where p.id = auth.uid() and p.role = 'admin'))
   with check (exists (select 1 from public.profiles p where p.id = auth.uid() and p.role = 'admin'));
+
+-- ----------------------------------------------------------------------------
+-- 7) FEEDBACK (beta) — messages readers send straight to the editors from the
+--    About page, and the triage state behind Edit → Feedback.
+--
+--    Additive and re-run safe. Until this block has been run, every feedback
+--    call 404s and the app says "Feedback isn't set up on this site yet."
+--    rather than leaking PostgREST's error; nothing else breaks.
+--
+--    ANONYMOUS INSERTS ARE ALLOWED, deliberately. During the beta the whole
+--    point is to hear from people who have not made an account, and a sign-in
+--    wall is exactly the friction that stops a reader reporting a wrong date.
+--    The cost is that the publishable key lets anyone POST here; the app's
+--    only rate limit is a device-local cooldown, which is honest friction and
+--    not security. If it is ever abused, narrow the insert policy below to
+--    `to authenticated` — no application code has to change.
+-- ----------------------------------------------------------------------------
+create table if not exists public.feedback (
+  id         uuid primary key default gen_random_uuid(),
+  author     uuid references auth.users(id) on delete set null,   -- null = sent signed out
+  name       text not null default ''  check (char_length(name)  <= 80),
+  email      text not null default ''  check (char_length(email) <= 160),   -- optional reply address
+  kind       text not null default 'other' check (kind in ('bug','correction','suggestion','praise','other')),
+  message    text not null check (char_length(message) between 1 and 4000),
+  page       text not null default ''  check (char_length(page) <= 200),    -- the route they were on
+  meta       jsonb not null default '{}'::jsonb,                            -- { lang, ua }
+  status     text not null default 'new' check (status in ('new','seen','approved','done','discarded')),
+  admin_note text not null default ''  check (char_length(admin_note) <= 2000),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+create index if not exists feedback_triage on public.feedback (status, created_at desc);
+
+alter table public.feedback enable row level security;
+
+drop policy if exists "anyone may send feedback" on public.feedback;
+create policy "anyone may send feedback"
+  on public.feedback for insert to anon, authenticated
+  with check (author is null or author = auth.uid());
+
+-- Nobody reads the queue but the editors. A signed-in sender may see their own messages back, which is
+-- what lets the app tell them their note is still on file; an anonymous one has no row to be found by.
+drop policy if exists "admins read feedback" on public.feedback;
+create policy "admins read feedback"
+  on public.feedback for select to authenticated
+  using (author = auth.uid()
+         or exists (select 1 from public.profiles p where p.id = auth.uid() and p.role = 'admin'));
+
+drop policy if exists "admins triage feedback" on public.feedback;
+create policy "admins triage feedback"
+  on public.feedback for update to authenticated
+  using (exists (select 1 from public.profiles p where p.id = auth.uid() and p.role = 'admin'))
+  with check (exists (select 1 from public.profiles p where p.id = auth.uid() and p.role = 'admin'));
+
+drop policy if exists "admins delete feedback" on public.feedback;
+create policy "admins delete feedback"
+  on public.feedback for delete to authenticated
+  using (exists (select 1 from public.profiles p where p.id = auth.uid() and p.role = 'admin'));
+
+-- ---- column guard ----
+-- Same reasoning as guard_user_deck_columns: RLS decides which ROWS you may write, never which COLUMNS.
+-- Without this a sender could POST status='done' alongside their message and file it away before an
+-- editor ever saw it, or plant an admin_note. A non-admin's triage columns are silently restored rather
+-- than rejected, and a non-admin cannot alter a message once it has been sent.
+create or replace function public.guard_feedback_columns()
+returns trigger language plpgsql security definer set search_path = public as $$
+declare is_admin boolean;
+begin
+  select exists (select 1 from public.profiles p where p.id = auth.uid() and p.role = 'admin') into is_admin;
+  if coalesce(is_admin, false) then return new; end if;
+  if tg_op = 'INSERT' then
+    new.author     := auth.uid();   -- null for an anonymous sender
+    new.status     := 'new';
+    new.admin_note := '';
+    new.created_at := now();
+    new.updated_at := now();
+    return new;
+  end if;
+  return old;   -- a non-admin may not change a message once it is sent
+end $$;
+
+-- BEFORE-triggers fire in name order, so the guard runs before the touch and updated_at stays honest
+drop trigger if exists feedback_guard on public.feedback;
+create trigger feedback_guard before insert or update on public.feedback
+  for each row execute function public.guard_feedback_columns();
+
+drop trigger if exists feedback_touch on public.feedback;
+create trigger feedback_touch before update on public.feedback
+  for each row execute function public.touch_updated_at();
