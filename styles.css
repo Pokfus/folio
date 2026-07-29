@@ -273,16 +273,27 @@ body.night .banner .lb-num, body.night .collection-row .lb-num{color:#E6C765;}  
    ============================================================ */
 .banners{display:flex; flex-direction:column; gap:14px;}   /* matches .game-grid's tile gap, so the review banner + tiles read as one grid */
 .banner{
+  /* bronze is the Daily-review tile's own hue, mixed through --tile exactly like a game tile's colour.
+     The idle wash is declared here on .banner itself rather than on a state selector, so a theme that gives
+     the banner a surface of its own (marble's veining, academy's stationery) still wins — the earned .done /
+     .won fills below outrank both. */
+  --tile:#9A6634;
   position:relative; overflow:hidden; cursor:pointer; text-align:left;
-  background:var(--card); border:1px solid var(--rule); border-radius:14px;
+  background:linear-gradient(105deg, color-mix(in srgb, var(--tile) 22%, transparent), transparent 64%),
+             linear-gradient(150deg, var(--card) 56%, color-mix(in srgb, var(--tile) 13%, var(--card)));
+  border:1px solid var(--rule); border-radius:14px;
   padding:26px 28px; box-shadow:var(--shadow-md);
   transition:transform .2s var(--ease), box-shadow .25s var(--ease), border-color .2s;
   display:flex; align-items:center; gap:24px;
 }
-.banner:hover{transform:translateY(-2px); box-shadow:var(--shadow-lg); border-color:color-mix(in srgb,var(--indigo) 30%, var(--rule));}
-/* a coloured left bar echoing the minigame tiles — neutral: black on light themes, white on dark */
-.banner, .banner:hover{border-left:4px solid #000;}
-body.night .banner, body.night .banner:hover{border-left-color:#fff;}
+/* the wash is a whisper on dark themes, as on the game tiles — a daylight-strength mix glares over dark card stock */
+body.night .banner{
+  background:linear-gradient(105deg, color-mix(in srgb, var(--tile) 11%, transparent), transparent 64%),
+             linear-gradient(150deg, var(--card) 56%, color-mix(in srgb, var(--tile) 16%, var(--card)));
+}
+.banner:hover{transform:translateY(-2px); box-shadow:var(--shadow-lg); border-color:color-mix(in srgb,var(--tile) 34%, var(--rule));}
+/* a coloured left bar echoing the minigame tiles */
+.banner, .banner:hover{border-left:4px solid var(--tile);}
 .banner:active{transform:translateY(0) scale(.995);}
 .banner:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:3px;}
 .banner .body{flex:1; min-width:0;}
@@ -300,6 +311,52 @@ body.night .banner, body.night .banner:hover{border-left-color:#fff;}
 }
 .banner .glyph-svg{bottom:-22px; right:-14px;}
 .banner .glyph-svg svg{display:block; width:168px; height:168px;}
+
+/* ---------- the Daily-review tile earns its colour, exactly like a game tile ----------
+   idle (above): the bronze wash from the left. .done — the day's pile is cleared (something was studied
+   today and nothing is left due or new): the full bronze fill. .won — every card today was right on the
+   first try: the same shining gold as a perfect game tile (.won always carries .done too, so the palette
+   vars below just get overridden).
+   The .review-group prefix is specificity, not decoration: marble dresses .banner at (0,3,1) and academy at
+   (0,2,1), and an earned fill has to outrank a theme's surface in every theme. */
+.review-group .banner.done:not(.won){
+  --rv-fg:#fff; --rv-fg-soft:rgba(255,255,255,.86); --rv-fg-faint:rgba(255,255,255,.72);
+  --rv-btn-fg:color-mix(in srgb,#000 30%, var(--tile)); --rv-trk:rgba(0,0,0,.24); --rv-trk-b:rgba(255,255,255,.3);
+  background:linear-gradient(150deg, color-mix(in srgb,#fff 14%, var(--tile)) 0%, var(--tile) 40%, color-mix(in srgb,#000 44%, var(--tile)) 100%);
+  border-color:color-mix(in srgb,#000 18%, var(--tile)); border-left-color:color-mix(in srgb,#000 34%, var(--tile));
+}
+/* light mode keeps the bright fill but skips the darkened far corner (as the game tiles do) */
+body:not(.night) .review-group .banner.done:not(.won){
+  background:linear-gradient(150deg, color-mix(in srgb,#fff 14%, var(--tile)) 0%, var(--tile) 62%);
+}
+/* .done.won, not .won alone: a perfect day carries both classes, and the gold has to outrank the bronze
+   fill above as well as any theme's banner surface */
+.review-group .banner.done.won{
+  --rv-fg:#3A2D07; --rv-fg-soft:rgba(58,45,7,.82); --rv-fg-faint:rgba(58,45,7,.68);
+  --rv-btn-fg:#F7EDC8; --rv-trk:rgba(58,45,7,.18); --rv-trk-b:rgba(58,45,7,.32);
+  border-color:#A8842B; border-left-color:#8C6A1D;
+  background-image:
+    linear-gradient(115deg, rgba(255,255,255,0) 44%, rgba(255,255,255,.55) 50%, rgba(255,255,255,0) 56%),
+    linear-gradient(150deg, #F4E39A 0%, #E5C765 40%, #A9821F 100%);
+  background-size:250% 100%, 100% 100%;
+  background-repeat:no-repeat;
+  background-position:110% 0, 0 0;
+  animation:gt-gold-shine 3.4s ease-in-out infinite;   /* the same glint the perfect game tiles carry */
+}
+@media (prefers-reduced-motion:reduce){ .review-group .banner.done.won{animation:none;} }
+/* everything on top of an earned fill reads from the palette vars, so both states share one set of rules */
+.review-group .banner.done h2{color:var(--rv-fg);}
+.review-group .banner.done .desc{color:var(--rv-fg-soft);}
+.review-group .banner.done .stat b{color:var(--rv-fg);}
+.review-group .banner.done .stat span{color:var(--rv-fg-faint);}
+.review-group .banner.done .level-badge .lb-num{color:var(--rv-fg);}
+.review-group .banner.done .xp-lvl{color:var(--rv-fg-soft);}
+.review-group .banner.done .xp-count{color:var(--rv-fg-faint);}
+.review-group .banner.done .xp-track{background:var(--rv-trk); border-color:var(--rv-trk-b);}
+.review-group .banner.done .xp-fill{background:var(--rv-fg);}
+.review-group .banner.done .glyph{color:#000; opacity:.15;}
+.review-group .banner.done .btn{background:var(--rv-fg); border-color:var(--rv-fg); color:var(--rv-btn-fg);}
+.review-group .banner.done .btn.ghost{background:transparent; border-color:var(--rv-fg-faint); color:var(--rv-fg);}
 /* daily challenge accent treatment */
 .banner.challenge{background:linear-gradient(135deg, var(--card) 60%, var(--zh-wash));}
 .banner.challenge h2{color:var(--ink);}
@@ -2649,7 +2706,7 @@ body[data-theme="arcade"] .lb-num{ font-family:var(--px); font-weight:400; font-
 body[data-theme="arcade"] .banner .lb-num{ font-size:36px; }
 body[data-theme="arcade"] .banner .stat b{ font-family:var(--px); font-weight:400; font-size:14px; line-height:1.3; }
 /* daily banner = title screen */
-body[data-theme="arcade"] .banner, body[data-theme="arcade"] .banner:hover{ border:2px solid var(--ink); border-left:8px solid var(--indigo); }
+body[data-theme="arcade"] .banner, body[data-theme="arcade"] .banner:hover{ border:2px solid var(--ink); border-left:8px solid var(--tile); }
 body[data-theme="arcade"] .banner{ box-shadow:6px 6px 0 var(--hard); }
 body[data-theme="arcade"] .banner:hover{ transform:translate(-2px,-2px); box-shadow:8px 8px 0 var(--hard); }
 body[data-theme="arcade"] .banner::before{ background:repeating-conic-gradient(color-mix(in srgb,var(--indigo) 30%, transparent) 0 25%, transparent 0 50%) 0 0/12px 12px; opacity:.25; }
@@ -2731,7 +2788,7 @@ body[data-theme="academy"] .msn-card{
 }
 
 /* banner: embossed stationery head */
-body[data-theme="academy"] .banner{ border-left:4px solid var(--ochre); }
+body[data-theme="academy"] .banner{ border-left:4px solid var(--tile); }
 body[data-theme="academy"] .banner .review-title h2{ font-family:var(--display); font-variant:small-caps; letter-spacing:.03em; }
 body[data-theme="academy"] .banner .meta{ letter-spacing:.04em; }
 body[data-theme="academy"] .xp .xp-track{ border-radius:2px; border:1px solid var(--rule); }
@@ -2866,7 +2923,7 @@ body[data-theme="marble"].night .gloss-win{
   box-shadow: inset 0 1px 0 rgba(255,255,255,.07), inset 0 -1px 0 rgba(0,0,0,.55), 0 3px 8px rgba(0,0,0,.45);
 }
 /* banner = museum pedestal plaque (bronze fillet + stepped plinth below) */
-body[data-theme="marble"] .banner{ border-left:4px solid var(--indigo); box-shadow: inset 0 1px 0 rgba(255,255,255,.75), inset 0 -1px 0 rgba(0,0,0,.1), 0 6px 0 -2px var(--paper-2), 0 7px 0 -1px var(--rule); }
+body[data-theme="marble"] .banner{ border-left:4px solid var(--tile); box-shadow: inset 0 1px 0 rgba(255,255,255,.75), inset 0 -1px 0 rgba(0,0,0,.1), 0 6px 0 -2px var(--paper-2), 0 7px 0 -1px var(--rule); }
 body[data-theme="marble"].night .banner{ box-shadow: inset 0 1px 0 rgba(255,255,255,.07), inset 0 -1px 0 rgba(0,0,0,.55), 0 6px 0 -2px var(--paper-2), 0 7px 0 -1px var(--rule); }
 /* buttons = chiseled bronze plaques */
 body[data-theme="marble"] .btn{

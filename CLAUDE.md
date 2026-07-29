@@ -619,7 +619,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   (`S.cards` empty) the banner is a **first-run hero**: purpose sentence + "Study your first cards", which sets
   `S.active = ["china"]` (replacing the bare `cn-qing` default) and routes straight into a session; the level badge,
   xp bar, stats, review-order toggle and active-deck list appear only after that. The banner shows a **🔥 day-streak
-  chip** (`S.streak`, shown at 2+ when the run is alive). **The home page must not read as China-centric** — Folio
+  chip** (`S.streak`, shown at 2+ when the run is alive). **The Daily-review banner earns its colour like a game
+  tile**, in **bronze** (`--tile:#9A6634`, set on `.banner` in styles.css): the idle wash from the left; **`.done`**
+  = the day's pile is cleared → the full bronze fill; **`.won`** = every card today was right on the first try →
+  the same shining gold (`gt-gold-shine`) as a perfect game tile. It reads `S.reviewDay = { d, n, miss }` (in
+  `defaultState` + `PROGRESS_FIELDS`), written by **`logReviewDay`** from `grade()`: only a card's FIRST attempt
+  of the day counts (`firstToday`, from the pre-grade `c.last`), since a learning card is graded again ten minutes
+  later; correct = anything but Again, as in `logReview`. `reviewLog` can't answer this — it counts every grade
+  and only tracks mature ones. Both fills carry `.review-group` in their selector **for specificity**: marble and
+  academy dress `.banner` with a surface of their own, and the earned fill must outrank it in every theme; the
+  gold is `.done.won`, since a perfect day carries both classes. **The home page must not read as China-centric** — Folio
   covers many history topics; copy stays subject-neutral (China is just the first live collection).
 - **Home minigames** (game-grid tiles → `PAGES.*`): **Multiple Choice** (`PAGES.challenge`, formerly "Daily Challenge" — the
   rival bots + timer were removed; it's now a plain 5-question quiz whose 3 wrong options are the SAME `answerType()` as the

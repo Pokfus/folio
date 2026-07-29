@@ -973,6 +973,11 @@
       // reconstructed from S.cards — it has to be logged as it happens. "Mature" = the card was in review status
       // when graded (a real recall attempt, not a learning step); correct = anything but Again. Pruned to REVIEW_LOG_DAYS.
       reviewLog: {},
+      // today's review tally for the home Daily-review tile: { d, n, miss } — n = cards attempted for the
+      // FIRST time today, miss = how many of those first attempts were wrong. The tile fills bronze once the
+      // day's pile is cleared and turns gold when miss === 0. reviewLog can't answer this: it counts every
+      // grade (a learning card is graded again 10 minutes later) and only tracks mature ones.
+      reviewDay: { d: "", n: 0, miss: 0 },
       streak: { count: 0, last: "" },
       active: ["cn-qing"], // deck/subdeck ids added to the daily review
       achievements: {}, // achievement id -> unlock timestamp
@@ -1067,7 +1072,7 @@
      Kept for: the admin page's local-user manager, the guest-progress stash helpers (extractProgress /
      applyProgress / emptyProgress), and older saves. The account page no longer signs in against this. */
   const ACCT_KEY = "folio_acct_v1";
-  const PROGRESS_FIELDS = ["cards", "suspended", "daily", "chrono", "games", "intro", "reviewLog", "streak", "active", "achievements"];
+  const PROGRESS_FIELDS = ["cards", "suspended", "daily", "chrono", "games", "intro", "reviewLog", "reviewDay", "streak", "active", "achievements"];
   const B32 = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
   function defaultAcct() { return { users: {}, current: null, guest: null }; }
   let ACCT = (function () {
@@ -2224,6 +2229,9 @@
       S.cards[id] ||
       { reps: 0, lapses: 0, ease: 2.5, interval: 0, due: now(), status: "new", last: 0 };
     const preStatus = c.status;   // captured before the scheduler rewrites it — the retention rate counts only cards that were genuinely due for recall
+    // the card's FIRST attempt today (c.last is still the previous review) — only a first attempt can decide
+    // "right first try", since a learning card comes back later in the same session
+    const firstToday = !c.last || new Date(c.last).toISOString().slice(0, 10) !== todayStr();
 
     if (c.status === "new" || c.status === "learning") {
       if (g === "again") {
@@ -2281,6 +2289,7 @@
     c.last = now();
     S.cards[id] = c;
     logReview(preStatus === "review", g !== "again");
+    logReviewDay(firstToday, g !== "again");
 
     // count new-card introductions per day
     if (fresh) {
@@ -2312,6 +2321,18 @@
       Object.keys(S.reviewLog).forEach((k) => { if (k < cut) delete S.reviewLog[k]; });
     }
   }
+  /* today's review, for the home Daily-review tile's earned colour (see defaultState). Only a card's FIRST
+     attempt of the day counts: "again" on a card that comes back 10 minutes later is one miss, not two, and
+     getting it right on the requeue doesn't erase the miss. Correct = anything but Again, the same reading
+     of a grade the retention rate uses. */
+  function logReviewDay(firstTry, correct) {
+    const d = todayStr();
+    if (!S.reviewDay || S.reviewDay.d !== d) S.reviewDay = { d: d, n: 0, miss: 0 };
+    if (!firstTry) return;
+    S.reviewDay.n += 1;
+    if (!correct) S.reviewDay.miss += 1;
+  }
+  function reviewDayRec() { const r = S.reviewDay; return r && r.d === todayStr() && r.n > 0 ? r : null; }
   // reviews per day over the last `days` days, oldest first: [{ d:"YYYY-MM-DD", n, date }]
   function reviewHistory(prog, days) {
     const log = (prog && prog.reviewLog) || {};
@@ -4554,6 +4575,12 @@
       if ((st.last === todayStr() || st.last === yest) && st.count >= 2) return `<div class="stat streak" title="Days studied in a row"><b>🔥 ${st.count}</b><span>Day streak</span></div>`;
       return "";
     })();
+    // The Daily-review tile earns its bronze exactly as a game tile earns its hue: a wash while the day's pile
+    // is still open, the full bronze fill once it's cleared (something was studied today and nothing is left
+    // due or new), and the same shining gold as a perfect game when every card today was right on the first try.
+    const rday = reviewDayRec();
+    const reviewDone = !!rday && dueN + newN === 0;
+    const reviewWon = reviewDone && rday.miss === 0;
     // first-run hero: one sentence of purpose and a single way in — the normal banner takes over after the first card
     const bannerHTML = fresh
       ? `<button class="banner hero" id="b-review">
@@ -4568,7 +4595,7 @@
           </div>
           <span class="glyph glyph-svg">${ICON.review}</span>
         </button>`
-      : `<button class="banner" id="b-review">
+      : `<button class="banner${reviewDone ? " done" : ""}${reviewWon ? " won" : ""}" id="b-review">
           ${levelBadgeMarkup(folioXP())}
           <div class="body">
             <h2 class="review-title">Daily review</h2>
