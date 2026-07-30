@@ -1520,6 +1520,15 @@ year citations are filed against a year that has no paragraph. Same content rule
 scholarship, Chicago note form, nothing invented. The number grid is untouched — it already names Wikidata in
 its hover bubble.
 
+**Backfilling citations onto existing content** — `node .claude/add-sources.js <batch.json>`
+(`{ "cards": { "<id>": { "sources": [...], "abstract": "<with markers>", "i18n": { "es": "<with the same
+markers>", … } } }, "glossary": { "<slug>": { "sources": [...], "description": "<optional>" } } }`).
+add-card.js refuses a duplicate id and add-glossary.js rewrites a whole entry, so neither can do this;
+`update-cards.js` would clobber the rest of `i18n`. It merges surgically — only `sources` and, where given,
+the prose the markers live in — enforces the same marker rules as add-card.js, **warns for every language
+whose abstract carries a different number of markers than the English** (that language shows the list but
+none of the in-text links), and reports running coverage, which is how a multi-batch pass is tracked.
+
 **Citing the existing content (as of July 2026)** — **the shipped content has no citations yet.** The 105 cards,
 333 glossary terms and every Atlas description were written before this system existed, from Wikipedia and its
 sources, and were fact-checked rather than referenced. So `country-sources.js` is empty, no card carries
