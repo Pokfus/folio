@@ -13,6 +13,7 @@ window.CHANGELOG = [
       "Seven new cards in the World History prehistory deck, in all ten site languages.",
       "The Feedback tab on the Edit page now shows in red rather than grey, matching the coloured tabs beside it.",
       "In the card editor, the controls for a card's extra ways of asking now say question instead of phrasing.",
+      "On a phone, the Timeline tab of the Edit page no longer cuts off partway down: the list of eras now runs the full length of the page and scrolls with it.",
     ],
   },
   {
