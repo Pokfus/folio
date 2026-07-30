@@ -5,6 +5,13 @@
    user, not how). Loaded before app.js. */
 window.CHANGELOG = [
   {
+    d: "2026-07-30",
+    t: "After the ice",
+    items: [
+      "Seven new cards in the World History prehistory deck, in all ten site languages.",
+    ],
+  },
+  {
     d: "2026-07-29",
     t: "Video on your cards",
     items: [
