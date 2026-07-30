@@ -29,6 +29,9 @@ const dataPath = path.join(root, "data.js");
 const glossPath = path.join(root, "glossary.js");
 const I18N_LANGS = ["es", "fr", "de", "it", "nl", "ru", "ar", "zh", "ja"];
 const SRC_MAX = 24;   // mirrors SRC_MAX in app.js
+// Every citation carries a link, so a reader can check the claim and follow it further — which also means
+// only publicly reachable scholarship is citable, and that a cited page number can always be verified.
+const SRC_URL = /https?:\/\/[^\s<>"']+/;
 
 function loadWindow(file) { const win = {}; new Function("window", fs.readFileSync(file, "utf8"))(win); return win; }
 const obj = (o) => "{\n" + Object.keys(o).map((k) => JSON.stringify(k) + ": " + JSON.stringify(o[k])).join(",\n") + "\n}";
@@ -40,6 +43,8 @@ function cleanSources(list, where) {
   if (!Array.isArray(list) || !list.length || list.some((s) => typeof s !== "string" || !s.trim()))
     die(where + " needs a non-empty `sources` array of citation strings.");
   if (list.length > SRC_MAX) die(where + " has " + list.length + " sources — at most " + SRC_MAX + ". More than that is a bibliography, not footnotes.");
+  const unlinked = list.filter((s) => !SRC_URL.test(s));
+  if (unlinked.length) die(where + ": every citation ends in a link the reader can follow — " + JSON.stringify(unlinked[0].slice(0, 80)) + " has none. Put the DOI or permalink last, as plain text; the site links it.");
   const out = [];
   list.forEach((s) => { const t = String(s).replace(/\s+/g, " ").trim(); if (t && out.indexOf(t) < 0) out.push(t); });
   return out;

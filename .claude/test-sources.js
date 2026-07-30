@@ -39,10 +39,12 @@ function check(name, ok, extra) {
   else { fail++; console.log("FAIL  " + name + (extra ? "  " + extra : "")); }
 }
 
+// Citations carry the URL as PLAIN TEXT; the page turns it into a link (linkifySrcItem), so the href and
+// the visible text can never disagree.
 const SRC = [
-  "Alpha Author, <i>The First Work</i> (Cambridge: Cambridge University Press, 2001), 10-12.",
-  "Beta Author, <i>The Second Work</i> (Oxford: Oxford University Press, 2002), 20.",
-  "Gamma Author, <i>The Third Work</i> (Leiden: Brill, 2003), 30.",
+  "Alpha Author, <i>The First Work</i> (Cambridge: Cambridge University Press, 2001), 10-12, https://doi.org/10.1000/first.",
+  "Beta Author, <i>The Second Work</i> (Oxford: Oxford University Press, 2002), 20, https://doi.org/10.1000/second.",
+  "Gamma Author, <i>The Third Work</i> (Leiden: Brill, 2003), 30, https://example.org/third?p=1.",
 ];
 // three markers: one numbered explicitly, one bare (takes the next number in reading order), one pointing
 // past the end of the list (must be dropped rather than rendered)
@@ -129,6 +131,17 @@ async function closeGloss(page) {
     [...document.querySelectorAll(".gloss-win .src-item")].findIndex((i) => i.classList.contains("src-flash")) === 1));
   check("the entry keeps the citation's own markup",
     (await page.locator(".gloss-win .src-item").nth(1).innerHTML()).includes("<i>The Second Work</i>"));
+  // the whole point of requiring a link: the reader can check the claim and follow it further
+  const links = await page.evaluate(() => [...document.querySelectorAll(".gloss-win .src-item a")].map((a) => ({
+    href: a.getAttribute("href"), text: a.textContent, target: a.target, rel: a.rel })));
+  check("every citation's URL became a link", links.length === 3, JSON.stringify(links.length));
+  check("...whose href is exactly the text it shows", links.every((l) => l.href === l.text), JSON.stringify(links[0]));
+  check("...opening in a new tab, so a study session is not lost",
+    links.every((l) => l.target === "_blank" && /noopener/.test(l.rel)));
+  check("...and the trailing sentence period is left out of the URL",
+    links[0] && links[0].href === "https://doi.org/10.1000/first", links[0] && links[0].href);
+  check("the prose around the link survives",
+    (await page.locator(".gloss-win .src-item").first().textContent()).includes("Cambridge University Press"));
   // clicking the header alone toggles it — the fold has to work without a marker
   await closeGloss(page);
   await page.click("#exp-term");

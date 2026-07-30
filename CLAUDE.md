@@ -530,6 +530,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     and an open list would push a card's own content off the screen. The Atlas section additionally **hides outright
     when empty** (unlike its neighbours, which show a shut header): an empty "Description" header still tells the
     reader the panel has that part, but a "Sources" header over nothing reads as a claim to have cited something.
+  · **A citation ends in its URL, written as plain text**, and `linkifySrcItem` turns it into an anchor at
+    render time (`wireSourceLinks`, walking TEXT NODES, so a URL already inside an attribute is untouchable).
+    Doing it here rather than asking an author for `<a href="…">…</a>` is what keeps the href and the visible
+    text from ever disagreeing — a mismatched anchor would quietly send a reader somewhere the citation does
+    not name. Links open in a new tab, or following one would end the study session.
   · **Citations are NOT translated**, and for the reason image credits are not — a citation names an edition that
     exists in one language, and rendering "Cambridge University Press" in nine is fabrication, not translation. Hence
     `notranslate` on every list, and hence `sources` lives on the base card and NOT in the `i18n` blocks. Only the
@@ -1401,9 +1406,14 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   background makes, and **at least one `<sup class="fn" data-fn="N"></sup>` marker in the abstract**
   pointing at each of them. Write the marker EMPTY — the digit is drawn from the list at render time, so
   re-ordering the list can never leave a wrong number in the text. Chicago **note** form (not
-  bibliography form): `Author First Last, <i>Title</i> (Place: Publisher, Year), 84–86.` for a book;
-  `Author, “Article Title,” <i>Journal</i> 546 (2017): 289–92.` for an article. Italicise the title with
-  `<i>`, as everywhere else. **Every source must be referenced by at least one marker** — a citation
+  bibliography form), **ending in the URL that lets a reader check it**:
+  `Author, “Article Title,” <i>Journal</i> 546, no. 7657 (2017): 289–92, https://doi.org/10.1038/nature22336.`
+  Italicise the title with `<i>`, as everywhere else, and write the **URL as PLAIN TEXT** — the page turns
+  it into a link (`linkifySrcItem`), so the href and the visible text can never disagree. **Every citation
+  must carry a link** and all four helper scripts refuse one that does not, which by design restricts the
+  citable literature to what is **publicly reachable**: a DOI, an open-access paper, a museum or agency
+  permalink. That restriction is the point — a page number nobody can open is a page number nobody
+  checked. **Every source must be referenced by at least one marker** — a citation
   nothing points at is a reading list, not a footnote — and `add-card.js` refuses a card that breaks
   either rule. Cite the scholarship the claim actually rests on: a monograph, a survey, a journal
   article, a museum or excavation report. **A Wikipedia article is not a source here** — it is where the

@@ -38,6 +38,9 @@ function countIds(node) { const s = new Set(); (function w(n){ (n.cardIds||[]).f
 const N_EXTRA = 2;
 // mirrors SRC_MAX in app.js — more citations than this on one study card is a bibliography, not footnotes
 const SRC_MAX = 24;
+// Every citation carries a link, so a reader can check the claim and follow it further — which also means
+// only publicly reachable scholarship is citable here, and that a page number can always be verified.
+const SRC_URL = /https?:\/\/[^\s<>"']+/;
 
 const cardFile = process.argv[2], deckId = process.argv[3];
 if (!cardFile) { console.error("usage: node .claude/add-card.js <card.json> [deckId]"); process.exit(1); }
@@ -73,6 +76,14 @@ if (!card.skipSources) {
     process.exit(1);
   }
   if (src.length > SRC_MAX) { console.error("ERROR: card has " + src.length + " sources — at most " + SRC_MAX + ". More than that is a bibliography, not footnotes."); process.exit(1); }
+  const unlinked = src.filter(s => !SRC_URL.test(s));
+  if (unlinked.length) {
+    console.error("ERROR: every citation ends in a link the reader can follow — " + JSON.stringify(unlinked[0].slice(0, 80)) + " has none.\n" +
+      "       Cite something publicly reachable and put its DOI or permalink last, as Chicago prints it:\n" +
+      "         Author, \u201cTitle,\u201d <i>Journal</i> 546, no. 7657 (2017): 289\u201392, https://doi.org/10.1038/nature22336.\n" +
+      "       The URL is written as PLAIN TEXT; the site turns it into a link (linkifySrcItem in app.js).");
+    process.exit(1);
+  }
   const marks = [...String(card.abstract || "").matchAll(/<sup\b[^>]*class="[^"]*\bfn\b[^"]*"[^>]*>/gi)]
     .map(m => { const d = /data-fn="(\d+)"/i.exec(m[0]); return d ? +d[1] : 0; });
   if (!marks.length) {

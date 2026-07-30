@@ -24,6 +24,7 @@ const fs = require("fs"), path = require("path");
 const root = path.join(__dirname, "..");
 const outPath = path.join(root, "country-sources.js");
 const SRC_MAX = 24;   // mirrors SRC_MAX in app.js
+const SRC_URL = /https?:\/\/[^\s<>"']+/;   // every citation carries a link the reader can follow
 
 function loadWindow(file) { const win = {}; new Function("window", fs.readFileSync(file, "utf8"))(win); return win; }
 const obj = (o) => "{\n" + Object.keys(o).sort().map((k) => JSON.stringify(k) + ": " + JSON.stringify(o[k])).join(",\n") + "\n}";
@@ -47,6 +48,8 @@ function clean(list, where) {
     console.error("ERROR: " + where + " needs a non-empty array of citation strings."); process.exit(1);
   }
   if (list.length > SRC_MAX) { console.error("ERROR: " + where + " has " + list.length + " sources — at most " + SRC_MAX + "."); process.exit(1); }
+  const unlinked = list.filter((s) => !SRC_URL.test(s));
+  if (unlinked.length) { console.error("ERROR: " + where + ": every citation ends in a link the reader can follow — " + JSON.stringify(unlinked[0].slice(0, 80)) + " has none."); process.exit(1); }
   const out = [];
   list.forEach((s) => { const t = String(s).replace(/\s+/g, " ").trim(); if (t && out.indexOf(t) < 0) out.push(t); });
   return out;

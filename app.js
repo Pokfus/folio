@@ -6804,6 +6804,42 @@
       '<div class="src-collapse collapsed"><div class="src-collapse-inner">' + sourceListHTML(src) + "</div></div>" +
       "</section>";
   }
+  /* A citation ends in the URL that lets the reader check it, printed as Chicago prints it — plain text in
+     the data, a link on the page. Turning it into an anchor HERE rather than asking the author to write
+     `<a href="…">…</a>` keeps the href and the visible text from ever disagreeing, which is the failure a
+     hand-written anchor invites and which would quietly send a reader somewhere the citation doesn't name.
+     It walks TEXT NODES, so a URL that is already inside an attribute is untouchable by construction. */
+  const SRC_URL_RX = /https?:\/\/[^\s<>"')\]]+[^\s<>"')\].,;:]/g;
+  function linkifySrcItem(li) {
+    if (!li || li._srcLinked) return;
+    li._srcLinked = true;
+    const walk = document.createTreeWalker(li, NodeFilter.SHOW_TEXT, null);
+    const targets = [];
+    let n;
+    while ((n = walk.nextNode())) { if (!n.parentElement.closest("a") && SRC_URL_RX.test(n.nodeValue)) targets.push(n); SRC_URL_RX.lastIndex = 0; }
+    targets.forEach((node) => {
+      const frag = document.createDocumentFragment();
+      let last = 0, m;
+      SRC_URL_RX.lastIndex = 0;
+      while ((m = SRC_URL_RX.exec(node.nodeValue))) {
+        if (m.index > last) frag.appendChild(document.createTextNode(node.nodeValue.slice(last, m.index)));
+        const a = document.createElement("a");
+        a.href = m[0]; a.textContent = m[0];
+        a.target = "_blank"; a.rel = "noopener noreferrer";
+        frag.appendChild(a);
+        last = m.index + m[0].length;
+      }
+      if (last < node.nodeValue.length) frag.appendChild(document.createTextNode(node.nodeValue.slice(last)));
+      node.parentNode.replaceChild(frag, node);
+    });
+  }
+  // every source list in `scope`: bare URLs become links, and any link an author did write opens in a new
+  // tab (leaving a study session to read a paper would otherwise lose the session)
+  function wireSourceLinks(scope) {
+    if (!scope) return;
+    scope.querySelectorAll(".src-item").forEach(linkifySrcItem);
+    scope.querySelectorAll(".src-list").forEach(openLinks);
+  }
   function toggleSourceNote(note, forceOpen) {
     if (!note) return false;
     const box = note.querySelector(".src-collapse"), head = note.querySelector(".src-head"), tog = note.querySelector(".src-toggle");
@@ -6828,6 +6864,7 @@
      write <sup class="fn"></sup> and be right. Safe to call twice on the same container. */
   function wireFootnotes(scope) {
     if (!scope) return;
+    wireSourceLinks(scope);
     const note = scope.querySelector(".src-note");
     const items = note ? Array.prototype.slice.call(note.querySelectorAll(".src-item")) : [];
     let seq = 0;
@@ -8054,7 +8091,7 @@
       // panel has that part, but a "Sources" header over nothing reads as a claim to have cited something.
       // Present, it opens SHUT — the apparatus is there to be checked, not read.
       const psrc = forceGeneral ? [] : placeSources(name, year);
-      if (cpSrcEl) cpSrcEl.innerHTML = sourceListHTML(psrc);
+      if (cpSrcEl) { cpSrcEl.innerHTML = sourceListHTML(psrc); wireSourceLinks(cpSrcEl); }   // this panel has no in-text markers, so it wires the links alone
       if (cpSrcSecEl) { cpSrcSecEl.hidden = !psrc.length; cpSection(cpSrcSecEl, false); }
       cpEl.hidden = false;
       // a fresh entity starts at the top of its own panel. The popup element is REUSED, so without this the
