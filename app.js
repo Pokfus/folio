@@ -187,6 +187,9 @@
   /* ---------- admin edits: a localStorage override layer applied over the shipped data ---------- */
   const ADMIN_KEY = "folio_admin_v1";
   const CARD_FIELDS = ["num", "category", "question", "answer", "answerDate", "traditional", "hanzi", "pinyin", "translations", "abstract", "citation", "answerText"];
+  // A card may carry up to this many question phrasings in all: `question` plus at most 9 in the optional
+  // `questions` extras array (curated cards carry 3; the higher cap is room for community decks to experiment).
+  const CARD_MAX_QUESTIONS = 10;
   // pristine copies (taken before edits are applied) so any field can be reverted to what shipped
   const PRISTINE_CARDS = Object.fromEntries(CARDS.map((c) => [c.id, Object.assign({}, c)]));
   const BASE_CARD_IDS = new Set(Object.keys(PRISTINE_CARDS));   // shipped card ids (before any admin-created cards) — used to rebuild the deck from base on undo
@@ -444,6 +447,29 @@
     touchModified(id);
     queueAdminSave();
   }
+  // edit the base card's EXTRA question phrasings (everything beyond `question`) as one array. The array is
+  // REPLACED, never mutated in place (PRISTINE_CARDS shares the shipped reference), trailing empties never
+  // persist, and removing every extra on a card that shipped with some stores a null tombstone.
+  function setCardQuestionsEdit(id, extras) {
+    const c = CARD_BY_ID[id]; if (!c) return;
+    const next = (extras || []).map((q) => String(q == null ? "" : q)).slice(0, CARD_MAX_QUESTIONS - 1);
+    while (next.length && !next[next.length - 1].trim()) next.pop();
+    const val = next.length ? next : undefined;
+    if (val) c.questions = val; else delete c.questions;
+    if (isCreatedCard(id)) {
+      if (val) ADMIN_EDITS.created[id].questions = val; else delete ADMIN_EDITS.created[id].questions;
+    } else {
+      const orig = PRISTINE_CARDS[id] ? PRISTINE_CARDS[id].questions : undefined;
+      if (JSON.stringify(val || null) === JSON.stringify(orig || null)) {
+        if (ADMIN_EDITS.cards[id]) { delete ADMIN_EDITS.cards[id].questions; if (!Object.keys(ADMIN_EDITS.cards[id]).length) delete ADMIN_EDITS.cards[id]; }
+      } else {
+        if (!ADMIN_EDITS.cards[id]) ADMIN_EDITS.cards[id] = {};
+        ADMIN_EDITS.cards[id].questions = val || null;   // null hides shipped extras (Object.assign applies it; cardQuestions reads null as none)
+      }
+    }
+    touchModified(id);
+    queueAdminSave();
+  }
   // ONE FRAME PER CARD. An image and a video are alternatives, never companions: giving a card either one
   // retires the other, here and in every other writer (uCardSetImage/Video, the glossary pair, the deck
   // ingest sanitizers). The renderers keep the same rule as a backstop for hand-authored data files.
@@ -536,6 +562,7 @@
     CARD_BY_ID[id].i18n = p.i18n;   // translations revert with the card (pristine keeps the shipped object)
     CARD_BY_ID[id].image = p.image; // the card image too
     CARD_BY_ID[id].video = p.video; // and its video
+    CARD_BY_ID[id].questions = p.questions; // and its extra question phrasings
     if (isCreatedCard(id)) { ADMIN_EDITS.created[id] = {}; CARD_FIELDS.forEach((f) => { ADMIN_EDITS.created[id][f] = CARD_BY_ID[id][f]; }); }
     else delete ADMIN_EDITS.cards[id];
     if (ADMIN_EDITS.meta[id]) delete ADMIN_EDITS.meta[id].modified;
@@ -1743,7 +1770,30 @@
     if (!c || lang === "en" || !c.i18n || !c.i18n[lang]) return c;
     const o = Object.assign({}, c), tr = c.i18n[lang];
     ["question", "answer", "answerDate", "abstract", "answerText"].forEach((f) => { if (tr[f]) o[f] = tr[f]; });
+    // extra question phrasings translate as a set: a language that hasn't translated them falls back to just
+    // its own single question — never a translated question mixed with the English extras
+    o.questions = Array.isArray(tr.questions) && tr.questions.length ? tr.questions : undefined;
     return o;
+  }
+  // A card can ask the same thing several ways: `question` (the first phrasing) plus the optional `questions`
+  // array of extra phrasings — CARD_MAX_QUESTIONS in all. This returns every non-blank phrasing (always ≥ 0,
+  // and length 1 for the ordinary single-question card).
+  function cardQuestions(c) {
+    const out = [];
+    if (c) {
+      if (String(c.question || "").trim()) out.push(c.question);
+      (Array.isArray(c.questions) ? c.questions : []).forEach((q) => { if (String(q || "").trim()) out.push(q); });
+    }
+    return out;
+  }
+  // The card as it should be SHOWN this time: one phrasing chosen from the pool (random by default, or by a
+  // caller-supplied picker for a deterministic choice), returned as a copy with `question` set to it — so every
+  // downstream consumer (cloze, TTS, the quiz summary) reads the same chosen phrasing without knowing about the pool.
+  function cardWithQuestion(c, pickIdx) {
+    const qs = cardQuestions(c);
+    if (qs.length <= 1) return c;
+    const i = typeof pickIdx === "function" ? pickIdx(qs.length) : Math.floor(Math.random() * qs.length);
+    return Object.assign({}, c, { question: qs[Math.max(0, Math.min(qs.length - 1, i))] });
   }
   // The daily-game pools are content, like cards: each item carries an `i18n` lang-map of its own
   // translatable fields and falls back to English, exactly as cardLocalized() does. They are NOT routed
@@ -2676,6 +2726,13 @@
         ? sanitizePlain(v).slice(0, 400)
         : sanitizeHTML(v == null ? "" : String(v)).slice(0, 20000);
     });
+    // extra question phrasings: rich HTML like `question`, capped so a hostile file can't smuggle hundreds
+    if (raw && Array.isArray(raw.questions)) {
+      const extras = raw.questions.slice(0, CARD_MAX_QUESTIONS - 1)
+        .map((q) => sanitizeHTML(q == null ? "" : String(q)).slice(0, 20000))
+        .filter((q) => q.trim());
+      if (extras.length) c.questions = extras;
+    }
     if (raw && raw.image && raw.image.src) {
       const src = sanitizeUrl(String(raw.image.src), ["http", "https"]);
       if (src) c.image = { src: src, title: sanitizePlain(raw.image.title).slice(0, 200), desc: sanitizePlain(raw.image.desc).slice(0, 1000), credit: sanitizePlain(raw.image.credit).slice(0, 300) };
@@ -2804,6 +2861,18 @@
     c[field] = (field === "answerText" || field === "num" || field === "category" || field === "pinyin")
       ? sanitizePlain(value).slice(0, 400)
       : sanitizeHTML(value == null ? "" : String(value)).slice(0, 20000);
+    if (c.deckId) uDeckSave(c.deckId);
+  }
+  // the card's whole question-phrasing pool at once (index 0 = `question`, the rest the `questions` extras,
+  // CARD_MAX_QUESTIONS in all) — sanitized like every other rich field, trailing empties never stored
+  function uCardSetQuestions(cardId, arr) {
+    const c = UCARDS[cardId];
+    if (!c) return;
+    const list = (arr || []).slice(0, CARD_MAX_QUESTIONS).map((q) => sanitizeHTML(q == null ? "" : String(q)).slice(0, 20000));
+    c.question = list[0] || "";
+    const extras = list.slice(1);
+    while (extras.length && !extras[extras.length - 1].trim()) extras.pop();
+    if (extras.length) c.questions = extras; else delete c.questions;
     if (c.deckId) uDeckSave(c.deckId);
   }
   function uCardSetImage(cardId, field, value) {
@@ -3043,6 +3112,7 @@
     const rows = cards.map((c, i) => {
       const data = {};
       CARD_FIELDS.forEach((f) => { data[f] = c[f] == null ? "" : c[f]; });
+      if (Array.isArray(c.questions) && c.questions.length) data.questions = c.questions;   // the extra phrasings travel with the card
       if (c.image && c.image.src) data.image = c.image;
       else if (c.video && c.video.src) data.video = c.video;   // one frame per card
       return { deck_id: row.id, id: c.id, ord: i, is_demo: true, data: data };
@@ -4753,7 +4823,8 @@
     // --- discovery row: a real card to flip, a glossary term, and the Atlas ---
     const fresh = Object.keys(S.cards).length === 0;   // never studied anything → first-run hero + how-it-works strip
     const availSet = availableCardIdSet();
-    const cod = cardLocalized(dailyPick(CARDS.filter((c) => availSet.has(c.id) && c.question && c.answerText), "cod-"));
+    // the day's card asks the same phrasing all day (date-seeded, like the pick of the card itself)
+    const cod = cardWithQuestion(cardLocalized(dailyPick(CARDS.filter((c) => availSet.has(c.id) && c.question && c.answerText), "cod-")), (n) => (hashStr("codq-" + todayStr()) >>> 0) % n);
     const todKeys = window.GLOSSARY ? Object.keys(window.GLOSSARY).filter((k) => (window.GLOSSARY_DATES || {})[k]) : [];
     const tod = dailyPick(todKeys, "term-");
     const todImg = tod ? glossImage(tod) : null;   // the term's illustration, shown at the right of the tile
@@ -5809,6 +5880,8 @@
       glossScope: GLOSS_SCOPE_SITE,
       getField: (f) => (c[f] == null ? "" : String(c[f])),
       setField: (f, v) => uCardSet(c.id, f, v),
+      getQuestions: () => [c.question == null ? "" : String(c.question)].concat(Array.isArray(c.questions) ? c.questions.map(String) : []),
+      setQuestions: (arr) => uCardSetQuestions(c.id, arr),
       getImage: () => c.image || null,
       setImage: (f, v) => uCardSetImage(c.id, f, v),
       getVideo: () => c.video || null,
@@ -6243,7 +6316,7 @@
       revealed = false;
       hideGradeBar();
       const id = queue[0];
-      const c = cardLocalized(cardById(id));   // study shows the card in the selected site language when translated
+      const c = cardWithQuestion(cardLocalized(cardById(id)));   // the selected site language when translated, asking ONE of the card's phrasings at random this show
       const rc = remainingCounts();
 
       root.innerHTML = `
@@ -6855,9 +6928,9 @@
       return { card, options, correct };
     }).map((q) => {   // display in the site language when translations exist (typing/distractor matching stays English)
       const loc = cardLocalized(q.card);
-      if (loc === q.card) return q;
+      if (loc === q.card) return Object.assign({}, q, { card: cardWithQuestion(q.card) });   // one phrasing per round, fixed at build so the results summary repeats what was asked
       const lat = (s) => { const src = CARDS.find((c) => c.answerText === s); const l = src && cardLocalized(src); return (l && l.answerText) || s; };
-      return { card: loc, options: q.options.map(lat), correct: lat(q.correct) };
+      return { card: cardWithQuestion(loc), options: q.options.map(lat), correct: lat(q.correct) };
     });
   }
 
@@ -11570,7 +11643,7 @@
   function adminSetListCount(n, noun) { const el = document.getElementById("adminListCount"); if (el) el.textContent = n + " " + noun + (n === 1 ? "" : "s"); }
   // serialize the live (delta-applied) in-memory data back into data.js / glossary.js source text
   function serializeCardData() {
-    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // i18n translations ride along untouched; the card's ONE frame is its image or its video
+    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings + i18n translations ride along untouched; the card's ONE frame is its image or its video
     const countIds = (node) => { const s = new Set(); (function w(n) { (n.cardIds || []).forEach((i) => s.add(i)); (n.children || []).forEach(w); })(node); return s.size; };
     function ser(node, isTop) {
       const o = { id: node.id, title: node.title };
@@ -12015,7 +12088,7 @@
     if (q) ids = ids.filter((id) => {
       const c = CARD_BY_ID[id]; if (!c) return false;
       return (c.answer || "").toLowerCase().includes(q) || (c.id || "").toLowerCase().includes(q) ||
-        stripHtml(c.question || "").toLowerCase().includes(q) ||
+        cardQuestions(c).some((qq) => stripHtml(qq).toLowerCase().includes(q)) ||
         (c.hanzi || "").includes(raw) || (c.pinyin || "").toLowerCase().includes(q);
     });
     ids = adminSortIds(ids);
@@ -12205,7 +12278,15 @@
         rtRibbonHtml() +   // OUTSIDE .ces-top: position:sticky can't escape its parent, and .ces-top ends just below the ribbon — as a direct child of the full-height column it stays pinned while the whole card scrolls
         '<div class="ces-top">' + (o.metaHtml || "") + '</div>' +
         '<div class="study-card admin-pv-card admin-live-card">' +
-          '<span class="label">Question</span>' + live("question", "question") +
+          // a card can carry up to CARD_MAX_QUESTIONS phrasings of its question; the chevrons cycle through
+          // them (the study page asks one at random). One live field — the pool lives in the wiring's qList.
+          '<span class="label">Question <span class="ces-qpos" id="cesQPos" hidden></span></span>' +
+          '<div class="ces-qrow">' +
+            '<button type="button" class="ces-qchev" id="cesQPrev" aria-label="Previous question phrasing" title="Previous phrasing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>' +
+            '<div class="ces-qcol">' + live("question", "question") + '</div>' +
+            '<button type="button" class="ces-qchev" id="cesQNext" aria-label="Next question phrasing" title="Next phrasing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>' +
+          '</div>' +
+          '<div class="ces-qtools"><button type="button" class="ces-qtool" id="cesQAdd" title="A card asks one of its phrasings at random each time it is shown">+ Add another phrasing</button><button type="button" class="ces-qtool ces-qtool-del" id="cesQDel" hidden>Remove this phrasing</button></div>' +
           '<div class="reveal show"><div class="reveal-inner">' +
             '<div class="answer"><div class="answer-main"><span class="label">Answer</span>' +
               '<div class="answer-av">' + live("answer", "val") + '<div class="av-row">' + live("answerDate", "ces-date") + '</div></div></div></div>' +
@@ -12240,6 +12321,55 @@
       });
       el.addEventListener("blur", () => { el.contentEditable = "false"; el.classList.remove("editing"); });
     });
+
+    // ---- question phrasings: ONE live field over a pool of up to CARD_MAX_QUESTIONS, cycled by the
+    // chevrons. qList is the working pool (index 0 = the card's `question`, the rest its `questions`
+    // extras); every keystroke writes the visible slot and commits the whole pool through o.setQuestions,
+    // so the store decides how to split it. Blank phrasings are kept while editing (an added-but-empty
+    // slot must survive navigation) — the store prunes trailing empties, and the study page skips blanks.
+    const qEl = host.querySelector('[data-field="question"]');
+    const qPrev = host.querySelector("#cesQPrev"), qNext = host.querySelector("#cesQNext");
+    const qPos = host.querySelector("#cesQPos"), qAdd = host.querySelector("#cesQAdd"), qDel = host.querySelector("#cesQDel");
+    let qList = (o.getQuestions ? o.getQuestions() : [o.getField("question")]).map((q) => String(q == null ? "" : q)).slice(0, CARD_MAX_QUESTIONS);
+    if (!qList.length) qList = [""];
+    let qIdx = 0;
+    const qCommit = () => { if (o.setQuestions) o.setQuestions(qList.slice()); else o.setField("question", qList[0] || ""); };
+    function qSyncNav() {
+      const n = qList.length;
+      if (qPos) { qPos.hidden = n <= 1; qPos.textContent = (qIdx + 1) + " / " + n; }
+      [qPrev, qNext].forEach((b) => { if (b) b.disabled = n <= 1; });
+      if (qAdd) qAdd.hidden = n >= CARD_MAX_QUESTIONS;
+      if (qDel) qDel.hidden = n <= 1;
+    }
+    function qShow(i, edit) {
+      qIdx = ((i % qList.length) + qList.length) % qList.length;   // chevrons wrap around the pool
+      if (qEl) {
+        qEl.innerHTML = qList[qIdx];
+        syncEmpty(qEl);
+        if (edit) { qEl.contentEditable = "true"; qEl.classList.add("editing"); qEl.focus(); }
+      }
+      qSyncNav();
+      syncSrc();
+    }
+    if (qPrev) qPrev.addEventListener("click", () => qShow(qIdx - 1));
+    if (qNext) qNext.addEventListener("click", () => qShow(qIdx + 1));
+    if (qAdd) qAdd.addEventListener("click", () => {
+      if (qList.length >= CARD_MAX_QUESTIONS) return;
+      qList.push("");
+      qCommit(); afterEdit("question");
+      qShow(qList.length - 1, true);
+    });
+    if (qDel) qDel.addEventListener("click", () => {
+      if (qList.length <= 1) return;
+      const drop = () => {
+        qList.splice(qIdx, 1);
+        qCommit(); afterEdit("question");
+        qShow(Math.min(qIdx, qList.length - 1));
+      };
+      if (String(qList[qIdx] || "").trim()) inlineConfirm("Remove this phrasing of the question? The card's other phrasings stay.", drop, "Remove");
+      else drop();
+    });
+    qSyncNav();
 
     // ---- image slot: the real image (click = edit panel), or an editor-only "add image" placeholder ----
     const imgSlotEl = host.querySelector("#cesImgSlot");
@@ -12353,7 +12483,8 @@
     // ---- live-field saves (the card IS the preview — no separate re-render, focus is never lost) ----
     host.querySelectorAll(".ces-field").forEach((el) => el.addEventListener("input", () => {
       const f = el.dataset.field;
-      o.setField(f, fieldVal(el));
+      if (f === "question") { qList[qIdx] = fieldVal(el); qCommit(); }   // the visible slot of the phrasing pool, committed whole
+      else o.setField(f, fieldVal(el));
       syncEmpty(el);
       syncSrc();
       afterEdit(f);
@@ -12361,10 +12492,12 @@
 
     // ---- collapsible HTML source for the whole card (marker-delimited sections, two-way sync) ----
     const srcTa = host.querySelector("#cesSrcTa"), srcToggle = host.querySelector("#cesSrcToggle");
-    const SRC_FIELDS = ["question", "answer", "answerDate", "abstract", "answerText"];
     let srcSyncing = false;
-    const srcCompose = () => SRC_FIELDS.map((f) => "<!-- " + f.toUpperCase() + " -->\n" +
-      (f === "answerText" ? (atI ? atI.value : o.getField("answerText")) : fieldVal(host.querySelector('[data-field="' + f + '"]')))).join("\n\n");
+    // every question phrasing gets its own section — <!-- QUESTION --> for the first (the marker the tests
+    // and old hand-written sources know), <!-- QUESTION 2 --> … for the extras
+    const srcCompose = () => qList.map((q, i) => "<!-- QUESTION" + (i ? " " + (i + 1) : "") + " -->\n" + q)
+      .concat(["answer", "answerDate", "abstract", "answerText"].map((f) => "<!-- " + f.toUpperCase() + " -->\n" +
+        (f === "answerText" ? (atI ? atI.value : o.getField("answerText")) : fieldVal(host.querySelector('[data-field="' + f + '"]'))))).join("\n\n");
     function syncSrc() { if (srcTa && !srcTa.hidden && !srcSyncing) { srcSyncing = true; srcTa.value = srcCompose(); srcSyncing = false; } }
     if (srcToggle && srcTa) {
       srcToggle.addEventListener("click", () => {
@@ -12373,13 +12506,15 @@
       });
       srcTa.addEventListener("input", () => {
         if (srcSyncing) return; srcSyncing = true;
-        const rx = /<!--\s*(QUESTION|ANSWERDATE|ANSWERTEXT|ANSWER|ABSTRACT)\s*-->/gi;
+        const rx = /<!--\s*(QUESTION(?:\s*\d+)?|ANSWERDATE|ANSWERTEXT|ANSWER|ABSTRACT)\s*-->/gi;
         const segs = []; let m;
         while ((m = rx.exec(srcTa.value))) segs.push({ f: m[1].toUpperCase(), end: rx.lastIndex, at: m.index });
-        const map = { QUESTION: "question", ANSWER: "answer", ANSWERDATE: "answerDate", ABSTRACT: "abstract", ANSWERTEXT: "answerText" };
+        const map = { ANSWER: "answer", ANSWERDATE: "answerDate", ABSTRACT: "abstract", ANSWERTEXT: "answerText" };
+        const newQs = [];   // QUESTION sections are collected as the whole pool: the sections present ARE the card's phrasings
         segs.forEach((seg, i) => {
-          const f = map[seg.f]; if (!f) return;
           const val = srcTa.value.slice(seg.end, i + 1 < segs.length ? segs[i + 1].at : srcTa.value.length).trim();
+          if (/^QUESTION/.test(seg.f)) { if (newQs.length < CARD_MAX_QUESTIONS) newQs.push(val); return; }
+          const f = map[seg.f]; if (!f) return;
           if (f === "answerText") { if (atI && atI.value !== val) { atI.value = val; atI.dispatchEvent(new Event("input", { bubbles: true })); } return; }
           const el = host.querySelector('[data-field="' + f + '"]');
           if (el && fieldVal(el) !== val) {
@@ -12389,6 +12524,12 @@
             syncEmpty(el);
           }
         });
+        if (newQs.length && JSON.stringify(newQs) !== JSON.stringify(qList)) {
+          qList = newQs;
+          if (qIdx >= qList.length) qIdx = qList.length - 1;
+          if (qEl && fieldVal(qEl) !== qList[qIdx]) { qEl.innerHTML = qList[qIdx]; syncEmpty(qEl); }
+          qCommit(); qSyncNav(); afterEdit("question");
+        }
         srcSyncing = false;
       });
     }
@@ -12602,6 +12743,17 @@
       glossOff: glossOffList(c.id),
       getField: fieldOf,
       setField: (f, v) => { if (isEnLang) setCardEdit(id, f, v); else setCardI18nEdit(id, cardLang, f, v); },
+      // the question-phrasing pool: EN edits `question` + the `questions` extras; another language edits
+      // that language's i18n block (its own pool — untranslated extras fall back to the single question)
+      getQuestions: () => [fieldOf("question")].concat(
+        (isEnLang ? c.questions : (c.i18n && c.i18n[cardLang] && c.i18n[cardLang].questions)) || []
+      ).map((q) => String(q == null ? "" : q)),
+      setQuestions: (arr) => {
+        const extras = arr.slice(1, CARD_MAX_QUESTIONS);
+        while (extras.length && !String(extras[extras.length - 1]).trim()) extras.pop();
+        if (isEnLang) { setCardEdit(id, "question", arr[0] || ""); setCardQuestionsEdit(id, extras); }
+        else { setCardI18nEdit(id, cardLang, "question", arr[0] || ""); setCardI18nEdit(id, cardLang, "questions", extras.length ? extras : ""); }
+      },
       getImage: () => c.image || null,
       setImage: (f, v) => setCardImageEdit(id, f, v),
       getVideo: () => c.video || null,

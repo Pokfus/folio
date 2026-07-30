@@ -2378,6 +2378,28 @@ textarea.af-input{resize:vertical; min-height:42px;}
 .admin-live-card .ces-field:hover{outline-color:color-mix(in srgb, var(--indigo) 40%, transparent);}
 .admin-live-card .ces-field.editing{outline:1.5px solid var(--indigo); background:color-mix(in srgb, var(--indigo) 4%, transparent); cursor:text;}
 .admin-live-card .ces-field.is-empty::before{content:attr(data-ph); color:var(--ink-faint); font-style:italic; font-size:14px; font-family:var(--sans); letter-spacing:0;}
+/* question phrasings: the chevrons flanking the question box cycle a card's alternate questions
+   (the study page asks one at random); the counter sits in the Question label */
+.ces-qpos{font-family:var(--sans); font-size:10.5px; font-weight:600; color:var(--indigo); letter-spacing:.04em; margin-left:6px;}
+.ces-qpos[hidden]{display:none;}
+.ces-qrow{display:flex; align-items:stretch; gap:10px;}
+.ces-qcol{flex:1; min-width:0;}
+.ces-qchev{
+  flex:0 0 auto; align-self:center; width:26px; min-height:44px; display:flex; align-items:center; justify-content:center;
+  border:1px solid var(--rule); border-radius:8px; background:var(--paper-2); color:var(--ink-faint); cursor:pointer; padding:0;
+  transition:border-color .15s, color .15s;
+}
+.ces-qchev svg{width:15px; height:15px;}
+.ces-qchev:hover:not(:disabled){border-color:color-mix(in srgb, var(--indigo) 50%, var(--rule)); color:var(--indigo);}
+.ces-qchev:disabled{opacity:.35; cursor:default;}
+.ces-qtools{display:flex; gap:10px; margin:8px 0 2px;}
+.ces-qtool{
+  padding:4px 11px; border:1px dashed var(--rule); border-radius:999px; background:none; color:var(--ink-faint);
+  font-family:var(--sans); font-size:11.5px; cursor:pointer; transition:border-color .15s, color .15s;
+}
+.ces-qtool:hover{border-color:color-mix(in srgb, var(--indigo) 50%, var(--rule)); color:var(--indigo);}
+.ces-qtool-del:hover{border-color:color-mix(in srgb, var(--zh) 50%, var(--rule)); color:var(--zh);}
+.ces-qtool[hidden]{display:none;}
 .ces-img{cursor:pointer;}
 .ces-img-edit{position:absolute; right:10px; top:10px; font-family:var(--mono); font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; color:#fff; background:rgba(0,0,0,.55); border-radius:7px; padding:5px 9px; opacity:0; transition:opacity .18s; pointer-events:none;}
 .ces-img:hover .ces-img-edit{opacity:1;}

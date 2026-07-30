@@ -8,6 +8,7 @@ window.CHANGELOG = [
     d: "2026-07-30",
     t: "After the ice",
     items: [
+      "Cards can now ask their question in more than one way. Each card may carry several phrasings of the same question, official cards will carry three, and the study page picks one at random each time, so you learn the idea itself rather than the shape of one sentence. If you write your own decks, arrows beside the question box let you add and edit up to ten phrasings per card.",
       "Seven new cards in the World History prehistory deck, in all ten site languages.",
     ],
   },

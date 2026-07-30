@@ -79,7 +79,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `docs/user-decks-plan.md` — the design plan for **community decks** (user-created decks, sharing,
   ratings, an optional per-deck glossary, and a later paid tier). Phases 0–1 have shipped; see the bullet
   in "How the app is wired". Not part of the site.
-- `data.js` — `window.CARD_DATA` and `window.COLLECTION_TREE`. **Currently 30 cards**, all in the
+- `data.js` — `window.CARD_DATA` and `window.COLLECTION_TREE`. **Currently 105 cards** (wh-001…wh-105), all in the
   `wh-prehistory` deck under World History (regrown from the `cnh-001` template, which remains the canonical
   format); the deck is grown one card at a time (see "Generating cards & glossary entries" below).
 - `glossary.js` — `window.GLOSSARY` plus `window.GLOSSARY_DATES`, `GLOSSARY_TITLES`, `GLOSSARY_ALIASES`,
@@ -452,6 +452,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `answerDate` (HTML), `traditional, hanzi, pinyin, translations` (HTML), `abstract` (rich HTML
   card background; may carry `ttip` glossary links, but newly generated cards omit them),
   `citation, answerText`.
+- **Multiple question phrasings (July 2026):** a card may carry an optional **`questions` array of EXTRA
+  phrasings** beyond `question` — **at most `CARD_MAX_QUESTIONS` (10) in all** (official Folio cards carry
+  exactly 3; the headroom is for community decks to experiment). Every phrasing is a full standalone clue
+  under the same rules (mid-sentence blank, ~28 words), each testing the concept from a different angle so
+  students learn the concept rather than one sentence's shape. `cardQuestions(c)` returns the non-blank pool;
+  **`cardWithQuestion(c, pickIdx?)`** returns a COPY with `question` set to one of them — **random per show**
+  on the study page, **date-seeded** for the card of the day, **fixed per round** in Multiple Choice (so the
+  results summary repeats what was asked). Translations carry their own pool (`i18n[lang].questions`), and
+  `cardLocalized` **falls back to the single translated question when a language hasn't translated the
+  extras** — never a translated question mixed with English extras. In the editors the question box gets
+  **chevrons (‹ ›) that cycle the pool** plus a "1 / 3" counter and add/remove controls; edits write through
+  `setQuestions` (curated: `setCardEdit` + `setCardQuestionsEdit`, a delta with a null tombstone like
+  image/video; i18n: `setCardI18nEdit`; Studio: `uCardSetQuestions`). The HTML source box gives each phrasing
+  its own `<!-- QUESTION -->` / `<!-- QUESTION 2 -->` … section. Extras ride through export/publish/install
+  and are sanitized on ingest (`uCardSanitize`, capped at 9 extras). The admin card search matches every
+  phrasing. Backfill existing cards with `.claude/add-questions.js` (see "Generating cards").
 - **Card image (optional):** `card.image = { src, title, desc, credit }` — rendered by `buildBack` as a **16:9
   frame** (`.card-img`, `cardImageHTML`) at the top of the Background section, above the prose (the section now
   renders when a card has an image even without an abstract). Clicking it opens the **fullscreen viewer**
@@ -1265,6 +1281,17 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   `add-card.js` refuses an English question outside 20–34 words and warns on a translation that has
   not been shortened with it. **The translations follow the same rule in their own idiom** — a
   language does not get to keep the long version.
+- `questions` — **REQUIRED for every new card: exactly 2 EXTRA phrasings of the question** (3 in all —
+  the study page asks one of the three at random each time the card comes up, so students remember the
+  concept rather than the shape of one sentence). Each extra follows every `question` rule above
+  (mid-sentence blank, ~28 words, 20–34) and must **approach the concept from a genuinely different
+  angle** — lead with a different fact from the card's background (a function, a date, a place, a
+  consequence), never a reworded copy of the same clue. All three must stay answerable from the card's
+  own background. `add-card.js` refuses a new card without exactly 2 well-formed extras.
+  **Backfilling existing cards** is batched through `node .claude/add-questions.js <batch.json>`
+  (`{ "cards": { "<id>": { "questions": [q2, q3], "i18n": { "es": [q2, q3], … all 9 } } } }`) — it
+  merges ONLY the question pools, per language, without touching any other field or language
+  (`update-cards.js` would clobber the whole `i18n` object; don't use it for this).
 - Chinese fields (`hanzi, pinyin, traditional, translations`) — fill only if the term has a Chinese
   form, else `""`. `translations` wraps the pinyin: `<div class="tr-pinline"><span class="tr-pin">…</span></div>`.
 - `answerDate` — a `<div class="dt"><span class="dt-k">Date</span><span class="dt-v">…</span></div>`
@@ -1279,10 +1306,11 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
 - `image` / `video` (optional, one or the other) — `{ src, title, desc, credit }`. **`credit` is required**:
   `add-card.js` refuses a `src` with no source line, matching the editors' media gate.
 - `i18n` — **REQUIRED for every new card**: the card translated into all 9 site languages,
-  `"i18n": { "es": { "question": …, "answer": …, "answerDate": …, "abstract": …, "answerText": … }, "fr": …,
+  `"i18n": { "es": { "question": …, "questions": [q2, q3], "answer": …, "answerDate": …, "abstract": …,
+  "answerText": … }, "fr": …,
   "de": …, "it": …, "nl": …, "ru": …, "ar": …, "zh": …, "ja": … }`. Each language mirrors the English fields under the
   SAME formatting rules (blank `<span class="blank">_____</span>` mid-sentence, a question of the same
-  ~28-word brevity as the English, 2×5-sentence abstract with one
+  ~28-word brevity as the English, **a `questions` array with the same 2 extra phrasings translated**, 2×5-sentence abstract with one
   `<b>` on the answer term, `<i>` for titles, no parentheses, dt-block markup in `answerDate`). Translate
   meaning-for-meaning at native quality — **not a literal, word-for-word rendering of the English.** Each language
   must read as though it were written by a native speaker for teenagers in that language: use its own natural phrasing,
