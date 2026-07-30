@@ -1281,6 +1281,7 @@
   const SUPA_GUEST_KEY = "folio_supa_guest_v1"; // the device/guest state stashed while someone is signed in
   let SUPA = null;          // the live session (or null = signed out / guest)
   let SUPA_PROFILE = null;  // cached profiles row { id, username, name, role, joined }
+  let _bootWantedAdmin = false;   // the page loaded on #admin before the admin role could be known — supaBoot routes back once it is
   function supaLoggedIn() { return !!(SUPA && SUPA.user && SUPA.user.id); }
   function supaSaveSession() { try { if (SUPA) localStorage.setItem(SUPA_SESS_KEY, JSON.stringify(SUPA)); else localStorage.removeItem(SUPA_SESS_KEY); } catch (e) {} }
   function supaAdoptSession(d) {   // d = an auth response with access_token/refresh_token/expires_in/user
@@ -1541,6 +1542,9 @@
     if (S._supaOwner !== SUPA.user.id) { supaClaimLocal(); try { localStorage.setItem(STORE_KEY, JSON.stringify(S)); } catch (e) {} }
     await supaLoadProfile();
     applyMode();
+    // the reload happened ON the Edit page — now that the role is known, send an admin back there
+    // (only if they're still sitting on the Home page the boot fallback left them on)
+    if (_bootWantedAdmin && isAdmin() && current && current.name === "home") { _bootWantedAdmin = false; route("admin"); }
     const row = await supaPull();
     if (row && row.updated_at && row.updated_at !== S._supaTs) {
       // another device wrote since this one last synced → adopt the server copy (last write wins)
@@ -4858,7 +4862,7 @@
         <div class="atlas-copy">
           <span class="exp-eyebrow">The Atlas</span>
           <span class="atlas-title">See the world's borders move</span>
-          <span class="atlas-sub">A globe you can spin and rewind — four centuries of political maps, every country clickable, back to 1600.</span>
+          <span class="atlas-sub">A globe you can spin and rewind.</span>
           <span class="exp-hint">Open the Atlas</span>
         </div>
         <canvas id="miniGlobe" class="mini-globe" aria-hidden="true"></canvas>
@@ -6316,7 +6320,11 @@
       revealed = false;
       hideGradeBar();
       const id = queue[0];
-      const c = cardWithQuestion(cardLocalized(cardById(id)));   // the selected site language when translated, asking ONE of the card's phrasings at random this show
+      // the selected site language when translated, asking ONE of the card's phrasings at random this show —
+      // except arriving from the Card-of-the-day tile, which asks the tile's own date-seeded phrasing so the
+      // study page repeats the question the reader just flipped rather than a random sibling of it
+      const codPick = params.scope.addTo === "cotd" ? (n) => (hashStr("codq-" + todayStr()) >>> 0) % n : undefined;
+      const c = cardWithQuestion(cardLocalized(cardById(id)), codPick);
       const rc = remainingCounts();
 
       root.innerHTML = `
@@ -13633,7 +13641,10 @@
   if (initName === "map" && hParts.length > 1) parseMapHash(hParts);   // #map/<year>/<slug> deep link
   let initParams = {};
   if (initName === "deck") { try { initParams.slug = decodeURIComponent(hParts[1] || ""); } catch (e) { initParams.slug = hParts[1] || ""; } }   // a mangled %-escape must not kill boot
-  if (initName === "admin" && !isAdmin()) initName = "home";
+  // A refresh on #admin lands BEFORE supaBoot() has restored the session and loaded the profile role, so
+  // isAdmin() says no for a signed-in admin and the editor reader was bounced to Home on every reload.
+  // Boot to Home as before, but remember the intent — supaBoot routes back once the role has arrived.
+  if (initName === "admin" && !isAdmin()) { _bootWantedAdmin = true; initName = "home"; }
   current = { name: initName, params: initParams };
   applyTheme();
   applyMode();

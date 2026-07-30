@@ -15,6 +15,9 @@ window.CHANGELOG = [
       "In the card editor, the controls for a card's extra ways of asking now say question instead of phrasing.",
       "On a phone, the Timeline tab of the Edit page no longer cuts off partway down: the list of eras now runs the full length of the page and scrolls with it.",
       "The menu bar now shows each page as an icon: point at one and its name unfolds beside it, and the page you are on keeps its name showing.",
+      "Studying the Card of the day now asks you the very question you saw on the tile, rather than another of the card's phrasings.",
+      "The Atlas tile on the home page now introduces itself in one short line.",
+      "Refreshing the browser on the Edit page now keeps you there instead of dropping you back on the home page.",
     ],
   },
   {
