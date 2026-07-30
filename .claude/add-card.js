@@ -4,9 +4,10 @@
 //
 //   node .claude/add-card.js <card.json> [deckId]
 //
-// <card.json>  a file holding ONE card object (all 13 fields), PLUS an `i18n` block with the card
-//              translated into all 9 site languages (see CLAUDE.md):
-//                "i18n": { "es": { "question": …, "answer": …, "answerDate": …, "abstract": …, "answerText": … },
+// <card.json>  a file holding ONE card object (all 13 fields), PLUS a `questions` array of 2 extra
+//              question phrasings (3 in all — the site asks one at random), PLUS an `i18n` block with
+//              the card translated into all 9 site languages (see CLAUDE.md):
+//                "i18n": { "es": { "question": …, "questions": [q2, q3], "answer": …, "answerDate": …, "abstract": …, "answerText": … },
 //                          "fr": …, "de": …, "it": …, "nl": …, "ru": …, "ar": …, "zh": … }
 //              (pass "skipTranslations": true only for a deliberate English-only maintenance edit).
 //              deckId defaults to the first leaf deck.
@@ -27,15 +28,31 @@ function loadWindow(file) { const win = {}; new Function("window", fs.readFileSy
 function leafDecks(node, acc) { for (const ch of node.children || []) { if (ch.cardIds) acc.push(ch); if (ch.children) leafDecks(ch, acc); } return acc; }
 function countIds(node) { const s = new Set(); (function w(n){ (n.cardIds||[]).forEach(i=>s.add(i)); (n.children||[]).forEach(w); })(node); return s.size; }
 
+// Every official card asks its question 3 ways: `question` plus a `questions` array of exactly
+// N_EXTRA further phrasings (each a full standalone clue under the same rules — mid-sentence blank,
+// ~28 words). The site shows one of the three at random each time the card comes up. The data model
+// allows up to 10 in all (community decks may experiment); official cards carry exactly 3.
+const N_EXTRA = 2;
+
 const cardFile = process.argv[2], deckId = process.argv[3];
 if (!cardFile) { console.error("usage: node .claude/add-card.js <card.json> [deckId]"); process.exit(1); }
 const card = JSON.parse(fs.readFileSync(cardFile, "utf8"));
 for (const f of FIELDS) if (!(f in card)) { console.error("ERROR: card is missing field:", f); process.exit(1); }
 if (!card.id) { console.error("ERROR: card.id is empty"); process.exit(1); }
-const qn = qWords(card.question);
-if (qn < Q_MIN || qn > Q_MAX) {
-  console.error("ERROR: question is " + qn + " words — it must be " + Q_MIN + "–" + Q_MAX + " (aim for ~28; see CLAUDE.md). Keep one identifying clue and move the rest into the abstract.");
+if (!Array.isArray(card.questions) || card.questions.length !== N_EXTRA || card.questions.some(q => typeof q !== "string" || !q.trim())) {
+  console.error("ERROR: card needs a `questions` array of exactly " + N_EXTRA + " EXTRA phrasings (3 questions in all — see CLAUDE.md). Each is a full standalone clue with its own mid-sentence blank.");
   process.exit(1);
+}
+for (const [qi, q] of [card.question, ...card.questions].entries()) {
+  const qn = qWords(q);
+  if (qn < Q_MIN || qn > Q_MAX) {
+    console.error("ERROR: question " + (qi + 1) + " is " + qn + " words — it must be " + Q_MIN + "–" + Q_MAX + " (aim for ~28; see CLAUDE.md). Keep one identifying clue and move the rest into the abstract.");
+    process.exit(1);
+  }
+  if (!/class="blank"/.test(q)) {
+    console.error("ERROR: question " + (qi + 1) + " has no <span class=\"blank\">_____</span> — every phrasing blanks the answer mid-sentence.");
+    process.exit(1);
+  }
 }
 // nothing Folio shows is uncredited — the editors gate this too (wireMediaSource in app.js), and a card
 // written straight into data.js has to meet the same rule or the credit is simply never added
@@ -50,12 +67,15 @@ if (!card.skipTranslations) {   // every new card ships in all 9 site languages 
   for (const l of I18N_LANGS) {
     const tr = (card.i18n || {})[l] || {};
     for (const f of I18N_FIELDS) if (!(typeof tr[f] === "string" && tr[f].trim())) missing.push(l + "." + f);
+    // the phrasing pool translates as a set: every language carries the same number of extras
+    if (!Array.isArray(tr.questions) || tr.questions.length !== N_EXTRA || tr.questions.some(q => typeof q !== "string" || !q.trim())) missing.push(l + ".questions[" + N_EXTRA + "]");
   }
-  if (missing.length) { console.error("ERROR: card needs `i18n` translations for all 9 languages × 5 fields (missing: " + missing.slice(0, 10).join(", ") + (missing.length > 10 ? " … +" + (missing.length - 10) : "") + ") — or set skipTranslations:true for a deliberate English-only maintenance edit"); process.exit(1); }
+  if (missing.length) { console.error("ERROR: card needs `i18n` translations for all 9 languages × 5 fields + the `questions` extras (missing: " + missing.slice(0, 10).join(", ") + (missing.length > 10 ? " … +" + (missing.length - 10) : "") + ") — or set skipTranslations:true for a deliberate English-only maintenance edit"); process.exit(1); }
   for (const l of I18N_LANGS) {   // a translation must be as short as the English, in its own idiom
-    const q = card.i18n[l].question;
-    const long = (l === "zh" || l === "ja") ? plain(q).length > Q_TR_MAX_CHARS : qWords(q) > Q_TR_MAX_WORDS;
-    if (long) console.warn("WARNING: the " + l + " question looks much longer than the English — shorten it to match (see CLAUDE.md).");
+    for (const q of [card.i18n[l].question, ...(card.i18n[l].questions || [])]) {
+      const long = (l === "zh" || l === "ja") ? plain(q).length > Q_TR_MAX_CHARS : qWords(q) > Q_TR_MAX_WORDS;
+      if (long) console.warn("WARNING: a " + l + " question looks much longer than the English — shorten it to match (see CLAUDE.md).");
+    }
   }
 }
 delete card.skipTranslations;   // control flag only — never written to data.js
