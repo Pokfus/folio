@@ -2544,6 +2544,11 @@ body.grading .admin-edit-fab{bottom:108px;}
   .admin-collapse{display:none;}
   .admin-list{width:auto; border-right:0; border-bottom:1px solid var(--rule);}
   .admin-list-items{max-height:300px;}
+  /* timeline + feedback take over the whole admin area, so the panel cap above would trap the entire
+     page in a 300px scroll box — let those two run full height and scroll with the page instead */
+  .admin.timeline-mode .admin-list-items,.admin.feedback-mode .admin-list-items{max-height:none;}
+  .tl-edit{padding:18px 14px;}
+  .tl-era{flex-wrap:wrap; row-gap:8px;}
   .admin-editor{padding:18px 16px 64px;}
   body.grading .admin-edit-fab{bottom:170px;}
 }
