@@ -12,6 +12,7 @@ window.CHANGELOG = [
       "Two extra ways of asking the question added to 105 cards in the World History prehistory deck, in all ten site languages.",
       "Seven new cards in the World History prehistory deck, in all ten site languages.",
       "The Feedback tab on the Edit page now shows in red rather than grey, matching the coloured tabs beside it.",
+      "In the card editor, the controls for a card's extra ways of asking now say question instead of phrasing.",
     ],
   },
   {
