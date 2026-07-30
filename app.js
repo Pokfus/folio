@@ -12282,11 +12282,11 @@
           // them (the study page asks one at random). One live field — the pool lives in the wiring's qList.
           '<span class="label">Question <span class="ces-qpos" id="cesQPos" hidden></span></span>' +
           '<div class="ces-qrow">' +
-            '<button type="button" class="ces-qchev" id="cesQPrev" aria-label="Previous question phrasing" title="Previous phrasing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>' +
+            '<button type="button" class="ces-qchev" id="cesQPrev" aria-label="Previous question" title="Previous question"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>' +
             '<div class="ces-qcol">' + live("question", "question") + '</div>' +
-            '<button type="button" class="ces-qchev" id="cesQNext" aria-label="Next question phrasing" title="Next phrasing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>' +
+            '<button type="button" class="ces-qchev" id="cesQNext" aria-label="Next question" title="Next question"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>' +
           '</div>' +
-          '<div class="ces-qtools"><button type="button" class="ces-qtool" id="cesQAdd" title="A card asks one of its phrasings at random each time it is shown">+ Add another phrasing</button><button type="button" class="ces-qtool ces-qtool-del" id="cesQDel" hidden>Remove this phrasing</button></div>' +
+          '<div class="ces-qtools"><button type="button" class="ces-qtool" id="cesQAdd" title="A card asks one of its questions at random each time it is shown">+ Add another question</button><button type="button" class="ces-qtool ces-qtool-del" id="cesQDel" hidden>Remove this question</button></div>' +
           '<div class="reveal show"><div class="reveal-inner">' +
             '<div class="answer"><div class="answer-main"><span class="label">Answer</span>' +
               '<div class="answer-av">' + live("answer", "val") + '<div class="av-row">' + live("answerDate", "ces-date") + '</div></div></div></div>' +
@@ -12366,7 +12366,7 @@
         qCommit(); afterEdit("question");
         qShow(Math.min(qIdx, qList.length - 1));
       };
-      if (String(qList[qIdx] || "").trim()) inlineConfirm("Remove this phrasing of the question? The card's other phrasings stay.", drop, "Remove");
+      if (String(qList[qIdx] || "").trim()) inlineConfirm("Remove this question? The card's other questions stay.", drop, "Remove");
       else drop();
     });
     qSyncNav();
