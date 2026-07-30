@@ -79,7 +79,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `docs/user-decks-plan.md` — the design plan for **community decks** (user-created decks, sharing,
   ratings, an optional per-deck glossary, and a later paid tier). Phases 0–1 have shipped; see the bullet
   in "How the app is wired". Not part of the site.
-- `data.js` — `window.CARD_DATA` and `window.COLLECTION_TREE`. **Currently 105 cards** (wh-001…wh-105), all in the
+- `data.js` — `window.CARD_DATA` and `window.COLLECTION_TREE`. **Currently 105 cards** (wh-001…wh-105), **each carrying its full pool of 3 question phrasings** (`question` + 2 `questions` extras) in EN + all 9 languages, all in the
   `wh-prehistory` deck under World History (regrown from the `cnh-001` template, which remains the canonical
   format); the deck is grown one card at a time (see "Generating cards & glossary entries" below).
 - `glossary.js` — `window.GLOSSARY` plus `window.GLOSSARY_DATES`, `GLOSSARY_TITLES`, `GLOSSARY_ALIASES`,
