@@ -8,7 +8,7 @@ window.CHANGELOG = [
     d: "2026-07-30",
     t: "After the ice",
     items: [
-      "Two new cards in the World History prehistory deck, in all ten site languages.",
+      "Three new cards in the World History prehistory deck, in all ten site languages.",
     ],
   },
   {
