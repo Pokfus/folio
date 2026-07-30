@@ -11,6 +11,7 @@ window.CHANGELOG = [
       "Cards can now ask their question in more than one way. Each card may carry several phrasings of the same question, official cards will carry three, and the study page picks one at random each time, so you learn the idea itself rather than the shape of one sentence. If you write your own decks, arrows beside the question box let you add and edit up to ten phrasings per card.",
       "Two extra ways of asking the question added to 105 cards in the World History prehistory deck, in all ten site languages.",
       "Seven new cards in the World History prehistory deck, in all ten site languages.",
+      "The Feedback tab on the Edit page now shows in red rather than grey, matching the coloured tabs beside it.",
     ],
   },
   {
