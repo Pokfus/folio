@@ -2094,25 +2094,29 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
   transition:color .15s var(--ease), text-decoration-color .15s var(--ease), background .15s var(--ease);
   border-radius:3px;
 }
-/* A term already read recedes — the reader's own "visited link" (data-seen is set by markTtipSeen).
-   Only the READ ones are marked: a curated card links about fifteen terms, so badging the unread would
-   put a rash of ornament on the one surface that has to stay readable. Dimming what is done instead
-   leaves everything still to discover standing at full strength, and costs no extra ink.
-   This must stay ABOVE the :hover rule — equal specificity, so source order decides, and a read term
-   still has to light up fully under the cursor.
-   The mix is deliberately not subtler than this: at 68% indigo the two states were a few RGB points
-   apart and only the underline told them apart, which is invisible at reading size. It also must not go
-   much further — the dotted underline is what still says "this is a link", and a read term that reads as
-   plain body text has lost its affordance. */
-.ttip[data-seen]{
-  color:color-mix(in srgb,var(--indigo) 42%,var(--ink-soft));
-  text-decoration-color:color-mix(in srgb,var(--indigo) 16%,transparent);
+/* An UNDISCOVERED term wears the gold of the blank in a card's question (--ochre, and theme-aware with
+   it), so a term not yet read looks like something waiting to be filled in. A term already read carries
+   no attribute and keeps the ordinary glossary-link styling above, unchanged — the mark is the
+   invitation, not a record of what is finished. (markTtipNew sets data-new; deck terms never get it.) */
+.ttip[data-new]{
+  color:var(--ochre);
+  text-decoration-color:color-mix(in srgb,var(--ochre) 55%,transparent);
 }
 .ttip:hover,.ttip:focus-visible{
   color:var(--indigo-bright); text-decoration-color:var(--indigo-bright);
   background:var(--indigo-wash); outline:none;
 }
 .night .ttip:hover,.night .ttip:focus-visible{ color:var(--indigo); background:color-mix(in srgb,var(--indigo) 16%,transparent); }
+/* An undiscovered term stays gold under the cursor — jumping to the indigo hover would read as the term
+   changing state before it has been opened. These sit AFTER the rules above: equal specificity, so
+   source order decides (and the .night pair below outranks .night .ttip:hover outright). */
+.ttip[data-new]:hover,.ttip[data-new]:focus-visible{
+  color:var(--ochre); text-decoration-color:var(--ochre);
+  background:color-mix(in srgb,var(--ochre) 13%,transparent); outline:none;
+}
+.night .ttip[data-new]:hover,.night .ttip[data-new]:focus-visible{
+  color:var(--ochre); background:color-mix(in srgb,var(--ochre) 18%,transparent);
+}
 .ttip b,.ttip i,.ttip strong{ color:inherit; }
 
 /* ---- discovery chip (shared: the glossary popup's bar and the Atlas info panel) ----
@@ -2121,17 +2125,39 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
    at just then. It takes the same gold as the level badges, so a find reads in the reward language the
    site already speaks. */
 .disc-chip{
-  flex:none; display:inline-flex; align-items:center; gap:6px;
+  position:relative; flex:none; display:inline-flex; align-items:center; gap:6px;
   font-family:var(--mono); font-size:9px; font-weight:600; letter-spacing:.11em; text-transform:uppercase;
   padding:3px 8px; border-radius:999px; white-space:nowrap;
   color:#7A5E10; background:color-mix(in srgb,#C39A2E 22%,transparent);
   border:1px solid color-mix(in srgb,#C39A2E 46%,transparent);
-  animation:discPop .42s var(--ease) both;
+  animation:discPop .5s var(--ease) both, discRing .9s var(--ease) both;
+}
+/* the second ring of the splash, a beat behind the first */
+.disc-chip::after{
+  content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
+  animation:discRing .9s .22s var(--ease) both;
 }
 .disc-chip b{font-weight:700;}
 .disc-n{opacity:.72; letter-spacing:.04em;}
 .night .disc-chip{ color:#E6C765; background:color-mix(in srgb,#E6C765 15%,transparent); border-color:color-mix(in srgb,#E6C765 40%,transparent); }
-@keyframes discPop{ from{opacity:0; transform:scale(.82);} to{opacity:1; transform:scale(1);} }
+/* Pop with a little overshoot, then two rings splashing outwards.
+   The rings are BOX-SHADOW spread, not a scaled pseudo-element: the chip sits inside .gloss-win
+   (overflow:hidden) and inside .cp-cols (overflow-y:auto), where a transformed ring would be clipped by
+   the one and could add a scrollbar to the other. A box-shadow never enters the scrollable overflow area.
+   Both animations end fully transparent, so the reduced-motion killswitch at the foot of this file —
+   which lands every animation on its END state — correctly leaves no ring behind. */
+@keyframes discPop{ 0%{opacity:0; transform:scale(.72);} 55%{opacity:1; transform:scale(1.12);} 100%{opacity:1; transform:scale(1);} }
+@keyframes discRing{
+  from{ box-shadow:0 0 0 0 color-mix(in srgb,#C39A2E 62%,transparent); }
+  to  { box-shadow:0 0 0 15px color-mix(in srgb,#C39A2E 0%,transparent); }
+}
+/* the chip runs two animations, the ::after only one — so the name lists differ */
+.night .disc-chip{ animation-name:discPop, discRingNight; }
+.night .disc-chip::after{ animation-name:discRingNight; }
+@keyframes discRingNight{
+  from{ box-shadow:0 0 0 0 color-mix(in srgb,#E6C765 55%,transparent); }
+  to  { box-shadow:0 0 0 15px color-mix(in srgb,#E6C765 0%,transparent); }
+}
 .cp-new{margin:0 0 7px;}
 .cp-new[hidden]{display:none;}
 

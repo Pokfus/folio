@@ -459,19 +459,34 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     on first sight**, and that return is the entire signal. Both call sites (`openGlossWin`,
     `showCountryPopupName`) mark on the way IN, above everything that renders, so **anything asking "is
     this new?" at render time is always told no** — capture the return at the top, as they now do.
-    · Glossary links carry **`data-seen`** (set by `markTtipSeen`, called from `setupTooltips` — the one
-      choke point every `.ttip` render path already goes through, hand-authored and auto-linked alike);
-      `.ttip[data-seen]` in styles.css dims them. **Only the READ ones are marked**: a curated card links
-      ~15 terms, so badging the unread would put a rash of ornament on the one surface that must stay
-      readable. The rule sits **above `.ttip:hover`** (equal specificity → source order) so a read term
-      still lights up under the cursor, and the mix is tuned to be visible at reading size without
-      costing the dotted underline that says "this is a link". Deck terms are never marked (they are not
-      in the register). `refreshTtipSeen(key)` re-marks every matching link on the page the moment a
-      popup opens, so the prose behind it dims at once rather than on the next render.
-    · The **first** opening also shows a gold chip (`discChipHTML` → `.disc-chip`): "New term 41 / 333" in
-      the gloss popup's bar, "New place 7 / 258" in the Atlas panel (`#cpNew`). The Atlas panel element is
-      REUSED, so it must be cleared on every non-first open. A historical territory gets the label with
-      **no ratio** — it is not part of any set with an honest total. The figure carries `notranslate`.
+    · **The UNDISCOVERED term is the marked one.** A glossary link not yet opened carries **`data-new`**
+      (set by `markTtipNew`, called from `setupTooltips` — the one choke point every `.ttip` render path
+      already goes through, hand-authored and auto-linked alike), and `.ttip[data-new]` paints it in
+      **`--ochre`, the same gold as the blank in a card's question**, so an unread term reads as something
+      waiting to be filled in. **A term already read carries no attribute and renders exactly as every
+      glossary link always has** — the familiar state is untouched, because the mark is the invitation,
+      not a record of what is finished. (It was briefly the other way round — read terms dimmed — and was
+      changed on request; don't reintroduce that.) It writes an explicit `data-new` rather than styling
+      `:not([data-seen])` **because deck terms are in neither register** and would otherwise sit gold and
+      undiscoverable forever. `.ttip[data-new]:hover` keeps the gold — jumping to the indigo hover would
+      read as the term changing state before it was opened — and sits **after** the base `:hover` rules
+      (equal specificity → source order). `refreshTtipNew(key)` re-marks every matching link on the page
+      the moment a popup opens, so the prose behind it loses its gold at once, not on the next render.
+    · The **first** opening also shows a gold chip (`discChipHTML` → `.disc-chip`): "New term! 41 / 333"
+      in the gloss popup's bar, "New place! 7 / 258" in the Atlas panel (`#cpNew`), with a **splash** of
+      two expanding rings (`discRing` / `discRingNight`, staggered onto `::after`) and a **`sfx("discover")`
+      chime**. The rings are **box-shadow spread, never a scaled pseudo-element**: the chip sits inside
+      `.gloss-win` (`overflow:hidden`) and `.cp-cols` (`overflow-y:auto`), where a transform would be
+      clipped by the one and could add a scrollbar to the other. Both animations **end fully transparent**,
+      so the reduced-motion killswitch — which lands animations on their END state — leaves no ring behind.
+      The Atlas panel element is REUSED, so it must be cleared on every non-first open. A historical
+      territory gets the label with **no ratio** — it is not part of any set with an honest total. The
+      figure carries `notranslate`. **The chime is suppressed in the Find-it game** (`if (!GAME)`):
+      `gameTap`/`gameReveal` have just played their own `good`/`bad`, and a bright discovery chime over
+      `bad` would congratulate a reader for a wrong answer. The chip still shows — the sound was the only
+      part that contradicted the game.
+      The `!` is part of the translated string (Spanish opens with `¡`, CJK uses the full-width `！`), so
+      the exclamation-less keys were retired from all nine language files when it was added.
     · Four achievements ride on the same counts (`terms25` / `terms100` / `places50` / `placesAll`, fed by
       `progStats`'s `terms` / `countries` / `countryTotal`), and `checkAchievements()` is called from both
       first-sight branches. `countries` is 0 until `world.js` loads, which only ever DELAYS a badge —
@@ -673,7 +688,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **Known gap:** the `PAGE_META` titles/descriptions have no `i18n/ui-<lang>.js` entries yet, so `document.title` stays
   English in other languages (the documented graceful fallback). Adding them is a content task.
 - **UI sound effects** (the `/* UI sound effects */` block in app.js): tiny synthesized Web-Audio sounds, no files —
-  `sfx(name)` with click / toggle / pop / good / bad / win, played by ONE delegated **capture-phase** click listener
+  `sfx(name)` with click / toggle / pop / good / bad / win / **discover** (a term or place opened for the first
+  time — see the discovery-marks bullet above), played by ONE delegated **capture-phase** click listener
   (so a handler's `stopPropagation` can't swallow the tick) that maps button-likes to sounds (grades → good/bad,
   `#reveal-btn` + `.card-img` → pop, switches → toggle, everything else → click), plus hooks in `congratsPopup`,
   `checkAchievements` and `markGamePlayed(won)` → win. Gated by **Settings → Audio → Sound effects**

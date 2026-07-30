@@ -1105,6 +1105,7 @@
 
   /* ---------- UI sound effects — synthesized with the Web Audio API (no files, zero deps) ----------
      sfx(name): click (buttons), toggle (switches), pop (reveal / image viewer), good / bad (grades),
+     discover (a term or place opened for the first time),
      win (level-ups, achievements, perfect games). Gated by Settings → Sound effects (S.settings.sfx,
      on by default); the shared AudioContext is created lazily and resumed inside the click gesture,
      which satisfies every browser's autoplay policy. Volumes are deliberately tiny. */
@@ -1136,6 +1137,11 @@
     else if (name === "good") { sfxTone(ctx, t, 660, 0.09, 0.05, "sine"); sfxTone(ctx, t + 0.08, 880, 0.13, 0.05, "sine"); }
     else if (name === "bad") sfxTone(ctx, t, 230, 0.13, 0.06, "sine", 155);
     else if (name === "win") [523, 659, 784, 1047].forEach((f, i) => sfxTone(ctx, t + i * 0.085, f, 0.16, 0.05, "triangle"));
+    else if (name === "discover") {   // a new term or place: a bright rising sparkle, shorter and lighter than "win"
+      [784, 1047, 1319].forEach((f, i) => sfxTone(ctx, t + i * 0.055, f, 0.12, 0.042, "triangle"));
+      sfxTone(ctx, t + 0.19, 1976, 0.26, 0.02, "sine");
+      sfxTone(ctx, t + 0.28, 2637, 0.22, 0.014, "sine");
+    }
     else if (name === "levelup") {   // the level-up fanfare: a quick rising run into a held major chord with a sparkle on top
       [392, 523, 659, 784].forEach((f, i) => sfxTone(ctx, t + i * 0.07, f, 0.14, 0.05, "triangle"));
       [523, 659, 784, 1047].forEach((f) => sfxTone(ctx, t + 0.32, f, 0.55, 0.03, "triangle"));
@@ -2249,7 +2255,7 @@
     // to be captured here, at the top: by the time the popup below is built the term is already recorded, so
     // anything asking "is this new?" at render time would always be told no.
     const firstSeen = !isDeckGlossKey(key) && markSeen("glossSeen", key);
-    if (firstSeen) { refreshTtipSeen(key); checkAchievements(); }
+    if (firstSeen) { refreshTtipNew(key); sfx("discover"); checkAchievements(); }
     const mobile = isMobileGloss();
     const existing = glossWins.find((w) => w.dataset.k === key);
     if (existing) { if (!mobile) { focusGlossWin(existing); flashGloss(existing); } return; }
@@ -2265,7 +2271,7 @@
         '<span class="gloss-title"></span>' +
         // the discovery chip: shown only on the very first opening, and carrying the running count, because
         // the progress is the point — the account page's meter is not where a reader is looking just now
-        (firstSeen ? discChipHTML("New term", discCounter(glossSeenCount(S), glossTotalCount()), "Glossary terms you have opened") : "") +
+        (firstSeen ? discChipHTML("New term!", discCounter(glossSeenCount(S), glossTotalCount()), "Glossary terms you have opened") : "") +
         (isAdmin() && !isDeckGlossKey(key) ? '<button class="gloss-edit" type="button" aria-label="Edit this term" title="Edit this term"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>' : "") +
         '<button class="gloss-close" type="button" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>' +
       '</div>' +
@@ -2313,28 +2319,29 @@
     requestAnimationFrame(() => win.classList.add("show"));
   }
 
-  /* A term you have already read is marked, not the other way round — the reader's own "visited link".
-     Marking the UNREAD ones would put a badge on nearly every term in a fresh reader's card background
-     (a curated card links ~15 of them), which is a rash of ornament on the one surface that has to stay
-     readable. Marking the read ones instead costs no extra ink: they simply recede, and what is left
-     standing at full strength is everything still to discover.
-     Deck terms are deliberately left unmarked — glossSeen does not record them (a stranger's deck would
-     let the count pass 100%), so they carry no attribute and render exactly as they always have. */
-  function markTtipSeen(el) {
+  /* The UNDISCOVERED term is the marked one: `data-new` puts it in the same gold as the blank in a card's
+     question (`--ochre`), so what has not been read yet reads as something waiting to be filled in. A term
+     already read carries no attribute at all and renders exactly as every glossary link always has —
+     nothing about the familiar state changed, which is the point: the mark is the invitation, not a
+     record of what is done.
+     Deck terms are deliberately left unmarked in BOTH directions — glossSeen does not record them (a
+     stranger's deck would let the count pass 100%), so they must not sit gold and undiscoverable forever.
+     That is why this writes an explicit `data-new` rather than styling `:not([data-seen])`. */
+  function markTtipNew(el) {
     const k = el.dataset.k;
-    if (k && !isDeckGlossKey(k) && S.glossSeen && S.glossSeen[k]) el.setAttribute("data-seen", "1");
-    else el.removeAttribute("data-seen");
+    if (k && !isDeckGlossKey(k) && !(S.glossSeen && S.glossSeen[k])) el.setAttribute("data-new", "1");
+    else el.removeAttribute("data-new");
   }
-  // every .ttip currently on the page that points at this term — the prose behind a popup must dim the
-  // moment its term is read, not on the next render (which for a study card is the next card entirely)
-  function refreshTtipSeen(key) {
-    document.querySelectorAll(".ttip").forEach((el) => { if (el.dataset.k === key) markTtipSeen(el); });
+  // every .ttip currently on the page that points at this term — the prose behind a popup must lose its
+  // gold the moment the term is read, not on the next render (which for a study card is the next card)
+  function refreshTtipNew(key) {
+    document.querySelectorAll(".ttip").forEach((el) => { if (el.dataset.k === key) markTtipNew(el); });
   }
   function setupTooltips(root) {
     root.querySelectorAll(".ttip").forEach((el) => {
       el.setAttribute("tabindex", "0");
       el.setAttribute("role", "button");
-      markTtipSeen(el);
+      markTtipNew(el);
       el.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); openGlossWin(el.dataset.k, el); });
       el.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openGlossWin(el.dataset.k, el); } });
     });
@@ -7771,7 +7778,10 @@
       // first-sight return has to be read HERE, above everything that renders — the register is written on
       // the way in, so a later "is this new?" would always come back no.
       const firstSeen = markSeen("placesSeen", name);
-      if (firstSeen) checkAchievements();
+      // Not in the game: gameReveal/gameTap have just played their own "good" or "bad", and a bright
+      // discovery chime layered over "bad" would congratulate a reader for getting the answer wrong.
+      // The chip still shows — it is the sound, not the find, that would contradict the game.
+      if (firstSeen) { if (!GAME) sfx("discover"); checkAchievements(); }
       const present = !!(activeEra(year) || {}).present;
       const desc = countryDesc(name), yd = countryYear(name, year);   // present-day summary + the per-year paragraph for THIS map-year
       // Title: the state's full legal official name (extracted from the summary's "officially …"), else its name. Main paragraph:
@@ -7783,7 +7793,7 @@
       if (cpNewEl) {   // the discovery chip — first opening only, and the panel element is REUSED, so it must be cleared on every other one
         if (firstSeen) {
           const isCountry = geoNameSet().has(name);
-          cpNewEl.innerHTML = discChipHTML("New place", isCountry ? discCounter(countriesSeenCount(), geoNameSet().size) : "",
+          cpNewEl.innerHTML = discChipHTML("New place!", isCountry ? discCounter(countriesSeenCount(), geoNameSet().size) : "",
             isCountry ? "Present-day countries you have opened on the Atlas" : "");
           cpNewEl.hidden = false;
         } else { cpNewEl.hidden = true; cpNewEl.innerHTML = ""; }
