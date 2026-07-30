@@ -119,8 +119,11 @@ body[data-theme="folio"] .topbar::after{
 }
 .tab:hover{color:var(--ink-soft); background:color-mix(in srgb, var(--ink) 5%, transparent);}
 .tab.active{color:var(--indigo);}
+/* the underline sits under the unfolded page NAME only, never the icon:
+   --ink-start = horizontal padding + icon width + the open label's margin */
 .tab .ink{
-  position:absolute; left:13px; right:13px; bottom:4px; height:2px; border-radius:2px;
+  position:absolute; inset-inline-start:var(--ink-start, 37px); inset-inline-end:var(--ink-end, 13px);
+  bottom:4px; height:2px; border-radius:2px;
   background:var(--indigo); transform:scaleX(0); transform-origin:left; opacity:0;
   transition:transform .28s var(--ease), opacity .2s var(--ease);
 }
@@ -129,24 +132,24 @@ body[data-theme="folio"] .topbar::after{
 
 /* light / dark slider in the top bar */
 .theme-switch{
-  position:relative; flex:none; width:56px; height:27px; margin-right:4px; padding:0;
+  position:relative; flex:none; width:48px; height:21px; margin-right:4px; padding:0;
   appearance:none; cursor:pointer; border-radius:99px;
   border:1px solid var(--rule); background:var(--paper-2);
   display:inline-flex; align-items:center; justify-content:space-between;
   transition:background .3s var(--ease), border-color .3s var(--ease);
 }
-.theme-switch .ic{width:12px; height:12px; flex:none; z-index:1; pointer-events:none; transition:color .3s, opacity .3s;}
-.theme-switch .ic-sun{margin-left:7px; color:var(--ochre); opacity:.85;}
-.theme-switch .ic-moon{margin-left:auto; margin-right:7px; color:var(--indigo-bright); opacity:.4;}
+.theme-switch .ic{width:10px; height:10px; flex:none; z-index:1; pointer-events:none; transition:color .3s, opacity .3s;}
+.theme-switch .ic-sun{margin-left:5px; color:var(--ochre); opacity:.85;}
+.theme-switch .ic-moon{margin-left:auto; margin-right:5px; color:var(--indigo-bright); opacity:.4;}
 .theme-switch .ts-knob{
-  position:absolute; top:2px; left:2px; width:21px; height:21px; border-radius:50%; z-index:2;
+  position:absolute; top:2px; left:2px; width:15px; height:15px; border-radius:50%; z-index:2;
   background:#fff; box-shadow:0 1px 3px rgba(0,0,0,.28);
   transition:transform .3s var(--ease), background .3s var(--ease);
 }
 .theme-switch:hover{border-color:color-mix(in srgb, var(--ink) 18%, var(--rule));}
 .theme-switch:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
 .theme-switch.on{background:var(--indigo-wash); border-color:color-mix(in srgb, var(--indigo) 38%, var(--rule));}
-.theme-switch.on .ts-knob{transform:translateX(29px); background:var(--indigo);}
+.theme-switch.on .ts-knob{transform:translateX(27px); background:var(--indigo);}
 .theme-switch.on .ic-sun{opacity:.4;}
 .theme-switch.on .ic-moon{opacity:.9;}
 
@@ -1617,7 +1620,9 @@ body.night .lu-badge{color:#E6C765;}
 /* ============================================================
    HOME — active decks attached to the Review banner
    ============================================================ */
-.review-group{display:flex; flex-direction:column; position:relative;}
+/* the group carries the Daily-review tile's bronze so the added-deck rows below the banner
+   share its coloration (left bar + wash + earned fills) instead of sitting there colourless */
+.review-group{display:flex; flex-direction:column; position:relative; --tile:#9A6634;}
 .review-order{position:absolute; top:14px; right:14px; z-index:4; display:inline-flex; gap:2px; padding:2px; border:1px solid var(--rule); border-radius:999px; background:var(--card); cursor:pointer; appearance:none; box-shadow:0 1px 4px rgba(0,0,0,.08);}
 .review-order span{padding:3px 10px; border-radius:999px; font-family:var(--sans); font-size:10.5px; font-weight:600; letter-spacing:.03em; color:var(--ink-faint); white-space:nowrap; transition:background .14s,color .14s;}
 .review-order span.on{background:var(--indigo); color:#fff;}
@@ -1626,9 +1631,12 @@ body.night .lu-badge{color:#E6C765;}
 .active-decks{display:flex; flex-direction:column;}
 .active-deck{
   display:flex; align-items:flex-start; gap:13px;
-  background:var(--card); border:1px solid var(--rule); border-top:0;
+  background:linear-gradient(105deg, color-mix(in srgb, var(--tile, #9A6634) 12%, transparent), transparent 64%) var(--card);
+  border:1px solid var(--rule); border-top:0; border-left:4px solid var(--tile, #9A6634);
   padding:14px 22px; animation:pageIn .3s var(--ease) both;
 }
+/* like the banner's own wash, a whisper on dark themes */
+body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, var(--tile, #9A6634) 7%, transparent), transparent 64%) var(--card);}
 .active-deck:last-child{border-bottom-left-radius:14px; border-bottom-right-radius:14px;}
 .active-deck .ad-body{flex:1; min-width:0; display:flex; flex-direction:column; gap:8px;}
 .active-deck .ad-line{display:flex; align-items:baseline; gap:10px; justify-content:space-between;}
@@ -1651,15 +1659,42 @@ body.night .lu-badge{color:#E6C765;}
 .active-deck{transition:padding-left .2s var(--ease), background .16s var(--ease);}
 /* a deck added to the review is clickable → reviews just that deck */
 .active-deck[data-review]{cursor:pointer;}
-.active-deck[data-review]:hover{background:color-mix(in srgb, var(--indigo) 7%, var(--card));}
+.active-deck[data-review]:hover{background:linear-gradient(105deg, color-mix(in srgb, var(--tile, #9A6634) 12%, transparent), transparent 64%) color-mix(in srgb, var(--tile, #9A6634) 8%, var(--card));}
 .active-deck[data-review]:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px;}
-.active-deck.context{padding-top:10px; padding-bottom:10px; background:var(--paper-2);}
+.active-deck.context{padding-top:10px; padding-bottom:10px; background:linear-gradient(105deg, color-mix(in srgb, var(--tile, #9A6634) 9%, transparent), transparent 64%) var(--paper-2);}
 .active-deck.context .ad-title{font-size:14px; color:var(--ink-faint); font-weight:600;}
 /* the ancestor rows' hollow marker went with the active rows' blue dot: it existed to line the two up, and
    left on its own it would have pushed every parent title 21px right of the deck sitting under it. The
    indent (data-depth padding) carries the hierarchy on its own. */
 .active-deck.context .prog .track{background:var(--paper);}
 .active-deck.context .prog .fill{opacity:.65;}
+/* ---------- the earned fill runs down the added decks too, so the group completes as ONE tile ----------
+   rv-done / rv-won are set on .review-group by PAGES.home, mirroring the banner's .done/.won (won always
+   carries done, so the bronze palette below is simply overridden by the gold). Values match the banner's. */
+.review-group.rv-done .active-deck{
+  --rv-fg:#fff; --rv-fg-soft:rgba(255,255,255,.86); --rv-fg-faint:rgba(255,255,255,.72);
+  --rv-trk:rgba(0,0,0,.24); --rv-trk-b:rgba(255,255,255,.3);
+  background:color-mix(in srgb,#000 10%, var(--tile));
+  border-color:color-mix(in srgb,#000 18%, var(--tile));
+  border-left-color:color-mix(in srgb,#000 34%, var(--tile));
+}
+.review-group.rv-done .active-deck.context{background:color-mix(in srgb,#000 20%, var(--tile));}
+.review-group.rv-done .active-deck[data-review]:hover{background:color-mix(in srgb,#000 16%, var(--tile));}
+.review-group.rv-won .active-deck{
+  --rv-fg:#3A2D07; --rv-fg-soft:rgba(58,45,7,.82); --rv-fg-faint:rgba(58,45,7,.68);
+  --rv-trk:rgba(58,45,7,.18); --rv-trk-b:rgba(58,45,7,.32);
+  background:linear-gradient(150deg, #E9CE79 0%, #D9B84E 100%);
+  border-color:#A8842B; border-left-color:#8C6A1D;
+}
+.review-group.rv-won .active-deck.context{background:#CDAD48;}
+.review-group.rv-won .active-deck[data-review]:hover{background:linear-gradient(150deg, #EED584 0%, #DFBF57 100%);}
+/* everything on an earned row reads from the same palette vars the banner uses */
+.review-group.rv-done .active-deck .ad-title{color:var(--rv-fg);}
+.review-group.rv-done .active-deck .ad-prog .count{color:var(--rv-fg-faint);}
+.review-group.rv-done .active-deck .prog .track{background:var(--rv-trk); border-color:var(--rv-trk-b);}
+.review-group.rv-done .active-deck .prog .fill{background:var(--rv-fg); opacity:1;}
+.review-group.rv-done .active-deck .ad-trash{color:var(--rv-fg-faint);}
+.review-group.rv-done .active-deck .ad-trash:hover{background:var(--rv-trk); color:var(--rv-fg); border-color:transparent;}
 
 /* ============================================================
    WHITEBOARD — draw on the card
@@ -1997,16 +2032,14 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
   .topbar::-webkit-scrollbar{display:none;}
   .nav{gap:0; flex:none;}
   .nav.left, .nav.right{flex:none;}
-  .tab{padding:7px 5px; font-size:9.5px; letter-spacing:.02em;}
+  .tab{--ink-start:25px; --ink-end:5px; padding:7px 5px; font-size:9.5px; letter-spacing:.02em;}
   .tab .tab-ic{width:15px; height:15px;}
   .tab:hover .tab-label, .tab:focus-visible .tab-label, .tab.active .tab-label{margin-inline-start:5px;}
   /* the Editor/Visitor preview toggle is a desktop dev tool — hide it on phones to make room for the core nav */
   .mode-switch{display:none;}
   .theme-switch{width:40px; margin-right:1px;}
-  .theme-switch .ic{width:11px; height:11px;}
-  .theme-switch .ic-sun{margin-left:5px;} .theme-switch .ic-moon{margin-right:5px;}
-  .theme-switch.on .ts-knob{transform:translateX(16px);}
-  .theme-switch .ts-knob{width:17px; height:17px;}
+  .theme-switch .ic-sun{margin-left:4px;} .theme-switch .ic-moon{margin-right:4px;}
+  .theme-switch.on .ts-knob{transform:translateX(19px);}
   .lang-switch{padding:6px 5px; margin-left:0; gap:2px;}
   .lang-switch .ic{width:12px; height:12px;}
   .lang-code{font-size:9.5px;}
@@ -2591,42 +2624,6 @@ body.grading .admin-edit-fab{bottom:108px;}
 .susp-restore{flex:none; appearance:none; border:1px solid var(--rule); background:var(--paper); color:var(--ink-soft); font-family:var(--mono); font-size:10px; letter-spacing:.06em; text-transform:uppercase; font-weight:600; padding:7px 12px; border-radius:7px; cursor:pointer; transition:color .15s, border-color .15s, background .15s;}
 .susp-restore:hover{color:var(--good); border-color:color-mix(in srgb,var(--good) 45%,var(--rule)); background:color-mix(in srgb,var(--good) 10%,transparent);}
 
-/* ---- CLAY — terracotta + olive, earthen ---- */
-body[data-theme="clay"]{
-  --paper:#F5ECE0; --paper-2:#EBDDCC; --card:#FBF5EC;
-  --ink:#2F2118; --ink-soft:#5A4536; --ink-faint:#9C8270; --rule:#DECBB5;
-  --indigo:#B5532A; --indigo-bright:#CC6A3E; --indigo-wash:#F3E2D8; --ochre:#C99A3C;
-  --zh:#9A3324; --zh-wash:#F0DDD6; --geo:#7C8A33; --good:#5E8A3E;
-  --serif:"Spectral", Georgia, "Times New Roman", serif;
-  --display:"Spectral", Georgia, serif;
-  --mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
-  --sans:"Inter", ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
-}
-body[data-theme="clay"].night{
-  --paper:#160F09; --paper-2:#1E150D; --card:#261C12;
-  --ink:#EEE3D4; --ink-soft:#CBBBA2; --ink-faint:#9A876E; --rule:#382B1D;
-  --indigo:#E08358; --indigo-bright:#ECA084; --indigo-wash:#2E1B12; --ochre:#E0B45E;
-  --zh:#E07A66; --zh-wash:#2C1813; --geo:#A8B85E; --good:#84B364;
-}
-
-/* ---- GARDEN — forest greens + gold, botanical ---- */
-body[data-theme="garden"]{
-  --paper:#EBF2E8; --paper-2:#DBE9D6; --card:#FBFDF9;
-  --ink:#18271A; --ink-soft:#3C5340; --ink-faint:#7D9A80; --rule:#CCE0C7;
-  --indigo:#2F7D4F; --indigo-bright:#3FA066; --indigo-wash:#DCEEDF; --ochre:#C99A2E;
-  --zh:#C0492E; --zh-wash:#F3E1DB; --geo:#6B8E3F; --good:#3F9A5E;
-  --serif:"Lora", Georgia, "Times New Roman", serif;
-  --display:"Cormorant Garamond", Georgia, serif;
-  --mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
-  --sans:"Nunito Sans", ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
-}
-body[data-theme="garden"].night{
-  --paper:#0A140C; --paper-2:#101E13; --card:#16271A;
-  --ink:#E2EFE0; --ink-soft:#AECCB0; --ink-faint:#6F9072; --rule:#233E26;
-  --indigo:#5CC182; --indigo-bright:#84D6A2; --indigo-wash:#123322; --ochre:#E0BC5E;
-  --zh:#E08368; --zh-wash:#2A1813; --geo:#A8C66E; --good:#5CD082;
-}
-
 /* ---- SYNTH — neon synthwave, magenta + cyan + purple ---- */
 body[data-theme="synth"]{
   --paper:#F2EEFB; --paper-2:#E6DEF7; --card:#FFFFFF;
@@ -2644,24 +2641,6 @@ body[data-theme="synth"].night{
   --indigo:#B07BFF; --indigo-bright:#CDA8FF; --indigo-wash:#241646; --ochre:#FF6FC8;
   --zh:#FF5C9A; --zh-wash:#2E1428; --geo:#3DE0F0; --good:#3DE0B8;
 }
-
-/* —— CLAY · earthen ceramic: matte, warm, hand-pressed —— */
-body[data-theme="clay"]::before{ filter:blur(82px) saturate(104%); opacity:.66; }
-body[data-theme="clay"] .topbar{ background:color-mix(in srgb,var(--paper) 90%, transparent); border-bottom:1px solid var(--rule); }
-body[data-theme="clay"] .collection, body[data-theme="clay"] .study-card, body[data-theme="clay"] .card,
-body[data-theme="clay"] .placard{ border-radius:17px; box-shadow:0 2px 0 color-mix(in srgb,var(--ink) 7%, transparent), 0 12px 26px color-mix(in srgb,var(--ink) 9%, transparent); }
-body[data-theme="clay"] .btn, body[data-theme="clay"] .grade{ border-radius:13px; box-shadow:inset 0 -3px 0 color-mix(in srgb,#000 14%, transparent); }
-body[data-theme="clay"] .btn:active, body[data-theme="clay"] .grade:active{ box-shadow:inset 0 2px 4px color-mix(in srgb,#000 18%, transparent); }
-
-/* —— GARDEN · botanical herbarium: large elegant serif, thin rules, airy —— */
-body[data-theme="garden"]::before{ filter:blur(78px) saturate(110%); opacity:.66; }
-body[data-theme="garden"] .topbar{ background:color-mix(in srgb,var(--paper) 82%, transparent); border-bottom:1px solid var(--rule); }
-body[data-theme="garden"] .brand .mark{ font-weight:600; font-size:27px; letter-spacing:0; }
-body[data-theme="garden"] .page-head{ margin-bottom:26px; }
-body[data-theme="garden"] .page-head h1{ font-weight:600; font-size:clamp(34px,6vw,52px); letter-spacing:0; }
-body[data-theme="garden"] .collection-title{ font-size:30px; font-weight:600; }
-body[data-theme="garden"] .collection, body[data-theme="garden"] .study-card, body[data-theme="garden"] .card{ border-radius:7px; box-shadow:none; border:1px solid var(--rule); }
-body[data-theme="garden"] .btn{ border-radius:6px; }
 
 /* —— SYNTH · synthwave neon: glow, grid, gradient nameplate —— */
 body[data-theme="synth"]::before{
@@ -2682,20 +2661,6 @@ body[data-theme="synth"] .btn, body[data-theme="synth"] .grade{ border-radius:4p
 body[data-theme="synth"] .btn.zh{ box-shadow:0 0 22px color-mix(in srgb,var(--zh) 52%, transparent); }
 body[data-theme="synth"] .tab{ border-radius:4px; }
 body[data-theme="synth"] a{ text-shadow:0 0 12px color-mix(in srgb,var(--indigo-bright) 45%, transparent); }
-
-/* —— CLAY · pressed earthenware: matte, soft layered shadow, organic —— */
-body[data-theme="clay"] .game-tile{ border-radius:16px; box-shadow:0 2px 0 color-mix(in srgb,var(--ink) 7%, transparent), 0 10px 22px color-mix(in srgb,var(--ink) 8%, transparent); }
-body[data-theme="clay"] .banner{ border-radius:16px; box-shadow:0 2px 0 color-mix(in srgb,var(--ink) 7%, transparent), 0 12px 26px color-mix(in srgb,var(--ink) 9%, transparent); }
-body[data-theme="clay"] .collection-row .prog .count{ border-radius:10px; }
-
-/* —— GARDEN · herbarium plates: thin double frame, no shadow, large serif titles —— */
-body[data-theme="garden"] .game-tile{ border-radius:6px; box-shadow:none; border:1px solid var(--rule); border-left-width:1px; background:var(--card); }
-body[data-theme="garden"] .game-tile::after{ content:""; position:absolute; inset:5px; border:1px solid color-mix(in srgb,var(--tile, var(--indigo)) 24%, transparent); border-radius:3px; pointer-events:none; }
-body[data-theme="garden"] .gt-title{ font-size:22px; line-height:1.04; }
-body[data-theme="garden"] .gt-glyph{ opacity:.08; }
-body[data-theme="garden"] .banner{ border-radius:6px; box-shadow:none; border:1px solid var(--rule); }
-body[data-theme="garden"] .banner h2.review-title{ font-size:46px; }
-body[data-theme="garden"] .collection-row .prog .count{ border-radius:3px; }
 
 /* —— SYNTH · neon panels: glow frame, glowing glyph + title —— */
 body[data-theme="synth"] .game-tile{ border-radius:5px; border:1px solid color-mix(in srgb,var(--tile, var(--indigo)) 48%, var(--rule)); border-left:3px solid var(--tile, var(--indigo)); box-shadow:0 0 22px color-mix(in srgb,var(--tile, var(--indigo)) 24%, transparent), inset 0 0 20px color-mix(in srgb,var(--tile, var(--indigo)) 8%, transparent); }
@@ -2724,39 +2689,6 @@ body:not([data-theme="folio"]) .banner > .body,
 body:not([data-theme="folio"]) .banner .cta{ position:relative; z-index:1; }
 body:not([data-theme="folio"]) .game-tile > .gt-body{ position:relative; z-index:2; }
 body:not([data-theme="folio"]) .game-tile > .gt-glyph{ z-index:1; }
-
-/* ===== CLAY — potter's wheel: a slow broad warm sweep over earthy grain ===== */
-body[data-theme="clay"] .collection-deco{
-  background:
-    radial-gradient(color-mix(in srgb,var(--coll-bg) 30%, transparent) .5px, transparent 1px) 0 0/5px 5px,
-    linear-gradient(120deg, color-mix(in srgb,var(--coll-bg) 24%, var(--card)), var(--card) 74%);
-}
-body[data-theme="clay"] .banner::before{
-  background:conic-gradient(from 0deg at 80% 50%, transparent, color-mix(in srgb,var(--ochre) 30%, transparent) 35%, transparent 72%);
-  opacity:.6;
-}
-body[data-theme="clay"] .game-tile::before{
-  opacity:.5;
-  background:radial-gradient(color-mix(in srgb,var(--tile) 28%, transparent) .5px, transparent 1px) 0 0/5px 5px;
-}
-
-/* ===== GARDEN — herbarium: fine reeds swaying in a breeze ===== */
-body[data-theme="garden"] .collection-deco{
-  background:linear-gradient(120deg, color-mix(in srgb,var(--coll-bg) 18%, var(--card)), var(--card) 74%);
-}
-body[data-theme="garden"] .collection-deco::before{
-  content:""; position:absolute; inset:-14% -6%; background-image:none; opacity:.5;
-  background:repeating-linear-gradient(90deg, color-mix(in srgb,var(--coll-bg) 42%, transparent) 0 1.5px, transparent 1.5px 15px);
-  -webkit-mask:linear-gradient(to left, #000 48%, transparent 92%); mask:linear-gradient(to left, #000 48%, transparent 92%);
-}
-body[data-theme="garden"] .banner::before{
-  background:repeating-linear-gradient(90deg, color-mix(in srgb,var(--indigo) 30%, transparent) 0 1.5px, transparent 1.5px 17px);
-  opacity:.42;
-}
-body[data-theme="garden"] .game-tile::before{
-  opacity:.4;
-  background:repeating-linear-gradient(90deg, color-mix(in srgb,var(--tile) 32%, transparent) 0 1.5px, transparent 1.5px 13px);
-}
 
 /* ===== SYNTH — synthwave: a neon perspective grid racing to a glowing horizon ===== */
 body[data-theme="synth"] .collection-deco{
@@ -3225,8 +3157,6 @@ body[data-theme="arcade"] .mini-globe{ border-radius:50% !important; }
 .theme-swatches i{width:26px; height:26px; border-radius:6px; border:1px solid color-mix(in srgb,var(--ink) 14%,transparent);}
 .theme-name{font-family:var(--display); font-size:16px; font-weight:600; color:var(--ink); line-height:1;}
 .theme-opt[data-theme="folio"] .theme-name{font-family:"Fraunces",Georgia,serif;}
-.theme-opt[data-theme="clay"] .theme-name{font-family:"Spectral",Georgia,serif;}
-.theme-opt[data-theme="garden"] .theme-name{font-family:"Cormorant Garamond",Georgia,serif; font-weight:700;}
 .theme-opt[data-theme="synth"] .theme-name{font-family:"Sora",sans-serif;}
 .theme-opt[data-theme="arcade"] .theme-name{font-family:"Press Start 2P",monospace; font-size:10px; font-weight:400; line-height:1.4;}
 .theme-opt[data-theme="academy"] .theme-name{font-family:"EB Garamond",Georgia,serif; font-variant:small-caps;}
