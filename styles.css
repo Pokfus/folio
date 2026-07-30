@@ -2180,8 +2180,8 @@ body.admin-mode .page{animation:none;}
 .admin-tab[data-atab="glossary"].active{color:#fff; background:#2e9e6b; border-color:#2e9e6b; box-shadow:0 5px 15px -7px rgba(38,158,107,.9);}
 .admin-tab[data-atab="timeline"]{color:#bd831f; background:rgba(201,138,43,.14); border-color:rgba(201,138,43,.33);}
 .admin-tab[data-atab="timeline"].active{color:#fff; background:#c98a2b; border-color:#c98a2b; box-shadow:0 5px 15px -7px rgba(201,138,43,.9);}
-.admin-tab[data-atab="accounts"]{color:#c2516b; background:rgba(194,81,107,.13); border-color:rgba(194,81,107,.32);}
-.admin-tab[data-atab="accounts"].active{color:#fff; background:#c2516b; border-color:#c2516b; box-shadow:0 5px 15px -7px rgba(194,81,107,.9);}
+.admin-tab[data-atab="feedback"]{color:#c0463a; background:rgba(192,70,58,.13); border-color:rgba(192,70,58,.32);}
+.admin-tab[data-atab="feedback"].active{color:#fff; background:#c0463a; border-color:#c0463a; box-shadow:0 5px 15px -7px rgba(192,70,58,.9);}
 .admin-tree{flex:1; overflow-y:auto; padding:2px 8px 12px;}
 .admin-tree-note{padding:14px 12px; color:var(--ink-faint); font-size:12.5px; line-height:1.55;}
 .admin-tree-note b{color:var(--ink-soft);}
