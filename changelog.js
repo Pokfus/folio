@@ -14,6 +14,7 @@ window.CHANGELOG = [
       "The Feedback tab on the Edit page now shows in red rather than grey, matching the coloured tabs beside it.",
       "In the card editor, the controls for a card's extra ways of asking now say question instead of phrasing.",
       "On a phone, the Timeline tab of the Edit page no longer cuts off partway down: the list of eras now runs the full length of the page and scrolls with it.",
+      "The menu bar now shows each page as an icon: point at one and its name unfolds beside it, and the page you are on keeps its name showing.",
     ],
   },
   {
