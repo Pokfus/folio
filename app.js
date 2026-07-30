@@ -3632,7 +3632,7 @@
   function prefersReducedMotion() {
     return !!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
   }
-  const THEMES = ["folio", "clay", "garden", "synth", "arcade", "academy", "marble", "gazette"];
+  const THEMES = ["folio", "synth", "arcade", "academy", "marble", "gazette"];
   function applyTheme() {
     const night = !!S.settings.night;
     document.body.classList.toggle("night", night);
@@ -4933,7 +4933,7 @@
       </div>
       ${dailyQuoteHTML()}
       <div class="banners">
-        <div class="review-group ${activeIds.length && !fresh ? "has-active" : ""}">
+        <div class="review-group ${activeIds.length && !fresh ? "has-active" : ""}${reviewDone ? " rv-done" : ""}${reviewWon ? " rv-won" : ""}">
         ${bannerHTML}
         ${fresh ? "" : `<button class="review-order" id="reviewOrder" type="button" title="Order your daily review by date, or shuffle it"><span class="${S.settings.reviewRandom ? "" : "on"}">Chrono</span><span class="${S.settings.reviewRandom ? "on" : ""}">Random</span></button>
         <div class="active-decks">${activeHTML}</div>`}
@@ -11041,8 +11041,6 @@
   // settings picker data: [id, name, tag, primary, accent, paper]
   const THEME_OPTS = [
     ["folio", "Folio", "Editorial serif", "#36357A", "#C8453C", "#F6F5F1"],
-    ["clay", "Clay", "Earthen", "#B5532A", "#9A3324", "#F5ECE0"],
-    ["garden", "Garden", "Botanical", "#2F7D4F", "#C0492E", "#EBF2E8"],
     ["synth", "Synth", "Neon", "#7C2DFF", "#FF2D7A", "#F2EEFB"],
     ["arcade", "Arcade", "16-bit console", "#0968C4", "#C98E06", "#EDF3F7"],
     ["academy", "Academy", "Formal faculty", "#16305B", "#8E2233", "#F5F0E4"],

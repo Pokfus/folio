@@ -18,6 +18,9 @@ window.CHANGELOG = [
       "Studying the Card of the day now asks you the very question you saw on the tile, rather than another of the card's phrasings.",
       "The Atlas tile on the home page now introduces itself in one short line.",
       "Refreshing the browser on the Edit page now keeps you there instead of dropping you back on the home page.",
+      "The light-and-dark switch in the menu bar is now slimmer, and the coloured line marking the page you are on underlines its name alone rather than running under the icon too.",
+      "The Clay and Garden themes have been retired from Settings; if you had one of them on, Folio returns to its default look.",
+      "The decks you add to the Daily review now share the tile's colouring: its bronze edge and wash run down the list, which turns bronze — or gold on a perfect day — along with the tile once today's cards are cleared.",
     ],
   },
   {
