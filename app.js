@@ -1050,8 +1050,16 @@
      is invisible on the account page unless it is written down as it happens. Each register is
      key -> first-seen timestamp; re-opening something is a no-op, which is also what keeps this off the
      save path for all but the first visit to a term. Capped, oldest dropped first: these ride in the
-     synced progress blob, and the Atlas alone can name well over a thousand places. */
-  const SEEN_CAP = 1500;
+     synced progress blob.
+     THE CAP MUST STAY ABOVE THE SHIPPED UNIVERSE OF BOTH REGISTERS, because these numbers are now shown
+     to the reader as progress towards completion (the discovery marks on gloss links and the Atlas panel,
+     and the account meters). A prune would make a completion count go BACKWARDS and re-flag a place as
+     newly discovered — the exact opposite of what the marks promise. Measured today: 333 curated glossary
+     terms, and 1,211 distinct clickable place names (258 present-day + 1,194 across the 13 shipped eras,
+     overlapping) — which was already 80% of the old 1500 cap, and every new geo era adds territory names.
+     Fully seen, placesSeen is ~34 KB of the progress blob, so the headroom is nearly free; the cap remains
+     only as a backstop against unbounded growth. */
+  const SEEN_CAP = 6000;
   function markSeen(field, key) {
     if (!key) return false;
     if (!S[field] || typeof S[field] !== "object") S[field] = {};   // back-fill for saves made before the register existed
@@ -1066,9 +1074,38 @@
     return true;
   }
   function seenCount(prog, field) { return Object.keys((prog && prog[field]) || {}).length; }
+  /* Terms read, counted against the glossary AS IT STANDS. A term retired since it was read is dropped
+     from the count rather than pushing it past the total — the register is a permanent record, the
+     glossary is not. (The account meter always intended this; it just never filtered.) */
+  function glossSeenCount(prog) {
+    const G = window.GLOSSARY || {}, reg = (prog && prog.glossSeen) || {};
+    return Object.keys(reg).filter((k) => G[k]).length;
+  }
+  function glossTotalCount() { return Object.keys(window.GLOSSARY || {}).length; }
+  /* Present-day countries opened on the Atlas. placesSeen also holds the historical eras' territories —
+     an open-ended set with no honest total — so anything counting towards completion filters to the 258
+     shipped countries. world.js is lazy: before it loads this is 0, never wrong-but-confident. */
+  function countryNameSet() { return window.WORLD_GEO ? new Set(window.WORLD_GEO.map((c) => c.n).filter(Boolean)) : null; }
+  function countryTotalCount() { const g = countryNameSet(); return g ? g.size : 0; }
+  function countrySeenCount(prog) {
+    const g = countryNameSet();
+    if (!g) return 0;
+    return Object.keys((prog && prog.placesSeen) || {}).filter((n) => g.has(n)).length;
+  }
+  // "41 / 333" for a discovery chip — the bare ratio, since the chip's own label says what is being counted
+  function discCounter(n, total) { return total ? n + " / " + total : String(n); }
+  /* The chip shown the first (and only the first) time a term or place is opened. `count` is optional: an
+     Atlas territory that is not a present-day country has nothing honest to be counted against, so it gets
+     the label alone rather than a ratio out of a total it was never part of. The figure carries
+     `notranslate` — it is numerals, and the i18n engine has no business rewriting it. */
+  function discChipHTML(label, count, title) {
+    return '<span class="disc-chip"' + (title ? ' title="' + esc(title) + '"' : "") + "><b>" + esc(label) + "</b>" +
+      (count ? '<span class="disc-n notranslate">' + esc(count) + "</span>" : "") + "</span>";
+  }
 
   /* ---------- UI sound effects — synthesized with the Web Audio API (no files, zero deps) ----------
      sfx(name): click (buttons), toggle (switches), pop (reveal / image viewer), good / bad (grades),
+     discover (a term or place opened for the first time),
      win (level-ups, achievements, perfect games). Gated by Settings → Sound effects (S.settings.sfx,
      on by default); the shared AudioContext is created lazily and resumed inside the click gesture,
      which satisfies every browser's autoplay policy. Volumes are deliberately tiny. */
@@ -1100,6 +1137,11 @@
     else if (name === "good") { sfxTone(ctx, t, 660, 0.09, 0.05, "sine"); sfxTone(ctx, t + 0.08, 880, 0.13, 0.05, "sine"); }
     else if (name === "bad") sfxTone(ctx, t, 230, 0.13, 0.06, "sine", 155);
     else if (name === "win") [523, 659, 784, 1047].forEach((f, i) => sfxTone(ctx, t + i * 0.085, f, 0.16, 0.05, "triangle"));
+    else if (name === "discover") {   // a new term or place: a bright rising sparkle, shorter and lighter than "win"
+      [784, 1047, 1319].forEach((f, i) => sfxTone(ctx, t + i * 0.055, f, 0.12, 0.042, "triangle"));
+      sfxTone(ctx, t + 0.19, 1976, 0.26, 0.02, "sine");
+      sfxTone(ctx, t + 0.28, 2637, 0.22, 0.014, "sine");
+    }
     else if (name === "levelup") {   // the level-up fanfare: a quick rising run into a held major chord with a sparkle on top
       [392, 523, 659, 784].forEach((f, i) => sfxTone(ctx, t + i * 0.07, f, 0.14, 0.05, "triangle"));
       [523, 659, 784, 1047].forEach((f) => sfxTone(ctx, t + 0.32, f, 0.55, 0.03, "triangle"));
@@ -2209,7 +2251,11 @@
     // a term read counts as read, whether the popup is new or being brought back to the front. Deck terms
     // are skipped: the "terms opened" figure is measured against the curated glossary, and a stranger's
     // deck would let it pass 100%.
-    if (!isDeckGlossKey(key)) markSeen("glossSeen", key);
+    // markSeen returns true ONLY on the first sight, and that return is the entire discovery signal. It has
+    // to be captured here, at the top: by the time the popup below is built the term is already recorded, so
+    // anything asking "is this new?" at render time would always be told no.
+    const firstSeen = !isDeckGlossKey(key) && markSeen("glossSeen", key);
+    if (firstSeen) { refreshTtipNew(key); sfx("discover"); checkAchievements(); }
     const mobile = isMobileGloss();
     const existing = glossWins.find((w) => w.dataset.k === key);
     if (existing) { if (!mobile) { focusGlossWin(existing); flashGloss(existing); } return; }
@@ -2223,6 +2269,9 @@
     win.innerHTML =
       '<div class="gloss-bar">' +
         '<span class="gloss-title"></span>' +
+        // the discovery chip: shown only on the very first opening, and carrying the running count, because
+        // the progress is the point — the account page's meter is not where a reader is looking just now
+        (firstSeen ? discChipHTML("New term!", discCounter(glossSeenCount(S), glossTotalCount()), "Glossary terms you have opened") : "") +
         (isAdmin() && !isDeckGlossKey(key) ? '<button class="gloss-edit" type="button" aria-label="Edit this term" title="Edit this term"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>' : "") +
         '<button class="gloss-close" type="button" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>' +
       '</div>' +
@@ -2270,10 +2319,29 @@
     requestAnimationFrame(() => win.classList.add("show"));
   }
 
+  /* The UNDISCOVERED term is the marked one: `data-new` puts it in the same gold as the blank in a card's
+     question (`--ochre`), so what has not been read yet reads as something waiting to be filled in. A term
+     already read carries no attribute at all and renders exactly as every glossary link always has —
+     nothing about the familiar state changed, which is the point: the mark is the invitation, not a
+     record of what is done.
+     Deck terms are deliberately left unmarked in BOTH directions — glossSeen does not record them (a
+     stranger's deck would let the count pass 100%), so they must not sit gold and undiscoverable forever.
+     That is why this writes an explicit `data-new` rather than styling `:not([data-seen])`. */
+  function markTtipNew(el) {
+    const k = el.dataset.k;
+    if (k && !isDeckGlossKey(k) && !(S.glossSeen && S.glossSeen[k])) el.setAttribute("data-new", "1");
+    else el.removeAttribute("data-new");
+  }
+  // every .ttip currently on the page that points at this term — the prose behind a popup must lose its
+  // gold the moment the term is read, not on the next render (which for a study card is the next card)
+  function refreshTtipNew(key) {
+    document.querySelectorAll(".ttip").forEach((el) => { if (el.dataset.k === key) markTtipNew(el); });
+  }
   function setupTooltips(root) {
     root.querySelectorAll(".ttip").forEach((el) => {
       el.setAttribute("tabindex", "0");
       el.setAttribute("role", "button");
+      markTtipNew(el);
       el.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); openGlossWin(el.dataset.k, el); });
       el.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openGlossWin(el.dataset.k, el); } });
     });
@@ -7504,6 +7572,7 @@
                 <div class="cp-crumb" id="cpCrumb" hidden></div>
                 <div class="cp-name" id="cpName"></div>
                 <div class="cp-span" id="cpSpan"></div>
+                <div class="cp-new" id="cpNew" hidden></div>
                 <div class="cp-tools">
                   <button class="cp-tool" id="cpHistory" type="button" title="Who ruled this spot in every mapped year?"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 14"/></svg>Through the ages</button>
                   <button class="cp-tool" id="cpCopyLink" type="button" title="Copy a link to this year + place"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>Copy link</button>
@@ -7640,7 +7709,7 @@
     // Empire of Japan, Austria Hungary …) map to themselves. Descriptions for these names live in countries.js.
     const EMPIRE_NAME = { "United Kingdom": "British Empire", "France": "French colonial empire", "Germany": "German colonial empire", "Italy": "Italian colonial empire", "Netherlands": "Dutch colonial empire", "Portugal": "Portuguese Empire", "Spain": "Spanish Empire", "Belgium": "Belgian colonial empire", "Denmark": "Danish Realm", "Chinese Warlords": "Warlord-era China", "United States": "United States of America" };
     const empireName = (mother) => EMPIRE_NAME[mother] || mother;
-    let cpEl = null, cpNameEl = null, cpSpanEl = null, cpDescEl = null, cpYearNumEl = null, cpYearDescEl = null, cpPopEl = null, cpAreaEl = null, cpGdpEl = null, cpGdppcEl = null;   // the country info popup (one at a time, left panel)
+    let cpEl = null, cpNameEl = null, cpSpanEl = null, cpNewEl = null, cpDescEl = null, cpYearNumEl = null, cpYearDescEl = null, cpPopEl = null, cpAreaEl = null, cpGdpEl = null, cpGdppcEl = null;   // the country info popup (one at a time, left panel)
     let cpCrumbEl = null, cpHistListEl = null;   // drill breadcrumb + the "Through the ages" strip
     let cpColsEl = null, cpDescSecEl = null, cpYearSecEl = null, cpStatsSecEl = null;   // the scroller + the three collapsible sections
     /* Each section opens or closes as the popup is filled: open when it has something to say, closed when it
@@ -7660,6 +7729,13 @@
     function countryStats(name) { const k = (name || "").trim().toLowerCase().replace(/\s+/g, " "); return (window.COUNTRY_STATS || {})[k] || null; }
     function countryStatsYear(name, yr) { const k = (name || "").trim().toLowerCase().replace(/\s+/g, " "); const o = (window.COUNTRY_STATS_YEARS || {})[k]; return (o && o[String(yr)]) || null; }   // per-state, per-year figures for a HISTORICAL map-year ({pop, area, gdp}); null → dash
     function countrySpan(name) { const k = (name || "").trim().toLowerCase().replace(/\s+/g, " "); return (window.COUNTRY_SPANS || {})[k] || ""; }   // the years this state/iteration existed, e.g. "1815 – Present" — shown thin/grey under the title
+    /* Discovery counting on the Atlas. placesSeen records every place opened, present-day and historical
+       alike, but only the present-day countries form a set with an honest total (258, fixed and shipped);
+       the era territories are open-ended and grow with every map added. So the chip counts a country
+       against that 258 and shows a territory its label alone. Memoized: GEO is fixed for the mount. */
+    let _geoNames = null;
+    const geoNameSet = () => (_geoNames || (_geoNames = new Set(GEO.map((c) => c.n).filter(Boolean))));
+    const countriesSeenCount = () => { const g = geoNameSet(); return Object.keys((S && S.placesSeen) || {}).filter((n) => g.has(n)).length; };
     // parse a formatted stat string ("41.45 million", "49,710", "$20.5B", "$709M") to a raw number, or NaN
     function statNum(s) {
       if (!s) return NaN; const t = String(s).toLowerCase().replace(/[$,]/g, "").trim();
@@ -7698,7 +7774,14 @@
     function showCountryPopupName(name, forceGeneral) {   // populate the info popup from a place name (era entity, a drilled present-day country, or — forceGeneral — a UK constituent shown with its general description)
       if (!cpEl) return;
       if (!name) { hideCountryPopup(); return; }
-      markSeen("placesSeen", name);   // opening a place's panel is the Atlas equivalent of reading a gloss term
+      // opening a place's panel is the Atlas equivalent of reading a gloss term. As in openGlossWin, the
+      // first-sight return has to be read HERE, above everything that renders — the register is written on
+      // the way in, so a later "is this new?" would always come back no.
+      const firstSeen = markSeen("placesSeen", name);
+      // Not in the game: gameReveal/gameTap have just played their own "good" or "bad", and a bright
+      // discovery chime layered over "bad" would congratulate a reader for getting the answer wrong.
+      // The chip still shows — it is the sound, not the find, that would contradict the game.
+      if (firstSeen) { if (!GAME) sfx("discover"); checkAchievements(); }
       const present = !!(activeEra(year) || {}).present;
       const desc = countryDesc(name), yd = countryYear(name, year);   // present-day summary + the per-year paragraph for THIS map-year
       // Title: the state's full legal official name (extracted from the summary's "officially …"), else its name. Main paragraph:
@@ -7707,6 +7790,14 @@
       // forceGeneral (a UK constituent): just its name + its general description, no year paragraph or stats.
       cpNameEl.textContent = forceGeneral ? name : officialName(name, desc);
       if (cpSpanEl) cpSpanEl.textContent = forceGeneral ? "" : countrySpan(name);   // the years this state/iteration existed (thin grey under the title); "" → the line collapses
+      if (cpNewEl) {   // the discovery chip — first opening only, and the panel element is REUSED, so it must be cleared on every other one
+        if (firstSeen) {
+          const isCountry = geoNameSet().has(name);
+          cpNewEl.innerHTML = discChipHTML("New place!", isCountry ? discCounter(countriesSeenCount(), geoNameSet().size) : "",
+            isCountry ? "Present-day countries you have opened on the Atlas" : "");
+          cpNewEl.hidden = false;
+        } else { cpNewEl.hidden = true; cpNewEl.innerHTML = ""; }
+      }
       popEntityName = name;
       if (cpHistListEl) { cpHistListEl.hidden = true; cpHistListEl.innerHTML = ""; }   // the ages strip belongs to the previous entity
       // drill breadcrumb: name the PARENT level (empire / merged group / the era's UK) and make it clickable — the upward
@@ -9632,7 +9723,7 @@
     const track = root.querySelector("#tlTrack"), pin = root.querySelector("#tlPin"), fill = root.querySelector("#tlFill"), tip = root.querySelector("#tlTip");
     const ayNum = root.querySelector("#ayNum"), ayEra = root.querySelector("#ayEra");
     const wipEl = root.querySelector("#atlasWip"), cartEl = root.querySelector("#mapCartouche");
-    cpEl = root.querySelector("#countryPop"); cpNameEl = root.querySelector("#cpName"); cpSpanEl = root.querySelector("#cpSpan"); cpDescEl = root.querySelector("#cpDesc");
+    cpEl = root.querySelector("#countryPop"); cpNameEl = root.querySelector("#cpName"); cpSpanEl = root.querySelector("#cpSpan"); cpNewEl = root.querySelector("#cpNew"); cpDescEl = root.querySelector("#cpDesc");
     cpYearNumEl = root.querySelector("#cpYearNum"); cpYearDescEl = root.querySelector("#cpYearDesc");
     cpPopEl = root.querySelector("#cpPop"); cpAreaEl = root.querySelector("#cpArea"); cpGdpEl = root.querySelector("#cpGdp"); cpGdppcEl = root.querySelector("#cpGdppc");
     cpCrumbEl = root.querySelector("#cpCrumb"); cpHistListEl = root.querySelector("#cpHistList");
@@ -10310,13 +10401,20 @@
   }
   const GAME_TITLES = { challenge: "Multiple choice", chrono: "Timeline", truefalse: "True or False", whosaid: "Who said it?", findit: "Find it on the map" };
   function exploreStatsHTML(prog) {
-    const gloss = seenCount(prog, "glossSeen");
-    // only the curated glossary counts, and only terms that still exist — a term retired since it was read
-    // would otherwise push the figure past the total
-    const glossTotal = Object.keys(window.GLOSSARY || {}).length;
-    const places = seenCount(prog, "placesSeen");
-    // the Atlas country list is a lazy bundle, so "of N" is only honest once world.js has actually loaded
-    const placeTotal = (window.WORLD_GEO && window.WORLD_GEO.length) || 0;
+    const gloss = glossSeenCount(prog);   // only the curated glossary, and only terms that still exist
+    const glossTotal = glossTotalCount();
+    // placesSeen records EVERY place whose Atlas panel was opened — present-day countries and the historical
+    // eras' territories alike (258 countries against 1,194 era names). Counting the whole register against the
+    // present-day country total therefore read "412 of 258" once a reader had toured the old maps: the bar
+    // clamped at 100% but the figure beside it did not. The meter now counts only the names that ARE
+    // present-day countries, and the rest get their own tile rather than being silently dropped.
+    // The country list is a lazy bundle, so this can only be split once world.js has actually loaded; until
+    // then the meter falls back to the raw count with no total, exactly as it did before.
+    const allPlaces = seenCount(prog, "placesSeen");
+    const geoLoaded = !!countryNameSet();
+    const placeTotal = countryTotalCount();
+    const places = geoLoaded ? countrySeenCount(prog) : allPlaces;
+    const histPlaces = geoLoaded ? allPlaces - places : 0;
     const tot = reviewLogTotals(prog);
     const best = longestStreakDays(prog);
     const gl = (prog && prog.gameLog) || {};
@@ -10341,11 +10439,12 @@
         meter(gloss, glossTotal, "Glossary terms opened", glossTotal
           ? "Every term whose popup you have opened."
           : "The glossary hasn't loaded yet.") +
-        meter(places, placeTotal, "Places opened on the Atlas", placeTotal
-          ? "Present-day countries and historical territories whose info panel you have opened."
+        meter(places, placeTotal, "Countries opened on the Atlas", placeTotal
+          ? "Present-day countries whose info panel you have opened."
           : "Open the Atlas once and the total appears here — the map data loads on demand.") +
       "</div>" +
       '<div class="ds-tiles ex-tiles">' +
+        (geoLoaded ? tile(histPlaces, "Historical territories", "Territories from the Atlas's historical maps, and the UK's home nations — places you have opened that are not present-day countries") : "") +
         tile(tot.reviews, "Reviews, all time", "Every grade you have given, from the day-by-day log") +
         tile(tot.days, "Days studied", "Days with at least one review") +
         tile("🔥 " + best, "Longest streak", "The longest run of consecutive days with a review") +
@@ -10415,6 +10514,11 @@
     { id: "win1", icon: "🏅", name: "Victor", desc: "Win a daily challenge", test: (s) => s.wins >= 1 },
     { id: "win10", icon: "👑", name: "Champion", desc: "Win 10 daily challenges", test: (s) => s.wins >= 10, prog: (s) => [s.wins, 10] },
     { id: "sweep", icon: "🎯", name: "Clean Sweep", desc: "Win every daily game in one day", test: (s) => s.dailySweep },
+    // the reading done AROUND the cards — the glossary and the Atlas, which until now earned nothing
+    { id: "terms25", icon: "🔖", name: "Margin Notes", desc: "Open 25 glossary terms", test: (s) => s.terms >= 25, prog: (s) => [s.terms, 25] },
+    { id: "terms100", icon: "📜", name: "Lexicographer", desc: "Open 100 glossary terms", test: (s) => s.terms >= 100, prog: (s) => [s.terms, 100] },
+    { id: "places50", icon: "🧭", name: "Cartographer", desc: "Open 50 countries on the Atlas", test: (s) => s.countries >= 50, prog: (s) => [s.countries, 50] },
+    { id: "placesAll", icon: "🌍", name: "Circumnavigator", desc: "Open every present-day country on the Atlas", test: (s) => s.countryTotal > 0 && s.countries >= s.countryTotal, prog: (s) => [s.countries, s.countryTotal || 258] },
   ];
   function progStats(prog, friendsCount) {
     const cards = prog.cards || {};
@@ -10422,7 +10526,11 @@
     const mature = Object.keys(cards).filter((id) => cards[id] && cards[id].interval >= 21).length;
     let decksStarted = 0, decksDone = 0;
     LEAF_NODES.forEach((n) => { const ids = subtreeCardIds(n); if (!ids.length) return; const st = ids.filter((id) => cards[id]).length; if (st > 0) decksStarted++; if (st === ids.length) decksDone++; });
-    return { seen, mature, streak: (prog.streak && prog.streak.count) || 0, wins: (prog.daily && prog.daily.wins) || 0, dailySweep: allGamesWonToday(prog), decksStarted, decksDone, friends: friendsCount || 0 };
+    // reading done around the cards. `countries` is 0 until world.js has loaded (a lazy bundle), which only
+    // ever DELAYS one of these badges — checkAchievements adds and never revokes, so a badge earned on the
+    // Atlas cannot be lost by looking at the account page in a later session.
+    return { seen, mature, streak: (prog.streak && prog.streak.count) || 0, wins: (prog.daily && prog.daily.wins) || 0, dailySweep: allGamesWonToday(prog), decksStarted, decksDone, friends: friendsCount || 0,
+      terms: glossSeenCount(prog), countries: countrySeenCount(prog), countryTotal: (window.WORLD_GEO && window.WORLD_GEO.length) || 0 };
   }
   // unlock any newly-earned achievements for the active (S) profile; toast each unless silent
   function checkAchievements(silent) {

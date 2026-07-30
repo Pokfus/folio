@@ -421,21 +421,76 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the day it was added, so every deck already worked through would read as empty, and it would multiply
     the synced blob by the number of decks. The day-by-day history stays global.
   · **`exploreStatsHTML(prog)`** — what a scholar does *around* the cards. Two meters (glossary terms
-    opened, places opened on the Atlas — the latter shows "of N" only once `world.js` has actually loaded,
-    since that bundle is lazy), six derived tiles (all-time reviews, days studied, **longest streak** —
-    `longestStreakDays`, computable from `reviewLog` where `S.streak` only holds the current one —
-    card-of-the-day picks, games played, perfect runs) and a per-game row from the lifetime log.
+    opened, **countries** opened on the Atlas — the latter shows "of N" only once `world.js` has actually
+    loaded, since that bundle is lazy), seven derived tiles (**historical territories**, all-time reviews,
+    days studied, **longest streak** — `longestStreakDays`, computable from `reviewLog` where `S.streak`
+    only holds the current one — card-of-the-day picks, games played, perfect runs) and a per-game row
+    from the lifetime log.
+    **Both meters count against the set they are measured by, which is NOT the whole register**, and each
+    was wrong once in the same way. `placesSeen` records every place opened — 258 present-day countries
+    *and* 1,194 historical era territories — so counting the register against `WORLD_GEO.length` read
+    "412 of 258": the bar clamps at 100%, the figure beside it does not. It now counts only names that
+    are present-day countries (`countrySeenCount`), and the remainder gets the "Historical territories"
+    tile rather than being silently dropped. `glossSeen` likewise counts only terms that **still exist**
+    (`glossSeenCount`), or a term retired since it was read pushes the figure past the total. The single
+    helpers `countryNameSet` / `countryTotalCount` / `countrySeenCount` / `glossSeenCount` /
+    `glossTotalCount` are shared by the meters, the discovery chips and `progStats` — **keep new callers
+    on them** rather than re-deriving, which is how the two mismatches got in. Guarded by
+    `.claude/test-discovery.js`.
   · **Three new progress fields feed them** (in `defaultState` + `PROGRESS_FIELDS`, so old saves back-fill
     and a friend's shows too): **`glossSeen`** and **`placesSeen`** (key → first-seen timestamp, written by
     `markSeen` from `openGlossWin` and `showCountryPopupName`) and **`gameLog`** (key → `{plays, wins}`,
     written by `markGamePlayed`). These exist because **a popup and an Atlas panel leave no other trace** —
     nothing in the state records that they were ever opened, so the reading is invisible unless written
     down as it happens. `markSeen` no-ops (and so skips `save()`) on a key already known, and prunes
-    oldest-first at `SEEN_CAP` (1500) because the Atlas alone can name well over a thousand places. Deck
+    oldest-first at **`SEEN_CAP` (6000)**. Deck
     glossary keys are **not** recorded: the terms-opened figure is measured against the curated glossary,
     and a stranger's deck would let it pass 100%. Both registers start the day they were added, so an
     existing reader's count begins at zero — said plainly here rather than on the meter, which was
     carrying a sentence about it until it was removed on request.
+    **`SEEN_CAP` must stay above the SHIPPED universe of both registers** and is no longer a free
+    parameter: these counts are now shown to the reader as progress towards completion, so a prune would
+    make a count go backwards and re-flag a place as newly discovered. Measured: 333 glossary terms and
+    **1,211 distinct clickable place names** (258 present-day + 1,194 across the 13 eras) — already 80% of
+    the old 1500 cap, and **every new geo era adds territory names**. Fully seen, `placesSeen` is ~34 KB of
+    the progress blob, so the headroom is nearly free. `.claude/test-discovery.js` asserts the clearance
+    against the real data files; **if it fires, raise the cap — don't trim the data.**
+  · **Discovery marks — telling a read term/place from an unread one.** `markSeen` **returns `true` only
+    on first sight**, and that return is the entire signal. Both call sites (`openGlossWin`,
+    `showCountryPopupName`) mark on the way IN, above everything that renders, so **anything asking "is
+    this new?" at render time is always told no** — capture the return at the top, as they now do.
+    · **The UNDISCOVERED term is the marked one.** A glossary link not yet opened carries **`data-new`**
+      (set by `markTtipNew`, called from `setupTooltips` — the one choke point every `.ttip` render path
+      already goes through, hand-authored and auto-linked alike), and `.ttip[data-new]` paints it in
+      **`--ochre`, the same gold as the blank in a card's question**, so an unread term reads as something
+      waiting to be filled in. **A term already read carries no attribute and renders exactly as every
+      glossary link always has** — the familiar state is untouched, because the mark is the invitation,
+      not a record of what is finished. (It was briefly the other way round — read terms dimmed — and was
+      changed on request; don't reintroduce that.) It writes an explicit `data-new` rather than styling
+      `:not([data-seen])` **because deck terms are in neither register** and would otherwise sit gold and
+      undiscoverable forever. `.ttip[data-new]:hover` keeps the gold — jumping to the indigo hover would
+      read as the term changing state before it was opened — and sits **after** the base `:hover` rules
+      (equal specificity → source order). `refreshTtipNew(key)` re-marks every matching link on the page
+      the moment a popup opens, so the prose behind it loses its gold at once, not on the next render.
+    · The **first** opening also shows a gold chip (`discChipHTML` → `.disc-chip`): "New term! 41 / 333"
+      in the gloss popup's bar, "New place! 7 / 258" in the Atlas panel (`#cpNew`), with a **splash** of
+      two expanding rings (`discRing` / `discRingNight`, staggered onto `::after`) and a **`sfx("discover")`
+      chime**. The rings are **box-shadow spread, never a scaled pseudo-element**: the chip sits inside
+      `.gloss-win` (`overflow:hidden`) and `.cp-cols` (`overflow-y:auto`), where a transform would be
+      clipped by the one and could add a scrollbar to the other. Both animations **end fully transparent**,
+      so the reduced-motion killswitch — which lands animations on their END state — leaves no ring behind.
+      The Atlas panel element is REUSED, so it must be cleared on every non-first open. A historical
+      territory gets the label with **no ratio** — it is not part of any set with an honest total. The
+      figure carries `notranslate`. **The chime is suppressed in the Find-it game** (`if (!GAME)`):
+      `gameTap`/`gameReveal` have just played their own `good`/`bad`, and a bright discovery chime over
+      `bad` would congratulate a reader for a wrong answer. The chip still shows — the sound was the only
+      part that contradicted the game.
+      The `!` is part of the translated string (Spanish opens with `¡`, CJK uses the full-width `！`), so
+      the exclamation-less keys were retired from all nine language files when it was added.
+    · Four achievements ride on the same counts (`terms25` / `terms100` / `places50` / `placesAll`, fed by
+      `progStats`'s `terms` / `countries` / `countryTotal`), and `checkAchievements()` is called from both
+      first-sight branches. `countries` is 0 until `world.js` loads, which only ever DELAYS a badge —
+      `checkAchievements` adds and never revokes.
 - **Deep time (years before the present).** A card's sort year is a plain signed number, so a prehistory
   card is just a very negative one (`-3300000` = 3.3 Mya). Three pieces carry that: **`cardYears(c)`** reads
   `answerDate` and now understands `"2.6 million years ago"`, `"3.3 to 2.6 million years ago"`,
@@ -633,7 +688,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **Known gap:** the `PAGE_META` titles/descriptions have no `i18n/ui-<lang>.js` entries yet, so `document.title` stays
   English in other languages (the documented graceful fallback). Adding them is a content task.
 - **UI sound effects** (the `/* UI sound effects */` block in app.js): tiny synthesized Web-Audio sounds, no files —
-  `sfx(name)` with click / toggle / pop / good / bad / win, played by ONE delegated **capture-phase** click listener
+  `sfx(name)` with click / toggle / pop / good / bad / win / **discover** (a term or place opened for the first
+  time — see the discovery-marks bullet above), played by ONE delegated **capture-phase** click listener
   (so a handler's `stopPropagation` can't swallow the tick) that maps button-likes to sounds (grades → good/bad,
   `#reveal-btn` + `.card-img` → pop, switches → toggle, everything else → click), plus hooks in `congratsPopup`,
   `checkAchievements` and `markGamePlayed(won)` → win. Gated by **Settings → Audio → Sound effects**
@@ -1570,8 +1626,8 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Twelve committed regression tests** (in `.claude/`, not loaded by the site): eleven drive a real browser with
-  Playwright, and `test-daily-quote.js` is plain Node with no dependencies at all. Each slices what
+- **Thirteen committed regression tests** (in `.claude/`, not loaded by the site): eleven drive a real browser with
+  Playwright; `test-daily-quote.js` and `test-discovery.js` are plain Node with no dependencies at all. Each slices what
   it tests out of the real `app.js`/`_headers` by text, so they can't drift from what ships.
   **Gotcha when writing more of them:** `page.goto()` to a URL that differs only in the `#fragment` is a
   same-document navigation — the app keeps running and its module state survives. Use `page.reload()` when
@@ -1647,6 +1703,16 @@ dead code (never rendered).
     at the REAL project, so a test that actually sent a message would write rows into it — and like
     `test-publish.js`'s mock, it is a stand-in for the policies, never a proof they are right. **Re-run
     after touching the feedback functions, the queue, or the `7) FEEDBACK` schema block.**
+  · `node .claude/test-discovery.js` — 22 assertions on the counting behind the discovery chips and the
+    "Beyond the cards" meters, run against the **real** `world.js` / `timeline.js` / `glossary.js`: that a
+    register full of historical territories can never push the country figure past its own total, that a
+    retired glossary term drops out of the count, that an unloaded `world.js` yields an honest unknown
+    rather than a confident zero, and — the assertion most likely to fire on someone else's change — that
+    **`SEEN_CAP` still clears the shipped universe with room to spare**, since every geo era added to
+    `timeline.js` grows it and a prune would make a completion count go backwards. **No browser and no
+    dependencies.** Re-run after touching `markSeen` / `SEEN_CAP` / the `*SeenCount` helpers, **and after
+    adding a timeline era or a batch of glossary terms** — the sizing, not just the logic, is what it
+    guards.
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it
     simulates 400 days off the real `QUOTE_ORDER` and checks every seven-day window in them, so a repeat
     two days running or a third appearance inside a week fails here rather than on the live page. **No
