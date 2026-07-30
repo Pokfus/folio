@@ -8,6 +8,9 @@ window.CHANGELOG = [
     d: "2026-07-30",
     t: "After the ice",
     items: [
+      "Glossary terms and Atlas places you have already opened now look different from ones you haven't: a term you have read fades back into the text, and opening one for the first time shows a small gold marker with your running count, so a glance tells you how much is left to discover.",
+      "Four new badges for the reading you do around the cards: opening 25 and 100 glossary terms, and 50 and then every one of the world's present-day countries on the Atlas.",
+      "The Beyond the cards panel on your account page now counts the countries you have opened on the Atlas against the world's 258, instead of also counting territories from the historical maps, which could push the figure past its own total. Those older territories now have a count of their own.",
       "Cards can now ask their question in more than one way. Each card may carry several phrasings of the same question, official cards will carry three, and the study page picks one at random each time, so you learn the idea itself rather than the shape of one sentence. If you write your own decks, arrows beside the question box let you add and edit up to ten phrasings per card.",
       "Two extra ways of asking the question added to 105 cards in the World History prehistory deck, in all ten site languages.",
       "Eleven new cards in the World History prehistory deck, in all ten site languages.",

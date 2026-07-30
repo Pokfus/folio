@@ -2094,12 +2094,46 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
   transition:color .15s var(--ease), text-decoration-color .15s var(--ease), background .15s var(--ease);
   border-radius:3px;
 }
+/* A term already read recedes — the reader's own "visited link" (data-seen is set by markTtipSeen).
+   Only the READ ones are marked: a curated card links about fifteen terms, so badging the unread would
+   put a rash of ornament on the one surface that has to stay readable. Dimming what is done instead
+   leaves everything still to discover standing at full strength, and costs no extra ink.
+   This must stay ABOVE the :hover rule — equal specificity, so source order decides, and a read term
+   still has to light up fully under the cursor.
+   The mix is deliberately not subtler than this: at 68% indigo the two states were a few RGB points
+   apart and only the underline told them apart, which is invisible at reading size. It also must not go
+   much further — the dotted underline is what still says "this is a link", and a read term that reads as
+   plain body text has lost its affordance. */
+.ttip[data-seen]{
+  color:color-mix(in srgb,var(--indigo) 42%,var(--ink-soft));
+  text-decoration-color:color-mix(in srgb,var(--indigo) 16%,transparent);
+}
 .ttip:hover,.ttip:focus-visible{
   color:var(--indigo-bright); text-decoration-color:var(--indigo-bright);
   background:var(--indigo-wash); outline:none;
 }
 .night .ttip:hover,.night .ttip:focus-visible{ color:var(--indigo); background:color-mix(in srgb,var(--indigo) 16%,transparent); }
 .ttip b,.ttip i,.ttip strong{ color:inherit; }
+
+/* ---- discovery chip (shared: the glossary popup's bar and the Atlas info panel) ----
+   Shown on the FIRST opening of a term or a place and never again, carrying the running count, because
+   the moment of discovery is where the progress means something — not the account page nobody is looking
+   at just then. It takes the same gold as the level badges, so a find reads in the reward language the
+   site already speaks. */
+.disc-chip{
+  flex:none; display:inline-flex; align-items:center; gap:6px;
+  font-family:var(--mono); font-size:9px; font-weight:600; letter-spacing:.11em; text-transform:uppercase;
+  padding:3px 8px; border-radius:999px; white-space:nowrap;
+  color:#7A5E10; background:color-mix(in srgb,#C39A2E 22%,transparent);
+  border:1px solid color-mix(in srgb,#C39A2E 46%,transparent);
+  animation:discPop .42s var(--ease) both;
+}
+.disc-chip b{font-weight:700;}
+.disc-n{opacity:.72; letter-spacing:.04em;}
+.night .disc-chip{ color:#E6C765; background:color-mix(in srgb,#E6C765 15%,transparent); border-color:color-mix(in srgb,#E6C765 40%,transparent); }
+@keyframes discPop{ from{opacity:0; transform:scale(.82);} to{opacity:1; transform:scale(1);} }
+.cp-new{margin:0 0 7px;}
+.cp-new[hidden]{display:none;}
 
 /* ---- glossary windows (desktop) ---- */
 .gloss-win{
