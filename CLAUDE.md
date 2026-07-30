@@ -76,6 +76,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   — nothing else may ever be framed. Headers only apply over HTTP, so
   opening index.html from `file://` is unaffected. If it ever breaks the live site, rename the header to
   `Content-Security-Policy-Report-Only` — violations keep showing in devtools without blocking anything.
+- `docs/citation-plan.md` — the batch plan for **citing the 109 prehistory cards** (the bar a source must
+  clear, the per-card workflow, how translations are staged, and the 13 batches with their source spines).
+  Not part of the site. Coverage is reported by `add-sources.js` on every run.
 - `docs/user-decks-plan.md` — the design plan for **community decks** (user-created decks, sharing,
   ratings, an optional per-deck glossary, and a later paid tier). Phases 0–1 have shipped; see the bullet
   in "How the app is wired". Not part of the site.
