@@ -201,6 +201,9 @@
   window.GLOSSARY_TAGS = window.GLOSSARY_TAGS || {};       // per-term category tags (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar
   window.GLOSSARY_IMAGES = window.GLOSSARY_IMAGES || {};   // optional per-term illustration (slug -> { src, title, desc, credit }) shown at the foot of the popup, same shape + viewer as a card image
   window.GLOSSARY_VIDEOS = window.GLOSSARY_VIDEOS || {};   // optional per-term video (slug -> the same 4 fields, src a file/YouTube/Vimeo link) shown in the same slot, in the same frame
+  // per-term source footnotes (slug -> [Chicago note-form citations]) shown as a fold at the foot of the popup.
+  // NOT translated, and for the same reason image credits are not: a citation names an edition that exists in one language.
+  window.GLOSSARY_SOURCES = window.GLOSSARY_SOURCES || {};
   window.GLOSSARY_I18N = window.GLOSSARY_I18N || {};       // slug -> { lang: translated description } (i18n/gloss-<lang>.js)
   const PRISTINE_GLOSS_DATES = Object.assign({}, window.GLOSSARY_DATES);
   const PRISTINE_GLOSS_TITLES = Object.assign({}, window.GLOSSARY_TITLES);
@@ -208,6 +211,7 @@
   const PRISTINE_GLOSS_TAGS = Object.assign({}, window.GLOSSARY_TAGS);
   const PRISTINE_GLOSS_IMAGES = Object.assign({}, window.GLOSSARY_IMAGES);   // slug -> shipped image object (edits REPLACE a slug's object, never mutate it)
   const PRISTINE_GLOSS_VIDEOS = Object.assign({}, window.GLOSSARY_VIDEOS);   // ditto for the term's video
+  const PRISTINE_GLOSS_SOURCES = Object.assign({}, window.GLOSSARY_SOURCES);  // and for its citations
   // slug -> shipped lang-map (edits REPLACE a slug's map, never mutate it). Filled in as each language's
   // i18n/gloss-<lang>.js lands (glossI18nIngest), NOT at boot — the files are lazy and per-language now.
   const PRISTINE_GLOSS_I18N = Object.assign({}, window.GLOSSARY_I18N);
@@ -228,7 +232,7 @@
     if (!o || typeof o !== "object") o = {};
     const t = o.tree || {};
     return {
-      cards: o.cards || {}, glossary: o.glossary || {}, glossaryDates: o.glossaryDates || {}, glossaryTitles: o.glossaryTitles || {}, glossaryAliases: o.glossaryAliases || {}, glossaryTags: o.glossaryTags || {}, glossaryImages: o.glossaryImages || {}, glossaryVideos: o.glossaryVideos || {}, glossaryDeleted: o.glossaryDeleted || {}, glossaryI18n: o.glossaryI18n || {},
+      cards: o.cards || {}, glossary: o.glossary || {}, glossaryDates: o.glossaryDates || {}, glossaryTitles: o.glossaryTitles || {}, glossaryAliases: o.glossaryAliases || {}, glossaryTags: o.glossaryTags || {}, glossaryImages: o.glossaryImages || {}, glossaryVideos: o.glossaryVideos || {}, glossarySources: o.glossarySources || {}, glossaryDeleted: o.glossaryDeleted || {}, glossaryI18n: o.glossaryI18n || {},
       created: o.created || {}, deleted: o.deleted || {},
       membership: o.membership || {}, meta: o.meta || {}, chrono: o.chrono || {}, cardColor: o.cardColor || {}, glossColor: o.glossColor || {}, glossOff: o.glossOff || {},
       mission: o.mission && typeof o.mission === "object" ? o.mission : null,   // Mission-intro override ({ title, paras }) — rides in the overlay like every other delta
@@ -279,6 +283,7 @@
     reset(window.GLOSSARY_TAGS, PRISTINE_GLOSS_TAGS);
     reset(window.GLOSSARY_IMAGES, PRISTINE_GLOSS_IMAGES);
     reset(window.GLOSSARY_VIDEOS, PRISTINE_GLOSS_VIDEOS);
+    reset(window.GLOSSARY_SOURCES, PRISTINE_GLOSS_SOURCES);
     reset(window.GLOSSARY_I18N, PRISTINE_GLOSS_I18N);
   }
   function reapplyAdminOverlay(snap) {
@@ -350,6 +355,7 @@
     Object.keys(ADMIN_EDITS.glossaryTags || {}).forEach((k) => { const v = ADMIN_EDITS.glossaryTags[k]; if (v && v.length) window.GLOSSARY_TAGS[k] = v; else delete window.GLOSSARY_TAGS[k]; });
     Object.keys(ADMIN_EDITS.glossaryImages || {}).forEach((k) => { const v = ADMIN_EDITS.glossaryImages[k]; if (v && v.src) window.GLOSSARY_IMAGES[k] = v; else delete window.GLOSSARY_IMAGES[k]; });   // whole image objects; a null tombstone hides a shipped one
     Object.keys(ADMIN_EDITS.glossaryVideos || {}).forEach((k) => { const v = ADMIN_EDITS.glossaryVideos[k]; if (v && v.src) window.GLOSSARY_VIDEOS[k] = v; else delete window.GLOSSARY_VIDEOS[k]; });   // ditto for the term's video
+    Object.keys(ADMIN_EDITS.glossarySources || {}).forEach((k) => { const v = ADMIN_EDITS.glossarySources[k]; if (v && v.length) window.GLOSSARY_SOURCES[k] = v; else delete window.GLOSSARY_SOURCES[k]; });   // and its citations
     Object.keys(ADMIN_EDITS.glossaryI18n || {}).forEach(glossI18nApply);   // per-language deltas, LAYERED over the shipped text
     // glossary deletions: drop the term from the live glossary, but only while the shipped text is unchanged.
     // If the slug was re-added or edited out-of-band (e.g. add-glossary.js rewrote glossary.js), retire the tombstone
@@ -359,7 +365,7 @@
       Object.keys(ADMIN_EDITS.glossaryDeleted || {}).forEach((k) => {
         const rec = ADMIN_EDITS.glossaryDeleted[k];
         if (!(k in window.GLOSSARY)) { delete ADMIN_EDITS.glossaryDeleted[k]; gdChanged = true; return; }   // nothing to hide
-        if (rec === true || window.GLOSSARY[k] === rec) { delete window.GLOSSARY[k]; if (window.GLOSSARY_DATES) delete window.GLOSSARY_DATES[k]; if (window.GLOSSARY_TITLES) delete window.GLOSSARY_TITLES[k]; if (window.GLOSSARY_IMAGES) delete window.GLOSSARY_IMAGES[k]; if (window.GLOSSARY_VIDEOS) delete window.GLOSSARY_VIDEOS[k]; }
+        if (rec === true || window.GLOSSARY[k] === rec) { delete window.GLOSSARY[k]; if (window.GLOSSARY_DATES) delete window.GLOSSARY_DATES[k]; if (window.GLOSSARY_TITLES) delete window.GLOSSARY_TITLES[k]; if (window.GLOSSARY_IMAGES) delete window.GLOSSARY_IMAGES[k]; if (window.GLOSSARY_VIDEOS) delete window.GLOSSARY_VIDEOS[k]; if (window.GLOSSARY_SOURCES) delete window.GLOSSARY_SOURCES[k]; }
         else { delete ADMIN_EDITS.glossaryDeleted[k]; gdChanged = true; }   // re-added/changed → let it show again
       });
       if (gdChanged) saveAdminEdits();
@@ -470,6 +476,28 @@
     touchModified(id);
     queueAdminSave();
   }
+  // edit the card's source footnotes — one Chicago note-form citation per line. Same delta shape as the
+  // question pool above (whole array replaced; a null tombstone hides a shipped list). Citations are NOT
+  // translated, so they live on the base card and not in the i18n blocks, exactly like image credits.
+  function setCardSourcesEdit(id, value) {
+    const c = CARD_BY_ID[id]; if (!c) return;
+    const next = normSources(Array.isArray(value) ? value : String(value == null ? "" : value).split("\n"));
+    const val = next.length ? next : undefined;
+    if (val) c.sources = val; else delete c.sources;
+    if (isCreatedCard(id)) {
+      if (val) ADMIN_EDITS.created[id].sources = val; else delete ADMIN_EDITS.created[id].sources;
+    } else {
+      const orig = PRISTINE_CARDS[id] ? PRISTINE_CARDS[id].sources : undefined;
+      if (JSON.stringify(val || null) === JSON.stringify(orig || null)) {
+        if (ADMIN_EDITS.cards[id]) { delete ADMIN_EDITS.cards[id].sources; if (!Object.keys(ADMIN_EDITS.cards[id]).length) delete ADMIN_EDITS.cards[id]; }
+      } else {
+        if (!ADMIN_EDITS.cards[id]) ADMIN_EDITS.cards[id] = {};
+        ADMIN_EDITS.cards[id].sources = val || null;
+      }
+    }
+    touchModified(id);
+    queueAdminSave();
+  }
   // ONE FRAME PER CARD. An image and a video are alternatives, never companions: giving a card either one
   // retires the other, here and in every other writer (uCardSetImage/Video, the glossary pair, the deck
   // ingest sanitizers). The renderers keep the same rule as a backstop for hand-authored data files.
@@ -563,6 +591,7 @@
     CARD_BY_ID[id].image = p.image; // the card image too
     CARD_BY_ID[id].video = p.video; // and its video
     CARD_BY_ID[id].questions = p.questions; // and its extra question phrasings
+    CARD_BY_ID[id].sources = p.sources;     // and the citations behind it
     if (isCreatedCard(id)) { ADMIN_EDITS.created[id] = {}; CARD_FIELDS.forEach((f) => { ADMIN_EDITS.created[id][f] = CARD_BY_ID[id][f]; }); }
     else delete ADMIN_EDITS.cards[id];
     if (ADMIN_EDITS.meta[id]) delete ADMIN_EDITS.meta[id].modified;
@@ -903,6 +932,16 @@
     if (!empty) retireOtherGlossMedia(key, "video");
     queueAdminSave();
   }
+  // the works behind a term's description — one Chicago note-form citation per line in the editor.
+  // Citations are shared across every language (see the GLOSSARY_SOURCES declaration), so this is an
+  // EN-view-only field like the title, dates, aliases and tags.
+  function setGlossSourcesEdit(key, value) {
+    const arr = normSources(String(value == null ? "" : value).split("\n"));
+    if (arr.length) window.GLOSSARY_SOURCES[key] = arr; else delete window.GLOSSARY_SOURCES[key];
+    if (JSON.stringify(arr) === JSON.stringify(PRISTINE_GLOSS_SOURCES[key] || [])) delete ADMIN_EDITS.glossarySources[key];
+    else ADMIN_EDITS.glossarySources[key] = arr;
+    queueAdminSave();
+  }
   function glossTags(k) {
     const u = uGlossParse(k);
     if (u) return u.entry.tags || [];
@@ -935,6 +974,8 @@
     delete ADMIN_EDITS.glossaryImages[key];
     if (key in PRISTINE_GLOSS_VIDEOS) window.GLOSSARY_VIDEOS[key] = PRISTINE_GLOSS_VIDEOS[key]; else delete window.GLOSSARY_VIDEOS[key];
     delete ADMIN_EDITS.glossaryVideos[key];
+    if (key in PRISTINE_GLOSS_SOURCES) window.GLOSSARY_SOURCES[key] = PRISTINE_GLOSS_SOURCES[key]; else delete window.GLOSSARY_SOURCES[key];
+    delete ADMIN_EDITS.glossarySources[key];
     delete ADMIN_EDITS.glossaryI18n[key];
     glossI18nApply(key);   // back to the shipped lang-map (whatever languages have been loaded)
     invalidateGlossIndex();
@@ -951,7 +992,8 @@
     if (window.GLOSSARY_TAGS) delete window.GLOSSARY_TAGS[key];
     if (window.GLOSSARY_IMAGES) delete window.GLOSSARY_IMAGES[key];
     if (window.GLOSSARY_VIDEOS) delete window.GLOSSARY_VIDEOS[key];
-    delete ADMIN_EDITS.glossary[key]; delete ADMIN_EDITS.glossaryDates[key]; delete ADMIN_EDITS.glossaryTitles[key]; delete ADMIN_EDITS.glossaryAliases[key]; delete ADMIN_EDITS.glossaryTags[key]; delete ADMIN_EDITS.glossaryImages[key]; delete ADMIN_EDITS.glossaryVideos[key];
+    if (window.GLOSSARY_SOURCES) delete window.GLOSSARY_SOURCES[key];
+    delete ADMIN_EDITS.glossary[key]; delete ADMIN_EDITS.glossaryDates[key]; delete ADMIN_EDITS.glossaryTitles[key]; delete ADMIN_EDITS.glossaryAliases[key]; delete ADMIN_EDITS.glossaryTags[key]; delete ADMIN_EDITS.glossaryImages[key]; delete ADMIN_EDITS.glossaryVideos[key]; delete ADMIN_EDITS.glossarySources[key];
     if (ADMIN_EDITS.glossOff) delete ADMIN_EDITS.glossOff[key];   // don't strand a deleted term's gloss-removal list
     invalidateGlossIndex();
     if (ADMIN_EDITS.glossColor) delete ADMIN_EDITS.glossColor[key];   // don't strand the colour mark of a deleted term
@@ -1639,6 +1681,7 @@
     a: new Set(["href", "rel", "target"]),
     img: new Set(["src", "alt", "width", "height", "loading"]),
     span: new Set(["data-k"]),
+    sup: new Set(["data-fn"]),   // a footnote marker pointing into the surface's source list; the digit itself is written by wireFootnotes
   };
   // `style` survives ONLY as a colour. The rich-text ribbon's colour button emits
   // <span style="color:…">, so stripping style outright would silently destroy that formatting; but a
@@ -1649,7 +1692,7 @@
   // of them, and letting untrusted content borrow site-chrome classes invites visual spoofing.
   // "uc-*" is reserved for community content's own styling.
   const SANITIZE_CLASSES = new Set(["blank", "dt", "dt-k", "dt-v", "tr-pinline", "tr-pin", "ttip", "ans-term",
-    "card-img", "note", "quote", "small", "center"]);
+    "card-img", "note", "quote", "small", "center", "fn"]);
   const SANITIZE_URL_SCHEMES = ["http", "https", "mailto"];
 
   // Resolve an attribute URL to something safe, or "" to drop it. Values arrive entity-decoded from the
@@ -2276,7 +2319,7 @@
         '<button class="gloss-close" type="button" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>' +
       '</div>' +
       // the image slot comes FIRST: it floats to the top-right and the prose wraps down its left
-      '<div class="gloss-body"><div class="gloss-imgslot"></div><span class="gloss-dates"></span><p class="gloss-desc"></p></div>';
+      '<div class="gloss-body"><div class="gloss-imgslot"></div><span class="gloss-dates"></span><p class="gloss-desc"></p><div class="gloss-srcslot"></div></div>';
     win.querySelector(".gloss-title").textContent = glossTitle(key);
     const dEl = win.querySelector(".gloss-dates");
     const dates = glossDates(key);
@@ -2285,8 +2328,12 @@
     if (dates) descText = stripDupDates(descText, dates); // drop a parenthetical date identical to the label
     renderGlossDesc(win.querySelector(".gloss-desc"), key, descText);   // render its HTML + auto-link other terms
     renderGlossImage(win.querySelector(".gloss-imgslot"), key);         // the term's illustration, floated top-right
+    // the works behind the description, as a compact fold under it. It sits AFTER the floated image slot
+    // in the flow, so it clears the picture rather than wrapping beside it.
+    win.querySelector(".gloss-srcslot").innerHTML = sourcesHTML(glossSources(key), { compact: true });
     document.body.appendChild(win);
     setupTooltips(win.querySelector(".gloss-body")); // wire nested glossary terms
+    wireFootnotes(win.querySelector(".gloss-body")); // and the description's footnote markers
 
     if (!mobile) {
       if (pos && isFinite(pos.left) && isFinite(pos.top)) { win.style.left = pos.left + "px"; win.style.top = pos.top + "px"; win.style.right = "auto"; clampGlossWin(win); }
@@ -2302,7 +2349,11 @@
       const glossParts = () => {
         const desc = win.querySelector(".gloss-desc");
         const dates = glossDates(key);
-        return [{ text: glossTitle(key) + ". " + (dates ? dates + ". " : "") + (desc ? (desc.textContent || "").replace(/\s+/g, " ").trim() : "") }];
+        // footnote markers are stripped: a superscript digit read aloud as a number in the middle of a
+        // sentence is heard as part of the sentence
+        let body = "";
+        if (desc) { const cl = desc.cloneNode(true); cl.querySelectorAll("sup.fn").forEach((m) => m.remove()); body = (cl.textContent || "").replace(/\s+/g, " ").trim(); }
+        return [{ text: glossTitle(key) + ". " + (dates ? dates + ". " : "") + body }];
       };
       const bar = win.querySelector(".gloss-bar");
       const pb = document.createElement("button");
@@ -2805,6 +2856,12 @@
         .filter((q) => q.trim());
       if (extras.length) c.questions = extras;
     }
+    // source footnotes: short rich HTML (a citation italicises a title), sanitized like every other rich field
+    if (raw && (Array.isArray(raw.sources) || typeof raw.sources === "string")) {
+      const src = (Array.isArray(raw.sources) ? raw.sources : [raw.sources]).slice(0, SRC_MAX)
+        .map((s) => sanitizeHTML(s == null ? "" : String(s)).slice(0, SRC_MAX_LEN)).filter((s) => s.trim());
+      if (src.length) c.sources = src;
+    }
     if (raw && raw.image && raw.image.src) {
       const src = sanitizeUrl(String(raw.image.src), ["http", "https"]);
       if (src) c.image = { src: src, title: sanitizePlain(raw.image.title).slice(0, 200), desc: sanitizePlain(raw.image.desc).slice(0, 1000), credit: sanitizePlain(raw.image.credit).slice(0, 300) };
@@ -2840,6 +2897,8 @@
         date: sanitizePlain(t.date).slice(0, 60),
         tags: Array.isArray(t.tags) ? t.tags.map((x) => sanitizePlain(x).slice(0, 40)).filter(Boolean).slice(0, 12) : [],
         aliases: Array.isArray(t.aliases) ? t.aliases.map((x) => sanitizePlain(x).slice(0, 80)).filter(Boolean).slice(0, 12) : [],
+        // the works behind the description — rich HTML like the description itself, so sanitized the same way
+        sources: Array.isArray(t.sources) ? t.sources.slice(0, SRC_MAX).map((x) => sanitizeHTML(x == null ? "" : String(x)).slice(0, SRC_MAX_LEN)).filter((x) => x.trim()) : [],
       };
       if (t.image && t.image.src) {   // the term's illustration, on the same footing as a card image
         const src = sanitizeUrl(String(t.image.src), ["http", "https"]);
@@ -2947,6 +3006,15 @@
     if (extras.length) c.questions = extras; else delete c.questions;
     if (c.deckId) uDeckSave(c.deckId);
   }
+  // the card's source footnotes — one citation per line, sanitized like the description fields
+  function uCardSetSources(cardId, value) {
+    const c = UCARDS[cardId];
+    if (!c) return;
+    const list = normSources(Array.isArray(value) ? value : String(value == null ? "" : value).split("\n"))
+      .map((s) => sanitizeHTML(s).slice(0, SRC_MAX_LEN)).filter((s) => s.trim());
+    if (list.length) c.sources = list; else delete c.sources;
+    if (c.deckId) uDeckSave(c.deckId);
+  }
   function uCardSetImage(cardId, field, value) {
     const c = UCARDS[cardId];
     if (!c) return;
@@ -2998,6 +3066,8 @@
     else if (field === "title") t.title = sanitizePlain(value).slice(0, 120);
     else if (field === "date") t.date = sanitizePlain(value).slice(0, 60);
     else if (field === "tags" || field === "aliases") t[field] = String(value || "").split(",").map((x) => sanitizePlain(x).slice(0, 80)).filter(Boolean).slice(0, 12);
+    // the works behind the description: ONE PER LINE, not comma-separated — a citation is full of commas
+    else if (field === "sources") t.sources = normSources(String(value || "").split("\n")).map((x) => sanitizeHTML(x).slice(0, SRC_MAX_LEN)).filter((x) => x.trim());
     else return;
     uGlossTouched(deckId);
   }
@@ -3185,6 +3255,7 @@
       const data = {};
       CARD_FIELDS.forEach((f) => { data[f] = c[f] == null ? "" : c[f]; });
       if (Array.isArray(c.questions) && c.questions.length) data.questions = c.questions;   // the extra phrasings travel with the card
+      if (Array.isArray(c.sources) && c.sources.length) data.sources = c.sources;           // and so do its citations
       if (c.image && c.image.src) data.image = c.image;
       else if (c.video && c.video.src) data.video = c.video;   // one frame per card
       return { deck_id: row.id, id: c.id, ord: i, is_demo: true, data: data };
@@ -3516,7 +3587,7 @@
     world: { files: ["world.js"] },
     // everything else the Atlas needs: historical eras, physical layers, per-country prose + figures
     atlas: {
-      files: ["uk.js", "lakes.js", "rivers.js", "water.js", "cities.js", "timeline.js", "countries.js", "country-stats.js", "country-spans.js", "country-years.js"],
+      files: ["uk.js", "lakes.js", "rivers.js", "water.js", "cities.js", "timeline.js", "countries.js", "country-stats.js", "country-spans.js", "country-years.js", "country-sources.js"],
       after: function () {
         // timeline.js has just assigned the shipped eras over the empty array applyAdminEdits()
         // left at boot — re-apply the admin overlay's working set on top, exactly as it does
@@ -5778,6 +5849,9 @@
                   '<div class="af-input gloss-desc-edit" data-gf="desc" data-rich="1" contenteditable="true" spellcheck="true"></div></div>' +
                 '<label class="admin-field"><span class="af-label">Also written as <small>— comma separated; plurals link automatically</small></span><input class="af-input" data-gf="aliases" type="text" value="' + esc((t.aliases || []).join(", ")) + '" /></label>' +
                 '<label class="admin-field"><span class="af-label">Tags <small>— comma separated</small></span><input class="af-input" data-gf="tags" type="text" value="' + esc((t.tags || []).join(", ")) + '" /></label>' +
+                // one per LINE, not comma-separated: a citation is full of commas
+                '<div class="admin-field"><span class="af-label">Sources <small>— optional, one citation per line; shown as a numbered fold at the foot of the popup</small></span>' +
+                  '<textarea class="af-input af-sources" data-gf="sources" rows="3" spellcheck="false">' + esc((t.sources || []).join("\n")) + '</textarea></div>' +
                 '<div class="ces-imgpanel gloss-imgpanel">' +
                   '<div class="aib-head">Image <span class="aib-hint">— shown at the foot of the term&rsquo;s popup; clear the URL to remove it. A term shows one frame, so setting an image removes any video.</span></div>' +
                   '<label class="admin-field"><span class="af-label">Image URL</span><input class="af-input" data-gimg="src" type="text" spellcheck="false" value="' + esc((t.image || {}).src || "") + '" placeholder="https://…" /></label>' +
@@ -5938,7 +6012,7 @@
         '<div class="admin-ed-key">' + esc(d ? d.title : "") + '</div></div>' +
         '<div class="admin-ed-actions"><span class="admin-saved" id="adminSaved"></span>' +
         '<button class="admin-delete" id="stDelCard" type="button">Delete card</button></div></div>' +
-      liveCardEditorHTML({ dirAttr: "", metaHtml: metaRow, imagePanel: true, videoPanel: true });
+      liveCardEditorHTML({ dirAttr: "", metaHtml: metaRow, imagePanel: true, videoPanel: true, sourcesPanel: true });
 
     wireLiveCardEditor(host, {
       card: c,
@@ -5954,6 +6028,8 @@
       setField: (f, v) => uCardSet(c.id, f, v),
       getQuestions: () => [c.question == null ? "" : String(c.question)].concat(Array.isArray(c.questions) ? c.questions.map(String) : []),
       setQuestions: (arr) => uCardSetQuestions(c.id, arr),
+      getSources: () => c.sources || [],
+      setSources: (list) => uCardSetSources(c.id, list),
       getImage: () => c.image || null,
       setImage: (f, v) => uCardSetImage(c.id, f, v),
       getVideo: () => c.video || null,
@@ -6463,6 +6539,7 @@
         openLinks(inner);
         processAbstract(inner, c);
         setupTooltips(inner);
+        wireFootnotes(inner);   // number the in-prose markers and join them to the source list below
         const bgHead = inner.querySelector(".bg-head");
         const bgToggle = inner.querySelector(".bg-toggle");
         const bgCollapse = inner.querySelector(".bg-collapse");
@@ -6659,6 +6736,123 @@
     });
   }
 
+  /* ============================================================
+     SOURCE FOOTNOTES — where a claim comes from
+     ============================================================
+     Three surfaces say things about the past — a card's background, a glossary description and the
+     Atlas place panel — and each can now name the scholarship behind them. A surface carries a
+     `sources` list of Chicago note-form citations, rendered as a numbered fold at its foot.
+
+     Prose points INTO that list with an EMPTY marker: `<sup class="fn" data-fn="2"></sup>`. The digit
+     is written by wireFootnotes(), never by the author, so re-ordering a source list can never leave a
+     stale number sitting in the sentence — the one failure mode of hand-numbered footnotes. A marker
+     whose number has no entry behind it is REMOVED rather than shown, since a dead superscript claims
+     a citation the reader cannot check, which is worse than no marker at all.
+
+     Citations are NOT translated, and for the reason image credits are not: a citation names an edition
+     that exists in one language, and rendering "Cambridge University Press" in nine is not translation
+     but fabrication. Hence `notranslate` on every list and count.
+
+     Markers are optional. Where a claim is specific enough to pin to a page, mark it; where the list is
+     simply the works a description was written from, the list alone is honest and the fold still shows. */
+  const SRC_MAX = 24;        // per surface — a study card citing more than this has a bibliography, not footnotes
+  const SRC_MAX_LEN = 600;   // one citation
+  // clean a raw sources value (array, or one string) into the display list: trimmed, de-duplicated, capped
+  function normSources(raw) {
+    const arr = Array.isArray(raw) ? raw : (raw == null || raw === "" ? [] : [raw]);
+    const out = [];
+    arr.forEach((s) => {
+      const t = String(s == null ? "" : s).replace(/\s+/g, " ").trim();
+      if (t && out.indexOf(t) < 0) out.push(t.slice(0, SRC_MAX_LEN));
+    });
+    return out.slice(0, SRC_MAX);
+  }
+  function cardSources(c) { return normSources(c && c.sources); }
+  function glossSources(k) {
+    const u = uGlossParse(k);
+    return normSources(u ? u.entry.sources : (window.GLOSSARY_SOURCES || {})[k]);
+  }
+  /* An Atlas panel cites two paragraphs at once: the state's general description (constant across years)
+     and the paragraph for THIS map-year. They share one numbered list, general first, deduplicated — a
+     work cited by both should be one footnote, not two. */
+  function placeSources(name, yr) {
+    const k = (name || "").trim().toLowerCase().replace(/\s+/g, " ");
+    const gen = (window.COUNTRY_SOURCES || {})[k];
+    const per = ((window.COUNTRY_YEAR_SOURCES || {})[k] || {})[String(yr)];
+    return normSources([].concat(gen || [], per || []));
+  }
+  const SRC_CHEV = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
+  // just the numbered list — for a surface that already owns a fold of its own (the Atlas panel's .cp-sec)
+  function sourceListHTML(list) {
+    const src = normSources(list);
+    if (!src.length) return "";
+    return '<ol class="src-list notranslate">' + src.map((s) => '<li class="src-item">' + s + "</li>").join("") + "</ol>";
+  }
+  /* The whole apparatus with its own header. Collapsed by default everywhere: the citations are there to
+     be checked, not read, and an open list would push a card's actual content off the screen.
+     opts.compact = the gloss-popup variant (no room for the card's section furniture). */
+  function sourcesHTML(list, opts) {
+    const src = normSources(list);
+    if (!src.length) return "";
+    const o = opts || {};
+    return '<section class="src-note' + (o.compact ? " src-compact" : "") + '">' +
+      '<button class="src-head" type="button" aria-expanded="false" aria-label="Show or hide the sources" title="Show or hide the sources">' +
+        '<span class="src-label">Sources</span>' +
+        '<span class="src-count notranslate">' + src.length + "</span>" +
+        '<span class="src-toggle collapsed">' + SRC_CHEV + "</span>" +
+      "</button>" +
+      '<div class="src-collapse collapsed"><div class="src-collapse-inner">' + sourceListHTML(src) + "</div></div>" +
+      "</section>";
+  }
+  function toggleSourceNote(note, forceOpen) {
+    if (!note) return false;
+    const box = note.querySelector(".src-collapse"), head = note.querySelector(".src-head"), tog = note.querySelector(".src-toggle");
+    if (!box) return false;
+    const collapsed = forceOpen ? false : !box.classList.contains("collapsed");
+    box.classList.toggle("collapsed", collapsed);
+    if (tog) tog.classList.toggle("collapsed", collapsed);
+    if (head) head.setAttribute("aria-expanded", collapsed ? "false" : "true");
+    return !collapsed;
+  }
+  function openFootnote(note, item) {
+    if (!item) return;
+    toggleSourceNote(note, true);
+    item.classList.remove("src-flash");
+    void item.offsetWidth;   // restart the flash when the same marker is clicked twice
+    item.classList.add("src-flash");
+    try { item.scrollIntoView({ block: "nearest", behavior: prefersReducedMotion() ? "auto" : "smooth" }); }
+    catch (e) { item.scrollIntoView(); }
+  }
+  /* Number the markers in `scope`, join them to the source list inside it, and wire the fold.
+     A marker with no data-fn takes the next number in reading order, so a one-source surface can just
+     write <sup class="fn"></sup> and be right. Safe to call twice on the same container. */
+  function wireFootnotes(scope) {
+    if (!scope) return;
+    const note = scope.querySelector(".src-note");
+    const items = note ? Array.prototype.slice.call(note.querySelectorAll(".src-item")) : [];
+    let seq = 0;
+    scope.querySelectorAll("sup.fn").forEach((el) => {
+      const explicit = parseInt(el.getAttribute("data-fn"), 10);
+      const n = explicit > 0 ? explicit : ++seq;
+      if (explicit > 0) seq = Math.max(seq, explicit); else el.setAttribute("data-fn", String(n));
+      if (n > items.length) { el.remove(); return; }   // no entry behind it — a number the reader cannot follow
+      el.textContent = String(n);
+      el.setAttribute("role", "button");
+      el.setAttribute("tabindex", "0");
+      el.setAttribute("aria-label", "Source " + n);
+      el.setAttribute("title", "Source " + n);
+      if (el._fnWired) return;
+      el._fnWired = true;
+      const jump = (e) => { e.preventDefault(); e.stopPropagation(); openFootnote(note, note.querySelectorAll(".src-item")[parseInt(el.getAttribute("data-fn"), 10) - 1]); };
+      el.addEventListener("click", jump);
+      el.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") jump(e); });
+    });
+    if (note) {
+      const head = note.querySelector(".src-head");
+      if (head && !head._fnWired) { head._fnWired = true; head.addEventListener("click", () => toggleSourceNote(note)); }
+    }
+  }
+
   // build the back-of-card markup from deck fields (mirrors the deck's back template)
   function buildBack(c) {
     let html = "";
@@ -6702,6 +6896,9 @@
       if (c.abstract) html += '<p class="abstract">' + c.abstract + "</p>";
       html += "</div></div>";
     }
+    // the citations behind the background, at the very foot of the card — outside the Background fold, so
+    // they can be checked without re-opening prose the reader has already read
+    html += sourcesHTML(cardSources(c));
     return html;
   }
   // the card's illustration: a 16:9 frame at the top of the Background section; clicking opens the
@@ -6947,7 +7144,7 @@
     inner.querySelectorAll(".bg-collapse, .bg-toggle, .answer-tr").forEach((el) => el.classList.remove("collapsed"));   // expand so all edits are visible
     const bh = inner.querySelector(".bg-head"); if (bh) bh.setAttribute("aria-expanded", "true");
     const tt = inner.querySelector(".tr-toggle"); if (tt) tt.setAttribute("aria-expanded", "true");
-    processAbstract(inner, c); setupTooltips(inner);
+    processAbstract(inner, c); setupTooltips(inner); wireFootnotes(inner);
     const trToggle = inner.querySelector(".tr-toggle"), answerTr = inner.querySelector(".answer-tr");
     if (trToggle && answerTr) trToggle.addEventListener("click", () => { const col = answerTr.classList.toggle("collapsed"); trToggle.setAttribute("aria-expanded", col ? "false" : "true"); });
     const bgHead = inner.querySelector(".bg-head"), bgToggle = inner.querySelector(".bg-toggle"), bgCollapse = inner.querySelector(".bg-collapse");
@@ -7598,6 +7795,10 @@
                   </div>
                 </div>
               </div>
+              <div class="cp-srcsec cp-sec" id="cpSrcSec" hidden>
+                <button class="cp-sec-head" type="button" aria-expanded="false"><span class="cp-sec-t">Sources</span>${cpChev}</button>
+                <div class="cp-sec-body"><div class="cp-src" id="cpSrc"></div></div>
+              </div>
             </div>
           </div>
         </div>
@@ -7712,6 +7913,7 @@
     let cpEl = null, cpNameEl = null, cpSpanEl = null, cpNewEl = null, cpDescEl = null, cpYearNumEl = null, cpYearDescEl = null, cpPopEl = null, cpAreaEl = null, cpGdpEl = null, cpGdppcEl = null;   // the country info popup (one at a time, left panel)
     let cpCrumbEl = null, cpHistListEl = null;   // drill breadcrumb + the "Through the ages" strip
     let cpColsEl = null, cpDescSecEl = null, cpYearSecEl = null, cpStatsSecEl = null;   // the scroller + the three collapsible sections
+    let cpSrcEl = null, cpSrcSecEl = null;   // the citations behind this place's prose (hidden outright when it has none)
     /* Each section opens or closes as the popup is filled: open when it has something to say, closed when it
        doesn't, so a place with no year paragraph and no figures shows two quiet headers instead of a dash and
        a grid of dashes. This RESETS on every entity — the reader's manual toggles belong to the popup they
@@ -7847,6 +8049,13 @@
       cpGdppcEl.textContent = (popN > 0 && gdpN > 0) ? "$" + Math.round(gdpN / popN).toLocaleString("en-US") : "—";
       // the grid counts as empty only when all four tiles are a dash — one real figure is worth opening for
       cpSection(cpStatsSecEl, [cpPopEl, cpAreaEl, cpGdpEl, cpGdppcEl].some((el) => el && el.textContent.trim() !== "—"));
+      // The works behind both paragraphs, in one numbered list. Unlike the sections above it this one is
+      // HIDDEN when empty rather than shown shut: an empty "Description" header still tells the reader the
+      // panel has that part, but a "Sources" header over nothing reads as a claim to have cited something.
+      // Present, it opens SHUT — the apparatus is there to be checked, not read.
+      const psrc = forceGeneral ? [] : placeSources(name, year);
+      if (cpSrcEl) cpSrcEl.innerHTML = sourceListHTML(psrc);
+      if (cpSrcSecEl) { cpSrcSecEl.hidden = !psrc.length; cpSection(cpSrcSecEl, false); }
       cpEl.hidden = false;
       // a fresh entity starts at the top of its own panel. The popup element is REUSED, so without this the
       // scroller keeps however far down the previous country the reader had got — on the phone's short bottom
@@ -9729,6 +9938,7 @@
     cpCrumbEl = root.querySelector("#cpCrumb"); cpHistListEl = root.querySelector("#cpHistList");
     cpColsEl = root.querySelector(".cp-cols");
     cpDescSecEl = root.querySelector("#cpDescSec"); cpYearSecEl = root.querySelector("#cpYearSec"); cpStatsSecEl = root.querySelector("#cpStatsSec");
+    cpSrcEl = root.querySelector("#cpSrc"); cpSrcSecEl = root.querySelector("#cpSrcSec");
     { const cpClose = root.querySelector("#cpClose"); if (cpClose) cpClose.addEventListener("click", hideCountryPopup); }
     // one delegated listener folds any of the three sections open or shut, so a reader can put away the part
     // they aren't reading — a long description on a phone sheet buries the year paragraph under it
@@ -11757,7 +11967,7 @@
   function adminSetListCount(n, noun) { const el = document.getElementById("adminListCount"); if (el) el.textContent = n + " " + noun + (n === 1 ? "" : "s"); }
   // serialize the live (delta-applied) in-memory data back into data.js / glossary.js source text
   function serializeCardData() {
-    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings + i18n translations ride along untouched; the card's ONE frame is its image or its video
+    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
     const countIds = (node) => { const s = new Set(); (function w(n) { (n.cardIds || []).forEach((i) => s.add(i)); (n.children || []).forEach(w); })(node); return s.size; };
     function ser(node, isTop) {
       const o = { id: node.id, title: node.title };
@@ -11794,6 +12004,8 @@
     // one frame and the renderers give it to the picture
     const Vd = {}; Object.keys(window.GLOSSARY_VIDEOS || {}).forEach((k) => { if (!Im[k]) Vd[k] = window.GLOSSARY_VIDEOS[k]; });
     if (Object.keys(Vd).length) s += "\nwindow.GLOSSARY_VIDEOS = Object.assign(window.GLOSSARY_VIDEOS || {}, " + ob(Vd) + ");\n";
+    const Sr = window.GLOSSARY_SOURCES || {};
+    if (Object.keys(Sr).length) s += "\nwindow.GLOSSARY_SOURCES = Object.assign(window.GLOSSARY_SOURCES || {}, " + ob(Sr) + ");\n";   // preserve the citations behind each description — they live only in the overlay otherwise
     return s;
   }
   function downloadText(name, text) {
@@ -12350,6 +12562,8 @@
        imagePanel   show the image URL/title/description/source panel
        videoPanel   show the video URL/title/description/source panel (links only — see videoSource)
        getField(f)  / setField(f, v)      read + persist a card field
+       sourcesPanel show the source-footnote panel (one Chicago note per line; never per-language)
+       getSources() / setSources(list)    read + persist the card's citations (with sourcesPanel)
        getImage()   / setImage(f, v)      read + persist the card image (omit for no image UI)
        getVideo()   / setVideo(f, v)      read + persist the card video (omit for no video UI)
        glossOff     glossary keys to leave un-linked in the background
@@ -12388,6 +12602,16 @@
           '</div>' +
         '</div>'
       : "";
+    /* The citations behind the background. EN-view only in the curated editor, deck-level in the Studio —
+       a citation is not translated (see the SOURCE FOOTNOTES block), so there is nothing per-language to
+       edit. One per line, because a Chicago note is full of commas and the comma-separated convention the
+       tags and aliases fields use would split every citation into rubble. */
+    const srcPanelHtml = o.sourcesPanel
+      ? '<div class="ces-imgpanel ces-srcpanel">' +
+          '<div class="aib-head">Sources <span class="aib-hint">— one citation per line, Chicago note style, shown as a numbered fold at the foot of the card. Point a sentence at one with &lt;sup class="fn" data-fn="2"&gt;&lt;/sup&gt; in the background: the number comes from this list, so reordering it can never leave a wrong one in the text. Not translated.</span></div>' +
+          '<div class="admin-field"><textarea class="af-input af-sources" id="cesSources" rows="3" spellcheck="false" placeholder="Chris Stringer, &lt;i&gt;Lone Survivors&lt;/i&gt; (New York: Times Books, 2012), 84–86."></textarea></div>' +
+        "</div>"
+      : "";
     return '<div class="card-edit-single">' +
         rtRibbonHtml() +   // OUTSIDE .ces-top: position:sticky can't escape its parent, and .ces-top ends just below the ribbon — as a direct child of the full-height column it stays pinned while the whole card scrolls
         '<div class="ces-top">' + (o.metaHtml || "") + '</div>' +
@@ -12408,6 +12632,7 @@
             '<div id="cesImgSlot"></div>' + imgPanelHtml +
             '<div id="cesVidSlot"></div>' + vidPanelHtml +
             live("abstract", "abstract") +
+            srcPanelHtml +
           '</div></div>' +
         '</div>' +
         '<div class="ces-src"><button class="af-src-toggle" id="cesSrcToggle" type="button"><span class="afs-chev">&#9656;</span> HTML source — whole card</button><textarea class="af-src ces-src-ta" id="cesSrcTa" spellcheck="false" hidden></textarea></div>' +
@@ -12594,6 +12819,14 @@
       atI.addEventListener("input", () => { o.setField("answerText", atI.value); afterEdit("answerText"); syncSrc(); });
     }
 
+    // ---- source footnotes (one citation per line; deliberately outside the HTML-source box, which is
+    // marker-delimited prose and would have to grow a section for what is really a list, not a field) ----
+    const srcI = host.querySelector("#cesSources");
+    if (srcI && o.getSources && o.setSources) {
+      srcI.value = normSources(o.getSources()).join("\n");
+      srcI.addEventListener("input", () => { o.setSources(normSources(srcI.value.split("\n"))); afterEdit("sources"); });
+    }
+
     // ---- live-field saves (the card IS the preview — no separate re-render, focus is never lost) ----
     host.querySelectorAll(".ces-field").forEach((el) => el.addEventListener("input", () => {
       const f = el.dataset.field;
@@ -12689,6 +12922,8 @@
                 '<div class="admin-field-note">Comma-separated alternative spellings in card backgrounds that open this same popup. Plural forms (e.g. dragons for dragon) are linked automatically.</div>' +
                 '<label class="admin-field"><span class="af-label">tags</span><input class="af-input" id="adminGlossTags" type="text" spellcheck="false" placeholder="e.g. person, ruler, han dynasty" /></label>' +
                 '<div class="admin-field-note">Comma-separated category tags, shown in the term list — the bar on the left filters by them. Aim for at least three per term.</div>' +
+                '<div class="admin-field"><span class="af-label">sources</span><textarea class="af-input af-sources" id="adminGlossSources" rows="3" spellcheck="false" placeholder="Chris Stringer, &lt;i&gt;Lone Survivors&lt;/i&gt; (New York: Times Books, 2012), 84–86."></textarea></div>' +
+                '<div class="admin-field-note">ONE citation per line, Chicago note style, shown as a numbered fold at the foot of the popup. Point a sentence at one with <b>&lt;sup class="fn" data-fn="2"&gt;&lt;/sup&gt;</b> — the number is drawn from this list, so reordering it can never leave a wrong one in the text. Not translated: a citation names an edition that exists in one language.</div>' +
                 '<div class="ces-imgpanel gloss-imgpanel">' +
                   '<div class="aib-head">Image <span class="aib-hint">— shown 16:9 at the foot of the popup; title, description and source appear in the fullscreen viewer. Clear the URL to remove it. A term shows one frame, so setting an image removes any video.</span></div>' +
                   '<label class="admin-field"><span class="af-label">image URL</span><input class="af-input" data-gimgfield="src" type="text" spellcheck="false" placeholder="https://… or images/file.jpg" /></label>' +
@@ -12712,19 +12947,20 @@
           '</div>' +
           '<div class="ed-resizer" id="glossPvResizer" title="Drag to resize the preview"></div>' +
           '<div class="gloss-edit-preview"><div class="gloss-preview-label">Popup preview</div>' +
-            '<div class="gloss-win gloss-preview-win" id="adminGlossPreview"><div class="gloss-bar"><span class="gloss-title"></span><button class="gloss-close" type="button" tabindex="-1" aria-hidden="true">' + closeSvg + '</button></div><div class="gloss-body"><div class="gloss-imgslot"></div><span class="gloss-dates"></span><p class="gloss-desc"></p></div></div>' +
+            '<div class="gloss-win gloss-preview-win" id="adminGlossPreview"><div class="gloss-bar"><span class="gloss-title"></span><button class="gloss-close" type="button" tabindex="-1" aria-hidden="true">' + closeSvg + '</button></div><div class="gloss-body"><div class="gloss-imgslot"></div><span class="gloss-dates"></span><p class="gloss-desc"></p><div class="gloss-srcslot"></div></div></div>' +
           '</div>' +
         '</div>';
       wirePreviewDivider(host.querySelector("#glossPvResizer"), host.querySelector(".gloss-edit-preview"), "--gloss-preview-w", "glossPreviewW");
-      const titleI = host.querySelector("#adminGlossTitle"), datesI = host.querySelector("#adminGlossDates"), ta = host.querySelector("#adminGlossField"), aliasesI = host.querySelector("#adminGlossAliases"), tagsI = host.querySelector("#adminGlossTags");
+      const titleI = host.querySelector("#adminGlossTitle"), datesI = host.querySelector("#adminGlossDates"), ta = host.querySelector("#adminGlossField"), aliasesI = host.querySelector("#adminGlossAliases"), tagsI = host.querySelector("#adminGlossTags"), srcI = host.querySelector("#adminGlossSources");
       const headEl = host.querySelector("#adminGlossHead"), rev = host.querySelector("#adminRevert"), pv = host.querySelector("#adminGlossPreview");
-      const pvTitle = pv.querySelector(".gloss-title"), pvDates = pv.querySelector(".gloss-dates"), pvDesc = pv.querySelector(".gloss-desc"), pvImg = pv.querySelector(".gloss-imgslot");
+      const pvTitle = pv.querySelector(".gloss-title"), pvDates = pv.querySelector(".gloss-dates"), pvDesc = pv.querySelector(".gloss-desc"), pvImg = pv.querySelector(".gloss-imgslot"), pvSrc = pv.querySelector(".gloss-srcslot");
       if (titleI) titleI.value = (window.GLOSSARY_TITLES && window.GLOSSARY_TITLES[k]) || "";
       if (datesI) datesI.value = (window.GLOSSARY_DATES && window.GLOSSARY_DATES[k]) || "";
       if (gEn) { ta.innerHTML = window.GLOSSARY[k] || ""; richAutoLink(ta); }   // show the auto gloss links in the description (clickable/editable; stripped on save)
       else ta.innerHTML = (window.GLOSSARY_I18N[k] || {})[gLang] || "";          // translations carry no gloss links — plain text
       if (aliasesI) aliasesI.value = ((window.GLOSSARY_ALIASES && window.GLOSSARY_ALIASES[k]) || []).join(", ");
       if (tagsI) tagsI.value = glossTags(k).join(", ");
+      if (srcI) srcI.value = glossSources(k).join("\n");
       function renderPreview() {
         const dates = (datesI ? datesI.value : ((window.GLOSSARY_DATES || {})[k] || "")).trim();
         let desc = fieldVal(ta); if (dates) desc = stripDupDates(desc, dates);
@@ -12733,6 +12969,7 @@
         renderGlossDesc(pvDesc, k, desc);
         setupTooltips(pvDesc);   // wire the linked terms so clicking one opens its own glossary popup
         renderGlossImage(pvImg, k);
+        if (pvSrc) { pvSrc.innerHTML = sourcesHTML(srcI ? normSources(srcI.value.split("\n")) : glossSources(k), { compact: true }); wireFootnotes(pv.querySelector(".gloss-body")); }
       }
       function afterEdit() {
         adminFlashSaved(); adminUpdateCount();
@@ -12747,6 +12984,7 @@
       ta.addEventListener("input", () => { if (gEn) setGlossEdit(k, fieldVal(ta)); else setGlossI18nEdit(k, gLang, fieldVal(ta)); afterEdit(); });
       if (aliasesI) aliasesI.addEventListener("input", () => { setGlossAliasEdit(k, aliasesI.value); afterEdit(); });
       if (tagsI) tagsI.addEventListener("input", () => { setGlossTagsEdit(k, tagsI.value); afterEdit(); adminRenderTree(); });   // tree = the tag filter; keep its counts current
+      if (srcI) srcI.addEventListener("input", () => { setGlossSourcesEdit(k, srcI.value); afterEdit(); });
       // ---- the term's illustration (EN view only — image metadata is shared across languages, like a card's) ----
       // Both panels write through the source gate, so an uncredited picture never reaches the store; the
       // meta rows and the one-frame sync therefore read the gate's stage, not the store (see wireMediaSource).
@@ -12843,7 +13081,7 @@
     host.innerHTML =
       '<div class="admin-ed-head"><div class="admin-ed-headinfo"><h2 class="admin-ed-title">' + esc(c.answer || "(untitled)") + '</h2><div class="admin-ed-key">' + esc(id) + (whereTxt ? ' &middot; ' + esc(whereTxt) : "") + '</div></div>' +
       '<div class="admin-ed-actions"><span class="admin-saved" id="adminSaved"></span><button class="admin-preview" id="adminPreview" type="button">Preview</button><button class="admin-revert" id="adminRevert" type="button"' + (cardIsEdited(id) ? "" : " hidden") + '>Revert card</button><button class="admin-delete" id="adminDelete" type="button">Delete card</button></div></div>' +
-      liveCardEditorHTML({ dirAttr: dirAttr, metaHtml: metaRow, imagePanel: isEnLang, videoPanel: isEnLang });
+      liveCardEditorHTML({ dirAttr: dirAttr, metaHtml: metaRow, imagePanel: isEnLang, videoPanel: isEnLang, sourcesPanel: isEnLang });
     const editedFx = () => {
       const row = adminFindRow("card", id); if (row) row.classList.toggle("edited", cardIsEdited(id));
       const rev0 = host.querySelector("#adminRevert"); if (rev0) rev0.hidden = !cardIsEdited(id);
@@ -12868,6 +13106,8 @@
         if (isEnLang) { setCardEdit(id, "question", arr[0] || ""); setCardQuestionsEdit(id, extras); }
         else { setCardI18nEdit(id, cardLang, "question", arr[0] || ""); setCardI18nEdit(id, cardLang, "questions", extras.length ? extras : ""); }
       },
+      getSources: () => c.sources || [],
+      setSources: (list) => setCardSourcesEdit(id, list),
       getImage: () => c.image || null,
       setImage: (f, v) => setCardImageEdit(id, f, v),
       getVideo: () => c.video || null,

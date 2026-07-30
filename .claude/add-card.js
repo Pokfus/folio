@@ -5,11 +5,14 @@
 //   node .claude/add-card.js <card.json> [deckId]
 //
 // <card.json>  a file holding ONE card object (all 13 fields), PLUS a `questions` array of 2 extra
-//              question phrasings (3 in all — the site asks one at random), PLUS an `i18n` block with
+//              question phrasings (3 in all — the site asks one at random), PLUS a `sources` array of
+//              Chicago note-form citations referenced from the abstract, PLUS an `i18n` block with
 //              the card translated into all 9 site languages (see CLAUDE.md):
+//                "sources": ["Chris Stringer, <i>Lone Survivors</i> (New York: Times Books, 2012), 84–86.", …]
 //                "i18n": { "es": { "question": …, "questions": [q2, q3], "answer": …, "answerDate": …, "abstract": …, "answerText": … },
 //                          "fr": …, "de": …, "it": …, "nl": …, "ru": …, "ar": …, "zh": … }
-//              (pass "skipTranslations": true only for a deliberate English-only maintenance edit).
+//              (pass "skipTranslations": true only for a deliberate English-only maintenance edit;
+//               "skipSources": true only for a maintenance edit of a card written before citations existed).
 //              deckId defaults to the first leaf deck.
 const fs = require("fs"), path = require("path");
 const dataPath = path.join(__dirname, "..", "data.js");
@@ -33,6 +36,8 @@ function countIds(node) { const s = new Set(); (function w(n){ (n.cardIds||[]).f
 // ~28 words). The site shows one of the three at random each time the card comes up. The data model
 // allows up to 10 in all (community decks may experiment); official cards carry exactly 3.
 const N_EXTRA = 2;
+// mirrors SRC_MAX in app.js — more citations than this on one study card is a bibliography, not footnotes
+const SRC_MAX = 24;
 
 const cardFile = process.argv[2], deckId = process.argv[3];
 if (!cardFile) { console.error("usage: node .claude/add-card.js <card.json> [deckId]"); process.exit(1); }
@@ -54,6 +59,41 @@ for (const [qi, q] of [card.question, ...card.questions].entries()) {
     process.exit(1);
   }
 }
+/* Every new card names the scholarship behind its background. The abstract states things about the past
+   as fact, and a study tool that cannot be checked is asking to be believed rather than read — so the
+   citations are required, and so is at least one marker tying a sentence to one of them.
+
+   A marker is an EMPTY <sup class="fn" data-fn="N"></sup>; the digit is drawn from this list at render
+   time, so re-ordering the list can never leave a wrong number in the text. Every source must be
+   referenced by at least one marker: a citation nothing points at is a reading list, not a footnote. */
+if (!card.skipSources) {
+  const src = card.sources;
+  if (!Array.isArray(src) || !src.length || src.some(s => typeof s !== "string" || !s.trim())) {
+    console.error("ERROR: card needs a `sources` array — Chicago note-form citations for the claims in its background (see CLAUDE.md). Pass skipSources:true only for a maintenance edit of a card written before citations existed.");
+    process.exit(1);
+  }
+  if (src.length > SRC_MAX) { console.error("ERROR: card has " + src.length + " sources — at most " + SRC_MAX + ". More than that is a bibliography, not footnotes."); process.exit(1); }
+  const marks = [...String(card.abstract || "").matchAll(/<sup\b[^>]*class="[^"]*\bfn\b[^"]*"[^>]*>/gi)]
+    .map(m => { const d = /data-fn="(\d+)"/i.exec(m[0]); return d ? +d[1] : 0; });
+  if (!marks.length) {
+    console.error("ERROR: card.abstract has no footnote marker. Point its claims at the sources with <sup class=\"fn\" data-fn=\"1\"></sup> (the digit is drawn from the list at render time — leave the tag empty).");
+    process.exit(1);
+  }
+  const bad = marks.filter(n => n < 1 || n > src.length);
+  if (bad.length) { console.error("ERROR: card.abstract has a footnote marker for source " + bad[0] + ", but the card has " + src.length + ". A marker with no entry behind it is dropped at render time."); process.exit(1); }
+  const unused = src.map((_, i) => i + 1).filter(n => marks.indexOf(n) < 0);
+  if (unused.length) { console.error("ERROR: source " + unused.join(", ") + " is never referenced from the abstract. Every citation is a footnote to a specific claim — add a <sup class=\"fn\" data-fn=\"" + unused[0] + "\"></sup> marker, or drop the source."); process.exit(1); }
+  // markers belong to the ENGLISH abstract and every translation of it, or a language silently loses the apparatus
+  if (!card.skipTranslations) {
+    for (const l of I18N_LANGS) {
+      const a = ((card.i18n || {})[l] || {}).abstract || "";
+      const tm = [...String(a).matchAll(/<sup\b[^>]*class="[^"]*\bfn\b[^"]*"[^>]*>/gi)].length;
+      if (tm !== marks.length) console.warn("WARNING: the " + l + " abstract has " + tm + " footnote markers, the English has " + marks.length + " — the same claims should carry the same markers.");
+    }
+  }
+}
+delete card.skipSources;   // control flag only — never written to data.js
+
 // nothing Folio shows is uncredited — the editors gate this too (wireMediaSource in app.js), and a card
 // written straight into data.js has to meet the same rule or the credit is simply never added
 for (const m of ["image", "video"]) {

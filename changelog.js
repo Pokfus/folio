@@ -24,6 +24,7 @@ window.CHANGELOG = [
       "The light-and-dark switch in the menu bar is now slimmer, and the coloured line marking the page you are on underlines its name alone rather than running under the icon too.",
       "The Clay and Garden themes have been retired from Settings; if you had one of them on, Folio returns to its default look.",
       "The decks you add to the Daily review now share the tile's colouring: its bronze edge and wash run down the list, which turns bronze — or gold on a perfect day — along with the tile once today's cards are cleared.",
+      "Cards, glossary popups and Atlas place panels can now carry footnotes. A Sources list folds open at the foot of each, and the small numbers in the text jump to the work a particular claim comes from. Nothing has been cited yet, so the list stays out of sight until a card or term has its sources written.",
     ],
   },
   {

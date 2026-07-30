@@ -47,7 +47,7 @@ of blocking JS to flip a card; the Atlas layers and the translation tables are ~
 | bundle | files | loaded when |
 |---|---|---|
 | `world` | `world.js` | the Atlas mounts; the home page's mini globe (at idle); the Settings home picker |
-| `atlas` | `uk` `lakes` `rivers` `water` `cities` `timeline` `countries` `country-stats` `country-spans` `country-years` | the Atlas mounts |
+| `atlas` | `uk` `lakes` `rivers` `water` `cities` `timeline` `countries` `country-stats` `country-spans` `country-years` `country-sources` | the Atlas mounts |
 | `uiI18n:<lang>` | `i18n/ui-<lang>.js` | the site language isn't English |
 | `glossI18n:<lang>` | `i18n/gloss-<lang>.js` | ditto |
 | `gamesI18n:<lang>` | `i18n/games-<lang>.js` | ditto (the True-or-False / Who-said-it pools) |
@@ -84,7 +84,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   format); the deck is grown one card at a time (see "Generating cards & glossary entries" below).
 - `glossary.js` — `window.GLOSSARY` plus `window.GLOSSARY_DATES`, `GLOSSARY_TITLES`, `GLOSSARY_ALIASES`,
   `GLOSSARY_CASESENSITIVE`, `GLOSSARY_TAGS` (per-term category tags — the admin glossary's left-bar
-  filter) and `GLOSSARY_IMAGES` (per-term illustration — see the "Glossary image" bullet below).
+  filter), `GLOSSARY_IMAGES` (per-term illustration — see the "Glossary image" bullet below) and
+  `GLOSSARY_SOURCES` (per-term citations — see the "Source footnotes" bullet).
   Trimmed to the single `Sima_Qian` template entry on 2026-07-23 and **regrown since to 333 terms**
   (every country in the world, plus prehistory/paleoanthropology vocabulary), one fully-formed entry at a time
   (description + date + tags + all 9 translations); the full pre-trim glossary (2,165 terms) and its partial
@@ -217,6 +218,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   Keyed by the name as it appears on each era's map (e.g. `british raj`, `ussr`, `france`) and the map-years
   (1900/1920/1938/1960/1994/2000/2010/present). Built by a verified generation pass; **only fact-checked
   entries are added — a missing one shows a dash, never a fabricated fact.**
+- `country-sources.js` — `window.COUNTRY_SOURCES` (*lowercased place name* → `[citations]`, the works behind the
+  general description) and `window.COUNTRY_YEAR_SOURCES` (*name* → `{ "<year>": [citations] }`, the works behind that
+  map-year's paragraph). The panel merges the two into **one** numbered list, general first, de-duplicated. **Currently
+  empty** — the UI and the pipeline ship, the citations do not (see "Source footnotes"). Written by
+  `node .claude/add-country-sources.js <batch.json>`, which refuses a place name that is in neither `countries.js` nor
+  `country-years.js` (a citation filed under a name the panel never looks up is a citation nobody will ever see).
 - `fetch-glossary.js` — standalone Node helper, run manually, that backfills missing glossary
   terms from Wikipedia. Not loaded by the site.
 - `fetch-countries.js` — standalone Node helper (run manually, resumable) that fetches the 5-sentence
@@ -506,7 +513,39 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - **Card fields (13):** `id, num, category, question` (HTML cloze with blanks), `answer`,
   `answerDate` (HTML), `traditional, hanzi, pinyin, translations` (HTML), `abstract` (rich HTML
   card background; may carry `ttip` glossary links, but newly generated cards omit them),
-  `citation, answerText`.
+  `citation, answerText`. (The legacy `citation` string is **not** the footnote system — see the next bullet;
+  it predates it, is not in the editor, and is empty on every current card.)
+- **Source footnotes (July 2026)** — the `SOURCE FOOTNOTES` block in app.js, just above `buildBack`. Three surfaces
+  say things about the past — a card's background, a glossary description, an Atlas place panel — and each can now
+  name the scholarship behind them. Each carries a **`sources` list of Chicago note-form citations** (card:
+  `card.sources`; term: `window.GLOSSARY_SOURCES[slug]` or a deck term's `entry.sources`; place:
+  `country-sources.js`), rendered as a **numbered fold at the foot of the surface**, `sourcesHTML()` /
+  `sourceListHTML()` for the Atlas panel, which owns its own `.cp-sec` fold.
+  · **Prose points INTO the list with an EMPTY marker** — `<sup class="fn" data-fn="2"></sup>`. **The digit is
+    written by `wireFootnotes()`, never by the author**, so re-ordering a source list can never leave a stale number
+    sitting in a sentence — the one failure mode of hand-numbered footnotes. A bare `<sup class="fn"></sup>` takes
+    the next number in reading order. A marker whose number has **no entry behind it is REMOVED**, not shown: a dead
+    superscript claims a citation the reader cannot check, which is worse than no marker.
+  · **Everything is collapsed by default**, on all three surfaces — the apparatus is there to be checked, not read,
+    and an open list would push a card's own content off the screen. The Atlas section additionally **hides outright
+    when empty** (unlike its neighbours, which show a shut header): an empty "Description" header still tells the
+    reader the panel has that part, but a "Sources" header over nothing reads as a claim to have cited something.
+  · **Citations are NOT translated**, and for the reason image credits are not — a citation names an edition that
+    exists in one language, and rendering "Cambridge University Press" in nine is fabrication, not translation. Hence
+    `notranslate` on every list, and hence `sources` lives on the base card and NOT in the `i18n` blocks. Only the
+    **"Sources" label**, its aria-label and the `^Source (\d+)$` rule are localised (all 9 languages).
+  · **Deltas + serialization**: `setCardSourcesEdit` (a `sources` delta with a null tombstone, exactly like
+    `questions`/`image`), `setGlossSourcesEdit` (`ADMIN_EDITS.glossarySources`, `PRISTINE_GLOSS_SOURCES`,
+    `glossaryResetToPristine` / `revertGloss` / `deleteGloss`); baked by `serializeCardData` / `serializeGlossary`.
+    Community decks get `uCardSetSources` / `uGlossSet(…, "sources", …)`, sanitized on ingest by `uCardSanitize` /
+    `uGlossSanitize` (rich HTML — a citation italicises a title) and carried through export/publish/install.
+  · **Editing**: the shared card surface's `sourcesPanel` (so the admin editor's EN view AND the Studio), and a
+    `sources` textarea in the curated glossary editor's EN view + the Studio's term form. **One citation per LINE**,
+    never comma-separated as tags and aliases are — a Chicago note is full of commas.
+  · `sup` + `class="fn"` + `data-fn` are in the sanitizer allowlists, so a community deck can use markers too.
+  · **The tables ship EMPTY on purpose.** `country-sources.js` has no entries and no existing card or term carries
+    `sources`, so nothing shows anywhere yet. The UI, the deltas and the pipeline are in place; the citations are a
+    content job (see "Citing the existing content" below). Guarded by `.claude/test-sources.js` (42 assertions).
 - **Multiple question phrasings (July 2026):** a card may carry an optional **`questions` array of EXTRA
   phrasings** beyond `question` — **at most `CARD_MAX_QUESTIONS` (10) in all** (official Folio cards carry
   exactly 3; the headroom is for community decks to experiment). Every phrasing is a full standalone clue
@@ -1358,6 +1397,23 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   opening the background**; use `<i>` for titles (and foreign terms). **No parenthetical asides** —
   never put information between parentheses. **No glossary links** — plain text only (`cnh-001`
   still uses the old `ttip`/`data-k` links and bolded facts; new cards omit both).
+- `sources` — **REQUIRED for every new card: an array of Chicago note-form citations** for the claims the
+  background makes, and **at least one `<sup class="fn" data-fn="N"></sup>` marker in the abstract**
+  pointing at each of them. Write the marker EMPTY — the digit is drawn from the list at render time, so
+  re-ordering the list can never leave a wrong number in the text. Chicago **note** form (not
+  bibliography form): `Author First Last, <i>Title</i> (Place: Publisher, Year), 84–86.` for a book;
+  `Author, “Article Title,” <i>Journal</i> 546 (2017): 289–92.` for an article. Italicise the title with
+  `<i>`, as everywhere else. **Every source must be referenced by at least one marker** — a citation
+  nothing points at is a reading list, not a footnote — and `add-card.js` refuses a card that breaks
+  either rule. Cite the scholarship the claim actually rests on: a monograph, a survey, a journal
+  article, a museum or excavation report. **A Wikipedia article is not a source here** — it is where the
+  research starts, not what a study card stands on; follow it to what it cites. **Never invent a
+  citation, a page number, a DOI or a publisher.** If a claim cannot be tied to a work you can actually
+  name, soften the claim or drop it — that is the whole point of the apparatus. Sources are **not
+  translated** (they do not appear in the `i18n` blocks), but the **markers do**: put the same markers on
+  the same claims in all 9 translated abstracts, or that language silently loses the apparatus
+  (`add-card.js` warns when the counts differ). Escape hatch: `"skipSources": true`, only for a
+  deliberate maintenance edit of a card written before citations existed.
 - `answerText` — the answer as plain text, no HTML.
 - `image` / `video` (optional, one or the other) — `{ src, title, desc, credit }`. **`credit` is required**:
   `add-card.js` refuses a `src` with no source line, matching the editors' media gate.
@@ -1378,6 +1434,7 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
 
 **Add a glossary term** — write `{ "slug": "Wikipedia_Article_Slug", "description": "<3 sentences>",
 "date": "<optional>", "tags": ["<kind>", "<subject>", "<specific>"],
+"sources": ["<Chicago note-form citation>", …],
 "translations": { "es": "<3 sentences>", "fr": …, "de": …, "it": …, "nl": …, "ru": …, "ar": …, "zh": …, "ja": … } }`
 (translations REQUIRED for new terms — the description in all 9 site languages, same three-sentence,
 impartial, self-contained rules; they land in `i18n/gloss-<lang>.js` → `window.GLOSSARY_I18N`) to a temp
@@ -1409,6 +1466,15 @@ a work it is part of; the members of a group) is fine — it is *comparative or 
 that is banned, not every mention. Include `date` only when relevant (a
 lifespan, dynasty, or dated event), e.g. `"c. 145–86 BCE"` or `"1644–1912"` — it lands in
 `window.GLOSSARY_DATES`.
+
+**Every new term carries `"sources"`** — Chicago note-form citations for its three sentences, in the same
+form and under the same rules as a card's (see the `sources` bullet under "Add a card": real scholarship,
+never Wikipedia, never an invented page number). They land in `window.GLOSSARY_SOURCES` and show as a
+numbered fold at the foot of the popup. **Markers are optional here**, unlike on a card: three sentences
+drawn from one reference work are honestly described by the list alone. Where a sentence does rest on a
+particular work, point at it the same way — `<sup class="fn" data-fn="2"></sup>`, written empty. Not
+translated (a citation names an edition that exists in one language). Escape hatch: `"skipSources": true`,
+only for a maintenance edit of an older term.
 
 **Every term carries `"tags"` — at least 3 lowercase category tags** (lands in `window.GLOSSARY_TAGS`;
 the helper refuses a new term without them). They drive the tag filter in the admin glossary's left bar
@@ -1445,6 +1511,22 @@ To remove a term, run the helper on `{ "slug": "Some_Slug", "delete": true }`.
 
 When the user pastes one of the generation prompts and then sends bare terms one per message, treat
 each as "research it and add it via the helper script," then reload to confirm no console errors.
+
+**Citing the Atlas** — a place panel's citations do not come from `add-card.js` / `add-glossary.js`; they are
+batched through `node .claude/add-country-sources.js <batch.json>` (`{ "general": { "<place>": [citations] },
+"years": { "<place>": { "1938": [citations] } } }`). Keys are the place name **as it appears on the map**,
+lowercased — the helper refuses a name that is in neither `countries.js` nor `country-years.js`, and warns when
+year citations are filed against a year that has no paragraph. Same content rules as everywhere else: real
+scholarship, Chicago note form, nothing invented. The number grid is untouched — it already names Wikidata in
+its hover bubble.
+
+**Citing the existing content (as of July 2026)** — **the shipped content has no citations yet.** The 105 cards,
+333 glossary terms and every Atlas description were written before this system existed, from Wikipedia and its
+sources, and were fact-checked rather than referenced. So `country-sources.js` is empty, no card carries
+`sources`, and the Sources fold does not appear anywhere on the live site. **Do not paper over that by attaching
+plausible-looking citations to existing prose** — a citation that was not the actual source of a sentence is
+worse than no citation, because it invites a reader to trust a page number nobody checked. The honest routes are:
+re-derive a passage from a named work and cite that, or leave the fold off until someone does.
 
 **Backfilling a site language** — `add-card.js` / `add-glossary.js` only handle a whole NEW entry in every
 language at once. To add a language to content that already exists (a new site language, or topping up a
@@ -1703,6 +1785,16 @@ dead code (never rendered).
     at the REAL project, so a test that actually sent a message would write rows into it — and like
     `test-publish.js`'s mock, it is a stand-in for the policies, never a proof they are right. **Re-run
     after touching the feedback functions, the queue, or the `7) FEEDBACK` schema block.**
+  · `node .claude/test-sources.js` — 42 assertions on source footnotes, on all three surfaces. Most of them are
+    about the JOIN between the prose and the list, since that is where a footnote apparatus rots: a marker shows
+    the number of the entry it actually opens, a bare marker takes the next number in reading order, and a marker
+    pointing **past the end of the list is removed** rather than left claiming a citation the reader cannot follow.
+    Plus: the fold is shut everywhere by default, the Atlas section is hidden outright when a place has nothing,
+    a place cited by both its general and its year paragraph gets **one** footnote and not two, the citation text
+    is `notranslate`, a hostile deck's `sources` are sanitized on ingest, and an admin's typed citations reach the
+    overlay as a `sources` delta and come back after a reload. **Re-run after touching the `SOURCE FOOTNOTES`
+    block, `wireFootnotes` / `sourcesHTML` / `normSources`, the editors' sources boxes, or the `fn` / `data-fn`
+    sanitizer allowlists.**
   · `node .claude/test-discovery.js` — 22 assertions on the counting behind the discovery chips and the
     "Beyond the cards" meters, run against the **real** `world.js` / `timeline.js` / `glossary.js`: that a
     register full of historical territories can never push the country figure past its own total, that a
