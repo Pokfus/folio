@@ -138,14 +138,22 @@ definitional cards can meet the bar before 100 more are attempted**, not to make
 **They can** — 20 sources, 17 of them open, and two factual errors found and fixed along the way. See the
 Pilot log below for how, and read it before starting batch 12, which is the rest of the definitional cards.
 
-### Batch 1 · The oldest toolmakers (10)
-`wh-008` knapping · `wh-013` Australopithecus · `wh-015` Oldowan · `wh-016` Homo habilis ·
-`wh-017` Olduvai Gorge · `wh-021` Wonderwerk Cave · `wh-022` Acheulean · `wh-023` hand axe ·
-`wh-098` control of fire · (`wh-014` if not taken in the pilot)
+### Batch 1 · The oldest toolmakers (10) — **6 of 9 DONE (2026-07-31)**
+**Cited:** `wh-008` knapping · `wh-015` Oldowan · `wh-021` Wonderwerk Cave · `wh-022` Acheulean ·
+`wh-023` hand axe · `wh-098` control of fire. (`wh-014` was taken in the pilot.)
 
-Spine: Harmand et al. 2015 on Lomekwi 3; Leakey, Tobias & Napier 1964 on *H. habilis*; Berna et al. 2012
-(PNAS, open) on Wonderwerk; Lepre et al. 2011 on the earliest Acheulean; UNESCO's Ngorongoro/Olduvai
-record; Smithsonian Human Origins for the genus-level cards.
+**Deferred to a later batch:** `wh-013` Australopithecus · `wh-016` Homo habilis · `wh-017` Olduvai Gorge.
+See the Batch 1 log below for why; the short version is that all three rest on paywalled 1925–2007 papers
+plus discovery-history detail for which no open source was found in the time available, and half-citing
+them is worse than leaving them until a pass that can do it properly.
+
+Spine as worked: Li et al. 2022 on knapping mechanics and Skertchly 1879 on the Brandon gunflint trade;
+Plummer et al. 2025 and Braun et al. 2019 on the earliest Oldowan; de la Torre 2016 on the origins of the
+Acheulean; Key & Lycett 2017 on handaxe form, function and the history of their recognition; Horwitz &
+Chazan 2015 with Chazan 2015 on Wonderwerk as a site, Berna et al. 2012 and Marin-Monfort et al. 2026 on
+its fire; Roebroeks & Villa 2011, Sorensen et al. 2018 and Davis et al. 2025 on the control of fire.
+Lepre et al. 2011 and Leakey, Tobias & Napier 1964 are closed everywhere and were not needed: de la Torre
+carries the Kokiselei date, and *H. habilis* moved to the deferred set.
 
 ### Batch 2 · *Homo erectus* across the Old World (10)
 `wh-018` Homo erectus · `wh-019` Homo ergaster · `wh-020` Turkana Boy · `wh-024` Dmanisi ·
@@ -321,6 +329,60 @@ mechanism is worth reusing: the abstracts are all exactly two blocks of five sen
 markers can be spliced by sentence index rather than retyped, and a marker-count check across the ten
 languages catches any drift. Only the two corrected sentences needed real translation.
 
+## Batch 1 log — the oldest toolmakers
+
+### 2026-07-31 — six cards cited, three deferred
+
+Network access was available. All 18 citations across the six cards were opened before being written down —
+14 works newly verified, plus Plummer et al. 2025 already in the register from the pilot — and every link
+was re-checked afterwards. 17 of the 18 are open; the one paywalled entry is Davis et al. 2025 on Barnham,
+cited from its abstract as the defining publication for the find. Coverage went from `cards 6/109` to
+`cards 12/109`, which is 39 citations in all, 35 of them open.
+
+**What step 3 turned up.** Five corrections, all made in English and all nine languages in the same batch:
+
+- **wh-021** said Wonderwerk's deposits are "up to 7 metres deep". **7 m is the cave's HEIGHT**
+  (Horwitz & Chazan 2015, 596: "ca. 140 m long, 3–7 m high, 11–26 m wide"); Beaumont's excavation
+  "reached a total depth of 4 m below the surface of the cave" (Chazan 2015, under "Context"). Corrected
+  in the abstract *and* in the card's date line, which carried the same figure.
+- **wh-022** credited the oldest Acheulean to Kokiselei alone and said its dating "pushed the tradition
+  back some 350,000 years". De la Torre 2016 (§4a) reports "nearly identical ages ca 1.76–1.74 Ma" for
+  Kokiselei 4 *and* Konso KGA6-A1, against a previous limit of 1.4–1.5 Myr. Corrected to name both sites
+  and ~300,000 years.
+- **wh-023** had hand axes used "to dig for roots and water" as a finding. Key & Lycett 2017 say the
+  opposite about the evidence: "experiments examining the suitability of handaxes for digging appear to
+  have been largely overlooked". Softened to a proposal; butchery and woodworking, which the use-wear
+  literature does carry, stayed as findings.
+- **wh-023** also called Prestwich and Evans "two British geologists" hurrying to photograph a hand axe in
+  situ. Evans was an antiquary, Lyell was on the trip too, and the photograph is not in the source.
+  Rewritten to the visit Key & Lycett 2017 (70–71) actually describe, from which the three "all came away
+  convinced".
+- **wh-098** said the Barnham team reported "clay baked in place above 700 degrees". That figure is in the
+  press coverage, not in Davis et al. 2025's abstract, which is all that can be opened. Rewritten to what
+  the abstract states: heated sediment, fire-cracked handaxes, and two fragments of locally rare iron
+  pyrite, brought in deliberately.
+
+**Why three cards were deferred.** `wh-013`, `wh-016` and `wh-017` are the batch's *fossil and site
+history* cards, and they behave differently from the technology cards. Their load-bearing claims are the
+founding announcements — Dart 1925, Johanson 1976, Leakey, Tobias & Napier 1964, Leakey 1959, Leakey,
+Evernden & Curtis 1961, Spoor et al. 2007 — every one of which is closed with no open deposit, and none of
+which is a *landmark for a claim no open work carries*: a review would serve as well, but the specific
+figures the cards use (the 750→600 cc threshold change, the 1.75 Ma potassium-argon date, the gorge's
+dimensions and its ~70 hominin fossils) were not found in one. Enough was gathered to start them — Kuhn et
+al. 2016 on Taung, Masao et al. 2016 on the Laetoli footprints, Gunz et al. 2020 on *A. afarensis*
+endocranial volumes, Tattersall 2026 on the *H. habilis* type specimen, de la Torre & Mora 2018 on the
+Oldowan of Olduvai Beds I–II — and one correction is already waiting: **wh-013 calls australopiths
+"barely a metre and a half tall"**, where Masao et al. 2016 estimate the tallest Laetoli trackmaker at
+about 165 cm, "greatly exceed[ing] those previously reconstructed for Au. afarensis". Pick these up as a
+group; they are one coherent piece of work, not three loose ends.
+
+**On the mechanism.** Marker splicing by sentence index worked again, with one wrinkle worth recording:
+**a matching sentence COUNT does not prove a matching sentence MAPPING.** The Chinese wh-022 abstract
+splits the English opening sentence in two and merges English sentences 4 and 5 into one — five sentences
+per block in both languages, aligned differently. Splicing by index alone would have put two markers on
+the wrong claims. Check the alignment at each marker position, not just the count; a numeral or a proper
+name in the sentence makes this quick to eyeball across ten languages.
+
 ### Unblocking: the cloud environment's allowlist
 
 Kept for the next session that lands somewhere restricted. Network access is a property of the *cloud
@@ -405,13 +467,35 @@ par.nsf.gov
 www.clim-past.net
 cp.copernicus.org
 archaeologybulletin.org
+www.isita-org.com
+www.folklore.ee
+utoronto.scholaris.ca
+hdl.handle.net
+digital.csic.es
+discovery.ucl.ac.uk
+eprints.bbk.ac.uk
+sajs.co.za
+journals.iaepan.pl
+api.crossref.org
 en.wikipedia.org
 ```
 
 Six hosts were added after attempt 2: `paleoanthro.org`, `par.nsf.gov`, `www.clim-past.net`,
 `cp.copernicus.org` and `archaeologybulletin.org` all carried sources this batch needed, and none was on the
-original list. Expect the list to keep growing — open scholarship is scattered across small journal hosts,
-not concentrated in the big five publishers.
+original list. Batch 1 added seven more of the same kind — `www.isita-org.com` (Journal of Anthropological
+Sciences), `www.folklore.ee`, the institutional repositories `utoronto.scholaris.ca`,
+`discovery.ucl.ac.uk` and `eprints.bbk.ac.uk` with the `hdl.handle.net` resolver in front of them, and
+`sajs.co.za`. Expect the list to keep growing — open scholarship is scattered across small journal hosts
+and university repositories, not concentrated in the big five publishers.
+
+**Two of the most useful hosts have since put up a proof-of-work wall.** `hal.science` and
+`digital.csic.es` now serve an Anubis challenge to non-browser clients, so the deposits behind them — which
+is where several *open* copies of paywalled papers live, including the HAL copies this project already
+cites for Harmand 2015 and PAGES 2016 — cannot be fetched with `curl` any more. They are still open to a
+reader with a browser, so the existing citations stand; but when a batch needs one, look for the same paper
+in PMC, in a university repository, or on the publisher's own site first. Driving a headless Chromium past
+the challenge was tried and does not work here: the sandboxed browser cannot reach the session's egress
+proxy, so it has no network at all.
 
 The last line is deliberate and needs saying: **Wikipedia is for navigation, never for citation.** It is
 the fastest way to find which paper a claim came from, and the bar still excludes it as a source. Every

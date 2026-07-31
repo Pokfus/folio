@@ -8,8 +8,8 @@ window.CHANGELOG = [
     d: "2026-07-31",
     t: "Where it comes from",
     items: [
-      "Six cards in the World History prehistory deck now show their sources. At the foot of each one there is a Sources list you can open, and small numbers in the background text point at the work behind that particular sentence, so you can follow any claim to the paper it came from. Every source says whether it is free to read or behind a paywall, and almost all of them are free.",
-      "Two corrections found while checking those cards against their sources: the sea fell about 130 metres at the height of the last ice age, not 120, and the stone tools at Jebel Irhoud are among the earliest directly dated of their kind rather than the oldest anywhere.",
+      "Twelve cards in the World History prehistory deck now show their sources. At the foot of each one there is a Sources list you can open, and small numbers in the background text point at the work behind that particular sentence, so you can follow any claim to the paper it came from. Every source says whether it is free to read or behind a paywall, and almost all of them are free.",
+      "Seven corrections found while checking those cards against their sources: the sea fell about 130 metres at the height of the last ice age, not 120; the stone tools at Jebel Irhoud are among the earliest directly dated of their kind rather than the oldest anywhere; the deposits dug at Wonderwerk Cave go down about 4 metres, not 7, which is the height of the cave itself; the oldest hand axes come from Konso in Ethiopia as well as Kokiselei in Kenya; digging with a hand axe is a suggestion rather than something the wear on them shows; the three men who settled the antiquity of humankind in 1859 went to see the Somme gravels for themselves, and one of them was an antiquary rather than a geologist; and the fire-making find at Barnham is now described as its paper describes it, as heated ground, fire-cracked hand axes and two lumps of pyrite carried in from elsewhere.",
     ],
   },
   {
