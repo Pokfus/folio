@@ -594,7 +594,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     glossary term carries `sources`; the citation pass so far has touched cards only. The UI, the deltas and the
     pipeline are in place; the rest is a content job (see "Citing the existing content" below). Guarded by
     `.claude/test-sources.js` (67 assertions).
-    **Batches 0–11 shipped 2026-07-31**: **78 of the 109 prehistory cards carry sources**, every card's list
+    **Batches 0–14 shipped 2026-07-31**: **81 of the 109 prehistory cards carry sources**, every card's list
     majority-open (`wh-086` Lascaux, `wh-074` Dolní Věstonice and a set of culture-history/definitional cards
     are deferred — their sources will not open). See `docs/citation-plan.md` — its Pilot log records how the
     definitional cards were solved, its Batch 1 log the factual errors the exercise turns up (21 so far) and
@@ -629,6 +629,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the Moravian Museum all have sites and none publishes per-object records, so Dmanisi, Java Man,
     Atapuerca and Dolní Věstonice were not unblocked the way the Swabian cards were. Check whether a
     catalogue exists before planning a batch around one.
+    From Batch 14, the first batch cut by SOURCE TYPE rather than subject, as Batch 2 said the rest should
+    be: **a supervolcano, an island species and two Levantine caves went through in one sitting because
+    every claim on them is a published RESULT** — a modelled climate, a dated bone bed, a measured genome, a
+    thermoluminescence age. Results are deposited, indexed and openable; discovery histories are not. Two
+    corollaries worth carrying. **A figure can be right when written and wrong now**: `wh-042` gave Toba's
+    2,800 km³ (Rose & Chesner) while the paper its own last sentence rests on opens with ∼5,300 km³, and it
+    had Ambrose proposing a six-year volcanic winter he never proposed — that is Rampino & Self's, repeated
+    into him by retellings, and his abstract gives a thousand years of cold instead. **Read the abstract of
+    the paywalled landmark before paraphrasing it**; PubMed carries it even where the text is closed.
+    And **budget for the length rule**: a citation pass makes prose longer, so a card already near the
+    330-word ceiling (`wh-049` sat at 329) needs several trimming passes across all ten languages before it
+    lands back inside it.
     From Batch 12: **the register pays for itself late.** The three framework cards (`wh-001`, `wh-002`,
     `wh-004`) took 25 citation slots and needed **no new sources at all** — every claim a definitional card
     makes is a claim some other card already makes, so the whole job was mapping sentences to entries
@@ -1642,7 +1654,7 @@ which would otherwise have shipped corrected prose above an uncorrected date lin
 **Citing the existing content (as of July 2026)** — **most of the shipped content still has no citations.** The
 109 cards, 333 glossary terms and every Atlas description were written before this system existed, from Wikipedia
 and its sources, and were fact-checked rather than referenced. A batched pass is working through the cards —
-**78 of 109 done** (`docs/citation-plan.md`; coverage is reported by `add-sources.js` on every run) — while
+**81 of 109 done** (`docs/citation-plan.md`; coverage is reported by `add-sources.js` on every run) — while
 `country-sources.js` and `GLOSSARY_SOURCES` are still empty, so the Sources fold appears only on those cards.
 **Do not paper over the rest by attaching plausible-looking citations to existing prose** — a citation that was
 not the actual source of a sentence is worse than no citation, because it invites a reader to trust a page number

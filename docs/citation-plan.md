@@ -985,6 +985,79 @@ mechanism is worth reusing: the abstracts are all exactly two blocks of five sen
 markers can be spliced by sentence index rather than retyped, and a marker-count check across the ten
 languages catches any drift. Only the two corrected sentences needed real translation.
 
+### Batch 14 · Published results, wherever they fall (3) — **DONE (2026-07-31)**
+**Cited:** `wh-042` Toba catastrophe theory · `wh-040` *Homo luzonensis* · `wh-049` Skhul and Qafzeh hominins.
+
+Spine: Ambrose 1998, Petraglia et al. 2007, Clarkson et al. 2020, Lane et al. 2013, Smith et al. 2018 and
+Black et al. 2021 (Toba); Détroit et al. 2019, Mijares et al. 2010, Ingicco et al. 2018, Larena et al. 2021,
+Gousset et al. 2026 and Bae & Wu 2024 (Luzon); Groucutt et al. 2019, Valladas et al. 1988, Sarig et al. 2013,
+Coqueugniot et al. 2014, Bar-Yosef Mayer et al. 2020, Zaidner et al. 2025 and Nielsen et al. 2017 (the
+Levantine caves). Nineteen works, fourteen open; every list majority-open.
+
+### Batch 14 log — Toba, Luzon and the Levantine caves
+
+#### 2026-07-31 — three cards cited, coverage `cards 78/109` → `cards 81/109`
+
+**Batch 2 said to re-cut the remaining batches by source type rather than by subject; this is the first
+batch cut that way, and it is why three cards with nothing in common went through in one sitting.** A
+supervolcano, an island species and two Levantine caves share no topic. What they share is that every claim
+they make rests on a *published result* — a modelled climate, a dated bone bed, a measured genome, a
+thermoluminescence age — and results are deposited, indexed and openable. The discovery-history cards that
+keep stalling are stalling on founding announcements and historiography, not on their subject.
+
+**Two indexes lied, in opposite directions, in the same batch.** Unpaywall calls Détroit et al. 2019
+*green*: the Zenodo deposit says "files are restricted", the HAL copy sits behind an Anubis wall, and the
+Griffith record is **metadata only**. It calls Petraglia et al. 2007 *gold*: the Griffith record is likewise
+metadata only. Both are cited as **[Paywalled]** landmark defining papers, which they are. Meanwhile PMC's
+own front end served a reCAPTCHA to `curl` for one article and full text for the next — that is throttling,
+not access, and WebFetch reached both. Batch 3's rule holds and needs saying once more: **fetch it before
+labelling it, in both directions.**
+
+**Thirteen corrections**, and the two most interesting were caused by *the source being newer than the card*
+rather than by carelessness:
+
+- **`wh-042` gave the eruption as "roughly 2,800 cubic kilometres of rock and ash."** That is the
+  Rose & Chesner figure. Black et al. 2021 — the paper the card's own last sentence rests on — opens
+  "expelled an ∼5,300 km³ dense-rock equivalent volume of magma" and calls it "the largest eruption of
+  the past two million years." Raised, in the abstract **and** the date line.
+- **`wh-042` had Ambrose proposing "a volcanic winter lasting about six years."** His 1998 abstract
+  proposes no such thing: it gives "one thousand years of the coldest temperatures of the Later Pleistocene
+  (approximately 71-70 ka)." The six years is Rampino & Self's, repeated into Ambrose by later retellings.
+  Rewritten to what he wrote — abstract, **and the second question phrasing, which stated the six years in
+  all ten languages.**
+- **`wh-042` said the Lake Malawi mud "records no cooling worth the name."** The paper's title says no
+  volcanic winter, but its text records "a temperature drop of ∼1.5 °C" at the Toba interval. Given as the
+  paper gives it. Dhaba (Clarkson et al. 2020) was added beside Jwalapuram, since Petraglia et al. 2007 is
+  the one closed source on the card and a reader should have an openable Indian sequence to check.
+- **`wh-049` had Skhul "dug from 1929."** Garrod's Carmel programme began in 1929; Skhul itself was dug by
+  McCown "for two months in 1931 and for three months in 1932" (Groucutt et al. 2019). Abstract and date
+  line both.
+- **`wh-049` had both caves "dated in the 1980s."** Qafzeh's TL is Valladas et al. 1988; Skhul's is Mercier
+  et al. 1993. Abstract **and the second question phrasing**, again in all ten languages.
+- **`wh-049` said the Qafzeh shells were "pierced for stringing."** They are naturally holed —
+  Bar-Yosef Mayer et al. 2020 is explicit — and the use-wear, not the hole, is what shows they were strung.
+  Rewritten to holed by nature, worn from stringing.
+- **`wh-049` had the Qafzeh child "curled in a hollow cut into the rock."** Coqueugniot et al. 2014: "the
+  corpse was originally lying in a pit on its back, the head turned to the right with upper limbs flexed,"
+  aged "circa 12–13 yrs." Also the boar mandible at Skhul, which the card laid on the man's chest and
+  McCown's field note places "in the angle formed by the left forearm and right humerus."
+- Plus: Kebara and Amud given at 70,000–50,000 (Zaidner et al. 2025) and placed in the same *corridor*
+  rather than the same hills — Amud is in Galilee, not on Carmel; Qafzeh's 27 individuals (Sarig et al.
+  2013) in place of "two dozen or more" for both caves; Skhul 5's brow given as the thin **continuous**
+  torus Groucutt et al. describe rather than "heavy" brows, and the jutting face pinned to that skull;
+  and `wh-040`'s doubt restated as the contested *placement* Gousset et al. 2026 document rather than an
+  unsourced claim that specialists reject the name.
+
+**The question-pool rule earned its keep twice in one batch** (Batch 8's lesson): `wh-042`'s second phrasing
+carried the six-year winter and `wh-049`'s carried "in the 1980s", both in all ten languages, above
+abstracts that had just been corrected. `wh-049`'s **main** question also generalised the Qafzeh child's
+antlers to everyone buried in both caves; that went through `fix-field.js`, which reaches `question` where
+`add-questions.js` reaches only the extras.
+
+**`wh-049` was already at 329 words** and every correction adds specifics, so it took three trimming passes
+across all ten languages to land back inside the 270–330 rule. Budget for that on any card already near the
+ceiling: a citation pass makes prose longer, not shorter.
+
 ## Batch 1 log — the oldest toolmakers
 
 ### 2026-07-31 — six cards cited, three deferred
@@ -1413,5 +1486,5 @@ If a needed host turns out to be missing mid-batch, the cheaper fix is switching
 - **Changelog.** One line per day, raising its count — "Sources added to N cards in the World History
   prehistory deck" — with its nine translations, per the house rule. Corrections found along the way get
   their own line, and should name what changed.
-- **Coverage** is reported by `add-sources.js` on every run (`cards 78/109`), which is how the pass is
+- **Coverage** is reported by `add-sources.js` on every run (`cards 81/109`), which is how the pass is
   tracked across sessions.

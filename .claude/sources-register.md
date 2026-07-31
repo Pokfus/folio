@@ -2174,6 +2174,66 @@ source for the specific thing it asserts.
 batch made were both *internal consistency* repairs found by the batch-7 sibling rule, not errors against
 the literature — see the Batch 12 log in the plan.
 
+## Batch 14 — Toba, Luzon and the Levantine caves, verified 2026-07-31
+
+Nineteen citation slots across three cards, from **19 distinct works, 14 of them open**. Every card's list
+is majority-open. This is the batch that proves the Batch 2 finding in the other direction: these three
+cards have nothing in common by subject, but all three rest on **published results** — a modelled climate,
+a dated bone bed, a measured genome, a thermoluminescence age — and results go through. The batch was cut
+by source type, not by topic, as Batch 2 said the remaining ones should be.
+
+- `wh-042` **Toba catastrophe theory** — Ambrose 1998 (the proposal itself), Petraglia et al. 2007 and
+  Clarkson et al. 2020 (Jwalapuram and Dhaba), Lane et al. 2013 (Lake Malawi), Smith et al. 2018 (Pinnacle
+  Point), Black et al. 2021 (the eruption's size and the modelled climate). Six sources, four open.
+- `wh-040` **Homo luzonensis** — Détroit et al. 2019 (the species description), Mijares et al. 2010 (the
+  67 ka metatarsal), Ingicco et al. 2018 (Kalinga), Larena et al. 2021 (Ayta Denisovan ancestry), Gousset
+  et al. 2026 (where it sits on the tree), Bae & Wu 2024 (the 67–50 ka range). Six sources, four open.
+- `wh-049` **Skhul and Qafzeh hominins** — Groucutt et al. 2019 (excavation history, morphology, the boar
+  mandible, the Skhul TL date), Valladas et al. 1988 (the Qafzeh TL date), Sarig et al. 2013 (Qafzeh's
+  excavators and its 27 individuals), Coqueugniot et al. 2014 (the Qafzeh 11 burial), Bar-Yosef Mayer et
+  al. 2020 (the shells and the ochre), Zaidner et al. 2025 (Kebara and Amud, and the corridor), Nielsen et
+  al. 2017 (the later dispersal). Seven sources, six open.
+
+### Two indexes that lied, in both directions
+
+**Unpaywall calls Détroit et al. 2019 green; it is not reachable.** All three deposits fail: Zenodo says
+"files are restricted", HAL sits behind an Anubis wall, and the Griffith record is **metadata only**. The
+same is true of the Griffith deposit of Petraglia et al. 2007, which Unpaywall calls *gold*. Both are cited
+as **[Paywalled]** landmark defining papers, which they are. Conversely, PMC's own front end served a
+reCAPTCHA to curl for one article and full text for the next; that is throttling, not access, and WebFetch
+went through both times. **Fetch it before labelling it, in both directions** — the Batch 3 rule, and it
+fired twice in one batch.
+
+### Verified citations
+
+Toba (`wh-042`):
+
+- Stanley H. Ambrose, “Late Pleistocene Human Population Bottlenecks, Volcanic Winter, and Differentiation of Modern Humans,” <i>Journal of Human Evolution</i> 34, no. 6 (1998): 623–51, https://doi.org/10.1006/jhev.1998.0219. [Paywalled]
+- Michael Petraglia et al., “Middle Paleolithic Assemblages from the Indian Subcontinent Before and After the Toba Super-Eruption,” <i>Science</i> 317, no. 5834 (2007): 114–16, https://doi.org/10.1126/science.1141564. [Paywalled]
+- Chris Clarkson et al., “Human Occupation of Northern India Spans the Toba Super-Eruption ~74,000 Years Ago,” <i>Nature Communications</i> 11 (2020): 961, https://pmc.ncbi.nlm.nih.gov/articles/PMC7042215/. [Open access]
+- Christine S. Lane, Ben T. Chorn, and Thomas C. Johnson, “Ash from the Toba Supereruption in Lake Malawi Shows No Volcanic Winter in East Africa at 75 ka,” <i>Proceedings of the National Academy of Sciences</i> 110, no. 20 (2013): 8025–29, https://pmc.ncbi.nlm.nih.gov/articles/PMC3657767/. [Open access]
+- Eugene I. Smith et al., “Humans Thrived in South Africa through the Toba Eruption about 74,000 Years Ago,” <i>Nature</i> 555, no. 7697 (2018): 511–15, https://oasis.library.unlv.edu/geo_fac_articles/145. [Open access]
+- Benjamin A. Black et al., “Global Climate Disruption and Regional Climate Shelters after the Toba Supereruption,” <i>Proceedings of the National Academy of Sciences</i> 118, no. 29 (2021): e2013046118, https://pmc.ncbi.nlm.nih.gov/articles/PMC8307270/. [Open access]
+
+Luzon (`wh-040`):
+
+- Florent Détroit et al., “A New Species of <i>Homo</i> from the Late Pleistocene of the Philippines,” <i>Nature</i> 568, no. 7751 (2019): 181–86, https://doi.org/10.1038/s41586-019-1067-9. [Paywalled]
+- Armand Salvador Mijares et al., “New Evidence for a 67,000-Year-Old Human Presence at Callao Cave, Luzon, Philippines,” <i>Journal of Human Evolution</i> 59, no. 1 (2010): 123–32, https://doi.org/10.1016/j.jhevol.2010.04.008. [Paywalled]
+- Thomas Ingicco et al., “Earliest Known Hominin Activity in the Philippines by 709 Thousand Years Ago,” <i>Nature</i> 557, no. 7704 (2018): 233–37, https://ro.uow.edu.au/smhpapers/5385. [Open access]
+- Maximilian Larena et al., “Philippine Ayta Possess the Highest Level of Denisovan Ancestry in the World,” <i>Current Biology</i> 31, no. 19 (2021): 4219–30, https://pmc.ncbi.nlm.nih.gov/articles/PMC8596304/. [Open access]
+- Pierre Gousset, Jérémie Bardin, Isabelle Rouget, Armand S. Mijares, and Florent Détroit, “<i>Homo luzonensis</i> and the Role of Homoplasy in the Morphology of Hominin Insular Species,” <i>Cladistics</i> 42, no. 3 (2026): 286–316, https://pmc.ncbi.nlm.nih.gov/articles/PMC13155073/. [Open access]
+- Christopher J. Bae and Xiujie Wu, “Making Sense of Eastern Asian Late Quaternary Hominin Variability,” <i>Nature Communications</i> 15 (2024): 9479, https://pmc.ncbi.nlm.nih.gov/articles/PMC11531466/. [Open access]
+
+Skhul and Qafzeh (`wh-049`):
+
+- Huw S. Groucutt, Eleanor M. L. Scerri, Chris Stringer, and Michael D. Petraglia, “Skhul Lithic Technology and the Dispersal of <i>Homo sapiens</i> into Southwest Asia,” <i>Quaternary International</i> 515 (2019): 30–52, https://ora.ox.ac.uk/objects/uuid:26de242d-8c79-44a8-9dea-5631a7400664. [Open access]
+- Hélène Valladas et al., “Thermoluminescence Dating of Mousterian ‘Proto-Cro-Magnon’ Remains from Israel and the Origin of Modern Man,” <i>Nature</i> 331, no. 6157 (1988): 614–16, https://doi.org/10.1038/331614a0. [Paywalled]
+- Rachel Sarig et al., “Malocclusion in Early Anatomically Modern Human: A Reflection on the Etiology of Modern Dental Misalignment,” <i>PLOS ONE</i> 8, no. 11 (2013): e80771, https://pmc.ncbi.nlm.nih.gov/articles/PMC3835570/. [Open access]
+- Hélène Coqueugniot et al., “Earliest Cranio-Encephalic Trauma from the Levantine Middle Palaeolithic: 3D Reappraisal of the Qafzeh 11 Skull,” <i>PLOS ONE</i> 9, no. 7 (2014): e102822, https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0102822. [Open access]
+- Daniella E. Bar-Yosef Mayer et al., “On Holes and Strings: Earliest Displays of Human Adornment in the Middle Palaeolithic,” <i>PLOS ONE</i> 15, no. 7 (2020): e0234924, https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0234924. [Open access]
+- Yossi Zaidner et al., “Evidence from Tinshemet Cave in Israel Suggests Behavioural Uniformity across <i>Homo</i> Groups in the Levantine Mid-Middle Palaeolithic circa 130,000–80,000 Years Ago,” <i>Nature Human Behaviour</i> 9, no. 5 (2025): 886–901, https://pmc.ncbi.nlm.nih.gov/articles/PMC12106087/. [Open access]
+- Rasmus Nielsen et al., “Tracing the Peopling of the World through Genomics,” <i>Nature</i> 541, no. 7637 (2017): 302–10, https://pmc.ncbi.nlm.nih.gov/articles/PMC5772775/. [Open access]
+
 ---
 
 ## CANDIDATES — NOT VERIFIED, DO NOT PASTE INTO `data.js`
