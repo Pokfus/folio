@@ -1030,7 +1030,7 @@
   function defaultState() {
     return {
       user: { name: "Scholar", joined: Date.now() },
-      settings: { night: false, theme: "folio", newPerDay: 3, bgCollapsed: false, trCollapsed: true, adminMode: true, reviewRandom: false, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 } },
+      settings: { night: false, theme: "folio", newPerDay: 3, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 } },
       cards: {}, // id -> {reps,lapses,ease,interval,due,status,last}
       suspended: {}, // id -> true (card set aside; never shown again)
       daily: { lastPlayed: 0, best: 0, games: 0, wins: 0, podiums: 0 },
@@ -6782,26 +6782,49 @@
     return normSources([].concat(gen || [], per || []));
   }
   const SRC_CHEV = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
-  // just the numbered list — for a surface that already owns a fold of its own (the Atlas panel's .cp-sec)
+  /* Just the numbered list — for a surface that already owns a fold of its own (the Atlas panel's .cp-sec).
+     The links and the access chips are built HERE, into the markup, rather than by a pass over the page
+     afterwards. They used to depend on wireSourceLinks() reaching the list, which is the same fragility the
+     fold header had before it was delegated: one render path that forgets the call, or anything throwing
+     between the innerHTML and the wiring, and the reader gets a bare `[Open access]` and a URL that is not
+     a link — which looks like nothing went wrong, so nobody reports it as a wiring failure. A list that
+     arrives already wired cannot be unwired by a caller. wireSourceLinks stays as a safety net for markup
+     that reaches the page some other way, and is idempotent: the URL pass skips text inside an anchor, and
+     the chip pattern needs the brackets, which are gone once a chip has been built. */
   function sourceListHTML(list) {
     const src = normSources(list);
     if (!src.length) return "";
-    return '<ol class="src-list notranslate">' + src.map((s) => '<li class="src-item">' + s + "</li>").join("") + "</ol>";
+    const ol = document.createElement("ol");
+    ol.className = "src-list notranslate";
+    src.forEach((s) => {
+      const li = document.createElement("li");
+      li.className = "src-item";
+      li.innerHTML = s;
+      try { linkifySrcItem(li); } catch (err) {}   // decoration over text this code did not write
+      ol.appendChild(li);
+    });
+    // a citation's link opens in a new tab, or following one would end the study session
+    try { openLinks(ol); } catch (err) {}
+    return ol.outerHTML;
   }
-  /* The whole apparatus with its own header. Collapsed by default everywhere: the citations are there to
-     be checked, not read, and an open list would push a card's actual content off the screen.
+  /* The whole apparatus with its own header. OPEN by default — a citation the reader has to go looking for
+     is one they will not check, and checking is the whole point of shipping it. A reader who shuts it is
+     making a lasting choice, so the closed state is remembered per device in S.settings.srcCollapsed
+     (written by the delegated header handler, not by a marker jump, which opens the list for one look).
      opts.compact = the gloss-popup variant (no room for the card's section furniture). */
   function sourcesHTML(list, opts) {
     const src = normSources(list);
     if (!src.length) return "";
     const o = opts || {};
+    const shut = !!(S.settings && S.settings.srcCollapsed);
+    const c = shut ? " collapsed" : "";
     return '<section class="src-note' + (o.compact ? " src-compact" : "") + '">' +
-      '<button class="src-head" type="button" aria-expanded="false" aria-label="Show or hide the sources" title="Show or hide the sources">' +
+      '<button class="src-head" type="button" aria-expanded="' + (shut ? "false" : "true") + '" aria-label="Show or hide the sources" title="Show or hide the sources">' +
         '<span class="src-label">Sources</span>' +
         '<span class="src-count notranslate">' + src.length + "</span>" +
-        '<span class="src-toggle collapsed">' + SRC_CHEV + "</span>" +
+        '<span class="src-toggle' + c + '">' + SRC_CHEV + "</span>" +
       "</button>" +
-      '<div class="src-collapse collapsed"><div class="src-collapse-inner">' + sourceListHTML(src) + "</div></div>" +
+      '<div class="src-collapse' + c + '"><div class="src-collapse-inner">' + sourceListHTML(src) + "</div></div>" +
       "</section>";
   }
   /* A citation ends in the URL that lets the reader check it, printed as Chicago prints it — plain text in
@@ -6913,7 +6936,12 @@
     const t = e.target;
     if (!t || !t.closest) return;
     const head = t.closest(".src-head");
-    if (head) { toggleSourceNote(head.closest(".src-note")); return; }
+    if (head) {
+      // shutting the list is a lasting choice; jumping to a marker is not, so only this path remembers it
+      const open = toggleSourceNote(head.closest(".src-note"));
+      if (S.settings) { S.settings.srcCollapsed = !open; save(); }
+      return;
+    }
     const fn = t.closest("sup.fn");
     if (!fn) return;
     e.preventDefault();
@@ -8152,10 +8180,10 @@
       // The works behind both paragraphs, in one numbered list. Unlike the sections above it this one is
       // HIDDEN when empty rather than shown shut: an empty "Description" header still tells the reader the
       // panel has that part, but a "Sources" header over nothing reads as a claim to have cited something.
-      // Present, it opens SHUT — the apparatus is there to be checked, not read.
+      // Present, it follows the reader's own choice, like the fold on a card.
       const psrc = forceGeneral ? [] : placeSources(name, year);
-      if (cpSrcEl) { cpSrcEl.innerHTML = sourceListHTML(psrc); wireSourceLinks(cpSrcEl); }   // this panel has no in-text markers, so it wires the links alone
-      if (cpSrcSecEl) { cpSrcSecEl.hidden = !psrc.length; cpSection(cpSrcSecEl, false); }
+      if (cpSrcEl) cpSrcEl.innerHTML = sourceListHTML(psrc);   // the list arrives with its links and chips already built
+      if (cpSrcSecEl) { cpSrcSecEl.hidden = !psrc.length; cpSection(cpSrcSecEl, !(S.settings && S.settings.srcCollapsed)); }
       cpEl.hidden = false;
       // a fresh entity starts at the top of its own panel. The popup element is REUSED, so without this the
       // scroller keeps however far down the previous country the reader had got — on the phone's short bottom

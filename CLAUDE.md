@@ -547,15 +547,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     attributes, with `wireSourceLinks` in a try/catch: the links are decoration over text this code didn't
     write, the numbering is the join between the prose and the list, and one must not be able to take the
     other down.
-  · **Everything is collapsed by default**, on all three surfaces — the apparatus is there to be checked, not read,
-    and an open list would push a card's own content off the screen. The Atlas section additionally **hides outright
-    when empty** (unlike its neighbours, which show a shut header): an empty "Description" header still tells the
-    reader the panel has that part, but a "Sources" header over nothing reads as a claim to have cited something.
-  · **A citation ends in its URL, written as plain text**, and `linkifySrcItem` turns it into an anchor at
-    render time (`wireSourceLinks`, walking TEXT NODES, so a URL already inside an attribute is untouchable).
-    Doing it here rather than asking an author for `<a href="…">…</a>` is what keeps the href and the visible
-    text from ever disagreeing — a mismatched anchor would quietly send a reader somewhere the citation does
-    not name. Links open in a new tab, or following one would end the study session.
+  · **Everything is OPEN by default**, on all three surfaces (July 2026, on request — it was collapsed before).
+    A citation the reader has to go looking for is one they will not check, and checking is the whole point of
+    shipping the apparatus. **A reader who shuts it is remembered**: `S.settings.srcCollapsed` (in `defaultState`,
+    so old saves back-fill; a device setting, not synced) is written by the **delegated header handler only** —
+    a marker jump force-opens the fold for one look and deliberately does NOT change the preference. The Atlas
+    section follows the same setting and additionally **hides outright when empty** (unlike its neighbours, which
+    show a shut header): an empty "Description" header still tells the reader the panel has that part, but a
+    "Sources" header over nothing reads as a claim to have cited something.
+  · **A citation ends in its URL, written as plain text**, and `linkifySrcItem` turns it into an anchor —
+    **inside `sourceListHTML`, so the list is serialized already wired** rather than fixed up by a pass over the
+    rendered page. That was the second half of the same lesson the fold header learned: a list that depends on a
+    caller remembering `wireSourceLinks` will, on some render path, reach a reader as a bare `[Open access]` and a
+    URL that is not a link — which looks like nothing went wrong, so it gets reported as "the labels reverted",
+    not as a wiring failure (it was, in July 2026). It still walks TEXT NODES, so a URL already inside an
+    attribute is untouchable, and `wireSourceLinks` stays as an idempotent safety net for markup that arrives
+    some other way: the URL pass skips text inside an anchor, and the chip pattern needs brackets that are gone
+    once a chip exists. Building the anchor here rather than asking an author for `<a href="…">…</a>` is what
+    keeps the href and the visible text from ever disagreeing — a mismatched anchor would quietly send a reader
+    somewhere the citation does not name. Links open in a new tab, or following one would end the study session.
   · **A citation also ends in an access label** — `[Open access]` or `[Paywalled]`, stored as plain bracketed
     text after the final period, and lifted into a **chip** by the same `linkifySrcItem` pass
     (`SRC_ACCESS_RX`, `.src-access-open` in `--good` green / `.src-access-pay` in `--ochre` amber, both theme
@@ -583,7 +593,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **The tables still ship EMPTY for the Atlas and the glossary.** `country-sources.js` has no entries and no
     glossary term carries `sources`; the citation pass so far has touched cards only. The UI, the deltas and the
     pipeline are in place; the rest is a content job (see "Citing the existing content" below). Guarded by
-    `.claude/test-sources.js` (59 assertions).
+    `.claude/test-sources.js` (67 assertions).
     **Batches 0–3 shipped 2026-07-31**: **21 of the 109 prehistory cards carry sources** (80 citations, 67
     of them open, every card's list majority-open). See `docs/citation-plan.md` — its Pilot log records how the
     definitional cards were solved, its Batch 1 log the factual errors the exercise turns up (21 so far) and
@@ -1859,16 +1869,19 @@ dead code (never rendered).
     at the REAL project, so a test that actually sent a message would write rows into it — and like
     `test-publish.js`'s mock, it is a stand-in for the policies, never a proof they are right. **Re-run
     after touching the feedback functions, the queue, or the `7) FEEDBACK` schema block.**
-  · `node .claude/test-sources.js` — 59 assertions on source footnotes, on all three surfaces. Most of them are
+  · `node .claude/test-sources.js` — 67 assertions on source footnotes, on all three surfaces. Most of them are
     about the JOIN between the prose and the list, since that is where a footnote apparatus rots: a marker shows
     the number of the entry it actually opens, a bare marker takes the next number in reading order, and a marker
     pointing **past the end of the list is removed** rather than left claiming a citation the reader cannot follow.
-    Plus: the fold is shut everywhere by default, the Atlas section is hidden outright when a place has nothing,
+    Plus: the fold is **open everywhere by default and remembers being shut** — in the store and across a reload,
+    written by the header and never by a marker jump — the Atlas section is hidden outright when a place has nothing,
     a place cited by both its general and its year paragraph gets **one** footnote and not two, the citation text
     is `notranslate`, a hostile deck's `sources` are sanitized on ingest, and an admin's typed citations reach the
     overlay as a `sources` delta and come back after a reload. **A whole unwired surface is exercised too** —
-    the fold replaced by a listener-free clone and every marker blanked — since that is the shape the one
-    reported failure took, and it is invisible unless something asserts it. The **access chip** is guarded too: one chip per
+    the fold replaced by a listener-free clone and every marker blanked — since that is the shape both reported
+    failures took, and it is invisible unless something asserts it: on that clone the numbers still print, the
+    header still toggles, **and the links and chips are still there**, because the list is serialized wired
+    rather than fixed up after render. The **access chip** is guarded too: one chip per
     labelled citation and none invented for an unlabelled one, open and paywalled told apart by class **and by
     colour** so the difference survives without reading the words, the chip outside the anchor so it can never
     read as part of the URL, and the brackets gone from the render while the stored string keeps them.
