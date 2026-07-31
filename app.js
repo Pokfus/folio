@@ -3733,7 +3733,12 @@
     setMetaTag("name", "twitter:title", title);
     setMetaTag("name", "twitter:description", desc);
   }
+  // the study card the reader has revealed, remembered ACROSS a re-render so a language switch (which repaints
+  // via render(), not route()) keeps the answer and its source list open in the newly chosen language instead
+  // of snapping back to the question. Cleared by route() (a real navigation) and when the session advances.
+  let studyRevealId = null;
   function route(name, params) {
+    studyRevealId = null;
     if (name === "admin" && !isAdmin()) name = "home";
     current = { name, params: params || {} };
     // #deck/<slug> is a shareable address, so the slug rides in the hash (the same shape as #map/<year>/<slug>)
@@ -6523,6 +6528,7 @@
         toast("Card suspended — it won't appear again");
         queue.shift();
         hideGradeBar();
+        studyRevealId = null;
         renderCard();
       }
 
@@ -6533,6 +6539,7 @@
       function showAnswer() {
         if (revealed) return;
         revealed = true;
+        studyRevealId = id;   // so a language switch re-render re-opens this card rather than resetting it
         gradeCloze(cardRoot.querySelector(".question"), c.answer);
         const inner = root.querySelector("#revealInner");
         inner.innerHTML = buildBack(c);
@@ -6606,6 +6613,7 @@
         // "later" — the card would reappear instantly, looking like the grade never landed. It is properly
         // scheduled either way, and it has just joined the daily review, so it comes back there instead.
         if (res.requeue && params.scope.type !== "card") queue.push(id); // relearn within session
+        studyRevealId = null;   // moving on: the next card (or a requeued step) opens at its question, unrevealed
         // swap animation handled by re-render
         renderCard();
       }
@@ -6631,6 +6639,9 @@
         }
       };
       attachKeys(cardRoot._keys);
+      // if this same card was open when a language switch re-rendered the page, re-open it so the answer and
+      // its source list stay visible in the new language rather than snapping back to the question
+      if (studyRevealId === id) showAnswer();
     }
 
     function renderComplete() {
