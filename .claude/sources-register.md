@@ -1079,6 +1079,283 @@ Lucinda Backwell et al., "Border Cave: A 227,000-Year-Old Archive from the South
 
 ---
 
+<!-- ===================== BATCH 10 · ice-age climate & megafauna (2026-07-31) ===================== -->
+
+### gibbard-head-2010 · the Pleistocene GSSP
+Philip L. Gibbard and Martin J. Head, "The Newly-Ratified Definition of the Quaternary System/Period and
+Redefinition of the Pleistocene Series/Epoch, and Comparison of Proposals Advanced Prior to Formal
+Ratification," *Episodes* 33, no. 3 (2010): 152–158, https://doi.org/10.18814/epiiugs/2010/v33i3/002. [Open access]
+- opened: 2026-07-31 · full text (open PDF at stratigraphy.org + open Episodes HTML)
+- supports: Quaternary/Pleistocene base = Gelasian GSSP at Monte San Nicola, Sicily, dated 2.58 Ma; base moved
+  up from the Vrica GSSP at 1.806 Ma; IUGS ratification 29 June 2009; base sits near the mid-point of the NH
+  glaciation build-up
+- used by: wh-010
+
+### walker-2009 · the Holocene GSSP
+Mike Walker et al., "Formal Definition and Dating of the GSSP (Global Stratotype Section and Point) for the Base
+of the Holocene Using the Greenland NGRIP Ice Core, and Selected Auxiliary Records," *Journal of Quaternary
+Science* 24, no. 1 (2009): 3–17, https://timescalefoundation.org/references/HoloceneGSSP_JQuatSci090.pdf. [Open access]
+- opened: 2026-07-31 · full text via the open GTS Foundation deposit (the Wiley DOI is paywalled)
+- supports: base of the Holocene = 11,700 cal yr b2k, GSSP at 1492.45 m in the NGRIP Greenland ice core (the first
+  ice-core GSSP); Younger Dryas/GS-1 dated ~12,900–11,500 cal yr BP; δ18O glacial→interglacial change over several
+  decades, deuterium-excess switch in ≤3 yr; the Holocene begins at the end of the YD, not at ~14,500 cal yr BP
+- used by: wh-010, wh-012, wh-090
+
+### hays-imbrie-shackleton-1976 · the pacemaker of the ice ages
+J. D. Hays, John Imbrie, and N. J. Shackleton, "Variations in the Earth's Orbit: Pacemaker of the Ice Ages,"
+*Science* 194, no. 4270 (1976): 1121–32, https://doi.org/10.1126/science.194.4270.1121. [Paywalled]
+- opened: 2026-07-31 · full text via an openly-hosted copy; cited to the paywalled DOI as the landmark
+- supports: spectral peaks at ~23, ~42 and ~100 kyr matching orbital precession, obliquity and eccentricity;
+  glacial–interglacial cycles paced by orbital forcing
+- used by: wh-010
+
+### jakobsson-2017 · the Bering land bridge flooded
+Martin Jakobsson et al., "Post-Glacial Flooding of the Bering Land Bridge Dated to 11 cal ka BP Based on New
+Geophysical and Sediment Records," *Climate of the Past* 13, no. 8 (2017): 991–1005,
+https://doi.org/10.5194/cp-13-991-2017. [Open access]
+- opened: 2026-07-31 · abstract (Copernicus HTML)
+- supports: the ~53 m-deep Bering Strait was exposed as a land bridge during the last-glacial sea-level lowstand,
+  permitting human migration; flooded ~11 cal ka BP
+- used by: wh-010
+
+### svenning-2024 · the megafauna extinctions reviewed
+Jens-Christian Svenning et al., "The Late-Quaternary Megafauna Extinctions: Patterns, Causes, Ecological
+Consequences and Implications for Ecosystem Management in the Anthropocene," *Cambridge Prisms: Extinction* 2
+(2024): e5, https://doi.org/10.1017/ext.2024.4. [Open access]
+- opened: 2026-07-31 · full text (open PDF)
+- supports: megafauna losses across the last ~50 kyr, most in the Late Pleistocene/early–mid Holocene; the debate
+  (climate vs modern-human causation) as the only two tenable hypotheses; names the woolly mammoth among the lost
+- used by: wh-010 · (leans human, per its own abstract — cited only for the "disputed cause" framing)
+
+### batchelor-2019 · the Northern Hemisphere ice sheets
+Christine L. Batchelor et al., "The Configuration of Northern Hemisphere Ice Sheets through the Quaternary,"
+*Nature Communications* 10 (2019): 3713, https://doi.org/10.1038/s41467-019-11601-2. [Open access]
+- opened: 2026-07-31 · full text (PMC6697730)
+- supports: the Laurentide and Eurasian ice sheets at their most extensive at the LGM (~26.5 ka); NH ice ~100 m
+  sea-level equivalent
+- used by: wh-012
+
+### quiles-2016 · the age of Chauvet
+Anita Quiles et al., "A High-Precision Chronological Model for the Decorated Upper Paleolithic Cave of
+Chauvet-Pont d'Arc, Ardèche, France," *Proceedings of the National Academy of Sciences* 113, no. 17 (2016):
+4670–75, https://doi.org/10.1073/pnas.1523158113. [Open access]
+- opened: 2026-07-31 · full text (PMC4855545)
+- supports: two human-activity phases (37–33.5 ka and 31–28 ka); the black charcoal drawings belong to the first,
+  ~36 ka
+- used by: wh-012
+
+### clark-2009 · the Last Glacial Maximum
+Peter U. Clark et al., "The Last Glacial Maximum," *Science* 325, no. 5941 (2009): 710–14,
+https://doi.org/10.1126/science.1172873. [Paywalled]
+- opened: 2026-07-31 · full text read via the open WHOI PDF; cited to the paywalled DOI as the landmark (the WHOI
+  URL carries query-string ids and was judged too fragile to cite)
+- supports: LGM ice at its positions 26.5–19 ka (a ~7,500-yr lowstand plateau, not a single peak); peak eustatic
+  fall ~130 m (127.5 ± 7.5 m); Laurentide/Cordilleran/Scandinavian/British-Irish/Barents-Kara sheets (Fig. 1);
+  deglaciation onset 19–20 ka driven by rising NH summer insolation
+- used by: wh-078
+
+### moreno-parada-2023 · the Laurentide dome
+Daniel Moreno-Parada et al., "Simulating the Laurentide Ice Sheet of the Last Glacial Maximum," *The Cryosphere*
+17, no. 6 (2023): 2139–56, https://doi.org/10.5194/tc-17-2139-2023. [Open access]
+- opened: 2026-07-31 · full text (HTML)
+- supports: Laurentide thickness ~3–4 km reconstructed / 4–5 km simulated over the Hudson Bay dome
+- used by: wh-078
+
+### tierney-2020 · how much colder the LGM was
+Jessica E. Tierney et al., "Glacial Cooling and Climate Sensitivity Revisited" (preprint), *EarthArXiv* (2020),
+https://doi.org/10.31223/osf.io/me5uj. [Open access]  (published *Nature* 584: 569–573, paywalled)
+- opened: 2026-07-31 · preprint abstract; published global-mean value −6.1 °C confirmed by search
+- supports: **global-mean** LGM cooling ~6 °C (−5.9 preprint / −6.1 published) — NOT a land figure (land cooled
+  more); used to correct wh-078's "land temperatures"
+- used by: wh-078
+
+### bereiter-2015 · LGM carbon dioxide
+Bernhard Bereiter et al., "Revision of the EPICA Dome C CO2 Record from 800 to 600 kyr before Present,"
+*Geophysical Research Letters* 42, no. 2 (2015): 542–49, Antarctic composite CO2 data at
+https://www.ncei.noaa.gov/pub/data/paleo/icecore/antarctica/antarctica2015co2composite.txt. [Open access]
+- opened: 2026-07-31 · read the actual composite data file at NOAA/NCEI (the GRL DOI is paywalled)
+- supports: LGM CO2 minimum ~187–190 ppm, the lowest of the glacial cycle; used to correct wh-078 "180" → "190"
+  (IPCC AR6 also gives ~190 for the LGM)
+- used by: wh-078
+
+### villalba-mouco-2023 · the 23 ka southern Iberian
+Vanessa Villalba-Mouco et al., "A 23,000-Year-Old Southern Iberian Individual Links Human Groups That Lived in
+Western Europe before and after the Last Glacial Maximum," *Nature Ecology & Evolution* 7 (2023): 597–609,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC10089921/. [Open access]
+- opened: 2026-07-31 · full text (PMC10089921)
+- supports: Solutrean-associated individual from Cueva del Malalmuerzo, Granada (**southern** Iberia), ~23,000 cal
+  yr BP, connecting pre-LGM (Aurignacian) and post-LGM (Magdalenian) western-European ancestry; Iberia as refugium
+- used by: wh-078 · (the correct source for this claim — NOT Fu 2016, whose El Mirón individual is northern Iberia
+  and post-LGM)
+
+### vandervalk-2021 · million-year-old mammoth DNA
+Tom van der Valk et al., "Million-Year-Old DNA Sheds Light on the Genomic History of Mammoths," *Nature* 591,
+no. 7849 (2021): 265–69, https://pmc.ncbi.nlm.nih.gov/articles/PMC7116897/. [Open access]
+- opened: 2026-07-31 · full text (PMC7116897)
+- supports: the Krestovka specimen (Lower Olyorian, 1.2–1.1 Ma) held the oldest DNA yet sequenced from an animal;
+  the Adycha (steppe, ~1 Ma) lineage is directly ancestral to woolly mammoths and Chukochya (~700 ka) is already a
+  woolly mammoth — the steppe→woolly transition in NE Siberia, bracketed by the card's 800–600 ka
+- used by: wh-088 · (note: Kjær et al. 2022's ~2 Ma **environmental** DNA is older, so the superlative is qualified
+  to "oldest from an animal")
+
+### larramendi-2016 · proboscidean size and shape
+Asier Larramendi, "Shoulder Height, Body Mass, and Shape of Proboscideans," *Acta Palaeontologica Polonica* 61,
+no. 3 (2016): 537–74, https://doi.org/10.4202/app.00136.2014. [Open access]
+- opened: 2026-07-31 · full text (open PDF)
+- supports: *M. primigenius* North-Siberian form ~2.7–3.5 m at the shoulder, ~5.5–8 t; small ears (~30 cm, <1 kg),
+  very short tail, thick hair coat
+- used by: wh-088
+
+### macdonald-2012 · the mammoth's extinction pattern
+Glen M. MacDonald et al., "Pattern of Extinction of the Woolly Mammoth in Beringia," *Nature Communications* 3
+(2012): 893, https://doi.org/10.1038/ncomms1881. [Open access]
+- opened: 2026-07-31 · full text (open PDF)
+- supports: the "mammoth steppe" open grassland; Beringian range; mainland decline (N. America ~12.9 ka, N. Asia
+  early Holocene) with habitat change and human hunting; island populations to ~4 ka
+- used by: wh-088
+
+### dehasque-2024 · the last mammoths, inbred but not doomed
+Marianne Dehasque et al., "Temporal Dynamics of Woolly Mammoth Genome Erosion Prior to Extinction," *Cell* 187,
+no. 14 (2024): 3531–40, https://doi.org/10.1016/j.cell.2024.05.033. [Open access]
+- opened: 2026-07-31 · abstract (cell.com blocked; CC BY 4.0 OA confirmed by search)
+- supports: Wrangel Island isolation ~10,000 ya, extinct ~4,000 ya after 200+ stable generations; inbreeding
+  depression without genomic meltdown — "not doomed"
+- used by: wh-088 · (do NOT cite Rogers & Slatkin 2017 for this — it argues the opposite, "genomic meltdown")
+
+### graham-2016 · St Paul Island
+Russell W. Graham et al., "Timing and Causes of Mid-Holocene Mammoth Extinction on St. Paul Island, Alaska,"
+*Proceedings of the National Academy of Sciences* 113, no. 33 (2016): 9310–14,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC4995940/. [Open access]
+- opened: 2026-07-31 · full text (PMC4995940)
+- supports: mammoths survived on St. Paul until 5,600 ± 100 ya; cause = freshwater scarcity as the island shrank
+- used by: wh-088
+
+### koch-barnosky-2006 · the extinction debate
+Paul L. Koch and Anthony D. Barnosky, "Late Quaternary Extinctions: State of the Debate," *Annual Review of
+Ecology, Evolution, and Systematics* 37 (2006): 215–50, https://ib.berkeley.edu/labs/barnosky/Koch%20%20and%20Barnosky%202006.pdf. [Open access]
+- opened: 2026-07-31 · full text (open repository PDF)
+- supports: megafauna defined as ≥44 kg; ~90 genera lost; Table 2 continental % (Africa 21%, N. Eurasia 35%, N.
+  America 72%, S. America 83%, Australia 88%); the casualty roll-call; the two-hypothesis debate; timing 50–10 ka
+- used by: wh-089 · (used to correct "Africa under a fifth" → "about a fifth")
+
+### sandom-2014 · humans, not climate
+Christopher Sandom et al., "Global Late Quaternary Megafauna Extinctions Linked to Humans, Not Climate Change,"
+*Proceedings of the Royal Society B* 281, no. 1787 (2014): 20133254, https://doi.org/10.1098/rspb.2013.3254. [Open access]
+- opened: 2026-07-31 · full text (PMC)
+- supports: extinction severity tied to hominin palaeobiogeography (~64% of variance), weak/Eurasia-only climate
+  link — the coexistence-time gradient
+- used by: wh-089
+
+### gill-2009 · Sporormiella in the eastern US
+Jacquelyn L. Gill et al., "Pleistocene Megafaunal Collapse, Novel Plant Communities, and Enhanced Fire Regimes in
+North America," *Science* 326, no. 5956 (2009): 1100–1103, https://doi.org/10.1126/science.1179504. [Paywalled]
+- opened: 2026-07-31 · abstract (PubMed)
+- supports: the megafaunal (Sporormiella) decline (14,800–13,700 yr BP) closely **preceded** the vegetation change
+  and fire increase — animals first, habitat after
+- used by: wh-089
+
+### rule-2012 · Sporormiella in northern Australia
+Susan Rule et al., "The Aftermath of Megafaunal Extinction: Ecosystem Transformation in Pleistocene Australia,"
+*Science* 335, no. 6075 (2012): 1483–86, https://doi.org/10.1126/science.1214261. [Paywalled]
+- opened: 2026-07-31 · abstract (PubMed)
+- supports: Lynch's Crater (northern Australia) Sporormiella decline 42–40 ka **followed** by vegetation change —
+  the correct northern-Australia citation for the ordering claim
+- used by: wh-089 · (do NOT use van der Kaars et al. 2017 for this — its record shows vegetation change ~27 kyr
+  BEFORE the megafaunal collapse, the opposite order)
+
+### broughton-weitzel-2018 · mixed causes in North America
+Jack M. Broughton and Elic M. Weitzel, "Population Reconstructions for Humans and Megafauna Suggest Mixed Causes
+for North American Pleistocene Extinctions," *Nature Communications* 9 (2018): 5441,
+https://doi.org/10.1038/s41467-018-07897-1. [Open access]
+- opened: 2026-07-31 · full text (PMC)
+- supports: of nine taxa, five track Younger Dryas climate, three Clovis hunting, one multi-causal — some NA
+  records fit climate better than human numbers
+- used by: wh-089
+
+### stewart-2025 · the debate still divided
+Mathew Stewart et al., "The State of the Late Quaternary Megafauna Extinction Debate: A Systematic Review and
+Analysis," *Frontiers in Mammal Science* 4 (2025): 1678231, https://doi.org/10.3389/fmamm.2025.1678231. [Open access]
+- opened: 2026-07-31 · full text (Frontiers, open)
+- supports: 360 papers (1959–2024), field still divided along disciplinary lines — Quaternary science leans
+  climate, ecology leans human, most archaeology proposes no primary cause
+- used by: wh-089
+
+### guimaraes-2008 · seed-dispersal anachronisms
+Paulo R. Guimarães Jr., Mauro Galetti, and Pedro Jordano, "Seed Dispersal Anachronisms: Rethinking the Fruits
+Extinct Megafauna Ate," *PLoS ONE* 3, no. 2 (2008): e1745, https://doi.org/10.1371/journal.pone.0001745. [Open access]
+- opened: 2026-07-31 · full text (PLoS, open)
+- supports: neotropical fruits adapted to megafaunal dispersers left with no disperser after ~10–15 ka — the
+  fruit-without-a-carrier aftermath
+- used by: wh-089
+
+### doughty-2016 · nutrients in a world of giants
+Christopher E. Doughty et al., "Global Nutrient Transport in a World of Giants," *Proceedings of the National
+Academy of Sciences* 113, no. 4 (2016): 868–73, https://doi.org/10.1073/pnas.1502549112. [Open access]
+- opened: 2026-07-31 · full text (PNAS/PMC, open)
+- supports: lateral nutrient-transport capacity fell to ~8% of its former value; sea-to-land P transport down 96%
+  — nutrients no longer carried inland
+- used by: wh-089
+
+### buizert-2014 · Greenland temperature at the YD
+Christo Buizert et al., "Greenland Temperature Response to Climate Forcing during the Last Deglaciation,"
+*Science* 345, no. 6201 (2014): 1177–80, https://doi.org/10.1126/science.1254961. [Paywalled]
+- opened: 2026-07-31 · abstract (OSTI biblio 1565228)
+- supports: abrupt central-Greenland temperature changes of 9–14 °C; used to correct wh-090 "10 to 15" → "10 to 14"
+- used by: wh-090
+
+### mcmanus-2004 · AMOC collapse and the YD
+Jerry F. McManus et al., "Collapse and Rapid Resumption of Atlantic Meridional Circulation Linked to Deglacial
+Climate Changes," *Nature* 428, no. 6985 (2004): 834–37, https://www.whoi.edu/cms/files/mcmanus04nat_100524.pdf. [Open access]
+- opened: 2026-07-31 · full PDF freely downloadable at WHOI (the author's institution); claim confirmed against the
+  Nature abstract
+- supports: the Atlantic meridional overturning nearly/completely eliminated in the coldest deglacial interval,
+  declining briefly into the YD ~12,700 ya — the meltwater/AMOC mechanism. This open deposit is what keeps wh-090
+  majority-open
+- used by: wh-090
+
+### murton-2010 · the Younger Dryas flood path
+Julian B. Murton et al., "Identification of Younger Dryas Outburst Flood Path from Lake Agassiz to the Arctic
+Ocean," *Nature* 464, no. 7289 (2010): 740–43, https://doi.org/10.1038/nature08954. [Paywalled]
+- opened: 2026-07-31 · abstract (Europe PMC)
+- supports: a Lake Agassiz outburst flood via the **Mackenzie** River into the Arctic Ocean, rejecting the view
+  that overflow was solely eastward — the routing debate (Mackenzie vs St Lawrence)
+- used by: wh-090
+
+### meltzer-2014 · the comet hypothesis refuted
+David J. Meltzer et al., "Chronological Evidence Fails to Support Claim of an Isochronous Widespread Layer of
+Cosmic Impact Indicators Dated to 12,800 Years Ago," *Proceedings of the National Academy of Sciences* 111, no.
+21 (2014): E2162–71, https://pmc.ncbi.nlm.nih.gov/articles/PMC4040610/. [Open access]
+- opened: 2026-07-31 · full text (PMC4040610)
+- supports: only 3 of 29 YDIH sites fall within the claimed impact window; "no reason or evidence to accept" an
+  extraterrestrial impact at the YD onset — most specialists reject the comet hypothesis
+- used by: wh-090
+
+### walker-2020-doggerland · the Storegga wave
+James Walker et al., "A Great Wave: The Storegga Tsunami and the End of Doggerland?" *Antiquity* 94, no. 378
+(2020): 1409–25, https://doi.org/10.15184/aqy.2020.49. [Open access]
+- opened: 2026-07-31 · full text (CC-BY)
+- supports: the Storegga tsunami ~8150 BP; the naming of Doggerland attributed to Coles 1998; the 2020 argument
+  that inexorable sea-level rise, not the wave, took the last of Doggerland
+- used by: wh-096
+
+### gaffney-2007-mapping · mapping Doggerland
+Vincent Gaffney, Kenneth Thomson, and Simon Fitch, eds., *Mapping Doggerland: The Mesolithic Landscapes of the
+Southern North Sea* (Oxford: Archaeopress, 2007), https://www.archaeopress.com/Archaeopress/DMS/F9B49C6FC7E04728B2346A365BC405F1/9781905739141-sample.pdf. [Open access]
+- opened: 2026-07-31 · open publisher sample (introductory chapters)
+- supports: oil-industry 3D seismic reworked into palaeolandscape maps over >23,000 km²; almost everything known is
+  dredged/washed-up/read off seismic; the 1931 Colinda harpoon (Leman and Ower banks, barbed red-deer antler in
+  moorlog/peat)
+- used by: wh-096 · (Coles 1998 was NOT cited — paywalled, unopened; Walker 2020 carries the naming attribution)
+
+### weninger-2008 · the final flooding of Doggerland
+Bernhard Weninger et al., "The Catastrophic Final Flooding of Doggerland by the Storegga Slide Tsunami,"
+*Documenta Praehistorica* 35 (2008): 1–24, https://doi.org/10.4312/dp.35.1. [Open access]
+- opened: 2026-07-31 · abstract (open journal)
+- supports: the Storegga Slide tsunami ~8200 cal BP flooding the North Sea shelf ("Doggerland")
+- used by: wh-096
+
+---
+
 ## CANDIDATES — NOT VERIFIED, DO NOT PASTE INTO `data.js`
 
 *Empty.* Everything gathered by search during the blocked attempt of 2026-07-30 has since been opened and

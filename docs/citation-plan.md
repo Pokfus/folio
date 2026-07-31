@@ -267,15 +267,76 @@ Spine: Quiles et al. 2016 on the Chauvet chronology; Aubert et al. 2014 and 2021
 for Altamira, the Vézère valley and the Côa Valley — the last is directly what `wh-097` describes. This is
 the batch where official sources carry the most weight.
 
-### Batch 10 · Ice-age climate and megafauna (8)
-`wh-010` Pleistocene · `wh-011` Ice age (if not in the pilot) · `wh-012` Last Glacial Period ·
-`wh-078` Last Glacial Maximum · `wh-088` woolly mammoth · `wh-089` Quaternary extinction event ·
-`wh-090` Younger Dryas · `wh-096` Doggerland
+### Batch 10 · Ice-age climate and megafauna (8) — **7 of 7 DONE (2026-07-31)**
+**Cited:** `wh-010` Pleistocene · `wh-012` Last Glacial Period · `wh-078` Last Glacial Maximum ·
+`wh-088` woolly mammoth · `wh-089` Quaternary extinction event · `wh-090` Younger Dryas · `wh-096` Doggerland.
+(`wh-011` Ice age was taken in the pilot.) The batch plan called this "the easiest batch of the set" and it was:
+every card cleared, every list majority-open.
 
-Spine: the ICS International Chronostratigraphic Chart and the Gibbard/Cohen GSSP papers; Clark et al. 2009
-on the LGM; Rasmussen et al. 2014 on the Greenland event stratigraphy; Stuart on megafaunal extinction
-chronology; Gaffney et al. on Doggerland. Mostly open, and much of it official stratigraphy — the easiest
-batch of the set.
+Spine as worked: Gibbard & Head 2010 and Walker et al. 2009 on the GSSPs, Hays/Imbrie/Shackleton 1976 on the
+Milankovitch pacing, Spratt & Lisiecki 2016 on the sea-level stack, Jakobsson et al. 2017 on Beringia and
+Svenning et al. 2024 on the megafauna for `wh-010`; Batchelor et al. 2019 (ice sheets), Spratt & Lisiecki 2016,
+Quiles et al. 2016 (Chauvet) and Walker 2009 for `wh-012`; Clark et al. 2009, Moreno-Parada et al. 2023
+(Laurentide 4 km), Tierney et al. 2020 (LGM cooling), Bereiter et al. 2015 (CO2) and Villalba-Mouco et al. 2023
+(the 23 ka Malalmuerzo genome) for `wh-078`; van der Valk et al. 2021, Larramendi 2016, MacDonald et al. 2012,
+Dehasque et al. 2024 and Graham et al. 2016 for `wh-088`; Koch & Barnosky 2006, Sandom et al. 2014, Gill et al.
+2009, Rule et al. 2012, Broughton & Weitzel 2018, Stewart et al. 2025, Guimarães et al. 2008 and Doughty et al.
+2016 for `wh-089`; Walker 2009, Buizert et al. 2014, McManus et al. 2004, Murton et al. 2010 and Meltzer et al.
+2014 for `wh-090`; Walker et al. 2020, Gaffney/Thomson/Fitch 2007 (Mapping Doggerland) and Weninger et al. 2008
+for `wh-096`. Clark 2009 is cited paywalled (landmark) with four open sources beside it; McManus 2004's open WHOI
+PDF is what keeps `wh-090` majority-open. The originally planned spine did not fully survive: Rasmussen 2014 and
+Stuart 2015 are Elsevier-paywalled with no open deposit and were not needed (Walker 2009 carries the Greenland
+event dates; Koch & Barnosky 2006 carries the extinction chronology), and Coles 1998 was dropped for `wh-096`
+because Walker 2020 (open) confirms the naming attribution the card needed.
+
+### Batch 10 log — ice-age climate and megafauna
+
+#### 2026-07-31 — seven cards cited
+
+Network access was available; every source was opened before being written down. Coverage went from
+`cards 29/109` to `cards 36/109`. This was the tractable-by-source-type batch the batch-2 lesson predicted:
+the claims are dates, measurements, ice-core records, genomes and stratigraphic definitions, and the
+scholarship for them lives in open stratigraphy journals (Climate of the Past, The Cryosphere, Episodes,
+the GTS Foundation deposit of Walker 2009), open-access reviews and PMC.
+
+**Eight corrections**, all made in English and all nine languages in the same batch:
+
+- **wh-010 / wh-012** said the sea fell "as much as 120 metres" / "some 120 metres" at glacial maximum. The
+  GIA-constrained LGM estimate is **−130 to −134 m** (Spratt & Lisiecki 2016, quoting Clark 2009 and Lambeck
+  2014) — the same correction the pilot already made to `wh-011`. Both raised to 130.
+- **wh-078** said "**Land** temperatures averaged some 6 degrees Celsius colder." Tierney et al. 2020's −6.1 °C
+  is a **global mean**, not a land figure (land cooled more). Corrected to "Global temperatures."
+- **wh-078** gave LGM CO2 as "roughly 180 parts per million." Bereiter et al. 2015's composite puts the LGM at
+  ~187–190 ppm and IPCC AR6 states ~190; "180" is the classic glacial-minimum figure but low for the LGM proper.
+  Corrected to 190, in the abstract and the date line.
+- **wh-088** said mammoth teeth held "the oldest DNA yet sequenced." As of 2021 (van der Valk) it was the oldest
+  from any organism, but ~2-million-year-old **environmental** DNA (Kjær et al. 2022) is older. Qualified to "the
+  oldest DNA yet sequenced from any animal."
+- **wh-089** said Africa lost "under a fifth" of its large genera. Koch & Barnosky 2006 (Table 2) give **21%** —
+  marginally over a fifth. Corrected to "about a fifth."
+- **wh-090** said the warming the Younger Dryas interrupted was "more than two thousand years" old. The
+  Bølling–Allerød ran ~14.7–12.9 ka, i.e. **~1,800 years**. Corrected to "nearly two thousand years," in the
+  abstract and the date line.
+- **wh-090** gave the Greenland cooling as "10 to 15 degrees." Buizert et al. 2014 give the abrupt central-Greenland
+  change as **9–14 °C**; the "15" upper bound is not stated. Corrected to "10 to 14 degrees."
+- **wh-096** told the 1931 Doggerland harpoon find with a "skipper struck a lump of peat with his shovel" and a
+  "Norfolk trawler." The shovel-blow is a popular retelling with no scholarly source, and the trawler *Colinda* was
+  Lowestoft-registered. Reworded to the checkable facts: a North Sea trawler's net, 1931, a lump of peat that broke
+  open to reveal a barbed antler point.
+
+**Two source-type findings worth keeping.** First, *the open copy is often not at the DOI* — Walker 2009 and
+McManus 2004 are paywalled at the publisher but fully open at the GTS Foundation and WHOI respectively, and
+those deposits are what make `wh-010`/`wh-012` and `wh-090` majority-open. Fetch the institutional file, not just
+the DOI. Second, *a candidate source can support human causation and still contradict the specific claim*: van
+der Kaars et al. 2017 was the planned Australian Sporormiella citation for `wh-089`, but its own record shows
+vegetation change **preceding** the megafaunal collapse by ~27,000 years — the opposite of the "spores drop
+before vegetation" ordering the card states. Rule et al. 2012 (Lynch's Crater) carries that ordering; van der
+Kaars was dropped for it.
+
+**On the mechanism.** Marker splicing by sentence index worked a sixth time, and for once with no CJK remap
+needed: all seven cards are exactly 5+5 sentences in every one of the ten languages, verified by a split/join
+round-trip before any marker was placed, and every marker position was eyeballed across all ten languages per
+the batch-1 warning.
 
 ### Batch 11 · After the ice (11)
 `wh-099` Mesolithic · `wh-100` Epipaleolithic · `wh-101` Nordic Stone Age · `wh-102` Holocene ·
