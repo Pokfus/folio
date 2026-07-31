@@ -6768,6 +6768,12 @@
      simply the works a description was written from, the list alone is honest and the fold still shows. */
   const SRC_MAX = 24;        // per surface — a study card citing more than this has a bibliography, not footnotes
   const SRC_MAX_LEN = 600;   // one citation
+  /* The editorial bar: a curated card carries at least this many citations. It is a TARGET the Edit page
+     reports against (cardSourceState / the list's source chip), never a validity rule — a card below it
+     is under-cited, not broken, and a community deck is not held to it at all. Raised from the "2–4
+     qualifying sources" the pass started with; docs/citation-plan.md is the work of bringing the deck up
+     to it. */
+  const SRC_TARGET = 5;
   // clean a raw sources value (array, or one string) into the display list: trimmed, de-duplicated, capped
   function normSources(raw) {
     const arr = Array.isArray(raw) ? raw : (raw == null || raw === "" ? [] : [raw]);
@@ -11688,6 +11694,25 @@
   //  abstract in place on the live card, plus answerText above it. traditional/hanzi/pinyin/translations/
   //  citation were removed from the editor on request; the DATA fields still exist and render on study cards.)
   function fmtYear(c) { const y = cardStartYear(c); return y ? yearLabel(y) : "—"; }
+  /* Source coverage, for the Edit page's card list. Three states, and the difference between the last two
+     is the whole point of showing them: `short` is a card nobody has researched yet, `blocked` is one that
+     WAS researched and could not be brought to the bar — its qualifying scholarship is closed, unreachable,
+     or does not exist. A card earns `blocked` only when a citation batch concludes it, never in advance:
+     claiming a source cannot be found before looking for it is the failure this whole apparatus exists to
+     prevent. The reason travels with the flag (`card.sourcesBlocked`, a string written by
+     `.claude/mark-sources-blocked.js`) so the list can say WHY rather than merely that.
+     A flagged card that later reaches the bar reads as met — the count is the truth, the flag is a note. */
+  function cardSourceState(id) {
+    const c = CARD_BY_ID[id]; if (!c) return null;
+    const n = cardSources(c).length;
+    if (n >= SRC_TARGET) return { n, cls: "ok", why: "" };
+    return { n, cls: typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim() ? "blocked" : "short", why: String(c.sourcesBlocked || "").trim() };
+  }
+  function srcChipTitle(s) {
+    return s.cls === "blocked"
+      ? "Sources: " + s.n + " of " + SRC_TARGET + " — researched, no further qualifying source found. " + s.why
+      : "Sources: " + s.n + " of " + SRC_TARGET + " — needs " + (SRC_TARGET - s.n) + " more.";
+  }
   function adminSortIds(ids) {
     const mode = adminState.sort;
     const arr = ids.slice();
@@ -11695,6 +11720,8 @@
     else if (mode === "added") arr.sort((a, b) => cardCreatedAt(a) - cardCreatedAt(b));
     else if (mode === "modified") arr.sort((a, b) => cardModifiedAt(b) - cardModifiedAt(a));
     else if (mode === "chronological") arr.sort((a, b) => cardStartYear(CARD_BY_ID[a]) - cardStartYear(CARD_BY_ID[b]));
+    // fewest sources first, so the citation pass can be worked straight down the list
+    else if (mode === "sources") arr.sort((a, b) => { const x = cardSourceState(a), y = cardSourceState(b); return (x ? x.n : 0) - (y ? y.n : 0) || a.localeCompare(b); });
     return arr; // "order" keeps natural order of appearance
   }
 
@@ -12106,7 +12133,7 @@
   function adminSetListCount(n, noun) { const el = document.getElementById("adminListCount"); if (el) el.textContent = n + " " + noun + (n === 1 ? "" : "s"); }
   // serialize the live (delta-applied) in-memory data back into data.js / glossary.js source text
   function serializeCardData() {
-    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
+    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
     const countIds = (node) => { const s = new Set(); (function w(n) { (n.cardIds || []).forEach((i) => s.add(i)); (n.children || []).forEach(w); })(node); return s.size; };
     function ser(node, isTop) {
       const o = { id: node.id, title: node.title };
@@ -12565,10 +12592,14 @@
       const c = CARD_BY_ID[id];
       const sel = adminState.selected.has(id);
       const col = cardColor(id), colHex = col ? COLOR_HEX[col] : "";
+      const ss = cardSourceState(id);
+      // the source chip rides on the id line, which is short and has room — never at the row's right edge,
+      // where the "edited" dot and the drag grip already sit (and move about between row states)
+      const srcChip = ss && ss.cls !== "ok" ? '<span class="acr-src ' + ss.cls + '" title="' + esc(srcChipTitle(ss)) + '">' + ss.n + "/" + SRC_TARGET + '</span>' : "";
       return '<div class="admin-card-row' + (adminState.card === id ? " active" : "") + (cardIsEdited(id) ? " edited" : "") + (sel ? " selected" : "") + (reorderable ? " reorderable" : "") + (colHex ? " colored" : "") + '" data-card="' + esc(id) + '"' + (colHex ? ' style="--acr-col:' + colHex + '"' : '') + '>' +
         (colHex ? '<span class="acr-colortag" title="' + esc(colorCount[col] + "/" + ids.length + " cards marked " + col) + '"></span>' : '') +
         '<label class="acr-check" title="Select card"><input type="checkbox" data-check="' + esc(id) + '"' + (sel ? " checked" : "") + ' /><span class="acr-box"></span></label>' +
-        '<button class="acr-open" type="button" data-open="' + esc(id) + '"><span class="acr-id">' + esc(id) + '</span><span class="acr-title">' + esc(c.answer || "(untitled)") + '</span><span class="acr-sub">' + esc(fmtYear(c)) + '</span></button>' +
+        '<button class="acr-open" type="button" data-open="' + esc(id) + '"><span class="acr-id">' + esc(id) + (srcChip ? ' ' + srcChip : '') + '</span><span class="acr-title">' + esc(c.answer || "(untitled)") + '</span><span class="acr-sub">' + esc(fmtYear(c)) + '</span></button>' +
         (reorderable ? '<span class="acr-grip acr-grip-r" draggable="true" title="Drag to reorder cards in this deck (the home “Chrono” order)" aria-hidden="true">⠿</span>' : '') +
         '</div>';
     }).join("") : '<div class="admin-empty">No cards match “' + esc(raw) + '”.</div>';
@@ -12642,6 +12673,11 @@
     if (selAllBtn) { const all = ids.length && ids.every((id) => adminState.selected.has(id)); selAllBtn.textContent = all ? "Deselect all" : "Select all"; }
     const act = host.querySelector(".admin-card-row.active"); if (act) act.scrollIntoView({ block: "nearest" });
     adminSetListCount(ids.length, "card");
+    // how much of the visible list is still under the citation bar — the one number the pass is tracked by
+    const under = ids.filter((id) => { const s = cardSourceState(id); return s && s.cls !== "ok"; }).length;
+    const blocked = ids.filter((id) => { const s = cardSourceState(id); return s && s.cls === "blocked"; }).length;
+    const cntEl = document.getElementById("adminListCount");
+    if (cntEl && under) cntEl.innerHTML = esc(cntEl.textContent) + ' <span class="alc-src" title="' + esc(under + " of these " + ids.length + " cards carry fewer than " + SRC_TARGET + " sources" + (blocked ? "; " + blocked + " of them have been researched and could not be brought to the bar" : "")) + '">· ' + under + " under-cited" + (blocked ? ", " + blocked + " blocked" : "") + "</span>";
     adminRenderSelectionBar();
   }
 
@@ -13609,6 +13645,7 @@
                 '<option value="added">Date added</option>' +
                 '<option value="modified">Date modified</option>' +
                 '<option value="chronological">Chronological</option>' +
+                '<option value="sources">Fewest sources</option>' +
               '</select></label>' +
             '</div>' +
             '<div class="alt-right alt-right-gloss" style="display:none">' +

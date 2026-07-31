@@ -77,8 +77,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   opening index.html from `file://` is unaffected. If it ever breaks the live site, rename the header to
   `Content-Security-Policy-Report-Only` — violations keep showing in devtools without blocking anything.
 - `docs/citation-plan.md` — the batch plan for **citing the 109 prehistory cards** (the bar a source must
-  clear, the per-card workflow, how translations are staged, and the 13 batches with their source spines).
-  Not part of the site. Coverage is reported by `add-sources.js` on every run. Its **Pilot log** records
+  clear, the per-card workflow, how translations are staged, and the batches with their source spines).
+  Not part of the site. **The bar is at least 5 citations per card** (`SRC_TARGET` in app.js; raised from
+  2–4 on 2026-07-31) — 54 of 109 cards are there, 55 short by 168 citations, planned as **batches 17–26**.
+  Coverage is reported by `add-sources.js` on every run and in full by `node .claude/source-audit.js`. Its **Pilot log** records
   that batch 0 was attempted and stopped: this sandbox's egress policy blocks every scholarly host, so no
   source could be opened and none was cited. `.claude/sources-register.md` holds the verified citations
   (and, separately and clearly marked, unverified search-only candidates that must never be pasted in).
@@ -589,14 +591,30 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **Editing**: the shared card surface's `sourcesPanel` (so the admin editor's EN view AND the Studio), and a
     `sources` textarea in the curated glossary editor's EN view + the Studio's term form. **One citation per LINE**,
     never comma-separated as tags and aliases are — a Chicago note is full of commas.
+  · **How many, and the red mark** (July 2026, on request). **`SRC_TARGET` (5) is the editorial bar** a curated
+    card is held to — a target the Edit page reports against, never a validity rule, and community decks are not
+    held to it. The card list paints each row's id line with a coverage chip (`cardSourceState` → `.acr-src`):
+    **nothing** at 5+, **amber `3/5`** under the bar, **red `0/5`** under it *and* carrying `card.sourcesBlocked`
+    — a string reason recording that a batch went looking and came back short. The amber/red distinction is the
+    point: amber is a to-do, red is a finding. **A card earns red only when a batch concludes it**, written by
+    `.claude/mark-sources-blocked.js` (which demands a reason saying what was searched) and retired
+    automatically by `add-sources.js` the moment the card reaches 5. Flagging a card unsourceable before
+    searching is the failure the apparatus exists to prevent, one level up — and batch 8b is the standing
+    warning, having cited two cards a previous session had written off. The flag is `data.js`-level, carried by
+    `serializeCardData` beside `sources`, and **never shown to a reader**: the fold shows the sources a card has.
+    A "Fewest sources" sort and an "N under-cited, M blocked" tally in the list head let the pass be worked
+    straight down the list. Deliberately NOT the same channel as the right-click `cardColor` mark (a left
+    stripe): one is derived from the data, the other is an editor's private marker.
   · `sup` + `class="fn"` + `data-fn` are in the sanitizer allowlists, so a community deck can use markers too.
   · **The tables still ship EMPTY for the Atlas and the glossary.** `country-sources.js` has no entries and no
     glossary term carries `sources`; the citation pass so far has touched cards only. The UI, the deltas and the
     pipeline are in place; the rest is a content job (see "Citing the existing content" below). Guarded by
     `.claude/test-sources.js` (67 assertions).
-    **Batches 0–16 shipped 2026-07-31**: **87 of the 109 prehistory cards carry sources**, every card's list
-    majority-open (`wh-086` Lascaux, `wh-074` Dolní Věstonice and a set of culture-history/definitional cards
-    are deferred — their sources will not open). See `docs/citation-plan.md` — its Pilot log records how the
+    **Batches 0–17c shipped 2026-07-31**: **92 of the 109 prehistory cards carry sources** (`wh-086` Lascaux,
+    `wh-074` Dolní Věstonice and a set of culture-history/definitional cards are deferred). **Against the
+    5-source bar raised the same day, 59 of 109 are there** — the other 50 are batches 18–26 in the plan, and
+    the audit that says which is `node .claude/source-audit.js`. Every list is majority-open bar one: `wh-045`
+    Jebel Irhoud runs 2 open / 2 paywalled and its top-up must add open works. See `docs/citation-plan.md` — its Pilot log records how the
     definitional cards were solved, its Batch 1 log the factual errors the exercise turns up (21 so far) and
     the gotcha that a matching sentence COUNT across languages does not prove a matching sentence MAPPING, and
     its Batch 2 log the finding that reshapes the rest of the pass: **the batches are grouped by subject, and
@@ -1669,12 +1687,24 @@ which would otherwise have shipped corrected prose above an uncorrected date lin
 **Citing the existing content (as of July 2026)** — **most of the shipped content still has no citations.** The
 109 cards, 333 glossary terms and every Atlas description were written before this system existed, from Wikipedia
 and its sources, and were fact-checked rather than referenced. A batched pass is working through the cards —
-**87 of 109 done** (`docs/citation-plan.md`; coverage is reported by `add-sources.js` on every run) — while
+**92 of 109 carry sources, and 59 of 109 meet the 5-source bar** (`docs/citation-plan.md`; `add-sources.js`
+reports both on every run, `node .claude/source-audit.js` reports them per card, and the Edit page's card list
+shows each card's coverage as an amber or red chip) — while
 `country-sources.js` and `GLOSSARY_SOURCES` are still empty, so the Sources fold appears only on those cards.
 **Do not paper over the rest by attaching plausible-looking citations to existing prose** — a citation that was
 not the actual source of a sentence is worse than no citation, because it invites a reader to trust a page number
 nobody checked. The honest routes are the ones the pass follows: open every work before citing it, re-derive the
 passage from it, and correct the prose where the source does not bear it out.
+
+**Splicing footnote markers into the translations** — `node .claude/split-abstract.js <cardId …>` splits a
+card's abstract into its 2 blocks of 5 sentences in all ten languages and reports whether each one runs 5+5
+and round-trips byte for byte. **Run it before placing markers by sentence index**: a language that splits
+differently maps the markers onto the wrong claims and nothing downstream notices. It carries every guard
+the batches have turned up — decimals, the era abbreviations in five languages (incl. Russian `н. э.`,
+which needs no `\b` since JS's is ASCII-only), initials, a day-ordinal before a month name, a bare ordinal
+before `Jahrhundert`, the CJK full stop, and **markers already placed by an earlier batch** (the marker sits
+between the full stop and the following space, and in zh/ja with no space at all — without that guard a
+top-up batch sees one enormous sentence, or splits every marker off as its own).
 
 **Backfilling a site language** — `add-card.js` / `add-glossary.js` only handle a whole NEW entry in every
 language at once. To add a language to content that already exists (a new site language, or topping up a

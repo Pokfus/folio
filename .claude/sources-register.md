@@ -2367,6 +2367,368 @@ Mousterian (`wh-033`), new to the register:
 - Michael J. Shott, “Dibble’s Reduction Thesis: Implications for Global Lithic Analysis,” <i>Journal of Paleolithic Archaeology</i> 7, no. 1 (2024): 12, https://link.springer.com/article/10.1007/s41982-024-00178-y. [Open access]
 - Patrick Schmidt, Radu Iovita, Armelle Charrié-Duhaut, Gunther Möller, Abay Namen, and Ewa Dutkiewicz, “Ochre-Based Compound Adhesives at the Mousterian Type-Site Document Complex Cognition and High Investment,” <i>Science Advances</i> 10, no. 8 (2024): eadl0822, https://hal.science/hal-04484835v1/document. [Open access]
 
+## Batch 17a — the three-age system and prehistory, verified 2026-07-31
+
+Eleven citation slots across two cards, from **9 distinct works, every one of them open** — and three of
+the nine (Rowley-Conwy 2004, Lubbock 1865, Braun et al. 2019, Harmand et al. 2015 — four, in fact) came
+straight out of this register with no fetch at all, which is the batch-12 dividend showing up again on the
+definitional cards. The first pass worked at the raised five-source bar.
+
+- `wh-006` **Three-age system** — Thomsen/Ellesmere 1848, Rowley-Conwy 2004, Kanjanajuntorn 2020, Hesiod,
+  Lubbock 1865, Cooper & Grebnev 2023. Six sources, **all open**.
+- `wh-007` **Prehistory** — Mackenthun & Mucher 2021, Woods 2010, Kanjanajuntorn 2020, Braun et al. 2019,
+  Harmand et al. 2015. Five sources, **all open**.
+
+### thomsen-ellesmere-1848 · the founding text, in English
+Christian Jürgensen Thomsen, “Of the Different Periods to Which the Heathen Antiquities May Be Referred,”
+in *Guide to Northern Archaeology*, ed. the Earl of Ellesmere (London: James Bain, 1848), 64–67,
+https://archive.org/details/guidetonorthern00ellegoog. [Open access]
+- opened: 2026-07-31 · Google scan of the 1848 volume, public domain, printed pagination intact. This is
+  the English translation of Thomsen's 1836 *Ledetraad* chapter that Rowley-Conwy 2004 discusses; the
+  periodisation section is where Rowley-Conwy says it is (Ellesmere 63–71).
+- supports: the definitions in Thomsen's own words — "The age of stone, or that period when weapons and
+  implements were made of stone, wood, bone, or some such material, and during which very little or nothing
+  at all was known of metals" (64); "The age of bronze, in which weapons and cutting implements were made of
+  copper or bronze, and nothing at all, or but very little was known of iron or silver" (65); "The age of
+  iron is the third and last period of the heathen times, in which iron was used for those articles to which
+  that metal is eminently suited" (67) — so the ages are named for the material of **weapons and cutting
+  implements**, which is the card's claim. Also his own caveat that the periods' "limits … cannot be
+  accurately defined" (64), which is what makes the scheme a relative order rather than a calendar.
+- used by: wh-006
+
+### kanjanajuntorn-2020 · the three-age system outside Europe
+Podjanok Kanjanajuntorn, “The Three-Age System: A Struggle for Southeast Asian Prehistoric Periodisation,”
+*SPAFA Journal* 4 (2020): 2, 5, https://doi.org/10.26721/spafajournal.v4i0.623. [Open access]
+- opened: 2026-07-31 · publisher PDF via the journal's own download URL (CC BY-NC-ND)
+- supports: Thomsen at the National Museum in Copenhagen, in charge of the collections, classifying objects
+  "according to their material types and functions" and recognising patterns among objects with contexts (2);
+  Worsaae taking the classification "on board and put[ting] it to the test against contextual evidence from
+  stratigraphic excavations" across Europe (2–3); prehistory as a discipline defined by method — typology,
+  stratigraphy, technology — rather than by texts (3); and that "foreign researchers in Southeast Asia found
+  almost from the beginning that the European chronology of a three-age system was not applicable to this
+  region. Nor did the definitions of Palaeolithic and Mesolithic fit" (5)
+- used by: wh-006, wh-007
+
+### hesiod-works-and-days · the races of gold, silver, bronze, heroes and iron
+Hesiod, *Works and Days*, lines 109–201, trans. Hugh G. Evelyn-White, in *Hesiod, the Homeric Hymns, and
+Homerica*, Project Gutenberg ebook 348, https://www.gutenberg.org/cache/epub/348/pg348.txt. [Open access]
+- opened: 2026-07-31 · read in full, lines 109–201. The Perseus copy of the same 1914 Evelyn-White
+  translation reset the connection twice; Gutenberg served it, and a classical text is located by line
+  rather than by page anyway.
+- supports: that the scheme is **five races, not three ages**, and that the fourth is not a metal at all —
+  gold (109–20), silver (121–39), "a brazen race … Their armour was of bronze, and their houses of bronze,
+  and of bronze were their implements: there was no black iron" (140–55), "a god-like race of hero-men who
+  are called demi-gods, the race before our own" (156–69b), and the iron race the poet puts himself in
+  (170–201). Each generation is worse than the last and the sequence is a moral decline, which is exactly
+  what makes it poetry rather than a technological claim tested against evidence.
+- used by: wh-006
+
+### cooper-grebnev-2023 · where the Bronze Age does not apply
+Julien Cooper and Yegor Grebnev, “Introduction: Bronze Age Civilizations,” *Old World: Journal of Ancient
+Africa and Eurasia* 3, no. 1 (2023): 3–4, https://doi.org/10.1163/26670755-20230009. [Open access]
+- opened: 2026-07-31 · publisher PDF, CC BY 4.0 (the DOI landing page 403s to a plain fetch; the
+  `brill.com/downloadpdf/…` file serves)
+- supports: that "the arctic tundra, archipelago Southeast Asia, Oceania, and the entirety of sub-Saharan
+  Africa did not possess bronze metallurgy techniques until fairly late in history"; that "the early dates
+  for iron production (and lack of Bronze production) in many parts of Sub-Saharan Africa go against the
+  trajectory commonly espoused in scholarship, where the Neolithic gives way to the Bronze Age"; that "while
+  there are dates for copper metallurgy, for example in the Western Sahel in the First Millennium bce …
+  there is little evidence for specific bronze production before the advent of iron metallurgy," so "the
+  'Bronze Age' is therefore not justifiably applicable to much of the southern half of the African
+  continent" (3–4); and that the term is "only (somewhat) absent from the archaeological discourse in
+  Oceania, sub-Saharan Africa, and the Americas" (2)
+- used by: wh-006
+
+### mackenthun-mucher-2021 · what the word "prehistory" does
+Gesa Mackenthun and Christen Mucher, “Introduction,” in *Decolonizing “Prehistory”: Deep Time and Indigenous
+Knowledges in North America*, ed. Gesa Mackenthun and Christen Mucher (Tucson: University of Arizona Press,
+2021), 6–8, https://open.uapress.arizona.edu/projects/decolonizing-prehistory. [Open access]
+- opened: 2026-07-31 · the press's own open-access PDF (CC BY-NC-ND 4.0, Knowledge Unlatched)
+- supports: "Conventionally, the term prehistory has been used to refer to societies that did not use
+  alphabetic writing" (6) — the card's definition-by-absence-of-writing; that in positing non-European
+  cultures as prehistorical "the colonial episteme also denies them … 'historicality': the right to have a
+  history in the first place" (6); Schmidt and Mrozowski's finding, quoted here, that continuing to use the
+  word "is often an oppressive reminder of their political, cultural, and economic disenfranchisement," and
+  their hope for a "future without prehistory" (7); and that "orally transmitted Indigenous knowledges were
+  frequently dismissed as irrelevant," against which Indigenous histories should be read as "a counterarchive
+  to the imperial written record" (7–8)
+- used by: wh-007
+
+### woods-2010 · when writing appears, and where
+Christopher Woods, “Visible Language: The Earliest Writing Systems,” in *Visible Language: Inventions of
+Writing in the Ancient Middle East and Beyond*, ed. Christopher Woods, Oriental Institute Museum
+Publications 32 (Chicago: Oriental Institute of the University of Chicago, 2010), 15–17,
+https://isac.uchicago.edu/sites/default/files/uploads/shared/docs/oimp32.pdf. [Open access]
+- opened: 2026-07-31 · ISAC's own free PDF of the volume
+- supports: writing as "the boundary between history and prehistory" (15); that in Mesopotamia and Egypt it
+  appears "toward the end of the fourth millennium bc," in China "at the end of the second millennium bc"
+  and in Mesoamerica "by the middle of the first millennium bc" (15) — the card's very different times in
+  different places; the Abydos finds "that have pushed back the date of writing in Egypt, making it
+  contemporaneous with the" Mesopotamian (16); the Shang state and its oracle bones at ca. 1200 bc (17).
+  Woods's own chapter 2 adds the caution the card's "around" is doing: "The date traditionally given for the
+  invention of writing in Mesopotamia is 3200 bc, but this is more or less conventional" (33).
+- used by: wh-007
+
+## Batch 17b — the Mesolithic, verified 2026-07-31
+
+Nineteen citation slots on `wh-099` from **15 distinct works, every one of them open**. Six came out of this
+register unopened — Lubbock 1865, Walker et al. 2018, Larson et al. 2014, Kanjanajuntorn 2020 (verified in
+17a), Seppä et al. 2009 and Larsson et al. 2016 — and nine are new.
+
+### westropp-1866 · the word, first time
+Hodder M. Westropp, “On the Analogous Forms of Implements among Early and Primitive Races,” *Memoirs Read
+before the Anthropological Society of London* 2 (1866): 288–93, at 291,
+https://archive.org/details/memoirsreadbefor02anth. [Open access]
+- opened: 2026-07-31 · Internet Archive scan of the 1866 volume (Trübner, for the Anthropological Society),
+  public domain, printed pagination intact
+- supports: the coinage, and a detail the card did not have — Westropp's three terms in 1866 are
+  "**Palaeolithic, Mesolithic, Kainolithic**" (291), not Palaeolithic/Mesolithic/Neolithic. He divides the
+  stone period into the gravel-drift implements, "the flint implements found in Ireland and Denmark, which
+  belonged to a people who lived by the chase", and polished stone marking "perhaps a pastoral age".
+- used by: wh-099
+
+### westropp-1872 · the word, second time, with Neolithic
+Hodder M. Westropp, *Pre-historic Phases; or, Introductory Essays on Pre-historic Archæology* (London: Bell
+and Daldy, 1872), 65, https://archive.org/details/cu31924029915240. [Open access]
+- opened: 2026-07-31 · Cornell copy, public domain
+- supports: "The following terms may therefore be used to distinguish the three different stages. The first
+  or Palaeolithic, the second or Mesolithic, and the third or Neolithic" (65) — Kainolithic has become
+  Lubbock's Neolithic in the six years since 1866
+- used by: wh-099
+
+### elliott-griffiths-2018 · Mesolithic time
+Ben Elliott and Seren Griffiths, “Living Mesolithic Time: Narratives, Chronologies and Organic Material
+Culture,” *Journal of World Prehistory* 31, no. 3 (2018): 347–65,
+https://doi.org/10.1007/s10963-018-9119-x. [Open access]
+- opened: 2026-07-31 · Springer, CC BY 4.0
+- supports: "Westropp's (1866) initial definition of the term 'Mesolithic' in relation to lithic typology
+  (and later subsistence modes: Westropp 1872)" — corroborating the primary texts on both dates; and that
+  the Early/Middle/Late/Final Mesolithic scheme, "classically articulated" by Clark 1932 among others,
+  still "form[s] the backbone of systematic studies"
+- used by: wh-099
+
+### stiner-2001 · the broad spectrum revolution at thirty
+Mary C. Stiner, “Thirty Years on the ‘Broad Spectrum Revolution’ and Paleolithic Demography,” *Proceedings
+of the National Academy of Sciences* 98, no. 13 (2001): 6993–96,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC34611/. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: that "Kent Flannery pushed these observations further in 1969 with his 'Broad Spectrum
+  Revolution' (BSR) hypothesis, proposing that the emergence of the Neolithic in western Asia was prefaced
+  by increases in dietary breadth in foraging societies just before this period" — the card's naming, its
+  date and its content, from an open source, where Flannery 1969 itself is a closed book chapter
+- used by: wh-099
+
+### bates-2024 · Star Carr, dated and built
+Jennifer Bates et al., “Spatial Organisation within the Earliest Evidence of Post-Built Structures in
+Britain,” *PLOS ONE* 19, no. 7 (2024): e0306908, https://pmc.ncbi.nlm.nih.gov/articles/PMC11249238/.
+[Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: "Star Carr, an Early Mesolithic site (c. 9300–8500 cal BC) situated on a palaeolake in North
+  Yorkshire", and "the central platform; a lake-edge platform made from large split timbers"
+- used by: wh-099
+
+### elliott-knight-little-2018 · the antler frontlets, counted
+Ben Elliott, Becky Knight, and Aimée Little, “Antler Frontlets,” in *Star Carr Volume 2: Studies in
+Technology, Subsistence and Environment*, ed. Nicky Milner, Chantal Conneller, and Barry Taylor (York:
+White Rose University Press, 2018), 297–333, at 297 and 321, https://doi.org/10.22599/book2.l.
+[Open access]
+- opened: 2026-07-31 · the press's own PDF (CC BY-NC 4.0), served from `storage.googleapis.com/rua-wr/…`
+  after the chapter page's download link; the publisher's site 403s a plain fetch but serves WebFetch
+- supports: Clark "(1954, 168) excavated 21 'stag frontlets having still in place portions of antler worked
+  in a special manner'" (297); the 2004–2015 excavations recovering "an assemblage of 12 humanly modified
+  red deer frontlets … includ[ing] male and female animals, and also examples of modified crania with shed
+  antlers" (297); and the number that corrects the card — "**within Clark's assemblage, only eight of the
+  21 frontlets are listed as featuring perforations, whilst the 2013–2015 data brings the overall total to
+  nine of 33**" (321)
+- used by: wh-099
+
+### little-2016 · the headdress, analysed
+Aimée Little et al., “Technological Analysis of the World’s Earliest Shamanic Costume: A Multi-Scalar,
+Experimental Study of a Red Deer Headdress from the Early Holocene Site of Star Carr, UK,” *PLOS ONE* 11,
+no. 4 (2016): e0152136, https://pmc.ncbi.nlm.nih.gov/articles/PMC4830440/. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: that the headdresses are "formed from the upper part of a male red deer skull with the antlers
+  attached — the lower jaw and cranial bones having been removed and the parietal (and occasionally
+  frontal) bones perforated", and that Star Carr's examples represent "c. 90% of all such known artefacts
+  across early prehistoric Europe"
+- used by: wh-099
+
+### rce-pesse · the Pesse canoe (official record)
+Cultural Heritage Agency of the Netherlands, “Pesse, kano van (-7510),” Maritime Stepping Stones database,
+accessed 31 July 2026, https://mass.cultureelerfgoed.nl/pesse. [Open access]
+- opened: 2026-07-31 · the agency's MaSS record
+- supports: "The Pesse logout canoe is believed to be the world's oldest known boat", with a length of
+  298 cm and a width of 44 cm — the card's "just under 3 metres" and "the oldest boat known". **The record
+  gives no date and no wood species**, which is why the card no longer states the 8040–7510 BCE range or
+  the Scots pine: both circulate widely but appear in nothing openable that could be checked.
+- used by: wh-099
+
+### robson-2024 · Danish shell middens and their oysters
+Harry K. Robson et al., “The Effects of Mid-Holocene Foragers on the European Oyster in Denmark,”
+*Proceedings of the National Academy of Sciences* 121, no. 48 (2024): e2411692121,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC11573498/. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: "over 2,000 analyzed European oyster (*Ostrea edulis*) shells dating from ~5,660 to 2,600" BCE
+  from Danish shell middens, several of them Ertebølle sites in the Limfjord (Bjørnsholm, Brovst,
+  Ertebølle, Krabbesholm II); and that the Funnel Beaker culture, from ~3900 cal BCE, "marked the advent of
+  farming in Denmark" — so the midden foragers precede any crop. **It gives no count of middens**, which is
+  why the card's "over 500 shell mounds" was dropped: the Andersen survey that carries that figure is
+  paywalled at Cambridge with no deposit.
+
+## Batch 17c — the Epipalaeolithic and the Nordic Stone Age, verified 2026-07-31
+
+Twenty-six citation slots across `wh-100` and `wh-101` from **16 distinct works, 15 of them open**; the
+one paywalled entry is Davis & Valla 1978, the landmark for the Natufian dog, cited beside nine open works.
+
+- `wh-100` **Epipaleolithic** — Maher et al. 2011, Davin et al. 2026, Shipton et al. 2026, Haklay & Gopher
+  2015, Groman-Yaroslavski et al. 2026, Davis & Valla 1978, Arranz-Otaegui et al. 2018, Santana et al. 2021,
+  Moubtahij et al. 2024, Larson et al. 2014. Ten sources, nine open.
+- `wh-101` **Nordic Stone Age** — Fjellström et al. 2026, Riede et al. 2024, Robson et al. 2024 (verified in
+  17b), Groß et al. 2026, Winther Johannsen et al. 2024, Schulz Paulsson 2019, Malmström et al. 2019.
+  Seven sources, **all open**.
+
+### maher-2011 · the Epipalaeolithic span, and the Natufian dog
+Lisa A. Maher et al., “A Unique Human-Fox Burial from a Pre-Natufian Cemetery in the Levant (Jordan),”
+*PLOS ONE* 6, no. 1 (2011): e15815, https://pmc.ncbi.nlm.nih.gov/articles/PMC3027631/. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: "The archaeological record of the Epipalaeolithic period in the southern Levant (**ca. 23–11.6 ka
+  cal BP**)" — the span, which corrects the card's "conventionally 20,000 to 10,000"; "the latest
+  Epipalaeolithic phase, the Natufian (c. 14,500–11,600 cal BP)" with "sedentism, cemeteries, architecture,
+  food production, including animal domestication"; and "the burial of an adult female with a juvenile
+  **domestic dog** is well-known from 'Ain Mallaha ('Eynan)", with another from Hayonim Terrace — the card's
+  dog, from an open source, where Davis & Valla is closed
+- used by: wh-100
+
+### davin-2026 · the Natufian bracket and the first sedentary communities
+Laurent Davin et al., “Modeling Identities among the First-Sedentary Communities: Emergence of Clay Personal
+Ornaments in Epipaleolithic Southwest Asia,” *Science Advances* 12 (2026): eaea2158,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC12998513/. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: the Upper Palaeolithic at ~47,000–24,000 cal BP and the "Early and Middle Epipaleolithic
+  (~24,000 to 15,000 cal yr B.P.)"; the "Late Epipaleolithic Natufian culture (**15,000 to 11,650 cal yr
+  B.P.**)", "a unique transitional entity … [that] marked the beginning of the transformation from mobile
+  foraging Paleolithic bands"
+- used by: wh-100
+
+### shipton-2026 · the Geometric Kebaran's geometrics
+Chris Shipton et al., “The Natufian Epipalaeolithic and Pre-Pottery Neolithic in the Desert of Northern
+Arabia,” *Scientific Reports* 16 (2026): 16842, https://pmc.ncbi.nlm.nih.gov/articles/PMC13226711/.
+[Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: an Epipalaeolithic assemblage "with affinities to the Geometric Kebaran of the Levant …
+  including backed and obliquely truncated bladelets as well as **trapezoidal geometric microliths**"
+- used by: wh-100
+
+### haklay-gopher-2015 · what Ain Mallaha actually was
+Gil Haklay and Avi Gopher, “A New Look at Shelter 131/51 in the Natufian Site of Eynan (Ain-Mallaha),
+Israel,” *PLOS ONE* 10, no. 7 (2015): e0130121, https://pmc.ncbi.nlm.nih.gov/articles/PMC4496039/.
+[Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: the site "spanning some 3,000 years (from ca. 15,000 to 12,000 cal years BP)", "estimated to
+  cover about **2,000 sq m** and to inhabit a population of **50–100 people**", and "**semi-subterranean
+  curvilinear structures** … made of undressed limestone … cutting into the slope and building retaining
+  walls". **This is what corrects the card**: its "some 50 [huts] at Ain Mallaha" is the published
+  population estimate, not a count of houses, and no openable source gives the 1.2 m wall height.
+- used by: wh-100
+
+### groman-yaroslavski-2026 · the Natufian harvest
+Iris Groman-Yaroslavski et al., “Natufian Sickle Blades (ca. 15,000–11,700 cal. BP) Reveal Cereal
+Cultivation ca. 4.5 Millennia before Domestication,” *Scientific Reports* 16 (2026),
+https://doi.org/10.1038/s41598-026-54740-5. [Open access]
+- opened: 2026-07-31 · publisher full text, CC BY-NC-ND
+- supports: use-wear on flint sickle blades from el-Wad Terrace and Salibiya I showing "the harvest of
+  semi-ripe and ripe cereals", and "a protracted harvest that begins in mid-spring … and continues to the
+  very late spring" — the card's flint-bladed sickles, now with the season the paper reconstructs
+- used by: wh-100
+
+### santana-2021 · the Natufian into the Neolithic
+Jonathan Santana et al., “Multi-Isotope Evidence of Population Aggregation in the Natufian and Scant
+Migration during the Early Neolithic of the Southern Levant,” *Scientific Reports* 11 (2021): 11857,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC8178372/. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: "the Final Natufian Culture … featured a sedentary lifestyle. There is indeed straightforward
+  evidence of occupation continuity and growing sedentarization … at 'Ain Mallaha/Eynan and other sites
+  there are features and types of finds that stretch from the later phases of the" Natufian into the
+  Neolithic — the card's closing claim that the first farming villages grew out of these camps
+- used by: wh-100
+
+### moubtahij-2024 · the Iberomaurusian in North Africa
+Zineb Moubtahij et al., “Isotopic Evidence of High Reliance on Plant Food among Later Stone Age
+Hunter-Gatherers at Taforalt, Morocco,” *Nature Ecology & Evolution* 8 (2024): 1035–45,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC11090808/. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: "Late Stone Age hunter-gatherers from North Africa (15,000–13,000 cal BP)" at Taforalt, mapped
+  among "Iberomaurusian sites" — the card's clause that the label reaches North Africa
+- used by: wh-100
+
+### fjellstrom-2026 · Scandinavia's pioneers
+Markus Fjellström et al., “Tracing the Early Dispersal of Reindeer in Southern Sweden: Chronology, Habitat,
+and Human Interaction (c. 12,000–7000 BCE),” *The Holocene* 36, no. 5–6 (2026): 607–23,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC13258190/. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: "The pioneer humans in southern Scandinavia arrive in the Late Palaeolithic and are culturally
+  grouped into the **Hamburg, Bromme and Ahrensburg cultures**"; "The Hamburg culture thrived in the Arctic
+  tundra landscape during the Bølling period, focussing their economy on reindeer hunting";
+  "Ahrensburgians, c. **10,700–9000 cal BCE**" following "the retreating ice to hunt reindeer and seal";
+  and that "an ice sheet would have blocked any passages between the Oslofjord and Sweden until c. 9000 cal
+  BCE", so reindeer reached western Sweden from Norway only after that
+- used by: wh-101
+
+### riede-2024 · Final Palaeolithic taxonomy
+Felix Riede et al., “A Quantitative Analysis of Final Palaeolithic/Earliest Mesolithic Cultural Taxonomy and
+Evolution in Europe,” *PLOS ONE* 19, no. 3 (2024): e0299512,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC10927100/. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: the Hamburgian within the Shouldered Point Complex, and the Tanged Point Complex "commonly
+  subdivided into further sub-units characterised by large tanged points [= **Bromme** …] and younger groups
+  with smaller point forms (= **Ahrensburgian**, Swiderian)" — the three cultures as a sequence, in a
+  taxonomy paper rather than a summary
+- used by: wh-101
+
+### gross-2026 · farming reaches Denmark
+Daniel Groß et al., “Fishing for Millennia: Effects and Impacts of Prehistoric Fishing in the Syltholm
+Fjord, Denmark,” *PLOS ONE* 21, no. 5 (2026): e0347863,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC13170857/. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: "the introduction of agriculture in Denmark around **4000 cal BCE**"; "the presence of the
+  **Pitted Ware Culture in Denmark from c. 3100–2200 cal BCE**" and "the final Funnel Beaker 'Store Valby
+  phase' between 3000 and 2600 cal BCE"
+- used by: wh-101
+
+### winther-johannsen-2024 · the Middle and Late Neolithic, dated
+Jens Winther Johannsen et al., “Subsistence and Population Development from the Middle Neolithic B
+(2800–2350 BCE) to the Late Neolithic (2350–1700 BCE) in Southern Scandinavia,” *PLOS ONE* 19, no. 10
+(2024): e0301938, https://pmc.ncbi.nlm.nih.gov/articles/PMC11516014/. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: **Pitted Ware Culture c. 3100–2700 BCE**, **Single Grave Culture c. 2800–2250/2200 BCE** in
+  Western Jutland, Battle Axe Culture in Scania; and the card's whole closing sentence — "The Late Neolithic
+  (LN, **2350–1700 BCE**), is best known for the **reintroduction of metal**, copper alloys in particular,
+  in Southern Scandinavia and for the sudden appearance of **elaborate bifacial flint tools and weapons**
+  over large areas. The outstanding bifacial daggers are central objects". The 1700 BCE end is also the
+  card's date for the opening of the Nordic Bronze Age.
+- used by: wh-101
+
+### schulz-paulsson-2019 · what a passage grave is for
+Bettina Schulz Paulsson, “Radiocarbon Dates and Bayesian Modeling Support Maritime Diffusion Model for
+Megaliths in Europe,” *Proceedings of the National Academy of Sciences* 116, no. 9 (2019): 3460–65,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC6397522/. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: "Megalithic graves were built as dolmens and as passage or gallery graves"; that from the last
+  third of the fifth millennium "these graves could be **reopened for repeated burials**, and this marks the
+  beginning of a new practice for the whole of Europe: the construction of graves for successive
+  depositions of human remains over ce[nturies]"
+- used by: wh-101
+
+### malmstrom-2019 · who went on using the tombs
+Helena Malmström et al., “The Genomic Ancestry of the Scandinavian Battle Axe Culture People and Their
+Relation to the Broader Corded Ware Horizon,” *Proceedings of the Royal Society B* 286, no. 1912 (2019):
+20191528, https://pmc.ncbi.nlm.nih.gov/articles/PMC6790770/. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: that "FBC-associated megalithic tombs were used as burial places also for the people of the
+  BAC", possibly extending to the Danish Single Grave Culture, with later burials in the Öllsjö megalithic
+  tomb; and a Pitted Ware individual from Ajvide on Gotland — the Baltic island the card names
+- used by: wh-101
+
 ---
 
 ## CANDIDATES — NOT VERIFIED, DO NOT PASTE INTO `data.js`
