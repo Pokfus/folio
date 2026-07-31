@@ -6887,35 +6887,70 @@
     try { item.scrollIntoView({ block: "nearest", behavior: prefersReducedMotion() ? "auto" : "smooth" }); }
     catch (e) { item.scrollIntoView(); }
   }
-  /* Number the markers in `scope`, join them to the source list inside it, and wire the fold.
+  /* The fold header and the markers are DELEGATED, never wired per render — the pattern `.card-img`
+     already uses. Everything a click has to know is derivable from the DOM at the moment it happens, and
+     a per-render listener is only ever one render path away from a header that LOOKS like a control and
+     isn't: a surface that reaches the page without wireFootnotes, or anything throwing between the
+     innerHTML and the wiring, used to leave a dead "Sources 4 ›" that a reader can tap all day. The
+     listeners are in the CAPTURE phase, so a surface that stops propagation on its own clicks (a gloss
+     popup) cannot swallow them.
+     The climb stops at <body>: a marker whose own surface has no list must find nothing, rather than
+     jumping to whatever other panel happens to be open elsewhere on the page. */
+  function noteForNode(el) {
+    let n = el.parentElement;
+    while (n && n !== document.body) {
+      const note = n.querySelector(".src-note");
+      if (note) return note;
+      n = n.parentElement;
+    }
+    return null;
+  }
+  function jumpToFootnote(fn) {
+    const note = noteForNode(fn), n = parseInt(fn.getAttribute("data-fn"), 10);
+    if (note && n > 0) openFootnote(note, note.querySelectorAll(".src-item")[n - 1]);
+  }
+  document.addEventListener("click", (e) => {
+    const t = e.target;
+    if (!t || !t.closest) return;
+    const head = t.closest(".src-head");
+    if (head) { toggleSourceNote(head.closest(".src-note")); return; }
+    const fn = t.closest("sup.fn");
+    if (!fn) return;
+    e.preventDefault();
+    e.stopPropagation();   // a marker sits inside prose that is often clickable itself
+    jumpToFootnote(fn);
+  }, true);
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    const t = e.target;
+    if (!t || !t.closest) return;
+    const fn = t.closest("sup.fn");
+    if (!fn) return;
+    e.preventDefault();
+    jumpToFootnote(fn);
+  }, true);
+  /* Number the markers in `scope` and join them to the source list inside it.
      A marker with no data-fn takes the next number in reading order, so a one-source surface can just
      write <sup class="fn"></sup> and be right. Safe to call twice on the same container. */
   function wireFootnotes(scope) {
     if (!scope) return;
-    wireSourceLinks(scope);
+    // the links are decoration over text this code did not write; the numbering is the join between the
+    // prose and the list. Guard the one so it can never take the other down with it.
+    try { wireSourceLinks(scope); } catch (err) {}
     const note = scope.querySelector(".src-note");
-    const items = note ? Array.prototype.slice.call(note.querySelectorAll(".src-item")) : [];
+    const items = note ? note.querySelectorAll(".src-item").length : 0;
     let seq = 0;
     scope.querySelectorAll("sup.fn").forEach((el) => {
       const explicit = parseInt(el.getAttribute("data-fn"), 10);
       const n = explicit > 0 ? explicit : ++seq;
       if (explicit > 0) seq = Math.max(seq, explicit); else el.setAttribute("data-fn", String(n));
-      if (n > items.length) { el.remove(); return; }   // no entry behind it — a number the reader cannot follow
+      if (n > items) { el.remove(); return; }   // no entry behind it — a number the reader cannot follow
       el.textContent = String(n);
       el.setAttribute("role", "button");
       el.setAttribute("tabindex", "0");
       el.setAttribute("aria-label", "Source " + n);
       el.setAttribute("title", "Source " + n);
-      if (el._fnWired) return;
-      el._fnWired = true;
-      const jump = (e) => { e.preventDefault(); e.stopPropagation(); openFootnote(note, note.querySelectorAll(".src-item")[parseInt(el.getAttribute("data-fn"), 10) - 1]); };
-      el.addEventListener("click", jump);
-      el.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") jump(e); });
     });
-    if (note) {
-      const head = note.querySelector(".src-head");
-      if (head && !head._fnWired) { head._fnWired = true; head.addEventListener("click", () => toggleSourceNote(note)); }
-    }
   }
 
   // build the back-of-card markup from deck fields (mirrors the deck's back template)

@@ -1836,6 +1836,10 @@ sup.fn{
   color:var(--ochre); cursor:pointer; padding:0 1px; margin-left:1px; border-radius:3px;
   transition:background .15s var(--ease), color .15s var(--ease);
 }
+/* the author writes the marker EMPTY and wireFootnotes fills in the digit. If that pass never ran, show
+   the number the author pointed at rather than leaving an invisible gap mid-sentence — once the pass has
+   run the marker is no longer :empty, so the two can never both print. */
+sup.fn:empty::before{content:attr(data-fn);}
 sup.fn:hover{background:color-mix(in srgb,var(--ochre) 22%,transparent); color:var(--ink);}
 sup.fn:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:1px;}
 /* the gloss-popup variant: narrower column, so everything steps down a size */

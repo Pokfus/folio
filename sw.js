@@ -26,7 +26,7 @@
    them, so visiting the Atlas once makes it available offline afterwards.
    ============================================================ */
 
-const VERSION = "v3";              // bump to invalidate every cached file on the next load
+const VERSION = "v4";              // bump to invalidate every cached file on the next load
 const CACHE = "folio-" + VERSION;
 
 // the app shell: everything index.html loads eagerly, ~1.4 MB
