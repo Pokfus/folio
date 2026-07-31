@@ -268,7 +268,18 @@ async function closeGloss(page) {
   }
 
   /* ================= 3. a card with no sources shows no apparatus ================= */
+  // Strip sources off every card before app.js snapshots them, so whichever card the date-seeded
+  // card-of-the-day lands on is guaranteed source-free — the test must verify "no sources -> no fold"
+  // itself, not lean on the citation pass having left this particular card uncited (it no longer has).
   const bare = await ctx.newPage();
+  await bare.addInitScript(() => {
+    let v;
+    Object.defineProperty(window, "CARD_DATA", {
+      configurable: true,
+      get() { return v; },
+      set(next) { v = next; (next || []).forEach((c) => { if (c) c.sources = []; }); },
+    });
+  });
   await bare.goto(base, { waitUntil: "load" });
   await bare.waitForTimeout(600);
   await bare.click("#exp-card"); await bare.waitForTimeout(400);

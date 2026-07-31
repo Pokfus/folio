@@ -1079,6 +1079,897 @@ Lucinda Backwell et al., "Border Cave: A 227,000-Year-Old Archive from the South
 
 ---
 
+<!-- ===================== BATCH 10 · ice-age climate & megafauna (2026-07-31) ===================== -->
+
+### gibbard-head-2010 · the Pleistocene GSSP
+Philip L. Gibbard and Martin J. Head, "The Newly-Ratified Definition of the Quaternary System/Period and
+Redefinition of the Pleistocene Series/Epoch, and Comparison of Proposals Advanced Prior to Formal
+Ratification," *Episodes* 33, no. 3 (2010): 152–158, https://doi.org/10.18814/epiiugs/2010/v33i3/002. [Open access]
+- opened: 2026-07-31 · full text (open PDF at stratigraphy.org + open Episodes HTML)
+- supports: Quaternary/Pleistocene base = Gelasian GSSP at Monte San Nicola, Sicily, dated 2.58 Ma; base moved
+  up from the Vrica GSSP at 1.806 Ma; IUGS ratification 29 June 2009; base sits near the mid-point of the NH
+  glaciation build-up
+- used by: wh-010
+
+### walker-2009 · the Holocene GSSP
+Mike Walker et al., "Formal Definition and Dating of the GSSP (Global Stratotype Section and Point) for the Base
+of the Holocene Using the Greenland NGRIP Ice Core, and Selected Auxiliary Records," *Journal of Quaternary
+Science* 24, no. 1 (2009): 3–17, https://timescalefoundation.org/references/HoloceneGSSP_JQuatSci090.pdf. [Open access]
+- opened: 2026-07-31 · full text via the open GTS Foundation deposit (the Wiley DOI is paywalled)
+- supports: base of the Holocene = 11,700 cal yr b2k, GSSP at 1492.45 m in the NGRIP Greenland ice core (the first
+  ice-core GSSP); Younger Dryas/GS-1 dated ~12,900–11,500 cal yr BP; δ18O glacial→interglacial change over several
+  decades, deuterium-excess switch in ≤3 yr; the Holocene begins at the end of the YD, not at ~14,500 cal yr BP
+- used by: wh-010, wh-012, wh-090
+
+### hays-imbrie-shackleton-1976 · the pacemaker of the ice ages
+J. D. Hays, John Imbrie, and N. J. Shackleton, "Variations in the Earth's Orbit: Pacemaker of the Ice Ages,"
+*Science* 194, no. 4270 (1976): 1121–32, https://doi.org/10.1126/science.194.4270.1121. [Paywalled]
+- opened: 2026-07-31 · full text via an openly-hosted copy; cited to the paywalled DOI as the landmark
+- supports: spectral peaks at ~23, ~42 and ~100 kyr matching orbital precession, obliquity and eccentricity;
+  glacial–interglacial cycles paced by orbital forcing
+- used by: wh-010
+
+### jakobsson-2017 · the Bering land bridge flooded
+Martin Jakobsson et al., "Post-Glacial Flooding of the Bering Land Bridge Dated to 11 cal ka BP Based on New
+Geophysical and Sediment Records," *Climate of the Past* 13, no. 8 (2017): 991–1005,
+https://doi.org/10.5194/cp-13-991-2017. [Open access]
+- opened: 2026-07-31 · abstract (Copernicus HTML)
+- supports: the ~53 m-deep Bering Strait was exposed as a land bridge during the last-glacial sea-level lowstand,
+  permitting human migration; flooded ~11 cal ka BP
+- used by: wh-010
+
+### svenning-2024 · the megafauna extinctions reviewed
+Jens-Christian Svenning et al., "The Late-Quaternary Megafauna Extinctions: Patterns, Causes, Ecological
+Consequences and Implications for Ecosystem Management in the Anthropocene," *Cambridge Prisms: Extinction* 2
+(2024): e5, https://doi.org/10.1017/ext.2024.4. [Open access]
+- opened: 2026-07-31 · full text (open PDF)
+- supports: megafauna losses across the last ~50 kyr, most in the Late Pleistocene/early–mid Holocene; the debate
+  (climate vs modern-human causation) as the only two tenable hypotheses; names the woolly mammoth among the lost
+- used by: wh-010 · (leans human, per its own abstract — cited only for the "disputed cause" framing)
+
+### batchelor-2019 · the Northern Hemisphere ice sheets
+Christine L. Batchelor et al., "The Configuration of Northern Hemisphere Ice Sheets through the Quaternary,"
+*Nature Communications* 10 (2019): 3713, https://doi.org/10.1038/s41467-019-11601-2. [Open access]
+- opened: 2026-07-31 · full text (PMC6697730)
+- supports: the Laurentide and Eurasian ice sheets at their most extensive at the LGM (~26.5 ka); NH ice ~100 m
+  sea-level equivalent
+- used by: wh-012
+
+### quiles-2016 · the age of Chauvet
+Anita Quiles et al., "A High-Precision Chronological Model for the Decorated Upper Paleolithic Cave of
+Chauvet-Pont d'Arc, Ardèche, France," *Proceedings of the National Academy of Sciences* 113, no. 17 (2016):
+4670–75, https://doi.org/10.1073/pnas.1523158113. [Open access]
+- opened: 2026-07-31 · full text (PMC4855545)
+- supports: two human-activity phases (37–33.5 ka and 31–28 ka); the black charcoal drawings belong to the first,
+  ~36 ka
+- used by: wh-012
+
+### clark-2009 · the Last Glacial Maximum
+Peter U. Clark et al., "The Last Glacial Maximum," *Science* 325, no. 5941 (2009): 710–14,
+https://doi.org/10.1126/science.1172873. [Paywalled]
+- opened: 2026-07-31 · full text read via the open WHOI PDF; cited to the paywalled DOI as the landmark (the WHOI
+  URL carries query-string ids and was judged too fragile to cite)
+- supports: LGM ice at its positions 26.5–19 ka (a ~7,500-yr lowstand plateau, not a single peak); peak eustatic
+  fall ~130 m (127.5 ± 7.5 m); Laurentide/Cordilleran/Scandinavian/British-Irish/Barents-Kara sheets (Fig. 1);
+  deglaciation onset 19–20 ka driven by rising NH summer insolation
+- used by: wh-078
+
+### moreno-parada-2023 · the Laurentide dome
+Daniel Moreno-Parada et al., "Simulating the Laurentide Ice Sheet of the Last Glacial Maximum," *The Cryosphere*
+17, no. 6 (2023): 2139–56, https://doi.org/10.5194/tc-17-2139-2023. [Open access]
+- opened: 2026-07-31 · full text (HTML)
+- supports: Laurentide thickness ~3–4 km reconstructed / 4–5 km simulated over the Hudson Bay dome
+- used by: wh-078
+
+### tierney-2020 · how much colder the LGM was
+Jessica E. Tierney et al., "Glacial Cooling and Climate Sensitivity Revisited" (preprint), *EarthArXiv* (2020),
+https://doi.org/10.31223/osf.io/me5uj. [Open access]  (published *Nature* 584: 569–573, paywalled)
+- opened: 2026-07-31 · preprint abstract; published global-mean value −6.1 °C confirmed by search
+- supports: **global-mean** LGM cooling ~6 °C (−5.9 preprint / −6.1 published) — NOT a land figure (land cooled
+  more); used to correct wh-078's "land temperatures"
+- used by: wh-078
+
+### bereiter-2015 · LGM carbon dioxide
+Bernhard Bereiter et al., "Revision of the EPICA Dome C CO2 Record from 800 to 600 kyr before Present,"
+*Geophysical Research Letters* 42, no. 2 (2015): 542–49, Antarctic composite CO2 data at
+https://www.ncei.noaa.gov/pub/data/paleo/icecore/antarctica/antarctica2015co2composite.txt. [Open access]
+- opened: 2026-07-31 · read the actual composite data file at NOAA/NCEI (the GRL DOI is paywalled)
+- supports: LGM CO2 minimum ~187–190 ppm, the lowest of the glacial cycle; used to correct wh-078 "180" → "190"
+  (IPCC AR6 also gives ~190 for the LGM)
+- used by: wh-078
+
+### villalba-mouco-2023 · the 23 ka southern Iberian
+Vanessa Villalba-Mouco et al., "A 23,000-Year-Old Southern Iberian Individual Links Human Groups That Lived in
+Western Europe before and after the Last Glacial Maximum," *Nature Ecology & Evolution* 7 (2023): 597–609,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC10089921/. [Open access]
+- opened: 2026-07-31 · full text (PMC10089921)
+- supports: Solutrean-associated individual from Cueva del Malalmuerzo, Granada (**southern** Iberia), ~23,000 cal
+  yr BP, connecting pre-LGM (Aurignacian) and post-LGM (Magdalenian) western-European ancestry; Iberia as refugium
+- used by: wh-078 · (the correct source for this claim — NOT Fu 2016, whose El Mirón individual is northern Iberia
+  and post-LGM)
+
+### vandervalk-2021 · million-year-old mammoth DNA
+Tom van der Valk et al., "Million-Year-Old DNA Sheds Light on the Genomic History of Mammoths," *Nature* 591,
+no. 7849 (2021): 265–69, https://pmc.ncbi.nlm.nih.gov/articles/PMC7116897/. [Open access]
+- opened: 2026-07-31 · full text (PMC7116897)
+- supports: the Krestovka specimen (Lower Olyorian, 1.2–1.1 Ma) held the oldest DNA yet sequenced from an animal;
+  the Adycha (steppe, ~1 Ma) lineage is directly ancestral to woolly mammoths and Chukochya (~700 ka) is already a
+  woolly mammoth — the steppe→woolly transition in NE Siberia, bracketed by the card's 800–600 ka
+- used by: wh-088 · (note: Kjær et al. 2022's ~2 Ma **environmental** DNA is older, so the superlative is qualified
+  to "oldest from an animal")
+
+### larramendi-2016 · proboscidean size and shape
+Asier Larramendi, "Shoulder Height, Body Mass, and Shape of Proboscideans," *Acta Palaeontologica Polonica* 61,
+no. 3 (2016): 537–74, https://doi.org/10.4202/app.00136.2014. [Open access]
+- opened: 2026-07-31 · full text (open PDF)
+- supports: *M. primigenius* North-Siberian form ~2.7–3.5 m at the shoulder, ~5.5–8 t; small ears (~30 cm, <1 kg),
+  very short tail, thick hair coat
+- used by: wh-088
+
+### macdonald-2012 · the mammoth's extinction pattern
+Glen M. MacDonald et al., "Pattern of Extinction of the Woolly Mammoth in Beringia," *Nature Communications* 3
+(2012): 893, https://doi.org/10.1038/ncomms1881. [Open access]
+- opened: 2026-07-31 · full text (open PDF)
+- supports: the "mammoth steppe" open grassland; Beringian range; mainland decline (N. America ~12.9 ka, N. Asia
+  early Holocene) with habitat change and human hunting; island populations to ~4 ka
+- used by: wh-088
+
+### dehasque-2024 · the last mammoths, inbred but not doomed
+Marianne Dehasque et al., "Temporal Dynamics of Woolly Mammoth Genome Erosion Prior to Extinction," *Cell* 187,
+no. 14 (2024): 3531–40, https://doi.org/10.1016/j.cell.2024.05.033. [Open access]
+- opened: 2026-07-31 · abstract (cell.com blocked; CC BY 4.0 OA confirmed by search)
+- supports: Wrangel Island isolation ~10,000 ya, extinct ~4,000 ya after 200+ stable generations; inbreeding
+  depression without genomic meltdown — "not doomed"
+- used by: wh-088 · (do NOT cite Rogers & Slatkin 2017 for this — it argues the opposite, "genomic meltdown")
+
+### graham-2016 · St Paul Island
+Russell W. Graham et al., "Timing and Causes of Mid-Holocene Mammoth Extinction on St. Paul Island, Alaska,"
+*Proceedings of the National Academy of Sciences* 113, no. 33 (2016): 9310–14,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC4995940/. [Open access]
+- opened: 2026-07-31 · full text (PMC4995940)
+- supports: mammoths survived on St. Paul until 5,600 ± 100 ya; cause = freshwater scarcity as the island shrank
+- used by: wh-088
+
+### koch-barnosky-2006 · the extinction debate
+Paul L. Koch and Anthony D. Barnosky, "Late Quaternary Extinctions: State of the Debate," *Annual Review of
+Ecology, Evolution, and Systematics* 37 (2006): 215–50, https://ib.berkeley.edu/labs/barnosky/Koch%20%20and%20Barnosky%202006.pdf. [Open access]
+- opened: 2026-07-31 · full text (open repository PDF)
+- supports: megafauna defined as ≥44 kg; ~90 genera lost; Table 2 continental % (Africa 21%, N. Eurasia 35%, N.
+  America 72%, S. America 83%, Australia 88%); the casualty roll-call; the two-hypothesis debate; timing 50–10 ka
+- used by: wh-089 · (used to correct "Africa under a fifth" → "about a fifth")
+
+### sandom-2014 · humans, not climate
+Christopher Sandom et al., "Global Late Quaternary Megafauna Extinctions Linked to Humans, Not Climate Change,"
+*Proceedings of the Royal Society B* 281, no. 1787 (2014): 20133254, https://doi.org/10.1098/rspb.2013.3254. [Open access]
+- opened: 2026-07-31 · full text (PMC)
+- supports: extinction severity tied to hominin palaeobiogeography (~64% of variance), weak/Eurasia-only climate
+  link — the coexistence-time gradient
+- used by: wh-089
+
+### gill-2009 · Sporormiella in the eastern US
+Jacquelyn L. Gill et al., "Pleistocene Megafaunal Collapse, Novel Plant Communities, and Enhanced Fire Regimes in
+North America," *Science* 326, no. 5956 (2009): 1100–1103, https://doi.org/10.1126/science.1179504. [Paywalled]
+- opened: 2026-07-31 · abstract (PubMed)
+- supports: the megafaunal (Sporormiella) decline (14,800–13,700 yr BP) closely **preceded** the vegetation change
+  and fire increase — animals first, habitat after
+- used by: wh-089
+
+### rule-2012 · Sporormiella in northern Australia
+Susan Rule et al., "The Aftermath of Megafaunal Extinction: Ecosystem Transformation in Pleistocene Australia,"
+*Science* 335, no. 6075 (2012): 1483–86, https://doi.org/10.1126/science.1214261. [Paywalled]
+- opened: 2026-07-31 · abstract (PubMed)
+- supports: Lynch's Crater (northern Australia) Sporormiella decline 42–40 ka **followed** by vegetation change —
+  the correct northern-Australia citation for the ordering claim
+- used by: wh-089 · (do NOT use van der Kaars et al. 2017 for this — its record shows vegetation change ~27 kyr
+  BEFORE the megafaunal collapse, the opposite order)
+
+### broughton-weitzel-2018 · mixed causes in North America
+Jack M. Broughton and Elic M. Weitzel, "Population Reconstructions for Humans and Megafauna Suggest Mixed Causes
+for North American Pleistocene Extinctions," *Nature Communications* 9 (2018): 5441,
+https://doi.org/10.1038/s41467-018-07897-1. [Open access]
+- opened: 2026-07-31 · full text (PMC)
+- supports: of nine taxa, five track Younger Dryas climate, three Clovis hunting, one multi-causal — some NA
+  records fit climate better than human numbers
+- used by: wh-089
+
+### stewart-2025 · the debate still divided
+Mathew Stewart et al., "The State of the Late Quaternary Megafauna Extinction Debate: A Systematic Review and
+Analysis," *Frontiers in Mammal Science* 4 (2025): 1678231, https://doi.org/10.3389/fmamm.2025.1678231. [Open access]
+- opened: 2026-07-31 · full text (Frontiers, open)
+- supports: 360 papers (1959–2024), field still divided along disciplinary lines — Quaternary science leans
+  climate, ecology leans human, most archaeology proposes no primary cause
+- used by: wh-089
+
+### guimaraes-2008 · seed-dispersal anachronisms
+Paulo R. Guimarães Jr., Mauro Galetti, and Pedro Jordano, "Seed Dispersal Anachronisms: Rethinking the Fruits
+Extinct Megafauna Ate," *PLoS ONE* 3, no. 2 (2008): e1745, https://doi.org/10.1371/journal.pone.0001745. [Open access]
+- opened: 2026-07-31 · full text (PLoS, open)
+- supports: neotropical fruits adapted to megafaunal dispersers left with no disperser after ~10–15 ka — the
+  fruit-without-a-carrier aftermath
+- used by: wh-089
+
+### doughty-2016 · nutrients in a world of giants
+Christopher E. Doughty et al., "Global Nutrient Transport in a World of Giants," *Proceedings of the National
+Academy of Sciences* 113, no. 4 (2016): 868–73, https://doi.org/10.1073/pnas.1502549112. [Open access]
+- opened: 2026-07-31 · full text (PNAS/PMC, open)
+- supports: lateral nutrient-transport capacity fell to ~8% of its former value; sea-to-land P transport down 96%
+  — nutrients no longer carried inland
+- used by: wh-089
+
+### buizert-2014 · Greenland temperature at the YD
+Christo Buizert et al., "Greenland Temperature Response to Climate Forcing during the Last Deglaciation,"
+*Science* 345, no. 6201 (2014): 1177–80, https://doi.org/10.1126/science.1254961. [Paywalled]
+- opened: 2026-07-31 · abstract (OSTI biblio 1565228)
+- supports: abrupt central-Greenland temperature changes of 9–14 °C; used to correct wh-090 "10 to 15" → "10 to 14"
+- used by: wh-090
+
+### mcmanus-2004 · AMOC collapse and the YD
+Jerry F. McManus et al., "Collapse and Rapid Resumption of Atlantic Meridional Circulation Linked to Deglacial
+Climate Changes," *Nature* 428, no. 6985 (2004): 834–37, https://www.whoi.edu/cms/files/mcmanus04nat_100524.pdf. [Open access]
+- opened: 2026-07-31 · full PDF freely downloadable at WHOI (the author's institution); claim confirmed against the
+  Nature abstract
+- supports: the Atlantic meridional overturning nearly/completely eliminated in the coldest deglacial interval,
+  declining briefly into the YD ~12,700 ya — the meltwater/AMOC mechanism. This open deposit is what keeps wh-090
+  majority-open
+- used by: wh-090
+
+### murton-2010 · the Younger Dryas flood path
+Julian B. Murton et al., "Identification of Younger Dryas Outburst Flood Path from Lake Agassiz to the Arctic
+Ocean," *Nature* 464, no. 7289 (2010): 740–43, https://doi.org/10.1038/nature08954. [Paywalled]
+- opened: 2026-07-31 · abstract (Europe PMC)
+- supports: a Lake Agassiz outburst flood via the **Mackenzie** River into the Arctic Ocean, rejecting the view
+  that overflow was solely eastward — the routing debate (Mackenzie vs St Lawrence)
+- used by: wh-090
+
+### meltzer-2014 · the comet hypothesis refuted
+David J. Meltzer et al., "Chronological Evidence Fails to Support Claim of an Isochronous Widespread Layer of
+Cosmic Impact Indicators Dated to 12,800 Years Ago," *Proceedings of the National Academy of Sciences* 111, no.
+21 (2014): E2162–71, https://pmc.ncbi.nlm.nih.gov/articles/PMC4040610/. [Open access]
+- opened: 2026-07-31 · full text (PMC4040610)
+- supports: only 3 of 29 YDIH sites fall within the claimed impact window; "no reason or evidence to accept" an
+  extraterrestrial impact at the YD onset — most specialists reject the comet hypothesis
+- used by: wh-090
+
+### walker-2020-doggerland · the Storegga wave
+James Walker et al., "A Great Wave: The Storegga Tsunami and the End of Doggerland?" *Antiquity* 94, no. 378
+(2020): 1409–25, https://doi.org/10.15184/aqy.2020.49. [Open access]
+- opened: 2026-07-31 · full text (CC-BY)
+- supports: the Storegga tsunami ~8150 BP; the naming of Doggerland attributed to Coles 1998; the 2020 argument
+  that inexorable sea-level rise, not the wave, took the last of Doggerland
+- used by: wh-096
+
+### gaffney-2007-mapping · mapping Doggerland
+Vincent Gaffney, Kenneth Thomson, and Simon Fitch, eds., *Mapping Doggerland: The Mesolithic Landscapes of the
+Southern North Sea* (Oxford: Archaeopress, 2007), https://www.archaeopress.com/Archaeopress/DMS/F9B49C6FC7E04728B2346A365BC405F1/9781905739141-sample.pdf. [Open access]
+- opened: 2026-07-31 · open publisher sample (introductory chapters)
+- supports: oil-industry 3D seismic reworked into palaeolandscape maps over >23,000 km²; almost everything known is
+  dredged/washed-up/read off seismic; the 1931 Colinda harpoon (Leman and Ower banks, barbed red-deer antler in
+  moorlog/peat)
+- used by: wh-096 · (Coles 1998 was NOT cited — paywalled, unopened; Walker 2020 carries the naming attribution)
+
+### weninger-2008 · the final flooding of Doggerland
+Bernhard Weninger et al., "The Catastrophic Final Flooding of Doggerland by the Storegga Slide Tsunami,"
+*Documenta Praehistorica* 35 (2008): 1–24, https://doi.org/10.4312/dp.35.1. [Open access]
+- opened: 2026-07-31 · abstract (open journal)
+- supports: the Storegga Slide tsunami ~8200 cal BP flooding the North Sea shelf ("Doggerland")
+- used by: wh-096
+
+---
+
+<!-- ===================== BATCH 11 · after the ice (2026-07-31) ===================== -->
+
+### ics-major-divisions · the Holocene base and naming
+Subcommission on Quaternary Stratigraphy, International Commission on Stratigraphy, "Major Divisions,"
+https://quaternary.stratigraphy.org/major-divisions. [Open access]
+- opened: 2026-07-31 · full text (the maintained ICS statement)
+- supports: Holocene base 11,700 yr b2k, 99-yr max counting error; NGRIP GSSP 1492.45 m at the warming that ended
+  the Younger Dryas/GS-1; "holocène" introduced by Paul Gervais (1867–1869); the three subdivisions
+- used by: wh-102
+
+### walker-2018-subdivision · the Holocene's three ages
+Mike Walker et al., "Formal Ratification of the Subdivision of the Holocene Series/Epoch (Quaternary System/Period):
+Two New Global Boundary Stratotype Sections and Points (GSSPs) and Three New Stages/Subseries," *Episodes* 41, no. 4
+(2018): 213–223, https://doi.org/10.18814/epiiugs/2018/018016. [Open access]
+- opened: 2026-07-31 · full text (Episodes, open)
+- supports: Greenlandian (11,700 b2k) / Northgrippian (NGRIP1, 8236 b2k) / Meghalayan (Mawmluh Cave, Meghalaya,
+  4250 b2k); ratified 14 June 2018
+- used by: wh-102, wh-109
+
+### ics-anthropocene-wg · the Anthropocene rejection
+Subcommission on Quaternary Stratigraphy, International Commission on Stratigraphy, "Working Group on the
+'Anthropocene'," https://quaternary.stratigraphy.org/working-groups/anthropocene. [Open access]
+- opened: 2026-07-31 · full text (official ICS page)
+- supports: the proposal (base 1952 CE, Crawford Lake, Great Acceleration) was rejected; the SQS vote approved
+  26 March 2024
+- used by: wh-102
+
+### walanus-nalepka-2010 · Mangerud's boundaries, calibrated
+Adam Walanus and Dorota Nalepka, "Calibration of Mangerud's Boundaries," *Radiocarbon* 52, no. 4 (2010): 1639–44,
+https://www.adamwalanus.pl/c14/Walanus-Nalepka_RC_52_2010.pdf. [Open access]
+- opened: 2026-07-31 · full text (open PDF)
+- supports: the Atlantic chronozone as 8000–5000 conventional ¹⁴C BP (Mangerud 1974), calibrating to ~7000 BC
+  (Boreal/Atlantic) and ~3800 BC (Atlantic/Subboreal) — the open, verifiable anchor for the ¹⁴C boundaries
+- used by: wh-105
+
+### seppa-2009 · northern-European Holocene temperatures
+Heikki Seppä et al., "Last Nine-Thousand Years of Temperature Variability in Northern Europe," *Climate of the Past*
+5 (2009): 523–35, https://doi.org/10.5194/cp-5-523-2009. [Open access]
+- opened: 2026-07-31 · full text (open PDF)
+- supports: HTM in N Europe 8000–4800 cal BP; summer (Tjul) ~1.5 °C and annual (Tann) 2.0–2.5 °C above present at
+  8000–6000 cal BP; roughly linear cooling over the last ~5000 years
+- used by: wh-105 · (used to correct "summers up to 2 °C" → "about 1.5 °C")
+
+### yu-2003 · the Littorina transgression
+Shiyong Yu, "The Littorina Transgression in Southeastern Sweden and Its Relation to Mid-Holocene Climate
+Variability," LUNDQUA Thesis 51 (Lund: Lund University, 2003),
+https://lup.lub.lu.se/search/publication/75d54b38-176a-4cff-be83-a14b39fe1426. [Open access]
+- opened: 2026-07-31 · open repository record with figures (abstract-level)
+- supports: brackish Littorina onset ~8500 cal BP; ~8 m relative sea-level rise at ~15 mm/yr culminating 8000–7500
+  cal BP
+- used by: wh-105
+
+### parker-2002 · the mid-Holocene elm decline
+A. G. Parker et al., "A Review of the Mid-Holocene Elm Decline in the British Isles," *Progress in Physical
+Geography* 26, no. 1 (2002): 1–45, https://doi.org/10.1191/0309133302pp323ra. [Paywalled]
+- opened: 2026-07-31 · abstract (SAGE full text 403)
+- supports: elm decline mean date 5036 ± 247 ¹⁴C BP; disease, human clearance and climate all implicated
+- used by: wh-105
+
+### marchal-2002 · the Holocene chronozones, restated
+Olivier Marchal et al., "Apparent Long-Term Cooling of the Sea Surface in the Northeast Atlantic and Mediterranean
+during the Holocene," *Quaternary Science Reviews* 21, no. 4–6 (2002): 455–83,
+https://www.whoi.edu/cms/files/marchal02qsr_42274.pdf. [Open access]
+- opened: 2026-07-31 · full text (open WHOI PDF)
+- supports: the five-phase Blytt–Sernander order; Preboreal onset ~10 ¹⁴C ka BP, Boreal end ~8 ¹⁴C ka BP, Atlantic
+  ~9–5.7 cal ka BP; the Atlantic as the Hypsithermal warm phase; Subatlantic to 0 ka; quotes Mangerud 1974
+- used by: wh-106 · (the open route around the paywalled Mangerud 1974)
+
+### walker-2012 · the Holocene subdivision discussed
+Mike Walker et al., "Formal Subdivision of the Holocene Series/Epoch: A Discussion Paper by a Working Group of
+INTIMATE and the Subcommission on Quaternary Stratigraphy," *Journal of Quaternary Science* 27, no. 7 (2012):
+649–59, https://doi.org/10.1002/jqs.2565. [Open access]
+- opened: 2026-07-31 · full text (open Yale/Leilan deposit)
+- supports: Mangerud 1974 divided the Flandrian by Blytt–Sernander pollen zones dated by ¹⁴C (Preboreal+Boreal
+  10.0–8.0 k ¹⁴C; Atlantic+Subboreal 8.0–2.5 k ¹⁴C); the phases are time-transgressive, terminologically
+  ambiguous and applicable only at the regional/local scale
+- used by: wh-106
+
+### kaufman-2020 · Holocene global mean temperature
+Darrell S. Kaufman et al., "Holocene Global Mean Surface Temperature, a Multi-method Reconstruction Approach,"
+*Scientific Data* 7 (2020): 201, https://doi.org/10.1038/s41597-020-0530-7. [Open access]
+- opened: 2026-07-31 · full text (PMC7327079)
+- supports: warmest 200-yr interval ~6500 ya at 0.7 °C (0.3, 1.8) above the 19th century; the 2011–2019 decade
+  1 °C above 1850–1900; 80% of ensemble members find no 200-yr interval in 12 kyr warmer than the recent decade
+- used by: wh-107
+
+### cartapanis-2022 · the Holocene thermal maximum's structure
+Olivier Cartapanis et al., "Complex Spatio-temporal Structure of the Holocene Thermal Maximum," *Nature
+Communications* 13 (2022): 5662, https://doi.org/10.1038/s41467-022-33362-1. [Open access]
+- opened: 2026-07-31 · full text (PMC9529938)
+- supports: no globally synchronous optimum; 40–70°N maxima 8–4 ka, leading the tropics (which lack a clear
+  anomaly); dwindling ice sheets delayed land warming; insolation-driven
+- used by: wh-107
+
+### tierney-2017 · the Green Sahara
+Jessica E. Tierney, Francesco S. R. Pausata, and Peter B. deMenocal, "Rainfall Regimes of the Green Sahara,"
+*Science Advances* 3, no. 1 (2017): e1601503, https://doi.org/10.1126/sciadv.1601503. [Open access]
+- opened: 2026-07-31 · abstract (science.org bot-walled; Science Advances is OA)
+- supports: the African Humid Period ~11,000–5,000 ya, a vegetated Sahara with permanent lakes and human
+  populations, rainfall ~10× present
+- used by: wh-107 · (the "9 million km²" figure was NOT found here or in any opened source — press only — so
+  the card was softened to "much of the Sahara")
+
+### ipcc-ar6-spm · the Holocene optimum vs. the present
+IPCC, "Summary for Policymakers," in *Climate Change 2021: The Physical Science Basis* (Cambridge: Cambridge
+University Press, 2021), para. A.2.2, https://www.ipcc.ch/report/ar6/wg1/chapter/summary-for-policymakers/. [Open access]
+- opened: 2026-07-31 · excerpt (ipcc.ch PDF/HTML 403; sentence widely quoted verbatim)
+- supports: the 2011–2020 decade exceeds the most recent multi-century warm period ~6500 ya (medium confidence)
+- used by: wh-107
+
+### whitehouse-2018 · glacial isostatic adjustment
+Pippa L. Whitehouse, "Glacial Isostatic Adjustment Modelling: Historical Perspectives, Recent Advances, and Future
+Directions," *Earth Surface Dynamics* 6, no. 2 (2018): 401–29, https://doi.org/10.5194/esurf-6-401-2018. [Open access]
+- opened: 2026-07-31 · full text (HTML, open)
+- supports: GIA definition; peripheral bulge/forebulge from lateral mantle flow; upper/lower-mantle viscosity and
+  the tens-of-thousands-of-years timescale; Celsius 1743 (Gulf of Bothnia falling 1.4 cm/yr), Jamieson 1865 (ice
+  load depressed the crust), Gilbert 1890 (Lake Bonneville shorelines)
+- used by: wh-108
+
+### sella-2007 · North American GIA from GPS
+Giovanni F. Sella et al., "Observation of Glacial Isostatic Adjustment in 'Stable' North America with GPS,"
+*Geophysical Research Letters* 34, no. 2 (2007): L02306, https://doi.org/10.1029/2006GL027081. [Open access]
+- opened: 2026-07-31 · full text (open NOAA CORS PDF)
+- supports: present-day uplift ~10 mm/yr near Hudson Bay (thickest LGM ice); subsidence 1–2 mm/yr south of the
+  Great Lakes (the collapsing forebulge)
+- used by: wh-108
+
+### poutanen-steffen-2014 · the High Coast and Kvarken
+Markku Poutanen and Holger Steffen, "Land Uplift at Kvarken Archipelago / High Coast UNESCO World Heritage Area,"
+*Geophysica* 50, no. 2 (2014): 49–64, https://www.geophysica.fi/pdf/geophysica_2015_50_2_049_poutanen.pdf. [Open access]
+- opened: 2026-07-31 · full text (open PDF)
+- supports: ~700 ha of new Finnish land a year; ~9 mm/yr Gulf of Bothnia uplift; the High Coast's highest raised
+  shoreline (Skuleberget) at 286 m; ~100 m of depression still to recover
+- used by: wh-108
+
+### bradley-2009 · GIA of the British Isles
+Sarah L. Bradley et al., "Glacial Isostatic Adjustment of the British Isles: New Constraints from GPS Measurements
+of Crustal Motion," *Geophysical Journal International* 178, no. 1 (2009): 14–22,
+https://doi.org/10.1111/j.1365-246X.2008.04033.x. [Open access]
+- opened: 2026-07-31 · full text (open)
+- supports: uplift over eastern Scotland, subsidence through most of England; maximum southern-England subsidence
+  1.2 ± 0.40 mm/yr
+- used by: wh-108
+
+### alley-1997 · the 8.2 ka event named
+Richard B. Alley et al., "Holocene Climatic Instability: A Prominent, Widespread Event 8200 yr Ago," *Geology* 25,
+no. 6 (1997): 483–86, https://doi.org/10.1130/0091-7613(1997)025<0483:HCIAPW>2.3.CO;2. [Open access]
+- opened: 2026-07-31 · full text
+- supports: the most prominent Holocene event in Greenland proxies (~half the Younger Dryas amplitude), ~8000–8400
+  ya, cold/dry/dusty, hemisphere-wide; dry conditions in the monsoon regions of Africa, Arabia, Tibet, NW India
+- used by: wh-109
+
+### matero-2017 · the 8.2 ka ice-saddle mechanism
+Ilkka S. O. Matero et al., "The 8.2 ka Cooling Event Caused by Laurentide Ice Saddle Collapse," *Earth and
+Planetary Science Letters* 473 (2017): 205–14, https://doi.org/10.1016/j.epsl.2017.06.011. [Open access]
+- opened: 2026-07-31 · full text
+- supports: abrupt 1–3 °C NH cooling lasting ~160 yr, ~3 °C ice-core amplitude; Agassiz–Ojibway drainage to the
+  Labrador Sea in 0.5–5 yr, AMOC −55%; ITCZ shifted south; the ice-saddle-collapse alternative to the lakes alone.
+  (Gives no freshwater volume in km³ — so the card's "160,000 km³" was dropped)
+- used by: wh-109
+
+### thomas-2007 · the 8.2 ka event in the ice cores
+E. R. Thomas et al., "The 8.2 ka Event from Greenland Ice Cores," *Quaternary Science Reviews* 26, no. 1–2 (2007):
+70–81, https://doi.org/10.1016/j.quascirev.2006.07.017. [Paywalled]
+- opened: 2026-07-31 · abstract (NORA)
+- supports: a 160.5-yr cold period with a 69-yr central event
+- used by: wh-109
+
+### weninger-2006 · the 8.2 ka event and the PPNB
+Bernhard Weninger et al., "Climate Forcing Due to the 8200 cal yr BP Event Observed at Early Neolithic Sites in the
+Eastern Mediterranean," *Quaternary Research* 66, no. 3 (2006): 401–20, https://doi.org/10.1016/j.yqres.2006.06.009. [Paywalled]
+- opened: 2026-07-31 · abstract (Cambridge Core)
+- supports: markedly cold/arid conditions and major disruptions of Neolithic cultures across the Levant, North
+  Syria, SE and Central Anatolia and Cyprus. (Supports the site abandonment, NOT a trade collapse — the card's
+  "long-distance trade breaking off" was dropped)
+- used by: wh-109
+
+---
+
+## Batch 9 — Upper Palaeolithic art (rock and cave), verified 2026-07-31
+
+### brumm-2021-sulawesi · the oldest cave art
+Adam Brumm, Adhi Agus Oktaviana, Basran Burhan, et al., "Oldest cave art found in Sulawesi," *Science Advances* 7,
+no. 3 (2021): eabd4648, https://doi.org/10.1126/sciadv.abd4648. [Open access]
+- opened: 2026-07-31 · full text (PMC7806210)
+- supports: the Leang Tedongnge warty pig dated to at least 45,500 years ago; red ochre pigment
+- used by: wh-083
+
+### oktaviana-2024-narrative · a narrative scene by 51,200 years ago
+Adhi Agus Oktaviana, Adam Brumm, Basran Burhan, et al., "Narrative cave art in Indonesia by 51,200 years ago,"
+*Nature* 631 (2024): 814–818, https://doi.org/10.1038/s41586-024-07541-7. [Open access]
+- opened: 2026-07-31 · full text (PMC11269172)
+- supports: the Leang Karampuang pig-and-figures scene dated to ≥51,200 years ago
+- used by: wh-083
+
+### pike-2012-useries · U-series dates in 11 Spanish caves
+A. W. G. Pike, D. L. Hoffmann, M. García-Díez, et al., "U-Series Dating of Paleolithic Art in 11 Caves in Spain,"
+*Science* 336, no. 6087 (2012): 1409–1413, https://doi.org/10.1126/science.1219957. [Paywalled]
+- opened: 2026-07-31 · abstract (science.org bot-blocked; abstract via Bristol repository) — its Altamira/El Castillo
+  content is duplicated in open full text by García-Díez 2013
+- supports: El Castillo red disk ≥40,800 years old (Europe's earliest date the card cites)
+- used by: wh-083
+
+### quiles-2016-chauvet · the Chauvet chronology
+Anita Quiles, Hélène Valladas, Hélène Bocherens, et al., "A high-precision chronological model for the decorated
+Upper Paleolithic cave of Chauvet-Pont d'Arc, Ardèche, France," *Proceedings of the National Academy of Sciences*
+113, no. 17 (2016): 4670–4675, https://doi.org/10.1073/pnas.1523158113. [Open access]
+- opened: 2026-07-31 · full text
+- supports: the two dating phases (Aurignacian ~37,000–33,500 and Gravettian ~31,000–28,000 cal BP); the minority
+  stylistic dispute; Chauvet's drawings "around 36,000 years ago" (within range)
+- used by: wh-083, wh-084
+
+### minculture-chauvet-discovery · the discovery (official record)
+Ministère de la Culture (France), "Discovery," *La grotte Chauvet-Pont d'Arc*,
+https://archeologie.culture.gouv.fr/chauvet/en/discovery-3. [Open access]
+- opened: 2026-07-31 · full text (official heritage-agency page)
+- supports: Chauvet/Brunel/Hillaire felt a cool draft and dug through on 18 December 1994
+- used by: wh-084
+
+### sadier-2012-chauvet · the rockfall sealing
+Benjamin Sadier, Jean-Jacques Delannoy, Lucilla Benedetti, et al., "Further constraints on the Chauvet cave artwork
+elaboration," *Proceedings of the National Academy of Sciences* 109, no. 21 (2012): 8002–8006,
+https://doi.org/10.1073/pnas.1118593109. [Open access]
+- opened: 2026-07-31 · full text (PMC3361430)
+- supports: the rockfall closing the original entrance and sealing the interior (final sealing ≥21 ka; the card's
+  "some 20,000 years earlier" is a defensible rounding)
+- used by: wh-084
+
+### minculture-chauvet-bears · the bear hollows (official record)
+Ministère de la Culture (France), "Bear hollows," *La grotte Chauvet-Pont d'Arc*,
+https://archeologie.culture.gouv.fr/chauvet/en/bear-hollows. [Open access]
+- opened: 2026-07-31 · full text (official heritage-agency page)
+- supports: ~300 bear nests scooped into the floor; a skull set on a block; ~190 individuals
+- used by: wh-084 · (used to correct "195 skulls" → "about 190")
+
+### garciadiez-2013-altamira · the Altamira U-series sequence
+M. García-Díez, D. L. Hoffmann, J. Zilhão, et al., "Uranium series dating reveals a long sequence of rock art at
+Altamira Cave (Santillana del Mar, Cantabria)," *Journal of Archaeological Science* 40, no. 11 (2013): 4098–4106,
+https://doi.org/10.1016/j.jas.2013.05.011. [Open access]
+- opened: 2026-07-31 · full text (CENIEH repository PDF)
+- supports: Altamira the first Palaeolithic cave art argued about; the ceiling painted over ≥20,000 years
+  (35,559–15,204 cal BP), from a red sign at least ~35,550 (Aurignacian) to Magdalenian work near the end
+- used by: wh-085 · (the paper places the only roof collapse it mentions *before the Gravettian*, so the card's
+  unsupported "rockfall closed the mouth some 13,000 years ago" was dropped)
+
+### cartailhac-1902-meaculpa · the recant
+Émile Cartailhac, "Les cavernes ornées de dessins. La grotte d'Altamira, Espagne. Mea culpa d'un sceptique,"
+*L'Anthropologie* 13 (1902): 348–354, https://archive.org/details/Cartailhac1902. [Open access]
+- opened: 2026-07-31 · full text (Internet Archive)
+- supports: Cartailhac's 1902 published apology after the French discoveries turned him around
+- used by: wh-085
+
+### moroabadia-2015-reception · the reception of Palaeolithic art
+Oscar Moro Abadía, "The reception of Palaeolithic art at the turn of the twentieth century: between archaeology and
+art history," *Journal of Art Historiography* 12 (June 2015), https://arthistoriography.wordpress.com/12-jun-2015/.
+[Open access]
+- opened: 2026-07-31 · full text
+- supports: Sautuola's 1880 pamphlet arguing a Palaeolithic age; the 1879 noticing; the scepticism of Cartailhac
+  and Mortillet
+- used by: wh-085
+
+### valladas-2017-cosquer · the Cosquer radiocarbon dates
+Hélène Valladas, Anita Quiles, Marion Delqué-Kolic, et al., "Radiocarbon Dating of the Decorated Cosquer Cave
+(France)," *Radiocarbon* 59, no. 2 (2017): 621–633, https://hal.science/hal-01568510. [Open access]
+- opened: 2026-07-31 · abstract read (Cambridge Core; open author full-text deposit at HAL hal-01568510)
+- supports: 41 samples dated 33,000–20,000 cal BP, the cave intermittently decorated over ~10,000 years (the two
+  clusters of visits)
+- used by: wh-087
+
+### etxepare-2021-handstencils · the missing-finger debate
+Ricardo Etxepare and Aritz Irurtzun, "Gravettian Hand Stencils as Sign Language Formatives," *Philosophical
+Transactions of the Royal Society B* 376, no. 1824 (2021): 20200205, https://doi.org/10.1098/rstb.2020.0205.
+[Open access]
+- opened: 2026-07-31 · full text (PMC8059529)
+- supports: the incomplete-finger hands read as ritual amputation and as a sign system, with the question left open
+- used by: wh-087
+
+### clottes-1992-cosquer · the two phases
+Jean Clottes, Jean Courtin, Hélène Valladas, et al., "La grotte Cosquer datée," *Bulletin de la Société préhistorique
+française* 89, no. 8 (1992): 230–234, https://www.persee.fr/doc/bspf_0249-7638_1992_num_89_8_9527. [Open access]
+- opened: 2026-07-31 · full text (Persée)
+- supports: at least two phases; Phase 1 = the hands with incomplete fingers
+- used by: wh-087
+
+### minculture-cosquer · the Cosquer setting and fauna (official record)
+Ministère de la Culture (France), Département des recherches archéologiques subaquatiques et sous-marines,
+"Cosquer Cave," https://archeologie.culture.gouv.fr/archeo-sous-marine/en/cosquer-cave. [Open access]
+- opened: 2026-07-31 · full text (official heritage-agency page)
+- supports: Cap Morgiou; entrance ~37 m down; the LGM sea ~120 m lower with the shore km seaward; ~500 figures;
+  the hand stencils; land and marine fauna (seals, auks, fish); the "killed man"
+- used by: wh-087 · (used to correct the tunnel "175 m" → 150 m, the sea "100 m" → ~120 m, and "four-fifths" → most)
+
+### lingappa-2021-varnish · rock varnish composition and growth
+Usha F. Lingappa, Chris M. Yeager, Ajay Sharma, et al., "An ecophysiological explanation for manganese enrichment in
+rock varnish," *Proceedings of the National Academy of Sciences* 118, no. 25 (2021): e2025188118,
+https://doi.org/10.1073/pnas.2025188118. [Open access]
+- opened: 2026-07-31 · full text
+- supports: desert varnish is clay + manganese/iron oxides on arid exposed rock, growing "at most tens of microns
+  over a thousand years"
+- used by: wh-097
+
+### aubry-2007-coa · open-air Palaeolithic art at the Côa
+Thierry Aubry and Jorge Davide Sampaio, "Fariseu: New Chronological Evidence for Open-air Palaeolithic Art in the Côa
+Valley (Portugal)," *Antiquity* 81, no. 312 (2007), https://antiquity.ac.uk/ProjGall/aubry316/. [Open access]
+- opened: 2026-07-31 · full text (Antiquity Project Gallery)
+- supports: the Côa engravings confirmed as genuinely open-air Palaeolithic art (Fariseu min 18,300 BP TL, panel
+  ~15,000 BP OSL)
+- used by: wh-097 · (used to reword the Côa sentence to "open-air Palaeolithic," dropping the "late 1980s" date)
+
+
+## Batch 6 — Out of Africa: Sahul and the Americas, verified 2026-07-31
+
+Seventy-three citation slots across ten cards, drawn from 67 distinct works, 57 of them open.
+Every citation below was opened before it was written down; access is recorded as it was found.
+
+- Chris Clarkson, Zenobia Jacobs, Ben Marwick, et al., "Human occupation of northern Australia by 65,000 years ago," <i>Nature</i> 547, no. 7663 (2017): 306–310, http://faculty.washington.edu/bmarwick/PDFs/Clarkson_Jacobs_Marwick_2017.pdf. [Open access]
+  - used by: wh-059
+- Chris Clarkson, Richard G. Roberts, Zenobia Jacobs, et al., "Reply to comments on Clarkson et al. (2017) 'Human occupation of northern Australia by 65,000 years ago,'" <i>Australian Archaeology</i> 84, no. 1 (2018): 84–89, https://anthropology.washington.edu/sites/anthropology/files/documents/research/clarkson-roberts-jacobs-marwick-et-al-2018-aa-reply.pdf. [Open access]
+  - used by: wh-059
+- James F. O'Connell, Jim Allen, Martin A. J. Williams, et al., "When did <i>Homo sapiens</i> first reach Southeast Asia and Sahul?," <i>Proceedings of the National Academy of Sciences</i> 115, no. 34 (2018): 8482–8490, https://pmc.ncbi.nlm.nih.gov/articles/PMC6112744/. [Open access]
+  - used by: wh-059
+- Chris Clarkson, Mike Smith, Ben Marwick, et al., "The archaeology, chronology and stratigraphy of Madjedbebe (Malakunanja II): a site in northern Australia with early occupation," <i>Journal of Human Evolution</i> 83 (2015): 46–64, https://faculty.washington.edu/bmarwick/PDFs/Clarkson_et_al._2015_MJB_1989.pdf. [Open access]
+  - used by: wh-059
+- S. Anna Florin, Andrew S. Fairbairn, May Nango, et al., "The first Australian plant foods at Madjedbebe, 65,000–53,000 years ago," <i>Nature Communications</i> 11 (2020): 924, https://pmc.ncbi.nlm.nih.gov/articles/PMC7026095/. [Open access]
+  - used by: wh-059
+- Anna-Sapfo Malaspinas, Michael C. Westaway, Craig Muller, et al., "A genomic history of Aboriginal Australia," <i>Nature</i> 538, no. 7624 (2016): 207–214, https://www.eva.mpg.de/documents/Nature/Malaspinas_Genomic_Nature_2016_2351078.pdf. [Open access]
+  - used by: wh-059
+- James M. Bowler, Harvey Johnston, Jon M. Olley, et al., "New ages for human occupation and climatic change at Lake Mungo, Australia," <i>Nature</i> 421, no. 6925 (2003): 837–840, https://doi.org/10.1038/nature01383. [Paywalled]
+  - used by: wh-060
+- Alan Thorne, Rainer Grün, Graham Mortimer, et al., "Australia's oldest human remains: age of the Lake Mungo 3 skeleton," <i>Journal of Human Evolution</i> 36, no. 6 (1999): 591–612, https://doi.org/10.1006/jhev.1999.0305. [Paywalled]
+  - used by: wh-060
+- Gregory J. Adcock, Elizabeth S. Dennis, Simon Easteal, et al., "Mitochondrial DNA sequences in ancient Australians: implications for modern human origins," <i>Proceedings of the National Academy of Sciences</i> 98, no. 2 (2001): 537–542, https://pmc.ncbi.nlm.nih.gov/articles/PMC14622/. [Open access]
+  - used by: wh-060
+- Tim H. Heupink, Sankar Subramanian, Joanne L. Wright, et al., "Ancient mtDNA sequences from the First Australians revisited," <i>Proceedings of the National Academy of Sciences</i> 113, no. 25 (2016): 6892–6897, https://pmc.ncbi.nlm.nih.gov/articles/PMC4922152/. [Open access]
+  - used by: wh-060
+- Jessica I. Cerezo-Román, David K. Wright, Potiphar Kaliba, et al., "Earliest evidence for intentional cremation of human remains in Africa," <i>Science Advances</i> 12, no. 1 (2026): eadz9554, https://pmc.ncbi.nlm.nih.gov/articles/PMC12757068/. [Open access]
+  - used by: wh-060
+- Joanne L. Wright, Sally Wasef, Tim H. Heupink, et al., "Ancient nuclear genomes enable repatriation of Indigenous human remains," <i>Science Advances</i> 4, no. 12 (2018): eaau5064, https://pmc.ncbi.nlm.nih.gov/articles/PMC6300400/. [Open access]
+  - used by: wh-060
+- Kathryn E. Fitzsimmons, Nicola Stern, Colin V. Murray-Wallace, et al., "The Mungo mega-lake event, semi-arid Australia: non-linear descent into the last ice age, implications for human behaviour," <i>PLOS ONE</i> 10, no. 6 (2015): e0127008, https://doi.org/10.1371/journal.pone.0127008. [Open access]
+  - used by: wh-060
+- Richard Gillespie, "Dating the First Australians," <i>Radiocarbon</i> 44, no. 2 (2002): 455–472, https://doi.org/10.1017/S0033822200031830. [Open access]
+  - used by: wh-060
+- Adam Brumm and Mark W. Moore, "Symbolic revolutions and the Australian archaeological record," <i>Cambridge Archaeological Journal</i> 15, no. 2 (2005): 157–175, https://doi.org/10.1017/S0959774305000089. [Open access]
+  - used by: wh-060
+- Jesse R. Farmer, Julia Gottschalk, Katherine A. Allen, et al., "The Bering Strait was flooded 10,000 years before the Last Glacial Maximum," <i>Proceedings of the National Academy of Sciences</i> 120, no. 1 (2023): e2206742119, https://doi.org/10.1073/pnas.2206742119. [Open access]
+  - used by: wh-061
+- Martin Jakobsson, Christof Pearce, Thomas M. Cronin, et al., "Post-glacial flooding of the Bering Land Bridge dated to 11 cal ka BP based on new geophysical and sediment records," <i>Climate of the Past</i> 13 (2017): 991–1005, https://doi.org/10.5194/cp-13-991-2017. [Open access]
+  - used by: wh-061
+- John F. Hoffecker, Scott A. Elias, Dennis H. O'Rourke, and G. Richard Scott, "Beringia and the peopling of the Western Hemisphere," <i>Proceedings of the Royal Society B</i> 290, no. 1990 (2023): 20222246, https://pmc.ncbi.nlm.nih.gov/articles/PMC9832545/. [Open access]
+  - used by: wh-061, wh-062
+- Erika Tamm, Toomas Kivisild, Maere Reidla, et al., "Beringian standstill and spread of Native American founders," <i>PLoS ONE</i> 2, no. 9 (2007): e829, https://doi.org/10.1371/journal.pone.0000829. [Open access]
+  - used by: wh-061
+- Bastien Llamas, Lars Fehren-Schmitz, Guido Valverde, et al., "Ancient mitochondrial DNA provides high-resolution time scale of the peopling of the Americas," <i>Science Advances</i> 2, no. 4 (2016): e1501385, https://pmc.ncbi.nlm.nih.gov/articles/PMC4820370/. [Open access]
+  - used by: wh-061
+- Kari B. Schroeder, Theodore G. Schurr, Jeffrey C. Long, et al., "A private allele ubiquitous in the Americas," <i>Biology Letters</i> 3, no. 2 (2007): 218–223, https://pmc.ncbi.nlm.nih.gov/articles/PMC2375964/. [Open access]
+  - used by: wh-061
+- C. R. Harington and Jacques Cinq-Mars, "Radiocarbon dates on saiga antelope (<i>Saiga tatarica</i>) fossils from Yukon and the Northwest Territories," <i>Arctic</i> 48, no. 1 (1995): 1–7, https://doi.org/10.14430/arctic1218. [Open access]
+  - used by: wh-061
+- Mikkel W. Pedersen, Anthony Ruter, Charles Schweger, et al., "Postglacial viability and colonization in North America's ice-free corridor," <i>Nature</i> 537, no. 7618 (2016): 45–49, https://doi.org/10.1038/nature19085. [Paywalled]
+  - used by: wh-061
+- J. Víctor Moreno-Mayar, Ben A. Potter, Lasse Vinner, et al., "Terminal Pleistocene Alaskan genome reveals first founding population of Native Americans," <i>Nature</i> 553, no. 7687 (2018): 203–207, https://researchonline.ljmu.ac.uk/id/eprint/7887/. [Open access]
+  - used by: wh-062
+- Erika Tamm, Toomas Kivisild, Maere Reidla, et al., "Beringian standstill and spread of Native American founders," <i>PLoS ONE</i> 2, no. 9 (2007): e829, https://pmc.ncbi.nlm.nih.gov/articles/PMC1952074/. [Open access]
+  - used by: wh-062
+- Michael R. Waters, Thomas W. Stafford Jr., and David L. Carlson, "The age of Clovis—13,050 to 12,750 cal yr B.P.," <i>Science Advances</i> 6, no. 43 (2020): eaaz0455, https://pmc.ncbi.nlm.nih.gov/articles/PMC7577710/. [Open access]
+  - used by: wh-062, wh-063, wh-091
+- Loren G. Davis, Alex J. Nyers, Daniel W. Bean, et al., "Dating of a large tool assemblage at the Cooper's Ferry site (Idaho, USA) to ~15,785 cal yr B.P. extends the age of stemmed points in the Americas," <i>Science Advances</i> 8, no. 51 (2022): eade1248, https://pmc.ncbi.nlm.nih.gov/articles/PMC9788777/. [Open access]
+  - used by: wh-062
+- Lisa-Marie Shillito, John C. Blong, Eleanor J. Green, et al., "Pre-Clovis occupation of the Americas identified by human fecal biomarkers in coprolites from Paisley Caves, Oregon," <i>Science Advances</i> 6, no. 29 (2020): eaba6404, https://pmc.ncbi.nlm.nih.gov/articles/PMC7363456/. [Open access]
+  - used by: wh-062
+- Matthew R. Bennett, David Bustos, Jeffrey S. Pigati, et al., "Evidence of humans in North America during the Last Glacial Maximum," <i>Science</i> 373, no. 6562 (2021): 1528–1531, https://doi.org/10.1126/science.abg7586. [Paywalled]
+  - used by: wh-062
+- Vance T. Holliday, Jason Windingstad, Brendan Fenerty, et al., "Paleolake geochronology supports Last Glacial Maximum (LGM) age for human tracks at White Sands, New Mexico," <i>Science Advances</i> 11, no. 25 (2025): eadv4951, https://pmc.ncbi.nlm.nih.gov/articles/PMC12175891/. [Open access]
+  - used by: wh-062
+- Alia J. Lesnek, Jason P. Briner, Charlotte Lindqvist, et al., "Deglaciation of the Pacific coastal corridor directly preceded the human colonization of the Americas," <i>Science Advances</i> 4, no. 5 (2018): eaar5040, https://pmc.ncbi.nlm.nih.gov/articles/PMC5976267/. [Open access]
+  - used by: wh-062
+- Morten Rasmussen, Sarah L. Anzick, Michael R. Waters, et al., "The genome of a Late Pleistocene human from a Clovis burial site in western Montana," <i>Nature</i> 506, no. 7487 (2014): 225–229, https://pmc.ncbi.nlm.nih.gov/articles/PMC4878442/. [Open access]
+  - used by: wh-062, wh-091
+- Frank H. H. Roberts Jr., "Developments in the problem of the North American Paleo-Indian," in <i>Essays in Historical Anthropology of North America</i>, Smithsonian Miscellaneous Collections 100 (Washington, DC: Smithsonian Institution, 1940), 51–116, https://archive.org/details/smithsonianmisce1001940smit. [Open access]
+  - used by: wh-063
+- James C. Chatters, Ben A. Potter, Stuart J. Fiedel, et al., "Mammoth featured heavily in western Clovis diet," <i>Science Advances</i> 10, no. 49 (2024): eadr3814, https://doi.org/10.1126/sciadv.adr3814. [Open access]
+  - used by: wh-063
+- Paul L. Koch and Anthony D. Barnosky, "Late Quaternary extinctions: state of the debate," <i>Annual Review of Ecology, Evolution, and Systematics</i> 37 (2006): 215–250, https://ib.berkeley.edu/labs/barnosky/Koch%20%20and%20Barnosky%202006.pdf. [Open access]
+  - used by: wh-063
+- Linda S. Cordell, "The Folsom site in retrospect," in <i>Vermejo Park</i>, New Mexico Geological Society 27th Annual Fall Field Conference Guidebook (Socorro: NMGS, 1976), 83–86, https://doi.org/10.56577/FFC-27.83. [Open access]
+  - used by: wh-063, wh-093
+- Kyle Martin, Jim I. Mead, and Perry S. Barboza, "Bison body size and climate change," <i>Ecology and Evolution</i> 8, no. 9 (2018): 4564–4574, https://doi.org/10.1002/ece3.4019. [Open access]
+  - used by: wh-063
+- Alan M. Slade, "To haft and to hold: evidence for the hafting of Clovis fluted points," <i>Journal of Lithic Studies</i> 8, no. 3 (2021): 133–151, https://doi.org/10.2218/jls.3033. [Open access]
+  - used by: wh-063, wh-092
+- Donald K. Grayson, David J. Meltzer, and Ryan P. Breslawski, "Overkill and the North American archaeological record—not guilty by association? A comment on Wolfe and Broughton (2020)," <i>Journal of Archaeological Science</i> 128 (2021): 105312, https://bpb-us-w2.wpmucdn.com/people.smu.edu/dist/5/554/files/2021/08/Grayson-Meltzer-and-Breslawski-2021-JAS-Overkill-and-the-North-American-archaeological-record%E2%80%94not-guilty-by-association.pdf. [Open access]
+  - used by: wh-091
+- Brett A. Story, Metin I. Eren, Kaitlyn Thomas, Briggs Buchanan, and David J. Meltzer, "Why are Clovis fluted points more resilient than non-fluted lanceolate points? A quantitative assessment of breakage patterns between experimental models," <i>Archaeometry</i> 61, no. 1 (2019): 1–13, https://bpb-us-w2.wpmucdn.com/people.smu.edu/dist/5/554/files/2019/01/Story-et-al.-2019-ARCHAEOMETRY-Why-are-Clovis-fluted-points-more-resilient-than-non-fluted-lanceolate-points-2205ct4.pdf. [Open access]
+  - used by: wh-091
+- Metin I. Eren, David J. Meltzer, and Brian N. Andrews, "Is Clovis technology unique to Clovis?," <i>PaleoAmerica</i> 4, no. 3 (2018): 202–218, https://bpb-us-w2.wpmucdn.com/people.smu.edu/dist/5/554/files/2018/12/Eren-Meltzer-Andrews-2018-PALEOAMERICA-Is-Clovis-Technology-Unique-to-Clovis-1zq67w7.pdf. [Open access]
+  - used by: wh-091
+- Metin I. Eren, Robert J. Patten, Michael J. O'Brien, and David J. Meltzer, "Refuting the technological cornerstone of the Ice-Age Atlantic crossing hypothesis," <i>Journal of Archaeological Science</i> 40, no. 7 (2013): 2934–2941, https://cladistics.coas.missouri.edu/assets/pdf_articles/Eren_et_al_2013.pdf. [Open access]
+  - used by: wh-091
+- R. Scott Byram, Kent G. Lightfoot, and Jun Ueno Sunseri, "Clovis points and foreshafts under braced weapon compression: modeling Pleistocene megafauna encounters with a lithic pike," <i>PLOS ONE</i> 19, no. 8 (2024): e0307996, https://doi.org/10.1371/journal.pone.0307996. [Open access]
+  - used by: wh-092
+- David K. Thulman, Michael J. Shott, Alan M. Slade, and Justin P. Williams, "Clovis point allometry, modularity, and integration: exploring shape variation due to tool use with landmark-based geometric morphometrics," <i>PLOS ONE</i> 18, no. 8 (2023): e0289489, https://doi.org/10.1371/journal.pone.0289489. [Open access]
+  - used by: wh-092
+- Richard B. Waitt, "Megafloods and Clovis cache at Wenatchee, Washington," <i>Quaternary Research</i> 85 (2016): 430–444, https://fop.cascadiageo.org/pacific_northwest_cell/2018/Background_Literature/Waitt2016WenatcheeMegafloods.pdf. [Open access]
+  - used by: wh-092
+- Briggs Buchanan, J. David Kilby, Marcus J. Hamilton, et al., "Bayesian revision of the Folsom age range using IntCal20," <i>PaleoAmerica</i> 7, no. 2 (2021): 133–144, http://marcusjhamilton.weebly.com/uploads/2/5/5/3/25533140/buchanan_et_al_2021.pdf. [Open access]
+  - used by: wh-093
+- Lawrence J. Jackson, "Carl Schwachheim and the Folsom site," <i>Current Research in the Pleistocene</i> 14 (1997): 42–44, https://liberalarts.tamu.edu/csfa/wp-content/uploads/sites/14/2023/07/CRP-14-1997.pdf. [Open access]
+  - used by: wh-093
+- Leland C. Bement, Marian Hyman, Michael E. Zolensky, and Brian J. Carter, "A painted skull from the Cooper site: a Folsom bison kill in NW Oklahoma," <i>Current Research in the Pleistocene</i> 14 (1997): 6–8, https://liberalarts.tamu.edu/csfa/wp-content/uploads/sites/14/2023/07/CRP-14-1997.pdf. [Open access]
+  - used by: wh-093
+- J. D. Figgins, "The antiquity of man in America," <i>Natural History</i> 27, no. 3 (1927): 229–239, https://archive.org/details/sim_natural-history_may-june-1927_27_3. [Open access]
+  - used by: wh-093
+- Kaitlyn A. Thomas, Brett A. Story, Metin I. Eren, et al., "Explaining the origin of fluting in North American Pleistocene weaponry," <i>Journal of Archaeological Science</i> 81 (2017): 23–30, https://cladistics.coas.missouri.edu/assets/pdf_articles/2017-clovis-fluting.pdf. [Open access]
+  - used by: wh-093
+- David T. Kirkpatrick, "The prehistory of northeastern New Mexico," in <i>Vermejo Park</i>, New Mexico Geological Society 27th Annual Fall Field Conference Guidebook (Socorro: NMGS, 1976), 77–82, https://doi.org/10.56577/FFC-27.77. [Open access]
+  - used by: wh-093
+- David J. Meltzer, Lawrence C. Todd, and Vance T. Holliday, "The Folsom (Paleoindian) type site: past investigations, current studies," <i>American Antiquity</i> 67, no. 1 (2002): 5–36, https://doi.org/10.2307/2694875. [Paywalled]
+  - used by: wh-093
+- Mario Pino and Tom D. Dillehay, "Monte Verde II: an assessment of new radiocarbon dates and their sedimentological context," <i>Antiquity</i> 97, no. 393 (2023): 524–540, https://doi.org/10.15184/aqy.2023.32. [Open access]
+  - used by: wh-094
+- Tom D. Dillehay, Carlos Ocampo, José Saavedra, et al., "New archaeological evidence for an early human presence at Monte Verde, Chile," <i>PLOS ONE</i> 10, no. 11 (2015): e0141923, https://doi.org/10.1371/journal.pone.0141923. [Open access]
+  - used by: wh-094
+- Todd A. Surovell, César Méndez, Juan-Luis García, et al., "A mid-Holocene age for Monte Verde challenges the timeline of human colonization of South America," <i>Science</i> 391, no. 6791 (2026): 1283–1288, https://doi.org/10.1126/science.adw9217. [Paywalled]
+  - used by: wh-094
+- Tom D. Dillehay, Mario Pino, Luis Lara, et al., "Geomorphological and archaeological evidence at Monte Verde II, Chile supports the claim of human occupation 14,500 years ago," eLetter, <i>Science</i>, May 4, 2026, https://liberalarts.tamu.edu/csfa/wp-content/uploads/sites/14/2026/05/Three-Critiques.pdf. [Open access]
+  - used by: wh-094
+- David J. Meltzer, J. Víctor Moreno-Mayar, Thomaz Pinotti, et al., "Genetic evidence and the peopling of the Americas: reply to Surovell et al. 2026," eLetter, <i>Science</i>, May 4, 2026, https://liberalarts.tamu.edu/csfa/wp-content/uploads/sites/14/2026/05/Three-Critiques.pdf. [Open access]
+  - used by: wh-094
+- Michael R. Waters, Jessi J. Halligan, Rolfe D. Mandel, et al., "Geoarchaeological assessment of the suggested middle Holocene age for Monte Verde II, Chile," eLetter, <i>Science</i>, May 5, 2026, https://fundacionmonteverde.cl/wp-content/uploads/2026/05/Waters-et-al.-Rebuttal-to-Surovell-et-al.-2026.pdf. [Open access]
+  - used by: wh-094
+- David J. Meltzer, Donald K. Grayson, Gerardo Ardila, et al., "On the Pleistocene antiquity of Monte Verde, southern Chile," <i>American Antiquity</i> 62, no. 4 (1997): 659–663, https://doi.org/10.2307/281884. [Paywalled]
+  - used by: wh-094
+- Tom D. Dillehay, C. Ramírez, M. Pino, et al., "Monte Verde: seaweed, food, medicine, and the peopling of South America," <i>Science</i> 320, no. 5877 (2008): 784–786, https://doi.org/10.1126/science.1156533. [Paywalled]
+  - used by: wh-094
+- Mark A. McConaughy, "Meadowcroft Rockshelter," National Historic Landmark Nomination, ed. Erika K. Martin Seibert (Washington, DC: US Department of the Interior, National Park Service, 2004), https://npgallery.nps.gov/NRHP/GetAsset/NHLS/78002480_text. [Open access]
+  - used by: wh-095
+- David B. Madsen, Loren G. Davis, Thomas J. Williams, Masami Izuho, and Fumie Iizuka, "Characterizing the American Upper Paleolithic," <i>Science Advances</i> 11, no. 43 (2025): eady9545, https://doi.org/10.1126/sciadv.ady9545. [Open access]
+  - used by: wh-095
+- Richard L. Rosencrance, Katelyn N. McDonough, Dennis L. Jenkins, et al., "Complex perishable technologies from the North American Great Basin reveal specialized Late Pleistocene adaptations," <i>Science Advances</i> 12, no. 6 (2026): eaec2916, https://doi.org/10.1126/sciadv.aec2916. [Open access]
+  - used by: wh-095
+- Lorena Becerra-Valdivia and Thomas Higham, "The timing and effect of the earliest human arrivals in North America," <i>Nature</i> 584 (2020): 93–97, https://ora.ox.ac.uk/objects/uuid:b964b2d2-9600-4337-ad1f-e02dc83361af. [Open access]
+  - used by: wh-095
+- J. Emili Aura Tortosa, Yolanda Carrión Marco, Ernestina Badal, et al., "Cordage, basketry and containers at the Pleistocene–Holocene boundary in southwest Europe: evidence from Coves de Santa Maira (Valencian region, Spain)," <i>Vegetation History and Archaeobotany</i> 29 (2020): 581–594, https://doi.org/10.1007/s00334-019-00758-x. [Open access]
+  - used by: wh-095
+- J. M. Adovasio, J. Donahue, and R. Stuckenrath, "The Meadowcroft Rockshelter radiocarbon chronology 1975–1990," <i>American Antiquity</i> 55, no. 2 (1990): 348–354, https://doi.org/10.2307/281652. [Paywalled]
+  - used by: wh-095
+- Kenneth B. Tankersley and Cheryl Ann Munson, "Comments on the Meadowcroft Rockshelter radiocarbon chronology and the recognition of coal contaminants," <i>American Antiquity</i> 57, no. 2 (1992): 321–326, https://doi.org/10.2307/280736. [Paywalled]
+  - used by: wh-095
+
+
+## Batch 7 — Upper Palaeolithic Europe: the industries, verified 2026-07-31
+
+79 citation slots across nine cards, drawn from 77 distinct works, 65 of them open.
+Every citation was opened before it was written down; access is recorded as it was found.
+This batch also corrected two cards shipped earlier — see the Batch 7 log in docs/citation-plan.md.
+
+- Dominique Henry-Gambier, "Les fossiles de Cro-Magnon (Les Eyzies-de-Tayac, Dordogne): nouvelles données sur leur position chronologique et leur attribution culturelle," <i>Bulletins et Mémoires de la Société d'Anthropologie de Paris</i> 14, no. 1–2 (2002): 89–112, https://journals.openedition.org/bmsap/459. [Open access]
+  - used by: wh-064
+- Dominique Henry-Gambier, Roland Nespoulet, and Laurent Chiotti, "An early Gravettian cultural attribution for the human fossils from the Cro-Magnon rock shelter (Les Eyzies-de-Tayac, Dordogne)," <i>PALEO</i> 24 (2013): 121–138, https://doi.org/10.4000/paleo.2859. [Open access]
+  - used by: wh-064
+- Qiaomei Fu, Cosimo Posth, Mateja Hajdinjak, et al., "The genetic history of Ice Age Europe," <i>Nature</i> 534, no. 7606 (2016): 200–205, https://pmc.ncbi.nlm.nih.gov/articles/PMC4943878/. [Open access]
+  - used by: wh-064, wh-079
+- Wolfgang Haak, Iosif Lazaridis, Nick Patterson, et al., "Massive migration from the steppe was a source for Indo-European languages in Europe," <i>Nature</i> 522, no. 7555 (2015): 207–211, https://pmc.ncbi.nlm.nih.gov/articles/PMC5048219/. [Open access]
+  - used by: wh-064
+- Erik Trinkaus, "European early modern humans and the fate of the Neandertals," <i>Proceedings of the National Academy of Sciences</i> 104, no. 18 (2007): 7367–7372, https://pmc.ncbi.nlm.nih.gov/articles/PMC1863481/. [Open access]
+  - used by: wh-064
+- Ministère de la Culture (France), "Abri de Cro-Magnon," https://archeologie.culture.gouv.fr/en/a-propos/abri-cro-magnon. [Open access]
+  - used by: wh-064
+- Igor Djakovic, Morgan Roussel, and Marie Soressi, "Stone tools in shifting sands: past, present, and future perspectives on the Châtelperronian stone tool industry," <i>Journal of Paleolithic Archaeology</i> 7 (2024): 29, https://hdl.handle.net/1887/4108948. [Open access]
+  - used by: wh-065
+- Frido Welker, Mateja Hajdinjak, Sahra Talamo, et al., "Palaeoproteomic evidence identifies archaic hominins associated with the Châtelperronian at the Grotte du Renne," <i>Proceedings of the National Academy of Sciences</i> 113, no. 40 (2016): 11162–11167, https://pmc.ncbi.nlm.nih.gov/articles/PMC5056053/. [Open access]
+  - used by: wh-065
+- Antoine Gicqueau, Juliette Schuh, Bruno Maureille, et al., "Anatomically modern human in the Châtelperronian hominin collection from the Grotte du Renne (Arcy-sur-Cure, northeast France)," <i>Scientific Reports</i> 13 (2023): 12682, https://pmc.ncbi.nlm.nih.gov/articles/PMC10403518/. [Open access]
+  - used by: wh-065
+- Thomas Higham, Roger Jacobi, Michèle Julien, et al., "Chronology of the Grotte du Renne (France) and implications for the context of ornaments and human remains within the Châtelperronian," <i>Proceedings of the National Academy of Sciences</i> 107, no. 47 (2010): 20234–20239, https://pmc.ncbi.nlm.nih.gov/articles/PMC2996711/. [Open access]
+  - used by: wh-065
+- François Caron, Francesco d'Errico, Pierre Del Moral, et al., "The reality of Neandertal symbolic behavior at the Grotte du Renne, Arcy-sur-Cure, France," <i>PLOS ONE</i> 6, no. 6 (2011): e21545, https://pmc.ncbi.nlm.nih.gov/articles/PMC3126825/. [Open access]
+  - used by: wh-065
+- Brad Gravina, Pascal Bachellerie, Solène Caux, et al., "No reliable evidence for a Neanderthal–Châtelperronian association at La Roche-à-Pierrot, Saint-Césaire," <i>Scientific Reports</i> 8 (2018): 15134, https://pmc.ncbi.nlm.nih.gov/articles/PMC6181958/. [Open access]
+  - used by: wh-065
+- Igor Djakovic, Alastair Key, and Marie Soressi, "Optimal linear estimation models predict 1400–2900 years of overlap between <i>Homo sapiens</i> and Neandertals prior to their disappearance from France and northern Spain," <i>Scientific Reports</i> 12 (2022): 15000, https://pmc.ncbi.nlm.nih.gov/articles/PMC9561710/. [Open access]
+  - used by: wh-065
+- Davide Delpiano, Brad Gravina, and Marco Peresani, "Back(s) to basics: the concept of backing in stone tool technologies for tracing hominins' technical innovations," <i>Evolutionary Anthropology</i> 33, no. 6 (2024): e22045, https://pmc.ncbi.nlm.nih.gov/articles/PMC11624295/. [Open access]
+  - used by: wh-065
+- Karl J. Narr, "On the stratigraphy of Upper Palaeolithic types and type groups," <i>DEUQUA Special Publications</i> 3 (2021): 27–34, https://doi.org/10.5194/deuquasp-3-27-2021. [Open access]
+  - used by: wh-065
+- Charles Lyell, <i>The Geological Evidences of the Antiquity of Man</i>, 2nd American ed. (Philadelphia: George W. Childs, 1863), 182–186, https://archive.org/details/geologicaleviden00lyeluoft. [Open access]
+  - used by: wh-066
+- Édouard Lartet and Henry Christy, <i>Reliquiae Aquitanicae: Being Contributions to the Archaeology and Palaeontology of Périgord and the Adjoining Provinces of Southern France</i>, ed. Thomas Rupert Jones (London: Williams & Norgate, 1875), https://archive.org/details/reliquiaeaquitan00lartuoft. [Open access]
+  - used by: wh-066
+- Keiko Kitagawa and Nicholas J. Conard, "Split-based points from the Swabian Jura highlight Aurignacian regional signatures," <i>PLOS ONE</i> 15, no. 11 (2020): e0239865, https://doi.org/10.1371/journal.pone.0239865. [Open access]
+  - used by: wh-066
+- Benjamin Schürch, Svenja Schray, and Nicholas J. Conard, "Reconstructing flexible pathways of Aurignacian blade and bladelet production at Vogelherd," <i>PLOS ONE</i> 20, no. 9 (2025): e0331921, https://doi.org/10.1371/journal.pone.0331921. [Open access]
+  - used by: wh-066
+- Ana B. Marín-Arroyo, Daniel Rivals, Jennifer R. Jones, et al., "Chronological reassessment of the Middle to Upper Paleolithic transition and Early Upper Paleolithic cultures in Cantabrian Spain," <i>PLOS ONE</i> 13, no. 4 (2018): e0194708, https://doi.org/10.1371/journal.pone.0194708. [Open access]
+  - used by: wh-066
+- Jonathan A. Haws, Michael M. Benedetti, Sahra Talamo, et al., "The early Aurignacian dispersal of modern humans into westernmost Eurasia," <i>Proceedings of the National Academy of Sciences</i> 117, no. 41 (2020): 25414–25422, https://doi.org/10.1073/pnas.2016062117. [Open access]
+  - used by: wh-066
+- Nicholas J. Conard and Veerle Rots, "Rope making in the Aurignacian of central Europe more than 35,000 years ago," <i>Science Advances</i> 10, no. 5 (2024): eadh5217, https://doi.org/10.1126/sciadv.adh5217. [Open access]
+  - used by: wh-066
+- Sarah E. Rhodes, Britt M. Starkovich, and Nicholas J. Conard, "Did climate determine Late Pleistocene settlement dynamics in the Ach Valley, SW Germany?," <i>PLOS ONE</i> 14, no. 5 (2019): e0215172, https://doi.org/10.1371/journal.pone.0215172. [Open access]
+  - used by: wh-066
+- Jean Bouyssonie, "L'Aurignacien," <i>Bulletin de la Société préhistorique française</i> 51, no. 8 (1954): 49–53, https://www.persee.fr/doc/bspf_0249-7638_1954_hos_51_8_12409. [Open access]
+  - used by: wh-066
+- Nicholas J. Conard, "A female figurine from the basal Aurignacian of Hohle Fels Cave in southwestern Germany," <i>Nature</i> 459, no. 7244 (2009): 248–252, https://doi.org/10.1038/nature07995. [Paywalled]
+  - used by: wh-066
+- Paul Pettitt and Paul Bahn, "An alternative chronology for the art of Chauvet Cave," <i>Antiquity</i> 89, no. 345 (2015): 542–553, https://doi.org/10.15184/aqy.2015.21. [Paywalled]
+  - used by: wh-066
+- Tom Higham, Katerina Douka, Rachel Wood, et al., "The timing and spatiotemporal patterning of Neanderthal disappearance," <i>Nature</i> 512, no. 7514 (2014): 306–309, https://doi.org/10.1038/nature13621. [Paywalled]
+  - used by: wh-066
+- Cosimo Posth, He Yu, Ayshin Ghalichi, et al., "Palaeogenomics of Upper Palaeolithic to Neolithic European hunter-gatherers," <i>Nature</i> 615, no. 7950 (2023): 117–126, https://pmc.ncbi.nlm.nih.gov/articles/PMC9977688/. [Open access]
+  - used by: wh-071, wh-079
+- Rebecca Farbstein and April Nowell, "Children at play: the role of novices in the production of Europe's earliest Upper Paleolithic ceramics," <i>PLOS ONE</i> 19, no. 10 (2024): e0309107, https://doi.org/10.1371/journal.pone.0309107. [Open access]
+  - used by: wh-071
+- Rebecca Farbstein, Dinko Radić, Dejana Brajković, and Preston T. Miracle, "First Epigravettian ceramic figurines from Europe (Vela Spila, Croatia)," <i>PLOS ONE</i> 7, no. 7 (2012): e41437, https://pmc.ncbi.nlm.nih.gov/articles/PMC3404104/. [Open access]
+  - used by: wh-071
+- Gerhard W. Weber, Alexander Lukeneder, Mathias Harzhauser, et al., "The microstructure and the origin of the Venus from Willendorf," <i>Scientific Reports</i> 12 (2022): 2926, https://pmc.ncbi.nlm.nih.gov/articles/PMC8885675/. [Open access]
+  - used by: wh-071
+- Colin D. Wren and Ariane Burke, "Habitat suitability and the genetic structure of human populations during the Last Glacial Maximum (LGM) in western Europe," <i>PLOS ONE</i> 14, no. 6 (2019): e0217996, https://doi.org/10.1371/journal.pone.0217996. [Open access]
+  - used by: wh-071
+- Andreas Maier, Patrick Schmidt, Bernhard Höck, et al., "Analyzing trends in material culture evolution—a case study of Gravettian points from Lower Austria and Moravia," <i>Journal of Paleolithic Archaeology</i> 6 (2023): 15, https://doi.org/10.1007/s41982-023-00145-z. [Open access]
+  - used by: wh-071
+- Wei Chu, Pavlo Shydlovskyi, and Andreas Maier, "A revised radiocarbon chronology for the mammoth bone structures and associated features at Mezhyrich, Ukraine," <i>Open Research Europe</i> 5 (2025): 198, https://pmc.ncbi.nlm.nih.gov/articles/PMC12639289/. [Open access]
+  - used by: wh-071
+- Alexander J. E. Pryor, David G. Beresford-Jones, Alexander E. Dudin, et al., "The chronology and function of a new circular mammoth-bone structure at Kostenki 11," <i>Antiquity</i> 94, no. 374 (2020): 323–341, https://doi.org/10.15184/aqy.2020.7. [Paywalled]
+  - used by: wh-071
+- Pamela Jane Smith, "Dorothy Garrod, first woman Professor at Cambridge," <i>Antiquity</i> 74, no. 283 (2000): 131–136, https://doi.org/10.1017/S0003598X00066230. [Paywalled]
+  - used by: wh-071
+- J. M. Adovasio, Olga Soffer, and Bohuslav Klíma, "Upper Palaeolithic fibre technology: interlaced woven finds from Pavlov I, Czech Republic, c. 26,000 years ago," <i>Antiquity</i> 70, no. 269 (1996): 526–534, https://doi.org/10.1017/S0003598X00083733. [Paywalled]
+  - used by: wh-071
+- Pamela B. Vandiver, Olga Soffer, Bohuslav Klíma, and Jiří Svoboda, "The origins of ceramic technology at Dolni Věstonice, Czechoslovakia," <i>Science</i> 246, no. 4933 (1989): 1002–1008, https://doi.org/10.1126/science.246.4933.1002. [Paywalled]
+  - used by: wh-071
+- Morten Rasmussen, Sarah L. Anzick, Michael R. Waters, et al., "The genome of a Late Pleistocene human from a Clovis burial site in western Montana," <i>Nature</i> 506, no. 7487 (2014): 225–229, https://pmc.ncbi.nlm.nih.gov/articles/PMC4878442/. [Open access]
+  - used by: wh-077
+- Metin I. Eren, Robert J. Patten, Michael J. O'Brien, and David J. Meltzer, "Refuting the technological cornerstone of the Ice-Age Atlantic crossing hypothesis," <i>Journal of Archaeological Science</i> 40, no. 7 (2013): 2934–2941, https://cladistics.coas.missouri.edu/assets/pdf_articles/Eren_et_al_2013.pdf. [Open access]
+  - used by: wh-077
+- João Cascalheira and Nuno Bicho, "On the chronological structure of the Solutrean in southern Iberia," <i>PLOS ONE</i> 10, no. 9 (2015): e0137308, https://doi.org/10.1371/journal.pone.0137308. [Open access]
+  - used by: wh-077
+- João Cascalheira, "Territoriality and the organization of technology during the Last Glacial Maximum in southwestern Europe," <i>PLOS ONE</i> 14, no. 12 (2019): e0225828, https://doi.org/10.1371/journal.pone.0225828. [Open access]
+  - used by: wh-077
+- Ian Gilligan, Francesco d'Errico, Luc Doyon, Wei Wang, and Yaroslav V. Kuzmin, "Paleolithic eyed needles and the evolution of dress," <i>Science Advances</i> 10, no. 26 (2024): eadp2887, https://pmc.ncbi.nlm.nih.gov/articles/PMC11212769/. [Open access]
+  - used by: wh-077
+- Julie Bachellerie, "Chapitre 10. Outillage « solutréen » et schémas de production associés," <i>PALEO</i>, hors-série (2025): 150–193, https://doi.org/10.4000/14tzv. [Open access]
+  - used by: wh-077
+- Elaine Turner, "Horse, reindeer and bison hunters at Solutré: an archaeozoological analysis of a Magdalenian bone assemblage," <i>Bonner zoologische Beiträge</i> 50 (1999): 143–182, https://archive.org/details/biostor-136046. [Open access]
+  - used by: wh-077
+- Thierry Aubry, Bruce Bradley, Miguel Almeida, et al., "Solutrean laurel leaf production at Maîtreaux: an experimental approach guided by techno-economic analysis," <i>World Archaeology</i> 40, no. 1 (2008): 48–66, https://doi.org/10.1080/00438240701843538. [Paywalled]
+  - used by: wh-077
+- M. García-Diez, D. L. Hoffmann, J. Zilhão, et al., "Uranium series dating reveals a long sequence of rock art at Altamira Cave (Santillana del Mar, Cantabria)," <i>Journal of Archaeological Science</i> 40, no. 11 (2013): 4098–4106, https://cir.cenieh.es/handle/20.500.12136/420. [Open access]
+  - used by: wh-079
+- Silvia M. Bello, Lucile Crété, Julia Galway-Witham, and Simon A. Parfitt, "Knapping tools in Magdalenian contexts: new evidence from Gough's Cave (Somerset, UK)," <i>PLOS ONE</i> 16, no. 12 (2021): e0261031, https://doi.org/10.1371/journal.pone.0261031. [Open access]
+  - used by: wh-079
+- Andy Needham, Izzy Wisher, Andrew Langley, Matthew Amy, and Aimée Little, "Art by firelight? Using experimental and digital techniques to explore Magdalenian engraved plaquette use at Montastruc (France)," <i>PLOS ONE</i> 17, no. 4 (2022): e0266146, https://doi.org/10.1371/journal.pone.0266146. [Open access]
+  - used by: wh-079
+- Pere Gelabert, Susanna Sawyer, Anja Furtwängler, et al., "A sedimentary ancient DNA perspective on human and carnivore persistence through the Late Pleistocene in El Mirón Cave, Spain," <i>Nature Communications</i> 16 (2025): 107, https://pmc.ncbi.nlm.nih.gov/articles/PMC11696082/. [Open access]
+  - used by: wh-079
+- Henri Breuil, "Le Magdalénien," <i>Bulletin de la Société préhistorique française</i> 51, no. 8 (1954): 59–66, https://www.persee.fr/doc/bspf_0249-7638_1954_hos_51_8_12411. [Open access]
+  - used by: wh-079
+- Gabriel de Mortillet, <i>Le Préhistorique: Antiquité de l'homme</i>, 2nd ed. (Paris: C. Reinwald, 1885), chap. 4, https://archive.org/details/laprhistoirean00mort. [Open access]
+  - used by: wh-079
+- Andreas Maier, Carmen Liebermann, and Sebastian J. Pfeifer, "Beyond the Alps and Tatra Mountains—the 20–14 ka repopulation of the northern mid-latitudes as inferred from palimpsests deciphered with keys from western and central Europe," <i>Journal of Paleolithic Archaeology</i> 3 (2020): 398–452, https://doi.org/10.1007/s41982-019-00045-1. [Paywalled]
+  - used by: wh-079
+- Lars Larsson, Arne Sjöström, and Carl Heron, "The Rönneholm arrow: a find of a wooden arrow-tip with microliths in the bog Rönneholms Mosse, central Scania, southern Sweden," <i>Lund Archaeological Review</i> 22 (2016): 7–20, https://journals.lub.lu.se/lar/article/view/21616. [Open access]
+  - used by: wh-080
+- Lars Larsson and Arne Sjöström, "Early Mesolithic flint-tipped arrows from Sweden," <i>Antiquity</i> Project Gallery 85, no. 330 (2011), https://antiquity.ac.uk/projgall/larsson330. [Open access]
+  - used by: wh-080
+- Andrew M. Way, Paloma de la Peña, Eduardo de la Peña, and Lyn Wadley, "Howiesons Poort backed artifacts provide evidence for social connectivity across southern Africa during the Final Pleistocene," <i>Scientific Reports</i> 12 (2022): 9227, https://pmc.ncbi.nlm.nih.gov/articles/PMC9184481/. [Open access]
+  - used by: wh-080
+- Manuel Will and Nicholas J. Conard, "Regional patterns of diachronic technological change in the Howiesons Poort of southern Africa," <i>PLOS ONE</i> 15, no. 9 (2020): e0239195, https://doi.org/10.1371/journal.pone.0239195. [Open access]
+  - used by: wh-080
+- Oshan Wedage, Noel Amano, Michelle C. Langley, et al., "Microliths in the South Asian rainforest ~45–4 ka: new insights from Fa-Hien Lena Cave, Sri Lanka," <i>PLOS ONE</i> 14, no. 10 (2019): e0222606, https://doi.org/10.1371/journal.pone.0222606. [Open access]
+  - used by: wh-080
+- Iris Groman-Yaroslavski, Danny Rosenberg, Reuven Yeshurun, et al., "Versatile use of microliths as a technological advantage in the miniaturization of Late Pleistocene toolkits: the case study of Neve David, Israel," <i>PLOS ONE</i> 15, no. 6 (2020): e0233340, https://pmc.ncbi.nlm.nih.gov/articles/PMC7269238/. [Open access]
+  - used by: wh-080
+- Nicolò Fasser and Federica Fontana, "Exploring the 'microburin blow': an insight into the variability of the microburin blow method for the production of Sauveterrian geometrics in the site of Mondeval de Sora (N-E, Italy)," <i>Journal of Archaeological Method and Theory</i> 33, no. 2 (2026): art. 21, https://doi.org/10.1007/s10816-025-09755-z. [Open access]
+  - used by: wh-080
+- Kyle S. Brown, Curtis W. Marean, Zenobia Jacobs, et al., "An early and enduring advanced technology originating 71,000 years ago in South Africa," <i>Nature</i> 491, no. 7425 (2012): 590–593, https://doi.org/10.1038/nature11660. [Paywalled]
+  - used by: wh-080
+- Michelle R. Bebber, Metin I. Eren, Dexter Zirkle, Briggs Buchanan, and Robert S. Walker, "Atlatl use equalizes female and male projectile weapon velocity," <i>Scientific Reports</i> 13, no. 1 (2023): 13349, https://pmc.ncbi.nlm.nih.gov/articles/PMC10432391/. [Open access]
+  - used by: wh-081
+- Pierre Cattelain and Jean-Marc Pétillon, "« Type 2a », the earliest Palaeolithic spear-thrower: a new Middle Magdalenian object from Isturitz (Pyrénées-Atlantiques, France) and its implications," <i>PALEO</i> 26 (2015): 17–32, https://doi.org/10.4000/paleo.3025. [Open access]
+  - used by: wh-081
+- Pierre Cattelain, "Un crochet de propulseur solutréen de la grotte de Combe-Saunière 1 (Dordogne)," <i>Bulletin de la Société préhistorique française</i> 86, no. 7 (1989): 213–216, https://www.persee.fr/doc/bspf_0249-7638_1989_num_86_7_9386. [Open access]
+  - used by: wh-081
+- Justin Coppe, Noora Taipale, and Veerle Rots, "Terminal ballistic analysis of impact fractures reveals the use of spearthrower 31 ky ago at Maisières-Canal, Belgium," <i>Scientific Reports</i> 13, no. 1 (2023): 18305, https://pmc.ncbi.nlm.nih.gov/articles/PMC10600151/. [Open access]
+  - used by: wh-081
+- Paule Steiner, "Un petit poucet magdalénien ?," <i>Cahiers de littérature orale</i> 67–68 (2010): 85–94, https://doi.org/10.4000/clo.904. [Open access]
+  - used by: wh-081
+- Stephanie Wood, ed., <i>Online Nahuatl Dictionary</i>, s.v. "atlatl" (Eugene, OR: Wired Humanities Projects, University of Oregon, 2000–), https://nahuatl.wired-humanities.org/content/atlatl. [Open access]
+  - used by: wh-081
+- Michelle C. Langley, Noel Amano, Oshan Wedage, et al., "Bows and arrows and complex symbolic displays 48,000 years ago in the South Asian tropics," <i>Science Advances</i> 6, no. 24 (2020): eaba3831, https://pmc.ncbi.nlm.nih.gov/articles/PMC7292635/. [Open access]
+  - used by: wh-082
+- John Meadows, Carl Heron, Matthias Hüls, Bente Philippsen, and Mara-Julia Weber, "Dating the lost arrow shafts from Stellmoor (Schleswig-Holstein, Germany)," <i>Quartär</i> 65 (2018): 105–114, https://quartaer.obermaier-gesellschaft.de/pdfs/2018/2018_05_meadows.pdf. [Open access]
+  - used by: wh-082
+- Jürgen Junkmanns, Johanna Klügl, Werner Schoch, Giovanna Di Pietro, and Albert Hafner, "Neolithic and Bronze Age archery equipment from Alpine ice-patches: a review on components, construction techniques and functionality," <i>Journal of Neolithic Archaeology</i> 21 (2019): 283–314, https://doi.org/10.12766/jna.2019.10. [Open access]
+  - used by: wh-082
+- B. W. Kooi and C. A. Bergman, "An approach to the study of ancient archery using mathematical modelling," <i>Antiquity</i> 71, no. 271 (1997): 124–134, https://www.bio.vu.nl/thb/users/kooi/kobe97.pdf. [Open access]
+  - used by: wh-082
+- John J. Shea and Matthew L. Sisk, "Complex projectile technology and <i>Homo sapiens</i> dispersal into western Eurasia," <i>PaleoAnthropology</i> 2010 (2010): 100–122, https://paleoanthro.net/media/journal/content/PA20100100.pdf. [Open access]
+  - used by: wh-082
+- Matthew L. Sisk and John J. Shea, "The African origin of complex projectile technology: an analysis using tip cross-sectional area and perimeter," <i>International Journal of Evolutionary Biology</i> 2011 (2011): 968012, https://pmc.ncbi.nlm.nih.gov/articles/PMC3132613/. [Open access]
+  - used by: wh-082
+- Laure Metz, Jason E. Lewis, and Ludovic Slimak, "Bow-and-arrow, technology of the first modern humans in Europe 54,000 years ago at Mandrin, France," <i>Science Advances</i> 9, no. 8 (2023): eadd4675, https://pmc.ncbi.nlm.nih.gov/articles/PMC9946345/. [Open access]
+  - used by: wh-082
+- Lucinda Backwell, Francesco d'Errico, and Lyn Wadley, "Middle Stone Age bone tools from the Howiesons Poort layers, Sibudu Cave, South Africa," <i>Journal of Archaeological Science</i> 35, no. 6 (2008): 1566–1580, https://in-africa.org/wp-content/uploads/2012/12/Backwell-et-al-2008-JAS-MSA-bone-tools-from-HP-layers-Sibudu.pdf. [Open access]
+  - used by: wh-082
+- Lucinda Backwell, Justin Bradfield, Kristian J. Carlson, et al., "The antiquity of bow-and-arrow technology: evidence from Middle Stone Age layers at Sibudu Cave," <i>Antiquity</i> 92, no. 362 (2018): 289–303, https://doi.org/10.15184/aqy.2018.11. [Paywalled]
+  - used by: wh-082
+- Marlize Lombard and Laurel Phillipson, "Indications of bow and stone-tipped arrow use 64 000 years ago in KwaZulu-Natal, South Africa," <i>Antiquity</i> 84, no. 325 (2010): 635–648, https://doi.org/10.1017/S0003598X00100134. [Paywalled]
+  - used by: wh-082
+
+---
+
 ## CANDIDATES — NOT VERIFIED, DO NOT PASTE INTO `data.js`
 
 *Empty.* Everything gathered by search during the blocked attempt of 2026-07-30 has since been opened and

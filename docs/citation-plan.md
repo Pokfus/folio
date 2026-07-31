@@ -229,24 +229,146 @@ d'Errico on ochre and engraving; McBrearty & Brooks 2000 for the "revolution tha
 `wh-058` should be reconciled against. South African Heritage Resources Agency records where a site card
 needs an official one.
 
-### Batch 6 · Out of Africa: Sahul and the Americas (10)
-`wh-059` Madjedbebe · `wh-060` Lake Mungo remains · `wh-061` Beringia · `wh-062` Settlement of the Americas ·
-`wh-063` Paleo-Indians · `wh-091` Clovis culture · `wh-092` Clovis point · `wh-093` Folsom tradition ·
-`wh-094` Monte Verde · `wh-095` Meadowcroft Rockshelter
+### Batch 6 · Out of Africa: Sahul and the Americas (10) — **10 of 10 DONE (2026-07-31)**
+**Cited:** `wh-059` Madjedbebe · `wh-060` Lake Mungo remains · `wh-061` Beringia · `wh-062` Settlement of the
+Americas · `wh-063` Paleo-Indians · `wh-091` Clovis culture · `wh-092` Clovis point · `wh-093` Folsom
+tradition · `wh-094` Monte Verde · `wh-095` Meadowcroft Rockshelter. Nothing deferred.
 
-Spine: Clarkson et al. 2017 on Madjedbebe; Bowler et al. 2003 on Mungo; Dillehay et al. 2008 on Monte
-Verde; Waters & Stafford 2007 on Clovis chronology; Adovasio on Meadowcroft; the UNESCO Willandra Lakes
-record; National Park Service records for the American type sites, which are official and permanent.
-**This batch is the most contested in the deck** — the peopling dates are actively disputed, and the
-cards' hedges need to survive contact with the sources rather than be sharpened by them.
+Spine as worked: Clarkson et al. 2017 with the 2018 reply and O'Connell et al. 2018 (the critique), Florin
+et al. 2020 and Malaspinas et al. 2016 for `wh-059`; Bowler et al. 2003, Adcock et al. 2001 with Heupink et
+al. 2016, Gillespie 2002 and Brumm & Moore 2005 for `wh-060`; Farmer et al. 2023, Jakobsson et al. 2017,
+Hoffecker et al. 2023, Tamm et al. 2007, Llamas et al. 2016 and Schroeder et al. 2007 for `wh-061`;
+Moreno-Mayar et al. 2018, Waters et al. 2020, Davis et al. 2022, Shillito et al. 2020, Bennett et al. 2021
+with Holliday et al. 2025, Lesnek et al. 2018 and Rasmussen et al. 2014 for `wh-062`; Roberts 1940 read in
+full, Chatters et al. 2024, Koch & Barnosky 2006, Cordell 1976 and Slade 2021 for `wh-063`; Waters et al.
+2020, Grayson/Meltzer/Breslawski 2021, Story et al. 2019 and the two Eren papers for `wh-091`; Byram et al.
+2024, Thulman et al. 2023, Slade 2021 and Waitt 2016 for `wh-092`; Buchanan et al. 2021, Jackson 1997,
+Bement et al. 1997, Figgins 1927, Cordell 1976 and Thomas et al. 2017 for `wh-093`; Pino & Dillehay 2023,
+Dillehay et al. 2015, Surovell et al. 2026 and the three 2026 eLetters for `wh-094`; the NPS landmark
+nomination, Madsen et al. 2025, Rosencrance et al. 2026 and Adovasio et al. 1990 for `wh-095`.
 
-### Batch 7 · Upper Palaeolithic Europe: the industries (9)
-`wh-064` Cro-Magnon · `wh-065` Châtelperronian · `wh-066` Aurignacian · `wh-071` Gravettian ·
-`wh-077` Solutrean · `wh-079` Magdalenian · `wh-080` microlith · `wh-081` spear-thrower · `wh-082` bow and arrow
+### Batch 6 log — Sahul and the Americas
+All ten cards shipped 2026-07-31. Seventy-three citation slots across the ten cards, drawn from **67
+distinct works, 57 of them open** — every card's list majority-open, and `wh-063`, `wh-091` and `wh-092`
+fully open. Coverage went from `cards 47/109` to `cards 57/109`. Network access was available and every
+source was opened before it was written down.
 
-Spine: Higham et al. 2011 on the earliest Aurignacian; Hublin et al. 2012 on the Châtelperronian
-attribution; Nigst et al. 2014; Banks et al. on Solutrean/Magdalenian ranges; Sano et al. 2019 and
-Backwell & d'Errico on projectile technology. French heritage-ministry records for the eponymous sites.
+**The plan called this "the most contested batch in the deck" and that was right, but not in the way it
+expected.** The prediction was that the disputed *peopling dates* would be the problem. They were the easy
+part: White Sands, Clovis, Folsom, Monte Verde and Madjedbebe all have published Bayesian models, and the
+cards' hedges survived contact with them almost intact. What did not survive was the **quiet, confident
+detail around the dates** — twenty-five corrections, far more than any previous batch, and most of them in
+sentences nobody would have thought to check:
+
+- **`wh-063`'s central historiographical claim was backwards.** The card said Frank H. H. Roberts Jr. coined
+  "Paleo-Indian" in 1940 *for a class of stone tools rather than for a people*. Roberts 1940 was read in
+  full: he never defines the term at all, and every one of his four uses denotes people or a period, closing
+  with "there actually was a Paleo-Indian." Rewritten to say he used the name without defining it. This is
+  the clearest case yet for the rule that a citation must be read, not matched — a plausible-looking
+  reference to Roberts 1940 would have *anchored* the error.
+- **Numbers that had drifted from a maximum into a minimum, or from one quantity into another.**
+  `wh-095`'s "at least 16,000 years ago" was the single oldest of five dates running down to 13,240, against
+  the excavators' own 14,000–14,500 radiocarbon years; the same card used 16,000 for the occupation *span*
+  in one sentence and the *age of the deepest layer* in the next. `wh-093`'s "23 points" was the old *bison*
+  count, and its end date of 11,900 fell outside even the 95% interval of the current model.
+- **Figures that trace to no published count at all.** `wh-091`'s "10,000 Clovis points from 1,500 places"
+  and "more such finds than anywhere else on earth"; `wh-092`'s "most forged artefacts in North America";
+  `wh-095`'s "four laboratories" (the record names two) and "largest collection from eastern North America".
+  Each reads like scholarship and is press or encyclopedia material. All dropped.
+- **A recurring shared error across three cards:** Clovis and Folsom points "seated in a split shaft."
+  The open hafting literature points to a bone or ivory socket, and Slade 2021 leaves the question open.
+  Fixed identically in `wh-063`, `wh-091` and `wh-092` — when the same phrasing recurs across a deck, one
+  card's correction is every card's correction.
+
+**Two working rules this batch adds.** First, **a source that supports a claim may still not support the
+sentence**: `wh-061` cited the standstill to Tamm et al., which gives 15,000 years and never mentions ice
+sheets, and stated a critique of the hypothesis that appears only in a news summary — Hoffecker et al.'s
+actual objection is different and better. Second, **check the date line as well as the prose.** The
+`answerDate` repeats the abstract's figures, and `add-sources.js` does not touch it, so three cards would
+have shipped corrected prose above a wrong date line. `.claude/fix-field.js` was written for exactly this
+and refuses to write unless every find string is present.
+
+**`wh-094`'s 2026 dispute is real and was verified.** Surovell et al., *Science*, 19 March 2026 exists, and
+the three May 2026 eLetters answering it (30 authors between them) were read in full via institutional
+mirrors. What did not survive is the card's "outcrops up to 4 kilometres away": no distance figure appears
+in any of the three critiques — it is a Dillehay remark to *El Ciudadano*. Note also that both data DOIs the
+eLetters point at are **dead** (figshare `EntityNotFound`; the Zenodo record tombstoned 2026-05-18), so the
+mirrors are the only citable location.
+
+**One card kept an uncitable sentence on purpose.** `wh-093`'s George McJunkin — the Black cowboy, born into
+slavery, who found the Folsom bones in 1908 and died before anyone would look — appears in no peer-reviewed
+source that could be opened; Figgins 1927 credits Howarth and Schwachheim. The story is not contradicted,
+merely unreachable, and it is the heart of the card. It stays, without a marker. Absence of a citation is
+not a reason to delete a true thing; it is a reason not to claim one.
+
+### Batch 7 · Upper Palaeolithic Europe: the industries (9) — **9 of 9 DONE (2026-07-31)**
+**Cited:** `wh-064` Cro-Magnon · `wh-065` Châtelperronian · `wh-066` Aurignacian · `wh-071` Gravettian ·
+`wh-077` Solutrean · `wh-079` Magdalenian · `wh-080` microlith · `wh-081` spear-thrower · `wh-082` bow and
+arrow. Nothing deferred.
+
+Spine as worked: Henry-Gambier 2002 with the PALEO 2013 attribution, Fu 2016 and Haak 2015 for `wh-064`;
+Djakovic/Roussel/Soressi 2024 with Welker 2016, Higham 2010 *and* Caron 2011, Gravina 2018, Gicqueau 2023
+and Narr 2021 for `wh-065`; Lyell 1863 and Lartet & Christy 1875 with Kitagawa & Conard 2020, Marín-Arroyo
+2018, Haws 2020 and Rhodes 2019 for `wh-066`; Posth 2023, Farbstein & Nowell 2024, Weber 2022, Wren & Burke
+2019 and Maier 2023 for `wh-071`; Cascalheira & Bicho 2015, Cascalheira 2019, Bachellerie 2025, Gilligan
+2024, Turner 1999 and the Rasmussen/Eren pair for `wh-077`; Fu 2016 with Posth 2023, García-Diez 2013, Bello
+2021, Needham 2022, Breuil 1954 and de Mortillet 1885 for `wh-079`; Larsson 2016, Way 2022, Will & Conard
+2020, Wedage 2019, Groman-Yaroslavski 2020 and Fasser & Fontana 2026 for `wh-080`; Bebber 2023, Cattelain &
+Pétillon 2015 and Coppe 2023 for `wh-081`; Langley 2020, Metz 2023, Meadows 2018, Junkmanns 2019, Kooi &
+Bergman 1997 and Shea & Sisk 2010 for `wh-082`.
+
+### Batch 7 log — the industries
+All nine cards shipped 2026-07-31. Seventy-nine citation slots across the nine cards, drawn from **77
+distinct works, 65 of them open**, every card's list majority-open. Coverage went from `cards 57/109` to
+`cards 66/109`. **Forty-six sentence corrections — double batch 6, itself the previous record.**
+
+**This batch found errors of a new kind: cards contradicting OTHER FOLIO CARDS, and markers resting on
+sources that do not say the thing.** Two cards shipped in earlier batches had to be corrected:
+
+- **`wh-084` Chauvet** (batch 9) credited Quiles et al. 2016 with "an **Aurignacian** phase … and a
+  **Gravettian** one". Fetching that paper directly: it gives the two phases and their dates exactly, and
+  assigns **no archaeological culture at all** — "Gravettian" appears nowhere in it. The Chauvet–Aurignacian
+  attribution is separately contested in print (Pettitt & Bahn 2015). The dates stand; the labels are gone.
+- **`wh-053` Sibudu** (batch 5) called the arrowhead "a **slender** bone point," cited to Backwell et al.
+  2008. That paper's abstract, read directly: "A **slender** point is consistent with a **pin or needle-like
+  implement**, while a **larger** point … parallels large un-poisoned bone **arrow** points." The two objects
+  were swapped.
+
+Three more contradictions were *within* the batch: `wh-080` dated Howiesons Poort backed pieces to ~70,000
+where our cited `wh-052` says 64,800–59,500 (the 71 ka figure belongs to Pinnacle Point, which its source
+sets *against* the Howiesons Poort); `wh-071` claimed almost all Ice Age art is Gravettian, which our cited
+`wh-084` and `wh-085` refute; and `wh-065` and `wh-071` both credited Garrod with a 1938 naming, true for the
+Châtelperronian and unverified for the Gravettian.
+
+**→ Add a sibling-card consistency check to the per-card workflow.** When a card names a date, a culture or a
+site that another card also names, the two must agree, and the shared claim must be checked once rather than
+twice. Four instances in two batches is a pattern, not a coincidence.
+
+**→ And a standing "which clock is this on?" check.** Uncalibrated radiocarbon written as calendar years has
+now appeared **five times**: `wh-086` Lascaux, `wh-093` Folsom, `wh-095` Meadowcroft, and in this batch both
+`wh-077` Solutrean (22,000–17,000 → 25,000–19,000 cal BP) and `wh-079` Magdalenian (17,000–12,000 →
+21,000–14,000). These never look wrong — they look like round, confident numbers — which is exactly why they
+survive ordinary fact-checking. Ask of every date which scale it is on.
+
+**Two predictions made when the batch was dispatched were wrong, and both are worth recording.** `wh-080`
+microlith was called the likely defer as "definitional technique material"; it proved fully sourceable and
+was the card that caught the `wh-052` contradiction. And the Aurignacian's discovery story — a workman, a
+slab, seventeen skeletons, a mayor reburying them, the graves then lost — was flagged as probable folklore;
+**Lyell 1863 documents every element of it, straight from Lartet's own account.** Vividness is not evidence
+of invention, and an instinct for which claims are soft is not a substitute for opening the source.
+
+Other substantive corrections: the Cro-Magnon skeletons were found during **road** works in 1868, not
+railway works (the railway had cut the talus years earlier), and the skull's forehead lesion is a contested
+NF1/NF2 diagnosis that the Smithsonian still calls a fungal infection; Breuil **defined** the Châtelperronian
+in **1909** and filed it *as* Early Aurignacian, with Garrod supplying the name in 1938 — the card had this
+backwards — and Welker et al. 2016 did not persuade the doubters, who published further challenges after it;
+the Aurignacian's end date was 26,000 where the Bayesian models give ~33,000, and its "bone" points are
+antler; the Gravettian's ceramics superlative overshot its own sources; the Solutré horse-stampede debunking
+rested on two physical specifics no openable source states; and Combe Saunière is **not** the oldest securely
+dated spear-thrower — the specialists explicitly excluded it, and the card's "17,500" is a figure lifted from
+a sentence about different objects. The spear-thrower's "two-thirds more velocity" figure, flagged in advance
+as suspicious, turned out to be **correct** (65%, from 2,160 launches) — but the sentence around it was wrong,
+comparing a 200 g dart to an 800 g javelin as though they were "the same shafts".
 
 ### Batch 8 · Upper Palaeolithic art: portable (9)
 `wh-067` Lion-man · `wh-068` Hohle Fels · `wh-069` Venus of Hohle Fels (if not in the pilot) ·
@@ -258,33 +380,198 @@ Kurat/Antl-Weiser via the Naturhistorisches Museum Wien for Willendorf; Trinkaus
 2014 on the Mal'ta genome; the UNESCO Swabian Jura Caves record. **`wh-070` needs its hedge checked** —
 whether the Divje Babe object is a flute at all is disputed, and the card must not read as settled.
 
-### Batch 9 · Upper Palaeolithic art: rock and cave (6)
-`wh-083` cave painting · `wh-084` Chauvet Cave · `wh-085` Cave of Altamira · `wh-086` Lascaux ·
-`wh-087` Cosquer Cave · `wh-097` petroglyph
+### Batch 9 · Upper Palaeolithic art: rock and cave (6) — **5 of 6 DONE (2026-07-31)**
+**Cited:** `wh-083` cave painting · `wh-084` Chauvet Cave · `wh-085` Cave of Altamira ·
+`wh-087` Cosquer Cave · `wh-097` petroglyph. **Deferred:** `wh-086` Lascaux (see below).
 
-Spine: Quiles et al. 2016 on the Chauvet chronology; Aubert et al. 2014 and 2021 on Sulawesi, which
-`wh-083`'s "at least 45,500 years ago" rests on; Pike et al. 2012 on uranium-series dates. UNESCO records
-for Altamira, the Vézère valley and the Côa Valley — the last is directly what `wh-097` describes. This is
-the batch where official sources carry the most weight.
+Spine as worked: Brumm et al. 2021 and Oktaviana et al. 2024 (Sulawesi, the 45,500/51,200 dates),
+Pike et al. 2012 (El Castillo U-series) and Quiles et al. 2016 (Chauvet) for `wh-083`; Quiles 2016 with the
+French Ministry of Culture's Chauvet pages (discovery, bear hollows) and Sadier et al. 2012 (the rockfall
+sealing) for `wh-084`; García-Díez et al. 2013 (Altamira U-series, open full text), Cartailhac 1902 (the
+recant) and Moro Abadía 2015 (reception history) for `wh-085`; Valladas et al. 2017 (the 33,000–20,000 cal BP
+range, HAL deposit), Etxepare & Irurtzun 2021 (the missing-finger debate), Clottes et al. 1992 (the two phases,
+Persée) and the Ministry's DRASSM Cosquer page for `wh-087`; Lingappa et al. 2021 (rock varnish, PNAS) and
+Aubry & Sampaio 2007 (Côa open-air Palaeolithic, Antiquity) for `wh-097`.
 
-### Batch 10 · Ice-age climate and megafauna (8)
-`wh-010` Pleistocene · `wh-011` Ice age (if not in the pilot) · `wh-012` Last Glacial Period ·
-`wh-078` Last Glacial Maximum · `wh-088` woolly mammoth · `wh-089` Quaternary extinction event ·
-`wh-090` Younger Dryas · `wh-096` Doggerland
+### Batch 9 log — Upper Palaeolithic art
+`wh-083` `wh-084` `wh-085` `wh-087` `wh-097` shipped 2026-07-31 (`wh-086` Lascaux deferred). Twenty citations,
+**nineteen open** (only Pike 2012 in `wh-083` is paywalled, beside three open), every card's list majority-open.
+Coverage went from `cards 42/109` to `cards 47/109`. Network access was available and every source was opened
+before it was written down; the two Ministry-of-Culture heritage pages and the French journal deposits
+(Persée, HAL) clear the plan's bar as authoritative open records.
 
-Spine: the ICS International Chronostratigraphic Chart and the Gibbard/Cohen GSSP papers; Clark et al. 2009
-on the LGM; Rasmussen et al. 2014 on the Greenland event stratigraphy; Stuart on megafaunal extinction
-chronology; Gaffney et al. on Doggerland. Mostly open, and much of it official stratigraphy — the easiest
-batch of the set.
+**This batch is the "official sources carry the most weight" batch as predicted — but the peer-reviewed
+dating literature carried more.** The load-bearing claim on every card is a *date* or a *composition*, and
+those go through: García-Díez 2013, Valladas 2017, Quiles 2016, Sadier 2012, Pike 2012, Brumm 2021,
+Oktaviana 2024 and Lingappa 2021 are all reachable (Valladas only via its HAL green-OA copy; Cambridge is
+paywalled). Six factual corrections turned up in the check, all of the "prose outran the source" kind:
+- `wh-084` Chauvet — "195 skulls" → "about 190" (the Ministry / cave-bear MNI figure is ~190; no source for 195).
+- `wh-085` Altamira — the card had a rockfall "clos[ing] the mouth some 13,000 years ago" as part of the
+  U-series sentence. García-Díez 2013 dates the ceiling but places the only roof collapse it mentions
+  *before the Gravettian*, tens of millennia earlier; the 13,000-year sealing is a conservation/museum figure,
+  not from the dating paper. Reworded to keep the (sourced) 20,000-year U-series span and drop the unsupported
+  13,000-year date, so the García-Díez marker sits only on what García-Díez bears out.
+- `wh-087` Cosquer — the tunnel is "150 metres" not 175, the LGM sea "about 120 metres lower" not 100 (both from
+  the Ministry's DRASSM page, which also disagrees with the Wikipedia-level 175 m), and "most of the cave"
+  drowned rather than a precise "four-fifths" (tertiary only). The 65-hands / 44+21 split and the 33,000–20,000
+  range both hold.
+- `wh-097` petroglyph — the Côa engravings reworded to "open-air Palaeolithic engravings … found during the dam
+  survey," dropping the "late 1980s" coming-to-light (the survey began then; the art was recognised in 1991),
+  which is also what lets the Aubry & Sampaio marker attach to a claim that paper actually makes.
 
-### Batch 11 · After the ice (11)
-`wh-099` Mesolithic · `wh-100` Epipaleolithic · `wh-101` Nordic Stone Age · `wh-102` Holocene ·
-`wh-103` Preboreal · `wh-104` Boreal · `wh-105` Atlantic period · `wh-106` Blytt–Sernander sequence ·
-`wh-107` Holocene climatic optimum · `wh-108` post-glacial rebound · `wh-109` 8.2-kiloyear event
+**`wh-086` Lascaux is deferred**, the one card of the six whose spine will not open: only ~4 of its 10 claims
+have qualifying open scholarship (Ducasse & Langlais 2019 on the chronology; Martin-Sánchez 2014 on the mould),
+while the galleries, the discovery, the scaffolding-and-lamps decline and the visitor history rest on the
+Aujoulat monograph and museum records. It also carries two errors to fix when it is worked: the date
+("about 17,000 years ago, some estimates 19,000") is the uncalibrated 14C age read as calendar years —
+Ducasse & Langlais 2019 puts the occupations at ~21,000 cal BP — and the Great Bull is ~5.6 m, not "5.2 metres"
+(Jouteau 2023). Recorded for a later Lascaux pass, not papered over now.
 
-Spine: Walker et al. 2009 and 2018 on the Holocene GSSP and its subdivision (open, and official for the
-epoch cards); Alley et al. 1997 and Thomas et al. 2007 on the 8.2 ka event; Peltier on glacial isostatic
-adjustment; Danish and Swedish national heritage records for the Nordic sequence.
+### Batch 10 · Ice-age climate and megafauna (8) — **7 of 7 DONE (2026-07-31)**
+**Cited:** `wh-010` Pleistocene · `wh-012` Last Glacial Period · `wh-078` Last Glacial Maximum ·
+`wh-088` woolly mammoth · `wh-089` Quaternary extinction event · `wh-090` Younger Dryas · `wh-096` Doggerland.
+(`wh-011` Ice age was taken in the pilot.) The batch plan called this "the easiest batch of the set" and it was:
+every card cleared, every list majority-open.
+
+Spine as worked: Gibbard & Head 2010 and Walker et al. 2009 on the GSSPs, Hays/Imbrie/Shackleton 1976 on the
+Milankovitch pacing, Spratt & Lisiecki 2016 on the sea-level stack, Jakobsson et al. 2017 on Beringia and
+Svenning et al. 2024 on the megafauna for `wh-010`; Batchelor et al. 2019 (ice sheets), Spratt & Lisiecki 2016,
+Quiles et al. 2016 (Chauvet) and Walker 2009 for `wh-012`; Clark et al. 2009, Moreno-Parada et al. 2023
+(Laurentide 4 km), Tierney et al. 2020 (LGM cooling), Bereiter et al. 2015 (CO2) and Villalba-Mouco et al. 2023
+(the 23 ka Malalmuerzo genome) for `wh-078`; van der Valk et al. 2021, Larramendi 2016, MacDonald et al. 2012,
+Dehasque et al. 2024 and Graham et al. 2016 for `wh-088`; Koch & Barnosky 2006, Sandom et al. 2014, Gill et al.
+2009, Rule et al. 2012, Broughton & Weitzel 2018, Stewart et al. 2025, Guimarães et al. 2008 and Doughty et al.
+2016 for `wh-089`; Walker 2009, Buizert et al. 2014, McManus et al. 2004, Murton et al. 2010 and Meltzer et al.
+2014 for `wh-090`; Walker et al. 2020, Gaffney/Thomson/Fitch 2007 (Mapping Doggerland) and Weninger et al. 2008
+for `wh-096`. Clark 2009 is cited paywalled (landmark) with four open sources beside it; McManus 2004's open WHOI
+PDF is what keeps `wh-090` majority-open. The originally planned spine did not fully survive: Rasmussen 2014 and
+Stuart 2015 are Elsevier-paywalled with no open deposit and were not needed (Walker 2009 carries the Greenland
+event dates; Koch & Barnosky 2006 carries the extinction chronology), and Coles 1998 was dropped for `wh-096`
+because Walker 2020 (open) confirms the naming attribution the card needed.
+
+### Batch 10 log — ice-age climate and megafauna
+
+#### 2026-07-31 — seven cards cited
+
+Network access was available; every source was opened before being written down. Coverage went from
+`cards 29/109` to `cards 36/109`. This was the tractable-by-source-type batch the batch-2 lesson predicted:
+the claims are dates, measurements, ice-core records, genomes and stratigraphic definitions, and the
+scholarship for them lives in open stratigraphy journals (Climate of the Past, The Cryosphere, Episodes,
+the GTS Foundation deposit of Walker 2009), open-access reviews and PMC.
+
+**Eight corrections**, all made in English and all nine languages in the same batch:
+
+- **wh-010 / wh-012** said the sea fell "as much as 120 metres" / "some 120 metres" at glacial maximum. The
+  GIA-constrained LGM estimate is **−130 to −134 m** (Spratt & Lisiecki 2016, quoting Clark 2009 and Lambeck
+  2014) — the same correction the pilot already made to `wh-011`. Both raised to 130.
+- **wh-078** said "**Land** temperatures averaged some 6 degrees Celsius colder." Tierney et al. 2020's −6.1 °C
+  is a **global mean**, not a land figure (land cooled more). Corrected to "Global temperatures."
+- **wh-078** gave LGM CO2 as "roughly 180 parts per million." Bereiter et al. 2015's composite puts the LGM at
+  ~187–190 ppm and IPCC AR6 states ~190; "180" is the classic glacial-minimum figure but low for the LGM proper.
+  Corrected to 190, in the abstract and the date line.
+- **wh-088** said mammoth teeth held "the oldest DNA yet sequenced." As of 2021 (van der Valk) it was the oldest
+  from any organism, but ~2-million-year-old **environmental** DNA (Kjær et al. 2022) is older. Qualified to "the
+  oldest DNA yet sequenced from any animal."
+- **wh-089** said Africa lost "under a fifth" of its large genera. Koch & Barnosky 2006 (Table 2) give **21%** —
+  marginally over a fifth. Corrected to "about a fifth."
+- **wh-090** said the warming the Younger Dryas interrupted was "more than two thousand years" old. The
+  Bølling–Allerød ran ~14.7–12.9 ka, i.e. **~1,800 years**. Corrected to "nearly two thousand years," in the
+  abstract and the date line.
+- **wh-090** gave the Greenland cooling as "10 to 15 degrees." Buizert et al. 2014 give the abrupt central-Greenland
+  change as **9–14 °C**; the "15" upper bound is not stated. Corrected to "10 to 14 degrees."
+- **wh-096** told the 1931 Doggerland harpoon find with a "skipper struck a lump of peat with his shovel" and a
+  "Norfolk trawler." The shovel-blow is a popular retelling with no scholarly source, and the trawler *Colinda* was
+  Lowestoft-registered. Reworded to the checkable facts: a North Sea trawler's net, 1931, a lump of peat that broke
+  open to reveal a barbed antler point.
+
+**Two source-type findings worth keeping.** First, *the open copy is often not at the DOI* — Walker 2009 and
+McManus 2004 are paywalled at the publisher but fully open at the GTS Foundation and WHOI respectively, and
+those deposits are what make `wh-010`/`wh-012` and `wh-090` majority-open. Fetch the institutional file, not just
+the DOI. Second, *a candidate source can support human causation and still contradict the specific claim*: van
+der Kaars et al. 2017 was the planned Australian Sporormiella citation for `wh-089`, but its own record shows
+vegetation change **preceding** the megafaunal collapse by ~27,000 years — the opposite of the "spores drop
+before vegetation" ordering the card states. Rule et al. 2012 (Lynch's Crater) carries that ordering; van der
+Kaars was dropped for it.
+
+**On the mechanism.** Marker splicing by sentence index worked a sixth time, and for once with no CJK remap
+needed: all seven cards are exactly 5+5 sentences in every one of the ten languages, verified by a split/join
+round-trip before any marker was placed, and every marker position was eyeballed across all ten languages per
+the batch-1 warning.
+
+### Batch 11 · After the ice (11) — **6 of 11 DONE (2026-07-31)**
+**Cited:** `wh-102` Holocene · `wh-105` Atlantic period · `wh-106` Blytt–Sernander sequence ·
+`wh-107` Holocene climatic optimum · `wh-108` post-glacial rebound · `wh-109` 8.2-kiloyear event.
+
+**Deferred:** `wh-103` Preboreal, `wh-104` Boreal (their defining pollen-zone vegetation content rests on
+paywalled palynology), and `wh-099` Mesolithic, `wh-100` Epipaleolithic, `wh-101` Nordic Stone Age (the
+culture-historical/definitional cards, which belong with batch 12). See the Batch 11 log.
+
+Spine as worked: the ICS Subcommission on Quaternary Stratigraphy "Major Divisions" page and Walker et al. 2018
+(subdivision) and its Anthropocene working-group page for `wh-102`; Walanus & Nalepka 2010 (calibrated Mangerud
+boundaries), Seppä et al. 2009 (N-European Holocene temperatures), Yu 2003 (Littorina transgression) and Parker
+et al. 2002 (elm decline) for `wh-105`; Marchal et al. 2002 and Walker et al. 2012 for `wh-106`; Kaufman et al.
+2020, Cartapanis et al. 2022, Tierney et al. 2017 (Green Sahara) and IPCC AR6 for `wh-107`; Whitehouse 2018,
+Sella et al. 2007, Poutanen & Steffen 2014 and Bradley et al. 2009 for `wh-108`; Alley et al. 1997, Matero et al.
+2017, Thomas et al. 2007, Walker et al. 2020, Weninger et al. 2006 and Walker et al. 2018 for `wh-109`. The
+planned spine did not survive contact: **Mangerud et al. 1974 (Boreas) is paywalled with no open deposit**, and
+Peltier and the Danish/Swedish heritage records were not needed.
+
+### Batch 11 log — after the ice
+
+#### 2026-07-31 — six cards cited, five deferred
+
+Coverage went from `cards 36/109` to `cards 42/109`. Every source was opened before being written down.
+
+**This is the batch-2 source-type lesson, one more time.** Batch 11 as planned held eleven cards, and they split
+by *where the load-bearing scholarship lives*, not by subject:
+
+- The six that shipped are **stratigraphy, climate and geophysics** — the Holocene GSSP and its subdivision, the
+  Holocene thermal maximum, glacial isostatic adjustment, the 8.2 ka event, the Atlantic chronozone, and the
+  Blytt–Sernander scheme itself. Their claims are dates, GSSPs, measured uplift rates, ice-core signals and
+  temperature reconstructions, and that work sits in open stratigraphy journals (Episodes, *Climate of the Past*,
+  *Earth Surface Dynamics*, *The Cryosphere*), the ICS's own maintained pages, and open institutional deposits
+  (the WHOI PDF of Marchal 2002, the GTS-Foundation deposit of Walker 2009).
+- **The two chronozone cards deferred — `wh-103` Preboreal and `wh-104` Boreal — turn on their defining
+  vegetation**: the pollen-zone palynology (birch zone IV; the hazel rise and the "hazel-pine forest"). That
+  literature (Mangerud 1974, Holst 2010, the *Corylus*-expansion papers) is paywalled with no open deposit, so
+  the very content that makes those cards what they are could not be sourced. `wh-099`/`wh-100`/`wh-101` are the
+  Mesolithic culture-history cards and belong with batch 12's definitional set.
+
+**The key that rescued `wh-105` and `wh-106`:** Mangerud et al. 1974, the primary for every chronozone boundary,
+is closed — but its boundaries are *quoted and attributed* in the open Marchal et al. 2002 and Walker et al. 2012,
+and the open Walanus & Nalepka 2010 reproduces and calibrates its table. So the chronozone cards whose OTHER
+content is open (the Atlantic's warmth and Littorina transgression; the scheme's own historiography and critique)
+go through by citing those; the ones whose other content is *also* closed (Preboreal, Boreal) do not.
+
+**Seven corrections**, made in English and all nine languages:
+
+- **`wh-105`** said northern-European summers at the Holocene optimum ran "up to 2 degrees warmer." Seppä et al.
+  2009's northern-Europe stack gives a **summer anomaly of ~1.5 °C** (the ~2.0–2.5 °C figure is the *annual*
+  mean, which the card already uses for the 2.5 °C cooling since). Corrected to "about one and a half degrees."
+- **`wh-106`** gave the Atlantic chronozone as "8,000 to 5,000 years before the present." Those are **radiocarbon
+  years** (Mangerud's units); in calendar years they are ~8,900–5,700 cal BP. Marked as radiocarbon years so the
+  span reads on the same clock as the figures around it.
+- **`wh-107`** said the Green Sahara covered "some 9 million square kilometres." That figure — the modern area of
+  the Sahara — appears only in the press, in no source that could be opened. Softened to "much of the Sahara."
+- **`wh-107`** had the African Humid Period drying "earlier in the north and east." The open evidence
+  (Shanahan's latitudinal pattern) supports **north before south**, not an east–west axis. Corrected.
+- **`wh-109`** put "something like 160,000 cubic kilometres" of freshwater into the 8.2 ka flood. That classic
+  figure is Barber et al. 1999's, which could not be opened, and neither Matero 2017 nor Aguiar 2021 restates it
+  as a volume, so it was dropped rather than cited to a number nobody here could check.
+- **`wh-109`** said the drowning of Doggerland "was completed about now, helped by the Storegga landslide." Walker
+  et al. 2020 — the very source — argues the opposite: the inexorable sea-level rise, not the wave, took the last
+  of it, and much of the land survived the tsunami. Reworded (the same correction batch 10 made to `wh-096`).
+- **`wh-109`** had the Pre-Pottery Neolithic B collapse "its long-distance trade in stone and shell breaking off."
+  Weninger et al. 2006 supports the site abandonment across the Levant, Syria and Anatolia; the trade-collapse
+  clause is unverified, and was dropped.
+
+**On the mechanism.** The splitter needed one addition this batch: the calendar-date cards write BCE with a
+period ("v. Chr.", "a. C.", "av. J.-C."), and the internal abbreviation dot was splitting sentences in five
+languages. A rule that never breaks on a lowercase continuation (German "v. Chr. entspricht") plus a targeted
+guard for the era abbreviations fixed it, and all six cards then round-tripped 5+5 in every language before any
+marker was placed. `test-sources.js` also needed a robustness fix: its "a card with no citations shows no
+Sources fold" check studied the date-seeded card of the day, which the pass has now cited — it strips sources on
+that one page so it tests the mechanism rather than leaning on an uncited card.
 
 ### Batch 12 · The framework itself (8)
 `wh-001` Paleolithic · `wh-002` Lower Paleolithic · `wh-003` Middle Paleolithic · `wh-004` Upper Paleolithic ·
@@ -792,5 +1079,5 @@ If a needed host turns out to be missing mid-batch, the cheaper fix is switching
 - **Changelog.** One line per day, raising its count — "Sources added to N cards in the World History
   prehistory deck" — with its nine translations, per the house rule. Corrections found along the way get
   their own line, and should name what changed.
-- **Coverage** is reported by `add-sources.js` on every run (`cards 26/109`), which is how the pass is
+- **Coverage** is reported by `add-sources.js` on every run (`cards 66/109`), which is how the pass is
   tracked across sessions.
