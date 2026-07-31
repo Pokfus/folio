@@ -82,7 +82,7 @@ https://pmc.ncbi.nlm.nih.gov/articles/PMC5783678/. [Open access]
   volumes inside the present-day range (table 1); that brain shape "evolved gradually within the *H.
   sapiens* lineage, reaching present-day human variation between about 100,000 and 35,000 years ago" —
   i.e. the modern face came first and the round skull later
-- used by: wh-045
+- used by: wh-045, wh-044, wh-043
 
 ### meneganzin-2022 · the pan-African debate
 Andra Meneganzin, Telmo Pievani, and Giorgio Manzi, "Pan-Africanism vs. Single-Origin of *Homo sapiens*:
@@ -94,7 +94,7 @@ https://pmc.ncbi.nlm.nih.gov/articles/PMC9540121/. [Open access]
   more modern-like face preceded the globular braincase; the pan-African picture of a population spread
   across the continent. Also flags that calling these "the oldest *Homo sapiens* fossils" is too hasty —
   which is why the card says "assigned to", not "of"
-- used by: wh-045
+- used by: wh-045, wh-043
 
 ### conard-2009 · the Venus of Hohle Fels
 Nicholas J. Conard, "A Female Figurine from the Basal Aurignacian of Hohle Fels Cave in Southwestern
@@ -495,7 +495,7 @@ David Reich et al., "Genetic History of an Archaic Hominin Group from Denisova C
   Melanesians"; the naming of the population "Denisovans" and the suggestion that it "may have been
   widespread in Asia"; the tooth from the same cave carrying a near-identical mtDNA; and, in the
   introduction, that systematic excavation at the site had gone on for 25 years
-- used by: wh-035, wh-036
+- used by: wh-035, wh-036, wh-043
 
 ### slon-2018 · Denisova 11
 Viviane Slon et al., "The Genome of the Offspring of a Neanderthal Mother and a Denisovan Father," *Nature*
@@ -775,7 +775,7 @@ no. 7514 (2014): 306–9, https://doi.org/10.1038/nature13621. [Paywalled]
   probability)"; that "the disappearance of Neanderthals occurred at different times in different regions";
   and "a significant overlap of 2,600–5,400 years (at 95.4% probability)" with the earliest modern humans
 - note: the abstract says nothing about Gibraltar, and this paper is not what undid the late Iberian dates.
-- used by: wh-041
+- used by: wh-041, wh-034, wh-043
 
 ### wood-2013 · the late Iberian dates undone
 Rachel E. Wood et al., "Radiocarbon Dating Casts Doubt on the Late Chronology of the Middle to Upper
@@ -820,7 +820,150 @@ https://doi.org/10.1371/journal.pone.0225117. [Open access]
   cultural traits, and even in the absence of inter-specific competition, Neanderthals faced a considerable
   risk of extinction"; and that the simulations run over "a time span of 10,000 years" ("Materials and
   Methods"), which is the card's "within 10,000 years"
-- used by: wh-041
+- used by: wh-041, wh-034
+
+### mcdougall-2005 · the age of Omo I, 2005
+Ian McDougall, Francis H. Brown, and John G. Fleagle, "Stratigraphic Placement and Age of Modern Humans from
+Kibish, Ethiopia," *Nature* 433, no. 7027 (2005): 733–36, https://doi.org/10.1038/nature03258. [Paywalled]
+- opened: 2026-07-31 · publisher abstract on nature.com. Landmark dating paper; no open deposit.
+- supports: the 1967 recovery of Omo I and Omo II from the Kibish Formation; that both come from Member I
+  "despite the view that Omo I is more modern in appearance than Omo II"; the 40Ar/39Ar age of feldspar
+  crystals; "our preferred estimate of the age of the Kibish hominids is 195 ± 5 kyr, making them the earliest
+  well-dated anatomically modern humans yet described" — the card's "195,000 in 2005"
+- used by: wh-044
+
+### vidal-2022 · the age of Omo I, revised
+Céline M. Vidal et al., "Age of the Oldest Known *Homo sapiens* from Eastern Africa," *Nature* 601, no. 7894
+(2022): 579–83, https://pmc.ncbi.nlm.nih.gov/articles/PMC8791829/. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: "a new minimum age for the Omo fossils of 233 ± 22 kyr" — the card's "pushed it beyond 233,000";
+  that this is incompatible with the earlier ~197 kyr Nakaa'kire Tuff age (McDougall 2005), which "must
+  therefore be older"; and Omo I's "unequivocal modern cranial apomorphies (that is, a tall cranial vault and
+  a chin)"
+- used by: wh-044, wh-043
+
+### cann-1987 · Mitochondrial Eve
+Rebecca L. Cann, Mark Stoneking, and Allan C. Wilson, "Mitochondrial DNA and Human Evolution," *Nature* 325,
+no. 6099 (1987): 31–36, https://doi.org/10.1038/325031a0. [Paywalled]
+- opened: 2026-07-31 · publisher abstract on nature.com. The founding paper; no open copy.
+- supports: "Mitochondrial DNAs from 147 people, drawn from five geographic populations" (abstract); "all these
+  mitochondrial DNAs stem from one woman who is postulated to have lived about 200,000 years ago, probably in
+  Africa" — the card's 147 people and African root
+- used by: wh-047
+
+### hernandez-2023 · mtDNA, the molecular basis and the legacy
+Candela L. Hernández, "Mitochondrial DNA in Human Diversity and Health: From the Golden Age to the Omics Era,"
+*Genes* 14, no. 8 (2023): 1534, https://doi.org/10.3390/genes14081534. [Open access]
+- opened: 2026-07-31 · full text (CC BY)
+- supports: "the uniparental inheritance is one of the greatest assets of mtDNA that, in combination with the
+  absence of recombination, allows direct reconstructions" (§2.3) — the card's maternal-only, non-recombining
+  clock; that the 1987 Cann study traced "the common African genetic origin of all present-day human
+  populations around 200 thousand years ago"; and that modern high-throughput work still supports "the big
+  picture (African common genetics roots)" — the card's "survived every better analysis"
+- used by: wh-047
+
+### fu-2013 · the revised mtEve date
+Qiaomei Fu et al., "A Revised Timescale for Human Evolution Based on Ancient Mitochondrial Genomes," *Current
+Biology* 23, no. 7 (2013): 553–59, https://pmc.ncbi.nlm.nih.gov/articles/PMC5036973/. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: "the time of the MRCA for all modern humans was estimated at 157 kya (120–197 kya 95% HPD)" — the
+  card's "roughly 150,000 to 200,000 years ago"
+- used by: wh-047
+
+### mendez-2013 · Y-chromosomal Adam, the deep root
+Fernando L. Mendez et al., "An African American Paternal Lineage Adds an Extremely Ancient Root to the Human Y
+Chromosome Phylogenetic Tree," *American Journal of Human Genetics* 92, no. 3 (2013): 454–59,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC3591855/. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: the sample of Albert Perry submitted to "a commercial genetic-testing facility" carrying "the
+  ancestral state of all known Y chromosome SNPs"; the matching haplogroup "found in a sample of 174 (∼6.3%)
+  Mbo individuals from western Cameroon"; "we estimated the TMRCA of human Y chromosomes as 338 kya (95% CI =
+  237–581 kya)" against previous estimates "consistently lower for the Y chromosome (∼60–140 thousand years ago)"
+- note: **this is the correction.** 338 kya against a previous ∼60–140 kya is a jump of roughly two hundred
+  thousand years; the card said "roughly a hundred thousand" and was corrected
+- used by: wh-048
+
+### karmin-2015 · the Y-chromosome MRCA, 456 genomes
+Monika Karmin et al., "A Recent Bottleneck of Y Chromosome Diversity Coincides with a Global Change in
+Culture," *Genome Research* 25, no. 4 (2015): 459–66, https://pmc.ncbi.nlm.nih.gov/articles/PMC4381518/.
+[Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: "456 geographically diverse high-coverage Y chromosome sequences" (abstract); "we date the
+  Y-chromosomal most recent common ancestor (MRCA) in Africa at 254 (95% CI 192–307) kya" — the card's "a 2015
+  analysis of 456 Y chromosomes gave 254,000 years"; and the trimming of the older Mendez estimate that the
+  card's "later analyses trimmed it" refers to
+- used by: wh-048
+
+### king-1864 · the naming of the Neanderthal
+William King, "The Reputed Fossil Man of the Neanderthal," *Quarterly Journal of Science* 1 (1864): 88–97,
+https://archive.org/details/biostor-195152. [Open access]
+- opened: 2026-07-31 · BioStor scan, public domain
+- supports: the founding publication of *Homo neanderthalensis* — the first fossil human species to be named —
+  and the priority over the earlier, unrecognised Engis and Gibraltar finds
+- used by: wh-034
+
+### green-2010 · the draft Neanderthal genome
+Richard E. Green et al., "A Draft Sequence of the Neandertal Genome," *Science* 328, no. 5979 (2010): 710–22,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC5100745/. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: "Neandertals, the closest evolutionary relatives of present-day humans"; that "Neandertals shared
+  more genetic variants with present-day humans in Eurasia than with present-day humans in sub-Saharan Africa,
+  suggesting that gene flow from Neandertals into the ancestors of non-Africans occurred" — the card's
+  interbreeding and the "per cent or two" carried by everyone descended from those who left Africa (the 1–4%
+  estimate is in the body)
+- used by: wh-034, wh-043
+
+### jaubert-2016 · the Bruniquel constructions
+Jacques Jaubert et al., "Early Neanderthal Constructions Deep in Bruniquel Cave in Southwestern France,"
+*Nature* 534, no. 7605 (2016): 111–14, https://doi.org/10.1038/nature18291. [Paywalled]
+- opened: 2026-07-31 · publisher abstract on nature.com. The defining publication; no open deposit.
+- supports: "annular constructions made of broken stalagmites found deep in Bruniquel Cave"; "a reliable and
+  replicated age of 176.5 thousand years (±2.1 thousand years)"; "their presence at 336 metres from the entrance
+  of the cave" — the card's 336 metres, two rings, and about 176,500 years
+- used by: wh-034
+
+### boule-1911 · the old man of La Chapelle
+Marcellin Boule, "L'homme fossile de La Chapelle-aux-Saints," *Annales de Paléontologie* 6–8 (1911–13),
+https://archive.org/details/b22463355. [Open access]
+- opened: 2026-07-31 · scanned monograph, public domain
+- supports: Boule's reconstruction of the La Chapelle-aux-Saints skeleton as a stooping, bent-kneed creature —
+  the reading the card describes and that later work overturned (the skeleton was an arthritic old man)
+- used by: wh-034
+
+### linnaeus-1758 · the naming of the species
+Carl Linnaeus, *Systema Naturae per Regna Tria Naturae*, 10th ed., vol. 1 (Stockholm: Laurentius Salvius,
+1758), 20, https://archive.org/details/mobot31753000798873. [Open access]
+- opened: 2026-07-31 · scanned first edition, public domain
+- supports: the naming of *Homo sapiens* in 1758 with no list of distinguishing characters, only "Nosce te
+  ipsum" (know thyself), page 20 — the card's "the instruction to know itself and no defining characters at all"
+- used by: wh-043
+
+### stringer-2016 · the origin and evolution of Homo sapiens
+Chris Stringer, "The Origin and Evolution of *Homo sapiens*," *Philosophical Transactions of the Royal Society
+B* 371, no. 1698 (2016): 20150237, https://pmc.ncbi.nlm.nih.gov/articles/PMC4920294/. [Open access]
+- opened: 2026-07-31 · full text via PMC (royalsocietypublishing.org is behind bot protection from here)
+- supports: the difficulty of writing a definition that cleanly separates our fossils from everybody else's;
+  the diagnostic cranial features including the chin
+- used by: wh-043
+
+### hershkovitz-2018 · Misliya, the earliest venture out
+Israel Hershkovitz et al., "The Earliest Modern Humans outside Africa," *Science* 359, no. 6374 (2018): 456–59,
+https://doi.org/10.1126/science.aap8369. [Paywalled]
+- opened: 2026-07-31 · publisher abstract on science.org. The green deposit (Griffith, hdl 10072/372670) is
+  behind a JavaScript challenge and could not be fetched — labelled paywalled per "fetch before labelling."
+- supports: the Misliya maxilla "dated to 177,000 to 194,000 years ago" — the card's "roughly 180,000"; and
+  the earlier Skhul and Qafzeh at "around 90,000 to 120,000 years ago", the later dispersal the card's
+  "ventures beyond Africa began early and mostly failed" rests on
+- used by: wh-043
+
+### clarkson-2017 · Madjedbebe, Australia by 65 ka
+Chris Clarkson et al., "Human Occupation of Northern Australia by 65,000 Years Ago," *Nature* 547, no. 7663
+(2017): 306–10, https://doi.org/10.1038/nature22968. [Paywalled]
+- opened: 2026-07-31 · publisher abstract on nature.com. Bronze OA per OpenAlex, but the full text redirects to
+  an authentication wall from here and only the abstract could be opened — labelled paywalled, honestly.
+- supports: human occupation of Madjedbebe "by 65,000 years ago" — the card's "65,000 if the earliest
+  Australian site is taken at face value"
+- used by: wh-043
 
 ---
 

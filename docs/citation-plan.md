@@ -186,10 +186,31 @@ Wood et al. 2013, Skov et al. 2022, Slimak et al. 2024 and Vaesen et al. 2019 on
 Krause et al. 2010 and Détroit et al. 2019 were not needed: the open review carries the Denisovan
 naming question, and Luzon moved to the deferred set.
 
-### Batch 4 · The origin of *Homo sapiens* (10)
-`wh-031` Middle Stone Age · `wh-042` Toba catastrophe theory · `wh-043` Homo sapiens · `wh-044` Omo remains ·
-`wh-045` Jebel Irhoud (if not taken in the pilot) · `wh-046` Homo sapiens idaltu · `wh-047` Mitochondrial Eve ·
-`wh-048` Y-chromosomal Adam · `wh-049` Skhul and Qafzeh · `wh-050` Aterian
+### Batch 4 · The origin of *Homo sapiens* (10) — **4 of 9 DONE (2026-07-31)**
+**Cited:** `wh-043` Homo sapiens · `wh-044` Omo remains · `wh-047` Mitochondrial Eve · `wh-048` Y-chromosomal Adam.
+(`wh-045` Jebel Irhoud was taken in the pilot.) The same batch also cleared **`wh-034` Neanderthal**, deferred from
+batch 3 — see the Batch 4 log.
+
+**Deferred:** `wh-046` Homo sapiens idaltu (Herto) — a discovery card, and its two 2003 *Nature* founding papers
+(White et al., Clark et al.) have no open deposit anywhere, the batch-2/3 wall exactly.
+
+**Remaining:** `wh-031` Middle Stone Age · `wh-042` Toba catastrophe theory · `wh-049` Skhul and Qafzeh · `wh-050`
+Aterian — the record-and-industry cards, tractable, held for a later batch.
+
+Spine as worked: McDougall et al. 2005 and Vidal et al. 2022 on the age of Omo I; Cann, Stoneking & Wilson 1987
+with Fu et al. 2013 and Hernández 2023 on Mitochondrial Eve; Mendez et al. 2013 and Karmin et al. 2015 on the
+Y-chromosome coalescent; Linnaeus 1758, Stringer 2016, Neubauer et al. 2018, Meneganzin et al. 2022, Hershkovitz
+et al. 2018 and Clarkson et al. 2017 across the `wh-043` survey; King 1864, Green et al. 2010, Jaubert et al. 2016,
+Boule 1911, Higham et al. 2014 and Vaesen et al. 2019 for the Neanderthal. Reich et al. 2010, Neubauer 2018,
+Meneganzin 2022, Higham 2014 and Vaesen 2019 were already in the register from earlier batches.
+
+**Original planned spine that did not survive contact:** Richter et al. 2017 and White et al. 2003 are closed
+(Herto deferred); Poznik et al. 2013 (*Science*) has no open deposit and was not needed — Mendez and Karmin carry
+the Y-chromosome cards between them.
+
+### Batch 4 · (unworked cards, for reference)
+`wh-031` Middle Stone Age · `wh-042` Toba catastrophe theory · `wh-046` Homo sapiens idaltu ·
+`wh-049` Skhul and Qafzeh · `wh-050` Aterian
 
 Spine: Hublin et al. 2017 and Richter et al. 2017 on Jebel Irhoud; McDougall, Brown & Fleagle 2005 on Omo;
 White et al. 2003 on Herto; Poznik et al. 2013 and Karmin et al. 2015 on the Y-chromosome coalescent;
@@ -521,6 +542,50 @@ that bit, a French sentence ending "…la trisomie 21." All sixty abstracts were
 5+5 sentences and to round-trip losslessly through split-and-join before a single marker was inserted,
 and every marker position was eyeballed across all ten languages first, per the batch 1 warning.
 
+## Batch 4 log — the origin of *Homo sapiens*, and the Neanderthal
+
+### 2026-07-31 — five cards cited, one deferred
+
+Twenty-four citations across `wh-043`, `wh-044`, `wh-047`, `wh-048` and `wh-034` — every card's list
+majority-open. Coverage went from `cards 21/109` to `cards 26/109`. Network access was available and every
+source was opened before being written down.
+
+**This is the batch-3 lesson holding for a fourth time.** The four origin-of-*sapiens* cards that shipped are
+all built on *results* — a date (Omo, Vidal 2022), a genome or a coalescent (Mitochondrial Eve, Y-chromosomal
+Adam), a survey of dated fossils (`wh-043`). The one deferred, `wh-046` Herto, is a *discovery* card: found
+1997, named 2003, and both its founding *Nature* letters (White et al. 2003, Clark et al. 2003) are closed with
+no open deposit — the same wall as Dubois, Black and Bermúdez de Castro in batch 2. `wh-034` Neanderthal was the
+batch-3 pickup flagged "take it first," and it went through cleanly: King 1864 and Boule 1911 are public domain,
+Green et al. 2010 is open in PMC, and only Jaubert 2016 (Bruniquel) and Higham 2014 are paywalled, both cited
+from abstracts that carry the exact claim.
+
+**One correction**, made in English and all nine languages:
+
+- **`wh-048`** said the 2013 discovery of the A00 lineage "pushed the common ancestor back by roughly a hundred
+  thousand years." Mendez et al. 2013 give a Y-chromosome TMRCA of **338 kya (95% CI 237–581)** against previous
+  estimates of "∼60–140 thousand years ago" — a jump of roughly **two hundred** thousand years, not one.
+  Corrected. This is the whole batch's only factual error, which is a good result: the origin-of-*sapiens* prose
+  survived contact with its sources, and the two dates that have "moved repeatedly" (`wh-047`/`wh-048` were
+  flagged for exactly this) held up — Fu 2013's 157 ka and Karmin 2015's 254 ka both sit inside the ranges the
+  cards already gave.
+
+**Two labelling calls worth recording**, both following the "fetch before labelling" rule:
+
+- **Clarkson et al. 2017** (Madjedbebe, the 65 ka Australia date) is bronze OA per OpenAlex, but the full text
+  redirects to an authentication wall from here and only the abstract could be opened. Cited as `[Paywalled]`
+  from the abstract, which carries the 65 ka claim in its title — an honest under-claim, not an open copy passed
+  off as reachable.
+- **Hershkovitz et al. 2018** (Misliya, ~180 ka) has a green deposit at Griffith, but it sits behind a
+  JavaScript challenge (the `hal.science`/`digital.csic.es` pattern). Cited `[Paywalled]` from the Science
+  abstract, which states 177–194 ka.
+
+**On the mechanism.** Marker splicing by sentence index worked a fourth time, with one splitter bug worth
+recording for the next batch: an abbreviation-protection regex must not treat the last letter of an
+all-caps word as an initial (`DNA.` is a sentence end, not `D. N. A.`), and a bare-ordinal guard
+(`17.` → protect) must exclude the trailing digits of a grouped number (`233,000.` is a sentence end). Both
+were caught by the per-block "exactly five sentences" assertion before any marker was placed, and every marker
+position was eyeballed across all ten languages, per the batch-1 warning.
+
 ### Unblocking: the cloud environment's allowlist
 
 Kept for the next session that lands somewhere restricted. Network access is a property of the *cloud
@@ -575,6 +640,7 @@ osf.io
 biorxiv.org
 www.biorxiv.org
 archive.org
+biostor.org
 web.archive.org
 babel.hathitrust.org
 catalog.hathitrust.org
@@ -658,5 +724,5 @@ If a needed host turns out to be missing mid-batch, the cheaper fix is switching
 - **Changelog.** One line per day, raising its count — "Sources added to N cards in the World History
   prehistory deck" — with its nine translations, per the house rule. Corrections found along the way get
   their own line, and should name what changed.
-- **Coverage** is reported by `add-sources.js` on every run (`cards 34/109`), which is how the pass is
+- **Coverage** is reported by `add-sources.js` on every run (`cards 26/109`), which is how the pass is
   tracked across sessions.
