@@ -1968,6 +1968,405 @@ This batch also corrected two cards shipped earlier — see the Batch 7 log in d
 - Marlize Lombard and Laurel Phillipson, "Indications of bow and stone-tipped arrow use 64 000 years ago in KwaZulu-Natal, South Africa," <i>Antiquity</i> 84, no. 325 (2010): 635–648, https://doi.org/10.1017/S0003598X00100134. [Paywalled]
   - used by: wh-082
 
+
+## Batch 8 — portable art, the flute and the Siberian graves, verified 2026-07-31
+
+Fifteen citation slots across three cards, drawn from **13 distinct works, every one of them open** — the
+first batch of the pass in which no card needed a paywalled landmark at all. Weber 2022 and Moreno-Mayar
+2018 were already in the register from batches 7 and 6 and are reused, not re-verified.
+
+- Matija Turk, Ivan Turk, and Marcel Otte, "The Neanderthal Musical Instrument from Divje Babe I Cave (Slovenia): A Critical Review of the Discussion," <i>Applied Sciences</i> 10, no. 4 (2020): 1226, https://doi.org/10.3390/app10041226. [Open access]
+  - opened: 2026-07-31 · full text (MDPI, CC BY)
+  - supports: the left femur diaphysis of a one-to-two-year-old cave bear cub with two complete and two partly preserved holes; found in 1995 in Mousterian level D-1 (layer 8a) by I. Turk's team; the layer dated first to 45,000 and later to 50,000–60,000 years by 14C AMS, U/Th and ESR; the proponents' argument that hyena is "not an option" because "there is also no direct and indirect evidence of the presence of hyena at DB"; that CT work has been done by Tuniz et al. 2012 and by Turk and colleagues
+  - used by: wh-070
+- Matija Turk and Giuliano Bastiani, "Experimental Research on the Neanderthal Musical Instrument from Divje Babe I Cave (Slovenia)," <i>EXARC Journal</i> 2020, no. 3 (2020), under "Results," https://exarc.net/issue-2020-3/ea/musical-instrument-divje-babe-i-cave. [Open access]
+  - opened: 2026-07-31 · full text (peer-reviewed, CC BY)
+  - supports: the replica made from a comparable juvenile cave-bear femur from the same site, and the conclusion that "the four perforations exactly aligned in the middle of the longitudinal axis of the diaphysis can not be reasonably explained by carnivore biting/gnawing action" — which is the alignment argument the card attributes to Turk and colleagues
+  - used by: wh-070
+- Cajus G. Diedrich, "'Neanderthal Bone Flutes': Simply Products of Ice Age Spotted Hyena Scavenging Activities on Cave Bear Cubs in European Cave Bear Dens," <i>Royal Society Open Science</i> 2, no. 4 (2015): 140022, https://pmc.ncbi.nlm.nih.gov/articles/PMC4448875/. [Open access]
+  - opened: 2026-07-31 · full text
+  - supports: the sceptical case in its strongest published form — that punctured cave bear femora are "not instruments, nor human made" but hyena bone-crushing damage, with round-oval punctures made by the premolars; **and, directly against the card's previous wording, that "hyenas are absent" at Divje Babe is not a good argument**: a cave bear ulna at that very site "is one of the best examples of bone crushing by hyena premolar teeth"
+  - used by: wh-070
+- Janez Turk and Matija Turk, "On the Significance of Divje babe I Cave for the Stratigraphy, Sedimentology, and Chronology of Palaeolithic Cave Sites in Slovenia," <i>Arheološki vestnik</i> 74 (2023): 7–38, https://doi.org/10.3986/AV.74.01. [Open access]
+  - opened: 2026-07-31 · full text PDF (ZRC SAZU, CC BY-SA)
+  - supports: the profile of Divje babe I as "currently the best researched and chronologically defined Late Pleistocene cave profile in Slovenia," and the ESR/U-Th programme behind the layer dates
+  - used by: wh-070
+- National Museum of Slovenia, "Neanderthal Flute," Collection Highlights, inv. no. D. b. 652, accessed 31 July 2026, https://www.nms.si/en/collections/highlights/343-Neanderthal-flute. [Open access]
+  - opened: 2026-07-31 · the museum's own object record
+  - supports: length 11.4 cm; "the left thighbone of a young cave bear"; "pierced by two well-preserved and two damaged holes"; found 1995 at Divje babe near Cerkno during excavations led by Ivan Turk, the cave "230 meters above the Idrijca River," in "a layer deposited about 60 to 50 millennia" ago; and that the museum displays it as "the oldest musical instrument in the world," "about 20,000 years older than other known flutes" — which is the card's closing sentence about how Ljubljana presents it
+  - used by: wh-070
+- Erik Trinkaus and Alexandra P. Buzhilova, "Diversity and Differential Disposal of the Dead at Sunghir," <i>Antiquity</i> 92, no. 361 (2018): 7–21, https://doi.org/10.15184/aqy.2017.223. [Open access]
+  - opened: 2026-07-31 · full text PDF (Cambridge, bronze OA)
+  - supports: the site on the Klyazma at the north-east edge of Vladimir (8); Bader's excavations 1957–1977 (8); an age of c. 30,000 14C BP or c. 34,000 cal BP (8); Sunghir 1 under "about 3000 mammoth ivory beads," with "Twelve pierced fox canines … on the forehead" and "25 mammoth ivory arm bands" (9–10) — **not the "cap stitched with fox teeth" the card had**; Sunghir 2 at ~12 and Sunghir 3 at ~10 years (8); "approximately 5000 for Sunghir 2 and around 5400 for Sunghir 3" (11); "the 16 mammoth ivory spears, five of which are double-pointed," varying "from 0.27–2.47m" (12); and "the most elaborate Upper Palaeolithic burial currently known" (10)
+  - used by: wh-075
+- Anat Marom, James S. O. McCullagh, Thomas F. G. Higham, Andrei A. Sinitsyn, and Robert E. M. Hedges, "Single Amino Acid Radiocarbon Dating of Upper Paleolithic Modern Humans," <i>Proceedings of the National Academy of Sciences</i> 109, no. 18 (2012): 6878–81, https://pmc.ncbi.nlm.nih.gov/articles/PMC3344984/. [Open access]
+  - opened: 2026-07-31 · full text
+  - supports: the hydroxyproline date for the Sungir burials, "30.1 ± 0.3 kaBP (between 34.1 and 35.2 ka cal BP)" — **the single figure that shows the card's old "34,000 to 30,000 years ago" to be one date written on two clocks**
+  - used by: wh-075
+- Shweta Nalawade-Chavan, James McCullagh, and Robert Hedges, "New Hydroxyproline Radiocarbon Dates from Sungir, Russia, Confirm Early Mid Upper Palaeolithic Burials in Eurasia," <i>PLOS ONE</i> 9, no. 1 (2014): e76896, https://pmc.ncbi.nlm.nih.gov/articles/PMC3885387/. [Open access]
+  - opened: 2026-07-31 · full text
+  - supports: Sungir "discovered in the 1950s" and "about 197 km east of Moscow" (Introduction) — the two figures behind the corrected opening sentence; and the Bayesian model putting occupation at 38,900–33,590 cal BP (95% prob.)
+  - used by: wh-075
+- Martin Sikora, Andaine Seguin-Orlando, Vitor C. Sousa, et al., "Ancient Genomes Show Social and Reproductive Behavior of Early Upper Paleolithic Foragers," <i>Science</i> 358, no. 6363 (2017): 659–62, https://escholarship.org/uc/item/7vx791kv. [Open access]
+  - opened: 2026-07-31 · full text via the **eScholarship (University of California) deposit**; the Science DOI itself is paywalled
+  - supports: "All individuals were genetically male … including SIII who was previously identified as female" — so "two boys" is right, and is itself a 2017 result; radiocarbon placing SI–SIV "between 34.6 and 33.6 kya"; and, the correction that matters, "**none of them were closely related (that is, third degree or closer)**" despite SII–SIV sharing mitochondrial and Y lineages — **not "no closer than second cousins," which claims a greater distance than the paper establishes**
+  - used by: wh-075
+- April Nowell, "Adolescence and Innovation in the European Upper Palaeolithic," <i>Evolutionary Human Sciences</i> 2 (2020): e36, under "Box 1," https://pmc.ncbi.nlm.nih.gov/articles/PMC10427464/. [Open access]
+  - opened: 2026-07-31 · full text
+  - supports: "two adolescent boys – one (Sunghir 3) approximately 10 years of age and the other (Sunghir 2) closer to 12 years old – were buried head to head"; "A total of 13,000 mammoth ivory beads were associated with the interred individuals"; and, quoting Soffer 1985, that "the beads associated with Sunghir 1–3 represent more than 2500 person hours of investment in the burials" — **the published labour figure that replaced the card's unsourced "better part of an hour" per bead**
+  - used by: wh-075
+- Maanasa Raghavan, Pontus Skoglund, Kelly E. Graf, et al., "Upper Palaeolithic Siberian Genome Reveals Dual Ancestry of Native Americans," <i>Nature</i> 505, no. 7481 (2014): 87–91, https://escholarship.org/uc/item/79h679zc. [Open access]
+  - opened: 2026-07-31 · full text via the **eScholarship deposit**; the Nature DOI is paywalled
+  - supports: Mal'ta "located along the Belaya River near Lake Baikal, was excavated between 1928 and 1958" and yielding "30 anthropomorphic Venus figurines"; MA-1 dated 20,240 ± 60 14C BP or 24,423–23,891 cal BP; "To our knowledge this is the oldest anatomically modern human genome reported to date"; that MA-1 "is basal to modern-day western Eurasians and genetically closely related to modern-day Native Americans, with no close affinity to east Asians"; and that "14 to 38% of Native American ancestry may originate through gene flow from this ancient population"
+  - used by: wh-076 · (also the source for correcting the card's "buried by the Angara" — Mal'ta is on the Belaya)
+- Liudmila Lbova, "The Siberian Paleolithic Site of Mal'ta: A Unique Source for the Study of Childhood Archaeology," <i>Evolutionary Human Sciences</i> 3 (2021): e9, under "The Mal'ta burial," https://pmc.ncbi.nlm.nih.gov/articles/PMC10427291/. [Open access]
+  - opened: 2026-07-31 · full text
+  - supports: **"the burial of two children"** at Mal'ta, whose skeletons "were buried within a slab structure resembling a dug and lined grave" with "the bottom of the burial … covered with red ochre," and among the bones "fragments of a tiara made from mammoth ivory, a rich necklace of 120 bone beads, a large oval-shaped pendant, a round bone plaque with a zigzag pattern and a sculpture of a flying bird"; Gerasimov's judgement that the goods could not be the child's own "because of his age, 3–4 years old"; "the teeth of another child in the burial"; the figurines' "fur coveralls – 'kerkery'" and "coveralls with high hoods"; and that the figurines "were found in the living quarters of the settlement, some even in ritual places within the dwelling"
+  - used by: wh-076
+- Junzo Uchiyama, J. Christopher Gillam, Alexander Savelyev, and Chao Ning, "Populations Dynamics in Northern Eurasian Forests: A Long-Term Perspective from Northeast Asia," <i>Evolutionary Human Sciences</i> 2 (2020): e16, https://pmc.ncbi.nlm.nih.gov/articles/PMC10427466/. [Open access]
+  - opened: 2026-07-31 · full text
+  - supports: that "the 24,000-year-old human remains (MA1) associated with the Mal'ta-Buret' culture, west of Lake Baikal … genetically fall into the western Eurasian gene pool although it is geographically located in e[ast Siberia]," and that later Siberian and Native American lineages "share greater affinity to the 24,000-year-old Mal'ta individual"
+  - used by: wh-076
+
+**Reused from earlier batches, not re-verified:** Weber et al. 2022 (batch 7 — the Gravettian female figurines
+as supraregional types "from Renancourt in northern France to Mal'ta in Siberia") for `wh-076`, and
+Moreno-Mayar et al. 2018 (batch 6) for the Native American founding population.
+
+**Two open works were opened and then NOT cited, and it is worth saying why.** Ivan Turk's 1997 monograph
+*Moustérienska "koščena piščal"* is genuinely open at ZRC SAZU (https://doi.org/10.3986/9789610503040) and the
+PDF downloads, but it is a **scan with no text layer**, so no locator in it could be read and checked here; the
+bar requires a locator, so it was left out rather than cited blind. Andrew Killin's "The Origins of Music"
+(*Music & Science* 1, 2018) is gold OA but SAGE refuses non-browser clients from this environment, and an
+unopened deposit is not a citation.
+
+
+## Batch 8b — the Swabian Jura and the Venus figurines, verified 2026-07-31
+
+Twenty-one citation slots across four cards, drawn from **14 distinct works, 12 of them open**. Every card's
+list is majority-open; `wh-072` and `wh-073` are fully open. The unblocking move was the user's reminder that
+**official museum and government records clear the bar** — five of the eight new sources are exactly that,
+and without them `wh-067` and `wh-068` would have failed the majority-open test for a second batch running.
+
+- Museum Ulm, "Löwenmensch," Archäologie, inv. no. P 1939/2013, museum-digital:baden-württemberg, accessed 31 July 2026, https://bawue.museum-digital.de/object/2497. [Open access]
+  - opened: 2026-07-31 · the holding museum's own catalogue record, German full text
+  - supports: mammoth ivory "geschnitzt aus dem rechten Stoßzahn eines jungen Bullen oder einer adulten Kuh"; H 31,1 cm; 40,000–35,000 years before present; Lonetal / Stadel cave at the Hohlenstein; found by Otto Völzing on 25.08.1939, **the day the dig was broken off for the war** ("Als die Grabungen … am 25. August 1939 kriegsbedingt abgebrochen werden mussten"); that the excavation's sponsor Robert Wetzel kept the fragments, which reached the Ulmer Museum only after his death in 1962 and lay untouched **until 1969**, when museum staff began fitting "die über 200 Elfenbeinfragmente" together; the 1987/88 first professional restoration; the 2009–2012 excavations that returned "mehrere hundert Elfenbeinfragmente"; the 2012/13 dismantling and rebuild at the Landesamt für Denkmalpflege in Esslingen; and, the correction that matters, the sex: "Aufgrund eines dreieckigen, vormals rechteckigen Elfenbeinstücks im Schambereich der Figur … Mit hoher Wahrscheinlichkeit nach handelt es sich bei dem Löwenmenschen um ein männliches Wesen"
+  - used by: wh-067
+- Urgeschichtliches Museum Blaubeuren, "Hohlenstein," Welterbe-Fundstellen, accessed 31 July 2026, https://www.urmu.de/welterbe/fundstellen/hohlenstein. [Open access]
+  - opened: 2026-07-31 · the state prehistory museum's site record
+  - supports: the Stadel as the easternmost find spot in the Hohlenstein massif in the Lonetal; the excavation history (Fraas and Bürger in the 19th century, Riek, Wetzel's 1935 sounding, digs 1936–1939 and 1954–1961); "Aus dem hinteren Bereich stammen die Elfenbeinsplitter, aus denen J. Hahn und 2 Studenten 1969 den Löwenmenschen zusammensetzten"; the post-2008 fragments and the 2013 re-dismantling; the figure as "ein Mischwesen aus Höhlenlöwe und Mensch" at 31.1 cm
+  - used by: wh-067
+- Urgeschichtliches Museum Blaubeuren, "Hohle Fels," Welterbe-Fundstellen, accessed 31 July 2026, https://www.urmu.de/welterbe/fundstellen/hohle-fels. [Open access]
+  - opened: 2026-07-31 · site record
+  - supports: a large chamber cave near Schelklingen in the Achtal; "ein 20 m langer Gang zur 500 Quadratmeter großen Haupthalle"; the first dig by Oscar Fraas and Pfarrer Hartmann in 1870/71; Nicholas Conard directing annual campaigns since 1997; deposits from the Upper Palaeolithic down through Middle Palaeolithic Neanderthal layers; the ~6 cm ivory female figurine found in 2008 and the griffon-vulture bone flute at 40,000 years
+  - used by: wh-068
+- Urgeschichtliches Museum Blaubeuren, "Gänsegeierflöte," Digitale Sammlung, inv. no. 1977-0119-0089-9000, accessed 31 July 2026, https://www.urmu.de/digitale-sammlung/objekt/gaensegeierfloete-1977-0119-0089-9000. [Open access]
+  - opened: 2026-07-31 · the museum's object record for the flute itself
+  - supports: length **21.7 cm**; griffon vulture bone; **four preserved finger holes**, with "Das untere Ende der Flöte scheint an einem fünften Loch abgebrochen zu sein"; the mouthpiece as a bevelled edge forming a notch ("Am anderen Ende des Knochens wurde der Randbereich angeschrägt, wodurch sich eine Kerbe im Schaft ergab"); found at Hohle Fels in 2008; "zwischen 35 000 und 40 000 Jahre alt". **This is the record that corrected the card's "five finger holes" and removed its unsourced "twelve fragments."**
+  - used by: wh-068
+- Welterbe Höhlen und Eiszeitkunst der Schwäbischen Alb, "UNESCO-Welterbe," accessed 31 July 2026, https://www.iceageart.de/unesco-welterbe. [Open access]
+  - opened: 2026-07-31 · the official portal of the World Heritage property, run for the state of Baden-Württemberg. **The UNESCO record itself (whc.unesco.org) is still behind Cloudflare bot protection from this environment; this is the openable equivalent, and it is an official record of the same inscription.**
+  - supports: the property "Höhlen und Eiszeitkunst der Schwäbischen Alb", inscribed **2017**; six caves in two valleys — Geißenklösterle, Sirgenstein and Hohle Fels in the Achtal, Bockstein, Hohlenstein and Vogelherd in the Lonetal; and the grounds, "the oldest portable art objects and musical instruments of humankind" in "a globally unique archaeological landscape"
+  - used by: wh-067, wh-068
+- Nicholas J. Conard, "Palaeolithic Ivory Sculptures from Southwestern Germany and the Origins of Figurative Art," <i>Nature</i> 426, no. 6968 (2003): 830–32, https://doi.org/10.1038/nature02186. [Paywalled]
+  - opened: 2026-07-31 · **publisher abstract only** — the landmark paper; no open deposit
+  - supports: three mammoth-ivory figurines from Hohle Fels including "the oldest known representation of a bird, **a therianthropic sculpture** and an animal that most closely resembles a horse" — the second lion-headed figure the card's closing sentence rests on — and the Swabian Aurignacian as "one of the oldest traditions of figurative art known worldwide"
+  - used by: wh-067
+- Guido Bataille and Nicholas J. Conard, "Blade and Bladelet Production at Hohle Fels Cave, AH IV in the Swabian Jura and Its Importance for Characterizing the Technological Variability of the Aurignacian in Central Europe," <i>PLOS ONE</i> 13, no. 4 (2018): e0194097, under "The site of Hohle Fels," https://pmc.ncbi.nlm.nih.gov/articles/PMC5891003/. [Open access]
+  - opened: 2026-07-31 · full text
+  - supports: "excavations were conducted over multiple seasons **between 1977 and 1996** in the entrance corridor and in the main hall under the direction of Joachim Hahn" — the card's "Tübingen has worked there since 1977" — and the Aurignacian radiocarbon sequence around 42 ka cal BP
+  - used by: wh-068
+- Naturhistorisches Museum Wien, "Venus-Forschung," Prähistorische Abteilung, accessed 31 July 2026, https://www.nhm.at/en/research/prehistory/research/venus-research. [Open access]
+  - opened: 2026-07-31 · the holding museum's research record
+  - supports: the figurine "discovered on 7 August 1908 during excavation work led by Josef Szombathy" and — the correction — **"discovered by a worker on the site, Johann Veran, as he carefully sifted through the earth"**; "The 11-centimetre-high female figure"; "traces of a red chalk coating covering the entire surface", found in analyses from the mid-1950s; "Dating back around 29,500 years"
+  - used by: wh-073
+
+**Reused from earlier batches, not re-verified:** Floss 2015 (wh-067, wh-068, wh-072, wh-073), Morriss-Kay
+2013 (wh-072, wh-073), Weber et al. 2022 (wh-072, wh-073), Lbova 2021 (wh-072, wh-073), Farbstein & Nowell
+2024 (wh-072) and Conard 2009 (wh-068).
+
+**Three claims were opened for and NOT found, and were softened rather than cited.** The **400-hour replica
+experiment** on the Lion Man is real — Wulf Hein and Kurt Wehrberger published it in the print yearbook
+*Experimentelle Archäologie in Europa*, which is not open and which EXARC indexes but does not carry — so the
+card now says "hundreds of hours" and that sentence deliberately carries **no marker**, on the `wh-093`
+precedent that absence of a citation is not a reason to delete a true thing. The **">200 Venus figurines"**
+count appears in no openable catalogue and was dropped from the card, its date line and its question. And the
+**Dame de Brassempouy**: the Musée d'Archéologie nationale's object record (MAN47019) returned HTTP 503 on
+every attempt, so the Brassempouy sentence was replaced rather than cited — which also removed its "about
+25,000 years old", a figure the museum's own Gravettian bracket of 31,500–28,500 cal BP does not support.
+
+
+## Batch 13 — Dmanisi and the Aterian, verified 2026-07-31
+
+Ten citation slots across two cards, from **10 distinct works, 8 of them open**. `wh-050` is fully open.
+This batch is the deferred-set pass re-cut **by source type rather than by subject**, exactly as the batch-2
+log prescribed: the two cards taken are the ones whose claims are published *results* (a date, a genome-free
+morphometric test, a bead assemblage, a bone-tool assemblage), and the discovery-history cards around them
+were triaged and left (see the Batch 13 log in the plan).
+
+- Victor Nery, Walter Neves, Leticia Valota, and Mark Hubbe, "Testing the Taxonomy of Dmanisi Hominin Fossils through Dental Crown Area," <i>PLOS ONE</i> 20, no. 11 (2025): e0336484, https://pmc.ncbi.nlm.nih.gov/articles/PMC12674552/. [Open access]
+  - opened: 2026-07-31 · full text
+  - supports: the fossils "Dated to around 1.8 million years ago (Ma)" and comprising "four adults (D2280, D4500-D2600, D3444-D3900, D2282-D211) and one subadult (D2700-D2735)"; "The first specimen excavated at the site was the D211 mandible in 1991"; D3444 as "an almost completely edentulous specimen"; and the card's closing claim in as many words — "We conclude that differences in crown dimensions support the hypothesis of two distinct taxa coexistent at the Dmanisi site, previously proposed to be *Homo georgicus* and *Homo caucasi*." Note the paper's own hedge, which the card matches by saying "arguing": it cannot reject a single dimorphic species on crown-area ratios alone, but holds two taxa "more parsimoniously" explain the sample
+  - used by: wh-024
+- David Lordkipanidze, Marcia S. Ponce de León, Ann Margvelashvili, et al., "A Complete Skull from Dmanisi, Georgia, and the Evolutionary Biology of Early <i>Homo</i>," <i>Science</i> 342, no. 6156 (2013): 326–31, https://doi.org/10.1126/science.1238484. [Paywalled]
+  - opened: 2026-07-31 · **publisher abstract only** — the landmark paper; no open deposit
+  - supports: D4500/D2600 as "the world's first completely preserved adult hominid skull from the early Pleistocene", combining "a small braincase (546 cubic centimeters) with a large prognathic face"; "The Dmanisi sample, which now comprises five crania"; and the conclusion the card reports — "wide morphological variation within and among early Homo paleodemes… implies the existence of a single evolving lineage of early Homo"
+  - used by: wh-024
+- David Lordkipanidze, Abesalom Vekua, Reid Ferring, et al., "The Earliest Toothless Hominin Skull," <i>Nature</i> 434, no. 7034 (2005): 717–18, https://doi.org/10.1038/434717b. [Paywalled]
+  - opened: 2026-07-31 · **publisher abstract only** — the landmark paper for D3444
+  - supports: "a beautifully preserved skull and jawbone from a Dmanisi hominin… who had lost all but one tooth several years before death"; "the earliest case of severe masticatory impairment in the hominin fossil record"; and that it "raises questions about alternative subsistence strategies in early Homo" — which is precisely the card's second reading, that soft foods and marrow could have kept him alive unaided
+  - used by: wh-024
+- Christoph P. E. Zollikofer, Vincent Beyrand, David Lordkipanidze, Paul Tafforeau, and Marcia S. Ponce de León, "Dental Evidence for Extended Growth in Early <i>Homo</i> from Dmanisi," <i>Nature</i> 635 (2024): 906–11, https://pmc.ncbi.nlm.nih.gov/articles/PMC11602720/. [Open access]
+  - opened: 2026-07-31 · full text
+  - supports: Dmanisi at "at least 1.77 million years ago", from the team that includes the Georgian National Museum
+  - used by: wh-024
+- Sabrina C. Curran, Virgil Drăgușin, Briana Pobiner, et al., "Hominin Presence in Eurasia by at Least 1.95 Million Years Ago," <i>Nature Communications</i> 16 (2025): 836, https://pmc.ncbi.nlm.nih.gov/articles/PMC11747263/. [Open access]
+  - opened: 2026-07-31 · full text
+  - supports: the claim of hominin **presence** in Eurasia earlier than Dmanisi, from cut-marked bone at Grăunceanu in Romania — which is why the card now says Dmanisi has the oldest human **fossils** outside Africa while noting that an earlier presence is claimed. The distinction is the whole point: fossils and traces are different evidence
+  - used by: wh-024
+- Inga Bergmann, Jean-Jacques Hublin, Abdelouahed Ben-Ncer, Fatima Zohra Sbihi-Alaoui, Philipp Gunz, and Sarah E. Freidline, "The Relevance of Late MSA Mandibles on the Emergence of Modern Morphology in Northern Africa," <i>Scientific Reports</i> 12 (2022): 8841, https://pmc.ncbi.nlm.nih.gov/articles/PMC9133045/. [Open access]
+  - opened: 2026-07-31 · full text
+  - supports: the Aterian as "a typological variant of the Maghrebian MSA lithic industries that dominates the archaeological record west of the Nile Valley between 145 and 30 ka BP" — **the source of the card's corrected end date**; the Aterian-associated *Homo sapiens* fossils "Kébibat, Contrebandiers 1, Dar-es-Soltane II H5 and El Harhoura"; and the associated "Tritia (Nassarius) shells, hearths and stone-walled structures as well as formal bone tools". Note that the paper itself writes "Aterian" in quotation marks, which is the hesitation the card's last sentence reports
+  - used by: wh-050
+- Emilie Campmas, Matthieu Lebon, et al., "Aterian Shell Beads from the Coastal Site of El Mnasra Cave (Rabat-Témara, Morocco): Specificities of the North African MSA Personal Ornaments," <i>PLOS ONE</i> 21 (2026): e0338785, https://pmc.ncbi.nlm.nih.gov/articles/PMC13016355/. [Open access]
+  - opened: 2026-07-31 · full text
+  - supports: that Aterian assemblages are "characteristic of the Aterian, with the presence of tanged tools, Levallois/micro-Levallois debitage (flakes and cores) and side-scrapers" — the card's tang, Levallois and scraper sentence in one line — plus ochre-coloured bone tools and *Tritia gibbosula* beads across the North African sites
+  - used by: wh-050
+- Abdeljalil Bouzouggar, Nick Barton, Marian Vanhaeren, et al., "82,000-Year-Old Shell Beads from North Africa and Implications for the Origins of Modern Human Behavior," <i>Proceedings of the National Academy of Sciences</i> 104, no. 24 (2007): 9964–69, https://pmc.ncbi.nlm.nih.gov/articles/PMC1891266/. [Open access]
+  - opened: 2026-07-31 · publisher abstract via Europe PMC; the full text is free in PMC
+  - supports: "perforated *Nassarius gibbosulus* shell beads from Grotte des Pigeons (Taforalt, Morocco)" from "levels dated by luminescence and uranium-series techniques to approximately 82,000 years ago", with "Wear patterns… imply that some of them were suspended, and, as at Blombos, they were covered in red ochre"
+  - used by: wh-050
+- Emily Y. Hallett, Curtis W. Marean, Teresa E. Steele, et al., "A Worked Bone Assemblage from 120,000–90,000 Year Old Deposits at Contrebandiers Cave, Atlantic Coast, Morocco," <i>iScience</i> 24, no. 9 (2021): 102988, https://pmc.ncbi.nlm.nih.gov/articles/PMC8478944/. [Open access]
+  - opened: 2026-07-31 · full text
+  - supports: "a bone tool tradition from Contrebandiers Cave on the Atlantic coast of Morocco, dated between 120,000–90,000 years ago" — **the source of the card's corrected span** — and that "The bone tools were produced for different activities, including likely leather" and fur working
+  - used by: wh-050
+- Yassine Ait Brahim, Lijuan Sha, Jasper A. Wassenburg, et al., "The Spatiotemporal Extent of the Green Sahara during the Last Glacial Period," <i>iScience</i> 26, no. 7 (2023): 107018, https://pmc.ncbi.nlm.nih.gov/articles/PMC10320408/. [Open access]
+  - opened: 2026-07-31 · full text
+  - supports: that the Sahara "has known periods of enhanced precipitation that supported pre-historic humans" and was in humid phases "almost entirely vegetated and covered by rivers and" lakes, with Heinrich events driving it dry again — the card's opening and closing corridors
+  - used by: wh-050
+
+
+## Batch 12 — the framework cards, verified 2026-07-31
+
+Twenty-five citation slots across three cards, from **13 distinct works, 11 of them open**. Every card's
+list is majority-open. **No source in this batch is new**: all thirteen were verified in earlier batches
+(0, 1, 4, 7, 9, 10 and 13) and are reused here verbatim from this register, which is exactly what it exists
+for — a work wanted by six cards is verified once and pasted six times, and the formatting cannot drift.
+
+The pilot's method for definitional cards is what made this possible: **decompose the card into its claims
+and cite those.** None of these three cards has a source "about the Palaeolithic"; each sentence has a
+source for the specific thing it asserts.
+
+- `wh-001` **Paleolithic** — Lubbock 1865 (the 1865 coinage and the Greek), Li et al. 2023 (knapping as
+  controlled fracture), Harmand et al. 2015 with Braun et al. 2019 (the 3.3 and 2.6 Ma ends of the opening
+  date), Walker et al. 2018 (the close of the last Ice Age), Hublin et al. 2017 (*Homo sapiens* from about
+  300,000 years ago), de la Torre 2016 (Oldowan to Acheulean), Roebroeks & Villa 2011 (fire), Brumm et al.
+  2021 (the late flowering of art), Larson et al. 2014 (the turn to farming). Ten sources, nine open.
+- `wh-002` **Lower Paleolithic** — Braun et al. 2019, Harmand et al. 2015, Domínguez-Rodrigo & Alcalá 2016
+  (the disputed Lomekwi finds, cited *with* their published critique, as the card's own hedge requires),
+  Lubbock 1865, de la Torre 2016, Lordkipanidze et al. 2013 (Dmanisi), Roebroeks & Villa 2011. Seven
+  sources, six open.
+- `wh-004` **Upper Paleolithic** — Walker et al. 2018, Higham et al. 2014, Gilligan et al. 2024 (eyed
+  needles and fitted dress), Brumm et al. 2021 and Oktaviana et al. 2024 (Sulawesi), Floss 2015 (the
+  Swabian figurines and flutes), Quiles et al. 2016 (Chauvet), Trinkaus & Buzhilova 2018 (Sungir). Eight
+  sources, seven open.
+
+**Nothing needed opening again, and nothing needed correcting from the sources' side.** The two changes this
+batch made were both *internal consistency* repairs found by the batch-7 sibling rule, not errors against
+the literature — see the Batch 12 log in the plan.
+
+## Batch 14 — Toba, Luzon and the Levantine caves, verified 2026-07-31
+
+Nineteen citation slots across three cards, from **19 distinct works, 14 of them open**. Every card's list
+is majority-open. This is the batch that proves the Batch 2 finding in the other direction: these three
+cards have nothing in common by subject, but all three rest on **published results** — a modelled climate,
+a dated bone bed, a measured genome, a thermoluminescence age — and results go through. The batch was cut
+by source type, not by topic, as Batch 2 said the remaining ones should be.
+
+- `wh-042` **Toba catastrophe theory** — Ambrose 1998 (the proposal itself), Petraglia et al. 2007 and
+  Clarkson et al. 2020 (Jwalapuram and Dhaba), Lane et al. 2013 (Lake Malawi), Smith et al. 2018 (Pinnacle
+  Point), Black et al. 2021 (the eruption's size and the modelled climate). Six sources, four open.
+- `wh-040` **Homo luzonensis** — Détroit et al. 2019 (the species description), Mijares et al. 2010 (the
+  67 ka metatarsal), Ingicco et al. 2018 (Kalinga), Larena et al. 2021 (Ayta Denisovan ancestry), Gousset
+  et al. 2026 (where it sits on the tree), Bae & Wu 2024 (the 67–50 ka range). Six sources, four open.
+- `wh-049` **Skhul and Qafzeh hominins** — Groucutt et al. 2019 (excavation history, morphology, the boar
+  mandible, the Skhul TL date), Valladas et al. 1988 (the Qafzeh TL date), Sarig et al. 2013 (Qafzeh's
+  excavators and its 27 individuals), Coqueugniot et al. 2014 (the Qafzeh 11 burial), Bar-Yosef Mayer et
+  al. 2020 (the shells and the ochre), Zaidner et al. 2025 (Kebara and Amud, and the corridor), Nielsen et
+  al. 2017 (the later dispersal). Seven sources, six open.
+
+### Two indexes that lied, in both directions
+
+**Unpaywall calls Détroit et al. 2019 green; it is not reachable.** All three deposits fail: Zenodo says
+"files are restricted", HAL sits behind an Anubis wall, and the Griffith record is **metadata only**. The
+same is true of the Griffith deposit of Petraglia et al. 2007, which Unpaywall calls *gold*. Both are cited
+as **[Paywalled]** landmark defining papers, which they are. Conversely, PMC's own front end served a
+reCAPTCHA to curl for one article and full text for the next; that is throttling, not access, and WebFetch
+went through both times. **Fetch it before labelling it, in both directions** — the Batch 3 rule, and it
+fired twice in one batch.
+
+### Verified citations
+
+Toba (`wh-042`):
+
+- Stanley H. Ambrose, “Late Pleistocene Human Population Bottlenecks, Volcanic Winter, and Differentiation of Modern Humans,” <i>Journal of Human Evolution</i> 34, no. 6 (1998): 623–51, https://doi.org/10.1006/jhev.1998.0219. [Paywalled]
+- Michael Petraglia et al., “Middle Paleolithic Assemblages from the Indian Subcontinent Before and After the Toba Super-Eruption,” <i>Science</i> 317, no. 5834 (2007): 114–16, https://doi.org/10.1126/science.1141564. [Paywalled]
+- Chris Clarkson et al., “Human Occupation of Northern India Spans the Toba Super-Eruption ~74,000 Years Ago,” <i>Nature Communications</i> 11 (2020): 961, https://pmc.ncbi.nlm.nih.gov/articles/PMC7042215/. [Open access]
+- Christine S. Lane, Ben T. Chorn, and Thomas C. Johnson, “Ash from the Toba Supereruption in Lake Malawi Shows No Volcanic Winter in East Africa at 75 ka,” <i>Proceedings of the National Academy of Sciences</i> 110, no. 20 (2013): 8025–29, https://pmc.ncbi.nlm.nih.gov/articles/PMC3657767/. [Open access]
+- Eugene I. Smith et al., “Humans Thrived in South Africa through the Toba Eruption about 74,000 Years Ago,” <i>Nature</i> 555, no. 7697 (2018): 511–15, https://oasis.library.unlv.edu/geo_fac_articles/145. [Open access]
+- Benjamin A. Black et al., “Global Climate Disruption and Regional Climate Shelters after the Toba Supereruption,” <i>Proceedings of the National Academy of Sciences</i> 118, no. 29 (2021): e2013046118, https://pmc.ncbi.nlm.nih.gov/articles/PMC8307270/. [Open access]
+
+Luzon (`wh-040`):
+
+- Florent Détroit et al., “A New Species of <i>Homo</i> from the Late Pleistocene of the Philippines,” <i>Nature</i> 568, no. 7751 (2019): 181–86, https://doi.org/10.1038/s41586-019-1067-9. [Paywalled]
+- Armand Salvador Mijares et al., “New Evidence for a 67,000-Year-Old Human Presence at Callao Cave, Luzon, Philippines,” <i>Journal of Human Evolution</i> 59, no. 1 (2010): 123–32, https://doi.org/10.1016/j.jhevol.2010.04.008. [Paywalled]
+- Thomas Ingicco et al., “Earliest Known Hominin Activity in the Philippines by 709 Thousand Years Ago,” <i>Nature</i> 557, no. 7704 (2018): 233–37, https://ro.uow.edu.au/smhpapers/5385. [Open access]
+- Maximilian Larena et al., “Philippine Ayta Possess the Highest Level of Denisovan Ancestry in the World,” <i>Current Biology</i> 31, no. 19 (2021): 4219–30, https://pmc.ncbi.nlm.nih.gov/articles/PMC8596304/. [Open access]
+- Pierre Gousset, Jérémie Bardin, Isabelle Rouget, Armand S. Mijares, and Florent Détroit, “<i>Homo luzonensis</i> and the Role of Homoplasy in the Morphology of Hominin Insular Species,” <i>Cladistics</i> 42, no. 3 (2026): 286–316, https://pmc.ncbi.nlm.nih.gov/articles/PMC13155073/. [Open access]
+- Christopher J. Bae and Xiujie Wu, “Making Sense of Eastern Asian Late Quaternary Hominin Variability,” <i>Nature Communications</i> 15 (2024): 9479, https://pmc.ncbi.nlm.nih.gov/articles/PMC11531466/. [Open access]
+
+Skhul and Qafzeh (`wh-049`):
+
+- Huw S. Groucutt, Eleanor M. L. Scerri, Chris Stringer, and Michael D. Petraglia, “Skhul Lithic Technology and the Dispersal of <i>Homo sapiens</i> into Southwest Asia,” <i>Quaternary International</i> 515 (2019): 30–52, https://ora.ox.ac.uk/objects/uuid:26de242d-8c79-44a8-9dea-5631a7400664. [Open access]
+- Hélène Valladas et al., “Thermoluminescence Dating of Mousterian ‘Proto-Cro-Magnon’ Remains from Israel and the Origin of Modern Man,” <i>Nature</i> 331, no. 6157 (1988): 614–16, https://doi.org/10.1038/331614a0. [Paywalled]
+- Rachel Sarig et al., “Malocclusion in Early Anatomically Modern Human: A Reflection on the Etiology of Modern Dental Misalignment,” <i>PLOS ONE</i> 8, no. 11 (2013): e80771, https://pmc.ncbi.nlm.nih.gov/articles/PMC3835570/. [Open access]
+- Hélène Coqueugniot et al., “Earliest Cranio-Encephalic Trauma from the Levantine Middle Palaeolithic: 3D Reappraisal of the Qafzeh 11 Skull,” <i>PLOS ONE</i> 9, no. 7 (2014): e102822, https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0102822. [Open access]
+- Daniella E. Bar-Yosef Mayer et al., “On Holes and Strings: Earliest Displays of Human Adornment in the Middle Palaeolithic,” <i>PLOS ONE</i> 15, no. 7 (2020): e0234924, https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0234924. [Open access]
+- Yossi Zaidner et al., “Evidence from Tinshemet Cave in Israel Suggests Behavioural Uniformity across <i>Homo</i> Groups in the Levantine Mid-Middle Palaeolithic circa 130,000–80,000 Years Ago,” <i>Nature Human Behaviour</i> 9, no. 5 (2025): 886–901, https://pmc.ncbi.nlm.nih.gov/articles/PMC12106087/. [Open access]
+- Rasmus Nielsen et al., “Tracing the Peopling of the World through Genomics,” <i>Nature</i> 541, no. 7637 (2017): 302–10, https://pmc.ncbi.nlm.nih.gov/articles/PMC5772775/. [Open access]
+
+## Batch 15 — the southern African MSA and the modern-mind debate, verified 2026-07-31
+
+Forty-three citation slots across three cards, from **22 distinct works, 15 of them open**. Every card's
+list is majority-open. Batch 14's method again — cut by source type, not subject — and this batch is the
+one that reopens a set the plan had written off. The southern African Middle Stone Age was deferred as
+"Henshilwood and Marean are closed"; that is true of the founding announcements and false of everything
+built on them. The *reviews and re-analyses* of those results are open, and between them they carry almost
+every claim these cards make.
+
+- `wh-056` **Pinnacle Point** — Marean et al. 2004 (the 1997 survey, the geology), Marean et al. 2007 (the
+  164 ka shellfish and pigment), Brown et al. 2009 (silcrete heat treatment), Bar-Matthews et al. 2010 (the
+  90–53 ka speleothem record), Sjödin et al. 2012 (no bottleneck), Ziegler et al. 2013 (climate and
+  innovation), Schmidt & Mackay 2016 (what heat treatment does to silcrete), Marean 2016 (the coastal
+  refuge argument), Wilkins et al. 2017 (the PP5-6 sequence). Nine sources, six open.
+- `wh-057` **Ochre** — Henshilwood et al. 2002 (the 77 ka engravings), Wadley et al. 2009 (ochre in
+  compound adhesive), Henshilwood et al. 2011 (the 100 ka abalone-shell workshop), Villa et al. 2015 (ochre
+  and milk as paint), Rosso et al. 2017 (grinding to powder), Dapschauskas et al. 2022 (the review that
+  carries the mineralogy, the earliest sites, the transport distances and the whole
+  functional-versus-symbolic argument). Six sources, four open.
+- `wh-058` **Behavioural modernity** — McBrearty & Brooks 2000, Klein 2008, Powell et al. 2009,
+  Zilhão et al. 2010, d'Errico & Stringer 2011, Hoffmann et al. 2018, Scerri et al. 2018. Seven sources,
+  five open.
+
+### The HAL `/document` path, and what it cost the last batch
+
+**A landing page behind an Anubis proof-of-work wall does not mean the file is unreachable.**
+`hal.science/hal-XXXXXX` is walled; **`hal.science/hal-XXXXXX/document` serves the PDF**. That single fact
+reverses a Batch 14 call: **Détroit et al. 2019 was shipped as [Paywalled] and is open**, deposited in full
+at `hal.science/hal-02296712/document`. It has been relabelled and its URL repointed, and Ingicco et al.
+2018 moved to the same route (its UOW deposit answers a bot challenge to this sandbox's client; the HAL
+copy opens directly). Batch 3's rule was "fetch it before labelling it"; the corollary this batch adds is
+**fetch the file, not the landing page** — the two can have different fates on the same host.
+
+Nothing else changed hands: Brown et al. 2009's HAL record holds no file, Henshilwood et al. 2002's holds
+none either, and Bar-Matthews et al. 2010 has no deposit at all. Those three are cited as paywalled
+landmark papers, which they are.
+
+### Verified citations
+
+Pinnacle Point (`wh-056`):
+
+- Curtis W. Marean, Peter J. Nilssen, Kyle Brown, Antonieta Jerardino, and Deano Stynder, “Paleoanthropological Investigations of Middle Stone Age Sites at Pinnacle Point, Mossel Bay (South Africa): Archaeology and Hominid Remains from the 2000 Field Season,” <i>PaleoAnthropology</i> 2004 (2004): 14–83, https://paleoanthro.org/media/journal/content/PA200407014.pdf. [Open access]
+- Curtis W. Marean et al., “Early Human Use of Marine Resources and Pigment in South Africa during the Middle Pleistocene,” <i>Nature</i> 449, no. 7164 (2007): 905–8, https://doi.org/10.1038/nature06204. [Paywalled]
+- Kyle S. Brown et al., “Fire as an Engineering Tool of Early Modern Humans,” <i>Science</i> 325, no. 5942 (2009): 859–62, https://doi.org/10.1126/science.1175028. [Paywalled]
+- Miryam Bar-Matthews et al., “A High Resolution and Continuous Isotopic Speleothem Record of Paleoclimate and Paleoenvironment from 90 to 53 ka from Pinnacle Point on the South Coast of South Africa,” <i>Quaternary Science Reviews</i> 29, nos. 17–18 (2010): 2131–45, https://doi.org/10.1016/j.quascirev.2010.05.009. [Paywalled]
+- Per Sjödin, Agnès E. Sjöstrand, Mattias Jakobsson, and Michael G. B. Blum, “Resequencing Data Provide No Evidence for a Human Bottleneck in Africa during the Penultimate Glacial Period,” <i>Molecular Biology and Evolution</i> 29, no. 7 (2012): 1851–60, https://academic.oup.com/mbe/article/29/7/1851/1067076. [Open access]
+- Martin Ziegler et al., “Development of Middle Stone Age Innovation Linked to Rapid Climate Change,” <i>Nature Communications</i> 4 (2013): 1905, https://pmc.ncbi.nlm.nih.gov/articles/PMC4354264/. [Open access]
+- Patrick Schmidt and Alex Mackay, “Why Was Silcrete Heat-Treated in the Middle Stone Age? An Early Transformative Technology in the Context of Raw Material Use at Mertenhof Rock Shelter, South Africa,” <i>PLOS ONE</i> 11, no. 2 (2016): e0149243, https://pmc.ncbi.nlm.nih.gov/articles/PMC4750967/. [Open access]
+- Curtis W. Marean, “The Transition to Foraging for Dense and Predictable Resources and Its Impact on the Evolution of Modern Humans,” <i>Philosophical Transactions of the Royal Society B</i> 371, no. 1698 (2016): 20150239, https://pmc.ncbi.nlm.nih.gov/articles/PMC4920296/. [Open access]
+- Jayne Wilkins et al., “Lithic Technological Responses to Late Pleistocene Glacial Cycling at Pinnacle Point Site 5-6, South Africa,” <i>PLOS ONE</i> 12, no. 3 (2017): e0174051, https://pmc.ncbi.nlm.nih.gov/articles/PMC5371328/. [Open access]
+
+Ochre (`wh-057`):
+
+- Christopher S. Henshilwood et al., “Emergence of Modern Human Behavior: Middle Stone Age Engravings from South Africa,” <i>Science</i> 295, no. 5558 (2002): 1278–80, https://doi.org/10.1126/science.1067575. [Paywalled]
+- Lyn Wadley, Tamaryn Hodgskiss, and Michael Grant, “Implications for Complex Cognition from the Hafting of Tools with Compound Adhesives in the Middle Stone Age, South Africa,” <i>Proceedings of the National Academy of Sciences</i> 106, no. 24 (2009): 9590–94, https://pmc.ncbi.nlm.nih.gov/articles/PMC2700998/. [Open access]
+- Christopher S. Henshilwood et al., “A 100,000-Year-Old Ochre-Processing Workshop at Blombos Cave, South Africa,” <i>Science</i> 334, no. 6053 (2011): 219–22, https://doi.org/10.1126/science.1211535. [Paywalled]
+- Paola Villa et al., “A Milk and Ochre Paint Mixture Used 49,000 Years Ago at Sibudu, South Africa,” <i>PLOS ONE</i> 10, no. 6 (2015): e0131273, https://pmc.ncbi.nlm.nih.gov/articles/PMC4488428/. [Open access]
+- Daniela Eugenia Rosso, Francesco d’Errico, and Alain Queffelec, “Patterns of Change and Continuity in Ochre Use during the Late Middle Stone Age of the Horn of Africa: The Porc-Epic Cave Record,” <i>PLOS ONE</i> 12, no. 5 (2017): e0177298, https://pmc.ncbi.nlm.nih.gov/articles/PMC5443497/. [Open access]
+- Rimtautas Dapschauskas, Matthias B. Göden, Christian Sommer, and Andrew W. Kandel, “The Emergence of Habitual Ochre Use in Africa and Its Significance for the Development of Ritual Behavior during the Middle Stone Age,” <i>Journal of World Prehistory</i> 35, nos. 3–4 (2022): 233–319, https://link.springer.com/article/10.1007/s10963-022-09170-2. [Open access]
+
+Behavioural modernity (`wh-058`):
+
+- Sally McBrearty and Alison S. Brooks, “The Revolution That Wasn’t: A New Interpretation of the Origin of Modern Human Behavior,” <i>Journal of Human Evolution</i> 39, no. 5 (2000): 453–563, https://doi.org/10.1006/jhev.2000.0435. [Paywalled]
+- Richard G. Klein, “Out of Africa and the Evolution of Human Behavior,” <i>Evolutionary Anthropology</i> 17, no. 6 (2008): 267–81, https://doi.org/10.1002/evan.20181. [Paywalled]
+- Adam Powell, Stephen Shennan, and Mark G. Thomas, “Late Pleistocene Demography and the Appearance of Modern Human Behavior,” <i>Science</i> 324, no. 5932 (2009): 1298–1301, https://discovery.ucl.ac.uk/id/eprint/168654/. [Open access]
+- João Zilhão et al., “Symbolic Use of Marine Shells and Mineral Pigments by Iberian Neandertals,” <i>Proceedings of the National Academy of Sciences</i> 107, no. 3 (2010): 1023–28, https://pmc.ncbi.nlm.nih.gov/articles/PMC2824307/. [Open access]
+- Francesco d’Errico and Chris B. Stringer, “Evolution, Revolution or Saltation Scenario for the Emergence of Modern Cultures?,” <i>Philosophical Transactions of the Royal Society B</i> 366, no. 1567 (2011): 1060–69, https://pmc.ncbi.nlm.nih.gov/articles/PMC3049097/. [Open access]
+- Dirk L. Hoffmann, Diego E. Angelucci, Valentín Villaverde, Josefina Zapata, and João Zilhão, “Symbolic Use of Marine Shells and Mineral Pigments by Iberian Neandertals 115,000 Years Ago,” <i>Science Advances</i> 4, no. 2 (2018): eaar5255, https://pmc.ncbi.nlm.nih.gov/articles/PMC5833998/. [Open access]
+- Eleanor M. L. Scerri et al., “Did Our Species Evolve in Subdivided Populations across Africa, and Why Does It Matter?,” <i>Trends in Ecology &amp; Evolution</i> 33, no. 8 (2018): 582–94, https://pmc.ncbi.nlm.nih.gov/articles/PMC6092560/. [Open access]
+
+Relabelled from Batch 14 (`wh-040`):
+
+- Florent Détroit et al., “A New Species of <i>Homo</i> from the Late Pleistocene of the Philippines,” <i>Nature</i> 568, no. 7751 (2019): 181–86, https://hal.science/hal-02296712/document. [Open access]
+- Thomas Ingicco et al., “Earliest Known Hominin Activity in the Philippines by 709 Thousand Years Ago,” <i>Nature</i> 557, no. 7704 (2018): 233–37, https://hal.science/hal-01806775v1/document. [Open access]
+
+## Batch 16 — Middle Palaeolithic technology, verified 2026-07-31
+
+Forty-seven citation slots across three cards, from **20 distinct works, 14 of them open**. Every card's
+list is majority-open. The period, the method and the industry, taken together — and `wh-003` is a second
+Batch 12: a definitional card cited almost entirely out of this register, with only three works new to it.
+
+- `wh-003` **Middle Paleolithic** — Henshilwood et al. 2002, Wadley et al. 2009, Roebroeks & Villa 2011,
+  d'Errico & Stringer 2011, Eren & Lycett 2012, Higham et al. 2014, Hublin et al. 2017, Groucutt et al.
+  2019, Brumm et al. 2021, Bae & Wu 2024, Schmidt et al. 2024. Eleven sources, eight open; **eight of the
+  eleven were already verified** in batches 0, 1, 4, 7, 9, 14 and 15.
+- `wh-032` **Levallois technique** — Boëda et al. 1999 (the Umm el Tlel point in an ass's vertebra), Eren &
+  Lycett 2012 (the naming, the tortoise core, the predetermination debate, the 300 ka horizon, both makers),
+  Adler et al. 2014 (Nor Geghi and independent invention), Soriano & Villa 2017 (early Levallois in central
+  Italy), Blinkhorn et al. 2021 (recurrent versus preferential reduction across regions), Li et al. 2023.
+  Six sources, four open.
+- `wh-033` **Mousterian** — Lartet & Christy 1865–75, Bordes 1961, Binford & Binford 1966, Higham et al.
+  2014, Groucutt et al. 2019, Niekus et al. 2019 (the tar-backed tool), Shott 2024 (the Bordes–Binford
+  opposition and Dibble's reduction thesis in one open paper), Schmidt et al. 2024 (Le Moustier as the type
+  site, and its ochre-bitumen adhesives). Eight sources, five open.
+
+### One open paper can settle a historiographical argument
+
+`wh-033`'s middle five sentences are a 20th-century debate — Bordes's facies as peoples, the Binfords'
+answer, Dibble's reduction model — and none of the primary statements is open. **Shott 2024 states all
+three in one openable page**, naming "Bordes's facies qua cultures versus Binford's toolkits" and setting
+out the reduction thesis. Bordes 1961 and Binford & Binford 1966 are cited beside it as the paywalled
+landmarks they are, so a reader who wants the originals has them and a reader who wants to check the card
+has something they can open. That is the same shape as Batch 15's Klein call.
+
+### The 19th century is as precise as the sources get
+
+Two naming histories were **narrowed to what a source states**. Eren & Lycett 2012 says Levallois artefacts
+are "named after the suburb of Paris (Levallois-Perret) from where they were recovered during the 19th
+century"; the card said "in the 1860s and 1870s", which nothing opened supports. And the Mousterian card's
+"dug from 1863 by Henry Christy and Édouard Lartet, and took that name in 1869" rests on de Mortillet 1869,
+whose journal is not reachable here (Gallica returns 403), so the sentence now says what *Reliquiae
+Aquitanicae* and Schmidt et al. 2024 do support: Lartet and Christy published the Le Moustier flints in the
+1860s and 1870s, and the shelters are still the industry's type site.
+
+### Verified citations
+
+Levallois (`wh-032`), new to the register:
+
+- Éric Boëda et al., “A Levallois Point Embedded in the Vertebra of a Wild Ass (<i>Equus africanus</i>): Hafting, Projectiles and Mousterian Hunting Weapons,” <i>Antiquity</i> 73, no. 280 (1999): 394–402, https://doi.org/10.1017/S0003598X00088335. [Paywalled]
+- Metin I. Eren and Stephen J. Lycett, “Why Levallois? A Morphometric Comparison of Experimental ‘Preferential’ Levallois Flakes versus Debitage Flakes,” <i>PLOS ONE</i> 7, no. 1 (2012): e29273, https://pmc.ncbi.nlm.nih.gov/articles/PMC3264556/. [Open access]
+- Daniel S. Adler et al., “Early Levallois Technology and the Lower to Middle Paleolithic Transition in the Southern Caucasus,” <i>Science</i> 345, no. 6204 (2014): 1609–13, https://doi.org/10.1126/science.1256484. [Paywalled]
+- Sylvain Soriano and Paola Villa, “Early Levallois and the Beginning of the Middle Paleolithic in Central Italy,” <i>PLOS ONE</i> 12, no. 10 (2017): e0186082, https://pmc.ncbi.nlm.nih.gov/articles/PMC5650164/. [Open access]
+- James Blinkhorn, Huw S. Groucutt, Eleanor M. L. Scerri, Michael D. Petraglia, and Simon Blockley, “Directional Changes in Levallois Core Technologies between Eastern Africa, Arabia, and the Levant during MIS 5,” <i>Scientific Reports</i> 11 (2021): 11465, https://pmc.ncbi.nlm.nih.gov/articles/PMC8169925/. [Open access]
+
+Mousterian (`wh-033`), new to the register:
+
+- Édouard Lartet and Henry Christy, <i>Reliquiae Aquitanicae: Being Contributions to the Archaeology and Palaeontology of Périgord and the Adjoining Provinces of Southern France</i>, ed. Thomas Rupert Jones (London: Williams and Norgate, 1865–75), plates III and V, https://archive.org/details/reliquiaeaquitan00lartuoft. [Open access]
+- François Bordes, “Mousterian Cultures in France,” <i>Science</i> 134, no. 3482 (1961): 803–10, https://doi.org/10.1126/science.134.3482.803. [Paywalled]
+- Lewis R. Binford and Sally R. Binford, “A Preliminary Analysis of Functional Variability in the Mousterian of Levallois Facies,” <i>American Anthropologist</i> 68, no. 2 (1966): 238–95, https://doi.org/10.1525/aa.1966.68.2.02a001030. [Paywalled]
+- Marcel J. L. Th. Niekus et al., “Middle Paleolithic Complex Technology and a Neandertal Tar-Backed Tool from the Dutch North Sea,” <i>Proceedings of the National Academy of Sciences</i> 116, no. 44 (2019): 22081–87, https://pmc.ncbi.nlm.nih.gov/articles/PMC6825292/. [Open access]
+- Michael J. Shott, “Dibble’s Reduction Thesis: Implications for Global Lithic Analysis,” <i>Journal of Paleolithic Archaeology</i> 7, no. 1 (2024): 12, https://link.springer.com/article/10.1007/s41982-024-00178-y. [Open access]
+- Patrick Schmidt, Radu Iovita, Armelle Charrié-Duhaut, Gunther Möller, Abay Namen, and Ewa Dutkiewicz, “Ochre-Based Compound Adhesives at the Mousterian Type-Site Document Complex Cognition and High Investment,” <i>Science Advances</i> 10, no. 8 (2024): eadl0822, https://hal.science/hal-04484835v1/document. [Open access]
+
 ---
 
 ## CANDIDATES — NOT VERIFIED, DO NOT PASTE INTO `data.js`

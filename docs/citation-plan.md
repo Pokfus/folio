@@ -370,15 +370,205 @@ a sentence about different objects. The spear-thrower's "two-thirds more velocit
 as suspicious, turned out to be **correct** (65%, from 2,160 launches) — but the sentence around it was wrong,
 comparing a 200 g dart to an 800 g javelin as though they were "the same shafts".
 
-### Batch 8 · Upper Palaeolithic art: portable (9)
-`wh-067` Lion-man · `wh-068` Hohle Fels · `wh-069` Venus of Hohle Fels (if not in the pilot) ·
-`wh-070` Divje Babe flute · `wh-072` Venus figurines · `wh-073` Venus of Willendorf ·
-`wh-074` Dolní Věstonice · `wh-075` Sungir · `wh-076` Mal'ta-Buret' culture
+### Batch 8 · Upper Palaeolithic art: portable (8) — **7 of 8 DONE (2026-07-31)**
+**Cited:** `wh-070` Divje Babe flute · `wh-075` Sungir · `wh-076` Mal'ta-Buret' culture (batch 8a) ·
+`wh-067` Lion-man · `wh-068` Hohle Fels · `wh-072` Venus figurines · `wh-073` Venus of Willendorf (batch 8b).
+(`wh-069` Venus of Hohle Fels was taken in the pilot.)
 
-Spine: Conard 2003 and 2009 on the Swabian Jura figurines; Conard, Malina & Münzel 2009 on the flutes;
-Kurat/Antl-Weiser via the Naturhistorisches Museum Wien for Willendorf; Trinkaus on Sungir; Raghavan et al.
-2014 on the Mal'ta genome; the UNESCO Swabian Jura Caves record. **`wh-070` needs its hedge checked** —
-whether the Divje Babe object is a flute at all is disputed, and the card must not read as settled.
+**Deferred:** `wh-074` Dolní Věstonice alone. Vandiver et al. 1989 on the fired ceramics and Formicola et al.
+2001 on the triple burial are both closed with no open deposit, the Moravian Museum's Anthropos pages carry
+no object records, and the card's whole second block — the triple burial, the woman under the mammoth
+scapulae, the ivory head and its 2018 facial reconstruction — rests on them. Farbstein & Nowell 2024 (open)
+covers the ceramics alone, which is one sentence of ten.
+
+Spine as worked (8b): the Museum Ulm catalogue record and the Blaubeuren state-museum site records for
+`wh-067` and `wh-068`, with the official World Heritage portal for the inscription, Bataille & Conard 2018
+for the excavation history, the Blaubeuren object record for the flute, and Conard 2003 and 2009 as the
+paywalled landmarks; Weber 2022, Morriss-Kay 2013, Floss 2015, Lbova 2021 and Farbstein & Nowell 2024 for
+`wh-072`, and the same four plus the NHM Vienna research record for `wh-073`.
+
+Spine as worked (8a): Turk/Turk/Otte 2020 and Turk & Bastiani 2020 for the proponents' case, Diedrich 2015 for
+the sceptics', Turk & Turk 2023 for the stratigraphy and the National Museum of Slovenia's own object record
+for `wh-070`; Trinkaus & Buzhilova 2018 with Marom 2012 and Nalawade-Chavan 2014 on the dating, Sikora 2017
+on the genomes and Nowell 2020 on the children and the bead labour for `wh-075`; Raghavan 2014 and Lbova
+2021 with Uchiyama 2020, plus Weber 2022 and Moreno-Mayar 2018 from earlier batches, for `wh-076`. The
+originally planned spine did not survive contact: **Conard 2003, Conard 2009a, Conard/Malina/Münzel 2009 and
+Higham 2012 are all closed with no open deposit**, Kind et al. 2014 is open at Heidelberg but behind an
+Anubis wall, and the UNESCO record remains unreachable (see the pilot log).
+
+**`wh-070`'s hedge was checked, as the plan asked, and it needed work in the opposite direction from the
+one expected** — not that the card read as settled, but that it gave the proponents' strongest argument
+without the published answer to it. See the log.
+
+### Batch 8 log — portable art, the flute and the Siberian graves
+
+#### 2026-07-31 — three cards cited, five deferred
+
+Fifteen citation slots across `wh-070`, `wh-075` and `wh-076`, drawn from **13 distinct works, every one of
+them open** — the first batch of the pass that needed no paywalled landmark at all. Coverage went from
+`cards 66/109` to `cards 69/109`. Network access was available and every source was opened before it was
+written down.
+
+**The batch was cut by subject and, for the fifth time, subject did not predict the source landscape.** It
+split exactly along the line batches 2 and 3 drew:
+
+- The three that shipped rest on **published results** — a date, a genome, a measured object, a museum
+  accession. Their scholarship sits in MDPI, PMC, PLOS, *Evolutionary Human Sciences*, an open Slovenian
+  stratigraphy journal, and two university green deposits (eScholarship) of otherwise paywalled *Nature* and
+  *Science* papers.
+- **`wh-067` Lion-man and `wh-068` Hohle Fels are the batch-2 wall in a new place.** Everything load-bearing
+  about the Swabian Jura is closed: Conard 2003 (*Nature*), Conard 2009a (the Hohle Fels Venus), Conard,
+  Malina & Münzel 2009 (the flutes) and Higham et al. 2012 (the Geißenklösterle chronology) have no open
+  deposit anywhere, and Kind et al. 2014 — the restoration paper that carries the 31.1 cm height, the ~200
+  refitted fragments and the 2012 rebuild — is nominally open in *Quartär* at Heidelberg but sits behind an
+  **Anubis proof-of-work wall**, the `hal.science` pattern one host further on. Floss 2015 and Morriss-Kay
+  2013 are open and carry a good deal, but not enough to keep a list majority-open for a card whose specific
+  numbers all come from Kind.
+- **`wh-072`, `wh-073` and `wh-074` were left for time, not for sources**, and are the first three to take
+  next. Weber et al. 2022 (open, and already in the register) carries almost all of Willendorf, the NHM
+  Vienna record carries the discovery, and Lbova 2021 and Farbstein & Nowell 2024 cover the Siberian and
+  Moravian ends of the figurine corpus. What is still missing for `wh-073` is an open source for the
+  cord-and-netting impressions in Moravia (Adovasio, Soffer & Klíma 1996 is closed), and for `wh-074`
+  Vandiver et al. 1989 on the fired ceramics is closed with no deposit.
+
+**Three findings worth carrying forward.**
+
+**1. The hedge check the plan ordered for `wh-070` found the opposite problem.** The card was asked to be
+checked for reading as settled; it does not. What it did instead was give the proponents' clinching
+argument — "no hyena was found among the animal bones at the site at all" — with no sign that it has a
+published answer. Diedrich 2015 addresses it directly: a cave bear ulna *from Divje Babe itself* "is one of
+the best examples of bone crushing by hyena premolar teeth," so "his final arguments that 'hyenas are
+absent' at this site … are none." The sentence now carries both halves. **A hedge can be intact and the
+argument beneath it still one-sided**, and only the sceptic's own paper shows that.
+
+**2. Two of the three cards had the same date written on two clocks.** `wh-075` said Sungir was "lived in
+roughly 34,000 to 30,000 years ago" — but Marom et al. 2012 give the burials as **30.1 ± 0.3 ka BP, i.e.
+34.1–35.2 ka cal BP**. The card's "range" was one date in radiocarbon years and the same date in calendar
+years, presented as a span of four thousand years. This is the sixth appearance of the uncalibrated-14C
+problem the batch-7 log flagged, and the first where it manufactured a *duration* rather than a wrong year.
+Ask of every range whether its two ends are on the same scale.
+
+**3. A correction is not finished when the abstract is fixed — check the QUESTION POOL.** Every card carries
+three phrasings, and they repeat the abstract's figures exactly as the date line does. `wh-075`'s third
+phrasing said in as many words that none of the Sungir dead "proved more closely related than second
+cousins" — the very error being corrected — and would have shipped as the cloze question above a corrected
+background. Five phrasings across the two cards had to be rewritten in all ten languages
+(`add-questions.js` for the extras, `fix-field.js` for the main `question`, which is a string it can reach).
+**The batch-6 rule "check the date line as well as the prose" now extends to the question pool**, and the
+question is the more visible of the two.
+
+**Seven other corrections**, made in English and all nine languages:
+
+- **`wh-075`** put the man's fox teeth in "a cap stitched with fox teeth" and gave him "ivory bracelets."
+  Trinkaus & Buzhilova 2018 (9–10) record "Twelve pierced fox canines … on the forehead" and "25 mammoth
+  ivory arm bands." The cap is an interpretation, and the counts were absent. Corrected to what the
+  excavation records.
+- **`wh-075`** had the spears "each straightened out of a curved mammoth tusk by a method nobody has
+  convincingly reconstructed." The straightening puzzle is real but appears in no source that could be
+  opened; what the paper gives is 16 spears, "five of which are double-pointed," 0.27–2.47 m. Rewritten to
+  that, and the same claim removed from the card's first question phrasing.
+- **`wh-075`** said each bead "took the better part of an hour to carve and drill, so the two children went
+  into the ground under years of somebody's work." The only published figure that could be opened is
+  Soffer's, quoted by Nowell 2020: the beads of Sunghir 1–3 represent **more than 2,500 person hours** — an
+  order of magnitude away from 10,000 beads at an hour each. Replaced with the published estimate, and
+  "years" softened to "months."
+- **`wh-075`** said quarrymen cutting clay for a factory struck the site in 1955. No source that could be
+  opened carries the quarry, the clay or the year; Nalawade-Chavan et al. say only "discovered in the
+  1950s." Softened, in the abstract, the date line and a question phrasing.
+- **`wh-075`** placed Sungir "about 190 kilometres east of Moscow"; the published figure is **197 km**.
+  Raised to 200.
+- **`wh-076`** said "Gerasimov found the burial of a boy of about four." Lbova 2021 is explicit that it is
+  **the burial of two children** — the second known from teeth — and that the 3–4-year-old is one of them.
+  Corrected; the genome is still his.
+- **`wh-076`** described houses "sunk partly into the ground, walled with large animal bones and roofed on a
+  frame of reindeer antler under skins." That reconstruction is Gerasimov's and circulates chiefly through
+  tertiary sources; nothing openable states it. Replaced with what Lbova does record — dwelling remains in
+  the camp's floors, with most of the carved ivory found inside them — in the abstract, the date line and a
+  question phrasing. The card's "main occupations fall roughly between 24,000 and 15,000 years ago" went the
+  same way: Raghavan gives 24,423–23,891 cal BP for MA-1 and nothing supports the 15,000 end.
+
+**On the mechanism.** Marker splicing by sentence index worked a seventh time, and the batch-1 warning bit
+again: the shipped **Japanese `wh-076`** ran the English sentences 3 and 4 together, so its ten sentences
+mapped 1:1 by count but not by content, and a marker placed by index would have landed on the wrong claim.
+Because sentence 3 was being rewritten anyway, the Japanese 3 and 4 were re-cut to match the English
+structure, and every marker position was then eyeballed across all ten languages before applying. All three
+cards round-tripped 5+5 in every language first.
+
+### Batch 8b log — the Swabian Jura and the Venus figurines
+
+#### 2026-07-31 — four more cards cited, one deferred
+
+Twenty-one citation slots across `wh-067`, `wh-068`, `wh-072` and `wh-073`, drawn from **14 distinct works,
+12 of them open**; `wh-072` and `wh-073` are fully open. Coverage went from `cards 69/109` to `cards 73/109`.
+
+**The finding of this batch is a correction to the batch-8a log, and it is the most useful thing in this
+whole pass so far: `wh-067` and `wh-068` were deferred as unsourceable, and they were not.** 8a recorded
+them as the batch-2 wall — Conard 2003, Conard 2009a, Conard/Malina/Münzel 2009 and Higham 2012 all closed,
+Kind et al. 2014 open in *Quartär* but behind an Anubis wall — and concluded that no majority-open list could
+be built. That was true of the *journal* literature and false of the card, because the specific facts those
+cards state are **object facts**, and object facts live in museum catalogues:
+
+- The Lion Man's height, material, find date, fragment count, restoration history **and its sex** are all in
+  Museum Ulm's own catalogue record, with an inventory number.
+- The Hohle Fels flute's length, its four surviving finger holes and its bevelled mouthpiece are in the
+  Blaubeuren museum's object record for the flute.
+- The World Heritage inscription is on the property's official portal, which is openable where
+  `whc.unesco.org` is not.
+
+**→ Search the holding institution before concluding a card cannot be cited.** A museum record is not a
+consolation prize for a card whose papers are paywalled: for a card *about an object* it is frequently the
+better source, because it is maintained by the people who hold the thing and it states measurements the
+journal article assumed its readers already knew. Five of this batch's eight new sources are museum or
+government records, and without them two cards would have been deferred twice.
+
+**Twelve corrections**, made in English and all nine languages:
+
+- **`wh-067`'s disputed sex is no longer disputed.** The card had "one prehistorian reading the marks at its
+  groin as male and another as female." Museum Ulm's record, after the 2012/13 rebuild: "Aufgrund eines
+  dreieckigen, vormals rechteckigen Elfenbeinstücks im Schambereich der Figur … Mit hoher Wahrscheinlichkeit
+  nach handelt es sich bei dem Löwenmenschen um ein männliches Wesen." The argument was real; the
+  reconstruction settled it. **This is the second correction in the pass caused by time rather than
+  carelessness** (after `wh-037`'s *naledi* papers), and both were on cards reporting a live dispute.
+- **`wh-067`** had the fragments sitting "in a box that sat in the Museum Ulm for thirty years." They sat
+  with the excavation's sponsor Robert Wetzel and reached the museum only after his death in **1962**.
+- **`wh-067`** dated the rebuild to 2012; it ran 2012/13, and Blaubeuren dates the reassembly to 2013.
+  Height given as 31.1 cm, per the catalogue.
+- **`wh-067`'s date line contradicted its own abstract**: the abstract said Völzing found it "on the last day
+  of the dig," the date line "the day before the dig was broken off." The museum record settles it — the dig
+  was broken off on 25 August 1939 itself.
+- **`wh-067`'s 400-hour carving experiment could not be opened.** Hein and Wehrberger published it in the
+  print yearbook *Experimentelle Archäologie in Europa*. Softened to "hundreds of hours" and left
+  **deliberately unmarked**, on the `wh-093` precedent.
+- **`wh-068`'s flute had five finger holes and twelve fragments.** The museum's object record gives **four
+  preserved holes**, with the lower end "an einem fünften Loch abgebrochen," and describes the flute as
+  nearly complete without a fragment count. Corrected; the 21.7 cm length and the bevelled notch both hold.
+- **`wh-068`'s "70 centimetres away"** — the distance between the figurine and the flute — is in
+  Conard/Malina/Münzel 2009's full text, which is closed, and in no openable source. Removed from the
+  abstract and from the card's main question.
+- **`wh-068`** dated the figurine's discovery to "September 2008" and counted "six pieces of ivory"; the
+  openable sources give the year and no piece count. Both softened.
+- **`wh-072`'s "more than 200" figurines** trace to no openable catalogue. Dropped from the abstract, the
+  date line and the question.
+- **`wh-072`'s Brassempouy head** was dated "about 25,000 years old." The Musée d'Archéologie nationale's
+  object record 503'd on every attempt, and the museum's own Gravettian bracket for the piece is
+  31,500–28,500 cal BP, so the figure is likely too young as well as unsourceable. The sentence was replaced
+  with the Hohle Fels figurine, which is sourced and makes the same point about exceptions.
+- **`wh-073` credited Josef Szombathy with finding the Venus of Willendorf.** He directed the excavation; the
+  NHM Vienna record says she was "discovered by a worker on the site, **Johann Veran**, as he carefully
+  sifted through the earth." Corrected in the abstract, the date line and two question phrasings.
+- **`wh-073`'s "seven bands"** round the head and its "she cannot stand" are both unsourceable from anything
+  openable — Weber 2022 says only "a sophisticated headdress or hairdo." The count went; the cannot-stand
+  sentence was replaced with Weber's iron-oxide concretions and the navel cavity, which is sourced and more
+  interesting. The Moravian cord-and-netting impressions went the same way (Adovasio, Soffer & Klíma 1996 is
+  closed), replaced by the fitted fur coveralls on the Mal'ta figurines, which Lbova 2021 does carry.
+
+**On the mechanism.** Two splitter findings. First, a **day-ordinal before a month name** breaks the
+sentence splitter: German "am 25. August 1939" and "am 7. August 1908" split after the "25." because the
+month is capitalised and the bare-ordinal guard from batch 4 does not cover it. Fixed with a month-name
+lookahead, which is worth keeping for every later batch that touches a European excavation date. Second,
+the Arabic `wh-067` genuinely runs **5+6**: it renders the English "Whether it is a god … there is no way to
+tell" as two sentences. That is the batch-1 warning again, and it was handled with an explicit
+English-index → language-index map in the builder rather than by forcing the translation to match.
 
 ### Batch 9 · Upper Palaeolithic art: rock and cave (6) — **5 of 6 DONE (2026-07-31)**
 **Cited:** `wh-083` cave painting · `wh-084` Chauvet Cave · `wh-085` Cave of Altamira ·
@@ -573,10 +763,154 @@ marker was placed. `test-sources.js` also needed a robustness fix: its "a card w
 Sources fold" check studied the date-seeded card of the day, which the pass has now cited — it strips sources on
 that one page so it tests the mechanism rather than leaning on an uncited card.
 
-### Batch 12 · The framework itself (8)
-`wh-001` Paleolithic · `wh-002` Lower Paleolithic · `wh-003` Middle Paleolithic · `wh-004` Upper Paleolithic ·
-`wh-005` Stone Age (if not in the pilot) · `wh-006` Three-age system · `wh-007` Prehistory ·
-`wh-009` Hunter-gatherer (if not in the pilot)
+### Batch 13 · The deferred set, re-cut by source type (2 of 2 attempted) — **DONE (2026-07-31)**
+**Cited:** `wh-024` Dmanisi · `wh-050` Aterian.
+
+Not a subject batch. This is the first pass that went at the **deferred pile** rather than at a theme, and
+it picked its two cards by asking which of the thirty-six remaining are built on *published results* rather
+than on discovery history — the test batch 2 arrived at and batches 3, 5 and 8a all confirmed.
+
+Spine as worked: Nery et al. 2025 (the open PLOS ONE crown-area study that is the card's own closing claim),
+Lordkipanidze et al. 2013 and 2005 as the two paywalled landmarks, Zollikofer et al. 2024 and Curran et al.
+2025 open for the dating and for the Eurasian-presence claim, for `wh-024`; Bergmann et al. 2022, Campmas
+et al. 2026, Bouzouggar et al. 2007, Hallett et al. 2021 and Ait Brahim et al. 2023 — **all five open** —
+for `wh-050`.
+
+### Batch 13 log — Dmanisi and the Aterian
+
+#### 2026-07-31 — two cards cited, four triaged and left
+
+Ten citation slots from **10 distinct works, 8 of them open**; `wh-050` is fully open. Coverage went from
+`cards 73/109` to `cards 75/109`.
+
+**What this batch was really for was the triage**, and the triage is the part worth keeping. The session
+started on the batch-2 discovery-and-site set — `wh-024` Dmanisi, `wh-025` Java Man, `wh-026` Peking Man,
+`wh-027` Zhoukoudian, `wh-029` Atapuerca — on the theory that batch 8b's museum-record method would unblock
+them the way it unblocked the Swabian Jura. **It does not, and the reason is worth writing down: the
+Swabian institutions publish object records, and these do not.** Museum Ulm and the Blaubeuren state museum
+maintain per-object catalogue entries with inventory numbers, measurements and find histories. What the
+equivalent institutions publish is:
+
+- **Georgian National Museum** — an institutional site with no Dmanisi object records reachable.
+- **Naturalis** (the Dubois collection) — a bioportal that serves an Angular application, not a citable
+  record; the `dubois-collection` page 404s.
+- **Fundación Atapuerca / Museo de la Evolución Humana** — project and visitor pages naming the sites and
+  species, with no fossil counts, no Sima de los Huesos figures and no Excalibur.
+- **Moravian Museum (Anthropos)** — visitor pages only, which is also why `wh-074` stays deferred.
+
+So the method is real but not general: **it works where a museum runs a catalogue, and a catalogue is a
+different thing from a website.** Check for one; do not assume it.
+
+**What is genuinely available for the four left, so the next pass does not re-do this search:**
+
+- **`wh-025` Java Man** is the closest to ready. **Dubois 1894 is public domain and legible** — the
+  archive.org scan (`Pithecanthropus00Dubo`) OCRs into usable German, with Trinil and Ngawi at line 616 and
+  the braincase discussion around line 2218 — and Dubois 1898's English *Pithecanthropus erectus: A Form
+  from the Ancestral Stock of Mankind* is there too (`b24880814`). Two further open works exist but **both
+  hosts were down when tried**: Alink et al. 2016, "The Homo erectus Site of Trinil: Past, Present and
+  Future of a Historic Place," *AMERTA* 34 (gold OA, `10.24832/amt.v34i2.150` — the Indonesian ministry host
+  does not resolve), and Gruwier et al. 2025 on Trinil palaeoenvironments (green at VUB, persistent 503).
+  Retry those two and the card is done.
+- **`wh-026`/`wh-027` Zhoukoudian** — Weidenreich's *The Skull of Sinanthropus pekinensis* (Palaeontologia
+  Sinica) is on archive.org and public domain, which covers the casts-and-descriptions claim that is the
+  heart of `wh-026`. Shen et al. 2009 (the 770 ka date) and Binford & Ho 1985 (the hyena reinterpretation)
+  are both closed.
+- **`wh-029` Atapuerca** — the worst of the four. Arsuaga et al. 2014 is green only at `cnrs.hal.science`,
+  behind the Anubis wall; the 2025 "Pink" *Nature* paper is closed with no deposit; the Sima de los Huesos
+  literature is almost entirely Elsevier and Wiley.
+
+**Three corrections**, made in English and all nine languages:
+
+- **`wh-024` gave Dmanisi's age as "between 1.85 and 1.77 million years ago."** The 1.85 end is Ferring et
+  al. 2011 (*PNAS*, closed, no deposit); every openable source gives "around 1.8 Ma" (Nery et al. 2025) or
+  "at least 1.77" (Zollikofer et al. 2024). Softened to about 1.8 million years, in the abstract and the
+  date line.
+- **`wh-024` said the Dmanisi brains "ran from about 550 to 730 cubic centimetres."** 546 cc is published
+  for D4500; the 730 upper bound appears in nothing openable. Rewritten to the sourced figure.
+- **`wh-050` had the Aterian persisting "until roughly 20,000 years ago" and bone tools at Contrebandiers
+  "between about 122,000 and 96,000."** Bergmann et al. 2022 give the industry as 145–30 ka BP, and
+  Hallett et al. 2021 date the bone assemblage to 120,000–90,000 in their own title. Both corrected.
+
+Two smaller repairs went with them: `wh-024`'s "differ no more than five modern people do" is a popular
+gloss on Lordkipanidze et al. 2013 and not in the paper, so it now says the variation is no wider than
+within a single population; and its unsourced site setting ("a promontory above the meeting of two rivers")
+was dropped to make room for the Curran et al. 2025 nuance — **Dmanisi has the oldest human *fossils*
+outside Africa, while cut-marked bone in Romania is now claimed to show an earlier *presence*.** Fossils and
+traces are different evidence, and the card now says which it means.
+
+The `wh-024` sentence naming the Oldowan tools carries **no marker** and is deliberately unsourced: no
+openable work describes the Dmanisi lithic assemblage directly. It follows the `wh-093` precedent.
+
+**On the mechanism.** Nothing new broke. Both cards round-tripped 5+5 in all ten languages on the first
+try, with the month-name guard from batch 8b already in place, and **neither card's question pool needed a
+correction** — the first time in three batches, and only because the pools happened not to repeat the
+figures that moved.
+
+### Batch 12 · The framework itself (6) — **3 of 6 DONE (2026-07-31)**
+**Cited:** `wh-001` Paleolithic · `wh-002` Lower Paleolithic · `wh-004` Upper Paleolithic.
+(`wh-005` Stone Age and `wh-009` Hunter-gatherer were taken in the pilot.)
+
+**Remaining:** `wh-003` Middle Paleolithic · `wh-006` Three-age system · `wh-007` Prehistory. See the
+Batch 12 log — each needs sources this register does not yet hold, and each names exactly which.
+
+Spine as worked: **nothing new was opened.** All thirteen citations were verified in batches 0, 1, 4, 7, 9,
+10 and 13 and pasted from `.claude/sources-register.md` — Lubbock 1865, Li et al. 2023, Harmand et al. 2015,
+Domínguez-Rodrigo & Alcalá 2016, Braun et al. 2019, de la Torre 2016, Roebroeks & Villa 2011, Hublin et al.
+2017, Walker et al. 2018, Brumm et al. 2021, Oktaviana et al. 2024, Larson et al. 2014, Higham et al. 2014,
+Gilligan et al. 2024, Floss 2015, Quiles et al. 2016, Trinkaus & Buzhilova 2018 and Lordkipanidze et al.
+2013.
+
+### Batch 12 log — the framework cards
+
+#### 2026-07-31 — three cards cited, three left
+
+Twenty-five citation slots across `wh-001`, `wh-002` and `wh-004`, from **13 distinct works, 11 of them
+open**, every list majority-open. Coverage went from `cards 75/109` to `cards 78/109`.
+
+**This is the cheapest batch of the whole pass, and the reason is the register.** Not one source had to be
+found, opened or labelled: the framework cards make claims that other cards already make — Lubbock coined
+the word, the Oldowan starts at 2.6 Ma, Lomekwi is disputed, *Homo sapiens* is 300,000 years old, the Ice
+Age ends at 11,700, Sulawesi has the oldest animal painting — and every one of those was verified in an
+earlier batch. The whole job was mapping sentences to entries. **A register pays for itself late, not
+early**, and this is what late looks like: three definitional cards, twenty-five slots, no new fetches.
+
+It also vindicates the pilot's method one more time. There is no source "about the Palaeolithic" behind any
+of these cards; there are ten sources behind ten specific claims. Looking for a work that defines the period
+is the trap, exactly as the pilot log said.
+
+**Two corrections, and both are of a kind this pass has not produced before: the cards were not wrong
+against the literature, they were wrong against each other.**
+
+- **`wh-001` and `wh-004` both ended the Palaeolithic "about 12,000 years ago."** Five other cards —
+  `wh-010` Pleistocene, `wh-012` Last Glacial Period, `wh-090` Younger Dryas, `wh-102` Holocene and the
+  Holocene GSSP itself in Walker et al. 2018 — all give **11,700**. `wh-004` additionally contradicted its
+  own date line, which already said 11,700. Both raised.
+- **`wh-004` dated the oldest Sulawesi animal painting to "at least 45,000 years ago."** Our own cited
+  `wh-083` says 45,500 for the Leang Tedongnge pig and 51,200 for the narrative scene, on Brumm et al. 2021
+  and Oktaviana et al. 2024 — both of which this card now cites. Corrected to match.
+
+Four instances of cards contradicting each other across batches 7 and 8 prompted the sibling-consistency
+check; this batch is the first where that check found **everything** it found. Run it early on definitional
+cards especially: a card that summarises the whole period restates figures that a dozen other cards own.
+
+**Nothing else needed changing**, and the question pools needed no correction at all — the first batch since
+the rule was written where they were already right, because these pools happen to state the claims without
+the figures.
+
+**What the three remaining cards need**, so the next pass does not re-derive it:
+
+- **`wh-006` Three-age system** — Rowley-Conwy 2004 (open, in the register) carries Thomsen, the 1836
+  *Ledetraad* and the 1848 English translation. Still needed: a source for Hesiod's ages of metals as
+  poetry rather than evidence (Hesiod is public domain and on archive.org, so this is easy), and one for
+  the claim that much of sub-Saharan Africa went from stone to iron with no bronze stage.
+- **`wh-007` Prehistory** — needs the coinage of the word itself (Daniel Wilson 1851; Rowley-Conwy has
+  written the history of it), a source for writing appearing in Mesopotamia and Egypt around 3200 BCE, and
+  one for the colonial use of the term and the rule against applying it to living communities. That last is
+  the important one and it is a live scholarly literature, not an aside.
+- **`wh-003` Middle Paleolithic** — the hardest of the three and for the batch-3 reason: the Levallois and
+  Mousterian definitions are historiographic, `wh-032` and `wh-033` were deferred for exactly that, and the
+  Blombos ochre and beads it cites are the batch-5 wall (Henshilwood 2002 and 2011 closed with no deposit).
+  Take it with those three cards, not with the framework.
 
 Last on purpose. These are historiographic rather than empirical — they are about how the past has been
 divided up, not about the past — and the pilot will have shown what actually works for them. Lubbock's
@@ -650,6 +984,184 @@ identification. A page number that only exists in a copy the reader cannot open 
 mechanism is worth reusing: the abstracts are all exactly two blocks of five sentences in every language, so
 markers can be spliced by sentence index rather than retyped, and a marker-count check across the ten
 languages catches any drift. Only the two corrected sentences needed real translation.
+
+### Batch 14 · Published results, wherever they fall (3) — **DONE (2026-07-31)**
+**Cited:** `wh-042` Toba catastrophe theory · `wh-040` *Homo luzonensis* · `wh-049` Skhul and Qafzeh hominins.
+
+Spine: Ambrose 1998, Petraglia et al. 2007, Clarkson et al. 2020, Lane et al. 2013, Smith et al. 2018 and
+Black et al. 2021 (Toba); Détroit et al. 2019, Mijares et al. 2010, Ingicco et al. 2018, Larena et al. 2021,
+Gousset et al. 2026 and Bae & Wu 2024 (Luzon); Groucutt et al. 2019, Valladas et al. 1988, Sarig et al. 2013,
+Coqueugniot et al. 2014, Bar-Yosef Mayer et al. 2020, Zaidner et al. 2025 and Nielsen et al. 2017 (the
+Levantine caves). Nineteen works, fourteen open; every list majority-open.
+
+### Batch 14 log — Toba, Luzon and the Levantine caves
+
+#### 2026-07-31 — three cards cited, coverage `cards 78/109` → `cards 81/109`
+
+**Batch 2 said to re-cut the remaining batches by source type rather than by subject; this is the first
+batch cut that way, and it is why three cards with nothing in common went through in one sitting.** A
+supervolcano, an island species and two Levantine caves share no topic. What they share is that every claim
+they make rests on a *published result* — a modelled climate, a dated bone bed, a measured genome, a
+thermoluminescence age — and results are deposited, indexed and openable. The discovery-history cards that
+keep stalling are stalling on founding announcements and historiography, not on their subject.
+
+**Two indexes lied, in opposite directions, in the same batch.** Unpaywall calls Détroit et al. 2019
+*green*: the Zenodo deposit says "files are restricted", the HAL copy sits behind an Anubis wall, and the
+Griffith record is **metadata only**. It calls Petraglia et al. 2007 *gold*: the Griffith record is likewise
+metadata only. Both are cited as **[Paywalled]** landmark defining papers, which they are. Meanwhile PMC's
+own front end served a reCAPTCHA to `curl` for one article and full text for the next — that is throttling,
+not access, and WebFetch reached both. Batch 3's rule holds and needs saying once more: **fetch it before
+labelling it, in both directions.**
+
+**Thirteen corrections**, and the two most interesting were caused by *the source being newer than the card*
+rather than by carelessness:
+
+- **`wh-042` gave the eruption as "roughly 2,800 cubic kilometres of rock and ash."** That is the
+  Rose & Chesner figure. Black et al. 2021 — the paper the card's own last sentence rests on — opens
+  "expelled an ∼5,300 km³ dense-rock equivalent volume of magma" and calls it "the largest eruption of
+  the past two million years." Raised, in the abstract **and** the date line.
+- **`wh-042` had Ambrose proposing "a volcanic winter lasting about six years."** His 1998 abstract
+  proposes no such thing: it gives "one thousand years of the coldest temperatures of the Later Pleistocene
+  (approximately 71-70 ka)." The six years is Rampino & Self's, repeated into Ambrose by later retellings.
+  Rewritten to what he wrote — abstract, **and the second question phrasing, which stated the six years in
+  all ten languages.**
+- **`wh-042` said the Lake Malawi mud "records no cooling worth the name."** The paper's title says no
+  volcanic winter, but its text records "a temperature drop of ∼1.5 °C" at the Toba interval. Given as the
+  paper gives it. Dhaba (Clarkson et al. 2020) was added beside Jwalapuram, since Petraglia et al. 2007 is
+  the one closed source on the card and a reader should have an openable Indian sequence to check.
+- **`wh-049` had Skhul "dug from 1929."** Garrod's Carmel programme began in 1929; Skhul itself was dug by
+  McCown "for two months in 1931 and for three months in 1932" (Groucutt et al. 2019). Abstract and date
+  line both.
+- **`wh-049` had both caves "dated in the 1980s."** Qafzeh's TL is Valladas et al. 1988; Skhul's is Mercier
+  et al. 1993. Abstract **and the second question phrasing**, again in all ten languages.
+- **`wh-049` said the Qafzeh shells were "pierced for stringing."** They are naturally holed —
+  Bar-Yosef Mayer et al. 2020 is explicit — and the use-wear, not the hole, is what shows they were strung.
+  Rewritten to holed by nature, worn from stringing.
+- **`wh-049` had the Qafzeh child "curled in a hollow cut into the rock."** Coqueugniot et al. 2014: "the
+  corpse was originally lying in a pit on its back, the head turned to the right with upper limbs flexed,"
+  aged "circa 12–13 yrs." Also the boar mandible at Skhul, which the card laid on the man's chest and
+  McCown's field note places "in the angle formed by the left forearm and right humerus."
+- Plus: Kebara and Amud given at 70,000–50,000 (Zaidner et al. 2025) and placed in the same *corridor*
+  rather than the same hills — Amud is in Galilee, not on Carmel; Qafzeh's 27 individuals (Sarig et al.
+  2013) in place of "two dozen or more" for both caves; Skhul 5's brow given as the thin **continuous**
+  torus Groucutt et al. describe rather than "heavy" brows, and the jutting face pinned to that skull;
+  and `wh-040`'s doubt restated as the contested *placement* Gousset et al. 2026 document rather than an
+  unsourced claim that specialists reject the name.
+
+**The question-pool rule earned its keep twice in one batch** (Batch 8's lesson): `wh-042`'s second phrasing
+carried the six-year winter and `wh-049`'s carried "in the 1980s", both in all ten languages, above
+abstracts that had just been corrected. `wh-049`'s **main** question also generalised the Qafzeh child's
+antlers to everyone buried in both caves; that went through `fix-field.js`, which reaches `question` where
+`add-questions.js` reaches only the extras.
+
+**`wh-049` was already at 329 words** and every correction adds specifics, so it took three trimming passes
+across all ten languages to land back inside the 270–330 rule. Budget for that on any card already near the
+ceiling: a citation pass makes prose longer, not shorter.
+
+### Batch 15 · The southern African MSA and the modern-mind debate (3) — **DONE (2026-07-31)**
+**Cited:** `wh-056` Pinnacle Point · `wh-057` Ochre · `wh-058` Behavioural modernity.
+
+Spine: Marean et al. 2004, Marean et al. 2007, Brown et al. 2009, Bar-Matthews et al. 2010, Sjödin et al.
+2012, Ziegler et al. 2013, Schmidt & Mackay 2016, Marean 2016, Wilkins et al. 2017 (Pinnacle Point);
+Henshilwood et al. 2002 and 2011, Wadley et al. 2009, Villa et al. 2015, Rosso et al. 2017, Dapschauskas
+et al. 2022 (ochre); McBrearty & Brooks 2000, Klein 2008, Powell et al. 2009, Zilhão et al. 2010, d'Errico
+& Stringer 2011, Hoffmann et al. 2018, Scerri et al. 2018 (modernity). Twenty-two works, fifteen open.
+
+### Batch 15 log — the southern African MSA
+
+#### 2026-07-31 — three cards cited, coverage `cards 81/109` → `cards 84/109`
+
+**This batch reopens a set the plan had written off.** The southern African MSA was deferred on the
+grounds that Henshilwood and Marean are closed. That is true of the *founding announcements* and false of
+almost everything else: the reviews, the re-analyses and the syntheses built on those results are open, and
+between them they carry the claims. Dapschauskas et al. 2022 alone carries six of `wh-057`'s ten sentences
+— the mineralogy, the earliest sites, the transport distances, the functional-versus-symbolic argument and
+the ochre found with burials. **When the discovery paper is closed, look for the review that restates it.**
+
+**The HAL `/document` path, and what it cost Batch 14.** A HAL landing page sits behind an Anubis
+proof-of-work wall; `hal.science/hal-XXXXXX/document` serves the PDF straight out. That reverses a Batch 14
+call: **Détroit et al. 2019 shipped as [Paywalled] and is open.** Relabelled and repointed here, with
+Ingicco et al. 2018 moved to the same route. Batch 3's rule was "fetch it before labelling it"; the
+corollary is **fetch the FILE, not the landing page** — the same host can wall one and serve the other.
+
+**Five corrections**, three of them on one card:
+
+- **`wh-056` put Pinnacle Point "just south of the town of Mossel Bay."** Marean et al. 2004: "a section of
+  coastal cliffs **west** of the town of Mossel Bay." Abstract, date line and the main question all said
+  south.
+- **`wh-056` had silcrete "buried in sand and heated slowly to roughly 350 degrees Celsius."** No source
+  this pass could open gives a temperature — not Brown et al. 2009's abstract, not Wilkins et al. 2017,
+  not Schmidt & Mackay 2016, whose own figure is a threshold ("from 250 °C upward") rather than a working
+  temperature. The number is gone and the process is described by what it does: heated in fire until the
+  stone fractures like flint rather than like coarse sandstone.
+- **`wh-056` said heat treatment "is recorded here earlier than anywhere else"** and pinned it to PP5-6's
+  89–51 ka sequence. Brown et al. 2009's abstract puts it at Pinnacle Point "as early as 164 ka" and says
+  it "predominates among silcrete tools at approximately 72 ka" — an earlier cave, and a distinction
+  between first appearance and dominance that the card had collapsed.
+- **`wh-057` said burnt ochre crumbs "show that people made that change on purpose."** Rosso et al. 2017
+  calls the evidence for deliberate heating something that "has been advanced," at Pinnacle Point, not
+  something established. Softened to "are read as."
+- **`wh-058` attributed the anti-checklist argument to John Shea.** Shea 2011 is closed at Current
+  Anthropology with no deposit anywhere, so the name went and the argument stayed, grounded on Scerri et
+  al. 2018, which is open and makes it: trait categories "will have declining value" unless operationalised,
+  and the traits appear patchily across a subdivided African population.
+
+**The question pool carried two of the three `wh-056` errors** — the south-of-Mossel-Bay location in the
+main question and the 350 degrees plus "the earliest such treatment anywhere" in the second phrasing, in
+all ten languages. Batch 8's rule, third batch running.
+
+**One judgement worth recording.** `wh-058`'s prose says "Richard Klein argued that the suddenness is
+real." Klein 2008 is closed and its Wiley bronze copy 403s here, so it is cited as a paywalled landmark
+*and* the sentence carries a second marker to d'Errico & Stringer 2011, which states the saltation model
+and attributes it to Klein in an openable page. Where the landmark cannot be opened, **point the reader at
+an open work that reports it** as well as at the landmark itself.
+
+### Batch 16 · Middle Palaeolithic technology (3) — **DONE (2026-07-31)**
+**Cited:** `wh-003` Middle Paleolithic · `wh-032` Levallois technique · `wh-033` Mousterian.
+
+Spine: Eren & Lycett 2012, Adler et al. 2014, Soriano & Villa 2017, Blinkhorn et al. 2021, Boëda et al.
+1999, Li et al. 2023 (Levallois); Lartet & Christy 1865–75, Bordes 1961, Binford & Binford 1966, Niekus et
+al. 2019, Shott 2024, Schmidt et al. 2024, Groucutt et al. 2019, Higham et al. 2014 (Mousterian); and for
+`wh-003` eight works already in the register plus Eren & Lycett, Bae & Wu and Schmidt et al. Twenty works,
+fourteen open.
+
+### Batch 16 log — the period, the method, the industry
+
+#### 2026-07-31 — three cards cited, coverage `cards 84/109` → `cards 87/109`
+
+**`wh-003` is a second Batch 12.** Eight of its eleven sources were already verified — the register is now
+large enough that a definitional card costs almost nothing. Decompose it into claims, map the claims onto
+entries, add the two or three that are genuinely new. Twenty-five citation slots, three fetches.
+
+**One open paper can settle a historiographical argument.** `wh-033`'s middle five sentences are a
+20th-century debate and none of its primary statements is open: Bordes 1961 in *Science*, Binford & Binford
+1966 in *American Anthropologist*, Dibble 1987 in *American Antiquity*, all closed. **Shott 2024 states all
+three in one openable page** — it names "Bordes's facies qua cultures versus Binford's toolkits" and sets
+out the reduction thesis directly. Bordes and the Binfords are cited beside it as the paywalled landmarks
+they are. Same shape as Batch 15's Klein call, and worth generalising: **when a card narrates an argument,
+look for the review that narrates it, and cite the originals alongside rather than instead.**
+
+**Two corrections, both narrowings of a naming history to what a source states:**
+
+- **`wh-032` said Levallois-Perret's quarries yielded the first recognised pieces "in the 1860s and
+  1870s."** Eren & Lycett 2012 says only "during the 19th century," and nothing openable is more precise.
+  Narrowed — in the abstract, the date line **and the main question**, which carried "in the 1860s" in all
+  ten languages.
+- **`wh-033` said Le Moustier was "dug from 1863 by Henry Christy and Édouard Lartet, and took that name in
+  1869."** The 1869 naming is de Mortillet's, in *Matériaux pour l'histoire primitive et naturelle de
+  l'homme*, which is not reachable here — Gallica returns 403 to this sandbox and the volume is not on
+  archive.org. The sentence now says what *Reliquiae Aquitanicae* and Schmidt et al. 2024 do support:
+  Lartet and Christy published the Le Moustier flints in the 1860s and 1870s, and the shelters are still
+  the industry's type site. Abstract and date line both.
+
+**A tooling fix worth keeping.** The sentence splitter broke the German `wh-033` abstract at "Archäologie
+des 20. Jahrhunderts" — a bare ordinal before a capitalised noun looks exactly like a sentence end. The
+splitter now carries an ORDNOUN guard beside the existing MONTH one (`Jahrhundert`, `Jahrtausend`, `eeuw`,
+`secolo`, `siglo`, `siècle`, `век`), so the next batch does not have to hand-map that language's indices.
+
+**A house-style note.** Century forms are per language and the deck already has conventions: `siglo XIX`,
+`19e siècle`, `19. Jahrhundert`, `19° secolo`, `19e eeuw`, `19 века`, `القرن 19`, `19世纪`, `19世紀`. Check
+the existing cards before writing a new one; `check-style.js` polices the English only.
 
 ## Batch 1 log — the oldest toolmakers
 
@@ -1079,5 +1591,5 @@ If a needed host turns out to be missing mid-batch, the cheaper fix is switching
 - **Changelog.** One line per day, raising its count — "Sources added to N cards in the World History
   prehistory deck" — with its nine translations, per the house rule. Corrections found along the way get
   their own line, and should name what changed.
-- **Coverage** is reported by `add-sources.js` on every run (`cards 66/109`), which is how the pass is
+- **Coverage** is reported by `add-sources.js` on every run (`cards 87/109`), which is how the pass is
   tracked across sessions.

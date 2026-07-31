@@ -594,9 +594,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     glossary term carries `sources`; the citation pass so far has touched cards only. The UI, the deltas and the
     pipeline are in place; the rest is a content job (see "Citing the existing content" below). Guarded by
     `.claude/test-sources.js` (67 assertions).
-    **Batches 0–11 shipped 2026-07-31**: **66 of the 109 prehistory cards carry sources**, every card's list
-    majority-open (`wh-086` Lascaux and a set of culture-history/definitional cards are deferred — their
-    sources will not open). See `docs/citation-plan.md` — its Pilot log records how the
+    **Batches 0–16 shipped 2026-07-31**: **87 of the 109 prehistory cards carry sources**, every card's list
+    majority-open (`wh-086` Lascaux, `wh-074` Dolní Věstonice and a set of culture-history/definitional cards
+    are deferred — their sources will not open). See `docs/citation-plan.md` — its Pilot log records how the
     definitional cards were solved, its Batch 1 log the factual errors the exercise turns up (21 so far) and
     the gotcha that a matching sentence COUNT across languages does not prove a matching sentence MAPPING, and
     its Batch 2 log the finding that reshapes the rest of the pass: **the batches are grouped by subject, and
@@ -610,6 +610,59 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     **a card reporting an argument in progress has a shelf life**, so expect corrections caused by time rather
     than carelessness (`wh-037`'s *naledi* burial papers reached Versions of Record in 2025 with mixed
     verdicts, where the card said the reviewers were unanimously against and the papers still in revision).
+    From Batch 8: **a correction is not finished when the abstract is fixed — check the QUESTION POOL too.**
+    Each card carries three phrasings that repeat the abstract's figures exactly as the date line does, and
+    `wh-075`'s third phrasing restated the very error being corrected, which would have shipped as the cloze
+    question above a corrected background. Patch the extras with `add-questions.js` and the main `question`
+    with `fix-field.js` (it reaches any string field, so `question` yes, the `questions` array no).
+    From Batch 8b, and it reversed a deferral: **search the holding institution before concluding a card
+    cannot be cited.** `wh-067`/`wh-068` were written off when every Swabian Jura paper proved closed, then
+    went through on museum and government records — Museum Ulm's catalogue entry for the Lion Man (with its
+    inventory number, its measurements and its sex), the Blaubeuren state museum's object record for the
+    Hohle Fels flute, and the World Heritage property's official portal, which is openable where
+    `whc.unesco.org` is not. For a card **about an object**, the museum record is often the better source
+    anyway: it is kept by the people holding the thing and it states the measurements a journal article
+    assumed its readers knew. It also carries what the literature quietly updated — the Lion Man's sex is
+    settled in the catalogue and was still "disputed" on the card.
+    From Batch 13, the limit of that method: **it works where a museum runs a CATALOGUE, and a catalogue is
+    not the same thing as a website.** The Georgian National Museum, Naturalis, the Fundación Atapuerca and
+    the Moravian Museum all have sites and none publishes per-object records, so Dmanisi, Java Man,
+    Atapuerca and Dolní Věstonice were not unblocked the way the Swabian cards were. Check whether a
+    catalogue exists before planning a batch around one.
+    From Batch 14, the first batch cut by SOURCE TYPE rather than subject, as Batch 2 said the rest should
+    be: **a supervolcano, an island species and two Levantine caves went through in one sitting because
+    every claim on them is a published RESULT** — a modelled climate, a dated bone bed, a measured genome, a
+    thermoluminescence age. Results are deposited, indexed and openable; discovery histories are not. Two
+    corollaries worth carrying. **A figure can be right when written and wrong now**: `wh-042` gave Toba's
+    2,800 km³ (Rose & Chesner) while the paper its own last sentence rests on opens with ∼5,300 km³, and it
+    had Ambrose proposing a six-year volcanic winter he never proposed — that is Rampino & Self's, repeated
+    into him by retellings, and his abstract gives a thousand years of cold instead. **Read the abstract of
+    the paywalled landmark before paraphrasing it**; PubMed carries it even where the text is closed.
+    And **budget for the length rule**: a citation pass makes prose longer, so a card already near the
+    330-word ceiling (`wh-049` sat at 329) needs several trimming passes across all ten languages before it
+    lands back inside it.
+    From Batch 15, two rules that between them reopened a set the plan had written off. **When the
+    discovery paper is closed, look for the REVIEW that restates it** — the southern African Middle Stone
+    Age was deferred because Henshilwood and Marean are closed, which is true of the founding
+    announcements and false of the syntheses built on them; one open review carried six of `wh-057`'s ten
+    sentences. And **fetch the FILE, not the landing page**: `hal.science/hal-XXXXXX` sits behind an
+    Anubis wall while `hal.science/hal-XXXXXX/document` serves the PDF, which reversed a Batch 14 call —
+    Détroit et al. 2019 shipped as [Paywalled] and is open. A wrong access label is a real error, not a
+    cosmetic one: it tells a reader not to bother following a link they could have followed.
+    From Batch 16: **when a card narrates an ARGUMENT, look for the review that narrates it, and cite the
+    originals alongside rather than instead.** `wh-033`'s middle five sentences are the Bordes–Binford
+    debate and Dibble's reduction thesis, none of whose primary statements is open; one 2024 review states
+    all three in an openable page, and Bordes 1961 and Binford & Binford 1966 sit beside it as the
+    paywalled landmarks they are. Also **narrow a naming history to what a source actually says** — "the
+    1860s and 1870s" for Levallois-Perret became "the 19th century", which is as precise as the open
+    literature gets.
+    From Batch 12: **the register pays for itself late.** The three framework cards (`wh-001`, `wh-002`,
+    `wh-004`) took 25 citation slots and needed **no new sources at all** — every claim a definitional card
+    makes is a claim some other card already makes, so the whole job was mapping sentences to entries
+    already in `.claude/sources-register.md`. It also produced the first corrections of a new kind: the
+    cards were not wrong against the literature but **against each other** (`wh-001` and `wh-004` ended the
+    Palaeolithic at 12,000 years ago where five other cards and `wh-004`'s own date line said 11,700). Run
+    the sibling-consistency check FIRST on any card that summarises a whole period.
 - **Multiple question phrasings (July 2026):** a card may carry an optional **`questions` array of EXTRA
   phrasings** beyond `question` — **at most `CARD_MAX_QUESTIONS` (10) in all** (official Folio cards carry
   exactly 3; the headroom is for community decks to experiment). Every phrasing is a full standalone clue
@@ -1616,7 +1669,7 @@ which would otherwise have shipped corrected prose above an uncorrected date lin
 **Citing the existing content (as of July 2026)** — **most of the shipped content still has no citations.** The
 109 cards, 333 glossary terms and every Atlas description were written before this system existed, from Wikipedia
 and its sources, and were fact-checked rather than referenced. A batched pass is working through the cards —
-**66 of 109 done** (`docs/citation-plan.md`; coverage is reported by `add-sources.js` on every run) — while
+**87 of 109 done** (`docs/citation-plan.md`; coverage is reported by `add-sources.js` on every run) — while
 `country-sources.js` and `GLOSSARY_SOURCES` are still empty, so the Sources fold appears only on those cards.
 **Do not paper over the rest by attaching plausible-looking citations to existing prose** — a citation that was
 not the actual source of a sentence is worse than no citation, because it invites a reader to trust a page number
