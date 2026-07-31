@@ -406,7 +406,12 @@ table 1, https://pmc.ncbi.nlm.nih.gov/articles/PMC4920293/. [Open access]
   calotte from its "initial discovery in 1891" and the argument over whether it was an "out-sized gibbon"
   (§2); that African *H. erectus* "was often recognized as *H. ergaster*" while later chronostratigraphy
   "diminished and, in some cases, eliminated the time difference" between the African and Asian samples (§2)
-- used by: wh-018
+- also supports (opened again 2026-07-31, §2): that "Scholars disagreed as to whether the family Hominidae
+  could incorporate the Trinil 2 calotte—or whether, in fact, the calotte was that of an out-sized gibbon or
+  other ape"; and that "The subsuming of these multiple genera and species into *H. erectus* by Mayr thus
+  formalized a biological reality already unofficially accepted by the majority of paleoanthropologists at
+  the time"
+- used by: wh-018, wh-025
 
 ### rizal-2020 · the last *Homo erectus*
 Yan Rizal et al., "Last Appearance of *Homo erectus* at Ngandong, Java, 117,000–108,000 Years Ago,"
@@ -2728,6 +2733,95 @@ Relation to the Broader Corded Ware Horizon,” *Proceedings of the Royal Societ
   BAC", possibly extending to the Danish Single Grave Culture, with later burials in the Öllsjö megalithic
   tomb; and a Pitted Ware individual from Ajvide on Gotland — the Baltic island the card names
 - used by: wh-101
+
+
+## Batch 18 — the public-domain founding literature, verified 2026-07-31
+
+### dubois-1894 · the founding monograph
+Eugène Dubois, *Pithecanthropus erectus: eine menschenaehnliche Uebergangsform aus Java* (1894; repr. New
+York: G. E. Stechert, 1915), 1–2, 11, https://archive.org/details/Pithecanthropus00Dubo. [Open access]
+- opened: 2026-07-31 · the archive.org scan is the **1915 New York reprint** of the 1894 Batavia original,
+  which is what the citation names; page numbers taken from the scandata leaf→printed-page map
+- supports (1–2): the finds at Trinil, "im Bezirk Ngawi", in the left bank of the Bengawan — first "im
+  September 1891 erst ein Zahn, der rechte M. 3", then "Einen Monat später … nur 1 M. weit von der Stelle, an
+  der der Zahn lag, und in demselben Niveau, ein offenbar von demselben Individuum herstammendes Schädeldach",
+  then "im August 1892 … 15 M. stromaufwärts … das linke Femur"; and the footnote recording that "Der Name
+  Pithecanthropus wurde bereits von E. Haeckel (im 22. und 23. Vortrag von 'Natürliche Schöpfungsgeschichte',
+  Berlin 1868) einem hypothetischen Geschöpfe gegeben"
+- supports (11): Dubois's own estimate of the braincase — "die wirkliche Grösse, die der Binnenraum des
+  fossilen Schädels besessen hat, zu mehr als 1000 c.M.³ anschlagen müssen, das ist über zwei Drittel des
+  Rauminhaltes einer mehr als mittelgrossen menschlichen Schädelhöhle"
+- does NOT support: that Haeckel was Dubois's teacher. Dubois names him as the coiner of the word and nothing
+  more; the card's "his old teacher" was dropped
+- used by: wh-025
+
+### huffman-2022 · Trinil's discovery record
+Frank Huffman et al., "Geology and Discovery Record of the Trinil *Pithecanthropus erectus* Site, Java,"
+*PaleoAnthropology* 2022, no. 2, abstract and n. 4, https://doi.org/10.48738/2022.iss2.83. [Open access]
+- opened: 2026-07-31 · full PDF from the journal's OJS
+- supports (abstract): that "the P.e. Skullcap (Trinil 1) and Femur I (Trinil 3) came from a ~0.2m-thick
+  subunit of the bonebed that was traced for ~12m from the 1891 Skullcap pit (~30m2) to the 1892
+  Femur-discovery excavation"
+- supports (n. 4): that Dubois 1894 attributed three fossils to the new species without a holotype, and that
+  Jacob 1975a "referred to the 1891 Molar … as Trinil 1, the Skullcap as Trinil 2, and Femur I as Trinil 3"
+- used by: wh-025
+
+### pop-2023 · what the femur was doing there
+Eduard Pop et al., "Reconstructing the Provenance of the Hominin Fossils from Trinil (Java, Indonesia) through
+an Integrated Analysis of the Historical and Recent Excavations," *Journal of Human Evolution* 176 (2023):
+103312, abstract, https://doi.org/10.1016/j.jhevol.2022.103312. [Open access]
+- opened: 2026-07-31 · **the abstract**, via PubMed (pubmed.ncbi.nlm.nih.gov/36745959/). ScienceDirect returns
+  403 to this environment; the article is gold OA under CC BY-NC-ND, which the VU Amsterdam repository record
+  confirms, so it is labelled open rather than paywalled. The claims taken from it are in the abstract
+- supports: that Dubois found "a hominin skullcap (Trinil 2) and femur (Trinil 3, Femur I), situated at the
+  same level ca. 10-15 m apart", interpreted as one species, "Pithecanthropus erectus (now Homo erectus)";
+  that the interpretation was questioned "as the skullcap looked archaic and the femur surprisingly modern";
+  the two bone-bearing channels at 830–773 ka and 560–380 ka; and that younger terrace-related channels
+  "directly intersect the historical excavations and the reconstructed discovery location of Femur I, thereby
+  providing an explanation for the relatively modern morphology of this 'bone of contention'"
+- used by: wh-025
+
+### wu-2009 · the *erectus* endocasts, measured
+Xiujie Wu, Lynne A. Schepartz and Wu Liu, "A New *Homo erectus* (Zhoukoudian V) Brain Endocast from China,"
+*Proceedings of the Royal Society B* 277, no. 1679 (2010): 337–44, table 1,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC2842660/. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports (table 1): endocranial volumes — Trinil II 940 ml; ZKD II 1020, ZKD III 915, ZKD V 1140, ZKD X 1225,
+  ZKD XI 1015, ZKD XII 1030 ml
+- used by: wh-025, wh-026
+
+### ckc-2025 · the Dubois collection, and how it was dug
+Commissie Koloniale Collecties, *Advies* ID-2025-1 [advice to the Dutch State Secretary for Education, Culture
+and Science on Indonesia's request for the return of the Dubois collection], 5 September 2025, 2, 5–6, 11,
+20–21, https://commissie.kolonialecollecties.nl/site/binaries/site-content/collections/documents/2025/09/26/indonesie/id-2025-1-advies-collectie-dubois.pdf. [Open access]
+- opened: 2026-07-31 · full PDF, 24 pages, Dutch; page numbers are the document's own
+- supports (2): "In de collectie bevinden zich ruim 28.000 specimina afkomstig uit Indonesië. Het grootste
+  gedeelte werd tussen 1888 en 1900 door of in opdracht van Eugène Dubois opgegraven en verzameld op Java en
+  Sumatra"; and the three key objects by inventory number — femur RGM.1332452, schedelkapje RGM.1332450, kies
+  RGM.1332451
+- supports (5): that Dubois "besloot hij zich aan te melden bij het Koninklijk Nederlandsch-Indisch Leger
+  (KNIL) als medisch officier" in order to be able to do research in the Indies, and "Op 11 december 1887
+  arriveerde hij op Sumatra"
+- supports (11, 20–21): "Bij de opgravingen werd gebruik gemaakt van dwangarbeiders. Op grond van het officiële
+  decreet van 1889 werden aan Dubois tot 50 dwangarbeiders ter beschikking gesteld", under two KNIL corporals,
+  "onder zeer zware omstandigheden"; that Dubois himself described the Trinil site as "Javas hel"; and that the
+  excavations took place "in de context van een koloniaal systeem dat gestoeld was op geweld, uitbuiting en
+  ongelijke machtsverhoudingen"
+- does NOT support: an Amsterdam lectureship given up. No source opened for this batch carries it, and the
+  card's sentence was rewritten to what the advice does say
+- used by: wh-025
+
+### rijksoverheid-2025 · the handover
+Ministerie van Onderwijs, Cultuur en Wetenschap, "Topstukken Dubois-collectie overhandigd in Indonesië" [Key
+objects of the Dubois collection handed over in Indonesia], Rijksoverheid, 17 December 2025,
+https://www.rijksoverheid.nl/actueel/nieuws/2025/12/17/topstukken-dubois-collectie-overhandigd-in-indonesie.
+[Open access]
+- opened: 2026-07-31 · the ministry's own news item
+- supports: that on 17 December 2025 four objects — "een schedelkapje, een dijbeen en een kies" plus a shell
+  with incisions — were handed over at the Museum Nasional Indonesia in Jakarta, and that the whole collection
+  of "ruim 28.000 objecten" is to be transferred to Indonesia during 2026
+- does NOT support: the card's old figure of "some 40,000" specimens. Corrected to more than 28,000
+- used by: wh-025
 
 ---
 
