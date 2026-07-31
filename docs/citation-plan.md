@@ -1116,6 +1116,53 @@ real." Klein 2008 is closed and its Wiley bronze copy 403s here, so it is cited 
 and attributes it to Klein in an openable page. Where the landmark cannot be opened, **point the reader at
 an open work that reports it** as well as at the landmark itself.
 
+### Batch 16 · Middle Palaeolithic technology (3) — **DONE (2026-07-31)**
+**Cited:** `wh-003` Middle Paleolithic · `wh-032` Levallois technique · `wh-033` Mousterian.
+
+Spine: Eren & Lycett 2012, Adler et al. 2014, Soriano & Villa 2017, Blinkhorn et al. 2021, Boëda et al.
+1999, Li et al. 2023 (Levallois); Lartet & Christy 1865–75, Bordes 1961, Binford & Binford 1966, Niekus et
+al. 2019, Shott 2024, Schmidt et al. 2024, Groucutt et al. 2019, Higham et al. 2014 (Mousterian); and for
+`wh-003` eight works already in the register plus Eren & Lycett, Bae & Wu and Schmidt et al. Twenty works,
+fourteen open.
+
+### Batch 16 log — the period, the method, the industry
+
+#### 2026-07-31 — three cards cited, coverage `cards 84/109` → `cards 87/109`
+
+**`wh-003` is a second Batch 12.** Eight of its eleven sources were already verified — the register is now
+large enough that a definitional card costs almost nothing. Decompose it into claims, map the claims onto
+entries, add the two or three that are genuinely new. Twenty-five citation slots, three fetches.
+
+**One open paper can settle a historiographical argument.** `wh-033`'s middle five sentences are a
+20th-century debate and none of its primary statements is open: Bordes 1961 in *Science*, Binford & Binford
+1966 in *American Anthropologist*, Dibble 1987 in *American Antiquity*, all closed. **Shott 2024 states all
+three in one openable page** — it names "Bordes's facies qua cultures versus Binford's toolkits" and sets
+out the reduction thesis directly. Bordes and the Binfords are cited beside it as the paywalled landmarks
+they are. Same shape as Batch 15's Klein call, and worth generalising: **when a card narrates an argument,
+look for the review that narrates it, and cite the originals alongside rather than instead.**
+
+**Two corrections, both narrowings of a naming history to what a source states:**
+
+- **`wh-032` said Levallois-Perret's quarries yielded the first recognised pieces "in the 1860s and
+  1870s."** Eren & Lycett 2012 says only "during the 19th century," and nothing openable is more precise.
+  Narrowed — in the abstract, the date line **and the main question**, which carried "in the 1860s" in all
+  ten languages.
+- **`wh-033` said Le Moustier was "dug from 1863 by Henry Christy and Édouard Lartet, and took that name in
+  1869."** The 1869 naming is de Mortillet's, in *Matériaux pour l'histoire primitive et naturelle de
+  l'homme*, which is not reachable here — Gallica returns 403 to this sandbox and the volume is not on
+  archive.org. The sentence now says what *Reliquiae Aquitanicae* and Schmidt et al. 2024 do support:
+  Lartet and Christy published the Le Moustier flints in the 1860s and 1870s, and the shelters are still
+  the industry's type site. Abstract and date line both.
+
+**A tooling fix worth keeping.** The sentence splitter broke the German `wh-033` abstract at "Archäologie
+des 20. Jahrhunderts" — a bare ordinal before a capitalised noun looks exactly like a sentence end. The
+splitter now carries an ORDNOUN guard beside the existing MONTH one (`Jahrhundert`, `Jahrtausend`, `eeuw`,
+`secolo`, `siglo`, `siècle`, `век`), so the next batch does not have to hand-map that language's indices.
+
+**A house-style note.** Century forms are per language and the deck already has conventions: `siglo XIX`,
+`19e siècle`, `19. Jahrhundert`, `19° secolo`, `19e eeuw`, `19 века`, `القرن 19`, `19世纪`, `19世紀`. Check
+the existing cards before writing a new one; `check-style.js` polices the English only.
+
 ## Batch 1 log — the oldest toolmakers
 
 ### 2026-07-31 — six cards cited, three deferred
@@ -1544,5 +1591,5 @@ If a needed host turns out to be missing mid-batch, the cheaper fix is switching
 - **Changelog.** One line per day, raising its count — "Sources added to N cards in the World History
   prehistory deck" — with its nine translations, per the house rule. Corrections found along the way get
   their own line, and should name what changed.
-- **Coverage** is reported by `add-sources.js` on every run (`cards 84/109`), which is how the pass is
+- **Coverage** is reported by `add-sources.js` on every run (`cards 87/109`), which is how the pass is
   tracked across sessions.

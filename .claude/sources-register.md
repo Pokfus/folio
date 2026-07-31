@@ -2309,6 +2309,64 @@ Relabelled from Batch 14 (`wh-040`):
 - Florent Détroit et al., “A New Species of <i>Homo</i> from the Late Pleistocene of the Philippines,” <i>Nature</i> 568, no. 7751 (2019): 181–86, https://hal.science/hal-02296712/document. [Open access]
 - Thomas Ingicco et al., “Earliest Known Hominin Activity in the Philippines by 709 Thousand Years Ago,” <i>Nature</i> 557, no. 7704 (2018): 233–37, https://hal.science/hal-01806775v1/document. [Open access]
 
+## Batch 16 — Middle Palaeolithic technology, verified 2026-07-31
+
+Forty-seven citation slots across three cards, from **20 distinct works, 14 of them open**. Every card's
+list is majority-open. The period, the method and the industry, taken together — and `wh-003` is a second
+Batch 12: a definitional card cited almost entirely out of this register, with only three works new to it.
+
+- `wh-003` **Middle Paleolithic** — Henshilwood et al. 2002, Wadley et al. 2009, Roebroeks & Villa 2011,
+  d'Errico & Stringer 2011, Eren & Lycett 2012, Higham et al. 2014, Hublin et al. 2017, Groucutt et al.
+  2019, Brumm et al. 2021, Bae & Wu 2024, Schmidt et al. 2024. Eleven sources, eight open; **eight of the
+  eleven were already verified** in batches 0, 1, 4, 7, 9, 14 and 15.
+- `wh-032` **Levallois technique** — Boëda et al. 1999 (the Umm el Tlel point in an ass's vertebra), Eren &
+  Lycett 2012 (the naming, the tortoise core, the predetermination debate, the 300 ka horizon, both makers),
+  Adler et al. 2014 (Nor Geghi and independent invention), Soriano & Villa 2017 (early Levallois in central
+  Italy), Blinkhorn et al. 2021 (recurrent versus preferential reduction across regions), Li et al. 2023.
+  Six sources, four open.
+- `wh-033` **Mousterian** — Lartet & Christy 1865–75, Bordes 1961, Binford & Binford 1966, Higham et al.
+  2014, Groucutt et al. 2019, Niekus et al. 2019 (the tar-backed tool), Shott 2024 (the Bordes–Binford
+  opposition and Dibble's reduction thesis in one open paper), Schmidt et al. 2024 (Le Moustier as the type
+  site, and its ochre-bitumen adhesives). Eight sources, five open.
+
+### One open paper can settle a historiographical argument
+
+`wh-033`'s middle five sentences are a 20th-century debate — Bordes's facies as peoples, the Binfords'
+answer, Dibble's reduction model — and none of the primary statements is open. **Shott 2024 states all
+three in one openable page**, naming "Bordes's facies qua cultures versus Binford's toolkits" and setting
+out the reduction thesis. Bordes 1961 and Binford & Binford 1966 are cited beside it as the paywalled
+landmarks they are, so a reader who wants the originals has them and a reader who wants to check the card
+has something they can open. That is the same shape as Batch 15's Klein call.
+
+### The 19th century is as precise as the sources get
+
+Two naming histories were **narrowed to what a source states**. Eren & Lycett 2012 says Levallois artefacts
+are "named after the suburb of Paris (Levallois-Perret) from where they were recovered during the 19th
+century"; the card said "in the 1860s and 1870s", which nothing opened supports. And the Mousterian card's
+"dug from 1863 by Henry Christy and Édouard Lartet, and took that name in 1869" rests on de Mortillet 1869,
+whose journal is not reachable here (Gallica returns 403), so the sentence now says what *Reliquiae
+Aquitanicae* and Schmidt et al. 2024 do support: Lartet and Christy published the Le Moustier flints in the
+1860s and 1870s, and the shelters are still the industry's type site.
+
+### Verified citations
+
+Levallois (`wh-032`), new to the register:
+
+- Éric Boëda et al., “A Levallois Point Embedded in the Vertebra of a Wild Ass (<i>Equus africanus</i>): Hafting, Projectiles and Mousterian Hunting Weapons,” <i>Antiquity</i> 73, no. 280 (1999): 394–402, https://doi.org/10.1017/S0003598X00088335. [Paywalled]
+- Metin I. Eren and Stephen J. Lycett, “Why Levallois? A Morphometric Comparison of Experimental ‘Preferential’ Levallois Flakes versus Debitage Flakes,” <i>PLOS ONE</i> 7, no. 1 (2012): e29273, https://pmc.ncbi.nlm.nih.gov/articles/PMC3264556/. [Open access]
+- Daniel S. Adler et al., “Early Levallois Technology and the Lower to Middle Paleolithic Transition in the Southern Caucasus,” <i>Science</i> 345, no. 6204 (2014): 1609–13, https://doi.org/10.1126/science.1256484. [Paywalled]
+- Sylvain Soriano and Paola Villa, “Early Levallois and the Beginning of the Middle Paleolithic in Central Italy,” <i>PLOS ONE</i> 12, no. 10 (2017): e0186082, https://pmc.ncbi.nlm.nih.gov/articles/PMC5650164/. [Open access]
+- James Blinkhorn, Huw S. Groucutt, Eleanor M. L. Scerri, Michael D. Petraglia, and Simon Blockley, “Directional Changes in Levallois Core Technologies between Eastern Africa, Arabia, and the Levant during MIS 5,” <i>Scientific Reports</i> 11 (2021): 11465, https://pmc.ncbi.nlm.nih.gov/articles/PMC8169925/. [Open access]
+
+Mousterian (`wh-033`), new to the register:
+
+- Édouard Lartet and Henry Christy, <i>Reliquiae Aquitanicae: Being Contributions to the Archaeology and Palaeontology of Périgord and the Adjoining Provinces of Southern France</i>, ed. Thomas Rupert Jones (London: Williams and Norgate, 1865–75), plates III and V, https://archive.org/details/reliquiaeaquitan00lartuoft. [Open access]
+- François Bordes, “Mousterian Cultures in France,” <i>Science</i> 134, no. 3482 (1961): 803–10, https://doi.org/10.1126/science.134.3482.803. [Paywalled]
+- Lewis R. Binford and Sally R. Binford, “A Preliminary Analysis of Functional Variability in the Mousterian of Levallois Facies,” <i>American Anthropologist</i> 68, no. 2 (1966): 238–95, https://doi.org/10.1525/aa.1966.68.2.02a001030. [Paywalled]
+- Marcel J. L. Th. Niekus et al., “Middle Paleolithic Complex Technology and a Neandertal Tar-Backed Tool from the Dutch North Sea,” <i>Proceedings of the National Academy of Sciences</i> 116, no. 44 (2019): 22081–87, https://pmc.ncbi.nlm.nih.gov/articles/PMC6825292/. [Open access]
+- Michael J. Shott, “Dibble’s Reduction Thesis: Implications for Global Lithic Analysis,” <i>Journal of Paleolithic Archaeology</i> 7, no. 1 (2024): 12, https://link.springer.com/article/10.1007/s41982-024-00178-y. [Open access]
+- Patrick Schmidt, Radu Iovita, Armelle Charrié-Duhaut, Gunther Möller, Abay Namen, and Ewa Dutkiewicz, “Ochre-Based Compound Adhesives at the Mousterian Type-Site Document Complex Cognition and High Investment,” <i>Science Advances</i> 10, no. 8 (2024): eadl0822, https://hal.science/hal-04484835v1/document. [Open access]
+
 ---
 
 ## CANDIDATES — NOT VERIFIED, DO NOT PASTE INTO `data.js`
