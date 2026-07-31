@@ -965,6 +965,118 @@ Chris Clarkson et al., "Human Occupation of Northern Australia by 65,000 Years A
   Australian site is taken at face value"
 - used by: wh-043
 
+### jacobs-2008 · dating the Still Bay and Howiesons Poort
+Zenobia Jacobs et al., "Ages for the Middle Stone Age of Southern Africa: Implications for Human Behavior and
+Dispersal," *Science* 322, no. 5902 (2008): 733–35, esp. 733,
+https://openresearch-repository.anu.edu.au/bitstreams/3e6b212a-1edc-45c8-a0b6-067293fb544c/download. [Open access]
+- opened: 2026-07-31 · **full text via the ANU Open Research repository** (a green deposit of the author copy;
+  the *Science* DOI is paywalled). Verified from the PDF.
+- supports: the Howiesons Poort "started 64.8 ka … and ended 59.5 ka … with a duration of 5.3 ky" at sites
+  hundreds of km apart, "short-lived (5000 years or less)" (733); the Still Bay "71.9 and 71.0 ka" (733); the
+  single-grain OSL method; the debate over what ended the HP; Sibudu among the dated sites
+- used by: wh-052, wh-053
+
+### texier-2010 · the engraved ostrich eggshell of Diepkloof
+Pierre-Jean Texier et al., "A Howiesons Poort Tradition of Engraving Ostrich Eggshell Containers Dated to
+60,000 Years Ago at Diepkloof Rock Shelter, South Africa," *Proceedings of the National Academy of Sciences*
+107, no. 14 (2010): 6180–85, https://pmc.ncbi.nlm.nih.gov/articles/PMC2851956/. [Open access]
+- opened: 2026-07-31 · full text free in PMC (PNAS)
+- supports: "270 fragments of intentionally marked ostrich eggshell from the Howiesons Poort at Diepkloof …
+  Dating from ≈60,000 years ago," the hatched-band motif (6180, abstract)
+- used by: wh-052
+
+### backwell-2008 · the Sibudu bone point read as an arrowhead
+Lucinda Backwell, Francesco d'Errico, and Lyn Wadley, "Middle Stone Age Bone Tools from the Howiesons Poort
+Layers, Sibudu Cave, South Africa," *Journal of Archaeological Science* 35, no. 6 (2008): 1566–80, esp.
+1573–76, https://doi.org/10.1016/j.jas.2007.11.006. [Paywalled]
+- opened: 2026-07-31 · **full text verified from a deposited copy** (the JAS DOI is paywalled; OpenAlex lists no
+  clean open deposit — the HAL-SHS record is behind the Anubis wall — so it is labelled paywalled, honestly)
+- supports: "three bone tools: two points and the end of a polished spatula-shaped piece, from unequivocal HP
+  layers … (with ages greater than ~61 ka)" (1566); one point "interpreted as a projectile point," read as an
+  arrowhead from form + microscopic impact/use-wear, which "will push back the origin of bow and bone arrow
+  technology by at least 20,000 years" (1573–76). **Correction it forced (wh-053):** the paper reports two
+  points + a spatula, NOT a "bone needle," and makes no "oldest needle" claim — the slender point is only
+  "consistent with a pin or needle-like implement." The card's needle claim was removed.
+- used by: wh-052, wh-053
+
+### wadley-2011 · the Sibudu bedding
+Lyn Wadley et al., "Middle Stone Age Bedding Construction and Settlement Patterns at Sibudu, South Africa,"
+*Science* 334, no. 6061 (2011): 1388–91, https://doi.org/10.1126/science.1213317. [Paywalled]
+- opened: 2026-07-31 · **publisher abstract** (the landmark paper for the bedding; no open deposit found)
+- supports: "At ~77,000 years ago, people constructed plant bedding from sedges and other monocotyledons topped
+  with aromatic leaves containing insecticidal and larvicidal chemicals … at ~73,000 years ago, bedding was
+  burned … for site maintenance" (1388, abstract). *Cryptocarya woodii* is named in the paper body, not the
+  abstract, but is the aromatic leaf reported.
+- used by: wh-053
+
+### wadley-2009 · the Sibudu compound adhesive
+Lyn Wadley, Tamaryn Hodgskiss, and Michael Grant, "Implications for Complex Cognition from the Hafting of Tools
+with Compound Adhesives in the Middle Stone Age, South Africa," *Proceedings of the National Academy of
+Sciences* 106, no. 24 (2009): 9590–94, https://pmc.ncbi.nlm.nih.gov/articles/PMC2700998/. [Open access]
+- opened: 2026-07-31 · full text free in PMC (PNAS)
+- supports: "Compound adhesives made from red ochre mixed with plant gum were used in the Middle Stone Age";
+  deliberate physical/chemical transformation; "Some of the steps … seem impossible without multitasking and
+  abstract thought" (9590, abstract). The ~70 ka age is the HP context at Sibudu.
+- used by: wh-053
+
+### derrico-2022-wedges · the Sibudu bone wedges
+Francesco d'Errico et al., "Technological and Functional Analysis of 80–60 Ka Bone Wedges from Sibudu
+(KwaZulu-Natal, South Africa)," *Scientific Reports* 12 (2022): 16270,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC9523071/. [Open access]
+- opened: 2026-07-31 · full text free in PMC (Scientific Reports, gold OA)
+- supports: "23 double-beveled bone tools from ~80,000–60,000-year-old … Sibudu Cave"; use-wear matching
+  "debarking trees and digging in humus-rich soil"; the type "associated with three different Middle Stone Age
+  cultural traditions … yet … absent at contemporaneous sites" (abstract)
+- used by: wh-053
+
+### wadley-2020 · the Border Cave grass bedding
+Lyn Wadley et al., "Fire and Grass-Bedding Construction 200 Thousand Years Ago at Border Cave, South Africa,"
+*Science* 369, no. 6505 (2020): 863–66, https://hal.science/hal-02998410. [Open access]
+- opened: 2026-07-31 · **abstract via Europe PMC**; the *Science* DOI is paywalled and the green HAL deposit is
+  browser-openable but Anubis-walled to curl. Cited to the HAL green record, per the project's convention for
+  HAL deposits (cf. harmand-2015).
+- supports: "grass bedding … at least 200,000 years ago"; "Sheaves of grass belonging to the broad-leafed
+  Panicoideae subfamily were placed near the back of the cave on ash layers that were often remnants of bedding
+  burned for site maintenance"; forerunner of behaviour "discernible from ~100,000 years ago" (863, abstract)
+- used by: wh-054
+
+### derrico-backwell-2016 · the Border Cave infant burial
+Francesco d'Errico and Lucinda Backwell, "Earliest Evidence of Personal Ornaments Associated with Burial: The
+Conus Shells from Border Cave," *Journal of Human Evolution* 93 (2016): 91–108, esp. 91,
+https://doi.org/10.1016/j.jhevol.2016.01.002. [Paywalled]
+- opened: 2026-07-31 · **abstract via Europe PMC** (the landmark paper for the burial; all deposits list
+  oa=false — no open full text)
+- supports: "The four to six month old infant from Border Cave, found with a perforated Conus shell in a pit
+  excavated in Howiesons Poort (HP) layers dated to 74 ± 4 [ka] … the oldest instance of modern human burial
+  from Africa, and the earliest example of a deceased human interred with a personal ornament"; the shell
+  assigned to *Conus ebraeus* (91, abstract). (The card's careful wording — "oldest African burial known to
+  include an ornament," not "oldest African burial," which is Panga ya Saidi at ~78 ka — matches this exactly.)
+- used by: wh-054
+
+### derrico-2012-bordercave · the organic artefacts
+Francesco d'Errico et al., "Early Evidence of San Material Culture Represented by Organic Artifacts from Border
+Cave, South Africa," *Proceedings of the National Academy of Sciences* 109, no. 33 (2012): 13214–19, esp.
+13217, https://pmc.ncbi.nlm.nih.gov/articles/PMC3421171/. [Open access]
+- opened: 2026-07-31 · full text free in PMC (PNAS)
+- supports: the notched baboon fibula with "an incomplete sequence of 29 notches … arguably for notational
+  purposes"; a bone point "decorated with a spiral groove filled with red ochre"; "A mixture of beeswax,
+  Euphorbia resin, and possibly egg, wrapped in vegetal fibers, dated to ∼40,000 BP" and "Direct dating of this
+  piece to ∼40 ka makes it the oldest known example of the use of beeswax" (13217); marine + ostrich-eggshell
+  beads "∼42,000 BP"; the poison applicator (ricinoleic acid) "20,420 ± 90 … (24,564–23,941 cal BP)"; San/ELSA
+  culture "∼44,000 y ago" (abstract, 13214)
+- used by: wh-054
+
+### backwell-2022-archive · the Border Cave chronology
+Lucinda Backwell et al., "Border Cave: A 227,000-Year-Old Archive from the Southern African Interior,"
+*Quaternary Science Reviews* 291 (2022): 107597, https://cnrs.hal.science/hal-03766056. [Open access]
+- opened: 2026-07-31 · **title-level verification via Crossref**; the abstract could not be opened (the QSR DOI
+  is paywalled; the green HAL deposit is Anubis-walled to curl and carries no Crossref/S2 abstract). Cited to
+  the HAL green record, per project convention.
+- supports: the age of the record — the deposit is a "227,000-year-old archive," the basis for "reaches back to
+  about 227,000 years." **Correction it forced (wh-054):** the card said "reaches back beyond 227,000 years";
+  the paper's own figure is ~227 ka, so "beyond" overstated it and was changed to "to about."
+- used by: wh-054
+
 ---
 
 ## CANDIDATES — NOT VERIFIED, DO NOT PASTE INTO `data.js`
