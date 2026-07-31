@@ -2823,6 +2823,36 @@ Song Xing, María Martinón-Torres and José María Bermúdez de Castro, "The Fo
   weighted mean is 0.75 ± 0.09 Ma and Xing gives ≥750 kyr. The card and its date line were lowered
 - used by: wh-026, wh-027
 
+### derrico-2021 · the Upper Cave, restudied from its casts
+Francesco d'Errico et al., "Zhoukoudian Upper Cave Personal Ornaments and Ochre: Rediscovery and
+Reevaluation," *Journal of Human Evolution* 161 (2021): 103088, §§1–2 and fig. 1,
+https://shs.hal.science/hal-03445635/document. [Open access]
+- opened: 2026-07-31 · the accepted manuscript, HAL-SHS green deposit. Batch 15's rule applied again: the
+  landing page `hal-03445635v1` serves a record, `…/document` serves the PDF
+- supports: the Upper Cave "located directly above the southwest wall of Zhoukoudian Locality 1, the famous
+  'Peking Man' site"; the site's position "in the Dragon Bone Hill of Zhoukoudian" (fig. 1 caption);
+  "Numerous *H. sapiens* remains attributed to at least eight individuals were found at UC" and Pei's three
+  complete skulls UC101–103 with "ochre coating on all skulls"; that "The only formal bone tool consists of
+  an eyed needle found in L1"; the ornament raw materials — badger, fox, red deer, sika deer, marten and
+  tiger teeth, carp and bird bone, *Anadara* shell, limestone beads, a perforated pebble; that three
+  rediscovered badger canines "were sewed on clothing rather than suspended from necklaces or bracelets";
+  the chronology of Li et al. 2018, L4 at 38.3–35.8 ka and L1 at 35.1–33.5 ka; the loss of the ornaments
+  during the Second World War and the study of 17 of them from casts; and that Locality 1 "layers 1–2" are
+  "now dated to 400 ka"
+- does NOT support: the needle's length. No openable source gives it, and the card's "five centimetres" was
+  dropped rather than repeated
+- used by: wh-027
+
+### dodson-2025 · the Zhoukoudian fauna
+Peter Dodson, "China Shares Fossil Treasures with the World," *The Anatomical Record* 308, no. 10 (2025):
+2806–12, https://pmc.ncbi.nlm.nih.gov/articles/PMC12435128/. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: "An extremely consequential discovery was made in limestone karst deposits of Middle Pleistocene
+  age at Zhoukoudian, only 50 km southwest of Beijing"; and the associated fauna — "giant deer,
+  straight-tusked elephant, woolly rhinoceros, horses of the genus *Equus*, diverse carnivores including
+  wolves and saber-toothed cats, as well as rodents"
+- used by: wh-027
+
 ### huang-2022 · fire at Locality 1, doubted and partly restored
 Chao Huang, Jianjun Li and Xing Gao, "Evidence of Fire Use by *Homo erectus pekinensis*: An XRD Study of
 Archaeological Bones from Zhoukoudian Locality 1, China," *Frontiers in Earth Science* 9 (2022): 811319,
@@ -2851,7 +2881,7 @@ https://scielo.org.za/scielo.php?script=sci_arttext&pid=S0038-23532012000200003.
   their exit through the gates of the Peking Union Medical College - the last reliable sighting - the
   fossils simply vanished"; and that "no verifiable sign of the fossils, or the crates that contained them,
   has yet been recorded"
-- used by: wh-026
+- used by: wh-026, wh-027
 
 ### ma-2022 · Pei's skullcap, dated
 Xu Ma, Guanghui Wang and Min Wang, "Impact of Chinese Palaeontology on Evolutionary Research,"
@@ -2895,6 +2925,19 @@ https://www.rijksoverheid.nl/actueel/nieuws/2025/12/17/topstukken-dubois-collect
   of "ruim 28.000 objecten" is to be transferred to Indonesia during 2026
 - does NOT support: the card's old figure of "some 40,000" specimens. Corrected to more than 28,000
 - used by: wh-025
+
+
+### NOT CITED — Binford & Ho 1985, and the Locality 1 dimensions
+Lewis R. Binford and Chuan Kun Ho, "Taphonomy at a Distance: Zhoukoudian, 'The Cave Home of Beijing Man'?
+[and Comments and Reply]," *Current Anthropology* 26, no. 4 (1985): 413–42, https://doi.org/10.1086/203303.
+- **not cited.** journals.uchicago.edu returns 403 to this environment and no deposit or open restatement of
+  the hyena-accumulation argument could be found, so only the Crossref metadata was ever opened. Citing a
+  paper from its title is exactly what this apparatus exists to prevent. `wh-027`'s sentence now rests on
+  Weidenreich 1943 (190), who already had hyenas denning in the fissure and cracking the bones fresh, and on
+  Huang et al. 2022 for the doubts pressed from the 1980s — and the card no longer names Binford
+- the same applies to Locality 1's oft-quoted dimensions, "about 140 m long and 40 m deep, 13 layers". They
+  are in no source that could be opened; the abstract no longer states them and the date line now gives the
+  layers' dated span instead
 
 ---
 
