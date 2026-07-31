@@ -565,12 +565,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `sources` textarea in the curated glossary editor's EN view + the Studio's term form. **One citation per LINE**,
     never comma-separated as tags and aliases are — a Chicago note is full of commas.
   · `sup` + `class="fn"` + `data-fn` are in the sanitizer allowlists, so a community deck can use markers too.
-  · **The tables ship EMPTY on purpose.** `country-sources.js` has no entries and no existing card or term carries
-    `sources`, so nothing shows anywhere yet. The UI, the deltas and the pipeline are in place; the citations are a
-    content job (see "Citing the existing content" below). Guarded by `.claude/test-sources.js` (55 assertions).
-    **Batch 0 of the citation pass shipped 2026-07-31**: 6 of the 109 prehistory cards now carry sources
-    (20 citations, 17 of them open). See `docs/citation-plan.md` — its Pilot log records how the definitional
-    cards were solved and two factual errors the exercise turned up.
+  · **The tables still ship EMPTY for the Atlas and the glossary.** `country-sources.js` has no entries and no
+    glossary term carries `sources`; the citation pass so far has touched cards only. The UI, the deltas and the
+    pipeline are in place; the rest is a content job (see "Citing the existing content" below). Guarded by
+    `.claude/test-sources.js` (55 assertions).
+    **Batches 0–2 shipped 2026-07-31**: **15 of the 109 prehistory cards carry sources** (47 citations, 43
+    of them open). See `docs/citation-plan.md` — its Pilot log records how the definitional cards were solved,
+    its Batch 1 log the factual errors the exercise turns up (ten so far) and the gotcha that a matching
+    sentence COUNT across languages does not prove a matching sentence MAPPING, and its Batch 2 log the
+    finding that reshapes the rest of the pass: **the batches are grouped by subject, and subject does not
+    predict whether the sources are reachable.** Taxonomic and comparative cards go through easily; cards
+    built on a discovery history turn on founding announcements that are closed with no open deposit, and ten
+    such cards are now deferred. Re-cut the remaining batches by source type before working them.
 - **Multiple question phrasings (July 2026):** a card may carry an optional **`questions` array of EXTRA
   phrasings** beyond `question` — **at most `CARD_MAX_QUESTIONS` (10) in all** (official Folio cards carry
   exactly 3; the headroom is for community decks to experiment). Every phrasing is a full standalone clue
@@ -1564,13 +1570,15 @@ the prose the markers live in — enforces the same marker rules as add-card.js,
 whose abstract carries a different number of markers than the English** (that language shows the list but
 none of the in-text links), and reports running coverage, which is how a multi-batch pass is tracked.
 
-**Citing the existing content (as of July 2026)** — **the shipped content has no citations yet.** The 105 cards,
-333 glossary terms and every Atlas description were written before this system existed, from Wikipedia and its
-sources, and were fact-checked rather than referenced. So `country-sources.js` is empty, no card carries
-`sources`, and the Sources fold does not appear anywhere on the live site. **Do not paper over that by attaching
-plausible-looking citations to existing prose** — a citation that was not the actual source of a sentence is
-worse than no citation, because it invites a reader to trust a page number nobody checked. The honest routes are:
-re-derive a passage from a named work and cite that, or leave the fold off until someone does.
+**Citing the existing content (as of July 2026)** — **most of the shipped content still has no citations.** The
+109 cards, 333 glossary terms and every Atlas description were written before this system existed, from Wikipedia
+and its sources, and were fact-checked rather than referenced. A batched pass is working through the cards —
+**15 of 109 done** (`docs/citation-plan.md`; coverage is reported by `add-sources.js` on every run) — while
+`country-sources.js` and `GLOSSARY_SOURCES` are still empty, so the Sources fold appears only on those cards.
+**Do not paper over the rest by attaching plausible-looking citations to existing prose** — a citation that was
+not the actual source of a sentence is worse than no citation, because it invites a reader to trust a page number
+nobody checked. The honest routes are the ones the pass follows: open every work before citing it, re-derive the
+passage from it, and correct the prose where the source does not bear it out.
 
 **Backfilling a site language** — `add-card.js` / `add-glossary.js` only handle a whole NEW entry in every
 language at once. To add a language to content that already exists (a new site language, or topping up a

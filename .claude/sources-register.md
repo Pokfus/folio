@@ -218,6 +218,272 @@ no. 4 (2016): 1079–92, esp. 1080, https://doi.org/10.5194/cp-12-1079-2016. [Op
   Clark et al. 2009 and Lambeck et al. 2014 — the card said "roughly 120 metres" and was corrected to 130
 - used by: wh-011
 
+### li-2022 · the mechanics of knapping
+Li Li et al., "A Synthesis of the Dibble et al. Controlled Experiments into the Mechanics of Lithic
+Production," *Journal of Archaeological Method and Theory* 30, no. 4 (2023): 1284–1325, esp. 1290 and
+1301–2, https://doi.org/10.1007/s10816-022-09586-2. [Open access]
+- opened: 2026-07-31 · publisher PDF (Springer, open access)
+- supports: glass as the experimental medium "because it fractures conchoidally" (1290); conchoidal
+  fracture as Hertzian fracture (1302); hard-hammer percussion giving "a clear point of initiation and a
+  well-formed bulb of percussion" against soft-hammer bending fracture with "a more diffused bulb"
+  (1301); and the measured result that a soft (bone) hammer produces flakes with "smaller bulbs" that are
+  "longer and thinner" than steel or copper (1301–2)
+- note: also records what the card does NOT claim — flake SIZE is driven by exterior platform angle and
+  platform depth, not by hammer size or shape (1292, 1302)
+- used by: wh-008
+
+### muller-2022 · how long the skill takes
+Antoine Muller, Ceri Shipton, and Chris Clarkson, "Stone Toolmaking Difficulty and the Evolution of Hominin
+Technological Skills," *Scientific Reports* 12 (2022): 5883, under "Introduction,"
+https://doi.org/10.1038/s41598-022-09914-2. [Open access]
+- opened: 2026-07-31 · full text (CC BY)
+- supports: that a knapper's ceiling "can be approached by years of experience", accumulated through
+  declarative knowledge and implicit know-how
+- used by: wh-008
+
+### skertchly-1879 · the Brandon gunflint trade
+Sydney B. J. Skertchly, *On the Manufacture of Gun-Flints, the Methods of Excavating for Flint, the Age of
+Palæolithic Man, and the Connexion between Neolithic Art and the Gun-Flint Trade*, Memoirs of the
+Geological Survey of England and Wales (London: Her Majesty's Stationery Office, 1879), 5,
+https://archive.org/details/onmanufactureofg00skerrich. [Open access]
+- opened: 2026-07-31 · scanned first edition, public domain
+- supports: gunflint knapping as a living trade at Brandon while the memoir was being written — 36 men at
+  work in 1868 and "at present (April 1878) 26 men and boys, who work in four shops" (5); the Director's
+  notice that the manufacture "has been continuously carried on from what geologists have called Neolithic
+  times down to the present day"
+- used by: wh-008
+
+### plummer-2025 · the Lomekwian reviewed  *(second use — see the entry above for the citation)*
+- also supports (opened again 2026-07-31, under "Context and Characteristics of the Early Oldowan Industry"
+  and "Potential Manufacturers of Stone Tools 3.3–2.3 Ma"): the Oldowan first appearing in eastern Africa
+  2.9–2.6 Ma; Nyayanga at 3.032–2.581 Ma with a favoured age of ca. 2.9 Ma, Ledi-Geraru at 2.61–2.58 Ma and
+  Gona at 2.58–2.3 Ma; "the iconic chopper is a cobble flaked unifacially or bifacially along a single
+  axis"; cut marks and percussion damage on fauna at Nyayanga, Gona and Ain Boucherit; and Oldowan tools
+  "found alongside fossilized molars of *Paranthropus* sp. at Nyayanga", making it the first hominin genus
+  in direct association with stone tools
+- used by: wh-014, wh-005, wh-015
+
+### braun-2019 · the oldest securely dated Oldowan
+David R. Braun et al., "Earliest Known Oldowan Artifacts at >2.58 Ma from Ledi-Geraru, Ethiopia, Highlight
+Early Technological Diversity," *Proceedings of the National Academy of Sciences* 116, no. 24 (2019):
+11712–17, https://pmc.ncbi.nlm.nih.gov/articles/PMC6575601/. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: that "the systematic production of sharp-edged stone tools is unknown before the 2.58–2.55 Ma
+  Oldowan assemblages from Gona, Ethiopia", and the Ledi-Geraru assemblage (Bokol Dora 1) at >2.58 Ma
+- used by: wh-015
+
+### torre-2016 · the origins of the Acheulean
+Ignacio de la Torre, "The Origins of the Acheulean: Past and Present Perspectives on a Major Transition in
+Human Evolution," *Philosophical Transactions of the Royal Society B* 371, no. 1698 (2016): 20150245,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC4920301/. [Open access]
+- opened: 2026-07-31 · full text via PMC (royalsocietypublishing.org, where the published version is free,
+  is behind bot protection from this environment; located by numbered section rather than page)
+- supports: the Acheulean "first defined by Gabriel de Mortillet", who named it after the site (§3a); the
+  span "currently from ca 1.75 to 0.125 Myr", associated with *H. erectus* and Middle Pleistocene
+  pre-*sapiens* hominins (§2); and — the correction — "nearly identical ages ca 1.76–1.74 Ma are now
+  available for Kokiselei 4 (KS4) in West Turkana, and KGA6-A1, the earliest Acheulean site in Konso",
+  against a previous lower limit of 1.4–1.5 Myr (§4a). The card credited Kokiselei alone and claimed
+  350,000 years; both were corrected
+- used by: wh-015, wh-022
+
+### horwitz-chazan-2015 · Wonderwerk, the site
+Liora Kolska Horwitz and Michael Chazan, "Past and Present at Wonderwerk Cave (Northern Cape Province,
+South Africa)," *African Archaeological Review* 32, no. 4 (2015): 595–612, esp. 596, 603–4 and 608,
+https://doi.org/10.1007/s10437-015-9208-5. [Open access]
+- opened: 2026-07-31 · publisher PDF (Springer, open access)
+- supports: "an enormous dolomitic cavity (ca. 140 m long, 3–7 m high, 11–26 m wide)" spanning the past ca.
+  2.0 Ma (596) — note that **7 m is the cave's HEIGHT**, which is where the card's "deposits up to 7 metres
+  deep" came from; "the rock art adorning the first 40 m of the cave walls" (603); stratum 12 as "the
+  earliest evidence for intentional cave occupation worldwide" (604); and stratum 12 dated ca. 1.96 Ma at
+  its base and ca. 1.78 Ma at its top (608)
+- used by: wh-021
+
+### chazan-2015 · Wonderwerk, the excavated sequence
+Michael Chazan, "Technological Trends in the Acheulean of Wonderwerk Cave, South Africa," *African
+Archaeological Review* 32, no. 4 (2015): 701–28, under "Context" and "Technological Development in the
+Wonderwerk Sequence," https://hdl.handle.net/1807/90627. [Open access]
+- opened: 2026-07-31 · author's accepted manuscript in TSpace, University of Toronto (the published
+  version is closed; located by section, since the manuscript's pagination is not the journal's)
+- supports: **"Beaumont's excavation reached a total depth of 4 m below the surface of the cave"** — which
+  is what the card's 7 m was corrected to; and the phase sequence, ">1.78 mya — Small flake production
+  (Oldowan), Wonderwerk Stratum 12", with simple bifacial technology appearing in Stratum 11
+- used by: wh-021
+
+### berna-2012 · fire at Wonderwerk
+Francesco Berna et al., "Microstratigraphic Evidence of in situ Fire in the Acheulean Strata of Wonderwerk
+Cave, Northern Cape Province, South Africa," *Proceedings of the National Academy of Sciences* 109, no. 20
+(2012): E1215–20, https://pmc.ncbi.nlm.nih.gov/articles/PMC3356665/. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: burned bone and ashed plant remains as evidence "that burning took place in the cave during the
+  early Acheulean occupation, approximately 1.0 Ma", and "the earliest secure evidence for burning in an
+  archaeological context"; excavation 1 lying "approximately 30 m in from the cave mouth"; and Wrangham's
+  cooking hypothesis, that *Homo erectus* was adapted to a cooked diet
+- used by: wh-021, wh-098
+
+### marin-monfort-2026 · fire at Wonderwerk, pushed back
+M. Dolores Marin-Monfort et al., "New Evidence for Early Pleistocene Use of Fire at Wonderwerk Cave (South
+Africa)," *PLOS ONE* 21, no. 6 (2026): e0347480, under "Wonderwerk Cave" and "Conclusions,"
+https://doi.org/10.1371/journal.pone.0347480. [Open access]
+- opened: 2026-07-31 · full text (CC BY)
+- supports: burning confirmed in Strata 10 and 11 by bone luminescence and FTIR, St. 11 "constrained to
+  1.79–1.07 Ma" by magnetostratigraphy and cosmogenic burial dating; the excavation lying "at least 30 m
+  from the cave entrance at the time fossils accumulated", which "excludes the likelihood" of natural
+  wildfire; and fire "repeatedly brought by hominins into the interior"
+- used by: wh-021
+
+### key-lycett-2017 · handaxe form and function
+Alastair J. M. Key and Stephen J. Lycett, "Form and Function in the Lower Palaeolithic: History, Progress,
+and Continued Relevance," *Journal of Anthropological Sciences* 95 (2017): 67–108,
+https://doi.org/10.4436/jass.95017. [Open access]
+- opened: 2026-07-31 · publisher PDF (the DOI resolves straight to it)
+- supports (69–71): Frere's 1800 report of the Hoxne implements as "evidently weapons of war, fabricated
+  and used by a people who had not the use of metals", and that his discovery "was largely ignored at the
+  time"; Boucher de Perthes at Abbeville; and the 1859 visit of "Joseph Prestwich, Charles Lyell, and John
+  Evans to Amiens and Abbeville", who "all came away convinced" — which is where the card's "two British
+  geologists … to photograph a hand axe" was corrected from, Evans being an antiquary and Lyell having been
+  left out
+- supports (73–76): Movius's 1944 and 1948 work "that would later lead to establishment of the famous
+  'Movius Line'"; Kohn & Mithen's 1999 sexual-selection argument that "fine symmetrical handaxe[s]" served
+  as an indicator of good genes, and that it "has received credible criticism"
+- supports (77–78): Keeley & Toth's wear traces on Oldowan artefacts from Koobi Fora showing cutting of
+  animal and plant tissue, and experiments showing bifaces "capable of numerous woodworking activities" —
+  while noting that "experiments examining the suitability of handaxes for digging appear to have been
+  largely overlooked", which is why the card's digging claim was softened to a proposal
+- supports (81–82): Machin et al.'s butchery experiments finding "not a strong correlation between either
+  frontal or side symmetry and the effectiveness of a handaxe for butchery"
+- used by: wh-022, wh-023
+
+### johanson-2009 · thunderbolts
+Kristiina Johanson, "The Changing Meaning of 'Thunderbolts'," *Folklore: Electronic Journal of Folklore* 42
+(2009): 129–74, esp. 129–31, https://doi.org/10.7592/FEJF2009.42.johanson. [Open access]
+- opened: 2026-07-31 · full text on folklore.ee
+- supports: that stone axes and other worked stones were widely taken for stones fallen from the sky at
+  every lightning strike (129–30), and that a "thunderbolt" was kept because it "protects the house,
+  property … and the family of its keeper against strokes of lightning, all kinds of misfortune and
+  illnesses" (130)
+- used by: wh-023
+
+### roebroeks-villa-2011 · when fire became habitual
+Wil Roebroeks and Paola Villa, "On the Earliest Evidence for Habitual Use of Fire in Europe," *Proceedings
+of the National Academy of Sciences* 108, no. 13 (2011): 5209–14,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC3069174/. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: that evidence for fire in the Early and early Middle Pleistocene of Europe "is nonexistent,
+  until ∼300–400 ka", and that "it was only much later, from ∼300,000 to 400,000 y ago onward, that fire
+  became a significant part of the hominin technological repertoire"; and Gesher Benot Ya'aqov as "one
+  well-established case for earlier repetitive fire use in western Asia … dating to ∼780 ka"
+- used by: wh-098
+
+### sorensen-2018 · Neanderthal strike-a-lights
+A. C. Sorensen, E. Claud, and M. Soressi, "Neandertal Fire-Making Technology Inferred from Microwear
+Analysis," *Scientific Reports* 8 (2018): 10065, https://doi.org/10.1038/s41598-018-28342-9. [Open access]
+- opened: 2026-07-31 · full text (CC BY)
+- supports: "the first direct artefactual evidence for regular, systematic fire production by Neandertals",
+  from late Mousterian layers in France, "primarily to the Mousterian of Acheulean Tradition (MTA)
+  technoculture (ca. 50,000 years BP)", with bifaces used as strike-a-lights against pyrite
+- used by: wh-098
+
+### davis-2025 · the oldest fire-making
+Rob Davis et al., "Earliest Evidence of Making Fire," *Nature* 649, no. 8097 (2025): 631–37,
+https://doi.org/10.1038/s41586-025-09855-6. [Paywalled]
+- opened: 2026-07-31 · **publisher abstract only** — the defining publication for the find; no open deposit
+  exists yet
+- supports: "evidence of fire-making on a 400,000-year-old buried landsurface at Barnham (UK), where heated
+  sediments and fire-cracked flint handaxes were found alongside two fragments of iron pyrite"; and that
+  "pyrite is locally rare, suggesting it was brought deliberately to the site for fire-making"
+- does NOT support: the "above 700 degrees" figure the card carried, which comes from press coverage and is
+  not in the abstract. The card was corrected to what the abstract states
+- used by: wh-098
+
+### anton-2016 · what varies in *Homo erectus*
+Susan C. Antón et al., "Morphological Variation in *Homo erectus* and the Origins of Developmental
+Plasticity," *Philosophical Transactions of the Royal Society B* 371, no. 1698 (2016): 20150236, §§1–2 and
+table 1, https://pmc.ncbi.nlm.nih.gov/articles/PMC4920293/. [Open access]
+- opened: 2026-07-31 · full text via PMC (royalsocietypublishing.org, where the published version is free,
+  is behind bot protection from this environment; located by numbered section and table)
+- supports: brain-size ranges by region — Africa/Georgia 546–1067 cc at 1.77–1.5 Ma, China 855–1225 cc,
+  Indonesia 813–1251 cc (table 1) — which is what the card's "600 … to about 1,000" summarises; the Trinil 2
+  calotte from its "initial discovery in 1891" and the argument over whether it was an "out-sized gibbon"
+  (§2); that African *H. erectus* "was often recognized as *H. ergaster*" while later chronostratigraphy
+  "diminished and, in some cases, eliminated the time difference" between the African and Asian samples (§2)
+- used by: wh-018
+
+### rizal-2020 · the last *Homo erectus*
+Yan Rizal et al., "Last Appearance of *Homo erectus* at Ngandong, Java, 117,000–108,000 Years Ago,"
+*Nature* 577, no. 7790 (2020): 381–85, https://doi.org/10.1038/s41586-019-1863-2. [Open access]
+- opened: 2026-07-31 · full text (gold OA on nature.com)
+- supports: the Ngandong bone bed as the youngest known *H. erectus*, at 117,000–108,000 years — the card's
+  "survived until roughly 110,000 years ago"; and that the species "reached Java (Indonesia) more than 1.5
+  million years ago"
+- used by: wh-018
+
+### bastir-2020 · the shape of the *erectus* trunk
+Markus Bastir et al., "Rib Cage Anatomy in *Homo erectus* Suggests a Recent Evolutionary Origin of Modern
+Human Body Shape," *Nature Ecology & Evolution* 4, no. 9 (2020): 1178–87,
+https://doi.org/10.1038/s41559-020-1240-4. [Open access]
+- opened: 2026-07-31 · publisher PDF, free on nature.com
+- supports: the first three-dimensional reconstruction of the thorax of KNM-WT 15000, showing "a short,
+  mediolaterally wide and anteroposteriorly deep thorax … that differs considerably from the much shallower
+  thorax of *H. sapiens*, pointing to a recent evolutionary origin of fully modern human body shape", and a
+  "relatively stocky, more primitive, body shape" for *H. erectus*
+- note: this is what the card was corrected against. It had *H. erectus* "built like us below the neck …
+  with a narrow waist" and the Turkana Boy "tall and lean like a modern tropical human"
+- used by: wh-018
+
+### curran-2025 · how early hominins were in Eurasia
+Sabrina C. Curran et al., "Hominin Presence in Eurasia by at Least 1.95 Million Years Ago," *Nature
+Communications* 16 (2025): 836, https://doi.org/10.1038/s41467-025-56154-9. [Open access]
+- opened: 2026-07-31 · full text (CC BY)
+- supports: "hominins were present at Dmanisi, Georgia by 1.8 million years ago" — the card's reaching of
+  the Caucasus — set against cut-marked bones at Grăunceanu, Romania, dated to >1.95 Ma
+- used by: wh-018
+
+### welker-2020 · the antecessor proteome
+Frido Welker et al., "The Dental Proteome of *Homo antecessor*," *Nature* 580, no. 7802 (2020): 235–38,
+https://doi.org/10.1038/s41586-020-2153-8. [Open access]
+- opened: 2026-07-31 · publisher PDF, free on nature.com
+- supports: that ancient DNA degrades where "the analysis of ancient proteins can address this challenge";
+  the dental enamel proteomes of *H. antecessor* from Atapuerca and *H. erectus* from Dmanisi; and the
+  placement of *H. antecessor* as "a close sister lineage to subsequent Middle and Late Pleistocene
+  hominins, including modern humans, Neanderthals and Denisovans" — beside, not below, the line — implying
+  that its "modern-like face … may have a considerably deep ancestry in the genus *Homo*"
+- used by: wh-028
+
+### campana-2016 · the TD6 layer
+I. Campaña et al., "New Interpretation of the Gran Dolina-TD6 Bearing *Homo antecessor* Deposits through
+Sedimentological Analysis," *Scientific Reports* 6 (2016): 34799, under "The Gran Dolina Site" and
+"Results," https://doi.org/10.1038/srep34799. [Open access]
+- opened: 2026-07-31 · full text (CC BY)
+- supports: Gran Dolina as "a cavity infilled by at least 25 m of Pleistocene sediments", whose TD6 unit
+  holds "around 170 hominin bones that have allowed the definition of a new species, *Homo antecessor*";
+  and the magnetostratigraphic reversal in the overlying TD7 attributed to the Matuyama–Brunhes boundary,
+  which puts TD6 beyond 780,000 years
+- used by: wh-028
+
+### roksandic-2021 · the muddle in the middle
+Mirjana Roksandic et al., "Resolving the 'Muddle in the Middle': The Case for *Homo bodoensis* sp. nov.,"
+*Evolutionary Anthropology* 31, no. 1 (2022): 20–29, https://doi.org/10.1002/evan.21929. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: that *H. heidelbergensis* "both *sensu stricto* and *sensu lato*" and *H. rhodesiensis* "need to
+  be abandoned as they fail to reflect the full range of hominin variability in the Middle Pleistocene";
+  the Mauer mandible at "609 ± 40 ka"; Schoetensack's 1908 naming; the consensus that the Sima de los
+  Huesos hominins are "early members of the Neanderthal lineage", dating "to at least 430 ka"
+- note: this is what the card's last-but-one sentence was corrected against. The 2021 proposal does **not**
+  put every *heidelbergensis* fossil under *bodoensis* — the African ones go there, and the western
+  European ones, Mauer included, go to *H. neanderthalensis*
+- used by: wh-030
+
+### schoetensack-1908 · the Mauer jaw
+Otto Schoetensack, *Der Unterkiefer des Homo heidelbergensis aus den Sanden von Mauer bei Heidelberg*
+(Leipzig: Wilhelm Engelmann, 1908), under "I. Geologisch-paläontologischer Teil",
+https://archive.org/details/o-schoetensack-der-unterkiefer-des-homo-heidelbergensis. [Open access]
+- opened: 2026-07-31 · scanned first edition, public domain (located by named part; the accessible
+  transcription carries no page numbers)
+- supports: the founding publication of the species name, and that the jaw was found "am 21. Oktober 1907"
+  in the Grafenrain sand pit on the land of the village of Mauer, "10 km südöstlich von Heidelberg" — the
+  card's "quarrymen had dug out of a sand pit at Mauer, near Heidelberg, the year before"
+- used by: wh-030
+
 ---
 
 ## CANDIDATES — NOT VERIFIED, DO NOT PASTE INTO `data.js`
