@@ -594,7 +594,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     glossary term carries `sources`; the citation pass so far has touched cards only. The UI, the deltas and the
     pipeline are in place; the rest is a content job (see "Citing the existing content" below). Guarded by
     `.claude/test-sources.js` (67 assertions).
-    **Batches 0–11 shipped 2026-07-31**: **47 of the 109 prehistory cards carry sources**, every card's list
+    **Batches 0–11 shipped 2026-07-31**: **57 of the 109 prehistory cards carry sources**, every card's list
     majority-open (`wh-086` Lascaux and a set of culture-history/definitional cards are deferred — their
     sources will not open). See `docs/citation-plan.md` — its Pilot log records how the
     definitional cards were solved, its Batch 1 log the factual errors the exercise turns up (21 so far) and
@@ -1603,10 +1603,20 @@ the prose the markers live in — enforces the same marker rules as add-card.js,
 whose abstract carries a different number of markers than the English** (that language shows the list but
 none of the in-text links), and reports running coverage, which is how a multi-batch pass is tracked.
 
+**Fixing a figure OUTSIDE the abstract** — `node .claude/fix-field.js <batch.json>`
+(`{ "cards": { "<id>": { "field": "answerDate", "sub": { "en": [[find, replace], …], "es": […], … } } } }`).
+add-sources.js touches only `sources` and the abstract, and `update-cards.js` ASSIGNS whole fields, so an
+`i18n` patch through it replaces the card's entire `i18n` object and drops the other languages. Neither can
+fix a wrong number sitting in **`answerDate`** — which is exactly where a citation pass keeps finding them,
+because the date line repeats the abstract's figures. This does find/replace inside one named field, per
+language, and **refuses to write unless every `find` string is present**: a silent no-op would leave a
+corrected card still showing the wrong figure on its date line. Batch 6 needed it for three cards, all of
+which would otherwise have shipped corrected prose above an uncorrected date line.
+
 **Citing the existing content (as of July 2026)** — **most of the shipped content still has no citations.** The
 109 cards, 333 glossary terms and every Atlas description were written before this system existed, from Wikipedia
 and its sources, and were fact-checked rather than referenced. A batched pass is working through the cards —
-**47 of 109 done** (`docs/citation-plan.md`; coverage is reported by `add-sources.js` on every run) — while
+**57 of 109 done** (`docs/citation-plan.md`; coverage is reported by `add-sources.js` on every run) — while
 `country-sources.js` and `GLOSSARY_SOURCES` are still empty, so the Sources fold appears only on those cards.
 **Do not paper over the rest by attaching plausible-looking citations to existing prose** — a citation that was
 not the actual source of a sentence is worse than no citation, because it invites a reader to trust a page number

@@ -229,16 +229,77 @@ d'Errico on ochre and engraving; McBrearty & Brooks 2000 for the "revolution tha
 `wh-058` should be reconciled against. South African Heritage Resources Agency records where a site card
 needs an official one.
 
-### Batch 6 · Out of Africa: Sahul and the Americas (10)
-`wh-059` Madjedbebe · `wh-060` Lake Mungo remains · `wh-061` Beringia · `wh-062` Settlement of the Americas ·
-`wh-063` Paleo-Indians · `wh-091` Clovis culture · `wh-092` Clovis point · `wh-093` Folsom tradition ·
-`wh-094` Monte Verde · `wh-095` Meadowcroft Rockshelter
+### Batch 6 · Out of Africa: Sahul and the Americas (10) — **10 of 10 DONE (2026-07-31)**
+**Cited:** `wh-059` Madjedbebe · `wh-060` Lake Mungo remains · `wh-061` Beringia · `wh-062` Settlement of the
+Americas · `wh-063` Paleo-Indians · `wh-091` Clovis culture · `wh-092` Clovis point · `wh-093` Folsom
+tradition · `wh-094` Monte Verde · `wh-095` Meadowcroft Rockshelter. Nothing deferred.
 
-Spine: Clarkson et al. 2017 on Madjedbebe; Bowler et al. 2003 on Mungo; Dillehay et al. 2008 on Monte
-Verde; Waters & Stafford 2007 on Clovis chronology; Adovasio on Meadowcroft; the UNESCO Willandra Lakes
-record; National Park Service records for the American type sites, which are official and permanent.
-**This batch is the most contested in the deck** — the peopling dates are actively disputed, and the
-cards' hedges need to survive contact with the sources rather than be sharpened by them.
+Spine as worked: Clarkson et al. 2017 with the 2018 reply and O'Connell et al. 2018 (the critique), Florin
+et al. 2020 and Malaspinas et al. 2016 for `wh-059`; Bowler et al. 2003, Adcock et al. 2001 with Heupink et
+al. 2016, Gillespie 2002 and Brumm & Moore 2005 for `wh-060`; Farmer et al. 2023, Jakobsson et al. 2017,
+Hoffecker et al. 2023, Tamm et al. 2007, Llamas et al. 2016 and Schroeder et al. 2007 for `wh-061`;
+Moreno-Mayar et al. 2018, Waters et al. 2020, Davis et al. 2022, Shillito et al. 2020, Bennett et al. 2021
+with Holliday et al. 2025, Lesnek et al. 2018 and Rasmussen et al. 2014 for `wh-062`; Roberts 1940 read in
+full, Chatters et al. 2024, Koch & Barnosky 2006, Cordell 1976 and Slade 2021 for `wh-063`; Waters et al.
+2020, Grayson/Meltzer/Breslawski 2021, Story et al. 2019 and the two Eren papers for `wh-091`; Byram et al.
+2024, Thulman et al. 2023, Slade 2021 and Waitt 2016 for `wh-092`; Buchanan et al. 2021, Jackson 1997,
+Bement et al. 1997, Figgins 1927, Cordell 1976 and Thomas et al. 2017 for `wh-093`; Pino & Dillehay 2023,
+Dillehay et al. 2015, Surovell et al. 2026 and the three 2026 eLetters for `wh-094`; the NPS landmark
+nomination, Madsen et al. 2025, Rosencrance et al. 2026 and Adovasio et al. 1990 for `wh-095`.
+
+### Batch 6 log — Sahul and the Americas
+All ten cards shipped 2026-07-31. Seventy-three citation slots across the ten cards, drawn from **67
+distinct works, 57 of them open** — every card's list majority-open, and `wh-063`, `wh-091` and `wh-092`
+fully open. Coverage went from `cards 47/109` to `cards 57/109`. Network access was available and every
+source was opened before it was written down.
+
+**The plan called this "the most contested batch in the deck" and that was right, but not in the way it
+expected.** The prediction was that the disputed *peopling dates* would be the problem. They were the easy
+part: White Sands, Clovis, Folsom, Monte Verde and Madjedbebe all have published Bayesian models, and the
+cards' hedges survived contact with them almost intact. What did not survive was the **quiet, confident
+detail around the dates** — twenty-five corrections, far more than any previous batch, and most of them in
+sentences nobody would have thought to check:
+
+- **`wh-063`'s central historiographical claim was backwards.** The card said Frank H. H. Roberts Jr. coined
+  "Paleo-Indian" in 1940 *for a class of stone tools rather than for a people*. Roberts 1940 was read in
+  full: he never defines the term at all, and every one of his four uses denotes people or a period, closing
+  with "there actually was a Paleo-Indian." Rewritten to say he used the name without defining it. This is
+  the clearest case yet for the rule that a citation must be read, not matched — a plausible-looking
+  reference to Roberts 1940 would have *anchored* the error.
+- **Numbers that had drifted from a maximum into a minimum, or from one quantity into another.**
+  `wh-095`'s "at least 16,000 years ago" was the single oldest of five dates running down to 13,240, against
+  the excavators' own 14,000–14,500 radiocarbon years; the same card used 16,000 for the occupation *span*
+  in one sentence and the *age of the deepest layer* in the next. `wh-093`'s "23 points" was the old *bison*
+  count, and its end date of 11,900 fell outside even the 95% interval of the current model.
+- **Figures that trace to no published count at all.** `wh-091`'s "10,000 Clovis points from 1,500 places"
+  and "more such finds than anywhere else on earth"; `wh-092`'s "most forged artefacts in North America";
+  `wh-095`'s "four laboratories" (the record names two) and "largest collection from eastern North America".
+  Each reads like scholarship and is press or encyclopedia material. All dropped.
+- **A recurring shared error across three cards:** Clovis and Folsom points "seated in a split shaft."
+  The open hafting literature points to a bone or ivory socket, and Slade 2021 leaves the question open.
+  Fixed identically in `wh-063`, `wh-091` and `wh-092` — when the same phrasing recurs across a deck, one
+  card's correction is every card's correction.
+
+**Two working rules this batch adds.** First, **a source that supports a claim may still not support the
+sentence**: `wh-061` cited the standstill to Tamm et al., which gives 15,000 years and never mentions ice
+sheets, and stated a critique of the hypothesis that appears only in a news summary — Hoffecker et al.'s
+actual objection is different and better. Second, **check the date line as well as the prose.** The
+`answerDate` repeats the abstract's figures, and `add-sources.js` does not touch it, so three cards would
+have shipped corrected prose above a wrong date line. `.claude/fix-field.js` was written for exactly this
+and refuses to write unless every find string is present.
+
+**`wh-094`'s 2026 dispute is real and was verified.** Surovell et al., *Science*, 19 March 2026 exists, and
+the three May 2026 eLetters answering it (30 authors between them) were read in full via institutional
+mirrors. What did not survive is the card's "outcrops up to 4 kilometres away": no distance figure appears
+in any of the three critiques — it is a Dillehay remark to *El Ciudadano*. Note also that both data DOIs the
+eLetters point at are **dead** (figshare `EntityNotFound`; the Zenodo record tombstoned 2026-05-18), so the
+mirrors are the only citable location.
+
+**One card kept an uncitable sentence on purpose.** `wh-093`'s George McJunkin — the Black cowboy, born into
+slavery, who found the Folsom bones in 1908 and died before anyone would look — appears in no peer-reviewed
+source that could be opened; Figgins 1927 credits Howarth and Schwachheim. The story is not contradicted,
+merely unreachable, and it is the heart of the card. It stays, without a marker. Absence of a citation is
+not a reason to delete a true thing; it is a reason not to claim one.
 
 ### Batch 7 · Upper Palaeolithic Europe: the industries (9)
 `wh-064` Cro-Magnon · `wh-065` Châtelperronian · `wh-066` Aurignacian · `wh-071` Gravettian ·
@@ -957,5 +1018,5 @@ If a needed host turns out to be missing mid-batch, the cheaper fix is switching
 - **Changelog.** One line per day, raising its count — "Sources added to N cards in the World History
   prehistory deck" — with its nine translations, per the house rule. Corrections found along the way get
   their own line, and should name what changed.
-- **Coverage** is reported by `add-sources.js` on every run (`cards 47/109`), which is how the pass is
+- **Coverage** is reported by `add-sources.js` on every run (`cards 57/109`), which is how the pass is
   tracked across sessions.

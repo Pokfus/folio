@@ -1665,6 +1665,147 @@ Valley (Portugal)," *Antiquity* 81, no. 312 (2007), https://antiquity.ac.uk/Proj
   ~15,000 BP OSL)
 - used by: wh-097 · (used to reword the Côa sentence to "open-air Palaeolithic," dropping the "late 1980s" date)
 
+
+## Batch 6 — Out of Africa: Sahul and the Americas, verified 2026-07-31
+
+Seventy-three citation slots across ten cards, drawn from 67 distinct works, 57 of them open.
+Every citation below was opened before it was written down; access is recorded as it was found.
+
+- Chris Clarkson, Zenobia Jacobs, Ben Marwick, et al., "Human occupation of northern Australia by 65,000 years ago," <i>Nature</i> 547, no. 7663 (2017): 306–310, http://faculty.washington.edu/bmarwick/PDFs/Clarkson_Jacobs_Marwick_2017.pdf. [Open access]
+  - used by: wh-059
+- Chris Clarkson, Richard G. Roberts, Zenobia Jacobs, et al., "Reply to comments on Clarkson et al. (2017) 'Human occupation of northern Australia by 65,000 years ago,'" <i>Australian Archaeology</i> 84, no. 1 (2018): 84–89, https://anthropology.washington.edu/sites/anthropology/files/documents/research/clarkson-roberts-jacobs-marwick-et-al-2018-aa-reply.pdf. [Open access]
+  - used by: wh-059
+- James F. O'Connell, Jim Allen, Martin A. J. Williams, et al., "When did <i>Homo sapiens</i> first reach Southeast Asia and Sahul?," <i>Proceedings of the National Academy of Sciences</i> 115, no. 34 (2018): 8482–8490, https://pmc.ncbi.nlm.nih.gov/articles/PMC6112744/. [Open access]
+  - used by: wh-059
+- Chris Clarkson, Mike Smith, Ben Marwick, et al., "The archaeology, chronology and stratigraphy of Madjedbebe (Malakunanja II): a site in northern Australia with early occupation," <i>Journal of Human Evolution</i> 83 (2015): 46–64, https://faculty.washington.edu/bmarwick/PDFs/Clarkson_et_al._2015_MJB_1989.pdf. [Open access]
+  - used by: wh-059
+- S. Anna Florin, Andrew S. Fairbairn, May Nango, et al., "The first Australian plant foods at Madjedbebe, 65,000–53,000 years ago," <i>Nature Communications</i> 11 (2020): 924, https://pmc.ncbi.nlm.nih.gov/articles/PMC7026095/. [Open access]
+  - used by: wh-059
+- Anna-Sapfo Malaspinas, Michael C. Westaway, Craig Muller, et al., "A genomic history of Aboriginal Australia," <i>Nature</i> 538, no. 7624 (2016): 207–214, https://www.eva.mpg.de/documents/Nature/Malaspinas_Genomic_Nature_2016_2351078.pdf. [Open access]
+  - used by: wh-059
+- James M. Bowler, Harvey Johnston, Jon M. Olley, et al., "New ages for human occupation and climatic change at Lake Mungo, Australia," <i>Nature</i> 421, no. 6925 (2003): 837–840, https://doi.org/10.1038/nature01383. [Paywalled]
+  - used by: wh-060
+- Alan Thorne, Rainer Grün, Graham Mortimer, et al., "Australia's oldest human remains: age of the Lake Mungo 3 skeleton," <i>Journal of Human Evolution</i> 36, no. 6 (1999): 591–612, https://doi.org/10.1006/jhev.1999.0305. [Paywalled]
+  - used by: wh-060
+- Gregory J. Adcock, Elizabeth S. Dennis, Simon Easteal, et al., "Mitochondrial DNA sequences in ancient Australians: implications for modern human origins," <i>Proceedings of the National Academy of Sciences</i> 98, no. 2 (2001): 537–542, https://pmc.ncbi.nlm.nih.gov/articles/PMC14622/. [Open access]
+  - used by: wh-060
+- Tim H. Heupink, Sankar Subramanian, Joanne L. Wright, et al., "Ancient mtDNA sequences from the First Australians revisited," <i>Proceedings of the National Academy of Sciences</i> 113, no. 25 (2016): 6892–6897, https://pmc.ncbi.nlm.nih.gov/articles/PMC4922152/. [Open access]
+  - used by: wh-060
+- Jessica I. Cerezo-Román, David K. Wright, Potiphar Kaliba, et al., "Earliest evidence for intentional cremation of human remains in Africa," <i>Science Advances</i> 12, no. 1 (2026): eadz9554, https://pmc.ncbi.nlm.nih.gov/articles/PMC12757068/. [Open access]
+  - used by: wh-060
+- Joanne L. Wright, Sally Wasef, Tim H. Heupink, et al., "Ancient nuclear genomes enable repatriation of Indigenous human remains," <i>Science Advances</i> 4, no. 12 (2018): eaau5064, https://pmc.ncbi.nlm.nih.gov/articles/PMC6300400/. [Open access]
+  - used by: wh-060
+- Kathryn E. Fitzsimmons, Nicola Stern, Colin V. Murray-Wallace, et al., "The Mungo mega-lake event, semi-arid Australia: non-linear descent into the last ice age, implications for human behaviour," <i>PLOS ONE</i> 10, no. 6 (2015): e0127008, https://doi.org/10.1371/journal.pone.0127008. [Open access]
+  - used by: wh-060
+- Richard Gillespie, "Dating the First Australians," <i>Radiocarbon</i> 44, no. 2 (2002): 455–472, https://doi.org/10.1017/S0033822200031830. [Open access]
+  - used by: wh-060
+- Adam Brumm and Mark W. Moore, "Symbolic revolutions and the Australian archaeological record," <i>Cambridge Archaeological Journal</i> 15, no. 2 (2005): 157–175, https://doi.org/10.1017/S0959774305000089. [Open access]
+  - used by: wh-060
+- Jesse R. Farmer, Julia Gottschalk, Katherine A. Allen, et al., "The Bering Strait was flooded 10,000 years before the Last Glacial Maximum," <i>Proceedings of the National Academy of Sciences</i> 120, no. 1 (2023): e2206742119, https://doi.org/10.1073/pnas.2206742119. [Open access]
+  - used by: wh-061
+- Martin Jakobsson, Christof Pearce, Thomas M. Cronin, et al., "Post-glacial flooding of the Bering Land Bridge dated to 11 cal ka BP based on new geophysical and sediment records," <i>Climate of the Past</i> 13 (2017): 991–1005, https://doi.org/10.5194/cp-13-991-2017. [Open access]
+  - used by: wh-061
+- John F. Hoffecker, Scott A. Elias, Dennis H. O'Rourke, and G. Richard Scott, "Beringia and the peopling of the Western Hemisphere," <i>Proceedings of the Royal Society B</i> 290, no. 1990 (2023): 20222246, https://pmc.ncbi.nlm.nih.gov/articles/PMC9832545/. [Open access]
+  - used by: wh-061, wh-062
+- Erika Tamm, Toomas Kivisild, Maere Reidla, et al., "Beringian standstill and spread of Native American founders," <i>PLoS ONE</i> 2, no. 9 (2007): e829, https://doi.org/10.1371/journal.pone.0000829. [Open access]
+  - used by: wh-061
+- Bastien Llamas, Lars Fehren-Schmitz, Guido Valverde, et al., "Ancient mitochondrial DNA provides high-resolution time scale of the peopling of the Americas," <i>Science Advances</i> 2, no. 4 (2016): e1501385, https://pmc.ncbi.nlm.nih.gov/articles/PMC4820370/. [Open access]
+  - used by: wh-061
+- Kari B. Schroeder, Theodore G. Schurr, Jeffrey C. Long, et al., "A private allele ubiquitous in the Americas," <i>Biology Letters</i> 3, no. 2 (2007): 218–223, https://pmc.ncbi.nlm.nih.gov/articles/PMC2375964/. [Open access]
+  - used by: wh-061
+- C. R. Harington and Jacques Cinq-Mars, "Radiocarbon dates on saiga antelope (<i>Saiga tatarica</i>) fossils from Yukon and the Northwest Territories," <i>Arctic</i> 48, no. 1 (1995): 1–7, https://doi.org/10.14430/arctic1218. [Open access]
+  - used by: wh-061
+- Mikkel W. Pedersen, Anthony Ruter, Charles Schweger, et al., "Postglacial viability and colonization in North America's ice-free corridor," <i>Nature</i> 537, no. 7618 (2016): 45–49, https://doi.org/10.1038/nature19085. [Paywalled]
+  - used by: wh-061
+- J. Víctor Moreno-Mayar, Ben A. Potter, Lasse Vinner, et al., "Terminal Pleistocene Alaskan genome reveals first founding population of Native Americans," <i>Nature</i> 553, no. 7687 (2018): 203–207, https://researchonline.ljmu.ac.uk/id/eprint/7887/. [Open access]
+  - used by: wh-062
+- Erika Tamm, Toomas Kivisild, Maere Reidla, et al., "Beringian standstill and spread of Native American founders," <i>PLoS ONE</i> 2, no. 9 (2007): e829, https://pmc.ncbi.nlm.nih.gov/articles/PMC1952074/. [Open access]
+  - used by: wh-062
+- Michael R. Waters, Thomas W. Stafford Jr., and David L. Carlson, "The age of Clovis—13,050 to 12,750 cal yr B.P.," <i>Science Advances</i> 6, no. 43 (2020): eaaz0455, https://pmc.ncbi.nlm.nih.gov/articles/PMC7577710/. [Open access]
+  - used by: wh-062, wh-063, wh-091
+- Loren G. Davis, Alex J. Nyers, Daniel W. Bean, et al., "Dating of a large tool assemblage at the Cooper's Ferry site (Idaho, USA) to ~15,785 cal yr B.P. extends the age of stemmed points in the Americas," <i>Science Advances</i> 8, no. 51 (2022): eade1248, https://pmc.ncbi.nlm.nih.gov/articles/PMC9788777/. [Open access]
+  - used by: wh-062
+- Lisa-Marie Shillito, John C. Blong, Eleanor J. Green, et al., "Pre-Clovis occupation of the Americas identified by human fecal biomarkers in coprolites from Paisley Caves, Oregon," <i>Science Advances</i> 6, no. 29 (2020): eaba6404, https://pmc.ncbi.nlm.nih.gov/articles/PMC7363456/. [Open access]
+  - used by: wh-062
+- Matthew R. Bennett, David Bustos, Jeffrey S. Pigati, et al., "Evidence of humans in North America during the Last Glacial Maximum," <i>Science</i> 373, no. 6562 (2021): 1528–1531, https://doi.org/10.1126/science.abg7586. [Paywalled]
+  - used by: wh-062
+- Vance T. Holliday, Jason Windingstad, Brendan Fenerty, et al., "Paleolake geochronology supports Last Glacial Maximum (LGM) age for human tracks at White Sands, New Mexico," <i>Science Advances</i> 11, no. 25 (2025): eadv4951, https://pmc.ncbi.nlm.nih.gov/articles/PMC12175891/. [Open access]
+  - used by: wh-062
+- Alia J. Lesnek, Jason P. Briner, Charlotte Lindqvist, et al., "Deglaciation of the Pacific coastal corridor directly preceded the human colonization of the Americas," <i>Science Advances</i> 4, no. 5 (2018): eaar5040, https://pmc.ncbi.nlm.nih.gov/articles/PMC5976267/. [Open access]
+  - used by: wh-062
+- Morten Rasmussen, Sarah L. Anzick, Michael R. Waters, et al., "The genome of a Late Pleistocene human from a Clovis burial site in western Montana," <i>Nature</i> 506, no. 7487 (2014): 225–229, https://pmc.ncbi.nlm.nih.gov/articles/PMC4878442/. [Open access]
+  - used by: wh-062, wh-091
+- Frank H. H. Roberts Jr., "Developments in the problem of the North American Paleo-Indian," in <i>Essays in Historical Anthropology of North America</i>, Smithsonian Miscellaneous Collections 100 (Washington, DC: Smithsonian Institution, 1940), 51–116, https://archive.org/details/smithsonianmisce1001940smit. [Open access]
+  - used by: wh-063
+- James C. Chatters, Ben A. Potter, Stuart J. Fiedel, et al., "Mammoth featured heavily in western Clovis diet," <i>Science Advances</i> 10, no. 49 (2024): eadr3814, https://doi.org/10.1126/sciadv.adr3814. [Open access]
+  - used by: wh-063
+- Paul L. Koch and Anthony D. Barnosky, "Late Quaternary extinctions: state of the debate," <i>Annual Review of Ecology, Evolution, and Systematics</i> 37 (2006): 215–250, https://ib.berkeley.edu/labs/barnosky/Koch%20%20and%20Barnosky%202006.pdf. [Open access]
+  - used by: wh-063
+- Linda S. Cordell, "The Folsom site in retrospect," in <i>Vermejo Park</i>, New Mexico Geological Society 27th Annual Fall Field Conference Guidebook (Socorro: NMGS, 1976), 83–86, https://doi.org/10.56577/FFC-27.83. [Open access]
+  - used by: wh-063, wh-093
+- Kyle Martin, Jim I. Mead, and Perry S. Barboza, "Bison body size and climate change," <i>Ecology and Evolution</i> 8, no. 9 (2018): 4564–4574, https://doi.org/10.1002/ece3.4019. [Open access]
+  - used by: wh-063
+- Alan M. Slade, "To haft and to hold: evidence for the hafting of Clovis fluted points," <i>Journal of Lithic Studies</i> 8, no. 3 (2021): 133–151, https://doi.org/10.2218/jls.3033. [Open access]
+  - used by: wh-063, wh-092
+- Donald K. Grayson, David J. Meltzer, and Ryan P. Breslawski, "Overkill and the North American archaeological record—not guilty by association? A comment on Wolfe and Broughton (2020)," <i>Journal of Archaeological Science</i> 128 (2021): 105312, https://bpb-us-w2.wpmucdn.com/people.smu.edu/dist/5/554/files/2021/08/Grayson-Meltzer-and-Breslawski-2021-JAS-Overkill-and-the-North-American-archaeological-record%E2%80%94not-guilty-by-association.pdf. [Open access]
+  - used by: wh-091
+- Brett A. Story, Metin I. Eren, Kaitlyn Thomas, Briggs Buchanan, and David J. Meltzer, "Why are Clovis fluted points more resilient than non-fluted lanceolate points? A quantitative assessment of breakage patterns between experimental models," <i>Archaeometry</i> 61, no. 1 (2019): 1–13, https://bpb-us-w2.wpmucdn.com/people.smu.edu/dist/5/554/files/2019/01/Story-et-al.-2019-ARCHAEOMETRY-Why-are-Clovis-fluted-points-more-resilient-than-non-fluted-lanceolate-points-2205ct4.pdf. [Open access]
+  - used by: wh-091
+- Metin I. Eren, David J. Meltzer, and Brian N. Andrews, "Is Clovis technology unique to Clovis?," <i>PaleoAmerica</i> 4, no. 3 (2018): 202–218, https://bpb-us-w2.wpmucdn.com/people.smu.edu/dist/5/554/files/2018/12/Eren-Meltzer-Andrews-2018-PALEOAMERICA-Is-Clovis-Technology-Unique-to-Clovis-1zq67w7.pdf. [Open access]
+  - used by: wh-091
+- Metin I. Eren, Robert J. Patten, Michael J. O'Brien, and David J. Meltzer, "Refuting the technological cornerstone of the Ice-Age Atlantic crossing hypothesis," <i>Journal of Archaeological Science</i> 40, no. 7 (2013): 2934–2941, https://cladistics.coas.missouri.edu/assets/pdf_articles/Eren_et_al_2013.pdf. [Open access]
+  - used by: wh-091
+- R. Scott Byram, Kent G. Lightfoot, and Jun Ueno Sunseri, "Clovis points and foreshafts under braced weapon compression: modeling Pleistocene megafauna encounters with a lithic pike," <i>PLOS ONE</i> 19, no. 8 (2024): e0307996, https://doi.org/10.1371/journal.pone.0307996. [Open access]
+  - used by: wh-092
+- David K. Thulman, Michael J. Shott, Alan M. Slade, and Justin P. Williams, "Clovis point allometry, modularity, and integration: exploring shape variation due to tool use with landmark-based geometric morphometrics," <i>PLOS ONE</i> 18, no. 8 (2023): e0289489, https://doi.org/10.1371/journal.pone.0289489. [Open access]
+  - used by: wh-092
+- Richard B. Waitt, "Megafloods and Clovis cache at Wenatchee, Washington," <i>Quaternary Research</i> 85 (2016): 430–444, https://fop.cascadiageo.org/pacific_northwest_cell/2018/Background_Literature/Waitt2016WenatcheeMegafloods.pdf. [Open access]
+  - used by: wh-092
+- Briggs Buchanan, J. David Kilby, Marcus J. Hamilton, et al., "Bayesian revision of the Folsom age range using IntCal20," <i>PaleoAmerica</i> 7, no. 2 (2021): 133–144, http://marcusjhamilton.weebly.com/uploads/2/5/5/3/25533140/buchanan_et_al_2021.pdf. [Open access]
+  - used by: wh-093
+- Lawrence J. Jackson, "Carl Schwachheim and the Folsom site," <i>Current Research in the Pleistocene</i> 14 (1997): 42–44, https://liberalarts.tamu.edu/csfa/wp-content/uploads/sites/14/2023/07/CRP-14-1997.pdf. [Open access]
+  - used by: wh-093
+- Leland C. Bement, Marian Hyman, Michael E. Zolensky, and Brian J. Carter, "A painted skull from the Cooper site: a Folsom bison kill in NW Oklahoma," <i>Current Research in the Pleistocene</i> 14 (1997): 6–8, https://liberalarts.tamu.edu/csfa/wp-content/uploads/sites/14/2023/07/CRP-14-1997.pdf. [Open access]
+  - used by: wh-093
+- J. D. Figgins, "The antiquity of man in America," <i>Natural History</i> 27, no. 3 (1927): 229–239, https://archive.org/details/sim_natural-history_may-june-1927_27_3. [Open access]
+  - used by: wh-093
+- Kaitlyn A. Thomas, Brett A. Story, Metin I. Eren, et al., "Explaining the origin of fluting in North American Pleistocene weaponry," <i>Journal of Archaeological Science</i> 81 (2017): 23–30, https://cladistics.coas.missouri.edu/assets/pdf_articles/2017-clovis-fluting.pdf. [Open access]
+  - used by: wh-093
+- David T. Kirkpatrick, "The prehistory of northeastern New Mexico," in <i>Vermejo Park</i>, New Mexico Geological Society 27th Annual Fall Field Conference Guidebook (Socorro: NMGS, 1976), 77–82, https://doi.org/10.56577/FFC-27.77. [Open access]
+  - used by: wh-093
+- David J. Meltzer, Lawrence C. Todd, and Vance T. Holliday, "The Folsom (Paleoindian) type site: past investigations, current studies," <i>American Antiquity</i> 67, no. 1 (2002): 5–36, https://doi.org/10.2307/2694875. [Paywalled]
+  - used by: wh-093
+- Mario Pino and Tom D. Dillehay, "Monte Verde II: an assessment of new radiocarbon dates and their sedimentological context," <i>Antiquity</i> 97, no. 393 (2023): 524–540, https://doi.org/10.15184/aqy.2023.32. [Open access]
+  - used by: wh-094
+- Tom D. Dillehay, Carlos Ocampo, José Saavedra, et al., "New archaeological evidence for an early human presence at Monte Verde, Chile," <i>PLOS ONE</i> 10, no. 11 (2015): e0141923, https://doi.org/10.1371/journal.pone.0141923. [Open access]
+  - used by: wh-094
+- Todd A. Surovell, César Méndez, Juan-Luis García, et al., "A mid-Holocene age for Monte Verde challenges the timeline of human colonization of South America," <i>Science</i> 391, no. 6791 (2026): 1283–1288, https://doi.org/10.1126/science.adw9217. [Paywalled]
+  - used by: wh-094
+- Tom D. Dillehay, Mario Pino, Luis Lara, et al., "Geomorphological and archaeological evidence at Monte Verde II, Chile supports the claim of human occupation 14,500 years ago," eLetter, <i>Science</i>, May 4, 2026, https://liberalarts.tamu.edu/csfa/wp-content/uploads/sites/14/2026/05/Three-Critiques.pdf. [Open access]
+  - used by: wh-094
+- David J. Meltzer, J. Víctor Moreno-Mayar, Thomaz Pinotti, et al., "Genetic evidence and the peopling of the Americas: reply to Surovell et al. 2026," eLetter, <i>Science</i>, May 4, 2026, https://liberalarts.tamu.edu/csfa/wp-content/uploads/sites/14/2026/05/Three-Critiques.pdf. [Open access]
+  - used by: wh-094
+- Michael R. Waters, Jessi J. Halligan, Rolfe D. Mandel, et al., "Geoarchaeological assessment of the suggested middle Holocene age for Monte Verde II, Chile," eLetter, <i>Science</i>, May 5, 2026, https://fundacionmonteverde.cl/wp-content/uploads/2026/05/Waters-et-al.-Rebuttal-to-Surovell-et-al.-2026.pdf. [Open access]
+  - used by: wh-094
+- David J. Meltzer, Donald K. Grayson, Gerardo Ardila, et al., "On the Pleistocene antiquity of Monte Verde, southern Chile," <i>American Antiquity</i> 62, no. 4 (1997): 659–663, https://doi.org/10.2307/281884. [Paywalled]
+  - used by: wh-094
+- Tom D. Dillehay, C. Ramírez, M. Pino, et al., "Monte Verde: seaweed, food, medicine, and the peopling of South America," <i>Science</i> 320, no. 5877 (2008): 784–786, https://doi.org/10.1126/science.1156533. [Paywalled]
+  - used by: wh-094
+- Mark A. McConaughy, "Meadowcroft Rockshelter," National Historic Landmark Nomination, ed. Erika K. Martin Seibert (Washington, DC: US Department of the Interior, National Park Service, 2004), https://npgallery.nps.gov/NRHP/GetAsset/NHLS/78002480_text. [Open access]
+  - used by: wh-095
+- David B. Madsen, Loren G. Davis, Thomas J. Williams, Masami Izuho, and Fumie Iizuka, "Characterizing the American Upper Paleolithic," <i>Science Advances</i> 11, no. 43 (2025): eady9545, https://doi.org/10.1126/sciadv.ady9545. [Open access]
+  - used by: wh-095
+- Richard L. Rosencrance, Katelyn N. McDonough, Dennis L. Jenkins, et al., "Complex perishable technologies from the North American Great Basin reveal specialized Late Pleistocene adaptations," <i>Science Advances</i> 12, no. 6 (2026): eaec2916, https://doi.org/10.1126/sciadv.aec2916. [Open access]
+  - used by: wh-095
+- Lorena Becerra-Valdivia and Thomas Higham, "The timing and effect of the earliest human arrivals in North America," <i>Nature</i> 584 (2020): 93–97, https://ora.ox.ac.uk/objects/uuid:b964b2d2-9600-4337-ad1f-e02dc83361af. [Open access]
+  - used by: wh-095
+- J. Emili Aura Tortosa, Yolanda Carrión Marco, Ernestina Badal, et al., "Cordage, basketry and containers at the Pleistocene–Holocene boundary in southwest Europe: evidence from Coves de Santa Maira (Valencian region, Spain)," <i>Vegetation History and Archaeobotany</i> 29 (2020): 581–594, https://doi.org/10.1007/s00334-019-00758-x. [Open access]
+  - used by: wh-095
+- J. M. Adovasio, J. Donahue, and R. Stuckenrath, "The Meadowcroft Rockshelter radiocarbon chronology 1975–1990," <i>American Antiquity</i> 55, no. 2 (1990): 348–354, https://doi.org/10.2307/281652. [Paywalled]
+  - used by: wh-095
+- Kenneth B. Tankersley and Cheryl Ann Munson, "Comments on the Meadowcroft Rockshelter radiocarbon chronology and the recognition of coal contaminants," <i>American Antiquity</i> 57, no. 2 (1992): 321–326, https://doi.org/10.2307/280736. [Paywalled]
+  - used by: wh-095
+
 ---
 
 ## CANDIDATES — NOT VERIFIED, DO NOT PASTE INTO `data.js`
