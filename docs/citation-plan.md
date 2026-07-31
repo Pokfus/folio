@@ -162,11 +162,11 @@ stood before batch 17a):
 
 | | cards | |
 |---|---|---|
-| at the bar | 57 (54) | |
-| below it, **uncited** | 19 (22) | 95 citations to find |
+| at the bar | 59 (54) | |
+| below it, **uncited** | 17 (22) | 85 citations to find |
 | below it, **under-cited** | 33 | 58 citations to find |
 | researched and blocked | 0 | nothing has yet been searched and come back short |
-| **still to find** | **52 cards** (55) | **153 citations** (168) |
+| **still to find** | **50 cards** (55) | **143 citations** (168) |
 
 One further finding from the audit, which is not a count: **`wh-045` Jebel Irhoud carries two open sources
 and two paywalled**, so its list is not majority-open and never was. It is the only card in the deck in that
@@ -244,10 +244,10 @@ makes is not a citation, and a card whose fifth source is a third paywalled work
 (see "How many"). Where a card cannot get there honestly, that is a finding: record it with
 `mark-sources-blocked.js` and say in the log what was tried.
 
-### Batch 17 · The definitional set, from the register (5 cards) — **3 of 5 DONE (2026-07-31)**
-**Cited:** `wh-006` Three-age system · `wh-007` Prehistory (batch 17a) · `wh-099` Mesolithic (batch 17b).
-**Remaining:** `wh-100` Epipaleolithic · `wh-101` Nordic Stone Age — left for time, not for sources; see
-the Batch 17b log for what is already in hand for them.
+### Batch 17 · The definitional set, from the register (5 cards) — **DONE (2026-07-31)**
+**Cited:** `wh-006` Three-age system · `wh-007` Prehistory (17a) · `wh-099` Mesolithic (17b) ·
+`wh-100` Epipaleolithic · `wh-101` Nordic Stone Age (17c). Nothing deferred; 63 citations across the five
+cards from 39 distinct works, 38 of them open.
 
 The rest of batch 12's framework work, plus the three Mesolithic culture-history cards batch 11 handed
 over. These are historiographic — about how the past has been divided up rather than about the past — and
@@ -397,6 +397,54 @@ hamlet material (Ain Mallaha's huts and their stone walls), the Kebaran and Geom
 and the Iberomaurusian. `wh-101` Nordic Stone Age is untouched; the Danish and Norwegian national museums
 and heritage agencies are the first call, and Malmström et al.'s open genomic work covers the Pitted Ware
 and Single Grave cultures.
+
+### Batch 17c log — the Epipalaeolithic and the Nordic Stone Age
+
+#### 2026-07-31 — the last two cards of batch 17
+
+Twenty-six citation slots across `wh-100` and `wh-101` from **16 distinct works, 15 of them open**; the
+single paywalled entry is Davis & Valla 1978, the landmark for the Natufian dog, standing beside nine open
+works on `wh-100`. `wh-101` is fully open. Coverage went from `cards 90/109` to `92/109`, and from **57 to
+59 cards at the bar**. **Batch 17 is complete**: five cards, 63 citations, 39 distinct works, 38 open.
+
+**Both cards were carrying round numbers that turned out to be something else.** That is the pattern of this
+batch, and it is worth naming, because neither error looks like an error:
+
+- **`wh-100`'s "some 50 [huts] at Ain Mallaha" is a population estimate.** Haklay & Gopher 2015 give the
+  site as "about 2,000 sq m" with "a population of 50–100 people". Somewhere between the literature and the
+  card, 50–100 people became 50 huts. The 1.2 m wall height went the same way: no openable source states it,
+  while the excavation literature describes semi-subterranean curvilinear structures of undressed limestone
+  cut into the slope, which is both checkable and more vivid.
+- **`wh-101`'s "2,500 dolmens and passage graves out of perhaps 25,000"** appears in no source that could be
+  opened. Replaced with what Schulz Paulsson 2019 and Malmström et al. 2019 do carry — chambers that could
+  be reopened for successive burials over centuries, and later peoples still using them.
+
+**Four more corrections:**
+
+- **`wh-100`'s span was wrong at both ends.** "Conventionally about 20,000 to 10,000 years ago, though the
+  Kebaran that opens it is now placed from roughly 23,000" is a muddle that Maher et al. 2011 settles in one
+  clause: the southern Levantine Epipalaeolithic runs **ca. 23–11.6 ka cal BP**. Corrected in the abstract
+  and the date line.
+- **`wh-100`'s Natufian ended 150 years early.** "About 15,000 to 11,500" against Davin et al. 2026's
+  15,000–11,650 — and 11,650 is where the Holocene begins, which is the figure the rest of the deck uses.
+- **`wh-101`'s Hamburg "territories of more than 100,000 square kilometres" and Bromme "from about 11,400
+  BCE"** are in nothing openable, nor is the whole Norwegian sentence (Rogaland from 9,500 BCE, the Komsa of
+  Finnmark). Replaced with what Fjellström et al. 2026 states: the three pioneer cultures, the Hamburg
+  people in an Arctic tundra hunting reindeer, the Ahrensburgians at c. 10,700–9000 cal BCE, and reindeer
+  reaching western Sweden from Norway only once the ice between them let go around 9000 BCE.
+- **`wh-101`'s flint daggers "imitating bronze ones"** is the usual gloss and not what the excavation
+  literature says. Winther Johannsen et al. 2024 give the Late Neolithic as "best known for the
+  reintroduction of metal, copper alloys in particular … and for the sudden appearance of elaborate bifacial
+  flint tools and weapons". The card now says that. **All four of these were also in the question pools** —
+  three phrasings across the two cards had to be rewritten in all ten languages.
+
+**On the mechanism, one more splitter limit, and it is being written around rather than fixed.** A sentence
+that **ends** on an era abbreviation loses its terminator once the abbreviation is held, so it merges with
+the next one: the Spanish "…hacia el 9000 a. C." and the French "…vers 9000 av. J.-C." both did it, and the
+card came back 4+5. The ambiguity is genuine — "…5300 a. C. y Ertebølle" really is mid-sentence — so the
+rule for authors is simply **do not end a sentence on the era abbreviation**; move the date earlier. The
+post-marking 5+5 assertion added in 17b caught this immediately, along with two more CJK sentences that had
+been written as two. That guard has now paid for itself three times in two batches.
 
 ### Batch 18 · Public-domain founding literature (4 cards, 20 citations)
 `wh-017` Olduvai Gorge · `wh-025` Java Man · `wh-026` Peking Man · `wh-027` Zhoukoudian

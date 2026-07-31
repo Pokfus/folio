@@ -7,7 +7,14 @@
    Guards accumulated by the batches before this one: decimals (2.6), grouped numerals, the era
    abbreviations (v. Chr., a. C., av. J.-C., н. э.), initials (J. J. A.), a day-ordinal before a month
    name, and — added in batch 17 — a bare ordinal before "Jahrhundert" and the CJK full stop, which
-   carries no following space at all. */
+   carries no following space at all.
+
+   KNOWN LIMIT, and the one to write around rather than fix: **a sentence that ENDS on an era
+   abbreviation has no terminator left** once the abbreviation is held, so it merges with the sentence
+   after it. "…hacia el 9000 a. C." and "…vers 9000 av. J.-C." both did exactly that in batch 17c, and
+   the counts came back 4+5. The ambiguity is real — "…5300 a. C. y Ertebølle" is genuinely mid-sentence
+   — so the rule for authors is simply: **do not end a sentence on the era abbreviation**; put the date
+   earlier and close on ordinary words. The 5+5 assertion after marking is what catches it. */
 const MONTHS = "Januar|Februar|März|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember|January|February|March|May|June|July";
 const OPEN = "⸤", CLOSE = "⸥";   // sentinels that never occur in the data
 

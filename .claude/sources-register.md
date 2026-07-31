@@ -2575,6 +2575,160 @@ https://pmc.ncbi.nlm.nih.gov/articles/PMC11573498/. [Open access]
   why the card's "over 500 shell mounds" was dropped: the Andersen survey that carries that figure is
   paywalled at Cambridge with no deposit.
 
+## Batch 17c — the Epipalaeolithic and the Nordic Stone Age, verified 2026-07-31
+
+Twenty-six citation slots across `wh-100` and `wh-101` from **16 distinct works, 15 of them open**; the
+one paywalled entry is Davis & Valla 1978, the landmark for the Natufian dog, cited beside nine open works.
+
+- `wh-100` **Epipaleolithic** — Maher et al. 2011, Davin et al. 2026, Shipton et al. 2026, Haklay & Gopher
+  2015, Groman-Yaroslavski et al. 2026, Davis & Valla 1978, Arranz-Otaegui et al. 2018, Santana et al. 2021,
+  Moubtahij et al. 2024, Larson et al. 2014. Ten sources, nine open.
+- `wh-101` **Nordic Stone Age** — Fjellström et al. 2026, Riede et al. 2024, Robson et al. 2024 (verified in
+  17b), Groß et al. 2026, Winther Johannsen et al. 2024, Schulz Paulsson 2019, Malmström et al. 2019.
+  Seven sources, **all open**.
+
+### maher-2011 · the Epipalaeolithic span, and the Natufian dog
+Lisa A. Maher et al., “A Unique Human-Fox Burial from a Pre-Natufian Cemetery in the Levant (Jordan),”
+*PLOS ONE* 6, no. 1 (2011): e15815, https://pmc.ncbi.nlm.nih.gov/articles/PMC3027631/. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: "The archaeological record of the Epipalaeolithic period in the southern Levant (**ca. 23–11.6 ka
+  cal BP**)" — the span, which corrects the card's "conventionally 20,000 to 10,000"; "the latest
+  Epipalaeolithic phase, the Natufian (c. 14,500–11,600 cal BP)" with "sedentism, cemeteries, architecture,
+  food production, including animal domestication"; and "the burial of an adult female with a juvenile
+  **domestic dog** is well-known from 'Ain Mallaha ('Eynan)", with another from Hayonim Terrace — the card's
+  dog, from an open source, where Davis & Valla is closed
+- used by: wh-100
+
+### davin-2026 · the Natufian bracket and the first sedentary communities
+Laurent Davin et al., “Modeling Identities among the First-Sedentary Communities: Emergence of Clay Personal
+Ornaments in Epipaleolithic Southwest Asia,” *Science Advances* 12 (2026): eaea2158,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC12998513/. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: the Upper Palaeolithic at ~47,000–24,000 cal BP and the "Early and Middle Epipaleolithic
+  (~24,000 to 15,000 cal yr B.P.)"; the "Late Epipaleolithic Natufian culture (**15,000 to 11,650 cal yr
+  B.P.**)", "a unique transitional entity … [that] marked the beginning of the transformation from mobile
+  foraging Paleolithic bands"
+- used by: wh-100
+
+### shipton-2026 · the Geometric Kebaran's geometrics
+Chris Shipton et al., “The Natufian Epipalaeolithic and Pre-Pottery Neolithic in the Desert of Northern
+Arabia,” *Scientific Reports* 16 (2026): 16842, https://pmc.ncbi.nlm.nih.gov/articles/PMC13226711/.
+[Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: an Epipalaeolithic assemblage "with affinities to the Geometric Kebaran of the Levant …
+  including backed and obliquely truncated bladelets as well as **trapezoidal geometric microliths**"
+- used by: wh-100
+
+### haklay-gopher-2015 · what Ain Mallaha actually was
+Gil Haklay and Avi Gopher, “A New Look at Shelter 131/51 in the Natufian Site of Eynan (Ain-Mallaha),
+Israel,” *PLOS ONE* 10, no. 7 (2015): e0130121, https://pmc.ncbi.nlm.nih.gov/articles/PMC4496039/.
+[Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: the site "spanning some 3,000 years (from ca. 15,000 to 12,000 cal years BP)", "estimated to
+  cover about **2,000 sq m** and to inhabit a population of **50–100 people**", and "**semi-subterranean
+  curvilinear structures** … made of undressed limestone … cutting into the slope and building retaining
+  walls". **This is what corrects the card**: its "some 50 [huts] at Ain Mallaha" is the published
+  population estimate, not a count of houses, and no openable source gives the 1.2 m wall height.
+- used by: wh-100
+
+### groman-yaroslavski-2026 · the Natufian harvest
+Iris Groman-Yaroslavski et al., “Natufian Sickle Blades (ca. 15,000–11,700 cal. BP) Reveal Cereal
+Cultivation ca. 4.5 Millennia before Domestication,” *Scientific Reports* 16 (2026),
+https://doi.org/10.1038/s41598-026-54740-5. [Open access]
+- opened: 2026-07-31 · publisher full text, CC BY-NC-ND
+- supports: use-wear on flint sickle blades from el-Wad Terrace and Salibiya I showing "the harvest of
+  semi-ripe and ripe cereals", and "a protracted harvest that begins in mid-spring … and continues to the
+  very late spring" — the card's flint-bladed sickles, now with the season the paper reconstructs
+- used by: wh-100
+
+### santana-2021 · the Natufian into the Neolithic
+Jonathan Santana et al., “Multi-Isotope Evidence of Population Aggregation in the Natufian and Scant
+Migration during the Early Neolithic of the Southern Levant,” *Scientific Reports* 11 (2021): 11857,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC8178372/. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: "the Final Natufian Culture … featured a sedentary lifestyle. There is indeed straightforward
+  evidence of occupation continuity and growing sedentarization … at 'Ain Mallaha/Eynan and other sites
+  there are features and types of finds that stretch from the later phases of the" Natufian into the
+  Neolithic — the card's closing claim that the first farming villages grew out of these camps
+- used by: wh-100
+
+### moubtahij-2024 · the Iberomaurusian in North Africa
+Zineb Moubtahij et al., “Isotopic Evidence of High Reliance on Plant Food among Later Stone Age
+Hunter-Gatherers at Taforalt, Morocco,” *Nature Ecology & Evolution* 8 (2024): 1035–45,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC11090808/. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: "Late Stone Age hunter-gatherers from North Africa (15,000–13,000 cal BP)" at Taforalt, mapped
+  among "Iberomaurusian sites" — the card's clause that the label reaches North Africa
+- used by: wh-100
+
+### fjellstrom-2026 · Scandinavia's pioneers
+Markus Fjellström et al., “Tracing the Early Dispersal of Reindeer in Southern Sweden: Chronology, Habitat,
+and Human Interaction (c. 12,000–7000 BCE),” *The Holocene* 36, no. 5–6 (2026): 607–23,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC13258190/. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: "The pioneer humans in southern Scandinavia arrive in the Late Palaeolithic and are culturally
+  grouped into the **Hamburg, Bromme and Ahrensburg cultures**"; "The Hamburg culture thrived in the Arctic
+  tundra landscape during the Bølling period, focussing their economy on reindeer hunting";
+  "Ahrensburgians, c. **10,700–9000 cal BCE**" following "the retreating ice to hunt reindeer and seal";
+  and that "an ice sheet would have blocked any passages between the Oslofjord and Sweden until c. 9000 cal
+  BCE", so reindeer reached western Sweden from Norway only after that
+- used by: wh-101
+
+### riede-2024 · Final Palaeolithic taxonomy
+Felix Riede et al., “A Quantitative Analysis of Final Palaeolithic/Earliest Mesolithic Cultural Taxonomy and
+Evolution in Europe,” *PLOS ONE* 19, no. 3 (2024): e0299512,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC10927100/. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: the Hamburgian within the Shouldered Point Complex, and the Tanged Point Complex "commonly
+  subdivided into further sub-units characterised by large tanged points [= **Bromme** …] and younger groups
+  with smaller point forms (= **Ahrensburgian**, Swiderian)" — the three cultures as a sequence, in a
+  taxonomy paper rather than a summary
+- used by: wh-101
+
+### gross-2026 · farming reaches Denmark
+Daniel Groß et al., “Fishing for Millennia: Effects and Impacts of Prehistoric Fishing in the Syltholm
+Fjord, Denmark,” *PLOS ONE* 21, no. 5 (2026): e0347863,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC13170857/. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: "the introduction of agriculture in Denmark around **4000 cal BCE**"; "the presence of the
+  **Pitted Ware Culture in Denmark from c. 3100–2200 cal BCE**" and "the final Funnel Beaker 'Store Valby
+  phase' between 3000 and 2600 cal BCE"
+- used by: wh-101
+
+### winther-johannsen-2024 · the Middle and Late Neolithic, dated
+Jens Winther Johannsen et al., “Subsistence and Population Development from the Middle Neolithic B
+(2800–2350 BCE) to the Late Neolithic (2350–1700 BCE) in Southern Scandinavia,” *PLOS ONE* 19, no. 10
+(2024): e0301938, https://pmc.ncbi.nlm.nih.gov/articles/PMC11516014/. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: **Pitted Ware Culture c. 3100–2700 BCE**, **Single Grave Culture c. 2800–2250/2200 BCE** in
+  Western Jutland, Battle Axe Culture in Scania; and the card's whole closing sentence — "The Late Neolithic
+  (LN, **2350–1700 BCE**), is best known for the **reintroduction of metal**, copper alloys in particular,
+  in Southern Scandinavia and for the sudden appearance of **elaborate bifacial flint tools and weapons**
+  over large areas. The outstanding bifacial daggers are central objects". The 1700 BCE end is also the
+  card's date for the opening of the Nordic Bronze Age.
+- used by: wh-101
+
+### schulz-paulsson-2019 · what a passage grave is for
+Bettina Schulz Paulsson, “Radiocarbon Dates and Bayesian Modeling Support Maritime Diffusion Model for
+Megaliths in Europe,” *Proceedings of the National Academy of Sciences* 116, no. 9 (2019): 3460–65,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC6397522/. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: "Megalithic graves were built as dolmens and as passage or gallery graves"; that from the last
+  third of the fifth millennium "these graves could be **reopened for repeated burials**, and this marks the
+  beginning of a new practice for the whole of Europe: the construction of graves for successive
+  depositions of human remains over ce[nturies]"
+- used by: wh-101
+
+### malmstrom-2019 · who went on using the tombs
+Helena Malmström et al., “The Genomic Ancestry of the Scandinavian Battle Axe Culture People and Their
+Relation to the Broader Corded Ware Horizon,” *Proceedings of the Royal Society B* 286, no. 1912 (2019):
+20191528, https://pmc.ncbi.nlm.nih.gov/articles/PMC6790770/. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: that "FBC-associated megalithic tombs were used as burial places also for the people of the
+  BAC", possibly extending to the Danish Single Grave Culture, with later burials in the Öllsjö megalithic
+  tomb; and a Pitted Ware individual from Ajvide on Gotland — the Baltic island the card names
+- used by: wh-101
+
 ---
 
 ## CANDIDATES — NOT VERIFIED, DO NOT PASTE INTO `data.js`
