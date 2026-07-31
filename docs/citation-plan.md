@@ -446,8 +446,11 @@ rule for authors is simply **do not end a sentence on the era abbreviation**; mo
 post-marking 5+5 assertion added in 17b caught this immediately, along with two more CJK sentences that had
 been written as two. That guard has now paid for itself three times in two batches.
 
-### Batch 18 · Public-domain founding literature (4 cards, 20 citations)
+### Batch 18 · Public-domain founding literature (4 cards) — **DONE (2026-07-31)**
 `wh-017` Olduvai Gorge · `wh-025` Java Man · `wh-026` Peking Man · `wh-027` Zhoukoudian
+
+**Cited:** all four. 25 citation slots from 17 distinct works, **every one of them open**. Coverage went from
+`cards 92/109` to `96/109`, and from **59 to 63 cards at the bar**. Nothing deferred.
 
 Cards whose founding announcements are closed but whose founding **monographs** are old enough to be out of
 copyright and scanned. Batch 13 scouted three of these and left the exact identifiers:
@@ -468,6 +471,94 @@ copyright and scanned. Batch 13 scouted three of these and left the exact identi
 **The warning that goes with this batch:** a 19th-century monograph is a primary source for *what its author
 claimed*, not for what is currently known. Cite Dubois for Dubois's own find and description; take the
 modern dating and taxonomy from something modern, or the card will quietly present 1894 as settled fact.
+
+### Batch 18 log — the founding literature, and what it will not carry
+
+#### 2026-07-31 — four cards, four commits
+
+**The batch's premise held for one card and failed for three, which is the finding.** Dubois's 1894
+*Pithecanthropus erectus* is everything batch 13 promised — public domain, legible, and it settles the
+discovery sequence to the day: the molar in September 1891, the skullcap a month later from the same level
+"nur 1 M. weit" away, the femur in August 1892 fifteen metres upstream, and a footnote recording that
+Haeckel had coined *Pithecanthropus* in 1868 for a creature nobody had seen. Weidenreich's 1943
+*Palaeontologia Sinica* volume is the same kind of find, and its preface is the whole of `wh-026`'s ninth
+sentence in the author's own words. But **a founding monograph answers the questions its author asked**,
+and most of what these four cards claim is not in them. Everything about numbers, dates, dimensions and
+the modern reading of the fossils had to come from open reviews, and where no open review carried it, the
+claim went.
+
+**Five claims were dropped outright rather than sourced**, which is more than any previous batch:
+
+- **Zhoukoudian Locality 1's "about 140 m long and 40 m deep … 13 layers."** The figures are everywhere and
+  are in no work that could be opened. The abstract now describes a karst fill whose numbered layers run
+  from about 400,000 years at the top to beyond 750,000 at the base, which d'Errico et al. 2021 and Xing et
+  al. 2018 do carry between them, and the date line says the same.
+- **The Upper Cave needle's "five centimetres."** d'Errico et al. 2021 says only that it is the cave's one
+  formal bone tool, which is the more interesting fact anyway.
+- **Binford & Ho 1985.** journals.uchicago.edu returns 403 here and no deposit or open restatement of the
+  hyena-accumulation argument exists. Only the Crossref metadata was ever opened, and **citing a paper from
+  its title is exactly what this apparatus exists to prevent** — so `wh-027` no longer names Binford. What
+  replaced it is better: Weidenreich already had hyenas denning in the fissure and cracking the bones
+  fresh, on page 190 of the 1943 volume, forty years before the argument was made.
+- **"He later named the whole Oldowan industry after it."** In nothing opened for this batch, including
+  Plummer et al. 2025, the register's own Oldowan review.
+- **Zhoukoudian's "dragon bones" sold as medicine**, and **Olduvai's "some 70 hominin fossils."** Both
+  replaced by sourced facts — the *erectus* braincase range from the Zhoukoudian endocast table, and the
+  NCAA's own list of what the gorge has produced.
+
+**A working rule, and it is the batch's best return.** Three of the four cards were rescued by sources that
+are not journal articles at all: **a government advisory report, a ministry press record and two national
+museum records.** The Commissie Koloniale Collecties' 2025 advice on the Dubois collection is a 24-page
+Dutch state document that gives the collection's size, its inventory numbers, the date Dubois landed on
+Sumatra, the 1889 decree that put up to 50 forced labourers at his disposal, and Dubois's own name for the
+Trinil site — "Javas hel". Nothing in the palaeoanthropological literature carries any of that. The
+Smithsonian's Human Origins fossil records gave OH 5's discoverer, year and age and OH 7's status as the
+type specimen, where Leakey/Tobias/Napier 1964 is closed. **When a card is about an object, an institution
+or an act of state, look for the body responsible before looking for a paper** — batch 8b's museum-catalogue
+rule, generalised.
+
+**Twenty-five corrections**, in English and all nine languages. The ones worth carrying forward:
+
+- **`wh-025` had Dubois giving up "a lectureship in Amsterdam" and borrowing the genus "from his old
+  teacher Ernst Haeckel."** Neither is in anything opened. The advice says he enlisted in the KNIL as a
+  medical officer to give himself the chance to do research in the Indies; Dubois's own footnote names
+  Haeckel as the coiner and nothing more. Haeckel taught Dubois's teacher, not Dubois.
+- **The repatriation is 28,000 specimens, not 40,000**, and the December 2025 handover was of three bones
+  and an incised shell, with the rest to follow during 2026.
+- **The femur controversy has an answer now.** Pop et al. 2023 reconstructed the historical pits and found
+  younger terrace channels cutting the reconstructed find spot of Femur I, "thereby providing an
+  explanation for the relatively modern morphology of this 'bone of contention'." The card said only that
+  the suspicion was never laid to rest.
+- **`wh-026`'s "more than 770,000 years" is a press summary.** Shen et al. 2009's weighted mean is
+  0.75 ± 0.09 Ma; Xing et al. 2018 gives ≥750 kyr. Corrected on the card, in the date line and in nothing
+  else, because the question pool did not repeat it — the one card of the four where the batch-8 rule
+  found nothing.
+- **"Dismissed in 1998 as the work of lightning" is a retelling.** Weiner et al. 1998 is one of five studies
+  from the 1980s onward doubting *in situ* burning; lightning is not what any of them argued.
+- **Not every original Peking Man bone was lost.** Digs from 1949 to 1959 and in 1966 recovered six teeth
+  and a mandible. The date line said "known today only from casts" and the third question phrasing said
+  "after every original bone was lost"; both were wrong and both were rewritten.
+- **`wh-017`'s Kattwinkel was not an entomologist.** Gentry, Gentry & Mayr 1995 record exactly how that
+  story got started: "the name of Kattwinkel became known as that of a butterfly collector who had stumbled
+  by accident on the Gorge", whereas the 1911 journey "arose from his professional interest in sleeping
+  sickness and was a scientific expedition" — and Martha Kattwinkel was there too. The same page gives the
+  gorge's shape as 37 km plus a 9 km run to the Balbal depression, against the card's 48, and the name as
+  coming from *Duvai*, "the Masai word for the sisal plant which grows in the area", which is the etymology
+  no journal article carries.
+- **OH 5 is about 1.8 million years old**, per the Smithsonian record. The card's 1.75 is the 1961
+  potassium-argon figure, and it was in the third question phrasing as well — the batch-8 rule catching one
+  on three of the four cards.
+
+**On the mechanism, nothing broke.** The post-marking 5+5 assertion added in 17b fired twice, both times on
+Japanese, both times because an English sentence had been rendered as two. `split-abstract.js` needed no new
+guards; the batch's abstracts were written rather than spliced, and the build script asserts the split
+after marking in all ten languages before anything is written.
+
+**What batch 19 should know.** The Smithsonian Human Origins fossil and species records are open, stable and
+locatable, and they cover exactly the ground batch 19 is short of: `wh-013`, `wh-016`, `wh-019`, `wh-020`
+and `wh-046` are all discovery cards whose founding papers are closed, and every one of them has an SI
+record. That will not fill five slots on its own, but it is a floor under the batch that did not exist when
+it was planned.
 
 ### Batch 19 · The hominin taxa, via open reviews (5 cards, 25 citations)
 `wh-013` Australopithecus · `wh-016` Homo habilis · `wh-019` Homo ergaster · `wh-020` Turkana Boy ·

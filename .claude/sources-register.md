@@ -2927,6 +2927,91 @@ https://www.rijksoverheid.nl/actueel/nieuws/2025/12/17/topstukken-dubois-collect
 - used by: wh-025
 
 
+### gentry-1995 · Olduvai's name, and its discovery
+A. W. Gentry, Anthea Gentry and H. Mayr, "Rediscovery of Fossil Antelope Holotypes (Mammalia, Bovidae)
+Collected from Olduvai Gorge, Tanzania, in 1913," *Mitteilungen der Bayerischen Staatssammlung für
+Paläontologie und historische Geologie* 35 (1995): 125–35, at 125–26,
+https://www.zobodat.at/pdf/Mitt-Bayer-Staatsslg-Pal-hist-Geol_35_0125-0135.pdf. [Open access]
+- opened: 2026-07-31 · publisher PDF via ZOBODAT / Biodiversity Heritage Library. The article is about
+  antelope holotypes; its introduction is the batch's best account of the gorge itself
+- supports (125): that Olduvai "lies in the Serengeti Plains of northern Tanzania"; that Oscar Baumann in
+  March 1892 "used the name Duvai for a small hill about 15 km south-east of Lake Ilgarja"; that "The name
+  Duvai is from the Masai word for the sisal plant which grows in the area"; and the gorge's shape — "After
+  about 37 km it is joined by a side gorge from the south and after another 9 km drains into the Balbal
+  depression"
+- supports (125–26): "The discovery of Olduvai Gorge has always been attributed to Professor Wilhelm
+  Kattwinkel in 1911, although Frau Martha Kattwinkel was also present at the time"; that to later
+  generations "the name of Kattwinkel became known as that of a butterfly collector who had stumbled by
+  accident on the Gorge", whereas Glowatzki 1979 showed "the 1911 journey arose from his professional
+  interest in sleeping sickness and was a scientific expedition"; that the Kattwinkels "discovered mammalian
+  fossils at more than one locality" and "carried a selection back to Munich … identified as being from a
+  proboscidean, a hipparionine horse, hippopotamus and a sivathere"; Reck's expedition "in October to
+  December 1913"; that Reck "joined the Third East African Archaeological Expedition of 1931-32 which worked
+  at Olduvai"; that "On 17 July 1959 came the discovery of the famous australopithecine skull named
+  Zinjanthropus boisei by L.S.B. Leakey"; and that "most Olduvai fossils come from Beds I-IV"
+- does NOT support: the card's old "48 km long". Gentry gives 37 km plus 9, about 46 in all
+- used by: wh-017
+
+### ncaa-olduvai · the site-managing authority
+Ngorongoro Conservation Area Authority, "Olduvai Gorge," accessed 31 July 2026,
+https://www.ncaa.go.tz/olduvai-gorge/. [Open access]
+- opened: 2026-07-31 · the authority that manages the gorge
+- supports: a depth of "100m"; that "Mary and Louis Leakey, over the course of more than 30 years of
+  backbreaking work, unearthed the first well-dated fossils and artefacts"; the finds — "The famous
+  Zinjanthropus (Australopithecus boisei) skull, as well as remains of Homo habilis … and Homo erectus"
+- note: the page also gives a length of "55km (34m)", i.e. 34 miles. Gentry's segmented 37 + 9 km is the
+  more locatable figure and is what the card uses; the discrepancy is recorded here rather than resolved
+- used by: wh-017
+
+### mercader-2021 · Oldupai's tuffs and its oldest tools
+Julio Mercader et al., "Earliest Olduvai Hominins Exploited Unstable Environments ~2 Million Years Ago,"
+*Nature Communications* 12 (2021): 3, under "Stratigraphy and chronology" and "Early Oldowan ecology at ~2
+Ma," https://doi.org/10.1038/s41467-020-20176-2. [Open access]
+- opened: 2026-07-31 · full text on nature.com (gold OA)
+- supports: "Olduvai Gorge (now Oldupai)" as the current spelling; the dated tuff sequence — the Naabi
+  ignimbrite of the Ngorongoro Formation, the Coarse Feldspar Crystal Tuff at 2.015 ± 0.006 Ma and Tuff IA
+  at ~2.0 Ma — constrained by "existing 40Ar/39Ar dates of geochemically fingerprinted tuffs"; Lower Bed I
+  lake expansion; and "The earliest Oldowan presence at Ewass Oldupa, dating to 2.03 Ma"
+- used by: wh-017
+
+### mercader-2020 · the basin and its lake
+Julio Mercader et al., "Petrographic Characterization of Raw Material Sources at Oldupai Gorge, Tanzania,"
+*Frontiers in Earth Science* 8 (2020): 158, abstract and "Geological Setting,"
+https://doi.org/10.3389/feart.2020.00158. [Open access]
+- opened: 2026-07-31 · full text on frontiersin.org
+- supports: "Oldupai Gorge is located within the Ngorongoro Conservation Area, a UNESCO World Heritage Site
+  in northern Tanzania"; that "The Main and Side Gorge cut into the basement rocks of Eastern Serengeti
+  Plains"; and that "During the Early Pleistocene, Oldupai was an endorheic, rift-shoulder sedimentary basin
+  that hosted a saline alkaline lake fed by stream networks from the NVH to the west"
+- used by: wh-017
+
+### si-oh5 · the Zinjanthropus cranium
+Smithsonian National Museum of Natural History, Human Origins Program, "OH 5," accessed 31 July 2026,
+https://humanorigins.si.edu/evidence/human-fossils/fossils/oh-5. [Open access]
+- opened: 2026-07-31 · the museum's fossil record
+- supports: site "Olduvai Gorge, Tanzania"; "Year of Discovery: 1959"; "Discovered by: Mary Leakey"; "Age:
+  About 1.8 million years old"; species *Paranthropus boisei*; the nickname "Nutcracker Man" and the
+  survival of "Zinj" from its original name
+- does NOT support: "about 1.75 million years". That is the 1961 potassium-argon figure; the museum record
+  gives 1.8, and the card and its third question phrasing were raised to it
+- used by: wh-017
+
+### si-habilis · the type specimen
+Smithsonian National Museum of Natural History, Human Origins Program, "*Homo habilis*," accessed 31 July
+2026, https://humanorigins.si.edu/evidence/human-fossils/species/homo-habilis. [Open access]
+- opened: 2026-07-31 · the museum's species record
+- supports: that "A team led by scientists Louis and Mary Leakey uncovered the fossilized remains of a unique
+  early human between 1960 and 1963 at Olduvai Gorge in Tanzania"; that the species was named in 1964 by
+  Leakey, Tobias and Napier; and that the type specimen is OH 7
+- used by: wh-017
+
+### NOT CITED — the Oldowan's naming, and Olduvai's fossil tally
+- **"named the whole Oldowan industry after it"** could not be sourced. It is in no work opened for this
+  batch, including Plummer et al. 2025, the register's own Oldowan review. The abstract no longer states it;
+  the date line's summary line still does, uncited, as most of the deck's date lines are
+- **"some 70 hominin fossils"** likewise. Replaced by what the NCAA record lists: *Zinjanthropus*,
+  *Homo habilis* and *Homo erectus*
+
 ### NOT CITED — Binford & Ho 1985, and the Locality 1 dimensions
 Lewis R. Binford and Chuan Kun Ho, "Taphonomy at a Distance: Zhoukoudian, 'The Cave Home of Beijing Man'?
 [and Comments and Reply]," *Current Anthropology* 26, no. 4 (1985): 413–42, https://doi.org/10.1086/203303.

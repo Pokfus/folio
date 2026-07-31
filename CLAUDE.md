@@ -79,7 +79,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `docs/citation-plan.md` — the batch plan for **citing the 109 prehistory cards** (the bar a source must
   clear, the per-card workflow, how translations are staged, and the batches with their source spines).
   Not part of the site. **The bar is at least 5 citations per card** (`SRC_TARGET` in app.js; raised from
-  2–4 on 2026-07-31) — 54 of 109 cards are there, 55 short by 168 citations, planned as **batches 17–26**.
+  2–4 on 2026-07-31) — 63 of 109 cards are there, 46 short by 123 citations, planned as **batches 19–26**.
   Coverage is reported by `add-sources.js` on every run and in full by `node .claude/source-audit.js`. Its **Pilot log** records
   that batch 0 was attempted and stopped: this sandbox's egress policy blocks every scholarly host, so no
   source could be opened and none was cited. `.claude/sources-register.md` holds the verified citations
@@ -610,9 +610,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     glossary term carries `sources`; the citation pass so far has touched cards only. The UI, the deltas and the
     pipeline are in place; the rest is a content job (see "Citing the existing content" below). Guarded by
     `.claude/test-sources.js` (67 assertions).
-    **Batches 0–17c shipped 2026-07-31**: **92 of the 109 prehistory cards carry sources** (`wh-086` Lascaux,
+    **Batches 0–18 shipped 2026-07-31**: **96 of the 109 prehistory cards carry sources** (`wh-086` Lascaux,
     `wh-074` Dolní Věstonice and a set of culture-history/definitional cards are deferred). **Against the
-    5-source bar raised the same day, 59 of 109 are there** — the other 50 are batches 18–26 in the plan, and
+    5-source bar raised the same day, 63 of 109 are there** — the other 46 are batches 19–26 in the plan, and
     the audit that says which is `node .claude/source-audit.js`. Every list is majority-open bar one: `wh-045`
     Jebel Irhoud runs 2 open / 2 paywalled and its top-up must add open works. See `docs/citation-plan.md` — its Pilot log records how the
     definitional cards were solved, its Batch 1 log the factual errors the exercise turns up (21 so far) and
@@ -674,6 +674,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     paywalled landmarks they are. Also **narrow a naming history to what a source actually says** — "the
     1860s and 1870s" for Levallois-Perret became "the 19th century", which is as precise as the open
     literature gets.
+    From Batch 18: **when a card is about an object, an institution or an act of state, look for the body
+    responsible before looking for a paper.** Three of its four cards were carried by sources that are not
+    journal articles — a Dutch state commission's 2025 advice on the Dubois collection, the ministry's record
+    of the handover, and the Smithsonian's Human Origins fossil and species records — none of which has an
+    equivalent in the literature. Its other finding is a limit on the batch's own premise: **a founding
+    monograph answers the questions its author asked**, so Dubois 1894 and Weidenreich 1943 settle the
+    discovery sequences precisely and carry almost nothing else, and five claims across the four cards were
+    dropped outright rather than sourced — including Binford & Ho 1985, which could not be opened at all, so
+    the card no longer names it.
     From Batch 12: **the register pays for itself late.** The three framework cards (`wh-001`, `wh-002`,
     `wh-004`) took 25 citation slots and needed **no new sources at all** — every claim a definitional card
     makes is a claim some other card already makes, so the whole job was mapping sentences to entries
@@ -1687,7 +1696,7 @@ which would otherwise have shipped corrected prose above an uncorrected date lin
 **Citing the existing content (as of July 2026)** — **most of the shipped content still has no citations.** The
 109 cards, 333 glossary terms and every Atlas description were written before this system existed, from Wikipedia
 and its sources, and were fact-checked rather than referenced. A batched pass is working through the cards —
-**92 of 109 carry sources, and 59 of 109 meet the 5-source bar** (`docs/citation-plan.md`; `add-sources.js`
+**96 of 109 carry sources, and 63 of 109 meet the 5-source bar** (`docs/citation-plan.md`; `add-sources.js`
 reports both on every run, `node .claude/source-audit.js` reports them per card, and the Edit page's card list
 shows each card's coverage as an amber or red chip) — while
 `country-sources.js` and `GLOSSARY_SOURCES` are still empty, so the Sources fold appears only on those cards.
