@@ -790,7 +790,12 @@ body[data-theme="folio"] .collection-deco::after{
 /* reveal animation */
 .reveal{overflow:hidden; display:grid; grid-template-rows:0fr; transition:grid-template-rows .44s var(--ease);}
 .reveal.show{grid-template-rows:1fr;}
-.reveal-inner{min-height:0;}
+/* min-WIDTH:0 as well as min-height, and it is not optional: a grid item's automatic minimum size is its
+   MIN-CONTENT width, so one unbreakable string anywhere inside (a citation URL is the usual culprit) widens
+   the single auto column past the card and `overflow:hidden` then clips the WHOLE revealed side — answer box
+   and background prose included, not just the offending line. That is the "card cut off on the right" bug.
+   Every grid-collapse wrapper on the site needs the pair; cf. .tr-collapse-inner, which always had it. */
+.reveal-inner{min-height:0; min-width:0;}
 .reveal.show .reveal-inner{animation:fadeUp .5s var(--ease) .08s both;}
 @keyframes fadeUp{from{opacity:0; transform:translateY(8px);}to{opacity:1; transform:none;}}
 
@@ -1768,7 +1773,7 @@ body.grading .wb-tools{bottom:108px;}
 .bg-toggle.collapsed{transform:rotate(-90deg);}
 .bg-collapse{overflow:hidden; display:grid; grid-template-rows:1fr; transition:grid-template-rows .42s var(--ease);}
 .bg-collapse.collapsed{grid-template-rows:0fr;}
-.bg-collapse-inner{min-height:0;}
+.bg-collapse-inner{min-height:0; min-width:0;}   /* see .reveal-inner — min-width:0 or a wide child clips the whole section */
 
 /* ============================================================
    SOURCE FOOTNOTES — the apparatus under a card / gloss popup
@@ -1794,11 +1799,14 @@ body.grading .wb-tools{bottom:108px;}
 .src-head:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:3px; border-radius:5px;}
 .src-collapse{overflow:hidden; display:grid; grid-template-rows:1fr; transition:grid-template-rows .38s var(--ease);}
 .src-collapse.collapsed{grid-template-rows:0fr;}
-.src-collapse-inner{min-height:0;}
+.src-collapse-inner{min-height:0; min-width:0;}   /* see .reveal-inner */
 .src-list{margin:10px 0 0; padding:0 0 0 1.5em; list-style:decimal;}
+/* `anywhere`, NOT `break-word`: both break a long URL once the box is sized, but only `anywhere` counts the
+   break opportunity towards the box's MIN-CONTENT width. Under `break-word` a citation ending in a long DOI
+   still reported the whole URL as its minimum, which on a phone widened every ancestor up to .reveal-inner. */
 .src-item{
   font-family:var(--sans); font-size:12.5px; line-height:1.5; color:var(--ink-faint);
-  margin:0 0 6px; padding:2px 5px; border-radius:4px; overflow-wrap:break-word;
+  margin:0 0 6px; padding:2px 5px; border-radius:4px; overflow-wrap:anywhere;
 }
 .src-item::marker{font-family:var(--mono); font-size:11px;}
 .src-item a{color:var(--indigo-bright); text-decoration:none; border-bottom:1px solid rgba(78,76,176,.32);}
@@ -2768,7 +2776,7 @@ body.grading .admin-edit-fab{bottom:108px;}
 .suspbox-head.open .suspbox-chev svg{transform:rotate(180deg);}
 .suspbox-collapse{display:grid; grid-template-rows:1fr; transition:grid-template-rows .35s var(--ease); border-top:1px solid var(--rule);}
 .suspbox-collapse.collapsed{grid-template-rows:0fr; border-top-color:transparent;}
-.suspbox-collapse-inner{min-height:0; overflow:hidden;}
+.suspbox-collapse-inner{min-height:0; min-width:0; overflow:hidden;}   /* see .reveal-inner */
 .susplist{padding:6px 10px 10px;}
 .susp-empty{padding:16px 12px; color:var(--ink-faint); font-size:13.5px; line-height:1.5;}
 .susp-row{display:flex; align-items:center; justify-content:space-between; gap:14px; padding:11px 12px; border-radius:9px; transition:background .12s;}
