@@ -370,15 +370,120 @@ a sentence about different objects. The spear-thrower's "two-thirds more velocit
 as suspicious, turned out to be **correct** (65%, from 2,160 launches) — but the sentence around it was wrong,
 comparing a 200 g dart to an 800 g javelin as though they were "the same shafts".
 
-### Batch 8 · Upper Palaeolithic art: portable (9)
-`wh-067` Lion-man · `wh-068` Hohle Fels · `wh-069` Venus of Hohle Fels (if not in the pilot) ·
-`wh-070` Divje Babe flute · `wh-072` Venus figurines · `wh-073` Venus of Willendorf ·
-`wh-074` Dolní Věstonice · `wh-075` Sungir · `wh-076` Mal'ta-Buret' culture
+### Batch 8 · Upper Palaeolithic art: portable (8) — **3 of 8 DONE (2026-07-31)**
+**Cited:** `wh-070` Divje Babe flute · `wh-075` Sungir · `wh-076` Mal'ta-Buret' culture.
+(`wh-069` Venus of Hohle Fels was taken in the pilot.)
 
-Spine: Conard 2003 and 2009 on the Swabian Jura figurines; Conard, Malina & Münzel 2009 on the flutes;
-Kurat/Antl-Weiser via the Naturhistorisches Museum Wien for Willendorf; Trinkaus on Sungir; Raghavan et al.
-2014 on the Mal'ta genome; the UNESCO Swabian Jura Caves record. **`wh-070` needs its hedge checked** —
-whether the Divje Babe object is a flute at all is disputed, and the card must not read as settled.
+**Deferred:** `wh-067` Lion-man · `wh-068` Hohle Fels · `wh-072` Venus figurines ·
+`wh-073` Venus of Willendorf · `wh-074` Dolní Věstonice. See the Batch 8 log below — four of the five have
+their sources identified and opened already, and `wh-067`/`wh-068` hit the batch-2 wall in a new place.
+
+Spine as worked: Turk/Turk/Otte 2020 and Turk & Bastiani 2020 for the proponents' case, Diedrich 2015 for
+the sceptics', Turk & Turk 2023 for the stratigraphy and the National Museum of Slovenia's own object record
+for `wh-070`; Trinkaus & Buzhilova 2018 with Marom 2012 and Nalawade-Chavan 2014 on the dating, Sikora 2017
+on the genomes and Nowell 2020 on the children and the bead labour for `wh-075`; Raghavan 2014 and Lbova
+2021 with Uchiyama 2020, plus Weber 2022 and Moreno-Mayar 2018 from earlier batches, for `wh-076`. The
+originally planned spine did not survive contact: **Conard 2003, Conard 2009a, Conard/Malina/Münzel 2009 and
+Higham 2012 are all closed with no open deposit**, Kind et al. 2014 is open at Heidelberg but behind an
+Anubis wall, and the UNESCO record remains unreachable (see the pilot log).
+
+**`wh-070`'s hedge was checked, as the plan asked, and it needed work in the opposite direction from the
+one expected** — not that the card read as settled, but that it gave the proponents' strongest argument
+without the published answer to it. See the log.
+
+### Batch 8 log — portable art, the flute and the Siberian graves
+
+#### 2026-07-31 — three cards cited, five deferred
+
+Fifteen citation slots across `wh-070`, `wh-075` and `wh-076`, drawn from **13 distinct works, every one of
+them open** — the first batch of the pass that needed no paywalled landmark at all. Coverage went from
+`cards 66/109` to `cards 69/109`. Network access was available and every source was opened before it was
+written down.
+
+**The batch was cut by subject and, for the fifth time, subject did not predict the source landscape.** It
+split exactly along the line batches 2 and 3 drew:
+
+- The three that shipped rest on **published results** — a date, a genome, a measured object, a museum
+  accession. Their scholarship sits in MDPI, PMC, PLOS, *Evolutionary Human Sciences*, an open Slovenian
+  stratigraphy journal, and two university green deposits (eScholarship) of otherwise paywalled *Nature* and
+  *Science* papers.
+- **`wh-067` Lion-man and `wh-068` Hohle Fels are the batch-2 wall in a new place.** Everything load-bearing
+  about the Swabian Jura is closed: Conard 2003 (*Nature*), Conard 2009a (the Hohle Fels Venus), Conard,
+  Malina & Münzel 2009 (the flutes) and Higham et al. 2012 (the Geißenklösterle chronology) have no open
+  deposit anywhere, and Kind et al. 2014 — the restoration paper that carries the 31.1 cm height, the ~200
+  refitted fragments and the 2012 rebuild — is nominally open in *Quartär* at Heidelberg but sits behind an
+  **Anubis proof-of-work wall**, the `hal.science` pattern one host further on. Floss 2015 and Morriss-Kay
+  2013 are open and carry a good deal, but not enough to keep a list majority-open for a card whose specific
+  numbers all come from Kind.
+- **`wh-072`, `wh-073` and `wh-074` were left for time, not for sources**, and are the first three to take
+  next. Weber et al. 2022 (open, and already in the register) carries almost all of Willendorf, the NHM
+  Vienna record carries the discovery, and Lbova 2021 and Farbstein & Nowell 2024 cover the Siberian and
+  Moravian ends of the figurine corpus. What is still missing for `wh-073` is an open source for the
+  cord-and-netting impressions in Moravia (Adovasio, Soffer & Klíma 1996 is closed), and for `wh-074`
+  Vandiver et al. 1989 on the fired ceramics is closed with no deposit.
+
+**Three findings worth carrying forward.**
+
+**1. The hedge check the plan ordered for `wh-070` found the opposite problem.** The card was asked to be
+checked for reading as settled; it does not. What it did instead was give the proponents' clinching
+argument — "no hyena was found among the animal bones at the site at all" — with no sign that it has a
+published answer. Diedrich 2015 addresses it directly: a cave bear ulna *from Divje Babe itself* "is one of
+the best examples of bone crushing by hyena premolar teeth," so "his final arguments that 'hyenas are
+absent' at this site … are none." The sentence now carries both halves. **A hedge can be intact and the
+argument beneath it still one-sided**, and only the sceptic's own paper shows that.
+
+**2. Two of the three cards had the same date written on two clocks.** `wh-075` said Sungir was "lived in
+roughly 34,000 to 30,000 years ago" — but Marom et al. 2012 give the burials as **30.1 ± 0.3 ka BP, i.e.
+34.1–35.2 ka cal BP**. The card's "range" was one date in radiocarbon years and the same date in calendar
+years, presented as a span of four thousand years. This is the sixth appearance of the uncalibrated-14C
+problem the batch-7 log flagged, and the first where it manufactured a *duration* rather than a wrong year.
+Ask of every range whether its two ends are on the same scale.
+
+**3. A correction is not finished when the abstract is fixed — check the QUESTION POOL.** Every card carries
+three phrasings, and they repeat the abstract's figures exactly as the date line does. `wh-075`'s third
+phrasing said in as many words that none of the Sungir dead "proved more closely related than second
+cousins" — the very error being corrected — and would have shipped as the cloze question above a corrected
+background. Five phrasings across the two cards had to be rewritten in all ten languages
+(`add-questions.js` for the extras, `fix-field.js` for the main `question`, which is a string it can reach).
+**The batch-6 rule "check the date line as well as the prose" now extends to the question pool**, and the
+question is the more visible of the two.
+
+**Seven other corrections**, made in English and all nine languages:
+
+- **`wh-075`** put the man's fox teeth in "a cap stitched with fox teeth" and gave him "ivory bracelets."
+  Trinkaus & Buzhilova 2018 (9–10) record "Twelve pierced fox canines … on the forehead" and "25 mammoth
+  ivory arm bands." The cap is an interpretation, and the counts were absent. Corrected to what the
+  excavation records.
+- **`wh-075`** had the spears "each straightened out of a curved mammoth tusk by a method nobody has
+  convincingly reconstructed." The straightening puzzle is real but appears in no source that could be
+  opened; what the paper gives is 16 spears, "five of which are double-pointed," 0.27–2.47 m. Rewritten to
+  that, and the same claim removed from the card's first question phrasing.
+- **`wh-075`** said each bead "took the better part of an hour to carve and drill, so the two children went
+  into the ground under years of somebody's work." The only published figure that could be opened is
+  Soffer's, quoted by Nowell 2020: the beads of Sunghir 1–3 represent **more than 2,500 person hours** — an
+  order of magnitude away from 10,000 beads at an hour each. Replaced with the published estimate, and
+  "years" softened to "months."
+- **`wh-075`** said quarrymen cutting clay for a factory struck the site in 1955. No source that could be
+  opened carries the quarry, the clay or the year; Nalawade-Chavan et al. say only "discovered in the
+  1950s." Softened, in the abstract, the date line and a question phrasing.
+- **`wh-075`** placed Sungir "about 190 kilometres east of Moscow"; the published figure is **197 km**.
+  Raised to 200.
+- **`wh-076`** said "Gerasimov found the burial of a boy of about four." Lbova 2021 is explicit that it is
+  **the burial of two children** — the second known from teeth — and that the 3–4-year-old is one of them.
+  Corrected; the genome is still his.
+- **`wh-076`** described houses "sunk partly into the ground, walled with large animal bones and roofed on a
+  frame of reindeer antler under skins." That reconstruction is Gerasimov's and circulates chiefly through
+  tertiary sources; nothing openable states it. Replaced with what Lbova does record — dwelling remains in
+  the camp's floors, with most of the carved ivory found inside them — in the abstract, the date line and a
+  question phrasing. The card's "main occupations fall roughly between 24,000 and 15,000 years ago" went the
+  same way: Raghavan gives 24,423–23,891 cal BP for MA-1 and nothing supports the 15,000 end.
+
+**On the mechanism.** Marker splicing by sentence index worked a seventh time, and the batch-1 warning bit
+again: the shipped **Japanese `wh-076`** ran the English sentences 3 and 4 together, so its ten sentences
+mapped 1:1 by count but not by content, and a marker placed by index would have landed on the wrong claim.
+Because sentence 3 was being rewritten anyway, the Japanese 3 and 4 were re-cut to match the English
+structure, and every marker position was then eyeballed across all ten languages before applying. All three
+cards round-tripped 5+5 in every language first.
 
 ### Batch 9 · Upper Palaeolithic art: rock and cave (6) — **5 of 6 DONE (2026-07-31)**
 **Cited:** `wh-083` cave painting · `wh-084` Chauvet Cave · `wh-085` Cave of Altamira ·
@@ -1079,5 +1184,5 @@ If a needed host turns out to be missing mid-batch, the cheaper fix is switching
 - **Changelog.** One line per day, raising its count — "Sources added to N cards in the World History
   prehistory deck" — with its nine translations, per the house rule. Corrections found along the way get
   their own line, and should name what changed.
-- **Coverage** is reported by `add-sources.js` on every run (`cards 66/109`), which is how the pass is
+- **Coverage** is reported by `add-sources.js` on every run (`cards 69/109`), which is how the pass is
   tracked across sessions.

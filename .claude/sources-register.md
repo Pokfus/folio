@@ -1968,6 +1968,77 @@ This batch also corrected two cards shipped earlier — see the Batch 7 log in d
 - Marlize Lombard and Laurel Phillipson, "Indications of bow and stone-tipped arrow use 64 000 years ago in KwaZulu-Natal, South Africa," <i>Antiquity</i> 84, no. 325 (2010): 635–648, https://doi.org/10.1017/S0003598X00100134. [Paywalled]
   - used by: wh-082
 
+
+## Batch 8 — portable art, the flute and the Siberian graves, verified 2026-07-31
+
+Fifteen citation slots across three cards, drawn from **13 distinct works, every one of them open** — the
+first batch of the pass in which no card needed a paywalled landmark at all. Weber 2022 and Moreno-Mayar
+2018 were already in the register from batches 7 and 6 and are reused, not re-verified.
+
+- Matija Turk, Ivan Turk, and Marcel Otte, "The Neanderthal Musical Instrument from Divje Babe I Cave (Slovenia): A Critical Review of the Discussion," <i>Applied Sciences</i> 10, no. 4 (2020): 1226, https://doi.org/10.3390/app10041226. [Open access]
+  - opened: 2026-07-31 · full text (MDPI, CC BY)
+  - supports: the left femur diaphysis of a one-to-two-year-old cave bear cub with two complete and two partly preserved holes; found in 1995 in Mousterian level D-1 (layer 8a) by I. Turk's team; the layer dated first to 45,000 and later to 50,000–60,000 years by 14C AMS, U/Th and ESR; the proponents' argument that hyena is "not an option" because "there is also no direct and indirect evidence of the presence of hyena at DB"; that CT work has been done by Tuniz et al. 2012 and by Turk and colleagues
+  - used by: wh-070
+- Matija Turk and Giuliano Bastiani, "Experimental Research on the Neanderthal Musical Instrument from Divje Babe I Cave (Slovenia)," <i>EXARC Journal</i> 2020, no. 3 (2020), under "Results," https://exarc.net/issue-2020-3/ea/musical-instrument-divje-babe-i-cave. [Open access]
+  - opened: 2026-07-31 · full text (peer-reviewed, CC BY)
+  - supports: the replica made from a comparable juvenile cave-bear femur from the same site, and the conclusion that "the four perforations exactly aligned in the middle of the longitudinal axis of the diaphysis can not be reasonably explained by carnivore biting/gnawing action" — which is the alignment argument the card attributes to Turk and colleagues
+  - used by: wh-070
+- Cajus G. Diedrich, "'Neanderthal Bone Flutes': Simply Products of Ice Age Spotted Hyena Scavenging Activities on Cave Bear Cubs in European Cave Bear Dens," <i>Royal Society Open Science</i> 2, no. 4 (2015): 140022, https://pmc.ncbi.nlm.nih.gov/articles/PMC4448875/. [Open access]
+  - opened: 2026-07-31 · full text
+  - supports: the sceptical case in its strongest published form — that punctured cave bear femora are "not instruments, nor human made" but hyena bone-crushing damage, with round-oval punctures made by the premolars; **and, directly against the card's previous wording, that "hyenas are absent" at Divje Babe is not a good argument**: a cave bear ulna at that very site "is one of the best examples of bone crushing by hyena premolar teeth"
+  - used by: wh-070
+- Janez Turk and Matija Turk, "On the Significance of Divje babe I Cave for the Stratigraphy, Sedimentology, and Chronology of Palaeolithic Cave Sites in Slovenia," <i>Arheološki vestnik</i> 74 (2023): 7–38, https://doi.org/10.3986/AV.74.01. [Open access]
+  - opened: 2026-07-31 · full text PDF (ZRC SAZU, CC BY-SA)
+  - supports: the profile of Divje babe I as "currently the best researched and chronologically defined Late Pleistocene cave profile in Slovenia," and the ESR/U-Th programme behind the layer dates
+  - used by: wh-070
+- National Museum of Slovenia, "Neanderthal Flute," Collection Highlights, inv. no. D. b. 652, accessed 31 July 2026, https://www.nms.si/en/collections/highlights/343-Neanderthal-flute. [Open access]
+  - opened: 2026-07-31 · the museum's own object record
+  - supports: length 11.4 cm; "the left thighbone of a young cave bear"; "pierced by two well-preserved and two damaged holes"; found 1995 at Divje babe near Cerkno during excavations led by Ivan Turk, the cave "230 meters above the Idrijca River," in "a layer deposited about 60 to 50 millennia" ago; and that the museum displays it as "the oldest musical instrument in the world," "about 20,000 years older than other known flutes" — which is the card's closing sentence about how Ljubljana presents it
+  - used by: wh-070
+- Erik Trinkaus and Alexandra P. Buzhilova, "Diversity and Differential Disposal of the Dead at Sunghir," <i>Antiquity</i> 92, no. 361 (2018): 7–21, https://doi.org/10.15184/aqy.2017.223. [Open access]
+  - opened: 2026-07-31 · full text PDF (Cambridge, bronze OA)
+  - supports: the site on the Klyazma at the north-east edge of Vladimir (8); Bader's excavations 1957–1977 (8); an age of c. 30,000 14C BP or c. 34,000 cal BP (8); Sunghir 1 under "about 3000 mammoth ivory beads," with "Twelve pierced fox canines … on the forehead" and "25 mammoth ivory arm bands" (9–10) — **not the "cap stitched with fox teeth" the card had**; Sunghir 2 at ~12 and Sunghir 3 at ~10 years (8); "approximately 5000 for Sunghir 2 and around 5400 for Sunghir 3" (11); "the 16 mammoth ivory spears, five of which are double-pointed," varying "from 0.27–2.47m" (12); and "the most elaborate Upper Palaeolithic burial currently known" (10)
+  - used by: wh-075
+- Anat Marom, James S. O. McCullagh, Thomas F. G. Higham, Andrei A. Sinitsyn, and Robert E. M. Hedges, "Single Amino Acid Radiocarbon Dating of Upper Paleolithic Modern Humans," <i>Proceedings of the National Academy of Sciences</i> 109, no. 18 (2012): 6878–81, https://pmc.ncbi.nlm.nih.gov/articles/PMC3344984/. [Open access]
+  - opened: 2026-07-31 · full text
+  - supports: the hydroxyproline date for the Sungir burials, "30.1 ± 0.3 kaBP (between 34.1 and 35.2 ka cal BP)" — **the single figure that shows the card's old "34,000 to 30,000 years ago" to be one date written on two clocks**
+  - used by: wh-075
+- Shweta Nalawade-Chavan, James McCullagh, and Robert Hedges, "New Hydroxyproline Radiocarbon Dates from Sungir, Russia, Confirm Early Mid Upper Palaeolithic Burials in Eurasia," <i>PLOS ONE</i> 9, no. 1 (2014): e76896, https://pmc.ncbi.nlm.nih.gov/articles/PMC3885387/. [Open access]
+  - opened: 2026-07-31 · full text
+  - supports: Sungir "discovered in the 1950s" and "about 197 km east of Moscow" (Introduction) — the two figures behind the corrected opening sentence; and the Bayesian model putting occupation at 38,900–33,590 cal BP (95% prob.)
+  - used by: wh-075
+- Martin Sikora, Andaine Seguin-Orlando, Vitor C. Sousa, et al., "Ancient Genomes Show Social and Reproductive Behavior of Early Upper Paleolithic Foragers," <i>Science</i> 358, no. 6363 (2017): 659–62, https://escholarship.org/uc/item/7vx791kv. [Open access]
+  - opened: 2026-07-31 · full text via the **eScholarship (University of California) deposit**; the Science DOI itself is paywalled
+  - supports: "All individuals were genetically male … including SIII who was previously identified as female" — so "two boys" is right, and is itself a 2017 result; radiocarbon placing SI–SIV "between 34.6 and 33.6 kya"; and, the correction that matters, "**none of them were closely related (that is, third degree or closer)**" despite SII–SIV sharing mitochondrial and Y lineages — **not "no closer than second cousins," which claims a greater distance than the paper establishes**
+  - used by: wh-075
+- April Nowell, "Adolescence and Innovation in the European Upper Palaeolithic," <i>Evolutionary Human Sciences</i> 2 (2020): e36, under "Box 1," https://pmc.ncbi.nlm.nih.gov/articles/PMC10427464/. [Open access]
+  - opened: 2026-07-31 · full text
+  - supports: "two adolescent boys – one (Sunghir 3) approximately 10 years of age and the other (Sunghir 2) closer to 12 years old – were buried head to head"; "A total of 13,000 mammoth ivory beads were associated with the interred individuals"; and, quoting Soffer 1985, that "the beads associated with Sunghir 1–3 represent more than 2500 person hours of investment in the burials" — **the published labour figure that replaced the card's unsourced "better part of an hour" per bead**
+  - used by: wh-075
+- Maanasa Raghavan, Pontus Skoglund, Kelly E. Graf, et al., "Upper Palaeolithic Siberian Genome Reveals Dual Ancestry of Native Americans," <i>Nature</i> 505, no. 7481 (2014): 87–91, https://escholarship.org/uc/item/79h679zc. [Open access]
+  - opened: 2026-07-31 · full text via the **eScholarship deposit**; the Nature DOI is paywalled
+  - supports: Mal'ta "located along the Belaya River near Lake Baikal, was excavated between 1928 and 1958" and yielding "30 anthropomorphic Venus figurines"; MA-1 dated 20,240 ± 60 14C BP or 24,423–23,891 cal BP; "To our knowledge this is the oldest anatomically modern human genome reported to date"; that MA-1 "is basal to modern-day western Eurasians and genetically closely related to modern-day Native Americans, with no close affinity to east Asians"; and that "14 to 38% of Native American ancestry may originate through gene flow from this ancient population"
+  - used by: wh-076 · (also the source for correcting the card's "buried by the Angara" — Mal'ta is on the Belaya)
+- Liudmila Lbova, "The Siberian Paleolithic Site of Mal'ta: A Unique Source for the Study of Childhood Archaeology," <i>Evolutionary Human Sciences</i> 3 (2021): e9, under "The Mal'ta burial," https://pmc.ncbi.nlm.nih.gov/articles/PMC10427291/. [Open access]
+  - opened: 2026-07-31 · full text
+  - supports: **"the burial of two children"** at Mal'ta, whose skeletons "were buried within a slab structure resembling a dug and lined grave" with "the bottom of the burial … covered with red ochre," and among the bones "fragments of a tiara made from mammoth ivory, a rich necklace of 120 bone beads, a large oval-shaped pendant, a round bone plaque with a zigzag pattern and a sculpture of a flying bird"; Gerasimov's judgement that the goods could not be the child's own "because of his age, 3–4 years old"; "the teeth of another child in the burial"; the figurines' "fur coveralls – 'kerkery'" and "coveralls with high hoods"; and that the figurines "were found in the living quarters of the settlement, some even in ritual places within the dwelling"
+  - used by: wh-076
+- Junzo Uchiyama, J. Christopher Gillam, Alexander Savelyev, and Chao Ning, "Populations Dynamics in Northern Eurasian Forests: A Long-Term Perspective from Northeast Asia," <i>Evolutionary Human Sciences</i> 2 (2020): e16, https://pmc.ncbi.nlm.nih.gov/articles/PMC10427466/. [Open access]
+  - opened: 2026-07-31 · full text
+  - supports: that "the 24,000-year-old human remains (MA1) associated with the Mal'ta-Buret' culture, west of Lake Baikal … genetically fall into the western Eurasian gene pool although it is geographically located in e[ast Siberia]," and that later Siberian and Native American lineages "share greater affinity to the 24,000-year-old Mal'ta individual"
+  - used by: wh-076
+
+**Reused from earlier batches, not re-verified:** Weber et al. 2022 (batch 7 — the Gravettian female figurines
+as supraregional types "from Renancourt in northern France to Mal'ta in Siberia") for `wh-076`, and
+Moreno-Mayar et al. 2018 (batch 6) for the Native American founding population.
+
+**Two open works were opened and then NOT cited, and it is worth saying why.** Ivan Turk's 1997 monograph
+*Moustérienska "koščena piščal"* is genuinely open at ZRC SAZU (https://doi.org/10.3986/9789610503040) and the
+PDF downloads, but it is a **scan with no text layer**, so no locator in it could be read and checked here; the
+bar requires a locator, so it was left out rather than cited blind. Andrew Killin's "The Origins of Music"
+(*Music & Science* 1, 2018) is gold OA but SAGE refuses non-browser clients from this environment, and an
+unopened deposit is not a citation.
+
 ---
 
 ## CANDIDATES — NOT VERIFIED, DO NOT PASTE INTO `data.js`

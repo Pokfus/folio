@@ -594,9 +594,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     glossary term carries `sources`; the citation pass so far has touched cards only. The UI, the deltas and the
     pipeline are in place; the rest is a content job (see "Citing the existing content" below). Guarded by
     `.claude/test-sources.js` (67 assertions).
-    **Batches 0–11 shipped 2026-07-31**: **66 of the 109 prehistory cards carry sources**, every card's list
-    majority-open (`wh-086` Lascaux and a set of culture-history/definitional cards are deferred — their
-    sources will not open). See `docs/citation-plan.md` — its Pilot log records how the
+    **Batches 0–11 shipped 2026-07-31**: **69 of the 109 prehistory cards carry sources**, every card's list
+    majority-open (`wh-086` Lascaux, the Swabian Jura cards and a set of culture-history/definitional cards
+    are deferred — their sources will not open). See `docs/citation-plan.md` — its Pilot log records how the
     definitional cards were solved, its Batch 1 log the factual errors the exercise turns up (21 so far) and
     the gotcha that a matching sentence COUNT across languages does not prove a matching sentence MAPPING, and
     its Batch 2 log the finding that reshapes the rest of the pass: **the batches are grouped by subject, and
@@ -610,6 +610,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     **a card reporting an argument in progress has a shelf life**, so expect corrections caused by time rather
     than carelessness (`wh-037`'s *naledi* burial papers reached Versions of Record in 2025 with mixed
     verdicts, where the card said the reviewers were unanimously against and the papers still in revision).
+    From Batch 8: **a correction is not finished when the abstract is fixed — check the QUESTION POOL too.**
+    Each card carries three phrasings that repeat the abstract's figures exactly as the date line does, and
+    `wh-075`'s third phrasing restated the very error being corrected, which would have shipped as the cloze
+    question above a corrected background. Patch the extras with `add-questions.js` and the main `question`
+    with `fix-field.js` (it reaches any string field, so `question` yes, the `questions` array no).
 - **Multiple question phrasings (July 2026):** a card may carry an optional **`questions` array of EXTRA
   phrasings** beyond `question` — **at most `CARD_MAX_QUESTIONS` (10) in all** (official Folio cards carry
   exactly 3; the headroom is for community decks to experiment). Every phrasing is a full standalone clue
@@ -1616,7 +1621,7 @@ which would otherwise have shipped corrected prose above an uncorrected date lin
 **Citing the existing content (as of July 2026)** — **most of the shipped content still has no citations.** The
 109 cards, 333 glossary terms and every Atlas description were written before this system existed, from Wikipedia
 and its sources, and were fact-checked rather than referenced. A batched pass is working through the cards —
-**66 of 109 done** (`docs/citation-plan.md`; coverage is reported by `add-sources.js` on every run) — while
+**69 of 109 done** (`docs/citation-plan.md`; coverage is reported by `add-sources.js` on every run) — while
 `country-sources.js` and `GLOSSARY_SOURCES` are still empty, so the Sources fold appears only on those cards.
 **Do not paper over the rest by attaching plausible-looking citations to existing prose** — a citation that was
 not the actual source of a sentence is worse than no citation, because it invites a reader to trust a page number
