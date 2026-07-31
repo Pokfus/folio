@@ -395,6 +395,95 @@ https://doi.org/10.1038/s41586-025-09855-6. [Paywalled]
   not in the abstract. The card was corrected to what the abstract states
 - used by: wh-098
 
+### anton-2016 · what varies in *Homo erectus*
+Susan C. Antón et al., "Morphological Variation in *Homo erectus* and the Origins of Developmental
+Plasticity," *Philosophical Transactions of the Royal Society B* 371, no. 1698 (2016): 20150236, §§1–2 and
+table 1, https://pmc.ncbi.nlm.nih.gov/articles/PMC4920293/. [Open access]
+- opened: 2026-07-31 · full text via PMC (royalsocietypublishing.org, where the published version is free,
+  is behind bot protection from this environment; located by numbered section and table)
+- supports: brain-size ranges by region — Africa/Georgia 546–1067 cc at 1.77–1.5 Ma, China 855–1225 cc,
+  Indonesia 813–1251 cc (table 1) — which is what the card's "600 … to about 1,000" summarises; the Trinil 2
+  calotte from its "initial discovery in 1891" and the argument over whether it was an "out-sized gibbon"
+  (§2); that African *H. erectus* "was often recognized as *H. ergaster*" while later chronostratigraphy
+  "diminished and, in some cases, eliminated the time difference" between the African and Asian samples (§2)
+- used by: wh-018
+
+### rizal-2020 · the last *Homo erectus*
+Yan Rizal et al., "Last Appearance of *Homo erectus* at Ngandong, Java, 117,000–108,000 Years Ago,"
+*Nature* 577, no. 7790 (2020): 381–85, https://doi.org/10.1038/s41586-019-1863-2. [Open access]
+- opened: 2026-07-31 · full text (gold OA on nature.com)
+- supports: the Ngandong bone bed as the youngest known *H. erectus*, at 117,000–108,000 years — the card's
+  "survived until roughly 110,000 years ago"; and that the species "reached Java (Indonesia) more than 1.5
+  million years ago"
+- used by: wh-018
+
+### bastir-2020 · the shape of the *erectus* trunk
+Markus Bastir et al., "Rib Cage Anatomy in *Homo erectus* Suggests a Recent Evolutionary Origin of Modern
+Human Body Shape," *Nature Ecology & Evolution* 4, no. 9 (2020): 1178–87,
+https://doi.org/10.1038/s41559-020-1240-4. [Open access]
+- opened: 2026-07-31 · publisher PDF, free on nature.com
+- supports: the first three-dimensional reconstruction of the thorax of KNM-WT 15000, showing "a short,
+  mediolaterally wide and anteroposteriorly deep thorax … that differs considerably from the much shallower
+  thorax of *H. sapiens*, pointing to a recent evolutionary origin of fully modern human body shape", and a
+  "relatively stocky, more primitive, body shape" for *H. erectus*
+- note: this is what the card was corrected against. It had *H. erectus* "built like us below the neck …
+  with a narrow waist" and the Turkana Boy "tall and lean like a modern tropical human"
+- used by: wh-018
+
+### curran-2025 · how early hominins were in Eurasia
+Sabrina C. Curran et al., "Hominin Presence in Eurasia by at Least 1.95 Million Years Ago," *Nature
+Communications* 16 (2025): 836, https://doi.org/10.1038/s41467-025-56154-9. [Open access]
+- opened: 2026-07-31 · full text (CC BY)
+- supports: "hominins were present at Dmanisi, Georgia by 1.8 million years ago" — the card's reaching of
+  the Caucasus — set against cut-marked bones at Grăunceanu, Romania, dated to >1.95 Ma
+- used by: wh-018
+
+### welker-2020 · the antecessor proteome
+Frido Welker et al., "The Dental Proteome of *Homo antecessor*," *Nature* 580, no. 7802 (2020): 235–38,
+https://doi.org/10.1038/s41586-020-2153-8. [Open access]
+- opened: 2026-07-31 · publisher PDF, free on nature.com
+- supports: that ancient DNA degrades where "the analysis of ancient proteins can address this challenge";
+  the dental enamel proteomes of *H. antecessor* from Atapuerca and *H. erectus* from Dmanisi; and the
+  placement of *H. antecessor* as "a close sister lineage to subsequent Middle and Late Pleistocene
+  hominins, including modern humans, Neanderthals and Denisovans" — beside, not below, the line — implying
+  that its "modern-like face … may have a considerably deep ancestry in the genus *Homo*"
+- used by: wh-028
+
+### campana-2016 · the TD6 layer
+I. Campaña et al., "New Interpretation of the Gran Dolina-TD6 Bearing *Homo antecessor* Deposits through
+Sedimentological Analysis," *Scientific Reports* 6 (2016): 34799, under "The Gran Dolina Site" and
+"Results," https://doi.org/10.1038/srep34799. [Open access]
+- opened: 2026-07-31 · full text (CC BY)
+- supports: Gran Dolina as "a cavity infilled by at least 25 m of Pleistocene sediments", whose TD6 unit
+  holds "around 170 hominin bones that have allowed the definition of a new species, *Homo antecessor*";
+  and the magnetostratigraphic reversal in the overlying TD7 attributed to the Matuyama–Brunhes boundary,
+  which puts TD6 beyond 780,000 years
+- used by: wh-028
+
+### roksandic-2021 · the muddle in the middle
+Mirjana Roksandic et al., "Resolving the 'Muddle in the Middle': The Case for *Homo bodoensis* sp. nov.,"
+*Evolutionary Anthropology* 31, no. 1 (2022): 20–29, https://doi.org/10.1002/evan.21929. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: that *H. heidelbergensis* "both *sensu stricto* and *sensu lato*" and *H. rhodesiensis* "need to
+  be abandoned as they fail to reflect the full range of hominin variability in the Middle Pleistocene";
+  the Mauer mandible at "609 ± 40 ka"; Schoetensack's 1908 naming; the consensus that the Sima de los
+  Huesos hominins are "early members of the Neanderthal lineage", dating "to at least 430 ka"
+- note: this is what the card's last-but-one sentence was corrected against. The 2021 proposal does **not**
+  put every *heidelbergensis* fossil under *bodoensis* — the African ones go there, and the western
+  European ones, Mauer included, go to *H. neanderthalensis*
+- used by: wh-030
+
+### schoetensack-1908 · the Mauer jaw
+Otto Schoetensack, *Der Unterkiefer des Homo heidelbergensis aus den Sanden von Mauer bei Heidelberg*
+(Leipzig: Wilhelm Engelmann, 1908), under "I. Geologisch-paläontologischer Teil",
+https://archive.org/details/o-schoetensack-der-unterkiefer-des-homo-heidelbergensis. [Open access]
+- opened: 2026-07-31 · scanned first edition, public domain (located by named part; the accessible
+  transcription carries no page numbers)
+- supports: the founding publication of the species name, and that the jaw was found "am 21. Oktober 1907"
+  in the Grafenrain sand pit on the land of the village of Mauer, "10 km südöstlich von Heidelberg" — the
+  card's "quarrymen had dug out of a sand pit at Mauer, near Heidelberg, the year before"
+- used by: wh-030
+
 ---
 
 ## CANDIDATES — NOT VERIFIED, DO NOT PASTE INTO `data.js`

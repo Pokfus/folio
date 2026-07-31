@@ -569,11 +569,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     glossary term carries `sources`; the citation pass so far has touched cards only. The UI, the deltas and the
     pipeline are in place; the rest is a content job (see "Citing the existing content" below). Guarded by
     `.claude/test-sources.js` (55 assertions).
-    **Batches 0 and 1 shipped 2026-07-31**: **12 of the 109 prehistory cards carry sources** (39 citations, 35
+    **Batches 0–2 shipped 2026-07-31**: **15 of the 109 prehistory cards carry sources** (47 citations, 43
     of them open). See `docs/citation-plan.md` — its Pilot log records how the definitional cards were solved,
-    and its Batch 1 log the seven factual errors the exercise has turned up so far, the three fossil/site cards
-    deferred for want of an open source, and the gotcha that a matching sentence COUNT across languages does not
-    prove a matching sentence MAPPING.
+    its Batch 1 log the factual errors the exercise turns up (ten so far) and the gotcha that a matching
+    sentence COUNT across languages does not prove a matching sentence MAPPING, and its Batch 2 log the
+    finding that reshapes the rest of the pass: **the batches are grouped by subject, and subject does not
+    predict whether the sources are reachable.** Taxonomic and comparative cards go through easily; cards
+    built on a discovery history turn on founding announcements that are closed with no open deposit, and ten
+    such cards are now deferred. Re-cut the remaining batches by source type before working them.
 - **Multiple question phrasings (July 2026):** a card may carry an optional **`questions` array of EXTRA
   phrasings** beyond `question` — **at most `CARD_MAX_QUESTIONS` (10) in all** (official Folio cards carry
   exactly 3; the headroom is for community decks to experiment). Every phrasing is a full standalone clue
@@ -1570,7 +1573,7 @@ none of the in-text links), and reports running coverage, which is how a multi-b
 **Citing the existing content (as of July 2026)** — **most of the shipped content still has no citations.** The
 109 cards, 333 glossary terms and every Atlas description were written before this system existed, from Wikipedia
 and its sources, and were fact-checked rather than referenced. A batched pass is working through the cards —
-**12 of 109 done** (`docs/citation-plan.md`; coverage is reported by `add-sources.js` on every run) — while
+**15 of 109 done** (`docs/citation-plan.md`; coverage is reported by `add-sources.js` on every run) — while
 `country-sources.js` and `GLOSSARY_SOURCES` are still empty, so the Sources fold appears only on those cards.
 **Do not paper over the rest by attaching plausible-looking citations to existing prose** — a citation that was
 not the actual source of a sentence is worse than no citation, because it invites a reader to trust a page number

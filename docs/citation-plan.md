@@ -155,15 +155,19 @@ its fire; Roebroeks & Villa 2011, Sorensen et al. 2018 and Davis et al. 2025 on 
 Lepre et al. 2011 and Leakey, Tobias & Napier 1964 are closed everywhere and were not needed: de la Torre
 carries the Kokiselei date, and *H. habilis* moved to the deferred set.
 
-### Batch 2 · *Homo erectus* across the Old World (10)
-`wh-018` Homo erectus · `wh-019` Homo ergaster · `wh-020` Turkana Boy · `wh-024` Dmanisi ·
-`wh-025` Java Man · `wh-026` Peking Man · `wh-027` Zhoukoudian · `wh-028` Homo antecessor ·
-`wh-029` Atapuerca · `wh-030` Homo heidelbergensis
+### Batch 2 · *Homo erectus* across the Old World (10) — **3 of 10 DONE (2026-07-31)**
+**Cited:** `wh-018` Homo erectus · `wh-028` Homo antecessor · `wh-030` Homo heidelbergensis.
 
-Spine: Lordkipanidze et al. 2013 on Dmanisi skull 5; Shen et al. 2009 on Zhoukoudian dating; Rizal et al.
-2020 on Ngandong; Bermúdez de Castro et al. 1997 on *antecessor*; the UNESCO records and Advisory Body
-evaluations for Zhoukoudian, Sangiran and Atapuerca — official, paginated PDFs with permanent URLs, and an
-unusually good fit for the site cards.
+**Deferred:** `wh-019` Homo ergaster · `wh-020` Turkana Boy · `wh-024` Dmanisi · `wh-025` Java Man ·
+`wh-026` Peking Man · `wh-027` Zhoukoudian · `wh-029` Atapuerca. See the Batch 2 log below.
+
+Spine as worked: Antón et al. 2016 on what varies in *H. erectus*; Rizal et al. 2020 on the Ngandong last
+appearance; Bastir et al. 2020 on the shape of the *erectus* trunk; Curran et al. 2025 for how early
+hominins were in Eurasia; Welker et al. 2020 on the *antecessor* dental proteome with Campaña et al. 2016
+on the TD6 layer; Roksandic et al. 2021 on the muddle in the middle, with Schoetensack's own 1908 monograph
+for the Mauer jaw. The originally planned spine did not survive contact with the paywalls: **Lordkipanidze
+et al. 2013, Ferring et al. 2011, Shen et al. 2009, Wagner et al. 2010 and Bermúdez de Castro et al. 1997
+are all closed with no open deposit**, and the UNESCO records remain unreachable (see the pilot log).
 
 ### Batch 3 · Middle Palaeolithic: technique and the other humans (10)
 `wh-032` Levallois · `wh-033` Mousterian · `wh-034` Neanderthal · `wh-035` Denisovans ·
@@ -382,6 +386,50 @@ splits the English opening sentence in two and merges English sentences 4 and 5 
 per block in both languages, aligned differently. Splicing by index alone would have put two markers on
 the wrong claims. Check the alignment at each marker position, not just the count; a numeral or a proper
 name in the sentence makes this quick to eyeball across ten languages.
+
+## Batch 2 log — *Homo erectus* across the Old World
+
+### 2026-07-31 — three cards cited, seven deferred
+
+Eight citations, **all eight open**, across `wh-018`, `wh-028` and `wh-030`. Coverage went from
+`cards 12/109` to `cards 15/109` — 47 citations in all, 43 of them open.
+
+**Three corrections**, made in English and all nine languages:
+
+- **wh-018** said *H. erectus* was "the first of our relatives to be built like us below the neck, with
+  long legs, short arms and a narrow waist". Bastir et al. 2020's three-dimensional reconstruction of the
+  Turkana Boy's rib cage finds "a short, mediolaterally wide and anteroposteriorly deep thorax … that
+  differs considerably from the much shallower thorax of *H. sapiens*", and argues for "a recent
+  evolutionary origin of fully modern human body shape". The limbs stand; the narrow waist does not.
+- **wh-018** likewise had the Turkana Boy "tall and lean like a modern tropical human". Same paper, same
+  problem: tall and long-limbed, but broad through the chest.
+- **wh-030** said the 2021 proposal put the *heidelbergensis* and *rhodesiensis* fossils "under a new one,
+  *Homo bodoensis*". Roksandic et al. propose no such thing: the African fossils go to *bodoensis*, and the
+  western European ones — the Mauer type jaw included — go to *H. neanderthalensis*.
+
+**Why seven cards were deferred, and what it says about the batch plan.** This batch was grouped by
+subject, and the subject turned out not to predict the source landscape at all. Its ten cards split cleanly
+in two:
+
+- The three that shipped are **taxonomic and comparative** — what a species is, what varies within it, what
+  a name is doing. That literature lives in review journals and in *Nature*'s open-access tier, and it was
+  all reachable.
+- The seven deferred are **discovery-and-site** cards, and every one of them turns on a founding
+  announcement that is closed with no open deposit: Dubois 1894, Black 1927, Bermúdez de Castro et al.
+  1997, Ferring et al. 2011, Lordkipanidze et al. 2013, Shen et al. 2009, Wagner et al. 2010, plus the 2025
+  Sima del Elefante face. `wh-025` is worse than paywalled: its closing claim — that the Trinil fossils
+  flew to Jakarta in December 2025 — is a repatriation reported in the press, and there is no scholarly
+  source to cite for it at all.
+
+**This is the same wall batch 1 hit**, and with the same shape: `wh-013`, `wh-016` and `wh-017` were
+deferred for exactly this reason. That is now ten cards waiting on one problem rather than a scatter of
+loose ends, and the plan should stop pretending they are distributed across batches. **The remaining
+batches should be re-cut by source type, not by subject** — one pass over the empirical and comparative
+cards, which are tractable, and a separate pass for the discovery-history cards, which needs a different
+method: the founding papers are largely pre-1930 and therefore public domain (Dubois 1894 and Black 1927
+are both old enough to be scanned somewhere, as Schoetensack 1908 and Lubbock 1865 already proved), while
+the modern site chronologies need an open re-publication or a museum record rather than the original
+*Nature* letter. Do not attempt them one at a time between other work.
 
 ### Unblocking: the cloud environment's allowlist
 
