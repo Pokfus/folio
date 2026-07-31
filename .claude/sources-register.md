@@ -2790,6 +2790,79 @@ https://pmc.ncbi.nlm.nih.gov/articles/PMC2842660/. [Open access]
   ZKD XI 1015, ZKD XII 1030 ml
 - used by: wh-025, wh-026
 
+### weidenreich-1943 · the casts that outlived the bones
+Franz Weidenreich, *The Skull of* Sinanthropus pekinensis*: A Comparative Study on a Primitive Hominid
+Skull*, Palaeontologia Sinica, n.s. D, no. 10 (Pehpei, Chungking: Geological Survey of China, 1943), iii,
+2–3, 190, https://archive.org/details/TheSkullOfSinanthropusPekinensisAComparativeStudyOnAPrimitive.
+[Open access]
+- opened: 2026-07-31 · full OCR text on archive.org; printed page numbers recovered from the running heads
+- supports (iii, preface): "Being apprehensive of what lay ahead, all the skull material had been
+  photographed, drawn and measured, and casts had been made which were shipped to this country. Thus,
+  research could be continued even when we were forced to liquidate the Cenozoic Research Laboratory and to
+  leave Peiping." Weidenreich wrote this from the American Museum of Natural History
+- supports (2–3): the discovery sequence — Bohlin's damaged skull cap in 1928, then "W. C. Pei found a well
+  preserved cranium at the site known as Locus E", then the Level 22/23/25 skulls of 1936
+- supports (190): "the number of the Sinanthropus individuals whose presence in the cave is proven by the
+  recovery of their teeth or skeletal parts is such a high one (over forty)"; and that the skulls "were
+  broken as carrion by carnivores, probably hyaenas, which lived in the cave and cracked the bones as long
+  as they were fresh"
+- used by: wh-026, wh-027
+
+### xing-2018 · what survives, and what does not
+Song Xing, María Martinón-Torres and José María Bermúdez de Castro, "The Fossil Teeth of the Peking Man,"
+*Scientific Reports* 8 (2018): 2066, introduction, https://doi.org/10.1038/s41598-018-20432-y. [Open access]
+- opened: 2026-07-31 · full text on nature.com (gold OA)
+- supports: *Sinanthropus pekinensis* "named by Black in 1927", from "a lower molar hominid tooth from the
+  Chou Kou Tien deposit"; that "the majority of the Zhoukoudian fossils unearthed before 1937 were lost
+  during World War II" and that studies "in the last 80 years, have been solely based on casts and on the
+  descriptions and drawings made by … Weidenreich in 1930s and 1940s"; that "The excavations from 1949-1959
+  provided five isolated teeth and one mandible" and "Another isolated tooth was found in 1966"; and that
+  the geological ages "range from 230 kyr to ≥ 750 kyr according to different methods of chronometric
+  analyses"
+- does NOT support: the card's "more than 770,000". That figure is Shen et al. 2009's press summary; the
+  weighted mean is 0.75 ± 0.09 Ma and Xing gives ≥750 kyr. The card and its date line were lowered
+- used by: wh-026, wh-027
+
+### huang-2022 · fire at Locality 1, doubted and partly restored
+Chao Huang, Jianjun Li and Xing Gao, "Evidence of Fire Use by *Homo erectus pekinensis*: An XRD Study of
+Archaeological Bones from Zhoukoudian Locality 1, China," *Frontiers in Earth Science* 9 (2022): 811319,
+introduction, https://doi.org/10.3389/feart.2021.811319. [Open access]
+- opened: 2026-07-31 · full text on frontiersin.org
+- supports: "Zhoukoudian Locality 1, situated about 50 km southwest of Beijing, China … has been well known
+  since the 1920s for the discovery of a large number of *Homo erectus pekinensis* fossils and thousands of
+  stone artifacts"; that the burnt material was "widely accepted as the oldest reliable evidence of hominin
+  use and maintenance of fire in the world"; that "From 1980s to the beginning of this century … scholars
+  have begun to doubt the evidence of in situ burning at the site"; and that Zhong et al. 2013 "detected
+  siliceous aggregates which provided compelling evidence of the in situ use of fire", with Zhang et al.
+  2014 adding magnetic-susceptibility evidence, both from Layer 4
+- does NOT support: "dismissed in 1998 as the work of lightning". Weiner et al. 1998 is one of five papers
+  doubting *in situ* burning; lightning is a retelling. The card was reworded
+- used by: wh-026, wh-027
+
+### berger-2012 · what happened to the collection
+Lee R. Berger, Wu Liu and Xiujie Wu, "Investigation of a Credible Report by a US Marine on the Location of
+the Missing Peking Man Fossils," *South African Journal of Science* 108, nos. 3–4 (2012), commentary,
+https://scielo.org.za/scielo.php?script=sci_arttext&pid=S0038-23532012000200003. [Open access]
+- opened: 2026-07-31 · full text on SciELO South Africa
+- supports: that "two large wooden footlockers were turned over to the US Military for safe transport to the
+  American Museum of Natural History in New York", holding "the fragmentary remains of 40 individual
+  hominins"; that eyewitnesses put the crates "on a US Marine vehicle"; that "the President Harrison
+  encountered Japanese warships as war broke out, ran aground and never reached Qinhaungdao"; that "After
+  their exit through the gates of the Peking Union Medical College - the last reliable sighting - the
+  fossils simply vanished"; and that "no verifiable sign of the fossils, or the crates that contained them,
+  has yet been recorded"
+- used by: wh-026
+
+### ma-2022 · Pei's skullcap, dated
+Xu Ma, Guanghui Wang and Min Wang, "Impact of Chinese Palaeontology on Evolutionary Research,"
+*Philosophical Transactions of the Royal Society B* 377, no. 1847 (2022): 20210029, background,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC8819365/. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: "the first fossil hominin skullcap discovered by PEI Wenzhong in 1929 during the excavations of
+  the Peking Man Site at Zhoukoudian"
+- used by: wh-026
+
+
 ### ckc-2025 · the Dubois collection, and how it was dug
 Commissie Koloniale Collecties, *Advies* ID-2025-1 [advice to the Dutch State Secretary for Education, Culture
 and Science on Indonesia's request for the return of the Dubois collection], 5 September 2025, 2, 5–6, 11,
