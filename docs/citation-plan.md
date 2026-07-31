@@ -3,6 +3,25 @@
 The World History › Prehistory deck is 109 cards, all written before the footnote system existed. This is
 the plan for giving every one of them sources. Not part of the site.
 
+## How many
+
+**At least five citations per card** (`SRC_TARGET` in app.js, which every helper script and the audit read
+out of it by text so they cannot disagree about what the bar is). Raised on request on 2026-07-31, from the
+2–4 the pass started with.
+
+Five is not an arbitrary round number: a prehistory abstract is ten sentences making ten separable factual
+claims, and a list of two means eight of them rest on a work the reader was never told about. The later
+batches converged on 6–9 without being asked to — batch 7 averaged nine, batch 6 seven — because that is
+simply what it takes to cover ten claims honestly. It is the earliest batches, worked to the old bar, that
+sit at 2–4. So the top-up work below is not padding a quota; it is bringing the pilot-era cards up to the
+standard the pass itself arrived at.
+
+**The other rules do not relax to make five easier.** In particular the majority-open rule now bites harder:
+a five-source list needs **three open**, and a card that can only reach five by adding paywalled landmarks
+has not reached it. Adding a source that does not carry a claim the card actually makes is worse than
+leaving the card short, because it is the one failure this apparatus exists to prevent — a page number
+nobody checked, dressed up as scholarship.
+
 ## The bar
 
 A citation qualifies only if it is **all four** of these:
@@ -95,6 +114,63 @@ All four helper scripts refuse a citation with no link.
 Expect step 3 to turn up errors. That is a benefit of the exercise, not a setback — budget for it, and say
 so in the changelog rather than quietly fixing dates.
 
+## The red mark — a card that cannot be brought to the bar
+
+Some cards will not reach five, and saying so plainly is part of the job. The Edit page's card list shows
+each card's coverage as a small chip on its id line, in three states:
+
+| chip | meaning | set by |
+|---|---|---|
+| none | five or more citations | the count |
+| **amber** `3/5` | under the bar, **nobody has researched it yet** | the count |
+| **red** `0/5` | under the bar, **a batch went looking and came back short** | `card.sourcesBlocked` |
+
+The difference between amber and red is the whole reason for showing them. Amber is a to-do; red is a
+finding. A red card is one where the works its claims rest on have been named and tried — the open
+deposit, the review that restates a closed original, the holding institution's catalogue, the file rather
+than the landing page — and the qualifying scholarship is closed, unreachable, or does not exist.
+
+**A card earns red only when a batch concludes it, never in advance.** Marking a card unsourceable before
+searching is exactly the failure the footnotes exist to prevent, one level up: it would let a guess about
+the literature harden into a recorded fact about it. Batch 8b is the standing warning — `wh-067` and
+`wh-068` were written off as unsourceable in one session and cited in full in the next, off museum
+catalogues nobody had thought to check. Anything the earlier logs call "deferred" is therefore **amber**,
+not red: deferred means not yet done, and several deferrals have since been reversed.
+
+```
+node .claude/mark-sources-blocked.js <batch.json>
+  { "blocked": { "wh-074": "<what was searched, and what turned out to be closed>" },
+    "clear":   ["wh-013"] }        // a card a later pass unblocked
+```
+
+The reason is required and has to say what was tried, so the next pass does not re-run the same search;
+the script refuses a bare flag. The flag lives on the card in `data.js` as `sourcesBlocked`, rides through
+the in-app editor untouched, and is **retired automatically** by `add-sources.js` the moment the card
+reaches five. It is never shown to a reader: the fold shows the sources a card has, and a card that cannot
+be cited simply has none.
+
+## Where the pass stands
+
+```
+node .claude/source-audit.js          # the summary and every card below the bar
+node .claude/source-audit.js --all    # …and the ones that have met it
+node .claude/source-audit.js --csv
+```
+
+At the 2026-07-31 audit, against the new five-source bar:
+
+| | cards | |
+|---|---|---|
+| at the bar | 54 | |
+| below it, **uncited** | 22 | 110 citations to find |
+| below it, **under-cited** | 33 | 58 citations to find |
+| researched and blocked | 0 | nothing has been tried against the new bar yet |
+| **still to find** | **55 cards** | **168 citations** |
+
+One further finding from the audit, which is not a count: **`wh-045` Jebel Irhoud carries two open sources
+and two paywalled**, so its list is not majority-open and never was. It is the only card in the deck in that
+state, and its top-up must add open works rather than merely a fifth work.
+
 ## Translations
 
 `sources` are not translated. **Markers are.**
@@ -125,6 +201,198 @@ both cheaper and keeps a batch's citations consistent.
 The named works below are **candidates chosen from what the batch is about, not verified citations.** Each
 is confirmed to exist, to be open, and to say what the card needs at the page cited when its batch is
 worked. Nothing goes into `data.js` unopened.
+
+# THE REMAINING WORK — batches 17–26 (planned 2026-07-31)
+
+Fifty-five cards, 168 citations. Batches 0–16 and their logs follow this section; read the logs before
+starting a batch, because most of these cards have already been scouted once and several were scouted
+twice.
+
+**The batches are cut by SOURCE TYPE, not by subject.** That is the single most expensive lesson of the
+first sixteen: subject does not predict whether a card's sources can be opened. A card built on a published
+*result* — a date, a genome, a measurement, a model — goes through; a card built on a discovery history or a
+naming history turns on founding announcements that are closed with no open deposit. Batch 2 worked this out
+and batches 3, 5 and 8a each re-learned it by grouping thematically anyway.
+
+**Two kinds of work here, and they are not the same job.**
+
+*Batches 17–22 are the **uncited 22*** — cards showing a reader nothing at all. Each needs a full pass:
+find, open, reconcile the abstract against what the sources say, mark, apply. Expect corrections; every
+batch so far has produced them, and the totals have gone up rather than down as the pass got better at
+looking.
+
+*Batches 23–26 are the **under-cited 33*** — cards worked in the pilot and batches 1–2 to the old 2–4 bar.
+The claims are already mapped to sentences and the prose has already been reconciled once, so the job is
+narrower: cover the sentences that carry no marker. **Expect much of it to come out of
+`.claude/sources-register.md` with no new fetch at all** — batch 12 filled twenty-five slots across three
+cards without opening a single new work, because a claim one card makes is usually a claim another card
+already makes. Run the register search before the web search.
+
+**Order.** The uncited go first. A card with no Sources fold is the visible gap, and batch 17 is both the
+cheapest of the ten and the one most likely to come almost entirely from the register — which is the right
+way to start, since it recharges the register's usefulness for everything after it.
+
+**Do not let the five-source bar bend the other rules.** A fifth source that does not carry a claim the card
+makes is not a citation, and a card whose fifth source is a third paywalled work has not reached the bar
+(see "How many"). Where a card cannot get there honestly, that is a finding: record it with
+`mark-sources-blocked.js` and say in the log what was tried.
+
+### Batch 17 · The definitional set, from the register (5 cards, 25 citations)
+`wh-006` Three-age system · `wh-007` Prehistory · `wh-099` Mesolithic · `wh-100` Epipaleolithic ·
+`wh-101` Nordic Stone Age
+
+The rest of batch 12's framework work, plus the three Mesolithic culture-history cards batch 11 handed
+over. These are historiographic — about how the past has been divided up rather than about the past — and
+the pilot and batch 12 both showed the method: there is no source "about the Mesolithic", there are five
+sources behind five specific claims. Looking for a work that defines the period is the trap.
+
+Named needs, from the batch 12 log so this is not re-derived:
+- **`wh-006`** — Rowley-Conwy 2004 (open, in the register) carries Thomsen, the 1836 *Ledetraad* and the
+  1848 English translation. Still wanted: Hesiod's ages of metals as poetry rather than evidence (public
+  domain, on archive.org, so cheap), and the claim that much of sub-Saharan Africa went from stone to iron
+  with no bronze stage.
+- **`wh-007`** — the coinage of the word (Daniel Wilson 1851; Rowley-Conwy has written its history), writing
+  in Mesopotamia and Egypt around 3200 BCE, and the colonial use of the term with the rule against applying
+  it to living communities. That last one is a live scholarly literature and the important one.
+- **`wh-099`/`wh-100`/`wh-101`** — the register already holds Walker et al. 2018 (the Holocene GSSP),
+  Larson et al. 2014 (the start of farming), Zhu et al. 2021 and Smith & Codding 2021 (foragers), Gilligan
+  et al. 2024 and Larsson 2016 (microliths, Scandinavia). Between them those cover the boundary, the
+  subsistence claims and the Nordic sequence; what will need finding is the Epipalaeolithic/Mesolithic
+  terminological split, which is Levantine and well served by open reviews.
+
+### Batch 18 · Public-domain founding literature (4 cards, 20 citations)
+`wh-017` Olduvai Gorge · `wh-025` Java Man · `wh-026` Peking Man · `wh-027` Zhoukoudian
+
+Cards whose founding announcements are closed but whose founding **monographs** are old enough to be out of
+copyright and scanned. Batch 13 scouted three of these and left the exact identifiers:
+- **`wh-025`** is the closest to ready. **Dubois 1894 is public domain and legible** — the archive.org scan
+  `Pithecanthropus00Dubo` OCRs into usable German, Trinil and Ngawi at line 616, the braincase discussion
+  around line 2218 — and Dubois 1898's English *Pithecanthropus erectus: A Form from the Ancestral Stock of
+  Mankind* is there as `b24880814`. Two open works were unreachable only because their hosts were down:
+  Alink et al. 2016 on Trinil (*AMERTA* 34, gold OA, `10.24832/amt.v34i2.150`) and Gruwier et al. 2025 on
+  Trinil palaeoenvironments (green at VUB). **Retry both.**
+- **`wh-026`/`wh-027`** — Weidenreich's *The Skull of Sinanthropus pekinensis* (*Palaeontologia Sinica*) is
+  on archive.org and public domain, which covers the casts-and-descriptions claim at the heart of `wh-026`.
+  Shen et al. 2009 (the 770 ka date) and Binford & Ho 1985 (the hyena reinterpretation) are closed; look for
+  the open reviews that restate them, per the batch 15 rule.
+- **`wh-017`** — not scouted yet. Leakey's own Olduvai volumes and the Tanzanian antiquities record are the
+  obvious first calls; note that `wh-016` *Homo habilis* is in the next batch and the two share a spine, so
+  check each other's finds before searching twice.
+
+**The warning that goes with this batch:** a 19th-century monograph is a primary source for *what its author
+claimed*, not for what is currently known. Cite Dubois for Dubois's own find and description; take the
+modern dating and taxonomy from something modern, or the card will quietly present 1894 as settled fact.
+
+### Batch 19 · The hominin taxa, via open reviews (5 cards, 25 citations)
+`wh-013` Australopithecus · `wh-016` Homo habilis · `wh-019` Homo ergaster · `wh-020` Turkana Boy ·
+`wh-046` Homo sapiens idaltu
+
+The batch-1/2/4 deferrals, re-attempted with **batch 15's rule: when the discovery paper is closed, look for
+the review that restates it.** That rule reopened the southern African MSA, where Henshilwood and Marean are
+closed but the syntheses built on them are not, and one open review carried six of `wh-057`'s ten sentences.
+It has never been tried on these five, which were all deferred before it existed.
+
+What is closed and should not be re-searched: Dart 1925, Leakey/Tobias/Napier 1964, Brown et al. 1985, White
+et al. 2003 and Clark et al. 2003 have no open deposit anywhere. What to look for instead: the open review
+literature on early *Homo* and on *Australopithecus* systematics, of which there is a great deal in PMC and
+in open society journals, and — for `wh-020` — the Nariokotome skeleton's own substantial reanalysis
+literature, some of which is open. Bastir et al. 2020 and Antón et al. 2016 are already in the register and
+already bear on `wh-019` and `wh-020`.
+
+`wh-046` Herto is the likeliest of the five to stay short: it is a discovery card whose two 2003 *Nature*
+papers are the whole of it. If it comes back short, that is a red mark and a log entry, not a fudge.
+
+### Batch 20 · The southern African record, second attempt (3 cards, 15 citations)
+`wh-031` Middle Stone Age · `wh-051` Blombos Cave · `wh-055` Klasies River Caves
+
+Batch 5 deferred these when Henshilwood 2002/2011 and the Klasies literature proved closed. **Batch 15 then
+cleared `wh-056`, `wh-057` and `wh-058` from the same wall using open reviews**, so the wall is known to be
+passable and these three are the rest of it. `wh-031` Middle Stone Age is the definitional card of the group
+and should be worked last of the three, so the sibling-consistency check has the other two to check against.
+
+McBrearty & Brooks 2000 is the framing work for all three and is in the register. The South African Heritage
+Resources Agency record is the official source for a site card that needs one.
+
+### Batch 21 · Sites with an institution behind them (3 cards, 15 citations)
+`wh-029` Atapuerca Mountains · `wh-074` Dolní Věstonice · `wh-086` Lascaux
+
+The three hardest, kept together because they need the same two techniques and both are known to work:
+- **Batch 8b's**: the holding institution's catalogue, which unblocked the Swabian Jura cards after they had
+  been written off. Batch 13 checked the Georgian National Museum, Naturalis, the Fundación Atapuerca and the
+  Moravian Museum and found **websites but no catalogues** — so for `wh-029` and `wh-074` that route is
+  already known to be shut, and the useful move is the second one.
+- **Batch 15's**: fetch the **file**, not the landing page. `hal.science/hal-XXXXXX/document` serves the PDF
+  where the landing page sits behind an Anubis wall, which reversed a wrong "paywalled" call in batch 14.
+  Batch 13 recorded Arsuaga et al. 2014 as green at `cnrs.hal.science` **behind exactly that wall**. Try
+  `/document` on every HAL record for Atapuerca before concluding anything.
+- **`wh-086` Lascaux** is the most promising of the three and has a third route: the **French Ministry of
+  Culture's Lascaux portal**, the same kind of official record that carried `wh-084` Chauvet and `wh-087`
+  Cosquer through batch 9. Ducasse & Langlais 2019 (chronology) and Martin-Sánchez 2014 (the mould) are
+  already identified as open. It also carries **two known errors to fix when worked**: the date "about
+  17,000 years ago" is uncalibrated radiocarbon read as calendar years (Ducasse & Langlais put the
+  occupations at ~21,000 cal BP), and the Great Bull is ~5.6 m, not 5.2 (Jouteau 2023).
+
+### Batch 22 · The pollen chronozones (2 cards, 10 citations)
+`wh-103` Preboreal · `wh-104` Boreal
+
+Last, and the likeliest pair in the deck to end red. Their defining content *is* the pollen-zone
+palynology — birch zone IV, the hazel rise, the hazel-pine forest — and that literature (Mangerud 1974,
+Holst 2010, the *Corylus*-expansion papers) is paywalled with no open deposit. Batch 11 rescued `wh-105`
+and `wh-106` from the same wall because their *other* content was open; these two have no other content.
+
+Two things to try before calling it: the open Scandinavian and Baltic palaeoecology journals, which publish
+a good deal of Holocene pollen work; and the national geological surveys, which maintain the chronozone
+schemes as working stratigraphy. If neither carries the vegetation claims, mark both red with the reason and
+say so in the changelog — a period card that cannot be sourced is worth reporting honestly.
+
+### Batch 23 · Top-up: the framework and the oldest toolmakers (10 cards, 19 citations)
+`wh-005` Stone Age 4→5 · `wh-008` Knapping 3→5 · `wh-009` Hunter-gatherer 3→5 · `wh-011` Ice age 3→5 ·
+`wh-014` Lomekwi 3→5 · `wh-015` Oldowan 3→5 · `wh-021` Wonderwerk Cave 4→5 · `wh-022` Acheulean 2→5 ·
+`wh-023` Hand axe 2→5 · `wh-098` Control of fire 4→5
+
+The pilot and batch 1, brought up to the new bar. Every one of these cards has been reconciled against its
+sources once already, so the job is to find the sentences carrying no marker and cover them — and the
+register already holds the spine: Li et al. 2022, Skertchly 1879, Plummer et al. 2025, Braun et al. 2019,
+de la Torre 2016, Key & Lycett 2017, Horwitz & Chazan 2015, Chazan 2015, Berna et al. 2012, Marin-Monfort
+et al. 2026, Roebroeks & Villa 2011, Sorensen et al. 2018, Davis et al. 2025, Harmand et al. 2015,
+Domínguez-Rodrigo & Alcalá 2016, Muller et al. 2022. `wh-022` and `wh-023` need three each and are the two
+to start on.
+
+### Batch 24 · Top-up: *erectus*, *sapiens* and the genetics (7 cards, 15 citations)
+`wh-018` Homo erectus 4→5 · `wh-028` Homo antecessor 2→5 · `wh-030` Homo heidelbergensis 2→5 ·
+`wh-044` Omo remains 3→5 · `wh-045` Jebel Irhoud 4→5 · `wh-047` Mitochondrial Eve 3→5 ·
+`wh-048` Y-chromosomal Adam 2→5
+
+Batches 2 and 4 at the new bar. **`wh-045` is the one that needs care**: it is the only card in the deck
+whose list is not majority-open (2 open, 2 paywalled), so its fifth source must be open and a sixth open one
+would be better. Richter et al. 2017, the paper that dates it, is closed — look for the open deposit or for
+a review restating the thermoluminescence ages.
+
+The two coalescent cards (`wh-047`, `wh-048`) carry dates that have moved repeatedly and were already
+corrected once in batch 4. Re-check them against the current estimates as part of the top-up rather than
+assuming the batch-4 pass settled them.
+
+### Batch 25 · Top-up: ice-age climate and the Holocene (7 cards, 11 citations)
+`wh-012` Last Glacial Period 4→5 · `wh-096` Doggerland 3→5 · `wh-102` Holocene 3→5 ·
+`wh-105` Atlantic period 4→5 · `wh-106` Blytt–Sernander sequence 2→5 · `wh-107` Holocene climatic optimum
+4→5 · `wh-108` Post-glacial rebound 4→5
+
+The cheapest batch of the ten — eleven citations across seven cards, in the one corner of the deck where the
+scholarship is reliably open (open stratigraphy journals, the ICS's own maintained pages, institutional
+deposits). Batches 10 and 11 left a large register here: Spratt & Lisiecki 2016, Walker et al. 2009 and
+2018, Batchelor et al. 2019, Kaufman et al. 2020, Marchal et al. 2002, Whitehouse 2018, Sella et al. 2007.
+`wh-106` needs three and is the only one likely to need new work.
+
+### Batch 26 · Top-up: art, caves and the Americas (9 cards, 13 citations)
+`wh-052` Howiesons Poort 3→5 · `wh-054` Border Cave 4→5 · `wh-069` Venus of Hohle Fels 4→5 ·
+`wh-083` Cave painting 4→5 · `wh-084` Chauvet Cave 4→5 · `wh-085` Cave of Altamira 3→5 ·
+`wh-087` Cosquer Cave 4→5 · `wh-092` Clovis point 4→5 · `wh-097` Petroglyph 2→5
+
+Batches 5, 8 and 9 at the new bar. The heritage-agency records that carried batch 9 (the French Ministry of
+Culture, the Blaubeuren and Ulm museum records) are the first place to look for a fifth source on a cave or
+an object card, and several of them state measurements the journal literature assumed its readers knew.
+`wh-097` petroglyph needs three and is the one genuinely open question in the batch, being a worldwide
+category rather than a site.
 
 ### Batch 0 · Pilot (6 cards) — **DONE (2026-07-31)**
 `wh-014` Lomekwi · `wh-045` Jebel Irhoud · `wh-069` Venus of Hohle Fels · `wh-005` Stone Age ·
@@ -1588,8 +1856,18 @@ If a needed host turns out to be missing mid-batch, the cheaper fix is switching
   once, paste it six times, and the formatting cannot drift.
 - **One batch, one commit.** Then `node .claude/check-style.js`, `node --check app.js`,
   `node .claude/test-sources.js`, and open one card of the batch in a browser.
+- **`check-style.js` has one standing false positive, and it must stay one.** It flags "the turn of the
+  twentieth century" in Moro Abadía 2015's *title* under the numbered-centuries rule. A citation names a
+  work that exists; rewriting its title would name one that does not. Leave it, and expect a new one every
+  time a cited title spells a century out.
 - **Changelog.** One line per day, raising its count — "Sources added to N cards in the World History
   prehistory deck" — with its nine translations, per the house rule. Corrections found along the way get
   their own line, and should name what changed.
-- **Coverage** is reported by `add-sources.js` on every run (`cards 87/109`), which is how the pass is
-  tracked across sessions.
+- **Coverage** is reported by `add-sources.js` on every run — `cards cited 87/109 · at the 5-source bar
+  54/109` — and in full by `node .claude/source-audit.js`, which is how the pass is tracked across sessions.
+- **A card that will not reach five** gets `node .claude/mark-sources-blocked.js` with a reason saying what
+  was searched, so it shows red in the Edit page's list and the next pass does not repeat the search. See
+  "The red mark".
+- **data.js is written ONE CARD PER LINE** by every helper. `fix-field.js` used to pretty-print instead, so
+  the file flip-flopped between 1.4k and 15k lines depending on which tool wrote last and every batch's diff
+  was the whole file; it now matches the others. Don't reintroduce a second format.

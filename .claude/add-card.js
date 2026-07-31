@@ -38,6 +38,8 @@ function countIds(node) { const s = new Set(); (function w(n){ (n.cardIds||[]).f
 const N_EXTRA = 2;
 // mirrors SRC_MAX in app.js — more citations than this on one study card is a bibliography, not footnotes
 const SRC_MAX = 24;
+// the editorial floor, read out of app.js (SRC_TARGET) so the two can never disagree about what it is
+const SRC_TARGET = (() => { const m = /const SRC_TARGET = (\d+);/.exec(fs.readFileSync(path.join(__dirname, "..", "app.js"), "utf8")); return m ? +m[1] : 5; })();
 // Every citation carries a link, so a reader can check the claim and follow it further — which also means
 // only publicly reachable scholarship is citable here, and that a page number can always be verified.
 const SRC_URL = /https?:\/\/[^\s<>"']+/;
@@ -76,6 +78,12 @@ if (!card.skipSources) {
     process.exit(1);
   }
   if (src.length > SRC_MAX) { console.error("ERROR: card has " + src.length + " sources — at most " + SRC_MAX + ". More than that is a bibliography, not footnotes."); process.exit(1); }
+  // A NEW card ships at the bar. The backfill pass is allowed to leave an old card short (add-sources.js
+  // warns instead), because raising it may be genuinely impossible; a card being written now is not in
+  // that position — if five qualifying sources cannot be found for it, its ten sentences are not ready.
+  if (src.length < SRC_TARGET) { console.error("ERROR: card has " + src.length + " source(s) — a new card carries at least " + SRC_TARGET + " (see docs/citation-plan.md, \"How many\"). Ten sentences making ten claims are not honestly covered by fewer."); process.exit(1); }
+  const openN = src.filter(s => /\[Open access\]/.test(s)).length;
+  if (openN <= src.length / 2) console.warn("WARNING: only " + openN + " of this card's " + src.length + " sources are labelled [Open access]. The majority of any card's list must be open — a paywalled work earns its place only as the landmark a claim is actually built on.");
   const unlinked = src.filter(s => !SRC_URL.test(s));
   if (unlinked.length) {
     console.error("ERROR: every citation ends in a link the reader can follow — " + JSON.stringify(unlinked[0].slice(0, 80)) + " has none.\n" +

@@ -2677,6 +2677,16 @@ textarea.af-input{resize:vertical; min-height:42px;}
 .admin-card-row.dragging{opacity:.4;}
 .admin-card-row.drop-before{box-shadow:inset 0 2px 0 0 var(--indigo);}
 .admin-card-row.drop-after{box-shadow:inset 0 -2px 0 0 var(--indigo);}
+/* source coverage chip on the card row's id line — how many citations the card carries of the bar it is
+   held to. Amber = under the bar and not yet researched; RED = researched and could not be brought to it.
+   Deliberately NOT the same channel as the admin colour mark (a left stripe), which the editor sets by
+   hand for whatever they like: one is derived from the data, the other is somebody's private marker. */
+.acr-src{display:inline-block; margin-left:6px; padding:0 4px; border-radius:4px; font-family:var(--mono); font-size:9px; letter-spacing:.03em; vertical-align:baseline;}
+.acr-src.short{background:color-mix(in srgb, #e0982b 22%, transparent); color:#96631a;}
+.acr-src.blocked{background:color-mix(in srgb, #d8453c 22%, transparent); color:#a52a22;}
+body.night .acr-src.short{color:#e0a94e;}
+body.night .acr-src.blocked{color:#e8776e;}
+.alc-src{color:var(--ink-faint); cursor:help;}
 /* admin-only colour mark (left stripe) + right-click colour menu */
 .admin-card-row.colored::before{content:""; position:absolute; left:0; top:4px; bottom:4px; width:3px; border-radius:0 2px 2px 0; background:var(--acr-col);}
 .acr-colortag{position:absolute; left:0; top:0; bottom:0; width:7px; z-index:3; cursor:help;}   /* transparent hover target over the colour bar — its title shows the count */

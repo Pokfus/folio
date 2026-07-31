@@ -8,6 +8,7 @@ window.CHANGELOG = [
     d: "2026-07-31",
     t: "Where it comes from",
     items: [
+      "Every card in the World History prehistory deck is now held to a minimum of five sources. Fifty-four of the 109 already meet it and the rest are being worked through; where a card's sources genuinely cannot be found or opened, that is now recorded rather than quietly left blank.",
       "Switching the site language while a card's answer is showing no longer snaps it shut — the card stays turned over, sources and all, in the language you just chose.",
       "On some devices the Sources list at the foot of a card would not open when tapped, the small numbers pointing into it showed as blank gaps, and the citations came out as plain text with the web address neither coloured nor clickable. All three now work wherever a card, a glossary term or an Atlas place is shown. The list also opens by itself from now on, since a source you have to go looking for is one you will never check — close it and Folio will keep it closed until you open it again.",
       "Eighty-seven cards in the World History prehistory deck now show their sources. At the foot of each one there is a Sources list, open and waiting, and small numbers in the background text point at the work behind that particular sentence, so you can follow any claim to the paper it came from. Every source says whether it is free to read or behind a paywall, and almost all of them are free.",
