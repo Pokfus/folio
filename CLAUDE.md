@@ -541,6 +541,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     Doing it here rather than asking an author for `<a href="…">…</a>` is what keeps the href and the visible
     text from ever disagreeing — a mismatched anchor would quietly send a reader somewhere the citation does
     not name. Links open in a new tab, or following one would end the study session.
+  · **A citation also ends in an access label** — `[Open access]` or `[Paywalled]`, stored as plain bracketed
+    text after the final period, and lifted into a **chip** by the same `linkifySrcItem` pass
+    (`SRC_ACCESS_RX`, `.src-access-open` in `--good` green / `.src-access-pay` in `--ochre` amber, both theme
+    tokens so the chip follows every theme and both modes). A paywall is a fact about the link, **not an error,
+    so it must not be styled as a warning** — amber, never red. The URL pattern already excludes `[` and stops before
+    the closing period, so the two passes can't collide; `replaceInSrcText` is the shared text-node walk.
+    Unlike the citation itself the four chip strings ARE localised, through **`t()` at build time** rather
+    than `localizeTree`, which can't reach inside `.src-list`'s `notranslate`. **Write the label in English
+    in the data.** A citation with no label renders exactly as before — most don't have one yet.
+    The rule the label enforces: a **paywalled work is citable only when it is the landmark defining paper**
+    for the claim, and the majority of any card's list must be open (`docs/citation-plan.md`, "The bar").
   · **Citations are NOT translated**, and for the reason image credits are not — a citation names an edition that
     exists in one language, and rendering "Cambridge University Press" in nine is fabrication, not translation. Hence
     `notranslate` on every list, and hence `sources` lives on the base card and NOT in the `i18n` blocks. Only the
@@ -556,7 +567,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · `sup` + `class="fn"` + `data-fn` are in the sanitizer allowlists, so a community deck can use markers too.
   · **The tables ship EMPTY on purpose.** `country-sources.js` has no entries and no existing card or term carries
     `sources`, so nothing shows anywhere yet. The UI, the deltas and the pipeline are in place; the citations are a
-    content job (see "Citing the existing content" below). Guarded by `.claude/test-sources.js` (42 assertions).
+    content job (see "Citing the existing content" below). Guarded by `.claude/test-sources.js` (55 assertions).
+    **Batch 0 of the citation pass shipped 2026-07-31**: 6 of the 109 prehistory cards now carry sources
+    (20 citations, 17 of them open). See `docs/citation-plan.md` — its Pilot log records how the definitional
+    cards were solved and two factual errors the exercise turned up.
 - **Multiple question phrasings (July 2026):** a card may carry an optional **`questions` array of EXTRA
   phrasings** beyond `question` — **at most `CARD_MAX_QUESTIONS` (10) in all** (official Folio cards carry
   exactly 3; the headroom is for community decks to experiment). Every phrasing is a full standalone clue
@@ -1815,16 +1829,20 @@ dead code (never rendered).
     at the REAL project, so a test that actually sent a message would write rows into it — and like
     `test-publish.js`'s mock, it is a stand-in for the policies, never a proof they are right. **Re-run
     after touching the feedback functions, the queue, or the `7) FEEDBACK` schema block.**
-  · `node .claude/test-sources.js` — 42 assertions on source footnotes, on all three surfaces. Most of them are
+  · `node .claude/test-sources.js` — 55 assertions on source footnotes, on all three surfaces. Most of them are
     about the JOIN between the prose and the list, since that is where a footnote apparatus rots: a marker shows
     the number of the entry it actually opens, a bare marker takes the next number in reading order, and a marker
     pointing **past the end of the list is removed** rather than left claiming a citation the reader cannot follow.
     Plus: the fold is shut everywhere by default, the Atlas section is hidden outright when a place has nothing,
     a place cited by both its general and its year paragraph gets **one** footnote and not two, the citation text
     is `notranslate`, a hostile deck's `sources` are sanitized on ingest, and an admin's typed citations reach the
-    overlay as a `sources` delta and come back after a reload. **Re-run after touching the `SOURCE FOOTNOTES`
-    block, `wireFootnotes` / `sourcesHTML` / `normSources`, the editors' sources boxes, or the `fn` / `data-fn`
-    sanitizer allowlists.**
+    overlay as a `sources` delta and come back after a reload. The **access chip** is guarded too: one chip per
+    labelled citation and none invented for an unlabelled one, open and paywalled told apart by class **and by
+    colour** so the difference survives without reading the words, the chip outside the anchor so it can never
+    read as part of the URL, and the brackets gone from the render while the stored string keeps them.
+    **Re-run after touching the `SOURCE FOOTNOTES` block, `wireFootnotes` / `sourcesHTML` / `normSources` /
+    `linkifySrcItem` / `replaceInSrcText`, the `.src-access` styles, the editors' sources boxes, or the
+    `fn` / `data-fn` sanitizer allowlists.**
   · `node .claude/test-discovery.js` — 22 assertions on the counting behind the discovery chips and the
     "Beyond the cards" meters, run against the **real** `world.js` / `timeline.js` / `glossary.js`: that a
     register full of historical territories can never push the country figure past its own total, that a

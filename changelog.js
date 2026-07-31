@@ -5,6 +5,14 @@
    user, not how). Loaded before app.js. */
 window.CHANGELOG = [
   {
+    d: "2026-07-31",
+    t: "Where it comes from",
+    items: [
+      "Six cards in the World History prehistory deck now show their sources. At the foot of each one there is a Sources list you can open, and small numbers in the background text point at the work behind that particular sentence, so you can follow any claim to the paper it came from. Every source says whether it is free to read or behind a paywall, and almost all of them are free.",
+      "Two corrections found while checking those cards against their sources: the sea fell about 130 metres at the height of the last ice age, not 120, and the stone tools at Jebel Irhoud are among the earliest directly dated of their kind rather than the oldest anywhere.",
+    ],
+  },
+  {
     d: "2026-07-30",
     t: "After the ice",
     items: [
