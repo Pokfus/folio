@@ -2367,6 +2367,108 @@ Mousterian (`wh-033`), new to the register:
 - Michael J. Shott, “Dibble’s Reduction Thesis: Implications for Global Lithic Analysis,” <i>Journal of Paleolithic Archaeology</i> 7, no. 1 (2024): 12, https://link.springer.com/article/10.1007/s41982-024-00178-y. [Open access]
 - Patrick Schmidt, Radu Iovita, Armelle Charrié-Duhaut, Gunther Möller, Abay Namen, and Ewa Dutkiewicz, “Ochre-Based Compound Adhesives at the Mousterian Type-Site Document Complex Cognition and High Investment,” <i>Science Advances</i> 10, no. 8 (2024): eadl0822, https://hal.science/hal-04484835v1/document. [Open access]
 
+## Batch 17a — the three-age system and prehistory, verified 2026-07-31
+
+Eleven citation slots across two cards, from **9 distinct works, every one of them open** — and three of
+the nine (Rowley-Conwy 2004, Lubbock 1865, Braun et al. 2019, Harmand et al. 2015 — four, in fact) came
+straight out of this register with no fetch at all, which is the batch-12 dividend showing up again on the
+definitional cards. The first pass worked at the raised five-source bar.
+
+- `wh-006` **Three-age system** — Thomsen/Ellesmere 1848, Rowley-Conwy 2004, Kanjanajuntorn 2020, Hesiod,
+  Lubbock 1865, Cooper & Grebnev 2023. Six sources, **all open**.
+- `wh-007` **Prehistory** — Mackenthun & Mucher 2021, Woods 2010, Kanjanajuntorn 2020, Braun et al. 2019,
+  Harmand et al. 2015. Five sources, **all open**.
+
+### thomsen-ellesmere-1848 · the founding text, in English
+Christian Jürgensen Thomsen, “Of the Different Periods to Which the Heathen Antiquities May Be Referred,”
+in *Guide to Northern Archaeology*, ed. the Earl of Ellesmere (London: James Bain, 1848), 64–67,
+https://archive.org/details/guidetonorthern00ellegoog. [Open access]
+- opened: 2026-07-31 · Google scan of the 1848 volume, public domain, printed pagination intact. This is
+  the English translation of Thomsen's 1836 *Ledetraad* chapter that Rowley-Conwy 2004 discusses; the
+  periodisation section is where Rowley-Conwy says it is (Ellesmere 63–71).
+- supports: the definitions in Thomsen's own words — "The age of stone, or that period when weapons and
+  implements were made of stone, wood, bone, or some such material, and during which very little or nothing
+  at all was known of metals" (64); "The age of bronze, in which weapons and cutting implements were made of
+  copper or bronze, and nothing at all, or but very little was known of iron or silver" (65); "The age of
+  iron is the third and last period of the heathen times, in which iron was used for those articles to which
+  that metal is eminently suited" (67) — so the ages are named for the material of **weapons and cutting
+  implements**, which is the card's claim. Also his own caveat that the periods' "limits … cannot be
+  accurately defined" (64), which is what makes the scheme a relative order rather than a calendar.
+- used by: wh-006
+
+### kanjanajuntorn-2020 · the three-age system outside Europe
+Podjanok Kanjanajuntorn, “The Three-Age System: A Struggle for Southeast Asian Prehistoric Periodisation,”
+*SPAFA Journal* 4 (2020): 2, 5, https://doi.org/10.26721/spafajournal.v4i0.623. [Open access]
+- opened: 2026-07-31 · publisher PDF via the journal's own download URL (CC BY-NC-ND)
+- supports: Thomsen at the National Museum in Copenhagen, in charge of the collections, classifying objects
+  "according to their material types and functions" and recognising patterns among objects with contexts (2);
+  Worsaae taking the classification "on board and put[ting] it to the test against contextual evidence from
+  stratigraphic excavations" across Europe (2–3); prehistory as a discipline defined by method — typology,
+  stratigraphy, technology — rather than by texts (3); and that "foreign researchers in Southeast Asia found
+  almost from the beginning that the European chronology of a three-age system was not applicable to this
+  region. Nor did the definitions of Palaeolithic and Mesolithic fit" (5)
+- used by: wh-006, wh-007
+
+### hesiod-works-and-days · the races of gold, silver, bronze, heroes and iron
+Hesiod, *Works and Days*, lines 109–201, trans. Hugh G. Evelyn-White, in *Hesiod, the Homeric Hymns, and
+Homerica*, Project Gutenberg ebook 348, https://www.gutenberg.org/cache/epub/348/pg348.txt. [Open access]
+- opened: 2026-07-31 · read in full, lines 109–201. The Perseus copy of the same 1914 Evelyn-White
+  translation reset the connection twice; Gutenberg served it, and a classical text is located by line
+  rather than by page anyway.
+- supports: that the scheme is **five races, not three ages**, and that the fourth is not a metal at all —
+  gold (109–20), silver (121–39), "a brazen race … Their armour was of bronze, and their houses of bronze,
+  and of bronze were their implements: there was no black iron" (140–55), "a god-like race of hero-men who
+  are called demi-gods, the race before our own" (156–69b), and the iron race the poet puts himself in
+  (170–201). Each generation is worse than the last and the sequence is a moral decline, which is exactly
+  what makes it poetry rather than a technological claim tested against evidence.
+- used by: wh-006
+
+### cooper-grebnev-2023 · where the Bronze Age does not apply
+Julien Cooper and Yegor Grebnev, “Introduction: Bronze Age Civilizations,” *Old World: Journal of Ancient
+Africa and Eurasia* 3, no. 1 (2023): 3–4, https://doi.org/10.1163/26670755-20230009. [Open access]
+- opened: 2026-07-31 · publisher PDF, CC BY 4.0 (the DOI landing page 403s to a plain fetch; the
+  `brill.com/downloadpdf/…` file serves)
+- supports: that "the arctic tundra, archipelago Southeast Asia, Oceania, and the entirety of sub-Saharan
+  Africa did not possess bronze metallurgy techniques until fairly late in history"; that "the early dates
+  for iron production (and lack of Bronze production) in many parts of Sub-Saharan Africa go against the
+  trajectory commonly espoused in scholarship, where the Neolithic gives way to the Bronze Age"; that "while
+  there are dates for copper metallurgy, for example in the Western Sahel in the First Millennium bce …
+  there is little evidence for specific bronze production before the advent of iron metallurgy," so "the
+  'Bronze Age' is therefore not justifiably applicable to much of the southern half of the African
+  continent" (3–4); and that the term is "only (somewhat) absent from the archaeological discourse in
+  Oceania, sub-Saharan Africa, and the Americas" (2)
+- used by: wh-006
+
+### mackenthun-mucher-2021 · what the word "prehistory" does
+Gesa Mackenthun and Christen Mucher, “Introduction,” in *Decolonizing “Prehistory”: Deep Time and Indigenous
+Knowledges in North America*, ed. Gesa Mackenthun and Christen Mucher (Tucson: University of Arizona Press,
+2021), 6–8, https://open.uapress.arizona.edu/projects/decolonizing-prehistory. [Open access]
+- opened: 2026-07-31 · the press's own open-access PDF (CC BY-NC-ND 4.0, Knowledge Unlatched)
+- supports: "Conventionally, the term prehistory has been used to refer to societies that did not use
+  alphabetic writing" (6) — the card's definition-by-absence-of-writing; that in positing non-European
+  cultures as prehistorical "the colonial episteme also denies them … 'historicality': the right to have a
+  history in the first place" (6); Schmidt and Mrozowski's finding, quoted here, that continuing to use the
+  word "is often an oppressive reminder of their political, cultural, and economic disenfranchisement," and
+  their hope for a "future without prehistory" (7); and that "orally transmitted Indigenous knowledges were
+  frequently dismissed as irrelevant," against which Indigenous histories should be read as "a counterarchive
+  to the imperial written record" (7–8)
+- used by: wh-007
+
+### woods-2010 · when writing appears, and where
+Christopher Woods, “Visible Language: The Earliest Writing Systems,” in *Visible Language: Inventions of
+Writing in the Ancient Middle East and Beyond*, ed. Christopher Woods, Oriental Institute Museum
+Publications 32 (Chicago: Oriental Institute of the University of Chicago, 2010), 15–17,
+https://isac.uchicago.edu/sites/default/files/uploads/shared/docs/oimp32.pdf. [Open access]
+- opened: 2026-07-31 · ISAC's own free PDF of the volume
+- supports: writing as "the boundary between history and prehistory" (15); that in Mesopotamia and Egypt it
+  appears "toward the end of the fourth millennium bc," in China "at the end of the second millennium bc"
+  and in Mesoamerica "by the middle of the first millennium bc" (15) — the card's very different times in
+  different places; the Abydos finds "that have pushed back the date of writing in Egypt, making it
+  contemporaneous with the" Mesopotamian (16); the Shang state and its oracle bones at ca. 1200 bc (17).
+  Woods's own chapter 2 adds the caution the card's "around" is doing: "The date traditionally given for the
+  invention of writing in Mesopotamia is 3200 bc, but this is more or less conventional" (33).
+- used by: wh-007
+
 ---
 
 ## CANDIDATES — NOT VERIFIED, DO NOT PASTE INTO `data.js`

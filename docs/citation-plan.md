@@ -157,15 +157,16 @@ node .claude/source-audit.js --all    # …and the ones that have met it
 node .claude/source-audit.js --csv
 ```
 
-At the 2026-07-31 audit, against the new five-source bar:
+At the 2026-07-31 audit, against the new five-source bar (the figures in brackets are where the audit
+stood before batch 17a):
 
 | | cards | |
 |---|---|---|
-| at the bar | 54 | |
-| below it, **uncited** | 22 | 110 citations to find |
+| at the bar | 56 (54) | |
+| below it, **uncited** | 20 (22) | 100 citations to find |
 | below it, **under-cited** | 33 | 58 citations to find |
-| researched and blocked | 0 | nothing has been tried against the new bar yet |
-| **still to find** | **55 cards** | **168 citations** |
+| researched and blocked | 0 | nothing has yet been searched and come back short |
+| **still to find** | **53 cards** (55) | **158 citations** (168) |
 
 One further finding from the audit, which is not a count: **`wh-045` Jebel Irhoud carries two open sources
 and two paywalled**, so its list is not majority-open and never was. It is the only card in the deck in that
@@ -173,7 +174,13 @@ state, and its top-up must add open works rather than merely a fifth work.
 
 ## Translations
 
-`sources` are not translated. **Markers are.**
+`sources` are not translated. **Markers are.** Splice them by sentence index with
+**`node .claude/split-abstract.js <cardId …>`**, which reports each card's sentence counts in all ten
+languages and refuses to be trusted until every one of them runs 5+5 and round-trips byte for byte. It
+carries every splitting guard the batches have turned up — decimals, the era abbreviations in five
+languages, initials, a day-ordinal before a month name, a bare ordinal before "Jahrhundert", the CJK full
+stop, and markers already in place from an earlier batch. **A language that does not split 5+5 maps the
+markers onto the wrong claims, and nothing downstream will notice.**
 
 - A card whose abstract is **rewritten** must be re-translated into all 9 languages **in the same batch**
   — otherwise a Spanish reader is left reading a claim the English no longer makes, which is worse than
@@ -237,9 +244,10 @@ makes is not a citation, and a card whose fifth source is a third paywalled work
 (see "How many"). Where a card cannot get there honestly, that is a finding: record it with
 `mark-sources-blocked.js` and say in the log what was tried.
 
-### Batch 17 · The definitional set, from the register (5 cards, 25 citations)
-`wh-006` Three-age system · `wh-007` Prehistory · `wh-099` Mesolithic · `wh-100` Epipaleolithic ·
-`wh-101` Nordic Stone Age
+### Batch 17 · The definitional set, from the register (5 cards) — **2 of 5 DONE (2026-07-31)**
+**Cited:** `wh-006` Three-age system · `wh-007` Prehistory (batch 17a).
+**Remaining:** `wh-099` Mesolithic · `wh-100` Epipaleolithic · `wh-101` Nordic Stone Age — left for time,
+not for sources; see the Batch 17a log for what is already in hand for them.
 
 The rest of batch 12's framework work, plus the three Mesolithic culture-history cards batch 11 handed
 over. These are historiographic — about how the past has been divided up rather than about the past — and
@@ -259,6 +267,81 @@ Named needs, from the batch 12 log so this is not re-derived:
   et al. 2024 and Larsson 2016 (microliths, Scandinavia). Between them those cover the boundary, the
   subsistence claims and the Nordic sequence; what will need finding is the Epipalaeolithic/Mesolithic
   terminological split, which is Levantine and well served by open reviews.
+
+### Batch 17a log — the three-age system and prehistory
+
+#### 2026-07-31 — two cards cited, three left
+
+Eleven citation slots across `wh-006` and `wh-007`, from **9 distinct works, every one of them open** —
+the second batch of the pass to need no paywalled landmark at all, and the first worked at the raised
+five-source bar. Coverage went from `cards 87/109` to `89/109`, and from **54 to 56 cards at the bar**.
+Network access was available and every source was opened before it was written down.
+
+**The batch-12 dividend is real and it compounds.** Four of the nine works — Rowley-Conwy 2004,
+Lubbock 1865, Braun et al. 2019, Harmand et al. 2015 — came out of `.claude/sources-register.md` with no
+fetch, because the framework cards restate claims other cards already make. Search the register first;
+it now holds over two hundred verified works and it answers definitional cards faster than any web search.
+
+**The find of this batch is a method, and it belongs with batch 18.** `wh-006` is a card about a
+19th-century idea, and the best source for it turned out to be **the idea's own founding document**:
+Thomsen's 1836 *Ledetraad* chapter in the Earl of Ellesmere's 1848 English translation, public domain and
+scanned on archive.org. It states the definitions the card paraphrases — the ages are named for the
+material of *weapons and cutting implements* — in the words of the man who drew them, and it carries his
+own caveat that the periods' limits "cannot be accurately defined," which is precisely why the scheme is a
+relative order and not a calendar. **For a card about a naming, a scheme or a coinage, look for the
+founding text before looking for a paper about it.** That is batch 18's whole premise, arrived at a batch
+early.
+
+**Five corrections**, made in English and all nine languages:
+
+- **`wh-006` said Thomsen "was the first to prove the order from real objects."** He did not prove it and
+  he was not alone. Rowley-Conwy 2004 (4) attributes the generation of these relative chronologies to
+  **three** men — Thomsen, Steenstrup and Nilsson — and says their scheme "was adopted and publicised by
+  J. J. A. Worsaae"; Kanjanajuntorn 2020 (2–3) has Worsaae putting it "to the test against contextual
+  evidence from stratigraphic excavations." Thomsen ordered a museum's collection; the test in the ground
+  and the spread across Europe were Worsaae's. Both halves are now on the card.
+- **`wh-006`'s Hesiod was wrong about Hesiod.** The card had "ages of metals," which is the usual
+  shorthand and is not what the poem says: *Works and Days* 109–201 gives **five** races, and the fourth is
+  "a god-like race of hero-men," no metal at all. Reading it settles the point the card was making better
+  than the shorthand did — a sequence with heroes in it, each generation worse than the last, is a moral
+  decline and cannot be a technological claim. The card now names the five.
+- **`wh-006`'s Africa sentence overshot its evidence.** "Moved straight from stone to iron without a bronze
+  stage" is the old orthodoxy; Cooper & Grebnev 2023 (3–4) record copper metallurgy in the western Sahel in
+  the first millennium BCE and say only that there is "little evidence for specific bronze production before
+  the advent of iron metallurgy," so that "the 'Bronze Age' is … not justifiably applicable to much of the
+  southern half of the African continent." Reworded to that. The card's "the Americas and Australia never
+  followed this order at all" became the sourced and narrower claim that the term is largely absent from the
+  archaeology of the Americas and Oceania.
+- **`wh-006` credited the Europe-only caveat to nobody.** It now names Lubbock, who wrote it (1865, 3).
+- **`wh-007`'s closing rule was stated more narrowly than its own literature states it.** The card said the
+  word "must never be used of any community alive today." What the scholarship argues is broader: Schmidt
+  and Mrozowski, quoted in Mackenthun & Mucher (7), call the continuing use of "prehistory" "an oppressive
+  reminder of their political, cultural, and economic disenfranchisement" and hope for a "future without
+  prehistory" — not a rule about living communities but a case for retiring the word. The card now says
+  that. **And the batch-8 rule bit again: the same claim was in the card's third question phrasing**, which
+  would have shipped as a cloze question contradicting its own background. Rewritten with
+  `add-questions.js` in all ten languages.
+
+**On the mechanism.** The splicer is now a committed tool — **`node .claude/split-abstract.js <cardId …>`**
+— rather than a scratch script rewritten each batch, because it has accumulated six batches of guards and
+this batch added three more. Two were ordinary: a bare ordinal before "Jahrhundert" (German
+"im frühen 19. Jahrhundert") and the Russian era abbreviation "н. э." — the latter failing for a reason
+worth knowing, that JavaScript's `\b` is ASCII-only and so never matches before a Cyrillic letter. The
+third matters for every remaining batch: **the splitter could not re-read an abstract it had already
+marked.** A footnote marker sits between the full stop and the following space, so the sentence boundary
+disappears; and in zh/ja, where the marker follows the full stop with no space at all, a naive fix splits
+the marker off as a sentence of its own. Both are handled now, which is what makes the top-up batches
+23–26 — every one of them re-splitting an abstract cited in an earlier batch — possible at all.
+
+**What the three remaining cards need**, so the next pass does not re-derive it. All three are Mesolithic
+culture-history and all three have an open spine in reach: the register already holds Walker et al. 2018
+(the Holocene GSSP and its subdivision), Larson et al. 2014 (the start of farming), Zhu et al. 2021 and
+Smith & Codding 2021 (foragers), Gilligan et al. 2024 and Larsson 2016 (microliths, Scandinavia), and
+Lubbock 1865, which coins the Palaeolithic and the Neolithic a year before Westropp proposed the
+Mesolithic. What has to be found is the Epipalaeolithic/Mesolithic terminological split, which is
+Levantine and well served by open reviews; Star Carr, which has an entire open-access literature at White
+Rose University Press; and the Danish sequence for `wh-101`, where the national museum and heritage agency
+records are the obvious first call.
 
 ### Batch 18 · Public-domain founding literature (4 cards, 20 citations)
 `wh-017` Olduvai Gorge · `wh-025` Java Man · `wh-026` Peking Man · `wh-027` Zhoukoudian
