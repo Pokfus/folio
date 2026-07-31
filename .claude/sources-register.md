@@ -2469,6 +2469,112 @@ https://isac.uchicago.edu/sites/default/files/uploads/shared/docs/oimp32.pdf. [O
   invention of writing in Mesopotamia is 3200 bc, but this is more or less conventional" (33).
 - used by: wh-007
 
+## Batch 17b — the Mesolithic, verified 2026-07-31
+
+Nineteen citation slots on `wh-099` from **15 distinct works, every one of them open**. Six came out of this
+register unopened — Lubbock 1865, Walker et al. 2018, Larson et al. 2014, Kanjanajuntorn 2020 (verified in
+17a), Seppä et al. 2009 and Larsson et al. 2016 — and nine are new.
+
+### westropp-1866 · the word, first time
+Hodder M. Westropp, “On the Analogous Forms of Implements among Early and Primitive Races,” *Memoirs Read
+before the Anthropological Society of London* 2 (1866): 288–93, at 291,
+https://archive.org/details/memoirsreadbefor02anth. [Open access]
+- opened: 2026-07-31 · Internet Archive scan of the 1866 volume (Trübner, for the Anthropological Society),
+  public domain, printed pagination intact
+- supports: the coinage, and a detail the card did not have — Westropp's three terms in 1866 are
+  "**Palaeolithic, Mesolithic, Kainolithic**" (291), not Palaeolithic/Mesolithic/Neolithic. He divides the
+  stone period into the gravel-drift implements, "the flint implements found in Ireland and Denmark, which
+  belonged to a people who lived by the chase", and polished stone marking "perhaps a pastoral age".
+- used by: wh-099
+
+### westropp-1872 · the word, second time, with Neolithic
+Hodder M. Westropp, *Pre-historic Phases; or, Introductory Essays on Pre-historic Archæology* (London: Bell
+and Daldy, 1872), 65, https://archive.org/details/cu31924029915240. [Open access]
+- opened: 2026-07-31 · Cornell copy, public domain
+- supports: "The following terms may therefore be used to distinguish the three different stages. The first
+  or Palaeolithic, the second or Mesolithic, and the third or Neolithic" (65) — Kainolithic has become
+  Lubbock's Neolithic in the six years since 1866
+- used by: wh-099
+
+### elliott-griffiths-2018 · Mesolithic time
+Ben Elliott and Seren Griffiths, “Living Mesolithic Time: Narratives, Chronologies and Organic Material
+Culture,” *Journal of World Prehistory* 31, no. 3 (2018): 347–65,
+https://doi.org/10.1007/s10963-018-9119-x. [Open access]
+- opened: 2026-07-31 · Springer, CC BY 4.0
+- supports: "Westropp's (1866) initial definition of the term 'Mesolithic' in relation to lithic typology
+  (and later subsistence modes: Westropp 1872)" — corroborating the primary texts on both dates; and that
+  the Early/Middle/Late/Final Mesolithic scheme, "classically articulated" by Clark 1932 among others,
+  still "form[s] the backbone of systematic studies"
+- used by: wh-099
+
+### stiner-2001 · the broad spectrum revolution at thirty
+Mary C. Stiner, “Thirty Years on the ‘Broad Spectrum Revolution’ and Paleolithic Demography,” *Proceedings
+of the National Academy of Sciences* 98, no. 13 (2001): 6993–96,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC34611/. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: that "Kent Flannery pushed these observations further in 1969 with his 'Broad Spectrum
+  Revolution' (BSR) hypothesis, proposing that the emergence of the Neolithic in western Asia was prefaced
+  by increases in dietary breadth in foraging societies just before this period" — the card's naming, its
+  date and its content, from an open source, where Flannery 1969 itself is a closed book chapter
+- used by: wh-099
+
+### bates-2024 · Star Carr, dated and built
+Jennifer Bates et al., “Spatial Organisation within the Earliest Evidence of Post-Built Structures in
+Britain,” *PLOS ONE* 19, no. 7 (2024): e0306908, https://pmc.ncbi.nlm.nih.gov/articles/PMC11249238/.
+[Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: "Star Carr, an Early Mesolithic site (c. 9300–8500 cal BC) situated on a palaeolake in North
+  Yorkshire", and "the central platform; a lake-edge platform made from large split timbers"
+- used by: wh-099
+
+### elliott-knight-little-2018 · the antler frontlets, counted
+Ben Elliott, Becky Knight, and Aimée Little, “Antler Frontlets,” in *Star Carr Volume 2: Studies in
+Technology, Subsistence and Environment*, ed. Nicky Milner, Chantal Conneller, and Barry Taylor (York:
+White Rose University Press, 2018), 297–333, at 297 and 321, https://doi.org/10.22599/book2.l.
+[Open access]
+- opened: 2026-07-31 · the press's own PDF (CC BY-NC 4.0), served from `storage.googleapis.com/rua-wr/…`
+  after the chapter page's download link; the publisher's site 403s a plain fetch but serves WebFetch
+- supports: Clark "(1954, 168) excavated 21 'stag frontlets having still in place portions of antler worked
+  in a special manner'" (297); the 2004–2015 excavations recovering "an assemblage of 12 humanly modified
+  red deer frontlets … includ[ing] male and female animals, and also examples of modified crania with shed
+  antlers" (297); and the number that corrects the card — "**within Clark's assemblage, only eight of the
+  21 frontlets are listed as featuring perforations, whilst the 2013–2015 data brings the overall total to
+  nine of 33**" (321)
+- used by: wh-099
+
+### little-2016 · the headdress, analysed
+Aimée Little et al., “Technological Analysis of the World’s Earliest Shamanic Costume: A Multi-Scalar,
+Experimental Study of a Red Deer Headdress from the Early Holocene Site of Star Carr, UK,” *PLOS ONE* 11,
+no. 4 (2016): e0152136, https://pmc.ncbi.nlm.nih.gov/articles/PMC4830440/. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: that the headdresses are "formed from the upper part of a male red deer skull with the antlers
+  attached — the lower jaw and cranial bones having been removed and the parietal (and occasionally
+  frontal) bones perforated", and that Star Carr's examples represent "c. 90% of all such known artefacts
+  across early prehistoric Europe"
+- used by: wh-099
+
+### rce-pesse · the Pesse canoe (official record)
+Cultural Heritage Agency of the Netherlands, “Pesse, kano van (-7510),” Maritime Stepping Stones database,
+accessed 31 July 2026, https://mass.cultureelerfgoed.nl/pesse. [Open access]
+- opened: 2026-07-31 · the agency's MaSS record
+- supports: "The Pesse logout canoe is believed to be the world's oldest known boat", with a length of
+  298 cm and a width of 44 cm — the card's "just under 3 metres" and "the oldest boat known". **The record
+  gives no date and no wood species**, which is why the card no longer states the 8040–7510 BCE range or
+  the Scots pine: both circulate widely but appear in nothing openable that could be checked.
+- used by: wh-099
+
+### robson-2024 · Danish shell middens and their oysters
+Harry K. Robson et al., “The Effects of Mid-Holocene Foragers on the European Oyster in Denmark,”
+*Proceedings of the National Academy of Sciences* 121, no. 48 (2024): e2411692121,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC11573498/. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: "over 2,000 analyzed European oyster (*Ostrea edulis*) shells dating from ~5,660 to 2,600" BCE
+  from Danish shell middens, several of them Ertebølle sites in the Limfjord (Bjørnsholm, Brovst,
+  Ertebølle, Krabbesholm II); and that the Funnel Beaker culture, from ~3900 cal BCE, "marked the advent of
+  farming in Denmark" — so the midden foragers precede any crop. **It gives no count of middens**, which is
+  why the card's "over 500 shell mounds" was dropped: the Andersen survey that carries that figure is
+  paywalled at Cambridge with no deposit.
+
 ---
 
 ## CANDIDATES — NOT VERIFIED, DO NOT PASTE INTO `data.js`

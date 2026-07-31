@@ -162,11 +162,11 @@ stood before batch 17a):
 
 | | cards | |
 |---|---|---|
-| at the bar | 56 (54) | |
-| below it, **uncited** | 20 (22) | 100 citations to find |
+| at the bar | 57 (54) | |
+| below it, **uncited** | 19 (22) | 95 citations to find |
 | below it, **under-cited** | 33 | 58 citations to find |
 | researched and blocked | 0 | nothing has yet been searched and come back short |
-| **still to find** | **53 cards** (55) | **158 citations** (168) |
+| **still to find** | **52 cards** (55) | **153 citations** (168) |
 
 One further finding from the audit, which is not a count: **`wh-045` Jebel Irhoud carries two open sources
 and two paywalled**, so its list is not majority-open and never was. It is the only card in the deck in that
@@ -244,10 +244,10 @@ makes is not a citation, and a card whose fifth source is a third paywalled work
 (see "How many"). Where a card cannot get there honestly, that is a finding: record it with
 `mark-sources-blocked.js` and say in the log what was tried.
 
-### Batch 17 · The definitional set, from the register (5 cards) — **2 of 5 DONE (2026-07-31)**
-**Cited:** `wh-006` Three-age system · `wh-007` Prehistory (batch 17a).
-**Remaining:** `wh-099` Mesolithic · `wh-100` Epipaleolithic · `wh-101` Nordic Stone Age — left for time,
-not for sources; see the Batch 17a log for what is already in hand for them.
+### Batch 17 · The definitional set, from the register (5 cards) — **3 of 5 DONE (2026-07-31)**
+**Cited:** `wh-006` Three-age system · `wh-007` Prehistory (batch 17a) · `wh-099` Mesolithic (batch 17b).
+**Remaining:** `wh-100` Epipaleolithic · `wh-101` Nordic Stone Age — left for time, not for sources; see
+the Batch 17b log for what is already in hand for them.
 
 The rest of batch 12's framework work, plus the three Mesolithic culture-history cards batch 11 handed
 over. These are historiographic — about how the past has been divided up rather than about the past — and
@@ -342,6 +342,61 @@ Mesolithic. What has to be found is the Epipalaeolithic/Mesolithic terminologica
 Levantine and well served by open reviews; Star Carr, which has an entire open-access literature at White
 Rose University Press; and the Danish sequence for `wh-101`, where the national museum and heritage agency
 records are the obvious first call.
+
+### Batch 17b log — the Mesolithic
+
+#### 2026-07-31 — one card cited, two left
+
+Nineteen citation slots on `wh-099` from **15 distinct works, every one of them open**; six of the fifteen
+came out of the register with no fetch. Coverage went from `cards 89/109` to `90/109`, and from **56 to 57
+cards at the bar**.
+
+**Batch 18's premise held again, and harder.** The two most valuable sources on this card are Westropp's own
+papers, public domain and scanned, and between them they carry a fact no secondary source had given us:
+**in 1866 his three terms were Palaeolithic, Mesolithic and Kainolithic.** By *Pre-historic Phases* (1872)
+the third has become Lubbock's Neolithic. That is the coinage's actual history, checkable to a page in two
+scanned books, and it replaced a sentence the card could not source at all.
+
+**Five corrections**, in English and all nine languages:
+
+- **The Star Carr headdresses were not all pierced, and there are not 21 of them.** The card said "the 21
+  red deer skullcaps of Clark's dig, pierced to be worn on the head." Elliott, Knight & Little 2018 (297,
+  321): Clark excavated 21, the 2004–2015 work added 12 for a total of 33, and "only eight of the 21
+  frontlets are listed as featuring perforations, whilst the 2013–2015 data brings the overall total to
+  nine of 33." Nine of thirty-three, not twenty-one of twenty-one. **The same claim was in the card's third
+  question phrasing**, which is the third batch running where the batch-8 rule has caught one.
+- **The card's account of why the term caught on slowly could not be sourced.** "A British school, led by
+  John Evans, that saw no need for a third term" and "became ordinary usage only with Grahame Clark's *The
+  Mesolithic Age in Britain* of 1932" both trace to Rowley-Conwy 1996 in *Antiquity*, which is paywalled
+  with no deposit anywhere. Replaced with the Kainolithic/Neolithic story from the primary texts, plus what
+  Elliott & Griffiths 2018 does say — that Clark's 1932 division of the age is still the backbone of the
+  subject. **The same unsourceable claim was in question phrasing 2**, and went the same way.
+- **The age opened 100 years too late.** "Around 9600 BCE" is the pre-GSSP convention; the sentence is
+  marked to Walker et al. 2018, whose ratified Holocene base is 11,700 b2k — **9700 BCE** — and `wh-001`
+  and `wh-102` already say 11,700. Raised, in the abstract and the date line. This is the sibling-consistency
+  check earning its place again.
+- **The Pesse canoe's date and wood are not in anything openable.** The Cultural Heritage Agency's own MaSS
+  record calls it "the world's oldest known boat" and gives 298 × 44 cm, and stops there; the 8040–7510 BCE
+  range and the Scots pine circulate everywhere and could not be checked. The card now gives what the
+  agency gives.
+- **"Over 500 shell mounds" in Denmark** traces to Andersen's *Proceedings of the Prehistoric Society*
+  survey, paywalled with no deposit. Dropped for what Robson et al. 2024 does carry: the middens, their
+  oysters, and foragers living off the sea before the Funnel Beaker culture brought farming.
+
+**On the mechanism, a new guard worth keeping.** A corrected sentence written as *two* sentences in one
+language breaks the 5+5 invariant while leaving the marker counts equal, so nothing downstream notices —
+the Japanese replacements for sentences 3 and 10 each carried a mid-string full stop, and the card came out
+6+6 in Japanese alone. The build now asserts `count(marked) === 5+5` **after** marking, in every language,
+not merely before. Check the output, not just the input.
+
+**What the two remaining cards need.** `wh-100` Epipaleolithic is the readier of the two: Arranz-Otaegui et
+al. 2018 (PNAS, PMC) carries the Shubayqa 1 flatbread — 14,400 years, wild einkorn and club-rush tubers,
+"4,000 years before the emergence of the Neolithic agricultural way of life" — in the abstract, and was
+opened and verified during this batch though not yet used. What still has to be found is the Natufian
+hamlet material (Ain Mallaha's huts and their stone walls), the Kebaran and Geometric Kebaran chronology,
+and the Iberomaurusian. `wh-101` Nordic Stone Age is untouched; the Danish and Norwegian national museums
+and heritage agencies are the first call, and Malmström et al.'s open genomic work covers the Pitted Ware
+and Single Grave cultures.
 
 ### Batch 18 · Public-domain founding literature (4 cards, 20 citations)
 `wh-017` Olduvai Gorge · `wh-025` Java Man · `wh-026` Peking Man · `wh-027` Zhoukoudian

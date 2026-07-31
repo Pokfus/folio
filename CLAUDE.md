@@ -610,9 +610,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     glossary term carries `sources`; the citation pass so far has touched cards only. The UI, the deltas and the
     pipeline are in place; the rest is a content job (see "Citing the existing content" below). Guarded by
     `.claude/test-sources.js` (67 assertions).
-    **Batches 0–17a shipped 2026-07-31**: **89 of the 109 prehistory cards carry sources** (`wh-086` Lascaux,
+    **Batches 0–17b shipped 2026-07-31**: **90 of the 109 prehistory cards carry sources** (`wh-086` Lascaux,
     `wh-074` Dolní Věstonice and a set of culture-history/definitional cards are deferred). **Against the
-    5-source bar raised the same day, 56 of 109 are there** — the other 53 are batches 17–26 in the plan, and
+    5-source bar raised the same day, 57 of 109 are there** — the other 52 are batches 17–26 in the plan, and
     the audit that says which is `node .claude/source-audit.js`. Every list is majority-open bar one: `wh-045`
     Jebel Irhoud runs 2 open / 2 paywalled and its top-up must add open works. See `docs/citation-plan.md` — its Pilot log records how the
     definitional cards were solved, its Batch 1 log the factual errors the exercise turns up (21 so far) and
@@ -1687,7 +1687,7 @@ which would otherwise have shipped corrected prose above an uncorrected date lin
 **Citing the existing content (as of July 2026)** — **most of the shipped content still has no citations.** The
 109 cards, 333 glossary terms and every Atlas description were written before this system existed, from Wikipedia
 and its sources, and were fact-checked rather than referenced. A batched pass is working through the cards —
-**89 of 109 carry sources, and 56 of 109 meet the 5-source bar** (`docs/citation-plan.md`; `add-sources.js`
+**90 of 109 carry sources, and 57 of 109 meet the 5-source bar** (`docs/citation-plan.md`; `add-sources.js`
 reports both on every run, `node .claude/source-audit.js` reports them per card, and the Edit page's card list
 shows each card's coverage as an amber or red chip) — while
 `country-sources.js` and `GLOSSARY_SOURCES` are still empty, so the Sources fold appears only on those cards.
