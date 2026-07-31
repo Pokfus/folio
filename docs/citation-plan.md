@@ -169,14 +169,22 @@ for the Mauer jaw. The originally planned spine did not survive contact with the
 et al. 2013, Ferring et al. 2011, Shen et al. 2009, Wagner et al. 2010 and Bermúdez de Castro et al. 1997
 are all closed with no open deposit**, and the UNESCO records remain unreachable (see the pilot log).
 
-### Batch 3 · Middle Palaeolithic: technique and the other humans (10)
-`wh-032` Levallois · `wh-033` Mousterian · `wh-034` Neanderthal · `wh-035` Denisovans ·
-`wh-036` Denisova Cave · `wh-037` Homo naledi · `wh-038` Homo floresiensis · `wh-039` Liang Bua ·
-`wh-040` Homo luzonensis · `wh-041` Neanderthal extinction
+### Batch 3 · Middle Palaeolithic: technique and the other humans (10) — **6 of 10 DONE (2026-07-31)**
+**Cited:** `wh-035` Denisovans · `wh-036` Denisova Cave · `wh-037` Homo naledi ·
+`wh-038` Homo floresiensis · `wh-039` Liang Bua · `wh-041` Neanderthal extinction.
 
-Spine: Reich et al. 2010 and Krause et al. 2010 on Denisova; Slon et al. 2018; Berger et al. 2015 (eLife,
-fully open) on *naledi*; Brown et al. 2004 and Sutikna et al. 2016 on Flores; Détroit et al. 2019 on
-Luzon; Higham et al. 2014 on the Neanderthal disappearance.
+**Deferred:** `wh-032` Levallois · `wh-033` Mousterian · `wh-034` Neanderthal · `wh-040` Homo luzonensis.
+See the Batch 3 log below.
+
+Spine as worked: Reich et al. 2010, Slon et al. 2018, Huerta-Sánchez et al. 2014 and Harvati &
+Reyes-Centeno 2022 on the Denisovans, with Fu et al. 2025 (twice, paywalled) for Harbin; Slon et al. 2017,
+Zavala et al. 2021, Jacobs et al. 2019 and Douka et al. 2019 on the cave itself; the four open eLife
+papers on *naledi* plus the two 2025 Versions of Record and their assessments; Brown et al. 2004,
+Kubo et al. 2013, Sutikna et al. 2016, Baab et al. 2016 and Kaifu et al. 2024 on Flores, with Meijer
+et al. 2017 and 2022, Sutikna et al. 2018 and Gagan et al. 2025 on Liang Bua; Higham et al. 2014,
+Wood et al. 2013, Skov et al. 2022, Slimak et al. 2024 and Vaesen et al. 2019 on the extinction.
+Krause et al. 2010 and Détroit et al. 2019 were not needed: the open review carries the Denisovan
+naming question, and Luzon moved to the deferred set.
 
 ### Batch 4 · The origin of *Homo sapiens* (10)
 `wh-031` Middle Stone Age · `wh-042` Toba catastrophe theory · `wh-043` Homo sapiens · `wh-044` Omo remains ·
@@ -430,6 +438,88 @@ method: the founding papers are largely pre-1930 and therefore public domain (Du
 are both old enough to be scanned somewhere, as Schoetensack 1908 and Lubbock 1865 already proved), while
 the modern site chronologies need an open re-publication or a museum record rather than the original
 *Nature* letter. Do not attempt them one at a time between other work.
+
+## Batch 3 log — the other humans
+
+### 2026-07-31 — six cards cited, four deferred
+
+Thirty-three citations across `wh-035`, `wh-036`, `wh-037`, `wh-038`, `wh-039` and `wh-041` — 32 distinct
+works, 24 of them open, and every card's list majority-open. Coverage went from `cards 15/109` to
+`cards 21/109`.
+
+**Batch 2's advice held, and this is what it looks like applied.** The instruction was to re-cut by source
+type rather than subject, and the six that shipped are the ones whose load-bearing claims are *results* —
+a genome, a date, a measurement, a model — while the four deferred are the ones built on *technique
+history* and *naming history*. It is the same split as batches 1 and 2, one level up: not
+discovery-vs-comparative but published-result-vs-published-argument.
+
+**Eleven corrections**, made in English and all nine languages:
+
+- **wh-036** put Denisovans in the cave "from at least 200,000 years ago". Douka et al. 2019's modelled
+  estimate is **195,000** at 95.4% probability. Corrected, and the sentence rebuilt around Jacobs et al.
+  2019's actual finding — occupation reconstructed from around 300,000 to 20,000 years ago.
+- **wh-036** said reading DNA straight out of cave sediment was "first demonstrated here in 2017". Slon et
+  al. 2017 screened **four Eurasian caves at once**; Denisova is where the *Denisovan* DNA came from, not
+  where the method was first shown alone.
+- **wh-037** had the Rising Star chute "averaging 20 centimetres across, pinching to 18". Dirks et al. 2015
+  say "a ~12 m vertical climb down, with squeezes as tight as ~20 cm" — 20 cm is the tightest point, and
+  the paper carries no 18 cm at all. That figure is from press coverage.
+- **wh-037** said "more than 1,550 pieces". Berger et al. 2015 count exactly 1550.
+- **wh-037** said the reviewers were unanimous that the burial and engraving evidence fell short and that
+  the papers "are still being revised". **Both reached Versions of Record in eLife in 2025**, and the
+  burial assessment says the opposite of unanimous: "one of the reviewers concludes that the findings
+  convincingly demonstrate intentional burial practices, while another considers evidence for such an
+  unambiguous conclusion to be incomplete". The engravings were assessed "important" but "incomplete".
+  Rewritten to the published verdicts. **This one was not an error when written — the world moved.** It is
+  the first correction in the pass caused by time rather than by carelessness, and it is worth expecting
+  more of them: a card that reports an argument in progress has a shelf life the rest do not.
+- **wh-038** gave LB1 as 1.06 m. Brown et al. 2004 say "approximating 1 m", and no openable source carries
+  1.06. Corrected in the background and the date line.
+- **wh-038** gave the braincase as "roughly 400 cubic centimetres" — which is precisely the loose figure
+  Kubo, Kono & Kaifu 2013 exist to replace: "the ECV of LB1 thus measured, 426 cc, is larger than the
+  commonly cited figure in previous studies (400 cc)". Corrected in both places.
+- **wh-038** said the 2024 Mata Menge arm bone "came from an adult barely a metre tall, the smallest in the
+  human fossil record". Kaifu et al. 2024 report a *bone*, not a stature: an adult humerus 9–16% shorter
+  than LB1's and "smaller than any other Plio-Pleistocene adult hominin humeri hitherto reported".
+- **wh-038** claimed "fragments of at least 13 more individuals". Nothing that could be opened supports a
+  count of 14 for the cave; the published lower-limb minimum is nine individuals in all. Softened to
+  "several other individuals", which is what the sources bear.
+- **wh-039** said the 2025 study "shifts the blame away from us and onto the weather". Gagan et al. 2025
+  conclude the opposite of an either/or: "progressive landscape aridification, **and** intensified
+  human-faunal competition for dwindling resources, culminated in abandonment of Liang Bua."
+- **wh-041** credited the 2014 dating programme with demolishing the claim that Neanderthals held out at
+  Gibraltar until 28,000 years ago. Higham et al. 2014's abstract does not mention Gibraltar. The southern
+  Iberian late dates were undone by **Wood et al. 2013**, a separate study of eleven sites of which only
+  Jarama VI and Zafarraya could be reliably dated. Rewritten to what that paper actually shows.
+
+**Why four cards were deferred.**
+
+- **`wh-032` Levallois and `wh-033` Mousterian** are *technique* cards, and their load-bearing claims are
+  historiographic: where the name comes from, who dug the type site, what the Bordes–Binford debate was
+  about. That literature is in JSTOR and in Cambridge's journals, and the one open experimental paper found
+  (Eren & Lycett 2012, on predetermination) covers a single sentence of one card. Worse, `wh-032`'s
+  strongest empirical claim — Nor Geghi, and independent invention — rests on **Adler et al. 2014**
+  (*Science*), which OpenAlex confirms has no open deposit anywhere and whose publisher refuses
+  non-browser clients, so not even the abstract could be opened from here.
+- **`wh-034` Neanderthal** is close to workable and was left out on time, not on sources: Green et al. 2010
+  is open in PMC, King 1864 and Boule 1911 are public domain, and only Jaubert et al. 2016 on Bruniquel is
+  closed. Take it first next time.
+- **`wh-040` Homo luzonensis** likewise: Larena et al. 2021 on Ayta Denisovan ancestry is open in PMC and
+  Détroit et al. 2019 has green deposits at Griffith and Zenodo, but neither was opened, and an unopened
+  deposit is not a citation.
+
+**A rule worth writing down, since it nearly went wrong twice.** *An index saying a paper is closed is not
+evidence that it is.* Europe PMC marks Wood et al. 2013 as not open access; its full text is free in PMC,
+and citing it as paywalled would have been a false label on an open work. The same check the other way
+saved the Auckland deposit of Sutikna et al. 2016 from being cited as open when it is behind a JavaScript
+challenge nobody without a browser can pass. **Fetch the thing before labelling it**, in both directions.
+
+**On the mechanism.** Marker splicing by sentence index worked for a third time, now with a written
+splitter (`sent.js` in the working directory, not shipped) that refuses to split on an abbreviation
+period — German ordinals ("im 18. Jahrhundert"), initials ("R. P. Soejono", Arabic "ر. ب.") and, the one
+that bit, a French sentence ending "…la trisomie 21." All sixty abstracts were asserted to be exactly
+5+5 sentences and to round-trip losslessly through split-and-join before a single marker was inserted,
+and every marker position was eyeballed across all ten languages first, per the batch 1 warning.
 
 ### Unblocking: the cloud environment's allowlist
 

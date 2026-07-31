@@ -484,6 +484,344 @@ https://archive.org/details/o-schoetensack-der-unterkiefer-des-homo-heidelbergen
   card's "quarrymen had dug out of a sand pit at Mauer, near Heidelberg, the year before"
 - used by: wh-030
 
+### reich-2010 · the Denisova genome
+David Reich et al., "Genetic History of an Archaic Hominin Group from Denisova Cave in Siberia," *Nature*
+468, no. 7327 (2010): 1053–60, https://pmc.ncbi.nlm.nih.gov/articles/PMC4306417/. [Open access]
+- opened: 2026-07-31 · full text, NIH author manuscript (located by named section — the deposit carries no
+  journal pagination)
+- supports: the 2008 excavation of "the distal manual phalanx of a juvenile hominin" at Denisova Cave
+  ("Introduction"); the genome sequenced to ~1.9-fold coverage; a group "that shares a common origin with
+  Neanderthals"; the contribution of "4–6% of its genetic material to the genomes of present-day
+  Melanesians"; the naming of the population "Denisovans" and the suggestion that it "may have been
+  widespread in Asia"; the tooth from the same cave carrying a near-identical mtDNA; and, in the
+  introduction, that systematic excavation at the site had gone on for 25 years
+- used by: wh-035, wh-036
+
+### slon-2018 · Denisova 11
+Viviane Slon et al., "The Genome of the Offspring of a Neanderthal Mother and a Denisovan Father," *Nature*
+561, no. 7721 (2018): 113–16, https://pmc.ncbi.nlm.nih.gov/articles/PMC6130845/. [Open access]
+- opened: 2026-07-31 · full text, author manuscript
+- supports: that Neanderthals and Denisovans "separated from each other more than 390,000 years ago" (113,
+  opening line) — which is what the card's "roughly 400,000 years ago" rounds; that Denisova 11 "comes from
+  an individual who had a Neandertal mother and a Denisovan father"; that she was at least 13 at death and
+  more than 50,000 years old by direct radiocarbon, with the paper's own working figure "~90 kya"
+- used by: wh-035, wh-036
+
+### harvati-reyes-centeno-2022 · who the Denisovans are
+Katerina Harvati and Hugo Reyes-Centeno, "Evolution of *Homo* in the Middle and Late Pleistocene," *Journal
+of Human Evolution* 173 (2022): 103279, https://pmc.ncbi.nlm.nih.gov/articles/PMC9703123/. [Open access]
+- opened: 2026-07-31 · full text via PMC (CC BY)
+- supports: that the lineage "has been designated as 'Denisovans' without formal attribution to taxon", and
+  that "a taxonomic attribution of the Denisovans is particularly intractable, given that most specimens
+  assigned to this group are isolated teeth or undiagnostic bone fragments" (§4.2) — the card's "no agreed
+  scientific name … almost nothing to describe"; the Xiahe hemimandible from Baishiya Karst Cave "dating to
+  ca. 160 ka", "attributed to Denisovans based on its proteome" (§4.2); and *Homo longi* as a named
+  candidate for the same genetic form
+- note: the open review is cited here in place of Chen et al. 2019, whose own text is closed. It carries
+  the Xiahe date, the proteome attribution and the naming question, which is everything the card claims.
+- used by: wh-035
+
+### huerta-sanchez-2014 · EPAS1
+Emilia Huerta-Sánchez et al., "Altitude Adaptation in Tibetans Caused by Introgression of Denisovan-Like
+DNA," *Nature* 512, no. 7513 (2014): 194–97, https://pmc.ncbi.nlm.nih.gov/articles/PMC4134395/.
+[Open access]
+- opened: 2026-07-31 · full text, author manuscript
+- supports: that the hypoxia-pathway gene EPAS1 carries a haplotype "that can only be convincingly explained
+  by introgression of DNA from Denisovans or Denisovan-related individuals", found "only … in Denisovans and
+  in Tibetans, and at very low frequency among Han Chinese" — the card's "a Denisovan version of a gene that
+  helps the body cope with thin air"
+- used by: wh-035
+
+### fu-2025-proteome · the Harbin cranium, proteins
+Qiaomei Fu et al., "The Proteome of the Late Middle Pleistocene Harbin Individual," *Science* 389, no. 6762
+(2025): 704–7, https://doi.org/10.1126/science.adu9677. [Paywalled]
+- opened: 2026-07-31 · publisher abstract only, read through the Europe PMC record (science.org refuses
+  non-browser clients). This is the defining publication for the attribution; no open deposit exists.
+- supports: 95 endogenous proteins from the Harbin cranium, "dating to at least 146,000 years ago and
+  previously assigned to a new species, *Homo longi*", carrying "three Denisovan-derived amino acid
+  variants" and clustering with Denisova 3
+- used by: wh-035
+
+### fu-2025-mtdna · the Harbin cranium, dental calculus
+Qiaomei Fu et al., "Denisovan Mitochondrial DNA from Dental Calculus of the >146,000-Year-Old Harbin
+Cranium," *Cell* 188, no. 15 (2025): 3919–26, https://doi.org/10.1016/j.cell.2025.05.040. [Paywalled]
+- opened: 2026-07-31 · publisher abstract only, read through the Europe PMC record. Landmark paper for the
+  claim; the mtDNA result exists nowhere else.
+- supports: that no DNA could be got from a tooth or the petrous bone but mtDNA "could be isolated from
+  dental calculus", and that it "falls within Denisovan mtDNA variation" — the card's "mitochondrial DNA
+  taken from the hardened plaque on its teeth"
+- used by: wh-035
+
+### slon-2017 · DNA out of the dirt
+Viviane Slon et al., "Neandertal and Denisovan DNA from Pleistocene Sediments," *Science* 356, no. 6338
+(2017): 605–8, author manuscript at
+https://eprints.bournemouth.ac.uk/29206/3/Revised_manuscript.pdf. [Open access]
+- opened: 2026-07-31 · accepted manuscript in the Bournemouth University repository (the Science DOI is
+  paywalled)
+- supports: that the method detected "Neandertal DNA in eight archaeological layers from four caves in
+  Eurasia", and that "in Denisova Cave, we retrieved Denisovan DNA in a Middle Pleistocene layer near the
+  bottom of the stratigraphy"
+- note: **this is the correction.** The demonstration was not made at Denisova alone; four caves were
+  screened at once, and the card said "first demonstrated here".
+- used by: wh-036
+
+### zavala-2021 · 728 sediment samples
+Elena I. Zavala et al., "Pleistocene Sediment DNA Reveals Hominin and Faunal Turnovers at Denisova Cave,"
+*Nature* 595, no. 7867 (2021): 399–403, https://pmc.ncbi.nlm.nih.gov/articles/PMC8277575/. [Open access]
+- opened: 2026-07-31 · full text via PMC (CC BY)
+- supports: "the analysis of DNA from 728 sediment samples"; that "the earliest evidence for hominin mtDNA
+  is of Denisovans", with Neanderthal mtDNA appearing "towards the end of this period"; "a turnover in the
+  mtDNA of Denisovans"; both groups occupying the site repeatedly; and modern human mtDNA "first recorded in
+  the sediments" at "at least 45,000 years ago"
+- used by: wh-036
+
+### jacobs-2019 · the cave's chronology
+Zenobia Jacobs et al., "Timing of Archaic Hominin Occupation of Denisova Cave in Southern Siberia," *Nature*
+565, no. 7741 (2019): 594–99, https://doi.org/10.1038/s41586-018-0843-2. [Paywalled]
+- opened: 2026-07-31 · publisher abstract on nature.com
+- supports: optical dating of the cave sediments, reconstructing "the environmental context of hominin
+  occupation of the site from around 300,000 to 20,000 years ago" — the card's deposits reaching back some
+  300,000 years
+- used by: wh-036
+
+### douka-2019 · the age of the fossils
+Katerina Douka et al., "Age Estimates for Hominin Fossils and the Onset of the Upper Palaeolithic at
+Denisova Cave," *Nature* 565, no. 7741 (2019): 640–44, https://doi.org/10.1038/s41586-018-0870-z.
+[Paywalled]
+- opened: 2026-07-31 · publisher abstract on nature.com
+- supports: that "our modelled estimate for the age of the oldest Denisovan fossil suggests that this group
+  was present at the site as early as 195,000 years ago (at 95.4% probability)"; that all Neanderthal
+  fossils and Denisova 11 date to between 80,000 and 140,000 years ago
+- note: **this is the correction.** The card said "at least 200,000 years ago"; the modelled figure is 195,000.
+- used by: wh-036
+
+### berger-2015 · Homo naledi named
+Lee R. Berger et al., "*Homo naledi*, a New Species of the Genus *Homo* from the Dinaledi Chamber, South
+Africa," *eLife* 4 (2015): e09560, https://doi.org/10.7554/eLife.09560. [Open access]
+- opened: 2026-07-31 · full text (located by named section; the eLife article is unpaginated)
+- supports: "naledi" as "star" in Sotho (eLife digest); "an extensive collection of 1550 hominin specimens"
+  ("Introduction") — exactly 1550, which is the correction; "a minimum of 15 hominin individuals" and "the
+  largest assemblage of a single species of hominins yet discovered in Africa" (abstract, "Description");
+  endocranial volumes of "approximately 560cc and 465cc"; a tibia-based stature of "between 144.5 and 147.8"
+  cm; markedly curved manual phalanges and australopith-like shoulders against a humanlike hand, wrist, foot
+  and lower limb
+- used by: wh-037
+
+### dirks-2015 · the Dinaledi Chamber
+Paul H. G. M. Dirks et al., "Geological and Taphonomic Context for the New Hominin Species *Homo naledi*
+from the Dinaledi Chamber, South Africa," *eLife* 4 (2015): e09561, https://doi.org/10.7554/eLife.09561.
+[Open access]
+- opened: 2026-07-31 · full text, read through the PMC deposit (PMC4559842); located by named section
+- supports: the access route — "a ~12 m vertical climb down, with squeezes as tight as ~20 cm" ("Cave
+  Setting"); that the chamber "was always in the dark zone, and not accessible to non-hominins"; "no
+  evidence … of vertebrate modifications such as those caused by carnivores"; no cut marks, no burning, no
+  "traces of fluvial transportation"; and that "preliminary evidence is consistent with deliberate body
+  disposal in a single location"
+- note: **this is the correction.** 20 cm is the *tightest* squeeze, not an average, and the paper carries
+  no 18 cm figure at all — that is a press figure.
+- used by: wh-037
+
+### dirks-2017 · the age of Homo naledi
+Paul H. G. M. Dirks et al., "The Age of *Homo naledi* and Associated Sediments in the Rising Star Cave,
+South Africa," *eLife* 6 (2017): e24231, https://doi.org/10.7554/eLife.24231. [Open access]
+- opened: 2026-07-31 · full text
+- supports: "we have constrained the depositional age of *Homo naledi* to a period between 236 ka and
+  335 ka" (abstract)
+- used by: wh-037
+
+### hawks-2017 · the Lesedi Chamber
+John Hawks et al., "New Fossil Remains of *Homo naledi* from the Lesedi Chamber, South Africa," *eLife* 6
+(2017): e24232, https://doi.org/10.7554/eLife.24232. [Open access]
+- opened: 2026-07-31 · full text
+- supports: the near-complete cranium LES1 "with an endocranial volume of approximately 610 ml" — the upper
+  bound of the card's 465–610 range
+- used by: wh-037
+
+### berger-2025-burial · the burial claim, published
+Lee R. Berger et al., "Evidence for Deliberate Burial of the Dead by *Homo naledi*," *eLife* 12 (2025):
+RP89106, https://doi.org/10.7554/eLife.89106.3. [Open access]
+- opened: 2026-07-31 · Version of Record, 1 September 2025, with the eLife assessment
+- supports: that the paper reached a Version of Record rather than remaining under revision, and the
+  assessment's own wording: "one of the reviewers concludes that the findings convincingly demonstrate
+  intentional burial practices, while another considers evidence for such an unambiguous conclusion to be
+  incomplete"
+- note: **this is the correction, and it is a change in the world rather than an error in the card.** The
+  card was written while both papers were reviewed preprints and said the reviewers were unanimous that the
+  evidence fell short. They were not, and both papers have since been published.
+- used by: wh-037
+
+### berger-2025-engravings · the wall markings, published
+Lee R. Berger et al., "An Initial Report of circa 241,000- to 335,000-Year-Old Rock Engravings and Their
+Relation to *Homo naledi* in the Rising Star Cave System, South Africa," *eLife* 12 (2025): RP89102,
+https://doi.org/10.7554/eLife.89102.3. [Open access]
+- opened: 2026-07-31 · Version of Record, 22 July 2025, with the eLife assessment
+- supports: the assessment's verdict that the article presents "**important**" information but "concerns
+  preliminary findings, and as it stands the study is **incomplete**, with further work needed in the future
+  to support the claims about the anthropogenic nature, age, and author of the engravings"
+- used by: wh-037
+
+### brown-2004 · the hobbit named
+Peter Brown et al., "A New Small-Bodied Hominin from the Late Pleistocene of Flores, Indonesia," *Nature*
+431, no. 7012 (2004): 1055–61, https://doi.org/10.1038/nature02999. [Paywalled]
+- opened: 2026-07-31 · publisher abstract on nature.com. Founding publication for the species; no open
+  deposit.
+- supports: "an adult hominin with stature and endocranial volume approximating 1 m and 380 cm3"; the naming
+  of *Homo floresiensis*; and endemic dwarfing of an ancestral *H. erectus* population as "the most likely
+  explanation"
+- note: **this is the correction.** The card gave the type specimen as 1.06 m; the founding paper says
+  approximately 1 m, and no source that could be opened carries 1.06.
+- used by: wh-038
+
+### kubo-2013 · LB1's braincase, measured
+Daisuke Kubo, Reiko T. Kono, and Yousuke Kaifu, "Brain Size of *Homo floresiensis* and Its Evolutionary
+Implications," *Proceedings of the Royal Society B* 280, no. 1760 (2013): 20130338,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC3652458/. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: "the ECV of LB1 thus measured, 426 cc, is larger than the commonly cited figure in previous
+  studies (400 cc)" (abstract), and "the original ECV of the LB1 cranium was 426 cc with only a limited
+  degree of error, probably within ±3 cc" (§ Endocranial Volume of LB1)
+- note: **this is the correction.** 400 cc is the loose figure the paper exists to replace, and the card
+  carried it in both the background and the date line.
+- used by: wh-038
+
+### sutikna-2016 · the stratigraphy revised
+Thomas Sutikna et al., "Revised Stratigraphy and Chronology for *Homo floresiensis* at Liang Bua in
+Indonesia," *Nature* 532, no. 7599 (2016): 366–69, https://doi.org/10.1038/nature17179. [Paywalled]
+- opened: 2026-07-31 · publisher abstract on nature.com. The green deposit at the University of Auckland
+  (hdl.handle.net/2292/34938) is behind a JavaScript challenge and could not be fetched.
+- supports: that the new evidence "does not support the ages inferred previously for the *H. floresiensis*
+  holotype (LB1), ~18 thousand calibrated radiocarbon years before present"; the skeletal remains "dated to
+  between about 100 and 60 kyr ago"; and stone artefacts "from about 190 to 50 kyr in age"
+- used by: wh-038, wh-039
+
+### baab-2016 · the Down syndrome diagnosis tested
+Karen L. Baab et al., "A Critical Evaluation of the Down Syndrome Diagnosis for LB1, Type Specimen of *Homo
+floresiensis*," *PLOS ONE* 11, no. 6 (2016): e0155731, https://doi.org/10.1371/journal.pone.0155731.
+[Open access]
+- opened: 2026-07-31 · full text
+- supports: "we found minimal congruence between the LB1 phenotype and clinical descriptions of Down
+  syndrome", "quantitative data that characterize LB1 as an outlier compared with Down syndrome and
+  non-Down syndrome groups", and the conclusion that "*Homo floresiensis* remains a phenotypically unique,
+  valid species with its roots in Plio-Pleistocene *Homo* taxa"
+- note: covers the Down syndrome proposal specifically, which is the last and best-argued of the four
+  pathology claims the card lists; the card's sentence about testing them against the bones is marked here.
+- used by: wh-038
+
+### kaifu-2024 · Mata Menge, the smallest arm
+Yousuke Kaifu et al., "Early Evolution of Small Body Size in *Homo floresiensis*," *Nature Communications*
+15 (2024): 6381, https://doi.org/10.1038/s41467-024-50649-7. [Open access]
+- opened: 2026-07-31 · full text via PMC (CC BY)
+- supports: an adult humerus "estimated to be 9−16% shorter and thinner than the type specimen of *H.
+  floresiensis*" and "smaller than any other Plio-Pleistocene adult hominin humeri hitherto reported";
+  teeth "both exceptionally small"; and a lineage "with markedly diminutive body size since at least
+  ~700,000 years ago"
+- note: **this is the correction.** The paper reports the shortest adult humerus on record, not a stature —
+  the card had turned it into "an adult barely a metre tall", which is LB1's own figure.
+- used by: wh-038
+
+### meijer-2017 · Liang Bua and its fauna
+Hanneke J. M. Meijer et al., "Late Pleistocene Songbirds of Liang Bua (Flores, Indonesia); the First Fossil
+Passerine Fauna Described from Wallacea," *PeerJ* 5 (2017): e3676, https://doi.org/10.7717/peerj.3676.
+[Open access]
+- opened: 2026-07-31 · full text, read through the PMC deposit (PMC5563437)
+- supports: "Liang Bua is a large, limestone cave on the Indonesian island of Flores" preserving "a
+  stratigraphic sequence that encompasses the past 190 thousand years", whose sediments between ~190 and
+  50 ka hold "small-bodied hominins …, pygmy proboscideans …, komodo dragons …, and multiple species of
+  rats, bats and birds, including giant marabou storks … and vultures" ("Introduction")
+- used by: wh-039
+
+### sutikna-2018 · who was in the cave, and when
+Thomas Sutikna et al., "The Spatio-Temporal Distribution of Archaeological and Faunal Finds at Liang Bua
+(Flores, Indonesia) in Light of the Revised Chronology for *Homo floresiensis*," *Journal of Human
+Evolution* 124 (2018): 52–74, https://doi.org/10.1016/j.jhevol.2018.07.001. [Paywalled]
+- opened: 2026-07-31 · publisher abstract, read through the Europe PMC record
+- supports: deposits "currently known to range in age from about 190 thousand years (ka) ago to the
+  present"; that *H. floresiensis*, *Stegodon florensis insularis*, the giant marabou stork and the vulture
+  "were likely extinct by ~50 ka ago"; and a raw-material shift at "~46 thousand calibrated radiocarbon
+  years before present" suggesting "that modern humans arrived on Flores by ~46 ka cal. BP"
+- used by: wh-039
+
+### meijer-2022 · the giant marabou stork
+Hanneke J. M. Meijer et al., "More Bones of *Leptoptilos robustus* from Flores Reveal New Insights into
+Giant Marabou Stork Paleobiology and Biogeography," *Royal Society Open Science* 9, no. 7 (2022): 220435,
+https://doi.org/10.1098/rsos.220435. [Open access]
+- opened: 2026-07-31 · abstract, read through the Europe PMC record (royalsocietypublishing.org refuses
+  non-browser clients)
+- supports: Liang Bua's "faunal community that included small-bodied and small-brained hominins, dwarf
+  proboscideans, Komodo dragons, vultures and giant marabou storks"
+- used by: wh-039
+
+### gagan-2025 · the drought at Liang Bua
+Michael K. Gagan et al., "Onset of Summer Aridification and the Decline of *Homo floresiensis* at Liang Bua
+61,000 Years Ago," *Communications Earth & Environment* 6 (2025): 992,
+https://doi.org/10.1038/s43247-025-02961-3. [Open access]
+- opened: 2026-07-31 · full text (CC BY)
+- supports: "a sustained decline in mean annual rainfall from ~1560 to 990 mm between 76,000 and 61,000
+  years ago", with summer rainfall falling "to a record low of ~450 mm at 61,000–55,000 years ago"; that
+  "*H. floresiensis* skeletal remains … are last recorded at 61 ka"; and the conclusion that "progressive
+  landscape aridification, **and intensified human-faunal competition for dwindling resources**, culminated
+  in abandonment of Liang Bua"
+- note: **this is the correction.** The card had the study shifting the blame "away from us and onto the
+  weather". The paper names two causes together, not one instead of the other.
+- used by: wh-039
+
+### higham-2014 · when the Neanderthals go
+Tom Higham et al., "The Timing and Spatiotemporal Patterning of Neanderthal Disappearance," *Nature* 512,
+no. 7514 (2014): 306–9, https://doi.org/10.1038/nature13621. [Paywalled]
+- opened: 2026-07-31 · publisher abstract on nature.com. Landmark chronology; the one open deposit
+  (hdl.handle.net/10651/29327) is a doctoral-thesis record, not the paper.
+- supports: "robust chronologies from 40 key Mousterian and Neanderthal archaeological sites, ranging from
+  Russia to Spain"; that "the Mousterian ended by 41,030–39,260 calibrated years bp (at 95.4%
+  probability)"; that "the disappearance of Neanderthals occurred at different times in different regions";
+  and "a significant overlap of 2,600–5,400 years (at 95.4% probability)" with the earliest modern humans
+- note: the abstract says nothing about Gibraltar, and this paper is not what undid the late Iberian dates.
+- used by: wh-041
+
+### wood-2013 · the late Iberian dates undone
+Rachel E. Wood et al., "Radiocarbon Dating Casts Doubt on the Late Chronology of the Middle to Upper
+Palaeolithic Transition in Southern Iberia," *Proceedings of the National Academy of Sciences* 110, no. 8
+(2013): 2781–86, https://pmc.ncbi.nlm.nih.gov/articles/PMC3581959/. [Open access]
+- opened: 2026-07-31 · full text via PMC (free after the PNAS embargo, despite the indexes marking it
+  closed — checked, not assumed)
+- supports: that of 11 southern Iberian sites tested "only two, Jarama VI and Zafarraya, were found to
+  contain material that could be reliably dated", and that ultrafiltration of bone collagen gave "ages at
+  least 10 ka 14C years older, close to or beyond the limit of the radiocarbon method"
+- note: **this is the correction.** The card credited the 2014 dating programme with demolishing a claim
+  that Neanderthals held out at Gibraltar until 28,000 years ago. The southern Iberian late dates were
+  undone by this separate 2013 study, which is about Jarama VI and Zafarraya and not about Gibraltar.
+- used by: wh-041
+
+### skov-2022 · a Neanderthal community
+Laurits Skov et al., "Genetic Insights into the Social Organization of Neanderthals," *Nature* 610, no. 7932
+(2022): 519–25, https://pmc.ncbi.nlm.nih.gov/articles/PMC9581778/. [Open access]
+- opened: 2026-07-31 · full text via PMC (CC BY)
+- supports: 13 Neanderthals from Chagyrskaya and Okladnikov caves in the Altai, "including a father–daughter
+  pair"; long runs of homozygosity indicating "a small community"; and the best-fitting demographic
+  scenarios assuming "a community size of 20 individuals" (Extended Data Fig. 6) — the card's "a band of
+  perhaps a couple of dozen"
+- used by: wh-041
+
+### slimak-2024 · Thorin
+Ludovic Slimak et al., "Long Genetic and Social Isolation in Neanderthals before Their Extinction," *Cell
+Genomics* 4, no. 9 (2024): 100593, https://pmc.ncbi.nlm.nih.gov/articles/PMC11480857/. [Open access]
+- opened: 2026-07-31 · full text via PMC (CC BY-NC)
+- supports: the late Neanderthal "Thorin" from Grotte Mandrin in Mediterranean France, whose genome shows "a
+  relatively early divergence of ~105 ka with other late Neanderthals" and "some 50 ka of genetic isolation
+  of his lineage despite them living in neighboring regions"
+- used by: wh-041
+
+### vaesen-2019 · small populations are enough
+Krist Vaesen et al., "Inbreeding, Allee Effects and Stochasticity Might Be Sufficient to Account for
+Neanderthal Extinction," *PLOS ONE* 14, no. 11 (2019): e0225117,
+https://doi.org/10.1371/journal.pone.0225117. [Open access]
+- opened: 2026-07-31 · full text
+- supports: that "the disappearance of Neanderthals might have resided in the smallness of their
+  population(s) alone: even if they had been identical to modern humans in their cognitive, social and
+  cultural traits, and even in the absence of inter-specific competition, Neanderthals faced a considerable
+  risk of extinction"; and that the simulations run over "a time span of 10,000 years" ("Materials and
+  Methods"), which is the card's "within 10,000 years"
+- used by: wh-041
+
 ---
 
 ## CANDIDATES — NOT VERIFIED, DO NOT PASTE INTO `data.js`

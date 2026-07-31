@@ -107,8 +107,8 @@ async function closeGloss(page) {
   check("...listing every citation", await page.locator(".gloss-win .src-item").count() === SRC.length,
     String(await page.locator(".gloss-win .src-item").count()));
   check("...in the compact popup variant", await page.evaluate(() => !!document.querySelector(".gloss-win .src-note.src-compact")));
-  check("...shut to begin with",
-    await page.evaluate(() => document.querySelector(".gloss-win .src-collapse").classList.contains("collapsed")));
+  check("...open to begin with, so a citation is there to be checked rather than hunted for",
+    await page.evaluate(() => !document.querySelector(".gloss-win .src-collapse").classList.contains("collapsed")));
   check("...after the description, not before it", await page.evaluate(() => {
     const kids = [...document.querySelector(".gloss-win .gloss-body").children].map((e) => String(e.className));
     return kids.indexOf("gloss-srcslot") > kids.findIndex((c) => c.includes("gloss-desc"));
@@ -167,13 +167,17 @@ async function closeGloss(page) {
     await page.locator(".gloss-win .src-item").first().textContent());
   check("...but the stored citation still carries them, so the data stays plain text",
     SRC[0].includes("[Open access]"));
-  // clicking the header alone toggles it — the fold has to work without a marker
+  // clicking the header alone toggles it — the fold has to work without a marker, in both directions
   await closeGloss(page);
   await page.click("#exp-term");
   await page.waitForTimeout(400);
   await page.locator(".gloss-win .src-head").click();
   await page.waitForTimeout(350);
-  check("the Sources header alone opens the fold",
+  check("the Sources header alone shuts the fold",
+    await page.evaluate(() => document.querySelector(".gloss-win .src-collapse").classList.contains("collapsed")));
+  await page.locator(".gloss-win .src-head").click();
+  await page.waitForTimeout(350);
+  check("...and opens it again",
     await page.evaluate(() => !document.querySelector(".gloss-win .src-collapse").classList.contains("collapsed")));
   await closeGloss(page);
 
@@ -190,12 +194,16 @@ async function closeGloss(page) {
     check("the card back carries a Sources fold", await page.locator(".reveal .src-note").count() === 1);
     check("...at the foot of the card, OUTSIDE the Background fold", await page.evaluate(() =>
       !document.querySelector(".bg-collapse .src-note") && !!document.querySelector(".reveal-inner > .src-note")));
-    check("...shut to begin with, so it never pushes the card's own content away",
-      await page.evaluate(() => document.querySelector(".reveal .src-collapse").classList.contains("collapsed")));
+    check("...open to begin with",
+      await page.evaluate(() => !document.querySelector(".reveal .src-collapse").classList.contains("collapsed")));
     const cm = await page.evaluate(() => [...document.querySelectorAll(".abstract sup.fn")].map((s) => s.textContent));
     // the seeded abstract carries markers 2, bare, and 7 against a TWO-entry list
     check("the abstract's markers are numbered from the card's own list", cm.join(",") === "2", cm.join(","));
     check("...and the over-range marker is gone from the card too", cm.length === 1, cm.join(","));
+    await page.locator(".reveal .src-head").click();          // shut it, so the marker has something to open
+    await page.waitForTimeout(350);
+    check("shutting the fold is remembered as a device setting", await page.evaluate(() =>
+      JSON.parse(localStorage.getItem("folio_v1") || "{}").settings.srcCollapsed === true));
     await page.locator(".abstract sup.fn").first().click();
     await page.waitForTimeout(450);
     check("a card marker opens the card's fold on the right entry", await page.evaluate(() =>
@@ -229,6 +237,34 @@ async function closeGloss(page) {
     check("an unwired marker still opens the fold on its own entry", await page.evaluate(() =>
       !document.querySelector(".reveal .src-collapse").classList.contains("collapsed") &&
       [...document.querySelectorAll(".reveal .src-item")].findIndex((i) => i.classList.contains("src-flash")) === 1));
+
+    /* The links and the chips must survive the same unwired surface, because that is what was reported:
+       a bare `[Open access]` and a URL that is not a link, on a page where the fold itself worked. They
+       used to be added by a pass over the rendered page; they are now built into the markup, so a list
+       that never meets wireSourceLinks still arrives complete. Assert it on the clone, which by
+       construction was never wired. */
+    const unwired = await page.evaluate(() => {
+      const note = document.querySelector(".reveal .src-note");
+      const a = note.querySelector(".src-item a");
+      const chip = note.querySelector(".src-access");
+      return {
+        href: a && a.getAttribute("href"), target: a && a.getAttribute("target"),
+        blue: a && getComputedStyle(a).color, text: a && a.textContent,
+        chip: chip && chip.textContent, chipCls: chip && chip.className,
+        brackets: /\[(Open access|Paywalled)\]/.test(note.textContent),
+      };
+    });
+    check("an unwired citation's URL is still a link", !!unwired.href && unwired.href === unwired.text, JSON.stringify(unwired));
+    check("...opening in a new tab", unwired.target === "_blank");
+    check("...and painted, not left as body text", unwired.blue !== "rgb(0, 0, 0)", String(unwired.blue));
+    check("an unwired citation's access note is still a chip", /src-access-(open|pay)/.test(unwired.chipCls || ""), String(unwired.chipCls));
+    check("...with the brackets gone from the render", !unwired.brackets, unwired.chip);
+    // the marker left the fold open without touching the setting; shut it and open it again, and the
+    // stored preference must follow the header, not the marker
+    await page.locator(".reveal .src-head").click(); await page.waitForTimeout(300);
+    await page.locator(".reveal .src-head").click(); await page.waitForTimeout(350);
+    check("re-opening the fold is remembered too", await page.evaluate(() =>
+      JSON.parse(localStorage.getItem("folio_v1") || "{}").settings.srcCollapsed === false));
   }
 
   /* ================= 3. a card with no sources shows no apparatus ================= */
@@ -270,8 +306,8 @@ async function closeGloss(page) {
   if (picked && await page.evaluate(() => document.querySelector("#countryPop") && !document.querySelector("#countryPop").hidden)) {
     check("selecting a place opens its panel", true);
     check("the panel's Sources section is shown", await page.evaluate(() => document.querySelector("#cpSrcSec").hidden === false));
-    check("...shut, like the rest of the apparatus",
-      await page.evaluate(() => document.querySelector("#cpSrcSec").classList.contains("collapsed")));
+    check("...open, like the rest of the apparatus",
+      await page.evaluate(() => !document.querySelector("#cpSrcSec").classList.contains("collapsed")));
     const n = await page.locator("#cpSrc .src-item").count();
     // present-day France: the general sources only (2). The shared work must not be listed twice.
     check("the general sources are listed", n >= 2, String(n));
