@@ -763,6 +763,89 @@ marker was placed. `test-sources.js` also needed a robustness fix: its "a card w
 Sources fold" check studied the date-seeded card of the day, which the pass has now cited — it strips sources on
 that one page so it tests the mechanism rather than leaning on an uncited card.
 
+### Batch 13 · The deferred set, re-cut by source type (2 of 2 attempted) — **DONE (2026-07-31)**
+**Cited:** `wh-024` Dmanisi · `wh-050` Aterian.
+
+Not a subject batch. This is the first pass that went at the **deferred pile** rather than at a theme, and
+it picked its two cards by asking which of the thirty-six remaining are built on *published results* rather
+than on discovery history — the test batch 2 arrived at and batches 3, 5 and 8a all confirmed.
+
+Spine as worked: Nery et al. 2025 (the open PLOS ONE crown-area study that is the card's own closing claim),
+Lordkipanidze et al. 2013 and 2005 as the two paywalled landmarks, Zollikofer et al. 2024 and Curran et al.
+2025 open for the dating and for the Eurasian-presence claim, for `wh-024`; Bergmann et al. 2022, Campmas
+et al. 2026, Bouzouggar et al. 2007, Hallett et al. 2021 and Ait Brahim et al. 2023 — **all five open** —
+for `wh-050`.
+
+### Batch 13 log — Dmanisi and the Aterian
+
+#### 2026-07-31 — two cards cited, four triaged and left
+
+Ten citation slots from **10 distinct works, 8 of them open**; `wh-050` is fully open. Coverage went from
+`cards 73/109` to `cards 75/109`.
+
+**What this batch was really for was the triage**, and the triage is the part worth keeping. The session
+started on the batch-2 discovery-and-site set — `wh-024` Dmanisi, `wh-025` Java Man, `wh-026` Peking Man,
+`wh-027` Zhoukoudian, `wh-029` Atapuerca — on the theory that batch 8b's museum-record method would unblock
+them the way it unblocked the Swabian Jura. **It does not, and the reason is worth writing down: the
+Swabian institutions publish object records, and these do not.** Museum Ulm and the Blaubeuren state museum
+maintain per-object catalogue entries with inventory numbers, measurements and find histories. What the
+equivalent institutions publish is:
+
+- **Georgian National Museum** — an institutional site with no Dmanisi object records reachable.
+- **Naturalis** (the Dubois collection) — a bioportal that serves an Angular application, not a citable
+  record; the `dubois-collection` page 404s.
+- **Fundación Atapuerca / Museo de la Evolución Humana** — project and visitor pages naming the sites and
+  species, with no fossil counts, no Sima de los Huesos figures and no Excalibur.
+- **Moravian Museum (Anthropos)** — visitor pages only, which is also why `wh-074` stays deferred.
+
+So the method is real but not general: **it works where a museum runs a catalogue, and a catalogue is a
+different thing from a website.** Check for one; do not assume it.
+
+**What is genuinely available for the four left, so the next pass does not re-do this search:**
+
+- **`wh-025` Java Man** is the closest to ready. **Dubois 1894 is public domain and legible** — the
+  archive.org scan (`Pithecanthropus00Dubo`) OCRs into usable German, with Trinil and Ngawi at line 616 and
+  the braincase discussion around line 2218 — and Dubois 1898's English *Pithecanthropus erectus: A Form
+  from the Ancestral Stock of Mankind* is there too (`b24880814`). Two further open works exist but **both
+  hosts were down when tried**: Alink et al. 2016, "The Homo erectus Site of Trinil: Past, Present and
+  Future of a Historic Place," *AMERTA* 34 (gold OA, `10.24832/amt.v34i2.150` — the Indonesian ministry host
+  does not resolve), and Gruwier et al. 2025 on Trinil palaeoenvironments (green at VUB, persistent 503).
+  Retry those two and the card is done.
+- **`wh-026`/`wh-027` Zhoukoudian** — Weidenreich's *The Skull of Sinanthropus pekinensis* (Palaeontologia
+  Sinica) is on archive.org and public domain, which covers the casts-and-descriptions claim that is the
+  heart of `wh-026`. Shen et al. 2009 (the 770 ka date) and Binford & Ho 1985 (the hyena reinterpretation)
+  are both closed.
+- **`wh-029` Atapuerca** — the worst of the four. Arsuaga et al. 2014 is green only at `cnrs.hal.science`,
+  behind the Anubis wall; the 2025 "Pink" *Nature* paper is closed with no deposit; the Sima de los Huesos
+  literature is almost entirely Elsevier and Wiley.
+
+**Three corrections**, made in English and all nine languages:
+
+- **`wh-024` gave Dmanisi's age as "between 1.85 and 1.77 million years ago."** The 1.85 end is Ferring et
+  al. 2011 (*PNAS*, closed, no deposit); every openable source gives "around 1.8 Ma" (Nery et al. 2025) or
+  "at least 1.77" (Zollikofer et al. 2024). Softened to about 1.8 million years, in the abstract and the
+  date line.
+- **`wh-024` said the Dmanisi brains "ran from about 550 to 730 cubic centimetres."** 546 cc is published
+  for D4500; the 730 upper bound appears in nothing openable. Rewritten to the sourced figure.
+- **`wh-050` had the Aterian persisting "until roughly 20,000 years ago" and bone tools at Contrebandiers
+  "between about 122,000 and 96,000."** Bergmann et al. 2022 give the industry as 145–30 ka BP, and
+  Hallett et al. 2021 date the bone assemblage to 120,000–90,000 in their own title. Both corrected.
+
+Two smaller repairs went with them: `wh-024`'s "differ no more than five modern people do" is a popular
+gloss on Lordkipanidze et al. 2013 and not in the paper, so it now says the variation is no wider than
+within a single population; and its unsourced site setting ("a promontory above the meeting of two rivers")
+was dropped to make room for the Curran et al. 2025 nuance — **Dmanisi has the oldest human *fossils*
+outside Africa, while cut-marked bone in Romania is now claimed to show an earlier *presence*.** Fossils and
+traces are different evidence, and the card now says which it means.
+
+The `wh-024` sentence naming the Oldowan tools carries **no marker** and is deliberately unsourced: no
+openable work describes the Dmanisi lithic assemblage directly. It follows the `wh-093` precedent.
+
+**On the mechanism.** Nothing new broke. Both cards round-tripped 5+5 in all ten languages on the first
+try, with the month-name guard from batch 8b already in place, and **neither card's question pool needed a
+correction** — the first time in three batches, and only because the pools happened not to repeat the
+figures that moved.
+
 ### Batch 12 · The framework itself (8)
 `wh-001` Paleolithic · `wh-002` Lower Paleolithic · `wh-003` Middle Paleolithic · `wh-004` Upper Paleolithic ·
 `wh-005` Stone Age (if not in the pilot) · `wh-006` Three-age system · `wh-007` Prehistory ·
@@ -1269,5 +1352,5 @@ If a needed host turns out to be missing mid-batch, the cheaper fix is switching
 - **Changelog.** One line per day, raising its count — "Sources added to N cards in the World History
   prehistory deck" — with its nine translations, per the house rule. Corrections found along the way get
   their own line, and should name what changed.
-- **Coverage** is reported by `add-sources.js` on every run (`cards 73/109`), which is how the pass is
+- **Coverage** is reported by `add-sources.js` on every run (`cards 75/109`), which is how the pass is
   tracked across sessions.

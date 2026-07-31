@@ -2094,6 +2094,56 @@ count appears in no openable catalogue and was dropped from the card, its date l
 every attempt, so the Brassempouy sentence was replaced rather than cited — which also removed its "about
 25,000 years old", a figure the museum's own Gravettian bracket of 31,500–28,500 cal BP does not support.
 
+
+## Batch 13 — Dmanisi and the Aterian, verified 2026-07-31
+
+Ten citation slots across two cards, from **10 distinct works, 8 of them open**. `wh-050` is fully open.
+This batch is the deferred-set pass re-cut **by source type rather than by subject**, exactly as the batch-2
+log prescribed: the two cards taken are the ones whose claims are published *results* (a date, a genome-free
+morphometric test, a bead assemblage, a bone-tool assemblage), and the discovery-history cards around them
+were triaged and left (see the Batch 13 log in the plan).
+
+- Victor Nery, Walter Neves, Leticia Valota, and Mark Hubbe, "Testing the Taxonomy of Dmanisi Hominin Fossils through Dental Crown Area," <i>PLOS ONE</i> 20, no. 11 (2025): e0336484, https://pmc.ncbi.nlm.nih.gov/articles/PMC12674552/. [Open access]
+  - opened: 2026-07-31 · full text
+  - supports: the fossils "Dated to around 1.8 million years ago (Ma)" and comprising "four adults (D2280, D4500-D2600, D3444-D3900, D2282-D211) and one subadult (D2700-D2735)"; "The first specimen excavated at the site was the D211 mandible in 1991"; D3444 as "an almost completely edentulous specimen"; and the card's closing claim in as many words — "We conclude that differences in crown dimensions support the hypothesis of two distinct taxa coexistent at the Dmanisi site, previously proposed to be *Homo georgicus* and *Homo caucasi*." Note the paper's own hedge, which the card matches by saying "arguing": it cannot reject a single dimorphic species on crown-area ratios alone, but holds two taxa "more parsimoniously" explain the sample
+  - used by: wh-024
+- David Lordkipanidze, Marcia S. Ponce de León, Ann Margvelashvili, et al., "A Complete Skull from Dmanisi, Georgia, and the Evolutionary Biology of Early <i>Homo</i>," <i>Science</i> 342, no. 6156 (2013): 326–31, https://doi.org/10.1126/science.1238484. [Paywalled]
+  - opened: 2026-07-31 · **publisher abstract only** — the landmark paper; no open deposit
+  - supports: D4500/D2600 as "the world's first completely preserved adult hominid skull from the early Pleistocene", combining "a small braincase (546 cubic centimeters) with a large prognathic face"; "The Dmanisi sample, which now comprises five crania"; and the conclusion the card reports — "wide morphological variation within and among early Homo paleodemes… implies the existence of a single evolving lineage of early Homo"
+  - used by: wh-024
+- David Lordkipanidze, Abesalom Vekua, Reid Ferring, et al., "The Earliest Toothless Hominin Skull," <i>Nature</i> 434, no. 7034 (2005): 717–18, https://doi.org/10.1038/434717b. [Paywalled]
+  - opened: 2026-07-31 · **publisher abstract only** — the landmark paper for D3444
+  - supports: "a beautifully preserved skull and jawbone from a Dmanisi hominin… who had lost all but one tooth several years before death"; "the earliest case of severe masticatory impairment in the hominin fossil record"; and that it "raises questions about alternative subsistence strategies in early Homo" — which is precisely the card's second reading, that soft foods and marrow could have kept him alive unaided
+  - used by: wh-024
+- Christoph P. E. Zollikofer, Vincent Beyrand, David Lordkipanidze, Paul Tafforeau, and Marcia S. Ponce de León, "Dental Evidence for Extended Growth in Early <i>Homo</i> from Dmanisi," <i>Nature</i> 635 (2024): 906–11, https://pmc.ncbi.nlm.nih.gov/articles/PMC11602720/. [Open access]
+  - opened: 2026-07-31 · full text
+  - supports: Dmanisi at "at least 1.77 million years ago", from the team that includes the Georgian National Museum
+  - used by: wh-024
+- Sabrina C. Curran, Virgil Drăgușin, Briana Pobiner, et al., "Hominin Presence in Eurasia by at Least 1.95 Million Years Ago," <i>Nature Communications</i> 16 (2025): 836, https://pmc.ncbi.nlm.nih.gov/articles/PMC11747263/. [Open access]
+  - opened: 2026-07-31 · full text
+  - supports: the claim of hominin **presence** in Eurasia earlier than Dmanisi, from cut-marked bone at Grăunceanu in Romania — which is why the card now says Dmanisi has the oldest human **fossils** outside Africa while noting that an earlier presence is claimed. The distinction is the whole point: fossils and traces are different evidence
+  - used by: wh-024
+- Inga Bergmann, Jean-Jacques Hublin, Abdelouahed Ben-Ncer, Fatima Zohra Sbihi-Alaoui, Philipp Gunz, and Sarah E. Freidline, "The Relevance of Late MSA Mandibles on the Emergence of Modern Morphology in Northern Africa," <i>Scientific Reports</i> 12 (2022): 8841, https://pmc.ncbi.nlm.nih.gov/articles/PMC9133045/. [Open access]
+  - opened: 2026-07-31 · full text
+  - supports: the Aterian as "a typological variant of the Maghrebian MSA lithic industries that dominates the archaeological record west of the Nile Valley between 145 and 30 ka BP" — **the source of the card's corrected end date**; the Aterian-associated *Homo sapiens* fossils "Kébibat, Contrebandiers 1, Dar-es-Soltane II H5 and El Harhoura"; and the associated "Tritia (Nassarius) shells, hearths and stone-walled structures as well as formal bone tools". Note that the paper itself writes "Aterian" in quotation marks, which is the hesitation the card's last sentence reports
+  - used by: wh-050
+- Emilie Campmas, Matthieu Lebon, et al., "Aterian Shell Beads from the Coastal Site of El Mnasra Cave (Rabat-Témara, Morocco): Specificities of the North African MSA Personal Ornaments," <i>PLOS ONE</i> 21 (2026): e0338785, https://pmc.ncbi.nlm.nih.gov/articles/PMC13016355/. [Open access]
+  - opened: 2026-07-31 · full text
+  - supports: that Aterian assemblages are "characteristic of the Aterian, with the presence of tanged tools, Levallois/micro-Levallois debitage (flakes and cores) and side-scrapers" — the card's tang, Levallois and scraper sentence in one line — plus ochre-coloured bone tools and *Tritia gibbosula* beads across the North African sites
+  - used by: wh-050
+- Abdeljalil Bouzouggar, Nick Barton, Marian Vanhaeren, et al., "82,000-Year-Old Shell Beads from North Africa and Implications for the Origins of Modern Human Behavior," <i>Proceedings of the National Academy of Sciences</i> 104, no. 24 (2007): 9964–69, https://pmc.ncbi.nlm.nih.gov/articles/PMC1891266/. [Open access]
+  - opened: 2026-07-31 · publisher abstract via Europe PMC; the full text is free in PMC
+  - supports: "perforated *Nassarius gibbosulus* shell beads from Grotte des Pigeons (Taforalt, Morocco)" from "levels dated by luminescence and uranium-series techniques to approximately 82,000 years ago", with "Wear patterns… imply that some of them were suspended, and, as at Blombos, they were covered in red ochre"
+  - used by: wh-050
+- Emily Y. Hallett, Curtis W. Marean, Teresa E. Steele, et al., "A Worked Bone Assemblage from 120,000–90,000 Year Old Deposits at Contrebandiers Cave, Atlantic Coast, Morocco," <i>iScience</i> 24, no. 9 (2021): 102988, https://pmc.ncbi.nlm.nih.gov/articles/PMC8478944/. [Open access]
+  - opened: 2026-07-31 · full text
+  - supports: "a bone tool tradition from Contrebandiers Cave on the Atlantic coast of Morocco, dated between 120,000–90,000 years ago" — **the source of the card's corrected span** — and that "The bone tools were produced for different activities, including likely leather" and fur working
+  - used by: wh-050
+- Yassine Ait Brahim, Lijuan Sha, Jasper A. Wassenburg, et al., "The Spatiotemporal Extent of the Green Sahara during the Last Glacial Period," <i>iScience</i> 26, no. 7 (2023): 107018, https://pmc.ncbi.nlm.nih.gov/articles/PMC10320408/. [Open access]
+  - opened: 2026-07-31 · full text
+  - supports: that the Sahara "has known periods of enhanced precipitation that supported pre-historic humans" and was in humid phases "almost entirely vegetated and covered by rivers and" lakes, with Heinrich events driving it dry again — the card's opening and closing corridors
+  - used by: wh-050
+
 ---
 
 ## CANDIDATES — NOT VERIFIED, DO NOT PASTE INTO `data.js`
