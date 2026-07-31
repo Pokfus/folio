@@ -1535,6 +1535,138 @@ Eastern Mediterranean," *Quaternary Research* 66, no. 3 (2006): 401–20, https:
 
 ---
 
+## Batch 9 — Upper Palaeolithic art (rock and cave), verified 2026-07-31
+
+### brumm-2021-sulawesi · the oldest cave art
+Adam Brumm, Adhi Agus Oktaviana, Basran Burhan, et al., "Oldest cave art found in Sulawesi," *Science Advances* 7,
+no. 3 (2021): eabd4648, https://doi.org/10.1126/sciadv.abd4648. [Open access]
+- opened: 2026-07-31 · full text (PMC7806210)
+- supports: the Leang Tedongnge warty pig dated to at least 45,500 years ago; red ochre pigment
+- used by: wh-083
+
+### oktaviana-2024-narrative · a narrative scene by 51,200 years ago
+Adhi Agus Oktaviana, Adam Brumm, Basran Burhan, et al., "Narrative cave art in Indonesia by 51,200 years ago,"
+*Nature* 631 (2024): 814–818, https://doi.org/10.1038/s41586-024-07541-7. [Open access]
+- opened: 2026-07-31 · full text (PMC11269172)
+- supports: the Leang Karampuang pig-and-figures scene dated to ≥51,200 years ago
+- used by: wh-083
+
+### pike-2012-useries · U-series dates in 11 Spanish caves
+A. W. G. Pike, D. L. Hoffmann, M. García-Díez, et al., "U-Series Dating of Paleolithic Art in 11 Caves in Spain,"
+*Science* 336, no. 6087 (2012): 1409–1413, https://doi.org/10.1126/science.1219957. [Paywalled]
+- opened: 2026-07-31 · abstract (science.org bot-blocked; abstract via Bristol repository) — its Altamira/El Castillo
+  content is duplicated in open full text by García-Díez 2013
+- supports: El Castillo red disk ≥40,800 years old (Europe's earliest date the card cites)
+- used by: wh-083
+
+### quiles-2016-chauvet · the Chauvet chronology
+Anita Quiles, Hélène Valladas, Hélène Bocherens, et al., "A high-precision chronological model for the decorated
+Upper Paleolithic cave of Chauvet-Pont d'Arc, Ardèche, France," *Proceedings of the National Academy of Sciences*
+113, no. 17 (2016): 4670–4675, https://doi.org/10.1073/pnas.1523158113. [Open access]
+- opened: 2026-07-31 · full text
+- supports: the two dating phases (Aurignacian ~37,000–33,500 and Gravettian ~31,000–28,000 cal BP); the minority
+  stylistic dispute; Chauvet's drawings "around 36,000 years ago" (within range)
+- used by: wh-083, wh-084
+
+### minculture-chauvet-discovery · the discovery (official record)
+Ministère de la Culture (France), "Discovery," *La grotte Chauvet-Pont d'Arc*,
+https://archeologie.culture.gouv.fr/chauvet/en/discovery-3. [Open access]
+- opened: 2026-07-31 · full text (official heritage-agency page)
+- supports: Chauvet/Brunel/Hillaire felt a cool draft and dug through on 18 December 1994
+- used by: wh-084
+
+### sadier-2012-chauvet · the rockfall sealing
+Benjamin Sadier, Jean-Jacques Delannoy, Lucilla Benedetti, et al., "Further constraints on the Chauvet cave artwork
+elaboration," *Proceedings of the National Academy of Sciences* 109, no. 21 (2012): 8002–8006,
+https://doi.org/10.1073/pnas.1118593109. [Open access]
+- opened: 2026-07-31 · full text (PMC3361430)
+- supports: the rockfall closing the original entrance and sealing the interior (final sealing ≥21 ka; the card's
+  "some 20,000 years earlier" is a defensible rounding)
+- used by: wh-084
+
+### minculture-chauvet-bears · the bear hollows (official record)
+Ministère de la Culture (France), "Bear hollows," *La grotte Chauvet-Pont d'Arc*,
+https://archeologie.culture.gouv.fr/chauvet/en/bear-hollows. [Open access]
+- opened: 2026-07-31 · full text (official heritage-agency page)
+- supports: ~300 bear nests scooped into the floor; a skull set on a block; ~190 individuals
+- used by: wh-084 · (used to correct "195 skulls" → "about 190")
+
+### garciadiez-2013-altamira · the Altamira U-series sequence
+M. García-Díez, D. L. Hoffmann, J. Zilhão, et al., "Uranium series dating reveals a long sequence of rock art at
+Altamira Cave (Santillana del Mar, Cantabria)," *Journal of Archaeological Science* 40, no. 11 (2013): 4098–4106,
+https://doi.org/10.1016/j.jas.2013.05.011. [Open access]
+- opened: 2026-07-31 · full text (CENIEH repository PDF)
+- supports: Altamira the first Palaeolithic cave art argued about; the ceiling painted over ≥20,000 years
+  (35,559–15,204 cal BP), from a red sign at least ~35,550 (Aurignacian) to Magdalenian work near the end
+- used by: wh-085 · (the paper places the only roof collapse it mentions *before the Gravettian*, so the card's
+  unsupported "rockfall closed the mouth some 13,000 years ago" was dropped)
+
+### cartailhac-1902-meaculpa · the recant
+Émile Cartailhac, "Les cavernes ornées de dessins. La grotte d'Altamira, Espagne. Mea culpa d'un sceptique,"
+*L'Anthropologie* 13 (1902): 348–354, https://archive.org/details/Cartailhac1902. [Open access]
+- opened: 2026-07-31 · full text (Internet Archive)
+- supports: Cartailhac's 1902 published apology after the French discoveries turned him around
+- used by: wh-085
+
+### moroabadia-2015-reception · the reception of Palaeolithic art
+Oscar Moro Abadía, "The reception of Palaeolithic art at the turn of the twentieth century: between archaeology and
+art history," *Journal of Art Historiography* 12 (June 2015), https://arthistoriography.wordpress.com/12-jun-2015/.
+[Open access]
+- opened: 2026-07-31 · full text
+- supports: Sautuola's 1880 pamphlet arguing a Palaeolithic age; the 1879 noticing; the scepticism of Cartailhac
+  and Mortillet
+- used by: wh-085
+
+### valladas-2017-cosquer · the Cosquer radiocarbon dates
+Hélène Valladas, Anita Quiles, Marion Delqué-Kolic, et al., "Radiocarbon Dating of the Decorated Cosquer Cave
+(France)," *Radiocarbon* 59, no. 2 (2017): 621–633, https://hal.science/hal-01568510. [Open access]
+- opened: 2026-07-31 · abstract read (Cambridge Core; open author full-text deposit at HAL hal-01568510)
+- supports: 41 samples dated 33,000–20,000 cal BP, the cave intermittently decorated over ~10,000 years (the two
+  clusters of visits)
+- used by: wh-087
+
+### etxepare-2021-handstencils · the missing-finger debate
+Ricardo Etxepare and Aritz Irurtzun, "Gravettian Hand Stencils as Sign Language Formatives," *Philosophical
+Transactions of the Royal Society B* 376, no. 1824 (2021): 20200205, https://doi.org/10.1098/rstb.2020.0205.
+[Open access]
+- opened: 2026-07-31 · full text (PMC8059529)
+- supports: the incomplete-finger hands read as ritual amputation and as a sign system, with the question left open
+- used by: wh-087
+
+### clottes-1992-cosquer · the two phases
+Jean Clottes, Jean Courtin, Hélène Valladas, et al., "La grotte Cosquer datée," *Bulletin de la Société préhistorique
+française* 89, no. 8 (1992): 230–234, https://www.persee.fr/doc/bspf_0249-7638_1992_num_89_8_9527. [Open access]
+- opened: 2026-07-31 · full text (Persée)
+- supports: at least two phases; Phase 1 = the hands with incomplete fingers
+- used by: wh-087
+
+### minculture-cosquer · the Cosquer setting and fauna (official record)
+Ministère de la Culture (France), Département des recherches archéologiques subaquatiques et sous-marines,
+"Cosquer Cave," https://archeologie.culture.gouv.fr/archeo-sous-marine/en/cosquer-cave. [Open access]
+- opened: 2026-07-31 · full text (official heritage-agency page)
+- supports: Cap Morgiou; entrance ~37 m down; the LGM sea ~120 m lower with the shore km seaward; ~500 figures;
+  the hand stencils; land and marine fauna (seals, auks, fish); the "killed man"
+- used by: wh-087 · (used to correct the tunnel "175 m" → 150 m, the sea "100 m" → ~120 m, and "four-fifths" → most)
+
+### lingappa-2021-varnish · rock varnish composition and growth
+Usha F. Lingappa, Chris M. Yeager, Ajay Sharma, et al., "An ecophysiological explanation for manganese enrichment in
+rock varnish," *Proceedings of the National Academy of Sciences* 118, no. 25 (2021): e2025188118,
+https://doi.org/10.1073/pnas.2025188118. [Open access]
+- opened: 2026-07-31 · full text
+- supports: desert varnish is clay + manganese/iron oxides on arid exposed rock, growing "at most tens of microns
+  over a thousand years"
+- used by: wh-097
+
+### aubry-2007-coa · open-air Palaeolithic art at the Côa
+Thierry Aubry and Jorge Davide Sampaio, "Fariseu: New Chronological Evidence for Open-air Palaeolithic Art in the Côa
+Valley (Portugal)," *Antiquity* 81, no. 312 (2007), https://antiquity.ac.uk/ProjGall/aubry316/. [Open access]
+- opened: 2026-07-31 · full text (Antiquity Project Gallery)
+- supports: the Côa engravings confirmed as genuinely open-air Palaeolithic art (Fariseu min 18,300 BP TL, panel
+  ~15,000 BP OSL)
+- used by: wh-097 · (used to reword the Côa sentence to "open-air Palaeolithic," dropping the "late 1980s" date)
+
+---
+
 ## CANDIDATES — NOT VERIFIED, DO NOT PASTE INTO `data.js`
 
 *Empty.* Everything gathered by search during the blocked attempt of 2026-07-30 has since been opened and

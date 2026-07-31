@@ -258,14 +258,52 @@ Kurat/Antl-Weiser via the Naturhistorisches Museum Wien for Willendorf; Trinkaus
 2014 on the Mal'ta genome; the UNESCO Swabian Jura Caves record. **`wh-070` needs its hedge checked** —
 whether the Divje Babe object is a flute at all is disputed, and the card must not read as settled.
 
-### Batch 9 · Upper Palaeolithic art: rock and cave (6)
-`wh-083` cave painting · `wh-084` Chauvet Cave · `wh-085` Cave of Altamira · `wh-086` Lascaux ·
-`wh-087` Cosquer Cave · `wh-097` petroglyph
+### Batch 9 · Upper Palaeolithic art: rock and cave (6) — **5 of 6 DONE (2026-07-31)**
+**Cited:** `wh-083` cave painting · `wh-084` Chauvet Cave · `wh-085` Cave of Altamira ·
+`wh-087` Cosquer Cave · `wh-097` petroglyph. **Deferred:** `wh-086` Lascaux (see below).
 
-Spine: Quiles et al. 2016 on the Chauvet chronology; Aubert et al. 2014 and 2021 on Sulawesi, which
-`wh-083`'s "at least 45,500 years ago" rests on; Pike et al. 2012 on uranium-series dates. UNESCO records
-for Altamira, the Vézère valley and the Côa Valley — the last is directly what `wh-097` describes. This is
-the batch where official sources carry the most weight.
+Spine as worked: Brumm et al. 2021 and Oktaviana et al. 2024 (Sulawesi, the 45,500/51,200 dates),
+Pike et al. 2012 (El Castillo U-series) and Quiles et al. 2016 (Chauvet) for `wh-083`; Quiles 2016 with the
+French Ministry of Culture's Chauvet pages (discovery, bear hollows) and Sadier et al. 2012 (the rockfall
+sealing) for `wh-084`; García-Díez et al. 2013 (Altamira U-series, open full text), Cartailhac 1902 (the
+recant) and Moro Abadía 2015 (reception history) for `wh-085`; Valladas et al. 2017 (the 33,000–20,000 cal BP
+range, HAL deposit), Etxepare & Irurtzun 2021 (the missing-finger debate), Clottes et al. 1992 (the two phases,
+Persée) and the Ministry's DRASSM Cosquer page for `wh-087`; Lingappa et al. 2021 (rock varnish, PNAS) and
+Aubry & Sampaio 2007 (Côa open-air Palaeolithic, Antiquity) for `wh-097`.
+
+### Batch 9 log — Upper Palaeolithic art
+`wh-083` `wh-084` `wh-085` `wh-087` `wh-097` shipped 2026-07-31 (`wh-086` Lascaux deferred). Twenty citations,
+**nineteen open** (only Pike 2012 in `wh-083` is paywalled, beside three open), every card's list majority-open.
+Coverage went from `cards 42/109` to `cards 47/109`. Network access was available and every source was opened
+before it was written down; the two Ministry-of-Culture heritage pages and the French journal deposits
+(Persée, HAL) clear the plan's bar as authoritative open records.
+
+**This batch is the "official sources carry the most weight" batch as predicted — but the peer-reviewed
+dating literature carried more.** The load-bearing claim on every card is a *date* or a *composition*, and
+those go through: García-Díez 2013, Valladas 2017, Quiles 2016, Sadier 2012, Pike 2012, Brumm 2021,
+Oktaviana 2024 and Lingappa 2021 are all reachable (Valladas only via its HAL green-OA copy; Cambridge is
+paywalled). Six factual corrections turned up in the check, all of the "prose outran the source" kind:
+- `wh-084` Chauvet — "195 skulls" → "about 190" (the Ministry / cave-bear MNI figure is ~190; no source for 195).
+- `wh-085` Altamira — the card had a rockfall "clos[ing] the mouth some 13,000 years ago" as part of the
+  U-series sentence. García-Díez 2013 dates the ceiling but places the only roof collapse it mentions
+  *before the Gravettian*, tens of millennia earlier; the 13,000-year sealing is a conservation/museum figure,
+  not from the dating paper. Reworded to keep the (sourced) 20,000-year U-series span and drop the unsupported
+  13,000-year date, so the García-Díez marker sits only on what García-Díez bears out.
+- `wh-087` Cosquer — the tunnel is "150 metres" not 175, the LGM sea "about 120 metres lower" not 100 (both from
+  the Ministry's DRASSM page, which also disagrees with the Wikipedia-level 175 m), and "most of the cave"
+  drowned rather than a precise "four-fifths" (tertiary only). The 65-hands / 44+21 split and the 33,000–20,000
+  range both hold.
+- `wh-097` petroglyph — the Côa engravings reworded to "open-air Palaeolithic engravings … found during the dam
+  survey," dropping the "late 1980s" coming-to-light (the survey began then; the art was recognised in 1991),
+  which is also what lets the Aubry & Sampaio marker attach to a claim that paper actually makes.
+
+**`wh-086` Lascaux is deferred**, the one card of the six whose spine will not open: only ~4 of its 10 claims
+have qualifying open scholarship (Ducasse & Langlais 2019 on the chronology; Martin-Sánchez 2014 on the mould),
+while the galleries, the discovery, the scaffolding-and-lamps decline and the visitor history rest on the
+Aujoulat monograph and museum records. It also carries two errors to fix when it is worked: the date
+("about 17,000 years ago, some estimates 19,000") is the uncalibrated 14C age read as calendar years —
+Ducasse & Langlais 2019 puts the occupations at ~21,000 cal BP — and the Great Bull is ~5.6 m, not "5.2 metres"
+(Jouteau 2023). Recorded for a later Lascaux pass, not papered over now.
 
 ### Batch 10 · Ice-age climate and megafauna (8) — **7 of 7 DONE (2026-07-31)**
 **Cited:** `wh-010` Pleistocene · `wh-012` Last Glacial Period · `wh-078` Last Glacial Maximum ·
@@ -919,5 +957,5 @@ If a needed host turns out to be missing mid-batch, the cheaper fix is switching
 - **Changelog.** One line per day, raising its count — "Sources added to N cards in the World History
   prehistory deck" — with its nine translations, per the house rule. Corrections found along the way get
   their own line, and should name what changed.
-- **Coverage** is reported by `add-sources.js` on every run (`cards 26/109`), which is how the pass is
+- **Coverage** is reported by `add-sources.js` on every run (`cards 47/109`), which is how the pass is
   tracked across sessions.
