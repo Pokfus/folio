@@ -594,7 +594,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     glossary term carries `sources`; the citation pass so far has touched cards only. The UI, the deltas and the
     pipeline are in place; the rest is a content job (see "Citing the existing content" below). Guarded by
     `.claude/test-sources.js` (67 assertions).
-    **Batches 0–14 shipped 2026-07-31**: **81 of the 109 prehistory cards carry sources**, every card's list
+    **Batches 0–15 shipped 2026-07-31**: **84 of the 109 prehistory cards carry sources**, every card's list
     majority-open (`wh-086` Lascaux, `wh-074` Dolní Věstonice and a set of culture-history/definitional cards
     are deferred — their sources will not open). See `docs/citation-plan.md` — its Pilot log records how the
     definitional cards were solved, its Batch 1 log the factual errors the exercise turns up (21 so far) and
@@ -641,6 +641,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     And **budget for the length rule**: a citation pass makes prose longer, so a card already near the
     330-word ceiling (`wh-049` sat at 329) needs several trimming passes across all ten languages before it
     lands back inside it.
+    From Batch 15, two rules that between them reopened a set the plan had written off. **When the
+    discovery paper is closed, look for the REVIEW that restates it** — the southern African Middle Stone
+    Age was deferred because Henshilwood and Marean are closed, which is true of the founding
+    announcements and false of the syntheses built on them; one open review carried six of `wh-057`'s ten
+    sentences. And **fetch the FILE, not the landing page**: `hal.science/hal-XXXXXX` sits behind an
+    Anubis wall while `hal.science/hal-XXXXXX/document` serves the PDF, which reversed a Batch 14 call —
+    Détroit et al. 2019 shipped as [Paywalled] and is open. A wrong access label is a real error, not a
+    cosmetic one: it tells a reader not to bother following a link they could have followed.
     From Batch 12: **the register pays for itself late.** The three framework cards (`wh-001`, `wh-002`,
     `wh-004`) took 25 citation slots and needed **no new sources at all** — every claim a definitional card
     makes is a claim some other card already makes, so the whole job was mapping sentences to entries
@@ -1654,7 +1662,7 @@ which would otherwise have shipped corrected prose above an uncorrected date lin
 **Citing the existing content (as of July 2026)** — **most of the shipped content still has no citations.** The
 109 cards, 333 glossary terms and every Atlas description were written before this system existed, from Wikipedia
 and its sources, and were fact-checked rather than referenced. A batched pass is working through the cards —
-**81 of 109 done** (`docs/citation-plan.md`; coverage is reported by `add-sources.js` on every run) — while
+**84 of 109 done** (`docs/citation-plan.md`; coverage is reported by `add-sources.js` on every run) — while
 `country-sources.js` and `GLOSSARY_SOURCES` are still empty, so the Sources fold appears only on those cards.
 **Do not paper over the rest by attaching plausible-looking citations to existing prose** — a citation that was
 not the actual source of a sentence is worse than no citation, because it invites a reader to trust a page number

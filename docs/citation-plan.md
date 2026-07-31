@@ -1058,6 +1058,64 @@ antlers to everyone buried in both caves; that went through `fix-field.js`, whic
 across all ten languages to land back inside the 270–330 rule. Budget for that on any card already near the
 ceiling: a citation pass makes prose longer, not shorter.
 
+### Batch 15 · The southern African MSA and the modern-mind debate (3) — **DONE (2026-07-31)**
+**Cited:** `wh-056` Pinnacle Point · `wh-057` Ochre · `wh-058` Behavioural modernity.
+
+Spine: Marean et al. 2004, Marean et al. 2007, Brown et al. 2009, Bar-Matthews et al. 2010, Sjödin et al.
+2012, Ziegler et al. 2013, Schmidt & Mackay 2016, Marean 2016, Wilkins et al. 2017 (Pinnacle Point);
+Henshilwood et al. 2002 and 2011, Wadley et al. 2009, Villa et al. 2015, Rosso et al. 2017, Dapschauskas
+et al. 2022 (ochre); McBrearty & Brooks 2000, Klein 2008, Powell et al. 2009, Zilhão et al. 2010, d'Errico
+& Stringer 2011, Hoffmann et al. 2018, Scerri et al. 2018 (modernity). Twenty-two works, fifteen open.
+
+### Batch 15 log — the southern African MSA
+
+#### 2026-07-31 — three cards cited, coverage `cards 81/109` → `cards 84/109`
+
+**This batch reopens a set the plan had written off.** The southern African MSA was deferred on the
+grounds that Henshilwood and Marean are closed. That is true of the *founding announcements* and false of
+almost everything else: the reviews, the re-analyses and the syntheses built on those results are open, and
+between them they carry the claims. Dapschauskas et al. 2022 alone carries six of `wh-057`'s ten sentences
+— the mineralogy, the earliest sites, the transport distances, the functional-versus-symbolic argument and
+the ochre found with burials. **When the discovery paper is closed, look for the review that restates it.**
+
+**The HAL `/document` path, and what it cost Batch 14.** A HAL landing page sits behind an Anubis
+proof-of-work wall; `hal.science/hal-XXXXXX/document` serves the PDF straight out. That reverses a Batch 14
+call: **Détroit et al. 2019 shipped as [Paywalled] and is open.** Relabelled and repointed here, with
+Ingicco et al. 2018 moved to the same route. Batch 3's rule was "fetch it before labelling it"; the
+corollary is **fetch the FILE, not the landing page** — the same host can wall one and serve the other.
+
+**Five corrections**, three of them on one card:
+
+- **`wh-056` put Pinnacle Point "just south of the town of Mossel Bay."** Marean et al. 2004: "a section of
+  coastal cliffs **west** of the town of Mossel Bay." Abstract, date line and the main question all said
+  south.
+- **`wh-056` had silcrete "buried in sand and heated slowly to roughly 350 degrees Celsius."** No source
+  this pass could open gives a temperature — not Brown et al. 2009's abstract, not Wilkins et al. 2017,
+  not Schmidt & Mackay 2016, whose own figure is a threshold ("from 250 °C upward") rather than a working
+  temperature. The number is gone and the process is described by what it does: heated in fire until the
+  stone fractures like flint rather than like coarse sandstone.
+- **`wh-056` said heat treatment "is recorded here earlier than anywhere else"** and pinned it to PP5-6's
+  89–51 ka sequence. Brown et al. 2009's abstract puts it at Pinnacle Point "as early as 164 ka" and says
+  it "predominates among silcrete tools at approximately 72 ka" — an earlier cave, and a distinction
+  between first appearance and dominance that the card had collapsed.
+- **`wh-057` said burnt ochre crumbs "show that people made that change on purpose."** Rosso et al. 2017
+  calls the evidence for deliberate heating something that "has been advanced," at Pinnacle Point, not
+  something established. Softened to "are read as."
+- **`wh-058` attributed the anti-checklist argument to John Shea.** Shea 2011 is closed at Current
+  Anthropology with no deposit anywhere, so the name went and the argument stayed, grounded on Scerri et
+  al. 2018, which is open and makes it: trait categories "will have declining value" unless operationalised,
+  and the traits appear patchily across a subdivided African population.
+
+**The question pool carried two of the three `wh-056` errors** — the south-of-Mossel-Bay location in the
+main question and the 350 degrees plus "the earliest such treatment anywhere" in the second phrasing, in
+all ten languages. Batch 8's rule, third batch running.
+
+**One judgement worth recording.** `wh-058`'s prose says "Richard Klein argued that the suddenness is
+real." Klein 2008 is closed and its Wiley bronze copy 403s here, so it is cited as a paywalled landmark
+*and* the sentence carries a second marker to d'Errico & Stringer 2011, which states the saltation model
+and attributes it to Klein in an openable page. Where the landmark cannot be opened, **point the reader at
+an open work that reports it** as well as at the landmark itself.
+
 ## Batch 1 log — the oldest toolmakers
 
 ### 2026-07-31 — six cards cited, three deferred
@@ -1486,5 +1544,5 @@ If a needed host turns out to be missing mid-batch, the cheaper fix is switching
 - **Changelog.** One line per day, raising its count — "Sources added to N cards in the World History
   prehistory deck" — with its nine translations, per the house rule. Corrections found along the way get
   their own line, and should name what changed.
-- **Coverage** is reported by `add-sources.js` on every run (`cards 81/109`), which is how the pass is
+- **Coverage** is reported by `add-sources.js` on every run (`cards 84/109`), which is how the pass is
   tracked across sessions.

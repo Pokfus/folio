@@ -2234,6 +2234,81 @@ Skhul and Qafzeh (`wh-049`):
 - Yossi Zaidner et al., “Evidence from Tinshemet Cave in Israel Suggests Behavioural Uniformity across <i>Homo</i> Groups in the Levantine Mid-Middle Palaeolithic circa 130,000–80,000 Years Ago,” <i>Nature Human Behaviour</i> 9, no. 5 (2025): 886–901, https://pmc.ncbi.nlm.nih.gov/articles/PMC12106087/. [Open access]
 - Rasmus Nielsen et al., “Tracing the Peopling of the World through Genomics,” <i>Nature</i> 541, no. 7637 (2017): 302–10, https://pmc.ncbi.nlm.nih.gov/articles/PMC5772775/. [Open access]
 
+## Batch 15 — the southern African MSA and the modern-mind debate, verified 2026-07-31
+
+Forty-three citation slots across three cards, from **22 distinct works, 15 of them open**. Every card's
+list is majority-open. Batch 14's method again — cut by source type, not subject — and this batch is the
+one that reopens a set the plan had written off. The southern African Middle Stone Age was deferred as
+"Henshilwood and Marean are closed"; that is true of the founding announcements and false of everything
+built on them. The *reviews and re-analyses* of those results are open, and between them they carry almost
+every claim these cards make.
+
+- `wh-056` **Pinnacle Point** — Marean et al. 2004 (the 1997 survey, the geology), Marean et al. 2007 (the
+  164 ka shellfish and pigment), Brown et al. 2009 (silcrete heat treatment), Bar-Matthews et al. 2010 (the
+  90–53 ka speleothem record), Sjödin et al. 2012 (no bottleneck), Ziegler et al. 2013 (climate and
+  innovation), Schmidt & Mackay 2016 (what heat treatment does to silcrete), Marean 2016 (the coastal
+  refuge argument), Wilkins et al. 2017 (the PP5-6 sequence). Nine sources, six open.
+- `wh-057` **Ochre** — Henshilwood et al. 2002 (the 77 ka engravings), Wadley et al. 2009 (ochre in
+  compound adhesive), Henshilwood et al. 2011 (the 100 ka abalone-shell workshop), Villa et al. 2015 (ochre
+  and milk as paint), Rosso et al. 2017 (grinding to powder), Dapschauskas et al. 2022 (the review that
+  carries the mineralogy, the earliest sites, the transport distances and the whole
+  functional-versus-symbolic argument). Six sources, four open.
+- `wh-058` **Behavioural modernity** — McBrearty & Brooks 2000, Klein 2008, Powell et al. 2009,
+  Zilhão et al. 2010, d'Errico & Stringer 2011, Hoffmann et al. 2018, Scerri et al. 2018. Seven sources,
+  five open.
+
+### The HAL `/document` path, and what it cost the last batch
+
+**A landing page behind an Anubis proof-of-work wall does not mean the file is unreachable.**
+`hal.science/hal-XXXXXX` is walled; **`hal.science/hal-XXXXXX/document` serves the PDF**. That single fact
+reverses a Batch 14 call: **Détroit et al. 2019 was shipped as [Paywalled] and is open**, deposited in full
+at `hal.science/hal-02296712/document`. It has been relabelled and its URL repointed, and Ingicco et al.
+2018 moved to the same route (its UOW deposit answers a bot challenge to this sandbox's client; the HAL
+copy opens directly). Batch 3's rule was "fetch it before labelling it"; the corollary this batch adds is
+**fetch the file, not the landing page** — the two can have different fates on the same host.
+
+Nothing else changed hands: Brown et al. 2009's HAL record holds no file, Henshilwood et al. 2002's holds
+none either, and Bar-Matthews et al. 2010 has no deposit at all. Those three are cited as paywalled
+landmark papers, which they are.
+
+### Verified citations
+
+Pinnacle Point (`wh-056`):
+
+- Curtis W. Marean, Peter J. Nilssen, Kyle Brown, Antonieta Jerardino, and Deano Stynder, “Paleoanthropological Investigations of Middle Stone Age Sites at Pinnacle Point, Mossel Bay (South Africa): Archaeology and Hominid Remains from the 2000 Field Season,” <i>PaleoAnthropology</i> 2004 (2004): 14–83, https://paleoanthro.org/media/journal/content/PA200407014.pdf. [Open access]
+- Curtis W. Marean et al., “Early Human Use of Marine Resources and Pigment in South Africa during the Middle Pleistocene,” <i>Nature</i> 449, no. 7164 (2007): 905–8, https://doi.org/10.1038/nature06204. [Paywalled]
+- Kyle S. Brown et al., “Fire as an Engineering Tool of Early Modern Humans,” <i>Science</i> 325, no. 5942 (2009): 859–62, https://doi.org/10.1126/science.1175028. [Paywalled]
+- Miryam Bar-Matthews et al., “A High Resolution and Continuous Isotopic Speleothem Record of Paleoclimate and Paleoenvironment from 90 to 53 ka from Pinnacle Point on the South Coast of South Africa,” <i>Quaternary Science Reviews</i> 29, nos. 17–18 (2010): 2131–45, https://doi.org/10.1016/j.quascirev.2010.05.009. [Paywalled]
+- Per Sjödin, Agnès E. Sjöstrand, Mattias Jakobsson, and Michael G. B. Blum, “Resequencing Data Provide No Evidence for a Human Bottleneck in Africa during the Penultimate Glacial Period,” <i>Molecular Biology and Evolution</i> 29, no. 7 (2012): 1851–60, https://academic.oup.com/mbe/article/29/7/1851/1067076. [Open access]
+- Martin Ziegler et al., “Development of Middle Stone Age Innovation Linked to Rapid Climate Change,” <i>Nature Communications</i> 4 (2013): 1905, https://pmc.ncbi.nlm.nih.gov/articles/PMC4354264/. [Open access]
+- Patrick Schmidt and Alex Mackay, “Why Was Silcrete Heat-Treated in the Middle Stone Age? An Early Transformative Technology in the Context of Raw Material Use at Mertenhof Rock Shelter, South Africa,” <i>PLOS ONE</i> 11, no. 2 (2016): e0149243, https://pmc.ncbi.nlm.nih.gov/articles/PMC4750967/. [Open access]
+- Curtis W. Marean, “The Transition to Foraging for Dense and Predictable Resources and Its Impact on the Evolution of Modern Humans,” <i>Philosophical Transactions of the Royal Society B</i> 371, no. 1698 (2016): 20150239, https://pmc.ncbi.nlm.nih.gov/articles/PMC4920296/. [Open access]
+- Jayne Wilkins et al., “Lithic Technological Responses to Late Pleistocene Glacial Cycling at Pinnacle Point Site 5-6, South Africa,” <i>PLOS ONE</i> 12, no. 3 (2017): e0174051, https://pmc.ncbi.nlm.nih.gov/articles/PMC5371328/. [Open access]
+
+Ochre (`wh-057`):
+
+- Christopher S. Henshilwood et al., “Emergence of Modern Human Behavior: Middle Stone Age Engravings from South Africa,” <i>Science</i> 295, no. 5558 (2002): 1278–80, https://doi.org/10.1126/science.1067575. [Paywalled]
+- Lyn Wadley, Tamaryn Hodgskiss, and Michael Grant, “Implications for Complex Cognition from the Hafting of Tools with Compound Adhesives in the Middle Stone Age, South Africa,” <i>Proceedings of the National Academy of Sciences</i> 106, no. 24 (2009): 9590–94, https://pmc.ncbi.nlm.nih.gov/articles/PMC2700998/. [Open access]
+- Christopher S. Henshilwood et al., “A 100,000-Year-Old Ochre-Processing Workshop at Blombos Cave, South Africa,” <i>Science</i> 334, no. 6053 (2011): 219–22, https://doi.org/10.1126/science.1211535. [Paywalled]
+- Paola Villa et al., “A Milk and Ochre Paint Mixture Used 49,000 Years Ago at Sibudu, South Africa,” <i>PLOS ONE</i> 10, no. 6 (2015): e0131273, https://pmc.ncbi.nlm.nih.gov/articles/PMC4488428/. [Open access]
+- Daniela Eugenia Rosso, Francesco d’Errico, and Alain Queffelec, “Patterns of Change and Continuity in Ochre Use during the Late Middle Stone Age of the Horn of Africa: The Porc-Epic Cave Record,” <i>PLOS ONE</i> 12, no. 5 (2017): e0177298, https://pmc.ncbi.nlm.nih.gov/articles/PMC5443497/. [Open access]
+- Rimtautas Dapschauskas, Matthias B. Göden, Christian Sommer, and Andrew W. Kandel, “The Emergence of Habitual Ochre Use in Africa and Its Significance for the Development of Ritual Behavior during the Middle Stone Age,” <i>Journal of World Prehistory</i> 35, nos. 3–4 (2022): 233–319, https://link.springer.com/article/10.1007/s10963-022-09170-2. [Open access]
+
+Behavioural modernity (`wh-058`):
+
+- Sally McBrearty and Alison S. Brooks, “The Revolution That Wasn’t: A New Interpretation of the Origin of Modern Human Behavior,” <i>Journal of Human Evolution</i> 39, no. 5 (2000): 453–563, https://doi.org/10.1006/jhev.2000.0435. [Paywalled]
+- Richard G. Klein, “Out of Africa and the Evolution of Human Behavior,” <i>Evolutionary Anthropology</i> 17, no. 6 (2008): 267–81, https://doi.org/10.1002/evan.20181. [Paywalled]
+- Adam Powell, Stephen Shennan, and Mark G. Thomas, “Late Pleistocene Demography and the Appearance of Modern Human Behavior,” <i>Science</i> 324, no. 5932 (2009): 1298–1301, https://discovery.ucl.ac.uk/id/eprint/168654/. [Open access]
+- João Zilhão et al., “Symbolic Use of Marine Shells and Mineral Pigments by Iberian Neandertals,” <i>Proceedings of the National Academy of Sciences</i> 107, no. 3 (2010): 1023–28, https://pmc.ncbi.nlm.nih.gov/articles/PMC2824307/. [Open access]
+- Francesco d’Errico and Chris B. Stringer, “Evolution, Revolution or Saltation Scenario for the Emergence of Modern Cultures?,” <i>Philosophical Transactions of the Royal Society B</i> 366, no. 1567 (2011): 1060–69, https://pmc.ncbi.nlm.nih.gov/articles/PMC3049097/. [Open access]
+- Dirk L. Hoffmann, Diego E. Angelucci, Valentín Villaverde, Josefina Zapata, and João Zilhão, “Symbolic Use of Marine Shells and Mineral Pigments by Iberian Neandertals 115,000 Years Ago,” <i>Science Advances</i> 4, no. 2 (2018): eaar5255, https://pmc.ncbi.nlm.nih.gov/articles/PMC5833998/. [Open access]
+- Eleanor M. L. Scerri et al., “Did Our Species Evolve in Subdivided Populations across Africa, and Why Does It Matter?,” <i>Trends in Ecology &amp; Evolution</i> 33, no. 8 (2018): 582–94, https://pmc.ncbi.nlm.nih.gov/articles/PMC6092560/. [Open access]
+
+Relabelled from Batch 14 (`wh-040`):
+
+- Florent Détroit et al., “A New Species of <i>Homo</i> from the Late Pleistocene of the Philippines,” <i>Nature</i> 568, no. 7751 (2019): 181–86, https://hal.science/hal-02296712/document. [Open access]
+- Thomas Ingicco et al., “Earliest Known Hominin Activity in the Philippines by 709 Thousand Years Ago,” <i>Nature</i> 557, no. 7704 (2018): 233–37, https://hal.science/hal-01806775v1/document. [Open access]
+
 ---
 
 ## CANDIDATES — NOT VERIFIED, DO NOT PASTE INTO `data.js`
