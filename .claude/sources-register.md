@@ -2144,6 +2144,36 @@ were triaged and left (see the Batch 13 log in the plan).
   - supports: that the Sahara "has known periods of enhanced precipitation that supported pre-historic humans" and was in humid phases "almost entirely vegetated and covered by rivers and" lakes, with Heinrich events driving it dry again — the card's opening and closing corridors
   - used by: wh-050
 
+
+## Batch 12 — the framework cards, verified 2026-07-31
+
+Twenty-five citation slots across three cards, from **13 distinct works, 11 of them open**. Every card's
+list is majority-open. **No source in this batch is new**: all thirteen were verified in earlier batches
+(0, 1, 4, 7, 9, 10 and 13) and are reused here verbatim from this register, which is exactly what it exists
+for — a work wanted by six cards is verified once and pasted six times, and the formatting cannot drift.
+
+The pilot's method for definitional cards is what made this possible: **decompose the card into its claims
+and cite those.** None of these three cards has a source "about the Palaeolithic"; each sentence has a
+source for the specific thing it asserts.
+
+- `wh-001` **Paleolithic** — Lubbock 1865 (the 1865 coinage and the Greek), Li et al. 2023 (knapping as
+  controlled fracture), Harmand et al. 2015 with Braun et al. 2019 (the 3.3 and 2.6 Ma ends of the opening
+  date), Walker et al. 2018 (the close of the last Ice Age), Hublin et al. 2017 (*Homo sapiens* from about
+  300,000 years ago), de la Torre 2016 (Oldowan to Acheulean), Roebroeks & Villa 2011 (fire), Brumm et al.
+  2021 (the late flowering of art), Larson et al. 2014 (the turn to farming). Ten sources, nine open.
+- `wh-002` **Lower Paleolithic** — Braun et al. 2019, Harmand et al. 2015, Domínguez-Rodrigo & Alcalá 2016
+  (the disputed Lomekwi finds, cited *with* their published critique, as the card's own hedge requires),
+  Lubbock 1865, de la Torre 2016, Lordkipanidze et al. 2013 (Dmanisi), Roebroeks & Villa 2011. Seven
+  sources, six open.
+- `wh-004` **Upper Paleolithic** — Walker et al. 2018, Higham et al. 2014, Gilligan et al. 2024 (eyed
+  needles and fitted dress), Brumm et al. 2021 and Oktaviana et al. 2024 (Sulawesi), Floss 2015 (the
+  Swabian figurines and flutes), Quiles et al. 2016 (Chauvet), Trinkaus & Buzhilova 2018 (Sungir). Eight
+  sources, seven open.
+
+**Nothing needed opening again, and nothing needed correcting from the sources' side.** The two changes this
+batch made were both *internal consistency* repairs found by the batch-7 sibling rule, not errors against
+the literature — see the Batch 12 log in the plan.
+
 ---
 
 ## CANDIDATES — NOT VERIFIED, DO NOT PASTE INTO `data.js`

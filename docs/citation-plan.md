@@ -846,10 +846,71 @@ try, with the month-name guard from batch 8b already in place, and **neither car
 correction** — the first time in three batches, and only because the pools happened not to repeat the
 figures that moved.
 
-### Batch 12 · The framework itself (8)
-`wh-001` Paleolithic · `wh-002` Lower Paleolithic · `wh-003` Middle Paleolithic · `wh-004` Upper Paleolithic ·
-`wh-005` Stone Age (if not in the pilot) · `wh-006` Three-age system · `wh-007` Prehistory ·
-`wh-009` Hunter-gatherer (if not in the pilot)
+### Batch 12 · The framework itself (6) — **3 of 6 DONE (2026-07-31)**
+**Cited:** `wh-001` Paleolithic · `wh-002` Lower Paleolithic · `wh-004` Upper Paleolithic.
+(`wh-005` Stone Age and `wh-009` Hunter-gatherer were taken in the pilot.)
+
+**Remaining:** `wh-003` Middle Paleolithic · `wh-006` Three-age system · `wh-007` Prehistory. See the
+Batch 12 log — each needs sources this register does not yet hold, and each names exactly which.
+
+Spine as worked: **nothing new was opened.** All thirteen citations were verified in batches 0, 1, 4, 7, 9,
+10 and 13 and pasted from `.claude/sources-register.md` — Lubbock 1865, Li et al. 2023, Harmand et al. 2015,
+Domínguez-Rodrigo & Alcalá 2016, Braun et al. 2019, de la Torre 2016, Roebroeks & Villa 2011, Hublin et al.
+2017, Walker et al. 2018, Brumm et al. 2021, Oktaviana et al. 2024, Larson et al. 2014, Higham et al. 2014,
+Gilligan et al. 2024, Floss 2015, Quiles et al. 2016, Trinkaus & Buzhilova 2018 and Lordkipanidze et al.
+2013.
+
+### Batch 12 log — the framework cards
+
+#### 2026-07-31 — three cards cited, three left
+
+Twenty-five citation slots across `wh-001`, `wh-002` and `wh-004`, from **13 distinct works, 11 of them
+open**, every list majority-open. Coverage went from `cards 75/109` to `cards 78/109`.
+
+**This is the cheapest batch of the whole pass, and the reason is the register.** Not one source had to be
+found, opened or labelled: the framework cards make claims that other cards already make — Lubbock coined
+the word, the Oldowan starts at 2.6 Ma, Lomekwi is disputed, *Homo sapiens* is 300,000 years old, the Ice
+Age ends at 11,700, Sulawesi has the oldest animal painting — and every one of those was verified in an
+earlier batch. The whole job was mapping sentences to entries. **A register pays for itself late, not
+early**, and this is what late looks like: three definitional cards, twenty-five slots, no new fetches.
+
+It also vindicates the pilot's method one more time. There is no source "about the Palaeolithic" behind any
+of these cards; there are ten sources behind ten specific claims. Looking for a work that defines the period
+is the trap, exactly as the pilot log said.
+
+**Two corrections, and both are of a kind this pass has not produced before: the cards were not wrong
+against the literature, they were wrong against each other.**
+
+- **`wh-001` and `wh-004` both ended the Palaeolithic "about 12,000 years ago."** Five other cards —
+  `wh-010` Pleistocene, `wh-012` Last Glacial Period, `wh-090` Younger Dryas, `wh-102` Holocene and the
+  Holocene GSSP itself in Walker et al. 2018 — all give **11,700**. `wh-004` additionally contradicted its
+  own date line, which already said 11,700. Both raised.
+- **`wh-004` dated the oldest Sulawesi animal painting to "at least 45,000 years ago."** Our own cited
+  `wh-083` says 45,500 for the Leang Tedongnge pig and 51,200 for the narrative scene, on Brumm et al. 2021
+  and Oktaviana et al. 2024 — both of which this card now cites. Corrected to match.
+
+Four instances of cards contradicting each other across batches 7 and 8 prompted the sibling-consistency
+check; this batch is the first where that check found **everything** it found. Run it early on definitional
+cards especially: a card that summarises the whole period restates figures that a dozen other cards own.
+
+**Nothing else needed changing**, and the question pools needed no correction at all — the first batch since
+the rule was written where they were already right, because these pools happen to state the claims without
+the figures.
+
+**What the three remaining cards need**, so the next pass does not re-derive it:
+
+- **`wh-006` Three-age system** — Rowley-Conwy 2004 (open, in the register) carries Thomsen, the 1836
+  *Ledetraad* and the 1848 English translation. Still needed: a source for Hesiod's ages of metals as
+  poetry rather than evidence (Hesiod is public domain and on archive.org, so this is easy), and one for
+  the claim that much of sub-Saharan Africa went from stone to iron with no bronze stage.
+- **`wh-007` Prehistory** — needs the coinage of the word itself (Daniel Wilson 1851; Rowley-Conwy has
+  written the history of it), a source for writing appearing in Mesopotamia and Egypt around 3200 BCE, and
+  one for the colonial use of the term and the rule against applying it to living communities. That last is
+  the important one and it is a live scholarly literature, not an aside.
+- **`wh-003` Middle Paleolithic** — the hardest of the three and for the batch-3 reason: the Levallois and
+  Mousterian definitions are historiographic, `wh-032` and `wh-033` were deferred for exactly that, and the
+  Blombos ochre and beads it cites are the batch-5 wall (Henshilwood 2002 and 2011 closed with no deposit).
+  Take it with those three cards, not with the framework.
 
 Last on purpose. These are historiographic rather than empirical — they are about how the past has been
 divided up, not about the past — and the pilot will have shown what actually works for them. Lubbock's
@@ -1352,5 +1413,5 @@ If a needed host turns out to be missing mid-batch, the cheaper fix is switching
 - **Changelog.** One line per day, raising its count — "Sources added to N cards in the World History
   prehistory deck" — with its nine translations, per the house rule. Corrections found along the way get
   their own line, and should name what changed.
-- **Coverage** is reported by `add-sources.js` on every run (`cards 75/109`), which is how the pass is
+- **Coverage** is reported by `add-sources.js` on every run (`cards 78/109`), which is how the pass is
   tracked across sessions.
