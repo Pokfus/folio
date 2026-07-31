@@ -100,7 +100,10 @@ for (let i = arrStart; i < src.length; i++) {
 }
 if (arrEnd < 0) die("could not find the end of the CARD_DATA array");
 
-const out = src.slice(0, arrStart) + JSON.stringify(CARDS, null, 2) + src.slice(arrEnd + 1);
+// ONE card per line, the shape add-card.js / add-sources.js / add-lang.js / add-questions.js /
+// update-cards.js all write. This script used to pretty-print instead, so data.js flip-flopped between
+// 1.4k and 15k lines depending on which tool wrote last, and every batch's diff was the whole file.
+const out = src.slice(0, arrStart) + "[\n" + CARDS.map((c) => JSON.stringify(c)).join(",\n") + "\n]" + src.slice(arrEnd + 1);
 fs.writeFileSync(DATA, out);
 
 // re-parse to confirm we did not corrupt the file
