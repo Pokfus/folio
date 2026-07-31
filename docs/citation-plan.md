@@ -218,9 +218,11 @@ Hershkovitz et al. 2018 on Misliya; McBrearty & Brooks 2000 for the MSA framing.
 need care** — the dates have moved repeatedly, and the cards should be checked against the current
 estimates rather than cited to whatever was true when they were written.
 
-### Batch 5 · The southern African record and modern behaviour (8)
-`wh-051` Blombos Cave · `wh-052` Howiesons Poort · `wh-053` Sibudu Cave · `wh-054` Border Cave ·
-`wh-055` Klasies River Caves · `wh-056` Pinnacle Point · `wh-057` ochre · `wh-058` behavioural modernity
+### Batch 5 · The southern African record and modern behaviour (8) — **3 of 8 DONE (2026-07-31)**
+**Cited:** `wh-052` Howiesons Poort · `wh-053` Sibudu Cave · `wh-054` Border Cave.
+
+**Deferred:** `wh-051` Blombos Cave · `wh-055` Klasies River Caves · `wh-056` Pinnacle Point · `wh-057` ochre ·
+`wh-058` behavioural modernity. See the Batch 5 log below — the same open-access wall, in a new place.
 
 Spine: Henshilwood et al. 2002 and 2011 on Blombos; Marean et al. 2007 on Pinnacle Point; Wadley on Sibudu;
 d'Errico on ochre and engraving; McBrearty & Brooks 2000 for the "revolution that wasn't" framing that
@@ -586,6 +588,71 @@ all-caps word as an initial (`DNA.` is a sentence end, not `D. N. A.`), and a ba
 were caught by the per-block "exactly five sentences" assertion before any marker was placed, and every marker
 position was eyeballed across all ten languages, per the batch-1 warning.
 
+## Batch 5 log — the southern African record
+
+### 2026-07-31 — three cards cited, five deferred
+
+Twelve citations across `wh-052`, `wh-053` and `wh-054` (ten distinct works, Jacobs 2008 and Backwell 2008
+each serving two cards), nine of the ten open, and every card's list majority-open. Coverage went from
+`cards 26/109` to `cards 29/109`.
+
+**This batch is the batch-2 wall, moved one region south.** The advice from batches 2–4 was to re-cut by
+source type, and this batch is what that looks like when a whole *subject* — the southern African Middle
+Stone Age — turns out to sit almost entirely in closed journals. The three that shipped are the ones whose
+load-bearing papers happen to be open: **Sibudu and Border Cave rest on PNAS papers** (Wadley 2009,
+d'Errico 2012, Texier 2010), which are free in PMC six months after publication, plus two green deposits
+(Jacobs 2008 at the ANU repository, Wadley 2020 at HAL) and one gold-OA *Scientific Reports* paper
+(d'Errico 2022). The five deferred are the ones built on closed landmarks with no open deposit anywhere:
+
+- **`wh-051` Blombos** turns on Henshilwood 2002 (engraved ochre), Henshilwood 2011 (the ochre workshop) and
+  d'Errico 2005 (the *Nassarius* beads) — all *Science*/JHE, all closed, OpenAlex `oa_status: closed` with no
+  deposit. Only Henshilwood 2018 (the silcrete drawing) is green (HAL). Two open against three closed: the
+  list would be minority-open, so it fails the bar. Blombos is the flagship site of the whole batch and the
+  most frustrating to leave, but half-citing it to a majority-paywalled list is worse.
+- **`wh-056` Pinnacle Point** is the same story with different papers: Marean 2007 (the 164 ka shellfish),
+  Brown 2009 (heat treatment) and Brown 2012 (the PP5-6 sequence) are all closed with no deposit; only
+  Bar-Matthews 2010 (the Crevice Cave climate record) is green. One open against three closed.
+- **`wh-057` ochre** and **`wh-058` behavioural modernity** are the batch's two concept cards, and they
+  belong with the definitional set in batch 12, not here. Their spines are Barham 2002, McBrearty & Brooks
+  2000, Klein, Powell 2009 and Shea 2011 — Curr. Anthropol. and *Science*, all closed; only Hoffmann 2018
+  (Cueva de los Aviones, verified this session at 115–120 ka) and d'Errico & Stringer 2011 are open. Decompose
+  them into claims, per the pilot's lesson, when batch 12 is worked.
+- **`wh-055` Klasies River** rests on Singer & Wymer's 1982 monograph, Deacon and Wurz — older, closed, and
+  book-length; the cannibalism and archaic/modern claims need care a later pass can give them.
+
+**Three corrections**, made in English and all nine languages:
+
+- **`wh-053`** said layers around 61 ka held "a bone point whose heat and impact damage matches arrowheads
+  shot in modern experiments, and a bone needle, the oldest examples of either yet reported." Backwell,
+  d'Errico & Wadley 2008 report **two points and a polished spatula, not a needle** — the slender point is
+  only "consistent with a pin or needle-like implement," and there is no "oldest needle" claim; "heat" damage
+  belongs to a later CT study, not this paper. Rewritten to the arrow point (read as such from form and wear)
+  plus the double-bevelled bone wedges of d'Errico 2022, whose wear matches debarking trees and digging soil.
+- **`wh-054`** said the Middle Stone Age record "reaches back beyond 227,000 years." The 2022 archive paper's
+  own figure is ~227 ka, so "beyond" overstated it; changed to "to about 227,000 years."
+- No correction was needed for `wh-052` or for the rest of `wh-054` — the beeswax "oldest" superlative held
+  (d'Errico 2012, 13217, states it in as many words), the 29-notch fibula, the Conus infant burial, the 270
+  engraved eggshells and the Jacobs 2008 dates all matched their sources exactly.
+
+**On access, two calls worth recording.** Backwell 2008 is labelled `[Paywalled]` although its full text was
+read and verified: OpenAlex lists no clean open deposit (the HAL-SHS record is behind the Anubis wall), so
+the honest label is paywalled even though the claim was checked against the full paper. Backwell 2022 (the
+227 ka archive) is the thinnest verification in the pass so far — **the claim is stated in the paper's title,
+which is all that could be opened** (the QSR DOI is paywalled, the HAL deposit is Anubis-walled, and neither
+Crossref nor Semantic Scholar carries an abstract). It is cited because the title *is* the claim, and flagged
+here so a later pass can upgrade it if the abstract becomes reachable.
+
+**On the mechanism.** Marker splicing by sentence index worked a fifth time, and the batch-1 warning bit
+again exactly as predicted: the Japanese `wh-053` abstract splits two English sentences in two (bedding, and
+the adhesive), giving 6+7 `。`-delimited sentences against the English 5+5. Caught by the per-block
+"exactly five sentences" assertion, which failed loudly for `ja` alone; a small index remap for that one
+card-language put the four markers on the right sentences, verified by printing every target sentence's tail
+across all ten languages before applying.
+
+**New host.** `openresearch-repository.anu.edu.au` (the ANU Open Research repository) carried the open Jacobs
+2008 deposit and was not on the allowlist; add it. `cnrs.hal.science` is a HAL sub-host, already covered by
+the `*.hal.science` wildcard.
+
 ### Unblocking: the cloud environment's allowlist
 
 Kept for the next session that lands somewhere restricted. Network access is a property of the *cloud
@@ -674,6 +741,7 @@ archaeologybulletin.org
 www.isita-org.com
 www.folklore.ee
 utoronto.scholaris.ca
+openresearch-repository.anu.edu.au
 hdl.handle.net
 digital.csic.es
 discovery.ucl.ac.uk
