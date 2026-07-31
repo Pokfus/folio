@@ -78,7 +78,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `Content-Security-Policy-Report-Only` — violations keep showing in devtools without blocking anything.
 - `docs/citation-plan.md` — the batch plan for **citing the 109 prehistory cards** (the bar a source must
   clear, the per-card workflow, how translations are staged, and the 13 batches with their source spines).
-  Not part of the site. Coverage is reported by `add-sources.js` on every run.
+  Not part of the site. Coverage is reported by `add-sources.js` on every run. Its **Pilot log** records
+  that batch 0 was attempted and stopped: this sandbox's egress policy blocks every scholarly host, so no
+  source could be opened and none was cited. `.claude/sources-register.md` holds the verified citations
+  (and, separately and clearly marked, unverified search-only candidates that must never be pasted in).
 - `docs/user-decks-plan.md` — the design plan for **community decks** (user-created decks, sharing,
   ratings, an optional per-deck glossary, and a later paid tier). Phases 0–1 have shipped; see the bullet
   in "How the app is wired". Not part of the site.
@@ -1422,7 +1425,12 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   article, a museum or excavation report. **A Wikipedia article is not a source here** — it is where the
   research starts, not what a study card stands on; follow it to what it cites. **Never invent a
   citation, a page number, a DOI or a publisher.** If a claim cannot be tied to a work you can actually
-  name, soften the claim or drop it — that is the whole point of the apparatus. Sources are **not
+  name, soften the claim or drop it — that is the whole point of the apparatus. **A source in any language
+  qualifies**, and an English card may cite a French or German work where that work carries detail no
+  English source does — common for European prehistory, where the excavation reports are written where the
+  site is. English is preferred only where it serves equally well, since most readers of the English card
+  can check an English source themselves. Cite a foreign-language work under its own title, untranslated:
+  a citation names a work that exists, and a translated title names one that does not. Sources are **not
   translated** (they do not appear in the `i18n` blocks), but the **markers do**: put the same markers on
   the same claims in all 9 translated abstracts, or that language silently loses the apparatus
   (`add-card.js` warns when the counts differ). Escape hatch: `"skipSources": true`, only for a

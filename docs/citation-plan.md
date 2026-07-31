@@ -24,6 +24,22 @@ repository (PMC, HAL, a university repository), an open journal that covers the 
 official site record. If none of those exist, **the claim is cited to something else or softened** — it is
 not cited to a paywalled DOI nobody can open.
 
+### Language
+
+**Sources in any language qualify**, and an English card may cite a French, German, Spanish or Italian
+work where that work carries detail no English source does — which for European prehistory is often, since
+the excavation reports, the site monographs and the ministry records are written where the site is.
+**English is preferred where it serves equally well**: most readers of the English card can check an
+English source themselves, and being able to check it is the whole point. So the test is not the language
+but whether the reader gains anything — cite `Bulletin de la Société préhistorique française` over an
+English summary of it when the Bulletin has the stratigraphy and the summary does not, and the other way
+round when they say the same thing.
+
+Cite it as it is published, in its own language, without translating the title; a citation names a work
+that exists, and a translated title names one that does not. Where the language is not obvious from the
+title, Chicago allows a bracketed gloss after it, and that is worth adding for a reader deciding whether
+to open it.
+
 ### Form
 
 Chicago **note** form, ending in the URL, which is stored as **plain text** — the page turns it into a
@@ -204,6 +220,39 @@ divided up, not about the past — and the pilot will have shown what actually w
 *Pre-historic Times* (1865) is public domain and coins two of these terms, so it can be cited to an exact
 page in a scanned copy; the three-age system has a literature on its own history. Where a period
 definition genuinely has no single authority, saying so in the card is better than manufacturing one.
+
+## Pilot log — batch 0, attempt 1 (2026-07-30)
+
+**Stopped at step 2, "open each one." Not a content problem — a network one.**
+
+This cloud session's egress policy blocks every scholarly host. Probed and refused with a proxy 403:
+`nature.com`, `doi.org`, `pmc.ncbi.nlm.nih.gov`, `pubmed.ncbi.nlm.nih.gov`, `europepmc.org`,
+`whc.unesco.org`, `pnas.org`, `science.org`, `elifesciences.org`, `journals.plos.org`, `stratigraphy.org`,
+`humanorigins.si.edu`, `hal.science`, `kar.kent.ac.uk`, `archive.org`, `en.wikipedia.org`,
+`api.crossref.org`, `openalex.org`, `api.semanticscholar.org`. Only `github.com` and
+`raw.githubusercontent.com` answer. Web *search* works, so bibliographic metadata is obtainable; nothing
+can be opened.
+
+That leaves search snippets as the only evidence, which cannot establish any of: that a link is publicly
+reachable, that a page number is right, or that the work says what the card claims. Writing citations
+from snippets would produce exactly the artefact this whole system exists to prevent — a page number
+nobody checked — so **no citations were written.** `data.js` is untouched.
+
+**What it did establish, which is worth having:**
+
+- The fallback for paywalled landmark papers is real and will be needed constantly. All three "easy"
+  cards' papers are paywalled at the publisher, and all three have an open repository copy
+  (Lomekwi → HAL; Jebel Irhoud → Kent Academic Repository). Expect that shape throughout.
+- A repository copy is often the **accepted manuscript**, whose pagination differs from the journal's. So
+  the locator rule needs a clause: where the accessible copy is not the publisher's PDF, cite the
+  published pagination for identification but locate the claim by **numbered section or figure**, which is
+  stable across both. A page number that only exists in a copy the reader cannot open is not a locator.
+- The definitional cards are as hard as suspected. Searching `wh-005` Stone Age and `wh-009`
+  Hunter-gatherer surfaces tertiary encyclopedias and teaching pages, not open scholarship. That question
+  stays open — it needs the sources actually read before it can be answered.
+
+**To resume:** run batch 0 from a session that can reach the scholarly web, or supply the PDFs. Nothing
+else about the plan changes.
 
 ## Working notes
 
