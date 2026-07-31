@@ -594,8 +594,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     glossary term carries `sources`; the citation pass so far has touched cards only. The UI, the deltas and the
     pipeline are in place; the rest is a content job (see "Citing the existing content" below). Guarded by
     `.claude/test-sources.js` (67 assertions).
-    **Batches 0–11 shipped 2026-07-31**: **69 of the 109 prehistory cards carry sources**, every card's list
-    majority-open (`wh-086` Lascaux, the Swabian Jura cards and a set of culture-history/definitional cards
+    **Batches 0–11 shipped 2026-07-31**: **73 of the 109 prehistory cards carry sources**, every card's list
+    majority-open (`wh-086` Lascaux, `wh-074` Dolní Věstonice and a set of culture-history/definitional cards
     are deferred — their sources will not open). See `docs/citation-plan.md` — its Pilot log records how the
     definitional cards were solved, its Batch 1 log the factual errors the exercise turns up (21 so far) and
     the gotcha that a matching sentence COUNT across languages does not prove a matching sentence MAPPING, and
@@ -615,6 +615,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `wh-075`'s third phrasing restated the very error being corrected, which would have shipped as the cloze
     question above a corrected background. Patch the extras with `add-questions.js` and the main `question`
     with `fix-field.js` (it reaches any string field, so `question` yes, the `questions` array no).
+    From Batch 8b, and it reversed a deferral: **search the holding institution before concluding a card
+    cannot be cited.** `wh-067`/`wh-068` were written off when every Swabian Jura paper proved closed, then
+    went through on museum and government records — Museum Ulm's catalogue entry for the Lion Man (with its
+    inventory number, its measurements and its sex), the Blaubeuren state museum's object record for the
+    Hohle Fels flute, and the World Heritage property's official portal, which is openable where
+    `whc.unesco.org` is not. For a card **about an object**, the museum record is often the better source
+    anyway: it is kept by the people holding the thing and it states the measurements a journal article
+    assumed its readers knew. It also carries what the literature quietly updated — the Lion Man's sex is
+    settled in the catalogue and was still "disputed" on the card.
 - **Multiple question phrasings (July 2026):** a card may carry an optional **`questions` array of EXTRA
   phrasings** beyond `question` — **at most `CARD_MAX_QUESTIONS` (10) in all** (official Folio cards carry
   exactly 3; the headroom is for community decks to experiment). Every phrasing is a full standalone clue
@@ -1621,7 +1630,7 @@ which would otherwise have shipped corrected prose above an uncorrected date lin
 **Citing the existing content (as of July 2026)** — **most of the shipped content still has no citations.** The
 109 cards, 333 glossary terms and every Atlas description were written before this system existed, from Wikipedia
 and its sources, and were fact-checked rather than referenced. A batched pass is working through the cards —
-**69 of 109 done** (`docs/citation-plan.md`; coverage is reported by `add-sources.js` on every run) — while
+**73 of 109 done** (`docs/citation-plan.md`; coverage is reported by `add-sources.js` on every run) — while
 `country-sources.js` and `GLOSSARY_SOURCES` are still empty, so the Sources fold appears only on those cards.
 **Do not paper over the rest by attaching plausible-looking citations to existing prose** — a citation that was
 not the actual source of a sentence is worse than no citation, because it invites a reader to trust a page number

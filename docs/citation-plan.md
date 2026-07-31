@@ -370,15 +370,24 @@ a sentence about different objects. The spear-thrower's "two-thirds more velocit
 as suspicious, turned out to be **correct** (65%, from 2,160 launches) — but the sentence around it was wrong,
 comparing a 200 g dart to an 800 g javelin as though they were "the same shafts".
 
-### Batch 8 · Upper Palaeolithic art: portable (8) — **3 of 8 DONE (2026-07-31)**
-**Cited:** `wh-070` Divje Babe flute · `wh-075` Sungir · `wh-076` Mal'ta-Buret' culture.
+### Batch 8 · Upper Palaeolithic art: portable (8) — **7 of 8 DONE (2026-07-31)**
+**Cited:** `wh-070` Divje Babe flute · `wh-075` Sungir · `wh-076` Mal'ta-Buret' culture (batch 8a) ·
+`wh-067` Lion-man · `wh-068` Hohle Fels · `wh-072` Venus figurines · `wh-073` Venus of Willendorf (batch 8b).
 (`wh-069` Venus of Hohle Fels was taken in the pilot.)
 
-**Deferred:** `wh-067` Lion-man · `wh-068` Hohle Fels · `wh-072` Venus figurines ·
-`wh-073` Venus of Willendorf · `wh-074` Dolní Věstonice. See the Batch 8 log below — four of the five have
-their sources identified and opened already, and `wh-067`/`wh-068` hit the batch-2 wall in a new place.
+**Deferred:** `wh-074` Dolní Věstonice alone. Vandiver et al. 1989 on the fired ceramics and Formicola et al.
+2001 on the triple burial are both closed with no open deposit, the Moravian Museum's Anthropos pages carry
+no object records, and the card's whole second block — the triple burial, the woman under the mammoth
+scapulae, the ivory head and its 2018 facial reconstruction — rests on them. Farbstein & Nowell 2024 (open)
+covers the ceramics alone, which is one sentence of ten.
 
-Spine as worked: Turk/Turk/Otte 2020 and Turk & Bastiani 2020 for the proponents' case, Diedrich 2015 for
+Spine as worked (8b): the Museum Ulm catalogue record and the Blaubeuren state-museum site records for
+`wh-067` and `wh-068`, with the official World Heritage portal for the inscription, Bataille & Conard 2018
+for the excavation history, the Blaubeuren object record for the flute, and Conard 2003 and 2009 as the
+paywalled landmarks; Weber 2022, Morriss-Kay 2013, Floss 2015, Lbova 2021 and Farbstein & Nowell 2024 for
+`wh-072`, and the same four plus the NHM Vienna research record for `wh-073`.
+
+Spine as worked (8a): Turk/Turk/Otte 2020 and Turk & Bastiani 2020 for the proponents' case, Diedrich 2015 for
 the sceptics', Turk & Turk 2023 for the stratigraphy and the National Museum of Slovenia's own object record
 for `wh-070`; Trinkaus & Buzhilova 2018 with Marom 2012 and Nalawade-Chavan 2014 on the dating, Sikora 2017
 on the genomes and Nowell 2020 on the children and the bead labour for `wh-075`; Raghavan 2014 and Lbova
@@ -484,6 +493,82 @@ mapped 1:1 by count but not by content, and a marker placed by index would have 
 Because sentence 3 was being rewritten anyway, the Japanese 3 and 4 were re-cut to match the English
 structure, and every marker position was then eyeballed across all ten languages before applying. All three
 cards round-tripped 5+5 in every language first.
+
+### Batch 8b log — the Swabian Jura and the Venus figurines
+
+#### 2026-07-31 — four more cards cited, one deferred
+
+Twenty-one citation slots across `wh-067`, `wh-068`, `wh-072` and `wh-073`, drawn from **14 distinct works,
+12 of them open**; `wh-072` and `wh-073` are fully open. Coverage went from `cards 69/109` to `cards 73/109`.
+
+**The finding of this batch is a correction to the batch-8a log, and it is the most useful thing in this
+whole pass so far: `wh-067` and `wh-068` were deferred as unsourceable, and they were not.** 8a recorded
+them as the batch-2 wall — Conard 2003, Conard 2009a, Conard/Malina/Münzel 2009 and Higham 2012 all closed,
+Kind et al. 2014 open in *Quartär* but behind an Anubis wall — and concluded that no majority-open list could
+be built. That was true of the *journal* literature and false of the card, because the specific facts those
+cards state are **object facts**, and object facts live in museum catalogues:
+
+- The Lion Man's height, material, find date, fragment count, restoration history **and its sex** are all in
+  Museum Ulm's own catalogue record, with an inventory number.
+- The Hohle Fels flute's length, its four surviving finger holes and its bevelled mouthpiece are in the
+  Blaubeuren museum's object record for the flute.
+- The World Heritage inscription is on the property's official portal, which is openable where
+  `whc.unesco.org` is not.
+
+**→ Search the holding institution before concluding a card cannot be cited.** A museum record is not a
+consolation prize for a card whose papers are paywalled: for a card *about an object* it is frequently the
+better source, because it is maintained by the people who hold the thing and it states measurements the
+journal article assumed its readers already knew. Five of this batch's eight new sources are museum or
+government records, and without them two cards would have been deferred twice.
+
+**Twelve corrections**, made in English and all nine languages:
+
+- **`wh-067`'s disputed sex is no longer disputed.** The card had "one prehistorian reading the marks at its
+  groin as male and another as female." Museum Ulm's record, after the 2012/13 rebuild: "Aufgrund eines
+  dreieckigen, vormals rechteckigen Elfenbeinstücks im Schambereich der Figur … Mit hoher Wahrscheinlichkeit
+  nach handelt es sich bei dem Löwenmenschen um ein männliches Wesen." The argument was real; the
+  reconstruction settled it. **This is the second correction in the pass caused by time rather than
+  carelessness** (after `wh-037`'s *naledi* papers), and both were on cards reporting a live dispute.
+- **`wh-067`** had the fragments sitting "in a box that sat in the Museum Ulm for thirty years." They sat
+  with the excavation's sponsor Robert Wetzel and reached the museum only after his death in **1962**.
+- **`wh-067`** dated the rebuild to 2012; it ran 2012/13, and Blaubeuren dates the reassembly to 2013.
+  Height given as 31.1 cm, per the catalogue.
+- **`wh-067`'s date line contradicted its own abstract**: the abstract said Völzing found it "on the last day
+  of the dig," the date line "the day before the dig was broken off." The museum record settles it — the dig
+  was broken off on 25 August 1939 itself.
+- **`wh-067`'s 400-hour carving experiment could not be opened.** Hein and Wehrberger published it in the
+  print yearbook *Experimentelle Archäologie in Europa*. Softened to "hundreds of hours" and left
+  **deliberately unmarked**, on the `wh-093` precedent.
+- **`wh-068`'s flute had five finger holes and twelve fragments.** The museum's object record gives **four
+  preserved holes**, with the lower end "an einem fünften Loch abgebrochen," and describes the flute as
+  nearly complete without a fragment count. Corrected; the 21.7 cm length and the bevelled notch both hold.
+- **`wh-068`'s "70 centimetres away"** — the distance between the figurine and the flute — is in
+  Conard/Malina/Münzel 2009's full text, which is closed, and in no openable source. Removed from the
+  abstract and from the card's main question.
+- **`wh-068`** dated the figurine's discovery to "September 2008" and counted "six pieces of ivory"; the
+  openable sources give the year and no piece count. Both softened.
+- **`wh-072`'s "more than 200" figurines** trace to no openable catalogue. Dropped from the abstract, the
+  date line and the question.
+- **`wh-072`'s Brassempouy head** was dated "about 25,000 years old." The Musée d'Archéologie nationale's
+  object record 503'd on every attempt, and the museum's own Gravettian bracket for the piece is
+  31,500–28,500 cal BP, so the figure is likely too young as well as unsourceable. The sentence was replaced
+  with the Hohle Fels figurine, which is sourced and makes the same point about exceptions.
+- **`wh-073` credited Josef Szombathy with finding the Venus of Willendorf.** He directed the excavation; the
+  NHM Vienna record says she was "discovered by a worker on the site, **Johann Veran**, as he carefully
+  sifted through the earth." Corrected in the abstract, the date line and two question phrasings.
+- **`wh-073`'s "seven bands"** round the head and its "she cannot stand" are both unsourceable from anything
+  openable — Weber 2022 says only "a sophisticated headdress or hairdo." The count went; the cannot-stand
+  sentence was replaced with Weber's iron-oxide concretions and the navel cavity, which is sourced and more
+  interesting. The Moravian cord-and-netting impressions went the same way (Adovasio, Soffer & Klíma 1996 is
+  closed), replaced by the fitted fur coveralls on the Mal'ta figurines, which Lbova 2021 does carry.
+
+**On the mechanism.** Two splitter findings. First, a **day-ordinal before a month name** breaks the
+sentence splitter: German "am 25. August 1939" and "am 7. August 1908" split after the "25." because the
+month is capitalised and the bare-ordinal guard from batch 4 does not cover it. Fixed with a month-name
+lookahead, which is worth keeping for every later batch that touches a European excavation date. Second,
+the Arabic `wh-067` genuinely runs **5+6**: it renders the English "Whether it is a god … there is no way to
+tell" as two sentences. That is the batch-1 warning again, and it was handled with an explicit
+English-index → language-index map in the builder rather than by forcing the translation to match.
 
 ### Batch 9 · Upper Palaeolithic art: rock and cave (6) — **5 of 6 DONE (2026-07-31)**
 **Cited:** `wh-083` cave painting · `wh-084` Chauvet Cave · `wh-085` Cave of Altamira ·
@@ -1184,5 +1269,5 @@ If a needed host turns out to be missing mid-batch, the cheaper fix is switching
 - **Changelog.** One line per day, raising its count — "Sources added to N cards in the World History
   prehistory deck" — with its nine translations, per the house rule. Corrections found along the way get
   their own line, and should name what changed.
-- **Coverage** is reported by `add-sources.js` on every run (`cards 69/109`), which is how the pass is
+- **Coverage** is reported by `add-sources.js` on every run (`cards 73/109`), which is how the pass is
   tracked across sessions.

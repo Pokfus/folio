@@ -2039,6 +2039,61 @@ bar requires a locator, so it was left out rather than cited blind. Andrew Killi
 (*Music & Science* 1, 2018) is gold OA but SAGE refuses non-browser clients from this environment, and an
 unopened deposit is not a citation.
 
+
+## Batch 8b — the Swabian Jura and the Venus figurines, verified 2026-07-31
+
+Twenty-one citation slots across four cards, drawn from **14 distinct works, 12 of them open**. Every card's
+list is majority-open; `wh-072` and `wh-073` are fully open. The unblocking move was the user's reminder that
+**official museum and government records clear the bar** — five of the eight new sources are exactly that,
+and without them `wh-067` and `wh-068` would have failed the majority-open test for a second batch running.
+
+- Museum Ulm, "Löwenmensch," Archäologie, inv. no. P 1939/2013, museum-digital:baden-württemberg, accessed 31 July 2026, https://bawue.museum-digital.de/object/2497. [Open access]
+  - opened: 2026-07-31 · the holding museum's own catalogue record, German full text
+  - supports: mammoth ivory "geschnitzt aus dem rechten Stoßzahn eines jungen Bullen oder einer adulten Kuh"; H 31,1 cm; 40,000–35,000 years before present; Lonetal / Stadel cave at the Hohlenstein; found by Otto Völzing on 25.08.1939, **the day the dig was broken off for the war** ("Als die Grabungen … am 25. August 1939 kriegsbedingt abgebrochen werden mussten"); that the excavation's sponsor Robert Wetzel kept the fragments, which reached the Ulmer Museum only after his death in 1962 and lay untouched **until 1969**, when museum staff began fitting "die über 200 Elfenbeinfragmente" together; the 1987/88 first professional restoration; the 2009–2012 excavations that returned "mehrere hundert Elfenbeinfragmente"; the 2012/13 dismantling and rebuild at the Landesamt für Denkmalpflege in Esslingen; and, the correction that matters, the sex: "Aufgrund eines dreieckigen, vormals rechteckigen Elfenbeinstücks im Schambereich der Figur … Mit hoher Wahrscheinlichkeit nach handelt es sich bei dem Löwenmenschen um ein männliches Wesen"
+  - used by: wh-067
+- Urgeschichtliches Museum Blaubeuren, "Hohlenstein," Welterbe-Fundstellen, accessed 31 July 2026, https://www.urmu.de/welterbe/fundstellen/hohlenstein. [Open access]
+  - opened: 2026-07-31 · the state prehistory museum's site record
+  - supports: the Stadel as the easternmost find spot in the Hohlenstein massif in the Lonetal; the excavation history (Fraas and Bürger in the 19th century, Riek, Wetzel's 1935 sounding, digs 1936–1939 and 1954–1961); "Aus dem hinteren Bereich stammen die Elfenbeinsplitter, aus denen J. Hahn und 2 Studenten 1969 den Löwenmenschen zusammensetzten"; the post-2008 fragments and the 2013 re-dismantling; the figure as "ein Mischwesen aus Höhlenlöwe und Mensch" at 31.1 cm
+  - used by: wh-067
+- Urgeschichtliches Museum Blaubeuren, "Hohle Fels," Welterbe-Fundstellen, accessed 31 July 2026, https://www.urmu.de/welterbe/fundstellen/hohle-fels. [Open access]
+  - opened: 2026-07-31 · site record
+  - supports: a large chamber cave near Schelklingen in the Achtal; "ein 20 m langer Gang zur 500 Quadratmeter großen Haupthalle"; the first dig by Oscar Fraas and Pfarrer Hartmann in 1870/71; Nicholas Conard directing annual campaigns since 1997; deposits from the Upper Palaeolithic down through Middle Palaeolithic Neanderthal layers; the ~6 cm ivory female figurine found in 2008 and the griffon-vulture bone flute at 40,000 years
+  - used by: wh-068
+- Urgeschichtliches Museum Blaubeuren, "Gänsegeierflöte," Digitale Sammlung, inv. no. 1977-0119-0089-9000, accessed 31 July 2026, https://www.urmu.de/digitale-sammlung/objekt/gaensegeierfloete-1977-0119-0089-9000. [Open access]
+  - opened: 2026-07-31 · the museum's object record for the flute itself
+  - supports: length **21.7 cm**; griffon vulture bone; **four preserved finger holes**, with "Das untere Ende der Flöte scheint an einem fünften Loch abgebrochen zu sein"; the mouthpiece as a bevelled edge forming a notch ("Am anderen Ende des Knochens wurde der Randbereich angeschrägt, wodurch sich eine Kerbe im Schaft ergab"); found at Hohle Fels in 2008; "zwischen 35 000 und 40 000 Jahre alt". **This is the record that corrected the card's "five finger holes" and removed its unsourced "twelve fragments."**
+  - used by: wh-068
+- Welterbe Höhlen und Eiszeitkunst der Schwäbischen Alb, "UNESCO-Welterbe," accessed 31 July 2026, https://www.iceageart.de/unesco-welterbe. [Open access]
+  - opened: 2026-07-31 · the official portal of the World Heritage property, run for the state of Baden-Württemberg. **The UNESCO record itself (whc.unesco.org) is still behind Cloudflare bot protection from this environment; this is the openable equivalent, and it is an official record of the same inscription.**
+  - supports: the property "Höhlen und Eiszeitkunst der Schwäbischen Alb", inscribed **2017**; six caves in two valleys — Geißenklösterle, Sirgenstein and Hohle Fels in the Achtal, Bockstein, Hohlenstein and Vogelherd in the Lonetal; and the grounds, "the oldest portable art objects and musical instruments of humankind" in "a globally unique archaeological landscape"
+  - used by: wh-067, wh-068
+- Nicholas J. Conard, "Palaeolithic Ivory Sculptures from Southwestern Germany and the Origins of Figurative Art," <i>Nature</i> 426, no. 6968 (2003): 830–32, https://doi.org/10.1038/nature02186. [Paywalled]
+  - opened: 2026-07-31 · **publisher abstract only** — the landmark paper; no open deposit
+  - supports: three mammoth-ivory figurines from Hohle Fels including "the oldest known representation of a bird, **a therianthropic sculpture** and an animal that most closely resembles a horse" — the second lion-headed figure the card's closing sentence rests on — and the Swabian Aurignacian as "one of the oldest traditions of figurative art known worldwide"
+  - used by: wh-067
+- Guido Bataille and Nicholas J. Conard, "Blade and Bladelet Production at Hohle Fels Cave, AH IV in the Swabian Jura and Its Importance for Characterizing the Technological Variability of the Aurignacian in Central Europe," <i>PLOS ONE</i> 13, no. 4 (2018): e0194097, under "The site of Hohle Fels," https://pmc.ncbi.nlm.nih.gov/articles/PMC5891003/. [Open access]
+  - opened: 2026-07-31 · full text
+  - supports: "excavations were conducted over multiple seasons **between 1977 and 1996** in the entrance corridor and in the main hall under the direction of Joachim Hahn" — the card's "Tübingen has worked there since 1977" — and the Aurignacian radiocarbon sequence around 42 ka cal BP
+  - used by: wh-068
+- Naturhistorisches Museum Wien, "Venus-Forschung," Prähistorische Abteilung, accessed 31 July 2026, https://www.nhm.at/en/research/prehistory/research/venus-research. [Open access]
+  - opened: 2026-07-31 · the holding museum's research record
+  - supports: the figurine "discovered on 7 August 1908 during excavation work led by Josef Szombathy" and — the correction — **"discovered by a worker on the site, Johann Veran, as he carefully sifted through the earth"**; "The 11-centimetre-high female figure"; "traces of a red chalk coating covering the entire surface", found in analyses from the mid-1950s; "Dating back around 29,500 years"
+  - used by: wh-073
+
+**Reused from earlier batches, not re-verified:** Floss 2015 (wh-067, wh-068, wh-072, wh-073), Morriss-Kay
+2013 (wh-072, wh-073), Weber et al. 2022 (wh-072, wh-073), Lbova 2021 (wh-072, wh-073), Farbstein & Nowell
+2024 (wh-072) and Conard 2009 (wh-068).
+
+**Three claims were opened for and NOT found, and were softened rather than cited.** The **400-hour replica
+experiment** on the Lion Man is real — Wulf Hein and Kurt Wehrberger published it in the print yearbook
+*Experimentelle Archäologie in Europa*, which is not open and which EXARC indexes but does not carry — so the
+card now says "hundreds of hours" and that sentence deliberately carries **no marker**, on the `wh-093`
+precedent that absence of a citation is not a reason to delete a true thing. The **">200 Venus figurines"**
+count appears in no openable catalogue and was dropped from the card, its date line and its question. And the
+**Dame de Brassempouy**: the Musée d'Archéologie nationale's object record (MAN47019) returned HTTP 503 on
+every attempt, so the Brassempouy sentence was replaced rather than cited — which also removed its "about
+25,000 years old", a figure the museum's own Gravettian bracket of 31,500–28,500 cal BP does not support.
+
 ---
 
 ## CANDIDATES — NOT VERIFIED, DO NOT PASTE INTO `data.js`
