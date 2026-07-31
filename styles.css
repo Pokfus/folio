@@ -1809,6 +1809,27 @@ body.grading .wb-tools{bottom:108px;}
   70%{background:color-mix(in srgb,var(--ochre) 18%,transparent); color:var(--ink);}
   100%{background:transparent;}
 }
+/* the access chip at the end of a citation. Green for a source that opens, amber for one that may not —
+   a paywall is a fact about the link, not a mistake, so amber and never red. Both colours are theme
+   tokens (--good, --ochre), so the chip follows every theme and both modes without its own overrides;
+   --ochre is the same warm accent the in-prose markers use, which reads as one apparatus. */
+.src-access{
+  display:inline-block; font-family:var(--mono); font-size:9px; font-weight:600;
+  letter-spacing:.07em; text-transform:uppercase; line-height:1.6; white-space:nowrap;
+  padding:0 6px; margin-left:5px; border-radius:999px; border:1px solid transparent;
+  vertical-align:1px;
+}
+.src-access-open{
+  color:var(--good);
+  background:color-mix(in srgb, var(--good) 11%, transparent);
+  border-color:color-mix(in srgb, var(--good) 30%, transparent);
+}
+.src-access-pay{
+  color:var(--ochre);
+  background:color-mix(in srgb, var(--ochre) 13%, transparent);
+  border-color:color-mix(in srgb, var(--ochre) 34%, transparent);
+}
+.src-compact .src-access, .cp-src .src-access{font-size:8.5px; padding:0 5px;}
 /* the in-prose marker: a real superscript, clickable, in the same gold the blanks use */
 sup.fn{
   font-family:var(--mono); font-size:.62em; line-height:0; vertical-align:super; font-weight:600;

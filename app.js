@@ -6810,28 +6810,56 @@
      hand-written anchor invites and which would quietly send a reader somewhere the citation doesn't name.
      It walks TEXT NODES, so a URL that is already inside an attribute is untouchable by construction. */
   const SRC_URL_RX = /https?:\/\/[^\s<>"')\]]+[^\s<>"')\].,;:]/g;
-  function linkifySrcItem(li) {
-    if (!li || li._srcLinked) return;
-    li._srcLinked = true;
+  /* The access note a citation ends in — `[Open access]` or `[Paywalled]` — is the one thing a reader wants
+     to know BEFORE following the link, so it is lifted out of the prose into a chip rather than left as
+     more citation text. Like the URL it is stored as plain text and built here, which keeps the stored
+     string a plain Chicago note and means the wording can be localised even though the citation itself
+     never is: `.src-list` carries `notranslate`, so `localizeTree` can't reach inside it and the label has
+     to come from `t()` at build time. `[` can't appear in a URL match, so the two passes can't collide. */
+  const SRC_ACCESS_RX = /\[(Open access|Paywalled)\]/g;
+  const SRC_ACCESS = {
+    "Open access": { cls: "src-access-open", title: "Free to read" },
+    Paywalled: { cls: "src-access-pay", title: "Behind a paywall" },
+  };
+  // one text-node walk, one replacement rule — used for the URLs and then for the access chips
+  function replaceInSrcText(li, rx, make, skipInsideLink) {
     const walk = document.createTreeWalker(li, NodeFilter.SHOW_TEXT, null);
     const targets = [];
     let n;
-    while ((n = walk.nextNode())) { if (!n.parentElement.closest("a") && SRC_URL_RX.test(n.nodeValue)) targets.push(n); SRC_URL_RX.lastIndex = 0; }
+    while ((n = walk.nextNode())) {
+      if (!(skipInsideLink && n.parentElement.closest("a")) && rx.test(n.nodeValue)) targets.push(n);
+      rx.lastIndex = 0;
+    }
     targets.forEach((node) => {
       const frag = document.createDocumentFragment();
       let last = 0, m;
-      SRC_URL_RX.lastIndex = 0;
-      while ((m = SRC_URL_RX.exec(node.nodeValue))) {
+      rx.lastIndex = 0;
+      while ((m = rx.exec(node.nodeValue))) {
         if (m.index > last) frag.appendChild(document.createTextNode(node.nodeValue.slice(last, m.index)));
-        const a = document.createElement("a");
-        a.href = m[0]; a.textContent = m[0];
-        a.target = "_blank"; a.rel = "noopener noreferrer";
-        frag.appendChild(a);
+        frag.appendChild(make(m));
         last = m.index + m[0].length;
       }
       if (last < node.nodeValue.length) frag.appendChild(document.createTextNode(node.nodeValue.slice(last)));
       node.parentNode.replaceChild(frag, node);
     });
+  }
+  function linkifySrcItem(li) {
+    if (!li || li._srcLinked) return;
+    li._srcLinked = true;
+    replaceInSrcText(li, SRC_URL_RX, (m) => {
+      const a = document.createElement("a");
+      a.href = m[0]; a.textContent = m[0];
+      a.target = "_blank"; a.rel = "noopener noreferrer";
+      return a;
+    }, true);
+    replaceInSrcText(li, SRC_ACCESS_RX, (m) => {
+      const meta = SRC_ACCESS[m[1]];
+      const el = document.createElement("span");
+      el.className = "src-access " + meta.cls;
+      el.textContent = t(m[1]);
+      el.title = t(meta.title);
+      return el;
+    }, false);
   }
   // every source list in `scope`: bare URLs become links, and any link an author did write opens in a new
   // tab (leaving a study session to read a paper would otherwise lose the session)

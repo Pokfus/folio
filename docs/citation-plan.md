@@ -12,17 +12,31 @@ A citation qualifies only if it is **all four** of these:
    heritage agency, a national museum, the International Commission on Stratigraphy). Not a newspaper,
    not a blog, not an encyclopedia — **Wikipedia is where the research starts, never what a card stands
    on**, and Britannica is the same case one step up.
-2. **Publicly reachable.** Anyone can open it without a subscription. This is a real restriction and it is
-   the point: it is what makes the page number checkable, by the reader and by whoever wrote the card.
+2. **Publicly reachable, with the landmark exception below.** Anyone can open it without a subscription.
+   This is a real restriction and it is the point: it is what makes the page number checkable, by the
+   reader and by whoever wrote the card.
 3. **Stably linked.** A DOI where one exists, else a permalink that will not rot — a repository record, a
    UNESCO document URL, an agency page. Not a search result, not a link that carries a session id.
 4. **Locatable.** An exact page range, figure, table or numbered section. "Somewhere in this 400-page
    book" is not a footnote.
 
-Where a landmark paper is paywalled, in order of preference: the author's accepted manuscript in a
-repository (PMC, HAL, a university repository), an open journal that covers the same finding, or the
-official site record. If none of those exist, **the claim is cited to something else or softened** — it is
-not cited to a paywalled DOI nobody can open.
+### Paywalled landmark papers, and the access label
+
+**Every citation ends in an access label** — `[Open access]` or `[Paywalled]` — after the URL, as part of
+the stored string. A reader deciding whether to follow a link should be told before they click, and an
+author adding a source has to make the access question explicit rather than let it slide.
+
+A **paywalled landmark paper may be cited**: the defining publication for a find is often the only place a
+claim exists, and refusing to name it serves nobody. But it is an exception, not a licence — **the majority
+of any card's sources must be open**, and a paywalled work earns its place only by being the paper the
+claim is actually built on. Prefer, in order: an open deposit of the same paper (PMC, HAL, a university
+repository, an official repository like NSF PAR), an open journal covering the same finding, the official
+site record, and only then the paywalled DOI.
+
+**Cite the copy you opened.** Where a paper is paywalled at the publisher but open in a repository, the URL
+in the citation is the repository's, because that is the link that works. Where only the abstract could be
+opened, the register says so in as many words — a claim taken from an abstract is honestly sourced, and
+pretending otherwise is the failure mode this whole apparatus exists to prevent.
 
 ### Language
 
@@ -47,11 +61,22 @@ link, so the href and the visible text can never disagree.
 
 ```
 Jean-Jacques Hublin et al., “New Fossils from Jebel Irhoud, Morocco and the Pan-African Origin of
-<i>Homo sapiens</i>,” <i>Nature</i> 546, no. 7657 (2017): 289–92, https://doi.org/10.1038/nature22336.
+<i>Homo sapiens</i>,” <i>Nature</i> 546, no. 7657 (2017): 289–92,
+https://doi.org/10.1038/nature22336. [Paywalled]
+
+Sonia Harmand et al., “3.3-Million-Year-Old Stone Tools from Lomekwi 3, West Turkana, Kenya,”
+<i>Nature</i> 521, no. 7552 (2015): 310–15, https://hal.science/hal-04379924. [Open access]
 
 UNESCO World Heritage Centre, “Archaeological Site of Atapuerca,” accessed 30 July 2026,
-https://whc.unesco.org/en/list/989/.
+https://whc.unesco.org/en/list/989/. [Open access]
 ```
+
+The label sits **after** the closing period, outside the sentence, and is stored in the citation string
+exactly as written above. On the page it is **not** printed as bracketed text: `linkifySrcItem` lifts it
+into a small chip — green for open, amber for paywalled, both from theme tokens so it follows every theme
+and both modes. A paywall is a fact about the link, not a mistake, so it is amber and never red. The URL
+pattern stops before the closing period and excludes `[`, so the two passes cannot collide; the chip's four strings are localised through `t()` rather than the walker, because `.src-list`
+carries `notranslate`. Write the label in English in the data — the translation happens at render.
 
 All four helper scripts refuse a citation with no link.
 
@@ -85,6 +110,13 @@ So: **pass 1** is citations + English markers across all twelve batches; **pass 
 nine languages afterwards, which is mechanical. Doing pass 2 per batch would triple each batch's length
 for the least valuable part of it.
 
+**Batch 0 did both at once, and the next batch should too.** The prehistory abstracts are exactly two
+blocks of five sentences in *every* language, so markers can be spliced into the translations **by sentence
+index** rather than retyped — a short script that locates sentence spans, inserts the same markers at the
+same positions, and asserts the marker count matches across all ten languages. What actually costs anything
+is translating a *corrected* sentence, and there were only two of those. Doing it inline avoids leaving a
+documented backlog behind, so the "defer" clause above is now a fallback, not the plan.
+
 ## Batches
 
 Grouped so a batch shares a source spine — one landmark paper often serves three or four cards, which is
@@ -94,16 +126,17 @@ The named works below are **candidates chosen from what the batch is about, not 
 is confirmed to exist, to be open, and to say what the card needs at the page cited when its batch is
 worked. Nothing goes into `data.js` unopened.
 
-### Batch 0 · Pilot (6 cards) — do this first
+### Batch 0 · Pilot (6 cards) — **DONE (2026-07-31)**
 `wh-014` Lomekwi · `wh-045` Jebel Irhoud · `wh-069` Venus of Hohle Fels · `wh-005` Stone Age ·
 `wh-009` Hunter-gatherer · `wh-011` Ice age
 
-Deliberately mixed. The first three are the easy case — each rests on a single landmark paper, and they
-settle the house conventions. The last three are the hard case: definitional cards with no one paper
-behind them, where the bar above is most likely to bite. **The pilot exists to find out whether
-definitional cards can meet the bar before 100 more are attempted**, not to make progress. If they cannot,
-the honest options are a review article that defines the term, an official stratigraphic record, or
-leaving those cards uncited — decided after the pilot, not now.
+Deliberately mixed. The first three were the easy case — each rests on a single landmark paper, and they
+settled the house conventions. The last three were the hard case: definitional cards with no one paper
+behind them, where the bar above was most likely to bite. **The pilot existed to find out whether
+definitional cards can meet the bar before 100 more are attempted**, not to make progress.
+
+**They can** — 20 sources, 17 of them open, and two factual errors found and fixed along the way. See the
+Pilot log below for how, and read it before starting batch 12, which is the rest of the definitional cards.
 
 ### Batch 1 · The oldest toolmakers (10)
 `wh-008` knapping · `wh-013` Australopithecus · `wh-015` Oldowan · `wh-016` Homo habilis ·
@@ -221,46 +254,81 @@ divided up, not about the past — and the pilot will have shown what actually w
 page in a scanned copy; the three-age system has a literature on its own history. Where a period
 definition genuinely has no single authority, saying so in the card is better than manufacturing one.
 
-## Pilot log — batch 0, attempt 1 (2026-07-30)
+## Pilot log — batch 0
 
-**Stopped at step 2, "open each one." Not a content problem — a network one.**
+### Attempt 1 (2026-07-30) — blocked
 
-This cloud session's egress policy blocks every scholarly host. Probed and refused with a proxy 403:
-`nature.com`, `doi.org`, `pmc.ncbi.nlm.nih.gov`, `pubmed.ncbi.nlm.nih.gov`, `europepmc.org`,
-`whc.unesco.org`, `pnas.org`, `science.org`, `elifesciences.org`, `journals.plos.org`, `stratigraphy.org`,
-`humanorigins.si.edu`, `hal.science`, `kar.kent.ac.uk`, `archive.org`, `en.wikipedia.org`,
-`api.crossref.org`, `openalex.org`, `api.semanticscholar.org`. Only `github.com` and
-`raw.githubusercontent.com` answer. Web *search* works, so bibliographic metadata is obtainable; nothing
-can be opened.
+**Stopped at step 2, "open each one." Not a content problem — a network one.** That session's egress policy
+refused every scholarly host with a proxy 403, leaving search snippets as the only evidence. Snippets cannot
+establish that a link is reachable, that a page number is right, or that a work says what a card claims, so
+**no citations were written** and `data.js` was untouched. The environment allowlist recorded below was the
+fix; the notes it produced about paywalled landmark papers are superseded by attempt 2.
 
-That leaves search snippets as the only evidence, which cannot establish any of: that a link is publicly
-reachable, that a page number is right, or that the work says what the card claims. Writing citations
-from snippets would produce exactly the artefact this whole system exists to prevent — a page number
-nobody checked — so **no citations were written.** `data.js` is untouched.
+### Attempt 2 (2026-07-31) — done, all six cards cited
 
-**What it did establish, which is worth having:**
+Network access was available. All 20 sources were opened before being written down, and every link in the
+batch was re-checked after the fact. Coverage went from `cards 0/109` to `cards 6/109`.
 
-- The fallback for paywalled landmark papers is real and will be needed constantly. All three "easy"
-  cards' papers are paywalled at the publisher, and all three have an open repository copy
-  (Lomekwi → HAL; Jebel Irhoud → Kent Academic Repository). Expect that shape throughout.
-- A repository copy is often the **accepted manuscript**, whose pagination differs from the journal's. So
-  the locator rule needs a clause: where the accessible copy is not the publisher's PDF, cite the
-  published pagination for identification but locate the claim by **numbered section or figure**, which is
-  stable across both. A page number that only exists in a copy the reader cannot open is not a locator.
-- The definitional cards are as hard as suspected. Searching `wh-005` Stone Age and `wh-009`
-  Hunter-gatherer surfaces tertiary encyclopedias and teaching pages, not open scholarship. That question
-  stays open — it needs the sources actually read before it can be answered.
+**The pilot's actual question — can definitional cards meet the bar? — is answered yes**, and the shape of
+the answer was not the one attempt 1 guessed at. Searching "Stone Age" or "hunter-gatherer" surfaces
+tertiary encyclopedias, which is what made these look hard. The route through is to stop looking for a
+source *about the term* and cite the specific claims the card actually makes:
 
-**To resume:** allowlist the hosts below and start a **new** session, or supply the PDFs. Nothing else
-about the plan changes.
+- **wh-005 Stone Age.** The card says Lubbock coined "Palaeolithic" and "Neolithic" in 1865 — so cite
+  Lubbock, page 2 and page 3 of the first edition, which is public domain and scanned. It says the scheme
+  fits much of the world poorly — Lubbock says so himself on the same page, "for the present, I only apply
+  this classification to Europe". The three-age system's origins have their own peer-reviewed history
+  (Rowley-Conwy 2004, in a fully open journal). The 2.6 Ma opening date and the 12,000-year Neolithic
+  transition are both empirical claims with ordinary papers behind them.
+- **wh-009 Hunter-gatherer.** Same move. "Diets varied with latitude" is a quantitative claim (Zhu et al.
+  2021). "Permanent villages, stored food and inherited rank arose without farming" is the subject of a
+  PNAS paper on the North Pacific coast (Smith & Codding 2021). Neither needed a source that defines the
+  word.
+- **wh-011 Ice age.** The most tractable of the three, as expected: Cryogenian dates and the Snowball Earth
+  debate from an open *Science Advances* review, orbital forcing from the PAGES interglacials review, LGM
+  sea level from an open *Climate of the Past* paper.
+
+So the guidance for batch 12, which is the rest of the definitional cards: **decompose the card into its
+claims and cite those.** A period definition rarely has one authority, and looking for one is the trap.
+
+**What step 3 turned up.** Two errors, both corrected in this batch, in English and all nine languages:
+
+- **wh-011** said the sea fell "roughly 120 metres" at the Last Glacial Maximum. The GIA-constrained
+  estimates are **−130 to −134 m** (Spratt & Lisiecki 2016, 1080, citing Clark et al. 2009 and Lambeck et
+  al. 2014). Corrected to 130.
+- **wh-045** said Jebel Irhoud's stone tools are "the oldest well-dated Middle Stone Age assemblage
+  anywhere". Richter et al.'s own abstract claims something weaker — "**one of the earliest directly dated**
+  Middle Stone Age assemblages" — and notes that the earliest MSA assemblages come from eastern and southern
+  Africa. Corrected to match the paper.
+
+Nothing else needed changing, which is a genuinely useful result for a first batch: the prehistory prose
+survived contact with its sources.
+
+**On paywalls.** Three of the twenty sources are paywalled, and all three are the landmark defining paper
+for their card — Harmand's Lomekwi paper turned out to have the publisher's PDF openly deposited in HAL, but
+Hublin 2017, Richter 2017 and Conard 2009 have no open full text anywhere. They are cited from their public
+abstracts, which is recorded as such in the register. The other seventeen are open, so every card's list is
+majority-open. The bar now carries an explicit rule for this, and every citation carries an access label.
+
+**On locators.** The clause attempt 1 predicted was needed is needed, and slightly differently. Three
+sources here are not the publisher's typeset copy — the NSF PAR deposit of Plummer et al. 2025 and the
+Europe PMC author manuscript of Zhu et al. 2021 both carry non-journal pagination, and PMC full texts have
+no pagination at all. Those are located **by named section**, with the published pagination given for
+identification. A page number that only exists in a copy the reader cannot open is not a locator.
+
+**Translations.** All six cards' markers went into all nine languages in this batch, not deferred. The
+mechanism is worth reusing: the abstracts are all exactly two blocks of five sentences in every language, so
+markers can be spliced by sentence index rather than retyped, and a marker-count check across the ten
+languages catches any drift. Only the two corrected sentences needed real translation.
 
 ### Unblocking: the cloud environment's allowlist
 
-Network access is a property of the *cloud environment*, not of the repo or the session. Set it at
-[claude.ai/code](https://claude.ai/code) → the cloud icon above the message box → **Add cloud environment**,
-or hover an existing one and open its gear. In the dialog set **Network access** to **Custom**, paste the
-list below into **Allowed domains**, and **tick "Also include default list of common package managers"** —
-without it npm, apt and PyPI stop working and the test tooling can no longer be installed.
+Kept for the next session that lands somewhere restricted. Network access is a property of the *cloud
+environment*, not of the repo or the session. Set it at [claude.ai/code](https://claude.ai/code) → the cloud
+icon above the message box → **Add cloud environment**, or hover an existing one and open its gear. In the
+dialog set **Network access** to **Custom**, paste the list below into **Allowed domains**, and **tick "Also
+include default list of common package managers"** — without it npm, apt and PyPI stop working and the test
+tooling can no longer be installed.
 
 Three caveats: the change applies to **sessions started afterwards**, not to a running one; changing the
 allowed hosts re-runs the setup script and rebuilds the environment cache; and each environment has its
@@ -332,12 +400,28 @@ www.eva.mpg.de
 www.mpg.de
 uni-tuebingen.de
 *.uni-tuebingen.de
+paleoanthro.org
+par.nsf.gov
+www.clim-past.net
+cp.copernicus.org
+archaeologybulletin.org
 en.wikipedia.org
 ```
+
+Six hosts were added after attempt 2: `paleoanthro.org`, `par.nsf.gov`, `www.clim-past.net`,
+`cp.copernicus.org` and `archaeologybulletin.org` all carried sources this batch needed, and none was on the
+original list. Expect the list to keep growing — open scholarship is scattered across small journal hosts,
+not concentrated in the big five publishers.
 
 The last line is deliberate and needs saying: **Wikipedia is for navigation, never for citation.** It is
 the fastest way to find which paper a claim came from, and the bar still excludes it as a source. Every
 other host on the list is a publisher, an index, a repository or an official body.
+
+**Two hosts stayed unreachable even with access**, and both were worked around rather than fought:
+`whc.unesco.org` and several publisher front-ends (science.org, pnas.org, wiley, annualreviews) sit behind
+Cloudflare bot protection that refuses non-browser clients. Where the paper was open, the PMC or HAL or NSF
+copy served instead; where it was UNESCO, the claim was carried by open journal articles and the UNESCO
+record was not needed. If a future batch genuinely needs UNESCO, fetch it through a real browser.
 
 If a needed host turns out to be missing mid-batch, the cheaper fix is switching that environment to
 **Full** for the duration of the citation work rather than editing the list per site.

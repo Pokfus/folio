@@ -41,9 +41,11 @@ function check(name, ok, extra) {
 
 // Citations carry the URL as PLAIN TEXT; the page turns it into a link (linkifySrcItem), so the href and
 // the visible text can never disagree.
+// The access label is stored as plain bracketed text too and becomes a chip at render. The third entry
+// deliberately carries NO label — most shipped and community citations don't, and they must still render.
 const SRC = [
-  "Alpha Author, <i>The First Work</i> (Cambridge: Cambridge University Press, 2001), 10-12, https://doi.org/10.1000/first.",
-  "Beta Author, <i>The Second Work</i> (Oxford: Oxford University Press, 2002), 20, https://doi.org/10.1000/second.",
+  "Alpha Author, <i>The First Work</i> (Cambridge: Cambridge University Press, 2001), 10-12, https://doi.org/10.1000/first. [Open access]",
+  "Beta Author, <i>The Second Work</i> (Oxford: Oxford University Press, 2002), 20, https://doi.org/10.1000/second. [Paywalled]",
   "Gamma Author, <i>The Third Work</i> (Leiden: Brill, 2003), 30, https://example.org/third?p=1.",
 ];
 // three markers: one numbered explicitly, one bare (takes the next number in reading order), one pointing
@@ -142,6 +144,29 @@ async function closeGloss(page) {
     links[0] && links[0].href === "https://doi.org/10.1000/first", links[0] && links[0].href);
   check("the prose around the link survives",
     (await page.locator(".gloss-win .src-item").first().textContent()).includes("Cambridge University Press"));
+  // the access label: a chip, not bracketed text, and never mistaken for part of the link
+  const chips = await page.evaluate(() => [...document.querySelectorAll(".gloss-win .src-item")].map((li) => {
+    const c = li.querySelector(".src-access");
+    if (!c) return null;
+    const s = getComputedStyle(c);
+    return { text: c.textContent, cls: c.className, title: c.title, color: s.color, inLink: !!c.closest("a") };
+  }));
+  check("a citation's access label becomes a chip", chips[0] && chips[1], JSON.stringify(chips.map((c) => c && c.text)));
+  check("...one chip per labelled citation, none invented for the unlabelled one",
+    chips.filter(Boolean).length === 2 && chips[2] === null);
+  check("...open and paywalled are told apart by class",
+    /src-access-open/.test(chips[0].cls) && /src-access-pay/.test(chips[1].cls), chips[0].cls + " | " + chips[1].cls);
+  check("...and by colour, so the difference survives without reading the words",
+    chips[0].color !== chips[1].color, chips[0].color + " vs " + chips[1].color);
+  check("...carrying a plain-language title for a reader who hovers",
+    /free/i.test(chips[0].title) && /paywall/i.test(chips[1].title), chips[0].title + " | " + chips[1].title);
+  check("...outside the anchor, so it can never be read as part of the URL",
+    !chips[0].inLink && !chips[1].inLink);
+  check("the brackets are gone from the rendered citation",
+    !(await page.locator(".gloss-win .src-item").first().textContent()).includes("["),
+    await page.locator(".gloss-win .src-item").first().textContent());
+  check("...but the stored citation still carries them, so the data stays plain text",
+    SRC[0].includes("[Open access]"));
   // clicking the header alone toggles it — the fold has to work without a marker
   await closeGloss(page);
   await page.click("#exp-term");
