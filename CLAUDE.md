@@ -532,6 +532,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     sitting in a sentence — the one failure mode of hand-numbered footnotes. A bare `<sup class="fn"></sup>` takes
     the next number in reading order. A marker whose number has **no entry behind it is REMOVED**, not shown: a dead
     superscript claims a citation the reader cannot check, which is worse than no marker.
+    **If that pass never runs the marker still prints its number**: `sup.fn:empty::before{content:attr(data-fn)}`
+    (once `wireFootnotes` has written the digit the marker is no longer `:empty`, so the two can't both print).
+    A phone once showed a whole card of blank gaps mid-sentence over a fold that would not open, which is what
+    an unwired surface looks like — and it looks like nothing, so nobody reports it as a wiring failure.
+  · **The fold header and the markers are DELEGATED** (one capture-phase document listener each for click and
+    Enter/Space, beside `wireFootnotes`), never wired per render — the `.card-img` pattern. Everything a click
+    needs is derivable from the DOM at click time, and a per-render listener is one render path away from a
+    header that looks like a control and isn't. **Capture phase** so a surface that stops propagation on its own
+    clicks (a gloss popup) can't swallow it; `noteForNode` climbs to the nearest ancestor holding a `.src-note`
+    and **stops at `<body>`**, so a marker whose own surface has no list finds nothing rather than jumping into
+    whatever other panel is open. Don't re-add a per-element listener — it would fire alongside the delegated
+    one and toggle the fold twice, i.e. not at all. `wireFootnotes` still does the numbering and the a11y
+    attributes, with `wireSourceLinks` in a try/catch: the links are decoration over text this code didn't
+    write, the numbering is the join between the prose and the list, and one must not be able to take the
+    other down.
   · **Everything is collapsed by default**, on all three surfaces — the apparatus is there to be checked, not read,
     and an open list would push a card's own content off the screen. The Atlas section additionally **hides outright
     when empty** (unlike its neighbours, which show a shut header): an empty "Description" header still tells the
@@ -568,7 +583,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **The tables still ship EMPTY for the Atlas and the glossary.** `country-sources.js` has no entries and no
     glossary term carries `sources`; the citation pass so far has touched cards only. The UI, the deltas and the
     pipeline are in place; the rest is a content job (see "Citing the existing content" below). Guarded by
-    `.claude/test-sources.js` (55 assertions).
+    `.claude/test-sources.js` (59 assertions).
     **Batches 0–2 shipped 2026-07-31**: **15 of the 109 prehistory cards carry sources** (47 citations, 43
     of them open). See `docs/citation-plan.md` — its Pilot log records how the definitional cards were solved,
     its Batch 1 log the factual errors the exercise turns up (ten so far) and the gotcha that a matching
@@ -1837,14 +1852,16 @@ dead code (never rendered).
     at the REAL project, so a test that actually sent a message would write rows into it — and like
     `test-publish.js`'s mock, it is a stand-in for the policies, never a proof they are right. **Re-run
     after touching the feedback functions, the queue, or the `7) FEEDBACK` schema block.**
-  · `node .claude/test-sources.js` — 55 assertions on source footnotes, on all three surfaces. Most of them are
+  · `node .claude/test-sources.js` — 59 assertions on source footnotes, on all three surfaces. Most of them are
     about the JOIN between the prose and the list, since that is where a footnote apparatus rots: a marker shows
     the number of the entry it actually opens, a bare marker takes the next number in reading order, and a marker
     pointing **past the end of the list is removed** rather than left claiming a citation the reader cannot follow.
     Plus: the fold is shut everywhere by default, the Atlas section is hidden outright when a place has nothing,
     a place cited by both its general and its year paragraph gets **one** footnote and not two, the citation text
     is `notranslate`, a hostile deck's `sources` are sanitized on ingest, and an admin's typed citations reach the
-    overlay as a `sources` delta and come back after a reload. The **access chip** is guarded too: one chip per
+    overlay as a `sources` delta and come back after a reload. **A whole unwired surface is exercised too** —
+    the fold replaced by a listener-free clone and every marker blanked — since that is the shape the one
+    reported failure took, and it is invisible unless something asserts it. The **access chip** is guarded too: one chip per
     labelled citation and none invented for an unlabelled one, open and paywalled told apart by class **and by
     colour** so the difference survives without reading the words, the chip outside the anchor so it can never
     read as part of the URL, and the brackets gone from the render while the stored string keeps them.

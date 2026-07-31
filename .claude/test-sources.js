@@ -201,6 +201,34 @@ async function closeGloss(page) {
     check("a card marker opens the card's fold on the right entry", await page.evaluate(() =>
       !document.querySelector(".reveal .src-collapse").classList.contains("collapsed") &&
       [...document.querySelectorAll(".reveal .src-item")].findIndex((i) => i.classList.contains("src-flash")) === 1));
+
+    /* The apparatus must survive a surface that was never wired. A reader hit exactly this: blank gaps
+       where the numbers belong, over a "Sources" header that did nothing however often it was tapped —
+       which is what a render path that skipped wireFootnotes (or anything throwing before it) looks like.
+       Reproduce it by replacing the fold with a listener-free clone and blanking the markers. */
+    await page.evaluate(() => {
+      const note = document.querySelector(".reveal .src-note");
+      const clone = note.cloneNode(true);                       // a clone carries no listeners
+      clone.querySelector(".src-collapse").classList.add("collapsed");
+      clone.querySelector(".src-toggle").classList.add("collapsed");
+      note.replaceWith(clone);
+      document.querySelectorAll(".abstract sup.fn").forEach((s) => { s.textContent = ""; });
+    });
+    check("an unwired marker still prints the number it points at", await page.evaluate(() =>
+      getComputedStyle(document.querySelector(".abstract sup.fn"), "::before").content.replace(/"/g, "") === "2"));
+    await page.locator(".reveal .src-head").click();
+    await page.waitForTimeout(350);
+    check("an unwired Sources header still opens the fold", await page.evaluate(() =>
+      !document.querySelector(".reveal .src-collapse").classList.contains("collapsed")));
+    await page.locator(".reveal .src-head").click();
+    await page.waitForTimeout(350);
+    check("...and shuts it again, so the delegated listener fires exactly once", await page.evaluate(() =>
+      document.querySelector(".reveal .src-collapse").classList.contains("collapsed")));
+    await page.locator(".abstract sup.fn").first().click();
+    await page.waitForTimeout(400);
+    check("an unwired marker still opens the fold on its own entry", await page.evaluate(() =>
+      !document.querySelector(".reveal .src-collapse").classList.contains("collapsed") &&
+      [...document.querySelectorAll(".reveal .src-item")].findIndex((i) => i.classList.contains("src-flash")) === 1));
   }
 
   /* ================= 3. a card with no sources shows no apparatus ================= */
