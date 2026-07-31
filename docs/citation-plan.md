@@ -251,8 +251,96 @@ nobody checked — so **no citations were written.** `data.js` is untouched.
   Hunter-gatherer surfaces tertiary encyclopedias and teaching pages, not open scholarship. That question
   stays open — it needs the sources actually read before it can be answered.
 
-**To resume:** run batch 0 from a session that can reach the scholarly web, or supply the PDFs. Nothing
-else about the plan changes.
+**To resume:** allowlist the hosts below and start a **new** session, or supply the PDFs. Nothing else
+about the plan changes.
+
+### Unblocking: the cloud environment's allowlist
+
+Network access is a property of the *cloud environment*, not of the repo or the session. Set it at
+[claude.ai/code](https://claude.ai/code) → the cloud icon above the message box → **Add cloud environment**,
+or hover an existing one and open its gear. In the dialog set **Network access** to **Custom**, paste the
+list below into **Allowed domains**, and **tick "Also include default list of common package managers"** —
+without it npm, apt and PyPI stop working and the test tooling can no longer be installed.
+
+Three caveats: the change applies to **sessions started afterwards**, not to a running one; changing the
+allowed hosts re-runs the setup script and rebuilds the environment cache; and each environment has its
+own list, so there is no org-wide allowlist to push to everyone. Docs:
+https://code.claude.com/docs/en/cloud-environments#allow-specific-domains
+
+```
+doi.org
+www.nature.com
+www.science.org
+www.pnas.org
+pubmed.ncbi.nlm.nih.gov
+pmc.ncbi.nlm.nih.gov
+www.ncbi.nlm.nih.gov
+europepmc.org
+www.ebi.ac.uk
+elifesciences.org
+journals.plos.org
+link.springer.com
+www.sciencedirect.com
+onlinelibrary.wiley.com
+www.tandfonline.com
+academic.oup.com
+www.cambridge.org
+royalsocietypublishing.org
+www.frontiersin.org
+www.mdpi.com
+journals.uchicago.edu
+www.jstor.org
+www.persee.fr
+journals.openedition.org
+www.cairn.info
+hal.science
+*.hal.science
+api.crossref.org
+api.openalex.org
+openalex.org
+api.semanticscholar.org
+www.semanticscholar.org
+core.ac.uk
+zenodo.org
+osf.io
+*.figshare.com
+biorxiv.org
+www.biorxiv.org
+archive.org
+web.archive.org
+babel.hathitrust.org
+catalog.hathitrust.org
+www.biodiversitylibrary.org
+whc.unesco.org
+unesdoc.unesco.org
+www.unesco.org
+www.icomos.org
+openarchive.icomos.org
+stratigraphy.org
+quaternary.stratigraphy.org
+humanorigins.si.edu
+www.si.edu
+www.nps.gov
+www.nhm.ac.uk
+australian.museum
+www.sahra.org.za
+www.culture.gouv.fr
+archeologie.culture.gouv.fr
+www.culturaydeporte.gob.es
+www.britishmuseum.org
+www.eva.mpg.de
+www.mpg.de
+uni-tuebingen.de
+*.uni-tuebingen.de
+en.wikipedia.org
+```
+
+The last line is deliberate and needs saying: **Wikipedia is for navigation, never for citation.** It is
+the fastest way to find which paper a claim came from, and the bar still excludes it as a source. Every
+other host on the list is a publisher, an index, a repository or an official body.
+
+If a needed host turns out to be missing mid-batch, the cheaper fix is switching that environment to
+**Full** for the duration of the citation work rather than editing the list per site.
 
 ## Working notes
 
