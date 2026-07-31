@@ -301,13 +301,74 @@ source that could be opened; Figgins 1927 credits Howarth and Schwachheim. The s
 merely unreachable, and it is the heart of the card. It stays, without a marker. Absence of a citation is
 not a reason to delete a true thing; it is a reason not to claim one.
 
-### Batch 7 · Upper Palaeolithic Europe: the industries (9)
-`wh-064` Cro-Magnon · `wh-065` Châtelperronian · `wh-066` Aurignacian · `wh-071` Gravettian ·
-`wh-077` Solutrean · `wh-079` Magdalenian · `wh-080` microlith · `wh-081` spear-thrower · `wh-082` bow and arrow
+### Batch 7 · Upper Palaeolithic Europe: the industries (9) — **9 of 9 DONE (2026-07-31)**
+**Cited:** `wh-064` Cro-Magnon · `wh-065` Châtelperronian · `wh-066` Aurignacian · `wh-071` Gravettian ·
+`wh-077` Solutrean · `wh-079` Magdalenian · `wh-080` microlith · `wh-081` spear-thrower · `wh-082` bow and
+arrow. Nothing deferred.
 
-Spine: Higham et al. 2011 on the earliest Aurignacian; Hublin et al. 2012 on the Châtelperronian
-attribution; Nigst et al. 2014; Banks et al. on Solutrean/Magdalenian ranges; Sano et al. 2019 and
-Backwell & d'Errico on projectile technology. French heritage-ministry records for the eponymous sites.
+Spine as worked: Henry-Gambier 2002 with the PALEO 2013 attribution, Fu 2016 and Haak 2015 for `wh-064`;
+Djakovic/Roussel/Soressi 2024 with Welker 2016, Higham 2010 *and* Caron 2011, Gravina 2018, Gicqueau 2023
+and Narr 2021 for `wh-065`; Lyell 1863 and Lartet & Christy 1875 with Kitagawa & Conard 2020, Marín-Arroyo
+2018, Haws 2020 and Rhodes 2019 for `wh-066`; Posth 2023, Farbstein & Nowell 2024, Weber 2022, Wren & Burke
+2019 and Maier 2023 for `wh-071`; Cascalheira & Bicho 2015, Cascalheira 2019, Bachellerie 2025, Gilligan
+2024, Turner 1999 and the Rasmussen/Eren pair for `wh-077`; Fu 2016 with Posth 2023, García-Diez 2013, Bello
+2021, Needham 2022, Breuil 1954 and de Mortillet 1885 for `wh-079`; Larsson 2016, Way 2022, Will & Conard
+2020, Wedage 2019, Groman-Yaroslavski 2020 and Fasser & Fontana 2026 for `wh-080`; Bebber 2023, Cattelain &
+Pétillon 2015 and Coppe 2023 for `wh-081`; Langley 2020, Metz 2023, Meadows 2018, Junkmanns 2019, Kooi &
+Bergman 1997 and Shea & Sisk 2010 for `wh-082`.
+
+### Batch 7 log — the industries
+All nine cards shipped 2026-07-31. Seventy-nine citation slots across the nine cards, drawn from **77
+distinct works, 65 of them open**, every card's list majority-open. Coverage went from `cards 57/109` to
+`cards 66/109`. **Forty-six sentence corrections — double batch 6, itself the previous record.**
+
+**This batch found errors of a new kind: cards contradicting OTHER FOLIO CARDS, and markers resting on
+sources that do not say the thing.** Two cards shipped in earlier batches had to be corrected:
+
+- **`wh-084` Chauvet** (batch 9) credited Quiles et al. 2016 with "an **Aurignacian** phase … and a
+  **Gravettian** one". Fetching that paper directly: it gives the two phases and their dates exactly, and
+  assigns **no archaeological culture at all** — "Gravettian" appears nowhere in it. The Chauvet–Aurignacian
+  attribution is separately contested in print (Pettitt & Bahn 2015). The dates stand; the labels are gone.
+- **`wh-053` Sibudu** (batch 5) called the arrowhead "a **slender** bone point," cited to Backwell et al.
+  2008. That paper's abstract, read directly: "A **slender** point is consistent with a **pin or needle-like
+  implement**, while a **larger** point … parallels large un-poisoned bone **arrow** points." The two objects
+  were swapped.
+
+Three more contradictions were *within* the batch: `wh-080` dated Howiesons Poort backed pieces to ~70,000
+where our cited `wh-052` says 64,800–59,500 (the 71 ka figure belongs to Pinnacle Point, which its source
+sets *against* the Howiesons Poort); `wh-071` claimed almost all Ice Age art is Gravettian, which our cited
+`wh-084` and `wh-085` refute; and `wh-065` and `wh-071` both credited Garrod with a 1938 naming, true for the
+Châtelperronian and unverified for the Gravettian.
+
+**→ Add a sibling-card consistency check to the per-card workflow.** When a card names a date, a culture or a
+site that another card also names, the two must agree, and the shared claim must be checked once rather than
+twice. Four instances in two batches is a pattern, not a coincidence.
+
+**→ And a standing "which clock is this on?" check.** Uncalibrated radiocarbon written as calendar years has
+now appeared **five times**: `wh-086` Lascaux, `wh-093` Folsom, `wh-095` Meadowcroft, and in this batch both
+`wh-077` Solutrean (22,000–17,000 → 25,000–19,000 cal BP) and `wh-079` Magdalenian (17,000–12,000 →
+21,000–14,000). These never look wrong — they look like round, confident numbers — which is exactly why they
+survive ordinary fact-checking. Ask of every date which scale it is on.
+
+**Two predictions made when the batch was dispatched were wrong, and both are worth recording.** `wh-080`
+microlith was called the likely defer as "definitional technique material"; it proved fully sourceable and
+was the card that caught the `wh-052` contradiction. And the Aurignacian's discovery story — a workman, a
+slab, seventeen skeletons, a mayor reburying them, the graves then lost — was flagged as probable folklore;
+**Lyell 1863 documents every element of it, straight from Lartet's own account.** Vividness is not evidence
+of invention, and an instinct for which claims are soft is not a substitute for opening the source.
+
+Other substantive corrections: the Cro-Magnon skeletons were found during **road** works in 1868, not
+railway works (the railway had cut the talus years earlier), and the skull's forehead lesion is a contested
+NF1/NF2 diagnosis that the Smithsonian still calls a fungal infection; Breuil **defined** the Châtelperronian
+in **1909** and filed it *as* Early Aurignacian, with Garrod supplying the name in 1938 — the card had this
+backwards — and Welker et al. 2016 did not persuade the doubters, who published further challenges after it;
+the Aurignacian's end date was 26,000 where the Bayesian models give ~33,000, and its "bone" points are
+antler; the Gravettian's ceramics superlative overshot its own sources; the Solutré horse-stampede debunking
+rested on two physical specifics no openable source states; and Combe Saunière is **not** the oldest securely
+dated spear-thrower — the specialists explicitly excluded it, and the card's "17,500" is a figure lifted from
+a sentence about different objects. The spear-thrower's "two-thirds more velocity" figure, flagged in advance
+as suspicious, turned out to be **correct** (65%, from 2,160 launches) — but the sentence around it was wrong,
+comparing a 200 g dart to an 800 g javelin as though they were "the same shafts".
 
 ### Batch 8 · Upper Palaeolithic art: portable (9)
 `wh-067` Lion-man · `wh-068` Hohle Fels · `wh-069` Venus of Hohle Fels (if not in the pilot) ·
@@ -1018,5 +1079,5 @@ If a needed host turns out to be missing mid-batch, the cheaper fix is switching
 - **Changelog.** One line per day, raising its count — "Sources added to N cards in the World History
   prehistory deck" — with its nine translations, per the house rule. Corrections found along the way get
   their own line, and should name what changed.
-- **Coverage** is reported by `add-sources.js` on every run (`cards 57/109`), which is how the pass is
+- **Coverage** is reported by `add-sources.js` on every run (`cards 66/109`), which is how the pass is
   tracked across sessions.

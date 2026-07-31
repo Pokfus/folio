@@ -1806,6 +1806,168 @@ Every citation below was opened before it was written down; access is recorded a
 - Kenneth B. Tankersley and Cheryl Ann Munson, "Comments on the Meadowcroft Rockshelter radiocarbon chronology and the recognition of coal contaminants," <i>American Antiquity</i> 57, no. 2 (1992): 321–326, https://doi.org/10.2307/280736. [Paywalled]
   - used by: wh-095
 
+
+## Batch 7 — Upper Palaeolithic Europe: the industries, verified 2026-07-31
+
+79 citation slots across nine cards, drawn from 77 distinct works, 65 of them open.
+Every citation was opened before it was written down; access is recorded as it was found.
+This batch also corrected two cards shipped earlier — see the Batch 7 log in docs/citation-plan.md.
+
+- Dominique Henry-Gambier, "Les fossiles de Cro-Magnon (Les Eyzies-de-Tayac, Dordogne): nouvelles données sur leur position chronologique et leur attribution culturelle," <i>Bulletins et Mémoires de la Société d'Anthropologie de Paris</i> 14, no. 1–2 (2002): 89–112, https://journals.openedition.org/bmsap/459. [Open access]
+  - used by: wh-064
+- Dominique Henry-Gambier, Roland Nespoulet, and Laurent Chiotti, "An early Gravettian cultural attribution for the human fossils from the Cro-Magnon rock shelter (Les Eyzies-de-Tayac, Dordogne)," <i>PALEO</i> 24 (2013): 121–138, https://doi.org/10.4000/paleo.2859. [Open access]
+  - used by: wh-064
+- Qiaomei Fu, Cosimo Posth, Mateja Hajdinjak, et al., "The genetic history of Ice Age Europe," <i>Nature</i> 534, no. 7606 (2016): 200–205, https://pmc.ncbi.nlm.nih.gov/articles/PMC4943878/. [Open access]
+  - used by: wh-064, wh-079
+- Wolfgang Haak, Iosif Lazaridis, Nick Patterson, et al., "Massive migration from the steppe was a source for Indo-European languages in Europe," <i>Nature</i> 522, no. 7555 (2015): 207–211, https://pmc.ncbi.nlm.nih.gov/articles/PMC5048219/. [Open access]
+  - used by: wh-064
+- Erik Trinkaus, "European early modern humans and the fate of the Neandertals," <i>Proceedings of the National Academy of Sciences</i> 104, no. 18 (2007): 7367–7372, https://pmc.ncbi.nlm.nih.gov/articles/PMC1863481/. [Open access]
+  - used by: wh-064
+- Ministère de la Culture (France), "Abri de Cro-Magnon," https://archeologie.culture.gouv.fr/en/a-propos/abri-cro-magnon. [Open access]
+  - used by: wh-064
+- Igor Djakovic, Morgan Roussel, and Marie Soressi, "Stone tools in shifting sands: past, present, and future perspectives on the Châtelperronian stone tool industry," <i>Journal of Paleolithic Archaeology</i> 7 (2024): 29, https://hdl.handle.net/1887/4108948. [Open access]
+  - used by: wh-065
+- Frido Welker, Mateja Hajdinjak, Sahra Talamo, et al., "Palaeoproteomic evidence identifies archaic hominins associated with the Châtelperronian at the Grotte du Renne," <i>Proceedings of the National Academy of Sciences</i> 113, no. 40 (2016): 11162–11167, https://pmc.ncbi.nlm.nih.gov/articles/PMC5056053/. [Open access]
+  - used by: wh-065
+- Antoine Gicqueau, Juliette Schuh, Bruno Maureille, et al., "Anatomically modern human in the Châtelperronian hominin collection from the Grotte du Renne (Arcy-sur-Cure, northeast France)," <i>Scientific Reports</i> 13 (2023): 12682, https://pmc.ncbi.nlm.nih.gov/articles/PMC10403518/. [Open access]
+  - used by: wh-065
+- Thomas Higham, Roger Jacobi, Michèle Julien, et al., "Chronology of the Grotte du Renne (France) and implications for the context of ornaments and human remains within the Châtelperronian," <i>Proceedings of the National Academy of Sciences</i> 107, no. 47 (2010): 20234–20239, https://pmc.ncbi.nlm.nih.gov/articles/PMC2996711/. [Open access]
+  - used by: wh-065
+- François Caron, Francesco d'Errico, Pierre Del Moral, et al., "The reality of Neandertal symbolic behavior at the Grotte du Renne, Arcy-sur-Cure, France," <i>PLOS ONE</i> 6, no. 6 (2011): e21545, https://pmc.ncbi.nlm.nih.gov/articles/PMC3126825/. [Open access]
+  - used by: wh-065
+- Brad Gravina, Pascal Bachellerie, Solène Caux, et al., "No reliable evidence for a Neanderthal–Châtelperronian association at La Roche-à-Pierrot, Saint-Césaire," <i>Scientific Reports</i> 8 (2018): 15134, https://pmc.ncbi.nlm.nih.gov/articles/PMC6181958/. [Open access]
+  - used by: wh-065
+- Igor Djakovic, Alastair Key, and Marie Soressi, "Optimal linear estimation models predict 1400–2900 years of overlap between <i>Homo sapiens</i> and Neandertals prior to their disappearance from France and northern Spain," <i>Scientific Reports</i> 12 (2022): 15000, https://pmc.ncbi.nlm.nih.gov/articles/PMC9561710/. [Open access]
+  - used by: wh-065
+- Davide Delpiano, Brad Gravina, and Marco Peresani, "Back(s) to basics: the concept of backing in stone tool technologies for tracing hominins' technical innovations," <i>Evolutionary Anthropology</i> 33, no. 6 (2024): e22045, https://pmc.ncbi.nlm.nih.gov/articles/PMC11624295/. [Open access]
+  - used by: wh-065
+- Karl J. Narr, "On the stratigraphy of Upper Palaeolithic types and type groups," <i>DEUQUA Special Publications</i> 3 (2021): 27–34, https://doi.org/10.5194/deuquasp-3-27-2021. [Open access]
+  - used by: wh-065
+- Charles Lyell, <i>The Geological Evidences of the Antiquity of Man</i>, 2nd American ed. (Philadelphia: George W. Childs, 1863), 182–186, https://archive.org/details/geologicaleviden00lyeluoft. [Open access]
+  - used by: wh-066
+- Édouard Lartet and Henry Christy, <i>Reliquiae Aquitanicae: Being Contributions to the Archaeology and Palaeontology of Périgord and the Adjoining Provinces of Southern France</i>, ed. Thomas Rupert Jones (London: Williams & Norgate, 1875), https://archive.org/details/reliquiaeaquitan00lartuoft. [Open access]
+  - used by: wh-066
+- Keiko Kitagawa and Nicholas J. Conard, "Split-based points from the Swabian Jura highlight Aurignacian regional signatures," <i>PLOS ONE</i> 15, no. 11 (2020): e0239865, https://doi.org/10.1371/journal.pone.0239865. [Open access]
+  - used by: wh-066
+- Benjamin Schürch, Svenja Schray, and Nicholas J. Conard, "Reconstructing flexible pathways of Aurignacian blade and bladelet production at Vogelherd," <i>PLOS ONE</i> 20, no. 9 (2025): e0331921, https://doi.org/10.1371/journal.pone.0331921. [Open access]
+  - used by: wh-066
+- Ana B. Marín-Arroyo, Daniel Rivals, Jennifer R. Jones, et al., "Chronological reassessment of the Middle to Upper Paleolithic transition and Early Upper Paleolithic cultures in Cantabrian Spain," <i>PLOS ONE</i> 13, no. 4 (2018): e0194708, https://doi.org/10.1371/journal.pone.0194708. [Open access]
+  - used by: wh-066
+- Jonathan A. Haws, Michael M. Benedetti, Sahra Talamo, et al., "The early Aurignacian dispersal of modern humans into westernmost Eurasia," <i>Proceedings of the National Academy of Sciences</i> 117, no. 41 (2020): 25414–25422, https://doi.org/10.1073/pnas.2016062117. [Open access]
+  - used by: wh-066
+- Nicholas J. Conard and Veerle Rots, "Rope making in the Aurignacian of central Europe more than 35,000 years ago," <i>Science Advances</i> 10, no. 5 (2024): eadh5217, https://doi.org/10.1126/sciadv.adh5217. [Open access]
+  - used by: wh-066
+- Sarah E. Rhodes, Britt M. Starkovich, and Nicholas J. Conard, "Did climate determine Late Pleistocene settlement dynamics in the Ach Valley, SW Germany?," <i>PLOS ONE</i> 14, no. 5 (2019): e0215172, https://doi.org/10.1371/journal.pone.0215172. [Open access]
+  - used by: wh-066
+- Jean Bouyssonie, "L'Aurignacien," <i>Bulletin de la Société préhistorique française</i> 51, no. 8 (1954): 49–53, https://www.persee.fr/doc/bspf_0249-7638_1954_hos_51_8_12409. [Open access]
+  - used by: wh-066
+- Nicholas J. Conard, "A female figurine from the basal Aurignacian of Hohle Fels Cave in southwestern Germany," <i>Nature</i> 459, no. 7244 (2009): 248–252, https://doi.org/10.1038/nature07995. [Paywalled]
+  - used by: wh-066
+- Paul Pettitt and Paul Bahn, "An alternative chronology for the art of Chauvet Cave," <i>Antiquity</i> 89, no. 345 (2015): 542–553, https://doi.org/10.15184/aqy.2015.21. [Paywalled]
+  - used by: wh-066
+- Tom Higham, Katerina Douka, Rachel Wood, et al., "The timing and spatiotemporal patterning of Neanderthal disappearance," <i>Nature</i> 512, no. 7514 (2014): 306–309, https://doi.org/10.1038/nature13621. [Paywalled]
+  - used by: wh-066
+- Cosimo Posth, He Yu, Ayshin Ghalichi, et al., "Palaeogenomics of Upper Palaeolithic to Neolithic European hunter-gatherers," <i>Nature</i> 615, no. 7950 (2023): 117–126, https://pmc.ncbi.nlm.nih.gov/articles/PMC9977688/. [Open access]
+  - used by: wh-071, wh-079
+- Rebecca Farbstein and April Nowell, "Children at play: the role of novices in the production of Europe's earliest Upper Paleolithic ceramics," <i>PLOS ONE</i> 19, no. 10 (2024): e0309107, https://doi.org/10.1371/journal.pone.0309107. [Open access]
+  - used by: wh-071
+- Rebecca Farbstein, Dinko Radić, Dejana Brajković, and Preston T. Miracle, "First Epigravettian ceramic figurines from Europe (Vela Spila, Croatia)," <i>PLOS ONE</i> 7, no. 7 (2012): e41437, https://pmc.ncbi.nlm.nih.gov/articles/PMC3404104/. [Open access]
+  - used by: wh-071
+- Gerhard W. Weber, Alexander Lukeneder, Mathias Harzhauser, et al., "The microstructure and the origin of the Venus from Willendorf," <i>Scientific Reports</i> 12 (2022): 2926, https://pmc.ncbi.nlm.nih.gov/articles/PMC8885675/. [Open access]
+  - used by: wh-071
+- Colin D. Wren and Ariane Burke, "Habitat suitability and the genetic structure of human populations during the Last Glacial Maximum (LGM) in western Europe," <i>PLOS ONE</i> 14, no. 6 (2019): e0217996, https://doi.org/10.1371/journal.pone.0217996. [Open access]
+  - used by: wh-071
+- Andreas Maier, Patrick Schmidt, Bernhard Höck, et al., "Analyzing trends in material culture evolution—a case study of Gravettian points from Lower Austria and Moravia," <i>Journal of Paleolithic Archaeology</i> 6 (2023): 15, https://doi.org/10.1007/s41982-023-00145-z. [Open access]
+  - used by: wh-071
+- Wei Chu, Pavlo Shydlovskyi, and Andreas Maier, "A revised radiocarbon chronology for the mammoth bone structures and associated features at Mezhyrich, Ukraine," <i>Open Research Europe</i> 5 (2025): 198, https://pmc.ncbi.nlm.nih.gov/articles/PMC12639289/. [Open access]
+  - used by: wh-071
+- Alexander J. E. Pryor, David G. Beresford-Jones, Alexander E. Dudin, et al., "The chronology and function of a new circular mammoth-bone structure at Kostenki 11," <i>Antiquity</i> 94, no. 374 (2020): 323–341, https://doi.org/10.15184/aqy.2020.7. [Paywalled]
+  - used by: wh-071
+- Pamela Jane Smith, "Dorothy Garrod, first woman Professor at Cambridge," <i>Antiquity</i> 74, no. 283 (2000): 131–136, https://doi.org/10.1017/S0003598X00066230. [Paywalled]
+  - used by: wh-071
+- J. M. Adovasio, Olga Soffer, and Bohuslav Klíma, "Upper Palaeolithic fibre technology: interlaced woven finds from Pavlov I, Czech Republic, c. 26,000 years ago," <i>Antiquity</i> 70, no. 269 (1996): 526–534, https://doi.org/10.1017/S0003598X00083733. [Paywalled]
+  - used by: wh-071
+- Pamela B. Vandiver, Olga Soffer, Bohuslav Klíma, and Jiří Svoboda, "The origins of ceramic technology at Dolni Věstonice, Czechoslovakia," <i>Science</i> 246, no. 4933 (1989): 1002–1008, https://doi.org/10.1126/science.246.4933.1002. [Paywalled]
+  - used by: wh-071
+- Morten Rasmussen, Sarah L. Anzick, Michael R. Waters, et al., "The genome of a Late Pleistocene human from a Clovis burial site in western Montana," <i>Nature</i> 506, no. 7487 (2014): 225–229, https://pmc.ncbi.nlm.nih.gov/articles/PMC4878442/. [Open access]
+  - used by: wh-077
+- Metin I. Eren, Robert J. Patten, Michael J. O'Brien, and David J. Meltzer, "Refuting the technological cornerstone of the Ice-Age Atlantic crossing hypothesis," <i>Journal of Archaeological Science</i> 40, no. 7 (2013): 2934–2941, https://cladistics.coas.missouri.edu/assets/pdf_articles/Eren_et_al_2013.pdf. [Open access]
+  - used by: wh-077
+- João Cascalheira and Nuno Bicho, "On the chronological structure of the Solutrean in southern Iberia," <i>PLOS ONE</i> 10, no. 9 (2015): e0137308, https://doi.org/10.1371/journal.pone.0137308. [Open access]
+  - used by: wh-077
+- João Cascalheira, "Territoriality and the organization of technology during the Last Glacial Maximum in southwestern Europe," <i>PLOS ONE</i> 14, no. 12 (2019): e0225828, https://doi.org/10.1371/journal.pone.0225828. [Open access]
+  - used by: wh-077
+- Ian Gilligan, Francesco d'Errico, Luc Doyon, Wei Wang, and Yaroslav V. Kuzmin, "Paleolithic eyed needles and the evolution of dress," <i>Science Advances</i> 10, no. 26 (2024): eadp2887, https://pmc.ncbi.nlm.nih.gov/articles/PMC11212769/. [Open access]
+  - used by: wh-077
+- Julie Bachellerie, "Chapitre 10. Outillage « solutréen » et schémas de production associés," <i>PALEO</i>, hors-série (2025): 150–193, https://doi.org/10.4000/14tzv. [Open access]
+  - used by: wh-077
+- Elaine Turner, "Horse, reindeer and bison hunters at Solutré: an archaeozoological analysis of a Magdalenian bone assemblage," <i>Bonner zoologische Beiträge</i> 50 (1999): 143–182, https://archive.org/details/biostor-136046. [Open access]
+  - used by: wh-077
+- Thierry Aubry, Bruce Bradley, Miguel Almeida, et al., "Solutrean laurel leaf production at Maîtreaux: an experimental approach guided by techno-economic analysis," <i>World Archaeology</i> 40, no. 1 (2008): 48–66, https://doi.org/10.1080/00438240701843538. [Paywalled]
+  - used by: wh-077
+- M. García-Diez, D. L. Hoffmann, J. Zilhão, et al., "Uranium series dating reveals a long sequence of rock art at Altamira Cave (Santillana del Mar, Cantabria)," <i>Journal of Archaeological Science</i> 40, no. 11 (2013): 4098–4106, https://cir.cenieh.es/handle/20.500.12136/420. [Open access]
+  - used by: wh-079
+- Silvia M. Bello, Lucile Crété, Julia Galway-Witham, and Simon A. Parfitt, "Knapping tools in Magdalenian contexts: new evidence from Gough's Cave (Somerset, UK)," <i>PLOS ONE</i> 16, no. 12 (2021): e0261031, https://doi.org/10.1371/journal.pone.0261031. [Open access]
+  - used by: wh-079
+- Andy Needham, Izzy Wisher, Andrew Langley, Matthew Amy, and Aimée Little, "Art by firelight? Using experimental and digital techniques to explore Magdalenian engraved plaquette use at Montastruc (France)," <i>PLOS ONE</i> 17, no. 4 (2022): e0266146, https://doi.org/10.1371/journal.pone.0266146. [Open access]
+  - used by: wh-079
+- Pere Gelabert, Susanna Sawyer, Anja Furtwängler, et al., "A sedimentary ancient DNA perspective on human and carnivore persistence through the Late Pleistocene in El Mirón Cave, Spain," <i>Nature Communications</i> 16 (2025): 107, https://pmc.ncbi.nlm.nih.gov/articles/PMC11696082/. [Open access]
+  - used by: wh-079
+- Henri Breuil, "Le Magdalénien," <i>Bulletin de la Société préhistorique française</i> 51, no. 8 (1954): 59–66, https://www.persee.fr/doc/bspf_0249-7638_1954_hos_51_8_12411. [Open access]
+  - used by: wh-079
+- Gabriel de Mortillet, <i>Le Préhistorique: Antiquité de l'homme</i>, 2nd ed. (Paris: C. Reinwald, 1885), chap. 4, https://archive.org/details/laprhistoirean00mort. [Open access]
+  - used by: wh-079
+- Andreas Maier, Carmen Liebermann, and Sebastian J. Pfeifer, "Beyond the Alps and Tatra Mountains—the 20–14 ka repopulation of the northern mid-latitudes as inferred from palimpsests deciphered with keys from western and central Europe," <i>Journal of Paleolithic Archaeology</i> 3 (2020): 398–452, https://doi.org/10.1007/s41982-019-00045-1. [Paywalled]
+  - used by: wh-079
+- Lars Larsson, Arne Sjöström, and Carl Heron, "The Rönneholm arrow: a find of a wooden arrow-tip with microliths in the bog Rönneholms Mosse, central Scania, southern Sweden," <i>Lund Archaeological Review</i> 22 (2016): 7–20, https://journals.lub.lu.se/lar/article/view/21616. [Open access]
+  - used by: wh-080
+- Lars Larsson and Arne Sjöström, "Early Mesolithic flint-tipped arrows from Sweden," <i>Antiquity</i> Project Gallery 85, no. 330 (2011), https://antiquity.ac.uk/projgall/larsson330. [Open access]
+  - used by: wh-080
+- Andrew M. Way, Paloma de la Peña, Eduardo de la Peña, and Lyn Wadley, "Howiesons Poort backed artifacts provide evidence for social connectivity across southern Africa during the Final Pleistocene," <i>Scientific Reports</i> 12 (2022): 9227, https://pmc.ncbi.nlm.nih.gov/articles/PMC9184481/. [Open access]
+  - used by: wh-080
+- Manuel Will and Nicholas J. Conard, "Regional patterns of diachronic technological change in the Howiesons Poort of southern Africa," <i>PLOS ONE</i> 15, no. 9 (2020): e0239195, https://doi.org/10.1371/journal.pone.0239195. [Open access]
+  - used by: wh-080
+- Oshan Wedage, Noel Amano, Michelle C. Langley, et al., "Microliths in the South Asian rainforest ~45–4 ka: new insights from Fa-Hien Lena Cave, Sri Lanka," <i>PLOS ONE</i> 14, no. 10 (2019): e0222606, https://doi.org/10.1371/journal.pone.0222606. [Open access]
+  - used by: wh-080
+- Iris Groman-Yaroslavski, Danny Rosenberg, Reuven Yeshurun, et al., "Versatile use of microliths as a technological advantage in the miniaturization of Late Pleistocene toolkits: the case study of Neve David, Israel," <i>PLOS ONE</i> 15, no. 6 (2020): e0233340, https://pmc.ncbi.nlm.nih.gov/articles/PMC7269238/. [Open access]
+  - used by: wh-080
+- Nicolò Fasser and Federica Fontana, "Exploring the 'microburin blow': an insight into the variability of the microburin blow method for the production of Sauveterrian geometrics in the site of Mondeval de Sora (N-E, Italy)," <i>Journal of Archaeological Method and Theory</i> 33, no. 2 (2026): art. 21, https://doi.org/10.1007/s10816-025-09755-z. [Open access]
+  - used by: wh-080
+- Kyle S. Brown, Curtis W. Marean, Zenobia Jacobs, et al., "An early and enduring advanced technology originating 71,000 years ago in South Africa," <i>Nature</i> 491, no. 7425 (2012): 590–593, https://doi.org/10.1038/nature11660. [Paywalled]
+  - used by: wh-080
+- Michelle R. Bebber, Metin I. Eren, Dexter Zirkle, Briggs Buchanan, and Robert S. Walker, "Atlatl use equalizes female and male projectile weapon velocity," <i>Scientific Reports</i> 13, no. 1 (2023): 13349, https://pmc.ncbi.nlm.nih.gov/articles/PMC10432391/. [Open access]
+  - used by: wh-081
+- Pierre Cattelain and Jean-Marc Pétillon, "« Type 2a », the earliest Palaeolithic spear-thrower: a new Middle Magdalenian object from Isturitz (Pyrénées-Atlantiques, France) and its implications," <i>PALEO</i> 26 (2015): 17–32, https://doi.org/10.4000/paleo.3025. [Open access]
+  - used by: wh-081
+- Pierre Cattelain, "Un crochet de propulseur solutréen de la grotte de Combe-Saunière 1 (Dordogne)," <i>Bulletin de la Société préhistorique française</i> 86, no. 7 (1989): 213–216, https://www.persee.fr/doc/bspf_0249-7638_1989_num_86_7_9386. [Open access]
+  - used by: wh-081
+- Justin Coppe, Noora Taipale, and Veerle Rots, "Terminal ballistic analysis of impact fractures reveals the use of spearthrower 31 ky ago at Maisières-Canal, Belgium," <i>Scientific Reports</i> 13, no. 1 (2023): 18305, https://pmc.ncbi.nlm.nih.gov/articles/PMC10600151/. [Open access]
+  - used by: wh-081
+- Paule Steiner, "Un petit poucet magdalénien ?," <i>Cahiers de littérature orale</i> 67–68 (2010): 85–94, https://doi.org/10.4000/clo.904. [Open access]
+  - used by: wh-081
+- Stephanie Wood, ed., <i>Online Nahuatl Dictionary</i>, s.v. "atlatl" (Eugene, OR: Wired Humanities Projects, University of Oregon, 2000–), https://nahuatl.wired-humanities.org/content/atlatl. [Open access]
+  - used by: wh-081
+- Michelle C. Langley, Noel Amano, Oshan Wedage, et al., "Bows and arrows and complex symbolic displays 48,000 years ago in the South Asian tropics," <i>Science Advances</i> 6, no. 24 (2020): eaba3831, https://pmc.ncbi.nlm.nih.gov/articles/PMC7292635/. [Open access]
+  - used by: wh-082
+- John Meadows, Carl Heron, Matthias Hüls, Bente Philippsen, and Mara-Julia Weber, "Dating the lost arrow shafts from Stellmoor (Schleswig-Holstein, Germany)," <i>Quartär</i> 65 (2018): 105–114, https://quartaer.obermaier-gesellschaft.de/pdfs/2018/2018_05_meadows.pdf. [Open access]
+  - used by: wh-082
+- Jürgen Junkmanns, Johanna Klügl, Werner Schoch, Giovanna Di Pietro, and Albert Hafner, "Neolithic and Bronze Age archery equipment from Alpine ice-patches: a review on components, construction techniques and functionality," <i>Journal of Neolithic Archaeology</i> 21 (2019): 283–314, https://doi.org/10.12766/jna.2019.10. [Open access]
+  - used by: wh-082
+- B. W. Kooi and C. A. Bergman, "An approach to the study of ancient archery using mathematical modelling," <i>Antiquity</i> 71, no. 271 (1997): 124–134, https://www.bio.vu.nl/thb/users/kooi/kobe97.pdf. [Open access]
+  - used by: wh-082
+- John J. Shea and Matthew L. Sisk, "Complex projectile technology and <i>Homo sapiens</i> dispersal into western Eurasia," <i>PaleoAnthropology</i> 2010 (2010): 100–122, https://paleoanthro.net/media/journal/content/PA20100100.pdf. [Open access]
+  - used by: wh-082
+- Matthew L. Sisk and John J. Shea, "The African origin of complex projectile technology: an analysis using tip cross-sectional area and perimeter," <i>International Journal of Evolutionary Biology</i> 2011 (2011): 968012, https://pmc.ncbi.nlm.nih.gov/articles/PMC3132613/. [Open access]
+  - used by: wh-082
+- Laure Metz, Jason E. Lewis, and Ludovic Slimak, "Bow-and-arrow, technology of the first modern humans in Europe 54,000 years ago at Mandrin, France," <i>Science Advances</i> 9, no. 8 (2023): eadd4675, https://pmc.ncbi.nlm.nih.gov/articles/PMC9946345/. [Open access]
+  - used by: wh-082
+- Lucinda Backwell, Francesco d'Errico, and Lyn Wadley, "Middle Stone Age bone tools from the Howiesons Poort layers, Sibudu Cave, South Africa," <i>Journal of Archaeological Science</i> 35, no. 6 (2008): 1566–1580, https://in-africa.org/wp-content/uploads/2012/12/Backwell-et-al-2008-JAS-MSA-bone-tools-from-HP-layers-Sibudu.pdf. [Open access]
+  - used by: wh-082
+- Lucinda Backwell, Justin Bradfield, Kristian J. Carlson, et al., "The antiquity of bow-and-arrow technology: evidence from Middle Stone Age layers at Sibudu Cave," <i>Antiquity</i> 92, no. 362 (2018): 289–303, https://doi.org/10.15184/aqy.2018.11. [Paywalled]
+  - used by: wh-082
+- Marlize Lombard and Laurel Phillipson, "Indications of bow and stone-tipped arrow use 64 000 years ago in KwaZulu-Natal, South Africa," <i>Antiquity</i> 84, no. 325 (2010): 635–648, https://doi.org/10.1017/S0003598X00100134. [Paywalled]
+  - used by: wh-082
+
 ---
 
 ## CANDIDATES — NOT VERIFIED, DO NOT PASTE INTO `data.js`
