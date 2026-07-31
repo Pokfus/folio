@@ -1356,6 +1356,185 @@ Bernhard Weninger et al., "The Catastrophic Final Flooding of Doggerland by the 
 
 ---
 
+<!-- ===================== BATCH 11 · after the ice (2026-07-31) ===================== -->
+
+### ics-major-divisions · the Holocene base and naming
+Subcommission on Quaternary Stratigraphy, International Commission on Stratigraphy, "Major Divisions,"
+https://quaternary.stratigraphy.org/major-divisions. [Open access]
+- opened: 2026-07-31 · full text (the maintained ICS statement)
+- supports: Holocene base 11,700 yr b2k, 99-yr max counting error; NGRIP GSSP 1492.45 m at the warming that ended
+  the Younger Dryas/GS-1; "holocène" introduced by Paul Gervais (1867–1869); the three subdivisions
+- used by: wh-102
+
+### walker-2018-subdivision · the Holocene's three ages
+Mike Walker et al., "Formal Ratification of the Subdivision of the Holocene Series/Epoch (Quaternary System/Period):
+Two New Global Boundary Stratotype Sections and Points (GSSPs) and Three New Stages/Subseries," *Episodes* 41, no. 4
+(2018): 213–223, https://doi.org/10.18814/epiiugs/2018/018016. [Open access]
+- opened: 2026-07-31 · full text (Episodes, open)
+- supports: Greenlandian (11,700 b2k) / Northgrippian (NGRIP1, 8236 b2k) / Meghalayan (Mawmluh Cave, Meghalaya,
+  4250 b2k); ratified 14 June 2018
+- used by: wh-102, wh-109
+
+### ics-anthropocene-wg · the Anthropocene rejection
+Subcommission on Quaternary Stratigraphy, International Commission on Stratigraphy, "Working Group on the
+'Anthropocene'," https://quaternary.stratigraphy.org/working-groups/anthropocene. [Open access]
+- opened: 2026-07-31 · full text (official ICS page)
+- supports: the proposal (base 1952 CE, Crawford Lake, Great Acceleration) was rejected; the SQS vote approved
+  26 March 2024
+- used by: wh-102
+
+### walanus-nalepka-2010 · Mangerud's boundaries, calibrated
+Adam Walanus and Dorota Nalepka, "Calibration of Mangerud's Boundaries," *Radiocarbon* 52, no. 4 (2010): 1639–44,
+https://www.adamwalanus.pl/c14/Walanus-Nalepka_RC_52_2010.pdf. [Open access]
+- opened: 2026-07-31 · full text (open PDF)
+- supports: the Atlantic chronozone as 8000–5000 conventional ¹⁴C BP (Mangerud 1974), calibrating to ~7000 BC
+  (Boreal/Atlantic) and ~3800 BC (Atlantic/Subboreal) — the open, verifiable anchor for the ¹⁴C boundaries
+- used by: wh-105
+
+### seppa-2009 · northern-European Holocene temperatures
+Heikki Seppä et al., "Last Nine-Thousand Years of Temperature Variability in Northern Europe," *Climate of the Past*
+5 (2009): 523–35, https://doi.org/10.5194/cp-5-523-2009. [Open access]
+- opened: 2026-07-31 · full text (open PDF)
+- supports: HTM in N Europe 8000–4800 cal BP; summer (Tjul) ~1.5 °C and annual (Tann) 2.0–2.5 °C above present at
+  8000–6000 cal BP; roughly linear cooling over the last ~5000 years
+- used by: wh-105 · (used to correct "summers up to 2 °C" → "about 1.5 °C")
+
+### yu-2003 · the Littorina transgression
+Shiyong Yu, "The Littorina Transgression in Southeastern Sweden and Its Relation to Mid-Holocene Climate
+Variability," LUNDQUA Thesis 51 (Lund: Lund University, 2003),
+https://lup.lub.lu.se/search/publication/75d54b38-176a-4cff-be83-a14b39fe1426. [Open access]
+- opened: 2026-07-31 · open repository record with figures (abstract-level)
+- supports: brackish Littorina onset ~8500 cal BP; ~8 m relative sea-level rise at ~15 mm/yr culminating 8000–7500
+  cal BP
+- used by: wh-105
+
+### parker-2002 · the mid-Holocene elm decline
+A. G. Parker et al., "A Review of the Mid-Holocene Elm Decline in the British Isles," *Progress in Physical
+Geography* 26, no. 1 (2002): 1–45, https://doi.org/10.1191/0309133302pp323ra. [Paywalled]
+- opened: 2026-07-31 · abstract (SAGE full text 403)
+- supports: elm decline mean date 5036 ± 247 ¹⁴C BP; disease, human clearance and climate all implicated
+- used by: wh-105
+
+### marchal-2002 · the Holocene chronozones, restated
+Olivier Marchal et al., "Apparent Long-Term Cooling of the Sea Surface in the Northeast Atlantic and Mediterranean
+during the Holocene," *Quaternary Science Reviews* 21, no. 4–6 (2002): 455–83,
+https://www.whoi.edu/cms/files/marchal02qsr_42274.pdf. [Open access]
+- opened: 2026-07-31 · full text (open WHOI PDF)
+- supports: the five-phase Blytt–Sernander order; Preboreal onset ~10 ¹⁴C ka BP, Boreal end ~8 ¹⁴C ka BP, Atlantic
+  ~9–5.7 cal ka BP; the Atlantic as the Hypsithermal warm phase; Subatlantic to 0 ka; quotes Mangerud 1974
+- used by: wh-106 · (the open route around the paywalled Mangerud 1974)
+
+### walker-2012 · the Holocene subdivision discussed
+Mike Walker et al., "Formal Subdivision of the Holocene Series/Epoch: A Discussion Paper by a Working Group of
+INTIMATE and the Subcommission on Quaternary Stratigraphy," *Journal of Quaternary Science* 27, no. 7 (2012):
+649–59, https://doi.org/10.1002/jqs.2565. [Open access]
+- opened: 2026-07-31 · full text (open Yale/Leilan deposit)
+- supports: Mangerud 1974 divided the Flandrian by Blytt–Sernander pollen zones dated by ¹⁴C (Preboreal+Boreal
+  10.0–8.0 k ¹⁴C; Atlantic+Subboreal 8.0–2.5 k ¹⁴C); the phases are time-transgressive, terminologically
+  ambiguous and applicable only at the regional/local scale
+- used by: wh-106
+
+### kaufman-2020 · Holocene global mean temperature
+Darrell S. Kaufman et al., "Holocene Global Mean Surface Temperature, a Multi-method Reconstruction Approach,"
+*Scientific Data* 7 (2020): 201, https://doi.org/10.1038/s41597-020-0530-7. [Open access]
+- opened: 2026-07-31 · full text (PMC7327079)
+- supports: warmest 200-yr interval ~6500 ya at 0.7 °C (0.3, 1.8) above the 19th century; the 2011–2019 decade
+  1 °C above 1850–1900; 80% of ensemble members find no 200-yr interval in 12 kyr warmer than the recent decade
+- used by: wh-107
+
+### cartapanis-2022 · the Holocene thermal maximum's structure
+Olivier Cartapanis et al., "Complex Spatio-temporal Structure of the Holocene Thermal Maximum," *Nature
+Communications* 13 (2022): 5662, https://doi.org/10.1038/s41467-022-33362-1. [Open access]
+- opened: 2026-07-31 · full text (PMC9529938)
+- supports: no globally synchronous optimum; 40–70°N maxima 8–4 ka, leading the tropics (which lack a clear
+  anomaly); dwindling ice sheets delayed land warming; insolation-driven
+- used by: wh-107
+
+### tierney-2017 · the Green Sahara
+Jessica E. Tierney, Francesco S. R. Pausata, and Peter B. deMenocal, "Rainfall Regimes of the Green Sahara,"
+*Science Advances* 3, no. 1 (2017): e1601503, https://doi.org/10.1126/sciadv.1601503. [Open access]
+- opened: 2026-07-31 · abstract (science.org bot-walled; Science Advances is OA)
+- supports: the African Humid Period ~11,000–5,000 ya, a vegetated Sahara with permanent lakes and human
+  populations, rainfall ~10× present
+- used by: wh-107 · (the "9 million km²" figure was NOT found here or in any opened source — press only — so
+  the card was softened to "much of the Sahara")
+
+### ipcc-ar6-spm · the Holocene optimum vs. the present
+IPCC, "Summary for Policymakers," in *Climate Change 2021: The Physical Science Basis* (Cambridge: Cambridge
+University Press, 2021), para. A.2.2, https://www.ipcc.ch/report/ar6/wg1/chapter/summary-for-policymakers/. [Open access]
+- opened: 2026-07-31 · excerpt (ipcc.ch PDF/HTML 403; sentence widely quoted verbatim)
+- supports: the 2011–2020 decade exceeds the most recent multi-century warm period ~6500 ya (medium confidence)
+- used by: wh-107
+
+### whitehouse-2018 · glacial isostatic adjustment
+Pippa L. Whitehouse, "Glacial Isostatic Adjustment Modelling: Historical Perspectives, Recent Advances, and Future
+Directions," *Earth Surface Dynamics* 6, no. 2 (2018): 401–29, https://doi.org/10.5194/esurf-6-401-2018. [Open access]
+- opened: 2026-07-31 · full text (HTML, open)
+- supports: GIA definition; peripheral bulge/forebulge from lateral mantle flow; upper/lower-mantle viscosity and
+  the tens-of-thousands-of-years timescale; Celsius 1743 (Gulf of Bothnia falling 1.4 cm/yr), Jamieson 1865 (ice
+  load depressed the crust), Gilbert 1890 (Lake Bonneville shorelines)
+- used by: wh-108
+
+### sella-2007 · North American GIA from GPS
+Giovanni F. Sella et al., "Observation of Glacial Isostatic Adjustment in 'Stable' North America with GPS,"
+*Geophysical Research Letters* 34, no. 2 (2007): L02306, https://doi.org/10.1029/2006GL027081. [Open access]
+- opened: 2026-07-31 · full text (open NOAA CORS PDF)
+- supports: present-day uplift ~10 mm/yr near Hudson Bay (thickest LGM ice); subsidence 1–2 mm/yr south of the
+  Great Lakes (the collapsing forebulge)
+- used by: wh-108
+
+### poutanen-steffen-2014 · the High Coast and Kvarken
+Markku Poutanen and Holger Steffen, "Land Uplift at Kvarken Archipelago / High Coast UNESCO World Heritage Area,"
+*Geophysica* 50, no. 2 (2014): 49–64, https://www.geophysica.fi/pdf/geophysica_2015_50_2_049_poutanen.pdf. [Open access]
+- opened: 2026-07-31 · full text (open PDF)
+- supports: ~700 ha of new Finnish land a year; ~9 mm/yr Gulf of Bothnia uplift; the High Coast's highest raised
+  shoreline (Skuleberget) at 286 m; ~100 m of depression still to recover
+- used by: wh-108
+
+### bradley-2009 · GIA of the British Isles
+Sarah L. Bradley et al., "Glacial Isostatic Adjustment of the British Isles: New Constraints from GPS Measurements
+of Crustal Motion," *Geophysical Journal International* 178, no. 1 (2009): 14–22,
+https://doi.org/10.1111/j.1365-246X.2008.04033.x. [Open access]
+- opened: 2026-07-31 · full text (open)
+- supports: uplift over eastern Scotland, subsidence through most of England; maximum southern-England subsidence
+  1.2 ± 0.40 mm/yr
+- used by: wh-108
+
+### alley-1997 · the 8.2 ka event named
+Richard B. Alley et al., "Holocene Climatic Instability: A Prominent, Widespread Event 8200 yr Ago," *Geology* 25,
+no. 6 (1997): 483–86, https://doi.org/10.1130/0091-7613(1997)025<0483:HCIAPW>2.3.CO;2. [Open access]
+- opened: 2026-07-31 · full text
+- supports: the most prominent Holocene event in Greenland proxies (~half the Younger Dryas amplitude), ~8000–8400
+  ya, cold/dry/dusty, hemisphere-wide; dry conditions in the monsoon regions of Africa, Arabia, Tibet, NW India
+- used by: wh-109
+
+### matero-2017 · the 8.2 ka ice-saddle mechanism
+Ilkka S. O. Matero et al., "The 8.2 ka Cooling Event Caused by Laurentide Ice Saddle Collapse," *Earth and
+Planetary Science Letters* 473 (2017): 205–14, https://doi.org/10.1016/j.epsl.2017.06.011. [Open access]
+- opened: 2026-07-31 · full text
+- supports: abrupt 1–3 °C NH cooling lasting ~160 yr, ~3 °C ice-core amplitude; Agassiz–Ojibway drainage to the
+  Labrador Sea in 0.5–5 yr, AMOC −55%; ITCZ shifted south; the ice-saddle-collapse alternative to the lakes alone.
+  (Gives no freshwater volume in km³ — so the card's "160,000 km³" was dropped)
+- used by: wh-109
+
+### thomas-2007 · the 8.2 ka event in the ice cores
+E. R. Thomas et al., "The 8.2 ka Event from Greenland Ice Cores," *Quaternary Science Reviews* 26, no. 1–2 (2007):
+70–81, https://doi.org/10.1016/j.quascirev.2006.07.017. [Paywalled]
+- opened: 2026-07-31 · abstract (NORA)
+- supports: a 160.5-yr cold period with a 69-yr central event
+- used by: wh-109
+
+### weninger-2006 · the 8.2 ka event and the PPNB
+Bernhard Weninger et al., "Climate Forcing Due to the 8200 cal yr BP Event Observed at Early Neolithic Sites in the
+Eastern Mediterranean," *Quaternary Research* 66, no. 3 (2006): 401–20, https://doi.org/10.1016/j.yqres.2006.06.009. [Paywalled]
+- opened: 2026-07-31 · abstract (Cambridge Core)
+- supports: markedly cold/arid conditions and major disruptions of Neolithic cultures across the Levant, North
+  Syria, SE and Central Anatolia and Cyprus. (Supports the site abandonment, NOT a trade collapse — the card's
+  "long-distance trade breaking off" was dropped)
+- used by: wh-109
+
+---
+
 ## CANDIDATES — NOT VERIFIED, DO NOT PASTE INTO `data.js`
 
 *Empty.* Everything gathered by search during the blocked attempt of 2026-07-30 has since been opened and

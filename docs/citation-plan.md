@@ -338,14 +338,80 @@ needed: all seven cards are exactly 5+5 sentences in every one of the ten langua
 round-trip before any marker was placed, and every marker position was eyeballed across all ten languages per
 the batch-1 warning.
 
-### Batch 11 · After the ice (11)
-`wh-099` Mesolithic · `wh-100` Epipaleolithic · `wh-101` Nordic Stone Age · `wh-102` Holocene ·
-`wh-103` Preboreal · `wh-104` Boreal · `wh-105` Atlantic period · `wh-106` Blytt–Sernander sequence ·
-`wh-107` Holocene climatic optimum · `wh-108` post-glacial rebound · `wh-109` 8.2-kiloyear event
+### Batch 11 · After the ice (11) — **6 of 11 DONE (2026-07-31)**
+**Cited:** `wh-102` Holocene · `wh-105` Atlantic period · `wh-106` Blytt–Sernander sequence ·
+`wh-107` Holocene climatic optimum · `wh-108` post-glacial rebound · `wh-109` 8.2-kiloyear event.
 
-Spine: Walker et al. 2009 and 2018 on the Holocene GSSP and its subdivision (open, and official for the
-epoch cards); Alley et al. 1997 and Thomas et al. 2007 on the 8.2 ka event; Peltier on glacial isostatic
-adjustment; Danish and Swedish national heritage records for the Nordic sequence.
+**Deferred:** `wh-103` Preboreal, `wh-104` Boreal (their defining pollen-zone vegetation content rests on
+paywalled palynology), and `wh-099` Mesolithic, `wh-100` Epipaleolithic, `wh-101` Nordic Stone Age (the
+culture-historical/definitional cards, which belong with batch 12). See the Batch 11 log.
+
+Spine as worked: the ICS Subcommission on Quaternary Stratigraphy "Major Divisions" page and Walker et al. 2018
+(subdivision) and its Anthropocene working-group page for `wh-102`; Walanus & Nalepka 2010 (calibrated Mangerud
+boundaries), Seppä et al. 2009 (N-European Holocene temperatures), Yu 2003 (Littorina transgression) and Parker
+et al. 2002 (elm decline) for `wh-105`; Marchal et al. 2002 and Walker et al. 2012 for `wh-106`; Kaufman et al.
+2020, Cartapanis et al. 2022, Tierney et al. 2017 (Green Sahara) and IPCC AR6 for `wh-107`; Whitehouse 2018,
+Sella et al. 2007, Poutanen & Steffen 2014 and Bradley et al. 2009 for `wh-108`; Alley et al. 1997, Matero et al.
+2017, Thomas et al. 2007, Walker et al. 2020, Weninger et al. 2006 and Walker et al. 2018 for `wh-109`. The
+planned spine did not survive contact: **Mangerud et al. 1974 (Boreas) is paywalled with no open deposit**, and
+Peltier and the Danish/Swedish heritage records were not needed.
+
+### Batch 11 log — after the ice
+
+#### 2026-07-31 — six cards cited, five deferred
+
+Coverage went from `cards 36/109` to `cards 42/109`. Every source was opened before being written down.
+
+**This is the batch-2 source-type lesson, one more time.** Batch 11 as planned held eleven cards, and they split
+by *where the load-bearing scholarship lives*, not by subject:
+
+- The six that shipped are **stratigraphy, climate and geophysics** — the Holocene GSSP and its subdivision, the
+  Holocene thermal maximum, glacial isostatic adjustment, the 8.2 ka event, the Atlantic chronozone, and the
+  Blytt–Sernander scheme itself. Their claims are dates, GSSPs, measured uplift rates, ice-core signals and
+  temperature reconstructions, and that work sits in open stratigraphy journals (Episodes, *Climate of the Past*,
+  *Earth Surface Dynamics*, *The Cryosphere*), the ICS's own maintained pages, and open institutional deposits
+  (the WHOI PDF of Marchal 2002, the GTS-Foundation deposit of Walker 2009).
+- **The two chronozone cards deferred — `wh-103` Preboreal and `wh-104` Boreal — turn on their defining
+  vegetation**: the pollen-zone palynology (birch zone IV; the hazel rise and the "hazel-pine forest"). That
+  literature (Mangerud 1974, Holst 2010, the *Corylus*-expansion papers) is paywalled with no open deposit, so
+  the very content that makes those cards what they are could not be sourced. `wh-099`/`wh-100`/`wh-101` are the
+  Mesolithic culture-history cards and belong with batch 12's definitional set.
+
+**The key that rescued `wh-105` and `wh-106`:** Mangerud et al. 1974, the primary for every chronozone boundary,
+is closed — but its boundaries are *quoted and attributed* in the open Marchal et al. 2002 and Walker et al. 2012,
+and the open Walanus & Nalepka 2010 reproduces and calibrates its table. So the chronozone cards whose OTHER
+content is open (the Atlantic's warmth and Littorina transgression; the scheme's own historiography and critique)
+go through by citing those; the ones whose other content is *also* closed (Preboreal, Boreal) do not.
+
+**Seven corrections**, made in English and all nine languages:
+
+- **`wh-105`** said northern-European summers at the Holocene optimum ran "up to 2 degrees warmer." Seppä et al.
+  2009's northern-Europe stack gives a **summer anomaly of ~1.5 °C** (the ~2.0–2.5 °C figure is the *annual*
+  mean, which the card already uses for the 2.5 °C cooling since). Corrected to "about one and a half degrees."
+- **`wh-106`** gave the Atlantic chronozone as "8,000 to 5,000 years before the present." Those are **radiocarbon
+  years** (Mangerud's units); in calendar years they are ~8,900–5,700 cal BP. Marked as radiocarbon years so the
+  span reads on the same clock as the figures around it.
+- **`wh-107`** said the Green Sahara covered "some 9 million square kilometres." That figure — the modern area of
+  the Sahara — appears only in the press, in no source that could be opened. Softened to "much of the Sahara."
+- **`wh-107`** had the African Humid Period drying "earlier in the north and east." The open evidence
+  (Shanahan's latitudinal pattern) supports **north before south**, not an east–west axis. Corrected.
+- **`wh-109`** put "something like 160,000 cubic kilometres" of freshwater into the 8.2 ka flood. That classic
+  figure is Barber et al. 1999's, which could not be opened, and neither Matero 2017 nor Aguiar 2021 restates it
+  as a volume, so it was dropped rather than cited to a number nobody here could check.
+- **`wh-109`** said the drowning of Doggerland "was completed about now, helped by the Storegga landslide." Walker
+  et al. 2020 — the very source — argues the opposite: the inexorable sea-level rise, not the wave, took the last
+  of it, and much of the land survived the tsunami. Reworded (the same correction batch 10 made to `wh-096`).
+- **`wh-109`** had the Pre-Pottery Neolithic B collapse "its long-distance trade in stone and shell breaking off."
+  Weninger et al. 2006 supports the site abandonment across the Levant, Syria and Anatolia; the trade-collapse
+  clause is unverified, and was dropped.
+
+**On the mechanism.** The splitter needed one addition this batch: the calendar-date cards write BCE with a
+period ("v. Chr.", "a. C.", "av. J.-C."), and the internal abbreviation dot was splitting sentences in five
+languages. A rule that never breaks on a lowercase continuation (German "v. Chr. entspricht") plus a targeted
+guard for the era abbreviations fixed it, and all six cards then round-tripped 5+5 in every language before any
+marker was placed. `test-sources.js` also needed a robustness fix: its "a card with no citations shows no
+Sources fold" check studied the date-seeded card of the day, which the pass has now cited — it strips sources on
+that one page so it tests the mechanism rather than leaning on an uncited card.
 
 ### Batch 12 · The framework itself (8)
 `wh-001` Paleolithic · `wh-002` Lower Paleolithic · `wh-003` Middle Paleolithic · `wh-004` Upper Paleolithic ·
