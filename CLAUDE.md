@@ -92,8 +92,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `docs/glossary-citation-plan.md` — the batch plan for **citing the 333 glossary terms**, the sibling of
   the card plan above. The bar is **at least 2 citations per term** (a description is three sentences, where
   a card's abstract is ten), and the acceptable sources are academic, museum, government or reputable
-  NGO/IGO. **Batches G1–G6 have shipped — 44 of the 333 terms are cited and at the bar, all with in-text
-  markers in all ten languages.** Two things about this pass that the card pass does not have: a term whose
+  NGO/IGO. **Batches G1–G8 have shipped — 66 of the 333 terms are cited and at the bar, all with in-text
+  markers in all ten languages**, which completes Phase 1's prehistory / palaeoanthropology / geological-time
+  group (66 of 66). Two things about this pass that the card pass does not have: a term whose
   prose is corrected — or whose markers are placed — needs a second command in the same
   batch (`add-lang.js` for the nine languages, since `add-sources.js` writes only the English description);
   and Phase 1 is largely paid for out of `.claude/sources-register.md` already.
@@ -713,8 +714,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     stripe): one is derived from the data, the other is an editor's private marker.
   · `sup` + `class="fn"` + `data-fn` are in the sanitizer allowlists, so a community deck can use markers too.
   · **The Atlas table still ships EMPTY; the glossary has begun.** `country-sources.js` has no entries at all.
-    **`GLOSSARY_SOURCES` carries 44 of the 333 terms** (batches G1–G6, 2026-08-01 — the genus, species, specimen,
-    stone-industry, three-age, periodisation and geological-time terms), against
+    **`GLOSSARY_SOURCES` carries 66 of the 333 terms** (batches G1–G8, 2026-08-01 — the genus, species, specimen,
+    stone-industry, three-age, periodisation, geological-time, type-site, way-of-life and discipline terms), against
     a bar of **`GLOSS_SRC_TARGET` (2)**, which is lower than a card's five because a description is three sentences
     where an abstract is ten; `docs/glossary-citation-plan.md` is the plan for the rest and
     `node .claude/gloss-source-audit.js` says where it stands. The UI, the deltas and the pipeline are in place;
@@ -2103,8 +2104,8 @@ and its sources, and were fact-checked rather than referenced. A batched pass is
 reports both on every run, `node .claude/source-audit.js` reports them per card, and the Edit page's card list
 shows each card's coverage as an amber or red chip) — and **a second pass has started on the glossary**, batched
 through `docs/glossary-citation-plan.md` at a bar of **2 citations per term** (`GLOSS_SRC_TARGET`), with
-`node .claude/gloss-source-audit.js` and the glossary list's own coverage chip reporting it; **44 of 333 terms
-are cited** (batches G1–G6). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
+`node .claude/gloss-source-audit.js` and the glossary list's own coverage chip reporting it; **66 of 333 terms
+are cited** (batches G1–G8). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
 Two rules that pass turned up at once. **`add-sources.js` writes only the ENGLISH description**, so a term whose
 prose is corrected needs an `add-lang.js` run per language in the same batch or nine languages keep the old
 claim; and **a correction does not travel between surfaces** — `Homo_habilis` still carried the 2.3–1.5 Mya span
@@ -2150,6 +2151,38 @@ sources again (the `Ice_Age` term's uncited "coldest point around 20,000 years a
 `wh-078`, which already gave the LGM as 26,000–19,000 with a citation), and **a claim nothing contradicts
 stays** — the Meghalayan GSSP is a "speleothem" in every open source, "stalagmite" in the term, and the term
 keeps it with the gap recorded in the register rather than being reworded on a hunch.
+**Batch G7 is where the register stopped paying, and the reason is structural.** Fifteen of its 32 works
+were new — against ten of sixteen reused in G6 and 26 of 38 slots in G5 — because **the register carries
+terms about TAXA and PERIODS, and a type site is a PLACE.** A site's three sentences are a location, an
+excavation history and a find, and only the find is a claim some card already makes; the geography, the
+administrative facts and the dig histories all had to be found. Expect the same of G9 and G10, which are
+peoples and physical geography and have no cards behind them at all. Its other findings: the cross-surface
+sweep paid twice more, and both were siblings rather than strangers — `Olduvai_Gorge` was still "about
+48 km" five batches after `wh-017` was corrected to 46, and `Lomekwi_3` still had the passive-hammer
+knapping backwards after G3 fixed the identical error on `Lomekwian`, so **a correction does not travel
+between SIBLING TERMS either, and the grep is for the figure, on the day**. And G7 met a case the pass had
+not: not a source contradicting the term but **two sources contradicting each other** over a claim the term
+makes flatly — Parker et al. read Taung's hominin-bearing calcrete as pedogenic where Rowan & Wood still
+write of "the cave sediments at Taung". The rule adopted: where the sources disagree and three sentences
+leave no room to hedge, **say what both carry** (here "tufa and calcrete deposits") and record the question
+in the register rather than settling it in a gloss.
+**Batch G8 corrected NOTHING, and that is the pass's most useful negative result.** Thirty-four batches had
+produced corrections every time; the tenth-of-a-batch that did not is the one whose terms are DEFINITIONS and
+BIOGRAPHIES — and the same batch carries the most unmarked, unsourceable clauses of any so far (nine, across
+seven terms: a forager band's size, portable wealth, `Megafauna`'s 10 kg lower bound, the word *anatomist*,
+the French and Lakota etymology of *badlands*, and Dart's birth, his 1958 retirement and the
+osteodontokeratic hypothesis). **A term whose fold shows two open sources looks identical to a reader whether
+every sentence rests on them or only one clause does**, and the audit counts citations rather than covered
+claims — so it cannot see this. G7 found the register pays for taxa and not for places; G8 adds that **the
+literature pays for RESULTS, not for definitions or for living people**, which is a harder limit than any
+sandbox egress policy. Two routes did work and should be reached for early in G9/G10: **a discipline's own
+statement of scope** (the SAA's *What Is Archaeology?* carried that whole term) and **the canonical textbook,
+out of copyright** — there is no modern open work saying what anatomy is, and Gray's *Anatomy of the Human
+Body* (1918) is on the Internet Archive in full, defining the subject, dissection, histology, comparative and
+applied anatomy in its Introduction. That is G4's rule applied to a discipline rather than a man; an
+encyclopedia is barred by the plan, a founding textbook is not. Its cheapest find is a search order:
+**look at the deck's own markers for a FIGURE before searching the literature for it** — `Megafauna`'s 44 kg
+was already marked on `wh-089` to Koch & Barnosky, who also carry three of the term's four claims.
 **Do not paper over the rest by attaching plausible-looking citations to existing prose** — a citation that was
 not the actual source of a sentence is worse than no citation, because it invites a reader to trust a page number
 nobody checked. The honest routes are the ones the pass follows: open every work before citing it, re-derive the

@@ -2,8 +2,8 @@
 
 The glossary was **333 terms and not one of them carried a source**. `window.GLOSSARY_SOURCES` was an empty
 table; the fold at the foot of a gloss popup never appeared. This is the plan for filling it. Not part of
-the site. **As of 2026-08-01, 44 of the 333 are cited and at the bar** — batches G1–G6, four of which also
-corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 44 carry in-text
+the site. **As of 2026-08-01, 66 of the 333 are cited and at the bar** — batches G1–G8, four of which also
+corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 66 carry in-text
 markers, in all ten languages, after the rule changed from optional to required on 2026-08-01 (see "What
 is different from the card pass"). G5 also settled the start of prehistory across the glossary, the deck
 and every date line: **2.6 Mya**, with the disputed 3.3 Ma Lomekwi claim hedged rather than adopted; G6
@@ -167,7 +167,7 @@ the way batch 21 recorded the Anubis walls, so the next pass does not re-run the
 
 | group | terms | |
 |---|---|---|
-| prehistory, palaeoanthropology and geological time | 66 | Phase 1 · batches G1–G8 (G1–G6 done) |
+| prehistory, palaeoanthropology and geological time | 66 | Phase 1 · batches G1–G8 — **all done** |
 | Indigenous peoples, and the odds and ends | 8 | Phase 1 · batch G9 |
 | continents, oceans and physical geography | 17 | Phase 1 · batch G10 |
 | US presidents | 45 | Phase 2 · batches P1–P7 |
@@ -712,7 +712,7 @@ the question.
 - **`hal.science`'s `/document` path worked today**, where batch G3 recorded it walled behind Anubis, and
   so did the landing page. Worth re-testing rather than assuming; the walls come and go.
 
-### G7 · The type sites (12 terms)
+### G7 · The type sites (12 terms) — **DONE (2026-08-01)**
 `Lomekwi` · `Lomekwi_3` · `Olduvai_Gorge` · `Dmanisi` · `Hadar,_Ethiopia` · `Gona,_Ethiopia` · `Taung` ·
 `Le_Moustier` · `Saint-Acheul` · `Afar_Region` · `Lake_Turkana` · `Awash_River`
 
@@ -726,7 +726,94 @@ before the journals. `Afar_Region`, `Lake_Turkana` and `Awash_River` are geograp
 archaeological terms and may be better served by geological survey and lake-science literature than by
 palaeoanthropology.
 
-### G8 · Ways of life, the disciplines, and the researchers (10 terms)
+### Batch G7 log — the register pays for taxa, not for places
+
+#### 2026-08-01 — twelve terms, 39 citations, eight corrected, and the pass's fourth wrong-figure sweep
+
+**Coverage 44/333 → 56/333, all fifty-six at the bar.** Thirty-two distinct works, **every one of them
+open** — the second batch after G4 with no paywalled entry at all. Seventeen came out of
+`.claude/sources-register.md` unopened; **fifteen are new**, and that ratio is the batch's first finding.
+
+**The register carries terms about taxa and periods; it does not carry places.** G1 predicted the register
+would pay for most of Phase 1, and through G6 it did — ten of sixteen works in G6, twenty-six of
+thirty-eight slots in G5. A type site breaks the pattern, and the reason is structural rather than bad
+luck: a site's three sentences are **a location, an excavation history and a find**, and only the find is a
+claim some card already makes. The palaeoanthropology came free; the geography, the administrative facts
+and the dig histories all had to be found. Expect the same of G9 and G10, which are peoples and physical
+geography and have no cards behind them at all.
+
+**Eight terms corrected**, in English and all nine languages, and two of the eight are the same failure the
+pass keeps finding.
+
+- **`Olduvai_Gorge` was "about 48 km long", and the card that says otherwise was corrected in batch 17.**
+  Gentry gives a main gorge of about 37 km joined by a side gorge and another nine to the Balbal
+  depression — about 46 in all — and `wh-017` has said 46 in its abstract *and* on its date line since 31
+  July. This is batch 26's finding arriving for the third time, and it is worth stating as a standing rule
+  rather than a recurring surprise: **when a card is corrected, grep the glossary for the figure the same
+  day.** Nothing else does it.
+- **`Lomekwi_3` described the oldest known stone tools as being made the wrong way round** — the identical
+  error batch G3 corrected on the `Lomekwian` term, still sitting on its sibling. The term said the stone
+  was rested on an anvil and struck downwards; Plummer et al. describe the core "held in both hands and
+  struck downward onto a stationary block on the ground". The block is the passive element and the core is
+  the moving one, which is the whole reason the technique is called *passive hammer*. Two terms describe
+  one industry and only one of them was fixed, which is the same lesson one level down: **a correction does
+  not travel between siblings either.**
+- **`Hadar`'s deposits were "between about 3.8 and 2.9 million years ago"; the Hadar Formation is
+  ~3.45–2.95 Ma** (Rowan et al., in the abstract and again in the geological setting). The date line moved
+  with it, from "deposits c. 3.8 – 2.9 Mya" to "Hadar Formation c. 3.45 – 2.95 Mya", and its early *Homo*
+  maxilla went from "about 2.3" to **about 2.35 million years**, which is the Bouroukie Tuff 3 age.
+- **`Lake_Turkana` had "more than nine-tenths" of its water from the Omo.** Hodbod et al. give 90% in one
+  sentence and account for the rest — "with the remaining water balance coming from the Turkwell River" —
+  so nine-tenths is the figure, not a floor under it. The same sentence settled the term's other two
+  superlatives, the largest permanent desert lake and the largest alkaline lake, which `gownaris-2015`
+  carries only the first of.
+- **`Awash_River` was "about 1,200 km"; Tilahun et al. give 1,250.**
+- **`Dmanisi` was "roughly 90 km southwest of Tbilisi"; Medin et al. give 85.**
+- **`Le_Moustier` was "excavated from the 1860s onward."** Nothing openable supports it, and the one source
+  that narrates the shelter's excavation history contradicts it: Pitarch Martí et al. say the Lower Shelter
+  "was first excavated by Otto Hauser and then by Denis Peyrony", and Schmidt et al. date Hauser's work to
+  1907. The sentence now says early 20th century and names both men, which is a better sentence as well as
+  a defensible one. Batch 25's rule for a "who named it" clause covers a "when was it dug" clause exactly.
+- **`Taung`'s "ancient cave deposits" states one side of a live argument as fact.** Parker, Hopley and Kuhn
+  argue the hominin-bearing pink calcrete is of **pedogenic** origin, against the reading of the Dart and
+  Hrdlička pinnacles as cave infill; Rowan and Wood, writing on the same locality in the same decade, still
+  say "the cave sediments at Taung". **This is a case the pass had not met before — not a source
+  contradicting the term, but two sources contradicting each other over a claim the term makes flatly.**
+  The rule adopted: where the sources disagree and the term has no room to hedge, **say what both carry** —
+  here "ancient tufa and calcrete deposits", which is Parker's own description of the deposits and which
+  Rowan and Wood do not dispute. The question is recorded in the register rather than decided in a gloss.
+
+**What could not be sourced, and was kept unmarked rather than dropped.** Four claims, each uncontradicted
+and none marked: Dmanisi's medieval town and its volcanic and lake deposits (batch 13's finding confirmed a
+second time — the Georgian National Museum publishes no per-object catalogue, and `museum.ge` redirects
+while `dmanisi.ge` does not resolve); Saint-Acheul's archaeological garden, listed 1947 and opened 1998;
+Gona's ~500 km², its six million years of deposits and its *Ardipithecus* fossils; and the Afar's
+"purpose-built" Semera. Nothing was withdrawn this batch — a first — because in every case the sources were
+silent rather than opposed.
+
+**Three tooling findings.**
+- **The French culture ministry's portal is half open from here.** Batch 21 built two whole cards on it, and
+  its notice pages still work — `pop.culture.gouv.fr/notice/merimee/<ref>` returns the full record as
+  embedded JSON, and `culture.gouv.fr` and `archeologie.culture.gouv.fr` are both 200. But **its search is
+  blocked**: `api.pop.culture.gouv.fr` serves a "Requête bloquée" interstitial and the search URL 404s. So
+  the portal is **usable if you already know the reference and unsearchable if you do not**, which is a
+  different limitation from a 403 and worth planning around rather than rediscovering.
+- **A non-OA flag in Europe PMC is not a verdict, but neither is a PMCID.** Batch 24 established that
+  `isOpenAccess: N` often still has full text. Ferring et al. 2011 on Dmanisi has a PMCID (PMC3127884) and
+  the `fullTextXML` route returns an **empty body** — not a captcha, not an error, nothing. Check the length
+  of what comes back, not just the status code.
+- **`api.crossref.org` was not needed once**, and neither was any paywalled work. Every one of the batch's
+  thirty-two sources opened through Europe PMC's REST route, the Smithsonian, a conservation authority or a
+  publisher's own gold-OA copy.
+
+**A note on `si-afarensis` for whoever works G8.** It is marked on `Hadar` for naming "the sites of Hadar,
+Ethiopia ('Lucy', AL 288-1 and the 'First Family', AL 333)". Its "more than 300 individuals" is the
+**species** total across Hadar, Dikika and Laetoli — not Hadar's — so the term's "hundreds of *A. afarensis*
+fossils" and its "at least 13 individuals" at AL 333 rest on nothing opened here. Both are uncontroversial
+and both are kept; neither is marked. G6's rule again: a registered source is reused for what the register
+records.
+
+### G8 · Ways of life, the disciplines, and the researchers (10 terms) — **DONE (2026-08-01)**
 `Hunter-gatherer` · `Nomadism` · `Megafauna` · `Mosaic_evolution` · `Archaeology` · `Anatomy` · `Badlands` ·
 `Raymond_Dart` · `Sonia_Harmand` · `Jason_E._Lewis`
 
@@ -748,6 +835,75 @@ institutional record does not.
 
 `Badlands` is a landform term and belongs with G10's physical geography in everything but the batch roster;
 the US National Park Service publishes per-park geology records, though the exact URLs move.
+
+### Batch G8 log — the batch that corrected nothing, and why that is a warning
+
+#### 2026-08-01 — ten terms, 24 citations, **no corrections**, and the thinnest apparatus of the pass
+
+**Coverage 56/333 → 66/333, all sixty-six at the bar.** Twenty-two distinct works, **every one of them
+open**. Twelve came out of `.claude/sources-register.md` unopened; ten are new. Phase 1's prehistory,
+palaeoanthropology and geological-time group is now complete — 66 of its 66 terms cited.
+
+**This is the first batch in the whole pass, cards and glossary together, in which no source contradicted
+anything.** Twenty-seven card batches and seven glossary batches had produced corrections every time, and
+the count had been going *up* as the pass got better at looking. So the honest question is whether G8's
+terms are unusually sound or whether this batch simply could not check them — and the answer is the second.
+
+**The same batch has the highest count of unmarked, unsourceable clauses of any so far.** Nine claims across
+seven terms are kept unmarked because nothing opened states them, and none is contradicted either: the size
+of a forager band and the survival of such communities today; the whole of `Nomadism`'s third sentence on
+portable wealth; `Megafauna`'s 10 kg lower bound; the word *anatomist* and veterinary anatomy; the French
+and Lakota etymology of *badlands*; and — three in one term — Raymond Dart's Australian birth, his
+retirement in 1958, and the osteodontokeratic hunting hypothesis that "has not been sustained". **A term
+whose list shows two open sources looks exactly the same to a reader whether every sentence rests on them or
+only one clause does.** That is the failure mode this batch discovered, and it is invisible from the audit,
+which counts citations rather than covered claims.
+
+The reason is structural and the plan half-predicted it. **A definitional term makes few datable claims, and
+a biographical term about a living person makes claims no journal publishes.** There is no paper reporting
+that Sonia Harmand took over the West Turkana Archaeological Project in 2012; there is no open work stating
+where Dart was born. G7 found that the register pays for taxa and not for places; G8 adds that **the
+literature itself pays for results and not for definitions or biographies**, which is a harder limit than a
+sandbox's egress policy.
+
+**Two routes did work, and both are reusable.**
+- **A discipline's own statement of scope.** The plan predicted `Archaeology` would need "a disciplinary
+  handbook or a society's own statement of scope", and the Society for American Archaeology's *What Is
+  Archaeology?* carried the entire term, including its third sentence — "Prehistoric archaeological sites are
+  those without a written record" against "Historical archaeology sites are those where archaeologists can
+  use writing to aid their research".
+- **The canonical textbook, out of copyright.** There is no modern open work that simply says what anatomy
+  is. **Gray's *Anatomy of the Human Body* (20th ed., 1918) is on the Internet Archive in full**, and its
+  Introduction defines the subject, the naked-eye/dissection sense, histology as "the minute structure of the
+  various component parts of the body", comparative anatomy as "a consideration of adult forms in the line of
+  human ancestry", and applied anatomy as the application "to the various pathological conditions which may
+  occur". This is batch G4's rule — a nineteenth-century idea's author is out of copyright, so he is
+  openable — applied to a *discipline* rather than a man. **G9 and G10 should reach for it early:** an
+  encyclopedia is barred by the plan's own rules, but a founding textbook is not an encyclopedia.
+
+**The find that cost nothing, and the rule it produces.** `Megafauna` turns on the 44 kg threshold. A search
+produced Lauer et al. 2023, which states it — but `wh-089` **already marks that exact figure** to Koch &
+Barnosky 2006, and the register already recorded them as supporting "megafauna defined as ≥44 kg" plus the
+casualty roll-call, the two-hypothesis debate and the 50–10 ka timing. Three of the term's four claims, in a
+work the deck already stands on. So: **search the deck's own markers for the FIGURE before searching the
+literature for it.** This is batch 12's register economy with a sharper index — the register lists what a
+work supports, but the cards' markers say which sentence already rests on it.
+
+**A living scholar, half-sourced.** The plan's rule is a landmark publication plus an institutional record
+from the employing body. The publications were easy — `harmand-2015` for both, `lewis-2011` for the Morton
+re-measurement, `plummer-2025` for Harmand's continuing work on the Lomekwian. The institutional record could
+not be reached at all: `turkanabasin.org`, `stonybrook.edu`, `cnrs.fr` and `wits.ac.za` all answer at the
+root and every staff path 404s, with no searchable directory exposed. What stood in for it is **the author
+affiliations printed in `harmand-2015` itself**, which give Harmand at the Turkana Basin Institute, Stony
+Brook and at CNRS UMR 7055, and Lewis at the Turkana Basin Institute and the West Turkana Archaeological
+Project — precisely the two terms' second sentences. A peer-reviewed byline is an institutional record, and
+it is openable when the institution's website is not.
+
+**One tooling note.** `pmc.ncbi.nlm.nih.gov` is captcha-walled again, and this time the Europe PMC
+`fullTextXML` fallback returned an **empty body** for `smith-codding-2021` rather than an error — the same
+silent-empty failure batch G7 met on Ferring et al. 2011. Check the length of what comes back. Because it
+could not be re-read, it was **not** stretched from the North Pacific exception it is registered for to the
+egalitarian-band default the term needed; `plana-2023` was found instead. G6's rule doing its job.
 
 ### G9 · Indigenous peoples, and the odds and ends (8 terms)
 `Hadza_people` · `San_peoples` · `Haida` · `Tlingit` · `Pacific_Northwest_Coast` · `Cedar` · `Sima_Qian` ·
