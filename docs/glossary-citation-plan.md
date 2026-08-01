@@ -1,8 +1,9 @@
 # Citing the glossary — batch plan
 
-The glossary is **333 terms and not one of them carries a source**. `window.GLOSSARY_SOURCES` is an empty
-table; the fold at the foot of a gloss popup never appears. This is the plan for filling it. Not part of
-the site.
+The glossary was **333 terms and not one of them carried a source**. `window.GLOSSARY_SOURCES` was an empty
+table; the fold at the foot of a gloss popup never appeared. This is the plan for filling it. Not part of
+the site. **As of 2026-08-01, 23 of the 333 are cited and at the bar** — batches G1, G2 and G3, the last
+of which also corrected two cards; run `node .claude/gloss-source-audit.js` for the live figure.
 
 It is the sibling of `docs/citation-plan.md`, which took the 109 prehistory cards from nothing to five
 sources each over 27 batches. Everything that plan learned about *finding* sources applies here unchanged
@@ -334,13 +335,83 @@ whom the record actively contradicts.
   afterwards. **Count the sentences per language after substituting**, exactly as `split-abstract.js`
   asserts 5+5 after marking.
 
-### G3 · Industries and technique (6 terms)
+### G3 · Industries and technique (6 terms) — **DONE (2026-08-01)**
 `Oldowan` · `Acheulean` · `Mousterian` · `Lomekwian` · `Levallois` · `Knapping`
 
 Almost entirely register: `braun-2019`, `plummer-2025`, `torre-2016`, `key-lycett-2017`, `harmand-2015`,
 `li-2022`, `muller-2022`. **`Mousterian` and `Levallois` are the gap** — batch 16 found one 2024 open review
 that states the Bordes–Binford debate and Dibble's reduction thesis; check whether it also carries the
 definitions, and if not, the Levallois method has a substantial open experimental literature.
+
+### Batch G3 log — the batch that corrected the cards
+
+#### 2026-08-01 — six terms, 23 citations, four corrected, and two cards changed
+
+**Coverage 17/333 → 23/333, all twenty-three at the bar.** Seventeen distinct works, **fifteen of them
+open**; ten came out of `.claude/sources-register.md` and only one, Gennai 2024, is new to the project.
+The prediction above held — the Mousterian and the Levallois were where the work was — but not for the
+reason given. Both had sources; both had errors in the prose those sources sat next to.
+
+**The finding: this batch corrected the CARDS, not just the terms.** Batch G1 established that a
+correction does not travel between surfaces on its own, and read it one way — a card is fixed, so grep
+the glossary. G3 is the same rule running backwards, and it is the more valuable direction, because a
+term is three sentences and a card is ten, so the term is where a bad figure is quickest to spot and the
+card is where it does the most damage.
+
+- **The `Mousterian` began 160,000 years ago, and nothing openable says so.** Gennai 2024, the one open
+  source that states the industry's span, gives "approximately 300/250 thousand years Before the Present
+  … to around 40 thousand years calibrated Before the Present". Worse, 160,000 contradicted the term's own
+  parent: `Middle_Paleolithic` opens at 300,000, `wh-003` opens at 300,000, and the Mousterian is the
+  Middle Palaeolithic's industry. **`wh-033` carried the same figure in its abstract AND on its date line,
+  in ten languages**, with the sentence marked to Bordes 1961 — a 1961 *Science* paper that cannot be the
+  source of a figure in b2k. Both surfaces now say 300,000, the card's first sentence points at Gennai as
+  well as Bordes, and `wh-033` goes from eight sources to nine.
+- **`wh-032` pointed a marker at a paper arguing the opposite of the sentence it marked.** The card's
+  "many specialists argue it was worked out more than once rather than invented once and carried outwards"
+  cited Soriano & Villa 2017 — who argue for "a rapid diffusion over wide geographic spaces of this
+  innovation", which is the other position. Batch 23 found the pass's first wrong marker on `wh-098`; this
+  is the second, and it was found the same way, by re-reading a source for a different surface. The marker
+  moved onto the claim they do make, the 295–290 ka Italian Levallois, one sentence earlier. **Adler 2014
+  carries the independent-invention argument alone**, which is what the sentence now says.
+- **The `Acheulean` ended "between 200,000 and 130,000 years ago"** — the identical error batch 23
+  corrected on `wh-022` a week earlier, still in the glossary, in ten languages and on the date line.
+  De la Torre gives "ca 1.75 to 0.125 Myr". Now 125,000, matching the card.
+- **The `Lomekwian` had the passive hammer the wrong way round.** It said the knappers rested the block on
+  an anvil and struck downwards; Plummer et al. describe the core "held in both hands and struck downward
+  onto a stationary block on the ground". The block moves and the anvil does not — which is the whole
+  reason the technique is called *passive* hammer, and the term described it as if it were the active one.
+  Its "single assemblage" also became "single excavated assemblage", which is what the review states.
+- **`Levallois` said the method "yields thin, sharp-edged flakes."** Eren & Lycett 2012 — the source cited
+  for the method, the naming, the tortoise core and the 300 ka horizon — measured exactly this and found
+  the opposite: preferential Levallois flakes are "on average thicker across their surface area (as a
+  whole) than debitage flakes", with an unusually *even* thickness and much less variability. The term now
+  says what they measured. **A source cited for four claims is worth reading for the fifth**; the wrong
+  one had been sitting beside four right ones.
+
+**Two things about the works.** Batch 20's rule — when the founding paper is shut, find the paper that
+cites it as a comparison — has a quieter cousin that carried three of these six terms: **the review
+written for the neighbouring industry.** Plummer et al. 2025 is a Lomekwian paper and it defines the
+Oldowan's span; de la Torre 2016 is an Acheulean paper and it is where Louis Leakey's Olduvai report is
+restated. And **Gennai 2024 was found by searching Europe PMC for `TITLE:"Mousterian" AND OPEN_ACCESS:y`
+sorted by citations** — a regional excavation report whose introduction happens to define the whole
+technocomplex. For a term needing a definition rather than a result, the introduction of any open paper
+in the field is a better bet than a search for a paper *about* the definition.
+
+**Three tooling notes.**
+- **`.claude/fix-gloss-date.js` now exists**, as batch G1's log said it should if a second batch needed
+  it. It is `fix-field.js`'s glossary sibling: asserted find-and-set on `window.GLOSSARY_DATES`, rewriting
+  only that block of `glossary.js`. Two of this batch's four corrections were on the date line, which is
+  where a citation pass keeps finding them.
+- **`link.springer.com` now 303s to `idp.springer.com/authorize`** for both the article and the PDF path,
+  so Shott 2024 — open access, and opened by batch 16 — could not be re-read. Cited for exactly what the
+  register records and no further, with the Crossref abstract confirming the one clause it carries here.
+  **`hal.science`'s `/document` file path is now walled too** (batch 21 found the landing pages walled),
+  so Schmidt et al. 2024 was reached through Europe PMC instead.
+- **A sentence-count check needs the same guards as `split-abstract.js`.** A naive count of the nine
+  translations reported four and five sentences where there were three, because `200.000` and `12,5` and
+  `19. Jahrhundert` all end a sentence if you only look for a full stop. The three-sentence rule is worth
+  asserting after every substitution — G2 was caught by it — but assert it with the splitter's guards, not
+  without them.
 
 ### G4 · The three-age scheme and the people who built it (8 terms)
 `Three-age_system` · `Stone_Age` · `Bronze_Age` · `Iron_Age` · `Prehistory` ·

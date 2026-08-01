@@ -92,7 +92,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `docs/glossary-citation-plan.md` — the batch plan for **citing the 333 glossary terms**, the sibling of
   the card plan above. The bar is **at least 2 citations per term** (a description is three sentences, where
   a card's abstract is ten), and the acceptable sources are academic, museum, government or reputable
-  NGO/IGO. **Nothing has been cited yet — `GLOSSARY_SOURCES` is empty.** Three things about this pass that
+  NGO/IGO. **Batches G1–G3 have shipped — 23 of the 333 terms are cited and at the bar.** Three things about this pass that
   the card pass does not have: **markers are optional** on a term, so the default batch changes no prose and
   therefore needs no translation work; a term whose prose IS corrected needs a second command in the same
   batch (`add-lang.js` for the nine languages, since `add-sources.js` writes only the English description);
@@ -634,7 +634,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     stripe): one is derived from the data, the other is an editor's private marker.
   · `sup` + `class="fn"` + `data-fn` are in the sanitizer allowlists, so a community deck can use markers too.
   · **The Atlas table still ships EMPTY; the glossary has begun.** `country-sources.js` has no entries at all.
-    **`GLOSSARY_SOURCES` carries 17 of the 333 terms** (batches G1–G2, 2026-08-01 — the genus, species and specimen terms), against
+    **`GLOSSARY_SOURCES` carries 23 of the 333 terms** (batches G1–G3, 2026-08-01 — the genus, species, specimen and
+    stone-industry terms), against
     a bar of **`GLOSS_SRC_TARGET` (2)**, which is lower than a card's five because a description is three sentences
     where an abstract is ten; `docs/glossary-citation-plan.md` is the plan for the rest and
     `node .claude/gloss-source-audit.js` says where it stands. The UI, the deltas and the pipeline are in place;
@@ -1855,12 +1856,20 @@ and its sources, and were fact-checked rather than referenced. A batched pass is
 reports both on every run, `node .claude/source-audit.js` reports them per card, and the Edit page's card list
 shows each card's coverage as an amber or red chip) — and **a second pass has started on the glossary**, batched
 through `docs/glossary-citation-plan.md` at a bar of **2 citations per term** (`GLOSS_SRC_TARGET`), with
-`node .claude/gloss-source-audit.js` and the glossary list's own coverage chip reporting it; **17 of 333 terms
-are cited** (batches G1–G2). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
+`node .claude/gloss-source-audit.js` and the glossary list's own coverage chip reporting it; **23 of 333 terms
+are cited** (batches G1–G3). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
 Two rules that pass turned up at once. **`add-sources.js` writes only the ENGLISH description**, so a term whose
 prose is corrected needs an `add-lang.js` run per language in the same batch or nine languages keep the old
 claim; and **a correction does not travel between surfaces** — `Homo_habilis` still carried the 2.3–1.5 Mya span
 a day after batch 19 corrected it on `wh-016`, so when a card is corrected, grep the glossary for the figure.
+**Batch G3 ran that rule BACKWARDS, and it is the more valuable direction**: a term is three sentences, so a
+wrong figure is quickest to spot there, and the card is where it does the most damage. Checking six industry
+terms against their sources corrected the `Mousterian`'s start date on the term **and** on `wh-033` (160,000 →
+300,000, in ten languages and on the date line — 160,000 is in nothing openable and contradicted the card's own
+parent period), and moved a marker on `wh-032` off a paper arguing the opposite of the sentence it marked. A
+term's date line is patched by **`node .claude/fix-gloss-date.js`** — `fix-field.js`'s glossary sibling, an
+asserted find-and-set on `window.GLOSSARY_DATES`, written for batch G3 because two of its four corrections were
+there and `add-sources.js` does not touch dates.
 **Do not paper over the rest by attaching plausible-looking citations to existing prose** — a citation that was
 not the actual source of a sentence is worse than no citation, because it invites a reader to trust a page number
 nobody checked. The honest routes are the ones the pass follows: open every work before citing it, re-derive the

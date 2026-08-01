@@ -4637,3 +4637,85 @@ afarensis* Pelvis and Limb, with Estimations of Limb Leverage," *Royal Society O
 - supports: that AL 288-1 "is one of the most complete hominin skeletons"; that it is "predicted to have
   been approximately 1.05 m tall"; and the wider pelvis and relatively shorter legs
 - used by: Lucy_(Australopithecus) (glossary)
+
+## Batch G3 — industries and technique (GLOSSARY), verified 2026-08-01
+
+Six terms, 23 citation slots, from **17 distinct works, 15 of them open**. Ten came out of the register
+with no new reading; seven were fetched for this batch, and only one of the seventeen is new to the
+project entirely (Gennai 2024). The batch also corrected **two cards**, which is where its interest lies —
+see the plan's log.
+
+- `Oldowan` — plummer-2025, braun-2019, si-early-stone-age-tools, torre-2016. Four sources, all open.
+- `Acheulean` — torre-2016, key-lycett-2017, si-early-stone-age-tools. Three, all open.
+- `Mousterian` — **gennai-2024** (new), shott-2024, si-neanderthalensis, groucutt-2019, higham-2014.
+  Five, four open.
+- `Lomekwian` — harmand-2015, plummer-2025, dominguez-rodrigo-alcala-2016. Three, all open.
+- `Levallois` — eren-lycett-2012, soriano-villa-2017, adler-2014, blinkhorn-2021. Four, three open.
+- `Knapping` — li-2022, rots-2017, muller-2022, skertchly-1879. Four, all open.
+
+### Verified citations, new to the register
+
+### gennai-2024 · what the Mousterian is, and how long it lasts
+Jacopo Gennai, "The Mousterian in North-Western Tuscany: Publishing Fieldwork Documentation Leads to a New
+Stratigraphical Interpretation of the Piano di Mommio Sites," *Open Research Europe* 4 (2024): 37, under
+"The Mousterian industries," https://pmc.ncbi.nlm.nih.gov/articles/PMC11109565/. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST route
+- supports: "The Mousterian, a lithic industry primarily characterised by flake production, is associated
+  with Neanderthals in Europe"; "Initially defined by Gabriel de Mortillet in 1873"; that it became "often
+  interchangeable with the term Middle Palaeolithic in Europe"; the span "from approximately 300/250
+  thousand years Before the Present (ka BP) to around 40 thousand years calibrated Before the Present (cal
+  BP)"; Bordes's "first typological list for Lower and Middle Palaeolithic artefacts in 1961"; that
+  "Binford … favoured a functional interpretation over Bordes' cultural perspective"; and the Quina and
+  Discoid methods beside Levallois
+- **this is the source that corrected the Mousterian's start date on the term AND on `wh-033`** — both
+  said 160,000, which nothing openable supports and which contradicted the card's own parent period
+- used by: Mousterian (glossary), wh-033
+
+### Re-read for this batch, extended to no new claim
+
+- **plummer-2025** re-read 2026-08-01 from the NSF PAR deposit (`par.nsf.gov/servlets/purl/10631785`; the
+  landing page shows only the abstract, and the PDF's fonts are subset with a shifted encoding, so the text
+  had to be un-shifted before it could be read). Beyond what batch 15 recorded it also supports, under
+  "Lomekwian Industry": **the passive hammer technique, "in which the core is held in both hands and struck
+  downward onto a stationary block on the ground"**, against the bipolar technique, "in which one hand
+  stabilizes the core on an anvil and the other hand strikes the hammer down vertically onto the core" —
+  which is the correction to the `Lomekwian` term, whose description had the passive hammer the wrong way
+  round; anvils "up to 15 kg"; "LOM3 is the only excavated Lomekwian site"; the Oldowan's span, "the roughly
+  one-million-year time span (ca. 2.6 Ma–1.7 Ma) of the Oldowan"; and that it "appears possibly as early as
+  2.9 Ma … but definitely by 2.6 Ma"
+- **torre-2016** re-read 2026-08-01: "currently from ca 1.75 to 0.125 Myr", which is what corrected the
+  `Acheulean` term's 200,000–130,000 end — the same error batch 23 corrected on `wh-022`, still sitting in
+  the glossary a week later; "Thus, Leakey [23] reported a pebble industry in the lowermost deposits of
+  Olduvai Gorge", reference 23 being Leakey, Hopwood and Reck 1931, which is what supports the term's "in
+  the 1930s"; and the 1859 Prestwich and Evans visit to Saint Acheul, which supports "recovered in the 1850s"
+- **eren-lycett-2012** re-read 2026-08-01. Beyond batch 16's record it supports the finding that
+  **contradicts the `Levallois` term**: preferential Levallois flakes "(relative to size) are on average
+  thicker across their surface area (as a whole) than debitage flakes", with a "relatively *even* thickness
+  … throughout their surface area" and "significantly less variability" than the flakes struck in producing
+  them. The term said the method "yields thin, sharp-edged flakes"
+- **soriano-villa-2017** re-read 2026-08-01: Sedia del Diavolo and Monte delle Gioie at **295–290 ka**, "one
+  of the oldest, if not the oldest record of Levallois production in Italy" — and, the finding that moved a
+  marker on `wh-032`, that its authors argue for diffusion, not independent invention: "the sudden and
+  concomitant emergence of the Levallois method in several European sites … strongly suggest a rapid
+  diffusion over wide geographic spaces of this innovation"
+- **skertchly-1879** re-read 2026-08-01 for the `Knapping` term's building flints: "Upper-crusts are only
+  used as building-stones" and "Wall-stone is burrowed from the top" (7), with "Faced Builders" and "Rough"
+  builders as yield categories (25)
+- **si-early-stone-age-tools** re-read 2026-08-01: the Oldowan toolkit as "Hammerstones that show battering
+  on their surfaces; Stone cores that show a series of flake scars along one or more edges; Sharp stone
+  flakes that were struck from the cores", "developed by at least 2.6 million years ago"; and the Acheulean
+  handaxe "By about 1.76 million years ago"
+
+### COULD NOT BE RE-READ (batch G3)
+
+- **shott-2024** — `link.springer.com` now answers a 303 to `idp.springer.com/authorize` for both the
+  article and the PDF path, so the copy batch 16 opened on 31 July could not be opened again today. It is
+  still cited for exactly what that batch recorded it supports, and no further; the **Crossref abstract**
+  (`api.crossref.org/works/10.1007/s41982-024-00178-y`, the batch-22 route) independently confirms the
+  reduction thesis in the author's own words — "Harold Dibble demonstrated the systematic effects of
+  reduction by retouch upon the size and shape of Middle Paleolithic tools" — which is the clause the
+  `Mousterian` term rests on it for. Recorded per batch 25's rule rather than passed over.
+- **schmidt-2024** — the `hal.science/hal-04484835v1/document` file path now serves the Anubis
+  proof-of-work wall as well as the landing page (batch 21 found the landing pages walled; this is the
+  file path going the same way). Reached instead through Europe PMC (PMC10881035), which confirms Le
+  Moustier as "the type-site of the Mousterian technocomplex". Not needed by any G3 term in the end.
