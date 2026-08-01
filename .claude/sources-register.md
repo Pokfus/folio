@@ -3471,6 +3471,226 @@ rewritten — the batch-8 rule. What replaced both is the Klasies Pattern from G
 which is the same observation one step back: the skeletal parts that survive are the ones that survive in
 the butchered bovids.
 
+## Batch 21 — sites with an institution behind them, verified 2026-08-01
+
+The plan called these three the hardest and expected the holding institution to be the way in. It was, for
+two of them, and not in the form the plan predicted. **Lascaux is carried almost entirely by the French
+Ministry of Culture's own scholarly portal** — eight separate pages of it, on the discoverers, the sectors,
+the themes, the dating, the lighting, the walls, and the two facsimiles — which is a catalogue in the batch-18
+sense: a body responsible for a thing, publishing the record of it, in the open. **Atapuerca is carried by
+the Fundación Atapuerca's site pages and year-by-year project timeline**, which turned out to hold the
+excavation history, the World Heritage year and even the nickname of the 2025 fossil. Only **Dolní Věstonice**
+needed the batch-20 move instead: no Czech institution publishes a per-object record, so the ceramics came in
+through a 2024 open paper that restates Vandiver's closed 1989 *Science* study in full because it needed it as
+background.
+
+Two hosts that batch 15's `/document` trick was supposed to open are now shut to it: **hal.science serves the
+Anubis proof-of-work wall on `/document` as well as on the landing page**, and **journals.openedition.org has
+the same wall**. Ducasse & Langlais 2019, the paper that redates Lascaux, is genuinely open on both and could
+not be read here through either. It is not cited; the Ministry's own dating page states its result and is
+cited instead.
+
+### Verified citations
+
+Lascaux (`wh-086`), new to the register — all eight Ministry pages accessed 1 August 2026 and all open:
+
+### culture-lascaux · the Ministry of Culture's Lascaux portal
+Ministère de la Culture, *La grotte de Lascaux*, https://archeologie.culture.gouv.fr/lascaux/en. [Open access]
+- opened: 2026-08-01 · the English portal, published by the Ministry of Culture with the Musée d'Archéologie
+  nationale. Cited page by page, since each carries different claims:
+- **"The Four Discoverers"** — "Four boys unexpectedly found themselves part of history when, on 12 September
+  1940, they discovered the Lascaux cave": Marcel Ravidat, "a 17-year-old apprentice mechanic from Montignac",
+  Georges Agniel, 16, Simon Coencas, 15, and Jacques Marsal, 15; Ravidat and Marsal "became guides once the
+  cave was opened to visitors in 1948, and they were the ones who pointed out the appearance of the green
+  algae in 1958 and 1959"; "Jacques Marsal became guardian of the cave when it was closed in 1963"
+- **"The Lascaux Cave"** — "Lascaux has traditionally been divided into seven sectors: the Hall of the Bulls,
+  the Axial Gallery, the Passageway, the Nave, the Chamber of the Felines, the Apse and the Shaft"; "The level
+  of the cave floor drops 13 meters from the entrance to the Axial Gallery, and 19 metres to the base of the
+  Shaft"
+- **"Themes"** — "There are some 600 representations of animals at Lascaux"; "Images of horses are by far the
+  most numerous, followed by equal numbers of stags and aurochs, and then by ibexes and bison"; "It contains
+  one single image of a anthropomorphic figure, in the Shaft Scene"
+- **"Dating the Figures at Lascaux"** — the whole dating history, and the current result: "The material remains
+  left in the cave are therefore the result of one (or more) occupation(s) somewhere between 21,500 and 21,000
+  years before present", "during a pivotal phase between the cultural traditions of the Badegoulian (23–21,000
+  years before present) and Magdalenian (21–14,000 years before present) periods"; also that the new dates were
+  measured on "several reindeer bone fragments from the main sectors of the cave"
+- **"Lighting"** — "Over a hundred lamps were found in Lascaux"; the lamp from the base of the Shaft Scene "in
+  red sandstone, completely crafted and polished, fitted with a handle and adorned with engraving"
+- **"Access to the Walls"** — Glory "identified, on the sides of the Axial Gallery, the stalagmite encrusted
+  placement of interlocked beams", **with the portal's own hedge**: "Although it appears that scaffolding was
+  indeed used to work on certain pieces, the idea that it can extrapolated on a wider basis must be carefully
+  considered"
+- **"Lascaux II and III"** — "Lascaux II is the first fac-simile created from the beginning of the 1970s and
+  opened in 1983" and "reproduces the Hall of the Bulls and the Axial Gallery". **NB the page's "10 millions
+  visitors" is Lascaux II's, not the original cave's** — checked, because it is exactly the figure a careless
+  read would attach to the 1948–63 opening
+- **"Lascaux IV"** — the CIAP "Open in december 2016"
+- **"The Vézère Valley"** — "In 1979, the sites of the Vézère Valley were inscribed on the UNESCO World
+  Heritage List"
+- does NOT support: "1,500 engravings"; horses at "about 60 percent"; the largest aurochs at 5.2 m or its
+  being "the largest animal figure known anywhere in cave art"; "nearly a million people came between 1948 and
+  1963"; André Malraux by name; the fungus arriving "with air-conditioning work". All were dropped
+- used by: wh-086
+
+### bontemps-2024 · what the visitors did to the air
+Zélia Bontemps et al., "Microbial Diversity and Secondary Metabolism Potential in Relation to Dark Alterations
+in Paleolithic Lascaux Cave," *npj Biofilms and Microbiomes* 10 (2024): 121,
+https://doi.org/10.1038/s41522-024-00589-3. [Open access]
+- opened: 2026-08-01 · full text via PMC
+- supports: "tourism-related anthropization resulted in various cave wall alterations and led to cave closure
+  in 1963"; "an abnormal proliferation of the algae *Bracteococcus minor* in the 1960s (green biofilms) and
+  later of microorganisms such as the fungi *Fusarium solani* in 2001 (white stains), *Ochroconis lascauxensis*
+  … and other black melanized fungi since late 2001 (black stains)"
+- **correction it forced**: the card had "a green sickness of algae and a white one of calcite". The green is
+  right and the white is not — the white stains are the 2001 fungus, and the calcite on the walls is the rock
+  support the paintings were laid on, which the Ministry's own pages describe
+- used by: wh-086
+
+Atapuerca (`wh-029`), new to the register:
+
+### fundacion-atapuerca · the sites and the project timeline
+Fundación Atapuerca, "Los yacimientos de la sierra de Atapuerca" and "Proyecto Atapuerca," accessed 1 August
+2026, https://www.atapuerca.org/es/atapuerca/Yacimientos-de-Atapuerca and
+https://www.atapuerca.org/es/atapuerca/Proyecto-Atapuerca. [Open access]
+- opened: 2026-08-01 · the foundation that funds and communicates the excavation, in Spanish
+- supports: the sites lie "a unos 15 km al este de la ciudad de Burgos"; "En el año 2000 la UNESCO declaró a
+  los yacimientos de la sierra de Atapuerca Patrimonio de la Humanidad"; five hominin species; "Los yacimientos
+  de la sierra de Atapuerca son conocidos desde finales del siglo XIX"; "En 1962, miembros del GEE comunicaron
+  la existencia de fósiles en la Trinchera de Ferrocarril a las autoridades"; "1978 Se inician las excavaciones
+  sistemáticas … y nace el Proyecto Atapuerca"; "1992 Se hallan restos de cráneos humanos de varios individuos
+  con una antigüedad de 430 mil años en el yacimiento de la Sima de los Huesos"; the 1994 naming of *Homo
+  antecessor* at Gran Dolina; the 2003 *L'Anthropologie* paper on "la posible primera evidencia de
+  comportamiento funerario"; and **"2022 Se descubre en el yacimiento de la Sima del Elefante la cara del
+  primer europeo, apodado Pink"**
+- does NOT support: that the railway was a *mining* railway cut in the late 1800s and abandoned. The trench is
+  named and dated only by the 1962 report; the late-19th-century date is for the sites being known. The card
+  now says only what the foundation says
+- used by: wh-029
+
+### bermudez-2021 · how many people are in the pit
+José María Bermúdez de Castro et al., "The Sima de los Huesos Middle Pleistocene Hominin Site (Burgos, Spain):
+Estimation of the Number of Individuals," *The Anatomical Record* 304, no. 7 (2021): 1463–77, abstract,
+https://doi.org/10.1002/ar.24551. [Paywalled]
+- opened: 2026-08-01 · **the abstract only**, via PubMed (PMID 33099880)
+- supports: after 34 years of work the estimated number of individuals is **29**, against 28 in 2004; "the
+  specimen collection has nearly doubled since then"; the sample is mostly teenagers and young adults, with
+  ages at death that "conform to a catastrophic profile"; and that "amateur cavers … destroyed a significant
+  number of hominin fossils"
+- **correction it forced**: the card said "more than 6,500 human bones", a figure from an earlier count and
+  now stale; the paper gives no exact new total, so the card reports the doubling instead
+- used by: wh-029
+
+### huguet-2025 · the earliest face in western Europe
+Rosa Huguet et al., "The Earliest Human Face of Western Europe," *Nature* 640 (2025): 707–13, abstract,
+https://doi.org/10.1038/s41586-025-08681-0. [Paywalled]
+- opened: 2026-08-01 · **the abstract only**, via Europe PMC (PMID 40074891)
+- supports: "most of the midface of a hominin found at the TE7 level of the Sima del Elefante site … dated to
+  between 1.4 million and 1.1 million years ago"; "This fossil (ATE7-1) represents the earliest human face of
+  Western Europe identified thus far"; that its features "do not display the modern-like aspect exhibited by
+  *Homo antecessor* found at the neighbouring Gran Dolina site … dated to between 900,000 and 800,000 years
+  ago"; the assignment to "*Homo* aff. *erectus*"; and the suggested "turnover in the human population in
+  Europe at the end of the Early Pleistocene"
+- **correction it forced**: the card called Pink "a piece of upper jaw and cheekbone". It is most of a midface
+- note: the abbreviation *Homo* aff. *erectus* is written **Homo affinis erectus** in the card, because
+  `split-abstract.js` reads the full stop in "aff." as a sentence end and the 5+5 check fails
+- used by: wh-029
+
+### urciuoli-2025 · the Sima de los Huesos people on the Neanderthal line
+Alessandro Urciuoli et al., "Semicircular Canals Shed Light on Bottleneck Events in the Evolution of the
+Neanderthal Clade," *Nature Communications* 16 (2025): 972, https://doi.org/10.1038/s41467-025-56155-8.
+[Open access]
+- opened: 2026-08-01 · full text via PMC
+- supports: "the Sima de los Huesos humans (n = 13, ~430 ka)"; that they were "previously considered to
+  represent *Homo heidelbergensis* … and now regarded as a basal population of the Neanderthal lineage"
+- used by: wh-029
+
+Dolní Věstonice (`wh-074`), new to the register:
+
+### farbstein-2024 · the Pavlovian ceramics, restated
+Rebecca Farbstein and April Nowell, "Children at Play: The Role of Novices in the Production of Europe's
+Earliest Upper Paleolithic Ceramics," *PLOS ONE* 19, no. 10 (2024): e0309107,
+https://doi.org/10.1371/journal.pone.0309107. [Open access]
+- opened: 2026-08-01 · full text via PMC
+- supports: the five Pavlovian sites, "Dolní Věstonice I and II, Pavlov I and VI, and Předmostí"; the
+  Pavlovian "defined by its large open-air aggregation sites which preserve rich stone, bone, and antler
+  material culture … complex symbolic burials"; "Calibrated radiocarbon dates on human bones from burials at
+  Pavlov I and DV II range between 31,270 calBP and 29,260 calBP"; "more than 12,000 ceramic figurines,
+  figurine fragments/elements, and non-figurative pellets"; the "local, loess-rich sedimentary paste"; that
+  "many figurines and figurine fragments exhibit cracks typical of thermal shock indicating that ceramics were
+  often fired before they were sufficiently dry"; and Vandiver's thesis restated — that "the properties of the
+  loess paste make accidental thermal shock 'improbable'" and that exploding them "required 'intentional
+  effort and practice'", a "pyrotechnical performance"
+- **correction it forced**: the card dated the camps to "roughly 29,000 and 25,000 years ago", which is
+  uncalibrated radiocarbon read as calendar years — the same error class as Lascaux's 17,000
+- used by: wh-074
+
+### vandiver-1989 · the original ceramics study
+Pamela B. Vandiver, Olga Soffer, Bohuslav Klíma, and Jiří Svoboda, "The Origins of Ceramic Technology at Dolni
+Vestonice, Czechoslovakia," *Science* 246, no. 4933 (1989): 1002–8, abstract,
+https://doi.org/10.1126/science.246.4933.1002. [Paywalled]
+- opened: 2026-08-01 · **the abstract only**, via PubMed (PMID 17806391)
+- supports: "A typology was established for more than 5000 ceramic artifacts"; "The compositions and mineralogy
+  of the artifacts were identical to those of the local soil, loess"; "A firing temperature range of 500 degrees
+  to 800 degrees C was measured"; "Many fracture sections show evidence of thermal shock"; and "The making,
+  firing, and sometimes exploding of the figurines may have been the prime function of the ceramics at this
+  site rather than being manufactured as permanent, portable objects"
+- does NOT support: that "more than half the fragments from the kiln area" are cracked, or the laboratory
+  reproduction with clay "so wet it barely held its shape". The abstract says "many fracture sections"; both
+  specifics were dropped
+- used by: wh-074
+
+### mittnik-2016 · the triple burial
+Alissa Mittnik, Chuan-Chao Wang, Jiří Svoboda, and Johannes Krause, "A Molecular Approach to the Sexing of the
+Triple Burial at the Upper Paleolithic Site of Dolní Věstonice," *PLOS ONE* 11, no. 10 (2016): e0163019,
+https://doi.org/10.1371/journal.pone.0163019. [Open access]
+- opened: 2026-08-01 · full text via PMC
+- supports: DV 13 and DV 14 as "a 17–19 and a 16–17 year old male", DV 15 "about 20 years of age" with "a
+  pathological, possibly congenital deformation affecting symmetry and proportion of limbs as well as tooth and
+  pelvis morphology"; "the three skeletons were covered partially in ochre and the whole situation was
+  protected by burnt spruce logs and branches"; the burial "dated to 26,640±110 BP (31,155 ± 85 calBP)"; and the
+  finding that **all three were male**, settling a debate in which DV 15 "has been ascribed to both male and
+  female sex"
+- **correction it forced**: the card had "two of them young men on either side of a third", which preserves the
+  very ambiguity this paper closed, and the third question phrasing was rewritten with it
+- used by: wh-074
+
+### posth-2023 · the Věstonice cluster
+Cosimo Posth et al., "Palaeogenomics of Upper Palaeolithic to Neolithic European Hunter-Gatherers," *Nature*
+615 (2023): 117–26, https://doi.org/10.1038/s41586-023-05726-0. [Open access]
+- opened: 2026-08-01 · full text via PMC
+- supports: "the later Věstonice genetic cluster … named after the Dolní Věstonice site in Czechia"; that the
+  cluster comprises "Gravettian-associated individuals from central–eastern and southern European sites (Dolní
+  Věstonice, Pavlov, Krems-Wachtberg, Paglicci and Ostuni)"
+- used by: wh-074
+
+### mounier-2020 · one widespread Gravettian population
+Aurélien Mounier, Yann Heuzé, Mathilde Samsel, et al., "Gravettian Cranial Morphology and Human Group
+Affinities during the European Upper Palaeolithic," *Scientific Reports* 10 (2020): 21931,
+https://doi.org/10.1038/s41598-020-78841-x. [Open access]
+- opened: 2026-08-01 · full text via PMC
+- supports: that the Mid Upper Palaeolithic specimens "from SWF … and Moravia (Pavlovian) are phenetically
+  homogeneous and could be considered as a widespread unique paleodeme"
+- used by: wh-074
+
+### NOT CITED — Ducasse & Langlais 2019, and the Dolní Věstonice ivory head
+- **Ducasse & Langlais 2019**, "Twenty years on, a new date with Lascaux," *PALEO* 30-1: 130–47. Open access
+  on OpenEdition and deposited on HAL, and **unreadable from this environment**: both hosts serve an Anubis
+  proof-of-work challenge, on `/document` as well as on the landing page, which retires the batch-15 trick for
+  these two hosts. The Ministry of Culture's "Dating the Figures at Lascaux" states the paper's result and is
+  cited in its place. Do not re-attempt without a different route
+- **The five-centimetre ivory head from Dolní Věstonice**, its lopsided eye, the woman buried under two mammoth
+  scapulae with a flint point and a fox, and the 2018 facial reconstruction said to match the two. Nothing
+  openable carries any of it: Europe PMC has no open paper on the DV 3 burial or the ivory head, and the
+  reconstruction was not published in an indexed venue. All of it was dropped and the third question phrasing,
+  which was built on it, was rewritten around the Věstonice genetic cluster instead
+- **Karel Absolon's excavations from 1924**, on the same card. Nothing opened for this batch names him; Mittnik
+  gives "excavations at Dolní Věstonice II since 1985" and Farbstein & Nowell name the five sites without a
+  history, so the card no longer gives a start date
+- **The Sima de los Huesos geography** — "some 500 metres inside Cueva Mayor at the foot of a 13-metre shaft" —
+  and **the quartzite handaxe** found among the bones. Neither is in anything opened; both were dropped, and the
+  funerary-behaviour claim they served now rests on the Fundación's note of the 2003 *L'Anthropologie* paper
+
 ## CANDIDATES — NOT VERIFIED, DO NOT PASTE INTO `data.js`
 
 *Empty.* Everything gathered by search during the blocked attempt of 2026-07-30 has since been opened and

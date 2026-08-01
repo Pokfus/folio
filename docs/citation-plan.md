@@ -728,7 +728,7 @@ site's name inside the open-access corpus and see which *other* excavation cites
 also inherits the Klasies question: for each of the three, find who is digging there now and where that
 team publishes.
 
-### Batch 21 · Sites with an institution behind them (3 cards, 15 citations)
+### Batch 21 · Sites with an institution behind them (3 cards, 15 citations) — **DONE (2026-08-01)**
 `wh-029` Atapuerca Mountains · `wh-074` Dolní Věstonice · `wh-086` Lascaux
 
 The three hardest, kept together because they need the same two techniques and both are known to work:
@@ -746,6 +746,55 @@ The three hardest, kept together because they need the same two techniques and b
   already identified as open. It also carries **two known errors to fix when worked**: the date "about
   17,000 years ago" is uncalibrated radiocarbon read as calendar years (Ducasse & Langlais put the
   occupations at ~21,000 cal BP), and the Great Bull is ~5.6 m, not 5.2 (Jouteau 2023).
+
+### Batch 21 log — the institution was right, the institution was not a museum
+
+#### 2026-08-01 — three cards, 19 citations, one commit
+
+**All three went through, and the plan's premise was two-thirds right for a reason worth naming.** It said
+these needed the holding institution's catalogue (batch 8b) or the `/document` trick (batch 15). The
+institution route carried Lascaux and Atapuerca completely — but neither institution is a museum with an
+object catalogue. **Lascaux is carried by a government ministry's scholarly portal** and Atapuerca by **a
+foundation's project timeline**, and between them they supplied eleven of this batch's nineteen citations.
+Batch 13's warning that "a website is not a catalogue" has a converse: *a catalogue is not the only kind of
+institutional record.* A ministry publishing the science of a monument it owns, or a foundation publishing
+the year-by-year history of a dig it funds, is the same thing one level up — and it is where the discovery
+dates, the excavation histories, the World Heritage years and even a fossil's nickname actually live.
+
+**The `/document` trick is dead on two hosts.** Batch 15 reversed a wrong access call by fetching
+`hal.science/hal-XXXXXX/document` instead of the landing page. Both HAL and OpenEdition now serve an Anubis
+proof-of-work challenge on the file path too, so Ducasse & Langlais 2019 — genuinely open access, the paper
+that redates Lascaux — could not be read here at all. It is not cited. What replaced it is the Ministry's own
+dating page, which states the result in full. **Do not re-try `/document` on those two hosts, and do not label
+a work paywalled because a bot wall stopped you** — that is a different fact and the register now says so.
+
+**The uncalibrated-radiocarbon error turned up twice more.** Lascaux's "about 17,000 years ago" is
+uncalibrated BP read as calendar years; the Ministry gives 21,500–21,000 years before present at the
+Badegoulian–Magdalenian turn. Dolní Věstonice's "roughly 29,000 to 25,000 years ago" is the same mistake;
+calibrated dates on human bone there and at Pavlov run 31,270–29,260 cal BP. **When a prehistory card carries
+a suspiciously round age in the twenties or thirties of thousands, check whether it is BP or cal BP before
+anything else** — after Lascaux, Dolní Věstonice and batch 14's Toba figure, this is the single most common
+error class the pass has found.
+
+**What was dropped, and it was a lot.** This batch cut more unsourceable colour than any before it:
+- Lascaux: the 1,500 engravings, horses at 60 per cent, the 5.2-metre aurochs and its claim to be the largest
+  animal figure in all cave art, the million visitors, and André Malraux by name. Also corrected: the cave has
+  **seven** sectors, not nine galleries; **Georges Agniel**, not Agnel; and the white disease of 2001 is a
+  *fungus*, not calcite — the calcite is the wall the paintings sit on.
+- Atapuerca: the mining railway of the late 1800s, the 500 metres inside Cueva Mayor, the 13-metre shaft, the
+  6,500 bones (a stale count — the collection has nearly doubled since 2004) and the quartzite handaxe read as
+  an offering. Pink is **most of a midface**, not a piece of jaw and cheekbone.
+- Dolní Věstonice: Karel Absolon and 1924, the woman under the mammoth scapulae with her flint point and fox,
+  and — the biggest loss — **the five-centimetre ivory head said to portray her**. Nothing openable carries any
+  of it. And the triple burial's "two young men flanking a third" preserved exactly the ambiguity that DNA
+  closed in 2016: all three were male.
+
+**What batch 22 should take from this.** Its two cards are the pollen chronozones, which are defined rather
+than excavated, so there is no institution to ask — but there is a standard: the **INTIMATE / IUGS
+stratigraphic definitions**, which are published open by the bodies that set them. That is this batch's rule
+in its purest form, and it is the first thing to try before any journal search. Check the boundary ages
+against the sibling cards (`wh-102` Holocene, `wh-105` Atlantic period, `wh-107`) before writing, since the
+chronozones are exactly the kind of card that goes out of step with its neighbours.
 
 ### Batch 22 · The pollen chronozones (2 cards, 10 citations)
 `wh-103` Preboreal · `wh-104` Boreal
