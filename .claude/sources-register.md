@@ -3005,6 +3005,113 @@ Smithsonian National Museum of Natural History, Human Origins Program, "*Homo ha
   Leakey, Tobias and Napier; and that the type specimen is OH 7
 - used by: wh-017
 
+## Batch 19 — the hominin taxa, via open reviews and museum records, verified 2026-08-01
+
+### si-anamensis · the genus's earliest species
+Smithsonian National Museum of Natural History, Human Origins Program, "*Australopithecus anamensis*,"
+accessed 1 August 2026,
+https://humanorigins.si.edu/evidence/human-fossils/species/australopithecus-anamensis. [Open access]
+- opened: 2026-08-01 · the museum's species record
+- supports: "About 4.2 to 3.8 million years ago"; eastern Africa; a tibia with "a human-like orientation of
+  the ankle joint, indicative of regular bipedal walking" alongside "long forearms and features of the wrist
+  bones [that] suggest these individuals probably climbed trees"
+- used by: wh-013
+
+### si-afarensis · Lucy's species
+Smithsonian National Museum of Natural History, Human Origins Program, "*Australopithecus afarensis*,"
+accessed 1 August 2026,
+https://humanorigins.si.edu/evidence/human-fossils/species/australopithecus-afarensis. [Open access]
+- opened: 2026-08-01 · the museum's species record
+- supports: 3.85–2.95 Ma; "apelike face proportions … and braincase (with a small brain, usually less than
+  500 cubic centimeters -- about 1/3 the size of a modern human brain), and long, strong arms with curved
+  fingers adapted for climbing trees … and a body that stood on two legs and regularly walked upright";
+  Lucy as "an adult female, 3.2 million-year-old *A. afarensis* skeleton found at Hadar, Ethiopia"; the
+  diet — "mainly a plant-based diet, including leaves, fruit, seeds, roots, nuts, and insects"; that the
+  species "may be ancestral to later species of *Paranthropus*, *Australopithecus*, and *Homo*"; and the
+  body sizes, males averaging 151 cm and 42 kg, females 105 cm and 29 kg
+- used by: wh-013
+
+### si-africanus · Dart's species
+Smithsonian National Museum of Natural History, Human Origins Program, "*Australopithecus africanus*,"
+accessed 1 August 2026,
+https://humanorigins.si.edu/evidence/human-fossils/species/australopithecus-africanus. [Open access]
+- opened: 2026-08-01 · the museum's species record
+- supports: "About 3.3 to 2.1 million years ago", southern Africa; that "The Taung child, found in 1924, was
+  the first to establish that early fossil humans occurred in Africa. After Prof. Raymond Dart described it
+  and named the species"; and that "the pelvis, femur … and foot bones of *Au. africanus* indicate that it
+  walked bipedally, but its shoulder and hand bones indicate they were also adapted for climbing"
+- used by: wh-013
+
+### falk-2012 · the Taung endocast, measured
+Dean Falk et al., "Metopic Suture of Taung (*Australopithecus africanus*) and Its Implications for Hominin
+Brain Evolution," *Proceedings of the National Academy of Sciences* 109, no. 22 (2012): 8467–70,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC3365196/. [Open access]
+- opened: 2026-08-01 · full text via PMC
+- supports: current estimates of the Taung cranial capacity "between 382–407 cm³"; that *A. africanus* had
+  "a brain size that falls within the range for great apes"; Dart's own reading of the endocast; and the
+  1925 publication date of Dart's description, from the reference list
+- used by: wh-013
+
+### masao-2016 · the Laetoli trackway, dated
+Fidelis T. Masao et al., "New Footprints from Laetoli (Tanzania) Provide Evidence for Marked Body Size
+Variation in Early Hominins," *eLife* 5 (2016): e19568, https://pmc.ncbi.nlm.nih.gov/articles/PMC5156529/.
+[Open access]
+- opened: 2026-08-01 · full text via PMC
+- supports: the new and the 1978 Laetoli trackways as bipedal prints of *Australopithecus afarensis* at
+  3.66 Ma, on the same surface and in the same direction
+- used by: wh-013
+
+### kimbel-villmoare-2016 · early *Homo*, and the moving goalposts
+William H. Kimbel and Brian Villmoare, "From *Australopithecus* to *Homo*: The Transition That Wasn't,"
+*Philosophical Transactions of the Royal Society B* 371, no. 1698 (2016): 20150248,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC4920303/. [Open access]
+- opened: 2026-08-01 · full text via PMC
+- supports: that Leakey and colleagues "dropped Arthur Keith's 'Cerebral Rubicon' of 750 to 600 cc to
+  accommodate the new Olduvai material", with "manual dexterity (as gleaned from the hand bones of type
+  specimen OH 7) and fully upright bipedal locomotion … clearly paramount considerations"; "Spoor et al.'s
+  new range of estimates for the endocranial volume of OH 7 (729–824 ml)"; that the early *Homo* mean
+  endocranial capacity was "just shy of 40% larger than that of *Australopithecus*"; that Wood and Collard
+  "have argued [that *H. habilis* is] sufficiently dissimilar in adaptive profile to *Homo* to warrant their
+  removal from the genus"; that "the fossil record demonstrates diversity quite clearly between 2.0 and
+  1.7 Ma"; and that KNM-ER 3733 and other *H. erectus* specimens are "approximately contemporary with *Homo
+  habilis* in upper Bed I and lower Bed II at Olduvai Gorge"
+- used by: wh-016, wh-019
+
+### cela-conde-ayala-2003 · the genera, and who belongs in them
+Camilo J. Cela-Conde and Francisco J. Ayala, "Genera of the Human Lineage," *Proceedings of the National
+Academy of Sciences* 100, no. 13 (2003): 7684–89, https://pmc.ncbi.nlm.nih.gov/articles/PMC164648/.
+[Open access]
+- opened: 2026-08-01 · full text via PMC
+- supports: "*Homo ergaster* Groves and Mazák, 1975"; that "*H. ergaster* and *H. erectus* raise no cladistic
+  problems about including them in the same genus, but morphological (and cultural) considerations may
+  favor considering them as separate species"; and that "*H. habilis* and *H. rudolfensis* share the
+  morphological traits that, in 1964, led Leakey, Tobias, and Napier to define *Homo* as a new taxon"
+- used by: wh-016, wh-019
+
+### si-habilis · the type specimen and the species
+Smithsonian National Museum of Natural History, Human Origins Program, "*Homo habilis*," accessed 1 August
+2026, https://humanorigins.si.edu/evidence/human-fossils/species/homo-habilis. [Open access]
+- opened: 2026-07-31 and again 2026-08-01 · the museum's species record
+- supports: "2.4 million to 1.4 million years ago", eastern and southern Africa; heights of "100 - 135 cm"
+  and a weight around 32 kg; the name meaning "handy man" and the species "thought to represent the first
+  maker of stone tools"; OH 7 discovered by Jonathan Leakey between 1960 and 1963 at Olduvai Gorge and
+  nicknamed "Jonny's child"; the naming by Leakey, Tobias and Napier in 1964; and that "The oldest stone
+  tools are dated slightly older than the oldest evidence of the genus *Homo*"
+- does NOT support: the card's old "2.3 to 1.5 million years ago", which was corrected on the card and its
+  date line
+- used by: wh-017, wh-016
+
+### si-erectus · the species, and the ergaster question
+Smithsonian National Museum of Natural History, Human Origins Program, "*Homo erectus*," accessed 1 August
+2026, https://humanorigins.si.edu/evidence/human-fossils/species/homo-erectus. [Open access]
+- opened: 2026-08-01 · the museum's species record
+- supports: "Between about 1.89 million and 110,000 years ago"; Africa, Western Asia and East Asia; that
+  "Some scientists distinguish between the African (*Homo ergaster*) and Asian (*Homo erectus sensu
+  stricto*) fossils of this taxon, while others lump them together as *Homo erectus sensu lato*"; "modern
+  human-like body proportions with relatively elongated legs and shorter arms"; and that KNM-WT 15000 shows
+  a "growth rate similar to that of a living great ape"
+- used by: wh-016, wh-019, wh-020
+
 ### NOT CITED — the Oldowan's naming, and Olduvai's fossil tally
 - **"named the whole Oldowan industry after it"** could not be sourced. It is in no work opened for this
   batch, including Plummer et al. 2025, the register's own Oldowan review. The abstract no longer states it;
