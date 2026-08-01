@@ -4246,3 +4246,163 @@ metres of crustal depression under 3 km of ice).
   Archaeobotany* or the Copernicus journals. The *Encyclopedia of Environmental Change* entry
   "BLYTT-SERNANDER TIMESCALE" exists and is paywalled. This is why the naming attributions were
   removed rather than re-sourced.
+
+---
+
+## Batch 26 — art, caves and the Americas, and the last nine cards
+
+The final batch: nine cards, thirteen citations, and **the deck reaches 109 of 109 at the five-source
+bar with nothing blocked.** The plan predicted where the sources would come from and was right — the
+heritage agencies carried five of the thirteen: the French Ministry of Culture twice (Lascaux, Chauvet),
+the Blaubeuren prehistory museum, the Cosquer Méditerranée record and the Fundação Côa Parque.
+
+Its finding is the sibling check, one card too late. **`wh-083` cave painting still carried all three
+Lascaux claims that batch 21 removed from `wh-086`** — the 17,000-year date (raw radiocarbon read as
+calendar years), the ~1,500 engravings and the five-metre black bull — in its abstract *and* on its
+date line, in all ten languages. A correction applied to the card a fact belongs to does not travel to
+the card that mentions it in passing. **Grep the deck for the figure, not just the card.**
+
+### soriano-2015 · the Still Bay and Howiesons Poort, technologically
+Sylvain Soriano et al., "The Still Bay and Howiesons Poort at Sibudu and Blombos: Understanding Middle
+Stone Age Technologies," *PLoS ONE* 10, no. 7 (2015): e0131127,
+https://doi.org/10.1371/journal.pone.0131127. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST service
+- supports: the HP as a blade-and-backed-piece industry — "blades, cores and backed pieces" as its
+  diagnostic set, "The backed tools are very distinctive", and the HP segments distinguished from Still
+  Bay bifacial points by length and breadth
+- used by: wh-052
+
+### ziegler-2013 · when the Howiesons Poort begins and ends
+Martin Ziegler et al., "Development of Middle Stone Age Innovation Linked to Rapid Climate Change,"
+*Nature Communications* 4 (2013): 1905, https://doi.org/10.1038/ncomms2897. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST service
+- supports: "the South African Still Bay (SB) and Howiesons Poort (HP) industries that are dated to
+  ∼71,500 and 64,000–59,000 years ago and are widely viewed as dynamic periods of MSA innovation"; and
+  the paper's whole argument, that the industries' appearance and disappearance track rapid climate
+  change — which is one of the readings the card's last sentence lists for the ending
+- used by: wh-052
+
+### villa-2012 · where the Later Stone Age begins at Border Cave
+Paola Villa et al., "Border Cave and the Beginning of the Later Stone Age in South Africa,"
+*Proceedings of the National Academy of Sciences* 109, no. 33 (2012): 13208–13,
+https://doi.org/10.1073/pnas.1202629109. [Paywalled]
+- opened: 2026-08-01 · **abstract only**, via `api.crossref.org/works/<doi>` (the batch-22 route). The
+  PNAS page answers 403 and Europe PMC has no deposited full text for PMC3421194, so this is cited from
+  its abstract as the landmark defining paper for the claim, per the plan's rule on paywalled works
+- supports: "Data from Border Cave (KwaZulu-Natal) show a strong pattern of technological change at
+  approximately 44–42 ka cal BP", which is the card's "runs to roughly 44,000, where a Later Stone Age
+  sequence begins"
+- note: this is the only paywalled work added in batches 23–26. `wh-054`'s list stays 4 open to 1
+  paywalled, comfortably majority-open
+
+### urmu-blaubeuren · the museum that holds her
+Urgeschichtliches Museum Blaubeuren, "Schatzkammern der Kunst," accessed 1 August 2026,
+https://www.urmu.de/en/dauerausstellung/schatzkammern-der-kunst-1. [Open access]
+- opened: 2026-08-01 · the museum's permanent-exhibition record
+- supports: the figurine's age and standing in the museum's own words — "Frauenstatuette, 40 000 Jahre
+  vor heute, Schelklingen, Alb-Donau-Kreis", and "die älteste Frauendarstellung der Welt"; the same
+  page lists the Hohle Fels waterbird and small lion-man at 40,000 years and the animal figure at 34,000
+- used by: wh-069
+
+### culture-lascaux · (already registered; extended to wh-083)
+Cited here for "There are some 600 representations of animals at Lascaux", with "Images of horses …
+by far the most numerous, followed by equal numbers of stags and aurochs, and then by ibexes and
+bison"; and for the occupation "somewhere between 21,500 and 21,000 years before present".
+- **the correction it forced on wh-083**: the card had Lascaux "painted about 17,000 years ago" with
+  "nearly 1,500 engravings, among them a black bull over five metres long". All three were removed
+  from `wh-086` in batch 21 and had survived here, in the abstract and the date line, in ten languages
+- used by: wh-086, wh-083
+
+### minculture-chauvet-art · the images and how they were made (official record)
+Ministère de la Culture (France), "Aurignacian Cave Art," *La grotte Chauvet-Pont d'Arc*, accessed
+1 August 2026, https://archeologie.culture.gouv.fr/chauvet/en/aurignacian-cave-art. [Open access]
+- opened: 2026-08-01 · full text (official heritage-agency page)
+- supports: "Among the 435 animal images discovered, mammoths, felines, rhinoceros and bears represent
+  almost 65% of the identifiable species", with horse, bison, aurochs, ibex, deer, megaloceros,
+  reindeer, muskox, owls, panthers and possibly hyenas besides — the card's "more than 400 of them
+  animals of at least 14 species"; and the techniques, "stump-drawing to model the internal relief of
+  the animals, outlining to make them stand out and attempts to depict perspective. Engraving,
+  charcoal and red paint were used"
+- note: this page gives "two major periods of occupation … around 36,500 years ago … and the most
+  recent between 30,000 and 31,000 years ago", where the card follows Quiles et al. 2016 at
+  37,000–33,500 and 31,000–28,000. Both are in the literature and the card's marker points at Quiles;
+  the discrepancy is recorded here rather than resolved
+- used by: wh-084
+
+### bayarri-2023-altamira · the Polychrome Hall, and why nobody goes in
+Vicente Bayarri, Alfredo Prada, and Francisco García, "A Multimodal Research Approach to Assessing the
+Karst Structural Conditions of the Ceiling of a Cave with Palaeolithic Cave Art Paintings: Polychrome
+Hall at Altamira Cave (Spain)," *Sensors* 23, no. 22 (2023): 9153, https://doi.org/10.3390/s23229153.
+[Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST service (MDPI, CC BY)
+- supports: the Polychrome Hall as the ceiling in question and its central fracture; and that "Access
+  to the Altamira cave is restricted to protect its integrity and historical value. Conservation
+  measures have been put in place to limit the time visitors and researchers can stay in the cave"
+- used by: wh-085
+
+### prada-2024-altamira · what is eating the ceiling
+Alfredo Prada and Vicente Bayarri, "Methodology for the Monitoring and Control of the Alterations
+Related to Biodeterioration and Physical-Chemical Processes Produced on the Paintings on the Ceiling
+of the Polychrome Hall at Altamira," *Conservation* 4, no. 4 (2024): 703–30,
+https://doi.org/10.3390/conservation4040042. [Open access]
+- opened: 2026-08-01 · abstract and metadata via Crossref; MDPI *Conservation* is open access
+- supports: that "a series of active deterioration processes are evident" on the paintings' surface,
+  "leading to significant alterations", and that they are monitored campaign by campaign — the
+  standing reason the cave keeps being closed
+- used by: wh-085
+
+### cosquer-mediterranee · the cave's own chronology
+Cosquer Méditerranée, "The History of the Cave," accessed 1 August 2026,
+https://www.grotte-cosquer.com/en/the-history-of-the-cave/. [Open access]
+- opened: 2026-08-01 · the replica's official record, published with the DRAC Provence-Alpes-Côte d'Azur
+- supports: "1985: DISCOVERY OF THE CAVE BY HENRI COSQUER IN THE TRIPERIE CREEK NEAR CAPE MORGIOU"; the
+  entrance "located 37 metres beneath the sea level"; "2 SEPTEMBER 1992: THE CAVE WAS CLASSIFIED AS A
+  HISTORICAL MONUMENT"; the two phases of occupation "from 33,000 BP to 19,000 BP" from "around sixty
+  Carbon-14 dating tests performed on forty-one samples collected between 1992 and 2012"; and the
+  replica itself
+- used by: wh-087
+
+### buchanan-2012 · what the cached points were for
+Briggs Buchanan et al., "A Morphometric Assessment of the Intended Function of Cached Clovis Points,"
+*PLoS ONE* 7, no. 2 (2012): e30530, https://doi.org/10.1371/journal.pone.0030530. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST service
+- supports: the standing disagreement over what Clovis points were for, and the use of point shape to
+  test whether cached specimens were weapon tips at all — the card's "How it was used is the open
+  question"
+- used by: wh-092
+
+### evans-2026-murujuga · the emissions question, as it now stands
+K. A. Evans et al., "Impacts of Industrial Emissions on Rock Art at Murujuga, Western Australia,"
+*Scientific Reports* 16 (2026): 13805, https://doi.org/10.1038/s41598-026-44180-6. [Open access]
+- opened: 2026-08-01 · full text at nature.com (CC BY)
+- supports: "The Murujuga Archipelago, Western Australia, hosts over one million petroglyphs that
+  preserve indigenous knowledge spanning 50,000 years"; that this "newly UNESCO-listed world heritage
+  site is co-located with heavy industry"; and the state of the argument — "the rain is not acidic,
+  that rock surface pH patterns do not reflect current air-quality patterns, but that the porosity of
+  the outer layer of granophyre rocks is elevated in areas where historic SO2 emissions were highest",
+  so "the acid deposition theory is flawed" and "damage at Murujuga is likely historic"
+- the card says only that whether the emissions are damaging the engravings "is the sharpest question
+  hanging over the site", which this paper is; it does not assert an answer, and should not, because
+  this paper's answer is that the received one was wrong
+- used by: wh-097
+
+### neumann-2022-murujuga · what actually weathers a petroglyph
+Jolam T. Neumann et al., "Artificial Weathering of Rock Types Bearing Petroglyphs from Murujuga,
+Western Australia," *Heritage Science* 10 (2022): 77, https://doi.org/10.1186/s40494-022-00706-5.
+[Open access]
+- opened: 2026-08-01 · publisher full text (BMC, CC BY)
+- supports: that the visible contrast of a petroglyph depends on the weathered outer rind and changes
+  as that rind alters — the card's point that the contrast fades as varnish reforms inside the cut
+- used by: wh-097
+
+### coa-parque · the dam, and the listing
+Fundação Côa Parque, "The Côa Battle: World Heritage," accessed 1 August 2026,
+https://arte-coa.pt/en/the-coa-battle/. [Open access]
+- opened: 2026-08-01 · the foundation that runs the Côa Valley Archaeological Park
+- supports: "In 1998, in the fastest classification process ever, UNESCO included the Prehistoric Rock
+  Art of the Côa Valley in the World Heritage List"; and "the pertinence of the Portuguese
+  government's decision to cancel the dam and protect in situ … the Côa engravings"
+- does NOT support the card's "1995" for the cancellation or the "petroglyphs cannot swim" slogan.
+  Neither was found in anything openable; both are left in the card **unmarked**, and the marker on
+  that sentence covers the cancellation and the listing three years later, which this page does carry
+- used by: wh-097

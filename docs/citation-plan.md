@@ -1049,7 +1049,7 @@ moved. Neither is a citation error — both were opened and recorded in batch 11
 wants to *extend* what an old entry supports may find it cannot, and should say so rather than
 guessing.
 
-### Batch 26 · Top-up: art, caves and the Americas (9 cards, 13 citations)
+### Batch 26 · Top-up: art, caves and the Americas (9 cards, 13 citations) — **DONE (2026-08-01)**
 `wh-052` Howiesons Poort 3→5 · `wh-054` Border Cave 4→5 · `wh-069` Venus of Hohle Fels 4→5 ·
 `wh-083` Cave painting 4→5 · `wh-084` Chauvet Cave 4→5 · `wh-085` Cave of Altamira 3→5 ·
 `wh-087` Cosquer Cave 4→5 · `wh-092` Clovis point 4→5 · `wh-097` Petroglyph 2→5
@@ -1059,6 +1059,39 @@ Culture, the Blaubeuren and Ulm museum records) are the first place to look for 
 an object card, and several of them state measurements the journal literature assumed its readers knew.
 `wh-097` petroglyph needs three and is the one genuinely open question in the batch, being a worldwide
 category rather than a site.
+
+### Batch 26 log — the pass finishes, and the sibling check arrives one card late
+
+**109 of 109 at the bar, 0 blocked, 0 citations still to find.** Nine cards, thirteen citations, and
+the plan was right about where they would come from: five of the thirteen are heritage-agency records
+— the French Ministry of Culture twice (Lascaux for `wh-083`, the Chauvet art page for `wh-084`), the
+Blaubeuren prehistory museum for `wh-069`, the Cosquer Méditerranée record for `wh-087` and the
+Fundação Côa Parque for `wh-097`. `wh-097` petroglyph, the batch's one genuinely open question, was
+settled by two Murujuga papers and the Côa foundation rather than by anything about petroglyphs as a
+category.
+
+**The finding, and it is the pass's last and most portable: a correction does not travel between
+cards on its own.** Batch 21 stripped three claims from `wh-086` Lascaux — the 17,000-year date (raw
+radiocarbon read as calendar years), the ~1,500 engravings and the five-metre black bull — because
+nothing openable carried them. `wh-083` cave painting, which mentions Lascaux in one sentence, still
+had **all three**, in its abstract and again on its date line, in all ten languages, for five batches.
+The sibling check the plan puts on definitional cards is not enough: **grep the deck for the FIGURE,
+not just for the card it belongs to.** Anything numeric that a correction touches should be swept
+across `data.js` in every language before the batch closes.
+
+Two smaller things worth keeping. **The batch-22 Crossref-abstract route paid for the only paywalled
+work added in the whole top-up run**: Villa et al. 2012 is the landmark defining paper for where the
+Later Stone Age begins at Border Cave, PNAS answers 403 and Europe PMC has no deposited text, and
+`api.crossref.org/works/<doi>` served the abstract that carries the claim. And **an agency record can
+disagree with the paper the card follows**: the Chauvet portal gives ~36,500 and 30–31,000 years where
+Quiles et al. give 37,000–33,500 and 31,000–28,000. Both are in the literature, the card's marker
+points at Quiles, and the discrepancy is recorded rather than resolved — which is the right handling,
+because picking the agency figure would have meant a silent re-dating on no new evidence.
+
+Left unmarked on purpose: `wh-097`'s "1995" for the dam cancellation and the "petroglyphs cannot swim"
+slogan. The Côa foundation gives the cancellation and the 1998 listing but neither the year nor the
+slogan, and nothing else openable carries them. They stay in the card, uncited, and are recorded in
+the register as such — the same treatment as `wh-014`'s account of the 2011 wrong turn at Lomekwi.
 
 ### Batch 0 · Pilot (6 cards) — **DONE (2026-07-31)**
 `wh-014` Lomekwi · `wh-045` Jebel Irhoud · `wh-069` Venus of Hohle Fels · `wh-005` Stone Age ·

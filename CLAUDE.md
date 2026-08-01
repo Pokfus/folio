@@ -79,7 +79,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `docs/citation-plan.md` — the batch plan for **citing the 109 prehistory cards** (the bar a source must
   clear, the per-card workflow, how translations are staged, and the batches with their source spines).
   Not part of the site. **The bar is at least 5 citations per card** (`SRC_TARGET` in app.js; raised from
-  2–4 on 2026-07-31) — 100 of 109 cards are there, 9 short by 13 citations, planned as **batch 26**.
+  2–4 on 2026-07-31) — **all 109 are there, with nothing blocked and nothing left to find**; batches 0–26 are complete.
   Coverage is reported by `add-sources.js` on every run and in full by `node .claude/source-audit.js`. Its **Pilot log** records
   that batch 0 was attempted and stopped: this sandbox's egress policy blocks every scholarly host, so no
   source could be opened and none was cited. `.claude/sources-register.md` holds the verified citations
@@ -611,7 +611,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     pipeline are in place; the rest is a content job (see "Citing the existing content" below). Guarded by
     `.claude/test-sources.js` (67 assertions).
     **Batches 0–22 shipped 2026-07-31/08-01**: **all 109 prehistory cards now carry sources.** **Against the
-    5-source bar, 100 of 109 are there** — the other 9 are batch 26 in the plan, and
+    5-source bar, ALL 109 are there** — batches 0–26 are complete, and
     the audit that says which is `node .claude/source-audit.js`. **Every list is majority-open**, `wh-045`
     Jebel Irhoud having been taken to six sources in batch 24 to clear the last exception. See `docs/citation-plan.md` — its Pilot log records how the
     definitional cards were solved, its Batch 1 log the factual errors the exercise turns up (21 so far) and
@@ -800,6 +800,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     correctly-recorded open entries could not be RE-read this time (the Marchal 2002 WHOI PDF uses
     an encoding the extractor cannot decode; Walker 2012's deposit has moved), so a top-up wanting
     to extend what an old entry supports may find it cannot, and should say so rather than guess.
+    From Batch 26, which finished the pass at **109 of 109 with nothing blocked**: the plan's own
+    advice held — five of its thirteen citations are heritage-agency records (the French culture
+    ministry for Lascaux and Chauvet, the Blaubeuren museum, Cosquer Méditerranée, the Fundação Côa
+    Parque) — but its finding is a correction to the pass's own method. **A correction does not
+    travel between cards on its own.** Batch 21 stripped three Lascaux claims from `wh-086` (the
+    17,000-year date, ~1,500 engravings, the five-metre bull) and `wh-083`, which mentions Lascaux
+    in one sentence, still carried all three five batches later — in its abstract AND on its date
+    line, in ten languages. **Grep the deck for the FIGURE, not just for the card it belongs to**,
+    and sweep every language before a batch closes. Two smaller notes: the batch-22
+    `api.crossref.org/works/<doi>` abstract route paid for the only paywalled work added across
+    batches 23–26 (Villa et al. 2012, the landmark for where the LSA begins at Border Cave); and
+    **an agency record can disagree with the paper a card follows** — the Chauvet portal dates the
+    occupations to ~36,500 and 30–31,000 where Quiles et al. give 37,000–33,500 and 31,000–28,000,
+    so the discrepancy is recorded in the register and the card keeps its Quiles marker rather than
+    being silently re-dated.
 - **Multiple question phrasings (July 2026):** a card may carry an optional **`questions` array of EXTRA
   phrasings** beyond `question` — **at most `CARD_MAX_QUESTIONS` (10) in all** (official Folio cards carry
   exactly 3; the headroom is for community decks to experiment). Every phrasing is a full standalone clue
@@ -1806,7 +1821,7 @@ which would otherwise have shipped corrected prose above an uncorrected date lin
 **Citing the existing content (as of July 2026)** — **most of the shipped content still has no citations.** The
 109 cards, 333 glossary terms and every Atlas description were written before this system existed, from Wikipedia
 and its sources, and were fact-checked rather than referenced. A batched pass is working through the cards —
-**all 109 carry sources, and 100 of 109 meet the 5-source bar** (`docs/citation-plan.md`; `add-sources.js`
+**all 109 carry sources, and all 109 meet the 5-source bar** (`docs/citation-plan.md`; `add-sources.js`
 reports both on every run, `node .claude/source-audit.js` reports them per card, and the Edit page's card list
 shows each card's coverage as an amber or red chip) — while
 `country-sources.js` and `GLOSSARY_SOURCES` are still empty, so the Sources fold appears only on those cards.
