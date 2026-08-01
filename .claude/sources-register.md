@@ -4477,3 +4477,163 @@ https://archive.org/details/internationalcod1999inte. [Open access]
   printed in a type-face (font) different from that used in the text; such names are usually printed in
   italics"
 - used by: Genus (glossary)
+
+## Batch G2 — the species and the specimens (GLOSSARY), verified 2026-08-01
+
+Nine terms, 27 citation slots, from **18 distinct works, every one of them open.** Six are new and recorded
+below; the rest are entries already above, now also **used by** a glossary term (`si-afarensis`,
+`si-africanus`, `si-anamensis` was not needed, `falk-2012`, `masao-2016`, `harmand-2015`).
+
+**Tooling note that governs the rest of the pass: `pmc.ncbi.nlm.nih.gov` began serving a reCAPTCHA
+partway through this batch.** The Europe PMC route batch 23 found —
+`https://www.ebi.ac.uk/europepmc/webservices/rest/PMC<id>/fullTextXML` — is the one that still works, and
+it is the URL written into the citations below, because it is the copy that was opened and the link a
+reader can follow.
+
+### si-kadabba · the earlier Ardipithecus
+Smithsonian National Museum of Natural History, Human Origins Program, "*Ardipithecus kadabba*," accessed
+1 August 2026, https://humanorigins.si.edu/evidence/human-fossils/species/ardipithecus-kadabba.
+[Open access]
+- opened: 2026-08-01 · the museum's species record
+- supports: "Between about 5.8 and 5.2 million years ago"; the Middle Awash; the 11 specimens from at least
+  5 individuals, "which also included hand and foot bones, partial arm bones, and a clavicle"; the toe bone
+  at 5.2 Ma with "features of bipedal walking"; and the 2004 naming by "Yohannes Haile-Selassie, Gen Suwa,
+  and Tim White"
+- **contradicts** the term's former "very ape-like" canines: the record says the canines "resemble those in
+  later hominins but that still project beyond the tooth row"
+- used by: Ardipithecus_kadabba (glossary)
+
+### si-ramidus · Ardi
+Smithsonian National Museum of Natural History, Human Origins Program, "*Ardipithecus ramidus*," accessed
+1 August 2026, https://humanorigins.si.edu/evidence/human-fossils/species/ardipithecus-ramidus.
+[Open access]
+- opened: 2026-08-01 · the museum's species record
+- supports: "About 4.4 million years ago"; first reported 1994, "Ardi" (ARA-VP-6/500) announced 2009; "over
+  100 fossil specimens"; the divergent large toe with a rigid foot; the pelvis "said to show adaptations
+  that combine tree-climbing and bipedal activity"; and that "the discoverers argue that the 'Ardi'
+  skeleton reflects a human-African ape common ancestor that was not chimpanzee-like"
+- used by: Ardipithecus_ramidus (glossary)
+
+### si-kenyanthropus · the flat-faced human from Kenya
+Smithsonian National Museum of Natural History, Human Origins Program, "*Kenyanthropus platyops*,"
+accessed 1 August 2026,
+https://humanorigins.si.edu/evidence/human-fossils/species/kenyanthropus-platyops. [Open access]
+- opened: 2026-08-01 · the museum's species record
+- supports: "About 3.5 million years ago"; "a flat-faced, small-brained, bipedal species"; the 1998–99 work
+  by "a research team led by scientist Meave Leakey"; the name meaning "flat-faced human from Kenya"; and
+  that its molars were smaller than *A. afarensis*'s
+- used by: Kenyanthropus_platyops, KNM-WT_40000 (glossary)
+
+### si-al-288-1 · Lucy, the record
+Smithsonian National Museum of Natural History, Human Origins Program, "AL 288-1 ("Lucy")," accessed
+1 August 2026, https://humanorigins.si.edu/evidence/human-fossils/fossils/al-288-1. [Open access]
+- opened: 2026-08-01 · the museum's fossil record
+- supports: Site "Hadar, Ethiopia"; Year of Discovery 1974; **Discovered by "Donald Johanson and Maurice
+  Taieb"**; Age "About 3.2 million years old"; the short broad pelvis and in-angled thigh bones; the
+  nickname from "Lucy in the Sky with Diamonds" and "Dinknesh … the Amharic term for 'You are marvelous'"
+- **does NOT support** the term's former "Donald Johanson and Tom Gray", nor any completeness percentage
+- used by: Lucy_(Australopithecus) (glossary)
+
+### si-taung-child · the Taung record
+Smithsonian National Museum of Natural History, Human Origins Program, "Taung Child," accessed 1 August
+2026, https://humanorigins.si.edu/evidence/human-fossils/fossils/taung-child. [Open access]
+- opened: 2026-08-01 · the museum's fossil record
+- supports: Site "Taung, Republic of South Africa"; Year of Discovery 1924; "Raymond Dart (via local
+  quarrymen)"; Age "About 2.8 million years old"; the forward foramen magnum as the first evidence of
+  hominin bipedality; the eagle-predation reading, with the puncture marks "at the bottom of the
+  3-year-old's eye sockets", the eggshells and the small-animal assemblage
+- used by: Taung_Child (glossary)
+
+### si-knm-wt-40000 · the cranium itself
+Smithsonian National Museum of Natural History, Human Origins Program, "KNM-WT 40000," accessed 1 August
+2026, https://humanorigins.si.edu/evidence/human-fossils/fossils/knm-wt-40000. [Open access]
+- opened: 2026-08-01 · the museum's fossil record
+- supports: "Justus Erus, a Kenyan research assistant working on a team led by Meave Leakey, discovered the
+  KNM-WT 40000 skull in 1999"; West Turkana; about 3.5 Ma; that "the mostly complete cranium was found in
+  two pieces, with the braincase separated from the face"; "its flat face, high cheekbones, and small,
+  thickly-enameled teeth"; that it is "the holotype for *Kenyanthropus platyops*"; and that it "is
+  considerably distorted, which leads some paleoanthropologists to believe that the skull actually belongs
+  to an *Au. afarensis* individual"
+- **does NOT support** the term's former mechanism, that the bone was "swollen by mineral crystals that
+  grew inside it" — nothing openable states it
+- used by: KNM-WT_40000, Kenyanthropus_platyops (glossary)
+
+### si-laetoli · the trails
+Smithsonian National Museum of Natural History, Human Origins Program, "Laetoli Footprint Trails,"
+accessed 1 August 2026, https://humanorigins.si.edu/evidence/behavior/laetoli-footprint-trails.
+[Open access]
+- opened: 2026-08-01 · the museum's behaviour record
+- supports: three individuals through wet volcanic ash 3.6 Ma; the trail "almost 27 m (88 ft) long" with
+  "about 70 early human footprints"; Mary Leakey's team from 1976 and Paul Abell's 1978 find of the trail
+  itself; "big toes in line with the rest of their foot"; and the gait as "heel-strike … followed by
+  'toe-off' … the way modern humans walk"
+- **does NOT mention a raised arch**, which the term claimed and which was removed
+- used by: Laetoli_footprints (glossary)
+
+### tattersall-2023 · the endocranial volumes, tabulated
+Ian Tattersall, "Endocranial Volumes and Human Evolution," *F1000Research* 12 (2023): 565, table 1,
+https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10517302/fullTextXML. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST route
+- supports, from table 1: *Ardipithecus ramidus* 300–350 ml; *Australopithecus afarensis* mean **446 ml**
+  (387–550, n = 4); *A. africanus* mean **461 ml** (400–560, n = 9); contemporary *Homo sapiens* mean
+  1,330 ml; and, in the text, the chimpanzee average of 405 ml
+- one open table settles the brain figure on four terms at once, and **corrected two of them**
+- used by: Australopithecus_afarensis, Australopithecus_africanus, Ardipithecus_ramidus (glossary)
+
+### rowan-wood-2024 · a century after Taung
+John Rowan and Bernard Wood, "Dart and the Taung Juvenile: Making Sense of a Century-Old Record of Hominin
+Evolution in Africa," *Biology Letters* 20, no. 7 (2024): 20240185,
+https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11267397/fullTextXML. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST route
+- supports: Dart's 1925 announcement, with Taung designated "the type specimen of the early hominin species
+  *Australopithecus africanus*", as "the first fossil evidence supporting Charles Darwin's 1871 prediction
+  that Africa was where the human lineage originated"; that the 5.8–5.2 Ma Adu-Asa Formation fossils are
+  *Ar. kadabba* and the 4.5–4.3 Ma Sagantole sample *Ar. ramidus*; that the *kadabba* teeth show "a
+  partially functional C/p3 honing complex similar to that seen in female apes" while "some features of a
+  pedal phalanx indicate a modern human-like toe-off mechanism during bipedal locomotion"; and that the
+  relationships of *Sahelanthropus*, *Orrorin* and *Ardipithecus* "are the subjects of ongoing debate"
+- it also defines the honing complex in as many words — "the dental configuration that most non-human apes
+  possess for sharpening the canines when the upper and lower toothrows occlude" — which is what let the
+  *kadabba* sentence be rewritten in plain English rather than dropped
+- used by: Australopithecus_africanus, Ardipithecus_kadabba, Ardipithecus_ramidus, Taung_Child (glossary)
+
+### prang-2019 · the other reading of Ardi's foot
+Thomas Cody Prang, "The African Ape-like Foot of *Ardipithecus ramidus* and Its Implications for the
+Origin of Bipedalism," *eLife* 8 (2019): e44433,
+https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6491036/fullTextXML. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST route
+- supports the term's "a reading that other researchers dispute": *Ar. ramidus* "suggests that the
+  evolutionary precursor of hominin bipedalism was African ape-like terrestrial quadrupedalism and
+  climbing", against the discoverers' non-chimpanzee-like common ancestor
+- used by: Ardipithecus_ramidus (glossary)
+
+### kimbel-2014 · the naming, and the correction a year later
+William H. Kimbel et al., "*Ardipithecus ramidus* and the Evolution of the Human Cranial Base,"
+*Proceedings of the National Academy of Sciences* 111, no. 3 (2014): 948–53, and its reference list,
+https://www.ebi.ac.uk/europepmc/webservices/rest/PMC3903226/fullTextXML. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST route
+- supports, from the reference list, the term's "described in 1994 … and moved to a genus of its own the
+  year after": White, Suwa and Asfaw, "*Australopithecus ramidus*, a new species of early hominid from
+  Aramis, Ethiopia," *Nature* 371 (1994), and the corrigendum in *Nature* 375 (1995)
+- used by: Ardipithecus_ramidus (glossary)
+
+### mcnutt-2021 · the other walker at Laetoli
+Ellison J. McNutt et al., "Footprint Evidence of Early Hominin Locomotor Diversity at Laetoli, Tanzania,"
+*Nature* 600, no. 7889 (2021): 468–71,
+https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8674131/fullTextXML. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST route
+- supports: that the site A trackway, five consecutive bipedal prints found by Peter Jones and Philip
+  Leakey in 1976, "suggest that the footprints were made by a hominin that coexisted with at least one
+  other hominin species", and that "the narrow step width corroborates the original interpretation of a
+  small, cross-stepping bipedal hominin" — cross-stepping being "when a foot from each side crosses the
+  midline before touchdown"
+- used by: Laetoli_footprints (glossary)
+
+### wiseman-2023 · Lucy, measured
+Ashleigh L. A. Wiseman, "Three-Dimensional Volumetric Muscle Reconstruction of the *Australopithecus
+afarensis* Pelvis and Limb, with Estimations of Limb Leverage," *Royal Society Open Science* 10, no. 6
+(2023): 230356, https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10265029/fullTextXML. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST route
+- supports: that AL 288-1 "is one of the most complete hominin skeletons"; that it is "predicted to have
+  been approximately 1.05 m tall"; and the wider pelvis and relatively shorter legs
+- used by: Lucy_(Australopithecus) (glossary)

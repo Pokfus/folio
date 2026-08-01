@@ -256,7 +256,7 @@ Also worth recording: the Japanese `Hominini` translation read ヒト族族 — 
 places. One sat in the sentence being corrected and the other did not; both were fixed, since the whole
 description is resubmitted anyway.
 
-### G2 · The species and the specimens (9 terms)
+### G2 · The species and the specimens (9 terms) — **DONE (2026-08-01)**
 `Australopithecus_afarensis` · `Australopithecus_africanus` · `Ardipithecus_kadabba` ·
 `Ardipithecus_ramidus` · `Kenyanthropus_platyops` · `Lucy_(Australopithecus)` · `Taung_Child` ·
 `KNM-WT_40000` · `Laetoli_footprints`
@@ -266,6 +266,73 @@ dated). **Three terms need new work**: both *Ardipithecus* species — White et 
 2001 are closed, so look for the Smithsonian records and the open review literature first — and
 `KNM-WT_40000`, whose founding paper (Leakey et al. 2001) is closed and whose best open restatement is
 likely to be a paper *citing* it as a comparison, per batch 20's rule.
+
+### Batch G2 log — one open table, four terms
+
+#### 2026-08-01 — nine terms, 27 citations, six corrected
+
+**Coverage 8/333 → 17/333, all seventeen at the bar.** Eighteen distinct works, **every one of them open**;
+twelve are new, six came out of the register. Batch G1's dividend held but at a lower rate, and the reason
+is worth carrying: G1's terms were about *taxa*, which the register was full of, while these are about
+*specimens*, which each need their own record.
+
+**The batch's best return was a single open table.** Tattersall's 2023 survey of endocranial volumes
+tabulates *Ardipithecus ramidus* at 300–350 ml, *A. afarensis* at 446, *A. africanus* at 461 and
+contemporary *H. sapiens* at 1,330 — settling the brain figure on four terms in one fetch, **and correcting
+two of them**. Batch 24's lesson for cards was that a debate attracts a review that covers several cards at
+once; the glossary equivalent is a *comparative table*, and the terms that need one are the ones stating a
+measurement. Look for the table before the paper.
+
+**The Smithsonian's FOSSIL records are a distinct seam from its species records**, and they are what carried
+this batch: `al-288-1`, `taung-child` and `knm-wt-40000` each give a Site, a Year of Discovery, a
+Discovered by, an Age and a Species as catalogue fields, which is exactly the shape of a specimen term's
+first sentence. Batch 19 found the species pages; these are the other half.
+
+**Six terms corrected**, in English and all nine languages:
+
+- **`Australopithecus afarensis`'s brain was 430 cc; the table says 446.** And "several hundred fossils"
+  became "the remains of more than 300 individuals", which is what the museum states.
+- **`Australopithecus africanus`'s was 450 cc; the table says 461.**
+- **`Ardipithecus kadabba`'s canines were "a very ape-like pattern."** Both sources contradict it: the
+  Smithsonian says they "resemble those in later hominins" and Rowan & Wood give "a partially functional
+  C/p3 honing complex similar to that seen in female apes". *Partially* functional is the whole point of the
+  fossil, and the term said the opposite. Rowan & Wood also define the honing complex in plain words, which
+  is what let the sentence be rewritten rather than cut. The 2004 naming now credits Gen Suwa and Tim White
+  alongside Haile-Selassie, as the museum does.
+- **`Lucy` was found "by Donald Johanson and Tom Gray."** The Smithsonian's record says "Donald Johanson and
+  Maurice Taieb". Both names circulate — Gray was the student with Johanson at the moment of the find, Taieb
+  the expedition's co-director — and the term now says "a team led by Donald Johanson and Maurice Taieb",
+  which is what the institution's record supports. Her "roughly two-fifths of one individual" is in nothing
+  openable either; Wiseman 2023 gives "one of the most complete hominin skeletons" and a height of
+  "approximately 1.05 m", which replaced "little over a metre".
+- **`KNM-WT 40000` was "swollen by mineral crystals that grew inside the bone."** A specific mechanism no
+  opened source states. The record says the cranium "was found in two pieces, with the braincase separated
+  from the face" and "is considerably distorted", which is checkable and no less vivid. Its molars became
+  the record's "small, thickly-enameled teeth" and its "cheekbones set well forward" its "high cheekbones".
+- **`Laetoli footprints` had "a raised arch."** The Smithsonian's record gives the big toe in line and the
+  heel-strike/toe-off gait and says nothing about an arch, so the arch went and the toe-off came in. Its
+  vague "one of them treading in another's tracks" is now what Masao et al. record — G1 walking beside the
+  larger G2 while G3 "superimposed its feet over those of G2" — and the second walker at the nearby locality
+  is now McNutt et al.'s cross-stepping hominin, named as such.
+
+**The working rule this batch settled, and it should govern the rest of the pass.** G1 swapped a true but
+unsourced clause in `Genus` for one the Code carries. Doing that everywhere would strip the glossary of
+correct information for the sake of the apparatus. The rule adopted here: **correct where a source
+contradicts the term; leave where nothing contradicts it and the claim is uncontroversial; swap only when
+the replacement is strictly better and the term was citing that work anyway.** So `A. africanus` keeps
+Makapansgat and Gladysvale, which no source opened here names and none disputes, while `Lucy` loses Tom Gray,
+whom the record actively contradicts.
+
+**Two tooling findings.**
+- **`pmc.ncbi.nlm.nih.gov` began serving a reCAPTCHA partway through this batch** — the same wall batches 23
+  and 24 hit. `https://www.ebi.ac.uk/europepmc/webservices/rest/PMC<id>/fullTextXML` still works and is what
+  the six journal citations link to, because it is the copy that was opened.
+- **The nine translations were applied as asserted clause substitutions, not rewrites** — 99 find/replace
+  pairs, each required to match exactly once or the run aborts, on the model of `fix-field.js`. It is the
+  only way six terms across nine languages stays reviewable, and it caught nothing silently: what it did
+  not catch was a Japanese replacement that turned one sentence into two, found by the sentence-count check
+  afterwards. **Count the sentences per language after substituting**, exactly as `split-abstract.js`
+  asserts 5+5 after marking.
 
 ### G3 · Industries and technique (6 terms)
 `Oldowan` · `Acheulean` · `Mousterian` · `Lomekwian` · `Levallois` · `Knapping`
