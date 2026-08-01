@@ -3250,6 +3250,227 @@ https://doi.org/10.1038/nature01670. [Paywalled]
 - **the seven traits said to separate *ergaster* from *erectus***, and their rebuttal, on `wh-019`. In
   nothing opened. Replaced with the brain-size ranges and the chronostratigraphy, which Antón et al. do give
 
+## Batch 20 — the southern African record, second attempt, verified 2026-08-01
+
+Batch 15 deferred these three cards on the strength of a true observation — Henshilwood 2002 and Marean's
+Klasies papers are closed — and a false inference from it, that the southern African record therefore
+could not be cited. It can. Every one of Blombos's famous finds has been restated in an open venue by
+somebody who needed it as background: Bouzouggar et al. carry the beads and the engraved ochres because
+they are comparing them with Taforalt, Rosso et al. carry the ochre workshop because they are comparing it
+with Porc-Epic, and Douze, Wurz & Henshilwood carry the site's own dimensions, phases and dates because
+they are describing the layers beneath the famous ones. Klasies River needed no such indirection at all:
+Sarah Wurz's team publishes in *Frontiers in Earth Science*, which is open by policy, and two 2022 papers
+and one 2024 fauna paper between them supply the site's geometry, its excavation history, its dates, its
+shellfish and its animals.
+
+`wh-031` Middle Stone Age was worked last, as the plan directs, and the sibling check paid for itself
+twice over — see the log below.
+
+### Verified citations
+
+Blombos Cave (`wh-051`), new to the register:
+
+### douze-2015 · the site, its phases and its dates
+Katja Douze, Sarah Wurz, and Christopher S. Henshilwood, "Techno-Cultural Characterization of the MIS 5
+(c. 105–90 Ka) Lithic Industries at Blombos Cave, Southern Cape, South Africa," *PLoS ONE* 10, no. 11
+(2015): e0142151, under "Research background on Blombos Cave," https://doi.org/10.1371/journal.pone.0142151.
+[Open access]
+- opened: 2026-08-01 · full text at PLOS (the PMC mirror 404s; fetch the journal page)
+- supports: the cave "is located in an ancient wave-cut cliff formed in calcified sediments of the
+  Bredasdorp Group some 100 m from the Indian Ocean and lies at 34.5 m" above sea level; "The site extends
+  for approximately 6 to 7 meters from the drip line to the back wall"; "Separated from the Later Stone Age
+  (LSA) deposits by a sterile sand layer, the excavated MSA sequence extends over more than 4 meters"; "the
+  first excavations in 1991"; the three phases M1/M2/M3 and "Combining OSL and U/Th results, the layers of
+  the M3 phase are dated between 101±4 ka and 94±3 ka"; the Still Bay "ca. 78–71 ka maximum age range";
+  Still Bay points "partly manufactured through heating silcrete and then through final shaping using
+  pressure flaking"; Toolkit 1's abalone shell "used as a container for storing and mixing a pigmented red
+  ochre compound that is a mixture of ochre, bone, charcoal, quartz and quartzite microflakes and quartz
+  grains" with "a quartzite cobble used as an ochre grinder and percussor" tightly fitted into it
+- does NOT support: "roughly 55 square metres of deposit", "about 300 km east of Cape Town", or the Later
+  Stone Age sequence "covering the last 2,000 years". None of the three is in any work opened for this
+  batch; the abstract and the date line now give the source's own dimensions instead
+- used by: wh-051
+
+### bouzouggar-2007 · the Blombos beads and engraved ochres, restated
+Abdeljalil Bouzouggar, Nick Barton, Marian Vanhaeren, et al., "82,000-Year-Old Shell Beads from North
+Africa and Implications for the Origins of Modern Human Behavior," *Proceedings of the National Academy of
+Sciences* 104, no. 24 (2007): 9964–69, esp. 9964, https://pmc.ncbi.nlm.nih.gov/articles/PMC1891266/.
+[Open access]
+- opened: 2026-08-01 · full text free in PMC
+- supports: "The finds from Blombos consist of 41 *Nassarius kraussianus* marine tick shells that had been
+  perforated intentionally, bear traces of use, and come from Middle Stone Age (MSA) phase M1 of the
+  sedimentary sequence that has been dated by optically stimulated luminescence (OSL) and thermoluminescence
+  (TL) to ≈75,000 years"; "Sediments of phase M1 also contain two pieces of engraved red ochre, elaborated
+  bone tools, and 400 bifacially flaked points of the Still Bay industry"; that the Blombos beads "were
+  covered in red ochre"
+- **this is Batch 15's rule working**: the closed founding paper is Henshilwood et al. 2004, and an open
+  paper that needed it as a comparison restates it in full
+- used by: wh-051, wh-031
+
+### rosso-2016 · the ochre workshop, restated
+Daniela Eugenia Rosso, Francesco d'Errico, and Alain Queffelec, "Middle Stone Age Ochre Processing and
+Behavioural Complexity in the Horn of Africa: Evidence from Porc-Epic Cave, Dire Dawa, Ethiopia," *PLOS
+ONE* 11, no. 11 (2016): e0164793, under "Introduction," https://doi.org/10.1371/journal.pone.0164793.
+[Open access]
+- opened: 2026-08-01 · full text at PLOS
+- supports: "At Blombos Cave, South Africa, two toolkits used for the production and storage of ochre-rich
+  compounds were recovered from layers dated to 100 ka"
+- used by: wh-051
+
+### henshilwood-2018 · the drawing
+Christopher S. Henshilwood, Francesco d'Errico, Karen L. van Niekerk, et al., "An Abstract Drawing from the
+73,000-Year-Old Levels at Blombos Cave, South Africa," *Nature* 562, no. 7725 (2018): 115–18, abstract,
+https://doi.org/10.1038/s41586-018-0514-3. [Paywalled]
+- opened: 2026-08-01 · **the abstract only**, via Europe PMC (PMID 30209394). No open deposit exists; the
+  copies on ResearchGate and Academia are not stably linkable
+- supports: "a cross-hatched pattern drawn with an ochre crayon on a ground silcrete flake recovered from
+  approximately 73,000-year-old Middle Stone Age levels"; "red ochre pigment was intentionally applied to
+  the flake with an ochre crayon"; the Still Bay association; and "This notable discovery pre-dates the
+  earliest previously known abstract and figurative drawings by at least 30,000 years"
+- does NOT support (from the abstract): "six lines crossed by three". The count is in the body, which could
+  not be opened; the card and its second question phrasing now say "cross-hatched pattern"
+- used by: wh-051
+
+### grine-2002 · the Blombos teeth
+Frederick E. Grine and Christopher S. Henshilwood, "Additional Human Remains from Blombos Cave, South
+Africa: (1999–2000 Excavations)," *Journal of Human Evolution* 42, no. 3 (2002): 293–302, abstract,
+https://doi.org/10.1006/jhev.2001.0525. [Paywalled]
+- opened: 2026-08-01 · **the abstract only**, via PubMed (PMID 11846532)
+- supports: "The Blombos Cave MSA strata have yielded nine human teeth or dental fragments"; "The entire
+  dental sample probably represents at least five and as many as seven individuals"; "The uppermost Middle
+  Stone Age (MSA) layers at Blombos Cave contain high densities of Still Bay bifacial points"
+- does NOT support: that the teeth "identify the occupants as *Homo sapiens*". The abstract compares crown
+  diameters with recent Africans and with Neanderthals and makes no taxonomic assignment; the card now
+  reports the count and the number of individuals instead
+- used by: wh-051
+
+Klasies River (`wh-055`), new to the register:
+
+### wurz-2022 · the site, the middens and the U-Th dates
+Sarah Wurz, Robyn Pickering, and Susan M. Mentzer, "U-Th Dating, Taphonomy, and Taxonomy of Shell Middens
+at Klasies River Main Site Indicate Stable and Systematic Coastal Exploitation by MIS 5c-d," *Frontiers in
+Earth Science* 10 (2022): 1001370, https://doi.org/10.3389/feart.2022.1001370. [Open access]
+- opened: 2026-08-01 · full text at Frontiers
+- supports: "The KRM site consists of a group of two caves formed in quartzite, Cave 1 and Cave 1C, one
+  large recess, Cave 2, and two cliff-face rock-shelters, 1A and 1B … which collectively preserve around 21
+  m of MSA and LSA deposits"; "KRM was excavated in three cycles, in the 1960s, in the period between 1984
+  and 1995, and most recently, since 2015"; the dominant species "brown mussel (*Perna perna*) and
+  alikreukel (*Turbo sarmaticus*)", the latter tabulated as "Cape turban"; that "high ranked mollusc species
+  such as alikreukel and brown mussel from the mid-intertidal zone were targeted"; the three speleothem ages
+  "110,060 ± 1,100, 109,800 ± 970, and 106,000 ± 2,100 years", which "place the BOS layer as the base of the
+  SASL sub-member at over 110 ka, making the underlying middens from the LBS member even older"
+- **corrections it forced**: the card said Sarah Wurz has directed the excavations "since 2013" (2015),
+  "about 20 metres" of deposit (around 21), and "giant periwinkle" (alikreukel, *Turbo sarmaticus*)
+- used by: wh-055
+
+### reynard-2022 · the sequence and the Howiesons Poort layer
+Jerome P. Reynard, "Human Occupational Intensity and Palaeoecology at Klasies River from MIS 5–3:
+Preliminary Taphonomic Analyses of Faunal Remains from the Deacon and Wurz Excavations," *Frontiers in
+Earth Science* 10 (2022): 974582, https://doi.org/10.3389/feart.2022.974582. [Open access]
+- opened: 2026-08-01 · full text at Frontiers
+- supports: "Together, these contain more than 21 m of deposits"; "a near-continuous Late Pleistocene
+  sequence encompassing almost 70,000 years"; "The approximately 2 m thick HP and 1 m thick MSA III
+  (post-HP) layers occur in the overlying Upper member"; that brown mussels "are the most prevalent species
+  at the site"
+- does NOT support: anything about the human remains. The paper's many cut-mark and burning tallies are all
+  on animal bone — checked by grep over the full text, not by a summariser, because this is exactly the
+  place a citation for the cannibalism claim would have been invented
+- used by: wh-055
+
+### ezeimo-2024 · the fauna and the first excavations
+Joseph Ezeimo, Sarah Wurz, and Shaw Badenhorst, "Middle Stone Age Fauna from the RS Sub-Member (MSA I) at
+Cave 1B, Klasies River Main Site, South Africa," *Southern African Field Archaeology* 19 (2024): 3144,
+https://doi.org/10.36615/safa.19.3144.2024. [Open access]
+- opened: 2026-08-01 · full text on SciELO South Africa
+- supports: "John Wymer conducted the first excavations at KRM in 1967 and 1968 in Caves 1, 1A, 1B and 2";
+  "Hilary Deacon excavated Cave 1B starting in 1984"; the RS sub-member "dates to older than ca. 115 ka";
+  and the fauna — "Cape fur seal", the bird taxa "penguin, the Cape cormorant and the eagle owl", dolphin
+  and whale vertebrae, "rock hyraxes", and the bovids "Cape grysbok/steenbok, mountain reedbuck, southern
+  reedbuck, oribi, grey rhebok, roan/sable/blue antelope, wildebeest/hartebeest, eland, Cape buffalo and
+  giant buffalo"
+- used by: wh-055
+
+### grine-2017 · the human fossil record and the Klasies Pattern
+Frederick E. Grine, Sarah Wurz, and Curtis W. Marean, "The Middle Stone Age Human Fossil Record from
+Klasies River Main Site," *Journal of Human Evolution* 103 (2017): 53–78, abstract,
+https://doi.org/10.1016/j.jhevol.2016.12.001. [Paywalled]
+- opened: 2026-08-01 · **the abstract only**, via PubMed (PMID 28166908). No open deposit exists
+- supports: the fossils "have featured in discussions about modern human emergence"; "The vast majority —
+  nearly 40 cataloged specimens — come from the SAS Member"; "There is a strong cranial bias to the sample;
+  just over 70% of skeletal remains are from the skull"; "humeral, femoral and tibial diaphyses, which are
+  the most durable elements in terms of cortical bone thickness and density, are absent"; that "the
+  proportional representation of hominin remains is reminiscent of the 'Klasies Pattern' shown by the MSA
+  large bovid skeletal parts"; and the paper's own hedge, that "to some degree, this may reflect the
+  excavation and recovery methods that were employed"
+- used by: wh-055
+
+Middle Stone Age (`wh-031`), new to the register:
+
+### hallinan-2026 · the three-stage scheme and its dates
+Emily Hallinan, "The Southern African Stone Age Site Index (SASSI): A Spatial, Chronological and Contextual
+Resource for Archaeological Research," *Journal of Open Archaeology Data* 14 (2026): 2, under "Overview"
+and table 1, https://doi.org/10.5334/joad.186. [Open access]
+- opened: 2026-08-01 · full text (CC BY 4.0)
+- supports: "Since John Goodwin and Clarence van Riet Lowe's seminal work 'The Stone Age Cultures of South
+  Africa', archaeological sites — specifically lithic assemblages — have been attributed to the three phases
+  of the Earlier (ESA), Middle (MSA) and Later Stone Age (LSA)"; "Early schemes for Stone Age archaeology in
+  southern Africa drew heavily on European frameworks, using perceived similarities with the Palaeolithic
+  record of France to construct a relative sequence" and "directly importing French terminology"; "the MSA
+  from 300–40 ka, and the LSA from 40 ka to historical times"; that the MSA is characterised by "prepared
+  cores, points, blades"; and that the "Early LSA 40–20 ka" is "generally informal, combining some MSA
+  (prepared) and LSA (bipolar technique, microlithic) technological characteristics", with the fully
+  microlithic Wilton at "8–4 ka"
+- **corrections it forced**: the card ended the Middle Stone Age at "about 30,000 years ago" (40,000), and
+  had the Later Stone Age taking over "with its microliths" from that date, which runs together a boundary
+  and an industry some 30,000 years apart
+- used by: wh-031
+
+### malan-1957 · where the term came from
+B. D. Malan, "The Term 'Middle Stone Age'," in *Third Pan-African Congress on Prehistory, Livingstone 1955*,
+ed. J. Desmond Clark and Sonia Cole (London: Chatto and Windus, 1957), 223–27,
+https://archive.org/details/in.gov.ignca.6340. [Open access]
+- opened: 2026-08-01 · full text via the Internet Archive's OCR of the proceedings volume
+- supports: "In 1928 Prof. A. J. H. Goodwin published a paper entitled 'An introduction to the Middle Stone
+  Age in South Africa'"; that "In the next year Goodwin elaborated this paper in the chapter on the Middle
+  Stone Age in *The Stone Age Cultures of South Africa*, a joint work in which he and Prof. C. van Riet Lowe
+  (1929) laid the foundation of much of the structure of our knowledge of the prehistory of South Africa";
+  and, against Leakey's second criticism, that "The term 'Middle Stone Age' is *not* a translation of
+  'Mesolithic'; it was, in fact, carefully chosen to distinguish it from 'Mesolithic'"
+- **corrections it forced**: the card credited the name to Goodwin and van Riet Lowe jointly in 1929. The
+  term is Goodwin's, from a paper of 1928; 1929 is the joint volume that set the three stages out
+- worth knowing: Malan also rejects equating the MSA with the Middle Palaeolithic *as a cultural label*,
+  "to ignore the strong Upper Palaeolithic typological elements in the Middle Stone Age". The card's claim
+  is chronological — "in time it corresponds roughly to" — which is what wh-003 says from the other side
+- used by: wh-031
+
+### pac3-1957 · resolution 6
+"Resolutions of the Congress," in *Third Pan-African Congress on Prehistory, Livingstone 1955*, ed. J.
+Desmond Clark and Sonia Cole (London: Chatto and Windus, 1957), resolution 6 and the closing session,
+https://archive.org/details/in.gov.ignca.6340. [Open access]
+- opened: 2026-08-01 · full text via the Internet Archive
+- supports: that the Congress "recommends to workers in Prehistory in the African Continent that they should
+  endeavour … to fit their Stone Age Culture sequences into a frame which provides for: Earlier Stone Age /
+  First Intermediate / Middle Stone Age / Second Intermediate / Later Stone Age"; and, from the closing
+  session, "Resolution 6: A Simplification of African Stone Age Terminology. Over three hours' discussion
+  had gone into the framing of this Resolution … After discussion this Resolution was carried with two
+  against"
+- **correction it forced**: the card said the Congress "endorsed the scheme in 1955". It recommended a
+  five-part frame — Goodwin's three stages with two intermediate stages inserted — and it did so over
+  objections, not by acclamation
+
+### NOT CITED — cannibalism at Klasies River
+The card's closing sentence read that many of the human bones "carry stone-tool cut marks, percussion
+damage and burning, the same treatment as the food animals, which is widely read as cannibalism". It is a
+real reading, going back to Tim White's work of the 1980s, and **no source that can be opened from here
+states it**. White 1987 appeared in *Sagittarius*, a magazine with no DOI and no online copy; Grine, Wurz &
+Marean 2017 is the standing review and its abstract does not mention cut marks; a Europe PMC full-text
+search for "Klasies" with "cannibalism" over the open-access corpus returns nothing at all, and a grep of
+Reynard 2022's full text finds cut marks only on animal bone. The sentence was dropped rather than
+attached to a work nobody had read for it, and the third question phrasing, which repeated it, was
+rewritten — the batch-8 rule. What replaced both is the Klasies Pattern from Grine et al.'s abstract,
+which is the same observation one step back: the skeletal parts that survive are the ones that survive in
+the butchered bovids.
+
 ## CANDIDATES — NOT VERIFIED, DO NOT PASTE INTO `data.js`
 
 *Empty.* Everything gathered by search during the blocked attempt of 2026-07-30 has since been opened and

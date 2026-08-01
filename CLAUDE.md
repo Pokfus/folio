@@ -79,7 +79,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `docs/citation-plan.md` — the batch plan for **citing the 109 prehistory cards** (the bar a source must
   clear, the per-card workflow, how translations are staged, and the batches with their source spines).
   Not part of the site. **The bar is at least 5 citations per card** (`SRC_TARGET` in app.js; raised from
-  2–4 on 2026-07-31) — 68 of 109 cards are there, 41 short by 108 citations, planned as **batches 20–26**.
+  2–4 on 2026-07-31) — 71 of 109 cards are there, 38 short by 83 citations, planned as **batches 21–26**.
   Coverage is reported by `add-sources.js` on every run and in full by `node .claude/source-audit.js`. Its **Pilot log** records
   that batch 0 was attempted and stopped: this sandbox's egress policy blocks every scholarly host, so no
   source could be opened and none was cited. `.claude/sources-register.md` holds the verified citations
@@ -610,9 +610,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     glossary term carries `sources`; the citation pass so far has touched cards only. The UI, the deltas and the
     pipeline are in place; the rest is a content job (see "Citing the existing content" below). Guarded by
     `.claude/test-sources.js` (67 assertions).
-    **Batches 0–19 shipped 2026-07-31/08-01**: **101 of the 109 prehistory cards carry sources** (`wh-086`
+    **Batches 0–20 shipped 2026-07-31/08-01**: **104 of the 109 prehistory cards carry sources** (`wh-086`
     Lascaux, `wh-074` Dolní Věstonice and a handful of culture-history cards are deferred). **Against the
-    5-source bar, 68 of 109 are there** — the other 41 are batches 20–26 in the plan, and
+    5-source bar, 71 of 109 are there** — the other 38 are batches 21–26 in the plan, and
     the audit that says which is `node .claude/source-audit.js`. Every list is majority-open bar one: `wh-045`
     Jebel Irhoud runs 2 open / 2 paywalled and its top-up must add open works. See `docs/citation-plan.md` — its Pilot log records how the
     definitional cards were solved, its Batch 1 log the factual errors the exercise turns up (21 so far) and
@@ -693,6 +693,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     same as a card that can only be sourced from the discovery paper** — `wh-046` Herto, which the plan
     expected to come back short, reached the bar because the find has been re-examined three times in open
     venues since 2003, and every re-examination restates it before disputing it.
+    From Batch 20, the move that reopened a set batch 5 and batch 15 had both walked away from:
+    **when the paper that announced a find is shut, look for the paper that CITES it as a comparison.**
+    This is not batch 15's rule — a review restates a field and may not exist, whereas a comparison
+    restates one rival site and is much easier to find, because you can search the site's own NAME inside
+    the open-access corpus. Every famous Blombos find came in that way: Bouzouggar et al. 2007 give the 41
+    pierced *Nassarius* shells, their ≈75,000-year age, the two engraved ochres and the 400 Still Bay
+    points because they are comparing Blombos with Taforalt, and Rosso et al. 2016 give the 100 ka ochre
+    toolkits because they are comparing them with Porc-Epic. Its second finding is simpler and was missed
+    twice: **check who is excavating a site NOW, not only who published the landmark.** Klasies River had
+    been deferred on Marean's closed papers while Sarah Wurz's current team publishes in *Frontiers*, which
+    is open by policy. Third, **old conference proceedings are often the most openable thing in a naming
+    history** — the whole 440-page 1957 volume of the 1955 Pan-African Congress is OCR'd on the Internet
+    Archive, and it corrected two claims at once: the term is Goodwin's alone from 1928 (1929 is the joint
+    volume), and the Congress did not endorse the three-stage scheme but recommended a five-part frame,
+    over objections. And the sibling check the plan puts on definitional cards paid twice: `wh-031` had a
+    Still Bay date no other card used and an end-date 10,000 years off three of its own siblings.
     From Batch 12: **the register pays for itself late.** The three framework cards (`wh-001`, `wh-002`,
     `wh-004`) took 25 citation slots and needed **no new sources at all** — every claim a definitional card
     makes is a claim some other card already makes, so the whole job was mapping sentences to entries
@@ -1706,7 +1722,7 @@ which would otherwise have shipped corrected prose above an uncorrected date lin
 **Citing the existing content (as of July 2026)** — **most of the shipped content still has no citations.** The
 109 cards, 333 glossary terms and every Atlas description were written before this system existed, from Wikipedia
 and its sources, and were fact-checked rather than referenced. A batched pass is working through the cards —
-**101 of 109 carry sources, and 68 of 109 meet the 5-source bar** (`docs/citation-plan.md`; `add-sources.js`
+**104 of 109 carry sources, and 71 of 109 meet the 5-source bar** (`docs/citation-plan.md`; `add-sources.js`
 reports both on every run, `node .claude/source-audit.js` reports them per card, and the Edit page's card list
 shows each card's coverage as an amber or red chip) — while
 `country-sources.js` and `GLOSSARY_SOURCES` are still empty, so the Sources fold appears only on those cards.

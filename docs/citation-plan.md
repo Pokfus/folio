@@ -655,7 +655,7 @@ curated by the Iziko museums, and the SAHRA site records are the body-responsibl
 they publish per-site records before planning the batch around journal reviews alone — batch 13's warning
 applies, that a website is not a catalogue.
 
-### Batch 20 · The southern African record, second attempt (3 cards, 15 citations)
+### Batch 20 · The southern African record, second attempt (3 cards, 15 citations) — **DONE (2026-08-01)**
 `wh-031` Middle Stone Age · `wh-051` Blombos Cave · `wh-055` Klasies River Caves
 
 Batch 5 deferred these when Henshilwood 2002/2011 and the Klasies literature proved closed. **Batch 15 then
@@ -665,6 +665,68 @@ and should be worked last of the three, so the sibling-consistency check has the
 
 McBrearty & Brooks 2000 is the framing work for all three and is in the register. The South African Heritage
 Resources Agency record is the official source for a site card that needs one.
+
+### Batch 20 log — the comparison paper is the review that restates it
+
+#### 2026-08-01 — three cards, 18 citations, one commit
+
+**All three went through, and the plan's own premise for the batch was wrong in an instructive way.**
+It said to check whether the South African Heritage Resources Agency publishes per-site records, on the
+model of batch 18's museum catalogues. SAHRIS does have a page for Klasies River — a permit case file —
+and it returned 503 on every attempt; nothing was lost, because the route that actually worked was
+neither the institutional record nor batch 15's open review of the discovery paper. It was a third thing.
+
+**When the founding paper is closed, look for the paper that CITES it as a comparison.** Every famous
+Blombos find is restated in full inside somebody else's open article, by an author who needed it as
+background for their own site: Bouzouggar et al. 2007 give the 41 pierced *Nassarius* shells, the ≈75,000-
+year OSL/TL age, the two engraved ochres and the 400 Still Bay points because they are comparing Blombos
+with Taforalt; Rosso et al. 2016 give the two 100 ka ochre toolkits because they are comparing them with
+Porc-Epic. This is not the same move as batch 15's — a review restates a field, a comparison restates one
+rival site, and the second is much easier to find because you can search for the site name inside the open
+corpus rather than hoping a synthesis exists. **Search for the site's name in other sites' papers.**
+
+**Klasies River needed no indirection at all, because its excavator publishes open.** Sarah Wurz's team
+put two 2022 papers in *Frontiers in Earth Science* and a 2024 fauna paper in *Southern African Field
+Archaeology* on SciELO, and between them they carry the site's composition, its 21 m of deposit, its three
+excavation campaigns, its U-Th speleothem ages, its shellfish and its animals. Batch 5 and batch 15 both
+deferred this card on the strength of Marean's closed *Journal of Archaeological Science* papers without
+checking whether anyone was still digging there and where they publish. **Check who is excavating now,
+not only who published the landmark.**
+
+**What could not be sourced, and what it cost.** The card's closing sentence — that many of the human
+bones carry cut marks, percussion damage and burning, widely read as cannibalism — has no openable source.
+White 1987 is in *Sagittarius*, a magazine with no DOI; Grine, Wurz & Marean 2017's abstract does not
+mention cut marks; a Europe PMC full-text search over the whole open-access corpus for "Klasies" and
+"cannibalism" returns **zero hits**; and a grep of Reynard 2022's full text — done by grep and not by a
+summariser, precisely because this is where a citation would have been invented — finds cut marks only on
+animal bone. The sentence was dropped and the third question phrasing rewritten with it, per the batch-8
+rule. What replaced both is the **Klasies Pattern** from Grine et al.'s abstract, which is the same
+observation one step back and fully sourced: just over 70% of the human remains are skull, the limb-bone
+shafts are absent altogether, and the proportions echo the butchered bovids — with the authors' own hedge
+that it may partly reflect how the site was dug.
+
+**The sibling check earned its place in the plan twice.** `wh-031` was worked last, as instructed, and:
+- Its Still Bay was dated "about 75,000 to 71,000 years ago" while `wh-052`, `wh-053` and now `wh-051` all
+  take Jacobs et al. 2008's **71.9–71.0 ka** from the register. Corrected, and the Howiesons Poort's
+  64.8–59.5 ka added beside it.
+- Its Middle Stone Age ended "about 30,000 years ago", where `wh-003` Middle Palaeolithic ends at 40,000
+  and `wh-054` Border Cave has a Later Stone Age beginning at 44,000. Hallinan 2026 settles it at
+  **300–40 ka**, so the card was wrong against three of its own siblings and against the standard scheme.
+
+**Two nineteenth- and twentieth-century corrections came from reading the primary documents, both open.**
+Malan's paper in the 1955 congress proceedings shows the term is **Goodwin's alone, from a paper of 1928**;
+1929 is the joint volume with van Riet Lowe that set out the three stages, and the card had merged the two.
+And the Congress did not "endorse the scheme in 1955": **Resolution 6** recommended a *five*-part frame —
+the three stages with a First and a Second Intermediate inserted — after "over three hours' discussion",
+and it "was carried with two against". The whole 440-page volume is OCR'd on the Internet Archive
+(`archive.org/details/in.gov.ignca.6340`), which makes the 1957 proceedings of a 1955 congress a fully
+citable open source. **Old conference proceedings are often the most openable thing in a naming history.**
+
+**What batch 21 should take from this.** Its three cards — Atapuerca, Dolní Věstonice, Lascaux — are all
+sites, and this batch's finding applies directly: before hunting for a catalogue or a review, search each
+site's name inside the open-access corpus and see which *other* excavation cites it as a comparison. It
+also inherits the Klasies question: for each of the three, find who is digging there now and where that
+team publishes.
 
 ### Batch 21 · Sites with an institution behind them (3 cards, 15 citations)
 `wh-029` Atapuerca Mountains · `wh-074` Dolní Věstonice · `wh-086` Lascaux
