@@ -4719,3 +4719,190 @@ Stratigraphical Interpretation of the Piano di Mommio Sites," *Open Research Eur
   proof-of-work wall as well as the landing page (batch 21 found the landing pages walled; this is the
   file path going the same way). Reached instead through Europe PMC (PMC10881035), which confirms Le
   Moustier as "the type-site of the Mousterian technocomplex". Not needed by any G3 term in the end.
+
+## Batch G4 — the three-age scheme and the people who built it (GLOSSARY), verified 2026-08-01
+
+Eight terms, 34 citation slots, from **18 distinct works, every one of them open**. Seven came out of the
+register unopened; eleven are new, and **nine of those eleven are not journal articles** — six museum
+records, two out-of-copyright books and a nineteenth-century translation. That is batch 18's rule
+(ask the body responsible) and batch 25's (a 19th-century idea's author is out of copyright, so he is
+openable) meeting on the same batch.
+
+- `Three-age_system` — rowley-conwy-2004, thomsen-ellesmere-1848, **natmus-tidsaldre**, kanjanajuntorn-2020,
+  cooper-grebnev-2023
+- `Stone_Age` — thomsen-ellesmere-1848, harmand-2015, cooper-grebnev-2023, rowley-conwy-2004
+- `Bronze_Age` — thomsen-ellesmere-1848, woods-2010, cooper-grebnev-2023
+- `Iron_Age` — thomsen-ellesmere-1848, **guder-2025**, **kaniewski-2013**, cooper-grebnev-2023
+- `Prehistory` — mackenthun-mucher-2021, woods-2010, kanjanajuntorn-2020, harmand-2015
+- `Christian_Jürgensen_Thomsen` — **natmus-thomsen**, **natmus-tidsaldre**, rowley-conwy-2004,
+  thomsen-ellesmere-1848, **thomsen-leitfaden-1837**, kanjanajuntorn-2020
+- `John_Lubbock,_1st_Baron_Avebury` — lubbock-1865, **lubbock-1913**, **hutchinson-1914**
+- `National_Museum_of_Denmark` — **natmus-oldsagskommissionen**, **natmus-gratis**, **natmus-etnografisk**,
+  **natmus-sunchariot**, **natmus-egtved**
+
+### Verified citations, new to the register
+
+### natmus-tidsaldre · who actually thought of the three ages
+Nationalmuseet, "De tre tidsaldre," Nationalmuseets historie, accessed 1 August 2026,
+https://natmus.dk/historisk-viden/temaer/nationalmuseets-historie/de-tre-tidsaldre/. [Open access]
+- opened: 2026-08-01 · the museum's own account of its history, in Danish
+- supports, and it is the batch's find: that Thomsen "gennemførte oldsagernes opstilling i afdelinger for
+  sten-, bronze- og jernalder"; that he referred to the division in an 1825 letter but **as "den gamle
+  Tanke om de tre Tidsaldre"** — the OLD idea of the three ages; that "L. S. Vedel Simonsen havde allerede
+  ti år før fremlagt teorien om tidsaldrene, og også andre samtidige og tidligere oldgranskere havde
+  teoretiseret over udviklingen"; that "Thomsens fortjeneste er nok snarest, at han anvendte den i
+  forbindelse med det unge museums samlinger"; and that the theory reached print only in 1836, in
+  *Ledetraad til nordisk Oldkyndighed*
+- **contradicts** the glossary's "Thomsen worked it out" and "devised the three-age system", and `wh-006`'s
+  date line, which said "devised by"
+- used by: Three-age_system, Christian_Jürgensen_Thomsen (glossary), wh-006
+
+### natmus-thomsen · the 1816 appointment
+Nationalmuseet, "Christian Jürgensen Thomsen," Nationalmuseets historie, accessed 1 August 2026,
+https://natmus.dk/historisk-viden/temaer/nationalmuseets-historie/c-j-thomsen/. [Open access]
+- opened: 2026-08-01
+- supports: "Da Thomsen blev ansat som Oldsagskommissionens sekretær i 1816" — the date the glossary gives
+  for his taking charge, from the institution's own record; that he was "en købmandssøn fra Københavns
+  borgerskab" and "manglede den akademiske baggrund"; and Münter's judgement that "det kommer jo ikke an
+  på, hvorfra man har sin kundskab, men om man har den"
+- used by: Christian_Jürgensen_Thomsen (glossary)
+
+### natmus-oldsagskommissionen · the commission of 1807
+Nationalmuseet, "Oldsagskommissionen," Nationalmuseets historie, accessed 1 August 2026,
+https://natmus.dk/historisk-viden/temaer/nationalmuseets-historie/oldsagskommissionen/. [Open access]
+- opened: 2026-08-01
+- supports: "Kongelig Commission til Oldsagers Opbevaring blev oprettet på denne dato. Årstallet var 1807"
+  (22 May, which the museum counts as its birthday); Rasmus Nyerup and Frederik Münter as the driving
+  forces; the collection begun "på loftet over Trinitatis Kirke"; and the commission's five tasks,
+  among them "oprettelse af et statsligt museum" and "at gøre dette museum nyttigt for folket"
+- **does not support** the term's former "opened to the public in 1819", which nothing on the museum's
+  site states and which was replaced by the church loft it does state
+- used by: National_Museum_of_Denmark (glossary)
+
+### natmus-gratis · from a church loft to a royal palace
+Nationalmuseet, "Gratis og offentligt," Nationalmuseets historie, accessed 1 August 2026,
+https://natmus.dk/historisk-viden/temaer/nationalmuseets-historie/gratis-og-offentligt/. [Open access]
+- opened: 2026-08-01
+- supports: "Oldsagerne fra det gamle museum på Trinitatis kirkeloft overflyttedes fra Christiansborg,
+  hvor de havde befundet sig siden 1832, til Palæet i 1855" — **1855**, which is what replaced the term's
+  vaguer "middle of the 19th century"; the ethnographic collection moving to Prinsens Palæ at the end of
+  the 1840s; the Antiksamling arriving in 1851 and the coin cabinet in 1867
+- used by: National_Museum_of_Denmark (glossary)
+
+### natmus-etnografisk · the museums gathered, 1892
+Nationalmuseet, "Etnografisk Samlings historie," accessed 1 August 2026,
+https://natmus.dk/organisation/forskning-og-kulturarv/nyere-tid-og-verdens-kulturer/etnografisk-samling/samlingens-historie/.
+[Open access]
+- opened: 2026-08-01
+- supports: "I 1892, da tog man konsekvensen af de mange museer under samme tag og samlede dem i ét museum.
+  Etnografisk Museum blev således en del af Nationalmuseet"
+- used by: National_Museum_of_Denmark (glossary)
+
+### natmus-sunchariot · the Trundholm sun chariot
+National Museum of Denmark, "The Sun Chariot," accessed 1 August 2026,
+https://en.natmus.dk/historical-knowledge/denmark/prehistoric-period-until-1050-ad/the-bronze-age/the-sun-chariot/.
+[Open access]
+- opened: 2026-08-01 · the museum's object record
+- supports: found in September 1902 when Trundholm Mose in north-western Zealand "was ploughed for the
+  first time"; "made in the Early Bronze Age around 1400 BC"; the spiral ornament on the golden disc
+- used by: National_Museum_of_Denmark (glossary)
+
+### natmus-egtved · the Egtved Girl
+National Museum of Denmark, "The Egtved Girl," accessed 1 August 2026,
+https://en.natmus.dk/historical-knowledge/denmark/prehistoric-period-until-1050-ad/the-bronze-age/the-egtved-girl/.
+[Open access]
+- opened: 2026-08-01 · the museum's object record
+- supports: "One summer's day in 1370 BC she was buried in an oak coffin that was covered by the barrow
+  Storehøj near Egtved, west of Vejle"; that only "hair, brain, teeth, nails and a little skin remain";
+  and that her teeth put her at 16–18 years old
+- used by: National_Museum_of_Denmark (glossary)
+
+### thomsen-leitfaden-1837 · the German edition, the year after
+Gesellschaft für nordische Alterthumskunde, *Leitfaden zur nordischen Alterthumskunde*, the German
+translation of Thomsen and Petersen's *Ledetraad til Nordisk Oldkyndighed* (Copenhagen: Im Secretariat der
+Gesellschaft, 1837), title page, https://archive.org/details/leitfadenzurnor01paulgoog. [Open access]
+- opened: 2026-08-01 · Google's scan of the 1837 volume, public domain. The Fraktur OCR is poor, but the
+  title page carries "Gesellschaft für nordische Alterthumskunde", "Kopenhagen", "Im Secretariat der
+  Gesellschaft" and "1837" legibly
+- supports: the glossary's "appeared in German the following year" — **the edition itself is the source**,
+  since Rowley-Conwy's discussion of the translations could be read only for the English one
+- note: the Internet Archive holds a second copy, `leitfadenzurnor00paulgoog`
+- used by: Christian_Jürgensen_Thomsen (glossary)
+
+### lubbock-1913 · seven editions
+Lord Avebury, *Prehistoric Times, as Illustrated by Ancient Remains, and the Manners and Customs of Modern
+Savages*, 7th ed. (London: Williams and Norgate, 1913), title page and publishers' note,
+https://archive.org/details/7thedprehistoric00lubbuoft. [Open access]
+- opened: 2026-08-01 · scanned seventh edition, public domain
+- supports: the title page's "SEVENTH EDITION, THOROUGHLY REVISED AND ENTIRELY RESET" and the publishers'
+  note that "Lord Avebury subjected this work to a very thorough revision, making numerous additions
+  dealing with recent discoveries and theories" shortly before his death — which is the glossary's
+  "revised through seven editions", sourced from the seventh edition itself
+- used by: John_Lubbock,_1st_Baron_Avebury (glossary)
+
+### hutchinson-1914 · what Lubbock carried, and what he did not
+Horace G. Hutchinson, *Life of Sir John Lubbock, Lord Avebury*, vol. 1 (London: Macmillan, 1914), 118–21,
+150, 167–68 and 171, https://archive.org/details/lifeofsirjohnlub01hutcuoft. [Open access]
+- opened: 2026-08-01 · scanned first edition, public domain, printed pagination intact
+- supports the Bank Holidays Act in Lubbock's own words (118–21): "Most intimately and most universally
+  his name is associated with that measure for obtaining holidays for the bank clerks and shop people
+  which is known by the title of the Bank Holidays' Act. These holidays have been styled St. Lubbock's
+  Days"; and his diary, "at two this morning, I got the House to consider the Lords' amendments to the
+  Bank Holiday Bill … so that the Bill now only wants the Queen's consent"
+- supports **the correction** on the ancient monuments act: that the bill "had gone to a second reading no
+  less than seven times" before it passed a third reading (150); that among the eleven measures Lubbock
+  passed through the Commons the "(11) Ancient Monuments Bill … was thrown out in the House of Lords"
+  (171); and Lord Eversley's own statement, quoted at 167–68, "I was myself responsible for the framing of
+  the Ancient Monuments Act of 1882. It need not be pointed out that Lord Avebury was the originator of
+  the policy which led to it. For many previous years he had pressed upon Parliament a measure dealing
+  with this question", followed by Eversley's rejection of the central provision of Lubbock's bill
+- used by: John_Lubbock,_1st_Baron_Avebury (glossary)
+
+### guder-2025 · what bloomery smelting does, and what carbon does
+Ümit Güder, Jana Mokrišová, Marek Verčík, and Ünsal Yalçın, "Earliest Evidence for Systematic Use of
+Ultrahigh Carbon Steel in the Ancient Aegean in the Archaic Milesia," *PLOS ONE* 20, no. 3 (2025):
+e0312244, under "Introduction," https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11906082/fullTextXML.
+[Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST route
+- supports: that in a bloomery "charcoal was burned as a source of heat and carbon to provide the required
+  temperature and reducing atmosphere for the reduction of ores to metal", producing "the final product
+  called bloom"; that "gangue minerals in the ore, semi-reduced iron oxides and furnace materials …
+  formed slag" — the impurities the glossary's Iron Age says had to be removed; and carburisation, keeping
+  "iron … at high temperatures in a reductive atmosphere rich in carbon for a sufficiently long period of
+  time", with the grades low, medium (0.3–0.4% C), high (over 0.8%) and ultra-high (over 1.2%)
+- used by: Iron_Age (glossary)
+
+### kaniewski-2013 · the collapse the Iron Age begins after
+David Kaniewski et al., "Environmental Roots of the Late Bronze Age Crisis," *PLoS ONE* 8, no. 8 (2013):
+e71004, https://pmc.ncbi.nlm.nih.gov/articles/PMC3743901/. [Open access]
+- opened: 2026-08-01 · abstract and record via the Europe PMC REST service
+- supports: the collapse of the Mediterranean Bronze Age civilisations "3,200 years ago", driven by
+  "abrupt climate change-driven famine" and followed by invasion, warfare and political breakdown
+- used by: Iron_Age (glossary)
+
+### Re-read for this batch
+
+- **rowley-conwy-2004** re-read 2026-08-01 from the Ubiquity Press proof PDF
+  (`storage.googleapis.com/jnl-up-j-bha-files/journals/1/articles/186/…`; the DOI now redirects to an
+  abstract page and the journal's own search is behind a captcha). Its subset font is a **substitution
+  cipher rather than a uniform shift**, so the text had to be solved from cribs before it could be read.
+  It gives "The Stone – Bronze – Iron framework … emerged in Denmark and southern Sweden in the years
+  **1836–43**", which is what this register recorded as *1835–43* in batch 17a — a transcription slip,
+  corrected here. It also names the three men — "C. J. Thomsen, J. J. A. Steenstrup, and Sven Nilsson" —
+  which is `wh-006`'s "one of three Scandinavian scholars", and it makes clear that Ellesmere worked from
+  "the original Danish, not the German, version", without giving the German edition's year. Hence the
+  1837 volume itself.
+
+### COULD NOT BE RE-READ (batch G4)
+
+- **cooper-grebnev-2023** — `brill.com/downloadpdf/journals/owj/3/1/article-p1_1.pdf`, the file path that
+  served for batch 17a on 31 July, now answers 403, as does the DOI landing page. Cited for exactly what
+  this register records it supports and no further, per batch 25's rule.
+- **prysiazhniuk-2020**, "The First English Ancient Monuments Protection Act," *European Historical
+  Studies* 16 (2020) — `eustudies.history.knu.ua` answers 503 on repeated attempts. It was the obvious
+  scholarly source for the 1882 Act; Hutchinson 1914 carried the claim instead, and better, because it
+  quotes the man who framed the Act.
+- **parliament.uk, hansard.parliament.uk, historicengland.org.uk, biodiversitylibrary.org** all answer
+  **403** from this sandbox — so the parliamentary record itself, which is the body-responsible source for
+  what Lubbock carried, is unreachable here. `legislation.gov.uk` answers 200 but serves these two Acts
+  as PDF only. Recorded so the next pass does not re-run the same four fetches.

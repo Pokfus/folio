@@ -92,7 +92,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `docs/glossary-citation-plan.md` — the batch plan for **citing the 333 glossary terms**, the sibling of
   the card plan above. The bar is **at least 2 citations per term** (a description is three sentences, where
   a card's abstract is ten), and the acceptable sources are academic, museum, government or reputable
-  NGO/IGO. **Batches G1–G3 have shipped — 23 of the 333 terms are cited and at the bar.** Three things about this pass that
+  NGO/IGO. **Batches G1–G4 have shipped — 31 of the 333 terms are cited and at the bar.** Three things about this pass that
   the card pass does not have: **markers are optional** on a term, so the default batch changes no prose and
   therefore needs no translation work; a term whose prose IS corrected needs a second command in the same
   batch (`add-lang.js` for the nine languages, since `add-sources.js` writes only the English description);
@@ -634,8 +634,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     stripe): one is derived from the data, the other is an editor's private marker.
   · `sup` + `class="fn"` + `data-fn` are in the sanitizer allowlists, so a community deck can use markers too.
   · **The Atlas table still ships EMPTY; the glossary has begun.** `country-sources.js` has no entries at all.
-    **`GLOSSARY_SOURCES` carries 23 of the 333 terms** (batches G1–G3, 2026-08-01 — the genus, species, specimen and
-    stone-industry terms), against
+    **`GLOSSARY_SOURCES` carries 31 of the 333 terms** (batches G1–G4, 2026-08-01 — the genus, species, specimen,
+    stone-industry and three-age terms), against
     a bar of **`GLOSS_SRC_TARGET` (2)**, which is lower than a card's five because a description is three sentences
     where an abstract is ten; `docs/glossary-citation-plan.md` is the plan for the rest and
     `node .claude/gloss-source-audit.js` says where it stands. The UI, the deltas and the pipeline are in place;
@@ -1856,8 +1856,8 @@ and its sources, and were fact-checked rather than referenced. A batched pass is
 reports both on every run, `node .claude/source-audit.js` reports them per card, and the Edit page's card list
 shows each card's coverage as an amber or red chip) — and **a second pass has started on the glossary**, batched
 through `docs/glossary-citation-plan.md` at a bar of **2 citations per term** (`GLOSS_SRC_TARGET`), with
-`node .claude/gloss-source-audit.js` and the glossary list's own coverage chip reporting it; **23 of 333 terms
-are cited** (batches G1–G3). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
+`node .claude/gloss-source-audit.js` and the glossary list's own coverage chip reporting it; **31 of 333 terms
+are cited** (batches G1–G4). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
 Two rules that pass turned up at once. **`add-sources.js` writes only the ENGLISH description**, so a term whose
 prose is corrected needs an `add-lang.js` run per language in the same batch or nine languages keep the old
 claim; and **a correction does not travel between surfaces** — `Homo_habilis` still carried the 2.3–1.5 Mya span
@@ -1870,6 +1870,16 @@ parent period), and moved a marker on `wh-032` off a paper arguing the opposite 
 term's date line is patched by **`node .claude/fix-gloss-date.js`** — `fix-field.js`'s glossary sibling, an
 asserted find-and-set on `window.GLOSSARY_DATES`, written for batch G3 because two of its four corrections were
 there and `add-sources.js` does not touch dates.
+**Batch G4 is where the pass stopped being about journals**: eighteen works, every one open, and nine of the
+eleven new ones were museum records or out-of-copyright books — there is no modern open literature on who
+Thomsen was, but the museum that still uses his arrangement publishes its own history, and it says **he did not
+devise the three-age system** (he called it "the old idea" in 1825, and Vedel Simonsen had published the theory
+ten years earlier). That corrected two terms and `wh-006`'s date line. G4 also found, and deliberately did NOT
+half-fix, the pass's one systematic divergence: **the glossary starts prehistory at 3.3 Mya and the cards start
+it at 2.6 Mya** with Lomekwi 3 as a contested earlier claim — and the glossary's own `Lomekwian` term calls that
+assemblage debated, so it contradicts itself too. `Paleolithic`, `Lower_Paleolithic`, `Prehistory` and
+`Stone_Age`'s date line all carry it; **batch G5 owns those terms and must settle all four in one pass**, which
+is written into `docs/glossary-citation-plan.md` under G5.
 **Do not paper over the rest by attaching plausible-looking citations to existing prose** — a citation that was
 not the actual source of a sentence is worse than no citation, because it invites a reader to trust a page number
 nobody checked. The honest routes are the ones the pass follows: open every work before citing it, re-derive the

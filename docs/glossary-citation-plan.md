@@ -2,8 +2,8 @@
 
 The glossary was **333 terms and not one of them carried a source**. `window.GLOSSARY_SOURCES` was an empty
 table; the fold at the foot of a gloss popup never appeared. This is the plan for filling it. Not part of
-the site. **As of 2026-08-01, 23 of the 333 are cited and at the bar** — batches G1, G2 and G3, the last
-of which also corrected two cards; run `node .claude/gloss-source-audit.js` for the live figure.
+the site. **As of 2026-08-01, 31 of the 333 are cited and at the bar** — batches G1–G4, two of which also
+corrected cards; run `node .claude/gloss-source-audit.js` for the live figure.
 
 It is the sibling of `docs/citation-plan.md`, which took the 109 prehistory cards from nothing to five
 sources each over 27 batches. Everything that plan learned about *finding* sources applies here unchanged
@@ -413,7 +413,7 @@ in the field is a better bet than a search for a paper *about* the definition.
   asserting after every substitution — G2 was caught by it — but assert it with the splitter's guards, not
   without them.
 
-### G4 · The three-age scheme and the people who built it (8 terms)
+### G4 · The three-age scheme and the people who built it (8 terms) — **DONE (2026-08-01)**
 `Three-age_system` · `Stone_Age` · `Bronze_Age` · `Iron_Age` · `Prehistory` ·
 `Christian_Jürgensen_Thomsen` · `John_Lubbock,_1st_Baron_Avebury` · `National_Museum_of_Denmark`
 
@@ -427,6 +427,74 @@ Carry batch 17a's corrections into the terms: Thomsen ordered a museum's collect
 sequence, and Worsaae tested it in the ground. If any of these three descriptions says otherwise, it is
 wrong in the same way the card was.
 
+### Batch G4 log — ask the institution, and ask the man's own century
+
+#### 2026-08-01 — eight terms, 34 citations, five corrected, and one finding for G5
+
+**Coverage 23/333 → 31/333, all thirty-one at the bar.** Eighteen distinct works, **every one of them
+open**, which is a first for this pass. Seven came out of the register unopened. Of the eleven new ones,
+**nine are not journal articles at all**: six museum records, two out-of-copyright books and a
+nineteenth-century translation. Batch 18's rule — when the paper is shut, ask the body responsible — and
+batch 25's — a nineteenth-century idea's author is out of copyright, so he is openable — turn out to be
+the same rule when the subject is the history of a discipline. There is no modern open literature on who
+Thomsen was; there is a museum that still employs his arrangement and says so on its own website, and a
+1914 biography that anyone can read.
+
+**The batch's find: Thomsen did not devise the three-age system.** The Nationalmuseet's own history says
+so plainly. Thomsen referred to the division in an 1825 letter, but as *"den gamle Tanke om de tre
+Tidsaldre"* — the **old** idea of the three ages; L. S. Vedel Simonsen had put the theory forward ten
+years earlier, and other antiquaries before and around him had theorised the same development; and
+*"Thomsens fortjeneste er nok snarest, at han anvendte den i forbindelse med det unge museums samlinger"*
+— his merit is rather that he applied it to the young museum's collections. Both `Three-age_system` ("he
+worked it out") and `Christian_Jürgensen_Thomsen` ("who devised the three-age system") said otherwise, and
+so did `wh-006`'s date line, which read "devised by". All three now credit him with establishing it rather
+than inventing it. This is batch 17a's correction arriving from one step further back: that batch found
+Thomsen did not *prove* the sequence, and the museum's record adds that he did not *originate* it either.
+
+**Four more corrections.**
+- **`John_Lubbock` did not carry the Ancient Monuments Act.** He carried the Bank Holidays Act — Hutchinson
+  quotes his own diary getting it through at two in the morning — but Hutchinson also records that his
+  ancient monuments bill "had gone to a second reading no less than seven times", that it "was thrown out
+  in the House of Lords", and Lord Eversley's own words: "I was myself responsible for the framing of the
+  Ancient Monuments Act of 1882. It need not be pointed out that Lord Avebury was the originator of the
+  policy which led to it." Eversley then rejected the central provision of Lubbock's bill and wrote a
+  different measure. The term credited him with both acts; it now credits him with one and with the
+  policy behind the other, which is a better sentence as well as a true one.
+- **`Stone_Age` ended "around 4000 to 2000 BCE" as societies entered the Bronze Age**, which no Bronze Age
+  anywhere begins early enough to satisfy — its own date line said 3300 BCE, `Bronze_Age` says the Near
+  Eastern Bronze Age opens about 3300 BCE, and `wh-005` says the same. Batch 12's rule again: a
+  definitional term is wrong against its siblings before it is wrong against the literature.
+- **`National_Museum_of_Denmark`'s collection did not open to the public in 1819**, or at least nothing on
+  the museum's own site says so, and the pass does not keep a date it cannot open a source for. What the
+  museum does state is better: the collection began in the loft above Trinitatis Church, and the
+  antiquities reached Prinsens Palæ **in 1855**, not vaguely "the middle of the 19th century".
+- The register itself carried **1835–43** where Rowley-Conwy writes **1836–43**, a batch-17a transcription
+  slip, corrected in place.
+
+**The finding this batch could not act on, and G5 must.** Folio speaks with two voices about when
+prehistory begins. Every glossary term says **3.3 million years ago** — `Prehistory`, `Stone_Age`'s date
+line, `Paleolithic`, `Lower_Paleolithic` — and every card says **2.6 million**, with Lomekwi 3 named as a
+contested earlier claim (`wh-005`, `wh-007`). Both are defensible; what is not defensible is the glossary
+stating flatly, as the start of the Stone Age, a date the glossary's own `Lomekwian` term describes as
+debated. **G5 owns `Paleolithic`, `Lower_Paleolithic`, `Prehistory`'s siblings and the boundaries between
+them, so G5 is where this is settled — for all four terms and their date lines at once.** Fixing half of
+it here would have replaced a cross-surface inconsistency with an internal one, which is worse. Do not
+close G5 without it.
+
+**Two tooling notes.**
+- **The sentence-count check now slices `split-abstract.js`'s own `pieces()` out of the file** instead of
+  re-implementing it. G3's log said to assert the three-sentence rule with the splitter's guards; a
+  hand-rolled counter reported four and five sentences for perfectly good Spanish, French, German, Italian
+  and Russian, because `3300 a. C.`, `av. J.-C.`, `v. Chr.` and `до н. э.` all end a sentence if you only
+  look for a full stop. **One gap remains**: a German ordinal before a capitalised noun — "der **1.**
+  Baron Avebury" — still splits, because the splitter holds `19. Jahrhundert` and `25. August` by name and
+  cannot generalise without swallowing real sentence ends. The batch therefore asserted that each
+  substitution left the count **unchanged**, which is the honest invariant for a patch.
+- **Rowley-Conwy 2004's PDF is a substitution cipher, not a uniform shift.** Batch G3 met a subset font
+  whose glyphs were the ASCII codes shifted by a constant; this one maps each glyph separately, so the
+  offset trick produces confident gibberish. Solve it from cribs (`the`, `Three`, `English`, `versions`)
+  before believing a word of it.
+
 ### G5 · The Palaeolithic divisions and what follows (7 terms)
 `Paleolithic` · `Lower_Paleolithic` · `Middle_Paleolithic` · `Upper_Paleolithic` · `Mesolithic` ·
 `Neolithic` · `Neolithic_Revolution`
@@ -438,6 +506,14 @@ before citing any of them** — batch 12's finding was that definitional entries
 before they are wrong against the literature, and seven period terms sharing four boundaries is exactly that
 shape. The Holocene base is 11,700 b2k = 9700 BCE, per `walker-2018`; anything here saying 9600 BCE or
 10,000 BCE is carrying the pre-GSSP convention.
+
+**G5 must also settle the start of prehistory, which G4 found and deliberately did not half-fix.** The
+glossary says **3.3 million years ago** in `Paleolithic`, `Lower_Paleolithic`, `Prehistory` and
+`Stone_Age`'s date line; the cards say **2.6 million** with Lomekwi 3 named as a contested earlier claim
+(`wh-005`, `wh-007`). The glossary's own `Lomekwian` term calls that 3.3 Ma assemblage debated, so the
+glossary contradicts itself as well as the deck. Pick one convention — the cards' hedged form is the
+better-reviewed one — and apply it to all four terms, their date lines and their nine translations in a
+single pass. **Do not close G5 without it.**
 
 ### G6 · Geological time (6 terms)
 `Quaternary` · `Pleistocene` · `Holocene` · `Cryogenian` · `Ice_Age` · `Milankovitch_cycles`
