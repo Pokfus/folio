@@ -22,6 +22,11 @@
   --shadow-md:0 1px 2px rgba(27,26,23,.05), 0 8px 28px rgba(27,26,23,.06);
   --shadow-lg:0 2px 4px rgba(27,26,23,.06), 0 18px 50px rgba(27,26,23,.10);
   --bar-h:60px;
+  /* The two bars the Atlas has to sit above. --tabbar-h is 0 until the phone's bottom tab bar appears and
+     --timebar-h grows when the timeline goes to two rows, so .globe-stage and .atlas-timebar can each be
+     written ONCE against them instead of being re-stated per breakpoint (and drifting apart). */
+  --tabbar-h:0px;
+  --timebar-h:96px;
   --ease:cubic-bezier(.2,.7,.2,1);
 }
 body.night{
@@ -456,6 +461,12 @@ body.night .exp-card .flip-face{
 }
 .exp-card:hover .flip-face{box-shadow:var(--shadow-lg); border-color:color-mix(in srgb,var(--indigo) 30%, var(--rule));}
 .exp-card .flip-back{transform:rotateY(180deg);}
+/* eyebrow on the left, the card's deck on the right — the tile is a fixed height, so a short question left
+   a band of nothing under it. The hint stays pinned to the bottom (margin-top:auto on .exp-hint's row). */
+.cod-head{display:flex; align-items:baseline; justify-content:space-between; gap:12px;}
+.cod-where{font-family:var(--mono); font-size:9px; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-faint);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:52%; text-align:right;}
+.exp-card .flip-front .exp-hint{margin-top:auto;}
 .cod-q{font-family:var(--serif); font-size:15.5px; line-height:1.55; color:var(--ink); display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical; overflow:hidden;}
 .cod-q .blank{display:inline-block; box-sizing:border-box; width:2.7em; color:transparent; overflow:hidden; white-space:nowrap; vertical-align:baseline; border-bottom:2px solid var(--ochre); margin:0 3px; line-height:1;}
 .cod-q i{font-style:italic;}
@@ -530,9 +541,13 @@ body[data-theme="folio"] .collection-deco::after{
 /* the studied/total count sits in a small solid box so it stays legible over the colour wash */
 .collection-row .prog .count{background:var(--coll-bg, var(--card)); color:#fff; padding:2px 9px; border-radius:6px; box-shadow:0 0 0 1px rgba(0,0,0,.08);}
 .collection.placeholder{background:var(--paper-2); box-shadow:var(--shadow-sm);}
-.collection.placeholder .collection-row{opacity:.62; cursor:default;}   /* a ghost of the collection's identity colour shows through — a shelf awaiting opening, not an empty carton */
+/* a ghost of the collection's identity colour shows through — a shelf awaiting opening, not an empty carton.
+   The row no longer carries a level badge or an XP bar (nothing here can be studied), so the whole opacity
+   fade no longer has to cover a meter: it is dialled back to .78, since at .62 the title and its pill sat
+   under a tinted wash and fell close to the contrast floor. */
+.collection.placeholder .collection-row{opacity:.78; cursor:default; padding-top:14px; padding-bottom:14px;}
 .collection.placeholder .collection-row:hover{background:none;}
-.collection.placeholder .collection-title{color:var(--ink-faint);}
+.collection.placeholder .collection-title{color:var(--ink-soft);}
 /* (the gold collection seals were removed on request) */
 .collection-main{flex:1; min-width:0;}
 .collection-title-row{display:flex; align-items:center; gap:10px; margin-bottom:9px;}
@@ -728,6 +743,19 @@ body[data-theme="folio"] .collection-deco::after{
 }
 .ci-zoom svg{width:15px; height:15px;}
 .card-img:hover .ci-zoom{opacity:1;}
+/* a frame whose file never arrived (see the delegated `error` listener in app.js). A reader gets nothing —
+   a broken illustration is worse than none, and they cannot fix it — so it leaves the flow entirely. */
+.card-img.media-dead{display:none;}
+/* …but in the EDITOR the frame stays and says so, because the author is the one person who can fix the link */
+.ces-img.media-dead, .ces-vid.media-dead{
+  display:flex; align-items:center; justify-content:center; text-align:center; padding:14px; cursor:pointer;
+  border-style:dashed; border-color:color-mix(in srgb, var(--zh) 45%, var(--rule)); background:var(--paper-2);
+}
+.ces-img.media-dead > img, .ces-vid.media-dead > .cv-media{display:none;}
+.ces-img.media-dead::after, .ces-vid.media-dead::after{
+  content:"This link doesn’t load — check the URL"; font-family:var(--sans); font-size:12.5px; color:var(--zh);
+}
+.ces-img.media-dead .ces-img-edit{opacity:1;}
 /* card video: the identical frame, playing in place. The figure is not itself a button — the player owns
    clicks inside it — so the corner control is a real button and stays visible (there is no hover on touch). */
 .card-vid{cursor:default;}
@@ -824,6 +852,12 @@ body[data-theme="folio"] .collection-deco::after{
 .grade-help-bubble .ghb-row{display:block;}
 .grade-help-bubble .ghb-row + .ghb-row{margin-top:5px;}
 .grade-help-bubble .ghb-row b{color:#fff; font-weight:700; margin-right:5px;}
+/* the shortcuts. They existed and nothing said so — this bubble is where a reader already comes to ask
+   what the buttons do, so it is where the keys that press them belong. */
+.grade-help-bubble .ghb-keys{display:block; margin-top:9px; padding-top:8px; border-top:1px solid rgba(255,255,255,.16); font-size:11px; color:rgba(255,255,255,.7);}
+kbd{font-family:var(--mono); font-size:.86em; line-height:1; padding:1.5px 5px; border-radius:4px; border:1px solid currentColor; opacity:.9; white-space:nowrap;}
+.grade-help-bubble kbd{color:#fff; border-color:rgba(255,255,255,.4); background:rgba(255,255,255,.09);}
+.ah-tip kbd{color:var(--ink-soft); border-color:var(--rule); background:var(--paper-2);}
 .grade{
   appearance:none; cursor:pointer; border:1px solid transparent;
   border-radius:11px; padding:12px 8px 10px; text-align:center; line-height:1;
@@ -1303,6 +1337,13 @@ body.night .ph-lvl{color:#F3E3B2; background:#4A3B10; border-color:#E6C765;}
 .cl-row .xp-fill{background:linear-gradient(90deg, var(--coll-bg, var(--indigo)), color-mix(in srgb, var(--coll-bg, var(--indigo)) 62%, white));}
 .cl-you{font-family:var(--mono); font-size:10px; color:var(--ink-faint); background:var(--paper-2); border:1px solid var(--rule); border-radius:99px; padding:2px 9px; margin-left:10px; vertical-align:2px;}
 .dp-row .prog .fill{background:var(--coll-bg, var(--indigo));}
+/* signed out: the form beside what the account is for, rather than a 460px card alone in an 800px stage */
+.auth-split{display:grid; grid-template-columns:1fr; gap:18px; align-items:start;}
+@media (min-width:820px){
+  .auth-split{grid-template-columns:minmax(0,460px) minmax(0,1fr); gap:34px;}
+  .auth-split .auth-perks{margin-top:34px; border-top:0; padding-top:0;}   /* beside the form it needs no rule above it */
+  .auth-split .perk{font-size:13.5px;}
+}
 /* signed-out pitch: three icon bullets */
 .auth-perks{display:flex; flex-direction:column; gap:10px; margin-top:18px; border-top:1px solid var(--rule); padding-top:16px;}
 .perk{display:flex; align-items:center; gap:11px; font-family:var(--sans); font-size:13px; color:var(--ink-soft);}
@@ -1313,7 +1354,16 @@ body.night .ph-lvl{color:#F3E3B2; background:#4A3B10; border-color:#E6C765;}
 /* ============================================================
    SETTINGS
    ============================================================ */
-.settings{display:flex; flex-direction:column; gap:14px; max-width:620px;}
+/* The cards used to be a 620px column hard-left inside the 800px stage, so a heading that spanned the whole
+   width sat over content that stopped 180px short and the page read as half-drawn. They now FILL the stage —
+   which keeps their left edge under the heading's, where centring the column would not have — and pair up
+   into two columns once there is room for two. The wide ones (the theme picker, and the danger zone, which
+   should never sit quietly beside something else) span both. */
+.settings{display:grid; grid-template-columns:1fr; gap:14px; align-items:start;}
+@media (min-width:900px){
+  .settings{grid-template-columns:1fr 1fr;}
+  .settings > .set-card.set-wide, .settings > .set-card.danger{grid-column:1 / -1;}
+}
 .set-card{background:var(--card); border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow-sm); padding:6px 22px;}
 .set-row{display:flex; align-items:center; gap:18px; padding:18px 0;}
 .set-row + .set-row{border-top:1px solid var(--rule);}
@@ -1400,10 +1450,12 @@ body.night .lu-badge{color:#E6C765;}
 .atlas-head{margin-bottom:14px;}
 .page:has(.atlas){animation:none;}
 .atlas{display:contents;}
-.globe-stage{position:fixed; left:0; right:0; top:var(--bar-h); bottom:96px; z-index:1; overflow:hidden;}
+.globe-stage{position:fixed; left:0; right:0; top:var(--bar-h); bottom:calc(var(--timebar-h) + var(--tabbar-h) + env(safe-area-inset-bottom)); z-index:1; overflow:hidden;}
 .globe-stage canvas{position:absolute; inset:0; width:100%; height:100%; display:block; cursor:grab; touch-action:none;}
 .globe-stage canvas:active{cursor:grabbing;}
 .globe-hint{position:absolute; left:clamp(16px,4vw,40px); bottom:16px; font-family:var(--mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); opacity:.6; pointer-events:none; user-select:none;}
+/* "drag to rotate · scroll or +/− to zoom" is written for a mouse — on touch it is three lines of wrong */
+@media (hover:none){.globe-hint{display:none;}}
 /* on-screen zoom controls (right-centre) — a wheel-free way to zoom that works in any host/preview */
 .globe-zoom{position:absolute; right:clamp(16px,4vw,40px); bottom:14px; z-index:5; display:flex; flex-direction:column; gap:6px;}   /* bottom-right — the legend owns the top-right (they collided at top:50% on short viewports) */
 .gz-help{font-size:15px; font-weight:600;}
@@ -1543,6 +1595,7 @@ body.night .lu-badge{color:#E6C765;}
 .globe-legend .legend-title{font-family:var(--mono); font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint);}
 .globe-legend .legend-collapse{border:none; background:transparent; color:var(--ink-faint); font-size:15px; line-height:1; width:18px; height:18px; padding:0; margin:-2px -4px -2px 0; cursor:pointer; border-radius:5px; display:flex; align-items:center; justify-content:center;}
 .globe-legend .legend-collapse:hover{background:color-mix(in srgb, var(--ink) 9%, transparent); color:var(--ink);}
+.lc-layers{display:none; width:16px; height:16px;}   /* shown only on the phone's collapsed chip, where a bare dash reads as nothing */
 .globe-legend.collapsed .legend-body{display:none;}
 .globe-legend .legend-row{display:flex; align-items:center; gap:8px; font-size:12.5px; color:var(--ink); cursor:pointer; line-height:1;}
 .globe-legend .legend-row + .legend-row{margin-top:6px;}
@@ -1553,7 +1606,7 @@ body.night .lu-badge{color:#E6C765;}
 .atlas-wip strong{font-family:var(--sans); font-size:13px; font-weight:700; color:var(--ink); letter-spacing:.01em;}
 .atlas-wip span{font-family:var(--sans); font-size:12px; line-height:1.5; color:var(--ink-soft);}
 
-.atlas-timebar{position:fixed; left:0; right:0; bottom:0; height:96px; z-index:30; display:flex; align-items:center; gap:26px; padding:0 74px 0 clamp(16px,4vw,40px); background:color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter:saturate(140%) blur(10px); -webkit-backdrop-filter:saturate(140%) blur(10px); border-top:1px solid var(--rule); overflow:visible;}
+.atlas-timebar{position:fixed; left:0; right:0; bottom:calc(var(--tabbar-h) + env(safe-area-inset-bottom)); height:var(--timebar-h); z-index:30; display:flex; align-items:center; gap:26px; padding:0 74px 0 clamp(16px,4vw,40px); background:color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter:saturate(140%) blur(10px); -webkit-backdrop-filter:saturate(140%) blur(10px); border-top:1px solid var(--rule); overflow:visible;}
 .tl-play{flex:none; width:34px; height:34px; border-radius:50%; appearance:none; border:1px solid var(--rule); background:var(--card); color:var(--ink-soft); cursor:pointer; display:flex; align-items:center; justify-content:center; margin-right:-8px;}
 .tl-play svg{width:16px; height:16px;}
 .tl-play:hover{border-color:var(--indigo); color:var(--indigo);}
@@ -1594,6 +1647,31 @@ body.night .lu-badge{color:#E6C765;}
   background:color-mix(in srgb, var(--card) 92%, transparent); border:1px solid var(--rule); border-radius:9px; box-shadow:var(--shadow-sm);
   backdrop-filter:saturate(150%) blur(9px); -webkit-backdrop-filter:saturate(150%) blur(9px);}
 .globe-search input:focus{outline:2px solid color-mix(in srgb, var(--indigo) 55%, transparent); outline-offset:1px;}
+.gs-toggle{display:none;}   /* the phone's collapsed chip — on desktop the field itself is small enough to just sit there */
+/* ---- the Atlas chrome on a phone ----
+   Open, the search box and the legend covered the whole top-right of a 390px screen — the map — before the
+   reader had asked for either. Both collapse to a 34px chip in the corner and open on a tap: the legend
+   through the toggle it already had, the search across the full width of the stage, because a 38vw field
+   fits about four characters. */
+@media (max-width:640px){
+  .globe-search{top:12px; right:12px; width:auto;}
+  .globe-search input{display:none;}
+  .gs-toggle{display:grid; place-items:center; width:34px; height:34px; border-radius:50%; appearance:none; cursor:pointer;
+    border:1px solid var(--rule); background:color-mix(in srgb, var(--card) 92%, transparent); color:var(--ink-soft);
+    box-shadow:var(--shadow-sm); backdrop-filter:saturate(150%) blur(9px); -webkit-backdrop-filter:saturate(150%) blur(9px);}
+  .gs-toggle svg{width:16px; height:16px;}
+  .globe-search.open{left:12px; right:12px; width:auto;}
+  .globe-search.open .gs-toggle{display:none;}
+  .globe-search.open input{display:block;}
+  .globe-legend{top:12px; right:56px;}
+  .globe-legend.collapsed{width:34px; height:34px; padding:0; border-radius:50%; overflow:hidden;}
+  .globe-legend.collapsed .legend-head{margin:0; height:100%; justify-content:center; gap:0; cursor:pointer;}
+  .globe-legend.collapsed .legend-title{display:none;}
+  .globe-legend.collapsed .legend-collapse{width:100%; height:100%; margin:0; border-radius:50%;}
+  .globe-legend.collapsed .lc-sign{display:none;}
+  .globe-legend.collapsed .lc-layers{display:block;}
+  .globe-search.open ~ .globe-legend{display:none;}   /* the open field owns the top edge; the chip beside it would be under it */
+}
 .globe-search input::placeholder{color:var(--ink-faint);}
 .gs-results{position:absolute; top:calc(100% + 6px); left:0; right:0; display:flex; flex-direction:column; overflow:hidden;
   background:var(--card); border:1px solid var(--rule); border-radius:11px; box-shadow:var(--shadow-md, var(--shadow-sm));}
@@ -1617,7 +1695,17 @@ body.night .lu-badge{color:#E6C765;}
 .ay-num{font-family:var(--display); font-weight:600; font-size:34px; line-height:1; letter-spacing:-.01em; color:var(--ink); font-variant-numeric:tabular-nums;}
 .ay-era{font-family:var(--mono); font-size:12px; letter-spacing:.07em; color:var(--ink-faint); font-weight:600;}
 @media (max-width:560px){
-  .atlas-timebar{gap:14px;}
+  /* One row could not hold a play button, a ~170px year box AND the rail: on a 390px screen the rail was
+     squeezed to about 70px, which is why its five year labels piled into an 80px band as an unreadable
+     smudge and stopped lining up with the marks on the rail they annotate. Two rows give the rail the whole
+     width — the year and the play button above it, the rail beneath — and the stage's bottom inset follows.
+     The right padding stays: it is what keeps the rail clear of the corner buttons stacked above it. */
+  :root{--timebar-h:118px;}
+  .atlas-timebar{display:grid; grid-template-columns:auto 1fr; grid-template-areas:"play year" "rail rail";
+    align-content:center; gap:4px 12px; padding:6px 74px 8px clamp(12px,4vw,20px);}
+  .tl-play{grid-area:play; margin-right:0;}
+  .atlas-yearbox{grid-area:year; justify-self:end;}
+  .atlas-timeline{grid-area:rail;}
   .ay-num{font-size:27px;} .ay-display{min-width:88px;} .ay-chev{width:30px; height:30px;}
   .globe-hint{font-size:9px;}
 }
@@ -2139,6 +2227,52 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
 .chrono-result.win .cr-title{color:var(--good);}
 .chrono-result .cr-sub{color:var(--ink-soft); font-size:14px; margin-top:5px;}
 
+/* ============================================================
+   BOTTOM TAB BAR (phones)
+   The top bar held nine icon-only controls in a scrolling strip at the top of a 390px screen — the four
+   places a reader actually goes, plus theme, edit, account, settings and language — all of them out of the
+   thumb's arc and none of them named. The four destinations move down here, where they are reachable and
+   labelled; the top bar keeps the settings-ish controls, which are rarely pressed.
+   It is hidden above the breakpoint, and hidden again while STUDYING: the grade bar owns the bottom of the
+   screen there, the session has its own way out, and a study session is a place you finish, not browse from.
+   ============================================================ */
+.tabbar{display:none;}
+@media (max-width:640px){
+  :root{--tabbar-h:58px;}
+  .tabbar{
+    display:grid; grid-template-columns:repeat(4,1fr); align-items:stretch; gap:0;
+    position:fixed; left:0; right:0; bottom:0; z-index:55; height:calc(var(--tabbar-h) + env(safe-area-inset-bottom));
+    padding-bottom:env(safe-area-inset-bottom);
+    background:color-mix(in srgb, var(--paper) 92%, transparent); border-top:1px solid var(--rule);
+    backdrop-filter:saturate(150%) blur(12px); -webkit-backdrop-filter:saturate(150%) blur(12px);
+    box-shadow:0 -6px 22px rgba(27,26,23,.06);
+  }
+  .tabbar .tab{
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px;
+    padding:0; margin:0; border:0; border-radius:0; background:none; height:100%; min-width:0;
+    color:var(--ink-faint); position:relative;
+  }
+  .tabbar .tab-ic{width:21px; height:21px; opacity:1;}
+  /* the top bar's labels unfold from the icon on hover and stay open only on the active tab; down here
+     every tab is named all the time, which is the point of moving them (a row of bare icons was the
+     problem, and there is no hover on a phone to unfold them with) */
+  .tabbar .tab-label{display:block; max-width:none; opacity:1; margin-inline-start:0; transition:none;
+    font-family:var(--mono); font-size:9px; letter-spacing:.06em; text-transform:uppercase; line-height:1;}
+  .tabbar .tab.active{color:var(--indigo);}
+  .tabbar .tab.active::before{content:""; position:absolute; top:0; left:50%; transform:translateX(-50%); width:26px; height:2.5px; border-radius:0 0 3px 3px; background:var(--indigo);}
+  .tabbar .tab:active{background:color-mix(in srgb, var(--ink) 5%, transparent);}
+  body.grading .tabbar{display:none;}
+  /* the top bar keeps only what the tab bar does not carry */
+  .topbar .nav.left{display:none;}
+  /* everything anchored to the bottom of the viewport moves up by the bar's height. The Atlas needs no rule
+     here: .globe-stage and .atlas-timebar are already written against --tabbar-h, which is 0 above this
+     breakpoint and 58px below it. */
+  .stage{padding-bottom:calc(var(--tabbar-h) + 18px);}
+  #toast{bottom:calc(var(--tabbar-h) + 22px);}
+  .admin-edit-fab{bottom:calc(var(--tabbar-h) + 16px);}
+  body.admin-mode .admin{padding-bottom:var(--tabbar-h);}
+}
+
 @media (max-width:640px){
   body{font-size:16px;}
   .brand .tag{display:none;}
@@ -2177,6 +2311,7 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
   .grade-wrap .grades{grid-area:grades; justify-self:stretch; grid-template-columns:repeat(2,1fr);}
   .grade-wrap .grade-help{grid-area:help; justify-self:start;}
   .grade-wrap .suspendbtn{grid-area:suspend; justify-self:end;}
+  .study-shell .undobtn{margin-left:0;}
   .game-grid{grid-template-columns:repeat(2,1fr); gap:12px;}
   .howit{grid-template-columns:1fr; gap:10px;}
   .explore-grid, .explore-grid.has-term-img{grid-template-columns:1fr; gap:12px;}
@@ -2193,6 +2328,29 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
   .dp-name{width:120px;}
   .profile{flex-direction:column; text-align:center;}
   .namefield{text-align:center;}
+}
+
+/* ---- narrow phones: the grade bar in ONE row ----
+   Two rows of two, plus a row for help and suspend, took about a quarter of a 390px screen — over a card
+   whose background already runs several screens. Four columns fit once the shortcut digits go (they name
+   keys a phone does not have) and the interval sits closer under the label. */
+@media (max-width:430px){
+  /* the game tiles are two to a row here, so a 18px display title breaks "Multiple Choice" and
+     "Find it on the map" across two lines and their taglines across two more */
+  .game-grid{gap:10px;}
+  .game-tile{padding:14px 13px;}
+  .gt-title{font-size:15.5px; line-height:1.15;}
+  .gt-sub{font-size:11.5px; line-height:1.3; margin-top:3px;}
+  .gt-eyebrow{margin-bottom:5px;}
+  .grade-wrap .grades{grid-template-columns:repeat(4,1fr); gap:6px;}
+  .grade{padding:9px 3px 8px; border-radius:9px;}
+  .grade .gl{font-size:10px; letter-spacing:.02em;}
+  .grade .gi{font-size:9px; margin-top:4px;}
+  .grade .gk{display:none;}
+  .grade-wrap{gap:8px;}
+  body.grading .stage{padding-bottom:150px;}
+  body.grading .wb-tools{bottom:120px;}
+  body.grading .admin-edit-fab{bottom:120px;}
 }
 
 @media (prefers-reduced-motion: reduce){

@@ -3753,6 +3753,7 @@
     closeCtxMenu();   // …and dismisses the selection context menu
     closeAllGloss();
     closeImageViewer();   // the fullscreen image viewer never outlives its page
+    closeCongrats();      // …nor the level-up overlay, which a hash change can otherwise strand over the next one
     closeColorMenu();   // the colour menu lives on document.body — make sure it can't outlive its page on hashchange/back nav
     closeGlossPicker();
     closeRtColorMenu();
@@ -3865,6 +3866,12 @@
   function inlinePrompt(message, defaultValue, onOk) { inlineModal(message, true, defaultValue, onOk); }
   function inlineConfirm(message, onOk, okLabel) { inlineModal(message, false, null, () => onOk(), okLabel || "OK"); }
   // full-screen level-up congratulations; items = [{ title, level, sys }]. Dismissed by clicking ANYWHERE on screen or Escape.
+  /* The level-up overlay is dismissed by a click ANYWHERE, so clicking a nav tab takes it away and it looks
+     as though it can't outlive its page. It can: a back/forward, a deep link and any programmatic hash change
+     move the route without a click, and the overlay then sits over whatever renders next. It lives on
+     document.body like the colour menu and the image viewer, so — like them — render() has to close it. */
+  let _congratsClose = null;
+  function closeCongrats() { if (_congratsClose) _congratsClose(); }
   function congratsPopup(items) {
     if (!items || !items.length) return;
     sfx("levelup");
@@ -3893,7 +3900,8 @@
       '<div class="lu-title">Level up!</div><div class="lu-rows">' + rows + '</div>' +
       '<div class="lu-hint">Click anywhere to continue</div></div>';
     document.body.appendChild(ov);
-    const close = () => { ov.remove(); document.removeEventListener("keydown", onKey, true); };
+    const close = () => { ov.remove(); document.removeEventListener("keydown", onKey, true); _congratsClose = null; };
+    _congratsClose = close;   // so render() can dismiss it — see closeCongrats
     function onKey(e) { if (e.key === "Escape" || e.key === "Enter") { e.preventDefault(); e.stopPropagation(); close(); } }
     // defer wiring a tick so the same click that graded the card (and spawned this) doesn't instantly dismiss it
     setTimeout(() => { ov.addEventListener("click", close); document.addEventListener("keydown", onKey, true); }, 0);
@@ -4951,8 +4959,10 @@
           ${o.sub ? `<span class="gt-sub">${o.sub}</span>` : ""}
         </div>
       </button>`;
+    // The sixth slot in the grid. It used to read "Coming soon / —", which names nothing and looks like a tile
+    // that failed to load; it says what it is instead.
     const blankTile = (g, color) =>
-      `<div class="game-tile blank" style="--tile:${color}"><span class="gt-glyph${/^\s*<svg/.test(g) ? " gt-glyph-svg" : ""}">${g}</span><div class="gt-body"><span class="gt-eyebrow">Coming soon</span><span class="gt-title">—</span></div></div>`;
+      `<div class="game-tile blank" style="--tile:${color}"><span class="gt-glyph${/^\s*<svg/.test(g) ? " gt-glyph-svg" : ""}">${g}</span><div class="gt-body"><span class="gt-eyebrow">Coming soon</span><span class="gt-title">More games</span><span class="gt-sub">Another one is being written.</span></div></div>`;
     // once a game is played, its tagline becomes today's (best) score
     const gameSub = (key, fallback, wording) => {
       const g = S.games && S.games[key];
@@ -4980,7 +4990,13 @@
       ${cod ? `<button class="exp-tile exp-card" id="exp-card" type="button" aria-label="Card of the day — click to flip it over">
         <div class="flip">
           <div class="flip-face flip-front">
-            <span class="exp-eyebrow">Card of the day</span>
+            ${/* The tile is a fixed height and the question is often three lines, so the front used to end in a
+                  band of nothing. The card's DECK fills it — deliberately not its era, which on a prehistory
+                  card is most of the answer. It also tells a reader where to go to study more like it. */""}
+            <div class="cod-head"><span class="exp-eyebrow">Card of the day</span>${(() => {
+              const l = cardLeaves(cod.id)[0];
+              return l ? `<span class="cod-where">${esc(nodeWhere(l))}</span>` : "";
+            })()}</div>
             <div class="cod-q">${cod.question}</div>
             <span class="exp-hint">Click to turn the card over</span>
           </div>
@@ -5180,7 +5196,9 @@
         <h1>Collections</h1>
         <p>Curated collections. New subjects are on the way.</p>
       </div>
-      ${available.length || admin ? section("All decks", available.length, "collection-list-all", available.length) : ""}
+      ${/* "Collections", not "All decks": the hierarchy is collection → deck → subdeck, and this group heads a
+            list of collections — the label contradicted both that and the page title above it. */""}
+      ${available.length || admin ? section("Collections", available.length, "collection-list-all", available.length) : ""}
       ${comingSoon.length || admin ? soonSection(comingSoon.length, "collection-list-soon", comingSoon.length) : ""}
       ${communityLibraryHTML()}`;
 
@@ -5532,14 +5550,20 @@
         <div class="collection-row" tabindex="${hasSubs ? 0 : -1}" role="button" data-libitem="${esc(d.id)}" data-libkind="col">
           <div class="collection-deco" aria-hidden="true"></div>
           ${libGripHTML(d.id)}
-          ${levelBadgeMarkup(studied, COLLECTION_NUMERALS[d.id])}
+          ${soon ? "" : levelBadgeMarkup(studied, COLLECTION_NUMERALS[d.id])}
           <div class="collection-main">
             <div class="collection-title-row">
               <span class="collection-title">${esc(nodeTitle(d))}</span>
               ${spanHTML}
               ${soon ? '<span class="pill soon">Coming soon</span>' : `<span class="collection-count">${total} ${total === 1 ? "card" : "cards"}</span>`}
             </div>
-            ${xpBarMarkup(studied)}
+            ${
+              /* A coming-soon collection shows the pill and nothing else. It used to carry a Level 1 badge over
+                 an XP bar reading "0 / 3 cards" — a progress meter towards a level in a collection that cannot
+                 be studied, and a figure that reads as a card count when there are no cards at all. Six of the
+                 seven collections are coming-soon, so this was most of the Library saying nothing. */
+              soon ? "" : xpBarMarkup(studied)
+            }
           </div>
           <div class="collection-actions">
             ${!soon ? `<button class="collection-add${isActive(d.id) ? " added" : ""}" data-id="${d.id}" aria-label="${isActive(d.id) ? "Remove from review" : "Add to review"}">${addIcon(isActive(d.id))}</button>` : ""}
@@ -6632,7 +6656,7 @@
         actions.innerHTML = "";
         showGradeBar(
           `<div class="grade-wrap">
-            <button class="grade-help" type="button" aria-label="What do these buttons do?">?<span class="grade-help-bubble"><span class="ghb-title">How well did you recall it?</span><span class="ghb-row"><b>Again</b>Forgot it — the card returns within minutes.</span><span class="ghb-row"><b>Hard</b>Recalled with effort — scheduled sooner than usual.</span><span class="ghb-row"><b>Good</b>Recalled correctly — the interval grows normally.</span><span class="ghb-row"><b>Easy</b>Knew it instantly — the interval grows the most.</span><span class="ghb-row"><b>Suspend</b>Not interested — the card won’t be shown again.</span></span></button>
+            <button class="grade-help" type="button" aria-label="What do these buttons do?">?<span class="grade-help-bubble"><span class="ghb-title">How well did you recall it?</span><span class="ghb-row"><b>Again</b>Forgot it — the card returns within minutes.</span><span class="ghb-row"><b>Hard</b>Recalled with effort — scheduled sooner than usual.</span><span class="ghb-row"><b>Good</b>Recalled correctly — the interval grows normally.</span><span class="ghb-row"><b>Easy</b>Knew it instantly — the interval grows the most.</span><span class="ghb-row"><b>Suspend</b>Not interested — the card won’t be shown again.</span><span class="ghb-keys">On a keyboard: <kbd>Space</kbd> reveals, <kbd>1</kbd>–<kbd>4</kbd> grade, <kbd>Enter</kbd> is Good, and <kbd>Ctrl</kbd>+<kbd>Z</kbd> takes the last grade back.</span></span></button>
             <div class="grades">
               <button class="grade again" data-g="again"><span class="gl">Again</span><span class="gi">${fmtInterval(p.again)}</span><span class="gk">1</span></button>
               <button class="grade hard" data-g="hard"><span class="gl">Hard</span><span class="gi">${fmtInterval(p.hard)}</span><span class="gk">2</span></button>
@@ -7942,7 +7966,7 @@
             <div class="ah-card">
               <button class="ah-close" id="ahClose" type="button" aria-label="Close">×</button>
               <h3>Reading the Atlas</h3>
-              <div class="ah-tip"><b>Move</b> — drag to spin the globe; scroll, pinch or the +/− buttons zoom. Arrow keys rotate too.</div>
+              <div class="ah-tip"><b>Move</b> — drag to spin the globe; scroll, pinch or the +/− buttons zoom. From the keyboard: arrows rotate, + and − zoom, <kbd>[</kbd> and <kbd>]</kbd> step through the mapped years, Enter selects whatever is at the centre and Esc clears it.</div>
               <div class="ah-tip"><b>Click</b> — one click selects a state (on old maps, its whole empire); a double-click drills into a single territory; a triple-click reaches the UK's home nations.</div>
               <div class="ah-tip"><b>Time-travel</b> — the dots on the timeline are the mapped years: click one, press ▶ to play through them, or search any place across the centuries (top-right).</div>
               <div class="ah-tip"><b>A caution</b> — historical borders are rough estimates and should never be taken as factually accurate. Many past frontiers were vague, disputed or simply never recorded, so read every old map as an approximation rather than a precise picture of the world.</div>
@@ -7950,6 +7974,9 @@
             </div>
           </div>
           <div class="globe-search" id="globeSearch">
+            ${/* the phone's collapsed state: a chip that opens the field across the stage. Hidden on desktop,
+                  where a 240px box in the corner costs nothing. */""}
+            <button class="gs-toggle" id="gsToggle" type="button" aria-label="Search the atlas" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg></button>
             <input type="text" id="gsInput" placeholder="Search the atlas…" autocomplete="off" spellcheck="false" aria-label="Search countries, territories and capitals" />
             <div class="gs-results" id="gsResults" role="listbox" hidden></div>
           </div>
@@ -7961,7 +7988,9 @@
           <div class="globe-legend" id="globeLegend" role="group" aria-labelledby="legendTitle">
             <div class="legend-head" id="legendHead">
               <span class="legend-title" id="legendTitle">Legend</span>
-              <button class="legend-collapse" id="legendCollapse" type="button" aria-label="Collapse legend" aria-expanded="true">–</button>
+              ${/* on a phone the collapsed legend shrinks to a round chip, and a dash on a chip reads as nothing —
+                    so the button carries both glyphs and the CSS shows whichever the state calls for */""}
+              <button class="legend-collapse" id="legendCollapse" type="button" aria-label="Collapse legend" aria-expanded="true"><span class="lc-sign">–</span><svg class="lc-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg></button>
             </div>
             <div class="legend-body" id="legendBody">
               <label class="legend-row"><input type="checkbox" id="bordersToggle" checked><span>Borders</span></label>
@@ -9771,7 +9800,39 @@
       canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
       canvas.style.width = W + "px"; canvas.style.height = H + "px";
       baseR = Math.min(W, H) * 0.46;
+      layoutTicks();
       draw();
+    }
+    /* The rail's year labels, thinned to the ones that fit. They are absolutely positioned off the same
+       year2frac the rail, the pin and the map-year marks use, so they always sit over the year they name —
+       but at a narrow width the nearest pair simply overlap, and five of them piled into an 80px band read
+       as one unbroken smudge. Rather than move a label off its year (which would make it a lie), the ones
+       that would collide are dropped: a scale needs enough labels to be read, not all of them.
+       The two ENDS are always kept — they are what fixes the scale — so an inner label must clear both its
+       left neighbour and the right anchor. */
+    function layoutTicks() {
+      const box = root.querySelector(".tl-ticks"); if (!box) return;
+      const els = Array.prototype.slice.call(box.querySelectorAll(".tl-tick"));
+      if (els.length < 3) return;
+      els.forEach((e) => { e.hidden = false; });   // measure them all: a hidden element has no width
+      const W2 = box.clientWidth; if (!W2) return;
+      const GAP = 9, last = els.length - 1;
+      // :first-child is left-anchored and :last-child right-anchored (see .tl-tick in styles.css); the rest
+      // are centred on their year, so each one's span has to be derived the same way the CSS lays it out
+      const spanOf = (e, i) => {
+        const w = e.offsetWidth, c = (parseFloat(e.style.left) || 0) / 100 * W2;
+        const l = i === 0 ? c : i === last ? c - w : c - w / 2;
+        return [l, l + w];
+      };
+      const spans = els.map(spanOf);
+      let keptRight = -Infinity;
+      els.forEach((e, i) => {
+        if (i === last) return;
+        const s = spans[i];
+        const clash = s[0] < keptRight + GAP || (i > 0 && s[1] + GAP > spans[last][0]);
+        e.hidden = clash;
+        if (!clash) keptRight = s[1];
+      });
     }
 
     // pointer interaction (drag to rotate, wheel + pinch to zoom)
@@ -10124,6 +10185,24 @@
     gsResults.addEventListener("click", (e) => { const b = e.target.closest(".gs-row"); if (b) gsPick(gsRows[+b.dataset.i]); });
     gsInput.addEventListener("blur", (e) => { if (e.relatedTarget && gsResults.contains(e.relatedTarget)) return; setTimeout(gsHide, 150); });   // Tab into the results must not destroy the row that just took focus
     gsResults.addEventListener("focusout", (e) => { if (e.relatedTarget && (gsResults.contains(e.relatedTarget) || e.relatedTarget === gsInput)) return; gsHide(); });   // list closes once keyboard focus leaves the widget
+    /* The phone's search chip. Expanded, the field runs the width of the stage — a 38vw box on a 390px screen
+       fits about four characters — so it takes the whole top edge while it is being used and gives it back
+       the moment it isn't. Only the chip is new: the field, its typeahead and its keys are unchanged. */
+    {
+      const searchEl = root.querySelector("#globeSearch"), gsToggle = root.querySelector("#gsToggle");
+      const gsSetOpen = (open) => {
+        searchEl.classList.toggle("open", open);
+        if (gsToggle) gsToggle.setAttribute("aria-expanded", open ? "true" : "false");
+        if (open) gsInput.focus(); else { gsInput.value = ""; gsHide(); }
+      };
+      if (gsToggle) gsToggle.addEventListener("click", () => gsSetOpen(!searchEl.classList.contains("open")));
+      // an empty box that has lost focus is a chip again; a box with a query typed in it stays, so a stray
+      // tap on the globe doesn't throw the search away
+      gsInput.addEventListener("blur", () => setTimeout(() => {
+        if (searchEl.classList.contains("open") && !gsInput.value.trim() && document.activeElement !== gsInput) gsSetOpen(false);
+      }, 180));
+      gsInput.addEventListener("keydown", (e) => { if (e.key === "Escape") gsSetOpen(false); });
+    }
 
     // tear everything down once the globe leaves the DOM (navigating away) so nothing leaks per visit
     function cleanupGlobe() { freeLandLayer(); try { window.removeEventListener("resize", cpResize); } catch (e) {} try { ro.disconnect(); } catch (e) {} try { themeObs.disconnect(); } catch (e) {} try { window.removeEventListener("blur", stopHold); } catch (e) {} try { if (dprMedia) dprMedia.removeEventListener("change", onDPRChange); } catch (e) {} try { document.removeEventListener("keydown", onGlobeKey); } catch (e) {} try { window.removeEventListener("wheel", onGlobeWheel, true); } catch (e) {} stopSpin(); playStop(); if (flyRAF) { cancelAnimationFrame(flyRAF); flyRAF = 0; } if (flyDoneT) { clearTimeout(flyDoneT); flyDoneT = 0; } if (settleT) { clearTimeout(settleT); settleT = 0; } if (_drawTimer) { clearTimeout(_drawTimer); _drawTimer = 0; } if (_drawReq) { cancelAnimationFrame(_drawReq); _drawReq = 0; } }
@@ -10172,7 +10251,16 @@
     // adminOn/divCapsOn stay false with no way to enable them, so drawAdmin + the division-capital tier never render (inert).
     // legend window: collapse + drag-to-move
     const legendEl = root.querySelector("#globeLegend"), legendHead = root.querySelector("#legendHead"), legendCollapse = root.querySelector("#legendCollapse");
-    if (legendCollapse) legendCollapse.addEventListener("click", (e) => { e.stopPropagation(); const c = legendEl.classList.toggle("collapsed"); legendCollapse.textContent = c ? "+" : "–"; legendCollapse.setAttribute("aria-expanded", c ? "false" : "true"); });
+    const legendSign = legendCollapse && legendCollapse.querySelector(".lc-sign");
+    const legendSetOpen = (open) => {
+      legendEl.classList.toggle("collapsed", !open);
+      if (legendSign) legendSign.textContent = open ? "–" : "+";
+      if (legendCollapse) legendCollapse.setAttribute("aria-expanded", open ? "true" : "false");
+    };
+    if (legendCollapse) legendCollapse.addEventListener("click", (e) => { e.stopPropagation(); legendSetOpen(legendEl.classList.contains("collapsed")); });
+    // On a phone the open legend is a 126×196 panel over a 390px-wide globe — a fifth of the map, covering it,
+    // before the reader has asked for a single layer. It starts as a chip there and opens on a tap.
+    if (legendEl && window.matchMedia && window.matchMedia("(max-width:640px)").matches) legendSetOpen(false);
     if (legendHead && legendEl) {
       let ldrag = false, sCX = 0, sCY = 0, sL = 0, sT = 0;
       legendHead.addEventListener("pointerdown", (e) => {
@@ -11059,6 +11147,11 @@
   function acctAuthView(root) {
     root.innerHTML = `
       <div class="page-head"><span class="eyebrow">Your account</span><h1>Account</h1></div>
+      ${/* The form is 460px wide inside an 800px stage, so signed out this page used to be half empty on a
+            laptop. The three perks were already written — they were just stacked underneath the form, where
+            they made a short card longer. Out beside it they fill the space and say what the account is FOR
+            at the moment a reader is deciding whether to make one. Below 820px they go back under the form. */""}
+      <div class="auth-split">
       <div class="auth-card">
         <div class="auth-tabs">
           <button class="auth-tab active" data-av="signin" type="button">Sign in</button>
@@ -11085,6 +11178,7 @@
           <div class="auth-msg" data-msg></div>
           <button class="auth-btn" type="submit">Send reset link</button>
         </form>
+      </div>
         <div class="auth-perks">
           <div class="perk"><span class="perk-ic" style="--pk:var(--indigo)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="13" height="10" rx="2"/><path d="M18 8h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2v-1"/></svg></span><span>Your progress on every device</span></div>
           <div class="perk"><span class="perk-ic" style="--pk:#4F9D67"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span>Friends, badges and levels</span></div>
@@ -11662,7 +11756,8 @@
       <div class="page-head"><span class="eyebrow">Preferences</span><h1>Settings</h1>
         <p>Settings apply to this device. Your study progress is what follows your account across devices.</p></div>
       <div class="settings">
-        <div class="set-card">
+        ${/* set-wide: the theme picker is a row of tiles and wants the whole width when there is one (see .settings) */""}
+        <div class="set-card set-wide">
           ${setHead("var(--indigo)", '<circle cx="13.5" cy="6.5" r="2.5"/><circle cx="19" cy="13" r="2"/><circle cx="6" cy="12" r="2.5"/><path d="M12 2a10 10 0 1 0 10 10c0-1.2-1-2-2.2-2H16a3 3 0 0 1-3-3V4.2C13 3 12.8 2 12 2z"/>', "Appearance")}
           <div class="set-row set-row-block">
             <div class="info"><h3>Theme</h3><p>Each theme has its own colours, typography and layout. Hover a tile to try it on; click to keep it. Night mode works within every theme.</p></div>
@@ -14446,8 +14541,33 @@
   // card images: one delegated listener opens the fullscreen viewer from any .card-img (study, previews, editor).
   // A .card-vid wears the same frame but plays in place, so only its corner expand control opens the viewer —
   // every other click inside it belongs to the player.
+  /* A media frame whose file will not load. There is deliberately no upload path — every picture and clip on
+     a card, a term or an Atlas panel is somebody else's URL — so link rot is a certainty rather than an edge
+     case, and an <img> that 404s otherwise leaves a full 16:9 grey hole in the middle of the prose, wearing a
+     zoom cursor that opens an empty viewer.
+     A READER gets nothing: the frame is removed from the flow, since a broken illustration is worse than no
+     illustration and there is nothing they can do about it. An AUTHOR gets the frame kept and labelled (the
+     editor surfaces carry `.ces-img` / `.ces-vid`), because they are the one person who can fix the link.
+     Delegated in the CAPTURE phase — `error` does not bubble. */
+  document.addEventListener("error", (e) => {
+    const el = e.target;
+    if (!el || !el.tagName || (el.tagName !== "IMG" && el.tagName !== "VIDEO")) return;
+    // the home page's Term-of-the-day plate is a bare <img>, not a frame — it takes the tile's whole height,
+    // so a dead one has to give the row its 2:1 layout back rather than leave a broken-image glyph in a plate
+    const plate = el.closest && el.closest(".term-img");
+    if (plate) {
+      plate.remove();
+      const grid = document.querySelector(".explore-grid.has-term-img");
+      if (grid) grid.classList.remove("has-term-img");
+      return;
+    }
+    const fig = el.closest && el.closest(".card-img"); if (!fig) return;
+    fig.classList.add("media-dead");
+    const slot = fig.closest(".gloss-imgslot"); if (slot) slot.hidden = true;   // the popup's float would otherwise keep its margin around nothing
+  }, true);
   document.addEventListener("click", (e) => {
     const fig = e.target.closest(".card-img"); if (!fig) return;
+    if (fig.classList.contains("media-dead")) return;   // nothing to enlarge — the file never arrived
     if (fig.classList.contains("card-vid")) {
       if (!e.target.closest(".cv-expand")) return;
       openVideoViewer({ src: fig.dataset.vidSrc, title: fig.dataset.vidTitle, desc: fig.dataset.vidDesc, credit: fig.dataset.vidCredit });
@@ -14476,6 +14596,7 @@
   document.addEventListener("keydown", (e) => {
     if (e.key !== "Enter" && e.key !== " ") return;
     const fig = e.target.closest && e.target.closest(".card-img"); if (!fig) return;
+    if (fig.classList.contains("media-dead")) return;
     if (fig.classList.contains("card-vid")) return;   // the expand control is a real <button> — the browser fires its click itself
     e.preventDefault();
     openImageViewer({ src: fig.dataset.imgSrc, title: fig.dataset.imgTitle, desc: fig.dataset.imgDesc, credit: fig.dataset.imgCredit });

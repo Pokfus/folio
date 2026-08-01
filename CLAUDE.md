@@ -402,7 +402,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `acctSelfView`). `grade()` calls `announceLevelUps(id)` on a freshly-studied card → a **full-screen "Level up!" popup**
   (`congratsPopup(items)`, a `.levelup-pop` overlay modelled on `inlineModal`) naming each Folio/collection level that ticks
   over (China's shown as its Chinese numeral); it is **dismissed by clicking anywhere on screen** (or Esc/Enter) — the
-  click-to-close listener is wired a tick later (`setTimeout 0`) so the grading click that spawned it doesn't instantly dismiss it. Clicking a **deck row in the home Daily-review list** starts a study session scoped to just that deck
+  click-to-close listener is wired a tick later (`setTimeout 0`) so the grading click that spawned it doesn't instantly dismiss it.
+  **`render()` closes it too** (`closeCongrats`, beside `closeImageViewer`, Aug 2026). Dismiss-on-any-click made
+  it look as though it could not outlive its page — clicking a nav tab takes it away — but a back/forward, a
+  deep link and any programmatic hash change move the route without a click, and it then sat over whatever
+  rendered next. It lives on `document.body`, so like every other overlay there it is `render()`'s to clear.
+  Clicking a **deck row in the home Daily-review list** starts a study session scoped to just that deck
   (`data-review` → `route("study",{scope:{type:"deck",id}})`). On the **Library page, clicking a collection's body studies its
   whole subtree** (`wireExpander`'s optional `rowClick` → `route("study",{scope:{type:"deck",id}})`, since a collection is in
   `NODE_BY_ID` and `subtreeCardIds` covers it); its **chevron still expands/collapses** the decks within (the chevron's
@@ -443,6 +448,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   focused would mean the shortcut never fired at the one moment it is wanted — the card AFTER the misclick, which
   has just opened with an empty box. It yields to the browser's own typing-undo only while the box actually holds
   a typed guess.
+  **The shortcuts are written down in the grade bar's `?` bubble** (`.ghb-keys`, Aug 2026) — Space reveals,
+  1–4 grade, Enter is Good, Ctrl+Z takes the last one back. They all existed and nothing said so, and that
+  bubble is where a reader already goes to ask what the buttons do. (The Atlas's own coach marks already
+  covered its click drill-down; they gained the keyboard line — `[`/`]`, Enter, Esc — which they hadn't.)
+- **The grade bar is ONE row below 430px** (Aug 2026). Two rows of two plus a help/suspend row took about a
+  quarter of a phone screen, over a card whose background already runs several screens. Four columns fit once
+  `.gk` goes — those digits name keys a phone does not have — and `body.grading .stage`'s bottom padding drops
+  from 206px to 150px to match.
 - **Review history + statistics:** `grade()` calls **`logReview(mature, correct)`**, which tallies
   `S.reviewLog["YYYY-MM-DD"] = [reviews, matureCorrect, matureTotal]` (in `defaultState()` so old saves
   back-fill, and in `PROGRESS_FIELDS` so it syncs and a friend's shows too). **This log has to exist**: a card
@@ -913,7 +926,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   (`openImageViewer`: wheel zoom toward the cursor 1–8×, click toggles 1↔2.5×, drag pans when zoomed, Esc/×/backdrop
   closes, `closeImageViewer()` runs in `render()`), with title/description/source in a bottom caption bar (a URL
   source becomes a link). One **delegated** document click/keydown listener opens it from any `.card-img` (study,
-  previews, editor) via the figure's `data-img-*` attributes — no per-render wiring. The editor's EN view has the
+  previews, editor) via the figure's `data-img-*` attributes — no per-render wiring.
+  **A file that will not load is handled** (Aug 2026): there is deliberately no upload path, so every picture
+  and clip anywhere in Folio is somebody else's URL and link rot is a certainty rather than an edge case.
+  A delegated **capture-phase `error` listener** (`error` does not bubble) marks the figure `.media-dead`.
+  A READER gets nothing — `display:none`, because a broken illustration is worse than none and there is
+  nothing they can do about it — while an AUTHOR keeps the frame, labelled "This link doesn't load"
+  (`.ces-img`/`.ces-vid`), being the one person who can fix it. The click and Enter handlers skip a dead
+  figure so it can't open an empty viewer, a dead one inside a gloss popup hides the whole floated
+  `.gloss-imgslot`, and the home page's Term-of-the-day plate (a bare `.term-img`, not a frame) is removed
+  and gives the discovery row its 2:1 layout back. The editor's EN view has the
   four image fields (`data-imgfield` → `setCardImageEdit`), which — like i18n — deep-copies the object and stores it
   whole as an `image` delta (clearing every field stores a **null tombstone** that hides a shipped image);
   `serializeCardData` bakes `c.image` when it has a `src`, `revertCard` restores `p.image`. Image metadata is shared
@@ -1195,6 +1217,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `allGamesWonToday` → `progStats().dailySweep`). A perfect Multiple-choices run also increments `S.daily.wins`, which **revived
   the previously-dead `win1`/`win10` (Victor/Champion) badges** (`wins` was never written after the bot race was removed).
   `S.games` is in `defaultState()` (back-fills old saves) and `PROGRESS_FIELDS` (mirrors to the account).
+  The grid's **sixth slot** (`blankTile`) reads "Coming soon / More games / Another one is being written"; it
+  used to be "Coming soon / —", which names nothing and looks like a tile that failed to load. Below 430px the
+  tile type shrinks (`.gt-title` 18 → 15.5px), or "Multiple Choice" and "Find it on the map" break across two
+  lines and their taglines across two more. The **Card-of-the-day tile carries the card's DECK** in its head
+  row (`.cod-where` ← `cardLeaves(id)[0]` → `nodeWhere`) — the tile is a fixed height, so a short question left
+  a band of nothing under it. Deliberately the deck and **not** the era: on a prehistory card the era is most
+  of the answer.
+- **Settings and Account fill the stage** (Aug 2026). Both were a narrow column hard-LEFT inside the 800px
+  stage — the settings cards stopped 180px short of a heading that spanned the whole width, and the signed-out
+  sign-in form 340px short — so each page read as half-drawn on a laptop. `.settings` is now a grid that fills
+  the stage and pairs the cards into two columns at ≥900px (`.set-wide` for the theme picker and `.danger`,
+  which should never sit quietly beside something else, span both). Centring the column instead would have
+  broken the left edge's alignment with the heading, which is why it isn't done that way. The signed-out
+  account page splits into `.auth-split`: the form on the left and the three `.auth-perks` bullets — already
+  written, previously stacked under it — in a column beside it at ≥820px, saying what an account is for at the
+  moment a reader is deciding whether to make one.
 - **Collection identity (Library)**: `COLL_THEME` (app.js) maps each collection id → `{ bg }`, a signature hue
   (`--coll-bg`, consumed by every theme's STATIC banner treatment in styles.css — the old drifting SVG motif system
   AND the gold `COLL_SEAL` emblem circles were both removed on request; banners carry only the hue wash + level
@@ -1202,12 +1240,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   show a ghost of their hue (row opacity .62). Deck rows inside a collection take the collection hue as their left
   hairline (`--coll-bg` inherits from the `.collection` root; branches stay ochre). If a collection is ever recreated
   under a new id, update `COLL_THEME` (and `COLLECTION_NUMERALS`).
-- **Library layout (`PAGES.decks`)**: "All decks" is a plain group; **"Coming soon" is a `<details>` disclosure**
+- **Library layout (`PAGES.decks`)**: "Collections" is a plain group; **"Coming soon" is a `<details>` disclosure**
   (`.collection-group-soon`), collapsed for visitors and **`open` for admins** — the library drag-and-drop needs its
   drop targets reachable, and moving a collection between the two groups is an editor workflow. This exists because
   the collections still being written far outnumber the finished ones (currently 6 to 1), and listing them flat made
   the Library read as empty. A live collection's banner also carries a **card count** (`.collection-count`, from
   `subtreeCardIds`) — the one number that says there is something to study here.
+  (The first group was labelled "All decks" until Aug 2026, which contradicted both the hierarchy —
+  collection → deck → subdeck — and the page's own title.)
+  **A coming-soon collection shows its name and the pill, and nothing else** (Aug 2026): it used to carry a
+  `Level 1` badge over an XP bar reading `0 / 3 cards` — a progress meter towards a level in a collection
+  that cannot be studied, and a figure that reads as a card count when the collection holds no cards. Six of
+  the seven collections are coming-soon, so that was most of the Library saying nothing. With the meter gone
+  the row's opacity fade no longer has to cover one, so it eases from `.62` to `.78` (at `.62`, over a tinted
+  wash, the title and pill sat near the contrast floor).
 - **Collections count their level in their own script** (`levelBadgeMarkup(xp, sys)` + `numeralIn(sys, n)`; the id→system map is
   `COLLECTION_NUMERALS`): China → Chinese numerals (`一 二 三 …` via `cnNumeral()`, Han font — `一` for level 1 is a single
   horizontal stroke, so it reads as a bar until level 2+), Ancient Rome (col-40) → Roman numerals, Ancient Greece (col-13) →
@@ -1218,6 +1264,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - **Mobile** (`@media max-width:640px`): page content is centred (`.page-head{text-align:center}`); the top nav is condensed
   (the admin-only Editor/Visitor `.mode-switch` is hidden, controls shrunk) and horizontally scrollable so every item fits and
   the bar spans edge-to-edge.
+- **The bottom tab bar (`.tabbar`, phones only — Aug 2026, on request).** The top bar held NINE icon-only
+  controls in a scrolling strip at the top of a 390px screen — the four destinations plus theme, edit,
+  account, settings and language — all out of the thumb's arc and none of them named. The four destinations
+  move to a fixed bottom bar and `.topbar .nav.left` hides at the same breakpoint; the top bar keeps the
+  rarely-pressed controls. It is **static markup in index.html** and reuses `.tab` + `data-route`, so
+  `setActiveTab` and the boot-time `querySelectorAll(".tab")` wiring cover it with no new code — but note
+  that same query runs ONCE over the static DOM, so a nav item added later still has to live in index.html.
+  Every tab is labelled here (the top bar's labels unfold on hover, and a phone has no hover). Hidden while
+  `body.grading`: the grade bar owns that edge, and a session is a place you finish rather than browse from.
+  **Two custom properties keep everything anchored to the bottom in step**: `--tabbar-h` (0 above the
+  breakpoint, 58px below) and `--timebar-h` (96px, 118px once the Atlas timeline goes to two rows).
+  `.globe-stage` and `.atlas-timebar` are each written ONCE against them rather than restated per
+  breakpoint — which is how their old hard-coded `96px`/`118px` pair would have drifted apart the moment a
+  third bar appeared. `.stage`, `#toast` and `.admin-edit-fab` take the same offset.
 - **Reduced motion:** styles.css ends with a **global killswitch** — `@media (prefers-reduced-motion:reduce){ *,*::before,*::after
   { animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; } }`.
   It covers every CSS animation and transition in the file (entrance animations land on their end state), so a new one usually
@@ -1258,6 +1318,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   NON-LINEAR** (`year2frac`/`frac2year`, exact inverses used by every rail position — pin, fill, ticks, marks): the
   map-less 1000 BCE – 1500 CE span compresses into the left `TL_KNEE_F = 15%` and 1500 → present stretches over the rest.
   The `.tl-mark` map-year ticks are **focusable buttons** (click = jump, title/aria-label = "1500 CE — <era label>").
+  **The rail gets its own row on a phone** (≤560px, Aug 2026): one flex row could not hold a play button, a
+  ~170px year box AND the rail, so at 390px the rail was squeezed to about **70px** — which is why its five
+  year labels piled into an 80px band as an unreadable smudge and stopped lining up with the marks they
+  annotate. The timebar becomes a two-row grid (`"play year" / "rail rail"`) and `--timebar-h` goes to 118px.
+  **`layoutTicks()` then thins the labels to the ones that fit**: they are positioned off the same
+  `year2frac` as everything else, so a colliding label is DROPPED rather than nudged — moving one off its
+  year would make it a lie. The two ENDS are always kept (they are what fixes the scale), so an inner label
+  must clear both its left neighbour and the right anchor; it re-runs from `resize()`, and it has to unhide
+  everything before measuring because a hidden element has no width.
   A **plate-title cartouche** (`#mapCartouche`, top-centre, hidden ≤640px, updated by `paintYear`) shows "THE WORLD ·
   1938" / "THE WORLD TODAY". The disk gets **limb shading + an atmosphere halo** as **two DOM layers, NOT canvas
   gradients**: `#globeHalo` (below the canvas) + `#globeShade` (above it, `z-index:1`), radial-gradient divs sized to
@@ -1283,6 +1352,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `flyDoneT` timeout and re-checks `eraKey(year)` against the era it took off for, so it can never resurrect a
   selection on an era the user navigated to meanwhile. The dropdown's `.gs-results[hidden]{display:none}` override is
   required (author `display:flex` beats the UA hidden rule — codebase convention, cf. `.country-pop[hidden]`).
+  **On a phone the search and the legend are CHIPS** (≤640px, Aug 2026): open, they covered the whole
+  top-right of a 390px screen — the map — before the reader had asked for either (the legend alone is
+  126×196). The search collapses behind `#gsToggle` and expands across the full width of the stage when
+  tapped (a 38vw field fits about four characters), and the legend starts `collapsed` there and shrinks to a
+  34px round chip, reusing the collapse toggle it already had. `.gs-toggle{display:none}` is the desktop
+  base rule and the phone block **must come after it in source order** — media queries add no specificity,
+  so the base rule silently won when the block was placed first, and the chip never appeared.
+  The `.globe-hint` ("drag to rotate · scroll or +/− to zoom") is hidden under `@media (hover:none)`: it is
+  written for a mouse.
   **Change-over-time features (batch 2):** `terrOf(era)`/`ownerAt`/`ownerIdxAt` are the cross-era lookup (per-era.id cache
   `_terrCache`, cleared by `mapBump` + the groups→geo materialization in `enterMapEdit`; smallest-bbox tie-break so enclaves
   beat their surrounder, like `countryAt`). Stepping ONE map-year pulses the territories that changed hands (`pulseChanges` —
