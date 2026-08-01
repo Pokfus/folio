@@ -401,14 +401,50 @@ async function closeGloss(page) {
   await page.waitForTimeout(900);
   await page.evaluate(() => { const r = document.querySelector(".admin-card-row .acr-open"); if (r) r.click(); });
   await page.waitForTimeout(700);
-  const hasBox = await page.locator("#cesSources").count() === 1;
-  check("the card editor has a sources box", hasBox);
+  const hasBox = await page.locator("#cesSrcList").count() === 1;
+  check("the card editor has a sources list", hasBox);
   if (hasBox) {
-    // typed with a stray blank line, which must not survive into the store
-    await page.fill("#cesSources", "Delta Author, <i>A Fourth Work</i> (City: Press, 2006), 40.\n\nEpsilon Author, <i>A Fifth</i> (2007), 50.");
+    /* The citations are edited AS THEY READ, so the row is a rich contenteditable and not a textarea line:
+       what an author types is what the card shows, italics included. */
+    check("...as rich rows, not as HTML text", await page.locator(".ces-srcitem[contenteditable]").count() > 0);
+    check("...rendering a shipped citation's italics rather than its tags",
+      await page.evaluate(() => {
+        const el = document.querySelector(".ces-srcitem");
+        return !!el && (el.querySelector("i") ? true : !/&lt;i&gt;|<i>/.test(el.textContent));
+      }));
+    const rows0 = await page.locator(".ces-srcitem").count();
+    // the ribbon's +Source button: a marker in the background AND a blank citation, in one press
+    await page.evaluate(() => {
+      const ab = document.querySelector('[data-field="abstract"]');
+      ab.contentEditable = "true"; ab.focus();
+      const r = document.createRange(); r.selectNodeContents(ab); r.collapse(false);
+      const s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+    });
+    await page.waitForTimeout(200);
+    await page.evaluate(() => { const b = document.querySelector("#rtFootnote"); if (b) b.click(); });
+    await page.waitForTimeout(600);
+    const fn = await page.evaluate(() => {
+      const ab = document.querySelector('[data-field="abstract"]');
+      const sups = ab ? ab.querySelectorAll("sup.fn") : [];
+      const last = sups.length ? sups[sups.length - 1] : null;
+      return { rows: document.querySelectorAll(".ces-srcitem").length, marker: last ? last.getAttribute("data-fn") : null, empty: last ? last.innerHTML === "" : null };
+    });
+    check("+Source adds a marker in the background", fn.marker !== null, JSON.stringify(fn));
+    // the digit is a starting value only — the card draws the real one from the list, so the marker ships EMPTY
+    check("...written empty, so the card numbers it", fn.empty === true);
+    check("...and a blank citation waiting below", fn.rows === rows0 + 1, rows0 + " -> " + fn.rows);
+
+    // typing into the rows: the store takes one entry per non-blank row
+    await page.evaluate(() => {
+      const rows = document.querySelectorAll(".ces-srcitem");
+      const set = (el, html) => { el.innerHTML = html; el.dispatchEvent(new Event("input", { bubbles: true })); };
+      set(rows[0], "Delta Author, <i>A Fourth Work</i> (City: Press, 2006), 40.");
+      if (rows[1]) set(rows[1], "Epsilon Author, <i>A Fifth</i> (2007), 50.");
+      for (let i = 2; i < rows.length; i++) set(rows[i], "");   // a blank row must not survive into the store
+    });
     await page.waitForTimeout(800);
-    /* Read the OVERLAY, not the box: Chrome restores a textarea's value across a same-URL navigation, so
-       a reload-and-re-read of the field would pass whether or not anything was ever stored. */
+    /* Read the OVERLAY, not the rows: Chrome can restore field state across a same-URL navigation, so a
+       reload-and-re-read of the rows alone would pass whether or not anything was ever stored. */
     const delta = await page.evaluate(() => {
       const o = JSON.parse(localStorage.getItem("folio_admin_v1") || "{}");
       const k = Object.keys(o.cards || {}).find((id) => (o.cards[id] || {}).sources);
@@ -416,15 +452,13 @@ async function closeGloss(page) {
     });
     check("typing citations writes a `sources` delta to the admin overlay", Array.isArray(delta), JSON.stringify(delta));
     if (Array.isArray(delta)) {
-      check("...one entry per non-blank line", delta.length === 2, JSON.stringify(delta));
+      check("...one entry per non-blank row", delta.length === 2, JSON.stringify(delta));
       check("...keeping the citation's markup", delta[0].includes("<i>A Fourth Work</i>"), delta[0]);
     }
     await page.goto(base + "#admin", { waitUntil: "load" });
     await page.waitForTimeout(1400);
-    const applied = await page.evaluate(() => {
-      const t = document.querySelector("#cesSources");
-      return t ? t.value.split("\n").filter((l) => l.trim()).length : -1;
-    });
+    const applied = await page.evaluate(() =>
+      [...document.querySelectorAll(".ces-srcitem")].filter((el) => el.textContent.trim()).length);
     check("the citations come back into the editor after a reload", applied === 2, String(applied));
   }
 

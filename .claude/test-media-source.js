@@ -76,26 +76,26 @@ const cardDelta = (page, id, key) => page.evaluate((a) => {
   await page.goto(base + "#admin", { waitUntil: "load" });
   await page.waitForTimeout(1400);
   await openCard(page, "wh-002");
-  check("the card editor has an image panel", await page.locator("#cesImgPanel").count() === 1);
-  await page.locator("#cesImgSlot").first().click();
+  check("the card editor has one media panel", await page.locator("#cesMediaPanel").count() === 1);
+  await page.locator("#cesMediaSlot").first().click();
   await page.waitForTimeout(300);
-  check("clicking the slot opens it", await page.locator("#cesImgPanel").isVisible());
-  check("title/description/source are hidden until a URL is typed", !(await page.locator("#cesImgMeta").isVisible()));
+  check("clicking the slot opens it", await page.locator("#cesMediaPanel").isVisible());
+  check("title/description/source are hidden until a URL is typed", !(await page.locator("#cesMediaMeta").isVisible()));
 
-  await typeInto(page, '[data-imgfield="src"]', PIC);
+  await typeInto(page, '[data-mediafield="src"]', PIC);
   check("an uncredited URL is NOT written to the store", (await cardDelta(page, "wh-002", "image")) === null);
-  check("...but the panel says so, where it was typed", await page.locator("#cesImgPanel .af-reqnote").isVisible());
-  check("...and the picture is still shown, flagged as unsaved", await page.locator("#cesImgSlot .ces-media-pending").count() === 1);
-  check("...with a legible flag rather than a silent outline", await page.locator("#cesImgSlot .ces-media-flag").isVisible());
-  check("...and the source box is now reachable", await page.locator("#cesImgMeta").isVisible());
+  check("...but the panel says so, where it was typed", await page.locator("#cesMediaPanel .af-reqnote").isVisible());
+  check("...and the picture is still shown, flagged as unsaved", await page.locator("#cesMediaSlot .ces-media-pending").count() === 1);
+  check("...with a legible flag rather than a silent outline", await page.locator("#cesMediaSlot .ces-media-flag").isVisible());
+  check("...and the source box is now reachable", await page.locator("#cesMediaMeta").isVisible());
 
   // leaving the URL field asks for the source outright. `change` is dispatched by hand because typeInto
   // sets the value programmatically, and a browser only fires change for a value a person edited.
-  await page.evaluate(() => { document.querySelector('[data-imgfield="src"]').dispatchEvent(new Event("change", { bubbles: true })); });
+  await page.evaluate(() => { document.querySelector('[data-mediafield="src"]').dispatchEvent(new Event("change", { bubbles: true })); });
   await page.waitForTimeout(400);
   check("leaving the URL field asks for a source", await page.locator(".inline-prompt").isVisible());
   await dismissPrompt(page);
-  check("declining leaves it pending", await page.locator("#cesImgPanel .af-reqnote").isVisible());
+  check("declining leaves it pending", await page.locator("#cesMediaPanel .af-reqnote").isVisible());
   check("...and still unsaved", (await cardDelta(page, "wh-002", "image")) === null);
 
   // navigating away warns rather than losing it in silence
@@ -105,14 +105,14 @@ const cardDelta = (page, id, key) => page.evaluate((a) => {
   await page.evaluate(() => { location.hash = "#admin"; });
   await page.waitForTimeout(900);
   await openCard(page, "wh-002");
-  await page.locator("#cesImgSlot").first().click();
+  await page.locator("#cesMediaSlot").first().click();
   await page.waitForTimeout(300);
-  check("the uncredited URL really was dropped", (await page.locator('[data-imgfield="src"]').inputValue()) === "");
+  check("the uncredited URL really was dropped", (await page.locator('[data-mediafield="src"]').inputValue()) === "");
 
   // the notice's own button asks again, and an answer saves the whole object at once
-  await typeInto(page, '[data-imgfield="src"]', PIC);
+  await typeInto(page, '[data-mediafield="src"]', PIC);
   await dismissPrompt(page);
-  await page.locator("#cesImgPanel .afr-btn").click();
+  await page.locator("#cesMediaPanel .afr-btn").click();
   await page.waitForTimeout(350);
   await page.locator(".inline-prompt .ip-input").fill("Wikimedia Commons, public domain");
   await page.locator(".inline-prompt .ip-ok").click();
@@ -120,35 +120,38 @@ const cardDelta = (page, id, key) => page.evaluate((a) => {
   let img = await cardDelta(page, "wh-002", "image");
   check("answering saves the URL", !!(img && img.src === PIC), JSON.stringify(img));
   check("...together with its source", !!(img && img.credit === "Wikimedia Commons, public domain"));
-  check("...and the answer lands in the source box too", (await page.locator('[data-imgfield="credit"]').inputValue()) === "Wikimedia Commons, public domain");
-  check("the notice clears once it is credited", !(await page.locator("#cesImgPanel .af-reqnote").isVisible()));
-  check("...and so does the unsaved flag", await page.locator("#cesImgSlot .ces-media-pending").count() === 0);
+  check("...and the answer lands in the source box too", (await page.locator('[data-mediafield="credit"]').inputValue()) === "Wikimedia Commons, public domain");
+  check("the notice clears once it is credited", !(await page.locator("#cesMediaPanel .af-reqnote").isVisible()));
+  check("...and so does the unsaved flag", await page.locator("#cesMediaSlot .ces-media-pending").count() === 0);
 
   // and the rule holds in reverse: taking the source away takes the picture with it
-  await typeInto(page, '[data-imgfield="credit"]', "");
+  await typeInto(page, '[data-mediafield="credit"]', "");
   img = await cardDelta(page, "wh-002", "image");
   check("clearing the source takes the picture back out of the store", !(img && img.src), JSON.stringify(img));
-  check("...and says so", await page.locator("#cesImgPanel .af-reqnote").isVisible());
-  await typeInto(page, '[data-imgfield="src"]', "");
-  check("clearing the URL leaves nothing pending", !(await page.locator("#cesImgPanel .af-reqnote").isVisible()));
+  check("...and says so", await page.locator("#cesMediaPanel .af-reqnote").isVisible());
+  await typeInto(page, '[data-mediafield="src"]', "");
+  check("clearing the URL leaves nothing pending", !(await page.locator("#cesMediaPanel .af-reqnote").isVisible()));
 
   /* ---------- 2. a shipped, credited picture is untouched by any of this ---------- */
   await openCard(page, "wh-001");
-  check("a shipped picture still renders", await page.locator("#cesImgSlot .card-img img").count() === 1);
-  check("...unflagged, because it carries a source", await page.locator("#cesImgSlot .ces-media-pending").count() === 0);
+  check("a shipped picture still renders", await page.locator("#cesMediaSlot .card-img img").count() === 1);
+  check("...unflagged, because it carries a source", await page.locator("#cesMediaSlot .ces-media-pending").count() === 0);
 
-  /* ---------- 3. the video side of the same surface ---------- */
+  /* ---------- 3. a VIDEO link in the same one box ---------- */
+  // the gate does not care which of the two stores the URL is bound for — but the modal's wording does, and
+  // so does the store it is held out of
   await openCard(page, "wh-003");
-  await page.locator("#cesVidSlot").first().click();
+  await page.locator("#cesMediaSlot").first().click();
   await page.waitForTimeout(300);
-  await typeInto(page, '[data-vidfield="src"]', YT);
+  await typeInto(page, '[data-mediafield="src"]', YT);
   await dismissPrompt(page);
-  check("an uncredited video is held back too", await page.locator("#cesVidPanel .af-reqnote").isVisible());
+  check("an uncredited video is held back too", await page.locator("#cesMediaPanel .af-reqnote").isVisible());
+  check("...named as a video, not as an image", /video/i.test(await page.locator("#cesMediaPanel .afr-txt").textContent()));
   check("...and is absent from the store", (await cardDelta(page, "wh-003", "video")) === null);
-  await typeInto(page, '[data-vidfield="credit"]', "An archive");
+  await typeInto(page, '[data-mediafield="credit"]', "An archive");
   const vid = await cardDelta(page, "wh-003", "video");
-  check("crediting it saves it", !!(vid && vid.src === YT && vid.credit === "An archive"), JSON.stringify(vid));
-  await typeInto(page, '[data-vidfield="src"]', "");
+  check("crediting it saves it as a video", !!(vid && vid.src === YT && vid.credit === "An archive"), JSON.stringify(vid));
+  await typeInto(page, '[data-mediafield="src"]', "");
   await page.waitForTimeout(300);
 
   /* ---------- 4. the curated glossary editor ---------- */

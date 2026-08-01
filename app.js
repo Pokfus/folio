@@ -3753,6 +3753,7 @@
     closeCtxMenu();   // …and dismisses the selection context menu
     closeAllGloss();
     closeImageViewer();   // the fullscreen image viewer never outlives its page
+    closeCongrats();      // …nor the level-up overlay, which a hash change can otherwise strand over the next one
     closeColorMenu();   // the colour menu lives on document.body — make sure it can't outlive its page on hashchange/back nav
     closeGlossPicker();
     closeRtColorMenu();
@@ -3865,6 +3866,12 @@
   function inlinePrompt(message, defaultValue, onOk) { inlineModal(message, true, defaultValue, onOk); }
   function inlineConfirm(message, onOk, okLabel) { inlineModal(message, false, null, () => onOk(), okLabel || "OK"); }
   // full-screen level-up congratulations; items = [{ title, level, sys }]. Dismissed by clicking ANYWHERE on screen or Escape.
+  /* The level-up overlay is dismissed by a click ANYWHERE, so clicking a nav tab takes it away and it looks
+     as though it can't outlive its page. It can: a back/forward, a deep link and any programmatic hash change
+     move the route without a click, and the overlay then sits over whatever renders next. It lives on
+     document.body like the colour menu and the image viewer, so — like them — render() has to close it. */
+  let _congratsClose = null;
+  function closeCongrats() { if (_congratsClose) _congratsClose(); }
   function congratsPopup(items) {
     if (!items || !items.length) return;
     sfx("levelup");
@@ -3893,7 +3900,8 @@
       '<div class="lu-title">Level up!</div><div class="lu-rows">' + rows + '</div>' +
       '<div class="lu-hint">Click anywhere to continue</div></div>';
     document.body.appendChild(ov);
-    const close = () => { ov.remove(); document.removeEventListener("keydown", onKey, true); };
+    const close = () => { ov.remove(); document.removeEventListener("keydown", onKey, true); _congratsClose = null; };
+    _congratsClose = close;   // so render() can dismiss it — see closeCongrats
     function onKey(e) { if (e.key === "Escape" || e.key === "Enter") { e.preventDefault(); e.stopPropagation(); close(); } }
     // defer wiring a tick so the same click that graded the card (and spawned this) doesn't instantly dismiss it
     setTimeout(() => { ov.addEventListener("click", close); document.addEventListener("keydown", onKey, true); }, 0);
@@ -4951,8 +4959,10 @@
           ${o.sub ? `<span class="gt-sub">${o.sub}</span>` : ""}
         </div>
       </button>`;
+    // The sixth slot in the grid. It used to read "Coming soon / —", which names nothing and looks like a tile
+    // that failed to load; it says what it is instead.
     const blankTile = (g, color) =>
-      `<div class="game-tile blank" style="--tile:${color}"><span class="gt-glyph${/^\s*<svg/.test(g) ? " gt-glyph-svg" : ""}">${g}</span><div class="gt-body"><span class="gt-eyebrow">Coming soon</span><span class="gt-title">—</span></div></div>`;
+      `<div class="game-tile blank" style="--tile:${color}"><span class="gt-glyph${/^\s*<svg/.test(g) ? " gt-glyph-svg" : ""}">${g}</span><div class="gt-body"><span class="gt-eyebrow">Coming soon</span><span class="gt-title">More games</span><span class="gt-sub">Another one is being written.</span></div></div>`;
     // once a game is played, its tagline becomes today's (best) score
     const gameSub = (key, fallback, wording) => {
       const g = S.games && S.games[key];
@@ -4980,7 +4990,13 @@
       ${cod ? `<button class="exp-tile exp-card" id="exp-card" type="button" aria-label="Card of the day — click to flip it over">
         <div class="flip">
           <div class="flip-face flip-front">
-            <span class="exp-eyebrow">Card of the day</span>
+            ${/* The tile is a fixed height and the question is often three lines, so the front used to end in a
+                  band of nothing. The card's DECK fills it — deliberately not its era, which on a prehistory
+                  card is most of the answer. It also tells a reader where to go to study more like it. */""}
+            <div class="cod-head"><span class="exp-eyebrow">Card of the day</span>${(() => {
+              const l = cardLeaves(cod.id)[0];
+              return l ? `<span class="cod-where">${esc(nodeWhere(l))}</span>` : "";
+            })()}</div>
             <div class="cod-q">${cod.question}</div>
             <span class="exp-hint">Click to turn the card over</span>
           </div>
@@ -5180,7 +5196,9 @@
         <h1>Collections</h1>
         <p>Curated collections. New subjects are on the way.</p>
       </div>
-      ${available.length || admin ? section("All decks", available.length, "collection-list-all", available.length) : ""}
+      ${/* "Collections", not "All decks": the hierarchy is collection → deck → subdeck, and this group heads a
+            list of collections — the label contradicted both that and the page title above it. */""}
+      ${available.length || admin ? section("Collections", available.length, "collection-list-all", available.length) : ""}
       ${comingSoon.length || admin ? soonSection(comingSoon.length, "collection-list-soon", comingSoon.length) : ""}
       ${communityLibraryHTML()}`;
 
@@ -5532,14 +5550,20 @@
         <div class="collection-row" tabindex="${hasSubs ? 0 : -1}" role="button" data-libitem="${esc(d.id)}" data-libkind="col">
           <div class="collection-deco" aria-hidden="true"></div>
           ${libGripHTML(d.id)}
-          ${levelBadgeMarkup(studied, COLLECTION_NUMERALS[d.id])}
+          ${soon ? "" : levelBadgeMarkup(studied, COLLECTION_NUMERALS[d.id])}
           <div class="collection-main">
             <div class="collection-title-row">
               <span class="collection-title">${esc(nodeTitle(d))}</span>
               ${spanHTML}
               ${soon ? '<span class="pill soon">Coming soon</span>' : `<span class="collection-count">${total} ${total === 1 ? "card" : "cards"}</span>`}
             </div>
-            ${xpBarMarkup(studied)}
+            ${
+              /* A coming-soon collection shows the pill and nothing else. It used to carry a Level 1 badge over
+                 an XP bar reading "0 / 3 cards" — a progress meter towards a level in a collection that cannot
+                 be studied, and a figure that reads as a card count when there are no cards at all. Six of the
+                 seven collections are coming-soon, so this was most of the Library saying nothing. */
+              soon ? "" : xpBarMarkup(studied)
+            }
           </div>
           <div class="collection-actions">
             ${!soon ? `<button class="collection-add${isActive(d.id) ? " added" : ""}" data-id="${d.id}" aria-label="${isActive(d.id) ? "Remove from review" : "Add to review"}">${addIcon(isActive(d.id))}</button>` : ""}
@@ -6405,6 +6429,51 @@
     let studiedThisSession = 0;
     let revealed = false;
 
+    /* ---------- undoing the last grade ----------
+       A misclick on Again or Easy is otherwise unfixable from inside a session: the card has left the queue
+       and its schedule has been rewritten. A grade is LOSSY — the old interval, ease and due date cannot be
+       derived back out of the new ones — and grade() writes in five places at once (the card record, the
+       day's review log, today's first-try tally, the new-card allowance, the streak). So the undo is a
+       snapshot of exactly those, taken on the way in and put back on the way out, together with the queue,
+       which restores a requeued learning step as faithfully as a graduated card.
+       Two things it deliberately does NOT take back, both additive and harmless: a badge or level-up already
+       announced (checkAchievements only ever adds, and un-toasting one would be stranger than keeping it),
+       and a Card of the day already dropped into the daily review. What a misclick actually damages is the
+       schedule, and that is restored exactly. */
+    const UNDO_CAP = 40;   // a session's worth of second thoughts, bounded — each entry holds a copy of the queue
+    const undoStack = [];
+    function undoSnapshot(id) {
+      const d = todayStr();
+      return {
+        id: id,
+        queue: queue.slice(),
+        card: S.cards[id] ? JSON.parse(JSON.stringify(S.cards[id])) : null,
+        day: d,
+        log: (S.reviewLog && S.reviewLog[d]) ? S.reviewLog[d].slice() : null,
+        reviewDay: S.reviewDay ? Object.assign({}, S.reviewDay) : null,
+        intro: S.intro ? Object.assign({}, S.intro) : null,
+        streak: S.streak ? Object.assign({}, S.streak) : null,
+        studied: studiedThisSession,
+      };
+    }
+    function canUndo() { return undoStack.length > 0; }
+    function undoGrade() {
+      const s = undoStack.pop();
+      if (!s) return;
+      if (s.card) S.cards[s.id] = s.card; else delete S.cards[s.id];   // a card graded for the FIRST time goes back to having no record at all
+      if (!S.reviewLog || typeof S.reviewLog !== "object") S.reviewLog = {};
+      if (s.log) S.reviewLog[s.day] = s.log; else delete S.reviewLog[s.day];
+      S.reviewDay = s.reviewDay || null;
+      if (s.intro) S.intro = s.intro;
+      if (s.streak) S.streak = s.streak;
+      queue = s.queue;
+      studiedThisSession = s.studied;
+      save();
+      studyRevealId = s.id;   // the card comes back REVEALED, on the grade row it was mis-answered on
+      renderCard();
+      toast("Grade undone — answer this card again.");
+    }
+
     if (queue.length === 0) {
       // nothing due / no new left — offer to cram remaining unseen, or report all caught up
       const remainingUnseen = sd ? subtreeCardIds(sd).filter((id) => availStudy.has(id) && !isSeen(id) && !isSuspended(id))
@@ -6482,6 +6551,7 @@
             <button class="backbtn" id="exit"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg> ${
               fromHome ? "Home" : "Collections"
             }</button>
+            ${canUndo() ? '<button class="backbtn undobtn" id="undoGrade" title="Go back to the last card and undo its grade (Ctrl+Z)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 14 4 9 9 4"/><path d="M4 9h11a5 5 0 0 1 0 10h-4"/></svg> Undo</button>' : ""}
             <span class="study-where">${esc(sess.where)}</span>
             <div class="counts">
               <span class="cnt new">${rc.nw}</span>
@@ -6521,6 +6591,7 @@
       root.querySelector("#exit").addEventListener("click", () =>
         route(fromHome ? "home" : "decks")
       );
+      { const ub = root.querySelector("#undoGrade"); if (ub) ub.addEventListener("click", undoGrade); }
       function suspendCurrent() {
         if (!S.suspended) S.suspended = {};
         S.suspended[id] = Date.now();
@@ -6585,7 +6656,7 @@
         actions.innerHTML = "";
         showGradeBar(
           `<div class="grade-wrap">
-            <button class="grade-help" type="button" aria-label="What do these buttons do?">?<span class="grade-help-bubble"><span class="ghb-title">How well did you recall it?</span><span class="ghb-row"><b>Again</b>Forgot it — the card returns within minutes.</span><span class="ghb-row"><b>Hard</b>Recalled with effort — scheduled sooner than usual.</span><span class="ghb-row"><b>Good</b>Recalled correctly — the interval grows normally.</span><span class="ghb-row"><b>Easy</b>Knew it instantly — the interval grows the most.</span><span class="ghb-row"><b>Suspend</b>Not interested — the card won’t be shown again.</span></span></button>
+            <button class="grade-help" type="button" aria-label="What do these buttons do?">?<span class="grade-help-bubble"><span class="ghb-title">How well did you recall it?</span><span class="ghb-row"><b>Again</b>Forgot it — the card returns within minutes.</span><span class="ghb-row"><b>Hard</b>Recalled with effort — scheduled sooner than usual.</span><span class="ghb-row"><b>Good</b>Recalled correctly — the interval grows normally.</span><span class="ghb-row"><b>Easy</b>Knew it instantly — the interval grows the most.</span><span class="ghb-row"><b>Suspend</b>Not interested — the card won’t be shown again.</span><span class="ghb-keys">On a keyboard: <kbd>Space</kbd> reveals, <kbd>1</kbd>–<kbd>4</kbd> grade, <kbd>Enter</kbd> is Good, and <kbd>Ctrl</kbd>+<kbd>Z</kbd> takes the last grade back.</span></span></button>
             <div class="grades">
               <button class="grade again" data-g="again"><span class="gl">Again</span><span class="gi">${fmtInterval(p.again)}</span><span class="gk">1</span></button>
               <button class="grade hard" data-g="hard"><span class="gl">Hard</span><span class="gi">${fmtInterval(p.hard)}</span><span class="gk">2</span></button>
@@ -6601,6 +6672,10 @@
       }
 
       function doGrade(g) {
+        // snapshot BEFORE anything is written, and before the queue is shifted — the queue is half of what
+        // an undo has to restore, since a learning step is requeued and a graduated card is not
+        undoStack.push(undoSnapshot(id));
+        if (undoStack.length > UNDO_CAP) undoStack.shift();
         const wasSeen = isSeen(id);
         const res = grade(id, g);
         if (!wasSeen) studiedThisSession++;
@@ -6621,6 +6696,17 @@
       // keyboard
       cardRoot._keys = function (e) {
         const typing = document.activeElement && document.activeElement.classList && document.activeElement.classList.contains("blank-input");
+        /* Ctrl/Cmd+Z steps back a card and takes its grade off — the same shortcut the editor uses, and for
+           the same reason. The cloze box takes focus as each card opens, so refusing outright whenever it is
+           focused would mean the shortcut never worked at the one moment it is wanted: on the card AFTER the
+           misclick, which has just opened with an empty box. So it yields to the browser's own typing-undo
+           only while there is typing to undo — a guess already in the box. Press it again and the grade goes. */
+        const clozeTyping = typing && !!String(document.activeElement.value || "").trim();
+        if ((e.ctrlKey || e.metaKey) && !e.altKey && String(e.key).toLowerCase() === "z" && !clozeTyping) {
+          e.preventDefault();
+          if (canUndo()) undoGrade(); else toast("Nothing to undo — this is the first card of the session.");
+          return;
+        }
         if (!revealed && e.key === "Enter") {
           e.preventDefault();
           showAnswer();
@@ -6657,12 +6743,16 @@
         <p>You worked through ${studiedThisSession} card${studiedThisSession === 1 ? "" : "s"}. Your progress is saved.</p>
         <div class="row">
           <button class="btn" id="more">Keep studying</button>
+          ${canUndo() ? '<button class="btn ghost" id="undoLast">Undo the last card</button>' : ""}
           <button class="btn ghost" id="home">Back ${fromHome ? "home" : "to collections"}</button>
         </div>`;
       root.appendChild(card);
       card.querySelector("#home").addEventListener("click", () =>
         route(fromHome ? "home" : "decks")
       );
+      // the last card of a session is exactly where a misclick is hardest to live with — the queue is empty
+      // and there is no card left to press Undo on, so the way back sits here too
+      { const ul = card.querySelector("#undoLast"); if (ul) ul.addEventListener("click", undoGrade); }
       card.querySelector("#more").addEventListener("click", () => route("study", params));
     }
   };
@@ -7113,7 +7203,9 @@
      deck file and an installed community deck all render exactly as before. This is a guard against
      forgetting while writing, not a validity rule imposed on other people's decks. */
   const MEDIA_FIELDS = ["src", "title", "desc", "credit"];
-  function mediaKindLabel(kind) { return kind === "video" ? "video" : "image"; }
+  // `kind` may be a getter: the card editor's single frame decides picture-or-clip from the URL as it is
+  // typed, so the wording of the "where does this come from?" modal has to be read at the moment it opens
+  function mediaKindLabel(kind) { return (typeof kind === "function" ? kind() : kind) === "video" ? "video" : "image"; }
   function askMediaSource(kind, onGot) {
     const k = mediaKindLabel(kind);
     inlineModal(
@@ -7874,7 +7966,7 @@
             <div class="ah-card">
               <button class="ah-close" id="ahClose" type="button" aria-label="Close">×</button>
               <h3>Reading the Atlas</h3>
-              <div class="ah-tip"><b>Move</b> — drag to spin the globe; scroll, pinch or the +/− buttons zoom. Arrow keys rotate too.</div>
+              <div class="ah-tip"><b>Move</b> — drag to spin the globe; scroll, pinch or the +/− buttons zoom. From the keyboard: arrows rotate, + and − zoom, <kbd>[</kbd> and <kbd>]</kbd> step through the mapped years, Enter selects whatever is at the centre and Esc clears it.</div>
               <div class="ah-tip"><b>Click</b> — one click selects a state (on old maps, its whole empire); a double-click drills into a single territory; a triple-click reaches the UK's home nations.</div>
               <div class="ah-tip"><b>Time-travel</b> — the dots on the timeline are the mapped years: click one, press ▶ to play through them, or search any place across the centuries (top-right).</div>
               <div class="ah-tip"><b>A caution</b> — historical borders are rough estimates and should never be taken as factually accurate. Many past frontiers were vague, disputed or simply never recorded, so read every old map as an approximation rather than a precise picture of the world.</div>
@@ -7882,6 +7974,9 @@
             </div>
           </div>
           <div class="globe-search" id="globeSearch">
+            ${/* the phone's collapsed state: a chip that opens the field across the stage. Hidden on desktop,
+                  where a 240px box in the corner costs nothing. */""}
+            <button class="gs-toggle" id="gsToggle" type="button" aria-label="Search the atlas" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg></button>
             <input type="text" id="gsInput" placeholder="Search the atlas…" autocomplete="off" spellcheck="false" aria-label="Search countries, territories and capitals" />
             <div class="gs-results" id="gsResults" role="listbox" hidden></div>
           </div>
@@ -7893,7 +7988,9 @@
           <div class="globe-legend" id="globeLegend" role="group" aria-labelledby="legendTitle">
             <div class="legend-head" id="legendHead">
               <span class="legend-title" id="legendTitle">Legend</span>
-              <button class="legend-collapse" id="legendCollapse" type="button" aria-label="Collapse legend" aria-expanded="true">–</button>
+              ${/* on a phone the collapsed legend shrinks to a round chip, and a dash on a chip reads as nothing —
+                    so the button carries both glyphs and the CSS shows whichever the state calls for */""}
+              <button class="legend-collapse" id="legendCollapse" type="button" aria-label="Collapse legend" aria-expanded="true"><span class="lc-sign">–</span><svg class="lc-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg></button>
             </div>
             <div class="legend-body" id="legendBody">
               <label class="legend-row"><input type="checkbox" id="bordersToggle" checked><span>Borders</span></label>
@@ -7923,21 +8020,21 @@
           </div>
           <div class="country-pop" id="countryPop" hidden role="status" aria-live="polite">
             <button class="cp-close" id="cpClose" type="button" aria-label="Close">×</button>
+            <div class="cp-head">
+              <div class="cp-crumb" id="cpCrumb" hidden></div>
+              <div class="cp-name" id="cpName"></div>
+              <div class="cp-span" id="cpSpan"></div>
+              <div class="cp-new" id="cpNew" hidden></div>
+              <div class="cp-tools">
+                <button class="cp-tool" id="cpHistory" type="button" title="Who ruled this spot in every mapped year?"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 14"/></svg>Through the ages</button>
+                <button class="cp-tool" id="cpCopyLink" type="button" title="Copy a link to this year + place"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>Copy link</button>
+              </div>
+              <div class="cp-hist" id="cpHistList" hidden></div>
+            </div>
             <div class="cp-cols">
-              <div class="cp-main">
-                <div class="cp-crumb" id="cpCrumb" hidden></div>
-                <div class="cp-name" id="cpName"></div>
-                <div class="cp-span" id="cpSpan"></div>
-                <div class="cp-new" id="cpNew" hidden></div>
-                <div class="cp-tools">
-                  <button class="cp-tool" id="cpHistory" type="button" title="Who ruled this spot in every mapped year?"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 14"/></svg>Through the ages</button>
-                  <button class="cp-tool" id="cpCopyLink" type="button" title="Copy a link to this year + place"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>Copy link</button>
-                </div>
-                <div class="cp-hist" id="cpHistList" hidden></div>
-                <div class="cp-sec" id="cpDescSec">
-                  <button class="cp-sec-head" type="button" aria-expanded="true"><span class="cp-sec-t">Description</span>${cpChev}</button>
-                  <div class="cp-sec-body"><div class="cp-desc" id="cpDesc"></div></div>
-                </div>
+              <div class="cp-sec" id="cpDescSec">
+                <button class="cp-sec-head" type="button" aria-expanded="true"><span class="cp-sec-t">Description</span>${cpChev}</button>
+                <div class="cp-sec-body"><div class="cp-desc" id="cpDesc"></div></div>
               </div>
               <div class="cp-year cp-sec" id="cpYearSec">
                 <button class="cp-sec-head" type="button" aria-expanded="true"><span class="cp-year-num" id="cpYearNum"></span>${cpChev}</button>
@@ -7959,6 +8056,7 @@
                 <div class="cp-sec-body"><div class="cp-src" id="cpSrc"></div></div>
               </div>
             </div>
+            <div class="cp-dots" id="cpDots" hidden></div>
           </div>
         </div>
         <div class="atlas-timebar"${GAME ? " inert" : ""}>
@@ -8073,15 +8171,49 @@
     let cpCrumbEl = null, cpHistListEl = null;   // drill breadcrumb + the "Through the ages" strip
     let cpColsEl = null, cpDescSecEl = null, cpYearSecEl = null, cpStatsSecEl = null;   // the scroller + the three collapsible sections
     let cpSrcEl = null, cpSrcSecEl = null;   // the citations behind this place's prose (hidden outright when it has none)
+    let cpDotsEl = null;   // the phone pager's dots (one per pane it can reach)
     /* Each section opens or closes as the popup is filled: open when it has something to say, closed when it
        doesn't, so a place with no year paragraph and no figures shows two quiet headers instead of a dash and
        a grid of dashes. This RESETS on every entity — the reader's manual toggles belong to the popup they
-       were made in, not to the next country. */
-    function cpSection(sec, hasContent) {
+       were made in, not to the next country.
+       `cp-blank` is the same fact told to the PHONE, where the sections are pages you swipe rather than folds
+       you scroll past: an empty page is a swipe that lands on a dash, so it is dropped from the pager instead
+       of collapsed. `alwaysPane` keeps a section in the pager even with nothing of its own — the description
+       carries a "no description yet" line, and the reader must always land on that page first. */
+    function cpSection(sec, hasContent, alwaysPane) {
       if (!sec) return;
       sec.classList.toggle("collapsed", !hasContent);
+      sec.classList.toggle("cp-blank", !hasContent && !alwaysPane);
       const head = sec.querySelector(".cp-sec-head");
       if (head) head.setAttribute("aria-expanded", hasContent ? "true" : "false");
+    }
+    /* The phone lays the sections out side by side (see the ≤720px block in styles.css) because a bottom
+       sheet is short and scrolling four stacked sections buries the figures below the fold. The dots say
+       there is more than one page — a horizontal scroller with no marker reads as a panel that just happens
+       to be cut off — and double as the way to reach a page without swiping. */
+    const cpPagerOn = () => !!(cpColsEl && window.matchMedia && window.matchMedia("(max-width:720px)").matches);
+    const cpPanes = () => (cpColsEl ? Array.prototype.filter.call(cpColsEl.children, (s) => !s.hidden && !s.classList.contains("cp-blank")) : []);
+    function cpSyncDots() {
+      if (!cpDotsEl) return;
+      const panes = cpPagerOn() ? cpPanes() : [];
+      if (panes.length < 2) { cpDotsEl.hidden = true; cpDotsEl.innerHTML = ""; return; }
+      cpDotsEl.innerHTML = panes.map((p, i) => {
+        const t = p.querySelector(".cp-sec-t, .cp-year-num");
+        return '<button class="cp-dot' + (i ? "" : " on") + '" type="button" data-i="' + i + '" aria-label="' + esc((t && t.textContent.trim()) || ("Page " + (i + 1))) + '"></button>';
+      }).join("");
+      cpDotsEl.hidden = false;
+    }
+    function cpActiveDot() {   // whichever pane the scroller has settled nearest to
+      if (!cpDotsEl || cpDotsEl.hidden || !cpColsEl) return;
+      const panes = cpPanes(), w = cpColsEl.clientWidth || 1;
+      const i = Math.max(0, Math.min(panes.length - 1, Math.round(cpColsEl.scrollLeft / w)));
+      Array.prototype.forEach.call(cpDotsEl.children, (d, k) => d.classList.toggle("on", k === i));
+    }
+    // crossing the pager's breakpoint (a rotated phone, a dragged window edge) changes what the sections ARE
+    function cpResize() {
+      if (!cpEl || cpEl.hidden) { if (cpDotsEl) { cpDotsEl.hidden = true; cpDotsEl.innerHTML = ""; } return; }
+      if (!cpPagerOn() && cpColsEl) cpColsEl.scrollLeft = 0;   // back to the stacked layout: a leftover offset would hide the text
+      cpSyncDots(); cpActiveDot();
     }
     let popPointLL = null;    // the lon/lat that opened the popup (the click point, or a search anchor) — feeds the crumb parent + "Who ruled here?"
     let popEntityName = "";   // the ENTITY name behind the popup (cpName shows the official long-form) — feeds Copy link
@@ -8183,7 +8315,7 @@
       const mainDesc = stripInfoNoise(desc);
       cpDescEl.textContent = mainDesc || ("No description for " + name + " yet.");
       if (mainDesc) { autoLinkGlossary(cpDescEl, name, []); setupTooltips(cpDescEl); }   // auto-link glossary terms (skip the place's own name), like card backgrounds
-      cpSection(cpDescSecEl, !!mainDesc);
+      cpSection(cpDescSecEl, !!mainDesc, true);   // always a page of its own — it is the one the popup opens on
       cpYearNumEl.textContent = year < 0 ? (-year) + " BCE" : year + " CE";
       const colDesc = forceGeneral ? "" : stripInfoNoise(yd);   // the per-year paragraph for THIS map-year (the general description above stays constant)
       cpYearDescEl.textContent = colDesc || "—";
@@ -8216,10 +8348,13 @@
       if (cpSrcEl) cpSrcEl.innerHTML = sourceListHTML(psrc);   // the list arrives with its links and chips already built
       if (cpSrcSecEl) { cpSrcSecEl.hidden = !psrc.length; cpSection(cpSrcSecEl, !(S.settings && S.settings.srcCollapsed)); }
       cpEl.hidden = false;
-      // a fresh entity starts at the top of its own panel. The popup element is REUSED, so without this the
-      // scroller keeps however far down the previous country the reader had got — on the phone's short bottom
-      // sheet that opens the next country halfway through it.
-      if (cpColsEl) cpColsEl.scrollTop = 0;
+      // A fresh entity starts at the beginning of its own panel — the general description, in both layouts.
+      // The popup element is REUSED, so without this the scroller keeps wherever the previous country left
+      // it: however far DOWN it on the desktop panel, and on the phone however far ACROSS, which would open
+      // the next country on its figures. `scrollLeft` is set with the pages already laid out, so it lands on
+      // page one rather than on a stale offset.
+      if (cpColsEl) { cpColsEl.scrollTop = 0; cpColsEl.scrollLeft = 0; }
+      cpSyncDots(); cpActiveDot();
     }
     function hideCountryPopup() { if (cpEl) cpEl.hidden = true; }
 
@@ -8308,6 +8443,11 @@
     function mapEditPointerUp() { if (!mapDragging) return; mapDragging = false; mapDragV = -1; mapDragCity = -1; mapBump(); }
     function drawEraCities(era, editable) {   // place markers (+ labels when zoomed) for an era's capitals/cities
       const cs = era.cities || []; if (!cs.length) return;
+      // A pin and its name are ONE thing: the label layout waits for the settled frame, so drawing the dots
+      // through a drag left anonymous markers scattered over the globe. The whole layer now goes with the
+      // labels — visible when still, gone while moving — rather than half of it surviving the gesture.
+      // The map editor is exempt: its pins are what you are dragging, and hiding them mid-drag hides the work.
+      if (moving && !editable) return;
       ctx.save(); ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.clip();
       const showLabels = zoom >= CAP_Z && !moving; const baseFs = clamp(10 + (zoom - 2) * 1.1, 10, 13.5); ctx.textAlign = "left"; ctx.textBaseline = "middle";   // same label sizing as the present-day map; labels (and their per-city measureText) wait for the settled frame
       for (let i = 0; i < cs.length; i++) { const c = cs[i]; proj(c.lon, c.lat); if (PV < 0) continue; const sel = editable && i === mapSelCity;
@@ -9025,18 +9165,13 @@
     }
     // pins + labels; tiers are hard on/off (no fade) and the layout is recomputed every view change (incl. while moving)
     function drawCities(showCap, showCities, showDiv) {
+      // The label layout (a spatial grid plus thousands of short-lived rect arrays per frame) is too costly
+      // for a motion frame, so it only runs once the globe settles. Drawing the PINS anyway left a field of
+      // nameless dots through every drag and zoom — a pin and its name are one thing, so the whole layer
+      // now waits together instead of half of it surviving the gesture.
+      if (moving) return;
       ctx.save();
       ctx.textAlign = "left"; ctx.textBaseline = "middle"; ctx.lineJoin = "round";
-      if (moving) {   // motion frames: PINS only — the label layout (spatial grid + thousands of short-lived rect arrays per
-        for (let i = 0; i < CITIES.length; i++) {   // frame) waits for the settled frame; labels reappearing on release is standard map behaviour
-          const ci = CITIES[i], tier = ci.r;
-          if (tier === 0 ? !showCap : tier === 1 ? !showCities : !showDiv) continue;
-          proj(ci.c[0], ci.c[1]); if (PV < 0) continue;
-          if (PX < -20 || PX > W + 20 || PY < -20 || PY > H + 20) continue;
-          drawPin({ x: PX, y: PY, dot: cityDot(tier), tier: tier });
-        }
-        ctx.restore(); return;
-      }
       const key = rotLon.toFixed(2) + "," + rotLat.toFixed(2) + "," + zoom.toFixed(3) + "," + W + "," + H + "," + (showCap ? 1 : 0) + (showCities ? 1 : 0) + (showDiv ? 1 : 0) + (countryNamesOn ? "C" : "");
       if (key !== cityCacheKey) { cityCache = computeCityLayout(showCap, showCities, showDiv); cityCacheKey = key; }
       const L = cityCache;
@@ -9665,7 +9800,39 @@
       canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
       canvas.style.width = W + "px"; canvas.style.height = H + "px";
       baseR = Math.min(W, H) * 0.46;
+      layoutTicks();
       draw();
+    }
+    /* The rail's year labels, thinned to the ones that fit. They are absolutely positioned off the same
+       year2frac the rail, the pin and the map-year marks use, so they always sit over the year they name —
+       but at a narrow width the nearest pair simply overlap, and five of them piled into an 80px band read
+       as one unbroken smudge. Rather than move a label off its year (which would make it a lie), the ones
+       that would collide are dropped: a scale needs enough labels to be read, not all of them.
+       The two ENDS are always kept — they are what fixes the scale — so an inner label must clear both its
+       left neighbour and the right anchor. */
+    function layoutTicks() {
+      const box = root.querySelector(".tl-ticks"); if (!box) return;
+      const els = Array.prototype.slice.call(box.querySelectorAll(".tl-tick"));
+      if (els.length < 3) return;
+      els.forEach((e) => { e.hidden = false; });   // measure them all: a hidden element has no width
+      const W2 = box.clientWidth; if (!W2) return;
+      const GAP = 9, last = els.length - 1;
+      // :first-child is left-anchored and :last-child right-anchored (see .tl-tick in styles.css); the rest
+      // are centred on their year, so each one's span has to be derived the same way the CSS lays it out
+      const spanOf = (e, i) => {
+        const w = e.offsetWidth, c = (parseFloat(e.style.left) || 0) / 100 * W2;
+        const l = i === 0 ? c : i === last ? c - w : c - w / 2;
+        return [l, l + w];
+      };
+      const spans = els.map(spanOf);
+      let keptRight = -Infinity;
+      els.forEach((e, i) => {
+        if (i === last) return;
+        const s = spans[i];
+        const clash = s[0] < keptRight + GAP || (i > 0 && s[1] + GAP > spans[last][0]);
+        e.hidden = clash;
+        if (!clash) keptRight = s[1];
+      });
     }
 
     // pointer interaction (drag to rotate, wheel + pinch to zoom)
@@ -10018,9 +10185,27 @@
     gsResults.addEventListener("click", (e) => { const b = e.target.closest(".gs-row"); if (b) gsPick(gsRows[+b.dataset.i]); });
     gsInput.addEventListener("blur", (e) => { if (e.relatedTarget && gsResults.contains(e.relatedTarget)) return; setTimeout(gsHide, 150); });   // Tab into the results must not destroy the row that just took focus
     gsResults.addEventListener("focusout", (e) => { if (e.relatedTarget && (gsResults.contains(e.relatedTarget) || e.relatedTarget === gsInput)) return; gsHide(); });   // list closes once keyboard focus leaves the widget
+    /* The phone's search chip. Expanded, the field runs the width of the stage — a 38vw box on a 390px screen
+       fits about four characters — so it takes the whole top edge while it is being used and gives it back
+       the moment it isn't. Only the chip is new: the field, its typeahead and its keys are unchanged. */
+    {
+      const searchEl = root.querySelector("#globeSearch"), gsToggle = root.querySelector("#gsToggle");
+      const gsSetOpen = (open) => {
+        searchEl.classList.toggle("open", open);
+        if (gsToggle) gsToggle.setAttribute("aria-expanded", open ? "true" : "false");
+        if (open) gsInput.focus(); else { gsInput.value = ""; gsHide(); }
+      };
+      if (gsToggle) gsToggle.addEventListener("click", () => gsSetOpen(!searchEl.classList.contains("open")));
+      // an empty box that has lost focus is a chip again; a box with a query typed in it stays, so a stray
+      // tap on the globe doesn't throw the search away
+      gsInput.addEventListener("blur", () => setTimeout(() => {
+        if (searchEl.classList.contains("open") && !gsInput.value.trim() && document.activeElement !== gsInput) gsSetOpen(false);
+      }, 180));
+      gsInput.addEventListener("keydown", (e) => { if (e.key === "Escape") gsSetOpen(false); });
+    }
 
     // tear everything down once the globe leaves the DOM (navigating away) so nothing leaks per visit
-    function cleanupGlobe() { freeLandLayer(); try { ro.disconnect(); } catch (e) {} try { themeObs.disconnect(); } catch (e) {} try { window.removeEventListener("blur", stopHold); } catch (e) {} try { if (dprMedia) dprMedia.removeEventListener("change", onDPRChange); } catch (e) {} try { document.removeEventListener("keydown", onGlobeKey); } catch (e) {} try { window.removeEventListener("wheel", onGlobeWheel, true); } catch (e) {} stopSpin(); playStop(); if (flyRAF) { cancelAnimationFrame(flyRAF); flyRAF = 0; } if (flyDoneT) { clearTimeout(flyDoneT); flyDoneT = 0; } if (settleT) { clearTimeout(settleT); settleT = 0; } if (_drawTimer) { clearTimeout(_drawTimer); _drawTimer = 0; } if (_drawReq) { cancelAnimationFrame(_drawReq); _drawReq = 0; } }
+    function cleanupGlobe() { freeLandLayer(); try { window.removeEventListener("resize", cpResize); } catch (e) {} try { ro.disconnect(); } catch (e) {} try { themeObs.disconnect(); } catch (e) {} try { window.removeEventListener("blur", stopHold); } catch (e) {} try { if (dprMedia) dprMedia.removeEventListener("change", onDPRChange); } catch (e) {} try { document.removeEventListener("keydown", onGlobeKey); } catch (e) {} try { window.removeEventListener("wheel", onGlobeWheel, true); } catch (e) {} stopSpin(); playStop(); if (flyRAF) { cancelAnimationFrame(flyRAF); flyRAF = 0; } if (flyDoneT) { clearTimeout(flyDoneT); flyDoneT = 0; } if (settleT) { clearTimeout(settleT); settleT = 0; } if (_drawTimer) { clearTimeout(_drawTimer); _drawTimer = 0; } if (_drawReq) { cancelAnimationFrame(_drawReq); _drawReq = 0; } }
     const ro = new ResizeObserver(() => { if (!canvas.isConnected) { cleanupGlobe(); return; } resize(); });
     ro.observe(stage);
     resize();
@@ -10066,7 +10251,16 @@
     // adminOn/divCapsOn stay false with no way to enable them, so drawAdmin + the division-capital tier never render (inert).
     // legend window: collapse + drag-to-move
     const legendEl = root.querySelector("#globeLegend"), legendHead = root.querySelector("#legendHead"), legendCollapse = root.querySelector("#legendCollapse");
-    if (legendCollapse) legendCollapse.addEventListener("click", (e) => { e.stopPropagation(); const c = legendEl.classList.toggle("collapsed"); legendCollapse.textContent = c ? "+" : "–"; legendCollapse.setAttribute("aria-expanded", c ? "false" : "true"); });
+    const legendSign = legendCollapse && legendCollapse.querySelector(".lc-sign");
+    const legendSetOpen = (open) => {
+      legendEl.classList.toggle("collapsed", !open);
+      if (legendSign) legendSign.textContent = open ? "–" : "+";
+      if (legendCollapse) legendCollapse.setAttribute("aria-expanded", open ? "true" : "false");
+    };
+    if (legendCollapse) legendCollapse.addEventListener("click", (e) => { e.stopPropagation(); legendSetOpen(legendEl.classList.contains("collapsed")); });
+    // On a phone the open legend is a 126×196 panel over a 390px-wide globe — a fifth of the map, covering it,
+    // before the reader has asked for a single layer. It starts as a chip there and opens on a tap.
+    if (legendEl && window.matchMedia && window.matchMedia("(max-width:640px)").matches) legendSetOpen(false);
     if (legendHead && legendEl) {
       let ldrag = false, sCX = 0, sCY = 0, sL = 0, sT = 0;
       legendHead.addEventListener("pointerdown", (e) => {
@@ -10096,17 +10290,31 @@
     cpPopEl = root.querySelector("#cpPop"); cpAreaEl = root.querySelector("#cpArea"); cpGdpEl = root.querySelector("#cpGdp"); cpGdppcEl = root.querySelector("#cpGdppc");
     cpCrumbEl = root.querySelector("#cpCrumb"); cpHistListEl = root.querySelector("#cpHistList");
     cpColsEl = root.querySelector(".cp-cols");
+    cpDotsEl = root.querySelector("#cpDots");
     cpDescSecEl = root.querySelector("#cpDescSec"); cpYearSecEl = root.querySelector("#cpYearSec"); cpStatsSecEl = root.querySelector("#cpStatsSec");
     cpSrcEl = root.querySelector("#cpSrc"); cpSrcSecEl = root.querySelector("#cpSrcSec");
     { const cpClose = root.querySelector("#cpClose"); if (cpClose) cpClose.addEventListener("click", hideCountryPopup); }
     // one delegated listener folds any of the three sections open or shut, so a reader can put away the part
-    // they aren't reading — a long description on a phone sheet buries the year paragraph under it
+    // they aren't reading — a long description on a phone sheet buries the year paragraph under it.
+    // On the phone the sections are PAGES, not folds: there is nothing below a section to uncover by shutting
+    // it, so the head does nothing there (and must not write srcCollapsed on the way past).
     if (cpEl) cpEl.addEventListener("click", (e) => {
       const head = e.target.closest(".cp-sec-head"); if (!head || !cpEl.contains(head)) return;
       const sec = head.closest(".cp-sec"); if (!sec) return;
+      if (cpPagerOn()) return;
       const open = sec.classList.toggle("collapsed") === false;
       head.setAttribute("aria-expanded", open ? "true" : "false");
     });
+    // the phone pager: dots follow the swipe, and a tap on one turns to that page
+    if (cpColsEl) cpColsEl.addEventListener("scroll", () => { if (cpPagerOn()) cpActiveDot(); }, { passive: true });
+    if (cpDotsEl) cpDotsEl.addEventListener("click", (e) => {
+      const b = e.target.closest(".cp-dot"); if (!b) return;
+      const pane = cpPanes()[+b.dataset.i]; if (!pane) return;
+      cpColsEl.scrollTo({ left: pane.offsetLeft - cpColsEl.offsetLeft, behavior: prefersReducedMotion() ? "auto" : "smooth" });
+    });
+    // rotating the phone (or resizing a narrow window) crosses the pager's breakpoint — rebuild the dots for
+    // whichever layout is now in force, and put the reader back on the page they were reading
+    window.addEventListener("resize", cpResize);
     // breadcrumb: climb back up the drill hierarchy (territory → its empire; drilled country/constituent → its holder)
     if (cpCrumbEl) cpCrumbEl.addEventListener("click", (e) => {
       const b = e.target.closest(".cp-crumb-link"); if (!b) return;
@@ -10939,6 +11147,11 @@
   function acctAuthView(root) {
     root.innerHTML = `
       <div class="page-head"><span class="eyebrow">Your account</span><h1>Account</h1></div>
+      ${/* The form is 460px wide inside an 800px stage, so signed out this page used to be half empty on a
+            laptop. The three perks were already written — they were just stacked underneath the form, where
+            they made a short card longer. Out beside it they fill the space and say what the account is FOR
+            at the moment a reader is deciding whether to make one. Below 820px they go back under the form. */""}
+      <div class="auth-split">
       <div class="auth-card">
         <div class="auth-tabs">
           <button class="auth-tab active" data-av="signin" type="button">Sign in</button>
@@ -10965,6 +11178,7 @@
           <div class="auth-msg" data-msg></div>
           <button class="auth-btn" type="submit">Send reset link</button>
         </form>
+      </div>
         <div class="auth-perks">
           <div class="perk"><span class="perk-ic" style="--pk:var(--indigo)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="13" height="10" rx="2"/><path d="M18 8h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2v-1"/></svg></span><span>Your progress on every device</span></div>
           <div class="perk"><span class="perk-ic" style="--pk:#4F9D67"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span>Friends, badges and levels</span></div>
@@ -11542,7 +11756,8 @@
       <div class="page-head"><span class="eyebrow">Preferences</span><h1>Settings</h1>
         <p>Settings apply to this device. Your study progress is what follows your account across devices.</p></div>
       <div class="settings">
-        <div class="set-card">
+        ${/* set-wide: the theme picker is a row of tiles and wants the whole width when there is one (see .settings) */""}
+        <div class="set-card set-wide">
           ${setHead("var(--indigo)", '<circle cx="13.5" cy="6.5" r="2.5"/><circle cx="19" cy="13" r="2"/><circle cx="6" cy="12" r="2.5"/><path d="M12 2a10 10 0 1 0 10 10c0-1.2-1-2-2.2-2H16a3 3 0 0 1-3-3V4.2C13 3 12.8 2 12 2z"/>', "Appearance")}
           <div class="set-row set-row-block">
             <div class="info"><h3>Theme</h3><p>Each theme has its own colours, typography and layout. Hover a tile to try it on; click to keep it. Night mode works within every theme.</p></div>
@@ -11941,8 +12156,17 @@
 
   // ---- WYSIWYG rich editor: a shared formatting ribbon + bottom-left HTML-source window ----
   // markup for the formatting ribbon (acts on whichever rich field is focused)
-  function rtRibbonHtml() {
+  function rtRibbonHtml(o) {
+    o = o || {};
     const btn = (cmd, title, label) => '<button type="button" class="rt-btn" data-cmd="' + cmd + '" title="' + title + '">' + label + "</button>";
+    /* Adding a footnote used to be two chores in two places: type a <sup class="fn"> by hand into the
+       background, then remember to add the citation it points at. This does both in one press — the marker
+       at the caret, a blank citation waiting below it — which is the whole of the apparatus a writer has to
+       assemble. Only offered where a sources list actually exists (a card, not a glossary description). */
+    const fnBtn = o.footnote
+      ? '<span class="rt-sep rt-fn-sep"></span>' +
+        '<button type="button" class="rt-btn rt-fn rt-wide" id="rtFootnote" data-act="footnote" title="Footnote this sentence: a superscript marker here, and a new blank citation in Sources below">+&#8202;Source</button>'
+      : "";
     return '<div class="rt-ribbon" id="rtRibbon" role="toolbar" aria-label="Text formatting">' +
       btn("bold", "Bold (Ctrl+B)", "<b>B</b>") + btn("italic", "Italic (Ctrl+I)", "<i>I</i>") +
       btn("underline", "Underline (Ctrl+U)", "<u>U</u>") + btn("strikeThrough", "Strikethrough", "<s>S</s>") +
@@ -11956,6 +12180,7 @@
       '<span class="rt-sep rt-link-sep"></span>' +
       '<button type="button" class="rt-btn rt-link rt-wide" data-act="link" title="Link the selected word(s) to a glossary term">Link term</button>' +
       '<button type="button" class="rt-btn rt-link rt-wide" data-act="unlink" title="Remove the glossary link around the cursor">Unlink</button>' +
+      fnBtn +
       "</div>";
   }
   // gloss-aware rich fields: the card "abstract" and the glossary "glossdesc" both auto-link terms + support the bubble/Link/Unlink
@@ -12096,6 +12321,13 @@
     try { document.execCommand("styleWithCSS", false, false); } catch (e) {}
     try { document.execCommand("defaultParagraphSeparator", false, "br"); } catch (e) {}
     function setActive(el) { active = el; ribbon.classList.toggle("on-bg", isGlossField(el)); }
+    /* Which field the ribbon acts on is picked up by DELEGATION, not by a listener per element: the citation
+       rows in the sources panel are rich fields too and are rebuilt whenever one is added or removed, so a
+       per-element listener would leave every row created after this ran unreachable from the ribbon. */
+    host.addEventListener("focusin", (e) => {
+      const el = e.target && e.target.closest ? e.target.closest("[data-rich]") : null;
+      if (el && host.contains(el)) setActive(el);
+    });
     function doCmd(cmd, val) {
       if (!active) return; active.focus();
       // colour as a clean <span style="color"> (styleWithCSS on); keep b/i/u/s as plain tags (off)
@@ -12109,7 +12341,6 @@
       const f = el.dataset.field;
       const srcTa = host.querySelector('.af-src[data-src-for="' + f + '"]'), srcToggle = host.querySelector('[data-src-toggle="' + f + '"]');
       let syncing = false;   // per-field guard between the WYSIWYG and its HTML-source box
-      el.addEventListener("focus", () => setActive(el));
       el.addEventListener("input", () => { if (!syncing && srcTa && !srcTa.hidden) { syncing = true; srcTa.value = fieldVal(el); syncing = false; } });
       el.addEventListener("paste", (e) => { e.preventDefault(); const t = ((e.clipboardData || window.clipboardData) || { getData: () => "" }).getData("text/plain"); document.execCommand("insertText", false, t); });   // paste as plain text — keep the shipped markup clean
       el.addEventListener("click", (e) => { const t = e.target.closest(".ttip"); if (t && el.contains(t) && isGlossField(el)) showGlossBubble(t, el); });   // click a gloss word → its editing bubble (gloss-aware fields only)
@@ -12759,8 +12990,9 @@
        isEn         false when editing a translation — hides the image panel, skips gloss auto-linking
        dirAttr      ' dir="rtl"' for Arabic, else ""
        metaHtml     caller's markup for the row above the card (may contain #cesAnswerText)
-       imagePanel   show the image URL/title/description/source panel
-       videoPanel   show the video URL/title/description/source panel (links only — see videoSource)
+       imagePanel   allow a picture in the card's one media frame
+       videoPanel   allow a clip in that same frame (links only — see videoSource). With both, ONE panel is
+                    shown and the pasted URL decides which of the two stores it lands in.
        getField(f)  / setField(f, v)      read + persist a card field
        sourcesPanel show the source-footnote panel (one Chicago note per line; never per-language)
        getSources() / setSources(list)    read + persist the card's citations (with sourcesPanel)
@@ -12769,7 +13001,7 @@
        glossOff     glossary keys to leave un-linked in the background
        glossScope   which glossary the background auto-links against (undefined = the curated site one)
        afterEdit(f) / afterImage(f) / afterVideo(f)   the caller's own save/flash/refresh hooks
-     returns { syncSrc, renderImgSlot } for callers that need to re-sync after changing things themselves. */
+     returns { syncSrc, renderMediaSlot } for callers that need to re-sync after changing things themselves. */
   const LIVE_CARD_PH = {
     question: "Double-click to write the question (blank the answer as _____)…",
     answer: "Double-click to set the answer",
@@ -12779,26 +13011,20 @@
   const LIVE_CARD_FIELDS = ["question", "answer", "answerDate", "abstract"];
   function liveCardEditorHTML(o) {
     const live = (f, cls) => '<div class="' + cls + ' ces-field" data-field="' + f + '" data-rich="1" data-ph="' + esc(LIVE_CARD_PH[f] || "") + '" title="Double-click to edit" spellcheck="' + (f === "answer" ? "false" : "true") + '"' + o.dirAttr + '></div>';
-    const imgPanelHtml = o.imagePanel
-      ? '<div class="ces-imgpanel" id="cesImgPanel" hidden>' +
-          '<div class="aib-head">Image <span class="aib-hint">— shown 16:9 at the top of the Background; title, description and source appear in the fullscreen viewer. Clear the URL to remove it. A card shows one frame, so setting an image removes any video.</span></div>' +
-          '<label class="admin-field"><span class="af-label">image URL</span><input class="af-input" data-imgfield="src" type="text" spellcheck="false" placeholder="https://… or images/file.jpg" /></label>' +
-          '<div id="cesImgMeta" hidden>' +   // title/description/source only make sense once an image URL is set
-            '<label class="admin-field"><span class="af-label">image title</span><input class="af-input" data-imgfield="title" type="text" /></label>' +
-            '<div class="admin-field"><span class="af-label">image description</span><textarea class="af-input af-imgdesc" data-imgfield="desc" rows="2" spellcheck="true"></textarea></div>' +
-            '<label class="admin-field"><span class="af-label">image source</span><input class="af-input" data-imgfield="credit" type="text" spellcheck="false" placeholder="e.g. Wikimedia Commons, public domain — or a URL" /></label>' +
-          '</div>' +
-        '</div>'
-      : "";
-    const vidPanelHtml = o.videoPanel
-      ? '<div class="ces-imgpanel" id="cesVidPanel" hidden>' +
-          '<div class="aib-head">Video <span class="aib-hint">— a YouTube or Vimeo link, or a direct .mp4 / .webm URL, shown in the same 16:9 frame an image would use. Clear the URL to remove it. A card shows one frame, so setting a video removes any image.</span></div>' +
-          '<label class="admin-field"><span class="af-label">video URL</span><input class="af-input" data-vidfield="src" type="text" spellcheck="false" placeholder="https://www.youtube.com/watch?v=… or https://…/clip.mp4" /></label>' +
-          '<div class="af-vidnote" id="cesVidNote" hidden></div>' +
-          '<div id="cesVidMeta" hidden>' +   // title/description/source only make sense once a video URL is set
-            '<label class="admin-field"><span class="af-label">video title</span><input class="af-input" data-vidfield="title" type="text" /></label>' +
-            '<div class="admin-field"><span class="af-label">video description</span><textarea class="af-input af-imgdesc" data-vidfield="desc" rows="2" spellcheck="true"></textarea></div>' +
-            '<label class="admin-field"><span class="af-label">video source</span><input class="af-input" data-vidfield="credit" type="text" spellcheck="false" placeholder="e.g. the channel or archive it came from — or a URL" /></label>' +
+    /* ONE frame, ONE panel. A card shows a picture or a clip and never both, so asking the author to pick
+       the right box before pasting was asking them to classify a URL Folio can classify itself: videoSource()
+       already recognises every link the player can take, and anything it does not recognise is a picture.
+       The two stores stay separate underneath (card.image / card.video, and the one-frame rule the writers
+       enforce) — it is only the editor that stops making the distinction the author's problem. */
+    const mediaPanelHtml = (o.imagePanel || o.videoPanel)
+      ? '<div class="ces-imgpanel" id="cesMediaPanel" hidden>' +
+          '<div class="aib-head">Image or video <span class="aib-hint">— paste a picture URL, or a YouTube / Vimeo link or a direct .mp4 / .webm / .ogv URL; Folio works out which it is. Shown 16:9 at the top of the Background, with the title, description and source in the fullscreen viewer. Clear the URL to remove it.</span></div>' +
+          '<label class="admin-field"><span class="af-label">image or video URL</span><input class="af-input" data-mediafield="src" type="text" spellcheck="false" placeholder="https://… — a picture, a YouTube / Vimeo link, or a .mp4 file" /></label>' +
+          '<div class="af-vidnote" id="cesMediaNote" hidden></div>' +
+          '<div id="cesMediaMeta" hidden>' +   // title/description/source only make sense once a URL is set
+            '<label class="admin-field"><span class="af-label">title</span><input class="af-input" data-mediafield="title" type="text" /></label>' +
+            '<div class="admin-field"><span class="af-label">description</span><textarea class="af-input af-imgdesc" data-mediafield="desc" rows="2" spellcheck="true"></textarea></div>' +
+            '<label class="admin-field"><span class="af-label">source</span><input class="af-input" data-mediafield="credit" type="text" spellcheck="false" placeholder="e.g. Wikimedia Commons, public domain, a museum or channel — or a URL" /></label>' +
           '</div>' +
         '</div>'
       : "";
@@ -12808,12 +13034,13 @@
        tags and aliases fields use would split every citation into rubble. */
     const srcPanelHtml = o.sourcesPanel
       ? '<div class="ces-imgpanel ces-srcpanel">' +
-          '<div class="aib-head">Sources <span class="aib-hint">— one citation per line, Chicago note style, shown as a numbered fold at the foot of the card. Point a sentence at one with &lt;sup class="fn" data-fn="2"&gt;&lt;/sup&gt; in the background: the number comes from this list, so reordering it can never leave a wrong one in the text. Not translated.</span></div>' +
-          '<div class="admin-field"><textarea class="af-input af-sources" id="cesSources" rows="3" spellcheck="false" placeholder="Chris Stringer, &lt;i&gt;Lone Survivors&lt;/i&gt; (New York: Times Books, 2012), 84–86."></textarea></div>' +
+          '<div class="aib-head">Sources <span class="aib-hint">— Chicago note style, one citation each, numbered and shown as a fold at the foot of the card. They are edited AS THEY READ: italics are italics, not tags, so use the ribbon above. End a citation with its URL as plain text and, where it applies, [Open access] or [Paywalled] — the card turns the one into a link and the other into a chip. Point a sentence at a citation with the ribbon’s +&#8202;Source button. Not translated.</span></div>' +
+          '<ol class="ces-srclist" id="cesSrcList"></ol>' +
+          '<button type="button" class="ces-srcadd" id="cesSrcAdd">+ Add a source</button>' +
         "</div>"
       : "";
     return '<div class="card-edit-single">' +
-        rtRibbonHtml() +   // OUTSIDE .ces-top: position:sticky can't escape its parent, and .ces-top ends just below the ribbon — as a direct child of the full-height column it stays pinned while the whole card scrolls
+        rtRibbonHtml({ footnote: !!o.sourcesPanel }) +   // OUTSIDE .ces-top: position:sticky can't escape its parent, and .ces-top ends just below the ribbon — as a direct child of the full-height column it stays pinned while the whole card scrolls
         '<div class="ces-top">' + (o.metaHtml || "") + '</div>' +
         '<div class="study-card admin-pv-card admin-live-card">' +
           // a card can carry up to CARD_MAX_QUESTIONS phrasings of its question; the chevrons cycle through
@@ -12829,8 +13056,7 @@
             '<div class="answer"><div class="answer-main"><span class="label">Answer</span>' +
               '<div class="answer-av">' + live("answer", "val") + '<div class="av-row">' + live("answerDate", "ces-date") + '</div></div></div></div>' +
             '<span class="label">Background</span>' +
-            '<div id="cesImgSlot"></div>' + imgPanelHtml +
-            '<div id="cesVidSlot"></div>' + vidPanelHtml +
+            '<div id="cesMediaSlot"></div>' + mediaPanelHtml +
             live("abstract", "abstract") +
             srcPanelHtml +
           '</div></div>' +
@@ -12910,107 +13136,117 @@
     });
     qSyncNav();
 
-    // ---- image slot: the real image (click = edit panel), or an editor-only "add image" placeholder ----
-    const imgSlotEl = host.querySelector("#cesImgSlot");
-    const imgPanel = host.querySelector("#cesImgPanel");
-    const vidSlotEl = host.querySelector("#cesVidSlot");
-    const vidPanel = host.querySelector("#cesVidPanel");
-    const vidNote = host.querySelector("#cesVidNote");
-    // Nothing ships uncredited: both panels write through a source gate (see wireMediaSource), which holds
-    // a typed URL out of the store until a source is given. The slots below therefore read the GATE's
-    // staged value rather than the store — an author has to see the picture they just pasted, flagged as
-    // unsaved, instead of an "Add an image" placeholder sitting over a panel they have just filled in.
-    const imgGate = (imgPanel && o.setImage)
-      ? wireMediaSource({ panel: imgPanel, attr: "imgfield", kind: "image", get: () => (o.getImage ? o.getImage() : null), set: o.setImage, after: afterImage, onChange: (f) => { if (f === "src" || f === "credit") syncMedia("image"); } })
+    /* ---- the one media frame: a picture OR a clip, told apart from the URL ----
+       A card shows one frame, so the editor offers one panel and one slot. `mediaKind` is which of the two
+       stores the panel is currently writing to: it is decided from the URL as it is typed (videoSource()
+       recognises every link the player can take; everything else is a picture) and it must be decided BEFORE
+       the gate's own input listener runs, because that is what calls set() — hence the listener installed on
+       the URL box below, ahead of wireMediaSource. Clearing the URL leaves the kind alone, so the clear
+       reaches whichever store actually holds the media rather than defaulting to the picture one. */
+    const mediaSlotEl = host.querySelector("#cesMediaSlot");
+    const mediaPanel = host.querySelector("#cesMediaPanel");
+    const mediaNote = host.querySelector("#cesMediaNote");
+    const mediaOn = !!(mediaPanel && (o.setImage || o.setVideo));
+    const storeImg = () => (o.getImage ? o.getImage() : null) || {};
+    const storeVid = () => (o.getVideo ? o.getVideo() : null) || {};
+    // the picture wins where a hand-authored card carries both, exactly as buildBack renders it
+    function mediaStoreKind() {
+      if (String(storeImg().src || "").trim()) return "image";
+      if (String(storeVid().src || "").trim()) return "video";
+      return "";
+    }
+    let mediaKind = mediaStoreKind() || "image";
+    const kindOfUrl = (u) => (String(u || "").trim() && videoSource(String(u).trim()) ? "video" : "image");
+    if (mediaOn) {
+      const srcBox = mediaPanel.querySelector('[data-mediafield="src"]');
+      // FIRST listener on the box, so the kind is settled before the gate stages and pushes the value
+      if (srcBox) srcBox.addEventListener("input", () => {
+        const v = srcBox.value.trim(); if (!v) return;
+        const k = kindOfUrl(v); if (k === mediaKind) return;
+        /* The kind just changed — a picture replaced by a clip or the other way round. The title, description
+           and source described the OLD thing, so they are emptied here rather than silently re-attached to
+           the new one: a credit line is a claim about where a specific file came from, and inheriting one is
+           the same mistake as saving a file with no credit at all. This runs while mediaKind still names the
+           old store, so the gate clears THAT one out (one frame per card) and the new URL then arrives
+           uncredited and is held back until it is given a source of its own. */
+        MEDIA_FIELDS.forEach((f) => {
+          if (f === "src") return;
+          const el = mediaPanel.querySelector('[data-mediafield="' + f + '"]');
+          if (el && el.value) { el.value = ""; el.dispatchEvent(new Event("input", { bubbles: true })); }
+        });
+        mediaKind = k;
+      });
+    }
+    /* Nothing ships uncredited: the panel writes through a source gate (see wireMediaSource), which holds a
+       typed URL out of the store until a source is given. The slot therefore reads the GATE's staged value
+       rather than the store — an author has to see the picture they just pasted, flagged as unsaved, instead
+       of an "Add an image" placeholder sitting over a panel they have just filled in. */
+    const mediaGate = mediaOn
+      ? wireMediaSource({
+          panel: mediaPanel, attr: "mediafield",
+          kind: () => mediaKind,   // the modal's wording follows what was pasted
+          get: () => (mediaKind === "video" ? storeVid() : storeImg()),
+          set: (f, v) => { if (mediaKind === "video") { if (o.setVideo) o.setVideo(f, v); } else if (o.setImage) o.setImage(f, v); },
+          after: (f) => { (mediaKind === "video" ? (o.afterVideo || afterImage) : afterImage)(f); },
+          onChange: (f) => { if (f === "src" || f === "credit") syncMedia(); },
+        })
       : null;
-    const vidGate = (vidPanel && o.setVideo)
-      ? wireMediaSource({ panel: vidPanel, attr: "vidfield", kind: "video", get: () => (o.getVideo ? o.getVideo() : null), set: o.setVideo, after: (o.afterVideo || afterImage), onChange: (f) => { if (f === "src" || f === "credit") syncMedia("video"); } })
-      : null;
-    const curImg = () => (imgGate ? imgGate.staged() : ((o.getImage ? o.getImage() : null) || {}));
-    const curVid = () => (vidGate ? vidGate.staged() : ((o.getVideo ? o.getVideo() : null) || {}));
-    // A card carries ONE frame. Whichever of the two is set owns the slot; the other side collapses to a
-    // slim "use … instead" switch, so the choice stays reachable without ever offering two empty boxes.
-    const mediaSwap = (label) => '<button class="ces-media-swap" type="button" title="A card shows one frame — this replaces what is there now">' + label + "</button>";
+    const curMedia = () => (mediaGate ? mediaGate.staged() : (mediaStoreKind() === "video" ? storeVid() : storeImg()));
     const pendFlag = (kind) => '<span class="ces-media-flag">Not saved — this ' + kind + " needs a source</span>";
-    const imgSet = () => !!String(curImg().src || "").trim();
-    const vidSet = () => !!String(curVid().src || "").trim();
-    function renderImgSlot() {
-      if (!imgSlotEl) return;
-      const cur = curImg();
-      const im = String(cur.src || "").trim() ? cur : null;
-      const pend = !!(imgGate && imgGate.pending());
-      if (im) imgSlotEl.innerHTML = '<figure class="card-img ces-img' + (pend ? " ces-media-pending" : "") + '" title="Click to edit the image"><img src="' + esc(im.src) + '" alt="" draggable="false"><span class="ces-img-edit">Edit image</span>' + (pend ? pendFlag("image") : "") + "</figure>";
-      else if (!o.imagePanel) imgSlotEl.innerHTML = "";
-      else if (vidSet()) imgSlotEl.innerHTML = mediaSwap("Use an image instead");
-      else imgSlotEl.innerHTML = '<div class="ces-img-ph" role="button" tabindex="0" title="Click to add an image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><span>Add an image <small>— editor only; nothing shows on the study page until one is set</small></span></div>';
-      const t = imgSlotEl.firstElementChild;
-      if (t) t.addEventListener("click", (e) => { e.stopPropagation(); if (o.imagePanel && imgPanel) { imgPanel.hidden = !imgPanel.hidden; if (!imgPanel.hidden) { const s = imgPanel.querySelector('[data-imgfield="src"]'); if (s) s.focus(); } } });   // stopPropagation also keeps the fullscreen viewer shut inside the editor
+    function toggleMediaPanel(open) {
+      if (!mediaOn) return;
+      mediaPanel.hidden = open === undefined ? !mediaPanel.hidden : !open;
+      if (!mediaPanel.hidden) { const s = mediaPanel.querySelector('[data-mediafield="src"]'); if (s) s.focus(); }
     }
-    renderImgSlot();
-    const imgMeta = host.querySelector("#cesImgMeta");
-    const syncImgMeta = () => { if (imgMeta) imgMeta.hidden = !imgSet(); };   // title/desc/source appear only once a URL is TYPED — the gate holds the store empty until the source lands, so this can't ask the store
-    syncImgMeta();
-
-    // ---- video slot: the real player (so the author sees what a reader sees), with an "Edit video" chip
-    // in the corner opening the panel. The chip is deliberately NOT .cv-expand — inside the editor the
-    // corner control edits rather than opening the fullscreen viewer. ----
-    function toggleVidPanel() {
-      if (!o.videoPanel || !vidPanel) return;
-      vidPanel.hidden = !vidPanel.hidden;
-      if (!vidPanel.hidden) { const s = vidPanel.querySelector('[data-vidfield="src"]'); if (s) s.focus(); }
-    }
-    function renderVidSlot() {
-      if (!vidSlotEl) return;
-      const cur = curVid();
+    function renderMediaSlot() {
+      if (!mediaSlotEl) return;
+      const cur = curMedia();
       const src = String(cur.src || "").trim();
-      const s = src ? videoSource(src) : null;
-      const pend = !!(vidGate && vidGate.pending());
-      if (s) {
-        vidSlotEl.innerHTML = '<figure class="card-img card-vid ces-vid' + (pend ? " ces-media-pending" : "") + '" title="Click the corner control to edit this video">' +
-          videoPlayerHTML(s, cur.title, "cv-media", false) +
+      const vs = src && mediaKind === "video" ? videoSource(src) : null;
+      const pend = !!(mediaGate && mediaGate.pending());
+      if (vs) {
+        // the real player, so the author sees what a reader sees. The corner control EDITS (deliberately not
+        // .cv-expand — inside the editor it opens the panel, not the fullscreen viewer).
+        mediaSlotEl.innerHTML = '<figure class="card-img card-vid ces-vid' + (pend ? " ces-media-pending" : "") + '" title="Click the corner control to edit this video">' +
+          videoPlayerHTML(vs, cur.title, "cv-media", false) +
           '<button class="ci-zoom ces-vid-edit" type="button" title="Edit the video">' +
           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>' +
           (pend ? pendFlag("video") : "") + "</figure>";
-      } else if (src) {
-        vidSlotEl.innerHTML = '<div class="ces-img-ph ces-vid-ph" role="button" tabindex="0" title="Click to fix the video link">' +
+      } else if (src && mediaKind === "video") {
+        mediaSlotEl.innerHTML = '<div class="ces-img-ph ces-vid-ph" role="button" tabindex="0" title="Click to fix the link">' +
           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="13"/><line x1="12" y1="16" x2="12" y2="16"/></svg>' +
           "<span>That link isn’t a video Folio can play <small>— use a YouTube or Vimeo link, or a direct .mp4 / .webm / .ogv URL</small></span></div>";
-      } else if (!o.videoPanel) {
-        vidSlotEl.innerHTML = "";
-      } else if (imgSet()) {
-        vidSlotEl.innerHTML = mediaSwap("Use a video instead");
+      } else if (src) {
+        mediaSlotEl.innerHTML = '<figure class="card-img ces-img' + (pend ? " ces-media-pending" : "") + '" title="Click to edit"><img src="' + esc(src) + '" alt="" draggable="false"><span class="ces-img-edit">Edit</span>' + (pend ? pendFlag("image") : "") + "</figure>";
+      } else if (!mediaOn) {
+        mediaSlotEl.innerHTML = "";
       } else {
-        vidSlotEl.innerHTML = '<div class="ces-img-ph ces-vid-ph" role="button" tabindex="0" title="Click to add a video"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="14" height="14" rx="2"/><path d="m16.5 10.5 5-3v9l-5-3Z"/></svg><span>Add a video <small>— a YouTube or Vimeo link, or a direct video file URL</small></span></div>';
+        mediaSlotEl.innerHTML = '<div class="ces-img-ph" role="button" tabindex="0" title="Click to add an image or a video"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><span>Add an image or a video <small>— paste any link; editor only, nothing shows on the study page until one is set</small></span></div>';
       }
-      const t = vidSlotEl.firstElementChild;
+      const t = mediaSlotEl.firstElementChild;
       if (t) {
-        t.addEventListener("click", (e) => { e.stopPropagation(); if (e.target.closest(".cv-media")) return; toggleVidPanel(); });   // clicks on the player itself belong to the player
-        t.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleVidPanel(); } });
+        t.addEventListener("click", (e) => { e.stopPropagation(); if (e.target.closest(".cv-media")) return; toggleMediaPanel(); });   // stopPropagation also keeps the fullscreen viewer shut inside the editor; clicks on the player itself belong to the player
+        t.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleMediaPanel(); } });
       }
     }
-    renderVidSlot();
-    const vidMeta = host.querySelector("#cesVidMeta");
-    function syncVidMeta() {
-      const src = String(curVid().src || "").trim();
-      if (vidMeta) vidMeta.hidden = !src;
-      if (vidNote) {
-        const s = src ? videoSource(src) : null;
-        vidNote.hidden = !src;
-        vidNote.className = "af-vidnote" + (src && !s ? " bad" : "");
-        vidNote.textContent = !src ? "" : s ? "Recognised as a " + videoSourceLabel(s.kind) + "." : "Not a link Folio can play — YouTube, Vimeo, or a direct .mp4 / .webm / .ogv URL.";
+    const mediaMeta = host.querySelector("#cesMediaMeta");
+    // title/desc/source appear only once a URL is TYPED — the gate holds the store empty until the source
+    // lands, so this can't ask the store — and the note says which of the two Folio decided it is
+    function syncMediaMeta() {
+      const src = String(curMedia().src || "").trim();
+      if (mediaMeta) mediaMeta.hidden = !src;
+      if (mediaNote) {
+        const vs = src && mediaKind === "video" ? videoSource(src) : null;
+        mediaNote.hidden = !src;
+        mediaNote.className = "af-vidnote" + (src && mediaKind === "video" && !vs ? " bad" : "");
+        mediaNote.textContent = !src ? ""
+          : mediaKind !== "video" ? "Recognised as an image."
+          : vs ? "Recognised as a " + videoSourceLabel(vs.kind) + "."
+          : "Not a link Folio can play — YouTube, Vimeo, or a direct .mp4 / .webm / .ogv URL.";
       }
     }
-    syncVidMeta();
-    // One frame per card, so giving either side a URL retires the other in the store — the editor has to
-    // show that. The side just typed into is never rewritten (the store sanitizes, and pushing its value
-    // back mid-keystroke would fight the caret); the OTHER side re-reads the store through its own gate.
-    function syncMedia(justSet) {
-      if (justSet !== "image" && imgGate) imgGate.reload();
-      if (justSet !== "video" && vidGate) vidGate.reload();
-      renderImgSlot(); renderVidSlot(); syncImgMeta(); syncVidMeta();
-      if (justSet !== "image" && imgPanel && !imgSet()) imgPanel.hidden = true;
-      if (justSet !== "video" && vidPanel && !vidSet()) vidPanel.hidden = true;
-    }
+    function syncMedia() { renderMediaSlot(); syncMediaMeta(); }
+    syncMedia();
 
     // ---- answer text (plain; supplied by the caller's meta row since it never shows on the card) ----
     const atI = host.querySelector("#cesAnswerText");
@@ -13019,13 +13255,93 @@
       atI.addEventListener("input", () => { o.setField("answerText", atI.value); afterEdit("answerText"); syncSrc(); });
     }
 
-    // ---- source footnotes (one citation per line; deliberately outside the HTML-source box, which is
-    // marker-delimited prose and would have to grow a section for what is really a list, not a field) ----
-    const srcI = host.querySelector("#cesSources");
-    if (srcI && o.getSources && o.setSources) {
-      srcI.value = normSources(o.getSources()).join("\n");
-      srcI.addEventListener("input", () => { o.setSources(normSources(srcI.value.split("\n"))); afterEdit("sources"); });
+    /* ---- source footnotes: the citations as they READ, not as markup ----
+       A Chicago note is full of italicised titles, and editing them as `<i>…</i>` in a textarea meant an
+       author was proof-reading tags rather than a citation — the one field on the card where a stray angle
+       bracket is hardest to spot and most damaging, since the list is the reader's warrant for the prose.
+       Each citation is now its own rich line, numbered like the card's own list and taking the same ribbon
+       as the rest of the card. Deliberately outside the HTML-source box, which is marker-delimited prose and
+       would have to grow a section for what is really a list, not a field. */
+    const srcListEl = host.querySelector("#cesSrcList"), srcAddBtn = host.querySelector("#cesSrcAdd");
+    const srcOn = !!(srcListEl && o.getSources && o.setSources);
+    // the working list, like the question pool: blanks are kept while editing (a just-added line must survive
+    // the next keystroke elsewhere) and normSources drops them on the way to the store
+    let srcItems = srcOn ? normSources(o.getSources()) : [];
+    const srcCommit = () => { if (srcOn) { o.setSources(normSources(srcItems)); afterEdit("sources"); } };
+    const SRC_PH = "Author, “Title,” Journal 546 (2017): 289–92, https://doi.org/… [Open access]";
+    function renderSrcRows(focusIdx) {
+      if (!srcOn) return;
+      if (!srcItems.length) srcItems = [""];   // an empty list still offers a line to write on
+      // the row's flex box goes INSIDE the <li>: a list item whose own display is flex stops being a
+      // list-item and loses the ::marker, which is the number this panel exists to show
+      srcListEl.innerHTML = srcItems.map((s, i) =>
+        '<li><div class="ces-srcrow">' +
+          '<div class="ces-srcitem" data-rich="1" data-field="source" data-i="' + i + '" contenteditable="true" spellcheck="false" data-ph="' + esc(SRC_PH) + '">' + (s || "") + "</div>" +
+          '<button type="button" class="ces-srcdel" data-i="' + i + '" title="Remove this citation" aria-label="Remove this citation">&#10005;</button>' +
+        "</div></li>").join("");
+      if (focusIdx != null) {
+        const el = srcListEl.querySelector('.ces-srcitem[data-i="' + focusIdx + '"]');
+        if (el) { el.focus(); const r = document.createRange(); r.selectNodeContents(el); r.collapse(false); const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r); }
+      }
     }
+    if (srcOn) {
+      renderSrcRows();
+      // delegated, because the rows are rebuilt whenever one is added or removed
+      srcListEl.addEventListener("input", (e) => {
+        const it = e.target.closest(".ces-srcitem"); if (!it) return;
+        srcItems[+it.dataset.i] = fieldVal(it);
+        srcCommit();
+      });
+      srcListEl.addEventListener("keydown", (e) => {
+        const it = e.target.closest(".ces-srcitem"); if (!it) return;
+        if (e.key === "Enter") { e.preventDefault(); addSrcRow(); }   // a citation is one line; Enter starts the next one
+      });
+      srcListEl.addEventListener("paste", (e) => {   // plain text only — a citation pasted from a browser drags a page's markup with it
+        const it = e.target.closest(".ces-srcitem"); if (!it) return;
+        e.preventDefault();
+        const t = ((e.clipboardData || window.clipboardData) || { getData: () => "" }).getData("text/plain").replace(/\s+/g, " ").trim();
+        document.execCommand("insertText", false, t);
+      });
+      srcListEl.addEventListener("click", (e) => {
+        const d = e.target.closest(".ces-srcdel"); if (!d) return;
+        const i = +d.dataset.i;
+        const drop = () => { srcItems.splice(i, 1); srcCommit(); renderSrcRows(); };
+        // removing a citation renumbers the ones below it — the markers follow automatically (that is what
+        // the empty data-fn is for), but a marker pointing past the new end stops showing on the card
+        if (String(srcItems[i] || "").trim()) inlineConfirm("Remove this citation? The ones below it move up a number, and any marker pointing past the end of the list stops showing.", drop, "Remove");
+        else drop();
+      });
+      if (srcAddBtn) srcAddBtn.addEventListener("click", () => addSrcRow());
+    }
+    function addSrcRow() {
+      if (!srcOn) return -1;
+      // never stack two blank lines: a second press should land in the one already waiting
+      let i = srcItems.findIndex((s) => !String(s || "").trim());
+      if (i < 0) { srcItems.push(""); i = srcItems.length - 1; }
+      renderSrcRows(i);
+      return i;
+    }
+    /* The ribbon's +Source button: the marker and the citation it points at, in one press. The digit written
+       here is only a starting value — the card draws the real one from the list at render time (see the
+       SOURCE FOOTNOTES block), so it can never go stale. */
+    const fnBtn = host.querySelector("#rtFootnote");
+    if (fnBtn && srcOn) fnBtn.addEventListener("click", () => {
+      const ab = host.querySelector('[data-field="abstract"]');
+      if (!ab) return;
+      const n = normSources(srcItems).length + 1;   // the number the new citation will take once it is written
+      const sel = window.getSelection();
+      const inField = !!(sel && sel.rangeCount && ab.contains(sel.getRangeAt(0).commonAncestorContainer));
+      ab.contentEditable = "true"; ab.classList.add("editing");
+      ab.focus();
+      if (!inField) {   // no caret in the background — put the marker at the end of it rather than nowhere
+        const r = document.createRange(); r.selectNodeContents(ab); r.collapse(false);
+        sel.removeAllRanges(); sel.addRange(r);
+      }
+      document.execCommand("insertHTML", false, '<sup class="fn" data-fn="' + n + '"></sup>');
+      ab.dispatchEvent(new Event("input", { bubbles: true }));
+      addSrcRow();
+      toast("Marker " + n + " added — write the citation below.");
+    });
 
     // ---- live-field saves (the card IS the preview — no separate re-render, focus is never lost) ----
     host.querySelectorAll(".ces-field").forEach((el) => el.addEventListener("input", () => {
@@ -13081,7 +13397,7 @@
       });
     }
     wireRichEditor(host);
-    return { syncSrc: syncSrc, renderImgSlot: renderImgSlot, renderVidSlot: renderVidSlot };
+    return { syncSrc: syncSrc, renderMediaSlot: renderMediaSlot };
   }
 
   function adminRenderEditor() {
@@ -14225,8 +14541,33 @@
   // card images: one delegated listener opens the fullscreen viewer from any .card-img (study, previews, editor).
   // A .card-vid wears the same frame but plays in place, so only its corner expand control opens the viewer —
   // every other click inside it belongs to the player.
+  /* A media frame whose file will not load. There is deliberately no upload path — every picture and clip on
+     a card, a term or an Atlas panel is somebody else's URL — so link rot is a certainty rather than an edge
+     case, and an <img> that 404s otherwise leaves a full 16:9 grey hole in the middle of the prose, wearing a
+     zoom cursor that opens an empty viewer.
+     A READER gets nothing: the frame is removed from the flow, since a broken illustration is worse than no
+     illustration and there is nothing they can do about it. An AUTHOR gets the frame kept and labelled (the
+     editor surfaces carry `.ces-img` / `.ces-vid`), because they are the one person who can fix the link.
+     Delegated in the CAPTURE phase — `error` does not bubble. */
+  document.addEventListener("error", (e) => {
+    const el = e.target;
+    if (!el || !el.tagName || (el.tagName !== "IMG" && el.tagName !== "VIDEO")) return;
+    // the home page's Term-of-the-day plate is a bare <img>, not a frame — it takes the tile's whole height,
+    // so a dead one has to give the row its 2:1 layout back rather than leave a broken-image glyph in a plate
+    const plate = el.closest && el.closest(".term-img");
+    if (plate) {
+      plate.remove();
+      const grid = document.querySelector(".explore-grid.has-term-img");
+      if (grid) grid.classList.remove("has-term-img");
+      return;
+    }
+    const fig = el.closest && el.closest(".card-img"); if (!fig) return;
+    fig.classList.add("media-dead");
+    const slot = fig.closest(".gloss-imgslot"); if (slot) slot.hidden = true;   // the popup's float would otherwise keep its margin around nothing
+  }, true);
   document.addEventListener("click", (e) => {
     const fig = e.target.closest(".card-img"); if (!fig) return;
+    if (fig.classList.contains("media-dead")) return;   // nothing to enlarge — the file never arrived
     if (fig.classList.contains("card-vid")) {
       if (!e.target.closest(".cv-expand")) return;
       openVideoViewer({ src: fig.dataset.vidSrc, title: fig.dataset.vidTitle, desc: fig.dataset.vidDesc, credit: fig.dataset.vidCredit });
@@ -14255,6 +14596,7 @@
   document.addEventListener("keydown", (e) => {
     if (e.key !== "Enter" && e.key !== " ") return;
     const fig = e.target.closest && e.target.closest(".card-img"); if (!fig) return;
+    if (fig.classList.contains("media-dead")) return;
     if (fig.classList.contains("card-vid")) return;   // the expand control is a real <button> — the browser fires its click itself
     e.preventDefault();
     openImageViewer({ src: fig.dataset.imgSrc, title: fig.dataset.imgTitle, desc: fig.dataset.imgDesc, credit: fig.dataset.imgCredit });
