@@ -1848,6 +1848,9 @@ body.grading .wb-tools{bottom:108px;}
 .wb-btn:hover{border-color:var(--indigo); color:var(--indigo);}
 .wb-btn:disabled{opacity:.4; cursor:default; pointer-events:none;}
 .wb-btn.sel{background:var(--ochre); border-color:var(--ochre); color:#fff;}
+/* the pen takes the same indigo as the marker button's own lit state, so "the pen is down" reads the same
+   whether the tools are open or put away */
+.wb-btn.wb-pen.sel{background:var(--indigo); border-color:var(--indigo); color:#fff;}
 .wb-btn.wb-hl.sel{background:var(--ochre); border-color:var(--ochre); color:#fff;}
 .wb-btn.wb-eraser.sel{background:var(--ink-soft); border-color:var(--ink-soft); color:#fff;}
 /* touch-action:none — the handle is dragged with a finger, and without it the browser claims the gesture
@@ -2274,7 +2277,6 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
      breakpoint and 58px below it. */
   .stage{padding-bottom:calc(var(--tabbar-h) + 18px);}
   #toast{bottom:calc(var(--tabbar-h) + 22px);}
-  .admin-edit-fab{bottom:calc(var(--tabbar-h) + 16px);}
   body.admin-mode .admin{padding-bottom:var(--tabbar-h);}
 }
 
@@ -2347,7 +2349,6 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
   .grade-wrap{gap:8px;}
   body.grading .stage{padding-bottom:150px;}
   body.grading .wb-tools{bottom:120px;}
-  body.grading .admin-edit-fab{bottom:120px;}
 }
 
 @media (prefers-reduced-motion: reduce){
@@ -2970,7 +2971,23 @@ body.night .acr-src.blocked{color:#e8776e;}
 .admin-edit-fab svg{width:15px; height:15px;}
 .admin-edit-fab:hover{color:var(--indigo); border-color:var(--indigo); transform:translateY(-1px);}
 body.grading .admin-edit-fab{bottom:108px;}
+/* The home page's copy exists only where the tab bar replaced the top bar — above that breakpoint the top
+   bar's Edit tab is still there and a second way in beside it is clutter. The study card's copy (which
+   opens THAT card) shows at every width, as it always has. */
+.aef-plain{display:none;}
+/* On a phone Edit moves to the TOP-RIGHT (Aug 2026, on request): it left the tab bar — six destinations a
+   reader shares, and this is one person's tool — and became a button on the page. The top bar is hidden at
+   this width, so the corner is free, and the inset keeps it clear of a notch.
+   This block must stay BELOW the base rules above: media queries add no specificity, so the phone offset
+   that used to live up in the tab-bar block was silently overridden by `.admin-edit-fab{bottom:24px}` and
+   never applied at all. */
+@media (max-width:640px){
+  .aef-plain{display:inline-flex;}
+  .admin-edit-fab{left:auto; bottom:auto; right:12px; top:calc(10px + env(safe-area-inset-top));}
+  body.grading .admin-edit-fab{bottom:auto;}   /* the grade bar owns the other end of the screen; this one no longer moves for it */
+}
 
+@media (min-width:641px) and (max-width:860px){ body.grading .admin-edit-fab{bottom:170px;} }
 @media (max-width: 860px){
   body.admin-mode{overflow:auto;}
   .admin{flex-direction:column; height:auto; min-height:calc(100vh - var(--bar-h));}
@@ -2990,7 +3007,6 @@ body.grading .admin-edit-fab{bottom:108px;}
      scrolling back to the page and pin the ribbon under the top bar instead */
   .admin-editor{padding:18px 16px 64px; overflow:visible;}
   .admin-editor .rt-ribbon{top:calc(var(--bar-h) + 6px);}
-  body.grading .admin-edit-fab{bottom:170px;}
 }
 
 /* ============================================================

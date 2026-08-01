@@ -3945,9 +3945,14 @@
   const WB_COLORS = ["#D9544C", "#4F74C2", "#1B1A17", "#4F9D67", "#DB8B3A"];
   const WB_HL_COLORS = ["#FFE92E", "#8DFF4D", "#FF6FE0", "#FFB13D", "#4FE3FF"]; // bright highlighter: yellow, green, pink, orange, cyan
   const WB_SIZES = [2, 4, 8];
-  const WB = { enabled: false, mode: "pen", penColor: WB_COLORS[0], hlColor: WB_HL_COLORS[0], color: WB_COLORS[0], size: WB_SIZES[1], canvas: null, ctx: null, drawing: false, last: null, ro: null, backup: null, hlPts: null, dirtied: false, undoStack: [], redoStack: [] };
+  /* `enabled` (the pen is down) and `panelOpen` (the tools are showing) are TWO states and were one until
+     Aug 2026, when closing the tools also put the pen down — you could not draw with the panel out of the
+     way, which on a phone is most of the card. The marker button now opens and closes the panel; what puts
+     the pen down is unselecting the tool inside it (see the .wb-pen / .wb-hl / .wb-eraser row). */
+  const WB = { enabled: false, panelOpen: false, mode: "pen", penColor: WB_COLORS[0], hlColor: WB_HL_COLORS[0], color: WB_COLORS[0], size: WB_SIZES[1], canvas: null, ctx: null, drawing: false, last: null, ro: null, backup: null, hlPts: null, dirtied: false, undoStack: [], redoStack: [] };
   const WB_HIST_MAX = 20;   // cap on undo history (raster card snapshots are full-canvas bitmaps)
   let wbToolsRef = null;
+  let wbRefreshTools = null;   // set by ensureWBTools — re-marks the selected tool from WB.enabled/WB.mode
 
   /* ---- the marker is draggable anywhere on the screen (Aug 2026, on request) ----
      It is a fixed control floating over a card the reader is trying to read, and its default corner is
@@ -3962,7 +3967,7 @@
      off the edge of a narrow one. */
   const WB_POS_KEY = "folio_wb_pos_v1";
   const WB_DRAG_SLOP = 5;                       // px of movement before a press stops being a click
-  const WB_PANEL_W = 200, WB_PANEL_H = 220;     // rough size of the open panel — only used to pick which way it opens
+  const WB_PANEL_W = 250, WB_PANEL_H = 220;     // rough size of the open panel — only used to pick which way it opens
   let wbPos = null, wbPosRead = false, wbDragged = false;
   function wbReadPos() {
     if (wbPosRead) return wbPos;
@@ -4032,6 +4037,7 @@
         <div class="wb-row wb-colors-row"></div>
         <div class="wb-row">${sizeBtns}</div>
         <div class="wb-row">
+          <button class="wb-btn wb-pen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>Draw</button>
           <button class="wb-btn wb-hl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11-6 6v3h9l3-3"/><path d="m22 12-4.6 4.6a2 2 0 0 1-2.8 0l-5.2-5.2a2 2 0 0 1 0-2.8L14 4"/></svg>Mark</button>
           <button class="wb-btn wb-eraser"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20H8.5L3.5 15a1.8 1.8 0 0 1 0-2.5l8-8a1.8 1.8 0 0 1 2.5 0l5 5a1.8 1.8 0 0 1 0 2.5L13 19"/></svg>Erase</button>
         </div>
@@ -4043,12 +4049,15 @@
           <button class="wb-btn wb-clear"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg>Clear</button>
         </div>
       </div>
-      <button class="wb-toggle" aria-label="Toggle drawing on the card" title="Draw on the card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>`;
+      <button class="wb-toggle" aria-label="Drawing tools" title="Draw on the card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>`;
     document.body.appendChild(el);
+    // Nothing selected IS the pen-up state — that is what makes "unselect the tool" a way to stop drawing.
     const refreshModes = () => {
-      el.querySelector(".wb-hl").classList.toggle("sel", WB.mode === "hl");
-      el.querySelector(".wb-eraser").classList.toggle("sel", WB.mode === "erase");
+      el.querySelector(".wb-pen").classList.toggle("sel", WB.enabled && WB.mode === "pen");
+      el.querySelector(".wb-hl").classList.toggle("sel", WB.enabled && WB.mode === "hl");
+      el.querySelector(".wb-eraser").classList.toggle("sel", WB.enabled && WB.mode === "erase");
     };
+    wbRefreshTools = refreshModes;
     // the colour swatches swap to bright highlighter colours when Mark is active
     const renderColors = () => {
       const row = el.querySelector(".wb-colors-row");
@@ -4063,6 +4072,7 @@
           if (WB.mode === "erase") WB.mode = "pen";
           if (WB.mode === "hl") WB.hlColor = b.dataset.c; else WB.penColor = b.dataset.c;
           WB.color = b.dataset.c;
+          wbSetEnabled(true);   // reaching for a colour is asking to draw
           renderColors();
           refreshModes();
         })
@@ -4075,23 +4085,31 @@
         el.querySelectorAll(".wb-size").forEach((x) => x.classList.toggle("sel", x === b));
       })
     );
-    el.querySelector(".wb-hl").addEventListener("click", () => {
-      WB.mode = WB.mode === "hl" ? "pen" : "hl";
-      WB.color = WB.mode === "hl" ? WB.hlColor : WB.penColor;
-      renderColors(); refreshModes();
-    });
-    el.querySelector(".wb-eraser").addEventListener("click", () => {
-      WB.mode = WB.mode === "erase" ? "pen" : "erase";
-      if (WB.mode === "pen") WB.color = WB.penColor;
-      renderColors(); refreshModes();
-    });
+    /* One tool at a time, and clicking the one already selected UNSELECTS it — which is the only way to
+       put the pen down now that closing the panel no longer does. */
+    const pickTool = (mode) => {
+      if (WB.enabled && WB.mode === mode) { wbSetEnabled(false); }
+      else {
+        WB.mode = mode;
+        if (mode !== "erase") WB.color = mode === "hl" ? WB.hlColor : WB.penColor;
+        wbSetEnabled(true);
+      }
+      renderColors(); refreshModes();   // wbSetEnabled no-ops when the state already matched, so mark by hand too
+    };
+    el.querySelector(".wb-pen").addEventListener("click", () => pickTool("pen"));
+    el.querySelector(".wb-hl").addEventListener("click", () => pickTool("hl"));
+    el.querySelector(".wb-eraser").addEventListener("click", () => pickTool("erase"));
     el.querySelector(".wb-undo").addEventListener("click", wbUndo);
     el.querySelector(".wb-redo").addEventListener("click", wbRedo);
     el.querySelector(".wb-clear").addEventListener("click", wbClear);
     el.querySelector(".wb-toggle").addEventListener("click", () => {
       // the press that ended a drag also fires a click — it moved the marker, it did not press it
       if (wbDragged) { wbDragged = false; return; }
-      WB.enabled = !WB.enabled; applyWBState(); if (WB.onToggle) WB.onToggle();
+      if (WB.panelOpen) { WB.panelOpen = false; applyWBState(); return; }   // putting the tools away leaves the pen down
+      WB.panelOpen = true;
+      // opening the tools with nothing selected picks the pen, so one tap still gets you drawing
+      if (!WB.enabled) { WB.mode = "pen"; WB.color = WB.penColor; renderColors(); wbSetEnabled(true); }
+      applyWBState();
     });
     wbMakeDraggable(el, el.querySelector(".wb-toggle"));
     wbToolsRef = el;
@@ -4099,9 +4117,18 @@
   }
   function applyWBState() {
     if (!wbToolsRef) return;
-    wbToolsRef.classList.toggle("active", WB.enabled);
-    wbToolsRef.querySelector(".wb-toggle").classList.toggle("on", WB.enabled);
+    wbToolsRef.classList.toggle("active", WB.panelOpen);          // the tools are showing
+    wbToolsRef.querySelector(".wb-toggle").classList.toggle("on", WB.enabled);   // the pen is down — visible with the panel shut
     if (WB.canvas) WB.canvas.classList.toggle("on", WB.enabled);
+    if (wbRefreshTools) wbRefreshTools();
+  }
+  // the one place WB.enabled changes: it repaints the tools and tells the Atlas, which owns its own
+  // cursor / hover / spin state and has to be told the moment the pen goes down or up
+  function wbSetEnabled(on) {
+    if (WB.enabled === !!on) return;
+    WB.enabled = !!on;
+    applyWBState();
+    if (WB.onToggle) WB.onToggle();
   }
   function showWBTools() { const el = ensureWBTools(); el.classList.add("show"); wbApplyPos(el); applyWBState(); wbUpdateHistBtns(); }
   function hideWBTools() {
@@ -4112,7 +4139,7 @@
     WB.canvas = null; WB.ctx = null; WB.drawing = false; WB.backup = null; WB.hlPts = null;
     WB.onToggle = null; WB.onClear = null; WB.onUndo = null; WB.onRedo = null; WB.onCanUndo = null; WB.onCanRedo = null; // globe (atlas) draw-mode hooks, set up per visit
     WB.undoStack.length = 0; WB.redoStack.length = 0; WB.dirtied = false;   // don't leak draw-history across pages
-    WB.enabled = false; // every page entry starts with draw-mode off (don't leak across pages)
+    WB.enabled = false; WB.panelOpen = false; // every page entry starts with draw-mode off and the tools shut (don't leak across pages)
   }
   function wbClear() {
     if (WB.onClear) { WB.onClear(); wbUpdateHistBtns(); return; }  // atlas globe owns a geo-anchored stroke list
@@ -5228,6 +5255,7 @@
       startMiniGlobe(expAtlas.querySelector("#miniGlobe"));
     }
     wireDailyQuote(root);
+    showAdminEditBtn(null);   // the phone's way into the editor, top-right (the tab bar no longer carries Edit)
     const reviewOrderBtn = root.querySelector("#reviewOrder");
     if (reviewOrderBtn) reviewOrderBtn.addEventListener("click", (e) => { e.stopPropagation(); S.settings.reviewRandom = !S.settings.reviewRandom; save(); render(); });
     // click a deck/subdeck in the daily-review list → review just that deck's cards (the trash button stops its own propagation)
@@ -11990,14 +12018,23 @@
      ADMIN — back-end editor for all cards + the glossary
      ============================================================ */
   function hideAdminEditBtn() { const b = document.getElementById("admin-edit-fab"); if (b) b.remove(); }
+  /* The editor's way in, as a button on the page rather than a nav tab.
+     Called with a CARD id from the study page (it opens that card in the editor) and with nothing from the
+     home page, where it just opens the editor — the phone's tab bar no longer carries an Edit tab, since
+     that is one person's tool and it was taking a seventh of a row six readers share. The plain
+     (no-card) variant is therefore PHONE-ONLY: on a desktop the top bar's Edit tab is still there, and a
+     second entry point beside it would be clutter (`.aef-plain` is hidden above the tab-bar breakpoint).
+     Admin-gated here rather than by the caller, so no route can grow an Edit button for a reader by
+     forgetting to ask — it used to be built unconditionally on every study card. */
   function showAdminEditBtn(cardId) {
     hideAdminEditBtn();
+    if (!isAdmin()) return;
     const b = document.createElement("button");
-    b.id = "admin-edit-fab"; b.className = "admin-edit-fab"; b.type = "button";
-    b.setAttribute("aria-label", "Edit this card in the admin editor");
-    b.title = "Edit this card";
+    b.id = "admin-edit-fab"; b.className = "admin-edit-fab" + (cardId ? "" : " aef-plain"); b.type = "button";
+    b.setAttribute("aria-label", cardId ? "Edit this card in the admin editor" : "Open the editor");
+    b.title = cardId ? "Edit this card" : "Open the editor";
     b.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4Z"/></svg>Edit';
-    b.addEventListener("click", () => route("admin", { card: cardId, tab: "cards" }));
+    b.addEventListener("click", () => route("admin", cardId ? { card: cardId, tab: "cards" } : { tab: "cards" }));
     document.body.appendChild(b);
   }
 

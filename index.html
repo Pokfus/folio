@@ -100,8 +100,10 @@
        to Settings, and Account / Settings / Edit moved down here, nothing is left up
        there at all and the top bar is hidden outright on phones.
        They share `.tab` + data-route, so setActiveTab and the boot-time route wiring
-       cover them with no extra code. Edit is admin-only — applyMode() hides every
-       .tab-admin, here and in the top bar.
+       cover them with no extra code.
+       Edit is NOT among them: on a phone it is the top-right button on the home page
+       (and on a study card, where it opens that card) — see showAdminEditBtn in app.js.
+       It is one person's tool, and it was taking a seventh of a row six readers share.
        ============================================================ -->
   <nav class="tabbar" aria-label="Primary">
     <button class="tab" type="button" data-route="home">
@@ -119,10 +121,6 @@
     <button class="tab" type="button" data-route="mission">
       <svg class="tab-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
       <span class="tab-label">About</span>
-    </button>
-    <button class="tab tab-admin" type="button" data-route="admin">
-      <svg class="tab-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 3a2.83 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
-      <span class="tab-label">Edit</span>
     </button>
     <button class="tab" type="button" data-route="account">
       <svg class="tab-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>

@@ -1295,22 +1295,36 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - **The bottom tab bar (`.tabbar`, phones only — Aug 2026, on request).** The top bar held NINE icon-only
   controls in a scrolling strip at the top of a 390px screen — the four destinations plus theme, edit,
   account, settings and language — all out of the thumb's arc and none of them named. **Every destination
-  now lives in the bottom bar** (home / decks / map / mission / admin / account / settings), and light-dark
+  now lives in the bottom bar** (home / decks / map / mission / account / settings — **not admin**, see
+  below), and light-dark
   and the language picker moved to the **Settings page**, which leaves the top bar with nothing on it at
   all: `.topbar{display:none}` on a phone, and **`--bar-h` goes to 0px** there so `.globe-stage` and every
   other rule already written against it follows with no change of its own.
   It is **static markup in index.html** and reuses `.tab` + `data-route`, so
   `setActiveTab` and the boot-time `querySelectorAll(".tab")` wiring cover it with no new code — but note
   that same query runs ONCE over the static DOM, so a nav item added later still has to live in index.html.
-  **Edit exists TWICE now** (top bar + tab bar), which is why `applyMode` hides `.tab-admin` with
-  `querySelectorAll` — the old `querySelector` would have left the tab-bar copy live for every visitor.
-  The bar is a **flex row of `flex:1 1 0` cells**, not a fixed 4-column grid: the row is six for a reader
-  and seven for an editor, and the rest have to close the gap when Edit is hidden. At that width the label
+  **Edit is NOT in this bar** — it left it the same week (Aug 2026, on request) for the top-right button
+  described below: the editor is one person's tool and it was taking a seventh of a row six readers share.
+  `applyMode` still hides `.tab-admin` with `querySelectorAll` rather than `querySelector`, because the
+  entry point can exist more than once and the old form would have left a second copy live for every
+  visitor. The bar is a **flex row of `flex:1 1 0` cells**, not a fixed column count, so a tab hidden or
+  added closes the gap on its own. At that width the label
   may not wrap (a second line pushes the icons off centre), so it is `nowrap` + `text-overflow:ellipsis` at
   8.5px — `test-layout.js` asserts each label's rendered width against its own `scrollWidth`, so a longer
   name added later fails there rather than silently clipping.
   Every tab is labelled here (the top bar's labels unfold on hover, and a phone has no hover). Hidden while
   `body.grading`: the grade bar owns that edge, and a session is a place you finish rather than browse from.
+  **The editor's way in is `showAdminEditBtn(cardId)`** (`.admin-edit-fab`), a button on the page rather
+  than a nav tab. Called with a card id from the study page — it opens THAT card in the editor — and with
+  `null` from the home page, where it just opens the editor; the plain variant carries `.aef-plain` and is
+  **phone-only**, since above the breakpoint the top bar's Edit tab is still there and a second way in
+  beside it is clutter. On a phone both sit **top-right** (`right:12px`, `top:10px + safe-area-inset-top`);
+  on a desktop the study card's copy stays bottom-left as it always has.
+  Two things bit here. It is **admin-gated inside the function**, not by the caller — it used to be built
+  unconditionally on every study card, so a signed-out reader got an Edit button that bounced them home.
+  And its phone rules must live **BELOW** the base `.admin-edit-fab` rules in styles.css: media queries add
+  no specificity, and the `bottom:calc(var(--tabbar-h) + 16px)` that used to sit up in the tab-bar block was
+  silently overridden by the base `bottom:24px` further down and never applied at all.
   **Three custom properties keep everything anchored in step**: `--tabbar-h` (0 above the
   breakpoint, 58px below), `--timebar-h` (96px, 118px once the Atlas timeline goes to two rows) and
   `--bar-h` (60px, 0 below the breakpoint).
@@ -1320,6 +1334,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - **The whiteboard marker is DRAGGABLE anywhere on screen** (`wbMakeDraggable` / `wbApplyPos`, beside
   `ensureWBTools` — Aug 2026, on request). It is a fixed control floating over a card the reader is trying to
   read, and its default corner is exactly where some cards put the thing you want to look at.
+  · **`WB.enabled` (the pen is down) and `WB.panelOpen` (the tools are showing) are TWO states**, and were
+    one until Aug 2026, when putting the tools away also put the pen down — you could not draw with the
+    panel out of the way, which on a phone is most of the card. The marker button now only opens and closes
+    the panel (opening it with nothing selected picks the pen, so one tap still gets you drawing); what puts
+    the pen down is **unselecting the tool inside it**. The panel's `[Draw] [Mark] [Erase]` row is mutually
+    exclusive and clicking the selected one deselects it, so **nothing selected IS the pen-up state** —
+    which is what makes that gesture available at all. `applyWBState` maps `panelOpen` → `.active` and
+    `enabled` → the button's `.on` (visible with the panel shut) plus the canvas; **`wbSetEnabled` is the
+    one place `enabled` changes**, because the Atlas owns its own cursor / hover / spin state and has to be
+    told through `WB.onToggle` the moment the pen goes down or up.
   · **The handle is the toggle button itself** — there is nothing else to grab — so every press has to be
     classified: under `WB_DRAG_SLOP` (5px) it stays a click and toggles drawing, past it the drag takes over
     and the click that pointerup fires afterwards is swallowed by the `wbDragged` flag, which the toggle's own

@@ -411,7 +411,91 @@ async function studyEasy(page, base, n) {
       await studyEasy(page, base, 0);
       const again = await page.evaluate(() => { const b = document.querySelector(".wb-tools").getBoundingClientRect(); return { x: Math.round(b.left + b.width / 2), y: Math.round(b.top + b.height / 2) }; });
       check("[" + tag + "] the marker comes back where it was left", Math.abs(again.x - target.x) <= 3 && Math.abs(again.y - target.y) <= 3, JSON.stringify(again));
+
+      /* The pen and the tools are two states. They were one until Aug 2026, when putting the tools away
+         also put the pen down — you could not draw with the panel out of the way, which on a phone is most
+         of the card. What stops the drawing is unselecting the tool INSIDE the panel. */
+      const wb = () => page.evaluate(() => {
+        const t = document.querySelector(".wb-tools");
+        return { panel: t.querySelector(".wb-panel").checkVisibility(),
+          drawing: t.querySelector(".wb-toggle").classList.contains("on"),
+          canvas: !!document.querySelector(".draw-canvas.on"),
+          sel: [...t.querySelectorAll(".wb-btn.sel")].map((b) => b.className.replace(/wb-btn |sel| /g, "")).join(",") };
+      });
+      const marker = await page.evaluate(() => { const b = document.querySelector(".wb-tools").getBoundingClientRect(); return { x: Math.round(b.left + b.width / 2), y: Math.round(b.top + b.height / 2) }; });
+      await page.mouse.click(marker.x, marker.y);          // open
+      await page.waitForTimeout(200);
+      const opened2 = await wb();
+      check("[" + tag + "] opening the tools puts the pen down", opened2.panel && opened2.drawing && opened2.canvas && opened2.sel === "wb-pen", JSON.stringify(opened2));
+      await page.mouse.click(marker.x, marker.y);          // close — the pen must stay down
+      await page.waitForTimeout(200);
+      const shut = await wb();
+      check("[" + tag + "] putting the tools away leaves the pen down", !shut.panel && shut.drawing && shut.canvas, JSON.stringify(shut));
+      await page.mouse.click(marker.x, marker.y);          // open again, then unselect the pen
+      await page.waitForTimeout(200);
+      await page.evaluate(() => { const b = document.querySelector(".wb-btn.wb-pen"); if (b) b.click(); });
+      await page.waitForTimeout(200);
+      const off = await wb();
+      check("[" + tag + "] unselecting the tool is what stops the drawing", off.panel && !off.drawing && !off.canvas && off.sel === "", JSON.stringify(off));
     }
+    await page.close();
+  }
+
+  /* ================= 5e. the editor's way in =================
+     Edit left the phone's tab bar (six destinations a reader shares; the editor is one person's tool) for a
+     button at the top right of the page — plain on Home, and on a study card pointing at THAT card. Above
+     the breakpoint the top bar's Edit tab is still the way in and the plain copy must not double it. */
+  for (const vp of [PHONE, DESKTOP]) {
+    const page = await browser.newPage({ viewport: vp });
+    watch(page);
+    await page.goto(base + "#home", { waitUntil: "load" });
+    await page.waitForTimeout(1400);
+    const tag = vp.width + "px";
+    const home = await page.evaluate(() => {
+      const f = document.querySelector("#admin-edit-fab");
+      const b = f && f.getBoundingClientRect();
+      return { shown: !!f && f.checkVisibility(), plain: !!f && f.classList.contains("aef-plain"),
+        right: b ? Math.round(innerWidth - b.right) : null, top: b ? Math.round(b.top) : null, vw: innerWidth, vh: innerHeight,
+        tabbarEdit: !!document.querySelector(".tabbar .tab-admin"), topbarEdit: !!document.querySelector(".topbar .tab-admin") };
+    });
+    check("[" + tag + "] the tab bar no longer carries Edit", !home.tabbarEdit);
+    check("[" + tag + "] ...the top bar still does", home.topbarEdit);
+    if (vp === PHONE) {
+      check("[" + tag + "] Home carries the editor button", home.shown && home.plain, JSON.stringify(home));
+      check("[" + tag + "] ...at the TOP right", home.shown && home.right < 40 && home.top < home.vh / 4, JSON.stringify(home));
+      await page.evaluate(() => document.querySelector("#admin-edit-fab").click());
+      await page.waitForTimeout(900);
+      check("[" + tag + "] ...and it opens the editor", (await page.evaluate(() => location.hash)) === "#admin");
+    } else {
+      check("[" + tag + "] Home does NOT double the top bar's Edit tab", !home.shown, JSON.stringify(home));
+    }
+
+    // on a study card it points at that card, at every width
+    await studyEasy(page, base, 0);
+    const study = await page.evaluate(() => {
+      const f = document.querySelector("#admin-edit-fab");
+      const b = f && f.getBoundingClientRect();
+      const q = document.querySelector(".study-card .question");
+      return { shown: !!f && f.checkVisibility(), plain: !!f && f.classList.contains("aef-plain"),
+        right: b ? Math.round(innerWidth - b.right) : null, top: b ? Math.round(b.top) : null, vh: innerHeight,
+        overlapsQuestion: !!(b && q && b.bottom > q.getBoundingClientRect().top && b.top < q.getBoundingClientRect().bottom && b.right > q.getBoundingClientRect().left) };
+    });
+    check("[" + tag + "] a study card carries it too", study.shown && !study.plain, JSON.stringify(study));
+    if (vp === PHONE) check("[" + tag + "] ...also at the top right, clear of the question", study.right < 40 && study.top < study.vh / 4 && !study.overlapsQuestion, JSON.stringify(study));
+    await page.evaluate(() => document.querySelector("#admin-edit-fab").click());
+    await page.waitForTimeout(1200);
+    const routed2 = await page.evaluate(() => ({ hash: location.hash, card: !!document.querySelector(".admin-live-card") }));
+    check("[" + tag + "] ...and opens THAT card in the editor", routed2.hash === "#admin" && routed2.card, JSON.stringify(routed2));
+
+    // a reader must never see it — it used to be built on every study card, admin or not.
+    // reload(), not goto(#hash): a URL differing only in the fragment is a same-document navigation, so
+    // the app keeps running and `S` in memory would never see this write (see the note in CLAUDE.md).
+    await page.evaluate(() => { const s = JSON.parse(localStorage.getItem("folio_v1")); s.settings.adminMode = false; localStorage.setItem("folio_v1", JSON.stringify(s)); });
+    await page.reload({ waitUntil: "load" });
+    await page.waitForTimeout(1200);
+    await studyEasy(page, base, 0);
+    check("[" + tag + "] a reader gets no Edit button at all", !(await page.evaluate(() => !!document.querySelector("#admin-edit-fab"))));
+    await page.evaluate(() => { const s = JSON.parse(localStorage.getItem("folio_v1")); s.settings.adminMode = true; localStorage.setItem("folio_v1", JSON.stringify(s)); });
     await page.close();
   }
 
