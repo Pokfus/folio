@@ -1278,7 +1278,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   that cannot be studied, and a figure that reads as a card count when the collection holds no cards. Six of
   the seven collections are coming-soon, so that was most of the Library saying nothing. With the meter gone
   the row's opacity fade no longer has to cover one, so it eases from `.62` to `.78` (at `.62`, over a tinted
-  wash, the title and pill sat near the contrast floor).
+  wash, the title and pill sat near the contrast floor). It also has to **cancel `.collection-title-row`'s 9px
+  bottom margin** (Aug 2026, on request): that margin separates the title from the XP bar, and with no bar it
+  was 9px of nothing inside a flex item the row centres as a whole, so the title rode ~4.5px above the middle
+  of its own banner. A flex item establishes its own formatting context, so the margin cannot collapse away by
+  itself — it has to be zeroed.
 - **Collections count their level in their own script** (`levelBadgeMarkup(xp, sys)` + `numeralIn(sys, n)`; the id→system map is
   `COLLECTION_NUMERALS`): China → Chinese numerals (`一 二 三 …` via `cnNumeral()`, Han font — `一` for level 1 is a single
   horizontal stroke, so it reads as a bar until level 2+), Ancient Rome (col-40) → Roman numerals, Ancient Greece (col-13) →
@@ -1313,6 +1317,27 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `.globe-stage` and `.atlas-timebar` are each written ONCE against them rather than restated per
   breakpoint — which is how their old hard-coded `96px`/`118px` pair would have drifted apart the moment a
   third bar appeared. `.stage`, `#toast` and `.admin-edit-fab` take the same offset.
+- **The whiteboard marker is DRAGGABLE anywhere on screen** (`wbMakeDraggable` / `wbApplyPos`, beside
+  `ensureWBTools` — Aug 2026, on request). It is a fixed control floating over a card the reader is trying to
+  read, and its default corner is exactly where some cards put the thing you want to look at.
+  · **The handle is the toggle button itself** — there is nothing else to grab — so every press has to be
+    classified: under `WB_DRAG_SLOP` (5px) it stays a click and toggles drawing, past it the drag takes over
+    and the click that pointerup fires afterwards is swallowed by the `wbDragged` flag, which the toggle's own
+    click handler checks and clears. `pointerdown` resets it, so a cancelled drag can't swallow the next real
+    press. The handle carries `touch-action:none`, or the browser claims a finger drag as a page scroll before
+    `pointermove` ever arrives.
+  · **The element is positioned by `right`/`bottom`, never `left`/`top`**, and is exactly the 46px button:
+    `.wb-panel` hangs off it **absolutely** rather than sharing a flex column with it. Both follow from the
+    drag — with `left`, opening the panel would shove the button sideways, since the panel is wider. Out of
+    flow, the panel only has to be told which way to open: `.wb-flip` when there is no room above,
+    `.wb-left` when there is none to the left (`WB_PANEL_W`/`WB_PANEL_H` are rough sizes used only for that
+    choice — the panel is `display:none` when shut, so it cannot be measured).
+  · **The position is device-local** (`localStorage["folio_wb_pos_v1"]`, not in `S` and not synced — where a
+    control sits on a screen is a fact about that screen) and **clamped on every apply and on resize**, so a
+    position saved on a wide window cannot strand the marker off the edge of a narrow one. With nothing
+    stored the inline styles are cleared, which is what lets `.on-atlas` and `body.grading`'s offsets take
+    over again. Guarded by `test-layout.js`: a marker that cannot be moved and one that turns drawing on
+    every time you move it are opposite failures, both silent.
 - **Reduced motion:** styles.css ends with a **global killswitch** — `@media (prefers-reduced-motion:reduce){ *,*::before,*::after
   { animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; } }`.
   It covers every CSS animation and transition in the file (entrance animations land on their end state), so a new one usually
@@ -1408,11 +1433,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   no setYear, and a later tick would cancel its flight mid-air). The info panel gained a **drill breadcrumb** (`#cpCrumb` —
   parent = the empire via `.mother`, or `ownerAt(popPointLL)` for drilled countries/UK constituents; clicking climbs back up),
   **"Through the ages"** (`#cpHistory` — `ownerAt(popPointLL)` across all mapYears, consecutive runs collapsed; a row click
-  jumps + re-selects **by point, not name** via `selectEntityByName(name, atLL)`), and **Copy link** → `#map/<year>/<slug>`
-  deep links (parsed at boot + hashchange by `parseMapHash` — `decodeURIComponent` is try/caught so a mangled %-escape can't
-  kill boot; the consumer resolves territory names, then EMPIRE names via `.mother`, then drilled present-day countries
-  (`subSelGeo`), then UK constituents (`subSelUK`); `popPointLL` (the click point / search anchor — GEO label point `c`, NOT
-  the bbox centre, which can land in a neighbour) + `popEntityName` feed all three). Unclaimed land on historical eras gets a
+  jumps + re-selects **by point, not name** via `selectEntityByName(name, atLL)`). Both read **`popPointLL`** — the click
+  point / search anchor, the GEO label point `c` and NOT the bbox centre, which can land in a neighbour.
+  A **Copy link** chip sat beside them and was **removed on request (Aug 2026)**; `popEntityName`, which was only ever
+  read to mint one, went with it. The **`#map/<year>/<slug>` deep links themselves are untouched** and must stay so —
+  every link already shared points at one. They are parsed at boot + hashchange by `parseMapHash` (`decodeURIComponent`
+  is try/caught so a mangled %-escape can't kill boot; the consumer resolves territory names, then EMPIRE names via
+  `.mother`, then drilled present-day countries (`subSelGeo`), then UK constituents (`subSelUK`)), and
+  `test-layout.js` loads one, because nothing on screen says they still work. Unclaimed land on historical eras gets a
   **terra-incognita stipple** (`stipplePattern()`, theme-aware via `stippleCol`, drawn settled-only under the claimed-land
   refill so it survives only on wilderness).
   **Frame-cost rules (smoothness batch, July 2026) — keep these when touching the render path:**

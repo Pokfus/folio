@@ -270,6 +270,35 @@ async function studyEasy(page, base, n) {
     }));
     check("on a desktop the search is a plain field, not a chip", d.field && !d.chip, JSON.stringify(d));
     check("...and the legend opens on arrival", d.legendBody);
+
+    // Copy link was taken off the place panel (Aug 2026, on request). The #map/<year>/<slug> deep link
+    // itself stays — links already shared have to go on working, and nothing on screen says they do.
+    await page.evaluate(() => { const i = document.querySelector("#gsInput"); i.focus(); i.value = "France"; i.dispatchEvent(new Event("input", { bubbles: true })); });
+    await page.waitForTimeout(700);
+    await page.evaluate(() => { const r = document.querySelector(".gs-row"); if (r) r.click(); });
+    await page.waitForTimeout(2500);
+    const cp = await page.evaluate(() => ({
+      open: !!document.querySelector("#countryPop") && !document.querySelector("#countryPop").hidden,
+      tools: [...document.querySelectorAll(".cp-tools .cp-tool")].map((b) => b.textContent.trim()),
+      copy: !!document.querySelector("#cpCopyLink"),
+    }));
+    check("a place panel opens", cp.open, JSON.stringify(cp));
+    check("...carrying no Copy link chip", !cp.copy && !cp.tools.some((t) => /copy/i.test(t)), cp.tools.join(" · "));
+    check("...but keeping Through the ages", cp.tools.some((t) => /ages/i.test(t)), cp.tools.join(" · "));
+    await page.close();
+  }
+  {
+    const page = await browser.newPage({ viewport: DESKTOP });
+    watch(page);
+    await page.goto(base, { waitUntil: "load" });
+    await page.evaluate(() => localStorage.setItem("folio_atlas_tour_v1", "1"));
+    await page.goto(base + "#map/1938/france", { waitUntil: "load" });
+    await page.waitForTimeout(5000);
+    const deep = await page.evaluate(() => ({
+      open: !!document.querySelector("#countryPop") && !document.querySelector("#countryPop").hidden,
+      name: ((document.querySelector("#cpName") || {}).textContent || "").trim(),
+    }));
+    check("a link shared before the chip was removed still resolves", deep.open && /fren|fran/i.test(deep.name), JSON.stringify(deep));
     await page.close();
   }
 
@@ -328,6 +357,60 @@ async function studyEasy(page, base, n) {
     } else {
       check("[" + tag + "] the grade bar carries no second Undo", !u.inBar);
       check("[" + tag + "] ...the study bar keeps the only one", u.inStudyBar);
+    }
+    await page.close();
+  }
+
+  /* ================= 5d. the whiteboard marker drags anywhere =================
+     The handle IS the toggle button, so every press has to be classified: under the slop it toggles
+     drawing, past it it moves the marker and the click that follows pointerup must be swallowed. Both
+     failures are silent and opposite — a marker that cannot be moved, or one that turns drawing on every
+     time you move it. The panel is anchored to the button rather than sharing a flex column with it, so
+     the button must not jump when the panel opens, and the panel must open on the side there is room on. */
+  for (const vp of [PHONE, DESKTOP]) {
+    const page = await browser.newPage({ viewport: vp, hasTouch: vp === PHONE });
+    watch(page);
+    await studyEasy(page, base, 0);
+    const at = await page.evaluate(() => {
+      const t = document.querySelector(".wb-tools");
+      if (!t || !t.checkVisibility()) return null;
+      const b = t.getBoundingClientRect();
+      return { x: Math.round(b.left + b.width / 2), y: Math.round(b.top + b.height / 2), w: Math.round(b.width), h: Math.round(b.height) };
+    });
+    const tag = vp.width + "px";
+    check("[" + tag + "] the marker is on the study page", !!at, at);
+    if (at) {
+      // to the top-left quarter — far enough that it has to flip the panel on a phone
+      const target = { x: Math.round(vp.width * 0.25), y: Math.round(vp.height * 0.3) };
+      await page.mouse.move(at.x, at.y);
+      await page.mouse.down();
+      await page.mouse.move(at.x - 30, at.y - 30, { steps: 5 });
+      await page.mouse.move(target.x, target.y, { steps: 10 });
+      await page.mouse.up();
+      await page.waitForTimeout(300);
+      const moved = await page.evaluate(() => {
+        const t = document.querySelector(".wb-tools"), b = t.getBoundingClientRect();
+        return { x: Math.round(b.left + b.width / 2), y: Math.round(b.top + b.height / 2), l: Math.round(b.left), t: Math.round(b.top),
+          drawing: t.classList.contains("active"), stored: !!localStorage.getItem("folio_wb_pos_v1") };
+      });
+      check("[" + tag + "] dragging it follows the pointer", Math.abs(moved.x - target.x) <= 3 && Math.abs(moved.y - target.y) <= 3, JSON.stringify(moved));
+      check("[" + tag + "] ...without the drag also switching drawing on", !moved.drawing);
+      check("[" + tag + "] ...and where it was put is remembered", moved.stored);
+      await page.mouse.click(moved.x, moved.y);
+      await page.waitForTimeout(250);
+      const opened = await page.evaluate(() => {
+        const t = document.querySelector(".wb-tools"), b = t.getBoundingClientRect(), p = t.querySelector(".wb-panel").getBoundingClientRect();
+        return { on: t.classList.contains("active"), l: Math.round(b.left), t: Math.round(b.top),
+          p: { l: Math.round(p.left), t: Math.round(p.top), r: Math.round(p.right), b: Math.round(p.bottom) }, vw: innerWidth, vh: innerHeight };
+      });
+      check("[" + tag + "] a press that did not move it still toggles drawing", opened.on);
+      check("[" + tag + "] ...the button stays put as the panel opens", near(opened.l, moved.l, 2) && near(opened.t, moved.t, 2), JSON.stringify({ moved, opened }));
+      check("[" + tag + "] ...and the panel opens fully on screen",
+        opened.p.l >= 0 && opened.p.t >= 0 && opened.p.r <= opened.vw && opened.p.b <= opened.vh, JSON.stringify(opened.p));
+      // it is a device setting, so it has to survive leaving the page and coming back
+      await studyEasy(page, base, 0);
+      const again = await page.evaluate(() => { const b = document.querySelector(".wb-tools").getBoundingClientRect(); return { x: Math.round(b.left + b.width / 2), y: Math.round(b.top + b.height / 2) }; });
+      check("[" + tag + "] the marker comes back where it was left", Math.abs(again.x - target.x) <= 3 && Math.abs(again.y - target.y) <= 3, JSON.stringify(again));
     }
     await page.close();
   }
@@ -416,8 +499,16 @@ async function studyEasy(page, base, n) {
       const soon = document.querySelector(".collection.placeholder");
       const live = [...document.querySelectorAll(".collection:not(.placeholder):not(.udeck)")][0];
       const has = (el, sel) => !!(el && el.querySelector(sel));
+      // with the XP bar gone, the title row's bottom margin was 9px of nothing under the title, inside a
+      // flex item the row centres as a whole — so the title rode above the middle of its own banner
+      let off = null;
+      if (soon) {
+        const t = soon.querySelector(".collection-title").getBoundingClientRect();
+        const r = soon.querySelector(".collection-row").getBoundingClientRect();
+        off = +((t.top + t.height / 2 - r.top) - r.height / 2).toFixed(2);
+      }
       return {
-        groupLabel: groupLabel.trim(),
+        groupLabel: groupLabel.trim(), soonTitleOffset: off,
         soonBadge: has(soon, ".level-badge"), soonXp: has(soon, ".xp"), soonPill: has(soon, ".pill.soon"),
         liveBadge: has(live, ".level-badge"), liveXp: has(live, ".xp"), liveCount: has(live, ".collection-count"),
       };
@@ -428,6 +519,7 @@ async function studyEasy(page, base, n) {
     check("a coming-soon collection carries no level badge", !lib.soonBadge);
     check("...and no XP bar", !lib.soonXp);
     check("...just the Coming soon pill", lib.soonPill);
+    check("...with its title centred in the banner", lib.soonTitleOffset !== null && Math.abs(lib.soonTitleOffset) <= 1.5, lib.soonTitleOffset);
     check("a live collection keeps both, and its card count", lib.liveBadge && lib.liveXp && lib.liveCount, JSON.stringify(lib));
     await page.close();
   }

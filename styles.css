@@ -518,6 +518,11 @@ body[data-theme="folio"] .collection-deco::after{
    under a tinted wash and fell close to the contrast floor. */
 .collection.placeholder .collection-row{opacity:.78; cursor:default; padding-top:14px; padding-bottom:14px;}
 .collection.placeholder .collection-row:hover{background:none;}
+/* The title row's 9px bottom margin separates it from the XP bar underneath — and a coming-soon
+   collection has no XP bar, so that margin was 9px of nothing below the title, sitting inside a flex
+   item the row centres as a whole. The title therefore rode ~4.5px above the middle of the banner.
+   (A flex item establishes its own formatting context, so the margin cannot collapse away by itself.) */
+.collection.placeholder .collection-title-row{margin-bottom:0;}
 .collection.placeholder .collection-title{color:var(--ink-soft);}
 /* (the gold collection seals were removed on request) */
 .collection-main{flex:1; min-width:0;}
@@ -1795,17 +1800,27 @@ body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, va
    ============================================================ */
 .draw-canvas{position:absolute; top:0; left:0; z-index:40; pointer-events:none; touch-action:none;}
 .draw-canvas.on{pointer-events:auto; cursor:crosshair;}
+/* The marker is DRAGGABLE anywhere on the screen (see wbMakeDraggable in app.js), which is why the box is
+   exactly the toggle button and the panel hangs off it absolutely rather than sharing a flex column. Two
+   things follow from that. The element is positioned by right/bottom, so the corner the drag moves is the
+   toggle's own corner whether the panel is open or shut — with `left`, opening the panel would shove the
+   button sideways. And the panel, being out of flow, only has to be told which way to open: .wb-flip when
+   there is no room above, .wb-left when there is none to the left. */
 .wb-tools{
   position:fixed; right:18px; bottom:18px; z-index:62; display:none;
-  flex-direction:column; align-items:flex-end; gap:9px; transition:bottom .34s var(--ease);
+  width:46px; height:46px; transition:bottom .34s var(--ease);
 }
-.wb-tools.show{display:flex;}
+.wb-tools.show{display:block;}
+.wb-tools.wb-dragging{transition:none;}   /* the bottom transition would lag a finger by a third of a second */
 body.grading .wb-tools{bottom:108px;}
 .wb-tools.on-atlas{bottom:25px; right:16px;}   /* far bottom-right, vertically centred inside the timeline bar */
 .wb-panel{
+  position:absolute; right:0; bottom:calc(100% + 9px);
   display:none; flex-direction:column; gap:9px; padding:11px;
   background:var(--card); border:1px solid var(--rule); border-radius:13px; box-shadow:var(--shadow-lg);
 }
+.wb-tools.wb-flip .wb-panel{bottom:auto; top:calc(100% + 9px);}
+.wb-tools.wb-left .wb-panel{right:auto; left:0;}
 .wb-tools.active .wb-panel{display:flex;}
 .wb-row{display:flex; gap:7px; align-items:center; justify-content:center;}
 .wb-color{
@@ -1835,14 +1850,18 @@ body.grading .wb-tools{bottom:108px;}
 .wb-btn.sel{background:var(--ochre); border-color:var(--ochre); color:#fff;}
 .wb-btn.wb-hl.sel{background:var(--ochre); border-color:var(--ochre); color:#fff;}
 .wb-btn.wb-eraser.sel{background:var(--ink-soft); border-color:var(--ink-soft); color:#fff;}
+/* touch-action:none — the handle is dragged with a finger, and without it the browser claims the gesture
+   as a page scroll before pointermove ever reaches us */
 .wb-toggle{
   appearance:none; cursor:pointer; width:46px; height:46px; border-radius:50%;
   border:1px solid var(--rule); background:var(--card); color:var(--ink-soft);
   display:inline-flex; align-items:center; justify-content:center; box-shadow:var(--shadow-md);
-  transition:all .18s var(--ease);
+  transition:all .18s var(--ease); touch-action:none;
 }
 .wb-toggle svg{width:19px; height:19px;}
 .wb-toggle:hover{transform:translateY(-1px); box-shadow:var(--shadow-lg);}
+/* while it is being dragged it is the thing under the finger, not a button being hovered */
+.wb-tools.wb-dragging .wb-toggle{cursor:grabbing; transform:none; transition:none; box-shadow:var(--shadow-lg);}
 .wb-toggle:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
 .wb-toggle.on{background:var(--indigo); border-color:var(--indigo); color:#fff;}
 

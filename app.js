@@ -3949,6 +3949,75 @@
   const WB_HIST_MAX = 20;   // cap on undo history (raster card snapshots are full-canvas bitmaps)
   let wbToolsRef = null;
 
+  /* ---- the marker is draggable anywhere on the screen (Aug 2026, on request) ----
+     It is a fixed control floating over a card the reader is trying to read, and its default corner is
+     exactly where some cards put the thing you want to look at. The HANDLE is the toggle button itself —
+     there is nothing else to grab — so a press has to decide between a drag and a click: under
+     WB_DRAG_SLOP it stays a click and toggles drawing, past it the drag takes over and the click that
+     follows pointerup is swallowed by `wbDragged`.
+     The position is stored as a distance from the viewport's RIGHT and BOTTOM edges, matching how the
+     element is anchored in CSS, so the panel keeps opening away from the button rather than shoving it.
+     It is device-local (not in S, not synced): where a control sits on a screen is a fact about that
+     screen. It is clamped on every apply, so a position saved on a wide window cannot strand the marker
+     off the edge of a narrow one. */
+  const WB_POS_KEY = "folio_wb_pos_v1";
+  const WB_DRAG_SLOP = 5;                       // px of movement before a press stops being a click
+  const WB_PANEL_W = 200, WB_PANEL_H = 220;     // rough size of the open panel — only used to pick which way it opens
+  let wbPos = null, wbPosRead = false, wbDragged = false;
+  function wbReadPos() {
+    if (wbPosRead) return wbPos;
+    wbPosRead = true;
+    try { const o = JSON.parse(localStorage.getItem(WB_POS_KEY) || "null"); if (o && isFinite(o.r) && isFinite(o.b)) wbPos = { r: o.r, b: o.b }; } catch (e) {}
+    return wbPos;
+  }
+  function wbSavePos() { try { wbPos ? localStorage.setItem(WB_POS_KEY, JSON.stringify(wbPos)) : localStorage.removeItem(WB_POS_KEY); } catch (e) {} }
+  // Put the tools where the reader left them, and tell the panel which way to open. With no stored
+  // position the inline styles are cleared so the stylesheet's own corner (and the .on-atlas /
+  // body.grading offsets) takes over again.
+  function wbApplyPos(el) {
+    if (!el) return;
+    const p = wbReadPos();
+    if (!p) { el.style.right = ""; el.style.bottom = ""; el.classList.remove("wb-flip", "wb-left"); return; }
+    const vw = document.documentElement.clientWidth, vh = document.documentElement.clientHeight;
+    const w = el.offsetWidth || 46, h = el.offsetHeight || 46;
+    const r = Math.max(6, Math.min(p.r, vw - w - 6));
+    const b = Math.max(6, Math.min(p.b, vh - h - 6));
+    el.style.right = r + "px"; el.style.bottom = b + "px";
+    el.classList.toggle("wb-flip", vh - b - h < WB_PANEL_H);   // no room above the button — open downward
+    el.classList.toggle("wb-left", vw - r - w < WB_PANEL_W);   // none to the left — open rightward
+  }
+  function wbMakeDraggable(el, handle) {
+    let grab = null;
+    handle.addEventListener("pointerdown", (e) => {
+      if (e.button != null && e.button !== 0) return;
+      wbDragged = false;   // a press that never moved must not be swallowed by a previous drag's flag
+      const r = el.getBoundingClientRect();
+      const vw = document.documentElement.clientWidth, vh = document.documentElement.clientHeight;
+      grab = { id: e.pointerId, x: e.clientX, y: e.clientY, r: vw - r.right, b: vh - r.bottom };
+      try { handle.setPointerCapture(e.pointerId); } catch (err) {}
+    });
+    handle.addEventListener("pointermove", (e) => {
+      if (!grab || e.pointerId !== grab.id) return;
+      const dx = e.clientX - grab.x, dy = e.clientY - grab.y;
+      if (!wbDragged && Math.abs(dx) < WB_DRAG_SLOP && Math.abs(dy) < WB_DRAG_SLOP) return;
+      if (!wbDragged) { wbDragged = true; el.classList.add("wb-dragging"); }
+      e.preventDefault();
+      wbPos = { r: grab.r - dx, b: grab.b - dy };
+      wbPosRead = true;
+      wbApplyPos(el);   // clamps as it goes, so the marker can't be thrown off the screen
+    });
+    const release = (e) => {
+      if (!grab || (e.pointerId != null && e.pointerId !== grab.id)) return;
+      grab = null;
+      el.classList.remove("wb-dragging");
+      if (wbDragged) { wbApplyPos(el); wbSavePos(); }   // re-clamp once settled, then remember it
+    };
+    handle.addEventListener("pointerup", release);
+    handle.addEventListener("pointercancel", release);
+    // a window that narrows (rotation, a resized desktop window) must not leave the marker off the edge
+    window.addEventListener("resize", () => wbApplyPos(el));
+  }
+
   function ensureWBTools() {
     if (wbToolsRef) return wbToolsRef;
     const el = document.createElement("div");
@@ -4019,7 +4088,12 @@
     el.querySelector(".wb-undo").addEventListener("click", wbUndo);
     el.querySelector(".wb-redo").addEventListener("click", wbRedo);
     el.querySelector(".wb-clear").addEventListener("click", wbClear);
-    el.querySelector(".wb-toggle").addEventListener("click", () => { WB.enabled = !WB.enabled; applyWBState(); if (WB.onToggle) WB.onToggle(); });
+    el.querySelector(".wb-toggle").addEventListener("click", () => {
+      // the press that ended a drag also fires a click — it moved the marker, it did not press it
+      if (wbDragged) { wbDragged = false; return; }
+      WB.enabled = !WB.enabled; applyWBState(); if (WB.onToggle) WB.onToggle();
+    });
+    wbMakeDraggable(el, el.querySelector(".wb-toggle"));
     wbToolsRef = el;
     return el;
   }
@@ -4029,7 +4103,7 @@
     wbToolsRef.querySelector(".wb-toggle").classList.toggle("on", WB.enabled);
     if (WB.canvas) WB.canvas.classList.toggle("on", WB.enabled);
   }
-  function showWBTools() { ensureWBTools().classList.add("show"); applyWBState(); wbUpdateHistBtns(); }
+  function showWBTools() { const el = ensureWBTools(); el.classList.add("show"); wbApplyPos(el); applyWBState(); wbUpdateHistBtns(); }
   function hideWBTools() {
     if (wbToolsRef) { wbToolsRef.classList.remove("show"); wbToolsRef.classList.remove("on-atlas"); }
     if (WB._onResize) { window.removeEventListener("resize", WB._onResize); WB._onResize = null; }
@@ -5056,7 +5130,7 @@
       ? `<button class="banner hero" id="b-review">
           <div class="body">
             <span class="hero-eyebrow">Start here</span>
-            <h2 class="review-title">Master history, a few minutes a day</h2>
+            <h2 class="review-title">Memorize anything, a few minutes a day</h2>
             <p class="desc">Folio deals you flashcards and brings each one back just before you would forget it — spaced repetition, the schedule that makes what you learn stay learned.</p>
             <div class="meta">
               <span class="cta"><span class="btn">${(TREE.collections || []).some((c) => !isComingSoon(c)) ? "Study your first cards" : "Browse the collections"}</span></span>
@@ -8036,8 +8110,10 @@
               <div class="cp-span" id="cpSpan"></div>
               <div class="cp-new" id="cpNew" hidden></div>
               <div class="cp-tools">
+                ${/* Copy link was removed from this row on request (Aug 2026). The #map/<year>/<slug>
+                      deep link itself is UNTOUCHED — parseMapHash still resolves one, so every link
+                      already shared goes on working; only the chip that minted them is gone. */""}
                 <button class="cp-tool" id="cpHistory" type="button" title="Who ruled this spot in every mapped year?"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 14"/></svg>Through the ages</button>
-                <button class="cp-tool" id="cpCopyLink" type="button" title="Copy a link to this year + place"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>Copy link</button>
               </div>
               <div class="cp-hist" id="cpHistList" hidden></div>
             </div>
@@ -8226,7 +8302,6 @@
       cpSyncDots(); cpActiveDot();
     }
     let popPointLL = null;    // the lon/lat that opened the popup (the click point, or a search anchor) — feeds the crumb parent + "Who ruled here?"
-    let popEntityName = "";   // the ENTITY name behind the popup (cpName shows the official long-form) — feeds Copy link
     function entityName(idx) { const ht = histTerr(), terr = ht || GEO; return (idx >= 0 && idx < terr.length) ? (terr[idx].n || "") : ""; }
     function countryDesc(name) { const k = (name || "").trim().toLowerCase().replace(/\s+/g, " "); return (window.COUNTRY_INFO || {})[k] || UK_DESC[k] || ""; }
     function countryStats(name) { const k = (name || "").trim().toLowerCase().replace(/\s+/g, " "); return (window.COUNTRY_STATS || {})[k] || null; }
@@ -8301,7 +8376,6 @@
           cpNewEl.hidden = false;
         } else { cpNewEl.hidden = true; cpNewEl.innerHTML = ""; }
       }
-      popEntityName = name;
       if (cpHistListEl) { cpHistListEl.hidden = true; cpHistListEl.innerHTML = ""; }   // the ages strip belongs to the previous entity
       // drill breadcrumb: name the PARENT level (empire / merged group / the era's UK) and make it clickable — the upward
       // half of the single/double/triple-click hierarchy, finally visible on screen. Selection state is set by every caller
@@ -10363,16 +10437,6 @@
       setYear(+b.dataset.y);
       if (b.dataset.n) { popPointLL = pt; if (selectEntityByName(b.dataset.n, pt) < 0) hideCountryPopup(); } else hideCountryPopup();
     });
-    // Copy link: a shareable #map/<year>/<entity-slug> deep link for the current view
-    { const copyBtn = root.querySelector("#cpCopyLink");
-      const slugOf = (s) => gsFold(s).replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-      if (copyBtn) copyBtn.addEventListener("click", () => {
-        const url = location.href.split("#")[0] + "#map/" + year + (popEntityName ? "/" + slugOf(popEntityName) : "");
-        const ok = () => toast("Link copied");
-        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(ok, () => toast(url));
-        else toast(url);
-      });
-    }
     mapBar = root.querySelector("#mapEditBar");
     if (mapBar) {
       mapBar.querySelectorAll(".meb-tool").forEach((b) => b.addEventListener("click", () => mapSetTool(b.dataset.tool)));
