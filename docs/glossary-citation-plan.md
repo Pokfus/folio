@@ -2,11 +2,14 @@
 
 The glossary was **333 terms and not one of them carried a source**. `window.GLOSSARY_SOURCES` was an empty
 table; the fold at the foot of a gloss popup never appeared. This is the plan for filling it. Not part of
-the site. **As of 2026-08-01, 38 of the 333 are cited and at the bar** — batches G1–G5, three of which also
-corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 38 carry in-text
+the site. **As of 2026-08-01, 44 of the 333 are cited and at the bar** — batches G1–G6, four of which also
+corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 44 carry in-text
 markers, in all ten languages, after the rule changed from optional to required on 2026-08-01 (see "What
 is different from the card pass"). G5 also settled the start of prehistory across the glossary, the deck
-and every date line: **2.6 Mya**, with the disputed 3.3 Ma Lomekwi claim hedged rather than adopted.
+and every date line: **2.6 Mya**, with the disputed 3.3 Ma Lomekwi claim hedged rather than adopted; G6
+found the pass's third wrong marker, on a card, and the rule it produced governs every batch that reuses
+the register: **a source reused is reused for the claim the register records, and a new claim needs a
+re-read.**
 
 It is the sibling of `docs/citation-plan.md`, which took the 109 prehistory cards from nothing to five
 sources each over 27 batches. Everything that plan learned about *finding* sources applies here unchanged
@@ -164,7 +167,7 @@ the way batch 21 recorded the Anubis walls, so the next pass does not re-run the
 
 | group | terms | |
 |---|---|---|
-| prehistory, palaeoanthropology and geological time | 66 | Phase 1 · batches G1–G8 |
+| prehistory, palaeoanthropology and geological time | 66 | Phase 1 · batches G1–G8 (G1–G6 done) |
 | Indigenous peoples, and the odds and ends | 8 | Phase 1 · batch G9 |
 | continents, oceans and physical geography | 17 | Phase 1 · batch G10 |
 | US presidents | 45 | Phase 2 · batches P1–P7 |
@@ -629,7 +632,7 @@ Both were fixed in all ten languages. `wh-002` already had the hedged form, in a
 the glossary wording was lifted from; grepping for the FIGURE rather than the term is what turned up the
 sibling that had it right.
 
-### G6 · Geological time (6 terms)
+### G6 · Geological time (6 terms) — **DONE (2026-08-01)**
 `Quaternary` · `Pleistocene` · `Holocene` · `Cryogenian` · `Ice_Age` · `Milankovitch_cycles`
 
 Register: `gibbard-head-2010` (the Pleistocene GSSP), `walker-2009` and `walker-2018` (the Holocene GSSP and
@@ -638,6 +641,76 @@ pacemaker of the ice ages), `pages-2016`, `batchelor-2019`. The **ICS chart** at
 reachable and is the body-responsible record for every boundary date these six state. NASA's Earth
 Observatory feature on Milankovitch is reachable and is a government science-communication piece — usable as
 a second source, but the 1976 paper is the one the claim rests on.
+
+### Batch G6 log — the batch that read its own sources for the count
+
+#### 2026-08-01 — six terms, 30 citations, five corrected, and one card
+
+**Coverage 38/333 → 44/333, all forty-four at the bar.** Sixteen distinct works, **fifteen of them
+open**; the one paywalled entry is Hays, Imbrie & Shackleton 1976, standing beside three open works on
+`Milankovitch_cycles`. **Ten of the sixteen came out of `.claude/sources-register.md` with no new
+fetch** — the rate G1 predicted and G5 confirmed, and for the same reason: a period term makes no claim
+that some card about a site, a specimen or a climate does not already make.
+
+**The finding, and it is the pass's third wrong marker.** `wh-011` said "Earth has passed through at
+least five major ice ages across its history" and pointed the marker at Hoffman et al. 2017. **That
+paper does not say five, or any number.** It names the Neoproterozoic pair, "at least one such episode
+in the early Paleoproterozoic era", and plots the record since 3.0 Ga in a figure that counts nothing.
+The `Ice_Age` term carried the same claim, unmarked. The familiar five — Huronian, Cryogenian,
+Andean-Saharan, Karoo, Quaternary — is a textbook enumeration and **nothing openable from here states
+it**, so both surfaces now say what Hoffman supports: several such intervals over the past 2.4 billion
+years. Batch 23 found the first wrong marker on `wh-098`, batch G3 the second on `wh-032`, and all
+three were found the same way — **by re-reading a registered source for a different surface.** The rule
+that follows is worth stating plainly: **a source reused from the register is reused for the claim the
+register records, and a batch that wants it for a new claim has to re-read it.** Ten of this batch's
+sixteen works were reused; the one that was stretched is the one that broke.
+
+**Four more corrections.**
+- **`Milankovitch_cycles` dated Milanković's work "in the 1920s and 1930s."** NASA's Earth Observatory
+  feature — the only openable account of him — dates nothing: it gives his Belgrade chair from 1909, the
+  65°N latitude that Köppen suggested, and "for about 50 years, Milankovitch's theory was largely
+  ignored" before 1976. The decade was **withdrawn** rather than re-sourced, batch 25's rule for a "who
+  named it" clause applied to a "when did he do it" clause, and what replaced it says more: the latitude
+  and the fifty years of neglect, both quotable. Nothing else in the term moved — the 22.1–24.5° range is
+  NASA's, the 19,000–23,000-year precession is straight out of the 1976 abstract, and PAGES 2016 carries
+  the closing caveat outright ("eccentricity … does not appear in the spectrum of regional insolation
+  changes; it merely modulates the amplitude").
+- **`Ice_Age` put the last glacial's "coldest point around 20,000 years ago."** Its own sibling `wh-078`
+  already gave the LGM as "roughly 26,000 to 19,000 years ago", cited; Batchelor gives c. 26.5 ka and
+  Spratt & Lisiecki 21 ka. The term now gives the range, which agrees with the card and with both papers,
+  and adds the sea level Spratt & Lisiecki measured. **The sibling check found this, not the sources** —
+  batch 12's rule again.
+- **`Pleistocene` said the epoch "saw the rise of large mammals such as mammoths, many of which later
+  went extinct."** Mammoths arose in the Pliocene, and "many" is not a figure anyone can check. Svenning
+  et al.'s abstract has one: "only 11 out of 57 species of megaherbivores (body mass ≥1,000 kg) survived
+  to the present."
+- **`Cryogenian`'s thaws were "followed within tens of millions of years by the first large and complex
+  multicellular life."** Carlisle et al. 2024 states the checkable version — "unequivocal animal fossils
+  first occur in the Ediacaran", with rangeomorphs at 574 Ma, some sixty million years after the Marinoan
+  — so the term now says the first unmistakable animal fossils. `Holocene`'s "several parts of the world"
+  likewise became "at least eleven", which is Larson et al.'s count of independent centres.
+
+**One thing was deliberately left alone.** `Holocene` says the Meghalayan boundary is fixed in "a
+stalagmite from a cave in north-eastern India". The ICS calls KM-A a **speleothem**, and so do the two
+other open papers checked; nothing anywhere contradicts "stalagmite", and Walker et al. 2018 cannot be
+opened from here to settle it. Batch G2's rule governs: correct where a source contradicts, leave where
+nothing does. It is recorded in the register so a later batch can finish the job rather than rediscover
+the question.
+
+**Three tooling notes.**
+- **Episodes is unreachable from this sandbox.** `doi.org/10.18814/epiiugs/…` times out, the publisher's
+  PDF host `pdf.medrang.co.kr` fails DNS resolution, and `episodes.org` does not respond, so neither
+  `gibbard-head-2010` nor `walker-2018-subdivision` could be re-read. Both are cited only for what the
+  register records — and **both claims were independently confirmed from the SQS's own "Major divisions"
+  page**, which is open and says the same in the same words. That page is the find of the batch: it is
+  the whole GSSP inventory, not the Holocene note already registered, and it carried the Monte San
+  Nicola ratification date, the NGRIP2 depth, the 99-year counting error and the Mawmluh speleothem
+  between them.
+- **`api.crossref.org/works/<doi>` paid again** (batch 22's route): science.org is 403 here, and Crossref
+  serves the whole structured abstract of Hays, Imbrie & Shackleton 1976, including the sentence that
+  supplies the 19,000–23,000-year precession pair.
+- **`hal.science`'s `/document` path worked today**, where batch G3 recorded it walled behind Anubis, and
+  so did the landing page. Worth re-testing rather than assuming; the walls come and go.
 
 ### G7 · The type sites (12 terms)
 `Lomekwi` · `Lomekwi_3` · `Olduvai_Gorge` · `Dmanisi` · `Hadar,_Ethiopia` · `Gona,_Ethiopia` · `Taung` ·
