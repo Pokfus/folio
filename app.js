@@ -3783,7 +3783,9 @@
     document.body.classList.toggle("night", night);
     const theme = THEMES.includes(S.settings.theme) ? S.settings.theme : "folio";
     document.body.dataset.theme = theme;
-    document.querySelectorAll("#theme-switch, #sw-night").forEach((el) => {
+    // light / dark lives on the Settings page now (it was a top-bar slider until Aug 2026) — this keeps
+    // that switch in step whenever the setting changes from anywhere else
+    document.querySelectorAll("#sw-night").forEach((el) => {
       el.classList.toggle("on", night);
       el.setAttribute("aria-checked", night ? "true" : "false");
     });
@@ -3803,8 +3805,9 @@
   function applyMode() {
     const admin = isAdmin();
     document.body.classList.toggle("visitor-mode", !admin);
-    const editTab = document.querySelector(".tab-admin");
-    if (editTab) editTab.style.display = admin ? "" : "none";   // Edit page is admin-only
+    // Edit page is admin-only. querySelectorAll, not querySelector: the entry point exists twice —
+    // in the top bar and in the phone's bottom tab bar — and hiding only the first leaves the other live.
+    document.querySelectorAll(".tab-admin").forEach((el) => { el.style.display = admin ? "" : "none"; });
     const sw = document.getElementById("mode-switch");
     if (sw) {
       // the "Editor / Visitor" preview toggle shows only for accounts/devices that can hold the editor at all
@@ -6663,12 +6666,19 @@
               <button class="grade good" data-g="good"><span class="gl">Good</span><span class="gi">${fmtInterval(p.good)}</span><span class="gk">3</span></button>
               <button class="grade easy" data-g="easy"><span class="gl">Easy</span><span class="gi">${fmtInterval(p.easy)}</span><span class="gk">4</span></button>
             </div>
+            ${/* the phone's copy of Undo: the study bar is a scroll above a card that runs several screens,
+                  so on a phone the one way back from a misclicked grade was off screen at the moment it was
+                  wanted. CSS shows this only below 640px and hides the study bar's copy while the grade bar
+                  is up, so no card ever carries two. */""}
+            ${canUndo() ? '<button class="gb-undo" id="undoGradeBar" type="button" title="Go back to the last card and undo its grade (Ctrl+Z)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 14 4 9 9 4"/><path d="M4 9h11a5 5 0 0 1 0 10h-4"/></svg>Undo</button>' : ""}
             <button class="suspendbtn gradebar-suspend" id="suspendBtn" type="button" aria-label="Suspend this card so it won't appear again"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="5" width="4" height="14" rx="1.5"/><rect x="14" y="5" width="4" height="14" rx="1.5"/></svg>Suspend card</button>
           </div>`,
           (g) => doGrade(g)
         );
         const susBtn = document.getElementById("suspendBtn");
         if (susBtn) susBtn.addEventListener("click", suspendCurrent);
+        const undoBarBtn = document.getElementById("undoGradeBar");
+        if (undoBarBtn) undoBarBtn.addEventListener("click", undoGrade);
       }
 
       function doGrade(g) {
@@ -11764,8 +11774,17 @@
             <div id="themeGrid"><div class="theme-grid">${THEME_OPTS.map(themeBtn).join("")}</div></div>
           </div>
           <div class="set-row">
+            ${/* the light / dark switch — this is its only home now, the top bar's slider having gone (Aug 2026) */""}
             <div class="info"><h3>Night mode</h3><p>Switch to the deck's dark paper palette.</p></div>
             <div class="ctl"><div class="switch ${S.settings.night ? "on" : ""}" id="sw-night" role="switch" tabindex="0" aria-checked="${S.settings.night}"></div></div>
+          </div>
+        </div>
+        ${/* the language picker, moved off the top bar (Aug 2026) — see langPickerHTML */""}
+        <div class="set-card set-wide">
+          ${setHead("var(--zh)", '<circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 4 9 15 15 0 0 1-4 9 15 15 0 0 1-4-9 15 15 0 0 1 4-9z"/>', "Language")}
+          <div class="set-row set-row-block">
+            <div class="info"><h3>Site language</h3><p>The whole site — cards, glossary, games and the Atlas — in the language you pick. Anything not yet translated stays in English.</p></div>
+            ${langPickerHTML()}
           </div>
         </div>
         <div class="set-card">
@@ -11812,6 +11831,7 @@
     const sw = root.querySelector("#sw-night");
     const toggleNight = () => setNight(!S.settings.night);
     sw.addEventListener("click", toggleNight);
+    wireLangPicker(root);
 
     // sound effects toggle — turning it ON plays the toggle chirp as confirmation (the delegated
     // capture listener already sounded the OFF click while sfx was still enabled)
@@ -14291,10 +14311,6 @@
     t.addEventListener("click", () => route(t.dataset.route));
   });
   { const _brand = document.querySelector(".brand"); if (_brand) _brand.addEventListener("click", () => route("home")); }   // brand/logo removed from the top bar; guard in case it's re-added
-  const themeSwitch = document.getElementById("theme-switch");
-  if (themeSwitch) {
-    themeSwitch.addEventListener("click", () => setNight(!S.settings.night));
-  }
   const modeSwitch = document.getElementById("mode-switch");
   if (modeSwitch) {
     modeSwitch.addEventListener("click", () => setMode(!isAdmin()));
@@ -14464,37 +14480,27 @@
     const paint = () => { applyLang(); render(); };   // flip dir/lang + the static chrome, then rebuild the page
     if (code === "en" || dataReady(langBundle("uiI18n", code))) paint(); else loadLangData(paint);
   }
-  (function setupLangSwitch() {
-    const btn = document.getElementById("lang-switch"), codeEl = document.getElementById("lang-code"), flagEl = document.getElementById("lang-flag");
-    if (!btn || !codeEl) return;
+  /* The language picker's markup, shared by nothing else — it lives on the Settings page (Aug 2026; it
+     used to be a dropdown in the top bar, which on a phone is now gone entirely). The whole block carries
+     `notranslate`: these are the languages' own names, and translating "Deutsch" into German is how a
+     reader loses the one row they were looking for. */
+  function langPickerHTML() {
     if (!S.settings.lang) S.settings.lang = "en";
-    const cur = () => LANGS.find((l) => l.code === S.settings.lang) || LANGS[0];
-    const refresh = () => {
-      codeEl.textContent = cur().code.toUpperCase();
-      if (flagEl) flagEl.innerHTML = FLAG_SVG[cur().code] || "";
-    };
-    refresh();
-    let menu = null;
-    function close() { if (menu) { menu.remove(); menu = null; } btn.setAttribute("aria-expanded", "false"); document.removeEventListener("pointerdown", onOutside, true); document.removeEventListener("keydown", onKey, true); }
-    function onOutside(e) { if (!menu || e.target === btn || btn.contains(e.target) || menu.contains(e.target)) return; close(); }
-    function onKey(e) { if (e.key === "Escape") close(); }
-    function open() {
-      menu = document.createElement("div");
-      menu.className = "lang-menu notranslate"; menu.setAttribute("role", "listbox");
-      menu.innerHTML = LANGS.map((l) => '<button class="lang-opt' + (l.code === S.settings.lang ? " on" : "") + '" type="button" role="option" data-lang="' + l.code + '"><span class="lo-flag" aria-hidden="true">' + (FLAG_SVG[l.code] || "") + '</span><span class="lo-label">' + esc(l.label) + "</span></button>").join("");
-      document.body.appendChild(menu);
-      const r = btn.getBoundingClientRect();
-      menu.style.top = (r.bottom + 8) + "px";
-      menu.style.right = Math.max(8, window.innerWidth - r.right) + "px";
-      btn.setAttribute("aria-expanded", "true");
-      menu.querySelectorAll(".lang-opt").forEach((o) => o.addEventListener("click", () => {
-        setLang(o.dataset.lang);   // persists, lazy-loads the translation tables, then repaints
-        refresh(); close();
-      }));
-      setTimeout(() => { document.addEventListener("pointerdown", onOutside, true); document.addEventListener("keydown", onKey, true); }, 0);
-    }
-    btn.addEventListener("click", () => { menu ? close() : open(); });
-  })();
+    return '<div class="lang-grid notranslate" id="langGrid" role="radiogroup" aria-label="Site language">' +
+      LANGS.map((l) => '<button class="lang-opt' + (l.code === S.settings.lang ? " on" : "") + '" type="button" role="radio" aria-checked="' +
+        (l.code === S.settings.lang ? "true" : "false") + '" data-lang="' + l.code + '">' +
+        '<span class="lo-flag" aria-hidden="true">' + (FLAG_SVG[l.code] || "") + '</span>' +
+        '<span class="lo-label">' + esc(l.label) + '</span>' +
+        '<span class="lo-code">' + l.code.toUpperCase() + '</span></button>').join("") +
+      '</div>';
+  }
+  function wireLangPicker(root) {
+    const grid = root.querySelector("#langGrid");
+    if (!grid) return;
+    // setLang persists, lazy-loads that language's translation tables, then re-renders the page — which
+    // rebuilds this grid with the new selection, so there is nothing to mark by hand here.
+    grid.querySelectorAll(".lang-opt").forEach((o) => o.addEventListener("click", () => setLang(o.dataset.lang)));
+  }
 
   // initial route from hash
   const valid = ["home", "decks", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "admin", "mission", "studio", "community", "deck"];

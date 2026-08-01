@@ -93,19 +93,29 @@ async function studyEasy(page, base, n) {
       return {
         shown: t.checkVisibility(),
         bottom: Math.round(b.bottom), h: Math.round(b.height), w: Math.round(b.width),
-        topNav: document.querySelector(".topbar .nav.left").checkVisibility(),
-        tabs: [...t.querySelectorAll(".tab")].map((x) => x.dataset.route),
+        topbar: document.querySelector(".topbar").checkVisibility(),
+        // only the tabs actually on screen: Edit is admin-only and applyMode() hides it, so a visitor's
+        // row is six and an editor's is seven
+        tabs: [...t.querySelectorAll(".tab")].filter((x) => x.checkVisibility()).map((x) => x.dataset.route),
         // the top bar's labels collapse to max-width:0 and unfold only on hover / .active. Down here every
         // tab must be named all the time — a row of bare icons is the problem this bar exists to solve,
-        // and a phone has no hover to unfold them with.
-        labelled: [...t.querySelectorAll(".tab .tab-label")].map((l) => Math.round(l.getBoundingClientRect().width)),
+        // and a phone has no hover to unfold them with. A label must also not be CLIPPED to nothing by the
+        // narrower cells six or seven tabs leave: compare each against the text it is meant to show.
+        labelled: [...t.querySelectorAll(".tab")].filter((x) => x.checkVisibility()).map((x) => {
+          const l = x.querySelector(".tab-label");
+          return { w: Math.round(l.getBoundingClientRect().width), need: l.scrollWidth };
+        }),
       };
     });
     check("the tab bar shows on a phone", bar.shown);
     check("...spanning the full width, pinned to the bottom", bar.w === PHONE.width && bar.bottom === PHONE.height, JSON.stringify({ w: bar.w, bottom: bar.bottom }));
-    check("...carrying the four destinations", bar.tabs.join(",") === "home,decks,map,mission", bar.tabs.join(","));
-    check("...every one of them NAMED, not just the active one", bar.labelled.every((w) => w > 8), JSON.stringify(bar.labelled));
-    check("the top bar's left nav gives way to it", !bar.topNav);
+    check("...carrying every destination the top bar used to hold",
+      ["home", "decks", "map", "mission", "account", "settings"].every((r) => bar.tabs.includes(r)), bar.tabs.join(","));
+    check("...every one of them NAMED, not just the active one", bar.labelled.every((l) => l.w > 8), JSON.stringify(bar.labelled.map((l) => l.w)));
+    check("...and no name clipped by the narrower cells", bar.labelled.every((l) => l.w >= l.need - 1), JSON.stringify(bar.labelled));
+    // light/dark and the language picker moved to Settings, Account/Settings/Edit moved down here —
+    // which leaves the top bar with nothing on it at all on a phone
+    check("the top bar gives way to it entirely", !bar.topbar);
 
     // it routes, and the active state follows the route
     await page.evaluate(() => { [...document.querySelectorAll(".tabbar .tab")].find((t) => t.dataset.route === "decks").click(); });
@@ -133,9 +143,11 @@ async function studyEasy(page, base, n) {
       tabbar: document.querySelector(".tabbar").checkVisibility(),
       topNav: document.querySelector(".topbar .nav.left").checkVisibility(),
       tabbarH: getComputedStyle(document.documentElement).getPropertyValue("--tabbar-h").trim(),
+      barH: getComputedStyle(document.documentElement).getPropertyValue("--bar-h").trim(),
     }));
     check("above the breakpoint the tab bar is gone", !d.tabbar);
     check("...and the top bar's nav is back", d.topNav);
+    check("...with --bar-h back to its full height", !/^0/.test(d.barH), d.barH);
     check("...with --tabbar-h at zero, so nothing reserves room for it", /^0/.test(d.tabbarH), d.tabbarH);
     await page.close();
   }
@@ -283,6 +295,62 @@ async function studyEasy(page, base, n) {
     check("...taking under a fifth of the screen", gb.h < gb.vh * 0.2, gb.h + " of " + gb.vh);
     // the card's last line must not end underneath it
     check("the study page's bottom padding clears the bar", gb.pad >= gb.h, JSON.stringify({ pad: gb.pad, bar: gb.h }));
+    await page.close();
+  }
+
+  /* ================= 5b. Undo, in the grade bar on a phone =================
+     The study bar sits above a card that runs several screens, so on a phone the one way back from a
+     misclicked grade was scrolled off the top at exactly the moment it was wanted. It is repeated in the
+     grade bar beside the ? that explains it — and the study bar's copy steps aside while it is there, so
+     a card never shows two. Both halves have to hold, or a reader gets a duplicate or nothing at all. */
+  for (const vp of [PHONE, DESKTOP]) {
+    const page = await browser.newPage({ viewport: vp });
+    watch(page);
+    await studyEasy(page, base, 1);            // one graded card is what makes Undo exist at all
+    await page.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
+    await page.waitForTimeout(700);
+    const u = await page.evaluate(() => {
+      const gbU = document.querySelector("#undoGradeBar"), sbU = document.querySelector("#undoGrade");
+      const help = document.querySelector(".grade-help");
+      const r = (e) => { const b = e.getBoundingClientRect(); return { l: Math.round(b.left), t: Math.round(b.top) }; };
+      return {
+        inBar: !!gbU && gbU.checkVisibility(), inStudyBar: !!sbU && sbU.checkVisibility(),
+        pos: gbU && gbU.checkVisibility() ? r(gbU) : null, help: r(help),
+        grades: r(document.querySelector(".grades")),
+      };
+    });
+    const tag = vp.width + "px";
+    if (vp === PHONE) {
+      check("[" + tag + "] Undo is in the grade bar", u.inBar);
+      check("[" + tag + "] ...just right of the ? and below the four grades",
+        !!u.pos && u.pos.l > u.help.l && u.pos.t > u.grades.t, JSON.stringify(u));
+      check("[" + tag + "] ...and the study bar's copy has stepped aside", !u.inStudyBar);
+    } else {
+      check("[" + tag + "] the grade bar carries no second Undo", !u.inBar);
+      check("[" + tag + "] ...the study bar keeps the only one", u.inStudyBar);
+    }
+    await page.close();
+  }
+
+  /* ================= 5c. light/dark and the language picker live on Settings ================= */
+  for (const vp of [PHONE, DESKTOP]) {
+    const page = await browser.newPage({ viewport: vp });
+    watch(page);
+    await page.goto(base + "#settings", { waitUntil: "load" });
+    await page.waitForTimeout(1400);
+    const p = await page.evaluate(() => ({
+      opts: document.querySelectorAll("#langGrid .lang-opt").length,
+      picked: [...document.querySelectorAll("#langGrid .lang-opt.on")].map((o) => o.dataset.lang).join(","),
+      night: !!document.querySelector("#sw-night") && document.querySelector("#sw-night").checkVisibility(),
+      // whatever the viewport, neither may be left behind in the top bar
+      strayLang: !!document.querySelector(".topbar .lang-opt, .topbar #lang-switch"),
+      strayNight: !!document.querySelector(".topbar .theme-switch"),
+    }));
+    const tag = vp.width + "px";
+    check("[" + tag + "] every language is offered on the Settings page", p.opts === 10, String(p.opts));
+    check("[" + tag + "] ...with exactly one marked as the current one", p.picked === "en", p.picked);
+    check("[" + tag + "] ...beside the light/dark switch", p.night);
+    check("[" + tag + "] ...and neither is left in the top bar", !p.strayLang && !p.strayNight, JSON.stringify(p));
     await page.close();
   }
 

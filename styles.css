@@ -135,29 +135,6 @@ body[data-theme="folio"] .topbar::after{
 .tab.active .ink{transform:scaleX(1); opacity:1;}
 .tab:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
 
-/* light / dark slider in the top bar */
-.theme-switch{
-  position:relative; flex:none; width:48px; height:21px; margin-right:4px; padding:0;
-  appearance:none; cursor:pointer; border-radius:99px;
-  border:1px solid var(--rule); background:var(--paper-2);
-  display:inline-flex; align-items:center; justify-content:space-between;
-  transition:background .3s var(--ease), border-color .3s var(--ease);
-}
-.theme-switch .ic{width:10px; height:10px; flex:none; z-index:1; pointer-events:none; transition:color .3s, opacity .3s;}
-.theme-switch .ic-sun{margin-left:5px; color:var(--ochre); opacity:.85;}
-.theme-switch .ic-moon{margin-left:auto; margin-right:5px; color:var(--indigo-bright); opacity:.4;}
-.theme-switch .ts-knob{
-  position:absolute; top:2px; left:2px; width:15px; height:15px; border-radius:50%; z-index:2;
-  background:#fff; box-shadow:0 1px 3px rgba(0,0,0,.28);
-  transition:transform .3s var(--ease), background .3s var(--ease);
-}
-.theme-switch:hover{border-color:color-mix(in srgb, var(--ink) 18%, var(--rule));}
-.theme-switch:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
-.theme-switch.on{background:var(--indigo-wash); border-color:color-mix(in srgb, var(--indigo) 38%, var(--rule));}
-.theme-switch.on .ts-knob{transform:translateX(27px); background:var(--indigo);}
-.theme-switch.on .ic-sun{opacity:.4;}
-.theme-switch.on .ic-moon{opacity:.9;}
-
 /* admin / first-time-visitor mode toggle in the top bar */
 .mode-switch{
   position:relative; flex:none; display:inline-flex; align-items:center; gap:7px;
@@ -178,25 +155,19 @@ body[data-theme="folio"] .topbar::after{
 /* in first-time-visitor preview, the Admin entry point disappears */
 body.visitor-mode .tab-admin{display:none;}
 
-/* language switcher (top bar) + its dropdown */
-.lang-switch{flex:none; display:inline-flex; align-items:center; gap:5px; margin-left:2px; padding:7px 10px; border-radius:99px; cursor:pointer; appearance:none; border:1px solid var(--rule); background:var(--paper-2); color:var(--ink-soft); transition:color .18s var(--ease), background .18s var(--ease), border-color .18s var(--ease);}
-.lang-switch .ic{width:15px; height:15px; flex:none;}
-.lang-code{font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; font-weight:600;}
-.lang-switch:hover{color:var(--indigo); background:var(--indigo-wash); border-color:color-mix(in srgb, var(--indigo) 30%, var(--rule));}
-.lang-switch:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
-.lang-switch[aria-expanded="true"]{color:var(--indigo); background:var(--indigo-wash); border-color:color-mix(in srgb, var(--indigo) 38%, var(--rule));}
-.lang-menu{position:fixed; z-index:60; min-width:172px; background:var(--card); border:1px solid var(--rule); border-radius:11px; box-shadow:var(--shadow-lg); padding:6px; display:flex; flex-direction:column; gap:2px; animation:pageIn .16s var(--ease) both;}
-.lang-opt{display:flex; align-items:center; gap:10px; width:100%; text-align:left; appearance:none; border:0; background:none; cursor:pointer; padding:9px 11px; border-radius:8px; color:var(--ink); transition:background .14s var(--ease);}
-.lang-opt:hover{background:color-mix(in srgb, var(--ink) 6%, transparent);}
-.lang-opt.on{background:var(--indigo-wash); color:var(--indigo);}
-.lo-code{font-family:var(--mono); font-size:10px; letter-spacing:.08em; font-weight:700; width:24px; flex:none; color:var(--ink-faint);}
+/* language picker — Settings → Language (it was a top-bar dropdown until Aug 2026; a preference
+   belongs on the preferences page, and on a phone the top bar it lived in is gone entirely) */
+.lang-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px;}
+.lang-opt{display:flex; align-items:center; gap:10px; width:100%; text-align:left; appearance:none; cursor:pointer; padding:11px 13px; border-radius:10px; border:1.5px solid var(--rule); background:var(--card); color:var(--ink); transition:border-color .15s, box-shadow .15s, background .14s var(--ease);}
+.lang-opt:hover{border-color:var(--ink-faint);}
+.lang-opt.on{border-color:var(--indigo); box-shadow:0 0 0 3px var(--indigo-wash); color:var(--indigo);}
+.lang-opt:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
+.lo-code{font-family:var(--mono); font-size:10px; letter-spacing:.08em; font-weight:700; margin-inline-start:auto; flex:none; color:var(--ink-faint);}
 .lang-opt.on .lo-code{color:var(--indigo);}
-.lo-label{font-size:14px;}
-/* SVG country flags in the language menu + top-bar button (emoji flags render as letter pairs on Windows) */
+.lo-label{font-size:14.5px;}
+/* SVG country flags (emoji flags render as bare letter pairs on Windows) */
 .lo-flag{width:21px; height:14px; flex:none; border-radius:2.5px; overflow:hidden; box-shadow:0 0 0 1px color-mix(in srgb, var(--ink) 18%, transparent); display:inline-flex;}
 .lo-flag svg{width:100%; height:100%; display:block;}
-.lang-flag{width:18px; height:12px; flex:none; border-radius:2px; overflow:hidden; box-shadow:0 0 0 1px color-mix(in srgb, var(--ink) 18%, transparent); display:inline-flex;}
-.lang-flag svg{width:100%; height:100%; display:block;}
 /* RTL (Arabic): flip the reading direction; flex/grid layouts follow the dir attribute on <html> */
 html[dir="rtl"] .lang-opt{text-align:right;}
 html[dir="rtl"] .page-head{text-align:right;}
@@ -840,6 +811,11 @@ body[data-theme="folio"] .collection-deco::after{
 .grade-wrap .grades{justify-self:center; grid-template-columns:repeat(4, minmax(96px, 132px));}
 .grade-wrap .suspendbtn{justify-self:end; align-self:center; border-radius:9px; padding:7px 11px; font-size:9.5px; gap:5px; white-space:nowrap;}
 .grade-wrap .suspendbtn svg{width:12px; height:12px;}
+/* Undo, repeated inside the grade bar. On a PHONE the study bar is a scroll away above a card that runs
+   several screens, so the one control for a misclicked grade sat off screen at exactly the moment it was
+   wanted; down here it is beside the ? that explains it. Desktop keeps it in the study bar only — the two
+   are within a glance of each other there — so this copy is hidden above the phone breakpoint. */
+.grade-wrap .gb-undo{display:none;}
 .grade-help{position:relative; flex:0 0 auto; width:30px; height:30px; align-self:center; display:flex; align-items:center; justify-content:center; background:none; border:1px solid var(--rule); border-radius:50%; color:var(--ink-faint); font-family:var(--mono); font-weight:700; font-size:18px; line-height:1; cursor:help; transition:color .18s, border-color .18s;}
 .grade-help:hover{color:var(--indigo); border-color:var(--indigo);}
 .grade-help:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
@@ -1654,7 +1630,10 @@ body.night .lu-badge{color:#E6C765;}
    through the toggle it already had, the search across the full width of the stage, because a 38vw field
    fits about four characters. */
 @media (max-width:640px){
-  .globe-search{top:12px; right:12px; width:auto;}
+  /* the top bar is hidden on a phone, so the globe stage now starts at the very top of the screen —
+     which on a notched device is under the status bar. These are the only pieces of chrome pinned to
+     that edge, so they carry the inset themselves rather than shrinking the map for everyone. */
+  .globe-search{top:calc(12px + env(safe-area-inset-top)); right:12px; width:auto;}
   .globe-search input{display:none;}
   .gs-toggle{display:grid; place-items:center; width:34px; height:34px; border-radius:50%; appearance:none; cursor:pointer;
     border:1px solid var(--rule); background:color-mix(in srgb, var(--card) 92%, transparent); color:var(--ink-soft);
@@ -1663,7 +1642,7 @@ body.night .lu-badge{color:#E6C765;}
   .globe-search.open{left:12px; right:12px; width:auto;}
   .globe-search.open .gs-toggle{display:none;}
   .globe-search.open input{display:block;}
-  .globe-legend{top:12px; right:56px;}
+  .globe-legend{top:calc(12px + env(safe-area-inset-top)); right:56px;}
   .globe-legend.collapsed{width:34px; height:34px; padding:0; border-radius:50%; overflow:hidden;}
   .globe-legend.collapsed .legend-head{margin:0; height:100%; justify-content:center; gap:0; cursor:pointer;}
   .globe-legend.collapsed .legend-title{display:none;}
@@ -2231,16 +2210,22 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
    BOTTOM TAB BAR (phones)
    The top bar held nine icon-only controls in a scrolling strip at the top of a 390px screen — the four
    places a reader actually goes, plus theme, edit, account, settings and language — all of them out of the
-   thumb's arc and none of them named. The four destinations move down here, where they are reachable and
-   labelled; the top bar keeps the settings-ish controls, which are rarely pressed.
-   It is hidden above the breakpoint, and hidden again while STUDYING: the grade bar owns the bottom of the
-   screen there, the session has its own way out, and a study session is a place you finish, not browse from.
+   thumb's arc and none of them named. Every destination now lives down here instead, reachable and
+   labelled; light/dark and the language picker moved to the Settings page, where a preference belongs.
+   That empties the top bar completely, so on a phone it is hidden outright and --bar-h goes to 0 —
+   .globe-stage and every other rule written against it follows with no change of its own.
+   The bar is hidden above the breakpoint, and hidden again while STUDYING: the grade bar owns the bottom
+   of the screen there, the session has its own way out, and a study session is a place you finish, not
+   browse from.
+   It is a FLEX row rather than a fixed column count: Edit is admin-only (applyMode hides it), so the row
+   is six items for a reader and seven for an editor, and the remaining tabs have to close the gap.
    ============================================================ */
 .tabbar{display:none;}
 @media (max-width:640px){
-  :root{--tabbar-h:58px;}
+  :root{--tabbar-h:58px; --bar-h:0px;}
+  .topbar{display:none;}
   .tabbar{
-    display:grid; grid-template-columns:repeat(4,1fr); align-items:stretch; gap:0;
+    display:flex; align-items:stretch; gap:0;
     position:fixed; left:0; right:0; bottom:0; z-index:55; height:calc(var(--tabbar-h) + env(safe-area-inset-bottom));
     padding-bottom:env(safe-area-inset-bottom);
     background:color-mix(in srgb, var(--paper) 92%, transparent); border-top:1px solid var(--rule);
@@ -2248,22 +2233,23 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
     box-shadow:0 -6px 22px rgba(27,26,23,.06);
   }
   .tabbar .tab{
+    flex:1 1 0; min-width:0;
     display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px;
-    padding:0; margin:0; border:0; border-radius:0; background:none; height:100%; min-width:0;
+    padding:0; margin:0; border:0; border-radius:0; background:none; height:100%;
     color:var(--ink-faint); position:relative;
   }
-  .tabbar .tab-ic{width:21px; height:21px; opacity:1;}
+  .tabbar .tab-ic{width:20px; height:20px; opacity:1;}
   /* the top bar's labels unfold from the icon on hover and stay open only on the active tab; down here
      every tab is named all the time, which is the point of moving them (a row of bare icons was the
-     problem, and there is no hover on a phone to unfold them with) */
-  .tabbar .tab-label{display:block; max-width:none; opacity:1; margin-inline-start:0; transition:none;
-    font-family:var(--mono); font-size:9px; letter-spacing:.06em; text-transform:uppercase; line-height:1;}
+     problem, and there is no hover on a phone to unfold them with). At six or seven to a row a cell is
+     ~56–65px wide, so the label may not wrap — a second line would push the icons off centre. */
+  .tabbar .tab-label{display:block; max-width:100%; opacity:1; margin-inline-start:0; transition:none;
+    font-family:var(--mono); font-size:8.5px; letter-spacing:.03em; text-transform:uppercase; line-height:1;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
   .tabbar .tab.active{color:var(--indigo);}
   .tabbar .tab.active::before{content:""; position:absolute; top:0; left:50%; transform:translateX(-50%); width:26px; height:2.5px; border-radius:0 0 3px 3px; background:var(--indigo);}
   .tabbar .tab:active{background:color-mix(in srgb, var(--ink) 5%, transparent);}
   body.grading .tabbar{display:none;}
-  /* the top bar keeps only what the tab bar does not carry */
-  .topbar .nav.left{display:none;}
   /* everything anchored to the bottom of the viewport moves up by the bar's height. The Atlas needs no rule
      here: .globe-stage and .atlas-timebar are already written against --tabbar-h, which is 0 above this
      breakpoint and 58px below it. */
@@ -2275,26 +2261,10 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
 
 @media (max-width:640px){
   body{font-size:16px;}
-  .brand .tag{display:none;}
-  /* the nav has more items than fit a phone; let the whole bar scroll horizontally so nothing is cut off and it still
-     spans edge to edge. Condense each control so most of it is visible at rest. */
-  .topbar{gap:1px; padding:0 6px; overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch; scrollbar-width:none;}
-  .topbar::-webkit-scrollbar{display:none;}
-  .nav{gap:0; flex:none;}
-  .nav.left, .nav.right{flex:none;}
-  .tab{--ink-start:25px; --ink-end:5px; padding:7px 5px; font-size:9.5px; letter-spacing:.02em;}
-  .tab .tab-ic{width:15px; height:15px;}
-  .tab:hover .tab-label, .tab:focus-visible .tab-label, .tab.active .tab-label{margin-inline-start:5px;}
-  /* the Editor/Visitor preview toggle is a desktop dev tool — hide it on phones to make room for the core nav */
-  .mode-switch{display:none;}
-  .theme-switch{width:40px; margin-right:1px;}
-  .theme-switch .ic-sun{margin-left:4px;} .theme-switch .ic-moon{margin-right:4px;}
-  .theme-switch.on .ts-knob{transform:translateX(19px);}
-  .lang-switch{padding:6px 5px; margin-left:0; gap:2px;}
-  .lang-switch .ic{width:12px; height:12px;}
-  .lang-code{font-size:9.5px;}
-  /* centre page content on phones instead of hugging the top-left */
-  .stage{padding-top:20px;}
+  /* centre page content on phones instead of hugging the top-left. (The top bar is hidden here — see the
+     BOTTOM TAB BAR block above — so this padding is now all that separates the page from the screen edge,
+     and it has to clear the status bar / notch on a viewport-fit=cover device.) */
+  .stage{padding-top:calc(20px + env(safe-area-inset-top));}
   .page-head{text-align:center;}
   .page-head::after{margin-left:auto; margin-right:auto; background:linear-gradient(90deg, transparent, color-mix(in srgb, var(--indigo) 55%, transparent), transparent);}
   .page-head p{margin-left:auto; margin-right:auto;}
@@ -2307,10 +2277,18 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
   .av-row{flex-direction:column; align-items:flex-start; gap:10px;}
   .answer-tr{align-self:stretch; justify-content:flex-end;}
   .grades{grid-template-columns:repeat(2,1fr);}
-  .grade-wrap{grid-template-columns:1fr 1fr; grid-template-areas:"grades grades" "help suspend"; gap:10px;}
+  .grade-wrap{grid-template-columns:auto auto 1fr; grid-template-areas:"grades grades grades" "help undo suspend"; gap:10px;}
   .grade-wrap .grades{grid-area:grades; justify-self:stretch; grid-template-columns:repeat(2,1fr);}
   .grade-wrap .grade-help{grid-area:help; justify-self:start;}
+  .grade-wrap .gb-undo{grid-area:undo; justify-self:start; align-self:center;
+    display:inline-flex; align-items:center; gap:5px; white-space:nowrap;
+    border:1px dashed var(--rule); background:var(--card); border-radius:9px; padding:7px 11px; margin:0;
+    font-family:var(--mono); font-size:9.5px; letter-spacing:.06em; text-transform:uppercase; font-weight:600;
+    color:var(--ink-faint);}
+  .grade-wrap .gb-undo svg{width:12px; height:12px;}
   .grade-wrap .suspendbtn{grid-area:suspend; justify-self:end;}
+  /* the study bar's copy steps aside while the grade bar carries one, so a card never shows two Undos */
+  body.grading .study-shell .undobtn{display:none;}
   .study-shell .undobtn{margin-left:0;}
   .game-grid{grid-template-columns:repeat(2,1fr); gap:12px;}
   .howit{grid-template-columns:1fr; gap:10px;}
@@ -2495,13 +2473,24 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
 .gloss-imgslot .card-vid .ci-zoom{ top:8px; bottom:auto; }
 .gloss-imgslot .ci-zoom svg{ width:13px; height:13px; }
 
-/* ---- glossary bottom sheet (mobile) ---- */
+/* ---- glossary bottom sheet (mobile) ----
+   `will-change:transform` is not decoration here, it is the fix for a reported flicker: the sheet
+   blinked out for a fraction of a second the instant its slide-up finished. Nothing in the markup or
+   the styles changes at that moment — a per-frame probe of the sheet shows opacity 1, visibility
+   visible and one .gloss-win throughout — so the gap is the browser DISCARDING the compositing layer
+   it created for the transform animation and repainting the sheet back into the page, one or two
+   frames later than it removed it. The bottom of the screen is the worst place for that to happen: the
+   tab bar underneath is a backdrop-filter element, so the repaint drags a blur re-sample along with it.
+   Declaring the promotion up front means the layer is never created and never thrown away, and the
+   transition ends without a repaint at all. Keep it on the sheet only — a permanent layer per element
+   is cheap once and expensive by the dozen, and the desktop popups fade rather than slide. */
 .gloss-win.gloss-sheet{
   left:0; right:0; bottom:0; top:auto; width:100%; max-width:100%;
   border-radius:18px 18px 0 0; border-left:0; border-right:0; border-bottom:0;
   box-shadow:0 -12px 44px rgba(0,0,0,.20);
   opacity:1; transform:translateY(100%);
   transition:transform .26s var(--ease);
+  will-change:transform; backface-visibility:hidden; -webkit-backface-visibility:hidden;
   z-index:9600;
 }
 .gloss-win.gloss-sheet.show{ transform:translateY(0); }
@@ -3485,7 +3474,7 @@ body[data-theme="gazette"] .faq-q, body[data-theme="gazette"] .chev, body[data-t
 body[data-theme="gazette"] .xp-fill, body[data-theme="gazette"] .prog, body[data-theme="gazette"] .prog .fill,
 body[data-theme="gazette"] .active-deck, body[data-theme="gazette"] .node, body[data-theme="gazette"] .pill,
 body[data-theme="gazette"] .daily-quote, body[data-theme="gazette"] .exp-card, body[data-theme="gazette"] .theme-opt,
-body[data-theme="gazette"] .mode-switch, body[data-theme="gazette"] .lang-switch{ border-radius:0; }
+body[data-theme="gazette"] .mode-switch, body[data-theme="gazette"] .lang-opt{ border-radius:0; }
 
 /* ink frames + hard offsets */
 body[data-theme="gazette"] .banner{ border-color:var(--ink); box-shadow:var(--shadow-md); }
