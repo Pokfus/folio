@@ -37,9 +37,24 @@ function pieces(block) {
   // it needs its own clause — a single Arabic letter standing alone before a full stop.
   hold(/(?<=^|[\s(«"'([])(?:\p{Lu}\.\s?){2,}/gu);
   hold(/(?<=^|[\s(«"'([])(?:[ء-ي]\.\s?){2,}/g);
+  // A LONE initial before a given name — "the archaeologist V. Gordon Childe", which the {2,} run rule
+  // above cannot see because there is only one. It split the Neolithic Revolution term after the "V." in
+  // English and in five translations. Narrow on purpose: the following word must be a capitalised word of
+  // at least two letters, so a real sentence boundary is only ever swallowed when the previous sentence
+  // ended on a single capital letter — which no prose in this project does.
+  hold(/(?<=^|[\s(«"'([])\p{Lu}\.\s(?=\p{Lu}\p{L})/gu);
+  // The Arabic of the same thing. Arabic has no case, so the "followed by a capital" test above cannot
+  // carry over; a lone Arabic letter standing between whitespace and a full stop is an initial for the
+  // same reason — no Arabic sentence ends on one. "عالم الآثار ف. غوردون تشايلد" and "جيسون إ. لويس".
+  hold(/(?<=^|[\s(«"'([])[ء-ي]\.\s(?=[ء-ي])/g);
   hold(/\b(?:Jr|Sr|Dr|Prof|Mr|Mrs|Ms|St|Mt)\.\s?/g);        // "Roberts Jr. used the name in 1940"
   hold(new RegExp("\\d{1,2}\\.\\s(?=(?:" + MONTHS + "))", "g"));   // "25. August"
   hold(/\d{1,2}\.\s(?=Jahrhundert|Jh\.)/g);                 // "im frühen 19. Jahrhundert"
+  // A German ordinal before any capitalised noun — "ab 1900 der 1. Baron Avebury", which split the
+  // Lubbock term in half. The two clauses above name the nouns they guard and so cannot generalise; a
+  // preceding DETERMINER can, because a sentence never ends on "der" and a number after one is always an
+  // ordinal. Narrow on purpose: it must not swallow "…kam 1892. Der Bau begann…", where nothing precedes.
+  hold(/(?<=\b(?:der|die|das|dem|den|des|ein|eine|einem|einen|eines|als|zum|zur|vom|beim|im)\s)\d{1,2}\.\s/g);
   // A sentence ends at .!? followed by whitespace, or at a CJK terminator with or without one — and a
   // footnote marker may already sit between the two, since a top-up batch re-splits an abstract that an
   // earlier batch has already marked. Without the FN clause the splitter silently returns one sentence.

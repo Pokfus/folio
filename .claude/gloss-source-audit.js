@@ -28,6 +28,21 @@ const TARGET = +m[1];
 const win = loadWindow(path.join(root, "glossary.js"));
 const GLOSS = win.GLOSSARY || {}, SOURCES = win.GLOSSARY_SOURCES || {}, TAGS = win.GLOSSARY_TAGS || {};
 
+// The markers, in all ten languages. A cited term must point at its sources from the prose, and every
+// translation must point at the SAME ones — a language that loses them shows the fold and no in-text
+// links, and a language that carries a different set sends the reader to the wrong work. Neither shows
+// up anywhere else: the popup renders perfectly either way. add-sources.js enforces the English half at
+// write time; this is the standing check over the whole glossary, whoever wrote it.
+const I18N_LANGS = ["es", "fr", "de", "it", "nl", "ru", "ar", "zh", "ja"];
+const markersOf = (html) => [...String(html || "").matchAll(/data-fn="(\d+)"/gi)].map((mm) => +mm[1]).sort((a, b) => a - b).join(",");
+const TRANS = {};
+for (const lang of I18N_LANGS) {
+  const f = path.join(root, "i18n", "gloss-" + lang + ".js");
+  if (!fs.existsSync(f)) continue;
+  const q = (loadWindow(f).GLOSSARY_I18N_IN || [])[0];
+  if (q && q.data) TRANS[lang] = q.data;
+}
+
 const tagArg = (process.argv.find((a) => a.startsWith("--tag=")) || "").slice(6).toLowerCase();
 const rows = Object.keys(GLOSS)
   .filter((slug) => !tagArg || (TAGS[slug] || []).some((t) => String(t).toLowerCase() === tagArg))
@@ -35,7 +50,10 @@ const rows = Object.keys(GLOSS)
     const src = Array.isArray(SOURCES[slug]) ? SOURCES[slug] : [];
     const open = src.filter((s) => /\[Open access\]/.test(s)).length;
     const pay = src.filter((s) => /\[Paywalled\]/.test(s)).length;
-    return { slug, n: src.length, open, pay, tags: (TAGS[slug] || []).join(" · "), met: src.length >= TARGET };
+    const want = markersOf(GLOSS[slug]);
+    const drift = Object.keys(TRANS).filter((lang) => TRANS[lang][slug] !== undefined && markersOf(TRANS[lang][slug]) !== want);
+    return { slug, n: src.length, open, pay, tags: (TAGS[slug] || []).join(" · "), met: src.length >= TARGET,
+             marks: want ? want.split(",").length : 0, drift };
   })
   .sort((a, b) => a.n - b.n || a.slug.localeCompare(b.slug));
 
@@ -51,6 +69,8 @@ const uncited = short.filter((r) => r.n === 0);
 // neither, so a list of unlabelled works is flagged rather than silently passed
 const notOpen = met.filter((r) => r.open <= r.pay);
 const unlabelled = rows.filter((r) => r.n && r.open + r.pay < r.n);
+const unmarked = rows.filter((r) => r.n && !r.marks);
+const drifted = rows.filter((r) => r.n && r.drift.length);
 
 const show = (list) => list.forEach((r) =>
   console.log("  " + String(r.n + "/" + TARGET).padStart(5) + "  " + r.slug.padEnd(38) +
@@ -63,10 +83,18 @@ console.log("  below it          " + String(short.length).padStart(4) + "   of w
 console.log("  citations to find " + String(short.reduce((a, r) => a + (TARGET - r.n), 0)).padStart(4));
 if (notOpen.length) console.log("  NOT majority-open " + String(notOpen.length).padStart(4) + "   a paywalled work is citable only as the landmark, never as the bulk");
 if (unlabelled.length) console.log("  unlabelled access " + String(unlabelled.length).padStart(4) + "   every citation ends in [Open access] or [Paywalled]");
+if (unmarked.length) console.log("  no marker at all  " + String(unmarked.length).padStart(4) + "   a cited term points at its sources from the prose");
+if (drifted.length) console.log("  markers adrift    " + String(drifted.length).padStart(4) + "   a translation carries different markers from the English");
 console.log("");
 
 if (notOpen.length) { console.log("NOT MAJORITY-OPEN"); show(notOpen); console.log(""); }
 if (unlabelled.length) { console.log("MISSING AN ACCESS LABEL"); show(unlabelled); console.log(""); }
+if (unmarked.length) { console.log("CITED BUT UNMARKED"); show(unmarked); console.log(""); }
+if (drifted.length) {
+  console.log("MARKERS ADRIFT FROM THE ENGLISH");
+  drifted.forEach((r) => console.log("  " + r.slug.padEnd(38) + r.drift.join(" ")));
+  console.log("");
+}
 if (short.length) { console.log("BELOW THE BAR (" + short.length + ")"); show(short); console.log(""); }
 if (process.argv.includes("--all") && met.length) { console.log("AT THE BAR (" + met.length + ")"); show(met); console.log(""); }
 else if (met.length) console.log("(" + met.length + " term" + (met.length === 1 ? "" : "s") + " at the bar — pass --all to list them)");

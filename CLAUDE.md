@@ -92,11 +92,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `docs/glossary-citation-plan.md` — the batch plan for **citing the 333 glossary terms**, the sibling of
   the card plan above. The bar is **at least 2 citations per term** (a description is three sentences, where
   a card's abstract is ten), and the acceptable sources are academic, museum, government or reputable
-  NGO/IGO. **Nothing has been cited yet — `GLOSSARY_SOURCES` is empty.** Three things about this pass that
-  the card pass does not have: **markers are optional** on a term, so the default batch changes no prose and
-  therefore needs no translation work; a term whose prose IS corrected needs a second command in the same
+  NGO/IGO. **Batches G1–G5 have shipped — 38 of the 333 terms are cited and at the bar, all with in-text
+  markers in all ten languages.** Two things about this pass that the card pass does not have: a term whose
+  prose is corrected — or whose markers are placed — needs a second command in the same
   batch (`add-lang.js` for the nine languages, since `add-sources.js` writes only the English description);
-  and Phase 1 is largely paid for out of `.claude/sources-register.md` already. It also records which
+  and Phase 1 is largely paid for out of `.claude/sources-register.md` already.
+  (**Markers were OPTIONAL on a term through G1–G4 and are now REQUIRED**, changed on request 2026-08-01
+  when the reader asked where the numbers were: lists had grown to five and six sources, at which size the
+  list stops explaining itself, and a reader arriving from a fully-marked card read the vanishing numbers
+  as the apparatus giving up. `add-sources.js` refuses an unmarked term or an unreferenced source, exactly
+  as for a card; `add-lang.js` warns on a translation whose markers differ from the English, and
+  `gloss-source-audit.js` reports both standing.) It also records which
   scholarly and official hosts were **reachable from this sandbox on 2026-08-01**, measured rather than
   assumed. **Batch G0 (tooling) has shipped**: `GLOSS_SRC_TARGET = 2` sits beside `SRC_TARGET` in app.js and
   is sliced out of it by text by `.claude/gloss-source-audit.js` (the mirror of `source-audit.js`, plus a
@@ -634,7 +640,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     stripe): one is derived from the data, the other is an editor's private marker.
   · `sup` + `class="fn"` + `data-fn` are in the sanitizer allowlists, so a community deck can use markers too.
   · **The Atlas table still ships EMPTY; the glossary has begun.** `country-sources.js` has no entries at all.
-    **`GLOSSARY_SOURCES` carries 17 of the 333 terms** (batches G1–G2, 2026-08-01 — the genus, species and specimen terms), against
+    **`GLOSSARY_SOURCES` carries 38 of the 333 terms** (batches G1–G5, 2026-08-01 — the genus, species, specimen,
+    stone-industry, three-age and periodisation terms), against
     a bar of **`GLOSS_SRC_TARGET` (2)**, which is lower than a card's five because a description is three sentences
     where an abstract is ten; `docs/glossary-citation-plan.md` is the plan for the rest and
     `node .claude/gloss-source-audit.js` says where it stands. The UI, the deltas and the pipeline are in place;
@@ -1779,9 +1786,16 @@ lifespan, dynasty, or dated event), e.g. `"c. 145–86 BCE"` or `"1644–1912"` 
 **Every new term carries `"sources"`** — Chicago note-form citations for its three sentences, in the same
 form and under the same rules as a card's (see the `sources` bullet under "Add a card": real scholarship,
 never Wikipedia, never an invented page number). They land in `window.GLOSSARY_SOURCES` and show as a
-numbered fold at the foot of the popup. **Markers are optional here**, unlike on a card: three sentences
-drawn from one reference work are honestly described by the list alone. Where a sentence does rest on a
-particular work, point at it the same way — `<sup class="fn" data-fn="2"></sup>`, written empty. Not
+numbered fold at the foot of the popup. **Markers are REQUIRED, exactly as on a card** (they were optional
+through batches G1–G4; changed on request 2026-08-01). Point each claim at the work it rests on with
+`<sup class="fn" data-fn="2"></sup>`, written empty — the digit is drawn from the list at render time — and
+put the SAME markers on the same claims in all nine translations, since a language that loses them shows
+the fold with no in-text links and a language that carries a different set points at the wrong work.
+`add-sources.js` refuses a term with no marker, a marker past the end of the list, or a source nothing
+points at; `add-lang.js` warns on a mismatched translation and `node .claude/gloss-source-audit.js` reports
+both over the whole glossary. **`split-abstract.js` exports `pieces()` and `mark()`** for exactly this: split
+each language into its three sentences and apply one sentence-index → source-number map to all ten at once,
+after checking that every language really does split into three. The citations themselves are not
 translated (a citation names an edition that exists in one language). Escape hatch: `"skipSources": true`,
 only for a maintenance edit of an older term.
 
@@ -1855,12 +1869,40 @@ and its sources, and were fact-checked rather than referenced. A batched pass is
 reports both on every run, `node .claude/source-audit.js` reports them per card, and the Edit page's card list
 shows each card's coverage as an amber or red chip) — and **a second pass has started on the glossary**, batched
 through `docs/glossary-citation-plan.md` at a bar of **2 citations per term** (`GLOSS_SRC_TARGET`), with
-`node .claude/gloss-source-audit.js` and the glossary list's own coverage chip reporting it; **17 of 333 terms
-are cited** (batches G1–G2). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
+`node .claude/gloss-source-audit.js` and the glossary list's own coverage chip reporting it; **38 of 333 terms
+are cited** (batches G1–G5). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
 Two rules that pass turned up at once. **`add-sources.js` writes only the ENGLISH description**, so a term whose
 prose is corrected needs an `add-lang.js` run per language in the same batch or nine languages keep the old
 claim; and **a correction does not travel between surfaces** — `Homo_habilis` still carried the 2.3–1.5 Mya span
 a day after batch 19 corrected it on `wh-016`, so when a card is corrected, grep the glossary for the figure.
+**Batch G3 ran that rule BACKWARDS, and it is the more valuable direction**: a term is three sentences, so a
+wrong figure is quickest to spot there, and the card is where it does the most damage. Checking six industry
+terms against their sources corrected the `Mousterian`'s start date on the term **and** on `wh-033` (160,000 →
+300,000, in ten languages and on the date line — 160,000 is in nothing openable and contradicted the card's own
+parent period), and moved a marker on `wh-032` off a paper arguing the opposite of the sentence it marked. A
+term's date line is patched by **`node .claude/fix-gloss-date.js`** — `fix-field.js`'s glossary sibling, an
+asserted find-and-set on `window.GLOSSARY_DATES`, written for batch G3 because two of its four corrections were
+there and `add-sources.js` does not touch dates.
+**Batch G4 is where the pass stopped being about journals**: eighteen works, every one open, and nine of the
+eleven new ones were museum records or out-of-copyright books — there is no modern open literature on who
+Thomsen was, but the museum that still uses his arrangement publishes its own history, and it says **he did not
+devise the three-age system** (he called it "the old idea" in 1825, and Vedel Simonsen had published the theory
+ten years earlier). That corrected two terms and `wh-006`'s date line. G4 also found, and deliberately did NOT
+half-fix, the pass's one systematic divergence: **the glossary starts prehistory at 3.3 Mya and the cards start
+it at 2.6 Mya** with Lomekwi 3 as a contested earlier claim — and the glossary's own `Lomekwian` term calls that
+assemblage debated, so it contradicts itself too.
+**Batch G5 settled it: prehistory starts at 2.6 Mya everywhere**, with the disputed 3.3 Ma Lomekwi claim kept as
+a hedge in the prose and left standing alone on `Lomekwian` and `Lomekwi_3`. Seven date lines moved with it, and
+the sibling check the plan demanded found two nobody had gone looking for — `Neolithic` ended at 3000 BCE where
+`Stone_Age` ended and `Bronze_Age` began at 3300, and `Upper_Paleolithic` ended at 12,000 BP where the Holocene
+GSSP puts it at 11,700. The Palaeolithic now closes at **9700 BCE**, not 10,000. `wh-001` carried the same two
+errors and was corrected in ten languages. G5's own finding is a caution about harmonising: the `Neolithic`
+term's "first clear signs of social ranking" was **withdrawn** (contradicted by `wh-009` and by Fuller &
+Stevens, who put rank with urbanism), while `Neolithic_Revolution`'s "private property and inherited rank" was
+**kept**, because it claims these among the transition's consequences and not as the first of their kind. The
+two read as inconsistent and are not; the difference is the word *first*. Also from G5: **open a source whose
+title reads as a refutation before citing it** — `eren-lycett-2012` ("Why Levallois?", on whether Levallois
+flakes are standardized at all) was opened for that reason and confirms the sentence it now marks.
 **Do not paper over the rest by attaching plausible-looking citations to existing prose** — a citation that was
 not the actual source of a sentence is worse than no citation, because it invites a reader to trust a page number
 nobody checked. The honest routes are the ones the pass follows: open every work before citing it, re-derive the
@@ -1871,7 +1913,10 @@ card's abstract into its 2 blocks of 5 sentences in all ten languages and report
 and round-trips byte for byte. **Run it before placing markers by sentence index**: a language that splits
 differently maps the markers onto the wrong claims and nothing downstream notices. It carries every guard
 the batches have turned up — decimals, the era abbreviations in five languages (incl. Russian `н. э.`,
-which needs no `\b` since JS's is ASCII-only), initials, a day-ordinal before a month name, a bare ordinal
+which needs no `\b` since JS's is ASCII-only), initials — **runs of them AND lone ones**, the lone case
+added in batch G5 after "the archaeologist **V.** Gordon Childe" split a glossary term in half in English and
+five translations, with a matching Arabic clause since Arabic has no case to test for — a day-ordinal before a
+month name, a bare ordinal
 before `Jahrhundert`, the CJK full stop, and **markers already placed by an earlier batch** (the marker sits
 between the full stop and the following space, and in zh/ja with no space at all — without that guard a
 top-up batch sees one enormous sentence, or splits every marker off as its own).

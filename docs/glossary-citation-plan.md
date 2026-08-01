@@ -1,8 +1,12 @@
 # Citing the glossary — batch plan
 
-The glossary is **333 terms and not one of them carries a source**. `window.GLOSSARY_SOURCES` is an empty
-table; the fold at the foot of a gloss popup never appears. This is the plan for filling it. Not part of
-the site.
+The glossary was **333 terms and not one of them carried a source**. `window.GLOSSARY_SOURCES` was an empty
+table; the fold at the foot of a gloss popup never appeared. This is the plan for filling it. Not part of
+the site. **As of 2026-08-01, 38 of the 333 are cited and at the bar** — batches G1–G5, three of which also
+corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 38 carry in-text
+markers, in all ten languages, after the rule changed from optional to required on 2026-08-01 (see "What
+is different from the card pass"). G5 also settled the start of prehistory across the glossary, the deck
+and every date line: **2.6 Mya**, with the disputed 3.3 Ma Lomekwi claim hedged rather than adopted.
 
 It is the sibling of `docs/citation-plan.md`, which took the 109 prehistory cards from nothing to five
 sources each over 27 batches. Everything that plan learned about *finding* sources applies here unchanged
@@ -40,17 +44,33 @@ label after the closing period — identical to the cards, and `add-sources.js` 
 
 ## What is different from the card pass
 
-Four things, and three of them make this pass cheaper per term.
+Three things, and one of them makes this pass cheaper per term.
 
-**Markers are optional.** On a card every source must be pointed at by a `<sup class="fn" data-fn="N">`
-marker and the tooling refuses a card that breaks it. On a term the list alone is honest — three sentences
-drawn from two reference works are fully described by naming them. `add-sources.js` only refuses a marker
-that points *past* the end of the list.
+**Markers are REQUIRED, exactly as on a card** — changed on request on 2026-08-01, after batches G1–G4 had
+shipped 31 terms without them. Every source must be pointed at by a `<sup class="fn" data-fn="N">` marker,
+every marker must have an entry behind it, and `add-sources.js` now refuses a term that breaks either rule,
+the way it always has for cards. The markers must sit on the **same claims in all ten languages**;
+`add-lang.js` warns when a translation's set differs from the English, and
+`node .claude/gloss-source-audit.js` reports it standing, under "MARKERS ADRIFT FROM THE ENGLISH".
 
-**So the default is: no markers, no prose change, no translation work.** That is the whole economy of this
-pass. A term whose description survives reconciliation untouched costs two citations and nothing else.
+<details><summary>Why it was optional, and why that did not survive</summary>
 
-**A corrected description costs nine translations.** Glossary descriptions live per-language in
+The original reasoning was that three sentences drawn from two reference works are fully described by
+naming them, where a card's ten-sentence abstract over five sources is not — so the default was **no
+markers, no prose change, no translation work**, and a term whose description survived reconciliation
+untouched cost two citations and nothing else. That was the whole economy of the pass, and it is why G1–G4
+could cite 31 terms while touching prose on only the 13 that were actually wrong.
+
+Two things retired it. Lists here do not stay at two: `Christian_Jürgensen_Thomsen` carries six sources and
+`Three-age_system` five, and at that size a reader genuinely cannot tell which work carries the 1816
+appointment and which the 1836 guidebook — the list has stopped explaining itself. And the inconsistency is
+visible from the reader's side: someone who follows a gold `data-new` term out of a fully-marked card lands
+in a popup where the numbers simply vanish, which reads as the apparatus giving up rather than as a
+considered choice. The economy was real, but it was being paid for by the reader.
+
+</details>
+
+**A corrected description costs nine translations, and so does a marker.** Glossary descriptions live per-language in
 `i18n/gloss-<lang>.js`, and `add-sources.js` does not touch them — it writes the English description and the
 sources, and nothing else. So a term whose prose has to change needs a **second command in the same batch**:
 
@@ -62,6 +82,12 @@ node .claude/add-lang.js     <lang>.json      # the same correction in es/fr/de/
 Leaving that out strands nine languages on a claim the English no longer makes, which is worse than the
 state we started in. Budget for it: on the cards, every batch produced corrections, and the count went up
 rather than down as the pass got better at looking.
+
+Markers ride the same road, and there is a tool for it: **`split-abstract.js` exports `pieces()` and
+`mark()`**, so a term can be split into its three sentences in each language and the SAME map of sentence
+index → source numbers applied to all ten at once. That is only safe when every language splits into
+exactly three sentences, which is what `pieces()` is for — **check it before placing anything**, and if a
+language splits differently, repair the splitter rather than writing a per-language map (batch 23's rule).
 
 **A description is shared across every deck and must stay deck-agnostic.** The house rule in CLAUDE.md — a
 gloss popup defines a term on its own terms, never within the context of one card or culture — binds a
@@ -334,7 +360,7 @@ whom the record actively contradicts.
   afterwards. **Count the sentences per language after substituting**, exactly as `split-abstract.js`
   asserts 5+5 after marking.
 
-### G3 · Industries and technique (6 terms)
+### G3 · Industries and technique (6 terms) — **DONE (2026-08-01)**
 `Oldowan` · `Acheulean` · `Mousterian` · `Lomekwian` · `Levallois` · `Knapping`
 
 Almost entirely register: `braun-2019`, `plummer-2025`, `torre-2016`, `key-lycett-2017`, `harmand-2015`,
@@ -342,7 +368,77 @@ Almost entirely register: `braun-2019`, `plummer-2025`, `torre-2016`, `key-lycet
 that states the Bordes–Binford debate and Dibble's reduction thesis; check whether it also carries the
 definitions, and if not, the Levallois method has a substantial open experimental literature.
 
-### G4 · The three-age scheme and the people who built it (8 terms)
+### Batch G3 log — the batch that corrected the cards
+
+#### 2026-08-01 — six terms, 23 citations, four corrected, and two cards changed
+
+**Coverage 17/333 → 23/333, all twenty-three at the bar.** Seventeen distinct works, **fifteen of them
+open**; ten came out of `.claude/sources-register.md` and only one, Gennai 2024, is new to the project.
+The prediction above held — the Mousterian and the Levallois were where the work was — but not for the
+reason given. Both had sources; both had errors in the prose those sources sat next to.
+
+**The finding: this batch corrected the CARDS, not just the terms.** Batch G1 established that a
+correction does not travel between surfaces on its own, and read it one way — a card is fixed, so grep
+the glossary. G3 is the same rule running backwards, and it is the more valuable direction, because a
+term is three sentences and a card is ten, so the term is where a bad figure is quickest to spot and the
+card is where it does the most damage.
+
+- **The `Mousterian` began 160,000 years ago, and nothing openable says so.** Gennai 2024, the one open
+  source that states the industry's span, gives "approximately 300/250 thousand years Before the Present
+  … to around 40 thousand years calibrated Before the Present". Worse, 160,000 contradicted the term's own
+  parent: `Middle_Paleolithic` opens at 300,000, `wh-003` opens at 300,000, and the Mousterian is the
+  Middle Palaeolithic's industry. **`wh-033` carried the same figure in its abstract AND on its date line,
+  in ten languages**, with the sentence marked to Bordes 1961 — a 1961 *Science* paper that cannot be the
+  source of a figure in b2k. Both surfaces now say 300,000, the card's first sentence points at Gennai as
+  well as Bordes, and `wh-033` goes from eight sources to nine.
+- **`wh-032` pointed a marker at a paper arguing the opposite of the sentence it marked.** The card's
+  "many specialists argue it was worked out more than once rather than invented once and carried outwards"
+  cited Soriano & Villa 2017 — who argue for "a rapid diffusion over wide geographic spaces of this
+  innovation", which is the other position. Batch 23 found the pass's first wrong marker on `wh-098`; this
+  is the second, and it was found the same way, by re-reading a source for a different surface. The marker
+  moved onto the claim they do make, the 295–290 ka Italian Levallois, one sentence earlier. **Adler 2014
+  carries the independent-invention argument alone**, which is what the sentence now says.
+- **The `Acheulean` ended "between 200,000 and 130,000 years ago"** — the identical error batch 23
+  corrected on `wh-022` a week earlier, still in the glossary, in ten languages and on the date line.
+  De la Torre gives "ca 1.75 to 0.125 Myr". Now 125,000, matching the card.
+- **The `Lomekwian` had the passive hammer the wrong way round.** It said the knappers rested the block on
+  an anvil and struck downwards; Plummer et al. describe the core "held in both hands and struck downward
+  onto a stationary block on the ground". The block moves and the anvil does not — which is the whole
+  reason the technique is called *passive* hammer, and the term described it as if it were the active one.
+  Its "single assemblage" also became "single excavated assemblage", which is what the review states.
+- **`Levallois` said the method "yields thin, sharp-edged flakes."** Eren & Lycett 2012 — the source cited
+  for the method, the naming, the tortoise core and the 300 ka horizon — measured exactly this and found
+  the opposite: preferential Levallois flakes are "on average thicker across their surface area (as a
+  whole) than debitage flakes", with an unusually *even* thickness and much less variability. The term now
+  says what they measured. **A source cited for four claims is worth reading for the fifth**; the wrong
+  one had been sitting beside four right ones.
+
+**Two things about the works.** Batch 20's rule — when the founding paper is shut, find the paper that
+cites it as a comparison — has a quieter cousin that carried three of these six terms: **the review
+written for the neighbouring industry.** Plummer et al. 2025 is a Lomekwian paper and it defines the
+Oldowan's span; de la Torre 2016 is an Acheulean paper and it is where Louis Leakey's Olduvai report is
+restated. And **Gennai 2024 was found by searching Europe PMC for `TITLE:"Mousterian" AND OPEN_ACCESS:y`
+sorted by citations** — a regional excavation report whose introduction happens to define the whole
+technocomplex. For a term needing a definition rather than a result, the introduction of any open paper
+in the field is a better bet than a search for a paper *about* the definition.
+
+**Three tooling notes.**
+- **`.claude/fix-gloss-date.js` now exists**, as batch G1's log said it should if a second batch needed
+  it. It is `fix-field.js`'s glossary sibling: asserted find-and-set on `window.GLOSSARY_DATES`, rewriting
+  only that block of `glossary.js`. Two of this batch's four corrections were on the date line, which is
+  where a citation pass keeps finding them.
+- **`link.springer.com` now 303s to `idp.springer.com/authorize`** for both the article and the PDF path,
+  so Shott 2024 — open access, and opened by batch 16 — could not be re-read. Cited for exactly what the
+  register records and no further, with the Crossref abstract confirming the one clause it carries here.
+  **`hal.science`'s `/document` file path is now walled too** (batch 21 found the landing pages walled),
+  so Schmidt et al. 2024 was reached through Europe PMC instead.
+- **A sentence-count check needs the same guards as `split-abstract.js`.** A naive count of the nine
+  translations reported four and five sentences where there were three, because `200.000` and `12,5` and
+  `19. Jahrhundert` all end a sentence if you only look for a full stop. The three-sentence rule is worth
+  asserting after every substitution — G2 was caught by it — but assert it with the splitter's guards, not
+  without them.
+
+### G4 · The three-age scheme and the people who built it (8 terms) — **DONE (2026-08-01)**
 `Three-age_system` · `Stone_Age` · `Bronze_Age` · `Iron_Age` · `Prehistory` ·
 `Christian_Jürgensen_Thomsen` · `John_Lubbock,_1st_Baron_Avebury` · `National_Museum_of_Denmark`
 
@@ -356,7 +452,111 @@ Carry batch 17a's corrections into the terms: Thomsen ordered a museum's collect
 sequence, and Worsaae tested it in the ground. If any of these three descriptions says otherwise, it is
 wrong in the same way the card was.
 
-### G5 · The Palaeolithic divisions and what follows (7 terms)
+### Batch G4 log — ask the institution, and ask the man's own century
+
+#### 2026-08-01 — eight terms, 34 citations, five corrected, and one finding for G5
+
+**Coverage 23/333 → 31/333, all thirty-one at the bar.** Eighteen distinct works, **every one of them
+open**, which is a first for this pass. Seven came out of the register unopened. Of the eleven new ones,
+**nine are not journal articles at all**: six museum records, two out-of-copyright books and a
+nineteenth-century translation. Batch 18's rule — when the paper is shut, ask the body responsible — and
+batch 25's — a nineteenth-century idea's author is out of copyright, so he is openable — turn out to be
+the same rule when the subject is the history of a discipline. There is no modern open literature on who
+Thomsen was; there is a museum that still employs his arrangement and says so on its own website, and a
+1914 biography that anyone can read.
+
+**The batch's find: Thomsen did not devise the three-age system.** The Nationalmuseet's own history says
+so plainly. Thomsen referred to the division in an 1825 letter, but as *"den gamle Tanke om de tre
+Tidsaldre"* — the **old** idea of the three ages; L. S. Vedel Simonsen had put the theory forward ten
+years earlier, and other antiquaries before and around him had theorised the same development; and
+*"Thomsens fortjeneste er nok snarest, at han anvendte den i forbindelse med det unge museums samlinger"*
+— his merit is rather that he applied it to the young museum's collections. Both `Three-age_system` ("he
+worked it out") and `Christian_Jürgensen_Thomsen` ("who devised the three-age system") said otherwise, and
+so did `wh-006`'s date line, which read "devised by". All three now credit him with establishing it rather
+than inventing it. This is batch 17a's correction arriving from one step further back: that batch found
+Thomsen did not *prove* the sequence, and the museum's record adds that he did not *originate* it either.
+
+**Four more corrections.**
+- **`John_Lubbock` did not carry the Ancient Monuments Act.** He carried the Bank Holidays Act — Hutchinson
+  quotes his own diary getting it through at two in the morning — but Hutchinson also records that his
+  ancient monuments bill "had gone to a second reading no less than seven times", that it "was thrown out
+  in the House of Lords", and Lord Eversley's own words: "I was myself responsible for the framing of the
+  Ancient Monuments Act of 1882. It need not be pointed out that Lord Avebury was the originator of the
+  policy which led to it." Eversley then rejected the central provision of Lubbock's bill and wrote a
+  different measure. The term credited him with both acts; it now credits him with one and with the
+  policy behind the other, which is a better sentence as well as a true one.
+- **`Stone_Age` ended "around 4000 to 2000 BCE" as societies entered the Bronze Age**, which no Bronze Age
+  anywhere begins early enough to satisfy — its own date line said 3300 BCE, `Bronze_Age` says the Near
+  Eastern Bronze Age opens about 3300 BCE, and `wh-005` says the same. Batch 12's rule again: a
+  definitional term is wrong against its siblings before it is wrong against the literature.
+- **`National_Museum_of_Denmark`'s collection did not open to the public in 1819**, or at least nothing on
+  the museum's own site says so, and the pass does not keep a date it cannot open a source for. What the
+  museum does state is better: the collection began in the loft above Trinitatis Church, and the
+  antiquities reached Prinsens Palæ **in 1855**, not vaguely "the middle of the 19th century".
+- The register itself carried **1835–43** where Rowley-Conwy writes **1836–43**, a batch-17a transcription
+  slip, corrected in place.
+
+**The finding this batch could not act on, and G5 must.** Folio speaks with two voices about when
+prehistory begins. Every glossary term says **3.3 million years ago** — `Prehistory`, `Stone_Age`'s date
+line, `Paleolithic`, `Lower_Paleolithic` — and every card says **2.6 million**, with Lomekwi 3 named as a
+contested earlier claim (`wh-005`, `wh-007`). Both are defensible; what is not defensible is the glossary
+stating flatly, as the start of the Stone Age, a date the glossary's own `Lomekwian` term describes as
+debated. **G5 owns `Paleolithic`, `Lower_Paleolithic`, `Prehistory`'s siblings and the boundaries between
+them, so G5 is where this is settled — for all four terms and their date lines at once.** Fixing half of
+it here would have replaced a cross-surface inconsistency with an internal one, which is worse. Do not
+close G5 without it.
+
+**Two tooling notes.**
+- **The sentence-count check now slices `split-abstract.js`'s own `pieces()` out of the file** instead of
+  re-implementing it. G3's log said to assert the three-sentence rule with the splitter's guards; a
+  hand-rolled counter reported four and five sentences for perfectly good Spanish, French, German, Italian
+  and Russian, because `3300 a. C.`, `av. J.-C.`, `v. Chr.` and `до н. э.` all end a sentence if you only
+  look for a full stop. **One gap remains**: a German ordinal before a capitalised noun — "der **1.**
+  Baron Avebury" — still splits, because the splitter holds `19. Jahrhundert` and `25. August` by name and
+  cannot generalise without swallowing real sentence ends. The batch therefore asserted that each
+  substitution left the count **unchanged**, which is the honest invariant for a patch.
+- **Rowley-Conwy 2004's PDF is a substitution cipher, not a uniform shift.** Batch G3 met a subset font
+  whose glyphs were the ASCII codes shifted by a constant; this one maps each glyph separately, so the
+  offset trick produces confident gibberish. Solve it from cribs (`the`, `Three`, `English`, `versions`)
+  before believing a word of it.
+
+### Batch GM — the markers, retrofitted
+
+#### 2026-08-01 — 159 markers on 31 terms, in ten languages
+
+Asked where the tiny numbers were in the gloss popups, and the honest answer was that there were none: the
+plan had made markers optional and G1–G4 had shipped 31 cited terms without a single one. **The rule is now
+required**, matching the cards, and the 31 have been marked retrospectively.
+
+**Placement came out of the register, not out of the prose.** Each work's entry records what it was opened
+for — `tattersall-2023` the brain volumes, `si-taung` the discovery year and the eagle-predation reading,
+`hutchinson-1914` the Bank Holidays Act — so assigning a sentence to a source was mostly lookup rather than
+judgement. That is the register paying for itself a third way, after batch 12's "the framework cards needed
+no new sources" and G1's "fifteen of nineteen works came out of it unopened".
+
+**One source was dropped rather than marked**, which is the new rule working as intended. `Knapping` cited
+Muller, Shipton & Clarkson 2022 for a claim about how long the skill takes to learn — a claim the term does
+not make. It was kept, but moved onto the sentence it does support (that knapping produced handaxes and
+blades, which is what the paper compares); had it supported nothing in the term, the rule would have
+required dropping it. **A source no sentence rests on is a reading list, and the marker rule is what makes
+that visible.**
+
+**The mechanism, which is reusable and should be reused.** `split-abstract.js` already exported `pieces()`
+and `mark()` for the cards. A glossary description is a single block of three sentences, so one map of
+sentence index → source numbers applies to all ten languages at once — provided every language really
+splits into three. Thirty of the thirty-one did; the thirty-first was **German `John_Lubbock`, split in
+half by "ab 1900 der **1.** Baron Avebury"**. Per batch 23's rule the splitter was repaired rather than
+routed around: it already held `19. Jahrhundert` and `25. August` by naming the following noun, which
+cannot generalise, so the new guard keys off the **preceding determiner** instead — a sentence never ends
+on *der*, so a number after one is always an ordinal. Verified not to swallow a real sentence end
+("…entstand 1892. Der Bau begann…"), and all 109 cards still split 5+5 in all ten languages afterwards.
+
+Each insertion was asserted to change the text **only** by the markers it added, so no translation could be
+silently reflowed. Rendering was then checked in a browser on all 31: every marker prints its number in
+reading order, none blank, none past the end of its list, and a marker click opens the fold on the entry it
+names.
+
+### G5 · The Palaeolithic divisions and what follows (7 terms) — **DONE (2026-08-01)**
 `Paleolithic` · `Lower_Paleolithic` · `Middle_Paleolithic` · `Upper_Paleolithic` · `Mesolithic` ·
 `Neolithic` · `Neolithic_Revolution`
 
@@ -367,6 +567,67 @@ before citing any of them** — batch 12's finding was that definitional entries
 before they are wrong against the literature, and seven period terms sharing four boundaries is exactly that
 shape. The Holocene base is 11,700 b2k = 9700 BCE, per `walker-2018`; anything here saying 9600 BCE or
 10,000 BCE is carrying the pre-GSSP convention.
+
+**G5 must also settle the start of prehistory, which G4 found and deliberately did not half-fix.** The
+glossary says **3.3 million years ago** in `Paleolithic`, `Lower_Paleolithic`, `Prehistory` and
+`Stone_Age`'s date line; the cards say **2.6 million** with Lomekwi 3 named as a contested earlier claim
+(`wh-005`, `wh-007`). The glossary's own `Lomekwian` term calls that 3.3 Ma assemblage debated, so the
+glossary contradicts itself as well as the deck. Pick one convention — the cards' hedged form is the
+better-reviewed one — and apply it to all four terms, their date lines and their nine translations in a
+single pass. **Do not close G5 without it.**
+
+**Batch G5 log (2026-08-01).** Nine terms, 38 citation slots: the seven above, plus `Prehistory` and
+`Stone_Age` re-marked because the batch moved the figure they open on. **All 333 terms now split into three
+sentences in every language and 38 are at the two-source bar.**
+
+**The mandate was carried out, and the whole chain now lines up.** Prehistory starts at **2.6 Mya** in
+`Paleolithic`, `Lower_Paleolithic`, `Prehistory` and `Stone_Age`, with the disputed 3.3 Ma Lomekwi claim
+kept as a hedge where a sentence has room and left standing alone on `Lomekwian` and `Lomekwi_3`, which is
+where it belongs. The Palaeolithic now ends at **9700 BCE** (11,700 b2k) rather than 10,000, and the
+Mesolithic begins there; `Upper_Paleolithic` ends at 11,700 BP rather than 12,000; `Neolithic` ends at 3300
+BCE rather than 3000, which is where `Stone_Age` already ended and where `Bronze_Age` already begins. Seven
+date lines moved. The sibling check the plan asked for is what found the last two of those: neither was in
+the batch's brief, and both were wrong only against their own neighbours.
+
+**The finding, and it is a caution about how this pass has been reading its own sources.** The `Neolithic`
+term said the first clear signs of social ranking appear in that phase. It was contradicted twice over —
+by `wh-009` (Smith & Codding: rank does not need farming) and by `fuller-stevens-2019`, which puts land
+ownership and inherited rank with the *scaling up* to urbanism, not with the farming villages. The clause
+was **withdrawn rather than re-sourced** and replaced with the reopened passage graves of
+`schulz-paulsson-2019`, which the term can stand behind. But the neighbouring `Neolithic_Revolution` term
+lists "private property and inherited rank" among the transition's consequences and that was **kept**,
+because it is precisely Fuller and Stevens's argument and makes no claim to be the first of its kind. The
+two look inconsistent and are not; the difference is the word *first*, and a batch that harmonises on
+sight rather than on reading would have flattened one into the other.
+
+**A source's title can read as a refutation of the sentence it is meant to support** — `eren-lycett-2012`,
+"Why Levallois? … 'Preferential' Levallois Flakes versus Debitage Flakes", was opened for that reason
+before being attached to `Middle_Paleolithic`'s "more standardized flakes", and it confirms the claim
+outright. The habit is cheap and the failure it prevents is expensive: a citation whose own abstract
+disputes the sentence above it is worse than no citation, because a reader who follows it learns that the
+apparatus is not to be trusted.
+
+**Two tooling gaps, both the same shape as batch 24's, both fixed rather than routed around.**
+`split-abstract.js` held a run of initials but not a lone one, so "the archaeologist **V.** Gordon Childe"
+split `Neolithic_Revolution` in half in English and five translations, and the Arabic clause had the same
+`{2,}` bound, which broke it on "**ف.** غوردون تشايلد" and "جيسون **إ.** لويس". Both now hold a single
+initial — in Latin script by requiring a following capitalised word, and in Arabic, which has no case, by
+requiring a lone letter between whitespace and the stop. Re-checked against the whole corpus: **all 109
+cards still split 5+5 in all ten languages**, and the only glossary terms that do not split into three are
+genuinely four-sentence entries outside this pass.
+
+**Twenty-six of the 38 slots needed no new reading** — batch 12's finding, and stronger here than on the
+cards, because a period term makes no claim that some site or specimen term does not already make. Four
+works were opened for the first time (`watkins-2017`, `lhote-2024`, `fuller-stevens-2019`,
+`eren-lycett-2012`) and three shipped on cards without ever being registered were read and registered now
+(`groucutt-2019`, `gilligan-2024`, `larsson-2016`).
+
+**And the card sweep batch 26 asked for paid again.** `wh-001` carried "3.3 to 2.6 million years ago" as a
+flat range — reading as though toolmaking spans it, where 3.3 is the disputed end — in its date line *and*
+its abstract, and closed the Ice Age at "around 10,000 BCE" while its own abstract said 11,700 years ago.
+Both were fixed in all ten languages. `wh-002` already had the hedged form, in all ten, and was the model
+the glossary wording was lifted from; grepping for the FIGURE rather than the term is what turned up the
+sibling that had it right.
 
 ### G6 · Geological time (6 terms)
 `Quaternary` · `Pleistocene` · `Holocene` · `Cryogenian` · `Ice_Age` · `Milankovitch_cycles`

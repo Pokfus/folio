@@ -121,10 +121,17 @@ if (batch.glossary && Object.keys(batch.glossary).length) {
     if (!(slug in GLOSS)) die("no glossary term with slug " + slug);
     const src = cleanSources(u.sources, "term " + slug);
     const desc = typeof u.description === "string" ? u.description : GLOSS[slug];
-    // markers are OPTIONAL on a term (three sentences from one work are honestly described by the list
-    // alone) — but one that points past the end of the list would be silently dropped, so refuse it here
-    const bad = markersIn(desc).filter((n) => n < 1 || n > src.length);
-    if (bad.length) die("term " + slug + " points at source " + bad[0] + ", but lists " + src.length + ".");
+    // Markers are REQUIRED on a term, exactly as on a card (changed 2026-08-01 on request; they were
+    // optional through batches G1–G4, on the reasoning that three sentences over two works are described
+    // by the list alone). Two things retired that: lists here now run to five and six sources, at which
+    // size a reader genuinely cannot tell which work carries which claim; and a reader arriving from a
+    // fully-marked card read the vanishing numbers as the apparatus giving up rather than as a choice.
+    const marks = markersIn(desc);
+    if (!marks.length) die("term " + slug + " has no footnote marker in its description. Point its claims at the sources with <sup class=\"fn\" data-fn=\"1\"></sup> (written empty — the digit is drawn from the list at render time).");
+    const bad = marks.filter((n) => n < 1 || n > src.length);
+    if (bad.length) die("term " + slug + " points at source " + bad[0] + ", but lists " + src.length + ". A marker with no entry behind it is dropped at render time.");
+    const unused = src.map((_, i) => i + 1).filter((n) => marks.indexOf(n) < 0);
+    if (unused.length) die("term " + slug + ": source " + unused.join(", ") + " is never referenced from the description. Every citation is a footnote to a specific claim — add a marker, or drop the source.");
     SOURCES[slug] = src;
     // the term bar (GLOSS_SRC_TARGET in app.js). Lower than a card's because a description is three
     // sentences, not ten — but a single work behind three sentences is a reading list, not an apparatus.

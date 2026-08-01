@@ -220,9 +220,15 @@ if (batch.glossary && Object.keys(batch.glossary).length) {
   const GLOSS = loadWindow(P.gloss).GLOSSARY || {};
   const G = {};   // just this language: { slug: text } — the other languages live in their own files
   Object.assign(G, glossI18nIO.read(lang));
+  // A term's footnote markers must sit on the same claims in every language. A translation that loses
+  // them loses the apparatus silently — the fold still renders and only the in-text links disappear —
+  // and one that carries a DIFFERENT set points the reader at the wrong work, which is worse than none.
+  const markersOf = (html) => [...String(html || "").matchAll(/data-fn="(\d+)"/gi)].map((m) => +m[1]).sort((a, b) => a - b).join(",");
   for (const [slug, text] of Object.entries(batch.glossary)) {
     if (!(slug in GLOSS)) die("no glossary term with slug " + slug + " (add the English entry first with add-glossary.js)");
     if (!(typeof text === "string" && text.trim())) die("empty translation for " + slug);
+    const want = markersOf(GLOSS[slug]), got = markersOf(text);
+    if (want !== got) console.warn("WARNING: " + slug + " (" + lang + ") carries markers [" + got + "] where the English has [" + want + "] — that language shows the source list but points at the wrong claims, or at none.");
     G[slug] = text;
   }
   glossI18nIO.write(lang, G);   // re-parses to confirm valid JS
