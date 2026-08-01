@@ -6830,16 +6830,22 @@
     try { openLinks(ol); } catch (err) {}
     return ol.outerHTML;
   }
-  /* The whole apparatus with its own header. OPEN by default — a citation the reader has to go looking for
-     is one they will not check, and checking is the whole point of shipping it. A reader who shuts it is
-     making a lasting choice, so the closed state is remembered per device in S.settings.srcCollapsed
-     (written by the delegated header handler, not by a marker jump, which opens the list for one look).
-     opts.compact = the gloss-popup variant (no room for the card's section furniture). */
+  /* The whole apparatus with its own header. On a CARD it is OPEN by default — a citation the reader has to
+     go looking for is one they will not check, and checking is the whole point of shipping it. A reader who
+     shuts it there is making a lasting choice, so the closed state is remembered per device in
+     S.settings.srcCollapsed (written by the delegated header handler, not by a marker jump, which opens the
+     list for one look).
+     opts.compact = the gloss-popup variant (no room for the card's section furniture), and it is the
+     EXCEPTION on both counts: it always renders SHUT, and opening one is never remembered. A popup is a
+     glance at a word met mid-sentence — a reader who expands one term's sources has said something about
+     that term, not about every term they open afterwards, and the fold is a third of the popup's height.
+     So the compact variant ignores the setting rather than sharing it: every popup starts collapsed, one
+     opened by hand included, and the next one opens collapsed again. A marker jump still force-opens it. */
   function sourcesHTML(list, opts) {
     const src = normSources(list);
     if (!src.length) return "";
     const o = opts || {};
-    const shut = !!(S.settings && S.settings.srcCollapsed);
+    const shut = o.compact ? true : !!(S.settings && S.settings.srcCollapsed);
     const c = shut ? " collapsed" : "";
     return '<section class="src-note' + (o.compact ? " src-compact" : "") + '">' +
       '<button class="src-head" type="button" aria-expanded="' + (shut ? "false" : "true") + '" aria-label="Show or hide the sources" title="Show or hide the sources">' +
@@ -6960,9 +6966,11 @@
     if (!t || !t.closest) return;
     const head = t.closest(".src-head");
     if (head) {
-      // shutting the list is a lasting choice; jumping to a marker is not, so only this path remembers it
-      const open = toggleSourceNote(head.closest(".src-note"));
-      if (S.settings) { S.settings.srcCollapsed = !open; save(); }
+      // shutting the list is a lasting choice; jumping to a marker is not, so only this path remembers it —
+      // and a gloss popup's fold (.src-compact) is never remembered at all, so the next term opens shut
+      const note = head.closest(".src-note");
+      const open = toggleSourceNote(note);
+      if (S.settings && note && !note.classList.contains("src-compact")) { S.settings.srcCollapsed = !open; save(); }
       return;
     }
     const fn = t.closest("sup.fn");

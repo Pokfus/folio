@@ -26,7 +26,12 @@ It is a plain static website — open `index.html` and it runs.
   lines**: a day gets ONE localisation line per area (the daily games, the Atlas, the site chrome), extended as
   more of that area lands — 2026-07-27/28 once carried eight and five of them, each announcing another corner of
   the same rollout. The Mission page renders it.
-  **A new line ships with its nine translations.** The whole changelog (24 day titles + 170 items) is live in
+  **Keep an item SHORT — a summary, not a transcript.** Two entries once ran to 12,000 and 15,000 characters
+  because a citation batch listed every correction it made; they were compressed on request (2026-08-01) into
+  one line a day saying what changed and what KIND of corrections came out of it. The counts and the finding
+  belong here; the per-card detail belongs in the batch log in `docs/`. Anything past ~1,000 characters is a
+  transcript, and it costs nine translations of the same length.
+  **A new line ships with its nine translations.** The whole changelog (27 day titles + 196 items) is live in
   es/fr/de/it/nl/ru/ar/zh/ja as `chrome.exact` rows in `i18n/ui-<lang>.js` — the items are plain text nodes, so
   `localizeTree` picks them up with no code. They must NOT go inline into `changelog.js`, which is in the eager
   load path (the `quotes.js` mistake: 27 KB → 312 KB for every visitor). Add them with `.claude/add-lang.js`
@@ -564,14 +569,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     attributes, with `wireSourceLinks` in a try/catch: the links are decoration over text this code didn't
     write, the numbering is the join between the prose and the list, and one must not be able to take the
     other down.
-  · **Everything is OPEN by default**, on all three surfaces (July 2026, on request — it was collapsed before).
-    A citation the reader has to go looking for is one they will not check, and checking is the whole point of
-    shipping the apparatus. **A reader who shuts it is remembered**: `S.settings.srcCollapsed` (in `defaultState`,
-    so old saves back-fill; a device setting, not synced) is written by the **delegated header handler only** —
-    a marker jump force-opens the fold for one look and deliberately does NOT change the preference. The Atlas
-    section follows the same setting and additionally **hides outright when empty** (unlike its neighbours, which
-    show a shut header): an empty "Description" header still tells the reader the panel has that part, but a
-    "Sources" header over nothing reads as a claim to have cited something.
+  · **A card's and the Atlas panel's folds are OPEN by default; a GLOSS POPUP's is always SHUT.** On the two
+    big surfaces a citation the reader has to go looking for is one they will not check, and checking is the
+    whole point of shipping the apparatus (July 2026, on request — they were collapsed before). **A reader who
+    shuts one there is remembered**: `S.settings.srcCollapsed` (in `defaultState`, so old saves back-fill; a
+    device setting, not synced) is written by the **delegated header handler only** — a marker jump force-opens
+    the fold for one look and deliberately does NOT change the preference. The Atlas section follows the same
+    setting and additionally **hides outright when empty** (unlike its neighbours, which show a shut header): an
+    empty "Description" header still tells the reader the panel has that part, but a "Sources" header over
+    nothing reads as a claim to have cited something.
+    **The gloss popup (`sourcesHTML`'s `opts.compact`) is the exception on both counts** (August 2026, on
+    request): it renders `collapsed` unconditionally, ignoring `srcCollapsed` rather than sharing it, and the
+    header handler **skips the write when the note carries `.src-compact`** — so expanding one term's sources
+    is not remembered, and the next popup opens shut again. A popup is a glance at a word met mid-sentence and
+    the fold is a third of its height; expanding one says something about that term, not about every term
+    opened afterwards. A marker jump still force-opens it, there as everywhere. Guarded by `test-sources.js`.
   · **A citation ends in its URL, written as plain text**, and `linkifySrcItem` turns it into an anchor —
     **inside `sourceListHTML`, so the list is serialized already wired** rather than fixed up by a pass over the
     rendered page. That was the second half of the same lesson the fold header learned: a list that depends on a

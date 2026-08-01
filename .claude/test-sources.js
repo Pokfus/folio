@@ -107,8 +107,10 @@ async function closeGloss(page) {
   check("...listing every citation", await page.locator(".gloss-win .src-item").count() === SRC.length,
     String(await page.locator(".gloss-win .src-item").count()));
   check("...in the compact popup variant", await page.evaluate(() => !!document.querySelector(".gloss-win .src-note.src-compact")));
-  check("...open to begin with, so a citation is there to be checked rather than hunted for",
-    await page.evaluate(() => !document.querySelector(".gloss-win .src-collapse").classList.contains("collapsed")));
+  // a popup is a glance at a word met mid-sentence, and the fold is a third of its height — so unlike a
+  // card's, it always starts shut, and opening one is never remembered (see the next popup, below)
+  check("...COLLAPSED to begin with, unlike a card's",
+    await page.evaluate(() => document.querySelector(".gloss-win .src-collapse").classList.contains("collapsed")));
   check("...after the description, not before it", await page.evaluate(() => {
     const kids = [...document.querySelector(".gloss-win .gloss-body").children].map((e) => String(e.className));
     return kids.indexOf("gloss-srcslot") > kids.findIndex((c) => c.includes("gloss-desc"));
@@ -173,12 +175,24 @@ async function closeGloss(page) {
   await page.waitForTimeout(400);
   await page.locator(".gloss-win .src-head").click();
   await page.waitForTimeout(350);
-  check("the Sources header alone shuts the fold",
-    await page.evaluate(() => document.querySelector(".gloss-win .src-collapse").classList.contains("collapsed")));
+  check("the Sources header alone opens the fold",
+    await page.evaluate(() => !document.querySelector(".gloss-win .src-collapse").classList.contains("collapsed")));
   await page.locator(".gloss-win .src-head").click();
   await page.waitForTimeout(350);
-  check("...and opens it again",
-    await page.evaluate(() => !document.querySelector(".gloss-win .src-collapse").classList.contains("collapsed")));
+  check("...and shuts it again",
+    await page.evaluate(() => document.querySelector(".gloss-win .src-collapse").classList.contains("collapsed")));
+
+  /* Opening a popup's fold says something about THAT term, not about every term opened afterwards. So it
+     must not be remembered — neither in the device setting a card's fold writes, nor in the next popup. */
+  await page.locator(".gloss-win .src-head").click();      // leave it open
+  await page.waitForTimeout(350);
+  check("expanding a popup's fold does NOT write the card setting", await page.evaluate(() =>
+    JSON.parse(localStorage.getItem("folio_v1") || "{}").settings.srcCollapsed !== true));
+  await closeGloss(page);
+  await page.click("#exp-term");
+  await page.waitForTimeout(450);
+  check("...and the NEXT popup opens collapsed all the same",
+    await page.evaluate(() => document.querySelector(".gloss-win .src-collapse").classList.contains("collapsed")));
   await closeGloss(page);
 
   /* ================= 2. a card's back ================= */
