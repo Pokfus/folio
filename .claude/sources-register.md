@@ -3796,3 +3796,208 @@ not re-proposed:
 - **The UNESCO record for the Caves and Ice Age Art in the Swabian Jura** (whc.unesco.org/en/list/1527/) is
   behind Cloudflare bot protection and could not be opened from this environment. It was not needed:
   Floss 2015 and Morriss-Kay 2013 carry everything wh-069 claims, and both are open.
+
+---
+
+## Batch 23 — the framework and the oldest toolmakers, brought up to the 5-source bar
+
+The first top-up batch: ten cards that were already reconciled against their sources once and carry
+three or four citations, raised to five. No card here needed a hunt for a subject nobody has written
+about — what it needed was the sentences carrying no marker, and a work for each. Six of the nineteen
+slots were filled from works the register already held.
+
+Its finding is that **a top-up turns up errors the original pass could not see, because the original
+pass only had to justify the sentences it marked.** Four of the ten cards changed prose: the
+Acheulean's end date, the antler pressure-flaker, Frere's 1797 letter and Wrangham's 1.9 Ma. Every one
+of those sat in a sentence with no marker on it, which is exactly where an unchecked claim survives.
+
+Its second finding is a tooling one. `check-style.js` applies the house rules to the whole of
+`data.js`, `sources` included, so it reported Moro Abadía's "…at the turn of the twentieth century"
+as a century-word violation — and **`--fix` would have renamed the paper**. Citations are now masked
+out of every rule before they run. A citation names a work that exists; its title is the author's.
+
+### diez-martin-2015 · the Acheulean toolkit at its origin
+Fernando Diez-Martín et al., "The Origin of The Acheulean: The 1.7 Million-Year-Old Site of FLK West,
+Olduvai Gorge (Tanzania)," *Scientific Reports* 5 (2015): 17839, https://doi.org/10.1038/srep17839.
+[Open access]
+- opened: 2026-08-01 · full text at nature.com
+- supports: the Acheulean defined against the Oldowan "based on the technological ability to produce
+  large flake blanks and to recurrently shape large cutting tools (LCTs)", and that "Acheulean
+  assemblages exhibit a higher degree of planning and curation"; and the kit itself at FLK West level
+  6 — "35 large flakes … (≥100 mm of maximum length, range 100–163 mm), 4 massive cores devoted to the
+  production of large flakes and 28 large cutting tools (LCT), including truly bifacial hand[axes]",
+  "formal and massive trihedral picks", "2 crude cleavers and 2 knife-like specimens"
+- used by: wh-015, wh-022
+
+### si-early-stone-age-tools · what is in an Oldowan and an Acheulean kit
+Smithsonian National Museum of Natural History, Human Origins Program, "Early Stone Age Tools,"
+accessed 1 August 2026,
+https://humanorigins.si.edu/evidence/behavior/stone-tools/early-stone-age-tools. [Open access]
+- opened: 2026-08-01 · the museum's behaviour record
+- supports: the Oldowan kit as "Hammerstones that show battering on their surfaces", "Stone cores that
+  show a series of flake scars along one or more edges" and "Sharp stone flakes that were struck from
+  the cores … along with lots of debris from the process of percussion flaking"; and that "By about
+  1.76 million years ago, early humans began to strike really large flakes and then continue to shape
+  them by striking smaller flakes from around the edges", producing "a new kind of tool called a
+  handaxe", so that handaxes "and other kinds of 'large cutting tools' characterize the Acheulean
+  toolkit"
+- does NOT support the card's end date: this page ends the Acheulean toolkit "in different places by
+  around 400,000 to 250,000 years ago", where de la Torre's accepted span runs to 0.125 Myr. The two
+  disagree and the card follows de la Torre, which is the specialist review; the museum page is cited
+  only for the toolkits
+- used by: wh-015, wh-022
+
+### herries-2011 · when the Acheulian ends, and Wonderwerk's own sequence
+Andy I. R. Herries, "A Chronological Perspective on the Acheulian and Its Transition to the Middle
+Stone Age in Southern Africa: The Question of the Fauresmith," *International Journal of Evolutionary
+Biology* 2011 (2011): 961401, https://pmc.ncbi.nlm.nih.gov/articles/PMC3139141/. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST service (the Hindawi/Wiley page is behind
+  Cloudflare from this environment; the DOI is cited in the register, the openable PMC copy on the card)
+- supports: "the transition from the Early to the Middle Stone Age (MSA) and the end of the Acheulian
+  Industry in Africa … generally defined as a change from large cutting tools (LCTs) such as hand axes
+  and cleavers to the use of blades, points, and prepared core technology"; that the Fauresmith "maybe
+  as old as 511–435 ka and should represent the beginning of the MSA as a broad entity rather than the
+  terminal phase of the Acheulian" — i.e. the industry's end is regional, not a single date; and at
+  Wonderwerk, "the transition at the end of the Oldowan (1.78 Ma; strata 12) and the layers containing
+  the Acheulian (strata 11)", those Acheulian sediments "dated to somewhere between 1.78 and 1.07 Ma
+  based on palaeomagnetism and a basal cosmogenic isotope burial age"
+- note: Herries is explicit that the ~1.6 Ma figure sometimes given for the start of the Acheulian at
+  Wonderwerk "is by far from secure" and the material may be "closer to 1.07 Ma than 1.78 Ma". The
+  card claims neither figure, so nothing needed changing — but do not add one on his authority
+- used by: wh-021, wh-022
+
+### sackett-2014 · Frere, Boucher de Perthes and 1859
+James Sackett, "Boucher de Perthes and the Discovery of Human Antiquity," *Bulletin of the History of
+Archaeology* 24 (2014): art. 2, https://doi.org/10.5334/bha.242. [Open access]
+- opened: 2026-08-01 · full text (CC BY 4.0)
+- supports: "a two-page article published by the Society of Antiquaries of London in 1800 by a country
+  squire named John Frere", describing "bifacially chipped, pointed stone tools that are obviously
+  what we today call Acheulian handaxes, which he says diggers had found lying alongside giant animal
+  bones deep in a brick clay pit at Hoxne, Suffolk"; Frere's own "even beyond that of the present
+  world"; that "Frere's claims evoked no response from his contemporaries"; Boucher de Perthes'
+  "discoveries of handaxes in the Somme River's gravels" and that he "was easily dismissed by the
+  scientific elite of Paris"; the 1859 trip by "the Pleistocene geologist Joseph Prestwich and the
+  antiquarian John Evans", who "examined the evidence from Abbeville and Amiens, and found themselves
+  … becoming converted"; the "flurry of distinguished cross-Channel visitors" after it; and Evans
+  "horror-struck" on coming upon "John Frere's long-forgotten handaxes housed at the Society of
+  Antiquities"
+- does NOT support: **June 1797**, or **a jawbone**. Frere's letter is indeed dated 1797 and does
+  mention "the jaw-bone of an enormous unknown animal", but his own paper (*Archaeologia* 13, 1800,
+  DOI 10.1017/s0261340900024267) is behind Cambridge Core's paywall with no abstract, so neither
+  detail could be opened. The card was moved to what the open sources carry: the 1800 publication and
+  giant animal bones
+- used by: wh-023
+
+### ingrey-2023 · how big a giant handaxe gets
+Letty Ingrey et al., "On the Discovery of a Late Acheulean 'Giant' Handaxe from the Maritime Academy,
+Frindsbury, Kent," *Internet Archaeology* 61 (2023), https://doi.org/10.11141/ia.61.6. [Open access]
+- opened: 2026-08-01 · full text (CC BY 3.0)
+- supports: the Maritime Academy ficron with "a maximum longitudinal dimension of 29.6cm", "the third
+  largest found in Britain at the time of writing"; and table 2's top ten, which gives Furze Platt at
+  323 mm and the Cuxton ficron at 307 mm
+- does NOT support "12 to 20 centimetres" or the closed-fist small end. The card's giants clause was
+  raised from "nearly 30" — an understatement against this table — to "more than 30, the largest a
+  point from Furze Platt measuring 32.3 centimetres", and the closed-fist clause, which rests on
+  nothing openable, was dropped
+- used by: wh-023
+
+### rots-2017 · pressure flaking, and what it is done with
+Veerle Rots et al., "Pressure Flaking to Serrate Bifacial Points for the Hunt during the MIS5 at
+Sibudu Cave (South Africa)," *PLoS ONE* 12, no. 4 (2017): e0175151,
+https://doi.org/10.1371/journal.pone.0175151. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST service
+- supports: that "the serration was manufactured with bone compressors"; the experimental protocol —
+  blanks "shaped with a wooden hammer and serrated by pressure with a bone compressor"; that "minor
+  abrasion is applied before pressure flaking to create an artificial placement of the compressor tip
+  behind the edge"; and the distinction between pressure thinning and "pressure notching[, which] aims
+  at serrating an edge"
+- does NOT support **antler**. The card had "an antler tip"; the work that demonstrates the technique
+  used a pointed BONE compressor, and the card now says so
+- used by: wh-008
+
+### hayes-2022 · grinding is far older than farming
+Elspeth H. Hayes et al., "65,000-Years of Continuous Grinding Stone Use at Madjedbebe, Northern
+Australia," *Scientific Reports* 12 (2022): 11747, https://doi.org/10.1038/s41598-022-15174-x.
+[Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST service
+- supports: that ground implements "first emerged in the Levant, Africa, and Europe from at least
+  780 ka ago"; and that the Madjedbebe assemblage spans "the past 65 thousand years (ka)" and holds
+  "the earliest known production and use of edge-ground stone hatchets (aka axes)"
+- the card had grinding as a Neolithic craft, which is true of Eurasia and reads as an origin. It now
+  says the craft is far older than farming and gives the Australian hatchets at 65,000 years
+- used by: wh-008
+
+### lewis-2014 · what a forager band shares
+Hannah M. Lewis, Lucio Vinicius, Janis Strods, Ruth Mace, and Andrea Bamberg Migliano, "High Mobility
+Explains Demand Sharing and Enforced Cooperation in Egalitarian Hunter-Gatherers," *Nature
+Communications* 5 (2014): 5789, https://doi.org/10.1038/ncomms6789. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST service
+- supports: "'Simple' hunter-gatherer populations adopt the social norm of 'demand sharing' … whereby
+  food brought into camps is claimed and divided by group members", and that high residential mobility
+  is what sustains it — the card's "sharing what they bring in rather than storing it up"
+- used by: wh-009
+
+### migliano-2020 · camps, and the networks between them
+Andrea B. Migliano et al., "Hunter-Gatherer Multilevel Sociality Accelerates Cumulative Cultural
+Evolution," *Science Advances* 6, no. 9 (2020): eaax5913, https://doi.org/10.1126/sciadv.aax5913.
+[Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST service
+- supports: hunter-gatherer social structure as "clustering of families within camps and camps within
+  regional networks", with individual Agta camps of a few dozen and multicamp groups of n = 37 and
+  n = 56 — the card's "small nomadic band of a few dozen people"
+- used by: wh-009
+
+### hansen-2013 · what switches an ice age on
+James Hansen et al., "Climate Sensitivity, Sea Level and Atmospheric Carbon Dioxide," *Philosophical
+Transactions of the Royal Society A* 371, no. 2001 (2013): 20120294,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC3785813/. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST service
+- supports: "A CO2 decrease from, say, approximately 1000 ppm in the Early Cenozoic to 170–300 ppm in
+  the Pleistocene, caused by shifting plate tectonics, is a climate forcing"; that the natural CO2
+  source "is volcanic emissions that occur mainly at continental margins due to plate tectonics
+  (popularly 'continental drift')", with tectonics also affecting "the weathering sink for CO2 by
+  exposing fresh rock"; the sequence of "large-scale glaciation of Antarctica" and then, "in the most
+  recent 3–5 Myr", "the growth of Northern Hemisphere ice sheets"; and "the great ice sheets on
+  Greenland and Antarctica" as a present fact
+- used by: wh-011
+
+### si-kenyanthropus · the flat-faced skull from the Lomekwi beds
+Smithsonian National Museum of Natural History, Human Origins Program, "*Kenyanthropus platyops*,"
+accessed 1 August 2026,
+https://humanorigins.si.edu/evidence/human-fossils/species/kenyanthropus-platyops. [Open access]
+- opened: 2026-08-01 · the museum's species record
+- supports: "a flat-faced, small-brained, bipedal species living about 3.5 million years ago in
+  Kenya"; that it "inhabited Africa at the same time as Lucy's species *Australopithecus afarensis*";
+  and that "in northern Kenya in 1998 and 1999, a research team led by scientist Meave Leakey found a
+  cranium and other fossil remains"
+- used by: wh-014
+
+## NOT CITED (batch 23)
+
+- **John Frere, "Account of Flint Weapons Discovered at Hoxne in Suffolk," *Archaeologia* 13 (1800):
+  204–5** (DOI 10.1017/s0261340900024267). The founding document of the card's whole second half, and
+  it is on **Cambridge Core behind a paywall with no abstract** — the URL itself carries `/article/abs/`.
+  Public domain since long before any of us, and unreadable. The Internet Archive's copy of the volume
+  is in the lending-restricted microfilm collection. Sackett restates enough of it that the card lost
+  nothing but the June 1797 date and the jawbone.
+- **Joseph Prestwich, "On the Occurrence of Flint-Implements…," *Proceedings of the Royal Society* 10
+  (1860)** (DOI 10.1098/rspl.1859.0019). royalsocietypublishing.org answers 403 behind Cloudflare from
+  this environment for every URL tried. Not cited, and **not labelled paywalled** — a bot wall is a
+  different fact (the batch-21 rule).
+- **The British Museum collection record for the Hoxne handaxes.** Batch 18's rule — ask the
+  institution holding the object — would have settled both the 1797 date and the jawbone in one page.
+  britishmuseum.org is behind Cloudflare and answers 403.
+- **Antoine Muller, Ceri Shipton and Chris Clarkson 2022** was read for wh-022's forethought sentence
+  and does not carry it: it compares discoidal, handaxe, Levallois and blade knapping and does not
+  include the Oldowan, so it cannot say what the Acheulean demanded that the Oldowan did not. De la
+  Torre does, via Wynn — "the addition of a new step in tool manufacture (i.e. production of the
+  handaxe blank) entails a planning sequence largely missing in the previous Oldowan" — and the card's
+  marker points there instead.
+- **Lewis & Harmand 2016**, *Phil. Trans. R. Soc. B* 371: 20150233, the obvious source for the story of
+  the July 2011 wrong turn at Lomekwi, is not open access and has no deposited full text. **That
+  sentence of wh-014 therefore still carries no marker**, and is recorded here rather than dressed up:
+  the discovery anecdote is widely reported and contradicted by nothing, but it is not sourced.
+- **The Geological Society's "Charles Lyell and the evidences of the antiquity of man"** (DOI
+  10.1144/gsl.sp.1998.143.01.08) returns 503 through the DOI resolver. Not needed: Key & Lycett already
+  place "Joseph Prestwich, Charles Lyell, and John Evans" at Amiens and Abbeville, which is where the
+  card's tenth sentence gets Lyell from.

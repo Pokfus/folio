@@ -855,7 +855,7 @@ story — Dau's 1829 layers, the Academy prize, Blytt 1876, Sernander, von Post 
 length and which nothing opened supports. **That history also sits unsourced on `wh-106`, and batch 23
 should either source it there or trim it.**
 
-### Batch 23 · Top-up: the framework and the oldest toolmakers (10 cards, 19 citations)
+### Batch 23 · Top-up: the framework and the oldest toolmakers (10 cards, 19 citations) — **DONE (2026-08-01)**
 `wh-005` Stone Age 4→5 · `wh-008` Knapping 3→5 · `wh-009` Hunter-gatherer 3→5 · `wh-011` Ice age 3→5 ·
 `wh-014` Lomekwi 3→5 · `wh-015` Oldowan 3→5 · `wh-021` Wonderwerk Cave 4→5 · `wh-022` Acheulean 2→5 ·
 `wh-023` Hand axe 2→5 · `wh-098` Control of fire 4→5
@@ -867,6 +867,67 @@ de la Torre 2016, Key & Lycett 2017, Horwitz & Chazan 2015, Chazan 2015, Berna e
 et al. 2026, Roebroeks & Villa 2011, Sorensen et al. 2018, Davis et al. 2025, Harmand et al. 2015,
 Domínguez-Rodrigo & Alcalá 2016, Muller et al. 2022. `wh-022` and `wh-023` need three each and are the two
 to start on.
+
+### Batch 23 log — a top-up finds the errors the first pass could not see
+
+The first top-up, and it took the plan's own advice: `wh-022` and `wh-023` first, then the rest.
+Nineteen slots, six of them filled from works the register already held (Kanjanajuntorn 2020, Li et al.
+2022, Gibbard & Head 2010, the Smithsonian *afarensis* record) and thirteen from new reading. All ten
+cards are now at the bar; **coverage went 76 → 86 of 109**.
+
+**The finding, and it will hold for batches 24–26: a top-up is where the errors are.** A first pass has
+to justify the sentences it marks, and nothing else; the sentences it leaves bare are where an unchecked
+claim survives, and a top-up goes looking at exactly those. Four of the ten cards changed prose, and in
+every case the wrong figure was in a sentence with no marker on it:
+
+- **`wh-022`** ended the Acheulean "roughly 170,000 to 130,000 years ago", a range no source in front of
+  the card carried. De la Torre's accepted span is 1.75 to **0.125 Myr**, and Herries has southern
+  Africa out of the Acheulian by 511–435 ka, so the end is regional. Now "about 125,000 years ago,
+  ending far earlier in some regions than in others" — and the same figure was sitting on the date line.
+- **`wh-023`** had Frere sending his report "in June 1797" under "the huge jawbone of an unknown beast".
+  Both are in Frere's own letter and **neither is in anything openable**: *Archaeologia* 13 is on
+  Cambridge Core behind a paywall with no abstract, and the British Museum's catalogue — which batch 18
+  would have gone to — is behind Cloudflare. The card follows the open sources to the 1800 publication
+  and giant animal bones. Its giants clause also *understated*: "nearly 30 centimetres" against a table
+  whose top entry is Furze Platt at 32.3.
+- **`wh-008`** had the pressure flaker as "an antler tip". The work that demonstrates the technique used
+  a pointed **bone** compressor, to serrate points. It also had grinding as a Neolithic craft, where
+  ground implements run back at least 780 ka and edge-ground hatchets to 65 ka at Madjedbebe.
+- **`wh-098`** gave Wrangham's cooking hypothesis "from about 1.9 million years ago". Gowlett states it
+  twice as **1.7 Ma**. Worse, that sentence's marker pointed at **Berna et al. 2012** — the Wonderwerk
+  fire microstratigraphy, which says nothing whatever about cooking, gut size or brain size. **A wrong
+  marker is worse than a missing one**, and only a top-up would ever have looked at it.
+
+Three smaller things worth carrying forward.
+
+**`https://www.ebi.ac.uk/europepmc/webservices/rest/PMC<id>/fullTextXML` is the way past the PMC
+captcha.** pmc.ncbi.nlm.nih.gov began serving a browser check partway through this batch; the Europe PMC
+REST service returns the same full text as JATS XML with no gate, and six of this batch's sources were
+read that way. Resolve the PMCID first with the `search?query=DOI:"…"` endpoint — guessing it lands you
+in a paper about sulfite oxidation, as it did here.
+
+**Chinese was one sentence out of step on `wh-022`, and the fix is to repair the split, not to route
+round it.** zh had cut the opening definition in two and run the two date sentences together, so its
+markers could not line up with anyone else's; `add-sources.js` caught it as a marker-count mismatch.
+Rejoining the definition and cutting the date sentence at its semicolon restored parity claim for claim,
+which is worth more than a per-language marker map.
+
+**And the splitter could not see a dozen Chinese abstracts at all.** Its CJK clause demanded that `。`
+carry no following space, which is right for well-set Chinese and wrong for the twelve zh and four ja
+abstracts written with one: those returned the whole block as a *single sentence*, silently, so markers
+placed by index would have landed anywhere. `\s?` on the CJK terminator fixed it and took the deck's
+5+5 failures from 48 to 22. **The 22 that remain are real and are NOT this batch's**: `wh-039` and
+`wh-063` split 6+5 and 7+5 **in English**, and ten more cards run over in one or two languages. Batch 24
+should clear them before placing a marker on any of those cards.
+
+One sentence in this batch is knowingly left bare. **`wh-014`'s account of the July 2011 wrong turn at
+Lomekwi has no marker**: the paper that tells that story (Lewis & Harmand 2016) is not open and has no
+deposited text, and a discovery anecdote is not something to attach a plausible-looking citation to.
+
+Finally, a tooling repair. `check-style.js` ran its house rules over the whole of `data.js`, `sources`
+included, and reported Moro Abadía's "…at the turn of the twentieth century" as a century-word
+violation. In report mode that is noise; **in `--fix` mode it would have renamed the paper**. Citations
+are now masked out before any rule runs, and the mask round-trips byte for byte.
 
 ### Batch 24 · Top-up: *erectus*, *sapiens* and the genetics (7 cards, 15 citations)
 `wh-018` Homo erectus 4→5 · `wh-028` Homo antecessor 2→5 · `wh-030` Homo heidelbergensis 2→5 ·

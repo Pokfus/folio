@@ -79,7 +79,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `docs/citation-plan.md` — the batch plan for **citing the 109 prehistory cards** (the bar a source must
   clear, the per-card workflow, how translations are staged, and the batches with their source spines).
   Not part of the site. **The bar is at least 5 citations per card** (`SRC_TARGET` in app.js; raised from
-  2–4 on 2026-07-31) — 76 of 109 cards are there, 33 short by 58 citations, planned as **batches 23–26**.
+  2–4 on 2026-07-31) — 86 of 109 cards are there, 23 short by 39 citations, planned as **batches 24–26**.
   Coverage is reported by `add-sources.js` on every run and in full by `node .claude/source-audit.js`. Its **Pilot log** records
   that batch 0 was attempted and stopped: this sandbox's egress policy blocks every scholarly host, so no
   source could be opened and none was cited. `.claude/sources-register.md` holds the verified citations
@@ -611,7 +611,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     pipeline are in place; the rest is a content job (see "Citing the existing content" below). Guarded by
     `.claude/test-sources.js` (67 assertions).
     **Batches 0–22 shipped 2026-07-31/08-01**: **all 109 prehistory cards now carry sources.** **Against the
-    5-source bar, 76 of 109 are there** — the other 33 are batches 23–26 in the plan, and
+    5-source bar, 86 of 109 are there** — the other 23 are batches 24–26 in the plan, and
     the audit that says which is `node .claude/source-audit.js`. Every list is majority-open bar one: `wh-045`
     Jebel Irhoud runs 2 open / 2 paywalled and its top-up must add open works. See `docs/citation-plan.md` — its Pilot log records how the
     definitional cards were solved, its Batch 1 log the factual errors the exercise turns up (21 so far) and
@@ -739,6 +739,30 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     cards were not wrong against the literature but **against each other** (`wh-001` and `wh-004` ended the
     Palaeolithic at 12,000 years ago where five other cards and `wh-004`'s own date line said 11,700). Run
     the sibling-consistency check FIRST on any card that summarises a whole period.
+    From Batch 23, the first TOP-UP batch, and its lesson governs the three that follow: **a top-up is
+    where the errors are.** A first pass only has to stand behind the sentences it marked; the bare ones
+    are exactly where an unchecked claim survives, and a top-up goes looking at them. Four of its ten
+    cards changed prose and every wrong figure sat in an unmarked sentence — `wh-022`'s Acheulean end
+    date (a 170–130 ka range no source in front of the card carried, against de la Torre's 0.125 Myr),
+    `wh-023`'s "June 1797" and jawbone (both in Frere's own letter, which is paywalled on Cambridge
+    Core with no abstract), `wh-008`'s antler pressure-flaker (the study that demonstrates the technique
+    used a pointed BONE compressor) and `wh-098`'s 1.9 Ma for Wrangham, which Gowlett puts at 1.7. That
+    last card also carried the pass's first **wrong marker**: its Wrangham sentence pointed at Berna et
+    al. 2012, the Wonderwerk fire microstratigraphy, which says nothing about cooking — **a marker
+    pointing at the wrong work is worse than no marker**, and only a top-up would ever have looked.
+    Three tools findings go with it. **`https://www.ebi.ac.uk/europepmc/webservices/rest/PMC<id>/fullTextXML`
+    is the way past the PMC captcha** that appeared partway through this batch; resolve the PMCID with the
+    `search?query=DOI:"…"` endpoint rather than guessing it. **`split-abstract.js` could not see a dozen
+    Chinese abstracts at all**: its CJK clause demanded that `。` carry no following space, so the twelve
+    zh and four ja abstracts written with one came back as a SINGLE sentence per block — silently, which
+    would have scattered markers anywhere. `\s?` on the CJK terminator took the deck's 5+5 failures from
+    48 to 22; **the remaining 22 are real and not this batch's** — `wh-039` and `wh-063` split 6+5 and 7+5
+    **in English** — and batch 24 should clear them before marking any of those cards. And
+    **`check-style.js` was applying the house rules to `sources`**, reporting a real paper's title as a
+    century-word violation; in `--fix` mode it would have renamed the paper. Citations are now masked out
+    before any rule runs. Where a language's sentence split diverges from English (zh on `wh-022`), **repair
+    the split rather than routing round it with a per-language marker map** — `add-sources.js` catches the
+    divergence as a marker-count mismatch, and rejoining the sentences restores parity claim for claim.
 - **Multiple question phrasings (July 2026):** a card may carry an optional **`questions` array of EXTRA
   phrasings** beyond `question` — **at most `CARD_MAX_QUESTIONS` (10) in all** (official Folio cards carry
   exactly 3; the headroom is for community decks to experiment). Every phrasing is a full standalone clue
@@ -1745,7 +1769,7 @@ which would otherwise have shipped corrected prose above an uncorrected date lin
 **Citing the existing content (as of July 2026)** — **most of the shipped content still has no citations.** The
 109 cards, 333 glossary terms and every Atlas description were written before this system existed, from Wikipedia
 and its sources, and were fact-checked rather than referenced. A batched pass is working through the cards —
-**all 109 carry sources, and 76 of 109 meet the 5-source bar** (`docs/citation-plan.md`; `add-sources.js`
+**all 109 carry sources, and 86 of 109 meet the 5-source bar** (`docs/citation-plan.md`; `add-sources.js`
 reports both on every run, `node .claude/source-audit.js` reports them per card, and the Edit page's card list
 shows each card's coverage as an amber or red chip) — while
 `country-sources.js` and `GLOSSARY_SOURCES` are still empty, so the Sources fold appears only on those cards.

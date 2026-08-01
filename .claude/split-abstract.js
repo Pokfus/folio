@@ -38,7 +38,10 @@ function pieces(block) {
   const FN = '(?:<sup class="fn"[^>]*></sup>)*';
   // the lookahead must also refuse to break immediately BEFORE a marker: in zh/ja the marker follows the
   // full stop with no space, so a bare "not whitespace" guard splits the marker off as its own sentence
-  const parts = t.split(new RegExp('(?<=[.!?؟]' + FN + '\\s|[。！？]' + FN + ')(?!\\s|<sup class="fn")'));
+  // the CJK terminator takes an OPTIONAL following space: it carries none in well-set Chinese, but a
+  // dozen zh abstracts (and four ja) were written with one, and without the `\s?` the splitter returns
+  // the whole block as a single sentence — silently, which is the failure mode markers must not meet
+  const parts = t.split(new RegExp('(?<=[.!?؟]' + FN + '\\s|[。！？]' + FN + '\\s?)(?!\\s|<sup class="fn")'));
   const restore = (s) => s.replace(new RegExp(OPEN + "(\\d+)" + CLOSE, "g"), (_, i) => held[+i]);
   return parts.filter((s) => s.length).map(restore);
 }

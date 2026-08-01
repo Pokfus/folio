@@ -75,6 +75,14 @@ for (const file of FILES) {
   const name = path.basename(file);
   const report = [];
 
+  // Citations are OUT OF SCOPE for every house-style rule: a citation names a work that exists,
+  // and its title is the author's, not ours. Moro Abadía's "…at the turn of the twentieth
+  // century" is not a century-word violation, and `--fix` would have quietly renamed the paper.
+  const srcMask = [];
+  text = text.replace(/"sources":\[(?:"(?:\\.|[^"\\])*"(?:,\s*)?)*\]/g, (m0) => {
+    srcMask.push(m0); return '"sources":["SRCMASK' + (srcMask.length - 1) + '"]';
+  });
+
   // rule 2 — centuries/millennia (pairs first, then singles)
   for (const re of [ORD_PAIR_RE, ORD_RE]) {
     if (FIX) {
@@ -134,6 +142,8 @@ for (const file of FILES) {
       report.push({ file: name, kind: "title-AMBIGUOUS (person or book — fix by hand)", at: m.index, hit: t, ctx: text.slice(Math.max(0, m.index - 55), m.index + t.length + 45).replace(/\s+/g, " ") });
     }
   }
+
+  text = text.replace(/"sources":\["SRCMASK(\d+)"\]/g, (m0, i) => srcMask[Number(i)]);
 
   if (FIX) fs.writeFileSync(file, text);
   else {
