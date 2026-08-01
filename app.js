@@ -4572,6 +4572,47 @@
     });
   }
 
+  /* the phone layout of the home page: the three panes are swiped between rather than stacked, and the Atlas
+     teaser is dropped. Must stay in step with the `@media (max-width:640px)` block that lays the pager out —
+     the JS decides what is BUILT, the CSS decides how it sits. */
+  function phoneHome() { return !!(window.matchMedia && window.matchMedia("(max-width:640px)").matches); }
+
+  /* ---------- one page per swipe ----------
+     Both horizontal pagers on the site (the Atlas place panel's sections, the home page's three panes) must
+     move exactly ONE page per gesture: a flick that carries two along skips a whole section, and silently,
+     since the reader only sees where it lands. `scroll-snap-stop:always` in the stylesheet is the real fix
+     and does the work wherever it is supported; this is the net under it, for the same reason the footnote
+     numbering has one — the failure is invisible, so it must not depend on a single mechanism.
+     It records the page the gesture STARTED on and, once the scroller has settled, pulls it back to one
+     step away if snapping landed further. The correction is deliberately made after the settle rather than
+     by fighting the gesture: nothing here can predict a fling, and a scroller wrestled mid-flick feels
+     broken in a way an overshoot does not. */
+  function wireOnePageSwipe(el) {
+    if (!el || el._onePage) return;
+    el._onePage = true;
+    let from = -1, settleT = 0;
+    // in RTL a scroller's scrollLeft runs NEGATIVE from 0 at the right edge, so pages are counted off its
+    // magnitude and the corrective scroll is signed back — Arabic is one of the ten site languages
+    const dirSign = () => (getComputedStyle(el).direction === "rtl" ? -1 : 1);
+    const pageAt = () => Math.round(Math.abs(el.scrollLeft) / (el.clientWidth || 1));
+    const mark = () => { if (from < 0) from = pageAt(); };
+    el.addEventListener("pointerdown", mark, { passive: true });
+    el.addEventListener("touchstart", mark, { passive: true });   // pointer events cover touch, but not on every engine we ship to
+    el.addEventListener("scroll", () => {
+      clearTimeout(settleT);
+      settleT = setTimeout(() => {
+        const w = el.clientWidth || 1, at = pageAt();
+        const last = Math.max(0, Math.round(el.scrollWidth / w) - 1);
+        const start = from;
+        from = -1;   // cleared BEFORE the corrective scroll, whose own scroll events must not re-enter this
+        if (start >= 0 && Math.abs(at - start) > 1) {
+          const to = Math.max(0, Math.min(last, start + (at > start ? 1 : -1)));
+          el.scrollTo({ left: dirSign() * to * w, behavior: prefersReducedMotion() ? "auto" : "smooth" });
+        }
+      }, 150);
+    }, { passive: true });
+  }
+
   /* ---------- levels / XP ----------
      XP = the number of distinct cards a user has studied. Each level costs `3 × level` more cards (3, 6, 9, …),
      so the bar starts at 0/3 and the requirement grows every level. Collections have their own level (distinct
@@ -4955,6 +4996,7 @@
     requestAnimationFrame(frame);
   }
 
+  let _homeResize = null;   // the one resize listener the home page installs (see the foot of PAGES.home)
   PAGES.home = function (root) {
     const q = reviewQueue();
     const dueN = q.due.length;
@@ -5052,6 +5094,8 @@
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.2 9.3a3 3 0 0 1 5.5 1.6c0 2-3 2.5-3 4.1"/><line x1="12" y1="17.5" x2="12" y2="17.5"/></svg>',
       findit:
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+      library:
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
     };
     const tile = (o) =>
       `<button class="game-tile ${o.cls || ""}${o.done ? " done" : ""}${o.won ? " won" : ""}" id="${o.id}" style="--tile:${o.color}">
@@ -5090,6 +5134,11 @@
     const todKeys = window.GLOSSARY ? Object.keys(window.GLOSSARY).filter((k) => (window.GLOSSARY_DATES || {})[k]) : [];
     const tod = dailyPick(todKeys, "term-");
     const todImg = tod ? glossImage(tod) : null;   // the term's illustration, shown at the right of the tile
+    // The phone drops the Atlas teaser altogether (Aug 2026, on request): the Atlas has a tab of its own down
+    // there, and on a swipe pane holding the two daily picks a third tile is one more thing to scroll past.
+    // Skipped at RENDER rather than hidden in CSS so the mini globe's ~1.6 MB of geometry is never fetched for
+    // an ornament nobody can see; the resize listener at the foot of this function rebuilds the page — and so
+    // the tile — if the window ever grows past the breakpoint.
     const exploreGrid = `<div class="explore-grid${todImg ? " has-term-img" : ""}">
       ${cod ? `<button class="exp-tile exp-card" id="exp-card" type="button" aria-label="Card of the day — click to flip it over">
         <div class="flip">
@@ -5122,7 +5171,7 @@
         </span>
         ${todImg ? `<span class="term-img"><img src="${esc(todImg.src)}" alt="${esc(todImg.title || glossTitle(tod))}" loading="lazy" draggable="false"></span>` : ""}
       </button>` : ""}
-      <button class="exp-tile exp-atlas" id="exp-atlas" type="button">
+      ${phoneHome() ? "" : `<button class="exp-tile exp-atlas" id="exp-atlas" type="button">
         <div class="atlas-copy">
           <span class="exp-eyebrow">The Atlas</span>
           <span class="atlas-title">See the world's borders move</span>
@@ -5130,7 +5179,7 @@
           <span class="exp-hint">Open the Atlas</span>
         </div>
         <canvas id="miniGlobe" class="mini-globe" aria-hidden="true"></canvas>
-      </button>
+      </button>`}
     </div>`;
     // shown until the first card is graded: the three-beat explanation of the method
     const howit = fresh ? `<div class="howit" aria-label="How Folio works">
@@ -5181,7 +5230,9 @@
             <div class="meta">
               <div class="stat${dueN ? " st-due" : ""}"><b>${dueN}</b><span>Due</span></div>
               <div class="stat${newN ? " st-new" : ""}"><b>${newN}</b><span>New</span></div>
-              <div class="stat"><b>${Object.keys(S.cards).length}</b><span>Seen total</span></div>
+              ${/* a "Seen total" stat sat here and was removed on request (Aug 2026) — the xp bar directly
+                    above it is already the count of distinct cards studied, said as progress towards the
+                    next level rather than as a bare number. */""}
               ${streakChip}
               <span class="cta"><span class="btn ${dueN + newN ? "" : "ghost"}">${
           dueN + newN ? "Start review" : "Browse collections"
@@ -5190,6 +5241,26 @@
           </div>
           <span class="glyph glyph-svg">${ICON.review}</span>
         </button>`;
+    // The Library lost its seat in the phone's bottom tab bar (Aug 2026, on request) — this banner is how it
+    // is reached instead, sitting under the review it belongs beside rather than in a row of six destinations.
+    // It is PHONE-ONLY (see .lib-banner in styles.css): above the breakpoint the top bar still carries the tab,
+    // and a second way in beside it would be clutter — the same call the plain admin-edit button makes.
+    const libraryBanner = `<button class="banner lib-banner" id="b-library" type="button">
+          <div class="body">
+            <h2>Library</h2>
+            <p class="desc">Every collection and deck in Folio — pick what to study next.</p>
+            <div class="meta"><span class="cta"><span class="btn">Browse collections</span></span></div>
+          </div>
+          <span class="glyph glyph-svg">${ICON.library}</span>
+        </button>`;
+    /* The three groups used to stack down the phone in one column three screens tall. They are separated here
+       into panes swiped between, with the daily review — the thing a reader came for — the one the page opens
+       on: swipe LEFT off it for the games, RIGHT for the day's card and term. The quote stays where it was,
+       above the pager, since it is read before any of them.
+       The DOM order is the DESKTOP order (review, games, explore, exactly as before); the phone puts the
+       explore pane first with `order:-1` rather than reordering the markup, so above the breakpoint the panes
+       fall back to being three plain stacked blocks with no rules of their own. The how-it-works strip lives
+       INSIDE the review pane so it stays under the banner it explains and above the Library banner below. */
     root.innerHTML = `
       <div class="page-head">
         <span class="eyebrow">${greeting}, ${esc(S.user.name)}</span>
@@ -5197,14 +5268,20 @@
       </div>
       ${dailyQuoteHTML()}
       <div class="banners">
-        <div class="review-group ${activeIds.length && !fresh ? "has-active" : ""}${reviewDone ? " rv-done" : ""}${reviewWon ? " rv-won" : ""}">
-        ${bannerHTML}
-        ${fresh ? "" : `<button class="review-order" id="reviewOrder" type="button" title="Order your daily review by date, or shuffle it"><span class="${S.settings.reviewRandom ? "" : "on"}">Chrono</span><span class="${S.settings.reviewRandom ? "on" : ""}">Random</span></button>
-        <div class="active-decks">${activeHTML}</div>`}
+        <div class="home-pager" id="homePager">
+          <div class="hp-pane hp-review">
+            <div class="review-group ${activeIds.length && !fresh ? "has-active" : ""}${reviewDone ? " rv-done" : ""}${reviewWon ? " rv-won" : ""}">
+            ${bannerHTML}
+            ${fresh ? "" : `<button class="review-order" id="reviewOrder" type="button" title="Order your daily review by date, or shuffle it"><span class="${S.settings.reviewRandom ? "" : "on"}">Chrono</span><span class="${S.settings.reviewRandom ? "on" : ""}">Random</span></button>
+            <div class="active-decks">${activeHTML}</div>`}
+            </div>
+            ${howit}
+          </div>
+          <div class="hp-pane hp-games">${gameGrid}</div>
+          <div class="hp-pane hp-explore">${exploreGrid}</div>
         </div>
-        ${howit}
-        ${gameGrid}
-        ${exploreGrid}
+        <div class="hp-dots" id="homeDots" hidden></div>
+        ${libraryBanner}
       </div>`;
 
     root.querySelector("#g-challenge").addEventListener("click", () => route("challenge"));
@@ -5249,11 +5326,48 @@
       expTerm.querySelector("#term-desc").textContent = (tmp.textContent || "").trim();
       expTerm.addEventListener("click", () => openGlossWin(tod, expTerm));
     }
-    const expAtlas = root.querySelector("#exp-atlas");
+    const expAtlas = root.querySelector("#exp-atlas");   // absent on a phone — the tile isn't built there
     if (expAtlas) {
       expAtlas.addEventListener("click", () => route("map"));
       startMiniGlobe(expAtlas.querySelector("#miniGlobe"));
     }
+    { const lib = root.querySelector("#b-library"); if (lib) lib.addEventListener("click", () => route("decks")); }
+    /* the phone's three panes. The page opens on the DAILY REVIEW — the middle one — so a reader who never
+       swipes sees exactly what they saw before this change; the dots below say the other two are there, since
+       a horizontal scroller with no marker reads as a column that just happens to be cut off, and they double
+       as the way to reach a pane without swiping. */
+    const pager = root.querySelector("#homePager"), homeDots = root.querySelector("#homeDots");
+    if (pager && homeDots && phoneHome()) {
+      const panes = [".hp-explore", ".hp-review", ".hp-games"].map((s) => root.querySelector(s));   // VISUAL order (the explore pane is ordered first in CSS)
+      const labels = ["Daily picks", "Daily review", "Daily games"];
+      const rtl = getComputedStyle(pager).direction === "rtl";
+      const pw = () => pager.clientWidth || 1;
+      const toPane = (i) => pager.scrollTo({ left: (rtl ? -1 : 1) * i * pw(), behavior: prefersReducedMotion() ? "auto" : "smooth" });
+      homeDots.innerHTML = panes.map((p, i) => p
+        ? `<button class="hp-dot${i === 1 ? " on" : ""}" type="button" data-i="${i}" aria-label="${esc(labels[i])}"></button>` : "").join("");
+      homeDots.hidden = false;
+      pager.scrollLeft = (rtl ? -1 : 1) * pw();   // land on the review pane before the first paint, not by animating past the others
+      pager.addEventListener("scroll", () => {
+        const i = Math.round(Math.abs(pager.scrollLeft) / pw());
+        Array.prototype.forEach.call(homeDots.children, (d, k) => d.classList.toggle("on", k === i));
+      }, { passive: true });
+      homeDots.addEventListener("click", (e) => { const b = e.target.closest(".hp-dot"); if (b) toPane(+b.dataset.i); });
+      wireOnePageSwipe(pager);
+    }
+    // crossing the breakpoint changes what this page IS — three swiped panes or one column, with the Atlas
+    // teaser or without it — so it is rebuilt rather than restyled. Exactly one listener is ever installed:
+    // render() re-enters this function, and a per-render listener would pile up for the life of the session.
+    if (_homeResize) window.removeEventListener("resize", _homeResize);
+    _homeResize = (function () {
+      let was = phoneHome();
+      return function () {
+        if (current.name !== "home") { window.removeEventListener("resize", _homeResize); _homeResize = null; return; }
+        if (phoneHome() === was) return;   // a phone fires resize on every URL-bar collapse; only the flip matters
+        was = phoneHome();
+        render();
+      };
+    })();
+    window.addEventListener("resize", _homeResize);
     wireDailyQuote(root);
     showAdminEditBtn(null);   // the phone's way into the editor, top-right (the tab bar no longer carries Edit)
     const reviewOrderBtn = root.querySelector("#reviewOrder");
@@ -8134,9 +8248,14 @@
             <button class="cp-close" id="cpClose" type="button" aria-label="Close">×</button>
             <div class="cp-head">
               <div class="cp-crumb" id="cpCrumb" hidden></div>
-              <div class="cp-name" id="cpName"></div>
+              ${/* the discovery chip rides on the TITLE's own line rather than under it (Aug 2026, on
+                    request): it announces the place whose name is beside it, and a row of its own pushed
+                    the description a line further down a sheet that is already short. */""}
+              <div class="cp-titlerow">
+                <div class="cp-name" id="cpName"></div>
+                <div class="cp-new" id="cpNew" hidden></div>
+              </div>
               <div class="cp-span" id="cpSpan"></div>
-              <div class="cp-new" id="cpNew" hidden></div>
               <div class="cp-tools">
                 ${/* Copy link was removed from this row on request (Aug 2026). The #map/<year>/<slug>
                       deep link itself is UNTOUCHED — parseMapHash still resolves one, so every link
@@ -10419,6 +10538,7 @@
     });
     // the phone pager: dots follow the swipe, and a tap on one turns to that page
     if (cpColsEl) cpColsEl.addEventListener("scroll", () => { if (cpPagerOn()) cpActiveDot(); }, { passive: true });
+    if (cpColsEl) wireOnePageSwipe(cpColsEl);   // a hard flick must not carry past the year paragraph into the figures
     if (cpDotsEl) cpDotsEl.addEventListener("click", (e) => {
       const b = e.target.closest(".cp-dot"); if (!b) return;
       const pane = cpPanes()[+b.dataset.i]; if (!pane) return;
