@@ -137,7 +137,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `i18n/ui-<lang>.js` — the site-chrome translation tables for one language (`window.I18N` exact strings /
   `I18N_RULES` regex patterns / `I18N_HTML` whole prose blocks, keyed by English source text) consumed by
   app.js's localisation engine. **Lazy** (bundle `uiI18n:<lang>`) — an English reader never fetches any of
-  them. See the "Language switcher + i18n" bullet below.
+  them. See the "Language picker + i18n" bullet below.
 - `world.js` (~1.6 MB) — `window.WORLD_GEO`, country-border polygons (Natural Earth 110m, ~117k verts) for the
   Atlas globe.
 - `uk.js` (~47 KB) — `window.UK_SUBUNITS = [ { n, p:[rings], c:[mask] } ]`, the UK's constituent countries (England,
@@ -321,8 +321,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   for languages whose file is loaded** (`editedGlossI18nLangs`) — writing an unloaded one would truncate the shipped
   file to just the edited slugs — via auto-save / Save to project / `folioSave.files`;
   `PRISTINE_GLOSS_I18N` + `revertGloss` cover undo/revert); title/dates/aliases/tags stay EN-view-only. The editor
-  previews render in the editing language. Gloss auto-linking stays EN-only. The language switcher's own handler
-  already calls `render()`, so the editor re-renders in the new language on switch.
+  previews render in the editing language. Gloss auto-linking stays EN-only. `setLang` itself
+  calls `render()`, so the editor re-renders in the new language on switch — but note the picker now lives on
+  the Settings page, so switching language means leaving the editor and coming back.
 - **Card editor = single live card** (`.card-edit-single` in `adminRenderEditor`): no fields/preview split — ONE
   card-styled surface (`.admin-live-card`) whose question / answer / answerDate / abstract are `.ces-field`
   contenteditables, **double-click to edit in place** (blur locks again; every keystroke saves). Above it: the
@@ -366,6 +367,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `_adminUndoReady` (false until boot, so the load-time overlay cleanup isn't captured). Known limitation: undoing a **first
   timeline-era edit** (`ADMIN_EDITS.timeline` array→null) doesn't reset the in-memory `window.TIMELINE` (a deep snapshot would cost
   MBs) — the overlay reverts, so it self-heals on reload; timeline eras are edited on the map page anyway, out of this handler's scope.
+- **The mobile gloss sheet is a PERMANENTLY promoted layer** (`.gloss-win.gloss-sheet` carries
+  `will-change:transform` + `backface-visibility:hidden` — Aug 2026, on a bug report). It blinked out for a
+  fraction of a second the instant its slide-up finished. Nothing in the markup or the styles changes at that
+  moment: a per-frame probe of the sheet from `.show` onwards reads `opacity:1`, `visibility:visible`, one
+  `.gloss-win`, no missing frame — so the gap is the browser DISCARDING the compositing layer it made for the
+  transform animation and repainting the sheet back into the page a frame or two after removing it, which the
+  `backdrop-filter` on the tab bar underneath makes worse. Declaring the promotion up front means the layer is
+  never created and never thrown away and the transition ends with no repaint at all. **Keep it on the sheet
+  only** — one permanent layer is cheap, a dozen are not, and the desktop popups fade rather than slide.
+  (It could not be reproduced in headless Linux Chromium, which composites in software; the diagnosis is from
+  the probe ruling out every style-level cause, not from a reproduction.)
 - **Gloss popups persist across reload:** the open glossary popups (`glossWins`, the draggable `.gloss-win` windows opened by
   clicking a `.ttip` term) are recorded to `sessionStorage["folio_gloss_open_v1"]` as `{ r: <route>, w: [{ k, l, t }] }` (owning page
   + term slug + left/top) by `persistGlossOpen()` on open / user-close / drag-end. **`sessionStorage` (not local)** so an F5 /
@@ -456,6 +468,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   quarter of a phone screen, over a card whose background already runs several screens. Four columns fit once
   `.gk` goes — those digits name keys a phone does not have — and `body.grading .stage`'s bottom padding drops
   from 206px to 150px to match.
+- **Undo is repeated INSIDE the grade bar on a phone** (`#undoGradeBar`, `.gb-undo` — Aug 2026, on request).
+  The study bar's `#undoGrade` sits at the top of a card that runs several screens, so on a phone the one way
+  back from a misclicked grade was scrolled off screen at exactly the moment it was wanted. The grade bar's copy
+  takes the `undo` cell of `.grade-wrap`'s phone grid (`"grades grades grades" / "help undo suspend"`), beside
+  the `?` that explains the buttons above it. It is a SECOND button rather than a moved one because the grade
+  bar only exists once the answer is revealed, and the study bar's copy still has to be there before that;
+  `body.grading .study-shell .undobtn{display:none}` is what keeps a revealed card from showing two, and
+  `.grade-wrap .gb-undo{display:none}` keeps the desktop on the study bar's single copy. Both halves are
+  asserted by `test-layout.js` — a duplicate and a disappearance look identical in a screenshot of one state.
 - **Review history + statistics:** `grade()` calls **`logReview(mature, correct)`**, which tallies
   `S.reviewLog["YYYY-MM-DD"] = [reviews, matureCorrect, matureTotal]` (in `defaultState()` so old saves
   back-fill, and in `PROGRESS_FIELDS` so it syncs and a friend's shows too). **This log has to exist**: a card
@@ -1052,21 +1073,26 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   REMOVED on request** (a saved selection of one falls back to folio via the `THEMES` whitelist); don't reintroduce
   them. **Collection banners and all theme decorations are STATIC — no animated/moving patterns (removed on request).**
   Themes register in `THEMES` (app.js) + the `THEME_OPTS` settings-picker table (mini-mockup previews, hover try-on).
-- **Language switcher + i18n** (`#lang-switch` in the top bar, right of Settings): a custom dropdown of 10 languages
-  (en/es/fr/de/it/nl/ru/ar/zh/ja) stored in `S.settings.lang`, each option showing an **inline SVG country flag**
-  (`FLAG_SVG` in app.js — NOT emoji flags, which render as bare letter pairs on Windows) plus the language's native
-  name. **The site chrome IS localised**: `i18n/ui-<lang>.js` holds one language's tables (`window.I18N` exact strings /
+- **Language picker + i18n** (**Settings → Language**, `langPickerHTML` / `wireLangPicker`; it was a `#lang-switch`
+  dropdown in the top bar until Aug 2026, moved on request when the phone's top bar was removed — a preference
+  belongs on the preferences page, and the picker had nowhere else to live once that bar was gone): a grid of
+  10 languages (en/es/fr/de/it/nl/ru/ar/zh/ja) stored in `S.settings.lang`, each option showing an **inline SVG
+  country flag** (`FLAG_SVG` in app.js — NOT emoji flags, which render as bare letter pairs on Windows) plus the
+  language's native name. The whole grid is `notranslate`: these are the languages' OWN names, and translating
+  "Deutsch" into German is how a reader loses the one row they were looking for. The light/dark switch made the
+  same move and had a home there already (Settings → Appearance → Night mode, `#sw-night` — `applyTheme` keeps it
+  in step and is now the only thing it looks for). **The site chrome IS localised**: `i18n/ui-<lang>.js` holds one language's tables (`window.I18N` exact strings /
   `I18N_RULES` regex patterns for dynamic labels / `I18N_HTML` whole prose blocks, all keyed by the ENGLISH source
   text), and app.js's engine (`t()`, `localizeTree()`, `applyLang()`) walks rendered text nodes +
   title/aria-label/placeholder/alt attributes after render, with a MutationObserver localizing later DOM (toasts,
   popups, menus). Originals are stashed on the nodes so switching back restores cleanly; anything untranslated stays
   English (graceful fallback). Arabic flips `<html dir="rtl">`. Elements with class `notranslate` are skipped.
   **Adding a language** — the language set is defined in exactly three code sites: `LANGS` + `FLAG_SVG` (app.js,
-  the switcher) and `CARD_I18N_LANGS` (app.js, the card editor's translated fields); plus the `I18N_LANGS`
+  the picker) and `CARD_I18N_LANGS` (app.js, the card editor's translated fields); plus the `I18N_LANGS`
   validation list in `.claude/add-card.js` and `.claude/add-glossary.js`. Everything else is keyed off
   `S.settings.lang` and needs no change. Backfill the CONTENT with **`node .claude/add-lang.js <batch.json>`**
   (see "Backfilling a site language" below) — and add the code to `LANGS` **last**, once the chrome table is
-  translated, so the switcher never offers a language that renders as English. Ship an EMPTY
+  translated, so the picker never offers a language that renders as English. Ship an EMPTY
   `i18n/gloss-<lang>.js` at that point too, or every page load 404s on it until the glossary is translated
   (`ensureData` degrades gracefully, but the console noise is real). **No CJK webfont is loaded, deliberately**: `--serif` ends in the generic
   `serif` and none of the Latin faces carry CJK glyphs, so Chinese and Japanese body text falls through to
@@ -1094,16 +1120,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   translated only their inline `<b>`s and stranded the surrounding prose in English. It now tests any element,
   with an `isConnected` guard and cheap `children.length`/`textContent.length` bounds against `_i18nHtmlCap`
   (the longest key in that language's table) so it does not serialize `innerHTML` for every element on the page.
-  **`setLang(code)` is the single entry point** for a language change (the switcher calls it; don't set
+  **`setLang(code)` is the single entry point** for a language change (the picker calls it; don't set
   `S.settings.lang` directly): it validates against `LANG_CODES`, persists, and — since the translation files are
   **lazy and per-language** (`langBundle`) — calls `loadLangData()` first, repainting with `applyLang(); render();`
   once the chrome table lands. A non-English reader therefore sees English for the moment the table takes to
   arrive; an English reader never fetches any of them, and never pays a second render. Switching language pulls
   only the new language's two files; the previous one stays resident.
-  **`?lang=xx` links the site in a given language** (e.g. `/?lang=es#decks`) and, like the switcher, becomes
-  the stored preference. Its IIFE runs **before `setupLangSwitch`** so the switcher's flag and code chip render
-  in the chosen language — move it after and the chip shows the previous language until the next reload.
-  Base-tag matching (`es-ES` → `es`); an unknown code is ignored, not stored.
+  **`?lang=xx` links the site in a given language** (e.g. `/?lang=es#decks`) and, like the picker, becomes
+  the stored preference. Its IIFE runs at load, before the first `render()`, so the Settings page paints with
+  the chosen language already marked. Base-tag matching (`es-ES` → `es`); an unknown code is ignored, not stored.
   **Known gap:** the `PAGE_META` titles/descriptions have no `i18n/ui-<lang>.js` entries yet, so `document.title` stays
   English in other languages (the documented graceful fallback). Adding them is a content task.
 - **UI sound effects** (the `/* UI sound effects */` block in app.js): tiny synthesized Web-Audio sounds, no files —
@@ -1253,7 +1278,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   that cannot be studied, and a figure that reads as a card count when the collection holds no cards. Six of
   the seven collections are coming-soon, so that was most of the Library saying nothing. With the meter gone
   the row's opacity fade no longer has to cover one, so it eases from `.62` to `.78` (at `.62`, over a tinted
-  wash, the title and pill sat near the contrast floor).
+  wash, the title and pill sat near the contrast floor). It also has to **cancel `.collection-title-row`'s 9px
+  bottom margin** (Aug 2026, on request): that margin separates the title from the XP bar, and with no bar it
+  was 9px of nothing inside a flex item the row centres as a whole, so the title rode ~4.5px above the middle
+  of its own banner. A flex item establishes its own formatting context, so the margin cannot collapse away by
+  itself — it has to be zeroed.
 - **Collections count their level in their own script** (`levelBadgeMarkup(xp, sys)` + `numeralIn(sys, n)`; the id→system map is
   `COLLECTION_NUMERALS`): China → Chinese numerals (`一 二 三 …` via `cnNumeral()`, Han font — `一` for level 1 is a single
   horizontal stroke, so it reads as a bar until level 2+), Ancient Rome (col-40) → Roman numerals, Ancient Greece (col-13) →
@@ -1261,23 +1290,78 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   (col-42) → Cyrillic/Church-Slavonic numerals (`а҃ в҃`, titlo over the second-to-last letter, 11–19 unit-before-ten). The
   level-up popup (`congratsPopup`, items carry `sys`) uses the same map; sizes tuned per script in styles.css
   (`.level-badge.num-*`). World History + United States stay Western digits.
-- **Mobile** (`@media max-width:640px`): page content is centred (`.page-head{text-align:center}`); the top nav is condensed
-  (the admin-only Editor/Visitor `.mode-switch` is hidden, controls shrunk) and horizontally scrollable so every item fits and
-  the bar spans edge-to-edge.
+- **Mobile** (`@media max-width:640px`): page content is centred (`.page-head{text-align:center}`) and **the top
+  bar is hidden outright** — see the next bullet.
 - **The bottom tab bar (`.tabbar`, phones only — Aug 2026, on request).** The top bar held NINE icon-only
   controls in a scrolling strip at the top of a 390px screen — the four destinations plus theme, edit,
-  account, settings and language — all out of the thumb's arc and none of them named. The four destinations
-  move to a fixed bottom bar and `.topbar .nav.left` hides at the same breakpoint; the top bar keeps the
-  rarely-pressed controls. It is **static markup in index.html** and reuses `.tab` + `data-route`, so
+  account, settings and language — all out of the thumb's arc and none of them named. **Every destination
+  now lives in the bottom bar** (home / decks / map / mission / account / settings — **not admin**, see
+  below), and light-dark
+  and the language picker moved to the **Settings page**, which leaves the top bar with nothing on it at
+  all: `.topbar{display:none}` on a phone, and **`--bar-h` goes to 0px** there so `.globe-stage` and every
+  other rule already written against it follows with no change of its own.
+  It is **static markup in index.html** and reuses `.tab` + `data-route`, so
   `setActiveTab` and the boot-time `querySelectorAll(".tab")` wiring cover it with no new code — but note
   that same query runs ONCE over the static DOM, so a nav item added later still has to live in index.html.
+  **Edit is NOT in this bar** — it left it the same week (Aug 2026, on request) for the top-right button
+  described below: the editor is one person's tool and it was taking a seventh of a row six readers share.
+  `applyMode` still hides `.tab-admin` with `querySelectorAll` rather than `querySelector`, because the
+  entry point can exist more than once and the old form would have left a second copy live for every
+  visitor. The bar is a **flex row of `flex:1 1 0` cells**, not a fixed column count, so a tab hidden or
+  added closes the gap on its own. At that width the label
+  may not wrap (a second line pushes the icons off centre), so it is `nowrap` + `text-overflow:ellipsis` at
+  8.5px — `test-layout.js` asserts each label's rendered width against its own `scrollWidth`, so a longer
+  name added later fails there rather than silently clipping.
   Every tab is labelled here (the top bar's labels unfold on hover, and a phone has no hover). Hidden while
   `body.grading`: the grade bar owns that edge, and a session is a place you finish rather than browse from.
-  **Two custom properties keep everything anchored to the bottom in step**: `--tabbar-h` (0 above the
-  breakpoint, 58px below) and `--timebar-h` (96px, 118px once the Atlas timeline goes to two rows).
+  **The editor's way in is `showAdminEditBtn(cardId)`** (`.admin-edit-fab`), a button on the page rather
+  than a nav tab. Called with a card id from the study page — it opens THAT card in the editor — and with
+  `null` from the home page, where it just opens the editor; the plain variant carries `.aef-plain` and is
+  **phone-only**, since above the breakpoint the top bar's Edit tab is still there and a second way in
+  beside it is clutter. On a phone both sit **top-right** (`right:12px`, `top:10px + safe-area-inset-top`);
+  on a desktop the study card's copy stays bottom-left as it always has.
+  Two things bit here. It is **admin-gated inside the function**, not by the caller — it used to be built
+  unconditionally on every study card, so a signed-out reader got an Edit button that bounced them home.
+  And its phone rules must live **BELOW** the base `.admin-edit-fab` rules in styles.css: media queries add
+  no specificity, and the `bottom:calc(var(--tabbar-h) + 16px)` that used to sit up in the tab-bar block was
+  silently overridden by the base `bottom:24px` further down and never applied at all.
+  **Three custom properties keep everything anchored in step**: `--tabbar-h` (0 above the
+  breakpoint, 58px below), `--timebar-h` (96px, 118px once the Atlas timeline goes to two rows) and
+  `--bar-h` (60px, 0 below the breakpoint).
   `.globe-stage` and `.atlas-timebar` are each written ONCE against them rather than restated per
   breakpoint — which is how their old hard-coded `96px`/`118px` pair would have drifted apart the moment a
   third bar appeared. `.stage`, `#toast` and `.admin-edit-fab` take the same offset.
+- **The whiteboard marker is DRAGGABLE anywhere on screen** (`wbMakeDraggable` / `wbApplyPos`, beside
+  `ensureWBTools` — Aug 2026, on request). It is a fixed control floating over a card the reader is trying to
+  read, and its default corner is exactly where some cards put the thing you want to look at.
+  · **`WB.enabled` (the pen is down) and `WB.panelOpen` (the tools are showing) are TWO states**, and were
+    one until Aug 2026, when putting the tools away also put the pen down — you could not draw with the
+    panel out of the way, which on a phone is most of the card. The marker button now only opens and closes
+    the panel (opening it with nothing selected picks the pen, so one tap still gets you drawing); what puts
+    the pen down is **unselecting the tool inside it**. The panel's `[Draw] [Mark] [Erase]` row is mutually
+    exclusive and clicking the selected one deselects it, so **nothing selected IS the pen-up state** —
+    which is what makes that gesture available at all. `applyWBState` maps `panelOpen` → `.active` and
+    `enabled` → the button's `.on` (visible with the panel shut) plus the canvas; **`wbSetEnabled` is the
+    one place `enabled` changes**, because the Atlas owns its own cursor / hover / spin state and has to be
+    told through `WB.onToggle` the moment the pen goes down or up.
+  · **The handle is the toggle button itself** — there is nothing else to grab — so every press has to be
+    classified: under `WB_DRAG_SLOP` (5px) it stays a click and toggles drawing, past it the drag takes over
+    and the click that pointerup fires afterwards is swallowed by the `wbDragged` flag, which the toggle's own
+    click handler checks and clears. `pointerdown` resets it, so a cancelled drag can't swallow the next real
+    press. The handle carries `touch-action:none`, or the browser claims a finger drag as a page scroll before
+    `pointermove` ever arrives.
+  · **The element is positioned by `right`/`bottom`, never `left`/`top`**, and is exactly the 46px button:
+    `.wb-panel` hangs off it **absolutely** rather than sharing a flex column with it. Both follow from the
+    drag — with `left`, opening the panel would shove the button sideways, since the panel is wider. Out of
+    flow, the panel only has to be told which way to open: `.wb-flip` when there is no room above,
+    `.wb-left` when there is none to the left (`WB_PANEL_W`/`WB_PANEL_H` are rough sizes used only for that
+    choice — the panel is `display:none` when shut, so it cannot be measured).
+  · **The position is device-local** (`localStorage["folio_wb_pos_v1"]`, not in `S` and not synced — where a
+    control sits on a screen is a fact about that screen) and **clamped on every apply and on resize**, so a
+    position saved on a wide window cannot strand the marker off the edge of a narrow one. With nothing
+    stored the inline styles are cleared, which is what lets `.on-atlas` and `body.grading`'s offsets take
+    over again. Guarded by `test-layout.js`: a marker that cannot be moved and one that turns drawing on
+    every time you move it are opposite failures, both silent.
 - **Reduced motion:** styles.css ends with a **global killswitch** — `@media (prefers-reduced-motion:reduce){ *,*::before,*::after
   { animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; } }`.
   It covers every CSS animation and transition in the file (entrance animations land on their end state), so a new one usually
@@ -1373,11 +1457,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   no setYear, and a later tick would cancel its flight mid-air). The info panel gained a **drill breadcrumb** (`#cpCrumb` —
   parent = the empire via `.mother`, or `ownerAt(popPointLL)` for drilled countries/UK constituents; clicking climbs back up),
   **"Through the ages"** (`#cpHistory` — `ownerAt(popPointLL)` across all mapYears, consecutive runs collapsed; a row click
-  jumps + re-selects **by point, not name** via `selectEntityByName(name, atLL)`), and **Copy link** → `#map/<year>/<slug>`
-  deep links (parsed at boot + hashchange by `parseMapHash` — `decodeURIComponent` is try/caught so a mangled %-escape can't
-  kill boot; the consumer resolves territory names, then EMPIRE names via `.mother`, then drilled present-day countries
-  (`subSelGeo`), then UK constituents (`subSelUK`); `popPointLL` (the click point / search anchor — GEO label point `c`, NOT
-  the bbox centre, which can land in a neighbour) + `popEntityName` feed all three). Unclaimed land on historical eras gets a
+  jumps + re-selects **by point, not name** via `selectEntityByName(name, atLL)`). Both read **`popPointLL`** — the click
+  point / search anchor, the GEO label point `c` and NOT the bbox centre, which can land in a neighbour.
+  A **Copy link** chip sat beside them and was **removed on request (Aug 2026)**; `popEntityName`, which was only ever
+  read to mint one, went with it. The **`#map/<year>/<slug>` deep links themselves are untouched** and must stay so —
+  every link already shared points at one. They are parsed at boot + hashchange by `parseMapHash` (`decodeURIComponent`
+  is try/caught so a mangled %-escape can't kill boot; the consumer resolves territory names, then EMPIRE names via
+  `.mother`, then drilled present-day countries (`subSelGeo`), then UK constituents (`subSelUK`)), and
+  `test-layout.js` loads one, because nothing on screen says they still work. Unclaimed land on historical eras gets a
   **terra-incognita stipple** (`stipplePattern()`, theme-aware via `stippleCol`, drawn settled-only under the claimed-land
   refill so it survives only on wilderness).
   **Frame-cost rules (smoothness batch, July 2026) — keep these when touching the render path:**

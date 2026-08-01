@@ -93,19 +93,29 @@ async function studyEasy(page, base, n) {
       return {
         shown: t.checkVisibility(),
         bottom: Math.round(b.bottom), h: Math.round(b.height), w: Math.round(b.width),
-        topNav: document.querySelector(".topbar .nav.left").checkVisibility(),
-        tabs: [...t.querySelectorAll(".tab")].map((x) => x.dataset.route),
+        topbar: document.querySelector(".topbar").checkVisibility(),
+        // only the tabs actually on screen: Edit is admin-only and applyMode() hides it, so a visitor's
+        // row is six and an editor's is seven
+        tabs: [...t.querySelectorAll(".tab")].filter((x) => x.checkVisibility()).map((x) => x.dataset.route),
         // the top bar's labels collapse to max-width:0 and unfold only on hover / .active. Down here every
         // tab must be named all the time — a row of bare icons is the problem this bar exists to solve,
-        // and a phone has no hover to unfold them with.
-        labelled: [...t.querySelectorAll(".tab .tab-label")].map((l) => Math.round(l.getBoundingClientRect().width)),
+        // and a phone has no hover to unfold them with. A label must also not be CLIPPED to nothing by the
+        // narrower cells six or seven tabs leave: compare each against the text it is meant to show.
+        labelled: [...t.querySelectorAll(".tab")].filter((x) => x.checkVisibility()).map((x) => {
+          const l = x.querySelector(".tab-label");
+          return { w: Math.round(l.getBoundingClientRect().width), need: l.scrollWidth };
+        }),
       };
     });
     check("the tab bar shows on a phone", bar.shown);
     check("...spanning the full width, pinned to the bottom", bar.w === PHONE.width && bar.bottom === PHONE.height, JSON.stringify({ w: bar.w, bottom: bar.bottom }));
-    check("...carrying the four destinations", bar.tabs.join(",") === "home,decks,map,mission", bar.tabs.join(","));
-    check("...every one of them NAMED, not just the active one", bar.labelled.every((w) => w > 8), JSON.stringify(bar.labelled));
-    check("the top bar's left nav gives way to it", !bar.topNav);
+    check("...carrying every destination the top bar used to hold",
+      ["home", "decks", "map", "mission", "account", "settings"].every((r) => bar.tabs.includes(r)), bar.tabs.join(","));
+    check("...every one of them NAMED, not just the active one", bar.labelled.every((l) => l.w > 8), JSON.stringify(bar.labelled.map((l) => l.w)));
+    check("...and no name clipped by the narrower cells", bar.labelled.every((l) => l.w >= l.need - 1), JSON.stringify(bar.labelled));
+    // light/dark and the language picker moved to Settings, Account/Settings/Edit moved down here —
+    // which leaves the top bar with nothing on it at all on a phone
+    check("the top bar gives way to it entirely", !bar.topbar);
 
     // it routes, and the active state follows the route
     await page.evaluate(() => { [...document.querySelectorAll(".tabbar .tab")].find((t) => t.dataset.route === "decks").click(); });
@@ -133,9 +143,11 @@ async function studyEasy(page, base, n) {
       tabbar: document.querySelector(".tabbar").checkVisibility(),
       topNav: document.querySelector(".topbar .nav.left").checkVisibility(),
       tabbarH: getComputedStyle(document.documentElement).getPropertyValue("--tabbar-h").trim(),
+      barH: getComputedStyle(document.documentElement).getPropertyValue("--bar-h").trim(),
     }));
     check("above the breakpoint the tab bar is gone", !d.tabbar);
     check("...and the top bar's nav is back", d.topNav);
+    check("...with --bar-h back to its full height", !/^0/.test(d.barH), d.barH);
     check("...with --tabbar-h at zero, so nothing reserves room for it", /^0/.test(d.tabbarH), d.tabbarH);
     await page.close();
   }
@@ -258,6 +270,35 @@ async function studyEasy(page, base, n) {
     }));
     check("on a desktop the search is a plain field, not a chip", d.field && !d.chip, JSON.stringify(d));
     check("...and the legend opens on arrival", d.legendBody);
+
+    // Copy link was taken off the place panel (Aug 2026, on request). The #map/<year>/<slug> deep link
+    // itself stays — links already shared have to go on working, and nothing on screen says they do.
+    await page.evaluate(() => { const i = document.querySelector("#gsInput"); i.focus(); i.value = "France"; i.dispatchEvent(new Event("input", { bubbles: true })); });
+    await page.waitForTimeout(700);
+    await page.evaluate(() => { const r = document.querySelector(".gs-row"); if (r) r.click(); });
+    await page.waitForTimeout(2500);
+    const cp = await page.evaluate(() => ({
+      open: !!document.querySelector("#countryPop") && !document.querySelector("#countryPop").hidden,
+      tools: [...document.querySelectorAll(".cp-tools .cp-tool")].map((b) => b.textContent.trim()),
+      copy: !!document.querySelector("#cpCopyLink"),
+    }));
+    check("a place panel opens", cp.open, JSON.stringify(cp));
+    check("...carrying no Copy link chip", !cp.copy && !cp.tools.some((t) => /copy/i.test(t)), cp.tools.join(" · "));
+    check("...but keeping Through the ages", cp.tools.some((t) => /ages/i.test(t)), cp.tools.join(" · "));
+    await page.close();
+  }
+  {
+    const page = await browser.newPage({ viewport: DESKTOP });
+    watch(page);
+    await page.goto(base, { waitUntil: "load" });
+    await page.evaluate(() => localStorage.setItem("folio_atlas_tour_v1", "1"));
+    await page.goto(base + "#map/1938/france", { waitUntil: "load" });
+    await page.waitForTimeout(5000);
+    const deep = await page.evaluate(() => ({
+      open: !!document.querySelector("#countryPop") && !document.querySelector("#countryPop").hidden,
+      name: ((document.querySelector("#cpName") || {}).textContent || "").trim(),
+    }));
+    check("a link shared before the chip was removed still resolves", deep.open && /fren|fran/i.test(deep.name), JSON.stringify(deep));
     await page.close();
   }
 
@@ -283,6 +324,200 @@ async function studyEasy(page, base, n) {
     check("...taking under a fifth of the screen", gb.h < gb.vh * 0.2, gb.h + " of " + gb.vh);
     // the card's last line must not end underneath it
     check("the study page's bottom padding clears the bar", gb.pad >= gb.h, JSON.stringify({ pad: gb.pad, bar: gb.h }));
+    await page.close();
+  }
+
+  /* ================= 5b. Undo, in the grade bar on a phone =================
+     The study bar sits above a card that runs several screens, so on a phone the one way back from a
+     misclicked grade was scrolled off the top at exactly the moment it was wanted. It is repeated in the
+     grade bar beside the ? that explains it — and the study bar's copy steps aside while it is there, so
+     a card never shows two. Both halves have to hold, or a reader gets a duplicate or nothing at all. */
+  for (const vp of [PHONE, DESKTOP]) {
+    const page = await browser.newPage({ viewport: vp });
+    watch(page);
+    await studyEasy(page, base, 1);            // one graded card is what makes Undo exist at all
+    await page.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
+    await page.waitForTimeout(700);
+    const u = await page.evaluate(() => {
+      const gbU = document.querySelector("#undoGradeBar"), sbU = document.querySelector("#undoGrade");
+      const help = document.querySelector(".grade-help");
+      const r = (e) => { const b = e.getBoundingClientRect(); return { l: Math.round(b.left), t: Math.round(b.top) }; };
+      return {
+        inBar: !!gbU && gbU.checkVisibility(), inStudyBar: !!sbU && sbU.checkVisibility(),
+        pos: gbU && gbU.checkVisibility() ? r(gbU) : null, help: r(help),
+        grades: r(document.querySelector(".grades")),
+      };
+    });
+    const tag = vp.width + "px";
+    if (vp === PHONE) {
+      check("[" + tag + "] Undo is in the grade bar", u.inBar);
+      check("[" + tag + "] ...just right of the ? and below the four grades",
+        !!u.pos && u.pos.l > u.help.l && u.pos.t > u.grades.t, JSON.stringify(u));
+      check("[" + tag + "] ...and the study bar's copy has stepped aside", !u.inStudyBar);
+    } else {
+      check("[" + tag + "] the grade bar carries no second Undo", !u.inBar);
+      check("[" + tag + "] ...the study bar keeps the only one", u.inStudyBar);
+    }
+    await page.close();
+  }
+
+  /* ================= 5d. the whiteboard marker drags anywhere =================
+     The handle IS the toggle button, so every press has to be classified: under the slop it toggles
+     drawing, past it it moves the marker and the click that follows pointerup must be swallowed. Both
+     failures are silent and opposite — a marker that cannot be moved, or one that turns drawing on every
+     time you move it. The panel is anchored to the button rather than sharing a flex column with it, so
+     the button must not jump when the panel opens, and the panel must open on the side there is room on. */
+  for (const vp of [PHONE, DESKTOP]) {
+    const page = await browser.newPage({ viewport: vp, hasTouch: vp === PHONE });
+    watch(page);
+    await studyEasy(page, base, 0);
+    const at = await page.evaluate(() => {
+      const t = document.querySelector(".wb-tools");
+      if (!t || !t.checkVisibility()) return null;
+      const b = t.getBoundingClientRect();
+      return { x: Math.round(b.left + b.width / 2), y: Math.round(b.top + b.height / 2), w: Math.round(b.width), h: Math.round(b.height) };
+    });
+    const tag = vp.width + "px";
+    check("[" + tag + "] the marker is on the study page", !!at, at);
+    if (at) {
+      // to the top-left quarter — far enough that it has to flip the panel on a phone
+      const target = { x: Math.round(vp.width * 0.25), y: Math.round(vp.height * 0.3) };
+      await page.mouse.move(at.x, at.y);
+      await page.mouse.down();
+      await page.mouse.move(at.x - 30, at.y - 30, { steps: 5 });
+      await page.mouse.move(target.x, target.y, { steps: 10 });
+      await page.mouse.up();
+      await page.waitForTimeout(300);
+      const moved = await page.evaluate(() => {
+        const t = document.querySelector(".wb-tools"), b = t.getBoundingClientRect();
+        return { x: Math.round(b.left + b.width / 2), y: Math.round(b.top + b.height / 2), l: Math.round(b.left), t: Math.round(b.top),
+          drawing: t.classList.contains("active"), stored: !!localStorage.getItem("folio_wb_pos_v1") };
+      });
+      check("[" + tag + "] dragging it follows the pointer", Math.abs(moved.x - target.x) <= 3 && Math.abs(moved.y - target.y) <= 3, JSON.stringify(moved));
+      check("[" + tag + "] ...without the drag also switching drawing on", !moved.drawing);
+      check("[" + tag + "] ...and where it was put is remembered", moved.stored);
+      await page.mouse.click(moved.x, moved.y);
+      await page.waitForTimeout(250);
+      const opened = await page.evaluate(() => {
+        const t = document.querySelector(".wb-tools"), b = t.getBoundingClientRect(), p = t.querySelector(".wb-panel").getBoundingClientRect();
+        return { on: t.classList.contains("active"), l: Math.round(b.left), t: Math.round(b.top),
+          p: { l: Math.round(p.left), t: Math.round(p.top), r: Math.round(p.right), b: Math.round(p.bottom) }, vw: innerWidth, vh: innerHeight };
+      });
+      check("[" + tag + "] a press that did not move it still toggles drawing", opened.on);
+      check("[" + tag + "] ...the button stays put as the panel opens", near(opened.l, moved.l, 2) && near(opened.t, moved.t, 2), JSON.stringify({ moved, opened }));
+      check("[" + tag + "] ...and the panel opens fully on screen",
+        opened.p.l >= 0 && opened.p.t >= 0 && opened.p.r <= opened.vw && opened.p.b <= opened.vh, JSON.stringify(opened.p));
+      // it is a device setting, so it has to survive leaving the page and coming back
+      await studyEasy(page, base, 0);
+      const again = await page.evaluate(() => { const b = document.querySelector(".wb-tools").getBoundingClientRect(); return { x: Math.round(b.left + b.width / 2), y: Math.round(b.top + b.height / 2) }; });
+      check("[" + tag + "] the marker comes back where it was left", Math.abs(again.x - target.x) <= 3 && Math.abs(again.y - target.y) <= 3, JSON.stringify(again));
+
+      /* The pen and the tools are two states. They were one until Aug 2026, when putting the tools away
+         also put the pen down — you could not draw with the panel out of the way, which on a phone is most
+         of the card. What stops the drawing is unselecting the tool INSIDE the panel. */
+      const wb = () => page.evaluate(() => {
+        const t = document.querySelector(".wb-tools");
+        return { panel: t.querySelector(".wb-panel").checkVisibility(),
+          drawing: t.querySelector(".wb-toggle").classList.contains("on"),
+          canvas: !!document.querySelector(".draw-canvas.on"),
+          sel: [...t.querySelectorAll(".wb-btn.sel")].map((b) => b.className.replace(/wb-btn |sel| /g, "")).join(",") };
+      });
+      const marker = await page.evaluate(() => { const b = document.querySelector(".wb-tools").getBoundingClientRect(); return { x: Math.round(b.left + b.width / 2), y: Math.round(b.top + b.height / 2) }; });
+      await page.mouse.click(marker.x, marker.y);          // open
+      await page.waitForTimeout(200);
+      const opened2 = await wb();
+      check("[" + tag + "] opening the tools puts the pen down", opened2.panel && opened2.drawing && opened2.canvas && opened2.sel === "wb-pen", JSON.stringify(opened2));
+      await page.mouse.click(marker.x, marker.y);          // close — the pen must stay down
+      await page.waitForTimeout(200);
+      const shut = await wb();
+      check("[" + tag + "] putting the tools away leaves the pen down", !shut.panel && shut.drawing && shut.canvas, JSON.stringify(shut));
+      await page.mouse.click(marker.x, marker.y);          // open again, then unselect the pen
+      await page.waitForTimeout(200);
+      await page.evaluate(() => { const b = document.querySelector(".wb-btn.wb-pen"); if (b) b.click(); });
+      await page.waitForTimeout(200);
+      const off = await wb();
+      check("[" + tag + "] unselecting the tool is what stops the drawing", off.panel && !off.drawing && !off.canvas && off.sel === "", JSON.stringify(off));
+    }
+    await page.close();
+  }
+
+  /* ================= 5e. the editor's way in =================
+     Edit left the phone's tab bar (six destinations a reader shares; the editor is one person's tool) for a
+     button at the top right of the page — plain on Home, and on a study card pointing at THAT card. Above
+     the breakpoint the top bar's Edit tab is still the way in and the plain copy must not double it. */
+  for (const vp of [PHONE, DESKTOP]) {
+    const page = await browser.newPage({ viewport: vp });
+    watch(page);
+    await page.goto(base + "#home", { waitUntil: "load" });
+    await page.waitForTimeout(1400);
+    const tag = vp.width + "px";
+    const home = await page.evaluate(() => {
+      const f = document.querySelector("#admin-edit-fab");
+      const b = f && f.getBoundingClientRect();
+      return { shown: !!f && f.checkVisibility(), plain: !!f && f.classList.contains("aef-plain"),
+        right: b ? Math.round(innerWidth - b.right) : null, top: b ? Math.round(b.top) : null, vw: innerWidth, vh: innerHeight,
+        tabbarEdit: !!document.querySelector(".tabbar .tab-admin"), topbarEdit: !!document.querySelector(".topbar .tab-admin") };
+    });
+    check("[" + tag + "] the tab bar no longer carries Edit", !home.tabbarEdit);
+    check("[" + tag + "] ...the top bar still does", home.topbarEdit);
+    if (vp === PHONE) {
+      check("[" + tag + "] Home carries the editor button", home.shown && home.plain, JSON.stringify(home));
+      check("[" + tag + "] ...at the TOP right", home.shown && home.right < 40 && home.top < home.vh / 4, JSON.stringify(home));
+      await page.evaluate(() => document.querySelector("#admin-edit-fab").click());
+      await page.waitForTimeout(900);
+      check("[" + tag + "] ...and it opens the editor", (await page.evaluate(() => location.hash)) === "#admin");
+    } else {
+      check("[" + tag + "] Home does NOT double the top bar's Edit tab", !home.shown, JSON.stringify(home));
+    }
+
+    // on a study card it points at that card, at every width
+    await studyEasy(page, base, 0);
+    const study = await page.evaluate(() => {
+      const f = document.querySelector("#admin-edit-fab");
+      const b = f && f.getBoundingClientRect();
+      const q = document.querySelector(".study-card .question");
+      return { shown: !!f && f.checkVisibility(), plain: !!f && f.classList.contains("aef-plain"),
+        right: b ? Math.round(innerWidth - b.right) : null, top: b ? Math.round(b.top) : null, vh: innerHeight,
+        overlapsQuestion: !!(b && q && b.bottom > q.getBoundingClientRect().top && b.top < q.getBoundingClientRect().bottom && b.right > q.getBoundingClientRect().left) };
+    });
+    check("[" + tag + "] a study card carries it too", study.shown && !study.plain, JSON.stringify(study));
+    if (vp === PHONE) check("[" + tag + "] ...also at the top right, clear of the question", study.right < 40 && study.top < study.vh / 4 && !study.overlapsQuestion, JSON.stringify(study));
+    await page.evaluate(() => document.querySelector("#admin-edit-fab").click());
+    await page.waitForTimeout(1200);
+    const routed2 = await page.evaluate(() => ({ hash: location.hash, card: !!document.querySelector(".admin-live-card") }));
+    check("[" + tag + "] ...and opens THAT card in the editor", routed2.hash === "#admin" && routed2.card, JSON.stringify(routed2));
+
+    // a reader must never see it — it used to be built on every study card, admin or not.
+    // reload(), not goto(#hash): a URL differing only in the fragment is a same-document navigation, so
+    // the app keeps running and `S` in memory would never see this write (see the note in CLAUDE.md).
+    await page.evaluate(() => { const s = JSON.parse(localStorage.getItem("folio_v1")); s.settings.adminMode = false; localStorage.setItem("folio_v1", JSON.stringify(s)); });
+    await page.reload({ waitUntil: "load" });
+    await page.waitForTimeout(1200);
+    await studyEasy(page, base, 0);
+    check("[" + tag + "] a reader gets no Edit button at all", !(await page.evaluate(() => !!document.querySelector("#admin-edit-fab"))));
+    await page.evaluate(() => { const s = JSON.parse(localStorage.getItem("folio_v1")); s.settings.adminMode = true; localStorage.setItem("folio_v1", JSON.stringify(s)); });
+    await page.close();
+  }
+
+  /* ================= 5c. light/dark and the language picker live on Settings ================= */
+  for (const vp of [PHONE, DESKTOP]) {
+    const page = await browser.newPage({ viewport: vp });
+    watch(page);
+    await page.goto(base + "#settings", { waitUntil: "load" });
+    await page.waitForTimeout(1400);
+    const p = await page.evaluate(() => ({
+      opts: document.querySelectorAll("#langGrid .lang-opt").length,
+      picked: [...document.querySelectorAll("#langGrid .lang-opt.on")].map((o) => o.dataset.lang).join(","),
+      night: !!document.querySelector("#sw-night") && document.querySelector("#sw-night").checkVisibility(),
+      // whatever the viewport, neither may be left behind in the top bar
+      strayLang: !!document.querySelector(".topbar .lang-opt, .topbar #lang-switch"),
+      strayNight: !!document.querySelector(".topbar .theme-switch"),
+    }));
+    const tag = vp.width + "px";
+    check("[" + tag + "] every language is offered on the Settings page", p.opts === 10, String(p.opts));
+    check("[" + tag + "] ...with exactly one marked as the current one", p.picked === "en", p.picked);
+    check("[" + tag + "] ...beside the light/dark switch", p.night);
+    check("[" + tag + "] ...and neither is left in the top bar", !p.strayLang && !p.strayNight, JSON.stringify(p));
     await page.close();
   }
 
@@ -348,8 +583,16 @@ async function studyEasy(page, base, n) {
       const soon = document.querySelector(".collection.placeholder");
       const live = [...document.querySelectorAll(".collection:not(.placeholder):not(.udeck)")][0];
       const has = (el, sel) => !!(el && el.querySelector(sel));
+      // with the XP bar gone, the title row's bottom margin was 9px of nothing under the title, inside a
+      // flex item the row centres as a whole — so the title rode above the middle of its own banner
+      let off = null;
+      if (soon) {
+        const t = soon.querySelector(".collection-title").getBoundingClientRect();
+        const r = soon.querySelector(".collection-row").getBoundingClientRect();
+        off = +((t.top + t.height / 2 - r.top) - r.height / 2).toFixed(2);
+      }
       return {
-        groupLabel: groupLabel.trim(),
+        groupLabel: groupLabel.trim(), soonTitleOffset: off,
         soonBadge: has(soon, ".level-badge"), soonXp: has(soon, ".xp"), soonPill: has(soon, ".pill.soon"),
         liveBadge: has(live, ".level-badge"), liveXp: has(live, ".xp"), liveCount: has(live, ".collection-count"),
       };
@@ -360,6 +603,7 @@ async function studyEasy(page, base, n) {
     check("a coming-soon collection carries no level badge", !lib.soonBadge);
     check("...and no XP bar", !lib.soonXp);
     check("...just the Coming soon pill", lib.soonPill);
+    check("...with its title centred in the banner", lib.soonTitleOffset !== null && Math.abs(lib.soonTitleOffset) <= 1.5, lib.soonTitleOffset);
     check("a live collection keeps both, and its card count", lib.liveBadge && lib.liveXp && lib.liveCount, JSON.stringify(lib));
     await page.close();
   }

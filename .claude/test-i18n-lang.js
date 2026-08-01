@@ -95,8 +95,9 @@ function serve() {
   ok("the glossary table is complete", (await pg.evaluate(() => Object.keys(window.GLOSSARY_I18N).length)) === Object.keys(GLOSS).length);
 
   fetched.length = 0;
-  await pg.evaluate(() => { document.getElementById("lang-switch").click(); });
-  await pg.waitForTimeout(250);
+  // the picker lives on the Settings page (Aug 2026 — it was a top-bar dropdown before that)
+  await pg.evaluate(() => { location.hash = "settings"; });
+  await pg.waitForTimeout(400);
   await pg.evaluate(() => { const o = document.querySelector('.lang-opt[data-lang="ru"]'); if (o) o.click(); });
   await pg.waitForTimeout(1500);
   ok("switching pulls only the new language", fetched.length > 0 && fetched.every((f) => f.endsWith("-ru.js")), fetched);
