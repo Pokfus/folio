@@ -29,7 +29,15 @@ function pieces(block) {
   hold(/\bapr\.\s?J\.-?C\./g);
   hold(/\bd\.\s?C\./g);
   hold(/н\.\s?э\./g);                                       // Russian н. э. (no \b — it is ASCII-only in JS)
-  hold(/\b[A-ZÀ-Þ]\.\s?(?=[A-ZÀ-Þ]\.)/g);                   // initials: J. J. A.
+  // Initials, as a WHOLE RUN. Holding each one only when another follows (the old rule) left the LAST
+  // initial of the run exposed, so "R. P. Soejono" and "Frank H. H. Roberts" both broke a sentence in
+  // half in every Latin language — silently, and in English, where nothing else was watching.
+  // ...and in EVERY script the deck is written in, not just Latin: the same name breaks Russian on
+  // "Р. П." and Arabic on "ر. ب.", and an ASCII-only class cannot see either. Arabic has no case, so
+  // it needs its own clause — a single Arabic letter standing alone before a full stop.
+  hold(/(?<=^|[\s(«"'([])(?:\p{Lu}\.\s?){2,}/gu);
+  hold(/(?<=^|[\s(«"'([])(?:[ء-ي]\.\s?){2,}/g);
+  hold(/\b(?:Jr|Sr|Dr|Prof|Mr|Mrs|Ms|St|Mt)\.\s?/g);        // "Roberts Jr. used the name in 1940"
   hold(new RegExp("\\d{1,2}\\.\\s(?=(?:" + MONTHS + "))", "g"));   // "25. August"
   hold(/\d{1,2}\.\s(?=Jahrhundert|Jh\.)/g);                 // "im frühen 19. Jahrhundert"
   // A sentence ends at .!? followed by whitespace, or at a CJK terminator with or without one — and a
@@ -38,7 +46,10 @@ function pieces(block) {
   const FN = '(?:<sup class="fn"[^>]*></sup>)*';
   // the lookahead must also refuse to break immediately BEFORE a marker: in zh/ja the marker follows the
   // full stop with no space, so a bare "not whitespace" guard splits the marker off as its own sentence
-  const parts = t.split(new RegExp('(?<=[.!?؟]' + FN + '\\s|[。！？]' + FN + ')(?!\\s|<sup class="fn")'));
+  // the CJK terminator takes an OPTIONAL following space: it carries none in well-set Chinese, but a
+  // dozen zh abstracts (and four ja) were written with one, and without the `\s?` the splitter returns
+  // the whole block as a single sentence — silently, which is the failure mode markers must not meet
+  const parts = t.split(new RegExp('(?<=[.!?؟]' + FN + '\\s|[。！？]' + FN + '\\s?)(?!\\s|<sup class="fn")'));
   const restore = (s) => s.replace(new RegExp(OPEN + "(\\d+)" + CLOSE, "g"), (_, i) => held[+i]);
   return parts.filter((s) => s.length).map(restore);
 }

@@ -79,7 +79,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `docs/citation-plan.md` — the batch plan for **citing the 109 prehistory cards** (the bar a source must
   clear, the per-card workflow, how translations are staged, and the batches with their source spines).
   Not part of the site. **The bar is at least 5 citations per card** (`SRC_TARGET` in app.js; raised from
-  2–4 on 2026-07-31) — 54 of 109 cards are there, 55 short by 168 citations, planned as **batches 17–26**.
+  2–4 on 2026-07-31) — **all 109 are there, with nothing blocked and nothing left to find**; batches 0–26 are complete.
   Coverage is reported by `add-sources.js` on every run and in full by `node .claude/source-audit.js`. Its **Pilot log** records
   that batch 0 was attempted and stopped: this sandbox's egress policy blocks every scholarly host, so no
   source could be opened and none was cited. `.claude/sources-register.md` holds the verified citations
@@ -610,11 +610,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     glossary term carries `sources`; the citation pass so far has touched cards only. The UI, the deltas and the
     pipeline are in place; the rest is a content job (see "Citing the existing content" below). Guarded by
     `.claude/test-sources.js` (67 assertions).
-    **Batches 0–17c shipped 2026-07-31**: **92 of the 109 prehistory cards carry sources** (`wh-086` Lascaux,
-    `wh-074` Dolní Věstonice and a set of culture-history/definitional cards are deferred). **Against the
-    5-source bar raised the same day, 59 of 109 are there** — the other 50 are batches 18–26 in the plan, and
-    the audit that says which is `node .claude/source-audit.js`. Every list is majority-open bar one: `wh-045`
-    Jebel Irhoud runs 2 open / 2 paywalled and its top-up must add open works. See `docs/citation-plan.md` — its Pilot log records how the
+    **Batches 0–22 shipped 2026-07-31/08-01**: **all 109 prehistory cards now carry sources.** **Against the
+    5-source bar, ALL 109 are there** — batches 0–26 are complete, and
+    the audit that says which is `node .claude/source-audit.js`. **Every list is majority-open**, `wh-045`
+    Jebel Irhoud having been taken to six sources in batch 24 to clear the last exception. See `docs/citation-plan.md` — its Pilot log records how the
     definitional cards were solved, its Batch 1 log the factual errors the exercise turns up (21 so far) and
     the gotcha that a matching sentence COUNT across languages does not prove a matching sentence MAPPING, and
     its Batch 2 log the finding that reshapes the rest of the pass: **the batches are grouped by subject, and
@@ -674,6 +673,65 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     paywalled landmarks they are. Also **narrow a naming history to what a source actually says** — "the
     1860s and 1870s" for Levallois-Perret became "the 19th century", which is as precise as the open
     literature gets.
+    From Batch 18: **when a card is about an object, an institution or an act of state, look for the body
+    responsible before looking for a paper.** Three of its four cards were carried by sources that are not
+    journal articles — a Dutch state commission's 2025 advice on the Dubois collection, the ministry's record
+    of the handover, and the Smithsonian's Human Origins fossil and species records — none of which has an
+    equivalent in the literature. Its other finding is a limit on the batch's own premise: **a founding
+    monograph answers the questions its author asked**, so Dubois 1894 and Weidenreich 1943 settle the
+    discovery sequences precisely and carry almost nothing else, and five claims across the four cards were
+    dropped outright rather than sourced — including Binford & Ho 1985, which could not be opened at all, so
+    the card no longer names it.
+    From Batch 19: **a museum's catalogue IS the open review that restates the closed founding paper.** Batch
+    15's rule — when the discovery paper is shut, find the review — worked on exactly one of its five cards
+    (Kimbel & Villmoare 2016 carried the whole of `wh-016`'s second half). What carried the other four was
+    batch 18's rule generalised: seven of the batch's 21 works are Smithsonian Human Origins records, and
+    between them they supply the dates, body sizes, discoverers, discovery years, type-specimen status and
+    cranial capacities that Dart 1925, Leakey/Tobias/Napier 1964 and Brown et al. 1985 hold behind paywalls.
+    A catalogue is open **by policy** rather than by luck. Its other finding: **a discovery card is not the
+    same as a card that can only be sourced from the discovery paper** — `wh-046` Herto, which the plan
+    expected to come back short, reached the bar because the find has been re-examined three times in open
+    venues since 2003, and every re-examination restates it before disputing it.
+    From Batch 20, the move that reopened a set batch 5 and batch 15 had both walked away from:
+    **when the paper that announced a find is shut, look for the paper that CITES it as a comparison.**
+    This is not batch 15's rule — a review restates a field and may not exist, whereas a comparison
+    restates one rival site and is much easier to find, because you can search the site's own NAME inside
+    the open-access corpus. Every famous Blombos find came in that way: Bouzouggar et al. 2007 give the 41
+    pierced *Nassarius* shells, their ≈75,000-year age, the two engraved ochres and the 400 Still Bay
+    points because they are comparing Blombos with Taforalt, and Rosso et al. 2016 give the 100 ka ochre
+    toolkits because they are comparing them with Porc-Epic. Its second finding is simpler and was missed
+    twice: **check who is excavating a site NOW, not only who published the landmark.** Klasies River had
+    been deferred on Marean's closed papers while Sarah Wurz's current team publishes in *Frontiers*, which
+    is open by policy. Third, **old conference proceedings are often the most openable thing in a naming
+    history** — the whole 440-page 1957 volume of the 1955 Pan-African Congress is OCR'd on the Internet
+    Archive, and it corrected two claims at once: the term is Goodwin's alone from 1928 (1929 is the joint
+    volume), and the Congress did not endorse the three-stage scheme but recommended a five-part frame,
+    over objections. And the sibling check the plan puts on definitional cards paid twice: `wh-031` had a
+    Still Bay date no other card used and an end-date 10,000 years off three of its own siblings.
+    From Batch 21, a correction to batch 8b's rule rather than a new one: **the institution to ask is not
+    always a museum, and its record is not always a catalogue.** Lascaux and Atapuerca — two of the three
+    cards the plan called the hardest — were carried almost entirely by a **government ministry's scholarly
+    portal** and a **foundation's year-by-year dig timeline**, eleven citations between them, covering the
+    discovery dates, the sector count, the dating, the World Heritage years and even a fossil's nickname.
+    Batch 13's "a website is not a catalogue" has a converse worth holding onto. Two hard findings go with
+    it. **The `/document` trick is dead on hal.science and journals.openedition.org**, which now serve an
+    Anubis proof-of-work wall on the file path as well as the landing page — Ducasse & Langlais 2019 is
+    genuinely open and unreadable from here, so it is NOT cited and NOT labelled paywalled, because a bot
+    wall is a different fact. And **the uncalibrated-radiocarbon error is the pass's most common find**:
+    Lascaux's "17,000 years ago" and Dolní Věstonice's "29,000 to 25,000" are both raw BP read as calendar
+    years (21,500–21,000 and 31,270–29,260 cal BP respectively). When a prehistory card carries a round age
+    in the twenties or thirties of thousands, check BP against cal BP before anything else.
+    From Batch 22, on the pair the plan expected to end red and which did not: **before searching for a
+    definitional card, read the register.** Batch 12's finding at full strength — Marchal 2002, Walker 2012,
+    Walker 2018 and Walanus & Nalepka 2010 were already deposited for `wh-102`/`wh-105`/`wh-106` and between
+    them carry the entire chronozone framework. Its second finding: **when a regional scheme is named for one
+    country's bogs, check the neighbours' journals** — the plan looked to Scandinavia, and the Preboreal
+    vegetation is open in the *Netherlands Journal of Geosciences*, one country west. Third, a new route to a
+    closed paper: **`api.crossref.org/works/<doi>` serves publisher-deposited abstracts**, and returned Groß
+    et al. 2019 on Duvensee where PubMed has no record at all. And the arithmetic rule these two produced:
+    **when a card gives an age both in ¹⁴C years and in "years ago", check that the second is the calibration
+    of the first** — the Boreal's stated end of "8,000 years ago" was neither the calibration of 8,000 ¹⁴C BP
+    (that is ~8,950 cal BP) nor consistent with `wh-105`, which already had the Atlantic starting at 7000 BC.
     From Batch 12: **the register pays for itself late.** The three framework cards (`wh-001`, `wh-002`,
     `wh-004`) took 25 citation slots and needed **no new sources at all** — every claim a definitional card
     makes is a claim some other card already makes, so the whole job was mapping sentences to entries
@@ -681,6 +739,82 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     cards were not wrong against the literature but **against each other** (`wh-001` and `wh-004` ended the
     Palaeolithic at 12,000 years ago where five other cards and `wh-004`'s own date line said 11,700). Run
     the sibling-consistency check FIRST on any card that summarises a whole period.
+    From Batch 23, the first TOP-UP batch, and its lesson governs the three that follow: **a top-up is
+    where the errors are.** A first pass only has to stand behind the sentences it marked; the bare ones
+    are exactly where an unchecked claim survives, and a top-up goes looking at them. Four of its ten
+    cards changed prose and every wrong figure sat in an unmarked sentence — `wh-022`'s Acheulean end
+    date (a 170–130 ka range no source in front of the card carried, against de la Torre's 0.125 Myr),
+    `wh-023`'s "June 1797" and jawbone (both in Frere's own letter, which is paywalled on Cambridge
+    Core with no abstract), `wh-008`'s antler pressure-flaker (the study that demonstrates the technique
+    used a pointed BONE compressor) and `wh-098`'s 1.9 Ma for Wrangham, which Gowlett puts at 1.7. That
+    last card also carried the pass's first **wrong marker**: its Wrangham sentence pointed at Berna et
+    al. 2012, the Wonderwerk fire microstratigraphy, which says nothing about cooking — **a marker
+    pointing at the wrong work is worse than no marker**, and only a top-up would ever have looked.
+    Three tools findings go with it. **`https://www.ebi.ac.uk/europepmc/webservices/rest/PMC<id>/fullTextXML`
+    is the way past the PMC captcha** that appeared partway through this batch; resolve the PMCID with the
+    `search?query=DOI:"…"` endpoint rather than guessing it. **`split-abstract.js` could not see a dozen
+    Chinese abstracts at all**: its CJK clause demanded that `。` carry no following space, so the twelve
+    zh and four ja abstracts written with one came back as a SINGLE sentence per block — silently, which
+    would have scattered markers anywhere. `\s?` on the CJK terminator took the deck's 5+5 failures from
+    48 to 22; **the remaining 22 are real and not this batch's** — `wh-039` and `wh-063` split 6+5 and 7+5
+    **in English** — and batch 24 should clear them before marking any of those cards. And
+    **`check-style.js` was applying the house rules to `sources`**, reporting a real paper's title as a
+    century-word violation; in `--fix` mode it would have renamed the paper. Citations are now masked out
+    before any rule runs. Where a language's sentence split diverges from English (zh on `wh-022`), **repair
+    the split rather than routing round it with a per-language marker map** — `add-sources.js` catches the
+    divergence as a marker-count mismatch, and rejoining the sentences restores parity claim for claim.
+    From Batch 24: **where a batch's cards share a DEBATE rather than a site, one review can carry
+    most of it.** Two open reviews — Harvati & Reyes-Centeno 2022 on the Middle Pleistocene and
+    Scerri et al. 2018 on whether *H. sapiens* has one birthplace — filled eleven of its sixteen
+    slots across four and three cards respectively. Batch 2 found that subject does not predict
+    reachability; this is the exception that sharpens it, since an argument attracts reviews and
+    reviews are what open venues publish. It also produced the pass's **first clean re-check**:
+    `wh-047` and `wh-048` were expected to have drifted and had not (Karmin's Y-MRCA "254 (95% CI
+    192–307) kya", Rito's mtDNA ancestor "~180 ka"), and it retired the last not-majority-open list
+    by giving `wh-045` two open sources instead of one. Two tooling notes: **PMC's browser check now
+    covers the article HTML as well as search**, so the Europe PMC `fullTextXML` route from batch 23
+    is the only one left here, and it 404s for author manuscripts with no deposited text; and
+    **`isOpenAccess: N` in a Europe PMC record means not OA-LICENSED, not unreadable** — check for
+    full text before writing a work off.
+    Batch 24 also cleared the **5+5 residue** batch 23 left, and the three causes are worth keeping:
+    the splitter held an initial only when another followed, so the LAST of a run was exposed and
+    "R. P. Soejono" / "Frank H. H. Roberts Jr." each split a sentence in eight languages (it now
+    holds whole runs in Latin, Cyrillic and Arabic, plus `Jr.`/`Dr.`/`St.`); **a sentence ending on
+    the era abbreviation** has no terminator left and swallows the next one, which `wh-063` did in
+    six languages at once — an AUTHORING rule, not a tooling gap, and the splitter's header has
+    always said so; and nine translations had turned one English sentence into two. **The deck now
+    splits 5+5 in all ten languages with identical marker counts** — the state batches 25–26 can
+    rely on, and worth re-asserting after any prose edit.
+    From Batch 25, a route the pass had not used: **where a card describes a nineteenth-century
+    idea, the idea's own author is often the openable source — because he is out of copyright.**
+    Batch 23 found that a founding paper of 1800 can still be paywalled (Frere on Cambridge Core);
+    Blytt's 1886 statement of his theory is the other case, OCR'd in full on the Internet Archive,
+    and it settled two of `wh-106`'s sentences and **disproved a third**: the card had Blytt naming
+    the Atlantic and the Boreal, and his own paper uses neither word as a phase name. Nothing
+    openable settles who coined which of the five names — Sernander is not on the Internet Archive,
+    no open history of the scheme exists in the palynology journals, and Walker et al. 2012's open
+    deposit has 404'd — so that clause and its companion about Sernander were **withdrawn rather
+    than re-sourced**. Treat a "who named it" clause as a claim needing its own source. Its other
+    finding is the register's, again: **six of the batch's eleven slots needed no new reading at
+    all**, which is what a well-kept register buys late in a pass. And a caution for batch 26: two
+    correctly-recorded open entries could not be RE-read this time (the Marchal 2002 WHOI PDF uses
+    an encoding the extractor cannot decode; Walker 2012's deposit has moved), so a top-up wanting
+    to extend what an old entry supports may find it cannot, and should say so rather than guess.
+    From Batch 26, which finished the pass at **109 of 109 with nothing blocked**: the plan's own
+    advice held — five of its thirteen citations are heritage-agency records (the French culture
+    ministry for Lascaux and Chauvet, the Blaubeuren museum, Cosquer Méditerranée, the Fundação Côa
+    Parque) — but its finding is a correction to the pass's own method. **A correction does not
+    travel between cards on its own.** Batch 21 stripped three Lascaux claims from `wh-086` (the
+    17,000-year date, ~1,500 engravings, the five-metre bull) and `wh-083`, which mentions Lascaux
+    in one sentence, still carried all three five batches later — in its abstract AND on its date
+    line, in ten languages. **Grep the deck for the FIGURE, not just for the card it belongs to**,
+    and sweep every language before a batch closes. Two smaller notes: the batch-22
+    `api.crossref.org/works/<doi>` abstract route paid for the only paywalled work added across
+    batches 23–26 (Villa et al. 2012, the landmark for where the LSA begins at Border Cave); and
+    **an agency record can disagree with the paper a card follows** — the Chauvet portal dates the
+    occupations to ~36,500 and 30–31,000 where Quiles et al. give 37,000–33,500 and 31,000–28,000,
+    so the discrepancy is recorded in the register and the card keeps its Quiles marker rather than
+    being silently re-dated.
 - **Multiple question phrasings (July 2026):** a card may carry an optional **`questions` array of EXTRA
   phrasings** beyond `question` — **at most `CARD_MAX_QUESTIONS` (10) in all** (official Folio cards carry
   exactly 3; the headroom is for community decks to experiment). Every phrasing is a full standalone clue
@@ -1687,7 +1821,7 @@ which would otherwise have shipped corrected prose above an uncorrected date lin
 **Citing the existing content (as of July 2026)** — **most of the shipped content still has no citations.** The
 109 cards, 333 glossary terms and every Atlas description were written before this system existed, from Wikipedia
 and its sources, and were fact-checked rather than referenced. A batched pass is working through the cards —
-**92 of 109 carry sources, and 59 of 109 meet the 5-source bar** (`docs/citation-plan.md`; `add-sources.js`
+**all 109 carry sources, and all 109 meet the 5-source bar** (`docs/citation-plan.md`; `add-sources.js`
 reports both on every run, `node .claude/source-audit.js` reports them per card, and the Edit page's card list
 shows each card's coverage as an amber or red chip) — while
 `country-sources.js` and `GLOSSARY_SOURCES` are still empty, so the Sources fold appears only on those cards.

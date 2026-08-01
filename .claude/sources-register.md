@@ -406,7 +406,15 @@ table 1, https://pmc.ncbi.nlm.nih.gov/articles/PMC4920293/. [Open access]
   calotte from its "initial discovery in 1891" and the argument over whether it was an "out-sized gibbon"
   (§2); that African *H. erectus* "was often recognized as *H. ergaster*" while later chronostratigraphy
   "diminished and, in some cases, eliminated the time difference" between the African and Asian samples (§2)
-- used by: wh-018
+- also supports (opened again 2026-07-31, §2): that "Scholars disagreed as to whether the family Hominidae
+  could incorporate the Trinil 2 calotte—or whether, in fact, the calotte was that of an out-sized gibbon or
+  other ape"; and that "The subsuming of these multiple genera and species into *H. erectus* by Mayr thus
+  formalized a biological reality already unofficially accepted by the majority of paleoanthropologists at
+  the time"
+- also supports (opened again 2026-08-01): KNM-ER 992 as "the original specimen for *H. ergaster*"; KNM-ER
+  3733 as showing the "*H. erectus* bauplan"; and KNM-WT 15000 with "a relatively large brain (909 cc) and a
+  large body"
+- used by: wh-018, wh-025, wh-019, wh-020
 
 ### rizal-2020 · the last *Homo erectus*
 Yan Rizal et al., "Last Appearance of *Homo erectus* at Ngandong, Java, 117,000–108,000 Years Ago,"
@@ -428,6 +436,7 @@ https://doi.org/10.1038/s41559-020-1240-4. [Open access]
   "relatively stocky, more primitive, body shape" for *H. erectus*
 - note: this is what the card was corrected against. It had *H. erectus* "built like us below the neck …
   with a narrow waist" and the Turkana Boy "tall and lean like a modern tropical human"
+- used by: wh-018, wh-020
 - used by: wh-018
 
 ### curran-2025 · how early hominins were in Eurasia
@@ -2729,7 +2738,1051 @@ Relation to the Broader Corded Ware Horizon,” *Proceedings of the Royal Societ
   tomb; and a Pitted Ware individual from Ajvide on Gotland — the Baltic island the card names
 - used by: wh-101
 
+
+## Batch 18 — the public-domain founding literature, verified 2026-07-31
+
+### dubois-1894 · the founding monograph
+Eugène Dubois, *Pithecanthropus erectus: eine menschenaehnliche Uebergangsform aus Java* (1894; repr. New
+York: G. E. Stechert, 1915), 1–2, 11, https://archive.org/details/Pithecanthropus00Dubo. [Open access]
+- opened: 2026-07-31 · the archive.org scan is the **1915 New York reprint** of the 1894 Batavia original,
+  which is what the citation names; page numbers taken from the scandata leaf→printed-page map
+- supports (1–2): the finds at Trinil, "im Bezirk Ngawi", in the left bank of the Bengawan — first "im
+  September 1891 erst ein Zahn, der rechte M. 3", then "Einen Monat später … nur 1 M. weit von der Stelle, an
+  der der Zahn lag, und in demselben Niveau, ein offenbar von demselben Individuum herstammendes Schädeldach",
+  then "im August 1892 … 15 M. stromaufwärts … das linke Femur"; and the footnote recording that "Der Name
+  Pithecanthropus wurde bereits von E. Haeckel (im 22. und 23. Vortrag von 'Natürliche Schöpfungsgeschichte',
+  Berlin 1868) einem hypothetischen Geschöpfe gegeben"
+- supports (11): Dubois's own estimate of the braincase — "die wirkliche Grösse, die der Binnenraum des
+  fossilen Schädels besessen hat, zu mehr als 1000 c.M.³ anschlagen müssen, das ist über zwei Drittel des
+  Rauminhaltes einer mehr als mittelgrossen menschlichen Schädelhöhle"
+- does NOT support: that Haeckel was Dubois's teacher. Dubois names him as the coiner of the word and nothing
+  more; the card's "his old teacher" was dropped
+- used by: wh-025
+
+### huffman-2022 · Trinil's discovery record
+Frank Huffman et al., "Geology and Discovery Record of the Trinil *Pithecanthropus erectus* Site, Java,"
+*PaleoAnthropology* 2022, no. 2, abstract and n. 4, https://doi.org/10.48738/2022.iss2.83. [Open access]
+- opened: 2026-07-31 · full PDF from the journal's OJS
+- supports (abstract): that "the P.e. Skullcap (Trinil 1) and Femur I (Trinil 3) came from a ~0.2m-thick
+  subunit of the bonebed that was traced for ~12m from the 1891 Skullcap pit (~30m2) to the 1892
+  Femur-discovery excavation"
+- supports (n. 4): that Dubois 1894 attributed three fossils to the new species without a holotype, and that
+  Jacob 1975a "referred to the 1891 Molar … as Trinil 1, the Skullcap as Trinil 2, and Femur I as Trinil 3"
+- used by: wh-025
+
+### pop-2023 · what the femur was doing there
+Eduard Pop et al., "Reconstructing the Provenance of the Hominin Fossils from Trinil (Java, Indonesia) through
+an Integrated Analysis of the Historical and Recent Excavations," *Journal of Human Evolution* 176 (2023):
+103312, abstract, https://doi.org/10.1016/j.jhevol.2022.103312. [Open access]
+- opened: 2026-07-31 · **the abstract**, via PubMed (pubmed.ncbi.nlm.nih.gov/36745959/). ScienceDirect returns
+  403 to this environment; the article is gold OA under CC BY-NC-ND, which the VU Amsterdam repository record
+  confirms, so it is labelled open rather than paywalled. The claims taken from it are in the abstract
+- supports: that Dubois found "a hominin skullcap (Trinil 2) and femur (Trinil 3, Femur I), situated at the
+  same level ca. 10-15 m apart", interpreted as one species, "Pithecanthropus erectus (now Homo erectus)";
+  that the interpretation was questioned "as the skullcap looked archaic and the femur surprisingly modern";
+  the two bone-bearing channels at 830–773 ka and 560–380 ka; and that younger terrace-related channels
+  "directly intersect the historical excavations and the reconstructed discovery location of Femur I, thereby
+  providing an explanation for the relatively modern morphology of this 'bone of contention'"
+- used by: wh-025
+
+### wu-2009 · the *erectus* endocasts, measured
+Xiujie Wu, Lynne A. Schepartz and Wu Liu, "A New *Homo erectus* (Zhoukoudian V) Brain Endocast from China,"
+*Proceedings of the Royal Society B* 277, no. 1679 (2010): 337–44, table 1,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC2842660/. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports (table 1): endocranial volumes — Trinil II 940 ml; ZKD II 1020, ZKD III 915, ZKD V 1140, ZKD X 1225,
+  ZKD XI 1015, ZKD XII 1030 ml
+- used by: wh-025, wh-026
+
+### weidenreich-1943 · the casts that outlived the bones
+Franz Weidenreich, *The Skull of* Sinanthropus pekinensis*: A Comparative Study on a Primitive Hominid
+Skull*, Palaeontologia Sinica, n.s. D, no. 10 (Pehpei, Chungking: Geological Survey of China, 1943), iii,
+2–3, 190, https://archive.org/details/TheSkullOfSinanthropusPekinensisAComparativeStudyOnAPrimitive.
+[Open access]
+- opened: 2026-07-31 · full OCR text on archive.org; printed page numbers recovered from the running heads
+- supports (iii, preface): "Being apprehensive of what lay ahead, all the skull material had been
+  photographed, drawn and measured, and casts had been made which were shipped to this country. Thus,
+  research could be continued even when we were forced to liquidate the Cenozoic Research Laboratory and to
+  leave Peiping." Weidenreich wrote this from the American Museum of Natural History
+- supports (2–3): the discovery sequence — Bohlin's damaged skull cap in 1928, then "W. C. Pei found a well
+  preserved cranium at the site known as Locus E", then the Level 22/23/25 skulls of 1936
+- supports (190): "the number of the Sinanthropus individuals whose presence in the cave is proven by the
+  recovery of their teeth or skeletal parts is such a high one (over forty)"; and that the skulls "were
+  broken as carrion by carnivores, probably hyaenas, which lived in the cave and cracked the bones as long
+  as they were fresh"
+- used by: wh-026, wh-027
+
+### xing-2018 · what survives, and what does not
+Song Xing, María Martinón-Torres and José María Bermúdez de Castro, "The Fossil Teeth of the Peking Man,"
+*Scientific Reports* 8 (2018): 2066, introduction, https://doi.org/10.1038/s41598-018-20432-y. [Open access]
+- opened: 2026-07-31 · full text on nature.com (gold OA)
+- supports: *Sinanthropus pekinensis* "named by Black in 1927", from "a lower molar hominid tooth from the
+  Chou Kou Tien deposit"; that "the majority of the Zhoukoudian fossils unearthed before 1937 were lost
+  during World War II" and that studies "in the last 80 years, have been solely based on casts and on the
+  descriptions and drawings made by … Weidenreich in 1930s and 1940s"; that "The excavations from 1949-1959
+  provided five isolated teeth and one mandible" and "Another isolated tooth was found in 1966"; and that
+  the geological ages "range from 230 kyr to ≥ 750 kyr according to different methods of chronometric
+  analyses"
+- does NOT support: the card's "more than 770,000". That figure is Shen et al. 2009's press summary; the
+  weighted mean is 0.75 ± 0.09 Ma and Xing gives ≥750 kyr. The card and its date line were lowered
+- used by: wh-026, wh-027
+
+### derrico-2021 · the Upper Cave, restudied from its casts
+Francesco d'Errico et al., "Zhoukoudian Upper Cave Personal Ornaments and Ochre: Rediscovery and
+Reevaluation," *Journal of Human Evolution* 161 (2021): 103088, §§1–2 and fig. 1,
+https://shs.hal.science/hal-03445635/document. [Open access]
+- opened: 2026-07-31 · the accepted manuscript, HAL-SHS green deposit. Batch 15's rule applied again: the
+  landing page `hal-03445635v1` serves a record, `…/document` serves the PDF
+- supports: the Upper Cave "located directly above the southwest wall of Zhoukoudian Locality 1, the famous
+  'Peking Man' site"; the site's position "in the Dragon Bone Hill of Zhoukoudian" (fig. 1 caption);
+  "Numerous *H. sapiens* remains attributed to at least eight individuals were found at UC" and Pei's three
+  complete skulls UC101–103 with "ochre coating on all skulls"; that "The only formal bone tool consists of
+  an eyed needle found in L1"; the ornament raw materials — badger, fox, red deer, sika deer, marten and
+  tiger teeth, carp and bird bone, *Anadara* shell, limestone beads, a perforated pebble; that three
+  rediscovered badger canines "were sewed on clothing rather than suspended from necklaces or bracelets";
+  the chronology of Li et al. 2018, L4 at 38.3–35.8 ka and L1 at 35.1–33.5 ka; the loss of the ornaments
+  during the Second World War and the study of 17 of them from casts; and that Locality 1 "layers 1–2" are
+  "now dated to 400 ka"
+- does NOT support: the needle's length. No openable source gives it, and the card's "five centimetres" was
+  dropped rather than repeated
+- used by: wh-027
+
+### dodson-2025 · the Zhoukoudian fauna
+Peter Dodson, "China Shares Fossil Treasures with the World," *The Anatomical Record* 308, no. 10 (2025):
+2806–12, https://pmc.ncbi.nlm.nih.gov/articles/PMC12435128/. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: "An extremely consequential discovery was made in limestone karst deposits of Middle Pleistocene
+  age at Zhoukoudian, only 50 km southwest of Beijing"; and the associated fauna — "giant deer,
+  straight-tusked elephant, woolly rhinoceros, horses of the genus *Equus*, diverse carnivores including
+  wolves and saber-toothed cats, as well as rodents"
+- used by: wh-027
+
+### huang-2022 · fire at Locality 1, doubted and partly restored
+Chao Huang, Jianjun Li and Xing Gao, "Evidence of Fire Use by *Homo erectus pekinensis*: An XRD Study of
+Archaeological Bones from Zhoukoudian Locality 1, China," *Frontiers in Earth Science* 9 (2022): 811319,
+introduction, https://doi.org/10.3389/feart.2021.811319. [Open access]
+- opened: 2026-07-31 · full text on frontiersin.org
+- supports: "Zhoukoudian Locality 1, situated about 50 km southwest of Beijing, China … has been well known
+  since the 1920s for the discovery of a large number of *Homo erectus pekinensis* fossils and thousands of
+  stone artifacts"; that the burnt material was "widely accepted as the oldest reliable evidence of hominin
+  use and maintenance of fire in the world"; that "From 1980s to the beginning of this century … scholars
+  have begun to doubt the evidence of in situ burning at the site"; and that Zhong et al. 2013 "detected
+  siliceous aggregates which provided compelling evidence of the in situ use of fire", with Zhang et al.
+  2014 adding magnetic-susceptibility evidence, both from Layer 4
+- does NOT support: "dismissed in 1998 as the work of lightning". Weiner et al. 1998 is one of five papers
+  doubting *in situ* burning; lightning is a retelling. The card was reworded
+- used by: wh-026, wh-027
+
+### berger-2012 · what happened to the collection
+Lee R. Berger, Wu Liu and Xiujie Wu, "Investigation of a Credible Report by a US Marine on the Location of
+the Missing Peking Man Fossils," *South African Journal of Science* 108, nos. 3–4 (2012), commentary,
+https://scielo.org.za/scielo.php?script=sci_arttext&pid=S0038-23532012000200003. [Open access]
+- opened: 2026-07-31 · full text on SciELO South Africa
+- supports: that "two large wooden footlockers were turned over to the US Military for safe transport to the
+  American Museum of Natural History in New York", holding "the fragmentary remains of 40 individual
+  hominins"; that eyewitnesses put the crates "on a US Marine vehicle"; that "the President Harrison
+  encountered Japanese warships as war broke out, ran aground and never reached Qinhaungdao"; that "After
+  their exit through the gates of the Peking Union Medical College - the last reliable sighting - the
+  fossils simply vanished"; and that "no verifiable sign of the fossils, or the crates that contained them,
+  has yet been recorded"
+- used by: wh-026, wh-027
+
+### ma-2022 · Pei's skullcap, dated
+Xu Ma, Guanghui Wang and Min Wang, "Impact of Chinese Palaeontology on Evolutionary Research,"
+*Philosophical Transactions of the Royal Society B* 377, no. 1847 (2022): 20210029, background,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC8819365/. [Open access]
+- opened: 2026-07-31 · full text via PMC
+- supports: "the first fossil hominin skullcap discovered by PEI Wenzhong in 1929 during the excavations of
+  the Peking Man Site at Zhoukoudian"
+- used by: wh-026
+
+
+### ckc-2025 · the Dubois collection, and how it was dug
+Commissie Koloniale Collecties, *Advies* ID-2025-1 [advice to the Dutch State Secretary for Education, Culture
+and Science on Indonesia's request for the return of the Dubois collection], 5 September 2025, 2, 5–6, 11,
+20–21, https://commissie.kolonialecollecties.nl/site/binaries/site-content/collections/documents/2025/09/26/indonesie/id-2025-1-advies-collectie-dubois.pdf. [Open access]
+- opened: 2026-07-31 · full PDF, 24 pages, Dutch; page numbers are the document's own
+- supports (2): "In de collectie bevinden zich ruim 28.000 specimina afkomstig uit Indonesië. Het grootste
+  gedeelte werd tussen 1888 en 1900 door of in opdracht van Eugène Dubois opgegraven en verzameld op Java en
+  Sumatra"; and the three key objects by inventory number — femur RGM.1332452, schedelkapje RGM.1332450, kies
+  RGM.1332451
+- supports (5): that Dubois "besloot hij zich aan te melden bij het Koninklijk Nederlandsch-Indisch Leger
+  (KNIL) als medisch officier" in order to be able to do research in the Indies, and "Op 11 december 1887
+  arriveerde hij op Sumatra"
+- supports (11, 20–21): "Bij de opgravingen werd gebruik gemaakt van dwangarbeiders. Op grond van het officiële
+  decreet van 1889 werden aan Dubois tot 50 dwangarbeiders ter beschikking gesteld", under two KNIL corporals,
+  "onder zeer zware omstandigheden"; that Dubois himself described the Trinil site as "Javas hel"; and that the
+  excavations took place "in de context van een koloniaal systeem dat gestoeld was op geweld, uitbuiting en
+  ongelijke machtsverhoudingen"
+- does NOT support: an Amsterdam lectureship given up. No source opened for this batch carries it, and the
+  card's sentence was rewritten to what the advice does say
+- used by: wh-025
+
+### rijksoverheid-2025 · the handover
+Ministerie van Onderwijs, Cultuur en Wetenschap, "Topstukken Dubois-collectie overhandigd in Indonesië" [Key
+objects of the Dubois collection handed over in Indonesia], Rijksoverheid, 17 December 2025,
+https://www.rijksoverheid.nl/actueel/nieuws/2025/12/17/topstukken-dubois-collectie-overhandigd-in-indonesie.
+[Open access]
+- opened: 2026-07-31 · the ministry's own news item
+- supports: that on 17 December 2025 four objects — "een schedelkapje, een dijbeen en een kies" plus a shell
+  with incisions — were handed over at the Museum Nasional Indonesia in Jakarta, and that the whole collection
+  of "ruim 28.000 objecten" is to be transferred to Indonesia during 2026
+- does NOT support: the card's old figure of "some 40,000" specimens. Corrected to more than 28,000
+- used by: wh-025
+
+
+### gentry-1995 · Olduvai's name, and its discovery
+A. W. Gentry, Anthea Gentry and H. Mayr, "Rediscovery of Fossil Antelope Holotypes (Mammalia, Bovidae)
+Collected from Olduvai Gorge, Tanzania, in 1913," *Mitteilungen der Bayerischen Staatssammlung für
+Paläontologie und historische Geologie* 35 (1995): 125–35, at 125–26,
+https://www.zobodat.at/pdf/Mitt-Bayer-Staatsslg-Pal-hist-Geol_35_0125-0135.pdf. [Open access]
+- opened: 2026-07-31 · publisher PDF via ZOBODAT / Biodiversity Heritage Library. The article is about
+  antelope holotypes; its introduction is the batch's best account of the gorge itself
+- supports (125): that Olduvai "lies in the Serengeti Plains of northern Tanzania"; that Oscar Baumann in
+  March 1892 "used the name Duvai for a small hill about 15 km south-east of Lake Ilgarja"; that "The name
+  Duvai is from the Masai word for the sisal plant which grows in the area"; and the gorge's shape — "After
+  about 37 km it is joined by a side gorge from the south and after another 9 km drains into the Balbal
+  depression"
+- supports (125–26): "The discovery of Olduvai Gorge has always been attributed to Professor Wilhelm
+  Kattwinkel in 1911, although Frau Martha Kattwinkel was also present at the time"; that to later
+  generations "the name of Kattwinkel became known as that of a butterfly collector who had stumbled by
+  accident on the Gorge", whereas Glowatzki 1979 showed "the 1911 journey arose from his professional
+  interest in sleeping sickness and was a scientific expedition"; that the Kattwinkels "discovered mammalian
+  fossils at more than one locality" and "carried a selection back to Munich … identified as being from a
+  proboscidean, a hipparionine horse, hippopotamus and a sivathere"; Reck's expedition "in October to
+  December 1913"; that Reck "joined the Third East African Archaeological Expedition of 1931-32 which worked
+  at Olduvai"; that "On 17 July 1959 came the discovery of the famous australopithecine skull named
+  Zinjanthropus boisei by L.S.B. Leakey"; and that "most Olduvai fossils come from Beds I-IV"
+- does NOT support: the card's old "48 km long". Gentry gives 37 km plus 9, about 46 in all
+- used by: wh-017
+
+### ncaa-olduvai · the site-managing authority
+Ngorongoro Conservation Area Authority, "Olduvai Gorge," accessed 31 July 2026,
+https://www.ncaa.go.tz/olduvai-gorge/. [Open access]
+- opened: 2026-07-31 · the authority that manages the gorge
+- supports: a depth of "100m"; that "Mary and Louis Leakey, over the course of more than 30 years of
+  backbreaking work, unearthed the first well-dated fossils and artefacts"; the finds — "The famous
+  Zinjanthropus (Australopithecus boisei) skull, as well as remains of Homo habilis … and Homo erectus"
+- note: the page also gives a length of "55km (34m)", i.e. 34 miles. Gentry's segmented 37 + 9 km is the
+  more locatable figure and is what the card uses; the discrepancy is recorded here rather than resolved
+- used by: wh-017
+
+### mercader-2021 · Oldupai's tuffs and its oldest tools
+Julio Mercader et al., "Earliest Olduvai Hominins Exploited Unstable Environments ~2 Million Years Ago,"
+*Nature Communications* 12 (2021): 3, under "Stratigraphy and chronology" and "Early Oldowan ecology at ~2
+Ma," https://doi.org/10.1038/s41467-020-20176-2. [Open access]
+- opened: 2026-07-31 · full text on nature.com (gold OA)
+- supports: "Olduvai Gorge (now Oldupai)" as the current spelling; the dated tuff sequence — the Naabi
+  ignimbrite of the Ngorongoro Formation, the Coarse Feldspar Crystal Tuff at 2.015 ± 0.006 Ma and Tuff IA
+  at ~2.0 Ma — constrained by "existing 40Ar/39Ar dates of geochemically fingerprinted tuffs"; Lower Bed I
+  lake expansion; and "The earliest Oldowan presence at Ewass Oldupa, dating to 2.03 Ma"
+- used by: wh-017
+
+### mercader-2020 · the basin and its lake
+Julio Mercader et al., "Petrographic Characterization of Raw Material Sources at Oldupai Gorge, Tanzania,"
+*Frontiers in Earth Science* 8 (2020): 158, abstract and "Geological Setting,"
+https://doi.org/10.3389/feart.2020.00158. [Open access]
+- opened: 2026-07-31 · full text on frontiersin.org
+- supports: "Oldupai Gorge is located within the Ngorongoro Conservation Area, a UNESCO World Heritage Site
+  in northern Tanzania"; that "The Main and Side Gorge cut into the basement rocks of Eastern Serengeti
+  Plains"; and that "During the Early Pleistocene, Oldupai was an endorheic, rift-shoulder sedimentary basin
+  that hosted a saline alkaline lake fed by stream networks from the NVH to the west"
+- used by: wh-017
+
+### si-oh5 · the Zinjanthropus cranium
+Smithsonian National Museum of Natural History, Human Origins Program, "OH 5," accessed 31 July 2026,
+https://humanorigins.si.edu/evidence/human-fossils/fossils/oh-5. [Open access]
+- opened: 2026-07-31 · the museum's fossil record
+- supports: site "Olduvai Gorge, Tanzania"; "Year of Discovery: 1959"; "Discovered by: Mary Leakey"; "Age:
+  About 1.8 million years old"; species *Paranthropus boisei*; the nickname "Nutcracker Man" and the
+  survival of "Zinj" from its original name
+- does NOT support: "about 1.75 million years". That is the 1961 potassium-argon figure; the museum record
+  gives 1.8, and the card and its third question phrasing were raised to it
+- used by: wh-017
+
+### si-habilis · the type specimen
+Smithsonian National Museum of Natural History, Human Origins Program, "*Homo habilis*," accessed 31 July
+2026, https://humanorigins.si.edu/evidence/human-fossils/species/homo-habilis. [Open access]
+- opened: 2026-07-31 · the museum's species record
+- supports: that "A team led by scientists Louis and Mary Leakey uncovered the fossilized remains of a unique
+  early human between 1960 and 1963 at Olduvai Gorge in Tanzania"; that the species was named in 1964 by
+  Leakey, Tobias and Napier; and that the type specimen is OH 7
+- used by: wh-017
+
+## Batch 19 — the hominin taxa, via open reviews and museum records, verified 2026-08-01
+
+### si-anamensis · the genus's earliest species
+Smithsonian National Museum of Natural History, Human Origins Program, "*Australopithecus anamensis*,"
+accessed 1 August 2026,
+https://humanorigins.si.edu/evidence/human-fossils/species/australopithecus-anamensis. [Open access]
+- opened: 2026-08-01 · the museum's species record
+- supports: "About 4.2 to 3.8 million years ago"; eastern Africa; a tibia with "a human-like orientation of
+  the ankle joint, indicative of regular bipedal walking" alongside "long forearms and features of the wrist
+  bones [that] suggest these individuals probably climbed trees"
+- used by: wh-013
+
+### si-afarensis · Lucy's species
+Smithsonian National Museum of Natural History, Human Origins Program, "*Australopithecus afarensis*,"
+accessed 1 August 2026,
+https://humanorigins.si.edu/evidence/human-fossils/species/australopithecus-afarensis. [Open access]
+- opened: 2026-08-01 · the museum's species record
+- supports: 3.85–2.95 Ma; "apelike face proportions … and braincase (with a small brain, usually less than
+  500 cubic centimeters -- about 1/3 the size of a modern human brain), and long, strong arms with curved
+  fingers adapted for climbing trees … and a body that stood on two legs and regularly walked upright";
+  Lucy as "an adult female, 3.2 million-year-old *A. afarensis* skeleton found at Hadar, Ethiopia"; the
+  diet — "mainly a plant-based diet, including leaves, fruit, seeds, roots, nuts, and insects"; that the
+  species "may be ancestral to later species of *Paranthropus*, *Australopithecus*, and *Homo*"; and the
+  body sizes, males averaging 151 cm and 42 kg, females 105 cm and 29 kg
+- used by: wh-013
+
+### si-africanus · Dart's species
+Smithsonian National Museum of Natural History, Human Origins Program, "*Australopithecus africanus*,"
+accessed 1 August 2026,
+https://humanorigins.si.edu/evidence/human-fossils/species/australopithecus-africanus. [Open access]
+- opened: 2026-08-01 · the museum's species record
+- supports: "About 3.3 to 2.1 million years ago", southern Africa; that "The Taung child, found in 1924, was
+  the first to establish that early fossil humans occurred in Africa. After Prof. Raymond Dart described it
+  and named the species"; and that "the pelvis, femur … and foot bones of *Au. africanus* indicate that it
+  walked bipedally, but its shoulder and hand bones indicate they were also adapted for climbing"
+- used by: wh-013
+
+### falk-2012 · the Taung endocast, measured
+Dean Falk et al., "Metopic Suture of Taung (*Australopithecus africanus*) and Its Implications for Hominin
+Brain Evolution," *Proceedings of the National Academy of Sciences* 109, no. 22 (2012): 8467–70,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC3365196/. [Open access]
+- opened: 2026-08-01 · full text via PMC
+- supports: current estimates of the Taung cranial capacity "between 382–407 cm³"; that *A. africanus* had
+  "a brain size that falls within the range for great apes"; Dart's own reading of the endocast; and the
+  1925 publication date of Dart's description, from the reference list
+- used by: wh-013
+
+### masao-2016 · the Laetoli trackway, dated
+Fidelis T. Masao et al., "New Footprints from Laetoli (Tanzania) Provide Evidence for Marked Body Size
+Variation in Early Hominins," *eLife* 5 (2016): e19568, https://pmc.ncbi.nlm.nih.gov/articles/PMC5156529/.
+[Open access]
+- opened: 2026-08-01 · full text via PMC
+- supports: the new and the 1978 Laetoli trackways as bipedal prints of *Australopithecus afarensis* at
+  3.66 Ma, on the same surface and in the same direction
+- used by: wh-013
+
+### kimbel-villmoare-2016 · early *Homo*, and the moving goalposts
+William H. Kimbel and Brian Villmoare, "From *Australopithecus* to *Homo*: The Transition That Wasn't,"
+*Philosophical Transactions of the Royal Society B* 371, no. 1698 (2016): 20150248,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC4920303/. [Open access]
+- opened: 2026-08-01 · full text via PMC
+- supports: that Leakey and colleagues "dropped Arthur Keith's 'Cerebral Rubicon' of 750 to 600 cc to
+  accommodate the new Olduvai material", with "manual dexterity (as gleaned from the hand bones of type
+  specimen OH 7) and fully upright bipedal locomotion … clearly paramount considerations"; "Spoor et al.'s
+  new range of estimates for the endocranial volume of OH 7 (729–824 ml)"; that the early *Homo* mean
+  endocranial capacity was "just shy of 40% larger than that of *Australopithecus*"; that Wood and Collard
+  "have argued [that *H. habilis* is] sufficiently dissimilar in adaptive profile to *Homo* to warrant their
+  removal from the genus"; that "the fossil record demonstrates diversity quite clearly between 2.0 and
+  1.7 Ma"; and that KNM-ER 3733 and other *H. erectus* specimens are "approximately contemporary with *Homo
+  habilis* in upper Bed I and lower Bed II at Olduvai Gorge"
+- used by: wh-016, wh-019
+
+### cela-conde-ayala-2003 · the genera, and who belongs in them
+Camilo J. Cela-Conde and Francisco J. Ayala, "Genera of the Human Lineage," *Proceedings of the National
+Academy of Sciences* 100, no. 13 (2003): 7684–89, https://pmc.ncbi.nlm.nih.gov/articles/PMC164648/.
+[Open access]
+- opened: 2026-08-01 · full text via PMC
+- supports: "*Homo ergaster* Groves and Mazák, 1975"; that "*H. ergaster* and *H. erectus* raise no cladistic
+  problems about including them in the same genus, but morphological (and cultural) considerations may
+  favor considering them as separate species"; and that "*H. habilis* and *H. rudolfensis* share the
+  morphological traits that, in 1964, led Leakey, Tobias, and Napier to define *Homo* as a new taxon"
+- used by: wh-016, wh-019
+
+### si-habilis · the type specimen and the species
+Smithsonian National Museum of Natural History, Human Origins Program, "*Homo habilis*," accessed 1 August
+2026, https://humanorigins.si.edu/evidence/human-fossils/species/homo-habilis. [Open access]
+- opened: 2026-07-31 and again 2026-08-01 · the museum's species record
+- supports: "2.4 million to 1.4 million years ago", eastern and southern Africa; heights of "100 - 135 cm"
+  and a weight around 32 kg; the name meaning "handy man" and the species "thought to represent the first
+  maker of stone tools"; OH 7 discovered by Jonathan Leakey between 1960 and 1963 at Olduvai Gorge and
+  nicknamed "Jonny's child"; the naming by Leakey, Tobias and Napier in 1964; and that "The oldest stone
+  tools are dated slightly older than the oldest evidence of the genus *Homo*"
+- does NOT support: the card's old "2.3 to 1.5 million years ago", which was corrected on the card and its
+  date line
+- used by: wh-017, wh-016
+
+### si-erectus · the species, and the ergaster question
+Smithsonian National Museum of Natural History, Human Origins Program, "*Homo erectus*," accessed 1 August
+2026, https://humanorigins.si.edu/evidence/human-fossils/species/homo-erectus. [Open access]
+- opened: 2026-08-01 · the museum's species record
+- supports: "Between about 1.89 million and 110,000 years ago"; Africa, Western Asia and East Asia; that
+  "Some scientists distinguish between the African (*Homo ergaster*) and Asian (*Homo erectus sensu
+  stricto*) fossils of this taxon, while others lump them together as *Homo erectus sensu lato*"; "modern
+  human-like body proportions with relatively elongated legs and shorter arms"; and that KNM-WT 15000 shows
+  a "growth rate similar to that of a living great ape"
+- used by: wh-016, wh-019, wh-020
+
+### NOT CITED — the Oldowan's naming, and Olduvai's fossil tally
+- **"named the whole Oldowan industry after it"** could not be sourced. It is in no work opened for this
+  batch, including Plummer et al. 2025, the register's own Oldowan review. The abstract no longer states it;
+  the date line's summary line still does, uncited, as most of the deck's date lines are
+- **"some 70 hominin fossils"** likewise. Replaced by what the NCAA record lists: *Zinjanthropus*,
+  *Homo habilis* and *Homo erectus*
+
+### NOT CITED — Binford & Ho 1985, and the Locality 1 dimensions
+Lewis R. Binford and Chuan Kun Ho, "Taphonomy at a Distance: Zhoukoudian, 'The Cave Home of Beijing Man'?
+[and Comments and Reply]," *Current Anthropology* 26, no. 4 (1985): 413–42, https://doi.org/10.1086/203303.
+- **not cited.** journals.uchicago.edu returns 403 to this environment and no deposit or open restatement of
+  the hyena-accumulation argument could be found, so only the Crossref metadata was ever opened. Citing a
+  paper from its title is exactly what this apparatus exists to prevent. `wh-027`'s sentence now rests on
+  Weidenreich 1943 (190), who already had hyenas denning in the fissure and cracking the bones fresh, and on
+  Huang et al. 2022 for the doubts pressed from the 1980s — and the card no longer names Binford
+- the same applies to Locality 1's oft-quoted dimensions, "about 140 m long and 40 m deep, 13 layers". They
+  are in no source that could be opened; the abstract no longer states them and the date line now gives the
+  layers' dated span instead
+
 ---
+
+### si-knm-er-3733 · the best African *erectus* skull
+Smithsonian National Museum of Natural History, Human Origins Program, "KNM-ER 3733," accessed 1 August
+2026, https://humanorigins.si.edu/evidence/human-fossils/fossils/knm-er-3733. [Open access]
+- opened: 2026-08-01 · the museum's fossil record
+- supports: site "Koobi Fora, Kenya"; "Year of Discovery: 1975"; "Discovered by: Bernard Ngeneo"; "About 1.8
+  million years old"; *Homo erectus*; "a mature female" and "one of the best preserved skulls of this time
+  period"
+- used by: wh-019
+
+### si-knm-wt-15000 · the Nariokotome skeleton
+Smithsonian National Museum of Natural History, Human Origins Program, "KNM-WT 15000," accessed 1 August
+2026, https://humanorigins.si.edu/evidence/human-fossils/fossils/knm-wt-15000. [Open access]
+- opened: 2026-08-01 · the museum's fossil record
+- supports: nickname "Turkana Boy"; Nariokotome, West Turkana, Kenya; "Year of Discovery: 1984"; "Discovered
+  by: Kamoya Kimeu"; "About 1.6 million years ago"; *Homo erectus*; "This skeleton is 40% complete"; "He was
+  1.6 m (5 ft 3 in) tall and weighed 48 kg (106 lb) when he died"; "eight or nine years old"; and "Turkana
+  Boy's cranial capacity at death was 880 cubic centimeters, but scientists estimate it would have reached
+  909 cubic centimeters if he had grown into adulthood"
+- does NOT support: "about 1.5 million years ago", or "almost every part of the body except the hands and
+  feet". Both were corrected on the card, the date line and the question pool
+- used by: wh-019, wh-020
+
+### graves-2010 · how tall he would have been
+Ronda R. Graves et al., "Just How Strapping Was KNM-WT 15000?," *Journal of Human Evolution* 59, no. 5
+(2010): 542–54, abstract, https://doi.org/10.1016/j.jhevol.2010.06.007. [Paywalled]
+- opened: 2026-08-01 · **the abstract only**, via PubMed (pubmed.ncbi.nlm.nih.gov/20846707/). No open
+  deposit exists; the claim taken from it is in the abstract
+- supports: "It is likely that KNM-WT 15000 would have only attained an adult stature of 163 cm (∼ 5'4″),
+  not 185 cm (∼ 6'1″) as previously reported"
+- used by: wh-020
+
+### schiess-2014 · the boy was not ill
+Regula Schiess et al., "Revisiting Scoliosis in the KNM-WT 15000 *Homo erectus* Skeleton," *Journal of Human
+Evolution* 67 (2014): 48–59, abstract, https://doi.org/10.1016/j.jhevol.2013.12.009. [Paywalled]
+- opened: 2026-08-01 · **the abstract only**, via PubMed (pubmed.ncbi.nlm.nih.gov/24491377/). The Zurich
+  Open Repository deposit exists but sits behind an Anubis JavaScript wall from this environment — the same
+  obstacle batch 15 met at hal.science, and here the `/document` trick does not get past it
+- supports: that "KNM-WT 15000 [groups] within non-scoliotic modern humans", with localized anomalies in the
+  thoracic and lumbar regions consistent with trauma, and that "the Nariokotome boy fossil therefore seems
+  to belong to a normal *H. erectus* youth without evidence for adolescent idiopathic scoliosis or other
+  severe pathologies of the axial skeleton"
+- used by: wh-020
+
+### stringer-2016 · the name that did not stick
+Chris Stringer, "The Origin and Evolution of *Homo sapiens*," *Philosophical Transactions of the Royal
+Society B* 371, no. 1698 (2016): 20150237, under "East Africa",
+https://pmc.ncbi.nlm.nih.gov/articles/PMC4920294/. [Open access]
+- opened: 2026-08-01 · full text via PMC
+- supports: the Herto fossils "recovered from an open site at Herto in Ethiopia in 1997", comprising "a
+  nearly complete adult skull, an immature calvaria and parts of another cranial vault, probably adult";
+  "the adult skull having a capacity of approximately 1450 cm3"; that the material "can be classified as
+  *H. sapiens*, perhaps of comparable grade to material from Qafzeh & Skhul"; and that "the addition of the
+  subspecific nomen *idaltu* does not seem justified"
+- used by: wh-046
+
+### rightmire-2009 · Herto in its context
+G. Philip Rightmire, "Middle and Later Pleistocene Hominins in Africa and Southwest Asia," *Proceedings of
+the National Academy of Sciences* 106, no. 38 (2009): 16046–50,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC2752549/. [Open access]
+- opened: 2026-08-01 · full text via PMC
+- supports: the Herto fossils "judged from stratigrapic, geochemical, and radioisotopic evidence to be
+  160,000 to 154,000 years old"; BOU-VP-16/1 with "a brain size estimated as 1,450 cm³" and a "ruggedly
+  built" morphology "very robust and thus distinguishable from modern populations"; and that "Crania from
+  Herto in Ethiopia carry defleshing cutmarks and superficial scoring that may be indicative of mortuary
+  practices"
+- used by: wh-046
+
+### zollikofer-2022 · the Herto child
+Christoph P. E. Zollikofer et al., "Endocranial Ontogeny and Evolution in Early *Homo sapiens*: The Evidence
+from Herto, Ethiopia," *Proceedings of the National Academy of Sciences* 119, no. 32 (2022): e2123553119,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC9371682/. [Open access]
+- opened: 2026-08-01 · full text via PMC
+- supports: the child BOU-VP-16/5 at "6–7 y" and the adult BOU-VP-16/1; and that brain size at ~160 ka "was
+  similar to that seen in modern human populations"
+- used by: wh-046
+
+### white-2003 · the naming
+Tim D. White et al., "Pleistocene *Homo sapiens* from Middle Awash, Ethiopia," *Nature* 423, no. 6941
+(2003): 742–47, abstract, https://doi.org/10.1038/nature01669. [Paywalled]
+- opened: 2026-08-01 · **the abstract only**, via PubMed (pubmed.ncbi.nlm.nih.gov/12802332/). The landmark
+  paper for the find; no open deposit exists
+- supports: "A key barrier … has been the lack of substantial and accurately dated African hominid fossils
+  from between 100,000 and 300,000 years ago"; "Radioisotopically dated to between 160,000 and 154,000 years
+  ago, these new fossils predate classic Neanderthals and lack their derived features"; and that the Herto
+  hominids "therefore represent the probable immediate ancestors of anatomically modern humans"
+- used by: wh-046
+
+### clark-2003 · the archaeology and the treatment of the dead
+J. Desmond Clark et al., "Stratigraphic, Chronological and Behavioural Contexts of Pleistocene *Homo
+sapiens* from Middle Awash, Ethiopia," *Nature* 423, no. 6941 (2003): 747–52, abstract,
+https://doi.org/10.1038/nature01670. [Paywalled]
+- opened: 2026-08-01 · **the abstract only**, via PubMed (pubmed.ncbi.nlm.nih.gov/12802333/); no open
+  deposit exists
+- supports: "The fossils and artefacts are dated between 160,000 and 154,000 years ago by precise age
+  determinations using the 40Ar/39Ar method"; "The archaeological assemblages contain elements of both
+  Acheulean and Middle Stone Age technocomplexes"; "Associated faunal remains indicate repeated, systematic
+  butchery of hippopotamus carcasses"; and "Contemporary adult and juvenile *Homo sapiens* fossil crania
+  manifest bone modifications indicative of deliberate mortuary practices"
+- does NOT support: "more than 600 stone tools", or the child's skull "worn glossy by handling". Neither is
+  in the abstract and no open source carries them; both were dropped from the card and the question pool
+- used by: wh-046
+
+### NOT CITED — the Greek behind *ergaster*, and the Ileret overlap
+- **"meaning workman in Greek"**, on `wh-019`. No work opened for this batch glosses the name; Cela-Conde &
+  Ayala give only "*Homo ergaster* Groves and Mazák, 1975", and Groves & Mazák 1975 itself is in a Czech
+  journal with no open copy. Dropped from the abstract, the date line and the main question phrasing
+- **Spoor et al. 2007's Ileret jaws**, on `wh-016`, and the "nearly half a million years" of overlap between
+  *H. habilis* and *H. erectus*. The paper is closed and Kimbel & Villmoare cite it without restating the
+  figure. The card now says what they do state — that KNM-ER 3733 and other *erectus* fossils are
+  "approximately contemporary with *Homo habilis* in upper Bed I and lower Bed II at Olduvai Gorge"
+- **the seven traits said to separate *ergaster* from *erectus***, and their rebuttal, on `wh-019`. In
+  nothing opened. Replaced with the brain-size ranges and the chronostratigraphy, which Antón et al. do give
+
+## Batch 20 — the southern African record, second attempt, verified 2026-08-01
+
+Batch 15 deferred these three cards on the strength of a true observation — Henshilwood 2002 and Marean's
+Klasies papers are closed — and a false inference from it, that the southern African record therefore
+could not be cited. It can. Every one of Blombos's famous finds has been restated in an open venue by
+somebody who needed it as background: Bouzouggar et al. carry the beads and the engraved ochres because
+they are comparing them with Taforalt, Rosso et al. carry the ochre workshop because they are comparing it
+with Porc-Epic, and Douze, Wurz & Henshilwood carry the site's own dimensions, phases and dates because
+they are describing the layers beneath the famous ones. Klasies River needed no such indirection at all:
+Sarah Wurz's team publishes in *Frontiers in Earth Science*, which is open by policy, and two 2022 papers
+and one 2024 fauna paper between them supply the site's geometry, its excavation history, its dates, its
+shellfish and its animals.
+
+`wh-031` Middle Stone Age was worked last, as the plan directs, and the sibling check paid for itself
+twice over — see the log below.
+
+### Verified citations
+
+Blombos Cave (`wh-051`), new to the register:
+
+### douze-2015 · the site, its phases and its dates
+Katja Douze, Sarah Wurz, and Christopher S. Henshilwood, "Techno-Cultural Characterization of the MIS 5
+(c. 105–90 Ka) Lithic Industries at Blombos Cave, Southern Cape, South Africa," *PLoS ONE* 10, no. 11
+(2015): e0142151, under "Research background on Blombos Cave," https://doi.org/10.1371/journal.pone.0142151.
+[Open access]
+- opened: 2026-08-01 · full text at PLOS (the PMC mirror 404s; fetch the journal page)
+- supports: the cave "is located in an ancient wave-cut cliff formed in calcified sediments of the
+  Bredasdorp Group some 100 m from the Indian Ocean and lies at 34.5 m" above sea level; "The site extends
+  for approximately 6 to 7 meters from the drip line to the back wall"; "Separated from the Later Stone Age
+  (LSA) deposits by a sterile sand layer, the excavated MSA sequence extends over more than 4 meters"; "the
+  first excavations in 1991"; the three phases M1/M2/M3 and "Combining OSL and U/Th results, the layers of
+  the M3 phase are dated between 101±4 ka and 94±3 ka"; the Still Bay "ca. 78–71 ka maximum age range";
+  Still Bay points "partly manufactured through heating silcrete and then through final shaping using
+  pressure flaking"; Toolkit 1's abalone shell "used as a container for storing and mixing a pigmented red
+  ochre compound that is a mixture of ochre, bone, charcoal, quartz and quartzite microflakes and quartz
+  grains" with "a quartzite cobble used as an ochre grinder and percussor" tightly fitted into it
+- does NOT support: "roughly 55 square metres of deposit", "about 300 km east of Cape Town", or the Later
+  Stone Age sequence "covering the last 2,000 years". None of the three is in any work opened for this
+  batch; the abstract and the date line now give the source's own dimensions instead
+- used by: wh-051
+
+### bouzouggar-2007 · the Blombos beads and engraved ochres, restated
+Abdeljalil Bouzouggar, Nick Barton, Marian Vanhaeren, et al., "82,000-Year-Old Shell Beads from North
+Africa and Implications for the Origins of Modern Human Behavior," *Proceedings of the National Academy of
+Sciences* 104, no. 24 (2007): 9964–69, esp. 9964, https://pmc.ncbi.nlm.nih.gov/articles/PMC1891266/.
+[Open access]
+- opened: 2026-08-01 · full text free in PMC
+- supports: "The finds from Blombos consist of 41 *Nassarius kraussianus* marine tick shells that had been
+  perforated intentionally, bear traces of use, and come from Middle Stone Age (MSA) phase M1 of the
+  sedimentary sequence that has been dated by optically stimulated luminescence (OSL) and thermoluminescence
+  (TL) to ≈75,000 years"; "Sediments of phase M1 also contain two pieces of engraved red ochre, elaborated
+  bone tools, and 400 bifacially flaked points of the Still Bay industry"; that the Blombos beads "were
+  covered in red ochre"
+- **this is Batch 15's rule working**: the closed founding paper is Henshilwood et al. 2004, and an open
+  paper that needed it as a comparison restates it in full
+- used by: wh-051, wh-031
+
+### rosso-2016 · the ochre workshop, restated
+Daniela Eugenia Rosso, Francesco d'Errico, and Alain Queffelec, "Middle Stone Age Ochre Processing and
+Behavioural Complexity in the Horn of Africa: Evidence from Porc-Epic Cave, Dire Dawa, Ethiopia," *PLOS
+ONE* 11, no. 11 (2016): e0164793, under "Introduction," https://doi.org/10.1371/journal.pone.0164793.
+[Open access]
+- opened: 2026-08-01 · full text at PLOS
+- supports: "At Blombos Cave, South Africa, two toolkits used for the production and storage of ochre-rich
+  compounds were recovered from layers dated to 100 ka"
+- used by: wh-051
+
+### henshilwood-2018 · the drawing
+Christopher S. Henshilwood, Francesco d'Errico, Karen L. van Niekerk, et al., "An Abstract Drawing from the
+73,000-Year-Old Levels at Blombos Cave, South Africa," *Nature* 562, no. 7725 (2018): 115–18, abstract,
+https://doi.org/10.1038/s41586-018-0514-3. [Paywalled]
+- opened: 2026-08-01 · **the abstract only**, via Europe PMC (PMID 30209394). No open deposit exists; the
+  copies on ResearchGate and Academia are not stably linkable
+- supports: "a cross-hatched pattern drawn with an ochre crayon on a ground silcrete flake recovered from
+  approximately 73,000-year-old Middle Stone Age levels"; "red ochre pigment was intentionally applied to
+  the flake with an ochre crayon"; the Still Bay association; and "This notable discovery pre-dates the
+  earliest previously known abstract and figurative drawings by at least 30,000 years"
+- does NOT support (from the abstract): "six lines crossed by three". The count is in the body, which could
+  not be opened; the card and its second question phrasing now say "cross-hatched pattern"
+- used by: wh-051
+
+### grine-2002 · the Blombos teeth
+Frederick E. Grine and Christopher S. Henshilwood, "Additional Human Remains from Blombos Cave, South
+Africa: (1999–2000 Excavations)," *Journal of Human Evolution* 42, no. 3 (2002): 293–302, abstract,
+https://doi.org/10.1006/jhev.2001.0525. [Paywalled]
+- opened: 2026-08-01 · **the abstract only**, via PubMed (PMID 11846532)
+- supports: "The Blombos Cave MSA strata have yielded nine human teeth or dental fragments"; "The entire
+  dental sample probably represents at least five and as many as seven individuals"; "The uppermost Middle
+  Stone Age (MSA) layers at Blombos Cave contain high densities of Still Bay bifacial points"
+- does NOT support: that the teeth "identify the occupants as *Homo sapiens*". The abstract compares crown
+  diameters with recent Africans and with Neanderthals and makes no taxonomic assignment; the card now
+  reports the count and the number of individuals instead
+- used by: wh-051
+
+Klasies River (`wh-055`), new to the register:
+
+### wurz-2022 · the site, the middens and the U-Th dates
+Sarah Wurz, Robyn Pickering, and Susan M. Mentzer, "U-Th Dating, Taphonomy, and Taxonomy of Shell Middens
+at Klasies River Main Site Indicate Stable and Systematic Coastal Exploitation by MIS 5c-d," *Frontiers in
+Earth Science* 10 (2022): 1001370, https://doi.org/10.3389/feart.2022.1001370. [Open access]
+- opened: 2026-08-01 · full text at Frontiers
+- supports: "The KRM site consists of a group of two caves formed in quartzite, Cave 1 and Cave 1C, one
+  large recess, Cave 2, and two cliff-face rock-shelters, 1A and 1B … which collectively preserve around 21
+  m of MSA and LSA deposits"; "KRM was excavated in three cycles, in the 1960s, in the period between 1984
+  and 1995, and most recently, since 2015"; the dominant species "brown mussel (*Perna perna*) and
+  alikreukel (*Turbo sarmaticus*)", the latter tabulated as "Cape turban"; that "high ranked mollusc species
+  such as alikreukel and brown mussel from the mid-intertidal zone were targeted"; the three speleothem ages
+  "110,060 ± 1,100, 109,800 ± 970, and 106,000 ± 2,100 years", which "place the BOS layer as the base of the
+  SASL sub-member at over 110 ka, making the underlying middens from the LBS member even older"
+- **corrections it forced**: the card said Sarah Wurz has directed the excavations "since 2013" (2015),
+  "about 20 metres" of deposit (around 21), and "giant periwinkle" (alikreukel, *Turbo sarmaticus*)
+- used by: wh-055
+
+### reynard-2022 · the sequence and the Howiesons Poort layer
+Jerome P. Reynard, "Human Occupational Intensity and Palaeoecology at Klasies River from MIS 5–3:
+Preliminary Taphonomic Analyses of Faunal Remains from the Deacon and Wurz Excavations," *Frontiers in
+Earth Science* 10 (2022): 974582, https://doi.org/10.3389/feart.2022.974582. [Open access]
+- opened: 2026-08-01 · full text at Frontiers
+- supports: "Together, these contain more than 21 m of deposits"; "a near-continuous Late Pleistocene
+  sequence encompassing almost 70,000 years"; "The approximately 2 m thick HP and 1 m thick MSA III
+  (post-HP) layers occur in the overlying Upper member"; that brown mussels "are the most prevalent species
+  at the site"
+- does NOT support: anything about the human remains. The paper's many cut-mark and burning tallies are all
+  on animal bone — checked by grep over the full text, not by a summariser, because this is exactly the
+  place a citation for the cannibalism claim would have been invented
+- used by: wh-055
+
+### ezeimo-2024 · the fauna and the first excavations
+Joseph Ezeimo, Sarah Wurz, and Shaw Badenhorst, "Middle Stone Age Fauna from the RS Sub-Member (MSA I) at
+Cave 1B, Klasies River Main Site, South Africa," *Southern African Field Archaeology* 19 (2024): 3144,
+https://doi.org/10.36615/safa.19.3144.2024. [Open access]
+- opened: 2026-08-01 · full text on SciELO South Africa
+- supports: "John Wymer conducted the first excavations at KRM in 1967 and 1968 in Caves 1, 1A, 1B and 2";
+  "Hilary Deacon excavated Cave 1B starting in 1984"; the RS sub-member "dates to older than ca. 115 ka";
+  and the fauna — "Cape fur seal", the bird taxa "penguin, the Cape cormorant and the eagle owl", dolphin
+  and whale vertebrae, "rock hyraxes", and the bovids "Cape grysbok/steenbok, mountain reedbuck, southern
+  reedbuck, oribi, grey rhebok, roan/sable/blue antelope, wildebeest/hartebeest, eland, Cape buffalo and
+  giant buffalo"
+- used by: wh-055
+
+### grine-2017 · the human fossil record and the Klasies Pattern
+Frederick E. Grine, Sarah Wurz, and Curtis W. Marean, "The Middle Stone Age Human Fossil Record from
+Klasies River Main Site," *Journal of Human Evolution* 103 (2017): 53–78, abstract,
+https://doi.org/10.1016/j.jhevol.2016.12.001. [Paywalled]
+- opened: 2026-08-01 · **the abstract only**, via PubMed (PMID 28166908). No open deposit exists
+- supports: the fossils "have featured in discussions about modern human emergence"; "The vast majority —
+  nearly 40 cataloged specimens — come from the SAS Member"; "There is a strong cranial bias to the sample;
+  just over 70% of skeletal remains are from the skull"; "humeral, femoral and tibial diaphyses, which are
+  the most durable elements in terms of cortical bone thickness and density, are absent"; that "the
+  proportional representation of hominin remains is reminiscent of the 'Klasies Pattern' shown by the MSA
+  large bovid skeletal parts"; and the paper's own hedge, that "to some degree, this may reflect the
+  excavation and recovery methods that were employed"
+- used by: wh-055
+
+Middle Stone Age (`wh-031`), new to the register:
+
+### hallinan-2026 · the three-stage scheme and its dates
+Emily Hallinan, "The Southern African Stone Age Site Index (SASSI): A Spatial, Chronological and Contextual
+Resource for Archaeological Research," *Journal of Open Archaeology Data* 14 (2026): 2, under "Overview"
+and table 1, https://doi.org/10.5334/joad.186. [Open access]
+- opened: 2026-08-01 · full text (CC BY 4.0)
+- supports: "Since John Goodwin and Clarence van Riet Lowe's seminal work 'The Stone Age Cultures of South
+  Africa', archaeological sites — specifically lithic assemblages — have been attributed to the three phases
+  of the Earlier (ESA), Middle (MSA) and Later Stone Age (LSA)"; "Early schemes for Stone Age archaeology in
+  southern Africa drew heavily on European frameworks, using perceived similarities with the Palaeolithic
+  record of France to construct a relative sequence" and "directly importing French terminology"; "the MSA
+  from 300–40 ka, and the LSA from 40 ka to historical times"; that the MSA is characterised by "prepared
+  cores, points, blades"; and that the "Early LSA 40–20 ka" is "generally informal, combining some MSA
+  (prepared) and LSA (bipolar technique, microlithic) technological characteristics", with the fully
+  microlithic Wilton at "8–4 ka"
+- **corrections it forced**: the card ended the Middle Stone Age at "about 30,000 years ago" (40,000), and
+  had the Later Stone Age taking over "with its microliths" from that date, which runs together a boundary
+  and an industry some 30,000 years apart
+- used by: wh-031
+
+### malan-1957 · where the term came from
+B. D. Malan, "The Term 'Middle Stone Age'," in *Third Pan-African Congress on Prehistory, Livingstone 1955*,
+ed. J. Desmond Clark and Sonia Cole (London: Chatto and Windus, 1957), 223–27,
+https://archive.org/details/in.gov.ignca.6340. [Open access]
+- opened: 2026-08-01 · full text via the Internet Archive's OCR of the proceedings volume
+- supports: "In 1928 Prof. A. J. H. Goodwin published a paper entitled 'An introduction to the Middle Stone
+  Age in South Africa'"; that "In the next year Goodwin elaborated this paper in the chapter on the Middle
+  Stone Age in *The Stone Age Cultures of South Africa*, a joint work in which he and Prof. C. van Riet Lowe
+  (1929) laid the foundation of much of the structure of our knowledge of the prehistory of South Africa";
+  and, against Leakey's second criticism, that "The term 'Middle Stone Age' is *not* a translation of
+  'Mesolithic'; it was, in fact, carefully chosen to distinguish it from 'Mesolithic'"
+- **corrections it forced**: the card credited the name to Goodwin and van Riet Lowe jointly in 1929. The
+  term is Goodwin's, from a paper of 1928; 1929 is the joint volume that set the three stages out
+- worth knowing: Malan also rejects equating the MSA with the Middle Palaeolithic *as a cultural label*,
+  "to ignore the strong Upper Palaeolithic typological elements in the Middle Stone Age". The card's claim
+  is chronological — "in time it corresponds roughly to" — which is what wh-003 says from the other side
+- used by: wh-031
+
+### pac3-1957 · resolution 6
+"Resolutions of the Congress," in *Third Pan-African Congress on Prehistory, Livingstone 1955*, ed. J.
+Desmond Clark and Sonia Cole (London: Chatto and Windus, 1957), resolution 6 and the closing session,
+https://archive.org/details/in.gov.ignca.6340. [Open access]
+- opened: 2026-08-01 · full text via the Internet Archive
+- supports: that the Congress "recommends to workers in Prehistory in the African Continent that they should
+  endeavour … to fit their Stone Age Culture sequences into a frame which provides for: Earlier Stone Age /
+  First Intermediate / Middle Stone Age / Second Intermediate / Later Stone Age"; and, from the closing
+  session, "Resolution 6: A Simplification of African Stone Age Terminology. Over three hours' discussion
+  had gone into the framing of this Resolution … After discussion this Resolution was carried with two
+  against"
+- **correction it forced**: the card said the Congress "endorsed the scheme in 1955". It recommended a
+  five-part frame — Goodwin's three stages with two intermediate stages inserted — and it did so over
+  objections, not by acclamation
+
+### NOT CITED — cannibalism at Klasies River
+The card's closing sentence read that many of the human bones "carry stone-tool cut marks, percussion
+damage and burning, the same treatment as the food animals, which is widely read as cannibalism". It is a
+real reading, going back to Tim White's work of the 1980s, and **no source that can be opened from here
+states it**. White 1987 appeared in *Sagittarius*, a magazine with no DOI and no online copy; Grine, Wurz &
+Marean 2017 is the standing review and its abstract does not mention cut marks; a Europe PMC full-text
+search for "Klasies" with "cannibalism" over the open-access corpus returns nothing at all, and a grep of
+Reynard 2022's full text finds cut marks only on animal bone. The sentence was dropped rather than
+attached to a work nobody had read for it, and the third question phrasing, which repeated it, was
+rewritten — the batch-8 rule. What replaced both is the Klasies Pattern from Grine et al.'s abstract,
+which is the same observation one step back: the skeletal parts that survive are the ones that survive in
+the butchered bovids.
+
+## Batch 21 — sites with an institution behind them, verified 2026-08-01
+
+The plan called these three the hardest and expected the holding institution to be the way in. It was, for
+two of them, and not in the form the plan predicted. **Lascaux is carried almost entirely by the French
+Ministry of Culture's own scholarly portal** — eight separate pages of it, on the discoverers, the sectors,
+the themes, the dating, the lighting, the walls, and the two facsimiles — which is a catalogue in the batch-18
+sense: a body responsible for a thing, publishing the record of it, in the open. **Atapuerca is carried by
+the Fundación Atapuerca's site pages and year-by-year project timeline**, which turned out to hold the
+excavation history, the World Heritage year and even the nickname of the 2025 fossil. Only **Dolní Věstonice**
+needed the batch-20 move instead: no Czech institution publishes a per-object record, so the ceramics came in
+through a 2024 open paper that restates Vandiver's closed 1989 *Science* study in full because it needed it as
+background.
+
+Two hosts that batch 15's `/document` trick was supposed to open are now shut to it: **hal.science serves the
+Anubis proof-of-work wall on `/document` as well as on the landing page**, and **journals.openedition.org has
+the same wall**. Ducasse & Langlais 2019, the paper that redates Lascaux, is genuinely open on both and could
+not be read here through either. It is not cited; the Ministry's own dating page states its result and is
+cited instead.
+
+### Verified citations
+
+Lascaux (`wh-086`), new to the register — all eight Ministry pages accessed 1 August 2026 and all open:
+
+### culture-lascaux · the Ministry of Culture's Lascaux portal
+Ministère de la Culture, *La grotte de Lascaux*, https://archeologie.culture.gouv.fr/lascaux/en. [Open access]
+- opened: 2026-08-01 · the English portal, published by the Ministry of Culture with the Musée d'Archéologie
+  nationale. Cited page by page, since each carries different claims:
+- **"The Four Discoverers"** — "Four boys unexpectedly found themselves part of history when, on 12 September
+  1940, they discovered the Lascaux cave": Marcel Ravidat, "a 17-year-old apprentice mechanic from Montignac",
+  Georges Agniel, 16, Simon Coencas, 15, and Jacques Marsal, 15; Ravidat and Marsal "became guides once the
+  cave was opened to visitors in 1948, and they were the ones who pointed out the appearance of the green
+  algae in 1958 and 1959"; "Jacques Marsal became guardian of the cave when it was closed in 1963"
+- **"The Lascaux Cave"** — "Lascaux has traditionally been divided into seven sectors: the Hall of the Bulls,
+  the Axial Gallery, the Passageway, the Nave, the Chamber of the Felines, the Apse and the Shaft"; "The level
+  of the cave floor drops 13 meters from the entrance to the Axial Gallery, and 19 metres to the base of the
+  Shaft"
+- **"Themes"** — "There are some 600 representations of animals at Lascaux"; "Images of horses are by far the
+  most numerous, followed by equal numbers of stags and aurochs, and then by ibexes and bison"; "It contains
+  one single image of a anthropomorphic figure, in the Shaft Scene"
+- **"Dating the Figures at Lascaux"** — the whole dating history, and the current result: "The material remains
+  left in the cave are therefore the result of one (or more) occupation(s) somewhere between 21,500 and 21,000
+  years before present", "during a pivotal phase between the cultural traditions of the Badegoulian (23–21,000
+  years before present) and Magdalenian (21–14,000 years before present) periods"; also that the new dates were
+  measured on "several reindeer bone fragments from the main sectors of the cave"
+- **"Lighting"** — "Over a hundred lamps were found in Lascaux"; the lamp from the base of the Shaft Scene "in
+  red sandstone, completely crafted and polished, fitted with a handle and adorned with engraving"
+- **"Access to the Walls"** — Glory "identified, on the sides of the Axial Gallery, the stalagmite encrusted
+  placement of interlocked beams", **with the portal's own hedge**: "Although it appears that scaffolding was
+  indeed used to work on certain pieces, the idea that it can extrapolated on a wider basis must be carefully
+  considered"
+- **"Lascaux II and III"** — "Lascaux II is the first fac-simile created from the beginning of the 1970s and
+  opened in 1983" and "reproduces the Hall of the Bulls and the Axial Gallery". **NB the page's "10 millions
+  visitors" is Lascaux II's, not the original cave's** — checked, because it is exactly the figure a careless
+  read would attach to the 1948–63 opening
+- **"Lascaux IV"** — the CIAP "Open in december 2016"
+- **"The Vézère Valley"** — "In 1979, the sites of the Vézère Valley were inscribed on the UNESCO World
+  Heritage List"
+- does NOT support: "1,500 engravings"; horses at "about 60 percent"; the largest aurochs at 5.2 m or its
+  being "the largest animal figure known anywhere in cave art"; "nearly a million people came between 1948 and
+  1963"; André Malraux by name; the fungus arriving "with air-conditioning work". All were dropped
+- used by: wh-086
+
+### bontemps-2024 · what the visitors did to the air
+Zélia Bontemps et al., "Microbial Diversity and Secondary Metabolism Potential in Relation to Dark Alterations
+in Paleolithic Lascaux Cave," *npj Biofilms and Microbiomes* 10 (2024): 121,
+https://doi.org/10.1038/s41522-024-00589-3. [Open access]
+- opened: 2026-08-01 · full text via PMC
+- supports: "tourism-related anthropization resulted in various cave wall alterations and led to cave closure
+  in 1963"; "an abnormal proliferation of the algae *Bracteococcus minor* in the 1960s (green biofilms) and
+  later of microorganisms such as the fungi *Fusarium solani* in 2001 (white stains), *Ochroconis lascauxensis*
+  … and other black melanized fungi since late 2001 (black stains)"
+- **correction it forced**: the card had "a green sickness of algae and a white one of calcite". The green is
+  right and the white is not — the white stains are the 2001 fungus, and the calcite on the walls is the rock
+  support the paintings were laid on, which the Ministry's own pages describe
+- used by: wh-086
+
+Atapuerca (`wh-029`), new to the register:
+
+### fundacion-atapuerca · the sites and the project timeline
+Fundación Atapuerca, "Los yacimientos de la sierra de Atapuerca" and "Proyecto Atapuerca," accessed 1 August
+2026, https://www.atapuerca.org/es/atapuerca/Yacimientos-de-Atapuerca and
+https://www.atapuerca.org/es/atapuerca/Proyecto-Atapuerca. [Open access]
+- opened: 2026-08-01 · the foundation that funds and communicates the excavation, in Spanish
+- supports: the sites lie "a unos 15 km al este de la ciudad de Burgos"; "En el año 2000 la UNESCO declaró a
+  los yacimientos de la sierra de Atapuerca Patrimonio de la Humanidad"; five hominin species; "Los yacimientos
+  de la sierra de Atapuerca son conocidos desde finales del siglo XIX"; "En 1962, miembros del GEE comunicaron
+  la existencia de fósiles en la Trinchera de Ferrocarril a las autoridades"; "1978 Se inician las excavaciones
+  sistemáticas … y nace el Proyecto Atapuerca"; "1992 Se hallan restos de cráneos humanos de varios individuos
+  con una antigüedad de 430 mil años en el yacimiento de la Sima de los Huesos"; the 1994 naming of *Homo
+  antecessor* at Gran Dolina; the 2003 *L'Anthropologie* paper on "la posible primera evidencia de
+  comportamiento funerario"; and **"2022 Se descubre en el yacimiento de la Sima del Elefante la cara del
+  primer europeo, apodado Pink"**
+- does NOT support: that the railway was a *mining* railway cut in the late 1800s and abandoned. The trench is
+  named and dated only by the 1962 report; the late-19th-century date is for the sites being known. The card
+  now says only what the foundation says
+- used by: wh-029
+
+### bermudez-2021 · how many people are in the pit
+José María Bermúdez de Castro et al., "The Sima de los Huesos Middle Pleistocene Hominin Site (Burgos, Spain):
+Estimation of the Number of Individuals," *The Anatomical Record* 304, no. 7 (2021): 1463–77, abstract,
+https://doi.org/10.1002/ar.24551. [Paywalled]
+- opened: 2026-08-01 · **the abstract only**, via PubMed (PMID 33099880)
+- supports: after 34 years of work the estimated number of individuals is **29**, against 28 in 2004; "the
+  specimen collection has nearly doubled since then"; the sample is mostly teenagers and young adults, with
+  ages at death that "conform to a catastrophic profile"; and that "amateur cavers … destroyed a significant
+  number of hominin fossils"
+- **correction it forced**: the card said "more than 6,500 human bones", a figure from an earlier count and
+  now stale; the paper gives no exact new total, so the card reports the doubling instead
+- used by: wh-029
+
+### huguet-2025 · the earliest face in western Europe
+Rosa Huguet et al., "The Earliest Human Face of Western Europe," *Nature* 640 (2025): 707–13, abstract,
+https://doi.org/10.1038/s41586-025-08681-0. [Paywalled]
+- opened: 2026-08-01 · **the abstract only**, via Europe PMC (PMID 40074891)
+- supports: "most of the midface of a hominin found at the TE7 level of the Sima del Elefante site … dated to
+  between 1.4 million and 1.1 million years ago"; "This fossil (ATE7-1) represents the earliest human face of
+  Western Europe identified thus far"; that its features "do not display the modern-like aspect exhibited by
+  *Homo antecessor* found at the neighbouring Gran Dolina site … dated to between 900,000 and 800,000 years
+  ago"; the assignment to "*Homo* aff. *erectus*"; and the suggested "turnover in the human population in
+  Europe at the end of the Early Pleistocene"
+- **correction it forced**: the card called Pink "a piece of upper jaw and cheekbone". It is most of a midface
+- note: the abbreviation *Homo* aff. *erectus* is written **Homo affinis erectus** in the card, because
+  `split-abstract.js` reads the full stop in "aff." as a sentence end and the 5+5 check fails
+- used by: wh-029
+
+### urciuoli-2025 · the Sima de los Huesos people on the Neanderthal line
+Alessandro Urciuoli et al., "Semicircular Canals Shed Light on Bottleneck Events in the Evolution of the
+Neanderthal Clade," *Nature Communications* 16 (2025): 972, https://doi.org/10.1038/s41467-025-56155-8.
+[Open access]
+- opened: 2026-08-01 · full text via PMC
+- supports: "the Sima de los Huesos humans (n = 13, ~430 ka)"; that they were "previously considered to
+  represent *Homo heidelbergensis* … and now regarded as a basal population of the Neanderthal lineage"
+- used by: wh-029
+
+Dolní Věstonice (`wh-074`), new to the register:
+
+### farbstein-2024 · the Pavlovian ceramics, restated
+Rebecca Farbstein and April Nowell, "Children at Play: The Role of Novices in the Production of Europe's
+Earliest Upper Paleolithic Ceramics," *PLOS ONE* 19, no. 10 (2024): e0309107,
+https://doi.org/10.1371/journal.pone.0309107. [Open access]
+- opened: 2026-08-01 · full text via PMC
+- supports: the five Pavlovian sites, "Dolní Věstonice I and II, Pavlov I and VI, and Předmostí"; the
+  Pavlovian "defined by its large open-air aggregation sites which preserve rich stone, bone, and antler
+  material culture … complex symbolic burials"; "Calibrated radiocarbon dates on human bones from burials at
+  Pavlov I and DV II range between 31,270 calBP and 29,260 calBP"; "more than 12,000 ceramic figurines,
+  figurine fragments/elements, and non-figurative pellets"; the "local, loess-rich sedimentary paste"; that
+  "many figurines and figurine fragments exhibit cracks typical of thermal shock indicating that ceramics were
+  often fired before they were sufficiently dry"; and Vandiver's thesis restated — that "the properties of the
+  loess paste make accidental thermal shock 'improbable'" and that exploding them "required 'intentional
+  effort and practice'", a "pyrotechnical performance"
+- **correction it forced**: the card dated the camps to "roughly 29,000 and 25,000 years ago", which is
+  uncalibrated radiocarbon read as calendar years — the same error class as Lascaux's 17,000
+- used by: wh-074
+
+### vandiver-1989 · the original ceramics study
+Pamela B. Vandiver, Olga Soffer, Bohuslav Klíma, and Jiří Svoboda, "The Origins of Ceramic Technology at Dolni
+Vestonice, Czechoslovakia," *Science* 246, no. 4933 (1989): 1002–8, abstract,
+https://doi.org/10.1126/science.246.4933.1002. [Paywalled]
+- opened: 2026-08-01 · **the abstract only**, via PubMed (PMID 17806391)
+- supports: "A typology was established for more than 5000 ceramic artifacts"; "The compositions and mineralogy
+  of the artifacts were identical to those of the local soil, loess"; "A firing temperature range of 500 degrees
+  to 800 degrees C was measured"; "Many fracture sections show evidence of thermal shock"; and "The making,
+  firing, and sometimes exploding of the figurines may have been the prime function of the ceramics at this
+  site rather than being manufactured as permanent, portable objects"
+- does NOT support: that "more than half the fragments from the kiln area" are cracked, or the laboratory
+  reproduction with clay "so wet it barely held its shape". The abstract says "many fracture sections"; both
+  specifics were dropped
+- used by: wh-074
+
+### mittnik-2016 · the triple burial
+Alissa Mittnik, Chuan-Chao Wang, Jiří Svoboda, and Johannes Krause, "A Molecular Approach to the Sexing of the
+Triple Burial at the Upper Paleolithic Site of Dolní Věstonice," *PLOS ONE* 11, no. 10 (2016): e0163019,
+https://doi.org/10.1371/journal.pone.0163019. [Open access]
+- opened: 2026-08-01 · full text via PMC
+- supports: DV 13 and DV 14 as "a 17–19 and a 16–17 year old male", DV 15 "about 20 years of age" with "a
+  pathological, possibly congenital deformation affecting symmetry and proportion of limbs as well as tooth and
+  pelvis morphology"; "the three skeletons were covered partially in ochre and the whole situation was
+  protected by burnt spruce logs and branches"; the burial "dated to 26,640±110 BP (31,155 ± 85 calBP)"; and the
+  finding that **all three were male**, settling a debate in which DV 15 "has been ascribed to both male and
+  female sex"
+- **correction it forced**: the card had "two of them young men on either side of a third", which preserves the
+  very ambiguity this paper closed, and the third question phrasing was rewritten with it
+- used by: wh-074
+
+### posth-2023 · the Věstonice cluster
+Cosimo Posth et al., "Palaeogenomics of Upper Palaeolithic to Neolithic European Hunter-Gatherers," *Nature*
+615 (2023): 117–26, https://doi.org/10.1038/s41586-023-05726-0. [Open access]
+- opened: 2026-08-01 · full text via PMC
+- supports: "the later Věstonice genetic cluster … named after the Dolní Věstonice site in Czechia"; that the
+  cluster comprises "Gravettian-associated individuals from central–eastern and southern European sites (Dolní
+  Věstonice, Pavlov, Krems-Wachtberg, Paglicci and Ostuni)"
+- used by: wh-074
+
+### mounier-2020 · one widespread Gravettian population
+Aurélien Mounier, Yann Heuzé, Mathilde Samsel, et al., "Gravettian Cranial Morphology and Human Group
+Affinities during the European Upper Palaeolithic," *Scientific Reports* 10 (2020): 21931,
+https://doi.org/10.1038/s41598-020-78841-x. [Open access]
+- opened: 2026-08-01 · full text via PMC
+- supports: that the Mid Upper Palaeolithic specimens "from SWF … and Moravia (Pavlovian) are phenetically
+  homogeneous and could be considered as a widespread unique paleodeme"
+- used by: wh-074
+
+### NOT CITED — Ducasse & Langlais 2019, and the Dolní Věstonice ivory head
+- **Ducasse & Langlais 2019**, "Twenty years on, a new date with Lascaux," *PALEO* 30-1: 130–47. Open access
+  on OpenEdition and deposited on HAL, and **unreadable from this environment**: both hosts serve an Anubis
+  proof-of-work challenge, on `/document` as well as on the landing page, which retires the batch-15 trick for
+  these two hosts. The Ministry of Culture's "Dating the Figures at Lascaux" states the paper's result and is
+  cited in its place. Do not re-attempt without a different route
+- **The five-centimetre ivory head from Dolní Věstonice**, its lopsided eye, the woman buried under two mammoth
+  scapulae with a flint point and a fox, and the 2018 facial reconstruction said to match the two. Nothing
+  openable carries any of it: Europe PMC has no open paper on the DV 3 burial or the ivory head, and the
+  reconstruction was not published in an indexed venue. All of it was dropped and the third question phrasing,
+  which was built on it, was rewritten around the Věstonice genetic cluster instead
+- **Karel Absolon's excavations from 1924**, on the same card. Nothing opened for this batch names him; Mittnik
+  gives "excavations at Dolní Věstonice II since 1985" and Farbstein & Nowell name the five sites without a
+  history, so the card no longer gives a start date
+- **The Sima de los Huesos geography** — "some 500 metres inside Cueva Mayor at the foot of a 13-metre shaft" —
+  and **the quartzite handaxe** found among the bones. Neither is in anything opened; both were dropped, and the
+  funerary-behaviour claim they served now rests on the Fundación's note of the 2003 *L'Anthropologie* paper
+
+## Batch 22 — the pollen chronozones, verified 2026-08-01
+
+The plan called this pair "the likeliest in the deck to end red" and told the batch to mark them blocked
+if the palynology could not be opened. It did not come to that, for two reasons the plan did not
+anticipate. **Most of what these cards needed was already in the register**, from batches 11 and 12 — this
+is batch 12's finding again, that a definitional card's claims are usually claims some other card already
+makes. Marchal 2002, Walker 2012, Walker 2018 and Walanus & Nalepka 2010 were all sitting there from
+`wh-102`, `wh-105` and `wh-106`, and between them they carry the whole framework: the Blytt–Sernander
+order, Mangerud's radiocarbon boundaries, their calibrated equivalents, the Holocene GSSP and the warning
+that the scheme holds only regionally. **And the vegetation, which the plan expected to be shut, is open in
+the Netherlands**: Bos & van Geel's Haelen sequence is in the *Netherlands Journal of Geosciences*, which
+is open by policy, and it gives the birch expansion, the Rammelbeek phase, the return to humid conditions
+and the hazel rise at the opening of the Boreal, each with a calibrated age.
+
+With these two, **every one of the 109 prehistory cards now carries sources**.
+
+### Verified citations
+
+Preboreal (`wh-103`) and Boreal (`wh-104`), new to the register:
+
+### bos-van-geel-2017 · the Preboreal vegetation, dated
+Johanna A. A. Bos and Bas van Geel, "Palaeoenvironmental Reconstruction Based on the Early Holocene Haelen
+Sequence, near Roermond (Southeastern Netherlands)," *Netherlands Journal of Geosciences* 96, no. 2 (2017):
+115–30, https://doi.org/10.1017/njg.2016.35. [Open access]
+- opened: 2026-08-01 · full text at Cambridge Core (NJG is open access)
+- supports: that "the Preboreal biozone in the Netherlands is subdivided into the Friesland Phase, the
+  Rammelbeek Phase and the Late Preboreal"; the Friesland Phase as "a period of rising mean summer and
+  winter temperatures"; the Late-glacial/Holocene warming at Haelen "around 11,520 cal BP"; "Around 11,420
+  cal BP, birch expansion was interrupted by the dry continental Rammelbeek Phase"; that "open grassland
+  vegetation developed" on floodplain and terrace; "At the start of the Late Preboreal, around 11,270 cal
+  BP, a sudden shift to a more humid climate took place and birch forests expanded again"; and "At the
+  onset of the Boreal, around 10,710 cal BP, woodlands, initially with hazel, but later also with oak, elm
+  and lime, started to develop, while pine forest remained present on the higher terraces"
+- **corrections it forced**: the card put the Rammelbeek phase at "around 11,400 to 11,150 years ago" (it
+  is 11,420 to 11,270), and had wildfires increasing during it, which the paper does not say
+- used by: wh-103, wh-104
+
+### gross-2019 · Duvensee
+Daniel Groß, Harald Lübke, Ulrich Schmölcke, and Marco Zanon, "Early Mesolithic Activities at Ancient Lake
+Duvensee, Northern Germany," *The Holocene* 29, no. 2 (2019): 197–208, abstract,
+https://doi.org/10.1177/0959683618810390. [Paywalled]
+- opened: 2026-08-01 · **the abstract only**, via the Crossref API (`api.crossref.org/works/<doi>`), which
+  serves publisher-deposited abstracts for many closed papers. Worth remembering: it is a route to an
+  abstract that does not depend on PubMed indexing, and it worked here where PubMed has no record
+- supports: Duvensee in Schleswig-Holstein as "one of the prime locations in northern Europe for early
+  Holocene research"; sites with "bark mats and other organic finds preserved, including evidence for the
+  extensive use of hazelnuts"; "While only a limited number of sites can be connected to hazelnut
+  exploitation"; and "At a few sites, specific hearths were excavated which can be connected with hazelnut
+  roasting and other subsistence activities"
+- **correction it forced**: the card read Duvensee as a hazelnut site wholesale. Only some of its camps are
+  connected to the nut at all
+- used by: wh-104
+
+Reused from the register, unchanged: `marchal-2002` (the Blytt–Sernander order and Mangerud's phases),
+`walker-2012` (Mangerud 1974's scheme; time-transgressive and regional only), `walanus-nalepka-2010`
+(the calibrated boundaries — see below), `walker-2018-subdivision` (the Holocene GSSP at 11,700 b2k and the
+Northgrippian at 8,236 b2k) and `weninger-2008` (the Storegga tsunami flooding Doggerland ~8,200 cal BP).
+
+### The calibrated boundaries, and what they corrected
+
+Walanus & Nalepka's table 2 is the whole of this batch's arithmetic and it is worth setting out, because
+both cards were wrong against it and `wh-104` was wrong against its own sibling:
+
+| boundary | conventional ¹⁴C BP | calibrated BC |
+|---|---|---|
+| Younger Dryas / Preboreal | 10,000 | 9500 |
+| Preboreal / Boreal | 9,000 | 8200 |
+| Boreal / Atlantic | 8,000 | 7000 |
+
+So the Preboreal runs ~11,450–10,150 cal BP, not "11,650 to 10,500", and the Boreal ~10,150–8,950 cal BP,
+not "10,500 to 8,000". The second of those matters most: `wh-105` already says the Atlantic begins at 8,000
+¹⁴C BP, "roughly 7000 BCE", so the Boreal could not also be ending at 8,000 calendar years ago. And the
+card's closing sentence tied the end of the zone to the 8,200-year cold snap, which on these numbers falls
+some seven centuries *inside* the Atlantic — as does the Storegga flooding of Doggerland. Both are now
+given as events that follow the zone rather than close it.
+
+### NOT CITED — the Firbas pollen-zone numbers, and Holst's hazelnut figures
+- **Pollen zones IV, V and VI**, the Firbas numbering, on both cards and in both date lines. It is standard
+  and certainly correct, and nothing opened for this batch states it; the vegetation itself is now given
+  directly from Bos & van Geel instead, which is what the numbering stands for anyway
+- **Hazelnuts "more than 60 percent fat"** and the deliberate-planting question, on `wh-104`. Holst 2010
+  (*Journal of Archaeological Science* 37: 2871–80) is the paper behind both and is closed, with no
+  Crossref abstract and no open deposit. Dropped, and the second question phrasing was rewritten without
+  the figure
+- **The Blytt–Sernander origin story** — Dau's 1829 observation, the Royal Danish Academy prize, Blytt 1876,
+  Sernander around 1900, von Post's pollen counting — which `wh-103` told at length. None of it is in
+  anything opened; Marchal and Walker give the order of the phases and Mangerud's dating of them, and no
+  more. The card now opens on what those two support and spends the space on the vegetation instead. The
+  same history sits on `wh-106`, where it is equally unsourced and should be worked when that card is
+  topped up
+- **The Preboreal radiocarbon plateau and Star Carr**, also on `wh-103`. The plateau claim is on `wh-106`
+  with a source; here it was dropped rather than duplicated
 
 ## CANDIDATES — NOT VERIFIED, DO NOT PASTE INTO `data.js`
 
@@ -2743,3 +3796,613 @@ not re-proposed:
 - **The UNESCO record for the Caves and Ice Age Art in the Swabian Jura** (whc.unesco.org/en/list/1527/) is
   behind Cloudflare bot protection and could not be opened from this environment. It was not needed:
   Floss 2015 and Morriss-Kay 2013 carry everything wh-069 claims, and both are open.
+
+---
+
+## Batch 23 — the framework and the oldest toolmakers, brought up to the 5-source bar
+
+The first top-up batch: ten cards that were already reconciled against their sources once and carry
+three or four citations, raised to five. No card here needed a hunt for a subject nobody has written
+about — what it needed was the sentences carrying no marker, and a work for each. Six of the nineteen
+slots were filled from works the register already held.
+
+Its finding is that **a top-up turns up errors the original pass could not see, because the original
+pass only had to justify the sentences it marked.** Four of the ten cards changed prose: the
+Acheulean's end date, the antler pressure-flaker, Frere's 1797 letter and Wrangham's 1.9 Ma. Every one
+of those sat in a sentence with no marker on it, which is exactly where an unchecked claim survives.
+
+Its second finding is a tooling one. `check-style.js` applies the house rules to the whole of
+`data.js`, `sources` included, so it reported Moro Abadía's "…at the turn of the twentieth century"
+as a century-word violation — and **`--fix` would have renamed the paper**. Citations are now masked
+out of every rule before they run. A citation names a work that exists; its title is the author's.
+
+### diez-martin-2015 · the Acheulean toolkit at its origin
+Fernando Diez-Martín et al., "The Origin of The Acheulean: The 1.7 Million-Year-Old Site of FLK West,
+Olduvai Gorge (Tanzania)," *Scientific Reports* 5 (2015): 17839, https://doi.org/10.1038/srep17839.
+[Open access]
+- opened: 2026-08-01 · full text at nature.com
+- supports: the Acheulean defined against the Oldowan "based on the technological ability to produce
+  large flake blanks and to recurrently shape large cutting tools (LCTs)", and that "Acheulean
+  assemblages exhibit a higher degree of planning and curation"; and the kit itself at FLK West level
+  6 — "35 large flakes … (≥100 mm of maximum length, range 100–163 mm), 4 massive cores devoted to the
+  production of large flakes and 28 large cutting tools (LCT), including truly bifacial hand[axes]",
+  "formal and massive trihedral picks", "2 crude cleavers and 2 knife-like specimens"
+- used by: wh-015, wh-022
+
+### si-early-stone-age-tools · what is in an Oldowan and an Acheulean kit
+Smithsonian National Museum of Natural History, Human Origins Program, "Early Stone Age Tools,"
+accessed 1 August 2026,
+https://humanorigins.si.edu/evidence/behavior/stone-tools/early-stone-age-tools. [Open access]
+- opened: 2026-08-01 · the museum's behaviour record
+- supports: the Oldowan kit as "Hammerstones that show battering on their surfaces", "Stone cores that
+  show a series of flake scars along one or more edges" and "Sharp stone flakes that were struck from
+  the cores … along with lots of debris from the process of percussion flaking"; and that "By about
+  1.76 million years ago, early humans began to strike really large flakes and then continue to shape
+  them by striking smaller flakes from around the edges", producing "a new kind of tool called a
+  handaxe", so that handaxes "and other kinds of 'large cutting tools' characterize the Acheulean
+  toolkit"
+- does NOT support the card's end date: this page ends the Acheulean toolkit "in different places by
+  around 400,000 to 250,000 years ago", where de la Torre's accepted span runs to 0.125 Myr. The two
+  disagree and the card follows de la Torre, which is the specialist review; the museum page is cited
+  only for the toolkits
+- used by: wh-015, wh-022
+
+### herries-2011 · when the Acheulian ends, and Wonderwerk's own sequence
+Andy I. R. Herries, "A Chronological Perspective on the Acheulian and Its Transition to the Middle
+Stone Age in Southern Africa: The Question of the Fauresmith," *International Journal of Evolutionary
+Biology* 2011 (2011): 961401, https://pmc.ncbi.nlm.nih.gov/articles/PMC3139141/. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST service (the Hindawi/Wiley page is behind
+  Cloudflare from this environment; the DOI is cited in the register, the openable PMC copy on the card)
+- supports: "the transition from the Early to the Middle Stone Age (MSA) and the end of the Acheulian
+  Industry in Africa … generally defined as a change from large cutting tools (LCTs) such as hand axes
+  and cleavers to the use of blades, points, and prepared core technology"; that the Fauresmith "maybe
+  as old as 511–435 ka and should represent the beginning of the MSA as a broad entity rather than the
+  terminal phase of the Acheulian" — i.e. the industry's end is regional, not a single date; and at
+  Wonderwerk, "the transition at the end of the Oldowan (1.78 Ma; strata 12) and the layers containing
+  the Acheulian (strata 11)", those Acheulian sediments "dated to somewhere between 1.78 and 1.07 Ma
+  based on palaeomagnetism and a basal cosmogenic isotope burial age"
+- note: Herries is explicit that the ~1.6 Ma figure sometimes given for the start of the Acheulian at
+  Wonderwerk "is by far from secure" and the material may be "closer to 1.07 Ma than 1.78 Ma". The
+  card claims neither figure, so nothing needed changing — but do not add one on his authority
+- used by: wh-021, wh-022
+
+### sackett-2014 · Frere, Boucher de Perthes and 1859
+James Sackett, "Boucher de Perthes and the Discovery of Human Antiquity," *Bulletin of the History of
+Archaeology* 24 (2014): art. 2, https://doi.org/10.5334/bha.242. [Open access]
+- opened: 2026-08-01 · full text (CC BY 4.0)
+- supports: "a two-page article published by the Society of Antiquaries of London in 1800 by a country
+  squire named John Frere", describing "bifacially chipped, pointed stone tools that are obviously
+  what we today call Acheulian handaxes, which he says diggers had found lying alongside giant animal
+  bones deep in a brick clay pit at Hoxne, Suffolk"; Frere's own "even beyond that of the present
+  world"; that "Frere's claims evoked no response from his contemporaries"; Boucher de Perthes'
+  "discoveries of handaxes in the Somme River's gravels" and that he "was easily dismissed by the
+  scientific elite of Paris"; the 1859 trip by "the Pleistocene geologist Joseph Prestwich and the
+  antiquarian John Evans", who "examined the evidence from Abbeville and Amiens, and found themselves
+  … becoming converted"; the "flurry of distinguished cross-Channel visitors" after it; and Evans
+  "horror-struck" on coming upon "John Frere's long-forgotten handaxes housed at the Society of
+  Antiquities"
+- does NOT support: **June 1797**, or **a jawbone**. Frere's letter is indeed dated 1797 and does
+  mention "the jaw-bone of an enormous unknown animal", but his own paper (*Archaeologia* 13, 1800,
+  DOI 10.1017/s0261340900024267) is behind Cambridge Core's paywall with no abstract, so neither
+  detail could be opened. The card was moved to what the open sources carry: the 1800 publication and
+  giant animal bones
+- used by: wh-023
+
+### ingrey-2023 · how big a giant handaxe gets
+Letty Ingrey et al., "On the Discovery of a Late Acheulean 'Giant' Handaxe from the Maritime Academy,
+Frindsbury, Kent," *Internet Archaeology* 61 (2023), https://doi.org/10.11141/ia.61.6. [Open access]
+- opened: 2026-08-01 · full text (CC BY 3.0)
+- supports: the Maritime Academy ficron with "a maximum longitudinal dimension of 29.6cm", "the third
+  largest found in Britain at the time of writing"; and table 2's top ten, which gives Furze Platt at
+  323 mm and the Cuxton ficron at 307 mm
+- does NOT support "12 to 20 centimetres" or the closed-fist small end. The card's giants clause was
+  raised from "nearly 30" — an understatement against this table — to "more than 30, the largest a
+  point from Furze Platt measuring 32.3 centimetres", and the closed-fist clause, which rests on
+  nothing openable, was dropped
+- used by: wh-023
+
+### rots-2017 · pressure flaking, and what it is done with
+Veerle Rots et al., "Pressure Flaking to Serrate Bifacial Points for the Hunt during the MIS5 at
+Sibudu Cave (South Africa)," *PLoS ONE* 12, no. 4 (2017): e0175151,
+https://doi.org/10.1371/journal.pone.0175151. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST service
+- supports: that "the serration was manufactured with bone compressors"; the experimental protocol —
+  blanks "shaped with a wooden hammer and serrated by pressure with a bone compressor"; that "minor
+  abrasion is applied before pressure flaking to create an artificial placement of the compressor tip
+  behind the edge"; and the distinction between pressure thinning and "pressure notching[, which] aims
+  at serrating an edge"
+- does NOT support **antler**. The card had "an antler tip"; the work that demonstrates the technique
+  used a pointed BONE compressor, and the card now says so
+- used by: wh-008
+
+### hayes-2022 · grinding is far older than farming
+Elspeth H. Hayes et al., "65,000-Years of Continuous Grinding Stone Use at Madjedbebe, Northern
+Australia," *Scientific Reports* 12 (2022): 11747, https://doi.org/10.1038/s41598-022-15174-x.
+[Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST service
+- supports: that ground implements "first emerged in the Levant, Africa, and Europe from at least
+  780 ka ago"; and that the Madjedbebe assemblage spans "the past 65 thousand years (ka)" and holds
+  "the earliest known production and use of edge-ground stone hatchets (aka axes)"
+- the card had grinding as a Neolithic craft, which is true of Eurasia and reads as an origin. It now
+  says the craft is far older than farming and gives the Australian hatchets at 65,000 years
+- used by: wh-008
+
+### lewis-2014 · what a forager band shares
+Hannah M. Lewis, Lucio Vinicius, Janis Strods, Ruth Mace, and Andrea Bamberg Migliano, "High Mobility
+Explains Demand Sharing and Enforced Cooperation in Egalitarian Hunter-Gatherers," *Nature
+Communications* 5 (2014): 5789, https://doi.org/10.1038/ncomms6789. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST service
+- supports: "'Simple' hunter-gatherer populations adopt the social norm of 'demand sharing' … whereby
+  food brought into camps is claimed and divided by group members", and that high residential mobility
+  is what sustains it — the card's "sharing what they bring in rather than storing it up"
+- used by: wh-009
+
+### migliano-2020 · camps, and the networks between them
+Andrea B. Migliano et al., "Hunter-Gatherer Multilevel Sociality Accelerates Cumulative Cultural
+Evolution," *Science Advances* 6, no. 9 (2020): eaax5913, https://doi.org/10.1126/sciadv.aax5913.
+[Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST service
+- supports: hunter-gatherer social structure as "clustering of families within camps and camps within
+  regional networks", with individual Agta camps of a few dozen and multicamp groups of n = 37 and
+  n = 56 — the card's "small nomadic band of a few dozen people"
+- used by: wh-009
+
+### hansen-2013 · what switches an ice age on
+James Hansen et al., "Climate Sensitivity, Sea Level and Atmospheric Carbon Dioxide," *Philosophical
+Transactions of the Royal Society A* 371, no. 2001 (2013): 20120294,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC3785813/. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST service
+- supports: "A CO2 decrease from, say, approximately 1000 ppm in the Early Cenozoic to 170–300 ppm in
+  the Pleistocene, caused by shifting plate tectonics, is a climate forcing"; that the natural CO2
+  source "is volcanic emissions that occur mainly at continental margins due to plate tectonics
+  (popularly 'continental drift')", with tectonics also affecting "the weathering sink for CO2 by
+  exposing fresh rock"; the sequence of "large-scale glaciation of Antarctica" and then, "in the most
+  recent 3–5 Myr", "the growth of Northern Hemisphere ice sheets"; and "the great ice sheets on
+  Greenland and Antarctica" as a present fact
+- used by: wh-011
+
+### si-kenyanthropus · the flat-faced skull from the Lomekwi beds
+Smithsonian National Museum of Natural History, Human Origins Program, "*Kenyanthropus platyops*,"
+accessed 1 August 2026,
+https://humanorigins.si.edu/evidence/human-fossils/species/kenyanthropus-platyops. [Open access]
+- opened: 2026-08-01 · the museum's species record
+- supports: "a flat-faced, small-brained, bipedal species living about 3.5 million years ago in
+  Kenya"; that it "inhabited Africa at the same time as Lucy's species *Australopithecus afarensis*";
+  and that "in northern Kenya in 1998 and 1999, a research team led by scientist Meave Leakey found a
+  cranium and other fossil remains"
+- used by: wh-014
+
+## NOT CITED (batch 23)
+
+- **John Frere, "Account of Flint Weapons Discovered at Hoxne in Suffolk," *Archaeologia* 13 (1800):
+  204–5** (DOI 10.1017/s0261340900024267). The founding document of the card's whole second half, and
+  it is on **Cambridge Core behind a paywall with no abstract** — the URL itself carries `/article/abs/`.
+  Public domain since long before any of us, and unreadable. The Internet Archive's copy of the volume
+  is in the lending-restricted microfilm collection. Sackett restates enough of it that the card lost
+  nothing but the June 1797 date and the jawbone.
+- **Joseph Prestwich, "On the Occurrence of Flint-Implements…," *Proceedings of the Royal Society* 10
+  (1860)** (DOI 10.1098/rspl.1859.0019). royalsocietypublishing.org answers 403 behind Cloudflare from
+  this environment for every URL tried. Not cited, and **not labelled paywalled** — a bot wall is a
+  different fact (the batch-21 rule).
+- **The British Museum collection record for the Hoxne handaxes.** Batch 18's rule — ask the
+  institution holding the object — would have settled both the 1797 date and the jawbone in one page.
+  britishmuseum.org is behind Cloudflare and answers 403.
+- **Antoine Muller, Ceri Shipton and Chris Clarkson 2022** was read for wh-022's forethought sentence
+  and does not carry it: it compares discoidal, handaxe, Levallois and blade knapping and does not
+  include the Oldowan, so it cannot say what the Acheulean demanded that the Oldowan did not. De la
+  Torre does, via Wynn — "the addition of a new step in tool manufacture (i.e. production of the
+  handaxe blank) entails a planning sequence largely missing in the previous Oldowan" — and the card's
+  marker points there instead.
+- **Lewis & Harmand 2016**, *Phil. Trans. R. Soc. B* 371: 20150233, the obvious source for the story of
+  the July 2011 wrong turn at Lomekwi, is not open access and has no deposited full text. **That
+  sentence of wh-014 therefore still carries no marker**, and is recorded here rather than dressed up:
+  the discovery anecdote is widely reported and contradicted by nothing, but it is not sourced.
+- **The Geological Society's "Charles Lyell and the evidences of the antiquity of man"** (DOI
+  10.1144/gsl.sp.1998.143.01.08) returns 503 through the DOI resolver. Not needed: Key & Lycett already
+  place "Joseph Prestwich, Charles Lyell, and John Evans" at Amiens and Abbeville, which is where the
+  card's tenth sentence gets Lyell from.
+
+---
+
+## Batch 24 — *erectus*, *sapiens* and the two coalescent points
+
+Seven cards to the bar, 16 citations, and one card taken past it: `wh-045` Jebel Irhoud was the only
+list in the deck that was not majority-open, so it took two open additions rather than one and now
+runs 4 open to 2 paywalled.
+
+Its finding is the cheapest one in the pass so far: **two open review articles carried eleven of the
+sixteen slots between them.** Harvati & Reyes-Centeno 2022 is a review of exactly the period four of
+these cards describe, and Scerri et al. 2018 is a review of exactly the question the other three ask.
+Where a batch's cards share a *problem* rather than a site, one review can cover most of it — which is
+the opposite of batch 2's finding that subject does not predict reachability, and worth holding beside
+it: subject does not predict reachability, but a shared **debate** does.
+
+The plan asked for the two coalescent dates to be re-checked rather than assumed, and they hold:
+Karmin et al. put the Y-MRCA at "254 (95% CI 192–307) kya", against the card's 200,000–300,000, and
+Rito et al. put the mtDNA ancestor at "~180 ka", against the card's 150,000–200,000. **No correction
+was needed on either, which is the first time a re-check has come back clean.**
+
+### harvati-2022 · the Middle and Late Pleistocene, reviewed
+Katerina Harvati and Hugo Reyes-Centeno, "Evolution of *Homo* in the Middle and Late Pleistocene,"
+*Journal of Human Evolution* 173 (2022): 103279, https://pmc.ncbi.nlm.nih.gov/articles/PMC9703123/.
+[Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST service
+- supports: the period's picture as one "often described as 'the Muddle in the Middle'"; *H.
+  heidelbergensis*'s holotype as the Mauer mandible (Schoetensack 1908) and *H. antecessor*'s as
+  ATD6-5 from Gran Dolina (Bermúdez de Castro et al. 1997), both in its table 1; that the Iberian
+  specimens date "to ca. 850 ka" and exhibit "facial morphology until then considered derived for
+  modern humans", which "has led to the re-examination of the polarity of these features"; that
+  "*H. antecessor* from Atapuerca, Spain, is one possibility" for the last common ancestor, among
+  others; that Sima de los Huesos carries Denisovan-like mitochondrial DNA but is "otherwise similar
+  to Neanderthals in their nuclear DNA (Meyer et al., 2016)"; that Omo 2 and Jebel Irhoud were once
+  attributed to a "'Neanderthal stage' in human evolution"; and that "the earliest currently
+  recognized members of our lineage have been identified in Jebel Irhoud, Morocco, recently dated to
+  ca. 300 ka"
+- used by: wh-028, wh-030, wh-044, wh-045
+
+### scerri-2018 · one birthplace, or a continent
+Eleanor M. L. Scerri et al., "Did Our Species Evolve in Subdivided Populations across Africa, and Why
+Does It Matter?" *Trends in Ecology & Evolution* 33, no. 8 (2018): 582–94,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC6092560/. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST service
+- supports: "the oldest currently recognized members of the *H. sapiens* clade, from Jebel Irhoud in
+  North Africa, have a facial morphology very similar to extant *H. sapiens*, as well as endocranial
+  volumes that fall within the contemporary range of variation", while "their braincase shapes"
+  differ; that traits appear "in a mosaic-like fashion within the *H. sapiens* clade"; the proposal
+  by some that Jebel Irhoud and Florisbad are a more primitive '*H. helmei*'; and the paper's whole
+  argument, that our species evolved in subdivided populations across Africa rather than in one place
+- used by: wh-030, wh-044, wh-045
+
+### ragsdale-2023 · no single ancestral population
+Aaron P. Ragsdale et al., "A Weakly Structured Stem for Human Origins in Africa," *Nature* 617, no.
+7962 (2023): 755–63, https://doi.org/10.1038/s41586-023-06055-y. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST service (CC BY)
+- supports: that the emergence of *H. sapiens* "was preceded by links between two or more weakly
+  differentiated ancestral *Homo* populations connected by gene flow over hundreds of thousands of
+  years", and that such models "explain patterns of polymorphism that had previously been attributed
+  to contributions from archaic hominins in Africa"
+- this is what both coalescent cards' "not the only woman/man of her/his time" rests on: the ancestral
+  population was not a couple and not a bottleneck but a structured set of populations
+- used by: wh-047, wh-048
+
+### cole-2017 · the Gran Dolina victims
+James Cole, "Assessing the Calorific Significance of Episodes of Human Cannibalism in the
+Palaeolithic," *Scientific Reports* 7 (2017): 44707, table 1, https://doi.org/10.1038/srep44707.
+[Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST service
+- supports, from its table 1: Gran Dolina TD6, Aurora Stratum, "c. 936,000 BP", *H. antecessor*,
+  "Nutritional cannibalism", MNI 11, "2 adults, 3 adolescents, 6 children"; and the associated fauna
+  — *Cervus*, *Sus*, *Equus*, *Bison*, *Megaloceros*, *Dama*, *Capreolus*, *Eucladoceros*,
+  *Stephanorhinus* — which is what the card's "the same casual discard as the deer and horse bones
+  lying beside them" refers to
+- note the age: Cole gives c. 936 ka for the Aurora Stratum where the card gives 780,000–860,000 from
+  Campaña et al. Both are in the literature and the card's range is the one its own dating source
+  supports; the discrepancy is recorded here rather than resolved, and no marker points Cole at the
+  card's date sentence
+- used by: wh-028
+
+### mosquera-2018 · the TD6 sequence
+Marina Mosquera et al., "Shedding Light on the Early Pleistocene of TD6 (Gran Dolina, Atapuerca,
+Spain): The Technological Sequence and Occupational Inferences," *PLoS ONE* 13, no. 1 (2018):
+e0190889, https://doi.org/10.1371/journal.pone.0190889. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST service
+- supports: that the "Aurora archaeostratigraphic set" is a defined section of TD6.2 and "contains
+  human fossils, stone tools, and faunal remains" — the card's "one layer of one site"
+- used by: wh-028
+
+### mounier-2019 · modelling the ancestor rather than naming it
+Aurélien Mounier and Marta Mirazón Lahr, "Deciphering African Late Middle Pleistocene Hominin
+Diversity and the Origin of Our Species," *Nature Communications* 10 (2019): 3406,
+https://doi.org/10.1038/s41467-019-11213-w. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST service
+- supports: the use of "a phylogenetic modelling method to predict possible morphologies of a last
+  common ancestor of all modern humans", compared against the late Middle Pleistocene African fossils
+  (KNM-ES 11693, Florisbad, Irhoud 1, Omo II, LH18) — i.e. that the ancestor's identity is now
+  approached by modelling rather than by picking a named species off the shelf, which is the card's
+  point about what became of the grandest job in the family tree
+- used by: wh-030
+
+### hallast-2015 · the Y tree, in leaf
+Pille Hallast et al., "The Y-Chromosome Tree Bursts into Leaf: 13,000 High-Confidence SNPs Covering
+the Human Y-Chromosome Phylogeny," *Molecular Biology and Evolution* 32, no. 3 (2015): 661–73,
+https://doi.org/10.1093/molbev/msu327. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST service
+- supports: the sequencing of "3.7 Mb of MSY in each of 448 human males", "yielding 13,261
+  high-confidence SNPs", and phylogenies "in which branch-lengths are proportional to time, and
+  allowing the times-to-most-recent-common-ancestor (TMRCAs) of nodes to be estimated directly" —
+  the card's "copying errors that serve as markers, and those markers sort all living men into one
+  branching tree"
+- does NOT support the card's date: this tree deliberately EXCLUDES haplogroup A00, the deep root
+  Mendez et al. added, so its root age is not the figure the card gives. No marker points it at that
+  sentence; Karmin et al. 2015 carries it, at "254 (95% CI 192–307) kya"
+- used by: wh-048
+
+### rito-2013 · where the maternal lines meet
+Teresa Rito et al., "The First Modern Human Dispersals across Africa," *PLoS ONE* 8, no. 11 (2013):
+e80031, https://doi.org/10.1371/journal.pone.0080031. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST service
+- supports: haplogroup L0 as "the most divergent clade in the maternal line of descent" and the tree
+  splitting "into two main branches, L1'6 and L0"; and — in the authors' own words, nickname included
+  — that "the last common ancestor of modern human mtDNAs (carried by 'mitochondrial Eve') possibly
+  arose in central Africa ~180 ka, at a time of low population size"
+- used by: wh-047, wh-048 (on the latter for the sentence that the two nicknamed ancestors are worked
+  out from different pieces of DNA with separate histories: this is the mtDNA date, against Karmin's
+  Y date, and they do not coincide)
+
+## NOT CITED (batch 24)
+
+- **Daniel Richter et al. 2017**, the paper that dates Jebel Irhoud, remains **paywalled** on Nature
+  and is cited as such; no open deposit was found. What made the card's list majority-open was not
+  replacing it but adding two open reviews that restate the ca. 300 ka age (Harvati & Reyes-Centeno,
+  Scerri et al.).
+- **Günther A. Wagner et al. 2010**, "Radiometric Dating of the Type-Site for *Homo heidelbergensis*
+  at Mauer, Germany," PNAS 107: 19726–30. The obvious source for the card's 609 ± 40 ka, and it has
+  no full text in the Europe PMC service; pnas.org answers 403 and the PMC page now serves a browser
+  check. The date keeps the marker it already had.
+- **Matthias Meyer et al. 2016**, the Sima de los Huesos nuclear DNA paper, is not open. Harvati &
+  Reyes-Centeno restate it — "otherwise similar to Neanderthals in their nuclear DNA" — which is
+  exactly the batch-15 rule and is what the card's marker points at.
+- **G. David Poznik et al. 2016**, "Punctuated Bursts in Human Male Demography," *Nature Genetics* 48:
+  593–99. Indexed in PMC as an author manuscript with no deposited full text, and the PMC page is
+  JavaScript-only from here. Not cited.
+- **Dennis Behar et al. 2012**, the "Copernican" mtDNA reassessment, was opened and read but is about
+  the choice of reference sequence rather than the root's age; it does not carry the claim the card
+  makes, so it is not cited.
+- **Mark Jobling and Chris Tyler-Smith 2017**, *Nature Reviews Genetics* 18: 485–97, the obvious
+  review for the Y-chromosome card, has no PMC record at all.
+
+---
+
+## Batch 25 — ice-age climate and the Holocene
+
+Seven cards to the bar, 11 citations, and **six of the eleven needed no new reading at all**: batches
+10, 11 and 22 had already deposited the works these cards rest on, and the job was mapping sentences
+onto entries the register held. That is batch 12's finding at full strength, in the one corner of the
+deck where the scholarship is reliably open.
+
+The batch's own finding is about the other five. **Where a card describes a nineteenth-century idea,
+the idea's own author is usually the openable source** — not because a review restates him, but
+because he is out of copyright. Blytt's 1886 English statement of his theory is on the Internet
+Archive in full, and it settled the `wh-106` card's second and third sentences and disproved its
+fourth. A twentieth-century founding paper is behind a paywall; an 1886 one is not.
+
+### blytt-1886 · the alternating rainy and dry periods, in Blytt's own words
+Axel Blytt, *On Variations of Climate in the Course of Time* (Christiania: Videnskabs-Selskabs
+Forhandlinger, 1886), 8–11, https://archive.org/details/b22295525. [Open access]
+- opened: 2026-08-01 · the full OCR text at the Internet Archive (public domain)
+- supports: the peat evidence — "the oldest bogs are built of four layers of peat, and between these
+  stand three layers of stumps, so that these bogs are for the fourth time covered with trees since
+  they began to form"; the inference — "It remains, therefore, only to assume, that periods of dry
+  and wet have alternated during ages. The peat layers generally belong to the latter, and the stump
+  layers speak of drier periods, when the bogs were covered with trees"; and the title of the 1876
+  work the card dates the argument to, which Blytt lists himself: "Essay on the immigration of the
+  Norwegian flora during alternating rainy and dry periods. Chria. (A. Cammermeyer) 1876"
+- **does NOT support, and this is the correction**: that Blytt "named the warm, moist Atlantic phase
+  and the cool, dry Boreal". The 1886 paper uses neither term as a phase name — its 8 occurrences of
+  "Atlantic" are all the ocean or its current — and the companion he cites is titled *Die Theorie der
+  wechselnden kontinentalen und insularen Klimate*, i.e. continental versus insular, not Boreal
+  versus Atlantic. Nor could anything openable be found that settles who coined which of the five
+  names, so the card's claim that Sernander "added the Subboreal and Subatlantic" went with it. Both
+  sentences now say what can be checked; the five-name ORDER keeps the marker it already had, on
+  Marchal et al.
+- used by: wh-106
+
+### wang-2021 · what grew and grazed on the mammoth steppe
+Yucheng Wang et al., "Late Quaternary Dynamics of Arctic Biota from Ancient Environmental Genomics,"
+*Nature* 600, no. 7887 (2021): 86–92, https://doi.org/10.1038/s41586-021-04016-x. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST service (CC BY)
+- supports: that "a relatively homogeneous steppe–tundra flora dominated the Arctic during the Last
+  Glacial Maximum, followed by regional divergence of vegetation during the Holocene epoch"; and the
+  megafauna of it — "woolly mammoth (*Mammuthus primigenius*), woolly rhinoceros (*Coelodonta
+  antiquitatis*), steppe bison (*Bison priscus*)"
+- used by: wh-012
+
+### gaffney-2020 · Doggerland, and what the seismic surveys show
+Vincent Gaffney et al., "Multi-Proxy Characterisation of the Storegga Tsunami and Its Impact on the
+Early Holocene Landscapes of the Southern North Sea," *Geosciences* 10, no. 7 (2020): 270,
+https://doi.org/10.3390/geosciences10070270. [Open access]
+- opened: 2026-08-01 · publisher PDF via mdpi-res.com (www.mdpi.com answers 403 from here; the
+  peer-reviewed version was used rather than the bioRxiv preprint, which is also open)
+- supports: "Doggerland was a landmass occupying an area currently covered by the North Sea until
+  marine inundation took place during the mid-Holocene, ultimately separating the British landmass
+  from the rest of Europe"; "The Holocene pre-inundation landscape of the southern North Sea, known
+  as Doggerland, was a gently undulating, low-relief area associated with Mesolithic hunter-gatherer
+  communities"; and the method — palaeo-river systems "identified using seismic survey in the
+  southwestern North Sea and sedimentary cores extracted to track the Mid Holocene inundation"
+- used by: wh-096
+
+### peeters-momber-2014 · the finds that come up in the nets
+J. H. M. Peeters and G. Momber, "The Southern North Sea and the Human Occupation of Northwest Europe
+after the Last Glacial Maximum," *Netherlands Journal of Geosciences* 93, no. 1–2 (2014): 55–70,
+https://doi.org/10.1017/njg.2014.3. [Open access]
+- opened: 2026-08-01 · publisher PDF (NJG is open access; the article landing page carries the link)
+- supports: "Ever since the discovery of the Colinda point on the Leman and Ower Banks in 1931,
+  prehistoric artefacts have been brought up frequently", most of them from the Brown Bank and
+  Eurogeul off the Dutch coast; and the range of material — "artefacts of bone, antler and wood, as
+  well as human remains"
+- used by: wh-096
+
+## Reused without new reading (batch 25)
+
+Six of the eleven slots were filled from the register: `walker-2009` (the Holocene GSSP → `wh-102`'s
+NGRIP depth and its countable 11,700 ± 99), `pages-2016` (interglacials → `wh-102`'s "strictly it is
+an interglacial like others before it"), `marchal-2002` (the Blytt–Sernander order and the Atlantic
+as the Hypsithermal → `wh-105` and, for the long-term SST cooling, `wh-107`), `walanus-nalepka-2010`
+(Mangerud's calibrated boundaries → `wh-106`), `seppa-2009` (northern-European Holocene temperatures
+→ `wh-106`) and `batchelor-2019` (the Northern Hemisphere ice sheets → `wh-108`'s several hundred
+metres of crustal depression under 3 km of ice).
+
+## NOT CITED (batch 25)
+
+- **Mike Walker et al. 2012**, the INTIMATE/SQS discussion paper, could not be reopened to settle the
+  Blytt–Sernander naming question: Wiley answers 403 and the open Yale deposit the register recorded
+  is now a 404. It stays cited on `wh-106` from the earlier reading; it simply could not be re-read.
+- **Olivier Marchal et al. 2002** is cited and was cited before, but this session's copy of the WHOI
+  PDF would not yield text — the file uses an embedded encoding the extractor cannot read. The claims
+  it carries are the ones the register recorded when it was opened in batch 11, and no new claim was
+  attached to it beyond `wh-107`'s sentence on regional and seasonal structure.
+- **Rutger Sernander's own papers** are not on the Internet Archive under his name, and no open
+  history of the scheme was found in *Review of Palaeobotany and Palynology*, *Vegetation History and
+  Archaeobotany* or the Copernicus journals. The *Encyclopedia of Environmental Change* entry
+  "BLYTT-SERNANDER TIMESCALE" exists and is paywalled. This is why the naming attributions were
+  removed rather than re-sourced.
+
+---
+
+## Batch 26 — art, caves and the Americas, and the last nine cards
+
+The final batch: nine cards, thirteen citations, and **the deck reaches 109 of 109 at the five-source
+bar with nothing blocked.** The plan predicted where the sources would come from and was right — the
+heritage agencies carried five of the thirteen: the French Ministry of Culture twice (Lascaux, Chauvet),
+the Blaubeuren prehistory museum, the Cosquer Méditerranée record and the Fundação Côa Parque.
+
+Its finding is the sibling check, one card too late. **`wh-083` cave painting still carried all three
+Lascaux claims that batch 21 removed from `wh-086`** — the 17,000-year date (raw radiocarbon read as
+calendar years), the ~1,500 engravings and the five-metre black bull — in its abstract *and* on its
+date line, in all ten languages. A correction applied to the card a fact belongs to does not travel to
+the card that mentions it in passing. **Grep the deck for the figure, not just the card.**
+
+### soriano-2015 · the Still Bay and Howiesons Poort, technologically
+Sylvain Soriano et al., "The Still Bay and Howiesons Poort at Sibudu and Blombos: Understanding Middle
+Stone Age Technologies," *PLoS ONE* 10, no. 7 (2015): e0131127,
+https://doi.org/10.1371/journal.pone.0131127. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST service
+- supports: the HP as a blade-and-backed-piece industry — "blades, cores and backed pieces" as its
+  diagnostic set, "The backed tools are very distinctive", and the HP segments distinguished from Still
+  Bay bifacial points by length and breadth
+- used by: wh-052
+
+### ziegler-2013 · when the Howiesons Poort begins and ends
+Martin Ziegler et al., "Development of Middle Stone Age Innovation Linked to Rapid Climate Change,"
+*Nature Communications* 4 (2013): 1905, https://doi.org/10.1038/ncomms2897. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST service
+- supports: "the South African Still Bay (SB) and Howiesons Poort (HP) industries that are dated to
+  ∼71,500 and 64,000–59,000 years ago and are widely viewed as dynamic periods of MSA innovation"; and
+  the paper's whole argument, that the industries' appearance and disappearance track rapid climate
+  change — which is one of the readings the card's last sentence lists for the ending
+- used by: wh-052
+
+### villa-2012 · where the Later Stone Age begins at Border Cave
+Paola Villa et al., "Border Cave and the Beginning of the Later Stone Age in South Africa,"
+*Proceedings of the National Academy of Sciences* 109, no. 33 (2012): 13208–13,
+https://doi.org/10.1073/pnas.1202629109. [Paywalled]
+- opened: 2026-08-01 · **abstract only**, via `api.crossref.org/works/<doi>` (the batch-22 route). The
+  PNAS page answers 403 and Europe PMC has no deposited full text for PMC3421194, so this is cited from
+  its abstract as the landmark defining paper for the claim, per the plan's rule on paywalled works
+- supports: "Data from Border Cave (KwaZulu-Natal) show a strong pattern of technological change at
+  approximately 44–42 ka cal BP", which is the card's "runs to roughly 44,000, where a Later Stone Age
+  sequence begins"
+- note: this is the only paywalled work added in batches 23–26. `wh-054`'s list stays 4 open to 1
+  paywalled, comfortably majority-open
+
+### urmu-blaubeuren · the museum that holds her
+Urgeschichtliches Museum Blaubeuren, "Schatzkammern der Kunst," accessed 1 August 2026,
+https://www.urmu.de/en/dauerausstellung/schatzkammern-der-kunst-1. [Open access]
+- opened: 2026-08-01 · the museum's permanent-exhibition record
+- supports: the figurine's age and standing in the museum's own words — "Frauenstatuette, 40 000 Jahre
+  vor heute, Schelklingen, Alb-Donau-Kreis", and "die älteste Frauendarstellung der Welt"; the same
+  page lists the Hohle Fels waterbird and small lion-man at 40,000 years and the animal figure at 34,000
+- used by: wh-069
+
+### culture-lascaux · (already registered; extended to wh-083)
+Cited here for "There are some 600 representations of animals at Lascaux", with "Images of horses …
+by far the most numerous, followed by equal numbers of stags and aurochs, and then by ibexes and
+bison"; and for the occupation "somewhere between 21,500 and 21,000 years before present".
+- **the correction it forced on wh-083**: the card had Lascaux "painted about 17,000 years ago" with
+  "nearly 1,500 engravings, among them a black bull over five metres long". All three were removed
+  from `wh-086` in batch 21 and had survived here, in the abstract and the date line, in ten languages
+- used by: wh-086, wh-083
+
+### minculture-chauvet-art · the images and how they were made (official record)
+Ministère de la Culture (France), "Aurignacian Cave Art," *La grotte Chauvet-Pont d'Arc*, accessed
+1 August 2026, https://archeologie.culture.gouv.fr/chauvet/en/aurignacian-cave-art. [Open access]
+- opened: 2026-08-01 · full text (official heritage-agency page)
+- supports: "Among the 435 animal images discovered, mammoths, felines, rhinoceros and bears represent
+  almost 65% of the identifiable species", with horse, bison, aurochs, ibex, deer, megaloceros,
+  reindeer, muskox, owls, panthers and possibly hyenas besides — the card's "more than 400 of them
+  animals of at least 14 species"; and the techniques, "stump-drawing to model the internal relief of
+  the animals, outlining to make them stand out and attempts to depict perspective. Engraving,
+  charcoal and red paint were used"
+- note: this page gives "two major periods of occupation … around 36,500 years ago … and the most
+  recent between 30,000 and 31,000 years ago", where the card follows Quiles et al. 2016 at
+  37,000–33,500 and 31,000–28,000. Both are in the literature and the card's marker points at Quiles;
+  the discrepancy is recorded here rather than resolved
+- used by: wh-084
+
+### bayarri-2023-altamira · the Polychrome Hall, and why nobody goes in
+Vicente Bayarri, Alfredo Prada, and Francisco García, "A Multimodal Research Approach to Assessing the
+Karst Structural Conditions of the Ceiling of a Cave with Palaeolithic Cave Art Paintings: Polychrome
+Hall at Altamira Cave (Spain)," *Sensors* 23, no. 22 (2023): 9153, https://doi.org/10.3390/s23229153.
+[Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST service (MDPI, CC BY)
+- supports: the Polychrome Hall as the ceiling in question and its central fracture; and that "Access
+  to the Altamira cave is restricted to protect its integrity and historical value. Conservation
+  measures have been put in place to limit the time visitors and researchers can stay in the cave"
+- used by: wh-085
+
+### prada-2024-altamira · what is eating the ceiling
+Alfredo Prada and Vicente Bayarri, "Methodology for the Monitoring and Control of the Alterations
+Related to Biodeterioration and Physical-Chemical Processes Produced on the Paintings on the Ceiling
+of the Polychrome Hall at Altamira," *Conservation* 4, no. 4 (2024): 703–30,
+https://doi.org/10.3390/conservation4040042. [Open access]
+- opened: 2026-08-01 · abstract and metadata via Crossref; MDPI *Conservation* is open access
+- supports: that "a series of active deterioration processes are evident" on the paintings' surface,
+  "leading to significant alterations", and that they are monitored campaign by campaign — the
+  standing reason the cave keeps being closed
+- used by: wh-085
+
+### cosquer-mediterranee · the cave's own chronology
+Cosquer Méditerranée, "The History of the Cave," accessed 1 August 2026,
+https://www.grotte-cosquer.com/en/the-history-of-the-cave/. [Open access]
+- opened: 2026-08-01 · the replica's official record, published with the DRAC Provence-Alpes-Côte d'Azur
+- supports: "1985: DISCOVERY OF THE CAVE BY HENRI COSQUER IN THE TRIPERIE CREEK NEAR CAPE MORGIOU"; the
+  entrance "located 37 metres beneath the sea level"; "2 SEPTEMBER 1992: THE CAVE WAS CLASSIFIED AS A
+  HISTORICAL MONUMENT"; the two phases of occupation "from 33,000 BP to 19,000 BP" from "around sixty
+  Carbon-14 dating tests performed on forty-one samples collected between 1992 and 2012"; and the
+  replica itself
+- used by: wh-087
+
+### buchanan-2012 · what the cached points were for
+Briggs Buchanan et al., "A Morphometric Assessment of the Intended Function of Cached Clovis Points,"
+*PLoS ONE* 7, no. 2 (2012): e30530, https://doi.org/10.1371/journal.pone.0030530. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST service
+- supports: the standing disagreement over what Clovis points were for, and the use of point shape to
+  test whether cached specimens were weapon tips at all — the card's "How it was used is the open
+  question"
+- used by: wh-092
+
+### evans-2026-murujuga · the emissions question, as it now stands
+K. A. Evans et al., "Impacts of Industrial Emissions on Rock Art at Murujuga, Western Australia,"
+*Scientific Reports* 16 (2026): 13805, https://doi.org/10.1038/s41598-026-44180-6. [Open access]
+- opened: 2026-08-01 · full text at nature.com (CC BY)
+- supports: "The Murujuga Archipelago, Western Australia, hosts over one million petroglyphs that
+  preserve indigenous knowledge spanning 50,000 years"; that this "newly UNESCO-listed world heritage
+  site is co-located with heavy industry"; and the state of the argument — "the rain is not acidic,
+  that rock surface pH patterns do not reflect current air-quality patterns, but that the porosity of
+  the outer layer of granophyre rocks is elevated in areas where historic SO2 emissions were highest",
+  so "the acid deposition theory is flawed" and "damage at Murujuga is likely historic"
+- the card says only that whether the emissions are damaging the engravings "is the sharpest question
+  hanging over the site", which this paper is; it does not assert an answer, and should not, because
+  this paper's answer is that the received one was wrong
+- used by: wh-097
+
+### neumann-2022-murujuga · what actually weathers a petroglyph
+Jolam T. Neumann et al., "Artificial Weathering of Rock Types Bearing Petroglyphs from Murujuga,
+Western Australia," *Heritage Science* 10 (2022): 77, https://doi.org/10.1186/s40494-022-00706-5.
+[Open access]
+- opened: 2026-08-01 · publisher full text (BMC, CC BY)
+- supports: that the visible contrast of a petroglyph depends on the weathered outer rind and changes
+  as that rind alters — the card's point that the contrast fades as varnish reforms inside the cut
+- used by: wh-097
+
+### coa-parque · the dam, and the listing
+Fundação Côa Parque, "The Côa Battle: World Heritage," accessed 1 August 2026,
+https://arte-coa.pt/en/the-coa-battle/. [Open access]
+- opened: 2026-08-01 · the foundation that runs the Côa Valley Archaeological Park
+- supports: "In 1998, in the fastest classification process ever, UNESCO included the Prehistoric Rock
+  Art of the Côa Valley in the World Heritage List"; and "the pertinence of the Portuguese
+  government's decision to cancel the dam and protect in situ … the Côa engravings"
+- does NOT support the card's "1995" for the cancellation or the "petroglyphs cannot swim" slogan.
+  Neither was found in anything openable; both are left in the card **unmarked**, and the marker on
+  that sentence covers the cancellation and the listing three years later, which this page does carry
+- used by: wh-097

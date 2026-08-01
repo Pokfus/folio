@@ -446,8 +446,11 @@ rule for authors is simply **do not end a sentence on the era abbreviation**; mo
 post-marking 5+5 assertion added in 17b caught this immediately, along with two more CJK sentences that had
 been written as two. That guard has now paid for itself three times in two batches.
 
-### Batch 18 · Public-domain founding literature (4 cards, 20 citations)
+### Batch 18 · Public-domain founding literature (4 cards) — **DONE (2026-07-31)**
 `wh-017` Olduvai Gorge · `wh-025` Java Man · `wh-026` Peking Man · `wh-027` Zhoukoudian
+
+**Cited:** all four. 25 citation slots from 17 distinct works, **every one of them open**. Coverage went from
+`cards 92/109` to `96/109`, and from **59 to 63 cards at the bar**. Nothing deferred.
 
 Cards whose founding announcements are closed but whose founding **monographs** are old enough to be out of
 copyright and scanned. Batch 13 scouted three of these and left the exact identifiers:
@@ -469,9 +472,102 @@ copyright and scanned. Batch 13 scouted three of these and left the exact identi
 claimed*, not for what is currently known. Cite Dubois for Dubois's own find and description; take the
 modern dating and taxonomy from something modern, or the card will quietly present 1894 as settled fact.
 
-### Batch 19 · The hominin taxa, via open reviews (5 cards, 25 citations)
+### Batch 18 log — the founding literature, and what it will not carry
+
+#### 2026-07-31 — four cards, four commits
+
+**The batch's premise held for one card and failed for three, which is the finding.** Dubois's 1894
+*Pithecanthropus erectus* is everything batch 13 promised — public domain, legible, and it settles the
+discovery sequence to the day: the molar in September 1891, the skullcap a month later from the same level
+"nur 1 M. weit" away, the femur in August 1892 fifteen metres upstream, and a footnote recording that
+Haeckel had coined *Pithecanthropus* in 1868 for a creature nobody had seen. Weidenreich's 1943
+*Palaeontologia Sinica* volume is the same kind of find, and its preface is the whole of `wh-026`'s ninth
+sentence in the author's own words. But **a founding monograph answers the questions its author asked**,
+and most of what these four cards claim is not in them. Everything about numbers, dates, dimensions and
+the modern reading of the fossils had to come from open reviews, and where no open review carried it, the
+claim went.
+
+**Five claims were dropped outright rather than sourced**, which is more than any previous batch:
+
+- **Zhoukoudian Locality 1's "about 140 m long and 40 m deep … 13 layers."** The figures are everywhere and
+  are in no work that could be opened. The abstract now describes a karst fill whose numbered layers run
+  from about 400,000 years at the top to beyond 750,000 at the base, which d'Errico et al. 2021 and Xing et
+  al. 2018 do carry between them, and the date line says the same.
+- **The Upper Cave needle's "five centimetres."** d'Errico et al. 2021 says only that it is the cave's one
+  formal bone tool, which is the more interesting fact anyway.
+- **Binford & Ho 1985.** journals.uchicago.edu returns 403 here and no deposit or open restatement of the
+  hyena-accumulation argument exists. Only the Crossref metadata was ever opened, and **citing a paper from
+  its title is exactly what this apparatus exists to prevent** — so `wh-027` no longer names Binford. What
+  replaced it is better: Weidenreich already had hyenas denning in the fissure and cracking the bones
+  fresh, on page 190 of the 1943 volume, forty years before the argument was made.
+- **"He later named the whole Oldowan industry after it."** In nothing opened for this batch, including
+  Plummer et al. 2025, the register's own Oldowan review.
+- **Zhoukoudian's "dragon bones" sold as medicine**, and **Olduvai's "some 70 hominin fossils."** Both
+  replaced by sourced facts — the *erectus* braincase range from the Zhoukoudian endocast table, and the
+  NCAA's own list of what the gorge has produced.
+
+**A working rule, and it is the batch's best return.** Three of the four cards were rescued by sources that
+are not journal articles at all: **a government advisory report, a ministry press record and two national
+museum records.** The Commissie Koloniale Collecties' 2025 advice on the Dubois collection is a 24-page
+Dutch state document that gives the collection's size, its inventory numbers, the date Dubois landed on
+Sumatra, the 1889 decree that put up to 50 forced labourers at his disposal, and Dubois's own name for the
+Trinil site — "Javas hel". Nothing in the palaeoanthropological literature carries any of that. The
+Smithsonian's Human Origins fossil records gave OH 5's discoverer, year and age and OH 7's status as the
+type specimen, where Leakey/Tobias/Napier 1964 is closed. **When a card is about an object, an institution
+or an act of state, look for the body responsible before looking for a paper** — batch 8b's museum-catalogue
+rule, generalised.
+
+**Twenty-five corrections**, in English and all nine languages. The ones worth carrying forward:
+
+- **`wh-025` had Dubois giving up "a lectureship in Amsterdam" and borrowing the genus "from his old
+  teacher Ernst Haeckel."** Neither is in anything opened. The advice says he enlisted in the KNIL as a
+  medical officer to give himself the chance to do research in the Indies; Dubois's own footnote names
+  Haeckel as the coiner and nothing more. Haeckel taught Dubois's teacher, not Dubois.
+- **The repatriation is 28,000 specimens, not 40,000**, and the December 2025 handover was of three bones
+  and an incised shell, with the rest to follow during 2026.
+- **The femur controversy has an answer now.** Pop et al. 2023 reconstructed the historical pits and found
+  younger terrace channels cutting the reconstructed find spot of Femur I, "thereby providing an
+  explanation for the relatively modern morphology of this 'bone of contention'." The card said only that
+  the suspicion was never laid to rest.
+- **`wh-026`'s "more than 770,000 years" is a press summary.** Shen et al. 2009's weighted mean is
+  0.75 ± 0.09 Ma; Xing et al. 2018 gives ≥750 kyr. Corrected on the card, in the date line and in nothing
+  else, because the question pool did not repeat it — the one card of the four where the batch-8 rule
+  found nothing.
+- **"Dismissed in 1998 as the work of lightning" is a retelling.** Weiner et al. 1998 is one of five studies
+  from the 1980s onward doubting *in situ* burning; lightning is not what any of them argued.
+- **Not every original Peking Man bone was lost.** Digs from 1949 to 1959 and in 1966 recovered six teeth
+  and a mandible. The date line said "known today only from casts" and the third question phrasing said
+  "after every original bone was lost"; both were wrong and both were rewritten.
+- **`wh-017`'s Kattwinkel was not an entomologist.** Gentry, Gentry & Mayr 1995 record exactly how that
+  story got started: "the name of Kattwinkel became known as that of a butterfly collector who had stumbled
+  by accident on the Gorge", whereas the 1911 journey "arose from his professional interest in sleeping
+  sickness and was a scientific expedition" — and Martha Kattwinkel was there too. The same page gives the
+  gorge's shape as 37 km plus a 9 km run to the Balbal depression, against the card's 48, and the name as
+  coming from *Duvai*, "the Masai word for the sisal plant which grows in the area", which is the etymology
+  no journal article carries.
+- **OH 5 is about 1.8 million years old**, per the Smithsonian record. The card's 1.75 is the 1961
+  potassium-argon figure, and it was in the third question phrasing as well — the batch-8 rule catching one
+  on three of the four cards.
+
+**On the mechanism, nothing broke.** The post-marking 5+5 assertion added in 17b fired twice, both times on
+Japanese, both times because an English sentence had been rendered as two. `split-abstract.js` needed no new
+guards; the batch's abstracts were written rather than spliced, and the build script asserts the split
+after marking in all ten languages before anything is written.
+
+**What batch 19 should know.** The Smithsonian Human Origins fossil and species records are open, stable and
+locatable, and they cover exactly the ground batch 19 is short of: `wh-013`, `wh-016`, `wh-019`, `wh-020`
+and `wh-046` are all discovery cards whose founding papers are closed, and every one of them has an SI
+record. That will not fill five slots on its own, but it is a floor under the batch that did not exist when
+it was planned.
+
+### Batch 19 · The hominin taxa, via open reviews (5 cards) — **DONE (2026-08-01)**
 `wh-013` Australopithecus · `wh-016` Homo habilis · `wh-019` Homo ergaster · `wh-020` Turkana Boy ·
 `wh-046` Homo sapiens idaltu
+
+**Cited:** all five. 28 citation slots from 21 distinct works, 17 of them open. Coverage went from
+`cards 96/109` to `101/109`, and from **63 to 68 cards at the bar**. Nothing deferred, and `wh-046` — the
+one the plan expected to come back short — reached the bar with three open sources and two landmark
+abstracts.
 
 The batch-1/2/4 deferrals, re-attempted with **batch 15's rule: when the discovery paper is closed, look for
 the review that restates it.** That rule reopened the southern African MSA, where Henshilwood and Marean are
@@ -488,7 +584,78 @@ already bear on `wh-019` and `wh-020`.
 `wh-046` Herto is the likeliest of the five to stay short: it is a discovery card whose two 2003 *Nature*
 papers are the whole of it. If it comes back short, that is a red mark and a log entry, not a fudge.
 
-### Batch 20 · The southern African record, second attempt (3 cards, 15 citations)
+### Batch 19 log — the museum record is the review that restates it
+
+#### 2026-08-01 — five cards, three commits
+
+**Batch 15's rule was the plan's premise and it was only half of the answer.** The rule says: when the
+discovery paper is closed, look for the review that restates it. It worked exactly once here, and
+handsomely — Kimbel & Villmoare 2016, in the same open *Phil Trans R Soc B* theme issue that gave batch 1
+its Antón, carries the whole of `wh-016`'s second block, including the sentence the card most needed, that
+Leakey and colleagues "dropped Arthur Keith's 'Cerebral Rubicon' of 750 to 600 cc to accommodate the new
+Olduvai material." What carried the other four cards was **batch 18's rule instead: look for the body
+responsible.** Seven of this batch's twenty-one works are Smithsonian Human Origins records — five species
+pages and two fossil records — and between them they supply the dates, the body sizes, the discoverers, the
+discovery years, the type-specimen status and the cranial capacities that Dart 1925, Leakey/Tobias/Napier
+1964 and Brown et al. 1985 hold behind paywalls. **A museum's catalogue is a review that restates the
+founding paper, and it is open by policy rather than by luck.** That is the finding to carry into batch 20.
+
+**`wh-046` was expected to come back short and did not.** The plan said Herto "is the likeliest of the five
+to stay short: it is a discovery card whose two 2003 *Nature* papers are the whole of it. If it comes back
+short, that is a red mark and a log entry, not a fudge." It reached five with three open sources — Stringer
+2016, Rightmire 2009 and Zollikofer et al. 2022, all in PMC — plus the two *Nature* abstracts, which between
+them carry the dating, the technocomplexes, the hippopotamus butchery and the mortuary modifications in as
+many words. The lesson is narrow and worth stating: **a discovery card is not the same as a card that can
+only be sourced from the discovery paper.** Herto has been re-examined three times in open venues since
+2003, and every re-examination restates the find before disputing it.
+
+**Ten corrections**, in English and all nine languages:
+
+- **`wh-016`'s span was 2.3 to 1.5 million years.** The Smithsonian record gives 2.4 to 1.4. Corrected on
+  the card and the date line.
+- **Its brain was given as "somewhere between 500 and 800 cubic centimetres."** That is the old textbook
+  range. Kimbel & Villmoare give Spoor's reconstruction of the type specimen itself at 729–824 ml and the
+  early-*Homo* mean as "just shy of 40% larger than that of *Australopithecus*" — both more precise and both
+  checkable.
+- **The 2007 Ileret jaws and their "nearly half a million years" of overlap could not be sourced**; Spoor et
+  al. 2007 is closed and the reviews cite it without restating the figure. Replaced with the contemporaneity
+  Kimbel & Villmoare do state, at Olduvai.
+- **"Some researchers wanting the species shifted back to *Australopithecus*"** is now Wood and Collard, who
+  made the argument, named as the review names them.
+- **`wh-019`'s "meaning workman in Greek" is in nothing that could be opened.** Cela-Conde & Ayala give the
+  authority and year and no gloss; Groves & Mazák 1975 is in a Czech journal with no open copy. Dropped from
+  the abstract, the date line **and the main question phrasing**, which led with it.
+- **`wh-019`'s seven diagnostic traits and their rebuttal** are likewise unsourceable. What replaced them is
+  better: Antón et al.'s regional brain-size ranges — Africa and Georgia 546–1,067 cc, China 855–1,225,
+  Indonesia 813–1,251 — which show one broad range rather than two, and their finding that later
+  chronostratigraphy "diminished and, in some cases, eliminated the time difference." The second question
+  phrasing carried the traits too and was rewritten.
+- **`wh-020` was a year out and a fraction too complete.** The Smithsonian record gives about 1.6 million
+  years, not 1.5, and "This skeleton is 40% complete", not "almost every part of the body except the hands
+  and feet". Both corrected on the card, the date line and the main question.
+- **Its age framing was folklore.** "His bones are those of a boy of about 11 or 12 by the standards of
+  modern growth" is in nothing opened; what the museum states is that he was eight or nine and grew at "a
+  growth rate similar to that of a living great ape". The third question phrasing carried the 11-or-12 and
+  went with it — the batch-8 rule catching one again.
+- **`wh-046` lost three figures.** The "pieces of seven more people", the "more than 600 stone tools" and
+  the child's skull "worn glossy by handling" are in no open source and not in either *Nature* abstract. The
+  card now gives what the abstracts give, and the third question phrasing, which was built on the glossy
+  skull and on a claim to be "the earliest strong evidence anywhere", was rewritten.
+- **`wh-046`'s later comparisons were vaguer than its own source.** "Wider comparisons in 2011 and 2014"
+  became Stringer's own 2016 verdict, quoted where the card had paraphrased second-hand.
+
+**On the mechanism.** The post-marking 5+5 assertion fired six times, every one of them on Japanese and
+every one the same cause: an English sentence rendered as two. It has now caught something in every batch
+since 17b. Nothing else needed changing; `split-abstract.js` took no new guards.
+
+**What batch 20 should take from this.** The southern African cards — `wh-031`, `wh-051`, `wh-055` — are
+about **sites**, not taxa, so the Smithsonian species records will not help. But the same principle points
+somewhere: Blombos and Klasies River are excavated under South African Heritage Resources Agency permits and
+curated by the Iziko museums, and the SAHRA site records are the body-responsible equivalent. Check whether
+they publish per-site records before planning the batch around journal reviews alone — batch 13's warning
+applies, that a website is not a catalogue.
+
+### Batch 20 · The southern African record, second attempt (3 cards, 15 citations) — **DONE (2026-08-01)**
 `wh-031` Middle Stone Age · `wh-051` Blombos Cave · `wh-055` Klasies River Caves
 
 Batch 5 deferred these when Henshilwood 2002/2011 and the Klasies literature proved closed. **Batch 15 then
@@ -499,7 +666,69 @@ and should be worked last of the three, so the sibling-consistency check has the
 McBrearty & Brooks 2000 is the framing work for all three and is in the register. The South African Heritage
 Resources Agency record is the official source for a site card that needs one.
 
-### Batch 21 · Sites with an institution behind them (3 cards, 15 citations)
+### Batch 20 log — the comparison paper is the review that restates it
+
+#### 2026-08-01 — three cards, 18 citations, one commit
+
+**All three went through, and the plan's own premise for the batch was wrong in an instructive way.**
+It said to check whether the South African Heritage Resources Agency publishes per-site records, on the
+model of batch 18's museum catalogues. SAHRIS does have a page for Klasies River — a permit case file —
+and it returned 503 on every attempt; nothing was lost, because the route that actually worked was
+neither the institutional record nor batch 15's open review of the discovery paper. It was a third thing.
+
+**When the founding paper is closed, look for the paper that CITES it as a comparison.** Every famous
+Blombos find is restated in full inside somebody else's open article, by an author who needed it as
+background for their own site: Bouzouggar et al. 2007 give the 41 pierced *Nassarius* shells, the ≈75,000-
+year OSL/TL age, the two engraved ochres and the 400 Still Bay points because they are comparing Blombos
+with Taforalt; Rosso et al. 2016 give the two 100 ka ochre toolkits because they are comparing them with
+Porc-Epic. This is not the same move as batch 15's — a review restates a field, a comparison restates one
+rival site, and the second is much easier to find because you can search for the site name inside the open
+corpus rather than hoping a synthesis exists. **Search for the site's name in other sites' papers.**
+
+**Klasies River needed no indirection at all, because its excavator publishes open.** Sarah Wurz's team
+put two 2022 papers in *Frontiers in Earth Science* and a 2024 fauna paper in *Southern African Field
+Archaeology* on SciELO, and between them they carry the site's composition, its 21 m of deposit, its three
+excavation campaigns, its U-Th speleothem ages, its shellfish and its animals. Batch 5 and batch 15 both
+deferred this card on the strength of Marean's closed *Journal of Archaeological Science* papers without
+checking whether anyone was still digging there and where they publish. **Check who is excavating now,
+not only who published the landmark.**
+
+**What could not be sourced, and what it cost.** The card's closing sentence — that many of the human
+bones carry cut marks, percussion damage and burning, widely read as cannibalism — has no openable source.
+White 1987 is in *Sagittarius*, a magazine with no DOI; Grine, Wurz & Marean 2017's abstract does not
+mention cut marks; a Europe PMC full-text search over the whole open-access corpus for "Klasies" and
+"cannibalism" returns **zero hits**; and a grep of Reynard 2022's full text — done by grep and not by a
+summariser, precisely because this is where a citation would have been invented — finds cut marks only on
+animal bone. The sentence was dropped and the third question phrasing rewritten with it, per the batch-8
+rule. What replaced both is the **Klasies Pattern** from Grine et al.'s abstract, which is the same
+observation one step back and fully sourced: just over 70% of the human remains are skull, the limb-bone
+shafts are absent altogether, and the proportions echo the butchered bovids — with the authors' own hedge
+that it may partly reflect how the site was dug.
+
+**The sibling check earned its place in the plan twice.** `wh-031` was worked last, as instructed, and:
+- Its Still Bay was dated "about 75,000 to 71,000 years ago" while `wh-052`, `wh-053` and now `wh-051` all
+  take Jacobs et al. 2008's **71.9–71.0 ka** from the register. Corrected, and the Howiesons Poort's
+  64.8–59.5 ka added beside it.
+- Its Middle Stone Age ended "about 30,000 years ago", where `wh-003` Middle Palaeolithic ends at 40,000
+  and `wh-054` Border Cave has a Later Stone Age beginning at 44,000. Hallinan 2026 settles it at
+  **300–40 ka**, so the card was wrong against three of its own siblings and against the standard scheme.
+
+**Two nineteenth- and twentieth-century corrections came from reading the primary documents, both open.**
+Malan's paper in the 1955 congress proceedings shows the term is **Goodwin's alone, from a paper of 1928**;
+1929 is the joint volume with van Riet Lowe that set out the three stages, and the card had merged the two.
+And the Congress did not "endorse the scheme in 1955": **Resolution 6** recommended a *five*-part frame —
+the three stages with a First and a Second Intermediate inserted — after "over three hours' discussion",
+and it "was carried with two against". The whole 440-page volume is OCR'd on the Internet Archive
+(`archive.org/details/in.gov.ignca.6340`), which makes the 1957 proceedings of a 1955 congress a fully
+citable open source. **Old conference proceedings are often the most openable thing in a naming history.**
+
+**What batch 21 should take from this.** Its three cards — Atapuerca, Dolní Věstonice, Lascaux — are all
+sites, and this batch's finding applies directly: before hunting for a catalogue or a review, search each
+site's name inside the open-access corpus and see which *other* excavation cites it as a comparison. It
+also inherits the Klasies question: for each of the three, find who is digging there now and where that
+team publishes.
+
+### Batch 21 · Sites with an institution behind them (3 cards, 15 citations) — **DONE (2026-08-01)**
 `wh-029` Atapuerca Mountains · `wh-074` Dolní Věstonice · `wh-086` Lascaux
 
 The three hardest, kept together because they need the same two techniques and both are known to work:
@@ -518,7 +747,56 @@ The three hardest, kept together because they need the same two techniques and b
   17,000 years ago" is uncalibrated radiocarbon read as calendar years (Ducasse & Langlais put the
   occupations at ~21,000 cal BP), and the Great Bull is ~5.6 m, not 5.2 (Jouteau 2023).
 
-### Batch 22 · The pollen chronozones (2 cards, 10 citations)
+### Batch 21 log — the institution was right, the institution was not a museum
+
+#### 2026-08-01 — three cards, 19 citations, one commit
+
+**All three went through, and the plan's premise was two-thirds right for a reason worth naming.** It said
+these needed the holding institution's catalogue (batch 8b) or the `/document` trick (batch 15). The
+institution route carried Lascaux and Atapuerca completely — but neither institution is a museum with an
+object catalogue. **Lascaux is carried by a government ministry's scholarly portal** and Atapuerca by **a
+foundation's project timeline**, and between them they supplied eleven of this batch's nineteen citations.
+Batch 13's warning that "a website is not a catalogue" has a converse: *a catalogue is not the only kind of
+institutional record.* A ministry publishing the science of a monument it owns, or a foundation publishing
+the year-by-year history of a dig it funds, is the same thing one level up — and it is where the discovery
+dates, the excavation histories, the World Heritage years and even a fossil's nickname actually live.
+
+**The `/document` trick is dead on two hosts.** Batch 15 reversed a wrong access call by fetching
+`hal.science/hal-XXXXXX/document` instead of the landing page. Both HAL and OpenEdition now serve an Anubis
+proof-of-work challenge on the file path too, so Ducasse & Langlais 2019 — genuinely open access, the paper
+that redates Lascaux — could not be read here at all. It is not cited. What replaced it is the Ministry's own
+dating page, which states the result in full. **Do not re-try `/document` on those two hosts, and do not label
+a work paywalled because a bot wall stopped you** — that is a different fact and the register now says so.
+
+**The uncalibrated-radiocarbon error turned up twice more.** Lascaux's "about 17,000 years ago" is
+uncalibrated BP read as calendar years; the Ministry gives 21,500–21,000 years before present at the
+Badegoulian–Magdalenian turn. Dolní Věstonice's "roughly 29,000 to 25,000 years ago" is the same mistake;
+calibrated dates on human bone there and at Pavlov run 31,270–29,260 cal BP. **When a prehistory card carries
+a suspiciously round age in the twenties or thirties of thousands, check whether it is BP or cal BP before
+anything else** — after Lascaux, Dolní Věstonice and batch 14's Toba figure, this is the single most common
+error class the pass has found.
+
+**What was dropped, and it was a lot.** This batch cut more unsourceable colour than any before it:
+- Lascaux: the 1,500 engravings, horses at 60 per cent, the 5.2-metre aurochs and its claim to be the largest
+  animal figure in all cave art, the million visitors, and André Malraux by name. Also corrected: the cave has
+  **seven** sectors, not nine galleries; **Georges Agniel**, not Agnel; and the white disease of 2001 is a
+  *fungus*, not calcite — the calcite is the wall the paintings sit on.
+- Atapuerca: the mining railway of the late 1800s, the 500 metres inside Cueva Mayor, the 13-metre shaft, the
+  6,500 bones (a stale count — the collection has nearly doubled since 2004) and the quartzite handaxe read as
+  an offering. Pink is **most of a midface**, not a piece of jaw and cheekbone.
+- Dolní Věstonice: Karel Absolon and 1924, the woman under the mammoth scapulae with her flint point and fox,
+  and — the biggest loss — **the five-centimetre ivory head said to portray her**. Nothing openable carries any
+  of it. And the triple burial's "two young men flanking a third" preserved exactly the ambiguity that DNA
+  closed in 2016: all three were male.
+
+**What batch 22 should take from this.** Its two cards are the pollen chronozones, which are defined rather
+than excavated, so there is no institution to ask — but there is a standard: the **INTIMATE / IUGS
+stratigraphic definitions**, which are published open by the bodies that set them. That is this batch's rule
+in its purest form, and it is the first thing to try before any journal search. Check the boundary ages
+against the sibling cards (`wh-102` Holocene, `wh-105` Atlantic period, `wh-107`) before writing, since the
+chronozones are exactly the kind of card that goes out of step with its neighbours.
+
+### Batch 22 · The pollen chronozones (2 cards, 10 citations) — **DONE (2026-08-01)**
 `wh-103` Preboreal · `wh-104` Boreal
 
 Last, and the likeliest pair in the deck to end red. Their defining content *is* the pollen-zone
@@ -531,7 +809,53 @@ a good deal of Holocene pollen work; and the national geological surveys, which 
 schemes as working stratigraphy. If neither carries the vegetation claims, mark both red with the reason and
 say so in the changelog — a period card that cannot be sourced is worth reporting honestly.
 
-### Batch 23 · Top-up: the framework and the oldest toolmakers (10 cards, 19 citations)
+### Batch 22 log — the register had it, and the vegetation was open in Dutch
+
+#### 2026-08-01 — two cards, 12 citations, one commit. **Every card in the deck now carries sources.**
+
+**The batch the plan expected to end red did not.** It said the defining content of these two cards *is*
+the palynology, that the palynology is closed, and that if neither the Scandinavian journals nor the
+geological surveys carried it the honest thing was a red mark and a changelog line. Two things it did not
+foresee:
+
+**Most of what these cards needed was already in the register.** Batch 12's finding, again and more
+strongly: a definitional card's claims are claims some other card already makes. Marchal 2002, Walker 2012,
+Walker 2018 and Walanus & Nalepka 2010 were all deposited by batches 11 and 12 for `wh-102`, `wh-105` and
+`wh-106`, and between them they carry the entire framework — the Blytt–Sernander order, Mangerud's
+radiocarbon boundaries, their calibration, the Holocene GSSP, and the warning that the scheme is
+time-transgressive and regional. **Before searching for a chronozone card, read the register.**
+
+**And the vegetation, presumed shut, is open — in Dutch stratigraphy rather than Scandinavian.** The
+*Netherlands Journal of Geosciences* is open by policy, and Bos & van Geel's Haelen sequence gives the
+birch expansion, the three-part subdivision of the Preboreal, the Rammelbeek phase with a calibrated age,
+the return to humid conditions, and the hazel rise that opens the Boreal. The plan looked north; the
+answer was one country west. **When a regional scheme is named for one country's bogs, check the
+neighbours' — the same pollen zones are worked, and their journals may be open where the type region's are
+not.**
+
+**A third route, new and worth keeping: the Crossref API serves publisher-deposited abstracts.**
+`api.crossref.org/works/<doi>` returned the full abstract of Groß et al. 2019 on Duvensee, a closed *The
+Holocene* paper with no PubMed record. Where PubMed and Europe PMC have nothing, try Crossref before
+concluding an abstract cannot be read.
+
+**The corrections are arithmetic, and one of them is a sibling contradiction.** Walanus & Nalepka's table
+calibrates Mangerud's boundaries: 10,000 ¹⁴C BP → 9500 BC, 9,000 → 8200 BC, 8,000 → 7000 BC. So the
+Preboreal is 11,450–10,150 cal BP, not 11,650–10,500, and the Boreal is 10,150–8,950 cal BP, not
+10,500–8,000. The Boreal's stated end was the sharp one: `wh-105` already had the Atlantic beginning at
+8,000 ¹⁴C BP, "roughly 7000 BCE", so the Boreal could not also end 8,000 calendar years ago — and the
+card's closing sentence hung the end of the zone on the 8,200-year cold snap, which on these numbers falls
+seven centuries inside the Atlantic, as does the Storegga flooding of Doggerland. Both now read as events
+that follow the zone. **Whenever a card gives an age both in ¹⁴C years and in "years ago", check that the
+second is the calibration of the first and not a separate guess.**
+
+**What was dropped**: the Firbas pollen-zone numbers IV, V and VI (standard, certainly right, in nothing
+opened — and the vegetation they stand for is now given directly); hazelnuts at "more than 60 percent fat"
+and the deliberate-planting question, both from the closed Holst 2010; and the Blytt–Sernander origin
+story — Dau's 1829 layers, the Academy prize, Blytt 1876, Sernander, von Post — which `wh-103` told at
+length and which nothing opened supports. **That history also sits unsourced on `wh-106`, and batch 23
+should either source it there or trim it.**
+
+### Batch 23 · Top-up: the framework and the oldest toolmakers (10 cards, 19 citations) — **DONE (2026-08-01)**
 `wh-005` Stone Age 4→5 · `wh-008` Knapping 3→5 · `wh-009` Hunter-gatherer 3→5 · `wh-011` Ice age 3→5 ·
 `wh-014` Lomekwi 3→5 · `wh-015` Oldowan 3→5 · `wh-021` Wonderwerk Cave 4→5 · `wh-022` Acheulean 2→5 ·
 `wh-023` Hand axe 2→5 · `wh-098` Control of fire 4→5
@@ -544,7 +868,68 @@ et al. 2026, Roebroeks & Villa 2011, Sorensen et al. 2018, Davis et al. 2025, Ha
 Domínguez-Rodrigo & Alcalá 2016, Muller et al. 2022. `wh-022` and `wh-023` need three each and are the two
 to start on.
 
-### Batch 24 · Top-up: *erectus*, *sapiens* and the genetics (7 cards, 15 citations)
+### Batch 23 log — a top-up finds the errors the first pass could not see
+
+The first top-up, and it took the plan's own advice: `wh-022` and `wh-023` first, then the rest.
+Nineteen slots, six of them filled from works the register already held (Kanjanajuntorn 2020, Li et al.
+2022, Gibbard & Head 2010, the Smithsonian *afarensis* record) and thirteen from new reading. All ten
+cards are now at the bar; **coverage went 76 → 86 of 109**.
+
+**The finding, and it will hold for batches 24–26: a top-up is where the errors are.** A first pass has
+to justify the sentences it marks, and nothing else; the sentences it leaves bare are where an unchecked
+claim survives, and a top-up goes looking at exactly those. Four of the ten cards changed prose, and in
+every case the wrong figure was in a sentence with no marker on it:
+
+- **`wh-022`** ended the Acheulean "roughly 170,000 to 130,000 years ago", a range no source in front of
+  the card carried. De la Torre's accepted span is 1.75 to **0.125 Myr**, and Herries has southern
+  Africa out of the Acheulian by 511–435 ka, so the end is regional. Now "about 125,000 years ago,
+  ending far earlier in some regions than in others" — and the same figure was sitting on the date line.
+- **`wh-023`** had Frere sending his report "in June 1797" under "the huge jawbone of an unknown beast".
+  Both are in Frere's own letter and **neither is in anything openable**: *Archaeologia* 13 is on
+  Cambridge Core behind a paywall with no abstract, and the British Museum's catalogue — which batch 18
+  would have gone to — is behind Cloudflare. The card follows the open sources to the 1800 publication
+  and giant animal bones. Its giants clause also *understated*: "nearly 30 centimetres" against a table
+  whose top entry is Furze Platt at 32.3.
+- **`wh-008`** had the pressure flaker as "an antler tip". The work that demonstrates the technique used
+  a pointed **bone** compressor, to serrate points. It also had grinding as a Neolithic craft, where
+  ground implements run back at least 780 ka and edge-ground hatchets to 65 ka at Madjedbebe.
+- **`wh-098`** gave Wrangham's cooking hypothesis "from about 1.9 million years ago". Gowlett states it
+  twice as **1.7 Ma**. Worse, that sentence's marker pointed at **Berna et al. 2012** — the Wonderwerk
+  fire microstratigraphy, which says nothing whatever about cooking, gut size or brain size. **A wrong
+  marker is worse than a missing one**, and only a top-up would ever have looked at it.
+
+Three smaller things worth carrying forward.
+
+**`https://www.ebi.ac.uk/europepmc/webservices/rest/PMC<id>/fullTextXML` is the way past the PMC
+captcha.** pmc.ncbi.nlm.nih.gov began serving a browser check partway through this batch; the Europe PMC
+REST service returns the same full text as JATS XML with no gate, and six of this batch's sources were
+read that way. Resolve the PMCID first with the `search?query=DOI:"…"` endpoint — guessing it lands you
+in a paper about sulfite oxidation, as it did here.
+
+**Chinese was one sentence out of step on `wh-022`, and the fix is to repair the split, not to route
+round it.** zh had cut the opening definition in two and run the two date sentences together, so its
+markers could not line up with anyone else's; `add-sources.js` caught it as a marker-count mismatch.
+Rejoining the definition and cutting the date sentence at its semicolon restored parity claim for claim,
+which is worth more than a per-language marker map.
+
+**And the splitter could not see a dozen Chinese abstracts at all.** Its CJK clause demanded that `。`
+carry no following space, which is right for well-set Chinese and wrong for the twelve zh and four ja
+abstracts written with one: those returned the whole block as a *single sentence*, silently, so markers
+placed by index would have landed anywhere. `\s?` on the CJK terminator fixed it and took the deck's
+5+5 failures from 48 to 22. **The 22 that remain are real and are NOT this batch's**: `wh-039` and
+`wh-063` split 6+5 and 7+5 **in English**, and ten more cards run over in one or two languages. Batch 24
+should clear them before placing a marker on any of those cards.
+
+One sentence in this batch is knowingly left bare. **`wh-014`'s account of the July 2011 wrong turn at
+Lomekwi has no marker**: the paper that tells that story (Lewis & Harmand 2016) is not open and has no
+deposited text, and a discovery anecdote is not something to attach a plausible-looking citation to.
+
+Finally, a tooling repair. `check-style.js` ran its house rules over the whole of `data.js`, `sources`
+included, and reported Moro Abadía's "…at the turn of the twentieth century" as a century-word
+violation. In report mode that is noise; **in `--fix` mode it would have renamed the paper**. Citations
+are now masked out before any rule runs, and the mask round-trips byte for byte.
+
+### Batch 24 · Top-up: *erectus*, *sapiens* and the genetics (7 cards, 15 citations) — **DONE (2026-08-01)**
 `wh-018` Homo erectus 4→5 · `wh-028` Homo antecessor 2→5 · `wh-030` Homo heidelbergensis 2→5 ·
 `wh-044` Omo remains 3→5 · `wh-045` Jebel Irhoud 4→5 · `wh-047` Mitochondrial Eve 3→5 ·
 `wh-048` Y-chromosomal Adam 2→5
@@ -558,7 +943,61 @@ The two coalescent cards (`wh-047`, `wh-048`) carry dates that have moved repeat
 corrected once in batch 4. Re-check them against the current estimates as part of the top-up rather than
 assuming the batch-4 pass settled them.
 
-### Batch 25 · Top-up: ice-age climate and the Holocene (7 cards, 11 citations)
+### Batch 24 log — one review per debate, and the first clean re-check
+
+Sixteen citations rather than the planned fifteen, because `wh-045` took two: it was the only list in
+the deck that was not majority-open, and both additions are open, so it now runs 4 open to 2 paywalled
+and the audit's flag is gone. **Coverage 86 → 93 of 109.**
+
+**The finding: where a batch's cards share a DEBATE rather than a site, one review can carry most of
+it.** Harvati & Reyes-Centeno 2022 reviews exactly the period `wh-028`, `wh-030`, `wh-044` and
+`wh-045` describe; Scerri et al. 2018 reviews exactly the question `wh-030`, `wh-044` and `wh-045`
+ask. Between them those two papers filled eleven of the sixteen slots. Set this beside batch 2's
+finding — subject does not predict whether the sources are reachable — because it is the exception
+that sharpens it: subject does not, but a shared *argument* does, since arguments attract reviews and
+reviews are where open venues publish.
+
+**The re-check the plan asked for came back clean, which had not happened before.** Both coalescent
+cards were suspected of carrying dates that had moved since batch 4. They have not: Karmin et al. put
+the Y-MRCA at "254 (95% CI 192–307) kya" against the card's 200,000–300,000, and Rito et al. put the
+mtDNA ancestor at "~180 ka" against the card's 150,000–200,000. Rito is worth noting for a second
+reason — the authors write "carried by 'mitochondrial Eve'" themselves, so the card's nickname is not
+a popularisation the card invented.
+
+Two things not to repeat. **PMC's browser check now covers the article HTML as well as search**, so
+`pmc.ncbi.nlm.nih.gov/articles/PMC…/` returns a 21 KB challenge page rather than the paper; the
+`ebi.ac.uk/europepmc/webservices/rest/PMC<id>/fullTextXML` route recorded in batch 23 is now the only
+one that works from here, and it 404s for author manuscripts with no deposited text (Wagner 2010,
+Poznik 2016). And **`isOpenAccess: N` in the Europe PMC record does not mean unreadable** — it means
+not OA-licensed. Check for full text before writing a source off, and check it is really the paper you
+want: a mistyped PMCID returned a paper on sulfite oxidation in *Chlorobaculum tepidum*.
+
+#### The 5+5 sweep the previous batch left for this one
+
+Batch 23 cut the deck's 5+5 failures from 48 to 22 and left the residue here. All 22 are now gone, and
+they were three separate things:
+
+- **A run of initials, in every script.** The splitter held an initial only when another followed, so
+  the LAST one of a run was exposed: "R. P. Soejono" and "Frank H. H. Roberts Jr." each broke a
+  sentence in half — in English, where nothing else was watching, and in Spanish, French, German,
+  Italian, Dutch, Russian and Arabic besides. The rule now holds a whole run, in Latin, Cyrillic and
+  Arabic (`\p{Lu}` and an Arabic-letter clause, since Arabic has no case), plus `Jr.`, `Sr.`, `Dr.`,
+  `St.` and their kin. That alone fixed nine of the 22.
+- **A sentence ending on the era abbreviation** — the one failure the splitter's own header records
+  as unfixable, and `wh-063` had it in six languages at once ("anteriores al 8000 a. C.", "vor etwa
+  8000 v. Chr.", "до примерно 8000 года до н. э."). The era's own full stop is held, so the sentence
+  has no terminator left and swallows the next one. Spelled out — "antes de Cristo", "vor unserer
+  Zeitrechnung", "до нашей эры" — it splits correctly. **This is an authoring rule, not a tooling
+  gap: do not close a sentence on the era abbreviation.**
+- **Seven translations that turned one English sentence into two**, in Japanese (`wh-004`, `wh-024`,
+  `wh-053` twice over, `wh-068`, `wh-073`) and Arabic (`wh-040`, `wh-067`). Repaired by merging, with
+  the markers carried to the end of the merged sentence.
+
+`wh-030`'s Chinese carried the same divergence `wh-022`'s did — the opening definition split in two
+and two later sentences run together — and was repaired the same way. **The whole deck now splits 5+5
+in all ten languages with identical marker counts**, which is the state batches 25 and 26 can rely on.
+
+### Batch 25 · Top-up: ice-age climate and the Holocene (7 cards, 11 citations) — **DONE (2026-08-01)**
 `wh-012` Last Glacial Period 4→5 · `wh-096` Doggerland 3→5 · `wh-102` Holocene 3→5 ·
 `wh-105` Atlantic period 4→5 · `wh-106` Blytt–Sernander sequence 2→5 · `wh-107` Holocene climatic optimum
 4→5 · `wh-108` Post-glacial rebound 4→5
@@ -569,7 +1008,48 @@ deposits). Batches 10 and 11 left a large register here: Spratt & Lisiecki 2016,
 2018, Batchelor et al. 2019, Kaufman et al. 2020, Marchal et al. 2002, Whitehouse 2018, Sella et al. 2007.
 `wh-106` needs three and is the only one likely to need new work.
 
-### Batch 26 · Top-up: art, caves and the Americas (9 cards, 13 citations)
+### Batch 25 log — the register paid for six of eleven, and an 1886 paper for the rest
+
+The cheapest batch, as the plan predicted, and for the reason it predicted: **six of the eleven slots
+needed no new reading at all.** Walker et al. 2009, PAGES 2016, Marchal et al. 2002 (twice), Walanus
+& Nalepka 2010, Seppä et al. 2009 and Batchelor et al. 2019 were all already deposited by batches 10,
+11 and 22, and the job was mapping sentences onto entries the register held. **Coverage 93 → 100 of
+109.**
+
+**The finding is about the other five, and it is a new route: where a card describes a
+nineteenth-century idea, the idea's own author is often the openable source — because he is out of
+copyright.** Batch 23 learned that a founding paper of 1797 or 1800 can be locked behind a paywall
+(Frere, on Cambridge Core, with no abstract). Blytt's 1886 English statement of his theory is the
+other case: the whole thing is OCR'd on the Internet Archive, free, and it says more than any modern
+restatement would.
+
+It also disproved the card. `wh-106` had Blytt "naming the warm, moist Atlantic phase and the cool,
+dry Boreal", and Sernander "adding the Subboreal and Subatlantic". Blytt's own paper uses neither
+term as a phase name — its eight occurrences of "Atlantic" are the ocean and its current — and the
+companion work he lists is *Die Theorie der wechselnden kontinentalen und insularen Klimate*:
+continental versus insular, not Boreal versus Atlantic. What he does argue, in the words the card now
+follows, is that "periods of dry and wet have alternated during ages. The peat layers generally
+belong to the latter, and the stump layers speak of drier periods, when the bogs were covered with
+trees."
+
+**Nothing openable settles who coined which of the five names.** Sernander's own papers are not on
+the Internet Archive; no open history of the scheme was found in *Review of Palaeobotany and
+Palynology*, *Vegetation History and Archaeobotany* or the Copernicus journals; the *Encyclopedia of
+Environmental Change* entry is paywalled; and Walker et al. 2012, which might have settled it, could
+not be reopened — Wiley answers 403 and the open Yale deposit the register recorded is now a 404.
+So both attributions were removed rather than re-sourced. The five-name ORDER keeps the marker it
+already had. **Batch 26 should treat a "who named it" clause as a claim needing its own source, not
+as background** — this is the second such clause the pass has had to withdraw, after batch 20's
+finding that the Middle Stone Age term is Goodwin's alone from 1928.
+
+One smaller note, recorded because the next batch will hit it: **two register entries could not be
+re-read this time even though they are correctly marked open.** The Marchal 2002 WHOI PDF uses an
+embedded encoding this environment's extractor cannot decode, and Walker 2012's open deposit has
+moved. Neither is a citation error — both were opened and recorded in batch 11 — but a top-up that
+wants to *extend* what an old entry supports may find it cannot, and should say so rather than
+guessing.
+
+### Batch 26 · Top-up: art, caves and the Americas (9 cards, 13 citations) — **DONE (2026-08-01)**
 `wh-052` Howiesons Poort 3→5 · `wh-054` Border Cave 4→5 · `wh-069` Venus of Hohle Fels 4→5 ·
 `wh-083` Cave painting 4→5 · `wh-084` Chauvet Cave 4→5 · `wh-085` Cave of Altamira 3→5 ·
 `wh-087` Cosquer Cave 4→5 · `wh-092` Clovis point 4→5 · `wh-097` Petroglyph 2→5
@@ -579,6 +1059,39 @@ Culture, the Blaubeuren and Ulm museum records) are the first place to look for 
 an object card, and several of them state measurements the journal literature assumed its readers knew.
 `wh-097` petroglyph needs three and is the one genuinely open question in the batch, being a worldwide
 category rather than a site.
+
+### Batch 26 log — the pass finishes, and the sibling check arrives one card late
+
+**109 of 109 at the bar, 0 blocked, 0 citations still to find.** Nine cards, thirteen citations, and
+the plan was right about where they would come from: five of the thirteen are heritage-agency records
+— the French Ministry of Culture twice (Lascaux for `wh-083`, the Chauvet art page for `wh-084`), the
+Blaubeuren prehistory museum for `wh-069`, the Cosquer Méditerranée record for `wh-087` and the
+Fundação Côa Parque for `wh-097`. `wh-097` petroglyph, the batch's one genuinely open question, was
+settled by two Murujuga papers and the Côa foundation rather than by anything about petroglyphs as a
+category.
+
+**The finding, and it is the pass's last and most portable: a correction does not travel between
+cards on its own.** Batch 21 stripped three claims from `wh-086` Lascaux — the 17,000-year date (raw
+radiocarbon read as calendar years), the ~1,500 engravings and the five-metre black bull — because
+nothing openable carried them. `wh-083` cave painting, which mentions Lascaux in one sentence, still
+had **all three**, in its abstract and again on its date line, in all ten languages, for five batches.
+The sibling check the plan puts on definitional cards is not enough: **grep the deck for the FIGURE,
+not just for the card it belongs to.** Anything numeric that a correction touches should be swept
+across `data.js` in every language before the batch closes.
+
+Two smaller things worth keeping. **The batch-22 Crossref-abstract route paid for the only paywalled
+work added in the whole top-up run**: Villa et al. 2012 is the landmark defining paper for where the
+Later Stone Age begins at Border Cave, PNAS answers 403 and Europe PMC has no deposited text, and
+`api.crossref.org/works/<doi>` served the abstract that carries the claim. And **an agency record can
+disagree with the paper the card follows**: the Chauvet portal gives ~36,500 and 30–31,000 years where
+Quiles et al. give 37,000–33,500 and 31,000–28,000. Both are in the literature, the card's marker
+points at Quiles, and the discrepancy is recorded rather than resolved — which is the right handling,
+because picking the agency figure would have meant a silent re-dating on no new evidence.
+
+Left unmarked on purpose: `wh-097`'s "1995" for the dam cancellation and the "petroglyphs cannot swim"
+slogan. The Côa foundation gives the cancellation and the 1998 listing but neither the year nor the
+slogan, and nothing else openable carries them. They stay in the card, uncited, and are recorded in
+the register as such — the same treatment as `wh-014`'s account of the 2011 wrong turn at Lomekwi.
 
 ### Batch 0 · Pilot (6 cards) — **DONE (2026-07-31)**
 `wh-014` Lomekwi · `wh-045` Jebel Irhoud · `wh-069` Venus of Hohle Fels · `wh-005` Stone Age ·
