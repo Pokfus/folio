@@ -84,6 +84,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   that batch 0 was attempted and stopped: this sandbox's egress policy blocks every scholarly host, so no
   source could be opened and none was cited. `.claude/sources-register.md` holds the verified citations
   (and, separately and clearly marked, unverified search-only candidates that must never be pasted in).
+- `docs/glossary-citation-plan.md` — the batch plan for **citing the 333 glossary terms**, the sibling of
+  the card plan above. The bar is **at least 2 citations per term** (a description is three sentences, where
+  a card's abstract is ten), and the acceptable sources are academic, museum, government or reputable
+  NGO/IGO. **Nothing has been cited yet — `GLOSSARY_SOURCES` is empty.** Three things about this pass that
+  the card pass does not have: **markers are optional** on a term, so the default batch changes no prose and
+  therefore needs no translation work; a term whose prose IS corrected needs a second command in the same
+  batch (`add-lang.js` for the nine languages, since `add-sources.js` writes only the English description);
+  and Phase 1 is largely paid for out of `.claude/sources-register.md` already. It also records which
+  scholarly and official hosts were **reachable from this sandbox on 2026-08-01**, measured rather than
+  assumed. Not part of the site.
 - `docs/user-decks-plan.md` — the design plan for **community decks** (user-created decks, sharing,
   ratings, an optional per-deck glossary, and a later paid tier). Phases 0–1 have shipped; see the bullet
   in "How the app is wired". Not part of the site.
