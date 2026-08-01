@@ -5023,3 +5023,123 @@ replaced `harmand-2015` in `Prehistory`'s list, whose 3.3 Ma Lomekwi claim the g
 term calls debated. **`walker-2018-subdivision`**'s Holocene base at 11,700 b2k is what ended the
 Palaeolithic at 9700 BCE instead of 10,000, on `Paleolithic`, `Upper_Paleolithic`, `Mesolithic` and
 `wh-001`'s date line.
+
+---
+
+## Batch G6 — geological time (GLOSSARY), verified 2026-08-01
+
+Six terms: `Quaternary` · `Pleistocene` · `Holocene` · `Cryogenian` · `Ice_Age` · `Milankovitch_cycles`.
+Thirty citation slots over sixteen distinct works, **fifteen of them open**. Ten came out of this
+register with no new fetch. Three works are new to the project and are recorded below; two more
+(`gibbard-head-2010`, `walker-2018-subdivision`) could **not be re-opened from this sandbox** and are
+cited only for what this register already records — see the note at the end.
+
+### sqs-major-divisions · the Quaternary's GSSPs, from the body that ratified them
+Subcommission on Quaternary Stratigraphy, International Commission on Stratigraphy, "Major Divisions,"
+accessed 1 August 2026, https://quaternary.stratigraphy.org/major-divisions. [Open access]
+- opened: 2026-08-01 · full text (the maintained SQS statement, considerably longer than the
+  `ics-major-divisions` page already registered — this is the whole GSSP inventory, not the Holocene note)
+- supports: the Quaternary/Pleistocene GSSP at Monte San Nicola, near Gela, Sicily, "age of 2.58 Ma",
+  ratified "on 29 June 2009"; the Holocene GSSP at 1492.45 m in the NGRIP2 core, "11,700 yr b2k … with a
+  maximum counting error of 99 yr"; the Holocene's subdivision into Greenlandian / Northgrippian /
+  Meghalayan, "ratified on 14 June 2018"; the Meghalayan GSSP as **speleothem KM-A**, "~308 mm long",
+  from Mawmluh Cave, Meghalaya, north-eastern India; and — for the Holocene term's "unusually steady" —
+  "There are no major step-changes in the evolution of Holocene climate"
+- **limit worth recording**: the page calls KM-A a **speleothem**, never a stalagmite, and so do the two
+  other open papers checked (PMC9171796, PMC9522357). Nothing contradicts "stalagmite" and the term keeps
+  it, but it is not confirmed from here; if a later batch can open Walker et al. 2018 or Berkelhammer
+  et al. 2012, settle it
+- used by: Quaternary, Pleistocene, Holocene, Ice_Age (glossary)
+
+### ics-chart-2024 · the chart itself
+International Commission on Stratigraphy, "International Chronostratigraphic Chart," v2024/12,
+https://stratigraphy.org/ICSchart/ChronostratChart2024-12.pdf. [Open access]
+- opened: 2026-08-01 · the PDF's own text layer (v2025 does not exist; 2024-12 is the current chart)
+- supports: Cryogenian ~720 to ~635 Ma inside the Neoproterozoic, between the Tonian and the Ediacaran;
+  Ediacaran 635 to 538.8 ± 0.6 Ma, so the Cambrian — and the skeletal animals that define its base — opens
+  ~100 Myr after the Cryogenian closes; Quaternary base 2.58 Ma; Holocene base 0.0117 Ma
+- used by: Cryogenian (glossary)
+
+### carlisle-2024 · when animals actually appear
+Emily Carlisle et al., "Ediacaran Origin and Ediacaran-Cambrian Diversification of Metazoa," *Science
+Advances* 10, no. 46 (2024): eadp7161, https://pmc.ncbi.nlm.nih.gov/articles/PMC11559618/. [Open access]
+- opened: 2026-08-01 · full text via PMC
+- supports: "Molecular clock analyses have invariably estimated a Cryogenian or Tonian origin of animals
+  while unequivocal animal fossils first occur in the Ediacaran"; the revised estimate placing Metazoa in
+  the early Ediacaran; and the Ediacaran rangeomorphs at 574 Ma, which is what puts the first unmistakable
+  animal fossils some sixty million years after the Marinoan thaw
+- used by: Cryogenian (glossary)
+
+### nasa-milankovitch · the three variations, and the man
+Steve Graham, "Milutin Milankovitch," NASA Earth Observatory, 24 March 2000, under "Obliquity (change in
+axial tilt)" and "Milankovitch Theory," https://earthobservatory.nasa.gov/features/Milankovitch. [Open access]
+- opened: 2026-08-01 · full text
+- supports: the three variations named as eccentricity, obliquity and precession; "The shape of the Earth's
+  orbit changes from being elliptical … to being nearly circular … in a cycle that takes between 90,000 and
+  100,000 years"; "During a cycle that averages about 40,000 years, the tilt of the axis varies between 22.1
+  and 24.5 degrees"; that "at the suggestion of German Climatologist Vladimir Koppen, he chose summer
+  insolation at 65 degrees North"; and "for about 50 years, Milankovitch's theory was largely ignored. Then,
+  in 1976, a study published in the journal *Science* examined deep-sea sediment cores"
+- **what it does NOT support, and what that cost**: it dates nothing to the 1920s or 1930s. The term said
+  Milanković did the work "in the 1920s and 1930s"; that clause was **withdrawn** and replaced with the two
+  things the page does state — the 65°N latitude and the fifty years of neglect. Batch 25's rule for a
+  "who named it" clause applies to a "when did he do it" clause too
+- used by: Milankovitch_cycles (glossary)
+
+### Re-read and extended (batch G6)
+
+- **`hoffman-2017`** — extended beyond the abstract and table 1 to **fig. 2** ("Glacial epochs on Earth
+  since 3.0 Ga … Snowball Earth chrons, regional-scale ice ages, and nonglacial intervals") and to the
+  introduction's "consecutive 'Snowball Earth' episodes in the Neoproterozoic era and at least one such
+  episode in the early Paleoproterozoic era", "virtually no ice sheets are known to have existed during the
+  intervening 1.5 billion years of the Proterozoic glacial gap", and "a Siderian (2.4 Ga) Snowball Earth".
+  It also carries the deglaciation mechanism verbatim, quoting Kirschvink: "the rate of silicate weathering
+  should fall very nearly to zero … and carbon dioxide should accumulate in the atmosphere at whatever rate
+  it is released from volcanoes", plus "postglacial cap-carbonate sequences" and "Terminal carbonate
+  deposits, unique to Cryogenian glaciations". **What it does not say anywhere is "five"** — see the
+  correction below.
+- **`pages-2016`** — "we identify eleven interglacials in the last 800,000 years"; "glacial cycles with sea
+  level amplitudes of more than 100 m were occurring, mostly with lengths of the order of 100 ka"; and, for
+  the Milankovitch term's last clause, "eccentricity, often cited as a possible origin of the 100 ka
+  periodicity characteristic of glacial-interglacial cycles, does not appear in the spectrum of regional
+  insolation changes; it merely modulates the amplitude of insolation changes". **The `/document` file path
+  on hal.science worked today**, where batch G3 found it walled; the landing page resolved too.
+- **`spratt-lisiecki-2016`** — "Glacial–interglacial cycles of the Late Pleistocene (0–800 ka) produced sea
+  level changes of approximately 130 m"; "the Last Glacial Maximum (LGM) at 21 ka"; "Spectral analysis shows
+  strong 100 and 41 ka" bands.
+- **`batchelor-2019`** — "the Last Glacial Maximum (LGM) c. 26.5 ka"; 17 time-slices spanning the Quaternary;
+  the "transition from predominantly low-amplitude, high-frequency (41 ka) ice-volume variations to
+  high-amplitude, low-frequency (100 ka) variations".
+- **`svenning-2024`** — the abstract's "only 11 out of 57 species of megaherbivores (body mass ≥1,000 kg)
+  survived to the present", and "most extinctions occurring in the Late Pleistocene and Early to Middle
+  Holocene". This is what replaced the `Pleistocene` term's vague "many of which later went extinct".
+- **`hays-imbrie-shackleton-1976`** — still 403 at science.org, but **`api.crossref.org/works/<doi>` serves
+  the full structured abstract** (batch 22's route, paying again): "three discrete spectral peaks at periods
+  of 23,000, 42,000, and approximately 100,000 years"; "The 23,000-year portion of the variance displays the
+  same periods (about 23,000 and 19,000 years) as the quasi-periodic precession index" — which is the source
+  for the term's 19,000–23,000; and "an explanation of the correlation between climate and eccentricity
+  probably requires an assumption of nonlinearity".
+- **`si-erectus`**, **`si-sapiens`**, **`larson-2014`**, **`fuller-stevens-2019`**, **`walker-2009`** — each
+  cited for exactly what this register already records, and no further.
+
+### Cited but not re-openable from this sandbox (batch 25's caution, twice)
+
+**Episodes is unreachable from here.** `doi.org/10.18814/epiiugs/…` times out for both
+`gibbard-head-2010` and `walker-2018-subdivision`, the publisher PDF host `pdf.medrang.co.kr` fails DNS
+resolution, and `episodes.org` itself does not respond. Both are cited **only** for what this register
+recorded when they were opened on 31 July — the Monte San Nicola GSSP at 2.58 Ma ratified 29 June 2009,
+and the three Holocene ages ratified 14 June 2018 — and **both claims were independently confirmed today
+from `sqs-major-divisions`**, which is open and says the same in the same words. Nothing rests on an
+unread source. Record the outage so the next pass does not re-run those fetches.
+
+### The correction this batch produced, and it is a card's
+
+**`wh-011` credited Hoffman et al. 2017 with "at least five major ice ages".** The paper does not say
+five, or any number: it names the Neoproterozoic pair and "at least one such episode in the early
+Paleoproterozoic", and its fig. 2B plots the record since 3.0 Ga without counting it. The familiar
+five — Huronian, Cryogenian, Andean-Saharan, Karoo, Quaternary — is a textbook enumeration, and **nothing
+openable from here states it**; the searches run were Europe PMC for open titles on Earth's glaciation,
+glacial epochs and the Huronian, and none returned a work that counts them. This is the pass's **third
+wrong marker** (after `wh-098` in batch 23 and `wh-032` in batch G3) and it was found the same way, by
+re-reading a registered source for a different surface. Both the card and the `Ice_Age` term now say what
+Hoffman supports — several such intervals over the past 2.4 billion years — in all ten languages.
