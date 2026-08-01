@@ -176,7 +176,7 @@ The register is the first stop for every one of these. Where a batch names a wor
 warning: two correctly-recorded entries could not be re-opened, and a top-up that cannot re-read its own
 source should say so rather than guess).
 
-### G1 · The genus records (8 terms)
+### G1 · The genus records (8 terms) — **DONE (2026-08-01)**
 `Homo` · `Hominini` · `Genus` · `Australopithecus` · `Homo_habilis` · `Homo_erectus` · `Homo_sapiens` ·
 `Neanderthal`
 
@@ -187,6 +187,74 @@ In the register already: `si-habilis`, `si-erectus`, `si-afarensis`, `si-african
 `green-2010`, `kimbel-villmoare-2016`. **`Genus` is the odd one out** and the batch's real work: it is a
 nomenclatural term, so the source is the code that governs it — the ICZN's *International Code of Zoological
 Nomenclature*, whose text is published online by the Commission itself.
+
+### Batch G1 log — the register carries a glossary batch almost whole
+
+#### 2026-08-01 — eight terms, 26 citations, three corrections
+
+**Coverage went from 0/333 to 8/333, all eight at the bar.** Nineteen distinct works, **eighteen of them
+open**; the one paywalled entry is Hublin et al. 2017, standing beside five open works on `Homo_sapiens`.
+
+**The premise held, and it is the number to plan the rest of Phase 1 around: fifteen of the nineteen works
+came out of `.claude/sources-register.md` with no new fetch.** A glossary term restates, in three sentences,
+what a card spends ten on — so the works are already opened, already in final form and already labelled.
+Only four had to be found, and three of those were needed because the terms are *not* about fossils.
+
+**The four new works say something about which terms are hard, and it is not the ones the batch expected.**
+The six species and genus terms were the easy half; the general terms were the work.
+- **`Hominini`** needed a statement of the hominid/hominin shift. The usual scholarly citation for it,
+  Wood & Richmond 2000 in *Journal of Anatomy*, is closed with no deposit anywhere. What carried it was
+  **a museum explainer** — the Australian Museum's, which gives both definitions, names the same four
+  genera the term names, and explains that "tribe" is a rank between subfamily and genus. Batch 18's rule
+  for cards generalises to the glossary intact: **when the paper is shut, ask the institution.**
+- **`Genus`** needed the naming rules, so the source is the body that writes them — the ICZN's *Code*. But
+  **the Commission's own Code Online cannot be read from this sandbox**: `code.iczn.org` resets the
+  connection, and the `iczn.org` and `nhm.ac.uk` pages that appear to carry the Code are iframe shells
+  around that same host. The printed 4th edition is scanned in full on the Internet Archive with usable
+  OCR, so **that is the copy opened and therefore the copy cited**. Recorded here because the next pass
+  should not re-run those three fetches.
+- **`Homo_sapiens`** and **`Neanderthal`** took the two remaining Smithsonian species records, which are
+  simply the continuation of batch 19.
+
+**Three corrections**, in English and all nine languages:
+
+- **`Homo_habilis` was 2.3 to 1.5 million years ago, and the Smithsonian record says 2.4 to 1.4.** This is
+  the *same error batch 19 corrected on `wh-016` on 31 July*, still sitting in the glossary a day later —
+  which is batch 26's finding arriving from the other direction: **a correction does not travel between
+  surfaces on its own, any more than it travels between cards.** Fixed in the description and on the date
+  line, so the term and the card now agree. **The lesson for every later batch: when a card has been
+  corrected, grep the glossary for the same figure.**
+- **Its brain was "well under half the modern average," which the sources contradict.** Kimbel & Villmoare
+  give Spoor's reconstruction of the type specimen itself at 729–824 ml, against a modern mean near 1,350 —
+  half, not well under it. The term now gives the reconstructed volume of OH 7 and says it falls far short
+  of a modern human's, which is both checkable and more informative than a fraction.
+- **`Hominini` said "some schemes place chimpanzees inside Hominini as well."** This is a real position in
+  the literature, but nothing openable states it, and the batch's own source puts gorillas, chimpanzees and
+  humans on three separate tribes. **The clause was withdrawn rather than re-sourced** — batch 25's rule for
+  a "who named it" clause applies to a "some scholars say" clause just as well. What replaced it is what the
+  museum does state: that hominid once carried almost exactly the meaning hominin now has.
+
+A fourth change is not a correction but a trade. **`Genus` said "a genus may hold a single species or
+several hundred"**, which is true, uncontroversial and in none of the term's sources. It was swapped for the
+Code's actual rules — the capital letter of article 5.1, and recommendation B6's different type face,
+usually italics — which say something a reader can check and which the term was going to cite anyway.
+
+**On the mechanism, two notes for G2.**
+- **A prose change costs nine translations and `add-sources.js` will not tell you.** It writes the English
+  description and the sources and nothing else; the nine `i18n/gloss-<lang>.js` files are a separate
+  `add-lang.js` run per language. Three corrected terms meant 27 translated descriptions, edited from the
+  shipped ones so only the changed clause moved. Budget for this, and prefer a correction that touches one
+  clause over a rewrite that touches three.
+- **`GLOSSARY_DATES` has no helper at all.** The date line on `Homo_habilis` had to be edited in
+  `glossary.js` directly, since `add-sources.js` does not touch dates and `add-glossary.js` would have meant
+  rewriting the whole entry with all nine translations. It re-parses clean, and the audit and the tests
+  cover the result — but a term whose date line is wrong is exactly what a citation pass keeps turning up
+  (it was `answerDate` on the cards, and `fix-field.js` exists for that reason). **If a second batch needs
+  it, write the helper.**
+
+Also worth recording: the Japanese `Hominini` translation read ヒト族族 — the tribe suffix doubled — in two
+places. One sat in the sentence being corrected and the other did not; both were fixed, since the whole
+description is resubmitted anyway.
 
 ### G2 · The species and the specimens (9 terms)
 `Australopithecus_afarensis` · `Australopithecus_africanus` · `Ardipithecus_kadabba` ·

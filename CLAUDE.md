@@ -621,10 +621,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     straight down the list. Deliberately NOT the same channel as the right-click `cardColor` mark (a left
     stripe): one is derived from the data, the other is an editor's private marker.
   · `sup` + `class="fn"` + `data-fn` are in the sanitizer allowlists, so a community deck can use markers too.
-  · **The tables still ship EMPTY for the Atlas and the glossary.** `country-sources.js` has no entries and no
-    glossary term carries `sources`; the citation pass so far has touched cards only. The UI, the deltas and the
-    pipeline are in place; the rest is a content job (see "Citing the existing content" below). Guarded by
-    `.claude/test-sources.js` (67 assertions).
+  · **The Atlas table still ships EMPTY; the glossary has begun.** `country-sources.js` has no entries at all.
+    **`GLOSSARY_SOURCES` carries 8 of the 333 terms** (batch G1, 2026-08-01 — the genus and species terms), against
+    a bar of **`GLOSS_SRC_TARGET` (2)**, which is lower than a card's five because a description is three sentences
+    where an abstract is ten; `docs/glossary-citation-plan.md` is the plan for the rest and
+    `node .claude/gloss-source-audit.js` says where it stands. The UI, the deltas and the pipeline are in place;
+    the rest is a content job (see "Citing the existing content" below). Guarded by `.claude/test-sources.js`
+    (67 assertions).
     **Batches 0–22 shipped 2026-07-31/08-01**: **all 109 prehistory cards now carry sources.** **Against the
     5-source bar, ALL 109 are there** — batches 0–26 are complete, and
     the audit that says which is `node .claude/source-audit.js`. **Every list is majority-open**, `wh-045`
@@ -1838,8 +1841,14 @@ which would otherwise have shipped corrected prose above an uncorrected date lin
 and its sources, and were fact-checked rather than referenced. A batched pass is working through the cards —
 **all 109 carry sources, and all 109 meet the 5-source bar** (`docs/citation-plan.md`; `add-sources.js`
 reports both on every run, `node .claude/source-audit.js` reports them per card, and the Edit page's card list
-shows each card's coverage as an amber or red chip) — while
-`country-sources.js` and `GLOSSARY_SOURCES` are still empty, so the Sources fold appears only on those cards.
+shows each card's coverage as an amber or red chip) — and **a second pass has started on the glossary**, batched
+through `docs/glossary-citation-plan.md` at a bar of **2 citations per term** (`GLOSS_SRC_TARGET`), with
+`node .claude/gloss-source-audit.js` and the glossary list's own coverage chip reporting it; **8 of 333 terms
+are cited** (batch G1). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
+Two rules that pass turned up at once. **`add-sources.js` writes only the ENGLISH description**, so a term whose
+prose is corrected needs an `add-lang.js` run per language in the same batch or nine languages keep the old
+claim; and **a correction does not travel between surfaces** — `Homo_habilis` still carried the 2.3–1.5 Mya span
+a day after batch 19 corrected it on `wh-016`, so when a card is corrected, grep the glossary for the figure.
 **Do not paper over the rest by attaching plausible-looking citations to existing prose** — a citation that was
 not the actual source of a sentence is worse than no citation, because it invites a reader to trust a page number
 nobody checked. The honest routes are the ones the pass follows: open every work before citing it, re-derive the

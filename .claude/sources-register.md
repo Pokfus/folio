@@ -4406,3 +4406,74 @@ https://arte-coa.pt/en/the-coa-battle/. [Open access]
   Neither was found in anything openable; both are left in the card **unmarked**, and the marker on
   that sentence covers the cancellation and the listing three years later, which this page does carry
 - used by: wh-097
+
+## Batch G1 — the genus records (GLOSSARY), verified 2026-08-01
+
+The first glossary batch. Eight terms, 26 citation slots, from **19 distinct works, 18 of them open** — the
+one paywalled entry is Hublin et al. 2017, standing beside five open works on `Homo_sapiens`. Fifteen of the
+nineteen came out of this register with no new fetch, which is the whole premise of Phase 1 in
+`docs/glossary-citation-plan.md`. Four are new and are recorded below; the rest are the entries already
+above, now also **used by** a glossary term.
+
+Re-opened and unchanged on 2026-08-01: `si-habilis` (the 2.4–1.4 Ma span and the 1964 naming),
+`si-erectus`, `si-afarensis`, `si-africanus`, `si-anamensis`, `kimbel-villmoare-2016`,
+`cela-conde-ayala-2003`.
+
+### si-sapiens · our own species, and the type specimen it does not have
+Smithsonian National Museum of Natural History, Human Origins Program, "*Homo sapiens*," accessed 1 August
+2026, https://humanorigins.si.edu/evidence/human-fossils/species/homo-sapiens. [Open access]
+- opened: 2026-08-01 · the museum's species record
+- supports: "About 300,000 years ago to present"; that "During a time of dramatic climate change 300,000
+  years ago, *Homo sapiens* evolved in Africa"; and — not used by the term, but worth recording — that
+  "Unlike every other human species, *Homo sapiens* does not have a true type specimen", because "Even
+  though Linnaeus first described our species in 1758, it was not customary at that time to designate type
+  specimens"
+- used by: Homo_sapiens (glossary)
+
+### si-neanderthalensis · the Neanderthals, catalogued
+Smithsonian National Museum of Natural History, Human Origins Program, "*Homo neanderthalensis*," accessed
+1 August 2026, https://humanorigins.si.edu/evidence/human-fossils/species/homo-neanderthalensis.
+[Open access]
+- opened: 2026-08-01 · the museum's species record
+- supports: "About 400,000 - 40,000 years ago"; "Europe and southwestern to central Asia"; that "their
+  bodies were shorter and stockier than ours" while "their brains were just as large as ours and often
+  larger"; the Mousterian as "sophisticated flake tools that were detached from a prepared stone core";
+  that they "controlled fire, lived in shelters … were skilled hunters of large animals"; that "there is
+  evidence that Neanderthals deliberately buried their dead"; Neanderthal 1 discovered in 1856 in the
+  Feldhofer Cave of the Neander Valley and named by King in 1864, "the first fossil hominin species to be
+  named"; and "All traces of Neanderthals disappeared by about 40,000 years ago"
+- used by: Neanderthal (glossary)
+
+### austmus-hominin · hominid and hominin, and why the words moved
+Australian Museum, "Hominid and Hominin — What's the Difference?," last updated 2 December 2020,
+https://australian.museum/learn/science/human-evolution/hominid-and-hominin-whats-the-difference/.
+[Open access]
+- opened: 2026-08-01 · the museum's own explainer, which is the clearest statement of the terminological
+  shift that could be opened; Wood & Richmond 2000, the usual scholarly citation for it, is closed with no
+  deposit
+- supports: "Hominin – the group consisting of modern humans, extinct human species and all our immediate
+  ancestors (including members of the genera *Homo*, *Australopithecus*, *Paranthropus* and
+  *Ardipithecus*)" — which is the term's own list; "Hominid – the group consisting of all modern and
+  extinct Great Apes … plus all their immediate ancestors"; that "The term 'hominid' used to have the same
+  meaning that 'hominin' now has"; and that "'tribe' names end in 'ini' (eg Hominini)", a rank "between
+  subfamily and genus"
+- does NOT support the term's former claim that some schemes place chimpanzees inside Hominini: its own
+  scheme puts gorillas, chimpanzees and humans on three separate tribes. **That clause was removed rather
+  than re-sourced** — see the batch log
+- used by: Hominini (glossary)
+
+### iczn-1999 · the rules for writing a name
+International Commission on Zoological Nomenclature, *International Code of Zoological Nomenclature*, 4th
+ed. (London: International Trust for Zoological Nomenclature, 1999), art. 5.1 and app. B, rec. 6,
+https://archive.org/details/internationalcod1999inte. [Open access]
+- opened: 2026-08-01 · the Internet Archive's scan of the printed 4th edition, read through its OCR text
+  (`internationalcod1999inte_djvu.txt`). **The Commission's own Code Online is not readable from this
+  sandbox**: `code.iczn.org` resets the connection and the `iczn.org` / `nhm.ac.uk` pages that carry it
+  are iframe shells around that host. The archive.org scan is the copy that was opened and is therefore
+  the copy cited
+- supports: art. 5.1 — "The scientific name of a species … is a combination of two names (a binomen), the
+  first being the generic name and the second being the specific name. The generic name must begin with an
+  upper-case letter"; app. B rec. 6 — "The scientific names of genus- or species-group taxa should be
+  printed in a type-face (font) different from that used in the text; such names are usually printed in
+  italics"
+- used by: Genus (glossary)
