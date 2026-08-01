@@ -3,7 +3,9 @@
 The glossary was **333 terms and not one of them carried a source**. `window.GLOSSARY_SOURCES` was an empty
 table; the fold at the foot of a gloss popup never appeared. This is the plan for filling it. Not part of
 the site. **As of 2026-08-01, 31 of the 333 are cited and at the bar** — batches G1–G4, two of which also
-corrected cards; run `node .claude/gloss-source-audit.js` for the live figure.
+corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 31 carry in-text
+markers, in all ten languages, after the rule changed from optional to required on 2026-08-01 (see "What
+is different from the card pass").
 
 It is the sibling of `docs/citation-plan.md`, which took the 109 prehistory cards from nothing to five
 sources each over 27 batches. Everything that plan learned about *finding* sources applies here unchanged
@@ -41,17 +43,33 @@ label after the closing period — identical to the cards, and `add-sources.js` 
 
 ## What is different from the card pass
 
-Four things, and three of them make this pass cheaper per term.
+Three things, and one of them makes this pass cheaper per term.
 
-**Markers are optional.** On a card every source must be pointed at by a `<sup class="fn" data-fn="N">`
-marker and the tooling refuses a card that breaks it. On a term the list alone is honest — three sentences
-drawn from two reference works are fully described by naming them. `add-sources.js` only refuses a marker
-that points *past* the end of the list.
+**Markers are REQUIRED, exactly as on a card** — changed on request on 2026-08-01, after batches G1–G4 had
+shipped 31 terms without them. Every source must be pointed at by a `<sup class="fn" data-fn="N">` marker,
+every marker must have an entry behind it, and `add-sources.js` now refuses a term that breaks either rule,
+the way it always has for cards. The markers must sit on the **same claims in all ten languages**;
+`add-lang.js` warns when a translation's set differs from the English, and
+`node .claude/gloss-source-audit.js` reports it standing, under "MARKERS ADRIFT FROM THE ENGLISH".
 
-**So the default is: no markers, no prose change, no translation work.** That is the whole economy of this
-pass. A term whose description survives reconciliation untouched costs two citations and nothing else.
+<details><summary>Why it was optional, and why that did not survive</summary>
 
-**A corrected description costs nine translations.** Glossary descriptions live per-language in
+The original reasoning was that three sentences drawn from two reference works are fully described by
+naming them, where a card's ten-sentence abstract over five sources is not — so the default was **no
+markers, no prose change, no translation work**, and a term whose description survived reconciliation
+untouched cost two citations and nothing else. That was the whole economy of the pass, and it is why G1–G4
+could cite 31 terms while touching prose on only the 13 that were actually wrong.
+
+Two things retired it. Lists here do not stay at two: `Christian_Jürgensen_Thomsen` carries six sources and
+`Three-age_system` five, and at that size a reader genuinely cannot tell which work carries the 1816
+appointment and which the 1836 guidebook — the list has stopped explaining itself. And the inconsistency is
+visible from the reader's side: someone who follows a gold `data-new` term out of a fully-marked card lands
+in a popup where the numbers simply vanish, which reads as the apparatus giving up rather than as a
+considered choice. The economy was real, but it was being paid for by the reader.
+
+</details>
+
+**A corrected description costs nine translations, and so does a marker.** Glossary descriptions live per-language in
 `i18n/gloss-<lang>.js`, and `add-sources.js` does not touch them — it writes the English description and the
 sources, and nothing else. So a term whose prose has to change needs a **second command in the same batch**:
 
@@ -63,6 +81,12 @@ node .claude/add-lang.js     <lang>.json      # the same correction in es/fr/de/
 Leaving that out strands nine languages on a claim the English no longer makes, which is worse than the
 state we started in. Budget for it: on the cards, every batch produced corrections, and the count went up
 rather than down as the pass got better at looking.
+
+Markers ride the same road, and there is a tool for it: **`split-abstract.js` exports `pieces()` and
+`mark()`**, so a term can be split into its three sentences in each language and the SAME map of sentence
+index → source numbers applied to all ten at once. That is only safe when every language splits into
+exactly three sentences, which is what `pieces()` is for — **check it before placing anything**, and if a
+language splits differently, repair the splitter rather than writing a per-language map (batch 23's rule).
 
 **A description is shared across every deck and must stay deck-agnostic.** The house rule in CLAUDE.md — a
 gloss popup defines a term on its own terms, never within the context of one card or culture — binds a
@@ -494,6 +518,42 @@ close G5 without it.
   whose glyphs were the ASCII codes shifted by a constant; this one maps each glyph separately, so the
   offset trick produces confident gibberish. Solve it from cribs (`the`, `Three`, `English`, `versions`)
   before believing a word of it.
+
+### Batch GM — the markers, retrofitted
+
+#### 2026-08-01 — 159 markers on 31 terms, in ten languages
+
+Asked where the tiny numbers were in the gloss popups, and the honest answer was that there were none: the
+plan had made markers optional and G1–G4 had shipped 31 cited terms without a single one. **The rule is now
+required**, matching the cards, and the 31 have been marked retrospectively.
+
+**Placement came out of the register, not out of the prose.** Each work's entry records what it was opened
+for — `tattersall-2023` the brain volumes, `si-taung` the discovery year and the eagle-predation reading,
+`hutchinson-1914` the Bank Holidays Act — so assigning a sentence to a source was mostly lookup rather than
+judgement. That is the register paying for itself a third way, after batch 12's "the framework cards needed
+no new sources" and G1's "fifteen of nineteen works came out of it unopened".
+
+**One source was dropped rather than marked**, which is the new rule working as intended. `Knapping` cited
+Muller, Shipton & Clarkson 2022 for a claim about how long the skill takes to learn — a claim the term does
+not make. It was kept, but moved onto the sentence it does support (that knapping produced handaxes and
+blades, which is what the paper compares); had it supported nothing in the term, the rule would have
+required dropping it. **A source no sentence rests on is a reading list, and the marker rule is what makes
+that visible.**
+
+**The mechanism, which is reusable and should be reused.** `split-abstract.js` already exported `pieces()`
+and `mark()` for the cards. A glossary description is a single block of three sentences, so one map of
+sentence index → source numbers applies to all ten languages at once — provided every language really
+splits into three. Thirty of the thirty-one did; the thirty-first was **German `John_Lubbock`, split in
+half by "ab 1900 der **1.** Baron Avebury"**. Per batch 23's rule the splitter was repaired rather than
+routed around: it already held `19. Jahrhundert` and `25. August` by naming the following noun, which
+cannot generalise, so the new guard keys off the **preceding determiner** instead — a sentence never ends
+on *der*, so a number after one is always an ordinal. Verified not to swallow a real sentence end
+("…entstand 1892. Der Bau begann…"), and all 109 cards still split 5+5 in all ten languages afterwards.
+
+Each insertion was asserted to change the text **only** by the markers it added, so no translation could be
+silently reflowed. Rendering was then checked in a browser on all 31: every marker prints its number in
+reading order, none blank, none past the end of its list, and a marker click opens the fold on the entry it
+names.
 
 ### G5 · The Palaeolithic divisions and what follows (7 terms)
 `Paleolithic` · `Lower_Paleolithic` · `Middle_Paleolithic` · `Upper_Paleolithic` · `Mesolithic` ·

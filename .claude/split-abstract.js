@@ -40,6 +40,11 @@ function pieces(block) {
   hold(/\b(?:Jr|Sr|Dr|Prof|Mr|Mrs|Ms|St|Mt)\.\s?/g);        // "Roberts Jr. used the name in 1940"
   hold(new RegExp("\\d{1,2}\\.\\s(?=(?:" + MONTHS + "))", "g"));   // "25. August"
   hold(/\d{1,2}\.\s(?=Jahrhundert|Jh\.)/g);                 // "im frühen 19. Jahrhundert"
+  // A German ordinal before any capitalised noun — "ab 1900 der 1. Baron Avebury", which split the
+  // Lubbock term in half. The two clauses above name the nouns they guard and so cannot generalise; a
+  // preceding DETERMINER can, because a sentence never ends on "der" and a number after one is always an
+  // ordinal. Narrow on purpose: it must not swallow "…kam 1892. Der Bau begann…", where nothing precedes.
+  hold(/(?<=\b(?:der|die|das|dem|den|des|ein|eine|einem|einen|eines|als|zum|zur|vom|beim|im)\s)\d{1,2}\.\s/g);
   // A sentence ends at .!? followed by whitespace, or at a CJK terminator with or without one — and a
   // footnote marker may already sit between the two, since a top-up batch re-splits an abstract that an
   // earlier batch has already marked. Without the FN clause the splitter silently returns one sentence.

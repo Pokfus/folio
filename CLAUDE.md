@@ -92,11 +92,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `docs/glossary-citation-plan.md` — the batch plan for **citing the 333 glossary terms**, the sibling of
   the card plan above. The bar is **at least 2 citations per term** (a description is three sentences, where
   a card's abstract is ten), and the acceptable sources are academic, museum, government or reputable
-  NGO/IGO. **Batches G1–G4 have shipped — 31 of the 333 terms are cited and at the bar.** Three things about this pass that
-  the card pass does not have: **markers are optional** on a term, so the default batch changes no prose and
-  therefore needs no translation work; a term whose prose IS corrected needs a second command in the same
+  NGO/IGO. **Batches G1–G4 have shipped — 31 of the 333 terms are cited and at the bar, all with in-text
+  markers in all ten languages.** Two things about this pass that the card pass does not have: a term whose
+  prose is corrected — or whose markers are placed — needs a second command in the same
   batch (`add-lang.js` for the nine languages, since `add-sources.js` writes only the English description);
-  and Phase 1 is largely paid for out of `.claude/sources-register.md` already. It also records which
+  and Phase 1 is largely paid for out of `.claude/sources-register.md` already.
+  (**Markers were OPTIONAL on a term through G1–G4 and are now REQUIRED**, changed on request 2026-08-01
+  when the reader asked where the numbers were: lists had grown to five and six sources, at which size the
+  list stops explaining itself, and a reader arriving from a fully-marked card read the vanishing numbers
+  as the apparatus giving up. `add-sources.js` refuses an unmarked term or an unreferenced source, exactly
+  as for a card; `add-lang.js` warns on a translation whose markers differ from the English, and
+  `gloss-source-audit.js` reports both standing.) It also records which
   scholarly and official hosts were **reachable from this sandbox on 2026-08-01**, measured rather than
   assumed. **Batch G0 (tooling) has shipped**: `GLOSS_SRC_TARGET = 2` sits beside `SRC_TARGET` in app.js and
   is sliced out of it by text by `.claude/gloss-source-audit.js` (the mirror of `source-audit.js`, plus a
@@ -1780,9 +1786,16 @@ lifespan, dynasty, or dated event), e.g. `"c. 145–86 BCE"` or `"1644–1912"` 
 **Every new term carries `"sources"`** — Chicago note-form citations for its three sentences, in the same
 form and under the same rules as a card's (see the `sources` bullet under "Add a card": real scholarship,
 never Wikipedia, never an invented page number). They land in `window.GLOSSARY_SOURCES` and show as a
-numbered fold at the foot of the popup. **Markers are optional here**, unlike on a card: three sentences
-drawn from one reference work are honestly described by the list alone. Where a sentence does rest on a
-particular work, point at it the same way — `<sup class="fn" data-fn="2"></sup>`, written empty. Not
+numbered fold at the foot of the popup. **Markers are REQUIRED, exactly as on a card** (they were optional
+through batches G1–G4; changed on request 2026-08-01). Point each claim at the work it rests on with
+`<sup class="fn" data-fn="2"></sup>`, written empty — the digit is drawn from the list at render time — and
+put the SAME markers on the same claims in all nine translations, since a language that loses them shows
+the fold with no in-text links and a language that carries a different set points at the wrong work.
+`add-sources.js` refuses a term with no marker, a marker past the end of the list, or a source nothing
+points at; `add-lang.js` warns on a mismatched translation and `node .claude/gloss-source-audit.js` reports
+both over the whole glossary. **`split-abstract.js` exports `pieces()` and `mark()`** for exactly this: split
+each language into its three sentences and apply one sentence-index → source-number map to all ten at once,
+after checking that every language really does split into three. The citations themselves are not
 translated (a citation names an edition that exists in one language). Escape hatch: `"skipSources": true`,
 only for a maintenance edit of an older term.
 

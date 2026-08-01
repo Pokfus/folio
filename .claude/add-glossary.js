@@ -47,9 +47,11 @@ if (e.delete) {
   const isNew = !(e.slug in GLOSS);
   if (isNew && !(Array.isArray(e.tags) && e.tags.length >= 3)) { console.error("ERROR: a new term needs `tags` — at least 3 lowercase category tags (they drive the admin tag filter; reuse existing tags where possible)"); process.exit(1); }
   /* A gloss popup states three sentences of fact. Where they came from is part of the entry, not an
-     extra — so a new term names its sources, in the same Chicago note style the cards use. A description
-     may point at one with an empty <sup class="fn" data-fn="2"></sup>; markers are optional here, since
-     three sentences drawn from one reference work are honestly described by the list alone. */
+     extra — so a new term names its sources, in the same Chicago note style the cards use, and points at
+     them from the prose with an empty <sup class="fn" data-fn="2"></sup>. Markers were optional here
+     through batches G1–G4 and are REQUIRED as of 2026-08-01, on the same footing as a card's: a list of
+     five or six works that no sentence points into has stopped explaining itself, and a reader arriving
+     from a fully-marked card reads the missing numbers as the apparatus giving up. */
   if (isNew && !e.skipSources) {
     if (!Array.isArray(e.sources) || !e.sources.length || e.sources.some((s) => typeof s !== "string" || !s.trim())) {
       console.error("ERROR: a new term needs `sources` — Chicago note-form citations for its description (see CLAUDE.md). Pass skipSources:true only for a maintenance edit of a term written before citations existed.");
@@ -61,10 +63,23 @@ if (e.delete) {
     const unlinked = e.sources.filter((s) => !SRC_URL.test(s));
     if (unlinked.length) { console.error("ERROR: " + e.slug + ": every citation ends in a link the reader can follow — " + JSON.stringify(unlinked[0].slice(0, 80)) + " has none. Put the DOI or permalink last, as plain text; the site links it."); process.exit(1); }
   }
-  if (Array.isArray(e.sources)) {   // a marker with no entry behind it is dropped at render time — catch it here instead
+  if (Array.isArray(e.sources) && e.sources.length) {
     const marks = [...String(e.description || "").matchAll(/data-fn="(\d+)"/gi)].map((m) => +m[1]);
+    // a marker with no entry behind it is dropped at render time — catch it here instead
     const bad = marks.filter((n) => n < 1 || n > e.sources.length);
     if (bad.length) { console.error("ERROR: " + e.slug + " points at source " + bad[0] + ", but only has " + e.sources.length + "."); process.exit(1); }
+    if (!e.skipSources) {
+      if (!marks.length) { console.error("ERROR: " + e.slug + " has no footnote marker in its description. Point its claims at the sources with <sup class=\"fn\" data-fn=\"1\"></sup> (written empty — the digit is drawn from the list at render time)."); process.exit(1); }
+      const unused = e.sources.map((_, i) => i + 1).filter((n) => marks.indexOf(n) < 0);
+      if (unused.length) { console.error("ERROR: " + e.slug + ": source " + unused.join(", ") + " is never referenced from the description. Every citation is a footnote to a specific claim — add a marker, or drop the source."); process.exit(1); }
+      // the same markers must sit on the same claims in every language, or that language shows the fold
+      // with no in-text links (or worse, points the reader at a different work)
+      const want = marks.slice().sort((x, y) => x - y).join(",");
+      for (const [lang, text] of Object.entries(e.translations || {})) {
+        const got = [...String(text).matchAll(/data-fn="(\d+)"/gi)].map((m) => +m[1]).sort((x, y) => x - y).join(",");
+        if (got !== want) console.warn("WARNING: " + e.slug + " (" + lang + ") carries markers [" + got + "] where the English has [" + want + "].");
+      }
+    }
   }
   if (isNew && !e.skipTranslations) {
     const tr = e.translations || {};
