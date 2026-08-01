@@ -5143,3 +5143,253 @@ glacial epochs and the Huronian, and none returned a work that counts them. This
 wrong marker** (after `wh-098` in batch 23 and `wh-032` in batch G3) and it was found the same way, by
 re-reading a registered source for a different surface. Both the card and the `Ice_Age` term now say what
 Hoffman supports — several such intervals over the past 2.4 billion years — in all ten languages.
+
+---
+
+## Batch G7 — the type sites (2026-08-01)
+
+Twelve terms, 39 citation slots, **32 distinct works, every one of them open**. Seventeen came out of this
+register with no new fetch; **fifteen are new to the project**, and that ratio is the batch's first finding:
+G1 predicted the register would carry a glossary batch almost whole, and it did for terms about *taxa* and
+*periods*. A **place** is different. A type site's three sentences are a location, an excavation history and
+a find, and only the find is a claim some card already makes — so the register paid for the palaeoanthropology
+and none of the geography.
+
+### New works
+
+### zollikofer-2024 · Dmanisi, the five crania and the dating
+Christoph P. E. Zollikofer et al., "Dental Evidence for Extended Growth in Early *Homo* from Dmanisi,"
+*Nature* 635, no. 8040 (2024): 906–11,
+https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11602720/fullTextXML. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST route
+- supports: "The Dmanisi site, dated to 1.85–1.77 Ma, has yielded five well-preserved crania, associated
+  mandibles and various postcranial elements", "Together with a rich record of faunal remains and lithic
+  artefacts"; and the brains — "the brain size of early *Homo* at Dmanisi (ECV range: 546–730 cm³) was only
+  moderately larger than that of great apes"
+- used by: Dmanisi (glossary)
+
+### nery-2025 · who the Dmanisi hominins are, and the 1991 mandible
+Vitória Nery, Walter Neves, Luiza Valota, and Mark Hubbe, "Testing the Taxonomy of Dmanisi Hominin Fossils
+through Dental Crown Area," *PLOS ONE* 20, no. 12 (2025): e0336484,
+https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12674552/fullTextXML. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST route
+- supports: that the fossils "have been the subject of intense debate since their first discovery in the
+  1990s, particularly concerning their taxonomy"; "Dated to around 1.8 million years ago (Ma), the fossils
+  represent four adults … and one subadult"; "The first specimen excavated at the site was the D211 mandible
+  in 1991"; and the rival readings — one species, or *Homo georgicus* / *H. caucasicus* alongside it, with
+  "the possible chronological coexistence of different hominin species at the Dmanisi site"
+- worth carrying: it also records that new ²⁶Al/¹⁰Be ages for Yuanmou and Sangiran put *H. erectus* in Asia
+  "as early as 1.8 Ma", which it says "contradicts the traditional route". The term's "oldest securely dated
+  human remains outside Africa" is the standard claim and `medin-2019` states it outright, but a later batch
+  wanting to sharpen that sentence should start here
+- used by: Dmanisi (glossary)
+
+### medin-2019 · where Dmanisi is, and the first dispersal
+Tsegai Medin et al., "The Bears from Dmanisi and the First Dispersal of Early *Homo* out of Africa,"
+*Scientific Reports* 9 (2019): 17752,
+https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6882906/fullTextXML. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST route
+- supports: the site "located in the Mashavera river valley in the Lesser Caucasus (**85 km southwest of
+  Tibilisi**; 44°21'E, 41°9'N) and dated at 1.85-1.77 Ma"; and "the first human dispersal out of Africa, as
+  dated at 1.8 Ma in Dmanisi"
+- **does NOT support** the term's former "roughly 90 km southwest of Tbilisi"
+- used by: Dmanisi (glossary)
+
+### pitarch-2019 · Le Moustier, the three shelters and who dug them
+Africa Pitarch Martí et al., "Provenance, Modification and Use of Manganese-Rich Rocks at Le Moustier
+(Dordogne, France)," *PLOS ONE* 14, no. 7 (2019): e0218568, at "Archaeological context,"
+https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6636720/fullTextXML. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST route
+- supports: "The site of Le Moustier (lat. 44.994243, long. 1.059741) is located in Saint-Léon-sur-Vézère,
+  Dordogne, France, on the right bank of the Vézère River. It comprises three superimposed rockshelters: the
+  Trou de Bréchou and the Upper and Lower rockshelters"; that the Lower Shelter "was first excavated by Otto
+  Hauser and then by Denis Peyrony, who identified several Mousterian layers in the approximately 4 m thick
+  archaeological sequence"; and the later work of Laville and Rigaud in the 1960s and Geneste and Chadelle in
+  the 1980s
+- **does NOT support** the term's former "Excavated from the 1860s onward" — the excavation history it gives
+  begins with Hauser
+- used by: Le_Moustier (glossary)
+
+### schmidt-2024 · Le Moustier as the type site, and the Berlin collection
+Patrick Schmidt et al., "Ochre-Based Compound Adhesives at the Mousterian Type-Site Document Complex
+Cognition and High Investment," *Science Advances* 10, no. 8 (2024): eadl0822,
+https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10881035/fullTextXML. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST route
+- supports: "the type-site of the Mousterian technocomplex (Le Moustier, France)"; and that the artefacts are
+  "curated at the Museum für Vor- und Frühgeschichte in Berlin (Germany). The Berlin Le Moustier collection
+  was excavated at the upper terrace of Le Moustier shelter by Swiss archaeologist Otto Hauser in 1907"
+- **does NOT mention** the two Neanderthal individuals, the adolescent skeleton, its sale, or the controversy
+  in France. That sentence keeps its wording and carries **no marker** — nothing opened here contradicts it
+- used by: Le_Moustier (glossary)
+
+### moncel-2026 · what the Acheulean is, and where its name comes from
+Marie-Hélène Moncel et al., "What Is the Acheulean?," *Evolutionary Anthropology* 35, no. 2 (2026): e70029,
+https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13066721/fullTextXML. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST route
+- supports: "The term 'Acheuléen' derives from the site of Saint-Acheul, a suburb of the city of Amiens in
+  northern France, where this lithic industry was first described in 1872 by Gabriel de Mortillet, a major
+  French prehistorian"; and that Mortillet "did not discover the Acheulean, he named, described, and
+  incorporated it into the first scientific cultural framework of prehistory"
+- used by: Saint-Acheul (glossary)
+
+### antoine-2019 · the Somme terraces, and where prehistory was born
+Pierre Antoine et al., "The Earliest Evidence of Acheulian Occupation in Northwest Europe and the
+Rediscovery of the Moulin Quignon Site, Somme Valley, France," *Scientific Reports* 9 (2019): 13091,
+https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6739401/fullTextXML. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST route
+- supports: that the Acheulian "was originally defined in the Somme Valley"; the valley's Quaternary fluvial
+  terrace staircase, with the new assemblage "at a relative height of 40 m above the present-day maximal
+  incision of the Somme River"; and "the Somme valley, where Prehistory was born at the end of the 19th
+  century", with Boucher de Perthes finding the first bifaces "in fossil fluvial deposits" between 1837 and
+  1868 and Lyell's recognition of "the great antiquity of Man"
+- **does NOT give** a first report of hand axes at Saint-Acheul in 1859; that clause carries no marker
+- used by: Saint-Acheul (glossary)
+
+### gownaris-2015 · Lake Turkana, measured
+Natasha J. Gownaris et al., "Predicting Species' Vulnerability in a Massively Perturbed System: The Fishes
+of Lake Turkana, Kenya," *PLOS ONE* 10, no. 5 (2015): e0127027,
+https://www.ebi.ac.uk/europepmc/webservices/rest/PMC4437984/fullTextXML. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST route
+- supports: "Lake Turkana is an understudied rift valley lake located in northwestern Kenya that straddles
+  the Ethiopian border. With a surface area of about 6,750 km², it is Africa's fourth largest lake and the
+  world's largest permanent desert lake"; the Omo "which supplies 90% of the lake's water"; a mean depth of
+  30 m; and the rising "salinity and alkalinity" as the lake falls
+- used by: Lake_Turkana (glossary)
+
+### hodbod-2019 · the Omo-Turkana basin, synthesised
+Jennifer Hodbod et al., "Social-Ecological Change in the Omo-Turkana Basin: A Synthesis of Current
+Developments," *Ambio* 48, no. 10 (2019): 1099–1115,
+https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6722148/fullTextXML. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST route
+- supports, in one sentence: "The Omo River supplies **90%** of the inflow to Lake Turkana, the world's
+  largest permanent desert lake and **the world's largest alkaline lake**, with the remaining water balance
+  coming from the Turkwell River"
+- **does NOT support** the term's former "More than nine-tenths": 90% is nine-tenths exactly, and the
+  remainder is accounted for
+- used by: Lake_Turkana (glossary)
+
+### tilahun-2025 · the Awash, its length and its end
+Gebremichael Abayneh Tilahun, Ephrem Gebremariam, and Hayal Desta, "Analysis of Land Use Land Cover Changes
+and Population Dynamics in Awash River Basin (ARB), Ethiopia Using GIS and Remote Sensing," *Scientific
+Reports* 15 (2025): 34017, https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12484949/fullTextXML.
+[Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST route
+- supports: "Parts of the Oromia, Somali, Amhara, and Afar regions are embraced by the **1250 km long** Awash
+  River"; "Originating on a high plateau close to Ginchi town, west of Addis Ababa … the river runs across the
+  Rift Valley into the Afar Triad until spilling into the … Lake Abbe at the Ethiopian border with Djibouti";
+  the basin at 112,000 km² with 10.5 million people; and "The most important basin is the Awash River Basin,
+  which is heavily used and provides water for industry, hydropower plants, households, and large and
+  small-scale irrigation schemes"
+- **does NOT support** the term's former "about 1,200 km"
+- note: the term's "the most heavily used river in the country" is kept. Tilahun says "most important … heavily
+  used" rather than "most heavily used", which is close and not a contradiction; the G2 rule governs
+- used by: Awash_River (glossary)
+
+### rowan-2022 · the Hadar formations, dated
+John Rowan et al., "Early Pleistocene Large Mammals from Maka'amitalu, Hadar, Lower Awash Valley, Ethiopia,"
+*PeerJ* 10 (2022): e13210, https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8994497/fullTextXML.
+[Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST route
+- supports, twice (abstract and "Geological setting"): "The Hadar (**~3.45 to 2.95 Ma**) and Busidima (~2.7 to
+  0.8 Ma exposed) formations at the Hadar site … are separated by an angular unconformity above the spatially
+  extensive BKT-2 marker tuff complex (~2.95 Ma), which caps the Hadar Formation"; and "the recovery of an
+  early *Homo* maxilla (A.L. 666-1) with associated stone tools and fauna from the Maka'amitalu basin in the
+  1990s. These assemblages are dated to **~2.35 Ma** by the Bouroukie Tuff 3", "alongside Oldowan stone tool
+  assemblages"; also that Hadar lies in the lower Awash Valley and that its tuffs are radiometrically dated
+- **does NOT support** the term's former "between about 3.8 and 2.9 million years ago", nor "about 2.3 million
+  years ago" for A.L. 666-1
+- used by: Hadar,_Ethiopia, Afar_Region, Awash_River (glossary)
+
+### parker-2016 · the Taung locality, and what the deposits are
+Jennifer F. Parker, Philip J. Hopley, and Brian F. Kuhn, "Fossil Carder Bee's Nest from the Hominin Locality
+of Taung, South Africa," *PLOS ONE* 11, no. 9 (2016): e0161198,
+https://www.ebi.ac.uk/europepmc/webservices/rest/PMC5040396/fullTextXML. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST route
+- supports: "The Buxton-Norlim Limeworks southwest of Taung, South Africa, is renowned for the discovery of
+  the first *Australopithecus africanus* fossil, the 'Taung Child'. The hominin was recovered from a
+  distinctive **pink calcrete**"; that the limeworks "lie in the Ghaap Escarpment at the south eastern edge of
+  the Kalahari" and "contain a large system of **tufa deposits** … approximately 15km south west of the village
+  of Taung"; and the two witness sections, the Dart and Hrdlička Pinnacles
+- **it also disputes the cave model**: "The discovery that the hominin-bearing PCS deposits are instead of
+  **pedogenic origin** has entirely different implications for future research", against the earlier reading of
+  the pinnacles as cave infill. `rowan-wood-2024`, on the same locality, still writes of "the cave sediments at
+  Taung". **The two disagree, and the term stated the cave reading as fact**, so its wording was moved to what
+  both carry — ancient tufa and calcrete deposits — rather than picking a side. Recorded here so a later batch
+  finishes the question instead of rediscovering it
+- used by: Taung (glossary)
+
+### cavalazzi-2019 · the Afar Depression and the Danakil
+Barbara Cavalazzi et al., "The Dallol Geothermal Area, Northern Afar (Ethiopia)—An Exceptional Planetary
+Field Analog on Earth," *Astrobiology* 19, no. 4 (2019): 553–78, at "Geological Setting" and §3,
+https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6459281/fullTextXML. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST route
+- supports: "The Afar Depression is an incipient seafloor-spreading center located at the **triple junction**
+  between the Nubian, Somali, and Arabian [plates]"; "The Danakil Depression is a narrow, arid lowland plain
+  (~250 km long) mostly lying **~100 m below sea level** but reaching as much as 124 m b.s.l."; that it is "one
+  of the hottest (average annual temperature Dallol: 36–38 °C) and most acidic natural systems (pH ≈ 0) on
+  Earth"; and the Erta'Ale Range of axial shield volcanoes to its south
+- used by: Afar_Region (glossary)
+
+### yazew-2024 · the Afar Region as a state, and its people
+Bisrat Teklesilassie Yazew, "Women's Contributions versus Men's Patriarchal Status among Afar Pastoralists in
+the Lower Awash Valley," *Heliyon* 10, no. 14 (2024): e34469, at "Description of the research setting,"
+https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11284369/fullTextXML. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST route
+- supports: "The capital of the region is **Semera**. The region has six administrative zones … Afar land
+  comprises about 100,860 sq. km"; that the population "is predominantly nomadic, with most still practising
+  transhumant pastoralism for subsistence", 80.9% pastoralist; "From the highland areas, the **Awash**, Waima,
+  Mille, Gulina, and Awra rivers drain to the Afar lands"; "the great Danakil depression … low lands below sea
+  level"; and "the hot climate and arid nature of the study areas"
+- **does NOT support** "purpose-built" of Semera; that word carries no marker
+- used by: Afar_Region (glossary)
+
+### semaw-2020 · Gona, its Oldowan span and its *erectus*
+Sileshi Semaw et al., "Co-occurrence of Acheulian and Oldowan Artifacts with *Homo erectus* Cranial Fossils
+from Gona, Afar, Ethiopia," *Science Advances* 6, no. 10 (2020): eaaw4694,
+https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7056306/fullTextXML. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST route
+- supports: "The Gona Project study area, Afar, Ethiopia, has yielded numerous Oldowan archaeological
+  occurrences from **2.6 to 2.0 million years (Ma) ago**"; "We previously reported a **pelvis** from Gona,
+  furthering our understanding of *Homo erectus* pelvic morphology and evolutionary biology"; and both
+  **Acheulian (Mode 2) and Oldowan (Mode 1)** assemblages found with *H. erectus* crania at Busidima North
+  (1.26 Ma) and Dana Aoule North (ca. 1.6–1.5 Ma)
+- **does NOT give** the ~500 km² area, the "more than six million years" of deposits, or the *Ardipithecus*
+  fossils. All three are uncontroversial, nothing opened contradicts them, and all three carry no marker
+- used by: Gona,_Ethiopia, Awash_River (glossary)
+
+### Reused for exactly what this register records
+
+`harmand-2015`, `plummer-2025`, `dominguez-rodrigo-alcala-2016`, `braun-2019`, `gentry-1995`,
+`ncaa-olduvai`, `mercader-2020`, `mercader-2021`, `si-oh5`, `si-habilis`, `si-afarensis`,
+`si-kenyanthropus`, `si-knm-wt-40000`, `si-al-288-1`, `si-taung-child`, `rowan-wood-2024`, `torre-2016` —
+seventeen works, none re-opened for a new claim, per batch G6's rule.
+
+`si-afarensis` is worth flagging for a later batch: it names "the sites of Hadar, Ethiopia ('Lucy', AL 288-1
+and the 'First Family', AL 333)", which is what the `Hadar` marker rests on, but its "more than 300
+individuals" is the **species** total across Hadar, Dikika and Laetoli, not Hadar's. The term's "hundreds of
+*Australopithecus afarensis* fossils" and "at least 13 individuals" at AL 333 are uncontroversial and
+uncontradicted, and are kept — but neither figure is in an opened source.
+
+### NOT CITED — what could not be opened from this sandbox
+
+- **Ferring et al. 2011, "Earliest human occupations at Dmanisi … dated to 1.85–1.78 Ma," *PNAS* 108, no. 26.**
+  Indexed as **PMC3127884**, `isOpenAccess: N`, and the Europe PMC `fullTextXML` route returns **nothing at
+  all** — batch 24's warning that a non-OA flag is not a verdict cuts both ways, and here there is genuinely no
+  deposited text. `pnas.org` is 403 here. Dmanisi's dating is carried by `zollikofer-2024` and `medin-2019`
+  instead, both of which state 1.85–1.77 Ma.
+- **The Dmanisi "beneath the ruins of a medieval town" and "volcanic and lake deposits" clauses.** Nothing
+  openable states either: `museum.ge` redirects, `dmanisi.ge` and `georgianmuseums.ge` do not resolve, and a
+  Europe PMC full-text search for `"Dmanisi" AND "medieval"` returns only palaeoproteomics papers. Batch 13's
+  finding stands — **the Georgian National Museum publishes no per-object catalogue** — and this is the second
+  batch to confirm it. The clauses are uncontradicted and kept unmarked.
+- **The Saint-Acheul archaeological garden** — listed 1947, opened 1998. The French heritage platform serves
+  its notice pages (`pop.culture.gouv.fr/notice/merimee/<ref>` returns the record as embedded JSON, and
+  `culture.gouv.fr` and `archeologie.culture.gouv.fr` are both 200) but **its search API is blocked**
+  (`api.pop.culture.gouv.fr` returns a "Requête bloquée" interstitial) and the search URL 404s, so the notice
+  reference could not be found without guessing at it. `amiens.fr`'s page for the garden is a 404. Batch 21's
+  route — the culture ministry's portal — is therefore only half open from here: **usable if you already know
+  the reference, unsearchable if you do not.** The sentence is uncontradicted and kept unmarked.
+- **`whc.unesco.org` is still 403** (the plan's reachability table already records it), so the Taung 2005
+  extension, the Lake Turkana 1997 inscription and the Lower Valley of the Awash 1980 inscription are all
+  unmarked. Three terms in one batch turned on it; a future pass wanting these should look for a state party's
+  own record rather than the World Heritage Centre.
