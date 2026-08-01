@@ -37,6 +37,16 @@ function pieces(block) {
   // it needs its own clause — a single Arabic letter standing alone before a full stop.
   hold(/(?<=^|[\s(«"'([])(?:\p{Lu}\.\s?){2,}/gu);
   hold(/(?<=^|[\s(«"'([])(?:[ء-ي]\.\s?){2,}/g);
+  // A LONE initial before a given name — "the archaeologist V. Gordon Childe", which the {2,} run rule
+  // above cannot see because there is only one. It split the Neolithic Revolution term after the "V." in
+  // English and in five translations. Narrow on purpose: the following word must be a capitalised word of
+  // at least two letters, so a real sentence boundary is only ever swallowed when the previous sentence
+  // ended on a single capital letter — which no prose in this project does.
+  hold(/(?<=^|[\s(«"'([])\p{Lu}\.\s(?=\p{Lu}\p{L})/gu);
+  // The Arabic of the same thing. Arabic has no case, so the "followed by a capital" test above cannot
+  // carry over; a lone Arabic letter standing between whitespace and a full stop is an initial for the
+  // same reason — no Arabic sentence ends on one. "عالم الآثار ف. غوردون تشايلد" and "جيسون إ. لويس".
+  hold(/(?<=^|[\s(«"'([])[ء-ي]\.\s(?=[ء-ي])/g);
   hold(/\b(?:Jr|Sr|Dr|Prof|Mr|Mrs|Ms|St|Mt)\.\s?/g);        // "Roberts Jr. used the name in 1940"
   hold(new RegExp("\\d{1,2}\\.\\s(?=(?:" + MONTHS + "))", "g"));   // "25. August"
   hold(/\d{1,2}\.\s(?=Jahrhundert|Jh\.)/g);                 // "im frühen 19. Jahrhundert"

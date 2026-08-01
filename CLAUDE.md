@@ -92,7 +92,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `docs/glossary-citation-plan.md` — the batch plan for **citing the 333 glossary terms**, the sibling of
   the card plan above. The bar is **at least 2 citations per term** (a description is three sentences, where
   a card's abstract is ten), and the acceptable sources are academic, museum, government or reputable
-  NGO/IGO. **Batches G1–G4 have shipped — 31 of the 333 terms are cited and at the bar, all with in-text
+  NGO/IGO. **Batches G1–G5 have shipped — 38 of the 333 terms are cited and at the bar, all with in-text
   markers in all ten languages.** Two things about this pass that the card pass does not have: a term whose
   prose is corrected — or whose markers are placed — needs a second command in the same
   batch (`add-lang.js` for the nine languages, since `add-sources.js` writes only the English description);
@@ -640,8 +640,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     stripe): one is derived from the data, the other is an editor's private marker.
   · `sup` + `class="fn"` + `data-fn` are in the sanitizer allowlists, so a community deck can use markers too.
   · **The Atlas table still ships EMPTY; the glossary has begun.** `country-sources.js` has no entries at all.
-    **`GLOSSARY_SOURCES` carries 31 of the 333 terms** (batches G1–G4, 2026-08-01 — the genus, species, specimen,
-    stone-industry and three-age terms), against
+    **`GLOSSARY_SOURCES` carries 38 of the 333 terms** (batches G1–G5, 2026-08-01 — the genus, species, specimen,
+    stone-industry, three-age and periodisation terms), against
     a bar of **`GLOSS_SRC_TARGET` (2)**, which is lower than a card's five because a description is three sentences
     where an abstract is ten; `docs/glossary-citation-plan.md` is the plan for the rest and
     `node .claude/gloss-source-audit.js` says where it stands. The UI, the deltas and the pipeline are in place;
@@ -1869,8 +1869,8 @@ and its sources, and were fact-checked rather than referenced. A batched pass is
 reports both on every run, `node .claude/source-audit.js` reports them per card, and the Edit page's card list
 shows each card's coverage as an amber or red chip) — and **a second pass has started on the glossary**, batched
 through `docs/glossary-citation-plan.md` at a bar of **2 citations per term** (`GLOSS_SRC_TARGET`), with
-`node .claude/gloss-source-audit.js` and the glossary list's own coverage chip reporting it; **31 of 333 terms
-are cited** (batches G1–G4). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
+`node .claude/gloss-source-audit.js` and the glossary list's own coverage chip reporting it; **38 of 333 terms
+are cited** (batches G1–G5). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
 Two rules that pass turned up at once. **`add-sources.js` writes only the ENGLISH description**, so a term whose
 prose is corrected needs an `add-lang.js` run per language in the same batch or nine languages keep the old
 claim; and **a correction does not travel between surfaces** — `Homo_habilis` still carried the 2.3–1.5 Mya span
@@ -1890,9 +1890,19 @@ devise the three-age system** (he called it "the old idea" in 1825, and Vedel Si
 ten years earlier). That corrected two terms and `wh-006`'s date line. G4 also found, and deliberately did NOT
 half-fix, the pass's one systematic divergence: **the glossary starts prehistory at 3.3 Mya and the cards start
 it at 2.6 Mya** with Lomekwi 3 as a contested earlier claim — and the glossary's own `Lomekwian` term calls that
-assemblage debated, so it contradicts itself too. `Paleolithic`, `Lower_Paleolithic`, `Prehistory` and
-`Stone_Age`'s date line all carry it; **batch G5 owns those terms and must settle all four in one pass**, which
-is written into `docs/glossary-citation-plan.md` under G5.
+assemblage debated, so it contradicts itself too.
+**Batch G5 settled it: prehistory starts at 2.6 Mya everywhere**, with the disputed 3.3 Ma Lomekwi claim kept as
+a hedge in the prose and left standing alone on `Lomekwian` and `Lomekwi_3`. Seven date lines moved with it, and
+the sibling check the plan demanded found two nobody had gone looking for — `Neolithic` ended at 3000 BCE where
+`Stone_Age` ended and `Bronze_Age` began at 3300, and `Upper_Paleolithic` ended at 12,000 BP where the Holocene
+GSSP puts it at 11,700. The Palaeolithic now closes at **9700 BCE**, not 10,000. `wh-001` carried the same two
+errors and was corrected in ten languages. G5's own finding is a caution about harmonising: the `Neolithic`
+term's "first clear signs of social ranking" was **withdrawn** (contradicted by `wh-009` and by Fuller &
+Stevens, who put rank with urbanism), while `Neolithic_Revolution`'s "private property and inherited rank" was
+**kept**, because it claims these among the transition's consequences and not as the first of their kind. The
+two read as inconsistent and are not; the difference is the word *first*. Also from G5: **open a source whose
+title reads as a refutation before citing it** — `eren-lycett-2012` ("Why Levallois?", on whether Levallois
+flakes are standardized at all) was opened for that reason and confirms the sentence it now marks.
 **Do not paper over the rest by attaching plausible-looking citations to existing prose** — a citation that was
 not the actual source of a sentence is worse than no citation, because it invites a reader to trust a page number
 nobody checked. The honest routes are the ones the pass follows: open every work before citing it, re-derive the
@@ -1903,7 +1913,10 @@ card's abstract into its 2 blocks of 5 sentences in all ten languages and report
 and round-trips byte for byte. **Run it before placing markers by sentence index**: a language that splits
 differently maps the markers onto the wrong claims and nothing downstream notices. It carries every guard
 the batches have turned up — decimals, the era abbreviations in five languages (incl. Russian `н. э.`,
-which needs no `\b` since JS's is ASCII-only), initials, a day-ordinal before a month name, a bare ordinal
+which needs no `\b` since JS's is ASCII-only), initials — **runs of them AND lone ones**, the lone case
+added in batch G5 after "the archaeologist **V.** Gordon Childe" split a glossary term in half in English and
+five translations, with a matching Arabic clause since Arabic has no case to test for — a day-ordinal before a
+month name, a bare ordinal
 before `Jahrhundert`, the CJK full stop, and **markers already placed by an earlier batch** (the marker sits
 between the full stop and the following space, and in zh/ja with no space at all — without that guard a
 top-up batch sees one enormous sentence, or splits every marker off as its own).

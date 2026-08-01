@@ -2,10 +2,11 @@
 
 The glossary was **333 terms and not one of them carried a source**. `window.GLOSSARY_SOURCES` was an empty
 table; the fold at the foot of a gloss popup never appeared. This is the plan for filling it. Not part of
-the site. **As of 2026-08-01, 31 of the 333 are cited and at the bar** — batches G1–G4, two of which also
-corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 31 carry in-text
+the site. **As of 2026-08-01, 38 of the 333 are cited and at the bar** — batches G1–G5, three of which also
+corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 38 carry in-text
 markers, in all ten languages, after the rule changed from optional to required on 2026-08-01 (see "What
-is different from the card pass").
+is different from the card pass"). G5 also settled the start of prehistory across the glossary, the deck
+and every date line: **2.6 Mya**, with the disputed 3.3 Ma Lomekwi claim hedged rather than adopted.
 
 It is the sibling of `docs/citation-plan.md`, which took the 109 prehistory cards from nothing to five
 sources each over 27 batches. Everything that plan learned about *finding* sources applies here unchanged
@@ -555,7 +556,7 @@ silently reflowed. Rendering was then checked in a browser on all 31: every mark
 reading order, none blank, none past the end of its list, and a marker click opens the fold on the entry it
 names.
 
-### G5 · The Palaeolithic divisions and what follows (7 terms)
+### G5 · The Palaeolithic divisions and what follows (7 terms) — **DONE (2026-08-01)**
 `Paleolithic` · `Lower_Paleolithic` · `Middle_Paleolithic` · `Upper_Paleolithic` · `Mesolithic` ·
 `Neolithic` · `Neolithic_Revolution`
 
@@ -574,6 +575,59 @@ glossary says **3.3 million years ago** in `Paleolithic`, `Lower_Paleolithic`, `
 glossary contradicts itself as well as the deck. Pick one convention — the cards' hedged form is the
 better-reviewed one — and apply it to all four terms, their date lines and their nine translations in a
 single pass. **Do not close G5 without it.**
+
+**Batch G5 log (2026-08-01).** Nine terms, 38 citation slots: the seven above, plus `Prehistory` and
+`Stone_Age` re-marked because the batch moved the figure they open on. **All 333 terms now split into three
+sentences in every language and 38 are at the two-source bar.**
+
+**The mandate was carried out, and the whole chain now lines up.** Prehistory starts at **2.6 Mya** in
+`Paleolithic`, `Lower_Paleolithic`, `Prehistory` and `Stone_Age`, with the disputed 3.3 Ma Lomekwi claim
+kept as a hedge where a sentence has room and left standing alone on `Lomekwian` and `Lomekwi_3`, which is
+where it belongs. The Palaeolithic now ends at **9700 BCE** (11,700 b2k) rather than 10,000, and the
+Mesolithic begins there; `Upper_Paleolithic` ends at 11,700 BP rather than 12,000; `Neolithic` ends at 3300
+BCE rather than 3000, which is where `Stone_Age` already ended and where `Bronze_Age` already begins. Seven
+date lines moved. The sibling check the plan asked for is what found the last two of those: neither was in
+the batch's brief, and both were wrong only against their own neighbours.
+
+**The finding, and it is a caution about how this pass has been reading its own sources.** The `Neolithic`
+term said the first clear signs of social ranking appear in that phase. It was contradicted twice over —
+by `wh-009` (Smith & Codding: rank does not need farming) and by `fuller-stevens-2019`, which puts land
+ownership and inherited rank with the *scaling up* to urbanism, not with the farming villages. The clause
+was **withdrawn rather than re-sourced** and replaced with the reopened passage graves of
+`schulz-paulsson-2019`, which the term can stand behind. But the neighbouring `Neolithic_Revolution` term
+lists "private property and inherited rank" among the transition's consequences and that was **kept**,
+because it is precisely Fuller and Stevens's argument and makes no claim to be the first of its kind. The
+two look inconsistent and are not; the difference is the word *first*, and a batch that harmonises on
+sight rather than on reading would have flattened one into the other.
+
+**A source's title can read as a refutation of the sentence it is meant to support** — `eren-lycett-2012`,
+"Why Levallois? … 'Preferential' Levallois Flakes versus Debitage Flakes", was opened for that reason
+before being attached to `Middle_Paleolithic`'s "more standardized flakes", and it confirms the claim
+outright. The habit is cheap and the failure it prevents is expensive: a citation whose own abstract
+disputes the sentence above it is worse than no citation, because a reader who follows it learns that the
+apparatus is not to be trusted.
+
+**Two tooling gaps, both the same shape as batch 24's, both fixed rather than routed around.**
+`split-abstract.js` held a run of initials but not a lone one, so "the archaeologist **V.** Gordon Childe"
+split `Neolithic_Revolution` in half in English and five translations, and the Arabic clause had the same
+`{2,}` bound, which broke it on "**ف.** غوردون تشايلد" and "جيسون **إ.** لويس". Both now hold a single
+initial — in Latin script by requiring a following capitalised word, and in Arabic, which has no case, by
+requiring a lone letter between whitespace and the stop. Re-checked against the whole corpus: **all 109
+cards still split 5+5 in all ten languages**, and the only glossary terms that do not split into three are
+genuinely four-sentence entries outside this pass.
+
+**Twenty-six of the 38 slots needed no new reading** — batch 12's finding, and stronger here than on the
+cards, because a period term makes no claim that some site or specimen term does not already make. Four
+works were opened for the first time (`watkins-2017`, `lhote-2024`, `fuller-stevens-2019`,
+`eren-lycett-2012`) and three shipped on cards without ever being registered were read and registered now
+(`groucutt-2019`, `gilligan-2024`, `larsson-2016`).
+
+**And the card sweep batch 26 asked for paid again.** `wh-001` carried "3.3 to 2.6 million years ago" as a
+flat range — reading as though toolmaking spans it, where 3.3 is the disputed end — in its date line *and*
+its abstract, and closed the Ice Age at "around 10,000 BCE" while its own abstract said 11,700 years ago.
+Both were fixed in all ten languages. `wh-002` already had the hedged form, in all ten, and was the model
+the glossary wording was lifted from; grepping for the FIGURE rather than the term is what turned up the
+sibling that had it right.
 
 ### G6 · Geological time (6 terms)
 `Quaternary` · `Pleistocene` · `Holocene` · `Cryogenian` · `Ice_Age` · `Milankovitch_cycles`

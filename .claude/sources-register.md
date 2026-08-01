@@ -4906,3 +4906,120 @@ e71004, https://pmc.ncbi.nlm.nih.gov/articles/PMC3743901/. [Open access]
   **403** from this sandbox — so the parliamentary record itself, which is the body-responsible source for
   what Lubbock carried, is unreachable here. `legislation.gov.uk` answers 200 but serves these two Acts
   as PDF only. Recorded so the next pass does not re-run the same four fetches.
+
+## Batch G5 — the Palaeolithic divisions and what follows (GLOSSARY), verified 2026-08-01
+
+Nine terms: the seven of G5 (`Paleolithic`, `Lower_Paleolithic`, `Middle_Paleolithic`,
+`Upper_Paleolithic`, `Mesolithic`, `Neolithic`, `Neolithic_Revolution`) plus `Prehistory` and `Stone_Age`,
+re-marked because the batch moved the figure they open on. **Twenty-six of the batch's thirty-eight
+citation slots were filled from works already in this register** — batch 12's finding again, and stronger
+than it was on the cards, because a period term makes no claim that some site or specimen term does not
+already make. Only four works were read for the first time.
+
+### watkins-2017 · the Neolithic as Childe named it, and as it is now read
+Trevor Watkins, "From Pleistocene to Holocene: The Prehistory of Southwest Asia in Evolutionary Context,"
+*History and Philosophy of the Life Sciences* 39, no. 3 (2017): 22,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC5556129/. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST route
+- supports: "Most people think of the Neolithic in terms derived from Gordon Childe's theory of a Neolithic
+  revolution (Childe 1936)", and that "He defined it as a period of a kind with the industrial revolution,
+  bringing about a social, economic and technological transformation" — the term's naming, its date and the
+  analogy the name carries; and the slow-transition reading, since "archaeologists have gradually recognized
+  that the preceding Epi-palaeolithic period, between 23,000 and 12,000 years ago, saw the emergence and
+  development of many of the characteristics that we think of as Neolithic"
+- used by: Neolithic_Revolution (glossary)
+
+### lhote-2024 · a Neolithic disease, dated
+Louis L'Hôte et al., "An 8000 Years Old Genome Reveals the Neolithic Origin of the Zoonosis *Brucella
+melitensis*," *Nature Communications* 15 (2024): 6132,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC11271283/. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST route
+- supports: the speciation of *B. melitensis* from the cattle-infecting *B. abortus* "to approximately 9800
+  years Before Present (BP), coinciding with a period of consolidation and dispersal of livestock
+  economies"; and the mechanism the term states — "Within-settlement penning and confinement, suboptimal
+  hygiene practices in incipient herding communities, and the mixing of previously allopatric species may
+  have promoted transmission and pathogen diversification", with "greater host densities of Neolithic herds"
+- used by: Neolithic_Revolution (glossary)
+
+### fuller-stevens-2019 · how big an early farming village was, and where rank came in
+Dorian Q. Fuller and Chris J. Stevens, "Between Domestication and Civilization: The Role of Agriculture and
+Arboriculture in the Emergence of the First Urban Societies," *Vegetation History and Archaeobotany* 28,
+no. 3 (2019): 263–82, https://pmc.ncbi.nlm.nih.gov/articles/PMC6499764/. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST route
+- supports: "The largest early agricultural villages throughout the Old World had populations in the
+  hundreds", and that "As the Neolithic progressed, settlements in the thousands arose" — the permanent
+  villages of the `Neolithic` term; and "developments in land ownership and rights of tenure associated with
+  emergent elite bodies, resulting from increased social stratification", which is the property and
+  inherited rank of the `Neolithic_Revolution` term
+- **it is also what removed a claim.** It places stratification with the *scaling up* to urbanism, not with
+  the farming villages themselves. Together with `smith-codding-2021` (rank without farming, `wh-009`) that
+  leaves no support for the `Neolithic` term's "the first clear signs of social ranking appear", which was
+  dropped. What replaced it is `schulz-paulsson-2019`'s reopened passage graves, which the term can stand
+  behind. The `Neolithic_Revolution` term's "private property and inherited rank" was **kept**: it claims
+  these among the consequences of the transition, which is exactly this paper's argument, and does not
+  claim they were the first of their kind
+- used by: Neolithic, Neolithic_Revolution (glossary)
+
+### eren-lycett-2012 · whether Levallois flakes really are standardized
+Metin I. Eren and Stephen J. Lycett, "Why Levallois? A Morphometric Comparison of Experimental
+'Preferential' Levallois Flakes versus Debitage Flakes," *PLOS ONE* 7, no. 1 (2012): e29273,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC3264556/. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST route. **Opened because the title reads as a
+  challenge** — "controversy exists regarding the extent of 'predetermination' and 'standardization'" — and
+  a citation whose own abstract disputed the sentence it was attached to would have been worse than none
+- supports, and confirms rather than overturns: "PLFs also exhibit significantly less variability than the
+  flakes generated during their production", and "PLFs are standardized in such a manner that they may be
+  considered 'predetermined' with regard to a specific set of properties", linked to "durability, capacity
+  for retouch, and reduction of torque"
+- used by: Middle_Paleolithic (glossary), wh-003
+
+### groucutt-2019 · modern humans in the Levantine Middle Palaeolithic
+Huw S. Groucutt, Eleanor M. L. Scerri, Chris Stringer, and Michael D. Petraglia, "Skhul Lithic Technology
+and the Dispersal of *Homo sapiens* into Southwest Asia," *Quaternary International* 515 (2019): 30–52,
+https://ora.ox.ac.uk/objects/uuid:26de242d-8c79-44a8-9dea-5631a7400664. [Open access]
+- opened: 2026-08-01 · the Oxford deposit's record and accepted manuscript
+- supports: Skhul at "∼130–100 thousand years ago" and Qafzeh "beginning ∼110–90 ka" — *Homo sapiens*
+  in Southwest Asia well inside the Middle Palaeolithic, which is the term's "Near East" and its "early
+  anatomically modern humans"; and "a greater emphasis on preferential rather than recurrent Levallois
+  reduction at Skhul", so that "neither the Levantine Middle Palaeolithic in general, nor MIS 5 assemblages
+  in particular, were technologically homogeneous"
+- used by: Middle_Paleolithic (glossary), wh-003
+
+### gilligan-2024 · the bone toolkit of the Upper Palaeolithic
+Ian Gilligan, Francesco d'Errico, Luc Doyon, Wei Wang, and Yaroslav V. Kuzmin, "Paleolithic Eyed Needles
+and the Evolution of Dress," *Science Advances* 10, no. 26 (2024): eadp2887,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC11212769/. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST route
+- supports: eyed needles as "among the most iconic of Paleolithic artifacts", bone awls beside them, and
+  that "the Upper Paleolithic saw an increase in personal ornaments, some sewn onto clothing"
+- **limit worth recording**: it carries the BONE half of the term's "bone, antler, and ivory" and nothing on
+  antler; the ivory is `floss-2015`'s, on the same term's third sentence. The blade clause in that sentence
+  rests on neither and is left as the definitional commonplace it is
+- used by: Upper_Paleolithic (glossary), wh-004, wh-077
+
+### larsson-2016 · a microlith still in its haft
+Lars Larsson, Arne Sjöström, and Carl Heron, "The Rönneholm arrow: a find of a wooden arrow-tip with
+microliths in the bog Rönneholms Mosse, central Scania, southern Sweden," *Lund Archaeological Review* 22
+(2016): 7–20, https://journals.lub.lu.se/lar/article/view/21616. [Open access]
+- opened: 2026-08-01 · the journal's own record
+- supports: "a wooden arrow made of hazel wood, with four microliths glued to the tip and a loose fifth
+  microlith that probably also was attached", "dated to the late Maglemose Culture", hafted with "a pure
+  birchbark tar adhesive" — and the reason it is the right source for the claim, that the arrow "is one of
+  the few examples in the world showing how narrow microliths were attached"
+- used by: Mesolithic (glossary), wh-080, wh-099
+
+## Reused without new reading (batch G5)
+
+`lubbock-1865`, `braun-2019`, `walker-2018-subdivision`, `si-sapiens`, `harmand-2015`,
+`dominguez-rodrigo-alcala-2016`, `torre-2016`, `si-early-stone-age-tools`, `roebroeks-villa-2011`,
+`gennai-2024`, `wadley-2009`, `si-neanderthalensis`, `brumm-2021-sulawesi`, `floss-2015`, `stiner-2001`,
+`rce-pesse`, `westropp-1866`, `kanjanajuntorn-2020`, `maher-2011`, `larson-2014`,
+`schulz-paulsson-2019`, `cooper-grebnev-2023` — each cited for exactly what this register already records
+it supports, and no further.
+
+Two of them changed a term rather than merely confirming one. **`braun-2019`** — ">2.58 Ma" at
+Ledi-Geraru, against Gona at 2.58–2.55 — is what the four periodisation date lines were moved onto, and it
+replaced `harmand-2015` in `Prehistory`'s list, whose 3.3 Ma Lomekwi claim the glossary's own `Lomekwian`
+term calls debated. **`walker-2018-subdivision`**'s Holocene base at 11,700 b2k is what ended the
+Palaeolithic at 9700 BCE instead of 10,000, on `Paleolithic`, `Upper_Paleolithic`, `Mesolithic` and
+`wh-001`'s date line.
