@@ -6774,6 +6774,12 @@
      qualifying sources" the pass started with; docs/citation-plan.md is the work of bringing the deck up
      to it. */
   const SRC_TARGET = 5;
+  /* The same bar for a curated GLOSSARY term, and lower for a reason: a description is three sentences
+     where a card's abstract is ten, so two works behind it is a full apparatus rather than a token one.
+     Read out of here by .claude/gloss-source-audit.js and .claude/add-sources.js, exactly as SRC_TARGET
+     is, so this file and the scripts can never disagree about what the bar is. docs/glossary-citation-plan.md
+     is the work of bringing the 333 terms up to it. */
+  const GLOSS_SRC_TARGET = 2;
   // clean a raw sources value (array, or one string) into the display list: trimmed, de-duplicated, capped
   function normSources(raw) {
     const arr = Array.isArray(raw) ? raw : (raw == null || raw === "" ? [] : [raw]);
@@ -11713,6 +11719,17 @@
       ? "Sources: " + s.n + " of " + SRC_TARGET + " — researched, no further qualifying source found. " + s.why
       : "Sources: " + s.n + " of " + SRC_TARGET + " — needs " + (SRC_TARGET - s.n) + " more.";
   }
+  /* The same chip on a curated glossary term, against the lower GLOSS_SRC_TARGET bar. Two states, not the
+     cards' three: there is no `sourcesBlocked` on a term, because five qualifying works for one card is a
+     research finding worth recording on the card and two for a three-sentence description is not — a term
+     that genuinely cannot reach the bar belongs in the batch log, in prose. Deck terms are skipped: the
+     bar is Folio's editorial standard for its own glossary, and a stranger's deck is not held to it. */
+  function glossSourceChip(k) {
+    if (uGlossParse(k)) return "";
+    const n = glossSources(k).length;
+    if (n >= GLOSS_SRC_TARGET) return "";
+    return '<span class="acr-src short" title="' + esc("Sources: " + n + " of " + GLOSS_SRC_TARGET + " — needs " + (GLOSS_SRC_TARGET - n) + " more.") + '">' + n + "/" + GLOSS_SRC_TARGET + "</span>";
+  }
   function adminSortIds(ids) {
     const mode = adminState.sort;
     const arr = ids.slice();
@@ -12564,7 +12581,7 @@
       const gColorCount = {}; keys.forEach((k) => { const cc = glossColor(k); if (cc) gColorCount[cc] = (gColorCount[cc] || 0) + 1; });
       host.innerHTML = keys.length ? keys.map((k) => {
         const gcol = glossColor(k), colHex = COLOR_HEX[gcol] || "";
-        return '<button class="admin-card-row gloss-row' + (adminState.glossKey === k ? " active" : "") + (glossIsEdited(k) ? " edited" : "") + (colHex ? " colored" : "") + '" type="button" data-gkey="' + esc(k) + '"' + (colHex ? ' style="--acr-col:' + colHex + '"' : '') + '>' + (colHex ? '<span class="acr-colortag" title="' + esc(gColorCount[gcol] + "/" + keys.length + " terms marked " + gcol) + '"></span>' : '') + '<span class="acr-title">' + esc(glossTitle(k)) + '</span><span class="acr-sub acr-tags">' + esc(glossTags(k).join(", ")) + '</span></button>';
+        return '<button class="admin-card-row gloss-row' + (adminState.glossKey === k ? " active" : "") + (glossIsEdited(k) ? " edited" : "") + (colHex ? " colored" : "") + '" type="button" data-gkey="' + esc(k) + '"' + (colHex ? ' style="--acr-col:' + colHex + '"' : '') + '>' + (colHex ? '<span class="acr-colortag" title="' + esc(gColorCount[gcol] + "/" + keys.length + " terms marked " + gcol) + '"></span>' : '') + '<span class="acr-title">' + esc(glossTitle(k)) + '</span><span class="acr-sub acr-tags">' + glossSourceChip(k) + esc(glossTags(k).join(", ")) + '</span></button>';
       }).join("") : '<div class="admin-empty">No glossary terms match “' + esc(raw) + '”.</div>';
       host.querySelectorAll("[data-gkey]").forEach((el) => el.addEventListener("click", () => { adminState.glossKey = el.dataset.gkey; adminRenderList(); adminRenderEditor(); }));
       // right-click a glossary term → pick one of six admin-only colour marks (or clear)

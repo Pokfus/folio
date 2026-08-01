@@ -93,7 +93,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   batch (`add-lang.js` for the nine languages, since `add-sources.js` writes only the English description);
   and Phase 1 is largely paid for out of `.claude/sources-register.md` already. It also records which
   scholarly and official hosts were **reachable from this sandbox on 2026-08-01**, measured rather than
-  assumed. Not part of the site.
+  assumed. **Batch G0 (tooling) has shipped**: `GLOSS_SRC_TARGET = 2` sits beside `SRC_TARGET` in app.js and
+  is sliced out of it by text by `.claude/gloss-source-audit.js` (the mirror of `source-audit.js`, plus a
+  `--tag=` filter and two checks a two-source list makes easy to fail — not-majority-open, and a citation
+  with no access label) and by `add-sources.js`, which now warns a short term and reports glossary coverage
+  against the bar. The **admin glossary list carries a coverage chip** like the card list, in two states
+  rather than three (no `sourcesBlocked` on a term) and never on a deck term. Not part of the site.
 - `docs/user-decks-plan.md` — the design plan for **community decks** (user-created decks, sharing,
   ratings, an optional per-deck glossary, and a later paid tier). Phases 0–1 have shipped; see the bullet
   in "How the app is wired". Not part of the site.

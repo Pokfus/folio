@@ -2694,6 +2694,9 @@ textarea.af-input{resize:vertical; min-height:42px;}
 .acr-src{display:inline-block; margin-left:6px; padding:0 4px; border-radius:4px; font-family:var(--mono); font-size:9px; letter-spacing:.03em; vertical-align:baseline;}
 .acr-src.short{background:color-mix(in srgb, #e0982b 22%, transparent); color:#96631a;}
 .acr-src.blocked{background:color-mix(in srgb, #d8453c 22%, transparent); color:#a52a22;}
+/* on a glossary row the chip LEADS the tags column rather than trailing it: that column truncates with an
+   ellipsis, so a chip at its end would be the first thing lost on a term with many tags */
+.gloss-row .acr-src{margin-left:0; margin-right:6px;}
 body.night .acr-src.short{color:#e0a94e;}
 body.night .acr-src.blocked{color:#e8776e;}
 .alc-src{color:var(--ink-faint); cursor:help;}

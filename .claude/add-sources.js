@@ -30,7 +30,10 @@ const glossPath = path.join(root, "glossary.js");
 const I18N_LANGS = ["es", "fr", "de", "it", "nl", "ru", "ar", "zh", "ja"];
 const SRC_MAX = 24;   // mirrors SRC_MAX in app.js
 // the editorial bar, read out of app.js so the two can never disagree about what it is
-const SRC_TARGET = (() => { const m = /const SRC_TARGET = (\d+);/.exec(fs.readFileSync(path.join(__dirname, "..", "app.js"), "utf8")); return m ? +m[1] : 5; })();
+const APP_SRC = fs.readFileSync(path.join(__dirname, "..", "app.js"), "utf8");
+const SRC_TARGET = (() => { const m = /const SRC_TARGET = (\d+);/.exec(APP_SRC); return m ? +m[1] : 5; })();
+// the same, for a glossary term — a lower bar, for the reason given beside the constant in app.js
+const GLOSS_TARGET = (() => { const m = /const GLOSS_SRC_TARGET = (\d+);/.exec(APP_SRC); return m ? +m[1] : 2; })();
 // Every citation carries a link, so a reader can check the claim and follow it further — which also means
 // only publicly reachable scholarship is citable, and that a cited page number can always be verified.
 const SRC_URL = /https?:\/\/[^\s<>"']+/;
@@ -123,6 +126,9 @@ if (batch.glossary && Object.keys(batch.glossary).length) {
     const bad = markersIn(desc).filter((n) => n < 1 || n > src.length);
     if (bad.length) die("term " + slug + " points at source " + bad[0] + ", but lists " + src.length + ".");
     SOURCES[slug] = src;
+    // the term bar (GLOSS_SRC_TARGET in app.js). Lower than a card's because a description is three
+    // sentences, not ten — but a single work behind three sentences is a reading list, not an apparatus.
+    if (src.length < GLOSS_TARGET) console.warn("WARNING: term " + slug + " ends with " + src.length + " source(s), under the bar of " + GLOSS_TARGET + " (docs/glossary-citation-plan.md).");
     if (typeof u.description === "string") GLOSS[slug] = u.description;
     slugs.push(slug);
   }
@@ -151,7 +157,10 @@ const allCards = loadWindow(dataPath).CARD_DATA || [];
 const citedCards = allCards.filter((c) => Array.isArray(c.sources) && c.sources.length).length;
 const atBar = allCards.filter((c) => (Array.isArray(c.sources) ? c.sources.length : 0) >= SRC_TARGET).length;
 const g = loadWindow(glossPath);
-const citedTerms = Object.keys(g.GLOSSARY_SOURCES || {}).length, allTerms = Object.keys(g.GLOSSARY || {}).length;
+const gs = g.GLOSSARY_SOURCES || {};
+const citedTerms = Object.keys(gs).length, allTerms = Object.keys(g.GLOSSARY || {}).length;
+const termsAtBar = Object.keys(gs).filter((k) => (Array.isArray(gs[k]) ? gs[k].length : 0) >= GLOSS_TARGET).length;
 if (cardIds.length) console.log("cited " + cardIds.length + " card(s): " + cardIds.join(", "));
 if (slugs.length) console.log("cited " + slugs.length + " term(s): " + slugs.join(", "));
-console.log("coverage: cards cited " + citedCards + "/" + allCards.length + " · at the " + SRC_TARGET + "-source bar " + atBar + "/" + allCards.length + " | glossary " + citedTerms + "/" + allTerms);
+console.log("coverage: cards cited " + citedCards + "/" + allCards.length + " · at the " + SRC_TARGET + "-source bar " + atBar + "/" + allCards.length +
+  " | glossary cited " + citedTerms + "/" + allTerms + " · at the " + GLOSS_TARGET + "-source bar " + termsAtBar + "/" + allTerms);

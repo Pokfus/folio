@@ -79,21 +79,33 @@ gloss popup defines a term on its own terms, never within the context of one car
 5. **Apply** with `node .claude/add-sources.js <batch>.json`, then `add-lang.js` if anything moved.
 6. **Log** the batch below, including what could not be sourced and what was dropped.
 
-## Tooling — batch G0, before anything else
+## Tooling — batch G0 — **DONE (2026-08-01)**
 
-Three small gaps, none of them blocking but all of them cheap:
+Four gaps, none of them blocking, all of them cheap, and all four closed before any citation was written:
 
-- **`.claude/gloss-source-audit.js` does not exist.** The cards have `source-audit.js`; the glossary has no
-  way to ask where the pass stands beyond `Object.keys(GLOSSARY_SOURCES).length`. Write the mirror: per-term
-  count, open/paywalled split, and the terms below the bar, with `--all` and `--csv` like its sibling.
-- **The bar is not a constant anywhere.** `SRC_TARGET = 5` in app.js is the card bar and every script slices
-  it out by text so they cannot disagree. Add **`const GLOSS_SRC_TARGET = 2;`** beside it and have the new
-  audit and `add-sources.js` read it the same way. Without it, "two" lives only in this document.
-- **`add-sources.js` does not warn a short term.** It warns a card under `SRC_TARGET`; the glossary path has
-  no equivalent. One line, once the constant exists.
+- **`const GLOSS_SRC_TARGET = 2;`** now sits beside `SRC_TARGET` in app.js, with the reason for the lower
+  bar written next to it. Everything else slices it out of app.js by text, exactly as the card scripts slice
+  `SRC_TARGET`, so this file, the site and the scripts cannot disagree about what the bar is. Without it,
+  "two" would have lived only in this document.
+- **`.claude/gloss-source-audit.js`** is the mirror of `source-audit.js`: per-term count, open/paywalled
+  split, the terms below the bar, `--all`, `--csv`, and `--tag=<tag>` to work one group at a time. It also
+  reports two things the card audit does not need to — the terms whose list is **not majority-open**, and the
+  terms carrying a citation with **no access label at all**, which is the failure mode a two-source list
+  makes easy.
+- **`add-sources.js` warns a short term** and its running coverage line now reports the glossary against the
+  bar, not merely as cited/uncited.
+- **The admin glossary list carries the coverage chip**, so the pass can be worked straight down the list the
+  way the card pass was. Two states rather than the cards' three: there is no `sourcesBlocked` equivalent on
+  a term, because five qualifying works for one card is a research finding worth recording on the card and
+  two for a three-sentence description is not — a term that genuinely cannot reach the bar belongs in a batch
+  log below, in prose. **Deck terms are skipped**: the bar is Folio's editorial standard for its own
+  glossary, and a stranger's deck is not held to it.
 
-Optional and worth doing once Phase 1 is under way: paint the **admin glossary list** with the same coverage
-chip the card list carries, so the pass can be worked straight down the list.
+The chip **leads** the tags column rather than trailing it, because that column truncates with an ellipsis
+and a chip at its end is the first thing lost on a term with many tags — which is every country term.
+
+`test-sources.js` (67) and `test-admin-editor.js` both pass; the only console output on `file://` is the
+pre-existing TTS manifest fetch, identical before and after.
 
 ## Reachability, measured 2026-08-01
 
