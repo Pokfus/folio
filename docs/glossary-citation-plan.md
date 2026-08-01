@@ -2,8 +2,8 @@
 
 The glossary was **333 terms and not one of them carried a source**. `window.GLOSSARY_SOURCES` was an empty
 table; the fold at the foot of a gloss popup never appeared. This is the plan for filling it. Not part of
-the site. **As of 2026-08-01, 56 of the 333 are cited and at the bar** — batches G1–G7, four of which also
-corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 56 carry in-text
+the site. **As of 2026-08-01, 66 of the 333 are cited and at the bar** — batches G1–G8, four of which also
+corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 66 carry in-text
 markers, in all ten languages, after the rule changed from optional to required on 2026-08-01 (see "What
 is different from the card pass"). G5 also settled the start of prehistory across the glossary, the deck
 and every date line: **2.6 Mya**, with the disputed 3.3 Ma Lomekwi claim hedged rather than adopted; G6
@@ -167,7 +167,7 @@ the way batch 21 recorded the Anubis walls, so the next pass does not re-run the
 
 | group | terms | |
 |---|---|---|
-| prehistory, palaeoanthropology and geological time | 66 | Phase 1 · batches G1–G8 (G1–G7 done) |
+| prehistory, palaeoanthropology and geological time | 66 | Phase 1 · batches G1–G8 — **all done** |
 | Indigenous peoples, and the odds and ends | 8 | Phase 1 · batch G9 |
 | continents, oceans and physical geography | 17 | Phase 1 · batch G10 |
 | US presidents | 45 | Phase 2 · batches P1–P7 |
@@ -813,7 +813,7 @@ fossils" and its "at least 13 individuals" at AL 333 rest on nothing opened here
 and both are kept; neither is marked. G6's rule again: a registered source is reused for what the register
 records.
 
-### G8 · Ways of life, the disciplines, and the researchers (10 terms)
+### G8 · Ways of life, the disciplines, and the researchers (10 terms) — **DONE (2026-08-01)**
 `Hunter-gatherer` · `Nomadism` · `Megafauna` · `Mosaic_evolution` · `Archaeology` · `Anatomy` · `Badlands` ·
 `Raymond_Dart` · `Sonia_Harmand` · `Jason_E._Lewis`
 
@@ -835,6 +835,75 @@ institutional record does not.
 
 `Badlands` is a landform term and belongs with G10's physical geography in everything but the batch roster;
 the US National Park Service publishes per-park geology records, though the exact URLs move.
+
+### Batch G8 log — the batch that corrected nothing, and why that is a warning
+
+#### 2026-08-01 — ten terms, 24 citations, **no corrections**, and the thinnest apparatus of the pass
+
+**Coverage 56/333 → 66/333, all sixty-six at the bar.** Twenty-two distinct works, **every one of them
+open**. Twelve came out of `.claude/sources-register.md` unopened; ten are new. Phase 1's prehistory,
+palaeoanthropology and geological-time group is now complete — 66 of its 66 terms cited.
+
+**This is the first batch in the whole pass, cards and glossary together, in which no source contradicted
+anything.** Twenty-seven card batches and seven glossary batches had produced corrections every time, and
+the count had been going *up* as the pass got better at looking. So the honest question is whether G8's
+terms are unusually sound or whether this batch simply could not check them — and the answer is the second.
+
+**The same batch has the highest count of unmarked, unsourceable clauses of any so far.** Nine claims across
+seven terms are kept unmarked because nothing opened states them, and none is contradicted either: the size
+of a forager band and the survival of such communities today; the whole of `Nomadism`'s third sentence on
+portable wealth; `Megafauna`'s 10 kg lower bound; the word *anatomist* and veterinary anatomy; the French
+and Lakota etymology of *badlands*; and — three in one term — Raymond Dart's Australian birth, his
+retirement in 1958, and the osteodontokeratic hunting hypothesis that "has not been sustained". **A term
+whose list shows two open sources looks exactly the same to a reader whether every sentence rests on them or
+only one clause does.** That is the failure mode this batch discovered, and it is invisible from the audit,
+which counts citations rather than covered claims.
+
+The reason is structural and the plan half-predicted it. **A definitional term makes few datable claims, and
+a biographical term about a living person makes claims no journal publishes.** There is no paper reporting
+that Sonia Harmand took over the West Turkana Archaeological Project in 2012; there is no open work stating
+where Dart was born. G7 found that the register pays for taxa and not for places; G8 adds that **the
+literature itself pays for results and not for definitions or biographies**, which is a harder limit than a
+sandbox's egress policy.
+
+**Two routes did work, and both are reusable.**
+- **A discipline's own statement of scope.** The plan predicted `Archaeology` would need "a disciplinary
+  handbook or a society's own statement of scope", and the Society for American Archaeology's *What Is
+  Archaeology?* carried the entire term, including its third sentence — "Prehistoric archaeological sites are
+  those without a written record" against "Historical archaeology sites are those where archaeologists can
+  use writing to aid their research".
+- **The canonical textbook, out of copyright.** There is no modern open work that simply says what anatomy
+  is. **Gray's *Anatomy of the Human Body* (20th ed., 1918) is on the Internet Archive in full**, and its
+  Introduction defines the subject, the naked-eye/dissection sense, histology as "the minute structure of the
+  various component parts of the body", comparative anatomy as "a consideration of adult forms in the line of
+  human ancestry", and applied anatomy as the application "to the various pathological conditions which may
+  occur". This is batch G4's rule — a nineteenth-century idea's author is out of copyright, so he is
+  openable — applied to a *discipline* rather than a man. **G9 and G10 should reach for it early:** an
+  encyclopedia is barred by the plan's own rules, but a founding textbook is not an encyclopedia.
+
+**The find that cost nothing, and the rule it produces.** `Megafauna` turns on the 44 kg threshold. A search
+produced Lauer et al. 2023, which states it — but `wh-089` **already marks that exact figure** to Koch &
+Barnosky 2006, and the register already recorded them as supporting "megafauna defined as ≥44 kg" plus the
+casualty roll-call, the two-hypothesis debate and the 50–10 ka timing. Three of the term's four claims, in a
+work the deck already stands on. So: **search the deck's own markers for the FIGURE before searching the
+literature for it.** This is batch 12's register economy with a sharper index — the register lists what a
+work supports, but the cards' markers say which sentence already rests on it.
+
+**A living scholar, half-sourced.** The plan's rule is a landmark publication plus an institutional record
+from the employing body. The publications were easy — `harmand-2015` for both, `lewis-2011` for the Morton
+re-measurement, `plummer-2025` for Harmand's continuing work on the Lomekwian. The institutional record could
+not be reached at all: `turkanabasin.org`, `stonybrook.edu`, `cnrs.fr` and `wits.ac.za` all answer at the
+root and every staff path 404s, with no searchable directory exposed. What stood in for it is **the author
+affiliations printed in `harmand-2015` itself**, which give Harmand at the Turkana Basin Institute, Stony
+Brook and at CNRS UMR 7055, and Lewis at the Turkana Basin Institute and the West Turkana Archaeological
+Project — precisely the two terms' second sentences. A peer-reviewed byline is an institutional record, and
+it is openable when the institution's website is not.
+
+**One tooling note.** `pmc.ncbi.nlm.nih.gov` is captcha-walled again, and this time the Europe PMC
+`fullTextXML` fallback returned an **empty body** for `smith-codding-2021` rather than an error — the same
+silent-empty failure batch G7 met on Ferring et al. 2011. Check the length of what comes back. Because it
+could not be re-read, it was **not** stretched from the North Pacific exception it is registered for to the
+egalitarian-band default the term needed; `plana-2023` was found instead. G6's rule doing its job.
 
 ### G9 · Indigenous peoples, and the odds and ends (8 terms)
 `Hadza_people` · `San_peoples` · `Haida` · `Tlingit` · `Pacific_Northwest_Coast` · `Cedar` · `Sima_Qian` ·

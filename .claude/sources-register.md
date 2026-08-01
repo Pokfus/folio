@@ -5393,3 +5393,188 @@ uncontradicted, and are kept — but neither figure is in an opened source.
   extension, the Lake Turkana 1997 inscription and the Lower Valley of the Awash 1980 inscription are all
   unmarked. Three terms in one batch turned on it; a future pass wanting these should look for a state party's
   own record rather than the World Heritage Centre.
+
+---
+
+## Batch G8 — ways of life, the disciplines, and the researchers (2026-08-01)
+
+Ten terms, 24 citation slots, **22 distinct works, every one of them open**. Twelve came out of this
+register; **ten are new**. It is the first batch of the whole pass — cards and glossary together — in which
+**no source contradicted anything**, and the log below explains why that is not the good news it looks like.
+
+### New works
+
+### plana-2023 · how foragers share food
+Francisco Plana, Jorge Pérez, and Andrés Abeliuk, "Modularity of Food-Sharing Networks Minimises the Risk
+for Individual and Group Starvation in Hunter-Gatherer Societies," *PLOS ONE* 18, no. 5 (2023): e0272733,
+https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10171659/fullTextXML. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST route
+- supports: that hunter-gatherer food-sharing "extends well beyond infancy lactation to the whole life and
+  across adults and families"; the two drivers the anthropological literature discusses — "the reduction of
+  individual starvation risk and the care for the group welfare or **egalitarian** access to food shares";
+  and that such networks form "a community structure of highly-cohesive groups"
+- **does NOT support** "small bands of a few dozen people", nor that a small number of such communities
+  survive today. Both are uncontroversial, neither is contradicted, and the marker sits at sentence end
+- used by: Hunter-gatherer (glossary)
+
+### sellers-2022 · what a nomadic pastoralist's year looks like
+Adam J. Sellers et al., "High Daily Energy Expenditure of Tuvan Nomadic Pastoralists Living in an Extreme
+Cold Environment," *Scientific Reports* 12 (2022): 20127, at "General Lifestyle of the Participants,"
+https://www.ebi.ac.uk/europepmc/webservices/rest/PMC9684425/fullTextXML. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST route
+- supports: pastoralists "living in yurts and **seasonal migration**"; that they "practised animal husbandry,
+  which required the regular herding of livestock for many hours per day"; herding of 5–10 h a day, longer in
+  summer than winter; and the yurt as the portable dwelling (mean diameter 5.6 m)
+- used by: Nomadism (glossary)
+
+### briske-2026 · the routes are fixed, not aimless
+David D. Briske et al., "Pastoralism Can Mitigate Biodiversity Loss on Global Rangelands," *BioScience* 76,
+no. 1 (2026): 78–89, at "Connectivity through Transhumance Corridors,"
+https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12771521/fullTextXML. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST route
+- supports: "Long-distance movement of both wild and domestic herbivores"; and that "Transhumance corridors,
+  also termed drover's roads or stock driveways, represent **designated herding routes**" — which is the
+  term's "the routes are usually well known and repeated year after year rather than aimless". It also gives
+  pastoralism as "the primary land use on rangelands and the most widespread land use globally", supporting
+  about 500 million people
+- used by: Nomadism (glossary)
+
+### law-2024 · mosaic evolution, measured
+Chris J. Law, Leslea J. Hlusko, and Z. Jack Tseng, "Uncovering the Mosaic Evolution of the Carnivoran
+Skeletal System," *Biology Letters* 20, no. 1 (2024): 20230526,
+https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10806395/fullTextXML. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST route
+- supports: that "individual skeletal components within distinct body plans can adapt to specific ecological
+  factors **independently from each other**"; and that "different skeletal components exhibit distinct modes
+  of evolution" — the definition of the pattern, from a study that measures it rather than asserting it
+- also used for `Anatomy`'s comparative clause: the paper is a comparison of the same skeletal elements
+  across a clade, showing how they have been remodelled
+- used by: Mosaic_evolution, Anatomy (glossary)
+
+### oconnor-2026 · Archaeopteryx as a mixture
+Jingmai K. O'Connor et al., "Avian Features of *Archaeopteryx* Feeding Apparatus Reflect Elevated Demands of
+Flight," *The Innovation* 7, no. 2 (2026): 101086,
+https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12881756/fullTextXML. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST route
+- supports: *Archaeopteryx* as "the oldest known avian dinosaur" and "the oldest known bird"; three structures
+  in it "found in modern birds" that "are not present in terrestrial (non-volant) non-avian dinosaurs"; and
+  its place among "early-diverging **toothed** birds" — modern-bird features and retained teeth in one animal,
+  which is the term's example
+- **does NOT state** the long bony tail; that half of the clause is uncontroversial and unsourced here
+- used by: Mosaic_evolution (glossary)
+
+### ballesteros-2017 · what a badland is, and why
+Juan Antonio Ballesteros-Cánovas et al., "Gully Evolution and Geomorphic Adjustments of Badlands to
+Reforestation," *Scientific Reports* 7 (2017): 45027,
+https://www.ebi.ac.uk/europepmc/webservices/rest/PMC5361202/fullTextXML. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST route
+- supports: "Badlands and gullied areas are among those geomorphic environments with the **highest erosion
+  rates worldwide**"; "Badland morphologies typically develop in horizontally stratified and relatively
+  **impermeable** lithologies (e.g., marls), although they also form on poorly consolidated sands"; and that
+  they "are typically found in **semi-arid environments with marked seasonal contrasts**"
+- used by: Badlands (glossary)
+
+### wilson-2016 · badlands as fossil ground
+Paige K. Wilson and Jason R. Moore, "Assessing the Control of Preservational Environment on Taphonomic and
+Ecological Patterns in an Oligocene Mammal Fauna from Badlands National Park, South Dakota," *PLOS ONE* 11,
+no. 6 (2016): e0157585, https://www.ebi.ac.uk/europepmc/webservices/rest/PMC4909216/fullTextXML.
+[Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST route
+- supports: "The fossil assemblages preserved in Badlands National Park (BNP), South Dakota, have long been a
+  **rich source** for mammalian faunas of the White River Group"; that "The terrestrial sediments of the WRG
+  are extremely fossiliferous", spanning ~36.5 to ~30 Ma
+- **does NOT give** the etymology — neither the French *mauvaises terres* nor the Lakota expression. See the
+  NOT CITED note below
+- used by: Badlands (glossary)
+
+### lewis-2011 · the Morton re-measurement
+Jason E. Lewis et al., "The Mismeasure of Science: Stephen Jay Gould versus Samuel George Morton on Skulls
+and Bias," *PLoS Biology* 9, no. 6 (2011): e1001071,
+https://www.ebi.ac.uk/europepmc/webservices/rest/PMC3110184/fullTextXML. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST route
+- supports: that Gould held Morton to be "a canonical example of scientific misconduct"; that the authors
+  "investigated these questions by **remeasuring Morton's skulls** and reexamining both Morton's and Gould's
+  analyses"; and their conclusion that Morton "did not manipulate data to support his preconceptions, contra
+  Gould"; Morton as president of Philadelphia's Academy of Natural Sciences and author of *Crania Americana*
+  (1839)
+- Lewis is the first author, so this is the term's subject citing his own landmark work — the plan's rule for
+  a living scholar
+- used by: Jason_E._Lewis (glossary)
+
+### gray-1918 · what anatomy is, from the discipline's own text
+Henry Gray, *Anatomy of the Human Body*, 20th ed., ed. Warren H. Lewis (Philadelphia: Lea & Febiger, 1918),
+"Introduction," https://archive.org/details/anatomyofhumanbo00grayrich. [Open access]
+- opened: 2026-08-01 · the full OCR'd text on the Internet Archive
+- supports, from the opening paragraphs of the Introduction: "THE term human anatomy comprises a
+  consideration of the various structures which make up the human organism"; the restricted sense dealing
+  with "the parts … which can be rendered evident to the **naked eye** by various methods of **dissection**";
+  the two methods, systematic and topographical/regional; "the study of the **minute structure** of the
+  various component parts of the body — histology"; "a consideration of adult forms in the line of human
+  ancestry — **comparative anatomy**"; "The direct application of the facts of human anatomy to the various
+  pathological conditions which may occur constitutes the subject of **applied anatomy**"; and the systematic
+  divisions — osteology (the bony system), syndesmology (joints), myology (the muscles), angiology
+- **does NOT state** that a specialist is called an anatomist, nor name veterinary science. Batch G4's rule
+  applied to a discipline rather than a man: there is no modern open work that simply says what anatomy is,
+  and the canonical textbook is out of copyright and openable
+- used by: Anatomy (glossary)
+
+### saa-what-is-archaeology · the discipline's own statement of scope
+Society for American Archaeology, "What Is Archaeology?," accessed 1 August 2026,
+https://www.saa.org/archaeologyIs. [Open access]
+- opened: 2026-08-01 · the society's own public statement
+- supports: "Archaeology is the study of the ancient and recent human past through **material remains**";
+  that archaeologists "might study the million-year-old fossils of our earliest human ancestors in Africa" or
+  "20th-century buildings in present-day New York City"; "**Artifacts** are objects made, modified, or used by
+  humans" and "Non-portable artifacts called **features**"; context as "the relationship that artifacts have
+  to each other and to their surroundings"; and the division that carries the term's third sentence —
+  "**Prehistoric archaeological sites are those without a written record**" against "Historical archaeology
+  sites are those where archaeologists can use writing to aid their research"
+- the plan predicted this batch would need "a disciplinary handbook or a society's own statement of scope";
+  this is the latter, and it carried the whole term
+- used by: Archaeology (glossary)
+
+### Reused for exactly what this register records
+
+`zhu-2021`, `larson-2014`, `koch-barnosky-2006`, `svenning-2024`, `stewart-2025`, `kanjanajuntorn-2020`,
+`si-afarensis`, `si-africanus`, `falk-2012`, `rowan-wood-2024`, `harmand-2015`, `plummer-2025` — twelve
+works, none re-opened for a new claim.
+
+**`koch-barnosky-2006` is the find of the batch and it cost nothing.** `Megafauna`'s first sentence turns on
+the 44 kg threshold, and a fresh search produced Lauer et al. 2023, which states it plainly. But `wh-089`
+already marks that exact figure to Koch & Barnosky, and this register already records them as supporting
+"megafauna defined as ≥44 kg" together with the casualty roll-call, the two-hypothesis debate and the
+50–10 ka timing — three of the term's four claims, in one work the deck already stands on. **Search the deck's
+own markers for the FIGURE before searching the literature for it.**
+
+**`harmand-2015` was re-read for a new thing: its author affiliations.** The paper's byline gives Harmand at
+"Turkana Basin Institute, Stony Brook University" and "CNRS, UMR 7055, Préhistoire et Technologie", and Lewis
+at "Turkana Basin Institute, Stony Brook University" and the "West Turkana Archaeological Project" — which is
+exactly what the two biographical terms claim about where these scholars work. Recorded as a new use per G6's
+rule. It does **not** give Harmand's birth year, nor the year she took over the project.
+
+### NOT CITED — what could not be opened or found
+
+- **`pmc.ncbi.nlm.nih.gov` is captcha-walled again**, and this time the Europe PMC `fullTextXML` fallback
+  returned an **empty body** for `smith-codding-2021` (PMC8020663). The term `Hunter-gatherer` was going to
+  lean on it for the mobile-band-and-egalitarian default; under G6's rule a registered source may not be
+  stretched to a claim the register does not record, and this register records it only for the North Pacific
+  *exception*. It was therefore **not used**, and `plana-2023` was found instead.
+- **No institutional record for Sonia Harmand or Jason E. Lewis could be reached.** `turkanabasin.org`,
+  `stonybrook.edu`, `cnrs.fr` and `wits.ac.za` all return 200 at the root, but every guessed staff-page path
+  404s and none of the four exposes a searchable directory from here. The plan's rule for a living scholar —
+  their own landmark publication plus an institutional record — is met only halfway, by the affiliations
+  printed in `harmand-2015`. Nothing was stated about either person beyond what that byline and their own
+  papers carry.
+- **The `Badlands` etymology.** Neither the French *les mauvaises terres à traverser* nor the Lakota *mako
+  sica* appears in anything opened. `nps.gov` responds but its Badlands pages are thin index shells with the
+  substance behind paths that 404 (`/badl/learn/nature/geology.htm`, `/subjects/geology/badlands.htm`), and
+  `usgs.gov` is 403 here. The clause is uncontradicted and kept unmarked.
+- **Raymond Dart's Australian birth, his retirement in 1958, and the osteodontokeratic idea.**
+  `rowan-wood-2024` gives the 1922 Witwatersrand chair, his training under Grafton Elliot Smith, the 1925
+  "bombshell" reception and the four eminent commentators, and states that "There is now universal agreement
+  that Africa hosted the earliest stages of human evolution" — but says nothing about where he was born, when
+  he left the chair, or the bone-tooth-and-horn culture. `wits.ac.za` responds at the root and its news pages
+  404. All three clauses are uncontroversial, none is contradicted, and all three are kept unmarked.
+- **`Megafauna`'s lower bound of "roughly 10 kilograms".** Koch & Barnosky give ≥44 kg and Lauer et al. give
+  ≥44 kg with megaherbivores at >1000 kg; the 10 kg end of the range of proposals is in neither. The marker
+  sits at sentence end and the sentence's main claim — 44 kg — is what the cited work states.
