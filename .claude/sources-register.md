@@ -411,7 +411,10 @@ table 1, https://pmc.ncbi.nlm.nih.gov/articles/PMC4920293/. [Open access]
   other ape"; and that "The subsuming of these multiple genera and species into *H. erectus* by Mayr thus
   formalized a biological reality already unofficially accepted by the majority of paleoanthropologists at
   the time"
-- used by: wh-018, wh-025
+- also supports (opened again 2026-08-01): KNM-ER 992 as "the original specimen for *H. ergaster*"; KNM-ER
+  3733 as showing the "*H. erectus* bauplan"; and KNM-WT 15000 with "a relatively large brain (909 cc) and a
+  large body"
+- used by: wh-018, wh-025, wh-019, wh-020
 
 ### rizal-2020 · the last *Homo erectus*
 Yan Rizal et al., "Last Appearance of *Homo erectus* at Ngandong, Java, 117,000–108,000 Years Ago,"
@@ -433,6 +436,7 @@ https://doi.org/10.1038/s41559-020-1240-4. [Open access]
   "relatively stocky, more primitive, body shape" for *H. erectus*
 - note: this is what the card was corrected against. It had *H. erectus* "built like us below the neck …
   with a narrow waist" and the Turkana Boy "tall and lean like a modern tropical human"
+- used by: wh-018, wh-020
 - used by: wh-018
 
 ### curran-2025 · how early hominins were in Eurasia
@@ -3132,6 +3136,119 @@ Lewis R. Binford and Chuan Kun Ho, "Taphonomy at a Distance: Zhoukoudian, 'The C
   layers' dated span instead
 
 ---
+
+### si-knm-er-3733 · the best African *erectus* skull
+Smithsonian National Museum of Natural History, Human Origins Program, "KNM-ER 3733," accessed 1 August
+2026, https://humanorigins.si.edu/evidence/human-fossils/fossils/knm-er-3733. [Open access]
+- opened: 2026-08-01 · the museum's fossil record
+- supports: site "Koobi Fora, Kenya"; "Year of Discovery: 1975"; "Discovered by: Bernard Ngeneo"; "About 1.8
+  million years old"; *Homo erectus*; "a mature female" and "one of the best preserved skulls of this time
+  period"
+- used by: wh-019
+
+### si-knm-wt-15000 · the Nariokotome skeleton
+Smithsonian National Museum of Natural History, Human Origins Program, "KNM-WT 15000," accessed 1 August
+2026, https://humanorigins.si.edu/evidence/human-fossils/fossils/knm-wt-15000. [Open access]
+- opened: 2026-08-01 · the museum's fossil record
+- supports: nickname "Turkana Boy"; Nariokotome, West Turkana, Kenya; "Year of Discovery: 1984"; "Discovered
+  by: Kamoya Kimeu"; "About 1.6 million years ago"; *Homo erectus*; "This skeleton is 40% complete"; "He was
+  1.6 m (5 ft 3 in) tall and weighed 48 kg (106 lb) when he died"; "eight or nine years old"; and "Turkana
+  Boy's cranial capacity at death was 880 cubic centimeters, but scientists estimate it would have reached
+  909 cubic centimeters if he had grown into adulthood"
+- does NOT support: "about 1.5 million years ago", or "almost every part of the body except the hands and
+  feet". Both were corrected on the card, the date line and the question pool
+- used by: wh-019, wh-020
+
+### graves-2010 · how tall he would have been
+Ronda R. Graves et al., "Just How Strapping Was KNM-WT 15000?," *Journal of Human Evolution* 59, no. 5
+(2010): 542–54, abstract, https://doi.org/10.1016/j.jhevol.2010.06.007. [Paywalled]
+- opened: 2026-08-01 · **the abstract only**, via PubMed (pubmed.ncbi.nlm.nih.gov/20846707/). No open
+  deposit exists; the claim taken from it is in the abstract
+- supports: "It is likely that KNM-WT 15000 would have only attained an adult stature of 163 cm (∼ 5'4″),
+  not 185 cm (∼ 6'1″) as previously reported"
+- used by: wh-020
+
+### schiess-2014 · the boy was not ill
+Regula Schiess et al., "Revisiting Scoliosis in the KNM-WT 15000 *Homo erectus* Skeleton," *Journal of Human
+Evolution* 67 (2014): 48–59, abstract, https://doi.org/10.1016/j.jhevol.2013.12.009. [Paywalled]
+- opened: 2026-08-01 · **the abstract only**, via PubMed (pubmed.ncbi.nlm.nih.gov/24491377/). The Zurich
+  Open Repository deposit exists but sits behind an Anubis JavaScript wall from this environment — the same
+  obstacle batch 15 met at hal.science, and here the `/document` trick does not get past it
+- supports: that "KNM-WT 15000 [groups] within non-scoliotic modern humans", with localized anomalies in the
+  thoracic and lumbar regions consistent with trauma, and that "the Nariokotome boy fossil therefore seems
+  to belong to a normal *H. erectus* youth without evidence for adolescent idiopathic scoliosis or other
+  severe pathologies of the axial skeleton"
+- used by: wh-020
+
+### stringer-2016 · the name that did not stick
+Chris Stringer, "The Origin and Evolution of *Homo sapiens*," *Philosophical Transactions of the Royal
+Society B* 371, no. 1698 (2016): 20150237, under "East Africa",
+https://pmc.ncbi.nlm.nih.gov/articles/PMC4920294/. [Open access]
+- opened: 2026-08-01 · full text via PMC
+- supports: the Herto fossils "recovered from an open site at Herto in Ethiopia in 1997", comprising "a
+  nearly complete adult skull, an immature calvaria and parts of another cranial vault, probably adult";
+  "the adult skull having a capacity of approximately 1450 cm3"; that the material "can be classified as
+  *H. sapiens*, perhaps of comparable grade to material from Qafzeh & Skhul"; and that "the addition of the
+  subspecific nomen *idaltu* does not seem justified"
+- used by: wh-046
+
+### rightmire-2009 · Herto in its context
+G. Philip Rightmire, "Middle and Later Pleistocene Hominins in Africa and Southwest Asia," *Proceedings of
+the National Academy of Sciences* 106, no. 38 (2009): 16046–50,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC2752549/. [Open access]
+- opened: 2026-08-01 · full text via PMC
+- supports: the Herto fossils "judged from stratigrapic, geochemical, and radioisotopic evidence to be
+  160,000 to 154,000 years old"; BOU-VP-16/1 with "a brain size estimated as 1,450 cm³" and a "ruggedly
+  built" morphology "very robust and thus distinguishable from modern populations"; and that "Crania from
+  Herto in Ethiopia carry defleshing cutmarks and superficial scoring that may be indicative of mortuary
+  practices"
+- used by: wh-046
+
+### zollikofer-2022 · the Herto child
+Christoph P. E. Zollikofer et al., "Endocranial Ontogeny and Evolution in Early *Homo sapiens*: The Evidence
+from Herto, Ethiopia," *Proceedings of the National Academy of Sciences* 119, no. 32 (2022): e2123553119,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC9371682/. [Open access]
+- opened: 2026-08-01 · full text via PMC
+- supports: the child BOU-VP-16/5 at "6–7 y" and the adult BOU-VP-16/1; and that brain size at ~160 ka "was
+  similar to that seen in modern human populations"
+- used by: wh-046
+
+### white-2003 · the naming
+Tim D. White et al., "Pleistocene *Homo sapiens* from Middle Awash, Ethiopia," *Nature* 423, no. 6941
+(2003): 742–47, abstract, https://doi.org/10.1038/nature01669. [Paywalled]
+- opened: 2026-08-01 · **the abstract only**, via PubMed (pubmed.ncbi.nlm.nih.gov/12802332/). The landmark
+  paper for the find; no open deposit exists
+- supports: "A key barrier … has been the lack of substantial and accurately dated African hominid fossils
+  from between 100,000 and 300,000 years ago"; "Radioisotopically dated to between 160,000 and 154,000 years
+  ago, these new fossils predate classic Neanderthals and lack their derived features"; and that the Herto
+  hominids "therefore represent the probable immediate ancestors of anatomically modern humans"
+- used by: wh-046
+
+### clark-2003 · the archaeology and the treatment of the dead
+J. Desmond Clark et al., "Stratigraphic, Chronological and Behavioural Contexts of Pleistocene *Homo
+sapiens* from Middle Awash, Ethiopia," *Nature* 423, no. 6941 (2003): 747–52, abstract,
+https://doi.org/10.1038/nature01670. [Paywalled]
+- opened: 2026-08-01 · **the abstract only**, via PubMed (pubmed.ncbi.nlm.nih.gov/12802333/); no open
+  deposit exists
+- supports: "The fossils and artefacts are dated between 160,000 and 154,000 years ago by precise age
+  determinations using the 40Ar/39Ar method"; "The archaeological assemblages contain elements of both
+  Acheulean and Middle Stone Age technocomplexes"; "Associated faunal remains indicate repeated, systematic
+  butchery of hippopotamus carcasses"; and "Contemporary adult and juvenile *Homo sapiens* fossil crania
+  manifest bone modifications indicative of deliberate mortuary practices"
+- does NOT support: "more than 600 stone tools", or the child's skull "worn glossy by handling". Neither is
+  in the abstract and no open source carries them; both were dropped from the card and the question pool
+- used by: wh-046
+
+### NOT CITED — the Greek behind *ergaster*, and the Ileret overlap
+- **"meaning workman in Greek"**, on `wh-019`. No work opened for this batch glosses the name; Cela-Conde &
+  Ayala give only "*Homo ergaster* Groves and Mazák, 1975", and Groves & Mazák 1975 itself is in a Czech
+  journal with no open copy. Dropped from the abstract, the date line and the main question phrasing
+- **Spoor et al. 2007's Ileret jaws**, on `wh-016`, and the "nearly half a million years" of overlap between
+  *H. habilis* and *H. erectus*. The paper is closed and Kimbel & Villmoare cite it without restating the
+  figure. The card now says what they do state — that KNM-ER 3733 and other *erectus* fossils are
+  "approximately contemporary with *Homo habilis* in upper Bed I and lower Bed II at Olduvai Gorge"
+- **the seven traits said to separate *ergaster* from *erectus***, and their rebuttal, on `wh-019`. In
+  nothing opened. Replaced with the brain-size ranges and the chronostratigraphy, which Antón et al. do give
 
 ## CANDIDATES — NOT VERIFIED, DO NOT PASTE INTO `data.js`
 

@@ -560,9 +560,14 @@ and `wh-046` are all discovery cards whose founding papers are closed, and every
 record. That will not fill five slots on its own, but it is a floor under the batch that did not exist when
 it was planned.
 
-### Batch 19 · The hominin taxa, via open reviews (5 cards, 25 citations)
+### Batch 19 · The hominin taxa, via open reviews (5 cards) — **DONE (2026-08-01)**
 `wh-013` Australopithecus · `wh-016` Homo habilis · `wh-019` Homo ergaster · `wh-020` Turkana Boy ·
 `wh-046` Homo sapiens idaltu
+
+**Cited:** all five. 28 citation slots from 21 distinct works, 17 of them open. Coverage went from
+`cards 96/109` to `101/109`, and from **63 to 68 cards at the bar**. Nothing deferred, and `wh-046` — the
+one the plan expected to come back short — reached the bar with three open sources and two landmark
+abstracts.
 
 The batch-1/2/4 deferrals, re-attempted with **batch 15's rule: when the discovery paper is closed, look for
 the review that restates it.** That rule reopened the southern African MSA, where Henshilwood and Marean are
@@ -578,6 +583,77 @@ already bear on `wh-019` and `wh-020`.
 
 `wh-046` Herto is the likeliest of the five to stay short: it is a discovery card whose two 2003 *Nature*
 papers are the whole of it. If it comes back short, that is a red mark and a log entry, not a fudge.
+
+### Batch 19 log — the museum record is the review that restates it
+
+#### 2026-08-01 — five cards, three commits
+
+**Batch 15's rule was the plan's premise and it was only half of the answer.** The rule says: when the
+discovery paper is closed, look for the review that restates it. It worked exactly once here, and
+handsomely — Kimbel & Villmoare 2016, in the same open *Phil Trans R Soc B* theme issue that gave batch 1
+its Antón, carries the whole of `wh-016`'s second block, including the sentence the card most needed, that
+Leakey and colleagues "dropped Arthur Keith's 'Cerebral Rubicon' of 750 to 600 cc to accommodate the new
+Olduvai material." What carried the other four cards was **batch 18's rule instead: look for the body
+responsible.** Seven of this batch's twenty-one works are Smithsonian Human Origins records — five species
+pages and two fossil records — and between them they supply the dates, the body sizes, the discoverers, the
+discovery years, the type-specimen status and the cranial capacities that Dart 1925, Leakey/Tobias/Napier
+1964 and Brown et al. 1985 hold behind paywalls. **A museum's catalogue is a review that restates the
+founding paper, and it is open by policy rather than by luck.** That is the finding to carry into batch 20.
+
+**`wh-046` was expected to come back short and did not.** The plan said Herto "is the likeliest of the five
+to stay short: it is a discovery card whose two 2003 *Nature* papers are the whole of it. If it comes back
+short, that is a red mark and a log entry, not a fudge." It reached five with three open sources — Stringer
+2016, Rightmire 2009 and Zollikofer et al. 2022, all in PMC — plus the two *Nature* abstracts, which between
+them carry the dating, the technocomplexes, the hippopotamus butchery and the mortuary modifications in as
+many words. The lesson is narrow and worth stating: **a discovery card is not the same as a card that can
+only be sourced from the discovery paper.** Herto has been re-examined three times in open venues since
+2003, and every re-examination restates the find before disputing it.
+
+**Ten corrections**, in English and all nine languages:
+
+- **`wh-016`'s span was 2.3 to 1.5 million years.** The Smithsonian record gives 2.4 to 1.4. Corrected on
+  the card and the date line.
+- **Its brain was given as "somewhere between 500 and 800 cubic centimetres."** That is the old textbook
+  range. Kimbel & Villmoare give Spoor's reconstruction of the type specimen itself at 729–824 ml and the
+  early-*Homo* mean as "just shy of 40% larger than that of *Australopithecus*" — both more precise and both
+  checkable.
+- **The 2007 Ileret jaws and their "nearly half a million years" of overlap could not be sourced**; Spoor et
+  al. 2007 is closed and the reviews cite it without restating the figure. Replaced with the contemporaneity
+  Kimbel & Villmoare do state, at Olduvai.
+- **"Some researchers wanting the species shifted back to *Australopithecus*"** is now Wood and Collard, who
+  made the argument, named as the review names them.
+- **`wh-019`'s "meaning workman in Greek" is in nothing that could be opened.** Cela-Conde & Ayala give the
+  authority and year and no gloss; Groves & Mazák 1975 is in a Czech journal with no open copy. Dropped from
+  the abstract, the date line **and the main question phrasing**, which led with it.
+- **`wh-019`'s seven diagnostic traits and their rebuttal** are likewise unsourceable. What replaced them is
+  better: Antón et al.'s regional brain-size ranges — Africa and Georgia 546–1,067 cc, China 855–1,225,
+  Indonesia 813–1,251 — which show one broad range rather than two, and their finding that later
+  chronostratigraphy "diminished and, in some cases, eliminated the time difference." The second question
+  phrasing carried the traits too and was rewritten.
+- **`wh-020` was a year out and a fraction too complete.** The Smithsonian record gives about 1.6 million
+  years, not 1.5, and "This skeleton is 40% complete", not "almost every part of the body except the hands
+  and feet". Both corrected on the card, the date line and the main question.
+- **Its age framing was folklore.** "His bones are those of a boy of about 11 or 12 by the standards of
+  modern growth" is in nothing opened; what the museum states is that he was eight or nine and grew at "a
+  growth rate similar to that of a living great ape". The third question phrasing carried the 11-or-12 and
+  went with it — the batch-8 rule catching one again.
+- **`wh-046` lost three figures.** The "pieces of seven more people", the "more than 600 stone tools" and
+  the child's skull "worn glossy by handling" are in no open source and not in either *Nature* abstract. The
+  card now gives what the abstracts give, and the third question phrasing, which was built on the glossy
+  skull and on a claim to be "the earliest strong evidence anywhere", was rewritten.
+- **`wh-046`'s later comparisons were vaguer than its own source.** "Wider comparisons in 2011 and 2014"
+  became Stringer's own 2016 verdict, quoted where the card had paraphrased second-hand.
+
+**On the mechanism.** The post-marking 5+5 assertion fired six times, every one of them on Japanese and
+every one the same cause: an English sentence rendered as two. It has now caught something in every batch
+since 17b. Nothing else needed changing; `split-abstract.js` took no new guards.
+
+**What batch 20 should take from this.** The southern African cards — `wh-031`, `wh-051`, `wh-055` — are
+about **sites**, not taxa, so the Smithsonian species records will not help. But the same principle points
+somewhere: Blombos and Klasies River are excavated under South African Heritage Resources Agency permits and
+curated by the Iziko museums, and the SAHRA site records are the body-responsible equivalent. Check whether
+they publish per-site records before planning the batch around journal reviews alone — batch 13's warning
+applies, that a website is not a catalogue.
 
 ### Batch 20 · The southern African record, second attempt (3 cards, 15 citations)
 `wh-031` Middle Stone Age · `wh-051` Blombos Cave · `wh-055` Klasies River Caves

@@ -5,6 +5,13 @@
    user, not how). Loaded before app.js. */
 window.CHANGELOG = [
   {
+    d: "2026-08-01",
+    t: "The hominins, sourced",
+    items: [
+      "One hundred and one cards in the World History prehistory deck now show their sources, and sixty-eight of them meet the bar of five. The five newest cover the hominins themselves — Australopithecus, Homo habilis, Homo ergaster, the Turkana Boy and the proposed subspecies from Herto in Ethiopia — and they were sourced mostly from museum records, because the papers that named these species are shut behind paywalls while the Smithsonian's own catalogue is open to anyone. Ten corrections came with them. Homo habilis lived from 2.4 to 1.4 million years ago rather than 2.3 to 1.5, and its brain is now given as the type specimen's own measured volume rather than a textbook range; the scholars who argued it should be moved out of our genus are named instead of left as “some researchers”. Homo ergaster loses the claim that its name is Greek for workman, which appears in nothing we could open, and loses too the list of seven traits said to mark it off from Homo erectus; in their place are the brain sizes and the dates, which show one broad range where the card had implied two. The Turkana Boy died about 1.6 million years ago rather than 1.5, his skeleton is 40 per cent complete rather than nearly whole, and the story that his bones look eleven or twelve while his teeth say eight or nine has gone: the museum that holds him says eight or nine, and that he grew at the pace of a great ape. And the Herto skulls lose three figures no source we could open supports — the pieces of seven more people, the six hundred stone tools, and the child's skull worn glossy by handling — keeping what the excavators actually reported, that all three crania carry cut marks which do not match butchery.",
+    ],
+  },
+  {
     d: "2026-07-31",
     t: "Where it comes from",
     items: [
