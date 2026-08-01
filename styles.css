@@ -622,6 +622,9 @@ body[data-theme="folio"] .collection-deco::after{
 }
 .backbtn:hover{background:var(--indigo-wash); color:var(--indigo); border-color:color-mix(in srgb,var(--indigo) 30%,var(--rule));}
 .backbtn:active{transform:scale(.97);}
+/* the step-back-a-card button. It only exists once something has been graded, so it never sits there greyed
+   out; it reads quieter than Exit because it is the rarer of the two. */
+.undobtn{margin-left:-6px; border-style:dashed; color:var(--ink-faint);}
 .study-where{font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint);}
 .counts{margin-left:auto; display:flex; gap:14px; align-items:center;}
 .suspendbtn{
@@ -1449,6 +1452,9 @@ body.night .lu-badge{color:#E6C765;}
 .country-pop[hidden]{display:none;}
 .cp-close{position:absolute; top:9px; right:10px; appearance:none; cursor:pointer; width:24px; height:24px; border-radius:7px; border:none; background:transparent; color:var(--ink-faint); font-size:17px; line-height:1; display:flex; align-items:center; justify-content:center; z-index:1;}
 .cp-close:hover{background:var(--rule); color:var(--ink);}
+/* the title block sits ABOVE the scroller and never moves: on the phone the sections below it are pages you
+   swipe between, and a name that slid away with the first swipe would leave the figures unlabelled */
+.cp-head{flex:none;}
 .cp-cols{display:grid; grid-template-columns:1fr; gap:14px; align-content:start; overflow-y:auto; min-height:0; padding-right:2px;}
 .cp-crumb{display:flex; align-items:center; gap:6px; margin:0 20px 4px 0; min-width:0;}
 .cp-crumb[hidden]{display:none;}   /* the author display:flex would otherwise defeat the hidden attribute (codebase convention) */
@@ -1494,11 +1500,27 @@ body.night .lu-badge{color:#E6C765;}
 .cp-v[data-tip]::before{content:""; position:absolute; bottom:calc(100% + 1px); left:15px; border:5px solid transparent; border-top-color:var(--ink); opacity:0; transition:opacity .12s ease; z-index:9;}
 .cp-v[data-tip]:hover::after, .cp-v[data-tip]:focus::after{opacity:1; transform:translateY(0);}
 .cp-v[data-tip]:hover::before, .cp-v[data-tip]:focus::before{opacity:1;}
+/* the phone pager's dots — hidden on desktop, where the sections stack and scroll vertically */
+.cp-dots{flex:none; display:flex; justify-content:center; align-items:center; gap:7px; padding:9px 0 1px; margin-top:2px;}
+.cp-dots[hidden]{display:none;}   /* the author display:flex would otherwise defeat the hidden attribute (codebase convention, cf. .country-pop[hidden]) */
+.cp-dot{appearance:none; border:0; padding:0; width:7px; height:7px; border-radius:50%; background:var(--rule); cursor:pointer; transition:background .16s var(--ease), transform .16s var(--ease);}
+.cp-dot.on{background:var(--indigo); transform:scale(1.32);}
 @media (max-width:720px){
-  /* phones: back to a BOTTOM sheet capped at 35% of the stage, so the globe + the × stay visible. The columns scroll
-     (not the whole box) so the absolutely-positioned .cp-close stays pinned instead of scrolling away. */
-  .country-pop{left:50%; top:auto; bottom:14px; transform:translateX(-50%); width:calc(100% - 28px); max-height:35%;}
-  .cp-cols{-webkit-overflow-scrolling:touch;}
+  /* phones: back to a BOTTOM sheet, so the globe + the × stay visible. The sheet is short, and four sections
+     stacked in it buried the figures three scrolls down — so here the sections lie SIDE BY SIDE and are swiped
+     between, one page at a time, with the dots below saying how many there are. Every page is expanded (there
+     is nothing under a page to uncover by folding it) and an empty one is dropped from the run rather than
+     shown, so a swipe never lands on a dash. The title block above and the dots below stay put. */
+  .country-pop{left:50%; top:auto; bottom:14px; transform:translateX(-50%); width:calc(100% - 28px); max-height:52%; padding:15px 16px 8px;}
+  .cp-head{max-height:46%; overflow-y:auto;}   /* "Through the ages" can run to a dozen rows — cap it, or it pushes the pages off the sheet */
+  .cp-cols{display:flex; flex-direction:row; flex:1; gap:0; overflow-x:auto; overflow-y:hidden; scroll-snap-type:x mandatory; overscroll-behavior-x:contain; padding-right:0; scrollbar-width:none; -webkit-overflow-scrolling:touch;}
+  .cp-cols::-webkit-scrollbar{display:none;}
+  .cp-cols > .cp-sec{flex:0 0 100%; width:100%; min-width:100%; scroll-snap-align:start; overflow-y:auto; overscroll-behavior-y:contain; padding:0 1px 0 0; border-top:0;}
+  .cp-cols > .cp-sec.cp-blank{display:none;}                     /* an empty page is a swipe that lands on nothing */
+  .cp-cols > .cp-sec.collapsed .cp-sec-body{display:block;}       /* the folds are pages here — always open */
+  .cp-cols > .cp-sec.collapsed .cp-sec-head{padding-bottom:6px;}
+  .cp-cols .cp-sec-head{cursor:default;}
+  .cp-cols .cp-sec-chev{display:none;}
 }
 /* map editor toolbar (Edit → Timeline → "Edit on globe") */
 .map-edit-bar{position:absolute; top:14px; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:13px; flex-wrap:wrap; max-width:calc(100% - 28px); background:var(--card); border:1px solid var(--rule); border-radius:11px; padding:8px 12px; box-shadow:0 10px 28px -14px rgba(0,0,0,.5); z-index:8;}
@@ -2509,7 +2531,13 @@ textarea.af-input{resize:vertical; min-height:42px;}
 .af-rich .dt{font-family:var(--mono);}
 .af-rich ul,.af-rich ol{margin:.3em 0; padding-left:1.5em;}
 /* WYSIWYG formatting ribbon (shared, acts on the focused rich field) */
-.rt-ribbon{position:sticky; top:0; z-index:6; display:flex; flex-wrap:wrap; align-items:center; gap:2px; padding:6px 7px; margin:0 0 12px; background:var(--card); border:1px solid var(--rule); border-radius:9px; box-shadow:0 2px 9px rgba(0,0,0,.06);}
+/* The ribbon follows the text down the page — it is the one control an author needs at every scroll depth,
+   and on a phone the background field alone is several screens long. Which scrollport it pins to depends on
+   the surface: the desktop editor pane scrolls inside itself (top:0 is that pane's own top), while the Studio
+   and the phone scroll the whole PAGE, where it has to clear the sticky top bar or it slides underneath it.
+   Below the bar's z-index (50), so the bar always wins where they meet. */
+.rt-ribbon{position:sticky; top:calc(var(--bar-h) + 6px); z-index:30; display:flex; flex-wrap:wrap; align-items:center; gap:2px; padding:6px 7px; margin:0 0 12px; background:var(--card); border:1px solid var(--rule); border-radius:9px; box-shadow:0 2px 9px rgba(0,0,0,.06);}
+.admin-editor .rt-ribbon{top:0;}
 .rt-btn{appearance:none; border:1px solid transparent; background:none; color:var(--ink); border-radius:6px; min-width:28px; height:28px; padding:0 7px; font-family:var(--sans); font-size:13px; line-height:1; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:1px;}
 .rt-btn:hover{background:var(--indigo-wash); color:var(--indigo);}
 .rt-btn:active{background:color-mix(in srgb,var(--indigo) 18%,transparent);}
@@ -2521,6 +2549,10 @@ textarea.af-input{resize:vertical; min-height:42px;}
 .rt-colA{font-weight:800; font-size:13px; line-height:1;}
 .rt-colBar{display:block; width:15px; height:3px; background:var(--ochre); border-radius:1px; margin-top:1px;}
 .rt-ribbon:not(.on-bg) .rt-link,.rt-ribbon:not(.on-bg) .rt-link-sep{display:none;}   /* gloss-link tools only for the background field */
+/* footnoting is a background-field act too — there is nothing to cite in a question or a date line */
+.rt-ribbon:not(.on-bg) .rt-fn,.rt-ribbon:not(.on-bg) .rt-fn-sep{display:none;}
+.rt-fn{color:var(--zh); font-weight:600;}   /* the vermilion the markers themselves are drawn in (sup.fn) */
+.rt-fn:hover{background:color-mix(in srgb,var(--zh) 12%,transparent); color:var(--zh);}
 .rt-colormenu{position:fixed; z-index:330; display:grid; grid-template-columns:repeat(6,1fr); gap:5px; padding:8px; background:var(--card); border:1px solid var(--rule); border-radius:9px; box-shadow:0 12px 30px rgba(0,0,0,.24);}
 .rt-sw{width:22px; height:22px; border:1px solid rgba(0,0,0,.18); border-radius:5px; cursor:pointer; padding:0; transition:transform .1s;}
 .rt-sw:hover{transform:scale(1.12);}
@@ -2612,14 +2644,6 @@ textarea.af-input{resize:vertical; min-height:42px;}
 .ces-vid .ces-vid-edit{opacity:.72; pointer-events:auto; border:0; padding:0; cursor:pointer;}
 .ces-vid:hover .ces-vid-edit{opacity:1;}
 .ces-vid-ph svg{width:30px; height:30px;}
-/* a card shows ONE frame, so the side that isn't in use collapses to this slim switch rather than
-   offering a second empty 16:9 box */
-.ces-media-swap{
-  display:block; margin:-10px auto 16px; padding:5px 12px; border:1px dashed var(--rule); border-radius:999px;
-  background:none; color:var(--ink-faint); font-family:var(--sans); font-size:12px; cursor:pointer;
-  transition:border-color .15s, color .15s;
-}
-.ces-media-swap:hover{border-color:color-mix(in srgb, var(--indigo) 50%, var(--rule)); color:var(--indigo);}
 .af-vidnote{font-family:var(--sans); font-size:11.5px; color:var(--ink-faint); margin:-4px 0 0;}
 .af-vidnote.bad{color:var(--zh);}
 .af-vidnote[hidden]{display:none;}
@@ -2628,6 +2652,39 @@ textarea.af-input{resize:vertical; min-height:42px;}
    the card editor's image/video panels are permanently open and the click-to-edit toggle does nothing.
    (The glossary editors' copies carry no hidden attribute and stay open, which is what they want.) */
 .ces-imgpanel[hidden]{display:none;}
+#cesMediaMeta{display:flex; flex-direction:column; gap:10px;}
+#cesMediaMeta[hidden]{display:none;}
+/* ---- the sources panel: citations edited AS THEY READ ----
+   A Chicago note is mostly italicised title, and editing it as <i>…</i> in a textarea meant proof-reading
+   tags. Each citation is its own rich line here, numbered by the <ol> exactly as the card numbers them, so
+   what an author sees while writing is what a reader sees at the foot of the card. The URL and the
+   [Open access] / [Paywalled] label stay as PLAIN TEXT: the card turns the one into a link and the other
+   into a chip at render time, and showing them already converted would leave nothing left to edit. */
+.ces-srclist{margin:0; padding:0 0 0 1.9em; list-style:decimal;}
+.ces-srclist > li{margin-bottom:7px;}
+.ces-srclist > li:last-child{margin-bottom:0;}
+/* the flex row sits INSIDE the <li> — an <li> whose own display is flex is no longer a list-item and
+   loses its ::marker, and the number is the point (it is the one the card's footnotes point at) */
+.ces-srclist > li::marker{font-family:var(--mono); font-size:11px; color:var(--ink-faint);}
+.ces-srcrow{display:flex; align-items:flex-start; gap:7px;}
+.ces-srcitem{
+  flex:1; min-width:0; font-family:var(--serif); font-size:12.5px; line-height:1.5; color:var(--ink-soft);
+  background:var(--card); border:1px solid var(--rule); border-radius:8px; padding:7px 10px;
+  outline:none; transition:border-color .15s, background .15s; word-break:break-word;
+}
+.ces-srcitem:focus{border-color:var(--indigo); background:color-mix(in srgb, var(--indigo) 4%, transparent); color:var(--ink);}
+.ces-srcitem:empty::before{content:attr(data-ph); color:var(--ink-faint); font-style:italic;}
+.ces-srcdel{
+  flex:none; width:26px; height:26px; margin-top:3px; display:flex; align-items:center; justify-content:center;
+  appearance:none; border:1px solid transparent; border-radius:7px; background:none; color:var(--ink-faint);
+  font-size:12px; cursor:pointer; transition:color .15s, border-color .15s;
+}
+.ces-srcdel:hover{color:var(--zh); border-color:color-mix(in srgb, var(--zh) 40%, var(--rule));}
+.ces-srcadd{
+  align-self:flex-start; padding:4px 11px; border:1px dashed var(--rule); border-radius:999px; background:none;
+  color:var(--ink-faint); font-family:var(--sans); font-size:11.5px; cursor:pointer; transition:border-color .15s, color .15s;
+}
+.ces-srcadd:hover{border-color:color-mix(in srgb, var(--indigo) 50%, var(--rule)); color:var(--indigo);}
 /* the same panel in the glossary editors (curated + Studio), where it is always open rather than toggled */
 .gloss-imgpanel{margin:14px 0 0;}
 .gloss-imgpanel .admin-field{margin-top:0;}
@@ -2762,7 +2819,11 @@ body.grading .admin-edit-fab{bottom:108px;}
   .admin.timeline-mode .admin-list-items,.admin.feedback-mode .admin-list-items{max-height:none;}
   .tl-edit{padding:18px 14px;}
   .tl-era{flex-wrap:wrap; row-gap:8px;}
-  .admin-editor{padding:18px 16px 64px;}
+  /* the pane stops scrolling inside itself here (the admin stacks into one column and the PAGE scrolls), and
+     a scroll container that never scrolls is a scrollport its sticky ribbon can never leave — so hand the
+     scrolling back to the page and pin the ribbon under the top bar instead */
+  .admin-editor{padding:18px 16px 64px; overflow:visible;}
+  .admin-editor .rt-ribbon{top:calc(var(--bar-h) + 6px);}
   body.grading .admin-edit-fab{bottom:170px;}
 }
 

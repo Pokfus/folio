@@ -330,36 +330,36 @@ async function openGlossEditor(page, base) {
   await page.waitForTimeout(600);
   await page.evaluate(() => { const rows = document.querySelectorAll(".studio-cardrow .scr-open"); if (rows[1]) rows[1].click(); });   // the video card
   await page.waitForTimeout(700);
-  check("the Studio card editor offers a video panel", await page.locator('[data-vidfield="src"]').count() === 1);
-  check("...showing the card's existing video in the slot", await page.locator("#cesVidSlot .card-vid .cv-media").count() === 1);
-  check("...and offering the picture only as a swap, not a second empty box",
-    await page.locator("#cesImgSlot .ces-media-swap").count() === 1 && await page.locator("#cesImgSlot .ces-img-ph").count() === 0);
-  await page.evaluate(() => { const b = document.querySelector("#cesVidSlot .ces-vid-edit"); if (b) b.click(); });
+  // ONE panel and ONE slot: the pasted URL decides which of the two stores it goes to, so there is no video
+  // box to find and no second empty frame beside the one in use
+  check("the Studio card editor offers one media panel", await page.locator('[data-mediafield="src"]').count() === 1);
+  check("...and no separate video panel to pick between", await page.locator('[data-vidfield="src"]').count() === 0);
+  check("...showing the card's existing video in the slot", await page.locator("#cesMediaSlot .card-vid .cv-media").count() === 1);
+  check("...as the only frame, with no empty box beside it",
+    await page.locator("#cesMediaSlot .card-img").count() === 1 && await page.locator("#cesMediaSlot .ces-img-ph").count() === 0);
+  await page.evaluate(() => { const b = document.querySelector("#cesMediaSlot .ces-vid-edit"); if (b) b.click(); });
   await page.waitForTimeout(300);
-  await page.fill('[data-vidfield="src"]', YT);
+  await page.fill('[data-mediafield="src"]', YT);
   await page.waitForTimeout(700);
   const st = await page.evaluate(() => {
-    const el = document.querySelector("#cesVidSlot .card-vid .cv-media");
-    return { tag: el ? el.tagName.toLowerCase() : null, src: el ? el.getAttribute("src") : null, note: (document.querySelector("#cesVidNote") || {}).textContent || "" };
+    const el = document.querySelector("#cesMediaSlot .card-vid .cv-media");
+    return { tag: el ? el.tagName.toLowerCase() : null, src: el ? el.getAttribute("src") : null, note: (document.querySelector("#cesMediaNote") || {}).textContent || "" };
   });
   check("editing the URL re-renders the player live", st.tag === "iframe" && /youtube-nocookie/.test(st.src || ""), st.tag + " " + st.src);
   check("...and reports what it recognised", /YouTube/.test(st.note), st.note);
 
-  // one frame per card: giving this same card a picture must retire the video, in the store AND on screen
-  await page.evaluate(() => { const b = document.querySelector("#cesImgSlot .ces-media-swap"); if (b) b.click(); });
-  await page.waitForTimeout(300);
-  await page.fill('[data-imgfield="src"]', "https://example.org/swap.png");
-  await creditMedia(page, "imgfield", "A museum");
+  // one frame per card: pasting a PICTURE url into the same box must retire the video, in the store AND on
+  // screen — and it must be recognised as a picture without the author saying so
+  await page.fill('[data-mediafield="src"]', "https://example.org/swap.png");
+  await creditMedia(page, "mediafield", "A museum");
   await page.waitForTimeout(800);
   const swapped = await page.evaluate(() => ({
-    vidFrames: document.querySelectorAll("#cesVidSlot .card-vid").length,
-    imgFrames: document.querySelectorAll("#cesImgSlot .card-img").length,
-    vidField: (document.querySelector('[data-vidfield="src"]') || {}).value,
-    vidSwap: document.querySelectorAll("#cesVidSlot .ces-media-swap").length,
+    vidFrames: document.querySelectorAll("#cesMediaSlot .card-vid").length,
+    imgFrames: document.querySelectorAll("#cesMediaSlot .card-img img").length,
+    note: (document.querySelector("#cesMediaNote") || {}).textContent || "",
   }));
-  check("setting a picture replaces the video on screen", swapped.imgFrames === 1 && swapped.vidFrames === 0, JSON.stringify(swapped));
-  check("...clears the video URL field", !swapped.vidField, String(swapped.vidField));
-  check("...and leaves a swap back to video", swapped.vidSwap === 1);
+  check("a picture URL in the same box replaces the video on screen", swapped.imgFrames === 1 && swapped.vidFrames === 0, JSON.stringify(swapped));
+  check("...recognised as an image without being told", /image/i.test(swapped.note), swapped.note);
 
   await page.evaluate(() => { const b = document.querySelector('[data-tab="gloss"]'); if (b) b.click(); });
   await page.waitForTimeout(500);
@@ -412,21 +412,20 @@ async function openGlossEditor(page, base) {
   await page.waitForTimeout(500);
   await page.evaluate(() => { const r = document.querySelector(".admin-card-row .acr-open"); if (r) r.click(); });
   await page.waitForTimeout(800);
-  // the first shipped card (wh-001) carries an image, which is exactly the interesting case: the video
-  // side must offer a swap rather than a second empty box, and taking it must retire the shipped image
-  check("the card editor offers a video panel", await page.locator('[data-vidfield="src"]').count() === 1);
-  check("a card with a picture shows no second empty box",
-    await page.locator("#cesImgSlot .card-img").count() === 1 && await page.locator("#cesVidSlot .ces-vid-ph").count() === 0);
-  check("...only a swap to video", await page.locator("#cesVidSlot .ces-media-swap").count() === 1);
-  check("...and both panels closed until asked for", await page.evaluate(() =>
-    !document.querySelector("#cesImgPanel").checkVisibility() && !document.querySelector("#cesVidPanel").checkVisibility()));
+  // the first shipped card (wh-001) carries an image, which is exactly the interesting case: pasting a VIDEO
+  // link into the one media box must be recognised as a video and must retire the shipped picture
+  check("the card editor offers one media panel", await page.locator('[data-mediafield="src"]').count() === 1);
+  check("a card with a picture shows one frame and no empty box",
+    await page.locator("#cesMediaSlot .card-img").count() === 1 && await page.locator("#cesMediaSlot .ces-img-ph").count() === 0);
+  check("...and the panel is closed until asked for", await page.evaluate(() =>
+    !document.querySelector("#cesMediaPanel").checkVisibility()));
 
-  await page.click("#cesVidSlot .ces-media-swap");
+  await page.click("#cesMediaSlot .card-img");
   await page.waitForTimeout(300);
-  check("the swap opens the video panel", await page.evaluate(() => document.querySelector("#cesVidPanel").checkVisibility()));
-  await page.fill('[data-vidfield="src"]', MP4);
-  await creditMedia(page, "vidfield", "An archive");
-  await page.fill('[data-vidfield="title"]', "A demonstration");
+  check("clicking the frame opens the media panel", await page.evaluate(() => document.querySelector("#cesMediaPanel").checkVisibility()));
+  await page.fill('[data-mediafield="src"]', MP4);
+  await creditMedia(page, "mediafield", "An archive");
+  await page.fill('[data-mediafield="title"]', "A demonstration");
   await page.waitForTimeout(800);
   const cardDelta = await page.evaluate(() => {
     const o = JSON.parse(localStorage.getItem("folio_admin_v1") || "{}");
@@ -434,17 +433,16 @@ async function openGlossEditor(page, base) {
     const d = id ? o.cards[id] : {};
     return {
       id: id, v: d.video, imgDelta: d.image,
-      player: document.querySelectorAll("#cesVidSlot .card-vid video").length,
-      imgFrames: document.querySelectorAll("#cesImgSlot .card-img").length,
-      imgSwap: document.querySelectorAll("#cesImgSlot .ces-media-swap").length,
-      imgField: (document.querySelector('[data-imgfield="src"]') || {}).value,
+      player: document.querySelectorAll("#cesMediaSlot .card-vid video").length,
+      imgFrames: document.querySelectorAll("#cesMediaSlot .card-img img").length,
+      note: (document.querySelector("#cesMediaNote") || {}).textContent || "",
     };
   });
-  check("the edit is recorded as a card video delta", !!(cardDelta.v && cardDelta.v.title === "A demonstration"), JSON.stringify(cardDelta.v));
+  check("a video link in the one box is filed as a card VIDEO delta", !!(cardDelta.v && cardDelta.v.title === "A demonstration"), JSON.stringify(cardDelta.v));
   check("...and the editor shows the player in place", cardDelta.player === 1);
+  check("...saying which kind it decided on", /video file/i.test(cardDelta.note), cardDelta.note);
   check("the shipped image is retired by a null tombstone", cardDelta.imgDelta === null, JSON.stringify(cardDelta.imgDelta));
-  check("...its frame replaced by a swap back to a picture", cardDelta.imgFrames === 0 && cardDelta.imgSwap === 1);
-  check("...and its URL field cleared", !cardDelta.imgField, String(cardDelta.imgField));
+  check("...and its frame is gone, leaving exactly one", cardDelta.imgFrames === 0);
 
   await page.reload({ waitUntil: "load" });
   await page.waitForTimeout(1000);
@@ -474,8 +472,8 @@ async function openGlossEditor(page, base) {
   await page.waitForTimeout(700);
   const reverted = await page.evaluate((id) => ({
     delta: (JSON.parse(localStorage.getItem("folio_admin_v1") || "{}").cards || {})[id],
-    imgFrames: document.querySelectorAll("#cesImgSlot .card-img").length,
-    vidFrames: document.querySelectorAll("#cesVidSlot .card-vid").length,
+    imgFrames: document.querySelectorAll("#cesMediaSlot .card-img img").length,
+    vidFrames: document.querySelectorAll("#cesMediaSlot .card-vid").length,
   }), cardDelta.id);
   check("Revert card drops the video with everything else", !reverted.delta, JSON.stringify(reverted.delta));
   check("...and the shipped picture comes back as the one frame",

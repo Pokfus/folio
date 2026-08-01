@@ -329,12 +329,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   formatting ribbon + a meta row (id, chronology, plain `answerText`) + a collapsible "Appears in N decks" picker.
   Below: a collapsible **whole-card HTML source** (`#cesSrcTa`, sections delimited by `<!-- QUESTION -->`-style
   markers, two-way synced; `.af-src[hidden]{display:none}` is required — the author `display:block` would defeat the
-  hidden attribute and leave it permanently expanded). The image renders in place (click = edit panel; the **title /
-  description / source fields (`#cesImgMeta`) only appear once an image URL is set** — `syncImgMeta()` gates them on
-  `c.image.src`; the fullscreen
-  viewer is suppressed inside the editor via stopPropagation); a card with no image shows an **editor-only**
-  "Add an image" placeholder (`.ces-img-ph` — deliberately NOT `.card-img`, so the delegated viewer/study page
-  never see it). `.card-edit-single .admin-live-card` carries auto margins (the card caps at 680px inside the 780px
+  hidden attribute and leave it permanently expanded). The picture or clip renders in place in **ONE media slot**
+  (`#cesMediaSlot`, click = edit panel; the **title / description / source fields (`#cesMediaMeta`) only appear once
+  a URL is set** — `syncMediaMeta()` gates them on the GATE's staged src, not the store; the fullscreen
+  viewer is suppressed inside the editor via stopPropagation); a card with neither shows an **editor-only**
+  "Add an image or a video" placeholder (`.ces-img-ph` — deliberately NOT `.card-img`, so the delegated viewer/study
+  page never see it). `.card-edit-single .admin-live-card` carries auto margins (the card caps at 680px inside the 780px
   column — without them it sat off-centre). **traditional / hanzi / pinyin / translations / citation were REMOVED from the editor on request**
   (the data fields still exist and render on study cards). **The admin tree drags two ways**: dropping on a
   same-parent sibling REORDERS (insert-before, `reorderSiblings` — the Library follows this order); dropping on a
@@ -428,6 +428,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   next "Good"** (Anki-like; before this it jumped straight to tomorrow). "Again"/"Hard" on a new/learning card also requeue
   (1 min / 6 min); "Easy" graduates immediately (4 days). `S.intro.count` (the daily new-card cap via `newRemainingToday`) is
   incremented only on a card's FIRST grade (`fresh`), so a requeued learning card is never re-counted.
+- **Undoing a grade (Aug 2026, on request)** — `undoStack` / `undoSnapshot` / `undoGrade` inside `PAGES.study`,
+  reached by the `#undoGrade` button in the study bar (rendered only when there is something to undo), by
+  **Ctrl/Cmd+Z**, and by "Undo the last card" on the completion screen (where the queue is empty and there is no
+  card left to press the button on). A misclick on Again or Easy was otherwise unfixable from inside a session.
+  **A grade is LOSSY** — the old interval, ease and due date cannot be derived back out of the new ones — and
+  `grade()` writes in five places at once, so the undo is a snapshot of exactly those (`S.cards[id]`, today's
+  `reviewLog` row, `S.reviewDay`, `S.intro`, `S.streak`) taken in `doGrade` **before anything is written and
+  before `queue.shift()`**, plus the queue itself, which is what restores a requeued learning step as faithfully
+  as a graduated card. The card comes back **revealed** (`studyRevealId`), on the grade row it was mis-answered on.
+  Two things it deliberately does NOT take back, both additive and harmless: a badge or level-up already announced
+  (`checkAchievements` only ever adds) and a Card of the day already dropped into the review list.
+  **The Ctrl+Z guard is not `!typing`**: the cloze box takes focus as each card opens, so refusing whenever it is
+  focused would mean the shortcut never fired at the one moment it is wanted — the card AFTER the misclick, which
+  has just opened with an empty box. It yields to the browser's own typing-undo only while the box actually holds
+  a typed guess.
 - **Review history + statistics:** `grade()` calls **`logReview(mature, correct)`**, which tallies
   `S.reviewLog["YYYY-MM-DD"] = [reviews, matureCorrect, matureTotal]` (in `defaultState()` so old saves
   back-fill, and in `PROGRESS_FIELDS` so it syncs and a friend's shows too). **This log has to exist**: a card
@@ -624,6 +639,30 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **Editing**: the shared card surface's `sourcesPanel` (so the admin editor's EN view AND the Studio), and a
     `sources` textarea in the curated glossary editor's EN view + the Studio's term form. **One citation per LINE**,
     never comma-separated as tags and aliases are — a Chicago note is full of commas.
+    On the CARD surface the panel is no longer a textarea (Aug 2026, on request): each citation is its own
+    **rich contenteditable row** (`#cesSrcList` → `.ces-srcitem[data-rich]`, numbered by an `<ol>` exactly as the
+    card numbers them), so a Chicago note — which is mostly italicised title — is written **as it reads** rather
+    than as `<i>…</i>` in a text box, and the ribbon's italic button applies to it. `srcItems` is the working
+    list, like the question pool: blanks survive editing and `normSources` drops them on the way to the store.
+    Everything is DELEGATED on the list (input / keydown / paste / the row's ×) because the rows are rebuilt
+    whenever one is added or removed, and **`wireRichEditor` now picks up the active field by a delegated
+    `focusin` on the host** rather than a listener per element — without that, every row created after it ran
+    would be unreachable from the ribbon. The URL and the `[Open access]` / `[Paywalled]` label deliberately stay
+    PLAIN TEXT in the row: the card builds the link and the chip at render time, and showing them already
+    converted would leave nothing to edit.
+  · **The ribbon's `+Source` button** (`#rtFootnote`, added by `rtRibbonHtml({footnote:true})`, so only where a
+    sources list exists — a glossary description has none). One press does both halves of a footnote: an EMPTY
+    `<sup class="fn" data-fn="N">` at the caret in the background (or at its end if the caret is elsewhere) and a
+    blank citation row waiting below, focused. The `N` is a starting value only — the card draws the real number
+    from the list, which is the whole point of writing the marker empty. It never stacks two blank rows: a second
+    press lands in the one already waiting. Shown only while the background is the active field (`.rt-fn` follows
+    the ribbon's existing `.on-bg` class, like `.rt-link`).
+  · **The ribbon is sticky, and which scrollport it pins to depends on the surface.** The desktop `.admin-editor`
+    pane scrolls inside itself (`top:0`); the Studio and the phone scroll the whole PAGE, where it has to clear
+    the sticky top bar (`top:calc(var(--bar-h) + 6px)`, z-index 30 — under the bar's 50). **On ≤860px
+    `.admin-editor` is given `overflow:visible`**: it stops scrolling inside itself there, and a scroll container
+    that never scrolls is a scrollport its sticky child can never leave, which is why the ribbon used to scroll
+    away on a phone.
   · **How many, and the red mark** (July 2026, on request). **`SRC_TARGET` (5) is the editorial bar** a curated
     card is held to — a target the Edit page reports against, never a validity rule, and community decks are not
     held to it. The card list paints each row's id line with a coverage chip (`cardSourceState` → `.acr-src`):
@@ -646,7 +685,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     where an abstract is ten; `docs/glossary-citation-plan.md` is the plan for the rest and
     `node .claude/gloss-source-audit.js` says where it stands. The UI, the deltas and the pipeline are in place;
     the rest is a content job (see "Citing the existing content" below). Guarded by `.claude/test-sources.js`
-    (67 assertions).
+    (74 assertions).
     **Batches 0–22 shipped 2026-07-31/08-01**: **all 109 prehistory cards now carry sources.** **Against the
     5-source bar, ALL 109 are there** — batches 0–26 are complete, and
     the audit that says which is `node .claude/source-audit.js`. **Every list is majority-open**, `wh-045`
@@ -907,12 +946,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   it entirely (the control is a real `<button>`). Editing: `setCardVideoEdit` (curated, a `video` delta exactly
   like `image`, null tombstone and all) / `uCardSetVideo` (community); `serializeCardData` bakes `c.video`,
   `revertCard` restores `p.video`, publish sends `data.video`. `_headers` carries **`media-src 'self' https:`**
-  and **`frame-src`** for the two embed hosts. In the editors the unused side is **not** a second empty box:
-  it collapses to a slim `.ces-media-swap` pill ("Use a video instead") that opens the other panel, and
-  setting either URL clears the other panel's fields and hides it. `.ces-imgpanel[hidden]{display:none}` is
-  **required** — the author `display:flex` beats the UA `[hidden]` rule, and without it BOTH panels sit
-  permanently open and the click-to-edit toggle does nothing (the image panel shipped that way until the
-  video panel made it obvious). Guarded by `.claude/test-video.js` (83 assertions).
+  and **`frame-src`** for the two embed hosts. `.ces-imgpanel[hidden]{display:none}` is
+  **required** — the author `display:flex` beats the UA `[hidden]` rule, and without it the panel sits
+  permanently open and the click-to-edit toggle does nothing. Guarded by `.claude/test-video.js` (83 assertions).
+- **ONE media panel on the card surface** (Aug 2026, on request — it was two, with a `.ces-media-swap` pill
+  between them). A card shows one frame, so the editor offers one slot (`#cesMediaSlot`) and one panel
+  (`#cesMediaPanel`, fields `data-mediafield="src|title|desc|credit"`), and the pasted URL decides which of the
+  two stores it lands in: **`videoSource(url)` already recognises every link the player can take, so anything it
+  does not recognise is a picture.** Asking the author to classify a URL Folio can classify itself was the whole
+  of the old two-box design. The stores stay separate underneath (`card.image` / `card.video`, and the one-frame
+  rule the writers enforce) — only the editor stops making the distinction the author's problem.
+  Three details are load-bearing. **`mediaKind` must be settled BEFORE the gate stages the value**, since the gate's
+  own `input` listener is what calls `set()` — hence the listener `wireLiveCardEditor` installs on the URL box
+  *ahead of* `wireMediaSource`. **Emptying the URL leaves `mediaKind` alone**, so the clear reaches whichever store
+  actually holds the media instead of defaulting to the picture one. And **when the kind flips, the title,
+  description and source are emptied first**, while `mediaKind` still names the old store: they described the old
+  file, and a credit line silently re-attached to a new one is the same mistake as no credit at all (it also
+  clears the old store, one frame per card, and the new URL then arrives uncredited and is held back). The gate's
+  `kind` may now be a **getter** (`mediaKindLabel` unwraps it) so the "where does this come from?" modal words
+  itself for whatever was just pasted. The glossary editors keep their own separate image/video panels.
 - **Nothing is saved uncredited — the media source gate** (`wireMediaSource` / `askMediaSource`, beside
   `videoSourceLabel`). The editors save on every keystroke, so a picture URL pasted in and then forgotten
   about used to ship credited to nobody — the one mistake that stays invisible until someone else points it
@@ -931,7 +983,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `data.js`, an imported deck file and an installed community deck are untouched, since this is a guard
   against forgetting while writing, not a validity rule imposed on other people's decks. `add-card.js` and
   `add-glossary.js` enforce the same rule at the content-pipeline end. Guarded by
-  `.claude/test-media-source.js` (35 assertions).
+  `.claude/test-media-source.js` (36 assertions).
 - **Glossary video (optional):** `window.GLOSSARY_VIDEOS` (slug → the same object; `glossVideo(key)`,
   `ADMIN_EDITS.glossaryVideos`, baked by `serializeGlossary`), or `entry.video` inside `UGLOSS` for a
   community deck's own term. `renderGlossImage` puts it in the **same `.gloss-imgslot`** at the same fixed
@@ -1272,10 +1324,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     stroke — drop that and every coast grows a dark hairline. `landCv` is freed on present-day/merger eras and in
     `cleanupGlobe`, so only a geo era pays for the buffer. **Never reintroduce a per-frame `ctx.clip()` over
     world-scale geometry** — that, not the vertex count, is what made the older maps unusable.
-  · **Motion frames are cheaper on purpose.** While `moving`: city labels don't lay out (pins only), era-capital labels
-    and their `measureText` are skipped, selection glows drop `shadowBlur`, and the selection's gold COASTLINE
+  · **Motion frames are cheaper on purpose.** While `moving`: the whole city layer is skipped (`drawCities` and
+    `drawEraCities` return at the top), selection glows drop `shadowBlur`, and the selection's gold COASTLINE
     (`strokeCoastClipped`, two more clips + a scan of every coast chain in the region) is skipped — the fill is still
     clipped to the land, so only the bright coast edge waits for the settled frame. Everything returns when settled.
+    **A pin and its name go together** (changed Aug 2026, on request): the label layout is a spatial grid plus
+    thousands of short-lived rect arrays per frame and can only run on the settled frame, but drawing the PINS
+    anyway left a field of nameless dots through every drag and zoom. The map editor is the one exception —
+    `drawEraCities(era, editable)` still draws while `editable`, since those pins are what a click is dragging.
   · **A selection paints as ONE batch** (`paintFillGroups`; `paintFillRings` is now a single-group wrapper). A click on
     a geo era selects a whole EMPIRE — dozens of territories — and painting them one at a time meant one GEO-derived
     clip mask, one coastline scan and two full Gaussian `shadowBlur` passes **per territory, per frame**: dragging with
@@ -1321,18 +1377,31 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   click / ocean click / era change. The popup is a **vertical panel on the LEFT of the stage** (the base `.country-pop` rule:
   `left:clamp(16px,4vw,40px); top:16px; bottom:16px; width:min(360px,…)`, single-column `.cp-cols`) — the legend moved to the
   **top-right under the search box** (`.globe-legend{right:…; top:60px}`) to free the left edge. On **≤720px** it reverts to a
-  **bottom sheet** capped at `max-height:70%` of the stage. In both layouts it is `display:flex; flex-direction:column` and its
+  **bottom sheet**. In both layouts it is `display:flex; flex-direction:column` and its
   **`.cp-cols` scroll internally** (`overflow-y:auto; min-height:0`) so the box never pushes the absolutely-positioned
   **`.cp-close` (×) off screen** — the × stays pinned while the columns scroll. Don't put `overflow` on
-  `.country-pop` itself (the × would scroll off). **`.cp-cols` is also scrolled back to 0 on every populate**
-  (`showCountryPopupName`) — the popup element is REUSED, so without it the next place opens at however far down
-  the previous one the reader had got, which on the phone's short sheet lands mid-panel.
-  **Its three parts each fold** (`.cp-sec` + `.cp-sec-head`/`.cp-sec-body`, one delegated click listener on
+  `.country-pop` itself (the × would scroll off). **The scroller is reset on every populate**
+  (`showCountryPopupName` sets `scrollTop` AND `scrollLeft` to 0) — the popup element is REUSED, so without it the
+  next place opens wherever the previous one was left: however far down it on the desktop panel, and however far
+  ACROSS on the phone.
+  **Its parts each fold** (`.cp-sec` + `.cp-sec-head`/`.cp-sec-body`, one delegated click listener on
   `#countryPop`): the description, the year paragraph (whose header IS the year number, so it still reads while
-  shut) and the figures grid. `cpSection(sec, hasContent)` sets each one as the popup is filled — **open when it
-  has something, closed when it doesn't**, so a place with no year paragraph and no figures shows two quiet
-  headers instead of a dash and a grid of dashes. That **resets per entity**: a reader's manual toggles belong to
-  the popup they were made in, not to the next country.
+  shut), the figures grid and the sources. `cpSection(sec, hasContent, alwaysPane)` sets each one as the popup is
+  filled — **open when it has something, closed when it doesn't**, so a place with no year paragraph and no
+  figures shows two quiet headers instead of a dash and a grid of dashes. That **resets per entity**: a reader's
+  manual toggles belong to the popup they were made in, not to the next country.
+  **On a phone those sections are PAGES, not folds** (Aug 2026, on request). The sheet is short and four stacked
+  sections buried the figures three scrolls down, so at ≤720px `.cp-cols` becomes a `flex-direction:row`
+  `scroll-snap-type:x mandatory` scroller whose `.cp-sec` children are each `flex:0 0 100%`, swiped between one
+  page at a time. Three things follow from that and are load-bearing: **the title block lives in `.cp-head`,
+  OUTSIDE the scroller** (it was `.cp-main`, inside it, and would have slid away with the first swipe, leaving the
+  figures unlabelled); every page renders **expanded** and the head is inert there (`cpPagerOn()` makes the
+  delegated fold handler return, so a tap can't write `srcCollapsed` either) since there is nothing under a page
+  to uncover by shutting it; and an EMPTY section is **dropped from the run** (`cp-blank`) rather than collapsed,
+  so a swipe never lands on a dash — except the description, which passes `alwaysPane` because it carries a "no
+  description yet" line and is **the page every place must open on**. `#cpDots` is the pager (built by
+  `cpSyncDots`, followed by `cpActiveDot` on scroll, and a tap on one turns to that page); it is hidden outright
+  in the stacked layout, and `cpResize` rebuilds it when a rotation crosses the breakpoint.
   The popup (`#countryPop`) stacks: the state's **full legal official name**
   (`officialName()` — from the summary's "officially …", or a leading "Full Name, commonly known as …" form, with a state-type
   keyword fallback so e.g. USSR → "Union of Soviet Socialist Republics"), with the **years that iteration of the state existed** in
@@ -2149,23 +2218,26 @@ dead code (never rendered).
     (computed border-radius / aspect-ratio / border / size), that the expand control opens the viewer and a
     click on the player does not, and that a community deck's `javascript:` video src is dropped on ingest.
     Above all it pins the **one-frame rule** from every side: a card or term given both renders one frame,
-    setting either URL retires the other in the store *and* in the other panel's fields, the tombstone
-    survives a reload (the keystroke bug above), and Revert brings the shipped picture back. **Re-run after
-    touching `videoSource` / `cardVideoHTML` / `openMediaViewer` / `retireOther*Media` / the image or video
-    panels, or the `media-src`/`frame-src` CSP.**
+    a URL of one kind retires the other in the store *and* on screen, the tombstone survives a reload (the
+    keystroke bug above), and Revert brings the shipped picture back. On the card surface it also pins the
+    **auto-recognition**: the single `data-mediafield` box files a video link as a video and a picture link as
+    a picture, says which it decided on, and offers no second empty frame. **Re-run after touching
+    `videoSource` / `cardVideoHTML` / `openMediaViewer` / `retireOther*Media` / the media panel, or the
+    `media-src`/`frame-src` CSP.**
   · `node .claude/test-gloss-image.js` — 40 assertions on glossary images: the popup floats one to the
     top-right of the body at a fixed height and at most half its width, with the prose beside rather than
     below it; it opens the SHARED fullscreen viewer and that viewer stacks **above** the popup,
     the curated editor's overlay delta survives a reload and clears cleanly, and a deck's own term images
     are sanitized on ingest (a `javascript:` src is dropped). **Re-run after touching `glossImage` /
     `renderGlossImage` / `setGlossImageEdit` / `uGlossSetImage`, or any z-index in the gloss/viewer stack.**
-  · `node .claude/test-media-source.js` — 35 assertions on the media source gate: that an uncredited URL
+  · `node .claude/test-media-source.js` — 36 assertions on the media source gate: that an uncredited URL
     really is **absent from the store** rather than merely marked, that it is still shown to the author
     and flagged (so the gate reads as "not yet", not "nothing happened"), that leaving the URL field asks
     for the source and navigating away warns instead of losing it, that an answer commits the whole object
     at once, that **clearing the source takes the picture back out**, and that a shipped credited picture
-    is untouched by any of it — on all four surfaces (card image, card video, curated glossary, Studio
-    term). **Re-run after touching `wireMediaSource` / `askMediaSource` or any media panel's wiring.**
+    is untouched by any of it — on all four surfaces (the card's one media box with a picture in it, the same
+    box with a video link in it, the curated glossary, the Studio term). **Re-run after touching
+    `wireMediaSource` / `askMediaSource` or any media panel's wiring.**
     Its `typeInto` sets a field's value and dispatches `input` by hand: `page.fill()` can land on a box the
     URL keystroke has only just revealed and the value never arrives — and a programmatic value fires no
     `change`, so the blur-asks-for-a-source case dispatches that itself.
@@ -2178,7 +2250,7 @@ dead code (never rendered).
     at the REAL project, so a test that actually sent a message would write rows into it — and like
     `test-publish.js`'s mock, it is a stand-in for the policies, never a proof they are right. **Re-run
     after touching the feedback functions, the queue, or the `7) FEEDBACK` schema block.**
-  · `node .claude/test-sources.js` — 67 assertions on source footnotes, on all three surfaces. Most of them are
+  · `node .claude/test-sources.js` — 74 assertions on source footnotes, on all three surfaces. Most of them are
     about the JOIN between the prose and the list, since that is where a footnote apparatus rots: a marker shows
     the number of the entry it actually opens, a bare marker takes the next number in reading order, and a marker
     pointing **past the end of the list is removed** rather than left claiming a citation the reader cannot follow.
@@ -2190,7 +2262,10 @@ dead code (never rendered).
     the fold replaced by a listener-free clone and every marker blanked — since that is the shape both reported
     failures took, and it is invisible unless something asserts it: on that clone the numbers still print, the
     header still toggles, **and the links and chips are still there**, because the list is serialized wired
-    rather than fixed up after render. The **access chip** is guarded too: one chip per
+    rather than fixed up after render. The editor's own sources panel is exercised as the rich rows it now is:
+    a shipped citation's italics render rather than showing their tags, and the ribbon's **+Source** button puts
+    an EMPTY marker in the background and a blank citation row below it in one press. The **access chip** is
+    guarded too: one chip per
     labelled citation and none invented for an unlabelled one, open and paywalled told apart by class **and by
     colour** so the difference survives without reading the words, the chip outside the anchor so it can never
     read as part of the URL, and the brackets gone from the render while the stored string keeps them.
