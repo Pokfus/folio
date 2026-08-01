@@ -29,7 +29,15 @@ function pieces(block) {
   hold(/\bapr\.\s?J\.-?C\./g);
   hold(/\bd\.\s?C\./g);
   hold(/н\.\s?э\./g);                                       // Russian н. э. (no \b — it is ASCII-only in JS)
-  hold(/\b[A-ZÀ-Þ]\.\s?(?=[A-ZÀ-Þ]\.)/g);                   // initials: J. J. A.
+  // Initials, as a WHOLE RUN. Holding each one only when another follows (the old rule) left the LAST
+  // initial of the run exposed, so "R. P. Soejono" and "Frank H. H. Roberts" both broke a sentence in
+  // half in every Latin language — silently, and in English, where nothing else was watching.
+  // ...and in EVERY script the deck is written in, not just Latin: the same name breaks Russian on
+  // "Р. П." and Arabic on "ر. ب.", and an ASCII-only class cannot see either. Arabic has no case, so
+  // it needs its own clause — a single Arabic letter standing alone before a full stop.
+  hold(/(?<=^|[\s(«"'([])(?:\p{Lu}\.\s?){2,}/gu);
+  hold(/(?<=^|[\s(«"'([])(?:[ء-ي]\.\s?){2,}/g);
+  hold(/\b(?:Jr|Sr|Dr|Prof|Mr|Mrs|Ms|St|Mt)\.\s?/g);        // "Roberts Jr. used the name in 1940"
   hold(new RegExp("\\d{1,2}\\.\\s(?=(?:" + MONTHS + "))", "g"));   // "25. August"
   hold(/\d{1,2}\.\s(?=Jahrhundert|Jh\.)/g);                 // "im frühen 19. Jahrhundert"
   // A sentence ends at .!? followed by whitespace, or at a CJK terminator with or without one — and a

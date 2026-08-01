@@ -929,7 +929,7 @@ included, and reported Moro Abadía's "…at the turn of the twentieth century" 
 violation. In report mode that is noise; **in `--fix` mode it would have renamed the paper**. Citations
 are now masked out before any rule runs, and the mask round-trips byte for byte.
 
-### Batch 24 · Top-up: *erectus*, *sapiens* and the genetics (7 cards, 15 citations)
+### Batch 24 · Top-up: *erectus*, *sapiens* and the genetics (7 cards, 15 citations) — **DONE (2026-08-01)**
 `wh-018` Homo erectus 4→5 · `wh-028` Homo antecessor 2→5 · `wh-030` Homo heidelbergensis 2→5 ·
 `wh-044` Omo remains 3→5 · `wh-045` Jebel Irhoud 4→5 · `wh-047` Mitochondrial Eve 3→5 ·
 `wh-048` Y-chromosomal Adam 2→5
@@ -942,6 +942,60 @@ a review restating the thermoluminescence ages.
 The two coalescent cards (`wh-047`, `wh-048`) carry dates that have moved repeatedly and were already
 corrected once in batch 4. Re-check them against the current estimates as part of the top-up rather than
 assuming the batch-4 pass settled them.
+
+### Batch 24 log — one review per debate, and the first clean re-check
+
+Sixteen citations rather than the planned fifteen, because `wh-045` took two: it was the only list in
+the deck that was not majority-open, and both additions are open, so it now runs 4 open to 2 paywalled
+and the audit's flag is gone. **Coverage 86 → 93 of 109.**
+
+**The finding: where a batch's cards share a DEBATE rather than a site, one review can carry most of
+it.** Harvati & Reyes-Centeno 2022 reviews exactly the period `wh-028`, `wh-030`, `wh-044` and
+`wh-045` describe; Scerri et al. 2018 reviews exactly the question `wh-030`, `wh-044` and `wh-045`
+ask. Between them those two papers filled eleven of the sixteen slots. Set this beside batch 2's
+finding — subject does not predict whether the sources are reachable — because it is the exception
+that sharpens it: subject does not, but a shared *argument* does, since arguments attract reviews and
+reviews are where open venues publish.
+
+**The re-check the plan asked for came back clean, which had not happened before.** Both coalescent
+cards were suspected of carrying dates that had moved since batch 4. They have not: Karmin et al. put
+the Y-MRCA at "254 (95% CI 192–307) kya" against the card's 200,000–300,000, and Rito et al. put the
+mtDNA ancestor at "~180 ka" against the card's 150,000–200,000. Rito is worth noting for a second
+reason — the authors write "carried by 'mitochondrial Eve'" themselves, so the card's nickname is not
+a popularisation the card invented.
+
+Two things not to repeat. **PMC's browser check now covers the article HTML as well as search**, so
+`pmc.ncbi.nlm.nih.gov/articles/PMC…/` returns a 21 KB challenge page rather than the paper; the
+`ebi.ac.uk/europepmc/webservices/rest/PMC<id>/fullTextXML` route recorded in batch 23 is now the only
+one that works from here, and it 404s for author manuscripts with no deposited text (Wagner 2010,
+Poznik 2016). And **`isOpenAccess: N` in the Europe PMC record does not mean unreadable** — it means
+not OA-licensed. Check for full text before writing a source off, and check it is really the paper you
+want: a mistyped PMCID returned a paper on sulfite oxidation in *Chlorobaculum tepidum*.
+
+#### The 5+5 sweep the previous batch left for this one
+
+Batch 23 cut the deck's 5+5 failures from 48 to 22 and left the residue here. All 22 are now gone, and
+they were three separate things:
+
+- **A run of initials, in every script.** The splitter held an initial only when another followed, so
+  the LAST one of a run was exposed: "R. P. Soejono" and "Frank H. H. Roberts Jr." each broke a
+  sentence in half — in English, where nothing else was watching, and in Spanish, French, German,
+  Italian, Dutch, Russian and Arabic besides. The rule now holds a whole run, in Latin, Cyrillic and
+  Arabic (`\p{Lu}` and an Arabic-letter clause, since Arabic has no case), plus `Jr.`, `Sr.`, `Dr.`,
+  `St.` and their kin. That alone fixed nine of the 22.
+- **A sentence ending on the era abbreviation** — the one failure the splitter's own header records
+  as unfixable, and `wh-063` had it in six languages at once ("anteriores al 8000 a. C.", "vor etwa
+  8000 v. Chr.", "до примерно 8000 года до н. э."). The era's own full stop is held, so the sentence
+  has no terminator left and swallows the next one. Spelled out — "antes de Cristo", "vor unserer
+  Zeitrechnung", "до нашей эры" — it splits correctly. **This is an authoring rule, not a tooling
+  gap: do not close a sentence on the era abbreviation.**
+- **Seven translations that turned one English sentence into two**, in Japanese (`wh-004`, `wh-024`,
+  `wh-053` twice over, `wh-068`, `wh-073`) and Arabic (`wh-040`, `wh-067`). Repaired by merging, with
+  the markers carried to the end of the merged sentence.
+
+`wh-030`'s Chinese carried the same divergence `wh-022`'s did — the opening definition split in two
+and two later sentences run together — and was repaired the same way. **The whole deck now splits 5+5
+in all ten languages with identical marker counts**, which is the state batches 25 and 26 can rely on.
 
 ### Batch 25 · Top-up: ice-age climate and the Holocene (7 cards, 11 citations)
 `wh-012` Last Glacial Period 4→5 · `wh-096` Doggerland 3→5 · `wh-102` Holocene 3→5 ·

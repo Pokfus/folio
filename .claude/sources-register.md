@@ -4001,3 +4001,152 @@ https://humanorigins.si.edu/evidence/human-fossils/species/kenyanthropus-platyop
   10.1144/gsl.sp.1998.143.01.08) returns 503 through the DOI resolver. Not needed: Key & Lycett already
   place "Joseph Prestwich, Charles Lyell, and John Evans" at Amiens and Abbeville, which is where the
   card's tenth sentence gets Lyell from.
+
+---
+
+## Batch 24 — *erectus*, *sapiens* and the two coalescent points
+
+Seven cards to the bar, 16 citations, and one card taken past it: `wh-045` Jebel Irhoud was the only
+list in the deck that was not majority-open, so it took two open additions rather than one and now
+runs 4 open to 2 paywalled.
+
+Its finding is the cheapest one in the pass so far: **two open review articles carried eleven of the
+sixteen slots between them.** Harvati & Reyes-Centeno 2022 is a review of exactly the period four of
+these cards describe, and Scerri et al. 2018 is a review of exactly the question the other three ask.
+Where a batch's cards share a *problem* rather than a site, one review can cover most of it — which is
+the opposite of batch 2's finding that subject does not predict reachability, and worth holding beside
+it: subject does not predict reachability, but a shared **debate** does.
+
+The plan asked for the two coalescent dates to be re-checked rather than assumed, and they hold:
+Karmin et al. put the Y-MRCA at "254 (95% CI 192–307) kya", against the card's 200,000–300,000, and
+Rito et al. put the mtDNA ancestor at "~180 ka", against the card's 150,000–200,000. **No correction
+was needed on either, which is the first time a re-check has come back clean.**
+
+### harvati-2022 · the Middle and Late Pleistocene, reviewed
+Katerina Harvati and Hugo Reyes-Centeno, "Evolution of *Homo* in the Middle and Late Pleistocene,"
+*Journal of Human Evolution* 173 (2022): 103279, https://pmc.ncbi.nlm.nih.gov/articles/PMC9703123/.
+[Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST service
+- supports: the period's picture as one "often described as 'the Muddle in the Middle'"; *H.
+  heidelbergensis*'s holotype as the Mauer mandible (Schoetensack 1908) and *H. antecessor*'s as
+  ATD6-5 from Gran Dolina (Bermúdez de Castro et al. 1997), both in its table 1; that the Iberian
+  specimens date "to ca. 850 ka" and exhibit "facial morphology until then considered derived for
+  modern humans", which "has led to the re-examination of the polarity of these features"; that
+  "*H. antecessor* from Atapuerca, Spain, is one possibility" for the last common ancestor, among
+  others; that Sima de los Huesos carries Denisovan-like mitochondrial DNA but is "otherwise similar
+  to Neanderthals in their nuclear DNA (Meyer et al., 2016)"; that Omo 2 and Jebel Irhoud were once
+  attributed to a "'Neanderthal stage' in human evolution"; and that "the earliest currently
+  recognized members of our lineage have been identified in Jebel Irhoud, Morocco, recently dated to
+  ca. 300 ka"
+- used by: wh-028, wh-030, wh-044, wh-045
+
+### scerri-2018 · one birthplace, or a continent
+Eleanor M. L. Scerri et al., "Did Our Species Evolve in Subdivided Populations across Africa, and Why
+Does It Matter?" *Trends in Ecology & Evolution* 33, no. 8 (2018): 582–94,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC6092560/. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST service
+- supports: "the oldest currently recognized members of the *H. sapiens* clade, from Jebel Irhoud in
+  North Africa, have a facial morphology very similar to extant *H. sapiens*, as well as endocranial
+  volumes that fall within the contemporary range of variation", while "their braincase shapes"
+  differ; that traits appear "in a mosaic-like fashion within the *H. sapiens* clade"; the proposal
+  by some that Jebel Irhoud and Florisbad are a more primitive '*H. helmei*'; and the paper's whole
+  argument, that our species evolved in subdivided populations across Africa rather than in one place
+- used by: wh-030, wh-044, wh-045
+
+### ragsdale-2023 · no single ancestral population
+Aaron P. Ragsdale et al., "A Weakly Structured Stem for Human Origins in Africa," *Nature* 617, no.
+7962 (2023): 755–63, https://doi.org/10.1038/s41586-023-06055-y. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST service (CC BY)
+- supports: that the emergence of *H. sapiens* "was preceded by links between two or more weakly
+  differentiated ancestral *Homo* populations connected by gene flow over hundreds of thousands of
+  years", and that such models "explain patterns of polymorphism that had previously been attributed
+  to contributions from archaic hominins in Africa"
+- this is what both coalescent cards' "not the only woman/man of her/his time" rests on: the ancestral
+  population was not a couple and not a bottleneck but a structured set of populations
+- used by: wh-047, wh-048
+
+### cole-2017 · the Gran Dolina victims
+James Cole, "Assessing the Calorific Significance of Episodes of Human Cannibalism in the
+Palaeolithic," *Scientific Reports* 7 (2017): 44707, table 1, https://doi.org/10.1038/srep44707.
+[Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST service
+- supports, from its table 1: Gran Dolina TD6, Aurora Stratum, "c. 936,000 BP", *H. antecessor*,
+  "Nutritional cannibalism", MNI 11, "2 adults, 3 adolescents, 6 children"; and the associated fauna
+  — *Cervus*, *Sus*, *Equus*, *Bison*, *Megaloceros*, *Dama*, *Capreolus*, *Eucladoceros*,
+  *Stephanorhinus* — which is what the card's "the same casual discard as the deer and horse bones
+  lying beside them" refers to
+- note the age: Cole gives c. 936 ka for the Aurora Stratum where the card gives 780,000–860,000 from
+  Campaña et al. Both are in the literature and the card's range is the one its own dating source
+  supports; the discrepancy is recorded here rather than resolved, and no marker points Cole at the
+  card's date sentence
+- used by: wh-028
+
+### mosquera-2018 · the TD6 sequence
+Marina Mosquera et al., "Shedding Light on the Early Pleistocene of TD6 (Gran Dolina, Atapuerca,
+Spain): The Technological Sequence and Occupational Inferences," *PLoS ONE* 13, no. 1 (2018):
+e0190889, https://doi.org/10.1371/journal.pone.0190889. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST service
+- supports: that the "Aurora archaeostratigraphic set" is a defined section of TD6.2 and "contains
+  human fossils, stone tools, and faunal remains" — the card's "one layer of one site"
+- used by: wh-028
+
+### mounier-2019 · modelling the ancestor rather than naming it
+Aurélien Mounier and Marta Mirazón Lahr, "Deciphering African Late Middle Pleistocene Hominin
+Diversity and the Origin of Our Species," *Nature Communications* 10 (2019): 3406,
+https://doi.org/10.1038/s41467-019-11213-w. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST service
+- supports: the use of "a phylogenetic modelling method to predict possible morphologies of a last
+  common ancestor of all modern humans", compared against the late Middle Pleistocene African fossils
+  (KNM-ES 11693, Florisbad, Irhoud 1, Omo II, LH18) — i.e. that the ancestor's identity is now
+  approached by modelling rather than by picking a named species off the shelf, which is the card's
+  point about what became of the grandest job in the family tree
+- used by: wh-030
+
+### hallast-2015 · the Y tree, in leaf
+Pille Hallast et al., "The Y-Chromosome Tree Bursts into Leaf: 13,000 High-Confidence SNPs Covering
+the Human Y-Chromosome Phylogeny," *Molecular Biology and Evolution* 32, no. 3 (2015): 661–73,
+https://doi.org/10.1093/molbev/msu327. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST service
+- supports: the sequencing of "3.7 Mb of MSY in each of 448 human males", "yielding 13,261
+  high-confidence SNPs", and phylogenies "in which branch-lengths are proportional to time, and
+  allowing the times-to-most-recent-common-ancestor (TMRCAs) of nodes to be estimated directly" —
+  the card's "copying errors that serve as markers, and those markers sort all living men into one
+  branching tree"
+- does NOT support the card's date: this tree deliberately EXCLUDES haplogroup A00, the deep root
+  Mendez et al. added, so its root age is not the figure the card gives. No marker points it at that
+  sentence; Karmin et al. 2015 carries it, at "254 (95% CI 192–307) kya"
+- used by: wh-048
+
+### rito-2013 · where the maternal lines meet
+Teresa Rito et al., "The First Modern Human Dispersals across Africa," *PLoS ONE* 8, no. 11 (2013):
+e80031, https://doi.org/10.1371/journal.pone.0080031. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST service
+- supports: haplogroup L0 as "the most divergent clade in the maternal line of descent" and the tree
+  splitting "into two main branches, L1'6 and L0"; and — in the authors' own words, nickname included
+  — that "the last common ancestor of modern human mtDNAs (carried by 'mitochondrial Eve') possibly
+  arose in central Africa ~180 ka, at a time of low population size"
+- used by: wh-047, wh-048 (on the latter for the sentence that the two nicknamed ancestors are worked
+  out from different pieces of DNA with separate histories: this is the mtDNA date, against Karmin's
+  Y date, and they do not coincide)
+
+## NOT CITED (batch 24)
+
+- **Daniel Richter et al. 2017**, the paper that dates Jebel Irhoud, remains **paywalled** on Nature
+  and is cited as such; no open deposit was found. What made the card's list majority-open was not
+  replacing it but adding two open reviews that restate the ca. 300 ka age (Harvati & Reyes-Centeno,
+  Scerri et al.).
+- **Günther A. Wagner et al. 2010**, "Radiometric Dating of the Type-Site for *Homo heidelbergensis*
+  at Mauer, Germany," PNAS 107: 19726–30. The obvious source for the card's 609 ± 40 ka, and it has
+  no full text in the Europe PMC service; pnas.org answers 403 and the PMC page now serves a browser
+  check. The date keeps the marker it already had.
+- **Matthias Meyer et al. 2016**, the Sima de los Huesos nuclear DNA paper, is not open. Harvati &
+  Reyes-Centeno restate it — "otherwise similar to Neanderthals in their nuclear DNA" — which is
+  exactly the batch-15 rule and is what the card's marker points at.
+- **G. David Poznik et al. 2016**, "Punctuated Bursts in Human Male Demography," *Nature Genetics* 48:
+  593–99. Indexed in PMC as an author manuscript with no deposited full text, and the PMC page is
+  JavaScript-only from here. Not cited.
+- **Dennis Behar et al. 2012**, the "Copernican" mtDNA reassessment, was opened and read but is about
+  the choice of reference sequence rather than the root's age; it does not carry the claim the card
+  makes, so it is not cited.
+- **Mark Jobling and Chris Tyler-Smith 2017**, *Nature Reviews Genetics* 18: 485–97, the obvious
+  review for the Y-chromosome card, has no PMC record at all.

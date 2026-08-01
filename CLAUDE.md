@@ -79,7 +79,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `docs/citation-plan.md` — the batch plan for **citing the 109 prehistory cards** (the bar a source must
   clear, the per-card workflow, how translations are staged, and the batches with their source spines).
   Not part of the site. **The bar is at least 5 citations per card** (`SRC_TARGET` in app.js; raised from
-  2–4 on 2026-07-31) — 86 of 109 cards are there, 23 short by 39 citations, planned as **batches 24–26**.
+  2–4 on 2026-07-31) — 93 of 109 cards are there, 16 short by 24 citations, planned as **batches 25–26**.
   Coverage is reported by `add-sources.js` on every run and in full by `node .claude/source-audit.js`. Its **Pilot log** records
   that batch 0 was attempted and stopped: this sandbox's egress policy blocks every scholarly host, so no
   source could be opened and none was cited. `.claude/sources-register.md` holds the verified citations
@@ -611,9 +611,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     pipeline are in place; the rest is a content job (see "Citing the existing content" below). Guarded by
     `.claude/test-sources.js` (67 assertions).
     **Batches 0–22 shipped 2026-07-31/08-01**: **all 109 prehistory cards now carry sources.** **Against the
-    5-source bar, 86 of 109 are there** — the other 23 are batches 24–26 in the plan, and
-    the audit that says which is `node .claude/source-audit.js`. Every list is majority-open bar one: `wh-045`
-    Jebel Irhoud runs 2 open / 2 paywalled and its top-up must add open works. See `docs/citation-plan.md` — its Pilot log records how the
+    5-source bar, 93 of 109 are there** — the other 16 are batches 25–26 in the plan, and
+    the audit that says which is `node .claude/source-audit.js`. **Every list is majority-open**, `wh-045`
+    Jebel Irhoud having been taken to six sources in batch 24 to clear the last exception. See `docs/citation-plan.md` — its Pilot log records how the
     definitional cards were solved, its Batch 1 log the factual errors the exercise turns up (21 so far) and
     the gotcha that a matching sentence COUNT across languages does not prove a matching sentence MAPPING, and
     its Batch 2 log the finding that reshapes the rest of the pass: **the batches are grouped by subject, and
@@ -763,6 +763,28 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     before any rule runs. Where a language's sentence split diverges from English (zh on `wh-022`), **repair
     the split rather than routing round it with a per-language marker map** — `add-sources.js` catches the
     divergence as a marker-count mismatch, and rejoining the sentences restores parity claim for claim.
+    From Batch 24: **where a batch's cards share a DEBATE rather than a site, one review can carry
+    most of it.** Two open reviews — Harvati & Reyes-Centeno 2022 on the Middle Pleistocene and
+    Scerri et al. 2018 on whether *H. sapiens* has one birthplace — filled eleven of its sixteen
+    slots across four and three cards respectively. Batch 2 found that subject does not predict
+    reachability; this is the exception that sharpens it, since an argument attracts reviews and
+    reviews are what open venues publish. It also produced the pass's **first clean re-check**:
+    `wh-047` and `wh-048` were expected to have drifted and had not (Karmin's Y-MRCA "254 (95% CI
+    192–307) kya", Rito's mtDNA ancestor "~180 ka"), and it retired the last not-majority-open list
+    by giving `wh-045` two open sources instead of one. Two tooling notes: **PMC's browser check now
+    covers the article HTML as well as search**, so the Europe PMC `fullTextXML` route from batch 23
+    is the only one left here, and it 404s for author manuscripts with no deposited text; and
+    **`isOpenAccess: N` in a Europe PMC record means not OA-LICENSED, not unreadable** — check for
+    full text before writing a work off.
+    Batch 24 also cleared the **5+5 residue** batch 23 left, and the three causes are worth keeping:
+    the splitter held an initial only when another followed, so the LAST of a run was exposed and
+    "R. P. Soejono" / "Frank H. H. Roberts Jr." each split a sentence in eight languages (it now
+    holds whole runs in Latin, Cyrillic and Arabic, plus `Jr.`/`Dr.`/`St.`); **a sentence ending on
+    the era abbreviation** has no terminator left and swallows the next one, which `wh-063` did in
+    six languages at once — an AUTHORING rule, not a tooling gap, and the splitter's header has
+    always said so; and nine translations had turned one English sentence into two. **The deck now
+    splits 5+5 in all ten languages with identical marker counts** — the state batches 25–26 can
+    rely on, and worth re-asserting after any prose edit.
 - **Multiple question phrasings (July 2026):** a card may carry an optional **`questions` array of EXTRA
   phrasings** beyond `question` — **at most `CARD_MAX_QUESTIONS` (10) in all** (official Folio cards carry
   exactly 3; the headroom is for community decks to experiment). Every phrasing is a full standalone clue
@@ -1769,7 +1791,7 @@ which would otherwise have shipped corrected prose above an uncorrected date lin
 **Citing the existing content (as of July 2026)** — **most of the shipped content still has no citations.** The
 109 cards, 333 glossary terms and every Atlas description were written before this system existed, from Wikipedia
 and its sources, and were fact-checked rather than referenced. A batched pass is working through the cards —
-**all 109 carry sources, and 86 of 109 meet the 5-source bar** (`docs/citation-plan.md`; `add-sources.js`
+**all 109 carry sources, and 93 of 109 meet the 5-source bar** (`docs/citation-plan.md`; `add-sources.js`
 reports both on every run, `node .claude/source-audit.js` reports them per card, and the Edit page's card list
 shows each card's coverage as an amber or red chip) — while
 `country-sources.js` and `GLOSSARY_SOURCES` are still empty, so the Sources fold appears only on those cards.
