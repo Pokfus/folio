@@ -4150,3 +4150,99 @@ e80031, https://doi.org/10.1371/journal.pone.0080031. [Open access]
   makes, so it is not cited.
 - **Mark Jobling and Chris Tyler-Smith 2017**, *Nature Reviews Genetics* 18: 485–97, the obvious
   review for the Y-chromosome card, has no PMC record at all.
+
+---
+
+## Batch 25 — ice-age climate and the Holocene
+
+Seven cards to the bar, 11 citations, and **six of the eleven needed no new reading at all**: batches
+10, 11 and 22 had already deposited the works these cards rest on, and the job was mapping sentences
+onto entries the register held. That is batch 12's finding at full strength, in the one corner of the
+deck where the scholarship is reliably open.
+
+The batch's own finding is about the other five. **Where a card describes a nineteenth-century idea,
+the idea's own author is usually the openable source** — not because a review restates him, but
+because he is out of copyright. Blytt's 1886 English statement of his theory is on the Internet
+Archive in full, and it settled the `wh-106` card's second and third sentences and disproved its
+fourth. A twentieth-century founding paper is behind a paywall; an 1886 one is not.
+
+### blytt-1886 · the alternating rainy and dry periods, in Blytt's own words
+Axel Blytt, *On Variations of Climate in the Course of Time* (Christiania: Videnskabs-Selskabs
+Forhandlinger, 1886), 8–11, https://archive.org/details/b22295525. [Open access]
+- opened: 2026-08-01 · the full OCR text at the Internet Archive (public domain)
+- supports: the peat evidence — "the oldest bogs are built of four layers of peat, and between these
+  stand three layers of stumps, so that these bogs are for the fourth time covered with trees since
+  they began to form"; the inference — "It remains, therefore, only to assume, that periods of dry
+  and wet have alternated during ages. The peat layers generally belong to the latter, and the stump
+  layers speak of drier periods, when the bogs were covered with trees"; and the title of the 1876
+  work the card dates the argument to, which Blytt lists himself: "Essay on the immigration of the
+  Norwegian flora during alternating rainy and dry periods. Chria. (A. Cammermeyer) 1876"
+- **does NOT support, and this is the correction**: that Blytt "named the warm, moist Atlantic phase
+  and the cool, dry Boreal". The 1886 paper uses neither term as a phase name — its 8 occurrences of
+  "Atlantic" are all the ocean or its current — and the companion he cites is titled *Die Theorie der
+  wechselnden kontinentalen und insularen Klimate*, i.e. continental versus insular, not Boreal
+  versus Atlantic. Nor could anything openable be found that settles who coined which of the five
+  names, so the card's claim that Sernander "added the Subboreal and Subatlantic" went with it. Both
+  sentences now say what can be checked; the five-name ORDER keeps the marker it already had, on
+  Marchal et al.
+- used by: wh-106
+
+### wang-2021 · what grew and grazed on the mammoth steppe
+Yucheng Wang et al., "Late Quaternary Dynamics of Arctic Biota from Ancient Environmental Genomics,"
+*Nature* 600, no. 7887 (2021): 86–92, https://doi.org/10.1038/s41586-021-04016-x. [Open access]
+- opened: 2026-08-01 · full text via the Europe PMC REST service (CC BY)
+- supports: that "a relatively homogeneous steppe–tundra flora dominated the Arctic during the Last
+  Glacial Maximum, followed by regional divergence of vegetation during the Holocene epoch"; and the
+  megafauna of it — "woolly mammoth (*Mammuthus primigenius*), woolly rhinoceros (*Coelodonta
+  antiquitatis*), steppe bison (*Bison priscus*)"
+- used by: wh-012
+
+### gaffney-2020 · Doggerland, and what the seismic surveys show
+Vincent Gaffney et al., "Multi-Proxy Characterisation of the Storegga Tsunami and Its Impact on the
+Early Holocene Landscapes of the Southern North Sea," *Geosciences* 10, no. 7 (2020): 270,
+https://doi.org/10.3390/geosciences10070270. [Open access]
+- opened: 2026-08-01 · publisher PDF via mdpi-res.com (www.mdpi.com answers 403 from here; the
+  peer-reviewed version was used rather than the bioRxiv preprint, which is also open)
+- supports: "Doggerland was a landmass occupying an area currently covered by the North Sea until
+  marine inundation took place during the mid-Holocene, ultimately separating the British landmass
+  from the rest of Europe"; "The Holocene pre-inundation landscape of the southern North Sea, known
+  as Doggerland, was a gently undulating, low-relief area associated with Mesolithic hunter-gatherer
+  communities"; and the method — palaeo-river systems "identified using seismic survey in the
+  southwestern North Sea and sedimentary cores extracted to track the Mid Holocene inundation"
+- used by: wh-096
+
+### peeters-momber-2014 · the finds that come up in the nets
+J. H. M. Peeters and G. Momber, "The Southern North Sea and the Human Occupation of Northwest Europe
+after the Last Glacial Maximum," *Netherlands Journal of Geosciences* 93, no. 1–2 (2014): 55–70,
+https://doi.org/10.1017/njg.2014.3. [Open access]
+- opened: 2026-08-01 · publisher PDF (NJG is open access; the article landing page carries the link)
+- supports: "Ever since the discovery of the Colinda point on the Leman and Ower Banks in 1931,
+  prehistoric artefacts have been brought up frequently", most of them from the Brown Bank and
+  Eurogeul off the Dutch coast; and the range of material — "artefacts of bone, antler and wood, as
+  well as human remains"
+- used by: wh-096
+
+## Reused without new reading (batch 25)
+
+Six of the eleven slots were filled from the register: `walker-2009` (the Holocene GSSP → `wh-102`'s
+NGRIP depth and its countable 11,700 ± 99), `pages-2016` (interglacials → `wh-102`'s "strictly it is
+an interglacial like others before it"), `marchal-2002` (the Blytt–Sernander order and the Atlantic
+as the Hypsithermal → `wh-105` and, for the long-term SST cooling, `wh-107`), `walanus-nalepka-2010`
+(Mangerud's calibrated boundaries → `wh-106`), `seppa-2009` (northern-European Holocene temperatures
+→ `wh-106`) and `batchelor-2019` (the Northern Hemisphere ice sheets → `wh-108`'s several hundred
+metres of crustal depression under 3 km of ice).
+
+## NOT CITED (batch 25)
+
+- **Mike Walker et al. 2012**, the INTIMATE/SQS discussion paper, could not be reopened to settle the
+  Blytt–Sernander naming question: Wiley answers 403 and the open Yale deposit the register recorded
+  is now a 404. It stays cited on `wh-106` from the earlier reading; it simply could not be re-read.
+- **Olivier Marchal et al. 2002** is cited and was cited before, but this session's copy of the WHOI
+  PDF would not yield text — the file uses an embedded encoding the extractor cannot read. The claims
+  it carries are the ones the register recorded when it was opened in batch 11, and no new claim was
+  attached to it beyond `wh-107`'s sentence on regional and seasonal structure.
+- **Rutger Sernander's own papers** are not on the Internet Archive under his name, and no open
+  history of the scheme was found in *Review of Palaeobotany and Palynology*, *Vegetation History and
+  Archaeobotany* or the Copernicus journals. The *Encyclopedia of Environmental Change* entry
+  "BLYTT-SERNANDER TIMESCALE" exists and is paywalled. This is why the naming attributions were
+  removed rather than re-sourced.

@@ -997,7 +997,7 @@ they were three separate things:
 and two later sentences run together — and was repaired the same way. **The whole deck now splits 5+5
 in all ten languages with identical marker counts**, which is the state batches 25 and 26 can rely on.
 
-### Batch 25 · Top-up: ice-age climate and the Holocene (7 cards, 11 citations)
+### Batch 25 · Top-up: ice-age climate and the Holocene (7 cards, 11 citations) — **DONE (2026-08-01)**
 `wh-012` Last Glacial Period 4→5 · `wh-096` Doggerland 3→5 · `wh-102` Holocene 3→5 ·
 `wh-105` Atlantic period 4→5 · `wh-106` Blytt–Sernander sequence 2→5 · `wh-107` Holocene climatic optimum
 4→5 · `wh-108` Post-glacial rebound 4→5
@@ -1007,6 +1007,47 @@ scholarship is reliably open (open stratigraphy journals, the ICS's own maintain
 deposits). Batches 10 and 11 left a large register here: Spratt & Lisiecki 2016, Walker et al. 2009 and
 2018, Batchelor et al. 2019, Kaufman et al. 2020, Marchal et al. 2002, Whitehouse 2018, Sella et al. 2007.
 `wh-106` needs three and is the only one likely to need new work.
+
+### Batch 25 log — the register paid for six of eleven, and an 1886 paper for the rest
+
+The cheapest batch, as the plan predicted, and for the reason it predicted: **six of the eleven slots
+needed no new reading at all.** Walker et al. 2009, PAGES 2016, Marchal et al. 2002 (twice), Walanus
+& Nalepka 2010, Seppä et al. 2009 and Batchelor et al. 2019 were all already deposited by batches 10,
+11 and 22, and the job was mapping sentences onto entries the register held. **Coverage 93 → 100 of
+109.**
+
+**The finding is about the other five, and it is a new route: where a card describes a
+nineteenth-century idea, the idea's own author is often the openable source — because he is out of
+copyright.** Batch 23 learned that a founding paper of 1797 or 1800 can be locked behind a paywall
+(Frere, on Cambridge Core, with no abstract). Blytt's 1886 English statement of his theory is the
+other case: the whole thing is OCR'd on the Internet Archive, free, and it says more than any modern
+restatement would.
+
+It also disproved the card. `wh-106` had Blytt "naming the warm, moist Atlantic phase and the cool,
+dry Boreal", and Sernander "adding the Subboreal and Subatlantic". Blytt's own paper uses neither
+term as a phase name — its eight occurrences of "Atlantic" are the ocean and its current — and the
+companion work he lists is *Die Theorie der wechselnden kontinentalen und insularen Klimate*:
+continental versus insular, not Boreal versus Atlantic. What he does argue, in the words the card now
+follows, is that "periods of dry and wet have alternated during ages. The peat layers generally
+belong to the latter, and the stump layers speak of drier periods, when the bogs were covered with
+trees."
+
+**Nothing openable settles who coined which of the five names.** Sernander's own papers are not on
+the Internet Archive; no open history of the scheme was found in *Review of Palaeobotany and
+Palynology*, *Vegetation History and Archaeobotany* or the Copernicus journals; the *Encyclopedia of
+Environmental Change* entry is paywalled; and Walker et al. 2012, which might have settled it, could
+not be reopened — Wiley answers 403 and the open Yale deposit the register recorded is now a 404.
+So both attributions were removed rather than re-sourced. The five-name ORDER keeps the marker it
+already had. **Batch 26 should treat a "who named it" clause as a claim needing its own source, not
+as background** — this is the second such clause the pass has had to withdraw, after batch 20's
+finding that the Middle Stone Age term is Goodwin's alone from 1928.
+
+One smaller note, recorded because the next batch will hit it: **two register entries could not be
+re-read this time even though they are correctly marked open.** The Marchal 2002 WHOI PDF uses an
+embedded encoding this environment's extractor cannot decode, and Walker 2012's open deposit has
+moved. Neither is a citation error — both were opened and recorded in batch 11 — but a top-up that
+wants to *extend* what an old entry supports may find it cannot, and should say so rather than
+guessing.
 
 ### Batch 26 · Top-up: art, caves and the Americas (9 cards, 13 citations)
 `wh-052` Howiesons Poort 3→5 · `wh-054` Border Cave 4→5 · `wh-069` Venus of Hohle Fels 4→5 ·

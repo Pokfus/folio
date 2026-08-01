@@ -79,7 +79,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `docs/citation-plan.md` — the batch plan for **citing the 109 prehistory cards** (the bar a source must
   clear, the per-card workflow, how translations are staged, and the batches with their source spines).
   Not part of the site. **The bar is at least 5 citations per card** (`SRC_TARGET` in app.js; raised from
-  2–4 on 2026-07-31) — 93 of 109 cards are there, 16 short by 24 citations, planned as **batches 25–26**.
+  2–4 on 2026-07-31) — 100 of 109 cards are there, 9 short by 13 citations, planned as **batch 26**.
   Coverage is reported by `add-sources.js` on every run and in full by `node .claude/source-audit.js`. Its **Pilot log** records
   that batch 0 was attempted and stopped: this sandbox's egress policy blocks every scholarly host, so no
   source could be opened and none was cited. `.claude/sources-register.md` holds the verified citations
@@ -611,7 +611,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     pipeline are in place; the rest is a content job (see "Citing the existing content" below). Guarded by
     `.claude/test-sources.js` (67 assertions).
     **Batches 0–22 shipped 2026-07-31/08-01**: **all 109 prehistory cards now carry sources.** **Against the
-    5-source bar, 93 of 109 are there** — the other 16 are batches 25–26 in the plan, and
+    5-source bar, 100 of 109 are there** — the other 9 are batch 26 in the plan, and
     the audit that says which is `node .claude/source-audit.js`. **Every list is majority-open**, `wh-045`
     Jebel Irhoud having been taken to six sources in batch 24 to clear the last exception. See `docs/citation-plan.md` — its Pilot log records how the
     definitional cards were solved, its Batch 1 log the factual errors the exercise turns up (21 so far) and
@@ -785,6 +785,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     always said so; and nine translations had turned one English sentence into two. **The deck now
     splits 5+5 in all ten languages with identical marker counts** — the state batches 25–26 can
     rely on, and worth re-asserting after any prose edit.
+    From Batch 25, a route the pass had not used: **where a card describes a nineteenth-century
+    idea, the idea's own author is often the openable source — because he is out of copyright.**
+    Batch 23 found that a founding paper of 1800 can still be paywalled (Frere on Cambridge Core);
+    Blytt's 1886 statement of his theory is the other case, OCR'd in full on the Internet Archive,
+    and it settled two of `wh-106`'s sentences and **disproved a third**: the card had Blytt naming
+    the Atlantic and the Boreal, and his own paper uses neither word as a phase name. Nothing
+    openable settles who coined which of the five names — Sernander is not on the Internet Archive,
+    no open history of the scheme exists in the palynology journals, and Walker et al. 2012's open
+    deposit has 404'd — so that clause and its companion about Sernander were **withdrawn rather
+    than re-sourced**. Treat a "who named it" clause as a claim needing its own source. Its other
+    finding is the register's, again: **six of the batch's eleven slots needed no new reading at
+    all**, which is what a well-kept register buys late in a pass. And a caution for batch 26: two
+    correctly-recorded open entries could not be RE-read this time (the Marchal 2002 WHOI PDF uses
+    an encoding the extractor cannot decode; Walker 2012's deposit has moved), so a top-up wanting
+    to extend what an old entry supports may find it cannot, and should say so rather than guess.
 - **Multiple question phrasings (July 2026):** a card may carry an optional **`questions` array of EXTRA
   phrasings** beyond `question` — **at most `CARD_MAX_QUESTIONS` (10) in all** (official Folio cards carry
   exactly 3; the headroom is for community decks to experiment). Every phrasing is a full standalone clue
@@ -1791,7 +1806,7 @@ which would otherwise have shipped corrected prose above an uncorrected date lin
 **Citing the existing content (as of July 2026)** — **most of the shipped content still has no citations.** The
 109 cards, 333 glossary terms and every Atlas description were written before this system existed, from Wikipedia
 and its sources, and were fact-checked rather than referenced. A batched pass is working through the cards —
-**all 109 carry sources, and 93 of 109 meet the 5-source bar** (`docs/citation-plan.md`; `add-sources.js`
+**all 109 carry sources, and 100 of 109 meet the 5-source bar** (`docs/citation-plan.md`; `add-sources.js`
 reports both on every run, `node .claude/source-audit.js` reports them per card, and the Edit page's card list
 shows each card's coverage as an amber or red chip) — while
 `country-sources.js` and `GLOSSARY_SOURCES` are still empty, so the Sources fold appears only on those cards.
