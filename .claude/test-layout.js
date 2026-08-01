@@ -105,27 +105,40 @@ async function studyEasy(page, base, n) {
           const l = x.querySelector(".tab-label");
           return { w: Math.round(l.getBoundingClientRect().width), need: l.scrollWidth };
         }),
+        // a tab's name sits UNDER its icon, so both must share a centre. The top bar's
+        // `.tab.active .tab-label` opens the label with margin-inline-start:8px and outranked the tab bar's
+        // own rule at two classes against three — so the SELECTED tab, and only that one, drew its name 8px
+        // to the right of the icon above it. A screenshot of one state cannot tell that from a design.
+        centred: [...t.querySelectorAll(".tab")].filter((x) => x.checkVisibility()).map((x) => {
+          const ic = x.querySelector(".tab-ic").getBoundingClientRect(), l = x.querySelector(".tab-label").getBoundingClientRect();
+          return { route: x.dataset.route, active: x.classList.contains("active"), off: Math.round(Math.abs((ic.left + ic.width / 2) - (l.left + l.width / 2)) * 10) / 10 };
+        }),
       };
     });
     check("the tab bar shows on a phone", bar.shown);
     check("...spanning the full width, pinned to the bottom", bar.w === PHONE.width && bar.bottom === PHONE.height, JSON.stringify({ w: bar.w, bottom: bar.bottom }));
-    check("...carrying every destination the top bar used to hold",
-      ["home", "decks", "map", "mission", "account", "settings"].every((r) => bar.tabs.includes(r)), bar.tabs.join(","));
+    check("...carrying every destination it is meant to",
+      ["home", "map", "mission", "account", "settings"].every((r) => bar.tabs.includes(r)), bar.tabs.join(","));
+    // Library left the bar for the home page's own banner — the tab bar is not where it is reached now
+    check("...and NOT the Library, which the home page's banner carries", !bar.tabs.includes("decks"), bar.tabs.join(","));
     check("...every one of them NAMED, not just the active one", bar.labelled.every((l) => l.w > 8), JSON.stringify(bar.labelled.map((l) => l.w)));
     check("...and no name clipped by the narrower cells", bar.labelled.every((l) => l.w >= l.need - 1), JSON.stringify(bar.labelled));
+    check("...each name centred under its own icon, the SELECTED tab included",
+      bar.centred.every((c) => c.off <= 1), JSON.stringify(bar.centred));
+    check("...and the selected tab is one of them", bar.centred.some((c) => c.active), JSON.stringify(bar.centred.map((c) => c.route + ":" + c.active)));
     // light/dark and the language picker moved to Settings, Account/Settings/Edit moved down here —
     // which leaves the top bar with nothing on it at all on a phone
     check("the top bar gives way to it entirely", !bar.topbar);
 
     // it routes, and the active state follows the route
-    await page.evaluate(() => { [...document.querySelectorAll(".tabbar .tab")].find((t) => t.dataset.route === "decks").click(); });
+    await page.evaluate(() => { [...document.querySelectorAll(".tabbar .tab")].find((t) => t.dataset.route === "mission").click(); });
     await page.waitForTimeout(900);
     const routed = await page.evaluate(() => ({
       hash: location.hash,
       active: [...document.querySelectorAll(".tabbar .tab.active")].map((t) => t.dataset.route).join(","),
     }));
-    check("tapping a tab routes", routed.hash === "#decks", routed.hash);
-    check("...and the active mark follows the route", routed.active === "decks", routed.active);
+    check("tapping a tab routes", routed.hash === "#mission", routed.hash);
+    check("...and the active mark follows the route", routed.active === "mission", routed.active);
 
     // a study session is a place you finish, not browse from — and the grade bar owns that edge
     await studyEasy(page, base, 0);
@@ -605,6 +618,114 @@ async function studyEasy(page, base, n) {
     check("...just the Coming soon pill", lib.soonPill);
     check("...with its title centred in the banner", lib.soonTitleOffset !== null && Math.abs(lib.soonTitleOffset) <= 1.5, lib.soonTitleOffset);
     check("a live collection keeps both, and its card count", lib.liveBadge && lib.liveXp && lib.liveCount, JSON.stringify(lib));
+    await page.close();
+  }
+
+  /* ================= 7b. the home page's three swiped panes (phones) =================
+     The daily review, the games and the day's card/term stop being one column three screens tall and become
+     three panes swiped between. Everything here is silent when wrong: a pager that opens on the wrong pane
+     looks like a design choice, and a pane that can be flicked straight past looks like a pane that isn't
+     there. The desktop keeps the single column, in the order it always had — the phone reorders in CSS. */
+  {
+    const page = await browser.newPage({ viewport: PHONE });
+    watch(page);
+    await page.goto(base, { waitUntil: "load" });
+    await page.waitForTimeout(1600);
+    const h = await page.evaluate(() => {
+      const p = document.querySelector("#homePager"), cs = p && getComputedStyle(p);
+      const vis = p ? [...p.children].filter((c) => c.checkVisibility()) : [];
+      const box = (el) => { const b = el.getBoundingClientRect(); return { l: Math.round(b.left), w: Math.round(b.width) }; };
+      const dots = document.querySelector("#homeDots");
+      const quote = document.querySelector(".daily-quote, .dq, figure");
+      return {
+        rows: cs && cs.flexDirection, snap: cs && cs.scrollSnapType, stop: p && getComputedStyle(p.firstElementChild).scrollSnapStop,
+        // VISUAL order, which is what a reader swipes through — the panes are reordered with `order`, not markup
+        order: vis.slice().sort((a, b) => a.getBoundingClientRect().left - b.getBoundingClientRect().left)
+          .map((c) => [...c.classList].find((k) => k.startsWith("hp-") && k !== "hp-pane")),
+        panes: vis.map(box), pagerW: p && Math.round(p.getBoundingClientRect().width), scrollLeft: p && Math.round(p.scrollLeft),
+        dots: dots && !dots.hidden ? dots.children.length : 0,
+        onDot: dots ? [...dots.children].findIndex((d) => d.classList.contains("on")) : -1,
+        quoteAbove: !!(quote && p && quote.getBoundingClientRect().bottom <= p.getBoundingClientRect().top + 1),
+        atlasTile: !!document.querySelector("#exp-atlas"),
+        lib: !!document.querySelector("#b-library") && document.querySelector("#b-library").checkVisibility(),
+        libBelow: !!(document.querySelector("#b-library") && p &&
+          document.querySelector("#b-library").getBoundingClientRect().top >= p.getBoundingClientRect().bottom - 1),
+        seenTotal: [...document.querySelectorAll(".banner .stat span")].map((s) => s.textContent.trim()),
+      };
+    });
+    check("the home page's panes lie side by side on a phone", h.rows === "row", h.rows);
+    check("...one pane wide each, snapping", h.panes.every((b) => Math.abs(b.w - h.pagerW) <= 1) && /mandatory/.test(h.snap || ""), JSON.stringify({ panes: h.panes, snap: h.snap }));
+    // scroll-snap-stop is what holds a hard flick to ONE pane. `mandatory` alone only says where a scroll may
+    // COME TO REST — a fling still sails over two snap points, skipping a whole pane without a trace.
+    check("...and no flick may carry past one of them", h.stop === "always", h.stop);
+    check("...card & term to the left of the review, games to the right",
+      h.order.join(",") === "hp-explore,hp-review,hp-games", h.order.join(","));
+    check("...opening on the daily review, the middle pane", Math.abs(h.scrollLeft - h.pagerW) <= 2, h.scrollLeft + " vs " + h.pagerW);
+    check("...with a dot per pane, the middle one marked", h.dots === 3 && h.onDot === 1, JSON.stringify({ dots: h.dots, on: h.onDot }));
+    check("...and the quote still above them all", h.quoteAbove);
+    check("the Atlas teaser is gone from the phone's home page", !h.atlasTile);
+    check("the Library banner takes the tab bar's place, below the panes", h.lib && h.libBelow, JSON.stringify({ lib: h.lib, below: h.libBelow }));
+    check("...routing to the collections", await page.evaluate(async () => {
+      document.querySelector("#b-library").click();
+      await new Promise((r) => setTimeout(r, 700));
+      return location.hash;
+    }) === "#decks");
+    // removed on request: the xp bar right above it already counts the distinct cards studied
+    check("the review banner no longer carries a Seen total", !h.seenTotal.some((t) => /total/i.test(t)), h.seenTotal.join("|"));
+    await page.close();
+  }
+  {
+    // above the breakpoint nothing about the home page changed: one column, in the order it always had
+    const page = await browser.newPage({ viewport: DESKTOP });
+    watch(page);
+    await page.goto(base, { waitUntil: "load" });
+    await page.waitForTimeout(1600);
+    const d = await page.evaluate(() => {
+      const p = document.querySelector("#homePager");
+      return {
+        col: getComputedStyle(p).flexDirection,
+        order: [...p.children].sort((a, b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top)
+          .map((c) => [...c.classList].find((k) => k.startsWith("hp-") && k !== "hp-pane")),
+        atlasTile: !!document.querySelector("#exp-atlas"),
+        dots: document.querySelector("#homeDots").checkVisibility(),
+        lib: document.querySelector("#b-library").checkVisibility(),
+      };
+    });
+    check("[desktop] the panes are back to one column", d.col === "column", d.col);
+    check("[desktop] ...in the order the page always had", d.order.join(",") === "hp-review,hp-games,hp-explore", d.order.join(","));
+    check("[desktop] ...with the Atlas teaser still in it", d.atlasTile);
+    check("[desktop] ...no pager dots", !d.dots);
+    check("[desktop] ...and no Library banner: the top bar still carries the tab", !d.lib);
+    await page.close();
+  }
+
+  /* ================= 7c. the Atlas panel's discovery chip and its pages ================= */
+  {
+    const page = await browser.newPage({ viewport: PHONE });
+    watch(page);
+    await atlas(page, base);
+    const cp = await page.evaluate(() => {
+      const el = document.querySelector("#countryPop");
+      const name = document.querySelector("#cpName"), chip = document.querySelector("#cpNew");
+      // the chip only shows on a place's FIRST opening, so it is filled by hand here — its POSITION is what
+      // this asserts, and the first-sight path is covered by test-discovery.js
+      chip.innerHTML = '<span class="disc-chip"><b>New place!</b></span>';
+      chip.hidden = false;
+      name.textContent = "France";
+      el.hidden = false;
+      const a = name.getBoundingClientRect(), b = chip.getBoundingClientRect();
+      const secs = [...document.querySelectorAll(".cp-cols > .cp-sec")];
+      return {
+        sameRow: b.top < a.bottom - 2 && b.bottom > a.top + 2,   // vertically overlapping = one horizontal bar
+        beside: b.left >= a.right - 1,
+        stop: secs.length ? getComputedStyle(secs[0]).scrollSnapStop : "",
+        headed: !!document.querySelector(".cp-titlerow #cpName") && !!document.querySelector(".cp-titlerow #cpNew"),
+      };
+    });
+    check("the discovery chip shares the popup title's row", cp.sameRow && cp.beside, JSON.stringify(cp));
+    check("...as its sibling in the title row", cp.headed);
+    // a big swipe used to carry from the description straight to the figures, skipping the year paragraph
+    check("...and a swipe can never skip the year section", cp.stop === "always", cp.stop);
     await page.close();
   }
 

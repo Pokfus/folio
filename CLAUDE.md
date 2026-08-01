@@ -1223,6 +1223,37 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   academy dress `.banner` with a surface of their own, and the earned fill must outrank it in every theme; the
   gold is `.done.won`, since a perfect day carries both classes. **The home page must not read as China-centric** — Folio
   covers many history topics; copy stays subject-neutral (China is just the first live collection).
+  **A "Seen total" stat sat beside Due and New and was removed on request (Aug 2026)** — the xp bar directly above
+  it already counts the distinct cards studied, as progress towards the next level rather than a bare number.
+- **The home page is THREE SWIPED PANES on a phone** (`.home-pager` / `#homePager`, Aug 2026, on request). One column
+  three screens tall put the games below the fold and the day's card below them again. `PAGES.home` builds three
+  `.hp-pane`s — the review group (with the first-run how-it-works strip inside it), the game grid, the discovery row —
+  and at ≤640px the pager lays them side by side with `scroll-snap-type:x mandatory`. The quote stays above it, where
+  it was read first anyway.
+  · **The DOM order is the DESKTOP order** (review, games, explore — exactly what the page always had); the phone
+    puts the discovery pane first with **`order:-1`**, so above the breakpoint the panes need no rules at all and
+    fall back to three stacked blocks. Reordering the markup instead would have meant a second set of `order` rules
+    to undo it on the desktop.
+  · **It opens on the review** (`pager.scrollLeft = clientWidth`, set before the first paint): a reader who never
+    swipes sees what they saw before. `#homeDots` is the pager (three dots, middle one lit) — a horizontal scroller
+    with no marker reads as a column that just happens to be cut off — and doubles as the way to reach a pane
+    without swiping. In RTL a scroller's `scrollLeft` runs **negative** from 0 at the right edge, so both the dots
+    and the initial position are signed off `direction` — Arabic is one of the ten languages.
+  · **The container is CONTENT-HEIGHT.** The panes stretch to the tallest of them, so nothing is clipped and the
+    page scrolls vertically exactly as before; `overflow-y:hidden` is there only because a scroll container may not
+    pair `visible` on one axis with `auto` on the other. Don't give it a fixed height.
+  · **The Atlas teaser is not built on a phone at all** (`phoneHome()` in `PAGES.home`), rather than hidden in CSS:
+    the mini globe pulls the ~1.6 MB `world` bundle at idle, and an ornament nobody can see must not cost that.
+    Crossing the breakpoint therefore **re-renders** the page (`_homeResize`, one listener ever — `render()`
+    re-enters `PAGES.home`, so a per-render listener would pile up for the session), since the layout differs in
+    what it BUILDS and not only in how it sits.
+  · **`wireOnePageSwipe(pager)`** holds a flick to one pane; see the Atlas panel bullet for what it is and why the
+    CSS alone is not relied on. Guarded by `test-layout.js`.
+- **The Library banner (`.lib-banner`, phones only — Aug 2026, on request)** sits below the pager, under the review
+  and active decks it belongs beside, and is how the Library is reached now that it has left the bottom tab bar.
+  **Phone-only** (`display:none` above 640px): the top bar still carries the tab there, and a second way in beside
+  it is clutter — the same call `showAdminEditBtn`'s plain variant makes. It is a plain `.banner` in a blue of its
+  own (`--tile:#5A73A8`) and quieter than the review above it: a destination, not the day's work.
 - **Home minigames** (game-grid tiles → `PAGES.*`): **Multiple Choice** (`PAGES.challenge`, formerly "Daily Challenge" — the
   rival bots + timer were removed; it's now a plain 5-question quiz whose 3 wrong options are the SAME `answerType()` as the
   answer — a person → other people, a dynasty → other dynasties), **Timeline** (`chrono`), **True or False** (`truefalse`),
@@ -1296,8 +1327,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - **The bottom tab bar (`.tabbar`, phones only — Aug 2026, on request).** The top bar held NINE icon-only
   controls in a scrolling strip at the top of a 390px screen — the four destinations plus theme, edit,
   account, settings and language — all out of the thumb's arc and none of them named. **Every destination
-  now lives in the bottom bar** (home / decks / map / mission / account / settings — **not admin**, see
-  below), and light-dark
+  now lives in the bottom bar** (home / map / mission / account / settings — **not admin and not decks**,
+  see below), and light-dark
   and the language picker moved to the **Settings page**, which leaves the top bar with nothing on it at
   all: `.topbar{display:none}` on a phone, and **`--bar-h` goes to 0px** there so `.globe-stage` and every
   other rule already written against it follows with no change of its own.
@@ -1306,6 +1337,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   that same query runs ONCE over the static DOM, so a nav item added later still has to live in index.html.
   **Edit is NOT in this bar** — it left it the same week (Aug 2026, on request) for the top-right button
   described below: the editor is one person's tool and it was taking a seventh of a row six readers share.
+  **Nor is Library** (Aug 2026, on request): it is reached from the home page's `.lib-banner` instead, which
+  is why nothing in the bar is active on `#decks` — that page is not one of the bar's destinations.
   `applyMode` still hides `.tab-admin` with `querySelectorAll` rather than `querySelector`, because the
   entry point can exist more than once and the old form would have left a second copy live for every
   visitor. The bar is a **flex row of `flex:1 1 0` cells**, not a fixed column count, so a tab hidden or
@@ -1313,6 +1346,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   may not wrap (a second line pushes the icons off centre), so it is `nowrap` + `text-overflow:ellipsis` at
   8.5px — `test-layout.js` asserts each label's rendered width against its own `scrollWidth`, so a longer
   name added later fails there rather than silently clipping.
+  **The label rule is written `.tabbar .tab .tab-label`, and the descendant `.tab` is SPECIFICITY, not
+  decoration** (Aug 2026, on a bug report): the top bar's `.tab:hover .tab-label` / `.tab.active .tab-label`
+  open the label beside the icon with `margin-inline-start:8px`, and at two classes against three this rule
+  lost to them whatever the source order — so the SELECTED tab, and only that one, drew its name 4px right
+  of the icon it sits under. One tab misaligned out of five looks like a design, not a bug, which is why
+  `test-layout.js` now measures every tab's icon centre against its label's, active included.
   Every tab is labelled here (the top bar's labels unfold on hover, and a phone has no hover). Hidden while
   `body.grading`: the grade bar owns that edge, and a session is a place you finish rather than browse from.
   **The editor's way in is `showAdminEditBtn(cardId)`** (`.admin-edit-fab`), a button on the page rather
@@ -1568,6 +1607,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   description yet" line and is **the page every place must open on**. `#cpDots` is the pager (built by
   `cpSyncDots`, followed by `cpActiveDot` on scroll, and a tap on one turns to that page); it is hidden outright
   in the stacked layout, and `cpResize` rebuilds it when a rotation crosses the breakpoint.
+  **A swipe may never move more than ONE page** (Aug 2026, on a bug report: a hard flick carried from the
+  description straight to the figures, skipping the year paragraph). `mandatory` only says WHERE a scroll may come
+  to rest; **`scroll-snap-stop:always`** on `.cp-sec` is what forbids passing a snap point within one gesture,
+  momentum included, and is the real fix. **`wireOnePageSwipe(el)`** (beside `animateProgs`, shared with the home
+  pager) is the net under it for engines that lack the property: it records the page a gesture STARTED on and,
+  once the scroller has settled, pulls it back to one step away if snapping landed further. The correction comes
+  **after** the settle rather than fighting the gesture — nothing can predict a fling, and a scroller wrestled
+  mid-flick feels broken in a way an overshoot does not. It is RTL-aware (`scrollLeft` runs negative there) and
+  the skip is invisible when it happens, which is why it does not rest on one mechanism.
+  **The discovery chip shares the title's row** (`.cp-titlerow` wrapping `#cpName` + `#cpNew`, Aug 2026, on
+  request): it names the place beside it, and a line of its own cost the short phone sheet a whole line before
+  the description started. The 20px right margin that clears the × moved from `.cp-name` up to the row.
   The popup (`#countryPop`) stacks: the state's **full legal official name**
   (`officialName()` — from the summary's "officially …", or a leading "Full Name, commonly known as …" form, with a state-type
   keyword fallback so e.g. USSR → "Union of Soviet Socialist Republics"), with the **years that iteration of the state existed** in
@@ -2487,9 +2538,16 @@ dead code (never rendered).
     **Re-run after touching the `SOURCE FOOTNOTES` block, `wireFootnotes` / `sourcesHTML` / `normSources` /
     `linkifySrcItem` / `replaceInSrcText`, the `.src-access` styles, the editors' sources boxes, or the
     `fn` / `data-fn` sanitizer allowlists.**
-  · `node .claude/test-layout.js` — 68 assertions on **the shell**: the rules that break silently because
+  · `node .claude/test-layout.js` — 147 assertions on **the shell**: the rules that break silently because
     nothing throws when a layout is wrong. The phone's bottom tab bar (present, labelled — *every* tab, not
-    just the active one, which is the top bar's behaviour — routing, and gone while grading); the CHAIN of
+    just the active one, which is the top bar's behaviour — each name **centred under its own icon**, the
+    selected one included, since one tab off out of five reads as a design; routing; no Library, which the
+    home page's banner carries now; and gone while grading); the home page's three swiped panes on a phone
+    (one pane wide, snapping, `scroll-snap-stop:always` so no flick skips one, in the visual order
+    card-and-term / review / games, opening on the review with its dot lit, the quote still above them, no
+    Atlas teaser and no Seen total, the Library banner below routing to the collections) and the same page
+    back to one column in its original order above the breakpoint; the Atlas panel's discovery chip sharing
+    the title's row and its sections likewise unskippable; the CHAIN of
     things anchored to the bottom of the viewport, where the globe stage, the Atlas timebar and the tab bar
     are stacked by arithmetic over `--timebar-h`/`--tabbar-h` and each edge must meet the next exactly, at
     three widths; the rail's year labels never overlapping at four widths, with the two ends always kept;
@@ -2499,12 +2557,13 @@ dead code (never rendered).
     that spawned it** — a real level-up is raised (three cards graded Easy) and dismissed by a HASH CHANGE,
     never a click, since a click would dismiss it anyway and prove nothing.
     **Re-run after touching `.tabbar` / `--tabbar-h` / `--timebar-h` / `layoutTicks` / the Atlas chrome's
-    media queries / `.settings` / `.auth-split` / the coming-soon rows, or after adding an overlay to
-    `document.body`.** Its clicks go through `evaluate` rather than `page.click`: clicking an element the
+    media queries / `.settings` / `.auth-split` / the coming-soon rows / `.home-pager` / `wireOnePageSwipe`
+    / `.lib-banner`, or after adding an overlay to `document.body`.** Its clicks go through `evaluate`
+    rather than `page.click`: clicking an element the
     CSS has hidden waits 30s and then THROWS, and a missing chip is exactly what some of this is here to
-    catch — it has to report, not abort the file. Verified against four deliberately reintroduced
-    regressions (a no-op `layoutTicks`, the chip's source-order bug, the collapsing labels, and a `render()`
-    that forgets `closeCongrats`); each was caught.
+    catch — it has to report, not abort the file. Verified against five deliberately reintroduced
+    regressions (a no-op `layoutTicks`, the chip's source-order bug, the collapsing labels, a `render()`
+    that forgets `closeCongrats`, and the tab label's two-class rule); each was caught.
   · `node .claude/test-discovery.js` — 22 assertions on the counting behind the discovery chips and the
     "Beyond the cards" meters, run against the **real** `world.js` / `timeline.js` / `glossary.js`: that a
     register full of historical territories can never push the country figure past its own total, that a

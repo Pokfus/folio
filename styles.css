@@ -371,6 +371,25 @@ body:not(.night) .review-group .banner.done:not(.won){
 .hero-alt{font-size:13.5px; color:var(--ink-soft); text-decoration:underline; text-underline-offset:3px; text-decoration-color:color-mix(in srgb,var(--ink) 30%, transparent);}
 .hero-alt:hover{color:var(--ink);}
 
+/* ---------- home: the Library banner ----------
+   The phone's bottom tab bar gave up its Library seat (Aug 2026, on request) and this took its place, under
+   the review and the decks it belongs beside. PHONE-ONLY: above the breakpoint the top bar still carries the
+   tab, and a second way in beside it is clutter — the same call the plain admin-edit button makes.
+   Quieter than the review banner above it, in a blue of its own: a destination, not the day's work. */
+.lib-banner{display:none; --tile:#5A73A8; padding:20px 22px;}   /* the ≤640px block turns it back on */
+.lib-banner h2{margin:0 0 5px;}
+.lib-banner .desc{font-size:14px;}
+.lib-banner .meta{margin-top:11px;}
+.lib-banner .glyph-svg{bottom:-16px; right:-10px;}
+.lib-banner .glyph-svg svg{width:118px; height:118px;}
+
+/* ---------- home: the phone's three swiped panes ----------
+   Above the breakpoint this is nothing at all — a plain column holding the same three blocks in the same
+   order they have always been in. Every rule that makes it a pager is in the ≤640px block further down. */
+.home-pager{display:flex; flex-direction:column; gap:14px;}
+.hp-pane{display:flex; flex-direction:column; gap:14px; min-width:0;}
+.hp-dots{display:none;}
+
 /* ---------- home: how-it-works strip (until the first card is graded) ---------- */
 .howit{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
 .hi-step{display:flex; gap:13px; align-items:flex-start; background:var(--card); border:1px solid var(--rule); border-radius:12px; padding:15px 17px; box-shadow:var(--shadow-sm);}
@@ -1507,7 +1526,11 @@ body.night .lu-badge{color:#E6C765;}
 .cph-row.cur{background:color-mix(in srgb, var(--indigo) 12%, transparent);}
 .cph-years{font-family:var(--mono); font-size:9.5px; letter-spacing:.04em; color:var(--ink-faint); flex:none; min-width:74px;}
 .cph-name{font-size:12px; font-weight:600; line-height:1.3; min-width:0;}
-.cp-name{font-family:var(--display); font-weight:600; font-size:17px; letter-spacing:-.01em; line-height:1.22; color:var(--ink); margin:0 20px 2px 0;}
+/* the title and its discovery chip share one row — the chip names the place beside it, and a line of its
+   own cost the short phone sheet a whole line before the description started. The 20px right margin that
+   used to sit on .cp-name moves up here: it is what clears the × button. */
+.cp-titlerow{display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin:0 20px 2px 0;}
+.cp-name{font-family:var(--display); font-weight:600; font-size:17px; letter-spacing:-.01em; line-height:1.22; color:var(--ink); margin:0; min-width:0;}
 .cp-span{font-family:var(--mono); font-weight:400; font-size:10.5px; letter-spacing:.03em; color:var(--ink-faint); margin:0 0 7px;}
 .cp-span:empty{display:none;}
 .cp-desc{font-size:12px; line-height:1.5; color:var(--ink-soft);}
@@ -1548,7 +1571,11 @@ body.night .lu-badge{color:#E6C765;}
   .cp-head{max-height:46%; overflow-y:auto;}   /* "Through the ages" can run to a dozen rows — cap it, or it pushes the pages off the sheet */
   .cp-cols{display:flex; flex-direction:row; flex:1; gap:0; overflow-x:auto; overflow-y:hidden; scroll-snap-type:x mandatory; overscroll-behavior-x:contain; padding-right:0; scrollbar-width:none; -webkit-overflow-scrolling:touch;}
   .cp-cols::-webkit-scrollbar{display:none;}
-  .cp-cols > .cp-sec{flex:0 0 100%; width:100%; min-width:100%; scroll-snap-align:start; overflow-y:auto; overscroll-behavior-y:contain; padding:0 1px 0 0; border-top:0;}
+  /* scroll-snap-stop:always is what keeps a hard flick to ONE page. Without it a fast swipe carries past
+     the year paragraph straight from the description to the figures — the middle section is skipped, and
+     silently, since the dots simply land two along. `mandatory` only says WHERE a scroll may come to rest;
+     `always` is what forbids passing a snap point within a single gesture, momentum included. */
+  .cp-cols > .cp-sec{flex:0 0 100%; width:100%; min-width:100%; scroll-snap-align:start; scroll-snap-stop:always; overflow-y:auto; overscroll-behavior-y:contain; padding:0 1px 0 0; border-top:0;}
   .cp-cols > .cp-sec.cp-blank{display:none;}                     /* an empty page is a swipe that lands on nothing */
   .cp-cols > .cp-sec.collapsed .cp-sec-body{display:block;}       /* the folds are pages here — always open */
   .cp-cols > .cp-sec.collapsed .cp-sec-head{padding-bottom:6px;}
@@ -2239,8 +2266,9 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
    The bar is hidden above the breakpoint, and hidden again while STUDYING: the grade bar owns the bottom
    of the screen there, the session has its own way out, and a study session is a place you finish, not
    browse from.
-   It is a FLEX row rather than a fixed column count: Edit is admin-only (applyMode hides it), so the row
-   is six items for a reader and seven for an editor, and the remaining tabs have to close the gap.
+   It is a FLEX row rather than a fixed column count: Edit is admin-only (applyMode hides it) and Library
+   left for the home page's own banner, so the row is five items for a reader and six for an editor, and
+   whatever is on it has to close the gap.
    ============================================================ */
 .tabbar{display:none;}
 @media (max-width:640px){
@@ -2263,11 +2291,16 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
   .tabbar .tab-ic{width:20px; height:20px; opacity:1;}
   /* the top bar's labels unfold from the icon on hover and stay open only on the active tab; down here
      every tab is named all the time, which is the point of moving them (a row of bare icons was the
-     problem, and there is no hover on a phone to unfold them with). At six or seven to a row a cell is
-     ~56–65px wide, so the label may not wrap — a second line would push the icons off centre. */
-  .tabbar .tab-label{display:block; max-width:100%; opacity:1; margin-inline-start:0; transition:none;
+     problem, and there is no hover on a phone to unfold them with). At five or six to a row a cell is
+     ~65–78px wide, so the label may not wrap — a second line would push the icons off centre. */
+  /* the descendant `.tab` in the selector is SPECIFICITY, not decoration: the top bar's
+     `.tab:hover .tab-label` / `.tab.active .tab-label` rules carry three classes and open the label with
+     `margin-inline-start:8px`. At two classes this rule lost to them whatever the source order, so the
+     SELECTED tab's name sat 8px right of the icon it belongs under — the label is centred in the cell here,
+     and any inline margin breaks that. */
+  .tabbar .tab .tab-label{display:block; max-width:100%; opacity:1; margin-inline-start:0; margin-inline-end:0; transition:none;
     font-family:var(--mono); font-size:8.5px; letter-spacing:.03em; text-transform:uppercase; line-height:1;
-    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+    text-align:center; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
   .tabbar .tab.active{color:var(--indigo);}
   .tabbar .tab.active::before{content:""; position:absolute; top:0; left:50%; transform:translateX(-50%); width:26px; height:2.5px; border-radius:0 0 3px 3px; background:var(--indigo);}
   .tabbar .tab:active{background:color-mix(in srgb, var(--ink) 5%, transparent);}
@@ -2311,6 +2344,28 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
   /* the study bar's copy steps aside while the grade bar carries one, so a card never shows two Undos */
   body.grading .study-shell .undobtn{display:none;}
   .study-shell .undobtn{margin-left:0;}
+  /* ---- the home page's three panes, swiped between rather than stacked ----
+     One column three screens tall put the games below the fold and the day's card below them again. The
+     panes lie side by side here and the page opens on the middle one, the daily review: swipe left for the
+     games, right for the day's card and term.
+     The container is CONTENT-HEIGHT — the panes stretch to the tallest of them, so nothing is clipped and
+     the page scrolls vertically exactly as before. overflow-y is `hidden` only because a scroll container
+     may not pair `visible` on one axis with `auto` on the other; there is nothing for it to hide.
+     scroll-snap-stop:always is what holds a hard flick to ONE pane (wireOnePageSwipe in app.js is the net
+     under it on engines that lack the property). */
+  .home-pager{
+    flex-direction:row; gap:0; padding-bottom:8px;
+    overflow-x:auto; overflow-y:hidden; scroll-snap-type:x mandatory; overscroll-behavior-x:contain;
+    scrollbar-width:none; -webkit-overflow-scrolling:touch;
+  }
+  .home-pager::-webkit-scrollbar{display:none;}
+  .hp-pane{flex:0 0 100%; width:100%; min-width:100%; scroll-snap-align:start; scroll-snap-stop:always;}
+  .hp-explore{order:-1;}   /* swiping RIGHT off the review reveals the day's card and term; the markup keeps the desktop order */
+  .hp-dots{display:flex; justify-content:center; align-items:center; gap:8px; padding:1px 0 0;}
+  .hp-dots[hidden]{display:none;}   /* the author display:flex would otherwise defeat the hidden attribute (codebase convention) */
+  .hp-dot{appearance:none; border:0; padding:0; width:7px; height:7px; border-radius:50%; background:var(--rule); cursor:pointer; transition:background .16s var(--ease), transform .16s var(--ease);}
+  .hp-dot.on{background:var(--indigo); transform:scale(1.32);}
+  .lib-banner{display:flex;}
   .game-grid{grid-template-columns:repeat(2,1fr); gap:12px;}
   .howit{grid-template-columns:1fr; gap:10px;}
   .explore-grid, .explore-grid.has-term-img{grid-template-columns:1fr; gap:12px;}
@@ -2430,7 +2485,7 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
   from{ box-shadow:0 0 0 0 color-mix(in srgb,#E6C765 55%,transparent); }
   to  { box-shadow:0 0 0 15px color-mix(in srgb,#E6C765 0%,transparent); }
 }
-.cp-new{margin:0 0 7px;}
+.cp-new{margin:0;}   /* it sits on the title's own row now (see .cp-titlerow) — the spacing is the row's */
 .cp-new[hidden]{display:none;}
 
 /* ---- glossary windows (desktop) ---- */
