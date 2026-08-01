@@ -479,6 +479,47 @@ async function openGlossEditor(page, base) {
   check("...and the shipped picture comes back as the one frame",
     reverted.imgFrames === 1 && reverted.vidFrames === 0, JSON.stringify(reverted));
 
+  /* ---------- 7b. a link that will not load ----------
+     There is deliberately no upload path, so every picture and clip in Folio is somebody else's URL and link
+     rot is a certainty rather than an edge case. Before this was handled, a 404 left a full 16:9 grey hole in
+     the middle of the prose wearing a "click to enlarge" cursor, and the viewer it opened was empty.
+     The rule is not "hide it": a READER gets nothing, because a broken illustration is worse than none and
+     they cannot fix it, while an AUTHOR keeps the frame and is told, being the only one who can. Both halves
+     have to be asserted — hiding it everywhere would leave the author with no way to notice. */
+  const DEAD = base + "this-file-does-not-exist.png";   // same-origin, so the server answers 404 with no network
+  await page.evaluate(() => { const t = document.querySelector("#cesMediaSlot .card-img, #cesMediaSlot .ces-img-ph"); if (t) t.click(); });
+  await page.waitForTimeout(300);
+  await page.fill('[data-mediafield="src"]', DEAD);
+  await creditMedia(page, "mediafield", "A museum");
+  await page.waitForTimeout(1200);   // the error event is async
+  const authorSide = await page.evaluate(() => {
+    const f = document.querySelector("#cesMediaSlot .card-img");
+    return { dead: !!f && f.classList.contains("media-dead"), shown: !!f && f.checkVisibility(), says: !!f && /doesn|load/i.test(getComputedStyle(f, "::after").content || "") };
+  });
+  check("a dead link is marked as dead", authorSide.dead, JSON.stringify(authorSide));
+  check("...and the AUTHOR still sees the frame", authorSide.shown);
+  check("...told in words that the link doesn't load", authorSide.says);
+
+  // Preview renders the card as a reader meets it — question first, the background only once revealed
+  await page.evaluate(() => { const b = document.querySelector("#adminPreview"); if (b) b.click(); });
+  await page.waitForTimeout(600);
+  await page.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
+  await page.waitForTimeout(1200);
+  const readerSide = await page.evaluate(() => {
+    const f = document.querySelector(".admin-pv-card .card-img");
+    return { present: !!f, dead: !!f && f.classList.contains("media-dead"), shown: !!f && f.checkVisibility(), h: f ? Math.round(f.getBoundingClientRect().height) : -1 };
+  });
+  check("...but a READER is shown nothing where it would have been", readerSide.present && readerSide.dead && !readerSide.shown, JSON.stringify(readerSide));
+  check("...with the 16:9 hole gone from the flow, not merely blank", readerSide.h === 0, String(readerSide.h));
+  // the delegated viewer listener refuses a dead figure — dispatched by hand, since a hidden element
+  // cannot be clicked, and that refusal is what stops an empty viewer opening from a stale render
+  const viewer = await page.evaluate(() => {
+    const f = document.querySelector(".admin-pv-card .card-img");
+    if (f) f.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    return !!document.querySelector(".img-viewer");
+  });
+  check("...and a click on it opens no empty viewer", !viewer);
+
   /* ---------- 8. no console errors anywhere in the above ---------- */
   check("no page errors", errs.length === 0, errs.slice(0, 3).join(" | "));
 

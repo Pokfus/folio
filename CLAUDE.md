@@ -970,7 +970,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `revertCard` restores `p.video`, publish sends `data.video`. `_headers` carries **`media-src 'self' https:`**
   and **`frame-src`** for the two embed hosts. `.ces-imgpanel[hidden]{display:none}` is
   **required** — the author `display:flex` beats the UA `[hidden]` rule, and without it the panel sits
-  permanently open and the click-to-edit toggle does nothing. Guarded by `.claude/test-video.js` (83 assertions).
+  permanently open and the click-to-edit toggle does nothing. Guarded by `.claude/test-video.js` (89 assertions).
 - **ONE media panel on the card surface** (Aug 2026, on request — it was two, with a `.ces-media-swap` pill
   between them). A card shows one frame, so the editor offers one slot (`#cesMediaSlot`) and one panel
   (`#cesMediaPanel`, fields `data-mediafield="src|title|desc|credit"`), and the pasted URL decides which of the
@@ -2248,7 +2248,7 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Thirteen committed regression tests** (in `.claude/`, not loaded by the site): eleven drive a real browser with
+- **Fourteen committed regression tests** (in `.claude/`, not loaded by the site): twelve drive a real browser with
   Playwright; `test-daily-quote.js` and `test-discovery.js` are plain Node with no dependencies at all. Each slices what
   it tests out of the real `app.js`/`_headers` by text, so they can't drift from what ships.
   **Gotcha when writing more of them:** `page.goto()` to a URL that differs only in the `#fragment` is a
@@ -2290,7 +2290,7 @@ dead code (never rendered).
     into their FIRST account, and a newly created second account starts at level 1 with no badges, no streak
     and no heatmap — in the store, on the server row, and on the page (first-run hero, "0 unlocked"). **Re-run
     after touching `supaAfterSignIn` / `supaSignOut` / `supaBoot` / `_supaOwner` / `PROGRESS_FIELDS`.**
-  · `node .claude/test-video.js` — 83 assertions on card + glossary videos: that every accepted link shape
+  · `node .claude/test-video.js` — 89 assertions on card + glossary videos: that every accepted link shape
     resolves to the embed this code builds and **every other URL resolves to no player at all** (the check
     that keeps an `<iframe src>` off untrusted input), that the frame is byte-for-byte the image's frame
     (computed border-radius / aspect-ratio / border / size), that the expand control opens the viewer and a
@@ -2299,9 +2299,13 @@ dead code (never rendered).
     a URL of one kind retires the other in the store *and* on screen, the tombstone survives a reload (the
     keystroke bug above), and Revert brings the shipped picture back. On the card surface it also pins the
     **auto-recognition**: the single `data-mediafield` box files a video link as a video and a picture link as
-    a picture, says which it decided on, and offers no second empty frame. **Re-run after touching
-    `videoSource` / `cardVideoHTML` / `openMediaViewer` / `retireOther*Media` / the media panel, or the
-    `media-src`/`frame-src` CSP.**
+    a picture, says which it decided on, and offers no second empty frame. It also pins **what a dead link
+    does** — the failure that is guaranteed rather than hypothetical, since there is no upload path: a
+    same-origin 404 leaves the AUTHOR the frame, marked and worded, and leaves the READER nothing at all
+    (`height:0`, out of the flow — not a blank 16:9 box), with a click on it opening no empty viewer.
+    Both halves matter: hiding it everywhere would leave the author with no way to notice.
+    **Re-run after touching `videoSource` / `cardVideoHTML` / `openMediaViewer` / `retireOther*Media` /
+    the delegated `error` listener / `.media-dead` / the media panel, or the `media-src`/`frame-src` CSP.**
   · `node .claude/test-gloss-image.js` — 40 assertions on glossary images: the popup floats one to the
     top-right of the body at a fixed height and at most half its width, with the prose beside rather than
     below it; it opens the SHARED fullscreen viewer and that viewer stacks **above** the popup,
@@ -2350,6 +2354,24 @@ dead code (never rendered).
     **Re-run after touching the `SOURCE FOOTNOTES` block, `wireFootnotes` / `sourcesHTML` / `normSources` /
     `linkifySrcItem` / `replaceInSrcText`, the `.src-access` styles, the editors' sources boxes, or the
     `fn` / `data-fn` sanitizer allowlists.**
+  · `node .claude/test-layout.js` — 68 assertions on **the shell**: the rules that break silently because
+    nothing throws when a layout is wrong. The phone's bottom tab bar (present, labelled — *every* tab, not
+    just the active one, which is the top bar's behaviour — routing, and gone while grading); the CHAIN of
+    things anchored to the bottom of the viewport, where the globe stage, the Atlas timebar and the tab bar
+    are stacked by arithmetic over `--timebar-h`/`--tabbar-h` and each edge must meet the next exactly, at
+    three widths; the rail's year labels never overlapping at four widths, with the two ends always kept;
+    the Atlas search and legend as chips covering under 3% of the map, opening and closing again; the
+    one-row grade bar and the study page's padding clearing it; Settings and Account filling the stage;
+    a coming-soon collection carrying no level badge and no XP bar; and **no overlay outliving the page
+    that spawned it** — a real level-up is raised (three cards graded Easy) and dismissed by a HASH CHANGE,
+    never a click, since a click would dismiss it anyway and prove nothing.
+    **Re-run after touching `.tabbar` / `--tabbar-h` / `--timebar-h` / `layoutTicks` / the Atlas chrome's
+    media queries / `.settings` / `.auth-split` / the coming-soon rows, or after adding an overlay to
+    `document.body`.** Its clicks go through `evaluate` rather than `page.click`: clicking an element the
+    CSS has hidden waits 30s and then THROWS, and a missing chip is exactly what some of this is here to
+    catch — it has to report, not abort the file. Verified against four deliberately reintroduced
+    regressions (a no-op `layoutTicks`, the chip's source-order bug, the collapsing labels, and a `render()`
+    that forgets `closeCongrats`); each was caught.
   · `node .claude/test-discovery.js` — 22 assertions on the counting behind the discovery chips and the
     "Beyond the cards" meters, run against the **real** `world.js` / `timeline.js` / `glossary.js`: that a
     register full of historical territories can never push the country figure past its own total, that a
