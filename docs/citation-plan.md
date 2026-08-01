@@ -796,7 +796,7 @@ in its purest form, and it is the first thing to try before any journal search. 
 against the sibling cards (`wh-102` Holocene, `wh-105` Atlantic period, `wh-107`) before writing, since the
 chronozones are exactly the kind of card that goes out of step with its neighbours.
 
-### Batch 22 · The pollen chronozones (2 cards, 10 citations)
+### Batch 22 · The pollen chronozones (2 cards, 10 citations) — **DONE (2026-08-01)**
 `wh-103` Preboreal · `wh-104` Boreal
 
 Last, and the likeliest pair in the deck to end red. Their defining content *is* the pollen-zone
@@ -808,6 +808,52 @@ Two things to try before calling it: the open Scandinavian and Baltic palaeoecol
 a good deal of Holocene pollen work; and the national geological surveys, which maintain the chronozone
 schemes as working stratigraphy. If neither carries the vegetation claims, mark both red with the reason and
 say so in the changelog — a period card that cannot be sourced is worth reporting honestly.
+
+### Batch 22 log — the register had it, and the vegetation was open in Dutch
+
+#### 2026-08-01 — two cards, 12 citations, one commit. **Every card in the deck now carries sources.**
+
+**The batch the plan expected to end red did not.** It said the defining content of these two cards *is*
+the palynology, that the palynology is closed, and that if neither the Scandinavian journals nor the
+geological surveys carried it the honest thing was a red mark and a changelog line. Two things it did not
+foresee:
+
+**Most of what these cards needed was already in the register.** Batch 12's finding, again and more
+strongly: a definitional card's claims are claims some other card already makes. Marchal 2002, Walker 2012,
+Walker 2018 and Walanus & Nalepka 2010 were all deposited by batches 11 and 12 for `wh-102`, `wh-105` and
+`wh-106`, and between them they carry the entire framework — the Blytt–Sernander order, Mangerud's
+radiocarbon boundaries, their calibration, the Holocene GSSP, and the warning that the scheme is
+time-transgressive and regional. **Before searching for a chronozone card, read the register.**
+
+**And the vegetation, presumed shut, is open — in Dutch stratigraphy rather than Scandinavian.** The
+*Netherlands Journal of Geosciences* is open by policy, and Bos & van Geel's Haelen sequence gives the
+birch expansion, the three-part subdivision of the Preboreal, the Rammelbeek phase with a calibrated age,
+the return to humid conditions, and the hazel rise that opens the Boreal. The plan looked north; the
+answer was one country west. **When a regional scheme is named for one country's bogs, check the
+neighbours' — the same pollen zones are worked, and their journals may be open where the type region's are
+not.**
+
+**A third route, new and worth keeping: the Crossref API serves publisher-deposited abstracts.**
+`api.crossref.org/works/<doi>` returned the full abstract of Groß et al. 2019 on Duvensee, a closed *The
+Holocene* paper with no PubMed record. Where PubMed and Europe PMC have nothing, try Crossref before
+concluding an abstract cannot be read.
+
+**The corrections are arithmetic, and one of them is a sibling contradiction.** Walanus & Nalepka's table
+calibrates Mangerud's boundaries: 10,000 ¹⁴C BP → 9500 BC, 9,000 → 8200 BC, 8,000 → 7000 BC. So the
+Preboreal is 11,450–10,150 cal BP, not 11,650–10,500, and the Boreal is 10,150–8,950 cal BP, not
+10,500–8,000. The Boreal's stated end was the sharp one: `wh-105` already had the Atlantic beginning at
+8,000 ¹⁴C BP, "roughly 7000 BCE", so the Boreal could not also end 8,000 calendar years ago — and the
+card's closing sentence hung the end of the zone on the 8,200-year cold snap, which on these numbers falls
+seven centuries inside the Atlantic, as does the Storegga flooding of Doggerland. Both now read as events
+that follow the zone. **Whenever a card gives an age both in ¹⁴C years and in "years ago", check that the
+second is the calibration of the first and not a separate guess.**
+
+**What was dropped**: the Firbas pollen-zone numbers IV, V and VI (standard, certainly right, in nothing
+opened — and the vegetation they stand for is now given directly); hazelnuts at "more than 60 percent fat"
+and the deliberate-planting question, both from the closed Holst 2010; and the Blytt–Sernander origin
+story — Dau's 1829 layers, the Academy prize, Blytt 1876, Sernander, von Post — which `wh-103` told at
+length and which nothing opened supports. **That history also sits unsourced on `wh-106`, and batch 23
+should either source it there or trim it.**
 
 ### Batch 23 · Top-up: the framework and the oldest toolmakers (10 cards, 19 citations)
 `wh-005` Stone Age 4→5 · `wh-008` Knapping 3→5 · `wh-009` Hunter-gatherer 3→5 · `wh-011` Ice age 3→5 ·

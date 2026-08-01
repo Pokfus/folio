@@ -79,7 +79,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `docs/citation-plan.md` — the batch plan for **citing the 109 prehistory cards** (the bar a source must
   clear, the per-card workflow, how translations are staged, and the batches with their source spines).
   Not part of the site. **The bar is at least 5 citations per card** (`SRC_TARGET` in app.js; raised from
-  2–4 on 2026-07-31) — 74 of 109 cards are there, 35 short by 68 citations, planned as **batches 22–26**.
+  2–4 on 2026-07-31) — 76 of 109 cards are there, 33 short by 58 citations, planned as **batches 23–26**.
   Coverage is reported by `add-sources.js` on every run and in full by `node .claude/source-audit.js`. Its **Pilot log** records
   that batch 0 was attempted and stopped: this sandbox's egress policy blocks every scholarly host, so no
   source could be opened and none was cited. `.claude/sources-register.md` holds the verified citations
@@ -610,9 +610,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     glossary term carries `sources`; the citation pass so far has touched cards only. The UI, the deltas and the
     pipeline are in place; the rest is a content job (see "Citing the existing content" below). Guarded by
     `.claude/test-sources.js` (67 assertions).
-    **Batches 0–21 shipped 2026-07-31/08-01**: **107 of the 109 prehistory cards carry sources** (only two
-    culture-history cards are still uncited). **Against the
-    5-source bar, 74 of 109 are there** — the other 35 are batches 22–26 in the plan, and
+    **Batches 0–22 shipped 2026-07-31/08-01**: **all 109 prehistory cards now carry sources.** **Against the
+    5-source bar, 76 of 109 are there** — the other 33 are batches 23–26 in the plan, and
     the audit that says which is `node .claude/source-audit.js`. Every list is majority-open bar one: `wh-045`
     Jebel Irhoud runs 2 open / 2 paywalled and its top-up must add open works. See `docs/citation-plan.md` — its Pilot log records how the
     definitional cards were solved, its Batch 1 log the factual errors the exercise turns up (21 so far) and
@@ -722,6 +721,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     Lascaux's "17,000 years ago" and Dolní Věstonice's "29,000 to 25,000" are both raw BP read as calendar
     years (21,500–21,000 and 31,270–29,260 cal BP respectively). When a prehistory card carries a round age
     in the twenties or thirties of thousands, check BP against cal BP before anything else.
+    From Batch 22, on the pair the plan expected to end red and which did not: **before searching for a
+    definitional card, read the register.** Batch 12's finding at full strength — Marchal 2002, Walker 2012,
+    Walker 2018 and Walanus & Nalepka 2010 were already deposited for `wh-102`/`wh-105`/`wh-106` and between
+    them carry the entire chronozone framework. Its second finding: **when a regional scheme is named for one
+    country's bogs, check the neighbours' journals** — the plan looked to Scandinavia, and the Preboreal
+    vegetation is open in the *Netherlands Journal of Geosciences*, one country west. Third, a new route to a
+    closed paper: **`api.crossref.org/works/<doi>` serves publisher-deposited abstracts**, and returned Groß
+    et al. 2019 on Duvensee where PubMed has no record at all. And the arithmetic rule these two produced:
+    **when a card gives an age both in ¹⁴C years and in "years ago", check that the second is the calibration
+    of the first** — the Boreal's stated end of "8,000 years ago" was neither the calibration of 8,000 ¹⁴C BP
+    (that is ~8,950 cal BP) nor consistent with `wh-105`, which already had the Atlantic starting at 7000 BC.
     From Batch 12: **the register pays for itself late.** The three framework cards (`wh-001`, `wh-002`,
     `wh-004`) took 25 citation slots and needed **no new sources at all** — every claim a definitional card
     makes is a claim some other card already makes, so the whole job was mapping sentences to entries
@@ -1735,7 +1745,7 @@ which would otherwise have shipped corrected prose above an uncorrected date lin
 **Citing the existing content (as of July 2026)** — **most of the shipped content still has no citations.** The
 109 cards, 333 glossary terms and every Atlas description were written before this system existed, from Wikipedia
 and its sources, and were fact-checked rather than referenced. A batched pass is working through the cards —
-**107 of 109 carry sources, and 74 of 109 meet the 5-source bar** (`docs/citation-plan.md`; `add-sources.js`
+**all 109 carry sources, and 76 of 109 meet the 5-source bar** (`docs/citation-plan.md`; `add-sources.js`
 reports both on every run, `node .claude/source-audit.js` reports them per card, and the Edit page's card list
 shows each card's coverage as an amber or red chip) — while
 `country-sources.js` and `GLOSSARY_SOURCES` are still empty, so the Sources fold appears only on those cards.

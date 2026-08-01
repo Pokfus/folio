@@ -3691,6 +3691,99 @@ https://doi.org/10.1038/s41598-020-78841-x. [Open access]
   and **the quartzite handaxe** found among the bones. Neither is in anything opened; both were dropped, and the
   funerary-behaviour claim they served now rests on the Fundación's note of the 2003 *L'Anthropologie* paper
 
+## Batch 22 — the pollen chronozones, verified 2026-08-01
+
+The plan called this pair "the likeliest in the deck to end red" and told the batch to mark them blocked
+if the palynology could not be opened. It did not come to that, for two reasons the plan did not
+anticipate. **Most of what these cards needed was already in the register**, from batches 11 and 12 — this
+is batch 12's finding again, that a definitional card's claims are usually claims some other card already
+makes. Marchal 2002, Walker 2012, Walker 2018 and Walanus & Nalepka 2010 were all sitting there from
+`wh-102`, `wh-105` and `wh-106`, and between them they carry the whole framework: the Blytt–Sernander
+order, Mangerud's radiocarbon boundaries, their calibrated equivalents, the Holocene GSSP and the warning
+that the scheme holds only regionally. **And the vegetation, which the plan expected to be shut, is open in
+the Netherlands**: Bos & van Geel's Haelen sequence is in the *Netherlands Journal of Geosciences*, which
+is open by policy, and it gives the birch expansion, the Rammelbeek phase, the return to humid conditions
+and the hazel rise at the opening of the Boreal, each with a calibrated age.
+
+With these two, **every one of the 109 prehistory cards now carries sources**.
+
+### Verified citations
+
+Preboreal (`wh-103`) and Boreal (`wh-104`), new to the register:
+
+### bos-van-geel-2017 · the Preboreal vegetation, dated
+Johanna A. A. Bos and Bas van Geel, "Palaeoenvironmental Reconstruction Based on the Early Holocene Haelen
+Sequence, near Roermond (Southeastern Netherlands)," *Netherlands Journal of Geosciences* 96, no. 2 (2017):
+115–30, https://doi.org/10.1017/njg.2016.35. [Open access]
+- opened: 2026-08-01 · full text at Cambridge Core (NJG is open access)
+- supports: that "the Preboreal biozone in the Netherlands is subdivided into the Friesland Phase, the
+  Rammelbeek Phase and the Late Preboreal"; the Friesland Phase as "a period of rising mean summer and
+  winter temperatures"; the Late-glacial/Holocene warming at Haelen "around 11,520 cal BP"; "Around 11,420
+  cal BP, birch expansion was interrupted by the dry continental Rammelbeek Phase"; that "open grassland
+  vegetation developed" on floodplain and terrace; "At the start of the Late Preboreal, around 11,270 cal
+  BP, a sudden shift to a more humid climate took place and birch forests expanded again"; and "At the
+  onset of the Boreal, around 10,710 cal BP, woodlands, initially with hazel, but later also with oak, elm
+  and lime, started to develop, while pine forest remained present on the higher terraces"
+- **corrections it forced**: the card put the Rammelbeek phase at "around 11,400 to 11,150 years ago" (it
+  is 11,420 to 11,270), and had wildfires increasing during it, which the paper does not say
+- used by: wh-103, wh-104
+
+### gross-2019 · Duvensee
+Daniel Groß, Harald Lübke, Ulrich Schmölcke, and Marco Zanon, "Early Mesolithic Activities at Ancient Lake
+Duvensee, Northern Germany," *The Holocene* 29, no. 2 (2019): 197–208, abstract,
+https://doi.org/10.1177/0959683618810390. [Paywalled]
+- opened: 2026-08-01 · **the abstract only**, via the Crossref API (`api.crossref.org/works/<doi>`), which
+  serves publisher-deposited abstracts for many closed papers. Worth remembering: it is a route to an
+  abstract that does not depend on PubMed indexing, and it worked here where PubMed has no record
+- supports: Duvensee in Schleswig-Holstein as "one of the prime locations in northern Europe for early
+  Holocene research"; sites with "bark mats and other organic finds preserved, including evidence for the
+  extensive use of hazelnuts"; "While only a limited number of sites can be connected to hazelnut
+  exploitation"; and "At a few sites, specific hearths were excavated which can be connected with hazelnut
+  roasting and other subsistence activities"
+- **correction it forced**: the card read Duvensee as a hazelnut site wholesale. Only some of its camps are
+  connected to the nut at all
+- used by: wh-104
+
+Reused from the register, unchanged: `marchal-2002` (the Blytt–Sernander order and Mangerud's phases),
+`walker-2012` (Mangerud 1974's scheme; time-transgressive and regional only), `walanus-nalepka-2010`
+(the calibrated boundaries — see below), `walker-2018-subdivision` (the Holocene GSSP at 11,700 b2k and the
+Northgrippian at 8,236 b2k) and `weninger-2008` (the Storegga tsunami flooding Doggerland ~8,200 cal BP).
+
+### The calibrated boundaries, and what they corrected
+
+Walanus & Nalepka's table 2 is the whole of this batch's arithmetic and it is worth setting out, because
+both cards were wrong against it and `wh-104` was wrong against its own sibling:
+
+| boundary | conventional ¹⁴C BP | calibrated BC |
+|---|---|---|
+| Younger Dryas / Preboreal | 10,000 | 9500 |
+| Preboreal / Boreal | 9,000 | 8200 |
+| Boreal / Atlantic | 8,000 | 7000 |
+
+So the Preboreal runs ~11,450–10,150 cal BP, not "11,650 to 10,500", and the Boreal ~10,150–8,950 cal BP,
+not "10,500 to 8,000". The second of those matters most: `wh-105` already says the Atlantic begins at 8,000
+¹⁴C BP, "roughly 7000 BCE", so the Boreal could not also be ending at 8,000 calendar years ago. And the
+card's closing sentence tied the end of the zone to the 8,200-year cold snap, which on these numbers falls
+some seven centuries *inside* the Atlantic — as does the Storegga flooding of Doggerland. Both are now
+given as events that follow the zone rather than close it.
+
+### NOT CITED — the Firbas pollen-zone numbers, and Holst's hazelnut figures
+- **Pollen zones IV, V and VI**, the Firbas numbering, on both cards and in both date lines. It is standard
+  and certainly correct, and nothing opened for this batch states it; the vegetation itself is now given
+  directly from Bos & van Geel instead, which is what the numbering stands for anyway
+- **Hazelnuts "more than 60 percent fat"** and the deliberate-planting question, on `wh-104`. Holst 2010
+  (*Journal of Archaeological Science* 37: 2871–80) is the paper behind both and is closed, with no
+  Crossref abstract and no open deposit. Dropped, and the second question phrasing was rewritten without
+  the figure
+- **The Blytt–Sernander origin story** — Dau's 1829 observation, the Royal Danish Academy prize, Blytt 1876,
+  Sernander around 1900, von Post's pollen counting — which `wh-103` told at length. None of it is in
+  anything opened; Marchal and Walker give the order of the phases and Mangerud's dating of them, and no
+  more. The card now opens on what those two support and spends the space on the vegetation instead. The
+  same history sits on `wh-106`, where it is equally unsourced and should be worked when that card is
+  topped up
+- **The Preboreal radiocarbon plateau and Star Carr**, also on `wh-103`. The plateau claim is on `wh-106`
+  with a source; here it was dropped rather than duplicated
+
 ## CANDIDATES — NOT VERIFIED, DO NOT PASTE INTO `data.js`
 
 *Empty.* Everything gathered by search during the blocked attempt of 2026-07-30 has since been opened and
