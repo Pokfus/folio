@@ -9741,3 +9741,85 @@ afghanistan, bahrain, brunei, cambodia, indonesia, iran, iraq, jordan, kazakhsta
 laos, lebanon, mongolia, burma, nepal, oman, philippines, qatar, saudi-arabia, syria, tajikistan,
 thailand, turkmenistan, united-arab-emirates, uzbekistan, vietnam, yemen) and
 `api.worldbank.org/v2/country/BTN/indicator/AG.SRF.TOTL.K2`.
+
+---
+
+## Batch D3 — the last four, and the pass is finished (2026-08-02)
+
+Four terms cited, 10 citations, **one rewrite**. Coverage 329 → **333 of 333. Every term in the glossary
+now carries at least two sources and in-text markers in all ten languages.**
+
+**Mexico · Costa Rica · Nicaragua · Taiwan.**
+
+### `Costa Rica` — the reconciliation C11 said it needed
+C11 deferred it because the recognition guide does not merely omit 1821, it says Costa Rica "did not
+formally declare its independence until **August 30, 1848**". Both dates are true of different events, so
+the fix was never a citation. The clause now reads **"independence from Spain came with the rest of
+Central America in 1821 and Costa Rica declared itself a separate republic in 1848"**, in all ten
+languages, and both halves are cited: the 1848 declaration to Costa Rica's own page, the 1821 independence
+to the guide's **El Salvador** page, which states "In 1821, El Salvador and the other Central American
+provinces declared their independence from Spain".
+
+### The El Salvador page as a source for its neighbours
+C11 noticed that route and deliberately left it, on the ground that a citation headed "…: El Salvador"
+sitting on the Nicaragua term reads like a mistake. On reflection it is the right source and the
+appearance is the smaller problem: the sentence it carries is explicitly *about* "the other Central
+American provinces", which is Nicaragua and Costa Rica. It is used for both, and this note is here so a
+later reader does not take it for a filing error. **`Nicaragua`** also cites its own page, which carries
+the Federation of 1823, the Somoza seizure of power and the Sandinista Government.
+
+### `Mexico` — cited on its figures, with the independence clause unmarked
+No source opened in this pass dates Mexican independence to 1821. The recognition guide recognises "an
+independent Mexico" in **1822** and states no earlier date; NARA's Treaty of Guadalupe Hidalgo page begins
+at the 1846–48 war; the guide's Milestones for 1801–1829 are barbary-wars, florida, louisiana-purchase,
+monroe, napoleonic-wars, rush-bagot and war-of-1812, with no Latin American independence entry; and
+`loc.gov` is **403** here. So Mexico takes the `Brazil` pattern of C12 — carried by its first sentence,
+with the third left unmarked and the gap recorded.
+
+**A note on its second citation.** The World Bank's area series for Mexico gives **1,964,380 km² for
+2018–2019** and drifts to 1,957,194 by 2023 with no explanation — the same unexplained movement that
+proved to be outright error for Canada, the Dominican Republic and Monaco. The citation therefore names
+**2019**, where the figure matches UNdata's 1,964,375 and the term. The later values are recorded here so
+the choice of year is visible rather than convenient.
+
+### `Taiwan` — cited without any of Phase 3's three sources
+D2 deferred it with a precise reason: no UNdata profile, no page in the recognition guide, no World Bank
+series, because all three are organised around UN membership. The way in was the guide's **Milestones**,
+which are about events rather than states:
+- **"The Chinese Revolution of 1949"** — "the U.S. policy of protecting the Chiang Kai-shek government on
+  Taiwan… the United States continued to recognize the Republic of China, located on Taiwan, as China's
+  true government", which carries both the ROC's presence on the island and the disputed recognition.
+- **"The Taiwan Strait Crises: 1954–55 and 1958"** — "the Nationalist Government of the ROC under Chiang
+  Kai-shek recognized that it had lost control of mainland China during the Chinese Civil War, the
+  officials and part of the Nationalist Army fled to the island of Taiwan", which is the term's clause
+  almost word for word.
+
+Its first and second sentences — the area, the population, Taipei, the mountains — are **unmarked**, and
+that is the honest state: `eng.stat.gov.tw` and `moi.gov.tw` are reachable but serve their indicators
+through JavaScript, `taiwan.gov.tw` is 403, and the Executive Yuan's state pages are Chinese-language
+indexes whose figures sit behind paths this pass could not resolve. **A term can be cited on its history
+alone when its figures have no openable source** — the mirror of `Brazil`, which was cited on its figures
+alone when its history had none.
+
+### Verified citations (batch D3)
+`data.un.org/en/iso/{mx,cr,ni}.html`, `history.state.gov/countries/{costa-rica,nicaragua,el-salvador}`,
+`history.state.gov/milestones/1945-1952/chinese-rev`,
+`history.state.gov/milestones/1953-1960/taiwan-strait-crises` and
+`api.worldbank.org/v2/country/MEX/indicator/AG.SRF.TOTL.K2?format=json&date=2019`.
+
+### Hosts, measured 2026-08-02
+- `loc.gov` — **403**. The Library of Congress country studies are not usable from here.
+- `guides.loc.gov` — 404 on the paths tried.
+- `taiwan.gov.tw` — **403**; `eng.stat.gov.tw`, `moi.gov.tw/english` and `ey.gov.tw/state` — 200 but
+  JavaScript-driven or Chinese-only indexes, with no static page carrying the figures.
+- `archives.gov/milestone-documents/*` — 200 (unchanged).
+
+---
+
+# THE GLOSSARY CITATION PASS IS COMPLETE — 333 of 333
+
+Every term carries at least `GLOSS_SRC_TARGET` (2) citations, every citation is referenced by at least one
+in-text marker, and the markers are identical across English and all nine translations. `node
+.claude/gloss-source-audit.js` reports `citations to find 0`. The card pass finished at 109 of 109 in
+batch 26; **both passes are now done, and `country-sources.js` — the Atlas — is the only surface in Folio
+that still shows no sources.**

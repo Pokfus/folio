@@ -2,8 +2,8 @@
 
 The glossary was **333 terms and not one of them carried a source**. `window.GLOSSARY_SOURCES` was an empty
 table; the fold at the foot of a gloss popup never appeared. This is the plan for filling it. Not part of
-the site. **As of 2026-08-02, 329 of the 333 are cited and at the bar** — batches G1–G11, P1–P7 with the P-topup, and C0–C12 with D1 and D2, five of which also
-corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 329 carry in-text
+the site. **As of 2026-08-02, 333 of the 333 are cited and at the bar** — batches G1–G11, P1–P7 with the P-topup, and C0–C12 with D1–D3, five of which also
+corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 333 carry in-text
 markers, in all ten languages, after the rule changed from optional to required on 2026-08-01 (see "What
 is different from the card pass"). G5 also settled the start of prehistory across the glossary, the deck
 and every date line: **2.6 Mya**, with the disputed 3.3 Ma Lomekwi claim hedged rather than adopted; G6
@@ -172,7 +172,7 @@ the way batch 21 recorded the Anubis walls, so the next pass does not re-run the
 | the poles, the desert, the sea and two names | 7 | Phase 1 · batch G10 — **done** |
 | the continents, the island and the constants | 10 | Phase 1 · batch G11 — **done** |
 | US presidents | 45 | Phase 2 · batches P1–P7 — **ALL DONE (2026-08-02)** |
-| countries and states of the world | 197 | Phase 3 · batches C0–C12 — **C0–C12, D1 and D2 done (2026-08-02)**; 15 European and 35 Asian terms deferred with reasons (see the C3 and C5 logs); **Africa and Oceania are COMPLETE** |
+| countries and states of the world | 197 | Phase 3 · batches C0–C12 — **C0–C12, D1, D2 and D3 done — **COMPLETE** (2026-08-02)**; 15 European and 35 Asian terms deferred with reasons (see the C3 and C5 logs); **Africa and Oceania are COMPLETE** |
 | **total** | **333** | |
 
 ## Order, and why
@@ -2508,6 +2508,42 @@ the island rather than about states.
 **`Iran`, whose two sources differ by 7%** — UNdata 1,630,848 against the World Bank's 1,745,150 — with
 the term's 1,648,195 between them.
 
+## Batch D3 log — the last four, and the pass is COMPLETE (2026-08-02)
+
+**DONE. 333 of 333.** Four terms — Mexico, Costa Rica, Nicaragua, Taiwan — 10 citations, one rewrite.
+Coverage 329 → **333 of 333**. `node .claude/gloss-source-audit.js` reports `citations to find 0`.
+
+**`Costa Rica` got the prose reconciliation C11 said it needed**, not a citation. Its own page says the
+country "did not formally declare its independence until August 30, 1848" against the term's 1821; both
+are true of different events, so the clause now reads **"independence from Spain came with the rest of
+Central America in 1821 and Costa Rica declared itself a separate republic in 1848"**, with each half
+cited — 1848 to Costa Rica's page, 1821 to the guide's **El Salvador** page, which states "In 1821, El
+Salvador and the other Central American provinces declared their independence from Spain".
+
+**That El Salvador route was the one C11 saw and left**, on the ground that a citation headed "…: El
+Salvador" on a Nicaragua term reads like a filing error. It is used here for both Nicaragua and Costa
+Rica, because the sentence it carries is explicitly about "the other Central American provinces" and the
+appearance is the smaller problem. The register says so, so a later reader does not take it for a slip.
+
+**`Mexico` is cited on its figures with the independence clause unmarked** — C12's `Brazil` pattern. No
+source opened in this pass dates Mexican independence to 1821: the guide recognises "an independent
+Mexico" in 1822, NARA's Guadalupe Hidalgo page begins at the 1846–48 war, the Milestones for 1801–1829
+contain no Latin American independence entry, and `loc.gov` is 403 here. **Its World Bank citation names
+the year 2019** because that series gives 1,964,380 for 2018–19 and drifts to 1,957,194 by 2023 with no
+explanation — the same unexplained movement that proved to be outright error for Canada, the Dominican
+Republic and Monaco. The later values are recorded so the choice of year is visible rather than
+convenient.
+
+**`Taiwan` was cited without any of Phase 3's three sources.** D2 deferred it precisely: no UNdata
+profile, no page in the recognition guide, no World Bank series, because all three are organised around
+UN membership. The way in was the guide's **Milestones**, which are about EVENTS rather than states —
+"The Chinese Revolution of 1949" ("the United States continued to recognize the Republic of China,
+located on Taiwan, as China's true government") and "The Taiwan Strait Crises: 1954–55 and 1958" ("the
+officials and part of the Nationalist Army fled to the island of Taiwan"). Its figures stay **unmarked**:
+`taiwan.gov.tw` is 403 and the reachable Taiwanese statistical sites serve their indicators through
+JavaScript. **A term can be cited on its history alone when its figures have no openable source** — the
+mirror of `Brazil`, cited on its figures alone when its history had none.
+
 ### Batches C1–C12 · by region
 
 | batch | region | terms | |
@@ -2528,6 +2564,14 @@ Work a region in one sitting where possible: the second source for one country i
 second source for its neighbours, and the regional historiography is the same literature.
 
 ---
+
+## THE PASS IS COMPLETE — 333 of 333 (2026-08-02)
+
+Every glossary term carries at least `GLOSS_SRC_TARGET` (2) citations, every citation is referenced by at
+least one in-text marker, and the markers are identical across English and all nine translations.
+`node .claude/gloss-source-audit.js` reports `citations to find 0`. With the card pass finished at 109 of
+109 in batch 26, **`country-sources.js` — the Atlas place panels — is the only surface in Folio that still
+shows no sources.**
 
 ## Tracking
 
