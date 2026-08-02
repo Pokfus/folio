@@ -9477,3 +9477,85 @@ writes `st-kitts-and-nevis`, `st-vincent-and-grenadines` and `saint-lucia`, whil
 writes `saint-kitts-nevis`, `saint-vincent-grenadines`, `saint-lucia` and `antigua-barbuda`. **Both sites
 publish an index** — `thecommonwealth.org/our-member-countries` and `history.state.gov/countries` — and
 grepping the index is faster than guessing.
+
+---
+
+## Batch C12 — South America (2026-08-02)
+
+Twelve terms cited, 24 citations, **five corrections**. Coverage 267 → 279 of 333. Nothing deferred.
+**The Americas are complete but for C11's three** (Mexico, Costa Rica, Nicaragua).
+
+**Colombia · Venezuela · Guyana · Suriname · Ecuador · Peru · Brazil · Bolivia · Paraguay · Chile ·
+Argentina · Uruguay.**
+
+### C11's warning did not hold here, and the reason is worth knowing
+C11 found the recognition guide unusable for Spanish America because it dates by U.S. recognition. **In
+South America the same guide states the independence year outright on nine of twelve pages** — which
+looks like a contradiction and is not. The difference is that these pages open with a sentence of
+*context* before the recognition paragraph, and that sentence carries the date:
+- Colombia — "Colombia effectively achieved its independence from Spain **by 1819**".
+- Peru — "five years following the proclamation of Peruvian independence in **July 1821** under General
+  San Martin".
+- Bolivia — "Bolivia declared its independence from Spain on **August 6, 1825**".
+- Paraguay — "Paraguay declared its independence from Spain on **May 15, 1811**".
+- Argentina — "After Argentina gained independence from the Spanish in **1816**".
+- Uruguay — "Uruguay became independent of Spain in 1811 and was annexed by Brazil until 1825… Uruguay
+  became an independent nation in **1828**".
+- Ecuador — "Ecuador withdrew from the Colombian federation in **1830**".
+- Suriname — "a Dutch colony… dating from **1667**… granted independence in **1975** from the
+  Netherlands".
+- Guyana — independence 1966, and the Dutch colonies "ceded to Great Britain at the Congress of Vienna".
+
+**So the rule from C11 is not "the guide fails in Latin America" but "the guide's RECOGNITION date is not
+an independence date — read the summary paragraph, which often gives the real one".** Mexico's, Costa
+Rica's and Nicaragua's simply do not have that sentence. Grepping the saved HTML for the year remains the
+check.
+
+**`Venezuela` is the one saved by a preposition.** The guide says independence was achieved "**by
+1819**"; the term says "independence was won under Simón Bolívar **by 1821**". A source saying a thing
+was achieved by 1819 entails that it was achieved by 1821, so the marker is sound — where "in 1819"
+against "in 1821" would have been the Cameroon near-match to withhold on. Bolívar is named in the term
+and not on the page; recorded.
+
+### The two terms with no history source, and how they still reached the bar
+- **`Brazil`** — the guide recognises "the Kingdom of Brazil" in **1824** and never states 1822, and has
+  nothing on 1500, 1889 or the plantation economy. Its third sentence is therefore **unmarked**, and the
+  term is carried by its FIGURES: UNdata and the World Bank's area series both give ~8.51 million km²
+  against the term's "about 8.5 million", and those two are independent for area (C9). Two sources, both
+  referenced, the gap recorded.
+- **`Chile`** — the guide gives the declaration of "September 18, 1810" and Monroe's 1822 conclusion that
+  Spain could not recover its colonies, but no 1818, so the country page cannot carry "independence was
+  won by 1818". What does carry the sentence's other half is a **Milestone**:
+  `history.state.gov/milestones/1969-1976/allende`, "The Allende Years and the Pinochet Coup, 1969–1973".
+  **When a country page will not date the independence, look for a Milestone on the term's other claim.**
+
+### Corrections
+**Four populations** by C8's method: Guyana 800,000 → **840,000**, Suriname 620,000 → **640,000**,
+Bolivia 12 → **12.6 million**, Paraguay 6.8 → **7 million**.
+
+**One area, and it is the largest single correction of Phase 3**: `Ecuador` 283,561 → **257,217 km²**.
+UNdata gives 257,217 and the World Bank 256,370 — the two agree within 0.3% and the term sits **10%
+above both**. A plausible explanation is that 283,561 predates the 1998 Brasilia settlement of the
+Ecuador–Peru border, but **neither source says so and it is recorded here as a hypothesis, not cited**.
+The correction rests only on the two figures.
+
+### Where the term was inside the spread and stands
+- **`Venezuela`** 916,445 km² sits **between** UNdata's 929,690 and the World Bank's 912,050.
+- **`Argentina`** 2,780,400 is the World Bank's figure exactly against UNdata's 2,796,427.
+- **`Uruguay`** 176,215 matches the World Bank's 176,220 against UNdata's 173,626.
+- **`Chile`** 756,102 matches UNdata against the World Bank's 757,245.
+In three of these four UNdata is the outlier — the reverse of the Phase 3 default, and a reminder that
+Source A is a source and not an authority.
+
+### Recorded, not corrected
+`Colombia` "about 52 million" against 53.4 million at both sources (2.7%, the 2023 value); `Peru` 34
+against 34.58; `Chile` 19.5 against 19.86. All round defensibly at the term's own precision.
+Unmarked clauses: Colombia's Spanish conquest "from 1499", the El Dorado legend and the 2016 peace
+agreement; Peru's Norte Chico, the Inca and "secured in 1824"; Bolivia's Potosí silver and the 1884 loss
+of the coast; Brazil's third sentence entire.
+
+### Verified citations (batch C12)
+`data.un.org/en/iso/<cc>.html` (co, ve, gy, sr, ec, pe, br, bo, py, cl, ar, uy),
+`history.state.gov/countries/<slug>` (colombia, venezuela, guyana, suriname, ecuador, peru, bolivia,
+paraguay, argentina, uruguay), `history.state.gov/milestones/1969-1976/allende` and
+`api.worldbank.org/v2/country/BRA/indicator/AG.SRF.TOTL.K2`.

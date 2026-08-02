@@ -2,8 +2,8 @@
 
 The glossary was **333 terms and not one of them carried a source**. `window.GLOSSARY_SOURCES` was an empty
 table; the fold at the foot of a gloss popup never appeared. This is the plan for filling it. Not part of
-the site. **As of 2026-08-02, 267 of the 333 are cited and at the bar** — batches G1–G11, P1–P7 with the P-topup, and C0–C11, five of which also
-corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 267 carry in-text
+the site. **As of 2026-08-02, 279 of the 333 are cited and at the bar** — batches G1–G11, P1–P7 with the P-topup, and C0–C12, five of which also
+corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 279 carry in-text
 markers, in all ten languages, after the rule changed from optional to required on 2026-08-01 (see "What
 is different from the card pass"). G5 also settled the start of prehistory across the glossary, the deck
 and every date line: **2.6 Mya**, with the disputed 3.3 Ma Lomekwi claim hedged rather than adopted; G6
@@ -172,7 +172,7 @@ the way batch 21 recorded the Anubis walls, so the next pass does not re-run the
 | the poles, the desert, the sea and two names | 7 | Phase 1 · batch G10 — **done** |
 | the continents, the island and the constants | 10 | Phase 1 · batch G11 — **done** |
 | US presidents | 45 | Phase 2 · batches P1–P7 — **ALL DONE (2026-08-02)** |
-| countries and states of the world | 197 | Phase 3 · batches C0–C12 — **C0–C11 done (2026-08-02)**; 15 European and 35 Asian terms deferred with reasons (see the C3 and C5 logs); **Africa and Oceania are COMPLETE** |
+| countries and states of the world | 197 | Phase 3 · batches C0–C12 — **C0–C12 done (2026-08-02)**; 15 European and 35 Asian terms deferred with reasons (see the C3 and C5 logs); **Africa and Oceania are COMPLETE** |
 | **total** | **333** | |
 
 ## Order, and why
@@ -2360,6 +2360,55 @@ World Bank.
 `thecommonwealth.org/our-member-countries` and `history.state.gov/countries` — and grepping it beats
 guessing.
 
+## Batch C12 log — South America, and the sentence before the recognition paragraph (2026-08-02)
+
+**DONE.** Twelve terms — Colombia, Venezuela, Guyana, Suriname, Ecuador, Peru, Brazil, Bolivia, Paraguay,
+Chile, Argentina, Uruguay — 24 citations, **five corrections**, nothing deferred. Coverage 267 → **279 of
+333**. The Americas are complete but for C11's three.
+
+### C11's warning needed refining, not repeating
+
+C11 concluded that the recognition guide is unusable for Spanish America because it dates by U.S.
+recognition. **In South America the same guide states the independence year outright on nine of twelve
+pages** — Colombia "by 1819", Peru "in July 1821 under General San Martin", Bolivia "on August 6, 1825",
+Paraguay "on May 15, 1811", Argentina "in 1816", Uruguay "in 1828", Ecuador's withdrawal from the
+Colombian federation "in 1830", Suriname's Dutch colony "dating from 1667" and independence "in 1975".
+The difference is structural: **these pages open with a sentence of CONTEXT before the recognition
+paragraph, and that sentence carries the date.** Mexico's, Costa Rica's and Nicaragua's have no such
+sentence. So the rule is not "the guide fails in Latin America" but **"the recognition date is not an
+independence date — read the summary paragraph, which often gives the real one"**, with grepping the
+saved HTML for the year as the check.
+
+**`Venezuela` is saved by a preposition, and it is worth noticing why.** The guide says independence was
+achieved "**by 1819**" where the term says "**by 1821**". A source saying a thing was achieved by 1819
+entails that it was achieved by 1821, so the marker is sound — where "in 1819" against "in 1821" would
+have been exactly the Cameroon near-match C6 withheld on. The preposition is doing real work.
+
+### Two terms with no history source that still reached the bar
+- **`Brazil`** — the guide recognises "the Kingdom of Brazil" in 1824 and never states 1822, with nothing
+  on 1500, 1889 or the plantation economy. Its third sentence is left **unmarked** and the term is carried
+  by its FIGURES instead: UNdata and the World Bank's area series both give ~8.51 million km², and those
+  two are independent for area. **A term can reach the bar on its first sentence alone when the second
+  source is a different measurement rather than the same one relayed.**
+- **`Chile`** — the country page gives the 1810 declaration and Monroe's 1822 conclusion but no 1818. What
+  carried it was a **Milestone**: "The Allende Years and the Pinochet Coup, 1969–1973". **When a country
+  page will not date the independence, look for a Milestone on the term's other claim.**
+
+### Corrections
+Four stale populations — Guyana 800,000 → 840,000, Suriname 620,000 → 640,000, Bolivia 12 → 12.6 million,
+Paraguay 6.8 → 7 million. And **the largest single area correction of Phase 3: `Ecuador` 283,561 →
+257,217 km²**, UNdata giving 257,217 and the World Bank 256,370 — the two within 0.3% of each other and
+the term 10% above both. A plausible explanation is that 283,561 predates the 1998 Brasilia settlement of
+the Ecuador–Peru border, but **neither source says so; it is recorded as a hypothesis and not cited**, and
+the correction rests only on the two figures.
+
+### UNdata is the outlier three times out of four
+`Venezuela`'s 916,445 km² sits between UNdata's 929,690 and the World Bank's 912,050; `Argentina`'s
+2,780,400 is the World Bank's figure exactly against UNdata's 2,796,427; `Uruguay`'s 176,215 matches the
+World Bank against UNdata's 173,626; only `Chile` matches UNdata against the World Bank. **Source A is a
+source, not an authority** — which is the same lesson C10 drew from Kiribati and C9 from Libya, now
+arriving three times in one batch.
+
 ### Batches C1–C12 · by region
 
 | batch | region | terms | |
@@ -2368,7 +2417,7 @@ guessing.
 | **C4–C6** | Asia | 43 | Afghanistan → Yemen, plus India, China, Japan, less State of Palestine |
 | **C7–C9 DONE** | Africa | 53 | Algeria → Zimbabwe, plus Kenya and Tanzania, less South Sudan. **C8 DONE (2026-08-02)**: Algeria, Angola, Benin, Burkina Faso, Burundi, Central African Republic, Chad, both Congos, Djibouti, Egypt, Equatorial Guinea, Guinea, Guinea-Bissau — fourteen on the two-fetch recipe, thirteen stale populations updated; **Comoros deferred** (its area counts Mayotte and the guide gives a 1977 recognition against a 1975 independence). **C9 DONE (2026-08-02)**: Comoros, Ethiopia, Ivory Coast, Liberia, Libya, Madagascar, Mali, Mauritania, Niger, São Tomé and Príncipe, Senegal, Sudan, Tunisia, Zimbabwe — **AFRICA COMPLETE, 56 of 56**, with Libya and Comoros unblocked by the World Bank's area series. **C7 DONE (2026-08-02)**: Eswatini, Eritrea, Gabon, The Gambia, Kenya, Lesotho, Malawi, Morocco, Somalia, Tanzania, Togo — the rest of Commonwealth Africa plus the first four carried by the Office of the Historian's recognition guide. **Three deferred**: Egypt, Ethiopia and Libya, each a figure diverging from UNdata with no second profile |
 | **C10 DONE** | Oceania | 13 | **DONE (2026-08-02)**: all thirteen — Australia, New Zealand, Papua New Guinea, Fiji, Solomon Islands, Vanuatu, Samoa, Tonga, Kiribati, Nauru, Palau, Marshall Islands, Micronesia — most on THREE sources, four corrections, nothing deferred |
-| **C11–C12** | the Americas | 35 | Canada → Uruguay, plus Brazil. **C11 DONE (2026-08-02)**: North America, Central America and the Caribbean — twenty terms, eight corrections; **Mexico, Costa Rica and Nicaragua deferred**, the recognition guide dating by U.S. recognition rather than independence |
+| **C11–C12** | the Americas | 35 | Canada → Uruguay, plus Brazil. **C11 DONE (2026-08-02)**: North America, Central America and the Caribbean — twenty terms, eight corrections; **Mexico, Costa Rica and Nicaragua deferred**, the recognition guide dating by U.S. recognition rather than independence . **C12 DONE (2026-08-02)**: all twelve South American states, five corrections, nothing deferred — the guide's summary paragraph gives the independence year on nine of the twelve |
 | | | **191** | the 197, less the six worked in C0 |
 
 Roughly 16 terms a batch. The twelve countries written earlier and at greater length — Greece, Kenya,
