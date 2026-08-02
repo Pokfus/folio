@@ -1265,48 +1265,43 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   Each figure is **centred over its own label** and the three sit on the **CTA's own line**; below 640px that
   costs the button its width (`.review-group .banner .cta .btn` shrinks and the row goes `nowrap`), since a
   button on a line of its own left the piles floating over nothing.
-- **The home page is THREE SWIPED PANES on a phone** (`.home-pager` / `#homePager`, Aug 2026, on request). One column
-  three screens tall put the games below the fold and the day's card below them again. `PAGES.home` builds three
-  `.hp-pane`s — the review group (with the first-run how-it-works strip inside it), the game grid, the discovery row —
-  and at ≤640px the pager lays them side by side with `scroll-snap-type:x mandatory`. The quote stays above it, where
-  it was read first anyway.
-  · **The DOM order is the DESKTOP order** (review, games, explore — exactly what the page always had); the phone
-    puts the discovery pane first with **`order:-1`**, so above the breakpoint the panes need no rules at all and
-    fall back to three stacked blocks. Reordering the markup instead would have meant a second set of `order` rules
-    to undo it on the desktop.
-  · **It opens on the review** (`pager.scrollLeft = clientWidth`, set before the first paint): a reader who never
-    swipes sees what they saw before. `#homeDots` is the pager (three dots, middle one lit) — a horizontal scroller
-    with no marker reads as a column that just happens to be cut off — and doubles as the way to reach a pane
-    without swiping. It sits **above** the panes, between them and the quote (moved there Aug 2026, on request:
-    under them it read as a footnote to whichever pane was showing rather than as the pager's own control).
-    In RTL a scroller's `scrollLeft` runs **negative** from 0 at the right edge, so both the dots
-    and the initial position are signed off `direction` — Arabic is one of the ten languages.
-  · **The breathing room between panes is `padding` on `.hp-pane`, never a flex `gap`** (Aug 2026, on request —
-    two banners met edge to edge mid-swipe). The dots' arithmetic and the initial scroll are both
-    `i × clientWidth`, which a gap would silently put out of step with the snap points.
-  · **The container is CONTENT-HEIGHT.** The panes stretch to the tallest of them, so nothing is clipped and the
-    page scrolls vertically exactly as before; `overflow-y:hidden` is there only because a scroll container may not
-    pair `visible` on one axis with `auto` on the other. Don't give it a fixed height.
-  · **The Atlas teaser is not built on a phone at all** (`phoneHome()` in `PAGES.home`), rather than hidden in CSS:
-    the mini globe pulls the ~1.6 MB `world` bundle at idle, and an ornament nobody can see must not cost that.
-    Crossing the breakpoint therefore **re-renders** the page (`_homeResize`, one listener ever — `render()`
-    re-enters `PAGES.home`, so a per-render listener would pile up for the session), since the layout differs in
-    what it BUILDS and not only in how it sits.
-  · **`wireOnePageSwipe(pager)`** holds a flick to one pane; see the Atlas panel bullet for what it is and why the
-    CSS alone is not relied on. Guarded by `test-layout.js`.
-- **The Library banner (`.lib-banner`, phones only — Aug 2026, on request)** sits **inside the review pane**, under
-  the review and active decks it belongs beside, and is how the Library is reached now that it has left the bottom
-  tab bar. It was below the whole pager for a week, which put it under the games and the day's card too — panes it
-  has nothing to do with. **Phone-only** (`display:none` above 640px): the top bar still carries the tab there, and
-  a second way in beside it is clutter — the same call `showAdminEditBtn`'s plain variant makes. It is a plain
-  `.banner` in a blue of its own (`--tile:#5A73A8`) and quieter than the review above it: a destination, not the
-  day's work.
-  **`.home-about` rides under it** — a centred grey "About Folio" line (`#b-about` → `route("mission")`), added
-  Aug 2026 when About left the tab bar for the same reason Library did. Phone-only on the same terms.
+  The button is **CENTRED against them** (`align-items:center`, Aug 2026, on request): a figure over a label is a
+  two-line column, and the `flex-end` this rule used to carry put a one-line button on its baseline, reading as
+  having slipped down.
+- **The phone home page is ONE COLUMN, and it is a DIFFERENT PAGE from the desktop's** (`const phone = phoneHome()`
+  at the top of `PAGES.home`, Aug 2026, on request). It was three swiped panes for a week (`.home-pager` /
+  `.hp-pane` / `#homeDots` — all gone, along with their ≤640px rules); the reason they went is that two of the
+  three panes stopped existing. The order on a phone is: quote → review group (+ the first-run how-it-works
+  strip) → a **Minigames** heading over the game grid → the About line. The desktop is unchanged: review, games,
+  discovery row, in `.banners`, which is the flex column the pager used to be.
+  · **`phone` gates what is BUILT, not what is shown.** The card of the day, the term of the day and the Atlas
+    teaser are not rendered on a phone at all — no date-seeded pick over every card, no glossary scan, and above
+    all no ~1.6 MB `world` bundle for an ornament nobody can see. So **crossing the breakpoint re-renders**
+    (`_homeResize`, one listener ever — `render()` re-enters `PAGES.home`, so a per-render listener would pile
+    up for the session).
+  · **The games are 3 × 2 on a phone** under a CENTRED `.games-head` (`.game-grid` at ≤640px; it was 2-up on the
+    pane it had to itself). The class is deliberately **not** `.mg-head`: `mg-` is the MAP GAME's prefix
+    (`.mg-card` / `.mg-head` / `.mg-score`), and reusing it gave the heading that card's `display:flex` —
+    which beats `text-align` outright, so it rendered hard left with a computed `text-align:center` — while
+    pushing this heading's font and colour onto the game's own score row. `test-layout.js` measures the
+    heading TEXT's centre through a Range rather than reading `text-align`, which is the only way to tell
+    the two apart. The tiles' **taglines are dropped at the source**, in `gameSub`, not hidden in CSS. Three to a row leaves ~86px
+    of text column, where one sentence runs to four lines and buries the name above it. **Today's SCORE stays**
+    (`gameScore`, bare figures — "3/5" — on a phone): it is not a description, it is the one thing on the tile
+    that changes during the day. The blank sixth tile drops its sentence the same way.
+  · **The way to the Library is `.rv-lip`** — a small "+ Add decks" tab hanging off the bottom edge of the
+    review group, replacing the full-width `.lib-banner` that sat under it (removed Aug 2026, on request). It is
+    the group's **last child, in flow**: the deck list is glued flush to the banner above it (`.has-active`), so
+    there is no bottom edge to hang from until the whole group has one, and an absolutely-positioned lip would
+    have to guess the list's height on every render. It is **the ONLY route to the collections on a phone**, so
+    it ships in every state the review can be in, first run included — don't gate it on having decks.
+  · **`.home-about`** — a centred grey "About Folio" line (`#b-about` → `route("mission")`) at the foot, from
+    when About left the tab bar. Phone-only on the same terms as the lip, and, like it, **rendered only on a
+    phone** rather than hidden above the breakpoint. Guarded by `test-layout.js`.
 - **Home minigames** (game-grid tiles → `PAGES.*`): **Multiple Choice** (`PAGES.challenge`, formerly "Daily Challenge" — the
   rival bots + timer were removed; it's now a plain 5-question quiz whose 3 wrong options are the SAME `answerType()` as the
   answer — a person → other people, a dynasty → other dynasties), **Timeline** (`chrono`), **True or False** (`truefalse`),
-  **Who said it?** (`whosaid`, from `quotes.js`), and **Find it on the map** (`findit` — see the Atlas game-mode bullet
+  **Who said it?** (`whosaid`, from `quotes.js`), and **Find it** (`findit`, renamed from "Find it on the map" Aug 2026 on request — see the Atlas game-mode bullet
   below; 5 date-seeded locate-on-the-globe rounds, score = first-try finds). `BOTS`/`drawRace`/podium are now dead code.
   Each of the 5 games records a per-day result in `S.games[key] = { date, played, won }` (`markGamePlayed(key, won)` at each
   game's end; `won` = a perfect run, or `solved` for Timeline). The home tile has **three daily states** (state classes set by
@@ -1325,8 +1320,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `S.games` is in `defaultState()` (back-fills old saves) and `PROGRESS_FIELDS` (mirrors to the account).
   The grid's **sixth slot** (`blankTile`) reads "Coming soon / More games / Another one is being written"; it
   used to be "Coming soon / —", which names nothing and looks like a tile that failed to load. Below 430px the
-  tile type shrinks (`.gt-title` 18 → 15.5px), or "Multiple Choice" and "Find it on the map" break across two
-  lines and their taglines across two more. The **Card-of-the-day tile carries the card's DECK** in its head
+  tile type shrinks, or "Multiple Choice" breaks across two lines and its tagline across two more. The **Card-of-the-day tile carries the card's DECK** in its head
   row (`.cod-where` ← `cardLeaves(id)[0]` → `nodeWhere`) — the tile is a fixed height, so a short question left
   a band of nothing under it. Deliberately the deck and **not** the era: on a prehistory card the era is most
   of the answer.
@@ -1386,11 +1380,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   that same query runs ONCE over the static DOM, so a nav item added later still has to live in index.html.
   **Edit is NOT in this bar** — it left it the same week (Aug 2026, on request) for the top-right button
   described below: the editor is one person's tool and it was taking a seventh of a row six readers share.
-  **Nor is Library** (Aug 2026, on request): it is reached from the home page's `.lib-banner` instead, which
+  **Nor is Library** (Aug 2026, on request): it is reached from the home page's `.rv-lip` instead, which
   is why nothing in the bar is active on `#decks` — that page is not one of the bar's destinations.
-  **Nor About**, which left the same way a week later (Aug 2026, on request) for the `.home-about` line under
-  that banner — a page read once, against a fifth of a row four readers share. `#mission` is therefore the
-  second route with nothing marked in the bar.
+  **Nor About**, which left the same way a week later (Aug 2026, on request) for the `.home-about` line at the
+  foot of the home page — a page read once, against a fifth of a row four readers share. `#mission` is
+  therefore the second route with nothing marked in the bar.
   `applyMode` still hides `.tab-admin` with `querySelectorAll` rather than `querySelector`, because the
   entry point can exist more than once and the old form would have left a second copy live for every
   visitor. The bar is a **flex row of `flex:1 1 0` cells**, not a fixed column count, so a tab hidden or
@@ -1458,11 +1452,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     at that width) and `.on` for the pen being down at it. While Mark or Erase is the active tool a size
     click only sets that tool's width: taking the tool out from under a reader mid-mark is not what a width
     control does. Panel order is `[colours] / [sizes] [Mark] / [Erase] [Clear] / [Undo] [Redo]`.
-  · **The custom colour** (`wbReadCustom` / `wbSaveCustom`, `localStorage["folio_wb_custom_v1"]`) is a native
-    `<input type="color">` laid over a swatch at zero opacity — the tap target is the circle and the platform's
-    own picker opens. **One per palette** (a highlighter yellow is not a pen colour), written on `input` rather
-    than `change` so the marker follows the finger through the picker; the write re-renders the row, so the
-    value has to be put back on the NEW input afterwards. Device-local, like the position.
+  · **The custom colour** (`wbReadCustom` / `wbSaveCustom`, `localStorage["folio_wb_custom_v1"]`) is **one per
+    palette** (a highlighter yellow is not a pen colour) and device-local, like the position. It is chosen in
+    an **inline picker of the ordinary shape** — a saturation/brightness field over a hue bar with the hex
+    beneath (`.wb-pick`, `wirePickField`, `hsvToHex`/`hexToHSV`; Aug 2026, on request). It was an
+    `<input type="color">` laid over the swatch, whose platform dialog on a phone is a full-screen "Select
+    color" sheet of sliders covering the very card being annotated. Four things hold it up:
+    · it is **its own `.wb-row` inside the panel**, not a popover — the panel is already a floating box that
+      decides which way it opens, and a second one inside it would have to decide again;
+    · **`.wb-pick[hidden]{display:none}`** is required, `.wb-row`'s author `display:flex` beating the UA rule
+      (codebase convention, cf. `.ces-imgpanel`);
+    · the picker keeps **its own HSV**, never re-derived from the hex on each move: at `v=0` or `s=0` a colour
+      has no recoverable hue, so a reader dragging into the black corner and back would come back red. Hence
+      `pickDrag`, which is what stops the re-render `useColor` triggers from reseeding it mid-gesture;
+    · both fields need **`touch-action:none`**, or a finger drag is claimed as a page scroll before
+      `pointermove` ever fires, and the knobs are `pointer-events:none` so a press lands on the field.
+    Guarded by `test-layout.js`, which asserts there is no `input[type=color]` left anywhere in the panel.
   · **Controls under the ink stay usable** (the `CTL_SEL` / `controlUnder` / `passCtl` block in
     `setupWhiteboard`, Aug 2026, on request). The canvas covers the whole visible page, so with the pen down
     it also covered Show answer and everything else on the card. **A z-index cannot fix this**: `.page` and
@@ -1635,8 +1640,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **The idle warm must never fire mid-gesture.** `coastEdges()`/`worldEdgeOwners()` (~1.3s combined) are warmed after
     mount via `requestIdleCallback`, but the callback **reschedules itself while `moving || dragging || ptrs.size ||
     flyRAF || playT || mapDragging`** — an rIC timeout landing during a drag would freeze the globe under the pointer.
-  **Game mode + approachability (batch 3):** `PAGES.findit` routes to `PAGES.map(root, {game:true})` — the **"Find it on
-  the map" daily minigame** plays on the real globe (`const GAME` gates everything): 5 date-seeded rounds from
+  **Game mode + approachability (batch 3):** `PAGES.findit` routes to `PAGES.map(root, {game:true})` — the **"Find it"
+  daily minigame** plays on the real globe (`const GAME` gates everything): 5 date-seeded rounds from
   `buildGameRounds()` (2 present-day countries, 2 historical territories, 1 capital; **one seeded RNG stream PER pool**
   so intraday data changes can't reshuffle the day; a `used`-names Set dedupes targets across rounds; quality gates =
   bbox area + `countryDesc` exists + an ETHNO name regex). Taps route to `gameTap` (countryAt name match, or
@@ -1690,8 +1695,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **A swipe may never move more than ONE page** (Aug 2026, on a bug report: a hard flick carried from the
   description straight to the figures, skipping the year paragraph). `mandatory` only says WHERE a scroll may come
   to rest; **`scroll-snap-stop:always`** on `.cp-sec` is what forbids passing a snap point within one gesture,
-  momentum included, and is the real fix. **`wireOnePageSwipe(el)`** (beside `animateProgs`, shared with the home
-  pager) is the net under it for engines that lack the property: it records the page a gesture STARTED on and,
+  momentum included, and is the real fix. **`wireOnePageSwipe(el)`** (beside `animateProgs`; it was shared with
+  the home pager, which no longer exists) is the net under it for engines that lack the property: it records the page a gesture STARTED on and,
   once the scroller has settled, pulls it back to one step away if snapping landed further. The correction comes
   **after** the settle rather than fighting the gesture — nothing can predict a fling, and a scroller wrestled
   mid-flick feels broken in a way an overshoot does not. It is RTL-aware (`scrollLeft` runs negative there) and
@@ -2631,22 +2636,25 @@ dead code (never rendered).
     **Re-run after touching the `SOURCE FOOTNOTES` block, `wireFootnotes` / `sourcesHTML` / `normSources` /
     `linkifySrcItem` / `replaceInSrcText`, the `.src-access` styles, the editors' sources boxes, or the
     `fn` / `data-fn` sanitizer allowlists.**
-  · `node .claude/test-layout.js` — 175 assertions on **the shell**: the rules that break silently because
+  · `node .claude/test-layout.js` — 186 assertions on **the shell**: the rules that break silently because
     nothing throws when a layout is wrong. The phone's bottom tab bar (present, labelled — *every* tab, not
     just the active one, which is the top bar's behaviour — each name **centred under its own icon**, the
     selected one included, since one tab off out of five reads as a design; routing; no Library and no
     About, which the home page's banner and its grey line carry now; and gone while grading); the home
-    page's three swiped panes on a phone
-    (one pane wide, snapping, `scroll-snap-stop:always` so no flick skips one, in the visual order
-    card-and-term / review / games, opening on the review with its dot lit above them, the quote above that,
-    each pane padded so two banners don't meet mid-swipe, no
-    Atlas teaser and no Seen total, the Library banner inside the review pane routing to the collections and
-    the About link under it to the About page, and the review's three Anki piles — new / learning / review,
-    in order, no two the same colour, repeated unlabelled in the same colours on each added deck's row) and
-    the same page back to one column in its original order above the breakpoint;
+    page on a phone
+    (one column, no pager, no card of the day, no gloss of the day and no Atlas teaser — none of which is
+    BUILT there, so a missing assertion costs a phone the ~1.6 MB globe; the "+ Add decks" lip hanging off
+    the bottom of the review group, centred, narrower than the group and routing to the collections; the
+    Minigames heading over a 3 × 2 grid whose tiles carry no tagline; the About link last, routing to the
+    About page; no Seen total; and the review's three Anki piles — new / learning / review, in order, no two
+    the same colour, repeated unlabelled in the same colours on each added deck's row, with the button
+    CENTRED against them) and the same page above the breakpoint, where the day's card, the day's term, the
+    Atlas teaser and the taglines are all still there and the lip, the heading and the About line are not;
     the whiteboard marker on a phone (clear of the tab bar, no Draw button, the sizes toggling the pen, the
-    custom colour surviving the session, and **Show answer and the grade row still tappable with the pen
-    down**, which is the assertion holding up the hit-test in `setupWhiteboard`); the Atlas place sheet's
+    custom colour picked in the inline picker — its hue bar setting the hue, its field the saturation and
+    brightness, the choice surviving the session, and **no `input[type=color]` anywhere**, which is what a
+    revert to the platform dialog would look like — and **Show answer and the grade row still tappable with
+    the pen down**, which is the assertion holding up the hit-test in `setupWhiteboard`); the Atlas place sheet's
     drag-to-resize (taller, capped at the top of the screen, remembered into the next place, and its title
     bar still showing at the floor); the daily quote keeping its height — and everything under it its
     position — when flipped to its original language; the Atlas panel's discovery chip sharing
@@ -2660,8 +2668,9 @@ dead code (never rendered).
     that spawned it** — a real level-up is raised (three cards graded Easy) and dismissed by a HASH CHANGE,
     never a click, since a click would dismiss it anyway and prove nothing.
     **Re-run after touching `.tabbar` / `--tabbar-h` / `--timebar-h` / `layoutTicks` / the Atlas chrome's
-    media queries / `.settings` / `.auth-split` / the coming-soon rows / `.home-pager` / `wireOnePageSwipe`
-    / `.lib-banner` / `.home-about` / `pileCounts` / `ensureWBTools` / the ink layer's pass-through /
+    media queries / `.settings` / `.auth-split` / the coming-soon rows / `wireOnePageSwipe`
+    / `.rv-lip` / `.games-sec` / `.home-about` / `gameSub` / `pileCounts` / `ensureWBTools` / `.wb-pick` /
+    the ink layer's pass-through /
     `cpWireResize` / `lockHeight`, or after adding an overlay to `document.body`.** Its clicks go through `evaluate`
     rather than `page.click`: clicking an element the
     CSS has hidden waits 30s and then THROWS, and a missing chip is exactly what some of this is here to

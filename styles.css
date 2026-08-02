@@ -380,34 +380,47 @@ body:not(.night) .review-group .banner.done:not(.won){
 .hero-alt{font-size:13.5px; color:var(--ink-soft); text-decoration:underline; text-underline-offset:3px; text-decoration-color:color-mix(in srgb,var(--ink) 30%, transparent);}
 .hero-alt:hover{color:var(--ink);}
 
-/* ---------- home: the Library banner ----------
-   The phone's bottom tab bar gave up its Library seat (Aug 2026, on request) and this took its place, under
-   the review and the decks it belongs beside. PHONE-ONLY: above the breakpoint the top bar still carries the
-   tab, and a second way in beside it is clutter — the same call the plain admin-edit button makes.
-   Quieter than the review banner above it, in a blue of its own: a destination, not the day's work. */
-.lib-banner{display:none; --tile:#5A73A8; padding:20px 22px;}   /* the ≤640px block turns it back on */
-.lib-banner h2{margin:0 0 5px;}
-.lib-banner .desc{font-size:14px;}
-.lib-banner .meta{margin-top:17px;}   /* the button sat almost against the sentence above it */
-.lib-banner .glyph-svg{bottom:-16px; right:-10px;}
-.lib-banner .glyph-svg svg{width:118px; height:118px;}
+/* ---------- home: the way to the Library on a phone ----------
+   A whole banner of its own sat here until Aug 2026 — a second full-width block spending a heading and a
+   sentence on what one word says. This is what replaced it, on request: a small tab hanging off the bottom
+   edge of the review group, under the deck list it adds to. It is the group's last child and sits IN FLOW
+   (see .rv-lip in the markup), so it needs no guess at the list's height; the group's own bottom border runs
+   behind it, hence no top border and the -1px pull.
+   PHONE-ONLY, and RENDERED only on a phone rather than hidden here: above the breakpoint the top bar still
+   carries the Library tab. */
+.rv-lip{
+  appearance:none; cursor:pointer; align-self:center; margin-top:-1px; position:relative; z-index:3;
+  display:inline-flex; align-items:center; padding:6px 17px 7px;
+  border:1px solid var(--rule); border-top:0; border-radius:0 0 12px 12px;
+  background:var(--card); box-shadow:0 3px 7px rgba(0,0,0,.07);
+  font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft);
+  transition:color .16s var(--ease), border-color .16s var(--ease);
+}
+.rv-lip:hover{color:var(--ink); border-color:var(--indigo);}
+.rv-lip:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
 /* ---------- home: the way to the About page on a phone ----------
-   About left the bottom tab bar (Aug 2026, on request) and this took its place: a quiet grey line under
-   the Library banner rather than a fifth of a row four readers share. Phone-only, like the banner. */
+   About left the bottom tab bar (Aug 2026, on request) and this took its place: a quiet grey line at the
+   foot of the page rather than a fifth of a row four readers share. Phone-only, like the lip above. */
 .home-about{
-  display:none; appearance:none; border:0; background:none; cursor:pointer; width:100%;
+  appearance:none; border:0; background:none; cursor:pointer; width:100%;
   padding:4px 0 2px; text-align:center;
   font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint);
 }
 .home-about:hover{color:var(--ink-soft);}
 .home-about:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:3px; border-radius:6px;}
 
-/* ---------- home: the phone's three swiped panes ----------
-   Above the breakpoint this is nothing at all — a plain column holding the same three blocks in the same
-   order they have always been in. Every rule that makes it a pager is in the ≤640px block further down. */
-.home-pager{display:flex; flex-direction:column; gap:14px;}
-.hp-pane{display:flex; flex-direction:column; gap:14px; min-width:0;}
-.hp-dots{display:none;}
+/* ---------- home: the Minigames section (phones) ----------
+   The games are the second thing on a phone's home page now — the day's card and term are not built there
+   at all — so they get a heading rather than arriving as an unannounced grid of six coloured squares.
+   NOT `.mg-*`: that prefix is the MAP GAME's (`.mg-card` / `.mg-head` / `.mg-score`, further down), and
+   naming this heading `.mg-head` silently gave it that card's `display:flex` — which beats `text-align`
+   outright, so the heading rendered left — while pushing this font and colour onto the game's score row. */
+.games-sec{display:flex; flex-direction:column; gap:10px;}
+.games-head{
+  margin:6px 0 0; text-align:center;
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase;
+  font-weight:600; color:var(--ink-faint);
+}
 
 /* ---------- home: how-it-works strip (until the first card is graded) ---------- */
 .howit{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
@@ -1487,7 +1500,7 @@ body.night .lu-badge{color:#E6C765;}
    moving/zooming, and immune to the canvas-compositor ghosting that forced the old canvas gradients to settle-only */
 .globe-limb-glow, .globe-limb-shade{position:absolute; border-radius:50%; pointer-events:none;}
 .globe-limb-shade{z-index:1;}
-/* "Find it on the map" game mode: the globe is the board — everything that would reveal answers hides, the timebar locks.
+/* "Find it" game mode: the globe is the board — everything that would reveal answers hides, the timebar locks.
    The country info panel STAYS available: it opens on every guess (right or wrong) so the game still teaches. */
 .atlas-game .globe-search, .atlas-game .globe-legend, .atlas-game .globe-hovername, .atlas-game .globe-hint{display:none !important;}
 .atlas-game .atlas-timebar{pointer-events:none; opacity:.8;}
@@ -1902,11 +1915,40 @@ body.grading .wb-tools{bottom:108px;}
 }
 .wb-color:hover{transform:scale(1.12);}
 .wb-color.sel{box-shadow:0 0 0 2px var(--card), 0 0 0 3px var(--ink);}
-/* the reader's own colour, remembered between sessions. It is a native <input type="color"> wearing the
-   swatch's clothes — laid over the whole swatch at zero opacity, so the tap target IS the circle and the
-   platform's own picker is what opens. The dashed ring says it is the one that can be changed. */
-.wb-custom{position:relative; display:inline-block; flex:none; border-style:dashed; border-color:var(--ink-faint);}
-.wb-custom input{position:absolute; inset:-2px; width:calc(100% + 4px); height:calc(100% + 4px); opacity:0; padding:0; border:0; cursor:pointer;}
+/* the reader's own colour, remembered between sessions. Tapping it opens the picker row below; the dashed
+   ring says it is the swatch that can be changed. */
+.wb-custom{appearance:none; position:relative; flex:none; border-style:dashed; border-color:var(--ink-faint);}
+.wb-custom.open{border-style:solid; box-shadow:0 0 0 2px var(--card), 0 0 0 3px var(--indigo);}
+/* ---- the custom-colour picker ----
+   The ordinary shape: a saturation/brightness field over a hue bar, with the hex underneath. It replaced
+   <input type="color"> (Aug 2026, on request), whose platform dialog on a phone is a full-screen sheet of
+   sliders covering the very card being annotated.
+   The field is two gradients over the hue set by --h, in the standard order — white across, black down —
+   so the corners are white, the pure hue, black and black. Both fields need touch-action:none or the
+   browser claims a finger drag as a page scroll before pointermove ever fires; the knobs are inert so a
+   press always lands on the field under them. */
+.wb-pick{flex-direction:column; align-items:stretch; gap:8px; padding:2px 1px 0;}
+.wb-pick[hidden]{display:none;}   /* the author display:flex on .wb-row would otherwise defeat it (codebase convention) */
+.wb-sv{
+  position:relative; height:88px; border-radius:9px; cursor:crosshair; touch-action:none;
+  border:1px solid var(--rule);
+  background:linear-gradient(to top, #000, rgba(0,0,0,0)), linear-gradient(to right, #fff, hsl(var(--h,0) 100% 50%));
+}
+.wb-hue{
+  position:relative; height:14px; border-radius:999px; cursor:pointer; touch-action:none;
+  border:1px solid var(--rule);
+  background:linear-gradient(to right,#f00 0%,#ff0 17%,#0f0 33%,#0ff 50%,#00f 67%,#f0f 83%,#f00 100%);
+}
+.wb-knob{
+  position:absolute; top:50%; width:13px; height:13px; margin:-7px 0 0 -7px; border-radius:50%;
+  border:2px solid #fff; box-shadow:0 0 0 1px rgba(0,0,0,.45), 0 1px 3px rgba(0,0,0,.4);
+  background:var(--wc, transparent); pointer-events:none;
+}
+.wb-sv:focus-visible, .wb-hue:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
+.wb-hex{
+  text-align:center; font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; color:var(--ink-soft);
+  user-select:none;
+}
 .wb-size{
   appearance:none; cursor:pointer; width:30px; height:30px; border-radius:8px; flex:none;
   border:1px solid var(--rule); background:var(--paper-2); color:var(--ink-soft);
@@ -2396,38 +2438,20 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
   /* the study bar's copy steps aside while the grade bar carries one, so a card never shows two Undos */
   body.grading .study-shell .undobtn{display:none;}
   .study-shell .undobtn{margin-left:0;}
-  /* ---- the home page's three panes, swiped between rather than stacked ----
-     One column three screens tall put the games below the fold and the day's card below them again. The
-     panes lie side by side here and the page opens on the middle one, the daily review: swipe left for the
-     games, right for the day's card and term.
-     The container is CONTENT-HEIGHT — the panes stretch to the tallest of them, so nothing is clipped and
-     the page scrolls vertically exactly as before. overflow-y is `hidden` only because a scroll container
-     may not pair `visible` on one axis with `auto` on the other; there is nothing for it to hide.
-     scroll-snap-stop:always is what holds a hard flick to ONE pane (wireOnePageSwipe in app.js is the net
-     under it on engines that lack the property). */
-  .home-pager{
-    flex-direction:row; gap:0; padding-bottom:8px;
-    overflow-x:auto; overflow-y:hidden; scroll-snap-type:x mandatory; overscroll-behavior-x:contain;
-    scrollbar-width:none; -webkit-overflow-scrolling:touch;
-  }
-  .home-pager::-webkit-scrollbar{display:none;}
-  /* The panes are still exactly 100% wide — the dots' arithmetic (scrollLeft = i × clientWidth) depends on
-     it — so the breathing room between them is INSIDE the pane, as padding, not a flex gap that would put
-     the snap points out of step with the JS. */
-  .hp-pane{flex:0 0 100%; width:100%; min-width:100%; padding:0 7px; scroll-snap-align:start; scroll-snap-stop:always;}
-  .hp-explore{order:-1;}   /* swiping RIGHT off the review reveals the day's card and term; the markup keeps the desktop order */
-  .hp-dots{display:flex; justify-content:center; align-items:center; gap:8px; padding:0 0 10px;}
-  .hp-dots[hidden]{display:none;}   /* the author display:flex would otherwise defeat the hidden attribute (codebase convention) */
-  .hp-dot{appearance:none; border:0; padding:0; width:7px; height:7px; border-radius:50%; background:var(--rule); cursor:pointer; transition:background .16s var(--ease), transform .16s var(--ease);}
-  .hp-dot.on{background:var(--indigo); transform:scale(1.32);}
-  .lib-banner{display:flex;}
-  .home-about{display:block;}   /* phone-only, like the banner it sits under */
-  .game-grid{grid-template-columns:repeat(2,1fr); gap:12px;}
+  /* ---- the game tiles, three to a row under their heading ----
+     They were two to a row on the pane they had to themselves; that pane is gone (Aug 2026, on request) and
+     the six tiles now sit under the review as a 3×2 block. Three to a row leaves about 86px of text column,
+     which is why the taglines are dropped at the source rather than here — see gameSub in PAGES.home. */
+  .game-grid{grid-template-columns:repeat(3,1fr); gap:10px;}
+  .game-tile{min-height:112px; padding:14px 12px;}
+  .gt-glyph-svg svg{width:78px; height:78px;}   /* a 112px ornament fills a 110px tile edge to edge */
+  .gt-glyph-svg{top:-10px; right:-10px;}
+  .gt-done{top:9px; right:9px; width:20px; height:20px;}
+  .gt-done svg{width:12px; height:12px;}
   .howit{grid-template-columns:1fr; gap:10px;}
-  .explore-grid, .explore-grid.has-term-img{grid-template-columns:1fr; gap:12px;}
-  .exp-card, .explore-grid.has-term-img .exp-card, .explore-grid.has-term-img .exp-term{grid-column:auto;}
-  .exp-atlas{flex-direction:column; align-items:flex-start; gap:14px;}
-  .mini-globe{align-self:center; width:150px; height:150px;}
+  /* The .explore-grid / .exp-card / .exp-atlas / .mini-globe rules that stood here are gone with the row
+     itself: PAGES.home does not BUILD the discovery row below this breakpoint, so nothing they described
+     can exist here. */
   .chrono-actions{flex-direction:column;} .chrono-actions .btn{width:100%;}
   body.grading .stage{padding-bottom:206px;}
   body.grading .wb-tools{bottom:170px;}
@@ -2437,7 +2461,10 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
      phrase, and the banner is a button in its own right, so this one is a repetition of the obvious) and
      the row is held to ONE line: the labels are the only thing that could wrap, and a wrapped "LEARNING"
      would break the column it sits under. */
-  .review-group .banner .meta{flex-wrap:nowrap; gap:11px; align-items:flex-end;}
+     The button is CENTRED against the piles (Aug 2026, on request), not sat on their baseline: a figure
+     over a label is a two-line column, and a one-line button aligned to the bottom of it reads as having
+     slipped down. */
+  .review-group .banner .meta{flex-wrap:nowrap; gap:11px; align-items:center;}
   .review-group .banner .stat span{font-size:8.5px; letter-spacing:.06em; white-space:nowrap;}
   .review-group .banner .cta .btn{padding:11px 13px; font-size:10.5px; letter-spacing:.05em; white-space:nowrap;}
   /* clear of the bottom tab bar, not sitting on top of it: the marker is a control, and a control that
@@ -2460,12 +2487,12 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
    whose background already runs several screens. Four columns fit once the shortcut digits go (they name
    keys a phone does not have) and the interval sits closer under the label. */
 @media (max-width:430px){
-  /* the game tiles are two to a row here, so a 18px display title breaks "Multiple Choice" and
-     "Find it on the map" across two lines and their taglines across two more */
-  .game-grid{gap:10px;}
-  .game-tile{padding:14px 13px;}
-  .gt-title{font-size:15.5px; line-height:1.15;}
-  .gt-sub{font-size:11.5px; line-height:1.3; margin-top:3px;}
+  /* Three tiles to a row on a 390px screen is about 110px each, so the display title comes down again:
+     at 18px "Multiple Choice" breaks to three lines. */
+  .game-grid{gap:8px;}
+  .game-tile{padding:12px 10px;}
+  .gt-title{font-size:13.5px; line-height:1.15;}
+  .gt-sub{font-size:11px; line-height:1.3; margin-top:3px;}
   .gt-eyebrow{margin-bottom:5px;}
   .grade-wrap .grades{grid-template-columns:repeat(4,1fr); gap:6px;}
   .grade{padding:9px 3px 8px; border-radius:9px;}
