@@ -92,7 +92,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `docs/glossary-citation-plan.md` — the batch plan for **citing the 333 glossary terms**, the sibling of
   the card plan above. The bar is **at least 2 citations per term** (a description is three sentences, where
   a card's abstract is ten), and the acceptable sources are academic, museum, government or reputable
-  NGO/IGO. **Batches G1–G11, P1–P7 (COMPLETING PHASE 2) and C0–C12 have shipped — 279 of the 333 terms are cited and at the bar, all with
+  NGO/IGO. **Batches G1–G11, P1–P7 (COMPLETING PHASE 2), C0–C12 and D1 have shipped — 298 of the 333 terms are cited and at the bar, all with
   in-text markers in all ten languages. G11 COMPLETED Phase 1** (all 91 of its prehistory, palaeoanthropology,
   geological-time, peoples and physical-geography terms) **and P1 opened Phase 2** with the first six
   presidents, on the Miller Center's presidential essays; **P2 took it to Polk, P3 to Andrew Johnson, P4
@@ -432,6 +432,26 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   explanation, recorded as a hypothesis and NOT cited). And **UNdata was the outlier three times in four**
   on area (`Venezuela` between the two, `Argentina` and `Uruguay` matching the World Bank), which with C9's
   Libya and C10's Kiribati settles that **Source A is a source, not an authority**.
+  **D1 cleared the whole European deferral list (nineteen terms) and completed EUROPE**, using tools
+  that did not exist when C2, C3 and C5 deferred them — the recognition guide (C7) and the World Bank's
+  two series (C9, C11). It opens with a correction to the pass's own bookkeeping: **C9 claimed Africa
+  complete at 56 of 56 and it was 55**, because `Cape_Verde` never appeared in any batch's list — the
+  country lists from C7 onwards used the UN's spelling *Cabo Verde* against the glossary key
+  `Cape_Verde`, so it matched nothing and nobody noticed. **Derive a batch's list from the glossary's own
+  keys (`gloss-source-audit.js`'s uncited list), never from an outside list of country names.** Its
+  finding revises C8: **`SP.POP.TOTL` is NOT always the UN's number.** Where a country runs its own
+  statistical service the World Bank uses that instead, and `Albania` (2,349,580 against UNdata's
+  2,772,000) and `Moldova` (2,360,527 against 2,996,000) both match the TERM while UNdata is the outlier
+  — which is exactly why C2 deferred Albania, reading a 13.4% gap as the term being wrong. Both now cite
+  the World Bank and drop UNdata entirely. **Check whether the two actually agree before treating the
+  World Bank's population as a relay.** D1 also **retires the Greece shape** — a country term stating no
+  area, population or capital, deferred four times — by REWRITING the opening sentence to state the
+  figures its 195 siblings state: `Greece` gains 131,957 km² and Athens, `Georgia` gains 69,700 km²,
+  3.8 million and Tbilisi. **No population was added to Greece** (UNdata 9,939 thousand against the World
+  Bank's 10,413,962, a 4.8% gap it would be arbitrary to resolve). These are logged as rewrites, not
+  corrections — nothing either term said was wrong. Its two real corrections are `Switzerland` 41,285 →
+  **41,291** and `United_Kingdom` 244,376 → **243,610**; and `Monaco` at **75 km²** is the third outright
+  World Bank area error after C11's Canada and Dominican Republic.
   P3 also refines the `senate.gov` warning:
   its **impeachment** pages are real, its party-history and vice-president paths are the shell, and **the
   shell is a constant 37,523 bytes**, so a size check tells them apart instantly. Three access findings from it govern the rest of Phase 2 and Phase 3:
@@ -1078,14 +1098,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     stripe): one is derived from the data, the other is an editor's private marker.
   · `sup` + `class="fn"` + `data-fn` are in the sanitizer allowlists, so a community deck can use markers too.
   · **The Atlas table still ships EMPTY; the glossary has begun.** `country-sources.js` has no entries at all.
-    **`GLOSSARY_SOURCES` carries 279 of the 333 terms** (batches G1–G11, P1–P7 and C0–C12, 2026-08-01/02 — the genus, species, specimen,
+    **`GLOSSARY_SOURCES` carries 298 of the 333 terms** (batches G1–G11, P1–P7, C0–C12 and D1, 2026-08-01/02 — the genus, species, specimen,
     stone-industry, three-age, periodisation, geological-time, type-site, way-of-life and discipline terms, plus the
     Indigenous-peoples group, its odds and ends, the poles / desert / ocean / two historiographic names, the six
     continents with `Sicily`, `Equator` and the two hemispheres — which completes Phase 1 — and the first six
     US presidents, Jackson to Polk, Taylor to Andrew Johnson, Grant to McKinley, Theodore Roosevelt to
     Hoover, Franklin D. Roosevelt to Nixon, and Ford to Biden — **all 45** — plus C0's six pilot
     countries, C1–C2's twenty-five EU member states, C3's four non-EU European states and C4's seven
-    Commonwealth states in Asia, C5's four more, C6's thirteen African Commonwealth states, C7's eleven — the rest of Commonwealth Africa plus the first terms carried by the Office of the Historian's recognition guide — C8's fourteen non-Commonwealth African states and C9's last fourteen, which COMPLETE AFRICA at 56 of 56, C10's thirteen, which COMPLETE OCEANIA, C11's twenty across North and Central America and the Caribbean, and C12's twelve in South America), against
+    Commonwealth states in Asia, C5's four more, C6's thirteen African Commonwealth states, C7's eleven — the rest of Commonwealth Africa plus the first terms carried by the Office of the Historian's recognition guide — C8's fourteen non-Commonwealth African states and C9's last fourteen, which COMPLETE AFRICA at 56 of 56, C10's thirteen, which COMPLETE OCEANIA, C11's twenty across North and Central America and the Caribbean, C12's twelve in South America, and D1's nineteen, which clear the European deferral list), against
     a bar of **`GLOSS_SRC_TARGET` (2)**, which is lower than a card's five because a description is three sentences
     where an abstract is ten; `docs/glossary-citation-plan.md` is the plan for the rest and
     `node .claude/gloss-source-audit.js` says where it stands. The UI, the deltas and the pipeline are in place;
@@ -2608,8 +2628,8 @@ and its sources, and were fact-checked rather than referenced. A batched pass is
 reports both on every run, `node .claude/source-audit.js` reports them per card, and the Edit page's card list
 shows each card's coverage as an amber or red chip) — and **a second pass has started on the glossary**, batched
 through `docs/glossary-citation-plan.md` at a bar of **2 citations per term** (`GLOSS_SRC_TARGET`), with
-`node .claude/gloss-source-audit.js` and the glossary list's own coverage chip reporting it; **279 of 333 terms
-are cited** (batches G1–G11, which complete Phase 1; P1–P7, which complete Phase 2 — all 45 US presidents; and C0–C10, the Phase 3 pilot, twenty-five EU states, four non-EU European states, eleven Asian states, **all fifty-six African ones, all of Oceania and all of the Americas but three**). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
+`node .claude/gloss-source-audit.js` and the glossary list's own coverage chip reporting it; **298 of 333 terms
+are cited** (batches G1–G11, which complete Phase 1; P1–P7, which complete Phase 2 — all 45 US presidents; and C0–C10, the Phase 3 pilot, twenty-five EU states, four non-EU European states, eleven Asian states, **all fifty-six African ones, all of Oceania, all of the Americas but three and ALL of Europe**). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
 Two rules that pass turned up at once. **`add-sources.js` writes only the ENGLISH description**, so a term whose
 prose is corrected needs an `add-lang.js` run per language in the same batch or nine languages keep the old
 claim; and **a correction does not travel between surfaces** — `Homo_habilis` still carried the 2.3–1.5 Mya span

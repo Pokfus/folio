@@ -2,8 +2,8 @@
 
 The glossary was **333 terms and not one of them carried a source**. `window.GLOSSARY_SOURCES` was an empty
 table; the fold at the foot of a gloss popup never appeared. This is the plan for filling it. Not part of
-the site. **As of 2026-08-02, 279 of the 333 are cited and at the bar** — batches G1–G11, P1–P7 with the P-topup, and C0–C12, five of which also
-corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 279 carry in-text
+the site. **As of 2026-08-02, 298 of the 333 are cited and at the bar** — batches G1–G11, P1–P7 with the P-topup, and C0–C12 with D1, five of which also
+corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 298 carry in-text
 markers, in all ten languages, after the rule changed from optional to required on 2026-08-01 (see "What
 is different from the card pass"). G5 also settled the start of prehistory across the glossary, the deck
 and every date line: **2.6 Mya**, with the disputed 3.3 Ma Lomekwi claim hedged rather than adopted; G6
@@ -172,7 +172,7 @@ the way batch 21 recorded the Anubis walls, so the next pass does not re-run the
 | the poles, the desert, the sea and two names | 7 | Phase 1 · batch G10 — **done** |
 | the continents, the island and the constants | 10 | Phase 1 · batch G11 — **done** |
 | US presidents | 45 | Phase 2 · batches P1–P7 — **ALL DONE (2026-08-02)** |
-| countries and states of the world | 197 | Phase 3 · batches C0–C12 — **C0–C12 done (2026-08-02)**; 15 European and 35 Asian terms deferred with reasons (see the C3 and C5 logs); **Africa and Oceania are COMPLETE** |
+| countries and states of the world | 197 | Phase 3 · batches C0–C12 — **C0–C12 and D1 done (2026-08-02)**; 15 European and 35 Asian terms deferred with reasons (see the C3 and C5 logs); **Africa and Oceania are COMPLETE** |
 | **total** | **333** | |
 
 ## Order, and why
@@ -2409,11 +2409,68 @@ World Bank against UNdata's 173,626; only `Chile` matches UNdata against the Wor
 source, not an authority** — which is the same lesson C10 drew from Kiribati and C9 from Libya, now
 arriving three times in one batch.
 
+## Batch D1 log — the European deferrals, cleared (2026-08-02)
+
+**DONE, and EUROPE IS COMPLETE.** Nineteen terms — Greece, Georgia, Russia, Albania, Andorra, Armenia,
+Azerbaijan, Belarus, Iceland, Liechtenstein, Moldova, Monaco, Montenegro, San Marino, Serbia,
+Switzerland, Turkey, United Kingdom and Cape Verde — 40 citations, **four corrections including two
+rewrites**, nothing deferred. Coverage 279 → **298 of 333**. The standing European deferral list is
+empty.
+
+### First, a correction to this pass's own bookkeeping
+**C9 claimed Africa complete at 56 of 56 and it was 55.** `Cape_Verde` never appeared in any batch's
+list, because the country lists used from C7 onwards were written with the UN's spelling **Cabo Verde**
+while the glossary key is **`Cape_Verde`**. It matched nothing and was never noticed. It is cited here
+and Africa is now genuinely complete. **Derive a batch's list from the glossary's own keys — from
+`gloss-source-audit.js`'s uncited list — and never from an outside list of country names.**
+
+### Why nineteen deferrals cleared at once
+Every one was deferred in C2, C3 or C5 for want of a second source, and **the tools that clear them did
+not exist then**: the recognition guide (found in C7) and the World Bank's two series (C9, C11). Twelve
+ship on the guide — it states "1991" for all six post-Soviet terms, the 1815 Congress of Vienna "re-
+established the independence and neutrality of Switzerland", Andorra's co-principality with the Bishop of
+Urgell and the French president almost word for word, Liechtenstein's yielding of its foreign affairs to
+Switzerland, Iceland 1944, Montenegro and Serbia 2006, Cape Verde 1975, and Hoxha's Albania as "one of
+the most diplomatically isolated nations in the world".
+
+### The finding: `SP.POP.TOTL` is not always the UN's number, which revises C8
+C8 established that the World Bank's population series relays the UN's estimate and so cannot corroborate
+it — measured on Chad, where the two agree to the person. **That is not universally true.** Where a
+country runs its own well-established statistical service the World Bank uses that instead:
+
+| | UNdata | World Bank | the term |
+|---|---|---|---|
+| Albania | 2,772,000 | **2,349,580** | 2.4 million |
+| Moldova | 2,996,000 | **2,360,527** | 2.4 million |
+
+**In both, the term matches the World Bank and UNdata is the outlier** — which is exactly why C2 deferred
+Albania, reading a 13.4% gap as the term being wrong. It was not. Both ship citing the World Bank for
+figures and the guide for history, with **UNdata not cited at all**, as Kiribati did in C10. **Check
+whether the two actually agree before treating the World Bank's population as a relay; where they differ
+it is an independent source.**
+
+### The two rewrites — the Greece shape, retired
+`Greece` had been deferred **four times** and `Georgia` was heading the same way: country terms stating no
+area, no population and no capital, so no statistical profile can carry anything they say. Rather than
+defer a fifth time, each opening sentence now states the figures its 195 siblings state. `Greece` gains
+**131,957 km²** and **Athens**; `Georgia` gains **69,700 km²**, **roughly 3.8 million** and **Tbilisi**.
+**No population was added to Greece**, because UNdata gives 9,939 thousand against the World Bank's
+10,413,962 and choosing between them would have been arbitrary — the omission is deliberate. These are
+editorial changes, not corrections: nothing either term said was wrong, and they are logged as rewrites
+so no later reader mistakes them for findings. **This is the answer to the Greece shape**, and it applies
+to any term that turns up in the same state.
+
+### The two corrections, and a third World Bank area error
+`Switzerland` 41,285 → **41,291 km²** (both sources give it precisely) and `United Kingdom` 244,376 →
+**243,610 km²** (UNdata 242,495, the World Bank 243,610, the term above both). And after C11's Canada and
+Dominican Republic, **`Monaco` is listed by the World Bank at 75 km²** against the true ~2 — the third
+outright error in that series, and the third time C11's plausibility check has paid.
+
 ### Batches C1–C12 · by region
 
 | batch | region | terms | |
 |---|---|---|---|
-| **C1–C3** | Europe | 47 | Albania → Vatican City, plus Greece, France, Georgia, Denmark, Russia, less the three in C0. **C1 DONE (2026-08-02)**: Austria, Belgium, Bulgaria, Croatia, Cyprus, Czech Republic, Denmark, Estonia, Finland, Germany, Hungary, Ireland, Italy, Latvia, Lithuania — **Greece deferred to C2**, its description carrying no figure either source states. **C2 DONE (2026-08-02)**: Luxembourg, Malta, Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, Sweden — **six deferred to C3**: Greece again, Albania (UNdata contradicts its population), and Iceland, Norway, Switzerland, Andorra (UNdata alone is one source; `efta.int` and `coe.int` are 403 here) |
+| **C1–C3 + D1 DONE** | Europe | 47 | Albania → Vatican City, plus Greece, France, Georgia, Denmark, Russia, less the three in C0. **C1 DONE (2026-08-02)**: Austria, Belgium, Bulgaria, Croatia, Cyprus, Czech Republic, Denmark, Estonia, Finland, Germany, Hungary, Ireland, Italy, Latvia, Lithuania — **Greece deferred to C2**, its description carrying no figure either source states. **C2 DONE (2026-08-02)**: Luxembourg, Malta, Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, Sweden — **six deferred to C3**: Greece again, Albania (UNdata contradicts its population), and Iceland, Norway, Switzerland, Andorra (UNdata alone is one source; `efta.int` and `coe.int` are 403 here) |
 | **C4–C6** | Asia | 43 | Afghanistan → Yemen, plus India, China, Japan, less State of Palestine |
 | **C7–C9 DONE** | Africa | 53 | Algeria → Zimbabwe, plus Kenya and Tanzania, less South Sudan. **C8 DONE (2026-08-02)**: Algeria, Angola, Benin, Burkina Faso, Burundi, Central African Republic, Chad, both Congos, Djibouti, Egypt, Equatorial Guinea, Guinea, Guinea-Bissau — fourteen on the two-fetch recipe, thirteen stale populations updated; **Comoros deferred** (its area counts Mayotte and the guide gives a 1977 recognition against a 1975 independence). **C9 DONE (2026-08-02)**: Comoros, Ethiopia, Ivory Coast, Liberia, Libya, Madagascar, Mali, Mauritania, Niger, São Tomé and Príncipe, Senegal, Sudan, Tunisia, Zimbabwe — **AFRICA COMPLETE, 56 of 56**, with Libya and Comoros unblocked by the World Bank's area series. **C7 DONE (2026-08-02)**: Eswatini, Eritrea, Gabon, The Gambia, Kenya, Lesotho, Malawi, Morocco, Somalia, Tanzania, Togo — the rest of Commonwealth Africa plus the first four carried by the Office of the Historian's recognition guide. **Three deferred**: Egypt, Ethiopia and Libya, each a figure diverging from UNdata with no second profile |
 | **C10 DONE** | Oceania | 13 | **DONE (2026-08-02)**: all thirteen — Australia, New Zealand, Papua New Guinea, Fiji, Solomon Islands, Vanuatu, Samoa, Tonga, Kiribati, Nauru, Palau, Marshall Islands, Micronesia — most on THREE sources, four corrections, nothing deferred |

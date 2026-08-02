@@ -9559,3 +9559,106 @@ of the coast; Brazil's third sentence entire.
 `history.state.gov/countries/<slug>` (colombia, venezuela, guyana, suriname, ecuador, peru, bolivia,
 paraguay, argentina, uruguay), `history.state.gov/milestones/1969-1976/allende` and
 `api.worldbank.org/v2/country/BRA/indicator/AG.SRF.TOTL.K2`.
+
+---
+
+## Batch D1 — the European deferrals, cleared (2026-08-02)
+
+Nineteen terms cited, 40 citations, **four corrections including two rewrites**. Coverage 279 → 298 of
+333. **Nothing deferred: the European deferral list is empty and EUROPE IS COMPLETE.**
+
+**Greece · Georgia · Russia · Albania · Andorra · Armenia · Azerbaijan · Belarus · Iceland ·
+Liechtenstein · Moldova · Monaco · Montenegro · San Marino · Serbia · Switzerland · Turkey · United
+Kingdom · Cape Verde.**
+
+### First, a correction to this pass's own bookkeeping
+**C9 claimed Africa complete at 56 of 56 and it was 55.** `Cape_Verde` was never in any batch's list,
+because the country lists used through C7–C9 were written from the UN's spelling **Cabo Verde** while the
+glossary's key is **`Cape_Verde`** — so it matched nothing and was never noticed. It is cited here, and
+Africa is now genuinely complete. **The lesson is to derive a batch's list from
+`Object.keys(window.GLOSSARY)` rather than from an outside list of country names**, which is what the
+`gloss-source-audit.js` uncited list does and what should have been used from C7 onwards.
+
+### Why these nineteen were deferrable and are not any more
+Every one was deferred in C2, C3 or C5 for want of a second source, and the tools that clear them did not
+exist then: **the Office of the Historian's recognition guide (found in C7)** and **the World Bank's
+`AG.SRF.TOTL.K2` and `SP.POP.TOTL` series (C9, C11)**. Twelve of the nineteen ship on the guide, which
+carries the post-Soviet independences directly (`Georgia`, `Armenia`, `Azerbaijan`, `Belarus`, `Moldova`
+and `Russia` all state "1991" and the guide states it too), and:
+- **`Switzerland`** — "the 1815 [Congress of Vienna] re-established the independence and neutrality of
+  Switzerland", which is the term's "armed neutrality since 1815" exactly.
+- **`Liechtenstein`** — "Liechtenstein yielded control of its foreign affairs to Switzerland for much of
+  the twentieth century", the term's "shares… its diplomatic representation abroad", plus the 1806
+  sovereignty and the German Confederation of 1815.
+- **`Andorra`** — "a co-principality, with the Bishop of Urgell (Spain) serving as one of its co-princes
+  and the French president serving as the other", the term's third sentence almost word for word.
+- **`Monaco`** — the principality "a sovereign, independent country" in 1776, annexed 1793, independence
+  regained 1814 and reaffirmed by the Treaty of Vienna.
+- **`Iceland`** 1944, **`Montenegro`** 2006, **`Serbia`** 2006, **`Cape Verde`** 1975, **`Albania`**
+  under Hoxha "one of the most diplomatically isolated nations in the world".
+
+### The two rewrites, and why they are rewrites rather than corrections
+`Greece` had been deferred **four times** and `Georgia` was heading the same way: both are the "Greece
+shape" — country terms that state no area, no population and no capital, so no statistical profile can
+carry anything they say. Rather than defer a fifth time, each opening sentence now states the figures its
+195 sibling terms state, in the house pattern:
+- `Greece` gains **131,957 km²** and **Athens** — both carried by UNdata and the World Bank (131,960).
+  **No population was added**, because UNdata gives 9,939 thousand and the World Bank 10,413,962, a 4.8%
+  disagreement it would have been arbitrary to resolve; the omission is deliberate.
+- `Georgia` gains **69,700 km²** (identical in both sources), **roughly 3.8 million** and **Tbilisi**.
+
+These are editorial changes, not corrections: nothing the terms said was wrong. They are recorded here as
+such so that no later reader mistakes them for findings.
+
+### The two corrections
+- **`Switzerland`** 41,285 → **41,291 km²**, which UNdata and the World Bank both give precisely.
+- **`United Kingdom`** 244,376 → **243,610 km²**. UNdata gives 242,495 and the World Bank 243,610, and
+  the term's figure sat above both; it is set to the one inside the spread. (This also retires C3's split
+  fault, repaired in C7.)
+
+### `SP.POP.TOTL` is NOT always the UN's number, which revises C8
+C8 established that the World Bank's population series relays the UN's estimate and so cannot corroborate
+it — measured on Chad, where the two agree to the person. **That is not universally true.** Where a
+country runs its own well-established statistical service the World Bank uses that instead, and the two
+diverge sharply:
+
+| | UNdata 2025 | World Bank 2025 | the term |
+|---|---|---|---|
+| Albania | 2,772,000 | **2,349,580** | 2.4 million |
+| Moldova | 2,996,000 | **2,360,527** | 2.4 million |
+| Greece | 9,939,000 | 10,413,962 | (states none) |
+
+**In both Albania and Moldova the term matches the World Bank and UNdata is the outlier**, which is
+exactly why C2 deferred Albania — reading its 13.4% gap as the term being wrong. It was not. Both ship
+citing the World Bank for area and population and the recognition guide for history, with **UNdata not
+cited at all**, as Kiribati did in C10. **The rule: check whether the two actually agree before treating
+the World Bank's population as a relay; where they differ it is an independent source.**
+
+### A third World Bank area error, after C11's Canada and Dominican Republic
+**`Monaco` is listed at 75 km²** against the true ~2. UNdata gives 2 and the term "about 2 km²", so the
+term stands and the World Bank is not cited there. C11's plausibility check earns its keep again.
+
+### Recorded, not corrected
+- `Serbia` states 77,589 km², "or 88,499 km² counting Kosovo"; UNdata gives 88,444 and the World Bank
+  84,990. The term's second figure is 55 km² above UNdata's and its first is in neither source. Marked to
+  UNdata and recorded rather than adjusted — the three figures are three different conventions about
+  Kosovo, not a mistake.
+- `Greece`'s "recognized as sovereign in 1830" is **not** carried: the guide recognises Greece in **1837**
+  and states no earlier date. Left unmarked.
+- `Turkey`'s "reorganised as a secular republic in 1923" is not stated either; what the guide gives is
+  "After World War I, the Ottoman Empire dissolved, and in its place arose the modern state of Turkey".
+- `United Kingdom`'s third sentence entire (1603, 1707, 1801, 1922, the empire, the 2020 EU exit) — the
+  guide's UK page is about American independence *from* the UK and carries none of it, so the term is
+  carried by its figures alone, the `Brazil` pattern of C12.
+- `San Marino`'s foundation "by tradition to the year 301", its statutes of 1600 and its captains regent —
+  the guide gives only U.S. recognition in 1861. Also carried by figures alone.
+- `Monaco`'s Grimaldi rule "since the end of the 13th century" is not on the page, which begins at 1776.
+
+### Verified citations (batch D1)
+`data.un.org/en/iso/<cc>.html` (gr, ge, ru, ad, am, az, by, is, li, mc, me, sm, rs, ch, tr, gb, cv),
+`history.state.gov/countries/<slug>` (georgia, russia, albania, andorra, armenia, azerbaijan, belarus,
+iceland, liechtenstein, moldova, monaco, montenegro, serbia, switzerland, turkey, cape-verde) and
+`api.worldbank.org/v2/country/<ISO3>/indicator/{AG.SRF.TOTL.K2,SP.POP.TOTL}` (GRC, ALB, MDA, SMR, GBR).
+
+**Cape Verde's guide slug is `cape-verde`**, not `cabo-verde` — the reverse of the UNdata code `cv`
+labelled "Cabo Verde", and the same naming split that hid the term in the first place.
