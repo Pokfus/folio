@@ -9166,3 +9166,102 @@ carries `congo-free-state`.
   `utf-8-sig`; it also returns an empty body under rapid repeated requests, which retries fix.
 - `data.worldbank.org/country/<name>` — 200 but a ~2 MB JavaScript page; use the API.
 - `population.un.org/wpp/` — 200.
+
+---
+
+## Batch C9 — the last of Africa, and the second source for AREA (2026-08-02)
+
+Fourteen terms cited, 29 citations, **fifteen corrections across thirteen terms**. Coverage 220 → 234 of
+333. **Africa is complete: 56 of 56.**
+
+**Comoros · Ethiopia · Ivory Coast · Liberia · Libya · Madagascar · Mali · Mauritania · Niger · São Tomé
+and Príncipe · Senegal · Sudan · Tunisia · Zimbabwe.** Nothing deferred.
+
+### The finding: the World Bank IS an independent second source — for AREA, not for population
+C8 established that `SP.POP.TOTL` relays the UN's own population estimate and is therefore a diagnostic
+rather than a citation. **`AG.SRF.TOTL.K2` is a different matter**: it comes through the FAO, not the UN
+Statistics Division, and it disagrees with UNdata exactly where a disagreement is informative.
+
+    api.worldbank.org/v2/country/<A>;<B>;<C>/indicator/AG.SRF.TOTL.K2?format=json&date=2022
+
+A single request takes a semicolon-separated list of countries, which is also the way around the API's
+habit of returning an empty body under rapid repeated single fetches.
+
+**It resolved both standing deferrals at once, and in the same direction — the term was right and UNdata
+was the outlier:**
+- **`Libya`**, deferred in C7 on a 5.0% area gap: the term's **1,759,540 km²** is the World Bank's figure
+  exactly, against UNdata's 1,676,198.
+- **`Comoros`**, deferred in C8 because UNdata's 2,235 km² counts Mayotte: the term's **1,861 km²** is the
+  World Bank's figure exactly.
+
+Both are now cited on the World Bank for the area and UNdata for the population and capital, with the
+World Bank first in each list. **The rule: when UNdata's area looks wrong, ask `AG.SRF.TOTL.K2` before
+deferring — and never use `SP.POP.TOTL` the same way, because that one is the UN's own number.**
+
+The rest of the batch confirms the two agree almost everywhere: Mauritania 1,030,700 and Niger 1,267,000
+and Tunisia 163,610 are identical in both, and Madagascar (587,041 / 587,295), Zimbabwe (390,757 /
+390,760), Liberia (111,369 / 111,370), Mali (1,240,192 / 1,240,190) and São Tomé (964 / 960) differ by
+under 0.05%. **The working line adopted here: correct an area only when the term falls OUTSIDE the spread
+of the two sources; leave it when it falls inside.** `Ivory_Coast` (322,463 against 322,462 and 322,460)
+falls inside and was left; `Senegal` (196,722 against 196,712 and 196,710) falls outside and was corrected
+to 196,712.
+
+### Corrections
+**Thirteen populations**, all diagnosed by the C8 method — each is an earlier point on the same series:
+Comoros 850,000 → 880,000 (2023), Ethiopia 130 → 135 m (2024), Ivory Coast 31 → 33 m (2023), Liberia 5.4 →
+5.7 m (2022), Libya 7 → 7.5 m (2019), Madagascar 31 → 33 m (2023), Mali 23 → 25 m (2022), Mauritania 4.9 →
+5.3 m (2021), Niger 26 → 28 m (2023), São Tomé 230,000 → 240,000 (2023), Senegal 18 → 19 m (2023), Sudan
+48 → 52 m (2021), Zimbabwe 16 → 17 m (2023). **`Tunisia` was left at "roughly 12 million"** against 12,349
+thousand — it rounds correctly and is the one figure in the batch still current enough to stand.
+
+**One area**: `Senegal` 196,722 → **196,712 km²**, as above.
+
+**One date narrowed**: `Madagascar` "France conquered it in 1897" → **"in the 1890s"**. The recognition
+guide states "In 1890, France assumed sovereignty over Madagascar as a colony"; 1890 is the recognition of
+the protectorate and 1897 the annexation, so the two name different acts. Narrowing to the decade is batch
+16's rule applied to a conquest rather than a naming history — say what the source will bear.
+
+### What the recognition guide gave, beyond the independence year
+- **`Zimbabwe`** — all three of the term's historical claims from one page: "previously had been under
+  British sovereignty as **Southern Rhodesia**"; "The United States never recognized the independence of
+  Rhodesia, the name of the state proclaimed by the colony's minority white government in its **unilateral
+  declaration of independence (UDI) in 1965**"; and independence on 18 April 1980.
+- **`Liberia`** — "The state that became Liberia originated in **1822** when the American Colonization
+  Society founded a settlement for freedmen and recaptured slaves. In **1847** the settlement constituted
+  itself as a republic", which is the term's first two clauses verbatim in substance.
+- **`Sudan`** — "previously had been subject to foreign control under an **Anglo-Egyptian condominium**",
+  independence 1 January 1956.
+- **`Tunisia`** — a whole section headed "Tunisia under French Control, **1881-1956**", the Treaty of Bardo
+  of 12 May 1881 and the La Marsa Convention of 1883 "explicitly stated that Tunisia was a French
+  protectorate", with independence recognised in March 1956.
+- **`Ivory Coast`** — independence 1960 under **Houphouët-Boigny**, named, plus the 1986 change of name to
+  Côte d'Ivoire.
+- **`Mali`** — the Federation of Mali (Senegal plus the Soudanese Republic) independent in June 1960 and
+  the Republic of Mali from September, after Senegal withdrew: one page carrying both this term's and
+  `Senegal`'s third sentence.
+
+### UNMARKED, and recorded
+- **`Sudan`'s area.** Its UNdata profile has **no Surface area field at all** — the one profile in Phase 3
+  that omits it — so the term's 1,861,484 km² rests on nothing here; the World Bank's 1,878,000 is a
+  different convention (0.9%) and does not settle it. The clause is inside a marked sentence and the gap is
+  recorded rather than corrected.
+- **`Ethiopia`'s area**, 1,104,300, matches UNdata exactly and the World Bank gives 1,136,240 — the term is
+  inside the spread and takes UNdata's figure.
+- **`Ethiopia`** "the only African state to defeat a European invasion and remain independent" and "a
+  monarchy claiming descent from Solomon lasted until 1974" are in nothing opened here; the guide gives the
+  Italian invasions of 1895 and 1935 and "Ethiopia's revolution" without dating the dynasty's end.
+- **`Comoros`** — the recognition guide records U.S. recognition in **1977** against the term's 1975
+  independence and says nothing of French rule, so it is **not cited for this term at all**; the 1975 date
+  is carried by UNdata's UN membership date of 12 November 1975.
+- **UN membership dates that do NOT corroborate**, and so were not marked: `Mauritania` (27 October 1961
+  against independence in 1960 — a Soviet veto delayed admission), `Libya` (14 December 1955 against
+  independence in 1951, the same Cold War deadlock), `Liberia` (2 November 1945, long after its 1847
+  founding) and `Ethiopia` (13 November 1945).
+
+### Verified citations (batch C9)
+`data.un.org/en/iso/<cc>.html` (km, et, ci, lr, ly, mg, ml, mr, ne, st, sn, sd, tn, zw),
+`history.state.gov/countries/<slug>` (ethiopia, cote-divoire, liberia, libya, madagascar, mali,
+mauritania, niger, sao-tome-and-principe, senegal, sudan, tunisia, zimbabwe) and
+`api.worldbank.org/v2/country/<ISO3>/indicator/AG.SRF.TOTL.K2` (COM, LBY).
+
+**Côte d'Ivoire's slug is `cote-divoire`** — one hyphen, no apostrophe.
