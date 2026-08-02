@@ -6889,3 +6889,227 @@ https://www.archives.gov/milestone-documents/treaty-of-guadalupe-hidalgo. [Open 
   Indiana Territory" as against the Miller Center's slip; Tyler's "banking bills" in the plural, where the
   essay names one; and Polk's "Tennessee protégé of Jacksonian politics", which the essay supports in
   substance without the phrase.
+
+## Batch P3 — Taylor to Andrew Johnson (GLOSSARY, 2026-08-02)
+
+Six terms, 25 citation slots from **twenty distinct works, every one of them open**, and again none from
+this register. The batch that runs from the Compromise of 1850 to Reconstruction is the one where the
+Miller Center's *Life in Brief* stops being sufficient on its own: five of the six terms needed a second or
+third essay from the same author, because a three-sentence description of a president in this decade names
+a statute, a treaty, a battle date or a trial, and the brief essay names none of them.
+
+**One correction, and it is a sequence rather than a figure** — the same rate as P1 and P2, and for P1's
+reason.
+
+**Two primary documents did the work a summary could not**, which is P1's "a statute is its own best
+citation" and P2's "a party platform is its own best citation" arriving a third time. The Fugitive Slave
+Act's own §5 and the Senate's own trial record are what the `Millard_Fillmore` and `Andrew_Johnson` terms
+now rest on.
+
+### Verified citations (batch P3)
+
+### mc-taylor-lib / mc-taylor-lbp / mc-taylor-death · the twelfth presidency
+Michael Holt, "Zachary Taylor: Life in Brief," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/taylor/life-in-brief. [Open access]
+Michael Holt, "Zachary Taylor: Life Before the Presidency," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/taylor/life-before-the-presidency. [Open access]
+Michael Holt, "Zachary Taylor: Death of the President," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/taylor/death-of-the-president. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports: "Taylor was a wealthy slave owner who held properties in the plantation states of
+  Louisiana, Kentucky, and Mississippi"; that "In 1808, he received his first commission as an officer" and
+  was "transferred from one frontier post to another"; that Polk's order into the contested Texas border
+  area "ignited the Mexican-American War" and that "Taylor's army of 6,000 had defeated a Mexican force of
+  20,000" at Buena Vista, making him "a national hero"; that "Taylor had never divulged his political
+  preferences"; and that he "opposed the extension of slavery into areas where neither cotton nor sugar
+  could be grown" while wanting California and New Mexico to write constitutions and apply for statehood
+  at once
+- Life Before the Presidency dates the battle: "**In February 1847**, Santa Anna threw his nearly 20,000
+  soldiers into the Battle at Buena Vista"
+- Death of the President dates the death: "At about ten in the morning on **July 9, 1850**, Taylor called
+  his wife to him"
+- used by: `Zachary_Taylor`
+
+### nara-compromise-1850 · the package, and the fugitive slave act inside it
+National Archives and Records Administration, "Compromise of 1850," Milestone Documents,
+https://www.archives.gov/milestone-documents/compromise-of-1850. [Open access]
+- opened: 2026-08-02
+- supports: that the Compromise "was actually a series of bills … The bills provided for slavery to be
+  decided by popular sovereignty in the admission of new states, prohibited the slave trade in the District
+  of Columbia, settled a Texas boundary dispute, and established a stricter fugitive slave act"; that "In
+  1849, California requested permission to enter the Union as a 'free state'"; and that under the 1850 Act
+  "both federal and local law enforcement in all states (both 'slave' and 'free') were required to enforce
+  the legislation and arrest suspected fugitive slaves"
+- used by: `Zachary_Taylor`, `Millard_Fillmore`
+
+### mc-fillmore-lib · the thirteenth presidency
+Michael Holt, "Millard Fillmore: Life in Brief," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/fillmore/life-in-brief. [Open access]
+- opened: 2026-08-02
+- supports: Fillmore's rise from the vice presidency on Taylor's death; the Compromise as "a patchwork of
+  legislation that would admit California as a new free state; organize New Mexico and Utah … as territories
+  on the basis of popular sovereignty; and readjust the disputed boundary between Texas and New Mexico",
+  with a fugitive slave law attached, which as president he "engineered"; that he lost the 1852 nomination
+  "to General Winfield Scott"; and that in 1856 he ran for "the Whig-American Party, a fusion of the
+  remaining Whigs and the **anti-immigrant** American (nicknamed 'Know-Nothing') Party" and "won the
+  Electoral College votes of **Maryland**" — the term's "carried only one state"
+- used by: `Millard_Fillmore`
+
+### avalon-fugitive-slave-1850 · the clause about ordinary citizens
+"Fugitive Slave Act 1850," *The Avalon Project: Documents in Law, History and Diplomacy*, Lillian Goldman
+Law Library, Yale Law School, https://avalon.law.yale.edu/19th_century/fugitive.asp. [Open access]
+- opened: 2026-08-02 · the statute's own text
+- supports the term's clause that NARA's summary does not: §5 empowers officers to "call to their aid the
+  bystanders, or posse comitatus of the proper county … and **all good citizens are hereby commanded to aid
+  and assist in the prompt and efficient execution of this law, whenever their services may be required**".
+  The NARA page speaks only of law enforcement, so the term was cited to the Act itself rather than
+  softened to the summary
+- used by: `Millard_Fillmore`
+
+### mc-pierce-lib / -campaigns / -foreign / -domestic · the fourteenth presidency
+Jean H. Baker, "Franklin Pierce: Life in Brief," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/pierce/life-in-brief. [Open access]
+Jean H. Baker, "Franklin Pierce: Campaigns and Elections," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/pierce/campaigns-and-elections. [Open access]
+Jean H. Baker, "Franklin Pierce: Foreign Affairs," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/pierce/foreign-affairs. [Open access]
+Jean H. Baker, "Franklin Pierce: Domestic Affairs," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/pierce/domestic-affairs. [Open access]
+- opened: 2026-08-02
+- **Pierce's *Life in Brief* is the shortest of the forty-five** — two paragraphs — and carries only that he
+  was the 14th president, a New Hampshire man, and that "Although he did not author the Kansas-Nebraska Act,
+  he did encourage its passage by Congress. And that piece of legislation set the nation on its path to
+  civil war." Everything else came from the three companion essays
+- Campaigns and Elections supports "chosen as a compromise candidate": at Baltimore "none of these men could
+  secure the two-thirds majority … a deadlock ensued. After thirty-four ballots, it became obvious that a
+  new candidate was needed", and "the Democrats handed Pierce the nomination on the forty-eighth ballot"
+- Foreign Affairs supports the purchase: "Pierce was convinced by Secretary of War Jefferson Davis to send
+  Senator James Gadsden … to negotiate the Gadsden Purchase with Mexico"
+- Domestic Affairs supports the rest: "Congress passed Douglas's Kansas-Nebraska Act in May 1854, and Pierce
+  signed it"; that popular sovereignty meant "proslavery agitators streamed into Kansas"; that "by the end
+  of Pierce's term, the Kansas territory was the scene of violence and bloodshed, hence its nickname,
+  'Bleeding Kansas'"; and that "his party abandoned him as a presidential candidate in 1856 and chose James
+  Buchanan"
+- used by: `Franklin_Pierce`
+
+### nara-kansas-nebraska · the Act itself
+National Archives and Records Administration, "Kansas-Nebraska Act (1854)," Milestone Documents,
+https://www.archives.gov/milestone-documents/kansas-nebraska-act. [Open access]
+- opened: 2026-08-02
+- supports: that the act, "Officially titled 'An Act to Organize the Territories of Nebraska and Kansas' …
+  repealed the Missouri Compromise … and reopened the national struggle over slavery in the western
+  territories", and that Douglas "argued in favor of popular sovereignty, or the idea that the settlers of
+  the new territories should decide if slavery would be legal there"
+- used by: `Franklin_Pierce`
+
+### mc-buchanan-lib / mc-buchanan-lbp · the fifteenth presidency
+William Cooper, "James Buchanan: Life in Brief," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/buchanan/life-in-brief. [Open access]
+William Cooper, "James Buchanan: Life Before the Presidency," Miller Center of Public Affairs, University
+of Virginia, https://millercenter.org/president/buchanan/life-before-the-presidency. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports: "membership in both houses of Congress, ambassadorships, and a cabinet post"; that
+  he "asserted that slavery should be a matter for individual states and territories to decide for
+  themselves"; the Dred Scott decision announced "two days after Buchanan's inauguration"; that he
+  "endorsed a proslavery constitution for Kansas"; and that "Six weeks after Lincoln's election, South
+  Carolina left the Union, and within another six weeks, six other states followed. Maintaining that he
+  lacked power, the lame-duck Buchanan took no action to stop secession"
+- Life Before the Presidency supplies the London posting the Secretary-of-State biography cannot: Pierce
+  named "the Pennsylvanian to the critical post of **minister to England**"
+- used by: `James_Buchanan`
+
+### oh-buchanan-sos · minister to Russia, and the cabinet post
+Office of the Historian, U.S. Department of State, "Biographies of the Secretaries of State: James Buchanan
+(1791–1868)," https://history.state.gov/departmenthistory/people/buchanan-james. [Open access]
+- opened: 2026-08-02
+- supports: that "James Buchanan was appointed Secretary of State by President James K. Polk on March 6,
+  1845"; that "In 1832, President Andrew Jackson made Buchanan **Minister Plenipotentiary to Russia**"; and
+  the House and Senate service before it
+- used by: `James_Buchanan`
+
+### whha-buchanan · the one who never married
+White House Historical Association, "James Buchanan," Presidents and First Ladies,
+https://www.whitehousehistory.org/bios/james-buchanan. [Open access]
+- opened: 2026-08-02 · reachable to `curl`; the host is user-agent sensitive, as P2 found
+- supports the term's closing clause outright: "**James Buchanan was the only president who never married.**"
+  The Miller Center's Family Life essay says only "Though a bachelor", which is not the superlative the term
+  makes
+- used by: `James_Buchanan`
+
+### mc-lincoln-lib / mc-lincoln-death · the sixteenth presidency
+Michael Burlingame, "Abraham Lincoln: Life in Brief," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/lincoln/life-in-brief. [Open access]
+Michael Burlingame, "Abraham Lincoln: Death of the President," Miller Center of Public Affairs, University
+of Virginia, https://millercenter.org/president/lincoln/death-of-the-president. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports: "Born dirt-poor in a log cabin in Kentucky in 1809, Lincoln grew up in frontier
+  Kentucky and Indiana, where he was largely self-educated"; that he "taught himself law"; his 1860
+  opposition to "the expansion of slavery westward"; **the secession sequence the term now follows** —
+  "When Abraham Lincoln was elected President in 1860, **seven** slave states left the Union to form the
+  Confederate States of America, and **four more joined when hostilities began**"; the Emancipation
+  Proclamation "in January of 1863"; and "His Gettysburg Address, delivered after the Battle of Gettysburg"
+- Death of the President dates the killing: Lee's surrender "occurred on April 9", and "**Five days
+  later**, as the victorious Lincoln watched … at Ford's Theater **in Washington, D.C.**, a darkly clad
+  figure … shot the President point-blank"
+- used by: `Abraham_Lincoln`
+
+### nara-13th-amendment · the amendment he pushed through
+National Archives and Records Administration, "13th Amendment to the U.S. Constitution: Abolition of
+Slavery (1865)," Milestone Documents, https://www.archives.gov/milestone-documents/13th-amendment.
+[Open access]
+- opened: 2026-08-02
+- supports the term's "pushed through the amendment abolishing slavery": that "Lincoln recognized that the
+  Emancipation Proclamation would have to be followed by a constitutional amendment in order to guarantee
+  the abolishment of slavery"; that "though the Senate passed it in April 1864, the House initially did
+  not. At that point, **Lincoln took an active role to ensure passage through Congress**"; and that "the
+  House passed the bill in January 1865 with a vote of 119–56"
+- used by: `Abraham_Lincoln`
+
+### mc-ajohnson-lib · the seventeenth presidency
+Elizabeth R. Varon, "Andrew Johnson: Life in Brief," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/johnson/life-in-brief. [Open access]
+- opened: 2026-08-02
+- supports: Johnson apprenticed to a tailor and setting up "shop as a tailor" in Greeneville; that "When
+  Tennessee left the Union after the election of Abraham Lincoln, Johnson broke with his home state,
+  becoming **the only Southern senator to retain his seat in the U.S. Senate**"; the lenient Reconstruction
+  he "rushed through" while Congress was in recess, including pardons and the "black codes"; his vetoes of
+  the Freedmen's Bureau Bill and the Civil Rights Act; and the impeachment vote of "126 to 47 in February
+  1868"
+- used by: `Andrew_Johnson`
+
+### senate-johnson-impeachment · the trial, from the body that held it
+United States Senate, "The Impeachment Trial of President Andrew Johnson, 1868," Senate Historical Office,
+https://www.senate.gov/about/powers-procedures/impeachment/impeachment-johnson.htm. [Open access]
+- opened: 2026-08-02 · **a real page on senate.gov, not the 404 shell** — 92 KB against the shell's 37.5 KB,
+  which is how P1's and P2's finding is checked in practice
+- supports: "This clash culminated in the House of Representatives voting, on **February 24, 1868**, to
+  impeach the president"; that the trial ran from 5 March to 16 May; that "the president had won acquittal";
+  and the margin the term claims — "A clear majority voted against the president, but **the tally fell one
+  vote short of the necessary two-thirds majority to convict**", the roll being "35 to 19 to acquit on
+  article 11"
+- used by: `Andrew_Johnson`
+
+### oh-alaska-purchase · the purchase of 1867
+Office of the Historian, U.S. Department of State, "Purchase of Alaska, 1867," Milestones in the History of
+U.S. Foreign Relations, https://history.state.gov/milestones/1866-1898/alaska-purchase. [Open access]
+- opened: 2026-08-02
+- supports: that Seward "on March 30, 1867, agreed to a proposal from Russian Minister in Washington,
+  Edouard de Stoeckl, to purchase Alaska for $7.2 million", and that "This purchase ended Russia's presence
+  in North America"
+- used by: `Andrew_Johnson`
+
+### NOT CITED (batch P3) — what could not be sourced, and what is kept unmarked
+- **`senate.gov` is not uniformly broken**, and P1's and P2's finding needs this refinement: its
+  *impeachment* pages are real and substantial, while its *party-history* and *vice-president* paths return
+  the 404 shell with a 200 status. The shell is a constant **37,523 bytes**; a size check distinguishes the
+  two instantly, which is the cheapest form of "check the body, not the code".
+- `history.state.gov/milestones/1830-1860/kansas-nebraska` and
+  `archives.gov/milestone-documents/fugitive-slave-act` are both 404 — the Kansas-Nebraska Act is a NARA
+  milestone rather than a State Department one, and the Fugitive Slave Act has no NARA milestone page of its
+  own, being folded into the Compromise of 1850. The Avalon Project supplied the statute instead.
+- Kept unmarked, uncontradicted, in nothing opened: Taylor's "four decades in the army" as a round figure
+  (his commission is dated 1808 and the war ends in 1848, so it follows, but no source says it); Fillmore's
+  "anti-immigrant Know Nothing movement" as a simplification of the Whig-American fusion the essay names;
+  Buchanan's "long record in Congress" as a characterisation; Lincoln's being "an American lawyer"; and
+  Johnson's "resisting measures to protect the rights of freed people" as a summary of the vetoes the essay
+  itemises.

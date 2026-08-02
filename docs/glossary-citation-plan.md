@@ -2,8 +2,8 @@
 
 The glossary was **333 terms and not one of them carried a source**. `window.GLOSSARY_SOURCES` was an empty
 table; the fold at the foot of a gloss popup never appeared. This is the plan for filling it. Not part of
-the site. **As of 2026-08-02, 102 of the 333 are cited and at the bar** — batches G1–G11 and P1–P2, five of which also
-corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 102 carry in-text
+the site. **As of 2026-08-02, 108 of the 333 are cited and at the bar** — batches G1–G11 and P1–P3, five of which also
+corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 108 carry in-text
 markers, in all ten languages, after the rule changed from optional to required on 2026-08-01 (see "What
 is different from the card pass"). G5 also settled the start of prehistory across the glossary, the deck
 and every date line: **2.6 Mya**, with the disputed 3.3 Ma Lomekwi claim hedged rather than adopted; G6
@@ -171,7 +171,7 @@ the way batch 21 recorded the Anubis walls, so the next pass does not re-run the
 | Indigenous peoples, and the odds and ends | 8 | Phase 1 · batch G9 — **done** |
 | the poles, the desert, the sea and two names | 7 | Phase 1 · batch G10 — **done** |
 | the continents, the island and the constants | 10 | Phase 1 · batch G11 — **done** |
-| US presidents | 45 | Phase 2 · batches P1–P7 — **P1–P2 done** |
+| US presidents | 45 | Phase 2 · batches P1–P7 — **P1–P3 done** |
 | countries and states of the world | 197 | Phase 3 · batches C0–C12 |
 | **total** | **333** | |
 
@@ -1369,11 +1369,49 @@ path `/HistoricalHighlight/Detail/<id>` and NOT by the human-readable
 Two candidate citations were lost to this before the numeric form was found; P1's gag-rule citation already
 uses it.
 
+### Batch P3 log — where the Life in Brief runs out, and the documents take over
+
+#### 2026-08-02 — six terms, 25 citations, one corrected clause
+
+**Coverage 102/333 → 108/333.** Twenty distinct works, **every one of them open**, and again none from the
+register. This is the batch where the Miller Center's *Life in Brief* stops being sufficient on its own:
+**five of the six terms needed a second or third essay from the same author**, because a three-sentence
+description of a president between 1849 and 1869 names a statute, a treaty, a battle date or a trial, and
+the brief essay names none of them. `Franklin_Pierce`'s is the shortest of the forty-five — two paragraphs —
+and carried exactly one of that term's claims; its Campaigns, Foreign Affairs and Domestic Affairs essays
+carried the rest. **Budget two to four Miller Center essays per president from here on, not one.**
+
+**A primary document did the work a summary could not, for the third batch running.** P1 found that a
+statute is its own best citation and P2 that a party platform is; P3 adds a **trial record** and a
+**statute the summary paraphrases away**:
+- `Millard_Fillmore` says the Fugitive Slave Act "obliged citizens across the country to assist in the
+  capture of escaped slaves". The National Archives' page on the Compromise of 1850 says only that "both
+  federal and local law enforcement in all states … were required to enforce the legislation", which is
+  narrower — so the clause is cited to **the Act's own §5** at Yale Law School's Avalon Project: "all good
+  citizens are hereby commanded to aid and assist in the prompt and efficient execution of this law". The
+  alternative was to soften a true sentence to match a summary, which is the wrong direction.
+- `Andrew_Johnson`'s "the Senate acquitted him by a single vote" is cited to **the Senate's own account of
+  the trial**: "the tally fell one vote short of the necessary two-thirds majority to convict", with the
+  roll at 35 to 19.
+
+**The one correction is a sequence, not a figure.** `Abraham_Lincoln` had it that "his election prompted
+eleven southern states to secede and form the Confederacy, beginning the Civil War". Eleven is the eventual
+total, but it compresses away the thing that matters: the Miller Center's first sentence is "When Abraham
+Lincoln was elected President in 1860, **seven** slave states left the Union to form the Confederate States
+of America, and **four more joined when hostilities began**." Four of the eleven left after Fort Sumter,
+not because of the election. The term now says seven, with four more once the fighting began.
+
+**A refinement to P1's and P2's `senate.gov` finding, which matters because Phase 2 will keep wanting that
+host.** It is not uniformly broken: its **impeachment** pages are real and substantial, while its
+party-history and vice-president paths return the 404 shell with a 200 status. **The shell is a constant
+37,523 bytes** — a size check tells the two apart instantly, and is the cheapest form of "check the body,
+not the status code".
+
 | batch | presidents | second-source spine |
 |---|---|---|
 | **P1** | Washington, J. Adams, Jefferson, Madison, Monroe, J. Q. Adams (6) — **DONE (2026-08-02)** | NARA milestone documents; State Dept. Office of the Historian; NPS |
 | **P2** | Jackson, Van Buren, W. H. Harrison, Tyler, Polk (5) — **DONE (2026-08-02)** | NARA milestone documents; NPS; White House Historical Association (Tyler's succession) |
-| **P3** | Taylor, Fillmore, Pierce, Buchanan, Lincoln, A. Johnson (6) | NARA milestone documents; Senate impeachment record |
+| **P3** | Taylor, Fillmore, Pierce, Buchanan, Lincoln, A. Johnson (6) — **DONE (2026-08-02)** | NARA milestone documents; Senate impeachment record; the Avalon Project |
 | **P4** | Grant, Hayes, Garfield, Arthur, Cleveland, B. Harrison, McKinley (7) | House election statistics; Senate records; NARA |
 | **P5** | T. Roosevelt, Taft, Wilson, Harding, Coolidge, Hoover (6) | State Dept. Office of the Historian; NARA |
 | **P6** | F. D. Roosevelt, Truman, Eisenhower, Kennedy, L. B. Johnson, Nixon (6) | presidential libraries (NARA); Office of the Historian |
