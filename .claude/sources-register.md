@@ -9049,3 +9049,120 @@ profile.**
   there is no bloc profile.
 - `afdb.org` — 403. `oecd.org` — 403. `uneca.org` — 200 at the root, no per-country profiles.
 - `icj-cij.org/case/<n>` — 200, usable for a term resting on an advisory opinion or a judgment.
+
+---
+
+## Batch C8 — Africa outside the Commonwealth, on the two-fetch recipe (2026-08-02)
+
+Fourteen terms cited, 28 citations, **fourteen corrections in thirteen terms**. Coverage 206 → 220 of 333.
+
+**Algeria · Angola · Benin · Burkina Faso · Burundi · Central African Republic · Chad · Democratic
+Republic of the Congo · Republic of the Congo · Djibouti · Egypt · Equatorial Guinea · Guinea ·
+Guinea-Bissau.** One deferred: Comoros.
+
+### C7's find generalises: UNdata + the Office of the Historian is a two-fetch recipe for anywhere
+Every one of these fourteen ships on exactly two pages — `data.un.org/en/iso/<cc>.html` for the figures and
+`history.state.gov/countries/<slug>` for the history. There is no bloc profile behind any of them: the
+African Union publishes no country pages, `afdb.org` and `oecd.org` are 403, and none of these states is in
+the Commonwealth or the EU. This is the position C3 and C5 described as having no second source, and it is
+now routine.
+
+What the recognition guide gave, beyond the independence year:
+- **Algeria** — "Algerian self-rule ended with French conquest in 1830" and independence in 1962, both
+  claims of the term's third sentence from one page.
+- **Burkina Faso** — "Upper Volta previously had been under French sovereignty" **and** "The state's name
+  changed from Upper Volta to Burkina Faso in 1984": three of the sentence's four claims.
+- **Egypt** — "In 1882, Great Britain established a protectorate over Egypt … despite the fact that it
+  continued to be nominally part of the Ottoman Empire", which carries both the Ottoman and the 1882
+  clauses.
+- **Burundi** — the UN Trusteeship over Ruanda-Urundi "that had been administered by Belgium", ended 1962.
+- **Benin** — Dahomey's independence 1960 and the 1975 renaming.
+- **Guinea-Bissau** — recognition in 1974, which is exactly the term's "won recognition in 1974".
+- **DR Congo** — "the area formerly known as the Belgian Congo was proclaimed independent from Belgian
+  sovereignty", 30 June 1960.
+
+### The finding: the populations were STALE, not contested — and the vintage is recoverable
+Thirteen of the fourteen terms opened on a population several per cent below UNdata's 2025 figure, and the
+first instinct — C5's rule that a single-source divergence is deferred, never corrected — would have left
+almost every opening sentence unmarked. **The World Bank's API settles it.**
+`api.worldbank.org/v2/country/<ISO3>/indicator/SP.POP.TOTL?format=json&date=2015:2025` returns the whole
+series, and every term's figure turns out to be **an earlier point on that same series**:
+
+| term | term said | UNdata 2025 | the year the term's figure was true |
+|---|---|---|---|
+| Egypt | 107 m | 118.37 m | **2019** (107.55) |
+| Chad | 18 m | 21.00 m | 2022 (18.46) |
+| DR Congo | 105 m | 112.83 m | 2023 (105.79) |
+| Algeria | 46 m | 47.44 m | 2023 (46.16) |
+| Angola | 37 m | 39.04 m | 2023 (36.75) |
+| Burkina Faso | 23 m | 24.07 m | 2023 (23.03) |
+| Burundi | 13 m | 14.39 m | 2022 (13.32) |
+| Guinea | 14 m | 15.10 m | 2022 (14.06) |
+| Benin | 14 m | 14.81 m | 2023 (14.11) |
+| Equatorial Guinea | 1.7 m | 1.94 m | 2020 (1.72) |
+| Rep. of the Congo | 6 m | 6.48 m | 2022 (6.04) |
+| Guinea-Bissau | 2.1 m | 2.25 m | 2022 (2.11) |
+| Djibouti | 1.1 m | 1.18 m | 2019 (1.09) |
+| **Central African Republic** | **5.5 m** | **5.51 m** | **current — the one that needed nothing** |
+
+**So this is not "correcting on one source" in the sense C2 and C5 warned about.** Their danger was
+concluding a term is wrong when a rival official source would have vindicated it — Spain at 49.1 m on the
+EU's page against 47.9 m at UNdata. Here there is no rival: the term's figure and UNdata's are the SAME
+series read at different dates, and the series itself says which date. Every one was updated to the 2025
+figure, in all ten languages.
+
+**A caution that goes with the method: the World Bank is NOT an independent second source for a
+population.** `SP.POP.TOTL` relays the UN's own estimate — its 2025 value for Chad is 21,003,705 against
+UNdata's 21,004 thousand, the same number — so citing both for one figure would be false corroboration.
+It is used here as a **diagnostic** and is not in any term's source list.
+
+**And it revises C7's Egypt call, which is the honest thing to record.** C7 deferred Egypt reasoning that
+107-against-118 million looked like a live disagreement between the UN's estimate and Egypt's own. The
+series shows 107 million is simply the 2019 value of the very same series. The deferral was wrong on its
+reason; the term is cited here.
+
+### The one correction that is not a figure
+**`Djibouti`** — "it was French Somaliland until independence in 1977" → **"it was ruled by France,
+latterly as the French Territory of the Afars and the Issas, until independence in 1977"**. The recognition
+guide names "the former French Territory of Afars and Issas" at the moment of independence; French
+Somaliland was the name until 1967, so the term named the wrong territory at the date it gave. The 1967
+rename is not stated on any page opened here, so the new wording claims only what the citation carries.
+
+### UNMARKED, and recorded
+- **`Angola`** — "colonial rule was formalised in the 19th century" against the guide's "Portugal eventually
+  secured administrative control over the interior in the beginning of the 20th century". These are
+  different claims — a formal claim against effective control — rather than a contradiction, so the term
+  stands and its third sentence is marked to the guide for the 1975 independence only. **Angola's UN
+  membership date is 1 December 1976, a year after independence**, so unlike the other twelve it does not
+  corroborate the year and UNdata is not marked there.
+- **`Egypt`** — "became a republic in 1953" is in nothing opened here; the guide gives independence in 1922
+  and the United Arab Republic of 1958–71 instead.
+- **`Republic of the Congo`** — the term's "a Marxist government ruled from 1969 to 1992" against the
+  guide's "Congo's adoption of multi-party democracy in 1991". Not contradictory, not marked.
+- **`DR Congo`** — Leopold II's personal possession from 1885 is not on the guide's page, which begins at
+  the Belgian Congo.
+
+### DEFERRED (batch C8) — one term
+- **`Comoros`** — two independent reasons. Its area, 1,861 km², counts the three islands it governs, where
+  UNdata's 2,235 km² counts the whole archipelago **including Mayotte**, which the term itself says is
+  under French administration and claimed by the Comoros — the Cyprus situation of C1, in reverse. And the
+  recognition guide is no use: it records U.S. recognition in **1977**, two years after the 1975
+  independence the term gives, and says nothing about French rule. UNdata's UN membership date of
+  12 November 1975 does date the independence, but that leaves one source.
+
+### Verified citations (batch C8)
+`data.un.org/en/iso/<cc>.html` (dz, ao, bj, bf, bi, cf, td, cd, cg, dj, eg, gq, gn, gw) and
+`history.state.gov/countries/<slug>` (algeria, angola, benin, burkina-faso, burundi,
+central-african-republic, chad, congo-democratic-republic, congo-republic, djibouti, egypt,
+equatorial-guinea, guinea, guinea-bissau).
+
+**The two Congo slugs are `congo-democratic-republic` and `congo-republic`** — not
+`democratic-republic-of-the-congo`, `republic-of-the-congo`, `congo` or `zaire`, all of which 404. The
+index at `history.state.gov/countries` lists them and is the way to resolve any slug in doubt; it also
+carries `congo-free-state`.
+
+### Hosts, measured 2026-08-02
+- `api.worldbank.org/v2/…?format=json` — **200**, JSON, no key. Serves a **UTF-8 BOM**, so decode with
+  `utf-8-sig`; it also returns an empty body under rapid repeated requests, which retries fix.
+- `data.worldbank.org/country/<name>` — 200 but a ~2 MB JavaScript page; use the API.
+- `population.un.org/wpp/` — 200.

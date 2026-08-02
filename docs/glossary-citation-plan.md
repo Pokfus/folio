@@ -2,8 +2,8 @@
 
 The glossary was **333 terms and not one of them carried a source**. `window.GLOSSARY_SOURCES` was an empty
 table; the fold at the foot of a gloss popup never appeared. This is the plan for filling it. Not part of
-the site. **As of 2026-08-02, 206 of the 333 are cited and at the bar** — batches G1–G11, P1–P7 with the P-topup, and C0–C7, five of which also
-corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 206 carry in-text
+the site. **As of 2026-08-02, 220 of the 333 are cited and at the bar** — batches G1–G11, P1–P7 with the P-topup, and C0–C8, five of which also
+corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 220 carry in-text
 markers, in all ten languages, after the rule changed from optional to required on 2026-08-01 (see "What
 is different from the card pass"). G5 also settled the start of prehistory across the glossary, the deck
 and every date line: **2.6 Mya**, with the disputed 3.3 Ma Lomekwi claim hedged rather than adopted; G6
@@ -172,7 +172,7 @@ the way batch 21 recorded the Anubis walls, so the next pass does not re-run the
 | the poles, the desert, the sea and two names | 7 | Phase 1 · batch G10 — **done** |
 | the continents, the island and the constants | 10 | Phase 1 · batch G11 — **done** |
 | US presidents | 45 | Phase 2 · batches P1–P7 — **ALL DONE (2026-08-02)** |
-| countries and states of the world | 197 | Phase 3 · batches C0–C12 — **C0–C7 done (2026-08-02)**; 15 European, 35 Asian and 7 African terms deferred with reasons, see the C3, C5, C6 and C7 logs |
+| countries and states of the world | 197 | Phase 3 · batches C0–C12 — **C0–C8 done (2026-08-02)**; 15 European, 35 Asian and 8 African terms deferred with reasons, see the C3, C5, C6, C7 and C8 logs |
 | **total** | **333** | |
 
 ## Order, and why
@@ -2111,13 +2111,75 @@ invisible to the batches that shipped beside them, and four of the five Chinese 
 had reached yet — where they would have been discovered, as `United_Kingdom` and `Taiwan` were, only after
 the research had been done.
 
+## Batch C8 log — Africa outside the Commonwealth, and the populations that were merely old (2026-08-02)
+
+**DONE.** Fourteen terms — Algeria, Angola, Benin, Burkina Faso, Burundi, Central African Republic, Chad,
+DR Congo, Republic of the Congo, Djibouti, Egypt, Equatorial Guinea, Guinea, Guinea-Bissau — 28 citations,
+**fourteen corrections across thirteen terms**. Coverage 206 → **220 of 333**. One deferred: Comoros.
+
+**C7's find is now a recipe: UNdata plus the Office of the Historian's recognition guide, two fetches,
+anywhere in the world.** None of these fourteen states is in the EU or the Commonwealth, the African Union
+publishes no country pages, and `afdb.org` and `oecd.org` are 403 — this is precisely the position C3 and
+C5 called sourceless, and it is now a routine batch. The guide gave more than the independence year:
+Algeria's French conquest of 1830, Burkina Faso's renaming from Upper Volta in 1984, Egypt's British
+protectorate of 1882 *and* its continuing nominal place in the Ottoman Empire, the Belgian trusteeship over
+Ruanda-Urundi, Dahomey's 1975 renaming to Benin.
+
+### The finding: a population that disagrees with UNdata is usually STALE, not contested — and you can prove which
+
+Thirteen of the fourteen terms opened on a population several per cent below UNdata's 2025 figure. Under
+C5's rule — a single-source divergence is deferred, never corrected — nearly every opening sentence would
+have gone unmarked and the batch would have been half a batch. **The World Bank's API settles it:**
+
+```
+api.worldbank.org/v2/country/<ISO3>/indicator/SP.POP.TOTL?format=json&date=2015:2025
+```
+
+returns the whole series, and **every term's figure is an earlier point on that same series** — Egypt's
+"107 million" is the 2019 value to two decimal places, Chad's "18 million" the 2022 value, DR Congo's "105
+million" the 2023 value. The terms were not disputing UNdata; they were written from it, some years ago.
+All thirteen were updated to the 2025 figure in all ten languages. **The Central African Republic alone
+needed nothing** — its 5.5 million is current.
+
+**This is not the thing C2 and C5 warned against.** Their danger was concluding a term is wrong when a
+*rival* official source would have vindicated it — Spain at 49.1 million on the EU's page against 47.9
+million at UNdata. Here there is no rival: the two figures are the same series read at different dates, and
+the series says which date. **The rule to carry forward: before deferring on a population, ask the World
+Bank series when the term's figure WAS true. If it names a year, the figure is stale and updating it is
+safe; if it names none, the figure is contested and C5's rule stands.**
+
+**The caution that goes with it: the World Bank is NOT a second source for a population.** `SP.POP.TOTL`
+relays the UN's own estimate — 21,003,705 for Chad against UNdata's 21,004 thousand, the same number — so
+citing both for one figure would be false corroboration. It is a diagnostic and appears in no source list.
+
+**It also revises C7's Egypt deferral, which is worth saying plainly.** C7 read 107-against-118 million as
+a live disagreement between the UN's estimate and Egypt's own. It is not: 107 million is the 2019 value of
+the same series. The deferral was wrong on its reason, and Egypt is cited here.
+
+**The one correction that is not a figure** is `Djibouti`: "it was French Somaliland until independence in
+1977" becomes "it was ruled by France, latterly as the French Territory of the Afars and the Issas, until
+independence in 1977". The guide names that territory at the moment of independence; French Somaliland was
+the name only until 1967, so the term named the wrong entity at the date it gave. The 1967 rename is in
+nothing openable here, so the new wording claims only what the citation carries.
+
+**`Comoros` is deferred for two reasons at once**, and both are instructive. Its area of 1,861 km² counts
+the three islands it governs where UNdata's 2,235 km² counts the archipelago **including Mayotte** — the
+Cyprus case of C1 in reverse, with the profile counting the claimed territory and the term the controlled
+one. And the recognition guide, which carried every other term in this batch, records U.S. recognition in
+**1977**, two years after the independence the term gives, with nothing about French rule: **a recognition
+date is not an independence date, and where the two differ the guide cannot be cited for the latter.**
+
+**Two Congo slugs worth writing down**: `congo-democratic-republic` and `congo-republic`. Neither
+`democratic-republic-of-the-congo`, `republic-of-the-congo`, `congo` nor `zaire` exists. The index at
+`history.state.gov/countries` resolves any slug in doubt.
+
 ### Batches C1–C12 · by region
 
 | batch | region | terms | |
 |---|---|---|---|
 | **C1–C3** | Europe | 47 | Albania → Vatican City, plus Greece, France, Georgia, Denmark, Russia, less the three in C0. **C1 DONE (2026-08-02)**: Austria, Belgium, Bulgaria, Croatia, Cyprus, Czech Republic, Denmark, Estonia, Finland, Germany, Hungary, Ireland, Italy, Latvia, Lithuania — **Greece deferred to C2**, its description carrying no figure either source states. **C2 DONE (2026-08-02)**: Luxembourg, Malta, Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, Sweden — **six deferred to C3**: Greece again, Albania (UNdata contradicts its population), and Iceland, Norway, Switzerland, Andorra (UNdata alone is one source; `efta.int` and `coe.int` are 403 here) |
 | **C4–C6** | Asia | 43 | Afghanistan → Yemen, plus India, China, Japan, less State of Palestine |
-| **C7–C9** | Africa | 53 | Algeria → Zimbabwe, plus Kenya and Tanzania, less South Sudan. **C7 DONE (2026-08-02)**: Eswatini, Eritrea, Gabon, The Gambia, Kenya, Lesotho, Malawi, Morocco, Somalia, Tanzania, Togo — the rest of Commonwealth Africa plus the first four carried by the Office of the Historian's recognition guide. **Three deferred**: Egypt, Ethiopia and Libya, each a figure diverging from UNdata with no second profile |
+| **C7–C9** | Africa | 53 | Algeria → Zimbabwe, plus Kenya and Tanzania, less South Sudan. **C8 DONE (2026-08-02)**: Algeria, Angola, Benin, Burkina Faso, Burundi, Central African Republic, Chad, both Congos, Djibouti, Egypt, Equatorial Guinea, Guinea, Guinea-Bissau — fourteen on the two-fetch recipe, thirteen stale populations updated; **Comoros deferred** (its area counts Mayotte and the guide gives a 1977 recognition against a 1975 independence). **C7 DONE (2026-08-02)**: Eswatini, Eritrea, Gabon, The Gambia, Kenya, Lesotho, Malawi, Morocco, Somalia, Tanzania, Togo — the rest of Commonwealth Africa plus the first four carried by the Office of the Historian's recognition guide. **Three deferred**: Egypt, Ethiopia and Libya, each a figure diverging from UNdata with no second profile |
 | **C10** | Oceania | 13 | New Zealand → Tuvalu, plus Australia, less Tuvalu |
 | **C11–C12** | the Americas | 35 | Canada → Uruguay, plus Brazil |
 | | | **191** | the 197, less the six worked in C0 |
