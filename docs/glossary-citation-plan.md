@@ -2,8 +2,8 @@
 
 The glossary was **333 terms and not one of them carried a source**. `window.GLOSSARY_SOURCES` was an empty
 table; the fold at the foot of a gloss popup never appeared. This is the plan for filling it. Not part of
-the site. **As of 2026-08-02, 142 of the 333 are cited and at the bar** — batches G1–G11, P1–P7 with the P-topup, and C0, five of which also
-corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 142 carry in-text
+the site. **As of 2026-08-02, 157 of the 333 are cited and at the bar** — batches G1–G11, P1–P7 with the P-topup, and C0–C1, five of which also
+corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 157 carry in-text
 markers, in all ten languages, after the rule changed from optional to required on 2026-08-01 (see "What
 is different from the card pass"). G5 also settled the start of prehistory across the glossary, the deck
 and every date line: **2.6 Mya**, with the disputed 3.3 Ma Lomekwi claim hedged rather than adopted; G6
@@ -172,7 +172,7 @@ the way batch 21 recorded the Anubis walls, so the next pass does not re-run the
 | the poles, the desert, the sea and two names | 7 | Phase 1 · batch G10 — **done** |
 | the continents, the island and the constants | 10 | Phase 1 · batch G11 — **done** |
 | US presidents | 45 | Phase 2 · batches P1–P7 — **ALL DONE (2026-08-02)** |
-| countries and states of the world | 197 | Phase 3 · batches C0–C12 — **C0 done (2026-08-02)** |
+| countries and states of the world | 197 | Phase 3 · batches C0–C12 — **C0–C1 done (2026-08-02)** |
 | **total** | **333** | |
 
 ## Order, and why
@@ -1770,11 +1770,55 @@ states.
 batch reporting "16 terms, all at the bar" without saying what it left unmarked is reporting a number, not
 a state of affairs.
 
+### Batch C1 log — the recipe holds, and sixteen figures held with it
+
+#### 2026-08-02 — fifteen terms, 33 citations, no corrections, one deferral
+
+**Coverage 142/333 → 157/333.** The first batch run on the C0 recipe, and it worked: **the whole batch used
+three works** — UNdata's country profiles, the EU's own country pages and NATO's member-countries table —
+at **two fetches per country**.
+
+**The EU country page is the second source the recipe was missing.**
+`european-union.europa.eu/principles-countries-history/eu-countries/<slug>_en` carries Capital,
+Geographical size, Population and **"EU Member State : since <date>"** in one block. That last field dates
+the accession clause in the third sentence of every EU country's description — usually the only datable
+claim in that sentence. **C2 and C3 should be worked exactly this way; the European batches are the
+cheapest in the plan.**
+
+**Sixteen areas and sixteen populations checked against two official sources, and every one held.** After
+C0 corrected a population by a million, this batch checked every figure and corrected nothing: **every area
+is within 0.6% of both official figures and most within 0.05%**, which is the ordinary spread between land
+area and total area and is not a contradiction. **A term's figure is wrong when a source contradicts it,
+not when a source rounds differently.**
+
+**Two divergences that look like errors and are not, and both are lessons for C2.**
+- **Cyprus**: the EU gives 979,865 people, UNdata 1,371 thousand. The EU counts only the
+  government-controlled area; UNdata the whole island. The term describes the island and its division since
+  1974, so UNdata is right. **Cite UNdata, not the EU, for a divided state's population.**
+- **Czechia**: UNdata gives 10,609 thousand against the EU's 10,909,500 and the term's "roughly 10.9
+  million" — here the EU agrees with the term and UNdata is the outlier. **Where two official sources
+  disagree by more than rounding, read both before assuming the prose is wrong.** C0's South Sudan
+  correction rested on UNdata alone; with a second source it would have been checked against one.
+
+**Greece was dropped from the batch and deferred to C2.** Its description states no area, no population and
+no capital, and its EU accession is not in its third sentence — so neither of the batch's two works carries
+anything it says. Citing them anyway would have produced two sources that nothing in the prose points at,
+which `add-sources.js` refuses and which would be decoration in any case. **A country term written without
+figures is invisible to this recipe**, and that is worth knowing before the twelve long-form countries
+(Greece, Kenya, Tanzania, Georgia, Denmark, Australia, India, Russia, China, Japan, Brazil) are folded into
+their regional batches as the plan intends. Several of them are likely to be the same shape.
+
+**The unmarked list is long and is recorded in full in the register**: all of the physical geography, all of
+the pre-modern history, and the linguistic claims on Estonian, Finnish, Hungarian, Latvian and Lithuanian.
+The shape is exactly what C0 predicted and this batch measures at scale: **two institutional profiles carry
+a country's present and its accessions, and nothing of its landscape or its past.** A pass that wants those
+needs a different class of source and should be planned as its own, not as an extension of this one.
+
 ### Batches C1–C12 · by region
 
 | batch | region | terms | |
 |---|---|---|---|
-| **C1–C3** | Europe | 47 | Albania → Vatican City, plus Greece, France, Georgia, Denmark, Russia, less the three in C0 |
+| **C1–C3** | Europe | 47 | Albania → Vatican City, plus Greece, France, Georgia, Denmark, Russia, less the three in C0. **C1 DONE (2026-08-02)**: Austria, Belgium, Bulgaria, Croatia, Cyprus, Czech Republic, Denmark, Estonia, Finland, Germany, Hungary, Ireland, Italy, Latvia, Lithuania — **Greece deferred to C2**, its description carrying no figure either source states |
 | **C4–C6** | Asia | 43 | Afghanistan → Yemen, plus India, China, Japan, less State of Palestine |
 | **C7–C9** | Africa | 53 | Algeria → Zimbabwe, plus Kenya and Tanzania, less South Sudan |
 | **C10** | Oceania | 13 | New Zealand → Tuvalu, plus Australia, less Tuvalu |

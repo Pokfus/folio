@@ -8441,3 +8441,119 @@ This batch deliberately ships with more unmarked prose than any before it. What 
 5. **Budget for the unmarked list.** These six terms average two citations and roughly half their prose
    marked. A Phase 3 batch that reports "16 terms, all at the bar" without saying what it left unmarked is
    reporting a number, not a state of affairs.
+
+## Batch C1 — Europe, the first sixteen EU member states (GLOSSARY, 2026-08-02)
+
+**Fifteen terms shipped, 33 citations, and NO corrections.** Coverage 142/333 → 157/333. Austria, Belgium,
+Bulgaria, Croatia, Cyprus, Czech Republic, Denmark, Estonia, Finland, Germany, Hungary, Ireland, Italy,
+Latvia, Lithuania. **Greece was dropped from the batch — see the deferral below.**
+
+This is the first batch run on the C0 recipe, and the recipe held. The whole batch used **three works**:
+UNdata's country profiles, the EU's own country pages, and NATO's member-countries table. Two fetches per
+country, both server-rendered, both permalinked.
+
+### FINDING — the EU country page is the second source the recipe needed
+`european-union.europa.eu/principles-countries-history/eu-countries/<slug>_en` carries, in one block:
+**Capital**, **Geographical size**, **Population**, and **"EU Member State : since <date>"**. That last
+field dates the accession clause in the third sentence of every EU country's description — the single claim
+in a country term that is most often an act of state and most often the only datable thing in the sentence.
+Accession dates read this batch: Belgium, Germany, Italy 1 January 1958; Denmark, Ireland 1 January 1973;
+Greece 1 January 1981; Austria, Finland 1 January 1995; Cyprus, Czechia, Estonia, Hungary, Latvia,
+Lithuania 1 May 2004; Bulgaria 1 January 2007; Croatia 1 July 2013.
+
+**So an EU country needs exactly two fetches**, and between them they cover the first sentence and the
+accession. Phase 3's European batches are the cheapest in the plan, and C2/C3 should be worked the same way.
+
+### FINDING — sixteen area and population figures checked, and every one held
+This is the batch's most useful negative result. C0 corrected a population by a million and an area by
+0.05 km², so every figure here was checked against both sources:
+
+| | term area | EU | UNdata | term population | EU | UNdata |
+|---|---|---|---|---|---|---|
+| Austria | 83,879 | — | 83,878 | ~9 m | — | 9,114 k |
+| Belgium | 30,689 | 30,667 | 30,528 | ~11.8 m | 11,900,123 | 11,759 k |
+| Bulgaria | 110,994 | 110,996 | 110,372 | ~6.4 m | 6,437,360 | 6,715 k |
+| Croatia | 56,594 | 56,594 | 56,594 | ~3.9 m | 3,874,350 | 3,848 k |
+| Cyprus | 9,251 | 9,253 | 9,251 | ~1.3 m | 979,865 | 1,371 k |
+| Czech Rep. | 78,871 | 78,871 | 78,871 | ~10.9 m | 10,909,500 | 10,609 k |
+| Denmark | — | 42,925 | 42,938 | — | 5,992,734 | 6,002 k |
+| Estonia | 45,339 | 45,336 | 45,261 | ~1.4 m | 1,369,995 | 1,344 k |
+| Finland | 338,455 | 338,363 | 336,884 | ~5.6 m | 5,635,971 | 5,623 k |
+| Germany | 357,596 | 357,569 | 357,581 | ~84 m | 83,577,140 | 84,075 k |
+| Hungary | 93,030 | 93,012 | 93,023 | ~9.6 m | 9,539,502 | 9,632 k |
+| Ireland | 70,273 | 69,947 | 69,825 | ~5.4 m | 5,439,898 | 5,308 k |
+| Italy | 301,340 | 302,073 | 302,068 | ~59 m | 58,934,177 | 59,146 k |
+| Latvia | 64,589 | 64,594 | 64,594 | ~1.9 m | 1,856,932 | 1,854 k |
+| Lithuania | 65,300 | 65,284 | 65,286 | ~2.9 m | 2,890,664 | 2,830 k |
+
+**Every area is within 0.6% of both official figures and most within 0.05%**, which is the ordinary spread
+between land area and total area conventions and is not a contradiction. **No area was corrected**, and the
+reason is worth stating: a term's figure is only wrong when a source contradicts it, not when a source
+rounds differently.
+
+**Two divergences that look like errors and are not, both worth knowing before C2:**
+- **Cyprus.** The EU gives 979,865 people; UNdata gives 1,371 thousand. The EU counts **only the
+  government-controlled area**, UNdata the whole island. The term says "an island country of 9,251 km² …
+  with roughly 1.3 million people" and then describes the division since 1974 — so it is describing the
+  island, and UNdata is the right figure. **Cite UNdata, not the EU, for a divided state's population.**
+- **Czechia.** UNdata gives 10,609 thousand against the EU's 10,909,500 and the term's "roughly 10.9
+  million". Here the EU agrees with the term and UNdata is the outlier. **Where the two disagree by more
+  than rounding, read both before assuming the term is wrong.** C0's South Sudan correction rested on
+  UNdata alone; had there been a second source it would have been checked against it.
+
+### Verified citations (batch C1)
+
+### undata-<cc> · the first sentence of each country
+United Nations Statistics Division, “<country>,” UNdata Country Profile,
+https://data.un.org/en/iso/<cc>.html. [Open access] — `at be bg hr cy cz dk ee fi de hu ie it lv lt`
+- opened: 2026-08-02; figures as tabulated above, plus the **UN membership date**, which carries the
+  independence or restoration clause on five of these terms: **Croatia 22 May 1992**, **Cyprus 20 September
+  1960**, **Czechia 19 January 1993**, **Estonia and Latvia 17 September 1991**, and **Austria 14 December
+  1955**, which is the year the term gives for regaining full sovereignty
+- used by: all fifteen
+
+### eu-<country> · the accession, and a second reading of the figures
+European Union, “<country> – EU country,”
+https://european-union.europa.eu/principles-countries-history/eu-countries/<slug>_en. [Open access]
+- opened: 2026-08-02; Capital, Geographical size, Population and EU Member State date as above
+- used by: all fifteen
+
+### nato-members · the alliance
+North Atlantic Treaty Organization, “Member countries,”
+https://www.nato.int/cps/en/natohq/topics_52044.htm. [Open access]
+- opened: 2026-08-02
+- the accession table gives **Estonia 2004**, **Latvia 2004**, **Lithuania 2004**, **Finland 2023** —
+  exactly the years the Estonian, Latvian and Finnish terms claim
+- used by: `Estonia`, `Finland`, `Latvia`
+
+### DEFERRED — `Greece`
+Greece was in the planned sixteen and is not in the shipped fifteen. Its description states **no area, no
+population and no capital**, so neither UNdata nor the EU page carries anything it says; its EU accession is
+not in its third sentence either. What the term does assert — the southern Balkan peninsula and several
+thousand islands, mountains over four-fifths of the territory, the longest Mediterranean coastline, the
+ancient city-states and democracy, and recognition as sovereign in 1830 — has no support in the two works
+this batch used. **Citing UNdata and the EU page here would have produced two sources that nothing in the
+prose points at, which `add-sources.js` rightly refuses and which would in any case be decoration.** Greece
+needs a source for the London Protocol of 1830 and one for its physical geography, and it goes to C2 with
+that noted.
+
+### NOT CITED (batch C1) — the unmarked clauses
+As in C0, the marked half is the first sentence and the datable acts of state. Left unmarked, across the
+fifteen: **all of the physical geography** (the Alps over three-fifths of Austria, the Ardennes, the Balkan
+Mountains and the Rhodope, the Dinaric karst and the thousand Croatian islands, the Troodos and Kyrenia
+ranges, Bohemia's ring of wooded mountains, Denmark's 400 islands and 170 m ceiling, Estonia's 2,000
+islands and 318 m hill, Finland's 188,000 lakes, Germany's three steps from plain to Alps, the Great
+Hungarian Plain and Lake Balaton, Ireland's central bog, the Po plain and the Apennines and the three
+volcanoes, Latvia's forest and the Daugava, Lithuania's 3,000 lakes and the Curonian Spit); **all of the
+pre-modern history** (the Habsburgs, the Bulgarian state of 681 and the Cyrillic alphabet, the
+Hungarian-Croatian union of 1102, the Kingdom of Bohemia and 1526, the Christian kingdom of the year 1000,
+Ireland's 5th-century Christianisation and the famine of 1845–52, Rome and the Renaissance and 1861 and
+1946, the German unification of 1871 and the division of 1949 and the reunification of 1990, the Grand
+Duchy of Lithuania and the partition of 1795); and **the linguistic claims** (Estonian and Finnish as
+Finnic, Hungarian as Uralic, Latvian as one of two surviving Baltic tongues, Lithuanian as the most
+conservative surviving Indo-European tongue).
+
+That list is long and it is the honest shape of the recipe: **two institutional profiles carry a country's
+present and its accessions, and nothing of its landscape or its past.** C0 predicted this; C1 measures it at
+scale. A future batch that wants the geography and the pre-modern history will need a different class of
+source entirely, and should be planned as its own pass rather than as an extension of this one.
