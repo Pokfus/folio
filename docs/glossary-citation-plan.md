@@ -2,8 +2,8 @@
 
 The glossary was **333 terms and not one of them carried a source**. `window.GLOSSARY_SOURCES` was an empty
 table; the fold at the foot of a gloss popup never appeared. This is the plan for filling it. Not part of
-the site. **As of 2026-08-02, 115 of the 333 are cited and at the bar** — batches G1–G11 and P1–P4, five of which also
-corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 115 carry in-text
+the site. **As of 2026-08-02, 121 of the 333 are cited and at the bar** — batches G1–G11 and P1–P5, five of which also
+corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 121 carry in-text
 markers, in all ten languages, after the rule changed from optional to required on 2026-08-01 (see "What
 is different from the card pass"). G5 also settled the start of prehistory across the glossary, the deck
 and every date line: **2.6 Mya**, with the disputed 3.3 Ma Lomekwi claim hedged rather than adopted; G6
@@ -171,7 +171,7 @@ the way batch 21 recorded the Anubis walls, so the next pass does not re-run the
 | Indigenous peoples, and the odds and ends | 8 | Phase 1 · batch G9 — **done** |
 | the poles, the desert, the sea and two names | 7 | Phase 1 · batch G10 — **done** |
 | the continents, the island and the constants | 10 | Phase 1 · batch G11 — **done** |
-| US presidents | 45 | Phase 2 · batches P1–P7 — **P1–P4 done** |
+| US presidents | 45 | Phase 2 · batches P1–P7 — **P1–P5 done** |
 | countries and states of the world | 197 | Phase 3 · batches C0–C12 |
 | **total** | **333** | |
 
@@ -1451,13 +1451,62 @@ here it is broader. **Either way, cite the document.**
 `/milestones/1861-1865/alabama-claims`. Each subject is folded into a larger page or into a Miller Center
 essay; check the milestone index rather than guessing a slug.
 
+### Batch P5 log — the two corrections are one statute, found by the sibling check
+
+#### 2026-08-02 — six terms, 28 citations, two corrected clauses
+
+**Coverage 115/333 → 121/333.** Twenty-two distinct works, **every one of them open**, none from the
+register. P4's rule held without exception: **not one of the six was carried by the *Life in Brief*
+alone.** Theodore Roosevelt needed four Miller Center essays, Harding three, and Wilson, Coolidge and
+Hoover two each.
+
+**What is new in P5 is the second spine.** From 1901 the presidencies turn on treaties and conferences, and
+the State Department's **Office of the Historian** carried five claims no presidential essay states —
+Portsmouth, the Fourteen Points, the League fight, the Washington Naval Conference and the Smoot-Hawley
+tariff. Phase 2's earlier batches leaned on NARA milestone documents because the claims were statutes; from
+here they are foreign policy, and the milestone pages that answer them are State's, not the Archives'.
+
+**Both corrections are the same statute seen from two sides, and the sibling-consistency check is what
+found them.** The Budget and Accounting Act of 1921 sits between Taft and Harding, and each term had it
+slightly wrong in the opposite direction:
+- `William_Howard_Taft` said he "created a federal budget system". He did not. The Miller Center's Domestic
+  Affairs essay: "Taft promoted an administrative innovation whereby the President … would submit a budget
+  to Congress. **Congress prohibited that action**, but Taft's effort foreshadowed the creation of the
+  executive budget in the Budget and Accounting Act of 1921." The term now says he **pressed for a
+  presidential budget that Congress refused him** — which is both what happened and why he is worth
+  mentioning in the same breath as the Act.
+- `Warren_G._Harding` said he "created the federal budget bureau". The Bureau of the Budget is real and the
+  1921 Act did create it, but **no reachable source here says so** — `gao.gov` is 403 and `whitehouse.gov/omb`
+  carries no institutional history. What the cited essay does state is the thing that actually changed:
+  the Act "allowed the President to present a unified budget for the first time (rather than have each
+  cabinet secretary submit a budget to Congress)". The term now says that.
+
+Neither was a factual error of the kind a source refutes; both were a summary reaching one step past what
+any openable work supports. **Two terms twenty years apart shared one claim, and only reading them against
+each other showed that neither had it right.**
+
+**A route worth remembering, and the batch's cheapest find.**
+`archives.gov/milestone-documents/indian-citizenship-act` is 404 and there is no NARA milestone page for
+that act — but **DocsTeach, the National Archives' own document-teaching site, carries the record itself**,
+with its statute citation (Act of June 2, 1924, PL 68-175, 43 Stat. 253) and its NARA identifier. G4 found
+that a museum publishes its own history where the literature does not; this is the same shape one
+institution over. **When a milestone slug 404s, try `docsteach.org` before writing the Archives off.**
+Two other slugs that look obvious are likewise 404 and were not guessable:
+`history.state.gov/milestones/1899-1913/dollar-diplomacy` (the phrase is in Taft's own Life in Brief) and
+`archives.gov/milestone-documents/federal-reserve-act`.
+
+**And a gap recorded rather than filled.** Neither Theodore Roosevelt source gives the **year** of his Nobel
+Peace Prize; both state that he won it. The term's "in 1906" is left unmarked and uncontradicted rather than
+pointed at a work that does not carry it — the same discipline G6's wrong marker taught, applied before the
+marker was placed instead of after.
+
 | batch | presidents | second-source spine |
 |---|---|---|
 | **P1** | Washington, J. Adams, Jefferson, Madison, Monroe, J. Q. Adams (6) — **DONE (2026-08-02)** | NARA milestone documents; State Dept. Office of the Historian; NPS |
 | **P2** | Jackson, Van Buren, W. H. Harrison, Tyler, Polk (5) — **DONE (2026-08-02)** | NARA milestone documents; NPS; White House Historical Association (Tyler's succession) |
 | **P3** | Taylor, Fillmore, Pierce, Buchanan, Lincoln, A. Johnson (6) — **DONE (2026-08-02)** | NARA milestone documents; Senate impeachment record; the Avalon Project |
 | **P4** | Grant, Hayes, Garfield, Arthur, Cleveland, B. Harrison, McKinley (7) — **DONE (2026-08-02)** | NARA milestone documents; the Miller Center's Key Events timelines |
-| **P5** | T. Roosevelt, Taft, Wilson, Harding, Coolidge, Hoover (6) | State Dept. Office of the Historian; NARA |
+| **P5** | T. Roosevelt, Taft, Wilson, Harding, Coolidge, Hoover (6) — **DONE (2026-08-02)** | State Dept. Office of the Historian; NARA DocsTeach |
 | **P6** | F. D. Roosevelt, Truman, Eisenhower, Kennedy, L. B. Johnson, Nixon (6) | presidential libraries (NARA); Office of the Historian |
 | **P7** | Ford, Carter, Reagan, G. H. W. Bush, Clinton, G. W. Bush, Obama, Trump, Biden (9) | presidential libraries; NARA; congressional record |
 

@@ -7335,3 +7335,226 @@ History of U.S. Foreign Relations, https://history.state.gov/milestones/1866-189
   Arthur's "party hostility" as a second reason he was not renominated, where the essay gives only his
   health; Cleveland's "opposing what he saw as favours to private interests" as a characterisation of the
   vetoes; and Benjamin Harrison's "Civil War officer", which the Life in Brief implies without stating.
+
+## Batch P5 — Theodore Roosevelt to Hoover (GLOSSARY, 2026-08-02)
+
+Six terms, 28 citation slots from **twenty-two distinct works, every one of them open**, none from this
+register. P4's rule held exactly: **not one of the six was carried by the *Life in Brief* alone.** Theodore
+Roosevelt needed four Miller Center essays, Harding three, Wilson and Coolidge and Hoover two each — and the
+Office of the Historian carried five claims no essay did, because from 1901 the presidencies turn on
+treaties and conferences.
+
+**Two corrections, and they are a matched pair on the same statute** — which is what the sibling-consistency
+check is for. `William_Howard_Taft` was credited with creating a federal budget system he did not create,
+and `Warren_G._Harding` with creating a bureau his own cited essay does not mention; the Budget and
+Accounting Act of 1921 sits between them and settles both.
+
+### Verified citations (batch P5)
+
+### mc-troosevelt-lib / -lbp / -domestic / -foreign · the twenty-sixth presidency
+Sidney Milkis, "Theodore Roosevelt: Life in Brief," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/roosevelt/life-in-brief. [Open access]
+Sidney Milkis, "Theodore Roosevelt: Life Before the Presidency," Miller Center of Public Affairs, University
+of Virginia, https://millercenter.org/president/roosevelt/life-before-the-presidency. [Open access]
+Sidney Milkis, "Theodore Roosevelt: Domestic Affairs," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/roosevelt/domestic-affairs. [Open access]
+Sidney Milkis, "Theodore Roosevelt: Foreign Affairs," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/roosevelt/foreign-affairs. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports: that he "came into office in 1901 and served until 1909" and "significantly
+  expanded the influence and power of the executive office"; that he "used executive orders to accomplish
+  his goals, especially in conservation"; and the 1912 run — "**TR threw his hat into the ring as a
+  candidate for the Progressive Party**"
+- Life Before the Presidency supplies the age: "**He was the youngest person ever to serve in that
+  capacity**"
+- Domestic Affairs supplies the three domestic claims: the Northern Securities suit under "the Sherman
+  Antitrust Act", which "former Presidents had only used … sparingly"; "**the Hepburn Act**, proposed
+  enhancing the powers of the Interstate Commerce Commission to include the ability to regulate shipping
+  rates on railroads"; "**the Meat Inspection Act and the Pure Food and Drug Act of 1906**"; and the
+  reserves — "Roosevelt used his presidential authority to issue executive orders to create **150 new
+  national forests, increasing the amount of protected land from 42 million acres to 172 million acres**"
+- Foreign Affairs supplies the navy and the canal: he built the Navy "into one of the largest in the world,
+  by convincing Congress to add battleships to the fleet"; and "In 1903, the **Hay-Bunau-Varilla Treaty**
+  with Panama gave the United States perpetual control of the canal". It also states the mediation and the
+  prize — "**For his role as mediator, Roosevelt won the Nobel Prize for Peace**"
+- used by: `Theodore_Roosevelt`
+
+### oh-portsmouth · the war he mediated
+Office of the Historian, U.S. Department of State, "The Treaty of Portsmouth and the Russo-Japanese War,
+1904–1905," Milestones in the History of U.S. Foreign Relations,
+https://history.state.gov/milestones/1899-1913/portsmouth-treaty. [Open access]
+- opened: 2026-08-02
+- supports: that "he won the Nobel Peace Prize for his efforts in moderating the talks and pushing toward
+  peace" between Russia and Japan. **Neither this page nor the Miller Center gives the YEAR of the prize**;
+  the term's "in 1906" is left unmarked and uncontradicted
+- used by: `Theodore_Roosevelt`
+
+### mc-taft-lib / mc-taft-domestic · the twenty-seventh presidency
+Peri E. Arnold, "William Howard Taft: Life in Brief," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/taft/life-in-brief. [Open access]
+Peri E. Arnold, "William Howard Taft: Domestic Affairs," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/taft/domestic-affairs. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports: that "Taft's service in the Philippines from 1900 to 1903 was fulfilling and
+  largely successful" and that he left "to become Roosevelt's **secretary of war** in 1903"; that he "termed
+  his policy '**dollar diplomacy**'"; the 1912 split, Roosevelt having "bolted from the Republican Party to
+  form his own 'Bull-Moose' party"; and that "Taft's lifelong ambition was to serve as **Chief Justice of
+  the United States**, to which he was appointed after leaving the presidency"
+- Domestic Affairs supplies the antitrust count and **the correction**: "**More trust prosecutions (99, in
+  all) occurred under Taft than under Roosevelt**, who was known as the 'Great Trust-Buster'"; and, on the
+  budget, "Taft promoted an administrative innovation whereby the President, rather than the disparate
+  agencies of government, would submit a budget to Congress. **Congress prohibited that action**, but Taft's
+  effort foreshadowed the creation of the executive budget in the **Budget and Accounting Act of 1921**"
+- The Campaigns and Elections essay, consulted but not cited, gives the 1912 result: "Wilson compiled 435
+  electoral votes to 88 for Roosevelt and **8 for Taft**"
+- used by: `William_Howard_Taft`
+
+### mc-wilson-lib / mc-wilson-domestic · the twenty-eighth presidency
+Saladin Ambar, "Woodrow Wilson: Life in Brief," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/wilson/life-in-brief. [Open access]
+Saladin Ambar, "Woodrow Wilson: Domestic Affairs," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/wilson/domestic-affairs. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports: the academic career — "Wilson was elected **president of Princeton in 1902**" —
+  and the New Jersey governorship of 1910; that "Under his leadership, his administration **expanded the
+  segregation of federal offices and the civil service**"; "the passage of the **Federal Reserve Act of
+  1913**"; the 1917 declaration of war; the Fourteen Points speech of 8 January 1918; and the stroke —
+  "Near the end of the tour, Wilson collapsed from exhaustion, and a few days later … he suffered a massive
+  stroke"
+- Domestic Affairs supplies the tariff, the tax and the trade and labour laws: "the **Underwood-Simmons
+  Act**, which achieved the most significant reductions in rates since the Civil War"; that it offset the
+  lost revenue "by providing for a small, graduated **income tax** as authorized by the Sixteenth
+  Amendment"; the **Clayton Antitrust Act** of 1914 and the **Federal Trade Commission** law of the same
+  year; and the cabinet-level Department of Labor
+- used by: `Woodrow_Wilson`
+
+### oh-fourteen-points / oh-league · the war aims and what became of them
+Office of the Historian, U.S. Department of State, "Wilson's Fourteen Points, 1918," Milestones in the
+History of U.S. Foreign Relations, https://history.state.gov/milestones/1914-1920/fourteen-points.
+[Open access]
+Office of the Historian, U.S. Department of State, "The League of Nations, 1920," Milestones in the History
+of U.S. Foreign Relations, https://history.state.gov/milestones/1914-1920/league. [Open access]
+- opened: 2026-08-02
+- the Fourteen Points page carries the speech and its programme; the League page carries the Senate fight
+  and its outcome — the ratification resolutions "were defeated by a 49-35 Senate vote", and "**The United
+  States never joined the League**"
+- used by: `Woodrow_Wilson`
+
+### mc-harding-lib / -domestic / -death · the twenty-ninth presidency
+Eugene P. Trani, "Warren G. Harding: Life in Brief," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/harding/life-in-brief. [Open access]
+Eugene P. Trani, "Warren G. Harding: Domestic Affairs," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/harding/domestic-affairs. [Open access]
+Eugene P. Trani, "Warren G. Harding: Death of the President," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/harding/death-of-the-president. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports: that "Harding brought a nearly bankrupt newspaper, the **Marion Star**, back to
+  life"; that he became "a U.S. senator from Ohio in 1914"; the "**massive landslide**" of 1920; and that
+  "He allowed Andrew Mellon to push through **tax cuts**"
+- Domestic Affairs supplies the budget, the tariff and Teapot Dome: "Harding signed a revised version of the
+  **Budget and Accounting Act of 1921, which allowed the President to present a unified budget for the first
+  time** (rather than have each cabinet secretary submit a budget to Congress), and which also created the
+  General Accounting Office"; "the **Fordney-McCumber Tariff Act** that reversed the downward movement in
+  rates initiated by Wilson"; and "**Albert Fall, secretary of the interior**, secretly allowed private oil
+  companies to tap the **Teapot Dome** oil reserve in Wyoming and the Elk Hills oil reserve in California in
+  return for [at] least $300,000 paid to him in **bribes**"
+- Death of the President supplies the place and date: "The presidential train rushed to **San Francisco** …
+  On **August 2**, he most likely suffered a heart attack in the evening"
+- **The essay does not mention the Bureau of the Budget**, which the 1921 Act also created, and no reachable
+  government page states it — `gao.gov` is 403 here and `whitehouse.gov/omb` carries no history. The term's
+  clause was rewritten to what the essay does state
+- used by: `Warren_G._Harding`
+
+### oh-naval-conference · the fleets limited
+Office of the Historian, U.S. Department of State, "The Washington Naval Conference, 1921–1922," Milestones
+in the History of U.S. Foreign Relations, https://history.state.gov/milestones/1921-1936/naval-conference.
+[Open access]
+- opened: 2026-08-02
+- supports: the conference and "the **Five-Power Treaty**, signed by the United States, the United Kingdom,
+  Japan" and others, which limited capital-ship tonnage
+- used by: `Warren_G._Harding`
+
+### mc-coolidge-lib / mc-coolidge-domestic · the thirtieth presidency
+David Greenberg, "Calvin Coolidge: Life in Brief," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/coolidge/life-in-brief. [Open access]
+David Greenberg, "Calvin Coolidge: Domestic Affairs," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/coolidge/domestic-affairs. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports: that he was "born on Independence Day, 1872, and raised in **Plymouth Notch,
+  Vermont**"; that he practised "law in Northampton, **Massachusetts**" and served as its **governor**; the
+  silence — "sitting silently during cabinet meetings and seldom speaking"; the economics — "he favored
+  **low taxes**, reduced regulation of business, and a **balanced budget**"; and that "**Coolidge chose not
+  to run** for a second term because his republican political philosophy led him to value highly the
+  unwritten two-term precedent"
+- Domestic Affairs supplies the immigration law: "He signed the **Immigration Act of 1924, which set strict
+  quotas on the number of eastern and southern Europeans** allowed into America and excluded the Japanese
+  altogether"
+- used by: `Calvin_Coolidge`
+
+### oh-immigration-1924 · the Johnson-Reed Act
+Office of the Historian, U.S. Department of State, "The Immigration Act of 1924 (The Johnson-Reed Act),"
+Milestones in the History of U.S. Foreign Relations, https://history.state.gov/milestones/1921-1936/immigration-act.
+[Open access]
+- opened: 2026-08-02
+- supports: that "The Immigration Act of 1924 limited the number of immigrants allowed entry into" the
+  United States through national-origin quotas
+- used by: `Calvin_Coolidge`
+
+### nara-indian-citizenship-act · the citizenship law
+National Archives and Records Administration, "Indian Citizenship Act," Act of June 2, 1924, Public Law
+68-175, 43 Stat. 253, National Archives Identifier 299828, DocsTeach,
+https://www.docsteach.org/documents/document/indian-citizenship-act. [Open access]
+- opened: 2026-08-02
+- supports the term's closing clause: the Act of **June 2, 1924** "extended citizenship to the approximately
+  125,000 Native Americans who were still not recognized as American citizens in 1924"
+- **Route worth remembering**: `archives.gov/milestone-documents/indian-citizenship-act` is 404 and there is
+  no NARA milestone page for this act, but **DocsTeach — the National Archives' own document-teaching
+  site — carries the record itself**, with its statute citation and NARA identifier. When a milestone slug
+  404s, try `docsteach.org` before giving up on the Archives
+- used by: `Calvin_Coolidge`
+
+### mc-hoover-lib / mc-hoover-domestic · the thirty-first presidency
+David E. Hamilton, "Herbert Hoover: Life in Brief," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/hoover/life-in-brief. [Open access]
+David E. Hamilton, "Herbert Hoover: Domestic Affairs," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/hoover/domestic-affairs. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports: that "After graduating from Stanford with a degree in geology, Hoover became a
+  **mining engineer**" and "By 1914 … was a millionaire"; that as head of the Food Administration "Hoover
+  organized and administered several private **relief** efforts before, during, and after the war"; that he
+  served "in the Harding and Coolidge administrations as **secretary of commerce**"; that "**Within eight
+  months of his inauguration, the stock market crashed**"; that "he preferred a **voluntary**,
+  non-governmental approach to economic matters"; that "the **Hawley-Smoot Tariff** bill that Hoover signed
+  … retarded growth and recovery by raising tariffs … and stifling international trade"; and that "Roosevelt
+  won the contest handily"
+- Domestic Affairs supplies the loans: "Congress created the **RFC** in early 1932", and "In the summer of
+  1932, he signed the Emergency Relief Construction Act, which provided $2 billion for public works projects
+  and **$300 million for direct relief programs run by state governments**"
+- used by: `Herbert_Hoover`
+
+### oh-protectionism · the tariff of 1930
+Office of the Historian, U.S. Department of State, "Protectionism in the Interwar Period," Milestones in the
+History of U.S. Foreign Relations, https://history.state.gov/milestones/1921-1936/protectionism.
+[Open access]
+- opened: 2026-08-02
+- supports the year and the effect: "the **Tariff Act of 1930**, more commonly known as the **Smoot-Hawley**"
+  tariff, and the retaliation and contraction of world trade that followed
+- used by: `Herbert_Hoover`
+
+### NOT CITED (batch P5) — what could not be sourced, and what is kept unmarked
+- **The Bureau of the Budget has no reachable source here.** `gao.gov` is 403 and `whitehouse.gov/omb`
+  carries no institutional history, so the 1921 Act's creation of the Bureau — true, and the thing
+  `Warren_G._Harding` originally claimed — could not be cited. The clause was rewritten to the unified
+  presidential budget, which the Miller Center does state.
+- **Neither TR source gives the YEAR of the Nobel Peace Prize.** "In 1906" is left unmarked and
+  uncontradicted.
+- **`history.state.gov/milestones/1899-1913/dollar-diplomacy` is 404** — the phrase is in the Taft Life in
+  Brief instead, in Taft's own words.
+- **`archives.gov/milestone-documents/federal-reserve-act` and `.../indian-citizenship-act` are both 404.**
+  The Federal Reserve Act is cited to the Miller Center; the Indian Citizenship Act to DocsTeach, which is
+  the Archives' own site and carries the record.
+- Kept unmarked, uncontradicted, in nothing opened: Taft as "the only person to hold both offices" and his
+  regarding the court years "as the happiest of his career", neither of which any essay states; Harding's
+  "easy manner" and Coolidge's "thrift" as characterisations; Hoover's winning "by a wide margin" in 1928,
+  where the Campaigns essay gives 58 percent and 444–87 but was not itself cited; and Hoover's losing "in a
+  landslide", where the Life in Brief says "handily".
