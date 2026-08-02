@@ -227,9 +227,12 @@ html[dir="rtl"] .page-head{text-align:right;}
 .xp.zh .xp-fill{background:linear-gradient(90deg, var(--zh), #E0786F);}
 /* Library: each collection's xp bar fills in its own identity hue */
 .collection-row .xp-fill{background:linear-gradient(90deg, var(--coll-bg, var(--indigo)), color-mix(in srgb, var(--coll-bg, var(--indigo)) 62%, white));}
-/* home banner stats: colour as information — vermilion when cards wait, green for fresh ones */
-.banner .stat.st-due b{color:var(--zh);}
-.banner .stat.st-new b{color:var(--good, #4F9D67);}
+/* home banner stats: Anki's three piles in Anki's colours — blue new, red learning, green review. The same
+   three run down the deck rows below the banner as .adc-new / .adc-learn / .adc-rev, and the study bar's
+   own .cnt row has always used exactly these tokens; keep all three sites on the same palette. */
+.banner .stat.st-new b{color:var(--indigo-bright);}
+.banner .stat.st-learn b{color:var(--zh);}
+.banner .stat.st-rev b{color:var(--good, #4F9D67);}
 /* large level numeral shown at the left of a collection / review banner */
 .level-badge{flex:none; display:flex; flex-direction:column; align-items:center; justify-content:center; min-width:56px; line-height:1;}
 .lb-num{font-family:var(--display); font-weight:600; font-size:44px; line-height:.82; color:var(--indigo); letter-spacing:-.02em;}
@@ -379,9 +382,19 @@ body:not(.night) .review-group .banner.done:not(.won){
 .lib-banner{display:none; --tile:#5A73A8; padding:20px 22px;}   /* the ≤640px block turns it back on */
 .lib-banner h2{margin:0 0 5px;}
 .lib-banner .desc{font-size:14px;}
-.lib-banner .meta{margin-top:11px;}
+.lib-banner .meta{margin-top:17px;}   /* the button sat almost against the sentence above it */
 .lib-banner .glyph-svg{bottom:-16px; right:-10px;}
 .lib-banner .glyph-svg svg{width:118px; height:118px;}
+/* ---------- home: the way to the About page on a phone ----------
+   About left the bottom tab bar (Aug 2026, on request) and this took its place: a quiet grey line under
+   the Library banner rather than a fifth of a row four readers share. Phone-only, like the banner. */
+.home-about{
+  display:none; appearance:none; border:0; background:none; cursor:pointer; width:100%;
+  padding:4px 0 2px; text-align:center;
+  font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint);
+}
+.home-about:hover{color:var(--ink-soft);}
+.home-about:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:3px; border-radius:6px;}
 
 /* ---------- home: the phone's three swiped panes ----------
    Above the breakpoint this is nothing at all — a plain column holding the same three blocks in the same
@@ -1257,7 +1270,11 @@ body.grading .stage{padding-bottom:150px;}
 .fb-status.bad{color:var(--danger,#c8453c);}
 
 /* daily quote (home) */
-.daily-quote{position:relative; margin:0 0 26px; padding:38px 0; text-align:center; background:none; box-shadow:none;}
+/* The figure is held at the height of its TALLER language (lockHeight in app.js sets the min-height), so
+   flipping it to the original moves nothing under it. Centring the content in that box is what keeps the
+   shorter of the two from reading as a quote with a hole beneath it. */
+.daily-quote{position:relative; margin:0 0 26px; padding:38px 0; text-align:center; background:none; box-shadow:none;
+  display:flex; flex-direction:column; justify-content:center;}
 .daily-quote blockquote{margin:0; font-family:var(--serif); font-size:18px; font-style:italic; line-height:1.5; color:var(--ink);}
 .daily-quote blockquote::before{content:"\201C"; display:block; font-family:var(--display); font-style:normal; font-size:34px; line-height:.4; color:var(--zh); opacity:.75; margin-bottom:8px;}
 .daily-quote figcaption{margin-top:9px; font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint);}
@@ -1502,6 +1519,11 @@ body.night .lu-badge{color:#E6C765;}
    .country-pop itself or the × scrolls away. */
 .country-pop{position:absolute; left:clamp(16px,4vw,40px); top:16px; bottom:16px; width:min(360px, calc(100% - 32px)); max-height:none; display:flex; flex-direction:column; background:var(--card); border:1px solid var(--rule); border-radius:13px; padding:15px 20px; box-shadow:0 16px 40px -16px rgba(0,0,0,.5); z-index:7;}
 .country-pop[hidden]{display:none;}
+/* the phone sheet's resize grip — hidden on the desktop panel, which already runs the height of the stage.
+   touch-action:none, or the browser claims the drag as a page scroll before pointermove reaches us. */
+.cp-grab{display:none; position:absolute; top:0; left:0; right:0; height:18px; cursor:ns-resize; touch-action:none; z-index:2; align-items:center; justify-content:center;}
+.cp-grab span{display:block; width:38px; height:4px; border-radius:99px; background:var(--rule); pointer-events:none;}
+.cp-grab:hover span, .cp-resizing .cp-grab span{background:var(--ink-faint);}
 .cp-close{position:absolute; top:9px; right:10px; appearance:none; cursor:pointer; width:24px; height:24px; border-radius:7px; border:none; background:transparent; color:var(--ink-faint); font-size:17px; line-height:1; display:flex; align-items:center; justify-content:center; z-index:1;}
 .cp-close:hover{background:var(--rule); color:var(--ink);}
 /* the title block sits ABOVE the scroller and never moves: on the phone the sections below it are pages you
@@ -1567,7 +1589,14 @@ body.night .lu-badge{color:#E6C765;}
      between, one page at a time, with the dots below saying how many there are. Every page is expanded (there
      is nothing under a page to uncover by folding it) and an empty one is dropped from the run rather than
      shown, so a swipe never lands on a dash. The title block above and the dots below stay put. */
-  .country-pop{left:50%; top:auto; bottom:14px; transform:translateX(-50%); width:calc(100% - 28px); max-height:52%; padding:15px 16px 8px;}
+  .country-pop{left:50%; top:auto; bottom:14px; transform:translateX(-50%); width:calc(100% - 28px); max-height:52%; padding:22px 16px 8px;}
+  .cp-grab{display:flex;}
+  .cp-close{top:15px;}   /* the grip took the top edge */
+  /* dragged to a height of the reader's own: the 52% cap gives way to it entirely, and the head gives up
+     its share of the box first so the title survives all the way down to the floor */
+  .country-pop.cp-sized{max-height:none; overflow:hidden;}
+  .country-pop.cp-resizing{transition:none;}
+  .cp-sized .cp-head{max-height:none; flex:0 1 auto; min-height:0;}
   .cp-head{max-height:46%; overflow-y:auto;}   /* "Through the ages" can run to a dozen rows — cap it, or it pushes the pages off the sheet */
   .cp-cols{display:flex; flex-direction:row; flex:1; gap:0; overflow-x:auto; overflow-y:hidden; scroll-snap-type:x mandatory; overscroll-behavior-x:contain; padding-right:0; scrollbar-width:none; -webkit-overflow-scrolling:touch;}
   .cp-cols::-webkit-scrollbar{display:none;}
@@ -1764,6 +1793,16 @@ body.night .lu-badge{color:#E6C765;}
 /* like the banner's own wash, a whisper on dark themes */
 body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, var(--tile, #9A6634) 7%, transparent), transparent 64%) var(--card);}
 .active-deck:last-child{border-bottom-left-radius:14px; border-bottom-right-radius:14px;}
+/* the deck's own share of the day's three piles, at the far left of its row — the same numbers the banner
+   above carries, without the labels it has just spelled out. Tabular figures so the three columns line up
+   from row to row rather than jittering with the digit widths. */
+.active-deck .ad-counts{
+  flex:none; display:flex; align-items:baseline; gap:9px; min-width:58px; padding-top:2px;
+  font-family:var(--mono); font-size:13px; font-weight:600; font-variant-numeric:tabular-nums;
+}
+.active-deck .adc-new{color:var(--indigo-bright);}
+.active-deck .adc-learn{color:var(--zh);}
+.active-deck .adc-rev{color:var(--good, #4F9D67);}
 .active-deck .ad-body{flex:1; min-width:0; display:flex; flex-direction:column; gap:8px;}
 .active-deck .ad-line{display:flex; align-items:baseline; gap:10px; justify-content:space-between;}
 .active-deck .ad-title{font-family:var(--display); font-weight:600; font-size:16.5px; color:var(--ink); letter-spacing:-.01em;}
@@ -1857,14 +1896,24 @@ body.grading .wb-tools{bottom:108px;}
 }
 .wb-color:hover{transform:scale(1.12);}
 .wb-color.sel{box-shadow:0 0 0 2px var(--card), 0 0 0 3px var(--ink);}
+/* the reader's own colour, remembered between sessions. It is a native <input type="color"> wearing the
+   swatch's clothes — laid over the whole swatch at zero opacity, so the tap target IS the circle and the
+   platform's own picker is what opens. The dashed ring says it is the one that can be changed. */
+.wb-custom{position:relative; display:inline-block; flex:none; border-style:dashed; border-color:var(--ink-faint);}
+.wb-custom input{position:absolute; inset:-2px; width:calc(100% + 4px); height:calc(100% + 4px); opacity:0; padding:0; border:0; cursor:pointer;}
 .wb-size{
-  appearance:none; cursor:pointer; width:30px; height:30px; border-radius:8px;
+  appearance:none; cursor:pointer; width:30px; height:30px; border-radius:8px; flex:none;
   border:1px solid var(--rule); background:var(--paper-2); color:var(--ink-soft);
   display:inline-flex; align-items:center; justify-content:center; transition:all .15s var(--ease);
 }
 .wb-size .dot{background:currentColor; border-radius:50%;}
 .wb-size:hover{border-color:var(--indigo); color:var(--indigo);}
-.wb-size.sel{background:var(--indigo); border-color:var(--indigo); color:#fff;}
+/* two marks, two facts: `sel` is the width in use (whatever the tool), `on` is the PEN down at it — the
+   Draw button is gone, so these buttons are the pen and have to say so. */
+.wb-size.sel{border-color:var(--indigo); color:var(--indigo);}
+.wb-size.on{background:var(--indigo); border-color:var(--indigo); color:#fff;}
+/* Mark shares the sizes' row (it took the place the Draw button left) and keeps its label readable */
+.wb-sizes-row .wb-btn{flex:1 1 auto; min-width:0; padding:0 9px;}
 .wb-btn{
   appearance:none; cursor:pointer; height:30px; padding:0 11px; border-radius:8px; flex:1;
   border:1px solid var(--rule); background:var(--paper-2); color:var(--ink-soft);
@@ -1875,9 +1924,6 @@ body.grading .wb-tools{bottom:108px;}
 .wb-btn:hover{border-color:var(--indigo); color:var(--indigo);}
 .wb-btn:disabled{opacity:.4; cursor:default; pointer-events:none;}
 .wb-btn.sel{background:var(--ochre); border-color:var(--ochre); color:#fff;}
-/* the pen takes the same indigo as the marker button's own lit state, so "the pen is down" reads the same
-   whether the tools are open or put away */
-.wb-btn.wb-pen.sel{background:var(--indigo); border-color:var(--indigo); color:#fff;}
 .wb-btn.wb-hl.sel{background:var(--ochre); border-color:var(--ochre); color:#fff;}
 .wb-btn.wb-eraser.sel{background:var(--ink-soft); border-color:var(--ink-soft); color:#fff;}
 /* touch-action:none — the handle is dragged with a finger, and without it the browser claims the gesture
@@ -2359,13 +2405,17 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
     scrollbar-width:none; -webkit-overflow-scrolling:touch;
   }
   .home-pager::-webkit-scrollbar{display:none;}
-  .hp-pane{flex:0 0 100%; width:100%; min-width:100%; scroll-snap-align:start; scroll-snap-stop:always;}
+  /* The panes are still exactly 100% wide — the dots' arithmetic (scrollLeft = i × clientWidth) depends on
+     it — so the breathing room between them is INSIDE the pane, as padding, not a flex gap that would put
+     the snap points out of step with the JS. */
+  .hp-pane{flex:0 0 100%; width:100%; min-width:100%; padding:0 7px; scroll-snap-align:start; scroll-snap-stop:always;}
   .hp-explore{order:-1;}   /* swiping RIGHT off the review reveals the day's card and term; the markup keeps the desktop order */
-  .hp-dots{display:flex; justify-content:center; align-items:center; gap:8px; padding:1px 0 0;}
+  .hp-dots{display:flex; justify-content:center; align-items:center; gap:8px; padding:0 0 10px;}
   .hp-dots[hidden]{display:none;}   /* the author display:flex would otherwise defeat the hidden attribute (codebase convention) */
   .hp-dot{appearance:none; border:0; padding:0; width:7px; height:7px; border-radius:50%; background:var(--rule); cursor:pointer; transition:background .16s var(--ease), transform .16s var(--ease);}
   .hp-dot.on{background:var(--indigo); transform:scale(1.32);}
   .lib-banner{display:flex;}
+  .home-about{display:block;}   /* phone-only, like the banner it sits under */
   .game-grid{grid-template-columns:repeat(2,1fr); gap:12px;}
   .howit{grid-template-columns:1fr; gap:10px;}
   .explore-grid, .explore-grid.has-term-img{grid-template-columns:1fr; gap:12px;}
@@ -2375,7 +2425,13 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
   .chrono-actions{flex-direction:column;} .chrono-actions .btn{width:100%;}
   body.grading .stage{padding-bottom:206px;}
   body.grading .wb-tools{bottom:170px;}
-  .wb-tools{right:12px; bottom:12px;}
+  /* clear of the bottom tab bar, not sitting on top of it: the marker is a control, and a control that
+     covers the row of destinations reads as a bug however useful it is. (While grading the tab bar is gone
+     and the grade bar owns that edge — hence the rule above, and the 430px one further down.) */
+  .wb-tools{right:12px; bottom:calc(var(--tabbar-h) + 12px);}
+  /* On the Atlas the timebar owns the strip above the tab bar, so the marker clears BOTH — and steps left
+     of the zoom column (34px wide at a 16px inset), which occupies the same corner. */
+  .wb-tools.on-atlas{right:62px; bottom:calc(var(--tabbar-h) + var(--timebar-h) + 10px);}
   .collection-row{padding:18px 16px; gap:14px;}
   .collection-title{font-size:20px;}
   .counts{width:100%; margin-left:0; margin-top:4px;}

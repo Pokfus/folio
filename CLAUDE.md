@@ -441,7 +441,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scope.type !== "card"`) — with no other card between, the card would reappear instantly and read as a grade that
   never landed, and it is scheduled properly regardless — and `fromHome` (review / card / cotd scopes) sends the exit
   button, the completion screen and the caught-up placard back to **Home** rather than the collections.
-- **Daily review order** (`reviewOrder` toggle → `S.settings.reviewRandom`): **Chrono** presents cards in their in-deck order;
+- **Daily review order** (`reviewOrder` toggle → `S.settings.reviewRandom`): **Ordered** (labelled "Chrono" until Aug
+  2026, renamed on request — the old key is retired from all nine language tables) presents cards in their in-deck order;
   **Random** shuffles the session order AND **draws the day's NEW cards at random from across the active decks** (rather than the
   first-N in set order) — `reviewQueue` seeded-shuffles the unseen pool by the date (`seededShuffle(pool, mulberry32(hashStr("review-"+todayStr())))`) so the same new cards surface all day.
 - **Scheduling (`grade()`):** SM-2-ish with Anki-style learning steps. A **new card graded "Good"** becomes a `learning` step
@@ -464,7 +465,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **The Ctrl+Z guard is not `!typing`**: the cloze box takes focus as each card opens, so refusing whenever it is
   focused would mean the shortcut never fired at the one moment it is wanted — the card AFTER the misclick, which
   has just opened with an empty box. It yields to the browser's own typing-undo only while the box actually holds
-  a typed guess.
+  a typed guess. (That autofocus is now **keyboard-machines only** — `setupCloze` skips it under `touchDevice()`,
+  i.e. `(hover:none)`, added Aug 2026 on request: on a phone it summoned the on-screen keyboard over half the card
+  on every card, before the reader had decided to type. The guard is unaffected — a touch reader who has not
+  focused the box is exactly the case it already lets through.)
   **The shortcuts are written down in the grade bar's `?` bubble** (`.ghb-keys`, Aug 2026) — Space reveals,
   1–4 grade, Enter is Good, Ctrl+Z takes the last one back. They all existed and nothing said so, and that
   bubble is where a reader already goes to ask what the buttons do. (The Atlas's own coach marks already
@@ -1190,7 +1194,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   again returns to the site language. The swap **crossfades**: the words fade out (`dq-out`), the swap happens while
   nothing is visible, the incoming ones are held at their start (`dq-in`, `transition:none` — removing the class is
   what animates them) and the figure's height eases between the two languages (`dq-sizing` + an inline height, since
-  a Greek line and its English rarely wrap the same), so nothing cuts and the page below never jumps. `DQ_FADE` /
+  a Greek line and its English rarely wrap the same), so nothing cuts and the page below never jumps.
+  **The figure is also held at the height of its TALLER language** (`lockHeight`, Aug 2026, on request): both are
+  measured in one synchronous pass that never paints — swap the `hidden` attributes, read `offsetHeight`, swap
+  back — and the larger becomes a `min-height`, after which the flip moves nothing at all and the height easing
+  above is a no-op. It is **re-measured on a tick, on `document.fonts.ready` and on resize** (`_dqResize`, one
+  listener ever), because the i18n observer rewrites the quote after render for a non-English reader and a
+  webfont arriving re-wraps both languages. `DQ_FADE` /
   `DQ_SIZE` in app.js must stay in step with the `.dq-*` transition durations in styles.css; a `busy` guard ignores
   clicks mid-flight and `prefersReducedMotion()` swaps outright instead of waiting out the timings. `.dq-flip` also
   carries **`user-select:none`** — it is a button, and clicking it twice to toggle back otherwise swept the
@@ -1230,6 +1240,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   covers many history topics; copy stays subject-neutral (China is just the first live collection).
   **A "Seen total" stat sat beside Due and New and was removed on request (Aug 2026)** — the xp bar directly above
   it already counts the distinct cards studied, as progress towards the next level rather than a bare number.
+  **The banner counts ANKI'S THREE PILES** (Aug 2026, on request — it was a Due / New pair): **New** in blue,
+  **Learning** in red, **Review** in green (`pileCounts` in `PAGES.home`; the tokens are the study bar's own
+  `--indigo-bright` / `--zh` / `--good`, so all three sites agree). The same three numbers, unlabelled, open every
+  added deck's row below it (`adCounts` → `.ad-counts`), computed by the SAME function over that deck's ids, so a
+  row can never claim work the banner does not. Two things about the split are deliberate: **new** is the day's
+  allowance (`reviewQueue().fresh`), not the whole unseen backlog, and a **learning** card counts from the moment
+  it is answered wrong until it graduates — whether or not its ten-minute step has come round — because a count
+  that emptied while the card sat on its timer would say the work was done. `review` is the due pile minus those.
 - **The home page is THREE SWIPED PANES on a phone** (`.home-pager` / `#homePager`, Aug 2026, on request). One column
   three screens tall put the games below the fold and the day's card below them again. `PAGES.home` builds three
   `.hp-pane`s — the review group (with the first-run how-it-works strip inside it), the game grid, the discovery row —
@@ -1242,8 +1260,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **It opens on the review** (`pager.scrollLeft = clientWidth`, set before the first paint): a reader who never
     swipes sees what they saw before. `#homeDots` is the pager (three dots, middle one lit) — a horizontal scroller
     with no marker reads as a column that just happens to be cut off — and doubles as the way to reach a pane
-    without swiping. In RTL a scroller's `scrollLeft` runs **negative** from 0 at the right edge, so both the dots
+    without swiping. It sits **above** the panes, between them and the quote (moved there Aug 2026, on request:
+    under them it read as a footnote to whichever pane was showing rather than as the pager's own control).
+    In RTL a scroller's `scrollLeft` runs **negative** from 0 at the right edge, so both the dots
     and the initial position are signed off `direction` — Arabic is one of the ten languages.
+  · **The breathing room between panes is `padding` on `.hp-pane`, never a flex `gap`** (Aug 2026, on request —
+    two banners met edge to edge mid-swipe). The dots' arithmetic and the initial scroll are both
+    `i × clientWidth`, which a gap would silently put out of step with the snap points.
   · **The container is CONTENT-HEIGHT.** The panes stretch to the tallest of them, so nothing is clipped and the
     page scrolls vertically exactly as before; `overflow-y:hidden` is there only because a scroll container may not
     pair `visible` on one axis with `auto` on the other. Don't give it a fixed height.
@@ -1254,11 +1277,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     what it BUILDS and not only in how it sits.
   · **`wireOnePageSwipe(pager)`** holds a flick to one pane; see the Atlas panel bullet for what it is and why the
     CSS alone is not relied on. Guarded by `test-layout.js`.
-- **The Library banner (`.lib-banner`, phones only — Aug 2026, on request)** sits below the pager, under the review
-  and active decks it belongs beside, and is how the Library is reached now that it has left the bottom tab bar.
-  **Phone-only** (`display:none` above 640px): the top bar still carries the tab there, and a second way in beside
-  it is clutter — the same call `showAdminEditBtn`'s plain variant makes. It is a plain `.banner` in a blue of its
-  own (`--tile:#5A73A8`) and quieter than the review above it: a destination, not the day's work.
+- **The Library banner (`.lib-banner`, phones only — Aug 2026, on request)** sits **inside the review pane**, under
+  the review and active decks it belongs beside, and is how the Library is reached now that it has left the bottom
+  tab bar. It was below the whole pager for a week, which put it under the games and the day's card too — panes it
+  has nothing to do with. **Phone-only** (`display:none` above 640px): the top bar still carries the tab there, and
+  a second way in beside it is clutter — the same call `showAdminEditBtn`'s plain variant makes. It is a plain
+  `.banner` in a blue of its own (`--tile:#5A73A8`) and quieter than the review above it: a destination, not the
+  day's work.
+  **`.home-about` rides under it** — a centred grey "About Folio" line (`#b-about` → `route("mission")`), added
+  Aug 2026 when About left the tab bar for the same reason Library did. Phone-only on the same terms.
 - **Home minigames** (game-grid tiles → `PAGES.*`): **Multiple Choice** (`PAGES.challenge`, formerly "Daily Challenge" — the
   rival bots + timer were removed; it's now a plain 5-question quiz whose 3 wrong options are the SAME `answerType()` as the
   answer — a person → other people, a dynasty → other dynasties), **Timeline** (`chrono`), **True or False** (`truefalse`),
@@ -1332,7 +1359,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - **The bottom tab bar (`.tabbar`, phones only — Aug 2026, on request).** The top bar held NINE icon-only
   controls in a scrolling strip at the top of a 390px screen — the four destinations plus theme, edit,
   account, settings and language — all out of the thumb's arc and none of them named. **Every destination
-  now lives in the bottom bar** (home / map / mission / account / settings — **not admin and not decks**,
+  now lives in the bottom bar** (home / map / account / settings — **not admin, not decks and not mission**,
   see below), and light-dark
   and the language picker moved to the **Settings page**, which leaves the top bar with nothing on it at
   all: `.topbar{display:none}` on a phone, and **`--bar-h` goes to 0px** there so `.globe-stage` and every
@@ -1344,6 +1371,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   described below: the editor is one person's tool and it was taking a seventh of a row six readers share.
   **Nor is Library** (Aug 2026, on request): it is reached from the home page's `.lib-banner` instead, which
   is why nothing in the bar is active on `#decks` — that page is not one of the bar's destinations.
+  **Nor About**, which left the same way a week later (Aug 2026, on request) for the `.home-about` line under
+  that banner — a page read once, against a fifth of a row four readers share. `#mission` is therefore the
+  second route with nothing marked in the bar.
   `applyMode` still hides `.tab-admin` with `querySelectorAll` rather than `querySelector`, because the
   entry point can exist more than once and the old form would have left a second copy live for every
   visitor. The bar is a **flex row of `flex:1 1 0` cells**, not a fixed column count, so a tab hidden or
@@ -1383,8 +1413,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     one until Aug 2026, when putting the tools away also put the pen down — you could not draw with the
     panel out of the way, which on a phone is most of the card. The marker button now only opens and closes
     the panel (opening it with nothing selected picks the pen, so one tap still gets you drawing); what puts
-    the pen down is **unselecting the tool inside it**. The panel's `[Draw] [Mark] [Erase]` row is mutually
-    exclusive and clicking the selected one deselects it, so **nothing selected IS the pen-up state** —
+    the pen down is **unselecting the tool inside it**. The tools are mutually exclusive and clicking the
+    selected one deselects it, so **nothing selected IS the pen-up state** —
     which is what makes that gesture available at all. `applyWBState` maps `panelOpen` → `.active` and
     `enabled` → the button's `.on` (visible with the panel shut) plus the canvas; **`wbSetEnabled` is the
     one place `enabled` changes**, because the Atlas owns its own cursor / hover / spin state and has to be
@@ -1405,7 +1435,35 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     control sits on a screen is a fact about that screen) and **clamped on every apply and on resize**, so a
     position saved on a wide window cannot strand the marker off the edge of a narrow one. With nothing
     stored the inline styles are cleared, which is what lets `.on-atlas` and `body.grading`'s offsets take
-    over again. Guarded by `test-layout.js`: a marker that cannot be moved and one that turns drawing on
+  · **There is no Draw button: the three SIZE buttons ARE the pen** (Aug 2026, on request). Clicking a size
+    picks the pen at that width and clicking the width it is already down at lifts it, which is why the size
+    buttons carry **two** marks — `.sel` for the width in use (true under Mark and Erase too, which are drawn
+    at that width) and `.on` for the pen being down at it. While Mark or Erase is the active tool a size
+    click only sets that tool's width: taking the tool out from under a reader mid-mark is not what a width
+    control does. Panel order is `[colours] / [sizes] [Mark] / [Erase] [Clear] / [Undo] [Redo]`.
+  · **The custom colour** (`wbReadCustom` / `wbSaveCustom`, `localStorage["folio_wb_custom_v1"]`) is a native
+    `<input type="color">` laid over a swatch at zero opacity — the tap target is the circle and the platform's
+    own picker opens. **One per palette** (a highlighter yellow is not a pen colour), written on `input` rather
+    than `change` so the marker follows the finger through the picker; the write re-renders the row, so the
+    value has to be put back on the NEW input afterwards. Device-local, like the position.
+  · **Controls under the ink stay usable** (the `CTL_SEL` / `controlUnder` / `passCtl` block in
+    `setupWhiteboard`, Aug 2026, on request). The canvas covers the whole visible page, so with the pen down
+    it also covered Show answer and everything else on the card. **A z-index cannot fix this**: `.page` and
+    `.cardwrap` both animate with a fill mode, and a filling animation is a stacking context, so nothing
+    inside them can paint above a sibling of the stage. Instead the canvas hit-tests underneath itself on
+    pointerdown (`pointerEvents:none` → `elementFromPoint` → restore) and hands the press to any real control
+    it finds, activating it on pointerup only if the finger is still on it. **`preventDefault` on the
+    pointerdown is what makes that necessary** — it suppresses the compatibility click, which would otherwise
+    land on the canvas. `CTL_SEL` is deliberately real controls only (`button, a[href], input, select,
+    textarea, summary`) and **not** `[role="button"]` or anything focusable: a background is full of glossary
+    links and its picture is a `role="button"` figure, and drawing over a word means drawing over it.
+    (The grade bar itself never needed this — it is `z-index:60` against the canvas's 40, in the root
+    stacking context — but it is asserted anyway, since nothing on screen says which of them is which.)
+  · **On a phone the default corner clears the bottom bars**: `bottom:calc(var(--tabbar-h) + 12px)` on the
+    study page and `calc(var(--tabbar-h) + var(--timebar-h) + 10px)` on the Atlas, where it also steps to
+    `right:62px` — the zoom column (`.globe-zoom`, 34px wide at a 16px inset) holds that same corner, and
+    the marker landed exactly on its `?`. A stored drag position still overrides both.
+    Guarded by `test-layout.js`: a marker that cannot be moved and one that turns drawing on
     every time you move it are opposite failures, both silent.
 - **Reduced motion:** styles.css ends with a **global killswitch** — `@media (prefers-reduced-motion:reduce){ *,*::before,*::after
   { animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; } }`.
@@ -1624,6 +1682,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **The discovery chip shares the title's row** (`.cp-titlerow` wrapping `#cpName` + `#cpNew`, Aug 2026, on
   request): it names the place beside it, and a line of its own cost the short phone sheet a whole line before
   the description started. The 20px right margin that clears the × moved from `.cp-name` up to the row.
+  **The sheet's HEIGHT is the reader's to set** (`.cp-grab` / `cpWireResize` / `cpApplyH` / `cpMinH` / `cpMaxH`,
+  Aug 2026, on request): drag the grip at its top edge — a pill centred on it, since a draggable edge with no
+  mark on it is one nobody will find — down to the title bar alone or up to the top of the screen. Stored as a
+  **fraction of the viewport** in `localStorage["folio_cp_h_v1"]` (device-local like the marker's position, and a
+  fraction so a rotation keeps the proportion), re-applied on every `showCountryPopupName`, so the next place
+  opens at the height the last was left at. `.cp-sized` is what takes the stylesheet's 52% cap off and lets
+  `.cp-head` shrink; the desktop panel is untouched (`cpPagerOn()` gates everything, and the grip is
+  `display:none` above 720px).
+  **`cpMinH` measures through `offsetTop`/`offsetHeight`, never `getBoundingClientRect`** — and this is the whole
+  trick. The head is a scroller inside the very box being shrunk, so its rect reports whatever is left of it, and
+  a floor derived from that collapses as the drag approaches it: the first version bottomed out at the hard 56px
+  and the title scrolled out of the sheet it was meant to be the floor of. Offsets are layout values and do not
+  move.
   The popup (`#countryPop`) stacks: the state's **full legal official name**
   (`officialName()` — from the summary's "officially …", or a leading "Full Name, commonly known as …" form, with a state-type
   keyword fallback so e.g. USSR → "Union of Soviet Socialist Republics"), with the **years that iteration of the state existed** in
@@ -2543,15 +2614,25 @@ dead code (never rendered).
     **Re-run after touching the `SOURCE FOOTNOTES` block, `wireFootnotes` / `sourcesHTML` / `normSources` /
     `linkifySrcItem` / `replaceInSrcText`, the `.src-access` styles, the editors' sources boxes, or the
     `fn` / `data-fn` sanitizer allowlists.**
-  · `node .claude/test-layout.js` — 147 assertions on **the shell**: the rules that break silently because
+  · `node .claude/test-layout.js` — 175 assertions on **the shell**: the rules that break silently because
     nothing throws when a layout is wrong. The phone's bottom tab bar (present, labelled — *every* tab, not
     just the active one, which is the top bar's behaviour — each name **centred under its own icon**, the
-    selected one included, since one tab off out of five reads as a design; routing; no Library, which the
-    home page's banner carries now; and gone while grading); the home page's three swiped panes on a phone
+    selected one included, since one tab off out of five reads as a design; routing; no Library and no
+    About, which the home page's banner and its grey line carry now; and gone while grading); the home
+    page's three swiped panes on a phone
     (one pane wide, snapping, `scroll-snap-stop:always` so no flick skips one, in the visual order
-    card-and-term / review / games, opening on the review with its dot lit, the quote still above them, no
-    Atlas teaser and no Seen total, the Library banner below routing to the collections) and the same page
-    back to one column in its original order above the breakpoint; the Atlas panel's discovery chip sharing
+    card-and-term / review / games, opening on the review with its dot lit above them, the quote above that,
+    each pane padded so two banners don't meet mid-swipe, no
+    Atlas teaser and no Seen total, the Library banner inside the review pane routing to the collections and
+    the About link under it to the About page, and the review's three Anki piles — new / learning / review,
+    in order, no two the same colour, repeated unlabelled in the same colours on each added deck's row) and
+    the same page back to one column in its original order above the breakpoint;
+    the whiteboard marker on a phone (clear of the tab bar, no Draw button, the sizes toggling the pen, the
+    custom colour surviving the session, and **Show answer and the grade row still tappable with the pen
+    down**, which is the assertion holding up the hit-test in `setupWhiteboard`); the Atlas place sheet's
+    drag-to-resize (taller, capped at the top of the screen, remembered into the next place, and its title
+    bar still showing at the floor); the daily quote keeping its height — and everything under it its
+    position — when flipped to its original language; the Atlas panel's discovery chip sharing
     the title's row and its sections likewise unskippable; the CHAIN of
     things anchored to the bottom of the viewport, where the globe stage, the Atlas timebar and the tab bar
     are stacked by arithmetic over `--timebar-h`/`--tabbar-h` and each edge must meet the next exactly, at
@@ -2563,7 +2644,8 @@ dead code (never rendered).
     never a click, since a click would dismiss it anyway and prove nothing.
     **Re-run after touching `.tabbar` / `--tabbar-h` / `--timebar-h` / `layoutTicks` / the Atlas chrome's
     media queries / `.settings` / `.auth-split` / the coming-soon rows / `.home-pager` / `wireOnePageSwipe`
-    / `.lib-banner`, or after adding an overlay to `document.body`.** Its clicks go through `evaluate`
+    / `.lib-banner` / `.home-about` / `pileCounts` / `ensureWBTools` / the ink layer's pass-through /
+    `cpWireResize` / `lockHeight`, or after adding an overlay to `document.body`.** Its clicks go through `evaluate`
     rather than `page.click`: clicking an element the
     CSS has hidden waits 30s and then THROWS, and a missing chip is exactly what some of this is here to
     catch — it has to report, not abort the file. Verified against five deliberately reintroduced

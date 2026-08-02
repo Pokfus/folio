@@ -3948,11 +3948,31 @@
   /* `enabled` (the pen is down) and `panelOpen` (the tools are showing) are TWO states and were one until
      Aug 2026, when closing the tools also put the pen down — you could not draw with the panel out of the
      way, which on a phone is most of the card. The marker button now opens and closes the panel; what puts
-     the pen down is unselecting the tool inside it (see the .wb-pen / .wb-hl / .wb-eraser row). */
+     the pen down is unselecting the tool inside it.
+     There is no "Draw" button (removed Aug 2026, on request): the three SIZE buttons are the pen, and
+     clicking the selected size again is what puts it back up — so the pen costs one control instead of two,
+     and the row that named it now carries Mark beside the sizes. */
   const WB = { enabled: false, panelOpen: false, mode: "pen", penColor: WB_COLORS[0], hlColor: WB_HL_COLORS[0], color: WB_COLORS[0], size: WB_SIZES[1], canvas: null, ctx: null, drawing: false, last: null, ro: null, backup: null, hlPts: null, dirtied: false, undoStack: [], redoStack: [] };
   const WB_HIST_MAX = 20;   // cap on undo history (raster card snapshots are full-canvas bitmaps)
   let wbToolsRef = null;
   let wbRefreshTools = null;   // set by ensureWBTools — re-marks the selected tool from WB.enabled/WB.mode
+  /* The custom colour beside the five presets. It is device-local and NOT in S: a marker colour is a fact
+     about this device's screen, like where the marker sits. One per palette — a highlighter yellow chosen
+     for marking is not a pen colour — kept in a single record so both survive a reload. */
+  const WB_CUSTOM_KEY = "folio_wb_custom_v1";
+  const WB_CUSTOM_DEF = { pen: "#7A4FC2", hl: "#B9FF6A" };
+  let wbCustom = null;
+  function wbReadCustom() {
+    if (wbCustom) return wbCustom;
+    wbCustom = { pen: WB_CUSTOM_DEF.pen, hl: WB_CUSTOM_DEF.hl };
+    try {
+      const o = JSON.parse(localStorage.getItem(WB_CUSTOM_KEY) || "null");
+      if (o && /^#[0-9a-f]{6}$/i.test(o.pen || "")) wbCustom.pen = o.pen;
+      if (o && /^#[0-9a-f]{6}$/i.test(o.hl || "")) wbCustom.hl = o.hl;
+    } catch (e) {}
+    return wbCustom;
+  }
+  function wbSaveCustom() { try { localStorage.setItem(WB_CUSTOM_KEY, JSON.stringify(wbReadCustom())); } catch (e) {} }
 
   /* ---- the marker is draggable anywhere on the screen (Aug 2026, on request) ----
      It is a fixed control floating over a card the reader is trying to read, and its default corner is
@@ -4030,59 +4050,90 @@
     el.className = "wb-tools";
     const sizeBtns = WB_SIZES.map((s, i) => {
       const d = 4 + i * 4;
-      return `<button class="wb-size${i === 1 ? " sel" : ""}" data-s="${s}" aria-label="Brush size ${i + 1}"><span class="dot" style="width:${d}px;height:${d}px"></span></button>`;
+      return `<button class="wb-size" data-s="${s}" aria-label="Brush size ${i + 1}"><span class="dot" style="width:${d}px;height:${d}px"></span></button>`;
     }).join("");
     el.innerHTML = `
       <div class="wb-panel">
         <div class="wb-row wb-colors-row"></div>
-        <div class="wb-row">${sizeBtns}</div>
-        <div class="wb-row">
-          <button class="wb-btn wb-pen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>Draw</button>
+        <div class="wb-row wb-sizes-row">${sizeBtns}
           <button class="wb-btn wb-hl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11-6 6v3h9l3-3"/><path d="m22 12-4.6 4.6a2 2 0 0 1-2.8 0l-5.2-5.2a2 2 0 0 1 0-2.8L14 4"/></svg>Mark</button>
+        </div>
+        <div class="wb-row">
           <button class="wb-btn wb-eraser"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20H8.5L3.5 15a1.8 1.8 0 0 1 0-2.5l8-8a1.8 1.8 0 0 1 2.5 0l5 5a1.8 1.8 0 0 1 0 2.5L13 19"/></svg>Erase</button>
+          <button class="wb-btn wb-clear"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg>Clear</button>
         </div>
         <div class="wb-row">
           <button class="wb-btn wb-undo" aria-label="Undo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>Undo</button>
           <button class="wb-btn wb-redo" aria-label="Redo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>Redo</button>
         </div>
-        <div class="wb-row">
-          <button class="wb-btn wb-clear"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg>Clear</button>
-        </div>
       </div>
       <button class="wb-toggle" aria-label="Drawing tools" title="Draw on the card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>`;
     document.body.appendChild(el);
-    // Nothing selected IS the pen-up state — that is what makes "unselect the tool" a way to stop drawing.
+    /* Nothing selected IS the pen-up state — that is what makes "unselect the tool" a way to stop drawing.
+       The size buttons carry TWO marks because they do two jobs since the Draw button went: `.sel` says
+       which width is chosen (true whatever the tool, since Mark and Erase are drawn at that width too) and
+       `.on` says the pen itself is down at it. Without the pair, choosing a highlighter width would look
+       like the pen had been picked up. */
     const refreshModes = () => {
-      el.querySelector(".wb-pen").classList.toggle("sel", WB.enabled && WB.mode === "pen");
       el.querySelector(".wb-hl").classList.toggle("sel", WB.enabled && WB.mode === "hl");
       el.querySelector(".wb-eraser").classList.toggle("sel", WB.enabled && WB.mode === "erase");
+      el.querySelectorAll(".wb-size").forEach((x) => {
+        const mine = +x.dataset.s === WB.size;
+        x.classList.toggle("sel", mine);
+        x.classList.toggle("on", mine && WB.enabled && WB.mode === "pen");
+      });
     };
     wbRefreshTools = refreshModes;
-    // the colour swatches swap to bright highlighter colours when Mark is active
+    // the colour swatches swap to bright highlighter colours when Mark is active; the last one is the
+    // reader's own, remembered between sessions (a native colour input wearing the swatch's clothes)
     const renderColors = () => {
       const row = el.querySelector(".wb-colors-row");
-      const palette = WB.mode === "hl" ? WB_HL_COLORS : WB_COLORS;
-      const current = WB.mode === "hl" ? WB.hlColor : WB.penColor;
-      row.classList.toggle("hl", WB.mode === "hl");
+      const hl = WB.mode === "hl";
+      const palette = hl ? WB_HL_COLORS : WB_COLORS;
+      const current = hl ? WB.hlColor : WB.penColor;
+      const custom = hl ? wbReadCustom().hl : wbReadCustom().pen;
+      row.classList.toggle("hl", hl);
       row.innerHTML = palette.map((c, i) =>
         `<button class="wb-color${c === current ? " sel" : ""}" data-c="${c}" style="--wc:${c}" aria-label="Colour ${i + 1}"></button>`
-      ).join("");
-      row.querySelectorAll(".wb-color").forEach((b) =>
-        b.addEventListener("click", () => {
-          if (WB.mode === "erase") WB.mode = "pen";
-          if (WB.mode === "hl") WB.hlColor = b.dataset.c; else WB.penColor = b.dataset.c;
-          WB.color = b.dataset.c;
-          wbSetEnabled(true);   // reaching for a colour is asking to draw
-          renderColors();
-          refreshModes();
-        })
-      );
+      ).join("") +
+        `<span class="wb-color wb-custom${current.toLowerCase() === custom.toLowerCase() ? " sel" : ""}" style="--wc:${custom}" title="Custom colour">
+           <input type="color" value="${custom}" aria-label="Custom colour">
+         </span>`;
+      const useColor = (c) => {
+        if (WB.mode === "erase") WB.mode = "pen";
+        if (WB.mode === "hl") WB.hlColor = c; else WB.penColor = c;
+        WB.color = c;
+        wbSetEnabled(true);   // reaching for a colour is asking to draw
+        renderColors();
+        refreshModes();
+      };
+      row.querySelectorAll(".wb-color[data-c]").forEach((b) => b.addEventListener("click", () => useColor(b.dataset.c)));
+      const picker = row.querySelector(".wb-custom input");
+      // `input` rather than `change`: the picker previews live, so the marker follows the finger through it
+      picker.addEventListener("input", () => {
+        const c = picker.value;
+        if (!/^#[0-9a-f]{6}$/i.test(c)) return;
+        const store = wbReadCustom();
+        if (WB.mode === "hl") store.hl = c; else store.pen = c;
+        wbSaveCustom();
+        useColor(c);
+        // re-rendering replaced the element the picker is open on top of; put the value back on the new one
+        const again = row.querySelector(".wb-custom input");
+        if (again) again.value = c;
+      });
     };
     renderColors();
+    /* The sizes ARE the pen. Clicking one picks the pen at that width; clicking the width the pen is
+       already down at puts it back up. While Mark or Erase is the active tool they only set that tool's
+       width — taking the tool away from under the reader mid-mark is not what a width control should do. */
     el.querySelectorAll(".wb-size").forEach((b) =>
       b.addEventListener("click", () => {
-        WB.size = +b.dataset.s;
-        el.querySelectorAll(".wb-size").forEach((x) => x.classList.toggle("sel", x === b));
+        const s = +b.dataset.s, same = WB.size === s;
+        WB.size = s;
+        if (WB.enabled && (WB.mode === "hl" || WB.mode === "erase")) { /* width only */ }
+        else if (WB.enabled && WB.mode === "pen" && same) wbSetEnabled(false);
+        else { WB.mode = "pen"; WB.color = WB.penColor; wbSetEnabled(true); }
+        renderColors(); refreshModes();
       })
     );
     /* One tool at a time, and clicking the one already selected UNSELECTS it — which is the only way to
@@ -4096,7 +4147,6 @@
       }
       renderColors(); refreshModes();   // wbSetEnabled no-ops when the state already matched, so mark by hand too
     };
-    el.querySelector(".wb-pen").addEventListener("click", () => pickTool("pen"));
     el.querySelector(".wb-hl").addEventListener("click", () => pickTool("hl"));
     el.querySelector(".wb-eraser").addEventListener("click", () => pickTool("erase"));
     el.querySelector(".wb-undo").addEventListener("click", wbUndo);
@@ -4235,8 +4285,32 @@
     wbResize(false);
     WB.undoStack.length = 0; WB.redoStack.length = 0; WB.dirtied = false; wbSnapCard();   // base (empty) snapshot so undo can return to a blank card
     const posOf = (e) => { const r = canvas.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; };
+    /* ---- controls under the ink stay usable ----
+       The canvas covers the whole visible page, so with the pen down it also covered Show answer, the study
+       bar and every button on the card. Raising those with a z-index cannot work: `.page` and `.cardwrap`
+       both animate, and an animation with a fill mode is a stacking context, so nothing inside them can
+       ever paint above a sibling of the stage. So the canvas asks what is underneath instead: on
+       pointerdown it hit-tests with itself made transparent to the pointer, and a control found there takes
+       the press rather than the ink. `preventDefault` on pointerdown suppresses the compatibility mouse
+       events (the click would land on the canvas, not the button), so the control is activated by hand on
+       pointerup — but only if the finger is still on it, exactly as a real click behaves. */
+    /* REAL controls only — deliberately not `[role="button"]` or anything merely focusable. A card's
+       background is full of glossary links and its picture is a role="button" figure, and the reader
+       drawing over a word means to draw over it, not to open it. */
+    const CTL_SEL = "button, a[href], input, select, textarea, summary";
+    const controlUnder = (e) => {
+      const prev = canvas.style.pointerEvents;
+      canvas.style.pointerEvents = "none";
+      const el = document.elementFromPoint(e.clientX, e.clientY);
+      canvas.style.pointerEvents = prev;
+      const ctl = el && el.closest ? el.closest(CTL_SEL) : null;
+      return ctl && ctl !== canvas ? ctl : null;
+    };
+    let passCtl = null;
     canvas.addEventListener("pointerdown", (e) => {
       if (!WB.enabled) return;
+      passCtl = controlUnder(e);
+      if (passCtl) { e.preventDefault(); return; }   // a button under the ink: this press is its, not a stroke
       WB.drawing = true; WB.last = posOf(e);
       if (WB.mode === "hl") {
         WB.hlPts = [WB.last];
@@ -4277,8 +4351,19 @@
       }
     });
     const end = () => { const drew = WB.drawing && WB.dirtied; WB.drawing = false; WB.backup = null; WB.hlPts = null; if (drew) { WB.dirtied = false; wbSnapCard(); } };
-    canvas.addEventListener("pointerup", end);
-    canvas.addEventListener("pointercancel", end);
+    canvas.addEventListener("pointerup", (e) => {
+      const ctl = passCtl; passCtl = null;
+      if (ctl) {
+        // released on the same control it was pressed on → activate it, the way the click we suppressed would have
+        if (controlUnder(e) === ctl) {
+          if (/^(INPUT|TEXTAREA|SELECT)$/.test(ctl.tagName)) { try { ctl.focus(); } catch (x) {} }
+          else ctl.click();
+        }
+        return;
+      }
+      end();
+    });
+    canvas.addEventListener("pointercancel", () => { passCtl = null; end(); });
     if (WB._onResize) window.removeEventListener("resize", WB._onResize);
     WB._onResize = () => wbResize(true);
     window.addEventListener("resize", WB._onResize);
@@ -4577,6 +4662,11 @@
      the JS decides what is BUILT, the CSS decides how it sits. */
   function phoneHome() { return !!(window.matchMedia && window.matchMedia("(max-width:640px)").matches); }
 
+  /* A screen whose only pointer is a finger. Asked by width elsewhere, but this is about the KEYBOARD:
+     focusing a field on a touch device raises one over the page, and `hover:none` is what says there is no
+     mouse to have focused it with. A tablet is as much a phone as a phone here. */
+  function touchDevice() { return !!(window.matchMedia && window.matchMedia("(hover:none)").matches); }
+
   /* ---------- one page per swipe ----------
      Both horizontal pagers on the site (the Atlas place panel's sections, the home page's three panes) must
      move exactly ONE page per gesture: a flick that carries two along skips a whole section, and silently,
@@ -4857,17 +4947,44 @@
   // instant `hidden` toggle — it just happens behind a fade, with the figure's height easing between the
   // two languages (a Greek line and its English rarely wrap the same), so nothing cuts and nothing jumps.
   const DQ_FADE = 170, DQ_SIZE = 240;   // keep in step with the .dq-* transitions in styles.css
+  let _dqResize = null;   // the one listener the quote installs — render() re-enters this function
   function wireDailyQuote(root) {
     const fig = root.querySelector(".daily-quote.dq-flip");
+    if (_dqResize) { window.removeEventListener("resize", _dqResize); _dqResize = null; }
     if (!fig) return;
     let busy = false;
-    const swap = (toOriginal) => {
-      fig.classList.toggle("dq-showing-original", toOriginal);
+    const show = (toOriginal) => {
       fig.querySelectorAll(".dq-live").forEach((el) => { el.hidden = toOriginal; });
       fig.querySelectorAll(".dq-orig").forEach((el) => { el.hidden = !toOriginal; });
+    };
+    const swap = (toOriginal) => {
+      fig.classList.toggle("dq-showing-original", toOriginal);
+      show(toOriginal);
       const label = t(toOriginal ? "Show the translation" : "Show the original");
       fig.title = label; fig.setAttribute("aria-label", label);
     };
+    /* The figure is held at the height of its TALLER language (Aug 2026, on request). A Greek line and its
+       English rarely wrap to the same number of lines, so flipping the quote used to lift or drop everything
+       under it — the pager, the review banner, the whole page — by a line. Both heights are measured here,
+       in one synchronous pass that never paints, and the larger becomes the box's floor; after that the flip
+       moves nothing. Re-measured on resize, since the wrap that decides it is a function of the width. */
+    const lockHeight = () => {
+      const wasOriginal = fig.classList.contains("dq-showing-original");
+      fig.style.minHeight = "";
+      const a = fig.offsetHeight;
+      show(!wasOriginal);
+      const b = fig.offsetHeight;
+      show(wasOriginal);
+      fig.style.minHeight = Math.max(a, b) + "px";
+    };
+    const relock = () => { if (!busy && document.body.contains(fig)) lockHeight(); };
+    lockHeight();
+    // …and again once the things that change the wrap have landed: the i18n observer rewrites the quote a
+    // tick after render for a non-English reader, and a webfont arriving re-wraps both languages
+    setTimeout(relock, 0);
+    try { if (document.fonts && document.fonts.ready) document.fonts.ready.then(relock); } catch (e) {}
+    _dqResize = () => { if (!document.body.contains(fig)) { window.removeEventListener("resize", _dqResize); _dqResize = null; return; } relock(); };
+    window.addEventListener("resize", _dqResize);
     const flip = () => {
       if (busy) return;
       const toOriginal = !fig.classList.contains("dq-showing-original");
@@ -5001,8 +5118,42 @@
     const q = reviewQueue();
     const dueN = q.due.length;
     const newN = q.fresh.length;
+    /* The day's pile split Anki's way (Aug 2026, on request): NEW cards never studied, LEARNING cards
+       answered wrong and still working their way out of it, REVIEW cards graduated and due back. The old
+       Due / New pair folded the last two together, which hides the pile a reader most wants to see the size
+       of. Both the banner and each deck row under it read the SAME two sets, so a row can never claim work
+       the banner does not — the sets already exclude suspended and coming-soon cards, and `fresh` is today's
+       allowance rather than the whole unseen backlog. */
+    const freshSet = new Set(q.fresh), dueSet = new Set(q.due);
+    const pileIds = activeCardIds().filter((id) => !isSuspended(id));
+    const pileSet = new Set(pileIds);
+    const pileCounts = (ids) => {
+      let nw = 0, lr = 0, rv = 0;
+      ids.forEach((id) => {
+        if (!pileSet.has(id)) return;
+        const c = S.cards[id];
+        // a LEARNING card counts from the moment it is answered wrong until it graduates, whether or not its
+        // ten-minute step has come round yet — the pile is what is still being learned, not what is playable
+        // this second, and a count that emptied while the card was on its timer would say the work was done
+        if (!c) { if (freshSet.has(id)) nw++; }
+        else if (c.status === "learning") lr++;
+        else if (dueSet.has(id)) rv++;
+      });
+      return { nw, lr, rv };
+    };
+    const pile = pileCounts(pileIds);
     const activeIds = activeEntryIds();
     const trashSVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>';
+    // the same three numbers on a deck row, without their labels — the banner above has just named them
+    const adCounts = (ids) => {
+      const c = pileCounts(ids);
+      // the title is built from the SAME three words the banner labels itself with, run through t() here —
+      // a title attribute assembled from numbers is not a string the exact table could ever match
+      const tip = t("New") + " " + c.nw + " · " + t("Learning") + " " + c.lr + " · " + t("Review") + " " + c.rv;
+      return `<div class="ad-counts" title="${esc(tip)}">
+        <span class="adc adc-new">${c.nw}</span><span class="adc adc-learn">${c.lr}</span><span class="adc adc-rev">${c.rv}</span>
+      </div>`;
+    };
     // every row in the review list carries how far through it the reader is — the bar replaced a bare blue dot,
     // and its label replaced the plain card count beside the title, which said the same total twice
     const adProg = (ids) => {
@@ -5028,6 +5179,7 @@
           const pad = 22 + r.depth * 21;
           if (r.active) {
             return `<div class="active-deck" data-review="${esc(r.node.id)}" role="button" tabindex="0" data-depth="${r.depth}" style="padding-left:${pad}px" title="Review just ${esc(r.node.title)}">
+              ${adCounts(entryCardIds(r.node.id))}
               <div class="ad-body">
                 <div class="ad-line"><span class="ad-title">${esc(nodeTitle(r.node))}</span></div>
                 ${adProg(entryCardIds(r.node.id))}
@@ -5047,6 +5199,7 @@
         activeIds.filter((id) => UDECKS[uDeckIdOf(id)]).map((id) => {
           const d = UDECKS[uDeckIdOf(id)];
           return `<div class="active-deck" data-review="${esc(id)}" role="button" tabindex="0" data-depth="0" style="padding-left:22px" title="Review just ${esc(d.title)}">
+              ${adCounts(entryCardIds(id))}
               <div class="ad-body">
                 <div class="ad-line"><span class="ad-title">${esc(d.title)}</span></div>
                 ${adProg(entryCardIds(id))}
@@ -5057,6 +5210,7 @@
         // …and last, the cards picked up one at a time from the Card of the day, which belong to no deck the
         // reader added. It reads as one more added collection, and its trash empties the whole list.
         (activeIds.indexOf(COTD_ENTRY) === -1 ? "" : `<div class="active-deck" data-review="${esc(COTD_ENTRY)}" role="button" tabindex="0" data-depth="0" style="padding-left:22px" title="Review just ${esc(COTD_TITLE)}">
+              ${adCounts(entryCardIds(COTD_ENTRY))}
               <div class="ad-body">
                 <div class="ad-line"><span class="ad-title">${esc(COTD_TITLE)}</span></div>
                 ${adProg(entryCardIds(COTD_ENTRY))}
@@ -5228,8 +5382,12 @@
             }</p>
             ${xpBarMarkup(folioXP())}
             <div class="meta">
-              <div class="stat${dueN ? " st-due" : ""}"><b>${dueN}</b><span>Due</span></div>
-              <div class="stat${newN ? " st-new" : ""}"><b>${newN}</b><span>New</span></div>
+              ${/* Anki's three piles, in Anki's order and Anki's colours: blue new, red learning, green
+                    review. They are ALWAYS all three, coloured whether or not they are zero — a pile that
+                    turns grey when empty reads as a pile that has gone away. */""}
+              <div class="stat st-new"><b>${pile.nw}</b><span>New</span></div>
+              <div class="stat st-learn"><b>${pile.lr}</b><span>Learning</span></div>
+              <div class="stat st-rev"><b>${pile.rv}</b><span>Review</span></div>
               ${/* a "Seen total" stat sat here and was removed on request (Aug 2026) — the xp bar directly
                     above it is already the count of distinct cards studied, said as progress towards the
                     next level rather than as a bare number. */""}
@@ -5252,7 +5410,12 @@
             <div class="meta"><span class="cta"><span class="btn">Browse collections</span></span></div>
           </div>
           <span class="glyph glyph-svg">${ICON.library}</span>
-        </button>`;
+        </button>
+        ${/* About left the phone's tab bar (Aug 2026, on request) — a page read once does not deserve a
+              share of a row the day's destinations need. This quiet grey line under the Library banner is
+              the way in instead, and like the banner it is phone-only: the top bar still carries the tab
+              above the breakpoint. */""}
+        <button class="home-about" id="b-about" type="button">About Folio</button>`;
     /* The three groups used to stack down the phone in one column three screens tall. They are separated here
        into panes swiped between, with the daily review — the thing a reader came for — the one the page opens
        on: swipe LEFT off it for the games, RIGHT for the day's card and term. The quote stays where it was,
@@ -5268,20 +5431,25 @@
       </div>
       ${dailyQuoteHTML()}
       <div class="banners">
+        ${/* the dots sit ABOVE the panes (Aug 2026, on request): under them they read as a footnote to
+              whichever pane is showing, and they belong to the pager as a whole. */""}
+        <div class="hp-dots" id="homeDots" hidden></div>
         <div class="home-pager" id="homePager">
           <div class="hp-pane hp-review">
             <div class="review-group ${activeIds.length && !fresh ? "has-active" : ""}${reviewDone ? " rv-done" : ""}${reviewWon ? " rv-won" : ""}">
             ${bannerHTML}
-            ${fresh ? "" : `<button class="review-order" id="reviewOrder" type="button" title="Order your daily review by date, or shuffle it"><span class="${S.settings.reviewRandom ? "" : "on"}">Chrono</span><span class="${S.settings.reviewRandom ? "on" : ""}">Random</span></button>
+            ${fresh ? "" : `<button class="review-order" id="reviewOrder" type="button" title="Order your daily review by date, or shuffle it"><span class="${S.settings.reviewRandom ? "" : "on"}">Ordered</span><span class="${S.settings.reviewRandom ? "on" : ""}">Random</span></button>
             <div class="active-decks">${activeHTML}</div>`}
             </div>
             ${howit}
+            ${/* the Library banner rides INSIDE the review pane (Aug 2026, on request) rather than under
+                  the whole pager: it belongs beside the review and the decks it lists, and below the pager
+                  it sat under the games and the day's card too, which it has nothing to do with. */""}
+            ${libraryBanner}
           </div>
           <div class="hp-pane hp-games">${gameGrid}</div>
           <div class="hp-pane hp-explore">${exploreGrid}</div>
         </div>
-        <div class="hp-dots" id="homeDots" hidden></div>
-        ${libraryBanner}
       </div>`;
 
     root.querySelector("#g-challenge").addEventListener("click", () => route("challenge"));
@@ -5332,6 +5500,7 @@
       startMiniGlobe(expAtlas.querySelector("#miniGlobe"));
     }
     { const lib = root.querySelector("#b-library"); if (lib) lib.addEventListener("click", () => route("decks")); }
+    { const ab = root.querySelector("#b-about"); if (ab) ab.addEventListener("click", () => route("mission")); }
     /* the phone's three panes. The page opens on the DAILY REVIEW — the middle one — so a reader who never
        swipes sees exactly what they saw before this change; the dots below say the other two are there, since
        a horizontal scroller with no marker reads as a column that just happens to be cut off, and they double
@@ -7037,8 +7206,11 @@
       span.replaceWith(input);
       grow();
     });
+    /* Focus the first blank on a machine with a keyboard, and NOT on a touch screen (Aug 2026, on request):
+       there the focus summons the on-screen keyboard over half the card, on every card, before the reader
+       has decided to type anything. They tap the blank themselves if they want it. */
     const first = qEl.querySelector(".blank-input");
-    if (first) { try { first.focus({ preventScroll: true }); } catch (e) { first.focus(); } }
+    if (first && !touchDevice()) { try { first.focus({ preventScroll: true }); } catch (e) { first.focus(); } }
   }
   // On reveal, colour each typed character green/red by direct (case-insensitive) match to the answer.
   function gradeCloze(qEl, answer) {
@@ -8245,6 +8417,10 @@
             </div>
           </div>
           <div class="country-pop" id="countryPop" hidden role="status" aria-live="polite">
+            ${/* the phone sheet's resize grip (Aug 2026, on request): drag the top edge to give the panel
+                  more of the screen or less. It shows only on the sheet layout — on the desktop the panel
+                  already runs the height of the stage. */""}
+            <div class="cp-grab" id="cpGrab" role="separator" aria-orientation="horizontal" title="Drag to resize"><span></span></div>
             <button class="cp-close" id="cpClose" type="button" aria-label="Close">×</button>
             <div class="cp-head">
               <div class="cp-crumb" id="cpCrumb" hidden></div>
@@ -8442,10 +8618,88 @@
       const i = Math.max(0, Math.min(panes.length - 1, Math.round(cpColsEl.scrollLeft / w)));
       Array.prototype.forEach.call(cpDotsEl.children, (d, k) => d.classList.toggle("on", k === i));
     }
+    /* ---- the phone sheet's height is the reader's to set (Aug 2026, on request) ----
+       Drag the grip at its top edge: down to the title bar alone, up to the top of the screen. The height is
+       stored as a FRACTION of the viewport, not a pixel count — a sheet dragged to half the screen should
+       still be half of it after a rotation — and it is device-local (localStorage, not S), like where the
+       whiteboard marker sits: how much of this screen a panel takes is a fact about the screen.
+       It is remembered across places, so the next country opens at the height the last one was left at,
+       which is the whole point of setting it. The desktop panel is untouched: it already runs the height of
+       the stage, and there is nothing to give it. */
+    const CP_H_KEY = "folio_cp_h_v1";
+    const CP_TOP_GAP = 8, CP_BOTTOM_GAP = 14;   // clearance at the top of the screen; the sheet's own bottom offset
+    let cpUserH = null, cpUserHRead = false;
+    function cpReadH() {
+      if (cpUserHRead) return cpUserH;
+      cpUserHRead = true;
+      try { const v = parseFloat(localStorage.getItem(CP_H_KEY)); if (isFinite(v) && v > 0 && v <= 1) cpUserH = v; } catch (e) {}
+      return cpUserH;
+    }
+    function cpSaveH() { try { cpUserH == null ? localStorage.removeItem(CP_H_KEY) : localStorage.setItem(CP_H_KEY, String(cpUserH)); } catch (e) {} }
+    /* The floor: the grip and the title bar, and nothing below them. Measured rather than guessed — a long
+       name wraps to two lines and a drilled place carries a breadcrumb above it — and measured through
+       `offsetTop`/`offsetHeight` rather than `getBoundingClientRect`, which is the whole trick here: the
+       head is a scroller inside a box we are actively shrinking, so its rect reports whatever is left of
+       it, and a floor derived from that collapses as it approaches itself. The offsets are layout values
+       and do not move. */
+    function cpMinH() {
+      if (!cpEl) return 0;
+      const title = cpEl.querySelector(".cp-titlerow");
+      const dots = cpEl.querySelector(".cp-dots");
+      const padB = parseFloat(getComputedStyle(cpEl).paddingBottom) || 8;
+      const h = (title ? title.offsetTop + title.offsetHeight : 70) + padB +
+        (dots && !dots.hidden ? dots.offsetHeight : 0);
+      return Math.max(56, h);
+    }
+    function cpMaxH() { return (document.documentElement.clientHeight || window.innerHeight || 0) - CP_TOP_GAP - CP_BOTTOM_GAP; }
+    // apply the stored fraction (or clear back to the stylesheet's own 52% cap when there isn't one)
+    function cpApplyH() {
+      if (!cpEl) return;
+      const f = cpReadH();
+      if (!cpPagerOn() || f == null) { cpEl.classList.remove("cp-sized"); cpEl.style.height = ""; return; }
+      const max = cpMaxH();
+      cpEl.classList.add("cp-sized");
+      cpEl.style.height = Math.round(Math.max(56, Math.min(f * (document.documentElement.clientHeight || 0), max))) + "px";
+      // the floor can only be measured once the box is laid out, so clamp on the second pass
+      const min = cpMinH();
+      if (cpEl.getBoundingClientRect().height < min) cpEl.style.height = Math.round(min) + "px";
+    }
+    function cpWireResize(grip) {
+      if (!grip) return;
+      let drag = null;
+      grip.addEventListener("pointerdown", (e) => {
+        if (!cpPagerOn() || (e.button != null && e.button !== 0)) return;
+        drag = { id: e.pointerId, y: e.clientY, h: cpEl.getBoundingClientRect().height };
+        cpEl.classList.add("cp-resizing");
+        try { grip.setPointerCapture(e.pointerId); } catch (x) {}
+        e.preventDefault();
+      });
+      grip.addEventListener("pointermove", (e) => {
+        if (!drag || e.pointerId !== drag.id) return;
+        e.preventDefault();
+        // the sheet is anchored at the BOTTOM, so dragging the top edge UP (a negative dy) makes it taller
+        const h = Math.max(cpMinH(), Math.min(drag.h - (e.clientY - drag.y), cpMaxH()));
+        cpEl.classList.add("cp-sized");
+        cpEl.style.height = Math.round(h) + "px";
+      });
+      const release = (e) => {
+        if (!drag || (e.pointerId != null && e.pointerId !== drag.id)) return;
+        drag = null;
+        cpEl.classList.remove("cp-resizing");
+        const vh = document.documentElement.clientHeight || 0;
+        cpUserH = vh ? cpEl.getBoundingClientRect().height / vh : null;
+        cpUserHRead = true;
+        cpSaveH();
+        cpActiveDot();
+      };
+      grip.addEventListener("pointerup", release);
+      grip.addEventListener("pointercancel", release);
+    }
     // crossing the pager's breakpoint (a rotated phone, a dragged window edge) changes what the sections ARE
     function cpResize() {
       if (!cpEl || cpEl.hidden) { if (cpDotsEl) { cpDotsEl.hidden = true; cpDotsEl.innerHTML = ""; } return; }
       if (!cpPagerOn() && cpColsEl) cpColsEl.scrollLeft = 0;   // back to the stacked layout: a leftover offset would hide the text
+      cpApplyH();
       cpSyncDots(); cpActiveDot();
     }
     let popPointLL = null;    // the lon/lat that opened the popup (the click point, or a search anchor) — feeds the crumb parent + "Who ruled here?"
@@ -8585,6 +8839,7 @@
       // the next country on its figures. `scrollLeft` is set with the pages already laid out, so it lands on
       // page one rather than on a stale offset.
       if (cpColsEl) { cpColsEl.scrollTop = 0; cpColsEl.scrollLeft = 0; }
+      cpApplyH();   // …at whatever height the reader left the last one at
       cpSyncDots(); cpActiveDot();
     }
     function hideCountryPopup() { if (cpEl) cpEl.hidden = true; }
@@ -10525,6 +10780,7 @@
     cpDescSecEl = root.querySelector("#cpDescSec"); cpYearSecEl = root.querySelector("#cpYearSec"); cpStatsSecEl = root.querySelector("#cpStatsSec");
     cpSrcEl = root.querySelector("#cpSrc"); cpSrcSecEl = root.querySelector("#cpSrcSec");
     { const cpClose = root.querySelector("#cpClose"); if (cpClose) cpClose.addEventListener("click", hideCountryPopup); }
+    cpWireResize(root.querySelector("#cpGrab"));
     // one delegated listener folds any of the three sections open or shut, so a reader can put away the part
     // they aren't reading — a long description on a phone sheet buries the year paragraph under it.
     // On the phone the sections are PAGES, not folds: there is nothing below a section to uncover by shutting
