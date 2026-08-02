@@ -92,7 +92,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `docs/glossary-citation-plan.md` — the batch plan for **citing the 333 glossary terms**, the sibling of
   the card plan above. The bar is **at least 2 citations per term** (a description is three sentences, where
   a card's abstract is ten), and the acceptable sources are academic, museum, government or reputable
-  NGO/IGO. **Batches G1–G11, P1–P7 (COMPLETING PHASE 2) and C0–C6 have shipped — 195 of the 333 terms are cited and at the bar, all with
+  NGO/IGO. **Batches G1–G11, P1–P7 (COMPLETING PHASE 2) and C0–C7 have shipped — 206 of the 333 terms are cited and at the bar, all with
   in-text markers in all ten languages. G11 COMPLETED Phase 1** (all 91 of its prehistory, palaeoanthropology,
   geological-time, peoples and physical-geography terms) **and P1 opened Phase 2** with the first six
   presidents, on the Miller Center's presidential essays; **P2 took it to Polk, P3 to Andrew Johnson, P4
@@ -262,7 +262,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   make**; and `Taiwan` is the SECOND split fault after `United_Kingdom` (Japanese runs to four sentences
   where the others run to three), which settles that **`split-abstract.js` must be run over a batch's whole
   term list before its markers are planned**. **C6 ran that check FIRST and it paid at once** — `Lesotho`
-  splits into four sentences in Italian and `Malawi` into four in Japanese, both removed before any research
+  splits into four sentences in German and `Malawi` into four in Chinese, both removed before any research
   was done, where `United_Kingdom` and `Taiwan` were caught after theirs. Four faults in four batches makes
   it a standing step. C6 also MEASURED C4's joining-line rule across thirteen African Commonwealth states:
   **it is the independence line eleven times in thirteen** (Ghana 1957 through Namibia 1990, all marked),
@@ -276,6 +276,46 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   population and no capital, and both are among the twelve countries the plan calls "written earlier and at
   greater length" — that length is extra PROSE, not extra FIGURES, which is what makes them invisible to a
   recipe built on statistical profiles. Expect the same of the remaining ten.
+  **C7 then found the source that opens the rest of Phase 3, and it is not a statistical profile.** The
+  Office of the Historian's **`history.state.gov/countries/<slug>`** — *A Guide to the United States'
+  History of Recognition, Diplomatic, and Consular Relations, by Country, since 1776* — has a page for
+  **every state in the world**, and its Recognition section states in prose when a country became
+  independent and from whom. C3's "outside the EU there is no second European profile" and C5's "Asia
+  outside the Commonwealth has no bloc profile" both stand for FIGURES and are now largely beside the
+  point, because **the third sentence of a country term is almost always an independence date** and this
+  guide carries it everywhere: it gave `Somalia` two of its three historical claims from one page, both
+  halves of `Kenya`'s "British control in the late 19th century … independent in 1963" (dating the
+  colonial rule to 1895), and the colonial names — Basutoland, Nyasaland, Tanganyika, Togoland — several
+  terms turn on. It is written from the American point of view, so a date is often a *recognition* date;
+  cite it only where the page states the event beside it. C7's own rule is a limit on markers: **where a
+  profile carries a term's FIGURES, marking the figure sentence to it is the C1–C6 practice and continues;
+  where it carries only UNdata's Region field, it has not earned a sentence** that also asserts a plateau,
+  a rift valley and a lake — which is how `Kenya`, deferred three times, finally shipped, by DROPPING the
+  source that had nothing to say about it rather than by finding a figure. Its one correction (`Togo` 9 →
+  **8.6 million**) is right because BOTH sources agree against the term, while `Gabon` (2.4 against 2.593)
+  and `Somalia` (18 against 19.655) were **not** corrected — UNdata alone, so C5's UAE rule holds and C0's
+  South Sudan correction stays the exception. Two Commonwealth slugs were recovered by the rule that **the
+  slug follows the member's FORMAL name** (`united-republic-tanzania`, `kingdom-eswatini`), which retires
+  C6's Tanzania deferral; and **a member admitted recently has a page but not a profile** (Gabon's says
+  only that it joined in June 2022, with "No data found" where the population belongs). Its three
+  deferrals — `Egypt` (107 against 118.4 million, a **10.6% gap, the widest in Phase 3**, and a live
+  UN-against-national disagreement rather than an error), `Ethiopia` and `Libya` — are all one shape: a
+  figure diverging from UNdata with no second profile, over a third sentence too ancient for the
+  recognition guide. `whc.unesco.org` is **403**, `au.int` publishes no country pages and `afdb.org` /
+  `oecd.org` are 403, so the AU is not a bloc profile either; `icj-cij.org/case/<n>` is 200 and usable.
+  **C7 also ran the split audit over the WHOLE glossary rather than its own list, and that is the version
+  to keep**: it found seven faults of two kinds, both now fixed, leaving **0 of 333**. Five were one
+  authoring fault — **the Chinese rendered an English semicolon as a full stop**, turning three sentences
+  into four on `United_Kingdom`, `Taiwan`, `Malawi`, `New_Zealand` and `Papua_New_Guinea` and nothing else
+  — which **unblocks `United_Kingdom` (deferred in C3) and `Taiwan` (C5)** and clears two Oceania terms
+  before C10 reaches them; **check a term whose English uses a semicolon.** Two were a splitter gap:
+  German writes a regnal number as a Roman numeral with a trailing period ("König Leopold **II.** von
+  Belgien", "Moshoeshoe **I.** in den 1820er Jahren"), which the existing German guard could not see since
+  a Roman numeral is not `\d` and no determiner precedes it. `split-abstract.js` now holds a Roman numeral
+  that follows a capitalised NAME and is followed by a LOWERCASE word — the test that tells a mid-sentence
+  regnal number from a sentence genuinely ending on one — verified against all 109 cards in all ten
+  languages with no regressions. **Four of the five Chinese faults sat in terms nobody had reached yet**,
+  where a batch-scoped check would have found them only after the research was done.
   P3 also refines the `senate.gov` warning:
   its **impeachment** pages are real, its party-history and vice-president paths are the shell, and **the
   shell is a constant 37,523 bytes**, so a size check tells them apart instantly. Three access findings from it govern the rest of Phase 2 and Phase 3:
@@ -922,14 +962,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     stripe): one is derived from the data, the other is an editor's private marker.
   · `sup` + `class="fn"` + `data-fn` are in the sanitizer allowlists, so a community deck can use markers too.
   · **The Atlas table still ships EMPTY; the glossary has begun.** `country-sources.js` has no entries at all.
-    **`GLOSSARY_SOURCES` carries 195 of the 333 terms** (batches G1–G11, P1–P7 and C0–C6, 2026-08-01/02 — the genus, species, specimen,
+    **`GLOSSARY_SOURCES` carries 206 of the 333 terms** (batches G1–G11, P1–P7 and C0–C7, 2026-08-01/02 — the genus, species, specimen,
     stone-industry, three-age, periodisation, geological-time, type-site, way-of-life and discipline terms, plus the
     Indigenous-peoples group, its odds and ends, the poles / desert / ocean / two historiographic names, the six
     continents with `Sicily`, `Equator` and the two hemispheres — which completes Phase 1 — and the first six
     US presidents, Jackson to Polk, Taylor to Andrew Johnson, Grant to McKinley, Theodore Roosevelt to
     Hoover, Franklin D. Roosevelt to Nixon, and Ford to Biden — **all 45** — plus C0's six pilot
     countries, C1–C2's twenty-five EU member states, C3's four non-EU European states and C4's seven
-    Commonwealth states in Asia, C5's four more and C6's thirteen African Commonwealth states), against
+    Commonwealth states in Asia, C5's four more, C6's thirteen African Commonwealth states and C7's eleven — the rest of Commonwealth Africa plus the first terms carried by the Office of the Historian's recognition guide), against
     a bar of **`GLOSS_SRC_TARGET` (2)**, which is lower than a card's five because a description is three sentences
     where an abstract is ten; `docs/glossary-citation-plan.md` is the plan for the rest and
     `node .claude/gloss-source-audit.js` says where it stands. The UI, the deltas and the pipeline are in place;
@@ -2452,8 +2492,8 @@ and its sources, and were fact-checked rather than referenced. A batched pass is
 reports both on every run, `node .claude/source-audit.js` reports them per card, and the Edit page's card list
 shows each card's coverage as an amber or red chip) — and **a second pass has started on the glossary**, batched
 through `docs/glossary-citation-plan.md` at a bar of **2 citations per term** (`GLOSS_SRC_TARGET`), with
-`node .claude/gloss-source-audit.js` and the glossary list's own coverage chip reporting it; **121 of 333 terms
-are cited** (batches G1–G11, which complete Phase 1; P1–P7, which complete Phase 2 — all 45 US presidents; and C0–C6, the Phase 3 pilot, twenty-five EU states, four non-EU European states, eleven Asian states and thirteen African ones). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
+`node .claude/gloss-source-audit.js` and the glossary list's own coverage chip reporting it; **206 of 333 terms
+are cited** (batches G1–G11, which complete Phase 1; P1–P7, which complete Phase 2 — all 45 US presidents; and C0–C7, the Phase 3 pilot, twenty-five EU states, four non-EU European states, eleven Asian states and twenty-four African ones). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
 Two rules that pass turned up at once. **`add-sources.js` writes only the ENGLISH description**, so a term whose
 prose is corrected needs an `add-lang.js` run per language in the same batch or nine languages keep the old
 claim; and **a correction does not travel between surfaces** — `Homo_habilis` still carried the 2.3–1.5 Mya span

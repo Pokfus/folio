@@ -8924,3 +8924,128 @@ thirteen.
   `/united-republic-of-tanzania` and `/tanzania-united-republic` are all 404, and the site offers no index
   this pass could read. A trivial obstacle, but not one to guess past: a citation must point at a page that
   exists.
+
+---
+
+## Batch C7 — Africa: the rest of the Commonwealth, and the source that opens the rest of the world (2026-08-02)
+
+Eleven terms cited, 26 citations, one correction. Coverage 195 → 206 of 333.
+
+**Eswatini · Eritrea · Gabon · The Gambia · Kenya · Lesotho · Malawi · Morocco · Somalia · Tanzania · Togo.**
+
+### The find: the Office of the Historian's country guide covers EVERY country
+`history.state.gov/countries/<slug>` — *A Guide to the United States' History of Recognition, Diplomatic,
+and Consular Relations, by Country, since 1776* — has a page for every state in the world, and its
+**Recognition** section states, in prose, the year a country became independent and from whom. This is the
+second institutional profile Phase 3 has been missing everywhere outside the EU and the Commonwealth. C3
+found that outside the EU there is no second European profile; C5 found that Asia outside the Commonwealth
+has none either; both conclusions stand for *statistical* profiles and are now beside the point for the
+claim that matters, because **the third sentence of a country term is almost always an independence date**,
+and this guide carries it for all 197.
+
+What it gives, measured on this batch:
+- **Libya** — "an Italian colony from 1912 until 1947", "under British and French occupation from 1943 to
+  1951", independence and U.S. recognition 24 December 1951.
+- **Somalia** — "The Somali Republic was formed by the union of Somalia, which previously had been under
+  Italian administration as a United Nations trust territory, and Somaliland, which had been a British
+  protectorate until June 26, 1960", **and** the 1991 embassy closure "after the collapse of the central
+  Somali government". Two of the term's three historical claims from one page.
+- **Kenya** — "From 1895 until 1963, the area that later became modern Kenya was under British colonial
+  rule as part of British East Africa", plus independence on 12 December 1963. Both halves of the term's
+  "came under British control in the late 19th century before becoming independent in 1963".
+- **Morocco** — French protectorate from 1912, Spanish control over certain portions, independence 1956.
+- **Lesotho** — "previously had been under British sovereignty as **Basutoland**", independent 4 Oct 1966.
+- **Malawi** — "previously had been under British sovereignty as **Nyasaland**", independent 6 July 1964.
+- **Tanzania** — "Tanganyika previously had been under British administration as a United Nations Trust
+  Territory", recognised 9 December 1961.
+- **Togo** — "Togoland previously had been under French administration as a United Nations Trust
+  Territory", independence 1960.
+- **Gabon** — "Gabon's independence from French Equatorial Africa was proclaimed", 17 August 1960.
+- **Eritrea** — independence declared 27 April 1993; "Eritrea previously had been under Ethiopian
+  sovereignty".
+
+It is written from the United States' point of view, so a date is often a *recognition* date rather than
+the event itself — but the page states the event alongside it in every case above, and where it does not,
+it is not cited for one.
+
+### The line C7 draws on what a marker may rest on
+UNdata's **Region** field ("Eastern Africa") is a fact about the country, and it was tempting to mark
+`Kenya`'s and `Tanzania`'s opening sentence to it. It was not done. Those sentences also assert a highland
+plateau, the Rift Valley, a share of Lake Victoria, Kilimanjaro and the Zanzibar archipelago, and a marker
+at a sentence end vouches for the sentence. **Where a profile carries a term's FIGURES, marking the
+figure sentence to it is the settled practice of C1–C6 and continues; where it carries only a region name,
+it does not earn the sentence.** Both terms therefore ship on the Commonwealth and the Office of the
+Historian, with their first two sentences unmarked, and UNdata is not in their lists at all.
+
+### The one correction
+**`Togo`** — "roughly 9 million people" → **"roughly 8.6 million"**. UNdata gives 8,592 thousand (2025) and
+the Commonwealth 8.645 million (2021); the two agree, so this is not a single-source call. Corrected in all
+ten languages.
+
+### Figures checked against both sources — the rest held
+- `Eswatini` 17,364 km² (UNdata 17,363; Commonwealth 17,400); 1.2 m between 1.16 m and 1.256 m; Mbabane
+  administrative and Lobamba legislative, both confirmed by the Commonwealth.
+- `The Gambia` 11,300 km² (UNdata 11,295; Commonwealth 11,600 — the total-vs-land spread of a country that
+  is mostly river); 2.7 m between 2.417 m and 2.822 m.
+- `Lesotho` 30,355 km² exact at UNdata, 30,350 at the Commonwealth; 2.3 m between 2.14 m and 2.363 m.
+- `Malawi` 118,484 km² (Commonwealth 118,500; UNdata 117,726); 21 m between 19.1 m and 22.216 m.
+- `Togo` 56,785 km² **exact at both**; Lomé at both.
+- `Morocco` 446,550 km² exact at UNdata; 38 m against 38.431 m; Rabat.
+- `Eritrea` 3.7 m against 3.607 m; Asmara. Area 117,600 against UNdata's 121,144 — 3.0%, which is the
+  land-against-total convention for a country with the Dahlak archipelago offshore, not a contradiction.
+
+### UNMARKED, and why — a population where UNdata stands alone
+`Gabon` ("roughly 2.4 million" against UNdata's 2,593 thousand, 7.4%) and `Somalia` ("roughly 18 million"
+against 19,655 thousand, 8.4%) both open on a population no second open source states — the Commonwealth's
+Gabon page carries "No data found", and Somalia is not a member. **Following C5's UAE rule, neither was
+corrected and neither opening sentence was marked**; both terms are carried by their third sentence, where
+the Office of the Historian and UNdata's UN membership date agree. C0's South Sudan correction (11 → 12
+million on UNdata alone) stands as the exception it was, not the rule.
+
+### DEFERRED (batch C7) — three terms, all on a divergence with no second profile
+- **`Egypt`** — "roughly 107 million" against UNdata's 118,366 thousand, a **10.6% gap** and the widest
+  population divergence met in Phase 3. This is a live disagreement between the UN's estimate and Egypt's
+  own, not an error in the term; `capmas.gov.eg` was not opened here, so there is no second figure to
+  break the tie. Area 1,001,450 against 1,002,000 is fine. The term's third sentence is ancient history —
+  villages before 5000 BCE, unification about 3100 BCE — which the recognition guide does not touch, so
+  there is nothing else to carry it.
+- **`Ethiopia`** — "roughly 130 million" against 135,472 thousand (4.2%); area 1,104,300 exact. Its third
+  sentence is Aksum, Christianity in the 4th century and the Solomonic monarchy: nothing the recognition
+  guide states.
+- **`Libya`** — area 1,759,540 km² against UNdata's 1,676,198, a **5.0% gap**, with no second profile. Its
+  history is well carried by the Office of the Historian, but see the note below, and one source is below
+  the bar.
+
+**A note held for whoever cites `Libya`:** its term says "an Italian colony from **1911**", where the
+recognition guide says "The Ottoman Empire formally ceded Libya to Italy under the Treaty of Ouchy on
+October 18, **1912**" and "an Italian colony from 1912 until 1947". Both are defensible — 1911 is the
+invasion and the Italian proclamation of annexation, 1912 the cession — but a marker pointing at that page
+beside "1911" would point at a work that says otherwise. Reword to the cession or leave the clause
+unmarked; do not mark it as it stands.
+
+### Verified citations (batch C7)
+`data.un.org/en/iso/<cc>.html` (sz, er, ga, gm, ls, mw, ma, so, tg),
+`thecommonwealth.org/our-member-countries/<slug>` (kingdom-eswatini, gambia, kenya, lesotho, malawi,
+united-republic-tanzania, togo) and `history.state.gov/countries/<slug>` (eritrea, gabon, gambia, kenya,
+lesotho, malawi, morocco, somalia, tanzania, togo).
+
+**Two Commonwealth slugs recovered**, both deferred in earlier batches for want of them: `Tanzania` is
+**`united-republic-tanzania`** (not `tanzania`, `united-republic-of-tanzania` or `tanzania-united-republic`,
+all of which 404) and `Eswatini` is **`kingdom-eswatini`**. The slug follows the member's formal name, not
+the common one — check that form before concluding a member has no page.
+
+**Two Commonwealth pages carry no Key Facts block at all**: `Gabon` and, in part, `Togo`. Both joined in
+2022 without a British past, and Gabon's page says only that it joined in June 2022 at the Kigali CHOGM,
+with "No data found" where the population belongs. **A member admitted recently has a page and not a
+profile.**
+
+### Hosts, measured 2026-08-02
+- `history.state.gov/countries/<slug>` — **200, every country tried.** The find above.
+- `history.state.gov/milestones/…` — 200 (unchanged from P5).
+- `whc.unesco.org` — **403**, confirming the card pass. The World Heritage list is not citable from here,
+  which rules out the obvious second source for a term naming a heritage site.
+- `au.int/en/countryprofiles` — 404; `au.int/en/memberstates` 200 but no per-country profile. **The African
+  Union publishes no country pages**, so C5's finding for Asia holds for Africa: outside the Commonwealth
+  there is no bloc profile.
+- `afdb.org` — 403. `oecd.org` — 403. `uneca.org` — 200 at the root, no per-country profiles.
+- `icj-cij.org/case/<n>` — 200, usable for a term resting on an advisory opinion or a judgment.

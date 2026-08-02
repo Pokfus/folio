@@ -55,6 +55,13 @@ function pieces(block) {
   // preceding DETERMINER can, because a sentence never ends on "der" and a number after one is always an
   // ordinal. Narrow on purpose: it must not swallow "…kam 1892. Der Bau begann…", where nothing precedes.
   hold(/(?<=\b(?:der|die|das|dem|den|des|ein|eine|einem|einen|eines|als|zum|zur|vom|beim|im)\s)\d{1,2}\.\s/g);
+  // A REGNAL ordinal — "König Leopold II. von Belgien", "Moshoeshoe I. in den 1820er Jahren". German
+  // writes a monarch's number as a Roman numeral with a trailing period, so every German translation
+  // naming a monarch splits at the number; the two clauses above cannot see it, since a Roman numeral
+  // is not \d and no determiner precedes it. Narrow on purpose: the numeral must follow a capitalised
+  // NAME and be followed by a LOWERCASE word — which is what tells a mid-sentence regnal number from a
+  // sentence that genuinely ends on one ("…the reign of Henry VIII. The next…" is left alone).
+  hold(/(?<=\p{Lu}\p{L}+\s)[IVXLC]{1,6}\.\s(?=\p{Ll})/gu);
   // A sentence ends at .!? followed by whitespace, or at a CJK terminator with or without one — and a
   // footnote marker may already sit between the two, since a top-up batch re-splits an abstract that an
   // earlier batch has already marked. Without the FN clause the splitter silently returns one sentence.

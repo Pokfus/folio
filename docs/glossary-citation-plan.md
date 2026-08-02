@@ -2,8 +2,8 @@
 
 The glossary was **333 terms and not one of them carried a source**. `window.GLOSSARY_SOURCES` was an empty
 table; the fold at the foot of a gloss popup never appeared. This is the plan for filling it. Not part of
-the site. **As of 2026-08-02, 195 of the 333 are cited and at the bar** — batches G1–G11, P1–P7 with the P-topup, and C0–C6, five of which also
-corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 195 carry in-text
+the site. **As of 2026-08-02, 206 of the 333 are cited and at the bar** — batches G1–G11, P1–P7 with the P-topup, and C0–C7, five of which also
+corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 206 carry in-text
 markers, in all ten languages, after the rule changed from optional to required on 2026-08-01 (see "What
 is different from the card pass"). G5 also settled the start of prehistory across the glossary, the deck
 and every date line: **2.6 Mya**, with the disputed 3.3 Ma Lomekwi claim hedged rather than adopted; G6
@@ -172,7 +172,7 @@ the way batch 21 recorded the Anubis walls, so the next pass does not re-run the
 | the poles, the desert, the sea and two names | 7 | Phase 1 · batch G10 — **done** |
 | the continents, the island and the constants | 10 | Phase 1 · batch G11 — **done** |
 | US presidents | 45 | Phase 2 · batches P1–P7 — **ALL DONE (2026-08-02)** |
-| countries and states of the world | 197 | Phase 3 · batches C0–C12 — **C0–C6 done (2026-08-02)**; 15 European, 35 Asian and 4 African terms deferred with reasons, see the C3, C5 and C6 logs |
+| countries and states of the world | 197 | Phase 3 · batches C0–C12 — **C0–C7 done (2026-08-02)**; 15 European, 35 Asian and 7 African terms deferred with reasons, see the C3, C5, C6 and C7 logs |
 | **total** | **333** | |
 
 ## Order, and why
@@ -2030,13 +2030,94 @@ precisely that pattern.
 `/united-republic-of-tanzania` and `/tanzania-united-republic` are all 404 and the site offers no readable
 index. A trivial obstacle, but not one to guess past — a citation must point at a page that exists.
 
+## Batch C7 log — Africa: the rest of the Commonwealth, and the guide that covers everywhere (2026-08-02)
+
+**DONE.** Eleven terms — Eswatini, Eritrea, Gabon, The Gambia, Kenya, Lesotho, Malawi, Morocco, Somalia,
+Tanzania, Togo — 26 citations, **one correction**. Coverage 195 → **206 of 333**. Three deferred: Egypt,
+Ethiopia, Libya.
+
+**The finding is a source, and it changes what the rest of Phase 3 costs.** The Office of the Historian's
+**`history.state.gov/countries/<slug>`** — *A Guide to the United States' History of Recognition,
+Diplomatic, and Consular Relations, by Country, since 1776* — exists for **every state in the world** and
+its Recognition section states, in prose, when a country became independent and from whom. C3 concluded
+that outside the EU there is no second European profile and C5 that Asia outside the Commonwealth has none;
+both remain true of *statistical* profiles and are now largely beside the point, because **the third
+sentence of a country term is almost always an independence date** and this guide carries it everywhere.
+It gave Somalia two of its three historical claims from one page (the British-and-Italian union of 1960 and
+the 1991 collapse of central government), both halves of Kenya's "British control in the late 19th century
+… independent in 1963" (it dates the colonial rule to 1895), and the old colonial names — Basutoland,
+Nyasaland, Tanganyika, Togoland — that several terms turn on. Caveat: it is written from the United States'
+point of view, so a date is often a *recognition* date; cite it only where the page states the event beside
+it, which on this batch it always did.
+
+**The line this batch draws on what a marker may rest on.** UNdata's Region field ("Eastern Africa") is a
+real fact, and `Kenya` and `Tanzania` — both figure-less, the Greece shape — could have been marked to it.
+They were not: their opening sentences also assert a highland plateau, the Rift Valley, Lake Victoria,
+Kilimanjaro and the Zanzibar archipelago, and a marker at a sentence end vouches for the sentence. **Where a
+profile carries a term's FIGURES, marking the figure sentence to it is the practice of C1–C6 and continues;
+where it carries only a region name, it has not earned the sentence.** Both ship on the Commonwealth and the
+recognition guide instead, with UNdata absent from their lists — which is how **Kenya, deferred three
+times, finally shipped**: not by finding a figure for it, but by dropping the source that had nothing to say
+about it.
+
+**The one correction** is `Togo`'s population, "roughly 9 million" → **"roughly 8.6 million"**, and it is
+correct precisely because it is *not* a single-source call: UNdata gives 8,592 thousand and the
+Commonwealth 8.645 million, and the two agree against the term. By the same rule **`Gabon` (2.4 against
+2.593) and `Somalia` (18 against 19.655) were NOT corrected** — each has only UNdata, so following C5's UAE
+rule the figure stands, the opening sentence goes unmarked, and the term is carried by its third sentence.
+C0's South Sudan correction on UNdata alone is the exception, not the precedent.
+
+**Two Commonwealth slugs recovered, and the rule behind them: the slug follows the member's FORMAL name.**
+`Tanzania` is `united-republic-tanzania` — C6 deferred it after `tanzania`, `united-republic-of-tanzania`
+and `tanzania-united-republic` all 404'd — and `Eswatini` is `kingdom-eswatini`. Also: **a member admitted
+recently has a page but not a profile**. Gabon's says only that it joined in June 2022 at the Kigali CHOGM,
+with "No data found" where the population belongs, and Togo's joining line carries no independence context
+because Togo was never British — the Mozambique/Rwanda shape C6 named.
+
+**The three deferrals are all one shape**: a figure diverging from UNdata with no second profile to break
+the tie, over a third sentence the recognition guide cannot reach. `Egypt` — "roughly 107 million" against
+118,366 thousand, a **10.6% gap, the widest population divergence in Phase 3**, and a live disagreement
+between the UN's estimate and Egypt's own rather than an error in the term; its history is pre-dynastic and
+Pharaonic. `Ethiopia` — 130 against 135.5 million, its history Aksum and the Solomonic monarchy. `Libya` —
+area 1,759,540 km² against 1,676,198, a 5.0% gap. **A note for whoever returns to Libya:** its term says
+"an Italian colony from **1911**" where the guide says the Ottoman cession was the Treaty of Ouchy of
+**October 1912**. Both are defensible, but a marker beside "1911" pointing at that page would point at a
+work that says otherwise — reword or leave unmarked.
+
+### Tooling: the whole-glossary split audit, and both faults it found
+
+Run over all 333 terms in all ten languages before any research, per the C5/C6 rule, this batch's check
+went wider than its own list and found **seven faults, of two kinds — and both are now fixed, leaving the
+glossary at 0 of 333.**
+
+**Five were the same authoring fault in Chinese: an English semicolon rendered as a full stop.** Every
+country term whose second or third sentence joins two clauses with `;` had that joint translated as `。` in
+zh, turning three sentences into four — `United_Kingdom`, `Taiwan`, `Malawi`, `New_Zealand`,
+`Papua_New_Guinea`, and nothing else in the glossary. Repaired to `；`, claim for claim identical. This
+**unblocks `United_Kingdom` (deferred in C3) and `Taiwan` (C5)** and clears two Oceania terms before C10
+reaches them. **Check a term whose English uses a semicolon.**
+
+**Two were a splitter gap, in German: a regnal ordinal.** German writes a monarch's number as a Roman
+numeral with a trailing period — "König Leopold **II.** von Belgien", "Moshoeshoe **I.** in den 1820er
+Jahren" — which `split-abstract.js` read as a sentence end, breaking `Democratic_Republic_of_the_Congo` and
+`Lesotho` in half. The existing German guard could not see it: a Roman numeral is not `\d`, and no
+determiner precedes it. A new clause holds a Roman numeral that **follows a capitalised name and is
+followed by a lowercase word** — which is what distinguishes a mid-sentence regnal number from a sentence
+that genuinely ends on one ("…the reign of Henry VIII. The next…" is untouched). Verified against all 109
+cards in all ten languages: still 5+5, exact round-trip, no regressions.
+
+**The audit is worth running over the whole glossary rather than a batch's own list.** Both faults were
+invisible to the batches that shipped beside them, and four of the five Chinese ones sat in terms nobody
+had reached yet — where they would have been discovered, as `United_Kingdom` and `Taiwan` were, only after
+the research had been done.
+
 ### Batches C1–C12 · by region
 
 | batch | region | terms | |
 |---|---|---|---|
 | **C1–C3** | Europe | 47 | Albania → Vatican City, plus Greece, France, Georgia, Denmark, Russia, less the three in C0. **C1 DONE (2026-08-02)**: Austria, Belgium, Bulgaria, Croatia, Cyprus, Czech Republic, Denmark, Estonia, Finland, Germany, Hungary, Ireland, Italy, Latvia, Lithuania — **Greece deferred to C2**, its description carrying no figure either source states. **C2 DONE (2026-08-02)**: Luxembourg, Malta, Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, Sweden — **six deferred to C3**: Greece again, Albania (UNdata contradicts its population), and Iceland, Norway, Switzerland, Andorra (UNdata alone is one source; `efta.int` and `coe.int` are 403 here) |
 | **C4–C6** | Asia | 43 | Afghanistan → Yemen, plus India, China, Japan, less State of Palestine |
-| **C7–C9** | Africa | 53 | Algeria → Zimbabwe, plus Kenya and Tanzania, less South Sudan |
+| **C7–C9** | Africa | 53 | Algeria → Zimbabwe, plus Kenya and Tanzania, less South Sudan. **C7 DONE (2026-08-02)**: Eswatini, Eritrea, Gabon, The Gambia, Kenya, Lesotho, Malawi, Morocco, Somalia, Tanzania, Togo — the rest of Commonwealth Africa plus the first four carried by the Office of the Historian's recognition guide. **Three deferred**: Egypt, Ethiopia and Libya, each a figure diverging from UNdata with no second profile |
 | **C10** | Oceania | 13 | New Zealand → Tuvalu, plus Australia, less Tuvalu |
 | **C11–C12** | the Americas | 35 | Canada → Uruguay, plus Brazil |
 | | | **191** | the 197, less the six worked in C0 |
