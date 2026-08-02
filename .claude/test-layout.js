@@ -717,6 +717,23 @@ async function studyEasy(page, base, n) {
       })),
       row: [...document.querySelectorAll(".active-deck .ad-counts .adc")].map((s) => ({ n: +s.textContent.trim(), col: getComputedStyle(s).color })),
       rowLabels: (document.querySelector(".active-deck .ad-counts") || {}).title || "",
+      // the big gold numeral is the day's PILE, not the level (the level is spelled out in the xp bar's
+      // head just below it) — and a tick, not a "0", once the pile is empty
+      badge: (() => {
+        const b = document.querySelector(".review-group .banner .level-badge");
+        return { n: b.textContent.trim(), tick: !!b.querySelector("svg"), clear: b.classList.contains("pb-clear") };
+      })(),
+      xpLevel: (document.querySelector(".review-group .banner .xp-lvl") || {}).textContent || "",
+      // each figure centred over its own label, and the whole row on the button's line
+      centred: [...document.querySelectorAll(".review-group .banner .stat")].filter((s) => !s.classList.contains("streak")).map((s) => {
+        const w = s.getBoundingClientRect(), n = s.querySelector("b").getBoundingClientRect(), l = s.querySelector("span").getBoundingClientRect();
+        return Math.round(Math.abs((n.left + n.width / 2) - (l.left + l.width / 2)) * 10) / 10;
+      }),
+      onCtaRow: (() => {
+        const cta = document.querySelector(".review-group .banner .cta").getBoundingClientRect();
+        return [...document.querySelectorAll(".review-group .banner .stat")].filter((s) => !s.classList.contains("streak"))
+          .every((s) => { const b = s.getBoundingClientRect(); return b.top < cta.bottom && b.bottom > cta.top; });
+      })(),
     }));
     check("the review banner counts Anki's three piles, in order",
       piles.stats.map((p) => p.label.toLowerCase()).join(",") === "new,learning,review", JSON.stringify(piles.stats.map((p) => p.label)));
@@ -725,6 +742,26 @@ async function studyEasy(page, base, n) {
       piles.row.length === 3 && piles.row.map((r) => r.col).join("|") === piles.stats.map((p) => p.col).join("|"),
       JSON.stringify({ row: piles.row, banner: piles.stats.map((p) => p.col) }));
     check("...naming themselves only in the row's tooltip", /\S/.test(piles.rowLabels), piles.rowLabels);
+    check("...each figure centred over its own label", piles.centred.every((d) => d <= 1), JSON.stringify(piles.centred));
+    check("...and the three of them on the button's own line", piles.onCtaRow);
+    check("the banner's gold numeral is the DAY'S PILE, not the level",
+      !piles.badge.tick && +piles.badge.n === piles.stats.reduce((a, s) => a + s.n, 0),
+      JSON.stringify({ badge: piles.badge, piles: piles.stats.map((s) => s.n) }));
+    check("...with the level still spelled out under it", /level/i.test(piles.xpLevel), piles.xpLevel);
+    // clear the day: Easy graduates a new card outright, so the allowance runs out with nothing in learning
+    await studyEasy(page, base, 6);
+    await page.goto(base + "#home", { waitUntil: "load" });
+    await page.waitForTimeout(1600);
+    const cleared = await page.evaluate(() => {
+      const b = document.querySelector(".review-group .banner .level-badge");
+      return { n: b.textContent.trim(), tick: !!b.querySelector("svg"), clear: b.classList.contains("pb-clear"),
+        piles: [...document.querySelectorAll(".review-group .banner .stat b")].map((x) => +x.textContent.trim()),
+        label: b.getAttribute("aria-label") || "" };
+    });
+    check("...and it becomes a TICK once the day is cleared, never a 0",
+      cleared.piles.reduce((a, n) => a + n, 0) === 0 && cleared.tick && cleared.clear && cleared.n === "",
+      JSON.stringify(cleared));
+    check("...still saying so for a screen reader", /nothing/i.test(cleared.label), cleared.label);
     await page.close();
   }
   {

@@ -1240,6 +1240,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   covers many history topics; copy stays subject-neutral (China is just the first live collection).
   **A "Seen total" stat sat beside Due and New and was removed on request (Aug 2026)** — the xp bar directly above
   it already counts the distinct cards studied, as progress towards the next level rather than a bare number.
+  **The banner's big gold numeral is the DAY'S PILE, not the level** (`pileBadgeMarkup`, Aug 2026, on
+  request): new + learning + review, and at zero a **tick** rather than a "0" — a quantity where there is
+  work, a state where there is none. The level is not lost with it: `xpBarMarkup` spells out "Level N"
+  directly underneath, which is where a reader looking for it goes. It keeps `.level-badge`/`.lb-num` so the
+  banner's gold, its 62px sizing and both themes' overrides follow with no rules of its own; `.lb-tick` is
+  sized in `em` off that numeral, so the badge does not change height when the day clears.
+  **`test-account-switch.js` reads the badge's PRESENCE, not its text** — the tick has no text, so the old
+  `lb-num !== ""` check would have failed on a cleared day for reasons having nothing to do with accounts.
   **The banner counts ANKI'S THREE PILES** (Aug 2026, on request — it was a Due / New pair): **New** in blue,
   **Learning** in red, **Review** in green (`pileCounts` in `PAGES.home`; the tokens are the study bar's own
   `--indigo-bright` / `--zh` / `--good`, so all three sites agree). The same three numbers, unlabelled, open every
@@ -1248,6 +1256,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   allowance (`reviewQueue().fresh`), not the whole unseen backlog, and a **learning** card counts from the moment
   it is answered wrong until it graduates — whether or not its ten-minute step has come round — because a count
   that emptied while the card sat on its timer would say the work was done. `review` is the due pile minus those.
+  Each figure is **centred over its own label** and the three sit on the **CTA's own line**; below 640px that
+  costs the button its width (`.review-group .banner .cta .btn` shrinks and the row goes `nowrap`), since a
+  button on a line of its own left the piles floating over nothing.
 - **The home page is THREE SWIPED PANES on a phone** (`.home-pager` / `#homePager`, Aug 2026, on request). One column
   three screens tall put the games below the fold and the day's card below them again. `PAGES.home` builds three
   `.hp-pane`s — the review group (with the first-run how-it-works strip inside it), the game grid, the discovery row —

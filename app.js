@@ -4789,6 +4789,17 @@
     // just the large numeral — the "Level N" text lives in the blue xp-bar head (xpBarMarkup) beside it, so a label here is redundant.
     return '<div class="level-badge' + (sys ? (sys === "zh" ? " zh" : " num-" + sys) : "") + '" aria-hidden="true"><span class="lb-num">' + esc(numeralIn(sys, lvl)) + '</span></div>';
   }
+  /* The numeral on the Daily-review banner is the DAY'S PILE, not the level (Aug 2026, on request): the
+     level is already spelled out in the xp bar's head directly under it, where a reader looking for it
+     goes, and the number they open the page for is how many cards are waiting. At zero it becomes a tick —
+     "0" is a quantity, and a cleared day is a state. It keeps `.level-badge`/`.lb-num` so the banner's gold
+     and its sizing follow with no rules of their own. */
+  function pileBadgeMarkup(n) {
+    const tick = '<svg class="lb-tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 12.5 9.5 18 20 6.5"/></svg>';
+    return '<div class="level-badge pile-badge' + (n ? "" : " pb-clear") + '" role="img" aria-label="' +
+      esc(n ? n + " cards to study today" : "Nothing left to study today") + '"><span class="lb-num">' +
+      (n ? esc(String(n)) : tick) + "</span></div>";
+  }
   // XP progress bar toward the next level (replaces the old studied/total progress bar)
   function xpBarMarkup(xp, zh) {
     const info = levelFromXP(xp);
@@ -5370,7 +5381,7 @@
           <span class="glyph glyph-svg">${ICON.review}</span>
         </button>`
       : `<button class="banner${reviewDone ? " done" : ""}${reviewWon ? " won" : ""}" id="b-review">
-          ${levelBadgeMarkup(folioXP())}
+          ${pileBadgeMarkup(pile.nw + pile.lr + pile.rv)}
           <div class="body">
             <h2 class="review-title">Daily review</h2>
             <p class="desc">${
@@ -5384,7 +5395,8 @@
             <div class="meta">
               ${/* Anki's three piles, in Anki's order and Anki's colours: blue new, red learning, green
                     review. They are ALWAYS all three, coloured whether or not they are zero — a pile that
-                    turns grey when empty reads as a pile that has gone away. */""}
+                    turns grey when empty reads as a pile that has gone away. Each number is CENTRED over
+                    its own label, and the whole row sits on the button's line. */""}
               <div class="stat st-new"><b>${pile.nw}</b><span>New</span></div>
               <div class="stat st-learn"><b>${pile.lr}</b><span>Learning</span></div>
               <div class="stat st-rev"><b>${pile.rv}</b><span>Review</span></div>

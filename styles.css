@@ -250,6 +250,10 @@ body.night .banner .lb-num, body.night .collection-row .lb-num{color:#E6C765;}  
 /* Home Daily-review banner: a large plain golden numeral (no shield) */
 .banner .level-badge{min-width:74px;}
 .banner .lb-num{font-size:62px;}
+/* …and on that banner the numeral is the DAY'S PILE, not the level (see pileBadgeMarkup): at zero it is a
+   tick instead, in the same gold, sized off the numeral's own line so the badge doesn't change height. */
+.lb-tick{display:block; width:.86em; height:.86em; stroke:currentColor;}
+.banner .pile-badge.pb-clear .lb-num{font-size:56px;}
 /* breathing room between the desc line above and the blue "Level X / X of X cards" row */
 .banner .xp{margin-top:12px;}
 /* the Daily-review banner's xp bar is GOLD, in the same metal as the level numeral beside it — downstairs the
@@ -302,10 +306,12 @@ body.night .banner{
 .banner h2.review-title{font-size:39px; margin:0 0 11px; line-height:1.0;}
 .banner .desc{color:var(--ink-soft); font-size:15px; margin:0; line-height:1.5;}
 .banner .meta{display:flex; gap:16px; margin-top:14px; flex-wrap:wrap; align-items:center;}
-.banner .stat{display:flex; flex-direction:column; gap:2px;}
+/* each figure sits CENTRED over its own label rather than left-aligned against it: three columns of two
+   lines read as three columns only if both lines share a centre */
+.banner .stat{display:flex; flex-direction:column; align-items:center; gap:2px; text-align:center;}
 .banner .stat b{font-family:var(--display); font-weight:600; font-size:21px; line-height:1; color:var(--indigo);}
 .banner .stat span{font-family:var(--mono); font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint);}
-.banner .cta{margin-left:auto;}   /* sits on the SAME line as the due/new/seen stats, pushed to the right edge (wraps below them on narrow screens) */
+.banner .cta{margin-left:auto;}   /* sits on the SAME line as the three piles, pushed to the right edge */
 .banner .glyph{
   position:absolute; right:-10px; bottom:-26px; font-family:var(--han); font-weight:700;
   font-size:150px; line-height:1; color:var(--indigo); opacity:.05; pointer-events:none; user-select:none;
@@ -2425,6 +2431,15 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
   .chrono-actions{flex-direction:column;} .chrono-actions .btn{width:100%;}
   body.grading .stage{padding-bottom:206px;}
   body.grading .wb-tools{bottom:170px;}
+  /* ---- the review banner's three piles keep the button's line on a phone ----
+     Three figures over three labels plus a 148px button do not fit 300px, and the button dropped to a line
+     of its own — leaving the piles floating over nothing. The button gives up the width (it is one short
+     phrase, and the banner is a button in its own right, so this one is a repetition of the obvious) and
+     the row is held to ONE line: the labels are the only thing that could wrap, and a wrapped "LEARNING"
+     would break the column it sits under. */
+  .review-group .banner .meta{flex-wrap:nowrap; gap:11px; align-items:flex-end;}
+  .review-group .banner .stat span{font-size:8.5px; letter-spacing:.06em; white-space:nowrap;}
+  .review-group .banner .cta .btn{padding:11px 13px; font-size:10.5px; letter-spacing:.05em; white-space:nowrap;}
   /* clear of the bottom tab bar, not sitting on top of it: the marker is a control, and a control that
      covers the row of destinations reads as a bug however useful it is. (While grading the tab bar is gone
      and the grade bar owns that edge — hence the rule above, and the 430px one further down.) */
