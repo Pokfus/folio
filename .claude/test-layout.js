@@ -120,7 +120,7 @@ async function studyEasy(page, base, n) {
     check("...carrying every destination it is meant to",
       ["home", "map", "account", "settings"].every((r) => bar.tabs.includes(r)), bar.tabs.join(","));
     // Library left the bar for the home page's own banner — the tab bar is not where it is reached now
-    check("...and NOT the Library, which the home page's banner carries", !bar.tabs.includes("decks"), bar.tabs.join(","));
+    check("...and NOT the Library, which the home page's review lip carries", !bar.tabs.includes("decks"), bar.tabs.join(","));
     // …and About left it the same way, for the grey line under that banner
     check("...nor About, which the home page's own link carries", !bar.tabs.includes("mission"), bar.tabs.join(","));
     check("...every one of them NAMED, not just the active one", bar.labelled.every((l) => l.w > 8), JSON.stringify(bar.labelled.map((l) => l.w)));
@@ -626,75 +626,74 @@ async function studyEasy(page, base, n) {
     await page.close();
   }
 
-  /* ================= 7b. the home page's three swiped panes (phones) =================
-     The daily review, the games and the day's card/term stop being one column three screens tall and become
-     three panes swiped between. Everything here is silent when wrong: a pager that opens on the wrong pane
-     looks like a design choice, and a pane that can be flicked straight past looks like a pane that isn't
-     there. The desktop keeps the single column, in the order it always had — the phone reorders in CSS. */
+  /* ================= 7b. the phone's home page: the day's work, in one column =================
+     Three swiped panes became one column again (Aug 2026, on request): the day's card, the day's term and
+     the Atlas teaser are not built on a phone at all, and the games moved up under the review with a heading
+     of their own. Every failure here is silent — a tile that is still built costs a phone the ~1.6 MB globe
+     for something nobody can see, and the ONE route to the Library on a phone is now a lip the size of a
+     word, which is easy to lose and impossible to notice the loss of. */
   {
     const page = await browser.newPage({ viewport: PHONE });
     watch(page);
     await page.goto(base, { waitUntil: "load" });
     await page.waitForTimeout(1600);
     const h = await page.evaluate(() => {
-      const p = document.querySelector("#homePager"), cs = p && getComputedStyle(p);
-      const vis = p ? [...p.children].filter((c) => c.checkVisibility()) : [];
-      const box = (el) => { const b = el.getBoundingClientRect(); return { l: Math.round(b.left), w: Math.round(b.width) }; };
-      const dots = document.querySelector("#homeDots");
+      const grp = document.querySelector(".review-group"), grid = document.querySelector(".game-grid");
+      const head = document.querySelector(".mg-head"), lip = document.querySelector(".rv-lip");
       const quote = document.querySelector(".daily-quote, .dq, figure");
+      const tiles = [...document.querySelectorAll(".game-tile")];
+      const top = (el) => Math.round(el.getBoundingClientRect().top);
       return {
-        rows: cs && cs.flexDirection, snap: cs && cs.scrollSnapType, stop: p && getComputedStyle(p.firstElementChild).scrollSnapStop,
-        // VISUAL order, which is what a reader swipes through — the panes are reordered with `order`, not markup
-        order: vis.slice().sort((a, b) => a.getBoundingClientRect().left - b.getBoundingClientRect().left)
-          .map((c) => [...c.classList].find((k) => k.startsWith("hp-") && k !== "hp-pane")),
-        panes: vis.map(box), pagerW: p && Math.round(p.getBoundingClientRect().width), scrollLeft: p && Math.round(p.scrollLeft),
-        dots: dots && !dots.hidden ? dots.children.length : 0,
-        onDot: dots ? [...dots.children].findIndex((d) => d.classList.contains("on")) : -1,
-        quoteAbove: !!(quote && p && quote.getBoundingClientRect().bottom <= p.getBoundingClientRect().top + 1),
-        atlasTile: !!document.querySelector("#exp-atlas"),
-        lib: !!document.querySelector("#b-library") && document.querySelector("#b-library").checkVisibility(),
-        // the banner belongs to the REVIEW pane, not to the pager: below the pager it also sat under the
-        // games and the day's card, which it has nothing to do with
-        libInReview: !!(document.querySelector("#b-library") && document.querySelector("#b-library").closest(".hp-review")),
+        pager: !!document.querySelector("#homePager"), dots: !!document.querySelector("#homeDots"),
+        atlasTile: !!document.querySelector("#exp-atlas"), cod: !!document.querySelector("#exp-card"),
+        tod: !!document.querySelector("#exp-term"), explore: !!document.querySelector(".explore-grid"),
+        libBanner: !!document.querySelector("#b-library"),
+        // the lip hangs off the BOTTOM of the review group, under the deck list it adds to — and centred,
+        // which is the whole of "a lip" as against "a button somebody left there"
+        lip: lip ? lip.textContent.trim() : "",
+        lipLast: !!(lip && grp && lip.parentElement === grp && lip === grp.lastElementChild),
+        lipCentred: lip && grp ? Math.round(Math.abs((lip.getBoundingClientRect().left + lip.getBoundingClientRect().width / 2)
+          - (grp.getBoundingClientRect().left + grp.getBoundingClientRect().width / 2))) : 999,
+        lipAtBottom: lip && grp ? Math.round(lip.getBoundingClientRect().bottom - grp.getBoundingClientRect().bottom) : 999,
+        // a TAB, not another full-width banner — which is what it replaced
+        lipFrac: lip && grp ? +(lip.getBoundingClientRect().width / grp.getBoundingClientRect().width).toFixed(2) : 1,
+        // the games, under a heading, under the review
+        mgHead: head ? head.textContent.trim() : "",
+        headBelowReview: !!(head && grp && top(head) >= Math.round(grp.getBoundingClientRect().bottom) - 1),
+        gridBelowHead: !!(head && grid && top(grid) >= Math.round(head.getBoundingClientRect().bottom) - 1),
+        cols: grid ? getComputedStyle(grid).gridTemplateColumns.split(/\s+/).length : 0,
+        rows: new Set(tiles.map(top)).size, tiles: tiles.length,
+        // the taglines are gone at three tiles to a row: an unplayed tile carries a name and nothing else
+        subs: tiles.filter((t) => t.querySelector(".gt-sub")).length,
+        quoteAbove: !!(quote && grp && quote.getBoundingClientRect().bottom <= grp.getBoundingClientRect().top + 1),
         about: (() => { const a = document.querySelector(".home-about"); return a && a.checkVisibility() ? a.textContent.trim() : ""; })(),
-        aboutUnderLib: (() => {
-          const a = document.querySelector(".home-about"), l = document.querySelector("#b-library");
-          return !!(a && l && a.getBoundingClientRect().top >= l.getBoundingClientRect().bottom - 1);
+        aboutLast: (() => {
+          const a = document.querySelector(".home-about");
+          return !!(a && grid && a.getBoundingClientRect().top >= grid.getBoundingClientRect().bottom - 1);
         })(),
-        // the dots belong to the pager as a whole, so they sit above it rather than reading as a footnote
-        // to whichever pane happens to be showing
-        dotsAbove: !!(dots && p && dots.getBoundingClientRect().bottom <= p.getBoundingClientRect().top + 1),
-        // a pane's own padding is what separates one banner from the next mid-swipe; a flex GAP would put
-        // the snap points out of step with the dots' arithmetic (scrollLeft = i × clientWidth)
-        panePad: p && p.firstElementChild ? Math.round(parseFloat(getComputedStyle(p.firstElementChild).paddingLeft)) : 0,
-        pagerGap: cs ? cs.columnGap : "",
         seenTotal: [...document.querySelectorAll(".banner .stat span")].map((s) => s.textContent.trim()),
       };
     });
-    check("the home page's panes lie side by side on a phone", h.rows === "row", h.rows);
-    check("...one pane wide each, snapping", h.panes.every((b) => Math.abs(b.w - h.pagerW) <= 1) && /mandatory/.test(h.snap || ""), JSON.stringify({ panes: h.panes, snap: h.snap }));
-    // scroll-snap-stop is what holds a hard flick to ONE pane. `mandatory` alone only says where a scroll may
-    // COME TO REST — a fling still sails over two snap points, skipping a whole pane without a trace.
-    check("...and no flick may carry past one of them", h.stop === "always", h.stop);
-    check("...card & term to the left of the review, games to the right",
-      h.order.join(",") === "hp-explore,hp-review,hp-games", h.order.join(","));
-    check("...opening on the daily review, the middle pane", Math.abs(h.scrollLeft - h.pagerW) <= 2, h.scrollLeft + " vs " + h.pagerW);
-    check("...with a dot per pane, the middle one marked", h.dots === 3 && h.onDot === 1, JSON.stringify({ dots: h.dots, on: h.onDot }));
-    check("...the dots above the panes, not under them", h.dotsAbove);
-    check("...and the quote still above them all", h.quoteAbove);
-    check("...each pane padded so two banners don't meet mid-swipe", h.panePad >= 4 && (h.pagerGap === "normal" || parseFloat(h.pagerGap) === 0),
-      JSON.stringify({ pad: h.panePad, gap: h.pagerGap }));
-    check("the Atlas teaser is gone from the phone's home page", !h.atlasTile);
-    check("the Library banner takes the tab bar's place, inside the review pane", h.lib && h.libInReview, JSON.stringify({ lib: h.lib, inReview: h.libInReview }));
-    check("...with the About link under it, About having left the tab bar", /about/i.test(h.about) && h.aboutUnderLib, JSON.stringify({ about: h.about, under: h.aboutUnderLib }));
-    check("...routing to the collections", await page.evaluate(async () => {
-      document.querySelector("#b-library").click();
+    check("the phone's home page is one column again — no pager", !h.pager && !h.dots, JSON.stringify({ pager: h.pager, dots: h.dots }));
+    check("...with no card of the day and no gloss of the day", !h.cod && !h.tod && !h.explore, JSON.stringify(h));
+    check("...and no Atlas teaser: a phone never fetches the globe for an ornament", !h.atlasTile);
+    check("the Library banner is gone, replaced by a lip on the review", !h.libBanner && /add decks/i.test(h.lip), JSON.stringify({ banner: h.libBanner, lip: h.lip }));
+    check("...hanging off the bottom edge of the review group", h.lipLast && Math.abs(h.lipAtBottom) <= 1, JSON.stringify({ last: h.lipLast, edge: h.lipAtBottom }));
+    check("...centred on it, and a tab rather than a second banner", h.lipCentred <= 2 && h.lipFrac < 0.7, JSON.stringify({ off: h.lipCentred, frac: h.lipFrac }));
+    check("...and routing to the collections", await page.evaluate(async () => {
+      document.querySelector(".rv-lip").click();
       await new Promise((r) => setTimeout(r, 700));
       return location.hash;
     }) === "#decks");
     await page.goto(base, { waitUntil: "load" });
     await page.waitForTimeout(1500);
-    check("...and the About link routing to the About page", await page.evaluate(async () => {
+    check("the games sit under the review, under a Minigames heading",
+      /minigames/i.test(h.mgHead) && h.headBelowReview && h.gridBelowHead, JSON.stringify({ head: h.mgHead, below: h.headBelowReview, grid: h.gridBelowHead }));
+    check("...three wide and two tall", h.cols === 3 && h.rows === 2 && h.tiles === 6, JSON.stringify({ cols: h.cols, rows: h.rows, tiles: h.tiles }));
+    check("...with the description sentences gone", h.subs === 0, h.subs + " tiles still carry one");
+    check("...the quote still above it all", h.quoteAbove);
+    check("...and the About link last, About having left the tab bar", /about/i.test(h.about) && h.aboutLast, JSON.stringify({ about: h.about, last: h.aboutLast }));
+    check("...routing to the About page", await page.evaluate(async () => {
       document.querySelector(".home-about").click();
       await new Promise((r) => setTimeout(r, 700));
       return location.hash;
@@ -734,6 +733,17 @@ async function studyEasy(page, base, n) {
         return [...document.querySelectorAll(".review-group .banner .stat")].filter((s) => !s.classList.contains("streak"))
           .every((s) => { const b = s.getBoundingClientRect(); return b.top < cta.bottom && b.bottom > cta.top; });
       })(),
+      // …and centred against them rather than sat on their baseline (Aug 2026, on request). The row was
+      // align-items:flex-end on a phone, so a one-line button lined up with the bottom of a two-line column
+      // and read as having slipped down.
+      ctaOffset: (() => {
+        const cta = document.querySelector(".review-group .banner .cta .btn").getBoundingClientRect();
+        const st = [...document.querySelectorAll(".review-group .banner .stat")].filter((s) => !s.classList.contains("streak"))
+          .map((s) => s.getBoundingClientRect());
+        if (!st.length) return 999;
+        const mid = (Math.min(...st.map((b) => b.top)) + Math.max(...st.map((b) => b.bottom))) / 2;
+        return Math.round(Math.abs((cta.top + cta.bottom) / 2 - mid) * 10) / 10;
+      })(),
     }));
     check("the review banner counts Anki's three piles, in order",
       piles.stats.map((p) => p.label.toLowerCase()).join(",") === "new,learning,review", JSON.stringify(piles.stats.map((p) => p.label)));
@@ -744,6 +754,7 @@ async function studyEasy(page, base, n) {
     check("...naming themselves only in the row's tooltip", /\S/.test(piles.rowLabels), piles.rowLabels);
     check("...each figure centred over its own label", piles.centred.every((d) => d <= 1), JSON.stringify(piles.centred));
     check("...and the three of them on the button's own line", piles.onCtaRow);
+    check("...with the button centred against them, not on their baseline", piles.ctaOffset <= 1.5, piles.ctaOffset);
     check("the banner's gold numeral is the DAY'S PILE, not the level",
       !piles.badge.tick && +piles.badge.n === piles.stats.reduce((a, s) => a + s.n, 0),
       JSON.stringify({ badge: piles.badge, piles: piles.stats.map((s) => s.n) }));
@@ -765,28 +776,30 @@ async function studyEasy(page, base, n) {
     await page.close();
   }
   {
-    // above the breakpoint nothing about the home page changed: one column, in the order it always had
+    // above the breakpoint nothing about the home page changed: one column, in the order it always had, with
+    // the day's card, the day's term and the Atlas teaser all still in it
     const page = await browser.newPage({ viewport: DESKTOP });
     watch(page);
     await page.goto(base, { waitUntil: "load" });
     await page.waitForTimeout(1600);
     const d = await page.evaluate(() => {
-      const p = document.querySelector("#homePager");
+      const top = (s) => { const el = document.querySelector(s); return el ? Math.round(el.getBoundingClientRect().top) : -1; };
       return {
-        col: getComputedStyle(p).flexDirection,
-        order: [...p.children].sort((a, b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top)
-          .map((c) => [...c.classList].find((k) => k.startsWith("hp-") && k !== "hp-pane")),
+        order: [top(".review-group"), top(".game-grid"), top(".explore-grid")],
         atlasTile: !!document.querySelector("#exp-atlas"),
-        dots: document.querySelector("#homeDots").checkVisibility(),
-        lib: document.querySelector("#b-library").checkVisibility(),
-        about: !!(document.querySelector(".home-about") || {}).checkVisibility && document.querySelector(".home-about").checkVisibility(),
+        cod: !!document.querySelector("#exp-card"), tod: !!document.querySelector("#exp-term"),
+        cols: getComputedStyle(document.querySelector(".game-grid")).gridTemplateColumns.split(/\s+/).length,
+        // the taglines are a phone-only removal: three to a row is what left no room for them
+        subs: [...document.querySelectorAll(".game-tile")].filter((t) => t.querySelector(".gt-sub")).length,
+        lip: !!document.querySelector(".rv-lip"), head: !!document.querySelector(".mg-head"),
+        about: !!document.querySelector(".home-about"),
       };
     });
-    check("[desktop] the panes are back to one column", d.col === "column", d.col);
-    check("[desktop] ...in the order the page always had", d.order.join(",") === "hp-review,hp-games,hp-explore", d.order.join(","));
-    check("[desktop] ...with the Atlas teaser still in it", d.atlasTile);
-    check("[desktop] ...no pager dots", !d.dots);
-    check("[desktop] ...and no Library banner or About link: the top bar still carries both tabs", !d.lib && !d.about);
+    check("[desktop] the home page keeps the order it always had", d.order[0] < d.order[1] && d.order[1] < d.order[2], JSON.stringify(d.order));
+    check("[desktop] ...with the day's card, the day's term and the Atlas teaser still in it", d.atlasTile && d.cod && d.tod, JSON.stringify(d));
+    check("[desktop] ...the games three to a row, taglines and all", d.cols === 3 && d.subs === 6, JSON.stringify({ cols: d.cols, subs: d.subs }));
+    check("[desktop] ...and no lip, no Minigames heading and no About link: the top bar carries both tabs",
+      !d.lip && !d.head && !d.about, JSON.stringify(d));
     await page.close();
   }
 
@@ -847,7 +860,9 @@ async function studyEasy(page, base, n) {
     const panel = await page.evaluate(() => ({
       draw: !!document.querySelector(".wb-pen"),
       markWithSizes: !!document.querySelector(".wb-sizes-row .wb-hl"),
-      custom: !!document.querySelector(".wb-custom input"),
+      custom: !!document.querySelector(".wb-custom"),
+      nativeDialog: !!document.querySelector(".wb-custom input[type=color]"),
+      pickShut: (() => { const p = document.querySelector(".wb-pick"); return !!p && !p.checkVisibility(); })(),
       // Erase over Undo, Clear over Redo: two columns, and which cell each lands in is the request
       grid: [...document.querySelectorAll(".wb-panel .wb-row")].slice(-2).map((r) => [...r.children].map((c) => c.className.replace(/wb-btn ?/, "")).join("+")).join(" / "),
       penDown: document.querySelector(".draw-canvas").classList.contains("on"),
@@ -856,7 +871,10 @@ async function studyEasy(page, base, n) {
     check("the panel has no Draw button — the sizes are the pen", !panel.draw);
     check("...Mark beside them", panel.markWithSizes);
     check("...Erase above Undo and Clear above Redo", panel.grid === "wb-eraser+wb-clear / wb-undo+wb-redo", panel.grid);
-    check("...and a custom colour of the reader's own", panel.custom);
+    check("...and a custom colour of the reader's own", panel.custom && panel.pickShut, JSON.stringify({ swatch: panel.custom, shut: panel.pickShut }));
+    // the platform's own dialog is a full-screen sheet of sliders over the card being annotated; the picker
+    // is inline now, so an <input type=color> anywhere here means the change was reverted
+    check("...chosen inline, not in the platform's colour dialog", !panel.nativeDialog);
     check("...opening the tools puts the pen down", panel.penDown && !!panel.sizeOn, JSON.stringify(panel.sizeOn || null));
 
     const toggled = await page.evaluate(async () => {
@@ -869,13 +887,49 @@ async function studyEasy(page, base, n) {
     });
     check("clicking the selected size again picks the pen up", !toggled.up && toggled.down, JSON.stringify(toggled));
 
-    const kept = await page.evaluate(async () => {
-      const i = document.querySelector(".wb-custom input");
-      i.value = "#123456"; i.dispatchEvent(new Event("input", { bubbles: true }));
+    /* The custom colour: open the picker off the dashed swatch, then press into each field. A press has to
+       set the colour where it lands (the fields are dragged, so pointerdown IS the gesture), the hue bar has
+       to move the hue and the field the saturation and brightness, and the result has to outlive the
+       session — the picker is the ONLY way to a colour outside the five presets. */
+    const pick = await page.evaluate(async () => {
+      const press = (el, fx, fy) => {
+        const r = el.getBoundingClientRect();
+        const o = { bubbles: true, pointerId: 7, button: 0, clientX: r.left + r.width * fx, clientY: r.top + r.height * fy };
+        el.dispatchEvent(new PointerEvent("pointerdown", o));
+        el.dispatchEvent(new PointerEvent("pointerup", o));
+      };
+      document.querySelector(".wb-custom").click();
       await new Promise((r) => setTimeout(r, 150));
-      return localStorage.getItem("folio_wb_custom_v1") || "";
+      const sv = document.querySelector(".wb-sv"), hue = document.querySelector(".wb-hue");
+      if (!sv || !hue || !document.querySelector(".wb-pick").checkVisibility()) return { open: false };
+      press(hue, 0.5, 0.5);                       // half way along the bar: cyan
+      await new Promise((r) => setTimeout(r, 80));
+      const afterHue = document.querySelector(".wb-hex").textContent.trim();
+      press(sv, 1, 0);                            // top-right of the field: the pure hue
+      await new Promise((r) => setTimeout(r, 120));
+      return {
+        open: true, afterHue,
+        hex: document.querySelector(".wb-hex").textContent.trim(),
+        stored: localStorage.getItem("folio_wb_custom_v1") || "",
+        // the knob follows the choice, or the field says nothing about what is selected
+        knob: (() => { const k = document.querySelector(".wb-sv .wb-knob"); return { l: k.style.left, t: k.style.top }; })(),
+      };
     });
-    check("...and the custom colour survives the session", /123456/i.test(kept), kept);
+    check("the custom swatch opens an inline picker", pick.open);
+    // half way along the bar is cyan, so green and blue come up equal and above red — whatever saturation
+    // and brightness the swatch happened to carry in
+    check("...whose hue bar sets the hue alone", (() => {
+      const m = /^#(..)(..)(..)$/.exec(pick.afterHue || "");
+      if (!m) return false;
+      const [r, g, b] = m.slice(1).map((x) => parseInt(x, 16));
+      return pick.afterHue !== "#7A4FC2" && g === b && g > r;
+    })(), pick.afterHue);
+    // top-right of the field is full saturation at full brightness: the pure hue, and nothing else can be
+    check("...and whose field sets saturation and brightness",
+      pick.hex === "#00FFFF" && parseFloat(pick.knob.l) === 100 && parseFloat(pick.knob.t) === 0,
+      JSON.stringify({ hex: pick.hex, knob: pick.knob }));
+    check("...with the chosen colour surviving the session", /00ffff/i.test(pick.stored), pick.stored);
+    await page.evaluate(() => document.querySelector(".wb-custom").click());   // shut it again — the ink test needs the card
 
     // the real test: TAP Show answer with the pen down. A click through page.evaluate would bypass the very
     // hit-testing this is about, so it goes through the mouse.
@@ -945,7 +999,7 @@ async function studyEasy(page, base, n) {
 
   /* ================= 7f. the daily quote does not resize the page =================
      Flipping the quote to its original language swaps in a block that rarely wraps to the same number of
-     lines, and everything under it — the pager, the banner — used to lift or drop by one. */
+     lines, and everything under it — the review banner and the games below it — used to lift or drop by one. */
   {
     const page = await browser.newPage({ viewport: PHONE });
     watch(page);
@@ -954,7 +1008,7 @@ async function studyEasy(page, base, n) {
     const q = await page.evaluate(async () => {
       const fig = document.querySelector(".daily-quote.dq-flip");
       if (!fig) return null;   // not every day's quote has a documented original
-      const below = document.querySelector("#homePager");
+      const below = document.querySelector(".review-group");   // the first thing under the quote on a phone
       const before = { h: Math.round(fig.getBoundingClientRect().height), y: Math.round(below.getBoundingClientRect().top) };
       fig.click();
       await new Promise((r) => setTimeout(r, 900));

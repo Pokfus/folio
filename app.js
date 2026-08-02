@@ -3973,6 +3973,28 @@
     return wbCustom;
   }
   function wbSaveCustom() { try { localStorage.setItem(WB_CUSTOM_KEY, JSON.stringify(wbReadCustom())); } catch (e) {} }
+  /* HSV ↔ hex for the custom-colour picker below. The picker's two fields are a hue bar and a
+     saturation/brightness square — the shape of every colour picker a reader has met — and neither maps onto
+     RGB directly, so the conversion has to live somewhere. Standard formulae: `f` is the usual
+     hue-sector helper, and hue is undefined (taken as 0) for a grey. */
+  function hsvToHex(h, s, v) {
+    const f = (n) => {
+      const k = (n + h / 60) % 6;
+      const x = v - v * s * Math.max(0, Math.min(k, 4 - k, 1));
+      const b = Math.round(Math.max(0, Math.min(1, x)) * 255).toString(16);
+      return b.length < 2 ? "0" + b : b;
+    };
+    return "#" + f(5) + f(3) + f(1);
+  }
+  function hexToHSV(hex) {
+    const m = /^#([0-9a-f]{6})$/i.exec(hex || "");
+    const n = m ? parseInt(m[1], 16) : 0;
+    const r = ((n >> 16) & 255) / 255, g = ((n >> 8) & 255) / 255, b = (n & 255) / 255;
+    const mx = Math.max(r, g, b), mn = Math.min(r, g, b), d = mx - mn;
+    let h = 0;
+    if (d) h = mx === r ? 60 * (((g - b) / d) % 6) : mx === g ? 60 * ((b - r) / d + 2) : 60 * ((r - g) / d + 4);
+    return { h: (h + 360) % 360, s: mx ? d / mx : 0, v: mx };
+  }
 
   /* ---- the marker is draggable anywhere on the screen (Aug 2026, on request) ----
      It is a fixed control floating over a card the reader is trying to read, and its default corner is
@@ -4055,6 +4077,10 @@
     el.innerHTML = `
       <div class="wb-panel">
         <div class="wb-row wb-colors-row"></div>
+        ${/* the custom-colour picker, opened by the dashed swatch above and shut again by it. It is its own
+              row rather than a popover: the panel is already a floating box that decides which way it opens,
+              and a second floating box inside it would have to make that decision again. */""}
+        <div class="wb-row wb-pick" hidden></div>
         <div class="wb-row wb-sizes-row">${sizeBtns}
           <button class="wb-btn wb-hl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11-6 6v3h9l3-3"/><path d="m22 12-4.6 4.6a2 2 0 0 1-2.8 0l-5.2-5.2a2 2 0 0 1 0-2.8L14 4"/></svg>Mark</button>
         </div>
@@ -4084,8 +4110,93 @@
       });
     };
     wbRefreshTools = refreshModes;
+    const useColor = (c) => {
+      if (WB.mode === "erase") WB.mode = "pen";
+      if (WB.mode === "hl") WB.hlColor = c; else WB.penColor = c;
+      WB.color = c;
+      wbSetEnabled(true);   // reaching for a colour is asking to draw
+      renderColors();
+      refreshModes();
+    };
+    /* ---- the custom colour ----
+       An ordinary colour picker, of the shape everyone has used: a saturation/brightness field with a hue
+       bar under it and the hex beneath (Aug 2026, on request). It replaced <input type="color">, whose
+       platform dialog is a full-screen "Select color" sheet of sliders on a phone — it covers the card being
+       annotated, and choosing a colour costs two taps and a page you cannot see past. Two CSS gradients and
+       two pointer handlers; no canvas, no library.
+       The picker keeps its own HSV rather than re-deriving it from the hex on each move: at v=0 or s=0 a
+       colour has NO recoverable hue, so a reader dragging into the black corner and back out would come
+       back red however they arrived. `pickDrag` is what keeps a re-render mid-drag from reseeding it. */
+    const pickEl = el.querySelector(".wb-pick");
+    let pickHSV = hexToHSV(wbReadCustom().pen), pickDrag = -1;
+    const pickHex = () => hsvToHex(pickHSV.h, pickHSV.s, pickHSV.v);
+    const syncPick = () => {
+      const sv = pickEl.querySelector(".wb-sv"), hue = pickEl.querySelector(".wb-hue");
+      if (!sv || !hue) return;
+      sv.style.setProperty("--h", pickHSV.h.toFixed(1));
+      sv.firstElementChild.style.left = (pickHSV.s * 100).toFixed(2) + "%";
+      sv.firstElementChild.style.top = ((1 - pickHSV.v) * 100).toFixed(2) + "%";
+      hue.firstElementChild.style.left = ((pickHSV.h / 360) * 100).toFixed(2) + "%";
+      pickEl.style.setProperty("--wc", pickHex());
+      pickEl.querySelector(".wb-hex").textContent = pickHex().toUpperCase();
+    };
+    /* One handler shape for both fields. A press sets the colour where it lands and captures the pointer, so
+       a drag that wanders off the field keeps painting instead of stopping dead at the edge. The ARROW KEYS
+       do the same thing in steps: the control this replaced was a real `<input>` and reachable from a
+       keyboard, and a picker that can only be dragged would be a quiet regression for anyone who does not
+       use a pointer. `get` is what makes that possible — it reads the field's own two axes back out of the
+       HSV, which is the only place they are kept. */
+    const wirePickField = (box, set, get, label) => {
+      const commit = (x, y) => {
+        set(x, y);
+        const c = pickHex();
+        const store = wbReadCustom();
+        if (WB.mode === "hl") store.hl = c; else store.pen = c;
+        wbSaveCustom();
+        useColor(c);   // live, like every other swatch — the marker follows the finger through the field
+        syncPick();
+      };
+      const clamp = (n) => Math.max(0, Math.min(1, n));
+      const at = (e) => {
+        const r = box.getBoundingClientRect();
+        commit(clamp((e.clientX - r.left) / (r.width || 1)), clamp((e.clientY - r.top) / (r.height || 1)));
+      };
+      box.setAttribute("tabindex", "0");
+      box.setAttribute("aria-label", label);
+      box.addEventListener("pointerdown", (e) => {
+        if (e.button != null && e.button !== 0) return;
+        e.preventDefault();
+        pickDrag = e.pointerId;
+        try { box.setPointerCapture(e.pointerId); } catch (err) {}
+        at(e);
+      });
+      box.addEventListener("pointermove", (e) => { if (pickDrag === e.pointerId) at(e); });
+      const stop = (e) => { if (pickDrag === e.pointerId) pickDrag = -1; };
+      box.addEventListener("pointerup", stop);
+      box.addEventListener("pointercancel", stop);
+      box.addEventListener("keydown", (e) => {
+        const step = e.shiftKey ? 0.1 : 0.02;
+        const p = get();
+        let x = p[0], y = p[1];
+        if (e.key === "ArrowLeft") x -= step;
+        else if (e.key === "ArrowRight") x += step;
+        else if (e.key === "ArrowUp") y -= step;
+        else if (e.key === "ArrowDown") y += step;
+        else return;
+        e.preventDefault();
+        commit(clamp(x), clamp(y));
+      });
+    };
+    pickEl.innerHTML = `
+      <div class="wb-sv"><span class="wb-knob"></span></div>
+      <div class="wb-hue"><span class="wb-knob"></span></div>
+      <div class="wb-hex"></div>`;
+    wirePickField(pickEl.querySelector(".wb-sv"), (x, y) => { pickHSV.s = x; pickHSV.v = 1 - y; },
+      () => [pickHSV.s, 1 - pickHSV.v], "Saturation and brightness");
+    wirePickField(pickEl.querySelector(".wb-hue"), (x) => { pickHSV.h = x * 360; },
+      () => [pickHSV.h / 360, 0], "Hue");
     // the colour swatches swap to bright highlighter colours when Mark is active; the last one is the
-    // reader's own, remembered between sessions (a native colour input wearing the swatch's clothes)
+    // reader's own, remembered between sessions, and opens the picker above
     const renderColors = () => {
       const row = el.querySelector(".wb-colors-row");
       const hl = WB.mode === "hl";
@@ -4096,31 +4207,17 @@
       row.innerHTML = palette.map((c, i) =>
         `<button class="wb-color${c === current ? " sel" : ""}" data-c="${c}" style="--wc:${c}" aria-label="Colour ${i + 1}"></button>`
       ).join("") +
-        `<span class="wb-color wb-custom${current.toLowerCase() === custom.toLowerCase() ? " sel" : ""}" style="--wc:${custom}" title="Custom colour">
-           <input type="color" value="${custom}" aria-label="Custom colour">
-         </span>`;
-      const useColor = (c) => {
-        if (WB.mode === "erase") WB.mode = "pen";
-        if (WB.mode === "hl") WB.hlColor = c; else WB.penColor = c;
-        WB.color = c;
-        wbSetEnabled(true);   // reaching for a colour is asking to draw
-        renderColors();
-        refreshModes();
-      };
+        `<button class="wb-color wb-custom${current.toLowerCase() === custom.toLowerCase() ? " sel" : ""}${pickEl.hidden ? "" : " open"}" style="--wc:${custom}" type="button" title="Custom colour" aria-label="Custom colour" aria-expanded="${pickEl.hidden ? "false" : "true"}"></button>`;
       row.querySelectorAll(".wb-color[data-c]").forEach((b) => b.addEventListener("click", () => useColor(b.dataset.c)));
-      const picker = row.querySelector(".wb-custom input");
-      // `input` rather than `change`: the picker previews live, so the marker follows the finger through it
-      picker.addEventListener("input", () => {
-        const c = picker.value;
-        if (!/^#[0-9a-f]{6}$/i.test(c)) return;
-        const store = wbReadCustom();
-        if (WB.mode === "hl") store.hl = c; else store.pen = c;
-        wbSaveCustom();
-        useColor(c);
-        // re-rendering replaced the element the picker is open on top of; put the value back on the new one
-        const again = row.querySelector(".wb-custom input");
-        if (again) again.value = c;
+      row.querySelector(".wb-custom").addEventListener("click", () => {
+        pickEl.hidden = !pickEl.hidden;
+        if (!pickEl.hidden) { pickHSV = hexToHSV(custom); syncPick(); useColor(custom); }
+        else renderColors();
       });
+      // Mark and the pen keep separate custom colours, so switching tool reloads the field — but never
+      // under a finger that is dragging in it, which is the one moment the stored hex is behind the HSV.
+      if (pickDrag < 0 && pickHex().toLowerCase() !== custom.toLowerCase()) { pickHSV = hexToHSV(custom); }
+      syncPick();
     };
     renderColors();
     /* The sizes ARE the pen. Clicking one picks the pen at that width; clicking the width the pen is
@@ -4668,8 +4765,8 @@
   function touchDevice() { return !!(window.matchMedia && window.matchMedia("(hover:none)").matches); }
 
   /* ---------- one page per swipe ----------
-     Both horizontal pagers on the site (the Atlas place panel's sections, the home page's three panes) must
-     move exactly ONE page per gesture: a flick that carries two along skips a whole section, and silently,
+     The Atlas place panel's sections are swiped one page at a time on a phone, and a gesture must move
+     exactly ONE of them: a flick that carries two along skips a whole section, and silently,
      since the reader only sees where it lands. `scroll-snap-stop:always` in the stylesheet is the real fix
      and does the work wherever it is supported; this is the net under it, for the same reason the footnote
      numbering has one — the failure is invisible, so it must not depend on a single mechanism.
@@ -5126,6 +5223,11 @@
 
   let _homeResize = null;   // the one resize listener the home page installs (see the foot of PAGES.home)
   PAGES.home = function (root) {
+    /* The phone and the desktop build DIFFERENT pages here, not the same page styled two ways — the phone
+       drops the Atlas teaser, the card of the day and the term of the day, and gathers the games under a
+       heading of their own. It is read once at the top and passed around, since half a dozen decisions
+       below turn on it; crossing the breakpoint re-renders (see _homeResize at the foot of this function). */
+    const phone = phoneHome();
     const q = reviewQueue();
     const dueN = q.due.length;
     const newN = q.fresh.length;
@@ -5259,8 +5361,6 @@
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.2 9.3a3 3 0 0 1 5.5 1.6c0 2-3 2.5-3 4.1"/><line x1="12" y1="17.5" x2="12" y2="17.5"/></svg>',
       findit:
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>',
-      library:
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
     };
     const tile = (o) =>
       `<button class="game-tile ${o.cls || ""}${o.done ? " done" : ""}${o.won ? " won" : ""}" id="${o.id}" style="--tile:${o.color}">
@@ -5275,13 +5375,18 @@
     // The sixth slot in the grid. It used to read "Coming soon / —", which names nothing and looks like a tile
     // that failed to load; it says what it is instead.
     const blankTile = (g, color) =>
-      `<div class="game-tile blank" style="--tile:${color}"><span class="gt-glyph${/^\s*<svg/.test(g) ? " gt-glyph-svg" : ""}">${g}</span><div class="gt-body"><span class="gt-eyebrow">Coming soon</span><span class="gt-title">More games</span><span class="gt-sub">Another one is being written.</span></div></div>`;
-    // once a game is played, its tagline becomes today's (best) score
-    const gameSub = (key, fallback, wording) => {
+      `<div class="game-tile blank" style="--tile:${color}"><span class="gt-glyph${/^\s*<svg/.test(g) ? " gt-glyph-svg" : ""}">${g}</span><div class="gt-body"><span class="gt-eyebrow">Coming soon</span><span class="gt-title">More games</span>${phone ? "" : '<span class="gt-sub">Another one is being written.</span>'}</div></div>`;
+    /* Today's score, once the game has been played. On a PHONE that is all a tile's tagline can ever be:
+       the descriptions were removed there on request (Aug 2026) — three tiles to a row leaves about 86px of
+       text column, where one sentence runs to four lines and buries the name of the game above it — and the
+       score is dropped to its bare figures for the same reason. A score is not a description: it is the one
+       thing on the tile that changes during the day, so it stays. */
+    const gameScore = (key, wording) => {
       const g = S.games && S.games[key];
-      if (g && g.date === todayStr() && g.played && typeof g.s === "number" && typeof g.n === "number") return g.s + "/" + g.n + " " + (wording || "correct!");
-      return fallback;
+      if (!(g && g.date === todayStr() && g.played && typeof g.s === "number" && typeof g.n === "number")) return "";
+      return phone ? g.s + "/" + g.n : g.s + "/" + g.n + " " + (wording || "correct!");
     };
+    const gameSub = (key, fallback, wording) => gameScore(key, wording) || (phone ? "" : fallback);
     const gameGrid = `<div class="game-grid">
       ${tile({ id: "g-challenge", cls: "g-challenge", color: "#D9544C", glyph: ICON.choices, title: "Multiple Choice", sub: gameSub("challenge", "Pick the answer · 5 rounds"), done: playedChallengeToday, won: wonToday.challenge })}
       ${tile({ id: "g-chrono", cls: "g-chrono", color: "#4F74C2", glyph: ICON.timeline, title: "Timeline", sub: gameSub("chrono", "Put the events in order", "in order!"), done: playedChronoToday, won: wonToday.chrono })}
@@ -5294,17 +5399,18 @@
     // --- discovery row: a real card to flip, a glossary term, and the Atlas ---
     const fresh = Object.keys(S.cards).length === 0;   // never studied anything → first-run hero + how-it-works strip
     const availSet = availableCardIdSet();
+    /* The whole discovery row is DESKTOP-ONLY (Aug 2026, on request — the Atlas teaser had gone a week
+       earlier, on the same grounds). A phone's home page is the day's work: the review, the decks under it
+       and the games. Skipped at RENDER rather than hidden in CSS, so a phone pays for none of it — no
+       date-seeded pick over every card, no glossary scan, and above all no ~1.6 MB of globe geometry for an
+       ornament nobody can see. The resize listener at the foot of this function rebuilds the page, and with
+       it the row, if the window ever grows past the breakpoint. */
     // the day's card asks the same phrasing all day (date-seeded, like the pick of the card itself)
-    const cod = cardWithQuestion(cardLocalized(dailyPick(CARDS.filter((c) => availSet.has(c.id) && c.question && c.answerText), "cod-")), (n) => (hashStr("codq-" + todayStr()) >>> 0) % n);
-    const todKeys = window.GLOSSARY ? Object.keys(window.GLOSSARY).filter((k) => (window.GLOSSARY_DATES || {})[k]) : [];
+    const cod = phone ? null : cardWithQuestion(cardLocalized(dailyPick(CARDS.filter((c) => availSet.has(c.id) && c.question && c.answerText), "cod-")), (n) => (hashStr("codq-" + todayStr()) >>> 0) % n);
+    const todKeys = phone || !window.GLOSSARY ? [] : Object.keys(window.GLOSSARY).filter((k) => (window.GLOSSARY_DATES || {})[k]);
     const tod = dailyPick(todKeys, "term-");
     const todImg = tod ? glossImage(tod) : null;   // the term's illustration, shown at the right of the tile
-    // The phone drops the Atlas teaser altogether (Aug 2026, on request): the Atlas has a tab of its own down
-    // there, and on a swipe pane holding the two daily picks a third tile is one more thing to scroll past.
-    // Skipped at RENDER rather than hidden in CSS so the mini globe's ~1.6 MB of geometry is never fetched for
-    // an ornament nobody can see; the resize listener at the foot of this function rebuilds the page — and so
-    // the tile — if the window ever grows past the breakpoint.
-    const exploreGrid = `<div class="explore-grid${todImg ? " has-term-img" : ""}">
+    const exploreGrid = phone ? "" : `<div class="explore-grid${todImg ? " has-term-img" : ""}">
       ${cod ? `<button class="exp-tile exp-card" id="exp-card" type="button" aria-label="Card of the day — click to flip it over">
         <div class="flip">
           <div class="flip-face flip-front">
@@ -5336,7 +5442,7 @@
         </span>
         ${todImg ? `<span class="term-img"><img src="${esc(todImg.src)}" alt="${esc(todImg.title || glossTitle(tod))}" loading="lazy" draggable="false"></span>` : ""}
       </button>` : ""}
-      ${phoneHome() ? "" : `<button class="exp-tile exp-atlas" id="exp-atlas" type="button">
+      <button class="exp-tile exp-atlas" id="exp-atlas" type="button">
         <div class="atlas-copy">
           <span class="exp-eyebrow">The Atlas</span>
           <span class="atlas-title">See the world's borders move</span>
@@ -5344,7 +5450,7 @@
           <span class="exp-hint">Open the Atlas</span>
         </div>
         <canvas id="miniGlobe" class="mini-globe" aria-hidden="true"></canvas>
-      </button>`}
+      </button>
     </div>`;
     // shown until the first card is graded: the three-beat explanation of the method
     const howit = fresh ? `<div class="howit" aria-label="How Folio works">
@@ -5411,31 +5517,32 @@
           </div>
           <span class="glyph glyph-svg">${ICON.review}</span>
         </button>`;
-    // The Library lost its seat in the phone's bottom tab bar (Aug 2026, on request) — this banner is how it
-    // is reached instead, sitting under the review it belongs beside rather than in a row of six destinations.
-    // It is PHONE-ONLY (see .lib-banner in styles.css): above the breakpoint the top bar still carries the tab,
-    // and a second way in beside it would be clutter — the same call the plain admin-edit button makes.
-    const libraryBanner = `<button class="banner lib-banner" id="b-library" type="button">
-          <div class="body">
-            <h2>Library</h2>
-            <p class="desc">Every collection and deck in Folio — pick what to study next.</p>
-            <div class="meta"><span class="cta"><span class="btn">Browse collections</span></span></div>
-          </div>
-          <span class="glyph glyph-svg">${ICON.library}</span>
-        </button>
-        ${/* About left the phone's tab bar (Aug 2026, on request) — a page read once does not deserve a
-              share of a row the day's destinations need. This quiet grey line under the Library banner is
-              the way in instead, and like the banner it is phone-only: the top bar still carries the tab
-              above the breakpoint. */""}
-        <button class="home-about" id="b-about" type="button">About Folio</button>`;
-    /* The three groups used to stack down the phone in one column three screens tall. They are separated here
-       into panes swiped between, with the daily review — the thing a reader came for — the one the page opens
-       on: swipe LEFT off it for the games, RIGHT for the day's card and term. The quote stays where it was,
-       above the pager, since it is read before any of them.
-       The DOM order is the DESKTOP order (review, games, explore, exactly as before); the phone puts the
-       explore pane first with `order:-1` rather than reordering the markup, so above the breakpoint the panes
-       fall back to being three plain stacked blocks with no rules of their own. The how-it-works strip lives
-       INSIDE the review pane so it stays under the banner it explains and above the Library banner below. */
+    /* The way to the Library on a phone (Aug 2026, on request). It was a banner of its own under the review
+       — a second full-width block saying, at length, what one word says — and is now a small tab hanging off
+       the BOTTOM EDGE of the review group, under the list of decks it adds to. It is the LAST child of that
+       group rather than a floating overlay: the deck list is glued flush to the banner above it (see
+       .has-active in styles.css), so there is no bottom edge to hang from until the whole group has one, and
+       an absolutely-positioned lip would have to guess the list's height on every render.
+       PHONE-ONLY and rendered only there — above the breakpoint the top bar still carries the Library tab,
+       and it is the ONLY route to the collections down here, so it ships in every state the review can be
+       in, first run included. */
+    const addDecksLip = phone
+      ? `<button class="rv-lip" id="b-addDecks" type="button">+ Add decks</button>`
+      : "";
+    // About left the phone's tab bar (Aug 2026, on request) — a page read once does not deserve a share of a
+    // row the day's destinations need. This quiet grey line is the way in instead, phone-only for the same
+    // reason as the lip above it.
+    const aboutLink = phone ? `<button class="home-about" id="b-about" type="button">About Folio</button>` : "";
+    const reviewGroup = `<div class="review-group ${activeIds.length && !fresh ? "has-active" : ""}${reviewDone ? " rv-done" : ""}${reviewWon ? " rv-won" : ""}">
+            ${bannerHTML}
+            ${fresh ? "" : `<button class="review-order" id="reviewOrder" type="button" title="Order your daily review by date, or shuffle it"><span class="${S.settings.reviewRandom ? "" : "on"}">Ordered</span><span class="${S.settings.reviewRandom ? "on" : ""}">Random</span></button>
+            <div class="active-decks">${activeHTML}</div>`}
+            ${addDecksLip}
+          </div>`;
+    /* One column on both, in the same order — the phone's three swiped panes are gone (Aug 2026, on request)
+       along with the two tiles that filled the third of them. What a phone gets instead is the day's work in
+       reading order: the review and its decks, then the games under a heading of their own. The games keep
+       their place on the desktop too, with the discovery row after them exactly as before. */
     root.innerHTML = `
       <div class="page-head">
         <span class="eyebrow">${greeting}, ${esc(S.user.name)}</span>
@@ -5443,25 +5550,16 @@
       </div>
       ${dailyQuoteHTML()}
       <div class="banners">
-        ${/* the dots sit ABOVE the panes (Aug 2026, on request): under them they read as a footnote to
-              whichever pane is showing, and they belong to the pager as a whole. */""}
-        <div class="hp-dots" id="homeDots" hidden></div>
-        <div class="home-pager" id="homePager">
-          <div class="hp-pane hp-review">
-            <div class="review-group ${activeIds.length && !fresh ? "has-active" : ""}${reviewDone ? " rv-done" : ""}${reviewWon ? " rv-won" : ""}">
-            ${bannerHTML}
-            ${fresh ? "" : `<button class="review-order" id="reviewOrder" type="button" title="Order your daily review by date, or shuffle it"><span class="${S.settings.reviewRandom ? "" : "on"}">Ordered</span><span class="${S.settings.reviewRandom ? "on" : ""}">Random</span></button>
-            <div class="active-decks">${activeHTML}</div>`}
-            </div>
-            ${howit}
-            ${/* the Library banner rides INSIDE the review pane (Aug 2026, on request) rather than under
-                  the whole pager: it belongs beside the review and the decks it lists, and below the pager
-                  it sat under the games and the day's card too, which it has nothing to do with. */""}
-            ${libraryBanner}
-          </div>
-          <div class="hp-pane hp-games">${gameGrid}</div>
-          <div class="hp-pane hp-explore">${exploreGrid}</div>
-        </div>
+        ${reviewGroup}
+        ${howit}
+        ${phone
+          ? `<section class="mg-sec">
+               <h2 class="mg-head">Minigames</h2>
+               ${gameGrid}
+             </section>`
+          : gameGrid}
+        ${exploreGrid}
+        ${aboutLink}
       </div>`;
 
     root.querySelector("#g-challenge").addEventListener("click", () => route("challenge"));
@@ -5511,32 +5609,13 @@
       expAtlas.addEventListener("click", () => route("map"));
       startMiniGlobe(expAtlas.querySelector("#miniGlobe"));
     }
-    { const lib = root.querySelector("#b-library"); if (lib) lib.addEventListener("click", () => route("decks")); }
+    // the lip under the review group, and the About line under the games: both phone-only, both absent above
+    // the breakpoint, where the top bar carries a tab for each
+    { const add = root.querySelector("#b-addDecks"); if (add) add.addEventListener("click", () => route("decks")); }
     { const ab = root.querySelector("#b-about"); if (ab) ab.addEventListener("click", () => route("mission")); }
-    /* the phone's three panes. The page opens on the DAILY REVIEW — the middle one — so a reader who never
-       swipes sees exactly what they saw before this change; the dots below say the other two are there, since
-       a horizontal scroller with no marker reads as a column that just happens to be cut off, and they double
-       as the way to reach a pane without swiping. */
-    const pager = root.querySelector("#homePager"), homeDots = root.querySelector("#homeDots");
-    if (pager && homeDots && phoneHome()) {
-      const panes = [".hp-explore", ".hp-review", ".hp-games"].map((s) => root.querySelector(s));   // VISUAL order (the explore pane is ordered first in CSS)
-      const labels = ["Daily picks", "Daily review", "Daily games"];
-      const rtl = getComputedStyle(pager).direction === "rtl";
-      const pw = () => pager.clientWidth || 1;
-      const toPane = (i) => pager.scrollTo({ left: (rtl ? -1 : 1) * i * pw(), behavior: prefersReducedMotion() ? "auto" : "smooth" });
-      homeDots.innerHTML = panes.map((p, i) => p
-        ? `<button class="hp-dot${i === 1 ? " on" : ""}" type="button" data-i="${i}" aria-label="${esc(labels[i])}"></button>` : "").join("");
-      homeDots.hidden = false;
-      pager.scrollLeft = (rtl ? -1 : 1) * pw();   // land on the review pane before the first paint, not by animating past the others
-      pager.addEventListener("scroll", () => {
-        const i = Math.round(Math.abs(pager.scrollLeft) / pw());
-        Array.prototype.forEach.call(homeDots.children, (d, k) => d.classList.toggle("on", k === i));
-      }, { passive: true });
-      homeDots.addEventListener("click", (e) => { const b = e.target.closest(".hp-dot"); if (b) toPane(+b.dataset.i); });
-      wireOnePageSwipe(pager);
-    }
-    // crossing the breakpoint changes what this page IS — three swiped panes or one column, with the Atlas
-    // teaser or without it — so it is rebuilt rather than restyled. Exactly one listener is ever installed:
+    // crossing the breakpoint changes what this page IS — the day's card, the day's term and the Atlas teaser
+    // are BUILT on a desktop and not on a phone — so it is rebuilt rather than restyled. Exactly one listener
+    // is ever installed:
     // render() re-enters this function, and a per-render listener would pile up for the life of the session.
     if (_homeResize) window.removeEventListener("resize", _homeResize);
     _homeResize = (function () {
