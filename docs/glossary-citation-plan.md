@@ -2,8 +2,8 @@
 
 The glossary was **333 terms and not one of them carried a source**. `window.GLOSSARY_SOURCES` was an empty
 table; the fold at the foot of a gloss popup never appeared. This is the plan for filling it. Not part of
-the site. **As of 2026-08-02, 97 of the 333 are cited and at the bar** — batches G1–G11 and P1, five of which also
-corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 97 carry in-text
+the site. **As of 2026-08-02, 102 of the 333 are cited and at the bar** — batches G1–G11 and P1–P2, five of which also
+corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 102 carry in-text
 markers, in all ten languages, after the rule changed from optional to required on 2026-08-01 (see "What
 is different from the card pass"). G5 also settled the start of prehistory across the glossary, the deck
 and every date line: **2.6 Mya**, with the disputed 3.3 Ma Lomekwi claim hedged rather than adopted; G6
@@ -171,7 +171,7 @@ the way batch 21 recorded the Anubis walls, so the next pass does not re-run the
 | Indigenous peoples, and the odds and ends | 8 | Phase 1 · batch G9 — **done** |
 | the poles, the desert, the sea and two names | 7 | Phase 1 · batch G10 — **done** |
 | the continents, the island and the constants | 10 | Phase 1 · batch G11 — **done** |
-| US presidents | 45 | Phase 2 · batches P1–P7 — **P1 done** |
+| US presidents | 45 | Phase 2 · batches P1–P7 — **P1–P2 done** |
 | countries and states of the world | 197 | Phase 3 · batches C0–C12 |
 | **total** | **333** | |
 
@@ -1324,10 +1324,55 @@ government of the United States".
   second-source spine in the table above and is not usable; the milestone documents and the Office of the
   Historian replaced it, and P2 and P3 should assume the same.**
 
+### Batch P2 log — the recipe holds, and the sources start disagreeing with each other
+
+#### 2026-08-02 — five terms, 20 citations, one corrected clause
+
+**Coverage 97/333 → 102/333.** Fifteen distinct works, **every one of them open**, and again **none from the
+register**. P1's recipe held without modification: the Miller Center essay carries the spine, and where it
+stops short the answer is the body responsible — the **National Archives** for the statutes and treaties,
+the **National Park Service** for the ground, the **Office of the Historian** for the diplomacy. Two claims
+none of them made were carried by a **university project** and an **NGO**, both named in the plan as
+acceptable and both used here for the first time.
+
+**The one correction is a category slip rather than a wrong number.** `William_Henry_Harrison` had him as
+"the commander who fought Native American forces at Tippecanoe in 1811 and at the Thames in 1813". At the
+Thames the enemy was not Native American forces: the Miller Center's essay says he "engaged a **combined
+British and Indian force** of 1,700 men", and Tecumseh died there fighting alongside the British. The term
+now names Tecumseh's confederacy at Tippecanoe and a combined British and Native American force at the
+Thames, which is both what the source says and the more interesting fact.
+
+**A party platform is its own best citation**, which is P1's "a statute is its own best citation" in a new
+dress. The term's claim that the Free Soil Party "opposed extending slavery into the western territories"
+has no reachable government source — `senate.gov`'s party-history pages return the Senate's 404 shell with
+a 200 status — but the **1848 platform itself** is hosted in full by the American Presidency Project at UC
+Santa Barbara, and its resolutions say it outright: "the only safe means of preventing the extension of
+Slavery into Territory now Free, is to prohibit its extension in all such Territory by an act of Congress",
+and "no more Slave States and no more Slave Territory."
+
+**The batch's real finding is that the sources have started disagreeing with each other, and with
+themselves.** Two cases, both recorded in the register rather than silently resolved:
+- **Harrison served 31 days or 32**, depending on who is counting. The White House Historical Association
+  says "after only thirty-one days in office"; the Miller Center says "only thirty-two days". Both follow
+  from 4 March to 4 April 1841 — elapsed against inclusive. The term keeps 31, because that is what the
+  source cited beside it says, and the disagreement is recorded. This is G10's NOAA rule again: when two
+  accounts differ on a countable, cite the one you actually opened for the figure you actually print.
+- **The Miller Center's Harrison essay contains two slips of its own** — it calls his post "governor of the
+  Indian Territory" where its own gloss says "present day Indiana and Illinois", and it places Tippecanoe
+  "in the Ohio River Valley" where its own next paragraph puts it at Tippecanoe Creek. **Neither was
+  followed.** A spine source is not infallible, and the check that catches this is reading the whole essay
+  rather than only the sentence that matches.
+
+**One tooling note for P3–P7.** `history.house.gov`'s Historical Highlights are reachable by the **numeric**
+path `/HistoricalHighlight/Detail/<id>` and NOT by the human-readable
+`/Historical-Highlights/<period>/<slug>/` form, which returns the site's error document with a 200 status.
+Two candidate citations were lost to this before the numeric form was found; P1's gag-rule citation already
+uses it.
+
 | batch | presidents | second-source spine |
 |---|---|---|
 | **P1** | Washington, J. Adams, Jefferson, Madison, Monroe, J. Q. Adams (6) — **DONE (2026-08-02)** | NARA milestone documents; State Dept. Office of the Historian; NPS |
-| **P2** | Jackson, Van Buren, W. H. Harrison, Tyler, Polk (5) | NARA milestone documents; House and Senate records (Tyler's succession) |
+| **P2** | Jackson, Van Buren, W. H. Harrison, Tyler, Polk (5) — **DONE (2026-08-02)** | NARA milestone documents; NPS; White House Historical Association (Tyler's succession) |
 | **P3** | Taylor, Fillmore, Pierce, Buchanan, Lincoln, A. Johnson (6) | NARA milestone documents; Senate impeachment record |
 | **P4** | Grant, Hayes, Garfield, Arthur, Cleveland, B. Harrison, McKinley (7) | House election statistics; Senate records; NARA |
 | **P5** | T. Roosevelt, Taft, Wilson, Harding, Coolidge, Hoover (6) | State Dept. Office of the Historian; NARA |

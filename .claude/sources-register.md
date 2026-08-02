@@ -6696,3 +6696,196 @@ https://www.archives.gov/education/lessons/amistad. [Open access]
   "for American independence"; Jefferson's being "a prolific writer"; Madison's dates 1809–1817; Monroe's
   "one-party dominance" as a characterisation of the Era of Good Feelings; and John Quincy Adams's 1825–1829
   dates. All six date lines were checked against the essays and are correct.
+
+## Batch P2 — Jackson to Polk (GLOSSARY, 2026-08-02)
+
+Five terms, 20 citation slots from **fifteen distinct works, every one of them open**, and again **none
+from this register**. P1's shape held: the Miller Center's essays carried the spine, and where they stopped
+short the answer was the body responsible — the National Archives for the statutes and treaties, the
+National Park Service for the ground, the State Department's Office of the Historian for the diplomacy, and
+one NGO and one university project for the two claims none of them made.
+
+**One correction, and one source disagreement recorded rather than settled.** That is the same rate as P1
+and it confirms P1's finding: these descriptions were written from the institutional record they are now
+being cited to.
+
+### Verified citations (batch P2)
+
+### mc-jackson-lib · the seventh presidency
+Daniel Feller, "Andrew Jackson: Life in Brief," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/jackson/life-in-brief. [Open access]
+- opened: 2026-08-02
+- supports: Jackson as "a major general in the War of 1812 with smashing victories against the Creek Indians
+  in 1814 and the British at New Orleans in January 1815"; "founder of the Democratic Party"; "During his
+  two-term presidency, he expanded executive powers and transformed the President's role from chief
+  administrator to popular tribune"; South Carolina's 1832 nullification of the tariff and Jackson's
+  proclamation branding it treason; the 1832 veto of the Bank recharter and the removal of the deposits; and
+  that he "strong-armed Indian tribes into removing west of the Mississippi"
+- used by: `Andrew_Jackson`
+
+### nara-indian-removal · the Act, the numbers and the name
+National Archives and Records Administration, "President Andrew Jackson's Message to Congress 'On Indian
+Removal' (1830)," Milestone Documents,
+https://www.archives.gov/milestone-documents/jacksons-message-to-congress-on-indian-removal. [Open access]
+- opened: 2026-08-02
+- supports: "Congress passed, and President Andrew Jackson signed, the Indian Removal Act of May 28, 1830";
+  that the Act "authorized the President to negotiate removal treaties with Indian tribes living east of the
+  Mississippi River"; that it moved "nearly 50,000 eastern Indians to the Indian Territory"; and, in the
+  page's own words, "This sad chapter in our history is known as the 'Trail of Tears.'"
+- used by: `Andrew_Jackson`
+
+### nps-trail-of-tears · what the removal cost
+National Park Service, "History and Culture," Trail of Tears National Historic Trail,
+https://www.nps.gov/trte/learn/historyculture/index.htm. [Open access]
+- opened: 2026-08-02
+- supports: that "In May 1838, the Cherokee removal process began", that "The impact of the resulting
+  Cherokee 'Trail of Tears' was devastating", and that "More than a thousand Cherokee … died during their
+  trip west … and an unknown number — perhaps several thousand — perished from the consequences of the
+  forced migration"
+- used by: `Andrew_Jackson`
+
+### mc-vanburen-lib / mc-vanburen-domestic · the eighth presidency
+Mark Cheathem, "Martin Van Buren: Life in Brief," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/vanburen/life-in-brief. [Open access]
+Mark Cheathem, "Martin Van Buren: Domestic Affairs," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/vanburen/domestic-affairs. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports: that Van Buren "worked his way up in New York state politics" and "had organized an
+  impressive group of New York politicians later dubbed the Albany Regency"; that he "was the most
+  significant figure in creating the Democratic Party and in setting the expectations for electoral
+  competition based on two opposing political parties"; that Jackson appointed him "U.S. secretary of state"
+  and endorsed him for the vice presidency in 1832; the 1836 election; and the 1840 defeat by Harrison
+- Domestic Affairs supports the depression precisely: "the United States plunged into an economic depression
+  often referred to as the Panic of 1837, although it was **actually a series of economic crises that began
+  in 1837 and lasted into the early 1840s**" — which is the term's "long depression that followed"
+- used by: `Martin_Van_Buren`
+
+### app-free-soil-1848 · the platform itself
+"Free Soil Party Platform of 1848," in Gerhard Peters and John T. Woolley, *The American Presidency
+Project*, University of California, Santa Barbara,
+https://www.presidency.ucsb.edu/documents/free-soil-party-platform-1848. [Open access]
+- opened: 2026-08-02 · the primary text, hosted by a named university project
+- supports the term's characterisation of the party from its own resolutions: "the only safe means of
+  preventing the extension of Slavery into Territory now Free, is to prohibit its extension in all such
+  Territory by an act of Congress", and "our calm but final answer is, no more Slave States and no more
+  Slave Territory"
+- **Why this rather than an agency page**: `senate.gov`'s party-history pages return the Senate's 404 shell
+  with a 200 status (P1's finding), and no reachable government source states the Free Soil platform. A
+  party platform is its own best citation, the way a statute was for the Alien and Sedition Acts
+- used by: `Martin_Van_Buren`
+
+### mc-harrison-lib · the ninth presidency
+William Freehling, "William Henry Harrison: Life in Brief," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/harrison/life-in-brief. [Open access]
+- opened: 2026-08-02
+- supports: that Harrison "served the shortest time of any American President"; that Adams "named him
+  governor of … present day Indiana and Illinois" and that "Presidents Jefferson and Madison kept him in
+  that position for twelve years"; that against Tecumseh's "Indian Confederacy" he was "defeating 650
+  warriors at Tippecanoe Creek on November 7, 1811"; that in 1813 he "engaged a **combined British and
+  Indian force** of 1,700 men in the battle at the Thames River"; the 1840 campaign "filled with songs,
+  advertising, slogans, and organized rallies" under "Old Tippecanoe and Tyler, Too"; and that "He was the
+  first President to die in office"
+- **Two slips in this essay, recorded and not followed.** It calls Harrison's post "governor of the **Indian
+  Territory**" where the gloss it gives — "present day Indiana and Illinois" — makes plain it means the
+  **Indiana** Territory, which is what the term says; and it places Tippecanoe "in the Ohio River Valley",
+  where its own later sentence puts it at Tippecanoe Creek. Neither was carried into the term
+- used by: `William_Henry_Harrison`
+
+### whha-tyler-succession · thirty-one days, and the title Tyler refused
+Callie Hopkins, "John Tyler and Presidential Succession," Rubenstein Center Scholarship, White House
+Historical Association, https://www.whitehousehistory.org/john-tyler-and-presidential-succession.
+[Open access]
+- opened: 2026-08-02 · reachable to `curl` but **403 to some fetchers** — the host is user-agent sensitive
+- supports: "Just after midnight on April 4, 1841, William Henry Harrison died after only **thirty-one days
+  in office**"; "William Henry Harrison was the first president to die in office, so there were no
+  guidelines for how to proceed"; the open question of whether Tyler "became president himself, or … retain
+  the title of Vice President or Acting President and merely assume presidential powers"; that "Many of
+  President Tyler's political opponents felt that he overreached … and that he should retain the title of
+  'Acting President'"; and that the states later "ratified the 25th Amendment, which formally clarified the
+  process of presidential succession"
+- **A source disagreement, recorded rather than settled** (G7's rule): this article says **thirty-one** days
+  and the Miller Center's Harrison essay says **thirty-two**. Both are defensible — 4 March to 4 April 1841
+  is 31 days elapsed and 32 counted inclusively — and the term's "31 days" is kept, since that is the figure
+  the source cited beside it carries
+- used by: `William_Henry_Harrison`, `John_Tyler`
+
+### mc-tyler-lib / mc-tyler-lap · the tenth presidency
+William Freehling, "John Tyler: Life in Brief," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/tyler/life-in-brief. [Open access]
+William Freehling, "John Tyler: Life After the Presidency," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/tyler/life-after-the-presidency. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports: Tyler as a Virginia planter who "bitterly opposed a strong standing army, tariffs,
+  and extending the vote to men without property"; that "Tyler firmly asserted that the Constitution gave him
+  full and unqualified powers of office and had himself sworn in immediately as President, setting a critical
+  precedent for an orderly transfer of power following a President's death"; that after he "vetoed a bill to
+  resurrect the Bank of the United States, his entire cabinet resigned in protest"; that "the Whigs, led by
+  Henry Clay, expelled him from the party"; and the joint-resolution route to annexation, which "succeeded in
+  achieving Texas's incorporation into the Union"
+- Life After the Presidency supports the closing clause exactly: "Tyler then became a leading proponent of
+  southern secession, and in late 1861, **he was elected to the Confederate House of Representatives**"
+- used by: `John_Tyler`
+
+### nara-amendments-11-27 · the precedent, written down
+National Archives and Records Administration, "The Constitution: Amendments 11–27," America's Founding
+Documents, https://www.archives.gov/founding-docs/amendments-11-27. [Open access]
+- opened: 2026-08-02
+- supports the term's "a precedent later written into the Constitution" from the text itself: **25th
+  Amendment, Section 1 — "In case of the removal of the President from office or of his death or
+  resignation, the Vice President shall become President"** — ratified 10 February 1967. (The same page
+  carries the 22nd Amendment, ratified 27 February 1951, should a later batch want it for Washington's
+  two-term precedent, which is currently cited to the Miller Center)
+- used by: `John_Tyler`
+
+### oh-texas-annexation · the joint resolution and the year
+Office of the Historian, U.S. Department of State, "The Annexation of Texas, the Mexican-American War, and
+the Treaty of Guadalupe-Hidalgo, 1845–1848," Milestones in the History of U.S. Foreign Relations,
+https://history.state.gov/milestones/1830-1860/texas-annexation. [Open access]
+- opened: 2026-08-02
+- supports: that "With the support of President-elect Polk, Tyler managed to get the joint resolution passed
+  on March 1, 1845" and that "Texas was admitted into the United States on December 29" of that year — both
+  halves of the term's "secured the annexation of Texas in 1845"
+- used by: `John_Tyler`
+
+### mc-polk-lib · the eleventh presidency
+John C. Pinheiro, "James K. Polk: Life in Brief," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/polk/life-in-brief. [Open access]
+- opened: 2026-08-02
+- supports: that "With Jackson behind him, Polk became the Speaker of the House in 1835, a position he held
+  for four years" and was nicknamed "Young Hickory"; that "he kept his word to retire after a single term,
+  although he easily could have won reelection"; the acquisition of Oregon and the Mexican war; and the
+  term's closing claim in the essay's own words — "He failed to understand the depth of popular emotion over
+  the westward expansion of the South's 'peculiar institution.' This failure on his part left the issue of
+  slavery unaddressed and thus unresolved at the end of his term in 1849"
+- used by: `James_K._Polk`
+
+### oh-oregon-territory · the boundary fixed
+Office of the Historian, U.S. Department of State, "The Oregon Territory, 1846," Milestones in the History
+of U.S. Foreign Relations, https://history.state.gov/milestones/1830-1860/oregon-territory. [Open access]
+- opened: 2026-08-02
+- supports: that Polk "proposed a settlement on the 49 degree line to Great Britain", that "Great Britain
+  agreed to Polk's suggestion", and that "The Senate ratified the treaty by a vote of 41-14 on June 18, 1846"
+- used by: `James_K._Polk`
+
+### nara-guadalupe-hidalgo · what the war brought in
+National Archives and Records Administration, "Treaty of Guadalupe Hidalgo (1848)," Milestone Documents,
+https://www.archives.gov/milestone-documents/treaty-of-guadalupe-hidalgo. [Open access]
+- opened: 2026-08-02
+- supports: "This treaty, signed on February 2, 1848, ended the war between the United States and Mexico. By
+  its terms, Mexico ceded 55 percent of its territory, including the present-day states California, Nevada,
+  Utah, New Mexico, most of Arizona and Colorado, and parts of Oklahoma, Kansas, and Wyoming", and that
+  "Mexico also relinquished all claims to Texas, and recognized the Rio Grande as the southern boundary"
+- used by: `James_K._Polk`
+
+### NOT CITED (batch P2) — what could not be sourced, and what is kept unmarked
+- **`history.house.gov`'s Historical-Highlights URLs are unreliable by path.** The `/Historical-Highlights/
+  <period>/<slug>/` form returned the site's error document for both the gag rule and Harrison's death, while
+  the numeric `/HistoricalHighlight/Detail/<id>` form works. **Use the numeric form**, which is what P1's gag
+  rule citation uses.
+- **`senate.gov` again returned its 404 page with a 200 status** — this time for the Free Soil Party under
+  `/about/origins-foundations/parties-leadership/`. P1's rule stands: check the body, not the code.
+- Kept unmarked, uncontradicted, in nothing opened: Jackson's "politics of the common white man" as a
+  characterisation; Van Buren's "helped invent the modern national party machine"; Harrison's "governor of
+  Indiana Territory" as against the Miller Center's slip; Tyler's "banking bills" in the plural, where the
+  essay names one; and Polk's "Tennessee protégé of Jacksonian politics", which the essay supports in
+  substance without the phrase.

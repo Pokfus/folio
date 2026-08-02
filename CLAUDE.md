@@ -92,13 +92,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `docs/glossary-citation-plan.md` — the batch plan for **citing the 333 glossary terms**, the sibling of
   the card plan above. The bar is **at least 2 citations per term** (a description is three sentences, where
   a card's abstract is ten), and the acceptable sources are academic, museum, government or reputable
-  NGO/IGO. **Batches G1–G11 and P1 have shipped — 97 of the 333 terms are cited and at the bar, all with
+  NGO/IGO. **Batches G1–G11 and P1–P2 have shipped — 102 of the 333 terms are cited and at the bar, all with
   in-text markers in all ten languages. G11 COMPLETED Phase 1** (all 91 of its prehistory, palaeoanthropology,
   geological-time, peoples and physical-geography terms) **and P1 opened Phase 2** with the first six
-  presidents, on the Miller Center's presidential essays. **P1 is the second batch after G8 to correct
-  almost nothing** — six terms, one clause — because these descriptions were written from the same kind of
-  institutional record the pass now cites; where a term and its citation come from the same kind of source,
-  reconciliation finds little. Three access findings from it govern the rest of Phase 2 and Phase 3:
+  presidents, on the Miller Center's presidential essays; **P2 took it to Polk**. **P1 and P2 are the
+  batches after G8 that correct almost nothing** — eleven terms, two clauses — because these descriptions
+  were written from the same kind of institutional record the pass now cites; where a term and its citation
+  come from the same kind of source, reconciliation finds little. **P2's finding is that the sources begin
+  disagreeing with each other**: Harrison served "thirty-one days" per the White House Historical
+  Association and "thirty-two" per the Miller Center, and the same Miller Center essay calls his post
+  "governor of the **Indian** Territory" and puts Tippecanoe "in the Ohio River Valley", both contradicted
+  by its own later paragraphs. A spine source is not infallible; read the whole essay, not the sentence
+  that matches. Two routes it added: **a party platform is its own best citation** (the 1848 Free Soil
+  platform, from UCSB's American Presidency Project, where no government page is reachable), and
+  `history.house.gov`'s Historical Highlights work by the **numeric** `/HistoricalHighlight/Detail/<id>`
+  path and NOT by the readable slug form, which serves an error document with a 200 status. Three access findings from it govern the rest of Phase 2 and Phase 3:
   **a URL containing a closing parenthesis cannot be cited** (`SRC_URL_RX` stops at `)`, which rules out
   every congressional bioguide address), **`senate.gov` serves its 404 page with a 200 status**, and
   **`monticello.org` and `founders.archives.gov` are closed here** — so Founders Online, named as a
@@ -742,11 +750,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     stripe): one is derived from the data, the other is an editor's private marker.
   · `sup` + `class="fn"` + `data-fn` are in the sanitizer allowlists, so a community deck can use markers too.
   · **The Atlas table still ships EMPTY; the glossary has begun.** `country-sources.js` has no entries at all.
-    **`GLOSSARY_SOURCES` carries 97 of the 333 terms** (batches G1–G11 and P1, 2026-08-01/02 — the genus, species, specimen,
+    **`GLOSSARY_SOURCES` carries 102 of the 333 terms** (batches G1–G11 and P1–P2, 2026-08-01/02 — the genus, species, specimen,
     stone-industry, three-age, periodisation, geological-time, type-site, way-of-life and discipline terms, plus the
     Indigenous-peoples group, its odds and ends, the poles / desert / ocean / two historiographic names, the six
     continents with `Sicily`, `Equator` and the two hemispheres — which completes Phase 1 — and the first six
-    US presidents), against
+    US presidents and Jackson to Polk), against
     a bar of **`GLOSS_SRC_TARGET` (2)**, which is lower than a card's five because a description is three sentences
     where an abstract is ten; `docs/glossary-citation-plan.md` is the plan for the rest and
     `node .claude/gloss-source-audit.js` says where it stands. The UI, the deltas and the pipeline are in place;
@@ -2270,7 +2278,7 @@ reports both on every run, `node .claude/source-audit.js` reports them per card,
 shows each card's coverage as an amber or red chip) — and **a second pass has started on the glossary**, batched
 through `docs/glossary-citation-plan.md` at a bar of **2 citations per term** (`GLOSS_SRC_TARGET`), with
 `node .claude/gloss-source-audit.js` and the glossary list's own coverage chip reporting it; **97 of 333 terms
-are cited** (batches G1–G11, which complete Phase 1, and P1, the first six US presidents). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
+are cited** (batches G1–G11, which complete Phase 1, and P1–P2, the first eleven US presidents). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
 Two rules that pass turned up at once. **`add-sources.js` writes only the ENGLISH description**, so a term whose
 prose is corrected needs an `add-lang.js` run per language in the same batch or nine languages keep the old
 claim; and **a correction does not travel between surfaces** — `Homo_habilis` still carried the 2.3–1.5 Mya span
