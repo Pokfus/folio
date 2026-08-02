@@ -8209,3 +8209,235 @@ Public Affairs, University of Virginia. [Open access]
   essay gives the recession and the inflation fight but no rate); G. W. Bush's "broad surveillance powers"
   beyond the Patriot Act itself; Obama's "extending health insurance to millions" as a figure; Biden's
   Ukraine support as "economic" as well as military, where the essay itemises military assistance.
+
+## Batch C0 — the Phase 3 recipe pilot (GLOSSARY, 2026-08-02)
+
+Six terms — `France`, `Tuvalu`, `Kosovo`, `South_Sudan`, `State_of_Palestine`, `Vatican_City` — chosen to
+break the recipe before 191 countries are run through it. **It broke.** Coverage 136/333 → 142/333, 16
+citations from twelve distinct works, every one open. **Two corrections.** Many clauses are deliberately
+left unmarked and are listed at the foot of this section.
+
+### FINDING 1 — the plan's Source A does not exist from here
+**The CIA World Factbook is unusable.** Every path under `cia.gov` returns the **identical 498,366-byte
+JavaScript shell**, byte for byte, for France, Tuvalu, Kosovo, South Sudan, the West Bank and the Holy See
+alike — and for the Gatsby `page-data/countries/<slug>/page-data.json` route, and for a deliberately
+nonsense path. The served HTML contains the string "France" **zero** times and its `<title>` is "Central
+Intelligence Agency". The plan chose the Factbook explicitly and argued the case for it; that argument is
+moot, because the content never reaches the client. This is a fifth variety of "check the body, not the
+status code", and the only one so far where the *whole host* is a shell.
+
+### FINDING 2 — UNdata replaces it, and is better
+`https://data.un.org/en/iso/<cc>.html` is **server-rendered**, has per-country permalinks, and carries
+exactly the fields the recipe's first sentence needs: Region, Population, Population density, Capital city,
+**UN membership date** and Surface area, each with a source footnote of its own. Verified this batch:
+
+| | region | surface area | population (000, 2025) | capital | UN member |
+|---|---|---|---|---|---|
+| France | Western Europe | 551 500 km² | 66 651 | Paris | 24 October 1945 |
+| Tuvalu | Polynesia | 26 km² | 10 | Funafuti | 5 September 2000 |
+| South Sudan | Eastern Africa | — | 12 189 | Juba | 14 July 2011 |
+| State of Palestine | Western Asia | 6 025 km² | 5 590 | East Jerusalem | — |
+| Holy See | Southern Europe | — | ~0 | Vatican City | — |
+
+**The UN membership date is the single most useful field in the table**, because it dates the independence
+of every modern state at no research cost, from the body that admitted it.
+
+### FINDING 3 — and it fails on exactly the case the pilot existed to test
+**`data.un.org/en/iso/xk.html` returns a 500.** Kosovo has no ISO 3166-1 code and therefore no UNdata
+profile, so a state of limited recognition gets nothing from Source A at all. Its own statistics agency
+(`askdata.rks-gov.net`, a PxWeb database) is reachable and is the fallback, but a PxWeb table is not a
+country profile and drilling one out per country is not a recipe. **Kosovo shipped on its history alone**
+(ICJ and NATO), with every geographic and demographic clause unmarked.
+
+### FINDING 4 — `un.org` is reachable path by path, not as a host
+- `un.org/en/about-us/un-charter/*` serves the **Charter text**, and Article 23 names the permanent members
+  outright. Usable.
+- `un.org/unispal/*` serves real documents (1.4 MB).
+- **`un.org/securitycouncil/*` and `main.un.org/securitycouncil/*` return a CloudFront "Request blocked"
+  page — `un.org` with a 200 status, `main.un.org` with a 403.** A *fourth* variety of 200-status error
+  document, after senate.gov's 37,523-byte shell, whitehouse.gov's 225 KB 404 and state.gov's "Technical
+  Difficulties".
+- **`un.org/press/*` serves a JavaScript "Client Challenge" with a 200** — a *fifth* variety.
+- `documents.un.org` serves resolution PDFs directly and is the right way to cite a General Assembly act.
+
+### Verified citations (batch C0)
+
+### undata-* · the first sentence of every country
+United Nations Statistics Division, “<country>,” UNdata Country Profile,
+https://data.un.org/en/iso/<cc>.html. [Open access] — `fr`, `tv`, `ss`, `ps`, `va`
+- opened: 2026-08-02; figures as tabulated above
+- used by: `France`, `Tuvalu`, `South_Sudan`, `State_of_Palestine`, `Vatican_City`
+
+### eu-france · the founding membership
+European Union, “France – EU country,”
+https://european-union.europa.eu/principles-countries-history/eu-countries/france_en. [Open access]
+- opened: 2026-08-02
+- "**EU Member State : since 1 January 1958**" — the date of the founding treaties, which is what makes
+  "a founding member of what became the European Union" a sourced claim rather than a familiar one
+- used by: `France`
+
+### eurostat-nuclear · most of its electricity
+Eurostat, “Nuclear energy statistics,” Statistics Explained, European Commission. [Open access]
+- opened: 2026-08-02
+- "In 2024 at EU level, 23.3% of all electricity produced was generated by nuclear power plants. **France
+  had the highest share of nuclear in its electricity mix (67.3%)**, followed by Slovakia (61.6%) and
+  Hungary (42.2%)."
+- **The obvious sources for this claim are all shut**: `iaea.org` is 403, the IAEA's PRIS country page is a
+  JavaScript app, `iea.org` is 403, and the French energy ministry's own `chiffres-clés` page is likewise a
+  shell. Eurostat's Statistics Explained pages are static HTML and are the reachable route to any EU
+  country's energy, agriculture or demographic figures
+- used by: `France`
+
+### eurostat-agriculture · one of Europe's most productive farming countries
+Eurostat, “Performance of the agricultural sector,” Statistics Explained, European Commission.
+[Open access]
+- opened: 2026-08-02
+- "A clear majority (56.4%) of the estimated total output value of the EU's agricultural industry came from
+  the 'big 4' of **France (€90.8 billion)**, Germany (€78.7 billion), Spain (€73.9 billion) and Italy
+  (€73.6 billion)" — France first of the four
+- used by: `France`
+
+### un-charter-5 · the permanent seat
+United Nations, “Chapter V: The Security Council,” Charter of the United Nations,
+https://www.un.org/en/about-us/un-charter/chapter-5. [Open access]
+- opened: 2026-08-02
+- Article 23: "The Republic of China, **France**, the Union of Soviet Socialist Republics, the United
+  Kingdom … and the United States of America **shall be permanent members of the Security Council**."
+- **Cite the Charter, not the Security Council's membership page**, which is the CloudFront block described
+  above. The treaty text is both openable and better
+- used by: `France`
+
+### commonwealth-tuvalu · the smallest state's figures and its independence
+Commonwealth Secretariat, “Tuvalu,” Our Member Countries,
+https://thecommonwealth.org/our-member-countries/tuvalu. [Open access]
+- opened: 2026-08-02
+- Key Facts: **Population 11,790 (2022)**; **Area 25.6 square kilometres**; capital "Vaiaku (government
+  offices), **Fongafale islet, Funafuti atoll**"; **Joined the Commonwealth 1978**
+- **This is the better population figure and it saved a correction.** UNdata rounds Tuvalu to "10"
+  thousand, which would have made the term's "roughly 11,000 people" look wrong; the Commonwealth's 11,790
+  confirms it. **For a state small enough that UNdata's thousands round away the answer, the Commonwealth's
+  country pages are the right source** — and they cover 56 states, most of Phase 3's Africa, Oceania and
+  Caribbean batches
+- used by: `Tuvalu`
+
+### icj-kosovo · the declaration and the interim régime
+International Court of Justice, “Accordance with International Law of the Unilateral Declaration of
+Independence in Respect of Kosovo,” Advisory Opinion of 22 July 2010, https://www.icj-cij.org/case/141.
+[Open access]
+- opened: 2026-08-02
+- "the Court concluded that '**the declaration of independence of Kosovo adopted on 17 February 2008** did
+  not violate international law'"; and, on the preceding arrangement, "**Security Council resolution 1244 of
+  10 June 1999** … establish[ed] 'a temporary, exceptional legal régime which … **superseded the Serbian
+  legal order** … on an interim basis'"
+- used by: `Kosovo`
+
+### nato-kosovo · the intervention
+North Atlantic Treaty Organization, “NATO’s Role in Kosovo,”
+https://www.nato.int/cps/en/natolive/topics_48818.htm. [Open access]
+- opened: 2026-08-02
+- "KFOR was established when **NATO's 78-day air campaign against Milosevic's regime, aimed at putting an
+  end to violence in Kosovo**, was over", and NATO "has been leading a peace-support operation in Kosovo …
+  **since June 1999**"
+- used by: `Kosovo`
+
+### worldbank-ssd · the second record for the newest state
+World Bank, “South Sudan,” country record, World Bank Open Data API,
+https://api.worldbank.org/v2/country/SSD?format=json. [Open access]
+- opened: 2026-08-02
+- `{"id":"SSD","name":"South Sudan","region":{"value":"Sub-Saharan Africa"},"capitalCity":"Juba"}`
+- a thin citation, and deliberately recorded as such — see the correction and the unmarked list below
+- used by: `South_Sudan`
+
+### ga-67-19 · the observer state
+United Nations General Assembly, “Status of Palestine in the United Nations,” resolution 67/19 of
+29 November 2012, A/RES/67/19,
+https://documents.un.org/doc/undoc/gen/n12/479/74/pdf/n1247974.pdf. [Open access]
+- opened: 2026-08-02 (PDF, text extracted)
+- the operative clause: "**Decides to accord to Palestine non-member observer State status in the United
+  Nations**, without prejudice to the acquired rights, privileges and role of the Palestine Liberation
+  Organization …"; the resolution also refers throughout to the Palestinian territory "**occupied since
+  1967**"
+- used by: `State_of_Palestine`
+
+### vaticanstate-origins / -geography · the state that answers for itself, and CORRECTION 1
+Vatican City State, “Origins and Characteristic” and “Geography,” Governorate of Vatican City State.
+[Open access]
+- opened: 2026-08-02
+- Origins: "**Vatican City State was created by the Lateran Treaty stipulated between the Holy See and Italy
+  on 11 February 1929** and ratified on 7 June 1929."
+- Geography: "The State's territory, which **covers a surface area of 0.44 km2 (44 hectares)**, is partly
+  surrounded by walls and includes Saint Peter's Square …"
+- **CORRECTION.** The term said "about **0.49** km²". The state's own governorate says **0.44 km² (44
+  hectares)**. The body responsible for the territory is the better source, and this is the batch's
+  cleanest illustration of the plan's own Source-B principle: **ask the government of the place**. Corrected
+  in all ten languages
+- **Route worth keeping**: `vaticanstate.va`'s structural pages are NOT at guessable paths
+  (`/en/state-and-government.html`, `/en/state-and-government/history.html` and
+  `/en/state-and-government/note-generali/` are all 404). The working ones are under
+  `/en/state-and-government/general-informations/…` and are only discoverable by reading the site's own
+  navigation out of the homepage HTML
+- used by: `Vatican_City`
+
+### CORRECTION 2 — `South_Sudan`'s population
+The term said "roughly **11 million** people". **UNdata gives 12 189 thousand for 2025.** Corrected to
+"roughly 12 million" in all ten languages. Not an error when written — a figure that time moved past, which
+is the shape of correction Phase 3 will produce most often, since every country term opens on a population.
+**Re-read the population before marking it, on every country.**
+
+### NOT CITED (batch C0) — the unmarked clauses, recorded in full
+This batch deliberately ships with more unmarked prose than any before it. What follows is the whole list.
+
+- **`France`** — the physical geography (the Paris basin, the Massif Central, the Alps and the Pyrenees),
+  the overseas regions in the Caribbean, South America and the Indian and Pacific oceans, and the whole of
+  the historical clause: the kingdom consolidated through the Middle Ages, the abolition of the monarchy in
+  the revolution that began in 1789, and the colonial empire in Africa and Southeast Asia. **Nothing
+  openable carries them.** `whc.unesco.org` is 403, `britishmuseum.org` is 403, `iaea.org` is 403,
+  `vie-publique.fr` returns a 306-byte stub, `elysee.fr`'s constitution page and `senat.fr`'s revolution
+  pages are 404, and `revolution.chnm.org` is 404. The one French constitutional source that does open —
+  the Conseil constitutionnel's page for the Declaration of the Rights of Man and of the Citizen of 1789 —
+  carries the *document*, not the abolition of the monarchy in 1792, and was not cited for a claim it does
+  not make. **France is the hardest country in Phase 3 for exactly the reason P7 found with recent
+  presidents, inverted: the older and more familiar the history, the less of it any single openable
+  institutional page states.**
+- **`Tuvalu`** — the entire second sentence: the 4.6 m maximum elevation, the tidal flooding reaching
+  inland several times a year, the exposure to sea-level rise and the governments' pressing of it in
+  climate negotiations. `unfccc.int/news/tuvalu` returns a 212-byte stub, `tuvalu.un.org` fails at the
+  proxy, `ramsar.org` is 403 and `rsis.ramsar.org` answers **418**. NASA's sea-level FAQ and the IPCC's
+  SROCC chapter are both open and both discuss low-lying islands in general, but neither states Tuvalu's
+  elevation or its flooding frequency, and neither was cited for a claim about Tuvalu it does not make.
+  Also unmarked: the 1892 protectorate, the Gilbert and Ellice Islands, the 1975 separation, and the
+  fishing-licence and `.tv` domain revenue.
+- **`Kosovo`** — the whole of the first two sentences: the 10,887 km², the 1.6 million people, the borders,
+  Pristina, the 400–700 m basin and the 2,500 m rim, and the Albanian-speaking majority with its Serb
+  minority. See Finding 3: there is no UNdata profile and no institutional country page. Also unmarked: the
+  medieval Serbian rulers, the Ottoman centuries, the autonomous province within Yugoslavia, and the
+  recognition by many states but not Serbia.
+- **`South_Sudan`** — the 644,329 km², the borders, the White Nile and the Sudd, the savanna and forest,
+  the two wars of 1955–1972 and 1983–2005, the referendum, the 2013–2018 civil war and the oil revenue.
+  `unmiss.unmissions.org` and every `peacekeeping.un.org/en/mission/unmiss` path are 404,
+  `ramsar.org` 403, `unep.org` 403, `ohchr.org` 403, and FAO's AQUASTAT country profile is a JavaScript
+  shell. **The newest state, whose description is almost entirely recent history, is the one the
+  institutional profiles cover worst** — a result worth having before the African batches are planned.
+- **`State_of_Palestine`** — the separation of the two territories by Israeli land, the West Bank's
+  uplands and the cities of Hebron, Nablus and Bethlehem, Gaza's coastal strip, the British Mandate to
+  1948, the Jordanian and Egyptian administrations, the 1988 declaration of statehood and the 1990s
+  accords.
+- **`Vatican_City`** — St Peter's Basilica and its square, the Apostolic Palace, the Sistine Chapel and
+  Michelangelo's ceiling, the gardens and the museums and archive; the papal rule of central Italy and its
+  absorption into the Italian kingdom in 1870; and the pope's holding of legislative, executive and
+  judicial authority. `whc.unesco.org` is 403 and the Vatican Museums' own pages for the Sistine Chapel
+  carry opening hours rather than description.
+
+### The recipe as C0 leaves it
+1. **Source A is UNdata**, not the Factbook. It carries sentence 1 and the UN membership date.
+2. **For a Commonwealth state, add the Commonwealth Secretariat's country page** — it has the better
+   population for small states and the year of independence.
+3. **For an EU state, Eurostat Statistics Explained is the reachable statistical source** for anything
+   sectoral, and the EU country page for accession.
+4. **Source B is per-country and there is no shortcut.** Where the claim is an act of state — a treaty, a
+   resolution, a court ruling, an accession — it is citable and usually easy (ICJ, NATO, the UN Charter,
+   `documents.un.org`, a government's own portal). Where it is landscape or long history, it is usually
+   not, and this batch's honest answer was to leave it unmarked.
+5. **Budget for the unmarked list.** These six terms average two citations and roughly half their prose
+   marked. A Phase 3 batch that reports "16 terms, all at the bar" without saying what it left unmarked is
+   reporting a number, not a state of affairs.

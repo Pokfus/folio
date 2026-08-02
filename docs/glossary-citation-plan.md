@@ -2,8 +2,8 @@
 
 The glossary was **333 terms and not one of them carried a source**. `window.GLOSSARY_SOURCES` was an empty
 table; the fold at the foot of a gloss popup never appeared. This is the plan for filling it. Not part of
-the site. **As of 2026-08-02, 136 of the 333 are cited and at the bar** — batches G1–G11 and P1–P7 with the P-topup, five of which also
-corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 136 carry in-text
+the site. **As of 2026-08-02, 142 of the 333 are cited and at the bar** — batches G1–G11, P1–P7 with the P-topup, and C0, five of which also
+corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 142 carry in-text
 markers, in all ten languages, after the rule changed from optional to required on 2026-08-01 (see "What
 is different from the card pass"). G5 also settled the start of prehistory across the glossary, the deck
 and every date line: **2.6 Mya**, with the disputed 3.3 Ma Lomekwi claim hedged rather than adopted; G6
@@ -172,7 +172,7 @@ the way batch 21 recorded the Anubis walls, so the next pass does not re-run the
 | the poles, the desert, the sea and two names | 7 | Phase 1 · batch G10 — **done** |
 | the continents, the island and the constants | 10 | Phase 1 · batch G11 — **done** |
 | US presidents | 45 | Phase 2 · batches P1–P7 — **ALL DONE (2026-08-02)** |
-| countries and states of the world | 197 | Phase 3 · batches C0–C12 |
+| countries and states of the world | 197 | Phase 3 · batches C0–C12 — **C0 done (2026-08-02)** |
 | **total** | **333** | |
 
 ## Order, and why
@@ -1682,7 +1682,7 @@ constitutional order — so, as with the presidents, one recipe serves all of th
 
 ### The recipe, and the one contested source
 
-**Source A — an official country profile.** The **CIA World Factbook** is the obvious candidate: a US
+**Source A — an official country profile.** ⚠ **C0 SETTLED THIS AND THE ANSWER IS NOT THE FACTBOOK — see the C0 log below: every path on `cia.gov` serves one 498,366-byte JavaScript shell with no country content. Source A is UNdata (`data.un.org/en/iso/<cc>.html`).** The paragraph that follows is the original reasoning, kept because the judgment call it describes was a real one. The **CIA World Factbook** is the obvious candidate: a US
 government publication, per-country permalinks, named sections (Geography, Economy, Government, Background)
 that satisfy the locatable rule, and it is reachable here. **This is a judgment call and it should be made
 explicitly rather than slid into.** The card plan's bar excludes encyclopedias, and the Factbook is in
@@ -1709,6 +1709,66 @@ micro-state whose description is mostly climate exposure, a state of limited rec
 a non-member observer state, and a theocratic city-state that is in none of the usual statistical series.
 If the recipe survives these six it will survive the rest. **Do not start the regional batches until C0 is
 logged.**
+
+### Batch C0 log — the pilot broke the recipe, which is what it was for
+
+#### 2026-08-02 — six terms, 16 citations, two corrections, and a long unmarked list
+
+**Coverage 136/333 → 142/333.** Twelve distinct works, every one open. C0 was chosen to break the recipe
+before 191 countries went through it, and it did.
+
+**The Factbook is unusable.** Every path under `cia.gov` returns the **identical 498,366-byte JavaScript
+shell** — the same byte count for France, Tuvalu, Kosovo, South Sudan, the West Bank and the Holy See, for
+the Gatsby `page-data` JSON route, and for a nonsense path. The word "France" appears zero times in the
+HTML served for France. The plan chose the Factbook deliberately and argued the case for it in this
+document; the argument is moot, because the content never reaches the client. **Source A has to be
+replaced.**
+
+**UNdata replaces it, and is better.** `data.un.org/en/iso/<cc>.html` is server-rendered, per-country, and
+carries Region, Population, Density, Capital, Surface area and — the field that pays for the whole phase —
+the **UN membership date**, which dates the independence of every modern state at no research cost, from
+the body that admitted it. France 24 October 1945, Tuvalu 5 September 2000, South Sudan 14 July 2011.
+
+**And it fails on exactly the case the pilot existed to test.** Kosovo has no ISO 3166-1 code, so
+`data.un.org/en/iso/xk.html` is a **500**, and a state of limited recognition gets nothing from Source A.
+Kosovo shipped on its history alone — the ICJ for the declaration of 17 February 2008 and for Security
+Council resolution 1244, NATO for the 78-day air campaign — with every geographic and demographic clause
+unmarked. **Plan the Balkan batch knowing this.**
+
+**`un.org` is reachable path by path, not as a host.** The Charter text and UNISPAL serve real content; the
+Security Council pages return a **CloudFront "Request blocked" page with a 200 status** (a fourth variety
+of 200-status error document) and `un.org/press` a **JavaScript "Client Challenge", also 200** (a fifth).
+`documents.un.org` serves resolution PDFs directly. **So cite the Charter, not the membership page** — the
+treaty text is both openable and the better source.
+
+**Two corrections.**
+- **`Vatican_City` 0.49 → 0.44 km².** The state's own governorate says the territory "covers a surface area
+  of **0.44 km2 (44 hectares)**". This is the plan's Source-B principle at its cleanest: ask the government
+  of the place. Its pages are not at guessable paths — `/en/state-and-government.html` and
+  `/en/state-and-government/history.html` are 404 — and the working ones under
+  `/en/state-and-government/general-informations/` had to be read out of the homepage's own navigation.
+- **`South_Sudan` 11 → 12 million.** UNdata gives 12,189 thousand for 2025. Not an error when written, but
+  a figure time moved past — **the shape of correction Phase 3 will produce most often, since every country
+  term opens on a population. Re-read the population before marking it, every time.**
+
+**One correction avoided, and it names a source.** UNdata rounds Tuvalu to "10" thousand, which would have
+made the term's "roughly 11,000" look wrong. The **Commonwealth Secretariat's** country page gives
+**11,790 (2022)** and confirms it. For any state small enough that UNdata's thousands round the answer
+away, the Commonwealth is the right source — and it covers 56 states, most of Phase 3's Oceania, Caribbean
+and African batches.
+
+**The unmarked list is the batch's other honest output**, and it is recorded in full in the register: all
+of France's physical geography and pre-modern history, all of Tuvalu's climate sentence, the whole of
+Kosovo's first two sentences, most of South Sudan's, and the interiors of the Palestine and Vatican
+descriptions. The pattern behind it is sharp enough to plan against: **where a claim is an act of state —
+a treaty, a resolution, a court ruling, an accession — it is citable and usually easy; where it is
+landscape or long history, it usually is not.** France is the hardest country in Phase 3 for the inverse of
+P7's reason: the older and more familiar the history, the less of it any single openable institutional page
+states.
+
+**Budget for that list.** These six average two citations and roughly half their prose marked. A Phase 3
+batch reporting "16 terms, all at the bar" without saying what it left unmarked is reporting a number, not
+a state of affairs.
 
 ### Batches C1–C12 · by region
 

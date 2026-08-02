@@ -92,7 +92,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `docs/glossary-citation-plan.md` — the batch plan for **citing the 333 glossary terms**, the sibling of
   the card plan above. The bar is **at least 2 citations per term** (a description is three sentences, where
   a card's abstract is ten), and the acceptable sources are academic, museum, government or reputable
-  NGO/IGO. **Batches G1–G11 and P1–P7 have shipped, COMPLETING PHASE 2 — 136 of the 333 terms are cited and at the bar, all with
+  NGO/IGO. **Batches G1–G11, P1–P7 (COMPLETING PHASE 2) and C0 have shipped — 142 of the 333 terms are cited and at the bar, all with
   in-text markers in all ten languages. G11 COMPLETED Phase 1** (all 91 of its prehistory, palaeoanthropology,
   geological-time, peoples and physical-geography terms) **and P1 opened Phase 2** with the first six
   presidents, on the Miller Center's presidential essays; **P2 took it to Polk, P3 to Andrew Johnson, P4
@@ -175,7 +175,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   sentences. P7 also adds a THIRD variety of 200-status error document: `state.gov` and
   `2009-2017.state.gov` serve a page titled "Technical Difficulties" with a 200, and
   `whitehouse.gov/about-the-white-house/presidents/<name>/` is 404 for all nine (a 225 KB error document);
-  `bls.gov` 403 and `fred.stlouisfed.org` refuses the connection. P3 also refines the `senate.gov` warning:
+  `bls.gov` 403 and `fred.stlouisfed.org` refuses the connection. **C0 opened Phase 3 by breaking its own
+  recipe, and the finding governs the remaining 191 countries: the CIA World Factbook — the plan's chosen
+  Source A — is UNUSABLE**, since every path on `cia.gov` serves one identical 498,366-byte JavaScript
+  shell with no country content (the word "France" appears zero times in the page served for France).
+  **Source A is now UNdata** (`data.un.org/en/iso/<cc>.html`), server-rendered and per-country, whose **UN
+  membership date field dates the independence of every modern state for free** — but it has no profile for
+  a state without an ISO code, so `xk` (Kosovo) 500s and a state of limited recognition gets nothing from
+  it. Add the **Commonwealth Secretariat** for small states (UNdata rounds Tuvalu to "10" thousand where
+  the Commonwealth gives 11,790) and **Eurostat Statistics Explained** for anything sectoral in the EU
+  (`iaea.org`, `iea.org` and the French energy ministry are all shut). `un.org` is reachable PATH BY PATH:
+  the Charter text and UNISPAL serve real content, `/securitycouncil/*` returns a CloudFront "Request
+  blocked" page **with a 200** and `/press/*` a JavaScript "Client Challenge" **also with a 200** — a
+  fourth and fifth variety of 200-status error document. C0's two corrections are `Vatican_City`'s area
+  (0.49 → **0.44 km²**, per the state's own governorate) and `South_Sudan`'s population (11 → **12
+  million**, per UNdata) — **the second being the shape Phase 3 will keep producing, since every country
+  term opens on a population that time moves past.** Its other honest output is a long list of clauses left
+  UNMARKED and recorded in full in the register: where a claim is an act of state — a treaty, a resolution,
+  a court ruling, an accession — it is citable and usually easy; where it is landscape or long history, it
+  usually is not. P3 also refines the `senate.gov` warning:
   its **impeachment** pages are real, its party-history and vice-president paths are the shell, and **the
   shell is a constant 37,523 bytes**, so a size check tells them apart instantly. Three access findings from it govern the rest of Phase 2 and Phase 3:
   **a URL containing a closing parenthesis cannot be cited** (`SRC_URL_RX` stops at `)`, which rules out
@@ -821,12 +839,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     stripe): one is derived from the data, the other is an editor's private marker.
   · `sup` + `class="fn"` + `data-fn` are in the sanitizer allowlists, so a community deck can use markers too.
   · **The Atlas table still ships EMPTY; the glossary has begun.** `country-sources.js` has no entries at all.
-    **`GLOSSARY_SOURCES` carries 136 of the 333 terms** (batches G1–G11 and P1–P7, 2026-08-01/02 — the genus, species, specimen,
+    **`GLOSSARY_SOURCES` carries 142 of the 333 terms** (batches G1–G11, P1–P7 and C0, 2026-08-01/02 — the genus, species, specimen,
     stone-industry, three-age, periodisation, geological-time, type-site, way-of-life and discipline terms, plus the
     Indigenous-peoples group, its odds and ends, the poles / desert / ocean / two historiographic names, the six
     continents with `Sicily`, `Equator` and the two hemispheres — which completes Phase 1 — and the first six
     US presidents, Jackson to Polk, Taylor to Andrew Johnson, Grant to McKinley, Theodore Roosevelt to
-    Hoover, Franklin D. Roosevelt to Nixon, and Ford to Biden — **all 45**), against
+    Hoover, Franklin D. Roosevelt to Nixon, and Ford to Biden — **all 45** — plus C0's six pilot
+    countries), against
     a bar of **`GLOSS_SRC_TARGET` (2)**, which is lower than a card's five because a description is three sentences
     where an abstract is ten; `docs/glossary-citation-plan.md` is the plan for the rest and
     `node .claude/gloss-source-audit.js` says where it stands. The UI, the deltas and the pipeline are in place;
@@ -2350,7 +2369,7 @@ reports both on every run, `node .claude/source-audit.js` reports them per card,
 shows each card's coverage as an amber or red chip) — and **a second pass has started on the glossary**, batched
 through `docs/glossary-citation-plan.md` at a bar of **2 citations per term** (`GLOSS_SRC_TARGET`), with
 `node .claude/gloss-source-audit.js` and the glossary list's own coverage chip reporting it; **121 of 333 terms
-are cited** (batches G1–G11, which complete Phase 1, and P1–P7, which complete Phase 2 — all 45 US presidents). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
+are cited** (batches G1–G11, which complete Phase 1; P1–P7, which complete Phase 2 — all 45 US presidents; and C0, the Phase 3 pilot). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
 Two rules that pass turned up at once. **`add-sources.js` writes only the ENGLISH description**, so a term whose
 prose is corrected needs an `add-lang.js` run per language in the same batch or nine languages keep the old
 claim; and **a correction does not travel between surfaces** — `Homo_habilis` still carried the 2.3–1.5 Mya span
