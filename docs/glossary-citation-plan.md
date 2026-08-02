@@ -2,8 +2,8 @@
 
 The glossary was **333 terms and not one of them carried a source**. `window.GLOSSARY_SOURCES` was an empty
 table; the fold at the foot of a gloss popup never appeared. This is the plan for filling it. Not part of
-the site. **As of 2026-08-02, 108 of the 333 are cited and at the bar** — batches G1–G11 and P1–P3, five of which also
-corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 108 carry in-text
+the site. **As of 2026-08-02, 115 of the 333 are cited and at the bar** — batches G1–G11 and P1–P4, five of which also
+corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 115 carry in-text
 markers, in all ten languages, after the rule changed from optional to required on 2026-08-01 (see "What
 is different from the card pass"). G5 also settled the start of prehistory across the glossary, the deck
 and every date line: **2.6 Mya**, with the disputed 3.3 Ma Lomekwi claim hedged rather than adopted; G6
@@ -171,7 +171,7 @@ the way batch 21 recorded the Anubis walls, so the next pass does not re-run the
 | Indigenous peoples, and the odds and ends | 8 | Phase 1 · batch G9 — **done** |
 | the poles, the desert, the sea and two names | 7 | Phase 1 · batch G10 — **done** |
 | the continents, the island and the constants | 10 | Phase 1 · batch G11 — **done** |
-| US presidents | 45 | Phase 2 · batches P1–P7 — **P1–P3 done** |
+| US presidents | 45 | Phase 2 · batches P1–P7 — **P1–P4 done** |
 | countries and states of the world | 197 | Phase 3 · batches C0–C12 |
 | **total** | **333** | |
 
@@ -1407,12 +1407,56 @@ party-history and vice-president paths return the 404 shell with a 200 status. *
 37,523 bytes** — a size check tells the two apart instantly, and is the cheapest form of "check the body,
 not the status code".
 
+### Batch P4 log — the warning arrives, exactly as the plan wrote it
+
+#### 2026-08-02 — seven terms, 27 citations, two corrected clauses
+
+**Coverage 108/333 → 115/333.** Twenty-three distinct works, **every one of them open**, none from the
+register. P3 said to budget two to four Miller Center essays per president; P4 shows that was understated.
+**Only two of the seven terms were carried by the *Life in Brief* alone.** Grant needed four essays, Hayes
+and McKinley three each, and Benjamin Harrison's Dependent Pension Act and six new states are in **none of
+his essays at all** — they came from the Miller Center's **Key Events** timeline, which is a dated list of
+exactly the kind of claim a three-sentence description makes. **Reach for Key Events when the essays go
+quiet.**
+
+**Both corrections are on `Rutherford_B._Hayes`, and both are the plan's Phase 2 warning arriving exactly as
+written** — "softening or cutting an assessment the sources do not make":
+- The term had him taking office after the 1876 election was settled "by a special electoral commission
+  **and an informal bargain with southern politicians**". The Miller Center's Campaigns and Elections essay
+  addresses that claim directly and rejects it: "That southern Democrats and Hayes's friends negotiated is a
+  virtual certainty, but **that they struck any 'deal,' 'bargain,' or compromise that offered anything beyond
+  what Hayes promised to do in his letter of acceptance is doubtful**." The term now says the commission
+  settled it and that whether a bargain went with it is still argued over — which is the state of the
+  question rather than one side of it.
+- The term said he "**withdrew** the last federal troops enforcing Reconstruction in the South". He did not
+  withdraw them: "Hayes **ordered those federal troops to their barracks**", and the governments they had
+  been protecting were by then only the two in New Orleans and Columbia. The term now says so. A verb was
+  doing more work than the record supports, which is the same failure in a smaller frame.
+
+**A slip in a spine source, recorded and not followed** — the third such in Phase 2, after P2's two in the
+Harrison essay. The Miller Center's Garfield *Life in Brief* dates the shooting "a mere 100 days after he
+assumed office"; 4 March to 2 July 1881 is 120 days. The term counts the whole term instead, "about six
+months", which its own Death of the President essay supports with two dates. **Read the specialist essay
+before trusting a round number in the summary.**
+
+**And a statute corrected a summary, for the second batch running.** The Miller Center says the Chinese
+Exclusion Act banned "Chinese immigration for ten years and forbidding Chinese citizenship". The National
+Archives, quoting the Act, says it "provided an absolute 10-year ban on **Chinese laborers** immigrating" —
+which is what `Chester_A._Arthur` already said. The clause is cited to the Act, not to the essay, and the
+term stands unchanged. P3 met this from the other side, where the summary was narrower than the statute;
+here it is broader. **Either way, cite the document.**
+
+**One access note.** Three Office of the Historian slugs that look obvious are 404 —
+`/milestones/1866-1898/treaty-of-paris`, `/milestones/1866-1898/hawaii` and
+`/milestones/1861-1865/alabama-claims`. Each subject is folded into a larger page or into a Miller Center
+essay; check the milestone index rather than guessing a slug.
+
 | batch | presidents | second-source spine |
 |---|---|---|
 | **P1** | Washington, J. Adams, Jefferson, Madison, Monroe, J. Q. Adams (6) — **DONE (2026-08-02)** | NARA milestone documents; State Dept. Office of the Historian; NPS |
 | **P2** | Jackson, Van Buren, W. H. Harrison, Tyler, Polk (5) — **DONE (2026-08-02)** | NARA milestone documents; NPS; White House Historical Association (Tyler's succession) |
 | **P3** | Taylor, Fillmore, Pierce, Buchanan, Lincoln, A. Johnson (6) — **DONE (2026-08-02)** | NARA milestone documents; Senate impeachment record; the Avalon Project |
-| **P4** | Grant, Hayes, Garfield, Arthur, Cleveland, B. Harrison, McKinley (7) | House election statistics; Senate records; NARA |
+| **P4** | Grant, Hayes, Garfield, Arthur, Cleveland, B. Harrison, McKinley (7) — **DONE (2026-08-02)** | NARA milestone documents; the Miller Center's Key Events timelines |
 | **P5** | T. Roosevelt, Taft, Wilson, Harding, Coolidge, Hoover (6) | State Dept. Office of the Historian; NARA |
 | **P6** | F. D. Roosevelt, Truman, Eisenhower, Kennedy, L. B. Johnson, Nixon (6) | presidential libraries (NARA); Office of the Historian |
 | **P7** | Ford, Carter, Reagan, G. H. W. Bush, Clinton, G. W. Bush, Obama, Trump, Biden (9) | presidential libraries; NARA; congressional record |

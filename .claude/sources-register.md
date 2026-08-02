@@ -7113,3 +7113,225 @@ U.S. Foreign Relations, https://history.state.gov/milestones/1866-1898/alaska-pu
   Buchanan's "long record in Congress" as a characterisation; Lincoln's being "an American lawyer"; and
   Johnson's "resisting measures to protect the rights of freed people" as a summary of the vetoes the essay
   itemises.
+
+## Batch P4 — Grant to McKinley (GLOSSARY, 2026-08-02)
+
+Seven terms — the largest batch of the pass — 27 citation slots from **twenty-three distinct works, every
+one of them open**, and none from this register. P3's warning was right and understated: **only two of the
+seven terms were carried by the *Life in Brief* alone.** Grant needed four essays, Hayes and McKinley three
+each, and Benjamin Harrison's two legislative claims are in none of his essays at all and had to come from
+the Miller Center's own **Key Events** timeline.
+
+**Two corrections, both on `Rutherford_B._Hayes`, and both are the plan's Phase 2 warning arriving
+exactly as written**: a characterisation the cited work does not make, and a verb doing more work than the
+record supports.
+
+### Verified citations (batch P4)
+
+### mc-grant-lib / -lbp / -domestic / -foreign · the eighteenth presidency
+Joan Waugh, "Ulysses S. Grant: Life in Brief," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/grant/life-in-brief. [Open access]
+Joan Waugh, "Ulysses S. Grant: Life Before the Presidency," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/grant/life-before-the-presidency. [Open access]
+Joan Waugh, "Ulysses S. Grant: Domestic Affairs," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/grant/domestic-affairs. [Open access]
+Joan Waugh, "Ulysses S. Grant: Foreign Affairs," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/grant/foreign-affairs. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports: Grant as "the Union general who led the United States to victory over the
+  Confederate States of America"; that "scandals tended to divert attention from the administration's
+  policy agenda" and that "Although Grant was never personally implicated in any of the scandals, he did
+  not disassociate himself from the members of his administration who were guilty"; and that "He also
+  executed a successful foreign policy and was responsible for improving Anglo-American relations"
+- Life Before the Presidency supplies the command and the surrender: "In early 1864, President Lincoln named
+  Grant **lieutenant general and commander of all Union forces**", and "Union troops trapped the main
+  Confederate Army west of Richmond and forced a surrender **on April 9, 1865, at the little village
+  crossroads of Appomattox Court House**"
+- Domestic Affairs supplies the Klan and the panic: "Beginning in 1870, Congress passed a series of laws
+  known collectively as the Enforcement Acts to help protect the right to vote. One of these was the **Ku
+  Klux Klan Act, which Grant signed in April 1871** to counter the rise of terrorist activity in the South";
+  and "The Panic of 1873 and the subsequent depression"
+- Foreign Affairs supplies the settlement with Britain: the Alabama Claims "strained British and American
+  relations", and the joint commission "agreed to submit the Alabama Claims to **international
+  arbitration**"
+- used by: `Ulysses_S._Grant`
+
+### nara-15th-amendment · the vote guaranteed
+National Archives and Records Administration, "15th Amendment to the U.S. Constitution: Voting Rights
+(1870)," Milestone Documents, https://www.archives.gov/milestone-documents/15th-amendment. [Open access]
+- opened: 2026-08-02
+- supports: "Passed by Congress February 26, 1869, and ratified February 3, 1870, the 15th Amendment granted
+  African American men the right to vote" — the term's "the amendment guaranteeing Black men the vote",
+  which Grant urged in his inaugural address
+- used by: `Ulysses_S._Grant`
+
+### mc-hayes-lib / -campaigns / -domestic · the nineteenth presidency
+Robert D. Johnston, "Rutherford B. Hayes: Life in Brief," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/hayes/life-in-brief. [Open access]
+Robert D. Johnston, "Rutherford B. Hayes: Campaigns and Elections," Miller Center of Public Affairs,
+University of Virginia, https://millercenter.org/president/hayes/campaigns-and-elections. [Open access]
+Robert D. Johnston, "Rutherford B. Hayes: Domestic Affairs," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/hayes/domestic-affairs. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports: Hayes as a lawyer in Cincinnati and an officer "**wounded five times in the war**"
+  who ended it a brigadier general; "governor of Ohio (1868-1872, 1876-1877)"; that "Congress set up a
+  special commission that awarded the disputed electoral college votes to Hayes"; and, crucially, what
+  became of the troops — "Reconstruction ended completely when, within two months of his inauguration,
+  **Hayes ordered those federal troops to their barracks**", the Republican governments they protected being
+  by then only those in New Orleans and Columbia
+- **Campaigns and Elections is what corrected the term**: "That southern Democrats and Hayes's friends
+  negotiated is a virtual certainty, but **that they struck any 'deal,' 'bargain,' or compromise that
+  offered anything beyond what Hayes promised to do in his letter of acceptance is doubtful**." It also
+  carries the one-term pledge: "In his acceptance letter, Hayes called for a reform of the civil service and
+  **pledged to serve only one term**, lest patronage be used to secure his reelection"
+- Domestic Affairs supports the civil service fight: a "'thorough, radical, and complete' reform of the
+  civil service", pursued against Blaine, Cameron and Conkling
+- used by: `Rutherford_B._Hayes`
+
+### mc-garfield-lib / mc-garfield-death · the twentieth presidency
+Justus Doenecke, "James A. Garfield: Life in Brief," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/garfield/life-in-brief. [Open access]
+Justus Doenecke, "James A. Garfield: Death of the President," Miller Center of Public Affairs, University
+of Virginia, https://millercenter.org/president/garfield/death-of-the-president. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports: Garfield "supporting himself as a part-time teacher, a carpenter, and even a
+  janitor through college"; the Civil War reputation that "earned him a seat in the House of
+  Representatives"; and the assassination "by Charles Julius Guiteau, an emotionally disturbed man **who
+  had failed to gain an appointment in Garfield's administration**"
+- Death of the President supplies the date, the place and the cause: "**On July 2, 1881**, at 9:20 a.m. …
+  Garfield was shot in the back as he walked with Secretary of State Blaine in **Washington's Baltimore and
+  Potomac train station**", and "**On September 19, 1881**, the President died of **blood poisoning and
+  complications from the shooting**"
+- **A slip in the Life in Brief, recorded and not followed**: it dates the shooting "a mere 100 days after
+  he assumed office", where 4 March to 2 July 1881 is 120 days. The term counts the whole term instead —
+  "about six months", 4 March to 19 September — which is right and which the Death of the President essay's
+  two dates support
+- used by: `James_A._Garfield`
+
+### nara-pendleton · the merit system
+National Archives and Records Administration, "Pendleton Act (1883)," Milestone Documents,
+https://www.archives.gov/milestone-documents/pendleton-act. [Open access]
+- opened: 2026-08-02
+- supports: "Approved on January 16, 1883, the Pendleton Act **established a merit-based system of selecting
+  government officials** and supervising their work" — cited on Garfield for the reform his killing
+  provoked, and on Arthur for the act he signed
+- used by: `James_A._Garfield`, `Chester_A._Arthur`
+
+### mc-arthur-lib / mc-arthur-foreign · the twenty-first presidency
+Justus Doenecke, "Chester A. Arthur: Life in Brief," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/arthur/life-in-brief. [Open access]
+Justus Doenecke, "Chester A. Arthur: Foreign Affairs," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/arthur/foreign-affairs. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports: that Conkling "helped Arthur get appointed as **collector of the Port of New
+  York**" and that Arthur "routinely collected kickbacks of salary called 'assessments' from customs house
+  employees"; that as president he "surprised everyone by acting independently, defying his state-based
+  reputation as a slick machine politician"; that he "supported the Pendleton Act"; and that "Because he
+  knew that he suffered from a fatal kidney disease, **Arthur did not actively seek reelection**"
+- Foreign Affairs supplies the navy: "his presidency is remembered for having taken the crucial first steps
+  in building a modern navy … Known as the '**Father of the Steel Navy**,' Arthur sought the construction of
+  steam-powered steel cruisers, steel rams, and steel-clad gunboats"
+- used by: `Chester_A._Arthur`
+
+### nara-chinese-exclusion · what the Act actually barred
+National Archives and Records Administration, "Chinese Exclusion Act (1882)," Milestone Documents,
+https://www.archives.gov/milestone-documents/chinese-exclusion-act. [Open access]
+- opened: 2026-08-02
+- supports the term's wording against the Miller Center's: "This act provided an absolute 10-year ban on
+  **Chinese laborers** immigrating to the United States", the statute defining laborers as "skilled and
+  unskilled". **The Miller Center's Life in Brief says the Act banned "Chinese immigration for ten years and
+  forbidding Chinese citizenship", which is looser than the statute** — so the clause is cited to the Act
+  rather than to the essay, and the term's "barred Chinese labourers from immigrating" stands
+- used by: `Chester_A._Arthur`
+
+### mc-cleveland-lib / mc-cleveland-domestic · the twenty-second and twenty-fourth presidencies
+Henry F. Graff, "Grover Cleveland: Life in Brief," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/cleveland/life-in-brief. [Open access]
+Henry F. Graff, "Grover Cleveland: Domestic Affairs," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/cleveland/domestic-affairs. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports: that businessmen "asked Cleveland, then a young lawyer, to run for **mayor of
+  Buffalo**"; that "As mayor, Cleveland exposed city corruption and earned such a reputation for honesty and
+  hard work that he **won the New York gubernatorial race in 1882**"; and that "His **record-breaking use of
+  the presidential veto** earned him the deserved moniker of the 'guardian President'"
+- Domestic Affairs supports the money, the tariff and the strike: "Always a hard-currency advocate (he
+  thought that paper money should be backed by gold)"; "tariff reduction"; "Cleveland's second
+  administration began in 1893, just as the nation entered the most severe depression in its history"; and
+  that in the 1894 Pullman strike, "Even though the governor of Illinois, John Altgeld, did not want
+  Cleveland to use federal troops to break the strike, **the President did so anyway**"
+- used by: `Grover_Cleveland`
+
+### mc-bharrison-lib / mc-bharrison-key-events · the twenty-third presidency
+Allan B. Spetter, "Benjamin Harrison: Life in Brief," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/bharrison/life-in-brief. [Open access]
+Miller Center of Public Affairs, University of Virginia, "Benjamin Harrison: Key Events,"
+https://millercenter.org/president/bharrison/key-events. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports: that "he was **the grandson of the nation's ninth President, William Henry
+  Harrison**"; that he was "named to the United States Senate by the Indiana state legislature" in 1880 and
+  in the Senate "championed pensions for Civil War veterans, high protective tariffs, a modernized navy";
+  the 1888 result — "**Cleveland had received the larger number of popular votes, but Harrison had carried
+  the Electoral College**"; the "**McKinley Tariff of 1890**, which imposed high import duties"; and "the
+  landmark Sherman Antitrust Act, **the first bill ever to attempt to limit the power of America's giant
+  corporations**"
+- **Key Events is the only Miller Center page carrying the term's last two claims**, neither of which
+  appears in any Harrison essay: the "**Dependent Pension Bill … providing benefits to Union veterans as well
+  as to their children and widows**", and the six admissions — "North and South Dakota join the Union as the
+  thirty-ninth and fortieth states", Montana, "Washington is admitted as the forty-second state", "Idaho …
+  the forty-third", "Wyoming … the forty-fourth"
+- used by: `Benjamin_Harrison`
+
+### nara-sherman-antitrust · the first federal law against monopolies
+National Archives and Records Administration, "Sherman Anti-Trust Act (1890)," Milestone Documents,
+https://www.archives.gov/milestone-documents/sherman-anti-trust-act. [Open access]
+- opened: 2026-08-02
+- supports: "The Sherman Anti-trust Act of 1890 was **the first measure passed by the U.S. Congress to
+  prohibit trusts**"
+- used by: `Benjamin_Harrison`
+
+### mc-mckinley-lib / -domestic / -death · the twenty-fifth presidency
+Lewis L. Gould, "William McKinley: Life in Brief," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/mckinley/life-in-brief. [Open access]
+Lewis L. Gould, "William McKinley: Domestic Affairs," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/mckinley/domestic-affairs. [Open access]
+Lewis L. Gould, "William McKinley: Death of the President," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/mckinley/death-of-the-president. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports: "His **McKinley Tariff of 1890** established substantially higher tariff rates on
+  imported goods"; that in 1896 he "argued that his commitment to protective tariffs on imported goods would
+  cure unemployment and stimulate industrial growth"; the war "over Cuban independence", declared "On April
+  25, 1898"; the annexation — "To secure America's position in the Pacific, McKinley immediately pushed a
+  joint resolution through Congress to **annex the Hawaiian Islands**"; and the peace, which "gave the
+  United States control of former Spanish colonies, **the Philippines, Puerto Rico, and Guam**"
+- Domestic Affairs supplies the currency: "**In 1900, he signed the Gold Standard Act, which formally placed
+  U.S. money on the gold standard**"
+- Death of the President supplies the killing: McKinley "was off to **Buffalo, New York**" on 6 September
+  1901; Czolgosz was "an unemployed mill worker of **anarchist sentiments**"; and "he died on **September
+  14, 1901, just six months after his second inauguration**" — the term's "eight days later"
+- used by: `William_McKinley`
+
+### oh-spanish-american-war · what the war of 1898 settled
+Office of the Historian, U.S. Department of State, "The Spanish-American War, 1898," Milestones in the
+History of U.S. Foreign Relations, https://history.state.gov/milestones/1866-1898/spanish-american-war.
+[Open access]
+- opened: 2026-08-02
+- supports: that "The Spanish-American War of 1898 **ended Spain's colonial empire in the Western
+  Hemisphere**", Spain agreeing "to relinquish claims on Cuba, and to cede sovereignty over Guam, Puerto
+  Rico, and" the Philippines
+- used by: `William_McKinley`
+
+### NOT CITED (batch P4) — what could not be sourced, and what is kept unmarked
+- **Two Office of the Historian milestone slugs that look obvious do not exist**:
+  `/milestones/1866-1898/treaty-of-paris`, `/milestones/1866-1898/hawaii` and
+  `/milestones/1861-1865/alabama-claims` are all 404. The war's settlement is folded into the
+  Spanish-American War page, the annexation of Hawaii into the McKinley essay, and the Alabama Claims into
+  the Miller Center's Grant Foreign Affairs essay.
+- **Neither Miller Center essay for Benjamin Harrison carries the Dependent Pension Act or the six new
+  states**, which are two of that term's four legislative claims. The **Key Events** timeline does, and is
+  the page cited. Worth remembering for P5–P7: when an essay is silent, the president's Key Events page is
+  a dated list of exactly the kind of claim a three-sentence description makes.
+- Kept unmarked, uncontradicted, in nothing opened: Grant's "eighteenth president … 1869 to 1877" as such;
+  Garfield's "nominated unexpectedly at a deadlocked convention" and "won a very narrow popular majority";
+  Arthur's "party hostility" as a second reason he was not renominated, where the essay gives only his
+  health; Cleveland's "opposing what he saw as favours to private interests" as a characterisation of the
+  vetoes; and Benjamin Harrison's "Civil War officer", which the Life in Brief implies without stating.
