@@ -657,6 +657,22 @@ async function studyEasy(page, base, n) {
         lipAtBottom: lip && grp ? Math.round(lip.getBoundingClientRect().bottom - grp.getBoundingClientRect().bottom) : 999,
         // a TAB, not another full-width banner — which is what it replaced
         lipFrac: lip && grp ? +(lip.getBoundingClientRect().width / grp.getBoundingClientRect().width).toFixed(2) : 1,
+        /* …and BLUE (Aug 2026, on request): the site's own primary-button indigo, read off a probe rather
+           than hard-coded, so a theme that re-tones --indigo moves the lip with it. Paper-on-paper it read
+           as part of the card's bottom edge, which is the failure this pins. */
+        lipBlue: (() => {
+          if (!lip) return "";
+          const p = document.createElement("i");
+          p.style.cssText = "background:var(--indigo);position:absolute;left:-9999px";
+          document.body.appendChild(p);
+          const want = getComputedStyle(p).backgroundColor; p.remove();
+          const got = getComputedStyle(lip).backgroundColor;
+          return got === want ? "ok" : got + " ≠ " + want;
+        })(),
+        aboutPad: (() => {
+          const a = document.querySelector(".home-about"); if (!a) return [0, 0];
+          const cs = getComputedStyle(a); return [parseFloat(cs.paddingTop), parseFloat(cs.paddingBottom)];
+        })(),
         // the games, under a heading, under the review
         mgHead: head ? head.textContent.trim() : "",
         /* The heading's TEXT centre against the grid's, measured through a Range — NOT its computed
@@ -691,6 +707,7 @@ async function studyEasy(page, base, n) {
     check("the Library banner is gone, replaced by a lip on the review", !h.libBanner && /add decks/i.test(h.lip), JSON.stringify({ banner: h.libBanner, lip: h.lip }));
     check("...hanging off the bottom edge of the review group", h.lipLast && Math.abs(h.lipAtBottom) <= 1, JSON.stringify({ last: h.lipLast, edge: h.lipAtBottom }));
     check("...centred on it, and a tab rather than a second banner", h.lipCentred <= 2 && h.lipFrac < 0.7, JSON.stringify({ off: h.lipCentred, frac: h.lipFrac }));
+    check("...filled in the same indigo as Start review, not paper on paper", h.lipBlue === "ok", h.lipBlue);
     check("...and routing to the collections", await page.evaluate(async () => {
       document.querySelector(".rv-lip").click();
       await new Promise((r) => setTimeout(r, 700));
@@ -710,6 +727,8 @@ async function studyEasy(page, base, n) {
       await new Promise((r) => setTimeout(r, 700));
       return location.hash;
     }) === "#mission");
+    // …with room around it (Aug 2026, on request): it was 4px over 2px, crowded against the game grid
+    check("...with room above and below it", h.aboutPad[0] >= 14 && h.aboutPad[1] >= 12, JSON.stringify(h.aboutPad));
     // removed on request: the xp bar right above it already counts the distinct cards studied
     check("the review banner no longer carries a Seen total", !h.seenTotal.some((t) => /total/i.test(t)), h.seenTotal.join("|"));
 
@@ -771,6 +790,36 @@ async function studyEasy(page, base, n) {
       !piles.badge.tick && +piles.badge.n === piles.stats.reduce((a, s) => a + s.n, 0),
       JSON.stringify({ badge: piles.badge, piles: piles.stats.map((s) => s.n) }));
     check("...with the level still spelled out under it", /level/i.test(piles.xpLevel), piles.xpLevel);
+
+    /* The added deck's row is ONE horizontal line (Aug 2026, on request) — piles, name, figure and bin all
+       on the same level, with the bar moved to the row's bottom edge so it costs the line no width. Two
+       lines and one line look equally deliberate in a screenshot, and the failure this pins is the row
+       quietly wrapping again the moment something in it grows: the deck's name is the only part with a
+       shorter form, so if the arithmetic stops working it is the name that gets cut off. */
+    const row = await page.evaluate(() => {
+      const r = document.querySelector(".active-deck[data-review]"); if (!r) return null;
+      const rb = r.getBoundingClientRect();
+      const t = r.querySelector(".ad-title"), c = r.querySelector(".ad-prog .count"), k = r.querySelector(".ad-prog .track");
+      const parts = [r.querySelector(".ad-counts"), t, c, r.querySelector(".ad-trash")].filter(Boolean);
+      const boxes = parts.map((e) => e.getBoundingClientRect());
+      return {
+        n: parts.length,
+        // one line ⇔ every part overlaps one horizontal band
+        band: Math.max(...boxes.map((b) => b.top)) < Math.min(...boxes.map((b) => b.bottom)),
+        rowH: Math.round(rb.height),
+        label: c ? c.textContent.trim() : "",
+        titleClipped: t ? t.scrollWidth > t.clientWidth + 1 : true,
+        // the bar underlines the row rather than sitting in the line
+        trackWide: k ? k.getBoundingClientRect().width > rb.width * 0.8 : false,
+        trackAtFoot: k ? Math.abs(k.getBoundingClientRect().bottom - rb.bottom) <= 1 : false,
+        fills: !!r.querySelector(".ad-prog .fill"),
+      };
+    });
+    check("an added deck's row is one horizontal line", !!row && row.band && row.n === 4, JSON.stringify(row));
+    check("...its progress figure shortened to N/N studied", !!row && /^\d+\/\d+ studied$/.test(row.label), row && row.label);
+    check("...its bar underlining the row instead of taking width from it",
+      !!row && row.trackWide && row.trackAtFoot && row.fills, JSON.stringify(row));
+    check("...and the deck's name not cut off at 390px", !!row && !row.titleClipped, JSON.stringify(row));
     // clear the day: Easy graduates a new card outright, so the allowance runs out with nothing in learning
     await studyEasy(page, base, 6);
     await page.goto(base + "#home", { waitUntil: "load" });

@@ -820,11 +820,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   DEEPER gold than the fill — `#C39A2E` on the card is only 3.6:1, too thin for 10px text. The earned
   `.done`/`.won` fills override both with their own on-fill colour, since gold on gold reads as nothing. The old studied/total
   **progress bars were removed from Library decks + collections** (they remain on the account page's "Progress by deck").
-  **The Daily-review list got one back** in July 2026, on request: each added row carries an `X/X cards studied` bar
+  **The Daily-review list got one back** in July 2026, on request: each added row carries an `X/X studied` bar
   (`adProg` in `PAGES.home` → `.prog.ad-prog`, animated by the existing `animateProgs`) where a blue `.ad-dot` used to
   sit. The dot and the ancestor rows' hollow `.ad-branch` went together — the branch existed only to line the two up,
   and alone it would have pushed every parent title 21px right of the deck beneath it; the `data-depth` indent carries
-  the hierarchy. The bar's label also replaced the `.ad-count` "N cards" chip, which stated the same total twice. Each collection's level is also listed on the **profile** (`renderCollectionLevels` in
+  the hierarchy. The bar's label also replaced the `.ad-count` "N cards" chip, which stated the same total twice.
+  **The row is ONE horizontal line** (Aug 2026, on request): piles · name · figure · bin, all centred on the same
+  level, with the row's vertical padding down to 10px. It was two lines — the title on top and the bar indented
+  under it — which left a band of empty card either side of a short deck name. Two things had to give for five
+  things to share a 390px screen. **Below 640px the bar leaves the line and becomes the row's own bottom edge**
+  (`.ad-prog .track` absolutely positioned along it; the row is `position:relative; overflow:hidden` so the last
+  row's rounded corners clip it), an underline costing no width at all — measured, the label alone is ~88px and
+  the name needs ~100, so an inline track of any useful length can only be paid for by cutting the deck's name.
+  **Above the breakpoint it stays in the line**, stretched between the name and the figure, which is what fills
+  the middle of a wide row; the phone block must therefore sit BELOW those rules, a media query adding no
+  specificity. And the label was shortened to **`X/X studied`** (its `I18N_RULES` pattern moved with it in all nine
+  languages, the old one retired). The `data-depth` indent went with them, from `22 + depth*21` to
+  `16 + depth*16`. The name is the only thing that ellipsises, since it is the only part of the row with a
+  shorter form. Each collection's level is also listed on the **profile** (`renderCollectionLevels` in
   `acctSelfView`). `grade()` calls `announceLevelUps(id)` on a freshly-studied card → a **full-screen "Level up!" popup**
   (`congratsPopup(items)`, a `.levelup-pop` overlay modelled on `inlineModal`) naming each Folio/collection level that ticks
   over (China's shown as its Chinese numeral); it is **dismissed by clicking anywhere on screen** (or Esc/Enter) — the
@@ -1703,9 +1716,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     there is no bottom edge to hang from until the whole group has one, and an absolutely-positioned lip would
     have to guess the list's height on every render. It is **the ONLY route to the collections on a phone**, so
     it ships in every state the review can be in, first run included — don't gate it on having decks.
+    It is **filled indigo with white text** (Aug 2026, on request), not the paper tab it started as: it is the
+    only route to the collections down here, and paper-on-paper it read as part of the card's own edge. The
+    blue is the site's primary-button indigo, so it matches Start review directly above it.
   · **`.home-about`** — a centred grey "About Folio" line (`#b-about` → `route("mission")`) at the foot, from
     when About left the tab bar. Phone-only on the same terms as the lip, and, like it, **rendered only on a
-    phone** rather than hidden above the breakpoint. Guarded by `test-layout.js`.
+    phone** rather than hidden above the breakpoint. Its `20px 0 16px` padding is the whole of its separation
+    from the games above it (Aug 2026, on request — it was `4px 0 2px`, leaving it crowded against the grid).
+    Guarded by `test-layout.js`.
 - **Home minigames** (game-grid tiles → `PAGES.*`): **Multiple Choice** (`PAGES.challenge`, formerly "Daily Challenge" — the
   rival bots + timer were removed; it's now a plain 5-question quiz whose 3 wrong options are the SAME `answerType()` as the
   answer — a person → other people, a dynasty → other dynasties), **Timeline** (`chrono`), **True or False** (`truefalse`),
@@ -3045,7 +3063,7 @@ dead code (never rendered).
     **Re-run after touching the `SOURCE FOOTNOTES` block, `wireFootnotes` / `sourcesHTML` / `normSources` /
     `linkifySrcItem` / `replaceInSrcText`, the `.src-access` styles, the editors' sources boxes, or the
     `fn` / `data-fn` sanitizer allowlists.**
-  · `node .claude/test-layout.js` — 186 assertions on **the shell**: the rules that break silently because
+  · `node .claude/test-layout.js` — 192 assertions on **the shell**: the rules that break silently because
     nothing throws when a layout is wrong. The phone's bottom tab bar (present, labelled — *every* tab, not
     just the active one, which is the top bar's behaviour — each name **centred under its own icon**, the
     selected one included, since one tab off out of five reads as a design; routing; no Library and no
@@ -3053,11 +3071,15 @@ dead code (never rendered).
     page on a phone
     (one column, no pager, no card of the day, no gloss of the day and no Atlas teaser — none of which is
     BUILT there, so a missing assertion costs a phone the ~1.6 MB globe; the "+ Add decks" lip hanging off
-    the bottom of the review group, centred, narrower than the group and routing to the collections; the
+    the bottom of the review group, centred, narrower than the group, routing to the collections and filled
+    in the site's own `--indigo` read off a probe rather than hard-coded; the
     Minigames heading over a 3 × 2 grid whose tiles carry no tagline; the About link last, routing to the
-    About page; no Seen total; and the review's three Anki piles — new / learning / review, in order, no two
+    About page and with room above and below it; no Seen total; the review's three Anki piles — new /
+    learning / review, in order, no two
     the same colour, repeated unlabelled in the same colours on each added deck's row, with the button
-    CENTRED against them) and the same page above the breakpoint, where the day's card, the day's term, the
+    CENTRED against them; and that deck row on ONE line — every part in a single horizontal band, its
+    figure reading `N/N studied`, its bar underlining the row instead of taking width from it, and the
+    deck's NAME not cut off at 390px, that being what gives way if the arithmetic ever stops working) and the same page above the breakpoint, where the day's card, the day's term, the
     Atlas teaser and the taglines are all still there and the lip, the heading and the About line are not;
     the whiteboard marker on a phone (clear of the tab bar, no Draw button, the sizes toggling the pen, the
     custom colour picked in the inline picker — its hue bar setting the hue, its field the saturation and
@@ -3078,7 +3100,8 @@ dead code (never rendered).
     never a click, since a click would dismiss it anyway and prove nothing.
     **Re-run after touching `.tabbar` / `--tabbar-h` / `--timebar-h` / `layoutTicks` / the Atlas chrome's
     media queries / `.settings` / `.auth-split` / the coming-soon rows / `wireOnePageSwipe`
-    / `.rv-lip` / `.games-sec` / `.home-about` / `gameSub` / `pileCounts` / `ensureWBTools` / `.wb-pick` /
+    / `.rv-lip` / `.games-sec` / `.home-about` / `gameSub` / `pileCounts` / `adProg` / `.active-deck` /
+    `ensureWBTools` / `.wb-pick` /
     the ink layer's pass-through /
     `cpWireResize` / `lockHeight`, or after adding an overlay to `document.body`.** Its clicks go through `evaluate`
     rather than `page.click`: clicking an element the

@@ -5273,7 +5273,7 @@
       const total = ids.length, studied = ids.filter(isSeen).length;
       return `<div class="prog ad-prog" data-pct="${total ? ((studied / total) * 100).toFixed(2) : 0}">
         <div class="track"><div class="fill"></div></div>
-        <div class="count">${studied}/${total} cards studied</div>
+        <div class="count">${studied}/${total} studied</div>
       </div>`;
     };
     const activeHTML = (function () {
@@ -5289,7 +5289,7 @@
       TREE.collections.forEach((d) => { if (!isComingSoon(d)) walk(d, 0); });   // a coming-soon collection's decks sit the review out
       return rows
         .map((r) => {
-          const pad = 22 + r.depth * 21;
+          const pad = 16 + r.depth * 16;   // the indent that carries the hierarchy — tightened Aug 2026 when the row went to one line
           if (r.active) {
             return `<div class="active-deck" data-review="${esc(r.node.id)}" role="button" tabindex="0" data-depth="${r.depth}" style="padding-left:${pad}px" title="Review just ${esc(r.node.title)}">
               ${adCounts(entryCardIds(r.node.id))}
@@ -5311,7 +5311,7 @@
         // in the review could never be seen or removed from here
         activeIds.filter((id) => UDECKS[uDeckIdOf(id)]).map((id) => {
           const d = UDECKS[uDeckIdOf(id)];
-          return `<div class="active-deck" data-review="${esc(id)}" role="button" tabindex="0" data-depth="0" style="padding-left:22px" title="Review just ${esc(d.title)}">
+          return `<div class="active-deck" data-review="${esc(id)}" role="button" tabindex="0" data-depth="0" style="padding-left:16px" title="Review just ${esc(d.title)}">
               ${adCounts(entryCardIds(id))}
               <div class="ad-body">
                 <div class="ad-line"><span class="ad-title">${esc(d.title)}</span></div>
@@ -5322,7 +5322,7 @@
         }).join("") +
         // …and last, the cards picked up one at a time from the Card of the day, which belong to no deck the
         // reader added. It reads as one more added collection, and its trash empties the whole list.
-        (activeIds.indexOf(COTD_ENTRY) === -1 ? "" : `<div class="active-deck" data-review="${esc(COTD_ENTRY)}" role="button" tabindex="0" data-depth="0" style="padding-left:22px" title="Review just ${esc(COTD_TITLE)}">
+        (activeIds.indexOf(COTD_ENTRY) === -1 ? "" : `<div class="active-deck" data-review="${esc(COTD_ENTRY)}" role="button" tabindex="0" data-depth="0" style="padding-left:16px" title="Review just ${esc(COTD_TITLE)}">
               ${adCounts(entryCardIds(COTD_ENTRY))}
               <div class="ad-body">
                 <div class="ad-line"><span class="ad-title">${esc(COTD_TITLE)}</span></div>
