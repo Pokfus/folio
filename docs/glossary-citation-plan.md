@@ -1557,6 +1557,45 @@ Security Act is cited to the Miller Center.
 where FDR's are Leuchtenburg's, Truman's Hamby's, Eisenhower's Pach's, Kennedy's Selverstone's and Nixon's
 Hughes's. Cite the institution when there is no byline; do not assume the essay has one.
 
+### Batch P-topup log — thirty claims checked for the first time, and all thirty held
+
+#### 2026-08-02 — thirty terms, thirty citations, no corrections
+
+**Coverage unchanged at 127/333** — every one of these terms was already at the bar. This batch adds one
+citation to each of P1–P5's thirty presidents and nothing else, because **P6 found that the sentence every
+presidential term opens with was resting on a page that does not make its claim.**
+
+**The result is a negative one and it is the point of the batch.** The thirty ordinals and sixty term dates
+had never been checked against a source that states them — the *Life in Brief* essays mostly do not — and
+checking them against the Miller Center's Fast Facts blocks found **nothing wrong**. After twelve batches
+that turned up an error in almost every one, that is worth recording as loudly as a correction: this is the
+one place in the pass where the prose was already exactly right, thirty times over.
+
+**What the citation actually covers is more than the ordinal.** `Date Ended` for a president who died in
+office is his death date, and his successor's `Inauguration Date` is that day or the next — so one marker on
+sentence 1 now carries Taylor's, Lincoln's, McKinley's and Harding's deaths in office, and the succession
+claims on Tyler, Fillmore, Andrew Johnson, Arthur and Coolidge as well.
+
+**Two earlier findings moved from recorded to resolved.**
+- **P2's Harrison discrepancy.** P2 logged that the White House Historical Association says Harrison served
+  "thirty-one days" and the Miller Center's essay says "thirty-two", and took 31. The Miller Center's own
+  **Fast Facts** gives March 4 → April 4, 1841 — **exactly 31**. The institution disagrees with itself, its
+  structured data sides with the WHHA, and the term's number now has a citation behind it.
+- **P4's Garfield slip.** P4 logged that the Garfield *Life in Brief* calls the shooting "a mere 100 days
+  after he assumed office" when March 4 to July 2 is 120 days, and that the term counts the whole term as
+  "about six months" instead. Fast Facts gives March 4 → **September 19, 1881**, 199 days. The term is right;
+  the essay's round number is not.
+
+**One parsing trap, recorded for anyone reading these blocks again.** **Cleveland's Fast Facts carries two
+of everything** — two inauguration dates, two end dates and two president numbers, 22 and 24. A reader (or a
+script) that takes the first value after each label silently loses the second presidency, which is exactly
+the half of his term the glossary sentence also asserts. Read the whole block.
+
+**Method note.** No prose changed in any of the ten languages. Each term's existing marker map was read back
+out of its own marked text, the new source number appended to sentence 1, and the text re-marked from the
+stripped original — so the diff is markers and one citation per term, and the ten languages could not drift
+apart in the process.
+
 | batch | presidents | second-source spine |
 |---|---|---|
 | **P1** | Washington, J. Adams, Jefferson, Madison, Monroe, J. Q. Adams (6) — **DONE (2026-08-02)** | NARA milestone documents; State Dept. Office of the Historian; NPS |
@@ -1566,7 +1605,7 @@ Hughes's. Cite the institution when there is no byline; do not assume the essay 
 | **P5** | T. Roosevelt, Taft, Wilson, Harding, Coolidge, Hoover (6) — **DONE (2026-08-02)** | State Dept. Office of the Historian; NARA DocsTeach |
 | **P6** | F. D. Roosevelt, Truman, Eisenhower, Kennedy, L. B. Johnson, Nixon (6) — **DONE (2026-08-02)** | the Eisenhower Presidential Library (NARA); Office of the Historian; NARA milestone documents |
 | **P7** | Ford, Carter, Reagan, G. H. W. Bush, Clinton, G. W. Bush, Obama, Trump, Biden (9) | presidential libraries; NARA; congressional record |
-| **P-topup** | P1–P5's thirty terms (6+5+6+7+6) — **OWED, opened by P6** | the Miller Center's Fast Facts landing pages, one citation per term, for the ordinal and the term dates their *Life in Brief* markers do not carry |
+| **P-topup** | P1–P5's thirty terms (6+5+6+7+6) — **DONE (2026-08-02)**, no corrections | the Miller Center's Fast Facts landing pages, one citation per term, for the ordinal and the term dates their *Life in Brief* markers do not carry |
 
 ---
 

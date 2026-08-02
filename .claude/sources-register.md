@@ -7863,3 +7863,88 @@ U.S. Environmental Protection Agency, “The Origins of EPA,” https://www.epa.
 - Kept unmarked, uncontradicted, in nothing opened: the description of Roosevelt's illness as
   "a paralytic illness" rather than polio — the essay says polio, the term hedges, and the hedge is the
   more careful of the two given the modern argument, so it stands as written.
+
+## Batch P-topup — the thirty presidential opening sentences (GLOSSARY, 2026-08-02)
+
+Thirty terms, one citation each, **no new coverage** — every one of them was already at the bar. This batch
+exists because **P6 found that the claim was resting on a page that does not make it**, and it is the first
+time the thirty ordinals and sixty term dates have been checked against a source that states them.
+
+**Nothing needed correcting. All thirty held.** That is the batch's result and it is worth as much as a
+correction: after twelve batches of finding something wrong in almost every one, the sentence every
+presidential term opens with turns out to have been right thirty times over.
+
+### The source
+Miller Center of Public Affairs, University of Virginia, “<President>,” Fast Facts,
+https://millercenter.org/president/<slug>. [Open access]
+- opened: 2026-08-02 (all thirty landing pages fetched and parsed, 200 each)
+- each carries a **Fast Facts** block with `President Number`, `Inauguration Date` and `Date Ended`. Measured
+  values, president by president:
+
+| # | president | inaugurated | ended |
+|---|---|---|---|
+| 1 | Washington | April 30, 1789 | March 4, 1797 |
+| 2 | J. Adams | March 4, 1797 | March 4, 1801 |
+| 3 | Jefferson | March 4, 1801 | March 4, 1809 |
+| 4 | Madison | March 4, 1809 | March 4, 1817 |
+| 5 | Monroe | March 4, 1817 | March 4, 1825 |
+| 6 | J. Q. Adams | March 4, 1825 | March 4, 1829 |
+| 7 | Jackson | March 4, 1829 | March 4, 1837 |
+| 8 | Van Buren | March 4, 1837 | March 4, 1841 |
+| 9 | W. H. Harrison | March 4, 1841 | April 4, 1841 |
+| 10 | Tyler | April 4, 1841 | March 4, 1845 |
+| 11 | Polk | March 4, 1845 | March 5, 1849 |
+| 12 | Taylor | March 5, 1849 | July 9, 1850 |
+| 13 | Fillmore | July 10, 1850 | March 4, 1853 |
+| 14 | Pierce | March 4, 1853 | March 4, 1857 |
+| 15 | Buchanan | March 4, 1857 | March 4, 1861 |
+| 16 | Lincoln | March 4, 1861 | April 15, 1865 |
+| 17 | A. Johnson | April 15, 1865 | March 4, 1869 |
+| 18 | Grant | March 4, 1869 | March 5, 1877 |
+| 19 | Hayes | March 5, 1877 | March 4, 1881 |
+| 20 | Garfield | March 4, 1881 | September 19, 1881 |
+| 21 | Arthur | September 19, 1881 | March 4, 1885 |
+| 22 / 24 | Cleveland | March 4, 1885 / March 4, 1893 | March 4, 1889 / March 4, 1897 |
+| 23 | B. Harrison | March 4, 1889 | March 4, 1893 |
+| 25 | McKinley | March 4, 1897 | September 14, 1901 |
+| 26 | T. Roosevelt | September 14, 1901 | March 4, 1909 |
+| 27 | Taft | March 4, 1909 | March 4, 1913 |
+| 28 | Wilson | March 4, 1913 | March 4, 1921 |
+| 29 | Harding | March 4, 1921 | August 2, 1923 |
+| 30 | Coolidge | August 3, 1923 | March 4, 1929 |
+| 31 | Hoover | March 4, 1929 | March 4, 1933 |
+
+- **Cleveland's block carries BOTH terms** — two `Inauguration Date` values, two `Date Ended` values and two
+  `President Number` values, 22 and 24. A parser that takes the first line after each label silently loses
+  the second presidency; read the whole block
+- used by: all thirty P1–P5 terms
+
+### What the Fast Facts settles beyond the ordinal
+The marker on sentence 1 turns out to cover more than the number, because `Date Ended` for a president who
+died in office **is his death date**, and the successor's `Inauguration Date` is the same day or the next:
+- "in office from 1849 **until his death in 1850**" (Taylor, ended July 9, 1850); "until his assassination
+  in 1865" (Lincoln, April 15); "until his assassination in 1901" (McKinley, September 14); "until his death
+  in 1923" (Harding, August 2)
+- and every succession claim in the set: **Tyler** starts on Harrison's last day, **Fillmore** the day after
+  Taylor's, **Andrew Johnson** on Lincoln's, **Arthur** on Garfield's, **Coolidge** the day after Harding's
+
+### Two earlier findings resolved rather than merely recorded
+- **P2's Harrison discrepancy is settled, and the term was right.** P2 logged that the White House
+  Historical Association gives "thirty-one days" and the Miller Center's essay "thirty-two", and chose 31.
+  The Miller Center's **own Fast Facts** gives March 4 → April 4, 1841 — **exactly 31 days**. So the
+  institution contradicts itself, its structured data agrees with the WHHA, and the term's number stands
+  with a citation behind it for the first time.
+- **P4's Garfield slip is confirmed from a second direction.** P4 logged that the Garfield *Life in Brief*
+  dates the shooting "a mere 100 days after he assumed office" when March 4 → July 2 is 120, and that the
+  term says "about six months" for the whole term instead. Fast Facts gives March 4 → **September 19, 1881**
+  — 199 days, about six and a half months. The term is right and the essay's round number is wrong.
+
+### NOT CITED (batch P-topup)
+- **Nothing was added beyond the one citation per term**, and no prose changed in any of the ten languages.
+  The existing markers were preserved exactly: each term's map was read back out of its own marked text,
+  the new source number appended to sentence 1, and the text re-marked from the stripped original — so a
+  diff of this batch is markers and a citation, nothing else.
+- Claims in these opening sentences that Fast Facts does **not** carry, and which remain as they were:
+  Taft's chief justiceship "from 1921 to 1930" and his being "the only person to hold both offices" (a
+  Supreme Court fact, recorded unmarked in P5), and Theodore Roosevelt "taking office at 42 as the youngest
+  person ever to hold it", which is cited to his *Life Before the Presidency* essay.

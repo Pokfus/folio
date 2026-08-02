@@ -140,7 +140,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   cannot see it**, since it counts citations rather than covered claims. The fix was already published:
   **the Miller Center's LANDING page for each president carries a Fast Facts block** with `President
   Number`, `Inauguration Date` and `Date Ended` outright — reach for it whenever a term opens on an
-  ordinal. P6's own two corrections are both `Dwight_D._Eisenhower` and both from the Eisenhower
+  ordinal. **The P-topup batch then cleared that debt the same day, and found nothing wrong**: the thirty
+  ordinals and sixty term dates of P1–P5, checked for the first time against a page that states them, were
+  right thirty times over — the one place in the pass where the prose needed no correction at all. It also
+  RESOLVED two earlier findings rather than merely recording them: the Miller Center's Fast Facts gives
+  Harrison March 4 → April 4, 1841, **exactly the 31 days** P2 chose over its own essay's "thirty-two", and
+  gives Garfield March 4 → September 19, 1881, confirming the term's "about six months" against the essay's
+  wrong "100 days". One parsing trap went with it — **Cleveland's block carries two of everything** (22 and
+  24, both terms), so a script taking the first value after each label silently loses half his presidency.
+  P6's own two corrections are both `Dwight_D._Eisenhower` and both from the Eisenhower
   Presidential Library: **"Supreme Allied Commander in Europe" is the NATO post he took in December 1950**,
   where his 1944 command was Supreme Commander, Allied Expeditionary Forces; and "kept military spending in
   check" is refuted by the cited essay, which says national security spending "never fell below 50 percent
