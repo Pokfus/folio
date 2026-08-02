@@ -2,8 +2,8 @@
 
 The glossary was **333 terms and not one of them carried a source**. `window.GLOSSARY_SOURCES` was an empty
 table; the fold at the foot of a gloss popup never appeared. This is the plan for filling it. Not part of
-the site. **As of 2026-08-02, 298 of the 333 are cited and at the bar** — batches G1–G11, P1–P7 with the P-topup, and C0–C12 with D1, five of which also
-corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 298 carry in-text
+the site. **As of 2026-08-02, 329 of the 333 are cited and at the bar** — batches G1–G11, P1–P7 with the P-topup, and C0–C12 with D1 and D2, five of which also
+corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 329 carry in-text
 markers, in all ten languages, after the rule changed from optional to required on 2026-08-01 (see "What
 is different from the card pass"). G5 also settled the start of prehistory across the glossary, the deck
 and every date line: **2.6 Mya**, with the disputed 3.3 Ma Lomekwi claim hedged rather than adopted; G6
@@ -172,7 +172,7 @@ the way batch 21 recorded the Anubis walls, so the next pass does not re-run the
 | the poles, the desert, the sea and two names | 7 | Phase 1 · batch G10 — **done** |
 | the continents, the island and the constants | 10 | Phase 1 · batch G11 — **done** |
 | US presidents | 45 | Phase 2 · batches P1–P7 — **ALL DONE (2026-08-02)** |
-| countries and states of the world | 197 | Phase 3 · batches C0–C12 — **C0–C12 and D1 done (2026-08-02)**; 15 European and 35 Asian terms deferred with reasons (see the C3 and C5 logs); **Africa and Oceania are COMPLETE** |
+| countries and states of the world | 197 | Phase 3 · batches C0–C12 — **C0–C12, D1 and D2 done (2026-08-02)**; 15 European and 35 Asian terms deferred with reasons (see the C3 and C5 logs); **Africa and Oceania are COMPLETE** |
 | **total** | **333** | |
 
 ## Order, and why
@@ -2466,12 +2466,54 @@ to any term that turns up in the same state.
 Dominican Republic, **`Monaco` is listed by the World Bank at 75 km²** against the true ~2 — the third
 outright error in that series, and the third time C11's plausibility check has paid.
 
+## Batch D2 log — the Asian deferrals, cleared; four terms left in the whole glossary (2026-08-02)
+
+**DONE.** Thirty-one terms — China, Japan and every remaining Asian state but Taiwan — 62 citations,
+**seventeen corrections across fifteen terms**. Coverage 298 → **329 of 333**. One deferred: Taiwan.
+
+**Thirty of the thirty-one ship on the same two fetches.** C5 concluded that "Asia outside the
+Commonwealth has no bloc profile" and deferred thirty-two terms on it. That was true and is now beside
+the point: UNdata plus `history.state.gov/countries/<slug>` carries all of them, exactly as C8 found for
+non-Commonwealth Africa. Only `Bhutan` has no page in the guide and ships on UNdata plus the World Bank's
+area series — C12's `Brazil` pattern, figures alone with the third sentence unmarked. Slugs: **Myanmar is
+`burma`**; Taiwan and Bhutan have no page.
+
+### C5's UAE deferral resolved, by the rule C5 itself wrote
+C5 deferred `United_Arab_Emirates` on a 17% area gap — UNdata's 71,024 km² against the term's 83,600 —
+calling it "the widest in Phase 3" and applying its own new rule: never correct on one source. **The
+World Bank gives 98,648 km²**, so the term sits *between* the two and stands. The instinct was right; the
+second source arrived four batches later. Nothing about the term needed changing.
+
+### The diagnostic withheld a second time, and again on a contested population
+Twelve populations were corrected, every one an earlier point on the same series: **`Yemen` 34 → 42
+million**, its 2018 value and the largest population correction of the pass; `Syria` 23 → 26 (2023);
+`UAE` 10 → 11 (2022); `Afghanistan` 42 → 44; `Iran` 89 → 92; `Kazakhstan` 20 → 21; `Tajikistan` 10 → 11;
+`Turkmenistan` 7 → 7.6; `Oman` 5 → 5.5; `Jordan` 11 → 12; `Cambodia` 17 → 18; `Bahrain` 1.5 → 1.6.
+
+**`Lebanon` was left alone.** Its "roughly 5.5 million" sits 6.4% below both sources — a gap that would
+have been corrected in any other batch — but the series **never passes through 5.5 million**: 6.5 million
+in 2015, down to 5.7 in 2020–22, back to 5.8. Contested, not stale. After C11's Cuba this is the second
+withholding, and both are countries whose population is argued about rather than merely counted.
+
+### `Taiwan` is deferred for a reason worth stating precisely
+It has **no UNdata profile** (a 500, as Kosovo's `xk` gives), **no page in the recognition guide** and
+**no World Bank series**. All three of Phase 3's sources are organised around UN membership, and a state
+outside the UN system is invisible to every one of them. This is not a research failure that more
+searching fixes — it needs a different class of source, a government statistics office or a work about
+the island rather than about states.
+
+### Five areas corrected, and the widest source disagreement of the pass
+`Indonesia` 1,904,569 → **1,910,931**, `Iraq` 438,317 → **435,052**, `Jordan` 89,342 → **89,318**,
+`Nepal` 147,516 → **147,181**, `Tajikistan` 143,100 → **141,400**. Left alone as inside the spread:
+**`Iran`, whose two sources differ by 7%** — UNdata 1,630,848 against the World Bank's 1,745,150 — with
+the term's 1,648,195 between them.
+
 ### Batches C1–C12 · by region
 
 | batch | region | terms | |
 |---|---|---|---|
 | **C1–C3 + D1 DONE** | Europe | 47 | Albania → Vatican City, plus Greece, France, Georgia, Denmark, Russia, less the three in C0. **C1 DONE (2026-08-02)**: Austria, Belgium, Bulgaria, Croatia, Cyprus, Czech Republic, Denmark, Estonia, Finland, Germany, Hungary, Ireland, Italy, Latvia, Lithuania — **Greece deferred to C2**, its description carrying no figure either source states. **C2 DONE (2026-08-02)**: Luxembourg, Malta, Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, Sweden — **six deferred to C3**: Greece again, Albania (UNdata contradicts its population), and Iceland, Norway, Switzerland, Andorra (UNdata alone is one source; `efta.int` and `coe.int` are 403 here) |
-| **C4–C6** | Asia | 43 | Afghanistan → Yemen, plus India, China, Japan, less State of Palestine |
+| **C4–C6 + D2 DONE** | Asia | 43 | Afghanistan → Yemen, plus India, China, Japan, less State of Palestine |
 | **C7–C9 DONE** | Africa | 53 | Algeria → Zimbabwe, plus Kenya and Tanzania, less South Sudan. **C8 DONE (2026-08-02)**: Algeria, Angola, Benin, Burkina Faso, Burundi, Central African Republic, Chad, both Congos, Djibouti, Egypt, Equatorial Guinea, Guinea, Guinea-Bissau — fourteen on the two-fetch recipe, thirteen stale populations updated; **Comoros deferred** (its area counts Mayotte and the guide gives a 1977 recognition against a 1975 independence). **C9 DONE (2026-08-02)**: Comoros, Ethiopia, Ivory Coast, Liberia, Libya, Madagascar, Mali, Mauritania, Niger, São Tomé and Príncipe, Senegal, Sudan, Tunisia, Zimbabwe — **AFRICA COMPLETE, 56 of 56**, with Libya and Comoros unblocked by the World Bank's area series. **C7 DONE (2026-08-02)**: Eswatini, Eritrea, Gabon, The Gambia, Kenya, Lesotho, Malawi, Morocco, Somalia, Tanzania, Togo — the rest of Commonwealth Africa plus the first four carried by the Office of the Historian's recognition guide. **Three deferred**: Egypt, Ethiopia and Libya, each a figure diverging from UNdata with no second profile |
 | **C10 DONE** | Oceania | 13 | **DONE (2026-08-02)**: all thirteen — Australia, New Zealand, Papua New Guinea, Fiji, Solomon Islands, Vanuatu, Samoa, Tonga, Kiribati, Nauru, Palau, Marshall Islands, Micronesia — most on THREE sources, four corrections, nothing deferred |
 | **C11–C12** | the Americas | 35 | Canada → Uruguay, plus Brazil. **C11 DONE (2026-08-02)**: North America, Central America and the Caribbean — twenty terms, eight corrections; **Mexico, Costa Rica and Nicaragua deferred**, the recognition guide dating by U.S. recognition rather than independence . **C12 DONE (2026-08-02)**: all twelve South American states, five corrections, nothing deferred — the guide's summary paragraph gives the independence year on nine of the twelve |

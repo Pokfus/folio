@@ -9662,3 +9662,82 @@ iceland, liechtenstein, moldova, monaco, montenegro, serbia, switzerland, turkey
 
 **Cape Verde's guide slug is `cape-verde`**, not `cabo-verde` — the reverse of the UNdata code `cv`
 labelled "Cabo Verde", and the same naming split that hid the term in the first place.
+
+---
+
+## Batch D2 — the Asian deferrals, cleared; Asia complete but for Taiwan (2026-08-02)
+
+Thirty-one terms cited, 62 citations, **seventeen corrections across fifteen terms**. Coverage 298 → 329
+of 333. One deferred: Taiwan. **Four terms remain uncited in the whole glossary.**
+
+**China · Japan · Afghanistan · Bahrain · Bhutan · Brunei · Cambodia · Indonesia · Iran · Iraq · Jordan ·
+Kazakhstan · Kuwait · Kyrgyzstan · Laos · Lebanon · Mongolia · Myanmar · Nepal · Oman · Philippines ·
+Qatar · Saudi Arabia · Syria · Tajikistan · Thailand · Turkmenistan · United Arab Emirates · Uzbekistan ·
+Vietnam · Yemen.**
+
+### Thirty of thirty-one on the same two fetches
+C5 concluded that "Asia outside the Commonwealth has no bloc profile" and deferred thirty-two terms on
+it. That was true and is now beside the point: **UNdata plus `history.state.gov/countries/<slug>` carries
+all of them**, exactly as C8 found for non-Commonwealth Africa. Only `Bhutan` has no page in the guide
+and it ships on UNdata plus the World Bank's area series instead — the `Brazil` pattern of C12, figures
+alone with the third sentence unmarked.
+
+**Two slugs worth writing down**: Myanmar is **`burma`** and Laos is `laos` (not `lao-pdr`). Taiwan and
+Bhutan have no page at all.
+
+### C5's UAE deferral is resolved, and by the rule C5 itself wrote
+C5 deferred `United_Arab_Emirates` because UNdata gave **71,024 km²** against the term's 83,600 — a 17%
+gap, "the widest in Phase 3" — with no second source to break the tie. The World Bank gives **98,648
+km²**, so the term's figure sits **between the two**, and by C9's spread rule it stands. C5's instinct
+(never correct on one source) was right; what was missing was the second source, which C9 supplied four
+batches later.
+
+### The population diagnostic ran ten times and withheld once
+Twelve populations were corrected, every one diagnosed by C8's method as an earlier point on the same
+series: **`Yemen` 34 → 42 million** (its 2018 value, the largest population correction of the pass),
+`Syria` 23 → 26 (2023), `United_Arab_Emirates` 10 → 11 (2022), `Afghanistan` 42 → 44 (2024), `Iran` 89 →
+92 (2022), `Kazakhstan` 20 → 21 (2022), `Tajikistan` 10 → 11 (2021), `Turkmenistan` 7 → 7.6 (2021),
+`Oman` 5 → 5.5 (2023), `Jordan` 11 → 12, `Cambodia` 17 → 18, `Bahrain` 1.5 → 1.6.
+
+**`Lebanon` was left alone** — and it is the batch's most interesting figure. The term says "roughly 5.5
+million" against 5,849 thousand at UNdata and 5,849,421 at the World Bank, a 6.4% gap that in any other
+batch would have been corrected. But the series **never passes through 5.5 million**: it runs 6.5 million
+in 2015 down to 5.7 in 2020–22 and back to 5.8. By C8's own test the figure is **contested, not stale**,
+and Lebanon's population is genuinely disputed after a decade of Syrian displacement and emigration. This
+is the second time the diagnostic has withheld, after C11's Cuba, and both times on a country whose
+population is argued about rather than merely counted.
+
+### Five areas outside the spread
+`Indonesia` 1,904,569 → **1,910,931** (below both sources), `Iraq` 438,317 → **435,052**, `Jordan` 89,342
+→ **89,318**, `Nepal` 147,516 → **147,181**, `Tajikistan` 143,100 → **141,400**. Left alone as inside the
+spread: `Iran` (1,648,195 between UNdata's 1,630,848 and the World Bank's 1,745,150 — a 7% spread between
+the two sources, the widest in the batch), `Bahrain`, `Qatar`, `Saudi Arabia`, `Oman`, `Turkmenistan`,
+`Thailand`, `Vietnam` and the UAE.
+
+### DEFERRED — `Taiwan`, and it is a different kind of gap
+Taiwan has **no UNdata profile** (`data.un.org/en/iso/tw.html` returns 500, as `xk` does for Kosovo),
+**no page in the recognition guide**, and **no World Bank series**. All three of Phase 3's sources are
+organised around UN membership, and a state outside the UN system is invisible to every one of them. This
+is not a research failure that more searching would fix; it needs a different class of source — a
+government statistics office, or a work about the island rather than about states. Its C5 deferral
+therefore stands, now for a reason that is precisely stated.
+
+### Recorded, not corrected
+- `Cambodia` and `Laos` — the guide gives the French protectorate for both (which the terms claim) but
+  dates independence to the **1949 French Union** and U.S. recognition in **1950**, against the terms'
+  1953. Marked for the protectorate; the year is not carried.
+- `Lebanon` — the guide says the United States "determined that Lebanon achieved effective independence
+  in **1944**" against the term's 1943. The 1922 French Mandate is carried exactly.
+- `Kuwait` (term 4.9 million between UNdata's 5,026 thousand and the World Bank's 4,865,298) and
+  `Saudi Arabia` (34 million against 34,566 thousand and 36,973,555) — the two sources disagree by 3% and
+  7% respectively and the terms sit inside; left.
+- `Afghanistan` 652,867 km², `Kazakhstan` 2,724,900, `Kyrgyzstan` 199,951, `Uzbekistan` 448,978 — each
+  within a handful of km² of both sources, inside the World Bank's rounding; left.
+
+### Verified citations (batch D2)
+`data.un.org/en/iso/<cc>.html` (cn, jp, af, bh, bt, bn, kh, id, ir, iq, jo, kz, kw, kg, la, lb, mn, mm,
+np, om, ph, qa, sa, sy, tj, th, tm, ae, uz, vn, ye), `history.state.gov/countries/<slug>` (china, japan,
+afghanistan, bahrain, brunei, cambodia, indonesia, iran, iraq, jordan, kazakhstan, kuwait, kyrgyzstan,
+laos, lebanon, mongolia, burma, nepal, oman, philippines, qatar, saudi-arabia, syria, tajikistan,
+thailand, turkmenistan, united-arab-emirates, uzbekistan, vietnam, yemen) and
+`api.worldbank.org/v2/country/BTN/indicator/AG.SRF.TOTL.K2`.
