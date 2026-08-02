@@ -92,7 +92,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `docs/glossary-citation-plan.md` — the batch plan for **citing the 333 glossary terms**, the sibling of
   the card plan above. The bar is **at least 2 citations per term** (a description is three sentences, where
   a card's abstract is ten), and the acceptable sources are academic, museum, government or reputable
-  NGO/IGO. **Batches G1–G11, P1–P7 (COMPLETING PHASE 2) and C0–C10 have shipped — 247 of the 333 terms are cited and at the bar, all with
+  NGO/IGO. **Batches G1–G11, P1–P7 (COMPLETING PHASE 2) and C0–C11 have shipped — 267 of the 333 terms are cited and at the bar, all with
   in-text markers in all ten languages. G11 COMPLETED Phase 1** (all 91 of its prehistory, palaeoanthropology,
   geological-time, peoples and physical-geography terms) **and P1 opened Phase 2** with the first six
   presidents, on the Miller Center's presidential essays; **P2 took it to Polk, P3 to Andrew Johnson, P4
@@ -382,6 +382,34 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   Commonwealth's 30,407 the outlier against ~28,896, so its citation carries only the third sentence); and
   **`Palau`'s capital** (the term's Ngerulmud against UNdata's Melekeok — the seat of government against
   the state it stands in, recorded not corrected). Micronesia's guide slug is simply **`micronesia`**.
+  **C11 (North and Central America and the Caribbean, twenty terms) found the sharpest limit on the
+  recognition guide: it dates by U.S. RECOGNITION, and in Spanish America that is not independence.**
+  Mexico was recognised in **1822** against independence in 1821, the Central American states through the
+  Federation in **1824**, Haiti in **1862** against 1804, the Dominican Republic in **1866** against 1844.
+  Where a page happens to state the independence year separately it still works (Guatemala's "Following
+  its independence from Spain in 1821", Haiti's "won independence from France in 1804"); where it does
+  not, it cannot carry the term's date, and **grepping the saved HTML for the year is the two-second
+  check**. `Mexico`, `Costa_Rica` and `Nicaragua` are deferred on exactly that — and **`Costa_Rica` is
+  the one not to paper over**, since its page does not merely omit 1821 but says Costa Rica "did not
+  formally declare its independence until **August 30, 1848**"; both dates are defensible and the term
+  needs a prose reconciliation rather than a citation. **The United States has no page in the guide** (it
+  is written from the United States outward), so its third sentence is carried by **NARA's Milestone
+  Document for the Declaration of Independence** and the guide's **Treaty of Paris, 1783** Milestone.
+  C11's second finding is a caution on C9's tool: **the World Bank's area series contains outright
+  ERRORS** — Canada at **15,634,410 km²** against the true 9,984,670, and the Dominican Republic at
+  **146,839** from 2019 against 48,671 with its own 2018 value at 48,670 — so **apply a plausibility
+  check before letting it adjudicate**. And the population diagnostic **said "do not touch" for the first
+  time**: `Cuba`'s term says 9.4 million against UNdata's 10,937 thousand, a 14% gap, but the World Bank
+  series never passes through 9.4 million (11.23 m in 2018 down to 10.94 m in 2025), so by C8's own test
+  the figure is **contested, not stale**, and was left alone. Three more where UNdata is the outlier and
+  the term stands: `Trinidad_and_Tobago` (1,511 thousand against 1.37–1.4 million at the World Bank and
+  the Commonwealth), `Canada` and `United_States`, whose terms sit with the national estimates. Its eight
+  corrections are five stale populations, **`Barbados` 270,000 → 280,000** (three sources above the term)
+  and **`Saint_Vincent_and_the_Grenadines` 110,000 → 100,000** — the C10 falling-population pattern *with
+  the corroboration attached*, the Commonwealth's 2022 figure of 110,900 showing the term was right when
+  written — plus one area, `Panama` 75,417 → **75,320**. Slug note: **the two sites spell the same states
+  differently** (`st-kitts-and-nevis` at the Commonwealth against `saint-kitts-nevis` at the guide), and
+  both publish an index worth grepping.
   P3 also refines the `senate.gov` warning:
   its **impeachment** pages are real, its party-history and vice-president paths are the shell, and **the
   shell is a constant 37,523 bytes**, so a size check tells them apart instantly. Three access findings from it govern the rest of Phase 2 and Phase 3:
@@ -1028,14 +1056,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     stripe): one is derived from the data, the other is an editor's private marker.
   · `sup` + `class="fn"` + `data-fn` are in the sanitizer allowlists, so a community deck can use markers too.
   · **The Atlas table still ships EMPTY; the glossary has begun.** `country-sources.js` has no entries at all.
-    **`GLOSSARY_SOURCES` carries 247 of the 333 terms** (batches G1–G11, P1–P7 and C0–C10, 2026-08-01/02 — the genus, species, specimen,
+    **`GLOSSARY_SOURCES` carries 267 of the 333 terms** (batches G1–G11, P1–P7 and C0–C11, 2026-08-01/02 — the genus, species, specimen,
     stone-industry, three-age, periodisation, geological-time, type-site, way-of-life and discipline terms, plus the
     Indigenous-peoples group, its odds and ends, the poles / desert / ocean / two historiographic names, the six
     continents with `Sicily`, `Equator` and the two hemispheres — which completes Phase 1 — and the first six
     US presidents, Jackson to Polk, Taylor to Andrew Johnson, Grant to McKinley, Theodore Roosevelt to
     Hoover, Franklin D. Roosevelt to Nixon, and Ford to Biden — **all 45** — plus C0's six pilot
     countries, C1–C2's twenty-five EU member states, C3's four non-EU European states and C4's seven
-    Commonwealth states in Asia, C5's four more, C6's thirteen African Commonwealth states, C7's eleven — the rest of Commonwealth Africa plus the first terms carried by the Office of the Historian's recognition guide — C8's fourteen non-Commonwealth African states and C9's last fourteen, which COMPLETE AFRICA at 56 of 56, and C10's thirteen, which COMPLETE OCEANIA), against
+    Commonwealth states in Asia, C5's four more, C6's thirteen African Commonwealth states, C7's eleven — the rest of Commonwealth Africa plus the first terms carried by the Office of the Historian's recognition guide — C8's fourteen non-Commonwealth African states and C9's last fourteen, which COMPLETE AFRICA at 56 of 56, C10's thirteen, which COMPLETE OCEANIA, and C11's twenty across North and Central America and the Caribbean), against
     a bar of **`GLOSS_SRC_TARGET` (2)**, which is lower than a card's five because a description is three sentences
     where an abstract is ten; `docs/glossary-citation-plan.md` is the plan for the rest and
     `node .claude/gloss-source-audit.js` says where it stands. The UI, the deltas and the pipeline are in place;
@@ -2558,8 +2586,8 @@ and its sources, and were fact-checked rather than referenced. A batched pass is
 reports both on every run, `node .claude/source-audit.js` reports them per card, and the Edit page's card list
 shows each card's coverage as an amber or red chip) — and **a second pass has started on the glossary**, batched
 through `docs/glossary-citation-plan.md` at a bar of **2 citations per term** (`GLOSS_SRC_TARGET`), with
-`node .claude/gloss-source-audit.js` and the glossary list's own coverage chip reporting it; **247 of 333 terms
-are cited** (batches G1–G11, which complete Phase 1; P1–P7, which complete Phase 2 — all 45 US presidents; and C0–C10, the Phase 3 pilot, twenty-five EU states, four non-EU European states, eleven Asian states, **all fifty-six African ones and all of Oceania**). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
+`node .claude/gloss-source-audit.js` and the glossary list's own coverage chip reporting it; **267 of 333 terms
+are cited** (batches G1–G11, which complete Phase 1; P1–P7, which complete Phase 2 — all 45 US presidents; and C0–C10, the Phase 3 pilot, twenty-five EU states, four non-EU European states, eleven Asian states, **all fifty-six African ones, all of Oceania and twenty of the Americas**). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
 Two rules that pass turned up at once. **`add-sources.js` writes only the ENGLISH description**, so a term whose
 prose is corrected needs an `add-lang.js` run per language in the same batch or nine languages keep the old
 claim; and **a correction does not travel between surfaces** — `Homo_habilis` still carried the 2.3–1.5 Mya span

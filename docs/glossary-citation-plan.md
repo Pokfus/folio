@@ -2,8 +2,8 @@
 
 The glossary was **333 terms and not one of them carried a source**. `window.GLOSSARY_SOURCES` was an empty
 table; the fold at the foot of a gloss popup never appeared. This is the plan for filling it. Not part of
-the site. **As of 2026-08-02, 247 of the 333 are cited and at the bar** — batches G1–G11, P1–P7 with the P-topup, and C0–C10, five of which also
-corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 247 carry in-text
+the site. **As of 2026-08-02, 267 of the 333 are cited and at the bar** — batches G1–G11, P1–P7 with the P-topup, and C0–C11, five of which also
+corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 267 carry in-text
 markers, in all ten languages, after the rule changed from optional to required on 2026-08-01 (see "What
 is different from the card pass"). G5 also settled the start of prehistory across the glossary, the deck
 and every date line: **2.6 Mya**, with the disputed 3.3 Ma Lomekwi claim hedged rather than adopted; G6
@@ -172,7 +172,7 @@ the way batch 21 recorded the Anubis walls, so the next pass does not re-run the
 | the poles, the desert, the sea and two names | 7 | Phase 1 · batch G10 — **done** |
 | the continents, the island and the constants | 10 | Phase 1 · batch G11 — **done** |
 | US presidents | 45 | Phase 2 · batches P1–P7 — **ALL DONE (2026-08-02)** |
-| countries and states of the world | 197 | Phase 3 · batches C0–C12 — **C0–C10 done (2026-08-02)**; 15 European and 35 Asian terms deferred with reasons (see the C3 and C5 logs); **Africa and Oceania are COMPLETE** |
+| countries and states of the world | 197 | Phase 3 · batches C0–C12 — **C0–C11 done (2026-08-02)**; 15 European and 35 Asian terms deferred with reasons (see the C3 and C5 logs); **Africa and Oceania are COMPLETE** |
 | **total** | **333** | |
 
 ## Order, and why
@@ -2289,6 +2289,77 @@ gap in the batch — `Marshall Islands`' **67 nuclear tests at Bikini and Enewet
 which the recognition guide does not mention at all, giving the Compact and continued U.S. use of
 Kwajalein instead.
 
+## Batch C11 log — North America, Central America and the Caribbean (2026-08-02)
+
+**DONE.** Twenty terms — Canada, United States, Guatemala, Belize, El Salvador, Honduras, Panama, Cuba,
+Haiti, Dominican Republic, Jamaica and the nine Commonwealth Caribbean states — 44 citations, **eight
+corrections**. Coverage 247 → **267 of 333**. Three deferred: Mexico, Costa Rica, Nicaragua.
+
+### The finding: the recognition guide dates by RECOGNITION, and in Spanish America that is not independence
+
+The guide carried Africa and Oceania because there recognition followed independence within days. In this
+region it lags by years or decades — Mexico recognised in **1822** against independence in 1821, the
+Central American states through the Federation in **1824** and individually in 1844–1853, Haiti in
+**1862** against 1804, the Dominican Republic in **1866** against 1844. **Where a page happens to state
+the independence year separately it still works** (Guatemala's "Following its independence from Spain in
+1821", Honduras's "its 1821 independence from Spain", Haiti's "won independence from France in 1804",
+the Dominican Republic's "declared itself an independent nation from neighboring Haiti in 1844"), **and
+where it does not, it cannot carry the term's date**. Grepping the saved HTML for the year is the
+two-second check: `oh-Mexico.html`, `oh-Costa_Rica.html` and `oh-Nicaragua.html` contain no "1821" at all.
+
+**`Costa Rica` is the case that must not be papered over**: its page does not merely omit 1821, it says
+Costa Rica "did not formally declare its independence until **August 30, 1848**". Both dates are
+defensible — 1821 is independence from Spain, which Costa Rica keeps as its national day, and 1848 the
+declaration of a separate republic — but citing that page beside "1821" would be exactly the selective
+quotation P2 warned about. **It needs a prose reconciliation, not a citation**, so it is deferred with
+`Mexico` and `Nicaragua`. For Nicaragua a route exists and was deliberately left for later: the guide's
+**El Salvador** page states 1821 for "the other Central American provinces" as a group, which does cover
+it — but a citation headed "…: El Salvador" sitting on the Nicaragua term reads like a mistake, and that
+is a judgement worth making deliberately rather than in passing.
+
+**The United States has no page in the guide** — it is written from the United States outward — so its
+third sentence is carried by **NARA's Milestone Document for the Declaration of Independence (1776)** and
+**the guide's Milestone on the Treaty of Paris, 1783**, which speaks of "a settlement that would provide
+the thirteen states with some measure of American independence".
+
+### The World Bank's area series contains outright errors
+C9 made `AG.SRF.TOTL.K2` an independent second source for area. This batch found it is not always a
+*correct* one: **Canada is listed at 15,634,410 km²** against the true 9,984,670, and **the Dominican
+Republic at 146,839 km²** from 2019 onwards against 48,671 — with its own 2018 value at 48,670, so the
+series broke partway through. Neither is a land-versus-total or disputed-territory convention; they are
+wrong. **Apply a plausibility check before letting it adjudicate.** Where it agreed with the term against
+UNdata (Libya, Comoros in C9; the Bahamas here) it was right; where it disagrees with everything, the term
+stands.
+
+### Corrections
+Five stale populations by C8's method — Guatemala 18 → 19 m, Honduras 10 → 11 m, Haiti 11 → 12 m,
+Dominican Republic 11 → 12 m, Belize 410,000 → 420,000. Two more where the term was simply low or the
+population is falling: **Barbados 270,000 → 280,000** (283,000 at UNdata, 282,623 at the World Bank and
+287,370 at the Commonwealth — all three above the term) and **Saint Vincent and the Grenadines 110,000 →
+100,000**, which is the C10 Marshall Islands pattern *with the corroboration attached*, since the
+Commonwealth's 2022 figure of 110,900 shows the term's number was right when written. And one area:
+**Panama 75,417 → 75,320 km²**, which UNdata and the World Bank both give.
+
+### The diagnostic said "do not touch" for the first time
+**`Cuba`.** The term says 9.4 million where UNdata says 10,937 thousand — a 14% gap, the kind that has
+produced a correction in every batch since C8. But the World Bank series **never passes through 9.4
+million**: it runs 11.23 million in 2018 down to 10.94 million in 2025. By C8's own test the figure is
+**contested, not stale** — Cuba's population is genuinely disputed after the emigration of the 2020s — so
+it was left alone and recorded. That is what the rule was for, and it is the first time it has fired in
+the withholding direction.
+
+Two more where UNdata is the outlier and the term stands: **Trinidad and Tobago** (UNdata 1,511 thousand
+against the World Bank's 1,367,764 and the Commonwealth's "1.4 million"), and **Canada** and the **United
+States**, where UNdata runs above the national estimates the World Bank uses and the terms sit with the
+World Bank.
+
+### A slug note that cost several 404s
+**The two sites spell the same states differently.** The Commonwealth writes `st-kitts-and-nevis`,
+`st-vincent-and-grenadines` and `saint-lucia`; the recognition guide writes `saint-kitts-nevis`,
+`saint-vincent-grenadines`, `saint-lucia` and `antigua-barbuda`. Both publish an index —
+`thecommonwealth.org/our-member-countries` and `history.state.gov/countries` — and grepping it beats
+guessing.
+
 ### Batches C1–C12 · by region
 
 | batch | region | terms | |
@@ -2297,7 +2368,7 @@ Kwajalein instead.
 | **C4–C6** | Asia | 43 | Afghanistan → Yemen, plus India, China, Japan, less State of Palestine |
 | **C7–C9 DONE** | Africa | 53 | Algeria → Zimbabwe, plus Kenya and Tanzania, less South Sudan. **C8 DONE (2026-08-02)**: Algeria, Angola, Benin, Burkina Faso, Burundi, Central African Republic, Chad, both Congos, Djibouti, Egypt, Equatorial Guinea, Guinea, Guinea-Bissau — fourteen on the two-fetch recipe, thirteen stale populations updated; **Comoros deferred** (its area counts Mayotte and the guide gives a 1977 recognition against a 1975 independence). **C9 DONE (2026-08-02)**: Comoros, Ethiopia, Ivory Coast, Liberia, Libya, Madagascar, Mali, Mauritania, Niger, São Tomé and Príncipe, Senegal, Sudan, Tunisia, Zimbabwe — **AFRICA COMPLETE, 56 of 56**, with Libya and Comoros unblocked by the World Bank's area series. **C7 DONE (2026-08-02)**: Eswatini, Eritrea, Gabon, The Gambia, Kenya, Lesotho, Malawi, Morocco, Somalia, Tanzania, Togo — the rest of Commonwealth Africa plus the first four carried by the Office of the Historian's recognition guide. **Three deferred**: Egypt, Ethiopia and Libya, each a figure diverging from UNdata with no second profile |
 | **C10 DONE** | Oceania | 13 | **DONE (2026-08-02)**: all thirteen — Australia, New Zealand, Papua New Guinea, Fiji, Solomon Islands, Vanuatu, Samoa, Tonga, Kiribati, Nauru, Palau, Marshall Islands, Micronesia — most on THREE sources, four corrections, nothing deferred |
-| **C11–C12** | the Americas | 35 | Canada → Uruguay, plus Brazil |
+| **C11–C12** | the Americas | 35 | Canada → Uruguay, plus Brazil. **C11 DONE (2026-08-02)**: North America, Central America and the Caribbean — twenty terms, eight corrections; **Mexico, Costa Rica and Nicaragua deferred**, the recognition guide dating by U.S. recognition rather than independence |
 | | | **191** | the 197, less the six worked in C0 |
 
 Roughly 16 terms a batch. The twelve countries written earlier and at greater length — Greece, Kenya,

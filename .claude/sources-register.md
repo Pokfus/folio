@@ -9361,3 +9361,119 @@ solomon-islands, vanuatu, samoa, tonga, kiribati, nauru) and `history.state.gov/
 palau, marshall-islands, micronesia).
 
 **The Federated States of Micronesia's guide slug is simply `micronesia`**, and its UNdata code is `fm`.
+
+---
+
+## Batch C11 — North America, Central America and the Caribbean (2026-08-02)
+
+Twenty terms cited, 44 citations, **eight corrections**. Coverage 247 → 267 of 333. Three deferred:
+Mexico, Costa Rica, Nicaragua.
+
+**Canada · United States · Guatemala · Belize · El Salvador · Honduras · Panama · Cuba · Haiti ·
+Dominican Republic · Jamaica · Antigua and Barbuda · The Bahamas · Barbados · Trinidad and Tobago ·
+Saint Kitts and Nevis · Saint Lucia · Saint Vincent and the Grenadines · Grenada · Dominica.**
+
+### The finding, and it is the sharpest limit yet on the recognition guide
+`history.state.gov/countries/<slug>` **dates by U.S. RECOGNITION, and for Spanish America recognition
+lagged independence by years or decades.** That did not matter in Africa or Oceania, where recognition
+followed independence within days, but it governs this region:
+
+| country | independence | the guide's date |
+|---|---|---|
+| Mexico | 1821 | recognised **1822** |
+| Guatemala / Honduras / El Salvador | 1821 | Federation recognised **1824**, states 1844–1853 |
+| Costa Rica | 1821 (from Spain) | **"did not formally declare its independence until August 30, 1848"** |
+| Haiti | 1804 | recognised **1862** |
+| Dominican Republic | 1844 | recognised **1866** |
+
+**Where the page happens to state the independence year separately, it still works** — Guatemala's says
+"Following its independence from Spain in **1821**", Honduras's "its **1821** independence from Spain",
+El Salvador's "In **1821**, El Salvador and the other Central American provinces declared their
+independence from Spain", Haiti's "won independence from France in **1804**" and "the second-oldest
+republic in the Western Hemisphere, after the United States", and the Dominican Republic's "declared
+itself an independent nation from neighboring Haiti in **1844**". **Where it does not, the page cannot
+carry the term's date, and grepping the raw HTML for the year is the two-second check that settles it.**
+`oh-Mexico.html`, `oh-Costa_Rica.html` and `oh-Nicaragua.html` contain no "1821" at all.
+
+### DEFERRED (batch C11) — three terms, all for that reason
+- **`Mexico`** — the guide recognises "an independent Mexico" in **1822** and never states 1821; nothing
+  on the 1519–21 conquest or the 1910 revolution either. There is no Latin-American independence entry in
+  the guide's Milestones (the 1801–1829 index runs barbary-wars, florida, louisiana-purchase, monroe,
+  napoleonic-wars, rush-bagot, war-of-1812 and nothing else). UNdata alone leaves it below the bar.
+- **`Costa Rica`** — worse than silence: its own page says Costa Rica "did not formally declare its
+  independence until **August 30, 1848**", against the term's 1821. Both are defensible — 1821 is
+  independence from Spain, which Costa Rica marks as its national day, and 1848 the declaration of a
+  separate republic — but citing the page beside "1821" would be selective quotation of the kind P2 warns
+  against. **This needs a prose reconciliation, not a citation.** Its 1948 abolition of the army is in
+  nothing opened here either.
+- **`Nicaragua`** — its page says only "Following its independence from Spain and the Mexican Empire,
+  Nicaragua joined the Federation of Central American States in 1823", bracketing the year without
+  stating it, and mentions Somoza and "the Sandinista Government" without dating the 1979 revolution.
+  **A route exists and was not taken**: the guide's El Salvador page states 1821 for "the other Central
+  American provinces" as a group, which does cover Nicaragua. It was left for a later batch to decide,
+  since a citation headed "…: El Salvador" on the Nicaragua term reads like a mistake.
+
+### The United States needed a source of its own
+There is no `history.state.gov/countries/united-states` — the guide is written from the United States
+outward. Its third sentence is carried instead by **NARA's Milestone Document page for the Declaration of
+Independence (1776)** and **the Office of the Historian's Milestone on the Treaty of Paris, 1783**, which
+speaks of "a settlement that would provide the thirteen states with some measure of American
+independence". The civil war of 1861–65 is unmarked.
+
+### Corrections
+**Five populations**, by C8's method (each an earlier point on the same series): Guatemala 18 → **19
+million** (18.69), Honduras 10 → **11 million** (11.01), Haiti 11 → **12 million** (11.91), Dominican
+Republic 11 → **12 million** (11.52), Belize 410,000 → **420,000** (422,924).
+**Two more where the population is FALLING**: Barbados 270,000 → **280,000** — this one was simply low,
+against 282,623 at the World Bank, 283,000 at UNdata and 287,370 at the Commonwealth, all three above the
+term — and **Saint Vincent and the Grenadines 110,000 → 100,000**, where the Commonwealth's 2022 figure
+of 110,900 confirms the term's number *was* right and the World Bank's 99,924 and UNdata's 100,000 show
+it no longer is. That is the C10 Marshall Islands pattern with the corroboration attached.
+**One area**: Panama 75,417 → **75,320 km²**, which UNdata and the World Bank both give.
+
+### The World Bank's area series contains outright ERRORS, and this is the batch that found them
+C9 established `AG.SRF.TOTL.K2` as an independent second source for area. It is not always a *correct*
+one:
+- **Canada: 15,634,410 km²**, against the true 9,984,670. Off by more than half.
+- **Dominican Republic: 146,839 km²** from 2019 onwards, against 48,671 — and its own 2018 value is
+  48,670, so the series broke partway through.
+
+Both are far outside any land-versus-total or disputed-territory convention. **The rule to add: apply a
+plausibility check before letting the World Bank's area adjudicate anything.** In C9 it vindicated Libya
+and Comoros because it agreed with the term against UNdata; here it disagrees with everything, and the
+terms (which match UNdata exactly) stand.
+
+### Where UNdata is the outlier on a population
+**`Trinidad and Tobago`** — UNdata gives **1,511 thousand** where the World Bank gives 1,367,764 and the
+Commonwealth "1.4 million (2022)". The term's 1.4 million matches two of the three, so it stands and the
+divergence is recorded. **`Cuba`** is the more interesting case and produced no correction at all: the
+term says 9.4 million where UNdata says 10,937 thousand, a 14% gap — but **the World Bank series never
+passes through 9.4 million** (it runs 11.23 million in 2018 down to 10.94 million in 2025), so by C8's own
+test the figure is **contested, not stale**, and was left alone. Cuba's population is genuinely disputed
+after the emigration of the 2020s. **This is the first time the diagnostic has said "do not touch", and
+it is what the rule was for.**
+
+### Other divergences recorded, not corrected
+- `Canada`'s population: UNdata 40,127 thousand against the World Bank's 41,651,653 — the term's "about
+  41 million" sits with the World Bank, which uses Canada's own estimate.
+- `United States`: UNdata 347,276 thousand against the World Bank's 341,784,857; the term's "about 340
+  million" sits with the World Bank and the Census Bureau.
+- `Saint Kitts and Nevis`: the Commonwealth's per-island areas sum to 269 km² against UNdata's 261 and the
+  World Bank's 260, so its opening sentence is marked to UNdata alone.
+- `The Bahamas`: the term's 13,878 km² matches the World Bank's 13,880 against UNdata's 13,940 — inside
+  the spread, so it stands.
+
+### Verified citations (batch C11)
+`data.un.org/en/iso/<cc>.html` (ca, us, gt, bz, sv, hn, pa, cu, ht, do, jm, ag, bs, bb, tt, kn, lc, vc,
+gd, dm), `thecommonwealth.org/our-member-countries/<slug>` (canada, belize, jamaica,
+antigua-and-barbuda, bahamas, barbados, trinidad-and-tobago, st-kitts-and-nevis, saint-lucia,
+st-vincent-and-grenadines, grenada, dominica), `history.state.gov/countries/<slug>` (canada, guatemala,
+belize, el-salvador, honduras, panama, cuba, haiti, dominican-republic, jamaica),
+`history.state.gov/milestones/1776-1783/treaty` and
+`archives.gov/milestone-documents/declaration-of-independence`.
+
+**Slugs differ between the two sites for the same states**, which cost several 404s: the Commonwealth
+writes `st-kitts-and-nevis`, `st-vincent-and-grenadines` and `saint-lucia`, while the recognition guide
+writes `saint-kitts-nevis`, `saint-vincent-grenadines`, `saint-lucia` and `antigua-barbuda`. **Both sites
+publish an index** — `thecommonwealth.org/our-member-countries` and `history.state.gov/countries` — and
+grepping the index is faster than guessing.
