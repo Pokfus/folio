@@ -905,7 +905,7 @@ silent-empty failure batch G7 met on Ferring et al. 2011. Check the length of wh
 could not be re-read, it was **not** stretched from the North Pacific exception it is registered for to the
 egalitarian-band default the term needed; `plana-2023` was found instead. G6's rule doing its job.
 
-### G9 · Indigenous peoples, and the odds and ends (8 terms)
+### G9 · Indigenous peoples, and the odds and ends (8 terms) — **DONE (2026-08-02)**
 `Hadza_people` · `San_peoples` · `Haida` · `Tlingit` · `Pacific_Northwest_Coast` · `Cedar` · `Sima_Qian` ·
 `Johannesburg`
 
@@ -922,6 +922,124 @@ North America* and the tree-search repository are the reachable route for the No
 taxonomic treatment for *Cedrus* itself. `Sima_Qian` is the last surviving China-collection term and its
 sources are scholarly translations and studies of the *Shiji*. `Johannesburg` is a city and its two sources
 are the municipality's or Statistics South Africa's record and an academic urban history.
+
+### Batch G9 log — the batch that had to say what its sources say, not what everyone knows
+
+#### 2026-08-02 — eight terms, 29 citations, seven corrected, and one word dropped on principle
+
+**Coverage 66/333 → 74/333, all seventy-four at the bar.** Twenty-six distinct works, **every one of them
+open** — the third batch after G4 and G7 with no paywalled entry at all. Only **two** came out of
+`.claude/sources-register.md`, and one of those had never been registered, only shipped.
+
+**G7's finding is now a law of this pass, and G9 is its extreme case.** G7 found the register pays for taxa
+and not for places, because a site's three sentences are a location, a dig history and a find, and only the
+find is a claim some card already makes. G9's terms are four peoples, a coastline, a tree, a city and a Han
+historian — subjects on which the prehistory deck makes **no claim at all** — so twenty-four of the
+twenty-six works were new. Plan G10 on the same assumption: the register will not pay for continents and
+oceans either.
+
+**The plan's own rule for this batch worked, and it worked better than the journals.** "A people's own
+institutions come first" produced the batch's single most useful source: **Sealaska Heritage Institute's
+grade-6 curriculum unit on clans and moieties**, which is the Tlingit, Haida and Tsimshian cultural
+institute's own teaching material and which carries, in plain declarative sentences, both peoples' moiety
+names in their own languages, the matrilineal reckoning ("This is done on the mother's side of the family"),
+the clan ownership of crests, names, songs and land, the clan houses, and the red cedar the poles are carved
+from. One PDF did the second sentence of two terms. The Central Council of the Tlingit and Haida Indian
+Tribes of Alaska supplied the territorial claim; Parks Canada, co-managing Gwaii Haanas with the Haida
+Nation, supplied the monuments and the collapse.
+
+**The finding, and it cost a word: "potlatch" is not in any source this sandbox can open.** Both the Haida
+and the Tlingit terms turned on it — rank "publicly confirmed at potlatches", clans that "confirm their
+standing at potlatches where property is formally given away". The word is beyond doubt in the literature
+and the ceremonies are real; what could not be produced was a qualifying source that **uses it**.
+Sealaska's own unit describes exactly those ceremonies — a clan hires the opposite moiety to build its
+house and pays them at a ceremony, "Different goods were used as currency" — without naming them.
+`amnh.org` is 403 here; the Canadian Museum of History has withdrawn its Haida exhibit to a "page removed"
+notice; the Pitt Rivers booklet on the Star House Pole is an image-only PDF. So **both terms now say what
+the cited source says** — names conferred and obligations to the opposite half settled at ceremonies where
+goods change hands — and the word was dropped rather than left standing over a citation that does not
+contain it. This is the pass's rule for a "who named it" clause (batch 25) applied to a term of art:
+**a familiar word is a claim like any other, and a citation that does not use it does not support it.**
+
+**Seven terms corrected**, in English and all nine languages.
+
+- **The Hadza were "about 1,200 to 1,300"; there are about 1,000.** Smith et al.: "Approximately 1,000
+  people speak Hadzane and identify as Hadza, but only about 300 still obtain a majority of their calories
+  from foraged goods." The term's vague "several hundred" became that 300, its "small camps that shift every
+  few weeks" became O'Connell's measured "short-term base camps occupied by 25–75 individuals", and its "no
+  formal chiefs" became Fedurek's "neither structured hierarchy nor formal leadership".
+- **And the Hadza clause that had to go.** The term explained the scholarly interest by saying "they descend
+  from foraging populations present in the region long before farming and herding arrived". O'Connell says
+  the opposite of the framing: "**Neither group is nor has been an isolate. Both have interacted with
+  surrounding pastoral and agricultural populations for centuries**", and Shriner's own paper reports ~22%
+  Niger-Congo and ~6% Cushitic ancestry among the Hadza. What is defensible is that **the language** is an
+  isolate — "no undisputed phylogenetic relationship to any other extant language" — and that their ancestry
+  "emerged early". The term now says those two things and not the third.
+- **The San were "roughly 160,000"; the fullest regional survey counts 88,025.** Suzman's table 1.1, from
+  the EU-funded five-country assessment, gives Botswana 47,675, Namibia 32,000, South Africa 4,350, Zimbabwe
+  2,500, Angola 1,200 and Zambia 300, against Hitchcock 1996's 107,071 — so "fewer than 110,000" brackets
+  both, and **Zambia was missing from the term's list of countries entirely.**
+- **"San is itself an outside label" was right but incomplete, and the completion matters.** Suzman:
+  "Almost all labels referring to San collectively were coined by non-San and are etymologically pejorative"
+  — *and* that at the 1993 Common Access to Development Conference "San delegates agreed that the term 'San'
+  should be used for the meantime, as it was considered the most neutral". A term about a contested name
+  should say who chose it, and the answer is that they did.
+- **The Haida sentence about the collapse had no figures; now it has the institution's.** Parks Canada gives
+  "at least 20,000 Haida … in the late 1700s" falling to "fewer than 600 … by the late 1800s", from
+  "smallpox, measles and tuberculosis" — better than "a devastating population collapse from introduced
+  disease". Its "ocean-going canoes" went with the rewrite, unsourced; the great longhouses and the
+  crest-bearing poles stayed, because Parks Canada names both.
+- **Sima Qian did not choose "mutilation over death".** Chavannes has him **condemned to castration**, not
+  to death — and unable to buy the commutation the code allowed, because "sa famille n'avait pas de fortune
+  et tous ses amis l'abandonnèrent". The choice his own Letter to Ren An records is a different one, between
+  submitting and taking his own life: "j'aurais regretté de ne pas achever ma tâche; c'est pourquoi j'ai
+  subi le plus terrible des supplices sans m'en irriter." The term also called him "the father of Chinese
+  historiography", where Chavannes says something narrower and checkable — he is "considéré comme le premier
+  d'entre eux" *because* his method is the one the canonical historians adopted.
+- **Johannesburg's Cradle of Humankind "some 50 km to the north-west" lost its distance.** No opened source
+  gives one; Malherbe et al. place the Cradle "in the northeast of the Gauteng province" and call it "the
+  single richest source of hominin fossils for over ninety years", which is what the term now says. Its "not
+  one of the national capitals" gained the reason it is worth saying — gov.za names all three — and the
+  Constitutional Court gained its actual seat, Constitution Hill in Braamfontein.
+
+**A tooling finding, and it would have scattered markers.** `Sima_Qian` **did not split into three sentences
+in six of the ten languages** — en, es, fr, de, nl and ru all came back as four, because `pieces()` breaks on
+"c. 145", "v. 145", "ca. 145", "ок. 145". The splitter holds a lone *capital* initial before a capitalised
+word; a lowercase `c.` before a digit is a different shape, and generalising to it would swallow real
+sentence ends after any lowercase abbreviation. It was not fixed. The parenthetical was **removed from the
+prose** instead — the date line already carries the years, and it now reads `c. 145 – c. 86 BCE` rather than
+`c. 145–86 BCE`, since Chavannes and L'Haridon both treat the death date as inferred. **Every G9 term now
+splits 3 in all ten languages with identical markers.** The general rule for authors: *do not put an era or
+approximation abbreviation followed by a numeral into a glossary description.*
+
+**A judgement recorded rather than slid past.** `Sima_Qian`'s second source is a signed entry by Béatrice
+L'Haridon in the Presses de l'Inalco *Encyclopédie des historiographies*. The plan bars encyclopedias; this
+is cited anyway, because what the plan bars is a general tertiary summary and this is a peer-reviewed
+scholarly reference work from a university press with named specialist authors — the category the plan
+itself endorses when it accepts a disciplinary handbook for `Archaeology`. It stands beside Chavannes on
+every claim and alone on none.
+
+**A drafting failure worth naming, because it nearly shipped.** Six of the batch's citations were written
+from memory of the search results rather than from the record, and **six were wrong** — an author list
+attributed to the wrong pair (`PMC8117426` is Pakendorf and Stoneking, not Vicente and Schlebusch), a
+single-author paper given as "et al.", two wrong article numbers, and one work placed in the wrong journal
+entirely. Every one was caught by re-querying Europe PMC for the metadata before applying the batch. **Query
+the record for author, journal, volume and article number; do not write a citation from the memory of having
+read it.**
+
+**What was kept unmarked, and it is more than any batch since G8.** Nine clauses across five terms:
+the Pacific Northwest Coast's whole first sentence (its southern-Alaska-to-northern-California extent, the
+fjords, the thousands of islands — geography, in nothing opened); the Tlingit food list; Johannesburg's
+"largest city in South Africa" and its 1,750 m; and `Cedar`'s yellow-cedar, incense-cedars, Japanese sugi
+and burning as incense. G8's warning applies again and should be read as standing: **a fold showing three
+open sources looks the same to a reader whether every sentence rests on them or only the marked ones do.**
+
+**Three access notes for G10.** `doi.org` is **403 from this sandbox today**, for every DOI tried, so every
+citation here links to the copy actually opened. `powo.science.kew.org`, `iucnredlist.org`, `gbif.org` and
+`worldfloraonline.org` are all 403 or unresolvable, and `efloras.org` answers at the search but 503s on the
+genus page — **there is no reachable botanical authority here**, which is why `Cedrus` had to be sourced from
+the introductions of two applied papers. And `statssa.gov.za` responds but its municipality pages are
+JavaScript shells that return nothing to a fetch, while `joburg.org.za` does not resolve at all.
 
 ### G10 · Continents, oceans and physical geography (17 terms)
 `Africa` · `Europe` · `Asia` · `Americas` · `North_America` · `South_America` · `Antarctica` · `Arctic` ·

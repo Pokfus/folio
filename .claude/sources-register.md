@@ -5578,3 +5578,408 @@ rule. It does **not** give Harmand's birth year, nor the year she took over the 
 - **`Megafauna`'s lower bound of "roughly 10 kilograms".** Koch & Barnosky give ≥44 kg and Lauer et al. give
   ≥44 kg with megaherbivores at >1000 kg; the 10 kg end of the range of proposals is in neither. The marker
   sits at sentence end and the sentence's main claim — 44 kg — is what the cited work states.
+
+## Batch G9 — Indigenous peoples, and the odds and ends (GLOSSARY, 2026-08-02)
+
+Eight terms, 29 citation slots, 26 distinct works, **every one of them open**. Only **two** came out of the
+register unopened (`smith-codding-2021`, `sicoli-holton-2014` — and the latter had never been registered at
+all, only shipped). G7 predicted this: the register carries taxa and periods, and these are **peoples,
+places, a tree, a city and a Han historian**, none of which any prehistory card claims anything about.
+Twenty-four works are new to the project.
+
+### si-hadza-egalitarian · the Hadza population, and who still forages
+Kristopher M. Smith, Duncan N. E. Stibbard-Hawkes, Eugen Dimant, Ibrahim A. Mabulla, Cristina Bicchieri, and
+Coren L. Apicella, "The “I” in Egalitarianism: Hadza Hunter-Gatherers Averse to Inequality Primarily When
+Personally Unfavorable," *PNAS Nexus* 5, no. 2 (2026): pgaf328, under "Study population,"
+https://europepmc.org/article/PMC/PMC12887900. [Open access]
+- opened: 2026-08-02 · full text via Europe PMC
+- supports: "The Hadza are an ethnolinguistic group in northwestern Tanzania near Lake Eyasi … who
+  traditionally subsisted by hunting and gathering"; and the figure the term had wrong —
+  "**Approximately 1,000 people speak Hadzane and identify as Hadza, but only about 300 still obtain a
+  majority of their calories from foraged goods**"
+- **does NOT support** the term's former "about 1,200 to 1,300"
+- used by: Hadza_people (glossary)
+
+### oconnell-2025 · Hadza camps, foraging and meat sharing
+James F. O'Connell, Kristen Hawkes, and Nicholas Blurton Jones, "Targeting the Hunting Hypothesis: Review of
+Evidence from the Hadza," *Evolutionary Anthropology* 34, no. 2 (2025): e70002, under "The Hadza" and
+"Hadza Men's Foraging," https://europepmc.org/article/PMC/PMC12053817. [Open access]
+- opened: 2026-08-02 · full text via Europe PMC
+- supports: "Hadza are a population of about 800–1000 central-place foragers living near Lake Eyasi,
+  northern Tanzania"; "**Until recently, most Hadza lived in short-term base camps occupied by 25–75
+  individuals**"; "Women and children foraged for fruit and geophytes. Men armed with bows, arrows, and
+  small axes targeted big game and *Apis mellifera* honey"; "**Big game were shot with poisoned arrows**";
+  that meat "is distributed widely within and between base camps"; baobab, berries and geophytes as the
+  plant foods
+- **caution**: it says plainly that "**Neither group is nor has been an isolate. Both have interacted with
+  surrounding pastoral and agricultural populations for centuries**" — which is why the term's old "they
+  descend from foraging populations present in the region long before farming and herding arrived" was
+  replaced rather than kept. The LANGUAGE is an isolate; the population is not, and the term now says only
+  the first
+- used by: Hadza_people (glossary)
+
+### fedurek-2024 · no formal leadership among the Hadza
+Paweł Fedurek et al., "Prosocial Reputation and Stress among Contemporary Hunter-Gatherers: The Hadza Case,"
+*Scientific Reports* 14 (2024): 21403, under "Study population,"
+https://europepmc.org/article/PMC/PMC11399269. [Open access]
+- opened: 2026-08-02 · full text via Europe PMC
+- supports: "The Hadza … live in a relatively egalitarian society exhibiting **neither structured hierarchy
+  nor formal leadership**"
+- used by: Hadza_people (glossary)
+
+### stibbard-hawkes-2024 · Hadzane is an isolate
+Duncan N. E. Stibbard-Hawkes, Linda Abarbanell, Ibrahim A. Mabulla, Endeko S. Endeko, Cristine H. Legare, and
+Coren L. Apicella, "Foreign-Language Effects in Cross-Cultural Behavioral Research: Evidence from the
+Tanzanian Hadza," *PNAS Nexus* 3, no. 6 (2024): pgae218, under "Study site and participants,"
+https://europepmc.org/article/PMC/PMC11194998. [Open access]
+- opened: 2026-08-02 · full text via Europe PMC
+- supports: "Hadzane, **a linguistic isolate with no undisputed phylogenetic relationship to any other extant
+  language**"; that nearly all Hadza also speak Kiswahili
+- used by: Hadza_people (glossary)
+
+### shriner-2018 · Hadza clicks and deep ancestry
+Daniel Shriner, Fasil Tekola-Ayele, Adebowale Adeyemo, and Charles N. Rotimi, "Genetic Ancestry of Hadza and
+Sandawe Peoples Reveals Ancient Population Structure in Africa," *Genome Biology and Evolution* 10, no. 3
+(2018): 875–82, https://europepmc.org/article/PMC/PMC5863221. [Open access]
+- opened: 2026-08-02 · full text via Europe PMC
+- supports: "The Hadza and Sandawe populations in present-day Tanzania **speak languages containing click
+  sounds**"; "Relative to the Out-of-Africa migrations, **Hadza ancestry emerged early** whereas Sandawe
+  ancestry emerged late"
+- **note**: it also reports (via Tishkoff et al.) ~22% Niger-Congo and ~6% Cushitic ancestry in the Hadza,
+  a second reason the old "descend from foraging populations present … long before farming and herding"
+  clause was withdrawn rather than marked
+- used by: Hadza_people (glossary)
+
+### suzman-2001 · the San, counted and named
+James Suzman, *An Introduction to the Regional Assessment of the Status of the San in Southern Africa*
+(Windhoek: Legal Assistance Centre, 2001), 3–5, esp. table 1.1,
+https://www.lac.org.na/projects/lead/Pdf/sanintro.pdf. [Open access]
+- opened: 2026-08-02 · publisher PDF, text extracted (the EU-funded five-report regional assessment; this is
+  volume 1, the introduction)
+- supports: **table 1.1, "San populations in southern Africa by country"** — Botswana 47,675; Namibia 32,000;
+  South Africa 4,350; Zimbabwe 2,500; Angola 1,200; Zambia 300; **total 88,025**, against Hitchcock 1996's
+  107,071. Six countries, not the term's five (it omitted Zambia); "**Almost all labels referring to San
+  collectively were coined by non-San and are etymologically pejorative**"; that San have "traditionally
+  identified themselves according to individual group labels and languages such as 'Ju/'hoansi', 'Naron' or
+  'Bugakxoe'"; that at the 1993 Common Access to Development Conference "**San delegates agreed that the term
+  'San' should be used for the meantime, as it was considered the most neutral**"; and "**few (if any) San
+  still depend primarily on hunting and gathering**"
+- **does NOT support** the term's former "roughly 160,000". Nothing openable does; the assessment's own count
+  and the higher figure it cites bracket the range at 88,000–107,000 around 2000, and it warns at length that
+  census data on San is unreliable because southern African censuses stopped recording ethnicity
+- used by: San_peoples (glossary)
+
+### pakendorf-stoneking-2020 · Khoisan as a cover term
+Brigitte Pakendorf and Mark Stoneking, "The Genomic Prehistory of Peoples Speaking Khoisan Languages,"
+*Human Molecular Genetics* 30, no. R1 (2021): R49–R55, under "Introduction,"
+https://europepmc.org/article/PMC/PMC8117426. [Open access]
+- opened: 2026-08-02 · full text via Europe PMC
+- supports: the languages are "**most saliently characterized by their heavy use of click consonants**"; that
+  "Khoisan" was coined by Schulze in 1928 from the Khoekhoe words for themselves and for foragers; that
+  "peoples speaking Khoisan languages are culturally and linguistically distinct and each has their own
+  particular history, **all umbrella terms are flawed**"; the present distribution (Namibia, Botswana, Angola,
+  with smaller numbers in Zambia, Zimbabwe, South Africa, Lesotho and Eswatini); and the ǂKhomani, "a group of
+  people with diverse Khoisan-related ancestries … who joined together in the 1990s **in order to file a land
+  rights claim**"
+- used by: San_peoples (glossary)
+
+### schlebusch-2020-khoesan · the deepest divergence
+Carina M. Schlebusch et al., "Khoe-San Genomes Reveal Unique Variation and Confirm the Deepest Population
+Divergence in *Homo sapiens*," *Molecular Biology and Evolution* 37, no. 10 (2020): 2944–54,
+https://europepmc.org/article/PMC/PMC7530619. [Open access]
+- opened: 2026-08-02 · full text via Europe PMC
+- supports: "modern-day Khoe-San representing **one branch in the earliest population divergence in *Homo
+  sapiens***"; "the Khoe-San group harbors the greatest level of diversity across the globe"; "Southern
+  African hunter-gatherers (San) and herders (Khoekhoe) are collectively referred to as Khoe-San"
+- used by: San_peoples (glossary)
+
+### wiessner-huang-2022 · the Ju/'hoansi today
+Polly Wiessner and Chao-Hong Huang, "A 44-y Perspective on the Influence of Cash on Ju/'hoansi Bushman
+Networks of Sharing and Gifting," *Proceedings of the National Academy of Sciences* 119, no. 41 (2022):
+e2213214119, under "The Ju/'hoansi Today," https://europepmc.org/article/PMC/PMC9564820. [Open access]
+- opened: 2026-08-02 · full text via Europe PMC
+- supports: "Since the late 1970s, the Ju/'hoan lifestyle has undergone substantial change as families have
+  **settled in permanent villages with a mixed economy composed of foraging, wage labor, sale of crafts,
+  government relief food, old-age pensions, gardening, and animal husbandry**"; "Today, the Ju/'hoansi of
+  Nyae Nyae are settled in some 35 to 40 villages, with a population of approximately 3,000"
+- used by: San_peoples (glossary)
+
+### shi-clans-moieties-2024 · the Tlingit and Haida moiety system
+Sealaska Heritage Institute, "Unit 7: Clans and Moieties," in *Alaska Native Education: Social Studies,
+Grade 6 — The Alaska Native Claims Settlement Act: Relationship with the Environment* (Juneau: Sealaska
+Heritage Institute, 2024), 308–15,
+https://sealaskaheritage.org/wp-content/uploads/2024/04/SHI-Alaska-Education-Social-Studies-Grade-6-Unit-7_Clans-and-Moieties.pdf.
+[Open access]
+- opened: 2026-08-02 · publisher PDF, text extracted. **A Native institution's own curriculum**, which is the
+  source the plan's G9 rule asks for first — Sealaska Heritage Institute is the Tlingit, Haida and Tsimshian
+  cultural institute of Southeast Alaska
+- supports, **Tlingit (308–11)**: "THE TLINGITS OF SOUTHEAST ALASKA are divided into two groups called
+  moieties … The Tlingit moieties are **Raven (Yéil …) and Eagle (Ch'áak')**. In earlier times, the **Eagle
+  moiety was known as Wolf (Gooch)**. The Tlingit who live in the interior in Canada still use the Wolf
+  moiety"; "The moieties are divided into smaller groups called clans"; "All people in a clan can trace their
+  relatives to the same ancestor or Ax Shuká. **This is done on the mother's side of the family**"; "**Each
+  clan has its own crests**"; "**Clans own names for people.** These names are handed down through the
+  generations"; "**Each clan owned land for hunting, fishing, and harvesting food**"; that a clan's keeper
+  holds "regalia, such as clan hats, blankets, and cultural objects. It also includes **songs, stories, and
+  names**"; clan houses as "large timber structures", some two storeys, up to five families
+- supports, **Haida (313–15)**: "**The Haidas of Southeast Alaska** are divided into two groups called
+  moieties … The Haida moieties are **Raven (Yáahl) and Eagle (Ts'áak')**"; "All people in a clan can trace
+  their relatives to the same ancestor or kuníisii. **This is done on the mother's side of the family**";
+  "Each clan has its own crests"; clan-owned land and waterways with permission needed to hunt or fish in
+  another clan's area; "**A totem pole was made from a large red cedar tree.** Some totem poles were also made
+  from yellow cedar. **The Haida may have been the first to carve totem poles**"; and the ceremony at which a
+  clan pays the opposite moiety for building its house, "Different goods were used as currency during the
+  ceremony"
+- **it does not use the word "potlatch"**, which is why both terms now describe what it does describe — names
+  conferred and obligations to the opposite half settled at ceremonies where goods change hands
+- used by: Haida, Tlingit (glossary)
+
+### parks-canada-gwaii-sites · the Haida monuments
+Parks Canada, "Haida Cultural Sites," Gwaii Haanas National Park Reserve, National Marine Conservation Area
+Reserve and Haida Heritage Site,
+https://parks.canada.ca/pn-np/bc/gwaiihaanas/culture/cultural-sites-culturels. [Open access]
+- opened: 2026-08-02
+- supports: "**Poles carved with crests of the Eagle and Raven clans of the Haida are found at SG̱ang Gwaay
+  Llnagaay** (formerly known as Ninstints), a UNESCO World Heritage Site on Anthony Island"; "**Longhouses**,
+  the remnants of which can be seen at T'aanuu Llnagaay (Tanu), Ḵ'uuna Llnagaay (Skedans), and SG̱ang Gwaay,
+  were constructed in an uniquely Haida way"
+- used by: Haida (glossary)
+
+### parks-canada-gwaii-post · the Haida population collapse
+Parks Canada, "Post-Contact History," Gwaii Haanas National Park Reserve, National Marine Conservation Area
+Reserve and Haida Heritage Site, https://parks.canada.ca/pn-np/bc/gwaiihaanas/culture/apres-post.
+[Open access]
+- opened: 2026-08-02
+- supports: "**The population plummeted with the introduction of diseases such as smallpox, measles and
+  tuberculosis**"; "In the late 1700s, during the time of first contact … **at least 20,000 Haida are
+  estimated to have lived on the islands**"; "**By the late 1800s, fewer than 600 Haida were left on Haida
+  Gwaii**"; the gathering of survivors at SGang Gwaay Llnagaay and the move north to HlGaagilda Llnagaay
+- used by: Haida (glossary)
+
+### ccthita-history · the Tlingit and Haida in Southeast Alaska
+Central Council of the Tlingit and Haida Indian Tribes of Alaska, "Our History," under the 1959 Court of
+Claims judgment, https://www.ccthita.org/about-us/history/. [Open access]
+- opened: 2026-08-02 · **the tribal government's own record**, per the plan's G9 rule
+- supports: "The Tlingit & Haida people live as separate and distinct nations, stewarding lands and waters,
+  practicing art and science, and engaging in trade"; that in 1959 "the Court of Claims issued a judgment
+  stating that the Tlingit and Haida Indians did have original use and occupancy … **over all lands and
+  waters in Southeast Alaska**"
+- **does not** describe clans, moieties or the Kaigani Haida of Prince of Wales Island; the Alaska Haida are
+  carried by `shi-clans-moieties-2024`'s "The Haidas of Southeast Alaska", which is why the Haida term now
+  says southeastern Alaska rather than naming the island
+- used by: Haida, Tlingit (glossary)
+
+### sicoli-holton-2014 · Na-Dene, and Haida as an outgroup
+Mark A. Sicoli and Gary Holton, "Linguistic Phylogenies Support Back-Migration from Beringia to Asia,"
+*PLOS ONE* 9, no. 3 (2014): e91722, under "Materials and Methods,"
+https://europepmc.org/article/PMC/PMC3951421. [Open access]
+- opened: 2026-08-02 · full text via Europe PMC
+- supports: "Our data matrix consists of 116 characters for 40 taxa: 2 Yeniseian languages (Ket-Kott), **37
+  Na-Dene (Tlingit-Eyak-Athabascan) languages, and the isolate Haida** included for its potential as an
+  outgroup"; the internal groupings, with "clear groupings for North and South Pacific Coast Athabascan (PCA),
+  Tlingit and Eyak"
+- used by: Tlingit, Pacific_Northwest_Coast (glossary)
+
+### rorabaugh-2023 · the Northwest Coast pattern in the Salish Sea
+Adam Rorabaugh, "Assessing Population Dynamics in the Central Salish Sea, Pacific Northwest Coast of North
+America," *PLOS ONE* 18, no. 8 (2023): e0285021, under "The Salish Sea,"
+https://europepmc.org/article/PMC/PMC10399822. [Open access]
+- opened: 2026-08-02 · full text via Europe PMC
+- supports: "The social transformations in the Salish Sea from 3200–1000 cal BP which include a transition
+  from smaller house structures to **the emergence of large plank house villages, food storage, resource
+  ownership, and a transition from achieved to hereditary forms of social inequality**"; "These winter village
+  groups would **mass harvest seasonally available resources including geophytes, terrestrial and marine
+  mammals, shellfish, and anadromous fish for winter storage**"; and the Salish Sea treated "as a
+  comprehensive cultural area"
+- **does NOT support** the term's first sentence — the southern-Alaska-to-northern-California extent, the
+  fjords and the thousands of islands are geography no source opened here states, and that sentence is
+  therefore unmarked
+- used by: Pacific_Northwest_Coast (glossary)
+
+### tesky-1992-thuja · western redcedar, the wood and the name
+Julie L. Tesky, "*Thuja plicata*," in *Fire Effects Information System* (Missoula, MT: U.S. Department of
+Agriculture, Forest Service, Rocky Mountain Research Station, Fire Sciences Laboratory, 1992), under
+"Taxonomy," "Common Names" and "Wood Products Value,"
+https://www.fs.usda.gov/database/feis/plants/tree/thupli/all.html. [Open access]
+- opened: 2026-08-02 · a US Forest Service species review
+- supports: "**It is a member of the Cypress family (Cupressaceae)**" — which, against *Cedrus* in Pinaceae,
+  is what makes the trees called cedar unrelated; the common names "western redcedar … **canoe-cedar,
+  shinglewood**"; "The wood is low in strength and soft but is **very resistant to decay**"; the uses
+  "shingles, shakes, and exterior siding", "utility poles, fence posts, light construction pulp, clothes
+  closets and **chests, boats, canoes**, fish trap floats, **caskets**, crates, and boxes"; and hand-split
+  shakes that "will last 100 years on a roof"
+- used by: Cedar (glossary)
+
+### koc-2023-cedrus · the genus has four species
+Samed Koc et al., "Exploring the Larvicidal and Repellent Potential of Taurus Cedar (*Cedrus libani*) Tar
+against the Brown Dog Tick (*Rhipicephalus sanguineus* sensu lato)," *Molecules* 28, no. 23 (2023): 7689,
+under "Introduction," https://europepmc.org/article/PMC/PMC10707419. [Open access]
+- opened: 2026-08-02 · full text via Europe PMC
+- supports: "**The genus *Cedrus* in the Pinaceae family is represented by four species (*Cedrus atlantica*,
+  C. brevifolia, C. deodora, and C. libani)**"; *C. libani* as the Taurus or Lebanese cedar, with its largest
+  populations in southern Türkiye
+- used by: Cedar (glossary)
+
+### gillani-2025-deodara · the western Himalayan cedar
+Syed Waseem Gillani et al., "Synergizing Population Structure, Habitat Preferences, and Ecological Drivers for
+Conservation of *Cedrus deodara*," *BMC Plant Biology* 25 (2025): 599, under "Introduction,"
+https://europepmc.org/article/PMC/PMC12057084. [Open access]
+- opened: 2026-08-02 · full text via Europe PMC
+- supports: *C. deodara*, "commonly known as the 'Himalayan cedar'", is "**native to the Western Himalayas**
+  … and spreads from the Karakoram region to Nepal, Bhutan, and the northeastern Indian Himalayas", growing
+  at 1,200–3,050 m
+- **cite with care**: the same sentence calls *Cedrus* "**this monotypic genus**", which is simply wrong and
+  contradicted by `koc-2023-cedrus` in this batch. It is used ONLY for the distribution of *deodara*, never
+  for the size of the genus
+- used by: Cedar (glossary)
+
+### shalev-2023-thujaplicins · what makes the heartwood rot-proof
+Tal J. Shalev et al., "Genetic Architecture of Terpene Chemistry and Growth Traits and the Impact of
+Inbreeding on These Traits in Western Redcedar (*Thuja plicata*)," *Evolutionary Applications* 16, no. 3
+(2023): 673–87, under "Introduction," https://europepmc.org/article/PMC/PMC10033848. [Open access]
+- opened: 2026-08-02 · full text via Europe PMC
+- supports: "Western redcedar … is a conifer of the Pacific Northwest of North America prized for its
+  **durable and rot-resistant wood**"; "**monoterpenoid tropolones called thujaplicins present in the
+  heartwood of WRC have been implicated in the tree's natural defence against fungal pathogens**"
+- **scope**: it is about *Thuja plicata* only, which is why the term now says what such timbers *commonly*
+  share rather than asserting the same chemistry of every tree called cedar
+- used by: Cedar (glossary)
+
+### chavannes-1895 · Sima Qian's life and method
+Édouard Chavannes, *Les Mémoires historiques de Se-ma Ts'ien*, vol. 1 (Paris: Ernest Leroux, 1895),
+Introduction, xxv–xliv and cxciv–ccxxxvi, https://archive.org/details/lesmemoireshisto0001edou.
+[Open access]
+- opened: 2026-08-02 · full OCR text on the Internet Archive. **G4's rule for a nineteenth-century subject
+  applied to a nineteenth-century sinologist**: the standard modern studies of the *Shiji* are closed, and
+  Chavannes is out of copyright
+- supports: the birth date, on Zhang Shoujie's testimony — "**Se-ma Ts'ien serait né en 145 avant J.-C.**",
+  with the alternative reading discussed and rejected; the death not fixable but bounded by the posthumous
+  title of Emperor Wu, "**avant l'an 86 avant J.-C.**"; his succession to his father in the office of Grand
+  Astrologer/Scribe; the Li Ling affair and its outcome — "**on le condamna à la castration** … il subit donc
+  cette ignominie (98 av. J.-C.)"; and, from his own Letter to Ren An translated in Appendix I, "**Avant que
+  mon brouillon fût fini, je vins à être frappé par ce malheur; j'aurais regretté de ne pas achever ma tâche;
+  c'est pourquoi j'ai subi le plus terrible des supplices sans m'en irriter**", beside the passage on how
+  even a slave's child can end their own life; and the standing of the work — "**C'est donc uniquement parce
+  que sa méthode est celle qu'ont adoptée les historiens canoniques que Se-ma Ts'ien est considéré comme le
+  premier d'entre eux**", first of the seventeen, then twenty-one, now twenty-four histories, with the *ben ji*
+  "maintenues … chez tous les historiens canoniques"
+- **does NOT support** the term's former "chose mutilation over death". Chavannes has him **condemned to
+  castration**, not to death, and unable to buy the commutation the code allowed because "sa famille n'avait
+  pas de fortune et tous ses amis l'abandonnèrent". The choice his own letter records is between **submitting
+  and taking his own life**, which is what the term now says
+- used by: Sima_Qian (glossary)
+
+### lharidon-2020-shiji · the Shiji as a genre
+Béatrice L'Haridon, "Mémoires historiques (*Shiji*)," in *Encyclopédie des historiographies: Afriques,
+Amériques, Asies*, vol. 1, ed. Nathalie Kouamé, Éric P. Meyer and Anne Viguier (Paris: Presses de l'Inalco,
+2020), https://books.openedition.org/pressesinalco/27189. [Open access]
+- opened: 2026-08-02 · OpenEdition freemium HTML
+- supports: Sima Qian's dates as "circa 145 to circa 86 BCE"; his office as Grand Scribe, continuing work
+  begun by his father Sima Tan; and that the work was composed "**not on imperial commission as would be the
+  case in following dynasties, but privately**"
+- **a judgement worth recording.** The plan bars encyclopedias, and this is a work with "Encyclopédie" in its
+  title. It is cited anyway, because the thing the plan bars is a general tertiary summary (Wikipedia,
+  Britannica) and this is a peer-reviewed scholarly reference work from a university press, its entries signed
+  by named specialists — the same category as the disciplinary handbook the plan itself endorses for
+  `Archaeology` in G8. It stands **beside** Chavannes on every claim, never alone
+- used by: Sima_Qian (glossary)
+
+### gov-za-provinces · Gauteng, and the three capitals
+Government of South Africa, "South Africa's Provinces," under "Gauteng" and "South Africa's three capitals,"
+https://www.gov.za/about-sa/south-africas-provinces. [Open access]
+- opened: 2026-08-02
+- supports: **Johannesburg as Gauteng's capital**; "Gauteng is the smallest of South Africa's nine provinces
+  but comprises the largest share of the South African population" (15,931,824, 25.3%); and the three national
+  capitals — "**Cape Town** … is the legislative capital", "**Bloemfontein** … is the judicial capital and home
+  to the Supreme Court of Appeal", "**Pretoria** … is the administrative capital, and the ultimate capital of
+  the country"
+- used by: Johannesburg (glossary)
+
+### concourt-za · where the Constitutional Court sits
+Constitutional Court of South Africa, "The Court," under the Court's seat at Constitution Hill, Braamfontein,
+https://www.concourt.org.za/. [Open access]
+- opened: 2026-08-02
+- supports: the Court as "**the highest court in South Africa**", "born of the country's first democratic
+  Constitution in 1994", in "an acclaimed new building at **Constitution Hill**", at "1 Hospital Street,
+  Constitution Hill, **Braamfontein**, 2017"
+- used by: Johannesburg (glossary)
+
+### lurie-williams-2014 · the migrant labour system
+Mark N. Lurie and Brian G. Williams, "Migration and Health in Southern Africa: 100 Years and Still
+Circulating," *Health Psychology and Behavioral Medicine* 2, no. 1 (2014): 34–40, under "The mines and the
+migrant labour system," https://europepmc.org/article/PMC/PMC3956074. [Open access]
+- opened: 2026-08-02 · full text via Europe PMC
+- supports: "**the discovery of gold in 1886**" as the starting point; that "permanent residence on the mines
+  was prohibited as the government sought to expand the separation of races (later codified and formalized as
+  apartheid), while **the mining companies sought to establish a system of migrant labour** which would provide
+  them with an adequate supply of workers"; that in the early 1970s "almost 80% of the work force on the gold
+  mines came from outside South Africa"; and the single-sex hostels (89% of miners in 1993)
+- used by: Johannesburg (glossary)
+
+### gcro-city-region · the Gauteng city-region
+Gauteng City-Region Observatory, "The Gauteng City-Region," under "A region of contrasts,"
+https://www.gcro.ac.za/about/the-gauteng-city-region/. [Open access]
+- opened: 2026-08-02 · a partnership of the University of the Witwatersrand, the University of Johannesburg,
+  the Gauteng Provincial Government and SALGA
+- supports: Johannesburg as "**once the world's most important centre of gold production**"; Gauteng's
+  33.8% of national GDP in 2013 and the city-region's ~45% of total economic output; and that "**the
+  concentration of different population groups in specific areas previously designated for them by apartheid
+  remains to this day**"
+- used by: Johannesburg (glossary)
+
+### malherbe-2025-cradle · the Cradle of Humankind
+Megan Malherbe, Robyn Pickering, Deano Stynder, and Martin Haeusler, "The Large Mammal Fossil Fauna of the
+Cradle of Humankind, South Africa: A Review," *PeerJ* 13 (2025): e18946, under "Introduction,"
+https://europepmc.org/article/PMC/PMC11867040. [Open access]
+- opened: 2026-08-02 · full text via Europe PMC
+- supports: "South Africa's Cradle of Humankind UNESCO World Heritage Site has remained **the single richest
+  source of hominin fossils for over ninety years**"; that the Cradle is "located in the northeast of the
+  Gauteng province"
+- **does NOT support** the term's former "some 50 km to the north-west" — no opened source gives a distance
+  from Johannesburg, and this one describes the Cradle's position relative to the province rather than the
+  city. The direction is kept, unmarked; the distance was dropped
+- used by: Johannesburg (glossary)
+
+### Reused without new reading (batch G9)
+
+- **`smith-codding-2021`** — for the ranked orders of the North Pacific coast, which is exactly what the
+  register records it for ("societies primarily along the North Pacific coast, were characterized by a class
+  system of hereditary nobility, commoners, and slaves"; defensible clumped resources, salmon above all;
+  among foragers, with no farming). G8 could not re-read it (Europe PMC returned an empty body); this batch
+  reached the PMC article itself, which is open.
+- **`sicoli-holton-2014`** — shipped on no card and never registered before; opened and registered above.
+
+### NOT CITED (batch G9) — what could not be opened or found
+
+- **`amnh.org` is 403 here.** The American Museum of Natural History's Northwest Coast Hall pages on the
+  Haida and the Łingít would have been the natural museum source for both peoples' terms and could not be
+  fetched at all. Recorded so the next pass does not re-run it.
+- **The word "potlatch" has no institutional source reachable from here.** It is the standard term for the
+  ceremonies both the Haida and the Tlingit terms describe, and it is beyond doubt in the literature — but
+  Sealaska's own curriculum unit describes those ceremonies without naming them, `amnh.org` is 403,
+  `historymuseum.ca`'s Haida exhibit has been withdrawn to a "page removed" notice, and the Pitt Rivers
+  booklet on the Star House Pole is an image-only PDF. Rather than cite a source for a word it does not use,
+  **both terms now describe what the cited source describes** — names conferred and obligations to the
+  opposite half settled at ceremonies where goods change hands. The word was dropped, not the fact.
+- **The Kaigani Haida of Prince of Wales Island.** Sealaska's unit says "The Haidas of Southeast Alaska" and
+  CCTHITA speaks of Southeast Alaska as a whole; neither names the island. The term now says southeastern
+  Alaska.
+- **Tlingit subsistence, and Haida ocean-going canoes.** The Alaska Department of Fish and Game's technical
+  paper 249 states that "sea mammal harvest was a component of the traditional subsistence economy of the
+  northwest coast culture groups, including the Tlingit and Haida of southeast Alaska", but the PDF is
+  image-only and could not be extracted, so it is **not** cited. The Tlingit food list (salmon, halibut, sea
+  mammals, shellfish) is uncontradicted and kept unmarked; the Haida canoes were dropped, since the sentence
+  they sat in was rewritten around what Parks Canada and Sealaska do state.
+- **The Pacific Northwest Coast's extent and shape.** Southern Alaska to northern California, the fjords and
+  the thousands of islands: geography, uncontradicted, in nothing opened. Sentence 1 of that term carries no
+  marker.
+- **Johannesburg's "largest city in South Africa" and its "about 1,750 m above sea level".** Neither is in
+  gov.za's provincial page, `statssa.gov.za`'s municipality pages are JavaScript shells that return nothing
+  to a fetch, and `joburg.org.za` does not resolve from here. Both are uncontroversial and kept unmarked
+  inside a sentence marked for the claim that IS sourced.
+- **`Cedar`'s yellow-cedar, incense-cedars and Japanese sugi, and burning cedar as incense.** Only *Thuja
+  plicata* and *Cedrus* were sourced. `powo.science.kew.org`, `iucnredlist.org`, `gbif.org` and
+  `worldfloraonline.org` are all 403 or unresolvable here, and `efloras.org` answers but 503s on the genus
+  page. The clauses are uncontradicted and kept.
+- **`doi.org` is 403 from this sandbox today**, for every DOI tried. Every citation in this batch therefore
+  links to the copy actually opened — Europe PMC's article page, a publisher's own file, or an agency page.
