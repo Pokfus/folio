@@ -5983,3 +5983,287 @@ https://europepmc.org/article/PMC/PMC11867040. [Open access]
   page. The clauses are uncontradicted and kept.
 - **`doi.org` is 403 from this sandbox today**, for every DOI tried. Every citation in this batch therefore
   links to the copy actually opened — Europe PMC's article page, a publisher's own file, or an agency page.
+
+---
+
+## Batch G10 — the poles, the desert, the sea, and two historiographic names (GLOSSARY, 2026-08-02)
+
+Seven terms, 26 citation slots, 20 distinct works, **every one of them open** — the fourth batch after G4,
+G7 and G9 with no paywalled entry. Only **two** came out of the register unopened (`tierney-2017`,
+`larson-2014`). G7's law held at full strength again: the register carries taxa and periods, and these are
+ice sheets, a desert, an ocean and two names, about which no prehistory card claims anything.
+
+The batch is the **surviving half of the planned G10**. Its other ten terms — the six continents, `Sicily`,
+`Equator`, `Northern_Hemisphere`, `Southern_Hemisphere` — are deferred to G11 for the reason recorded in
+`docs/glossary-citation-plan.md`: they are conventions and constants rather than measured results.
+
+### fretwell-2013 · Bedmap2, the Antarctic ice sheet measured
+Peter Fretwell et al., "Bedmap2: Improved Ice Bed, Surface and Thickness Datasets for Antarctica," *The
+Cryosphere* 7, no. 1 (2013): 375–93, esp. table 7,
+https://tc.copernicus.org/articles/7/375/2013/tc-7-375-2013.pdf. [Open access]
+- opened: 2026-08-02 · publisher PDF (Copernicus, CC BY)
+- supports: Antarctic area **including ice shelves 13.924 × 10⁶ km²** and **mean thickness including ice
+  shelves 1,937 m** (table 7, Bedmap2 column) — the term's "about 14 million km²" and "close to 1.9 km";
+  also thickest ice 4,897 m in the Astrolabe Subglacial Basin and a 58 m sea-level equivalent
+- **does NOT support** the term's former "about 14.2 million km²"
+- note: the volume figure here (26.92 × 10⁶ km³) differs from NSIDC's "about 30 million km³", which is a
+  BedMachine-era number. Neither is cited for volume; the term makes no volume claim.
+
+### burton-johnson-2016 · how much of Antarctica is not ice
+Alex Burton-Johnson et al., "An Automated Methodology for Differentiating Rock from Snow, Clouds and Sea in
+Antarctica from Landsat 8 Imagery: A New Rock Outcrop Map and Area Estimation for the Entire Antarctic
+Continent," *The Cryosphere* 10, no. 4 (2016): 1665–77, abstract,
+https://tc.copernicus.org/articles/10/1665/2016/tc-10-1665-2016.pdf. [Open access]
+- opened: 2026-08-02 · publisher PDF (Copernicus, CC BY)
+- supports: "exposed rock forms **0.18 % (21 745 km²) of the total land area of Antarctica: half of previous
+  estimates**"
+- **does NOT support** the familiar textbook "98% ice-covered", which the term carried: the measured figure
+  leaves ~99.8% under ice, and the paper says outright that earlier estimates of exposure were double
+
+### aad-weather · Antarctic temperature, wind and snowfall
+Australian Antarctic Division, "Weather," under "Temperature," "Wind" and "Precipitation,"
+https://www.antarctica.gov.au/about-antarctica/weather-and-climate/weather/. [Open access]
+- opened: 2026-08-02 · the agency's own page
+- supports: "Antarctica is the coldest, windiest and driest continent on Earth"; "The lowest temperature ever
+  recorded on the Earth's surface was **−89.2 °C at Vostok station on 21 July 1983**"; and the desert claim
+  with a figure — average accumulation ~150 mm of water a year over the whole continent, "**Over the
+  elevated plateau, the annual value is less than 50 mm**"
+- note: Scambos et al. 2018 (GRL) states the same Vostok record in its body, but the article is 403 here on
+  Wiley, on the NOAA repository and on NTRS, and the Crossref abstract does not carry the sentence. The
+  agency record is what was opened.
+
+### bas-antarctica · the share of the world's fresh water
+British Antarctic Survey, "Where We Work," under "Antarctica," https://www.bas.ac.uk/about/antarctica/.
+[Open access]
+- opened: 2026-08-02
+- supports: "Its massive ice sheet averages 2km thick. It stores **60% of the world's fresh water**" — the
+  term's vague "most of the world's fresh water" now gives the figure
+
+### ats-treaty · the Antarctic Treaty's provisions
+Secretariat of the Antarctic Treaty, "The Antarctic Treaty," under "Some Important Provisions of the Treaty,"
+https://www.ats.aq/e/antarctictreaty.html. [Open access]
+- opened: 2026-08-02
+- supports: signed **in Washington on 1 December 1959**, in force **1961**, 58 parties; "Antarctica shall be
+  used for peaceful purposes only" (Art. I); "Freedom of scientific investigation … shall continue" (Art. II)
+  and results "shall be exchanged and made freely available" (Art. III); Article IV, quoted in full, which
+  preserves the status quo on the seven territorial claims
+
+### nsidc-arctic · what the Arctic is, and where its line is drawn
+National Snow and Ice Data Center, "Arctic Weather and Climate," under "What Is the Arctic?",
+https://nsidc.org/learn/parts-cryosphere/arctic-weather-and-climate. [Open access]
+- opened: 2026-08-02
+- supports: "The region surrounding the North Pole consists of an ocean largely surrounded by land"; the
+  Arctic Circle "at approximately **66° 33′ N**", above which "the sun does not set on the summer solstice …
+  and does not rise on the winter solstice"; and that the tree-line definition "broadly corresponds to where
+  the average July summer temperature does not rise above 10 °C"
+- note: the term presented the tree line and the 10 °C line as two alternatives. NSIDC presents them as one
+  line described two ways, which is what the term now says.
+
+### nsidc-permafrost · where the world's permafrost is
+National Snow and Ice Data Center, "Frozen Ground and Permafrost," under "What Is Permafrost?" and "Where Is
+Permafrost Located?", https://nsidc.org/learn/parts-cryosphere/frozen-ground-permafrost. [Open access]
+- opened: 2026-08-02
+- supports: "**Most of Earth's permafrost lies in the Arctic**, but some is in the Antarctic and in high
+  mountains"; permafrost occupies ~23 million km², about 25% of the Northern Hemisphere's land
+
+### flegontov-2019 · when the American Arctic was settled
+Pavel Flegontov et al., "Palaeo-Eskimo Genetic Ancestry and the Peopling of Chukotka and North America,"
+*Nature* 570, no. 7760 (2019): 236–40, abstract,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC6942545/. [Open access]
+- opened: 2026-08-02 · abstract via Europe PMC
+- supports: "**Much of the American Arctic was first settled 5,000 years ago**, by groups of people known as
+  Palaeo-Eskimos. They were subsequently joined and largely displaced **around 1,000 years ago by ancestors
+  of the present-day Inuit and Yup'ik**"
+- note: it speaks for the AMERICAN Arctic only. The Eurasian Arctic was occupied far earlier, and the term
+  now says "much of the American Arctic" rather than the old unqualified "thousands of years".
+
+### stat-gl-figures-2024 · Greenland, by its own statistical office
+Statistics Greenland, *Greenland in Figures 2024*, 21st ed. (Nuuk: Statistics Greenland, 2024), 4,
+https://stat.gl/publ/en/GF/2024/pdf/Greenland%20in%20Figures%202024.pdf. [Open access]
+- opened: 2026-08-02 · the office's own PDF
+- supports, all from p. 4: "the largest island of the world with a **total area of 2.2 mio. km²**";
+  "**81 per cent** of Greenland is covered by ice"; "the total population is **just about 57,000**"; "All
+  towns and settlements are located along the coast line … Most of the population lives on the southern west
+  coast. This includes the capital **Nuuk with around 19,000 inhabitants**"; "In **1721**, Greenland became a
+  Danish colony, in 1953 a Danish County, and in **1979**, home rule was granted. **Self-government was
+  established on June 21st 2009**"; "Along with Denmark, Greenland was an EU member from 1973 on. Following a
+  referendum in 1982, Greenland **left the union in 1985**"; and, from the Fishing section, "Fishing is
+  Greenland's single most important trade"
+- note: the office writes "EU" for the body Greenland left in 1985. The term keeps the historically correct
+  name of the day, the European Economic Community; the departure and its year are what the source carries.
+
+### nsidc-ice-sheets · the two ice sheets, compared
+National Snow and Ice Data Center, "Ice Sheets: Quick Facts," under "What Is an Ice Sheet?",
+https://nsidc.org/learn/parts-cryosphere/ice-sheets/ice-sheet-quick-facts. [Open access]
+- opened: 2026-08-02
+- supports: "The Greenland Ice Sheet covers about 80 percent of the world's largest island, stretching across
+  1.7 million square kilometers … At its thickest point, the Greenland Ice Sheet measures **over 3 kilometers
+  (1.9 miles) thick**"; that Earth has exactly two ice sheets and the Antarctic is the larger — the term's
+  "second-largest store of ice"; and that the two together hold more than 99% of the land ice and over 68% of
+  the fresh water on Earth
+- note: the term said the ice sheet is "up to 3 km thick"; NSIDC says over 3 km at its thickest.
+
+### jackson-2018 · when the Norse reached Greenland
+Rowan Jackson et al., "Disequilibrium, Adaptation, and the Norse Settlement of Greenland," *Human Ecology*
+46, no. 5 (2018): 665–84, abstract, https://pmc.ncbi.nlm.nih.gov/articles/PMC6182579/. [Open access]
+- opened: 2026-08-02 · abstract via Europe PMC
+- supports: "Norse Scandinavian farmers **introduced agriculture to sub-arctic Greenland in the late tenth
+  century**"
+
+### zhao-2022 · when they left
+Boyang Zhao et al., "Prolonged Drying Trend Coincident with the Demise of Norse Settlement in Southern
+Greenland," *Science Advances* 8, no. 12 (2022): eabm4346, abstract,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC8942370/. [Open access]
+- opened: 2026-08-02 · abstract via Europe PMC
+- supports: "the **abandonment of Norse settlements, southern Greenland, in the early 15th century**"; and,
+  not used, that a persistent drying trend rather than cooling undermined the Eastern Settlement
+- **does NOT support** the term's former "some five centuries later" — late 10th to early 15th is about four
+  and a half, and the term now names the centuries instead of counting them
+
+### liu-xue-2020 · the Sahara measured, and moving
+Yang Liu and Yongkang Xue, "Expansion of the Sahara Desert and Shrinking of Frozen Land of the Arctic,"
+*Scientific Reports* 10 (2020): 4109, under "The Sahara Desert (SD),"
+https://pmc.ncbi.nlm.nih.gov/articles/PMC7057959/. [Open access]
+- opened: 2026-08-02 · full text via Europe PMC
+- supports: "observed climate index shows that SD covers **about 9.5 × 10⁶ km² across North Africa**", the
+  same figure from the vegetation index; an 8% expansion over 1950–2015 and a southern boundary 100 km
+  further south
+- note: the term said "some 9.2 million km²". That is not contradicted — the Sahara's margin is a matter of
+  which index draws it — but 9.5 is the figure a reader can check in an opened paper, so the term now gives
+  it. The paper does **not** say "largest hot desert"; that clause is unmarked.
+
+### salem-2025 · the Green Sahara, and its herders
+Nada Salem et al., "Ancient DNA from the Green Sahara Reveals Ancestral North African Lineage," *Nature* 641,
+no. 8061 (2025): 144–50, abstract and introduction,
+https://pmc.ncbi.nlm.nih.gov/articles/PMC12043513/. [Open access]
+- opened: 2026-08-02 · full text via Europe PMC
+- supports: "the Sahara Desert was a green savannah during the African Humid Period … with water bodies
+  promoting human occupation and the **spread of pastoralism in the middle Holocene**"; "grassy landscapes,
+  varying tree cover, **permanent lakes** and extensive river systems"; "human presence, hunting, **herding**
+  and resource gathering in the currently arid desert region"; and two ~7,000-year-old Pastoral Neolithic
+  individuals from Takarkori
+- **disagrees with `tierney-2017` on the AHP's start**: Salem gives "between 14,500 and 5,000 years before
+  present", Tierney ~11,000–5,000. The term keeps 11,000–5,000, which is what the register records for
+  Tierney and what `wh-107` already says. Recorded, not resolved.
+
+### noaa-biggest-ocean · the largest basin, and the Ring of Fire
+National Ocean Service, National Oceanic and Atmospheric Administration, "What Is the Largest Ocean Basin on
+Earth?", https://oceanservice.noaa.gov/facts/biggestocean.html. [Open access]
+- opened: 2026-08-02
+- supports: "The Pacific Ocean is the **largest and deepest** of the world ocean basins"; "The 'Ring of Fire'
+  is defined by a nearly continuous series of oceanic trenches, island arcs, and volcanic mountain ranges …
+  It **encircles the periphery of the Pacific Ocean Basin**"; that the Atlantic is second
+- note: this page gives "approximately 63 million square miles" (~163 × 10⁶ km²) where two other NOAA pages
+  give 155 × 10⁶ km² / 59–60 million square miles. **NOAA is not internally consistent here**, so the term
+  takes the figure that appears on two pages, not the outlier, and this citation is marked for the
+  largest-and-deepest and the Ring of Fire rather than for the area.
+
+### noaa-pacific-name · the area, the water, and Magellan
+National Ocean Service, National Oceanic and Atmospheric Administration, "How Did the Pacific Ocean Get Its
+Name?", https://oceanservice.noaa.gov/facts/pacific.html. [Open access]
+- opened: 2026-08-02
+- supports: "Covering approximately **155 million square kilometers** (59 million square miles) and containing
+  **more than half of the free water on Earth**"; and that Magellan's fleet "entered an unfamiliar ocean in
+  **November 1520**. He called this body of water *pacific*, due to the calmness of the water at the time"
+- **does NOT support** the term's former "about 165 million km²" or its "nearly half of all its water" —
+  which understated a figure the source puts the other side of a half
+
+### greenaway-2021 · the Challenger Deep, remeasured
+Samuel F. Greenaway et al., "Revised Depth of the Challenger Deep from Submersible Transects; Including a
+General Method for Precise, Pressure-Derived Depths in the Ocean," *Deep-Sea Research Part I* 178 (2021):
+103644, abstract, https://repository.library.noaa.gov/view/noaa/33477/noaa_33477_DS1.pdf. [Open access]
+- opened: 2026-08-02 · the NOAA repository's copy of the CC BY article
+- supports: from dives in **June 2020**, "the deepest observed seafloor depth was **10,935 m (± 6 m at 95%
+  C.I.) below mean sea level**" — the term said "roughly 10,900 m" and now gives the measurement
+
+### sear-2020 · when people reached East Polynesia
+David A. Sear et al., "Human Settlement of East Polynesia Earlier, Incremental, and Coincident with Prolonged
+South Pacific Drought," *Proceedings of the National Academy of Sciences* 117, no. 16 (2020): 8813–19,
+abstract, https://pmc.ncbi.nlm.nih.gov/articles/PMC7183181/. [Open access]
+- opened: 2026-08-02 · abstract via Europe PMC
+- supports: "evidence for **human dispersal into eastern Polynesia from islands to the west from around AD
+  900**", lake cores from Atiu registering occupation "on a virgin landscape at this time"; and return
+  voyaging with "the accumulation of critical maritime knowledge over several generations"
+
+### hogarth-1902 · what "the Nearer East" was a name for
+D. G. Hogarth, *The Nearer East*, The Regions of the World, ed. H. J. Mackinder (New York: D. Appleton,
+1902), 1–3, https://archive.org/details/nearereast00hoga. [Open access]
+- opened: 2026-08-02 · full OCR text on the Internet Archive
+- supports, from the opening of ch. 1 "Area and Position": "**The Nearer East is a term of current fashion
+  for a region which our grandfathers were content to call simply The East. Its area is generally understood
+  to coincide with those classic lands … which lie about the eastern basin of the Mediterranean Sea; but few
+  probably could say off-hand where should be the limits and why**"; and, at pp. 2–3, that the Nearer East is
+  "parted from the Farther East" at the salt hollows of central Persia and Persian Baluchistan
+- also supports the distance framing structurally: the series it belongs to, edited by Mackinder, prints
+  *The Nearer East* and *The Farther East* as separate volumes
+- this is the batch's G4-rule find: there is no open modern scholarship on the term reachable here (Yilmaz's
+  chapter is in a Stanford UP book; Scheffler 2003 is paywalled; Academia.edu needs a login), and the man who
+  wrote the standard geography of the region in 1902 is out of copyright
+
+### lazaridis-2016 · the ancient Near East, and its first farmers
+Iosif Lazaridis et al., "Genomic Insights into the Origin of Farming in the Ancient Near East," *Nature* 536,
+no. 7617 (2016): 419–24, abstract, https://pmc.ncbi.nlm.nih.gov/articles/PMC5003663/. [Open access]
+- opened: 2026-08-02 · abstract via Europe PMC
+- supports: 44 ancient Near Easterners "ranging in time between ~12,000 and 1,400 bc, from Natufian
+  hunter-gatherers to Bronze Age farmers"; and "**the first farmers of the southern Levant (Israel and
+  Jordan) and Zagros Mountains (Iran) … each descended from local hunter-gatherers**"
+- used on both `Near_East` (the region where farming first appeared, and as evidence of the term's current
+  scholarly use) and `Fertile_Crescent` (the first farmers' local descent)
+
+### breasted-robinson-1914 · where the phrase first appears
+James Henry Breasted and James Harvey Robinson, *Outlines of European History*, Part I (Boston: Ginn, 1914),
+56–57, § 10, "The Lands and Races of Western Asia," https://archive.org/details/outlinesofeurope01robi.
+[Open access]
+- opened: 2026-08-02 · full OCR text on the Internet Archive
+- supports: "The earliest home of men in this great arena of western Asia is a borderland between desert and
+  mountains — a kind of cultivable fringe of the desert — **a fertile crescent having the mountains on one
+  side and the desert on the other**. This fertile crescent is approximately a semicircle, with … the west
+  end at the southeast corner of the Mediterranean, the center directly north of Arabia, and the east end at
+  the north end of the Persian Gulf … **This great semicircle, for lack of a name, may be called the …
+  fertile crescent**"
+- the title page names Breasted, "Professor of Egyptology and Oriental History in the University of Chicago",
+  as the author of Part I's "Earliest Man / The Orient, Greece, and Rome"
+- **this is the batch's correction**: the term said Breasted named it "in 1916". The phrase is in print two
+  years earlier, in this book, lower-case.
+
+### breasted-1916 · the phrase becomes a proper name
+James Henry Breasted, *Ancient Times: A History of the Early World* (Boston: Ginn, 1916), 100–101,
+https://archive.org/details/ancienttimeshist00brea_2. [Open access]
+- opened: 2026-08-02 · full OCR text on the Internet Archive
+- supports: the same passage, now capitalised throughout — "**This great semicircle, for lack of a name, may
+  be called the Fertile Crescent**", with the footnote "There is no name, either geographical or political,
+  which includes all of this great semicircle"
+
+### Reused without new reading (batch G10)
+- `tierney-2017` — the African Humid Period ~11,000–5,000 ya, a vegetated Sahara with permanent lakes and
+  human populations (`Sahara`)
+- `larson-2014` — domestication "began globally 12,000–11,000 y ago"; at least 11 independent centres of
+  origin (`Fertile_Crescent`)
+
+### NOT CITED (batch G10) — what could not be opened, and what is kept unmarked
+- **Scambos et al. 2018** (GRL), the paper that states the −89.2 °C Vostok record in its body: 403 on Wiley,
+  403 on the NOAA repository copy, 404 on NTRS, and the Crossref abstract does not carry the sentence. The
+  Australian Antarctic Division's own weather page states the record and is cited instead.
+- **IHO, *Limits of Oceans and Seas* (S-23, 3rd ed., 1953)** — reachable at
+  `iho.int/uploads/user/pubs/standards/s-23/S-23_Ed3_1953_EN.pdf`, **but the PDF is a scan with no text
+  layer**, so the Pacific's formal limits could not be quoted. The term's second sentence describes the
+  ocean's reach unmarked.
+- **NASA's NSSDC planetary fact sheets** now 307 to `science.nasa.gov` and return the site shell, so the
+  WGS-84 equatorial and polar radii could not be read from them. This cost `Equator` its batch.
+- **`weather.gov` is 403 here** (NWS JetStream, the obvious source for the Coriolis effect and cyclone
+  rotation), which cost `Northern_Hemisphere` and `Southern_Hemisphere` theirs.
+- **ISTAT's `demo.istat.it` is a JavaScript shell** that returns only the region label to a fetch, so
+  Sicily's population could not be read. Its Etna claims were already sourceable — the Smithsonian's Global
+  Volcanism Program gives Etna's **elevation as 3,357 m** and its last known eruption as 2026, and its
+  Bulletin Report notes "Recorded eruptions date back to 1500 BCE" (`volcano.si.edu/volcano.cfm?vn=211060`,
+  reachable) — so **`Sicily` is a one-source term and waits for G11.**
+- Kept unmarked, uncontradicted, in nothing opened: Antarctica's lack of permanent residents; the Sahara's
+  "largest hot desert", its 4,800 km span, the rock-and-gravel proportion, the quarter-of-the-surface sand
+  seas, the 3,000 m Tibesti and Ahaggar, the under-100 mm rainfall and the Tassili n'Ajjer paintings; the
+  Pacific's reach and its tens of thousands of islands; the Arctic's wildlife list; Greenland's Inuit
+  majority; the Near East's list of constituent lands and the archaeologists-versus-journalists usage
+  contrast; and the Fertile Crescent's walled towns, cities and writing.
+- **The Russian `Near_East` closes on a translator's adaptation that predates this batch** — "в научной
+  литературе ту же территорию нередко называют и Передней Азией" — because Russian uses *Ближний Восток* for
+  both the Near and the Middle East, so the English sentence's contrast cannot be carried over directly. Left
+  as it stands; recorded here because it sits under a marker that does not support it.

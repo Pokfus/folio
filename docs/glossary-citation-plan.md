@@ -2,8 +2,8 @@
 
 The glossary was **333 terms and not one of them carried a source**. `window.GLOSSARY_SOURCES` was an empty
 table; the fold at the foot of a gloss popup never appeared. This is the plan for filling it. Not part of
-the site. **As of 2026-08-01, 66 of the 333 are cited and at the bar** — batches G1–G8, four of which also
-corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 66 carry in-text
+the site. **As of 2026-08-02, 81 of the 333 are cited and at the bar** — batches G1–G10, five of which also
+corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 81 carry in-text
 markers, in all ten languages, after the rule changed from optional to required on 2026-08-01 (see "What
 is different from the card pass"). G5 also settled the start of prehistory across the glossary, the deck
 and every date line: **2.6 Mya**, with the disputed 3.3 Ma Lomekwi claim hedged rather than adopted; G6
@@ -168,8 +168,9 @@ the way batch 21 recorded the Anubis walls, so the next pass does not re-run the
 | group | terms | |
 |---|---|---|
 | prehistory, palaeoanthropology and geological time | 66 | Phase 1 · batches G1–G8 — **all done** |
-| Indigenous peoples, and the odds and ends | 8 | Phase 1 · batch G9 |
-| continents, oceans and physical geography | 17 | Phase 1 · batch G10 |
+| Indigenous peoples, and the odds and ends | 8 | Phase 1 · batch G9 — **done** |
+| the poles, the desert, the sea and two names | 7 | Phase 1 · batch G10 — **done** |
+| the continents, the island and the constants | 10 | Phase 1 · batch G11 |
 | US presidents | 45 | Phase 2 · batches P1–P7 |
 | countries and states of the world | 197 | Phase 3 · batches C0–C12 |
 | **total** | **333** | |
@@ -1041,20 +1042,120 @@ genus page — **there is no reachable botanical authority here**, which is why 
 the introductions of two applied papers. And `statssa.gov.za` responds but its municipality pages are
 JavaScript shells that return nothing to a fetch, while `joburg.org.za` does not resolve at all.
 
-### G10 · Continents, oceans and physical geography (17 terms)
-`Africa` · `Europe` · `Asia` · `Americas` · `North_America` · `South_America` · `Antarctica` · `Arctic` ·
-`Greenland` · `Sicily` · `Sahara` · `Near_East` · `Fertile_Crescent` · `Pacific_Ocean` · `Equator` ·
+### G10 · The poles, the desert, the sea, and two names (7 terms) — **DONE (2026-08-02)**
+`Antarctica` · `Arctic` · `Greenland` · `Sahara` · `Pacific_Ocean` · `Near_East` · `Fertile_Crescent`
+
+Spines, all reachable and all used: **NOAA** (the National Ocean Service's ocean facts and the agency's own
+repository copy of a CC BY paper), the **National Snow and Ice Data Center**, the **Australian Antarctic
+Division**, the **British Antarctic Survey**, the **Antarctic Treaty Secretariat**, **Statistics Greenland**,
+Copernicus's **The Cryosphere**, and the **Internet Archive** for two out-of-copyright books.
+
+### Batch G10 log — the batch that split in half, and the line it split on
+
+#### 2026-08-02 — seven terms, 26 citations, seven corrected, and ten terms handed to G11
+
+**Coverage 74/333 → 81/333, all eighty-one at the bar.** Twenty distinct works, **every one of them open** —
+the fourth batch after G4, G7 and G9 with no paywalled entry at all. Only **two** came out of
+`.claude/sources-register.md` unopened, which is G7's law holding at full strength for the third batch
+running: the register carries taxa and periods, and an ice sheet, a desert and an ocean are none of those.
+
+**The finding, and it re-cuts the rest of Phase 1. The planned G10 was seventeen terms, and it split cleanly
+down a line the plan half-saw: a term whose claims are MEASURED RESULTS could be cited from here, and a term
+whose claims are CONVENTIONS OR CONSTANTS could not.** Antarctica's ice thickness, Greenland's population,
+the Sahara's extent, the Challenger Deep's depth and the date the Norse reached the southern fjords are all
+results — deposited, indexed, openable, and in this batch every one of them turned out to be openable from
+an agency or a gold-OA journal. The six continents, `Equator`, `Northern_Hemisphere` and `Southern_Hemisphere`
+are not: "Europe is a continent" is a convention, the equator's 40,075 km is a defined ellipsoid parameter,
+and the hemispheres' land fractions and Coriolis behaviour are textbook constants. This is batch 2's finding
+in a new dress — **subject does not predict reachability; the KIND of claim does** — and it is why those ten
+terms are now G11 rather than a rushed second half of this one. What actually blocked them is recorded in the
+register: NASA's NSSDC fact sheets now 307 to the site shell, `weather.gov` is 403, and the UN's own
+macro-geographic scheme (M49) **cannot supply a continent's area at all**, because it assigns whole countries
+to regions and therefore puts every hectare of Russia in Europe and none in Asia. A batch built on it would
+have shipped 22.1 million km² for Europe.
+
+**Seven terms corrected**, in English and all nine languages.
+
+- **Antarctica is not "98% ice-covered"; the measured figure is 99.8%.** Burton-Johnson et al. mapped the
+  whole continent from Landsat 8 and found "exposed rock forms **0.18 % (21 745 km²) of the total land area
+  of Antarctica: half of previous estimates**" — and says so in the abstract, in those words. The familiar
+  98% is a textbook number that the satellite record halved twice over. The term now gives the exposure
+  rather than the coverage, which is the figure that was actually measured. Its "about 14.2 million km²"
+  went to 14 (Bedmap2's 13.924 including ice shelves) and its "most of the world's fresh water" gained the
+  British Antarctic Survey's 60%.
+- **The Pacific was "about 165 million km²" and holding "nearly half" of the world's water.** NOAA's own
+  page gives 155 million km² and "**more than half** of the free water on Earth" — the term was over on the
+  area and under on the water. Its "roughly 10,900 m" became Greenaway et al.'s measured 10,935 m (±6 m),
+  and "European ships first entered it in the 16th century" became Magellan's fleet in November 1520, which
+  is where the name comes from and which the same NOAA page carries.
+- **And NOAA contradicts itself on that area**, which is worth recording as a method note: `biggestocean.html`
+  says "approximately 63 million square miles" (~163 × 10⁶ km²) while `pacific.html` and NOAA Ocean
+  Exploration both say 155 × 10⁶ km² / 59–60 million square miles. **Two pages agree and one does not**, so
+  the term takes the two and the outlier page is marked for the claims it is alone in carrying — the
+  largest-and-deepest and the Ring of Fire. When an agency disagrees with itself, cite it for what it says
+  consistently.
+- **The Fertile Crescent was not named in 1916.** The phrase is already in print in Breasted's *Outlines of
+  European History*, Part I (1914) — "a fertile crescent having the mountains on one side and the desert on
+  the other … **This great semicircle, for lack of a name, may be called the … fertile crescent**" — two
+  years before *Ancient Times* capitalises it into a proper name. Both books are out of copyright and both
+  are on the Internet Archive in full. This is batch G4's rule paying a third time: **when a term dates a
+  19th- or early-20th-century idea, the author is out of copyright, so go and read him.** The term now says
+  he put the phrase into print in 1914 and made it a proper name two years later.
+- **Its "wheat, barley, lentils, sheep, goats, cattle and pigs were FIRST brought under human control"
+  there.** All seven were brought under control there; *first* is the word that fails, since `larson-2014` —
+  a source the register already held — counts at least eleven independent centres, and pigs and zebu cattle
+  were domesticated in two of the others. The word went and the eleven centres came in, which loses nothing
+  and states the thing that makes the crescent interesting.
+- **Greenland's Norse "died out or left some five centuries later".** Jackson et al. put the arrival of
+  agriculture in the **late tenth century** and Zhao et al. put the abandonment in the **early fifteenth** —
+  about four and a half, and the term now names the two centuries instead of counting between them.
+  Statistics Greenland's own annual booklet then corrected four more figures in one page: 2.17 → 2.2 million
+  km², "about four-fifths" → 81%, "fewer than 60,000" → about 57,000, and Nuuk gained its ~19,000.
+- **The Arctic's tree line and its 10 °C summer isotherm are not two alternative boundaries.** The term
+  offered them as a choice; NSIDC gives one line described two ways — the tree line "broadly corresponds to
+  where the average July summer temperature does not rise above 10 °C". Its "inhabited for thousands of
+  years" also gained a subject: Flegontov et al. speak for the **American** Arctic, first settled about
+  5,000 years ago, with the ancestors of today's Inuit and Yup'ik spreading across it a thousand years ago.
+  The Eurasian Arctic is far older and no source opened here covers it, so the term now says which Arctic it
+  means.
+- **The Sahara's 9.2 million km² became Liu and Xue's measured 9.5.** Not a contradiction — the desert's
+  margin is a matter of which index draws it — but the register already warned, on `wh-107`, that the
+  Sahara's area figures circulate in press releases rather than papers, and this is the openable measurement.
+
+**Two source disagreements were recorded rather than settled**, per G7's rule. Salem et al. 2025 give the
+African Humid Period as 14,500–5,000 BP where `tierney-2017` gives ~11,000–5,000; the term keeps Tierney's
+range, which is what the register records and what `wh-107` already says. And the NOAA area split above.
+
+**One route worth reusing, and one to stop trying.** The **Smithsonian's Global Volcanism Program**
+(`volcano.si.edu`) is a per-volcano catalogue in exactly the shape batches 18–19 found in the Human Origins
+records — Etna's elevation, coordinates, last known eruption and the note that "Recorded eruptions date back
+to 1500 BCE" are all on one page — which is most of `Sicily` waiting for G11. And **the IHO's *Limits of
+Oceans and Seas* is reachable and useless**: the 1953 third edition PDF at `iho.int` opens, but it is a scan
+with no text layer, so the formal limits of the Pacific could not be quoted.
+
+### G11 · The continents, the island and the constants (10 terms)
+`Africa` · `Europe` · `Asia` · `Americas` · `North_America` · `South_America` · `Sicily` · `Equator` ·
 `Northern_Hemisphere` · `Southern_Hemisphere`
 
-Reachable spines: **NOAA** (ocean facts, with per-page sources), **NASA Earth Observatory**, the **British
-Antarctic Survey** and the **Antarctic Treaty Secretariat** (`ats.aq` — the treaty text itself is the source
-for Antarctica's governance), and the **IHO**'s published limits of oceans and seas. USGS is 403 here.
+Deferred out of G10 for the reason logged above: these are conventions and constants, not results.
+Three leads, all found while working G10 and none yet used.
 
-Two warnings. The **continent terms are conventions, not natural kinds**, and the honest source for "Europe
-is a continent" is a geographical body stating the convention, not a physical measurement — do not cite a
-measurement for a definition. And `Near_East` and `Fertile_Crescent` are **historiographic terms with
-contested extents**; cite the scholarship that discusses the term, as `mackenthun-mucher-2021` does for
-"prehistory", rather than a source that simply uses it.
+- **A continent is a convention, and the honest source says so.** Mortimer et al., "Zealandia: Earth's Hidden
+  Continent," *GSA Today* 27, no. 3 (2017) — open access, and it sets out the geological criteria for calling
+  something a continent precisely because it is arguing a contested case. Cite the criteria, not a
+  measurement, for "Europe is a continent"; then cite figures separately, and **not** from the UN's M49
+  scheme, which puts all of Russia in Europe.
+- **The Americas' naming is out of copyright.** The 1907 facsimile edition of Waldseemüller's *Cosmographiae
+  Introductio* (United States Catholic Historical Society) is on the Internet Archive in full, with both the
+  Latin — "quarta orbis pars (quam quia Americus invenit, Amerigen quasi Americi terram sive Americam
+  nuncupare licet)", pp. 25 and 30 — and the editor's note that "**By America, of course, he meant the South
+  American continent of to-day**". That is the term's third sentence exactly, and it also says the map was
+  printed at Saint-Dié rather than anywhere one would call German.
+- **`Sicily` is already half done**: the Smithsonian's Global Volcanism Program record for Etna
+  (`volcano.si.edu/volcano.cfm?vn=211060`) gives 3,357 m, 37.748°N 14.999°E, a last known eruption in 2026
+  and recorded eruptions back to 1500 BCE. What is missing is the island's area and population — ISTAT's
+  `demo.istat.it` is a JavaScript shell that returns nothing to a fetch, so find another route — and a
+  scholarly source for the succession of rulers in its third sentence.
 
 ---
 
