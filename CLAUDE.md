@@ -92,7 +92,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `docs/glossary-citation-plan.md` — the batch plan for **citing the 333 glossary terms**, the sibling of
   the card plan above. The bar is **at least 2 citations per term** (a description is three sentences, where
   a card's abstract is ten), and the acceptable sources are academic, museum, government or reputable
-  NGO/IGO. **Batches G1–G11, P1–P7 (COMPLETING PHASE 2) and C0–C4 have shipped — 178 of the 333 terms are cited and at the bar, all with
+  NGO/IGO. **Batches G1–G11, P1–P7 (COMPLETING PHASE 2) and C0–C5 have shipped — 182 of the 333 terms are cited and at the bar, all with
   in-text markers in all ten languages. G11 COMPLETED Phase 1** (all 91 of its prehistory, palaeoanthropology,
   geological-time, peoples and physical-geography terms) **and P1 opened Phase 2** with the first six
   presidents, on the Miller Center's presidential essays; **P2 took it to Polk, P3 to Andrew Johnson, P4
@@ -246,6 +246,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   political fact, not a measurement convention, and the widest divergence in Phase 3), where the term
   matches the Commonwealth; India's is 3,166,391 at the Commonwealth and 3,287,263 at UNdata, where the term
   matches UNdata. Either source alone would have produced a wrong correction on one of two neighbours.
+  **C5 then probed the three blocs C4 named and all three fail**: `asean.org` returns 307 on every path
+  including the root, and the OIC, the Gulf Cooperation Council and the League of Arab States publish no
+  per-country profiles — so **Asia outside the Commonwealth has no bloc profile** and is C3's position one
+  continent over. Its four shipped terms all came through C3's act-of-state rule, and three of the four
+  second sources are **UN instruments served by `documents.un.org` and UNISPAL** where `un.org`'s topic
+  sections are CloudFront-blocked (GA resolution 181 (II) for Israel, SC resolution 1272 for East Timor),
+  plus the **Office of the Historian's Korean War milestone, which cites BOTH Koreas from one page**. C5's
+  own rule comes from the **United Arab Emirates**: UNdata gives 71,024 km² against the term's 83,600, a
+  **17% gap — the widest in Phase 3** — with no second official source to break the tie, so the term was
+  DEFERRED rather than corrected. **When UNdata is the only profile and disagrees by more than a rounding,
+  defer; never correct on one source.** Two smaller notes: `China`'s figures match UNdata exactly and the UN
+  Charter names it a permanent Security Council member, but its term never mentions the Council, so **an
+  open, authoritative source about the right country is still not a source for a claim the term does not
+  make**; and `Taiwan` is the SECOND split fault after `United_Kingdom` (Japanese runs to four sentences
+  where the others run to three), which settles that **`split-abstract.js` must be run over a batch's whole
+  term list before its markers are planned**.
   P3 also refines the `senate.gov` warning:
   its **impeachment** pages are real, its party-history and vice-president paths are the shell, and **the
   shell is a constant 37,523 bytes**, so a size check tells them apart instantly. Three access findings from it govern the rest of Phase 2 and Phase 3:
@@ -892,14 +908,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     stripe): one is derived from the data, the other is an editor's private marker.
   · `sup` + `class="fn"` + `data-fn` are in the sanitizer allowlists, so a community deck can use markers too.
   · **The Atlas table still ships EMPTY; the glossary has begun.** `country-sources.js` has no entries at all.
-    **`GLOSSARY_SOURCES` carries 178 of the 333 terms** (batches G1–G11, P1–P7 and C0–C4, 2026-08-01/02 — the genus, species, specimen,
+    **`GLOSSARY_SOURCES` carries 182 of the 333 terms** (batches G1–G11, P1–P7 and C0–C5, 2026-08-01/02 — the genus, species, specimen,
     stone-industry, three-age, periodisation, geological-time, type-site, way-of-life and discipline terms, plus the
     Indigenous-peoples group, its odds and ends, the poles / desert / ocean / two historiographic names, the six
     continents with `Sicily`, `Equator` and the two hemispheres — which completes Phase 1 — and the first six
     US presidents, Jackson to Polk, Taylor to Andrew Johnson, Grant to McKinley, Theodore Roosevelt to
     Hoover, Franklin D. Roosevelt to Nixon, and Ford to Biden — **all 45** — plus C0's six pilot
     countries, C1–C2's twenty-five EU member states, C3's four non-EU European states and C4's seven
-    Commonwealth states in Asia), against
+    Commonwealth states in Asia and C5's four more), against
     a bar of **`GLOSS_SRC_TARGET` (2)**, which is lower than a card's five because a description is three sentences
     where an abstract is ten; `docs/glossary-citation-plan.md` is the plan for the rest and
     `node .claude/gloss-source-audit.js` says where it stands. The UI, the deltas and the pipeline are in place;
@@ -2423,7 +2439,7 @@ reports both on every run, `node .claude/source-audit.js` reports them per card,
 shows each card's coverage as an amber or red chip) — and **a second pass has started on the glossary**, batched
 through `docs/glossary-citation-plan.md` at a bar of **2 citations per term** (`GLOSS_SRC_TARGET`), with
 `node .claude/gloss-source-audit.js` and the glossary list's own coverage chip reporting it; **121 of 333 terms
-are cited** (batches G1–G11, which complete Phase 1; P1–P7, which complete Phase 2 — all 45 US presidents; and C0–C4, the Phase 3 pilot, twenty-five EU states, four non-EU European states and seven Asian Commonwealth states). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
+are cited** (batches G1–G11, which complete Phase 1; P1–P7, which complete Phase 2 — all 45 US presidents; and C0–C5, the Phase 3 pilot, twenty-five EU states, four non-EU European states and eleven Asian states). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
 Two rules that pass turned up at once. **`add-sources.js` writes only the ENGLISH description**, so a term whose
 prose is corrected needs an `add-lang.js` run per language in the same batch or nine languages keep the old
 claim; and **a correction does not travel between surfaces** — `Homo_habilis` still carried the 2.3–1.5 Mya span

@@ -8781,3 +8781,75 @@ like C3 rather than C4: UNdata alone unless the third sentence names a datable a
 (`asean.org`), the Gulf Cooperation Council and the Arab League are the blocs worth probing first** — if any
 of them publishes a member profile in the shape of the EU's or the Commonwealth's, C5 and C6 are cheap; if
 none does, they are C3 again.
+
+## Batch C5 — Asia outside the Commonwealth (GLOSSARY, 2026-08-02)
+
+**Four terms shipped, 8 citations, no corrections.** Coverage 178/333 → 182/333. Israel, East Timor, North
+Korea, South Korea. **Thirty-five of the thirty-nine planned were deferred**, and the negative result the
+plan asked for is the batch's main output.
+
+### FINDING — Asia has no bloc profile outside the Commonwealth
+C4 ended by naming three blocs to probe first. All three fail, measured 2026-08-02:
+
+| bloc | result |
+|---|---|
+| **ASEAN** (`asean.org`) | **307 on every path**, including the site root, with no followable Location — effectively closed |
+| **Organisation of Islamic Cooperation** (`oic-oci.org/states`) | 200 and 336 KB, but it is a news page: **no per-country profiles, no key facts** |
+| **Gulf Cooperation Council** (`gcc-sg.org`) | 200 and 34 KB, no member profiles |
+| **League of Arab States** (`leagueofarabstates.net`) | 200 and 167 KB, no member profiles |
+
+**So there is no Asian equivalent of the EU country page or the Commonwealth Key Facts block.** UNdata
+answers for all thirty-nine and confirms every figure, but it is one source and the bar is two — which is
+C3's position exactly, one continent over.
+
+### The four that shipped, and the source class that carried them
+C3's rule — read the third sentence and ask what ACT it names — selected all four, and three of the four
+second sources are **United Nations instruments**, which `documents.un.org` and UNISPAL serve as PDFs and
+pages where `un.org`'s own topic sections are CloudFront-blocked:
+
+- **`Israel`** — General Assembly resolution **181 (II)** of 29 November 1947, on UNISPAL: "The **Mandate for
+  Palestine shall terminate** as soon as possible but in any case not later than 1 August 1948", and the
+  provision for administration "between the termination of the Mandate and the establishment of the State's
+  independence" — the term's "established in 1948 in the aftermath of the British Mandate over Palestine".
+- **`East_Timor`** — Security Council resolution **1272 (1999)** of 25 October 1999: "Decides to establish …
+  a **United Nations Transitional Administration in East Timor (UNTAET)**, which will be endowed with
+  overall responsibility for the administration of East Timor and will be **empowered to exercise all
+  legislative and executive authority**", recalling the popular-consultation agreements of 5 May and 30
+  August 1999 — the term's "a vote for independence in 1999 and a period of United Nations administration".
+- **`North_Korea` and `South_Korea`** — the Office of the Historian's **"The Korean War and Japan's
+  Recovery"**, which carries the division "at the **38th parallel**", the attack of **June 1950**, the
+  UN-authorised force, China's entry, and "Only in **1953** did the two sides reach an uneasy truce, thus
+  crystallizing the division between North and South" — both terms' "divided along the 38th parallel …
+  fought the Korean War from 1950 to 1953, which ended in an armistice rather than a peace treaty". **One
+  page cites two countries**, which is the only economy of scale this batch found.
+
+### Figures verified
+Israel ~22,000 km² (UNdata 22,072) and ~10 m (9,517 k); East Timor 14,954 km² (14,919) and ~1.4 m (1,418 k);
+North Korea 120,540 km² (120,538) and ~26 m (26,571 k); South Korea 100,363 km² (100,401) and ~52 m
+(51,667 k). **All four within a fraction of a percent.**
+
+### A divergence recorded, not corrected — the United Arab Emirates
+**UNdata gives 71,024 km²; the term says 83,600 km²**, which is the UAE's own official figure. That is a
+**17% gap, the widest in Phase 3**, wider than Pakistan's 10% Kashmir gap in C4 and the Netherlands' 12%
+land-versus-total gap in C2. The UAE is not a Commonwealth member, so there was no second official source to
+break the tie, and the term was left alone and deferred. **When UNdata is the only profile and it disagrees
+with the term by more than a rounding, defer — do not correct on one source.** That is C0's South Sudan
+lesson stated as a rule rather than a regret.
+
+### DEFERRED (batch C5) — thirty-five terms
+**Thirty-four for want of a second source.** UNdata confirms the figures for every one of them; their third
+sentences name dynasties, empires, Silk Road cities, colonial periods and language families, none of which
+any reachable work states: Afghanistan, Armenia, Azerbaijan, Bahrain, Bhutan, Brunei, Cambodia, China,
+Indonesia, Iran, Iraq, Japan, Jordan, Kazakhstan, Kuwait, Kyrgyzstan, Laos, Lebanon, Mongolia, Myanmar,
+Nepal, Oman, Philippines, Qatar, Saudi Arabia, Syria, Tajikistan, Thailand, Turkey, Turkmenistan, United
+Arab Emirates, Uzbekistan, Vietnam, Yemen.
+- **`China` is worth a note**: UNdata matches its area exactly (9,600,000 km²) and nearly its population,
+  and the UN Charter names it a permanent member of the Security Council — but **the term's third sentence
+  does not mention the Security Council**, so the Charter cannot be cited for anything it says. A source
+  that is open, authoritative and about the right country is still not a source for a claim the term does
+  not make.
+- **`Taiwan` is deferred on a SPLIT fault**, the second in Phase 3 after `United_Kingdom` in C3: **its
+  Japanese translation runs to four sentences where the other nine run to three.** Markers placed by
+  sentence index would land on different claims in Japanese. Two such faults in three batches makes the
+  case that **`split-abstract.js` should be run over a batch's whole term list before its markers are
+  planned**, which C3 already recommended and this batch confirms.

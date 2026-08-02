@@ -2,8 +2,8 @@
 
 The glossary was **333 terms and not one of them carried a source**. `window.GLOSSARY_SOURCES` was an empty
 table; the fold at the foot of a gloss popup never appeared. This is the plan for filling it. Not part of
-the site. **As of 2026-08-02, 178 of the 333 are cited and at the bar** — batches G1–G11, P1–P7 with the P-topup, and C0–C4, five of which also
-corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 178 carry in-text
+the site. **As of 2026-08-02, 182 of the 333 are cited and at the bar** — batches G1–G11, P1–P7 with the P-topup, and C0–C5, five of which also
+corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 182 carry in-text
 markers, in all ten languages, after the rule changed from optional to required on 2026-08-01 (see "What
 is different from the card pass"). G5 also settled the start of prehistory across the glossary, the deck
 and every date line: **2.6 Mya**, with the disputed 3.3 Ma Lomekwi claim hedged rather than adopted; G6
@@ -172,7 +172,7 @@ the way batch 21 recorded the Anubis walls, so the next pass does not re-run the
 | the poles, the desert, the sea and two names | 7 | Phase 1 · batch G10 — **done** |
 | the continents, the island and the constants | 10 | Phase 1 · batch G11 — **done** |
 | US presidents | 45 | Phase 2 · batches P1–P7 — **ALL DONE (2026-08-02)** |
-| countries and states of the world | 197 | Phase 3 · batches C0–C12 — **C0–C4 done (2026-08-02)**; 15 European terms deferred with reasons, see the C3 log |
+| countries and states of the world | 197 | Phase 3 · batches C0–C12 — **C0–C5 done (2026-08-02)**; 15 European and 35 Asian terms deferred with reasons, see the C3 and C5 logs |
 | **total** | **333** | |
 
 ## Order, and why
@@ -1942,6 +1942,46 @@ the read-both rule beyond argument.
 publishes a member profile in the shape of the EU's or the Commonwealth's, the rest of Asia is cheap; if
 none does, the remaining thirty-nine Asian terms are C3 again — UNdata alone unless the third sentence
 names a datable act.
+
+### Batch C5 log — the bloc probe C4 ordered, and its answer is no
+
+#### 2026-08-02 — four terms, 8 citations, no corrections, thirty-five deferrals
+
+**Coverage 178/333 → 182/333.** Israel, East Timor, North Korea, South Korea.
+
+**C4 named three blocs to probe before planning this batch. All of them fail.** `asean.org` returns **307 on
+every path including the root**, with no followable Location; the OIC's member-states page is a news feed
+with no per-country profiles; the Gulf Cooperation Council and the League of Arab States publish none
+either. **There is no Asian equivalent of the EU country page or the Commonwealth Key Facts block**, so
+Asia outside the Commonwealth is C3's position one continent over: UNdata answers for all thirty-nine and
+confirms every figure, and is one source against a bar of two.
+
+**C3's rule selected all four that shipped, and three of the four second sources are UN instruments** —
+served by `documents.un.org` and UNISPAL where `un.org`'s own topic sections are CloudFront-blocked:
+General Assembly resolution **181 (II)** of 1947 for Israel ("The Mandate for Palestine shall terminate …
+not later than 1 August 1948"); Security Council resolution **1272 (1999)** for East Timor, establishing
+UNTAET with "overall responsibility for the administration of East Timor"; and the Office of the Historian's
+**Korean War** milestone for both Koreas, which carries the 38th parallel, June 1950 and the 1953 truce.
+**That one page cites two countries is the only economy of scale the batch found.**
+
+**A divergence recorded rather than corrected, and it sets a rule.** The **United Arab Emirates**: UNdata
+gives **71,024 km²** against the term's **83,600**, the UAE's own official figure — a **17% gap, the widest
+in Phase 3**, ahead of Pakistan's 10% Kashmir gap and the Netherlands' 12% land-versus-total gap. The UAE is
+not a Commonwealth member and there was no second official source to break the tie, so the term was left
+alone and deferred. **When UNdata is the only profile and it disagrees with the term by more than a
+rounding, defer — do not correct on one source.** That is C0's South Sudan correction restated as a rule
+rather than a regret.
+
+**One deferral is a lesson about relevance rather than reach.** `China`'s figures match UNdata almost
+exactly and the UN Charter names it a permanent member of the Security Council — but **the term's third
+sentence does not mention the Security Council**, so the Charter cannot be cited for anything the term says.
+A source that is open, authoritative and about the right country is still not a source for a claim the term
+does not make.
+
+**And `Taiwan` is the second SPLIT fault in three batches**, after `United_Kingdom` in C3: its Japanese
+translation runs to four sentences where the other nine run to three, so markers placed by sentence index
+would land on different claims. Two in three batches settles it — **run `split-abstract.js` over a batch's
+whole term list before planning its markers.**
 
 ### Batches C1–C12 · by region
 
