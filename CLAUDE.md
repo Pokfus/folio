@@ -92,7 +92,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `docs/glossary-citation-plan.md` — the batch plan for **citing the 333 glossary terms**, the sibling of
   the card plan above. The bar is **at least 2 citations per term** (a description is three sentences, where
   a card's abstract is ten), and the acceptable sources are academic, museum, government or reputable
-  NGO/IGO. **Batches G1–G11, P1–P7 (COMPLETING PHASE 2) and C0–C1 have shipped — 157 of the 333 terms are cited and at the bar, all with
+  NGO/IGO. **Batches G1–G11, P1–P7 (COMPLETING PHASE 2) and C0–C2 have shipped — 167 of the 333 terms are cited and at the bar, all with
   in-text markers in all ten languages. G11 COMPLETED Phase 1** (all 91 of its prehistory, palaeoanthropology,
   geological-time, peoples and physical-geography terms) **and P1 opened Phase 2** with the first six
   presidents, on the Miller Center's presidential essays; **P2 took it to Polk, P3 to Andrew Johnson, P4
@@ -206,6 +206,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   wrong**. C1's own finding is a limit: **a country term written without figures is invisible to this
   recipe** — `Greece` states no area, population or capital and was DEFERRED rather than given two sources
   nothing points at, which matters because several of the twelve long-form countries are the same shape.
+  **C2 then nearly paid for C1's caution and turned it into a rule**: on `Malta`, `Portugal` and `Spain` the
+  EU page's population would have made the term look wrong and UNdata confirms it (Spain 49,077,984 against
+  UNdata's 47,890 thousand and the term's "roughly 48 million"), so **a batch run on the EU page alone would
+  have produced three corrections, every one an error introduced rather than removed**. Read BOTH before
+  concluding a figure is wrong; the disagreement between two official sources is routinely larger than the
+  term's error. C2 also met the first wide area spread — the Netherlands' 41,850 km² against the EU's
+  37,391, which is total against land area for a country a fifth water, and not a contradiction. Its six
+  DEFERRALS name the recipe's limit: `Albania` (UNdata's 2,772 thousand contradicts the term's 2.4 million,
+  and INSTAT's census pages don't carry the figure in their HTML — so a marker there would point at a work
+  that refutes the sentence), and `Iceland`/`Norway`/`Switzerland`/`Andorra`, where UNdata confirms every
+  figure but is only ONE source and the natural second is shut (`efta.int` and `coe.int` are both 403).
   P3 also refines the `senate.gov` warning:
   its **impeachment** pages are real, its party-history and vice-president paths are the shell, and **the
   shell is a constant 37,523 bytes**, so a size check tells them apart instantly. Three access findings from it govern the rest of Phase 2 and Phase 3:
@@ -852,13 +863,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     stripe): one is derived from the data, the other is an editor's private marker.
   · `sup` + `class="fn"` + `data-fn` are in the sanitizer allowlists, so a community deck can use markers too.
   · **The Atlas table still ships EMPTY; the glossary has begun.** `country-sources.js` has no entries at all.
-    **`GLOSSARY_SOURCES` carries 157 of the 333 terms** (batches G1–G11, P1–P7 and C0–C1, 2026-08-01/02 — the genus, species, specimen,
+    **`GLOSSARY_SOURCES` carries 167 of the 333 terms** (batches G1–G11, P1–P7 and C0–C2, 2026-08-01/02 — the genus, species, specimen,
     stone-industry, three-age, periodisation, geological-time, type-site, way-of-life and discipline terms, plus the
     Indigenous-peoples group, its odds and ends, the poles / desert / ocean / two historiographic names, the six
     continents with `Sicily`, `Equator` and the two hemispheres — which completes Phase 1 — and the first six
     US presidents, Jackson to Polk, Taylor to Andrew Johnson, Grant to McKinley, Theodore Roosevelt to
     Hoover, Franklin D. Roosevelt to Nixon, and Ford to Biden — **all 45** — plus C0's six pilot
-    countries and C1's fifteen EU member states), against
+    countries and C1–C2's twenty-five EU member states), against
     a bar of **`GLOSS_SRC_TARGET` (2)**, which is lower than a card's five because a description is three sentences
     where an abstract is ten; `docs/glossary-citation-plan.md` is the plan for the rest and
     `node .claude/gloss-source-audit.js` says where it stands. The UI, the deltas and the pipeline are in place;
@@ -2382,7 +2393,7 @@ reports both on every run, `node .claude/source-audit.js` reports them per card,
 shows each card's coverage as an amber or red chip) — and **a second pass has started on the glossary**, batched
 through `docs/glossary-citation-plan.md` at a bar of **2 citations per term** (`GLOSS_SRC_TARGET`), with
 `node .claude/gloss-source-audit.js` and the glossary list's own coverage chip reporting it; **121 of 333 terms
-are cited** (batches G1–G11, which complete Phase 1; P1–P7, which complete Phase 2 — all 45 US presidents; and C0–C1, the Phase 3 pilot and the first fifteen EU states). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
+are cited** (batches G1–G11, which complete Phase 1; P1–P7, which complete Phase 2 — all 45 US presidents; and C0–C2, the Phase 3 pilot and twenty-five EU states). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
 Two rules that pass turned up at once. **`add-sources.js` writes only the ENGLISH description**, so a term whose
 prose is corrected needs an `add-lang.js` run per language in the same batch or nine languages keep the old
 claim; and **a correction does not travel between surfaces** — `Homo_habilis` still carried the 2.3–1.5 Mya span

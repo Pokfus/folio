@@ -8557,3 +8557,80 @@ That list is long and it is the honest shape of the recipe: **two institutional 
 present and its accessions, and nothing of its landscape or its past.** C0 predicted this; C1 measures it at
 scale. A future batch that wants the geography and the pre-modern history will need a different class of
 source entirely, and should be planned as its own pass rather than as an extension of this one.
+
+## Batch C2 — Europe, the remaining EU member states (GLOSSARY, 2026-08-02)
+
+**Ten terms shipped, 21 citations, no corrections.** Coverage 157/333 → 167/333. Luxembourg, Malta,
+Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, Sweden. **Six terms were planned for this
+batch and deferred — Greece, Albania, Iceland, Norway, Switzerland, Andorra — each for a stated reason
+below.** The two-fetch recipe from C1 was used unchanged.
+
+### FINDING — the two official sources disagree on population routinely, and C1's caution generalises
+C1 flagged Czechia, where UNdata was the outlier and the EU agreed with the term. C2 found the pattern is
+symmetrical and common. Populations, term against both:
+
+| | term | EU page | UNdata |
+|---|---|---|---|
+| Luxembourg | ~670,000 | 681,973 | 680 k |
+| Malta | ~550,000 | 574,250 | **545 k** |
+| Portugal | ~10.5 m | 10,749,635 | **10,412 k** |
+| Spain | ~48 m | 49,077,984 | **47,890 k** |
+| Sweden | ~10.6 m | 10,587,710 | 10,587 k |
+| Poland | ~37 m | 36,497,495 | 36,564 k |
+| Romania | ~19 m | 19,036,031 | 19,036 k |
+
+**On Malta, Portugal and Spain the EU figure would have made the term look wrong and UNdata confirms it.**
+Spain is the sharpest: 49.08 million does not round to the term's "roughly 48 million", but UNdata's 47,890
+thousand does. **Had this batch used the EU page alone, it would have produced three corrections, all of
+them wrong.** The rule C1 stated tentatively is now firm: **read both official sources before concluding a
+term's figure is wrong, and expect the disagreement between them to be larger than the term's error.**
+
+### Areas, checked the same way and all holding
+Malta 316 (EU 316), Portugal 92,230 (92,226), Romania 238,398 (238,398), Slovakia 49,035 (49,035),
+Slovenia 20,271 (20,273), Spain 505,990 (505,983), Luxembourg 2,586 (2,595), Poland 312,696 (311,928),
+Sweden 450,295 (447,424). **The Netherlands is the one wide spread**: the term's 41,850 km² against the EU's
+37,391 km², about 12%. That is total area against land area for a country a fifth of which is water, not a
+contradiction — but it is far wider than any spread seen in C1, and worth remembering for the next
+water-heavy country.
+
+### Verified citations (batch C2)
+As C1: `data.un.org/en/iso/<cc>.html` and
+`european-union.europa.eu/principles-countries-history/eu-countries/<slug>_en` for each of the ten, plus
+NATO's member-countries table for Sweden. Accession dates read this batch: **Luxembourg and the Netherlands
+1 January 1958; Portugal and Spain 1 January 1986; Sweden 1 January 1995; Malta, Poland, Slovakia and
+Slovenia 1 May 2004; Romania 1 January 2007.** UN membership dates carrying an independence clause:
+**Malta 1 December 1964**, **Slovakia 19 January 1993**, **Slovenia 22 May 1992**. NATO: **Sweden 2024**.
+
+### DEFERRED (batch C2) — six terms, and why each one waits
+- **`Greece`** — deferred a second time. Its description states no area, no population and no capital, and
+  its EU accession (1 January 1981) is not in its third sentence, so neither work carries anything it says.
+  What it does assert — the southern Balkan peninsula and several thousand islands, mountains over
+  four-fifths, the longest Mediterranean coastline, the ancient city-states, and recognition as sovereign
+  in 1830 — needs a source for the London Protocol and one for the physical geography. **`mfa.gr` is 403
+  here**, which closes the obvious route.
+- **`Albania`** — deferred on a genuine conflict, not a gap. The term says "roughly 2.4 million people";
+  **UNdata says 2,772 thousand**, a 15% divergence far outside anything else in C1 or C2. Albania's own
+  2023 census is the likely source of the term's figure, and **INSTAT's census pages could not be read from
+  here** (the figure is not in the served HTML). Marking sentence 1 to UNdata would point a marker at a
+  work that contradicts the sentence it marks — the failure this pass has caught three times — and
+  correcting to UNdata risks introducing an error against Albania's own count. **It waits for INSTAT.**
+- **`Iceland`, `Norway`, `Switzerland`, `Andorra`** — UNdata confirms every figure in all four (Iceland
+  103,000 km² / 398 k; Norway 323,772 km² / 5,623 k; Switzerland 41,291 km² / 8,967 k; Andorra 468 km² /
+  83 k, all matching the terms), but **UNdata alone is one source and the bar is two**, and the natural
+  second for a non-EU European state is shut: **`efta.int` is 403 and `coe.int` is 403.** `nbim.no` is open
+  and would carry Norway's sovereign wealth fund. These four need a second source found before they ship,
+  not a second source invented.
+
+**That is six deferrals in two batches, and the reason is always the same shape**: the recipe is two
+institutional profiles, and it works exactly as far as a country's description states figures those
+profiles publish. C3 should be planned as the harder half of Europe rather than as more of the same.
+
+### NOT CITED (batch C2) — the unmarked clauses
+As in C1: all of the physical geography (the Ardennes and the Gutland, Malta's limestone platform and its
+desalination, the Dutch polders and the Rhine–Meuse–Scheldt delta, the Vistula and the Oder, the Tagus
+divide, the Carpathian arc and the Danube delta, the High Tatras, the Slovenian karst that named karst, the
+Meseta and the Sierra Nevada, Sweden's 100,000 lakes and the Arctic Circle) and all of the pre-modern
+history (the grand duchy, the Knights of St John from 1530, the 17th-century Dutch republic and the kingdom
+of 1815, the Christian kingdom of 966 and the partition of 1795, the Portuguese kingdom of 1143 and the
+voyages, Roman Dacia and the union of 1859, a thousand years in the Kingdom of Hungary, Habsburg Slovenia,
+Visigothic and Muslim Spain and the union of Castile and Aragon, and the Swedish Baltic empire to 1721).

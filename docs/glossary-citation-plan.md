@@ -2,8 +2,8 @@
 
 The glossary was **333 terms and not one of them carried a source**. `window.GLOSSARY_SOURCES` was an empty
 table; the fold at the foot of a gloss popup never appeared. This is the plan for filling it. Not part of
-the site. **As of 2026-08-02, 157 of the 333 are cited and at the bar** — batches G1–G11, P1–P7 with the P-topup, and C0–C1, five of which also
-corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 157 carry in-text
+the site. **As of 2026-08-02, 167 of the 333 are cited and at the bar** — batches G1–G11, P1–P7 with the P-topup, and C0–C2, five of which also
+corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 167 carry in-text
 markers, in all ten languages, after the rule changed from optional to required on 2026-08-01 (see "What
 is different from the card pass"). G5 also settled the start of prehistory across the glossary, the deck
 and every date line: **2.6 Mya**, with the disputed 3.3 Ma Lomekwi claim hedged rather than adopted; G6
@@ -172,7 +172,7 @@ the way batch 21 recorded the Anubis walls, so the next pass does not re-run the
 | the poles, the desert, the sea and two names | 7 | Phase 1 · batch G10 — **done** |
 | the continents, the island and the constants | 10 | Phase 1 · batch G11 — **done** |
 | US presidents | 45 | Phase 2 · batches P1–P7 — **ALL DONE (2026-08-02)** |
-| countries and states of the world | 197 | Phase 3 · batches C0–C12 — **C0–C1 done (2026-08-02)** |
+| countries and states of the world | 197 | Phase 3 · batches C0–C12 — **C0–C2 done (2026-08-02)** |
 | **total** | **333** | |
 
 ## Order, and why
@@ -1814,11 +1814,50 @@ The shape is exactly what C0 predicted and this batch measures at scale: **two i
 a country's present and its accessions, and nothing of its landscape or its past.** A pass that wants those
 needs a different class of source and should be planned as its own, not as an extension of this one.
 
+### Batch C2 log — the batch that would have made three wrong corrections on one source
+
+#### 2026-08-02 — ten terms, 21 citations, no corrections, six deferrals
+
+**Coverage 157/333 → 167/333.** Luxembourg, Malta, Netherlands, Poland, Portugal, Romania, Slovakia,
+Slovenia, Spain, Sweden, on C1's two-fetch recipe unchanged.
+
+**C1 raised the Czechia caution tentatively; C2 makes it a rule, and nearly paid for it.** On **Malta,
+Portugal and Spain the EU country page's population would have made the term look wrong, and UNdata
+confirms it**. Spain is the sharpest: the EU gives 49,077,984, which does not round to the term's "roughly
+48 million" — but UNdata gives 47,890 thousand, which does. **A batch run on the EU page alone would have
+produced three corrections, every one of them an error introduced rather than removed.** So: **read both
+official sources before concluding a term's figure is wrong, and expect the disagreement between the two to
+be larger than the term's error.**
+
+**One wide area spread, and it is not a contradiction.** The Netherlands: the term's 41,850 km² against the
+EU's 37,391 km², about 12%, which is total area against land area for a country a fifth of which is water.
+Nothing in C1 came close to that gap. **Expect it again on the next water-heavy country and do not correct
+it.**
+
+**Six terms planned for this batch were deferred, each for a stated reason, and the pattern is the recipe's
+own limit.**
+- **`Greece`**, a second time: it states no area, no population and no capital, and its EU accession is not
+  in its third sentence, so neither work carries anything it says. `mfa.gr` is 403, closing the obvious
+  route to the London Protocol of 1830.
+- **`Albania`**, on a genuine conflict rather than a gap: the term says "roughly 2.4 million", **UNdata says
+  2,772 thousand** — a 15% divergence far outside anything else in C1 or C2, almost certainly the UN's
+  projection against Albania's own 2023 census. **INSTAT's census pages do not carry the figure in their
+  served HTML.** Marking sentence 1 to UNdata would point a marker at a work that contradicts the sentence
+  it marks; correcting to UNdata risks introducing an error against Albania's own count. It waits.
+- **`Iceland`, `Norway`, `Switzerland`, `Andorra`**: UNdata confirms every figure in all four, but **UNdata
+  alone is one source and the bar is two**, and the natural second for a non-EU European state is shut —
+  **`efta.int` 403, `coe.int` 403**. They need a second source found, not invented.
+
+**That is six deferrals across two batches and always the same shape: the recipe is two institutional
+profiles, and it reaches exactly as far as a country's description states figures those profiles publish.**
+C3 is therefore the harder half of Europe — the non-EU states, the Balkans, the microstates and Greece —
+and should be planned as its own problem rather than as more of the same.
+
 ### Batches C1–C12 · by region
 
 | batch | region | terms | |
 |---|---|---|---|
-| **C1–C3** | Europe | 47 | Albania → Vatican City, plus Greece, France, Georgia, Denmark, Russia, less the three in C0. **C1 DONE (2026-08-02)**: Austria, Belgium, Bulgaria, Croatia, Cyprus, Czech Republic, Denmark, Estonia, Finland, Germany, Hungary, Ireland, Italy, Latvia, Lithuania — **Greece deferred to C2**, its description carrying no figure either source states |
+| **C1–C3** | Europe | 47 | Albania → Vatican City, plus Greece, France, Georgia, Denmark, Russia, less the three in C0. **C1 DONE (2026-08-02)**: Austria, Belgium, Bulgaria, Croatia, Cyprus, Czech Republic, Denmark, Estonia, Finland, Germany, Hungary, Ireland, Italy, Latvia, Lithuania — **Greece deferred to C2**, its description carrying no figure either source states. **C2 DONE (2026-08-02)**: Luxembourg, Malta, Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, Sweden — **six deferred to C3**: Greece again, Albania (UNdata contradicts its population), and Iceland, Norway, Switzerland, Andorra (UNdata alone is one source; `efta.int` and `coe.int` are 403 here) |
 | **C4–C6** | Asia | 43 | Afghanistan → Yemen, plus India, China, Japan, less State of Palestine |
 | **C7–C9** | Africa | 53 | Algeria → Zimbabwe, plus Kenya and Tanzania, less South Sudan |
 | **C10** | Oceania | 13 | New Zealand → Tuvalu, plus Australia, less Tuvalu |
