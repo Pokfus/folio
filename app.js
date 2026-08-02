@@ -12422,14 +12422,17 @@
             }</div></div>
           </div>
         </div>
-        ${/* the language picker, moved off the top bar (Aug 2026) — see langPickerHTML */""}
-        <div class="set-card set-wide">
+        ${/* The language picker (moved off the top bar Aug 2026 — see langPickerHTML). Gone from the page
+              while MULTILANG is false: the site is English-only for now, and a picker offering nine
+              languages nothing routes to would be a control that lies. The markup is left here, behind
+              the same one flag the rest of it is behind, so it comes back in a single edit. */""}
+        ${MULTILANG ? `<div class="set-card set-wide">
           ${setHead("var(--zh)", '<circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 4 9 15 15 0 0 1-4 9 15 15 0 0 1-4-9 15 15 0 0 1 4-9z"/>', "Language")}
           <div class="set-row set-row-block">
             <div class="info"><h3>Site language</h3><p>The whole site — cards, glossary, games and the Atlas — in the language you pick. Anything not yet translated stays in English.</p></div>
             ${langPickerHTML()}
           </div>
-        </div>
+        </div>` : ""}
         <div class="set-card">
           ${setHead("#4F9D67", '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>', "Study")}
           <div class="set-row">
@@ -15108,11 +15111,25 @@
     { code: "ja", label: "日本語" },
   ];
   const LANG_CODES = LANGS.map((l) => l.code);
+  /* ENGLISH ONLY (Aug 2026, on request): the site ships in English while the work is on making the English
+     the best it can be. This is the ONE switch — flip it back to true and the picker, the ?lang= links and
+     setLang all come back with it. Everything else is left exactly as it was: the nine translation files
+     stay on disk, the i18n engine stays wired, and `t()`/`localizeTree` keep working, because they are
+     no-ops in English (the tables are lazy and per-language, so an English reader never fetched one
+     anyway). Nothing here is deleted — this is a door held shut, not a wall built. */
+  const MULTILANG = false;
   // ?lang=xx makes the site linkable in a given language (e.g. /?lang=es#decks). Like the switcher, it
   // becomes the stored preference — someone who follows a Spanish link stays in Spanish. This runs
   // BEFORE setupLangSwitch below, so the switcher's flag and code chip render in the chosen language
   // rather than showing the old one until the next reload.
   (function langFromURL() {
+    /* While the site is English-only this is also the migration back. A reader who chose Spanish before
+       the picker was removed would otherwise be held in Spanish for ever, with no control left on the
+       page to get out — which is the one way removing a setting can actually break someone. */
+    if (!MULTILANG) {
+      if (S.settings.lang && S.settings.lang !== "en") { S.settings.lang = "en"; save(); }
+      return;
+    }
     let q = null;
     try { q = new URLSearchParams(location.search).get("lang"); } catch (e) {}
     if (!q) return;
@@ -15133,6 +15150,7 @@
   }
   // the one place the site language changes: validates, persists, loads what it needs, repaints
   function setLang(code) {
+    if (!MULTILANG && code !== "en") return;   // english-only: nothing offers this, and nothing may reach past it
     if (!LANG_CODES.includes(code) || code === S.settings.lang) return;
     S.settings.lang = code;
     save();

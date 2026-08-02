@@ -30,13 +30,17 @@ It is a plain static website — open `index.html` and it runs.
   because a citation batch listed every correction it made; they were compressed on request (2026-08-01) into
   one line a day saying what changed and what KIND of corrections came out of it. The counts and the finding
   belong here; the per-card detail belongs in the batch log in `docs/`. Anything past ~1,000 characters is a
-  transcript, and it costs nine translations of the same length.
-  **A new line ships with its nine translations.** The whole changelog (27 day titles + 196 items) is live in
+  transcript.
+  **ENGLISH ONLY, for now (Aug 2026, on request): a new line does NOT need its nine translations.** The site
+  ships in English while the work is on making the English as good as it can be — see the `MULTILANG` bullet
+  under "How the app is wired". Write the line, ship it, move on. The rest of this paragraph is the rule to
+  resume when translations do: the whole changelog (27 day titles + 196 items) is already live in
   es/fr/de/it/nl/ru/ar/zh/ja as `chrome.exact` rows in `i18n/ui-<lang>.js` — the items are plain text nodes, so
   `localizeTree` picks them up with no code. They must NOT go inline into `changelog.js`, which is in the eager
   load path (the `quotes.js` mistake: 27 KB → 312 KB for every visitor). Add them with `.claude/add-lang.js`
-  chrome batches. **If you reword or merge an existing line, retire the old translations** in the same pass via
-  the `chrome.remove` list, or nine files keep a dead row that matches nothing and reads like coverage.
+  chrome batches, and **if you reword or merge an existing line, retire the old translations** in the same pass
+  via the `chrome.remove` list, or nine files keep a dead row that matches nothing and reads like coverage.
+  A line added while English-only simply has no translated rows to retire.
   The changelog **dates follow the site language** (`fmtDay` → `dayLocale()`, en-GB for English), not the
   browser's.
 
@@ -1540,6 +1544,26 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   two in step if the set changes. The picker is a three-cell segmented control (`.fs-pick`) whose A is drawn at
   each size, in a `set-row-block` because at 186px it leaves a phone's description four words a line. Guarded
   by `test-layout.js`, which asserts both halves: the card and popup grow, a tab label and a grade button do not.
+- **ENGLISH ONLY — `const MULTILANG = false`** (app.js, beside `LANG_CODES`; Aug 2026, on request). The site
+  ships in English while the work is on making the English as good as it can be. It is **one switch**, and it
+  shuts three doors: the Language card is not rendered on the Settings page, `?lang=xx` no longer switches,
+  and `setLang` refuses anything but English. **Nothing is deleted** — the nine `i18n/*` files stay on disk,
+  the engine stays wired, `langPickerHTML`/`wireLangPicker`/`loadLangData` are untouched, and every bullet
+  below still describes live code; the tables are lazy and per-language, so an English reader never fetched
+  one anyway and the shut door costs a visitor nothing. Flip the flag and it all comes back.
+  **The migration back is part of the gate, and is the part not to remove**: `langFromURL` resets a stored
+  non-English `S.settings.lang` to `"en"` on boot. Without it, a reader who had chosen Spanish would be held
+  in Spanish for ever with no control left on the page to escape — the one way removing a setting can
+  genuinely strand someone. The content pipeline has the same switch twice over
+  (`REQUIRE_TRANSLATIONS` in `add-card.js` and `add-glossary.js`), and the changelog rule in the golden rules
+  is suspended to match. Guarded by `test-layout.js` (the gate) and `test-i18n-lang.js`, which asserts the
+  gate UNPATCHED and then **serves an app.js with the flag flipped** so the machinery behind it stays tested
+  rather than quietly rotting.
+  One consequence to know rather than to fix: **the editors can no longer reach a translation.** The editing
+  language IS the site language, so with English forced the card editor edits the base fields and the
+  glossary editor the English description — `setCardI18nEdit` / `setGlossI18nEdit` are unreachable from the
+  UI, and `serializeGlossaryI18n` bakes nothing, since it only ever writes languages whose file is loaded.
+  Translations are edited by `.claude/add-lang.js` alone while this stands.
 - **Language picker + i18n** (**Settings → Language**, `langPickerHTML` / `wireLangPicker`; it was a `#lang-switch`
   dropdown in the top bar until Aug 2026, moved on request when the phone's top bar was removed — a preference
   belongs on the preferences page, and the picker had nowhere else to live once that bar was gone): a grid of
@@ -2496,10 +2520,17 @@ template entries are the canonical format: card `cnh-001` in `data.js`, glossary
 **Current direction (July 2026): the China collection is SET ASIDE** — its tree node carries
 `placeholder: true`, so it sits under "Coming soon" and `availableCardIdSet()` (app.js) keeps its cards
 out of the daily review, the games, the card of the day and study deep-links. **New cards go to the
-World History collection (`col-8`)** — create leaf decks under it as topics demand. **Every NEW card and
-glossary entry also ships in the 9 site languages** (es, fr, de, it, nl, ru, ar, zh, ja — see the i18n bullets
-below and in the file map); the helpers refuse a new entry without its translations (escape hatch:
-`skipTranslations: true`, only for deliberate English-only maintenance edits of old entries).
+World History collection (`col-8`)** — create leaf decks under it as topics demand.
+
+**ENGLISH ONLY (Aug 2026, on request): a new card or glossary term does NOT need its nine translations.**
+The site ships in English while the work is on making the English as good as it can be, so put the effort
+that went into nine translations into the English instead — the sourcing, the sentence rhythm, the
+question pool. `add-card.js` and `add-glossary.js` each carry a `REQUIRE_TRANSLATIONS = false` beside
+their `I18N_LANGS`, which is the content-pipeline half of `MULTILANG` in app.js; flip both back and new
+entries are held to all nine again. **Translations that ARE supplied are still written and still checked**
+(question length, footnote-marker parity) — the requirement is lifted, the machinery is not, and the
+existing 105 cards and 333 terms keep the translations they have. What is written below about the nine
+languages is the rule to resume, not the rule in force.
 
 **Add a card** — build a card object with all 13 fields, write it to a temp `.json` file, then run:
 
@@ -2573,7 +2604,8 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
 - `answerText` — the answer as plain text, no HTML.
 - `image` / `video` (optional, one or the other) — `{ src, title, desc, credit }`. **`credit` is required**:
   `add-card.js` refuses a `src` with no source line, matching the editors' media gate.
-- `i18n` — **REQUIRED for every new card**: the card translated into all 9 site languages,
+- `i18n` — **OPTIONAL while the site is English-only** (it was required, and will be again — see the
+  English-only note above): the card translated into all 9 site languages,
   `"i18n": { "es": { "question": …, "questions": [q2, q3], "answer": …, "answerDate": …, "abstract": …,
   "answerText": … }, "fr": …,
   "de": …, "it": …, "nl": …, "ru": …, "ar": …, "zh": …, "ja": … }`. Each language mirrors the English fields under the
@@ -2585,16 +2617,16 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   idiom and word order, at the same plain 14-year-old reading level as the English. Do not transliterate proper names
   that have established forms in the target language, and use each language's own standard scholarly term for the
   answer. The study page, card of the day and games show the `i18n[lang]` fields when the site
-  language matches (`cardLocalized()` in app.js); English is the fallback. `add-card.js` refuses a new card
-  with a missing language/field.
+  language matches (`cardLocalized()` in app.js); English is the fallback. With `REQUIRE_TRANSLATIONS`
+  back on, `add-card.js` refuses a new card with a missing language/field.
 
 **Add a glossary term** — write `{ "slug": "Wikipedia_Article_Slug", "description": "<3 sentences>",
 "date": "<optional>", "tags": ["<kind>", "<subject>", "<specific>"],
 "sources": ["<Chicago note-form citation>", …],
 "translations": { "es": "<3 sentences>", "fr": …, "de": …, "it": …, "nl": …, "ru": …, "ar": …, "zh": …, "ja": … } }`
-(translations REQUIRED for new terms — the description in all 9 site languages, same three-sentence,
-impartial, self-contained rules; they land in `i18n/gloss-<lang>.js` → `window.GLOSSARY_I18N`) to a temp
-`.json` file, then run:
+(translations OPTIONAL while the site is English-only, and required again when it isn't — the description
+in all 9 site languages, same three-sentence, impartial, self-contained rules; they land in
+`i18n/gloss-<lang>.js` → `window.GLOSSARY_I18N`) to a temp `.json` file, then run:
 
 ```
 node .claude/add-glossary.js <entry.json>
@@ -2629,8 +2661,9 @@ never Wikipedia, never an invented page number). They land in `window.GLOSSARY_S
 numbered fold at the foot of the popup. **Markers are REQUIRED, exactly as on a card** (they were optional
 through batches G1–G4; changed on request 2026-08-01). Point each claim at the work it rests on with
 `<sup class="fn" data-fn="2"></sup>`, written empty — the digit is drawn from the list at render time — and
-put the SAME markers on the same claims in all nine translations, since a language that loses them shows
-the fold with no in-text links and a language that carries a different set points at the wrong work.
+put the SAME markers on the same claims in **whatever translations the term carries** — which for a term
+written while the site is English-only is none — since a language that loses them shows the fold with no
+in-text links and a language that carries a different set points at the wrong work.
 `add-sources.js` refuses a term with no marker, a marker past the end of the list, or a source nothing
 points at; `add-lang.js` warns on a mismatched translation and `node .claude/gloss-source-audit.js` reports
 both over the whole glossary. **`split-abstract.js` exports `pieces()` and `mark()`** for exactly this: split
@@ -3015,14 +3048,21 @@ dead code (never rendered).
     the popup, and above all **isolation** (a curated card never links a deck's term; a second deck never
     sees the first's), plus a hostile glossary in an imported deck. **Re-run after touching
     `glossSourcesFor` / `buildGlossIndex` / `uGlossSanitize`.**
-  · `node .claude/test-i18n-lang.js` — 24 assertions on the PER-LANGUAGE translation files: that a
-    reader downloads one language and not all of them (an English reader downloads none), that switching
-    pulls only the new language, that Japanese is at parity with the other languages across chrome/cards/
-    glossary, and — the sharp edge of this layout — that a `glossaryI18n` overlay delta records ONLY the
-    edited language, LAYERS over the shipped text so an edit made in one language cannot wipe another's,
-    bakes to one file per edited language holding every term, and NEVER bakes a language whose file isn't
-    loaded. **Re-run after touching `langBundle` / `glossI18nIngest` / `glossI18nMerged` /
-    `setGlossI18nEdit` / `serializeGlossaryI18n` / `editedGlossI18nLangs`, or after adding a language.**
+  · `node .claude/test-i18n-lang.js` — 28 assertions, in two halves. First the **English-only gate**, on the
+    real app.js: `?lang=ja` does not switch the site, Settings offers no picker, and not one translation
+    file is fetched. Then everything else — the machinery kept behind `MULTILANG` — against an app.js the
+    test's own server rewrites `const MULTILANG = false;` → `true` as it serves it, so the preserved code
+    stays tested instead of quietly rotting until someone flips the flag back. **`patchApp` asserts the
+    string was found**, and one assertion at the end reports it, so renaming the flag fails loudly here
+    rather than leaving this file testing an app that can no longer switch language at all.
+    That second half is the original test: a reader downloads one language and not all of them (an English
+    reader downloads none), switching pulls only the new language, Japanese is at parity with the other
+    languages across chrome/cards/glossary, and — the sharp edge of this layout — a `glossaryI18n` overlay
+    delta records ONLY the edited language, LAYERS over the shipped text so an edit made in one language
+    cannot wipe another's, bakes to one file per edited language holding every term, and NEVER bakes a
+    language whose file isn't loaded. **Re-run after touching `MULTILANG` / `langBundle` /
+    `glossI18nIngest` / `glossI18nMerged` / `setGlossI18nEdit` / `serializeGlossaryI18n` /
+    `editedGlossI18nLangs`, or after adding a language.**
   · `node .claude/test-account-switch.js` — 22 assertions on switching accounts on one device, against an
     in-memory mock of the Supabase **auth + progress** endpoints (a test that really signed up would create
     users in the live project). It asserts both halves of the rule: a guest's study history still migrates
@@ -3124,6 +3164,9 @@ dead code (never rendered).
     are stacked by arithmetic over `--timebar-h`/`--tabbar-h` and each edge must meet the next exactly, at
     three widths; the rail's year labels never overlapping at four widths, with the two ends always kept;
     the Atlas search and legend as chips covering under 3% of the map, opening and closing again; the
+    Settings page carrying NO language picker while the site is English-only, with the light/dark switch
+    beside it untouched — and a language stored before the picker went being brought back to English on
+    load, which is the one way removing a setting can strand somebody; the
     one-row grade bar and the study page's padding clearing it — and its two HEIGHTS, where dragging the grip
     down must genuinely halve it (a "compact" state saving 15px is not what was asked for), leave the four
     grades as bare colours that a screen reader can still name, keep the ? and Suspend beside them rather
@@ -3136,7 +3179,7 @@ dead code (never rendered).
     **Re-run after touching `.tabbar` / `--tabbar-h` / `--timebar-h` / `layoutTicks` / the Atlas chrome's
     media queries / `.settings` / `.auth-split` / the coming-soon rows / `wireOnePageSwipe`
     / `.rv-lip` / `.games-sec` / `.home-about` / `gameSub` / `pileCounts` / `adProg` / `.active-deck` /
-    `gbWireResize` / `.gb-grab` / `body.gb-compact` / `applyTheme`'s `data-fs` / `var(--fs)` /
+    `gbWireResize` / `.gb-grab` / `body.gb-compact` / `applyTheme`'s `data-fs` / `var(--fs)` / `MULTILANG` /
     `ensureWBTools` / `.wb-pick` /
     the ink layer's pass-through /
     `cpWireResize` / `lockHeight`, or after adding an overlay to `document.body`.** Its clicks go through `evaluate`

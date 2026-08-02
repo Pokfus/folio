@@ -604,7 +604,11 @@ async function studyEasy(page, base, n) {
     await page.close();
   }
 
-  /* ================= 5c. light/dark and the language picker live on Settings ================= */
+  /* ================= 5c. light/dark on Settings, and NO language picker =================
+     The site is English-only for now (MULTILANG in app.js, Aug 2026, on request), so the picker that used
+     to be asserted here must be gone from the page — a control offering nine languages nothing routes to
+     is a control that lies. The light/dark switch beside it is unaffected and still has to be there.
+     `test-i18n-lang.js` covers the other half: that the machinery behind the flag still works. */
   for (const vp of [PHONE, DESKTOP]) {
     const page = await browser.newPage({ viewport: vp });
     watch(page);
@@ -612,21 +616,44 @@ async function studyEasy(page, base, n) {
     await page.waitForTimeout(1400);
     const p = await page.evaluate(() => ({
       opts: document.querySelectorAll("#langGrid .lang-opt").length,
-      picked: [...document.querySelectorAll("#langGrid .lang-opt.on")].map((o) => o.dataset.lang).join(","),
       night: !!document.querySelector("#sw-night") && document.querySelector("#sw-night").checkVisibility(),
+      lang: (JSON.parse(localStorage.getItem("folio_v1") || "{}").settings || {}).lang,
       // whatever the viewport, neither may be left behind in the top bar
       strayLang: !!document.querySelector(".topbar .lang-opt, .topbar #lang-switch"),
       strayNight: !!document.querySelector(".topbar .theme-switch"),
     }));
     const tag = vp.width + "px";
-    check("[" + tag + "] every language is offered on the Settings page", p.opts === 10, String(p.opts));
-    check("[" + tag + "] ...with exactly one marked as the current one", p.picked === "en", p.picked);
-    check("[" + tag + "] ...beside the light/dark switch", p.night);
+    check("[" + tag + "] the Settings page offers no language picker", p.opts === 0, String(p.opts));
+    check("[" + tag + "] ...the light/dark switch is still there", p.night);
     check("[" + tag + "] ...and neither is left in the top bar", !p.strayLang && !p.strayNight, JSON.stringify(p));
     await page.close();
   }
+  {
+    /* …and the way OUT of a language chosen before the picker went. This is the one way removing a
+       setting can really strand someone: a reader who picked Spanish would be held in Spanish with no
+       control left on the page to change it back. Also: a ?lang= link must no longer switch. */
+    const page = await browser.newPage({ viewport: PHONE });
+    watch(page);
+    await page.goto(base, { waitUntil: "load" });
+    await page.waitForTimeout(900);
+    await page.evaluate(() => {
+      const s = JSON.parse(localStorage.getItem("folio_v1") || "{}");
+      s.settings = s.settings || {}; s.settings.lang = "es";
+      localStorage.setItem("folio_v1", JSON.stringify(s));
+    });
+    await page.goto(base + "?lang=ja#settings", { waitUntil: "load" });
+    await page.waitForTimeout(1500);
+    const after = await page.evaluate(() => ({
+      lang: (JSON.parse(localStorage.getItem("folio_v1") || "{}").settings || {}).lang,
+      html: document.documentElement.lang || "", dir: document.documentElement.dir || "",
+      i18n: [...document.querySelectorAll("script[src*='/i18n/']")].map((s) => s.src.split("/").pop()),
+    }));
+    check("a language stored before the picker went is brought back to English", after.lang === "en", JSON.stringify(after));
+    check("...and a ?lang= link no longer switches", after.lang === "en" && after.i18n.length === 0, JSON.stringify(after));
+    await page.close();
+  }
 
-  /* ================= 5e. Text size (Aug 2026, on request) =================
+  /* ================= 5f. Text size (Aug 2026, on request) =================
      A reading-text scale, not a page zoom, and the difference is the whole design: the prose has to grow
      and the SHELL has to stay where it is, because every bar in it is laid out against its own pixels.
      So this checks both halves — the card and the glossary popup follow the setting, and a tab label and
