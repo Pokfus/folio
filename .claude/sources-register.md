@@ -7948,3 +7948,264 @@ died in office **is his death date**, and the successor's `Inauguration Date` is
   Taft's chief justiceship "from 1921 to 1930" and his being "the only person to hold both offices" (a
   Supreme Court fact, recorded unmarked in P5), and Theodore Roosevelt "taking office at 42 as the youngest
   person ever to hold it", which is cited to his *Life Before the Presidency* essay.
+
+## Batch P7 — Ford to Biden (GLOSSARY, 2026-08-02) — Phase 2 COMPLETE
+
+Nine terms, 50 citation slots from **twenty-nine distinct works, every one of them open**, none from this
+register. Coverage 127/333 → 136/333. **This finishes the 45 US presidents.**
+
+**Four corrections, and every one is the same failure**: a clause claiming an ACHIEVEMENT where the cited
+essay describes an ATTEMPT, or a specific the source never states. This is P5's Taft finding at scale, and
+it is what a batch of recent presidents produces — the closer the subject to living memory, the more the
+prose reaches for the familiar summary rather than the record.
+
+### The Miller Center is the whole spine, and its Fast Facts settle sentence 1
+All nine ordinals and term dates verified against the Fast Facts blocks (the route P6 found and P-topup
+proved out): **38** Ford (August 9, 1974 → January 20, 1977), **39** Carter (1977 → 1981), **40** Reagan
+(1981 → 1989), **41** Bush (1989 → 1993), **42** Clinton (1993 → 2001), **43** G. W. Bush (2001 → 2009),
+**44** Obama (2009 → 2017), **45 and 47** Trump (January 20, 2017 → January 20, 2021; January 20, 2025 –),
+**46** Biden (2021 → 2025). **Trump's block carries two of everything**, exactly as Cleveland's does — the
+trap P-topup recorded, met a second time within a day.
+
+### Two cross-president finds, both from the Trump essay
+Benjamin C. Waterhouse's *Donald Trump: Life in Brief* is the only openable page that dates the
+oldest-president record, and it settles a claim on **two other terms**:
+- "At 70 years old in 2016, he became the oldest person to ever assume the presidency, surpassing a record
+  set by **Ronald Reagan, who was 69 when he took office in 1981**" — which is the source for
+  `Ronald_Reagan`'s "at 69, the oldest person elected to the office up to that time", a superlative nothing
+  in the Reagan corpus states.
+- "Trump's successor, **Joseph Biden, re-set the record for oldest president** when he was inaugurated four
+  years later, shortly after his 78th birthday" — the source for `Joe_Biden`'s "the oldest person to take
+  the office".
+**When a superlative is about a sequence, the source is often the essay on the person who broke it.**
+
+### Verified citations (batch P7)
+
+### mc-ford-* · the thirty-eighth presidency
+John Robert Greene, “Gerald Ford: Life in Brief” / “Life Before the Presidency” / “Domestic Affairs” /
+“Foreign Affairs” / “Campaigns and Elections,” Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/ford/life-in-brief (and the four sibling paths). [Open access]
+- opened: 2026-08-02
+- **Life Before the Presidency opens on the claim the term opens on**: "**The only President in the history
+  of the United States not elected by American voters** was born Leslie Lynch King, Jr."
+- Life in Brief: Michigan's Fifth District "for the next twenty-four years"; "In 1965, Ford became Minority
+  Leader"; the 25th Amendment nomination after Agnew resigned, "Ford took the vice presidential oath of
+  office on **December 6, 1973**"; and the succession on Nixon's resignation
+- Domestic Affairs: "**exactly one month into his tenure**, he granted Richard Nixon a '**full, free, and
+  absolute pardon . . . for all offenses**'"; "Ford's popularity plummeted … from the high sixties into the
+  high thirties"; and the economy — "The economy, Ford finally admitted in **December 1974, was in
+  recession** with economic production falling and unemployment rising"
+- Foreign Affairs: "The President furthered détente in **August 1975** when he joined with Soviet leader
+  Leonid Brezhnev and the heads of other European nations to sign the **Helsinki Accords**"; and "**The end
+  came in late April as Communist forces overran Saigon**"
+- Campaigns and Elections: "Carter won the 1976 presidential election **by a narrow margin of 57 Electoral
+  College votes** with 297 to Ford's 240"
+- used by: `Gerald_Ford`
+
+### mc-carter-* + nobel-carter + fed-great-inflation · the thirty-ninth presidency
+Robert A. Strong, “Jimmy Carter: Life in Brief” / “Life Before the Presidency” / “Foreign Affairs” /
+“Campaigns and Elections,” Miller Center of Public Affairs, University of Virginia. [Open access]
+The Nobel Foundation, “Jimmy Carter — Biographical,” NobelPrize.org,
+https://www.nobelprize.org/prizes/peace/2002/carter/biographical/. [Open access]
+Federal Reserve History, “The Great Inflation, 1965–1982,” Federal Reserve Bank of Richmond,
+https://www.federalreservehistory.org/essays/great-inflation. [Open access]
+- opened: 2026-08-02
+- **The Nobel biographical page is the highest-yield single source in the batch**, carrying six of the
+  term's claims in two sentences: "the **Panama Canal treaties**, the **Camp David Accords**, the **treaty
+  of peace between Egypt and Israel** …" and "a comprehensive energy program conducted by a new
+  **Department of Energy** … major educational programs under a new **Department of Education**; and major
+  environmental protection legislation, including the **Alaska National Interest Lands Conservation
+  Act**." It also carries the housebuilding: "Jimmy and Rosalynn Carter volunteer one week a year for
+  **Habitat for Humanity** … renovate and build homes"
+- Life in Brief: the Naval Academy, "**sixty-six American hostages**", the 1978 Camp David mediation
+  between Begin and Sadat, defeat by Reagan in 1980, and the Carter Center "fighting disease and poverty in
+  developing countries while supporting democratic reforms and **elections**—earned Carter a **Nobel Peace
+  Prize in 2002**"
+- Life Before: the family "**peanut farm**" outside Plains, and the governorship of Georgia
+- Foreign Affairs: "Carter came to the White House determined to make **human rights considerations
+  integral to US foreign policy**", and "**more than any previous president, injected human rights
+  considerations into American foreign policy**"
+- Campaigns: "Portraying himself as an **outsider** who could 'clean up the mess in Washington'"
+- **The Fed essay is what makes "double-digit" a sourced word**: "Inflation … reached **more than 14
+  percent in 1980**" and "peaked in March 1980 at close to 15 percent." No Miller Center essay gives a
+  Carter-era inflation figure at all — the only percentage in the corpus, "nearly eight percent", is the
+  1976 rate Ford was fighting, in the CAMPAIGNS essay. **A figure that looks like it must be in the
+  presidential essays may be in none of them.**
+- used by: `Jimmy_Carter`
+
+### mc-reagan-* + fed + trump-lib · the fortieth presidency, and CORRECTION 1
+Lou Cannon, “Ronald Reagan: Life in Brief” / “Domestic Affairs” / “Foreign Affairs,” Miller Center of
+Public Affairs, University of Virginia. [Open access]
+- opened: 2026-08-02
+- Life in Brief: "radio sports announcer, Hollywood movie actor, and television host"; "elected governor of
+  California in 1966, serving eight years"; defeated Carter in 1980; "carried out his campaign promises to
+  cut taxes and increase the defense budget"; "notable budget deficits"
+- Domestic Affairs supplies the tax cut precisely — "the marginal tax rate that was **70 percent** when he
+  took office had been reduced to **28 percent** by the time he left" — the Volcker recession, "Tight money
+  and reduced inflation laid the basis for a **boom that began in 1983** and was still going when Reagan
+  left the White House in 1989", and the deficit "ballooning"
+- **CORRECTION.** The term listed "**loosened regulation**" among his achievements. The same essay says the
+  opposite happened: Reagan "took office in 1981 **promising** to curb the growth of government
+  regulations", but "counter-attacks in the courts … **forced the administration to retreat from many of
+  its deregulatory efforts. As a result, most of the Nixon, Ford, and Carter-era regulations designed to
+  protect the environment and American workers remain in place.**" The term now says he **pressed to roll
+  back federal regulation** — the attempt, which is what the record supports
+- Foreign Affairs: "the largest peacetime military budget in history" and "7-percent increases in defense
+  spending between 1981 and 1985"; Gorbachev; "a treaty that removed intermediate nuclear missiles from
+  Europe, the first pact of the Cold War that actually reduced the number of nuclear weapons … **Gorbachev
+  and Reagan signed the INF Treaty in December 1987**"; and Iran-Contra — "North went to Poindexter with a
+  plan to **divert the proceeds from the arms sales—more than $12 million—to the Nicaraguan Contras**"
+- used by: `Ronald_Reagan`
+
+### mc-bush-* · the forty-first presidency
+Stephen Knott, “George H. W. Bush: Life in Brief” / “Life Before the Presidency” / “Foreign Affairs” /
+“Domestic Affairs” / “Campaigns and Elections,” Miller Center of Public Affairs, University of Virginia.
+[Open access]
+- opened: 2026-08-02
+- Life Before: "On **September 2, 1944**, while flying a mission to bomb an enemy radio site, his plane was
+  **shot down by Japanese fire**; Bush bailed out over the ocean"
+- Life in Brief: two terms in the House from Houston's Seventh District, "**U.S. ambassador to the United
+  Nations**", "**director of Central Intelligence**", and the vice presidency
+- Foreign Affairs: the Berlin Wall in "**early November 1989**"; reunification — "in the end, **the Bush
+  administration helped broker a compromise**: Germany would be part of NATO but no NATO troops would be
+  stationed in East Germany"; the Soviet end — "the Soviet Republics began to declare their independence …
+  **Gorbachev resigned as the President of the Soviet Union on December 25, 1991**"; and the war —
+  "**Operation Desert Storm**" from January 17, 1991, "U.S.-led **coalition** forces", "tonight Kuwait is
+  free"
+- Domestic Affairs: "the **Americans with Disabilities Act of 1990**, which forbade discrimination based on
+  disability in employment, public accommodations, and transportation", and the broken pledge — "**reneging
+  on his 'no taxes' pledge** … Many conservative Republicans felt betrayed"
+- Campaigns: the 1992 economy, "middle-class Americans had grown increasingly upset about the President's
+  inaction on the economic recession"
+- used by: `George_H._W._Bush`
+
+### mc-clinton-* · the forty-second presidency, and CORRECTION 2 (two clauses)
+Russell L. Riley, “Bill Clinton: Life in Brief” / “Life Before the Presidency” / “Domestic Affairs” /
+“Foreign Affairs,” Miller Center of Public Affairs, University of Virginia. [Open access]
+- opened: 2026-08-02
+- Life Before: "in 1978, at age thirty-two, Clinton ran for **governor**" of Arkansas
+- Life in Brief: "turning the greatest fiscal deficit in American history into a **surplus**"
+- Domestic Affairs: "the **North American Free Trade Agreement (NAFTA), which cleared Congress in 1993**";
+  "surging tax revenues from a booming economy had generated a surplus of **$124 billion**"; the Paula
+  Jones "sexual harassment suit"; and "**Clinton was acquitted on both counts on February 12, 1999**"
+- Foreign Affairs: Haiti — "**United States forces were sent in** to make certain that the agreement was
+  enforced" — and Bosnia: "The resulting **Dayton Peace Accords ended the fighting**"
+- **CORRECTION, two clauses in one sentence.** The term credited him with "a large expansion of tax credits
+  for low-paid workers" and "a 1996 law that replaced long-term cash welfare with **time-limited
+  assistance**". Neither is in anything openable. The essay's account of the 1996 law is different: "The
+  legislation **replaced the long standing Aid to Families with Dependent Children (AFDC) program with a
+  system of block grants to individual states**" — and its only "five years" is about *legal immigrants'
+  eligibility*, a different thing entirely, which is exactly the sort of near-miss a careless reading
+  turns into a citation. There is no EITC mention in any Clinton essay. What the essay does give in that
+  place is "Clinton also won **an increase in the minimum wage to $5.15 per hour**". The term now names the
+  minimum wage and the block grants
+- used by: `Bill_Clinton`
+
+### mc-gwbush-* + bush-lib · the forty-third presidency
+Gary L. Gregg II, “George W. Bush: Life in Brief” / “Domestic Affairs” / “Foreign Affairs,” Miller Center
+of Public Affairs, University of Virginia. [Open access]
+Stephen Knott, “George H. W. Bush: Life in Brief,” Miller Center of Public Affairs, University of Virginia.
+[Open access]
+- opened: 2026-08-02
+- the **father-and-son** claim is cited to the FATHER's essay, which is where it is stated: "George H. W.
+  and George W. are only the second set of father and son to become President"
+- Life in Brief: the governorship of Texas; the 2000 result — Bush "tallied the constitutionally required
+  270 Electoral College votes by winning a few hundred more popular votes in **Florida after a contested
+  recount**" ended in the Supreme Court; "**September 11, 2001**"; "On **October 7, 2001**, coordinated
+  American military attacks began in **Afghanistan**"; "**no weapons of mass destruction were found in
+  Iraq**"; "Congress established a new **Department of Homeland Security**, passed the **Patriot Act**";
+  the "**No Child Left Behind Act in 2001**"; and "the **Medicare Modernization Act of 2003**, established
+  **prescription drug benefits for seniors**"
+- Domestic Affairs: the tax cut, and "In October, President Bush signed the Emergency Economic
+  Stabilization Act, which established the **Troubled Assets Relief Program (TARP)** … **$700 billion** …
+  to stabilize banks"
+- Foreign Affairs: "The most expansive and effective initiative of the Bush administration to bring relief
+  to foreign nations was the policy to **fight HIV/AIDS**", against an African epidemic in which "one out
+  of every four adults" carried the disease in some countries
+- used by: `George_W._Bush`
+
+### mc-obama-* + nobel-obama · the forty-fourth presidency, and CORRECTION 3
+Michael Nelson, “Barack Obama: Life in Brief” / “Life Before the Presidency” / “Domestic Affairs” /
+“Foreign Affairs,” Miller Center of Public Affairs, University of Virginia. [Open access]
+The Nobel Foundation, “Barack H. Obama — Facts,” NobelPrize.org,
+https://www.nobelprize.org/prizes/peace/2009/obama/facts/. [Open access]
+- opened: 2026-08-02
+- Life in Brief: "**the first African American to serve in that office**"; "The son of a **white American
+  mother and a black Kenyan father**, Obama grew up in **Hawaii**"; the Illinois state senate from 1996 and
+  the US Senate from 2004
+- **CORRECTION.** The term said "he **taught constitutional law**". Life Before the Presidency says he took
+  a position "as **a lecturer at the University of Chicago Law School**" — the institution, not the
+  subject; no essay names constitutional law. The term now says he taught law at the University of Chicago
+- Domestic Affairs: "an **$800-billion economic stimulus package: the American Recovery and Reinvestment
+  Act**"; the auto rescue — "The auto companies … survived"; "**Obama signed the Patient Protection and
+  Affordable Care Act into law**" on March 23, 2010; and "the **Dodd-Frank Wall Street Reform and Consumer
+  Protection Act**"
+- Foreign Affairs: "the **May 2, 2011, killing** of al Qaeda's leader, **Osama bin Laden**"; the Iraq
+  drawdown to 150 troops by 2012; "Obama also **restored diplomatic relations with communist Cuba in
+  December 2014**"; the 2015 Iran agreement "designed to prevent that country from developing nuclear
+  weapons for at least a decade"; and "the United Nations Climate Change Conference in **Paris in 2015**"
+- the Nobel page gives the prize: "**Nobel Peace Prize 2009** … Role: 44th President of the United States"
+- used by: `Barack_Obama`
+
+### mc-trump-* · the forty-fifth and forty-seventh presidencies, and CORRECTION 4
+Benjamin C. Waterhouse, “Donald Trump: Life in Brief” / “Domestic Affairs” / “Foreign Affairs,” Miller
+Center of Public Affairs, University of Virginia. [Open access]
+- opened: 2026-08-02
+- Life in Brief is current through the second inauguration and carries most of the term: "inaugurated as
+  the **45th President** … on January 20, 2017"; "**the second person ever, and the first since the 19th
+  century, elected to two non-consecutive terms**. He took the oath of office for the second time on
+  **January 20, 2025**"; "He was also **the first president never to have served in either public office or
+  in military leadership**"; the property business and *The Apprentice*; "the **first US president to be
+  impeached twice**", in **December 2019** over Zelensky and Ukraine (acquitted February 2020) and in
+  January 2021 after supporters "**violently assaulted the US Capitol on January 6, 2021**" (acquitted
+  again); "Trump **refused to concede the 2020** presidential election"; and the 2024 win over Harris
+- Domestic Affairs: "the **Tax Cuts and Jobs Act**, which President Trump signed in **December 2017**", and
+  "President Donald Trump **appointed three members to the US Supreme Court**"
+- Foreign Affairs: "deals—known collectively as the **Abraham Accords**—whereby the governments of the
+  **United Arab Emirates and Bahrain** would normalize diplomatic relations with **Israel**"
+- **CORRECTION.** The term had him winning in 2016 "on a programme of restricting immigration, **raising
+  tariffs and cutting regulation**". Domestic Affairs gives the programme as "restricting immigration,
+  strengthening public infrastructure, **reducing taxes, and repealing the Affordable Care Act**" — tariffs
+  appear later, as the trade war with China, and deregulation is not in the campaign list at all. The term
+  now names the three the essay names
+- used by: `Donald_Trump`, and (for the oldest-president record) `Ronald_Reagan` and `Joe_Biden`
+
+### mc-biden-* · the forty-sixth presidency
+Barbara A. Perry, “Joe Biden: Life in Brief” / “Domestic Affairs” / “Foreign Affairs,” Miller Center of
+Public Affairs, University of Virginia. [Open access]
+- opened: 2026-08-02
+- Life in Brief: "**thirty-six years as a U.S. senator from Delaware, eight years as vice president**, and
+  four years as the **46th president**"; "playing leading roles on both the **Judiciary Committee and the
+  Foreign Relations Committee**"
+- Domestic Affairs: the vaccination push; "the **American Rescue Plan Act** … signed it into law on
+  **March 11, 2021**"; "the **Infrastructure Investment and Jobs Act**, which he signed in **November
+  2021**"; "On **August 9, 2022**, the president signed the **CHIPS and Science Act**, which appropriated
+  $280 billion for **semiconductor** and chip research and manufacturing"; "On August 16, he signed the
+  **Inflation Reduction Act** … invested in domestic energy production, especially **clean energy**"; and
+  "**Biden announced his departure from the race on July 21**"
+- Foreign Affairs: "he **reaffirmed America's support for NATO**"; "his administration had supplied
+  **nearly $70 billion in military assistance to Ukraine** since the Russian invasion began"; and "the
+  chaotic **departure of American troops in August 2021**" from Afghanistan
+- used by: `Joe_Biden`
+
+### NOT CITED (batch P7) — what could not be sourced, and the access findings
+- **The government sites that carried Phase 2's earlier batches are mostly shut for these presidents.**
+  Measured 2026-08-02: **`whitehouse.gov/about-the-white-house/presidents/<name>/` is 404 for all nine**,
+  and serves a **225 KB error document**; **`state.gov` and `2009-2017.state.gov` both serve a page titled
+  "Technical Difficulties" with a 200 status** — a third variety of the 200-status error document, after
+  senate.gov's 37,523-byte shell and history.house.gov's readable-slug form. `bls.gov` is 403 and
+  `fred.stlouisfed.org` refuses the connection, so no primary statistical series is reachable;
+  `ssa.gov` remains 403, as P6 found. `history.state.gov` has **no milestone for the INF Treaty**
+  (`/milestones/1981-1988/inf` is 404) and none for the Iranian hostage crisis at the obvious slug.
+- **The presidential libraries answer far better here than in P6** — `fordlibrarymuseum.gov`,
+  `reaganlibrary.gov`, `jimmycarterlibrary.gov`, `clintonlibrary.gov`, `georgewbushlibrary.gov` and
+  `obamalibrary.gov` all return 200 — **but not one of them carries a usable biography**. The Ford
+  library's life page is a JavaScript timeline with no prose; the Reagan library's is a media gallery; the
+  Carter and Clinton biography paths are 404. **Reachable is not the same as citable**, which is batch
+  13's museum-catalogue finding in a new form: the mid-century libraries were unreachable and the modern
+  ones are unhelpful, and the Miller Center carried all nine presidencies either way.
+- **`bush41library.tamu.edu` fails at the proxy** (CONNECT tunnel 502), not with an HTTP status.
+- Kept unmarked, uncontradicted, in nothing opened: Ford's economy as "high inflation" specifically (the
+  essay gives the recession and the inflation fight but no rate); G. W. Bush's "broad surveillance powers"
+  beyond the Patriot Act itself; Obama's "extending health insurance to millions" as a figure; Biden's
+  Ukraine support as "economic" as well as military, where the essay itemises military assistance.

@@ -92,12 +92,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `docs/glossary-citation-plan.md` — the batch plan for **citing the 333 glossary terms**, the sibling of
   the card plan above. The bar is **at least 2 citations per term** (a description is three sentences, where
   a card's abstract is ten), and the acceptable sources are academic, museum, government or reputable
-  NGO/IGO. **Batches G1–G11 and P1–P6 have shipped — 127 of the 333 terms are cited and at the bar, all with
+  NGO/IGO. **Batches G1–G11 and P1–P7 have shipped, COMPLETING PHASE 2 — 136 of the 333 terms are cited and at the bar, all with
   in-text markers in all ten languages. G11 COMPLETED Phase 1** (all 91 of its prehistory, palaeoanthropology,
   geological-time, peoples and physical-geography terms) **and P1 opened Phase 2** with the first six
   presidents, on the Miller Center's presidential essays; **P2 took it to Polk, P3 to Andrew Johnson, P4
-  to McKinley, P5 to Hoover and P6 to Nixon**. **P1–P6 are the batches after G8 that correct almost
-  nothing** — thirty-six terms, ten clauses — because these descriptions
+  to McKinley, P5 to Hoover, P6 to Nixon and P7 to Biden, which finishes all 45**. **P1–P7 are the batches
+  after G8 that correct almost nothing** — forty-five terms, fifteen clauses — because these descriptions
   were written from the same kind of institutional record the pass now cites; where a term and its citation
   come from the same kind of source, reconciliation finds little. **P2's finding is that the sources begin
   disagreeing with each other**: Harrison served "thirty-one days" per the White House Historical
@@ -157,7 +157,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   presidential libraries the plan named as P6's spine are only half-reachable (`jfklibrary.org` 403;
   the biography paths on `trumanlibrary.gov`, `lbjlibrary.org`, `nixonlibrary.gov` 404; `ssa.gov` 403), but
   the one that answered produced both corrections. And **check the byline**: the LBJ essays have no named
-  author where every other president's do. P3 also refines the `senate.gov` warning:
+  author where every other president's do. **P7 finished Phase 2** and its four corrections are all one
+  shape — **a clause claiming an ACHIEVEMENT where the cited essay describes an ATTEMPT**, which is what a
+  batch of recent presidents produces: Reagan "loosened regulation" (the courts "forced the administration
+  to retreat from many of its deregulatory efforts"), Clinton's EITC expansion and "time-limited
+  assistance" (in no Clinton essay; the 1996 law is block grants replacing AFDC, and the essay's only "five
+  years" is about immigrants' eligibility), Obama teaching "constitutional law" (he was "a lecturer at the
+  University of Chicago Law School" — the institution, not the subject), and Trump's 2016 programme of
+  "raising tariffs and cutting regulation" (the essay gives immigration, taxes and repealing the ACA).
+  Three P7 routes worth keeping: **a superlative about a sequence is usually sourced from the essay on the
+  person who broke it** (Reagan's "oldest at 69" and Biden's "oldest" are both in the TRUMP Life in Brief,
+  and nowhere in their own); **an economic figure may be in no presidential essay at all** (no Miller
+  Center page gives a Carter-era inflation rate — "double-digit" is sourced to Federal Reserve History's
+  "The Great Inflation", which then serves Reagan too); and **reachable is not citable** — six presidential
+  libraries answer here and not one carries a usable biography (JavaScript timelines, media galleries, 404
+  biography paths), while the **Nobel Foundation's Carter biographical page** supplied six claims in two
+  sentences. P7 also adds a THIRD variety of 200-status error document: `state.gov` and
+  `2009-2017.state.gov` serve a page titled "Technical Difficulties" with a 200, and
+  `whitehouse.gov/about-the-white-house/presidents/<name>/` is 404 for all nine (a 225 KB error document);
+  `bls.gov` 403 and `fred.stlouisfed.org` refuses the connection. P3 also refines the `senate.gov` warning:
   its **impeachment** pages are real, its party-history and vice-president paths are the shell, and **the
   shell is a constant 37,523 bytes**, so a size check tells them apart instantly. Three access findings from it govern the rest of Phase 2 and Phase 3:
   **a URL containing a closing parenthesis cannot be cited** (`SRC_URL_RX` stops at `)`, which rules out
@@ -803,12 +821,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     stripe): one is derived from the data, the other is an editor's private marker.
   · `sup` + `class="fn"` + `data-fn` are in the sanitizer allowlists, so a community deck can use markers too.
   · **The Atlas table still ships EMPTY; the glossary has begun.** `country-sources.js` has no entries at all.
-    **`GLOSSARY_SOURCES` carries 127 of the 333 terms** (batches G1–G11 and P1–P6, 2026-08-01/02 — the genus, species, specimen,
+    **`GLOSSARY_SOURCES` carries 136 of the 333 terms** (batches G1–G11 and P1–P7, 2026-08-01/02 — the genus, species, specimen,
     stone-industry, three-age, periodisation, geological-time, type-site, way-of-life and discipline terms, plus the
     Indigenous-peoples group, its odds and ends, the poles / desert / ocean / two historiographic names, the six
     continents with `Sicily`, `Equator` and the two hemispheres — which completes Phase 1 — and the first six
     US presidents, Jackson to Polk, Taylor to Andrew Johnson, Grant to McKinley, Theodore Roosevelt to
-    Hoover, and Franklin D. Roosevelt to Nixon), against
+    Hoover, Franklin D. Roosevelt to Nixon, and Ford to Biden — **all 45**), against
     a bar of **`GLOSS_SRC_TARGET` (2)**, which is lower than a card's five because a description is three sentences
     where an abstract is ten; `docs/glossary-citation-plan.md` is the plan for the rest and
     `node .claude/gloss-source-audit.js` says where it stands. The UI, the deltas and the pipeline are in place;
@@ -2332,7 +2350,7 @@ reports both on every run, `node .claude/source-audit.js` reports them per card,
 shows each card's coverage as an amber or red chip) — and **a second pass has started on the glossary**, batched
 through `docs/glossary-citation-plan.md` at a bar of **2 citations per term** (`GLOSS_SRC_TARGET`), with
 `node .claude/gloss-source-audit.js` and the glossary list's own coverage chip reporting it; **121 of 333 terms
-are cited** (batches G1–G11, which complete Phase 1, and P1–P6, the first thirty-six US presidents). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
+are cited** (batches G1–G11, which complete Phase 1, and P1–P7, which complete Phase 2 — all 45 US presidents). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
 Two rules that pass turned up at once. **`add-sources.js` writes only the ENGLISH description**, so a term whose
 prose is corrected needs an `add-lang.js` run per language in the same batch or nine languages keep the old
 claim; and **a correction does not travel between surfaces** — `Homo_habilis` still carried the 2.3–1.5 Mya span

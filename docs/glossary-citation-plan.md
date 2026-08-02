@@ -2,8 +2,8 @@
 
 The glossary was **333 terms and not one of them carried a source**. `window.GLOSSARY_SOURCES` was an empty
 table; the fold at the foot of a gloss popup never appeared. This is the plan for filling it. Not part of
-the site. **As of 2026-08-02, 127 of the 333 are cited and at the bar** — batches G1–G11 and P1–P6, five of which also
-corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 127 carry in-text
+the site. **As of 2026-08-02, 136 of the 333 are cited and at the bar** — batches G1–G11 and P1–P7 with the P-topup, five of which also
+corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 136 carry in-text
 markers, in all ten languages, after the rule changed from optional to required on 2026-08-01 (see "What
 is different from the card pass"). G5 also settled the start of prehistory across the glossary, the deck
 and every date line: **2.6 Mya**, with the disputed 3.3 Ma Lomekwi claim hedged rather than adopted; G6
@@ -171,7 +171,7 @@ the way batch 21 recorded the Anubis walls, so the next pass does not re-run the
 | Indigenous peoples, and the odds and ends | 8 | Phase 1 · batch G9 — **done** |
 | the poles, the desert, the sea and two names | 7 | Phase 1 · batch G10 — **done** |
 | the continents, the island and the constants | 10 | Phase 1 · batch G11 — **done** |
-| US presidents | 45 | Phase 2 · batches P1–P7 — **P1–P6 done** |
+| US presidents | 45 | Phase 2 · batches P1–P7 — **ALL DONE (2026-08-02)** |
 | countries and states of the world | 197 | Phase 3 · batches C0–C12 |
 | **total** | **333** | |
 
@@ -1596,6 +1596,71 @@ out of its own marked text, the new source number appended to sentence 1, and th
 stripped original — so the diff is markers and one citation per term, and the ten languages could not drift
 apart in the process.
 
+### Batch P7 log — Phase 2 complete, and the corrections are all one shape
+
+#### 2026-08-02 — nine terms, 50 citations, four corrected clauses
+
+**Coverage 127/333 → 136/333. This finishes the 45 US presidents.** Twenty-nine distinct works, **every one
+of them open**, none from the register.
+
+**Four corrections, and each is the same failure wearing different clothes: a clause claiming an
+ACHIEVEMENT where the cited essay describes an ATTEMPT, or naming a specific the source never states.**
+This is P5's Taft finding at scale, and it is what a batch of recent presidents produces — the nearer the
+subject to living memory, the more the prose reaches for the familiar summary instead of the record.
+- **`Ronald_Reagan` "loosened regulation".** The cited essay says he "took office in 1981 **promising** to
+  curb the growth of government regulations" and that court challenges "**forced the administration to
+  retreat from many of its deregulatory efforts. As a result, most of the Nixon, Ford, and Carter-era
+  regulations … remain in place**." Now: **pressed to roll back federal regulation.**
+- **`Bill_Clinton`, two clauses in one sentence.** "A large expansion of tax credits for low-paid workers"
+  is in no Clinton essay at all, and the 1996 law is described not as "time-limited assistance" but as
+  having "**replaced the long standing Aid to Families with Dependent Children (AFDC) program with a system
+  of block grants to individual states**". The essay's only "five years" is about *legal immigrants'
+  eligibility* — a different thing, and precisely the near-miss that a hurried reading turns into a wrong
+  citation. Now: **a rise in the minimum wage** (which the essay does give, at $5.15) **and block grants to
+  the states.**
+- **`Barack_Obama` "taught constitutional law".** The essay says he was "**a lecturer at the University of
+  Chicago Law School**" — the institution, not the subject. Now: **taught law at the University of
+  Chicago.**
+- **`Donald_Trump` "raising tariffs and cutting regulation" as his 2016 programme.** The essay gives the
+  programme as "restricting immigration, strengthening public infrastructure, **reducing taxes, and
+  repealing the Affordable Care Act**"; tariffs arrive later as the trade war, and deregulation is not in
+  the campaign list. Now: **restricting immigration, cutting taxes and repealing the Affordable Care Act.**
+
+**A new route, and it is about superlatives.** `Ronald_Reagan`'s "at 69, the oldest person elected to the
+office up to that time" is in nothing in the Reagan corpus, and `Joe_Biden`'s "the oldest person to take
+the office" is in nothing in the Biden corpus. Both are in the **Trump** *Life in Brief*, which dates the
+record because Trump broke it twice: "surpassing a record set by **Ronald Reagan, who was 69 when he took
+office in 1981**" and "**Joseph Biden, re-set the record for oldest president** … shortly after his 78th
+birthday". **When a superlative is about a sequence, look at the essay on the person who broke it.**
+
+**A figure that looks like it must be in the presidential essays may be in none of them.** No Miller Center
+essay gives a Carter-era inflation rate; the only percentage anywhere in the Carter corpus is the "nearly
+eight percent" of 1976, in the *Campaigns* essay, about Ford. "Double-digit inflation" is sourced instead to
+**Federal Reserve History's "The Great Inflation"** — "reached more than 14 percent in 1980" — which then
+serves `Ronald_Reagan`'s tight-money clause and his deep recession as well. **Reach outside the biography
+for an economic figure.**
+
+**Reachable is not the same as citable — batch 13's museum-catalogue finding, one field over.** P6 found
+most presidential libraries unreachable; here **six of them answer** (`fordlibrarymuseum.gov`,
+`reaganlibrary.gov`, `jimmycarterlibrary.gov`, `clintonlibrary.gov`, `georgewbushlibrary.gov`,
+`obamalibrary.gov`) **and not one carries a usable biography** — the Ford life page is a JavaScript
+timeline with no prose, the Reagan page a media gallery, the Carter and Clinton biography paths 404. The
+Miller Center carried all nine presidencies either way. The exception that paid was the **Nobel
+Foundation's biographical page for Carter**, the highest-yield single source in the batch, which supplies
+the Panama treaties, Camp David, the Egypt–Israel treaty, the Departments of Energy and Education, ANILCA
+and Habitat for Humanity — six claims in two sentences, where the presidential essays give three.
+
+**A third variety of 200-status error document, and two more closed hosts.** `state.gov` and
+`2009-2017.state.gov` both serve a page titled "**Technical Difficulties**" with a 200 status — after
+senate.gov's constant 37,523-byte shell (P3) and history.house.gov's readable-slug form (P2).
+`whitehouse.gov/about-the-white-house/presidents/<name>/` is **404 for all nine** and returns a 225 KB
+error document. `bls.gov` is 403 and `fred.stlouisfed.org` refuses the connection, so no primary
+statistical series is reachable from here; `ssa.gov` is still 403. **Check the body, not the status code**
+now has three shapes to recognise.
+
+**And Trump's Fast Facts carries two of everything** — 45 and 47, two inauguration dates, one end date —
+exactly as Cleveland's does. P-topup recorded that trap in the morning and it recurred the same day.
+
 | batch | presidents | second-source spine |
 |---|---|---|
 | **P1** | Washington, J. Adams, Jefferson, Madison, Monroe, J. Q. Adams (6) — **DONE (2026-08-02)** | NARA milestone documents; State Dept. Office of the Historian; NPS |
@@ -1604,7 +1669,7 @@ apart in the process.
 | **P4** | Grant, Hayes, Garfield, Arthur, Cleveland, B. Harrison, McKinley (7) — **DONE (2026-08-02)** | NARA milestone documents; the Miller Center's Key Events timelines |
 | **P5** | T. Roosevelt, Taft, Wilson, Harding, Coolidge, Hoover (6) — **DONE (2026-08-02)** | State Dept. Office of the Historian; NARA DocsTeach |
 | **P6** | F. D. Roosevelt, Truman, Eisenhower, Kennedy, L. B. Johnson, Nixon (6) — **DONE (2026-08-02)** | the Eisenhower Presidential Library (NARA); Office of the Historian; NARA milestone documents |
-| **P7** | Ford, Carter, Reagan, G. H. W. Bush, Clinton, G. W. Bush, Obama, Trump, Biden (9) | presidential libraries; NARA; congressional record |
+| **P7** | Ford, Carter, Reagan, G. H. W. Bush, Clinton, G. W. Bush, Obama, Trump, Biden (9) — **DONE (2026-08-02)** | the Miller Center throughout; the Nobel Foundation; Federal Reserve History |
 | **P-topup** | P1–P5's thirty terms (6+5+6+7+6) — **DONE (2026-08-02)**, no corrections | the Miller Center's Fast Facts landing pages, one citation per term, for the ordinal and the term dates their *Life in Brief* markers do not carry |
 
 ---
