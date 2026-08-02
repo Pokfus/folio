@@ -92,9 +92,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `docs/glossary-citation-plan.md` — the batch plan for **citing the 333 glossary terms**, the sibling of
   the card plan above. The bar is **at least 2 citations per term** (a description is three sentences, where
   a card's abstract is ten), and the acceptable sources are academic, museum, government or reputable
-  NGO/IGO. **Batches G1–G8 have shipped — 66 of the 333 terms are cited and at the bar, all with in-text
+  NGO/IGO. **Batches G1–G9 have shipped — 74 of the 333 terms are cited and at the bar, all with in-text
   markers in all ten languages**, which completes Phase 1's prehistory / palaeoanthropology / geological-time
-  group (66 of 66). Two things about this pass that the card pass does not have: a term whose
+  group (66 of 66) and its peoples-and-odds-and-ends batch (8 of 8). G9's finding is worth carrying into
+  G10: the register pays for taxa and periods and **not** for peoples, places or objects, so 24 of its 26
+  works were new — and where no reachable source uses a familiar term of art (there is no openable
+  qualifying source here that says "potlatch"), the prose says what the cited source says rather than
+  keeping the word over a citation that does not contain it. Two things about this pass that the card pass does not have: a term whose
   prose is corrected — or whose markers are placed — needs a second command in the same
   batch (`add-lang.js` for the nine languages, since `add-sources.js` writes only the English description);
   and Phase 1 is largely paid for out of `.claude/sources-register.md` already.
@@ -714,8 +718,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     stripe): one is derived from the data, the other is an editor's private marker.
   · `sup` + `class="fn"` + `data-fn` are in the sanitizer allowlists, so a community deck can use markers too.
   · **The Atlas table still ships EMPTY; the glossary has begun.** `country-sources.js` has no entries at all.
-    **`GLOSSARY_SOURCES` carries 66 of the 333 terms** (batches G1–G8, 2026-08-01 — the genus, species, specimen,
-    stone-industry, three-age, periodisation, geological-time, type-site, way-of-life and discipline terms), against
+    **`GLOSSARY_SOURCES` carries 74 of the 333 terms** (batches G1–G9, 2026-08-01/02 — the genus, species, specimen,
+    stone-industry, three-age, periodisation, geological-time, type-site, way-of-life and discipline terms, plus the
+    Indigenous-peoples group and its odds and ends), against
     a bar of **`GLOSS_SRC_TARGET` (2)**, which is lower than a card's five because a description is three sentences
     where an abstract is ten; `docs/glossary-citation-plan.md` is the plan for the rest and
     `node .claude/gloss-source-audit.js` says where it stands. The UI, the deltas and the pipeline are in place;
@@ -2155,8 +2160,8 @@ and its sources, and were fact-checked rather than referenced. A batched pass is
 reports both on every run, `node .claude/source-audit.js` reports them per card, and the Edit page's card list
 shows each card's coverage as an amber or red chip) — and **a second pass has started on the glossary**, batched
 through `docs/glossary-citation-plan.md` at a bar of **2 citations per term** (`GLOSS_SRC_TARGET`), with
-`node .claude/gloss-source-audit.js` and the glossary list's own coverage chip reporting it; **66 of 333 terms
-are cited** (batches G1–G8). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
+`node .claude/gloss-source-audit.js` and the glossary list's own coverage chip reporting it; **74 of 333 terms
+are cited** (batches G1–G9). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
 Two rules that pass turned up at once. **`add-sources.js` writes only the ENGLISH description**, so a term whose
 prose is corrected needs an `add-lang.js` run per language in the same batch or nine languages keep the old
 claim; and **a correction does not travel between surfaces** — `Homo_habilis` still carried the 2.3–1.5 Mya span

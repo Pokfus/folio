@@ -5,6 +5,13 @@
    user, not how). Loaded before app.js. */
 window.CHANGELOG = [
   {
+    d: "2026-08-02",
+    t: "Eight more terms, checked against their sources",
+    items: [
+      "Eight more glossary terms now list the works behind them and point at them sentence by sentence. Reading each term against those works turned up seven that overstated or misremembered something: two population counts well out of date, a distance nobody could source, and a much-repeated story about a historian's punishment that his own surviving letter tells rather differently. All are corrected, in every language.",
+    ],
+  },
+  {
     d: "2026-08-01",
     t: "Every card, sourced",
     items: [
