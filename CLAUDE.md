@@ -92,7 +92,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `docs/glossary-citation-plan.md` — the batch plan for **citing the 333 glossary terms**, the sibling of
   the card plan above. The bar is **at least 2 citations per term** (a description is three sentences, where
   a card's abstract is ten), and the acceptable sources are academic, museum, government or reputable
-  NGO/IGO. **Batches G1–G11, P1–P7 (COMPLETING PHASE 2) and C0–C5 have shipped — 182 of the 333 terms are cited and at the bar, all with
+  NGO/IGO. **Batches G1–G11, P1–P7 (COMPLETING PHASE 2) and C0–C6 have shipped — 195 of the 333 terms are cited and at the bar, all with
   in-text markers in all ten languages. G11 COMPLETED Phase 1** (all 91 of its prehistory, palaeoanthropology,
   geological-time, peoples and physical-geography terms) **and P1 opened Phase 2** with the first six
   presidents, on the Miller Center's presidential essays; **P2 took it to Polk, P3 to Andrew Johnson, P4
@@ -261,7 +261,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   open, authoritative source about the right country is still not a source for a claim the term does not
   make**; and `Taiwan` is the SECOND split fault after `United_Kingdom` (Japanese runs to four sentences
   where the others run to three), which settles that **`split-abstract.js` must be run over a batch's whole
-  term list before its markers are planned**.
+  term list before its markers are planned**. **C6 ran that check FIRST and it paid at once** — `Lesotho`
+  splits into four sentences in Italian and `Malawi` into four in Japanese, both removed before any research
+  was done, where `United_Kingdom` and `Taiwan` were caught after theirs. Four faults in four batches makes
+  it a standing step. C6 also MEASURED C4's joining-line rule across thirteen African Commonwealth states:
+  **it is the independence line eleven times in thirteen** (Ghana 1957 through Namibia 1990, all marked),
+  and the exceptions have a shape — **`Mozambique` (joined 1995) and `Rwanda` (joined 2009) were never
+  British**, so their joining line dates an accession, not an independence; `South_Africa` left and rejoined;
+  and **`Cameroon` is the near-match to withhold on**, since the years agree but the term describes French
+  and British portions independent in 1960 and 1961 joining together, which the Commonwealth's single line
+  does not describe. Its populations all sit BETWEEN the Commonwealth's 2022 figures and UNdata's 2025 ones,
+  which is what a term written from a recent-but-not-current estimate looks like and is not an error.
+  **`Kenya` is the Greece shape and its recurrence is the thing to carry forward**: both state no area, no
+  population and no capital, and both are among the twelve countries the plan calls "written earlier and at
+  greater length" — that length is extra PROSE, not extra FIGURES, which is what makes them invisible to a
+  recipe built on statistical profiles. Expect the same of the remaining ten.
   P3 also refines the `senate.gov` warning:
   its **impeachment** pages are real, its party-history and vice-president paths are the shell, and **the
   shell is a constant 37,523 bytes**, so a size check tells them apart instantly. Three access findings from it govern the rest of Phase 2 and Phase 3:
@@ -908,14 +922,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     stripe): one is derived from the data, the other is an editor's private marker.
   · `sup` + `class="fn"` + `data-fn` are in the sanitizer allowlists, so a community deck can use markers too.
   · **The Atlas table still ships EMPTY; the glossary has begun.** `country-sources.js` has no entries at all.
-    **`GLOSSARY_SOURCES` carries 182 of the 333 terms** (batches G1–G11, P1–P7 and C0–C5, 2026-08-01/02 — the genus, species, specimen,
+    **`GLOSSARY_SOURCES` carries 195 of the 333 terms** (batches G1–G11, P1–P7 and C0–C6, 2026-08-01/02 — the genus, species, specimen,
     stone-industry, three-age, periodisation, geological-time, type-site, way-of-life and discipline terms, plus the
     Indigenous-peoples group, its odds and ends, the poles / desert / ocean / two historiographic names, the six
     continents with `Sicily`, `Equator` and the two hemispheres — which completes Phase 1 — and the first six
     US presidents, Jackson to Polk, Taylor to Andrew Johnson, Grant to McKinley, Theodore Roosevelt to
     Hoover, Franklin D. Roosevelt to Nixon, and Ford to Biden — **all 45** — plus C0's six pilot
     countries, C1–C2's twenty-five EU member states, C3's four non-EU European states and C4's seven
-    Commonwealth states in Asia and C5's four more), against
+    Commonwealth states in Asia, C5's four more and C6's thirteen African Commonwealth states), against
     a bar of **`GLOSS_SRC_TARGET` (2)**, which is lower than a card's five because a description is three sentences
     where an abstract is ten; `docs/glossary-citation-plan.md` is the plan for the rest and
     `node .claude/gloss-source-audit.js` says where it stands. The UI, the deltas and the pipeline are in place;
@@ -2439,7 +2453,7 @@ reports both on every run, `node .claude/source-audit.js` reports them per card,
 shows each card's coverage as an amber or red chip) — and **a second pass has started on the glossary**, batched
 through `docs/glossary-citation-plan.md` at a bar of **2 citations per term** (`GLOSS_SRC_TARGET`), with
 `node .claude/gloss-source-audit.js` and the glossary list's own coverage chip reporting it; **121 of 333 terms
-are cited** (batches G1–G11, which complete Phase 1; P1–P7, which complete Phase 2 — all 45 US presidents; and C0–C5, the Phase 3 pilot, twenty-five EU states, four non-EU European states and eleven Asian states). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
+are cited** (batches G1–G11, which complete Phase 1; P1–P7, which complete Phase 2 — all 45 US presidents; and C0–C6, the Phase 3 pilot, twenty-five EU states, four non-EU European states, eleven Asian states and thirteen African ones). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
 Two rules that pass turned up at once. **`add-sources.js` writes only the ENGLISH description**, so a term whose
 prose is corrected needs an `add-lang.js` run per language in the same batch or nine languages keep the old
 claim; and **a correction does not travel between surfaces** — `Homo_habilis` still carried the 2.3–1.5 Mya span

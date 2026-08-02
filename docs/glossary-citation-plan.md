@@ -2,8 +2,8 @@
 
 The glossary was **333 terms and not one of them carried a source**. `window.GLOSSARY_SOURCES` was an empty
 table; the fold at the foot of a gloss popup never appeared. This is the plan for filling it. Not part of
-the site. **As of 2026-08-02, 182 of the 333 are cited and at the bar** — batches G1–G11, P1–P7 with the P-topup, and C0–C5, five of which also
-corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 182 carry in-text
+the site. **As of 2026-08-02, 195 of the 333 are cited and at the bar** — batches G1–G11, P1–P7 with the P-topup, and C0–C6, five of which also
+corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 195 carry in-text
 markers, in all ten languages, after the rule changed from optional to required on 2026-08-01 (see "What
 is different from the card pass"). G5 also settled the start of prehistory across the glossary, the deck
 and every date line: **2.6 Mya**, with the disputed 3.3 Ma Lomekwi claim hedged rather than adopted; G6
@@ -172,7 +172,7 @@ the way batch 21 recorded the Anubis walls, so the next pass does not re-run the
 | the poles, the desert, the sea and two names | 7 | Phase 1 · batch G10 — **done** |
 | the continents, the island and the constants | 10 | Phase 1 · batch G11 — **done** |
 | US presidents | 45 | Phase 2 · batches P1–P7 — **ALL DONE (2026-08-02)** |
-| countries and states of the world | 197 | Phase 3 · batches C0–C12 — **C0–C5 done (2026-08-02)**; 15 European and 35 Asian terms deferred with reasons, see the C3 and C5 logs |
+| countries and states of the world | 197 | Phase 3 · batches C0–C12 — **C0–C6 done (2026-08-02)**; 15 European, 35 Asian and 4 African terms deferred with reasons, see the C3, C5 and C6 logs |
 | **total** | **333** | |
 
 ## Order, and why
@@ -1982,6 +1982,53 @@ does not make.
 translation runs to four sentences where the other nine run to three, so markers placed by sentence index
 would land on different claims. Two in three batches settles it — **run `split-abstract.js` over a batch's
 whole term list before planning its markers.**
+
+### Batch C6 log — the split check pays on its first use, and the joining line is measured
+
+#### 2026-08-02 — thirteen terms, 26 citations, no corrections, four deferrals
+
+**Coverage 182/333 → 195/333** — the largest country batch of Phase 3 so far, and it confirms C4's finding
+at scale: the Commonwealth is the bloc profile outside Europe.
+
+**C5's up-front split check earned its place immediately.** Run over the whole term list before any marker
+was planned, it caught **`Lesotho` splitting into four sentences in Italian** and **`Malawi` into four in
+Japanese**, where the other nine split into three. Both were removed from the batch before any work was done
+on them — where `United_Kingdom` and `Taiwan` were each caught late, after their research was already done.
+**Four split faults in four batches makes this a standing step, not a precaution.**
+
+**The Commonwealth joining line is the independence line eleven times in thirteen, and the two exceptions
+have a shape.** Ghana 1957, Nigeria 1960, Sierra Leone 1961, Uganda 1962, Zambia 1964, Botswana 1966,
+Mauritius 1968, Seychelles 1976 and Namibia 1990 all match their terms' independence years exactly and were
+marked. **Mozambique (joined 1995, "following its first democratic elections", independent 1975) and Rwanda
+(joined 2009, independent 1962) are states that joined without ever having been British**, so their joining
+line dates an accession and not an independence — the case C4 warned about, now met twice.
+
+**Cameroon is the subtler one and is why the check has to be per country.** The years agree — the
+Commonwealth says 1960 and the term says 1960 — but the term describes a French portion independent in 1960
+and a British portion in 1961 joining together, which the Commonwealth's single line does not describe. **A
+marker was withheld on a near-match rather than placed on one.** South Africa is the same in a different
+direction: joined 1931, left 1961, rejoined 1994, against the term's Union of 1910.
+
+**Fourteen countries' figures checked against both sources, and no corrections.** Seven areas match exactly
+or to within a few km² (Nigeria 923,769 against 923,768; Rwanda and South Africa exact), and every area is
+within 0.7% of both sources. **The populations are the interesting part: they sit consistently BETWEEN the
+Commonwealth's 2022 figures and UNdata's 2025 ones** — Uganda's "roughly 48 million" between 45.7 and 51.4,
+Zambia's "roughly 20 million" between 18.38 and 21.9, Seychelles' "roughly 120,000" between 98,462 and
+133,000. That is what a term written from a recent-but-not-current estimate looks like, and on either source
+alone several would have looked wrong in one direction or the other.
+
+**`Kenya` is the Greece shape, and its recurrence is the finding to carry forward.** Its description states
+no area, no population and no capital, so UNdata carries nothing it says and it would ship on the
+Commonwealth alone. **Greece and Kenya are both among the twelve countries this plan describes as "written
+earlier and at greater length" — and that extra length is extra PROSE, not extra FIGURES**, which is exactly
+what makes them invisible to a recipe built on statistical profiles. **Expect the remaining ten of that
+twelve — Tanzania, France, Georgia, Denmark, Australia, India, Russia, China, Japan, Brazil — to behave the
+same way**, and note that France, India, Denmark and China have already been shipped or deferred on
+precisely that pattern.
+
+**And `Tanzania` was deferred on a missing slug**: `/our-member-countries/tanzania`,
+`/united-republic-of-tanzania` and `/tanzania-united-republic` are all 404 and the site offers no readable
+index. A trivial obstacle, but not one to guess past — a citation must point at a page that exists.
 
 ### Batches C1–C12 · by region
 

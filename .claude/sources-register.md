@@ -8853,3 +8853,74 @@ Arab Emirates, Uzbekistan, Vietnam, Yemen.
   sentence index would land on different claims in Japanese. Two such faults in three batches makes the
   case that **`split-abstract.js` should be run over a batch's whole term list before its markers are
   planned**, which C3 already recommended and this batch confirms.
+
+## Batch C6 — Africa, the Commonwealth states (GLOSSARY, 2026-08-02)
+
+**Thirteen terms shipped, 26 citations, no corrections.** Coverage 182/333 → 195/333. Botswana, Cameroon,
+Ghana, Mauritius, Mozambique, Namibia, Nigeria, Rwanda, Seychelles, Sierra Leone, South Africa, Uganda,
+Zambia. **The largest country batch of Phase 3 so far**, and it confirms C4's finding at scale: the
+Commonwealth is the bloc profile outside Europe.
+
+### FINDING — the up-front split check paid on its first use
+C5 concluded that `split-abstract.js` must be run over a batch's whole term list **before** its markers are
+planned, after `United_Kingdom` and `Taiwan` were each caught late. C6 ran it first and it caught two more
+immediately: **`Lesotho` splits into four sentences in Italian**, and **`Malawi` into four in Japanese**,
+where the other nine languages split into three in both cases. Neither term was planned, marked or written —
+they were removed from the batch before any work was done on them. **Four split faults in four batches makes
+this a standing step, not a precaution.**
+
+### The Commonwealth joining line, and when it is the independence line
+C4 found the joining line often carries the independence year; C6 measured how often across a larger set.
+**Eleven of thirteen match the term's independence year and were marked; three did not and were not.**
+
+| | joined the Commonwealth | term's independence | marked? |
+|---|---|---|---|
+| Ghana | 1957, following independence from Britain | 1957 | ✓ |
+| Nigeria | 1960, following independence from Britain | 1960 | ✓ |
+| Sierra Leone | 1961, following independence from Britain | 1961 | ✓ |
+| Uganda | 1962, following independence from Britain | 1962 | ✓ |
+| Zambia | 1964, following independence from Britain | 1964 | ✓ |
+| Botswana | 1966, following independence from Britain | 1966 | ✓ |
+| Mauritius | 1968, following independence from Britain | 1968 | ✓ |
+| Seychelles | 1976, following independence from Britain | 1976 | ✓ |
+| Namibia | 1990, after independence from South Africa | 1990 | ✓ |
+| **Mozambique** | **1995, following its first democratic elections** | 1975 | ✗ |
+| **Rwanda** | **2009** (54th member; first with no constitutional link to Britain) | 1962 | ✗ |
+| **South Africa** | **1931**, on independence from Britain; left 1961, rejoined 1994 | 1910 Union | ✗ |
+| **Cameroon** | 1960, following independence from Britain | 1960 **and 1961**, French and British portions | ✗ |
+
+**Mozambique and Rwanda are the shape C4 warned about** — states that joined the Commonwealth without ever
+having been British, so the joining line dates an accession and not an independence. **Cameroon is subtler
+and is why the check has to be per country**: the years agree, but the term describes a French portion
+independent in 1960 and a British portion in 1961 joining together, and the Commonwealth's single line
+("1960, following independence from Britain") does not describe that. The marker was withheld rather than
+placed on a near-match. All four still clear the bar on their first sentences, which both sources carry.
+
+### Figures verified against both sources — fourteen countries, no corrections
+Exact or near-exact matches on area throughout: Nigeria 923,769 km² (UNdata 923,768), Rwanda 26,338
+(26,338), South Africa 1,221,037 (1,221,037), Zambia 752,618 (752,612), Ghana 238,535 (238,537), Botswana
+581,730 (Commonwealth 581,730), Sierra Leone 71,740 (Commonwealth 71,740). **Every area within 0.7% of both
+sources.** Populations sit consistently **between** the Commonwealth's 2022 figures and UNdata's 2025 ones —
+Uganda's "roughly 48 million" between 45.7 m and 51.4 m, Zambia's "roughly 20 million" between 18.38 m and
+21.9 m, Seychelles' "roughly 120,000" between 98,462 and 133,000 — which is what a term written from a
+recent-but-not-current estimate looks like, and is not an error. **The read-both rule keeps paying: on one
+source alone, several of these would have looked wrong in one direction or the other.**
+
+### Verified citations (batch C6)
+`data.un.org/en/iso/<cc>.html` and `thecommonwealth.org/our-member-countries/<slug>` for each of the
+thirteen.
+
+### DEFERRED (batch C6) — four terms
+- **`Lesotho`** and **`Malawi`** — split faults, caught before any work; see above.
+- **`Kenya`** — **the Greece shape, and the second instance in Phase 3.** Its description states no area, no
+  population and no capital: it opens "Kenya is a country in East Africa that straddles the equator, with a
+  coast on the Indian Ocean, a central highland plateau split by the Great Rift Valley…". The Commonwealth's
+  joining line does support its "independent in 1963", but that leaves UNdata carrying nothing the term
+  says, so the term would ship on one source. **Greece and Kenya are both among the twelve countries the
+  plan describes as "written earlier and at greater length"** — and that extra length turns out to be extra
+  *prose* rather than extra *figures*, which is exactly what makes them invisible to a recipe built on
+  statistical profiles. The remaining ten of that twelve should be expected to behave the same way.
+- **`Tanzania`** — the Commonwealth's slug could not be found. `/our-member-countries/tanzania`,
+  `/united-republic-of-tanzania` and `/tanzania-united-republic` are all 404, and the site offers no index
+  this pass could read. A trivial obstacle, but not one to guess past: a citation must point at a page that
+  exists.
