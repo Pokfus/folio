@@ -7558,3 +7558,308 @@ History of U.S. Foreign Relations, https://history.state.gov/milestones/1921-193
   "easy manner" and Coolidge's "thrift" as characterisations; Hoover's winning "by a wide margin" in 1928,
   where the Campaigns essay gives 58 percent and 444–87 but was not itself cited; and Hoover's losing "in a
   landslide", where the Life in Brief says "handily".
+
+## Batch P6 — Franklin D. Roosevelt to Nixon (GLOSSARY, 2026-08-02)
+
+Six terms, 36 citation slots from **twenty-two distinct works, every one of them open**, none from this
+register. Coverage 121/333 → 127/333.
+
+**The batch's first finding is about every batch before it.** P1–P5 marked each term's opening sentence —
+"the Nth president of the United States, in office from X to Y" — to the Miller Center's *Life in Brief*.
+Most of those essays state neither the ordinal nor the term dates: the Hoover *Life in Brief* contains no
+"thirty-first" and no "1929" or "1933", and the Lincoln, McKinley and Coolidge essays are the same. The
+marker was not WRONG — the essay is about that presidency — but the specific numbers were resting on a page
+that does not carry them, which is G8's unmarked-clause problem wearing a marker. **The fix is the Miller
+Center's own landing page**, which carries a Fast Facts block giving `Inauguration Date`, `Date Ended` and
+`President Number` outright. All six P6 terms cite it; **the thirty terms of P1–P5 want the same top-up**,
+and that is recorded as a job rather than done here.
+
+**Two corrections, both on `Dwight_D._Eisenhower`, and both found by reading past the summary.**
+
+### Verified citations (batch P6)
+
+### mc-fastfacts-* · the ordinal and the term dates
+Miller Center of Public Affairs, University of Virginia, “Franklin D. Roosevelt,” Fast Facts,
+https://millercenter.org/president/fdroosevelt. [Open access]
+Miller Center of Public Affairs, University of Virginia, “Harry S. Truman,” Fast Facts,
+https://millercenter.org/president/truman. [Open access]
+Miller Center of Public Affairs, University of Virginia, “Dwight D. Eisenhower,” Fast Facts,
+https://millercenter.org/president/eisenhower. [Open access]
+Miller Center of Public Affairs, University of Virginia, “John F. Kennedy,” Fast Facts,
+https://millercenter.org/president/kennedy. [Open access]
+Miller Center of Public Affairs, University of Virginia, “Lyndon B. Johnson,” Fast Facts,
+https://millercenter.org/president/lbjohnson. [Open access]
+Miller Center of Public Affairs, University of Virginia, “Richard Nixon,” Fast Facts,
+https://millercenter.org/president/nixon. [Open access]
+- opened: 2026-08-02
+- each carries `President Number`, `Inauguration Date` and `Date Ended`, measured rather than inferred:
+  **32** / March 4, 1933 / April 12, 1945; **33** / April 12, 1945 / January 20, 1953; **34** /
+  January 20, 1953 / January 20, 1961; **35** / January 20, 1961 / November 22, 1963; **36** /
+  November 22, 1963 / January 20, 1969; **37** / January 20, 1969 / August 9, 1974
+- **This is the page to reach for whenever a term opens on an ordinal.** No presidential essay is obliged
+  to state the number, and most do not
+- used by: all six P6 terms
+
+### mc-fdr-lib / -domestic / -foreign / -campaigns · the thirty-second presidency
+William E. Leuchtenburg, “Franklin D. Roosevelt: Life in Brief,” Miller Center of Public Affairs,
+University of Virginia, https://millercenter.org/president/fdroosevelt/life-in-brief. [Open access]
+William E. Leuchtenburg, “Franklin D. Roosevelt: Domestic Affairs,” Miller Center of Public Affairs,
+University of Virginia, https://millercenter.org/president/fdroosevelt/domestic-affairs. [Open access]
+William E. Leuchtenburg, “Franklin D. Roosevelt: Foreign Affairs,” Miller Center of Public Affairs,
+University of Virginia, https://millercenter.org/president/fdroosevelt/foreign-affairs. [Open access]
+William E. Leuchtenburg, “Franklin D. Roosevelt: Campaigns and Elections,” Miller Center of Public Affairs,
+University of Virginia, https://millercenter.org/president/fdroosevelt/campaigns-and-elections. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports the polio and the paralysis — "Tragedy struck, however, in 1921. Roosevelt
+  contracted polio … that left him **paralyzed in his legs**" — the Depression, the New Deal, and the death:
+  "In **April 1945**, just weeks before the German surrender, the president collapsed and died of a cerebral
+  hemorrhage"
+- Domestic Affairs supplies each of the four things the term calls the New Deal: **banking regulation**
+  (the Glass-Steagall Act creating the FDIC; the Securities and Exchange Act creating the SEC), **relief**
+  (the CCC's 300,000 young men, the CWA's cash relief), **public works** (the PWA's $3 billion budget,
+  the WPA) and **social insurance** (the Social Security Act of 1935, Old Age Insurance, Unemployment
+  Insurance)
+- Foreign Affairs supplies the alliance: Lend-Lease, the Atlantic Charter with Churchill in August 1941,
+  and the "coalition of twenty-six nations … **FDR called this coalition the 'United Nations'**"
+- Campaigns and Elections supplies the third and fourth terms: "In 1940, Roosevelt decided to run for an
+  **unprecedented third term**"; "In 1944 … Roosevelt made it known … that he was willing to run for a
+  **fourth term**"
+- used by: `Franklin_D._Roosevelt`
+
+### nara-amendments · the two-term limit
+National Archives and Records Administration, “The Constitution: Amendments 11–27,” America’s Founding
+Documents, https://www.archives.gov/founding-docs/amendments-11-27. [Open access]
+- opened: 2026-08-02
+- Amendment XXII, with its own dates: "**Passed by Congress March 21, 1947. Ratified February 27, 1951.**
+  … No person shall be elected to the office of the President more than twice"
+- this is what makes "the only person elected to the office four times" a closed claim rather than an
+  unbounded one, and it is the reason the term's last clause exists
+- used by: `Franklin_D._Roosevelt`
+
+### mc-truman-lib / -foreign · the thirty-third presidency
+Alonzo L. Hamby, “Harry S. Truman: Life in Brief,” Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/truman/life-in-brief. [Open access]
+Alonzo L. Hamby, “Harry S. Truman: Foreign Affairs,” Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/truman/foreign-affairs. [Open access]
+- opened: 2026-08-02
+- Life in Brief is one of the few that DOES state the ordinal — "With the death of FDR on April 12, 1945,
+  Harry S. Truman became the **thirty-third President of the United States**" — and supplies the farm
+  ("Truman instead worked on the family farm between 1906 and 1914"), the shop ("Truman opened a men's
+  furnishings store"), the Senate ("In 1934, Truman was elected to the U.S. Senate"), the bombs ("On
+  **August 6 and 9, 1945**, the U.S. Army Air Force dropped atomic bombs on two cities, **Hiroshima and
+  Nagasaki**") and Korea ("committed the United States to the defense of South Korea in the summer of
+  **1950**")
+- Foreign Affairs supplies the whole of the third sentence bar the desegregation: the Truman Doctrine, in
+  which "He pledged U.S. support for the pro-Western governments of **Greece and Turkey**"; the **Marshall
+  Plan**, "a multi-billion dollar aid program for Europe"; the airlift — "Truman … **ordered an airlift of
+  food and fuel to break the blockade**"; **NATO**; and the UN founding conference in San Francisco
+- used by: `Harry_S._Truman`
+
+### nara-9981 · the armed forces desegregated
+National Archives and Records Administration, “Executive Order 9981: Desegregation of the Armed Forces
+(1948),” Milestone Documents, https://www.archives.gov/milestone-documents/executive-order-9981.
+[Open access]
+- opened: 2026-08-02
+- "On **July 26, 1948**, President Harry S. Truman signed this executive order **banning segregation in the
+  Armed Forces**", ordering "equality of treatment and opportunity for all persons in the armed forces
+  without regard to race, color, religion, or national origin"
+- used by: `Harry_S._Truman`
+
+### oh-truman-doctrine · Greece and Turkey
+Office of the Historian, U.S. Department of State, “The Truman Doctrine, 1947,” Milestones in the History
+of U.S. Foreign Relations, https://history.state.gov/milestones/1945-1952/truman-doctrine. [Open access]
+- opened: 2026-08-02
+- the milestone page for the aid the term names, beside Hamby's account of it
+- used by: `Harry_S._Truman`
+
+### mc-eisenhower-lib / -foreign · the thirty-fourth presidency, and one of the two corrections
+Chester J. Pach, “Dwight D. Eisenhower: Life in Brief,” Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/eisenhower/life-in-brief. [Open access]
+Chester J. Pach, “Dwight D. Eisenhower: Foreign Affairs,” Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/eisenhower/foreign-affairs. [Open access]
+- opened: 2026-08-02
+- Life in Brief states the ordinal outright ("the **thirty-fourth President of the United States**") and
+  supplies the courtship by both parties — "President Harry Truman privately proposed to Eisenhower that
+  they run together on the **Democratic** ticket in 1948 … In 1952, he declared that he was a
+  **Republican**" — the armistice ("Six months after he became President, Eisenhower agreed to an
+  **armistice** that ended three years of fighting in Korea"), the **Interstate Highway System in 1956**
+  and the federal troops at **Little Rock in 1957**
+- **Foreign Affairs carries the correction.** The term said he "kept military spending in check while
+  relying on nuclear deterrence". The essay says the opposite of the first half and something more precise
+  than the second: "Eisenhower's defense policies, which aimed at providing 'more bang for the buck,'
+  **cut spending on conventional forces while increasing the budget for the Air Force and for nuclear
+  weapons**. Even though **national security spending remained high—it never fell below 50 percent of the
+  budget during Eisenhower's presidency**—Eisenhower did balance three of the eight federal budgets."
+  The term now says he cut spending on conventional forces while building up nuclear weapons to deter the
+  Soviet Union
+- used by: `Dwight_D._Eisenhower`
+
+### eisenhower-library-chronology / -army-years · the second correction: a title six years early
+Dwight D. Eisenhower Presidential Library, Museum and Boyhood Home, “The Eisenhowers,” National Archives and
+Records Administration, https://www.eisenhowerlibrary.gov/eisenhowers. [Open access]
+Dwight D. Eisenhower Presidential Library, Museum and Boyhood Home, “Army Years,” National Archives and
+Records Administration, https://www.eisenhowerlibrary.gov/eisenhowers/army-years. [Open access]
+- opened: 2026-08-02
+- The term called him "**Supreme Allied Commander in Europe**" for the 1944 invasion. The Library's own
+  chronology dates that title six years later: "**December 1943: Appointed Supreme Commander, Allied
+  Expeditionary Forces.** June 6, 1944: Commanded forces of Normandy invasion." … "**December 16, 1950:
+  Named Supreme Allied Commander, North Atlantic Treaty Organization, Europe**". Supreme Allied Commander
+  Europe is the NATO post; the wartime command was the Allied Expeditionary Force. The term now says so
+- Army Years supplies the planning and the span of the command: "General Eisenhower turned his full
+  attention to **planning the invasion of Normandy, France, which occurred on June 6, 1944, D-Day**", and
+  that he was away from his family "until June 1945, **following the end of the war in Europe**"
+- **The Eisenhower Library is the one presidential library that paid in this batch, and it produced both
+  corrections.** See the access note below
+- used by: `Dwight_D._Eisenhower`
+
+### nara-farewell · the military-industrial complex
+National Archives and Records Administration, “President Dwight D. Eisenhower’s Farewell Address (1961),”
+Milestone Documents,
+https://www.archives.gov/milestone-documents/president-dwight-d-eisenhowers-farewell-address. [Open access]
+- opened: 2026-08-02
+- "On **January 17, 1961**, in this farewell address, President Dwight Eisenhower **warned against the
+  establishment of a 'military-industrial complex.'**"
+- used by: `Dwight_D._Eisenhower`
+
+### mc-kennedy-lib / -lbp / -foreign / -domestic / -death · the thirty-fifth presidency
+Marc J. Selverstone, “John F. Kennedy: Life in Brief,” Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/kennedy/life-in-brief. [Open access]
+Marc J. Selverstone, “John F. Kennedy: Life Before the Presidency,” Miller Center of Public Affairs,
+University of Virginia, https://millercenter.org/president/kennedy/life-before-the-presidency. [Open access]
+Marc J. Selverstone, “John F. Kennedy: Foreign Affairs,” Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/kennedy/foreign-affairs. [Open access]
+Marc J. Selverstone, “John F. Kennedy: Domestic Affairs,” Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/kennedy/domestic-affairs. [Open access]
+Marc J. Selverstone, “John F. Kennedy: Death of the President,” Miller Center of Public Affairs, University
+of Virginia, https://millercenter.org/president/kennedy/death-of-the-president. [Open access]
+- opened: 2026-08-02
+- Life in Brief supplies "the **youngest person elected US president** and the **first Roman Catholic** to
+  serve in that office", the Pacific service and the Senate years 1953–1961
+- Life Before supplies **decorated**, which the brief essay does not: "Kennedy received the **US Navy and
+  Marine Corps Medal for Valor and a Purple Heart**", and the **Massachusetts** seat won from Henry Cabot
+  Lodge Jr. in 1952
+- Foreign Affairs supplies the Bay of Pigs ("In the early hours of **April 17, 1961**"), the missile crisis
+  ("announcing his decision on national television on **October 22, 1962**" … "each seeming to bring the
+  world closer to the brink of nuclear war") and the Moon: "he **vowed to have Americans on the moon by the
+  end of the decade**"
+- Domestic Affairs supplies the bill: Kennedy "**submitted a civil rights bill to Congress**, which became
+  law after his death", after the June 11, 1963 confrontation
+- Death of the President supplies the place and date: "On **November 22, 1963**, President Kennedy and the
+  First Lady journeyed to **Dallas**"
+- used by: `John_F._Kennedy`
+
+### oh-limited-ban · the first arms control agreement
+Office of the Historian, U.S. Department of State, “The Limited Test Ban Treaty, 1963,” Milestones in the
+History of U.S. Foreign Relations, https://history.state.gov/milestones/1961-1968/limited-ban.
+[Open access]
+- opened: 2026-08-02
+- supports the term's "**the first** nuclear test-ban treaty" — "the **first arms control agreement of the
+  Cold War**, the Limited Test Ban Treaty of 1963"
+- used by: `John_F._Kennedy`
+
+### mc-lbj-lib / -domestic · the thirty-sixth presidency
+Miller Center of Public Affairs, University of Virginia, “Lyndon B. Johnson: Life in Brief,”
+https://millercenter.org/president/lbjohnson/life-in-brief. [Open access]
+Miller Center of Public Affairs, University of Virginia, “Lyndon B. Johnson: Domestic Affairs,”
+https://millercenter.org/president/lbjohnson/domestic-affairs. [Open access]
+- opened: 2026-08-02
+- **These two essays carry no named author**, where FDR's are Leuchtenburg's, Truman's Hamby's,
+  Eisenhower's Pach's, Kennedy's Selverstone's and Nixon's Hughes's — so they are cited to the institution.
+  Check the byline; do not assume one
+- Life in Brief supplies the teaching ("He taught briefly, with a stint at a poor school in **Cotulla,
+  Texas**"), the House seat ("In 1937 … **won election to Congress**"), the leadership ("In 1955, he was
+  elected **majority leader and transformed the position into one of the most powerful posts in American
+  government**"), **Medicare**, the money "**poured … into education**", the escalation ("more than 100,000
+  combat troops … Within three years, the number would swell to **more than 500,000**") and the withdrawal:
+  "On **March 31, 1968**, Johnson announced that he would neither seek nor accept the nomination"
+- Domestic Affairs supplies **Medicaid**, which the brief essay does not name at all: "The 'medically
+  indigent' of any age … would be covered under a related '**Medicaid**' program", and the federal aid
+  "for elementary and secondary education"
+- used by: `Lyndon_B._Johnson`
+
+### nara-civil-rights-act / nara-voting-rights-act · the two statutes
+National Archives and Records Administration, “Civil Rights Act (1964),” Milestone Documents,
+https://www.archives.gov/milestone-documents/civil-rights-act. [Open access]
+National Archives and Records Administration, “Voting Rights Act (1965),” Milestone Documents,
+https://www.archives.gov/milestone-documents/voting-rights-act. [Open access]
+- opened: 2026-08-02
+- the Civil Rights Act, "signed into law by President Lyndon Johnson on **July 2, 1964**, prohibited
+  discrimination in public places, provided for the **integration of schools** and other public facilities,
+  and made employment discrimination illegal" — the term's "dismantled legal segregation"
+- the Voting Rights Act, "signed into law on **August 6, 1965**", "**outlawed the discriminatory voting
+  practices** adopted in many southern states after the Civil War, including literacy tests" — the term's
+  "protected Black voters"
+- used by: `Lyndon_B._Johnson`
+
+### mc-nixon-lib / -domestic · the thirty-seventh presidency
+Ken Hughes, “Richard Nixon: Life in Brief,” Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/nixon/life-in-brief. [Open access]
+Ken Hughes, “Richard Nixon: Domestic Affairs,” Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/nixon/domestic-affairs. [Open access]
+- opened: 2026-08-02
+- Life in Brief supplies the resignation and the whole career in one sentence: "He was the first and (so
+  far) the **only President of the United States to resign the office**" … "winning a **congressional race
+  (1946)** … a **Senate seat (1950)**, and the **vice presidency (1952)**"
+- **Domestic Affairs is what makes "near-certain removal" a sourced claim rather than a flourish.**
+  Goldwater "told the President that there were a **maximum of 18 senators who might vote against his
+  conviction on the articles of impeachment—too few to save him**". It also carries the EPA proposal and
+  the Watergate arrest of "**five men** in those offices on **June 17, 1972**"
+- used by: `Richard_Nixon`
+
+### oh-ending-vietnam / oh-china / oh-salt · the foreign policy
+Office of the Historian, U.S. Department of State, “Ending the Vietnam War, 1969–1973,” Milestones in the
+History of U.S. Foreign Relations, https://history.state.gov/milestones/1969-1976/ending-vietnam.
+[Open access]
+Office of the Historian, U.S. Department of State, “Rapprochement with China, 1972,” Milestones in the
+History of U.S. Foreign Relations, https://history.state.gov/milestones/1969-1976/rapprochement-china.
+[Open access]
+Office of the Historian, U.S. Department of State, “Strategic Arms Limitations Talks/Treaty (SALT) I and
+II,” Milestones in the History of U.S. Foreign Relations, https://history.state.gov/milestones/1969-1976/salt.
+[Open access]
+- opened: 2026-08-02
+- Ending the Vietnam War carries **the replacement for a withdrawn clause** (below): "President Richard M.
+  Nixon assumed responsibility for the Vietnam War as he swore the oath of office on **January 20, 1969**.
+  He knew that **ending this war honorably was essential to his success in the presidency**. He expected
+  that the American people would give him **a year** to end U.S. involvement", and the agreement — "the
+  United States and the Democratic Republic of Vietnam initialed the agreement on **January 23** [1973] …
+  the peace agreement was signed on January 27"
+- Rapprochement with China: "In **1972**, U.S. President Richard Nixon traveled to the People's Republic of
+  China", where "the two governments negotiated the **Shanghai Communiqué**"
+- SALT: Nixon and Brezhnev "signed the ABM Treaty and interim SALT agreement on **May 26, 1972**, in
+  Moscow. **For the first time during the Cold War, the United States and Soviet Union had agreed to limit
+  the number of nuclear missiles** in their arsenals" — which is what makes the term's "**first**
+  arms-limitation treaties" a sourced word
+- used by: `Richard_Nixon`
+
+### epa-origins · the agency
+U.S. Environmental Protection Agency, “The Origins of EPA,” https://www.epa.gov/history/origins-epa.
+[Open access]
+- opened: 2026-08-02
+- "in July 1970, **President Nixon had signed Reorganization Plan No. 3 calling for the establishment of
+  EPA**", and "Administrator Ruckelshaus was confirmed by the Senate on **December 2, 1970**, which is the
+  traditional date we use as the birth of the agency"
+- used by: `Richard_Nixon`
+
+### NOT CITED (batch P6) — what could not be sourced, and what is kept unmarked
+- **Nixon's "promising order at home" is in nothing openable and was WITHDRAWN.** It is not in the *Life in
+  Brief*, not in *Campaigns and Elections* (whose account of the 1968 acceptance speech quotes an
+  internationalist passage instead), not in *Life Before the Presidency* and not in *Domestic Affairs*. The
+  sentence was rebuilt on what the Office of the Historian does state — that ending the war was the
+  expectation on him from the day he took office — rather than kept over a citation that does not contain
+  it. G6's rule applied before the marker was placed instead of after.
+- **No page states Nixon's "eight years as vice president" as a number.** The Life in Brief gives the
+  vice presidency as won in 1952 and the Eisenhower Fast Facts give that administration as
+  January 1953 – January 1961; the arithmetic is left to the reader and the clause is unmarked.
+- **The presidential libraries are only half-reachable from here** — measured 2026-08-02.
+  `eisenhowerlibrary.gov` and `fdrlibrary.org` answer 200. **`jfklibrary.org` returns 403.** The obvious
+  biography paths on `trumanlibrary.gov`, `lbjlibrary.org` and `nixonlibrary.gov` are 404, and none of the
+  three publishes a browsable biography at a guessable slug. The plan named "presidential libraries (NARA)"
+  as P6's second spine and exactly one of them paid — but it paid for both of the batch's corrections, so
+  the spine is worth trying first on P7 rather than abandoning.
+- **`ssa.gov` is 403 here**, so the Social Security Administration's own history pages are closed; the
+  Social Security Act is cited to the Miller Center instead.
+- Three Office of the Historian slugs that look obvious are 404: `/milestones/1945-1952/korean-war-2` (the
+  page is `/korean-war`) and `/milestones/1937-1945/atomic`. Check the era index rather than guessing.
+- Kept unmarked, uncontradicted, in nothing opened: the description of Roosevelt's illness as
+  "a paralytic illness" rather than polio — the essay says polio, the term hedges, and the hedge is the
+  more careful of the two given the modern argument, so it stands as written.

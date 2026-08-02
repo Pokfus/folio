@@ -2,8 +2,8 @@
 
 The glossary was **333 terms and not one of them carried a source**. `window.GLOSSARY_SOURCES` was an empty
 table; the fold at the foot of a gloss popup never appeared. This is the plan for filling it. Not part of
-the site. **As of 2026-08-02, 121 of the 333 are cited and at the bar** — batches G1–G11 and P1–P5, five of which also
-corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 121 carry in-text
+the site. **As of 2026-08-02, 127 of the 333 are cited and at the bar** — batches G1–G11 and P1–P6, five of which also
+corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 127 carry in-text
 markers, in all ten languages, after the rule changed from optional to required on 2026-08-01 (see "What
 is different from the card pass"). G5 also settled the start of prehistory across the glossary, the deck
 and every date line: **2.6 Mya**, with the disputed 3.3 Ma Lomekwi claim hedged rather than adopted; G6
@@ -171,7 +171,7 @@ the way batch 21 recorded the Anubis walls, so the next pass does not re-run the
 | Indigenous peoples, and the odds and ends | 8 | Phase 1 · batch G9 — **done** |
 | the poles, the desert, the sea and two names | 7 | Phase 1 · batch G10 — **done** |
 | the continents, the island and the constants | 10 | Phase 1 · batch G11 — **done** |
-| US presidents | 45 | Phase 2 · batches P1–P7 — **P1–P5 done** |
+| US presidents | 45 | Phase 2 · batches P1–P7 — **P1–P6 done** |
 | countries and states of the world | 197 | Phase 3 · batches C0–C12 |
 | **total** | **333** | |
 
@@ -1500,6 +1500,63 @@ Peace Prize; both state that he won it. The term's "in 1906" is left unmarked an
 pointed at a work that does not carry it — the same discipline G6's wrong marker taught, applied before the
 marker was placed instead of after.
 
+### Batch P6 log — the batch that corrected the five batches before it
+
+#### 2026-08-02 — six terms, 36 citations, three corrected clauses
+
+**Coverage 121/333 → 127/333.** Twenty-two distinct works, **every one of them open**, none from the
+register.
+
+**P6's first finding is about P1–P5, and it is the reason a top-up batch is now owed.** Every presidential
+term opens on the same sentence shape — "the Nth president of the United States, in office from X to Y" —
+and P1–P5 marked it to the Miller Center's *Life in Brief*. **Most of those essays state neither the
+ordinal nor the term dates.** The Hoover essay contains no "thirty-first" and neither "1929" nor "1933";
+Lincoln's, McKinley's and Coolidge's are the same. The marker was not WRONG in the way batch 23's Wrangham
+marker was wrong — the essay is unmistakably about that presidency — but the two specific numbers the
+sentence asserts were resting on a page that does not carry them. That is G8's unmarked-clause problem
+wearing a marker, and **the audit cannot see it**, because it counts citations rather than covered claims.
+
+The fix was already published and nobody had looked: **the Miller Center's landing page for each president
+carries a Fast Facts block** giving `President Number`, `Inauguration Date` and `Date Ended` outright. All
+six P6 terms cite it. **The thirty terms of P1–P5 want the same one-citation top-up**, and that is recorded
+here as a job rather than smuggled into this batch. **Reach for Fast Facts whenever a term opens on an
+ordinal.**
+
+**Two corrections on `Dwight_D._Eisenhower`, and the presidential library found both.**
+- The term made him "**Supreme Allied Commander in Europe**" for the invasion of France in June 1944.
+  That is the **NATO** post, and he took it six years later. The Eisenhower Presidential Library's own
+  chronology is unambiguous on both dates: "December 1943: Appointed **Supreme Commander, Allied
+  Expeditionary Forces**. June 6, 1944: Commanded forces of Normandy invasion" … "**December 16, 1950:
+  Named Supreme Allied Commander, North Atlantic Treaty Organization, Europe**." The term now gives the
+  wartime title, and the invasion is Normandy's, which is what the Library's Army Years page says he spent
+  1943 planning.
+- The term said he "**kept military spending in check** while relying on nuclear deterrence". The cited
+  Foreign Affairs essay refutes the first half in the same sentence in which it supplies a better second:
+  his defense policies "**cut spending on conventional forces while increasing the budget for the Air Force
+  and for nuclear weapons**. Even though **national security spending remained high—it never fell below 50
+  percent of the budget** during Eisenhower's presidency—Eisenhower did balance three of the eight federal
+  budgets." The term now says what he actually did to the budget rather than what the shape of the New Look
+  suggests he did to its total.
+
+**A third clause was withdrawn rather than re-sourced.** `Richard_Nixon` had him reaching the White House
+"promising **order at home** and an end to the war in Vietnam". The first half is in nothing openable — not
+the *Life in Brief*, not *Campaigns and Elections*, not *Life Before the Presidency*, not *Domestic
+Affairs* — so the sentence was rebuilt on what the Office of the Historian does state: that ending the war
+was the expectation on him from the day he took the oath. This is G6's rule applied **before** the marker
+was placed instead of after.
+
+**On the plan's own prediction for this batch.** P6 was to lean on the **presidential libraries (NARA)**,
+and they are only half-reachable from here: `eisenhowerlibrary.gov` and `fdrlibrary.org` answer,
+**`jfklibrary.org` is 403**, and the obvious biography paths on `trumanlibrary.gov`, `lbjlibrary.org` and
+`nixonlibrary.gov` are all 404 with no guessable alternative. Exactly one library paid — and it paid for
+both corrections, which is the whole argument for trying them first in P7 rather than writing them off.
+`ssa.gov` is likewise 403, so the Social Security Administration's history pages are closed and the Social
+Security Act is cited to the Miller Center.
+
+**A smaller find worth carrying into P7: check the byline.** The LBJ essays carry **no named author**,
+where FDR's are Leuchtenburg's, Truman's Hamby's, Eisenhower's Pach's, Kennedy's Selverstone's and Nixon's
+Hughes's. Cite the institution when there is no byline; do not assume the essay has one.
+
 | batch | presidents | second-source spine |
 |---|---|---|
 | **P1** | Washington, J. Adams, Jefferson, Madison, Monroe, J. Q. Adams (6) — **DONE (2026-08-02)** | NARA milestone documents; State Dept. Office of the Historian; NPS |
@@ -1507,8 +1564,9 @@ marker was placed instead of after.
 | **P3** | Taylor, Fillmore, Pierce, Buchanan, Lincoln, A. Johnson (6) — **DONE (2026-08-02)** | NARA milestone documents; Senate impeachment record; the Avalon Project |
 | **P4** | Grant, Hayes, Garfield, Arthur, Cleveland, B. Harrison, McKinley (7) — **DONE (2026-08-02)** | NARA milestone documents; the Miller Center's Key Events timelines |
 | **P5** | T. Roosevelt, Taft, Wilson, Harding, Coolidge, Hoover (6) — **DONE (2026-08-02)** | State Dept. Office of the Historian; NARA DocsTeach |
-| **P6** | F. D. Roosevelt, Truman, Eisenhower, Kennedy, L. B. Johnson, Nixon (6) | presidential libraries (NARA); Office of the Historian |
+| **P6** | F. D. Roosevelt, Truman, Eisenhower, Kennedy, L. B. Johnson, Nixon (6) — **DONE (2026-08-02)** | the Eisenhower Presidential Library (NARA); Office of the Historian; NARA milestone documents |
 | **P7** | Ford, Carter, Reagan, G. H. W. Bush, Clinton, G. W. Bush, Obama, Trump, Biden (9) | presidential libraries; NARA; congressional record |
+| **P-topup** | P1–P5's thirty terms (6+5+6+7+6) — **OWED, opened by P6** | the Miller Center's Fast Facts landing pages, one citation per term, for the ordinal and the term dates their *Life in Brief* markers do not carry |
 
 ---
 
