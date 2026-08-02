@@ -899,6 +899,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   quarter of a phone screen, over a card whose background already runs several screens. Four columns fit once
   `.gk` goes — those digits name keys a phone does not have — and `body.grading .stage`'s bottom padding drops
   from 206px to 150px to match.
+- **…and on a phone its HEIGHT is the reader's** (`.gb-grab` / `gbWireResize` / `body.gb-compact`, Aug 2026, on
+  request): drag the grip along its top edge and the bar halves, 111px → 58px, the four grades going side by
+  side as bare COLOURS with the `?`, Undo and Suspend as icons on the same row. **Two positions and no third,
+  and it does NOT track the pointer** the way the Atlas sheet's grip does (`cpWireResize`) — the short state is
+  a different ARRANGEMENT rather than the same bar smaller, so there is nothing to render in between; the state
+  flips the moment the drag passes `GB_SLOP` (16px), which is also what makes it feel like a snap. A tap on the
+  grip toggles, since a grip nobody drags is a grip nobody finds, and ↑/↓ reach it from a keyboard.
+  Three things are load-bearing. The grip lives **outside `.gradebar-inner`**, whose contents are replaced for
+  every card, so it is wired once in `ensureGradeBar` and a grade never has to survive a rebuild. Nothing is
+  **lost** in the short state: the label is CLIPPED (`clip-path`, 1px) rather than `display:none`, or the four
+  buttons would be four unnamed colours to a screen reader as well as to the eye, and the `?`/Undo/Suspend go
+  icon-only via **`font-size:0` on the button** — their text is a bare node beside an `<svg>`, which no
+  selector can reach, and the svg keeps its own px size. And `body.gb-compact.grading .stage`'s padding drops
+  to 96px with it (specificity, not source order — the ≤430px block's `body.grading .stage` sits further
+  down). Device-local in `localStorage["folio_gb_compact_v1"]`, like where the marker sits and how tall the
+  place sheet is. Guarded by `test-layout.js`.
 - **Undo is repeated INSIDE the grade bar on a phone** (`#undoGradeBar`, `.gb-undo` — Aug 2026, on request).
   The study bar's `#undoGrade` sits at the top of a card that runs several screens, so on a phone the one way
   back from a misclicked grade was scrolled off screen at exactly the moment it was wanted. The grade bar's copy
@@ -1510,6 +1526,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   REMOVED on request** (a saved selection of one falls back to folio via the `THEMES` whitelist); don't reintroduce
   them. **Collection banners and all theme decorations are STATIC — no animated/moving patterns (removed on request).**
   Themes register in `THEMES` (app.js) + the `THEME_OPTS` settings-picker table (mini-mockup previews, hover try-on).
+- **Text size** (**Settings → Appearance → Text size**, `FONT_SIZES` / `setFontSize` / `S.settings.fontSize`, Aug
+  2026, on request): small / medium / large, written by `applyTheme` as `body[data-fs]` — so it is re-applied on
+  every `render()` and at boot with no separate call — and read by styles.css as the multiplier **`--fs`**
+  (`:root{--fs:1}`, `.88` and `1.16` on the two `body[data-fs]` rules).
+  **It scales the READING PROSE and deliberately not the shell.** The rules that use it are the study card's
+  root size and question, `.abstract`, `.answer .val`, `.dt-v`, `.src-item`, the gloss popup's title and
+  description (window and sheet) and the Atlas panel's `.cp-desc` — grep `var(--fs)` for the set, each written
+  `calc(<its own px> * var(--fs))` so every one keeps its relative size. It is NOT a page zoom because it
+  cannot be: styles.css sizes **522** things in px and the chrome is laid out against those pixels (the tab
+  bar's labels, the review's one-line deck rows, the Atlas timebar's arithmetic), so a global scale would
+  break the shell to enlarge the text. **The setting's own wording names the surfaces it reaches** — keep the
+  two in step if the set changes. The picker is a three-cell segmented control (`.fs-pick`) whose A is drawn at
+  each size, in a `set-row-block` because at 186px it leaves a phone's description four words a line. Guarded
+  by `test-layout.js`, which asserts both halves: the card and popup grow, a tab label and a grade button do not.
 - **Language picker + i18n** (**Settings → Language**, `langPickerHTML` / `wireLangPicker`; it was a `#lang-switch`
   dropdown in the top bar until Aug 2026, moved on request when the phone's top bar was removed — a preference
   belongs on the preferences page, and the picker had nowhere else to live once that bar was gone): a grid of
@@ -3063,7 +3093,7 @@ dead code (never rendered).
     **Re-run after touching the `SOURCE FOOTNOTES` block, `wireFootnotes` / `sourcesHTML` / `normSources` /
     `linkifySrcItem` / `replaceInSrcText`, the `.src-access` styles, the editors' sources boxes, or the
     `fn` / `data-fn` sanitizer allowlists.**
-  · `node .claude/test-layout.js` — 192 assertions on **the shell**: the rules that break silently because
+  · `node .claude/test-layout.js` — 208 assertions on **the shell**: the rules that break silently because
     nothing throws when a layout is wrong. The phone's bottom tab bar (present, labelled — *every* tab, not
     just the active one, which is the top bar's behaviour — each name **centred under its own icon**, the
     selected one included, since one tab off out of five reads as a design; routing; no Library and no
@@ -3094,13 +3124,19 @@ dead code (never rendered).
     are stacked by arithmetic over `--timebar-h`/`--tabbar-h` and each edge must meet the next exactly, at
     three widths; the rail's year labels never overlapping at four widths, with the two ends always kept;
     the Atlas search and legend as chips covering under 3% of the map, opening and closing again; the
-    one-row grade bar and the study page's padding clearing it; Settings and Account filling the stage;
+    one-row grade bar and the study page's padding clearing it — and its two HEIGHTS, where dragging the grip
+    down must genuinely halve it (a "compact" state saving 15px is not what was asked for), leave the four
+    grades as bare colours that a screen reader can still name, keep the ? and Suspend beside them rather
+    than dropping them, and take the page's bottom padding down with it; the Text size setting, which must
+    grow the card and the glossary popup and must leave a tab label and a grade button exactly where they
+    were, that being the difference between a reading scale and a page zoom; Settings and Account filling the stage;
     a coming-soon collection carrying no level badge and no XP bar; and **no overlay outliving the page
     that spawned it** — a real level-up is raised (three cards graded Easy) and dismissed by a HASH CHANGE,
     never a click, since a click would dismiss it anyway and prove nothing.
     **Re-run after touching `.tabbar` / `--tabbar-h` / `--timebar-h` / `layoutTicks` / the Atlas chrome's
     media queries / `.settings` / `.auth-split` / the coming-soon rows / `wireOnePageSwipe`
     / `.rv-lip` / `.games-sec` / `.home-about` / `gameSub` / `pileCounts` / `adProg` / `.active-deck` /
+    `gbWireResize` / `.gb-grab` / `body.gb-compact` / `applyTheme`'s `data-fs` / `var(--fs)` /
     `ensureWBTools` / `.wb-pick` /
     the ink layer's pass-through /
     `cpWireResize` / `lockHeight`, or after adding an overlay to `document.body`.** Its clicks go through `evaluate`

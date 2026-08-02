@@ -339,6 +339,93 @@ async function studyEasy(page, base, n) {
     check("...taking under a fifth of the screen", gb.h < gb.vh * 0.2, gb.h + " of " + gb.vh);
     // the card's last line must not end underneath it
     check("the study page's bottom padding clears the bar", gb.pad >= gb.h, JSON.stringify({ pad: gb.pad, bar: gb.h }));
+
+    /* …and its HEIGHT is the reader's, by the grip along its top edge (Aug 2026, on request). Two positions
+       and no third: the short one is a different ARRANGEMENT, not the same bar smaller. What this pins is
+       that the short one is genuinely half the tall one (a "compact" state that saves 15px is not what was
+       asked for), that nothing is LOST getting there — the ?, Suspend and the four grades are all still on
+       screen and still named to a screen reader, which a display:none would have taken away — and that the
+       page's bottom padding follows it down, since a bar that shrinks under a padding that doesn't leaves
+       a band of dead card. */
+    const read = () => page.evaluate(() => {
+      const bar = document.querySelector("#gradebar").getBoundingClientRect();
+      const gs = [...document.querySelectorAll(".grade")];
+      const vis = (s) => { const e = document.querySelector(s); return !!(e && e.checkVisibility()); };
+      return {
+        h: Math.round(bar.height),
+        compact: document.body.classList.contains("gb-compact"),
+        rows: new Set(gs.map((g) => Math.round(g.getBoundingClientRect().top))).size,
+        // the words are gone from the buttons — the interval is what a reader SEES disappear
+        gi: gs.some((g) => g.querySelector(".gi").checkVisibility()),
+        // the LABEL is measured, not asked: it is clipped to a pixel rather than display:none, and
+        // checkVisibility() reports a clipped element as visible
+        gl: gs.some((g) => g.querySelector(".gl").getBoundingClientRect().width > 4),
+        // …and clipped is exactly what keeps it in the accessibility tree, which display:none would not
+        named: gs.every((g) => { const cs = getComputedStyle(g.querySelector(".gl")); return cs.display !== "none" && cs.visibility !== "hidden" && (g.textContent || "").trim().length > 0; }),
+        help: vis(".grade-help"), suspend: vis(".suspendbtn"),
+        // the ? and Suspend join the colours on the same line rather than being dropped
+        oneLine: (() => {
+          const b = [document.querySelector(".grade-help"), document.querySelector(".suspendbtn"), gs[0]]
+            .filter(Boolean).map((e) => e.getBoundingClientRect());
+          return Math.max(...b.map((r) => r.top)) < Math.min(...b.map((r) => r.bottom));
+        })(),
+        pad: Math.round(parseFloat(getComputedStyle(document.querySelector(".stage")).paddingBottom) || 0),
+      };
+    });
+    const dragGrip = (dy) => page.evaluate(async (d) => {
+      const g = document.querySelector(".gb-grab"), r = g.getBoundingClientRect();
+      const x = r.left + r.width / 2, y = r.top + r.height / 2;
+      const ev = (t, cy) => g.dispatchEvent(new PointerEvent(t, { pointerId: 1, clientX: x, clientY: cy, bubbles: true, button: 0 }));
+      ev("pointerdown", y); ev("pointermove", y + d / 2); ev("pointermove", y + d); ev("pointerup", y + d);
+      await new Promise((r2) => setTimeout(r2, 250));
+    }, dy);
+    const gripSeen = await page.evaluate(() => { const g = document.querySelector(".gb-grab"); return !!(g && g.checkVisibility()); });
+    check("the grade bar carries a grip to resize it", gripSeen);
+    const tall = await read();
+    await dragGrip(44);
+    const short = await read();
+    check("...dragging it down halves the bar", short.compact && short.h <= tall.h * 0.6,
+      JSON.stringify({ tall: tall.h, short: short.h }));
+    check("...leaving the four grades side by side as bare colours",
+      short.rows === 1 && !short.gi && !short.gl, JSON.stringify(short));
+    check("...still named to a screen reader, which display:none would not be", short.named);
+    check("...with the ? and Suspend beside them, not dropped", short.help && short.suspend && short.oneLine, JSON.stringify(short));
+    check("...and the page's bottom padding down with it", short.pad < tall.pad && short.pad >= short.h,
+      JSON.stringify({ tall: tall.pad, short: short.pad, bar: short.h }));
+    await dragGrip(-44);
+    const back = await read();
+    check("...dragging it back up restores the bar", !back.compact && back.h === tall.h && back.gi,
+      JSON.stringify({ tall: tall.h, back: back.h }));
+    await page.close();
+  }
+  {
+    // the height is remembered on the device, so the next card opens the way the last one was left
+    const page = await browser.newPage({ viewport: PHONE });
+    watch(page);
+    await studyEasy(page, base, 0);
+    await page.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
+    await page.waitForTimeout(600);
+    await page.evaluate(async () => {
+      const g = document.querySelector(".gb-grab"), r = g.getBoundingClientRect();
+      const x = r.left + r.width / 2, y = r.top + r.height / 2;
+      const ev = (t, cy) => g.dispatchEvent(new PointerEvent(t, { pointerId: 1, clientX: x, clientY: cy, bubbles: true, button: 0 }));
+      ev("pointerdown", y); ev("pointermove", y + 44); ev("pointerup", y + 44);
+      await new Promise((r2) => setTimeout(r2, 250));
+    });
+    await studyEasy(page, base, 0);
+    await page.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
+    await page.waitForTimeout(600);
+    check("...and remembered for the next card", await page.evaluate(() => document.body.classList.contains("gb-compact")));
+    await page.close();
+  }
+  {
+    // above the breakpoint there is nothing to reclaim: one comfortable row already, and no grip
+    const page = await browser.newPage({ viewport: DESKTOP });
+    watch(page);
+    await studyEasy(page, base, 0);
+    await page.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
+    await page.waitForTimeout(600);
+    check("the grip is phone-only", !(await page.evaluate(() => { const g = document.querySelector(".gb-grab"); return !!(g && g.checkVisibility()); })));
     await page.close();
   }
 
@@ -536,6 +623,64 @@ async function studyEasy(page, base, n) {
     check("[" + tag + "] ...with exactly one marked as the current one", p.picked === "en", p.picked);
     check("[" + tag + "] ...beside the light/dark switch", p.night);
     check("[" + tag + "] ...and neither is left in the top bar", !p.strayLang && !p.strayNight, JSON.stringify(p));
+    await page.close();
+  }
+
+  /* ================= 5e. Text size (Aug 2026, on request) =================
+     A reading-text scale, not a page zoom, and the difference is the whole design: the prose has to grow
+     and the SHELL has to stay where it is, because every bar in it is laid out against its own pixels.
+     So this checks both halves — the card and the glossary popup follow the setting, and a tab label and
+     a button do not — plus that it survives a reload, since a text size a reader has to set every time is
+     worse than none. */
+  {
+    const page = await browser.newPage({ viewport: PHONE });
+    watch(page);
+    await page.goto(base + "#settings", { waitUntil: "load" });
+    await page.waitForTimeout(1400);
+    const pick = await page.evaluate(() => {
+      const g = document.querySelector("#fsPick");
+      if (!g) return null;
+      const r = g.getBoundingClientRect(), row = g.closest(".set-row").getBoundingClientRect();
+      return { n: g.children.length, on: [...g.children].filter((b) => b.classList.contains("on")).map((b) => b.dataset.fs),
+        fs: document.body.dataset.fs, fits: r.right <= row.right + 1,
+        clipped: [...g.children].some((b) => b.scrollWidth > b.clientWidth + 1) };
+    });
+    check("Settings offers a text size", !!pick && pick.n === 3, JSON.stringify(pick));
+    check("...with exactly one marked, matching the setting in force",
+      !!pick && pick.on.length === 1 && pick.on[0] === pick.fs, JSON.stringify(pick));
+    check("...and no cell of it clipped or overflowing its row", !!pick && pick.fits && !pick.clipped, JSON.stringify(pick));
+    const sizes = async () => {
+      await page.goto(base + "#home", { waitUntil: "load" });
+      await page.waitForTimeout(1200);
+      await page.evaluate(() => { const b = document.querySelector(".banner .cta .btn"); if (b) b.click(); });
+      await page.waitForTimeout(1400);
+      await page.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
+      await page.waitForTimeout(600);
+      return page.evaluate(() => {
+        const px = (s) => { const e = document.querySelector(s); return e ? Math.round(parseFloat(getComputedStyle(e).fontSize) * 10) / 10 : null; };
+        return { fs: document.body.dataset.fs, q: px(".study-card .question"), bg: px(".abstract"),
+          tab: px(".tabbar .tab-label"), btn: px(".grade .gl") };
+      });
+    };
+    const setFs = async (v) => {
+      await page.goto(base + "#settings", { waitUntil: "load" });
+      await page.waitForTimeout(1100);
+      await page.evaluate((f) => { const b = document.querySelector('#fsPick [data-fs="' + f + '"]'); if (b) b.click(); }, v);
+      await page.waitForTimeout(250);
+    };
+    const med = await sizes();
+    await setFs("large"); const big = await sizes();
+    await setFs("small"); const small = await sizes();
+    check("...that grows the card's question and background", big.q > med.q && big.bg > med.bg, JSON.stringify({ med, big }));
+    check("...and shrinks them", small.q < med.q && small.bg < med.bg, JSON.stringify({ med, small }));
+    check("...while the SHELL stays exactly where it was — a scale, not a page zoom",
+      big.tab === med.tab && small.tab === med.tab && big.btn === med.btn,
+      JSON.stringify({ med, big, small }));
+    await setFs("large");
+    await page.goto(base + "#home", { waitUntil: "load" });
+    await page.waitForTimeout(1200);
+    check("...and it is still there after a reload", (await page.evaluate(() => document.body.dataset.fs)) === "large");
+    await setFs("medium");
     await page.close();
   }
 

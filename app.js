@@ -1030,7 +1030,7 @@
   function defaultState() {
     return {
       user: { name: "Scholar", joined: Date.now() },
-      settings: { night: false, theme: "folio", newPerDay: 3, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 } },
+      settings: { night: false, theme: "folio", fontSize: "medium", newPerDay: 3, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 } },
       cards: {}, // id -> {reps,lapses,ease,interval,due,status,last}
       suspended: {}, // id -> true (card set aside; never shown again)
       daily: { lastPlayed: 0, best: 0, games: 0, wins: 0, podiums: 0 },
@@ -3778,11 +3778,19 @@
     return !!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
   }
   const THEMES = ["folio", "synth", "arcade", "academy", "marble", "gazette"];
+  /* Reading-text size (Aug 2026, on request). `--fs` is a multiplier the READING surfaces are written
+     against — a card's question and background, a glossary popup, a place panel on the Atlas — and nothing
+     else. It is deliberately not a whole-site zoom: styles.css sizes 522 things in px, and the shell's
+     layouts are tuned to those pixels (the tab bar's labels, the review's deck rows, the Atlas timebar),
+     so scaling all of it would break the chrome to enlarge the prose. Prose reflows; a bar of four cells
+     does not. Kept in S.settings beside `theme` — a device preference, not synced. */
+  const FONT_SIZES = ["small", "medium", "large"];
   function applyTheme() {
     const night = !!S.settings.night;
     document.body.classList.toggle("night", night);
     const theme = THEMES.includes(S.settings.theme) ? S.settings.theme : "folio";
     document.body.dataset.theme = theme;
+    document.body.dataset.fs = FONT_SIZES.indexOf(S.settings.fontSize) < 0 ? "medium" : S.settings.fontSize;
     // light / dark lives on the Settings page now (it was a top-bar slider until Aug 2026) — this keeps
     // that switch in step whenever the setting changes from anywhere else
     document.querySelectorAll("#sw-night").forEach((el) => {
@@ -3800,6 +3808,18 @@
     S.settings.theme = theme;
     applyTheme();
     save();
+  }
+  function setFontSize(size) {
+    if (FONT_SIZES.indexOf(size) < 0) return;
+    S.settings.fontSize = size;
+    applyTheme();
+    save();
+    // the picker is a segmented control, so the mark has to move with the setting wherever it was changed
+    document.querySelectorAll("#fsPick [data-fs]").forEach((b) => {
+      const on = b.dataset.fs === size;
+      b.classList.toggle("on", on);
+      b.setAttribute("aria-pressed", on ? "true" : "false");
+    });
   }
   // Reflect the current admin / first-time-visitor mode in the top bar and body class.
   function applyMode() {
@@ -3912,13 +3932,65 @@
   }
 
   /* ---------- fixed grade bar (pinned to the bottom of the viewport, Anki-style) ---------- */
+  /* Its HEIGHT is the reader's to set on a phone (Aug 2026, on request): drag the grip along its top edge,
+     as on the Atlas place sheet. Unlike that sheet there are only TWO positions, so this does not track the
+     pointer continuously — the compact state is a different ARRANGEMENT (four colours side by side, no
+     words), not the same bar at a smaller height, and there is nothing sensible to render in between. The
+     state therefore flips the moment the drag passes GB_SLOP, which is also what makes it feel like a snap;
+     a tap on the grip toggles, since a grip nobody drags is a grip nobody finds.
+     Device-local, like where the whiteboard marker sits and how tall the place sheet is: how much of THIS
+     screen the buttons take is a fact about this screen, not about the account. */
+  const GB_H_KEY = "folio_gb_compact_v1", GB_SLOP = 16;
+  let gbCompact = null;
+  function gbReadCompact() {
+    if (gbCompact == null) { try { gbCompact = localStorage.getItem(GB_H_KEY) === "1"; } catch (e) { gbCompact = false; } }
+    return gbCompact;
+  }
+  function gbSetCompact(on, persist) {
+    gbCompact = !!on;
+    document.body.classList.toggle("gb-compact", gbCompact);
+    if (persist) { try { gbCompact ? localStorage.setItem(GB_H_KEY, "1") : localStorage.removeItem(GB_H_KEY); } catch (e) {} }
+  }
+  function gbWireResize(grip) {
+    let drag = null;
+    grip.addEventListener("pointerdown", (e) => {
+      if (e.button != null && e.button !== 0) return;
+      drag = { id: e.pointerId, y: e.clientY, moved: false };
+      try { grip.setPointerCapture(e.pointerId); } catch (x) {}
+      e.preventDefault();
+    });
+    grip.addEventListener("pointermove", (e) => {
+      if (!drag || e.pointerId !== drag.id) return;
+      const dy = e.clientY - drag.y;
+      if (Math.abs(dy) < GB_SLOP) return;
+      drag.moved = true;
+      // the bar is anchored at the bottom, so dragging its top edge DOWN is what shortens it
+      gbSetCompact(dy > 0, false);
+    });
+    const release = (e) => {
+      if (!drag || (e.pointerId != null && e.pointerId !== drag.id)) return;
+      const tap = !drag.moved;
+      drag = null;
+      gbSetCompact(tap ? !gbReadCompact() : gbCompact, true);
+    };
+    grip.addEventListener("pointerup", release);
+    grip.addEventListener("pointercancel", release);
+    // a keyboard reaches it too — the grip is a real button
+    grip.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowDown") { e.preventDefault(); gbSetCompact(true, true); }
+      else if (e.key === "ArrowUp") { e.preventDefault(); gbSetCompact(false, true); }
+      else if (e.key === "Enter" || e.key === " ") { e.preventDefault(); gbSetCompact(!gbReadCompact(), true); }
+    });
+  }
   let gradeBarEl = null;
   function ensureGradeBar() {
     if (!gradeBarEl) {
       gradeBarEl = document.createElement("div");
       gradeBarEl.id = "gradebar";
-      gradeBarEl.innerHTML = '<div class="gradebar-inner"></div>';
+      // the grip sits OUTSIDE .gradebar-inner, whose contents are replaced for every card
+      gradeBarEl.innerHTML = '<button class="gb-grab" id="gbGrab" type="button" aria-label="Drag to shrink or expand the grade buttons"><span></span></button><div class="gradebar-inner"></div>';
       document.body.appendChild(gradeBarEl);
+      gbWireResize(gradeBarEl.querySelector("#gbGrab"));
     }
     return gradeBarEl;
   }
@@ -3929,6 +4001,7 @@
     inner.querySelectorAll(".grade").forEach((b) =>
       b.addEventListener("click", () => onGrade(b.dataset.g))
     );
+    gbSetCompact(gbReadCompact(), false);   // the height the reader last left it at
     document.body.classList.add("grading");
     requestAnimationFrame(() => bar.classList.add("show"));
   }
@@ -12309,6 +12382,7 @@
   ];
   PAGES.settings = function (root) {
     const homeName = (S.settings.home && S.settings.home.name) || "Netherlands";
+    const fsNow = FONT_SIZES.indexOf(S.settings.fontSize) < 0 ? "medium" : S.settings.fontSize;
     // world.js is lazy (see DATA_BUNDLES) — until it lands the picker holds just the current home,
     // and fillHomeOpts() below swaps in the full country list once it arrives
     // The option VALUE stays the English name — it keys countryCenter() and is stored in S.settings.home
@@ -12336,6 +12410,16 @@
             ${/* the light / dark switch — this is its only home now, the top bar's slider having gone (Aug 2026) */""}
             <div class="info"><h3>Night mode</h3><p>Switch to the deck's dark paper palette.</p></div>
             <div class="ctl"><div class="switch ${S.settings.night ? "on" : ""}" id="sw-night" role="switch" tabindex="0" aria-checked="${S.settings.night}"></div></div>
+          </div>
+          <div class="set-row set-row-block">
+            ${/* Aug 2026, on request. The wording names the surfaces it reaches rather than promising a
+                  whole-site zoom — see the FONT_SIZES comment by applyTheme for why it is the prose only.
+                  A BLOCK row (the control under its description, like Theme and Language above): the three
+                  cells run to 186px, which on a phone leaves the sentence a column four words wide. */""}
+            <div class="info"><h3>Text size</h3><p>How large the text you read is: a card's question and background, a glossary popup, a place on the Atlas.</p></div>
+            <div class="ctl"><div class="fs-pick" id="fsPick" role="group" aria-label="Text size">${
+              FONT_SIZES.map((f) => `<button type="button" data-fs="${f}" class="${fsNow === f ? "on" : ""}" aria-pressed="${fsNow === f}"><span class="fs-a" aria-hidden="true">A</span>${f.charAt(0).toUpperCase() + f.slice(1)}</button>`).join("")
+            }</div></div>
           </div>
         </div>
         ${/* the language picker, moved off the top bar (Aug 2026) — see langPickerHTML */""}
@@ -12391,6 +12475,13 @@
     const toggleNight = () => setNight(!S.settings.night);
     sw.addEventListener("click", toggleNight);
     wireLangPicker(root);
+
+    // text size — delegated on the group, so the three buttons need no listener each
+    const fsPick = root.querySelector("#fsPick");
+    if (fsPick) fsPick.addEventListener("click", (e) => {
+      const b = e.target.closest("[data-fs]");
+      if (b) setFontSize(b.dataset.fs);
+    });
 
     // sound effects toggle — turning it ON plays the toggle chirp as confirmation (the delegated
     // capture listener already sounded the OFF click while sfx was still enabled)
