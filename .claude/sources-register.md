@@ -6267,3 +6267,190 @@ https://archive.org/details/ancienttimeshist00brea_2. [Open access]
   литературе ту же территорию нередко называют и Передней Азией" — because Russian uses *Ближний Восток* for
   both the Near and the Middle East, so the English sentence's contrast cannot be carried over directly. Left
   as it stands; recorded here because it sits under a marker that does not support it.
+
+## Batch G11 — the continents, the island and the constants (GLOSSARY, 2026-08-02)
+
+Ten terms, 26 citation slots from **fourteen distinct works, every one of them open** — the fifth batch
+after G4, G7, G9 and G10 with no paywalled entry at all. Only **four** came out of this register unopened
+(`scerri-2018`, `larson-2014`, `woods-2010`, and the `hoffecker-2023` line filed under `wh-061`/`wh-062`,
+which had no `supports` entry and was re-read for this use per G6's rule). Ten are new.
+
+**One open paper carried six of the ten terms.** Mortimer et al.'s Zealandia paper argues a contested case
+and therefore has to state the criteria first, so it is the openable source for what a continent *is* — and
+for the fact that the Europe/Asia line is not one of them.
+
+### Verified citations (batch G11)
+
+### mortimer-2017 · what makes a continent, and how many there are
+Nick Mortimer et al., "Zealandia: Earth's Hidden Continent," *GSA Today* 27, no. 3 (2017): 27–35,
+https://rock.geosociety.org/net/gsatoday/archive/27/3/article/GSATG321A.1.htm. [Open access]
+- opened: 2026-08-02 · the GSA's own full-text HTML (the GeoScienceWorld copy is 403 here)
+- supports: the four attributes "generally agreed" to define a continent — high elevation relative to
+  oceanic crust, a broad range of siliceous igneous, metamorphic and sedimentary rocks, thicker crust and
+  lower seismic velocity, and "well-defined limits around a large enough area" (27); the >1 Mkm² threshold
+  proposed for the word (29); **"The six commonly recognized geological continents (Africa, Eurasia, North
+  America, South America, Antarctica, and Australia)"** and that they are "spatially isolated by geologic
+  and/or bathymetric features" (29) — which is the whole basis for saying the Europe/Asia division is a
+  convention and not a geological boundary; that "Despite its large area, Greenland is uncontroversially
+  and correctly regarded as part of North America … because … North American continental geology is
+  continuous across Nares Strait" (29); and that "Tectonic plate boundaries … provide the basis for
+  continent-continent boundaries between Africa and Eurasia, and North and South America" (29)
+- used by: `Europe`, `Asia`, `Americas`, `North_America`, `South_America`
+
+### un-dyb-2023-t1 · the populations, and the land areas
+United Nations Department of Economic and Social Affairs, Statistics Division, "Table 1. Population, Crude
+Birth and Death Rates, Land Area and Density for the World, Major Areas and Regions: Selected Years," in
+*Demographic Yearbook 2023* (New York: United Nations, 2024),
+https://unstats.un.org/unsd/demographic-social/products/dyb/documents/dyb2023/table01.pdf. [Open access]
+- opened: 2026-08-02 · the publication's own PDF of the table (the XLS is a BIFF8 binary; the PDF's letters
+  are a subset-font cipher but its **digits are clean**, which is all this citation rests on)
+- supports, for 2023: **world** 8,091.7 million and 130,094 thousand km² of land; **Africa** 1,480.8 million
+  and 29,648; **Asia** 4,778.0 million and 31,033; **Europe** 745.6 million and 22,135; **South America**
+  433.0 million and 17,461; **Northern America** 382.9 million, **Central America** 181.6, **Caribbean** 44.2
+  — whose sum, 608.7 million, is what `North_America`'s "around 600 million" now points at
+- **the limit that shaped the batch**: the table's areas follow the UN's M49 scheme, which assigns whole
+  countries to regions and so puts every hectare of Russia in Europe — hence Europe at 22.1 and Asia at 31.0
+  million km², neither of which is the conventional continent. **Cite this table for populations; do not cite
+  it for a continent's area.** The `Europe`, `Asia`, `Americas` and `North_America` area figures are
+  therefore left unmarked (see below)
+- used by: `Africa`, `Europe`, `Asia`, `North_America`, `South_America`
+
+### rowan-2026 · the East African Rift, thinning
+Chelsea M. Rowan, Folarin Kolawole, Anne Bécel, Paul Betka, and John Rowan, "Necking of the Active Turkana
+Rift Zone and the Priming of Eastern Africa for Continental Breakup," *Nature Communications* 17, no. 1
+(2026): 3585, https://doi.org/10.1038/s41467-026-71663-x. [Open access]
+- opened: 2026-08-02 · full text via the Europe PMC REST service (`PMC13106691`)
+- supports: the Turkana Rift Zone as a sector of the East African Rift System; that its crystalline crust
+  "has thinned to ~13 km along the rift axis"; that "Identification of necking in the EARS indicates that
+  eastern Africa is primed for continental breakup"; and that necking "facilitated the accumulation of
+  Turkana's **world-famous fossil record of human evolution**" — the phrase the term now uses in place of
+  the unsourceable "unrivalled"
+- **not supported, and left unmarked inside a marked sentence**: the rift's extent "from the Red Sea to
+  Mozambique". The paper names Afar and the Red Sea as the mature end of the EARS but gives no southern
+  limit, and nothing openable here states the span
+- used by: `Africa`
+
+### waldseemuller-1907 · the naming of America, in facsimile
+*The Cosmographiæ Introductio of Martin Waldseemüller in Facsimile*, introduction by Joseph Fischer and
+Franz von Wieser, ed. Charles George Herbermann (New York: United States Catholic Historical Society, 1907),
+1, 8–9, https://archive.org/details/cosmographiaeint00walduoft. [Open access]
+- opened: 2026-08-02 · full OCR text on the Internet Archive
+- supports: that on "the 25th of April, 1507, there appeared in a little out-of-the-way Vosges village,
+  **St. Dié, in Lorraine**, a little book" (1) — which is what replaced the term's "a German map of 1507";
+  that "two maps belong to the book — a globe and a plane projection" (1); that Waldseemüller "twice …
+  proposes to christen this newly found part of the globe AMERICA in honor of its supposed discoverer" and
+  that "**By America, of course, he meant the South American continent of to-day**" (8); and the two Latin
+  passages themselves, "Quarta orbis pars (quam quia Americus invenit, Amerigen quasi Americi terram sive
+  Americam nuncupare licet)" at p. 25 of the facsimile and its longer twin at p. 30 (9)
+- used by: `Americas`
+
+### gvp-etna · Etna, the catalogue record
+Global Volcanism Program, "Etna (211060)," in *Volcanoes of the World*, ed. Edward Venzke (Washington, DC:
+Smithsonian Institution, 2026), https://volcano.si.edu/volcano.cfm?vn=211060. [Open access]
+- opened: 2026-08-02 · the profile page itself
+- supports: elevation **3,357 m**, coordinates 37.748 N 14.999 E, last known eruption 2026 CE, "Etna, located
+  on the Italian island of Sicily", and "**Recorded eruptions date back to 1500 BCE**"
+- **not in the record**: "the most active volcano in Europe" and "erupts almost every year". The first is
+  uncontradicted and kept unmarked per G2's rule; the second was replaced by the 1500 BCE span, which says
+  more and can be checked
+- used by: `Sicily`
+
+### eurostat-reg-area3 · Sicily's area
+Eurostat, "Area by NUTS 3 Region," dataset REG_AREA3, Sicilia (ITG1), land area, 2026,
+https://doi.org/10.2908/REG_AREA3. [Open access]
+- opened: 2026-08-02 · the dissemination API (`.../statistics/1.0/data/reg_area3?geo=ITG1`), the databrowser
+  view being a JavaScript shell
+- supports: Sicilia's **total area 25,833 km²** and **land area 25,702 km²** — the term's "about 25,700 km²"
+  is the land figure, to the hundred
+- used by: `Sicily`
+
+### eurostat-demo-r-pjanaggr3 · Sicily's population
+Eurostat, "Population on 1 January by Broad Age Group, Sex and NUTS 3 Region," dataset DEMO_R_PJANAGGR3,
+Sicilia (ITG1), 1 January 2025, https://doi.org/10.2908/DEMO_R_PJANAGGR3. [Open access]
+- opened: 2026-08-02 · the dissemination API
+- supports: **4,787,390** inhabitants of Sicilia at 1 January 2025 — the term's "roughly 5 million" is now
+  "about 4.8 million". (`geo=ITG` is *Isole*, Sicily plus Sardinia, at 6,349,771; the region code is ITG1)
+- used by: `Sicily`
+
+### nga-wgs84 · the reference ellipsoid
+National Geospatial-Intelligence Agency, "World Geodetic System 1984 (WGS 84)," under "Defining Parameters,"
+https://earth-info.nga.mil/index.php?dir=wgs84&action=wgs84. [Open access]
+- opened: 2026-08-02 · the agency's own HTML page. **The standardization document itself
+  (`NGA.STND.0036_1.0.0_WGS84`) downloads, but its PDF is a subset-font substitution cipher and its digits
+  do not survive extraction** — the HTML page carries the same four defining parameters and is what was read
+- supports: semi-major axis **a = 6378137.0 m** and flattening **1/f = 298.257223563**, from which the two
+  figures in the term follow directly: the equatorial circumference 2πa = 40,075.0 km, and the equatorial
+  minus polar radius a − a(1−f) = 21.4 km. **Recorded as a derivation, not as a quotation** — the page gives
+  the constants, the arithmetic is ours
+- used by: `Equator`
+
+### usno-equinoxes · day and night at the equator
+Astronomical Applications Department, U.S. Naval Observatory, "Length of Day and Night at the Equinoxes,"
+https://aa.usno.navy.mil/faq/equinoxes. [Open access]
+- opened: 2026-08-02 · the department's FAQ page
+- supports: that "On the day of an equinox, the geometric center of the Sun's disk crosses the equator, and
+  this point is above the horizon for 12 hours everywhere on the Earth"; that "Day and night are not exactly
+  of equal length at the time of the March and September equinoxes"; and that "For observers within a couple
+  of degrees of the equator, the period from sunrise to sunset is always several minutes longer than the
+  night" — which is why the term's "close to 12 hours" is the right hedge and "exactly 12" would not be
+- used by: `Equator`
+
+### noaa-nos-coriolis · which way things are deflected
+National Ocean Service, National Oceanic and Atmospheric Administration, "The Coriolis Effect," in
+*Currents: NOAA's National Ocean Service Education*,
+https://oceanservice.noaa.gov/education/tutorial_currents/04currents1.html. [Open access]
+- opened: 2026-08-02
+- supports: "circulating air is deflected toward the right in the Northern Hemisphere and toward the left in
+  the Southern Hemisphere"
+- used by: `Northern_Hemisphere`, `Southern_Hemisphere`
+
+### nesdis-coriolis · which way the storms turn
+National Environmental Satellite, Data, and Information Service, National Oceanic and Atmospheric
+Administration, "What Is the Coriolis Effect?" 26 August 2025,
+https://www.nesdis.noaa.gov/about/k-12-education/atmosphere/what-the-coriolis-effect. [Open access]
+- opened: 2026-08-02
+- supports: "Storms in the Northern Hemisphere spin counterclockwise and those in the Southern Hemisphere
+  spin clockwise"
+- used by: `Northern_Hemisphere`, `Southern_Hemisphere`
+
+### Reused (batch G11)
+- `scerri-2018` — the oldest currently recognized members of the *H. sapiens* clade are African, and the
+  species evolved in subdivided populations across the continent (`Africa`)
+- `larson-2014` — domestication arose independently in at least eleven centres of origin (`Asia`,
+  `South_America`)
+- `woods-2010` — writing appears in Mesopotamia and Egypt "toward the end of the fourth millennium bc" and in
+  China at the end of the second (`Asia`)
+- `hoffecker-2023` — **re-read for this use**, since the register carried the citation with no `supports`
+  line. Its abstract states that "the primary ancestors of living First Peoples, who already had spread
+  widely in the Americas at this time [less than 14,000 years ago], probably dispersed from the NW Pacific
+  coast", and that a population with west Eurasian roots occupied the Great Arctic Plain before the LGM. The
+  term's "at least 15,000 years ago" was therefore re-anchored to "had already spread widely through both
+  continents more than 14,000 years ago", which is what the paper says and does not contradict `wh-062`'s
+  16,000 or the White Sands 23,000–21,000 (`Americas`)
+
+### NOT CITED (batch G11) — what could not be sourced, and what is kept unmarked
+- **A continent's AREA has no citable authority reachable here, and the obvious one is actively wrong.**
+  The UN's M49 scheme, which the Demographic Yearbook follows, puts all of Russia in Europe: its table gives
+  Europe 22.1 and Asia 31.0 million km² of land, against the conventional 10.2 and 44.5. NASA's NSSDC fact
+  sheets still return the site shell, and no reachable geological authority tabulates continental areas. So
+  **`Europe`'s 10.2, `Asia`'s 44.5, `Americas`' 42.5, `North_America`'s 24.7 and `South_America`'s 17.8
+  million km² are all unmarked**, as is Africa's 30.3 — that one is a *total* area, where the table's 29.6
+  is land only, and the term keeps the familiar figure rather than silently switching measures mid-sentence.
+- **The hemispheres' land fractions and population shares** (39%/19% land, 87%/an eighth of people) are
+  textbook constants; nothing openable states them, and `weather.gov/jetstream` — which was 403 in G10 and
+  answers today — has moved to `noaa.gov/jetstream` and no longer carries a Coriolis page. The ocean-gyre
+  rotation directions are likewise unmarked: NOAA's own gyre page does not give them.
+- **Everest and the Dead Sea** as the highest and lowest points on land: no reachable source states either as
+  a superlative. Unmarked.
+- **Sicily's history sentence** — the Greek and Phoenician settlement, Rome's first province, the succession
+  of rulers, 1860 — is unmarked. `library.oapen.org` is 403 here and the open journal corpus reachable from
+  this sandbox is biomedical; there is no route to a scholarly history of ancient Sicily.
+- Kept unmarked, uncontradicted, in nothing opened: Africa's 54 states, its climate belts and its whole
+  third sentence after the *H. sapiens* clause; Europe's peninsulas and the plain; Asia's terrain; the
+  Americas' cordillera and river basins; North America's Cordillera, Shield and Mesoamerican cities; South
+  America's Andes, Amazon, Pampas, Patagonia and Atacama; Sicily's crops and Etna's rank as Europe's most
+  active volcano; and the equator's 13 countries.
+- **Two reachability changes since G10, both worth re-testing rather than assuming**: `doi.org` answered for
+  every DOI tried today, where G10 recorded it 403 for all of them; and `weather.gov` answers, though the
+  JetStream page it used to serve now redirects to `noaa.gov/jetstream` and the Coriolis page is gone from
+  it. `pmc.ncbi.nlm.nih.gov` served article HTML without a challenge today.

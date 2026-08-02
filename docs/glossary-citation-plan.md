@@ -2,8 +2,8 @@
 
 The glossary was **333 terms and not one of them carried a source**. `window.GLOSSARY_SOURCES` was an empty
 table; the fold at the foot of a gloss popup never appeared. This is the plan for filling it. Not part of
-the site. **As of 2026-08-02, 81 of the 333 are cited and at the bar** — batches G1–G10, five of which also
-corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 81 carry in-text
+the site. **As of 2026-08-02, 91 of the 333 are cited and at the bar** — batches G1–G11, five of which also
+corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 91 carry in-text
 markers, in all ten languages, after the rule changed from optional to required on 2026-08-01 (see "What
 is different from the card pass"). G5 also settled the start of prehistory across the glossary, the deck
 and every date line: **2.6 Mya**, with the disputed 3.3 Ma Lomekwi claim hedged rather than adopted; G6
@@ -170,7 +170,7 @@ the way batch 21 recorded the Anubis walls, so the next pass does not re-run the
 | prehistory, palaeoanthropology and geological time | 66 | Phase 1 · batches G1–G8 — **all done** |
 | Indigenous peoples, and the odds and ends | 8 | Phase 1 · batch G9 — **done** |
 | the poles, the desert, the sea and two names | 7 | Phase 1 · batch G10 — **done** |
-| the continents, the island and the constants | 10 | Phase 1 · batch G11 |
+| the continents, the island and the constants | 10 | Phase 1 · batch G11 — **done** |
 | US presidents | 45 | Phase 2 · batches P1–P7 |
 | countries and states of the world | 197 | Phase 3 · batches C0–C12 |
 | **total** | **333** | |
@@ -1133,7 +1133,7 @@ to 1500 BCE" are all on one page — which is most of `Sicily` waiting for G11. 
 Oceans and Seas* is reachable and useless**: the 1953 third edition PDF at `iho.int` opens, but it is a scan
 with no text layer, so the formal limits of the Pacific could not be quoted.
 
-### G11 · The continents, the island and the constants (10 terms)
+### G11 · The continents, the island and the constants (10 terms) — **DONE (2026-08-02)**
 `Africa` · `Europe` · `Asia` · `Americas` · `North_America` · `South_America` · `Sicily` · `Equator` ·
 `Northern_Hemisphere` · `Southern_Hemisphere`
 
@@ -1156,6 +1156,86 @@ Three leads, all found while working G10 and none yet used.
   and recorded eruptions back to 1500 BCE. What is missing is the island's area and population — ISTAT's
   `demo.istat.it` is a JavaScript shell that returns nothing to a fetch, so find another route — and a
   scholarly source for the succession of rulers in its third sentence.
+
+### Batch G11 log — one paper for six terms, and the figure no authority will give you
+
+#### 2026-08-02 — ten terms, 26 citations, five corrected, and Phase 1 closed
+
+**Coverage 81/333 → 91/333, all ninety-one at the bar, and Phase 1 is complete: all 91 of its terms are
+cited.** Fourteen distinct works, **every one of them open** — the fifth batch after G4, G7, G9 and G10 with
+no paywalled entry at all. Only four came out of `.claude/sources-register.md`, which is G7's law holding for
+a fourth batch running: the register carries taxa and periods, and a continent, an island and a line of
+latitude are none of those.
+
+**The finding, and it vindicates the split G10 made.** These ten terms were deferred because their claims
+are conventions and constants rather than measured results, and that is exactly how the batch went: **every
+convention was citable and every constant was not.** The plan's first lead did the heavy lifting —
+Mortimer et al.'s Zealandia paper has to state the criteria for calling something a continent because it is
+arguing a contested case, and it names *"the six commonly recognized geological continents (Africa,
+**Eurasia**, North America, South America, Antarctica, and Australia)"*. That one open paper carries a
+sentence on six of the ten terms, and it settles the thing the `Europe` and `Asia` terms most needed
+settling: the Urals line is a boundary of custom and not of geology. The constants went the other way and
+are recorded in the register as unmarked — the hemispheres' land fractions and population shares, the
+ocean gyres' rotation, Everest and the Dead Sea as the highest and lowest points on land.
+
+**And the figure no reachable authority will give you is a continent's AREA.** The obvious source is not
+merely missing, it is wrong: the UN's own Demographic Yearbook follows the M49 scheme, which assigns whole
+countries to regions and therefore puts every hectare of Russia in Europe — its Table 1 gives **Europe 22.1
+and Asia 31.0 million km² of land**, against the conventional 10.2 and 44.5. G10 predicted this and it is
+worse than predicted, because the table is otherwise excellent: it carried the populations of Africa, Asia,
+Europe and South America and the three regional rows behind North America's. **Cite that table for people,
+never for area.** Every continental area in these ten terms is therefore unmarked and says so in the
+register — which is the honest state, and better than a marked figure the source does not contain.
+
+**Five terms corrected**, in English and all nine languages.
+
+- **The Americas were named on "a German map of 1507".** Waldseemüller was German; the book and its two
+  maps were printed at **Saint-Dié, in Lorraine**, and the 1907 facsimile's introduction opens on exactly
+  that — "on the 25th of April, 1507, there appeared in a little out-of-the-way Vosges village, St. Dié,
+  in Lorraine, a little book". The same introduction settles the term's other clause outright: *"By
+  America, of course, he meant the South American continent of to-day."* This is G4's rule paying a fourth
+  time — when a term dates an early idea, the edition is out of copyright, so go and read it.
+- **Its peopling date was re-anchored rather than kept.** "At least 15,000 years ago" is the familiar
+  figure and no opened source states it; Hoffecker et al. state that the ancestors of living First Peoples
+  "already had spread widely in the Americas" less than 14,000 years ago. The term now says that, which is
+  supported, consistent with `wh-062`'s 16,000 and with the White Sands footprints, and does not rest on a
+  number nobody could check.
+- **Etna "rises above 3,300 m and erupts almost every year."** The Smithsonian's Global Volcanism Program
+  gives **3,357 m** and notes that "Recorded eruptions date back to 1500 BCE" — a better sentence as well
+  as a checkable one, since the frequency claim is in nothing openable. Sicily's "roughly 5 million
+  inhabitants" became Eurostat's 4,787,390, and its 25,700 km² turned out to be right to the hundred: the
+  region's land area is 25,702.
+- **Asia held "about 4.7 billion people"** where the UN's 2023 figure is 4,778.0 million, and **South
+  America "roughly 440 million"** where it is 433.0.
+- **Africa's rift "preserves an unrivalled fossil record."** An unsourceable superlative, and the rift is
+  the East African Rift rather than the Great Rift Valley in the literature that describes it. Rowan et al.
+  give the checkable version: the crust along the axis has thinned to about 13 km, "eastern Africa is
+  primed for continental breakup", and the necking "facilitated the accumulation of Turkana's world-famous
+  fossil record of human evolution".
+
+**Two clauses were ADDED rather than corrected**, which is unusual for this pass and worth naming: `Europe`
+and `Asia` now say that the line between them is a convention and that geologists count Eurasia as one
+continent. Neither term was wrong; both were incomplete in a way a reader cannot detect, since "Europe is a
+continent" and "Asia is a continent" are stated everywhere and qualified nowhere.
+
+**Three tooling and access notes.**
+- **`doi.org` answered for every DOI tried today**, where G10 recorded it 403 for all of them, and
+  `pmc.ncbi.nlm.nih.gov` served article HTML with no challenge. **`weather.gov` also answers now** — G10
+  recorded it 403, and that 403 is what cost the two hemisphere terms their batch — but the JetStream
+  Coriolis page it used to serve has moved to `noaa.gov/jetstream` and no longer exists there. NOAA's
+  National Ocean Service currents tutorial and NESDIS carry the same two statements and are what is cited.
+  **Re-test a host that blocked a previous batch; the walls move in both directions.**
+- **A PDF's digits can be trustworthy when its letters are not.** The Demographic Yearbook's table is a
+  subset-font substitution cipher on extraction — "Algeria" comes out as "Alg.03-" — but every numeral
+  survives intact, and Algeria's 2,381,741 km² is exactly right. Where a citation rests only on figures,
+  a ciphered PDF is still readable; where it rests on wording, it is not, and the NGA's WGS 84
+  standardization document had to be abandoned for the agency's HTML page for that reason.
+- **`split-abstract.js`'s documented limit bit five languages at once**, exactly as its header warns: a
+  sentence that ENDS on the era abbreviation has no terminator left, so a Sicily sentence closing on
+  "1500 a. C." / "av. J.-C." / "v. Chr." / "до н. э." merged with the next one in es, fr, it, nl and ru.
+  The fix is the authoring rule, not the splitter — the clauses were reordered so the sentence closes on
+  the summit height instead. All ten terms split into three sentences in all ten languages afterwards, with
+  identical marker counts.
 
 ---
 

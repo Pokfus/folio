@@ -92,10 +92,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `docs/glossary-citation-plan.md` — the batch plan for **citing the 333 glossary terms**, the sibling of
   the card plan above. The bar is **at least 2 citations per term** (a description is three sentences, where
   a card's abstract is ten), and the acceptable sources are academic, museum, government or reputable
-  NGO/IGO. **Batches G1–G10 have shipped — 81 of the 333 terms are cited and at the bar, all with in-text
-  markers in all ten languages**, which completes Phase 1's prehistory / palaeoanthropology / geological-time
-  group (66 of 66), its peoples-and-odds-and-ends batch (8 of 8) and the seven physical-geography terms G10
-  could reach. G9's finding held into G10 and is now a law of the pass:
+  NGO/IGO. **Batches G1–G11 have shipped — 91 of the 333 terms are cited and at the bar, all with in-text
+  markers in all ten languages, which COMPLETES Phase 1** (all 91 of its prehistory, palaeoanthropology,
+  geological-time, peoples and physical-geography terms). G9's finding held into G10 and G11 and is now a law of the pass:
   the register pays for taxa and periods and **not** for peoples, places or objects, so 24 of G9's 26 and
   18 of G10's 20 works were new — and where no reachable source uses a familiar term of art (there is no openable
   qualifying source here that says "potlatch"), the prose says what the cited source says rather than
@@ -104,7 +103,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   thickness, a population, an ocean's depth) and claims that are CONVENTIONS OR CONSTANTS (not — "Europe is a
   continent", the equator's circumference, a hemisphere's land fraction), so the six continents, `Sicily`,
   `Equator` and the two hemispheres became **G11**. It is card batch 2's rule in a new dress: subject does not
-  predict reachability, the KIND of claim does. Two things about this pass that the card pass does not have: a term whose
+  predict reachability, the KIND of claim does. **G11 then proved the split both ways**: every convention it
+  met was citable — Mortimer et al.'s Zealandia paper states the criteria for calling something a continent
+  because it is arguing a contested case, and names the six geological continents as including **Eurasia**,
+  which is one open work carrying a sentence on six of its ten terms — while every constant was not, and is
+  recorded unmarked. Its own finding is about a figure rather than a term: **no reachable authority publishes
+  a continent's AREA, and the obvious one is actively wrong** — the UN's M49 scheme assigns whole countries to
+  regions and so puts all of Russia in Europe, giving Europe 22.1 and Asia 31.0 million km² against the
+  conventional 10.2 and 44.5. Cite the UN's Demographic Yearbook Table 1 for POPULATIONS, never for area. Two things about this pass that the card pass does not have: a term whose
   prose is corrected — or whose markers are placed — needs a second command in the same
   batch (`add-lang.js` for the nine languages, since `add-sources.js` writes only the English description);
   and Phase 1 is largely paid for out of `.claude/sources-register.md` already.
@@ -728,9 +734,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     stripe): one is derived from the data, the other is an editor's private marker.
   · `sup` + `class="fn"` + `data-fn` are in the sanitizer allowlists, so a community deck can use markers too.
   · **The Atlas table still ships EMPTY; the glossary has begun.** `country-sources.js` has no entries at all.
-    **`GLOSSARY_SOURCES` carries 81 of the 333 terms** (batches G1–G10, 2026-08-01/02 — the genus, species, specimen,
+    **`GLOSSARY_SOURCES` carries 91 of the 333 terms** (batches G1–G11, 2026-08-01/02 — the genus, species, specimen,
     stone-industry, three-age, periodisation, geological-time, type-site, way-of-life and discipline terms, plus the
-    Indigenous-peoples group, its odds and ends, and the poles / desert / ocean / two historiographic names), against
+    Indigenous-peoples group, its odds and ends, the poles / desert / ocean / two historiographic names, and the six
+    continents with `Sicily`, `Equator` and the two hemispheres — which completes Phase 1), against
     a bar of **`GLOSS_SRC_TARGET` (2)**, which is lower than a card's five because a description is three sentences
     where an abstract is ten; `docs/glossary-citation-plan.md` is the plan for the rest and
     `node .claude/gloss-source-audit.js` says where it stands. The UI, the deltas and the pipeline are in place;
@@ -2253,8 +2260,8 @@ and its sources, and were fact-checked rather than referenced. A batched pass is
 reports both on every run, `node .claude/source-audit.js` reports them per card, and the Edit page's card list
 shows each card's coverage as an amber or red chip) — and **a second pass has started on the glossary**, batched
 through `docs/glossary-citation-plan.md` at a bar of **2 citations per term** (`GLOSS_SRC_TARGET`), with
-`node .claude/gloss-source-audit.js` and the glossary list's own coverage chip reporting it; **81 of 333 terms
-are cited** (batches G1–G10). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
+`node .claude/gloss-source-audit.js` and the glossary list's own coverage chip reporting it; **91 of 333 terms
+are cited** (batches G1–G11, which complete Phase 1; Phase 2's 45 US presidents are next). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
 Two rules that pass turned up at once. **`add-sources.js` writes only the ENGLISH description**, so a term whose
 prose is corrected needs an `add-lang.js` run per language in the same batch or nine languages keep the old
 claim; and **a correction does not travel between surfaces** — `Homo_habilis` still carried the 2.3–1.5 Mya span
