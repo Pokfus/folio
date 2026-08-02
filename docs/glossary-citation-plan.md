@@ -2,8 +2,8 @@
 
 The glossary was **333 terms and not one of them carried a source**. `window.GLOSSARY_SOURCES` was an empty
 table; the fold at the foot of a gloss popup never appeared. This is the plan for filling it. Not part of
-the site. **As of 2026-08-02, 171 of the 333 are cited and at the bar** — batches G1–G11, P1–P7 with the P-topup, and C0–C3, five of which also
-corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 171 carry in-text
+the site. **As of 2026-08-02, 178 of the 333 are cited and at the bar** — batches G1–G11, P1–P7 with the P-topup, and C0–C4, five of which also
+corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 178 carry in-text
 markers, in all ten languages, after the rule changed from optional to required on 2026-08-01 (see "What
 is different from the card pass"). G5 also settled the start of prehistory across the glossary, the deck
 and every date line: **2.6 Mya**, with the disputed 3.3 Ma Lomekwi claim hedged rather than adopted; G6
@@ -172,7 +172,7 @@ the way batch 21 recorded the Anubis walls, so the next pass does not re-run the
 | the poles, the desert, the sea and two names | 7 | Phase 1 · batch G10 — **done** |
 | the continents, the island and the constants | 10 | Phase 1 · batch G11 — **done** |
 | US presidents | 45 | Phase 2 · batches P1–P7 — **ALL DONE (2026-08-02)** |
-| countries and states of the world | 197 | Phase 3 · batches C0–C12 — **C0–C3 done (2026-08-02)**; 15 European terms deferred with reasons, see the C3 log |
+| countries and states of the world | 197 | Phase 3 · batches C0–C12 — **C0–C4 done (2026-08-02)**; 15 European terms deferred with reasons, see the C3 log |
 | **total** | **333** | |
 
 ## Order, and why
@@ -1902,6 +1902,46 @@ and the term waits. The fifteen deferrals are almost all of the second kind — 
 **`Greece` has now been deferred three times** and should not be carried a fourth. It states no area, no
 population and no capital, its EU accession is not in its third sentence, and `mfa.gr` is 403. It needs
 either a rewrite that states a figure or a class of source this pass has not found.
+
+### Batch C4 log — the Commonwealth is Asia's EU country page
+
+#### 2026-08-02 — seven terms, 14 citations, no corrections
+
+**Coverage 171/333 → 178/333.** Bangladesh, India, Malaysia, Maldives, Pakistan, Singapore, Sri Lanka —
+**chosen as a group because they share a second source**, which is C3's rule applied in advance instead of
+discovered halfway through.
+
+**The Commonwealth Secretariat's country pages are the bloc profile the recipe needs outside Europe.** The
+Key Facts block carries Population, Area, Capital city **and the year of joining with its independence
+context in the same line**: India "1947, following independence from Britain"; Pakistan "1947, on partition
+from India"; Sri Lanka "1948, following independence from Britain"; Malaysia "1957, following the Federation
+of Malaya's independence from Britain"; Singapore "1965, on leaving the Federation of Malaysia and becoming
+an independent state". **That is the same shape as the EU's "EU Member State : since <date>", from a body
+covering 56 states across Asia, Africa, Oceania and the Caribbean** — most of the rest of Phase 3.
+
+**But the joining line is not always the independence line.** Bangladesh's gives **1972**, the year it
+joined; the term says independence came **in 1971**, after the war. The Commonwealth supports "independence
+from Pakistan" and not the year, and UNdata's UN membership date (17 September 1974) is later still —
+**both institutional dates postdate the independence they follow**, so Bangladesh's third sentence is left
+unmarked and the term is cited on its first alone. **Read the joining line before marking to it.**
+
+**Two official sources 10% apart on one country, and neither wrong.** Pakistan's area: **UNdata 796,095
+km², the Commonwealth 882,000 km², the term "about 881,900"**. That is the Kashmir question — UNdata
+excludes the Pakistani-administered territories and the Commonwealth includes them — and it is the widest
+divergence in Phase 3 so far. The term agrees with the Commonwealth and **no correction was made**. This is
+the case to remember when the African and Middle Eastern batches meet a disputed border: the disagreement
+is a political fact, not a measurement convention.
+
+**And India went the other way in the same batch.** The Commonwealth gives 3,166,391 km², UNdata
+**3,287,263**, and the term's "about 3.3 million" matches UNdata. **A batch run on the Commonwealth alone
+would have made a wrong correction on India, exactly as C2's on the EU page would have on Spain.** Two
+official sources disagreeing in opposite directions on two neighbouring countries in a single batch puts
+the read-both rule beyond argument.
+
+**For C5 and C6: probe `asean.org`, the Gulf Cooperation Council and the Arab League first.** If any
+publishes a member profile in the shape of the EU's or the Commonwealth's, the rest of Asia is cheap; if
+none does, the remaining thirty-nine Asian terms are C3 again — UNdata alone unless the third sentence
+names a datable act.
 
 ### Batches C1–C12 · by region
 

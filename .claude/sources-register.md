@@ -8705,3 +8705,79 @@ still one source), `Serbia` (UN membership 1 November 2000 against the term's 20
   would land on different claims in Japanese. That has to be repaired in the prose before the term can be
   cited, exactly as batch 24 repaired the deck's 5+5 splits.
 
+## Batch C4 — Asia, the Commonwealth states (GLOSSARY, 2026-08-02)
+
+**Seven terms shipped, 14 citations, no corrections.** Coverage 171/333 → 178/333. Bangladesh, India,
+Malaysia, Maldives, Pakistan, Singapore, Sri Lanka. **Chosen as a group because they share a second source**
+— C3's rule applied in advance rather than discovered halfway through.
+
+### FINDING — the Commonwealth is Asia's EU country page
+C0 found the Commonwealth's country pages useful for a small state's population. C4 finds they are the
+**bloc profile the recipe needs outside Europe**, because the Key Facts block carries Population, Area,
+Capital city **and the year of joining with its independence context in the same line**:
+
+| | joined the Commonwealth |
+|---|---|
+| India | **1947, following independence from Britain** |
+| Pakistan | **1947, on partition from India**; left in 1972, rejoined |
+| Sri Lanka | **1948, following independence from Britain** |
+| Malaysia | **1957, following the Federation of Malaya's independence from Britain** |
+| Singapore | **1965, on leaving the Federation of Malaysia and becoming an independent state** |
+| Bangladesh | **1972, after independence from Pakistan** |
+| Maldives | 1982; withdrew 13 October 2016, rejoined 1 February 2020 |
+
+Five of those seven lines carry the independence claim in the term's own third sentence, dated. **This is
+the same shape as the EU's "EU Member State : since <date>", from a body covering 56 states across Asia,
+Africa, Oceania and the Caribbean** — which is most of the rest of Phase 3.
+
+**A caution that stopped one marker.** Bangladesh's line gives **1972**, the year it joined; the term says
+independence came **in 1971**, after the war. The Commonwealth supports "independence from Pakistan" but not
+the year, so **Bangladesh's third sentence is left unmarked** and the term is cited on its first alone.
+Both the Commonwealth's joining year and UNdata's UN membership date (17 September 1974) are *later* than
+independence for Bangladesh, and neither dates it. **The joining line is not always the independence line —
+read it before marking it.**
+
+### Two official sources, 10% apart, and neither is wrong
+**Pakistan's area: UNdata gives 796,095 km², the Commonwealth 882,000 km², the term "about 881,900 km²."**
+That is a 10% divergence, by far the widest in Phase 3 — wider than the Netherlands' 12% land-versus-total
+gap only in kind, not in degree — and it is the Kashmir question: UNdata's figure excludes the
+Pakistani-administered territories, the Commonwealth's includes them. **The term agrees with the
+Commonwealth and no correction was made.** C1 and C2 established that two official sources routinely
+disagree by more than the term's error; Pakistan is the case where the disagreement is a political fact
+rather than a measurement convention, and it is the one to remember when the African and Middle Eastern
+batches meet a disputed border.
+
+**India's area went the other way and vindicated UNdata**: the Commonwealth gives 3,166,391 km², UNdata
+**3,287,263 km²**, and the term's "about 3.3 million km²" matches UNdata. Had this batch used the
+Commonwealth alone it would have produced a wrong correction, exactly as C2's would have on the EU page.
+**Two sources, both official, disagreeing in opposite directions on two neighbouring countries in one
+batch** — the rule is now beyond doubt.
+
+### Figures verified
+Bangladesh 148,460 km² (UNdata 148,460, exact) and ~171 m (175,687 k); India ~3.3 m km² (3,287,263) and
+~1.4 bn (1,463,866 k); Malaysia 330,803 km² (330,621) and ~34 m (35,978 k); Maldives ~300 km² (300, exact)
+and ~520,000 (530 k); Pakistan ~881,900 km² (Commonwealth 882,000) and ~245 m (255,220 k); Singapore ~735
+km² (728) and ~6 m (5,871 k); Sri Lanka 65,610 km² (65,610, exact) and ~22 m (23,230 k). **Three exact
+matches and nothing outside the spread a "roughly" absorbs.**
+
+### Verified citations (batch C4)
+`data.un.org/en/iso/<cc>.html` and `thecommonwealth.org/our-member-countries/<slug>` for each of the seven.
+UN membership dates carrying an independence clause: **Maldives 21 September 1965**, **Pakistan 30 September
+1947**, **Singapore 21 September 1965**.
+
+### NOT CITED (batch C4) — the unmarked clauses
+As throughout Phase 3: the physical geography (the Bay of Bengal coast, the two halves of Malaysia 640 km
+apart, the Maldivian atolls, the Arabian Sea coast) and the pre-modern and colonial history (Mughal Bengal,
+the Indus valley cities of the 3rd millennium BCE and the origins of four religions, the port of Melaka and
+the Portuguese from 1511, the Maldivian conversion to Islam in the 12th century, Anuradhapura and Theravada
+Buddhism, the British trading post of 1819, the Japanese occupation, and Sri Lanka's civil war of
+1983–2009). India's "seventh largest in the world" and its 22 constitutional languages are likewise
+unmarked — the first is a ranking no profile states and the second is a constitutional fact neither source
+carries.
+
+### The rest of Asia
+**Thirty-nine Asian terms remain**, none of them Commonwealth members, and on C3's evidence they will behave
+like C3 rather than C4: UNdata alone unless the third sentence names a datable act. **ASEAN
+(`asean.org`), the Gulf Cooperation Council and the Arab League are the blocs worth probing first** — if any
+of them publishes a member profile in the shape of the EU's or the Commonwealth's, C5 and C6 are cheap; if
+none does, they are C3 again.
