@@ -3711,7 +3711,7 @@
     chrono:    ["Timeline — Folio", "Put today's historical events into the right order."],
     truefalse: ["True or False — Folio", "Today's historical myths and surprising truths."],
     whosaid:   ["Who said it? — Folio", "Match today's famous quotations to the people who said them."],
-    findit:    ["Find it on the map — Folio", "Locate five places on the globe."],
+    findit:    ["Find it — Folio", "Locate five places on the globe."],
     admin:     ["Editor — Folio", "Folio's content editor."],
     studio:    ["Studio — Folio", "Write your own decks of flashcards and share them as a file."],
     community: ["Shared decks — Folio", "Decks written and shared by other people using Folio."],
@@ -5392,7 +5392,7 @@
       ${tile({ id: "g-chrono", cls: "g-chrono", color: "#4F74C2", glyph: ICON.timeline, title: "Timeline", sub: gameSub("chrono", "Put the events in order", "in order!"), done: playedChronoToday, won: wonToday.chrono })}
       ${tile({ id: "g-truefalse", cls: "g-truefalse", color: "#4F9D67", glyph: ICON.truefalse, title: "True or False", sub: gameSub("truefalse", "Myth or fact? 5 rounds"), done: playedTrueFalseToday, won: wonToday.truefalse })}
       ${tile({ id: "g-whosaid", cls: "g-whosaid", color: "#8257C2", glyph: ICON.whosaid, title: "Who said it?", sub: gameSub("whosaid", "Guess the speaker · 5 rounds"), done: playedWhoSaidToday, won: wonToday.whosaid })}
-      ${tile({ id: "g-findit", cls: "g-findit", color: "#2BA6A0", glyph: ICON.findit, title: "Find it on the map", sub: gameSub("findit", "Click the globe · 5 rounds", "found first try!"), done: playedFindItToday, won: wonToday.findit })}
+      ${tile({ id: "g-findit", cls: "g-findit", color: "#2BA6A0", glyph: ICON.findit, title: "Find it", sub: gameSub("findit", "Click the globe · 5 rounds", "found first try!"), done: playedFindItToday, won: wonToday.findit })}
       ${blankTile(ICON.help, "#DB8B3A")}
     </div>`;
 
@@ -5553,8 +5553,8 @@
         ${reviewGroup}
         ${howit}
         ${phone
-          ? `<section class="mg-sec">
-               <h2 class="mg-head">Minigames</h2>
+          ? `<section class="games-sec">
+               <h2 class="games-head">Minigames</h2>
                ${gameGrid}
              </section>`
           : gameGrid}
@@ -8411,7 +8411,7 @@
       });
       return;
     }
-    const GAME = !!(params && params.game);   // "Find it on the map" mode (PAGES.findit): the globe is the game board — search/legend/popup/hover-name/timebar are off, taps answer the round
+    const GAME = !!(params && params.game);   // "Find it" mode (PAGES.findit): the globe is the game board — search/legend/popup/hover-name/timebar are off, taps answer the round
     const MINY = -1000, MAXY = new Date().getFullYear();
     const chevL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>';
     const chevR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>';
@@ -11127,7 +11127,7 @@
         }
       }
     }
-    /* ---------- "Find it on the map" — the daily geography game, played on the real globe ---------- */
+    /* ---------- "Find it" — the daily geography game, played on the real globe ---------- */
     const mgEl = root.querySelector("#mapGame"), mgRoundEl = root.querySelector("#mgRound"), mgScoreEl = root.querySelector("#mgScore"),
       mgQEl = root.querySelector("#mgQ"), mgFeedbackEl = root.querySelector("#mgFeedback"), mgNextEl = root.querySelector("#mgNext");
     let gameRounds = [], gameRi = 0, gameTries = 0, gameFirstTry = 0, gameLock = false, gameOver = false, gamePractice = false;
@@ -11296,7 +11296,7 @@
     }
     if (atlasEditEraId != null) { const _e = (window.TIMELINE || []).find((x) => x.id === atlasEditEraId); atlasEditEraId = null; if (_e) enterMapEdit(_e); }
   };
-  // "Find it on the map" — the daily geography minigame IS the Atlas page in game mode (same globe, same eras, same renderer)
+  // "Find it" — the daily geography minigame IS the Atlas page in game mode (same globe, same eras, same renderer)
   PAGES.findit = function (root) { PAGES.map(root, { game: true }); };
 
   /* ============================================================
@@ -11545,7 +11545,7 @@
     Object.keys(log).forEach((k) => { const n = (log[k] || [])[0] || 0; reviews += n; if (n > 0) days++; });
     return { reviews, days };
   }
-  const GAME_TITLES = { challenge: "Multiple choice", chrono: "Timeline", truefalse: "True or False", whosaid: "Who said it?", findit: "Find it on the map" };
+  const GAME_TITLES = { challenge: "Multiple choice", chrono: "Timeline", truefalse: "True or False", whosaid: "Who said it?", findit: "Find it" };
   function exploreStatsHTML(prog) {
     const gloss = glossSeenCount(prog);   // only the curated glossary, and only terms that still exist
     const glossTotal = glossTotalCount();

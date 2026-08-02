@@ -639,7 +639,7 @@ async function studyEasy(page, base, n) {
     await page.waitForTimeout(1600);
     const h = await page.evaluate(() => {
       const grp = document.querySelector(".review-group"), grid = document.querySelector(".game-grid");
-      const head = document.querySelector(".mg-head"), lip = document.querySelector(".rv-lip");
+      const head = document.querySelector(".games-head"), lip = document.querySelector(".rv-lip");
       const quote = document.querySelector(".daily-quote, .dq, figure");
       const tiles = [...document.querySelectorAll(".game-tile")];
       const top = (el) => Math.round(el.getBoundingClientRect().top);
@@ -659,6 +659,17 @@ async function studyEasy(page, base, n) {
         lipFrac: lip && grp ? +(lip.getBoundingClientRect().width / grp.getBoundingClientRect().width).toFixed(2) : 1,
         // the games, under a heading, under the review
         mgHead: head ? head.textContent.trim() : "",
+        /* The heading's TEXT centre against the grid's, measured through a Range — NOT its computed
+           text-align, which was "center" while the words sat hard left: the class was first called
+           `.mg-head`, which is the MAP GAME's card header, and that rule's `display:flex` beats
+           text-align outright. A block-level h2 spans the column whatever it does with its text, so
+           only the text's own box can tell the two apart. */
+        headCentred: (() => {
+          if (!head || !grid) return 999;
+          const r = document.createRange(); r.selectNodeContents(head);
+          const t = r.getBoundingClientRect(), g = grid.getBoundingClientRect();
+          return Math.round(Math.abs((t.left + t.width / 2) - (g.left + g.width / 2)));
+        })(),
         headBelowReview: !!(head && grp && top(head) >= Math.round(grp.getBoundingClientRect().bottom) - 1),
         gridBelowHead: !!(head && grid && top(grid) >= Math.round(head.getBoundingClientRect().bottom) - 1),
         cols: grid ? getComputedStyle(grid).gridTemplateColumns.split(/\s+/).length : 0,
@@ -689,6 +700,7 @@ async function studyEasy(page, base, n) {
     await page.waitForTimeout(1500);
     check("the games sit under the review, under a Minigames heading",
       /minigames/i.test(h.mgHead) && h.headBelowReview && h.gridBelowHead, JSON.stringify({ head: h.mgHead, below: h.headBelowReview, grid: h.gridBelowHead }));
+    check("...centred over the grid it names", h.headCentred <= 2, h.headCentred);
     check("...three wide and two tall", h.cols === 3 && h.rows === 2 && h.tiles === 6, JSON.stringify({ cols: h.cols, rows: h.rows, tiles: h.tiles }));
     check("...with the description sentences gone", h.subs === 0, h.subs + " tiles still carry one");
     check("...the quote still above it all", h.quoteAbove);
@@ -791,7 +803,7 @@ async function studyEasy(page, base, n) {
         cols: getComputedStyle(document.querySelector(".game-grid")).gridTemplateColumns.split(/\s+/).length,
         // the taglines are a phone-only removal: three to a row is what left no room for them
         subs: [...document.querySelectorAll(".game-tile")].filter((t) => t.querySelector(".gt-sub")).length,
-        lip: !!document.querySelector(".rv-lip"), head: !!document.querySelector(".mg-head"),
+        lip: !!document.querySelector(".rv-lip"), head: !!document.querySelector(".games-head"),
         about: !!document.querySelector(".home-about"),
       };
     });

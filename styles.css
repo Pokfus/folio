@@ -411,10 +411,14 @@ body:not(.night) .review-group .banner.done:not(.won){
 
 /* ---------- home: the Minigames section (phones) ----------
    The games are the second thing on a phone's home page now — the day's card and term are not built there
-   at all — so they get a heading rather than arriving as an unannounced grid of six coloured squares. */
-.mg-sec{display:flex; flex-direction:column; gap:10px;}
-.mg-head{
-  margin:6px 0 0; font-family:var(--mono); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase;
+   at all — so they get a heading rather than arriving as an unannounced grid of six coloured squares.
+   NOT `.mg-*`: that prefix is the MAP GAME's (`.mg-card` / `.mg-head` / `.mg-score`, further down), and
+   naming this heading `.mg-head` silently gave it that card's `display:flex` — which beats `text-align`
+   outright, so the heading rendered left — while pushing this font and colour onto the game's score row. */
+.games-sec{display:flex; flex-direction:column; gap:10px;}
+.games-head{
+  margin:6px 0 0; text-align:center;
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase;
   font-weight:600; color:var(--ink-faint);
 }
 
@@ -1496,7 +1500,7 @@ body.night .lu-badge{color:#E6C765;}
    moving/zooming, and immune to the canvas-compositor ghosting that forced the old canvas gradients to settle-only */
 .globe-limb-glow, .globe-limb-shade{position:absolute; border-radius:50%; pointer-events:none;}
 .globe-limb-shade{z-index:1;}
-/* "Find it on the map" game mode: the globe is the board — everything that would reveal answers hides, the timebar locks.
+/* "Find it" game mode: the globe is the board — everything that would reveal answers hides, the timebar locks.
    The country info panel STAYS available: it opens on every guess (right or wrong) so the game still teaches. */
 .atlas-game .globe-search, .atlas-game .globe-legend, .atlas-game .globe-hovername, .atlas-game .globe-hint{display:none !important;}
 .atlas-game .atlas-timebar{pointer-events:none; opacity:.8;}
@@ -2484,7 +2488,7 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
    keys a phone does not have) and the interval sits closer under the label. */
 @media (max-width:430px){
   /* Three tiles to a row on a 390px screen is about 110px each, so the display title comes down again:
-     at 18px "Multiple Choice" and "Find it on the map" break to three and four lines. */
+     at 18px "Multiple Choice" breaks to three lines. */
   .game-grid{gap:8px;}
   .game-tile{padding:12px 10px;}
   .gt-title{font-size:13.5px; line-height:1.15;}

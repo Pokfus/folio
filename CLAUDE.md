@@ -1279,8 +1279,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     all no ~1.6 MB `world` bundle for an ornament nobody can see. So **crossing the breakpoint re-renders**
     (`_homeResize`, one listener ever — `render()` re-enters `PAGES.home`, so a per-render listener would pile
     up for the session).
-  · **The games are 3 × 2 on a phone** (`.game-grid` at ≤640px; it was 2-up on the pane it had to itself) and
-    their **taglines are dropped at the source**, in `gameSub`, not hidden in CSS. Three to a row leaves ~86px
+  · **The games are 3 × 2 on a phone** under a CENTRED `.games-head` (`.game-grid` at ≤640px; it was 2-up on the
+    pane it had to itself). The class is deliberately **not** `.mg-head`: `mg-` is the MAP GAME's prefix
+    (`.mg-card` / `.mg-head` / `.mg-score`), and reusing it gave the heading that card's `display:flex` —
+    which beats `text-align` outright, so it rendered hard left with a computed `text-align:center` — while
+    pushing this heading's font and colour onto the game's own score row. `test-layout.js` measures the
+    heading TEXT's centre through a Range rather than reading `text-align`, which is the only way to tell
+    the two apart. The tiles' **taglines are dropped at the source**, in `gameSub`, not hidden in CSS. Three to a row leaves ~86px
     of text column, where one sentence runs to four lines and buries the name above it. **Today's SCORE stays**
     (`gameScore`, bare figures — "3/5" — on a phone): it is not a description, it is the one thing on the tile
     that changes during the day. The blank sixth tile drops its sentence the same way.
@@ -1296,7 +1301,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - **Home minigames** (game-grid tiles → `PAGES.*`): **Multiple Choice** (`PAGES.challenge`, formerly "Daily Challenge" — the
   rival bots + timer were removed; it's now a plain 5-question quiz whose 3 wrong options are the SAME `answerType()` as the
   answer — a person → other people, a dynasty → other dynasties), **Timeline** (`chrono`), **True or False** (`truefalse`),
-  **Who said it?** (`whosaid`, from `quotes.js`), and **Find it on the map** (`findit` — see the Atlas game-mode bullet
+  **Who said it?** (`whosaid`, from `quotes.js`), and **Find it** (`findit`, renamed from "Find it on the map" Aug 2026 on request — see the Atlas game-mode bullet
   below; 5 date-seeded locate-on-the-globe rounds, score = first-try finds). `BOTS`/`drawRace`/podium are now dead code.
   Each of the 5 games records a per-day result in `S.games[key] = { date, played, won }` (`markGamePlayed(key, won)` at each
   game's end; `won` = a perfect run, or `solved` for Timeline). The home tile has **three daily states** (state classes set by
@@ -1315,8 +1320,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `S.games` is in `defaultState()` (back-fills old saves) and `PROGRESS_FIELDS` (mirrors to the account).
   The grid's **sixth slot** (`blankTile`) reads "Coming soon / More games / Another one is being written"; it
   used to be "Coming soon / —", which names nothing and looks like a tile that failed to load. Below 430px the
-  tile type shrinks (`.gt-title` 18 → 15.5px), or "Multiple Choice" and "Find it on the map" break across two
-  lines and their taglines across two more. The **Card-of-the-day tile carries the card's DECK** in its head
+  tile type shrinks, or "Multiple Choice" breaks across two lines and its tagline across two more. The **Card-of-the-day tile carries the card's DECK** in its head
   row (`.cod-where` ← `cardLeaves(id)[0]` → `nodeWhere`) — the tile is a fixed height, so a short question left
   a band of nothing under it. Deliberately the deck and **not** the era: on a prehistory card the era is most
   of the answer.
@@ -1636,8 +1640,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **The idle warm must never fire mid-gesture.** `coastEdges()`/`worldEdgeOwners()` (~1.3s combined) are warmed after
     mount via `requestIdleCallback`, but the callback **reschedules itself while `moving || dragging || ptrs.size ||
     flyRAF || playT || mapDragging`** — an rIC timeout landing during a drag would freeze the globe under the pointer.
-  **Game mode + approachability (batch 3):** `PAGES.findit` routes to `PAGES.map(root, {game:true})` — the **"Find it on
-  the map" daily minigame** plays on the real globe (`const GAME` gates everything): 5 date-seeded rounds from
+  **Game mode + approachability (batch 3):** `PAGES.findit` routes to `PAGES.map(root, {game:true})` — the **"Find it"
+  daily minigame** plays on the real globe (`const GAME` gates everything): 5 date-seeded rounds from
   `buildGameRounds()` (2 present-day countries, 2 historical territories, 1 capital; **one seeded RNG stream PER pool**
   so intraday data changes can't reshuffle the day; a `used`-names Set dedupes targets across rounds; quality gates =
   bbox area + `countryDesc` exists + an ETHNO name regex). Taps route to `gameTap` (countryAt name match, or
@@ -2632,7 +2636,7 @@ dead code (never rendered).
     **Re-run after touching the `SOURCE FOOTNOTES` block, `wireFootnotes` / `sourcesHTML` / `normSources` /
     `linkifySrcItem` / `replaceInSrcText`, the `.src-access` styles, the editors' sources boxes, or the
     `fn` / `data-fn` sanitizer allowlists.**
-  · `node .claude/test-layout.js` — 185 assertions on **the shell**: the rules that break silently because
+  · `node .claude/test-layout.js` — 186 assertions on **the shell**: the rules that break silently because
     nothing throws when a layout is wrong. The phone's bottom tab bar (present, labelled — *every* tab, not
     just the active one, which is the top bar's behaviour — each name **centred under its own icon**, the
     selected one included, since one tab off out of five reads as a design; routing; no Library and no
@@ -2665,7 +2669,7 @@ dead code (never rendered).
     never a click, since a click would dismiss it anyway and prove nothing.
     **Re-run after touching `.tabbar` / `--tabbar-h` / `--timebar-h` / `layoutTicks` / the Atlas chrome's
     media queries / `.settings` / `.auth-split` / the coming-soon rows / `wireOnePageSwipe`
-    / `.rv-lip` / `.mg-sec` / `.home-about` / `gameSub` / `pileCounts` / `ensureWBTools` / `.wb-pick` /
+    / `.rv-lip` / `.games-sec` / `.home-about` / `gameSub` / `pileCounts` / `ensureWBTools` / `.wb-pick` /
     the ink layer's pass-through /
     `cpWireResize` / `lockHeight`, or after adding an overlay to `document.body`.** Its clicks go through `evaluate`
     rather than `page.click`: clicking an element the
