@@ -9265,3 +9265,99 @@ mauritania, niger, sao-tome-and-principe, senegal, sudan, tunisia, zimbabwe) and
 `api.worldbank.org/v2/country/<ISO3>/indicator/AG.SRF.TOTL.K2` (COM, LBY).
 
 **Côte d'Ivoire's slug is `cote-divoire`** — one hyphen, no apostrophe.
+
+---
+
+## Batch C10 — Oceania, on three sources at once (2026-08-02)
+
+Thirteen terms cited, 35 citations, **four corrections**. Coverage 234 → 247 of 333. **Oceania is
+complete** (Tuvalu having been cited in C0). Nothing deferred.
+
+**Australia · New Zealand · Papua New Guinea · Fiji · Solomon Islands · Vanuatu · Samoa · Tonga ·
+Kiribati · Nauru · Palau · Marshall Islands · Federated States of Micronesia.**
+
+### The recipe reaches its densest form: UNdata + Commonwealth + Office of the Historian
+Ten of the thirteen are Commonwealth members and all thirteen have a recognition-guide page, so most
+terms here carry **three** sources rather than two — the first region in Phase 3 where that is routine.
+The three do different jobs and it is worth naming which: **UNdata gives the current figures, the
+Commonwealth gives the figures as of 2022 plus the joining line, and the recognition guide gives the
+colonial history the other two only gesture at.** Between them:
+- **`Australia`** — the guide states "On January 1, **1901**, six colonies were joined together to create
+  the Commonwealth of Australia", which is the term's third sentence exactly, and which the Commonwealth's
+  own joining line does NOT give (it dates membership to 1931 and the Statute of Westminster).
+- **`Tonga`** — "united in **1845** under King George Tupou I and became a constitutional monarchy in
+  **1875**", "entered into a protectorship agreement with the British Empire in **1900**", "After Tonga
+  withdrew from its British protectorate agreement in **1970**": four claims, covering the term's whole
+  third sentence including "from 1900 to 1970".
+- **`Samoa`** — independence recognised 1 January **1962** and "Western Samoa previously had been a Trust
+  Territory administered by **New Zealand**".
+- **`Vanuatu`** — "previously had been under the joint sovereignty of a **condominium between France and
+  the United Kingdom**", independent 30 July 1980; the Commonwealth's joining line says the same in its own
+  words ("following ending of administration Anglo-French condominium").
+- **`Kiribati`** — "the Gilbert Islands became a British protectorate in **1892** and the entire island
+  group was made a British colony in **1916**", independent 12 July 1979.
+- **`Fiji`** — "became a Crown colony within the British Empire in **1874**", independence 1970, and the
+  1987 coup that began "the coup cycle".
+- **`Palau`**, **`Marshall Islands`**, **`Micronesia`** — the three non-Commonwealth states, each carried
+  by the guide alone for its history: the UN trusteeship under U.S. administration, the year of
+  independence and the **Compact of Free Association**, which is the term's own phrase in all three.
+
+### Corrections
+- **`Fiji`** area 18,274 → **18,272 km²**. UNdata and the Commonwealth both give 18,272 exactly and the
+  World Bank 18,270; the term's figure is outside all three.
+- **`Papua New Guinea`** 10 → **10.8 million**; the term's figure is the 2021 value of the same series.
+- **`Solomon Islands`** 750,000 → **840,000**; the 2020 value.
+- **`Marshall Islands`** 40,000 → **36,000**, and this one runs the other way: the population is
+  **falling** (48,800 in 2015 to 36,282 in 2025, emigration under the Compact), so the term's 40,000 is
+  the 2022 value and is stale by being too HIGH. C8's diagnostic works in both directions and the phrase
+  "out of date" should not be read as "too low".
+
+### The contrast with Africa, which is the batch's real finding
+C8 and C9 corrected twenty-six populations between them. **Oceania needed three.** Fiji at 930,000
+against 933,154, Vanuatu at 330,000 against 335,169, Samoa at 220,000 against 219,306, Nauru at 12,000
+against 12,025, Micronesia at 110,000 against 113,683, Australia at 27 million against 26.97 — every one
+still current. The reason is arithmetic rather than editorial: **a figure rounded to two significant
+figures survives a decade of slow growth**, and these populations are small and mostly flat or declining,
+where the African ones are large and growing at 2–3% a year. **Expect the Americas to behave like Africa
+where growth is fast and like Oceania where it is not** — and run the series rather than guessing.
+
+### The rounding rule the World Bank's area series needs
+C9 set the line at "correct an area only when the term falls outside the spread of the two sources".
+Applying it here needed one refinement: **the World Bank rounds small areas to the nearest 10 km²**
+(Tonga 750, Kiribati 810, Samoa 2,840, Nauru 20), so its figure states an interval, not a point. `Fiji`
+was corrected because 18,274 lies outside 18,272 (UNdata **and** the Commonwealth, both precise) as well
+as outside 18,270 ± 5. Nothing else in the batch falls outside once that rounding is allowed for.
+
+### Where the three sources disagree, and which was believed
+- **`Kiribati`'s area.** UNdata gives **726 km²** against the Commonwealth's **811** and the World Bank's
+  810 — and the term's 811. UNdata is the outlier by 10%, so **UNdata is not cited for this term at all**;
+  Kiribati ships on the Commonwealth and the recognition guide.
+- **`Solomon Islands`' area.** The Commonwealth gives **30,407 km²** against UNdata's and the term's
+  28,896 and the World Bank's 28,900 — here the Commonwealth is the outlier, so the opening sentence is
+  marked to UNdata alone and the Commonwealth carries only the third sentence.
+- **`Palau`'s capital.** The term says **Ngerulmud**; UNdata says **Melekeok**. Ngerulmud is the seat of
+  government and stands in Melekeok State, so this is a town-against-state naming difference rather than a
+  contradiction. Recorded, not corrected.
+- **Commonwealth populations run low throughout** (Fiji 896,400, Kiribati 119,400, Nauru 10,000, Samoa
+  198,400 — all 2022), and every term's figure sits between the Commonwealth's and UNdata's, which is C6's
+  pattern holding one ocean over.
+
+### UNMARKED, and recorded
+- `Australia` "the sixth-largest country in the world" — in none of the three.
+- `New_Zealand` the **Treaty of Waitangi of 1840**; the guide begins at the 1907 Dominion, which is what
+  carries "self-governing since the early 20th century".
+- `Nauru`'s German annexation of 1888 — the guide says only "after several colonial and military
+  occupations".
+- `Marshall Islands` the **67 nuclear tests at Bikini and Enewetak between 1946 and 1958**, which the
+  guide does not mention; it gives the Compact and continued U.S. use of Kwajalein instead.
+- `Kiribati` "heavy fighting at Tarawa in 1943" — the guide says only that "The Japanese occupied several
+  of the Gilbert Islands during World War II".
+
+### Verified citations (batch C10)
+`data.un.org/en/iso/<cc>.html` (au, nz, pg, fj, sb, vu, ws, to, nr, pw, mh, fm),
+`thecommonwealth.org/our-member-countries/<slug>` (australia, new-zealand, papua-new-guinea, fiji,
+solomon-islands, vanuatu, samoa, tonga, kiribati, nauru) and `history.state.gov/countries/<slug>`
+(australia, new-zealand, papua-new-guinea, fiji, solomon-islands, vanuatu, samoa, tonga, kiribati, nauru,
+palau, marshall-islands, micronesia).
+
+**The Federated States of Micronesia's guide slug is simply `micronesia`**, and its UNdata code is `fm`.

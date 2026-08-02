@@ -2,8 +2,8 @@
 
 The glossary was **333 terms and not one of them carried a source**. `window.GLOSSARY_SOURCES` was an empty
 table; the fold at the foot of a gloss popup never appeared. This is the plan for filling it. Not part of
-the site. **As of 2026-08-02, 234 of the 333 are cited and at the bar** — batches G1–G11, P1–P7 with the P-topup, and C0–C9, five of which also
-corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 234 carry in-text
+the site. **As of 2026-08-02, 247 of the 333 are cited and at the bar** — batches G1–G11, P1–P7 with the P-topup, and C0–C10, five of which also
+corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 247 carry in-text
 markers, in all ten languages, after the rule changed from optional to required on 2026-08-01 (see "What
 is different from the card pass"). G5 also settled the start of prehistory across the glossary, the deck
 and every date line: **2.6 Mya**, with the disputed 3.3 Ma Lomekwi claim hedged rather than adopted; G6
@@ -172,7 +172,7 @@ the way batch 21 recorded the Anubis walls, so the next pass does not re-run the
 | the poles, the desert, the sea and two names | 7 | Phase 1 · batch G10 — **done** |
 | the continents, the island and the constants | 10 | Phase 1 · batch G11 — **done** |
 | US presidents | 45 | Phase 2 · batches P1–P7 — **ALL DONE (2026-08-02)** |
-| countries and states of the world | 197 | Phase 3 · batches C0–C12 — **C0–C9 done (2026-08-02)**; 15 European and 35 Asian terms deferred with reasons (see the C3 and C5 logs); **Africa is COMPLETE, 56 of 56** |
+| countries and states of the world | 197 | Phase 3 · batches C0–C12 — **C0–C10 done (2026-08-02)**; 15 European and 35 Asian terms deferred with reasons (see the C3 and C5 logs); **Africa and Oceania are COMPLETE** |
 | **total** | **333** | |
 
 ## Order, and why
@@ -2231,6 +2231,64 @@ other family of cases, and it is worth checking the date rather than assuming it
 Phase 3 so far that omits one, so its 1,861,484 km² rests on nothing openable here and the World Bank's
 1,878,000 is a different convention. Recorded, not corrected.
 
+## Batch C10 log — Oceania, and why it needed almost no corrections (2026-08-02)
+
+**DONE, and OCEANIA IS COMPLETE.** Thirteen terms — Australia, New Zealand, Papua New Guinea, Fiji,
+Solomon Islands, Vanuatu, Samoa, Tonga, Kiribati, Nauru, Palau, Marshall Islands, Federated States of
+Micronesia — 35 citations, **four corrections**, nothing deferred. Coverage 234 → **247 of 333**.
+(Tuvalu was cited in C0.)
+
+**The recipe reaches its densest form here: UNdata + Commonwealth + Office of the Historian, three
+sources on most terms.** Ten of the thirteen are Commonwealth members and all thirteen have a
+recognition-guide page. The three do genuinely different jobs — UNdata the current figures, the
+Commonwealth the 2022 figures and the joining line, the guide the colonial history neither of the others
+carries — and on `Australia` that difference is the whole point: the guide states "On January 1, **1901**,
+six colonies were joined together to create the Commonwealth of Australia", which is the term's third
+sentence, while the Commonwealth's own joining line dates membership to **1931** and the Statute of
+Westminster. `Tonga` came through best of all, the guide giving the 1845 unification, the 1875
+constitution, the 1900 protectorship and the 1970 withdrawal — the term's entire third sentence including
+"from 1900 to 1970".
+
+### The finding: Oceania needed three population corrections where Africa needed twenty-six
+
+C8 and C9 updated twenty-six stale populations between them. **This batch updated three.** Fiji's
+930,000 against 933,154, Vanuatu's 330,000 against 335,169, Samoa's 220,000 against 219,306, Nauru's
+12,000 against 12,025, Australia's 27 million against 26.97 — all current. The reason is arithmetic, not
+editorial care: **a figure rounded to two significant figures survives a decade of slow growth**, and
+these populations are small and flat or declining where the African ones are large and growing at 2–3% a
+year. **Run the series before assuming either way**; and note that `Marshall Islands` is the batch's
+instructive case — its 40,000 was stale by being **too HIGH** (48,800 in 2015 falling to 36,282 in 2025
+as people leave under the Compact), so "out of date" must not be read as "too low".
+
+### A refinement to C9's area rule
+C9 said: correct an area only when the term falls outside the spread of the two sources. Oceania forces
+one qualification — **the World Bank rounds small areas to the nearest 10 km²** (Tonga 750, Kiribati 810,
+Nauru 20), so its figure states an interval rather than a point. `Fiji` was corrected from 18,274 to
+**18,272** because that is what UNdata *and* the Commonwealth both give precisely, and 18,274 is outside
+18,270 ± 5 as well. Nothing else in the batch falls outside once the rounding is allowed for.
+
+### Three disagreements between the three sources, and which was believed
+- **`Kiribati`'s area**: UNdata **726 km²** against the Commonwealth's **811**, the World Bank's 810 and
+  the term's 811. UNdata is the outlier by 10%, so **UNdata is not cited on this term at all** — the first
+  time in Phase 3 that the pass's Source A has been dropped outright.
+- **`Solomon Islands`' area**: the Commonwealth's **30,407 km²** against UNdata's, the World Bank's and
+  the term's ~28,896. Here the Commonwealth is the outlier, so its citation carries only the third
+  sentence.
+- **`Palau`'s capital**: the term says **Ngerulmud**, UNdata says **Melekeok**. Ngerulmud is the seat of
+  government and stands in Melekeok State — a town-against-state naming difference, recorded not
+  corrected.
+
+And **the Commonwealth's populations run low throughout** (Fiji 896,400, Kiribati 119,400, Nauru 10,000,
+all 2022), with every term's figure sitting between theirs and UNdata's: C6's pattern, one ocean over.
+
+### Unmarked and recorded
+`Australia` "the sixth-largest country in the world"; `New_Zealand`'s **Treaty of Waitangi of 1840** (the
+guide begins at the 1907 Dominion, which is what carries "self-governing since the early 20th century");
+`Nauru`'s German annexation of 1888; `Kiribati`'s "heavy fighting at Tarawa in 1943"; and — the largest
+gap in the batch — `Marshall Islands`' **67 nuclear tests at Bikini and Enewetak between 1946 and 1958**,
+which the recognition guide does not mention at all, giving the Compact and continued U.S. use of
+Kwajalein instead.
+
 ### Batches C1–C12 · by region
 
 | batch | region | terms | |
@@ -2238,7 +2296,7 @@ Phase 3 so far that omits one, so its 1,861,484 km² rests on nothing openable h
 | **C1–C3** | Europe | 47 | Albania → Vatican City, plus Greece, France, Georgia, Denmark, Russia, less the three in C0. **C1 DONE (2026-08-02)**: Austria, Belgium, Bulgaria, Croatia, Cyprus, Czech Republic, Denmark, Estonia, Finland, Germany, Hungary, Ireland, Italy, Latvia, Lithuania — **Greece deferred to C2**, its description carrying no figure either source states. **C2 DONE (2026-08-02)**: Luxembourg, Malta, Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, Sweden — **six deferred to C3**: Greece again, Albania (UNdata contradicts its population), and Iceland, Norway, Switzerland, Andorra (UNdata alone is one source; `efta.int` and `coe.int` are 403 here) |
 | **C4–C6** | Asia | 43 | Afghanistan → Yemen, plus India, China, Japan, less State of Palestine |
 | **C7–C9 DONE** | Africa | 53 | Algeria → Zimbabwe, plus Kenya and Tanzania, less South Sudan. **C8 DONE (2026-08-02)**: Algeria, Angola, Benin, Burkina Faso, Burundi, Central African Republic, Chad, both Congos, Djibouti, Egypt, Equatorial Guinea, Guinea, Guinea-Bissau — fourteen on the two-fetch recipe, thirteen stale populations updated; **Comoros deferred** (its area counts Mayotte and the guide gives a 1977 recognition against a 1975 independence). **C9 DONE (2026-08-02)**: Comoros, Ethiopia, Ivory Coast, Liberia, Libya, Madagascar, Mali, Mauritania, Niger, São Tomé and Príncipe, Senegal, Sudan, Tunisia, Zimbabwe — **AFRICA COMPLETE, 56 of 56**, with Libya and Comoros unblocked by the World Bank's area series. **C7 DONE (2026-08-02)**: Eswatini, Eritrea, Gabon, The Gambia, Kenya, Lesotho, Malawi, Morocco, Somalia, Tanzania, Togo — the rest of Commonwealth Africa plus the first four carried by the Office of the Historian's recognition guide. **Three deferred**: Egypt, Ethiopia and Libya, each a figure diverging from UNdata with no second profile |
-| **C10** | Oceania | 13 | New Zealand → Tuvalu, plus Australia, less Tuvalu |
+| **C10 DONE** | Oceania | 13 | **DONE (2026-08-02)**: all thirteen — Australia, New Zealand, Papua New Guinea, Fiji, Solomon Islands, Vanuatu, Samoa, Tonga, Kiribati, Nauru, Palau, Marshall Islands, Micronesia — most on THREE sources, four corrections, nothing deferred |
 | **C11–C12** | the Americas | 35 | Canada → Uruguay, plus Brazil |
 | | | **191** | the 197, less the six worked in C0 |
 
