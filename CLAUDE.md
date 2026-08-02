@@ -92,10 +92,406 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `docs/glossary-citation-plan.md` — the batch plan for **citing the 333 glossary terms**, the sibling of
   the card plan above. The bar is **at least 2 citations per term** (a description is three sentences, where
   a card's abstract is ten), and the acceptable sources are academic, museum, government or reputable
-  NGO/IGO. **Batches G1–G10 have shipped — 81 of the 333 terms are cited and at the bar, all with in-text
-  markers in all ten languages**, which completes Phase 1's prehistory / palaeoanthropology / geological-time
-  group (66 of 66), its peoples-and-odds-and-ends batch (8 of 8) and the seven physical-geography terms G10
-  could reach. G9's finding held into G10 and is now a law of the pass:
+  NGO/IGO. **THE GLOSSARY CITATION PASS IS COMPLETE: all 333 terms are cited and at the bar** (batches G1–G11, P1–P7, C0–C12 and D1–D3), all with
+  in-text markers in all ten languages. G11 COMPLETED Phase 1** (all 91 of its prehistory, palaeoanthropology,
+  geological-time, peoples and physical-geography terms) **and P1 opened Phase 2** with the first six
+  presidents, on the Miller Center's presidential essays; **P2 took it to Polk, P3 to Andrew Johnson, P4
+  to McKinley, P5 to Hoover, P6 to Nixon and P7 to Biden, which finishes all 45**. **P1–P7 are the batches
+  after G8 that correct almost nothing** — forty-five terms, fifteen clauses — because these descriptions
+  were written from the same kind of institutional record the pass now cites; where a term and its citation
+  come from the same kind of source, reconciliation finds little. **P2's finding is that the sources begin
+  disagreeing with each other**: Harrison served "thirty-one days" per the White House Historical
+  Association and "thirty-two" per the Miller Center, and the same Miller Center essay calls his post
+  "governor of the **Indian** Territory" and puts Tippecanoe "in the Ohio River Valley", both contradicted
+  by its own later paragraphs. A spine source is not infallible; read the whole essay, not the sentence
+  that matches. Two routes it added: **a party platform is its own best citation** (the 1848 Free Soil
+  platform, from UCSB's American Presidency Project, where no government page is reachable), and
+  `history.house.gov`'s Historical Highlights work by the **numeric** `/HistoricalHighlight/Detail/<id>`
+  path and NOT by the readable slug form, which serves an error document with a 200 status. **P3 is where
+  the `Life in Brief` essay stops being enough on its own** — five of its six terms needed a second or third
+  Miller Center essay, since a president between 1849 and 1869 is described by a statute, a treaty, a battle
+  date or a trial, and Pierce's brief essay (the shortest of the 45, two paragraphs) carried one claim of
+  eight. **P4 shows that was understated** — only two of its seven terms were carried by the brief essay
+  alone, Grant took four essays, and Benjamin Harrison's Dependent Pension Act and six new states are in
+  none of his essays at all and came from the Miller Center's **Key Events** timeline, which is a dated list
+  of exactly the kind of claim a three-sentence description makes. **Reach for Key Events when the essays go
+  quiet.** P4's own finding is the plan's Phase 2 warning arriving as written: both its corrections are on
+  `Rutherford_B._Hayes`, where the term claimed "an informal bargain with southern politicians" that the
+  cited essay explicitly calls doubtful, and said he "withdrew" the last federal troops where the record
+  says he **ordered them to their barracks**. **P5 makes it unanimous** — none of its six was carried by the
+  brief essay alone — and adds the SECOND SPINE the rest of Phase 2 needs: from 1901 a presidency turns on
+  treaties and conferences, so the State Department's **Office of the Historian** carried five claims no
+  presidential essay states (Portsmouth, the Fourteen Points, the League fight, the Washington Naval
+  Conference, Smoot-Hawley), where P1–P4 had leaned on NARA because their claims were statutes. P5's own
+  finding is what the **sibling-consistency check** is for: both its corrections are the SAME STATUTE seen
+  from two sides twenty years apart — the Budget and Accounting Act of 1921 — with `William_Howard_Taft`
+  credited with creating a budget system Congress explicitly refused him and `Warren_G._Harding` with
+  creating a bureau no reachable source mentions (`gao.gov` is 403 here and `whitehouse.gov/omb` carries no
+  history), each rewritten to what the cited essay does state. Neither was an error a source refutes; each
+  was a summary reaching one step past the record, and only reading the two against each other showed it.
+  It also adds a route: **when a NARA milestone slug 404s, try `docsteach.org`** — the Archives' own
+  document-teaching site carried the Indian Citizenship Act with its statute citation and NARA identifier
+  where `archives.gov/milestone-documents/indian-citizenship-act` does not exist. **P6's finding is about
+  the five batches before it**, and it is why the plan now carries an owed **P-topup** row: every
+  presidential term opens on "the Nth president, in office from X to Y", P1–P5 marked that sentence to the
+  *Life in Brief*, and **most of those essays state neither the ordinal nor the term dates** (Hoover's
+  contains no "thirty-first" and neither year). Not a wrong marker — the essay is about that presidency —
+  but the two numbers the sentence asserts were resting on a page that does not carry them, and **the audit
+  cannot see it**, since it counts citations rather than covered claims. The fix was already published:
+  **the Miller Center's LANDING page for each president carries a Fast Facts block** with `President
+  Number`, `Inauguration Date` and `Date Ended` outright — reach for it whenever a term opens on an
+  ordinal. **The P-topup batch then cleared that debt the same day, and found nothing wrong**: the thirty
+  ordinals and sixty term dates of P1–P5, checked for the first time against a page that states them, were
+  right thirty times over — the one place in the pass where the prose needed no correction at all. It also
+  RESOLVED two earlier findings rather than merely recording them: the Miller Center's Fast Facts gives
+  Harrison March 4 → April 4, 1841, **exactly the 31 days** P2 chose over its own essay's "thirty-two", and
+  gives Garfield March 4 → September 19, 1881, confirming the term's "about six months" against the essay's
+  wrong "100 days". One parsing trap went with it — **Cleveland's block carries two of everything** (22 and
+  24, both terms), so a script taking the first value after each label silently loses half his presidency.
+  P6's own two corrections are both `Dwight_D._Eisenhower` and both from the Eisenhower
+  Presidential Library: **"Supreme Allied Commander in Europe" is the NATO post he took in December 1950**,
+  where his 1944 command was Supreme Commander, Allied Expeditionary Forces; and "kept military spending in
+  check" is refuted by the cited essay, which says national security spending "never fell below 50 percent
+  of the budget" while he cut conventional forces and built up nuclear weapons. A third clause was
+  **withdrawn** rather than re-sourced — Nixon "promising order at home" is in nothing openable. The
+  presidential libraries the plan named as P6's spine are only half-reachable (`jfklibrary.org` 403;
+  the biography paths on `trumanlibrary.gov`, `lbjlibrary.org`, `nixonlibrary.gov` 404; `ssa.gov` 403), but
+  the one that answered produced both corrections. And **check the byline**: the LBJ essays have no named
+  author where every other president's do. **P7 finished Phase 2** and its four corrections are all one
+  shape — **a clause claiming an ACHIEVEMENT where the cited essay describes an ATTEMPT**, which is what a
+  batch of recent presidents produces: Reagan "loosened regulation" (the courts "forced the administration
+  to retreat from many of its deregulatory efforts"), Clinton's EITC expansion and "time-limited
+  assistance" (in no Clinton essay; the 1996 law is block grants replacing AFDC, and the essay's only "five
+  years" is about immigrants' eligibility), Obama teaching "constitutional law" (he was "a lecturer at the
+  University of Chicago Law School" — the institution, not the subject), and Trump's 2016 programme of
+  "raising tariffs and cutting regulation" (the essay gives immigration, taxes and repealing the ACA).
+  Three P7 routes worth keeping: **a superlative about a sequence is usually sourced from the essay on the
+  person who broke it** (Reagan's "oldest at 69" and Biden's "oldest" are both in the TRUMP Life in Brief,
+  and nowhere in their own); **an economic figure may be in no presidential essay at all** (no Miller
+  Center page gives a Carter-era inflation rate — "double-digit" is sourced to Federal Reserve History's
+  "The Great Inflation", which then serves Reagan too); and **reachable is not citable** — six presidential
+  libraries answer here and not one carries a usable biography (JavaScript timelines, media galleries, 404
+  biography paths), while the **Nobel Foundation's Carter biographical page** supplied six claims in two
+  sentences. P7 also adds a THIRD variety of 200-status error document: `state.gov` and
+  `2009-2017.state.gov` serve a page titled "Technical Difficulties" with a 200, and
+  `whitehouse.gov/about-the-white-house/presidents/<name>/` is 404 for all nine (a 225 KB error document);
+  `bls.gov` 403 and `fred.stlouisfed.org` refuses the connection. **C0 opened Phase 3 by breaking its own
+  recipe, and the finding governs the remaining 191 countries: the CIA World Factbook — the plan's chosen
+  Source A — is UNUSABLE**, since every path on `cia.gov` serves one identical 498,366-byte JavaScript
+  shell with no country content (the word "France" appears zero times in the page served for France).
+  **Source A is now UNdata** (`data.un.org/en/iso/<cc>.html`), server-rendered and per-country, whose **UN
+  membership date field dates the independence of every modern state for free** — but it has no profile for
+  a state without an ISO code, so `xk` (Kosovo) 500s and a state of limited recognition gets nothing from
+  it. Add the **Commonwealth Secretariat** for small states (UNdata rounds Tuvalu to "10" thousand where
+  the Commonwealth gives 11,790) and **Eurostat Statistics Explained** for anything sectoral in the EU
+  (`iaea.org`, `iea.org` and the French energy ministry are all shut). `un.org` is reachable PATH BY PATH:
+  the Charter text and UNISPAL serve real content, `/securitycouncil/*` returns a CloudFront "Request
+  blocked" page **with a 200** and `/press/*` a JavaScript "Client Challenge" **also with a 200** — a
+  fourth and fifth variety of 200-status error document. C0's two corrections are `Vatican_City`'s area
+  (0.49 → **0.44 km²**, per the state's own governorate) and `South_Sudan`'s population (11 → **12
+  million**, per UNdata) — **the second being the shape Phase 3 will keep producing, since every country
+  term opens on a population that time moves past.** Its other honest output is a long list of clauses left
+  UNMARKED and recorded in full in the register: where a claim is an act of state — a treaty, a resolution,
+  a court ruling, an accession — it is citable and usually easy; where it is landscape or long history, it
+  usually is not. **C1 then ran that recipe at scale and it held**: fifteen EU states on THREE works
+  (UNdata, the EU's own country pages, NATO's member table) at two fetches each, **33 citations and no
+  corrections**. The EU country page is the second source the recipe needed — Capital, Geographical size,
+  Population and **"EU Member State : since <date>"** in one block, which dates the accession clause that is
+  usually the only datable claim in a European term's third sentence. Sixteen areas and populations were
+  checked against both sources and **every one held** — every area within 0.6% and most within 0.05%, which
+  is the land-vs-total-area spread, not a contradiction. Two divergences that look like errors and are not:
+  **the EU counts only the government-controlled area of a divided state** (Cyprus 979,865 against UNdata's
+  1,371 thousand for the island — cite UNdata there), and **UNdata is sometimes the outlier** (Czechia
+  10,609 thousand against the EU's and the term's 10.9 million), so **read both before assuming the prose is
+  wrong**. C1's own finding is a limit: **a country term written without figures is invisible to this
+  recipe** — `Greece` states no area, population or capital and was DEFERRED rather than given two sources
+  nothing points at, which matters because several of the twelve long-form countries are the same shape.
+  **C2 then nearly paid for C1's caution and turned it into a rule**: on `Malta`, `Portugal` and `Spain` the
+  EU page's population would have made the term look wrong and UNdata confirms it (Spain 49,077,984 against
+  UNdata's 47,890 thousand and the term's "roughly 48 million"), so **a batch run on the EU page alone would
+  have produced three corrections, every one an error introduced rather than removed**. Read BOTH before
+  concluding a figure is wrong; the disagreement between two official sources is routinely larger than the
+  term's error. C2 also met the first wide area spread — the Netherlands' 41,850 km² against the EU's
+  37,391, which is total against land area for a country a fifth water, and not a contradiction. Its six
+  DEFERRALS name the recipe's limit: `Albania` (UNdata's 2,772 thousand contradicts the term's 2.4 million,
+  and INSTAT's census pages don't carry the figure in their HTML — so a marker there would point at a work
+  that refutes the sentence), and `Iceland`/`Norway`/`Switzerland`/`Andorra`, where UNdata confirms every
+  figure but is only ONE source and the natural second is shut (`efta.int` and `coe.int` are both 403).
+  **C3 then measured how far that goes: four of nineteen shipped and fifteen wait.** Outside the EU there is
+  NO second institutional profile — `efta.int`, `coe.int`, `admin.ch`, `althingi.is` and `mfa.gr` are all
+  403 — so the second source is per country, per claim, and exists only where the third sentence names a
+  DATABLE ACT. The four that shipped are exactly those: Bosnia on the OSCE's Dayton page, North Macedonia on
+  NATO's member table (2020), Norway on Norges Bank Investment Management (which calls the fund "one of the
+  world's largest"), Ukraine on **General Assembly resolution ES-11/1** of 2 March 2022. **Read the third
+  sentence first and ask what act it names**: a treaty, accession, resolution or founding has a source; a
+  dynasty, a language family or a mountain confederation does not. Two C3 deferrals are warnings rather than
+  gaps. **The UN membership date does NOT date independence for the Soviet founding republics** — `Belarus`
+  and `Ukraine` both show 24 October 1945, because Byelorussia and Ukraine held UN seats in their own right
+  from 1945, so a marker there would date the USSR's seat and not the 1991 independence the term claims. And
+  **`United_Kingdom` is blocked by a SPLIT fault**: its Japanese translation runs to four sentences where
+  the other nine run to three, so markers placed by sentence index would land on different claims — the
+  first time the country pass has hit batch 24's failure, and the reason to **run `split-abstract.js` over a
+  batch's terms before planning its markers**, which C0–C2 passed by luck rather than by rule. `Greece` has
+  now been deferred THREE times (no area, no population, no capital; `mfa.gr` 403) and needs a rewrite or a
+  new class of source rather than a fourth deferral. **C4 found the bloc profile the recipe needs OUTSIDE
+  Europe: the Commonwealth Secretariat's country pages**, whose Key Facts block carries Population, Area,
+  Capital city and the year of joining WITH its independence context in one line ("1947, following
+  independence from Britain"; "1965, on leaving the Federation of Malaysia") — the same shape as the EU's
+  accession field, from a body covering 56 states across Asia, Africa, Oceania and the Caribbean, which is
+  most of the rest of Phase 3. **But the joining line is not always the independence line**: Bangladesh's
+  gives 1972 against the term's 1971, and UNdata's UN membership date (1974) is later still, so BOTH
+  institutional dates postdate the independence they follow and that sentence was left unmarked. C4 also
+  settles the read-both rule beyond argument by breaking it in **opposite directions in one batch**:
+  Pakistan's area is 796,095 km² at UNdata and 882,000 at the Commonwealth (the Kashmir question — a
+  political fact, not a measurement convention, and the widest divergence in Phase 3), where the term
+  matches the Commonwealth; India's is 3,166,391 at the Commonwealth and 3,287,263 at UNdata, where the term
+  matches UNdata. Either source alone would have produced a wrong correction on one of two neighbours.
+  **C5 then probed the three blocs C4 named and all three fail**: `asean.org` returns 307 on every path
+  including the root, and the OIC, the Gulf Cooperation Council and the League of Arab States publish no
+  per-country profiles — so **Asia outside the Commonwealth has no bloc profile** and is C3's position one
+  continent over. Its four shipped terms all came through C3's act-of-state rule, and three of the four
+  second sources are **UN instruments served by `documents.un.org` and UNISPAL** where `un.org`'s topic
+  sections are CloudFront-blocked (GA resolution 181 (II) for Israel, SC resolution 1272 for East Timor),
+  plus the **Office of the Historian's Korean War milestone, which cites BOTH Koreas from one page**. C5's
+  own rule comes from the **United Arab Emirates**: UNdata gives 71,024 km² against the term's 83,600, a
+  **17% gap — the widest in Phase 3** — with no second official source to break the tie, so the term was
+  DEFERRED rather than corrected. **When UNdata is the only profile and disagrees by more than a rounding,
+  defer; never correct on one source.** Two smaller notes: `China`'s figures match UNdata exactly and the UN
+  Charter names it a permanent Security Council member, but its term never mentions the Council, so **an
+  open, authoritative source about the right country is still not a source for a claim the term does not
+  make**; and `Taiwan` is the SECOND split fault after `United_Kingdom` (Japanese runs to four sentences
+  where the others run to three), which settles that **`split-abstract.js` must be run over a batch's whole
+  term list before its markers are planned**. **C6 ran that check FIRST and it paid at once** — `Lesotho`
+  splits into four sentences in German and `Malawi` into four in Chinese, both removed before any research
+  was done, where `United_Kingdom` and `Taiwan` were caught after theirs. Four faults in four batches makes
+  it a standing step. C6 also MEASURED C4's joining-line rule across thirteen African Commonwealth states:
+  **it is the independence line eleven times in thirteen** (Ghana 1957 through Namibia 1990, all marked),
+  and the exceptions have a shape — **`Mozambique` (joined 1995) and `Rwanda` (joined 2009) were never
+  British**, so their joining line dates an accession, not an independence; `South_Africa` left and rejoined;
+  and **`Cameroon` is the near-match to withhold on**, since the years agree but the term describes French
+  and British portions independent in 1960 and 1961 joining together, which the Commonwealth's single line
+  does not describe. Its populations all sit BETWEEN the Commonwealth's 2022 figures and UNdata's 2025 ones,
+  which is what a term written from a recent-but-not-current estimate looks like and is not an error.
+  **`Kenya` is the Greece shape and its recurrence is the thing to carry forward**: both state no area, no
+  population and no capital, and both are among the twelve countries the plan calls "written earlier and at
+  greater length" — that length is extra PROSE, not extra FIGURES, which is what makes them invisible to a
+  recipe built on statistical profiles. Expect the same of the remaining ten.
+  **C7 then found the source that opens the rest of Phase 3, and it is not a statistical profile.** The
+  Office of the Historian's **`history.state.gov/countries/<slug>`** — *A Guide to the United States'
+  History of Recognition, Diplomatic, and Consular Relations, by Country, since 1776* — has a page for
+  **every state in the world**, and its Recognition section states in prose when a country became
+  independent and from whom. C3's "outside the EU there is no second European profile" and C5's "Asia
+  outside the Commonwealth has no bloc profile" both stand for FIGURES and are now largely beside the
+  point, because **the third sentence of a country term is almost always an independence date** and this
+  guide carries it everywhere: it gave `Somalia` two of its three historical claims from one page, both
+  halves of `Kenya`'s "British control in the late 19th century … independent in 1963" (dating the
+  colonial rule to 1895), and the colonial names — Basutoland, Nyasaland, Tanganyika, Togoland — several
+  terms turn on. It is written from the American point of view, so a date is often a *recognition* date;
+  cite it only where the page states the event beside it. C7's own rule is a limit on markers: **where a
+  profile carries a term's FIGURES, marking the figure sentence to it is the C1–C6 practice and continues;
+  where it carries only UNdata's Region field, it has not earned a sentence** that also asserts a plateau,
+  a rift valley and a lake — which is how `Kenya`, deferred three times, finally shipped, by DROPPING the
+  source that had nothing to say about it rather than by finding a figure. Its one correction (`Togo` 9 →
+  **8.6 million**) is right because BOTH sources agree against the term, while `Gabon` (2.4 against 2.593)
+  and `Somalia` (18 against 19.655) were **not** corrected — UNdata alone, so C5's UAE rule holds and C0's
+  South Sudan correction stays the exception. Two Commonwealth slugs were recovered by the rule that **the
+  slug follows the member's FORMAL name** (`united-republic-tanzania`, `kingdom-eswatini`), which retires
+  C6's Tanzania deferral; and **a member admitted recently has a page but not a profile** (Gabon's says
+  only that it joined in June 2022, with "No data found" where the population belongs). Its three
+  deferrals — `Egypt` (107 against 118.4 million, a **10.6% gap, the widest in Phase 3**, and a live
+  UN-against-national disagreement rather than an error), `Ethiopia` and `Libya` — are all one shape: a
+  figure diverging from UNdata with no second profile, over a third sentence too ancient for the
+  recognition guide. `whc.unesco.org` is **403**, `au.int` publishes no country pages and `afdb.org` /
+  `oecd.org` are 403, so the AU is not a bloc profile either; `icj-cij.org/case/<n>` is 200 and usable.
+  **C7 also ran the split audit over the WHOLE glossary rather than its own list, and that is the version
+  to keep**: it found seven faults of two kinds, both now fixed, leaving **0 of 333**. Five were one
+  authoring fault — **the Chinese rendered an English semicolon as a full stop**, turning three sentences
+  into four on `United_Kingdom`, `Taiwan`, `Malawi`, `New_Zealand` and `Papua_New_Guinea` and nothing else
+  — which **unblocks `United_Kingdom` (deferred in C3) and `Taiwan` (C5)** and clears two Oceania terms
+  before C10 reaches them; **check a term whose English uses a semicolon.** Two were a splitter gap:
+  German writes a regnal number as a Roman numeral with a trailing period ("König Leopold **II.** von
+  Belgien", "Moshoeshoe **I.** in den 1820er Jahren"), which the existing German guard could not see since
+  a Roman numeral is not `\d` and no determiner precedes it. `split-abstract.js` now holds a Roman numeral
+  that follows a capitalised NAME and is followed by a LOWERCASE word — the test that tells a mid-sentence
+  regnal number from a sentence genuinely ending on one — verified against all 109 cards in all ten
+  languages with no regressions. **Four of the five Chinese faults sat in terms nobody had reached yet**,
+  where a batch-scoped check would have found them only after the research was done.
+  **C8 then turned C7's find into a two-fetch RECIPE FOR ANYWHERE** — UNdata for the figures,
+  `history.state.gov/countries/<slug>` for the history — and ran it over fourteen African states in
+  neither the EU nor the Commonwealth, exactly the position C3 and C5 called sourceless. Its finding is
+  about figures and it changes how a divergence is read: **a population that disagrees with UNdata is
+  usually STALE rather than contested, and you can PROVE which.** The World Bank API
+  (`api.worldbank.org/v2/country/<ISO3>/indicator/SP.POP.TOTL?format=json&date=2015:2025`) returns the
+  whole series, and thirteen of C8's fourteen terms turned out to state **an earlier point on that same
+  series** — Egypt's "107 million" is the 2019 value to two decimals, Chad's "18 million" the 2022 value,
+  DR Congo's "105 million" the 2023 value — so they were not disputing UNdata, they were written from it
+  years ago. All thirteen were updated to the 2025 figure in ten languages. **Before deferring on a
+  population, ask the series when the term's figure WAS true: if it names a year, the figure is stale and
+  updating it is safe; if it names none, the figure is contested and C5's rule stands.** Two cautions.
+  **The World Bank is NOT a second source for a population** — `SP.POP.TOTL` relays the UN's own estimate
+  (21,003,705 for Chad against UNdata's 21,004 thousand, the same number), so citing both would be false
+  corroboration; it is a diagnostic and belongs in no source list. And **this revises C7's Egypt
+  deferral**, which read 107-against-118 as a UN-against-national disagreement — it was simply six years
+  old, and Egypt is cited in C8. Its one non-figure correction is `Djibouti`, "French Somaliland until
+  independence in 1977" → **"ruled by France, latterly as the French Territory of the Afars and the
+  Issas"**, that being the territory the guide names at the date the term gives. `Comoros` is deferred for
+  two reasons at once, both worth knowing: its 1,861 km² counts the islands it governs where UNdata's
+  2,235 counts the archipelago **including Mayotte** (C1's Cyprus case in reverse), and **a recognition
+  date is not an independence date** — the guide records U.S. recognition in 1977 against the term's 1975.
+  Slugs: the two Congos are **`congo-democratic-republic`** and **`congo-republic`**, and the index at
+  `history.state.gov/countries` resolves any in doubt. The API serves a **UTF-8 BOM** (decode `utf-8-sig`)
+  and returns an empty body under rapid repeats, which retries fix.
+  **C9 finished Africa (56 of 56) and found the second source for AREA.** C8's caution was that
+  `SP.POP.TOTL` relays the UN's own population and so cannot corroborate it; **`AG.SRF.TOTL.K2` is a
+  different series** (World Bank via the FAO, not the UN Statistics Division) and it **resolved both
+  standing deferrals in the same direction — the term was right and UNdata was the outlier**. `Libya`,
+  deferred in C7 on a 5.0% gap, states 1,759,540 km², the World Bank's figure exactly, against UNdata's
+  1,676,198; `Comoros`, deferred in C8 because UNdata's 2,235 km² counts Mayotte, states 1,861 km², again
+  the World Bank's figure exactly. **When UNdata's area looks wrong, ask `AG.SRF.TOTL.K2` before
+  deferring** — and pass a SEMICOLON-SEPARATED country list in one request, which is also the way round
+  the API's empty-body behaviour under rapid single fetches. Elsewhere the two agree within 0.05%, which
+  is what makes those two meaningful, and the line C9 draws is: **correct an area only when the term falls
+  OUTSIDE the spread of the two sources** — `Ivory_Coast` (322,463 against 322,462 and 322,460) falls
+  inside and was left, `Senegal` (196,722 against 196,712 and 196,710) falls outside and was corrected.
+  Its other corrections are thirteen more stale populations by C8's method (`Tunisia` alone still current)
+  and one date narrowed: **`Madagascar`'s "France conquered it in 1897" → "in the 1890s"**, the guide
+  giving 1890 for the protectorate against 1897 for the annexation — two different acts, so batch 16's
+  rule applies and the decade is what the source will bear. Two things to carry: **four UN membership
+  dates do NOT corroborate an independence year** (Mauritania 1961 against 1960 and Libya 1955 against
+  1951, both Cold War admission deadlocks, plus Liberia and Ethiopia at 1945) — C3 found this for the
+  Soviet founding republics and the deadlock is the other family; and **`Sudan`'s UNdata profile has no
+  Surface area field at all**, the only one in Phase 3 that omits one, so its 1,861,484 km² rests on
+  nothing openable here. Côte d'Ivoire's guide slug is **`cote-divoire`**.
+  **C10 finished OCEANIA on three sources at once** — UNdata, the Commonwealth and the recognition guide,
+  ten of its thirteen being Commonwealth members and all thirteen having a guide page. The three do
+  different jobs and `Australia` shows it: the guide states "On January 1, **1901**, six colonies were
+  joined together to create the Commonwealth of Australia", the term's whole third sentence, where the
+  **Commonwealth's own joining line gives 1931 and the Statute of Westminster** instead. Its finding is a
+  contrast: **C8 and C9 corrected twenty-six populations between them and C10 corrected three** — not
+  better editing but arithmetic, since **a figure rounded to two significant figures survives a decade of
+  slow growth** and these populations are small and flat or falling where Africa's are large and growing
+  at 2–3% a year. `Marshall_Islands` is the case to remember: its 40,000 was stale by being **too HIGH**
+  (48,800 in 2015 down to 36,282 in 2025 as people leave under the Compact), so **"out of date" must not
+  be read as "too low"** — C8's diagnostic runs both ways. C10 also **qualifies C9's area rule**: the
+  World Bank ROUNDS small areas to the nearest 10 km² (Tonga 750, Kiribati 810, Nauru 20), so its figure
+  is an interval, not a point; `Fiji` was corrected 18,274 → **18,272** because UNdata *and* the
+  Commonwealth both give that precisely and 18,274 is outside 18,270 ± 5 as well. Three source
+  disagreements are recorded and each was decided on the majority: **`Kiribati`'s area** (UNdata's 726 km²
+  against 811 at the Commonwealth, 810 at the World Bank and 811 in the term — so **UNdata is dropped from
+  that term outright**, the first time Phase 3's Source A has been); **`Solomon_Islands`' area** (the
+  Commonwealth's 30,407 the outlier against ~28,896, so its citation carries only the third sentence); and
+  **`Palau`'s capital** (the term's Ngerulmud against UNdata's Melekeok — the seat of government against
+  the state it stands in, recorded not corrected). Micronesia's guide slug is simply **`micronesia`**.
+  **C11 (North and Central America and the Caribbean, twenty terms) found the sharpest limit on the
+  recognition guide: it dates by U.S. RECOGNITION, and in Spanish America that is not independence.**
+  Mexico was recognised in **1822** against independence in 1821, the Central American states through the
+  Federation in **1824**, Haiti in **1862** against 1804, the Dominican Republic in **1866** against 1844.
+  Where a page happens to state the independence year separately it still works (Guatemala's "Following
+  its independence from Spain in 1821", Haiti's "won independence from France in 1804"); where it does
+  not, it cannot carry the term's date, and **grepping the saved HTML for the year is the two-second
+  check**. `Mexico`, `Costa_Rica` and `Nicaragua` are deferred on exactly that — and **`Costa_Rica` is
+  the one not to paper over**, since its page does not merely omit 1821 but says Costa Rica "did not
+  formally declare its independence until **August 30, 1848**"; both dates are defensible and the term
+  needs a prose reconciliation rather than a citation. **The United States has no page in the guide** (it
+  is written from the United States outward), so its third sentence is carried by **NARA's Milestone
+  Document for the Declaration of Independence** and the guide's **Treaty of Paris, 1783** Milestone.
+  C11's second finding is a caution on C9's tool: **the World Bank's area series contains outright
+  ERRORS** — Canada at **15,634,410 km²** against the true 9,984,670, and the Dominican Republic at
+  **146,839** from 2019 against 48,671 with its own 2018 value at 48,670 — so **apply a plausibility
+  check before letting it adjudicate**. And the population diagnostic **said "do not touch" for the first
+  time**: `Cuba`'s term says 9.4 million against UNdata's 10,937 thousand, a 14% gap, but the World Bank
+  series never passes through 9.4 million (11.23 m in 2018 down to 10.94 m in 2025), so by C8's own test
+  the figure is **contested, not stale**, and was left alone. Three more where UNdata is the outlier and
+  the term stands: `Trinidad_and_Tobago` (1,511 thousand against 1.37–1.4 million at the World Bank and
+  the Commonwealth), `Canada` and `United_States`, whose terms sit with the national estimates. Its eight
+  corrections are five stale populations, **`Barbados` 270,000 → 280,000** (three sources above the term)
+  and **`Saint_Vincent_and_the_Grenadines` 110,000 → 100,000** — the C10 falling-population pattern *with
+  the corroboration attached*, the Commonwealth's 2022 figure of 110,900 showing the term was right when
+  written — plus one area, `Panama` 75,417 → **75,320**. Slug note: **the two sites spell the same states
+  differently** (`st-kitts-and-nevis` at the Commonwealth against `saint-kitts-nevis` at the guide), and
+  both publish an index worth grepping.
+  **C12 (South America, twelve terms) REFINED C11's warning rather than repeating it.** C11 concluded the
+  recognition guide is unusable for Spanish America; **the same guide states the independence year
+  outright on nine of twelve South American pages** — Colombia "by 1819", Peru "in July 1821 under
+  General San Martin", Bolivia "on August 6, 1825", Paraguay "on May 15, 1811", Argentina "in 1816",
+  Uruguay "in 1828". The difference is structural: **those pages open with a sentence of CONTEXT before
+  the recognition paragraph, and that sentence carries the date**, where Mexico's, Costa Rica's and
+  Nicaragua's have none. So the rule is **"the recognition date is not an independence date — read the
+  summary paragraph"**, with a grep of the saved HTML as the check. **`Venezuela` is saved by a
+  preposition**: the guide says independence was achieved "by 1819" and the term says "by 1821", and
+  *achieved by 1819* entails *achieved by 1821* — where "in 1819" against "in 1821" would have been C6's
+  Cameroon near-match. Two terms had no history source and still reached the bar: **`Brazil`**, whose
+  third sentence is left unmarked and which is carried by its FIGURES (UNdata and the World Bank's area
+  series both giving ~8.51 million km², independent measurements rather than one relayed) — **a term can
+  reach the bar on its first sentence alone when the second source measures rather than relays** — and
+  **`Chile`**, where the country page gives 1810 and not 1818 but the **Milestone** "The Allende Years and
+  the Pinochet Coup, 1969–1973" carries the term's other claim. **When a country page will not date the
+  independence, look for a Milestone on the term's other claim.** Its largest correction is the largest
+  area correction of Phase 3 — **`Ecuador` 283,561 → 257,217 km²**, UNdata and the World Bank agreeing
+  within 0.3% and the term 10% above both (a pre-1998-border-settlement figure is the plausible
+  explanation, recorded as a hypothesis and NOT cited). And **UNdata was the outlier three times in four**
+  on area (`Venezuela` between the two, `Argentina` and `Uruguay` matching the World Bank), which with C9's
+  Libya and C10's Kiribati settles that **Source A is a source, not an authority**.
+  **D1 cleared the whole European deferral list (nineteen terms) and completed EUROPE**, using tools
+  that did not exist when C2, C3 and C5 deferred them — the recognition guide (C7) and the World Bank's
+  two series (C9, C11). It opens with a correction to the pass's own bookkeeping: **C9 claimed Africa
+  complete at 56 of 56 and it was 55**, because `Cape_Verde` never appeared in any batch's list — the
+  country lists from C7 onwards used the UN's spelling *Cabo Verde* against the glossary key
+  `Cape_Verde`, so it matched nothing and nobody noticed. **Derive a batch's list from the glossary's own
+  keys (`gloss-source-audit.js`'s uncited list), never from an outside list of country names.** Its
+  finding revises C8: **`SP.POP.TOTL` is NOT always the UN's number.** Where a country runs its own
+  statistical service the World Bank uses that instead, and `Albania` (2,349,580 against UNdata's
+  2,772,000) and `Moldova` (2,360,527 against 2,996,000) both match the TERM while UNdata is the outlier
+  — which is exactly why C2 deferred Albania, reading a 13.4% gap as the term being wrong. Both now cite
+  the World Bank and drop UNdata entirely. **Check whether the two actually agree before treating the
+  World Bank's population as a relay.** D1 also **retires the Greece shape** — a country term stating no
+  area, population or capital, deferred four times — by REWRITING the opening sentence to state the
+  figures its 195 siblings state: `Greece` gains 131,957 km² and Athens, `Georgia` gains 69,700 km²,
+  3.8 million and Tbilisi. **No population was added to Greece** (UNdata 9,939 thousand against the World
+  Bank's 10,413,962, a 4.8% gap it would be arbitrary to resolve). These are logged as rewrites, not
+  corrections — nothing either term said was wrong. Its two real corrections are `Switzerland` 41,285 →
+  **41,291** and `United_Kingdom` 244,376 → **243,610**; and `Monaco` at **75 km²** is the third outright
+  World Bank area error after C11's Canada and Dominican Republic.
+  **D2 cleared the ASIAN deferral list — thirty-one terms, thirty of them on the same two fetches** —
+  which retires C5's "Asia outside the Commonwealth has no bloc profile" the way C8 retired C3's and C5's
+  equivalents for Africa: the claim was true and is beside the point, since UNdata plus the recognition
+  guide carries everything. Only `Bhutan` has no guide page (C12's `Brazil` pattern, figures alone).
+  **Myanmar's guide slug is `burma`.** It resolves **C5's UAE deferral by C5's own rule**: UNdata's
+  71,024 km² against the term's 83,600 was "the widest gap in Phase 3" with no second source, and the
+  World Bank's **98,648** puts the term BETWEEN the two, so it stands untouched — the instinct was right
+  and only the second source was missing. Twelve populations were corrected, **`Yemen` 34 → 42 million**
+  being the largest of the pass, but **`Lebanon` was withheld**: its 5.5 million sits 6.4% below both
+  sources and yet the series never passes through 5.5 (6.5 m in 2015 down to 5.7 in 2020–22), so it is
+  contested rather than stale. After C11's Cuba that is the second withholding, and both are countries
+  whose population is argued about rather than counted. **`Taiwan` is deferred for a reason worth stating
+  precisely**: no UNdata profile (a 500, as Kosovo's `xk` gives), no guide page and no World Bank series
+  — all three of Phase 3's sources are organised around UN membership, so a state outside the UN system
+  is invisible to every one of them, and it needs a different CLASS of source rather than more searching.
+  Its five area corrections leave `Iran` alone as inside the widest source disagreement of the pass
+  (UNdata 1,630,848 against the World Bank's 1,745,150, 7% apart, the term between them).
+  **D3 FINISHED THE PASS at 333 of 333.** `Costa_Rica` got the prose reconciliation C11 called for
+  rather than a citation — "independence from Spain came with the rest of Central America in 1821 and
+  Costa Rica declared itself a separate republic in 1848" — with each half cited, the 1848 to its own
+  page and the 1821 to the guide's **El Salvador** page, whose sentence is explicitly about "the other
+  Central American provinces" and so serves `Nicaragua` too. (C11 saw that route and left it because a
+  citation headed "…: El Salvador" on a Nicaragua term reads like a filing error; it is used, and the
+  register says why.) **`Mexico` is cited on its figures with the independence clause unmarked** —
+  nothing openable here dates Mexican independence to 1821, `loc.gov` being 403 — and its World Bank
+  citation NAMES THE YEAR 2019, because that series gives 1,964,380 for 2018–19 and drifts to 1,957,194
+  by 2023 with no explanation, the same movement that proved to be error for Canada, the Dominican
+  Republic and Monaco. **`Taiwan` was cited without any of Phase 3's three sources**, all of which are
+  organised around UN membership: the way in was the guide's **Milestones**, which are about EVENTS
+  rather than states ("The Chinese Revolution of 1949" and "The Taiwan Strait Crises"), with its figures
+  left unmarked since `taiwan.gov.tw` is 403 and the reachable Taiwanese statistical sites are
+  JavaScript-driven. **A term can be cited on its history alone when its figures have no openable
+  source** — the mirror of C12's `Brazil`.
+  P3 also refines the `senate.gov` warning:
+  its **impeachment** pages are real, its party-history and vice-president paths are the shell, and **the
+  shell is a constant 37,523 bytes**, so a size check tells them apart instantly. Three access findings from it govern the rest of Phase 2 and Phase 3:
+  **a URL containing a closing parenthesis cannot be cited** (`SRC_URL_RX` stops at `)`, which rules out
+  every congressional bioguide address), **`senate.gov` serves its 404 page with a 200 status**, and
+  **`monticello.org` and `founders.archives.gov` are closed here** — so Founders Online, named as a
+  second-source spine in the plan, is not usable and the NARA milestone documents replace it. G9's finding held into G10 and G11 and is now a law of the pass:
   the register pays for taxa and periods and **not** for peoples, places or objects, so 24 of G9's 26 and
   18 of G10's 20 works were new — and where no reachable source uses a familiar term of art (there is no openable
   qualifying source here that says "potlatch"), the prose says what the cited source says rather than
@@ -104,7 +500,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   thickness, a population, an ocean's depth) and claims that are CONVENTIONS OR CONSTANTS (not — "Europe is a
   continent", the equator's circumference, a hemisphere's land fraction), so the six continents, `Sicily`,
   `Equator` and the two hemispheres became **G11**. It is card batch 2's rule in a new dress: subject does not
-  predict reachability, the KIND of claim does. Two things about this pass that the card pass does not have: a term whose
+  predict reachability, the KIND of claim does. **G11 then proved the split both ways**: every convention it
+  met was citable — Mortimer et al.'s Zealandia paper states the criteria for calling something a continent
+  because it is arguing a contested case, and names the six geological continents as including **Eurasia**,
+  which is one open work carrying a sentence on six of its ten terms — while every constant was not, and is
+  recorded unmarked. Its own finding is about a figure rather than a term: **no reachable authority publishes
+  a continent's AREA, and the obvious one is actively wrong** — the UN's M49 scheme assigns whole countries to
+  regions and so puts all of Russia in Europe, giving Europe 22.1 and Asia 31.0 million km² against the
+  conventional 10.2 and 44.5. Cite the UN's Demographic Yearbook Table 1 for POPULATIONS, never for area. Two things about this pass that the card pass does not have: a term whose
   prose is corrected — or whose markers are placed — needs a second command in the same
   batch (`add-lang.js` for the nine languages, since `add-sources.js` writes only the English description);
   and Phase 1 is largely paid for out of `.claude/sources-register.md` already.
@@ -728,9 +1131,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     stripe): one is derived from the data, the other is an editor's private marker.
   · `sup` + `class="fn"` + `data-fn` are in the sanitizer allowlists, so a community deck can use markers too.
   · **The Atlas table still ships EMPTY; the glossary has begun.** `country-sources.js` has no entries at all.
-    **`GLOSSARY_SOURCES` carries 81 of the 333 terms** (batches G1–G10, 2026-08-01/02 — the genus, species, specimen,
+    **`GLOSSARY_SOURCES` carries ALL 333 terms** (batches G1–G11, P1–P7, C0–C12 and D1–D3, 2026-08-01/02 — the genus, species, specimen,
     stone-industry, three-age, periodisation, geological-time, type-site, way-of-life and discipline terms, plus the
-    Indigenous-peoples group, its odds and ends, and the poles / desert / ocean / two historiographic names), against
+    Indigenous-peoples group, its odds and ends, the poles / desert / ocean / two historiographic names, the six
+    continents with `Sicily`, `Equator` and the two hemispheres — which completes Phase 1 — and the first six
+    US presidents, Jackson to Polk, Taylor to Andrew Johnson, Grant to McKinley, Theodore Roosevelt to
+    Hoover, Franklin D. Roosevelt to Nixon, and Ford to Biden — **all 45** — plus C0's six pilot
+    countries, C1–C2's twenty-five EU member states, C3's four non-EU European states and C4's seven
+    Commonwealth states in Asia, C5's four more, C6's thirteen African Commonwealth states, C7's eleven — the rest of Commonwealth Africa plus the first terms carried by the Office of the Historian's recognition guide — C8's fourteen non-Commonwealth African states and C9's last fourteen, which COMPLETE AFRICA at 56 of 56, C10's thirteen, which COMPLETE OCEANIA, C11's twenty across North and Central America and the Caribbean, C12's twelve in South America, D1's nineteen, which clear the European deferral list, D2's thirty-one, which clear the Asian one, and D3's last four), against
     a bar of **`GLOSS_SRC_TARGET` (2)**, which is lower than a card's five because a description is three sentences
     where an abstract is ten; `docs/glossary-citation-plan.md` is the plan for the rest and
     `node .claude/gloss-source-audit.js` says where it stands. The UI, the deltas and the pipeline are in place;
@@ -2253,8 +2661,9 @@ and its sources, and were fact-checked rather than referenced. A batched pass is
 reports both on every run, `node .claude/source-audit.js` reports them per card, and the Edit page's card list
 shows each card's coverage as an amber or red chip) — and **a second pass has started on the glossary**, batched
 through `docs/glossary-citation-plan.md` at a bar of **2 citations per term** (`GLOSS_SRC_TARGET`), with
-`node .claude/gloss-source-audit.js` and the glossary list's own coverage chip reporting it; **81 of 333 terms
-are cited** (batches G1–G10). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
+`node .claude/gloss-source-audit.js` and the glossary list's own coverage chip reporting it; **all 333 terms are cited — THE GLOSSARY PASS IS COMPLETE** (batches G1–G11, which complete Phase 1;
+P1–P7, which complete Phase 2 — all 45 US presidents; C0–C12, which take Phase 3 through every region; and
+D1–D3, which clear the European and Asian deferral lists and the last four terms). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
 Two rules that pass turned up at once. **`add-sources.js` writes only the ENGLISH description**, so a term whose
 prose is corrected needs an `add-lang.js` run per language in the same batch or nine languages keep the old
 claim; and **a correction does not travel between surfaces** — `Homo_habilis` still carried the 2.3–1.5 Mya span

@@ -6267,3 +6267,3559 @@ https://archive.org/details/ancienttimeshist00brea_2. [Open access]
   литературе ту же территорию нередко называют и Передней Азией" — because Russian uses *Ближний Восток* for
   both the Near and the Middle East, so the English sentence's contrast cannot be carried over directly. Left
   as it stands; recorded here because it sits under a marker that does not support it.
+
+## Batch G11 — the continents, the island and the constants (GLOSSARY, 2026-08-02)
+
+Ten terms, 26 citation slots from **fourteen distinct works, every one of them open** — the fifth batch
+after G4, G7, G9 and G10 with no paywalled entry at all. Only **four** came out of this register unopened
+(`scerri-2018`, `larson-2014`, `woods-2010`, and the `hoffecker-2023` line filed under `wh-061`/`wh-062`,
+which had no `supports` entry and was re-read for this use per G6's rule). Ten are new.
+
+**One open paper carried six of the ten terms.** Mortimer et al.'s Zealandia paper argues a contested case
+and therefore has to state the criteria first, so it is the openable source for what a continent *is* — and
+for the fact that the Europe/Asia line is not one of them.
+
+### Verified citations (batch G11)
+
+### mortimer-2017 · what makes a continent, and how many there are
+Nick Mortimer et al., "Zealandia: Earth's Hidden Continent," *GSA Today* 27, no. 3 (2017): 27–35,
+https://rock.geosociety.org/net/gsatoday/archive/27/3/article/GSATG321A.1.htm. [Open access]
+- opened: 2026-08-02 · the GSA's own full-text HTML (the GeoScienceWorld copy is 403 here)
+- supports: the four attributes "generally agreed" to define a continent — high elevation relative to
+  oceanic crust, a broad range of siliceous igneous, metamorphic and sedimentary rocks, thicker crust and
+  lower seismic velocity, and "well-defined limits around a large enough area" (27); the >1 Mkm² threshold
+  proposed for the word (29); **"The six commonly recognized geological continents (Africa, Eurasia, North
+  America, South America, Antarctica, and Australia)"** and that they are "spatially isolated by geologic
+  and/or bathymetric features" (29) — which is the whole basis for saying the Europe/Asia division is a
+  convention and not a geological boundary; that "Despite its large area, Greenland is uncontroversially
+  and correctly regarded as part of North America … because … North American continental geology is
+  continuous across Nares Strait" (29); and that "Tectonic plate boundaries … provide the basis for
+  continent-continent boundaries between Africa and Eurasia, and North and South America" (29)
+- used by: `Europe`, `Asia`, `Americas`, `North_America`, `South_America`
+
+### un-dyb-2023-t1 · the populations, and the land areas
+United Nations Department of Economic and Social Affairs, Statistics Division, "Table 1. Population, Crude
+Birth and Death Rates, Land Area and Density for the World, Major Areas and Regions: Selected Years," in
+*Demographic Yearbook 2023* (New York: United Nations, 2024),
+https://unstats.un.org/unsd/demographic-social/products/dyb/documents/dyb2023/table01.pdf. [Open access]
+- opened: 2026-08-02 · the publication's own PDF of the table (the XLS is a BIFF8 binary; the PDF's letters
+  are a subset-font cipher but its **digits are clean**, which is all this citation rests on)
+- supports, for 2023: **world** 8,091.7 million and 130,094 thousand km² of land; **Africa** 1,480.8 million
+  and 29,648; **Asia** 4,778.0 million and 31,033; **Europe** 745.6 million and 22,135; **South America**
+  433.0 million and 17,461; **Northern America** 382.9 million, **Central America** 181.6, **Caribbean** 44.2
+  — whose sum, 608.7 million, is what `North_America`'s "around 600 million" now points at
+- **the limit that shaped the batch**: the table's areas follow the UN's M49 scheme, which assigns whole
+  countries to regions and so puts every hectare of Russia in Europe — hence Europe at 22.1 and Asia at 31.0
+  million km², neither of which is the conventional continent. **Cite this table for populations; do not cite
+  it for a continent's area.** The `Europe`, `Asia`, `Americas` and `North_America` area figures are
+  therefore left unmarked (see below)
+- used by: `Africa`, `Europe`, `Asia`, `North_America`, `South_America`
+
+### rowan-2026 · the East African Rift, thinning
+Chelsea M. Rowan, Folarin Kolawole, Anne Bécel, Paul Betka, and John Rowan, "Necking of the Active Turkana
+Rift Zone and the Priming of Eastern Africa for Continental Breakup," *Nature Communications* 17, no. 1
+(2026): 3585, https://doi.org/10.1038/s41467-026-71663-x. [Open access]
+- opened: 2026-08-02 · full text via the Europe PMC REST service (`PMC13106691`)
+- supports: the Turkana Rift Zone as a sector of the East African Rift System; that its crystalline crust
+  "has thinned to ~13 km along the rift axis"; that "Identification of necking in the EARS indicates that
+  eastern Africa is primed for continental breakup"; and that necking "facilitated the accumulation of
+  Turkana's **world-famous fossil record of human evolution**" — the phrase the term now uses in place of
+  the unsourceable "unrivalled"
+- **not supported, and left unmarked inside a marked sentence**: the rift's extent "from the Red Sea to
+  Mozambique". The paper names Afar and the Red Sea as the mature end of the EARS but gives no southern
+  limit, and nothing openable here states the span
+- used by: `Africa`
+
+### waldseemuller-1907 · the naming of America, in facsimile
+*The Cosmographiæ Introductio of Martin Waldseemüller in Facsimile*, introduction by Joseph Fischer and
+Franz von Wieser, ed. Charles George Herbermann (New York: United States Catholic Historical Society, 1907),
+1, 8–9, https://archive.org/details/cosmographiaeint00walduoft. [Open access]
+- opened: 2026-08-02 · full OCR text on the Internet Archive
+- supports: that on "the 25th of April, 1507, there appeared in a little out-of-the-way Vosges village,
+  **St. Dié, in Lorraine**, a little book" (1) — which is what replaced the term's "a German map of 1507";
+  that "two maps belong to the book — a globe and a plane projection" (1); that Waldseemüller "twice …
+  proposes to christen this newly found part of the globe AMERICA in honor of its supposed discoverer" and
+  that "**By America, of course, he meant the South American continent of to-day**" (8); and the two Latin
+  passages themselves, "Quarta orbis pars (quam quia Americus invenit, Amerigen quasi Americi terram sive
+  Americam nuncupare licet)" at p. 25 of the facsimile and its longer twin at p. 30 (9)
+- used by: `Americas`
+
+### gvp-etna · Etna, the catalogue record
+Global Volcanism Program, "Etna (211060)," in *Volcanoes of the World*, ed. Edward Venzke (Washington, DC:
+Smithsonian Institution, 2026), https://volcano.si.edu/volcano.cfm?vn=211060. [Open access]
+- opened: 2026-08-02 · the profile page itself
+- supports: elevation **3,357 m**, coordinates 37.748 N 14.999 E, last known eruption 2026 CE, "Etna, located
+  on the Italian island of Sicily", and "**Recorded eruptions date back to 1500 BCE**"
+- **not in the record**: "the most active volcano in Europe" and "erupts almost every year". The first is
+  uncontradicted and kept unmarked per G2's rule; the second was replaced by the 1500 BCE span, which says
+  more and can be checked
+- used by: `Sicily`
+
+### eurostat-reg-area3 · Sicily's area
+Eurostat, "Area by NUTS 3 Region," dataset REG_AREA3, Sicilia (ITG1), land area, 2026,
+https://doi.org/10.2908/REG_AREA3. [Open access]
+- opened: 2026-08-02 · the dissemination API (`.../statistics/1.0/data/reg_area3?geo=ITG1`), the databrowser
+  view being a JavaScript shell
+- supports: Sicilia's **total area 25,833 km²** and **land area 25,702 km²** — the term's "about 25,700 km²"
+  is the land figure, to the hundred
+- used by: `Sicily`
+
+### eurostat-demo-r-pjanaggr3 · Sicily's population
+Eurostat, "Population on 1 January by Broad Age Group, Sex and NUTS 3 Region," dataset DEMO_R_PJANAGGR3,
+Sicilia (ITG1), 1 January 2025, https://doi.org/10.2908/DEMO_R_PJANAGGR3. [Open access]
+- opened: 2026-08-02 · the dissemination API
+- supports: **4,787,390** inhabitants of Sicilia at 1 January 2025 — the term's "roughly 5 million" is now
+  "about 4.8 million". (`geo=ITG` is *Isole*, Sicily plus Sardinia, at 6,349,771; the region code is ITG1)
+- used by: `Sicily`
+
+### nga-wgs84 · the reference ellipsoid
+National Geospatial-Intelligence Agency, "World Geodetic System 1984 (WGS 84)," under "Defining Parameters,"
+https://earth-info.nga.mil/index.php?dir=wgs84&action=wgs84. [Open access]
+- opened: 2026-08-02 · the agency's own HTML page. **The standardization document itself
+  (`NGA.STND.0036_1.0.0_WGS84`) downloads, but its PDF is a subset-font substitution cipher and its digits
+  do not survive extraction** — the HTML page carries the same four defining parameters and is what was read
+- supports: semi-major axis **a = 6378137.0 m** and flattening **1/f = 298.257223563**, from which the two
+  figures in the term follow directly: the equatorial circumference 2πa = 40,075.0 km, and the equatorial
+  minus polar radius a − a(1−f) = 21.4 km. **Recorded as a derivation, not as a quotation** — the page gives
+  the constants, the arithmetic is ours
+- used by: `Equator`
+
+### usno-equinoxes · day and night at the equator
+Astronomical Applications Department, U.S. Naval Observatory, "Length of Day and Night at the Equinoxes,"
+https://aa.usno.navy.mil/faq/equinoxes. [Open access]
+- opened: 2026-08-02 · the department's FAQ page
+- supports: that "On the day of an equinox, the geometric center of the Sun's disk crosses the equator, and
+  this point is above the horizon for 12 hours everywhere on the Earth"; that "Day and night are not exactly
+  of equal length at the time of the March and September equinoxes"; and that "For observers within a couple
+  of degrees of the equator, the period from sunrise to sunset is always several minutes longer than the
+  night" — which is why the term's "close to 12 hours" is the right hedge and "exactly 12" would not be
+- used by: `Equator`
+
+### noaa-nos-coriolis · which way things are deflected
+National Ocean Service, National Oceanic and Atmospheric Administration, "The Coriolis Effect," in
+*Currents: NOAA's National Ocean Service Education*,
+https://oceanservice.noaa.gov/education/tutorial_currents/04currents1.html. [Open access]
+- opened: 2026-08-02
+- supports: "circulating air is deflected toward the right in the Northern Hemisphere and toward the left in
+  the Southern Hemisphere"
+- used by: `Northern_Hemisphere`, `Southern_Hemisphere`
+
+### nesdis-coriolis · which way the storms turn
+National Environmental Satellite, Data, and Information Service, National Oceanic and Atmospheric
+Administration, "What Is the Coriolis Effect?" 26 August 2025,
+https://www.nesdis.noaa.gov/about/k-12-education/atmosphere/what-the-coriolis-effect. [Open access]
+- opened: 2026-08-02
+- supports: "Storms in the Northern Hemisphere spin counterclockwise and those in the Southern Hemisphere
+  spin clockwise"
+- used by: `Northern_Hemisphere`, `Southern_Hemisphere`
+
+### Reused (batch G11)
+- `scerri-2018` — the oldest currently recognized members of the *H. sapiens* clade are African, and the
+  species evolved in subdivided populations across the continent (`Africa`)
+- `larson-2014` — domestication arose independently in at least eleven centres of origin (`Asia`,
+  `South_America`)
+- `woods-2010` — writing appears in Mesopotamia and Egypt "toward the end of the fourth millennium bc" and in
+  China at the end of the second (`Asia`)
+- `hoffecker-2023` — **re-read for this use**, since the register carried the citation with no `supports`
+  line. Its abstract states that "the primary ancestors of living First Peoples, who already had spread
+  widely in the Americas at this time [less than 14,000 years ago], probably dispersed from the NW Pacific
+  coast", and that a population with west Eurasian roots occupied the Great Arctic Plain before the LGM. The
+  term's "at least 15,000 years ago" was therefore re-anchored to "had already spread widely through both
+  continents more than 14,000 years ago", which is what the paper says and does not contradict `wh-062`'s
+  16,000 or the White Sands 23,000–21,000 (`Americas`)
+
+### NOT CITED (batch G11) — what could not be sourced, and what is kept unmarked
+- **A continent's AREA has no citable authority reachable here, and the obvious one is actively wrong.**
+  The UN's M49 scheme, which the Demographic Yearbook follows, puts all of Russia in Europe: its table gives
+  Europe 22.1 and Asia 31.0 million km² of land, against the conventional 10.2 and 44.5. NASA's NSSDC fact
+  sheets still return the site shell, and no reachable geological authority tabulates continental areas. So
+  **`Europe`'s 10.2, `Asia`'s 44.5, `Americas`' 42.5, `North_America`'s 24.7 and `South_America`'s 17.8
+  million km² are all unmarked**, as is Africa's 30.3 — that one is a *total* area, where the table's 29.6
+  is land only, and the term keeps the familiar figure rather than silently switching measures mid-sentence.
+- **The hemispheres' land fractions and population shares** (39%/19% land, 87%/an eighth of people) are
+  textbook constants; nothing openable states them, and `weather.gov/jetstream` — which was 403 in G10 and
+  answers today — has moved to `noaa.gov/jetstream` and no longer carries a Coriolis page. The ocean-gyre
+  rotation directions are likewise unmarked: NOAA's own gyre page does not give them.
+- **Everest and the Dead Sea** as the highest and lowest points on land: no reachable source states either as
+  a superlative. Unmarked.
+- **Sicily's history sentence** — the Greek and Phoenician settlement, Rome's first province, the succession
+  of rulers, 1860 — is unmarked. `library.oapen.org` is 403 here and the open journal corpus reachable from
+  this sandbox is biomedical; there is no route to a scholarly history of ancient Sicily.
+- Kept unmarked, uncontradicted, in nothing opened: Africa's 54 states, its climate belts and its whole
+  third sentence after the *H. sapiens* clause; Europe's peninsulas and the plain; Asia's terrain; the
+  Americas' cordillera and river basins; North America's Cordillera, Shield and Mesoamerican cities; South
+  America's Andes, Amazon, Pampas, Patagonia and Atacama; Sicily's crops and Etna's rank as Europe's most
+  active volcano; and the equator's 13 countries.
+- **Two reachability changes since G10, both worth re-testing rather than assuming**: `doi.org` answered for
+  every DOI tried today, where G10 recorded it 403 for all of them; and `weather.gov` answers, though the
+  JetStream page it used to serve now redirects to `noaa.gov/jetstream` and the Coriolis page is gone from
+  it. `pmc.ncbi.nlm.nih.gov` served article HTML without a challenge today.
+
+## Batch P1 — the first six presidents (GLOSSARY, 2026-08-02)
+
+Six terms, 21 citation slots from **twenty distinct works, every one of them open**, and **none of them
+from this register** — Phase 2 shares no ground at all with the prehistory pass, so the register's dividend
+is zero here and will be for the next six batches. What replaces it is a spine: the **Miller Center's
+presidential essays**, written by named academic historians, one per president, open by policy, and long
+enough that a single essay carries most of a three-sentence term.
+
+**The batch's result is a near-negative one, and that is the finding.** Six terms, one corrected clause.
+These descriptions were written from the same institutional record the pass now cites — a government
+archive, a university's presidential biographies — so they held up in a way the prehistory terms did not.
+G8 established that a batch which corrects nothing is a result worth recording; P1 is the second, and it
+suggests the plan's standing warning for Phase 2 (watch for characterisations the sources do not make) is
+better aimed at the recent presidencies than at the first six.
+
+### Verified citations (batch P1)
+
+### mc-washington-lib / mc-washington-impact · the first presidency
+Lindsay M. Chervinsky, "George Washington: Life in Brief," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/washington/life-in-brief. [Open access]
+Lindsay M. Chervinsky, "George Washington: Impact and Legacy," Miller Center of Public Affairs, University
+of Virginia, https://millercenter.org/president/washington/impact-and-legacy. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports: Washington as the third son of "a middling planter" who leased Mount Vernon and
+  sought a military commission; "He approved Congress's decision to create an army in June 1775 and was
+  appointed Commander-in-Chief of the Continental Army"; the Treaty of Paris in 1783; that in May 1787 "he
+  served as the president of the convention"; the oath of office on 30 April 1789; "Washington set countless
+  precedents, including the creation of the cabinet, executive privilege, state of the union addresses, and
+  his retirement after two terms" and "the defense of executive authority over diplomatic and domestic
+  affairs"; and, for the term's last clause, **"He owned hundreds of enslaved people and benefitted from
+  their forced labor from the moment he was born to the day he died."**
+- Impact and Legacy supports the span of the two-term precedent: **"All his successors, until Franklin D.
+  Roosevelt, willingly followed his example of retiring after two terms, and the 22nd Amendment made sure
+  that no future president can serve more than two terms"** — 1797 to 1940 is the "nearly a century and a
+  half" the term claims
+- used by: `George_Washington`
+
+### nara-constitution · the convention and its year
+National Archives and Records Administration, "Constitution of the United States (1787)," Milestone
+Documents, https://www.archives.gov/milestone-documents/constitution. [Open access]
+- opened: 2026-08-02
+- supports: "Drafted in secret by delegates to the Constitutional Convention during the summer of 1787, this
+  four-page document, signed on September 17, 1787, established the government of the United States"
+- **not on this page**: Washington's signature line as "Presidt", which sits in the separate interactive
+  transcription. The presiding is cited to the Miller Center instead
+- used by: `George_Washington`
+
+### mc-adams-lib / mc-adams-lbp · the second presidency
+C. James Taylor, "John Adams: Life in Brief," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/adams/life-in-brief. [Open access]
+C. James Taylor, "John Adams: Life Before the Presidency," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/adams/life-before-the-presidency. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports: Adams as "a delegate from Massachusetts to the Continental Congress between 1774
+  and 1777 … and as vice president during the Washington administration"; that "Relations between America
+  and France deteriorated to the brink of war" and "Adams was able to avoid war with France, arguing against
+  Hamilton that war should be a last resort to diplomacy"; the Alien and Sedition Acts as "four laws … largely
+  aimed at immigrants"; and that after his term he "wrote prolifically for the next twenty-six years,
+  including a fascinating correspondence with his political adversary and friend, Thomas Jefferson"
+- Life Before the Presidency supports the term's "Massachusetts lawyer": Adams "studied law with a prominent
+  local lawyer in Worcester", "launched his legal career in Boston in 1758", and "By 1770 … was a highly
+  successful lawyer with perhaps the largest caseload of any attorney in Boston"; and the FIRST vice
+  presidency — "Knowing that George Washington would be the first President, Adams sought the vice
+  presidency. He was elected to that position in 1789"
+- used by: `John_Adams`
+
+### nara-alien-sedition · the acts themselves
+National Archives and Records Administration, "Alien and Sedition Acts (1798)," Milestone Documents,
+https://www.archives.gov/milestone-documents/alien-and-sedition-acts. [Open access]
+- opened: 2026-08-02 · the page carries the full transcripts
+- supports both halves of the term's characterisation from the statutes' own words: the Alien Act empowers
+  the President "to order all such aliens as he shall judge dangerous to the peace and safety of the United
+  States … to depart", and the Sedition Act §2 punishes any person who shall "write, print, utter or publish
+  … any false, scandalous and malicious writing or writings against the government of the United States".
+  All four are signed "John Adams, President of the United States"
+- used by: `John_Adams`
+
+### whitehouse-the-white-house · who lived there first
+The White House, "The White House," https://www.whitehouse.gov/about-the-white-house/the-white-house/.
+[Open access]
+- opened: 2026-08-02
+- supports: "After eight years of construction, President John Adams and his wife Abigail moved into the
+  still-unfinished residence" and "Every president since John Adams has occupied the White House"
+- used by: `John_Adams`
+
+### mc-jefferson-lib · the third presidency
+Peter Onuf, "Thomas Jefferson: Life in Brief," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/jefferson/life-in-brief. [Open access]
+- opened: 2026-08-02
+- supports: Jefferson chosen "to write the Declaration of Independence"; the 1800 election and his
+  presidency; **"His brilliant negotiation and ties to France led to the Louisiana Purchase for $15 million,
+  doubling the size of the nation"**; "It was Jefferson who authorized the famous Lewis and Clark Expedition
+  (1804-1806)"; the embargo — "the British navy's practice of forcing American sailors into British service
+  led to Jefferson's disastrous suspension of trade with both France and England"; "Jefferson also devoted
+  himself to founding the University of Virginia"; and that "he never freed his own slaves"
+- used by: `Thomas_Jefferson`
+
+### nps-jefferson-memorial · the author and the architect
+National Park Service, "History and Culture," Thomas Jefferson Memorial,
+https://www.nps.gov/thje/learn/historyculture/index.htm. [Open access]
+- opened: 2026-08-02
+- supports: Jefferson as "primary author of the Declaration of Independence" and "first Secretary of State
+  for the United States of America"; and his architecture, through "Jefferson's taste in classical
+  architecture" and "Jefferson's two most famous buildings — Monticello and the University of Virginia Rotunda"
+- used by: `Thomas_Jefferson`
+
+### oh-louisiana-purchase · the year and the price
+Office of the Historian, U.S. Department of State, "Louisiana Purchase, 1803," Milestones in the History of
+U.S. Foreign Relations, https://history.state.gov/milestones/1801-1829/louisiana-purchase. [Open access]
+- opened: 2026-08-02
+- supports: that the United States "purchased from France in 1803" for "$15 million" a territory that
+  "encompassed 530,000,000 acres" and "made up all or part of fifteen modern U.S. states". **It does not say
+  "doubled"** — that word comes from the Miller Center, which is why both are cited on the same sentence
+- used by: `Thomas_Jefferson`
+
+### nps-lewis-clark · and on to the Pacific
+National Park Service, "History and Culture," Lewis and Clark National Historic Trail,
+https://www.nps.gov/lecl/learn/historyculture/index.htm. [Open access]
+- opened: 2026-08-02
+- supports: "the 1803 to 1806 Corps of Discovery", which "departed Pittsburgh, traced the Missouri River,
+  crossed the Rocky Mountains, and proceeded on to the Pacific Ocean", its object being "to find an all water
+  route to the Pacific Ocean" — the term's "to the Pacific", which the Miller Center's essay does not carry
+- used by: `Thomas_Jefferson`
+
+### mc-madison-lib · the fourth presidency
+Tyson Reeder, "James Madison: Life in Brief," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/madison/life-in-brief. [Open access]
+- opened: 2026-08-02
+- supports: that Madison "formulated the Virginia Plan, which served as a basis for debate during the
+  convention" and that "His exertions and theories eventually earned him the title 'Father of the
+  Constitution'"; that in the first Congress he "became the primary drafter and major proponent of numerous
+  amendments to the Constitution, ten of which were adopted and became known as the Bill of Rights"; his
+  election in 1808; the June 1812 war message; and that "The War of 1812 ended in a draw with no US objectives
+  met"
+- used by: `James_Madison`
+
+### loc-federalist · the 85 essays
+Library of Congress, "Full Text of The Federalist Papers," *Federalist Papers: Primary Documents in American
+History*, https://guides.loc.gov/federalist-papers/full-text. [Open access]
+- opened: 2026-08-02
+- supports: "a series of 85 essays written by Alexander Hamilton, John Jay, and James Madison between October
+  1787 and May 1788", "published anonymously, under the pen name Publius", and "written and published to urge
+  New Yorkers to ratify the proposed United States Constitution"
+- used by: `James_Madison`
+
+### nara-ghent · the burning, and the restored territory
+National Archives and Records Administration, "Treaty of Ghent (1814)," Milestone Documents,
+https://www.archives.gov/milestone-documents/treaty-of-ghent. [Open access]
+- opened: 2026-08-02 · the page carries the treaty transcript as well as the note
+- supports: "On June 1, 1812, President James Madison asked for a declaration of war"; **"The most shocking of
+  these was the British Army's burning of the Capitol, the President's house, and other public buildings in
+  Washington on August 24 and 25, 1814"** — which is what the term's corrected clause now says; and, from
+  Article the First, that "All territory, places, and possessions whatsoever taken by either party from the
+  other during the war … shall be restored without delay", i.e. no change of territory
+- used by: `James_Madison`
+
+### mc-monroe-lib · the fifth presidency
+Daniel Preston, "James Monroe: Life in Brief," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/monroe/life-in-brief. [Open access]
+- opened: 2026-08-02
+- supports: Monroe as an officer in the Continental Army from early 1776, severely wounded at Trenton, later
+  minister to France and to Britain and Madison's secretary of state; his presidency "which began in 1817 and
+  lasted until 1825"; the Boston newspaper's coinage of "Era of Good Feelings" and that "The organized
+  opposition, in the form of the Federalists, had faded largely from sight"; "the Panic of 1819, which
+  resulted in high unemployment as well as increased foreclosures and bankruptcies"; and the Missouri
+  crisis and compromise, which Monroe "worked in support of … and, after ascertaining that the provisions
+  were constitutional, signed"
+- used by: `James_Monroe`
+
+### nara-missouri-compromise · the compromise, dated
+National Archives and Records Administration, "Missouri Compromise (1820)," Milestone Documents,
+https://www.archives.gov/milestone-documents/missouri-compromise. [Open access]
+- opened: 2026-08-02
+- supports: the year, and that the legislation "admitted Missouri as a slave state and Maine as a non-slave
+  state at the same time, so as not to upset the balance between slave and free states in the nation. It also
+  outlawed slavery above the 36º 30' latitude line in the remainder of the Louisiana Territory"
+- used by: `James_Monroe`
+
+### oh-monroe-doctrine · the message of 1823
+Office of the Historian, U.S. Department of State, "Monroe Doctrine, 1823," Milestones in the History of U.S.
+Foreign Relations, https://history.state.gov/milestones/1801-1829/monroe. [Open access]
+- opened: 2026-08-02
+- supports: the address of **December 2, 1823**; the declaration that "The American continents … are
+  henceforth not to be considered as subjects for future colonization by any European powers"; and that
+  "Monroe and his Secretary of State John Quincy Adams drew upon a foundation of American diplomatic ideals",
+  Adams having argued for a unilateral American statement rather than a joint declaration with Britain
+- used by: `James_Monroe`, `John_Quincy_Adams`
+
+### mc-jqadams-lib · the sixth presidency
+Margaret A. Hogan, "John Quincy Adams: Life in Brief," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/jqadams/life-in-brief. [Open access]
+- opened: 2026-08-02
+- supports: Adams's diplomatic career from the age of ten; that as secretary of state "He played a major role
+  in formulating the Monroe Doctrine" and "negotiated the Adams-Onís Treaty with Spain, which extended U.S.
+  boundaries to the Pacific Ocean and ceded Florida to the United States"; the 1824 election, in which
+  "Jackson had thirty-two votes fewer than he needed to prevail" so that "Acting under the Twelfth Amendment,
+  the House of Representatives met to select the President"; the 1828 defeat; and that he "served nine
+  consecutive terms in the House of Representatives" until a stroke on the floor of the House on 21 February
+  1848 — the seventeen years the term counts
+- used by: `John_Quincy_Adams`
+
+### house-gag-rule · the rule that tabled the petitions
+Office of the Historian, U.S. House of Representatives, "The House 'Gag Rule,'" Historical Highlights,
+https://history.house.gov/HistoricalHighlight/Detail/35837. [Open access]
+- opened: 2026-08-02
+- supports: that on 26 May 1836 the House instituted the rule, under which "all petitions, memorials, or
+  resolutions regarding slavery should automatically be tabled and that no further action be taken upon
+  them"; Adams's objection, "I hold the resolution to be a direct violation of the Constitution of the United
+  States"; and the repeal he finally secured on 3 December 1844
+- used by: `John_Quincy_Adams`
+
+### nara-amistad · the case argued
+National Archives and Records Administration, "The Amistad Case," Educator Resources,
+https://www.archives.gov/education/lessons/amistad. [Open access]
+- opened: 2026-08-02
+- supports: "In the trial before the Supreme Court, the Africans were represented by former U.S. President …
+  John Quincy Adams", who spoke "for 8 ½ hours" at 73, and that "The Supreme Court decided in favor of the
+  Africans, stating that they were free individuals"
+- used by: `John_Quincy_Adams`
+
+### NOT CITED (batch P1) — what could not be sourced, and what is kept unmarked
+- **Jefferson's "more than 600" enslaved people over his lifetime is unmarked.** The body-responsible source
+  is the Thomas Jefferson Foundation, and **`monticello.org` is 403 from this sandbox** under every user
+  agent tried, as is `founders.archives.gov`, which answers 202 with an empty body. The Miller Center gives
+  "the onetime master of over 150 slaves" — a figure at a moment, not over a life, so substituting it would
+  change the claim rather than correct it. Nothing openable contradicts 600; per batch G2's rule the figure
+  stays and the gap is recorded here.
+- **A URL containing a closing parenthesis cannot be cited**, and this will matter for the rest of Phase 2
+  and for Phase 3. `SRC_URL_RX` in app.js is `/https?:\/\/[^\s<>"')\]]+…/`, which stops at `)` — so the
+  Biographical Directory entry `history.house.gov/People/Listing/A/ADAMS,-John-(A000039)/` would render as a
+  link to a truncated URL. It was dropped in favour of the Miller Center's "Life Before the Presidency"
+  essay, which carries the same two facts. **Check a candidate URL against that regex before planning a
+  batch around a host that uses parenthesised identifiers** — congressional bioguide URLs all do.
+- **`bioguide.congress.gov`, `constitution.congress.gov`, `www.si.edu` and `www.congress.gov` are 403 here**;
+  `cop.senate.gov`, where the Senate's vice-presidential biographies now live, fails to connect at all, and
+  the old `senate.gov/about/officers-staff/vice-president/…` paths return the Senate's 404 page with a 200
+  status — **check the body, not the status code, on senate.gov.**
+- Kept unmarked, uncontradicted, in nothing opened: Washington's dates 1789–1797 as such; Adams's arguing
+  "for American independence"; Jefferson's being "a prolific writer"; Madison's dates 1809–1817; Monroe's
+  "one-party dominance" as a characterisation of the Era of Good Feelings; and John Quincy Adams's 1825–1829
+  dates. All six date lines were checked against the essays and are correct.
+
+## Batch P2 — Jackson to Polk (GLOSSARY, 2026-08-02)
+
+Five terms, 20 citation slots from **fifteen distinct works, every one of them open**, and again **none
+from this register**. P1's shape held: the Miller Center's essays carried the spine, and where they stopped
+short the answer was the body responsible — the National Archives for the statutes and treaties, the
+National Park Service for the ground, the State Department's Office of the Historian for the diplomacy, and
+one NGO and one university project for the two claims none of them made.
+
+**One correction, and one source disagreement recorded rather than settled.** That is the same rate as P1
+and it confirms P1's finding: these descriptions were written from the institutional record they are now
+being cited to.
+
+### Verified citations (batch P2)
+
+### mc-jackson-lib · the seventh presidency
+Daniel Feller, "Andrew Jackson: Life in Brief," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/jackson/life-in-brief. [Open access]
+- opened: 2026-08-02
+- supports: Jackson as "a major general in the War of 1812 with smashing victories against the Creek Indians
+  in 1814 and the British at New Orleans in January 1815"; "founder of the Democratic Party"; "During his
+  two-term presidency, he expanded executive powers and transformed the President's role from chief
+  administrator to popular tribune"; South Carolina's 1832 nullification of the tariff and Jackson's
+  proclamation branding it treason; the 1832 veto of the Bank recharter and the removal of the deposits; and
+  that he "strong-armed Indian tribes into removing west of the Mississippi"
+- used by: `Andrew_Jackson`
+
+### nara-indian-removal · the Act, the numbers and the name
+National Archives and Records Administration, "President Andrew Jackson's Message to Congress 'On Indian
+Removal' (1830)," Milestone Documents,
+https://www.archives.gov/milestone-documents/jacksons-message-to-congress-on-indian-removal. [Open access]
+- opened: 2026-08-02
+- supports: "Congress passed, and President Andrew Jackson signed, the Indian Removal Act of May 28, 1830";
+  that the Act "authorized the President to negotiate removal treaties with Indian tribes living east of the
+  Mississippi River"; that it moved "nearly 50,000 eastern Indians to the Indian Territory"; and, in the
+  page's own words, "This sad chapter in our history is known as the 'Trail of Tears.'"
+- used by: `Andrew_Jackson`
+
+### nps-trail-of-tears · what the removal cost
+National Park Service, "History and Culture," Trail of Tears National Historic Trail,
+https://www.nps.gov/trte/learn/historyculture/index.htm. [Open access]
+- opened: 2026-08-02
+- supports: that "In May 1838, the Cherokee removal process began", that "The impact of the resulting
+  Cherokee 'Trail of Tears' was devastating", and that "More than a thousand Cherokee … died during their
+  trip west … and an unknown number — perhaps several thousand — perished from the consequences of the
+  forced migration"
+- used by: `Andrew_Jackson`
+
+### mc-vanburen-lib / mc-vanburen-domestic · the eighth presidency
+Mark Cheathem, "Martin Van Buren: Life in Brief," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/vanburen/life-in-brief. [Open access]
+Mark Cheathem, "Martin Van Buren: Domestic Affairs," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/vanburen/domestic-affairs. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports: that Van Buren "worked his way up in New York state politics" and "had organized an
+  impressive group of New York politicians later dubbed the Albany Regency"; that he "was the most
+  significant figure in creating the Democratic Party and in setting the expectations for electoral
+  competition based on two opposing political parties"; that Jackson appointed him "U.S. secretary of state"
+  and endorsed him for the vice presidency in 1832; the 1836 election; and the 1840 defeat by Harrison
+- Domestic Affairs supports the depression precisely: "the United States plunged into an economic depression
+  often referred to as the Panic of 1837, although it was **actually a series of economic crises that began
+  in 1837 and lasted into the early 1840s**" — which is the term's "long depression that followed"
+- used by: `Martin_Van_Buren`
+
+### app-free-soil-1848 · the platform itself
+"Free Soil Party Platform of 1848," in Gerhard Peters and John T. Woolley, *The American Presidency
+Project*, University of California, Santa Barbara,
+https://www.presidency.ucsb.edu/documents/free-soil-party-platform-1848. [Open access]
+- opened: 2026-08-02 · the primary text, hosted by a named university project
+- supports the term's characterisation of the party from its own resolutions: "the only safe means of
+  preventing the extension of Slavery into Territory now Free, is to prohibit its extension in all such
+  Territory by an act of Congress", and "our calm but final answer is, no more Slave States and no more
+  Slave Territory"
+- **Why this rather than an agency page**: `senate.gov`'s party-history pages return the Senate's 404 shell
+  with a 200 status (P1's finding), and no reachable government source states the Free Soil platform. A
+  party platform is its own best citation, the way a statute was for the Alien and Sedition Acts
+- used by: `Martin_Van_Buren`
+
+### mc-harrison-lib · the ninth presidency
+William Freehling, "William Henry Harrison: Life in Brief," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/harrison/life-in-brief. [Open access]
+- opened: 2026-08-02
+- supports: that Harrison "served the shortest time of any American President"; that Adams "named him
+  governor of … present day Indiana and Illinois" and that "Presidents Jefferson and Madison kept him in
+  that position for twelve years"; that against Tecumseh's "Indian Confederacy" he was "defeating 650
+  warriors at Tippecanoe Creek on November 7, 1811"; that in 1813 he "engaged a **combined British and
+  Indian force** of 1,700 men in the battle at the Thames River"; the 1840 campaign "filled with songs,
+  advertising, slogans, and organized rallies" under "Old Tippecanoe and Tyler, Too"; and that "He was the
+  first President to die in office"
+- **Two slips in this essay, recorded and not followed.** It calls Harrison's post "governor of the **Indian
+  Territory**" where the gloss it gives — "present day Indiana and Illinois" — makes plain it means the
+  **Indiana** Territory, which is what the term says; and it places Tippecanoe "in the Ohio River Valley",
+  where its own later sentence puts it at Tippecanoe Creek. Neither was carried into the term
+- used by: `William_Henry_Harrison`
+
+### whha-tyler-succession · thirty-one days, and the title Tyler refused
+Callie Hopkins, "John Tyler and Presidential Succession," Rubenstein Center Scholarship, White House
+Historical Association, https://www.whitehousehistory.org/john-tyler-and-presidential-succession.
+[Open access]
+- opened: 2026-08-02 · reachable to `curl` but **403 to some fetchers** — the host is user-agent sensitive
+- supports: "Just after midnight on April 4, 1841, William Henry Harrison died after only **thirty-one days
+  in office**"; "William Henry Harrison was the first president to die in office, so there were no
+  guidelines for how to proceed"; the open question of whether Tyler "became president himself, or … retain
+  the title of Vice President or Acting President and merely assume presidential powers"; that "Many of
+  President Tyler's political opponents felt that he overreached … and that he should retain the title of
+  'Acting President'"; and that the states later "ratified the 25th Amendment, which formally clarified the
+  process of presidential succession"
+- **A source disagreement, recorded rather than settled** (G7's rule): this article says **thirty-one** days
+  and the Miller Center's Harrison essay says **thirty-two**. Both are defensible — 4 March to 4 April 1841
+  is 31 days elapsed and 32 counted inclusively — and the term's "31 days" is kept, since that is the figure
+  the source cited beside it carries
+- used by: `William_Henry_Harrison`, `John_Tyler`
+
+### mc-tyler-lib / mc-tyler-lap · the tenth presidency
+William Freehling, "John Tyler: Life in Brief," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/tyler/life-in-brief. [Open access]
+William Freehling, "John Tyler: Life After the Presidency," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/tyler/life-after-the-presidency. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports: Tyler as a Virginia planter who "bitterly opposed a strong standing army, tariffs,
+  and extending the vote to men without property"; that "Tyler firmly asserted that the Constitution gave him
+  full and unqualified powers of office and had himself sworn in immediately as President, setting a critical
+  precedent for an orderly transfer of power following a President's death"; that after he "vetoed a bill to
+  resurrect the Bank of the United States, his entire cabinet resigned in protest"; that "the Whigs, led by
+  Henry Clay, expelled him from the party"; and the joint-resolution route to annexation, which "succeeded in
+  achieving Texas's incorporation into the Union"
+- Life After the Presidency supports the closing clause exactly: "Tyler then became a leading proponent of
+  southern secession, and in late 1861, **he was elected to the Confederate House of Representatives**"
+- used by: `John_Tyler`
+
+### nara-amendments-11-27 · the precedent, written down
+National Archives and Records Administration, "The Constitution: Amendments 11–27," America's Founding
+Documents, https://www.archives.gov/founding-docs/amendments-11-27. [Open access]
+- opened: 2026-08-02
+- supports the term's "a precedent later written into the Constitution" from the text itself: **25th
+  Amendment, Section 1 — "In case of the removal of the President from office or of his death or
+  resignation, the Vice President shall become President"** — ratified 10 February 1967. (The same page
+  carries the 22nd Amendment, ratified 27 February 1951, should a later batch want it for Washington's
+  two-term precedent, which is currently cited to the Miller Center)
+- used by: `John_Tyler`
+
+### oh-texas-annexation · the joint resolution and the year
+Office of the Historian, U.S. Department of State, "The Annexation of Texas, the Mexican-American War, and
+the Treaty of Guadalupe-Hidalgo, 1845–1848," Milestones in the History of U.S. Foreign Relations,
+https://history.state.gov/milestones/1830-1860/texas-annexation. [Open access]
+- opened: 2026-08-02
+- supports: that "With the support of President-elect Polk, Tyler managed to get the joint resolution passed
+  on March 1, 1845" and that "Texas was admitted into the United States on December 29" of that year — both
+  halves of the term's "secured the annexation of Texas in 1845"
+- used by: `John_Tyler`
+
+### mc-polk-lib · the eleventh presidency
+John C. Pinheiro, "James K. Polk: Life in Brief," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/polk/life-in-brief. [Open access]
+- opened: 2026-08-02
+- supports: that "With Jackson behind him, Polk became the Speaker of the House in 1835, a position he held
+  for four years" and was nicknamed "Young Hickory"; that "he kept his word to retire after a single term,
+  although he easily could have won reelection"; the acquisition of Oregon and the Mexican war; and the
+  term's closing claim in the essay's own words — "He failed to understand the depth of popular emotion over
+  the westward expansion of the South's 'peculiar institution.' This failure on his part left the issue of
+  slavery unaddressed and thus unresolved at the end of his term in 1849"
+- used by: `James_K._Polk`
+
+### oh-oregon-territory · the boundary fixed
+Office of the Historian, U.S. Department of State, "The Oregon Territory, 1846," Milestones in the History
+of U.S. Foreign Relations, https://history.state.gov/milestones/1830-1860/oregon-territory. [Open access]
+- opened: 2026-08-02
+- supports: that Polk "proposed a settlement on the 49 degree line to Great Britain", that "Great Britain
+  agreed to Polk's suggestion", and that "The Senate ratified the treaty by a vote of 41-14 on June 18, 1846"
+- used by: `James_K._Polk`
+
+### nara-guadalupe-hidalgo · what the war brought in
+National Archives and Records Administration, "Treaty of Guadalupe Hidalgo (1848)," Milestone Documents,
+https://www.archives.gov/milestone-documents/treaty-of-guadalupe-hidalgo. [Open access]
+- opened: 2026-08-02
+- supports: "This treaty, signed on February 2, 1848, ended the war between the United States and Mexico. By
+  its terms, Mexico ceded 55 percent of its territory, including the present-day states California, Nevada,
+  Utah, New Mexico, most of Arizona and Colorado, and parts of Oklahoma, Kansas, and Wyoming", and that
+  "Mexico also relinquished all claims to Texas, and recognized the Rio Grande as the southern boundary"
+- used by: `James_K._Polk`
+
+### NOT CITED (batch P2) — what could not be sourced, and what is kept unmarked
+- **`history.house.gov`'s Historical-Highlights URLs are unreliable by path.** The `/Historical-Highlights/
+  <period>/<slug>/` form returned the site's error document for both the gag rule and Harrison's death, while
+  the numeric `/HistoricalHighlight/Detail/<id>` form works. **Use the numeric form**, which is what P1's gag
+  rule citation uses.
+- **`senate.gov` again returned its 404 page with a 200 status** — this time for the Free Soil Party under
+  `/about/origins-foundations/parties-leadership/`. P1's rule stands: check the body, not the code.
+- Kept unmarked, uncontradicted, in nothing opened: Jackson's "politics of the common white man" as a
+  characterisation; Van Buren's "helped invent the modern national party machine"; Harrison's "governor of
+  Indiana Territory" as against the Miller Center's slip; Tyler's "banking bills" in the plural, where the
+  essay names one; and Polk's "Tennessee protégé of Jacksonian politics", which the essay supports in
+  substance without the phrase.
+
+## Batch P3 — Taylor to Andrew Johnson (GLOSSARY, 2026-08-02)
+
+Six terms, 25 citation slots from **twenty distinct works, every one of them open**, and again none from
+this register. The batch that runs from the Compromise of 1850 to Reconstruction is the one where the
+Miller Center's *Life in Brief* stops being sufficient on its own: five of the six terms needed a second or
+third essay from the same author, because a three-sentence description of a president in this decade names
+a statute, a treaty, a battle date or a trial, and the brief essay names none of them.
+
+**One correction, and it is a sequence rather than a figure** — the same rate as P1 and P2, and for P1's
+reason.
+
+**Two primary documents did the work a summary could not**, which is P1's "a statute is its own best
+citation" and P2's "a party platform is its own best citation" arriving a third time. The Fugitive Slave
+Act's own §5 and the Senate's own trial record are what the `Millard_Fillmore` and `Andrew_Johnson` terms
+now rest on.
+
+### Verified citations (batch P3)
+
+### mc-taylor-lib / mc-taylor-lbp / mc-taylor-death · the twelfth presidency
+Michael Holt, "Zachary Taylor: Life in Brief," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/taylor/life-in-brief. [Open access]
+Michael Holt, "Zachary Taylor: Life Before the Presidency," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/taylor/life-before-the-presidency. [Open access]
+Michael Holt, "Zachary Taylor: Death of the President," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/taylor/death-of-the-president. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports: "Taylor was a wealthy slave owner who held properties in the plantation states of
+  Louisiana, Kentucky, and Mississippi"; that "In 1808, he received his first commission as an officer" and
+  was "transferred from one frontier post to another"; that Polk's order into the contested Texas border
+  area "ignited the Mexican-American War" and that "Taylor's army of 6,000 had defeated a Mexican force of
+  20,000" at Buena Vista, making him "a national hero"; that "Taylor had never divulged his political
+  preferences"; and that he "opposed the extension of slavery into areas where neither cotton nor sugar
+  could be grown" while wanting California and New Mexico to write constitutions and apply for statehood
+  at once
+- Life Before the Presidency dates the battle: "**In February 1847**, Santa Anna threw his nearly 20,000
+  soldiers into the Battle at Buena Vista"
+- Death of the President dates the death: "At about ten in the morning on **July 9, 1850**, Taylor called
+  his wife to him"
+- used by: `Zachary_Taylor`
+
+### nara-compromise-1850 · the package, and the fugitive slave act inside it
+National Archives and Records Administration, "Compromise of 1850," Milestone Documents,
+https://www.archives.gov/milestone-documents/compromise-of-1850. [Open access]
+- opened: 2026-08-02
+- supports: that the Compromise "was actually a series of bills … The bills provided for slavery to be
+  decided by popular sovereignty in the admission of new states, prohibited the slave trade in the District
+  of Columbia, settled a Texas boundary dispute, and established a stricter fugitive slave act"; that "In
+  1849, California requested permission to enter the Union as a 'free state'"; and that under the 1850 Act
+  "both federal and local law enforcement in all states (both 'slave' and 'free') were required to enforce
+  the legislation and arrest suspected fugitive slaves"
+- used by: `Zachary_Taylor`, `Millard_Fillmore`
+
+### mc-fillmore-lib · the thirteenth presidency
+Michael Holt, "Millard Fillmore: Life in Brief," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/fillmore/life-in-brief. [Open access]
+- opened: 2026-08-02
+- supports: Fillmore's rise from the vice presidency on Taylor's death; the Compromise as "a patchwork of
+  legislation that would admit California as a new free state; organize New Mexico and Utah … as territories
+  on the basis of popular sovereignty; and readjust the disputed boundary between Texas and New Mexico",
+  with a fugitive slave law attached, which as president he "engineered"; that he lost the 1852 nomination
+  "to General Winfield Scott"; and that in 1856 he ran for "the Whig-American Party, a fusion of the
+  remaining Whigs and the **anti-immigrant** American (nicknamed 'Know-Nothing') Party" and "won the
+  Electoral College votes of **Maryland**" — the term's "carried only one state"
+- used by: `Millard_Fillmore`
+
+### avalon-fugitive-slave-1850 · the clause about ordinary citizens
+"Fugitive Slave Act 1850," *The Avalon Project: Documents in Law, History and Diplomacy*, Lillian Goldman
+Law Library, Yale Law School, https://avalon.law.yale.edu/19th_century/fugitive.asp. [Open access]
+- opened: 2026-08-02 · the statute's own text
+- supports the term's clause that NARA's summary does not: §5 empowers officers to "call to their aid the
+  bystanders, or posse comitatus of the proper county … and **all good citizens are hereby commanded to aid
+  and assist in the prompt and efficient execution of this law, whenever their services may be required**".
+  The NARA page speaks only of law enforcement, so the term was cited to the Act itself rather than
+  softened to the summary
+- used by: `Millard_Fillmore`
+
+### mc-pierce-lib / -campaigns / -foreign / -domestic · the fourteenth presidency
+Jean H. Baker, "Franklin Pierce: Life in Brief," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/pierce/life-in-brief. [Open access]
+Jean H. Baker, "Franklin Pierce: Campaigns and Elections," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/pierce/campaigns-and-elections. [Open access]
+Jean H. Baker, "Franklin Pierce: Foreign Affairs," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/pierce/foreign-affairs. [Open access]
+Jean H. Baker, "Franklin Pierce: Domestic Affairs," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/pierce/domestic-affairs. [Open access]
+- opened: 2026-08-02
+- **Pierce's *Life in Brief* is the shortest of the forty-five** — two paragraphs — and carries only that he
+  was the 14th president, a New Hampshire man, and that "Although he did not author the Kansas-Nebraska Act,
+  he did encourage its passage by Congress. And that piece of legislation set the nation on its path to
+  civil war." Everything else came from the three companion essays
+- Campaigns and Elections supports "chosen as a compromise candidate": at Baltimore "none of these men could
+  secure the two-thirds majority … a deadlock ensued. After thirty-four ballots, it became obvious that a
+  new candidate was needed", and "the Democrats handed Pierce the nomination on the forty-eighth ballot"
+- Foreign Affairs supports the purchase: "Pierce was convinced by Secretary of War Jefferson Davis to send
+  Senator James Gadsden … to negotiate the Gadsden Purchase with Mexico"
+- Domestic Affairs supports the rest: "Congress passed Douglas's Kansas-Nebraska Act in May 1854, and Pierce
+  signed it"; that popular sovereignty meant "proslavery agitators streamed into Kansas"; that "by the end
+  of Pierce's term, the Kansas territory was the scene of violence and bloodshed, hence its nickname,
+  'Bleeding Kansas'"; and that "his party abandoned him as a presidential candidate in 1856 and chose James
+  Buchanan"
+- used by: `Franklin_Pierce`
+
+### nara-kansas-nebraska · the Act itself
+National Archives and Records Administration, "Kansas-Nebraska Act (1854)," Milestone Documents,
+https://www.archives.gov/milestone-documents/kansas-nebraska-act. [Open access]
+- opened: 2026-08-02
+- supports: that the act, "Officially titled 'An Act to Organize the Territories of Nebraska and Kansas' …
+  repealed the Missouri Compromise … and reopened the national struggle over slavery in the western
+  territories", and that Douglas "argued in favor of popular sovereignty, or the idea that the settlers of
+  the new territories should decide if slavery would be legal there"
+- used by: `Franklin_Pierce`
+
+### mc-buchanan-lib / mc-buchanan-lbp · the fifteenth presidency
+William Cooper, "James Buchanan: Life in Brief," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/buchanan/life-in-brief. [Open access]
+William Cooper, "James Buchanan: Life Before the Presidency," Miller Center of Public Affairs, University
+of Virginia, https://millercenter.org/president/buchanan/life-before-the-presidency. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports: "membership in both houses of Congress, ambassadorships, and a cabinet post"; that
+  he "asserted that slavery should be a matter for individual states and territories to decide for
+  themselves"; the Dred Scott decision announced "two days after Buchanan's inauguration"; that he
+  "endorsed a proslavery constitution for Kansas"; and that "Six weeks after Lincoln's election, South
+  Carolina left the Union, and within another six weeks, six other states followed. Maintaining that he
+  lacked power, the lame-duck Buchanan took no action to stop secession"
+- Life Before the Presidency supplies the London posting the Secretary-of-State biography cannot: Pierce
+  named "the Pennsylvanian to the critical post of **minister to England**"
+- used by: `James_Buchanan`
+
+### oh-buchanan-sos · minister to Russia, and the cabinet post
+Office of the Historian, U.S. Department of State, "Biographies of the Secretaries of State: James Buchanan
+(1791–1868)," https://history.state.gov/departmenthistory/people/buchanan-james. [Open access]
+- opened: 2026-08-02
+- supports: that "James Buchanan was appointed Secretary of State by President James K. Polk on March 6,
+  1845"; that "In 1832, President Andrew Jackson made Buchanan **Minister Plenipotentiary to Russia**"; and
+  the House and Senate service before it
+- used by: `James_Buchanan`
+
+### whha-buchanan · the one who never married
+White House Historical Association, "James Buchanan," Presidents and First Ladies,
+https://www.whitehousehistory.org/bios/james-buchanan. [Open access]
+- opened: 2026-08-02 · reachable to `curl`; the host is user-agent sensitive, as P2 found
+- supports the term's closing clause outright: "**James Buchanan was the only president who never married.**"
+  The Miller Center's Family Life essay says only "Though a bachelor", which is not the superlative the term
+  makes
+- used by: `James_Buchanan`
+
+### mc-lincoln-lib / mc-lincoln-death · the sixteenth presidency
+Michael Burlingame, "Abraham Lincoln: Life in Brief," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/lincoln/life-in-brief. [Open access]
+Michael Burlingame, "Abraham Lincoln: Death of the President," Miller Center of Public Affairs, University
+of Virginia, https://millercenter.org/president/lincoln/death-of-the-president. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports: "Born dirt-poor in a log cabin in Kentucky in 1809, Lincoln grew up in frontier
+  Kentucky and Indiana, where he was largely self-educated"; that he "taught himself law"; his 1860
+  opposition to "the expansion of slavery westward"; **the secession sequence the term now follows** —
+  "When Abraham Lincoln was elected President in 1860, **seven** slave states left the Union to form the
+  Confederate States of America, and **four more joined when hostilities began**"; the Emancipation
+  Proclamation "in January of 1863"; and "His Gettysburg Address, delivered after the Battle of Gettysburg"
+- Death of the President dates the killing: Lee's surrender "occurred on April 9", and "**Five days
+  later**, as the victorious Lincoln watched … at Ford's Theater **in Washington, D.C.**, a darkly clad
+  figure … shot the President point-blank"
+- used by: `Abraham_Lincoln`
+
+### nara-13th-amendment · the amendment he pushed through
+National Archives and Records Administration, "13th Amendment to the U.S. Constitution: Abolition of
+Slavery (1865)," Milestone Documents, https://www.archives.gov/milestone-documents/13th-amendment.
+[Open access]
+- opened: 2026-08-02
+- supports the term's "pushed through the amendment abolishing slavery": that "Lincoln recognized that the
+  Emancipation Proclamation would have to be followed by a constitutional amendment in order to guarantee
+  the abolishment of slavery"; that "though the Senate passed it in April 1864, the House initially did
+  not. At that point, **Lincoln took an active role to ensure passage through Congress**"; and that "the
+  House passed the bill in January 1865 with a vote of 119–56"
+- used by: `Abraham_Lincoln`
+
+### mc-ajohnson-lib · the seventeenth presidency
+Elizabeth R. Varon, "Andrew Johnson: Life in Brief," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/johnson/life-in-brief. [Open access]
+- opened: 2026-08-02
+- supports: Johnson apprenticed to a tailor and setting up "shop as a tailor" in Greeneville; that "When
+  Tennessee left the Union after the election of Abraham Lincoln, Johnson broke with his home state,
+  becoming **the only Southern senator to retain his seat in the U.S. Senate**"; the lenient Reconstruction
+  he "rushed through" while Congress was in recess, including pardons and the "black codes"; his vetoes of
+  the Freedmen's Bureau Bill and the Civil Rights Act; and the impeachment vote of "126 to 47 in February
+  1868"
+- used by: `Andrew_Johnson`
+
+### senate-johnson-impeachment · the trial, from the body that held it
+United States Senate, "The Impeachment Trial of President Andrew Johnson, 1868," Senate Historical Office,
+https://www.senate.gov/about/powers-procedures/impeachment/impeachment-johnson.htm. [Open access]
+- opened: 2026-08-02 · **a real page on senate.gov, not the 404 shell** — 92 KB against the shell's 37.5 KB,
+  which is how P1's and P2's finding is checked in practice
+- supports: "This clash culminated in the House of Representatives voting, on **February 24, 1868**, to
+  impeach the president"; that the trial ran from 5 March to 16 May; that "the president had won acquittal";
+  and the margin the term claims — "A clear majority voted against the president, but **the tally fell one
+  vote short of the necessary two-thirds majority to convict**", the roll being "35 to 19 to acquit on
+  article 11"
+- used by: `Andrew_Johnson`
+
+### oh-alaska-purchase · the purchase of 1867
+Office of the Historian, U.S. Department of State, "Purchase of Alaska, 1867," Milestones in the History of
+U.S. Foreign Relations, https://history.state.gov/milestones/1866-1898/alaska-purchase. [Open access]
+- opened: 2026-08-02
+- supports: that Seward "on March 30, 1867, agreed to a proposal from Russian Minister in Washington,
+  Edouard de Stoeckl, to purchase Alaska for $7.2 million", and that "This purchase ended Russia's presence
+  in North America"
+- used by: `Andrew_Johnson`
+
+### NOT CITED (batch P3) — what could not be sourced, and what is kept unmarked
+- **`senate.gov` is not uniformly broken**, and P1's and P2's finding needs this refinement: its
+  *impeachment* pages are real and substantial, while its *party-history* and *vice-president* paths return
+  the 404 shell with a 200 status. The shell is a constant **37,523 bytes**; a size check distinguishes the
+  two instantly, which is the cheapest form of "check the body, not the code".
+- `history.state.gov/milestones/1830-1860/kansas-nebraska` and
+  `archives.gov/milestone-documents/fugitive-slave-act` are both 404 — the Kansas-Nebraska Act is a NARA
+  milestone rather than a State Department one, and the Fugitive Slave Act has no NARA milestone page of its
+  own, being folded into the Compromise of 1850. The Avalon Project supplied the statute instead.
+- Kept unmarked, uncontradicted, in nothing opened: Taylor's "four decades in the army" as a round figure
+  (his commission is dated 1808 and the war ends in 1848, so it follows, but no source says it); Fillmore's
+  "anti-immigrant Know Nothing movement" as a simplification of the Whig-American fusion the essay names;
+  Buchanan's "long record in Congress" as a characterisation; Lincoln's being "an American lawyer"; and
+  Johnson's "resisting measures to protect the rights of freed people" as a summary of the vetoes the essay
+  itemises.
+
+## Batch P4 — Grant to McKinley (GLOSSARY, 2026-08-02)
+
+Seven terms — the largest batch of the pass — 27 citation slots from **twenty-three distinct works, every
+one of them open**, and none from this register. P3's warning was right and understated: **only two of the
+seven terms were carried by the *Life in Brief* alone.** Grant needed four essays, Hayes and McKinley three
+each, and Benjamin Harrison's two legislative claims are in none of his essays at all and had to come from
+the Miller Center's own **Key Events** timeline.
+
+**Two corrections, both on `Rutherford_B._Hayes`, and both are the plan's Phase 2 warning arriving
+exactly as written**: a characterisation the cited work does not make, and a verb doing more work than the
+record supports.
+
+### Verified citations (batch P4)
+
+### mc-grant-lib / -lbp / -domestic / -foreign · the eighteenth presidency
+Joan Waugh, "Ulysses S. Grant: Life in Brief," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/grant/life-in-brief. [Open access]
+Joan Waugh, "Ulysses S. Grant: Life Before the Presidency," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/grant/life-before-the-presidency. [Open access]
+Joan Waugh, "Ulysses S. Grant: Domestic Affairs," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/grant/domestic-affairs. [Open access]
+Joan Waugh, "Ulysses S. Grant: Foreign Affairs," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/grant/foreign-affairs. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports: Grant as "the Union general who led the United States to victory over the
+  Confederate States of America"; that "scandals tended to divert attention from the administration's
+  policy agenda" and that "Although Grant was never personally implicated in any of the scandals, he did
+  not disassociate himself from the members of his administration who were guilty"; and that "He also
+  executed a successful foreign policy and was responsible for improving Anglo-American relations"
+- Life Before the Presidency supplies the command and the surrender: "In early 1864, President Lincoln named
+  Grant **lieutenant general and commander of all Union forces**", and "Union troops trapped the main
+  Confederate Army west of Richmond and forced a surrender **on April 9, 1865, at the little village
+  crossroads of Appomattox Court House**"
+- Domestic Affairs supplies the Klan and the panic: "Beginning in 1870, Congress passed a series of laws
+  known collectively as the Enforcement Acts to help protect the right to vote. One of these was the **Ku
+  Klux Klan Act, which Grant signed in April 1871** to counter the rise of terrorist activity in the South";
+  and "The Panic of 1873 and the subsequent depression"
+- Foreign Affairs supplies the settlement with Britain: the Alabama Claims "strained British and American
+  relations", and the joint commission "agreed to submit the Alabama Claims to **international
+  arbitration**"
+- used by: `Ulysses_S._Grant`
+
+### nara-15th-amendment · the vote guaranteed
+National Archives and Records Administration, "15th Amendment to the U.S. Constitution: Voting Rights
+(1870)," Milestone Documents, https://www.archives.gov/milestone-documents/15th-amendment. [Open access]
+- opened: 2026-08-02
+- supports: "Passed by Congress February 26, 1869, and ratified February 3, 1870, the 15th Amendment granted
+  African American men the right to vote" — the term's "the amendment guaranteeing Black men the vote",
+  which Grant urged in his inaugural address
+- used by: `Ulysses_S._Grant`
+
+### mc-hayes-lib / -campaigns / -domestic · the nineteenth presidency
+Robert D. Johnston, "Rutherford B. Hayes: Life in Brief," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/hayes/life-in-brief. [Open access]
+Robert D. Johnston, "Rutherford B. Hayes: Campaigns and Elections," Miller Center of Public Affairs,
+University of Virginia, https://millercenter.org/president/hayes/campaigns-and-elections. [Open access]
+Robert D. Johnston, "Rutherford B. Hayes: Domestic Affairs," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/hayes/domestic-affairs. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports: Hayes as a lawyer in Cincinnati and an officer "**wounded five times in the war**"
+  who ended it a brigadier general; "governor of Ohio (1868-1872, 1876-1877)"; that "Congress set up a
+  special commission that awarded the disputed electoral college votes to Hayes"; and, crucially, what
+  became of the troops — "Reconstruction ended completely when, within two months of his inauguration,
+  **Hayes ordered those federal troops to their barracks**", the Republican governments they protected being
+  by then only those in New Orleans and Columbia
+- **Campaigns and Elections is what corrected the term**: "That southern Democrats and Hayes's friends
+  negotiated is a virtual certainty, but **that they struck any 'deal,' 'bargain,' or compromise that
+  offered anything beyond what Hayes promised to do in his letter of acceptance is doubtful**." It also
+  carries the one-term pledge: "In his acceptance letter, Hayes called for a reform of the civil service and
+  **pledged to serve only one term**, lest patronage be used to secure his reelection"
+- Domestic Affairs supports the civil service fight: a "'thorough, radical, and complete' reform of the
+  civil service", pursued against Blaine, Cameron and Conkling
+- used by: `Rutherford_B._Hayes`
+
+### mc-garfield-lib / mc-garfield-death · the twentieth presidency
+Justus Doenecke, "James A. Garfield: Life in Brief," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/garfield/life-in-brief. [Open access]
+Justus Doenecke, "James A. Garfield: Death of the President," Miller Center of Public Affairs, University
+of Virginia, https://millercenter.org/president/garfield/death-of-the-president. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports: Garfield "supporting himself as a part-time teacher, a carpenter, and even a
+  janitor through college"; the Civil War reputation that "earned him a seat in the House of
+  Representatives"; and the assassination "by Charles Julius Guiteau, an emotionally disturbed man **who
+  had failed to gain an appointment in Garfield's administration**"
+- Death of the President supplies the date, the place and the cause: "**On July 2, 1881**, at 9:20 a.m. …
+  Garfield was shot in the back as he walked with Secretary of State Blaine in **Washington's Baltimore and
+  Potomac train station**", and "**On September 19, 1881**, the President died of **blood poisoning and
+  complications from the shooting**"
+- **A slip in the Life in Brief, recorded and not followed**: it dates the shooting "a mere 100 days after
+  he assumed office", where 4 March to 2 July 1881 is 120 days. The term counts the whole term instead —
+  "about six months", 4 March to 19 September — which is right and which the Death of the President essay's
+  two dates support
+- used by: `James_A._Garfield`
+
+### nara-pendleton · the merit system
+National Archives and Records Administration, "Pendleton Act (1883)," Milestone Documents,
+https://www.archives.gov/milestone-documents/pendleton-act. [Open access]
+- opened: 2026-08-02
+- supports: "Approved on January 16, 1883, the Pendleton Act **established a merit-based system of selecting
+  government officials** and supervising their work" — cited on Garfield for the reform his killing
+  provoked, and on Arthur for the act he signed
+- used by: `James_A._Garfield`, `Chester_A._Arthur`
+
+### mc-arthur-lib / mc-arthur-foreign · the twenty-first presidency
+Justus Doenecke, "Chester A. Arthur: Life in Brief," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/arthur/life-in-brief. [Open access]
+Justus Doenecke, "Chester A. Arthur: Foreign Affairs," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/arthur/foreign-affairs. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports: that Conkling "helped Arthur get appointed as **collector of the Port of New
+  York**" and that Arthur "routinely collected kickbacks of salary called 'assessments' from customs house
+  employees"; that as president he "surprised everyone by acting independently, defying his state-based
+  reputation as a slick machine politician"; that he "supported the Pendleton Act"; and that "Because he
+  knew that he suffered from a fatal kidney disease, **Arthur did not actively seek reelection**"
+- Foreign Affairs supplies the navy: "his presidency is remembered for having taken the crucial first steps
+  in building a modern navy … Known as the '**Father of the Steel Navy**,' Arthur sought the construction of
+  steam-powered steel cruisers, steel rams, and steel-clad gunboats"
+- used by: `Chester_A._Arthur`
+
+### nara-chinese-exclusion · what the Act actually barred
+National Archives and Records Administration, "Chinese Exclusion Act (1882)," Milestone Documents,
+https://www.archives.gov/milestone-documents/chinese-exclusion-act. [Open access]
+- opened: 2026-08-02
+- supports the term's wording against the Miller Center's: "This act provided an absolute 10-year ban on
+  **Chinese laborers** immigrating to the United States", the statute defining laborers as "skilled and
+  unskilled". **The Miller Center's Life in Brief says the Act banned "Chinese immigration for ten years and
+  forbidding Chinese citizenship", which is looser than the statute** — so the clause is cited to the Act
+  rather than to the essay, and the term's "barred Chinese labourers from immigrating" stands
+- used by: `Chester_A._Arthur`
+
+### mc-cleveland-lib / mc-cleveland-domestic · the twenty-second and twenty-fourth presidencies
+Henry F. Graff, "Grover Cleveland: Life in Brief," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/cleveland/life-in-brief. [Open access]
+Henry F. Graff, "Grover Cleveland: Domestic Affairs," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/cleveland/domestic-affairs. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports: that businessmen "asked Cleveland, then a young lawyer, to run for **mayor of
+  Buffalo**"; that "As mayor, Cleveland exposed city corruption and earned such a reputation for honesty and
+  hard work that he **won the New York gubernatorial race in 1882**"; and that "His **record-breaking use of
+  the presidential veto** earned him the deserved moniker of the 'guardian President'"
+- Domestic Affairs supports the money, the tariff and the strike: "Always a hard-currency advocate (he
+  thought that paper money should be backed by gold)"; "tariff reduction"; "Cleveland's second
+  administration began in 1893, just as the nation entered the most severe depression in its history"; and
+  that in the 1894 Pullman strike, "Even though the governor of Illinois, John Altgeld, did not want
+  Cleveland to use federal troops to break the strike, **the President did so anyway**"
+- used by: `Grover_Cleveland`
+
+### mc-bharrison-lib / mc-bharrison-key-events · the twenty-third presidency
+Allan B. Spetter, "Benjamin Harrison: Life in Brief," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/bharrison/life-in-brief. [Open access]
+Miller Center of Public Affairs, University of Virginia, "Benjamin Harrison: Key Events,"
+https://millercenter.org/president/bharrison/key-events. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports: that "he was **the grandson of the nation's ninth President, William Henry
+  Harrison**"; that he was "named to the United States Senate by the Indiana state legislature" in 1880 and
+  in the Senate "championed pensions for Civil War veterans, high protective tariffs, a modernized navy";
+  the 1888 result — "**Cleveland had received the larger number of popular votes, but Harrison had carried
+  the Electoral College**"; the "**McKinley Tariff of 1890**, which imposed high import duties"; and "the
+  landmark Sherman Antitrust Act, **the first bill ever to attempt to limit the power of America's giant
+  corporations**"
+- **Key Events is the only Miller Center page carrying the term's last two claims**, neither of which
+  appears in any Harrison essay: the "**Dependent Pension Bill … providing benefits to Union veterans as well
+  as to their children and widows**", and the six admissions — "North and South Dakota join the Union as the
+  thirty-ninth and fortieth states", Montana, "Washington is admitted as the forty-second state", "Idaho …
+  the forty-third", "Wyoming … the forty-fourth"
+- used by: `Benjamin_Harrison`
+
+### nara-sherman-antitrust · the first federal law against monopolies
+National Archives and Records Administration, "Sherman Anti-Trust Act (1890)," Milestone Documents,
+https://www.archives.gov/milestone-documents/sherman-anti-trust-act. [Open access]
+- opened: 2026-08-02
+- supports: "The Sherman Anti-trust Act of 1890 was **the first measure passed by the U.S. Congress to
+  prohibit trusts**"
+- used by: `Benjamin_Harrison`
+
+### mc-mckinley-lib / -domestic / -death · the twenty-fifth presidency
+Lewis L. Gould, "William McKinley: Life in Brief," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/mckinley/life-in-brief. [Open access]
+Lewis L. Gould, "William McKinley: Domestic Affairs," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/mckinley/domestic-affairs. [Open access]
+Lewis L. Gould, "William McKinley: Death of the President," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/mckinley/death-of-the-president. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports: "His **McKinley Tariff of 1890** established substantially higher tariff rates on
+  imported goods"; that in 1896 he "argued that his commitment to protective tariffs on imported goods would
+  cure unemployment and stimulate industrial growth"; the war "over Cuban independence", declared "On April
+  25, 1898"; the annexation — "To secure America's position in the Pacific, McKinley immediately pushed a
+  joint resolution through Congress to **annex the Hawaiian Islands**"; and the peace, which "gave the
+  United States control of former Spanish colonies, **the Philippines, Puerto Rico, and Guam**"
+- Domestic Affairs supplies the currency: "**In 1900, he signed the Gold Standard Act, which formally placed
+  U.S. money on the gold standard**"
+- Death of the President supplies the killing: McKinley "was off to **Buffalo, New York**" on 6 September
+  1901; Czolgosz was "an unemployed mill worker of **anarchist sentiments**"; and "he died on **September
+  14, 1901, just six months after his second inauguration**" — the term's "eight days later"
+- used by: `William_McKinley`
+
+### oh-spanish-american-war · what the war of 1898 settled
+Office of the Historian, U.S. Department of State, "The Spanish-American War, 1898," Milestones in the
+History of U.S. Foreign Relations, https://history.state.gov/milestones/1866-1898/spanish-american-war.
+[Open access]
+- opened: 2026-08-02
+- supports: that "The Spanish-American War of 1898 **ended Spain's colonial empire in the Western
+  Hemisphere**", Spain agreeing "to relinquish claims on Cuba, and to cede sovereignty over Guam, Puerto
+  Rico, and" the Philippines
+- used by: `William_McKinley`
+
+### NOT CITED (batch P4) — what could not be sourced, and what is kept unmarked
+- **Two Office of the Historian milestone slugs that look obvious do not exist**:
+  `/milestones/1866-1898/treaty-of-paris`, `/milestones/1866-1898/hawaii` and
+  `/milestones/1861-1865/alabama-claims` are all 404. The war's settlement is folded into the
+  Spanish-American War page, the annexation of Hawaii into the McKinley essay, and the Alabama Claims into
+  the Miller Center's Grant Foreign Affairs essay.
+- **Neither Miller Center essay for Benjamin Harrison carries the Dependent Pension Act or the six new
+  states**, which are two of that term's four legislative claims. The **Key Events** timeline does, and is
+  the page cited. Worth remembering for P5–P7: when an essay is silent, the president's Key Events page is
+  a dated list of exactly the kind of claim a three-sentence description makes.
+- Kept unmarked, uncontradicted, in nothing opened: Grant's "eighteenth president … 1869 to 1877" as such;
+  Garfield's "nominated unexpectedly at a deadlocked convention" and "won a very narrow popular majority";
+  Arthur's "party hostility" as a second reason he was not renominated, where the essay gives only his
+  health; Cleveland's "opposing what he saw as favours to private interests" as a characterisation of the
+  vetoes; and Benjamin Harrison's "Civil War officer", which the Life in Brief implies without stating.
+
+## Batch P5 — Theodore Roosevelt to Hoover (GLOSSARY, 2026-08-02)
+
+Six terms, 28 citation slots from **twenty-two distinct works, every one of them open**, none from this
+register. P4's rule held exactly: **not one of the six was carried by the *Life in Brief* alone.** Theodore
+Roosevelt needed four Miller Center essays, Harding three, Wilson and Coolidge and Hoover two each — and the
+Office of the Historian carried five claims no essay did, because from 1901 the presidencies turn on
+treaties and conferences.
+
+**Two corrections, and they are a matched pair on the same statute** — which is what the sibling-consistency
+check is for. `William_Howard_Taft` was credited with creating a federal budget system he did not create,
+and `Warren_G._Harding` with creating a bureau his own cited essay does not mention; the Budget and
+Accounting Act of 1921 sits between them and settles both.
+
+### Verified citations (batch P5)
+
+### mc-troosevelt-lib / -lbp / -domestic / -foreign · the twenty-sixth presidency
+Sidney Milkis, "Theodore Roosevelt: Life in Brief," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/roosevelt/life-in-brief. [Open access]
+Sidney Milkis, "Theodore Roosevelt: Life Before the Presidency," Miller Center of Public Affairs, University
+of Virginia, https://millercenter.org/president/roosevelt/life-before-the-presidency. [Open access]
+Sidney Milkis, "Theodore Roosevelt: Domestic Affairs," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/roosevelt/domestic-affairs. [Open access]
+Sidney Milkis, "Theodore Roosevelt: Foreign Affairs," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/roosevelt/foreign-affairs. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports: that he "came into office in 1901 and served until 1909" and "significantly
+  expanded the influence and power of the executive office"; that he "used executive orders to accomplish
+  his goals, especially in conservation"; and the 1912 run — "**TR threw his hat into the ring as a
+  candidate for the Progressive Party**"
+- Life Before the Presidency supplies the age: "**He was the youngest person ever to serve in that
+  capacity**"
+- Domestic Affairs supplies the three domestic claims: the Northern Securities suit under "the Sherman
+  Antitrust Act", which "former Presidents had only used … sparingly"; "**the Hepburn Act**, proposed
+  enhancing the powers of the Interstate Commerce Commission to include the ability to regulate shipping
+  rates on railroads"; "**the Meat Inspection Act and the Pure Food and Drug Act of 1906**"; and the
+  reserves — "Roosevelt used his presidential authority to issue executive orders to create **150 new
+  national forests, increasing the amount of protected land from 42 million acres to 172 million acres**"
+- Foreign Affairs supplies the navy and the canal: he built the Navy "into one of the largest in the world,
+  by convincing Congress to add battleships to the fleet"; and "In 1903, the **Hay-Bunau-Varilla Treaty**
+  with Panama gave the United States perpetual control of the canal". It also states the mediation and the
+  prize — "**For his role as mediator, Roosevelt won the Nobel Prize for Peace**"
+- used by: `Theodore_Roosevelt`
+
+### oh-portsmouth · the war he mediated
+Office of the Historian, U.S. Department of State, "The Treaty of Portsmouth and the Russo-Japanese War,
+1904–1905," Milestones in the History of U.S. Foreign Relations,
+https://history.state.gov/milestones/1899-1913/portsmouth-treaty. [Open access]
+- opened: 2026-08-02
+- supports: that "he won the Nobel Peace Prize for his efforts in moderating the talks and pushing toward
+  peace" between Russia and Japan. **Neither this page nor the Miller Center gives the YEAR of the prize**;
+  the term's "in 1906" is left unmarked and uncontradicted
+- used by: `Theodore_Roosevelt`
+
+### mc-taft-lib / mc-taft-domestic · the twenty-seventh presidency
+Peri E. Arnold, "William Howard Taft: Life in Brief," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/taft/life-in-brief. [Open access]
+Peri E. Arnold, "William Howard Taft: Domestic Affairs," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/taft/domestic-affairs. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports: that "Taft's service in the Philippines from 1900 to 1903 was fulfilling and
+  largely successful" and that he left "to become Roosevelt's **secretary of war** in 1903"; that he "termed
+  his policy '**dollar diplomacy**'"; the 1912 split, Roosevelt having "bolted from the Republican Party to
+  form his own 'Bull-Moose' party"; and that "Taft's lifelong ambition was to serve as **Chief Justice of
+  the United States**, to which he was appointed after leaving the presidency"
+- Domestic Affairs supplies the antitrust count and **the correction**: "**More trust prosecutions (99, in
+  all) occurred under Taft than under Roosevelt**, who was known as the 'Great Trust-Buster'"; and, on the
+  budget, "Taft promoted an administrative innovation whereby the President, rather than the disparate
+  agencies of government, would submit a budget to Congress. **Congress prohibited that action**, but Taft's
+  effort foreshadowed the creation of the executive budget in the **Budget and Accounting Act of 1921**"
+- The Campaigns and Elections essay, consulted but not cited, gives the 1912 result: "Wilson compiled 435
+  electoral votes to 88 for Roosevelt and **8 for Taft**"
+- used by: `William_Howard_Taft`
+
+### mc-wilson-lib / mc-wilson-domestic · the twenty-eighth presidency
+Saladin Ambar, "Woodrow Wilson: Life in Brief," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/wilson/life-in-brief. [Open access]
+Saladin Ambar, "Woodrow Wilson: Domestic Affairs," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/wilson/domestic-affairs. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports: the academic career — "Wilson was elected **president of Princeton in 1902**" —
+  and the New Jersey governorship of 1910; that "Under his leadership, his administration **expanded the
+  segregation of federal offices and the civil service**"; "the passage of the **Federal Reserve Act of
+  1913**"; the 1917 declaration of war; the Fourteen Points speech of 8 January 1918; and the stroke —
+  "Near the end of the tour, Wilson collapsed from exhaustion, and a few days later … he suffered a massive
+  stroke"
+- Domestic Affairs supplies the tariff, the tax and the trade and labour laws: "the **Underwood-Simmons
+  Act**, which achieved the most significant reductions in rates since the Civil War"; that it offset the
+  lost revenue "by providing for a small, graduated **income tax** as authorized by the Sixteenth
+  Amendment"; the **Clayton Antitrust Act** of 1914 and the **Federal Trade Commission** law of the same
+  year; and the cabinet-level Department of Labor
+- used by: `Woodrow_Wilson`
+
+### oh-fourteen-points / oh-league · the war aims and what became of them
+Office of the Historian, U.S. Department of State, "Wilson's Fourteen Points, 1918," Milestones in the
+History of U.S. Foreign Relations, https://history.state.gov/milestones/1914-1920/fourteen-points.
+[Open access]
+Office of the Historian, U.S. Department of State, "The League of Nations, 1920," Milestones in the History
+of U.S. Foreign Relations, https://history.state.gov/milestones/1914-1920/league. [Open access]
+- opened: 2026-08-02
+- the Fourteen Points page carries the speech and its programme; the League page carries the Senate fight
+  and its outcome — the ratification resolutions "were defeated by a 49-35 Senate vote", and "**The United
+  States never joined the League**"
+- used by: `Woodrow_Wilson`
+
+### mc-harding-lib / -domestic / -death · the twenty-ninth presidency
+Eugene P. Trani, "Warren G. Harding: Life in Brief," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/harding/life-in-brief. [Open access]
+Eugene P. Trani, "Warren G. Harding: Domestic Affairs," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/harding/domestic-affairs. [Open access]
+Eugene P. Trani, "Warren G. Harding: Death of the President," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/harding/death-of-the-president. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports: that "Harding brought a nearly bankrupt newspaper, the **Marion Star**, back to
+  life"; that he became "a U.S. senator from Ohio in 1914"; the "**massive landslide**" of 1920; and that
+  "He allowed Andrew Mellon to push through **tax cuts**"
+- Domestic Affairs supplies the budget, the tariff and Teapot Dome: "Harding signed a revised version of the
+  **Budget and Accounting Act of 1921, which allowed the President to present a unified budget for the first
+  time** (rather than have each cabinet secretary submit a budget to Congress), and which also created the
+  General Accounting Office"; "the **Fordney-McCumber Tariff Act** that reversed the downward movement in
+  rates initiated by Wilson"; and "**Albert Fall, secretary of the interior**, secretly allowed private oil
+  companies to tap the **Teapot Dome** oil reserve in Wyoming and the Elk Hills oil reserve in California in
+  return for [at] least $300,000 paid to him in **bribes**"
+- Death of the President supplies the place and date: "The presidential train rushed to **San Francisco** …
+  On **August 2**, he most likely suffered a heart attack in the evening"
+- **The essay does not mention the Bureau of the Budget**, which the 1921 Act also created, and no reachable
+  government page states it — `gao.gov` is 403 here and `whitehouse.gov/omb` carries no history. The term's
+  clause was rewritten to what the essay does state
+- used by: `Warren_G._Harding`
+
+### oh-naval-conference · the fleets limited
+Office of the Historian, U.S. Department of State, "The Washington Naval Conference, 1921–1922," Milestones
+in the History of U.S. Foreign Relations, https://history.state.gov/milestones/1921-1936/naval-conference.
+[Open access]
+- opened: 2026-08-02
+- supports: the conference and "the **Five-Power Treaty**, signed by the United States, the United Kingdom,
+  Japan" and others, which limited capital-ship tonnage
+- used by: `Warren_G._Harding`
+
+### mc-coolidge-lib / mc-coolidge-domestic · the thirtieth presidency
+David Greenberg, "Calvin Coolidge: Life in Brief," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/coolidge/life-in-brief. [Open access]
+David Greenberg, "Calvin Coolidge: Domestic Affairs," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/coolidge/domestic-affairs. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports: that he was "born on Independence Day, 1872, and raised in **Plymouth Notch,
+  Vermont**"; that he practised "law in Northampton, **Massachusetts**" and served as its **governor**; the
+  silence — "sitting silently during cabinet meetings and seldom speaking"; the economics — "he favored
+  **low taxes**, reduced regulation of business, and a **balanced budget**"; and that "**Coolidge chose not
+  to run** for a second term because his republican political philosophy led him to value highly the
+  unwritten two-term precedent"
+- Domestic Affairs supplies the immigration law: "He signed the **Immigration Act of 1924, which set strict
+  quotas on the number of eastern and southern Europeans** allowed into America and excluded the Japanese
+  altogether"
+- used by: `Calvin_Coolidge`
+
+### oh-immigration-1924 · the Johnson-Reed Act
+Office of the Historian, U.S. Department of State, "The Immigration Act of 1924 (The Johnson-Reed Act),"
+Milestones in the History of U.S. Foreign Relations, https://history.state.gov/milestones/1921-1936/immigration-act.
+[Open access]
+- opened: 2026-08-02
+- supports: that "The Immigration Act of 1924 limited the number of immigrants allowed entry into" the
+  United States through national-origin quotas
+- used by: `Calvin_Coolidge`
+
+### nara-indian-citizenship-act · the citizenship law
+National Archives and Records Administration, "Indian Citizenship Act," Act of June 2, 1924, Public Law
+68-175, 43 Stat. 253, National Archives Identifier 299828, DocsTeach,
+https://www.docsteach.org/documents/document/indian-citizenship-act. [Open access]
+- opened: 2026-08-02
+- supports the term's closing clause: the Act of **June 2, 1924** "extended citizenship to the approximately
+  125,000 Native Americans who were still not recognized as American citizens in 1924"
+- **Route worth remembering**: `archives.gov/milestone-documents/indian-citizenship-act` is 404 and there is
+  no NARA milestone page for this act, but **DocsTeach — the National Archives' own document-teaching
+  site — carries the record itself**, with its statute citation and NARA identifier. When a milestone slug
+  404s, try `docsteach.org` before giving up on the Archives
+- used by: `Calvin_Coolidge`
+
+### mc-hoover-lib / mc-hoover-domestic · the thirty-first presidency
+David E. Hamilton, "Herbert Hoover: Life in Brief," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/hoover/life-in-brief. [Open access]
+David E. Hamilton, "Herbert Hoover: Domestic Affairs," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/hoover/domestic-affairs. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports: that "After graduating from Stanford with a degree in geology, Hoover became a
+  **mining engineer**" and "By 1914 … was a millionaire"; that as head of the Food Administration "Hoover
+  organized and administered several private **relief** efforts before, during, and after the war"; that he
+  served "in the Harding and Coolidge administrations as **secretary of commerce**"; that "**Within eight
+  months of his inauguration, the stock market crashed**"; that "he preferred a **voluntary**,
+  non-governmental approach to economic matters"; that "the **Hawley-Smoot Tariff** bill that Hoover signed
+  … retarded growth and recovery by raising tariffs … and stifling international trade"; and that "Roosevelt
+  won the contest handily"
+- Domestic Affairs supplies the loans: "Congress created the **RFC** in early 1932", and "In the summer of
+  1932, he signed the Emergency Relief Construction Act, which provided $2 billion for public works projects
+  and **$300 million for direct relief programs run by state governments**"
+- used by: `Herbert_Hoover`
+
+### oh-protectionism · the tariff of 1930
+Office of the Historian, U.S. Department of State, "Protectionism in the Interwar Period," Milestones in the
+History of U.S. Foreign Relations, https://history.state.gov/milestones/1921-1936/protectionism.
+[Open access]
+- opened: 2026-08-02
+- supports the year and the effect: "the **Tariff Act of 1930**, more commonly known as the **Smoot-Hawley**"
+  tariff, and the retaliation and contraction of world trade that followed
+- used by: `Herbert_Hoover`
+
+### NOT CITED (batch P5) — what could not be sourced, and what is kept unmarked
+- **The Bureau of the Budget has no reachable source here.** `gao.gov` is 403 and `whitehouse.gov/omb`
+  carries no institutional history, so the 1921 Act's creation of the Bureau — true, and the thing
+  `Warren_G._Harding` originally claimed — could not be cited. The clause was rewritten to the unified
+  presidential budget, which the Miller Center does state.
+- **Neither TR source gives the YEAR of the Nobel Peace Prize.** "In 1906" is left unmarked and
+  uncontradicted.
+- **`history.state.gov/milestones/1899-1913/dollar-diplomacy` is 404** — the phrase is in the Taft Life in
+  Brief instead, in Taft's own words.
+- **`archives.gov/milestone-documents/federal-reserve-act` and `.../indian-citizenship-act` are both 404.**
+  The Federal Reserve Act is cited to the Miller Center; the Indian Citizenship Act to DocsTeach, which is
+  the Archives' own site and carries the record.
+- Kept unmarked, uncontradicted, in nothing opened: Taft as "the only person to hold both offices" and his
+  regarding the court years "as the happiest of his career", neither of which any essay states; Harding's
+  "easy manner" and Coolidge's "thrift" as characterisations; Hoover's winning "by a wide margin" in 1928,
+  where the Campaigns essay gives 58 percent and 444–87 but was not itself cited; and Hoover's losing "in a
+  landslide", where the Life in Brief says "handily".
+
+## Batch P6 — Franklin D. Roosevelt to Nixon (GLOSSARY, 2026-08-02)
+
+Six terms, 36 citation slots from **twenty-two distinct works, every one of them open**, none from this
+register. Coverage 121/333 → 127/333.
+
+**The batch's first finding is about every batch before it.** P1–P5 marked each term's opening sentence —
+"the Nth president of the United States, in office from X to Y" — to the Miller Center's *Life in Brief*.
+Most of those essays state neither the ordinal nor the term dates: the Hoover *Life in Brief* contains no
+"thirty-first" and no "1929" or "1933", and the Lincoln, McKinley and Coolidge essays are the same. The
+marker was not WRONG — the essay is about that presidency — but the specific numbers were resting on a page
+that does not carry them, which is G8's unmarked-clause problem wearing a marker. **The fix is the Miller
+Center's own landing page**, which carries a Fast Facts block giving `Inauguration Date`, `Date Ended` and
+`President Number` outright. All six P6 terms cite it; **the thirty terms of P1–P5 want the same top-up**,
+and that is recorded as a job rather than done here.
+
+**Two corrections, both on `Dwight_D._Eisenhower`, and both found by reading past the summary.**
+
+### Verified citations (batch P6)
+
+### mc-fastfacts-* · the ordinal and the term dates
+Miller Center of Public Affairs, University of Virginia, “Franklin D. Roosevelt,” Fast Facts,
+https://millercenter.org/president/fdroosevelt. [Open access]
+Miller Center of Public Affairs, University of Virginia, “Harry S. Truman,” Fast Facts,
+https://millercenter.org/president/truman. [Open access]
+Miller Center of Public Affairs, University of Virginia, “Dwight D. Eisenhower,” Fast Facts,
+https://millercenter.org/president/eisenhower. [Open access]
+Miller Center of Public Affairs, University of Virginia, “John F. Kennedy,” Fast Facts,
+https://millercenter.org/president/kennedy. [Open access]
+Miller Center of Public Affairs, University of Virginia, “Lyndon B. Johnson,” Fast Facts,
+https://millercenter.org/president/lbjohnson. [Open access]
+Miller Center of Public Affairs, University of Virginia, “Richard Nixon,” Fast Facts,
+https://millercenter.org/president/nixon. [Open access]
+- opened: 2026-08-02
+- each carries `President Number`, `Inauguration Date` and `Date Ended`, measured rather than inferred:
+  **32** / March 4, 1933 / April 12, 1945; **33** / April 12, 1945 / January 20, 1953; **34** /
+  January 20, 1953 / January 20, 1961; **35** / January 20, 1961 / November 22, 1963; **36** /
+  November 22, 1963 / January 20, 1969; **37** / January 20, 1969 / August 9, 1974
+- **This is the page to reach for whenever a term opens on an ordinal.** No presidential essay is obliged
+  to state the number, and most do not
+- used by: all six P6 terms
+
+### mc-fdr-lib / -domestic / -foreign / -campaigns · the thirty-second presidency
+William E. Leuchtenburg, “Franklin D. Roosevelt: Life in Brief,” Miller Center of Public Affairs,
+University of Virginia, https://millercenter.org/president/fdroosevelt/life-in-brief. [Open access]
+William E. Leuchtenburg, “Franklin D. Roosevelt: Domestic Affairs,” Miller Center of Public Affairs,
+University of Virginia, https://millercenter.org/president/fdroosevelt/domestic-affairs. [Open access]
+William E. Leuchtenburg, “Franklin D. Roosevelt: Foreign Affairs,” Miller Center of Public Affairs,
+University of Virginia, https://millercenter.org/president/fdroosevelt/foreign-affairs. [Open access]
+William E. Leuchtenburg, “Franklin D. Roosevelt: Campaigns and Elections,” Miller Center of Public Affairs,
+University of Virginia, https://millercenter.org/president/fdroosevelt/campaigns-and-elections. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports the polio and the paralysis — "Tragedy struck, however, in 1921. Roosevelt
+  contracted polio … that left him **paralyzed in his legs**" — the Depression, the New Deal, and the death:
+  "In **April 1945**, just weeks before the German surrender, the president collapsed and died of a cerebral
+  hemorrhage"
+- Domestic Affairs supplies each of the four things the term calls the New Deal: **banking regulation**
+  (the Glass-Steagall Act creating the FDIC; the Securities and Exchange Act creating the SEC), **relief**
+  (the CCC's 300,000 young men, the CWA's cash relief), **public works** (the PWA's $3 billion budget,
+  the WPA) and **social insurance** (the Social Security Act of 1935, Old Age Insurance, Unemployment
+  Insurance)
+- Foreign Affairs supplies the alliance: Lend-Lease, the Atlantic Charter with Churchill in August 1941,
+  and the "coalition of twenty-six nations … **FDR called this coalition the 'United Nations'**"
+- Campaigns and Elections supplies the third and fourth terms: "In 1940, Roosevelt decided to run for an
+  **unprecedented third term**"; "In 1944 … Roosevelt made it known … that he was willing to run for a
+  **fourth term**"
+- used by: `Franklin_D._Roosevelt`
+
+### nara-amendments · the two-term limit
+National Archives and Records Administration, “The Constitution: Amendments 11–27,” America’s Founding
+Documents, https://www.archives.gov/founding-docs/amendments-11-27. [Open access]
+- opened: 2026-08-02
+- Amendment XXII, with its own dates: "**Passed by Congress March 21, 1947. Ratified February 27, 1951.**
+  … No person shall be elected to the office of the President more than twice"
+- this is what makes "the only person elected to the office four times" a closed claim rather than an
+  unbounded one, and it is the reason the term's last clause exists
+- used by: `Franklin_D._Roosevelt`
+
+### mc-truman-lib / -foreign · the thirty-third presidency
+Alonzo L. Hamby, “Harry S. Truman: Life in Brief,” Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/truman/life-in-brief. [Open access]
+Alonzo L. Hamby, “Harry S. Truman: Foreign Affairs,” Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/truman/foreign-affairs. [Open access]
+- opened: 2026-08-02
+- Life in Brief is one of the few that DOES state the ordinal — "With the death of FDR on April 12, 1945,
+  Harry S. Truman became the **thirty-third President of the United States**" — and supplies the farm
+  ("Truman instead worked on the family farm between 1906 and 1914"), the shop ("Truman opened a men's
+  furnishings store"), the Senate ("In 1934, Truman was elected to the U.S. Senate"), the bombs ("On
+  **August 6 and 9, 1945**, the U.S. Army Air Force dropped atomic bombs on two cities, **Hiroshima and
+  Nagasaki**") and Korea ("committed the United States to the defense of South Korea in the summer of
+  **1950**")
+- Foreign Affairs supplies the whole of the third sentence bar the desegregation: the Truman Doctrine, in
+  which "He pledged U.S. support for the pro-Western governments of **Greece and Turkey**"; the **Marshall
+  Plan**, "a multi-billion dollar aid program for Europe"; the airlift — "Truman … **ordered an airlift of
+  food and fuel to break the blockade**"; **NATO**; and the UN founding conference in San Francisco
+- used by: `Harry_S._Truman`
+
+### nara-9981 · the armed forces desegregated
+National Archives and Records Administration, “Executive Order 9981: Desegregation of the Armed Forces
+(1948),” Milestone Documents, https://www.archives.gov/milestone-documents/executive-order-9981.
+[Open access]
+- opened: 2026-08-02
+- "On **July 26, 1948**, President Harry S. Truman signed this executive order **banning segregation in the
+  Armed Forces**", ordering "equality of treatment and opportunity for all persons in the armed forces
+  without regard to race, color, religion, or national origin"
+- used by: `Harry_S._Truman`
+
+### oh-truman-doctrine · Greece and Turkey
+Office of the Historian, U.S. Department of State, “The Truman Doctrine, 1947,” Milestones in the History
+of U.S. Foreign Relations, https://history.state.gov/milestones/1945-1952/truman-doctrine. [Open access]
+- opened: 2026-08-02
+- the milestone page for the aid the term names, beside Hamby's account of it
+- used by: `Harry_S._Truman`
+
+### mc-eisenhower-lib / -foreign · the thirty-fourth presidency, and one of the two corrections
+Chester J. Pach, “Dwight D. Eisenhower: Life in Brief,” Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/eisenhower/life-in-brief. [Open access]
+Chester J. Pach, “Dwight D. Eisenhower: Foreign Affairs,” Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/eisenhower/foreign-affairs. [Open access]
+- opened: 2026-08-02
+- Life in Brief states the ordinal outright ("the **thirty-fourth President of the United States**") and
+  supplies the courtship by both parties — "President Harry Truman privately proposed to Eisenhower that
+  they run together on the **Democratic** ticket in 1948 … In 1952, he declared that he was a
+  **Republican**" — the armistice ("Six months after he became President, Eisenhower agreed to an
+  **armistice** that ended three years of fighting in Korea"), the **Interstate Highway System in 1956**
+  and the federal troops at **Little Rock in 1957**
+- **Foreign Affairs carries the correction.** The term said he "kept military spending in check while
+  relying on nuclear deterrence". The essay says the opposite of the first half and something more precise
+  than the second: "Eisenhower's defense policies, which aimed at providing 'more bang for the buck,'
+  **cut spending on conventional forces while increasing the budget for the Air Force and for nuclear
+  weapons**. Even though **national security spending remained high—it never fell below 50 percent of the
+  budget during Eisenhower's presidency**—Eisenhower did balance three of the eight federal budgets."
+  The term now says he cut spending on conventional forces while building up nuclear weapons to deter the
+  Soviet Union
+- used by: `Dwight_D._Eisenhower`
+
+### eisenhower-library-chronology / -army-years · the second correction: a title six years early
+Dwight D. Eisenhower Presidential Library, Museum and Boyhood Home, “The Eisenhowers,” National Archives and
+Records Administration, https://www.eisenhowerlibrary.gov/eisenhowers. [Open access]
+Dwight D. Eisenhower Presidential Library, Museum and Boyhood Home, “Army Years,” National Archives and
+Records Administration, https://www.eisenhowerlibrary.gov/eisenhowers/army-years. [Open access]
+- opened: 2026-08-02
+- The term called him "**Supreme Allied Commander in Europe**" for the 1944 invasion. The Library's own
+  chronology dates that title six years later: "**December 1943: Appointed Supreme Commander, Allied
+  Expeditionary Forces.** June 6, 1944: Commanded forces of Normandy invasion." … "**December 16, 1950:
+  Named Supreme Allied Commander, North Atlantic Treaty Organization, Europe**". Supreme Allied Commander
+  Europe is the NATO post; the wartime command was the Allied Expeditionary Force. The term now says so
+- Army Years supplies the planning and the span of the command: "General Eisenhower turned his full
+  attention to **planning the invasion of Normandy, France, which occurred on June 6, 1944, D-Day**", and
+  that he was away from his family "until June 1945, **following the end of the war in Europe**"
+- **The Eisenhower Library is the one presidential library that paid in this batch, and it produced both
+  corrections.** See the access note below
+- used by: `Dwight_D._Eisenhower`
+
+### nara-farewell · the military-industrial complex
+National Archives and Records Administration, “President Dwight D. Eisenhower’s Farewell Address (1961),”
+Milestone Documents,
+https://www.archives.gov/milestone-documents/president-dwight-d-eisenhowers-farewell-address. [Open access]
+- opened: 2026-08-02
+- "On **January 17, 1961**, in this farewell address, President Dwight Eisenhower **warned against the
+  establishment of a 'military-industrial complex.'**"
+- used by: `Dwight_D._Eisenhower`
+
+### mc-kennedy-lib / -lbp / -foreign / -domestic / -death · the thirty-fifth presidency
+Marc J. Selverstone, “John F. Kennedy: Life in Brief,” Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/kennedy/life-in-brief. [Open access]
+Marc J. Selverstone, “John F. Kennedy: Life Before the Presidency,” Miller Center of Public Affairs,
+University of Virginia, https://millercenter.org/president/kennedy/life-before-the-presidency. [Open access]
+Marc J. Selverstone, “John F. Kennedy: Foreign Affairs,” Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/kennedy/foreign-affairs. [Open access]
+Marc J. Selverstone, “John F. Kennedy: Domestic Affairs,” Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/kennedy/domestic-affairs. [Open access]
+Marc J. Selverstone, “John F. Kennedy: Death of the President,” Miller Center of Public Affairs, University
+of Virginia, https://millercenter.org/president/kennedy/death-of-the-president. [Open access]
+- opened: 2026-08-02
+- Life in Brief supplies "the **youngest person elected US president** and the **first Roman Catholic** to
+  serve in that office", the Pacific service and the Senate years 1953–1961
+- Life Before supplies **decorated**, which the brief essay does not: "Kennedy received the **US Navy and
+  Marine Corps Medal for Valor and a Purple Heart**", and the **Massachusetts** seat won from Henry Cabot
+  Lodge Jr. in 1952
+- Foreign Affairs supplies the Bay of Pigs ("In the early hours of **April 17, 1961**"), the missile crisis
+  ("announcing his decision on national television on **October 22, 1962**" … "each seeming to bring the
+  world closer to the brink of nuclear war") and the Moon: "he **vowed to have Americans on the moon by the
+  end of the decade**"
+- Domestic Affairs supplies the bill: Kennedy "**submitted a civil rights bill to Congress**, which became
+  law after his death", after the June 11, 1963 confrontation
+- Death of the President supplies the place and date: "On **November 22, 1963**, President Kennedy and the
+  First Lady journeyed to **Dallas**"
+- used by: `John_F._Kennedy`
+
+### oh-limited-ban · the first arms control agreement
+Office of the Historian, U.S. Department of State, “The Limited Test Ban Treaty, 1963,” Milestones in the
+History of U.S. Foreign Relations, https://history.state.gov/milestones/1961-1968/limited-ban.
+[Open access]
+- opened: 2026-08-02
+- supports the term's "**the first** nuclear test-ban treaty" — "the **first arms control agreement of the
+  Cold War**, the Limited Test Ban Treaty of 1963"
+- used by: `John_F._Kennedy`
+
+### mc-lbj-lib / -domestic · the thirty-sixth presidency
+Miller Center of Public Affairs, University of Virginia, “Lyndon B. Johnson: Life in Brief,”
+https://millercenter.org/president/lbjohnson/life-in-brief. [Open access]
+Miller Center of Public Affairs, University of Virginia, “Lyndon B. Johnson: Domestic Affairs,”
+https://millercenter.org/president/lbjohnson/domestic-affairs. [Open access]
+- opened: 2026-08-02
+- **These two essays carry no named author**, where FDR's are Leuchtenburg's, Truman's Hamby's,
+  Eisenhower's Pach's, Kennedy's Selverstone's and Nixon's Hughes's — so they are cited to the institution.
+  Check the byline; do not assume one
+- Life in Brief supplies the teaching ("He taught briefly, with a stint at a poor school in **Cotulla,
+  Texas**"), the House seat ("In 1937 … **won election to Congress**"), the leadership ("In 1955, he was
+  elected **majority leader and transformed the position into one of the most powerful posts in American
+  government**"), **Medicare**, the money "**poured … into education**", the escalation ("more than 100,000
+  combat troops … Within three years, the number would swell to **more than 500,000**") and the withdrawal:
+  "On **March 31, 1968**, Johnson announced that he would neither seek nor accept the nomination"
+- Domestic Affairs supplies **Medicaid**, which the brief essay does not name at all: "The 'medically
+  indigent' of any age … would be covered under a related '**Medicaid**' program", and the federal aid
+  "for elementary and secondary education"
+- used by: `Lyndon_B._Johnson`
+
+### nara-civil-rights-act / nara-voting-rights-act · the two statutes
+National Archives and Records Administration, “Civil Rights Act (1964),” Milestone Documents,
+https://www.archives.gov/milestone-documents/civil-rights-act. [Open access]
+National Archives and Records Administration, “Voting Rights Act (1965),” Milestone Documents,
+https://www.archives.gov/milestone-documents/voting-rights-act. [Open access]
+- opened: 2026-08-02
+- the Civil Rights Act, "signed into law by President Lyndon Johnson on **July 2, 1964**, prohibited
+  discrimination in public places, provided for the **integration of schools** and other public facilities,
+  and made employment discrimination illegal" — the term's "dismantled legal segregation"
+- the Voting Rights Act, "signed into law on **August 6, 1965**", "**outlawed the discriminatory voting
+  practices** adopted in many southern states after the Civil War, including literacy tests" — the term's
+  "protected Black voters"
+- used by: `Lyndon_B._Johnson`
+
+### mc-nixon-lib / -domestic · the thirty-seventh presidency
+Ken Hughes, “Richard Nixon: Life in Brief,” Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/nixon/life-in-brief. [Open access]
+Ken Hughes, “Richard Nixon: Domestic Affairs,” Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/nixon/domestic-affairs. [Open access]
+- opened: 2026-08-02
+- Life in Brief supplies the resignation and the whole career in one sentence: "He was the first and (so
+  far) the **only President of the United States to resign the office**" … "winning a **congressional race
+  (1946)** … a **Senate seat (1950)**, and the **vice presidency (1952)**"
+- **Domestic Affairs is what makes "near-certain removal" a sourced claim rather than a flourish.**
+  Goldwater "told the President that there were a **maximum of 18 senators who might vote against his
+  conviction on the articles of impeachment—too few to save him**". It also carries the EPA proposal and
+  the Watergate arrest of "**five men** in those offices on **June 17, 1972**"
+- used by: `Richard_Nixon`
+
+### oh-ending-vietnam / oh-china / oh-salt · the foreign policy
+Office of the Historian, U.S. Department of State, “Ending the Vietnam War, 1969–1973,” Milestones in the
+History of U.S. Foreign Relations, https://history.state.gov/milestones/1969-1976/ending-vietnam.
+[Open access]
+Office of the Historian, U.S. Department of State, “Rapprochement with China, 1972,” Milestones in the
+History of U.S. Foreign Relations, https://history.state.gov/milestones/1969-1976/rapprochement-china.
+[Open access]
+Office of the Historian, U.S. Department of State, “Strategic Arms Limitations Talks/Treaty (SALT) I and
+II,” Milestones in the History of U.S. Foreign Relations, https://history.state.gov/milestones/1969-1976/salt.
+[Open access]
+- opened: 2026-08-02
+- Ending the Vietnam War carries **the replacement for a withdrawn clause** (below): "President Richard M.
+  Nixon assumed responsibility for the Vietnam War as he swore the oath of office on **January 20, 1969**.
+  He knew that **ending this war honorably was essential to his success in the presidency**. He expected
+  that the American people would give him **a year** to end U.S. involvement", and the agreement — "the
+  United States and the Democratic Republic of Vietnam initialed the agreement on **January 23** [1973] …
+  the peace agreement was signed on January 27"
+- Rapprochement with China: "In **1972**, U.S. President Richard Nixon traveled to the People's Republic of
+  China", where "the two governments negotiated the **Shanghai Communiqué**"
+- SALT: Nixon and Brezhnev "signed the ABM Treaty and interim SALT agreement on **May 26, 1972**, in
+  Moscow. **For the first time during the Cold War, the United States and Soviet Union had agreed to limit
+  the number of nuclear missiles** in their arsenals" — which is what makes the term's "**first**
+  arms-limitation treaties" a sourced word
+- used by: `Richard_Nixon`
+
+### epa-origins · the agency
+U.S. Environmental Protection Agency, “The Origins of EPA,” https://www.epa.gov/history/origins-epa.
+[Open access]
+- opened: 2026-08-02
+- "in July 1970, **President Nixon had signed Reorganization Plan No. 3 calling for the establishment of
+  EPA**", and "Administrator Ruckelshaus was confirmed by the Senate on **December 2, 1970**, which is the
+  traditional date we use as the birth of the agency"
+- used by: `Richard_Nixon`
+
+### NOT CITED (batch P6) — what could not be sourced, and what is kept unmarked
+- **Nixon's "promising order at home" is in nothing openable and was WITHDRAWN.** It is not in the *Life in
+  Brief*, not in *Campaigns and Elections* (whose account of the 1968 acceptance speech quotes an
+  internationalist passage instead), not in *Life Before the Presidency* and not in *Domestic Affairs*. The
+  sentence was rebuilt on what the Office of the Historian does state — that ending the war was the
+  expectation on him from the day he took office — rather than kept over a citation that does not contain
+  it. G6's rule applied before the marker was placed instead of after.
+- **No page states Nixon's "eight years as vice president" as a number.** The Life in Brief gives the
+  vice presidency as won in 1952 and the Eisenhower Fast Facts give that administration as
+  January 1953 – January 1961; the arithmetic is left to the reader and the clause is unmarked.
+- **The presidential libraries are only half-reachable from here** — measured 2026-08-02.
+  `eisenhowerlibrary.gov` and `fdrlibrary.org` answer 200. **`jfklibrary.org` returns 403.** The obvious
+  biography paths on `trumanlibrary.gov`, `lbjlibrary.org` and `nixonlibrary.gov` are 404, and none of the
+  three publishes a browsable biography at a guessable slug. The plan named "presidential libraries (NARA)"
+  as P6's second spine and exactly one of them paid — but it paid for both of the batch's corrections, so
+  the spine is worth trying first on P7 rather than abandoning.
+- **`ssa.gov` is 403 here**, so the Social Security Administration's own history pages are closed; the
+  Social Security Act is cited to the Miller Center instead.
+- Three Office of the Historian slugs that look obvious are 404: `/milestones/1945-1952/korean-war-2` (the
+  page is `/korean-war`) and `/milestones/1937-1945/atomic`. Check the era index rather than guessing.
+- Kept unmarked, uncontradicted, in nothing opened: the description of Roosevelt's illness as
+  "a paralytic illness" rather than polio — the essay says polio, the term hedges, and the hedge is the
+  more careful of the two given the modern argument, so it stands as written.
+
+## Batch P-topup — the thirty presidential opening sentences (GLOSSARY, 2026-08-02)
+
+Thirty terms, one citation each, **no new coverage** — every one of them was already at the bar. This batch
+exists because **P6 found that the claim was resting on a page that does not make it**, and it is the first
+time the thirty ordinals and sixty term dates have been checked against a source that states them.
+
+**Nothing needed correcting. All thirty held.** That is the batch's result and it is worth as much as a
+correction: after twelve batches of finding something wrong in almost every one, the sentence every
+presidential term opens with turns out to have been right thirty times over.
+
+### The source
+Miller Center of Public Affairs, University of Virginia, “<President>,” Fast Facts,
+https://millercenter.org/president/<slug>. [Open access]
+- opened: 2026-08-02 (all thirty landing pages fetched and parsed, 200 each)
+- each carries a **Fast Facts** block with `President Number`, `Inauguration Date` and `Date Ended`. Measured
+  values, president by president:
+
+| # | president | inaugurated | ended |
+|---|---|---|---|
+| 1 | Washington | April 30, 1789 | March 4, 1797 |
+| 2 | J. Adams | March 4, 1797 | March 4, 1801 |
+| 3 | Jefferson | March 4, 1801 | March 4, 1809 |
+| 4 | Madison | March 4, 1809 | March 4, 1817 |
+| 5 | Monroe | March 4, 1817 | March 4, 1825 |
+| 6 | J. Q. Adams | March 4, 1825 | March 4, 1829 |
+| 7 | Jackson | March 4, 1829 | March 4, 1837 |
+| 8 | Van Buren | March 4, 1837 | March 4, 1841 |
+| 9 | W. H. Harrison | March 4, 1841 | April 4, 1841 |
+| 10 | Tyler | April 4, 1841 | March 4, 1845 |
+| 11 | Polk | March 4, 1845 | March 5, 1849 |
+| 12 | Taylor | March 5, 1849 | July 9, 1850 |
+| 13 | Fillmore | July 10, 1850 | March 4, 1853 |
+| 14 | Pierce | March 4, 1853 | March 4, 1857 |
+| 15 | Buchanan | March 4, 1857 | March 4, 1861 |
+| 16 | Lincoln | March 4, 1861 | April 15, 1865 |
+| 17 | A. Johnson | April 15, 1865 | March 4, 1869 |
+| 18 | Grant | March 4, 1869 | March 5, 1877 |
+| 19 | Hayes | March 5, 1877 | March 4, 1881 |
+| 20 | Garfield | March 4, 1881 | September 19, 1881 |
+| 21 | Arthur | September 19, 1881 | March 4, 1885 |
+| 22 / 24 | Cleveland | March 4, 1885 / March 4, 1893 | March 4, 1889 / March 4, 1897 |
+| 23 | B. Harrison | March 4, 1889 | March 4, 1893 |
+| 25 | McKinley | March 4, 1897 | September 14, 1901 |
+| 26 | T. Roosevelt | September 14, 1901 | March 4, 1909 |
+| 27 | Taft | March 4, 1909 | March 4, 1913 |
+| 28 | Wilson | March 4, 1913 | March 4, 1921 |
+| 29 | Harding | March 4, 1921 | August 2, 1923 |
+| 30 | Coolidge | August 3, 1923 | March 4, 1929 |
+| 31 | Hoover | March 4, 1929 | March 4, 1933 |
+
+- **Cleveland's block carries BOTH terms** — two `Inauguration Date` values, two `Date Ended` values and two
+  `President Number` values, 22 and 24. A parser that takes the first line after each label silently loses
+  the second presidency; read the whole block
+- used by: all thirty P1–P5 terms
+
+### What the Fast Facts settles beyond the ordinal
+The marker on sentence 1 turns out to cover more than the number, because `Date Ended` for a president who
+died in office **is his death date**, and the successor's `Inauguration Date` is the same day or the next:
+- "in office from 1849 **until his death in 1850**" (Taylor, ended July 9, 1850); "until his assassination
+  in 1865" (Lincoln, April 15); "until his assassination in 1901" (McKinley, September 14); "until his death
+  in 1923" (Harding, August 2)
+- and every succession claim in the set: **Tyler** starts on Harrison's last day, **Fillmore** the day after
+  Taylor's, **Andrew Johnson** on Lincoln's, **Arthur** on Garfield's, **Coolidge** the day after Harding's
+
+### Two earlier findings resolved rather than merely recorded
+- **P2's Harrison discrepancy is settled, and the term was right.** P2 logged that the White House
+  Historical Association gives "thirty-one days" and the Miller Center's essay "thirty-two", and chose 31.
+  The Miller Center's **own Fast Facts** gives March 4 → April 4, 1841 — **exactly 31 days**. So the
+  institution contradicts itself, its structured data agrees with the WHHA, and the term's number stands
+  with a citation behind it for the first time.
+- **P4's Garfield slip is confirmed from a second direction.** P4 logged that the Garfield *Life in Brief*
+  dates the shooting "a mere 100 days after he assumed office" when March 4 → July 2 is 120, and that the
+  term says "about six months" for the whole term instead. Fast Facts gives March 4 → **September 19, 1881**
+  — 199 days, about six and a half months. The term is right and the essay's round number is wrong.
+
+### NOT CITED (batch P-topup)
+- **Nothing was added beyond the one citation per term**, and no prose changed in any of the ten languages.
+  The existing markers were preserved exactly: each term's map was read back out of its own marked text,
+  the new source number appended to sentence 1, and the text re-marked from the stripped original — so a
+  diff of this batch is markers and a citation, nothing else.
+- Claims in these opening sentences that Fast Facts does **not** carry, and which remain as they were:
+  Taft's chief justiceship "from 1921 to 1930" and his being "the only person to hold both offices" (a
+  Supreme Court fact, recorded unmarked in P5), and Theodore Roosevelt "taking office at 42 as the youngest
+  person ever to hold it", which is cited to his *Life Before the Presidency* essay.
+
+## Batch P7 — Ford to Biden (GLOSSARY, 2026-08-02) — Phase 2 COMPLETE
+
+Nine terms, 50 citation slots from **twenty-nine distinct works, every one of them open**, none from this
+register. Coverage 127/333 → 136/333. **This finishes the 45 US presidents.**
+
+**Four corrections, and every one is the same failure**: a clause claiming an ACHIEVEMENT where the cited
+essay describes an ATTEMPT, or a specific the source never states. This is P5's Taft finding at scale, and
+it is what a batch of recent presidents produces — the closer the subject to living memory, the more the
+prose reaches for the familiar summary rather than the record.
+
+### The Miller Center is the whole spine, and its Fast Facts settle sentence 1
+All nine ordinals and term dates verified against the Fast Facts blocks (the route P6 found and P-topup
+proved out): **38** Ford (August 9, 1974 → January 20, 1977), **39** Carter (1977 → 1981), **40** Reagan
+(1981 → 1989), **41** Bush (1989 → 1993), **42** Clinton (1993 → 2001), **43** G. W. Bush (2001 → 2009),
+**44** Obama (2009 → 2017), **45 and 47** Trump (January 20, 2017 → January 20, 2021; January 20, 2025 –),
+**46** Biden (2021 → 2025). **Trump's block carries two of everything**, exactly as Cleveland's does — the
+trap P-topup recorded, met a second time within a day.
+
+### Two cross-president finds, both from the Trump essay
+Benjamin C. Waterhouse's *Donald Trump: Life in Brief* is the only openable page that dates the
+oldest-president record, and it settles a claim on **two other terms**:
+- "At 70 years old in 2016, he became the oldest person to ever assume the presidency, surpassing a record
+  set by **Ronald Reagan, who was 69 when he took office in 1981**" — which is the source for
+  `Ronald_Reagan`'s "at 69, the oldest person elected to the office up to that time", a superlative nothing
+  in the Reagan corpus states.
+- "Trump's successor, **Joseph Biden, re-set the record for oldest president** when he was inaugurated four
+  years later, shortly after his 78th birthday" — the source for `Joe_Biden`'s "the oldest person to take
+  the office".
+**When a superlative is about a sequence, the source is often the essay on the person who broke it.**
+
+### Verified citations (batch P7)
+
+### mc-ford-* · the thirty-eighth presidency
+John Robert Greene, “Gerald Ford: Life in Brief” / “Life Before the Presidency” / “Domestic Affairs” /
+“Foreign Affairs” / “Campaigns and Elections,” Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/ford/life-in-brief (and the four sibling paths). [Open access]
+- opened: 2026-08-02
+- **Life Before the Presidency opens on the claim the term opens on**: "**The only President in the history
+  of the United States not elected by American voters** was born Leslie Lynch King, Jr."
+- Life in Brief: Michigan's Fifth District "for the next twenty-four years"; "In 1965, Ford became Minority
+  Leader"; the 25th Amendment nomination after Agnew resigned, "Ford took the vice presidential oath of
+  office on **December 6, 1973**"; and the succession on Nixon's resignation
+- Domestic Affairs: "**exactly one month into his tenure**, he granted Richard Nixon a '**full, free, and
+  absolute pardon . . . for all offenses**'"; "Ford's popularity plummeted … from the high sixties into the
+  high thirties"; and the economy — "The economy, Ford finally admitted in **December 1974, was in
+  recession** with economic production falling and unemployment rising"
+- Foreign Affairs: "The President furthered détente in **August 1975** when he joined with Soviet leader
+  Leonid Brezhnev and the heads of other European nations to sign the **Helsinki Accords**"; and "**The end
+  came in late April as Communist forces overran Saigon**"
+- Campaigns and Elections: "Carter won the 1976 presidential election **by a narrow margin of 57 Electoral
+  College votes** with 297 to Ford's 240"
+- used by: `Gerald_Ford`
+
+### mc-carter-* + nobel-carter + fed-great-inflation · the thirty-ninth presidency
+Robert A. Strong, “Jimmy Carter: Life in Brief” / “Life Before the Presidency” / “Foreign Affairs” /
+“Campaigns and Elections,” Miller Center of Public Affairs, University of Virginia. [Open access]
+The Nobel Foundation, “Jimmy Carter — Biographical,” NobelPrize.org,
+https://www.nobelprize.org/prizes/peace/2002/carter/biographical/. [Open access]
+Federal Reserve History, “The Great Inflation, 1965–1982,” Federal Reserve Bank of Richmond,
+https://www.federalreservehistory.org/essays/great-inflation. [Open access]
+- opened: 2026-08-02
+- **The Nobel biographical page is the highest-yield single source in the batch**, carrying six of the
+  term's claims in two sentences: "the **Panama Canal treaties**, the **Camp David Accords**, the **treaty
+  of peace between Egypt and Israel** …" and "a comprehensive energy program conducted by a new
+  **Department of Energy** … major educational programs under a new **Department of Education**; and major
+  environmental protection legislation, including the **Alaska National Interest Lands Conservation
+  Act**." It also carries the housebuilding: "Jimmy and Rosalynn Carter volunteer one week a year for
+  **Habitat for Humanity** … renovate and build homes"
+- Life in Brief: the Naval Academy, "**sixty-six American hostages**", the 1978 Camp David mediation
+  between Begin and Sadat, defeat by Reagan in 1980, and the Carter Center "fighting disease and poverty in
+  developing countries while supporting democratic reforms and **elections**—earned Carter a **Nobel Peace
+  Prize in 2002**"
+- Life Before: the family "**peanut farm**" outside Plains, and the governorship of Georgia
+- Foreign Affairs: "Carter came to the White House determined to make **human rights considerations
+  integral to US foreign policy**", and "**more than any previous president, injected human rights
+  considerations into American foreign policy**"
+- Campaigns: "Portraying himself as an **outsider** who could 'clean up the mess in Washington'"
+- **The Fed essay is what makes "double-digit" a sourced word**: "Inflation … reached **more than 14
+  percent in 1980**" and "peaked in March 1980 at close to 15 percent." No Miller Center essay gives a
+  Carter-era inflation figure at all — the only percentage in the corpus, "nearly eight percent", is the
+  1976 rate Ford was fighting, in the CAMPAIGNS essay. **A figure that looks like it must be in the
+  presidential essays may be in none of them.**
+- used by: `Jimmy_Carter`
+
+### mc-reagan-* + fed + trump-lib · the fortieth presidency, and CORRECTION 1
+Lou Cannon, “Ronald Reagan: Life in Brief” / “Domestic Affairs” / “Foreign Affairs,” Miller Center of
+Public Affairs, University of Virginia. [Open access]
+- opened: 2026-08-02
+- Life in Brief: "radio sports announcer, Hollywood movie actor, and television host"; "elected governor of
+  California in 1966, serving eight years"; defeated Carter in 1980; "carried out his campaign promises to
+  cut taxes and increase the defense budget"; "notable budget deficits"
+- Domestic Affairs supplies the tax cut precisely — "the marginal tax rate that was **70 percent** when he
+  took office had been reduced to **28 percent** by the time he left" — the Volcker recession, "Tight money
+  and reduced inflation laid the basis for a **boom that began in 1983** and was still going when Reagan
+  left the White House in 1989", and the deficit "ballooning"
+- **CORRECTION.** The term listed "**loosened regulation**" among his achievements. The same essay says the
+  opposite happened: Reagan "took office in 1981 **promising** to curb the growth of government
+  regulations", but "counter-attacks in the courts … **forced the administration to retreat from many of
+  its deregulatory efforts. As a result, most of the Nixon, Ford, and Carter-era regulations designed to
+  protect the environment and American workers remain in place.**" The term now says he **pressed to roll
+  back federal regulation** — the attempt, which is what the record supports
+- Foreign Affairs: "the largest peacetime military budget in history" and "7-percent increases in defense
+  spending between 1981 and 1985"; Gorbachev; "a treaty that removed intermediate nuclear missiles from
+  Europe, the first pact of the Cold War that actually reduced the number of nuclear weapons … **Gorbachev
+  and Reagan signed the INF Treaty in December 1987**"; and Iran-Contra — "North went to Poindexter with a
+  plan to **divert the proceeds from the arms sales—more than $12 million—to the Nicaraguan Contras**"
+- used by: `Ronald_Reagan`
+
+### mc-bush-* · the forty-first presidency
+Stephen Knott, “George H. W. Bush: Life in Brief” / “Life Before the Presidency” / “Foreign Affairs” /
+“Domestic Affairs” / “Campaigns and Elections,” Miller Center of Public Affairs, University of Virginia.
+[Open access]
+- opened: 2026-08-02
+- Life Before: "On **September 2, 1944**, while flying a mission to bomb an enemy radio site, his plane was
+  **shot down by Japanese fire**; Bush bailed out over the ocean"
+- Life in Brief: two terms in the House from Houston's Seventh District, "**U.S. ambassador to the United
+  Nations**", "**director of Central Intelligence**", and the vice presidency
+- Foreign Affairs: the Berlin Wall in "**early November 1989**"; reunification — "in the end, **the Bush
+  administration helped broker a compromise**: Germany would be part of NATO but no NATO troops would be
+  stationed in East Germany"; the Soviet end — "the Soviet Republics began to declare their independence …
+  **Gorbachev resigned as the President of the Soviet Union on December 25, 1991**"; and the war —
+  "**Operation Desert Storm**" from January 17, 1991, "U.S.-led **coalition** forces", "tonight Kuwait is
+  free"
+- Domestic Affairs: "the **Americans with Disabilities Act of 1990**, which forbade discrimination based on
+  disability in employment, public accommodations, and transportation", and the broken pledge — "**reneging
+  on his 'no taxes' pledge** … Many conservative Republicans felt betrayed"
+- Campaigns: the 1992 economy, "middle-class Americans had grown increasingly upset about the President's
+  inaction on the economic recession"
+- used by: `George_H._W._Bush`
+
+### mc-clinton-* · the forty-second presidency, and CORRECTION 2 (two clauses)
+Russell L. Riley, “Bill Clinton: Life in Brief” / “Life Before the Presidency” / “Domestic Affairs” /
+“Foreign Affairs,” Miller Center of Public Affairs, University of Virginia. [Open access]
+- opened: 2026-08-02
+- Life Before: "in 1978, at age thirty-two, Clinton ran for **governor**" of Arkansas
+- Life in Brief: "turning the greatest fiscal deficit in American history into a **surplus**"
+- Domestic Affairs: "the **North American Free Trade Agreement (NAFTA), which cleared Congress in 1993**";
+  "surging tax revenues from a booming economy had generated a surplus of **$124 billion**"; the Paula
+  Jones "sexual harassment suit"; and "**Clinton was acquitted on both counts on February 12, 1999**"
+- Foreign Affairs: Haiti — "**United States forces were sent in** to make certain that the agreement was
+  enforced" — and Bosnia: "The resulting **Dayton Peace Accords ended the fighting**"
+- **CORRECTION, two clauses in one sentence.** The term credited him with "a large expansion of tax credits
+  for low-paid workers" and "a 1996 law that replaced long-term cash welfare with **time-limited
+  assistance**". Neither is in anything openable. The essay's account of the 1996 law is different: "The
+  legislation **replaced the long standing Aid to Families with Dependent Children (AFDC) program with a
+  system of block grants to individual states**" — and its only "five years" is about *legal immigrants'
+  eligibility*, a different thing entirely, which is exactly the sort of near-miss a careless reading
+  turns into a citation. There is no EITC mention in any Clinton essay. What the essay does give in that
+  place is "Clinton also won **an increase in the minimum wage to $5.15 per hour**". The term now names the
+  minimum wage and the block grants
+- used by: `Bill_Clinton`
+
+### mc-gwbush-* + bush-lib · the forty-third presidency
+Gary L. Gregg II, “George W. Bush: Life in Brief” / “Domestic Affairs” / “Foreign Affairs,” Miller Center
+of Public Affairs, University of Virginia. [Open access]
+Stephen Knott, “George H. W. Bush: Life in Brief,” Miller Center of Public Affairs, University of Virginia.
+[Open access]
+- opened: 2026-08-02
+- the **father-and-son** claim is cited to the FATHER's essay, which is where it is stated: "George H. W.
+  and George W. are only the second set of father and son to become President"
+- Life in Brief: the governorship of Texas; the 2000 result — Bush "tallied the constitutionally required
+  270 Electoral College votes by winning a few hundred more popular votes in **Florida after a contested
+  recount**" ended in the Supreme Court; "**September 11, 2001**"; "On **October 7, 2001**, coordinated
+  American military attacks began in **Afghanistan**"; "**no weapons of mass destruction were found in
+  Iraq**"; "Congress established a new **Department of Homeland Security**, passed the **Patriot Act**";
+  the "**No Child Left Behind Act in 2001**"; and "the **Medicare Modernization Act of 2003**, established
+  **prescription drug benefits for seniors**"
+- Domestic Affairs: the tax cut, and "In October, President Bush signed the Emergency Economic
+  Stabilization Act, which established the **Troubled Assets Relief Program (TARP)** … **$700 billion** …
+  to stabilize banks"
+- Foreign Affairs: "The most expansive and effective initiative of the Bush administration to bring relief
+  to foreign nations was the policy to **fight HIV/AIDS**", against an African epidemic in which "one out
+  of every four adults" carried the disease in some countries
+- used by: `George_W._Bush`
+
+### mc-obama-* + nobel-obama · the forty-fourth presidency, and CORRECTION 3
+Michael Nelson, “Barack Obama: Life in Brief” / “Life Before the Presidency” / “Domestic Affairs” /
+“Foreign Affairs,” Miller Center of Public Affairs, University of Virginia. [Open access]
+The Nobel Foundation, “Barack H. Obama — Facts,” NobelPrize.org,
+https://www.nobelprize.org/prizes/peace/2009/obama/facts/. [Open access]
+- opened: 2026-08-02
+- Life in Brief: "**the first African American to serve in that office**"; "The son of a **white American
+  mother and a black Kenyan father**, Obama grew up in **Hawaii**"; the Illinois state senate from 1996 and
+  the US Senate from 2004
+- **CORRECTION.** The term said "he **taught constitutional law**". Life Before the Presidency says he took
+  a position "as **a lecturer at the University of Chicago Law School**" — the institution, not the
+  subject; no essay names constitutional law. The term now says he taught law at the University of Chicago
+- Domestic Affairs: "an **$800-billion economic stimulus package: the American Recovery and Reinvestment
+  Act**"; the auto rescue — "The auto companies … survived"; "**Obama signed the Patient Protection and
+  Affordable Care Act into law**" on March 23, 2010; and "the **Dodd-Frank Wall Street Reform and Consumer
+  Protection Act**"
+- Foreign Affairs: "the **May 2, 2011, killing** of al Qaeda's leader, **Osama bin Laden**"; the Iraq
+  drawdown to 150 troops by 2012; "Obama also **restored diplomatic relations with communist Cuba in
+  December 2014**"; the 2015 Iran agreement "designed to prevent that country from developing nuclear
+  weapons for at least a decade"; and "the United Nations Climate Change Conference in **Paris in 2015**"
+- the Nobel page gives the prize: "**Nobel Peace Prize 2009** … Role: 44th President of the United States"
+- used by: `Barack_Obama`
+
+### mc-trump-* · the forty-fifth and forty-seventh presidencies, and CORRECTION 4
+Benjamin C. Waterhouse, “Donald Trump: Life in Brief” / “Domestic Affairs” / “Foreign Affairs,” Miller
+Center of Public Affairs, University of Virginia. [Open access]
+- opened: 2026-08-02
+- Life in Brief is current through the second inauguration and carries most of the term: "inaugurated as
+  the **45th President** … on January 20, 2017"; "**the second person ever, and the first since the 19th
+  century, elected to two non-consecutive terms**. He took the oath of office for the second time on
+  **January 20, 2025**"; "He was also **the first president never to have served in either public office or
+  in military leadership**"; the property business and *The Apprentice*; "the **first US president to be
+  impeached twice**", in **December 2019** over Zelensky and Ukraine (acquitted February 2020) and in
+  January 2021 after supporters "**violently assaulted the US Capitol on January 6, 2021**" (acquitted
+  again); "Trump **refused to concede the 2020** presidential election"; and the 2024 win over Harris
+- Domestic Affairs: "the **Tax Cuts and Jobs Act**, which President Trump signed in **December 2017**", and
+  "President Donald Trump **appointed three members to the US Supreme Court**"
+- Foreign Affairs: "deals—known collectively as the **Abraham Accords**—whereby the governments of the
+  **United Arab Emirates and Bahrain** would normalize diplomatic relations with **Israel**"
+- **CORRECTION.** The term had him winning in 2016 "on a programme of restricting immigration, **raising
+  tariffs and cutting regulation**". Domestic Affairs gives the programme as "restricting immigration,
+  strengthening public infrastructure, **reducing taxes, and repealing the Affordable Care Act**" — tariffs
+  appear later, as the trade war with China, and deregulation is not in the campaign list at all. The term
+  now names the three the essay names
+- used by: `Donald_Trump`, and (for the oldest-president record) `Ronald_Reagan` and `Joe_Biden`
+
+### mc-biden-* · the forty-sixth presidency
+Barbara A. Perry, “Joe Biden: Life in Brief” / “Domestic Affairs” / “Foreign Affairs,” Miller Center of
+Public Affairs, University of Virginia. [Open access]
+- opened: 2026-08-02
+- Life in Brief: "**thirty-six years as a U.S. senator from Delaware, eight years as vice president**, and
+  four years as the **46th president**"; "playing leading roles on both the **Judiciary Committee and the
+  Foreign Relations Committee**"
+- Domestic Affairs: the vaccination push; "the **American Rescue Plan Act** … signed it into law on
+  **March 11, 2021**"; "the **Infrastructure Investment and Jobs Act**, which he signed in **November
+  2021**"; "On **August 9, 2022**, the president signed the **CHIPS and Science Act**, which appropriated
+  $280 billion for **semiconductor** and chip research and manufacturing"; "On August 16, he signed the
+  **Inflation Reduction Act** … invested in domestic energy production, especially **clean energy**"; and
+  "**Biden announced his departure from the race on July 21**"
+- Foreign Affairs: "he **reaffirmed America's support for NATO**"; "his administration had supplied
+  **nearly $70 billion in military assistance to Ukraine** since the Russian invasion began"; and "the
+  chaotic **departure of American troops in August 2021**" from Afghanistan
+- used by: `Joe_Biden`
+
+### NOT CITED (batch P7) — what could not be sourced, and the access findings
+- **The government sites that carried Phase 2's earlier batches are mostly shut for these presidents.**
+  Measured 2026-08-02: **`whitehouse.gov/about-the-white-house/presidents/<name>/` is 404 for all nine**,
+  and serves a **225 KB error document**; **`state.gov` and `2009-2017.state.gov` both serve a page titled
+  "Technical Difficulties" with a 200 status** — a third variety of the 200-status error document, after
+  senate.gov's 37,523-byte shell and history.house.gov's readable-slug form. `bls.gov` is 403 and
+  `fred.stlouisfed.org` refuses the connection, so no primary statistical series is reachable;
+  `ssa.gov` remains 403, as P6 found. `history.state.gov` has **no milestone for the INF Treaty**
+  (`/milestones/1981-1988/inf` is 404) and none for the Iranian hostage crisis at the obvious slug.
+- **The presidential libraries answer far better here than in P6** — `fordlibrarymuseum.gov`,
+  `reaganlibrary.gov`, `jimmycarterlibrary.gov`, `clintonlibrary.gov`, `georgewbushlibrary.gov` and
+  `obamalibrary.gov` all return 200 — **but not one of them carries a usable biography**. The Ford
+  library's life page is a JavaScript timeline with no prose; the Reagan library's is a media gallery; the
+  Carter and Clinton biography paths are 404. **Reachable is not the same as citable**, which is batch
+  13's museum-catalogue finding in a new form: the mid-century libraries were unreachable and the modern
+  ones are unhelpful, and the Miller Center carried all nine presidencies either way.
+- **`bush41library.tamu.edu` fails at the proxy** (CONNECT tunnel 502), not with an HTTP status.
+- Kept unmarked, uncontradicted, in nothing opened: Ford's economy as "high inflation" specifically (the
+  essay gives the recession and the inflation fight but no rate); G. W. Bush's "broad surveillance powers"
+  beyond the Patriot Act itself; Obama's "extending health insurance to millions" as a figure; Biden's
+  Ukraine support as "economic" as well as military, where the essay itemises military assistance.
+
+## Batch C0 — the Phase 3 recipe pilot (GLOSSARY, 2026-08-02)
+
+Six terms — `France`, `Tuvalu`, `Kosovo`, `South_Sudan`, `State_of_Palestine`, `Vatican_City` — chosen to
+break the recipe before 191 countries are run through it. **It broke.** Coverage 136/333 → 142/333, 16
+citations from twelve distinct works, every one open. **Two corrections.** Many clauses are deliberately
+left unmarked and are listed at the foot of this section.
+
+### FINDING 1 — the plan's Source A does not exist from here
+**The CIA World Factbook is unusable.** Every path under `cia.gov` returns the **identical 498,366-byte
+JavaScript shell**, byte for byte, for France, Tuvalu, Kosovo, South Sudan, the West Bank and the Holy See
+alike — and for the Gatsby `page-data/countries/<slug>/page-data.json` route, and for a deliberately
+nonsense path. The served HTML contains the string "France" **zero** times and its `<title>` is "Central
+Intelligence Agency". The plan chose the Factbook explicitly and argued the case for it; that argument is
+moot, because the content never reaches the client. This is a fifth variety of "check the body, not the
+status code", and the only one so far where the *whole host* is a shell.
+
+### FINDING 2 — UNdata replaces it, and is better
+`https://data.un.org/en/iso/<cc>.html` is **server-rendered**, has per-country permalinks, and carries
+exactly the fields the recipe's first sentence needs: Region, Population, Population density, Capital city,
+**UN membership date** and Surface area, each with a source footnote of its own. Verified this batch:
+
+| | region | surface area | population (000, 2025) | capital | UN member |
+|---|---|---|---|---|---|
+| France | Western Europe | 551 500 km² | 66 651 | Paris | 24 October 1945 |
+| Tuvalu | Polynesia | 26 km² | 10 | Funafuti | 5 September 2000 |
+| South Sudan | Eastern Africa | — | 12 189 | Juba | 14 July 2011 |
+| State of Palestine | Western Asia | 6 025 km² | 5 590 | East Jerusalem | — |
+| Holy See | Southern Europe | — | ~0 | Vatican City | — |
+
+**The UN membership date is the single most useful field in the table**, because it dates the independence
+of every modern state at no research cost, from the body that admitted it.
+
+### FINDING 3 — and it fails on exactly the case the pilot existed to test
+**`data.un.org/en/iso/xk.html` returns a 500.** Kosovo has no ISO 3166-1 code and therefore no UNdata
+profile, so a state of limited recognition gets nothing from Source A at all. Its own statistics agency
+(`askdata.rks-gov.net`, a PxWeb database) is reachable and is the fallback, but a PxWeb table is not a
+country profile and drilling one out per country is not a recipe. **Kosovo shipped on its history alone**
+(ICJ and NATO), with every geographic and demographic clause unmarked.
+
+### FINDING 4 — `un.org` is reachable path by path, not as a host
+- `un.org/en/about-us/un-charter/*` serves the **Charter text**, and Article 23 names the permanent members
+  outright. Usable.
+- `un.org/unispal/*` serves real documents (1.4 MB).
+- **`un.org/securitycouncil/*` and `main.un.org/securitycouncil/*` return a CloudFront "Request blocked"
+  page — `un.org` with a 200 status, `main.un.org` with a 403.** A *fourth* variety of 200-status error
+  document, after senate.gov's 37,523-byte shell, whitehouse.gov's 225 KB 404 and state.gov's "Technical
+  Difficulties".
+- **`un.org/press/*` serves a JavaScript "Client Challenge" with a 200** — a *fifth* variety.
+- `documents.un.org` serves resolution PDFs directly and is the right way to cite a General Assembly act.
+
+### Verified citations (batch C0)
+
+### undata-* · the first sentence of every country
+United Nations Statistics Division, “<country>,” UNdata Country Profile,
+https://data.un.org/en/iso/<cc>.html. [Open access] — `fr`, `tv`, `ss`, `ps`, `va`
+- opened: 2026-08-02; figures as tabulated above
+- used by: `France`, `Tuvalu`, `South_Sudan`, `State_of_Palestine`, `Vatican_City`
+
+### eu-france · the founding membership
+European Union, “France – EU country,”
+https://european-union.europa.eu/principles-countries-history/eu-countries/france_en. [Open access]
+- opened: 2026-08-02
+- "**EU Member State : since 1 January 1958**" — the date of the founding treaties, which is what makes
+  "a founding member of what became the European Union" a sourced claim rather than a familiar one
+- used by: `France`
+
+### eurostat-nuclear · most of its electricity
+Eurostat, “Nuclear energy statistics,” Statistics Explained, European Commission. [Open access]
+- opened: 2026-08-02
+- "In 2024 at EU level, 23.3% of all electricity produced was generated by nuclear power plants. **France
+  had the highest share of nuclear in its electricity mix (67.3%)**, followed by Slovakia (61.6%) and
+  Hungary (42.2%)."
+- **The obvious sources for this claim are all shut**: `iaea.org` is 403, the IAEA's PRIS country page is a
+  JavaScript app, `iea.org` is 403, and the French energy ministry's own `chiffres-clés` page is likewise a
+  shell. Eurostat's Statistics Explained pages are static HTML and are the reachable route to any EU
+  country's energy, agriculture or demographic figures
+- used by: `France`
+
+### eurostat-agriculture · one of Europe's most productive farming countries
+Eurostat, “Performance of the agricultural sector,” Statistics Explained, European Commission.
+[Open access]
+- opened: 2026-08-02
+- "A clear majority (56.4%) of the estimated total output value of the EU's agricultural industry came from
+  the 'big 4' of **France (€90.8 billion)**, Germany (€78.7 billion), Spain (€73.9 billion) and Italy
+  (€73.6 billion)" — France first of the four
+- used by: `France`
+
+### un-charter-5 · the permanent seat
+United Nations, “Chapter V: The Security Council,” Charter of the United Nations,
+https://www.un.org/en/about-us/un-charter/chapter-5. [Open access]
+- opened: 2026-08-02
+- Article 23: "The Republic of China, **France**, the Union of Soviet Socialist Republics, the United
+  Kingdom … and the United States of America **shall be permanent members of the Security Council**."
+- **Cite the Charter, not the Security Council's membership page**, which is the CloudFront block described
+  above. The treaty text is both openable and better
+- used by: `France`
+
+### commonwealth-tuvalu · the smallest state's figures and its independence
+Commonwealth Secretariat, “Tuvalu,” Our Member Countries,
+https://thecommonwealth.org/our-member-countries/tuvalu. [Open access]
+- opened: 2026-08-02
+- Key Facts: **Population 11,790 (2022)**; **Area 25.6 square kilometres**; capital "Vaiaku (government
+  offices), **Fongafale islet, Funafuti atoll**"; **Joined the Commonwealth 1978**
+- **This is the better population figure and it saved a correction.** UNdata rounds Tuvalu to "10"
+  thousand, which would have made the term's "roughly 11,000 people" look wrong; the Commonwealth's 11,790
+  confirms it. **For a state small enough that UNdata's thousands round away the answer, the Commonwealth's
+  country pages are the right source** — and they cover 56 states, most of Phase 3's Africa, Oceania and
+  Caribbean batches
+- used by: `Tuvalu`
+
+### icj-kosovo · the declaration and the interim régime
+International Court of Justice, “Accordance with International Law of the Unilateral Declaration of
+Independence in Respect of Kosovo,” Advisory Opinion of 22 July 2010, https://www.icj-cij.org/case/141.
+[Open access]
+- opened: 2026-08-02
+- "the Court concluded that '**the declaration of independence of Kosovo adopted on 17 February 2008** did
+  not violate international law'"; and, on the preceding arrangement, "**Security Council resolution 1244 of
+  10 June 1999** … establish[ed] 'a temporary, exceptional legal régime which … **superseded the Serbian
+  legal order** … on an interim basis'"
+- used by: `Kosovo`
+
+### nato-kosovo · the intervention
+North Atlantic Treaty Organization, “NATO’s Role in Kosovo,”
+https://www.nato.int/cps/en/natolive/topics_48818.htm. [Open access]
+- opened: 2026-08-02
+- "KFOR was established when **NATO's 78-day air campaign against Milosevic's regime, aimed at putting an
+  end to violence in Kosovo**, was over", and NATO "has been leading a peace-support operation in Kosovo …
+  **since June 1999**"
+- used by: `Kosovo`
+
+### worldbank-ssd · the second record for the newest state
+World Bank, “South Sudan,” country record, World Bank Open Data API,
+https://api.worldbank.org/v2/country/SSD?format=json. [Open access]
+- opened: 2026-08-02
+- `{"id":"SSD","name":"South Sudan","region":{"value":"Sub-Saharan Africa"},"capitalCity":"Juba"}`
+- a thin citation, and deliberately recorded as such — see the correction and the unmarked list below
+- used by: `South_Sudan`
+
+### ga-67-19 · the observer state
+United Nations General Assembly, “Status of Palestine in the United Nations,” resolution 67/19 of
+29 November 2012, A/RES/67/19,
+https://documents.un.org/doc/undoc/gen/n12/479/74/pdf/n1247974.pdf. [Open access]
+- opened: 2026-08-02 (PDF, text extracted)
+- the operative clause: "**Decides to accord to Palestine non-member observer State status in the United
+  Nations**, without prejudice to the acquired rights, privileges and role of the Palestine Liberation
+  Organization …"; the resolution also refers throughout to the Palestinian territory "**occupied since
+  1967**"
+- used by: `State_of_Palestine`
+
+### vaticanstate-origins / -geography · the state that answers for itself, and CORRECTION 1
+Vatican City State, “Origins and Characteristic” and “Geography,” Governorate of Vatican City State.
+[Open access]
+- opened: 2026-08-02
+- Origins: "**Vatican City State was created by the Lateran Treaty stipulated between the Holy See and Italy
+  on 11 February 1929** and ratified on 7 June 1929."
+- Geography: "The State's territory, which **covers a surface area of 0.44 km2 (44 hectares)**, is partly
+  surrounded by walls and includes Saint Peter's Square …"
+- **CORRECTION.** The term said "about **0.49** km²". The state's own governorate says **0.44 km² (44
+  hectares)**. The body responsible for the territory is the better source, and this is the batch's
+  cleanest illustration of the plan's own Source-B principle: **ask the government of the place**. Corrected
+  in all ten languages
+- **Route worth keeping**: `vaticanstate.va`'s structural pages are NOT at guessable paths
+  (`/en/state-and-government.html`, `/en/state-and-government/history.html` and
+  `/en/state-and-government/note-generali/` are all 404). The working ones are under
+  `/en/state-and-government/general-informations/…` and are only discoverable by reading the site's own
+  navigation out of the homepage HTML
+- used by: `Vatican_City`
+
+### CORRECTION 2 — `South_Sudan`'s population
+The term said "roughly **11 million** people". **UNdata gives 12 189 thousand for 2025.** Corrected to
+"roughly 12 million" in all ten languages. Not an error when written — a figure that time moved past, which
+is the shape of correction Phase 3 will produce most often, since every country term opens on a population.
+**Re-read the population before marking it, on every country.**
+
+### NOT CITED (batch C0) — the unmarked clauses, recorded in full
+This batch deliberately ships with more unmarked prose than any before it. What follows is the whole list.
+
+- **`France`** — the physical geography (the Paris basin, the Massif Central, the Alps and the Pyrenees),
+  the overseas regions in the Caribbean, South America and the Indian and Pacific oceans, and the whole of
+  the historical clause: the kingdom consolidated through the Middle Ages, the abolition of the monarchy in
+  the revolution that began in 1789, and the colonial empire in Africa and Southeast Asia. **Nothing
+  openable carries them.** `whc.unesco.org` is 403, `britishmuseum.org` is 403, `iaea.org` is 403,
+  `vie-publique.fr` returns a 306-byte stub, `elysee.fr`'s constitution page and `senat.fr`'s revolution
+  pages are 404, and `revolution.chnm.org` is 404. The one French constitutional source that does open —
+  the Conseil constitutionnel's page for the Declaration of the Rights of Man and of the Citizen of 1789 —
+  carries the *document*, not the abolition of the monarchy in 1792, and was not cited for a claim it does
+  not make. **France is the hardest country in Phase 3 for exactly the reason P7 found with recent
+  presidents, inverted: the older and more familiar the history, the less of it any single openable
+  institutional page states.**
+- **`Tuvalu`** — the entire second sentence: the 4.6 m maximum elevation, the tidal flooding reaching
+  inland several times a year, the exposure to sea-level rise and the governments' pressing of it in
+  climate negotiations. `unfccc.int/news/tuvalu` returns a 212-byte stub, `tuvalu.un.org` fails at the
+  proxy, `ramsar.org` is 403 and `rsis.ramsar.org` answers **418**. NASA's sea-level FAQ and the IPCC's
+  SROCC chapter are both open and both discuss low-lying islands in general, but neither states Tuvalu's
+  elevation or its flooding frequency, and neither was cited for a claim about Tuvalu it does not make.
+  Also unmarked: the 1892 protectorate, the Gilbert and Ellice Islands, the 1975 separation, and the
+  fishing-licence and `.tv` domain revenue.
+- **`Kosovo`** — the whole of the first two sentences: the 10,887 km², the 1.6 million people, the borders,
+  Pristina, the 400–700 m basin and the 2,500 m rim, and the Albanian-speaking majority with its Serb
+  minority. See Finding 3: there is no UNdata profile and no institutional country page. Also unmarked: the
+  medieval Serbian rulers, the Ottoman centuries, the autonomous province within Yugoslavia, and the
+  recognition by many states but not Serbia.
+- **`South_Sudan`** — the 644,329 km², the borders, the White Nile and the Sudd, the savanna and forest,
+  the two wars of 1955–1972 and 1983–2005, the referendum, the 2013–2018 civil war and the oil revenue.
+  `unmiss.unmissions.org` and every `peacekeeping.un.org/en/mission/unmiss` path are 404,
+  `ramsar.org` 403, `unep.org` 403, `ohchr.org` 403, and FAO's AQUASTAT country profile is a JavaScript
+  shell. **The newest state, whose description is almost entirely recent history, is the one the
+  institutional profiles cover worst** — a result worth having before the African batches are planned.
+- **`State_of_Palestine`** — the separation of the two territories by Israeli land, the West Bank's
+  uplands and the cities of Hebron, Nablus and Bethlehem, Gaza's coastal strip, the British Mandate to
+  1948, the Jordanian and Egyptian administrations, the 1988 declaration of statehood and the 1990s
+  accords.
+- **`Vatican_City`** — St Peter's Basilica and its square, the Apostolic Palace, the Sistine Chapel and
+  Michelangelo's ceiling, the gardens and the museums and archive; the papal rule of central Italy and its
+  absorption into the Italian kingdom in 1870; and the pope's holding of legislative, executive and
+  judicial authority. `whc.unesco.org` is 403 and the Vatican Museums' own pages for the Sistine Chapel
+  carry opening hours rather than description.
+
+### The recipe as C0 leaves it
+1. **Source A is UNdata**, not the Factbook. It carries sentence 1 and the UN membership date.
+2. **For a Commonwealth state, add the Commonwealth Secretariat's country page** — it has the better
+   population for small states and the year of independence.
+3. **For an EU state, Eurostat Statistics Explained is the reachable statistical source** for anything
+   sectoral, and the EU country page for accession.
+4. **Source B is per-country and there is no shortcut.** Where the claim is an act of state — a treaty, a
+   resolution, a court ruling, an accession — it is citable and usually easy (ICJ, NATO, the UN Charter,
+   `documents.un.org`, a government's own portal). Where it is landscape or long history, it is usually
+   not, and this batch's honest answer was to leave it unmarked.
+5. **Budget for the unmarked list.** These six terms average two citations and roughly half their prose
+   marked. A Phase 3 batch that reports "16 terms, all at the bar" without saying what it left unmarked is
+   reporting a number, not a state of affairs.
+
+## Batch C1 — Europe, the first sixteen EU member states (GLOSSARY, 2026-08-02)
+
+**Fifteen terms shipped, 33 citations, and NO corrections.** Coverage 142/333 → 157/333. Austria, Belgium,
+Bulgaria, Croatia, Cyprus, Czech Republic, Denmark, Estonia, Finland, Germany, Hungary, Ireland, Italy,
+Latvia, Lithuania. **Greece was dropped from the batch — see the deferral below.**
+
+This is the first batch run on the C0 recipe, and the recipe held. The whole batch used **three works**:
+UNdata's country profiles, the EU's own country pages, and NATO's member-countries table. Two fetches per
+country, both server-rendered, both permalinked.
+
+### FINDING — the EU country page is the second source the recipe needed
+`european-union.europa.eu/principles-countries-history/eu-countries/<slug>_en` carries, in one block:
+**Capital**, **Geographical size**, **Population**, and **"EU Member State : since <date>"**. That last
+field dates the accession clause in the third sentence of every EU country's description — the single claim
+in a country term that is most often an act of state and most often the only datable thing in the sentence.
+Accession dates read this batch: Belgium, Germany, Italy 1 January 1958; Denmark, Ireland 1 January 1973;
+Greece 1 January 1981; Austria, Finland 1 January 1995; Cyprus, Czechia, Estonia, Hungary, Latvia,
+Lithuania 1 May 2004; Bulgaria 1 January 2007; Croatia 1 July 2013.
+
+**So an EU country needs exactly two fetches**, and between them they cover the first sentence and the
+accession. Phase 3's European batches are the cheapest in the plan, and C2/C3 should be worked the same way.
+
+### FINDING — sixteen area and population figures checked, and every one held
+This is the batch's most useful negative result. C0 corrected a population by a million and an area by
+0.05 km², so every figure here was checked against both sources:
+
+| | term area | EU | UNdata | term population | EU | UNdata |
+|---|---|---|---|---|---|---|
+| Austria | 83,879 | — | 83,878 | ~9 m | — | 9,114 k |
+| Belgium | 30,689 | 30,667 | 30,528 | ~11.8 m | 11,900,123 | 11,759 k |
+| Bulgaria | 110,994 | 110,996 | 110,372 | ~6.4 m | 6,437,360 | 6,715 k |
+| Croatia | 56,594 | 56,594 | 56,594 | ~3.9 m | 3,874,350 | 3,848 k |
+| Cyprus | 9,251 | 9,253 | 9,251 | ~1.3 m | 979,865 | 1,371 k |
+| Czech Rep. | 78,871 | 78,871 | 78,871 | ~10.9 m | 10,909,500 | 10,609 k |
+| Denmark | — | 42,925 | 42,938 | — | 5,992,734 | 6,002 k |
+| Estonia | 45,339 | 45,336 | 45,261 | ~1.4 m | 1,369,995 | 1,344 k |
+| Finland | 338,455 | 338,363 | 336,884 | ~5.6 m | 5,635,971 | 5,623 k |
+| Germany | 357,596 | 357,569 | 357,581 | ~84 m | 83,577,140 | 84,075 k |
+| Hungary | 93,030 | 93,012 | 93,023 | ~9.6 m | 9,539,502 | 9,632 k |
+| Ireland | 70,273 | 69,947 | 69,825 | ~5.4 m | 5,439,898 | 5,308 k |
+| Italy | 301,340 | 302,073 | 302,068 | ~59 m | 58,934,177 | 59,146 k |
+| Latvia | 64,589 | 64,594 | 64,594 | ~1.9 m | 1,856,932 | 1,854 k |
+| Lithuania | 65,300 | 65,284 | 65,286 | ~2.9 m | 2,890,664 | 2,830 k |
+
+**Every area is within 0.6% of both official figures and most within 0.05%**, which is the ordinary spread
+between land area and total area conventions and is not a contradiction. **No area was corrected**, and the
+reason is worth stating: a term's figure is only wrong when a source contradicts it, not when a source
+rounds differently.
+
+**Two divergences that look like errors and are not, both worth knowing before C2:**
+- **Cyprus.** The EU gives 979,865 people; UNdata gives 1,371 thousand. The EU counts **only the
+  government-controlled area**, UNdata the whole island. The term says "an island country of 9,251 km² …
+  with roughly 1.3 million people" and then describes the division since 1974 — so it is describing the
+  island, and UNdata is the right figure. **Cite UNdata, not the EU, for a divided state's population.**
+- **Czechia.** UNdata gives 10,609 thousand against the EU's 10,909,500 and the term's "roughly 10.9
+  million". Here the EU agrees with the term and UNdata is the outlier. **Where the two disagree by more
+  than rounding, read both before assuming the term is wrong.** C0's South Sudan correction rested on
+  UNdata alone; had there been a second source it would have been checked against it.
+
+### Verified citations (batch C1)
+
+### undata-<cc> · the first sentence of each country
+United Nations Statistics Division, “<country>,” UNdata Country Profile,
+https://data.un.org/en/iso/<cc>.html. [Open access] — `at be bg hr cy cz dk ee fi de hu ie it lv lt`
+- opened: 2026-08-02; figures as tabulated above, plus the **UN membership date**, which carries the
+  independence or restoration clause on five of these terms: **Croatia 22 May 1992**, **Cyprus 20 September
+  1960**, **Czechia 19 January 1993**, **Estonia and Latvia 17 September 1991**, and **Austria 14 December
+  1955**, which is the year the term gives for regaining full sovereignty
+- used by: all fifteen
+
+### eu-<country> · the accession, and a second reading of the figures
+European Union, “<country> – EU country,”
+https://european-union.europa.eu/principles-countries-history/eu-countries/<slug>_en. [Open access]
+- opened: 2026-08-02; Capital, Geographical size, Population and EU Member State date as above
+- used by: all fifteen
+
+### nato-members · the alliance
+North Atlantic Treaty Organization, “Member countries,”
+https://www.nato.int/cps/en/natohq/topics_52044.htm. [Open access]
+- opened: 2026-08-02
+- the accession table gives **Estonia 2004**, **Latvia 2004**, **Lithuania 2004**, **Finland 2023** —
+  exactly the years the Estonian, Latvian and Finnish terms claim
+- used by: `Estonia`, `Finland`, `Latvia`
+
+### DEFERRED — `Greece`
+Greece was in the planned sixteen and is not in the shipped fifteen. Its description states **no area, no
+population and no capital**, so neither UNdata nor the EU page carries anything it says; its EU accession is
+not in its third sentence either. What the term does assert — the southern Balkan peninsula and several
+thousand islands, mountains over four-fifths of the territory, the longest Mediterranean coastline, the
+ancient city-states and democracy, and recognition as sovereign in 1830 — has no support in the two works
+this batch used. **Citing UNdata and the EU page here would have produced two sources that nothing in the
+prose points at, which `add-sources.js` rightly refuses and which would in any case be decoration.** Greece
+needs a source for the London Protocol of 1830 and one for its physical geography, and it goes to C2 with
+that noted.
+
+### NOT CITED (batch C1) — the unmarked clauses
+As in C0, the marked half is the first sentence and the datable acts of state. Left unmarked, across the
+fifteen: **all of the physical geography** (the Alps over three-fifths of Austria, the Ardennes, the Balkan
+Mountains and the Rhodope, the Dinaric karst and the thousand Croatian islands, the Troodos and Kyrenia
+ranges, Bohemia's ring of wooded mountains, Denmark's 400 islands and 170 m ceiling, Estonia's 2,000
+islands and 318 m hill, Finland's 188,000 lakes, Germany's three steps from plain to Alps, the Great
+Hungarian Plain and Lake Balaton, Ireland's central bog, the Po plain and the Apennines and the three
+volcanoes, Latvia's forest and the Daugava, Lithuania's 3,000 lakes and the Curonian Spit); **all of the
+pre-modern history** (the Habsburgs, the Bulgarian state of 681 and the Cyrillic alphabet, the
+Hungarian-Croatian union of 1102, the Kingdom of Bohemia and 1526, the Christian kingdom of the year 1000,
+Ireland's 5th-century Christianisation and the famine of 1845–52, Rome and the Renaissance and 1861 and
+1946, the German unification of 1871 and the division of 1949 and the reunification of 1990, the Grand
+Duchy of Lithuania and the partition of 1795); and **the linguistic claims** (Estonian and Finnish as
+Finnic, Hungarian as Uralic, Latvian as one of two surviving Baltic tongues, Lithuanian as the most
+conservative surviving Indo-European tongue).
+
+That list is long and it is the honest shape of the recipe: **two institutional profiles carry a country's
+present and its accessions, and nothing of its landscape or its past.** C0 predicted this; C1 measures it at
+scale. A future batch that wants the geography and the pre-modern history will need a different class of
+source entirely, and should be planned as its own pass rather than as an extension of this one.
+
+## Batch C2 — Europe, the remaining EU member states (GLOSSARY, 2026-08-02)
+
+**Ten terms shipped, 21 citations, no corrections.** Coverage 157/333 → 167/333. Luxembourg, Malta,
+Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, Sweden. **Six terms were planned for this
+batch and deferred — Greece, Albania, Iceland, Norway, Switzerland, Andorra — each for a stated reason
+below.** The two-fetch recipe from C1 was used unchanged.
+
+### FINDING — the two official sources disagree on population routinely, and C1's caution generalises
+C1 flagged Czechia, where UNdata was the outlier and the EU agreed with the term. C2 found the pattern is
+symmetrical and common. Populations, term against both:
+
+| | term | EU page | UNdata |
+|---|---|---|---|
+| Luxembourg | ~670,000 | 681,973 | 680 k |
+| Malta | ~550,000 | 574,250 | **545 k** |
+| Portugal | ~10.5 m | 10,749,635 | **10,412 k** |
+| Spain | ~48 m | 49,077,984 | **47,890 k** |
+| Sweden | ~10.6 m | 10,587,710 | 10,587 k |
+| Poland | ~37 m | 36,497,495 | 36,564 k |
+| Romania | ~19 m | 19,036,031 | 19,036 k |
+
+**On Malta, Portugal and Spain the EU figure would have made the term look wrong and UNdata confirms it.**
+Spain is the sharpest: 49.08 million does not round to the term's "roughly 48 million", but UNdata's 47,890
+thousand does. **Had this batch used the EU page alone, it would have produced three corrections, all of
+them wrong.** The rule C1 stated tentatively is now firm: **read both official sources before concluding a
+term's figure is wrong, and expect the disagreement between them to be larger than the term's error.**
+
+### Areas, checked the same way and all holding
+Malta 316 (EU 316), Portugal 92,230 (92,226), Romania 238,398 (238,398), Slovakia 49,035 (49,035),
+Slovenia 20,271 (20,273), Spain 505,990 (505,983), Luxembourg 2,586 (2,595), Poland 312,696 (311,928),
+Sweden 450,295 (447,424). **The Netherlands is the one wide spread**: the term's 41,850 km² against the EU's
+37,391 km², about 12%. That is total area against land area for a country a fifth of which is water, not a
+contradiction — but it is far wider than any spread seen in C1, and worth remembering for the next
+water-heavy country.
+
+### Verified citations (batch C2)
+As C1: `data.un.org/en/iso/<cc>.html` and
+`european-union.europa.eu/principles-countries-history/eu-countries/<slug>_en` for each of the ten, plus
+NATO's member-countries table for Sweden. Accession dates read this batch: **Luxembourg and the Netherlands
+1 January 1958; Portugal and Spain 1 January 1986; Sweden 1 January 1995; Malta, Poland, Slovakia and
+Slovenia 1 May 2004; Romania 1 January 2007.** UN membership dates carrying an independence clause:
+**Malta 1 December 1964**, **Slovakia 19 January 1993**, **Slovenia 22 May 1992**. NATO: **Sweden 2024**.
+
+### DEFERRED (batch C2) — six terms, and why each one waits
+- **`Greece`** — deferred a second time. Its description states no area, no population and no capital, and
+  its EU accession (1 January 1981) is not in its third sentence, so neither work carries anything it says.
+  What it does assert — the southern Balkan peninsula and several thousand islands, mountains over
+  four-fifths, the longest Mediterranean coastline, the ancient city-states, and recognition as sovereign
+  in 1830 — needs a source for the London Protocol and one for the physical geography. **`mfa.gr` is 403
+  here**, which closes the obvious route.
+- **`Albania`** — deferred on a genuine conflict, not a gap. The term says "roughly 2.4 million people";
+  **UNdata says 2,772 thousand**, a 15% divergence far outside anything else in C1 or C2. Albania's own
+  2023 census is the likely source of the term's figure, and **INSTAT's census pages could not be read from
+  here** (the figure is not in the served HTML). Marking sentence 1 to UNdata would point a marker at a
+  work that contradicts the sentence it marks — the failure this pass has caught three times — and
+  correcting to UNdata risks introducing an error against Albania's own count. **It waits for INSTAT.**
+- **`Iceland`, `Norway`, `Switzerland`, `Andorra`** — UNdata confirms every figure in all four (Iceland
+  103,000 km² / 398 k; Norway 323,772 km² / 5,623 k; Switzerland 41,291 km² / 8,967 k; Andorra 468 km² /
+  83 k, all matching the terms), but **UNdata alone is one source and the bar is two**, and the natural
+  second for a non-EU European state is shut: **`efta.int` is 403 and `coe.int` is 403.** `nbim.no` is open
+  and would carry Norway's sovereign wealth fund. These four need a second source found before they ship,
+  not a second source invented.
+
+**That is six deferrals in two batches, and the reason is always the same shape**: the recipe is two
+institutional profiles, and it works exactly as far as a country's description states figures those
+profiles publish. C3 should be planned as the harder half of Europe rather than as more of the same.
+
+### NOT CITED (batch C2) — the unmarked clauses
+As in C1: all of the physical geography (the Ardennes and the Gutland, Malta's limestone platform and its
+desalination, the Dutch polders and the Rhine–Meuse–Scheldt delta, the Vistula and the Oder, the Tagus
+divide, the Carpathian arc and the Danube delta, the High Tatras, the Slovenian karst that named karst, the
+Meseta and the Sierra Nevada, Sweden's 100,000 lakes and the Arctic Circle) and all of the pre-modern
+history (the grand duchy, the Knights of St John from 1530, the 17th-century Dutch republic and the kingdom
+of 1815, the Christian kingdom of 966 and the partition of 1795, the Portuguese kingdom of 1143 and the
+voyages, Roman Dacia and the union of 1859, a thousand years in the Kingdom of Hungary, Habsburg Slovenia,
+Visigothic and Muslim Spain and the union of Castile and Aragon, and the Swedish Baltic empire to 1721).
+
+## Batch C3 — Europe, the non-EU states (GLOSSARY, 2026-08-02)
+
+**Four terms shipped, 8 citations, no corrections.** Coverage 167/333 → 171/333. Bosnia and Herzegovina,
+North Macedonia, Norway, Ukraine. **Fifteen of the nineteen planned were deferred**, and that ratio is the
+batch's finding: C2 predicted C3 would be the harder half of Europe, and it is harder than predicted.
+
+### FINDING — outside the EU there is no second institutional profile, and the substitute is per-country
+For an EU state the recipe is two fetches and both are guaranteed. Outside it, **UNdata is the only general
+profile that answers**, and every one of the natural second sources for a European state is shut here,
+measured 2026-08-02:
+
+| host | status |
+|---|---|
+| `efta.int` | 403 |
+| `coe.int` (Council of Europe) | 403 |
+| `admin.ch`, `eda.admin.ch` (Swiss federal administration) | 403 |
+| `althingi.is` (the Icelandic parliament) | 403 |
+| `mfa.gr` (Greek foreign ministry) | 403 |
+
+So the second source has to be found **per country, per claim**, and it exists only where the third sentence
+names a datable act. The four that shipped are exactly the four where it did:
+
+- **`Bosnia_and_Herzegovina`** — the OSCE's own page on the **Dayton Peace Agreement**: "the peace agreement
+  reached at Wright-Patterson Air Force Base near Dayton, Ohio … in **November 1995**, and formally signed
+  in Paris on 14 December 1995. These accords put an end to the 3½-year-long Bosnian War … The current
+  Constitution of Bosnia and Herzegovina is **Annex 4** of the DPA."
+- **`North_Macedonia`** — NATO's member-countries table gives **2020**, which is what the term's "opened the
+  way to NATO membership" turns on.
+- **`Norway`** — Norges Bank Investment Management: "The Government Pension Fund Global is **one of the
+  world's largest funds**", "established after Norway discovered oil in the North Sea", managing "revenue
+  from Norway's oil and gas resources" — the term's whole closing clause, from the body that runs the fund.
+- **`Ukraine`** — General Assembly resolution **ES-11/1, "Aggression against Ukraine"**, adopted 2 March
+  2022, which records "the **24 February 2022** declaration by the Russian Federation of a 'special military
+  operation' in Ukraine" and that its "military operations … inside the sovereign territory of Ukraine are
+  on a scale that the international community has not seen in Europe in decades" — precisely the term's
+  "invaded on a large scale in 2022".
+
+**The lesson for C4 onward: outside a bloc with its own country pages, look at the third sentence first and
+ask what ACT it names.** If it names a treaty, an accession, a resolution or a founding, there is a second
+source; if it names a landscape, a dynasty or a language family, there is not, and the term waits.
+
+### Figures verified for all four
+Bosnia 51,209 km² (UNdata 51,209) and ~3.2 m (3,140 k); North Macedonia 25,713 km² (25,713) and ~1.8 m
+(1,814 k); Norway ~324,000 km² (323,772) and ~5.5 m (5,623 k); Ukraine 603,550 km² (603,500) and "about 41
+million before 2022 and much reduced since" against UNdata's current 38,980 k — which is consistent with
+the term rather than against it, and is the only place in Phase 3 so far where a term's own hedge is what
+reconciles it to the source.
+
+### DEFERRED (batch C3) — fifteen terms, with reasons
+**One source only, no citable act in the third sentence** — UNdata confirms every figure, but the closing
+sentence names a dynasty, a language, a mountain confederation or a medieval founding, and nothing openable
+carries it: `Andorra` (the co-principality of 1278), `Liechtenstein` (an 18th-century princely purchase),
+`Monaco` (the Grimaldis from the 13th century), `San_Marino` (foundation by tradition in 301, statutes of
+1600), `Switzerland` (four national languages, armed neutrality since 1815 — and `admin.ch` is 403),
+`Iceland` (the Althing of 930 — and `althingi.is` is 403), `Belarus` (independence in 1991, which UNdata
+cannot date because Byelorussia was a **founding UN member in 1945**), `Russia` (Moscow to empire to the
+USSR), `Montenegro` (UNdata's UN membership date of 28 June 2006 does match the referendum year, but that is
+still one source), `Serbia` (UN membership 1 November 2000 against the term's 2006 separation),
+`Moldova`, `Georgia`.
+- **`Albania`** — deferred a second time on the conflict recorded in C2: the term's "roughly 2.4 million"
+  against UNdata's 2,772 thousand, unresolvable from here because INSTAT's census pages do not carry the
+  figure in their served HTML.
+- **`Greece`** — deferred a third time. Still states no area, no population and no capital; `mfa.gr` is 403.
+  **This term needs either a rewrite that states a figure or a class of source this pass has not found.**
+  It should not be carried forward as an ordinary deferral a fourth time.
+- **`United_Kingdom`** — deferred on a tooling fault rather than a sourcing one: **its Japanese translation
+  splits into four sentences where the other nine split into three**, so markers placed by sentence index
+  would land on different claims in Japanese. That has to be repaired in the prose before the term can be
+  cited, exactly as batch 24 repaired the deck's 5+5 splits.
+
+## Batch C4 — Asia, the Commonwealth states (GLOSSARY, 2026-08-02)
+
+**Seven terms shipped, 14 citations, no corrections.** Coverage 171/333 → 178/333. Bangladesh, India,
+Malaysia, Maldives, Pakistan, Singapore, Sri Lanka. **Chosen as a group because they share a second source**
+— C3's rule applied in advance rather than discovered halfway through.
+
+### FINDING — the Commonwealth is Asia's EU country page
+C0 found the Commonwealth's country pages useful for a small state's population. C4 finds they are the
+**bloc profile the recipe needs outside Europe**, because the Key Facts block carries Population, Area,
+Capital city **and the year of joining with its independence context in the same line**:
+
+| | joined the Commonwealth |
+|---|---|
+| India | **1947, following independence from Britain** |
+| Pakistan | **1947, on partition from India**; left in 1972, rejoined |
+| Sri Lanka | **1948, following independence from Britain** |
+| Malaysia | **1957, following the Federation of Malaya's independence from Britain** |
+| Singapore | **1965, on leaving the Federation of Malaysia and becoming an independent state** |
+| Bangladesh | **1972, after independence from Pakistan** |
+| Maldives | 1982; withdrew 13 October 2016, rejoined 1 February 2020 |
+
+Five of those seven lines carry the independence claim in the term's own third sentence, dated. **This is
+the same shape as the EU's "EU Member State : since <date>", from a body covering 56 states across Asia,
+Africa, Oceania and the Caribbean** — which is most of the rest of Phase 3.
+
+**A caution that stopped one marker.** Bangladesh's line gives **1972**, the year it joined; the term says
+independence came **in 1971**, after the war. The Commonwealth supports "independence from Pakistan" but not
+the year, so **Bangladesh's third sentence is left unmarked** and the term is cited on its first alone.
+Both the Commonwealth's joining year and UNdata's UN membership date (17 September 1974) are *later* than
+independence for Bangladesh, and neither dates it. **The joining line is not always the independence line —
+read it before marking it.**
+
+### Two official sources, 10% apart, and neither is wrong
+**Pakistan's area: UNdata gives 796,095 km², the Commonwealth 882,000 km², the term "about 881,900 km²."**
+That is a 10% divergence, by far the widest in Phase 3 — wider than the Netherlands' 12% land-versus-total
+gap only in kind, not in degree — and it is the Kashmir question: UNdata's figure excludes the
+Pakistani-administered territories, the Commonwealth's includes them. **The term agrees with the
+Commonwealth and no correction was made.** C1 and C2 established that two official sources routinely
+disagree by more than the term's error; Pakistan is the case where the disagreement is a political fact
+rather than a measurement convention, and it is the one to remember when the African and Middle Eastern
+batches meet a disputed border.
+
+**India's area went the other way and vindicated UNdata**: the Commonwealth gives 3,166,391 km², UNdata
+**3,287,263 km²**, and the term's "about 3.3 million km²" matches UNdata. Had this batch used the
+Commonwealth alone it would have produced a wrong correction, exactly as C2's would have on the EU page.
+**Two sources, both official, disagreeing in opposite directions on two neighbouring countries in one
+batch** — the rule is now beyond doubt.
+
+### Figures verified
+Bangladesh 148,460 km² (UNdata 148,460, exact) and ~171 m (175,687 k); India ~3.3 m km² (3,287,263) and
+~1.4 bn (1,463,866 k); Malaysia 330,803 km² (330,621) and ~34 m (35,978 k); Maldives ~300 km² (300, exact)
+and ~520,000 (530 k); Pakistan ~881,900 km² (Commonwealth 882,000) and ~245 m (255,220 k); Singapore ~735
+km² (728) and ~6 m (5,871 k); Sri Lanka 65,610 km² (65,610, exact) and ~22 m (23,230 k). **Three exact
+matches and nothing outside the spread a "roughly" absorbs.**
+
+### Verified citations (batch C4)
+`data.un.org/en/iso/<cc>.html` and `thecommonwealth.org/our-member-countries/<slug>` for each of the seven.
+UN membership dates carrying an independence clause: **Maldives 21 September 1965**, **Pakistan 30 September
+1947**, **Singapore 21 September 1965**.
+
+### NOT CITED (batch C4) — the unmarked clauses
+As throughout Phase 3: the physical geography (the Bay of Bengal coast, the two halves of Malaysia 640 km
+apart, the Maldivian atolls, the Arabian Sea coast) and the pre-modern and colonial history (Mughal Bengal,
+the Indus valley cities of the 3rd millennium BCE and the origins of four religions, the port of Melaka and
+the Portuguese from 1511, the Maldivian conversion to Islam in the 12th century, Anuradhapura and Theravada
+Buddhism, the British trading post of 1819, the Japanese occupation, and Sri Lanka's civil war of
+1983–2009). India's "seventh largest in the world" and its 22 constitutional languages are likewise
+unmarked — the first is a ranking no profile states and the second is a constitutional fact neither source
+carries.
+
+### The rest of Asia
+**Thirty-nine Asian terms remain**, none of them Commonwealth members, and on C3's evidence they will behave
+like C3 rather than C4: UNdata alone unless the third sentence names a datable act. **ASEAN
+(`asean.org`), the Gulf Cooperation Council and the Arab League are the blocs worth probing first** — if any
+of them publishes a member profile in the shape of the EU's or the Commonwealth's, C5 and C6 are cheap; if
+none does, they are C3 again.
+
+## Batch C5 — Asia outside the Commonwealth (GLOSSARY, 2026-08-02)
+
+**Four terms shipped, 8 citations, no corrections.** Coverage 178/333 → 182/333. Israel, East Timor, North
+Korea, South Korea. **Thirty-five of the thirty-nine planned were deferred**, and the negative result the
+plan asked for is the batch's main output.
+
+### FINDING — Asia has no bloc profile outside the Commonwealth
+C4 ended by naming three blocs to probe first. All three fail, measured 2026-08-02:
+
+| bloc | result |
+|---|---|
+| **ASEAN** (`asean.org`) | **307 on every path**, including the site root, with no followable Location — effectively closed |
+| **Organisation of Islamic Cooperation** (`oic-oci.org/states`) | 200 and 336 KB, but it is a news page: **no per-country profiles, no key facts** |
+| **Gulf Cooperation Council** (`gcc-sg.org`) | 200 and 34 KB, no member profiles |
+| **League of Arab States** (`leagueofarabstates.net`) | 200 and 167 KB, no member profiles |
+
+**So there is no Asian equivalent of the EU country page or the Commonwealth Key Facts block.** UNdata
+answers for all thirty-nine and confirms every figure, but it is one source and the bar is two — which is
+C3's position exactly, one continent over.
+
+### The four that shipped, and the source class that carried them
+C3's rule — read the third sentence and ask what ACT it names — selected all four, and three of the four
+second sources are **United Nations instruments**, which `documents.un.org` and UNISPAL serve as PDFs and
+pages where `un.org`'s own topic sections are CloudFront-blocked:
+
+- **`Israel`** — General Assembly resolution **181 (II)** of 29 November 1947, on UNISPAL: "The **Mandate for
+  Palestine shall terminate** as soon as possible but in any case not later than 1 August 1948", and the
+  provision for administration "between the termination of the Mandate and the establishment of the State's
+  independence" — the term's "established in 1948 in the aftermath of the British Mandate over Palestine".
+- **`East_Timor`** — Security Council resolution **1272 (1999)** of 25 October 1999: "Decides to establish …
+  a **United Nations Transitional Administration in East Timor (UNTAET)**, which will be endowed with
+  overall responsibility for the administration of East Timor and will be **empowered to exercise all
+  legislative and executive authority**", recalling the popular-consultation agreements of 5 May and 30
+  August 1999 — the term's "a vote for independence in 1999 and a period of United Nations administration".
+- **`North_Korea` and `South_Korea`** — the Office of the Historian's **"The Korean War and Japan's
+  Recovery"**, which carries the division "at the **38th parallel**", the attack of **June 1950**, the
+  UN-authorised force, China's entry, and "Only in **1953** did the two sides reach an uneasy truce, thus
+  crystallizing the division between North and South" — both terms' "divided along the 38th parallel …
+  fought the Korean War from 1950 to 1953, which ended in an armistice rather than a peace treaty". **One
+  page cites two countries**, which is the only economy of scale this batch found.
+
+### Figures verified
+Israel ~22,000 km² (UNdata 22,072) and ~10 m (9,517 k); East Timor 14,954 km² (14,919) and ~1.4 m (1,418 k);
+North Korea 120,540 km² (120,538) and ~26 m (26,571 k); South Korea 100,363 km² (100,401) and ~52 m
+(51,667 k). **All four within a fraction of a percent.**
+
+### A divergence recorded, not corrected — the United Arab Emirates
+**UNdata gives 71,024 km²; the term says 83,600 km²**, which is the UAE's own official figure. That is a
+**17% gap, the widest in Phase 3**, wider than Pakistan's 10% Kashmir gap in C4 and the Netherlands' 12%
+land-versus-total gap in C2. The UAE is not a Commonwealth member, so there was no second official source to
+break the tie, and the term was left alone and deferred. **When UNdata is the only profile and it disagrees
+with the term by more than a rounding, defer — do not correct on one source.** That is C0's South Sudan
+lesson stated as a rule rather than a regret.
+
+### DEFERRED (batch C5) — thirty-five terms
+**Thirty-four for want of a second source.** UNdata confirms the figures for every one of them; their third
+sentences name dynasties, empires, Silk Road cities, colonial periods and language families, none of which
+any reachable work states: Afghanistan, Armenia, Azerbaijan, Bahrain, Bhutan, Brunei, Cambodia, China,
+Indonesia, Iran, Iraq, Japan, Jordan, Kazakhstan, Kuwait, Kyrgyzstan, Laos, Lebanon, Mongolia, Myanmar,
+Nepal, Oman, Philippines, Qatar, Saudi Arabia, Syria, Tajikistan, Thailand, Turkey, Turkmenistan, United
+Arab Emirates, Uzbekistan, Vietnam, Yemen.
+- **`China` is worth a note**: UNdata matches its area exactly (9,600,000 km²) and nearly its population,
+  and the UN Charter names it a permanent member of the Security Council — but **the term's third sentence
+  does not mention the Security Council**, so the Charter cannot be cited for anything it says. A source
+  that is open, authoritative and about the right country is still not a source for a claim the term does
+  not make.
+- **`Taiwan` is deferred on a SPLIT fault**, the second in Phase 3 after `United_Kingdom` in C3: **its
+  Japanese translation runs to four sentences where the other nine run to three.** Markers placed by
+  sentence index would land on different claims in Japanese. Two such faults in three batches makes the
+  case that **`split-abstract.js` should be run over a batch's whole term list before its markers are
+  planned**, which C3 already recommended and this batch confirms.
+
+## Batch C6 — Africa, the Commonwealth states (GLOSSARY, 2026-08-02)
+
+**Thirteen terms shipped, 26 citations, no corrections.** Coverage 182/333 → 195/333. Botswana, Cameroon,
+Ghana, Mauritius, Mozambique, Namibia, Nigeria, Rwanda, Seychelles, Sierra Leone, South Africa, Uganda,
+Zambia. **The largest country batch of Phase 3 so far**, and it confirms C4's finding at scale: the
+Commonwealth is the bloc profile outside Europe.
+
+### FINDING — the up-front split check paid on its first use
+C5 concluded that `split-abstract.js` must be run over a batch's whole term list **before** its markers are
+planned, after `United_Kingdom` and `Taiwan` were each caught late. C6 ran it first and it caught two more
+immediately: **`Lesotho` splits into four sentences in Italian**, and **`Malawi` into four in Japanese**,
+where the other nine languages split into three in both cases. Neither term was planned, marked or written —
+they were removed from the batch before any work was done on them. **Four split faults in four batches makes
+this a standing step, not a precaution.**
+
+### The Commonwealth joining line, and when it is the independence line
+C4 found the joining line often carries the independence year; C6 measured how often across a larger set.
+**Eleven of thirteen match the term's independence year and were marked; three did not and were not.**
+
+| | joined the Commonwealth | term's independence | marked? |
+|---|---|---|---|
+| Ghana | 1957, following independence from Britain | 1957 | ✓ |
+| Nigeria | 1960, following independence from Britain | 1960 | ✓ |
+| Sierra Leone | 1961, following independence from Britain | 1961 | ✓ |
+| Uganda | 1962, following independence from Britain | 1962 | ✓ |
+| Zambia | 1964, following independence from Britain | 1964 | ✓ |
+| Botswana | 1966, following independence from Britain | 1966 | ✓ |
+| Mauritius | 1968, following independence from Britain | 1968 | ✓ |
+| Seychelles | 1976, following independence from Britain | 1976 | ✓ |
+| Namibia | 1990, after independence from South Africa | 1990 | ✓ |
+| **Mozambique** | **1995, following its first democratic elections** | 1975 | ✗ |
+| **Rwanda** | **2009** (54th member; first with no constitutional link to Britain) | 1962 | ✗ |
+| **South Africa** | **1931**, on independence from Britain; left 1961, rejoined 1994 | 1910 Union | ✗ |
+| **Cameroon** | 1960, following independence from Britain | 1960 **and 1961**, French and British portions | ✗ |
+
+**Mozambique and Rwanda are the shape C4 warned about** — states that joined the Commonwealth without ever
+having been British, so the joining line dates an accession and not an independence. **Cameroon is subtler
+and is why the check has to be per country**: the years agree, but the term describes a French portion
+independent in 1960 and a British portion in 1961 joining together, and the Commonwealth's single line
+("1960, following independence from Britain") does not describe that. The marker was withheld rather than
+placed on a near-match. All four still clear the bar on their first sentences, which both sources carry.
+
+### Figures verified against both sources — fourteen countries, no corrections
+Exact or near-exact matches on area throughout: Nigeria 923,769 km² (UNdata 923,768), Rwanda 26,338
+(26,338), South Africa 1,221,037 (1,221,037), Zambia 752,618 (752,612), Ghana 238,535 (238,537), Botswana
+581,730 (Commonwealth 581,730), Sierra Leone 71,740 (Commonwealth 71,740). **Every area within 0.7% of both
+sources.** Populations sit consistently **between** the Commonwealth's 2022 figures and UNdata's 2025 ones —
+Uganda's "roughly 48 million" between 45.7 m and 51.4 m, Zambia's "roughly 20 million" between 18.38 m and
+21.9 m, Seychelles' "roughly 120,000" between 98,462 and 133,000 — which is what a term written from a
+recent-but-not-current estimate looks like, and is not an error. **The read-both rule keeps paying: on one
+source alone, several of these would have looked wrong in one direction or the other.**
+
+### Verified citations (batch C6)
+`data.un.org/en/iso/<cc>.html` and `thecommonwealth.org/our-member-countries/<slug>` for each of the
+thirteen.
+
+### DEFERRED (batch C6) — four terms
+- **`Lesotho`** and **`Malawi`** — split faults, caught before any work; see above.
+- **`Kenya`** — **the Greece shape, and the second instance in Phase 3.** Its description states no area, no
+  population and no capital: it opens "Kenya is a country in East Africa that straddles the equator, with a
+  coast on the Indian Ocean, a central highland plateau split by the Great Rift Valley…". The Commonwealth's
+  joining line does support its "independent in 1963", but that leaves UNdata carrying nothing the term
+  says, so the term would ship on one source. **Greece and Kenya are both among the twelve countries the
+  plan describes as "written earlier and at greater length"** — and that extra length turns out to be extra
+  *prose* rather than extra *figures*, which is exactly what makes them invisible to a recipe built on
+  statistical profiles. The remaining ten of that twelve should be expected to behave the same way.
+- **`Tanzania`** — the Commonwealth's slug could not be found. `/our-member-countries/tanzania`,
+  `/united-republic-of-tanzania` and `/tanzania-united-republic` are all 404, and the site offers no index
+  this pass could read. A trivial obstacle, but not one to guess past: a citation must point at a page that
+  exists.
+
+---
+
+## Batch C7 — Africa: the rest of the Commonwealth, and the source that opens the rest of the world (2026-08-02)
+
+Eleven terms cited, 26 citations, one correction. Coverage 195 → 206 of 333.
+
+**Eswatini · Eritrea · Gabon · The Gambia · Kenya · Lesotho · Malawi · Morocco · Somalia · Tanzania · Togo.**
+
+### The find: the Office of the Historian's country guide covers EVERY country
+`history.state.gov/countries/<slug>` — *A Guide to the United States' History of Recognition, Diplomatic,
+and Consular Relations, by Country, since 1776* — has a page for every state in the world, and its
+**Recognition** section states, in prose, the year a country became independent and from whom. This is the
+second institutional profile Phase 3 has been missing everywhere outside the EU and the Commonwealth. C3
+found that outside the EU there is no second European profile; C5 found that Asia outside the Commonwealth
+has none either; both conclusions stand for *statistical* profiles and are now beside the point for the
+claim that matters, because **the third sentence of a country term is almost always an independence date**,
+and this guide carries it for all 197.
+
+What it gives, measured on this batch:
+- **Libya** — "an Italian colony from 1912 until 1947", "under British and French occupation from 1943 to
+  1951", independence and U.S. recognition 24 December 1951.
+- **Somalia** — "The Somali Republic was formed by the union of Somalia, which previously had been under
+  Italian administration as a United Nations trust territory, and Somaliland, which had been a British
+  protectorate until June 26, 1960", **and** the 1991 embassy closure "after the collapse of the central
+  Somali government". Two of the term's three historical claims from one page.
+- **Kenya** — "From 1895 until 1963, the area that later became modern Kenya was under British colonial
+  rule as part of British East Africa", plus independence on 12 December 1963. Both halves of the term's
+  "came under British control in the late 19th century before becoming independent in 1963".
+- **Morocco** — French protectorate from 1912, Spanish control over certain portions, independence 1956.
+- **Lesotho** — "previously had been under British sovereignty as **Basutoland**", independent 4 Oct 1966.
+- **Malawi** — "previously had been under British sovereignty as **Nyasaland**", independent 6 July 1964.
+- **Tanzania** — "Tanganyika previously had been under British administration as a United Nations Trust
+  Territory", recognised 9 December 1961.
+- **Togo** — "Togoland previously had been under French administration as a United Nations Trust
+  Territory", independence 1960.
+- **Gabon** — "Gabon's independence from French Equatorial Africa was proclaimed", 17 August 1960.
+- **Eritrea** — independence declared 27 April 1993; "Eritrea previously had been under Ethiopian
+  sovereignty".
+
+It is written from the United States' point of view, so a date is often a *recognition* date rather than
+the event itself — but the page states the event alongside it in every case above, and where it does not,
+it is not cited for one.
+
+### The line C7 draws on what a marker may rest on
+UNdata's **Region** field ("Eastern Africa") is a fact about the country, and it was tempting to mark
+`Kenya`'s and `Tanzania`'s opening sentence to it. It was not done. Those sentences also assert a highland
+plateau, the Rift Valley, a share of Lake Victoria, Kilimanjaro and the Zanzibar archipelago, and a marker
+at a sentence end vouches for the sentence. **Where a profile carries a term's FIGURES, marking the
+figure sentence to it is the settled practice of C1–C6 and continues; where it carries only a region name,
+it does not earn the sentence.** Both terms therefore ship on the Commonwealth and the Office of the
+Historian, with their first two sentences unmarked, and UNdata is not in their lists at all.
+
+### The one correction
+**`Togo`** — "roughly 9 million people" → **"roughly 8.6 million"**. UNdata gives 8,592 thousand (2025) and
+the Commonwealth 8.645 million (2021); the two agree, so this is not a single-source call. Corrected in all
+ten languages.
+
+### Figures checked against both sources — the rest held
+- `Eswatini` 17,364 km² (UNdata 17,363; Commonwealth 17,400); 1.2 m between 1.16 m and 1.256 m; Mbabane
+  administrative and Lobamba legislative, both confirmed by the Commonwealth.
+- `The Gambia` 11,300 km² (UNdata 11,295; Commonwealth 11,600 — the total-vs-land spread of a country that
+  is mostly river); 2.7 m between 2.417 m and 2.822 m.
+- `Lesotho` 30,355 km² exact at UNdata, 30,350 at the Commonwealth; 2.3 m between 2.14 m and 2.363 m.
+- `Malawi` 118,484 km² (Commonwealth 118,500; UNdata 117,726); 21 m between 19.1 m and 22.216 m.
+- `Togo` 56,785 km² **exact at both**; Lomé at both.
+- `Morocco` 446,550 km² exact at UNdata; 38 m against 38.431 m; Rabat.
+- `Eritrea` 3.7 m against 3.607 m; Asmara. Area 117,600 against UNdata's 121,144 — 3.0%, which is the
+  land-against-total convention for a country with the Dahlak archipelago offshore, not a contradiction.
+
+### UNMARKED, and why — a population where UNdata stands alone
+`Gabon` ("roughly 2.4 million" against UNdata's 2,593 thousand, 7.4%) and `Somalia` ("roughly 18 million"
+against 19,655 thousand, 8.4%) both open on a population no second open source states — the Commonwealth's
+Gabon page carries "No data found", and Somalia is not a member. **Following C5's UAE rule, neither was
+corrected and neither opening sentence was marked**; both terms are carried by their third sentence, where
+the Office of the Historian and UNdata's UN membership date agree. C0's South Sudan correction (11 → 12
+million on UNdata alone) stands as the exception it was, not the rule.
+
+### DEFERRED (batch C7) — three terms, all on a divergence with no second profile
+- **`Egypt`** — "roughly 107 million" against UNdata's 118,366 thousand, a **10.6% gap** and the widest
+  population divergence met in Phase 3. This is a live disagreement between the UN's estimate and Egypt's
+  own, not an error in the term; `capmas.gov.eg` was not opened here, so there is no second figure to
+  break the tie. Area 1,001,450 against 1,002,000 is fine. The term's third sentence is ancient history —
+  villages before 5000 BCE, unification about 3100 BCE — which the recognition guide does not touch, so
+  there is nothing else to carry it.
+- **`Ethiopia`** — "roughly 130 million" against 135,472 thousand (4.2%); area 1,104,300 exact. Its third
+  sentence is Aksum, Christianity in the 4th century and the Solomonic monarchy: nothing the recognition
+  guide states.
+- **`Libya`** — area 1,759,540 km² against UNdata's 1,676,198, a **5.0% gap**, with no second profile. Its
+  history is well carried by the Office of the Historian, but see the note below, and one source is below
+  the bar.
+
+**A note held for whoever cites `Libya`:** its term says "an Italian colony from **1911**", where the
+recognition guide says "The Ottoman Empire formally ceded Libya to Italy under the Treaty of Ouchy on
+October 18, **1912**" and "an Italian colony from 1912 until 1947". Both are defensible — 1911 is the
+invasion and the Italian proclamation of annexation, 1912 the cession — but a marker pointing at that page
+beside "1911" would point at a work that says otherwise. Reword to the cession or leave the clause
+unmarked; do not mark it as it stands.
+
+### Verified citations (batch C7)
+`data.un.org/en/iso/<cc>.html` (sz, er, ga, gm, ls, mw, ma, so, tg),
+`thecommonwealth.org/our-member-countries/<slug>` (kingdom-eswatini, gambia, kenya, lesotho, malawi,
+united-republic-tanzania, togo) and `history.state.gov/countries/<slug>` (eritrea, gabon, gambia, kenya,
+lesotho, malawi, morocco, somalia, tanzania, togo).
+
+**Two Commonwealth slugs recovered**, both deferred in earlier batches for want of them: `Tanzania` is
+**`united-republic-tanzania`** (not `tanzania`, `united-republic-of-tanzania` or `tanzania-united-republic`,
+all of which 404) and `Eswatini` is **`kingdom-eswatini`**. The slug follows the member's formal name, not
+the common one — check that form before concluding a member has no page.
+
+**Two Commonwealth pages carry no Key Facts block at all**: `Gabon` and, in part, `Togo`. Both joined in
+2022 without a British past, and Gabon's page says only that it joined in June 2022 at the Kigali CHOGM,
+with "No data found" where the population belongs. **A member admitted recently has a page and not a
+profile.**
+
+### Hosts, measured 2026-08-02
+- `history.state.gov/countries/<slug>` — **200, every country tried.** The find above.
+- `history.state.gov/milestones/…` — 200 (unchanged from P5).
+- `whc.unesco.org` — **403**, confirming the card pass. The World Heritage list is not citable from here,
+  which rules out the obvious second source for a term naming a heritage site.
+- `au.int/en/countryprofiles` — 404; `au.int/en/memberstates` 200 but no per-country profile. **The African
+  Union publishes no country pages**, so C5's finding for Asia holds for Africa: outside the Commonwealth
+  there is no bloc profile.
+- `afdb.org` — 403. `oecd.org` — 403. `uneca.org` — 200 at the root, no per-country profiles.
+- `icj-cij.org/case/<n>` — 200, usable for a term resting on an advisory opinion or a judgment.
+
+---
+
+## Batch C8 — Africa outside the Commonwealth, on the two-fetch recipe (2026-08-02)
+
+Fourteen terms cited, 28 citations, **fourteen corrections in thirteen terms**. Coverage 206 → 220 of 333.
+
+**Algeria · Angola · Benin · Burkina Faso · Burundi · Central African Republic · Chad · Democratic
+Republic of the Congo · Republic of the Congo · Djibouti · Egypt · Equatorial Guinea · Guinea ·
+Guinea-Bissau.** One deferred: Comoros.
+
+### C7's find generalises: UNdata + the Office of the Historian is a two-fetch recipe for anywhere
+Every one of these fourteen ships on exactly two pages — `data.un.org/en/iso/<cc>.html` for the figures and
+`history.state.gov/countries/<slug>` for the history. There is no bloc profile behind any of them: the
+African Union publishes no country pages, `afdb.org` and `oecd.org` are 403, and none of these states is in
+the Commonwealth or the EU. This is the position C3 and C5 described as having no second source, and it is
+now routine.
+
+What the recognition guide gave, beyond the independence year:
+- **Algeria** — "Algerian self-rule ended with French conquest in 1830" and independence in 1962, both
+  claims of the term's third sentence from one page.
+- **Burkina Faso** — "Upper Volta previously had been under French sovereignty" **and** "The state's name
+  changed from Upper Volta to Burkina Faso in 1984": three of the sentence's four claims.
+- **Egypt** — "In 1882, Great Britain established a protectorate over Egypt … despite the fact that it
+  continued to be nominally part of the Ottoman Empire", which carries both the Ottoman and the 1882
+  clauses.
+- **Burundi** — the UN Trusteeship over Ruanda-Urundi "that had been administered by Belgium", ended 1962.
+- **Benin** — Dahomey's independence 1960 and the 1975 renaming.
+- **Guinea-Bissau** — recognition in 1974, which is exactly the term's "won recognition in 1974".
+- **DR Congo** — "the area formerly known as the Belgian Congo was proclaimed independent from Belgian
+  sovereignty", 30 June 1960.
+
+### The finding: the populations were STALE, not contested — and the vintage is recoverable
+Thirteen of the fourteen terms opened on a population several per cent below UNdata's 2025 figure, and the
+first instinct — C5's rule that a single-source divergence is deferred, never corrected — would have left
+almost every opening sentence unmarked. **The World Bank's API settles it.**
+`api.worldbank.org/v2/country/<ISO3>/indicator/SP.POP.TOTL?format=json&date=2015:2025` returns the whole
+series, and every term's figure turns out to be **an earlier point on that same series**:
+
+| term | term said | UNdata 2025 | the year the term's figure was true |
+|---|---|---|---|
+| Egypt | 107 m | 118.37 m | **2019** (107.55) |
+| Chad | 18 m | 21.00 m | 2022 (18.46) |
+| DR Congo | 105 m | 112.83 m | 2023 (105.79) |
+| Algeria | 46 m | 47.44 m | 2023 (46.16) |
+| Angola | 37 m | 39.04 m | 2023 (36.75) |
+| Burkina Faso | 23 m | 24.07 m | 2023 (23.03) |
+| Burundi | 13 m | 14.39 m | 2022 (13.32) |
+| Guinea | 14 m | 15.10 m | 2022 (14.06) |
+| Benin | 14 m | 14.81 m | 2023 (14.11) |
+| Equatorial Guinea | 1.7 m | 1.94 m | 2020 (1.72) |
+| Rep. of the Congo | 6 m | 6.48 m | 2022 (6.04) |
+| Guinea-Bissau | 2.1 m | 2.25 m | 2022 (2.11) |
+| Djibouti | 1.1 m | 1.18 m | 2019 (1.09) |
+| **Central African Republic** | **5.5 m** | **5.51 m** | **current — the one that needed nothing** |
+
+**So this is not "correcting on one source" in the sense C2 and C5 warned about.** Their danger was
+concluding a term is wrong when a rival official source would have vindicated it — Spain at 49.1 m on the
+EU's page against 47.9 m at UNdata. Here there is no rival: the term's figure and UNdata's are the SAME
+series read at different dates, and the series itself says which date. Every one was updated to the 2025
+figure, in all ten languages.
+
+**A caution that goes with the method: the World Bank is NOT an independent second source for a
+population.** `SP.POP.TOTL` relays the UN's own estimate — its 2025 value for Chad is 21,003,705 against
+UNdata's 21,004 thousand, the same number — so citing both for one figure would be false corroboration.
+It is used here as a **diagnostic** and is not in any term's source list.
+
+**And it revises C7's Egypt call, which is the honest thing to record.** C7 deferred Egypt reasoning that
+107-against-118 million looked like a live disagreement between the UN's estimate and Egypt's own. The
+series shows 107 million is simply the 2019 value of the very same series. The deferral was wrong on its
+reason; the term is cited here.
+
+### The one correction that is not a figure
+**`Djibouti`** — "it was French Somaliland until independence in 1977" → **"it was ruled by France,
+latterly as the French Territory of the Afars and the Issas, until independence in 1977"**. The recognition
+guide names "the former French Territory of Afars and Issas" at the moment of independence; French
+Somaliland was the name until 1967, so the term named the wrong territory at the date it gave. The 1967
+rename is not stated on any page opened here, so the new wording claims only what the citation carries.
+
+### UNMARKED, and recorded
+- **`Angola`** — "colonial rule was formalised in the 19th century" against the guide's "Portugal eventually
+  secured administrative control over the interior in the beginning of the 20th century". These are
+  different claims — a formal claim against effective control — rather than a contradiction, so the term
+  stands and its third sentence is marked to the guide for the 1975 independence only. **Angola's UN
+  membership date is 1 December 1976, a year after independence**, so unlike the other twelve it does not
+  corroborate the year and UNdata is not marked there.
+- **`Egypt`** — "became a republic in 1953" is in nothing opened here; the guide gives independence in 1922
+  and the United Arab Republic of 1958–71 instead.
+- **`Republic of the Congo`** — the term's "a Marxist government ruled from 1969 to 1992" against the
+  guide's "Congo's adoption of multi-party democracy in 1991". Not contradictory, not marked.
+- **`DR Congo`** — Leopold II's personal possession from 1885 is not on the guide's page, which begins at
+  the Belgian Congo.
+
+### DEFERRED (batch C8) — one term
+- **`Comoros`** — two independent reasons. Its area, 1,861 km², counts the three islands it governs, where
+  UNdata's 2,235 km² counts the whole archipelago **including Mayotte**, which the term itself says is
+  under French administration and claimed by the Comoros — the Cyprus situation of C1, in reverse. And the
+  recognition guide is no use: it records U.S. recognition in **1977**, two years after the 1975
+  independence the term gives, and says nothing about French rule. UNdata's UN membership date of
+  12 November 1975 does date the independence, but that leaves one source.
+
+### Verified citations (batch C8)
+`data.un.org/en/iso/<cc>.html` (dz, ao, bj, bf, bi, cf, td, cd, cg, dj, eg, gq, gn, gw) and
+`history.state.gov/countries/<slug>` (algeria, angola, benin, burkina-faso, burundi,
+central-african-republic, chad, congo-democratic-republic, congo-republic, djibouti, egypt,
+equatorial-guinea, guinea, guinea-bissau).
+
+**The two Congo slugs are `congo-democratic-republic` and `congo-republic`** — not
+`democratic-republic-of-the-congo`, `republic-of-the-congo`, `congo` or `zaire`, all of which 404. The
+index at `history.state.gov/countries` lists them and is the way to resolve any slug in doubt; it also
+carries `congo-free-state`.
+
+### Hosts, measured 2026-08-02
+- `api.worldbank.org/v2/…?format=json` — **200**, JSON, no key. Serves a **UTF-8 BOM**, so decode with
+  `utf-8-sig`; it also returns an empty body under rapid repeated requests, which retries fix.
+- `data.worldbank.org/country/<name>` — 200 but a ~2 MB JavaScript page; use the API.
+- `population.un.org/wpp/` — 200.
+
+---
+
+## Batch C9 — the last of Africa, and the second source for AREA (2026-08-02)
+
+Fourteen terms cited, 29 citations, **fifteen corrections across thirteen terms**. Coverage 220 → 234 of
+333. **Africa is complete: 56 of 56.**
+
+**Comoros · Ethiopia · Ivory Coast · Liberia · Libya · Madagascar · Mali · Mauritania · Niger · São Tomé
+and Príncipe · Senegal · Sudan · Tunisia · Zimbabwe.** Nothing deferred.
+
+### The finding: the World Bank IS an independent second source — for AREA, not for population
+C8 established that `SP.POP.TOTL` relays the UN's own population estimate and is therefore a diagnostic
+rather than a citation. **`AG.SRF.TOTL.K2` is a different matter**: it comes through the FAO, not the UN
+Statistics Division, and it disagrees with UNdata exactly where a disagreement is informative.
+
+    api.worldbank.org/v2/country/<A>;<B>;<C>/indicator/AG.SRF.TOTL.K2?format=json&date=2022
+
+A single request takes a semicolon-separated list of countries, which is also the way around the API's
+habit of returning an empty body under rapid repeated single fetches.
+
+**It resolved both standing deferrals at once, and in the same direction — the term was right and UNdata
+was the outlier:**
+- **`Libya`**, deferred in C7 on a 5.0% area gap: the term's **1,759,540 km²** is the World Bank's figure
+  exactly, against UNdata's 1,676,198.
+- **`Comoros`**, deferred in C8 because UNdata's 2,235 km² counts Mayotte: the term's **1,861 km²** is the
+  World Bank's figure exactly.
+
+Both are now cited on the World Bank for the area and UNdata for the population and capital, with the
+World Bank first in each list. **The rule: when UNdata's area looks wrong, ask `AG.SRF.TOTL.K2` before
+deferring — and never use `SP.POP.TOTL` the same way, because that one is the UN's own number.**
+
+The rest of the batch confirms the two agree almost everywhere: Mauritania 1,030,700 and Niger 1,267,000
+and Tunisia 163,610 are identical in both, and Madagascar (587,041 / 587,295), Zimbabwe (390,757 /
+390,760), Liberia (111,369 / 111,370), Mali (1,240,192 / 1,240,190) and São Tomé (964 / 960) differ by
+under 0.05%. **The working line adopted here: correct an area only when the term falls OUTSIDE the spread
+of the two sources; leave it when it falls inside.** `Ivory_Coast` (322,463 against 322,462 and 322,460)
+falls inside and was left; `Senegal` (196,722 against 196,712 and 196,710) falls outside and was corrected
+to 196,712.
+
+### Corrections
+**Thirteen populations**, all diagnosed by the C8 method — each is an earlier point on the same series:
+Comoros 850,000 → 880,000 (2023), Ethiopia 130 → 135 m (2024), Ivory Coast 31 → 33 m (2023), Liberia 5.4 →
+5.7 m (2022), Libya 7 → 7.5 m (2019), Madagascar 31 → 33 m (2023), Mali 23 → 25 m (2022), Mauritania 4.9 →
+5.3 m (2021), Niger 26 → 28 m (2023), São Tomé 230,000 → 240,000 (2023), Senegal 18 → 19 m (2023), Sudan
+48 → 52 m (2021), Zimbabwe 16 → 17 m (2023). **`Tunisia` was left at "roughly 12 million"** against 12,349
+thousand — it rounds correctly and is the one figure in the batch still current enough to stand.
+
+**One area**: `Senegal` 196,722 → **196,712 km²**, as above.
+
+**One date narrowed**: `Madagascar` "France conquered it in 1897" → **"in the 1890s"**. The recognition
+guide states "In 1890, France assumed sovereignty over Madagascar as a colony"; 1890 is the recognition of
+the protectorate and 1897 the annexation, so the two name different acts. Narrowing to the decade is batch
+16's rule applied to a conquest rather than a naming history — say what the source will bear.
+
+### What the recognition guide gave, beyond the independence year
+- **`Zimbabwe`** — all three of the term's historical claims from one page: "previously had been under
+  British sovereignty as **Southern Rhodesia**"; "The United States never recognized the independence of
+  Rhodesia, the name of the state proclaimed by the colony's minority white government in its **unilateral
+  declaration of independence (UDI) in 1965**"; and independence on 18 April 1980.
+- **`Liberia`** — "The state that became Liberia originated in **1822** when the American Colonization
+  Society founded a settlement for freedmen and recaptured slaves. In **1847** the settlement constituted
+  itself as a republic", which is the term's first two clauses verbatim in substance.
+- **`Sudan`** — "previously had been subject to foreign control under an **Anglo-Egyptian condominium**",
+  independence 1 January 1956.
+- **`Tunisia`** — a whole section headed "Tunisia under French Control, **1881-1956**", the Treaty of Bardo
+  of 12 May 1881 and the La Marsa Convention of 1883 "explicitly stated that Tunisia was a French
+  protectorate", with independence recognised in March 1956.
+- **`Ivory Coast`** — independence 1960 under **Houphouët-Boigny**, named, plus the 1986 change of name to
+  Côte d'Ivoire.
+- **`Mali`** — the Federation of Mali (Senegal plus the Soudanese Republic) independent in June 1960 and
+  the Republic of Mali from September, after Senegal withdrew: one page carrying both this term's and
+  `Senegal`'s third sentence.
+
+### UNMARKED, and recorded
+- **`Sudan`'s area.** Its UNdata profile has **no Surface area field at all** — the one profile in Phase 3
+  that omits it — so the term's 1,861,484 km² rests on nothing here; the World Bank's 1,878,000 is a
+  different convention (0.9%) and does not settle it. The clause is inside a marked sentence and the gap is
+  recorded rather than corrected.
+- **`Ethiopia`'s area**, 1,104,300, matches UNdata exactly and the World Bank gives 1,136,240 — the term is
+  inside the spread and takes UNdata's figure.
+- **`Ethiopia`** "the only African state to defeat a European invasion and remain independent" and "a
+  monarchy claiming descent from Solomon lasted until 1974" are in nothing opened here; the guide gives the
+  Italian invasions of 1895 and 1935 and "Ethiopia's revolution" without dating the dynasty's end.
+- **`Comoros`** — the recognition guide records U.S. recognition in **1977** against the term's 1975
+  independence and says nothing of French rule, so it is **not cited for this term at all**; the 1975 date
+  is carried by UNdata's UN membership date of 12 November 1975.
+- **UN membership dates that do NOT corroborate**, and so were not marked: `Mauritania` (27 October 1961
+  against independence in 1960 — a Soviet veto delayed admission), `Libya` (14 December 1955 against
+  independence in 1951, the same Cold War deadlock), `Liberia` (2 November 1945, long after its 1847
+  founding) and `Ethiopia` (13 November 1945).
+
+### Verified citations (batch C9)
+`data.un.org/en/iso/<cc>.html` (km, et, ci, lr, ly, mg, ml, mr, ne, st, sn, sd, tn, zw),
+`history.state.gov/countries/<slug>` (ethiopia, cote-divoire, liberia, libya, madagascar, mali,
+mauritania, niger, sao-tome-and-principe, senegal, sudan, tunisia, zimbabwe) and
+`api.worldbank.org/v2/country/<ISO3>/indicator/AG.SRF.TOTL.K2` (COM, LBY).
+
+**Côte d'Ivoire's slug is `cote-divoire`** — one hyphen, no apostrophe.
+
+---
+
+## Batch C10 — Oceania, on three sources at once (2026-08-02)
+
+Thirteen terms cited, 35 citations, **four corrections**. Coverage 234 → 247 of 333. **Oceania is
+complete** (Tuvalu having been cited in C0). Nothing deferred.
+
+**Australia · New Zealand · Papua New Guinea · Fiji · Solomon Islands · Vanuatu · Samoa · Tonga ·
+Kiribati · Nauru · Palau · Marshall Islands · Federated States of Micronesia.**
+
+### The recipe reaches its densest form: UNdata + Commonwealth + Office of the Historian
+Ten of the thirteen are Commonwealth members and all thirteen have a recognition-guide page, so most
+terms here carry **three** sources rather than two — the first region in Phase 3 where that is routine.
+The three do different jobs and it is worth naming which: **UNdata gives the current figures, the
+Commonwealth gives the figures as of 2022 plus the joining line, and the recognition guide gives the
+colonial history the other two only gesture at.** Between them:
+- **`Australia`** — the guide states "On January 1, **1901**, six colonies were joined together to create
+  the Commonwealth of Australia", which is the term's third sentence exactly, and which the Commonwealth's
+  own joining line does NOT give (it dates membership to 1931 and the Statute of Westminster).
+- **`Tonga`** — "united in **1845** under King George Tupou I and became a constitutional monarchy in
+  **1875**", "entered into a protectorship agreement with the British Empire in **1900**", "After Tonga
+  withdrew from its British protectorate agreement in **1970**": four claims, covering the term's whole
+  third sentence including "from 1900 to 1970".
+- **`Samoa`** — independence recognised 1 January **1962** and "Western Samoa previously had been a Trust
+  Territory administered by **New Zealand**".
+- **`Vanuatu`** — "previously had been under the joint sovereignty of a **condominium between France and
+  the United Kingdom**", independent 30 July 1980; the Commonwealth's joining line says the same in its own
+  words ("following ending of administration Anglo-French condominium").
+- **`Kiribati`** — "the Gilbert Islands became a British protectorate in **1892** and the entire island
+  group was made a British colony in **1916**", independent 12 July 1979.
+- **`Fiji`** — "became a Crown colony within the British Empire in **1874**", independence 1970, and the
+  1987 coup that began "the coup cycle".
+- **`Palau`**, **`Marshall Islands`**, **`Micronesia`** — the three non-Commonwealth states, each carried
+  by the guide alone for its history: the UN trusteeship under U.S. administration, the year of
+  independence and the **Compact of Free Association**, which is the term's own phrase in all three.
+
+### Corrections
+- **`Fiji`** area 18,274 → **18,272 km²**. UNdata and the Commonwealth both give 18,272 exactly and the
+  World Bank 18,270; the term's figure is outside all three.
+- **`Papua New Guinea`** 10 → **10.8 million**; the term's figure is the 2021 value of the same series.
+- **`Solomon Islands`** 750,000 → **840,000**; the 2020 value.
+- **`Marshall Islands`** 40,000 → **36,000**, and this one runs the other way: the population is
+  **falling** (48,800 in 2015 to 36,282 in 2025, emigration under the Compact), so the term's 40,000 is
+  the 2022 value and is stale by being too HIGH. C8's diagnostic works in both directions and the phrase
+  "out of date" should not be read as "too low".
+
+### The contrast with Africa, which is the batch's real finding
+C8 and C9 corrected twenty-six populations between them. **Oceania needed three.** Fiji at 930,000
+against 933,154, Vanuatu at 330,000 against 335,169, Samoa at 220,000 against 219,306, Nauru at 12,000
+against 12,025, Micronesia at 110,000 against 113,683, Australia at 27 million against 26.97 — every one
+still current. The reason is arithmetic rather than editorial: **a figure rounded to two significant
+figures survives a decade of slow growth**, and these populations are small and mostly flat or declining,
+where the African ones are large and growing at 2–3% a year. **Expect the Americas to behave like Africa
+where growth is fast and like Oceania where it is not** — and run the series rather than guessing.
+
+### The rounding rule the World Bank's area series needs
+C9 set the line at "correct an area only when the term falls outside the spread of the two sources".
+Applying it here needed one refinement: **the World Bank rounds small areas to the nearest 10 km²**
+(Tonga 750, Kiribati 810, Samoa 2,840, Nauru 20), so its figure states an interval, not a point. `Fiji`
+was corrected because 18,274 lies outside 18,272 (UNdata **and** the Commonwealth, both precise) as well
+as outside 18,270 ± 5. Nothing else in the batch falls outside once that rounding is allowed for.
+
+### Where the three sources disagree, and which was believed
+- **`Kiribati`'s area.** UNdata gives **726 km²** against the Commonwealth's **811** and the World Bank's
+  810 — and the term's 811. UNdata is the outlier by 10%, so **UNdata is not cited for this term at all**;
+  Kiribati ships on the Commonwealth and the recognition guide.
+- **`Solomon Islands`' area.** The Commonwealth gives **30,407 km²** against UNdata's and the term's
+  28,896 and the World Bank's 28,900 — here the Commonwealth is the outlier, so the opening sentence is
+  marked to UNdata alone and the Commonwealth carries only the third sentence.
+- **`Palau`'s capital.** The term says **Ngerulmud**; UNdata says **Melekeok**. Ngerulmud is the seat of
+  government and stands in Melekeok State, so this is a town-against-state naming difference rather than a
+  contradiction. Recorded, not corrected.
+- **Commonwealth populations run low throughout** (Fiji 896,400, Kiribati 119,400, Nauru 10,000, Samoa
+  198,400 — all 2022), and every term's figure sits between the Commonwealth's and UNdata's, which is C6's
+  pattern holding one ocean over.
+
+### UNMARKED, and recorded
+- `Australia` "the sixth-largest country in the world" — in none of the three.
+- `New_Zealand` the **Treaty of Waitangi of 1840**; the guide begins at the 1907 Dominion, which is what
+  carries "self-governing since the early 20th century".
+- `Nauru`'s German annexation of 1888 — the guide says only "after several colonial and military
+  occupations".
+- `Marshall Islands` the **67 nuclear tests at Bikini and Enewetak between 1946 and 1958**, which the
+  guide does not mention; it gives the Compact and continued U.S. use of Kwajalein instead.
+- `Kiribati` "heavy fighting at Tarawa in 1943" — the guide says only that "The Japanese occupied several
+  of the Gilbert Islands during World War II".
+
+### Verified citations (batch C10)
+`data.un.org/en/iso/<cc>.html` (au, nz, pg, fj, sb, vu, ws, to, nr, pw, mh, fm),
+`thecommonwealth.org/our-member-countries/<slug>` (australia, new-zealand, papua-new-guinea, fiji,
+solomon-islands, vanuatu, samoa, tonga, kiribati, nauru) and `history.state.gov/countries/<slug>`
+(australia, new-zealand, papua-new-guinea, fiji, solomon-islands, vanuatu, samoa, tonga, kiribati, nauru,
+palau, marshall-islands, micronesia).
+
+**The Federated States of Micronesia's guide slug is simply `micronesia`**, and its UNdata code is `fm`.
+
+---
+
+## Batch C11 — North America, Central America and the Caribbean (2026-08-02)
+
+Twenty terms cited, 44 citations, **eight corrections**. Coverage 247 → 267 of 333. Three deferred:
+Mexico, Costa Rica, Nicaragua.
+
+**Canada · United States · Guatemala · Belize · El Salvador · Honduras · Panama · Cuba · Haiti ·
+Dominican Republic · Jamaica · Antigua and Barbuda · The Bahamas · Barbados · Trinidad and Tobago ·
+Saint Kitts and Nevis · Saint Lucia · Saint Vincent and the Grenadines · Grenada · Dominica.**
+
+### The finding, and it is the sharpest limit yet on the recognition guide
+`history.state.gov/countries/<slug>` **dates by U.S. RECOGNITION, and for Spanish America recognition
+lagged independence by years or decades.** That did not matter in Africa or Oceania, where recognition
+followed independence within days, but it governs this region:
+
+| country | independence | the guide's date |
+|---|---|---|
+| Mexico | 1821 | recognised **1822** |
+| Guatemala / Honduras / El Salvador | 1821 | Federation recognised **1824**, states 1844–1853 |
+| Costa Rica | 1821 (from Spain) | **"did not formally declare its independence until August 30, 1848"** |
+| Haiti | 1804 | recognised **1862** |
+| Dominican Republic | 1844 | recognised **1866** |
+
+**Where the page happens to state the independence year separately, it still works** — Guatemala's says
+"Following its independence from Spain in **1821**", Honduras's "its **1821** independence from Spain",
+El Salvador's "In **1821**, El Salvador and the other Central American provinces declared their
+independence from Spain", Haiti's "won independence from France in **1804**" and "the second-oldest
+republic in the Western Hemisphere, after the United States", and the Dominican Republic's "declared
+itself an independent nation from neighboring Haiti in **1844**". **Where it does not, the page cannot
+carry the term's date, and grepping the raw HTML for the year is the two-second check that settles it.**
+`oh-Mexico.html`, `oh-Costa_Rica.html` and `oh-Nicaragua.html` contain no "1821" at all.
+
+### DEFERRED (batch C11) — three terms, all for that reason
+- **`Mexico`** — the guide recognises "an independent Mexico" in **1822** and never states 1821; nothing
+  on the 1519–21 conquest or the 1910 revolution either. There is no Latin-American independence entry in
+  the guide's Milestones (the 1801–1829 index runs barbary-wars, florida, louisiana-purchase, monroe,
+  napoleonic-wars, rush-bagot, war-of-1812 and nothing else). UNdata alone leaves it below the bar.
+- **`Costa Rica`** — worse than silence: its own page says Costa Rica "did not formally declare its
+  independence until **August 30, 1848**", against the term's 1821. Both are defensible — 1821 is
+  independence from Spain, which Costa Rica marks as its national day, and 1848 the declaration of a
+  separate republic — but citing the page beside "1821" would be selective quotation of the kind P2 warns
+  against. **This needs a prose reconciliation, not a citation.** Its 1948 abolition of the army is in
+  nothing opened here either.
+- **`Nicaragua`** — its page says only "Following its independence from Spain and the Mexican Empire,
+  Nicaragua joined the Federation of Central American States in 1823", bracketing the year without
+  stating it, and mentions Somoza and "the Sandinista Government" without dating the 1979 revolution.
+  **A route exists and was not taken**: the guide's El Salvador page states 1821 for "the other Central
+  American provinces" as a group, which does cover Nicaragua. It was left for a later batch to decide,
+  since a citation headed "…: El Salvador" on the Nicaragua term reads like a mistake.
+
+### The United States needed a source of its own
+There is no `history.state.gov/countries/united-states` — the guide is written from the United States
+outward. Its third sentence is carried instead by **NARA's Milestone Document page for the Declaration of
+Independence (1776)** and **the Office of the Historian's Milestone on the Treaty of Paris, 1783**, which
+speaks of "a settlement that would provide the thirteen states with some measure of American
+independence". The civil war of 1861–65 is unmarked.
+
+### Corrections
+**Five populations**, by C8's method (each an earlier point on the same series): Guatemala 18 → **19
+million** (18.69), Honduras 10 → **11 million** (11.01), Haiti 11 → **12 million** (11.91), Dominican
+Republic 11 → **12 million** (11.52), Belize 410,000 → **420,000** (422,924).
+**Two more where the population is FALLING**: Barbados 270,000 → **280,000** — this one was simply low,
+against 282,623 at the World Bank, 283,000 at UNdata and 287,370 at the Commonwealth, all three above the
+term — and **Saint Vincent and the Grenadines 110,000 → 100,000**, where the Commonwealth's 2022 figure
+of 110,900 confirms the term's number *was* right and the World Bank's 99,924 and UNdata's 100,000 show
+it no longer is. That is the C10 Marshall Islands pattern with the corroboration attached.
+**One area**: Panama 75,417 → **75,320 km²**, which UNdata and the World Bank both give.
+
+### The World Bank's area series contains outright ERRORS, and this is the batch that found them
+C9 established `AG.SRF.TOTL.K2` as an independent second source for area. It is not always a *correct*
+one:
+- **Canada: 15,634,410 km²**, against the true 9,984,670. Off by more than half.
+- **Dominican Republic: 146,839 km²** from 2019 onwards, against 48,671 — and its own 2018 value is
+  48,670, so the series broke partway through.
+
+Both are far outside any land-versus-total or disputed-territory convention. **The rule to add: apply a
+plausibility check before letting the World Bank's area adjudicate anything.** In C9 it vindicated Libya
+and Comoros because it agreed with the term against UNdata; here it disagrees with everything, and the
+terms (which match UNdata exactly) stand.
+
+### Where UNdata is the outlier on a population
+**`Trinidad and Tobago`** — UNdata gives **1,511 thousand** where the World Bank gives 1,367,764 and the
+Commonwealth "1.4 million (2022)". The term's 1.4 million matches two of the three, so it stands and the
+divergence is recorded. **`Cuba`** is the more interesting case and produced no correction at all: the
+term says 9.4 million where UNdata says 10,937 thousand, a 14% gap — but **the World Bank series never
+passes through 9.4 million** (it runs 11.23 million in 2018 down to 10.94 million in 2025), so by C8's own
+test the figure is **contested, not stale**, and was left alone. Cuba's population is genuinely disputed
+after the emigration of the 2020s. **This is the first time the diagnostic has said "do not touch", and
+it is what the rule was for.**
+
+### Other divergences recorded, not corrected
+- `Canada`'s population: UNdata 40,127 thousand against the World Bank's 41,651,653 — the term's "about
+  41 million" sits with the World Bank, which uses Canada's own estimate.
+- `United States`: UNdata 347,276 thousand against the World Bank's 341,784,857; the term's "about 340
+  million" sits with the World Bank and the Census Bureau.
+- `Saint Kitts and Nevis`: the Commonwealth's per-island areas sum to 269 km² against UNdata's 261 and the
+  World Bank's 260, so its opening sentence is marked to UNdata alone.
+- `The Bahamas`: the term's 13,878 km² matches the World Bank's 13,880 against UNdata's 13,940 — inside
+  the spread, so it stands.
+
+### Verified citations (batch C11)
+`data.un.org/en/iso/<cc>.html` (ca, us, gt, bz, sv, hn, pa, cu, ht, do, jm, ag, bs, bb, tt, kn, lc, vc,
+gd, dm), `thecommonwealth.org/our-member-countries/<slug>` (canada, belize, jamaica,
+antigua-and-barbuda, bahamas, barbados, trinidad-and-tobago, st-kitts-and-nevis, saint-lucia,
+st-vincent-and-grenadines, grenada, dominica), `history.state.gov/countries/<slug>` (canada, guatemala,
+belize, el-salvador, honduras, panama, cuba, haiti, dominican-republic, jamaica),
+`history.state.gov/milestones/1776-1783/treaty` and
+`archives.gov/milestone-documents/declaration-of-independence`.
+
+**Slugs differ between the two sites for the same states**, which cost several 404s: the Commonwealth
+writes `st-kitts-and-nevis`, `st-vincent-and-grenadines` and `saint-lucia`, while the recognition guide
+writes `saint-kitts-nevis`, `saint-vincent-grenadines`, `saint-lucia` and `antigua-barbuda`. **Both sites
+publish an index** — `thecommonwealth.org/our-member-countries` and `history.state.gov/countries` — and
+grepping the index is faster than guessing.
+
+---
+
+## Batch C12 — South America (2026-08-02)
+
+Twelve terms cited, 24 citations, **five corrections**. Coverage 267 → 279 of 333. Nothing deferred.
+**The Americas are complete but for C11's three** (Mexico, Costa Rica, Nicaragua).
+
+**Colombia · Venezuela · Guyana · Suriname · Ecuador · Peru · Brazil · Bolivia · Paraguay · Chile ·
+Argentina · Uruguay.**
+
+### C11's warning did not hold here, and the reason is worth knowing
+C11 found the recognition guide unusable for Spanish America because it dates by U.S. recognition. **In
+South America the same guide states the independence year outright on nine of twelve pages** — which
+looks like a contradiction and is not. The difference is that these pages open with a sentence of
+*context* before the recognition paragraph, and that sentence carries the date:
+- Colombia — "Colombia effectively achieved its independence from Spain **by 1819**".
+- Peru — "five years following the proclamation of Peruvian independence in **July 1821** under General
+  San Martin".
+- Bolivia — "Bolivia declared its independence from Spain on **August 6, 1825**".
+- Paraguay — "Paraguay declared its independence from Spain on **May 15, 1811**".
+- Argentina — "After Argentina gained independence from the Spanish in **1816**".
+- Uruguay — "Uruguay became independent of Spain in 1811 and was annexed by Brazil until 1825… Uruguay
+  became an independent nation in **1828**".
+- Ecuador — "Ecuador withdrew from the Colombian federation in **1830**".
+- Suriname — "a Dutch colony… dating from **1667**… granted independence in **1975** from the
+  Netherlands".
+- Guyana — independence 1966, and the Dutch colonies "ceded to Great Britain at the Congress of Vienna".
+
+**So the rule from C11 is not "the guide fails in Latin America" but "the guide's RECOGNITION date is not
+an independence date — read the summary paragraph, which often gives the real one".** Mexico's, Costa
+Rica's and Nicaragua's simply do not have that sentence. Grepping the saved HTML for the year remains the
+check.
+
+**`Venezuela` is the one saved by a preposition.** The guide says independence was achieved "**by
+1819**"; the term says "independence was won under Simón Bolívar **by 1821**". A source saying a thing
+was achieved by 1819 entails that it was achieved by 1821, so the marker is sound — where "in 1819"
+against "in 1821" would have been the Cameroon near-match to withhold on. Bolívar is named in the term
+and not on the page; recorded.
+
+### The two terms with no history source, and how they still reached the bar
+- **`Brazil`** — the guide recognises "the Kingdom of Brazil" in **1824** and never states 1822, and has
+  nothing on 1500, 1889 or the plantation economy. Its third sentence is therefore **unmarked**, and the
+  term is carried by its FIGURES: UNdata and the World Bank's area series both give ~8.51 million km²
+  against the term's "about 8.5 million", and those two are independent for area (C9). Two sources, both
+  referenced, the gap recorded.
+- **`Chile`** — the guide gives the declaration of "September 18, 1810" and Monroe's 1822 conclusion that
+  Spain could not recover its colonies, but no 1818, so the country page cannot carry "independence was
+  won by 1818". What does carry the sentence's other half is a **Milestone**:
+  `history.state.gov/milestones/1969-1976/allende`, "The Allende Years and the Pinochet Coup, 1969–1973".
+  **When a country page will not date the independence, look for a Milestone on the term's other claim.**
+
+### Corrections
+**Four populations** by C8's method: Guyana 800,000 → **840,000**, Suriname 620,000 → **640,000**,
+Bolivia 12 → **12.6 million**, Paraguay 6.8 → **7 million**.
+
+**One area, and it is the largest single correction of Phase 3**: `Ecuador` 283,561 → **257,217 km²**.
+UNdata gives 257,217 and the World Bank 256,370 — the two agree within 0.3% and the term sits **10%
+above both**. A plausible explanation is that 283,561 predates the 1998 Brasilia settlement of the
+Ecuador–Peru border, but **neither source says so and it is recorded here as a hypothesis, not cited**.
+The correction rests only on the two figures.
+
+### Where the term was inside the spread and stands
+- **`Venezuela`** 916,445 km² sits **between** UNdata's 929,690 and the World Bank's 912,050.
+- **`Argentina`** 2,780,400 is the World Bank's figure exactly against UNdata's 2,796,427.
+- **`Uruguay`** 176,215 matches the World Bank's 176,220 against UNdata's 173,626.
+- **`Chile`** 756,102 matches UNdata against the World Bank's 757,245.
+In three of these four UNdata is the outlier — the reverse of the Phase 3 default, and a reminder that
+Source A is a source and not an authority.
+
+### Recorded, not corrected
+`Colombia` "about 52 million" against 53.4 million at both sources (2.7%, the 2023 value); `Peru` 34
+against 34.58; `Chile` 19.5 against 19.86. All round defensibly at the term's own precision.
+Unmarked clauses: Colombia's Spanish conquest "from 1499", the El Dorado legend and the 2016 peace
+agreement; Peru's Norte Chico, the Inca and "secured in 1824"; Bolivia's Potosí silver and the 1884 loss
+of the coast; Brazil's third sentence entire.
+
+### Verified citations (batch C12)
+`data.un.org/en/iso/<cc>.html` (co, ve, gy, sr, ec, pe, br, bo, py, cl, ar, uy),
+`history.state.gov/countries/<slug>` (colombia, venezuela, guyana, suriname, ecuador, peru, bolivia,
+paraguay, argentina, uruguay), `history.state.gov/milestones/1969-1976/allende` and
+`api.worldbank.org/v2/country/BRA/indicator/AG.SRF.TOTL.K2`.
+
+---
+
+## Batch D1 — the European deferrals, cleared (2026-08-02)
+
+Nineteen terms cited, 40 citations, **four corrections including two rewrites**. Coverage 279 → 298 of
+333. **Nothing deferred: the European deferral list is empty and EUROPE IS COMPLETE.**
+
+**Greece · Georgia · Russia · Albania · Andorra · Armenia · Azerbaijan · Belarus · Iceland ·
+Liechtenstein · Moldova · Monaco · Montenegro · San Marino · Serbia · Switzerland · Turkey · United
+Kingdom · Cape Verde.**
+
+### First, a correction to this pass's own bookkeeping
+**C9 claimed Africa complete at 56 of 56 and it was 55.** `Cape_Verde` was never in any batch's list,
+because the country lists used through C7–C9 were written from the UN's spelling **Cabo Verde** while the
+glossary's key is **`Cape_Verde`** — so it matched nothing and was never noticed. It is cited here, and
+Africa is now genuinely complete. **The lesson is to derive a batch's list from
+`Object.keys(window.GLOSSARY)` rather than from an outside list of country names**, which is what the
+`gloss-source-audit.js` uncited list does and what should have been used from C7 onwards.
+
+### Why these nineteen were deferrable and are not any more
+Every one was deferred in C2, C3 or C5 for want of a second source, and the tools that clear them did not
+exist then: **the Office of the Historian's recognition guide (found in C7)** and **the World Bank's
+`AG.SRF.TOTL.K2` and `SP.POP.TOTL` series (C9, C11)**. Twelve of the nineteen ship on the guide, which
+carries the post-Soviet independences directly (`Georgia`, `Armenia`, `Azerbaijan`, `Belarus`, `Moldova`
+and `Russia` all state "1991" and the guide states it too), and:
+- **`Switzerland`** — "the 1815 [Congress of Vienna] re-established the independence and neutrality of
+  Switzerland", which is the term's "armed neutrality since 1815" exactly.
+- **`Liechtenstein`** — "Liechtenstein yielded control of its foreign affairs to Switzerland for much of
+  the twentieth century", the term's "shares… its diplomatic representation abroad", plus the 1806
+  sovereignty and the German Confederation of 1815.
+- **`Andorra`** — "a co-principality, with the Bishop of Urgell (Spain) serving as one of its co-princes
+  and the French president serving as the other", the term's third sentence almost word for word.
+- **`Monaco`** — the principality "a sovereign, independent country" in 1776, annexed 1793, independence
+  regained 1814 and reaffirmed by the Treaty of Vienna.
+- **`Iceland`** 1944, **`Montenegro`** 2006, **`Serbia`** 2006, **`Cape Verde`** 1975, **`Albania`**
+  under Hoxha "one of the most diplomatically isolated nations in the world".
+
+### The two rewrites, and why they are rewrites rather than corrections
+`Greece` had been deferred **four times** and `Georgia` was heading the same way: both are the "Greece
+shape" — country terms that state no area, no population and no capital, so no statistical profile can
+carry anything they say. Rather than defer a fifth time, each opening sentence now states the figures its
+195 sibling terms state, in the house pattern:
+- `Greece` gains **131,957 km²** and **Athens** — both carried by UNdata and the World Bank (131,960).
+  **No population was added**, because UNdata gives 9,939 thousand and the World Bank 10,413,962, a 4.8%
+  disagreement it would have been arbitrary to resolve; the omission is deliberate.
+- `Georgia` gains **69,700 km²** (identical in both sources), **roughly 3.8 million** and **Tbilisi**.
+
+These are editorial changes, not corrections: nothing the terms said was wrong. They are recorded here as
+such so that no later reader mistakes them for findings.
+
+### The two corrections
+- **`Switzerland`** 41,285 → **41,291 km²**, which UNdata and the World Bank both give precisely.
+- **`United Kingdom`** 244,376 → **243,610 km²**. UNdata gives 242,495 and the World Bank 243,610, and
+  the term's figure sat above both; it is set to the one inside the spread. (This also retires C3's split
+  fault, repaired in C7.)
+
+### `SP.POP.TOTL` is NOT always the UN's number, which revises C8
+C8 established that the World Bank's population series relays the UN's estimate and so cannot corroborate
+it — measured on Chad, where the two agree to the person. **That is not universally true.** Where a
+country runs its own well-established statistical service the World Bank uses that instead, and the two
+diverge sharply:
+
+| | UNdata 2025 | World Bank 2025 | the term |
+|---|---|---|---|
+| Albania | 2,772,000 | **2,349,580** | 2.4 million |
+| Moldova | 2,996,000 | **2,360,527** | 2.4 million |
+| Greece | 9,939,000 | 10,413,962 | (states none) |
+
+**In both Albania and Moldova the term matches the World Bank and UNdata is the outlier**, which is
+exactly why C2 deferred Albania — reading its 13.4% gap as the term being wrong. It was not. Both ship
+citing the World Bank for area and population and the recognition guide for history, with **UNdata not
+cited at all**, as Kiribati did in C10. **The rule: check whether the two actually agree before treating
+the World Bank's population as a relay; where they differ it is an independent source.**
+
+### A third World Bank area error, after C11's Canada and Dominican Republic
+**`Monaco` is listed at 75 km²** against the true ~2. UNdata gives 2 and the term "about 2 km²", so the
+term stands and the World Bank is not cited there. C11's plausibility check earns its keep again.
+
+### Recorded, not corrected
+- `Serbia` states 77,589 km², "or 88,499 km² counting Kosovo"; UNdata gives 88,444 and the World Bank
+  84,990. The term's second figure is 55 km² above UNdata's and its first is in neither source. Marked to
+  UNdata and recorded rather than adjusted — the three figures are three different conventions about
+  Kosovo, not a mistake.
+- `Greece`'s "recognized as sovereign in 1830" is **not** carried: the guide recognises Greece in **1837**
+  and states no earlier date. Left unmarked.
+- `Turkey`'s "reorganised as a secular republic in 1923" is not stated either; what the guide gives is
+  "After World War I, the Ottoman Empire dissolved, and in its place arose the modern state of Turkey".
+- `United Kingdom`'s third sentence entire (1603, 1707, 1801, 1922, the empire, the 2020 EU exit) — the
+  guide's UK page is about American independence *from* the UK and carries none of it, so the term is
+  carried by its figures alone, the `Brazil` pattern of C12.
+- `San Marino`'s foundation "by tradition to the year 301", its statutes of 1600 and its captains regent —
+  the guide gives only U.S. recognition in 1861. Also carried by figures alone.
+- `Monaco`'s Grimaldi rule "since the end of the 13th century" is not on the page, which begins at 1776.
+
+### Verified citations (batch D1)
+`data.un.org/en/iso/<cc>.html` (gr, ge, ru, ad, am, az, by, is, li, mc, me, sm, rs, ch, tr, gb, cv),
+`history.state.gov/countries/<slug>` (georgia, russia, albania, andorra, armenia, azerbaijan, belarus,
+iceland, liechtenstein, moldova, monaco, montenegro, serbia, switzerland, turkey, cape-verde) and
+`api.worldbank.org/v2/country/<ISO3>/indicator/{AG.SRF.TOTL.K2,SP.POP.TOTL}` (GRC, ALB, MDA, SMR, GBR).
+
+**Cape Verde's guide slug is `cape-verde`**, not `cabo-verde` — the reverse of the UNdata code `cv`
+labelled "Cabo Verde", and the same naming split that hid the term in the first place.
+
+---
+
+## Batch D2 — the Asian deferrals, cleared; Asia complete but for Taiwan (2026-08-02)
+
+Thirty-one terms cited, 62 citations, **seventeen corrections across fifteen terms**. Coverage 298 → 329
+of 333. One deferred: Taiwan. **Four terms remain uncited in the whole glossary.**
+
+**China · Japan · Afghanistan · Bahrain · Bhutan · Brunei · Cambodia · Indonesia · Iran · Iraq · Jordan ·
+Kazakhstan · Kuwait · Kyrgyzstan · Laos · Lebanon · Mongolia · Myanmar · Nepal · Oman · Philippines ·
+Qatar · Saudi Arabia · Syria · Tajikistan · Thailand · Turkmenistan · United Arab Emirates · Uzbekistan ·
+Vietnam · Yemen.**
+
+### Thirty of thirty-one on the same two fetches
+C5 concluded that "Asia outside the Commonwealth has no bloc profile" and deferred thirty-two terms on
+it. That was true and is now beside the point: **UNdata plus `history.state.gov/countries/<slug>` carries
+all of them**, exactly as C8 found for non-Commonwealth Africa. Only `Bhutan` has no page in the guide
+and it ships on UNdata plus the World Bank's area series instead — the `Brazil` pattern of C12, figures
+alone with the third sentence unmarked.
+
+**Two slugs worth writing down**: Myanmar is **`burma`** and Laos is `laos` (not `lao-pdr`). Taiwan and
+Bhutan have no page at all.
+
+### C5's UAE deferral is resolved, and by the rule C5 itself wrote
+C5 deferred `United_Arab_Emirates` because UNdata gave **71,024 km²** against the term's 83,600 — a 17%
+gap, "the widest in Phase 3" — with no second source to break the tie. The World Bank gives **98,648
+km²**, so the term's figure sits **between the two**, and by C9's spread rule it stands. C5's instinct
+(never correct on one source) was right; what was missing was the second source, which C9 supplied four
+batches later.
+
+### The population diagnostic ran ten times and withheld once
+Twelve populations were corrected, every one diagnosed by C8's method as an earlier point on the same
+series: **`Yemen` 34 → 42 million** (its 2018 value, the largest population correction of the pass),
+`Syria` 23 → 26 (2023), `United_Arab_Emirates` 10 → 11 (2022), `Afghanistan` 42 → 44 (2024), `Iran` 89 →
+92 (2022), `Kazakhstan` 20 → 21 (2022), `Tajikistan` 10 → 11 (2021), `Turkmenistan` 7 → 7.6 (2021),
+`Oman` 5 → 5.5 (2023), `Jordan` 11 → 12, `Cambodia` 17 → 18, `Bahrain` 1.5 → 1.6.
+
+**`Lebanon` was left alone** — and it is the batch's most interesting figure. The term says "roughly 5.5
+million" against 5,849 thousand at UNdata and 5,849,421 at the World Bank, a 6.4% gap that in any other
+batch would have been corrected. But the series **never passes through 5.5 million**: it runs 6.5 million
+in 2015 down to 5.7 in 2020–22 and back to 5.8. By C8's own test the figure is **contested, not stale**,
+and Lebanon's population is genuinely disputed after a decade of Syrian displacement and emigration. This
+is the second time the diagnostic has withheld, after C11's Cuba, and both times on a country whose
+population is argued about rather than merely counted.
+
+### Five areas outside the spread
+`Indonesia` 1,904,569 → **1,910,931** (below both sources), `Iraq` 438,317 → **435,052**, `Jordan` 89,342
+→ **89,318**, `Nepal` 147,516 → **147,181**, `Tajikistan` 143,100 → **141,400**. Left alone as inside the
+spread: `Iran` (1,648,195 between UNdata's 1,630,848 and the World Bank's 1,745,150 — a 7% spread between
+the two sources, the widest in the batch), `Bahrain`, `Qatar`, `Saudi Arabia`, `Oman`, `Turkmenistan`,
+`Thailand`, `Vietnam` and the UAE.
+
+### DEFERRED — `Taiwan`, and it is a different kind of gap
+Taiwan has **no UNdata profile** (`data.un.org/en/iso/tw.html` returns 500, as `xk` does for Kosovo),
+**no page in the recognition guide**, and **no World Bank series**. All three of Phase 3's sources are
+organised around UN membership, and a state outside the UN system is invisible to every one of them. This
+is not a research failure that more searching would fix; it needs a different class of source — a
+government statistics office, or a work about the island rather than about states. Its C5 deferral
+therefore stands, now for a reason that is precisely stated.
+
+### Recorded, not corrected
+- `Cambodia` and `Laos` — the guide gives the French protectorate for both (which the terms claim) but
+  dates independence to the **1949 French Union** and U.S. recognition in **1950**, against the terms'
+  1953. Marked for the protectorate; the year is not carried.
+- `Lebanon` — the guide says the United States "determined that Lebanon achieved effective independence
+  in **1944**" against the term's 1943. The 1922 French Mandate is carried exactly.
+- `Kuwait` (term 4.9 million between UNdata's 5,026 thousand and the World Bank's 4,865,298) and
+  `Saudi Arabia` (34 million against 34,566 thousand and 36,973,555) — the two sources disagree by 3% and
+  7% respectively and the terms sit inside; left.
+- `Afghanistan` 652,867 km², `Kazakhstan` 2,724,900, `Kyrgyzstan` 199,951, `Uzbekistan` 448,978 — each
+  within a handful of km² of both sources, inside the World Bank's rounding; left.
+
+### Verified citations (batch D2)
+`data.un.org/en/iso/<cc>.html` (cn, jp, af, bh, bt, bn, kh, id, ir, iq, jo, kz, kw, kg, la, lb, mn, mm,
+np, om, ph, qa, sa, sy, tj, th, tm, ae, uz, vn, ye), `history.state.gov/countries/<slug>` (china, japan,
+afghanistan, bahrain, brunei, cambodia, indonesia, iran, iraq, jordan, kazakhstan, kuwait, kyrgyzstan,
+laos, lebanon, mongolia, burma, nepal, oman, philippines, qatar, saudi-arabia, syria, tajikistan,
+thailand, turkmenistan, united-arab-emirates, uzbekistan, vietnam, yemen) and
+`api.worldbank.org/v2/country/BTN/indicator/AG.SRF.TOTL.K2`.
+
+---
+
+## Batch D3 — the last four, and the pass is finished (2026-08-02)
+
+Four terms cited, 10 citations, **one rewrite**. Coverage 329 → **333 of 333. Every term in the glossary
+now carries at least two sources and in-text markers in all ten languages.**
+
+**Mexico · Costa Rica · Nicaragua · Taiwan.**
+
+### `Costa Rica` — the reconciliation C11 said it needed
+C11 deferred it because the recognition guide does not merely omit 1821, it says Costa Rica "did not
+formally declare its independence until **August 30, 1848**". Both dates are true of different events, so
+the fix was never a citation. The clause now reads **"independence from Spain came with the rest of
+Central America in 1821 and Costa Rica declared itself a separate republic in 1848"**, in all ten
+languages, and both halves are cited: the 1848 declaration to Costa Rica's own page, the 1821 independence
+to the guide's **El Salvador** page, which states "In 1821, El Salvador and the other Central American
+provinces declared their independence from Spain".
+
+### The El Salvador page as a source for its neighbours
+C11 noticed that route and deliberately left it, on the ground that a citation headed "…: El Salvador"
+sitting on the Nicaragua term reads like a mistake. On reflection it is the right source and the
+appearance is the smaller problem: the sentence it carries is explicitly *about* "the other Central
+American provinces", which is Nicaragua and Costa Rica. It is used for both, and this note is here so a
+later reader does not take it for a filing error. **`Nicaragua`** also cites its own page, which carries
+the Federation of 1823, the Somoza seizure of power and the Sandinista Government.
+
+### `Mexico` — cited on its figures, with the independence clause unmarked
+No source opened in this pass dates Mexican independence to 1821. The recognition guide recognises "an
+independent Mexico" in **1822** and states no earlier date; NARA's Treaty of Guadalupe Hidalgo page begins
+at the 1846–48 war; the guide's Milestones for 1801–1829 are barbary-wars, florida, louisiana-purchase,
+monroe, napoleonic-wars, rush-bagot and war-of-1812, with no Latin American independence entry; and
+`loc.gov` is **403** here. So Mexico takes the `Brazil` pattern of C12 — carried by its first sentence,
+with the third left unmarked and the gap recorded.
+
+**A note on its second citation.** The World Bank's area series for Mexico gives **1,964,380 km² for
+2018–2019** and drifts to 1,957,194 by 2023 with no explanation — the same unexplained movement that
+proved to be outright error for Canada, the Dominican Republic and Monaco. The citation therefore names
+**2019**, where the figure matches UNdata's 1,964,375 and the term. The later values are recorded here so
+the choice of year is visible rather than convenient.
+
+### `Taiwan` — cited without any of Phase 3's three sources
+D2 deferred it with a precise reason: no UNdata profile, no page in the recognition guide, no World Bank
+series, because all three are organised around UN membership. The way in was the guide's **Milestones**,
+which are about events rather than states:
+- **"The Chinese Revolution of 1949"** — "the U.S. policy of protecting the Chiang Kai-shek government on
+  Taiwan… the United States continued to recognize the Republic of China, located on Taiwan, as China's
+  true government", which carries both the ROC's presence on the island and the disputed recognition.
+- **"The Taiwan Strait Crises: 1954–55 and 1958"** — "the Nationalist Government of the ROC under Chiang
+  Kai-shek recognized that it had lost control of mainland China during the Chinese Civil War, the
+  officials and part of the Nationalist Army fled to the island of Taiwan", which is the term's clause
+  almost word for word.
+
+Its first and second sentences — the area, the population, Taipei, the mountains — are **unmarked**, and
+that is the honest state: `eng.stat.gov.tw` and `moi.gov.tw` are reachable but serve their indicators
+through JavaScript, `taiwan.gov.tw` is 403, and the Executive Yuan's state pages are Chinese-language
+indexes whose figures sit behind paths this pass could not resolve. **A term can be cited on its history
+alone when its figures have no openable source** — the mirror of `Brazil`, which was cited on its figures
+alone when its history had none.
+
+### Verified citations (batch D3)
+`data.un.org/en/iso/{mx,cr,ni}.html`, `history.state.gov/countries/{costa-rica,nicaragua,el-salvador}`,
+`history.state.gov/milestones/1945-1952/chinese-rev`,
+`history.state.gov/milestones/1953-1960/taiwan-strait-crises` and
+`api.worldbank.org/v2/country/MEX/indicator/AG.SRF.TOTL.K2?format=json&date=2019`.
+
+### Hosts, measured 2026-08-02
+- `loc.gov` — **403**. The Library of Congress country studies are not usable from here.
+- `guides.loc.gov` — 404 on the paths tried.
+- `taiwan.gov.tw` — **403**; `eng.stat.gov.tw`, `moi.gov.tw/english` and `ey.gov.tw/state` — 200 but
+  JavaScript-driven or Chinese-only indexes, with no static page carrying the figures.
+- `archives.gov/milestone-documents/*` — 200 (unchanged).
+
+---
+
+# THE GLOSSARY CITATION PASS IS COMPLETE — 333 of 333
+
+Every term carries at least `GLOSS_SRC_TARGET` (2) citations, every citation is referenced by at least one
+in-text marker, and the markers are identical across English and all nine translations. `node
+.claude/gloss-source-audit.js` reports `citations to find 0`. The card pass finished at 109 of 109 in
+batch 26; **both passes are now done, and `country-sources.js` — the Atlas — is the only surface in Folio
+that still shows no sources.**
