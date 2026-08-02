@@ -118,9 +118,11 @@ async function studyEasy(page, base, n) {
     check("the tab bar shows on a phone", bar.shown);
     check("...spanning the full width, pinned to the bottom", bar.w === PHONE.width && bar.bottom === PHONE.height, JSON.stringify({ w: bar.w, bottom: bar.bottom }));
     check("...carrying every destination it is meant to",
-      ["home", "map", "mission", "account", "settings"].every((r) => bar.tabs.includes(r)), bar.tabs.join(","));
+      ["home", "map", "account", "settings"].every((r) => bar.tabs.includes(r)), bar.tabs.join(","));
     // Library left the bar for the home page's own banner — the tab bar is not where it is reached now
     check("...and NOT the Library, which the home page's banner carries", !bar.tabs.includes("decks"), bar.tabs.join(","));
+    // …and About left it the same way, for the grey line under that banner
+    check("...nor About, which the home page's own link carries", !bar.tabs.includes("mission"), bar.tabs.join(","));
     check("...every one of them NAMED, not just the active one", bar.labelled.every((l) => l.w > 8), JSON.stringify(bar.labelled.map((l) => l.w)));
     check("...and no name clipped by the narrower cells", bar.labelled.every((l) => l.w >= l.need - 1), JSON.stringify(bar.labelled));
     check("...each name centred under its own icon, the SELECTED tab included",
@@ -131,14 +133,14 @@ async function studyEasy(page, base, n) {
     check("the top bar gives way to it entirely", !bar.topbar);
 
     // it routes, and the active state follows the route
-    await page.evaluate(() => { [...document.querySelectorAll(".tabbar .tab")].find((t) => t.dataset.route === "mission").click(); });
+    await page.evaluate(() => { [...document.querySelectorAll(".tabbar .tab")].find((t) => t.dataset.route === "account").click(); });
     await page.waitForTimeout(900);
     const routed = await page.evaluate(() => ({
       hash: location.hash,
       active: [...document.querySelectorAll(".tabbar .tab.active")].map((t) => t.dataset.route).join(","),
     }));
-    check("tapping a tab routes", routed.hash === "#mission", routed.hash);
-    check("...and the active mark follows the route", routed.active === "mission", routed.active);
+    check("tapping a tab routes", routed.hash === "#account", routed.hash);
+    check("...and the active mark follows the route", routed.active === "account", routed.active);
 
     // a study session is a place you finish, not browse from — and the grade bar owns that edge
     await studyEasy(page, base, 0);
@@ -427,26 +429,29 @@ async function studyEasy(page, base, n) {
 
       /* The pen and the tools are two states. They were one until Aug 2026, when putting the tools away
          also put the pen down — you could not draw with the panel out of the way, which on a phone is most
-         of the card. What stops the drawing is unselecting the tool INSIDE the panel. */
+         of the card. What stops the drawing is unselecting the tool INSIDE the panel — and since the Draw
+         button went (Aug 2026, on request) the SIZES are that tool: `.wb-size.on` is the pen, down at that
+         width, and clicking it again is what lifts it. */
       const wb = () => page.evaluate(() => {
         const t = document.querySelector(".wb-tools");
+        const on = [...t.querySelectorAll(".wb-btn.sel, .wb-size.on")].map((b) => (b.classList.contains("wb-size") ? "pen" : b.className.replace(/wb-btn |sel| /g, "")));
         return { panel: t.querySelector(".wb-panel").checkVisibility(),
           drawing: t.querySelector(".wb-toggle").classList.contains("on"),
           canvas: !!document.querySelector(".draw-canvas.on"),
-          sel: [...t.querySelectorAll(".wb-btn.sel")].map((b) => b.className.replace(/wb-btn |sel| /g, "")).join(",") };
+          sel: on.join(",") };
       });
       const marker = await page.evaluate(() => { const b = document.querySelector(".wb-tools").getBoundingClientRect(); return { x: Math.round(b.left + b.width / 2), y: Math.round(b.top + b.height / 2) }; });
       await page.mouse.click(marker.x, marker.y);          // open
       await page.waitForTimeout(200);
       const opened2 = await wb();
-      check("[" + tag + "] opening the tools puts the pen down", opened2.panel && opened2.drawing && opened2.canvas && opened2.sel === "wb-pen", JSON.stringify(opened2));
+      check("[" + tag + "] opening the tools puts the pen down", opened2.panel && opened2.drawing && opened2.canvas && opened2.sel === "pen", JSON.stringify(opened2));
       await page.mouse.click(marker.x, marker.y);          // close — the pen must stay down
       await page.waitForTimeout(200);
       const shut = await wb();
       check("[" + tag + "] putting the tools away leaves the pen down", !shut.panel && shut.drawing && shut.canvas, JSON.stringify(shut));
       await page.mouse.click(marker.x, marker.y);          // open again, then unselect the pen
       await page.waitForTimeout(200);
-      await page.evaluate(() => { const b = document.querySelector(".wb-btn.wb-pen"); if (b) b.click(); });
+      await page.evaluate(() => { const b = document.querySelector(".wb-size.on"); if (b) b.click(); });
       await page.waitForTimeout(200);
       const off = await wb();
       check("[" + tag + "] unselecting the tool is what stops the drawing", off.panel && !off.drawing && !off.canvas && off.sel === "", JSON.stringify(off));
@@ -648,8 +653,21 @@ async function studyEasy(page, base, n) {
         quoteAbove: !!(quote && p && quote.getBoundingClientRect().bottom <= p.getBoundingClientRect().top + 1),
         atlasTile: !!document.querySelector("#exp-atlas"),
         lib: !!document.querySelector("#b-library") && document.querySelector("#b-library").checkVisibility(),
-        libBelow: !!(document.querySelector("#b-library") && p &&
-          document.querySelector("#b-library").getBoundingClientRect().top >= p.getBoundingClientRect().bottom - 1),
+        // the banner belongs to the REVIEW pane, not to the pager: below the pager it also sat under the
+        // games and the day's card, which it has nothing to do with
+        libInReview: !!(document.querySelector("#b-library") && document.querySelector("#b-library").closest(".hp-review")),
+        about: (() => { const a = document.querySelector(".home-about"); return a && a.checkVisibility() ? a.textContent.trim() : ""; })(),
+        aboutUnderLib: (() => {
+          const a = document.querySelector(".home-about"), l = document.querySelector("#b-library");
+          return !!(a && l && a.getBoundingClientRect().top >= l.getBoundingClientRect().bottom - 1);
+        })(),
+        // the dots belong to the pager as a whole, so they sit above it rather than reading as a footnote
+        // to whichever pane happens to be showing
+        dotsAbove: !!(dots && p && dots.getBoundingClientRect().bottom <= p.getBoundingClientRect().top + 1),
+        // a pane's own padding is what separates one banner from the next mid-swipe; a flex GAP would put
+        // the snap points out of step with the dots' arithmetic (scrollLeft = i × clientWidth)
+        panePad: p && p.firstElementChild ? Math.round(parseFloat(getComputedStyle(p.firstElementChild).paddingLeft)) : 0,
+        pagerGap: cs ? cs.columnGap : "",
         seenTotal: [...document.querySelectorAll(".banner .stat span")].map((s) => s.textContent.trim()),
       };
     });
@@ -662,16 +680,88 @@ async function studyEasy(page, base, n) {
       h.order.join(",") === "hp-explore,hp-review,hp-games", h.order.join(","));
     check("...opening on the daily review, the middle pane", Math.abs(h.scrollLeft - h.pagerW) <= 2, h.scrollLeft + " vs " + h.pagerW);
     check("...with a dot per pane, the middle one marked", h.dots === 3 && h.onDot === 1, JSON.stringify({ dots: h.dots, on: h.onDot }));
+    check("...the dots above the panes, not under them", h.dotsAbove);
     check("...and the quote still above them all", h.quoteAbove);
+    check("...each pane padded so two banners don't meet mid-swipe", h.panePad >= 4 && (h.pagerGap === "normal" || parseFloat(h.pagerGap) === 0),
+      JSON.stringify({ pad: h.panePad, gap: h.pagerGap }));
     check("the Atlas teaser is gone from the phone's home page", !h.atlasTile);
-    check("the Library banner takes the tab bar's place, below the panes", h.lib && h.libBelow, JSON.stringify({ lib: h.lib, below: h.libBelow }));
+    check("the Library banner takes the tab bar's place, inside the review pane", h.lib && h.libInReview, JSON.stringify({ lib: h.lib, inReview: h.libInReview }));
+    check("...with the About link under it, About having left the tab bar", /about/i.test(h.about) && h.aboutUnderLib, JSON.stringify({ about: h.about, under: h.aboutUnderLib }));
     check("...routing to the collections", await page.evaluate(async () => {
       document.querySelector("#b-library").click();
       await new Promise((r) => setTimeout(r, 700));
       return location.hash;
     }) === "#decks");
+    await page.goto(base, { waitUntil: "load" });
+    await page.waitForTimeout(1500);
+    check("...and the About link routing to the About page", await page.evaluate(async () => {
+      document.querySelector(".home-about").click();
+      await new Promise((r) => setTimeout(r, 700));
+      return location.hash;
+    }) === "#mission");
     // removed on request: the xp bar right above it already counts the distinct cards studied
     check("the review banner no longer carries a Seen total", !h.seenTotal.some((t) => /total/i.test(t)), h.seenTotal.join("|"));
+
+    /* Anki's three piles, in Anki's order, each in its own colour — three numbers in one colour say nothing,
+       and the labels are the only thing that would tell them apart. Read AFTER a card is graded: until the
+       first one the banner is the first-run hero and carries no stats at all. The same three, unlabelled,
+       must open the deck's own row, computed by the same function so a row cannot outrun the banner. */
+    await studyEasy(page, base, 1);
+    await page.goto(base + "#home", { waitUntil: "load" });
+    await page.waitForTimeout(1600);
+    const piles = await page.evaluate(() => ({
+      stats: [...document.querySelectorAll(".banner .stat")].filter((s) => !s.classList.contains("streak")).map((s) => ({
+        label: s.querySelector("span").textContent.trim(),
+        n: +s.querySelector("b").textContent.trim(),
+        col: getComputedStyle(s.querySelector("b")).color,
+      })),
+      row: [...document.querySelectorAll(".active-deck .ad-counts .adc")].map((s) => ({ n: +s.textContent.trim(), col: getComputedStyle(s).color })),
+      rowLabels: (document.querySelector(".active-deck .ad-counts") || {}).title || "",
+      // the big gold numeral is the day's PILE, not the level (the level is spelled out in the xp bar's
+      // head just below it) — and a tick, not a "0", once the pile is empty
+      badge: (() => {
+        const b = document.querySelector(".review-group .banner .level-badge");
+        return { n: b.textContent.trim(), tick: !!b.querySelector("svg"), clear: b.classList.contains("pb-clear") };
+      })(),
+      xpLevel: (document.querySelector(".review-group .banner .xp-lvl") || {}).textContent || "",
+      // each figure centred over its own label, and the whole row on the button's line
+      centred: [...document.querySelectorAll(".review-group .banner .stat")].filter((s) => !s.classList.contains("streak")).map((s) => {
+        const w = s.getBoundingClientRect(), n = s.querySelector("b").getBoundingClientRect(), l = s.querySelector("span").getBoundingClientRect();
+        return Math.round(Math.abs((n.left + n.width / 2) - (l.left + l.width / 2)) * 10) / 10;
+      }),
+      onCtaRow: (() => {
+        const cta = document.querySelector(".review-group .banner .cta").getBoundingClientRect();
+        return [...document.querySelectorAll(".review-group .banner .stat")].filter((s) => !s.classList.contains("streak"))
+          .every((s) => { const b = s.getBoundingClientRect(); return b.top < cta.bottom && b.bottom > cta.top; });
+      })(),
+    }));
+    check("the review banner counts Anki's three piles, in order",
+      piles.stats.map((p) => p.label.toLowerCase()).join(",") === "new,learning,review", JSON.stringify(piles.stats.map((p) => p.label)));
+    check("...no two of them the same colour", new Set(piles.stats.map((p) => p.col)).size === 3, JSON.stringify(piles.stats.map((p) => p.col)));
+    check("...and the same three, unlabelled, open each added deck's row in the same colours",
+      piles.row.length === 3 && piles.row.map((r) => r.col).join("|") === piles.stats.map((p) => p.col).join("|"),
+      JSON.stringify({ row: piles.row, banner: piles.stats.map((p) => p.col) }));
+    check("...naming themselves only in the row's tooltip", /\S/.test(piles.rowLabels), piles.rowLabels);
+    check("...each figure centred over its own label", piles.centred.every((d) => d <= 1), JSON.stringify(piles.centred));
+    check("...and the three of them on the button's own line", piles.onCtaRow);
+    check("the banner's gold numeral is the DAY'S PILE, not the level",
+      !piles.badge.tick && +piles.badge.n === piles.stats.reduce((a, s) => a + s.n, 0),
+      JSON.stringify({ badge: piles.badge, piles: piles.stats.map((s) => s.n) }));
+    check("...with the level still spelled out under it", /level/i.test(piles.xpLevel), piles.xpLevel);
+    // clear the day: Easy graduates a new card outright, so the allowance runs out with nothing in learning
+    await studyEasy(page, base, 6);
+    await page.goto(base + "#home", { waitUntil: "load" });
+    await page.waitForTimeout(1600);
+    const cleared = await page.evaluate(() => {
+      const b = document.querySelector(".review-group .banner .level-badge");
+      return { n: b.textContent.trim(), tick: !!b.querySelector("svg"), clear: b.classList.contains("pb-clear"),
+        piles: [...document.querySelectorAll(".review-group .banner .stat b")].map((x) => +x.textContent.trim()),
+        label: b.getAttribute("aria-label") || "" };
+    });
+    check("...and it becomes a TICK once the day is cleared, never a 0",
+      cleared.piles.reduce((a, n) => a + n, 0) === 0 && cleared.tick && cleared.clear && cleared.n === "",
+      JSON.stringify(cleared));
+    check("...still saying so for a screen reader", /nothing/i.test(cleared.label), cleared.label);
     await page.close();
   }
   {
@@ -689,13 +779,14 @@ async function studyEasy(page, base, n) {
         atlasTile: !!document.querySelector("#exp-atlas"),
         dots: document.querySelector("#homeDots").checkVisibility(),
         lib: document.querySelector("#b-library").checkVisibility(),
+        about: !!(document.querySelector(".home-about") || {}).checkVisibility && document.querySelector(".home-about").checkVisibility(),
       };
     });
     check("[desktop] the panes are back to one column", d.col === "column", d.col);
     check("[desktop] ...in the order the page always had", d.order.join(",") === "hp-review,hp-games,hp-explore", d.order.join(","));
     check("[desktop] ...with the Atlas teaser still in it", d.atlasTile);
     check("[desktop] ...no pager dots", !d.dots);
-    check("[desktop] ...and no Library banner: the top bar still carries the tab", !d.lib);
+    check("[desktop] ...and no Library banner or About link: the top bar still carries both tabs", !d.lib && !d.about);
     await page.close();
   }
 
@@ -726,6 +817,156 @@ async function studyEasy(page, base, n) {
     check("...as its sibling in the title row", cp.headed);
     // a big swipe used to carry from the description straight to the figures, skipping the year paragraph
     check("...and a swipe can never skip the year section", cp.stop === "always", cp.stop);
+    await page.close();
+  }
+
+  /* ================= 7d. the whiteboard marker on a phone =================
+     Three failures that all look like something else. A marker parked ON the tab bar looks like a design
+     decision. A pen you cannot put down without also putting the tools away is a state machine bug that
+     reads as stiffness. And the ink canvas covering Show answer looks like a dead button — the canvas spans
+     the whole visible page, and `.page`/`.cardwrap` both animate, so no z-index inside them can ever lift a
+     control above it; the pass-through in setupWhiteboard is the only thing holding this up. */
+  {
+    const page = await browser.newPage({ viewport: PHONE, hasTouch: true });
+    watch(page);
+    await studyEasy(page, base, 0);
+    const place = await page.evaluate(() => {
+      const w = document.querySelector(".wb-tools").getBoundingClientRect();
+      const t = document.querySelector(".tabbar").getBoundingClientRect();
+      return { wbBottom: Math.round(w.bottom), wbRight: Math.round(w.right), tabTop: Math.round(t.top), vw: innerWidth };
+    });
+    check("the marker sits clear of the tab bar, not on it", place.wbBottom <= place.tabTop, JSON.stringify(place));
+    check("...at the bottom RIGHT", place.vw - place.wbRight < 40, JSON.stringify(place));
+    // …and while the question is still up: a phone must not be handed the keyboard on every card. (Checked
+    // here, before the answer is revealed — revealing replaces the blanks with the graded spans.)
+    check("a touch screen is not given the keyboard on each card",
+      await page.evaluate(() => !!document.querySelector(".blank-input") && !/blank-input/.test((document.activeElement || {}).className || "")));
+
+    await page.evaluate(() => document.querySelector(".wb-toggle").click());
+    await page.waitForTimeout(300);
+    const panel = await page.evaluate(() => ({
+      draw: !!document.querySelector(".wb-pen"),
+      markWithSizes: !!document.querySelector(".wb-sizes-row .wb-hl"),
+      custom: !!document.querySelector(".wb-custom input"),
+      // Erase over Undo, Clear over Redo: two columns, and which cell each lands in is the request
+      grid: [...document.querySelectorAll(".wb-panel .wb-row")].slice(-2).map((r) => [...r.children].map((c) => c.className.replace(/wb-btn ?/, "")).join("+")).join(" / "),
+      penDown: document.querySelector(".draw-canvas").classList.contains("on"),
+      sizeOn: (document.querySelector(".wb-size.on") || {}).dataset,
+    }));
+    check("the panel has no Draw button — the sizes are the pen", !panel.draw);
+    check("...Mark beside them", panel.markWithSizes);
+    check("...Erase above Undo and Clear above Redo", panel.grid === "wb-eraser+wb-clear / wb-undo+wb-redo", panel.grid);
+    check("...and a custom colour of the reader's own", panel.custom);
+    check("...opening the tools puts the pen down", panel.penDown && !!panel.sizeOn, JSON.stringify(panel.sizeOn || null));
+
+    const toggled = await page.evaluate(async () => {
+      const s = document.querySelector(".wb-size.on").dataset.s;
+      const btn = document.querySelector('.wb-size[data-s="' + s + '"]');
+      btn.click(); await new Promise((r) => setTimeout(r, 120));
+      const up = document.querySelector(".draw-canvas").classList.contains("on");
+      btn.click(); await new Promise((r) => setTimeout(r, 120));
+      return { up, down: document.querySelector(".draw-canvas").classList.contains("on") };
+    });
+    check("clicking the selected size again picks the pen up", !toggled.up && toggled.down, JSON.stringify(toggled));
+
+    const kept = await page.evaluate(async () => {
+      const i = document.querySelector(".wb-custom input");
+      i.value = "#123456"; i.dispatchEvent(new Event("input", { bubbles: true }));
+      await new Promise((r) => setTimeout(r, 150));
+      return localStorage.getItem("folio_wb_custom_v1") || "";
+    });
+    check("...and the custom colour survives the session", /123456/i.test(kept), kept);
+
+    // the real test: TAP Show answer with the pen down. A click through page.evaluate would bypass the very
+    // hit-testing this is about, so it goes through the mouse.
+    const rb = await page.evaluate(() => document.querySelector("#reveal-btn").getBoundingClientRect().toJSON());
+    await page.mouse.click(rb.x + rb.width / 2, rb.y + rb.height / 2);
+    await page.waitForTimeout(700);
+    check("Show answer still works under the ink", await page.evaluate(() => !!document.querySelector("#gradebar.show")));
+    const reach = await page.evaluate(() => {
+      const out = {};
+      [".grade.again", ".grade.easy", ".grade-help", "#gradebar .suspendbtn"].forEach((s) => {
+        const el = document.querySelector(s);
+        if (!el) { out[s] = "missing"; return; }
+        const b = el.getBoundingClientRect();
+        const at = document.elementFromPoint(b.left + b.width / 2, b.top + b.height / 2);
+        out[s] = at && at.closest(s) ? "reachable" : "blocked";
+      });
+      return out;
+    });
+    check("...as do the grades and the row under them", Object.keys(reach).every((k) => reach[k] === "reachable"), JSON.stringify(reach));
+    await page.close();
+  }
+
+  /* ================= 7e. the Atlas sheet's height is the reader's =================
+     Dragged shorter, the sheet must still show its title — the floor is measured through offsetTop, since
+     the head is a scroller inside the box being shrunk and its rect collapses along with it. Dragged taller
+     it must stop at the top of the screen. And the height carries to the next place opened, which is the
+     only reason to set it. */
+  {
+    const page = await browser.newPage({ viewport: PHONE, hasTouch: true });
+    watch(page);
+    await atlas(page, base);
+    await page.evaluate(() => { location.hash = "#map/2026/france"; });
+    await page.waitForTimeout(2500);
+    const start = await page.evaluate(() => {
+      const p = document.querySelector("#countryPop");
+      return { hidden: p.hidden, grip: getComputedStyle(document.querySelector("#cpGrab")).display, h: Math.round(p.getBoundingClientRect().height) };
+    });
+    check("the place sheet carries a resize grip", !start.hidden && start.grip !== "none", JSON.stringify(start));
+    const drag = async (toY) => {
+      const g = await page.evaluate(() => document.querySelector("#cpGrab").getBoundingClientRect().toJSON());
+      await page.mouse.move(g.x + g.width / 2, g.y + g.height / 2);
+      await page.mouse.down();
+      await page.mouse.move(g.x + g.width / 2, toY, { steps: 12 });
+      await page.mouse.up();
+      await page.waitForTimeout(350);
+    };
+    await drag(80);
+    const tall = await page.evaluate(() => {
+      const p = document.querySelector("#countryPop").getBoundingClientRect();
+      return { h: Math.round(p.height), top: Math.round(p.top) };
+    });
+    check("...dragging it up gives it more of the screen", tall.h > start.h + 80, JSON.stringify({ was: start.h, now: tall.h }));
+    check("...stopping at the top of the screen", tall.top >= 4, JSON.stringify(tall));
+    await page.evaluate(() => { location.hash = "#map/2026/spain"; });
+    await page.waitForTimeout(1800);
+    const next = await page.evaluate(() => Math.round(document.querySelector("#countryPop").getBoundingClientRect().height));
+    check("...and the next place opens at the height the last was left at", Math.abs(next - tall.h) <= 4, next + " vs " + tall.h);
+    await drag(PHONE.height - 10);
+    const small = await page.evaluate(() => {
+      const p = document.querySelector("#countryPop").getBoundingClientRect();
+      const t = document.querySelector(".cp-titlerow").getBoundingClientRect();
+      return { h: Math.round(p.height), titleShown: t.top >= p.top - 1 && t.bottom <= p.bottom + 1 };
+    });
+    check("...shrunk to the floor it still shows its title bar", small.titleShown && small.h < 220, JSON.stringify(small));
+    await page.close();
+  }
+
+  /* ================= 7f. the daily quote does not resize the page =================
+     Flipping the quote to its original language swaps in a block that rarely wraps to the same number of
+     lines, and everything under it — the pager, the banner — used to lift or drop by one. */
+  {
+    const page = await browser.newPage({ viewport: PHONE });
+    watch(page);
+    await page.goto(base, { waitUntil: "load" });
+    await page.waitForTimeout(1700);
+    const q = await page.evaluate(async () => {
+      const fig = document.querySelector(".daily-quote.dq-flip");
+      if (!fig) return null;   // not every day's quote has a documented original
+      const below = document.querySelector("#homePager");
+      const before = { h: Math.round(fig.getBoundingClientRect().height), y: Math.round(below.getBoundingClientRect().top) };
+      fig.click();
+      await new Promise((r) => setTimeout(r, 900));
+      const after = { h: Math.round(fig.getBoundingClientRect().height), y: Math.round(below.getBoundingClientRect().top) };
+      return { before, after, flipped: fig.classList.contains("dq-showing-original") };
+    });
+    if (!q) check("the day's quote has no original to flip to — skipped", true);
+    else {
+      check("flipping the quote does flip it", q.flipped, JSON.stringify(q));
+      check("...without changing the height of its box", Math.abs(q.after.h - q.before.h) <= 1, JSON.stringify(q));
+      check("...so nothing below it moves", Math.abs(q.after.y - q.before.y) <= 1, JSON.stringify(q));
+    }
     await page.close();
   }
 

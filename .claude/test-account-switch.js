@@ -196,7 +196,10 @@ const homeState = async (page, base) => {
   await gotoFresh(page, base + "#home");
   return page.evaluate(() => ({
     hero: !!document.querySelector(".banner.hero"),
-    level: (document.querySelector(".banner .lb-num") || {}).textContent || "",
+    // the big numeral is the DAY'S PILE now, not the level, and it is a tick (no text) on a cleared day —
+    // so what says "this account has studied before" is the badge's presence, not what is written in it
+    badge: !!document.querySelector(".banner .level-badge"),
+    level: (document.querySelector(".banner .xp-lvl") || {}).textContent || "",
   }));
 };
 
@@ -222,7 +225,8 @@ const homeState = async (page, base) => {
     Object.keys(((db.progress[aliceId] || { data: {} }).data.cards) || {}).length === 3);
 
   let home = await homeState(A.page, base);
-  check("first account: home shows a level banner, not the first-run hero", !home.hero && home.level !== "");
+  check("first account: home shows the ordinary review banner, not the first-run hero",
+    !home.hero && home.badge && /level/i.test(home.level), JSON.stringify(home));
   await openAccount(A.page, base);
   check("first account: badges are shown", (await badgeCount(A.page)) === 2, "badges=" + (await badgeCount(A.page)));
 
