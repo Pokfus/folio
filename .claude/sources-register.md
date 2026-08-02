@@ -6454,3 +6454,245 @@ https://www.nesdis.noaa.gov/about/k-12-education/atmosphere/what-the-coriolis-ef
   every DOI tried today, where G10 recorded it 403 for all of them; and `weather.gov` answers, though the
   JetStream page it used to serve now redirects to `noaa.gov/jetstream` and the Coriolis page is gone from
   it. `pmc.ncbi.nlm.nih.gov` served article HTML without a challenge today.
+
+## Batch P1 — the first six presidents (GLOSSARY, 2026-08-02)
+
+Six terms, 21 citation slots from **twenty distinct works, every one of them open**, and **none of them
+from this register** — Phase 2 shares no ground at all with the prehistory pass, so the register's dividend
+is zero here and will be for the next six batches. What replaces it is a spine: the **Miller Center's
+presidential essays**, written by named academic historians, one per president, open by policy, and long
+enough that a single essay carries most of a three-sentence term.
+
+**The batch's result is a near-negative one, and that is the finding.** Six terms, one corrected clause.
+These descriptions were written from the same institutional record the pass now cites — a government
+archive, a university's presidential biographies — so they held up in a way the prehistory terms did not.
+G8 established that a batch which corrects nothing is a result worth recording; P1 is the second, and it
+suggests the plan's standing warning for Phase 2 (watch for characterisations the sources do not make) is
+better aimed at the recent presidencies than at the first six.
+
+### Verified citations (batch P1)
+
+### mc-washington-lib / mc-washington-impact · the first presidency
+Lindsay M. Chervinsky, "George Washington: Life in Brief," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/washington/life-in-brief. [Open access]
+Lindsay M. Chervinsky, "George Washington: Impact and Legacy," Miller Center of Public Affairs, University
+of Virginia, https://millercenter.org/president/washington/impact-and-legacy. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports: Washington as the third son of "a middling planter" who leased Mount Vernon and
+  sought a military commission; "He approved Congress's decision to create an army in June 1775 and was
+  appointed Commander-in-Chief of the Continental Army"; the Treaty of Paris in 1783; that in May 1787 "he
+  served as the president of the convention"; the oath of office on 30 April 1789; "Washington set countless
+  precedents, including the creation of the cabinet, executive privilege, state of the union addresses, and
+  his retirement after two terms" and "the defense of executive authority over diplomatic and domestic
+  affairs"; and, for the term's last clause, **"He owned hundreds of enslaved people and benefitted from
+  their forced labor from the moment he was born to the day he died."**
+- Impact and Legacy supports the span of the two-term precedent: **"All his successors, until Franklin D.
+  Roosevelt, willingly followed his example of retiring after two terms, and the 22nd Amendment made sure
+  that no future president can serve more than two terms"** — 1797 to 1940 is the "nearly a century and a
+  half" the term claims
+- used by: `George_Washington`
+
+### nara-constitution · the convention and its year
+National Archives and Records Administration, "Constitution of the United States (1787)," Milestone
+Documents, https://www.archives.gov/milestone-documents/constitution. [Open access]
+- opened: 2026-08-02
+- supports: "Drafted in secret by delegates to the Constitutional Convention during the summer of 1787, this
+  four-page document, signed on September 17, 1787, established the government of the United States"
+- **not on this page**: Washington's signature line as "Presidt", which sits in the separate interactive
+  transcription. The presiding is cited to the Miller Center instead
+- used by: `George_Washington`
+
+### mc-adams-lib / mc-adams-lbp · the second presidency
+C. James Taylor, "John Adams: Life in Brief," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/adams/life-in-brief. [Open access]
+C. James Taylor, "John Adams: Life Before the Presidency," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/adams/life-before-the-presidency. [Open access]
+- opened: 2026-08-02
+- Life in Brief supports: Adams as "a delegate from Massachusetts to the Continental Congress between 1774
+  and 1777 … and as vice president during the Washington administration"; that "Relations between America
+  and France deteriorated to the brink of war" and "Adams was able to avoid war with France, arguing against
+  Hamilton that war should be a last resort to diplomacy"; the Alien and Sedition Acts as "four laws … largely
+  aimed at immigrants"; and that after his term he "wrote prolifically for the next twenty-six years,
+  including a fascinating correspondence with his political adversary and friend, Thomas Jefferson"
+- Life Before the Presidency supports the term's "Massachusetts lawyer": Adams "studied law with a prominent
+  local lawyer in Worcester", "launched his legal career in Boston in 1758", and "By 1770 … was a highly
+  successful lawyer with perhaps the largest caseload of any attorney in Boston"; and the FIRST vice
+  presidency — "Knowing that George Washington would be the first President, Adams sought the vice
+  presidency. He was elected to that position in 1789"
+- used by: `John_Adams`
+
+### nara-alien-sedition · the acts themselves
+National Archives and Records Administration, "Alien and Sedition Acts (1798)," Milestone Documents,
+https://www.archives.gov/milestone-documents/alien-and-sedition-acts. [Open access]
+- opened: 2026-08-02 · the page carries the full transcripts
+- supports both halves of the term's characterisation from the statutes' own words: the Alien Act empowers
+  the President "to order all such aliens as he shall judge dangerous to the peace and safety of the United
+  States … to depart", and the Sedition Act §2 punishes any person who shall "write, print, utter or publish
+  … any false, scandalous and malicious writing or writings against the government of the United States".
+  All four are signed "John Adams, President of the United States"
+- used by: `John_Adams`
+
+### whitehouse-the-white-house · who lived there first
+The White House, "The White House," https://www.whitehouse.gov/about-the-white-house/the-white-house/.
+[Open access]
+- opened: 2026-08-02
+- supports: "After eight years of construction, President John Adams and his wife Abigail moved into the
+  still-unfinished residence" and "Every president since John Adams has occupied the White House"
+- used by: `John_Adams`
+
+### mc-jefferson-lib · the third presidency
+Peter Onuf, "Thomas Jefferson: Life in Brief," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/jefferson/life-in-brief. [Open access]
+- opened: 2026-08-02
+- supports: Jefferson chosen "to write the Declaration of Independence"; the 1800 election and his
+  presidency; **"His brilliant negotiation and ties to France led to the Louisiana Purchase for $15 million,
+  doubling the size of the nation"**; "It was Jefferson who authorized the famous Lewis and Clark Expedition
+  (1804-1806)"; the embargo — "the British navy's practice of forcing American sailors into British service
+  led to Jefferson's disastrous suspension of trade with both France and England"; "Jefferson also devoted
+  himself to founding the University of Virginia"; and that "he never freed his own slaves"
+- used by: `Thomas_Jefferson`
+
+### nps-jefferson-memorial · the author and the architect
+National Park Service, "History and Culture," Thomas Jefferson Memorial,
+https://www.nps.gov/thje/learn/historyculture/index.htm. [Open access]
+- opened: 2026-08-02
+- supports: Jefferson as "primary author of the Declaration of Independence" and "first Secretary of State
+  for the United States of America"; and his architecture, through "Jefferson's taste in classical
+  architecture" and "Jefferson's two most famous buildings — Monticello and the University of Virginia Rotunda"
+- used by: `Thomas_Jefferson`
+
+### oh-louisiana-purchase · the year and the price
+Office of the Historian, U.S. Department of State, "Louisiana Purchase, 1803," Milestones in the History of
+U.S. Foreign Relations, https://history.state.gov/milestones/1801-1829/louisiana-purchase. [Open access]
+- opened: 2026-08-02
+- supports: that the United States "purchased from France in 1803" for "$15 million" a territory that
+  "encompassed 530,000,000 acres" and "made up all or part of fifteen modern U.S. states". **It does not say
+  "doubled"** — that word comes from the Miller Center, which is why both are cited on the same sentence
+- used by: `Thomas_Jefferson`
+
+### nps-lewis-clark · and on to the Pacific
+National Park Service, "History and Culture," Lewis and Clark National Historic Trail,
+https://www.nps.gov/lecl/learn/historyculture/index.htm. [Open access]
+- opened: 2026-08-02
+- supports: "the 1803 to 1806 Corps of Discovery", which "departed Pittsburgh, traced the Missouri River,
+  crossed the Rocky Mountains, and proceeded on to the Pacific Ocean", its object being "to find an all water
+  route to the Pacific Ocean" — the term's "to the Pacific", which the Miller Center's essay does not carry
+- used by: `Thomas_Jefferson`
+
+### mc-madison-lib · the fourth presidency
+Tyson Reeder, "James Madison: Life in Brief," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/madison/life-in-brief. [Open access]
+- opened: 2026-08-02
+- supports: that Madison "formulated the Virginia Plan, which served as a basis for debate during the
+  convention" and that "His exertions and theories eventually earned him the title 'Father of the
+  Constitution'"; that in the first Congress he "became the primary drafter and major proponent of numerous
+  amendments to the Constitution, ten of which were adopted and became known as the Bill of Rights"; his
+  election in 1808; the June 1812 war message; and that "The War of 1812 ended in a draw with no US objectives
+  met"
+- used by: `James_Madison`
+
+### loc-federalist · the 85 essays
+Library of Congress, "Full Text of The Federalist Papers," *Federalist Papers: Primary Documents in American
+History*, https://guides.loc.gov/federalist-papers/full-text. [Open access]
+- opened: 2026-08-02
+- supports: "a series of 85 essays written by Alexander Hamilton, John Jay, and James Madison between October
+  1787 and May 1788", "published anonymously, under the pen name Publius", and "written and published to urge
+  New Yorkers to ratify the proposed United States Constitution"
+- used by: `James_Madison`
+
+### nara-ghent · the burning, and the restored territory
+National Archives and Records Administration, "Treaty of Ghent (1814)," Milestone Documents,
+https://www.archives.gov/milestone-documents/treaty-of-ghent. [Open access]
+- opened: 2026-08-02 · the page carries the treaty transcript as well as the note
+- supports: "On June 1, 1812, President James Madison asked for a declaration of war"; **"The most shocking of
+  these was the British Army's burning of the Capitol, the President's house, and other public buildings in
+  Washington on August 24 and 25, 1814"** — which is what the term's corrected clause now says; and, from
+  Article the First, that "All territory, places, and possessions whatsoever taken by either party from the
+  other during the war … shall be restored without delay", i.e. no change of territory
+- used by: `James_Madison`
+
+### mc-monroe-lib · the fifth presidency
+Daniel Preston, "James Monroe: Life in Brief," Miller Center of Public Affairs, University of Virginia,
+https://millercenter.org/president/monroe/life-in-brief. [Open access]
+- opened: 2026-08-02
+- supports: Monroe as an officer in the Continental Army from early 1776, severely wounded at Trenton, later
+  minister to France and to Britain and Madison's secretary of state; his presidency "which began in 1817 and
+  lasted until 1825"; the Boston newspaper's coinage of "Era of Good Feelings" and that "The organized
+  opposition, in the form of the Federalists, had faded largely from sight"; "the Panic of 1819, which
+  resulted in high unemployment as well as increased foreclosures and bankruptcies"; and the Missouri
+  crisis and compromise, which Monroe "worked in support of … and, after ascertaining that the provisions
+  were constitutional, signed"
+- used by: `James_Monroe`
+
+### nara-missouri-compromise · the compromise, dated
+National Archives and Records Administration, "Missouri Compromise (1820)," Milestone Documents,
+https://www.archives.gov/milestone-documents/missouri-compromise. [Open access]
+- opened: 2026-08-02
+- supports: the year, and that the legislation "admitted Missouri as a slave state and Maine as a non-slave
+  state at the same time, so as not to upset the balance between slave and free states in the nation. It also
+  outlawed slavery above the 36º 30' latitude line in the remainder of the Louisiana Territory"
+- used by: `James_Monroe`
+
+### oh-monroe-doctrine · the message of 1823
+Office of the Historian, U.S. Department of State, "Monroe Doctrine, 1823," Milestones in the History of U.S.
+Foreign Relations, https://history.state.gov/milestones/1801-1829/monroe. [Open access]
+- opened: 2026-08-02
+- supports: the address of **December 2, 1823**; the declaration that "The American continents … are
+  henceforth not to be considered as subjects for future colonization by any European powers"; and that
+  "Monroe and his Secretary of State John Quincy Adams drew upon a foundation of American diplomatic ideals",
+  Adams having argued for a unilateral American statement rather than a joint declaration with Britain
+- used by: `James_Monroe`, `John_Quincy_Adams`
+
+### mc-jqadams-lib · the sixth presidency
+Margaret A. Hogan, "John Quincy Adams: Life in Brief," Miller Center of Public Affairs, University of
+Virginia, https://millercenter.org/president/jqadams/life-in-brief. [Open access]
+- opened: 2026-08-02
+- supports: Adams's diplomatic career from the age of ten; that as secretary of state "He played a major role
+  in formulating the Monroe Doctrine" and "negotiated the Adams-Onís Treaty with Spain, which extended U.S.
+  boundaries to the Pacific Ocean and ceded Florida to the United States"; the 1824 election, in which
+  "Jackson had thirty-two votes fewer than he needed to prevail" so that "Acting under the Twelfth Amendment,
+  the House of Representatives met to select the President"; the 1828 defeat; and that he "served nine
+  consecutive terms in the House of Representatives" until a stroke on the floor of the House on 21 February
+  1848 — the seventeen years the term counts
+- used by: `John_Quincy_Adams`
+
+### house-gag-rule · the rule that tabled the petitions
+Office of the Historian, U.S. House of Representatives, "The House 'Gag Rule,'" Historical Highlights,
+https://history.house.gov/HistoricalHighlight/Detail/35837. [Open access]
+- opened: 2026-08-02
+- supports: that on 26 May 1836 the House instituted the rule, under which "all petitions, memorials, or
+  resolutions regarding slavery should automatically be tabled and that no further action be taken upon
+  them"; Adams's objection, "I hold the resolution to be a direct violation of the Constitution of the United
+  States"; and the repeal he finally secured on 3 December 1844
+- used by: `John_Quincy_Adams`
+
+### nara-amistad · the case argued
+National Archives and Records Administration, "The Amistad Case," Educator Resources,
+https://www.archives.gov/education/lessons/amistad. [Open access]
+- opened: 2026-08-02
+- supports: "In the trial before the Supreme Court, the Africans were represented by former U.S. President …
+  John Quincy Adams", who spoke "for 8 ½ hours" at 73, and that "The Supreme Court decided in favor of the
+  Africans, stating that they were free individuals"
+- used by: `John_Quincy_Adams`
+
+### NOT CITED (batch P1) — what could not be sourced, and what is kept unmarked
+- **Jefferson's "more than 600" enslaved people over his lifetime is unmarked.** The body-responsible source
+  is the Thomas Jefferson Foundation, and **`monticello.org` is 403 from this sandbox** under every user
+  agent tried, as is `founders.archives.gov`, which answers 202 with an empty body. The Miller Center gives
+  "the onetime master of over 150 slaves" — a figure at a moment, not over a life, so substituting it would
+  change the claim rather than correct it. Nothing openable contradicts 600; per batch G2's rule the figure
+  stays and the gap is recorded here.
+- **A URL containing a closing parenthesis cannot be cited**, and this will matter for the rest of Phase 2
+  and for Phase 3. `SRC_URL_RX` in app.js is `/https?:\/\/[^\s<>"')\]]+…/`, which stops at `)` — so the
+  Biographical Directory entry `history.house.gov/People/Listing/A/ADAMS,-John-(A000039)/` would render as a
+  link to a truncated URL. It was dropped in favour of the Miller Center's "Life Before the Presidency"
+  essay, which carries the same two facts. **Check a candidate URL against that regex before planning a
+  batch around a host that uses parenthesised identifiers** — congressional bioguide URLs all do.
+- **`bioguide.congress.gov`, `constitution.congress.gov`, `www.si.edu` and `www.congress.gov` are 403 here**;
+  `cop.senate.gov`, where the Senate's vice-presidential biographies now live, fails to connect at all, and
+  the old `senate.gov/about/officers-staff/vice-president/…` paths return the Senate's 404 page with a 200
+  status — **check the body, not the status code, on senate.gov.**
+- Kept unmarked, uncontradicted, in nothing opened: Washington's dates 1789–1797 as such; Adams's arguing
+  "for American independence"; Jefferson's being "a prolific writer"; Madison's dates 1809–1817; Monroe's
+  "one-party dominance" as a characterisation of the Era of Good Feelings; and John Quincy Adams's 1825–1829
+  dates. All six date lines were checked against the essays and are correct.

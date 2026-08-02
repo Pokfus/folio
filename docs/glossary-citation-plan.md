@@ -2,8 +2,8 @@
 
 The glossary was **333 terms and not one of them carried a source**. `window.GLOSSARY_SOURCES` was an empty
 table; the fold at the foot of a gloss popup never appeared. This is the plan for filling it. Not part of
-the site. **As of 2026-08-02, 91 of the 333 are cited and at the bar** — batches G1–G11, five of which also
-corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 91 carry in-text
+the site. **As of 2026-08-02, 97 of the 333 are cited and at the bar** — batches G1–G11 and P1, five of which also
+corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 97 carry in-text
 markers, in all ten languages, after the rule changed from optional to required on 2026-08-01 (see "What
 is different from the card pass"). G5 also settled the start of prehistory across the glossary, the deck
 and every date line: **2.6 Mya**, with the disputed 3.3 Ma Lomekwi claim hedged rather than adopted; G6
@@ -171,7 +171,7 @@ the way batch 21 recorded the Anubis walls, so the next pass does not re-run the
 | Indigenous peoples, and the odds and ends | 8 | Phase 1 · batch G9 — **done** |
 | the poles, the desert, the sea and two names | 7 | Phase 1 · batch G10 — **done** |
 | the continents, the island and the constants | 10 | Phase 1 · batch G11 — **done** |
-| US presidents | 45 | Phase 2 · batches P1–P7 |
+| US presidents | 45 | Phase 2 · batches P1–P7 — **P1 done** |
 | countries and states of the world | 197 | Phase 3 · batches C0–C12 |
 | **total** | **333** | |
 
@@ -1268,9 +1268,65 @@ sources do not make**. A citation attached to a characterisation the cited work 
 the failure this apparatus exists to prevent. Expect the last batch to be the slowest for this reason, not
 the fastest.
 
+### Batch P1 log — the batch that had almost nothing to correct
+
+#### 2026-08-02 — six terms, 21 citations, one corrected clause
+
+**Coverage 91/333 → 97/333, all ninety-seven at the bar.** Twenty distinct works, **every one of them open**,
+and — for the first time in the pass — **not one of them came out of `.claude/sources-register.md`**. Phase 2
+shares no ground at all with the prehistory pass, so the register's dividend is zero here and will stay zero
+through P7. What replaces it is the spine the plan predicted: the **Miller Center's presidential essays**,
+one per president, by named academic historians, open by policy, and long enough that a single essay carries
+most of a three-sentence term. Its *Life in Brief* essay alone covered five or six claims on every one of
+these six.
+
+**The finding is a near-negative one, and it is worth stating plainly: six terms produced one corrected
+clause.** G8 established that a batch which corrects nothing is itself a result; P1 is the second such
+batch and the reason is the same in reverse. These descriptions were written from the same kind of
+institutional record the pass now cites — a national archive, a university's presidential biographies, a
+government department's own history — where the prehistory terms were written from summaries of a
+contested literature. **Where a term and its citation come from the same kind of source, reconciliation
+finds little.** The corollary for P2–P7 is that the plan's standing warning is better aimed at the recent
+presidencies, where the record is still argued over, than at the first six.
+
+**The one correction.** `James_Madison` said the War of 1812 was "a conflict in which the new capital was
+burned in 1814", which reads as the city having burned. The National Archives' note on the Treaty of Ghent
+is precise: "the British Army's burning of the Capitol, the President's house, and other public buildings in
+Washington on August 24 and 25, 1814". The term now names the two buildings, which is both what the source
+says and more informative. The same page settles the term's closing clause from the treaty itself — Article
+the First restores "All territory, places, and possessions whatsoever taken by either party from the other
+during the war" — so one NARA page carries the whole of Madison's third sentence.
+
+**Two smaller notes on how the six were sourced.** Where the Miller Center's essay stopped short, the
+answer was the body responsible, exactly as batches 18–21 found for the cards: the **National Park Service**
+supplied the Lewis and Clark expedition's reaching the Pacific and Jefferson's architecture, **whitehouse.gov**
+supplied John Adams as the first occupant of the White House, and the **House Office of the Historian**
+supplied the gag rule in the words of the rule itself. And **a statute is its own best citation**: the
+NARA milestone page for the Alien and Sedition Acts carries all four transcripts, so the term's
+"restricted immigrants and punished criticism of the government" is footnoted to the Alien Act's power to
+expel and to the Sedition Act's punishment of "any false, scandalous and malicious writing … against the
+government of the United States".
+
+**Three access findings, all of which will shape P2–P7 and Phase 3.**
+- **A URL containing a closing parenthesis cannot be cited.** `SRC_URL_RX` in app.js stops at `)`, so the
+  congressional Biographical Directory entry
+  `history.house.gov/People/Listing/A/ADAMS,-John-(A000039)/` would have rendered as a link to a truncated
+  address. Every bioguide URL is parenthesised, so **check a candidate URL against that regex before
+  planning a batch around such a host** — this one was replaced by a Miller Center essay carrying the same
+  two facts.
+- **`senate.gov` returns its 404 page with a 200 status**, so a reachability check by status code alone will
+  say the Senate Historical Office's vice-presidential biographies are fine when they are not; they have
+  moved to `cop.senate.gov`, which does not connect at all from here. Check the body, not the code.
+- **`monticello.org` and `founders.archives.gov` are both closed to this sandbox** — 403 under every user
+  agent tried, and 202 with an empty body respectively. That cost `Thomas_Jefferson` its "more than 600
+  enslaved people over the course of his life", which is left unmarked rather than swapped for the Miller
+  Center's "over 150", a figure at a moment rather than over a life. **Founders Online is named as P1's
+  second-source spine in the table above and is not usable; the milestone documents and the Office of the
+  Historian replaced it, and P2 and P3 should assume the same.**
+
 | batch | presidents | second-source spine |
 |---|---|---|
-| **P1** | Washington, J. Adams, Jefferson, Madison, Monroe, J. Q. Adams (6) | Founders Online; State Dept. Office of the Historian |
+| **P1** | Washington, J. Adams, Jefferson, Madison, Monroe, J. Q. Adams (6) — **DONE (2026-08-02)** | NARA milestone documents; State Dept. Office of the Historian; NPS |
 | **P2** | Jackson, Van Buren, W. H. Harrison, Tyler, Polk (5) | NARA milestone documents; House and Senate records (Tyler's succession) |
 | **P3** | Taylor, Fillmore, Pierce, Buchanan, Lincoln, A. Johnson (6) | NARA milestone documents; Senate impeachment record |
 | **P4** | Grant, Hayes, Garfield, Arthur, Cleveland, B. Harrison, McKinley (7) | House election statistics; Senate records; NARA |
