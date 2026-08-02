@@ -8634,3 +8634,74 @@ history (the grand duchy, the Knights of St John from 1530, the 17th-century Dut
 of 1815, the Christian kingdom of 966 and the partition of 1795, the Portuguese kingdom of 1143 and the
 voyages, Roman Dacia and the union of 1859, a thousand years in the Kingdom of Hungary, Habsburg Slovenia,
 Visigothic and Muslim Spain and the union of Castile and Aragon, and the Swedish Baltic empire to 1721).
+
+## Batch C3 — Europe, the non-EU states (GLOSSARY, 2026-08-02)
+
+**Four terms shipped, 8 citations, no corrections.** Coverage 167/333 → 171/333. Bosnia and Herzegovina,
+North Macedonia, Norway, Ukraine. **Fifteen of the nineteen planned were deferred**, and that ratio is the
+batch's finding: C2 predicted C3 would be the harder half of Europe, and it is harder than predicted.
+
+### FINDING — outside the EU there is no second institutional profile, and the substitute is per-country
+For an EU state the recipe is two fetches and both are guaranteed. Outside it, **UNdata is the only general
+profile that answers**, and every one of the natural second sources for a European state is shut here,
+measured 2026-08-02:
+
+| host | status |
+|---|---|
+| `efta.int` | 403 |
+| `coe.int` (Council of Europe) | 403 |
+| `admin.ch`, `eda.admin.ch` (Swiss federal administration) | 403 |
+| `althingi.is` (the Icelandic parliament) | 403 |
+| `mfa.gr` (Greek foreign ministry) | 403 |
+
+So the second source has to be found **per country, per claim**, and it exists only where the third sentence
+names a datable act. The four that shipped are exactly the four where it did:
+
+- **`Bosnia_and_Herzegovina`** — the OSCE's own page on the **Dayton Peace Agreement**: "the peace agreement
+  reached at Wright-Patterson Air Force Base near Dayton, Ohio … in **November 1995**, and formally signed
+  in Paris on 14 December 1995. These accords put an end to the 3½-year-long Bosnian War … The current
+  Constitution of Bosnia and Herzegovina is **Annex 4** of the DPA."
+- **`North_Macedonia`** — NATO's member-countries table gives **2020**, which is what the term's "opened the
+  way to NATO membership" turns on.
+- **`Norway`** — Norges Bank Investment Management: "The Government Pension Fund Global is **one of the
+  world's largest funds**", "established after Norway discovered oil in the North Sea", managing "revenue
+  from Norway's oil and gas resources" — the term's whole closing clause, from the body that runs the fund.
+- **`Ukraine`** — General Assembly resolution **ES-11/1, "Aggression against Ukraine"**, adopted 2 March
+  2022, which records "the **24 February 2022** declaration by the Russian Federation of a 'special military
+  operation' in Ukraine" and that its "military operations … inside the sovereign territory of Ukraine are
+  on a scale that the international community has not seen in Europe in decades" — precisely the term's
+  "invaded on a large scale in 2022".
+
+**The lesson for C4 onward: outside a bloc with its own country pages, look at the third sentence first and
+ask what ACT it names.** If it names a treaty, an accession, a resolution or a founding, there is a second
+source; if it names a landscape, a dynasty or a language family, there is not, and the term waits.
+
+### Figures verified for all four
+Bosnia 51,209 km² (UNdata 51,209) and ~3.2 m (3,140 k); North Macedonia 25,713 km² (25,713) and ~1.8 m
+(1,814 k); Norway ~324,000 km² (323,772) and ~5.5 m (5,623 k); Ukraine 603,550 km² (603,500) and "about 41
+million before 2022 and much reduced since" against UNdata's current 38,980 k — which is consistent with
+the term rather than against it, and is the only place in Phase 3 so far where a term's own hedge is what
+reconciles it to the source.
+
+### DEFERRED (batch C3) — fifteen terms, with reasons
+**One source only, no citable act in the third sentence** — UNdata confirms every figure, but the closing
+sentence names a dynasty, a language, a mountain confederation or a medieval founding, and nothing openable
+carries it: `Andorra` (the co-principality of 1278), `Liechtenstein` (an 18th-century princely purchase),
+`Monaco` (the Grimaldis from the 13th century), `San_Marino` (foundation by tradition in 301, statutes of
+1600), `Switzerland` (four national languages, armed neutrality since 1815 — and `admin.ch` is 403),
+`Iceland` (the Althing of 930 — and `althingi.is` is 403), `Belarus` (independence in 1991, which UNdata
+cannot date because Byelorussia was a **founding UN member in 1945**), `Russia` (Moscow to empire to the
+USSR), `Montenegro` (UNdata's UN membership date of 28 June 2006 does match the referendum year, but that is
+still one source), `Serbia` (UN membership 1 November 2000 against the term's 2006 separation),
+`Moldova`, `Georgia`.
+- **`Albania`** — deferred a second time on the conflict recorded in C2: the term's "roughly 2.4 million"
+  against UNdata's 2,772 thousand, unresolvable from here because INSTAT's census pages do not carry the
+  figure in their served HTML.
+- **`Greece`** — deferred a third time. Still states no area, no population and no capital; `mfa.gr` is 403.
+  **This term needs either a rewrite that states a figure or a class of source this pass has not found.**
+  It should not be carried forward as an ordinary deferral a fourth time.
+- **`United_Kingdom`** — deferred on a tooling fault rather than a sourcing one: **its Japanese translation
+  splits into four sentences where the other nine split into three**, so markers placed by sentence index
+  would land on different claims in Japanese. That has to be repaired in the prose before the term can be
+  cited, exactly as batch 24 repaired the deck's 5+5 splits.
+

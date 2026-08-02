@@ -2,8 +2,8 @@
 
 The glossary was **333 terms and not one of them carried a source**. `window.GLOSSARY_SOURCES` was an empty
 table; the fold at the foot of a gloss popup never appeared. This is the plan for filling it. Not part of
-the site. **As of 2026-08-02, 167 of the 333 are cited and at the bar** — batches G1–G11, P1–P7 with the P-topup, and C0–C2, five of which also
-corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 167 carry in-text
+the site. **As of 2026-08-02, 171 of the 333 are cited and at the bar** — batches G1–G11, P1–P7 with the P-topup, and C0–C3, five of which also
+corrected cards; run `node .claude/gloss-source-audit.js` for the live figure. All 171 carry in-text
 markers, in all ten languages, after the rule changed from optional to required on 2026-08-01 (see "What
 is different from the card pass"). G5 also settled the start of prehistory across the glossary, the deck
 and every date line: **2.6 Mya**, with the disputed 3.3 Ma Lomekwi claim hedged rather than adopted; G6
@@ -172,7 +172,7 @@ the way batch 21 recorded the Anubis walls, so the next pass does not re-run the
 | the poles, the desert, the sea and two names | 7 | Phase 1 · batch G10 — **done** |
 | the continents, the island and the constants | 10 | Phase 1 · batch G11 — **done** |
 | US presidents | 45 | Phase 2 · batches P1–P7 — **ALL DONE (2026-08-02)** |
-| countries and states of the world | 197 | Phase 3 · batches C0–C12 — **C0–C2 done (2026-08-02)** |
+| countries and states of the world | 197 | Phase 3 · batches C0–C12 — **C0–C3 done (2026-08-02)**; 15 European terms deferred with reasons, see the C3 log |
 | **total** | **333** | |
 
 ## Order, and why
@@ -1852,6 +1852,56 @@ own limit.**
 profiles, and it reaches exactly as far as a country's description states figures those profiles publish.**
 C3 is therefore the harder half of Europe — the non-EU states, the Balkans, the microstates and Greece —
 and should be planned as its own problem rather than as more of the same.
+
+### Batch C3 log — outside the EU the recipe has one leg, and fifteen of nineteen wait
+
+#### 2026-08-02 — four terms, 8 citations, no corrections, fifteen deferrals
+
+**Coverage 167/333 → 171/333.** Bosnia and Herzegovina, North Macedonia, Norway, Ukraine. C2 predicted C3
+would be the harder half of Europe; it is harder than predicted, and the ratio — four shipped, fifteen
+waiting — is the finding.
+
+**Outside the EU there is no second institutional profile, and every natural substitute is shut here**
+(measured 2026-08-02): **`efta.int` 403, `coe.int` 403, `admin.ch` and `eda.admin.ch` 403, `althingi.is`
+403, `mfa.gr` 403.** UNdata answers for all nineteen and confirms every figure in all nineteen — but UNdata
+alone is one source and the bar is two.
+
+**So the second source is per country, per claim, and it exists only where the third sentence names a
+datable act.** The four that shipped are exactly those four:
+- **Bosnia and Herzegovina** on the OSCE's own Dayton Peace Agreement page (November 1995, signed in Paris
+  14 December 1995, the Constitution as Annex 4);
+- **North Macedonia** on NATO's member table (2020), which is what "opened the way to NATO membership"
+  turns on;
+- **Norway** on Norges Bank Investment Management, which calls the Government Pension Fund Global "one of
+  the world's largest funds" and dates it to the North Sea oil discovery — the term's whole closing clause
+  from the body that runs the fund;
+- **Ukraine** on General Assembly resolution **ES-11/1, "Aggression against Ukraine"** (2 March 2022),
+  which records the 24 February 2022 "special military operation" declaration and operations "on a scale
+  that the international community has not seen in Europe in decades".
+
+**The rule for C4 onward: read the third sentence first and ask what ACT it names.** A treaty, an accession,
+a resolution or a founding has a source; a dynasty, a language family or a mountain confederation does not,
+and the term waits. The fifteen deferrals are almost all of the second kind — Andorra's co-principality of
+1278, Liechtenstein's princely purchase, the Grimaldis, San Marino's traditional 301, Swiss neutrality since
+1815, the Althing of 930, Russia from Moscow to the USSR.
+
+**Two deferrals are different in kind and are flagged rather than filed.**
+- **`Belarus`** cannot be dated by UNdata at all: the term says "a Soviet republic until independence in
+  1991", and UNdata's UN membership date is **24 October 1945**, because Byelorussia was a founding member
+  of the UN in its own right. The field that has carried an independence clause all through Phase 3 gives
+  the wrong answer here. **Check what the UN membership date actually means before marking it** — for the
+  Soviet founding republics it dates the USSR's seat, not the country's independence. Ukraine has the same
+  1945 date, which is why its marker is on the 2022 resolution and not on UNdata's membership field.
+- **`United_Kingdom`** is deferred on a TOOLING fault, not a sourcing one: **its Japanese translation splits
+  into four sentences where the other nine split into three.** Markers placed by sentence index would land
+  on different claims in Japanese. The prose has to be repaired first, exactly as batch 24 repaired the
+  deck's 5+5 splits — and this is the first time the country pass has hit that failure, so **run
+  `split-abstract.js` over a batch's terms before planning its markers**, which C0–C2 did by luck rather
+  than by rule.
+
+**`Greece` has now been deferred three times** and should not be carried a fourth. It states no area, no
+population and no capital, its EU accession is not in its third sentence, and `mfa.gr` is 403. It needs
+either a rewrite that states a figure or a class of source this pass has not found.
 
 ### Batches C1–C12 · by region
 
