@@ -2580,6 +2580,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     It now uses `surfaceOf(k)`, which reads a deck term's own title. **Curated keys still go through
     `glossKeyTitle`** — deliberately not `glossTitle`, since pass 1 matches the humanized slug, not a
     display-title override. The equivalence test (125 auto-linked terms over 8 curated cards) guards this.
+  · **A card must not auto-link its OWN answer term, and for proper nouns it used to** (fixed Aug 2026).
+    `autoLinkGlossary` suppresses the answer by resolving `answerText` to a key — but it looked only in
+    `byName`, the case-INSENSITIVE map, while a proper-name surface lives in `byNameCS`. So a card whose
+    answer is a proper noun linked that answer inside its own background, offering the reader a popup
+    defining the very word they had just been asked to recall. `buildGlossIndex` now also returns
+    **`byAnySurface`** — every surface lowercased, whichever map it landed in — which `autoLinkGlossary`
+    uses for that one question. It is deliberately NOT used for matching prose: a proper name must still
+    match case-sensitively there. Found by the card→glossary pairing plan, which gives every card's answer
+    a term and so turns this from one stale case (`Ice_Age`) into one per batch.
   · **Every mutation invalidates only that deck's index** (`uGlossTouched` → `invalidateGlossIndex("deck:"+id)`),
     including deck deletion — otherwise a re-created deck with the same id would inherit a stale index.
   · **`uGlossSanitize` closes a hole Phase 1 left open**: `uDeckNormalize` used to pass `gloss` through
@@ -3483,7 +3492,12 @@ dead code (never rendered).
     rather than leaving this file testing an app that can no longer switch language at all.
     That second half is the original test: a reader downloads one language and not all of them (an English
     reader downloads none), switching pulls only the new language, Japanese is at parity with the other
-    languages across chrome/cards/glossary, and — the sharp edge of this layout — a `glossaryI18n` overlay
+    languages across chrome/cards/glossary — **parity with EACH OTHER, not with the English count**, since
+    every card and term added since the gate went up is English-only, so a test demanding equality with
+    `GLOSSARY` is red by design and therefore read by nobody (it was, at 24/4, until Aug 2026). Both halves
+    still bite: a batch that translates one language and forgets the rest fails, and so does a card
+    translated into only some. **Tighten it back to `Object.keys(GLOSS).length` when translations resume.**
+    Also asserted: — the sharp edge of this layout — a `glossaryI18n` overlay
     delta records ONLY the edited language, LAYERS over the shipped text so an edit made in one language
     cannot wipe another's, bakes to one file per edited language holding every term, and NEVER bakes a
     language whose file isn't loaded. **Re-run after touching `MULTILANG` / `langBundle` /

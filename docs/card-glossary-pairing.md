@@ -30,9 +30,9 @@ still finds it.
 
 Measured over `data.js` against `window.GLOSSARY` + `GLOSSARY_TITLES` + `GLOSSARY_ALIASES`:
 
-**71 of 119 cards have an entry for their answer term. 48 do not.** (42 of 119 when the plan opened;
-**P9, P10, P1 and P2 shipped 2026-08-03** and took it to 71.) **Every Ancient Greece card is paired** —
-what remains is backfill of the finished prehistory deck, batches P3–P8.
+**79 of 119 cards have an entry for their answer term. 40 do not.** (42 of 119 when the plan opened;
+**P9, P10, P1, P2 and P3 shipped 2026-08-03** and took it to 79.) **Every Ancient Greece card is paired** —
+what remains is backfill of the finished prehistory deck, batches P4–P8.
 
 **Count plurals when measuring this.** A card whose answer is `Denisovans` is paired by the term
 `Denisovan`, because `buildGlossIndex` auto-pluralizes — but an exact-match count says it is not, which is
@@ -56,7 +56,7 @@ Eight cards each, in card order, so a batch shares its reading with the cards it
 |---|---|---|
 | **P1** ✅ | `wh-012`, `wh-019`, `wh-020`, `wh-021`, `wh-025`, `wh-026`, `wh-027`, `wh-028` | Last Glacial Period; Homo ergaster; Turkana Boy; Wonderwerk Cave; Java Man; Peking Man; Zhoukoudian; Homo antecessor — **shipped 2026-08-03** |
 | **P2** ✅ | `wh-029`, `wh-030`, `wh-035`, `wh-036`, `wh-037`, `wh-038`, `wh-039`, `wh-040` | Atapuerca Mountains; Homo heidelbergensis; Denisova Cave; Homo naledi; Homo floresiensis; Liang Bua; Homo luzonensis — **shipped 2026-08-03**; `Denisovans` was already covered by the existing `Denisovan` term |
-| **P3** | `wh-041`, `wh-042`, `wh-044`, `wh-045`, `wh-046`, `wh-047`, `wh-048`, `wh-050` | Neanderthal extinction; Toba catastrophe theory; Omo remains; Jebel Irhoud; Homo sapiens idaltu; Mitochondrial Eve; Y-chromosomal Adam; Aterian |
+| **P3** ✅ | `wh-041`, `wh-042`, `wh-044`, `wh-045`, `wh-046`, `wh-047`, `wh-048`, `wh-050` | Neanderthal extinction; Toba catastrophe theory; Omo remains; Jebel Irhoud; Homo sapiens idaltu; Mitochondrial Eve; Y-chromosomal Adam; Aterian — **shipped 2026-08-03** |
 | **P4** | `wh-052`, `wh-053`, `wh-054`, `wh-055`, `wh-056`, `wh-058`, `wh-059`, `wh-060` | Howiesons Poort; Sibudu Cave; Border Cave; Klasies River Caves; Pinnacle Point; Behavioural modernity; Madjedbebe; Lake Mungo remains |
 | **P5** | `wh-062`, `wh-063`, `wh-064`, `wh-065`, `wh-067`, `wh-068`, `wh-069`, `wh-070` | Settlement of the Americas; Paleo-Indians; Cro-Magnon; Châtelperronian; Lion-man; Hohle Fels; Venus of Hohle Fels; Divje Babe flute |
 | **P6** | `wh-072`, `wh-073`, `wh-074`, `wh-076`, `wh-080`, `wh-081`, `wh-082`, `wh-083` | Venus figurines; Venus of Willendorf; Dolní Věstonice; Mal'ta-Buret' culture; microlith; spear-thrower; bow and arrow; cave painting |
@@ -203,3 +203,37 @@ Seven terms rather than the planned eight, and the missing one is the finding.
 Verified in a browser: every one of the seven that appears in another card's background auto-links and
 opens. `Homo_naledi` and `Homo_luzonensis` appear on no card but their own, where the answer term is
 skipped by design.
+
+## The P3 log
+
+Eight terms, all at the bar and all majority-open — which took care, because half these cards rest on
+landmark papers that are paywalled (Higham on the Neanderthal dating, Ambrose on Toba, Hublin and Richter
+on Jebel Irhoud, White and Clark on Herto, Cann on Mitochondrial Eve). Every list was built open-first with
+the closed landmark alongside, never instead.
+
+**THE BATCH FOUND A BUG IN THE AUTO-LINKER, AND THE PLAN IS WHAT SURFACED IT.** `autoLinkGlossary` stops a
+card from linking its own answer term by resolving `answerText` to a key — but it looked only in `byName`,
+the case-insensitive map, while a PROPER-NAME surface lives in `byNameCS`. So a card whose answer is a
+proper noun linked that answer inside its own background, offering the reader a popup defining the word
+they had just been asked to recall. Measured across the prehistory deck: five cards did it — `Ice_Age`,
+which has been wrong since long before this plan, plus `Turkana_Boy`, `Java_Man`, `Peking_Man` and
+`Atapuerca_Mountains`, added by P1 and P2. `buildGlossIndex` now also returns `byAnySurface` (every surface
+lowercased, whichever map it landed in) and `autoLinkGlossary` uses it for that one question; prose
+matching is untouched, since a proper name must still match case-sensitively there. Verified back to zero.
+**This is what giving every card's answer a term does: a latent one-off becomes one per batch.** Re-run the
+self-link check after each batch — it is a dozen lines and it caught what no existing suite covers.
+
+Two smaller notes:
+
+- **Grep the aliases too, not just the headword.** `Omo_remains` looked as though it appeared on no card
+  but its own, and it links from `wh-043` — through the alias `Omo Kibish`, which the check had not been
+  given. A term's reach is its whole surface set.
+- **`Neanderthal extinction` sits on top of the existing `Neanderthal`** and wins, because
+  `buildGlossIndex` sorts surfaces longest-first so phrases beat their parts. Worth knowing before adding
+  any multi-word term whose first word is already a term.
+- **A permanently-red test is a test nobody reads.** `test-i18n-lang.js` demanded that the nine gloss files
+  hold as many terms as `GLOSSARY` — impossible since the `MULTILANG` gate made every new term
+  English-only, so it had been sitting at 24 passed / 4 failed and drifting further with each batch of this
+  plan. It now asserts the rule that IS in force: **no language behind the others**, translated terms a
+  subset of shipped ones, and no card translated into only some languages. Back to 30/0, and both halves
+  still bite.

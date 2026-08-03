@@ -2063,12 +2063,21 @@
     const CS = srcs.CS;                               // explicit per-key flags (e.g. Heaven, God, Gun)
     const byName = {};      // lowercased surface -> key (case-insensitive common nouns)
     const byNameCS = {};    // exact-case surface -> key (proper names + flagged terms)
+    /* Every surface, lowercased, whichever map it landed in. This is NOT for matching prose — a proper
+       name must still match case-sensitively — it is for asking "which term is this card's answer?", where
+       the answer text is written as the card writes it ("ice age") and the surface as the term titles it
+       ("Ice Age"). Without it a card whose answer is a PROPER NOUN auto-linked its own answer term inside
+       its own background: `Ice_Age`, and then four more as the card-glossary pairing plan added a term for
+       every card's answer. */
+    const byAnySurface = {};
     const names = [];
     const add = (surface, k) => {
       const s = String(surface || "").trim();
       if (s.length < 3) return;               // skip ultra-short surfaces to avoid noise
       if (CS[k] || isProperCS(s)) { if (!byNameCS[s]) { byNameCS[s] = k; names.push(s); } }   // exact case only
       else { const low = s.toLowerCase(); if (!byName[low]) { byName[low] = k; names.push(s); } }
+      const any = s.toLowerCase();
+      if (!byAnySurface[any]) byAnySurface[any] = k;
     };
     const keys = Object.keys(G);
     // The surface to match is the humanized SLUG for a curated term, but a deck term's key is namespaced
@@ -2091,7 +2100,7 @@
     // Unicode-aware word boundary (\b only sees ASCII \w, so terms/aliases that begin or end with a
     // diacritic letter — Æsir, Vé — would never match). Bound on letters/numbers/underscore instead.
     const re = names.length ? new RegExp("(?<![\\p{L}\\p{N}_])(" + names.map(esc).join("|") + ")(?![\\p{L}\\p{N}_])", "giu") : null;
-    return { byName, byNameCS, re };
+    return { byName, byNameCS, byAnySurface, re };
   }
   // resolve a matched surface to a glossary key: exact-case (proper names) first, else lowercased (common nouns)
   function resolveGlossKey(idx, surface) {
@@ -2135,7 +2144,9 @@
     if (!idx || !idx.re) return;
     const answer = (answerText || "").trim().toLowerCase();
     const linked = new Set();
-    const answerKey = answer ? idx.byName[answer] : null;
+    // match the answer against EVERY surface, case-insensitively: a proper-noun answer ("Turkana Boy")
+    // lives in byNameCS, so a byName-only lookup left the card linking its own answer term
+    const answerKey = answer ? ((idx.byAnySurface || idx.byName)[answer] || idx.byName[answer]) : null;
     if (answerKey) linked.add(answerKey);
     if (offKeys && offKeys.length) offKeys.forEach((k) => linked.add(k));   // terms the editor removed in this card's background — keep them un-linked
     // respect hand-added links already in the source: don't auto-link a term the editor linked manually
