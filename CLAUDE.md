@@ -2751,9 +2751,14 @@ use in their own backgrounds, and a term with no entry auto-links to nothing. Wr
 401/401 through sixty-eight new terms — and to the GLOSSARY's rules rather than the card's: three sentences,
 impartial, deck-agnostic, self-contained, never written as a companion to the card that prompted it. Where
 the answer is a phrase the glossary would never head, give the entry the head noun and add the card's exact
-answer as an **alias**. **42 of 119 cards have such an entry and 77 do not** — `docs/card-glossary-pairing.md`
-holds the list and ten batches, of which **P9 and P10 (the ten Ancient Greece terms) come first**, since
-that is the collection being grown and every new card will want them.
+answer as an **alias**. **THE BACKFILL IS COMPLETE: all 119 shipped cards have such an entry** (42 did when the rule was written),
+and the glossary stands at **477 terms, every one at the bar**. `docs/card-glossary-pairing.md` holds the
+record of the ten batches and what each turned up — the rule itself is what remains in force. Worth knowing
+before writing the next one: give the NARROWER thing its own key and let the broader one take the short
+alias (`Clovis_point` as a key, `Clovis` as an alias of `Clovis_culture`), since `buildGlossIndex` sorts
+surfaces longest-first; and **ask whether a one-word term is also an everyday word** before adding it —
+`Boreal` needed `caseSensitive: true` or four country and region terms saying "boreal forest" would have
+linked to a Holocene chronozone.
 
 The deck and glossary are being regrown one entry at a time, each researched from **Wikipedia and
 academic sources** — accuracy is non-negotiable, never invent dates, names, or definitions. The kept

@@ -30,9 +30,13 @@ still finds it.
 
 Measured over `data.js` against `window.GLOSSARY` + `GLOSSARY_TITLES` + `GLOSSARY_ALIASES`:
 
-**111 of 119 cards have an entry for their answer term. 8 do not.** (42 of 119 when the plan opened;
-**P9, P10 and P1–P7 shipped 2026-08-03** and took it to 111.) **P8 is the last batch.** **Every Ancient Greece card is paired** —
-what remains is batch P8.
+# ✅ COMPLETE — 119 of 119
+
+**Every card has a glossary entry for its answer term** (42 of 119 when the plan opened; P9, P10 and P1–P8
+all shipped 2026-08-03). The glossary went from 401 terms to **477**, all of them at the
+`GLOSS_SRC_TARGET` bar, every list majority-open and every citation labelled. What the plan now describes is
+the RULE, which stands: a new card ships with a term for its own answer, in the same commit. **Every Ancient Greece card is paired** —
+all eight prehistory batches are done.
 
 **Count plurals when measuring this.** A card whose answer is `Denisovans` is paired by the term
 `Denisovan`, because `buildGlossIndex` auto-pluralizes — but an exact-match count says it is not, which is
@@ -61,11 +65,11 @@ Eight cards each, in card order, so a batch shares its reading with the cards it
 | **P5** ✅ | `wh-062`, `wh-063`, `wh-064`, `wh-065`, `wh-067`, `wh-068`, `wh-069`, `wh-070` | Settlement of the Americas; Paleo-Indians; Cro-Magnon; Châtelperronian; Lion-man; Hohle Fels; Venus of Hohle Fels; Divje Babe flute — **shipped 2026-08-03** |
 | **P6** ✅ | `wh-072`, `wh-073`, `wh-074`, `wh-076`, `wh-080`, `wh-081`, `wh-082`, `wh-083` | Venus figurines; Venus of Willendorf; Dolní Věstonice; Mal'ta-Buret' culture; microlith; spear-thrower; bow and arrow; cave painting — **shipped 2026-08-03** |
 | **P7** ✅ | `wh-087`, `wh-089`, `wh-090`, `wh-091`, `wh-092`, `wh-093`, `wh-094`, `wh-095` | Cosquer Cave; Quaternary extinction event; Younger Dryas; Clovis culture; Clovis point; Folsom tradition; Monte Verde; Meadowcroft Rockshelter — **shipped 2026-08-03** |
-| **P8** | `wh-097`, `wh-098`, `wh-100`, `wh-101`, `wh-103`, `wh-104`, `wh-105`, `wh-106` | petroglyph; control of fire; Epipaleolithic; Nordic Stone Age; Preboreal; Boreal; Atlantic period; Blytt–Sernander sequence |
+| **P8** ✅ | `wh-097`, `wh-098`, `wh-100`, `wh-101`, `wh-103`, `wh-104`, `wh-105`, `wh-106` | petroglyph; control of fire; Epipaleolithic; Nordic Stone Age; Preboreal; Boreal; Atlantic period; Blytt–Sernander sequence — **shipped 2026-08-03** |
 | **P9** ✅ | `wh-107`, `wh-108`, `wh-109`, `gr-001`, `gr-002`, `gr-003`, `gr-004`, `gr-005` | Holocene climatic optimum; post-glacial rebound; 8.2-kiloyear event; Aegean Bronze Age; Cycladic civilisation; Cycladic figurines; Keros; Early Minoan Crete — **shipped 2026-08-03** |
 | **P10** ✅ | `gr-006`, `gr-007`, `gr-008`, `gr-009`, `gr-010` | Minoan civilisation; Arthur Evans; Knossos; Minoan palace; Throne Room at Knossos — **shipped 2026-08-03** |
 
-**Run P9 and P10 first.** *(Both are done. P1–P8 are next, in any order.)* The Ancient Greece collection is the one being grown, its glossary starts from
+*(All ten batches are done. What follows is the record of how they went.)* The Ancient Greece collection is the one being grown, its glossary starts from
 almost nothing, and every card written from `docs/greece-card-plan.md` from here on will want to link these
 ten terms. The prehistory batches are backfill of a finished deck and can wait.
 
@@ -336,3 +340,37 @@ consistent with each other. Three notes:
   is the calibrated figure. **The term keeps the words "radiocarbon years"**, which is what makes the two
   readable together — batch 22's arithmetic rule (check that a "years ago" is the calibration of a ¹⁴C
   figure) in its benign form.
+
+## The P8 log — and what the whole pass came to
+
+Eight terms, which finish the plan at **119 of 119**. Three findings, one of them a correction.
+
+- **A CORRECTION THAT HAD NOT TRAVELLED, FOUND BY WRITING ITS SIBLING.** Batch 25 withdrew the claim that
+  Blytt named the Atlantic and the Boreal — his own 1886 paper uses neither word as a phase name, and
+  nothing openable settles who coined which of the five — and rewrote `wh-106` accordingly. `wh-105` still
+  said "Blytt named it for that wetness", the same withdrawn claim on a different card, five batches later.
+  It now reads "Its name records that wetness rather than the ocean", corrected **in all ten languages**
+  through `split-abstract.js`'s `mark(abstract, map, replace)`, which replaces a sentence by index and left
+  the card splitting 5+5 with its marker counts intact. Batch 26's rule, third confirmation: **a correction
+  does not travel between cards on its own** — and writing the sibling term is the cheapest way to find that
+  it hasn't.
+- **`Boreal` NEEDED THE CASE-SENSITIVE FLAG, AND IT IS THE FIRST TERM IN THIS PLAN THAT DID.** The key
+  humanizes to a word that is also an everyday adjective: `Canada`, `Northern_Hemisphere`,
+  `Weichselian_glaciation` and `Fennoscandia` all say "boreal forest" or "boreal vegetation", and without
+  `caseSensitive: true` every one of them would have linked to a Holocene chronozone. Verified live rather
+  than reasoned: the Weichselian popup says "boreal vegetation" and does **not** link it, while the cards
+  naming the chronozone do. **Before adding a one-word term, ask whether the word has a common-noun life**
+  — it is the third kind of alias trap this pass has met, after the wrong-scheme synonym (N2) and the
+  identity-asserting alias (N4).
+- The two common nouns went the way P6's did: `Petroglyph` and `Control_of_fire` open on what the thing IS
+  — an image cut rather than painted; the three separate achievements of using, keeping and kindling — and
+  let the dates in afterwards as facts about the class.
+
+### The pass in summary
+
+Ten batches, **76 new terms**, and the plan's own premise held: every one was written from the card's
+already-verified sources, so the whole pass cost no new reading beyond a handful of checks. What it bought
+beyond the terms themselves was six defects that only writing a term next to a card could surface —
+a broken DOI link (P9), a dead alias (P9), a self-linking auto-linker (P3), a permanently-red test (P3), a
+measurement rendered two ways (P5), an uncited definitional block (P6) and an untravelled correction (P8).
+**The pairing rule earns its keep as a review pass, not only as a coverage target.**
