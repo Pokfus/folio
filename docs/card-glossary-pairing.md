@@ -30,9 +30,9 @@ still finds it.
 
 Measured over `data.js` against `window.GLOSSARY` + `GLOSSARY_TITLES` + `GLOSSARY_ALIASES`:
 
-**79 of 119 cards have an entry for their answer term. 40 do not.** (42 of 119 when the plan opened;
-**P9, P10, P1, P2 and P3 shipped 2026-08-03** and took it to 79.) **Every Ancient Greece card is paired** —
-what remains is backfill of the finished prehistory deck, batches P4–P8.
+**87 of 119 cards have an entry for their answer term. 32 do not.** (42 of 119 when the plan opened;
+**P9, P10, P1, P2, P3 and P4 shipped 2026-08-03** and took it to 87.) **Every Ancient Greece card is paired** —
+what remains is backfill of the finished prehistory deck, batches P5–P8.
 
 **Count plurals when measuring this.** A card whose answer is `Denisovans` is paired by the term
 `Denisovan`, because `buildGlossIndex` auto-pluralizes — but an exact-match count says it is not, which is
@@ -57,7 +57,7 @@ Eight cards each, in card order, so a batch shares its reading with the cards it
 | **P1** ✅ | `wh-012`, `wh-019`, `wh-020`, `wh-021`, `wh-025`, `wh-026`, `wh-027`, `wh-028` | Last Glacial Period; Homo ergaster; Turkana Boy; Wonderwerk Cave; Java Man; Peking Man; Zhoukoudian; Homo antecessor — **shipped 2026-08-03** |
 | **P2** ✅ | `wh-029`, `wh-030`, `wh-035`, `wh-036`, `wh-037`, `wh-038`, `wh-039`, `wh-040` | Atapuerca Mountains; Homo heidelbergensis; Denisova Cave; Homo naledi; Homo floresiensis; Liang Bua; Homo luzonensis — **shipped 2026-08-03**; `Denisovans` was already covered by the existing `Denisovan` term |
 | **P3** ✅ | `wh-041`, `wh-042`, `wh-044`, `wh-045`, `wh-046`, `wh-047`, `wh-048`, `wh-050` | Neanderthal extinction; Toba catastrophe theory; Omo remains; Jebel Irhoud; Homo sapiens idaltu; Mitochondrial Eve; Y-chromosomal Adam; Aterian — **shipped 2026-08-03** |
-| **P4** | `wh-052`, `wh-053`, `wh-054`, `wh-055`, `wh-056`, `wh-058`, `wh-059`, `wh-060` | Howiesons Poort; Sibudu Cave; Border Cave; Klasies River Caves; Pinnacle Point; Behavioural modernity; Madjedbebe; Lake Mungo remains |
+| **P4** ✅ | `wh-052`, `wh-053`, `wh-054`, `wh-055`, `wh-056`, `wh-058`, `wh-059`, `wh-060` | Howiesons Poort; Sibudu Cave; Border Cave; Klasies River Caves; Pinnacle Point; Behavioural modernity; Madjedbebe; Lake Mungo remains — **shipped 2026-08-03** |
 | **P5** | `wh-062`, `wh-063`, `wh-064`, `wh-065`, `wh-067`, `wh-068`, `wh-069`, `wh-070` | Settlement of the Americas; Paleo-Indians; Cro-Magnon; Châtelperronian; Lion-man; Hohle Fels; Venus of Hohle Fels; Divje Babe flute |
 | **P6** | `wh-072`, `wh-073`, `wh-074`, `wh-076`, `wh-080`, `wh-081`, `wh-082`, `wh-083` | Venus figurines; Venus of Willendorf; Dolní Věstonice; Mal'ta-Buret' culture; microlith; spear-thrower; bow and arrow; cave painting |
 | **P7** | `wh-087`, `wh-089`, `wh-090`, `wh-091`, `wh-092`, `wh-093`, `wh-094`, `wh-095` | Cosquer Cave; Quaternary extinction event; Younger Dryas; Clovis culture; Clovis point; Folsom tradition; Monte Verde; Meadowcroft Rockshelter |
@@ -237,3 +237,29 @@ Two smaller notes:
   plan. It now asserts the rule that IS in force: **no language behind the others**, translated terms a
   subset of shipped ones, and no card translated into only some languages. Back to 30/0, and both halves
   still bite.
+
+## The P4 log
+
+Eight terms, and the quietest batch so far: no corrections, no access surprises, no tooling faults. What it
+did have was three judgement calls worth writing down.
+
+- **TWO SITES CLAIMING THE SAME FIRST, AND BOTH RIGHT.** `wh-056` calls Pinnacle Point's 164,000-year-old
+  shell middens "the earliest firm evidence anywhere that people gathered food from the shore"; `wh-055`
+  calls Klasies River "the clearest early sign of steady coastal foraging" on middens under a 110,000-year
+  speleothem. Side by side as glossary terms those read as rival claims to the same title. They are not —
+  one is the earliest instance, the other the earliest sustained pattern — and the fix was to take the
+  Klasies wording from its own source's title, which says **systematic** coastal exploitation. P1's
+  Zhoukoudian case again in a different shape: **when two terms look like they contradict, check whether
+  they are answering different questions before changing either.**
+- **A term whose subject is an argument gets the argument, not a verdict.** `Behavioural_modernity` is a
+  contested category, so its three sentences give the trait list, why each item is only a proxy, and the
+  two standing objections (the traits turn up far earlier in Africa; Neanderthals had them too) without
+  settling it — and it says plainly that the term stays in wide use. A gloss that picked a side would be
+  taking a position the cards themselves decline to take.
+- **`Lake_Mungo_remains` names the Traditional Owners and the repatriation.** These are ancestral remains,
+  not specimens: the term says whose country they lie in, that the 2001 DNA claim collapsed as
+  contamination, and that reburial was approved in 2022. It also carries the card's hedge on the word
+  'cremation', in the single quotes the house style uses for a word mentioned as a word.
+
+Verified in a browser: all three of the eight that appear in another card's background auto-link and open;
+the other five appear only on their own cards. The self-link check introduced in P3 still reports zero.
