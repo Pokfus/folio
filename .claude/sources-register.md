@@ -9816,7 +9816,7 @@ alone when its history had none.
 
 ---
 
-# THE GLOSSARY CITATION PASS IS COMPLETE — 338 of 338
+# THE GLOSSARY CITATION PASS IS COMPLETE — 348 of 348
 
 Every term carries at least `GLOSS_SRC_TARGET` (2) citations, every citation is referenced by at least one
 in-text marker, and the markers are identical across English and all nine translations. `node
@@ -9824,8 +9824,8 @@ in-text marker, and the markers are identical across English and all nine transl
 batch 26; **both passes are now done, and `country-sources.js` — the Atlas — is the only surface in Folio
 that still shows no sources.**
 
-(333 at the close of D3; **five terms were added on 2026-08-03 and were cited as they were written** —
-see N1 below. A term added after the pass joins it at the bar, rather than reopening a backlog.)
+(333 at the close of D3; **fifteen terms were added on 2026-08-03 and were cited as they were written** —
+see N1 and N2 below. A term added after the pass joins it at the bar, rather than reopening a backlog.)
 
 ---
 
@@ -9951,7 +9951,142 @@ otherwise read it as an error and "fix" one of them.
   - reused from `walker-2009` above: the base of the Holocene at 11,700 cal yr b2k
   - used by: Interglacial (and wh-010, wh-012, wh-090)
 
-### Hosts, measured 2026-08-03
+---
+
+## Batch N2 — ten more Palaeolithic terms, written cited, verified 2026-08-03
+
+Requested the same day as N1: the African **Late Stone Age**, **Denisovan**, **ochre**, **Blombos Cave**,
+**tar**, **Eurasia**, **Sulawesi**, the **Swabian Jura**, **Chauvet** and **Lascaux**. Twenty-four citation
+slots from **eighteen distinct works, all eighteen open** — the first all-open batch of either pass. Fifteen
+of the eighteen came straight out of this register. N1 found that the register pays for a place whose card
+already exists; N2 is that at scale, since nine of these ten terms are the glossary siblings of cards from
+batches 8b, 14, 15, 20, 21 and 26.
+
+### The alias that was wrong, and why the request exposed it
+
+`Upper_Paleolithic` carried **"Late Stone Age"** as an alias. It is not a synonym: the Later Stone Age is
+the African division running from ~40 ka into historical times (Hallinan's table 1), where the Upper
+Palaeolithic is the Eurasian one ending at 11,700 BP — and Malan 1957 records that Goodwin chose the
+African terms precisely so they would *not* be read as the European ones. With a real `Late_Stone_Age`
+term added, pass 1 of `buildGlossIndex` (primary slug surfaces) would have beaten the alias anyway, so
+nothing would have looked broken; the alias would simply have sat there being wrong. **Removed**, and
+`Upper Palaeolithic` put in its place, matching the British-spelling aliases its Lower/Middle siblings
+carry. Flagged in the N1 hand-off and acted on here because the request made it live.
+
+**The general rule**: a synonym alias asserts an identity. Before adding one, ask whether the two names
+belong to the *same scheme* — Old/New Stone Age are Palaeolithic and Neolithic in the same European
+sequence, and are correct; Early/Middle/Later Stone Age are a *different* continent's sequence and are not.
+
+### Access notes
+
+- **`nature.com`, `link.springer.com` and `pnas.org` all 303 to an identity-provider cookie endpoint or
+  403 outright**, so a Scientific Reports / PNAS / Springer paper cannot be read at its publisher URL here.
+  Europe PMC is the way in for the first two: `Kozowyk 2017` (PMC5579016) and `Niekus 2019` (PMC6825292)
+  both serve full text. `Dapschauskas 2022` has **no Europe PMC record at all** and could not be re-read,
+  so the ochre definition was taken from `Rosso 2017` instead, which states it outright — batch 25's
+  "an old entry may not re-read; say so rather than guess", with the substitution rather than the shrug.
+- **`isOpenAccess: N` on Niekus 2019 and it is fully readable in PMC.** Batch 24's rule again, and the
+  access label follows *readability*, not licence: a reader who follows the link gets the paper.
+- **Resolve the PMCID, never guess it.** A guessed `PMC7377442` for Bar-Yosef Mayer 2020 in N1 returned a
+  paper on social defeat stress in mice. `search?query=DOI:"…"&resultType=core` gives the id, the author
+  string and the volume/issue/pages in one call — which is also how this batch's citations got their
+  pagination without inventing any.
+
+### Verified citations (batch N2)
+
+New to the register:
+
+- P. R. B. Kozowyk, M. Soressi, D. Pomstra, and G. H. J. Langejans, “Experimental Methods for the Palaeolithic Dry Distillation of Birch Bark: Implications for the Origin and Development of Neandertal Adhesive Technology,” <i>Scientific Reports</i> 7, no. 1 (2017): 8033, https://pmc.ncbi.nlm.nih.gov/articles/PMC5579016/. [Open access]
+  - opened: 2026-08-03 · full text via Europe PMC
+  - supports: "Tar is synthesized from the dry (destructive) distillation of organic material, commonly
+    birch bark (*Betula* sp.) or pine wood (*Pinus* sp.)"; the three aceramic methods tested — ash mound,
+    pit roll and raised structure; "for birch bark this can be as low as 250–300 °C and over 500 °C";
+    "Adhesives are one of the earliest transformative technologies known and tar production is at least
+    200 thousand years old (ka)"; and "The oldest known tar-hafted stone tools were discovered at a Middle
+    Pleistocene site in Italy, during a time when only Neandertals were present in Europe"
+  - used by: Tar
+- Marcel J. L. Th. Niekus et al., “Middle Paleolithic Complex Technology and a Neandertal Tar-Backed Tool from the Dutch North Sea,” <i>Proceedings of the National Academy of Sciences</i> 116, no. 44 (2019): 22081–87, https://pmc.ncbi.nlm.nih.gov/articles/PMC6825292/. [Open access]
+  - opened: 2026-08-03 · full text via Europe PMC (`pnas.org` is 403; `isOpenAccess: N` but readable)
+  - supports: "The earliest known evidence of birch tar adhesives dates to a minimum age of 191 ka and
+    consists of 2 unretouched flakes partly covered in birch bark tar from Campitello, Italy"
+  - **note**: Kozowyk's "at least 200 ka" and Niekus's "minimum age of 191 ka" are the same Campitello
+    find stated two ways — a floor and a rounding, not a disagreement. The term gives both, each to its
+    own source, rather than picking one
+  - used by: Tar
+- L. Alonso et al., “Rock Substrate Rather than Black Stain Alterations Drives Microbial Community Structure in the Passage of Lascaux Cave,” <i>Microbiome</i> 6 (2018): 216, https://pmc.ncbi.nlm.nih.gov/articles/PMC6282324/. [Open access]
+  - opened: 2026-08-03 · full text, CC BY
+  - supports: "Lascaux Cave is located in Dordogne in South-West France"; "Since its discovery in 1940,
+    this jewel of humanity (recognized as such by the UNESCO in 1979)"; visits "which reached up to ~1800
+    visitors per day in the 1960s"; that it "has been closed for touristic visits since 1963"; and the
+    successive "green stains, later on white stains and more recently black stains"
+  - **do NOT cite it for the date of the art** — its introduction says the paintings "date from the Upper
+    Paleolithic (ca. 18,000 AD)", which is both a wrong era marker and inconsistent with the Ministry of
+    Culture's 21,500–21,000 BP. A microbiology paper is authoritative on the cave's conservation history
+    and not on its chronology; the term cites it only for the former. **This is the shape to watch for in
+    a second source picked to fill a gap: it is reliable about its own subject and casual about yours.**
+  - used by: Lascaux
+
+Reused from this register, each for exactly the claims already recorded against it:
+
+- `hallinan-2026` — the LSA at "40 ka to historical times", the "Early LSA 40–20 ka" as "generally
+  informal, combining some MSA (prepared) and LSA (bipolar technique, microlithic) technological
+  characteristics", and the Wilton at "8–4 ka" → Late_Stone_Age
+- `malan-1957` — Goodwin and van Riet Lowe's 1929 three-stage scheme → Late_Stone_Age
+- `moubtahij-2024` — "Late Stone Age hunter-gatherers from North Africa (15,000–13,000 cal BP)" at
+  Taforalt, which is what carries the label beyond southern Africa → Late_Stone_Age
+- `reich-2010` — the 2008 phalanx from Denisova Cave, the sequenced genome, a group "that shares a common
+  origin with Neanderthals", the "4–6%" in present-day Melanesians, and the naming → Denisovan
+- `slon-2018` — Neanderthals and Denisovans "separated from each other more than 390,000 years ago", and
+  Denisova 11's Neanderthal mother and Denisovan father → Denisovan
+- `rosso-2017` — the definition: ochre as "a variety of rocks characterised by a red or yellow colour or
+  streak, from soil lumps to ore minerals, containing a high proportion of iron oxides"; "Yellow ochres
+  usually derive their colour from goethite (α-FeOOH), red ochre from hematite (α-Fe2O3), and often
+  contain other components such as quartz, clays, gypsum, or mica"; and the grinding, flaking, scraping
+  and pitting → Ochre
+- `wadley-2009` — "Compound adhesives made from red ochre mixed with plant gum" → Ochre
+- `douze-2015` — the cliff, the 100 m from the Indian Ocean, 34.5 m above sea level, the 6–7 m depth, the
+  1991 excavations, the >4 m MSA sequence, the M3 phase at 101±4 to 94±3 ka, the Still Bay at ca. 78–71 ka,
+  and the abalone-shell ochre container with its quartzite grinder → Blombos_Cave
+- `bouzouggar-2007` — the 41 *Nassarius kraussianus* shells covered in red ochre and the two engraved
+  ochres → Blombos_Cave
+- `mortimer-2017` — "The six commonly recognized geological continents (Africa, Eurasia, North America,
+  South America, Antarctica, and Australia)", their being "spatially isolated by geologic and/or
+  bathymetric features", and "Tectonic plate boundaries … provide the basis for continent-continent
+  boundaries between Africa and Eurasia" → Eurasia
+- `curran-2025` — cut-marked bones at Grăunceanu, Romania at >1.95 Ma, and hominins at Dmanisi by 1.8 Ma
+  → Eurasia
+- `brumm-2021-sulawesi` — "Sulawesi is the largest island (~174,000 km2) in Wallacea, a biogeographically
+  distinct zone of oceanic islands situated between continental Asia and Australia"; the "~450-km2 lowland
+  'tower' karst region in the island's southwestern peninsula"; "Some 300 caves and shelters with parietal
+  imagery"; the Leang Tedongnge suid at "a minimum age of 45.5 ka" → Sulawesi
+- `oktaviana-2024-narrative` — Leang Karampuang at ≥51,200 years → Sulawesi. **The two are cited together
+  on purpose**: Brumm's team called Leang Tedongnge "the earliest known representational work of art in
+  the world" and the 2024 paper overtakes it, so the term reports the claim *as made* and then the later
+  date, rather than quietly dropping the superlative or repeating it as current
+- `iceageart` (Welterbe Höhlen und Eiszeitkunst der Schwäbischen Alb) — the 2017 inscription, the six
+  caves named across the Ach and Lone valleys, and "the oldest portable art objects and musical
+  instruments of humankind" → Swabian_Jura
+- `floss-2015` — the Swabian early Aurignacian at ~42,000 cal BP, and the title claim for the ivory
+  figurines as the oldest portable art → Swabian_Jura
+- `museum-ulm-loewenmensch` — mammoth ivory, H 31.1 cm, the Stadel cave in the Hohlenstein → Swabian_Jura
+- `urmu-gaensegeierfloete` — 21.7 cm, griffon-vulture bone, four preserved finger holes, Hohle Fels 2008
+  → Swabian_Jura
+- `quiles-2016-chauvet` — the Ardèche, the two phases at ~37,000–33,500 and ~31,000–28,000 cal BP, and the
+  minority stylistic dispute → Chauvet_Cave
+- `minculture-chauvet-discovery` — Chauvet, Brunel and Hillaire, the cool draught, 18 December 1994
+  → Chauvet_Cave
+- `culture-lascaux` — the four discoverers on 12 September 1940, two of them becoming guides "once the cave
+  was opened to visitors in 1948"; the seven sectors; "some 600 representations of animals" with horses
+  "by far the most numerous, followed by equal numbers of stags and aurochs, and then by ibexes and bison"
+  and "one single image of a anthropomorphic figure"; and the occupation "somewhere between 21,500 and
+  21,000 years before present" measured on reindeer bone → Lascaux
+
+### Hosts, measured 2026-08-03 (batches N1 and N2, which ran the same day)
+- `nature.com`, `link.springer.com` — **303 to an IdP cookie endpoint**; unreadable at the publisher URL.
+- `pnas.org` — **403**.
+- `www.ebi.ac.uk/europepmc/webservices/rest` — 200, and the reliable route to a PMCID and to pagination.
+- `rock.geosociety.org`, `archeologie.culture.gouv.fr`, `iceageart.de`, `urmu.de`,
+  `bawue.museum-digital.de` — 200 (unchanged since 8b/21/26).
 - `hal.science` — **Anubis wall on the record page too**, not only `/document`. Was open on 2026-07-31.
 - `www.repository.cam.ac.uk` — 200, record page and PDF both, via a 302 to `api.repository.cam.ac.uk`.
 - `discovery.ucl.ac.uk` — **403**.
