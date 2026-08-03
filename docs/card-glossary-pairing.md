@@ -30,9 +30,14 @@ still finds it.
 
 Measured over `data.js` against `window.GLOSSARY` + `GLOSSARY_TITLES` + `GLOSSARY_ALIASES`:
 
-**63 of 119 cards have an entry for their answer term. 56 do not.** (42 of 119 when the plan opened;
-**P9, P10 and P1 shipped 2026-08-03** and took it to 63.) **Every Ancient Greece card is paired** — what
-remains is backfill of the finished prehistory deck, batches P2–P8.
+**71 of 119 cards have an entry for their answer term. 48 do not.** (42 of 119 when the plan opened;
+**P9, P10, P1 and P2 shipped 2026-08-03** and took it to 71.) **Every Ancient Greece card is paired** —
+what remains is backfill of the finished prehistory deck, batches P3–P8.
+
+**Count plurals when measuring this.** A card whose answer is `Denisovans` is paired by the term
+`Denisovan`, because `buildGlossIndex` auto-pluralizes — but an exact-match count says it is not, which is
+how P2's list came to contain a term that already existed. The figures above allow for plurals; the ones
+quoted in the P9 and P1 logs were one short for this reason.
 
 The gap is not random: the glossary was grown as a vocabulary of *general* prehistory (taxa, periods,
 industries, peoples, physical geography) and separately as a term for every country in the world, while the
@@ -50,7 +55,7 @@ Eight cards each, in card order, so a batch shares its reading with the cards it
 | batch | cards | terms |
 |---|---|---|
 | **P1** ✅ | `wh-012`, `wh-019`, `wh-020`, `wh-021`, `wh-025`, `wh-026`, `wh-027`, `wh-028` | Last Glacial Period; Homo ergaster; Turkana Boy; Wonderwerk Cave; Java Man; Peking Man; Zhoukoudian; Homo antecessor — **shipped 2026-08-03** |
-| **P2** | `wh-029`, `wh-030`, `wh-035`, `wh-036`, `wh-037`, `wh-038`, `wh-039`, `wh-040` | Atapuerca Mountains; Homo heidelbergensis; Denisovans; Denisova Cave; Homo naledi; Homo floresiensis; Liang Bua; Homo luzonensis |
+| **P2** ✅ | `wh-029`, `wh-030`, `wh-035`, `wh-036`, `wh-037`, `wh-038`, `wh-039`, `wh-040` | Atapuerca Mountains; Homo heidelbergensis; Denisova Cave; Homo naledi; Homo floresiensis; Liang Bua; Homo luzonensis — **shipped 2026-08-03**; `Denisovans` was already covered by the existing `Denisovan` term |
 | **P3** | `wh-041`, `wh-042`, `wh-044`, `wh-045`, `wh-046`, `wh-047`, `wh-048`, `wh-050` | Neanderthal extinction; Toba catastrophe theory; Omo remains; Jebel Irhoud; Homo sapiens idaltu; Mitochondrial Eve; Y-chromosomal Adam; Aterian |
 | **P4** | `wh-052`, `wh-053`, `wh-054`, `wh-055`, `wh-056`, `wh-058`, `wh-059`, `wh-060` | Howiesons Poort; Sibudu Cave; Border Cave; Klasies River Caves; Pinnacle Point; Behavioural modernity; Madjedbebe; Lake Mungo remains |
 | **P5** | `wh-062`, `wh-063`, `wh-064`, `wh-065`, `wh-067`, `wh-068`, `wh-069`, `wh-070` | Settlement of the Americas; Paleo-Indians; Cro-Magnon; Châtelperronian; Lion-man; Hohle Fels; Venus of Hohle Fels; Divje Babe flute |
@@ -170,3 +175,31 @@ were not quite enough on their own. Four things:
 Verified in a browser: seven of the eight auto-link from other prehistory cards' backgrounds and open.
 The eighth, `Last_Glacial_Period`, appears on no card but its own, where the answer term is skipped by
 design.
+
+## The P2 log
+
+Seven terms rather than the planned eight, and the missing one is the finding.
+
+- **CHECK THE PLURAL BEFORE WRITING THE TERM.** `wh-035`'s answer is `Denisovans`, which the plan listed as
+  missing — but `Denisovan` has been in the glossary since the N-batches, and `buildGlossIndex`
+  auto-pluralizes, so the card was already paired and a new `Denisovans` term would have been a duplicate
+  headword competing with it. The measure that built the plan compares `answerText` against the surface set
+  by exact string, which is blind to exactly the case the auto-linker handles. **Fold plurals into the
+  measure**, or three or four more batches will each carry a term that does not need writing.
+- **Reachability is a fact about the day, again.** `hal.science/…/document` answered 200 this session,
+  where batch 21 recorded the `/document` route as dead behind an Anubis wall and N1 recorded the record
+  pages the same way. Both `Homo_luzonensis` citations that rest on it were verified live rather than
+  carried over on trust.
+- **A source's abstract is not always what the card summarised from it.** `wh-036` gives Denisova Cave's
+  occupation as reaching back "some 300,000 years", which is Jacobs et al.'s figure and paywalled; Zavala
+  et al., which is open, actually says the earliest Denisovan mtDNA sits in layers "deposited approximately
+  250,000 to 170,000 years ago". The term states Zavala's numbers, which are the ones a reader can check,
+  and cites Jacobs for the deposit span it alone carries. **Read the abstract before re-pointing a marker
+  at an open sibling source** — the open one may be answering a different question.
+- One alias worth keeping: **`hobbit` on `Homo_floresiensis`**. It is a nickname rather than a taxon, but
+  it is what the cards themselves call the species, it is unambiguous in this corpus, and the plural is
+  picked up automatically.
+
+Verified in a browser: every one of the seven that appears in another card's background auto-links and
+opens. `Homo_naledi` and `Homo_luzonensis` appear on no card but their own, where the answer term is
+skipped by design.
