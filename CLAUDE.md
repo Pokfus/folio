@@ -2857,6 +2857,20 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   opening the background**; use `<i>` for titles (and foreign terms). **No parenthetical asides** —
   never put information between parentheses. **No glossary links** — plain text only (`cnh-001`
   still uses the old `ttip`/`data-k` links and bolded facts; new cards omit both).
+  **COVER THE WHOLE ANSWER TERM, not the part the sources talk about most** (Aug 2026, on request).
+  A background is the card's account of its term, so every region, period, group or strand the term
+  contains has to be in it, in something like proportion. No single aspect may stand in for the whole
+  — and the failure is quiet, because a card can be accurate in every sentence and still be a card
+  about something narrower than its own answer. **The test is to read the ten sentences back asking
+  which part of the term each one serves**; if a part the term names gets nothing, the card is not
+  finished, whatever its word count. **`gr-001` is the standing example**: *Aegean Bronze Age* is
+  three traditions by definition — Minoan, Cycladic and Helladic — and a first rewrite gave seven
+  sentences to Crete, two to the islands and one to the mainland, because Crete is where the palaces,
+  the writing and the best sources are. It was reported by a reader and rebalanced to 7 / 5 / 4 the
+  same day. **Where the evidence really is lopsided, say so in the card rather than letting the
+  proportions say it silently** — an imbalance the reader can see explained is history; one they
+  cannot is a gap. The pull is strongest exactly where one part of a term is better served by open
+  scholarship than the others, so this bites hardest on the terms most worth getting right.
 - `sources` — **REQUIRED for every new card: an array of Chicago note-form citations** for the claims the
   background makes, and **at least one `<sup class="fn" data-fn="N"></sup>` marker in the abstract**
   pointing at each of them. Write the marker EMPTY — the digit is drawn from the list at render time, so

@@ -98,6 +98,46 @@ campaigns belong beside the Successors who divided them, not beside the Peloponn
 left it. That deck now has to hold Plato and Aristotle, who sit in the fourth century and had nowhere
 else to go, and "Macedon and Alexander" would have been a strange address for the *Republic*.
 
+## History, not archaeology — and how many modern scholars get a card
+
+**The rule itself lives in CLAUDE.md** ("FOLIO IS A HISTORY SITE, NOT AN ARCHAEOLOGY SITE") and the
+site-wide rewrite pass is `docs/history-focus-plan.md`. Do not restate either here; what follows is only
+what is specific to this collection.
+
+This collection is where the fault is easiest to fall into, because the Bronze Age Aegean is known
+almost entirely through excavation, so the reachable sources are dig reports and the prose slides into
+who dug, how deep, and which excavator reinterpreted whom. All ten shipped cards had to be rewritten on
+2026-08-03 for exactly that; `docs/history-focus-plan.md` records what the pass found.
+
+The corollary that bites hardest here is the other CLAUDE.md rule, **a background covers its whole
+answer term** — `gr-001` is the worked example, an *Aegean Bronze Age* card that came back seven-tenths
+about Crete because Crete is where the palaces, the writing and the best open sources are. Three named
+traditions, three shares of the card. Watch for it again on `gr-056 Mycenaean civilisation`,
+`gr-111 Greek Dark Ages` and `gr-203 Greek colonisation`, each of which spans regions whose evidence is
+very unevenly published.
+
+**Modern scholars are capped at four cards in the thousand**, and these are they:
+
+| card | why it survives the cap |
+|---|---|
+| `gr-007 Arthur Evans` | named a civilisation nobody knew existed and the three scripts; his restoration is what a visitor sees |
+| `gr-057 Heinrich Schliemann` | put Mycenae and Troy into the historical record at all |
+| `gr-075 The decipherment of Linear B` | the event, not the two biographies — it proved the Bronze Age mainland spoke Greek |
+| `gr-129 The Homeric Question` | about the poems and argued since antiquity, not about a dig |
+
+`gr-264 The Spartan mirage` is not on that list and does not count against it: the gap between
+Sparta's image and Spartan reality is a fact about the ancient sources, not modern scholarship about
+them, and a Sparta deck that omits it teaches the propaganda.
+
+Five slots changed subject to hold the cap — `gr-045`, `gr-076`, `gr-104`, `gr-105` and `gr-134` —
+and are marked **†** in the list below with what they used to be, so a later session can see the trade
+rather than wonder at the gap. Two more were recast without changing subject and carry no dagger:
+`gr-075` from *Michael Ventris* to the decipherment itself, and `gr-102` from *Troy at Hisarlik* to
+plain *Troy*, since naming the mound the Victorians dug is the archaeology and the city is the
+history. `gr-104`'s first draft was *The Trojan War in Greek tradition*, which `gr-944 The Trojan War
+in myth` already covers — **check the myth decks before filling a Bronze Age slot**, since they carry
+the same names for different subjects.
+
 ## Cross-listing
 
 A card may belong to several decks; `subtreeCardIds` dedupes with a `Set` at every branch, so the
@@ -172,7 +212,7 @@ out-of-copyright Loebs are all open.
     gr-042  Akrotiri
     gr-043  Thera eruption
     gr-044  Flotilla fresco
-    gr-045  Dating the Thera eruption
+    gr-045  Aftermath of the Thera eruption †  (was: Dating the Thera eruption)
     gr-046  Minoan trade with Egypt
     gr-047  Keftiu
     gr-048  Minoan thalassocracy
@@ -205,8 +245,8 @@ out-of-copyright Loebs are all open.
     gr-072  Megaron
     gr-073  Mycenaean fresco
     gr-074  Linear B
-    gr-075  Michael Ventris
-    gr-076  John Chadwick
+    gr-075  The decipherment of Linear B  (was: Michael Ventris)
+    gr-076  The Linear B scribes †  (was: John Chadwick)
     gr-077  Pylos tablets
     gr-078  Wanax
     gr-079  Lawagetas
@@ -232,10 +272,10 @@ out-of-copyright Loebs are all open.
     gr-099  Drainage of Lake Copais
     gr-100  Mycenaean roads and bridges
     gr-101  The Isthmus wall
-    gr-102  Troy at Hisarlik
+    gr-102  Troy  (was: Troy at Hisarlik)
     gr-103  Troy VI and Troy VIIa
-    gr-104  Schliemann at Troy
-    gr-105  Priam's Treasure
+    gr-104  Troy's citadel and lower town †  (was: Schliemann at Troy)
+    gr-105  Troy and the Dardanelles †  (was: Priam's Treasure)
     gr-106  Wilusa
     gr-107  Late Bronze Age collapse
     gr-108  Sea Peoples
@@ -267,7 +307,7 @@ out-of-copyright Loebs are all open.
     gr-131  Odyssey
     gr-132  Dactylic hexameter
     gr-133  Formulaic composition
-    gr-134  Milman Parry
+    gr-134  The rhapsode †  (was: Milman Parry)
     gr-135  Homeric society
     gr-136  Oikos
     gr-137  Xenia

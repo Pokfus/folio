@@ -40,7 +40,9 @@ label. That is a proxy, not a verdict — **read the card before rewriting it**,
 these the modern years are the subject (`gr-007` Arthur Evans is a biography and is *supposed* to be full
 of them, and `wh-106` Blytt–Sernander is a card about a 19th-century idea).
 
-**24 of 119 cards are flagged.** The measure is repeatable; re-run it after each batch.
+**24 of 119 cards were flagged when this was written; 23 are now** — `gr-008` came off it with H1. The
+measure is repeatable; re-run it after each batch. The table below is the original reading, kept as the
+baseline rather than edited card by card; run the measure for the current state.
 
 | card | answer | modern sentences | modern question | dig date labels |
 |---|---|---|---|---|
@@ -78,12 +80,44 @@ card whose sources are no longer all referenced.
 
 | batch | cards | shared spine |
 |---|---|---|
-| **H1** | `gr-008`, `gr-010` | Minoan Knossos as a place: what the palace was for, who lived in it, what it controlled. `gr-007` already exists to carry Evans, so `gr-008` can hand him over wholesale rather than trimming him. **Start here — this is the card the request named.** |
+| **H1 — DONE** | `gr-008`, `gr-010` | Minoan Knossos as a place: what the palace was for, who lived in it, what it controlled. `gr-007` already exists to carry Evans, so `gr-008` handed him over wholesale rather than trimming him. Shipped 2026-08-03 along with the other eight Bronze Age Aegean cards — see below. |
 | **H2** | `wh-029`, `wh-024`, `wh-051`, `wh-068` | Sites whose interest is what people DID there: Atapuerca's Sima de los Huesos as a mortuary deposit, Dmanisi as the first hominins out of Africa, Blombos and Hohle Fels as the earliest art. Each currently opens on the dig. |
 | **H3** | `wh-025`, `wh-026`, `wh-018`, `wh-030` | *Homo erectus* and its named finds. Java Man and Peking Man are genuinely discovery stories, so these keep the most modern history of any batch — but the ratio should invert: the species' range, dates and way of life first, the finding second. |
 | **H4** | `wh-034`, `wh-035`, `wh-036`, `wh-037`, `wh-038`, `wh-039` | Neanderthals, Denisovans and the island species. Here the modern years are largely GENETIC results rather than digs, which is a different thing — the reader needs the interbreeding percentages, not the lab that ran them. |
 | **H5** | `wh-060`, `wh-067`, `wh-085`, `wh-094` | Objects and painted caves. Altamira's card is about a 19th-century controversy over authenticity; that is a fine card, but it is a card about archaeology, and the cave's own 22,000 years are barely in it. |
 | **H6** | `wh-017`, `wh-065`, `wh-066`, `wh-096` | Named places and industries whose names are 19th- and 20th-century acts. These are the hardest, because the naming genuinely is part of the subject; the target is to keep one sentence of it, not four. |
+
+## What H1 actually shipped, and what it added to the rule
+
+H1 was done as part of a wider pass over **all ten** Ancient Greece cards, not just the two flagged
+ones, because the whole deck was written from dig reports and the unflagged eight were the same fault
+below the threshold — `gr-004 Keros` was a finds inventory, `gr-003` was carving hours and lost
+findspots. Excavation vocabulary across the ten went from 27 mentions to 12, and from 22 to 6 leaving
+out `gr-007`, where the dig IS the subject.
+
+Three things came out of it that the rest of the batches should carry:
+
+- **The date line is where a correction goes to die.** `gr-008`'s abstract was rewritten and its
+  `First dug 1878, by Minos Kalokairinos` / `Evans dug 1900–1931` rows sat there afterwards; the same
+  had happened to `gr-004` and `gr-010`. This is the third time the pass has found a correction that
+  travelled through prose and stopped at `answerDate`. **Strip the dig rows in the same commit**, with
+  `set-date-line.js`, and check the sort year afterwards — three Greek cards were yielding modern years
+  to `cardYears` purely from those rows.
+- **The question pool goes with the prose.** Eleven of the thirty Greek phrasings rested on material
+  the rewrite removed — Schliemann's failed negotiation, Kalokairinos's twelve store jars, the 1963
+  looting. A rewritten card with an unrewritten question pool asks about a background it no longer has.
+- **Two corrections and a withdrawal.** `gr-006` said the armed graves near Knossos are "usually read as
+  an intrusive Mycenaean military caste" and stopped; the cited page says the newest study argues for
+  Minoans of three ranks. `gr-007` claimed Evans proposed "Minoan" to the British Association at
+  Cambridge in 1904, which is in none of the works the card cites, and it was withdrawn rather than left
+  standing on a source that does not say it. **Re-reading the sources to cut the dig finds errors in
+  what stays** — the same thing the citation top-ups found.
+
+A fourth rule came out of the same reading and is now in CLAUDE.md under `abstract`: **a background
+covers its whole answer term.** `gr-001` was rewritten history-first and came back seven-tenths about
+Crete, because Crete is where the palaces, the writing and the best open sources are; *Aegean Bronze
+Age* is three traditions by definition. It was reported by a reader and rebalanced the same day. Expect
+this to bite in H3 and H4, where one species or one site is far better published than its siblings.
 
 ## Two things the pass must not do
 
