@@ -738,6 +738,11 @@ body[data-theme="folio"] .collection-deco::after{
 .night .answer .val a{border-bottom-color:rgba(240,147,139,.42);}
 .dt{display:grid; grid-template-columns:max-content 1fr; column-gap:7px; row-gap:2px; align-items:baseline; min-width:0;}
 .dt-solo{grid-column:1 / -1;}
+/* The date line is a KEY/VALUE LIST, not a paragraph (Aug 2026, on request — it had grown to a
+   sentence or three under a one-word label). Several key/value pairs inside one .dt land in the same
+   grid, so their labels align down the left; .dt-sub is a continuation line under a value (the place
+   under a birth date), sitting in the value column with no label of its own. */
+.dt-sub{grid-column:2; opacity:.72;}
 .dt-k{font-family:var(--mono); font-size:9px; letter-spacing:.08em; text-transform:uppercase; color:var(--indigo); font-weight:600; opacity:.55; white-space:nowrap;}
 .dt-v{font-family:var(--mono); font-size:calc(11.5px * var(--fs)); letter-spacing:.01em; color:var(--ink-faint); line-height:1.45; min-width:0;}
 /* flex-shrink 0: never squeeze the translation column below its content — otherwise a wide translation (long

@@ -15,6 +15,7 @@
 //              ("skipSources": true only for a maintenance edit of a card written before citations existed).
 //              deckId defaults to the first leaf deck.
 const fs = require("fs"), path = require("path");
+const { isDateList } = require("./date-line.js");
 const dataPath = path.join(__dirname, "..", "data.js");
 const FIELDS = ["id","num","category","question","answer","answerDate","traditional","hanzi","pinyin","translations","abstract","citation","answerText"];
 const I18N_LANGS = ["es","fr","de","it","nl","ru","ar","zh","ja"];
@@ -69,6 +70,17 @@ for (const [qi, q] of [card.question, ...card.questions].entries()) {
     console.error("ERROR: question " + (qi + 1) + " has no <span class=\"blank\">_____</span> — every phrasing blanks the answer mid-sentence.");
     process.exit(1);
   }
+}
+/* The date line is a LIST OF DATES, not a summary — the dates worth memorising beside the answer term,
+   or nothing at all where the term has none. It is shared with set-date-line.js so a card written by
+   hand and a card converted by that pass cannot end up in different shapes. */
+if (!isDateList(card.answerDate)) {
+  console.error("ERROR: card.answerDate is not a date line. Write the dates as a key/value list and nothing else:\n" +
+    "         <div class=\"dt\"><span class=\"dt-k\">Era</span><span class=\"dt-v\">115,000 – 11,700 BP</span></div>\n" +
+    "       Several key/value pairs inside the one .dt stack into aligned rows; a <span class=\"dt-v dt-sub\"> line\n" +
+    "       continues under a value with no label of its own. Leave the field \"\" when the card has no obvious date\n" +
+    "       — an empty section is the right answer there, not a sentence. Everything else belongs in the abstract.");
+  process.exit(1);
 }
 /* Every new card names the scholarship behind its background. The abstract states things about the past
    as fact, and a study tool that cannot be checked is asking to be believed rather than read — so the
