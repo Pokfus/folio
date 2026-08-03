@@ -10805,3 +10805,75 @@ elephant, woolly rhinoceros and *Equus*) → Saber-toothed_cat.
 - `ora.ox.ac.uk` — 200; record page abstract-only, `/files/<fileid>` serves the manuscript.
 - `sites.harvard.edu` — 200.
 - `journals.plos.org`, `pmc.ncbi.nlm.nih.gov`, `archive.org` — 200 (unchanged).
+
+## Batch N9 — the encyclopedia relaxation, measured (2026-08-03)
+
+The rule changed on request: **an encyclopedia may be cited, but only if that encyclopedia cites its
+sources.** The batch is the test of what that buys. One term completed, `Jens_Jacob_Worsaae`; four
+deferrals re-tried and all four still deferred.
+
+### The finding: most online encyclopedias do not, in fact, cite their sources
+
+The relaxation sounds like it opens a shelf and it opens a drawer. Measured against the user's own
+condition — a per-article source list, not a general editorial policy — the majors mostly fail:
+
+- **Dansk Biografisk Leksikon** (`biografiskleksikon.lex.dk`) — **PASSES.** Named author on the article
+  (Johannes Brøndsted) and a section headed *Bibliografi* listing sources, literature and papers. This is
+  the one that paid.
+- **Britannica**, *Würm Glacial Stage* — **fails.** No bibliography, no "Additional Reading", no listed
+  citations of any kind.
+- **Britannica**, *rhinoceros* — **fails.** A named expert contributor (Eric Dinerstein) and an "External
+  Websites" box, which is a link list rather than a source list; no bibliography or Additional Reading.
+- **Store norske leksikon**, *Fennoskandia* — **fails.** A named expert (Karl Frafjord) and no separate
+  *Litteratur* or *Kilder* section.
+
+So the test to apply is **per article, for the article's own claims** — a named author is not enough, and
+a house style that cites elsewhere is not evidence that this page does. Britannica and SNL are the two
+that read most like they would qualify and neither does. **Check the page before planning a batch around
+one.**
+
+### What it completed
+
+`Jens_Jacob_Worsaae` had been shipped in N4 without birth and death dates, without his career, and
+without the Danish title of his book, because every source stating them was an encyclopedia and the plan
+barred those. N6 then went looking for a Danish institutional record and found `natmus.dk` carries five
+history pages that **do not mention Worsaae at all** and `slks.dk` is navigation only. DBL supplies all
+of it — born Vejle 14 March 1821, died Hagestedgård near Holbæk 15 August 1885, the antiquities
+commission in 1841, inspector for the preservation of antiquities in 1847 after the British Isles
+journey, director of the collections in 1866 in succession to Thomsen, and minister for church and
+education 1874–77 — and the term now runs to the length its siblings do. The entry's other three sources
+are unchanged, so the encyclopedia carries the biography and the scholarship still carries the argument;
+that division is worth keeping as the shape of an encyclopedia citation rather than the exception to it.
+
+### What it did NOT complete
+
+`Weichselian_glaciation`, `Würm_glaciation`, `Devensian_glaciation`, `Fennoscandia` and `Rhinoceros`
+remain deferred, and the relaxation is not what is standing in their way. Retried this batch and still
+shut: `quaternary.stratigraphy.org.uk` **503 on a third attempt** (the SQS correlation table is still the
+right source for the European stage names), `iucnredlist.org` 403, the Cell paper on rhinoceros genomes
+with no PMCID and no open deposit, the GTK Fennoscandia PDF extractable but carrying no definitional
+statement, and the Geological Society of Finland PDF extracting **0 characters** because it is an
+image-only scan.
+
+### Verified citations (batch N9)
+
+New to the register:
+
+- Johannes Brøndsted, “J.J.A. Worsaae,” <i>Dansk Biografisk Leksikon</i>, lex.dk, https://biografiskleksikon.lex.dk/J.J.A._Worsaae. [Open access]
+  - opened: 2026-08-03 · full article
+  - **qualifies under the new rule**: named author, and a *Bibliografi* section listing its sources
+  - supports: birth at Vejle 14 March 1821 and death at Hagestedgård near Holbæk 15 August 1885; the
+    antiquities commission 1841; inspector for the preservation of antiquities 1847, after the journey
+    through the British Isles; director of the collections 1866; Cultus Minister 1874, withdrawing 1877;
+    and the Danish title <i>Danmarks Oldtid, oplyst ved Oldsager og Gravhøie</i> (1843)
+  - used by: Jens_Jacob_Worsaae
+
+Reused unchanged on that term: `kanjanajuntorn-2020`, `rowley-conwy-2004`, `worsaae-1849`.
+
+### Hosts, measured 2026-08-03 (batch N9)
+- `biografiskleksikon.lex.dk` — 200, with a per-article bibliography.
+- `britannica.com`, `snl.no` — 200, and **without per-article source lists** (see the finding above).
+- `quaternary.stratigraphy.org.uk` — **503**, third attempt across three batches.
+- `iucnredlist.org` — **403**.
+- `tupa.gtk.fi` — 200, PDF extractable, no usable definitional sentence.
+- `geologinenseura.fi` — 200, but the PDF is an image-only scan (0 characters extracted).

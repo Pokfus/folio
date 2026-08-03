@@ -96,7 +96,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `docs/glossary-citation-plan.md` — the batch plan for **citing the glossary**, the sibling of
   the card plan above. The bar is **at least 2 citations per term** (a description is three sentences, where
   a card's abstract is ten), and the acceptable sources are academic, museum, government or reputable
-  NGO/IGO. **THE GLOSSARY CITATION PASS IS COMPLETE: all 396 terms are cited and at the bar** (batches G1–G11, P1–P7, C0–C12, D1–D3, N1–N8), all with
+  NGO/IGO — **plus, since 2026-08-03 and on request, an encyclopedia that cites its own sources**, tested
+  per article rather than per publisher (see N9's finding below: most do not).
+  **THE GLOSSARY CITATION PASS IS COMPLETE: all 396 terms are cited and at the bar** (batches G1–G11, P1–P7, C0–C12, D1–D3, N1–N9), all with
   in-text markers in all ten languages. G11 COMPLETED Phase 1** (all 91 of its prehistory, palaeoanthropology,
   geological-time, peoples and physical-geography terms) **and P1 opened Phase 2** with the first six
   presidents, on the Miller Center's presidential essays; **P2 took it to Polk, P3 to Andrew Johnson, P4
@@ -1164,7 +1166,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     stripe): one is derived from the data, the other is an editor's private marker.
   · `sup` + `class="fn"` + `data-fn` are in the sanitizer allowlists, so a community deck can use markers too.
   · **The Atlas table still ships EMPTY; the glossary has begun.** `country-sources.js` has no entries at all.
-    **`GLOSSARY_SOURCES` carries ALL 396 terms** (batches G1–G11, P1–P7, C0–C12, D1–D3, N1–N8, 2026-08-01/03 — the genus, species, specimen,
+    **`GLOSSARY_SOURCES` carries ALL 396 terms** (batches G1–G11, P1–P7, C0–C12, D1–D3, N1–N9, 2026-08-01/03 — the genus, species, specimen,
     stone-industry, three-age, periodisation, geological-time, type-site, way-of-life and discipline terms, plus the
     Indigenous-peoples group, its odds and ends, the poles / desert / ocean / two historiographic names, the six
     continents with `Sicily`, `Equator` and the two hemispheres — which completes Phase 1 — and the first six
@@ -2746,9 +2748,28 @@ shows each card's coverage as an amber or red chip) — and **a second pass has 
 through `docs/glossary-citation-plan.md` at a bar of **2 citations per term** (`GLOSS_SRC_TARGET`), with
 `node .claude/gloss-source-audit.js` and the glossary list's own coverage chip reporting it; **all 396 terms are cited — THE GLOSSARY PASS IS COMPLETE** (batches G1–G11, which complete Phase 1;
 P1–P7, which complete Phase 2 — all 45 US presidents; C0–C12, which take Phase 3 through every region;
-D1–D3, which clear the European and Asian deferral lists and the last four terms; and **N1–N8,
+D1–D3, which clear the European and Asian deferral lists and the last four terms; and **N1–N9,
 sixty-three new Palaeolithic terms written cited rather than cited afterwards** — which is how the pass stays
 complete: a term added after it joins at the bar instead of reopening a backlog). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
+**N9 is the batch that measured a rule change, and its finding is that the change buys less than it
+sounds like.** The rule was relaxed on request — **an encyclopedia may be cited, but only if that
+encyclopedia cites its sources** — and the test to apply is **per article, for that article's own
+claims**, not the publisher's general reputation. Measured: **Dansk Biografisk Leksikon passes**
+(a named author and a *Bibliografi* section listing sources), and **Britannica and Store norske leksikon
+both fail** — Britannica's *Würm Glacial Stage* carries no bibliography, no "Additional Reading" and no
+citations at all, its *rhinoceros* article has a named expert and an "External Websites" link box which
+is not a source list, and SNL's *Fennoskandia* has a named expert and no *Litteratur* or *Kilder*
+section. **A named author is not enough**, and the two that read most like they would qualify do not.
+What it bought was one term: `Jens_Jacob_Worsaae`, shipped in N4 without birth and death dates, without
+his career and without his book's Danish title because every source stating them was an encyclopedia,
+and looked for again in N6 down the institutional route, where `natmus.dk` turned out to carry five
+history pages that do not mention him at all. DBL supplies the lot, and the shape worth keeping is the
+division it produced: **the encyclopedia carries the biography and the scholarship still carries the
+argument.** `Weichselian_glaciation`, `Würm_glaciation`, `Devensian_glaciation`, `Fennoscandia` and
+`Rhinoceros` stay deferred, and the encyclopedia rule is not what is holding them —
+`quaternary.stratigraphy.org.uk` is **503 on a third attempt across three batches**, `iucnredlist.org`
+is 403, and the Geological Society of Finland's PDF extracts **0 characters** because it is an
+image-only scan.
 **N1's finding is an access repair worth reusing: `hal.science` is now behind the Anubis wall on its RECORD
 pages as well as on `/document`** (batch 21 found the file path), which silently breaks stored citations —
 `wh-011`'s PAGES 2016 link among them. The way back is a **university repository deposit** of the same
