@@ -736,7 +736,9 @@ body[data-theme="folio"] .collection-deco::after{
 .answer .val{font-family:var(--display); font-weight:600; font-size:calc(25px * var(--fs)); color:var(--zh); line-height:1.18; min-width:0; display:block;}
 .answer .val a{color:inherit; text-decoration:none; border-bottom:1px solid rgba(200,69,60,.34);}
 .night .answer .val a{border-bottom-color:rgba(240,147,139,.42);}
-.dt{display:grid; grid-template-columns:max-content 1fr; column-gap:7px; row-gap:2px; align-items:baseline; min-width:0;}
+/* column-gap 16, not the 7 it was: the label is a small-caps mono word and the value beside it is mono
+   digits, and at 7px the two read as one string. Aug 2026, on request. */
+.dt{display:grid; grid-template-columns:max-content 1fr; column-gap:16px; row-gap:2px; align-items:baseline; min-width:0;}
 .dt-solo{grid-column:1 / -1;}
 /* The date line is a KEY/VALUE LIST, not a paragraph (Aug 2026, on request — it had grown to a
    sentence or three under a one-word label). Several key/value pairs inside one .dt land in the same
