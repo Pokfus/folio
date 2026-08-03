@@ -32,7 +32,15 @@ const Q_MIN = 20, Q_MAX = 34;
 // that only a question that was never shortened trips them.
 const Q_TR_MAX_WORDS = 40, Q_TR_MAX_CHARS = 95;
 const plain = (s) => String(s || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
-const qWords = (s) => plain(s).split(" ").filter(Boolean).length;
+/* An IMPERIAL CONVERSION does not count towards a length limit (Aug 2026, on request). Measurements are
+   written metric first with the imperial equivalent in parentheses, which costs about three words a figure
+   and would otherwise squeeze the prose out of a card to make room for arithmetic. So the parenthetical is
+   stripped before counting: the limit still binds what the card SAYS, and the conversion rides free. The
+   pattern is deliberately narrow — a parenthesis holding a number and an imperial unit — so an ordinary
+   aside is still counted (and asides are banned in an abstract anyway). */
+const IMPERIAL_PAREN = /\s*\((?=[^)]*\d)[^)]*\b(?:miles?|foot|feet|ft|inch(?:es)?|in|yards?|pounds?|lbs?|ounces?|oz|tons?|acres?|sq\s?mi|°F)\b[^)]*\)/gi;
+const unconverted = (s) => String(s || "").replace(IMPERIAL_PAREN, "");
+const qWords = (s) => plain(unconverted(s)).split(" ").filter(Boolean).length;
 
 function loadWindow(file) { const win = {}; new Function("window", fs.readFileSync(file, "utf8"))(win); return win; }
 function leafDecks(node, acc) { for (const ch of node.children || []) { if (ch.cardIds) acc.push(ch); if (ch.children) leafDecks(ch, acc); } return acc; }

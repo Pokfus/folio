@@ -68,8 +68,20 @@ function serve(patch) {
   const GLOSS = global.window.GLOSSARY, CARDS = global.window.CARD_DATA;
   const langs = io.langs();
   ok("every language has a gloss file", langs.length >= 9, langs);
-  ok("every gloss file covers every term", langs.every((l) => Object.keys(io.read(l)).length === Object.keys(GLOSS).length),
-    langs.map((l) => l + ":" + Object.keys(io.read(l)).length));
+  /* PARITY WITH EACH OTHER, not with the English count. Since the MULTILANG gate went up (Aug 2026) every
+     new card and term ships English-only, so the nine languages sit permanently behind `GLOSSARY` and a
+     test demanding equality with it is red by design and therefore read by nobody. The rule actually in
+     force is CLAUDE.md's: none of the nine may be behind the others. Both halves still bite — a batch that
+     translated one language and forgot the rest fails here, and so does a gloss file that has quietly lost
+     terms. When translations resume, tighten `translated` back to Object.keys(GLOSS).length. */
+  const glossCounts = langs.map((l) => Object.keys(io.read(l)).length);
+  const translated = Math.max(...glossCounts);
+  ok("no gloss file is behind the others", glossCounts.every((n) => n === translated),
+    langs.map((l, i) => l + ":" + glossCounts[i]));
+  ok("...and the translated terms are a subset of the shipped ones",
+    translated <= Object.keys(GLOSS).length &&
+    langs.every((l) => Object.keys(io.read(l)).every((k) => k in GLOSS)),
+    translated + " translated / " + Object.keys(GLOSS).length + " shipped");
 
   const ui = {};
   for (const f of fs.readdirSync(path.join(ROOT, "i18n"))) {
@@ -82,8 +94,15 @@ function serve(patch) {
     { exact: Object.keys(ui.I18N.ja).length, rules: ui.I18N_RULES.ja.length, html: Object.keys(ui.I18N_HTML.ja).length });
   ok("rule patterns match across languages in the same order",
     JSON.stringify(ui.I18N_RULES.ja.map((r) => r[0])) === JSON.stringify(ui.I18N_RULES.es.map((r) => r[0])));
-  ok("every card carries every language",
-    CARDS.every((c) => langs.every((l) => c.i18n && c.i18n[l] && c.i18n[l].abstract)), CARDS.length + " cards");
+  // likewise: a TRANSLATED card carries all nine, an English-only one carries none — never a partial set
+  const partial = CARDS.filter((c) => {
+    const have = langs.filter((l) => c.i18n && c.i18n[l] && c.i18n[l].abstract).length;
+    return have !== 0 && have !== langs.length;
+  }).map((c) => c.id);
+  ok("no card is translated into only some languages", partial.length === 0, partial.join(", "));
+  ok("...and at least the original deck is translated",
+    CARDS.filter((c) => langs.every((l) => c.i18n && c.i18n[l] && c.i18n[l].abstract)).length >= 100,
+    CARDS.filter((c) => langs.every((l) => c.i18n && c.i18n[l] && c.i18n[l].abstract)).length + " of " + CARDS.length);
 
   /* ---------- browser checks ------------------------------------------------------------- */
   const browser = await chromium.launch({ executablePath: process.env.FOLIO_CHROMIUM });
@@ -133,7 +152,7 @@ function serve(patch) {
   ok("only the current language's files are fetched", fetched.length > 0 && fetched.every((f) => f.endsWith("-ja.js")), fetched);
   ok("every per-language family is fetched", FAMILIES.every((p) => fetched.some((f) => f.startsWith(p))), fetched);
   ok("the chrome is localized", (await pg.$$eval(".tab", (ts) => ts.map((t) => t.textContent.trim()))).includes("ホーム"));
-  ok("the glossary table is complete", (await pg.evaluate(() => Object.keys(window.GLOSSARY_I18N).length)) === Object.keys(GLOSS).length);
+  ok("the glossary table holds every translated term", (await pg.evaluate(() => Object.keys(window.GLOSSARY_I18N).length)) === translated);
 
   fetched.length = 0;
   // the picker lives on the Settings page (Aug 2026 — it was a top-bar dropdown before that)
@@ -191,7 +210,7 @@ function serve(patch) {
   ok("the bake emits the edited language's file", files.includes("i18n/gloss-ja.js"), files);
   const baked = await admin.evaluate(() => window.folioSave.files()["i18n/gloss-ja.js"]);
   ok("the baked file carries the edit", /編集済み/.test(baked));
-  ok("the baked file holds every term, not just the edited one", (baked.match(/^"[^"]+":/gm) || []).length === Object.keys(GLOSS).length,
+  ok("the baked file holds every translated term, not just the edited one", (baked.match(/^"[^"]+":/gm) || []).length === translated,
     (baked.match(/^"[^"]+":/gm) || []).length);
 
   // a delta for a language whose file is NOT loaded must never be written

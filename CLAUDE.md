@@ -535,6 +535,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   can be grown one card at a time over many sessions. See the "ANCIENT GREECE" bullet under "Generating
   cards & glossary entries" for the workflow — the short version is that the next card to write is the
   lowest `gr-NNN` not yet in `data.js`. Not part of the site.
+- `docs/history-focus-plan.md` — the rule that **Folio is a history site, not an archaeology site**, the measure that
+  finds cards written the other way round (24 of 119 flagged), and the six rewrite batches. Opened Aug 2026 on request
+  after `gr-008` Knossos was found to be mostly about who dug it. Not part of the site.
+- `docs/card-glossary-pairing.md` — the rule that **a new card ships with a glossary entry for its own answer term**,
+  and the backfill plan for the 77 of 119 shipped cards that have none. Its P9/P10 (the ten Ancient Greece terms) come
+  first. Not part of the site.
+- `docs/units-plan.md` — **metric first, imperial in parentheses**: the rule, the one imperial-first figure in the whole
+  corpus (fixed), and the 360 metric figures still to gain their equivalents. Not part of the site.
 - `docs/user-decks-plan.md` — the design plan for **community decks** (user-created decks, sharing,
   ratings, an optional per-deck glossary, and a later paid tier). Phases 0–1 have shipped; see the bullet
   in "How the app is wired". Not part of the site.
@@ -545,6 +553,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `GLOSSARY_CASESENSITIVE`, `GLOSSARY_TAGS` (per-term category tags — the admin glossary's left-bar
   filter), `GLOSSARY_IMAGES` (per-term illustration — see the "Glossary image" bullet below) and
   `GLOSSARY_SOURCES` (per-term citations — see the "Source footnotes" bullet).
+  **`add-sources.js` and `add-glossary.js` REBUILD this file from a fixed list of tables**, so a
+  `window.GLOSSARY_*` table neither of them carries is silently dropped on the next content batch — which is
+  what happened to `GLOSSARY_PLACES`/`GLOSSARY_MAP_COUNTRY` the day they were added. **Add a new table to
+  both serializers in the same commit.**
   Trimmed to the single `Sima_Qian` template entry on 2026-07-23 and **regrown since to 401 terms**
   (every country in the world, plus prehistory/paleoanthropology vocabulary), one fully-formed entry at a time
   (description + date + tags + all 9 translations); the full pre-trim glossary (2,165 terms) and its partial
@@ -685,6 +697,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `country-years.js` (a citation filed under a name the panel never looks up is a citation nobody will ever see).
 - `fetch-glossary.js` — standalone Node helper, run manually, that backfills missing glossary
   terms from Wikipedia. Not loaded by the site.
+- `.claude/fetch-place-coords.js` — writes `window.GLOSSARY_PLACES` (slug → `[lon, lat]`, fetched from each
+  Wikipedia article's own published primary coordinate) and `window.GLOSSARY_MAP_COUNTRY` (slug → the name
+  world.js uses) into glossary.js, so a glossary term can put itself on the Atlas. **One title per request** —
+  batching looked economical and quietly lost most of them, because `prop=coordinates` paginates and a
+  single-response reader records a handful and reports the rest as having no coordinate, which is
+  indistinguishable from the truth. Rate-limited hard: it backs off and retries rather than recording a 429 as
+  "no coordinate". Not part of the site.
+- `.claude/add-card-tags.js` — writes `card.tags` (see the card-tags bullet under "How the app is wired").
+  Not part of the site.
 - `fetch-countries.js` — standalone Node helper (run manually, resumable) that fetches the 5-sentence
   Wikipedia summaries into `countries.js` for every clickable name. Re-run after adding timeline eras so
   their new territories get descriptions. Not loaded by the site.
@@ -700,6 +721,31 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   run through `t()` so it localises where a translation exists, English otherwise). Add a route → add its
   `PAGE_META` row, or it inherits the home page's title. `index.html` carries the home-page values as the
   static baseline because most link-preview crawlers don't execute JS — **keep the two in step.**
+- **A STUDY SESSION SURVIVES A RELOAD (Aug 2026, on request).** `study` was not a restorable route: its hash said
+  only "study", it was not in `valid`, and the whole session lived in a closure — so a refresh mid-card landed the
+  reader on the home page with the card gone. **`STUDY_KEY` (`folio_study_v1`, sessionStorage)** now records
+  `{ scope, queue, id, qi, rev, studied }`, written by `renderCard` and by `showAnswer`; boot and `hashchange` read
+  it back and pass it to `PAGES.study` as `params.resume`.
+  · It holds the **QUEUE**, not just the card: the schedule alone cannot say where a requeued learning step was
+    sitting, and the reader was part-way through that order rather than a freshly built one.
+  · **sessionStorage**, with the same trade and for the same reason as the gloss popups — an F5 or a dev-server
+    live-reload in the same tab restores the session, a tab or browser CLOSE forgets it, so a cold start can never
+    resurrect yesterday's queue. A `#study` address with no record simply goes home, which is also what a pasted
+    link does.
+  · **`route()` clears the record whenever `name !== "study"`** — one choke point, so no page has to tidy up after
+    itself, and a language switch (which repaints through `render()`, not `route()`) leaves it alone.
+    `renderComplete` clears it too, or a reload from the completion screen would resurrect an empty queue.
+  · The `hashchange` branch for `study` must come BEFORE the generic `valid.includes(hh)` one, which would call
+    `route("study")` with no scope.
+- **A card's PHRASING is state, and the reader can step through it** (`qIdx` in `PAGES.study`, the `.q-cycle`
+  chevrons beside the Question label — Aug 2026, on request). Every card carries three ways of asking the same
+  thing and which one you met used to be a coin toss per render, with no appeal and nothing surviving a reload.
+  `qIdx` is `null` for "not chosen yet"; `renderCard` picks one (at random, or the Card-of-the-day tile's own
+  date-seeded choice), and **every move to another card sets it back to null** — `doGrade`, `suspendCurrent` and
+  `undoGrade` all do — so a phrasing belongs to the card on screen and never leaks onto the next one. The chevrons
+  swap the question **in place** rather than re-rendering, because the answer may already be showing and a reader
+  comparing two wordings has not asked for it to be taken away; `c` is a copy whenever there is a pool, so updating
+  `c.question` keeps read-aloud and `gradeCloze` on the words that are actually on screen.
 - **Lazy data bundles:** `DATA_BUNDLES` + `ensureData(name)` / `dataReady(name)` / `whenIdle(fn)` (defined
   just above the ROUTER block). See the table in the File map for what's in each bundle. `ensureData`
   resolves `true`/`false` and **never rejects**, so a fire-and-forget caller can't raise an unhandled
@@ -833,7 +879,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **progress bars were removed from Library decks + collections** (they remain on the account page's "Progress by deck").
   **The Daily-review list got one back** in July 2026, on request: each added row carries an `X/X studied` bar
   (`adProg` in `PAGES.home` → `.prog.ad-prog`, animated by the existing `animateProgs`) where a blue `.ad-dot` used to
-  sit. The dot and the ancestor rows' hollow `.ad-branch` went together — the branch existed only to line the two up,
+  sit. (The bin at the right of each row went in Aug 2026 — Remove moved into the row's long-press options sheet;
+  see the per-deck-limits bullet above.) The dot and the ancestor rows' hollow `.ad-branch` went together — the branch existed only to line the two up,
   and alone it would have pushed every parent title 21px right of the deck beneath it; the `data-depth` indent carries
   the hierarchy. The bar's label also replaced the `.ad-count` "N cards" chip, which stated the same total twice.
   **The row is ONE horizontal line** (Aug 2026, on request): piles · name · figure · bin, all centred on the same
@@ -876,8 +923,52 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   button, the completion screen and the caught-up placard back to **Home** rather than the collections.
 - **Daily review order** (`reviewOrder` toggle → `S.settings.reviewRandom`): **Ordered** (labelled "Chrono" until Aug
   2026, renamed on request — the old key is retired from all nine language tables) presents cards in their in-deck order;
-  **Random** shuffles the session order AND **draws the day's NEW cards at random from across the active decks** (rather than the
-  first-N in set order) — `reviewQueue` seeded-shuffles the unseen pool by the date (`seededShuffle(pool, mulberry32(hashStr("review-"+todayStr())))`) so the same new cards surface all day.
+  **Random** shuffles the session order. The **draw** of the day's new cards is date-seeded-random across the decks in BOTH
+  modes now (see the next bullet) — the toggle decides presentation order only.
+- **PER-DECK DAILY LIMITS, and a review pooled from all of them (Aug 2026, on request).** There used to be ONE global
+  allowance (`S.settings.newPerDay`) sliced off the front of the pooled card list, so a reader with two decks got every
+  new card from whichever came first and never saw the second deck at all. That was the bug; per-deck allowances are
+  the fix, and the shape is Anki's.
+  · **`deckLimits(id)`** → `{ newPerDay, maxReviews, newIgnoresReview }`, stored in **`S.deckOpts`** keyed by the same
+    entry id as `S.active` and written only for decks the reader has actually changed — an absent deck follows
+    `S.settings.newPerDay`, exactly as before. `DECK_MAX_REVIEWS` (200) is Anki's own default.
+  · **`S.deckDay`** holds TODAY only — `{ d, extra, skip }`, the Custom-study bump and "Skip today" — and resets in
+    place, dropping every other stale record with it, so the table can never outgrow the decks in use.
+  · **The COUNTS are DERIVED, never tallied** (`deckDoneToday`). `grade()` writes **`c.first`** — the day a card was
+    introduced — onto the card record, and every per-deck new count is read back off it. That is what makes the
+    figures right for a deck that is not in the review, right after an undo, and right for a card sitting in two decks
+    at once; a per-deck tally would have to be kept in step with all three by hand.
+  · **`reviewQueue` now builds deck by deck and then pools**: each entry offers its due cards up to
+    `deckReviewRemaining` and its unseen cards up to `deckNewRemaining`, the new ones are **date-seeded-shuffled across
+    the decks** and sliced to `newRemainingToday()`. Dedupe happens BEFORE the slice, or a card an earlier deck already
+    claimed eats one of this deck's places. So with two decks at 5/day the review draws 5 in all — say 3 and 2 — and
+    each row then shows the 2 and 3 that deck still has of its own, which is exactly what a reader sees under a
+    cleared banner and is correct rather than a bug.
+  · **A deck's row wears its COLLECTION's hue**, not the review's bronze (Aug 2026, on request): `rowHue` in
+    `PAGES.home` walks up to the root collection and sets `--coll-bg` from `COLL_THEME` — the same colour the
+    Library banner uses — and the row's wash, left bar and hover all read it, falling back to the bronze for a
+    community deck or the Card-of-the-day list, which belong to no collection.
+  · **A pile at ZERO is grey** (`.adc-zero` on a row, `.stat-zero` on the banner, Aug 2026, on request): the
+    colour means "there is work of this kind here", so it has nothing to say on a 0.
+  · **`entryPiles(id)`** is what a deck's row shows, and it is deliberately NOT that deck's share of the pooled review.
+    `buildSession` uses the same per-deck allowances for a `deck` / `udeck` scope, so tapping a row studies what its
+    row promised.
+  · **The row's options are a LONG PRESS** (`openDeckMenu` / `deckSheet` / `openCustomStudy` / `openDeckLimits`), and
+    the small bin that used to sit at the right of every row is gone with it — one command holding a permanent column
+    on a 390px row, with three more that had nowhere to live. Custom study bumps the deck's allowance for today AND
+    `S.intro.extra` by the same amount (or the extra cards would be unreachable from the banner the reader pressed to
+    ask for them); Skip today sits the deck out of `reviewQueue`; Remove is the old bin. A press is CLASSIFIED like
+    the whiteboard marker's drag — a finger that moves more than `AD_SLOP` is scrolling, not holding — and
+    `contextmenu` plus the ContextMenu key give a mouse and a keyboard the same way in. The sheet lives on
+    `document.body`, so **`render()` closes it** (`closeDeckMenu`).
+- **The Folio LEVEL is how many decks may sit in the daily review** (`maxActiveDecks` = the level, Aug 2026, on
+  request — levels were a score and nothing else, and this is the first thing they decide). `addActive` returns
+  **false** when the cap turned it down so `wireAddButton` can say why rather than doing nothing, and the Library's
+  page head states the standing (`.lib-cap`). Two deliberate exclusions: the **Card-of-the-day pseudo-entry is
+  outside the cap** (it is added by grading a card from the home tile, not chosen from the library, so a full review
+  would otherwise make that button silently stop working), and **`countedActiveEntries` skips an entry with no
+  available cards** — the shipped default `S.active` is a deck of the China collection, which is set aside as coming
+  soon, and counting it would have left a brand-new reader at their cap before choosing anything.
 - **Scheduling (`grade()`):** SM-2-ish with Anki-style learning steps. A **new card graded "Good"** becomes a `learning` step
   (`interval 1/144`, `due = now + 10 min`) that **re-appears the same session/day** — grade() returns `{requeue: due-now < 11 min}`
   and the study session does `queue.shift(); if (requeue) queue.push(id)` — and only **graduates to `review` (due tomorrow) on the
@@ -1053,6 +1144,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **round-trips**; keep that true if you touch either. In a range like `"3.3 to 2.6 million years ago"` the
   unit carries leftwards only when the first number is small and ungrouped — `"700,000 and 1.5 million
   years ago"` is not two millions.
+- **CARDS CARRY CATEGORISING TAGS** (`card.tags`, Aug 2026, on request) — the card-side sibling of the glossary's
+  `GLOSSARY_TAGS`, in the SAME vocabulary: tag 1 is the KIND (`era`, `hominin`, `place`, `industry`, `object`,
+  `practice`, `concept`, `fossil`, `culture`, `event`, `people`, `person`, `animal`, `building`, `theory`), then
+  the subject areas (`archaeology`, `palaeontology`, `geology`, `science`, `history`, `prehistory`, `evolution`,
+  `genetics`, `technology`, `art`, `geography`, `nature`, `climate`, `migration`), then the specifics — a
+  country, a region, a period. **All 119 shipped cards are tagged.** Written by
+  `node .claude/add-card-tags.js <batch.json>` (3–8 tags, lowercase, and it warns about a tag no other card
+  shares — one that can never group anything); carried by `serializeCardData` beside `sources`.
+  What they are FOR is **Multiple Choice**: `cardKinship(a, b)` counts the tags two cards share, weighting the
+  first heavily (the kind is worth four subject areas) and capping the score when the kinds differ, and
+  `buildChallengeQuestions` offers the three closest cards as the wrong answers. Before this the distractors
+  were three cards of the same rough `answerType`, which on a prehistory deck put nearly everything in one
+  bucket — a stone industry answered against a cave, an ice age and a fossil, where the odd one out was the
+  right one. Now the Mousterian is answered against the Oldowan, the Acheulean and the Aurignacian.
+  `answerType` survives as the fallback for a card with no tags (a community deck's).
 - **Card fields (13):** `id, num, category, question` (HTML cloze with blanks), `answer`,
   `answerDate` (HTML), `traditional, hanzi, pinyin, translations` (HTML), `abstract` (rich HTML
   card background; may carry `ttip` glossary links, but newly generated cards omit them),
@@ -1509,11 +1615,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   listener opens the **shared** fullscreen viewer — no wiring of its own. The slot is therefore **first in
   `.gloss-body`, before `.gloss-dates`/`.gloss-desc`** — a float only wraps content that follows it, so don't
   move it back after the prose (both markup sites: `openGlossWin` and the admin glossary editor's preview).
-  **In the popup that frame is sized by HEIGHT, not by the card's fixed 16:9 box** (`.gloss-imgslot`): the
-  `<img>` is a fixed `height:150px` (170 on the mobile sheet) with `width:auto`, and the float carries
-  `max-width:50%` — so every term's picture displays at the same height and never takes more than half the
-  popup, whatever its shape. A picture wider than that half is cropped by `object-fit:cover` (the whole of it
-  is one click away in the fullscreen viewer); that crop is the deliberate price of one silhouette per popup.
+  **In the popup the 150px height and the half-popup width are the picture's MAXIMUM, not its shape**
+  (`.gloss-imgslot`, changed Aug 2026 on request): `max-height:150px` (170 on the mobile sheet),
+  `max-width:50%` on the float, `object-fit:contain` — so within those limits the WHOLE picture is shown. It
+  was a fixed height with `object-fit:cover`, which gave every popup one silhouette at the cost of cutting the
+  sides off anything wider than half the popup — and a map, a diagram or a wide landscape is exactly the kind
+  of picture a glossary term carries. A tall picture is now narrow and a wide one short, and both are whole.
   The **home page's Gloss-of-the-day tile**
   shows the same image to the right of the copy, but as a **profile-picture plate** — a 3:4 frame running the
   tile's full height and **bleeding to its top, bottom and right edges** (negative margins cancelling the
@@ -1542,17 +1649,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - **Text size** (**Settings → Appearance → Text size**, `FONT_SIZES` / `setFontSize` / `S.settings.fontSize`, Aug
   2026, on request): small / medium / large, written by `applyTheme` as `body[data-fs]` — so it is re-applied on
   every `render()` and at boot with no separate call — and read by styles.css as the multiplier **`--fs`**
-  (`:root{--fs:1}`, `.88` and `1.16` on the two `body[data-fs]` rules).
-  **It scales the READING PROSE and deliberately not the shell.** The rules that use it are the study card's
-  root size and question, `.abstract`, `.answer .val`, `.dt-v`, `.src-item`, the gloss popup's title and
-  description (window and sheet) and the Atlas panel's `.cp-desc` — grep `var(--fs)` for the set, each written
-  `calc(<its own px> * var(--fs))` so every one keeps its relative size. It is NOT a page zoom because it
-  cannot be: styles.css sizes **522** things in px and the chrome is laid out against those pixels (the tab
-  bar's labels, the review's one-line deck rows, the Atlas timebar's arithmetic), so a global scale would
-  break the shell to enlarge the text. **The setting's own wording names the surfaces it reaches** — keep the
-  two in step if the set changes. The picker is a three-cell segmented control (`.fs-pick`) whose A is drawn at
-  each size, in a `set-row-block` because at 186px it leaves a phone's description four words a line. Guarded
-  by `test-layout.js`, which asserts both halves: the card and popup grow, a tab label and a grade button do not.
+  (`:root{--fs:1}`, `.9` and `1.14` on the two `body[data-fs]` rules).
+  **It scales EVERY px font-size in the stylesheet** — 519 of them, each rewritten as
+  `calc(<its own px> * var(--fs))`, plus the four `clamp()` headings as `calc(clamp(…) * var(--fs))`. It reached
+  only the reading prose for a fortnight (a card's question and background, a glossary popup, an Atlas panel)
+  and was widened on a second request; **the wording on the Settings row names what it now reaches, so keep the
+  two in step.** What it deliberately does NOT do is move the LAYOUT: the boxes are still laid out in px and
+  only the text inside them grows, which is what keeps a four-cell grade bar four cells at Large.
+  **The one thing outside its reach is the Atlas's own map labels**, which are `ctx.fillText` on a canvas —
+  CSS cannot see them, and their collision arithmetic (`computeCityLayout`'s grid, the leader lines, `CITY_SEP`)
+  is written against those numbers, so scaling them would rearrange the map rather than enlarge it. The setting
+  says so. The picker is a three-cell segmented control (`.fs-pick`) whose A is drawn at each size, in a
+  `set-row-block` because at 186px it leaves a phone's description four words a line. Guarded by
+  `test-layout.js`, which asserts the prose AND the chrome grow, and that nothing in the shell is clipped or
+  wrapped by the growth.
 - **ENGLISH ONLY — `const MULTILANG = false`** (app.js, beside `LANG_CODES`; Aug 2026, on request). The site
   ships in English while the work is on making the English as good as it can be. It is **one switch**, and it
   shuts three doors: the Language card is not rendered on the Settings page, `?lang=xx` no longer switches,
@@ -1719,10 +1829,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   (`S.cards` empty) the banner is a **first-run hero**: purpose sentence + "Study your first cards", which sets
   `S.active = ["china"]` (replacing the bare `cn-qing` default) and routes straight into a session; the level badge,
   xp bar, stats, review-order toggle and active-deck list appear only after that. The banner shows a **🔥 day-streak
-  chip** (`S.streak`, shown at 2+ when the run is alive). **The Daily-review banner earns its colour like a game
-  tile**, in **bronze** (`--tile:#9A6634`, set on `.banner` in styles.css): the idle wash from the left; **`.done`**
-  = the day's pile is cleared → the full bronze fill; **`.won`** = every card today was right on the first try →
-  the same shining gold (`gt-gold-shine`) as a perfect game tile. It reads `S.reviewDay = { d, n, miss }` (in
+  chip** (`S.streak`, shown at 2+ when the run is alive). **Completion is a RIBBON, not a filled tile**
+  (`.gt-ribbon`, Aug 2026, on request — the banner and every game tile used to FILL with their colour once
+  played and turn gold on a perfect score, which was a lot of surface to change for one fact and fought every
+  theme's own treatment of the card). A small diagonal band crosses the TOP-RIGHT corner instead — the tile's
+  own hue reading "Played" / "Done", the same shining gold (`gt-gold-shine`) reading "Perfect" — over a surface
+  left exactly as it was. It carries a WORD rather than being a bare colour: an unlabelled band says nothing to
+  a screen reader and little more to the eye. `.done` / `.won` stay on the element (they are what the tests and
+  the achievements read); all they do now is carry the ribbon. The green `.gt-done` check circle went with the
+  fill, as did the earned fill that used to run down the added decks (`rv-done` / `rv-won` are still set on
+  `.review-group`, and nothing styles them). It reads `S.reviewDay = { d, n, miss }` (in
   `defaultState` + `PROGRESS_FIELDS`), written by **`logReviewDay`** from `grade()`: only a card's FIRST attempt
   of the day counts (`firstToday`, from the pre-grade `c.last`), since a learning card is graded again ten minutes
   later; correct = anything but Again, as in `logReview`. `reviewLog` can't answer this — it counts every grade
@@ -1732,14 +1848,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   covers many history topics; copy stays subject-neutral (China is just the first live collection).
   **A "Seen total" stat sat beside Due and New and was removed on request (Aug 2026)** — the xp bar directly above
   it already counts the distinct cards studied, as progress towards the next level rather than a bare number.
-  **The banner's big gold numeral is the DAY'S PILE, not the level** (`pileBadgeMarkup`, Aug 2026, on
-  request): new + learning + review, and at zero a **tick** rather than a "0" — a quantity where there is
-  work, a state where there is none. The level is not lost with it: `xpBarMarkup` spells out "Level N"
-  directly underneath, which is where a reader looking for it goes. It keeps `.level-badge`/`.lb-num` so the
-  banner's gold, its 62px sizing and both themes' overrides follow with no rules of its own; `.lb-tick` is
-  sized in `em` off that numeral, so the badge does not change height when the day clears.
-  **`test-account-switch.js` reads the badge's PRESENCE, not its text** — the tick has no text, so the old
-  `lb-num !== ""` check would have failed on a cleared day for reasons having nothing to do with accounts.
+  **The banner carries NO big numeral and no description line while there is work** (Aug 2026, on request —
+  it had a gold numeral of the day's whole pile for a fortnight, and `pileBadgeMarkup` went with it). The
+  numeral was a fourth unlabelled number competing with the three labelled counts directly below it, which
+  break the same total into New / Learning / Review and are the answer a reader is actually after; the
+  sentence ("Cards scheduled for today, plus a few new ones…") described those three counts in words. The
+  other two `.desc` branches STAY — one says the day is finished and the other says there is nothing here
+  yet, and neither is visible anywhere else on the banner. The level is still spelled out by `xpBarMarkup`
+  directly underneath. **`test-account-switch.js` therefore reads the xp bar**, not a badge, to tell an
+  account that has studied from one that has not.
   **The banner counts ANKI'S THREE PILES** (Aug 2026, on request — it was a Due / New pair): **New** in blue,
   **Learning** in red, **Review** in green (`pileCounts` in `PAGES.home`; the tokens are the study bar's own
   `--indigo-bright` / `--zh` / `--good`, so all three sites agree). The same three numbers, unlabelled, open every
@@ -1765,8 +1882,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     all no ~1.6 MB `world` bundle for an ornament nobody can see. So **crossing the breakpoint re-renders**
     (`_homeResize`, one listener ever — `render()` re-enters `PAGES.home`, so a per-render listener would pile
     up for the session).
-  · **The games are 3 × 2 on a phone** under a CENTRED `.games-head` (`.game-grid` at ≤640px; it was 2-up on the
-    pane it had to itself). The class is deliberately **not** `.mg-head`: `mg-` is the MAP GAME's prefix
+  · **The games are 3 × 2 on a phone** under a LEFT-ALIGNED `.games-head` (`.game-grid` at ≤640px; it was 2-up on
+    the pane it had to itself). The heading was centred for a week and moved back to the left in Aug 2026 on
+    request — every other heading and label on that page starts at the column's left edge, and a centred one
+    among them reads as a banner rather than as the name of the grid underneath it. The class is deliberately **not** `.mg-head`: `mg-` is the MAP GAME's prefix
     (`.mg-card` / `.mg-head` / `.mg-score`), and reusing it gave the heading that card's `display:flex` —
     which beats `text-align` outright, so it rendered hard left with a computed `text-align:center` — while
     pushing this heading's font and colour onto the game's own score row. `test-layout.js` measures the
@@ -1790,8 +1909,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     from the games above it (Aug 2026, on request — it was `4px 0 2px`, leaving it crowded against the grid).
     Guarded by `test-layout.js`.
 - **Home minigames** (game-grid tiles → `PAGES.*`): **Multiple Choice** (`PAGES.challenge`, formerly "Daily Challenge" — the
-  rival bots + timer were removed; it's now a plain 5-question quiz whose 3 wrong options are the SAME `answerType()` as the
-  answer — a person → other people, a dynasty → other dynasties), **Timeline** (`chrono`), **True or False** (`truefalse`),
+  rival bots + timer were removed; it's now a plain 5-question quiz whose 3 wrong options are the cards most AKIN
+  to the answer, by `cardKinship` — see the card-tags bullet below), **Timeline** (`chrono` — **the FIRST "Check order" of the day is the answer that counts**, Aug 2026, on
+  request: checking used to record the BEST of any number of tries, and since a check reveals every event's
+  date a reader could check once, read the years off the rows and reorder to a perfect score every day. Later
+  checks still mark the rows and show the dates — the puzzle stays usable for learning the order — they just
+  no longer rewrite the score, and the result says so), **True or False** (`truefalse`),
   **Who said it?** (`whosaid`, from `quotes.js`), and **Find it** (`findit`, renamed from "Find it on the map" Aug 2026 on request — see the Atlas game-mode bullet
   below; 5 date-seeded locate-on-the-globe rounds, score = first-try finds). `BOTS`/`drawRace`/podium are now dead code.
   Each of the 5 games records a per-day result in `S.games[key] = { date, played, won }` (`markGamePlayed(key, won)` at each
@@ -1832,8 +1955,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   hairline (`--coll-bg` inherits from the `.collection` root; branches stay ochre). If a collection is ever recreated
   under a new id, update `COLL_THEME` (and `COLLECTION_NUMERALS`).
 - **Library layout (`PAGES.decks`)**: "Collections" is a plain group; **"Coming soon" is a `<details>` disclosure**
-  (`.collection-group-soon`), collapsed for visitors and **`open` for admins** — the library drag-and-drop needs its
-  drop targets reachable, and moving a collection between the two groups is an editor workflow. This exists because
+  (`.collection-group-soon`), **collapsed for everyone, admins included** (Aug 2026, on request — it used to open
+  itself for an admin so the library's drag-and-drop had its drop targets reachable, which meant the one person who
+  opens this page most often always met it expanded; an admin moving a collection between the groups opens the fold
+  first, and the drop targets are reachable the moment it is open). This exists because
   the collections still being written far outnumber the finished ones (currently 6 to 1), and listing them flat made
   the Library read as empty. A live collection's banner also carries a **card count** (`.collection-count`, from
   `subtreeCardIds`) — the one number that says there is something to study here.
@@ -2083,6 +2208,43 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `test-layout.js` loads one, because nothing on screen says they still work. Unclaimed land on historical eras gets a
   **terra-incognita stipple** (`stipplePattern()`, theme-aware via `stippleCol`, drawn settled-only under the claimed-land
   refill so it survives only on wilderness).
+  **CITY LABELS THIN OUT WITH ZOOM, Google-Earth style (Aug 2026, on request).** Turning Cities on used to
+  put a label on EVERY city in view: a name that would not fit cleanly got a leader line and, failing that,
+  was FORCED into its last candidate slot, so below "one country fills the screen" the map was dozens of
+  overlapping names and 2,665 label placements per settled frame. Two rules replace the forced placement
+  (`CITY_SEP` / `CITY_CAP` above `computeCityLayout`): **`CITIES` is already sorted by significance** —
+  capitals by population, then cities over a million, then division capitals — so a city whose pin lands
+  within `sep` px of one already placed is dropped WHOLE, and `sep` shrinks with zoom (88px at the globe,
+  22px zoomed right in), which is what reveals the crowded-out names a level at a time; and **a label that
+  cannot be placed without overlapping is dropped rather than forced**. Both drops take the PIN with them —
+  a pin and its name are one thing (the same reason the whole layer waits for the settled frame), and a
+  field of anonymous dots was rejected before. The separation test runs BEFORE the 34-candidate label
+  search, which is where the lag went. `drawEraCities` runs the same rule, with the map EDITOR exempt: its
+  pins are what a click is dragging.
+  **The Heightmap layer's STRENGTH is the reader's** (`hmOpacity` / `setHmOpacity` / `#hmOpacityRow`, Aug
+  2026, on request): a slider in the legend, under the row that turns the layer on and shown only while it
+  IS on. It is applied as `globalAlpha` at the blend rather than baked into the reprojection buffer's
+  per-pixel alpha, so moving it is a redraw and not a re-reprojection — and **`viewKey` carries it**, or the
+  settled base cache would keep serving the old strength. Device-local
+  (`localStorage["folio_hm_opacity_v1"]`), like the marker's position and the place sheet's height.
+  **A GLOSSARY TERM CAN PUT ITSELF ON THE MAP** (`glossPlace` / `focusPlace` / `focusPoint`, Aug 2026, on
+  request). A term the Atlas can show carries a map-marker button beside the × in its popup; pressing it
+  closes the popup and routes to `map` with `{ focus }`. Two shapes and no third:
+  · a term naming a **country** the map draws is flown to and **lit up** in the map's own gold — the ordinary
+    selection paint plus the change-pulse — with **no info panel**, because the reader has just read about it
+    and asked where it is, not for a second description;
+  · a term naming a **point** (a cave, a gorge, a named region) gets a **gold dot and its name**, plus the
+    expanding ring, and is drawn ONLY while focused. Most of these are not cities and have no business
+    cluttering the map for someone who came to look at something else — but they ARE added to the atlas
+    search index as kind `site`, so the place is findable by name and picking it focuses it the same way.
+  Both land on `sfx("discover")` after the flight, and both are cleared by Esc and by the next click on the
+  ocean. **The join is done at BUILD time** by `.claude/fetch-place-coords.js`, which writes two tables into
+  glossary.js: `GLOSSARY_PLACES` (slug → `[lon, lat]`, **fetched from each article's own published primary
+  coordinate**, never hand-written — a term whose article has none simply gets no marker) and
+  `GLOSSARY_MAP_COUNTRY` (slug → the name world.js uses, with a short alias table for the ones the two spell
+  differently). It is a build-time join because **world.js is a lazy 1.6 MB bundle and the popup has to
+  decide whether to show its marker without it**. A continent, an ocean or a vague region is deliberately in
+  neither table: it is not a place you can point at.
   **Frame-cost rules (smoothness batch, July 2026) — keep these when touching the render path:**
   · **Coalesce input renders.** `onGlobeWheel` calls `scheduleDraw()` (one render per rAF), EXCEPT right after its paced
     `forceComposite()` realloc, which needs a synchronous `draw()` (the realloc clears the backing).
@@ -2418,6 +2580,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     It now uses `surfaceOf(k)`, which reads a deck term's own title. **Curated keys still go through
     `glossKeyTitle`** — deliberately not `glossTitle`, since pass 1 matches the humanized slug, not a
     display-title override. The equivalence test (125 auto-linked terms over 8 curated cards) guards this.
+  · **A card must not auto-link its OWN answer term, and for proper nouns it used to** (fixed Aug 2026).
+    `autoLinkGlossary` suppresses the answer by resolving `answerText` to a key — but it looked only in
+    `byName`, the case-INSENSITIVE map, while a proper-name surface lives in `byNameCS`. So a card whose
+    answer is a proper noun linked that answer inside its own background, offering the reader a popup
+    defining the very word they had just been asked to recall. `buildGlossIndex` now also returns
+    **`byAnySurface`** — every surface lowercased, whichever map it landed in — which `autoLinkGlossary`
+    uses for that one question. It is deliberately NOT used for matching prose: a proper name must still
+    match case-sensitively there. Found by the card→glossary pairing plan, which gives every card's answer
+    a term and so turns this from one stale case (`Ice_Age`) into one per batch.
   · **Every mutation invalidates only that deck's index** (`uGlossTouched` → `invalidateGlossIndex("deck:"+id)`),
     including deck deletion — otherwise a re-created deck with the same id would inherit a stale index.
   · **`uGlossSanitize` closes a hole Phase 1 left open**: `uDeckNormalize` used to pass `gloss` through
@@ -2519,9 +2690,75 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - **Literature titles are italicised** (`<i>Bamboo Annals</i>`) — except in plain-text fields (`answerText`) and in
   glossary alias/title keys, which must stay unstyled or matching breaks. Person-vs-book names (Zhuangzi, Mencius,
   Laozi…) are italicised only when clearly the text — "the <i>Zhuangzi</i>" — never the person.
+- **A WORD MENTIONED AS A WORD is quoted** (Aug 2026, on request, after a reader met "given a Latin name for
+  handy"). Whenever the prose glosses a name — translating it, or naming the sense a coiner chose — the sense
+  goes in **single quotes**: "a Latin word for 'handy' or 'skilful'", "its name means 'hollow rock'", "the Greek
+  for 'old stone'". Single, not double, because that is what the deck already used where it got this right, and
+  because a card's fields are stored in double-quoted JS strings. Where the FOREIGN word itself is given, it is
+  italicised and its sense quoted: "the Greek <i>epi</i>, meaning 'upon'". The same holds for a term named as a
+  term rather than used — "specialists now hedge the word 'cremation'", "he proposed the word 'Minoan'".
+  What is NOT quoted: an explanation rather than a translation ("in everyday speech it means a single cold
+  spell"), and a definition of a thing rather than a gloss of a name ("the Maasai word for the sisal plant that
+  grows there"). Fixed across 14 abstracts, 2 questions, 3 question extras and 5 glossary terms on 2026-08-03;
+  **the ENGLISH only**, since a quotation mark is a per-language convention (French takes « », German „ ", CJK
+  「 」) and rendering the English mark in nine languages would be a typographic error nine times over. When
+  translations resume, each language quotes in its own.
+- **Measurements are METRIC FIRST, with the imperial equivalent in parentheses** — "over 2,400 kilometres
+  (1,500 miles)". This is the ONE documented exception to the no-parentheses rule below; the ban stands for
+  everything else. Round the conversion to the source figure's own precision (1,500 miles → 2,400 km, never
+  2,414), leave the footnote marker on the metric figure the source actually states, and leave scientific units
+  bare — "940 cubic centimetres (57 cubic inches)" is worse, not better.
+  **THE WORD LIMITS DO NOT COUNT A CONVERSION** (Aug 2026, on request). A question is held to 20–34 words and
+  an abstract to 270–330, and four measurements cost about twelve words, so without this the rule above could
+  not be applied to the cards already near the ceiling. It is enforced rather than trusted: `add-card.js` and
+  `add-questions.js` strip a parenthetical containing a digit and an imperial unit (`IMPERIAL_PAREN`) before
+  counting (the leading space with it, or the stripped parenthetical leaves a stray token behind), so the
+  **prose** limits stay exactly as binding as they were: the finished corpus has the SAME 4 over-length
+  abstracts and 1 out-of-range question it had before the pass, against 11 and 4 counting the conversions.
+  The exemption is for the parentheses, not for the sentence around them.
+  **THE PASS IS COMPLETE** (`docs/units-plan.md`): 486 conversions across all 119 cards and all 414 glossary
+  terms, and **nothing metric is left bare**. Two sweeps say so and BOTH are needed: one for a digit before
+  a unit, and one for a **spelled-out** number before a unit (`about four miles inland`, `a third of a
+  metre down`) — the second found the corpus's second imperial-first figure, which the first is blind to. That plan also holds the conventions settled once and to be
+  followed rather than re-argued — feet-and-inches under 4 m, sq mi keeping the source's significant figures,
+  a range taking ONE parenthetical for both ends ("between 400 and 700 m (1,300 to 2,300 feet)"), and
+  °C → °F carrying the sign. **ENGLISH ONLY**, like every content change since the `MULTILANG` gate: the
+  translations keep their bare metric figures until translations resume.
 - Enforcement: `node .claude/check-style.js` reports violations; `--fix` applies the safe ones (it masks the proper-name
   exceptions, skips plain-text fields and the glossary alias sections). Run it after bulk content additions. **Card text
   edits invalidate baked narration hashes — re-run `build-tts.js` for all four narrators after a style pass.**
+
+**FOLIO IS A HISTORY SITE, NOT AN ARCHAEOLOGY SITE (Aug 2026, on request).** A card is about the PAST it
+names, not about the people who dug it up: the excavation is how we know, not what the reader came for.
+So the **question must be answerable from the past, not from the dig** (`gr-008`'s opening clue was
+"Schliemann tried to arrange a dig at ___ and never came to terms with the owners", which a reader could
+answer knowing nothing about Bronze Age Crete); **at most about two of an abstract's ten sentences may be
+discovery history**, and only where the discovery is itself the fact worth knowing or the dating is
+contested; and **the date line carries the dates of the THING, not of the dig** — `Found`, `Excavated`,
+`First dug`, `Named` and `Published` belong only on a card whose subject IS a modern act (`wh-006` the
+three-age system, `gr-007` Arthur Evans), and `Built` / `In use` / `Occupied` / `Destroyed` everywhere else.
+What does not change is the apparatus: saying less about the dig is not saying less about how we know, and
+the 5-source bar stands. **24 of the 119 shipped cards are flagged**, measured rather than guessed (a card
+scores on how many of its ten sentences carry a year between 1800 and 2029, whether its question carries
+one, and whether its date line uses a discovery label) — `docs/history-focus-plan.md` holds the measure, the
+table and the six rewrite batches. Re-run the measure after each batch; and read the card before rewriting
+it, because on a few of them the modern years ARE the subject.
+
+**A NEW CARD SHIPS WITH A GLOSSARY ENTRY FOR ITS OWN ANSWER TERM, IN THE SAME COMMIT (Aug 2026, on
+request).** Not afterwards and not in a later batch: a card's answer is exactly the word its siblings will
+use in their own backgrounds, and a term with no entry auto-links to nothing. Write it **cited, at the
+`GLOSS_SRC_TARGET` bar**, while the card's research is still open — that is how the glossary pass stayed at
+401/401 through sixty-eight new terms — and to the GLOSSARY's rules rather than the card's: three sentences,
+impartial, deck-agnostic, self-contained, never written as a companion to the card that prompted it. Where
+the answer is a phrase the glossary would never head, give the entry the head noun and add the card's exact
+answer as an **alias**. **THE BACKFILL IS COMPLETE: all 119 shipped cards have such an entry** (42 did when the rule was written),
+and the glossary stands at **477 terms, every one at the bar**. `docs/card-glossary-pairing.md` holds the
+record of the ten batches and what each turned up — the rule itself is what remains in force. Worth knowing
+before writing the next one: give the NARROWER thing its own key and let the broader one take the short
+alias (`Clovis_point` as a key, `Clovis` as an alias of `Clovis_culture`), since `buildGlossIndex` sorts
+surfaces longest-first; and **ask whether a one-word term is also an everyday word** before adding it —
+`Boreal` needed `caseSensitive: true` or four country and region terms saying "boreal forest" would have
+linked to a Holocene chronozone.
 
 The deck and glossary are being regrown one entry at a time, each researched from **Wikipedia and
 academic sources** — accuracy is non-negotiable, never invent dates, names, or definitions. The kept
@@ -3223,7 +3460,7 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Fifteen committed regression tests** (in `.claude/`, not loaded by the site): twelve drive a real browser with
+- **Seventeen committed regression tests** (in `.claude/`, not loaded by the site): fourteen drive a real browser with
   Playwright; `test-daily-quote.js`, `test-discovery.js` and `test-date-line.js` are plain Node with no dependencies at
   all. Each slices what it tests out of the real `app.js`/`_headers` by text, so they can't drift from what ships.
   **Gotcha when writing more of them:** `page.goto()` to a URL that differs only in the `#fragment` is a
@@ -3260,7 +3497,12 @@ dead code (never rendered).
     rather than leaving this file testing an app that can no longer switch language at all.
     That second half is the original test: a reader downloads one language and not all of them (an English
     reader downloads none), switching pulls only the new language, Japanese is at parity with the other
-    languages across chrome/cards/glossary, and — the sharp edge of this layout — a `glossaryI18n` overlay
+    languages across chrome/cards/glossary — **parity with EACH OTHER, not with the English count**, since
+    every card and term added since the gate went up is English-only, so a test demanding equality with
+    `GLOSSARY` is red by design and therefore read by nobody (it was, at 24/4, until Aug 2026). Both halves
+    still bite: a batch that translates one language and forgets the rest fails, and so does a card
+    translated into only some. **Tighten it back to `Object.keys(GLOSS).length` when translations resume.**
+    Also asserted: — the sharp edge of this layout — a `glossaryI18n` overlay
     delta records ONLY the edited language, LAYERS over the shipped text so an edit made in one language
     cannot wipe another's, bakes to one file per edited language holding every term, and NEVER bakes a
     language whose file isn't loaded. **Re-run after touching `MULTILANG` / `langBundle` /
@@ -3288,9 +3530,10 @@ dead code (never rendered).
     Both halves matter: hiding it everywhere would leave the author with no way to notice.
     **Re-run after touching `videoSource` / `cardVideoHTML` / `openMediaViewer` / `retireOther*Media` /
     the delegated `error` listener / `.media-dead` / the media panel, or the `media-src`/`frame-src` CSP.**
-  · `node .claude/test-gloss-image.js` — 40 assertions on glossary images: the popup floats one to the
-    top-right of the body at a fixed height and at most half its width, with the prose beside rather than
-    below it; it opens the SHARED fullscreen viewer and that viewer stacks **above** the popup,
+  · `node .claude/test-gloss-image.js` — 44 assertions on glossary images: the popup floats one to the
+    top-right of the body within a 150px × half-the-popup box — the LIMITS, not the shape, since Aug 2026 —
+    **shown whole rather than cropped** (`object-fit:contain`, and the rendered box keeping the file's own
+    proportions), with the prose starting level with it rather than below it; it opens the SHARED fullscreen viewer and that viewer stacks **above** the popup,
     the curated editor's overlay delta survives a reload and clears cleanly, and a deck's own term images
     are sanitized on ingest (a `javascript:` src is dropped). **Re-run after touching `glossImage` /
     `renderGlossImage` / `setGlossImageEdit` / `uGlossSetImage`, or any z-index in the gloss/viewer stack.**
@@ -3336,7 +3579,7 @@ dead code (never rendered).
     **Re-run after touching the `SOURCE FOOTNOTES` block, `wireFootnotes` / `sourcesHTML` / `normSources` /
     `linkifySrcItem` / `replaceInSrcText`, the `.src-access` styles, the editors' sources boxes, or the
     `fn` / `data-fn` sanitizer allowlists.**
-  · `node .claude/test-layout.js` — 208 assertions on **the shell**: the rules that break silently because
+  · `node .claude/test-layout.js` — 211 assertions on **the shell**: the rules that break silently because
     nothing throws when a layout is wrong. The phone's bottom tab bar (present, labelled — *every* tab, not
     just the active one, which is the top bar's behaviour — each name **centred under its own icon**, the
     selected one included, since one tab off out of five reads as a design; routing; no Library and no
@@ -3417,6 +3660,34 @@ dead code (never rendered).
     closing number sorts a card from the wrong end of its own era. **No browser and no dependencies.**
     Re-run after touching `cardYears` / `date-line.js`, **and after any batch of date lines** — the field
     is edited card by card and grew into a paragraph the same way.
+  · `node .claude/test-review-decks.js` — the daily review's decks and the study session that comes out of
+    them (Aug 2026). Everything it guards fails SILENTLY: nothing throws when a review quietly takes all its
+    new cards from one deck, when a reload drops a session on the floor, or when a long press does nothing.
+    It asserts that **both added decks contribute** to the day's new cards and that they are drawn at random
+    across them (the bug this replaced sliced the whole allowance off the front of one deck's list — so it
+    STUDIES the whole review through and reads back which deck each card came from, since a queue that looks
+    right can still have been built wrong); that a deck's row shows **its own remaining allowance** rather
+    than its share of the pooled review; that a **reload stays in the session**, on the same card, asking the
+    same phrasing, still turned over if it was turned over, and that leaving forgets it so a bare `#study`
+    goes home; that the **phrasing chevrons** change the question and the change sticks; that holding a row
+    opens **Custom study / Daily limits / Skip today / Remove** and each does what it says, the bin having
+    gone; and that the **Folio level caps** the decks a review will take — with the shipped default
+    `S.active` (a deck of the coming-soon China collection) NOT filling that one slot. **Re-run after
+    touching `reviewQueue` / `deckLimits` / `deckDoneToday` / `entryPiles` / `openDeckMenu` / `addActive` /
+    `maxActiveDecks` / `STUDY_KEY` / `qIdx`, or `buildSession`'s per-deck allowances.**
+  · `node .claude/test-atlas-places.js` — the Atlas's label crowding, its heightmap strength slider, and a
+    glossary term's way onto the map (Aug 2026). All three fail silently: a map that quietly writes forty
+    overlapping names looks like a map, a slider that does nothing looks like a slider, and a marker that
+    flies you somewhere and highlights nothing looks like a flight. It asserts that the shipped
+    `GLOSSARY_PLACES` coordinates are all PLAUSIBLE (a `[0,0]` is what a failed fetch leaves behind) and
+    that the country join shipped with them; that `CITY_SEP` falls with zoom and starts at a whole region
+    — sliced out of app.js by text, since the labels are drawn on a canvas and there is nothing in the DOM
+    to measure, the same technique `test-daily-quote.js` uses; that the slider is hidden while the layer is
+    off, live while it is on and remembered; that a point term and a country term show the marker and a
+    term that is neither does not; and that pressing it reaches the Atlas, closes the popup and opens **no
+    info panel** — the reader has just read the term, and a second description is not what the marker
+    offered. **Re-run after touching `glossPlace` / `focusPlace` / `CITY_SEP` / `computeCityLayout` /
+    `gsIndex` / `hmOpacity`, or after re-running `.claude/fetch-place-coords.js`.**
   Playwright is a dev dependency and must NOT be installed into the repo (the zero-dependency rule, and
   `node_modules/` is gitignored) — install it in a scratch folder and run with
   `NODE_PATH=<that>/node_modules`. Set `FOLIO_CHROMIUM=<path to chrome>` if Chromium lives outside the
