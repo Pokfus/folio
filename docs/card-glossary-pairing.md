@@ -30,9 +30,9 @@ still finds it.
 
 Measured over `data.js` against `window.GLOSSARY` + `GLOSSARY_TITLES` + `GLOSSARY_ALIASES`:
 
-**95 of 119 cards have an entry for their answer term. 24 do not.** (42 of 119 when the plan opened;
-**P9, P10 and P1–P5 shipped 2026-08-03** and took it to 95.) **Every Ancient Greece card is paired** —
-what remains is backfill of the finished prehistory deck, batches P6–P8.
+**103 of 119 cards have an entry for their answer term. 16 do not.** (42 of 119 when the plan opened;
+**P9, P10 and P1–P6 shipped 2026-08-03** and took it to 103.) **Every Ancient Greece card is paired** —
+what remains is backfill of the finished prehistory deck, batches P7–P8.
 
 **Count plurals when measuring this.** A card whose answer is `Denisovans` is paired by the term
 `Denisovan`, because `buildGlossIndex` auto-pluralizes — but an exact-match count says it is not, which is
@@ -59,7 +59,7 @@ Eight cards each, in card order, so a batch shares its reading with the cards it
 | **P3** ✅ | `wh-041`, `wh-042`, `wh-044`, `wh-045`, `wh-046`, `wh-047`, `wh-048`, `wh-050` | Neanderthal extinction; Toba catastrophe theory; Omo remains; Jebel Irhoud; Homo sapiens idaltu; Mitochondrial Eve; Y-chromosomal Adam; Aterian — **shipped 2026-08-03** |
 | **P4** ✅ | `wh-052`, `wh-053`, `wh-054`, `wh-055`, `wh-056`, `wh-058`, `wh-059`, `wh-060` | Howiesons Poort; Sibudu Cave; Border Cave; Klasies River Caves; Pinnacle Point; Behavioural modernity; Madjedbebe; Lake Mungo remains — **shipped 2026-08-03** |
 | **P5** ✅ | `wh-062`, `wh-063`, `wh-064`, `wh-065`, `wh-067`, `wh-068`, `wh-069`, `wh-070` | Settlement of the Americas; Paleo-Indians; Cro-Magnon; Châtelperronian; Lion-man; Hohle Fels; Venus of Hohle Fels; Divje Babe flute — **shipped 2026-08-03** |
-| **P6** | `wh-072`, `wh-073`, `wh-074`, `wh-076`, `wh-080`, `wh-081`, `wh-082`, `wh-083` | Venus figurines; Venus of Willendorf; Dolní Věstonice; Mal'ta-Buret' culture; microlith; spear-thrower; bow and arrow; cave painting |
+| **P6** ✅ | `wh-072`, `wh-073`, `wh-074`, `wh-076`, `wh-080`, `wh-081`, `wh-082`, `wh-083` | Venus figurines; Venus of Willendorf; Dolní Věstonice; Mal'ta-Buret' culture; microlith; spear-thrower; bow and arrow; cave painting — **shipped 2026-08-03** |
 | **P7** | `wh-087`, `wh-089`, `wh-090`, `wh-091`, `wh-092`, `wh-093`, `wh-094`, `wh-095` | Cosquer Cave; Quaternary extinction event; Younger Dryas; Clovis culture; Clovis point; Folsom tradition; Monte Verde; Meadowcroft Rockshelter |
 | **P8** | `wh-097`, `wh-098`, `wh-100`, `wh-101`, `wh-103`, `wh-104`, `wh-105`, `wh-106` | petroglyph; control of fire; Epipaleolithic; Nordic Stone Age; Preboreal; Boreal; Atlantic period; Blytt–Sernander sequence |
 | **P9** ✅ | `wh-107`, `wh-108`, `wh-109`, `gr-001`, `gr-002`, `gr-003`, `gr-004`, `gr-005` | Holocene climatic optimum; post-glacial rebound; 8.2-kiloyear event; Aegean Bronze Age; Cycladic civilisation; Cycladic figurines; Keros; Early Minoan Crete — **shipped 2026-08-03** |
@@ -286,3 +286,30 @@ Three findings, and the first is the useful one.
   P5 gives each its own term. The region term says what the region is famous for, the object terms say
   what the objects are — but the figures had to be made to agree, which is how the flute discrepancy above
   came to light.
+
+## The P6 log
+
+The batch the plan warned about — four common nouns among the eight — and the warning was right about the
+difficulty and wrong about where it lay.
+
+- **THE COMMON NOUNS WERE EASY TO KEEP GENERAL AND HARD TO CITE.** `Microlith`, `Spear-thrower`,
+  `Bow_and_arrow` and `Cave_painting` each open on the MECHANISM — what the thing is and why it works that
+  way — which keeps a culture out of the framing without effort: a microlith is small because it is meant to
+  sit in a groove, a bow stores effort where an arm cannot, a spear-thrower lengthens the arc the hand
+  describes. Dates and places then enter as facts about the CLASS ("the oldest complete bows are about
+  10,000 years old"), which is what `Tar` already does with Campitello and is not the banned "portrait of
+  its local instance". What was hard is that these definitions are exactly the sentences the cards leave
+  unmarked, because a definition is not a published result.
+- **WHICH TURNED INTO A CITATION FOR THE CARD.** `wh-083`'s whole first block — what parietal art is, the
+  pigments, how the colour was applied, what the subjects are — carried no marker at all. The French
+  culture ministry's Lascaux site states two of those sentences almost verbatim on pages the card did not
+  cite: *The Raw Materials* ("the red are hematites and the yellows are goethites"; "the blacks are always
+  manganese oxide-based") and *The Techniques* ("most often the human hand was used"; "a few brushes and
+  swabs, and stencils cut from hides"). Both are now cited on the card as well as in the term, with the
+  markers spliced into **all ten languages** by `split-abstract.js`'s `mark()`, which is what that helper
+  exists for. Batch 23's rule holds: **the unmarked sentences are where to look.** The hand-stencil sentence
+  was left unmarked — the ministry's stencils are cut from hides, which is not the same claim.
+- One caution on the verification, not the content: **a term can fail to link simply because the check did
+  not reach its card.** `Microlith` appeared unlinked until the study loop was widened from 90 cards to the
+  whole deck of 109; it links from `wh-031`, `wh-099` and `wh-100`. Grep first, then set the loop to cover
+  the cards the grep names.
