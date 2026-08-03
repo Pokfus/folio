@@ -96,7 +96,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `docs/glossary-citation-plan.md` — the batch plan for **citing the glossary**, the sibling of
   the card plan above. The bar is **at least 2 citations per term** (a description is three sentences, where
   a card's abstract is ten), and the acceptable sources are academic, museum, government or reputable
-  NGO/IGO. **THE GLOSSARY CITATION PASS IS COMPLETE: all 348 terms are cited and at the bar** (batches G1–G11, P1–P7, C0–C12, D1–D3, N1 and N2), all with
+  NGO/IGO. **THE GLOSSARY CITATION PASS IS COMPLETE: all 358 terms are cited and at the bar** (batches G1–G11, P1–P7, C0–C12, D1–D3, N1–N3), all with
   in-text markers in all ten languages. G11 COMPLETED Phase 1** (all 91 of its prehistory, palaeoanthropology,
   geological-time, peoples and physical-geography terms) **and P1 opened Phase 2** with the first six
   presidents, on the Miller Center's presidential essays; **P2 took it to Polk, P3 to Andrew Johnson, P4
@@ -538,7 +538,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `GLOSSARY_CASESENSITIVE`, `GLOSSARY_TAGS` (per-term category tags — the admin glossary's left-bar
   filter), `GLOSSARY_IMAGES` (per-term illustration — see the "Glossary image" bullet below) and
   `GLOSSARY_SOURCES` (per-term citations — see the "Source footnotes" bullet).
-  Trimmed to the single `Sima_Qian` template entry on 2026-07-23 and **regrown since to 348 terms**
+  Trimmed to the single `Sima_Qian` template entry on 2026-07-23 and **regrown since to 358 terms**
   (every country in the world, plus prehistory/paleoanthropology vocabulary), one fully-formed entry at a time
   (description + date + tags + all 9 translations); the full pre-trim glossary (2,165 terms) and its partial
   translations are backed up in `.claude/backup/`.
@@ -991,7 +991,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     carrying a sentence about it until it was removed on request.
     **`SEEN_CAP` must stay above the SHIPPED universe of both registers** and is no longer a free
     parameter: these counts are now shown to the reader as progress towards completion, so a prune would
-    make a count go backwards and re-flag a place as newly discovered. Measured: 348 glossary terms and
+    make a count go backwards and re-flag a place as newly discovered. Measured: 358 glossary terms and
     **1,211 distinct clickable place names** (258 present-day + 1,194 across the 13 eras) — already 80% of
     the old 1500 cap, and **every new geo era adds territory names**. Fully seen, `placesSeen` is ~34 KB of
     the progress blob, so the headroom is nearly free. `.claude/test-discovery.js` asserts the clearance
@@ -1013,7 +1013,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
       read as the term changing state before it was opened — and sits **after** the base `:hover` rules
       (equal specificity → source order). `refreshTtipNew(key)` re-marks every matching link on the page
       the moment a popup opens, so the prose behind it loses its gold at once, not on the next render.
-    · The **first** opening also shows a gold chip (`discChipHTML` → `.disc-chip`): "New term! 41 / 348"
+    · The **first** opening also shows a gold chip (`discChipHTML` → `.disc-chip`): "New term! 41 / 358"
       in the gloss popup's bar, "New place! 7 / 258" in the Atlas panel (`#cpNew`), with a **splash** of
       two expanding rings (`discRing` / `discRingNight`, staggered onto `::after`) and a **`sfx("discover")`
       chime**. The rings are **box-shadow spread, never a scaled pseudo-element**: the chip sits inside
@@ -1164,7 +1164,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     stripe): one is derived from the data, the other is an editor's private marker.
   · `sup` + `class="fn"` + `data-fn` are in the sanitizer allowlists, so a community deck can use markers too.
   · **The Atlas table still ships EMPTY; the glossary has begun.** `country-sources.js` has no entries at all.
-    **`GLOSSARY_SOURCES` carries ALL 348 terms** (batches G1–G11, P1–P7, C0–C12, D1–D3, N1 and N2, 2026-08-01/03 — the genus, species, specimen,
+    **`GLOSSARY_SOURCES` carries ALL 358 terms** (batches G1–G11, P1–P7, C0–C12, D1–D3, N1–N3, 2026-08-01/03 — the genus, species, specimen,
     stone-industry, three-age, periodisation, geological-time, type-site, way-of-life and discipline terms, plus the
     Indigenous-peoples group, its odds and ends, the poles / desert / ocean / two historiographic names, the six
     continents with `Sicily`, `Equator` and the two hemispheres — which completes Phase 1 — and the first six
@@ -1592,8 +1592,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   forms on Japanese text. Don't "fix" this by adding a CJK webfont; it would be a multi-MB download for no
   gain. **Japanese (`ja`) is COMPLETE**: the chrome
   (531 strings / 72 rules / 12 prose blocks), all 30 cards and 333 glossary terms are translated and live,
-  at full parity with the other eight languages. (The **fifteen terms added on 2026-08-03 are English-only**,
-  like every entry written since the `MULTILANG` gate went up — so all nine languages stand at 333 of 348,
+  at full parity with the other eight languages. (The **twenty-five terms added on 2026-08-03 are English-only**,
+  like every entry written since the `MULTILANG` gate went up — so all nine languages stand at 333 of 358,
   together, and a language is still "complete" in the sense that matters: none is behind the others.)
   **Content localisation is separate**: cards carry per-language `i18n` blocks (`cardLocalized()`), glossary
   descriptions live in `i18n/gloss-<lang>.js` (`window.GLOSSARY_I18N`, read by `glossText()`), and **collection /
@@ -2744,10 +2744,10 @@ and its sources, and were fact-checked rather than referenced. A batched pass is
 reports both on every run, `node .claude/source-audit.js` reports them per card, and the Edit page's card list
 shows each card's coverage as an amber or red chip) — and **a second pass has started on the glossary**, batched
 through `docs/glossary-citation-plan.md` at a bar of **2 citations per term** (`GLOSS_SRC_TARGET`), with
-`node .claude/gloss-source-audit.js` and the glossary list's own coverage chip reporting it; **all 348 terms are cited — THE GLOSSARY PASS IS COMPLETE** (batches G1–G11, which complete Phase 1;
+`node .claude/gloss-source-audit.js` and the glossary list's own coverage chip reporting it; **all 358 terms are cited — THE GLOSSARY PASS IS COMPLETE** (batches G1–G11, which complete Phase 1;
 P1–P7, which complete Phase 2 — all 45 US presidents; C0–C12, which take Phase 3 through every region;
-D1–D3, which clear the European and Asian deferral lists and the last four terms; and **N1 and N2,
-fifteen new Palaeolithic terms written cited rather than cited afterwards** — which is how the pass stays
+D1–D3, which clear the European and Asian deferral lists and the last four terms; and **N1–N3,
+twenty-five new Palaeolithic terms written cited rather than cited afterwards** — which is how the pass stays
 complete: a term added after it joins at the bar instead of reopening a backlog). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
 **N1's finding is an access repair worth reusing: `hal.science` is now behind the Anubis wall on its RECORD
 pages as well as on `/document`** (batch 21 found the file path), which silently breaks stored citations —
@@ -2758,6 +2758,17 @@ latter on `/document/<id>` as well as its property pages — are all **403** her
 `nature.com` and `link.springer.com`, the last two **303ing to an identity-provider cookie endpoint**, for
 which **Europe PMC is the way in** (resolve the PMCID with `search?query=DOI:"…"&resultType=core` — a
 guessed one in N1 returned a paper on stress in mice).
+**N3's finding is what to do when a term fails the majority-open check**: `Solutrean` came back 1 open of
+2, and the reflex — add a third source to fix the ratio — is wrong. Ask what the PAYWALLED one is
+carrying: Aubry et al. 2008 is about laurel-leaf *production* and the term's sentence is about the
+retouch, which Bachellerie 2025 states openly, so Aubry was **dropped, not balanced**. A paywalled work
+earns its place only as the landmark for a claim nothing open carries. N3 also **re-points
+`guder-2025`'s URL** from the Europe PMC `fullTextXML` REST route to the PLOS article page, which is 200
+again: that endpoint is a machine route serving raw markup, so **when a host reopens, move the citation
+back to the human-readable copy** (`journals.openedition.org` has likewise dropped the Anubis wall batch
+21 recorded). And it leaves one thing UNFIXED and written down: **`wh-085`'s date line still carries the
+"rockfall closed the entrance roughly 13,000 years ago" that batch 21 removed from its abstract** — the
+third time a correction has failed to travel from a card's prose to its own `answerDate`.
 **N2's finding is about ALIASES, and it is a content rule rather than an access one.** `Upper_Paleolithic`
 carried "Late Stone Age", which is not a synonym: the Later Stone Age is the AFRICAN division running from
 ~40 ka into historical times, and Malan 1957 records that Goodwin chose the African names precisely so

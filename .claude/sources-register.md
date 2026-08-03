@@ -9816,7 +9816,7 @@ alone when its history had none.
 
 ---
 
-# THE GLOSSARY CITATION PASS IS COMPLETE — 348 of 348
+# THE GLOSSARY CITATION PASS IS COMPLETE — 358 of 358
 
 Every term carries at least `GLOSS_SRC_TARGET` (2) citations, every citation is referenced by at least one
 in-text marker, and the markers are identical across English and all nine translations. `node
@@ -9824,8 +9824,8 @@ in-text marker, and the markers are identical across English and all nine transl
 batch 26; **both passes are now done, and `country-sources.js` — the Atlas — is the only surface in Folio
 that still shows no sources.**
 
-(333 at the close of D3; **fifteen terms were added on 2026-08-03 and were cited as they were written** —
-see N1 and N2 below. A term added after the pass joins it at the bar, rather than reopening a backlog.)
+(333 at the close of D3; **twenty-five terms were added on 2026-08-03 and were cited as they were written** —
+see N1, N2 and N3 below. A term added after the pass joins it at the bar, rather than reopening a backlog.)
 
 ---
 
@@ -10081,7 +10081,144 @@ Reused from this register, each for exactly the claims already recorded against 
   and "one single image of a anthropomorphic figure"; and the occupation "somewhere between 21,500 and
   21,000 years before present" measured on reindeer bone → Lascaux
 
-### Hosts, measured 2026-08-03 (batches N1 and N2, which ran the same day)
+---
+
+## Batch N3 — ten more, the Upper Palaeolithic industries and the metals, verified 2026-08-03
+
+**Altamira**, **Sungir**, the four industries **Aurignacian / Gravettian / Solutrean / Magdalenian**,
+**Western Europe**, **bronze**, **iron** and **chronology**. Twenty-four slots from **seventeen works,
+sixteen open**; twelve of the seventeen came from this register. Nine of the ten terms are the glossary
+siblings of cards `wh-075`, `wh-077`, `wh-079`, `wh-085` and `wh-069`.
+
+### The finding: a paywalled source dropped rather than balanced
+
+`Solutrean` first shipped with Cascalheira & Bicho 2015 and **Aubry et al. 2008** on the laurel leaves,
+and `gloss-source-audit.js` failed it — **1 open of 2 is not a majority**. The reflex is to add a third
+source to restore the ratio; the better move was to ask what the paywalled one was actually carrying.
+Aubry is an experimental study of laurel-leaf *production*, and the term's sentence says nothing about
+production — the claim it needed was the retouch itself, which **Bachellerie 2025 states in an open
+venue** ("une retouche plate et envahissante", producing "des enlèvements très fins, rasants, sans point
+d'impact clair"; pressure retouch "n'intervient en effet que lors des étapes finales du façonnage").
+Aubry was **dropped, not balanced**. A paywalled work earns its place only as the landmark for a claim
+nothing open carries; padding a list to outvote one is the failure the majority rule exists to catch.
+
+### One open paper carried two terms, and one disagreement was left unreconciled
+
+**d'Errico et al. 2025** on Aurignacian and Gravettian ornaments dates and characterises **both**
+technocomplexes in its introduction — the G11 pattern, where a paper arguing a contested case states the
+definitions plainly because it has to. But it says the Gravettian is **"found exclusively in Europe"**,
+where `morriss-kay-2013` (registered for `wh-069`) places Gravettian Venus figurines at 24–29 ky "from
+France to Siberia", and `weber-2022` names regional types "from Renancourt in northern France to Mal'ta
+in Siberia". **The term says Europe and stops**, and the figurine distribution is not claimed for the
+Gravettian at all — recorded here rather than smoothed over, because a three-sentence gloss has no room
+to hedge and the honest move is to assert only the part both sources agree on. (G7's Taung rule, applied
+to a range rather than a deposit.)
+
+### A correction that has not travelled — `wh-085`'s date line
+
+Batch 21's Altamira work **dropped the unsupported claim that "a rockfall closed the mouth some 13,000
+years ago"** from the abstract, on the ground that García-Díez et al. place the only roof collapse they
+mention *before the Gravettian*. **It is still on the card's `answerDate` line**, word for word, with the
+13,000 in it — the abstract now says only "A rockfall later sealed the cave mouth" with no date. This is
+batch 26's finding for the third time: **a correction does not travel between a card's abstract and its
+own date line.** Not fixed here (this batch adds glossary terms and does not edit cards); `fix-field.js`
+is the tool, and the new `Cave_of_Altamira` term deliberately makes no rockfall claim at all.
+
+### Verified citations (batch N3)
+
+New to the register:
+
+- Francesco d’Errico, Jennifer Baker, Daniela Pereira, et al., “Multivariate Analyses of Aurignacian and Gravettian Personal Ornaments Support Cultural Continuity in the Early Upper Palaeolithic,” <i>PLOS ONE</i> 20, no. 6 (2025): e0323148, https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0323148. [Open access]
+  - opened: 2026-08-03 · full text
+  - supports: the Aurignacian at "circa 42–32 ka cal. BP", "further subdivided into the Proto and Early
+    Aurignacian"; the Gravettian at "circa 34–24 ka cal. BP" and "found exclusively in Europe", "often
+    described as having numerous regional variants, or 'facies'"; that both "are characterised by distinct
+    lithic and bone technologies as well as tool types"; and the Gravettian's "abundance of elaborately
+    buried individuals across its geographic range"
+  - used by: Aurignacian, Gravettian
+- João Cascalheira and Nuno Bicho, “On the Chronological Structure of the Solutrean in Southern Iberia,” <i>PLOS ONE</i> 10, no. 9 (2015): e0137308, https://doi.org/10.1371/journal.pone.0137308. [Open access]
+  - opened: 2026-08-03 · full text (registered for `wh-077` without a supports line; read here)
+  - supports: "Geographically confined to Southwestern France and the Iberian Peninsula, and occurring
+    within a moderately short chronological range (c. 25–19 ka cal BP)"; that its timespan "roughly matches
+    the course of the Last Glacial Maximum (LGM)"; "the suite of technological innovations developed for
+    the manufacture of lithic armatures using unifacial and bifacial invasive flat retouch", with "several
+    types of foliates, shouldered and tanged morphologies"; and the Middle Solutrean's "predominance of
+    laurel-leaves over pointes à face plan"
+  - used by: Solutrean
+- Julie Bachellerie, “Chapitre 10. Outillage « solutréen » et schémas de production associés,” <i>PALEO</i>, hors-série (2025): 150–93, https://journals.openedition.org/paleo/9609. [Open access]
+  - opened: 2026-08-03 · full text on OpenEdition. **Note the host is readable again** — batch 21 recorded
+    `journals.openedition.org` behind an Anubis wall; the DOI `10.4000/14tzv` 302s to the article and it serves
+  - supports: "une retouche plate et envahissante" leaving "des enlèvements très fins, rasants, sans point
+    d'impact clair"; that "L'emploi de la retouche par pression n'intervient en effet que lors des étapes
+    finales du façonnage"; and the laurel leaf and shouldered point as the two signature forms
+  - used by: Solutrean
+- Henri Breuil, “Le Magdalénien,” <i>Bulletin de la Société préhistorique française</i> 51, no. 8 (1954): 59–66, https://www.persee.fr/doc/bspf_0249-7638_1954_hos_51_8_12411. [Open access]
+  - opened: 2026-08-03 · full text on Persée (registered for `wh-079`; read here)
+  - supports: the period as "caractérisé par la richesse de son outillage en os et en bois de cervidés et
+    l'abondance de ses œuvres d'art"; and the harpoon sequence, "d'abord à très petites dents, plus ou moins
+    primitifs, puis à un rang et ensuite à deux rangs de barbelures"
+  - **worth knowing, and why the term names no coiner**: Breuil writes that "Ed. Lartet l'avait appelée
+    l'époque de Laugerie-Basse et de la Madeleine", where `wh-079` credits Mortillet with attaching the
+    label to the epoch. The two are not straightforwardly reconcilable from this page, so the glossary term
+    says only that it "takes its name from the rock shelter of La Madeleine" and attributes the coinage to
+    nobody. **Batch 25's withdrawn-rather-than-re-sourced move, applied pre-emptively.**
+- Omid Oudbashi, S. Mohammadamin Emami, and Parviz Davami, “Bronze in Archaeology: A Review of the Archaeometallurgy of Bronze in Ancient Iran,” in <i>Copper Alloys: Early Applications and Current Performance — Enhancing Processes</i>, ed. Luca Collini (Rijeka: InTech, 2012), under “3.3 Tin bronze,” https://cdn.intechopen.com/pdfs/30478/InTech-Bronze_in_archaeology_a_review_of_the_archaeometallurgy_of_bronze_in_ancient_iran.pdf. [Open access]
+  - opened: 2026-08-03 · the InTech chapter PDF, text extracted locally
+  - supports: "In archaeometallurgical literature, bronze is a copper alloy which mostly consists of tin";
+    that it was "produced in antiquity by adding Sn to Cu by different procedures to increase mechanical
+    and chemical characteristics of copper"; "Tin make copper more fluidity and easier to cast like As and
+    Zn, but about 10% tin, the metal would be harder and stronger than As and Zn addition"; "Intentional
+    alloying of copper with tin is usually considered to be indicative by a tin content of more than 1% or
+    in some cases more than 5 percent"; and "Tin bronze (Cu-Sn) alloy became known in the late 4th
+    millennium BCE and the beginning of the 3rd millennium BCE in Mesopotamia and western Iran"
+  - **no page number is cited** — the search result giving 147–174 could not be confirmed against the PDF,
+    which carries the chapter number but no printed pagination in the extracted text, so the section
+    heading is the locator instead. Batch 18's rule: cite the locator you can actually see
+  - used by: Bronze
+- Alex Bayliss, “Rolling Out Revolution: Using Radiocarbon Dating in Archaeology,” <i>Radiocarbon</i> 51, no. 1 (2009): 123–47, abstract and “Introducing the Concepts,” https://doi.org/10.1017/S0033822200033750. [Open access]
+  - opened: 2026-08-03 · the Cambridge Core PDF serves without authentication (`repository.arizona.edu`,
+    the canonical open deposit, is **403** here — so the DOI is the link a reader can actually use)
+  - supports: "Chronology is essential for all archaeologies"; "the simple logic that a chronology that
+    relies on all the dating information available — 14C dates, stratigraphy, coins, typology, etc. — is
+    bound to be more reliable than one that relies only on a single strand of information"; and, from the
+    abstract, "Sixty years ago, the advent of radiocarbon dating rewrote archaeological chronologies around
+    the world. Forty years ago, the advent of calibration signaled the death knell of the diffusionism…"
+  - used by: Chronology
+- United Nations Statistics Division, “Standard Country or Area Codes for Statistical Use (M49),” under “Geographic Regions,” https://unstats.un.org/unsd/methodology/m49/. [Open access]
+  - opened: 2026-08-03 · the standard's own page
+  - supports: the nine countries M49 places in Western Europe — Austria, Belgium, France, Germany,
+    Liechtenstein, Luxembourg, Monaco, the Netherlands and Switzerland — and the disclaimer that "The
+    assignment of countries or areas to specific groupings is for statistical convenience and does not
+    imply any assumption regarding political or other affiliation of countries or territories by the
+    United Nations"
+  - **G11 warned that M49 is wrong for continental AREAS** (it puts all of Russia in Europe). It is exactly
+    right for *what a region-name denotes*, because there the convention is the fact being cited. Cite it
+    for membership and for its own disclaimer; never for a measurement
+  - used by: Western_Europe
+
+Reused from this register, each for the claims already recorded against it: `garciadiez-2013-altamira`
+(Santillana del Mar, Cantabria; the first Palaeolithic cave art argued about; the ≥20,000-year sequence
+from a red sign at ~35,550 to Magdalenian work) and `cartailhac-1902-meaculpa` (the 1902 recant) →
+Cave_of_Altamira; Trinkaus & Buzhilova 2018, Nalawade-Chavan 2014 and Sikora 2017 (the Klyazma at
+Vladimir, Bader 1957–1977, 197 km east of Moscow, the beads, fox canines, arm bands, the two children,
+the 16 spears at 0.27–2.47 m, c. 34,000 cal BP, and the four unrelated genomes) → Sungir; `floss-2015`
+and `quiles-2016-chauvet` → Aurignacian; `weber-2022` (Willendorf, roughly 30,000 years old, Gravettian)
+→ Gravettian; `culture-lascaux` (the Magdalenian at 21–14,000 BP) and `bello-2021` (Gough's Cave) →
+Magdalenian; `villalba-mouco-2023` → Western_Europe; `cooper-grebnev-2023` (where bronze metallurgy was
+absent, and early African iron without a preceding Bronze Age) → Bronze and Iron; `guder-2025` (the
+bloomery, the bloom, slag from gangue minerals, carburisation and the carbon grades) → Iron;
+`walker-2009` (the Holocene base at 11,700 cal yr b2k in the NGRIP core) → Chronology.
+
+**`guder-2025`'s URL was changed** from the Europe PMC `fullTextXML` REST route to
+`journals.plos.org/plosone/article?id=10.1371/journal.pone.0312244`, which is 200 today. The XML endpoint
+is a machine route and a reader following it gets raw markup; batch 26 recorded it because PLOS was not
+reachable then. **When a host reopens, re-point the citation at the human-readable copy.**
+
+### Hosts, measured 2026-08-03 (batches N1, N2 and N3, which ran the same day)
+- `journals.openedition.org` — **200 again**; the Anubis wall batch 21 recorded is not up today.
+- `journals.plos.org`, `www.persee.fr`, `unstats.un.org`, `cdn.intechopen.com`, `cir.cenieh.es` — 200.
+- `www.cambridge.org` — 200 for the Radiocarbon article PDF; `repository.arizona.edu` — **403**.
+- `historicengland.org.uk` — **403** (so its scientific-dating guidance is not usable here).
 - `nature.com`, `link.springer.com` — **303 to an IdP cookie endpoint**; unreadable at the publisher URL.
 - `pnas.org` — **403**.
 - `www.ebi.ac.uk/europepmc/webservices/rest` — 200, and the reliable route to a PMCID and to pagination.
