@@ -8,8 +8,8 @@
 //                 "date": "<optional>", "aliases": ["<optional alternative background spellings>"],
 //                 "tags": ["person", "ruler", "han dynasty"],   // REQUIRED for new terms: >=3 lowercase category tags (admin tag filter)
 //                 "translations": { "es": "…", "fr": "…", "de": "…", "it": "…", "nl": "…", "ru": "…", "ar": "…", "zh": "…", "ja": "…" },
-//                                              // REQUIRED for new terms: the description in all 9 site languages (-> i18n/gloss-<lang>.js);
-//                                              // pass "skipTranslations": true only for maintenance edits of old English-only terms
+//                                              // OPTIONAL while the site is English-only (see REQUIRE_TRANSLATIONS below):
+//                                              // the description in all 9 site languages (-> i18n/gloss-<lang>.js)
 //                 "sources": ["Michael Loewe, <i>A Biographical Dictionary</i> (Leiden: Brill, 2000), 487."],
 //                                              // REQUIRED for new terms: Chicago note-form citations for the description
 //                                              // (-> window.GLOSSARY_SOURCES, a numbered fold at the foot of the popup).
@@ -23,6 +23,12 @@ const fs = require("fs"), path = require("path");
 const glossPath = path.join(__dirname, "..", "glossary.js");
 const glossI18nIO = require("./gloss-i18n-io");   // the per-language i18n/gloss-<lang>.js files
 const I18N_LANGS = ["es", "fr", "de", "it", "nl", "ru", "ar", "zh", "ja"];
+/* ENGLISH ONLY (Aug 2026, on request): the site ships in English while the work is on the English, so a
+   new term no longer has to arrive with its nine translations. This is the content-pipeline half of
+   MULTILANG in app.js — flip it back to true when translations resume, and new terms are held to all
+   nine again. Translations that ARE supplied are still written and still checked (marker parity below):
+   the requirement is lifted, the machinery is not. */
+const REQUIRE_TRANSLATIONS = false;
 
 function loadWindow(file) { const win = {}; new Function("window", fs.readFileSync(file, "utf8"))(win); return win; }
 const obj = (o) => "{\n" + Object.keys(o).map(k => JSON.stringify(k) + ": " + JSON.stringify(o[k])).join(",\n") + "\n}";
@@ -81,7 +87,7 @@ if (e.delete) {
       }
     }
   }
-  if (isNew && !e.skipTranslations) {
+  if (isNew && REQUIRE_TRANSLATIONS && !e.skipTranslations) {
     const tr = e.translations || {};
     const missing = I18N_LANGS.filter((l) => !(typeof tr[l] === "string" && tr[l].trim()));
     if (missing.length) { console.error("ERROR: a new term needs `translations` for all 9 site languages (missing: " + missing.join(", ") + ") — or pass skipTranslations:true for a deliberate English-only maintenance edit"); process.exit(1); }

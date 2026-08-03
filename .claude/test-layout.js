@@ -339,6 +339,93 @@ async function studyEasy(page, base, n) {
     check("...taking under a fifth of the screen", gb.h < gb.vh * 0.2, gb.h + " of " + gb.vh);
     // the card's last line must not end underneath it
     check("the study page's bottom padding clears the bar", gb.pad >= gb.h, JSON.stringify({ pad: gb.pad, bar: gb.h }));
+
+    /* …and its HEIGHT is the reader's, by the grip along its top edge (Aug 2026, on request). Two positions
+       and no third: the short one is a different ARRANGEMENT, not the same bar smaller. What this pins is
+       that the short one is genuinely half the tall one (a "compact" state that saves 15px is not what was
+       asked for), that nothing is LOST getting there — the ?, Suspend and the four grades are all still on
+       screen and still named to a screen reader, which a display:none would have taken away — and that the
+       page's bottom padding follows it down, since a bar that shrinks under a padding that doesn't leaves
+       a band of dead card. */
+    const read = () => page.evaluate(() => {
+      const bar = document.querySelector("#gradebar").getBoundingClientRect();
+      const gs = [...document.querySelectorAll(".grade")];
+      const vis = (s) => { const e = document.querySelector(s); return !!(e && e.checkVisibility()); };
+      return {
+        h: Math.round(bar.height),
+        compact: document.body.classList.contains("gb-compact"),
+        rows: new Set(gs.map((g) => Math.round(g.getBoundingClientRect().top))).size,
+        // the words are gone from the buttons — the interval is what a reader SEES disappear
+        gi: gs.some((g) => g.querySelector(".gi").checkVisibility()),
+        // the LABEL is measured, not asked: it is clipped to a pixel rather than display:none, and
+        // checkVisibility() reports a clipped element as visible
+        gl: gs.some((g) => g.querySelector(".gl").getBoundingClientRect().width > 4),
+        // …and clipped is exactly what keeps it in the accessibility tree, which display:none would not
+        named: gs.every((g) => { const cs = getComputedStyle(g.querySelector(".gl")); return cs.display !== "none" && cs.visibility !== "hidden" && (g.textContent || "").trim().length > 0; }),
+        help: vis(".grade-help"), suspend: vis(".suspendbtn"),
+        // the ? and Suspend join the colours on the same line rather than being dropped
+        oneLine: (() => {
+          const b = [document.querySelector(".grade-help"), document.querySelector(".suspendbtn"), gs[0]]
+            .filter(Boolean).map((e) => e.getBoundingClientRect());
+          return Math.max(...b.map((r) => r.top)) < Math.min(...b.map((r) => r.bottom));
+        })(),
+        pad: Math.round(parseFloat(getComputedStyle(document.querySelector(".stage")).paddingBottom) || 0),
+      };
+    });
+    const dragGrip = (dy) => page.evaluate(async (d) => {
+      const g = document.querySelector(".gb-grab"), r = g.getBoundingClientRect();
+      const x = r.left + r.width / 2, y = r.top + r.height / 2;
+      const ev = (t, cy) => g.dispatchEvent(new PointerEvent(t, { pointerId: 1, clientX: x, clientY: cy, bubbles: true, button: 0 }));
+      ev("pointerdown", y); ev("pointermove", y + d / 2); ev("pointermove", y + d); ev("pointerup", y + d);
+      await new Promise((r2) => setTimeout(r2, 250));
+    }, dy);
+    const gripSeen = await page.evaluate(() => { const g = document.querySelector(".gb-grab"); return !!(g && g.checkVisibility()); });
+    check("the grade bar carries a grip to resize it", gripSeen);
+    const tall = await read();
+    await dragGrip(44);
+    const short = await read();
+    check("...dragging it down halves the bar", short.compact && short.h <= tall.h * 0.6,
+      JSON.stringify({ tall: tall.h, short: short.h }));
+    check("...leaving the four grades side by side as bare colours",
+      short.rows === 1 && !short.gi && !short.gl, JSON.stringify(short));
+    check("...still named to a screen reader, which display:none would not be", short.named);
+    check("...with the ? and Suspend beside them, not dropped", short.help && short.suspend && short.oneLine, JSON.stringify(short));
+    check("...and the page's bottom padding down with it", short.pad < tall.pad && short.pad >= short.h,
+      JSON.stringify({ tall: tall.pad, short: short.pad, bar: short.h }));
+    await dragGrip(-44);
+    const back = await read();
+    check("...dragging it back up restores the bar", !back.compact && back.h === tall.h && back.gi,
+      JSON.stringify({ tall: tall.h, back: back.h }));
+    await page.close();
+  }
+  {
+    // the height is remembered on the device, so the next card opens the way the last one was left
+    const page = await browser.newPage({ viewport: PHONE });
+    watch(page);
+    await studyEasy(page, base, 0);
+    await page.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
+    await page.waitForTimeout(600);
+    await page.evaluate(async () => {
+      const g = document.querySelector(".gb-grab"), r = g.getBoundingClientRect();
+      const x = r.left + r.width / 2, y = r.top + r.height / 2;
+      const ev = (t, cy) => g.dispatchEvent(new PointerEvent(t, { pointerId: 1, clientX: x, clientY: cy, bubbles: true, button: 0 }));
+      ev("pointerdown", y); ev("pointermove", y + 44); ev("pointerup", y + 44);
+      await new Promise((r2) => setTimeout(r2, 250));
+    });
+    await studyEasy(page, base, 0);
+    await page.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
+    await page.waitForTimeout(600);
+    check("...and remembered for the next card", await page.evaluate(() => document.body.classList.contains("gb-compact")));
+    await page.close();
+  }
+  {
+    // above the breakpoint there is nothing to reclaim: one comfortable row already, and no grip
+    const page = await browser.newPage({ viewport: DESKTOP });
+    watch(page);
+    await studyEasy(page, base, 0);
+    await page.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
+    await page.waitForTimeout(600);
+    check("the grip is phone-only", !(await page.evaluate(() => { const g = document.querySelector(".gb-grab"); return !!(g && g.checkVisibility()); })));
     await page.close();
   }
 
@@ -517,7 +604,11 @@ async function studyEasy(page, base, n) {
     await page.close();
   }
 
-  /* ================= 5c. light/dark and the language picker live on Settings ================= */
+  /* ================= 5c. light/dark on Settings, and NO language picker =================
+     The site is English-only for now (MULTILANG in app.js, Aug 2026, on request), so the picker that used
+     to be asserted here must be gone from the page — a control offering nine languages nothing routes to
+     is a control that lies. The light/dark switch beside it is unaffected and still has to be there.
+     `test-i18n-lang.js` covers the other half: that the machinery behind the flag still works. */
   for (const vp of [PHONE, DESKTOP]) {
     const page = await browser.newPage({ viewport: vp });
     watch(page);
@@ -525,17 +616,98 @@ async function studyEasy(page, base, n) {
     await page.waitForTimeout(1400);
     const p = await page.evaluate(() => ({
       opts: document.querySelectorAll("#langGrid .lang-opt").length,
-      picked: [...document.querySelectorAll("#langGrid .lang-opt.on")].map((o) => o.dataset.lang).join(","),
       night: !!document.querySelector("#sw-night") && document.querySelector("#sw-night").checkVisibility(),
+      lang: (JSON.parse(localStorage.getItem("folio_v1") || "{}").settings || {}).lang,
       // whatever the viewport, neither may be left behind in the top bar
       strayLang: !!document.querySelector(".topbar .lang-opt, .topbar #lang-switch"),
       strayNight: !!document.querySelector(".topbar .theme-switch"),
     }));
     const tag = vp.width + "px";
-    check("[" + tag + "] every language is offered on the Settings page", p.opts === 10, String(p.opts));
-    check("[" + tag + "] ...with exactly one marked as the current one", p.picked === "en", p.picked);
-    check("[" + tag + "] ...beside the light/dark switch", p.night);
+    check("[" + tag + "] the Settings page offers no language picker", p.opts === 0, String(p.opts));
+    check("[" + tag + "] ...the light/dark switch is still there", p.night);
     check("[" + tag + "] ...and neither is left in the top bar", !p.strayLang && !p.strayNight, JSON.stringify(p));
+    await page.close();
+  }
+  {
+    /* …and the way OUT of a language chosen before the picker went. This is the one way removing a
+       setting can really strand someone: a reader who picked Spanish would be held in Spanish with no
+       control left on the page to change it back. Also: a ?lang= link must no longer switch. */
+    const page = await browser.newPage({ viewport: PHONE });
+    watch(page);
+    await page.goto(base, { waitUntil: "load" });
+    await page.waitForTimeout(900);
+    await page.evaluate(() => {
+      const s = JSON.parse(localStorage.getItem("folio_v1") || "{}");
+      s.settings = s.settings || {}; s.settings.lang = "es";
+      localStorage.setItem("folio_v1", JSON.stringify(s));
+    });
+    await page.goto(base + "?lang=ja#settings", { waitUntil: "load" });
+    await page.waitForTimeout(1500);
+    const after = await page.evaluate(() => ({
+      lang: (JSON.parse(localStorage.getItem("folio_v1") || "{}").settings || {}).lang,
+      html: document.documentElement.lang || "", dir: document.documentElement.dir || "",
+      i18n: [...document.querySelectorAll("script[src*='/i18n/']")].map((s) => s.src.split("/").pop()),
+    }));
+    check("a language stored before the picker went is brought back to English", after.lang === "en", JSON.stringify(after));
+    check("...and a ?lang= link no longer switches", after.lang === "en" && after.i18n.length === 0, JSON.stringify(after));
+    await page.close();
+  }
+
+  /* ================= 5f. Text size (Aug 2026, on request) =================
+     A reading-text scale, not a page zoom, and the difference is the whole design: the prose has to grow
+     and the SHELL has to stay where it is, because every bar in it is laid out against its own pixels.
+     So this checks both halves — the card and the glossary popup follow the setting, and a tab label and
+     a button do not — plus that it survives a reload, since a text size a reader has to set every time is
+     worse than none. */
+  {
+    const page = await browser.newPage({ viewport: PHONE });
+    watch(page);
+    await page.goto(base + "#settings", { waitUntil: "load" });
+    await page.waitForTimeout(1400);
+    const pick = await page.evaluate(() => {
+      const g = document.querySelector("#fsPick");
+      if (!g) return null;
+      const r = g.getBoundingClientRect(), row = g.closest(".set-row").getBoundingClientRect();
+      return { n: g.children.length, on: [...g.children].filter((b) => b.classList.contains("on")).map((b) => b.dataset.fs),
+        fs: document.body.dataset.fs, fits: r.right <= row.right + 1,
+        clipped: [...g.children].some((b) => b.scrollWidth > b.clientWidth + 1) };
+    });
+    check("Settings offers a text size", !!pick && pick.n === 3, JSON.stringify(pick));
+    check("...with exactly one marked, matching the setting in force",
+      !!pick && pick.on.length === 1 && pick.on[0] === pick.fs, JSON.stringify(pick));
+    check("...and no cell of it clipped or overflowing its row", !!pick && pick.fits && !pick.clipped, JSON.stringify(pick));
+    const sizes = async () => {
+      await page.goto(base + "#home", { waitUntil: "load" });
+      await page.waitForTimeout(1200);
+      await page.evaluate(() => { const b = document.querySelector(".banner .cta .btn"); if (b) b.click(); });
+      await page.waitForTimeout(1400);
+      await page.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
+      await page.waitForTimeout(600);
+      return page.evaluate(() => {
+        const px = (s) => { const e = document.querySelector(s); return e ? Math.round(parseFloat(getComputedStyle(e).fontSize) * 10) / 10 : null; };
+        return { fs: document.body.dataset.fs, q: px(".study-card .question"), bg: px(".abstract"),
+          tab: px(".tabbar .tab-label"), btn: px(".grade .gl") };
+      });
+    };
+    const setFs = async (v) => {
+      await page.goto(base + "#settings", { waitUntil: "load" });
+      await page.waitForTimeout(1100);
+      await page.evaluate((f) => { const b = document.querySelector('#fsPick [data-fs="' + f + '"]'); if (b) b.click(); }, v);
+      await page.waitForTimeout(250);
+    };
+    const med = await sizes();
+    await setFs("large"); const big = await sizes();
+    await setFs("small"); const small = await sizes();
+    check("...that grows the card's question and background", big.q > med.q && big.bg > med.bg, JSON.stringify({ med, big }));
+    check("...and shrinks them", small.q < med.q && small.bg < med.bg, JSON.stringify({ med, small }));
+    check("...while the SHELL stays exactly where it was — a scale, not a page zoom",
+      big.tab === med.tab && small.tab === med.tab && big.btn === med.btn,
+      JSON.stringify({ med, big, small }));
+    await setFs("large");
+    await page.goto(base + "#home", { waitUntil: "load" });
+    await page.waitForTimeout(1200);
+    check("...and it is still there after a reload", (await page.evaluate(() => document.body.dataset.fs)) === "large");
+    await setFs("medium");
     await page.close();
   }
 
@@ -657,6 +829,22 @@ async function studyEasy(page, base, n) {
         lipAtBottom: lip && grp ? Math.round(lip.getBoundingClientRect().bottom - grp.getBoundingClientRect().bottom) : 999,
         // a TAB, not another full-width banner — which is what it replaced
         lipFrac: lip && grp ? +(lip.getBoundingClientRect().width / grp.getBoundingClientRect().width).toFixed(2) : 1,
+        /* …and BLUE (Aug 2026, on request): the site's own primary-button indigo, read off a probe rather
+           than hard-coded, so a theme that re-tones --indigo moves the lip with it. Paper-on-paper it read
+           as part of the card's bottom edge, which is the failure this pins. */
+        lipBlue: (() => {
+          if (!lip) return "";
+          const p = document.createElement("i");
+          p.style.cssText = "background:var(--indigo);position:absolute;left:-9999px";
+          document.body.appendChild(p);
+          const want = getComputedStyle(p).backgroundColor; p.remove();
+          const got = getComputedStyle(lip).backgroundColor;
+          return got === want ? "ok" : got + " ≠ " + want;
+        })(),
+        aboutPad: (() => {
+          const a = document.querySelector(".home-about"); if (!a) return [0, 0];
+          const cs = getComputedStyle(a); return [parseFloat(cs.paddingTop), parseFloat(cs.paddingBottom)];
+        })(),
         // the games, under a heading, under the review
         mgHead: head ? head.textContent.trim() : "",
         /* The heading's TEXT centre against the grid's, measured through a Range — NOT its computed
@@ -691,6 +879,7 @@ async function studyEasy(page, base, n) {
     check("the Library banner is gone, replaced by a lip on the review", !h.libBanner && /add decks/i.test(h.lip), JSON.stringify({ banner: h.libBanner, lip: h.lip }));
     check("...hanging off the bottom edge of the review group", h.lipLast && Math.abs(h.lipAtBottom) <= 1, JSON.stringify({ last: h.lipLast, edge: h.lipAtBottom }));
     check("...centred on it, and a tab rather than a second banner", h.lipCentred <= 2 && h.lipFrac < 0.7, JSON.stringify({ off: h.lipCentred, frac: h.lipFrac }));
+    check("...filled in the same indigo as Start review, not paper on paper", h.lipBlue === "ok", h.lipBlue);
     check("...and routing to the collections", await page.evaluate(async () => {
       document.querySelector(".rv-lip").click();
       await new Promise((r) => setTimeout(r, 700));
@@ -710,6 +899,8 @@ async function studyEasy(page, base, n) {
       await new Promise((r) => setTimeout(r, 700));
       return location.hash;
     }) === "#mission");
+    // …with room around it (Aug 2026, on request): it was 4px over 2px, crowded against the game grid
+    check("...with room above and below it", h.aboutPad[0] >= 14 && h.aboutPad[1] >= 12, JSON.stringify(h.aboutPad));
     // removed on request: the xp bar right above it already counts the distinct cards studied
     check("the review banner no longer carries a Seen total", !h.seenTotal.some((t) => /total/i.test(t)), h.seenTotal.join("|"));
 
@@ -771,6 +962,36 @@ async function studyEasy(page, base, n) {
       !piles.badge.tick && +piles.badge.n === piles.stats.reduce((a, s) => a + s.n, 0),
       JSON.stringify({ badge: piles.badge, piles: piles.stats.map((s) => s.n) }));
     check("...with the level still spelled out under it", /level/i.test(piles.xpLevel), piles.xpLevel);
+
+    /* The added deck's row is ONE horizontal line (Aug 2026, on request) — piles, name, figure and bin all
+       on the same level, with the bar moved to the row's bottom edge so it costs the line no width. Two
+       lines and one line look equally deliberate in a screenshot, and the failure this pins is the row
+       quietly wrapping again the moment something in it grows: the deck's name is the only part with a
+       shorter form, so if the arithmetic stops working it is the name that gets cut off. */
+    const row = await page.evaluate(() => {
+      const r = document.querySelector(".active-deck[data-review]"); if (!r) return null;
+      const rb = r.getBoundingClientRect();
+      const t = r.querySelector(".ad-title"), c = r.querySelector(".ad-prog .count"), k = r.querySelector(".ad-prog .track");
+      const parts = [r.querySelector(".ad-counts"), t, c, r.querySelector(".ad-trash")].filter(Boolean);
+      const boxes = parts.map((e) => e.getBoundingClientRect());
+      return {
+        n: parts.length,
+        // one line ⇔ every part overlaps one horizontal band
+        band: Math.max(...boxes.map((b) => b.top)) < Math.min(...boxes.map((b) => b.bottom)),
+        rowH: Math.round(rb.height),
+        label: c ? c.textContent.trim() : "",
+        titleClipped: t ? t.scrollWidth > t.clientWidth + 1 : true,
+        // the bar underlines the row rather than sitting in the line
+        trackWide: k ? k.getBoundingClientRect().width > rb.width * 0.8 : false,
+        trackAtFoot: k ? Math.abs(k.getBoundingClientRect().bottom - rb.bottom) <= 1 : false,
+        fills: !!r.querySelector(".ad-prog .fill"),
+      };
+    });
+    check("an added deck's row is one horizontal line", !!row && row.band && row.n === 4, JSON.stringify(row));
+    check("...its progress figure shortened to N/N studied", !!row && /^\d+\/\d+ studied$/.test(row.label), row && row.label);
+    check("...its bar underlining the row instead of taking width from it",
+      !!row && row.trackWide && row.trackAtFoot && row.fills, JSON.stringify(row));
+    check("...and the deck's name not cut off at 390px", !!row && !row.titleClipped, JSON.stringify(row));
     // clear the day: Easy graduates a new card outright, so the allowance runs out with nothing in learning
     await studyEasy(page, base, 6);
     await page.goto(base + "#home", { waitUntil: "load" });

@@ -12,6 +12,7 @@
 //                               "rules": [ ["^Good morning, (.+)$", "…, $1"], … ],   // -> i18n/ui-<lang>.js  I18N_RULES[lang]
 //                               "html":  { "<innerHTML>": "<translated innerHTML>" },  // -> i18n/ui-<lang>.js  I18N_HTML[lang]
 //                               "remove": ["English string whose source text is gone", …] },  // retire dead rows
+//                                         (a RULE is retired by its own pattern, that being its source text)
 //                 "cards":    { "wh-001": { "question": …, "answer": …, "answerDate": …,
 //                                           "abstract": …, "answerText": … }, … },   // -> data.js  card.i18n[lang]
 //                 "games":    { "truefalse": { "<English q>": { q, why, cat }, … },   // -> i18n/games-<lang>.js
@@ -78,7 +79,13 @@ if (batch.chrome && Object.keys(batch.chrome).length) {
   // `remove`: retire translations whose English source string is gone (an item reworded, or several
   // merged into one). Without this the old rows sit in every language file for ever, matching nothing
   // and reading like coverage that exists. Removal is per language, like every other write here.
-  for (const k of (c.remove || [])) { delete (I[lang] || {})[k]; delete (H[lang] || {})[k]; }
+  // A RULE is retired by its own pattern: the pattern IS the English source text for a parameterized
+  // string, so `remove` takes the same shape for all three tables and a reworded label can be retired
+  // wherever it lives.
+  for (const k of (c.remove || [])) {
+    delete (I[lang] || {})[k]; delete (H[lang] || {})[k];
+    if (R[lang]) R[lang] = R[lang].filter((r) => r[0] !== k);
+  }
   if (c.rules && c.rules.length) {   // rules are an ordered array — replace by pattern, else append
     R[lang] = R[lang] || [];
     for (const [pat, repl] of c.rules) {

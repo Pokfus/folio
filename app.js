@@ -1030,7 +1030,7 @@
   function defaultState() {
     return {
       user: { name: "Scholar", joined: Date.now() },
-      settings: { night: false, theme: "folio", newPerDay: 3, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 } },
+      settings: { night: false, theme: "folio", fontSize: "medium", newPerDay: 3, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 } },
       cards: {}, // id -> {reps,lapses,ease,interval,due,status,last}
       suspended: {}, // id -> true (card set aside; never shown again)
       daily: { lastPlayed: 0, best: 0, games: 0, wins: 0, podiums: 0 },
@@ -3778,11 +3778,19 @@
     return !!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
   }
   const THEMES = ["folio", "synth", "arcade", "academy", "marble", "gazette"];
+  /* Reading-text size (Aug 2026, on request). `--fs` is a multiplier the READING surfaces are written
+     against — a card's question and background, a glossary popup, a place panel on the Atlas — and nothing
+     else. It is deliberately not a whole-site zoom: styles.css sizes 522 things in px, and the shell's
+     layouts are tuned to those pixels (the tab bar's labels, the review's deck rows, the Atlas timebar),
+     so scaling all of it would break the chrome to enlarge the prose. Prose reflows; a bar of four cells
+     does not. Kept in S.settings beside `theme` — a device preference, not synced. */
+  const FONT_SIZES = ["small", "medium", "large"];
   function applyTheme() {
     const night = !!S.settings.night;
     document.body.classList.toggle("night", night);
     const theme = THEMES.includes(S.settings.theme) ? S.settings.theme : "folio";
     document.body.dataset.theme = theme;
+    document.body.dataset.fs = FONT_SIZES.indexOf(S.settings.fontSize) < 0 ? "medium" : S.settings.fontSize;
     // light / dark lives on the Settings page now (it was a top-bar slider until Aug 2026) — this keeps
     // that switch in step whenever the setting changes from anywhere else
     document.querySelectorAll("#sw-night").forEach((el) => {
@@ -3800,6 +3808,18 @@
     S.settings.theme = theme;
     applyTheme();
     save();
+  }
+  function setFontSize(size) {
+    if (FONT_SIZES.indexOf(size) < 0) return;
+    S.settings.fontSize = size;
+    applyTheme();
+    save();
+    // the picker is a segmented control, so the mark has to move with the setting wherever it was changed
+    document.querySelectorAll("#fsPick [data-fs]").forEach((b) => {
+      const on = b.dataset.fs === size;
+      b.classList.toggle("on", on);
+      b.setAttribute("aria-pressed", on ? "true" : "false");
+    });
   }
   // Reflect the current admin / first-time-visitor mode in the top bar and body class.
   function applyMode() {
@@ -3912,13 +3932,65 @@
   }
 
   /* ---------- fixed grade bar (pinned to the bottom of the viewport, Anki-style) ---------- */
+  /* Its HEIGHT is the reader's to set on a phone (Aug 2026, on request): drag the grip along its top edge,
+     as on the Atlas place sheet. Unlike that sheet there are only TWO positions, so this does not track the
+     pointer continuously — the compact state is a different ARRANGEMENT (four colours side by side, no
+     words), not the same bar at a smaller height, and there is nothing sensible to render in between. The
+     state therefore flips the moment the drag passes GB_SLOP, which is also what makes it feel like a snap;
+     a tap on the grip toggles, since a grip nobody drags is a grip nobody finds.
+     Device-local, like where the whiteboard marker sits and how tall the place sheet is: how much of THIS
+     screen the buttons take is a fact about this screen, not about the account. */
+  const GB_H_KEY = "folio_gb_compact_v1", GB_SLOP = 16;
+  let gbCompact = null;
+  function gbReadCompact() {
+    if (gbCompact == null) { try { gbCompact = localStorage.getItem(GB_H_KEY) === "1"; } catch (e) { gbCompact = false; } }
+    return gbCompact;
+  }
+  function gbSetCompact(on, persist) {
+    gbCompact = !!on;
+    document.body.classList.toggle("gb-compact", gbCompact);
+    if (persist) { try { gbCompact ? localStorage.setItem(GB_H_KEY, "1") : localStorage.removeItem(GB_H_KEY); } catch (e) {} }
+  }
+  function gbWireResize(grip) {
+    let drag = null;
+    grip.addEventListener("pointerdown", (e) => {
+      if (e.button != null && e.button !== 0) return;
+      drag = { id: e.pointerId, y: e.clientY, moved: false };
+      try { grip.setPointerCapture(e.pointerId); } catch (x) {}
+      e.preventDefault();
+    });
+    grip.addEventListener("pointermove", (e) => {
+      if (!drag || e.pointerId !== drag.id) return;
+      const dy = e.clientY - drag.y;
+      if (Math.abs(dy) < GB_SLOP) return;
+      drag.moved = true;
+      // the bar is anchored at the bottom, so dragging its top edge DOWN is what shortens it
+      gbSetCompact(dy > 0, false);
+    });
+    const release = (e) => {
+      if (!drag || (e.pointerId != null && e.pointerId !== drag.id)) return;
+      const tap = !drag.moved;
+      drag = null;
+      gbSetCompact(tap ? !gbReadCompact() : gbCompact, true);
+    };
+    grip.addEventListener("pointerup", release);
+    grip.addEventListener("pointercancel", release);
+    // a keyboard reaches it too — the grip is a real button
+    grip.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowDown") { e.preventDefault(); gbSetCompact(true, true); }
+      else if (e.key === "ArrowUp") { e.preventDefault(); gbSetCompact(false, true); }
+      else if (e.key === "Enter" || e.key === " ") { e.preventDefault(); gbSetCompact(!gbReadCompact(), true); }
+    });
+  }
   let gradeBarEl = null;
   function ensureGradeBar() {
     if (!gradeBarEl) {
       gradeBarEl = document.createElement("div");
       gradeBarEl.id = "gradebar";
-      gradeBarEl.innerHTML = '<div class="gradebar-inner"></div>';
+      // the grip sits OUTSIDE .gradebar-inner, whose contents are replaced for every card
+      gradeBarEl.innerHTML = '<button class="gb-grab" id="gbGrab" type="button" aria-label="Drag to shrink or expand the grade buttons"><span></span></button><div class="gradebar-inner"></div>';
       document.body.appendChild(gradeBarEl);
+      gbWireResize(gradeBarEl.querySelector("#gbGrab"));
     }
     return gradeBarEl;
   }
@@ -3929,6 +4001,7 @@
     inner.querySelectorAll(".grade").forEach((b) =>
       b.addEventListener("click", () => onGrade(b.dataset.g))
     );
+    gbSetCompact(gbReadCompact(), false);   // the height the reader last left it at
     document.body.classList.add("grading");
     requestAnimationFrame(() => bar.classList.add("show"));
   }
@@ -5273,7 +5346,7 @@
       const total = ids.length, studied = ids.filter(isSeen).length;
       return `<div class="prog ad-prog" data-pct="${total ? ((studied / total) * 100).toFixed(2) : 0}">
         <div class="track"><div class="fill"></div></div>
-        <div class="count">${studied}/${total} cards studied</div>
+        <div class="count">${studied}/${total} studied</div>
       </div>`;
     };
     const activeHTML = (function () {
@@ -5289,7 +5362,7 @@
       TREE.collections.forEach((d) => { if (!isComingSoon(d)) walk(d, 0); });   // a coming-soon collection's decks sit the review out
       return rows
         .map((r) => {
-          const pad = 22 + r.depth * 21;
+          const pad = 16 + r.depth * 16;   // the indent that carries the hierarchy — tightened Aug 2026 when the row went to one line
           if (r.active) {
             return `<div class="active-deck" data-review="${esc(r.node.id)}" role="button" tabindex="0" data-depth="${r.depth}" style="padding-left:${pad}px" title="Review just ${esc(r.node.title)}">
               ${adCounts(entryCardIds(r.node.id))}
@@ -5311,7 +5384,7 @@
         // in the review could never be seen or removed from here
         activeIds.filter((id) => UDECKS[uDeckIdOf(id)]).map((id) => {
           const d = UDECKS[uDeckIdOf(id)];
-          return `<div class="active-deck" data-review="${esc(id)}" role="button" tabindex="0" data-depth="0" style="padding-left:22px" title="Review just ${esc(d.title)}">
+          return `<div class="active-deck" data-review="${esc(id)}" role="button" tabindex="0" data-depth="0" style="padding-left:16px" title="Review just ${esc(d.title)}">
               ${adCounts(entryCardIds(id))}
               <div class="ad-body">
                 <div class="ad-line"><span class="ad-title">${esc(d.title)}</span></div>
@@ -5322,7 +5395,7 @@
         }).join("") +
         // …and last, the cards picked up one at a time from the Card of the day, which belong to no deck the
         // reader added. It reads as one more added collection, and its trash empties the whole list.
-        (activeIds.indexOf(COTD_ENTRY) === -1 ? "" : `<div class="active-deck" data-review="${esc(COTD_ENTRY)}" role="button" tabindex="0" data-depth="0" style="padding-left:22px" title="Review just ${esc(COTD_TITLE)}">
+        (activeIds.indexOf(COTD_ENTRY) === -1 ? "" : `<div class="active-deck" data-review="${esc(COTD_ENTRY)}" role="button" tabindex="0" data-depth="0" style="padding-left:16px" title="Review just ${esc(COTD_TITLE)}">
               ${adCounts(entryCardIds(COTD_ENTRY))}
               <div class="ad-body">
                 <div class="ad-line"><span class="ad-title">${esc(COTD_TITLE)}</span></div>
@@ -12309,6 +12382,7 @@
   ];
   PAGES.settings = function (root) {
     const homeName = (S.settings.home && S.settings.home.name) || "Netherlands";
+    const fsNow = FONT_SIZES.indexOf(S.settings.fontSize) < 0 ? "medium" : S.settings.fontSize;
     // world.js is lazy (see DATA_BUNDLES) — until it lands the picker holds just the current home,
     // and fillHomeOpts() below swaps in the full country list once it arrives
     // The option VALUE stays the English name — it keys countryCenter() and is stored in S.settings.home
@@ -12337,15 +12411,28 @@
             <div class="info"><h3>Night mode</h3><p>Switch to the deck's dark paper palette.</p></div>
             <div class="ctl"><div class="switch ${S.settings.night ? "on" : ""}" id="sw-night" role="switch" tabindex="0" aria-checked="${S.settings.night}"></div></div>
           </div>
+          <div class="set-row set-row-block">
+            ${/* Aug 2026, on request. The wording names the surfaces it reaches rather than promising a
+                  whole-site zoom — see the FONT_SIZES comment by applyTheme for why it is the prose only.
+                  A BLOCK row (the control under its description, like Theme and Language above): the three
+                  cells run to 186px, which on a phone leaves the sentence a column four words wide. */""}
+            <div class="info"><h3>Text size</h3><p>How large the text you read is: a card's question and background, a glossary popup, a place on the Atlas.</p></div>
+            <div class="ctl"><div class="fs-pick" id="fsPick" role="group" aria-label="Text size">${
+              FONT_SIZES.map((f) => `<button type="button" data-fs="${f}" class="${fsNow === f ? "on" : ""}" aria-pressed="${fsNow === f}"><span class="fs-a" aria-hidden="true">A</span>${f.charAt(0).toUpperCase() + f.slice(1)}</button>`).join("")
+            }</div></div>
+          </div>
         </div>
-        ${/* the language picker, moved off the top bar (Aug 2026) — see langPickerHTML */""}
-        <div class="set-card set-wide">
+        ${/* The language picker (moved off the top bar Aug 2026 — see langPickerHTML). Gone from the page
+              while MULTILANG is false: the site is English-only for now, and a picker offering nine
+              languages nothing routes to would be a control that lies. The markup is left here, behind
+              the same one flag the rest of it is behind, so it comes back in a single edit. */""}
+        ${MULTILANG ? `<div class="set-card set-wide">
           ${setHead("var(--zh)", '<circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 4 9 15 15 0 0 1-4 9 15 15 0 0 1-4-9 15 15 0 0 1 4-9z"/>', "Language")}
           <div class="set-row set-row-block">
             <div class="info"><h3>Site language</h3><p>The whole site — cards, glossary, games and the Atlas — in the language you pick. Anything not yet translated stays in English.</p></div>
             ${langPickerHTML()}
           </div>
-        </div>
+        </div>` : ""}
         <div class="set-card">
           ${setHead("#4F9D67", '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>', "Study")}
           <div class="set-row">
@@ -12391,6 +12478,13 @@
     const toggleNight = () => setNight(!S.settings.night);
     sw.addEventListener("click", toggleNight);
     wireLangPicker(root);
+
+    // text size — delegated on the group, so the three buttons need no listener each
+    const fsPick = root.querySelector("#fsPick");
+    if (fsPick) fsPick.addEventListener("click", (e) => {
+      const b = e.target.closest("[data-fs]");
+      if (b) setFontSize(b.dataset.fs);
+    });
 
     // sound effects toggle — turning it ON plays the toggle chirp as confirmation (the delegated
     // capture listener already sounded the OFF click while sfx was still enabled)
@@ -15017,11 +15111,25 @@
     { code: "ja", label: "日本語" },
   ];
   const LANG_CODES = LANGS.map((l) => l.code);
+  /* ENGLISH ONLY (Aug 2026, on request): the site ships in English while the work is on making the English
+     the best it can be. This is the ONE switch — flip it back to true and the picker, the ?lang= links and
+     setLang all come back with it. Everything else is left exactly as it was: the nine translation files
+     stay on disk, the i18n engine stays wired, and `t()`/`localizeTree` keep working, because they are
+     no-ops in English (the tables are lazy and per-language, so an English reader never fetched one
+     anyway). Nothing here is deleted — this is a door held shut, not a wall built. */
+  const MULTILANG = false;
   // ?lang=xx makes the site linkable in a given language (e.g. /?lang=es#decks). Like the switcher, it
   // becomes the stored preference — someone who follows a Spanish link stays in Spanish. This runs
   // BEFORE setupLangSwitch below, so the switcher's flag and code chip render in the chosen language
   // rather than showing the old one until the next reload.
   (function langFromURL() {
+    /* While the site is English-only this is also the migration back. A reader who chose Spanish before
+       the picker was removed would otherwise be held in Spanish for ever, with no control left on the
+       page to get out — which is the one way removing a setting can actually break someone. */
+    if (!MULTILANG) {
+      if (S.settings.lang && S.settings.lang !== "en") { S.settings.lang = "en"; save(); }
+      return;
+    }
     let q = null;
     try { q = new URLSearchParams(location.search).get("lang"); } catch (e) {}
     if (!q) return;
@@ -15042,6 +15150,7 @@
   }
   // the one place the site language changes: validates, persists, loads what it needs, repaints
   function setLang(code) {
+    if (!MULTILANG && code !== "en") return;   // english-only: nothing offers this, and nothing may reach past it
     if (!LANG_CODES.includes(code) || code === S.settings.lang) return;
     S.settings.lang = code;
     save();

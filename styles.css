@@ -27,6 +27,13 @@
      written ONCE against them instead of being re-stated per breakpoint (and drifting apart). */
   --tabbar-h:0px;
   --timebar-h:96px;
+  /* Reading-text size (Settings → Appearance → Text size, Aug 2026). A multiplier, applied ONLY by the
+     rules that size the prose a reader actually reads — a card's question and background, a glossary
+     popup, a place panel — each written `calc(<its own px> * var(--fs))` so every one keeps its own
+     relative size. Deliberately NOT a whole-site zoom: 522 font sizes in this file are px and the shell
+     is laid out against them, so scaling the lot would break the chrome to enlarge the text. Search
+     `var(--fs)` for the full set; the setting's wording names exactly those surfaces. */
+  --fs:1;
   --ease:cubic-bezier(.2,.7,.2,1);
 }
 body.night{
@@ -46,6 +53,9 @@ body{
   -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
   transition:background .4s var(--ease), color .4s var(--ease);
 }
+/* the two settings away from Medium; the default needs no rule of its own (see --fs in the tokens) */
+body[data-fs="small"]{--fs:.88;}
+body[data-fs="large"]{--fs:1.16;}
 body::before{
   content:""; position:fixed; inset:-15%; z-index:-1; pointer-events:none;
   background:
@@ -387,23 +397,26 @@ body:not(.night) .review-group .banner.done:not(.won){
    (see .rv-lip in the markup), so it needs no guess at the list's height; the group's own bottom border runs
    behind it, hence no top border and the -1px pull.
    PHONE-ONLY, and RENDERED only on a phone rather than hidden here: above the breakpoint the top bar still
-   carries the Library tab. */
+   carries the Library tab.
+   It is INDIGO (Aug 2026, on request), not a quiet paper tab: it is the only route to the collections on a
+   phone, and in paper-on-paper it read as part of the card's edge rather than as the way onward. The blue is
+   the site's own primary-button indigo, so it matches Start review directly above it. */
 .rv-lip{
   appearance:none; cursor:pointer; align-self:center; margin-top:-1px; position:relative; z-index:3;
   display:inline-flex; align-items:center; padding:6px 17px 7px;
-  border:1px solid var(--rule); border-top:0; border-radius:0 0 12px 12px;
-  background:var(--card); box-shadow:0 3px 7px rgba(0,0,0,.07);
-  font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft);
-  transition:color .16s var(--ease), border-color .16s var(--ease);
+  border:1px solid var(--indigo); border-top:0; border-radius:0 0 12px 12px;
+  background:var(--indigo); box-shadow:0 3px 7px rgba(0,0,0,.07);
+  font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:#fff;
+  transition:background .16s var(--ease), border-color .16s var(--ease);
 }
-.rv-lip:hover{color:var(--ink); border-color:var(--indigo);}
+.rv-lip:hover{background:var(--indigo-bright); border-color:var(--indigo-bright);}
 .rv-lip:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
 /* ---------- home: the way to the About page on a phone ----------
    About left the bottom tab bar (Aug 2026, on request) and this took its place: a quiet grey line at the
    foot of the page rather than a fifth of a row four readers share. Phone-only, like the lip above. */
 .home-about{
   appearance:none; border:0; background:none; cursor:pointer; width:100%;
-  padding:4px 0 2px; text-align:center;
+  padding:20px 0 16px; text-align:center;
   font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint);
 }
 .home-about:hover{color:var(--ink-soft);}
@@ -694,14 +707,14 @@ body[data-theme="folio"] .collection-deco::after{
   position:relative;
   background:var(--card); border:1px solid var(--rule); border-radius:12px;
   padding:30px 32px 26px; box-shadow:var(--shadow-md); text-align:left;
-  font-family:var(--serif); font-size:18px; line-height:1.62; color:var(--ink);
+  font-family:var(--serif); font-size:calc(18px * var(--fs)); line-height:1.62; color:var(--ink);
 }
 .study-card .card-head{display:flex; align-items:flex-end; gap:15px; border-bottom:1px solid var(--rule); padding-bottom:15px; margin-bottom:20px;}
 .study-card .num{font-family:var(--han); font-weight:700; font-size:30px; line-height:.92; color:var(--indigo); letter-spacing:.01em; flex:none;}
 .study-card .head-text{flex:1; min-width:0; padding-bottom:3px;}
 .study-card .tag{font-family:var(--mono); font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-faint); font-weight:500; display:block;}
 .study-card .label{font-family:var(--mono); font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--indigo); font-weight:600; margin:0 0 7px; display:block; opacity:.5;}
-.study-card .question{font-size:18px; line-height:1.62; margin:0 0 20px; color:var(--ink);}
+.study-card .question{font-size:calc(18px * var(--fs)); line-height:1.62; margin:0 0 20px; color:var(--ink);}
 .study-card .blank{display:inline-block; box-sizing:border-box; width:2.7em; color:transparent; overflow:hidden; white-space:nowrap; vertical-align:baseline; border-bottom:2px solid var(--ochre); margin:0 3px; line-height:1;}
 /* the golden blank becomes a typing field; on reveal it is replaced by the typed letters, coloured
    green where they directly matched the answer (case-insensitive) and red where they didn't */
@@ -720,13 +733,13 @@ body[data-theme="folio"] .collection-deco::after{
 .answer-av{min-width:0;}
 .av-row{display:flex; align-items:center; gap:14px; margin-top:7px;}
 .av-row:empty{margin-top:0;}
-.answer .val{font-family:var(--display); font-weight:600; font-size:25px; color:var(--zh); line-height:1.18; min-width:0; display:block;}
+.answer .val{font-family:var(--display); font-weight:600; font-size:calc(25px * var(--fs)); color:var(--zh); line-height:1.18; min-width:0; display:block;}
 .answer .val a{color:inherit; text-decoration:none; border-bottom:1px solid rgba(200,69,60,.34);}
 .night .answer .val a{border-bottom-color:rgba(240,147,139,.42);}
 .dt{display:grid; grid-template-columns:max-content 1fr; column-gap:7px; row-gap:2px; align-items:baseline; min-width:0;}
 .dt-solo{grid-column:1 / -1;}
 .dt-k{font-family:var(--mono); font-size:9px; letter-spacing:.08em; text-transform:uppercase; color:var(--indigo); font-weight:600; opacity:.55; white-space:nowrap;}
-.dt-v{font-family:var(--mono); font-size:11.5px; letter-spacing:.01em; color:var(--ink-faint); line-height:1.45; min-width:0;}
+.dt-v{font-family:var(--mono); font-size:calc(11.5px * var(--fs)); letter-spacing:.01em; color:var(--ink-faint); line-height:1.45; min-width:0;}
 /* flex-shrink 0: never squeeze the translation column below its content — otherwise a wide translation (long
    traditional line + TTS button) gets clipped on the left by .tr-collapse's overflow:hidden on narrower cards.
    The answer text (.answer-main, min-width:0) wraps to absorb the width instead. Mobile stacks these (see below). */
@@ -827,7 +840,7 @@ body[data-theme="folio"] .collection-deco::after{
 .aib-head{font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--indigo); font-weight:600;}
 .aib-hint{color:var(--ink-faint); text-transform:none; letter-spacing:.02em; font-weight:400;}
 .af-imgdesc{resize:vertical; min-height:44px; font:inherit;}
-.abstract{font-size:16px; line-height:1.66; color:var(--ink-soft); margin:0 0 20px;}
+.abstract{font-size:calc(16px * var(--fs)); line-height:1.66; color:var(--ink-soft); margin:0 0 20px;}
 .abstract b, .abstract strong{color:inherit; font-weight:700;}
 .abstract b.ans-term, .abstract strong.ans-term{color:var(--ink); font-weight:700;}
 .abstract .ttip, .abstract .ttip b, .abstract .ttip strong{font-weight:400;}
@@ -925,6 +938,11 @@ kbd{font-family:var(--mono); font-size:.86em; line-height:1; padding:1.5px 5px; 
 #gradebar.show{transform:translateY(0); pointer-events:auto;}
 #gradebar .gradebar-inner{max-width:880px; margin:0 auto; padding:0 clamp(16px,4vw,40px);}
 body.grading .stage{padding-bottom:150px;}
+/* the grip along the bar's top edge — phone-only, like the place sheet's. A draggable edge with no mark on
+   it is one nobody finds, hence the pill; it is a real <button> so a keyboard can reach the two positions
+   too (see gbWireResize). Above the breakpoint the bar is one comfortable row already and there is nothing
+   to reclaim, so it is not rendered at all — display:none rather than a second markup path. */
+.gb-grab{display:none;}
 
 /* empty / complete states */
 .placard{
@@ -1414,6 +1432,26 @@ body.night .ph-lvl{color:#F3E3B2; background:#4A3B10; border-color:#E6C765;}
 .switch.on::after{transform:translateX(22px);}
 .switch:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
 
+/* Text size — a three-cell segmented control (Settings → Appearance). Each cell shows an A at the size it
+   sets, above its name: the control demonstrates itself, which is quicker to read than three equal words.
+   The A is drawn from --fs's own values so a change to those moves the preview with it. */
+.fs-pick{display:inline-flex; align-items:stretch; border:1px solid var(--rule); border-radius:9px; overflow:hidden;}
+.fs-pick button{
+  appearance:none; cursor:pointer; border:0; background:var(--paper); color:var(--ink-soft);
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px;
+  min-width:60px; padding:7px 12px 8px;
+  font-family:var(--mono); font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; font-weight:600;
+  transition:background .15s, color .15s;
+}
+.fs-pick button + button{border-left:1px solid var(--rule);}
+.fs-pick .fs-a{font-family:var(--serif); font-weight:600; line-height:1; letter-spacing:0; text-transform:none;}
+.fs-pick [data-fs="small"] .fs-a{font-size:12px;}
+.fs-pick [data-fs="medium"] .fs-a{font-size:16px;}
+.fs-pick [data-fs="large"] .fs-a{font-size:20px;}
+.fs-pick button:hover{background:var(--indigo-wash); color:var(--indigo);}
+.fs-pick button.on{background:var(--indigo); color:#fff;}
+.fs-pick button:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px;}
+
 .stepper{display:flex; align-items:center; gap:0; border:1px solid var(--rule); border-radius:9px; overflow:hidden;}
 .stepper button{appearance:none; border:0; background:var(--paper); color:var(--ink); width:38px; height:38px; cursor:pointer; font-family:var(--mono); font-size:18px; transition:background .15s;}
 .stepper button:hover{background:var(--indigo-wash); color:var(--indigo);}
@@ -1574,7 +1612,7 @@ body.night .lu-badge{color:#E6C765;}
 .cp-name{font-family:var(--display); font-weight:600; font-size:17px; letter-spacing:-.01em; line-height:1.22; color:var(--ink); margin:0; min-width:0;}
 .cp-span{font-family:var(--mono); font-weight:400; font-size:10.5px; letter-spacing:.03em; color:var(--ink-faint); margin:0 0 7px;}
 .cp-span:empty{display:none;}
-.cp-desc{font-size:12px; line-height:1.5; color:var(--ink-soft);}
+.cp-desc{font-size:calc(12px * var(--fs)); line-height:1.5; color:var(--ink-soft);}
 /* the popup's three sections (description / year / figures) fold away individually. The head is the whole row,
    so the year number doubles as its own section's header and stays readable while the paragraph is shut. */
 .cp-sec-head{display:flex; align-items:center; justify-content:space-between; gap:8px; width:100%; appearance:none; border:0; background:none; padding:0 0 6px; cursor:pointer; text-align:left; color:var(--ink);}
@@ -1803,11 +1841,16 @@ body.night .lu-badge{color:#E6C765;}
 .review-order:hover{border-color:var(--indigo);}
 .review-group.has-active > #b-review{border-bottom-left-radius:0; border-bottom-right-radius:0;}
 .active-decks{display:flex; flex-direction:column;}
+/* ONE horizontal line (Aug 2026, on request): piles · title · progress · trash, all centred on the same
+   baseline row. It was a two-line row — the title on top and the bar under it, indented past the piles —
+   which left a band of empty card either side of a short deck name and made the bar read as belonging to
+   nothing above it. Everything now sits on one level, and the row's height halves with it. */
 .active-deck{
-  display:flex; align-items:flex-start; gap:13px;
+  position:relative; overflow:hidden;
+  display:flex; align-items:center; gap:11px;
   background:linear-gradient(105deg, color-mix(in srgb, var(--tile, #9A6634) 12%, transparent), transparent 64%) var(--card);
   border:1px solid var(--rule); border-top:0; border-left:4px solid var(--tile, #9A6634);
-  padding:14px 22px; animation:pageIn .3s var(--ease) both;
+  padding:10px 13px; animation:pageIn .3s var(--ease) both;
 }
 /* like the banner's own wash, a whisper on dark themes */
 body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, var(--tile, #9A6634) 7%, transparent), transparent 64%) var(--card);}
@@ -1816,21 +1859,36 @@ body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, va
    above carries, without the labels it has just spelled out. Tabular figures so the three columns line up
    from row to row rather than jittering with the digit widths. */
 .active-deck .ad-counts{
-  flex:none; display:flex; align-items:baseline; gap:9px; min-width:58px; padding-top:2px;
+  flex:none; display:flex; align-items:baseline; gap:8px; min-width:46px;
   font-family:var(--mono); font-size:13px; font-weight:600; font-variant-numeric:tabular-nums;
 }
 .active-deck .adc-new{color:var(--indigo-bright);}
 .active-deck .adc-learn{color:var(--zh);}
 .active-deck .adc-rev{color:var(--good, #4F9D67);}
-.active-deck .ad-body{flex:1; min-width:0; display:flex; flex-direction:column; gap:8px;}
-.active-deck .ad-line{display:flex; align-items:baseline; gap:10px; justify-content:space-between;}
-.active-deck .ad-title{font-family:var(--display); font-weight:600; font-size:16.5px; color:var(--ink); letter-spacing:-.01em;}
+.active-deck .ad-body{flex:1; min-width:0; display:flex; align-items:center; justify-content:space-between; gap:11px;}
+/* the deck's name is the one part of the row that can be shortened, so it is the only thing that gives way
+   when the row runs short — everything else is a number or an icon and has no shorter form */
+.active-deck .ad-line{flex:0 1 auto; min-width:0; display:flex; align-items:baseline; gap:10px;}
+.active-deck .ad-title{font-family:var(--display); font-weight:600; font-size:16px; color:var(--ink); letter-spacing:-.01em; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
 .active-deck .ad-count{font-family:var(--mono); font-size:11px; color:var(--ink-faint); white-space:nowrap; flex:none;}
-/* how far through the deck the reader is — this took the place of the blue dot that used to sit at the left,
-   and its label carries the total the title line used to repeat */
-.active-deck .ad-prog{gap:11px;}
-.active-deck .ad-prog .track{height:6px;}
-.active-deck .ad-prog .count{font-family:var(--mono); font-size:10.5px; letter-spacing:.02em; color:var(--ink-faint); white-space:nowrap; flex:none;}
+/* How far through the deck the reader is — the bar took the place of the blue dot that used to sit at the
+   left of the row. With room it stays IN the line, stretched between the deck's name and the figure, which
+   is what fills the middle of a wide row. */
+.active-deck .ad-prog{flex:1 1 auto; min-width:0; gap:10px;}
+.active-deck .ad-prog .track{height:6px; min-width:40px;}
+.active-deck .ad-prog .count{font-family:var(--mono); font-size:10px; letter-spacing:.02em; color:var(--ink-faint); white-space:nowrap; flex:none;}
+/* On a phone it leaves the line and becomes the row's own bottom edge. Five things — three piles, a name, a
+   bar, a figure and a bin — cannot share 390px without the deck's NAME being cut off, and the name is the
+   only one of them with no shorter form; an underline costs the line no width at all. MUST stay below the
+   rules above: a media query adds no specificity, so source order is all that decides this. */
+@media (max-width:640px){
+  .active-deck .ad-prog{flex:none; gap:0;}
+  .active-deck .ad-prog .track{
+    position:absolute; left:0; right:0; bottom:0; flex:none;
+    height:3px; min-width:0; border:0; border-radius:0; background:color-mix(in srgb, var(--ink) 7%, transparent);
+  }
+  .active-deck .ad-prog .fill{border-radius:0;}
+}
 .active-deck .ad-trash{
   flex:none; appearance:none; cursor:pointer; width:32px; height:32px; border-radius:8px;
   border:1px solid transparent; background:none; color:var(--ink-faint);
@@ -1845,7 +1903,7 @@ body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, va
 .active-deck[data-review]{cursor:pointer;}
 .active-deck[data-review]:hover{background:linear-gradient(105deg, color-mix(in srgb, var(--tile, #9A6634) 12%, transparent), transparent 64%) color-mix(in srgb, var(--tile, #9A6634) 8%, var(--card));}
 .active-deck[data-review]:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px;}
-.active-deck.context{padding-top:10px; padding-bottom:10px; background:linear-gradient(105deg, color-mix(in srgb, var(--tile, #9A6634) 9%, transparent), transparent 64%) var(--paper-2);}
+.active-deck.context{padding-top:7px; padding-bottom:7px; background:linear-gradient(105deg, color-mix(in srgb, var(--tile, #9A6634) 9%, transparent), transparent 64%) var(--paper-2);}
 .active-deck.context .ad-title{font-size:14px; color:var(--ink-faint); font-weight:600;}
 /* the ancestor rows' hollow marker went with the active rows' blue dot: it existed to line the two up, and
    left on its own it would have pushed every parent title 21px right of the deck sitting under it. The
@@ -2037,7 +2095,7 @@ body.grading .wb-tools{bottom:108px;}
    break opportunity towards the box's MIN-CONTENT width. Under `break-word` a citation ending in a long DOI
    still reported the whole URL as its minimum, which on a phone widened every ancestor up to .reveal-inner. */
 .src-item{
-  font-family:var(--sans); font-size:12.5px; line-height:1.5; color:var(--ink-faint);
+  font-family:var(--sans); font-size:calc(12.5px * var(--fs)); line-height:1.5; color:var(--ink-faint);
   margin:0 0 6px; padding:2px 5px; border-radius:4px; overflow-wrap:anywhere;
 }
 .src-item::marker{font-family:var(--mono); font-size:11px;}
@@ -2438,6 +2496,36 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
   /* the study bar's copy steps aside while the grade bar carries one, so a card never shows two Undos */
   body.grading .study-shell .undobtn{display:none;}
   .study-shell .undobtn{margin-left:0;}
+
+  /* ---------- the grade bar's two heights (Aug 2026, on request) ----------
+     Drag the grip down and the bar halves: the four grades go side by side as bare COLOURS, and the ?,
+     Undo and Suspend shrink to their icons beside them, all on one row. Nothing is taken away — a phone
+     reader who wants the card back has the whole bar's function in half its height — and nothing is
+     re-rendered: the same markup, laid out differently, so a grade never has to survive a rebuild. */
+  .gb-grab{
+    display:flex; align-items:center; justify-content:center; width:100%; height:17px;
+    appearance:none; border:0; background:none; padding:0; margin:0 0 -2px; cursor:ns-resize;
+    touch-action:none;   /* or the finger drag is claimed as a page scroll before pointermove fires */
+  }
+  .gb-grab span{display:block; width:38px; height:4px; border-radius:99px; background:var(--rule); transition:background .15s;}
+  .gb-grab:hover span, .gb-grab:focus-visible span{background:var(--indigo);}
+  .gb-grab:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px; border-radius:6px;}
+  #gradebar{padding-top:2px;}
+  body.gb-compact #gradebar{padding-bottom:max(8px, env(safe-area-inset-bottom));}
+  /* one row: [?] [four colours] [undo] [suspend] */
+  body.gb-compact .grade-wrap{grid-template-columns:auto 1fr auto auto; grid-template-areas:"help grades undo suspend"; gap:8px; align-items:center;}
+  body.gb-compact .grade-wrap .grades{grid-template-columns:repeat(4,1fr); gap:6px;}
+  body.gb-compact .grade{position:relative; padding:0; height:32px; border-radius:8px;}
+  /* the label is CLIPPED, not removed: display:none would take it out of the accessibility tree too, and
+     then the four buttons would be four unnamed colours to a screen reader as well as to the eye */
+  body.gb-compact .grade .gl{position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap;}
+  body.gb-compact .grade .gi, body.gb-compact .grade .gk{display:none;}
+  body.gb-compact .grade-help{width:26px; height:26px; font-size:15px;}
+  /* icon-only: font-size:0 hides the bare text node beside the svg, which no selector can reach, while the
+     svg keeps its own px size — and the text stays in the accessibility tree, as above */
+  body.gb-compact .grade-wrap .gb-undo, body.gb-compact .grade-wrap .suspendbtn{font-size:0; gap:0; padding:6px 7px;}
+  body.gb-compact.grading .stage{padding-bottom:96px;}
+  body.gb-compact.grading .wb-tools{bottom:76px;}
   /* ---- the game tiles, three to a row under their heading ----
      They were two to a row on the pane they had to themselves; that pane is gone (Aug 2026, on request) and
      the six tiles now sit under the review as a 3×2 block. Three to a row leaves about 86px of text column,
@@ -2606,7 +2694,7 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
 }
 .gloss-bar:active{ cursor:grabbing; }
 .gloss-title{
-  flex:1; min-width:0; font-family:var(--display); font-weight:600; font-size:15px;
+  flex:1; min-width:0; font-family:var(--display); font-weight:600; font-size:calc(15px * var(--fs));
   color:var(--zh); letter-spacing:-.01em; white-space:normal; overflow-wrap:break-word; line-height:1.25;
 }
 .gloss-dates{
@@ -2626,7 +2714,7 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
 .gloss-edit:hover{ background:var(--indigo-wash); color:var(--indigo); border-color:color-mix(in srgb,var(--indigo) 30%,transparent); }
 .gloss-edit:focus-visible{ outline:2px solid var(--indigo); outline-offset:1px; }
 .gloss-body{ padding:4px 16px 16px; max-height:48vh; overflow-y:auto; }
-.gloss-desc{ margin:0; font-family:var(--sans); font-size:13.5px; line-height:1.58; color:var(--ink-soft); }
+.gloss-desc{ margin:0; font-family:var(--sans); font-size:calc(13.5px * var(--fs)); line-height:1.58; color:var(--ink-soft); }
 /* a term's illustration: the same frame + fullscreen viewer as a card image, but FLOATED to the top-right of
    the popup body (it is first in the DOM, which is what a float needs) rather than sized by a fixed 16:9 box.
    The opening sentences run down its left, and the description resumes the popup's full width below it.
@@ -2669,10 +2757,10 @@ button.game-tile.won .gt-sub{color:rgba(58,45,7,.75);}
 .gloss-win.gloss-sheet.show{ transform:translateY(0); }
 .gloss-win.gloss-sheet.closing{ opacity:1; transform:translateY(100%); }
 .gloss-sheet .gloss-bar{ cursor:default; padding:13px 12px 13px 18px; }
-.gloss-sheet .gloss-title{ font-size:16.5px; }
+.gloss-sheet .gloss-title{ font-size:calc(16.5px * var(--fs)); }
 .gloss-sheet .gloss-dates{ font-size:12px; }
 .gloss-sheet .gloss-body{ padding:15px 18px calc(20px + env(safe-area-inset-bottom)); max-height:55vh; }
-.gloss-sheet .gloss-desc{ font-size:15px; }
+.gloss-sheet .gloss-desc{ font-size:calc(15px * var(--fs)); }
 .gloss-sheet .gloss-imgslot{ margin-left:15px; }
 .gloss-sheet .gloss-imgslot .card-img{ border-radius:10px; }
 .gloss-sheet .gloss-imgslot .card-img img{ height:170px; }

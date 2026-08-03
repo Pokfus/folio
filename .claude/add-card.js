@@ -7,17 +7,23 @@
 // <card.json>  a file holding ONE card object (all 13 fields), PLUS a `questions` array of 2 extra
 //              question phrasings (3 in all — the site asks one at random), PLUS a `sources` array of
 //              Chicago note-form citations referenced from the abstract, PLUS an `i18n` block with
+//              OPTIONAL while the site is English-only (see REQUIRE_TRANSLATIONS below) —
 //              the card translated into all 9 site languages (see CLAUDE.md):
 //                "sources": ["Chris Stringer, <i>Lone Survivors</i> (New York: Times Books, 2012), 84–86.", …]
 //                "i18n": { "es": { "question": …, "questions": [q2, q3], "answer": …, "answerDate": …, "abstract": …, "answerText": … },
 //                          "fr": …, "de": …, "it": …, "nl": …, "ru": …, "ar": …, "zh": … }
-//              (pass "skipTranslations": true only for a deliberate English-only maintenance edit;
-//               "skipSources": true only for a maintenance edit of a card written before citations existed).
+//              ("skipSources": true only for a maintenance edit of a card written before citations existed).
 //              deckId defaults to the first leaf deck.
 const fs = require("fs"), path = require("path");
 const dataPath = path.join(__dirname, "..", "data.js");
 const FIELDS = ["id","num","category","question","answer","answerDate","traditional","hanzi","pinyin","translations","abstract","citation","answerText"];
 const I18N_LANGS = ["es","fr","de","it","nl","ru","ar","zh","ja"];
+/* ENGLISH ONLY (Aug 2026, on request): the site ships in English while the work is on the English, so a
+   new card no longer has to arrive with its nine translations. This is the content-pipeline half of
+   MULTILANG in app.js — flip it back to true when translations resume, and new cards are held to all
+   nine again. A translation that IS supplied is still written and still checked (length, marker parity):
+   the requirement is lifted, the machinery is not. */
+const REQUIRE_TRANSLATIONS = false;
 const I18N_FIELDS = ["question","answer","answerDate","abstract","answerText"];
 // A question is ONE short clue — about 28 words (see CLAUDE.md "Add a card"). The blank counts as a word.
 const Q_MIN = 20, Q_MAX = 34;
@@ -104,8 +110,10 @@ if (!card.skipSources) {
   if (unused.length) { console.error("ERROR: source " + unused.join(", ") + " is never referenced from the abstract. Every citation is a footnote to a specific claim — add a <sup class=\"fn\" data-fn=\"" + unused[0] + "\"></sup> marker, or drop the source."); process.exit(1); }
   // markers belong to the ENGLISH abstract and every translation of it, or a language silently loses the apparatus
   if (!card.skipTranslations) {
+    // only the languages the card actually carries — an English-only card has nothing to be out of step with
     for (const l of I18N_LANGS) {
-      const a = ((card.i18n || {})[l] || {}).abstract || "";
+      const a = ((card.i18n || {})[l] || {}).abstract;
+      if (!a) continue;
       const tm = [...String(a).matchAll(/<sup\b[^>]*class="[^"]*\bfn\b[^"]*"[^>]*>/gi)].length;
       if (tm !== marks.length) console.warn("WARNING: the " + l + " abstract has " + tm + " footnote markers, the English has " + marks.length + " — the same claims should carry the same markers.");
     }
@@ -121,7 +129,7 @@ for (const m of ["image", "video"]) {
     process.exit(1);
   }
 }
-if (!card.skipTranslations) {   // every new card ships in all 9 site languages (i18n block -> shown by the language switcher)
+if (REQUIRE_TRANSLATIONS && !card.skipTranslations) {   // a new card ships in all 9 site languages (i18n block)
   const missing = [];
   for (const l of I18N_LANGS) {
     const tr = (card.i18n || {})[l] || {};
@@ -130,11 +138,15 @@ if (!card.skipTranslations) {   // every new card ships in all 9 site languages 
     if (!Array.isArray(tr.questions) || tr.questions.length !== N_EXTRA || tr.questions.some(q => typeof q !== "string" || !q.trim())) missing.push(l + ".questions[" + N_EXTRA + "]");
   }
   if (missing.length) { console.error("ERROR: card needs `i18n` translations for all 9 languages × 5 fields + the `questions` extras (missing: " + missing.slice(0, 10).join(", ") + (missing.length > 10 ? " … +" + (missing.length - 10) : "") + ") — or set skipTranslations:true for a deliberate English-only maintenance edit"); process.exit(1); }
-  for (const l of I18N_LANGS) {   // a translation must be as short as the English, in its own idiom
-    for (const q of [card.i18n[l].question, ...(card.i18n[l].questions || [])]) {
-      const long = (l === "zh" || l === "ja") ? plain(q).length > Q_TR_MAX_CHARS : qWords(q) > Q_TR_MAX_WORDS;
-      if (long) console.warn("WARNING: a " + l + " question looks much longer than the English — shorten it to match (see CLAUDE.md).");
-    }
+}
+// …and whatever translations a card DOES carry are held to the English's brevity, in their own idiom
+for (const l of I18N_LANGS) {
+  const tr = (card.i18n || {})[l];
+  if (!tr) continue;
+  for (const q of [tr.question, ...(tr.questions || [])]) {
+    if (typeof q !== "string" || !q.trim()) continue;
+    const long = (l === "zh" || l === "ja") ? plain(q).length > Q_TR_MAX_CHARS : qWords(q) > Q_TR_MAX_WORDS;
+    if (long) console.warn("WARNING: a " + l + " question looks much longer than the English — shorten it to match (see CLAUDE.md).");
   }
 }
 delete card.skipTranslations;   // control flag only — never written to data.js

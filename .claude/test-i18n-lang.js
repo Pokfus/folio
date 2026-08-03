@@ -33,11 +33,28 @@ const ok = (name, cond, extra) => {
   console.log((cond ? "ok   " : "FAIL ") + " " + name + (extra !== undefined ? "  " + JSON.stringify(extra).slice(0, 110) : ""));
 };
 
-function serve() {
+/* The site is ENGLISH-ONLY for now (`const MULTILANG = false` in app.js, Aug 2026, on request): the
+   picker is gone from Settings, ?lang= no longer switches and a stored language is migrated back. That
+   gate is asserted below, UNPATCHED, and by test-layout.js.
+   Everything else in this file is about the machinery BEHIND the flag — the per-language lazy load, the
+   overlay, the bake — which is deliberately preserved so the languages can be turned back on in one
+   edit. To keep testing it, this server flips the flag as it serves app.js. `patchApp` asserts the
+   string was actually found: if the flag is renamed or removed, the test fails loudly here rather than
+   quietly running against an app that can no longer switch language at all. */
+const MULTILANG_OFF = "const MULTILANG = false;";
+let patchedApp = false;
+function patchApp(buf) {
+  const src = buf.toString("utf8");
+  if (src.indexOf(MULTILANG_OFF) < 0) return null;
+  patchedApp = true;
+  return Buffer.from(src.replace(MULTILANG_OFF, "const MULTILANG = true;"), "utf8");
+}
+function serve(patch) {
   return http.createServer((req, res) => {
     const p = path.join(ROOT, decodeURIComponent(req.url.split("?")[0]).replace(/^\//, "") || "index.html");
     fs.readFile(p, (e, buf) => {
       if (e) { res.writeHead(404); res.end("not found"); return; }
+      if (patch && path.basename(p) === "app.js") { const out = patchApp(buf); if (out) buf = out; }
       res.writeHead(200, { "Content-Type": MIME[path.extname(p)] || "application/octet-stream" });
       res.end(buf);
     });
@@ -69,7 +86,6 @@ function serve() {
     CARDS.every((c) => langs.every((l) => c.i18n && c.i18n[l] && c.i18n[l].abstract)), CARDS.length + " cards");
 
   /* ---------- browser checks ------------------------------------------------------------- */
-  const srv = serve();
   const browser = await chromium.launch({ executablePath: process.env.FOLIO_CHROMIUM });
   const errs = [];
   const watch = (pg) => {
@@ -77,6 +93,31 @@ function serve() {
     pg.on("console", (m) => { if (m.type() === "error" && !/ERR_|net::/.test(m.text())) errs.push("console: " + m.text()); });
   };
   const url = (q) => "http://localhost:" + PORT + "/" + (q || "");
+
+  /* ---------- the ENGLISH-ONLY gate, served UNPATCHED ------------------------------------- */
+  {
+    const plain = serve(false);
+    const g = await (await browser.newContext()).newPage(); watch(g);
+    const asked = [];
+    g.on("request", (r) => { if (r.url().includes("/i18n/")) asked.push(r.url().split("/").pop()); });
+    await g.goto(url("?lang=ja#settings"), { waitUntil: "networkidle" });
+    await g.waitForTimeout(1500);
+    const st = await g.evaluate(() => ({
+      // undefined until something writes the store — a fresh reader is English and has nothing to save
+      lang: (JSON.parse(localStorage.getItem("folio_v1") || "{}").settings || {}).lang || "en",
+      opts: document.querySelectorAll("#langGrid .lang-opt").length,
+      // the visible proof, whatever the store says: the chrome is still in English
+      tabs: [...document.querySelectorAll(".tab .tab-label, .tab")].map((t) => t.textContent.trim()).join("|"),
+    }));
+    ok("english-only: a ?lang= link does not switch the site", st.lang === "en" && !/[ぁ-んァ-ヶ一-龯]/.test(st.tabs), st);
+    ok("english-only: the Settings page offers no picker", st.opts === 0, st);
+    ok("english-only: and no translation file is fetched", asked.length === 0, asked);
+    await g.context().close();
+    await new Promise((r) => plain.close(r));
+  }
+
+  /* ---------- the machinery behind the flag, served WITH it flipped ----------------------- */
+  const srv = serve(true);
 
   // one language in, one language out
   const ctx = await browser.newContext();
@@ -168,6 +209,7 @@ function serve() {
   const restored = await admin.evaluate((k) => window.GLOSSARY_I18N[k].ja, TERM);
   ok("clearing the overlay restores the shipped text", restored === shipped);
 
+  ok("the MULTILANG flag was found and flipped for these checks", patchedApp);
   ok("no console or page errors", errs.length === 0, errs.slice(0, 3));
 
   await browser.close(); srv.close();
