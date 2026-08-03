@@ -73,7 +73,21 @@ Two things stop this being a find-and-replace, and both are worth knowing before
 **Nothing metric is left bare.** The sweep that says so is worth keeping, because it is what will catch the
 next figure written without its equivalent: walk every card field and every glossary description for a
 number followed by a metric unit, and skip any already followed by a parenthetical containing an imperial
-one. It reports **0** across 119 cards and 401 terms.
+one. It reports **0** across 119 cards and 414 terms.
+
+**RUN A SECOND SWEEP FOR SPELLED-OUT NUMBERS.** The one above looks for a digit, so it is blind to "about
+four miles inland", "cleared about two acres", "a third of a metre down", "barely a centimetre thick" —
+seventeen figures in all, including the corpus's SECOND imperial-first measurement, which sat in
+`gr-008` and was found only by reading the card in order to write its glossary term (P10 of
+`docs/card-glossary-pairing.md`). The pattern is a number word immediately before a unit — and the word
+list must include the VAGUE ones (`a few`, `several`, `a couple of`, `dozen`) as well as the counting ones
+(`a`, `two`, `three`, `hundred`, `half`, `a third of a`): the corpus's THIRD imperial-first figure was
+"a few inches under the herbage" on `gr-010`, and a list without `few` in it walks straight past. The line drawn: a **definite** spelled-out quantity gets its
+conversion, an explicitly **indefinite** one does not — "several hundred metres" converts to "several
+hundred yards", which is the same vagueness in different words. And "a foot bone" is not a measurement.
+**But an indefinite IMPERIAL quantity is still turned round**, because metric-first is a separate rule from
+conversion and applies whether or not a number is definite: "a few inches under the herbage" becomes "a few
+centimetres", with nothing in parentheses, since there is no figure to convert.
 
 ## What the pass changed about the rules
 

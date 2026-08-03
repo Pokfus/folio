@@ -2707,8 +2707,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **prose** limits stay exactly as binding as they were: the finished corpus has the SAME 4 over-length
   abstracts and 1 out-of-range question it had before the pass, against 11 and 4 counting the conversions.
   The exemption is for the parentheses, not for the sentence around them.
-  **THE PASS IS COMPLETE** (`docs/units-plan.md`): 469 conversions across all 119 cards and all 401 glossary
-  terms, and **nothing metric is left bare**. That plan also holds the conventions settled once and to be
+  **THE PASS IS COMPLETE** (`docs/units-plan.md`): 486 conversions across all 119 cards and all 414 glossary
+  terms, and **nothing metric is left bare**. Two sweeps say so and BOTH are needed: one for a digit before
+  a unit, and one for a **spelled-out** number before a unit (`about four miles inland`, `a third of a
+  metre down`) — the second found the corpus's second imperial-first figure, which the first is blind to. That plan also holds the conventions settled once and to be
   followed rather than re-argued — feet-and-inches under 4 m, sq mi keeping the source's significant figures,
   a range taking ONE parenthetical for both ends ("between 400 and 700 m (1,300 to 2,300 feet)"), and
   °C → °F carrying the sign. **ENGLISH ONLY**, like every content change since the `MULTILANG` gate: the

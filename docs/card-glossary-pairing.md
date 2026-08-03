@@ -30,8 +30,9 @@ still finds it.
 
 Measured over `data.js` against `window.GLOSSARY` + `GLOSSARY_TITLES` + `GLOSSARY_ALIASES`:
 
-**50 of 119 cards have an entry for their answer term. 69 do not.** (42 of 119 when the plan opened;
-**P9 shipped 2026-08-03** and took it to 50.)
+**55 of 119 cards have an entry for their answer term. 64 do not.** (42 of 119 when the plan opened;
+**P9 and P10 shipped 2026-08-03** and took it to 55.) **Every Ancient Greece card is now paired** — what
+remains is backfill of the finished prehistory deck, batches P1–P8.
 
 The gap is not random: the glossary was grown as a vocabulary of *general* prehistory (taxa, periods,
 industries, peoples, physical geography) and separately as a term for every country in the world, while the
@@ -57,9 +58,9 @@ Eight cards each, in card order, so a batch shares its reading with the cards it
 | **P7** | `wh-087`, `wh-089`, `wh-090`, `wh-091`, `wh-092`, `wh-093`, `wh-094`, `wh-095` | Cosquer Cave; Quaternary extinction event; Younger Dryas; Clovis culture; Clovis point; Folsom tradition; Monte Verde; Meadowcroft Rockshelter |
 | **P8** | `wh-097`, `wh-098`, `wh-100`, `wh-101`, `wh-103`, `wh-104`, `wh-105`, `wh-106` | petroglyph; control of fire; Epipaleolithic; Nordic Stone Age; Preboreal; Boreal; Atlantic period; Blytt–Sernander sequence |
 | **P9** ✅ | `wh-107`, `wh-108`, `wh-109`, `gr-001`, `gr-002`, `gr-003`, `gr-004`, `gr-005` | Holocene climatic optimum; post-glacial rebound; 8.2-kiloyear event; Aegean Bronze Age; Cycladic civilisation; Cycladic figurines; Keros; Early Minoan Crete — **shipped 2026-08-03** |
-| **P10** | `gr-006`, `gr-007`, `gr-008`, `gr-009`, `gr-010` | Minoan civilisation; Arthur Evans; Knossos; Minoan palace; Throne Room at Knossos |
+| **P10** ✅ | `gr-006`, `gr-007`, `gr-008`, `gr-009`, `gr-010` | Minoan civilisation; Arthur Evans; Knossos; Minoan palace; Throne Room at Knossos — **shipped 2026-08-03** |
 
-**Run P9 and P10 first.** *(P9 is done; P10 is next.)* The Ancient Greece collection is the one being grown, its glossary starts from
+**Run P9 and P10 first.** *(Both are done. P1–P8 are next, in any order.)* The Ancient Greece collection is the one being grown, its glossary starts from
 almost nothing, and every card written from `docs/greece-card-plan.md` from here on will want to link these
 ten terms. The prehistory batches are backfill of a finished deck and can wait.
 
@@ -103,3 +104,38 @@ is the whole economy of writing the term while the card's research is still open
   were the slower half — exactly what P8's note predicts. `Post-glacial rebound` had to be written without
   Scandinavia or Hudson Bay being the point of it, and the mechanism (mantle creep, the forebulge, the
   stiffness that makes it take millennia) is what a reader meeting the word in any deck needs.
+
+## The P10 log
+
+Five terms, finishing the Ancient Greece collection's pairing. Like P9 they cost no new reading — every
+citation is one the card already carried. Three things:
+
+- **A UNITS VIOLATION the digit sweep could not see.** `gr-008` opened "about four miles inland from
+  Heraklion" — imperial FIRST, and spelled out, so neither the metric-figure sweep (which looks for a digit
+  followed by a unit) nor the imperial-first check found it. It was found by reading the card in order to
+  write its glossary term. A second sweep, for a SPELLED-OUT number before a unit, then turned up fifteen
+  more across the corpus: `gr-008`'s own "two acres", "a third of a metre" and "three metres", plus
+  "barely a metre away", "about a metre tall", "two metres thick", "barely a centimetre thick" and the
+  rest. All are converted. **Run both sweeps** — a number written as a word is invisible to the one that
+  matters most.
+  · The line drawn, so it need not be re-argued: a DEFINITE spelled-out quantity gets its conversion; an
+    explicitly indefinite one does not, because "several hundred metres" converts to "several hundred
+    yards", which is the same vagueness in different words. `wh-060`'s "a few hundred metres away",
+    `wh-108`'s "several hundred metres" and its "a millimetre or two annually" are left alone on that
+    ground. And "a foot bone" is not a measurement. **An indefinite IMPERIAL quantity is still turned
+    round** — `gr-010`'s "a few inches under the herbage" is now "a few centimetres", with nothing in
+    parentheses — which is how the third and last imperial-first figure was found, on the second pass,
+    after `few` was added to the number-word list.
+- **An alias that repeats its own key is not an alias.** `Throne_Room_at_Knossos` was drafted with
+  "Throne Room at Knossos" in its alias list, which is exactly what the key humanizes to. Harmless but
+  dead weight; the collision sweep introduced in P9 does not catch it, since the key and its own alias
+  have the same owner. Check a new alias against the humanized key as well as against other terms.
+- **"Minoan" is deliberately NOT an alias of `Minoan_civilisation`.** It is an adjective, not a synonym,
+  and it opens `Minoan palace`, `Minoan Crete` and a dozen other phrases; aliasing it would scatter links
+  through every Aegean background and steal surfaces from `Minoan_palace`. N2's rule — ask whether the two
+  names belong to the same scheme — has an adjectival cousin: ask whether the surface is ever used ON ITS
+  OWN to mean the thing.
+
+Verified in a browser: seven of the thirteen terms written across P9 and P10 auto-link from the Aegean
+cards' backgrounds and open. The other six appear only on their own cards, where `autoLinkGlossary` skips
+the answer term by design.
