@@ -360,7 +360,11 @@ body.night .banner{
   position:absolute; display:block; width:124px; right:-30px; top:15px;
   transform:rotate(45deg); text-align:center; padding:3px 0;
   font-family:var(--mono); font-size:calc(8.5px * var(--fs)); font-weight:700; letter-spacing:.12em; text-transform:uppercase;
-  background:var(--tile, var(--indigo)); color:#fff;
+  /* GREEN, not the tile's own hue (Aug 2026, on request — Multiple Choice is red, and a red ribbon reading
+     "played" looked like a warning rather than a tick). Completion is green everywhere else in Folio: the
+     `--good` token is the same one the Review pile and the grade buttons use. A perfect score still takes
+     the gold below. */
+  background:var(--good, #4F9D67); color:#fff;
   box-shadow:0 1px 5px rgba(0,0,0,.28);
 }
 /* a perfect score: the shining gold the filled tile used to wear, now on the band alone */

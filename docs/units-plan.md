@@ -40,12 +40,14 @@ be **one** place, now fixed:
 What remains is the other half of the rule — metric figures that do not yet carry their imperial
 equivalent:
 
-| | fields | figures |
-|---|---|---|
-| cards (question, extras, abstract, date line) | 51 of 119 | 108 |
-| glossary descriptions | 211 of 401 | 252 |
+| | fields | figures | |
+|---|---|---|---|
+| cards (question, extras, abstract, date line) | 51 of 119 | 108 | **done** |
+| glossary descriptions | 307 of 401 | 361 | **done** |
 
-**360 conversions in all.** Not urgent, not risky, and not free.
+**469 conversions in all** — more than the 360 first counted, because the count had missed the figures
+written at word scale (`14 million km²`) and the ones inside ranges (`between 400 and 700 m`), both of which
+a digit-then-unit regex walks straight past. All applied 2026-08-03.
 
 ## Why it is a planned pass rather than a script
 
@@ -61,11 +63,60 @@ Two things stop this being a find-and-replace, and both are worth knowing before
 
 ## The batches
 
-| batch | scope | notes |
+| batch | scope | status |
 |---|---|---|
-| **U1** | the ~24 flagged cards of `docs/history-focus-plan.md` | Fold the conversions into those rewrites. Those abstracts are being reopened anyway, and the word budget is being spent deliberately rather than twice. |
-| **U2** | the remaining cards with figures | Card by card, with a word count after each. `fix-field.js` for `answerDate` and `question`; `add-questions.js --partial` for the extras. |
-| **U3** | glossary — the 191 country terms | Areas and populations. Mechanical, but do them in runs of ~20 with `add-sources.js` (passing each term's existing `sources` back unchanged), and re-run `gloss-source-audit.js` after each run. |
-| **U4** | glossary — the rest | Palaeolithic and physical-geography terms: lengths, depths, ice thicknesses. Rule 4 bites hardest here — check each figure is one a reader pictures before converting it. |
+| **U1** | the ~24 flagged cards of `docs/history-focus-plan.md` | **done** — folded into the same pass as U2 rather than waiting on the rewrites |
+| **U2** | the remaining cards with figures | **done** — 108 conversions across 51 abstracts, 11 questions and 9 question pools |
+| **U3** | glossary — the 191 country terms | **done** — 194 areas, one `add-sources.js` batch |
+| **U4** | glossary — the rest | **done** — 151 lengths, heights, weights and temperatures, plus 16 million-km² figures |
 
-Nothing here changes what the site says. It changes how a reader who thinks in feet reads it.
+**Nothing metric is left bare.** The sweep that says so is worth keeping, because it is what will catch the
+next figure written without its equivalent: walk every card field and every glossary description for a
+number followed by a metric unit, and skip any already followed by a parenthetical containing an imperial
+one. It reports **0** across 119 cards and 401 terms.
+
+## What the pass changed about the rules
+
+- **The word limits do not count a conversion** (2026-08-03, on request: *"you can ignore the word limits
+  when adding parentheses imperial units"*). Without that, the pass was unrunnable as written above — a
+  question is held to 20–34 words and an abstract to 270–330, and four measurements cost about twelve. It
+  is enforced rather than trusted: `add-card.js` and `add-questions.js` both strip a parenthetical that
+  contains a digit and an imperial unit (`IMPERIAL_PAREN`) before counting, so the **prose** limits stay
+  exactly as binding as they were. **Strip the leading whitespace with it** — without that the stripped
+  parenthetical leaves the following full stop stranded as a word of its own, which read as two abstracts
+  having grown over the ceiling when neither had. Measured properly, the finished corpus has the same 4
+  over-length abstracts and 1 out-of-range question it had before the pass began, against 11 and 4 if the
+  conversions are counted.
+- **English only.** Like every other content change since the `MULTILANG` gate went up, the conversions were
+  written into the English and not into the nine translations. A translated abstract keeps the bare metric
+  figure it always had; when translations resume, each language takes its own conversions (and its own
+  decimal comma).
+
+## Conventions the pass settled
+
+These were decided once and applied everywhere, so a future figure should follow them rather than be argued
+about again:
+
+| metric | imperial | note |
+|---|---|---|
+| km² | sq mi | an EXACT source figure converts to a whole number; a ROUND one keeps its own significant figures — `28,748 km² (11,100 sq mi)`, `86,600 km² (33,400 sq mi)` |
+| km | miles | |
+| m | feet | but **feet and inches under 4 m**, which is where a figure describes a person or an object — `1.05 metres (3 ft 5 in)` |
+| cm / mm | inches | |
+| kg | pounds | |
+| tonnes | tons | |
+| hectares | acres | |
+| °C | °F | sign carried; `−89.2 °C (−129 °F)` |
+| N million km² | N million sq mi | written out in full below a million — `2.2 million km² (850,000 sq mi)` |
+
+A **range** takes one parenthetical for both ends, in the source's own order: `between 400 and 700 m
+(1,300 to 2,300 feet)`, `some 5.5 to 8 tonnes (6.1 to 8.8 tons)`. Converting only the second number, which
+is what a naive find-and-replace does, reads as a conversion of the range.
+
+## One thing this pass broke, and fixed
+
+`add-sources.js` and `add-glossary.js` rebuild `glossary.js` from a **fixed list of tables**, so a table
+they do not know about is silently dropped on the next write — which is what happened to
+`GLOSSARY_PLACES` and `GLOSSARY_MAP_COUNTRY` (the Atlas marker's coordinates and country join, added the
+same day) the first time a citation batch ran after them. Both writers now carry every table. **If you add
+a `window.GLOSSARY_*` table, add it to both serializers**, or the next content batch deletes it.

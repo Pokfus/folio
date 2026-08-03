@@ -5769,7 +5769,7 @@
               to fill with its colour, and turn gold on a perfect score, which was a lot of surface to
               change for one fact. It carries a WORD rather than being a bare band: a colour alone says
               nothing to a screen reader and little more to the eye. */""}
-        ${o.done ? `<span class="gt-ribbon${o.won ? " gr-gold" : ""}"><span>${o.won ? "Perfect" : "Played"}</span></span>` : ""}
+        ${o.done ? `<span class="gt-ribbon${o.won ? " gr-gold" : ""}"><span>${o.won ? "Perfect" : "Completed!"}</span></span>` : ""}
         <span class="gt-glyph${/^\s*<svg/.test(o.glyph) ? " gt-glyph-svg" : ""}">${o.glyph}</span>
         <div class="gt-body">
           ${o.eyebrow ? `<span class="gt-eyebrow">${o.eyebrow}</span>` : ""}
@@ -5892,7 +5892,7 @@
           <span class="glyph glyph-svg">${ICON.review}</span>
         </button>`
       : `<button class="banner${reviewDone ? " done" : ""}${reviewWon ? " won" : ""}" id="b-review">
-          ${reviewDone ? `<span class="gt-ribbon${reviewWon ? " gr-gold" : ""}"><span>${reviewWon ? "Perfect" : "Done"}</span></span>` : ""}
+          ${reviewDone ? `<span class="gt-ribbon${reviewWon ? " gr-gold" : ""}"><span>${reviewWon ? "Perfect" : "Completed!"}</span></span>` : ""}
           ${/* The big gold numeral is GONE (Aug 2026, on request), and `pileBadgeMarkup` with it. It
                 carried the day's whole pile and nothing on the banner said so — the three counts below it
                 already break the same total into New / Learning / Review, which is the answer a reader is

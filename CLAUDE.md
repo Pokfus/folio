@@ -553,6 +553,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `GLOSSARY_CASESENSITIVE`, `GLOSSARY_TAGS` (per-term category tags — the admin glossary's left-bar
   filter), `GLOSSARY_IMAGES` (per-term illustration — see the "Glossary image" bullet below) and
   `GLOSSARY_SOURCES` (per-term citations — see the "Source footnotes" bullet).
+  **`add-sources.js` and `add-glossary.js` REBUILD this file from a fixed list of tables**, so a
+  `window.GLOSSARY_*` table neither of them carries is silently dropped on the next content batch — which is
+  what happened to `GLOSSARY_PLACES`/`GLOSSARY_MAP_COUNTRY` the day they were added. **Add a new table to
+  both serializers in the same commit.**
   Trimmed to the single `Sima_Qian` template entry on 2026-07-23 and **regrown since to 401 terms**
   (every country in the world, plus prehistory/paleoanthropology vocabulary), one fully-formed entry at a time
   (description + date + tags + all 9 translations); the full pre-trim glossary (2,165 terms) and its partial
@@ -2694,10 +2698,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   (1,500 miles)". This is the ONE documented exception to the no-parentheses rule below; the ban stands for
   everything else. Round the conversion to the source figure's own precision (1,500 miles → 2,400 km, never
   2,414), leave the footnote marker on the metric figure the source actually states, and leave scientific units
-  bare — "940 cubic centimetres (57 cubic inches)" is worse, not better. See `docs/units-plan.md`: the shipped
-  content is already all but entirely metric (one imperial-first figure, now fixed), and the 360 metric figures
-  still to gain their equivalents are a planned pass, because 49 of 119 abstracts are already within 12 words
-  of the 330-word ceiling and a conversion costs about three.
+  bare — "940 cubic centimetres (57 cubic inches)" is worse, not better.
+  **THE WORD LIMITS DO NOT COUNT A CONVERSION** (Aug 2026, on request). A question is held to 20–34 words and
+  an abstract to 270–330, and four measurements cost about twelve words, so without this the rule above could
+  not be applied to the cards already near the ceiling. It is enforced rather than trusted: `add-card.js` and
+  `add-questions.js` strip a parenthetical containing a digit and an imperial unit (`IMPERIAL_PAREN`) before
+  counting (the leading space with it, or the stripped parenthetical leaves a stray token behind), so the
+  **prose** limits stay exactly as binding as they were: the finished corpus has the SAME 4 over-length
+  abstracts and 1 out-of-range question it had before the pass, against 11 and 4 counting the conversions.
+  The exemption is for the parentheses, not for the sentence around them.
+  **THE PASS IS COMPLETE** (`docs/units-plan.md`): 469 conversions across all 119 cards and all 401 glossary
+  terms, and **nothing metric is left bare**. That plan also holds the conventions settled once and to be
+  followed rather than re-argued — feet-and-inches under 4 m, sq mi keeping the source's significant figures,
+  a range taking ONE parenthetical for both ends ("between 400 and 700 m (1,300 to 2,300 feet)"), and
+  °C → °F carrying the sign. **ENGLISH ONLY**, like every content change since the `MULTILANG` gate: the
+  translations keep their bare metric figures until translations resume.
 - Enforcement: `node .claude/check-style.js` reports violations; `--fix` applies the safe ones (it masks the proper-name
   exceptions, skips plain-text fields and the glossary alias sections). Run it after bulk content additions. **Card text
   edits invalidate baked narration hashes — re-run `build-tts.js` for all four narrators after a style pass.**
