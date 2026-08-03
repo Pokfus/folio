@@ -1348,6 +1348,12 @@ window.COLLECTION_TREE = {
               "title": "Athens",
               "placeholder": false,
               "cardIds": []
+            },
+            {
+              "id": "gr-archaic-culture",
+              "title": "Archaic art, verse and thought",
+              "placeholder": false,
+              "cardIds": []
             }
           ]
         },
@@ -1375,8 +1381,14 @@ window.COLLECTION_TREE = {
               "cardIds": []
             },
             {
-              "id": "gr-macedon",
-              "title": "Macedon and Alexander",
+              "id": "gr-classical-culture",
+              "title": "Classical arts and thought",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "gr-fourth-century",
+              "title": "Fourth century and the rise of Macedon",
               "placeholder": false,
               "cardIds": []
             }
@@ -1384,9 +1396,15 @@ window.COLLECTION_TREE = {
         },
         {
           "id": "gr-hellenistic",
-          "title": "Hellenistic World",
+          "title": "Alexander and the Hellenistic World",
           "placeholder": false,
           "children": [
+            {
+              "id": "gr-alexander",
+              "title": "Alexander the Great",
+              "placeholder": false,
+              "cardIds": []
+            },
             {
               "id": "gr-successors",
               "title": "Successor kingdoms",
