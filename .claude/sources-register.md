@@ -9816,7 +9816,7 @@ alone when its history had none.
 
 ---
 
-# THE GLOSSARY CITATION PASS IS COMPLETE — 387 of 387
+# THE GLOSSARY CITATION PASS IS COMPLETE — 395 of 395
 
 Every term carries at least `GLOSS_SRC_TARGET` (2) citations, every citation is referenced by at least one
 in-text marker, and the markers are identical across English and all nine translations. `node
@@ -9824,8 +9824,8 @@ in-text marker, and the markers are identical across English and all nine transl
 batch 26; **both passes are now done, and `country-sources.js` — the Atlas — is the only surface in Folio
 that still shows no sources.**
 
-(333 at the close of D3; **fifty-four terms were added on 2026-08-03 and were cited as they were written** —
-see N1–N6 below. A term added after the pass joins it at the bar, rather than reopening a backlog.)
+(333 at the close of D3; **sixty-two terms were added on 2026-08-03 and were cited as they were written** —
+see N1–N7 below. A term added after the pass joins it at the bar, rather than reopening a backlog.)
 
 ---
 
@@ -10582,6 +10582,130 @@ argument) and `gibbard-head-2010` (Monte San Nicola) → Stratigraphy.
 
 `Last_Glacial_Maximum` is the batch's only list with a paywalled work — Clark et al. 2009, the landmark
 that names the interval — and is 2 open of 3, a majority.
+
+---
+
+## Batch N7 — the ice sheets and their animals; FIVE TERMS DEFERRED (2026-08-03)
+
+Requested: thirteen. **Eight shipped** — Laurentide ice sheet, Fennoscandian ice sheet, Wisconsin
+glaciation, Doggerland, Great Britain, woolly rhinoceros, cave bear, Irish elk — and **five deferred**:
+`Weichselian_glaciation`, `Würm_glaciation`, `Devensian_glaciation`, `Fennoscandia` and `Rhinoceros`.
+Nineteen slots from thirteen works, eleven open. This is the **first batch of N1–N7 to come back short**,
+and the reason is worth stating precisely rather than as a failure of effort.
+
+### The deferrals, and why they are a source problem rather than a research problem
+
+**The three European stage names have one canonical source and it is barred twice over.** Weichselian,
+Würm and Devensian are *chronostratigraphic stage names*, and what defines a stage name is a stratigraphic
+authority: the Springer *Encyclopedia of Paleoclimatology and Ancient Environments* entry
+"Wisconsinan (Weichselian, Würm) Glaciation" is the work everything else cites, and `link.springer.com`
+303s to an identity-provider cookie endpoint here **and** it is an encyclopedia, which the plan bars. The
+next authority down, the ICS **Subcommission on Quaternary Stratigraphy**'s global correlation table
+(Cohen & Gibbard), is exactly right for the job and `quaternary.stratigraphy.org.uk` returned **503 on
+two attempts** at two different paths. The BGS **Lexicon of Named Rock Units** answers with 200 but
+returned "no data was found matching your search criteria" for the Devensian code tried. Everything else
+the searches surfaced for these three names traced back to Wikipedia or `encyclopedia.pub`.
+
+`Wisconsin_glaciation` shipped where its three siblings did not, and only because a **USGS publication
+record** carries a datable claim about it — Attig et al. on the late Wisconsin maximum in Wisconsin at
+18,000–15,000 years ago. **The asymmetry is instructive: a stage name is citable when some agency has
+published a measured result under it, and not citable from the fact that it is the name.**
+
+**`Fennoscandia`** is deferred for the reason `Scandinavia` nearly was in N4: `Fennoscandian_ice_sheet`
+is well sourced, but nothing opened here **defines the region** — the Bolin Centre record for Stroeven et
+al. describes the ice sheet and explicitly does not state the geographic extent of Fennoscandia, and
+`norden.org` is 403. A term about the region would rest on an unmarked commonplace plus two sources about
+its ice, which is not a definition.
+
+**`Rhinoceros`** is deferred because the family-level source is Liu et al. 2021 in *Cell*, which has **no
+Europe PMC record at all** and whose publisher was already recorded blocked in batch 26. `Woolly_rhinoceros`
+shipped on Seeber et al. 2023 and Wang et al. 2021; the living family did not.
+
+### The alias collision the request created, and the fourth correction in seven batches
+
+Adding `Great_Britain` exposed that **`United_Kingdom` was carrying `["Britain","British","Great Britain",
+"Northern Ireland"]`**. Three of the four are wrong, and the source added for the new term says so
+outright: Ordnance Survey, the national mapping agency, states that Great Britain "is the official
+collective name of England, Scotland and Wales and their associated islands. It does not include Northern
+Ireland and therefore should never be used interchangeably with 'UK'." So "Great Britain" and "Britain"
+belong to the new term, and **"Northern Ireland" was never a synonym for the UK at all** — it is a
+constituent part, the plainest case yet of an alias asserting an identity that does not hold. The UK's
+list is now the full legal name and "the UK".
+
+That is the **fourth alias correction in seven batches** (`Upper_Paleolithic`/"Late Stone Age",
+`Swabian_Jura`/"Swabia", `Stratum`/"stratigraphy" caught in draft, and now three at once on
+`United_Kingdom`). The pattern is stable enough to state as a rule: **an alias list written before the
+sibling term existed will contain the sibling's name, and it will be wrong the day the sibling is added.**
+Note also that "Northern Ireland" now links to nothing, which is the honest state until it has a term.
+
+### Verified citations (batch N7)
+
+New to the register — all open:
+
+- Arjen P. Stroeven, Clas Hättestrand, Johan Kleman, et al., “Deglaciation of Fennoscandia,” <i>Quaternary Science Reviews</i> 147 (2016): 91–121, dataset record, Bolin Centre Database, Stockholm University, https://bolin.su.se/data/stroeven-2016-deglaciation-1. [Open access]
+  - opened: 2026-08-03 · the Stockholm University dataset record (the ScienceDirect article is closed here)
+  - supports: isochrons "every 1,000 years from 22 to 13 cal kyr BP" and "every 100 years from 11.6 to 9.7
+    cal kyr BP, encompassing the final ice decay"; and "an ice sheet-wide interruption in retreat during
+    the Younger Dryas (12.7–11.6 cal kyr BP)"
+  - **does NOT state the geographic extent of Fennoscandia** — which is why that term is deferred
+  - used by: Fennoscandian_ice_sheet
+- J. W. Attig, D. M. Mickelson, and L. Clayton, “Late Wisconsin Landform Distribution and Glacier-Bed Conditions in Wisconsin,” <i>Sedimentary Geology</i> (1989), U.S. Geological Survey publication record, https://www.usgs.gov/publications/late-wisconsin-landform-distribution-and-glacier-bed-conditions-wisconsin. [Open access]
+  - opened: 2026-08-03 · the USGS record
+  - supports: that "the late Wisconsin Laurentide Ice Sheet reached its maximum extent in Wisconsin between
+    about 18,000 and 15,000 years ago", and permafrost persisting to ~14,000 years ago in the south of the
+    state and ~13,000 in the north
+  - **volume and pages are not cited** — the USGS record gives neither and they could not be confirmed
+  - used by: Wisconsin_glaciation
+- Ordnance Survey, “What’s the Difference between the UK, Britain and the British Isles?” https://www.ordnancesurvey.co.uk/blog/whats-the-difference-between-uk-britain-and-british-isles. [Open access]
+  - opened: 2026-08-03 · the national mapping agency's own explainer
+  - supports: "Great Britain is the official collective name of of England, Scotland and Wales and their
+    associated islands. It does not include Northern Ireland and therefore should never be used
+    interchangeably with 'UK'"; the UK's full name as "the political union between England, Wales,
+    Scotland and Northern Ireland"; and the British Isles as "purely a geographical term … the islands of
+    Great Britain and Ireland – including the Republic of Ireland – and the 5000 or so smaller islands"
+  - **it does not say Great Britain is the largest European island**, so the term does not claim it
+  - used by: Great_Britain · and it is what forced the `United_Kingdom` alias correction above
+- Peter A. Seeber, Zoe Palmer, Anna Schmidt, et al., “The First European Woolly Rhinoceros Mitogenomes, Retrieved from Cave Hyena Coprolites, Suggest Long-Term Phylogeographic Differentiation,” <i>Biology Letters</i> 19, no. 11 (2023): 20230343, https://pmc.ncbi.nlm.nih.gov/articles/PMC10618854/. [Open access]
+  - opened: 2026-08-03 · full text
+  - supports: the woolly rhinoceros as "a cold-adapted megaherbivore", "abundant from western Europe to
+    north-east Siberia during the Middle to Late Pleistocene"; the genus originating "north of the
+    Himalayan–Tibetan uplift around 2.5 Myr BP" and entering Europe "approximately 460–400 kyr BP"; the
+    European mitochondrial lineage's long divergence from the Siberian; and "its demise beginning
+    approximately 10 000 years ago"
+  - used by: Woolly_rhinoceros
+- Alexander Immel, Dorothée G. Drucker, Marion Bonazzi, et al., “Mitochondrial Genomes of Giant Deers Suggest Their Late Survival in Central Europe,” <i>Scientific Reports</i> 5 (2015): 10853, https://pmc.ncbi.nlm.nih.gov/articles/PMC4459102/. [Open access]
+  - opened: 2026-08-03 · full text
+  - supports: antlers that "spanned up to 4 m in diameter and weighted up to 45 kg"; appearance "around
+    400,000 years ago" with populations "from Ireland to Lake Baikal"; absence from western and central
+    Europe before the LGM and recolonisation "in the Late Glacial Interstadial"; the "purported extinction
+    ca. 6,900 ya in western Siberia"; and "strong support for a *Dama - Megaloceros* mtDNA clade"
+  - **a search summary gave the Siberian survival as 7,600 years; the paper says 6,900.** N4's rule paying
+    again — the summary is not the source, and the fetch is what caught it
+  - used by: Irish_elk
+
+Reused for the claims this register already records: `batchelor-2019` (the LIS initiating over the
+Arctic/sub-Arctic plateaux of eastern Canada; the EIS growing by over 1000% at the LGM; ~100 m
+sea-level equivalent) → Laurentide_ice_sheet, Fennoscandian_ice_sheet, Wisconsin_glaciation;
+`moreno-parada-2023` (3–4 km reconstructed, 4–5 km simulated over the Hudson Bay dome) →
+Laurentide_ice_sheet; `clark-2009` (26.5–19 ka; the five named sheets) → all three ice-sheet terms;
+`walker-2020-doggerland` (Storegga at ~8150 BP, the naming after Coles 1998, and sea-level rise rather
+than the wave) and `gaffney-2007-mapping` (3D seismic over >23,000 km²; the 1931 Colinda harpoon from
+the Leman and Ower banks) → Doggerland; `bello-2021` (Gough's Cave) → Great_Britain; `wang-2021` (the
+mammoth-steppe flora at the LGM and its megafauna, *Coelodonta antiquitatis* among them) →
+Woolly_rhinoceros; `minculture-chauvet-bears` (~300 bear hollows, ~190 individuals, a skull on a block)
+and `diedrich-2015` (punctured cave bear femora as hyena bone-crushing damage, round-oval punctures from
+premolars, in European cave bear dens) → Cave_bear; `minculture-chauvet-art` (megaloceros among the
+images) → Irish_elk.
+
+### Hosts, measured 2026-08-03 (batch N7)
+- `bolin.su.se`, `www.usgs.gov`, `www.ordnancesurvey.co.uk`, `pmc.ncbi.nlm.nih.gov` — 200.
+- `quaternary.stratigraphy.org.uk` — **503 on two paths**; the SQS correlation table is the right source
+  for the European stage names and could not be reached. **Retry it before deferring those terms again.**
+- `webapps.bgs.ac.uk/lexicon` — 200 but "no data was found" for the code tried; the lexicon may need a
+  different search route.
+- `onlinelibrary.wiley.com` — **403** (so DATED-1 is unreachable at the publisher; the Manchester
+  repository record is 200 but is metadata only).
+- `link.springer.com` — 303 to an IdP cookie endpoint, unchanged since N2.
 
 ### Hosts, measured 2026-08-03 (batch N6)
 - `archive.org` `/stream/<id>/<id>_djvu.txt` — 200, and the way to read a scanned book's OCR in bulk.
