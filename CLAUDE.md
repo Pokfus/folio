@@ -535,6 +535,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   can be grown one card at a time over many sessions. See the "ANCIENT GREECE" bullet under "Generating
   cards & glossary entries" for the workflow — the short version is that the next card to write is the
   lowest `gr-NNN` not yet in `data.js`. Not part of the site.
+- `docs/history-focus-plan.md` — the rule that **Folio is a history site, not an archaeology site**, the measure that
+  finds cards written the other way round (24 of 119 flagged), and the six rewrite batches. Opened Aug 2026 on request
+  after `gr-008` Knossos was found to be mostly about who dug it. Not part of the site.
+- `docs/card-glossary-pairing.md` — the rule that **a new card ships with a glossary entry for its own answer term**,
+  and the backfill plan for the 77 of 119 shipped cards that have none. Its P9/P10 (the ten Ancient Greece terms) come
+  first. Not part of the site.
+- `docs/units-plan.md` — **metric first, imperial in parentheses**: the rule, the one imperial-first figure in the whole
+  corpus (fixed), and the 360 metric figures still to gain their equivalents. Not part of the site.
 - `docs/user-decks-plan.md` — the design plan for **community decks** (user-created decks, sharing,
   ratings, an optional per-deck glossary, and a later paid tier). Phases 0–1 have shipped; see the bullet
   in "How the app is wired". Not part of the site.
@@ -700,6 +708,31 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   run through `t()` so it localises where a translation exists, English otherwise). Add a route → add its
   `PAGE_META` row, or it inherits the home page's title. `index.html` carries the home-page values as the
   static baseline because most link-preview crawlers don't execute JS — **keep the two in step.**
+- **A STUDY SESSION SURVIVES A RELOAD (Aug 2026, on request).** `study` was not a restorable route: its hash said
+  only "study", it was not in `valid`, and the whole session lived in a closure — so a refresh mid-card landed the
+  reader on the home page with the card gone. **`STUDY_KEY` (`folio_study_v1`, sessionStorage)** now records
+  `{ scope, queue, id, qi, rev, studied }`, written by `renderCard` and by `showAnswer`; boot and `hashchange` read
+  it back and pass it to `PAGES.study` as `params.resume`.
+  · It holds the **QUEUE**, not just the card: the schedule alone cannot say where a requeued learning step was
+    sitting, and the reader was part-way through that order rather than a freshly built one.
+  · **sessionStorage**, with the same trade and for the same reason as the gloss popups — an F5 or a dev-server
+    live-reload in the same tab restores the session, a tab or browser CLOSE forgets it, so a cold start can never
+    resurrect yesterday's queue. A `#study` address with no record simply goes home, which is also what a pasted
+    link does.
+  · **`route()` clears the record whenever `name !== "study"`** — one choke point, so no page has to tidy up after
+    itself, and a language switch (which repaints through `render()`, not `route()`) leaves it alone.
+    `renderComplete` clears it too, or a reload from the completion screen would resurrect an empty queue.
+  · The `hashchange` branch for `study` must come BEFORE the generic `valid.includes(hh)` one, which would call
+    `route("study")` with no scope.
+- **A card's PHRASING is state, and the reader can step through it** (`qIdx` in `PAGES.study`, the `.q-cycle`
+  chevrons beside the Question label — Aug 2026, on request). Every card carries three ways of asking the same
+  thing and which one you met used to be a coin toss per render, with no appeal and nothing surviving a reload.
+  `qIdx` is `null` for "not chosen yet"; `renderCard` picks one (at random, or the Card-of-the-day tile's own
+  date-seeded choice), and **every move to another card sets it back to null** — `doGrade`, `suspendCurrent` and
+  `undoGrade` all do — so a phrasing belongs to the card on screen and never leaks onto the next one. The chevrons
+  swap the question **in place** rather than re-rendering, because the answer may already be showing and a reader
+  comparing two wordings has not asked for it to be taken away; `c` is a copy whenever there is a pool, so updating
+  `c.question` keeps read-aloud and `gradeCloze` on the words that are actually on screen.
 - **Lazy data bundles:** `DATA_BUNDLES` + `ensureData(name)` / `dataReady(name)` / `whenIdle(fn)` (defined
   just above the ROUTER block). See the table in the File map for what's in each bundle. `ensureData`
   resolves `true`/`false` and **never rejects**, so a fire-and-forget caller can't raise an unhandled
@@ -833,7 +866,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **progress bars were removed from Library decks + collections** (they remain on the account page's "Progress by deck").
   **The Daily-review list got one back** in July 2026, on request: each added row carries an `X/X studied` bar
   (`adProg` in `PAGES.home` → `.prog.ad-prog`, animated by the existing `animateProgs`) where a blue `.ad-dot` used to
-  sit. The dot and the ancestor rows' hollow `.ad-branch` went together — the branch existed only to line the two up,
+  sit. (The bin at the right of each row went in Aug 2026 — Remove moved into the row's long-press options sheet;
+  see the per-deck-limits bullet above.) The dot and the ancestor rows' hollow `.ad-branch` went together — the branch existed only to line the two up,
   and alone it would have pushed every parent title 21px right of the deck beneath it; the `data-depth` indent carries
   the hierarchy. The bar's label also replaced the `.ad-count` "N cards" chip, which stated the same total twice.
   **The row is ONE horizontal line** (Aug 2026, on request): piles · name · figure · bin, all centred on the same
@@ -876,8 +910,46 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   button, the completion screen and the caught-up placard back to **Home** rather than the collections.
 - **Daily review order** (`reviewOrder` toggle → `S.settings.reviewRandom`): **Ordered** (labelled "Chrono" until Aug
   2026, renamed on request — the old key is retired from all nine language tables) presents cards in their in-deck order;
-  **Random** shuffles the session order AND **draws the day's NEW cards at random from across the active decks** (rather than the
-  first-N in set order) — `reviewQueue` seeded-shuffles the unseen pool by the date (`seededShuffle(pool, mulberry32(hashStr("review-"+todayStr())))`) so the same new cards surface all day.
+  **Random** shuffles the session order. The **draw** of the day's new cards is date-seeded-random across the decks in BOTH
+  modes now (see the next bullet) — the toggle decides presentation order only.
+- **PER-DECK DAILY LIMITS, and a review pooled from all of them (Aug 2026, on request).** There used to be ONE global
+  allowance (`S.settings.newPerDay`) sliced off the front of the pooled card list, so a reader with two decks got every
+  new card from whichever came first and never saw the second deck at all. That was the bug; per-deck allowances are
+  the fix, and the shape is Anki's.
+  · **`deckLimits(id)`** → `{ newPerDay, maxReviews, newIgnoresReview }`, stored in **`S.deckOpts`** keyed by the same
+    entry id as `S.active` and written only for decks the reader has actually changed — an absent deck follows
+    `S.settings.newPerDay`, exactly as before. `DECK_MAX_REVIEWS` (200) is Anki's own default.
+  · **`S.deckDay`** holds TODAY only — `{ d, extra, skip }`, the Custom-study bump and "Skip today" — and resets in
+    place, dropping every other stale record with it, so the table can never outgrow the decks in use.
+  · **The COUNTS are DERIVED, never tallied** (`deckDoneToday`). `grade()` writes **`c.first`** — the day a card was
+    introduced — onto the card record, and every per-deck new count is read back off it. That is what makes the
+    figures right for a deck that is not in the review, right after an undo, and right for a card sitting in two decks
+    at once; a per-deck tally would have to be kept in step with all three by hand.
+  · **`reviewQueue` now builds deck by deck and then pools**: each entry offers its due cards up to
+    `deckReviewRemaining` and its unseen cards up to `deckNewRemaining`, the new ones are **date-seeded-shuffled across
+    the decks** and sliced to `newRemainingToday()`. Dedupe happens BEFORE the slice, or a card an earlier deck already
+    claimed eats one of this deck's places. So with two decks at 5/day the review draws 5 in all — say 3 and 2 — and
+    each row then shows the 2 and 3 that deck still has of its own, which is exactly what a reader sees under a
+    cleared banner and is correct rather than a bug.
+  · **`entryPiles(id)`** is what a deck's row shows, and it is deliberately NOT that deck's share of the pooled review.
+    `buildSession` uses the same per-deck allowances for a `deck` / `udeck` scope, so tapping a row studies what its
+    row promised.
+  · **The row's options are a LONG PRESS** (`openDeckMenu` / `deckSheet` / `openCustomStudy` / `openDeckLimits`), and
+    the small bin that used to sit at the right of every row is gone with it — one command holding a permanent column
+    on a 390px row, with three more that had nowhere to live. Custom study bumps the deck's allowance for today AND
+    `S.intro.extra` by the same amount (or the extra cards would be unreachable from the banner the reader pressed to
+    ask for them); Skip today sits the deck out of `reviewQueue`; Remove is the old bin. A press is CLASSIFIED like
+    the whiteboard marker's drag — a finger that moves more than `AD_SLOP` is scrolling, not holding — and
+    `contextmenu` plus the ContextMenu key give a mouse and a keyboard the same way in. The sheet lives on
+    `document.body`, so **`render()` closes it** (`closeDeckMenu`).
+- **The Folio LEVEL is how many decks may sit in the daily review** (`maxActiveDecks` = the level, Aug 2026, on
+  request — levels were a score and nothing else, and this is the first thing they decide). `addActive` returns
+  **false** when the cap turned it down so `wireAddButton` can say why rather than doing nothing, and the Library's
+  page head states the standing (`.lib-cap`). Two deliberate exclusions: the **Card-of-the-day pseudo-entry is
+  outside the cap** (it is added by grading a card from the home tile, not chosen from the library, so a full review
+  would otherwise make that button silently stop working), and **`countedActiveEntries` skips an entry with no
+  available cards** — the shipped default `S.active` is a deck of the China collection, which is set aside as coming
+  soon, and counting it would have left a brand-new reader at their cap before choosing anything.
 - **Scheduling (`grade()`):** SM-2-ish with Anki-style learning steps. A **new card graded "Good"** becomes a `learning` step
   (`interval 1/144`, `due = now + 10 min`) that **re-appears the same session/day** — grade() returns `{requeue: due-now < 11 min}`
   and the study session does `queue.shift(); if (requeue) queue.push(id)` — and only **graduates to `review` (due tomorrow) on the
@@ -1732,14 +1804,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   covers many history topics; copy stays subject-neutral (China is just the first live collection).
   **A "Seen total" stat sat beside Due and New and was removed on request (Aug 2026)** — the xp bar directly above
   it already counts the distinct cards studied, as progress towards the next level rather than a bare number.
-  **The banner's big gold numeral is the DAY'S PILE, not the level** (`pileBadgeMarkup`, Aug 2026, on
-  request): new + learning + review, and at zero a **tick** rather than a "0" — a quantity where there is
-  work, a state where there is none. The level is not lost with it: `xpBarMarkup` spells out "Level N"
-  directly underneath, which is where a reader looking for it goes. It keeps `.level-badge`/`.lb-num` so the
-  banner's gold, its 62px sizing and both themes' overrides follow with no rules of its own; `.lb-tick` is
-  sized in `em` off that numeral, so the badge does not change height when the day clears.
-  **`test-account-switch.js` reads the badge's PRESENCE, not its text** — the tick has no text, so the old
-  `lb-num !== ""` check would have failed on a cleared day for reasons having nothing to do with accounts.
+  **The banner carries NO big numeral and no description line while there is work** (Aug 2026, on request —
+  it had a gold numeral of the day's whole pile for a fortnight, and `pileBadgeMarkup` went with it). The
+  numeral was a fourth unlabelled number competing with the three labelled counts directly below it, which
+  break the same total into New / Learning / Review and are the answer a reader is actually after; the
+  sentence ("Cards scheduled for today, plus a few new ones…") described those three counts in words. The
+  other two `.desc` branches STAY — one says the day is finished and the other says there is nothing here
+  yet, and neither is visible anywhere else on the banner. The level is still spelled out by `xpBarMarkup`
+  directly underneath. **`test-account-switch.js` therefore reads the xp bar**, not a badge, to tell an
+  account that has studied from one that has not.
   **The banner counts ANKI'S THREE PILES** (Aug 2026, on request — it was a Due / New pair): **New** in blue,
   **Learning** in red, **Review** in green (`pileCounts` in `PAGES.home`; the tokens are the study bar's own
   `--indigo-bright` / `--zh` / `--good`, so all three sites agree). The same three numbers, unlabelled, open every
@@ -1765,8 +1838,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     all no ~1.6 MB `world` bundle for an ornament nobody can see. So **crossing the breakpoint re-renders**
     (`_homeResize`, one listener ever — `render()` re-enters `PAGES.home`, so a per-render listener would pile
     up for the session).
-  · **The games are 3 × 2 on a phone** under a CENTRED `.games-head` (`.game-grid` at ≤640px; it was 2-up on the
-    pane it had to itself). The class is deliberately **not** `.mg-head`: `mg-` is the MAP GAME's prefix
+  · **The games are 3 × 2 on a phone** under a LEFT-ALIGNED `.games-head` (`.game-grid` at ≤640px; it was 2-up on
+    the pane it had to itself). The heading was centred for a week and moved back to the left in Aug 2026 on
+    request — every other heading and label on that page starts at the column's left edge, and a centred one
+    among them reads as a banner rather than as the name of the grid underneath it. The class is deliberately **not** `.mg-head`: `mg-` is the MAP GAME's prefix
     (`.mg-card` / `.mg-head` / `.mg-score`), and reusing it gave the heading that card's `display:flex` —
     which beats `text-align` outright, so it rendered hard left with a computed `text-align:center` — while
     pushing this heading's font and colour onto the game's own score row. `test-layout.js` measures the
@@ -1832,8 +1907,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   hairline (`--coll-bg` inherits from the `.collection` root; branches stay ochre). If a collection is ever recreated
   under a new id, update `COLL_THEME` (and `COLLECTION_NUMERALS`).
 - **Library layout (`PAGES.decks`)**: "Collections" is a plain group; **"Coming soon" is a `<details>` disclosure**
-  (`.collection-group-soon`), collapsed for visitors and **`open` for admins** — the library drag-and-drop needs its
-  drop targets reachable, and moving a collection between the two groups is an editor workflow. This exists because
+  (`.collection-group-soon`), **collapsed for everyone, admins included** (Aug 2026, on request — it used to open
+  itself for an admin so the library's drag-and-drop had its drop targets reachable, which meant the one person who
+  opens this page most often always met it expanded; an admin moving a collection between the groups opens the fold
+  first, and the drop targets are reachable the moment it is open). This exists because
   the collections still being written far outnumber the finished ones (currently 6 to 1), and listing them flat made
   the Library read as empty. A live collection's banner also carries a **card count** (`.collection-count`, from
   `subtreeCardIds`) — the one number that says there is something to study here.
@@ -2519,9 +2596,57 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - **Literature titles are italicised** (`<i>Bamboo Annals</i>`) — except in plain-text fields (`answerText`) and in
   glossary alias/title keys, which must stay unstyled or matching breaks. Person-vs-book names (Zhuangzi, Mencius,
   Laozi…) are italicised only when clearly the text — "the <i>Zhuangzi</i>" — never the person.
+- **A WORD MENTIONED AS A WORD is quoted** (Aug 2026, on request, after a reader met "given a Latin name for
+  handy"). Whenever the prose glosses a name — translating it, or naming the sense a coiner chose — the sense
+  goes in **single quotes**: "a Latin word for 'handy' or 'skilful'", "its name means 'hollow rock'", "the Greek
+  for 'old stone'". Single, not double, because that is what the deck already used where it got this right, and
+  because a card's fields are stored in double-quoted JS strings. Where the FOREIGN word itself is given, it is
+  italicised and its sense quoted: "the Greek <i>epi</i>, meaning 'upon'". The same holds for a term named as a
+  term rather than used — "specialists now hedge the word 'cremation'", "he proposed the word 'Minoan'".
+  What is NOT quoted: an explanation rather than a translation ("in everyday speech it means a single cold
+  spell"), and a definition of a thing rather than a gloss of a name ("the Maasai word for the sisal plant that
+  grows there"). Fixed across 14 abstracts, 2 questions, 3 question extras and 5 glossary terms on 2026-08-03;
+  **the ENGLISH only**, since a quotation mark is a per-language convention (French takes « », German „ ", CJK
+  「 」) and rendering the English mark in nine languages would be a typographic error nine times over. When
+  translations resume, each language quotes in its own.
+- **Measurements are METRIC FIRST, with the imperial equivalent in parentheses** — "over 2,400 kilometres
+  (1,500 miles)". This is the ONE documented exception to the no-parentheses rule below; the ban stands for
+  everything else. Round the conversion to the source figure's own precision (1,500 miles → 2,400 km, never
+  2,414), leave the footnote marker on the metric figure the source actually states, and leave scientific units
+  bare — "940 cubic centimetres (57 cubic inches)" is worse, not better. See `docs/units-plan.md`: the shipped
+  content is already all but entirely metric (one imperial-first figure, now fixed), and the 360 metric figures
+  still to gain their equivalents are a planned pass, because 49 of 119 abstracts are already within 12 words
+  of the 330-word ceiling and a conversion costs about three.
 - Enforcement: `node .claude/check-style.js` reports violations; `--fix` applies the safe ones (it masks the proper-name
   exceptions, skips plain-text fields and the glossary alias sections). Run it after bulk content additions. **Card text
   edits invalidate baked narration hashes — re-run `build-tts.js` for all four narrators after a style pass.**
+
+**FOLIO IS A HISTORY SITE, NOT AN ARCHAEOLOGY SITE (Aug 2026, on request).** A card is about the PAST it
+names, not about the people who dug it up: the excavation is how we know, not what the reader came for.
+So the **question must be answerable from the past, not from the dig** (`gr-008`'s opening clue was
+"Schliemann tried to arrange a dig at ___ and never came to terms with the owners", which a reader could
+answer knowing nothing about Bronze Age Crete); **at most about two of an abstract's ten sentences may be
+discovery history**, and only where the discovery is itself the fact worth knowing or the dating is
+contested; and **the date line carries the dates of the THING, not of the dig** — `Found`, `Excavated`,
+`First dug`, `Named` and `Published` belong only on a card whose subject IS a modern act (`wh-006` the
+three-age system, `gr-007` Arthur Evans), and `Built` / `In use` / `Occupied` / `Destroyed` everywhere else.
+What does not change is the apparatus: saying less about the dig is not saying less about how we know, and
+the 5-source bar stands. **24 of the 119 shipped cards are flagged**, measured rather than guessed (a card
+scores on how many of its ten sentences carry a year between 1800 and 2029, whether its question carries
+one, and whether its date line uses a discovery label) — `docs/history-focus-plan.md` holds the measure, the
+table and the six rewrite batches. Re-run the measure after each batch; and read the card before rewriting
+it, because on a few of them the modern years ARE the subject.
+
+**A NEW CARD SHIPS WITH A GLOSSARY ENTRY FOR ITS OWN ANSWER TERM, IN THE SAME COMMIT (Aug 2026, on
+request).** Not afterwards and not in a later batch: a card's answer is exactly the word its siblings will
+use in their own backgrounds, and a term with no entry auto-links to nothing. Write it **cited, at the
+`GLOSS_SRC_TARGET` bar**, while the card's research is still open — that is how the glossary pass stayed at
+401/401 through sixty-eight new terms — and to the GLOSSARY's rules rather than the card's: three sentences,
+impartial, deck-agnostic, self-contained, never written as a companion to the card that prompted it. Where
+the answer is a phrase the glossary would never head, give the entry the head noun and add the card's exact
+answer as an **alias**. **42 of 119 cards have such an entry and 77 do not** — `docs/card-glossary-pairing.md`
+holds the list and ten batches, of which **P9 and P10 (the ten Ancient Greece terms) come first**, since
+that is the collection being grown and every new card will want them.
 
 The deck and glossary are being regrown one entry at a time, each researched from **Wikipedia and
 academic sources** — accuracy is non-negotiable, never invent dates, names, or definitions. The kept
@@ -3223,7 +3348,7 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Fifteen committed regression tests** (in `.claude/`, not loaded by the site): twelve drive a real browser with
+- **Sixteen committed regression tests** (in `.claude/`, not loaded by the site): thirteen drive a real browser with
   Playwright; `test-daily-quote.js`, `test-discovery.js` and `test-date-line.js` are plain Node with no dependencies at
   all. Each slices what it tests out of the real `app.js`/`_headers` by text, so they can't drift from what ships.
   **Gotcha when writing more of them:** `page.goto()` to a URL that differs only in the `#fragment` is a
@@ -3336,7 +3461,7 @@ dead code (never rendered).
     **Re-run after touching the `SOURCE FOOTNOTES` block, `wireFootnotes` / `sourcesHTML` / `normSources` /
     `linkifySrcItem` / `replaceInSrcText`, the `.src-access` styles, the editors' sources boxes, or the
     `fn` / `data-fn` sanitizer allowlists.**
-  · `node .claude/test-layout.js` — 208 assertions on **the shell**: the rules that break silently because
+  · `node .claude/test-layout.js` — 209 assertions on **the shell**: the rules that break silently because
     nothing throws when a layout is wrong. The phone's bottom tab bar (present, labelled — *every* tab, not
     just the active one, which is the top bar's behaviour — each name **centred under its own icon**, the
     selected one included, since one tab off out of five reads as a design; routing; no Library and no
@@ -3417,6 +3542,21 @@ dead code (never rendered).
     closing number sorts a card from the wrong end of its own era. **No browser and no dependencies.**
     Re-run after touching `cardYears` / `date-line.js`, **and after any batch of date lines** — the field
     is edited card by card and grew into a paragraph the same way.
+  · `node .claude/test-review-decks.js` — the daily review's decks and the study session that comes out of
+    them (Aug 2026). Everything it guards fails SILENTLY: nothing throws when a review quietly takes all its
+    new cards from one deck, when a reload drops a session on the floor, or when a long press does nothing.
+    It asserts that **both added decks contribute** to the day's new cards and that they are drawn at random
+    across them (the bug this replaced sliced the whole allowance off the front of one deck's list — so it
+    STUDIES the whole review through and reads back which deck each card came from, since a queue that looks
+    right can still have been built wrong); that a deck's row shows **its own remaining allowance** rather
+    than its share of the pooled review; that a **reload stays in the session**, on the same card, asking the
+    same phrasing, still turned over if it was turned over, and that leaving forgets it so a bare `#study`
+    goes home; that the **phrasing chevrons** change the question and the change sticks; that holding a row
+    opens **Custom study / Daily limits / Skip today / Remove** and each does what it says, the bin having
+    gone; and that the **Folio level caps** the decks a review will take — with the shipped default
+    `S.active` (a deck of the coming-soon China collection) NOT filling that one slot. **Re-run after
+    touching `reviewQueue` / `deckLimits` / `deckDoneToday` / `entryPiles` / `openDeckMenu` / `addActive` /
+    `maxActiveDecks` / `STUDY_KEY` / `qIdx`, or `buildSession`'s per-deck allowances.**
   Playwright is a dev dependency and must NOT be installed into the repo (the zero-dependency rule, and
   `node_modules/` is gitignored) — install it in a scratch folder and run with
   `NODE_PATH=<that>/node_modules`. Set `FOLIO_CHROMIUM=<path to chrome>` if Chromium lives outside the

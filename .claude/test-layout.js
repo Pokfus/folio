@@ -847,16 +847,17 @@ async function studyEasy(page, base, n) {
         })(),
         // the games, under a heading, under the review
         mgHead: head ? head.textContent.trim() : "",
-        /* The heading's TEXT centre against the grid's, measured through a Range — NOT its computed
-           text-align, which was "center" while the words sat hard left: the class was first called
+        /* The heading's TEXT left edge against the grid's, measured through a Range — NOT its computed
+           text-align, which was once "center" while the words sat hard left: the class was first called
            `.mg-head`, which is the MAP GAME's card header, and that rule's `display:flex` beats
            text-align outright. A block-level h2 spans the column whatever it does with its text, so
-           only the text's own box can tell the two apart. */
-        headCentred: (() => {
+           only the text's own box can tell the two apart. The heading went back to the LEFT in Aug 2026
+           on request, so what is measured is the same box against the other edge. */
+        headLeft: (() => {
           if (!head || !grid) return 999;
           const r = document.createRange(); r.selectNodeContents(head);
           const t = r.getBoundingClientRect(), g = grid.getBoundingClientRect();
-          return Math.round(Math.abs((t.left + t.width / 2) - (g.left + g.width / 2)));
+          return Math.round(t.left - g.left);
         })(),
         headBelowReview: !!(head && grp && top(head) >= Math.round(grp.getBoundingClientRect().bottom) - 1),
         gridBelowHead: !!(head && grid && top(grid) >= Math.round(head.getBoundingClientRect().bottom) - 1),
@@ -889,7 +890,7 @@ async function studyEasy(page, base, n) {
     await page.waitForTimeout(1500);
     check("the games sit under the review, under a Minigames heading",
       /minigames/i.test(h.mgHead) && h.headBelowReview && h.gridBelowHead, JSON.stringify({ head: h.mgHead, below: h.headBelowReview, grid: h.gridBelowHead }));
-    check("...centred over the grid it names", h.headCentred <= 2, h.headCentred);
+    check("...starting at the left edge of the grid it names", Math.abs(h.headLeft) <= 2, h.headLeft);
     check("...three wide and two tall", h.cols === 3 && h.rows === 2 && h.tiles === 6, JSON.stringify({ cols: h.cols, rows: h.rows, tiles: h.tiles }));
     check("...with the description sentences gone", h.subs === 0, h.subs + " tiles still carry one");
     check("...the quote still above it all", h.quoteAbove);
@@ -919,12 +920,10 @@ async function studyEasy(page, base, n) {
       })),
       row: [...document.querySelectorAll(".active-deck .ad-counts .adc")].map((s) => ({ n: +s.textContent.trim(), col: getComputedStyle(s).color })),
       rowLabels: (document.querySelector(".active-deck .ad-counts") || {}).title || "",
-      // the big gold numeral is the day's PILE, not the level (the level is spelled out in the xp bar's
-      // head just below it) — and a tick, not a "0", once the pile is empty
-      badge: (() => {
-        const b = document.querySelector(".review-group .banner .level-badge");
-        return { n: b.textContent.trim(), tick: !!b.querySelector("svg"), clear: b.classList.contains("pb-clear") };
-      })(),
+      // the big gold numeral is GONE (Aug 2026, on request) — it carried the day's whole pile unlabelled,
+      // over three labelled counts that break the same total up. So is the line that described them.
+      badge: !!document.querySelector(".review-group .banner .level-badge"),
+      desc: (document.querySelector(".review-group .banner .desc") || {}).textContent || "",
       xpLevel: (document.querySelector(".review-group .banner .xp-lvl") || {}).textContent || "",
       // each figure centred over its own label, and the whole row on the button's line
       centred: [...document.querySelectorAll(".review-group .banner .stat")].filter((s) => !s.classList.contains("streak")).map((s) => {
@@ -958,10 +957,9 @@ async function studyEasy(page, base, n) {
     check("...each figure centred over its own label", piles.centred.every((d) => d <= 1), JSON.stringify(piles.centred));
     check("...and the three of them on the button's own line", piles.onCtaRow);
     check("...with the button centred against them, not on their baseline", piles.ctaOffset <= 1.5, piles.ctaOffset);
-    check("the banner's gold numeral is the DAY'S PILE, not the level",
-      !piles.badge.tick && +piles.badge.n === piles.stats.reduce((a, s) => a + s.n, 0),
-      JSON.stringify({ badge: piles.badge, piles: piles.stats.map((s) => s.n) }));
-    check("...with the level still spelled out under it", /level/i.test(piles.xpLevel), piles.xpLevel);
+    check("the banner carries no big gold numeral over them", !piles.badge);
+    check("...nor the sentence that described them in words", !/scheduled/i.test(piles.desc), piles.desc);
+    check("...with the level still spelled out in the xp bar", /level/i.test(piles.xpLevel), piles.xpLevel);
 
     /* The added deck's row is ONE horizontal line (Aug 2026, on request) — piles, name, figure and bin all
        on the same level, with the bar moved to the row's bottom edge so it costs the line no width. Two
@@ -972,7 +970,7 @@ async function studyEasy(page, base, n) {
       const r = document.querySelector(".active-deck[data-review]"); if (!r) return null;
       const rb = r.getBoundingClientRect();
       const t = r.querySelector(".ad-title"), c = r.querySelector(".ad-prog .count"), k = r.querySelector(".ad-prog .track");
-      const parts = [r.querySelector(".ad-counts"), t, c, r.querySelector(".ad-trash")].filter(Boolean);
+      const parts = [r.querySelector(".ad-counts"), t, c].filter(Boolean);
       const boxes = parts.map((e) => e.getBoundingClientRect());
       return {
         n: parts.length,
@@ -981,13 +979,16 @@ async function studyEasy(page, base, n) {
         rowH: Math.round(rb.height),
         label: c ? c.textContent.trim() : "",
         titleClipped: t ? t.scrollWidth > t.clientWidth + 1 : true,
+        trash: !!r.querySelector(".ad-trash"),
         // the bar underlines the row rather than sitting in the line
         trackWide: k ? k.getBoundingClientRect().width > rb.width * 0.8 : false,
         trackAtFoot: k ? Math.abs(k.getBoundingClientRect().bottom - rb.bottom) <= 1 : false,
         fills: !!r.querySelector(".ad-prog .fill"),
       };
     });
-    check("an added deck's row is one horizontal line", !!row && row.band && row.n === 4, JSON.stringify(row));
+    check("an added deck's row is one horizontal line", !!row && row.band && row.n === 3, JSON.stringify(row));
+    // the bin is gone — Remove moved into the row's options sheet, held down (Aug 2026, on request)
+    check("...with no bin taking a column of its own", !!row && !row.trash, JSON.stringify(row));
     check("...its progress figure shortened to N/N studied", !!row && /^\d+\/\d+ studied$/.test(row.label), row && row.label);
     check("...its bar underlining the row instead of taking width from it",
       !!row && row.trackWide && row.trackAtFoot && row.fills, JSON.stringify(row));
@@ -996,16 +997,14 @@ async function studyEasy(page, base, n) {
     await studyEasy(page, base, 6);
     await page.goto(base + "#home", { waitUntil: "load" });
     await page.waitForTimeout(1600);
-    const cleared = await page.evaluate(() => {
-      const b = document.querySelector(".review-group .banner .level-badge");
-      return { n: b.textContent.trim(), tick: !!b.querySelector("svg"), clear: b.classList.contains("pb-clear"),
-        piles: [...document.querySelectorAll(".review-group .banner .stat b")].map((x) => +x.textContent.trim()),
-        label: b.getAttribute("aria-label") || "" };
-    });
-    check("...and it becomes a TICK once the day is cleared, never a 0",
-      cleared.piles.reduce((a, n) => a + n, 0) === 0 && cleared.tick && cleared.clear && cleared.n === "",
+    const cleared = await page.evaluate(() => ({
+      badge: !!document.querySelector(".review-group .banner .level-badge"),
+      piles: [...document.querySelectorAll(".review-group .banner .stat b")].map((x) => +x.textContent.trim()),
+      desc: (document.querySelector(".review-group .banner .desc") || {}).textContent || "",
+    }));
+    check("...and a cleared day says so in words, with still no numeral",
+      cleared.piles.reduce((a, n) => a + n, 0) === 0 && !cleared.badge && /caught up/i.test(cleared.desc),
       JSON.stringify(cleared));
-    check("...still saying so for a screen reader", /nothing/i.test(cleared.label), cleared.label);
     await page.close();
   }
   {

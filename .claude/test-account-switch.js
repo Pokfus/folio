@@ -196,9 +196,9 @@ const homeState = async (page, base) => {
   await gotoFresh(page, base + "#home");
   return page.evaluate(() => ({
     hero: !!document.querySelector(".banner.hero"),
-    // the big numeral is the DAY'S PILE now, not the level, and it is a tick (no text) on a cleared day —
-    // so what says "this account has studied before" is the badge's presence, not what is written in it
-    badge: !!document.querySelector(".banner .level-badge"),
+    // The banner's big numeral went in Aug 2026, so what says "this account has studied before" is the xp
+    // bar: its level text, and the fact that the review banner is there at all rather than the first-run hero.
+    badge: !!document.querySelector(".banner .xp"),
     level: (document.querySelector(".banner .xp-lvl") || {}).textContent || "",
   }));
 };

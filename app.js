@@ -1048,7 +1048,13 @@
       daily: { lastPlayed: 0, best: 0, games: 0, wins: 0, podiums: 0 },
       chrono: { date: "", best: 0, plays: 0, solved: false }, // timeline game daily record
       games: {}, // minigame id ("challenge"/"chrono"/"truefalse"/"whosaid") -> { date, played, won } for today's tile checkmarks + the daily-sweep badge
-      intro: { date: "", count: 0 }, // new cards introduced today
+      intro: { date: "", count: 0, extra: 0 }, // new cards introduced today (+ today's Custom-study bump)
+      // per-deck daily limits, keyed by the same entry id as S.active: { newPerDay, maxReviews, newIgnoresReview }.
+      // Only the settings a reader has actually changed are stored — an absent deck follows S.settings.newPerDay.
+      deckOpts: {},
+      // per-deck scratch for TODAY only: { d, extra, skip } — the Custom-study bump and "Skip today".
+      // The counts that go with them are derived from the card records, never stored here (see deckDoneToday).
+      deckDay: {},
       // per-day review tally feeding the account page's statistics: "YYYY-MM-DD" -> [reviews, matureCorrect, matureTotal].
       // A card record only keeps its LAST review, so the history a heatmap and a retention rate need can't be
       // reconstructed from S.cards — it has to be logged as it happens. "Mature" = the card was in review status
@@ -1235,7 +1241,7 @@
      Kept for: the admin page's local-user manager, the guest-progress stash helpers (extractProgress /
      applyProgress / emptyProgress), and older saves. The account page no longer signs in against this. */
   const ACCT_KEY = "folio_acct_v1";
-  const PROGRESS_FIELDS = ["cards", "suspended", "daily", "chrono", "games", "intro", "reviewLog", "reviewDay", "streak", "active", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog"];
+  const PROGRESS_FIELDS = ["cards", "suspended", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "reviewLog", "reviewDay", "streak", "active", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog"];
   const B32 = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
   function defaultAcct() { return { users: {}, current: null, guest: null }; }
   let ACCT = (function () {
@@ -2168,6 +2174,26 @@
   const glossMobileMQ = window.matchMedia("(max-width: 640px)");
   const isMobileGloss = () => glossMobileMQ.matches;
 
+  /* ---------- the study session, remembered across a reload (Aug 2026, on request) ----------
+     `study` was not a restorable route: its hash said only "study" and the whole session — which cards, in
+     what order, which of the card's three phrasings was being asked — lived in a closure. So a refresh
+     mid-card landed the reader on the home page with the card gone. The record below is what a reload needs
+     to put it back, and it deliberately holds the QUEUE as well as the card: the schedule alone cannot say
+     where a requeued learning step was sitting.
+
+     sessionStorage, for the same reason and with the same trade as the gloss popups above — an F5 or a
+     dev-server live-reload in the same tab restores the session, a tab or browser CLOSE forgets it, so a
+     cold start can never resurrect yesterday's queue. A #study address with no record simply goes home. */
+  const STUDY_KEY = "folio_study_v1";
+  function writeStudySession(rec) { try { sessionStorage.setItem(STUDY_KEY, JSON.stringify(rec)); } catch (e) {} }
+  function readStudySession() {
+    try {
+      const o = JSON.parse(sessionStorage.getItem(STUDY_KEY) || "null");
+      return o && o.scope && typeof o.scope === "object" && Array.isArray(o.queue) && o.queue.length ? o : null;
+    } catch (e) { return null; }
+  }
+  function clearStudySession() { try { sessionStorage.removeItem(STUDY_KEY); } catch (e) {} }
+
   // remember which gloss popups are open (owning route + term + position) so a page reload can re-open them.
   // Uses sessionStorage: it survives an F5 / dev-server live-reload in the SAME tab, but a tab/browser CLOSE clears it,
   // so a cold restart won't resurrect stale popups. Navigation still dismisses them (render() -> closeAllGloss clears
@@ -2511,7 +2537,11 @@
 
     // count new-card introductions per day
     if (fresh) {
-      if (S.intro.date !== todayStr()) S.intro = { date: todayStr(), count: 0 };
+      // the day this card was introduced. It is what every PER-DECK new-card count is derived from
+      // (deckDoneToday), which is why it is written on the card rather than tallied per deck: a card in two
+      // decks counts once for each, an undo restores it with the record, and nothing has to be kept in step.
+      c.first = todayStr();
+      if (S.intro.date !== todayStr()) S.intro = { date: todayStr(), count: 0, extra: 0 };
       S.intro.count += 1;
       announceLevelUps(id);   // a newly-studied card may complete an XP bar → level up (Folio + its collection)
     }
@@ -2663,16 +2693,35 @@
     activeEntryIds().forEach((id) => entryCardIds(id).forEach((c) => { if (avail.has(c)) set.add(c); }));
     return [...set];
   }
+  /* How many decks may sit in the daily review at once — the Folio LEVEL (Aug 2026, on request). Levels
+     were a score and nothing else; this is the first thing they decide. One deck at level 1, one more with
+     every level, so the reader who has studied enough to want a second collection has earned it by then.
+     The Card-of-the-day pseudo-entry is deliberately OUTSIDE the cap: it is added by grading a card from
+     the home tile rather than chosen from the library, so a full review would otherwise make that button
+     silently stop working. The cap only ever blocks ADDING — a reader whose level drops (it cannot) or who
+     arrives with more decks than the cap allows keeps every one of them. */
+  function maxActiveDecks() { return Math.max(1, levelFromXP(folioXP()).level); }
+  /* What counts against the cap: an entry that actually contributes cards to the review. An entry with no
+     available cards does not — which matters on day one, because the shipped default S.active is a deck of
+     the China collection, and China is set aside as coming soon. Counting it would have left a brand-new
+     reader at their cap before they had chosen anything, unable to add the one live collection. */
+  function countedActiveEntries() {
+    const avail = availableCardIdSet();
+    return activeEntryIds().filter((id) => id !== COTD_ENTRY && entryCardIds(id).some((c) => avail.has(c)));
+  }
+  function activeDecksFull() { return countedActiveEntries().length >= maxActiveDecks(); }
+  // Returns false when the cap turned the request down, so the caller can say so rather than silently no-op.
   function addActive(id) {
     const a = activeEntryIds();
-    if (a.indexOf(id) === -1) {
-      a.push(id);
-      S.active = a;
-      save();
-    }
+    if (a.indexOf(id) !== -1) return true;
+    if (id !== COTD_ENTRY && activeDecksFull()) return false;
+    a.push(id);
+    S.active = a;
+    save();
+    return true;
   }
   function removeActive(id) {
-    if (id === COTD_ENTRY) S.cotd = [];   // the row stands for the whole list, so its trash empties it
+    if (id === COTD_ENTRY) S.cotd = [];   // the row stands for the whole list, so removing it empties the list
     S.active = activeEntryIds().filter((x) => x !== id);
     save();
   }
@@ -2685,20 +2734,129 @@
     if (!n) return { title: id, parent: "", count: 0 };
     return { title: nodeTitle(n), parent: nodeParentPath(n), count: subtreeCardIds(n).length };
   }
-  function newRemainingToday() {
-    const count = S.intro.date === todayStr() ? S.intro.count : 0;
-    return Math.max(0, S.settings.newPerDay - count);
+  /* ---------- per-deck daily limits (Aug 2026, on request) ----------
+     Every added deck now carries Anki's three settings of its own — new cards/day, maximum reviews/day, and
+     whether new cards ignore the review limit — reached by a long press on the deck's row in the daily
+     review. Before this there was ONE global allowance (S.settings.newPerDay) sliced off the front of the
+     pooled card list, which meant a reader with two decks got every new card from whichever deck came
+     first and never saw the second one at all. That was the bug; per-deck allowances are the fix.
+
+     What is STORED here is only what cannot be derived: the three settings, today's Custom-study bump, and
+     whether the deck is being skipped today. The COUNTS are derived from the card records instead
+     (deckDoneToday below), which is what makes them right for a deck that is not in the review, right after
+     an undo, and right for a card that sits in two decks at once — a per-deck tally would have to be kept
+     in step with all three by hand. */
+  const DECK_MAX_REVIEWS = 200;   // Anki's own default, and high enough that it never surprises a reader who has not gone looking for it
+  function deckLimits(id) {
+    const o = (S.deckOpts && S.deckOpts[id]) || {};
+    return {
+      // the global setting is the DEFAULT rather than a competing limit — a deck the reader has never
+      // opened the sheet on simply follows Settings → New cards per day, as it always did
+      newPerDay: Number.isFinite(o.newPerDay) ? Math.max(0, o.newPerDay) : S.settings.newPerDay,
+      maxReviews: Number.isFinite(o.maxReviews) ? Math.max(0, o.maxReviews) : DECK_MAX_REVIEWS,
+      newIgnoresReview: o.newIgnoresReview !== false,
+    };
   }
+  function setDeckLimits(id, patch) {
+    if (!S.deckOpts || typeof S.deckOpts !== "object") S.deckOpts = {};
+    S.deckOpts[id] = Object.assign({}, S.deckOpts[id] || {}, patch);
+    save();
+  }
+  // today's per-deck scratch record: the Custom-study bump and the skip flag, both of which expire at
+  // midnight. A stale record is reset in place, and every other stale record is dropped with it, so the
+  // table can never outgrow the number of decks the reader actually uses.
+  function deckDay(id) {
+    if (!S.deckDay || typeof S.deckDay !== "object") S.deckDay = {};
+    const d = todayStr();
+    let r = S.deckDay[id];
+    if (!r || r.d !== d) {
+      Object.keys(S.deckDay).forEach((k) => { if (!S.deckDay[k] || S.deckDay[k].d !== d) delete S.deckDay[k]; });
+      r = { d: d, extra: 0, skip: false };
+      S.deckDay[id] = r;
+    }
+    return r;
+  }
+  function deckSkippedToday(id) { return !!deckDay(id).skip; }
+  function setDeckSkip(id, on) { deckDay(id).skip = !!on; save(); }
+  function bumpDeckExtra(id, n) {
+    const r = deckDay(id);
+    // never below what the deck has already introduced today — "fewer" cannot un-study a card
+    r.extra = Math.max(-(deckLimits(id).newPerDay), (r.extra || 0) + n);
+    // the daily review draws against its own global allowance, so a bump that only moved the deck's
+    // number would leave the extra cards unreachable from the banner the reader pressed to ask for them
+    if (S.intro.date !== todayStr()) S.intro = { date: todayStr(), count: 0, extra: 0 };
+    S.intro.extra = Math.max(-(S.settings.newPerDay), (S.intro.extra || 0) + n);
+    save();
+  }
+  /* What a deck has already done today, DERIVED from the card records rather than tallied. `first` is the
+     day a card was introduced (written by grade() on the first grade), so a card counts as new for every
+     deck that holds it and as a review on every later day — with no bookkeeping to keep in step. */
+  function deckDoneToday(id) {
+    const d = todayStr();
+    let nw = 0, rv = 0;
+    entryCardIds(id).forEach((cid) => {
+      const c = S.cards[cid];
+      if (!c) return;
+      if (c.first === d) { nw++; return; }
+      if (c.last && new Date(c.last).toISOString().slice(0, 10) === d) rv++;
+    });
+    return { nw: nw, rv: rv };
+  }
+  function deckNewRemaining(id) {
+    const L = deckLimits(id), r = deckDay(id);
+    return Math.max(0, L.newPerDay + (r.extra || 0) - deckDoneToday(id).nw);
+  }
+  function deckReviewRemaining(id) {
+    return Math.max(0, deckLimits(id).maxReviews - deckDoneToday(id).rv);
+  }
+  /* The three piles for ONE added deck, as its row in the daily review shows them. Deliberately not a slice
+     of the pooled review: a deck's row states what that DECK still has for the reader today, which after a
+     finished review is whatever share of its own new-card allowance the pooled draw did not take — the
+     "2 new" and "3 new" a reader sees under a cleared banner. */
+  function entryPiles(id) {
+    if (deckSkippedToday(id)) return { nw: 0, lr: 0, rv: 0, skip: true };
+    const avail = availableCardIdSet();
+    const ids = entryCardIds(id).filter((c) => avail.has(c) && !isSuspended(c));
+    let lr = 0, rv = 0, unseen = 0;
+    ids.forEach((cid) => {
+      const c = S.cards[cid];
+      if (!c) { unseen++; return; }
+      if (c.status === "learning") lr++;
+      else if (isDueNow(cid)) rv++;
+    });
+    return { nw: Math.min(deckNewRemaining(id), unseen), lr: lr, rv: Math.min(rv, deckReviewRemaining(id)), skip: false };
+  }
+  function newRemainingToday() {
+    const today = S.intro.date === todayStr();
+    const count = today ? S.intro.count : 0;
+    const extra = today ? (S.intro.extra || 0) : 0;
+    return Math.max(0, S.settings.newPerDay + extra - count);
+  }
+  /* The daily review, built DECK BY DECK and then pooled.
+
+     Each added deck offers what its own allowances still permit, and the day's new cards are drawn at
+     RANDOM from across that pool (date-seeded, so the same ones surface all day rather than reshuffling on
+     every refresh) instead of being sliced off the front of one deck's list. The pooled draw is capped by
+     the review's own allowance, which is why a deck can still show new cards of its own after the review is
+     finished — those are that deck's remaining share, studied by tapping its row. */
   function reviewQueue() {
-    const active = activeCardIds().filter((id) => !isSuspended(id));
-    const due = active
-      .filter((id) => isDueNow(id))
-      .sort((a, b) => S.cards[a].due - S.cards[b].due);
-    let pool = active.filter((id) => !isSeen(id));
-    // Random mode: DRAW the day's new cards at random from across the selected decks, instead of taking them in the set card order.
-    // Seeded by the date so the same new cards surface all day (a plain reshuffle would swap them out on every refresh).
-    if (S.settings.reviewRandom) pool = seededShuffle(pool, mulberry32(hashStr("review-" + todayStr())));
-    const fresh = pool.slice(0, newRemainingToday());
+    const avail = availableCardIdSet();
+    const due = [], pool = [], seen = new Set();
+    activeEntryIds().forEach((e) => {
+      if (deckSkippedToday(e)) return;   // "Skip today" sits the deck out without removing it
+      const ids = entryCardIds(e).filter((id) => avail.has(id) && !isSuspended(id));
+      let rv = deckReviewRemaining(e);
+      ids.filter((id) => isDueNow(id))
+        .sort((a, b) => S.cards[a].due - S.cards[b].due)
+        .forEach((id) => { if (rv <= 0 || seen.has(id)) return; seen.add(id); due.push(id); rv--; });
+      let nw = deckNewRemaining(e);
+      // Anki's third switch: off, a deck that has used up its review allowance introduces nothing new either
+      if (!deckLimits(e).newIgnoresReview) nw = Math.min(nw, rv);
+      // dedupe BEFORE the slice, or a card an earlier deck already claimed eats one of this deck's places
+      ids.filter((id) => !isSeen(id) && !seen.has(id)).slice(0, nw).forEach((id) => { seen.add(id); pool.push(id); });
+    });
+    due.sort((a, b) => S.cards[a].due - S.cards[b].due);
+    const fresh = seededShuffle(pool, mulberry32(hashStr("review-" + todayStr()))).slice(0, newRemainingToday());
     return { due, fresh, all: [...due, ...fresh] };
   }
   function dueCountNow() {
@@ -3751,6 +3909,9 @@
   let studyRevealId = null;
   function route(name, params) {
     studyRevealId = null;
+    // leaving study ends the session the reload-record describes — one choke point, so no page has to
+    // remember to tidy up after itself (a language switch repaints through render(), which is not this)
+    if (name !== "study") clearStudySession();
     if (name === "admin" && !isAdmin()) name = "home";
     current = { name, params: params || {} };
     // #deck/<slug> is a shareable address, so the slug rides in the hash (the same shape as #map/<year>/<slug>)
@@ -3766,6 +3927,7 @@
     closeAllGloss();
     closeImageViewer();   // the fullscreen image viewer never outlives its page
     closeCongrats();      // …nor the level-up overlay, which a hash change can otherwise strand over the next one
+    closeDeckMenu();      // …nor an added deck's options sheet, which also lives on document.body
     closeColorMenu();   // the colour menu lives on document.body — make sure it can't outlive its page on hashchange/back nav
     closeGlossPicker();
     closeRtColorMenu();
@@ -3897,6 +4059,121 @@
     ov.addEventListener("mousedown", (e) => { if (e.target === ov) close(); });
     document.addEventListener("keydown", onKey, true);
     setTimeout(() => { if (input) { input.focus(); input.select(); } else { const b = ov.querySelector(".ip-ok"); if (b) b.focus(); } }, 0);
+  }
+  /* ---------- the added-deck options sheet (Aug 2026, on request) ----------
+     Held down on a deck's row in the daily review. It carries the four things a reader wants to do to one
+     deck for one day — study more of it, change what it offers every day, sit it out, or drop it — of which
+     only the last had a control before (a bin at the right of the row, now gone). It lives on document.body
+     like the other overlays there, so render() has to close it; see closeDeckMenu in the render() list. */
+  let _deckMenuClose = null;
+  function closeDeckMenu() { if (_deckMenuClose) _deckMenuClose(); }
+  // one shell for the sheet and its two dialogs, so Escape, the backdrop and the focus trap are written once
+  function deckSheet(labelText, innerHTML, wire) {
+    closeDeckMenu();
+    const ov = document.createElement("div");
+    ov.className = "deck-menu";
+    ov.innerHTML = '<div class="dm-box" role="dialog" aria-modal="true" aria-label="' + esc(labelText) + '">' + innerHTML + "</div>";
+    document.body.appendChild(ov);
+    const close = () => {
+      if (_deckMenuClose !== close) return;
+      _deckMenuClose = null;
+      ov.remove();
+      document.removeEventListener("keydown", onKey, true);
+    };
+    function onKey(e) { if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); close(); } }
+    document.addEventListener("keydown", onKey, true);
+    ov.addEventListener("pointerdown", (e) => { if (e.target === ov) close(); });
+    _deckMenuClose = close;
+    wire(ov, close);
+    setTimeout(() => { const f = ov.querySelector("button, input"); if (f) f.focus(); }, 0);
+    return ov;
+  }
+  function openDeckMenu(id) {
+    const info = entryInfo(id);
+    const L = deckLimits(id), skipped = deckSkippedToday(id), left = deckNewRemaining(id);
+    const item = (act, label, note, cls) =>
+      '<button type="button" class="dm-item' + (cls ? " " + cls : "") + '" data-act="' + act + '">' +
+      "<b>" + esc(label) + "</b><small>" + esc(note) + "</small></button>";
+    const html =
+      '<div class="dm-head"><span class="dm-title">' + esc(info.title) + "</span>" +
+        (info.parent ? '<span class="dm-where">' + esc(info.parent) + "</span>" : "") + "</div>" +
+      item("custom", "Custom study", "Study more or fewer new cards today — " + left + " left of " + (L.newPerDay + (deckDay(id).extra || 0))) +
+      item("limits", "Daily limits", L.newPerDay + " new/day · " + L.maxReviews + " reviews/day") +
+      item("skip", skipped ? "Study today after all" : "Skip today", skipped ? "This deck is sitting today out" : "Leave this deck out of today's review") +
+      item("remove", "Remove", "Take this deck out of the daily review", "dm-danger");
+    return deckSheet("Options for " + info.title, html, (ov, close) => {
+      ov.querySelectorAll(".dm-item").forEach((b) => b.addEventListener("click", () => {
+        const act = b.dataset.act;
+        if (act === "custom") { close(); openCustomStudy(id); return; }
+        if (act === "limits") { close(); openDeckLimits(id); return; }
+        if (act === "skip") {
+          setDeckSkip(id, !skipped);
+          close();
+          render();
+          toast(skipped ? "Back in today's review" : "Sitting today out");
+          return;
+        }
+        // Remove keeps its confirmation for the Card-of-the-day row, whose bin emptied the whole list
+        close();
+        removeActive(id);
+        render();
+        toast("Removed from review");
+      }));
+    });
+  }
+  /* Custom study — today only. Anki opens a whole separate session for this; here it simply moves the
+     deck's new-card allowance for the day, up or down, by a number the reader types. The same amount moves
+     the DAILY REVIEW's own allowance, or asking for five more cards would raise a number the banner the
+     reader pressed can never reach (see bumpDeckExtra). */
+  function openCustomStudy(id) {
+    const info = entryInfo(id);
+    const html =
+      '<div class="dm-head"><span class="dm-title">Custom study</span><span class="dm-where">' + esc(info.title) + "</span></div>" +
+      '<label class="dm-field"><span>New cards to add today</span>' +
+      '<input class="dm-num" id="csN" type="number" min="1" max="999" step="1" value="5" inputmode="numeric"></label>' +
+      '<p class="dm-note">Today only. Tomorrow the deck goes back to its daily limit.</p>' +
+      '<div class="dm-actions"><button type="button" class="btn ghost" data-act="fewer">Study fewer</button>' +
+      '<button type="button" class="btn" data-act="more">Study more</button></div>';
+    deckSheet("Custom study", html, (ov, close) => {
+      const inp = ov.querySelector("#csN");
+      ov.querySelectorAll("[data-act]").forEach((b) => b.addEventListener("click", () => {
+        const n = Math.max(1, Math.min(999, Math.round(+inp.value || 0)));
+        const d = b.dataset.act === "more" ? n : -n;
+        bumpDeckExtra(id, d);
+        close();
+        render();
+        toast(d > 0 ? "Added " + n + " new cards for today" : "Removed " + n + " new cards from today");
+      }));
+    });
+  }
+  // Daily limits — Anki's three, and Anki's names for them, so a reader who knows Anki needs no explanation.
+  function openDeckLimits(id) {
+    const info = entryInfo(id), L = deckLimits(id);
+    const html =
+      '<div class="dm-head"><span class="dm-title">Daily limits</span><span class="dm-where">' + esc(info.title) + "</span></div>" +
+      '<label class="dm-field"><span>New cards/day</span><input class="dm-num" id="dlNew" type="number" min="0" max="999" step="1" value="' + L.newPerDay + '" inputmode="numeric"></label>' +
+      '<label class="dm-field"><span>Maximum reviews/day</span><input class="dm-num" id="dlRev" type="number" min="0" max="9999" step="1" value="' + L.maxReviews + '" inputmode="numeric"></label>' +
+      '<div class="dm-field dm-switchrow"><span>New cards ignore review limit</span>' +
+      '<div class="switch' + (L.newIgnoresReview ? " on" : "") + '" id="dlIgn" role="switch" tabindex="0" aria-checked="' + (L.newIgnoresReview ? "true" : "false") + '"></div></div>' +
+      '<div class="dm-actions"><button type="button" class="btn ghost" data-act="cancel">Cancel</button>' +
+      '<button type="button" class="btn" data-act="save">Save</button></div>';
+    deckSheet("Daily limits", html, (ov, close) => {
+      const sw = ov.querySelector("#dlIgn");
+      const flip = () => { const on = sw.classList.toggle("on"); sw.setAttribute("aria-checked", on ? "true" : "false"); };
+      sw.addEventListener("click", flip);
+      sw.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); flip(); } });
+      ov.querySelector('[data-act="cancel"]').addEventListener("click", close);
+      ov.querySelector('[data-act="save"]').addEventListener("click", () => {
+        setDeckLimits(id, {
+          newPerDay: Math.max(0, Math.min(999, Math.round(+ov.querySelector("#dlNew").value || 0))),
+          maxReviews: Math.max(0, Math.min(9999, Math.round(+ov.querySelector("#dlRev").value || 0))),
+          newIgnoresReview: sw.classList.contains("on"),
+        });
+        close();
+        render();
+        toast("Daily limits saved");
+      });
+    });
   }
   function inlinePrompt(message, defaultValue, onOk) { inlineModal(message, true, defaultValue, onOk); }
   function inlineConfirm(message, onOk, okLabel) { inlineModal(message, false, null, () => onOk(), okLabel || "OK"); }
@@ -4566,12 +4843,19 @@
   function wireAddButton(btn, id) {
     btn.addEventListener("click", (e) => {
       e.stopPropagation();
-      const nowActive = !isActive(id);
-      if (nowActive) addActive(id); else removeActive(id);
-      btn.classList.toggle("added", nowActive);
-      btn.innerHTML = addIcon(nowActive);
-      btn.setAttribute("aria-label", nowActive ? "Remove from review" : "Add to review");
-      toast(nowActive ? "Added to daily review" : "Removed from review");
+      const wantOn = !isActive(id);
+      // the daily review holds as many decks as the reader's Folio level (maxActiveDecks) — addActive
+      // returns false when that is what stopped it, so the button says why instead of doing nothing
+      if (wantOn && !addActive(id)) {
+        toast("Level " + levelFromXP(folioXP()).level + " keeps " + maxActiveDecks() +
+          (maxActiveDecks() === 1 ? " deck" : " decks") + " in your daily review — study more to raise it.");
+        return;
+      }
+      if (!wantOn) removeActive(id);
+      btn.classList.toggle("added", wantOn);
+      btn.innerHTML = addIcon(wantOn);
+      btn.setAttribute("aria-label", wantOn ? "Remove from review" : "Add to review");
+      toast(wantOn ? "Added to daily review" : "Removed from review");
     });
   }
 
@@ -4971,17 +5255,6 @@
     // just the large numeral — the "Level N" text lives in the blue xp-bar head (xpBarMarkup) beside it, so a label here is redundant.
     return '<div class="level-badge' + (sys ? (sys === "zh" ? " zh" : " num-" + sys) : "") + '" aria-hidden="true"><span class="lb-num">' + esc(numeralIn(sys, lvl)) + '</span></div>';
   }
-  /* The numeral on the Daily-review banner is the DAY'S PILE, not the level (Aug 2026, on request): the
-     level is already spelled out in the xp bar's head directly under it, where a reader looking for it
-     goes, and the number they open the page for is how many cards are waiting. At zero it becomes a tick —
-     "0" is a quantity, and a cleared day is a state. It keeps `.level-badge`/`.lb-num` so the banner's gold
-     and its sizing follow with no rules of their own. */
-  function pileBadgeMarkup(n) {
-    const tick = '<svg class="lb-tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 12.5 9.5 18 20 6.5"/></svg>';
-    return '<div class="level-badge pile-badge' + (n ? "" : " pb-clear") + '" role="img" aria-label="' +
-      esc(n ? n + " cards to study today" : "Nothing left to study today") + '"><span class="lb-num">' +
-      (n ? esc(String(n)) : tick) + "</span></div>";
-  }
   // XP progress bar toward the next level (replaces the old studied/total progress bar)
   function xpBarMarkup(xp, zh) {
     const info = levelFromXP(xp);
@@ -5341,13 +5614,17 @@
     };
     const pile = pileCounts(pileIds);
     const activeIds = activeEntryIds();
-    const trashSVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>';
-    // the same three numbers on a deck row, without their labels — the banner above has just named them
-    const adCounts = (ids) => {
-      const c = pileCounts(ids);
+    /* The same three numbers on a deck row, without their labels — the banner above has just named them.
+       They are THIS DECK'S OWN piles (entryPiles), not its share of the pooled review: after the daily
+       review has drawn its five at random from across the added decks, each row still shows whatever is
+       left of that deck's own allowance, which is the "2 new / 3 new" a reader meets under a cleared banner. */
+    const adCounts = (entryId) => {
+      const c = entryPiles(entryId);
       // the title is built from the SAME three words the banner labels itself with, run through t() here —
       // a title attribute assembled from numbers is not a string the exact table could ever match
-      const tip = t("New") + " " + c.nw + " · " + t("Learning") + " " + c.lr + " · " + t("Review") + " " + c.rv;
+      const tip = c.skip
+        ? t("Skipped today")
+        : t("New") + " " + c.nw + " · " + t("Learning") + " " + c.lr + " · " + t("Review") + " " + c.rv;
       return `<div class="ad-counts" title="${esc(tip)}">
         <span class="adc adc-new">${c.nw}</span><span class="adc adc-learn">${c.lr}</span><span class="adc adc-rev">${c.rv}</span>
       </div>`;
@@ -5377,12 +5654,11 @@
           const pad = 16 + r.depth * 16;   // the indent that carries the hierarchy — tightened Aug 2026 when the row went to one line
           if (r.active) {
             return `<div class="active-deck" data-review="${esc(r.node.id)}" role="button" tabindex="0" data-depth="${r.depth}" style="padding-left:${pad}px" title="Review just ${esc(r.node.title)}">
-              ${adCounts(entryCardIds(r.node.id))}
+              ${adCounts(r.node.id)}
               <div class="ad-body">
                 <div class="ad-line"><span class="ad-title">${esc(nodeTitle(r.node))}</span></div>
                 ${adProg(entryCardIds(r.node.id))}
               </div>
-              <button class="ad-trash" data-id="${esc(r.node.id)}" aria-label="Remove from review">${trashSVG}</button>
             </div>`;
           }
           return `<div class="active-deck context" data-depth="${r.depth}" style="padding-left:${pad}px">
@@ -5397,23 +5673,21 @@
         activeIds.filter((id) => UDECKS[uDeckIdOf(id)]).map((id) => {
           const d = UDECKS[uDeckIdOf(id)];
           return `<div class="active-deck" data-review="${esc(id)}" role="button" tabindex="0" data-depth="0" style="padding-left:16px" title="Review just ${esc(d.title)}">
-              ${adCounts(entryCardIds(id))}
+              ${adCounts(id)}
               <div class="ad-body">
                 <div class="ad-line"><span class="ad-title">${esc(d.title)}</span></div>
                 ${adProg(entryCardIds(id))}
               </div>
-              <button class="ad-trash" data-id="${esc(id)}" aria-label="Remove from review">${trashSVG}</button>
             </div>`;
         }).join("") +
         // …and last, the cards picked up one at a time from the Card of the day, which belong to no deck the
-        // reader added. It reads as one more added collection, and its trash empties the whole list.
+        // reader added. It reads as one more added collection, and Remove on it empties the whole list.
         (activeIds.indexOf(COTD_ENTRY) === -1 ? "" : `<div class="active-deck" data-review="${esc(COTD_ENTRY)}" role="button" tabindex="0" data-depth="0" style="padding-left:16px" title="Review just ${esc(COTD_TITLE)}">
-              ${adCounts(entryCardIds(COTD_ENTRY))}
+              ${adCounts(COTD_ENTRY)}
               <div class="ad-body">
                 <div class="ad-line"><span class="ad-title">${esc(COTD_TITLE)}</span></div>
                 ${adProg(entryCardIds(COTD_ENTRY))}
               </div>
-              <button class="ad-trash" data-id="${esc(COTD_ENTRY)}" aria-label="Remove from review">${trashSVG}</button>
             </div>`);
     })();
     const greeting = (() => {
@@ -5572,16 +5846,22 @@
           <span class="glyph glyph-svg">${ICON.review}</span>
         </button>`
       : `<button class="banner${reviewDone ? " done" : ""}${reviewWon ? " won" : ""}" id="b-review">
-          ${pileBadgeMarkup(pile.nw + pile.lr + pile.rv)}
+          ${/* The big gold numeral is GONE (Aug 2026, on request), and `pileBadgeMarkup` with it. It
+                carried the day's whole pile and nothing on the banner said so — the three counts below it
+                already break the same total into New / Learning / Review, which is the answer a reader is
+                actually after, so the numeral was a fourth unlabelled number competing with three
+                labelled ones. */""}
           <div class="body">
             <h2 class="review-title">Daily review</h2>
-            <p class="desc">${
-              dueN + newN > 0
-                ? "Cards scheduled for today, plus a few new ones from your active decks."
-                : activeIds.length
-                  ? "All caught up — nothing due right now. Come back tomorrow; the schedule does the rest."
-                  : "No decks in your daily review yet — add one from the collections to build your pile."
-            }</p>
+            ${/* …and with it the "Cards scheduled for today, plus a few new ones" line, which described the
+                  three counts underneath it in words. The other two branches are kept: one says the day is
+                  finished and the other says there is nothing here yet, and neither is visible anywhere
+                  else on the banner. */""}
+            ${dueN + newN > 0 ? "" : `<p class="desc">${
+              activeIds.length
+                ? "All caught up — nothing due right now. Come back tomorrow; the schedule does the rest."
+                : "No decks in your daily review yet — add one from the collections to build your pile."
+            }</p>`}
             ${xpBarMarkup(folioXP())}
             <div class="meta">
               ${/* Anki's three piles, in Anki's order and Anki's colours: blue new, red learning, green
@@ -5652,20 +5932,15 @@
     root.querySelector("#g-truefalse").addEventListener("click", () => route("truefalse"));
     root.querySelector("#g-whosaid").addEventListener("click", () => route("whosaid"));
     { const gf = root.querySelector("#g-findit"); if (gf) gf.addEventListener("click", () => route("findit")); }
-    root.querySelectorAll(".ad-trash").forEach((btn) =>
-      btn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        removeActive(btn.dataset.id);
-        render();
-      })
-    );
     root.querySelector("#b-review").addEventListener("click", (e) => {
       if (e.target.closest("#hero-browse")) { route("decks"); return; }
       if (fresh) {
         // first session: activate the first available collection and go — or browse the library while everything is still coming soon
         const first = (TREE.collections || []).find((c) => !isComingSoon(c));
         if (!first) { route("decks"); return; }
-        if (activeIds.indexOf(first.id) < 0) { S.active = activeIds.concat(first.id); save(); }
+        // through addActive like every other route in, so there is one door — and it always opens here:
+        // a reader on the first-run hero has no counted entries and every level allows at least one
+        if (activeIds.indexOf(first.id) < 0) addActive(first.id);
         route("study", { scope: { type: "review" } });
         return;
       }
@@ -5717,14 +5992,43 @@
     showAdminEditBtn(null);   // the phone's way into the editor, top-right (the tab bar no longer carries Edit)
     const reviewOrderBtn = root.querySelector("#reviewOrder");
     if (reviewOrderBtn) reviewOrderBtn.addEventListener("click", (e) => { e.stopPropagation(); S.settings.reviewRandom = !S.settings.reviewRandom; save(); render(); });
-    // click a deck/subdeck in the daily-review list → review just that deck's cards (the trash button stops its own propagation)
+    /* Click a deck in the daily-review list → review just that deck. HOLD one → its options sheet (Aug
+       2026, on request): Custom study, Daily limits, Skip today, Remove. The small bin that used to sit at
+       the right of every row is gone with it — it was one command occupying a permanent column on the
+       narrowest screen Folio has, and three of the four commands that replaced it had nowhere to live.
+
+       A press has to be CLASSIFIED, exactly as the whiteboard marker's drag is: under the hold time it is
+       a tap and studies the deck, past it the sheet opens and the click that follows is swallowed
+       (`held`). A finger that moves more than AD_SLOP is scrolling the page, not holding the row, so the
+       timer is cancelled — without that, every scroll started from a deck row would open a sheet.
+       `contextmenu` opens the same sheet, which is what gives a desktop mouse and a keyboard a way in. */
+    const AD_HOLD = 480, AD_SLOP = 10;
     root.querySelectorAll(".active-deck[data-review]").forEach((el) => {
+      const id = el.dataset.review;
       const go = () => {
-        const id = el.dataset.review, ud = uDeckIdOf(id);
+        const ud = uDeckIdOf(id);
         route("study", { scope: id === COTD_ENTRY ? { type: "cotd" } : ud ? { type: "udeck", id: ud } : { type: "deck", id } });
       };
-      el.addEventListener("click", (e) => { if (e.target.closest(".ad-trash")) return; go(); });
-      el.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
+      let timer = null, held = false, sx = 0, sy = 0;
+      const cancel = () => { if (timer) { clearTimeout(timer); timer = null; } };
+      el.addEventListener("pointerdown", (e) => {
+        if (e.button && e.button !== 0) return;
+        held = false; sx = e.clientX; sy = e.clientY;
+        cancel();
+        timer = setTimeout(() => { timer = null; held = true; openDeckMenu(id); }, AD_HOLD);
+      });
+      el.addEventListener("pointermove", (e) => {
+        if (timer && Math.abs(e.clientX - sx) + Math.abs(e.clientY - sy) > AD_SLOP) cancel();
+      });
+      el.addEventListener("pointerup", cancel);
+      el.addEventListener("pointercancel", () => { cancel(); held = false; });
+      el.addEventListener("contextmenu", (e) => { e.preventDefault(); cancel(); held = true; openDeckMenu(id); });
+      el.addEventListener("click", () => { if (held) { held = false; return; } go(); });
+      el.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); }
+        // a keyboard needs a way to the sheet too, and the context-menu key is the one the platform means
+        else if (e.key === "ContextMenu" || (e.shiftKey && e.key === "F10")) { e.preventDefault(); openDeckMenu(id); }
+      });
     });
     animateProgs(root);
   };
@@ -5743,10 +6047,13 @@
         ${slot(slotId, count)}
       </div>`;
     // The collections still being written far outnumber the finished ones, so listing them flat makes the
-    // Library read as empty. They fold into a disclosure — open for admins, whose drag-and-drop needs the
-    // drop targets reachable, and because moving a collection between the two groups is an editor workflow.
+    // Library read as empty. They fold into a disclosure that is CLOSED FOR EVERYONE, admins included
+    // (Aug 2026, on request). It used to open itself for an admin so the library's drag-and-drop had its
+    // drop targets reachable — but that meant the one person who opens this page most often always met it
+    // expanded. An admin moving a collection between the two groups opens the fold first; the drop targets
+    // are reachable the moment it is open, so nothing about that workflow is lost.
     const soonSection = (n, slotId, count) =>
-      `<details class="collection-group collection-group-soon"${admin ? " open" : ""}>
+      `<details class="collection-group collection-group-soon">
         <summary class="group-head group-head-toggle">
           <span class="group-label">Coming soon</span><span class="group-line"></span><span class="group-count">${n}</span>
           <svg class="group-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
@@ -5759,6 +6066,10 @@
         <span class="eyebrow">Library</span>
         <h1>Collections</h1>
         <p>Curated collections. New subjects are on the way.</p>
+        ${/* What the Folio level is FOR (Aug 2026, on request): how many decks may sit in the daily review
+              at once. Said here, where a reader is choosing one, rather than only in the toast that turns
+              the choice down. */""}
+        <p class="lib-cap">Your daily review holds <b>${countedActiveEntries().length} of ${maxActiveDecks()}</b> ${maxActiveDecks() === 1 ? "deck" : "decks"} — one more with every Folio level.</p>
       </div>
       ${/* "Collections", not "All decks": the hierarchy is collection → deck → subdeck, and this group heads a
             list of collections — the label contradicted both that and the page title above it. */""}
@@ -6197,9 +6508,12 @@
       const d = UDECKS[scope.id];
       if (!d) return null;
       const ids = (d.cardIds || []).filter((id) => !isSuspended(id));
-      const due = ids.filter((id) => isDueNow(id)).sort((a, b) => S.cards[a].due - S.cards[b].due);
+      // this deck's OWN allowances, not the review's — see the per-deck limits block. A deck studied on its
+      // own row still has whatever share of its new cards the pooled daily review did not take.
+      const ue = uDeckEntry(d.id);
+      const due = ids.filter((id) => isDueNow(id)).sort((a, b) => S.cards[a].due - S.cards[b].due).slice(0, deckReviewRemaining(ue));
       const unseen = ids.filter((id) => !isSeen(id));
-      queue = [...due, ...unseen.slice(0, Math.max(newRemainingToday(), 0))];
+      queue = [...due, ...unseen.slice(0, Math.max(deckNewRemaining(ue), 0))];
       queue._ud = d;
       queue._unseen = unseen;
       where = d.title;
@@ -6210,10 +6524,12 @@
       where = nodeWhere(sd);
       const availDeck = availableCardIdSet();   // a coming-soon collection's cards are set aside, even via a deep link
       const ids = subtreeCardIds(sd).filter((id) => !isSuspended(id) && availDeck.has(id));
-      // due cards in this deck first, then new (respecting daily new limit), then any unseen if you want to push on
-      const due = ids.filter((id) => isDueNow(id)).sort((a, b) => S.cards[a].due - S.cards[b].due);
+      // due cards in this deck first, then new, then any unseen if you want to push on — both piles bounded
+      // by THIS deck's own daily limits (long-press its row in the review to change them), so a deck the
+      // pooled review only took a couple of new cards from still has the rest of its share here
+      const due = ids.filter((id) => isDueNow(id)).sort((a, b) => S.cards[a].due - S.cards[b].due).slice(0, deckReviewRemaining(sd.id));
       const unseen = ids.filter((id) => !isSeen(id));
-      const fresh = unseen.slice(0, Math.max(newRemainingToday(), 0));   // new cards in deck (card) order — set via the editor's drag-reorder
+      const fresh = unseen.slice(0, Math.max(deckNewRemaining(sd.id), 0));   // new cards in deck (card) order — set via the editor's drag-reorder
       queue = [...due, ...fresh];
       // if nothing scheduled and no new allowance left but deck still has unseen, let the user push through extras
       total = queue.length;
@@ -6963,7 +7279,10 @@
   }
 
   PAGES.study = function (root, params) {
+    if (!params.scope) { route("home"); return; }   // #study reached with nothing to study (a pasted address, a lost session)
     const sess = buildSession(params.scope);
+    // a session picked back up after a reload — see the STUDY_KEY block for what the record holds and why
+    const resume = params.resume && Array.isArray(params.resume.queue) ? params.resume : null;
     // a session that starts from the home page goes back there: the daily review, the Card of the day and the
     // cards it has added are all launched from that page, and "Collections" would strand the reader
     const fromHome = params.scope.type === "review" || params.scope.type === "card" || params.scope.type === "cotd";
@@ -6992,6 +7311,26 @@
     let queue = sess.queue.slice();
     let studiedThisSession = 0;
     let revealed = false;
+    /* Which of the card's phrasings is being asked. null means "not chosen yet" — renderCard picks one and
+       every move to another card sets it back to null, so a phrasing belongs to the card that is on screen
+       and never leaks onto the next one. A resumed session gets its saved index back, which is the half of
+       "stay on the card" that a reader actually notices: the same card asking a different question reads as
+       a different card. */
+    let qIdx = null;
+    if (resume) {
+      // the saved queue rather than a freshly built one: a rebuilt session cannot say where a requeued
+      // learning step was sitting, and the reader was mid-way through this order, not that one
+      const ok = resume.queue.filter((id) => cardById(id) && !isSuspended(id));
+      if (ok.length) {
+        queue = ok;
+        if (Number.isInteger(resume.qi) && resume.id === queue[0]) qIdx = resume.qi;
+        if (resume.rev && resume.id === queue[0]) studyRevealId = queue[0];   // …and revealed, if it was
+        if (Number.isFinite(resume.studied)) studiedThisSession = resume.studied;
+      }
+    }
+    function persistStudy() {
+      writeStudySession({ scope: params.scope, queue: queue.slice(), id: queue[0] || null, qi: qIdx, rev: revealed, studied: studiedThisSession });
+    }
 
     /* ---------- undoing the last grade ----------
        A misclick on Again or Easy is otherwise unfixable from inside a session: the card has left the queue
@@ -7034,6 +7373,7 @@
       studiedThisSession = s.studied;
       save();
       studyRevealId = s.id;   // the card comes back REVEALED, on the grade row it was mis-answered on
+      qIdx = null;
       renderCard();
       toast("Grade undone — answer this card again.");
     }
@@ -7102,11 +7442,19 @@
       revealed = false;
       hideGradeBar();
       const id = queue[0];
-      // the selected site language when translated, asking ONE of the card's phrasings at random this show —
-      // except arriving from the Card-of-the-day tile, which asks the tile's own date-seeded phrasing so the
-      // study page repeats the question the reader just flipped rather than a random sibling of it
+      /* The card in the selected site language, asking ONE of its phrasings. Which one is now STATE rather
+         than a fresh coin toss per render (Aug 2026, on request): the reader can step through the pool with
+         the ‹ › beside the Question label, and a reload comes back to the phrasing that was on screen. A
+         card arrived at with qIdx still null picks its own — at random, or the Card-of-the-day tile's own
+         date-seeded choice, so the study page repeats the question the reader just flipped rather than a
+         random sibling of it. */
       const codPick = params.scope.addTo === "cotd" ? (n) => (hashStr("codq-" + todayStr()) >>> 0) % n : undefined;
-      const c = cardWithQuestion(cardLocalized(cardById(id)), codPick);
+      const base = cardLocalized(cardById(id));
+      const pool = cardQuestions(base);
+      if (!Number.isInteger(qIdx) || qIdx < 0 || qIdx >= pool.length) {
+        qIdx = pool.length <= 1 ? 0 : (codPick ? codPick(pool.length) : Math.floor(Math.random() * pool.length));
+      }
+      const c = pool.length > 1 ? Object.assign({}, base, { question: pool[qIdx] }) : base;
       const rc = remainingCounts();
 
       root.innerHTML = `
@@ -7126,7 +7474,7 @@
           <div class="cardwrap swap">
             <div class="study-card">
               ${ttsEnabled() ? `<button class="tts-mute${S.settings.ttsMuted ? " muted" : ""}" id="ttsMute" type="button" aria-label="${S.settings.ttsMuted ? "Unmute read-aloud" : "Mute read-aloud"}" title="Mute / unmute read-aloud">${ttsMuteIconSVG()}</button>` : ""}
-              <span class="label">Question${ttsPlayHTML("question", true)}</span>
+              <span class="label">Question${pool.length > 1 ? `<span class="q-cycle"><button type="button" class="qc-btn" data-qc="-1" aria-label="Previous phrasing of this question"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button><span class="qc-n" id="qcN">${qIdx + 1} / ${pool.length}</span><button type="button" class="qc-btn" data-qc="1" aria-label="Next phrasing of this question"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button></span>` : ""}${ttsPlayHTML("question", true)}</span>
               <div class="question">${c.question}</div>
               <div class="reveal" id="reveal"><div class="reveal-inner" id="revealInner"></div></div>
             </div>
@@ -7137,6 +7485,21 @@
       const cardRoot = root.querySelector(".study-card");
       openLinks(cardRoot);
       setupCloze(cardRoot.querySelector(".question"));
+      /* Stepping through the card's phrasings. It swaps the question IN PLACE rather than re-rendering the
+         card: the answer may already be showing, and a reader who cycles to compare two wordings has not
+         asked for the answer to be taken away again. `c` is a copy whenever there is a pool to cycle, so
+         updating its question keeps read-aloud and the cloze grader on the words that are on screen. */
+      cardRoot.querySelectorAll(".qc-btn").forEach((b) => b.addEventListener("click", (e) => {
+        e.stopPropagation();
+        qIdx = (qIdx + (+b.dataset.qc) + pool.length) % pool.length;
+        c.question = pool[qIdx];
+        const qEl = cardRoot.querySelector(".question");
+        qEl.innerHTML = c.question;
+        setupCloze(qEl);
+        if (revealed) gradeCloze(qEl, c.answer);   // the blank stays filled in — reveal is not undone by this
+        const n = cardRoot.querySelector("#qcN"); if (n) n.textContent = (qIdx + 1) + " / " + pool.length;
+        persistStudy();
+      }));
       setupWhiteboard();
       showWBTools();
       showAdminEditBtn(id);
@@ -7164,6 +7527,7 @@
         queue.shift();
         hideGradeBar();
         studyRevealId = null;
+        qIdx = null;
         renderCard();
       }
 
@@ -7175,6 +7539,7 @@
         if (revealed) return;
         revealed = true;
         studyRevealId = id;   // so a language switch re-render re-opens this card rather than resetting it
+        persistStudy();       // …and so does a reload
         gradeCloze(cardRoot.querySelector(".question"), c.answer);
         const inner = root.querySelector("#revealInner");
         inner.innerHTML = buildBack(c);
@@ -7260,6 +7625,7 @@
         // scheduled either way, and it has just joined the daily review, so it comes back there instead.
         if (res.requeue && params.scope.type !== "card") queue.push(id); // relearn within session
         studyRevealId = null;   // moving on: the next card (or a requeued step) opens at its question, unrevealed
+        qIdx = null;            // …and picks a phrasing of its own rather than inheriting this card's
         // swap animation handled by re-render
         renderCard();
       }
@@ -7296,13 +7662,17 @@
         }
       };
       attachKeys(cardRoot._keys);
+      persistStudy();   // …so a reload lands on THIS card, asking THIS phrasing
       // if this same card was open when a language switch re-rendered the page, re-open it so the answer and
-      // its source list stay visible in the new language rather than snapping back to the question
+      // its source list stay visible in the new language rather than snapping back to the question — and the
+      // same line is what brings a reloaded session back to a card that was already revealed
       if (studyRevealId === id) showAnswer();
     }
 
     function renderComplete() {
       detachKeys();
+      // the session is over — a reload from here starts a fresh one rather than resurrecting an empty queue
+      clearStudySession();
       hideGradeBar();
       hideWBTools();
       root.innerHTML = "";
@@ -12448,7 +12818,10 @@
         <div class="set-card">
           ${setHead("#4F9D67", '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>', "Study")}
           <div class="set-row">
-            <div class="info"><h3>New cards per day</h3><p>How many unseen cards enter your review each day.</p></div>
+            ${/* This setting now does two jobs, so the sentence says both: it caps the DAILY REVIEW's own
+                  draw, and it is the DEFAULT each added deck follows until its own Daily limits are set
+                  (long-press a deck's row in the review). */""}
+            <div class="info"><h3>New cards per day</h3><p>How many unseen cards enter your daily review each day, and the starting limit for every deck you add. Hold a deck in the review to give it limits of its own.</p></div>
             <div class="ctl"><div class="stepper"><button id="np-dn" aria-label="Fewer">−</button><span class="val" id="np-val">${S.settings.newPerDay}</span><button id="np-up" aria-label="More">+</button></div></div>
           </div>
           <div class="set-row">
@@ -15192,13 +15565,22 @@
   }
 
   // initial route from hash
-  const valid = ["home", "decks", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "admin", "mission", "studio", "community", "deck"];
+  const valid = ["home", "decks", "study", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "admin", "mission", "studio", "community", "deck"];
   const h = (location.hash || "").replace("#", "");
   const hParts = h.split("/");
   let initName = valid.includes(hParts[0]) ? hParts[0] : "home";
   if (initName === "map" && hParts.length > 1) parseMapHash(hParts);   // #map/<year>/<slug> deep link
   let initParams = {};
   if (initName === "deck") { try { initParams.slug = decodeURIComponent(hParts[1] || ""); } catch (e) { initParams.slug = hParts[1] || ""; } }   // a mangled %-escape must not kill boot
+  /* A reload on #study picks the session back up where it was — same card, same phrasing, and revealed if
+     it was revealed. The scope lives in the record rather than the hash because a queue is not an address:
+     what a reader wants back is the session they were in, not a fresh one built from the same deck. With no
+     record (a cold start, or a link someone pasted) there is nothing to resume, so it falls back home. */
+  if (initName === "study") {
+    const rec = readStudySession();
+    if (rec) initParams = { scope: rec.scope, resume: rec };
+    else initName = "home";
+  }
   // A refresh on #admin lands BEFORE supaBoot() has restored the session and loaded the profile role, so
   // isAdmin() says no for a signed-in admin and the editor reader was bounced to Home on every reload.
   // Boot to Home as before, but remember the intent — supaBoot routes back once the role has arrived.
@@ -15321,6 +15703,11 @@
       let slug = "";
       try { slug = decodeURIComponent(parts[1] || ""); } catch (e) { slug = parts[1] || ""; }
       if (!(current.name === "deck" && current.params.slug === slug)) route("deck", { slug: slug });
+      return;
+    }
+    if (hh === "study" && current.name !== "study") {   // back/forward onto a study address — resume, or go home if the session is gone
+      const rec = readStudySession();
+      if (rec) route("study", { scope: rec.scope, resume: rec }); else route("home");
       return;
     }
     if (valid.includes(hh) && hh !== current.name) route(hh);
