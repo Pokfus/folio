@@ -30,9 +30,9 @@ still finds it.
 
 Measured over `data.js` against `window.GLOSSARY` + `GLOSSARY_TITLES` + `GLOSSARY_ALIASES`:
 
-**103 of 119 cards have an entry for their answer term. 16 do not.** (42 of 119 when the plan opened;
-**P9, P10 and P1–P6 shipped 2026-08-03** and took it to 103.) **Every Ancient Greece card is paired** —
-what remains is backfill of the finished prehistory deck, batches P7–P8.
+**111 of 119 cards have an entry for their answer term. 8 do not.** (42 of 119 when the plan opened;
+**P9, P10 and P1–P7 shipped 2026-08-03** and took it to 111.) **P8 is the last batch.** **Every Ancient Greece card is paired** —
+what remains is batch P8.
 
 **Count plurals when measuring this.** A card whose answer is `Denisovans` is paired by the term
 `Denisovan`, because `buildGlossIndex` auto-pluralizes — but an exact-match count says it is not, which is
@@ -60,7 +60,7 @@ Eight cards each, in card order, so a batch shares its reading with the cards it
 | **P4** ✅ | `wh-052`, `wh-053`, `wh-054`, `wh-055`, `wh-056`, `wh-058`, `wh-059`, `wh-060` | Howiesons Poort; Sibudu Cave; Border Cave; Klasies River Caves; Pinnacle Point; Behavioural modernity; Madjedbebe; Lake Mungo remains — **shipped 2026-08-03** |
 | **P5** ✅ | `wh-062`, `wh-063`, `wh-064`, `wh-065`, `wh-067`, `wh-068`, `wh-069`, `wh-070` | Settlement of the Americas; Paleo-Indians; Cro-Magnon; Châtelperronian; Lion-man; Hohle Fels; Venus of Hohle Fels; Divje Babe flute — **shipped 2026-08-03** |
 | **P6** ✅ | `wh-072`, `wh-073`, `wh-074`, `wh-076`, `wh-080`, `wh-081`, `wh-082`, `wh-083` | Venus figurines; Venus of Willendorf; Dolní Věstonice; Mal'ta-Buret' culture; microlith; spear-thrower; bow and arrow; cave painting — **shipped 2026-08-03** |
-| **P7** | `wh-087`, `wh-089`, `wh-090`, `wh-091`, `wh-092`, `wh-093`, `wh-094`, `wh-095` | Cosquer Cave; Quaternary extinction event; Younger Dryas; Clovis culture; Clovis point; Folsom tradition; Monte Verde; Meadowcroft Rockshelter |
+| **P7** ✅ | `wh-087`, `wh-089`, `wh-090`, `wh-091`, `wh-092`, `wh-093`, `wh-094`, `wh-095` | Cosquer Cave; Quaternary extinction event; Younger Dryas; Clovis culture; Clovis point; Folsom tradition; Monte Verde; Meadowcroft Rockshelter — **shipped 2026-08-03** |
 | **P8** | `wh-097`, `wh-098`, `wh-100`, `wh-101`, `wh-103`, `wh-104`, `wh-105`, `wh-106` | petroglyph; control of fire; Epipaleolithic; Nordic Stone Age; Preboreal; Boreal; Atlantic period; Blytt–Sernander sequence |
 | **P9** ✅ | `wh-107`, `wh-108`, `wh-109`, `gr-001`, `gr-002`, `gr-003`, `gr-004`, `gr-005` | Holocene climatic optimum; post-glacial rebound; 8.2-kiloyear event; Aegean Bronze Age; Cycladic civilisation; Cycladic figurines; Keros; Early Minoan Crete — **shipped 2026-08-03** |
 | **P10** ✅ | `gr-006`, `gr-007`, `gr-008`, `gr-009`, `gr-010` | Minoan civilisation; Arthur Evans; Knossos; Minoan palace; Throne Room at Knossos — **shipped 2026-08-03** |
@@ -313,3 +313,26 @@ difficulty and wrong about where it lay.
   not reach its card.** `Microlith` appeared unlinked until the study loop was widened from 90 cards to the
   whole deck of 109; it links from `wh-031`, `wh-099` and `wh-100`. Grep first, then set the loop to cover
   the cards the grep names.
+
+## The P7 log
+
+Eight terms, every list at four sources and majority-open, nothing corrected — these cards were already
+consistent with each other. Three notes:
+
+- **A CULTURE AND ITS OBJECT AS TWO TERMS, WITH THE SHORT NAME AN ALIAS OF ONE.** `Clovis_culture` carries
+  the alias `Clovis` while `Clovis_point` is a key of its own, so the two compete for every occurrence of
+  the phrase. `buildGlossIndex` sorts surfaces longest-first, so "Clovis point" resolves to the object and a
+  bare "Clovis" to the culture — and both were seen linking in the same browser run, which is the P3 note
+  confirmed by measurement rather than by reading the sort. **The same shape is safe to repeat**: name the
+  narrower thing as its own key and let the broader one take the short alias, never the other way round.
+- **A term whose subject is a live dispute states the dispute and cites both sides.** `Monte_Verde` was
+  resisted for twenty years, accepted in print in 1997, challenged again by a paper in *Science* in 2026
+  and defended by its excavators within weeks; the term says exactly that and cites the challenge alongside
+  the reply. Same principle as P4's `Behavioural_modernity` — a gloss that picked a winner would be taking
+  a position the field has not.
+- **A near-miss that is not one, for the third time this pass.** `Meadowcroft_Rockshelter`'s date line says
+  "at least 16,000 BP" and its abstract "about 14,000 to 14,500 radiocarbon years ago". Those disagree only
+  if the units are ignored: 14,500 uncalibrated ¹⁴C years is roughly 17,500 calendar years, so the date line
+  is the calibrated figure. **The term keeps the words "radiocarbon years"**, which is what makes the two
+  readable together — batch 22's arithmetic rule (check that a "years ago" is the calibration of a ¹⁴C
+  figure) in its benign form.
