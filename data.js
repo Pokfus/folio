@@ -1300,7 +1300,157 @@ window.COLLECTION_TREE = {
       "title": "Ancient Greece",
       "total": 0,
       "placeholder": false,
-      "cardIds": [],
+      "children": [
+        {
+          "id": "gr-bronze",
+          "title": "Bronze Age Aegean",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "gr-crete",
+              "title": "Crete and the Cyclades",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "gr-mycenae",
+              "title": "Mycenaean Greece",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "gr-iron",
+          "title": "Early Iron Age",
+          "placeholder": false,
+          "cardIds": []
+        },
+        {
+          "id": "gr-archaic",
+          "title": "Archaic Greece",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "gr-polis",
+              "title": "Polis and colonisation",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "gr-sparta",
+              "title": "Sparta",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "gr-athens",
+              "title": "Athens",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "gr-archaic-culture",
+              "title": "Archaic art, verse and thought",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "gr-classical",
+          "title": "Classical Greece",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "gr-persian-wars",
+              "title": "Persian Wars",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "gr-athenian-empire",
+              "title": "Athenian Empire",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "gr-peloponnesian-war",
+              "title": "Peloponnesian War",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "gr-classical-culture",
+              "title": "Classical arts and thought",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "gr-fourth-century",
+              "title": "Fourth century and the rise of Macedon",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "gr-hellenistic",
+          "title": "Alexander and the Hellenistic World",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "gr-alexander",
+              "title": "Alexander the Great",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "gr-successors",
+              "title": "Successor kingdoms",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "gr-alexandria",
+              "title": "Alexandria and Hellenistic science",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "gr-under-rome",
+              "title": "Greece under Rome",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "gr-myth",
+          "title": "Myth and Religion",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "gr-olympians",
+              "title": "Olympians and cosmogony",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "gr-heroes",
+              "title": "Heroes and the epic cycle",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "gr-cult",
+              "title": "Cult, oracles and festivals",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        }
+      ],
       "i18n": {
         "es": "Antigua Grecia",
         "fr": "Grèce antique",

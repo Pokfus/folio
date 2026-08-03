@@ -530,6 +530,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   with no access label) and by `add-sources.js`, which now warns a short term and reports glossary coverage
   against the bar. The **admin glossary list carries a coverage chip** like the card list, in two states
   rather than three (no `sourcesBlocked` on a term) and never on a deck term. Not part of the site.
+- `docs/greece-card-plan.md` — the **1000-card running order for the Ancient Greece collection**
+  (`col-13`): every card's number, topic and deck, fixed in advance across 19 leaf decks, so the deck
+  can be grown one card at a time over many sessions. See the "ANCIENT GREECE" bullet under "Generating
+  cards & glossary entries" for the workflow — the short version is that the next card to write is the
+  lowest `gr-NNN` not yet in `data.js`. Not part of the site.
 - `docs/user-decks-plan.md` — the design plan for **community decks** (user-created decks, sharing,
   ratings, an optional per-deck glossary, and a later paid tier). Phases 0–1 have shipped; see the bullet
   in "How the app is wired". Not part of the site.
@@ -2525,6 +2530,21 @@ template entries are the canonical format: card `cnh-001` in `data.js`, glossary
 `placeholder: true`, so it sits under "Coming soon" and `availableCardIdSet()` (app.js) keeps its cards
 out of the daily review, the games, the card of the day and study deep-links. **New cards go to the
 World History collection (`col-8`)** — create leaf decks under it as topics demand.
+
+**ANCIENT GREECE (`col-13`) is the collection being grown (Aug 2026).** Its 19 leaf decks are laid out
+in `data.js` and its full 1000-card running order is `docs/greece-card-plan.md` — number, topic and
+deck for every card, fixed in advance so the deck can be grown one card at a time across many sessions.
+**"Generate the next Ancient Greece card" means: take the lowest `gr-NNN` not yet in `data.js`, read
+its topic and deck from that plan, research it, and add it** with `node .claude/add-card.js <card.json>
+<deckId>` — always passing the deck id, since `add-card.js` otherwise falls back to the first leaf in
+the whole tree, which is `cn-myth`, in China. The next number is:
+`node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gr-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"`
+There is deliberately **no separate progress file** — `data.js` says what exists, the plan says what is
+planned, and the next card is whatever falls between them, so the two can never disagree about where
+the work had got to. A plan line is a **subject to research, not a fact to assert**, and not always the
+finished answer term: rename, split or drop a line when the research says so, in the same commit as the
+card. The Greek glossary starts from nothing (of 401 terms only `Greece` and `North_Macedonia`), so
+write its terms **cited from the start** at the `GLOSS_SRC_TARGET` bar rather than opening a backlog.
 
 **ENGLISH ONLY (Aug 2026, on request): a new card or glossary term does NOT need its nine translations.**
 The site ships in English while the work is on making the English as good as it can be, so put the effort
