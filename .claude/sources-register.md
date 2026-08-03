@@ -9816,7 +9816,7 @@ alone when its history had none.
 
 ---
 
-# THE GLOSSARY CITATION PASS IS COMPLETE — 395 of 395
+# THE GLOSSARY CITATION PASS IS COMPLETE — 396 of 396
 
 Every term carries at least `GLOSS_SRC_TARGET` (2) citations, every citation is referenced by at least one
 in-text marker, and the markers are identical across English and all nine translations. `node
@@ -9824,8 +9824,8 @@ in-text marker, and the markers are identical across English and all nine transl
 batch 26; **both passes are now done, and `country-sources.js` — the Atlas — is the only surface in Folio
 that still shows no sources.**
 
-(333 at the close of D3; **sixty-two terms were added on 2026-08-03 and were cited as they were written** —
-see N1–N7 below. A term added after the pass joins it at the bar, rather than reopening a backlog.)
+(333 at the close of D3; **sixty-three terms were added on 2026-08-03 and were cited as they were written** —
+see N1–N8 below. A term added after the pass joins it at the bar, rather than reopening a backlog.)
 
 ---
 
@@ -10696,6 +10696,67 @@ Woolly_rhinoceros; `minculture-chauvet-bears` (~300 bear hollows, ~190 individua
 and `diedrich-2015` (punctured cave bear femora as hyena bone-crushing damage, round-oval punctures from
 premolars, in European cave bear dens) → Cave_bear; `minculture-chauvet-art` (megaloceros among the
 images) → Irish_elk.
+
+---
+
+## Batch N8 — the saber-tooth split, on a reader's correction (2026-08-03)
+
+One new term, `Saber-toothed_cat`, and `Smilodon` rewritten. Six slots from four works, all open. The batch
+exists because **a reader caught N6 asserting a false generality**: `Smilodon`'s first sentence read
+"*Smilodon fatalis* is the saber-toothed cat", and it holds every sabre-tooth alias, so the whole
+vocabulary of the group resolved to one American genus.
+
+### The finding: a wrong term is not always a wrong FACT
+
+Nothing in the old `Smilodon` entry was false about *Smilodon*. Wysocki's canine measurements, DeSantis's
+microwear, Rancho La Brea, the ~12,000-year extinction — all correct and all still there. What was wrong
+was the **definite article**: "*the* saber-toothed cat" for a genus that is one of several, in one
+hemisphere, inside a subfamily spanning Eurasia and Africa too. **The audit cannot see this** — it counts
+citations, and every citation was sound. Neither can the marker rules, nor `check-style`. It took a
+reader. **When a term is the only one in the glossary for its subject area, check whether it is being
+made to carry the whole subject**; the fix is a sibling term, not a correction.
+
+N6 already recorded the near-miss on the other side: the register's only previous saber-tooth mention was
+`dodson-2025` on Zhoukoudian, and citing it for `Smilodon` was refused **because those cats are not
+Smilodon**. That refusal was right and is now what carries the new term's third sentence — the Chinese
+occurrence is precisely the evidence that the group is not American. **The fact set aside as
+uncitable-here turned out to be the fact the missing term needed.**
+
+### The alias move, and a tooling note
+
+All eleven sabre/saber aliases plus `Machairodontinae` and `machairodont` now sit on
+`Saber-toothed_cat`; `Smilodon` keeps none, and resolves on its own name. **`add-glossary.js` deletes an
+alias list only when the `aliases` key is PRESENT** — `if (Array.isArray(e.aliases) && e.aliases.length)
+… else if ("aliases" in e) delete` — so omitting the key on an update leaves the old list standing. The
+first pass at this left both terms claiming the same eleven surfaces, with the older key winning, which is
+the exact opposite of the intent. **Pass `"aliases": []` to clear.** Fifth alias correction in eight
+batches, and the first requested rather than discovered.
+
+### Verified citations (batch N8)
+
+New to the register:
+
+- Manabu Sakamoto and Marcello Ruta, “Convergence and Divergence in the Evolution of Cat Skulls: Temporal and Spatial Patterns of Morphological Diversity,” <i>PLOS ONE</i> 7, no. 7 (2012): e39752, https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0039752. [Open access]
+  - opened: 2026-08-03 · full text
+  - supports: "a monophyletic Machairodontinae" comprising three major saber-tooth lineages, traditionally
+    the tribes Metailurini, Smilodontini and Homotheriini; *Dinofelis*, *Megantereon*, *Smilodon*,
+    *Homotherium* and *Xenosmilus* among machairodontine taxa; and that large saber-toothed cats "occur
+    more peripherally" in morphospace than extant large cats
+  - **note**: it also finds the 'Metailurus' and 'Smilodon' lineages to be grade groups rather than
+    clades, which the terms do not claim in either direction
+  - used by: Saber-toothed_cat, Smilodon
+- Roniel Freitas-Oliveira, Matheus S. Lima-Ribeiro, and Levi Carina Terribile, “No Evidence for Niche Competition in the Extinction of the South American Saber-Tooth Species,” <i>npj Biodiversity</i> 3 (2024): 11, https://pmc.ncbi.nlm.nih.gov/articles/PMC11332042/. [Open access]
+  - opened: 2026-08-03 · full text
+  - supports: *S. fatalis* and *S. populator* as "both originally from North America"; *S. fatalis* with
+    records "throughout the whole American continent"; and *S. populator* "restricted to South America"
+    and "more widely distributed in South America in comparison with *S. fatalis*"
+  - **its timeline was NOT used**: the fetch rendered the study window in a way that could not be
+    reconciled with the species' known ages, so only the distribution claims are cited
+  - used by: Smilodon
+
+Reused: `wysocki-2015` and `desantis-2012` → Smilodon (unchanged from N6); `dodson-2025` (the Zhoukoudian
+fauna, "diverse carnivores including wolves and saber-toothed cats", with giant deer, straight-tusked
+elephant, woolly rhinoceros and *Equus*) → Saber-toothed_cat.
 
 ### Hosts, measured 2026-08-03 (batch N7)
 - `bolin.su.se`, `www.usgs.gov`, `www.ordnancesurvey.co.uk`, `pmc.ncbi.nlm.nih.gov` — 200.
