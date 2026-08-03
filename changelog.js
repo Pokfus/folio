@@ -6,9 +6,9 @@
 window.CHANGELOG = [
   {
     d: "2026-08-03",
-    t: "Twenty-five more glossary terms",
+    t: "Thirty-five more glossary terms",
     items: [
-      "Twenty-five new glossary terms on the Old Stone Age — its divisions in Africa and Eurasia, the toolmaking traditions that fill it, the painted caves and dig sites that made it, the materials and metals people worked, the warm spells between the ice, and how any of it gets dated — each listing the works behind it and pointing at them sentence by sentence, as every term now does. Many more spellings will now open a popup when you meet them in a card, and one term that had been listed under a name belonging to a different part of the world no longer answers to it.",
+      "Thirty-five new glossary terms on the Old Stone Age — its divisions in Africa and Eurasia, the toolmaking traditions that fill it, the painted caves and dig sites that made it, the stones and metals people worked and the way they break, the regions the story runs through, two of the people who wrote about it, the warm spells between the ice, and how any of it gets dated — each listing the works behind it and pointing at them sentence by sentence, as every term now does. Many more spellings will now open a popup when you meet them in a card, and two terms that had been reachable under a name belonging to something else no longer answer to it.",
     ],
   },
   {

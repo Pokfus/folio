@@ -9816,7 +9816,7 @@ alone when its history had none.
 
 ---
 
-# THE GLOSSARY CITATION PASS IS COMPLETE — 358 of 358
+# THE GLOSSARY CITATION PASS IS COMPLETE — 368 of 368
 
 Every term carries at least `GLOSS_SRC_TARGET` (2) citations, every citation is referenced by at least one
 in-text marker, and the markers are identical across English and all nine translations. `node
@@ -9824,8 +9824,8 @@ in-text marker, and the markers are identical across English and all nine transl
 batch 26; **both passes are now done, and `country-sources.js` — the Atlas — is the only surface in Folio
 that still shows no sources.**
 
-(333 at the close of D3; **twenty-five terms were added on 2026-08-03 and were cited as they were written** —
-see N1, N2 and N3 below. A term added after the pass joins it at the bar, rather than reopening a backlog.)
+(333 at the close of D3; **thirty-five terms were added on 2026-08-03 and were cited as they were written** —
+see N1–N4 below. A term added after the pass joins it at the bar, rather than reopening a backlog.)
 
 ---
 
@@ -10214,7 +10214,159 @@ bloomery, the bloom, slag from gangue minerals, carburisation and the carbon gra
 is a machine route and a reader following it gets raw markup; batch 26 recorded it because PLOS was not
 reachable then. **When a host reopens, re-point the citation at the human-readable copy.**
 
-### Hosts, measured 2026-08-03 (batches N1, N2 and N3, which ran the same day)
+---
+
+## Batch N4 — Swabia split off, plus regions, people and the lithic raw materials, verified 2026-08-03
+
+**Swabia** (as the region, requested explicitly as a separate term from `Swabian_Jura`), **Scandinavia**,
+**Jens Jacob Worsaae**, **Hesiod**, **Oceania**, **Mesopotamia**, **flint**, **chert**, **obsidian** and
+**conchoidal fracture**. Twenty slots from **fifteen works, all fifteen open**. Nine were new — the
+lowest register dividend of N1–N4, and the reason is G7's rule in a new dress: **the register pays for
+what the CARDS are about, and no card is about a rock.**
+
+### The alias N2's rule predicted, arriving
+
+N2 read "Swabia" onto `Swabian_Jura` as an alias, flagged in the hand-off as a conflation kept for
+usefulness. The request to split them is the correction, and the alias is **removed**: `Swabia` is the
+historical region named for the Suebi and the medieval duchy, `Swabian_Jura` the upland whose caves hold
+the ivory figurines. Both now resolve on their own names. **This is the second time in four batches that
+an alias asserting an identity has had to be withdrawn** (`Upper_Paleolithic` → "Late Stone Age" was the
+first), and the pattern is the same: an alias is cheap to add and reads as a claim once a real term for
+the other thing exists.
+
+### The finding: a fabricated author caught in draft
+
+The first draft of `Mesopotamia` cited "Morphodynamic Foundations of Sumer" to **"Alberto Bravin et
+al."** — a name that appears nowhere in the record and was never read anywhere. WebFetch had returned
+the paper's *content* without its author list, and the citation was written from the content. The
+Europe PMC lookup gives `Giosan L, Goodman R`, and the citation was corrected before the entry shipped.
+**Nothing about the surrounding process would have caught it**: the URL resolves, the claims are real,
+the marker rules pass, and `gloss-source-audit.js` counts citations rather than checking them. The rule
+this batch adds: **when a source's content arrives without its metadata, look the metadata up — never
+compose a citation from what the prose sounded like.** `search?query=DOI:"…"&resultType=core` returns
+the author string, volume, issue and pages in one call, and every citation in N2–N4 that needed
+pagination got it that way.
+
+### Where the sources ran thin, and what was left out
+
+`Jens_Jacob_Worsaae` carries **no birth or death dates and does not name his 1843 book**. Every source
+that states them here is an encyclopedia, which the plan bars; the two open works that do carry him —
+Kanjanajuntorn 2020 and Rowley-Conwy 2004 — support what he DID (testing Thomsen's classification
+against stratigraphic excavation) and the window the framework emerged in (1835–43), and the term says
+that and stops. **A biography written to the length of its sources is short; a biography padded to the
+length of the reader's expectation is fiction.** Same move on `Scandinavia`, whose opening "a region of
+northern Europe" is left unmarked as the definitional commonplace it is — `norden.org` is 403 and the
+UN's M49 has no "Scandinavia", only "Northern Europe" — with the marked claims all coming from the two
+open archaeological papers.
+
+### Access notes
+
+- **`link.springer.com` and `nature.com` 303 to an IdP cookie endpoint**, which means `li-2022` — the
+  register's conchoidal-fracture source — **cannot be re-read**. It is cited here only for the claims
+  this register already records against it (G6's rule), and `Conchoidal_fracture`'s third sentence is
+  carried by an open PLOS paper instead.
+- `mdpi.com` 503'd, `www.usgs.gov` and `naturalhistory.si.edu` are **403**, `historicengland.org.uk` is
+  **403**, and `scholarworks.uni.edu` is **403**. What answered instead were **`nps.gov`** (two articles
+  on obsidian, one of them the source of the definition), **`regierung.schwaben.bayern.de`** and
+  **`leo-bw.de`** (the Baden-Württemberg State Archives' regional-studies portal, whose Historischer
+  Atlas commentary is a PDF that had to be extracted locally), and **`chs.harvard.edu`**, which
+  publishes Nagy's Brill Companion chapter in full. **Batch 18's rule again: ask the institution
+  responsible.** For a German region that is a state archive; for a volcanic glass quarried in a national
+  park it is the park service.
+
+### Verified citations (batch N4)
+
+New to the register — all open:
+
+- Regierung von Schwaben, “Schwabens Geschichte,” Regierungsbezirk, https://www.regierung.schwaben.bayern.de/regierungsbezirk/geschichte/index.html. [Open access]
+  - opened: 2026-08-03 · the Bavarian district government's own history page
+  - supports: "Die dort siedelnden Sueben wurden vom 6. bis 12. Jahrhundert zunehmend mit den Alemannen
+    gleichgesetzt"; that the name "bezeichnete … deren Siedlungsland (Stammesherzogtum Alemannien),
+    später das daraus hervorgehende Herzogtum Schwaben"; the 1803 "Zusammenführung der schwäbischen
+    Landesteile als 'Baierische Provinz Schwaben'"; and that Schwaben today covers "Teile des Landes
+    Baden-Württemberg und der bayerische Regierungsbezirk Bayerisch-Schwaben"
+  - used by: Swabia
+- Helmut Maurer, “Das Herzogtum Schwaben,” Beiwort zu Karte 5,1a, <i>Historischer Atlas von Baden-Württemberg</i> (Stuttgart: Landesvermessungsamt Baden-Württemberg), https://www.leo-bw.de/media/kgl_atlas/current/delivered/pdf/HABW_5_1a.pdf. [Open access]
+  - opened: 2026-08-03 · the atlas commentary PDF via LEO-BW; text extracted locally (WebFetch returns
+    the record page's metadata only, and the PDF as binary)
+  - supports: that the provincia Schwaben "ist vielmehr durch genau fixierte Grenzen von den
+    Nachbarprovinzen, etwa von Bayern im Osten, oder von Franken im Norden, aber auch von Königreichen wie
+    Italien im Süden oder Burgund im Südwesten geschieden, durch Grenzen, die der Herzog gegen die
+    Ansprüche der Nachbarherzöge … zu verteidigen hat"; and "Mit der Hinrichtung Konradins im Jahre 1268
+    ist das Herzogtum Schwaben für immer erloschen"
+  - **no publication year is cited** — the extracted commentary carries none, and the search result
+    offering one could not be confirmed against the file. N3's Oudbashi rule: cite the locator you can see
+  - used by: Swabia
+- Gregory Nagy, “Hesiod and the Ancient Biographical Traditions,” in <i>The Brill Companion to Hesiod</i>, ed. F. Montanari, A. Rengakos, and Ch. Tsagalis (Leiden: Brill, 2009), 271–311, https://chs.harvard.edu/curated-article/gregory-nagy-hesiod-and-the-ancient-biographical-traditions/. [Open access]
+  - opened: 2026-08-03 · the Center for Hellenic Studies' full text of the chapter
+  - supports: Ascra in Boeotia; that "Hesiod's father originates directly from Cyme" and "migrated from
+    that city on the Asiatic mainland (636) to the town of Ascra"; the Muses of Helicon initiating him and
+    saying "We know how to say many falsehoods that look like genuine things, but we can also … proclaim
+    true things"; the *Theogony* and *Works and Days* as his two poems; and that he "quarreled with his
+    brother Perses about their inheritance, accusing him of laziness and injustice"
+  - used by: Hesiod
+- L. Giosan and R. Goodman, “Morphodynamic Foundations of Sumer,” <i>PLOS ONE</i> 20, no. 8 (2025): e0329084, https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0329084. [Open access]
+  - opened: 2026-08-03 · full text. **See the fabricated-author finding above** — the author string here
+    is from the Europe PMC record, not from the fetched page, which did not carry it
+  - supports: "the Mesopotamian Plain, also referred to as southern or lower Mesopotamia" as "a vast,
+    low-gradient alluvial plain"; that "the Tigris-Euphrates river system, with its headwaters in the
+    Taurus Mountains and flowing parallel to the Zagros, is the dominant sediment source for the region";
+    "The earliest network of city-states, closely knit by shared cultural traditions and economic
+    interests, emerged c. 5,000 years ago in southern Mesopotamia"; and that during the Uruk period
+    "settlement density increased, with more clustered and hierarchical site distributions organized
+    around urban institutions", Uruk "reaching over 250 ha at its peak when it accommodated at least
+    25,000 people"
+  - used by: Mesopotamia
+- Abay Namen, Radu Iovita, Klaus G. Nickel, et al., “Mechanical Properties of Lithic Raw Materials from Kazakhstan: Comparing Chert, Shale, and Porphyry,” <i>PLOS ONE</i> 17, no. 4 (2022): e0265640, https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0265640. [Open access]
+  - opened: 2026-08-03 · full text
+  - supports: that "Sedimentary rocks such as chert, flint, silicified shale, and other silica rich rocks
+    were commonly used, and this is presumed to be due to their predictable fracturing properties and good
+    knapping qualities"; that the chert studied was "entirely composed of length-fast chalcedony, which in
+    turn is quartz"; "Raw material quality is commonly related to the mineralogical structure (e.g., grain
+    size and shape) and purity of a given material"; and that "materials that have isotropic mechanical
+    properties are often considered to be of higher quality for tool making"
+  - **does NOT define conchoidal fracture by name** — it discusses fracture propagation and indentation
+    resistance instead, so `Conchoidal_fracture`'s first two sentences rest on `li-2022` and only its
+    third on this paper
+  - used by: Chert, Flint, Conchoidal_fracture
+- National Park Service, “Obsidian Cliff,” Yellowstone National Park, https://www.nps.gov/yell/learn/historyculture/obsidiancliff.htm. [Open access]
+  - opened: 2026-08-03 · the park's own record
+  - supports: "Obsidian is found in volcanic areas where the magma is rich in silica and lava has cooled
+    without forming crystals, creating a black glass that can be honed to an exceptionally thin edge"; and
+    "Obsidian was first quarried from this cliff for toolmaking more than 11,000 years ago"
+  - used by: Obsidian
+- Sarah Hinkelman, “Hopewell Culture Obsidian,” National Park Service, last updated 17 June 2022, https://www.nps.gov/articles/000/hopewell-culture-obsidian.htm. [Open access]
+  - opened: 2026-08-03 · a park guide's article, bylined and dated
+  - supports: obsidian as "naturally forming glass (a type of igneous rock) that is only formed from the
+    rapid cooling of lava"; that it is "jet black in color but can also be brown, tan, or green"; that it
+    "is a strong material, yet it can be easily shaped by chipping away flakes in a process called
+    knapping"; that "The cutting edge on obsidian is so sharp and thin it can cut between cells rather
+    than tear through tissue like steel scalpels"; and the carriage of Obsidian Cliff and Bear Gulch
+    obsidian to the Scioto River Valley, "over 1,500 miles away"
+  - used by: Obsidian
+- Markus Fjellström et al. (`fjellstrom-2026`) and Jens Winther Johannsen et al. (`winther-johannsen-2024`)
+  — both already registered for `wh-101`, reused for the claims recorded there → Scandinavia
+
+Reused from this register: `kanjanajuntorn-2020` (Worsaae testing Thomsen's classification against
+stratigraphic excavation; prehistory as a discipline of typology, stratigraphy and technology rather than
+texts) and `rowley-conwy-2004` (the framework emerging in Denmark and southern Sweden 1835–43, and
+Thomsen's *Ledetraad* of 1836) → Jens_Jacob_Worsaae; `hesiod-works-and-days` (the five races, and the
+fourth not a metal) → Hesiod; the M49 standard (Oceania's four subregions and their members, and the
+statistical-convenience disclaimer) and `cooper-grebnev-2023` (no bronze metallurgy until late) →
+Oceania; `woods-2010` (writing at the end of the 4th millennium BCE, and the 3200 BCE convention) →
+Mesopotamia; `skertchly-1879` (flint dug from chalk, and the Brandon trade — 26 men and boys in four
+shops in April 1878, "continuously carried on from what geologists have called Neolithic times") →
+Flint and Chert; `li-2022` (conchoidal fracture as Hertzian fracture, glass used "because it fractures
+conchoidally", and the hard- versus soft-hammer bulb) → Conchoidal_fracture.
+
+### Hosts, measured 2026-08-03 (batches N1–N4, which ran the same day)
+- `nps.gov`, `regierung.schwaben.bayern.de`, `www.leo-bw.de`, `chs.harvard.edu`,
+  `openarchaeologydata.metajnl.com`, `www.gutenberg.org` — 200.
+- `www.usgs.gov`, `naturalhistory.si.edu`, `historicengland.org.uk`, `scholarworks.uni.edu`,
+  `norden.org`, `archaeologybulletin.org` (abstract only) — **403 or abstract-only**.
+- `www.mdpi.com` — **503**.
+- `bgs.ac.uk`, `volcano.si.edu`, `pubs.usgs.gov`, `www.baden-wuerttemberg.de` — 200 at the root, though
+  no usable page was found on them for this batch.
 - `journals.openedition.org` — **200 again**; the Anubis wall batch 21 recorded is not up today.
 - `journals.plos.org`, `www.persee.fr`, `unstats.un.org`, `cdn.intechopen.com`, `cir.cenieh.es` — 200.
 - `www.cambridge.org` — 200 for the Radiocarbon article PDF; `repository.arizona.edu` — **403**.
