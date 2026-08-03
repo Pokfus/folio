@@ -9816,7 +9816,7 @@ alone when its history had none.
 
 ---
 
-# THE GLOSSARY CITATION PASS IS COMPLETE — 368 of 368
+# THE GLOSSARY CITATION PASS IS COMPLETE — 378 of 378
 
 Every term carries at least `GLOSS_SRC_TARGET` (2) citations, every citation is referenced by at least one
 in-text marker, and the markers are identical across English and all nine translations. `node
@@ -9824,8 +9824,8 @@ in-text marker, and the markers are identical across English and all nine transl
 batch 26; **both passes are now done, and `country-sources.js` — the Atlas — is the only surface in Folio
 that still shows no sources.**
 
-(333 at the close of D3; **thirty-five terms were added on 2026-08-03 and were cited as they were written** —
-see N1–N4 below. A term added after the pass joins it at the bar, rather than reopening a backlog.)
+(333 at the close of D3; **forty-five terms were added on 2026-08-03 and were cited as they were written** —
+see N1–N5 below. A term added after the pass joins it at the bar, rather than reopening a backlog.)
 
 ---
 
@@ -10358,6 +10358,126 @@ Mesopotamia; `skertchly-1879` (flint dug from chalk, and the Brandon trade — 2
 shops in April 1878, "continuously carried on from what geologists have called Neolithic times") →
 Flint and Chert; `li-2022` (conchoidal fracture as Hertzian fracture, glass used "because it fractures
 conchoidally", and the hard- versus soft-hammer bulb) → Conchoidal_fracture.
+
+---
+
+## Batch N5 — the Altamira card fixed, plus ten terms on tools, food and deep time (2026-08-03)
+
+Ten new terms — **handaxe, debitage, gunflint, musket, subsistence, salmon, geology, geological epoch,
+Cenozoic Era, stratum** — plus a `Sicilian` alias on the existing `Sicily`. Twenty-three slots from
+**fourteen works, all fourteen open**; ten came from this register. `knapping` and `Sicily` were requested
+and **already existed**, so only the alias was added to the latter.
+
+### The card fix: `wh-085`'s date line, three batches after it was flagged
+
+N3 recorded that batch 21 had removed "a rockfall closed the mouth some 13,000 years ago" from the
+Altamira abstract and that it still stood on the card's `answerDate`. **Now fixed in all ten languages**
+via `fix-field.js`, which refuses to write unless every `find` string is present — so a silent no-op was
+impossible. The date line now reads "until the Magdalenian, after which a rockfall sealed the cave mouth",
+matching the abstract's own undated wording in each language.
+
+**A deck-wide sweep was run first**, and it is the part worth keeping: grepping every card's abstract and
+date line in all ten languages for *rockfall* and its nine translations found the claim on `wh-085` only.
+`wh-084` (Chauvet) carries its own rockfall at "some 20,000 years earlier", which is a different site and
+a separately sourced claim, and was left alone. **Grep the figure across the deck before fixing one
+card** — batch 26's rule, run as a precondition rather than as a postscript.
+
+### Two of this batch's own drafts were wrong, and both were caught before shipping
+
+- **`Subsistence`'s first draft attributed a methods sentence to Winther Johannsen et al. that this
+  register does not record for it.** G6's rule says a source reused from the register is reused for the
+  claim the register RECORDS; the draft stretched it to "bones, plants and the chemistry of skeletons"
+  on the strength of the title. Fetched and re-read, the paper does support a methods sentence — but a
+  *different* one, and the term now says what it actually says: sickle use-wear on cereals, charred
+  cereal remains, game bones, pollen showing crop rotation and fallow, stable isotopes, and dental
+  caries tracking carbohydrate. **The correct-sounding paraphrase is the dangerous one.**
+- **`Stratum` was drafted with "stratigraphy" and "stratigraphic" as aliases.** Stratigraphy is the
+  *study* of strata, not a synonym for a layer — the same error as N2's "Late Stone Age" on
+  `Upper_Paleolithic` and N4's "Swabia" on `Swabian_Jura`, caught this time in draft rather than after
+  shipping. Aliases are now `strata` alone. **Three occurrences in four batches makes this the pass's
+  most repeated mistake: an alias asserts identity, and the temptation is always a related word that
+  merely travels in the same sentences.**
+- `Cenozoic_Era` was also drafted with a date line of "c. 66 Mya – present", which **nothing opened for
+  this batch states**. Removed rather than asserted; the term carries no date.
+
+### The limit found: a discipline that will not define itself
+
+`Geology` was the hard one, and for G8's reason rather than an access one. The **British Geological
+Survey's Discovering Geology** section describes its *scope* — "the processes that have shaped current
+and past landscapes and how our planet's diverse range of rocks and minerals formed", the Earth "cooling
+down since it formed 4.6 billion years ago", and topic pages from erosion and weathering through
+earthquakes and volcanoes to fossils and geological time — but **states no one-sentence definition of the
+discipline**, and `historicengland.org.uk`, `www.usgs.gov` and `geolsoc.org.uk` are not usable here. So
+the term describes what geology studies and then what geologists *do* with time, citing Gibbard & Head
+for the machinery of fixing a boundary in rock. G8 needed Gray's *Anatomy* to say what anatomy is; the
+equivalent for geology was not found, and the term is written around the gap rather than over it.
+
+### Verified citations (batch N5)
+
+New to the register — both open:
+
+- “Lock, Stock, & Barrel,” National Park Service, 16 December 2019, https://home.nps.gov/articles/lock-stock-barrel.htm. [Open access]
+  - opened: 2026-08-03 · the NPS article (no named author)
+  - supports: that the musket "employed a simple firing mechanism relying on a piece of flint crashing
+    down on a steel plate. The resulting shower of red-hot sparks ignited gunpowder held in a shallow pan
+    on the side of the lock, setting off the main charge inside"; and that "The loading and firing drill
+    for U.S. troops called for twelve separate motions – the Mexican drill called for eleven"
+  - **limit worth recording**: it gives no calibre, length, weight, rate of fire, range, or smoothbore /
+    rifled distinction, so `Musket` claims none of those. `stonetoolsmuseum.com` — which does hold a
+    gunflint record — served a blank body to WebFetch and could not be used
+  - used by: Gunflint, Musket
+- British Geological Survey, “Discovering Geology,” https://www.bgs.ac.uk/discovering-geology/. [Open access]
+  - opened: 2026-08-03 · the section landing page
+  - supports: geology's scope as "the processes that have shaped current and past landscapes and how our
+    planet's diverse range of rocks and minerals formed"; "The Earth has been cooling down since it formed
+    4.6 billion years ago"; and the branches its topic pages name — erosion, deposition, weathering,
+    earthquakes, volcanoes, landslides, fossils and geological time
+  - **does NOT define the discipline in a sentence** — see the note above
+  - used by: Geology
+- Jérôme Robitaille, Lisa E. Meyering, Sabine Gaudzinski-Windheuser, et al., “Upper Palaeolithic Fishing Techniques: Insights from the Engraved Plaquettes of the Magdalenian Site of Gönnersdorf, Germany,” <i>PLOS ONE</i> 19, no. 11 (2024): e0311302, https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0311302. [Open access]
+  - opened: 2026-08-03 · full text
+  - supports: "The most commonly depicted fish in Magdalenian art are salmonids, clearly identifiable due
+    to their distinctive features, and occasionally, these possess sufficient detail for species
+    identification"; and that "stable isotope data from human remains on European Upper Palaeolithic sites
+    suggest that from the Mid (and probably from the Early) Upper Palaeolithic aquatic resources were
+    contributing up to 50% of dietary protein"
+  - used by: Salmon
+
+Re-read rather than reused blind, because the claim wanted was new:
+
+- `winther-johannsen-2024` — the methods sentence: "Use-wear studies show that the crescent-shaped
+  sickles were mainly used for harvesting cereals"; "Analyses on charred cereal remains"; "bones from game
+  animals"; "Stable isotope analyses indicate a low intake of marine food sources"; "The commonness of
+  dental caries in LN individuals from Southern Sweden supports these findings, as carbohydrate intake …
+  correlates with the incidence of dental caries"; and pollen evidence that "crop rotation, fallow periods
+  and fertilisation, were integral parts of the LN agricultural practice"; plus the framing of subsistence
+  as "hunting, fishing and gathering" against "agriculture and livestock farming" → Subsistence
+
+Reused for the claims this register already records: `si-early-stone-age-tools` (large flakes shaped by
+striking smaller flakes from the edges by about 1.76 Ma, and handaxes as what characterise the Acheulean
+toolkit; the debris of percussion flaking) → Handaxe, Debitage; `key-lycett-2017` (the Movius Line out of
+Movius's 1940s work; Kohn & Mithen's sexual-selection reading of symmetry and the credible criticism of
+it; bifaces "capable of numerous woodworking activities"; Machin's butchery result; the overlooked digging
+experiments) → Handaxe; `campmas-2026` (an assemblage "with the presence of tanged tools,
+Levallois/micro-Levallois debitage (flakes and cores) and side-scrapers") and `eren-lycett-2012`
+(preferential Levallois flakes "thicker across their surface area (as a whole) than debitage flakes", of
+"relatively *even* thickness") → Debitage; `skertchly-1879` (26 men and boys in four shops in April 1878
+against 36 in 1868, and the Survey's "continuously carried on from what geologists have called Neolithic
+times down to the present day") → Gunflint, Musket; `smith-codding-2021` (the North Pacific class system
+of hereditary nobility, commoners and slaves, underwritten by defensible clumped resources, salmon above
+all, among foragers with no farming) → Subsistence, Salmon; `gibbard-head-2010` (the Gelasian GSSP at
+Monte San Nicola, Sicily, at 2.58 Ma, ratified by the IUGS on 29 June 2009, and the Quaternary within the
+Cenozoic) → Geology, Geological_epoch, Cenozoic_Era, Stratum; `walker-2009` (the Holocene base at 1492.45
+m in NGRIP, 11,700 cal yr b2k, the first GSSP in an ice core) → Geological_epoch, Stratum; `hansen-2013`
+(CO2 from ~1000 ppm in the Early Cenozoic to 170–300 in the Pleistocene, driven by plate tectonics through
+volcanic emission and the weathering sink; Antarctic glaciation then Northern Hemisphere ice sheets in the
+most recent 3–5 Myr) → Cenozoic_Era; `bayliss-2009` (a chronology drawing on 14C, stratigraphy, coins and
+typology together beating one resting on a single strand) → Stratum.
+
+### Hosts, measured 2026-08-03 (batch N5)
+- `home.nps.gov`, `www.bgs.ac.uk`, `journals.plos.org`, `pmc.ncbi.nlm.nih.gov`, `humanorigins.si.edu` — 200.
+- `stonetoolsmuseum.com` — 200 but serves a **blank body** to WebFetch (JavaScript-rendered); unusable.
+- `geolsoc.org.uk`, `www.usgs.gov`, `historicengland.org.uk` — not usable for a definition of the discipline.
 
 ### Hosts, measured 2026-08-03 (batches N1–N4, which ran the same day)
 - `nps.gov`, `regierung.schwaben.bayern.de`, `www.leo-bw.de`, `chs.harvard.edu`,

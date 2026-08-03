@@ -6,9 +6,10 @@
 window.CHANGELOG = [
   {
     d: "2026-08-03",
-    t: "Thirty-five more glossary terms",
+    t: "Forty-five more glossary terms",
     items: [
-      "Thirty-five new glossary terms on the Old Stone Age — its divisions in Africa and Eurasia, the toolmaking traditions that fill it, the painted caves and dig sites that made it, the stones and metals people worked and the way they break, the regions the story runs through, two of the people who wrote about it, the warm spells between the ice, and how any of it gets dated — each listing the works behind it and pointing at them sentence by sentence, as every term now does. Many more spellings will now open a popup when you meet them in a card, and two terms that had been reachable under a name belonging to something else no longer answer to it.",
+      "One card corrected: the Cave of Altamira's date line said a rockfall closed the cave about 13,000 years ago, which the works behind the card do not support. The claim was taken out of the card's background a while back and had been left standing on the date line; it now matches, in every language.",
+      "Forty-five new glossary terms on the Old Stone Age — its divisions in Africa and Eurasia, the toolmaking traditions that fill it, the painted caves and dig sites that made it, the stones and metals people worked and the way they break, the regions the story runs through, two of the people who wrote about it, the warm spells between the ice, the tools and the food that kept people alive, and how any of it gets dated — each listing the works behind it and pointing at them sentence by sentence, as every term now does. Many more spellings will now open a popup when you meet them in a card, and two terms that had been reachable under a name belonging to something else no longer answer to it.",
     ],
   },
   {
