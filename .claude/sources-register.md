@@ -10877,3 +10877,159 @@ Reused unchanged on that term: `kanjanajuntorn-2020`, `rowley-conwy-2004`, `wors
 - `iucnredlist.org` — **403**.
 - `tupa.gtk.fi` — 200, PDF extractable, no usable definitional sentence.
 - `geologinenseura.fi` — 200, but the PDF is an image-only scan (0 characters extracted).
+
+## Batch N10 — the SQS table, found at a new address (2026-08-03)
+
+Five terms, all five of the standing deferrals: `Weichselian_glaciation`, `Würm_glaciation`,
+`Devensian_glaciation`, `Fennoscandia`, `Rhinoceros`. Ten citations from nine works, every one open.
+
+### The finding: a 503 across four batches was a MOVED DOMAIN, not an outage
+
+`quaternary.stratigraphy.org.uk` — the ICS Subcommission on Quaternary Stratigraphy, and the source N7
+named as the right one for the European stage names — was recorded 503 in N7, N9 and twice again at the
+top of this batch, on `/correlation/`, `/charts/` and the root alike. The site is alive at
+**`quaternary.stratigraphy.org`**, without the `.uk`. Nothing on the dead host says so; a search result
+for the chart carried the new address in passing. **A host that 503s on EVERY path, root included, is
+more likely to have moved than to be down** — a real outage usually still answers something. Check for a
+sibling domain before recording a third refusal.
+
+What was behind it: the **Global Chronostratigraphical Correlation Table for the Last 2.7 Million Years**
+(Cohen & Gibbard), whose regional columns — North West European Stages, British Stages, North American
+Stages, New Zealand Stages — carry Weichselian, Devensian and Wisconsinan side by side against the
+marine isotope record. That is the one work that ties the three stage names together, and it is now
+cited on two of them.
+
+### Reading a PDF: two extractor repairs, and one limit
+
+`pdftext2.js` (batch N-series scratch tool) scans every inflated stream for `( … )` literals, which on a
+figure-heavy PDF returns megabytes of image bytes as "text". Two fixes:
+
+- **keep only streams that look like content streams** — those containing `BT`, `ET` and a `Tj`/`TJ`
+  operator (`pdftext3.js`);
+- **decode UTF-16BE string literals**, which begin `\xFE\xFF` and otherwise read as `þÿN þÿI …`
+  (`pdftext4.js`).
+
+With both, Litt et al. 2007, Habbe et al. 2007, the Geological Society's stage table and Donner 1996 all
+came out clean. **The limit is a subset font with no ToUnicode map** — Preusser et al. 2011 extracts as
+custom byte codes and Ivy-Ochs 2015 as nothing at all, and neither is worth a font-mapping engine.
+**Where a Copernicus article is 2020 or later, fetch the HTML full text instead**; older ones are
+PDF-only, which is why Gaar et al. 2019 answered where Preusser et al. 2011 did not.
+
+### One sibling clash, caught and removed rather than adjudicated
+
+The `Rhinoceros` draft carried Welker et al.'s "*Coelodonta* surviving locally to 14 ka before present",
+and `Woolly_rhinoceros` — the term whose subject that is — says "its demise begins about 10,000 years
+ago" on its own sources. Two open works disagreeing about the same animal's last date. The clause was
+**dropped from the family term** rather than reconciled: a date about one genus belongs on the term for
+that genus, where it has a source of its own, and a three-sentence gloss on the family had no need of it.
+The divergence is recorded here and neither term was re-dated.
+
+An unsourced date line was also caught in the same pass: `Weichselian_glaciation` was drafted with
+"c. 115,000–11,700 years ago", which is the textbook span and is in nothing opened for it. Litt gives
+25 ka for the start of glaciation in northern Germany and 11,600 for the base of the Holocene, and
+nothing states the stage boundaries. The line was removed with `fix-gloss-date.js`, and the term now
+matches `Wisconsin_glaciation`, which has no date line either.
+
+### Verified citations (batch N10)
+
+New to the register:
+
+- Kim M. Cohen and Philip L. Gibbard, <i>Global Chronostratigraphical Correlation Table for the Last 2.7 Million Years</i>, version 2022a, Subcommission on Quaternary Stratigraphy, International Commission on Stratigraphy, https://quaternary.stratigraphy.org/files/charts/POSTERstratchart_v2022a.pdf. [Open access]
+  - opened: 2026-08-03 · text extracted from the poster
+  - supports: the columns "Regional stage/substage divisions … North West European Stages, North
+    American Stages, New Zealand Stages, British Stages" correlated against the Marine Isotope Stages,
+    the LR04 stack, the Chinese loess sequence and the Antarctic ice record; Weichselian in the NW
+    European column, Devensian in the British, Wisconsinan in the North American
+  - **NOT used for ages or for column ORDER**: the poster's extracted text is a jumble of adjacent
+    columns, so vertical position and the numeric axis cannot be read from it safely
+  - **no Alpine column**, in 2022a or in the 2019, 2010 and 2009 versions checked — so the chart is not
+    a source for the Würm
+  - used by: Weichselian_glaciation, Devensian_glaciation
+- Thomas Litt, Karl-Ernst Behre, Klaus-Dieter Meyer, Hans-Jürgen Stephan, and Stefan Wansa, “Stratigraphische Begriffe für das Quartär des norddeutschen Vereisungsgebietes,” <i>E&G Quaternary Science Journal</i> 56, no. 1/2 (2007): 7–65, https://doi.org/10.3285/eg.56.1-2.02. [Open access]
+  - opened: 2026-08-03 · PDF, English summary
+  - supports: "The mapping of Pleistocene deposits by the Prussian Geological Survey since 1910 was a
+    milestone for Quaternary stratigraphy, and the terms Elsterian, Saalian and Weichselian were
+    introduced into scientific literature"; "the Weichselian cold stage starts with the change from
+    boreal vegetation at the end of the Eemian warm stage to subarctic vegetation"; "Glaciation most
+    probably started about 25 ka BP; however, it is possible that glaciers already advanced into the
+    western Baltic Sea area between 70 and 50 ka BP"; the maximum limit reaching Brandenburg in the east
+    and the northern periphery of Hamburg; three phases evidenced by till (Brandenburg, Pomeranian,
+    Mecklenburg); the Weichselian Late Glacial beginning when the ice melted 14,500 years ago
+  - used by: Weichselian_glaciation
+- Karl Albert Habbe, Dietrich Ellwanger, and Rüdiger Becker-Haumann, “Stratigraphische Begriffe für das Quartär des süddeutschen Alpenvorlandes,” <i>E&G Quaternary Science Journal</i> 56, no. 1/2 (2007): 66–83, https://doi.org/10.3285/eg.56.1-2.03. [Open access]
+  - opened: 2026-08-03 · PDF
+  - supports: Penck introducing "die Benennungen Würm-, Riß-, Mindel-, Günz-Eiszeit … mit Lokalnamen in
+    alphabetischer Reihenfolge"; the morphostratigraphy resting on Penck in Penck & Brückner 1901/09;
+    "das erweiterte PENCK-System (Würm–Biber)" as the basis of field mapping for over 100 years; the
+    glacial series pairing each ice age's moraine deposits with corresponding gravels; "It is applicable
+    almost everywhere for Würmian sediments"; "die letzte (Würm-) Eiszeit"
+  - **NOT used**: the paper's parenthetical "MIS 12 (das Würm-Maximum)", which is an evident slip
+  - used by: Würm_glaciation
+- Dorian Gaar, Hans Rudolf Graf, and Frank Preusser, “New Chronological Constraints on the Timing of Late Pleistocene Glacier Advances in Northern Switzerland,” <i>E&G Quaternary Science Journal</i> 68 (2019): 53–73, https://doi.org/10.5194/egqsj-68-53-2019. [Open access]
+  - opened: 2026-08-03 · HTML full text
+  - supports: "The type location of the last glacial advance (Würm sensu stricto), the Birrfeld Glacial
+    of Graf (2009)"; Birrfeld as "the mainly flat area between the rivers Aare and Reuss"; OSL 25.1±2.4
+    ka and IR50 24.2±2.2 ka for the maximum ice extent at the type locality; "most ice sheets and
+    glaciers reached their last most extensive position between 26.5 and 19 ka ago, with the onset of
+    deglaciation mainly just after 20 ka"
+  - used by: Würm_glaciation
+- Philip L. Gibbard, comp., <i>British Quaternary / Pleistocene Stage Definitions</i>, modified from F. W. Shotton 1973, Stratigraphy Commission of the Geological Society of London, 2011, https://www.geolsoc.org.uk/~/media/shared/images/groups/commissions/stratigraphy/Straigraphy%20webpage%20Resource%20images/QuatGBstages.pdf?la=en. [Open access]
+  - opened: 2026-08-03 · PDF, extracted whole
+  - supports: "Compiled by P.L.Gibbard 2011, modified from Shotton, F.W. 1973"; "Devensian | Four Ashes,
+    Staffordshire (SU 914082) | Late Devensian Substage: 10-26 ka BP … Middle Devensian Substage: 26-50
+    ka BP … Early Devensian Substage: That part preceding 50 ka BP"; "Flandrian | None defined | Begins
+    at 10 C14 ka BP"
+  - **note**: only the Flandrian row states its basis as radiocarbon; the Devensian substage bounds are
+    given as bare "ka BP", so the term reports them as published and does not assert a calibration
+  - **note**: N5 recorded `geolsoc.org.uk` as not usable for a definition of the DISCIPLINE of geology.
+    That stands. Its stratigraphy commission's resource files are a different matter and are usable.
+  - used by: Devensian_glaciation
+- Joakim Donner, “The Fennoscandian Shield within Fennoscandia,” <i>Bulletin of the Geological Society of Finland</i> 68, part 1 (1996): 99–103, https://www.geologinenseura.fi/sites/geologinenseura.fi/files/sgs_bt_068_1_pages_099_103.pdf. [Open access]
+  - opened: 2026-08-03 · PDF, extracted whole
+  - supports: Ramsay (1898) pointing out that "the Kola peninsula, together with Norway, Sweden, Finland,
+    Russian Karelia and the Onega area … constitute a physico-geographical area sharply differing from
+    its surrounding"; "The reason why Ramsay suggested the name Fennoscandia was that there was not a
+    suitable name for this area; northern Europe comprises a bigger area and … the name Baltic Shield
+    excludes the Palaeozoic mountains and Scania"; Fennoscandia including "the Caledonides of Norway as
+    well as Scania in southernmost Sweden"; "the area of the Fennoscandian Shield … is part of the area
+    defined as Fennoscandia"
+  - **note**: N9 recorded a `geologinenseura.fi` PDF extracting 0 characters as an image-only scan. That
+    was a different file; this one extracts cleanly. **Test the file, not the host.**
+  - used by: Fennoscandia
+- Fredrik Lagergren et al., “Kilometre-Scale Simulations over Fennoscandia Reveal a Large Loss of Tundra Due to Climate Warming,” <i>Biogeosciences</i> 21, no. 4 (2024): 1093–1116, https://doi.org/10.5194/bg-21-1093-2024. [Open access]
+  - opened: 2026-08-03 · HTML full text
+  - supports: "This region is located between 58 and 71° N, spanning altitudes from sea level to 2469 m
+    a.s.l."; "Boreal forest dominates from the coast towards the mountains up to latitude 68–69° N.
+    Above the boreal forest there is a zone of mountain birch forest … Above the treeline follows tundra"
+  - **note**: the paper's domain is Norway, Sweden and Finland, which is narrower than Ramsay's
+    Fennoscandia; the term attributes these figures to climate modelling of the region rather than
+    presenting them as the region's definition
+  - used by: Fennoscandia
+- Frido Welker, Geoff M. Smith, Jarod M. Hutson, Lutz Kindler, Alejandro Garcia-Moreno, Aritza Villaluenga, Elaine Turner, and Sabine Gaudzinski-Windheuser, “Middle Pleistocene Protein Sequences from the Rhinoceros Genus <i>Stephanorhinus</i> and the Phylogeny of Extant and Extinct Middle/Late Pleistocene Rhinocerotidae,” <i>PeerJ</i> 5 (2017): e3033, https://doi.org/10.7717/peerj.3033. [Open access]
+  - opened: 2026-08-03 · full text via PMC5354071
+  - supports: the five extant species with their binomials, black and white in Africa and Indian, Javan
+    and Sumatran in Asia; "Two rhinoceros genera were present in Western Europe during the Late and
+    Middle Pleistocene", *Coelodonta* and *Stephanorhinus*; "the extant African rhinoceros species form
+    the most basal clade within the (extant) Rhinocerotidae"; "The clade comprised of the genus
+    *Dicerorhinus* and the two studied extinct genera groups with that of the other Asian rhinoceroses"
+  - **its "*Coelodonta* surviving locally to 14 ka" is deliberately NOT cited** — see the sibling clash
+    above
+  - used by: Rhinoceros
+- Francesco Nardelli and Kurt Heißig, “A Taxonomic Review of the Genus <i>Rhinoceros</i> with Emphasis on the Distinction of <i>Eurhinoceros</i>, Perissodactyla, Rhinocerotidae,” <i>ZooKeys</i> 1230 (2025): 303–33, https://doi.org/10.3897/zookeys.1230.127858. [Open access]
+  - opened: 2026-08-03 · full text
+  - supports: "Among the five living rhinoceros taxa, the three Asian species are notable for their
+    tusked incisors"; the family's placement in Perissodactyla
+  - used by: Rhinoceros
+
+### Hosts, measured 2026-08-03 (batch N10)
+- `quaternary.stratigraphy.org` — **200**, and the live address of the SQS. `quaternary.stratigraphy.org.uk`
+  fails on every path, root included.
+- `egqsj.copernicus.org` — 200, article pages and PDFs. HTML full text only for 2020 and later.
+- `bg.copernicus.org`, `gh.copernicus.org` — 200 with HTML full text.
+- `www.geolsoc.org.uk` — 200 for the stratigraphy commission's resource PDFs.
+- `www.geologinenseura.fi` — 200; this file extracts, unlike the one tried in N9.
+- `pmc.ncbi.nlm.nih.gov` — 200 (`www.ncbi.nlm.nih.gov/pmc/...` 301s to it).
+- `peerj.com` — **403** on article pages; use the PMC copy.
+- `www.mdpi.com`, `royalsocietypublishing.org` — **403**.
+- `www.diva-portal.org` — **503**.
+- `www.stratigraphy.org` — 200.

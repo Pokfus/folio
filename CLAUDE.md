@@ -98,7 +98,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   a card's abstract is ten), and the acceptable sources are academic, museum, government or reputable
   NGO/IGO — **plus, since 2026-08-03 and on request, an encyclopedia that cites its own sources**, tested
   per article rather than per publisher (see N9's finding below: most do not).
-  **THE GLOSSARY CITATION PASS IS COMPLETE: all 396 terms are cited and at the bar** (batches G1–G11, P1–P7, C0–C12, D1–D3, N1–N9), all with
+  **THE GLOSSARY CITATION PASS IS COMPLETE: all 401 terms are cited and at the bar** (batches G1–G11, P1–P7, C0–C12, D1–D3, N1–N10), all with
   in-text markers in all ten languages. G11 COMPLETED Phase 1** (all 91 of its prehistory, palaeoanthropology,
   geological-time, peoples and physical-geography terms) **and P1 opened Phase 2** with the first six
   presidents, on the Miller Center's presidential essays; **P2 took it to Polk, P3 to Andrew Johnson, P4
@@ -540,7 +540,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `GLOSSARY_CASESENSITIVE`, `GLOSSARY_TAGS` (per-term category tags — the admin glossary's left-bar
   filter), `GLOSSARY_IMAGES` (per-term illustration — see the "Glossary image" bullet below) and
   `GLOSSARY_SOURCES` (per-term citations — see the "Source footnotes" bullet).
-  Trimmed to the single `Sima_Qian` template entry on 2026-07-23 and **regrown since to 396 terms**
+  Trimmed to the single `Sima_Qian` template entry on 2026-07-23 and **regrown since to 401 terms**
   (every country in the world, plus prehistory/paleoanthropology vocabulary), one fully-formed entry at a time
   (description + date + tags + all 9 translations); the full pre-trim glossary (2,165 terms) and its partial
   translations are backed up in `.claude/backup/`.
@@ -993,7 +993,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     carrying a sentence about it until it was removed on request.
     **`SEEN_CAP` must stay above the SHIPPED universe of both registers** and is no longer a free
     parameter: these counts are now shown to the reader as progress towards completion, so a prune would
-    make a count go backwards and re-flag a place as newly discovered. Measured: 396 glossary terms and
+    make a count go backwards and re-flag a place as newly discovered. Measured: 401 glossary terms and
     **1,211 distinct clickable place names** (258 present-day + 1,194 across the 13 eras) — already 80% of
     the old 1500 cap, and **every new geo era adds territory names**. Fully seen, `placesSeen` is ~34 KB of
     the progress blob, so the headroom is nearly free. `.claude/test-discovery.js` asserts the clearance
@@ -1015,7 +1015,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
       read as the term changing state before it was opened — and sits **after** the base `:hover` rules
       (equal specificity → source order). `refreshTtipNew(key)` re-marks every matching link on the page
       the moment a popup opens, so the prose behind it loses its gold at once, not on the next render.
-    · The **first** opening also shows a gold chip (`discChipHTML` → `.disc-chip`): "New term! 41 / 396"
+    · The **first** opening also shows a gold chip (`discChipHTML` → `.disc-chip`): "New term! 41 / 401"
       in the gloss popup's bar, "New place! 7 / 258" in the Atlas panel (`#cpNew`), with a **splash** of
       two expanding rings (`discRing` / `discRingNight`, staggered onto `::after`) and a **`sfx("discover")`
       chime**. The rings are **box-shadow spread, never a scaled pseudo-element**: the chip sits inside
@@ -1166,7 +1166,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     stripe): one is derived from the data, the other is an editor's private marker.
   · `sup` + `class="fn"` + `data-fn` are in the sanitizer allowlists, so a community deck can use markers too.
   · **The Atlas table still ships EMPTY; the glossary has begun.** `country-sources.js` has no entries at all.
-    **`GLOSSARY_SOURCES` carries ALL 396 terms** (batches G1–G11, P1–P7, C0–C12, D1–D3, N1–N9, 2026-08-01/03 — the genus, species, specimen,
+    **`GLOSSARY_SOURCES` carries ALL 401 terms** (batches G1–G11, P1–P7, C0–C12, D1–D3, N1–N10, 2026-08-01/03 — the genus, species, specimen,
     stone-industry, three-age, periodisation, geological-time, type-site, way-of-life and discipline terms, plus the
     Indigenous-peoples group, its odds and ends, the poles / desert / ocean / two historiographic names, the six
     continents with `Sicily`, `Equator` and the two hemispheres — which completes Phase 1 — and the first six
@@ -1595,7 +1595,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   gain. **Japanese (`ja`) is COMPLETE**: the chrome
   (531 strings / 72 rules / 12 prose blocks), all 30 cards and 333 glossary terms are translated and live,
   at full parity with the other eight languages. (The **sixty-three terms added on 2026-08-03 are English-only**,
-  like every entry written since the `MULTILANG` gate went up — so all nine languages stand at 333 of 396,
+  like every entry written since the `MULTILANG` gate went up — so all nine languages stand at 333 of 401,
   together, and a language is still "complete" in the sense that matters: none is behind the others.)
   **Content localisation is separate**: cards carry per-language `i18n` blocks (`cardLocalized()`), glossary
   descriptions live in `i18n/gloss-<lang>.js` (`window.GLOSSARY_I18N`, read by `glossText()`), and **collection /
@@ -2746,10 +2746,10 @@ and its sources, and were fact-checked rather than referenced. A batched pass is
 reports both on every run, `node .claude/source-audit.js` reports them per card, and the Edit page's card list
 shows each card's coverage as an amber or red chip) — and **a second pass has started on the glossary**, batched
 through `docs/glossary-citation-plan.md` at a bar of **2 citations per term** (`GLOSS_SRC_TARGET`), with
-`node .claude/gloss-source-audit.js` and the glossary list's own coverage chip reporting it; **all 396 terms are cited — THE GLOSSARY PASS IS COMPLETE** (batches G1–G11, which complete Phase 1;
+`node .claude/gloss-source-audit.js` and the glossary list's own coverage chip reporting it; **all 401 terms are cited — THE GLOSSARY PASS IS COMPLETE** (batches G1–G11, which complete Phase 1;
 P1–P7, which complete Phase 2 — all 45 US presidents; C0–C12, which take Phase 3 through every region;
-D1–D3, which clear the European and Asian deferral lists and the last four terms; and **N1–N9,
-sixty-three new Palaeolithic terms written cited rather than cited afterwards** — which is how the pass stays
+D1–D3, which clear the European and Asian deferral lists and the last four terms; and **N1–N10,
+sixty-eight new Palaeolithic terms written cited rather than cited afterwards** — which is how the pass stays
 complete: a term added after it joins at the bar instead of reopening a backlog). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
 **N9 is the batch that measured a rule change, and its finding is that the change buys less than it
 sounds like.** The rule was relaxed on request — **an encyclopedia may be cited, but only if that
@@ -2765,11 +2765,32 @@ his career and without his book's Danish title because every source stating them
 and looked for again in N6 down the institutional route, where `natmus.dk` turned out to carry five
 history pages that do not mention him at all. DBL supplies the lot, and the shape worth keeping is the
 division it produced: **the encyclopedia carries the biography and the scholarship still carries the
-argument.** `Weichselian_glaciation`, `Würm_glaciation`, `Devensian_glaciation`, `Fennoscandia` and
-`Rhinoceros` stay deferred, and the encyclopedia rule is not what is holding them —
-`quaternary.stratigraphy.org.uk` is **503 on a third attempt across three batches**, `iucnredlist.org`
-is 403, and the Geological Society of Finland's PDF extracts **0 characters** because it is an
-image-only scan.
+argument.** N9 left `Weichselian_glaciation`, `Würm_glaciation`, `Devensian_glaciation`, `Fennoscandia`
+and `Rhinoceros` deferred and said the encyclopedia rule was not what held them; **N10 cleared all five
+and showed what was.**
+**N10's finding is that a 503 on EVERY path is a moved domain, not an outage.**
+`quaternary.stratigraphy.org.uk` — the ICS Subcommission on Quaternary Stratigraphy, named by N7 as the
+right source for the European stage names — was recorded down in N7, in N9 and twice more at the top of
+N10, on `/correlation/`, `/charts/` and the root alike. **The site is alive at
+`quaternary.stratigraphy.org`, without the `.uk`**, and nothing on the dead host says so; a search
+result for the chart carried the new address in passing. A genuine outage usually still answers
+something, so **look for a sibling domain before recording a third refusal.** Behind it is Cohen &
+Gibbard's *Global Chronostratigraphical Correlation Table for the Last 2.7 Million Years*, whose
+regional columns carry Weichselian, Devensian and Wisconsinan side by side against the marine isotope
+record — the one work that ties the three names together, and now cited on two of them. **It has no
+Alpine column** in any version checked, so the Würm went to the south German and Swiss literature
+instead. Three more things the batch is worth remembering for. **Where a Copernicus article is 2020 or
+later, fetch the HTML full text**: the older ones are PDF-only, and a subset font with no ToUnicode map
+defeats extraction outright (Preusser et al. 2011 comes out as raw byte codes, Ivy-Ochs 2015 as
+nothing), which is why Gaar et al. 2019 answered where Preusser did not. **Test the file, not the
+host** — N9 wrote off `geologinenseura.fi` on one image-only scan, and Donner 1996, on the same host,
+extracts cleanly and carries the whole of `Fennoscandia`. And the sibling check paid again in a form
+worth copying: the `Rhinoceros` draft carried Welker's "*Coelodonta* surviving locally to 14 ka" while
+`Woolly_rhinoceros`, whose subject that is, says its demise begins about 10,000 years ago on its own
+sources — **two open works disagreeing, so the clause was DROPPED from the family term rather than
+reconciled**, a date about one genus belonging on the term for that genus. An unsourced date line went
+the same way: `Weichselian_glaciation` was drafted with the textbook "c. 115,000–11,700 years ago",
+which is in nothing opened for it, and now has no date line at all, like `Wisconsin_glaciation`.
 **N1's finding is an access repair worth reusing: `hal.science` is now behind the Anubis wall on its RECORD
 pages as well as on `/document`** (batch 21 found the file path), which silently breaks stored citations —
 `wh-011`'s PAGES 2016 link among them. The way back is a **university repository deposit** of the same
