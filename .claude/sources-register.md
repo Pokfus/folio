@@ -9816,7 +9816,7 @@ alone when its history had none.
 
 ---
 
-# THE GLOSSARY CITATION PASS IS COMPLETE — 378 of 378
+# THE GLOSSARY CITATION PASS IS COMPLETE — 387 of 387
 
 Every term carries at least `GLOSS_SRC_TARGET` (2) citations, every citation is referenced by at least one
 in-text marker, and the markers are identical across English and all nine translations. `node
@@ -9824,8 +9824,8 @@ in-text marker, and the markers are identical across English and all nine transl
 batch 26; **both passes are now done, and `country-sources.js` — the Atlas — is the only surface in Folio
 that still shows no sources.**
 
-(333 at the close of D3; **forty-five terms were added on 2026-08-03 and were cited as they were written** —
-see N1–N5 below. A term added after the pass joins it at the bar, rather than reopening a backlog.)
+(333 at the close of D3; **fifty-four terms were added on 2026-08-03 and were cited as they were written** —
+see N1–N6 below. A term added after the pass joins it at the bar, rather than reopening a backlog.)
 
 ---
 
@@ -10473,6 +10473,122 @@ m in NGRIP, 11,700 cal yr b2k, the first GSSP in an ice core) → Geological_epo
 volcanic emission and the weathering sink; Antarctic glaciation then Northern Hemisphere ice sheets in the
 most recent 3–5 Myr) → Cenozoic_Era; `bayliss-2009` (a chronology drawing on 14C, stratigraphy, coins and
 typology together beating one resting on a single strand) → Stratum.
+
+---
+
+## Batch N6 — Worsaae completed from his own book, plus nine on the Ice Age north (2026-08-03)
+
+`Jens_Jacob_Worsaae` rewritten, and nine new terms — **Beringia, Siberia, Alaska, mammoth, woolly
+mammoth, elephant, Smilodon, Last Glacial Maximum, stratigraphy**. Twenty-four slots from **fourteen
+works, thirteen open**; ten came from this register, which is what a batch about the Pleistocene north
+should look like, since the cards already cover it.
+
+### The finding: the Danish institutions do not carry their own founder
+
+The request was to complete Worsaae from a **Danish institutional record**. Five pages of `natmus.dk`
+were tried — the museum-history hub, Oldsagskommissionen, C. J. Thomsen, *De tre tidsaldre*, and the
+Antiquarian-Topographical Archive's own history — and **not one mentions him**; `slks.dk`'s history of the
+monuments law returns navigation only; and Briggs 2005 in the *Bulletin of the History of Archaeology*,
+which is about Rafn and Worsaae by title, has an abstract carrying nothing biographical and a PDF whose
+embedded font encoding defeats extraction. **The Danish sources the search engines appeared to offer were
+aggregating `lex.dk` and Wikipedia**, both barred by the plan, which is a trap worth naming: a search
+summary can read as institutional when every underlying source is an encyclopedia.
+
+What answered was **Worsaae's own book**, and it is the better record anyway: *The Primeval Antiquities
+of Denmark* (London: John Henry Parker, 1849), W. J. Thoms's translation of *Danmarks Oldtid oplyst ved
+Oldsager og Gravhøie* (1843), scanned in full on the Internet Archive. Its **title page states his Danish
+office outright** — "A ROYAL COMMISSIONER FOR THE PRESERVATION OF THE NATIONAL MONUMENTS OF DENMARK" —
+and its opening pages carry Thomsen as "the real founder of the Museum" and the three-class division in
+Worsaae's own words. **Batch 25's rule at full strength: where a 19th-century figure is out of copyright,
+he is his own best institutional record.**
+
+**His birth and death years are still not cited**, and the term still omits them. Nothing the plan admits
+states them; only encyclopedias do. That is the second time this term has been left deliberately short,
+and it is the honest state rather than a gap to be filled from memory.
+
+### The alias split the request asked for, and why it was already half-done
+
+`stratigraphy` and `stratigraphic` were aliases on `Stratum` when it was drafted in N5, and were **cut
+before shipping** on the ground that stratigraphy is the study of strata and not a synonym. N6 gives it
+the separate term that reasoning implied. The two now resolve independently — `strata` → `Stratum`,
+`stratigraphy` → `Stratigraphy` — and each links to the other in its prose. **The N5 restraint is what
+made the split cheap**; had the alias shipped, the new term would have silently overridden it and left a
+dead row behind, which is the `Upper_Paleolithic` case exactly.
+
+### Verified citations (batch N6)
+
+New to the register:
+
+- J. J. A. Worsaae, <i>The Primeval Antiquities of Denmark</i>, trans. William J. Thoms (London: John Henry Parker, 1849), title page and 4, translated from <i>Danmarks Oldtid oplyst ved Oldsager og Gravhøie</i> (Copenhagen, 1843), https://archive.org/details/primevalantiqui00worsgoog. [Open access]
+  - opened: 2026-08-03 · the Internet Archive's OCR of the Oxford copy, digitised by Google; read via the
+    `/stream/<id>/<id>_djvu.txt` route and extracted locally
+  - supports: the title page's "J. J. A. WORSAAE, A FOREIGN MEMBER OF THE SOCIETY OF ANTIQUARIES OF
+    LONDON, &C., AND A ROYAL COMMISSIONER FOR THE PRESERVATION OF THE NATIONAL MONUMENTS OF DENMARK",
+    the translator, and the imprint "LONDON, JOHN HENRY PARKER; AND BROAD-STREET, OXFORD. MDCCCXLIX.";
+    that "The Royal Museum of Northern Antiquities of Copenhagen contains a greater number of primeval
+    antiquities, than most other collections, and by the efforts of C. J. Thomsen, (the real founder of
+    the Museum,) it has been systematically arranged"; and "The same division of the antiquities into
+    three classes, — those belonging to the periods of Stone, and Bronze, and Iron, — which has been
+    adopted in the arrangement of the Danish primeval monuments, will apply to the British remains"
+  - **does NOT give his birth or death years**; nothing openable here does
+  - used by: Jens_Jacob_Worsaae
+- Eleftheria Palkopoulou, Mark Lipson, Swapan Mallick, et al., “A Comprehensive Genomic History of Extinct and Living Elephants,” <i>Proceedings of the National Academy of Sciences</i> 115, no. 11 (2018): E2566–E2574, https://pmc.ncbi.nlm.nih.gov/articles/PMC5856550/. [Open access]
+  - opened: 2026-08-03 · full text via PMC (`isOpenAccess: N` in the Europe PMC record and fully readable —
+    batch 24's rule again; the label follows readability, not licence)
+  - supports: "The two forest elephants in our dataset … comprise a lineage that is distinct from savanna
+    elephants, confirming … that the two African elephants should be classified as distinct taxa"; "Forest
+    and savanna elephants are inferred to have split from each other ∼5 to 2 Mya, soon after their common
+    ancestor split from the straight-tusked elephant lineage"; that "for conservation purposes, forest
+    elephants and savanna elephants are appropriately viewed as reproductively distinct units, meeting the
+    definition of the Biological Species Concept"; and that "Asian elephants and mammoths are estimated to
+    have split at about the same time as the split between *Loxodonta* and straight-tusked elephants"
+  - used by: Elephant
+- M. Aleksander Wysocki, Robert S. Feranec, Zhijie Jack Tseng, and Christopher S. Bjornsson, “Using a Novel Absolute Ontogenetic Age Determination Technique to Calculate the Timing of Tooth Eruption in the Saber-Toothed Cat, <i>Smilodon fatalis</i>,” <i>PLOS ONE</i> 10, no. 7 (2015): e0129847, https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0129847. [Open access]
+  - opened: 2026-08-03 · full text
+  - supports: *S. fatalis* as "the saber-toothed cat" with "a superb fossil record" and "the exceptional
+    fossil record … at Rancho La Brea"; upper canine crown height "~130 mm" and eruption at "6.0
+    millimeters per month"; "the upper canines finished erupting at about 34 to 41 months"; and the rest of
+    the permanent dentition "fully erupted by 14 to 22 months"
+  - used by: Smilodon
+- Larisa R. G. DeSantis, Blaine W. Schubert, Jessica R. Scott, and Peter S. Ungar, “Implications of Diet for the Extinction of Saber-Toothed Cats and American Lions,” <i>PLOS ONE</i> 7, no. 12 (2012): e52453, https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0052453. [Open access]
+  - opened: 2026-08-03 · full text
+  - supports: that *S. fatalis* "may have been a more catholic carnivore, both taking down prey and
+    consuming carcasses already acquired by other individuals", with dental microwear texture "most similar
+    to the African lion *Panthera leo*"; that both cats "went extinct along with other megafauna ∼12,000
+    years ago"; and that the data "offer little evidence that declining prey resources were a primary cause
+    of extinction for these large cats"
+  - **the register's only previous saber-tooth mention is `dodson-2025` on Zhoukoudian, which is the WRONG
+    ANIMAL** — the Chinese saber-toothed cats are not *Smilodon*, a New World genus, and citing it here
+    would have been a plausible-looking error of exactly the kind this pass keeps catching
+  - used by: Smilodon
+
+Reused for the claims this register already records: `kanjanajuntorn-2020` and `rowley-conwy-2004` →
+Jens_Jacob_Worsaae, Stratigraphy; `jakobsson-2017` (the ~53 m strait exposed as a land bridge, flooded
+~11 cal ka BP) → Beringia, Alaska; `macdonald-2012` (the mammoth steppe, the Beringian range, the ~12.9 ka
+North American and early-Holocene north Asian declines, island survival to ~4 ka) → Beringia,
+Woolly_mammoth; `reich-2010` (the 2008 phalanx at Denisova Cave in southern Siberia, the Neanderthal
+common origin, the Melanesian contribution) → Siberia; `vandervalk-2021` (Krestovka at 1.2–1.1 Ma as the
+oldest animal DNA; Adycha ancestral to woolly mammoths; Chukochya already one) → Siberia, Mammoth;
+`moreno-mayar-2018` (the terminal Pleistocene Alaskan genome and the first founding population) → Alaska;
+`graham-2016` (St. Paul mammoths to 5,600 ± 100 ya, killed by freshwater scarcity) → Alaska;
+`larramendi-2016` (*M. primigenius* at ~2.7–3.5 m and ~5.5–8 t, ears ~30 cm under a kilogram, very short
+tail, thick coat; the volumetric method "tested on extant elephants") → Woolly_mammoth, Mammoth, Elephant;
+`dehasque-2024` (Wrangel isolation ~10,000 ya, extinction ~4,000 ya after 200+ stable generations,
+inbreeding without meltdown) → Woolly_mammoth; `clark-2009` (26.5–19 ka as a ~7,500-yr plateau; ~130 m
+eustatic fall; the five named ice sheets; deglaciation onset 19–20 ka) and `spratt-lisiecki-2016` (−130 to
+−134 m) and `moreno-parada-2023` (Laurentide ~3–4 km over the Hudson Bay dome) → Last_Glacial_Maximum;
+`bayliss-2009` (single-context recording and Harris matrices as standard practice; the all-strands
+argument) and `gibbard-head-2010` (Monte San Nicola) → Stratigraphy.
+
+`Last_Glacial_Maximum` is the batch's only list with a paywalled work — Clark et al. 2009, the landmark
+that names the interval — and is 2 open of 3, a majority.
+
+### Hosts, measured 2026-08-03 (batch N6)
+- `archive.org` `/stream/<id>/<id>_djvu.txt` — 200, and the way to read a scanned book's OCR in bulk.
+- `journals.plos.org`, `pmc.ncbi.nlm.nih.gov`, `www.app.pan.pl` (abstract only) — 200.
+- `natmus.dk` — 200 on five history pages, **none of which mentions Worsaae**.
+- `slks.dk` — 200 but navigation only.
+- `archaeologybulletin.org` — abstract 200; the article PDF's embedded fonts are not extractable.
 
 ### Hosts, measured 2026-08-03 (batch N5)
 - `home.nps.gov`, `www.bgs.ac.uk`, `journals.plos.org`, `pmc.ncbi.nlm.nih.gov`, `humanorigins.si.edu` — 200.
