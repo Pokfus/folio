@@ -200,6 +200,59 @@ html[dir="rtl"] .page-head{text-align:right;}
 .stage{max-width:880px; margin:0 auto; padding:clamp(22px,4vw,42px) clamp(16px,4vw,40px) 90px; position:relative;}
 .page{animation:pageIn .42s var(--ease) both;}
 @keyframes pageIn{from{opacity:0; transform:translateY(10px) scale(.995);} to{opacity:1; transform:none;}}
+/* The outgoing page (see makePageGhost in app.js): a CLONE of it, laid over the stage to fade while the new
+   one renders underneath — render() is synchronous and cannot wait for an exit animation, so the exit
+   happens beside it rather than before it. Never interactive, never in the layout, and never in the
+   accessibility tree. #view has to be positioned for it, so the copy lands exactly over the new page. */
+#view{position:relative;}
+.page-ghost{position:absolute; left:0; right:0; top:0; pointer-events:none; z-index:2; animation:pageOut .26s var(--ease) both;}
+@keyframes pageOut{from{opacity:1; transform:none;} to{opacity:0; transform:translateY(-8px) scale(.994);}}
+
+/* ============================================================
+   MOTION (Aug 2026, on request: "animated transitions between pages and for actions")
+   ============================================================
+   Everything here is decoration over layout that already works, and every rule is an animation or a
+   transition — so the stylesheet's global prefers-reduced-motion killswitch at the foot of this file
+   covers the lot with no per-rule handling. Two standing constraints:
+     · nothing may change an element's LAYOUT (no margins, no display), only its paint and its transform,
+       so a mid-animation measurement (test-layout.js, computeCityLayout, cpMinH) reads the settled value;
+     · the entrance stagger opts out exactly where the page-level animation already does — the Atlas
+       (a canvas being drawn into) and the editor (a repaint per keystroke).
+   ------------------------------------------------------------ */
+/* A page arrives as a sequence rather than a slab: its top-level blocks follow the page in, a beat apart.
+   Capped at eight — past that the last block would arrive noticeably late, and a long page is scrolled to
+   rather than read from the top. */
+.page > *{animation:sectIn .42s var(--ease) both;}
+.page > *:nth-child(1){animation-delay:.02s;}
+.page > *:nth-child(2){animation-delay:.06s;}
+.page > *:nth-child(3){animation-delay:.10s;}
+.page > *:nth-child(4){animation-delay:.14s;}
+.page > *:nth-child(5){animation-delay:.17s;}
+.page > *:nth-child(6){animation-delay:.20s;}
+.page > *:nth-child(n+7){animation-delay:.22s;}
+@keyframes sectIn{from{opacity:0; transform:translateY(7px);} to{opacity:1; transform:none;}}
+/* …and the same three opt-outs the page animation itself takes. The ghost must not re-run the entrance on
+   its own children either, or the outgoing page flickers back in as it fades out. */
+.page:has(.atlas) > *,body.admin-mode .page > *,.page-ghost > *{animation:none;}
+
+/* Overlays: the backdrop washes in and the box rises to meet it. These had no entrance at all — a dialog
+   that simply exists on the next frame is the single most abrupt thing left in the interface. */
+.inline-prompt,.deck-menu{animation:overlayIn .18s var(--ease) both;}
+.ip-box,.dm-box{animation:dialogIn .26s var(--ease) both;}
+@keyframes overlayIn{from{opacity:0;} to{opacity:1;}}
+@keyframes dialogIn{from{opacity:0; transform:translateY(12px) scale(.97);} to{opacity:1; transform:none;}}
+
+/* Press feedback on the buttons that had none. `.btn` already lifts and settles; these are the quieter
+   controls — the account page's ghost buttons, the editor's mini buttons, the sheet rows — where a click
+   previously produced no acknowledgement of its own at all. */
+.ghost-btn,.mini-btn{transition:background .15s var(--ease), border-color .15s var(--ease), transform .1s var(--ease);}
+.ghost-btn:active,.mini-btn:active,.dm-item:active{transform:scale(.975);}
+/* A tile is big enough that a scale reads as a shove; it dips instead. */
+.game-tile:active,.exp-tile:active{transform:translateY(1px);}
+/* The global killswitch at the foot of this file collapses DURATIONS, not delays — and `both` holds an
+   element at its start state (invisible) through its delay, so without this a reduced-motion reader would
+   watch a page arrive in blank steps over a fifth of a second. Delays go to zero there. */
+@media (prefers-reduced-motion:reduce){ .page > *{animation-delay:0s !important;} }
 
 .page-head{margin:2px 0 22px;}
 .page-head h1{font-family:var(--display); font-weight:600; font-size:calc(clamp(28px,5vw,38px) * var(--fs)); margin:6px 0 0; letter-spacing:-.015em;}
@@ -1165,9 +1218,46 @@ body.grading .stage{padding-bottom:150px;}
 .ds-foot b{color:var(--ink);}
 .ds-empty{font-family:var(--sans); font-size:calc(13px * var(--fs)); color:var(--ink-faint); background:var(--card); border:1px solid var(--rule); border-radius:12px; padding:18px 20px;}
 
+/* ---------- PAGE: the glossary terms this reader has discovered (PAGES.glossary) ---------- */
+.gl-meter{background:var(--card); border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow-sm); padding:14px 18px 16px; display:flex; flex-direction:column; gap:9px; margin-bottom:16px;}
+.gl-meter-head{font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint);}
+.gl-meter-head b{font-family:var(--display); font-size:calc(20px * var(--fs)); letter-spacing:0; text-transform:none; color:var(--ink); margin-right:4px;}
+.gl-meter .ds-bar{width:100%; flex:none;}
+.gl-search{margin-bottom:12px;}
+.gl-search input{width:100%; max-width:340px; font-family:var(--sans); font-size:calc(13.5px * var(--fs)); padding:9px 12px; border:1px solid var(--rule); border-radius:9px; background:var(--card); color:var(--ink); transition:border-color .16s var(--ease), box-shadow .16s var(--ease);}
+.gl-search input:focus{outline:none; border-color:var(--indigo); box-shadow:0 0 0 3px var(--indigo-wash);}
+.gl-list{background:var(--card); border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow-sm); overflow:hidden;}
+.gl-row{display:flex; align-items:baseline; gap:14px; width:100%; text-align:left; appearance:none; background:none; border:0; border-bottom:1px solid color-mix(in srgb,var(--rule) 60%,transparent); padding:12px 18px; cursor:pointer; font:inherit; color:inherit; transition:background .14s var(--ease), padding-left .14s var(--ease);}
+.gl-row:last-child{border-bottom:0;}
+.gl-row:hover{background:var(--indigo-wash); padding-left:23px;}
+.gl-row:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px;}
+.gl-name{font-family:var(--serif); font-weight:600; font-size:calc(15px * var(--fs)); color:var(--ink); flex:1; min-width:0;}
+.gl-dates{font-family:var(--mono); font-weight:400; font-size:calc(10.5px * var(--fs)); color:var(--ink-faint); margin-left:8px; white-space:nowrap;}
+.gl-tags{display:flex; gap:5px; flex:none; max-width:44%; overflow:hidden;}
+.gl-tag{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint); background:var(--paper-2); border:1px solid color-mix(in srgb,var(--rule) 70%,transparent); border-radius:99px; padding:2px 7px; white-space:nowrap;}
+.gl-when{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.05em; color:var(--ink-faint); flex:none; width:92px; text-align:right;}
+.gl-empty{padding:34px 24px; text-align:center;}
+.gl-empty h3{font-family:var(--display); font-weight:600; font-size:calc(19px * var(--fs)); margin:0 0 8px;}
+.gl-empty p{font-family:var(--sans); font-size:calc(13.5px * var(--fs)); line-height:1.6; color:var(--ink-faint); max-width:46ch; margin:0 auto 16px;}
+@media (max-width:640px){
+  /* the tags are the first thing to go at 390px — the name and when it was read are what a reader scans */
+  .gl-tags{display:none;}
+  .gl-row{padding:11px 14px; gap:10px;}
+  .gl-row:hover{padding-left:18px;}
+  .gl-when{width:74px;}
+  .gl-search input{max-width:none;}
+}
+
 /* ---------- "beyond the cards": glossary/Atlas reading and the daily games ---------- */
 .ex-meter .ds-bar{width:100%; flex:none;}
 .ex-tiles{margin-top:14px;}
+/* the glossary meter is a way IN to the terms it counts (PAGES.glossary). Only that one is a button, so
+   the arrow is what distinguishes it from the Atlas meter beside it. */
+.ex-meter-link{position:relative; text-align:left; cursor:pointer; font:inherit; color:inherit; padding-right:34px; transition:border-color .16s var(--ease), box-shadow .16s var(--ease), transform .16s var(--ease);}
+.ex-meter-link:hover{border-color:var(--indigo); box-shadow:var(--shadow-md); transform:translateY(-1px);}
+.ex-meter-link:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
+.ex-go{position:absolute; right:16px; top:16px; font-family:var(--sans); font-size:calc(15px * var(--fs)); color:var(--indigo); transition:transform .16s var(--ease);}
+.ex-meter-link:hover .ex-go{transform:translateX(3px);}
 .ex-games{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:0 22px; background:var(--card); border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow-sm); padding:6px 18px; margin-top:14px;}
 .ex-grow{display:flex; align-items:baseline; gap:10px; padding:9px 0; border-bottom:1px solid color-mix(in srgb, var(--rule) 60%, transparent);}
 .ex-grow:last-child{border-bottom:0;}
@@ -1216,6 +1306,10 @@ body.grading .stage{padding-bottom:150px;}
 .recovery-code{font-family:var(--mono); font-size:calc(22px * var(--fs)); letter-spacing:.18em; color:var(--indigo); background:var(--paper-2); border:1px dashed var(--rule); border-radius:10px; padding:14px; text-align:center; margin:14px 0; user-select:all;}
 .acct-tools{display:flex; gap:10px; margin:-6px 0 8px; flex-wrap:wrap;}
 .acct-panel{background:var(--card); border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow-sm); padding:18px 20px; margin-bottom:14px; display:flex; flex-direction:column; gap:11px; max-width:460px;}
+/* Change password and Sign out, side by side inside the profile card (Aug 2026, on request) — they act on
+   the same thing, and the sync line under them says what happens to it. */
+.acct-idacts{display:flex; align-items:center; gap:8px; flex:none; flex-wrap:wrap; justify-content:flex-end;}
+.acct-syncnote{margin:-14px 0 16px; padding-left:2px;}
 
 .friends-box{background:var(--card); border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow-sm); padding:16px 18px; margin-bottom:8px;}
 .friend-add{display:flex; gap:8px;}
@@ -1250,9 +1344,37 @@ body.grading .stage{padding-bottom:150px;}
 /* timeline-mode: the historical-era editor takes over the admin area (like feedback) */
 .admin.timeline-mode .admin-tree,.admin.timeline-mode .admin-side-foot,.admin.timeline-mode .admin-collapse,.admin.timeline-mode .admin-editor,.admin.timeline-mode .admin-search,.admin.timeline-mode .alt-right,.admin.timeline-mode .alt-right-gloss,.admin.timeline-mode .admin-sel-bar,.admin.timeline-mode .admin-resizer{display:none;}
 .admin.timeline-mode .admin-list{width:auto; flex:1; border-right:0;}
+/* dash-mode: the whole-site figures take over the admin area (like feedback and timeline). It also hides the
+   list TOOLS row's count, which the other two keep — the dashboard's own header says what it is counting. */
+.admin.dash-mode .admin-tree,.admin.dash-mode .admin-side-foot,.admin.dash-mode .admin-collapse,.admin.dash-mode .admin-editor,.admin.dash-mode .admin-search,.admin.dash-mode .alt-right,.admin.dash-mode .alt-right-gloss,.admin.dash-mode .admin-sel-bar,.admin.dash-mode .admin-resizer{display:none;}
+.admin.dash-mode .admin-list{width:auto; flex:1; border-right:0;}
 /* with the deck tree hidden, the side panel is just the tab strip — drop its full-height right border + fill so it
    doesn't leave a floating vertical divider running down the empty column below the tabs. */
-.admin.feedback-mode .admin-side,.admin.timeline-mode .admin-side{background:transparent; border-right:0;}
+.admin.feedback-mode .admin-side,.admin.timeline-mode .admin-side,.admin.dash-mode .admin-side{background:transparent; border-right:0;}
+
+/* ---- Edit → Dashboard: Folio in numbers ---- */
+.dsh-wrap{padding:20px 24px 40px; max-width:1180px;}
+.dsh-lede{font-family:var(--serif); font-size:calc(14.5px * var(--fs)); line-height:1.65; color:var(--ink-soft); max-width:74ch; margin-bottom:22px;}
+.dsh-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:16px; align-items:start;}
+.dsh-card{background:var(--card); border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow-sm); padding:16px 18px 17px; display:flex; flex-direction:column; gap:13px; min-width:0;}
+.dsh-head{display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap;}
+.dsh-head h3{font-family:var(--display); font-weight:600; font-size:calc(16.5px * var(--fs)); color:var(--ink); margin:0;}
+.dsh-sub{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.09em; text-transform:uppercase; color:var(--ink-faint);}
+.dsh-tiles{display:grid; grid-template-columns:repeat(auto-fit,minmax(112px,1fr)); gap:10px;}
+.dsh-tile{background:var(--paper-2); border:1px solid color-mix(in srgb, var(--rule) 70%, transparent); border-radius:10px; padding:11px 12px; min-width:0;}
+.dsh-tile b{display:block; font-family:var(--display); font-weight:600; font-size:calc(21px * var(--fs)); color:var(--ink); line-height:1.15;}
+.dsh-tile span{display:block; font-family:var(--sans); font-size:calc(11px * var(--fs)); color:var(--ink-faint); margin-top:3px; line-height:1.35;}
+.dsh-bar{display:flex; flex-direction:column; gap:6px;}
+.dsh-bar-head{display:flex; align-items:baseline; justify-content:space-between; gap:10px; font-family:var(--sans); font-size:calc(12.5px * var(--fs)); color:var(--ink-soft);}
+.dsh-bar-head b{font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink); font-weight:500; white-space:nowrap;}
+.dsh-bar .ds-bar{width:100%; flex:none;}
+.dsh-bar small{font-family:var(--sans); font-size:calc(11.5px * var(--fs)); color:var(--ink-faint); line-height:1.45;}
+.dsh-note{font-family:var(--sans); font-size:calc(12px * var(--fs)); line-height:1.55; color:var(--ink-faint);}
+.dsh-langs{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:6px 14px;}
+.dsh-lang{display:flex; align-items:baseline; gap:8px; font-family:var(--sans); font-size:calc(12px * var(--fs)); color:var(--ink-soft); border-bottom:1px dotted color-mix(in srgb,var(--rule) 80%,transparent); padding-bottom:4px;}
+.dl-code{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.08em; color:var(--indigo); font-weight:600; flex:none; width:26px;}
+.dl-n{color:var(--ink-faint); font-size:calc(11.5px * var(--fs));}
+.dl-n + .dl-n{margin-left:auto;}
 .tl-edit{padding:22px 26px; max-width:900px;}
 .tl-intro{font-family:var(--serif); font-size:calc(14px * var(--fs)); line-height:1.6; color:var(--ink-soft); margin-bottom:20px;}
 .tl-add{border:1px solid var(--rule); border-radius:12px; background:var(--paper-2); padding:18px; margin-bottom:24px;}
@@ -1483,6 +1605,15 @@ body.night .ph-lvl{color:#F3E3B2; background:#4A3B10; border-color:#E6C765;}
 .fs-pick button:hover{background:var(--indigo-wash); color:var(--indigo);}
 .fs-pick button.on{background:var(--indigo); color:#fff;}
 .fs-pick button:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px;}
+/* the measurements picker is the same segmented control, with a unit abbreviation where the A sits */
+.units-pick .fs-a{font-family:var(--mono); font-size:calc(12px * var(--fs)); letter-spacing:.02em;}
+/* While "Match my device" is on, the Night mode switch still SHOWS which way the system has gone — the row
+   is dimmed rather than removed, because a reader needs to see that the site knows it is dark. Clicking it
+   is still allowed and takes the decision back (setNight turns the device switch off), so it must NOT be
+   pointer-events:none — this is a state, not a disabled control. */
+.set-row.row-locked .info h3,.set-row.row-locked .info p{opacity:.62;}
+.switch.switch-locked{opacity:.62;}
+.switch.switch-locked:hover{opacity:.85;}
 
 .stepper{display:flex; align-items:center; gap:0; border:1px solid var(--rule); border-radius:9px; overflow:hidden;}
 .stepper button{appearance:none; border:0; background:var(--paper); color:var(--ink); width:38px; height:38px; cursor:pointer; font-family:var(--mono); font-size:calc(18px * var(--fs)); transition:background .15s;}
@@ -1537,6 +1668,12 @@ body.night .ph-lvl{color:#F3E3B2; background:#4A3B10; border-color:#E6C765;}
 .dm-item:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px;}
 .dm-item.dm-danger b{color:var(--zh);}
 .dm-item.dm-danger:hover{background:var(--zh-wash); border-color:color-mix(in srgb,var(--zh) 30%,transparent);}
+/* a sheet row that is one of a SET (the review's Ordered/Random) rather than a command: the chosen one
+   carries a tick, so the sheet says what the setting currently is and not only what it can be changed to */
+.dm-choice{position:relative; padding-right:38px;}
+.dm-choice.on{background:var(--indigo-wash); border-color:color-mix(in srgb,var(--indigo) 26%,transparent);}
+.dm-choice.on b{color:var(--indigo);}
+.dm-choice.on::after{content:""; position:absolute; right:16px; top:50%; width:6px; height:11px; margin-top:-7px; border:solid var(--indigo); border-width:0 2px 2px 0; transform:rotate(45deg);}
 .dm-field{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:9px 14px; font-family:var(--sans); font-size:calc(13.5px * var(--fs)); color:var(--ink);}
 .dm-field .dm-num{width:88px; flex:none; appearance:auto; font-family:var(--mono); font-size:calc(14px * var(--fs)); padding:6px 8px; border:1px solid var(--rule); border-radius:8px; background:var(--paper); color:var(--ink);}
 .dm-note{margin:2px 14px 4px; font-size:calc(11.5px * var(--fs)); line-height:1.45; color:var(--ink-faint);}
@@ -1916,10 +2053,8 @@ body.night .lu-badge{color:#E6C765;}
 /* the group carries the Daily-review tile's bronze so the added-deck rows below the banner
    share its coloration (left bar + wash + earned fills) instead of sitting there colourless */
 .review-group{display:flex; flex-direction:column; position:relative; --tile:#9A6634;}
-.review-order{position:absolute; top:14px; right:14px; z-index:4; display:inline-flex; gap:2px; padding:2px; border:1px solid var(--rule); border-radius:999px; background:var(--card); cursor:pointer; appearance:none; box-shadow:0 1px 4px rgba(0,0,0,.08);}
-.review-order span{padding:3px 10px; border-radius:999px; font-family:var(--sans); font-size:calc(10.5px * var(--fs)); font-weight:600; letter-spacing:.03em; color:var(--ink-faint); white-space:nowrap; transition:background .14s,color .14s;}
-.review-order span.on{background:var(--indigo); color:#fff;}
-.review-order:hover{border-color:var(--indigo);}
+/* the Ordered/Random pill that used to sit in the banner's corner is gone (Aug 2026) — it lives in the
+   banner's own long-press sheet now (openReviewMenu), beside the deck rows' options. */
 .review-group.has-active > #b-review{border-bottom-left-radius:0; border-bottom-right-radius:0;}
 .active-decks{display:flex; flex-direction:column;}
 /* ONE horizontal line (Aug 2026, on request): piles · title · progress · trash, all centred on the same
@@ -2600,6 +2735,11 @@ button.game-tile .gt-glyph{opacity:.14;}
   .dp-name{width:120px;}
   .profile{flex-direction:column; text-align:center;}
   .namefield{text-align:center;}
+  /* the profile stacks here, so the two account buttons take the full width side by side rather than
+     hanging off a right edge that no longer exists */
+  .acct-idacts{width:100%; justify-content:center;}
+  .acct-idacts .ghost-btn{flex:1; min-width:0;}
+  .acct-syncnote{margin:-10px 0 16px; text-align:center; padding-left:0;}
 }
 
 /* ---- narrow phones: the grade bar in ONE row ----
@@ -3241,6 +3381,11 @@ body.night .acr-src.blocked{color:#e8776e;}
 .dpi-box{flex:none; width:15px; height:15px; border:1.5px solid var(--rule); border-radius:4px; position:relative; transition:background .12s, border-color .12s;}
 .deck-pick-item input:checked + .dpi-box{background:var(--indigo); border-color:var(--indigo);}
 .deck-pick-item input:checked + .dpi-box::after{content:""; position:absolute; left:4.5px; top:1.5px; width:4px; height:8px; border:solid #fff; border-width:0 2px 2px 0; transform:rotate(45deg);}
+/* ONE DECK PER CARD (Aug 2026): the picker is radios now, so its mark is round with a dot — the shape is
+   what tells a reader the choice is exclusive before they click anything. */
+.deck-pick-item input[type="radio"] + .dpi-box{border-radius:50%;}
+.deck-pick-item input[type="radio"]:checked + .dpi-box::after{left:3.5px; top:3.5px; width:6px; height:6px; border:0; border-radius:50%; background:#fff; transform:none;}
+.deck-pick-note{font-family:var(--sans); font-size:calc(11.5px * var(--fs)); line-height:1.45; color:var(--ochre-ink,var(--ink-soft)); background:color-mix(in srgb,var(--ochre) 12%,transparent); border:1px solid color-mix(in srgb,var(--ochre) 30%,transparent); border-radius:8px; padding:7px 10px; margin:0 0 8px;}
 .dpi-name{font-family:var(--serif); font-size:calc(13.5px * var(--fs)); color:var(--ink); line-height:1.2;}
 .dpi-path{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); color:var(--ink-faint); margin-left:auto; white-space:nowrap;}
 

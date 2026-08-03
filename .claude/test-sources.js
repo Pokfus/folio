@@ -399,6 +399,9 @@ async function closeGloss(page) {
   /* ================= 6. the admin editor round-trips a card's citations ================= */
   await page.goto(base + "#admin", { waitUntil: "load" });
   await page.waitForTimeout(900);
+  // the editor opens on the Dashboard tab now — ask for Cards, as a reader would
+  await page.evaluate(() => { const t = document.querySelector('.admin-tab[data-atab="cards"]'); if (t) t.click(); });
+  await page.waitForTimeout(600);
   await page.evaluate(() => { const r = document.querySelector(".admin-card-row .acr-open"); if (r) r.click(); });
   await page.waitForTimeout(700);
   const hasBox = await page.locator("#cesSrcList").count() === 1;
@@ -457,6 +460,8 @@ async function closeGloss(page) {
     }
     await page.goto(base + "#admin", { waitUntil: "load" });
     await page.waitForTimeout(1400);
+    await page.evaluate(() => { const t = document.querySelector('.admin-tab[data-atab="cards"]'); if (t) t.click(); });
+    await page.waitForTimeout(700);
     const applied = await page.evaluate(() =>
       [...document.querySelectorAll(".ces-srcitem")].filter((el) => el.textContent.trim()).length);
     check("the citations come back into the editor after a reload", applied === 2, String(applied));

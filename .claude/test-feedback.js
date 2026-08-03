@@ -173,13 +173,14 @@ function check(name, ok, extra) {
   check("the row leaves the list", (await page.locator(".fbq-row").count()) === 2);
 
   // A session saved while the retired tab was open must not strand the editor on a tab that no longer
-  // exists. It has to be seeded in a FRESH page: this one's pagehide handler flushes the live adminState
+  // exists — it falls through to the editor's default, which is the Dashboard (Aug 2026; it was Cards).
+  // It has to be seeded in a FRESH page: this one's pagehide handler flushes the live adminState
   // over the key on the way out of a reload.
   const p2 = await ctx.newPage();
   await p2.addInitScript(() => localStorage.setItem("folio_admin_ui_v1", JSON.stringify({ tab: "accounts" })));
   await p2.goto(base + "/#admin");
   await p2.waitForTimeout(1000);
-  check("a session saved on the retired tab opens on Cards", (await p2.$eval(".admin-tab.active", (e) => e.dataset.atab)) === "cards");
+  check("a session saved on the retired tab opens on the default tab", (await p2.$eval(".admin-tab.active", (e) => e.dataset.atab)) === "dashboard");
 
   check("no console/page errors", errs.length === 0, [...new Set(errs)].join(" | "));
 
