@@ -38,9 +38,13 @@ reputable NGO or intergovernmental organisation** — and, as on the cards, it m
 2. **Stably linked.** A DOI, a repository record, an agency permalink. Not a search result.
 3. **Locatable.** A page range, a numbered section, a named heading. "Somewhere on this site" is not a
    footnote.
-4. **Not an encyclopedia.** Wikipedia is where the research starts, never what a term stands on, and
-   Britannica is the same case one step up. See the note under Phase 3 for where this rule meets the CIA
-   World Factbook, which is the one genuinely contested case in the whole pass.
+4. **An encyclopedia only if that encyclopedia cites its sources** (relaxed on request, 2026-08-03; it
+   read "not an encyclopedia" before). Wikipedia is still where the research starts and never what a term
+   stands on. The test is **per article, for that article's own claims** — a named author is not enough,
+   and neither is a publisher's general reputation: the page must carry a bibliography or source list for
+   what it asserts. Measured in batch N9, Dansk Biografisk Leksikon passes and both Britannica and Store
+   norske leksikon fail. See the note under Phase 3 for where this rule meets the CIA World Factbook,
+   which is the one genuinely contested case in the whole pass.
 
 Form is Chicago **note** form ending in the URL as plain text, with an `[Open access]` or `[Paywalled]`
 label after the closing period — identical to the cards, and `add-sources.js` enforces the link.

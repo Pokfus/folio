@@ -9816,10 +9816,1220 @@ alone when its history had none.
 
 ---
 
-# THE GLOSSARY CITATION PASS IS COMPLETE — 333 of 333
+# THE GLOSSARY CITATION PASS IS COMPLETE — 396 of 396
 
 Every term carries at least `GLOSS_SRC_TARGET` (2) citations, every citation is referenced by at least one
 in-text marker, and the markers are identical across English and all nine translations. `node
 .claude/gloss-source-audit.js` reports `citations to find 0`. The card pass finished at 109 of 109 in
 batch 26; **both passes are now done, and `country-sources.js` — the Atlas — is the only surface in Folio
 that still shows no sources.**
+
+(333 at the close of D3; **sixty-three terms were added on 2026-08-03 and were cited as they were written** —
+see N1–N8 below. A term added after the pass joins it at the bar, rather than reopening a backlog.)
+
+---
+
+## Batch N1 — five new Palaeolithic terms, written cited, verified 2026-08-03
+
+Requested as new glossary entries: the African **Middle Stone Age**, the two Levantine caves **Skhul** and
+**Qafzeh**, the **Skhul and Qafzeh hominins** they yielded, and **interglacial**. Ten citation slots from
+**ten distinct works, nine of them open**, and **nine of the ten were already in this register** — these
+terms are the glossary siblings of cards that batches 14, 15, 19 and 22 had already paid for. Batch G7
+found that the register pays for taxa and periods and not for places; the exception is a place whose card
+already exists, which is what `wh-049` and `wh-031` are. **Read the register before searching**, still the
+cheapest rule in the file.
+
+### The one finding that changes a stored citation
+
+**`hal.science` is now Anubis-walled on the landing page as well as on `/document`.** Batch 21 recorded the
+file path going behind the proof-of-work wall; the record page has followed it, so `pages-2016` — cited on
+`wh-011` as `https://hal.science/hal-03245836` — **can no longer be opened by a reader**. The way back is
+an **institutional repository deposit**: `https://www.repository.cam.ac.uk/handle/1810/252679` carries the
+same paper, states the definitional claims on the record page itself, and serves the publisher PDF from
+`/bitstreams/<uuid>/download` (which 302s to `api.repository.cam.ac.uk`, so follow the redirect). The new
+`Interglacial` term cites the Cambridge deposit. **`wh-011`'s citation of the same work still points at
+HAL and should be re-pointed** — recorded here rather than changed, since that card was not in this batch.
+
+Generalised: **when a HAL-hosted citation stops opening, look for the same paper in a university
+repository** before treating it as lost. Batch 25 warned that a correctly-recorded open entry may not
+re-read; this is the repair for that case rather than the resignation.
+
+### Two smaller access notes
+
+- **`ora.ox.ac.uk` serves only the abstract on the record page; the accepted manuscript is at
+  `/objects/uuid:<id>/files/<fileid>`**, which the record's own HTML carries. Batch 15's "fetch the FILE,
+  not the landing page" again, and it is what made `groucutt-2019` usable for anything past its abstract.
+- **`whc.unesco.org` is 403 on `/document/<id>` as well as on the property pages** (C7 found the latter).
+  The ICOMOS evaluation of the Mount Carmel nomination is therefore not reachable, and the excavation
+  history came from the **American School of Prehistoric Research**, the body that funded the digs — batch
+  18's "look for the institution responsible" holding where a heritage register will not open.
+
+### A divergence recorded, not corrected
+
+`wh-049` dates both caves to "roughly 120,000 to 90,000 years ago" and attributes that to heated flints and
+teeth. `Skhul_Cave` says roughly 130,000 to 100,000. **These are not in conflict and neither is wrong**:
+Groucutt et al. give "the clustering of TL results at around 120 ka" *and* "the most likely
+u-series/ESR chronology being 130-100 ka", concluding that the main phase of occupation is the latter. The
+card reports the thermoluminescence result, the term the site's overall chronology. Recorded because the
+two now sit one click apart — `wh-049`'s abstract auto-links to the new terms — and a later reader will
+otherwise read it as an error and "fix" one of them.
+
+### Verified citations (batch N1)
+
+- Huw S. Groucutt, Eleanor M. L. Scerri, Chris Stringer, and Michael D. Petraglia, “Skhul Lithic Technology and the Dispersal of <i>Homo sapiens</i> into Southwest Asia,” <i>Quaternary International</i> 515 (2019): 30–52, sec. 4, https://ora.ox.ac.uk/objects/uuid:26de242d-8c79-44a8-9dea-5631a7400664. [Open access]
+  - opened: 2026-08-03 · **accepted manuscript** via the record's file path (the record page is abstract-only)
+  - supports, beyond what `groucutt-2019` above already records: Skhul located in "the appropriately named
+    Wadi el-Mughara (Valley of the Caves, also known as Nahal [Me'arot])" on Mount Carmel, "3 km east of the
+    current Mediterranean shoreline"; "Skhul consists of a small cave/rockshelter and, primarily, the area
+    immediately in front of this"; "the site of Skhul was excavated by the American student Theodore McCown
+    for two months in 1931 and for three months in 1932"; "At least four, but possibly as many as seven of
+    the Skhul humans (1, 2, 4, 5, 6, 7, and 9) are interpreted as deliberate burials"; "In the Skhul 5
+    burial, the arms of the skeleton seemingly clasp a wild boar mandible, interpreted as a grave good";
+    "the most likely u-series/ESR chronology being 130-100 ka, indicate that at least the main phase of
+    occupation at Skhul dates to MIS 5e"; "all the preserved faces are relatively short and transversely flat"
+  - used by: Skhul_Cave, Skhul_and_Qafzeh_hominins (and, from the earlier entry, Middle_Paleolithic, wh-003, wh-049)
+- “Mount Carmel Excavations,” American School of Prehistoric Research, Harvard University, January 3, 2024, https://sites.harvard.edu/aspr/2024/01/03/mount-carmel-excavations. [Open access]
+  - opened: 2026-08-03 · the funding body's own account of the excavations
+  - supports: "Between April of 1929 and August of 1934, the American School of Prehistoric Research
+    partnered with the British School of Archaeology in Jerusalem to fund seven seasons of excavation" at
+    "the caves of Nahal Me'arot in modern-day Israel", "on the coast near Haifa"; that Dorothy Garrod led
+    them; and that "The excavations focused on three caves: Mugharet el-Wad, Mugharet et-Tabun, and
+    Mugharet es-Sukhul"
+  - **the one work in this batch not already in the register** — and it is an institutional page, not a paper
+  - used by: Skhul_Cave
+- Rachel Sarig et al., “Malocclusion in Early Anatomically Modern Human: A Reflection on the Etiology of Modern Dental Misalignment,” <i>PLOS ONE</i> 8, no. 11 (2013): e80771, under “The Qafzeh Site,” https://pmc.ncbi.nlm.nih.gov/articles/PMC3835570/. [Open access]
+  - opened: 2026-08-03 · full text via PMC
+  - supports: "The Qafzeh Cave is located in the slope of Har Qedumim (Jebel Qafzeh) Lower Galilee, on the
+    eastern bank of the Nahal Mizra (Wadi el-Haj) creek, in the Jezreel Valley, Israel"; excavation by
+    "R. Neuville and M. Stekelis in 1933-1935" and renewed "between 1965 and 1979 by B. Vandermeersch";
+    "The occurrence of purposeful human burials, hearths, ochre and non-edible marine shells in the cave"
+  - **note for `wh-049`**: the card credits the first dig to Neuville alone; the source names **Stekelis
+    with him**, and gives 1933–1935 where the card gives "from 1933". Not corrected here — recorded.
+  - used by: Qafzeh_Cave (and, from the earlier entry, wh-049)
+- Hélène Coqueugniot et al., “Earliest Cranio-Encephalic Trauma from the Levantine Middle Palaeolithic: 3D Reappraisal of the Qafzeh 11 Skull,” <i>PLOS ONE</i> 9, no. 7 (2014): e102822, https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0102822. [Open access]
+  - opened: 2026-08-03 · full text
+  - supports: "The Qafzeh site has yielded the largest hominin collection (N = 27, including partial eight
+    skeletons, isolated bones and teeth) from Middle Palaeolithic layers in south-western Asia"; the
+    sequence "dated by a combination of electron spin resonance and thermoluminescence methods to circa
+    90–100 kyrs BP"; Qafzeh 11 "circa 12–13 yrs old at death", "lying in a pit on its back", with "two deer
+    antlers … on the upper part of the adolescent's chest"
+  - used by: Qafzeh_Cave, Skhul_and_Qafzeh_hominins (and, from the earlier entry, wh-049)
+- Daniella E. Bar-Yosef Mayer et al., “On Holes and Strings: Earliest Displays of Human Adornment in the Middle Palaeolithic,” <i>PLOS ONE</i> 15, no. 7 (2020): e0234924, https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0234924. [Open access]
+  - opened: 2026-08-03 · full text
+  - supports: Skhul shell beads "dated to between 135 and 100 ka BP"; at Qafzeh, "Ten Glycymeris shells …
+    in Layers XXI-XXIV, immediately under human graves", "seven complete or almost complete valves with
+    perforations in the umbo", use-wear "produced by contact with a string", and "coloring treatment with ochre"
+  - used by: Skhul_and_Qafzeh_hominins (and, from the earlier entry, wh-049)
+- Emily Hallinan, “The Southern African Stone Age Site Index (SASSI): A Spatial, Chronological and Contextual Resource for Archaeological Research,” <i>Journal of Open Archaeology Data</i> 14 (2026): 2, under “Overview” and table 1, https://doi.org/10.5334/joad.186. [Open access]
+  - reused unopened from `hallinan-2026` above, for the claims that entry records: the MSA at 300–40 ka,
+    "prepared cores, points, blades", the Goodwin / van Riet Lowe three-stage scheme, and the early schemes
+    that "drew heavily on European frameworks" and directly imported French terminology
+  - used by: Middle_Stone_Age (and wh-031)
+- B. D. Malan, “The Term ‘Middle Stone Age’,” in <i>Third Pan-African Congress on Prehistory, Livingstone 1955</i>, ed. J. Desmond Clark and Sonia Cole (London: Chatto and Windus, 1957), 223–27, https://archive.org/details/in.gov.ignca.6340. [Open access]
+  - reused from `malan-1957` above: Goodwin's 1928 paper, elaborated the next year in *The Stone Age
+    Cultures of South Africa* with van Riet Lowe
+  - used by: Middle_Stone_Age (and wh-031)
+- Daniel Richter et al., “The Age of the Hominin Fossils from Jebel Irhoud, Morocco, and the Origins of the Middle Stone Age,” <i>Nature</i> 546, no. 7657 (2017): 293–96, abstract, https://doi.org/10.1038/nature22335. [Paywalled]
+  - reused from `richter-2017` above: 315 ± 34 ka, and "one of the earliest directly dated Middle Stone Age
+    assemblages" — the term says "some of the earliest directly dated examples", **not "the oldest"**, which
+    is the wording batch 14 already had to correct on `wh-045`
+  - the batch's only paywalled work; `Middle_Stone_Age` is 2 open of 3
+  - used by: Middle_Stone_Age (and wh-045)
+- Past Interglacials Working Group of PAGES, “Interglacials of the Last 800,000 Years,” <i>Reviews of Geophysics</i> 54, no. 1 (2016): 162–219, abstract and sec. 1, https://www.repository.cam.ac.uk/handle/1810/252679. [Open access]
+  - opened: 2026-08-03 · **Cambridge repository deposit** — the HAL link recorded under `pages-2016` above
+    is now behind the Anubis wall (see the finding at the head of this batch)
+  - supports, quoted from the publisher PDF: "Interglacials, including the present (Holocene) period, are
+    warm, low land ice extent (high sea level), end-members of glacial cycles"; "Based on a sea level
+    definition, we identify eleven interglacials in the last 800,000 years"; "Interglacials have been
+    typically 10–30 ka long"; "Terminations involve rapid, nonlinear, reactions of ice volume, CO2, and
+    temperature to external astronomical forcing"; "The end of an interglacial (glacial inception) is a
+    slower process involving a global sequence of changes"; and from §1, "Only at the start of the
+    Quaternary Period and the Pleistocene Epoch, ~2.6 Ma ago, did alternations between cold glacial periods
+    with ice on the NH continents, and warmer intervals with little or no NH continental ice, first appear"
+  - used by: Interglacial (and, at the HAL address, wh-011)
+- Mike Walker et al., “Formal Definition and Dating of the GSSP (Global Stratotype Section and Point) for the Base of the Holocene Using the Greenland NGRIP Ice Core, and Selected Auxiliary Records,” <i>Journal of Quaternary Science</i> 24, no. 1 (2009): 3–17, https://timescalefoundation.org/references/HoloceneGSSP_JQuatSci090.pdf. [Open access]
+  - reused from `walker-2009` above: the base of the Holocene at 11,700 cal yr b2k
+  - used by: Interglacial (and wh-010, wh-012, wh-090)
+
+---
+
+## Batch N2 — ten more Palaeolithic terms, written cited, verified 2026-08-03
+
+Requested the same day as N1: the African **Late Stone Age**, **Denisovan**, **ochre**, **Blombos Cave**,
+**tar**, **Eurasia**, **Sulawesi**, the **Swabian Jura**, **Chauvet** and **Lascaux**. Twenty-four citation
+slots from **eighteen distinct works, all eighteen open** — the first all-open batch of either pass. Fifteen
+of the eighteen came straight out of this register. N1 found that the register pays for a place whose card
+already exists; N2 is that at scale, since nine of these ten terms are the glossary siblings of cards from
+batches 8b, 14, 15, 20, 21 and 26.
+
+### The alias that was wrong, and why the request exposed it
+
+`Upper_Paleolithic` carried **"Late Stone Age"** as an alias. It is not a synonym: the Later Stone Age is
+the African division running from ~40 ka into historical times (Hallinan's table 1), where the Upper
+Palaeolithic is the Eurasian one ending at 11,700 BP — and Malan 1957 records that Goodwin chose the
+African terms precisely so they would *not* be read as the European ones. With a real `Late_Stone_Age`
+term added, pass 1 of `buildGlossIndex` (primary slug surfaces) would have beaten the alias anyway, so
+nothing would have looked broken; the alias would simply have sat there being wrong. **Removed**, and
+`Upper Palaeolithic` put in its place, matching the British-spelling aliases its Lower/Middle siblings
+carry. Flagged in the N1 hand-off and acted on here because the request made it live.
+
+**The general rule**: a synonym alias asserts an identity. Before adding one, ask whether the two names
+belong to the *same scheme* — Old/New Stone Age are Palaeolithic and Neolithic in the same European
+sequence, and are correct; Early/Middle/Later Stone Age are a *different* continent's sequence and are not.
+
+### Access notes
+
+- **`nature.com`, `link.springer.com` and `pnas.org` all 303 to an identity-provider cookie endpoint or
+  403 outright**, so a Scientific Reports / PNAS / Springer paper cannot be read at its publisher URL here.
+  Europe PMC is the way in for the first two: `Kozowyk 2017` (PMC5579016) and `Niekus 2019` (PMC6825292)
+  both serve full text. `Dapschauskas 2022` has **no Europe PMC record at all** and could not be re-read,
+  so the ochre definition was taken from `Rosso 2017` instead, which states it outright — batch 25's
+  "an old entry may not re-read; say so rather than guess", with the substitution rather than the shrug.
+- **`isOpenAccess: N` on Niekus 2019 and it is fully readable in PMC.** Batch 24's rule again, and the
+  access label follows *readability*, not licence: a reader who follows the link gets the paper.
+- **Resolve the PMCID, never guess it.** A guessed `PMC7377442` for Bar-Yosef Mayer 2020 in N1 returned a
+  paper on social defeat stress in mice. `search?query=DOI:"…"&resultType=core` gives the id, the author
+  string and the volume/issue/pages in one call — which is also how this batch's citations got their
+  pagination without inventing any.
+
+### Verified citations (batch N2)
+
+New to the register:
+
+- P. R. B. Kozowyk, M. Soressi, D. Pomstra, and G. H. J. Langejans, “Experimental Methods for the Palaeolithic Dry Distillation of Birch Bark: Implications for the Origin and Development of Neandertal Adhesive Technology,” <i>Scientific Reports</i> 7, no. 1 (2017): 8033, https://pmc.ncbi.nlm.nih.gov/articles/PMC5579016/. [Open access]
+  - opened: 2026-08-03 · full text via Europe PMC
+  - supports: "Tar is synthesized from the dry (destructive) distillation of organic material, commonly
+    birch bark (*Betula* sp.) or pine wood (*Pinus* sp.)"; the three aceramic methods tested — ash mound,
+    pit roll and raised structure; "for birch bark this can be as low as 250–300 °C and over 500 °C";
+    "Adhesives are one of the earliest transformative technologies known and tar production is at least
+    200 thousand years old (ka)"; and "The oldest known tar-hafted stone tools were discovered at a Middle
+    Pleistocene site in Italy, during a time when only Neandertals were present in Europe"
+  - used by: Tar
+- Marcel J. L. Th. Niekus et al., “Middle Paleolithic Complex Technology and a Neandertal Tar-Backed Tool from the Dutch North Sea,” <i>Proceedings of the National Academy of Sciences</i> 116, no. 44 (2019): 22081–87, https://pmc.ncbi.nlm.nih.gov/articles/PMC6825292/. [Open access]
+  - opened: 2026-08-03 · full text via Europe PMC (`pnas.org` is 403; `isOpenAccess: N` but readable)
+  - supports: "The earliest known evidence of birch tar adhesives dates to a minimum age of 191 ka and
+    consists of 2 unretouched flakes partly covered in birch bark tar from Campitello, Italy"
+  - **note**: Kozowyk's "at least 200 ka" and Niekus's "minimum age of 191 ka" are the same Campitello
+    find stated two ways — a floor and a rounding, not a disagreement. The term gives both, each to its
+    own source, rather than picking one
+  - used by: Tar
+- L. Alonso et al., “Rock Substrate Rather than Black Stain Alterations Drives Microbial Community Structure in the Passage of Lascaux Cave,” <i>Microbiome</i> 6 (2018): 216, https://pmc.ncbi.nlm.nih.gov/articles/PMC6282324/. [Open access]
+  - opened: 2026-08-03 · full text, CC BY
+  - supports: "Lascaux Cave is located in Dordogne in South-West France"; "Since its discovery in 1940,
+    this jewel of humanity (recognized as such by the UNESCO in 1979)"; visits "which reached up to ~1800
+    visitors per day in the 1960s"; that it "has been closed for touristic visits since 1963"; and the
+    successive "green stains, later on white stains and more recently black stains"
+  - **do NOT cite it for the date of the art** — its introduction says the paintings "date from the Upper
+    Paleolithic (ca. 18,000 AD)", which is both a wrong era marker and inconsistent with the Ministry of
+    Culture's 21,500–21,000 BP. A microbiology paper is authoritative on the cave's conservation history
+    and not on its chronology; the term cites it only for the former. **This is the shape to watch for in
+    a second source picked to fill a gap: it is reliable about its own subject and casual about yours.**
+  - used by: Lascaux
+
+Reused from this register, each for exactly the claims already recorded against it:
+
+- `hallinan-2026` — the LSA at "40 ka to historical times", the "Early LSA 40–20 ka" as "generally
+  informal, combining some MSA (prepared) and LSA (bipolar technique, microlithic) technological
+  characteristics", and the Wilton at "8–4 ka" → Late_Stone_Age
+- `malan-1957` — Goodwin and van Riet Lowe's 1929 three-stage scheme → Late_Stone_Age
+- `moubtahij-2024` — "Late Stone Age hunter-gatherers from North Africa (15,000–13,000 cal BP)" at
+  Taforalt, which is what carries the label beyond southern Africa → Late_Stone_Age
+- `reich-2010` — the 2008 phalanx from Denisova Cave, the sequenced genome, a group "that shares a common
+  origin with Neanderthals", the "4–6%" in present-day Melanesians, and the naming → Denisovan
+- `slon-2018` — Neanderthals and Denisovans "separated from each other more than 390,000 years ago", and
+  Denisova 11's Neanderthal mother and Denisovan father → Denisovan
+- `rosso-2017` — the definition: ochre as "a variety of rocks characterised by a red or yellow colour or
+  streak, from soil lumps to ore minerals, containing a high proportion of iron oxides"; "Yellow ochres
+  usually derive their colour from goethite (α-FeOOH), red ochre from hematite (α-Fe2O3), and often
+  contain other components such as quartz, clays, gypsum, or mica"; and the grinding, flaking, scraping
+  and pitting → Ochre
+- `wadley-2009` — "Compound adhesives made from red ochre mixed with plant gum" → Ochre
+- `douze-2015` — the cliff, the 100 m from the Indian Ocean, 34.5 m above sea level, the 6–7 m depth, the
+  1991 excavations, the >4 m MSA sequence, the M3 phase at 101±4 to 94±3 ka, the Still Bay at ca. 78–71 ka,
+  and the abalone-shell ochre container with its quartzite grinder → Blombos_Cave
+- `bouzouggar-2007` — the 41 *Nassarius kraussianus* shells covered in red ochre and the two engraved
+  ochres → Blombos_Cave
+- `mortimer-2017` — "The six commonly recognized geological continents (Africa, Eurasia, North America,
+  South America, Antarctica, and Australia)", their being "spatially isolated by geologic and/or
+  bathymetric features", and "Tectonic plate boundaries … provide the basis for continent-continent
+  boundaries between Africa and Eurasia" → Eurasia
+- `curran-2025` — cut-marked bones at Grăunceanu, Romania at >1.95 Ma, and hominins at Dmanisi by 1.8 Ma
+  → Eurasia
+- `brumm-2021-sulawesi` — "Sulawesi is the largest island (~174,000 km2) in Wallacea, a biogeographically
+  distinct zone of oceanic islands situated between continental Asia and Australia"; the "~450-km2 lowland
+  'tower' karst region in the island's southwestern peninsula"; "Some 300 caves and shelters with parietal
+  imagery"; the Leang Tedongnge suid at "a minimum age of 45.5 ka" → Sulawesi
+- `oktaviana-2024-narrative` — Leang Karampuang at ≥51,200 years → Sulawesi. **The two are cited together
+  on purpose**: Brumm's team called Leang Tedongnge "the earliest known representational work of art in
+  the world" and the 2024 paper overtakes it, so the term reports the claim *as made* and then the later
+  date, rather than quietly dropping the superlative or repeating it as current
+- `iceageart` (Welterbe Höhlen und Eiszeitkunst der Schwäbischen Alb) — the 2017 inscription, the six
+  caves named across the Ach and Lone valleys, and "the oldest portable art objects and musical
+  instruments of humankind" → Swabian_Jura
+- `floss-2015` — the Swabian early Aurignacian at ~42,000 cal BP, and the title claim for the ivory
+  figurines as the oldest portable art → Swabian_Jura
+- `museum-ulm-loewenmensch` — mammoth ivory, H 31.1 cm, the Stadel cave in the Hohlenstein → Swabian_Jura
+- `urmu-gaensegeierfloete` — 21.7 cm, griffon-vulture bone, four preserved finger holes, Hohle Fels 2008
+  → Swabian_Jura
+- `quiles-2016-chauvet` — the Ardèche, the two phases at ~37,000–33,500 and ~31,000–28,000 cal BP, and the
+  minority stylistic dispute → Chauvet_Cave
+- `minculture-chauvet-discovery` — Chauvet, Brunel and Hillaire, the cool draught, 18 December 1994
+  → Chauvet_Cave
+- `culture-lascaux` — the four discoverers on 12 September 1940, two of them becoming guides "once the cave
+  was opened to visitors in 1948"; the seven sectors; "some 600 representations of animals" with horses
+  "by far the most numerous, followed by equal numbers of stags and aurochs, and then by ibexes and bison"
+  and "one single image of a anthropomorphic figure"; and the occupation "somewhere between 21,500 and
+  21,000 years before present" measured on reindeer bone → Lascaux
+
+---
+
+## Batch N3 — ten more, the Upper Palaeolithic industries and the metals, verified 2026-08-03
+
+**Altamira**, **Sungir**, the four industries **Aurignacian / Gravettian / Solutrean / Magdalenian**,
+**Western Europe**, **bronze**, **iron** and **chronology**. Twenty-four slots from **seventeen works,
+sixteen open**; twelve of the seventeen came from this register. Nine of the ten terms are the glossary
+siblings of cards `wh-075`, `wh-077`, `wh-079`, `wh-085` and `wh-069`.
+
+### The finding: a paywalled source dropped rather than balanced
+
+`Solutrean` first shipped with Cascalheira & Bicho 2015 and **Aubry et al. 2008** on the laurel leaves,
+and `gloss-source-audit.js` failed it — **1 open of 2 is not a majority**. The reflex is to add a third
+source to restore the ratio; the better move was to ask what the paywalled one was actually carrying.
+Aubry is an experimental study of laurel-leaf *production*, and the term's sentence says nothing about
+production — the claim it needed was the retouch itself, which **Bachellerie 2025 states in an open
+venue** ("une retouche plate et envahissante", producing "des enlèvements très fins, rasants, sans point
+d'impact clair"; pressure retouch "n'intervient en effet que lors des étapes finales du façonnage").
+Aubry was **dropped, not balanced**. A paywalled work earns its place only as the landmark for a claim
+nothing open carries; padding a list to outvote one is the failure the majority rule exists to catch.
+
+### One open paper carried two terms, and one disagreement was left unreconciled
+
+**d'Errico et al. 2025** on Aurignacian and Gravettian ornaments dates and characterises **both**
+technocomplexes in its introduction — the G11 pattern, where a paper arguing a contested case states the
+definitions plainly because it has to. But it says the Gravettian is **"found exclusively in Europe"**,
+where `morriss-kay-2013` (registered for `wh-069`) places Gravettian Venus figurines at 24–29 ky "from
+France to Siberia", and `weber-2022` names regional types "from Renancourt in northern France to Mal'ta
+in Siberia". **The term says Europe and stops**, and the figurine distribution is not claimed for the
+Gravettian at all — recorded here rather than smoothed over, because a three-sentence gloss has no room
+to hedge and the honest move is to assert only the part both sources agree on. (G7's Taung rule, applied
+to a range rather than a deposit.)
+
+### A correction that has not travelled — `wh-085`'s date line
+
+Batch 21's Altamira work **dropped the unsupported claim that "a rockfall closed the mouth some 13,000
+years ago"** from the abstract, on the ground that García-Díez et al. place the only roof collapse they
+mention *before the Gravettian*. **It is still on the card's `answerDate` line**, word for word, with the
+13,000 in it — the abstract now says only "A rockfall later sealed the cave mouth" with no date. This is
+batch 26's finding for the third time: **a correction does not travel between a card's abstract and its
+own date line.** Not fixed here (this batch adds glossary terms and does not edit cards); `fix-field.js`
+is the tool, and the new `Cave_of_Altamira` term deliberately makes no rockfall claim at all.
+
+### Verified citations (batch N3)
+
+New to the register:
+
+- Francesco d’Errico, Jennifer Baker, Daniela Pereira, et al., “Multivariate Analyses of Aurignacian and Gravettian Personal Ornaments Support Cultural Continuity in the Early Upper Palaeolithic,” <i>PLOS ONE</i> 20, no. 6 (2025): e0323148, https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0323148. [Open access]
+  - opened: 2026-08-03 · full text
+  - supports: the Aurignacian at "circa 42–32 ka cal. BP", "further subdivided into the Proto and Early
+    Aurignacian"; the Gravettian at "circa 34–24 ka cal. BP" and "found exclusively in Europe", "often
+    described as having numerous regional variants, or 'facies'"; that both "are characterised by distinct
+    lithic and bone technologies as well as tool types"; and the Gravettian's "abundance of elaborately
+    buried individuals across its geographic range"
+  - used by: Aurignacian, Gravettian
+- João Cascalheira and Nuno Bicho, “On the Chronological Structure of the Solutrean in Southern Iberia,” <i>PLOS ONE</i> 10, no. 9 (2015): e0137308, https://doi.org/10.1371/journal.pone.0137308. [Open access]
+  - opened: 2026-08-03 · full text (registered for `wh-077` without a supports line; read here)
+  - supports: "Geographically confined to Southwestern France and the Iberian Peninsula, and occurring
+    within a moderately short chronological range (c. 25–19 ka cal BP)"; that its timespan "roughly matches
+    the course of the Last Glacial Maximum (LGM)"; "the suite of technological innovations developed for
+    the manufacture of lithic armatures using unifacial and bifacial invasive flat retouch", with "several
+    types of foliates, shouldered and tanged morphologies"; and the Middle Solutrean's "predominance of
+    laurel-leaves over pointes à face plan"
+  - used by: Solutrean
+- Julie Bachellerie, “Chapitre 10. Outillage « solutréen » et schémas de production associés,” <i>PALEO</i>, hors-série (2025): 150–93, https://journals.openedition.org/paleo/9609. [Open access]
+  - opened: 2026-08-03 · full text on OpenEdition. **Note the host is readable again** — batch 21 recorded
+    `journals.openedition.org` behind an Anubis wall; the DOI `10.4000/14tzv` 302s to the article and it serves
+  - supports: "une retouche plate et envahissante" leaving "des enlèvements très fins, rasants, sans point
+    d'impact clair"; that "L'emploi de la retouche par pression n'intervient en effet que lors des étapes
+    finales du façonnage"; and the laurel leaf and shouldered point as the two signature forms
+  - used by: Solutrean
+- Henri Breuil, “Le Magdalénien,” <i>Bulletin de la Société préhistorique française</i> 51, no. 8 (1954): 59–66, https://www.persee.fr/doc/bspf_0249-7638_1954_hos_51_8_12411. [Open access]
+  - opened: 2026-08-03 · full text on Persée (registered for `wh-079`; read here)
+  - supports: the period as "caractérisé par la richesse de son outillage en os et en bois de cervidés et
+    l'abondance de ses œuvres d'art"; and the harpoon sequence, "d'abord à très petites dents, plus ou moins
+    primitifs, puis à un rang et ensuite à deux rangs de barbelures"
+  - **worth knowing, and why the term names no coiner**: Breuil writes that "Ed. Lartet l'avait appelée
+    l'époque de Laugerie-Basse et de la Madeleine", where `wh-079` credits Mortillet with attaching the
+    label to the epoch. The two are not straightforwardly reconcilable from this page, so the glossary term
+    says only that it "takes its name from the rock shelter of La Madeleine" and attributes the coinage to
+    nobody. **Batch 25's withdrawn-rather-than-re-sourced move, applied pre-emptively.**
+- Omid Oudbashi, S. Mohammadamin Emami, and Parviz Davami, “Bronze in Archaeology: A Review of the Archaeometallurgy of Bronze in Ancient Iran,” in <i>Copper Alloys: Early Applications and Current Performance — Enhancing Processes</i>, ed. Luca Collini (Rijeka: InTech, 2012), under “3.3 Tin bronze,” https://cdn.intechopen.com/pdfs/30478/InTech-Bronze_in_archaeology_a_review_of_the_archaeometallurgy_of_bronze_in_ancient_iran.pdf. [Open access]
+  - opened: 2026-08-03 · the InTech chapter PDF, text extracted locally
+  - supports: "In archaeometallurgical literature, bronze is a copper alloy which mostly consists of tin";
+    that it was "produced in antiquity by adding Sn to Cu by different procedures to increase mechanical
+    and chemical characteristics of copper"; "Tin make copper more fluidity and easier to cast like As and
+    Zn, but about 10% tin, the metal would be harder and stronger than As and Zn addition"; "Intentional
+    alloying of copper with tin is usually considered to be indicative by a tin content of more than 1% or
+    in some cases more than 5 percent"; and "Tin bronze (Cu-Sn) alloy became known in the late 4th
+    millennium BCE and the beginning of the 3rd millennium BCE in Mesopotamia and western Iran"
+  - **no page number is cited** — the search result giving 147–174 could not be confirmed against the PDF,
+    which carries the chapter number but no printed pagination in the extracted text, so the section
+    heading is the locator instead. Batch 18's rule: cite the locator you can actually see
+  - used by: Bronze
+- Alex Bayliss, “Rolling Out Revolution: Using Radiocarbon Dating in Archaeology,” <i>Radiocarbon</i> 51, no. 1 (2009): 123–47, abstract and “Introducing the Concepts,” https://doi.org/10.1017/S0033822200033750. [Open access]
+  - opened: 2026-08-03 · the Cambridge Core PDF serves without authentication (`repository.arizona.edu`,
+    the canonical open deposit, is **403** here — so the DOI is the link a reader can actually use)
+  - supports: "Chronology is essential for all archaeologies"; "the simple logic that a chronology that
+    relies on all the dating information available — 14C dates, stratigraphy, coins, typology, etc. — is
+    bound to be more reliable than one that relies only on a single strand of information"; and, from the
+    abstract, "Sixty years ago, the advent of radiocarbon dating rewrote archaeological chronologies around
+    the world. Forty years ago, the advent of calibration signaled the death knell of the diffusionism…"
+  - used by: Chronology
+- United Nations Statistics Division, “Standard Country or Area Codes for Statistical Use (M49),” under “Geographic Regions,” https://unstats.un.org/unsd/methodology/m49/. [Open access]
+  - opened: 2026-08-03 · the standard's own page
+  - supports: the nine countries M49 places in Western Europe — Austria, Belgium, France, Germany,
+    Liechtenstein, Luxembourg, Monaco, the Netherlands and Switzerland — and the disclaimer that "The
+    assignment of countries or areas to specific groupings is for statistical convenience and does not
+    imply any assumption regarding political or other affiliation of countries or territories by the
+    United Nations"
+  - **G11 warned that M49 is wrong for continental AREAS** (it puts all of Russia in Europe). It is exactly
+    right for *what a region-name denotes*, because there the convention is the fact being cited. Cite it
+    for membership and for its own disclaimer; never for a measurement
+  - used by: Western_Europe
+
+Reused from this register, each for the claims already recorded against it: `garciadiez-2013-altamira`
+(Santillana del Mar, Cantabria; the first Palaeolithic cave art argued about; the ≥20,000-year sequence
+from a red sign at ~35,550 to Magdalenian work) and `cartailhac-1902-meaculpa` (the 1902 recant) →
+Cave_of_Altamira; Trinkaus & Buzhilova 2018, Nalawade-Chavan 2014 and Sikora 2017 (the Klyazma at
+Vladimir, Bader 1957–1977, 197 km east of Moscow, the beads, fox canines, arm bands, the two children,
+the 16 spears at 0.27–2.47 m, c. 34,000 cal BP, and the four unrelated genomes) → Sungir; `floss-2015`
+and `quiles-2016-chauvet` → Aurignacian; `weber-2022` (Willendorf, roughly 30,000 years old, Gravettian)
+→ Gravettian; `culture-lascaux` (the Magdalenian at 21–14,000 BP) and `bello-2021` (Gough's Cave) →
+Magdalenian; `villalba-mouco-2023` → Western_Europe; `cooper-grebnev-2023` (where bronze metallurgy was
+absent, and early African iron without a preceding Bronze Age) → Bronze and Iron; `guder-2025` (the
+bloomery, the bloom, slag from gangue minerals, carburisation and the carbon grades) → Iron;
+`walker-2009` (the Holocene base at 11,700 cal yr b2k in the NGRIP core) → Chronology.
+
+**`guder-2025`'s URL was changed** from the Europe PMC `fullTextXML` REST route to
+`journals.plos.org/plosone/article?id=10.1371/journal.pone.0312244`, which is 200 today. The XML endpoint
+is a machine route and a reader following it gets raw markup; batch 26 recorded it because PLOS was not
+reachable then. **When a host reopens, re-point the citation at the human-readable copy.**
+
+---
+
+## Batch N4 — Swabia split off, plus regions, people and the lithic raw materials, verified 2026-08-03
+
+**Swabia** (as the region, requested explicitly as a separate term from `Swabian_Jura`), **Scandinavia**,
+**Jens Jacob Worsaae**, **Hesiod**, **Oceania**, **Mesopotamia**, **flint**, **chert**, **obsidian** and
+**conchoidal fracture**. Twenty slots from **fifteen works, all fifteen open**. Nine were new — the
+lowest register dividend of N1–N4, and the reason is G7's rule in a new dress: **the register pays for
+what the CARDS are about, and no card is about a rock.**
+
+### The alias N2's rule predicted, arriving
+
+N2 read "Swabia" onto `Swabian_Jura` as an alias, flagged in the hand-off as a conflation kept for
+usefulness. The request to split them is the correction, and the alias is **removed**: `Swabia` is the
+historical region named for the Suebi and the medieval duchy, `Swabian_Jura` the upland whose caves hold
+the ivory figurines. Both now resolve on their own names. **This is the second time in four batches that
+an alias asserting an identity has had to be withdrawn** (`Upper_Paleolithic` → "Late Stone Age" was the
+first), and the pattern is the same: an alias is cheap to add and reads as a claim once a real term for
+the other thing exists.
+
+### The finding: a fabricated author caught in draft
+
+The first draft of `Mesopotamia` cited "Morphodynamic Foundations of Sumer" to **"Alberto Bravin et
+al."** — a name that appears nowhere in the record and was never read anywhere. WebFetch had returned
+the paper's *content* without its author list, and the citation was written from the content. The
+Europe PMC lookup gives `Giosan L, Goodman R`, and the citation was corrected before the entry shipped.
+**Nothing about the surrounding process would have caught it**: the URL resolves, the claims are real,
+the marker rules pass, and `gloss-source-audit.js` counts citations rather than checking them. The rule
+this batch adds: **when a source's content arrives without its metadata, look the metadata up — never
+compose a citation from what the prose sounded like.** `search?query=DOI:"…"&resultType=core` returns
+the author string, volume, issue and pages in one call, and every citation in N2–N4 that needed
+pagination got it that way.
+
+### Where the sources ran thin, and what was left out
+
+`Jens_Jacob_Worsaae` carries **no birth or death dates and does not name his 1843 book**. Every source
+that states them here is an encyclopedia, which the plan bars; the two open works that do carry him —
+Kanjanajuntorn 2020 and Rowley-Conwy 2004 — support what he DID (testing Thomsen's classification
+against stratigraphic excavation) and the window the framework emerged in (1835–43), and the term says
+that and stops. **A biography written to the length of its sources is short; a biography padded to the
+length of the reader's expectation is fiction.** Same move on `Scandinavia`, whose opening "a region of
+northern Europe" is left unmarked as the definitional commonplace it is — `norden.org` is 403 and the
+UN's M49 has no "Scandinavia", only "Northern Europe" — with the marked claims all coming from the two
+open archaeological papers.
+
+### Access notes
+
+- **`link.springer.com` and `nature.com` 303 to an IdP cookie endpoint**, which means `li-2022` — the
+  register's conchoidal-fracture source — **cannot be re-read**. It is cited here only for the claims
+  this register already records against it (G6's rule), and `Conchoidal_fracture`'s third sentence is
+  carried by an open PLOS paper instead.
+- `mdpi.com` 503'd, `www.usgs.gov` and `naturalhistory.si.edu` are **403**, `historicengland.org.uk` is
+  **403**, and `scholarworks.uni.edu` is **403**. What answered instead were **`nps.gov`** (two articles
+  on obsidian, one of them the source of the definition), **`regierung.schwaben.bayern.de`** and
+  **`leo-bw.de`** (the Baden-Württemberg State Archives' regional-studies portal, whose Historischer
+  Atlas commentary is a PDF that had to be extracted locally), and **`chs.harvard.edu`**, which
+  publishes Nagy's Brill Companion chapter in full. **Batch 18's rule again: ask the institution
+  responsible.** For a German region that is a state archive; for a volcanic glass quarried in a national
+  park it is the park service.
+
+### Verified citations (batch N4)
+
+New to the register — all open:
+
+- Regierung von Schwaben, “Schwabens Geschichte,” Regierungsbezirk, https://www.regierung.schwaben.bayern.de/regierungsbezirk/geschichte/index.html. [Open access]
+  - opened: 2026-08-03 · the Bavarian district government's own history page
+  - supports: "Die dort siedelnden Sueben wurden vom 6. bis 12. Jahrhundert zunehmend mit den Alemannen
+    gleichgesetzt"; that the name "bezeichnete … deren Siedlungsland (Stammesherzogtum Alemannien),
+    später das daraus hervorgehende Herzogtum Schwaben"; the 1803 "Zusammenführung der schwäbischen
+    Landesteile als 'Baierische Provinz Schwaben'"; and that Schwaben today covers "Teile des Landes
+    Baden-Württemberg und der bayerische Regierungsbezirk Bayerisch-Schwaben"
+  - used by: Swabia
+- Helmut Maurer, “Das Herzogtum Schwaben,” Beiwort zu Karte 5,1a, <i>Historischer Atlas von Baden-Württemberg</i> (Stuttgart: Landesvermessungsamt Baden-Württemberg), https://www.leo-bw.de/media/kgl_atlas/current/delivered/pdf/HABW_5_1a.pdf. [Open access]
+  - opened: 2026-08-03 · the atlas commentary PDF via LEO-BW; text extracted locally (WebFetch returns
+    the record page's metadata only, and the PDF as binary)
+  - supports: that the provincia Schwaben "ist vielmehr durch genau fixierte Grenzen von den
+    Nachbarprovinzen, etwa von Bayern im Osten, oder von Franken im Norden, aber auch von Königreichen wie
+    Italien im Süden oder Burgund im Südwesten geschieden, durch Grenzen, die der Herzog gegen die
+    Ansprüche der Nachbarherzöge … zu verteidigen hat"; and "Mit der Hinrichtung Konradins im Jahre 1268
+    ist das Herzogtum Schwaben für immer erloschen"
+  - **no publication year is cited** — the extracted commentary carries none, and the search result
+    offering one could not be confirmed against the file. N3's Oudbashi rule: cite the locator you can see
+  - used by: Swabia
+- Gregory Nagy, “Hesiod and the Ancient Biographical Traditions,” in <i>The Brill Companion to Hesiod</i>, ed. F. Montanari, A. Rengakos, and Ch. Tsagalis (Leiden: Brill, 2009), 271–311, https://chs.harvard.edu/curated-article/gregory-nagy-hesiod-and-the-ancient-biographical-traditions/. [Open access]
+  - opened: 2026-08-03 · the Center for Hellenic Studies' full text of the chapter
+  - supports: Ascra in Boeotia; that "Hesiod's father originates directly from Cyme" and "migrated from
+    that city on the Asiatic mainland (636) to the town of Ascra"; the Muses of Helicon initiating him and
+    saying "We know how to say many falsehoods that look like genuine things, but we can also … proclaim
+    true things"; the *Theogony* and *Works and Days* as his two poems; and that he "quarreled with his
+    brother Perses about their inheritance, accusing him of laziness and injustice"
+  - used by: Hesiod
+- L. Giosan and R. Goodman, “Morphodynamic Foundations of Sumer,” <i>PLOS ONE</i> 20, no. 8 (2025): e0329084, https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0329084. [Open access]
+  - opened: 2026-08-03 · full text. **See the fabricated-author finding above** — the author string here
+    is from the Europe PMC record, not from the fetched page, which did not carry it
+  - supports: "the Mesopotamian Plain, also referred to as southern or lower Mesopotamia" as "a vast,
+    low-gradient alluvial plain"; that "the Tigris-Euphrates river system, with its headwaters in the
+    Taurus Mountains and flowing parallel to the Zagros, is the dominant sediment source for the region";
+    "The earliest network of city-states, closely knit by shared cultural traditions and economic
+    interests, emerged c. 5,000 years ago in southern Mesopotamia"; and that during the Uruk period
+    "settlement density increased, with more clustered and hierarchical site distributions organized
+    around urban institutions", Uruk "reaching over 250 ha at its peak when it accommodated at least
+    25,000 people"
+  - used by: Mesopotamia
+- Abay Namen, Radu Iovita, Klaus G. Nickel, et al., “Mechanical Properties of Lithic Raw Materials from Kazakhstan: Comparing Chert, Shale, and Porphyry,” <i>PLOS ONE</i> 17, no. 4 (2022): e0265640, https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0265640. [Open access]
+  - opened: 2026-08-03 · full text
+  - supports: that "Sedimentary rocks such as chert, flint, silicified shale, and other silica rich rocks
+    were commonly used, and this is presumed to be due to their predictable fracturing properties and good
+    knapping qualities"; that the chert studied was "entirely composed of length-fast chalcedony, which in
+    turn is quartz"; "Raw material quality is commonly related to the mineralogical structure (e.g., grain
+    size and shape) and purity of a given material"; and that "materials that have isotropic mechanical
+    properties are often considered to be of higher quality for tool making"
+  - **does NOT define conchoidal fracture by name** — it discusses fracture propagation and indentation
+    resistance instead, so `Conchoidal_fracture`'s first two sentences rest on `li-2022` and only its
+    third on this paper
+  - used by: Chert, Flint, Conchoidal_fracture
+- National Park Service, “Obsidian Cliff,” Yellowstone National Park, https://www.nps.gov/yell/learn/historyculture/obsidiancliff.htm. [Open access]
+  - opened: 2026-08-03 · the park's own record
+  - supports: "Obsidian is found in volcanic areas where the magma is rich in silica and lava has cooled
+    without forming crystals, creating a black glass that can be honed to an exceptionally thin edge"; and
+    "Obsidian was first quarried from this cliff for toolmaking more than 11,000 years ago"
+  - used by: Obsidian
+- Sarah Hinkelman, “Hopewell Culture Obsidian,” National Park Service, last updated 17 June 2022, https://www.nps.gov/articles/000/hopewell-culture-obsidian.htm. [Open access]
+  - opened: 2026-08-03 · a park guide's article, bylined and dated
+  - supports: obsidian as "naturally forming glass (a type of igneous rock) that is only formed from the
+    rapid cooling of lava"; that it is "jet black in color but can also be brown, tan, or green"; that it
+    "is a strong material, yet it can be easily shaped by chipping away flakes in a process called
+    knapping"; that "The cutting edge on obsidian is so sharp and thin it can cut between cells rather
+    than tear through tissue like steel scalpels"; and the carriage of Obsidian Cliff and Bear Gulch
+    obsidian to the Scioto River Valley, "over 1,500 miles away"
+  - used by: Obsidian
+- Markus Fjellström et al. (`fjellstrom-2026`) and Jens Winther Johannsen et al. (`winther-johannsen-2024`)
+  — both already registered for `wh-101`, reused for the claims recorded there → Scandinavia
+
+Reused from this register: `kanjanajuntorn-2020` (Worsaae testing Thomsen's classification against
+stratigraphic excavation; prehistory as a discipline of typology, stratigraphy and technology rather than
+texts) and `rowley-conwy-2004` (the framework emerging in Denmark and southern Sweden 1835–43, and
+Thomsen's *Ledetraad* of 1836) → Jens_Jacob_Worsaae; `hesiod-works-and-days` (the five races, and the
+fourth not a metal) → Hesiod; the M49 standard (Oceania's four subregions and their members, and the
+statistical-convenience disclaimer) and `cooper-grebnev-2023` (no bronze metallurgy until late) →
+Oceania; `woods-2010` (writing at the end of the 4th millennium BCE, and the 3200 BCE convention) →
+Mesopotamia; `skertchly-1879` (flint dug from chalk, and the Brandon trade — 26 men and boys in four
+shops in April 1878, "continuously carried on from what geologists have called Neolithic times") →
+Flint and Chert; `li-2022` (conchoidal fracture as Hertzian fracture, glass used "because it fractures
+conchoidally", and the hard- versus soft-hammer bulb) → Conchoidal_fracture.
+
+---
+
+## Batch N5 — the Altamira card fixed, plus ten terms on tools, food and deep time (2026-08-03)
+
+Ten new terms — **handaxe, debitage, gunflint, musket, subsistence, salmon, geology, geological epoch,
+Cenozoic Era, stratum** — plus a `Sicilian` alias on the existing `Sicily`. Twenty-three slots from
+**fourteen works, all fourteen open**; ten came from this register. `knapping` and `Sicily` were requested
+and **already existed**, so only the alias was added to the latter.
+
+### The card fix: `wh-085`'s date line, three batches after it was flagged
+
+N3 recorded that batch 21 had removed "a rockfall closed the mouth some 13,000 years ago" from the
+Altamira abstract and that it still stood on the card's `answerDate`. **Now fixed in all ten languages**
+via `fix-field.js`, which refuses to write unless every `find` string is present — so a silent no-op was
+impossible. The date line now reads "until the Magdalenian, after which a rockfall sealed the cave mouth",
+matching the abstract's own undated wording in each language.
+
+**A deck-wide sweep was run first**, and it is the part worth keeping: grepping every card's abstract and
+date line in all ten languages for *rockfall* and its nine translations found the claim on `wh-085` only.
+`wh-084` (Chauvet) carries its own rockfall at "some 20,000 years earlier", which is a different site and
+a separately sourced claim, and was left alone. **Grep the figure across the deck before fixing one
+card** — batch 26's rule, run as a precondition rather than as a postscript.
+
+### Two of this batch's own drafts were wrong, and both were caught before shipping
+
+- **`Subsistence`'s first draft attributed a methods sentence to Winther Johannsen et al. that this
+  register does not record for it.** G6's rule says a source reused from the register is reused for the
+  claim the register RECORDS; the draft stretched it to "bones, plants and the chemistry of skeletons"
+  on the strength of the title. Fetched and re-read, the paper does support a methods sentence — but a
+  *different* one, and the term now says what it actually says: sickle use-wear on cereals, charred
+  cereal remains, game bones, pollen showing crop rotation and fallow, stable isotopes, and dental
+  caries tracking carbohydrate. **The correct-sounding paraphrase is the dangerous one.**
+- **`Stratum` was drafted with "stratigraphy" and "stratigraphic" as aliases.** Stratigraphy is the
+  *study* of strata, not a synonym for a layer — the same error as N2's "Late Stone Age" on
+  `Upper_Paleolithic` and N4's "Swabia" on `Swabian_Jura`, caught this time in draft rather than after
+  shipping. Aliases are now `strata` alone. **Three occurrences in four batches makes this the pass's
+  most repeated mistake: an alias asserts identity, and the temptation is always a related word that
+  merely travels in the same sentences.**
+- `Cenozoic_Era` was also drafted with a date line of "c. 66 Mya – present", which **nothing opened for
+  this batch states**. Removed rather than asserted; the term carries no date.
+
+### The limit found: a discipline that will not define itself
+
+`Geology` was the hard one, and for G8's reason rather than an access one. The **British Geological
+Survey's Discovering Geology** section describes its *scope* — "the processes that have shaped current
+and past landscapes and how our planet's diverse range of rocks and minerals formed", the Earth "cooling
+down since it formed 4.6 billion years ago", and topic pages from erosion and weathering through
+earthquakes and volcanoes to fossils and geological time — but **states no one-sentence definition of the
+discipline**, and `historicengland.org.uk`, `www.usgs.gov` and `geolsoc.org.uk` are not usable here. So
+the term describes what geology studies and then what geologists *do* with time, citing Gibbard & Head
+for the machinery of fixing a boundary in rock. G8 needed Gray's *Anatomy* to say what anatomy is; the
+equivalent for geology was not found, and the term is written around the gap rather than over it.
+
+### Verified citations (batch N5)
+
+New to the register — both open:
+
+- “Lock, Stock, & Barrel,” National Park Service, 16 December 2019, https://home.nps.gov/articles/lock-stock-barrel.htm. [Open access]
+  - opened: 2026-08-03 · the NPS article (no named author)
+  - supports: that the musket "employed a simple firing mechanism relying on a piece of flint crashing
+    down on a steel plate. The resulting shower of red-hot sparks ignited gunpowder held in a shallow pan
+    on the side of the lock, setting off the main charge inside"; and that "The loading and firing drill
+    for U.S. troops called for twelve separate motions – the Mexican drill called for eleven"
+  - **limit worth recording**: it gives no calibre, length, weight, rate of fire, range, or smoothbore /
+    rifled distinction, so `Musket` claims none of those. `stonetoolsmuseum.com` — which does hold a
+    gunflint record — served a blank body to WebFetch and could not be used
+  - used by: Gunflint, Musket
+- British Geological Survey, “Discovering Geology,” https://www.bgs.ac.uk/discovering-geology/. [Open access]
+  - opened: 2026-08-03 · the section landing page
+  - supports: geology's scope as "the processes that have shaped current and past landscapes and how our
+    planet's diverse range of rocks and minerals formed"; "The Earth has been cooling down since it formed
+    4.6 billion years ago"; and the branches its topic pages name — erosion, deposition, weathering,
+    earthquakes, volcanoes, landslides, fossils and geological time
+  - **does NOT define the discipline in a sentence** — see the note above
+  - used by: Geology
+- Jérôme Robitaille, Lisa E. Meyering, Sabine Gaudzinski-Windheuser, et al., “Upper Palaeolithic Fishing Techniques: Insights from the Engraved Plaquettes of the Magdalenian Site of Gönnersdorf, Germany,” <i>PLOS ONE</i> 19, no. 11 (2024): e0311302, https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0311302. [Open access]
+  - opened: 2026-08-03 · full text
+  - supports: "The most commonly depicted fish in Magdalenian art are salmonids, clearly identifiable due
+    to their distinctive features, and occasionally, these possess sufficient detail for species
+    identification"; and that "stable isotope data from human remains on European Upper Palaeolithic sites
+    suggest that from the Mid (and probably from the Early) Upper Palaeolithic aquatic resources were
+    contributing up to 50% of dietary protein"
+  - used by: Salmon
+
+Re-read rather than reused blind, because the claim wanted was new:
+
+- `winther-johannsen-2024` — the methods sentence: "Use-wear studies show that the crescent-shaped
+  sickles were mainly used for harvesting cereals"; "Analyses on charred cereal remains"; "bones from game
+  animals"; "Stable isotope analyses indicate a low intake of marine food sources"; "The commonness of
+  dental caries in LN individuals from Southern Sweden supports these findings, as carbohydrate intake …
+  correlates with the incidence of dental caries"; and pollen evidence that "crop rotation, fallow periods
+  and fertilisation, were integral parts of the LN agricultural practice"; plus the framing of subsistence
+  as "hunting, fishing and gathering" against "agriculture and livestock farming" → Subsistence
+
+Reused for the claims this register already records: `si-early-stone-age-tools` (large flakes shaped by
+striking smaller flakes from the edges by about 1.76 Ma, and handaxes as what characterise the Acheulean
+toolkit; the debris of percussion flaking) → Handaxe, Debitage; `key-lycett-2017` (the Movius Line out of
+Movius's 1940s work; Kohn & Mithen's sexual-selection reading of symmetry and the credible criticism of
+it; bifaces "capable of numerous woodworking activities"; Machin's butchery result; the overlooked digging
+experiments) → Handaxe; `campmas-2026` (an assemblage "with the presence of tanged tools,
+Levallois/micro-Levallois debitage (flakes and cores) and side-scrapers") and `eren-lycett-2012`
+(preferential Levallois flakes "thicker across their surface area (as a whole) than debitage flakes", of
+"relatively *even* thickness") → Debitage; `skertchly-1879` (26 men and boys in four shops in April 1878
+against 36 in 1868, and the Survey's "continuously carried on from what geologists have called Neolithic
+times down to the present day") → Gunflint, Musket; `smith-codding-2021` (the North Pacific class system
+of hereditary nobility, commoners and slaves, underwritten by defensible clumped resources, salmon above
+all, among foragers with no farming) → Subsistence, Salmon; `gibbard-head-2010` (the Gelasian GSSP at
+Monte San Nicola, Sicily, at 2.58 Ma, ratified by the IUGS on 29 June 2009, and the Quaternary within the
+Cenozoic) → Geology, Geological_epoch, Cenozoic_Era, Stratum; `walker-2009` (the Holocene base at 1492.45
+m in NGRIP, 11,700 cal yr b2k, the first GSSP in an ice core) → Geological_epoch, Stratum; `hansen-2013`
+(CO2 from ~1000 ppm in the Early Cenozoic to 170–300 in the Pleistocene, driven by plate tectonics through
+volcanic emission and the weathering sink; Antarctic glaciation then Northern Hemisphere ice sheets in the
+most recent 3–5 Myr) → Cenozoic_Era; `bayliss-2009` (a chronology drawing on 14C, stratigraphy, coins and
+typology together beating one resting on a single strand) → Stratum.
+
+---
+
+## Batch N6 — Worsaae completed from his own book, plus nine on the Ice Age north (2026-08-03)
+
+`Jens_Jacob_Worsaae` rewritten, and nine new terms — **Beringia, Siberia, Alaska, mammoth, woolly
+mammoth, elephant, Smilodon, Last Glacial Maximum, stratigraphy**. Twenty-four slots from **fourteen
+works, thirteen open**; ten came from this register, which is what a batch about the Pleistocene north
+should look like, since the cards already cover it.
+
+### The finding: the Danish institutions do not carry their own founder
+
+The request was to complete Worsaae from a **Danish institutional record**. Five pages of `natmus.dk`
+were tried — the museum-history hub, Oldsagskommissionen, C. J. Thomsen, *De tre tidsaldre*, and the
+Antiquarian-Topographical Archive's own history — and **not one mentions him**; `slks.dk`'s history of the
+monuments law returns navigation only; and Briggs 2005 in the *Bulletin of the History of Archaeology*,
+which is about Rafn and Worsaae by title, has an abstract carrying nothing biographical and a PDF whose
+embedded font encoding defeats extraction. **The Danish sources the search engines appeared to offer were
+aggregating `lex.dk` and Wikipedia**, both barred by the plan, which is a trap worth naming: a search
+summary can read as institutional when every underlying source is an encyclopedia.
+
+What answered was **Worsaae's own book**, and it is the better record anyway: *The Primeval Antiquities
+of Denmark* (London: John Henry Parker, 1849), W. J. Thoms's translation of *Danmarks Oldtid oplyst ved
+Oldsager og Gravhøie* (1843), scanned in full on the Internet Archive. Its **title page states his Danish
+office outright** — "A ROYAL COMMISSIONER FOR THE PRESERVATION OF THE NATIONAL MONUMENTS OF DENMARK" —
+and its opening pages carry Thomsen as "the real founder of the Museum" and the three-class division in
+Worsaae's own words. **Batch 25's rule at full strength: where a 19th-century figure is out of copyright,
+he is his own best institutional record.**
+
+**His birth and death years are still not cited**, and the term still omits them. Nothing the plan admits
+states them; only encyclopedias do. That is the second time this term has been left deliberately short,
+and it is the honest state rather than a gap to be filled from memory.
+
+### The alias split the request asked for, and why it was already half-done
+
+`stratigraphy` and `stratigraphic` were aliases on `Stratum` when it was drafted in N5, and were **cut
+before shipping** on the ground that stratigraphy is the study of strata and not a synonym. N6 gives it
+the separate term that reasoning implied. The two now resolve independently — `strata` → `Stratum`,
+`stratigraphy` → `Stratigraphy` — and each links to the other in its prose. **The N5 restraint is what
+made the split cheap**; had the alias shipped, the new term would have silently overridden it and left a
+dead row behind, which is the `Upper_Paleolithic` case exactly.
+
+### Verified citations (batch N6)
+
+New to the register:
+
+- J. J. A. Worsaae, <i>The Primeval Antiquities of Denmark</i>, trans. William J. Thoms (London: John Henry Parker, 1849), title page and 4, translated from <i>Danmarks Oldtid oplyst ved Oldsager og Gravhøie</i> (Copenhagen, 1843), https://archive.org/details/primevalantiqui00worsgoog. [Open access]
+  - opened: 2026-08-03 · the Internet Archive's OCR of the Oxford copy, digitised by Google; read via the
+    `/stream/<id>/<id>_djvu.txt` route and extracted locally
+  - supports: the title page's "J. J. A. WORSAAE, A FOREIGN MEMBER OF THE SOCIETY OF ANTIQUARIES OF
+    LONDON, &C., AND A ROYAL COMMISSIONER FOR THE PRESERVATION OF THE NATIONAL MONUMENTS OF DENMARK",
+    the translator, and the imprint "LONDON, JOHN HENRY PARKER; AND BROAD-STREET, OXFORD. MDCCCXLIX.";
+    that "The Royal Museum of Northern Antiquities of Copenhagen contains a greater number of primeval
+    antiquities, than most other collections, and by the efforts of C. J. Thomsen, (the real founder of
+    the Museum,) it has been systematically arranged"; and "The same division of the antiquities into
+    three classes, — those belonging to the periods of Stone, and Bronze, and Iron, — which has been
+    adopted in the arrangement of the Danish primeval monuments, will apply to the British remains"
+  - **does NOT give his birth or death years**; nothing openable here does
+  - used by: Jens_Jacob_Worsaae
+- Eleftheria Palkopoulou, Mark Lipson, Swapan Mallick, et al., “A Comprehensive Genomic History of Extinct and Living Elephants,” <i>Proceedings of the National Academy of Sciences</i> 115, no. 11 (2018): E2566–E2574, https://pmc.ncbi.nlm.nih.gov/articles/PMC5856550/. [Open access]
+  - opened: 2026-08-03 · full text via PMC (`isOpenAccess: N` in the Europe PMC record and fully readable —
+    batch 24's rule again; the label follows readability, not licence)
+  - supports: "The two forest elephants in our dataset … comprise a lineage that is distinct from savanna
+    elephants, confirming … that the two African elephants should be classified as distinct taxa"; "Forest
+    and savanna elephants are inferred to have split from each other ∼5 to 2 Mya, soon after their common
+    ancestor split from the straight-tusked elephant lineage"; that "for conservation purposes, forest
+    elephants and savanna elephants are appropriately viewed as reproductively distinct units, meeting the
+    definition of the Biological Species Concept"; and that "Asian elephants and mammoths are estimated to
+    have split at about the same time as the split between *Loxodonta* and straight-tusked elephants"
+  - used by: Elephant
+- M. Aleksander Wysocki, Robert S. Feranec, Zhijie Jack Tseng, and Christopher S. Bjornsson, “Using a Novel Absolute Ontogenetic Age Determination Technique to Calculate the Timing of Tooth Eruption in the Saber-Toothed Cat, <i>Smilodon fatalis</i>,” <i>PLOS ONE</i> 10, no. 7 (2015): e0129847, https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0129847. [Open access]
+  - opened: 2026-08-03 · full text
+  - supports: *S. fatalis* as "the saber-toothed cat" with "a superb fossil record" and "the exceptional
+    fossil record … at Rancho La Brea"; upper canine crown height "~130 mm" and eruption at "6.0
+    millimeters per month"; "the upper canines finished erupting at about 34 to 41 months"; and the rest of
+    the permanent dentition "fully erupted by 14 to 22 months"
+  - used by: Smilodon
+- Larisa R. G. DeSantis, Blaine W. Schubert, Jessica R. Scott, and Peter S. Ungar, “Implications of Diet for the Extinction of Saber-Toothed Cats and American Lions,” <i>PLOS ONE</i> 7, no. 12 (2012): e52453, https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0052453. [Open access]
+  - opened: 2026-08-03 · full text
+  - supports: that *S. fatalis* "may have been a more catholic carnivore, both taking down prey and
+    consuming carcasses already acquired by other individuals", with dental microwear texture "most similar
+    to the African lion *Panthera leo*"; that both cats "went extinct along with other megafauna ∼12,000
+    years ago"; and that the data "offer little evidence that declining prey resources were a primary cause
+    of extinction for these large cats"
+  - **the register's only previous saber-tooth mention is `dodson-2025` on Zhoukoudian, which is the WRONG
+    ANIMAL** — the Chinese saber-toothed cats are not *Smilodon*, a New World genus, and citing it here
+    would have been a plausible-looking error of exactly the kind this pass keeps catching
+  - used by: Smilodon
+
+Reused for the claims this register already records: `kanjanajuntorn-2020` and `rowley-conwy-2004` →
+Jens_Jacob_Worsaae, Stratigraphy; `jakobsson-2017` (the ~53 m strait exposed as a land bridge, flooded
+~11 cal ka BP) → Beringia, Alaska; `macdonald-2012` (the mammoth steppe, the Beringian range, the ~12.9 ka
+North American and early-Holocene north Asian declines, island survival to ~4 ka) → Beringia,
+Woolly_mammoth; `reich-2010` (the 2008 phalanx at Denisova Cave in southern Siberia, the Neanderthal
+common origin, the Melanesian contribution) → Siberia; `vandervalk-2021` (Krestovka at 1.2–1.1 Ma as the
+oldest animal DNA; Adycha ancestral to woolly mammoths; Chukochya already one) → Siberia, Mammoth;
+`moreno-mayar-2018` (the terminal Pleistocene Alaskan genome and the first founding population) → Alaska;
+`graham-2016` (St. Paul mammoths to 5,600 ± 100 ya, killed by freshwater scarcity) → Alaska;
+`larramendi-2016` (*M. primigenius* at ~2.7–3.5 m and ~5.5–8 t, ears ~30 cm under a kilogram, very short
+tail, thick coat; the volumetric method "tested on extant elephants") → Woolly_mammoth, Mammoth, Elephant;
+`dehasque-2024` (Wrangel isolation ~10,000 ya, extinction ~4,000 ya after 200+ stable generations,
+inbreeding without meltdown) → Woolly_mammoth; `clark-2009` (26.5–19 ka as a ~7,500-yr plateau; ~130 m
+eustatic fall; the five named ice sheets; deglaciation onset 19–20 ka) and `spratt-lisiecki-2016` (−130 to
+−134 m) and `moreno-parada-2023` (Laurentide ~3–4 km over the Hudson Bay dome) → Last_Glacial_Maximum;
+`bayliss-2009` (single-context recording and Harris matrices as standard practice; the all-strands
+argument) and `gibbard-head-2010` (Monte San Nicola) → Stratigraphy.
+
+`Last_Glacial_Maximum` is the batch's only list with a paywalled work — Clark et al. 2009, the landmark
+that names the interval — and is 2 open of 3, a majority.
+
+---
+
+## Batch N7 — the ice sheets and their animals; FIVE TERMS DEFERRED (2026-08-03)
+
+Requested: thirteen. **Eight shipped** — Laurentide ice sheet, Fennoscandian ice sheet, Wisconsin
+glaciation, Doggerland, Great Britain, woolly rhinoceros, cave bear, Irish elk — and **five deferred**:
+`Weichselian_glaciation`, `Würm_glaciation`, `Devensian_glaciation`, `Fennoscandia` and `Rhinoceros`.
+Nineteen slots from thirteen works, eleven open. This is the **first batch of N1–N7 to come back short**,
+and the reason is worth stating precisely rather than as a failure of effort.
+
+### The deferrals, and why they are a source problem rather than a research problem
+
+**The three European stage names have one canonical source and it is barred twice over.** Weichselian,
+Würm and Devensian are *chronostratigraphic stage names*, and what defines a stage name is a stratigraphic
+authority: the Springer *Encyclopedia of Paleoclimatology and Ancient Environments* entry
+"Wisconsinan (Weichselian, Würm) Glaciation" is the work everything else cites, and `link.springer.com`
+303s to an identity-provider cookie endpoint here **and** it is an encyclopedia, which the plan bars. The
+next authority down, the ICS **Subcommission on Quaternary Stratigraphy**'s global correlation table
+(Cohen & Gibbard), is exactly right for the job and `quaternary.stratigraphy.org.uk` returned **503 on
+two attempts** at two different paths. The BGS **Lexicon of Named Rock Units** answers with 200 but
+returned "no data was found matching your search criteria" for the Devensian code tried. Everything else
+the searches surfaced for these three names traced back to Wikipedia or `encyclopedia.pub`.
+
+`Wisconsin_glaciation` shipped where its three siblings did not, and only because a **USGS publication
+record** carries a datable claim about it — Attig et al. on the late Wisconsin maximum in Wisconsin at
+18,000–15,000 years ago. **The asymmetry is instructive: a stage name is citable when some agency has
+published a measured result under it, and not citable from the fact that it is the name.**
+
+**`Fennoscandia`** is deferred for the reason `Scandinavia` nearly was in N4: `Fennoscandian_ice_sheet`
+is well sourced, but nothing opened here **defines the region** — the Bolin Centre record for Stroeven et
+al. describes the ice sheet and explicitly does not state the geographic extent of Fennoscandia, and
+`norden.org` is 403. A term about the region would rest on an unmarked commonplace plus two sources about
+its ice, which is not a definition.
+
+**`Rhinoceros`** is deferred because the family-level source is Liu et al. 2021 in *Cell*, which has **no
+Europe PMC record at all** and whose publisher was already recorded blocked in batch 26. `Woolly_rhinoceros`
+shipped on Seeber et al. 2023 and Wang et al. 2021; the living family did not.
+
+### The alias collision the request created, and the fourth correction in seven batches
+
+Adding `Great_Britain` exposed that **`United_Kingdom` was carrying `["Britain","British","Great Britain",
+"Northern Ireland"]`**. Three of the four are wrong, and the source added for the new term says so
+outright: Ordnance Survey, the national mapping agency, states that Great Britain "is the official
+collective name of England, Scotland and Wales and their associated islands. It does not include Northern
+Ireland and therefore should never be used interchangeably with 'UK'." So "Great Britain" and "Britain"
+belong to the new term, and **"Northern Ireland" was never a synonym for the UK at all** — it is a
+constituent part, the plainest case yet of an alias asserting an identity that does not hold. The UK's
+list is now the full legal name and "the UK".
+
+That is the **fourth alias correction in seven batches** (`Upper_Paleolithic`/"Late Stone Age",
+`Swabian_Jura`/"Swabia", `Stratum`/"stratigraphy" caught in draft, and now three at once on
+`United_Kingdom`). The pattern is stable enough to state as a rule: **an alias list written before the
+sibling term existed will contain the sibling's name, and it will be wrong the day the sibling is added.**
+Note also that "Northern Ireland" now links to nothing, which is the honest state until it has a term.
+
+### Verified citations (batch N7)
+
+New to the register — all open:
+
+- Arjen P. Stroeven, Clas Hättestrand, Johan Kleman, et al., “Deglaciation of Fennoscandia,” <i>Quaternary Science Reviews</i> 147 (2016): 91–121, dataset record, Bolin Centre Database, Stockholm University, https://bolin.su.se/data/stroeven-2016-deglaciation-1. [Open access]
+  - opened: 2026-08-03 · the Stockholm University dataset record (the ScienceDirect article is closed here)
+  - supports: isochrons "every 1,000 years from 22 to 13 cal kyr BP" and "every 100 years from 11.6 to 9.7
+    cal kyr BP, encompassing the final ice decay"; and "an ice sheet-wide interruption in retreat during
+    the Younger Dryas (12.7–11.6 cal kyr BP)"
+  - **does NOT state the geographic extent of Fennoscandia** — which is why that term is deferred
+  - used by: Fennoscandian_ice_sheet
+- J. W. Attig, D. M. Mickelson, and L. Clayton, “Late Wisconsin Landform Distribution and Glacier-Bed Conditions in Wisconsin,” <i>Sedimentary Geology</i> (1989), U.S. Geological Survey publication record, https://www.usgs.gov/publications/late-wisconsin-landform-distribution-and-glacier-bed-conditions-wisconsin. [Open access]
+  - opened: 2026-08-03 · the USGS record
+  - supports: that "the late Wisconsin Laurentide Ice Sheet reached its maximum extent in Wisconsin between
+    about 18,000 and 15,000 years ago", and permafrost persisting to ~14,000 years ago in the south of the
+    state and ~13,000 in the north
+  - **volume and pages are not cited** — the USGS record gives neither and they could not be confirmed
+  - used by: Wisconsin_glaciation
+- Ordnance Survey, “What’s the Difference between the UK, Britain and the British Isles?” https://www.ordnancesurvey.co.uk/blog/whats-the-difference-between-uk-britain-and-british-isles. [Open access]
+  - opened: 2026-08-03 · the national mapping agency's own explainer
+  - supports: "Great Britain is the official collective name of of England, Scotland and Wales and their
+    associated islands. It does not include Northern Ireland and therefore should never be used
+    interchangeably with 'UK'"; the UK's full name as "the political union between England, Wales,
+    Scotland and Northern Ireland"; and the British Isles as "purely a geographical term … the islands of
+    Great Britain and Ireland – including the Republic of Ireland – and the 5000 or so smaller islands"
+  - **it does not say Great Britain is the largest European island**, so the term does not claim it
+  - used by: Great_Britain · and it is what forced the `United_Kingdom` alias correction above
+- Peter A. Seeber, Zoe Palmer, Anna Schmidt, et al., “The First European Woolly Rhinoceros Mitogenomes, Retrieved from Cave Hyena Coprolites, Suggest Long-Term Phylogeographic Differentiation,” <i>Biology Letters</i> 19, no. 11 (2023): 20230343, https://pmc.ncbi.nlm.nih.gov/articles/PMC10618854/. [Open access]
+  - opened: 2026-08-03 · full text
+  - supports: the woolly rhinoceros as "a cold-adapted megaherbivore", "abundant from western Europe to
+    north-east Siberia during the Middle to Late Pleistocene"; the genus originating "north of the
+    Himalayan–Tibetan uplift around 2.5 Myr BP" and entering Europe "approximately 460–400 kyr BP"; the
+    European mitochondrial lineage's long divergence from the Siberian; and "its demise beginning
+    approximately 10 000 years ago"
+  - used by: Woolly_rhinoceros
+- Alexander Immel, Dorothée G. Drucker, Marion Bonazzi, et al., “Mitochondrial Genomes of Giant Deers Suggest Their Late Survival in Central Europe,” <i>Scientific Reports</i> 5 (2015): 10853, https://pmc.ncbi.nlm.nih.gov/articles/PMC4459102/. [Open access]
+  - opened: 2026-08-03 · full text
+  - supports: antlers that "spanned up to 4 m in diameter and weighted up to 45 kg"; appearance "around
+    400,000 years ago" with populations "from Ireland to Lake Baikal"; absence from western and central
+    Europe before the LGM and recolonisation "in the Late Glacial Interstadial"; the "purported extinction
+    ca. 6,900 ya in western Siberia"; and "strong support for a *Dama - Megaloceros* mtDNA clade"
+  - **a search summary gave the Siberian survival as 7,600 years; the paper says 6,900.** N4's rule paying
+    again — the summary is not the source, and the fetch is what caught it
+  - used by: Irish_elk
+
+Reused for the claims this register already records: `batchelor-2019` (the LIS initiating over the
+Arctic/sub-Arctic plateaux of eastern Canada; the EIS growing by over 1000% at the LGM; ~100 m
+sea-level equivalent) → Laurentide_ice_sheet, Fennoscandian_ice_sheet, Wisconsin_glaciation;
+`moreno-parada-2023` (3–4 km reconstructed, 4–5 km simulated over the Hudson Bay dome) →
+Laurentide_ice_sheet; `clark-2009` (26.5–19 ka; the five named sheets) → all three ice-sheet terms;
+`walker-2020-doggerland` (Storegga at ~8150 BP, the naming after Coles 1998, and sea-level rise rather
+than the wave) and `gaffney-2007-mapping` (3D seismic over >23,000 km²; the 1931 Colinda harpoon from
+the Leman and Ower banks) → Doggerland; `bello-2021` (Gough's Cave) → Great_Britain; `wang-2021` (the
+mammoth-steppe flora at the LGM and its megafauna, *Coelodonta antiquitatis* among them) →
+Woolly_rhinoceros; `minculture-chauvet-bears` (~300 bear hollows, ~190 individuals, a skull on a block)
+and `diedrich-2015` (punctured cave bear femora as hyena bone-crushing damage, round-oval punctures from
+premolars, in European cave bear dens) → Cave_bear; `minculture-chauvet-art` (megaloceros among the
+images) → Irish_elk.
+
+---
+
+## Batch N8 — the saber-tooth split, on a reader's correction (2026-08-03)
+
+One new term, `Saber-toothed_cat`, and `Smilodon` rewritten. Six slots from four works, all open. The batch
+exists because **a reader caught N6 asserting a false generality**: `Smilodon`'s first sentence read
+"*Smilodon fatalis* is the saber-toothed cat", and it holds every sabre-tooth alias, so the whole
+vocabulary of the group resolved to one American genus.
+
+### The finding: a wrong term is not always a wrong FACT
+
+Nothing in the old `Smilodon` entry was false about *Smilodon*. Wysocki's canine measurements, DeSantis's
+microwear, Rancho La Brea, the ~12,000-year extinction — all correct and all still there. What was wrong
+was the **definite article**: "*the* saber-toothed cat" for a genus that is one of several, in one
+hemisphere, inside a subfamily spanning Eurasia and Africa too. **The audit cannot see this** — it counts
+citations, and every citation was sound. Neither can the marker rules, nor `check-style`. It took a
+reader. **When a term is the only one in the glossary for its subject area, check whether it is being
+made to carry the whole subject**; the fix is a sibling term, not a correction.
+
+N6 already recorded the near-miss on the other side: the register's only previous saber-tooth mention was
+`dodson-2025` on Zhoukoudian, and citing it for `Smilodon` was refused **because those cats are not
+Smilodon**. That refusal was right and is now what carries the new term's third sentence — the Chinese
+occurrence is precisely the evidence that the group is not American. **The fact set aside as
+uncitable-here turned out to be the fact the missing term needed.**
+
+### The alias move, and a tooling note
+
+All eleven sabre/saber aliases plus `Machairodontinae` and `machairodont` now sit on
+`Saber-toothed_cat`; `Smilodon` keeps none, and resolves on its own name. **`add-glossary.js` deletes an
+alias list only when the `aliases` key is PRESENT** — `if (Array.isArray(e.aliases) && e.aliases.length)
+… else if ("aliases" in e) delete` — so omitting the key on an update leaves the old list standing. The
+first pass at this left both terms claiming the same eleven surfaces, with the older key winning, which is
+the exact opposite of the intent. **Pass `"aliases": []` to clear.** Fifth alias correction in eight
+batches, and the first requested rather than discovered.
+
+### Verified citations (batch N8)
+
+New to the register:
+
+- Manabu Sakamoto and Marcello Ruta, “Convergence and Divergence in the Evolution of Cat Skulls: Temporal and Spatial Patterns of Morphological Diversity,” <i>PLOS ONE</i> 7, no. 7 (2012): e39752, https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0039752. [Open access]
+  - opened: 2026-08-03 · full text
+  - supports: "a monophyletic Machairodontinae" comprising three major saber-tooth lineages, traditionally
+    the tribes Metailurini, Smilodontini and Homotheriini; *Dinofelis*, *Megantereon*, *Smilodon*,
+    *Homotherium* and *Xenosmilus* among machairodontine taxa; and that large saber-toothed cats "occur
+    more peripherally" in morphospace than extant large cats
+  - **note**: it also finds the 'Metailurus' and 'Smilodon' lineages to be grade groups rather than
+    clades, which the terms do not claim in either direction
+  - used by: Saber-toothed_cat, Smilodon
+- Roniel Freitas-Oliveira, Matheus S. Lima-Ribeiro, and Levi Carina Terribile, “No Evidence for Niche Competition in the Extinction of the South American Saber-Tooth Species,” <i>npj Biodiversity</i> 3 (2024): 11, https://pmc.ncbi.nlm.nih.gov/articles/PMC11332042/. [Open access]
+  - opened: 2026-08-03 · full text
+  - supports: *S. fatalis* and *S. populator* as "both originally from North America"; *S. fatalis* with
+    records "throughout the whole American continent"; and *S. populator* "restricted to South America"
+    and "more widely distributed in South America in comparison with *S. fatalis*"
+  - **its timeline was NOT used**: the fetch rendered the study window in a way that could not be
+    reconciled with the species' known ages, so only the distribution claims are cited
+  - used by: Smilodon
+
+Reused: `wysocki-2015` and `desantis-2012` → Smilodon (unchanged from N6); `dodson-2025` (the Zhoukoudian
+fauna, "diverse carnivores including wolves and saber-toothed cats", with giant deer, straight-tusked
+elephant, woolly rhinoceros and *Equus*) → Saber-toothed_cat.
+
+### Hosts, measured 2026-08-03 (batch N7)
+- `bolin.su.se`, `www.usgs.gov`, `www.ordnancesurvey.co.uk`, `pmc.ncbi.nlm.nih.gov` — 200.
+- `quaternary.stratigraphy.org.uk` — **503 on two paths**; the SQS correlation table is the right source
+  for the European stage names and could not be reached. **Retry it before deferring those terms again.**
+- `webapps.bgs.ac.uk/lexicon` — 200 but "no data was found" for the code tried; the lexicon may need a
+  different search route.
+- `onlinelibrary.wiley.com` — **403** (so DATED-1 is unreachable at the publisher; the Manchester
+  repository record is 200 but is metadata only).
+- `link.springer.com` — 303 to an IdP cookie endpoint, unchanged since N2.
+
+### Hosts, measured 2026-08-03 (batch N6)
+- `archive.org` `/stream/<id>/<id>_djvu.txt` — 200, and the way to read a scanned book's OCR in bulk.
+- `journals.plos.org`, `pmc.ncbi.nlm.nih.gov`, `www.app.pan.pl` (abstract only) — 200.
+- `natmus.dk` — 200 on five history pages, **none of which mentions Worsaae**.
+- `slks.dk` — 200 but navigation only.
+- `archaeologybulletin.org` — abstract 200; the article PDF's embedded fonts are not extractable.
+
+### Hosts, measured 2026-08-03 (batch N5)
+- `home.nps.gov`, `www.bgs.ac.uk`, `journals.plos.org`, `pmc.ncbi.nlm.nih.gov`, `humanorigins.si.edu` — 200.
+- `stonetoolsmuseum.com` — 200 but serves a **blank body** to WebFetch (JavaScript-rendered); unusable.
+- `geolsoc.org.uk`, `www.usgs.gov`, `historicengland.org.uk` — not usable for a definition of the discipline.
+
+### Hosts, measured 2026-08-03 (batches N1–N4, which ran the same day)
+- `nps.gov`, `regierung.schwaben.bayern.de`, `www.leo-bw.de`, `chs.harvard.edu`,
+  `openarchaeologydata.metajnl.com`, `www.gutenberg.org` — 200.
+- `www.usgs.gov`, `naturalhistory.si.edu`, `historicengland.org.uk`, `scholarworks.uni.edu`,
+  `norden.org`, `archaeologybulletin.org` (abstract only) — **403 or abstract-only**.
+- `www.mdpi.com` — **503**.
+- `bgs.ac.uk`, `volcano.si.edu`, `pubs.usgs.gov`, `www.baden-wuerttemberg.de` — 200 at the root, though
+  no usable page was found on them for this batch.
+- `journals.openedition.org` — **200 again**; the Anubis wall batch 21 recorded is not up today.
+- `journals.plos.org`, `www.persee.fr`, `unstats.un.org`, `cdn.intechopen.com`, `cir.cenieh.es` — 200.
+- `www.cambridge.org` — 200 for the Radiocarbon article PDF; `repository.arizona.edu` — **403**.
+- `historicengland.org.uk` — **403** (so its scientific-dating guidance is not usable here).
+- `nature.com`, `link.springer.com` — **303 to an IdP cookie endpoint**; unreadable at the publisher URL.
+- `pnas.org` — **403**.
+- `www.ebi.ac.uk/europepmc/webservices/rest` — 200, and the reliable route to a PMCID and to pagination.
+- `rock.geosociety.org`, `archeologie.culture.gouv.fr`, `iceageart.de`, `urmu.de`,
+  `bawue.museum-digital.de` — 200 (unchanged since 8b/21/26).
+- `hal.science` — **Anubis wall on the record page too**, not only `/document`. Was open on 2026-07-31.
+- `www.repository.cam.ac.uk` — 200, record page and PDF both, via a 302 to `api.repository.cam.ac.uk`.
+- `discovery.ucl.ac.uk` — **403**.
+- `agupubs.onlinelibrary.wiley.com` — **403** (so an AGU paper needs a repository deposit).
+- `whc.unesco.org` — **403**, `/document/<id>` included.
+- `ora.ox.ac.uk` — 200; record page abstract-only, `/files/<fileid>` serves the manuscript.
+- `sites.harvard.edu` — 200.
+- `journals.plos.org`, `pmc.ncbi.nlm.nih.gov`, `archive.org` — 200 (unchanged).
+
+## Batch N9 — the encyclopedia relaxation, measured (2026-08-03)
+
+The rule changed on request: **an encyclopedia may be cited, but only if that encyclopedia cites its
+sources.** The batch is the test of what that buys. One term completed, `Jens_Jacob_Worsaae`; four
+deferrals re-tried and all four still deferred.
+
+### The finding: most online encyclopedias do not, in fact, cite their sources
+
+The relaxation sounds like it opens a shelf and it opens a drawer. Measured against the user's own
+condition — a per-article source list, not a general editorial policy — the majors mostly fail:
+
+- **Dansk Biografisk Leksikon** (`biografiskleksikon.lex.dk`) — **PASSES.** Named author on the article
+  (Johannes Brøndsted) and a section headed *Bibliografi* listing sources, literature and papers. This is
+  the one that paid.
+- **Britannica**, *Würm Glacial Stage* — **fails.** No bibliography, no "Additional Reading", no listed
+  citations of any kind.
+- **Britannica**, *rhinoceros* — **fails.** A named expert contributor (Eric Dinerstein) and an "External
+  Websites" box, which is a link list rather than a source list; no bibliography or Additional Reading.
+- **Store norske leksikon**, *Fennoskandia* — **fails.** A named expert (Karl Frafjord) and no separate
+  *Litteratur* or *Kilder* section.
+
+So the test to apply is **per article, for the article's own claims** — a named author is not enough, and
+a house style that cites elsewhere is not evidence that this page does. Britannica and SNL are the two
+that read most like they would qualify and neither does. **Check the page before planning a batch around
+one.**
+
+### What it completed
+
+`Jens_Jacob_Worsaae` had been shipped in N4 without birth and death dates, without his career, and
+without the Danish title of his book, because every source stating them was an encyclopedia and the plan
+barred those. N6 then went looking for a Danish institutional record and found `natmus.dk` carries five
+history pages that **do not mention Worsaae at all** and `slks.dk` is navigation only. DBL supplies all
+of it — born Vejle 14 March 1821, died Hagestedgård near Holbæk 15 August 1885, the antiquities
+commission in 1841, inspector for the preservation of antiquities in 1847 after the British Isles
+journey, director of the collections in 1866 in succession to Thomsen, and minister for church and
+education 1874–77 — and the term now runs to the length its siblings do. The entry's other three sources
+are unchanged, so the encyclopedia carries the biography and the scholarship still carries the argument;
+that division is worth keeping as the shape of an encyclopedia citation rather than the exception to it.
+
+### What it did NOT complete
+
+`Weichselian_glaciation`, `Würm_glaciation`, `Devensian_glaciation`, `Fennoscandia` and `Rhinoceros`
+remain deferred, and the relaxation is not what is standing in their way. Retried this batch and still
+shut: `quaternary.stratigraphy.org.uk` **503 on a third attempt** (the SQS correlation table is still the
+right source for the European stage names), `iucnredlist.org` 403, the Cell paper on rhinoceros genomes
+with no PMCID and no open deposit, the GTK Fennoscandia PDF extractable but carrying no definitional
+statement, and the Geological Society of Finland PDF extracting **0 characters** because it is an
+image-only scan.
+
+### Verified citations (batch N9)
+
+New to the register:
+
+- Johannes Brøndsted, “J.J.A. Worsaae,” <i>Dansk Biografisk Leksikon</i>, lex.dk, https://biografiskleksikon.lex.dk/J.J.A._Worsaae. [Open access]
+  - opened: 2026-08-03 · full article
+  - **qualifies under the new rule**: named author, and a *Bibliografi* section listing its sources
+  - supports: birth at Vejle 14 March 1821 and death at Hagestedgård near Holbæk 15 August 1885; the
+    antiquities commission 1841; inspector for the preservation of antiquities 1847, after the journey
+    through the British Isles; director of the collections 1866; Cultus Minister 1874, withdrawing 1877;
+    and the Danish title <i>Danmarks Oldtid, oplyst ved Oldsager og Gravhøie</i> (1843)
+  - used by: Jens_Jacob_Worsaae
+
+Reused unchanged on that term: `kanjanajuntorn-2020`, `rowley-conwy-2004`, `worsaae-1849`.
+
+### Hosts, measured 2026-08-03 (batch N9)
+- `biografiskleksikon.lex.dk` — 200, with a per-article bibliography.
+- `britannica.com`, `snl.no` — 200, and **without per-article source lists** (see the finding above).
+- `quaternary.stratigraphy.org.uk` — **503**, third attempt across three batches.
+- `iucnredlist.org` — **403**.
+- `tupa.gtk.fi` — 200, PDF extractable, no usable definitional sentence.
+- `geologinenseura.fi` — 200, but the PDF is an image-only scan (0 characters extracted).
+
+## Batch N10 — the SQS table, found at a new address (2026-08-03)
+
+Five terms, all five of the standing deferrals: `Weichselian_glaciation`, `Würm_glaciation`,
+`Devensian_glaciation`, `Fennoscandia`, `Rhinoceros`. Ten citations from nine works, every one open.
+
+### The finding: a 503 across four batches was a MOVED DOMAIN, not an outage
+
+`quaternary.stratigraphy.org.uk` — the ICS Subcommission on Quaternary Stratigraphy, and the source N7
+named as the right one for the European stage names — was recorded 503 in N7, N9 and twice again at the
+top of this batch, on `/correlation/`, `/charts/` and the root alike. The site is alive at
+**`quaternary.stratigraphy.org`**, without the `.uk`. Nothing on the dead host says so; a search result
+for the chart carried the new address in passing. **A host that 503s on EVERY path, root included, is
+more likely to have moved than to be down** — a real outage usually still answers something. Check for a
+sibling domain before recording a third refusal.
+
+What was behind it: the **Global Chronostratigraphical Correlation Table for the Last 2.7 Million Years**
+(Cohen & Gibbard), whose regional columns — North West European Stages, British Stages, North American
+Stages, New Zealand Stages — carry Weichselian, Devensian and Wisconsinan side by side against the
+marine isotope record. That is the one work that ties the three stage names together, and it is now
+cited on two of them.
+
+### Reading a PDF: two extractor repairs, and one limit
+
+`pdftext2.js` (batch N-series scratch tool) scans every inflated stream for `( … )` literals, which on a
+figure-heavy PDF returns megabytes of image bytes as "text". Two fixes:
+
+- **keep only streams that look like content streams** — those containing `BT`, `ET` and a `Tj`/`TJ`
+  operator (`pdftext3.js`);
+- **decode UTF-16BE string literals**, which begin `\xFE\xFF` and otherwise read as `þÿN þÿI …`
+  (`pdftext4.js`).
+
+With both, Litt et al. 2007, Habbe et al. 2007, the Geological Society's stage table and Donner 1996 all
+came out clean. **The limit is a subset font with no ToUnicode map** — Preusser et al. 2011 extracts as
+custom byte codes and Ivy-Ochs 2015 as nothing at all, and neither is worth a font-mapping engine.
+**Where a Copernicus article is 2020 or later, fetch the HTML full text instead**; older ones are
+PDF-only, which is why Gaar et al. 2019 answered where Preusser et al. 2011 did not.
+
+### One sibling clash, caught and removed rather than adjudicated
+
+The `Rhinoceros` draft carried Welker et al.'s "*Coelodonta* surviving locally to 14 ka before present",
+and `Woolly_rhinoceros` — the term whose subject that is — says "its demise begins about 10,000 years
+ago" on its own sources. Two open works disagreeing about the same animal's last date. The clause was
+**dropped from the family term** rather than reconciled: a date about one genus belongs on the term for
+that genus, where it has a source of its own, and a three-sentence gloss on the family had no need of it.
+The divergence is recorded here and neither term was re-dated.
+
+An unsourced date line was also caught in the same pass: `Weichselian_glaciation` was drafted with
+"c. 115,000–11,700 years ago", which is the textbook span and is in nothing opened for it. Litt gives
+25 ka for the start of glaciation in northern Germany and 11,600 for the base of the Holocene, and
+nothing states the stage boundaries. The line was removed with `fix-gloss-date.js`, and the term now
+matches `Wisconsin_glaciation`, which has no date line either.
+
+### Verified citations (batch N10)
+
+New to the register:
+
+- Kim M. Cohen and Philip L. Gibbard, <i>Global Chronostratigraphical Correlation Table for the Last 2.7 Million Years</i>, version 2022a, Subcommission on Quaternary Stratigraphy, International Commission on Stratigraphy, https://quaternary.stratigraphy.org/files/charts/POSTERstratchart_v2022a.pdf. [Open access]
+  - opened: 2026-08-03 · text extracted from the poster
+  - supports: the columns "Regional stage/substage divisions … North West European Stages, North
+    American Stages, New Zealand Stages, British Stages" correlated against the Marine Isotope Stages,
+    the LR04 stack, the Chinese loess sequence and the Antarctic ice record; Weichselian in the NW
+    European column, Devensian in the British, Wisconsinan in the North American
+  - **NOT used for ages or for column ORDER**: the poster's extracted text is a jumble of adjacent
+    columns, so vertical position and the numeric axis cannot be read from it safely
+  - **no Alpine column**, in 2022a or in the 2019, 2010 and 2009 versions checked — so the chart is not
+    a source for the Würm
+  - used by: Weichselian_glaciation, Devensian_glaciation
+- Thomas Litt, Karl-Ernst Behre, Klaus-Dieter Meyer, Hans-Jürgen Stephan, and Stefan Wansa, “Stratigraphische Begriffe für das Quartär des norddeutschen Vereisungsgebietes,” <i>E&G Quaternary Science Journal</i> 56, no. 1/2 (2007): 7–65, https://doi.org/10.3285/eg.56.1-2.02. [Open access]
+  - opened: 2026-08-03 · PDF, English summary
+  - supports: "The mapping of Pleistocene deposits by the Prussian Geological Survey since 1910 was a
+    milestone for Quaternary stratigraphy, and the terms Elsterian, Saalian and Weichselian were
+    introduced into scientific literature"; "the Weichselian cold stage starts with the change from
+    boreal vegetation at the end of the Eemian warm stage to subarctic vegetation"; "Glaciation most
+    probably started about 25 ka BP; however, it is possible that glaciers already advanced into the
+    western Baltic Sea area between 70 and 50 ka BP"; the maximum limit reaching Brandenburg in the east
+    and the northern periphery of Hamburg; three phases evidenced by till (Brandenburg, Pomeranian,
+    Mecklenburg); the Weichselian Late Glacial beginning when the ice melted 14,500 years ago
+  - used by: Weichselian_glaciation
+- Karl Albert Habbe, Dietrich Ellwanger, and Rüdiger Becker-Haumann, “Stratigraphische Begriffe für das Quartär des süddeutschen Alpenvorlandes,” <i>E&G Quaternary Science Journal</i> 56, no. 1/2 (2007): 66–83, https://doi.org/10.3285/eg.56.1-2.03. [Open access]
+  - opened: 2026-08-03 · PDF
+  - supports: Penck introducing "die Benennungen Würm-, Riß-, Mindel-, Günz-Eiszeit … mit Lokalnamen in
+    alphabetischer Reihenfolge"; the morphostratigraphy resting on Penck in Penck & Brückner 1901/09;
+    "das erweiterte PENCK-System (Würm–Biber)" as the basis of field mapping for over 100 years; the
+    glacial series pairing each ice age's moraine deposits with corresponding gravels; "It is applicable
+    almost everywhere for Würmian sediments"; "die letzte (Würm-) Eiszeit"
+  - **NOT used**: the paper's parenthetical "MIS 12 (das Würm-Maximum)", which is an evident slip
+  - used by: Würm_glaciation
+- Dorian Gaar, Hans Rudolf Graf, and Frank Preusser, “New Chronological Constraints on the Timing of Late Pleistocene Glacier Advances in Northern Switzerland,” <i>E&G Quaternary Science Journal</i> 68 (2019): 53–73, https://doi.org/10.5194/egqsj-68-53-2019. [Open access]
+  - opened: 2026-08-03 · HTML full text
+  - supports: "The type location of the last glacial advance (Würm sensu stricto), the Birrfeld Glacial
+    of Graf (2009)"; Birrfeld as "the mainly flat area between the rivers Aare and Reuss"; OSL 25.1±2.4
+    ka and IR50 24.2±2.2 ka for the maximum ice extent at the type locality; "most ice sheets and
+    glaciers reached their last most extensive position between 26.5 and 19 ka ago, with the onset of
+    deglaciation mainly just after 20 ka"
+  - used by: Würm_glaciation
+- Philip L. Gibbard, comp., <i>British Quaternary / Pleistocene Stage Definitions</i>, modified from F. W. Shotton 1973, Stratigraphy Commission of the Geological Society of London, 2011, https://www.geolsoc.org.uk/~/media/shared/images/groups/commissions/stratigraphy/Straigraphy%20webpage%20Resource%20images/QuatGBstages.pdf?la=en. [Open access]
+  - opened: 2026-08-03 · PDF, extracted whole
+  - supports: "Compiled by P.L.Gibbard 2011, modified from Shotton, F.W. 1973"; "Devensian | Four Ashes,
+    Staffordshire (SU 914082) | Late Devensian Substage: 10-26 ka BP … Middle Devensian Substage: 26-50
+    ka BP … Early Devensian Substage: That part preceding 50 ka BP"; "Flandrian | None defined | Begins
+    at 10 C14 ka BP"
+  - **note**: only the Flandrian row states its basis as radiocarbon; the Devensian substage bounds are
+    given as bare "ka BP", so the term reports them as published and does not assert a calibration
+  - **note**: N5 recorded `geolsoc.org.uk` as not usable for a definition of the DISCIPLINE of geology.
+    That stands. Its stratigraphy commission's resource files are a different matter and are usable.
+  - used by: Devensian_glaciation
+- Joakim Donner, “The Fennoscandian Shield within Fennoscandia,” <i>Bulletin of the Geological Society of Finland</i> 68, part 1 (1996): 99–103, https://www.geologinenseura.fi/sites/geologinenseura.fi/files/sgs_bt_068_1_pages_099_103.pdf. [Open access]
+  - opened: 2026-08-03 · PDF, extracted whole
+  - supports: Ramsay (1898) pointing out that "the Kola peninsula, together with Norway, Sweden, Finland,
+    Russian Karelia and the Onega area … constitute a physico-geographical area sharply differing from
+    its surrounding"; "The reason why Ramsay suggested the name Fennoscandia was that there was not a
+    suitable name for this area; northern Europe comprises a bigger area and … the name Baltic Shield
+    excludes the Palaeozoic mountains and Scania"; Fennoscandia including "the Caledonides of Norway as
+    well as Scania in southernmost Sweden"; "the area of the Fennoscandian Shield … is part of the area
+    defined as Fennoscandia"
+  - **note**: N9 recorded a `geologinenseura.fi` PDF extracting 0 characters as an image-only scan. That
+    was a different file; this one extracts cleanly. **Test the file, not the host.**
+  - used by: Fennoscandia
+- Fredrik Lagergren et al., “Kilometre-Scale Simulations over Fennoscandia Reveal a Large Loss of Tundra Due to Climate Warming,” <i>Biogeosciences</i> 21, no. 4 (2024): 1093–1116, https://doi.org/10.5194/bg-21-1093-2024. [Open access]
+  - opened: 2026-08-03 · HTML full text
+  - supports: "This region is located between 58 and 71° N, spanning altitudes from sea level to 2469 m
+    a.s.l."; "Boreal forest dominates from the coast towards the mountains up to latitude 68–69° N.
+    Above the boreal forest there is a zone of mountain birch forest … Above the treeline follows tundra"
+  - **note**: the paper's domain is Norway, Sweden and Finland, which is narrower than Ramsay's
+    Fennoscandia; the term attributes these figures to climate modelling of the region rather than
+    presenting them as the region's definition
+  - used by: Fennoscandia
+- Frido Welker, Geoff M. Smith, Jarod M. Hutson, Lutz Kindler, Alejandro Garcia-Moreno, Aritza Villaluenga, Elaine Turner, and Sabine Gaudzinski-Windheuser, “Middle Pleistocene Protein Sequences from the Rhinoceros Genus <i>Stephanorhinus</i> and the Phylogeny of Extant and Extinct Middle/Late Pleistocene Rhinocerotidae,” <i>PeerJ</i> 5 (2017): e3033, https://doi.org/10.7717/peerj.3033. [Open access]
+  - opened: 2026-08-03 · full text via PMC5354071
+  - supports: the five extant species with their binomials, black and white in Africa and Indian, Javan
+    and Sumatran in Asia; "Two rhinoceros genera were present in Western Europe during the Late and
+    Middle Pleistocene", *Coelodonta* and *Stephanorhinus*; "the extant African rhinoceros species form
+    the most basal clade within the (extant) Rhinocerotidae"; "The clade comprised of the genus
+    *Dicerorhinus* and the two studied extinct genera groups with that of the other Asian rhinoceroses"
+  - **its "*Coelodonta* surviving locally to 14 ka" is deliberately NOT cited** — see the sibling clash
+    above
+  - used by: Rhinoceros
+- Francesco Nardelli and Kurt Heißig, “A Taxonomic Review of the Genus <i>Rhinoceros</i> with Emphasis on the Distinction of <i>Eurhinoceros</i>, Perissodactyla, Rhinocerotidae,” <i>ZooKeys</i> 1230 (2025): 303–33, https://doi.org/10.3897/zookeys.1230.127858. [Open access]
+  - opened: 2026-08-03 · full text
+  - supports: "Among the five living rhinoceros taxa, the three Asian species are notable for their
+    tusked incisors"; the family's placement in Perissodactyla
+  - used by: Rhinoceros
+
+### Hosts, measured 2026-08-03 (batch N10)
+- `quaternary.stratigraphy.org` — **200**, and the live address of the SQS. `quaternary.stratigraphy.org.uk`
+  fails on every path, root included.
+- `egqsj.copernicus.org` — 200, article pages and PDFs. HTML full text only for 2020 and later.
+- `bg.copernicus.org`, `gh.copernicus.org` — 200 with HTML full text.
+- `www.geolsoc.org.uk` — 200 for the stratigraphy commission's resource PDFs.
+- `www.geologinenseura.fi` — 200; this file extracts, unlike the one tried in N9.
+- `pmc.ncbi.nlm.nih.gov` — 200 (`www.ncbi.nlm.nih.gov/pmc/...` 301s to it).
+- `peerj.com` — **403** on article pages; use the PMC copy.
+- `www.mdpi.com`, `royalsocietypublishing.org` — **403**.
+- `www.diva-portal.org` — **503**.
+- `www.stratigraphy.org` — 200.

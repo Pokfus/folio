@@ -93,10 +93,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   that batch 0 was attempted and stopped: this sandbox's egress policy blocks every scholarly host, so no
   source could be opened and none was cited. `.claude/sources-register.md` holds the verified citations
   (and, separately and clearly marked, unverified search-only candidates that must never be pasted in).
-- `docs/glossary-citation-plan.md` — the batch plan for **citing the 333 glossary terms**, the sibling of
+- `docs/glossary-citation-plan.md` — the batch plan for **citing the glossary**, the sibling of
   the card plan above. The bar is **at least 2 citations per term** (a description is three sentences, where
   a card's abstract is ten), and the acceptable sources are academic, museum, government or reputable
-  NGO/IGO. **THE GLOSSARY CITATION PASS IS COMPLETE: all 333 terms are cited and at the bar** (batches G1–G11, P1–P7, C0–C12 and D1–D3), all with
+  NGO/IGO — **plus, since 2026-08-03 and on request, an encyclopedia that cites its own sources**, tested
+  per article rather than per publisher (see N9's finding below: most do not).
+  **THE GLOSSARY CITATION PASS IS COMPLETE: all 401 terms are cited and at the bar** (batches G1–G11, P1–P7, C0–C12, D1–D3, N1–N10), all with
   in-text markers in all ten languages. G11 COMPLETED Phase 1** (all 91 of its prehistory, palaeoanthropology,
   geological-time, peoples and physical-geography terms) **and P1 opened Phase 2** with the first six
   presidents, on the Miller Center's presidential essays; **P2 took it to Polk, P3 to Andrew Johnson, P4
@@ -538,7 +540,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `GLOSSARY_CASESENSITIVE`, `GLOSSARY_TAGS` (per-term category tags — the admin glossary's left-bar
   filter), `GLOSSARY_IMAGES` (per-term illustration — see the "Glossary image" bullet below) and
   `GLOSSARY_SOURCES` (per-term citations — see the "Source footnotes" bullet).
-  Trimmed to the single `Sima_Qian` template entry on 2026-07-23 and **regrown since to 333 terms**
+  Trimmed to the single `Sima_Qian` template entry on 2026-07-23 and **regrown since to 401 terms**
   (every country in the world, plus prehistory/paleoanthropology vocabulary), one fully-formed entry at a time
   (description + date + tags + all 9 translations); the full pre-trim glossary (2,165 terms) and its partial
   translations are backed up in `.claude/backup/`.
@@ -991,7 +993,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     carrying a sentence about it until it was removed on request.
     **`SEEN_CAP` must stay above the SHIPPED universe of both registers** and is no longer a free
     parameter: these counts are now shown to the reader as progress towards completion, so a prune would
-    make a count go backwards and re-flag a place as newly discovered. Measured: 333 glossary terms and
+    make a count go backwards and re-flag a place as newly discovered. Measured: 401 glossary terms and
     **1,211 distinct clickable place names** (258 present-day + 1,194 across the 13 eras) — already 80% of
     the old 1500 cap, and **every new geo era adds territory names**. Fully seen, `placesSeen` is ~34 KB of
     the progress blob, so the headroom is nearly free. `.claude/test-discovery.js` asserts the clearance
@@ -1013,7 +1015,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
       read as the term changing state before it was opened — and sits **after** the base `:hover` rules
       (equal specificity → source order). `refreshTtipNew(key)` re-marks every matching link on the page
       the moment a popup opens, so the prose behind it loses its gold at once, not on the next render.
-    · The **first** opening also shows a gold chip (`discChipHTML` → `.disc-chip`): "New term! 41 / 333"
+    · The **first** opening also shows a gold chip (`discChipHTML` → `.disc-chip`): "New term! 41 / 401"
       in the gloss popup's bar, "New place! 7 / 258" in the Atlas panel (`#cpNew`), with a **splash** of
       two expanding rings (`discRing` / `discRingNight`, staggered onto `::after`) and a **`sfx("discover")`
       chime**. The rings are **box-shadow spread, never a scaled pseudo-element**: the chip sits inside
@@ -1164,7 +1166,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     stripe): one is derived from the data, the other is an editor's private marker.
   · `sup` + `class="fn"` + `data-fn` are in the sanitizer allowlists, so a community deck can use markers too.
   · **The Atlas table still ships EMPTY; the glossary has begun.** `country-sources.js` has no entries at all.
-    **`GLOSSARY_SOURCES` carries ALL 333 terms** (batches G1–G11, P1–P7, C0–C12 and D1–D3, 2026-08-01/02 — the genus, species, specimen,
+    **`GLOSSARY_SOURCES` carries ALL 401 terms** (batches G1–G11, P1–P7, C0–C12, D1–D3, N1–N10, 2026-08-01/03 — the genus, species, specimen,
     stone-industry, three-age, periodisation, geological-time, type-site, way-of-life and discipline terms, plus the
     Indigenous-peoples group, its odds and ends, the poles / desert / ocean / two historiographic names, the six
     continents with `Sicily`, `Equator` and the two hemispheres — which completes Phase 1 — and the first six
@@ -1591,8 +1593,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   in `--han` (level numerals, hanzi lines) and is NOT in the body chain, so it can't impose Chinese glyph
   forms on Japanese text. Don't "fix" this by adding a CJK webfont; it would be a multi-MB download for no
   gain. **Japanese (`ja`) is COMPLETE**: the chrome
-  (531 strings / 72 rules / 12 prose blocks), all 30 cards and all 333 glossary terms are translated and live,
-  at full parity with the other eight languages.
+  (531 strings / 72 rules / 12 prose blocks), all 30 cards and 333 glossary terms are translated and live,
+  at full parity with the other eight languages. (The **sixty-three terms added on 2026-08-03 are English-only**,
+  like every entry written since the `MULTILANG` gate went up — so all nine languages stand at 333 of 401,
+  together, and a language is still "complete" in the sense that matters: none is behind the others.)
   **Content localisation is separate**: cards carry per-language `i18n` blocks (`cardLocalized()`), glossary
   descriptions live in `i18n/gloss-<lang>.js` (`window.GLOSSARY_I18N`, read by `glossText()`), and **collection /
   deck titles carry their own `node.i18n` lang-map in `data.js`, read by `nodeTitle(n)`** — deliberately NOT the
@@ -2742,9 +2746,143 @@ and its sources, and were fact-checked rather than referenced. A batched pass is
 reports both on every run, `node .claude/source-audit.js` reports them per card, and the Edit page's card list
 shows each card's coverage as an amber or red chip) — and **a second pass has started on the glossary**, batched
 through `docs/glossary-citation-plan.md` at a bar of **2 citations per term** (`GLOSS_SRC_TARGET`), with
-`node .claude/gloss-source-audit.js` and the glossary list's own coverage chip reporting it; **all 333 terms are cited — THE GLOSSARY PASS IS COMPLETE** (batches G1–G11, which complete Phase 1;
-P1–P7, which complete Phase 2 — all 45 US presidents; C0–C12, which take Phase 3 through every region; and
-D1–D3, which clear the European and Asian deferral lists and the last four terms). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
+`node .claude/gloss-source-audit.js` and the glossary list's own coverage chip reporting it; **all 401 terms are cited — THE GLOSSARY PASS IS COMPLETE** (batches G1–G11, which complete Phase 1;
+P1–P7, which complete Phase 2 — all 45 US presidents; C0–C12, which take Phase 3 through every region;
+D1–D3, which clear the European and Asian deferral lists and the last four terms; and **N1–N10,
+sixty-eight new Palaeolithic terms written cited rather than cited afterwards** — which is how the pass stays
+complete: a term added after it joins at the bar instead of reopening a backlog). `country-sources.js` is still empty, so the Atlas panel never shows a Sources fold.
+**N9 is the batch that measured a rule change, and its finding is that the change buys less than it
+sounds like.** The rule was relaxed on request — **an encyclopedia may be cited, but only if that
+encyclopedia cites its sources** — and the test to apply is **per article, for that article's own
+claims**, not the publisher's general reputation. Measured: **Dansk Biografisk Leksikon passes**
+(a named author and a *Bibliografi* section listing sources), and **Britannica and Store norske leksikon
+both fail** — Britannica's *Würm Glacial Stage* carries no bibliography, no "Additional Reading" and no
+citations at all, its *rhinoceros* article has a named expert and an "External Websites" link box which
+is not a source list, and SNL's *Fennoskandia* has a named expert and no *Litteratur* or *Kilder*
+section. **A named author is not enough**, and the two that read most like they would qualify do not.
+What it bought was one term: `Jens_Jacob_Worsaae`, shipped in N4 without birth and death dates, without
+his career and without his book's Danish title because every source stating them was an encyclopedia,
+and looked for again in N6 down the institutional route, where `natmus.dk` turned out to carry five
+history pages that do not mention him at all. DBL supplies the lot, and the shape worth keeping is the
+division it produced: **the encyclopedia carries the biography and the scholarship still carries the
+argument.** N9 left `Weichselian_glaciation`, `Würm_glaciation`, `Devensian_glaciation`, `Fennoscandia`
+and `Rhinoceros` deferred and said the encyclopedia rule was not what held them; **N10 cleared all five
+and showed what was.**
+**N10's finding is that a 503 on EVERY path is a moved domain, not an outage.**
+`quaternary.stratigraphy.org.uk` — the ICS Subcommission on Quaternary Stratigraphy, named by N7 as the
+right source for the European stage names — was recorded down in N7, in N9 and twice more at the top of
+N10, on `/correlation/`, `/charts/` and the root alike. **The site is alive at
+`quaternary.stratigraphy.org`, without the `.uk`**, and nothing on the dead host says so; a search
+result for the chart carried the new address in passing. A genuine outage usually still answers
+something, so **look for a sibling domain before recording a third refusal.** Behind it is Cohen &
+Gibbard's *Global Chronostratigraphical Correlation Table for the Last 2.7 Million Years*, whose
+regional columns carry Weichselian, Devensian and Wisconsinan side by side against the marine isotope
+record — the one work that ties the three names together, and now cited on two of them. **It has no
+Alpine column** in any version checked, so the Würm went to the south German and Swiss literature
+instead. Three more things the batch is worth remembering for. **Where a Copernicus article is 2020 or
+later, fetch the HTML full text**: the older ones are PDF-only, and a subset font with no ToUnicode map
+defeats extraction outright (Preusser et al. 2011 comes out as raw byte codes, Ivy-Ochs 2015 as
+nothing), which is why Gaar et al. 2019 answered where Preusser did not. **Test the file, not the
+host** — N9 wrote off `geologinenseura.fi` on one image-only scan, and Donner 1996, on the same host,
+extracts cleanly and carries the whole of `Fennoscandia`. And the sibling check paid again in a form
+worth copying: the `Rhinoceros` draft carried Welker's "*Coelodonta* surviving locally to 14 ka" while
+`Woolly_rhinoceros`, whose subject that is, says its demise begins about 10,000 years ago on its own
+sources — **two open works disagreeing, so the clause was DROPPED from the family term rather than
+reconciled**, a date about one genus belonging on the term for that genus. An unsourced date line went
+the same way: `Weichselian_glaciation` was drafted with the textbook "c. 115,000–11,700 years ago",
+which is in nothing opened for it, and now has no date line at all, like `Wisconsin_glaciation`.
+**N1's finding is an access repair worth reusing: `hal.science` is now behind the Anubis wall on its RECORD
+pages as well as on `/document`** (batch 21 found the file path), which silently breaks stored citations —
+`wh-011`'s PAGES 2016 link among them. The way back is a **university repository deposit** of the same
+paper (`repository.cam.ac.uk` carried it, record page and PDF both); look there before treating a HAL
+citation as lost. `discovery.ucl.ac.uk`, `agupubs.onlinelibrary.wiley.com` and `whc.unesco.org` — the
+latter on `/document/<id>` as well as its property pages — are all **403** here; so are `pnas.org`,
+`nature.com` and `link.springer.com`, the last two **303ing to an identity-provider cookie endpoint**, for
+which **Europe PMC is the way in** (resolve the PMCID with `search?query=DOI:"…"&resultType=core` — a
+guessed one in N1 returned a paper on stress in mice).
+**N8's finding is that a wrong TERM is not always a wrong FACT, and only a reader caught it.**
+`Smilodon` opened "*Smilodon fatalis* is the saber-toothed cat" and held every sabre-tooth alias, so the
+whole vocabulary of the group resolved to one American genus. Nothing in it was false about *Smilodon* —
+the canines, the microwear, La Brea, the extinction were all sound and all still stand. What was wrong was
+the **definite article**, and no tool can see that: `gloss-source-audit.js` counts citations, the marker
+rules check pointers, `check-style` checks prose. **When a term is the only one in the glossary for its
+subject area, check whether it is being made to carry the whole subject** — the fix is a sibling term, not
+a correction. Note too that N6's *refusal* to cite `dodson-2025`'s Zhoukoudian cats for `Smilodon` (wrong
+animal) is exactly what now carries `Saber-toothed_cat`'s third sentence: **the fact set aside as
+uncitable-here was the fact the missing term needed.** Tooling note from the same batch:
+**`add-glossary.js` clears an alias list only when the `aliases` key is PRESENT** — omit it on an update
+and the old list stands, so two terms end up claiming the same surfaces and the older key wins. Pass
+`"aliases": []`.
+**N7 is the first N-batch to come back SHORT — eight of thirteen — and the deferrals are a source
+problem, not an effort one.** `Weichselian`, `Würm` and `Devensian` are *stage names*, and what defines a
+stage name is a stratigraphic authority: the canonical one is a Springer encyclopedia entry (barred twice
+— `link.springer.com` 303s AND the plan bars encyclopedias), and the ICS Subcommission's correlation table
+at `quaternary.stratigraphy.org.uk` returned **503 on two paths** — retry it before deferring them again.
+`Wisconsin_glaciation` shipped only because a USGS record carries a MEASURED claim under the name, which
+is the rule: **a stage name is citable when an agency has published a result under it, never from the mere
+fact that it is the name.** `Fennoscandia` is deferred as `Scandinavia` nearly was — the ice sheet is well
+sourced and nothing opened defines the REGION — and `Rhinoceros` because the family-level paper is in
+*Cell* with no Europe PMC record. N7's other finding is the alias pattern hardening into a rule:
+`United_Kingdom` was carrying "Britain", "British", "Great Britain" AND "Northern Ireland", three of them
+wrong and the last never a synonym at all, all exposed the moment `Great_Britain` was added. **An alias
+list written before the sibling term existed will contain the sibling's name, and will be wrong the day
+the sibling arrives** — fourth correction in seven batches.
+**N6's finding is a trap in the SEARCH RESULTS, not in a host.** Asked to complete `Jens_Jacob_Worsaae`
+from a Danish institutional record, five `natmus.dk` history pages and `slks.dk` were tried and **not one
+mentions him** — the Danish sources the search summaries appeared to offer were aggregating `lex.dk` and
+Wikipedia, both barred, so a summary can read as institutional when every source under it is an
+encyclopedia. What answered was **Worsaae's own book**, whose TITLE PAGE states his Danish office ("A
+ROYAL COMMISSIONER FOR THE PRESERVATION OF THE NATIONAL MONUMENTS OF DENMARK") and whose opening pages
+give Thomsen as "the real founder of the Museum" and the three-class division in his own words: batch
+25's rule at full strength, **a 19th-century figure is his own best institutional record**. Read a scanned
+book in bulk via `archive.org/stream/<id>/<id>_djvu.txt`. **His birth and death years are STILL uncited**
+and the term still omits them. N6 also shows what N5's restraint bought: `stratigraphy` was cut from
+`Stratum`'s aliases in draft, so giving it its own term cost nothing — had the alias shipped, the new term
+would have overridden it and left a dead row, which is the `Upper_Paleolithic` case exactly.
+**N5 CLEARED `wh-085`'s date line** (see N3's note) — "a rockfall closed the entrance roughly 13,000
+years ago" is gone from all ten languages, via `fix-field.js`, which refuses to write unless every `find`
+string is present. **The sweep came first and is the reusable part**: grepping every card's abstract and
+date line in all ten languages for *rockfall* and its nine translations proved the claim was on `wh-085`
+alone, and that `wh-084`'s Chauvet rockfall at ~20,000 years is a separate, sourced claim. N5's own
+finding is that **the pass's most repeated mistake is the alias**: `Stratum` was drafted with
+"stratigraphy" as an alias — the STUDY of strata, not a synonym — which is N2's "Late Stone Age" and N4's
+"Swabia" a third time, caught in draft this once. It also caught its own `Subsistence` draft stretching a
+registered source past what the register records (G6's rule), and fixed it by RE-READING the paper rather
+than softening the sentence. And it recorded a limit worth knowing: **no openable source defines the
+DISCIPLINE of geology in a sentence** — the BGS gives its scope and its topic pages and no definition,
+`geolsoc.org.uk`/`usgs.gov`/`historicengland.org.uk` are shut — so `Geology` describes what geologists
+study and do, written around the gap. G8 needed Gray's *Anatomy* for anatomy; geology's equivalent was
+not found.
+**N4's finding is the one to carry furthest: a FABRICATED AUTHOR was caught in draft.** The first draft
+of `Mesopotamia` cited "Morphodynamic Foundations of Sumer" to "Alberto Bravin et al." — a name read
+nowhere, composed because WebFetch had returned the paper's CONTENT without its author list. Nothing in
+the surrounding process would have caught it: the URL resolves, the claims are real, the marker rules
+pass, and `gloss-source-audit.js` counts citations rather than checking them. **When a source's content
+arrives without its metadata, look the metadata up** — `search?query=DOI:"…"&resultType=core` at Europe
+PMC returns author string, volume, issue and pages in one call — and **never compose a citation from
+what the prose sounded like**. N4 also withdrew a second identity-asserting alias ("Swabia" off
+`Swabian_Jura`, now its own term), which with N2's makes it a pattern; and it left `Jens_Jacob_Worsaae`
+**without birth/death dates or his book title**, because every source stating them is an encyclopedia,
+which the plan bars: a biography written to the length of its sources is short, and one padded to the
+length of a reader's expectation is fiction.
+**N3's finding is what to do when a term fails the majority-open check**: `Solutrean` came back 1 open of
+2, and the reflex — add a third source to fix the ratio — is wrong. Ask what the PAYWALLED one is
+carrying: Aubry et al. 2008 is about laurel-leaf *production* and the term's sentence is about the
+retouch, which Bachellerie 2025 states openly, so Aubry was **dropped, not balanced**. A paywalled work
+earns its place only as the landmark for a claim nothing open carries. N3 also **re-points
+`guder-2025`'s URL** from the Europe PMC `fullTextXML` REST route to the PLOS article page, which is 200
+again: that endpoint is a machine route serving raw markup, so **when a host reopens, move the citation
+back to the human-readable copy** (`journals.openedition.org` has likewise dropped the Anubis wall batch
+21 recorded). And it leaves one thing UNFIXED and written down: **`wh-085`'s date line still carries the
+"rockfall closed the entrance roughly 13,000 years ago" that batch 21 removed from its abstract** — the
+third time a correction has failed to travel from a card's prose to its own `answerDate`.
+**N2's finding is about ALIASES, and it is a content rule rather than an access one.** `Upper_Paleolithic`
+carried "Late Stone Age", which is not a synonym: the Later Stone Age is the AFRICAN division running from
+~40 ka into historical times, and Malan 1957 records that Goodwin chose the African names precisely so
+they would not be read as the European ones. Nothing looked broken — pass 1 of `buildGlossIndex` beats an
+alias — so it would simply have sat there being wrong. **Before adding a synonym alias, ask whether the two
+names belong to the SAME SCHEME**: Old/New Stone Age are Palaeolithic and Neolithic in one European
+sequence and are right; Earlier/Middle/Later Stone Age are another continent's sequence and are not.
 Two rules that pass turned up at once. **`add-sources.js` writes only the ENGLISH description**, so a term whose
 prose is corrected needs an `add-lang.js` run per language in the same batch or nine languages keep the old
 claim; and **a correction does not travel between surfaces** — `Homo_habilis` still carried the 2.3–1.5 Mya span
