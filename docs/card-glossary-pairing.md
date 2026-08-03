@@ -30,7 +30,8 @@ still finds it.
 
 Measured over `data.js` against `window.GLOSSARY` + `GLOSSARY_TITLES` + `GLOSSARY_ALIASES`:
 
-**42 of 119 cards have an entry for their answer term. 77 do not.**
+**50 of 119 cards have an entry for their answer term. 69 do not.** (42 of 119 when the plan opened;
+**P9 shipped 2026-08-03** and took it to 50.)
 
 The gap is not random: the glossary was grown as a vocabulary of *general* prehistory (taxa, periods,
 industries, peoples, physical geography) and separately as a term for every country in the world, while the
@@ -55,10 +56,10 @@ Eight cards each, in card order, so a batch shares its reading with the cards it
 | **P6** | `wh-072`, `wh-073`, `wh-074`, `wh-076`, `wh-080`, `wh-081`, `wh-082`, `wh-083` | Venus figurines; Venus of Willendorf; Dolní Věstonice; Mal'ta-Buret' culture; microlith; spear-thrower; bow and arrow; cave painting |
 | **P7** | `wh-087`, `wh-089`, `wh-090`, `wh-091`, `wh-092`, `wh-093`, `wh-094`, `wh-095` | Cosquer Cave; Quaternary extinction event; Younger Dryas; Clovis culture; Clovis point; Folsom tradition; Monte Verde; Meadowcroft Rockshelter |
 | **P8** | `wh-097`, `wh-098`, `wh-100`, `wh-101`, `wh-103`, `wh-104`, `wh-105`, `wh-106` | petroglyph; control of fire; Epipaleolithic; Nordic Stone Age; Preboreal; Boreal; Atlantic period; Blytt–Sernander sequence |
-| **P9** | `wh-107`, `wh-108`, `wh-109`, `gr-001`, `gr-002`, `gr-003`, `gr-004`, `gr-005` | Holocene climatic optimum; post-glacial rebound; 8.2-kiloyear event; Aegean Bronze Age; Cycladic civilisation; Cycladic figurines; Keros; Early Minoan Crete |
+| **P9** ✅ | `wh-107`, `wh-108`, `wh-109`, `gr-001`, `gr-002`, `gr-003`, `gr-004`, `gr-005` | Holocene climatic optimum; post-glacial rebound; 8.2-kiloyear event; Aegean Bronze Age; Cycladic civilisation; Cycladic figurines; Keros; Early Minoan Crete — **shipped 2026-08-03** |
 | **P10** | `gr-006`, `gr-007`, `gr-008`, `gr-009`, `gr-010` | Minoan civilisation; Arthur Evans; Knossos; Minoan palace; Throne Room at Knossos |
 
-**Run P9 and P10 first.** The Ancient Greece collection is the one being grown, its glossary starts from
+**Run P9 and P10 first.** *(P9 is done; P10 is next.)* The Ancient Greece collection is the one being grown, its glossary starts from
 almost nothing, and every card written from `docs/greece-card-plan.md` from here on will want to link these
 ten terms. The prehistory batches are backfill of a finished deck and can wait.
 
@@ -76,3 +77,29 @@ ten terms. The prehistory batches are backfill of a finished deck and can wait.
   cheapest sibling-consistency check there is, and the glossary pass found errors that way repeatedly
   (`Homo_habilis`'s span, the `Mousterian`'s start date). If the term and the card disagree, one of them is
   wrong — fix both in the same commit.
+
+## The P9 log
+
+Eight terms, all at the bar, all on the cards' own already-verified sources — no new reading at all, which
+is the whole economy of writing the term while the card's research is still open. Four things it turned up:
+
+- **The alias check the plan asks for paid immediately, but on an OLD entry rather than a new one.**
+  `Lomekwi` carried the alias `Lomekwi 3`, which is the key of a separate term — so pass 1 of
+  `buildGlossIndex` always beat it and the alias had been dead since the day the sibling was written. It is
+  retired. Worth turning into a standing check rather than a per-batch one: a script that maps every key,
+  title and alias to its owner and reports any surface claimed twice found this in a second, and found
+  nothing else in 409 terms.
+- **The headword is the card's answer, not Wikipedia's article title**, where the two differ. `Cycladic
+  civilisation` and `Aegean Bronze Age` are keyed as the cards name them, with `Cycladic culture` and
+  `Aegean civilization` as aliases. A reader who has just answered "Cycladic civilisation" and then meets
+  the linked phrase in another background should not get a popup headed something else; that reads as a
+  wrong link.
+- **A citation whose URL contains a bracket is a broken link, silently.** `SRC_URL_RX` stops at `)`, `<`
+  and `>`, so `wh-109`'s Alley 1997 citation — an old GSA DOI of the form
+  `10.1130/0091-7613(1997)025<0483:…>` — rendered as a link to `…/0091-7613(1997`. Percent-encoding the
+  brackets is the standard fix and the whole DOI now survives. It was the ONLY such URL in 119 cards and
+  409 terms; a sweep for `[()<>]` inside a citation's URL is worth running after any batch.
+- **The three climate terms are general and the five Aegean ones are proper nouns**, and the general ones
+  were the slower half — exactly what P8's note predicts. `Post-glacial rebound` had to be written without
+  Scandinavia or Hudson Bay being the point of it, and the mechanism (mantle creep, the forebulge, the
+  stiffness that makes it take millennia) is what a reader meeting the word in any deck needs.
