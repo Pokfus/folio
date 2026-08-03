@@ -30,9 +30,9 @@ still finds it.
 
 Measured over `data.js` against `window.GLOSSARY` + `GLOSSARY_TITLES` + `GLOSSARY_ALIASES`:
 
-**55 of 119 cards have an entry for their answer term. 64 do not.** (42 of 119 when the plan opened;
-**P9 and P10 shipped 2026-08-03** and took it to 55.) **Every Ancient Greece card is now paired** — what
-remains is backfill of the finished prehistory deck, batches P1–P8.
+**63 of 119 cards have an entry for their answer term. 56 do not.** (42 of 119 when the plan opened;
+**P9, P10 and P1 shipped 2026-08-03** and took it to 63.) **Every Ancient Greece card is paired** — what
+remains is backfill of the finished prehistory deck, batches P2–P8.
 
 The gap is not random: the glossary was grown as a vocabulary of *general* prehistory (taxa, periods,
 industries, peoples, physical geography) and separately as a term for every country in the world, while the
@@ -49,7 +49,7 @@ Eight cards each, in card order, so a batch shares its reading with the cards it
 
 | batch | cards | terms |
 |---|---|---|
-| **P1** | `wh-012`, `wh-019`, `wh-020`, `wh-021`, `wh-025`, `wh-026`, `wh-027`, `wh-028` | Last Glacial Period; Homo ergaster; Turkana Boy; Wonderwerk Cave; Java Man; Peking Man; Zhoukoudian; Homo antecessor |
+| **P1** ✅ | `wh-012`, `wh-019`, `wh-020`, `wh-021`, `wh-025`, `wh-026`, `wh-027`, `wh-028` | Last Glacial Period; Homo ergaster; Turkana Boy; Wonderwerk Cave; Java Man; Peking Man; Zhoukoudian; Homo antecessor — **shipped 2026-08-03** |
 | **P2** | `wh-029`, `wh-030`, `wh-035`, `wh-036`, `wh-037`, `wh-038`, `wh-039`, `wh-040` | Atapuerca Mountains; Homo heidelbergensis; Denisovans; Denisova Cave; Homo naledi; Homo floresiensis; Liang Bua; Homo luzonensis |
 | **P3** | `wh-041`, `wh-042`, `wh-044`, `wh-045`, `wh-046`, `wh-047`, `wh-048`, `wh-050` | Neanderthal extinction; Toba catastrophe theory; Omo remains; Jebel Irhoud; Homo sapiens idaltu; Mitochondrial Eve; Y-chromosomal Adam; Aterian |
 | **P4** | `wh-052`, `wh-053`, `wh-054`, `wh-055`, `wh-056`, `wh-058`, `wh-059`, `wh-060` | Howiesons Poort; Sibudu Cave; Border Cave; Klasies River Caves; Pinnacle Point; Behavioural modernity; Madjedbebe; Lake Mungo remains |
@@ -139,3 +139,34 @@ citation is one the card already carried. Three things:
 Verified in a browser: seven of the thirteen terms written across P9 and P10 auto-link from the Aegean
 cards' backgrounds and open. The other six appear only on their own cards, where `autoLinkGlossary` skips
 the answer term by design.
+
+## The P1 log
+
+Eight terms, the first of the prehistory backfill, and the first batch in which the cards' own citations
+were not quite enough on their own. Four things:
+
+- **THE SIBLING CHECK PAID, AND THE ANSWER WAS "BOTH".** `wh-026` dates the Zhoukoudian deposits
+  "from more than 750,000 to roughly 230,000 years ago" and `wh-027` puts "the topmost layers at about
+  400,000 and the deepest beyond 750,000". Written up as two glossary terms sitting side by side, that
+  reads as a flat contradiction. It is not: Xing et al. give the fossils' ages as "230 kyr to >= 750 kyr
+  **according to different methods of chronometric analyses**", while Huang et al. date "an upper horizon
+  of Layer 1/2" to 400 ± 8 kyr — one is a spread across dating techniques, the other a single dated
+  horizon. Both cards keep their figures; `wh-026` and the `Peking_Man` term now carry Xing's own hedge
+  ("by different dating methods"), which is what makes the pair reconcilable to a reader who meets both.
+  **When two cards disagree, read the sources before correcting either — a disagreement between summaries
+  is often an agreement between measurements.**
+- **A guessed PMCID cost a fetch**, exactly as N1 warns. `PMC5792596` is a paper on stem-cell
+  transplantation in mouse inner ear, not Xing et al. Resolve it with
+  `europepmc/webservices/rest/search?query=DOI:"…"&resultType=core`, which gave `PMC5794973`, and read the
+  text through the `fullTextXML` route.
+- **`nature.com`, `frontiersin.org` and PMC all answered this session** — N1 recorded nature.com as 403.
+  Reachability is a fact about the day, not about the host; re-test before treating a citation as
+  unopenable.
+- **Two aliases were cut in draft**, on P10's rule. "Trinil 2" is the catalogue number of Java Man's
+  skullcap, not a synonym for the three bones together; and "last glacial" is a fragment that sits inside
+  the sibling term `Last_Glacial_Maximum`. The regional names — Würm, Weichselian, Wisconsinan, Devensian
+  — were likewise **not** aliased onto `Last_Glacial_Period`, since each already has its own term.
+
+Verified in a browser: seven of the eight auto-link from other prehistory cards' backgrounds and open.
+The eighth, `Last_Glacial_Period`, appears on no card but its own, where the answer term is skipped by
+design.
