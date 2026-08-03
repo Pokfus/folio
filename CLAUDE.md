@@ -1042,7 +1042,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - **Deep time (years before the present).** A card's sort year is a plain signed number, so a prehistory
   card is just a very negative one (`-3300000` = 3.3 Mya). Three pieces carry that: **`cardYears(c)`** reads
   `answerDate` and now understands `"2.6 million years ago"`, `"3.3 to 2.6 million years ago"`,
-  `"780,000 years ago"` and `kya`/`Mya`/`Gya`, consuming each match so the BCE/CE rules can't re-read its
+  `"780,000 years ago"`, `kya`/`Mya`/`Gya`, **`BP`** and the RANGE forms of both (`"4.2 – 2 Mya"`,
+  `"115,000 – 11,700 BP"` — the two the date line is written in since Aug 2026, where the unit is written
+  once and carries leftwards), consuming each match so the BCE/CE rules can't re-read its
   digits (before this the prehistory deck sorted on the *discovery* years in the prose — `1925`, `2011` —
   because `\b(1\d{3}|20\d{2})\b` was the only rule that matched); the BCE rules also accept comma grouping
   now, or `"around 10,000 BCE"` parsed as the year 0. **`yearLabel(y)`** is the single formatter — `Gya` /
@@ -2590,8 +2592,28 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   (`update-cards.js` would clobber the whole `i18n` object; don't use it for this).
 - Chinese fields (`hanzi, pinyin, traditional, translations`) — fill only if the term has a Chinese
   form, else `""`. `translations` wraps the pinyin: `<div class="tr-pinline"><span class="tr-pin">…</span></div>`.
-- `answerDate` — a `<div class="dt"><span class="dt-k">Date</span><span class="dt-v">…</span></div>`
-  block (key date / reign / era, or an etymology line).
+- `answerDate` (the date line) — **the dates worth memorising beside the answer term, and nothing else**
+  (Aug 2026, on request). It is a KEY/VALUE LIST, not a paragraph: alternating `dt-k` / `dt-v` spans
+  inside ONE `<div class="dt">`, which is a two-column grid, so the labels align down the left and each
+  date sits beside the word naming what it is. A `<span class="dt-v dt-sub">` line continues under a
+  value with no label of its own — the place under a birth date.
+  ```html
+  <div class="dt"><span class="dt-k">Born</span><span class="dt-v">12 February 1809</span><span class="dt-v dt-sub">LaRue County, Kentucky</span><span class="dt-k">Died</span><span class="dt-v">15 April 1865</span></div>
+  ```
+  **The label names WHAT the date is** — `Era`, `Lived`, `In use`, `Occupied`, `Found`, `Named`,
+  `Coined`, `Painted`, `Born`, `Died`, `World Heritage` — and NOT the card's category, which is what the
+  old one-word key said (`Site`, `Species`, `Industry`) above a paragraph explaining the term all over
+  again. That paragraph is what this replaced: the background is where prose belongs, and a date line a
+  reader has to read is one they will not memorise.
+  **If the card has no obvious date, leave the field `""`.** An empty section is the right answer there —
+  it collapses to nothing (`.av-row:empty`), and a sentence apologising for the absence is not a date.
+  Write it with **`node .claude/set-date-line.js <batch.json>`** rather than by hand (`[[label, value], …]`
+  per card; the script builds the markup, so the shape cannot drift card to card). Both it and
+  `add-card.js` hold the field to `.claude/date-line.js`: at most 4 rows, a label of at most 16
+  characters, a value of at most 64 characters and 10 words, a number in every labelled row, and no
+  sentence. **Deep spans are written in the compact notation** — `115,000 – 11,700 BP`, `c. 4.2 – 2 Mya`,
+  `c. 2.6 Mya – 9700 BCE` — all of which `cardYears` parses, which is what keeps the deck in
+  chronological order (see the "Deep time" bullet).
 - `abstract` (the background) — **exactly 10 sentences and about 300 words** (keep within 270–330), as two
   blocks of 5 split by ` <br><br> `: sentences 1–5 give the general meaning/context, 6–10 the meaning in this
   card's question. Information-heavy and precise, at the 17-year-old register set out above. **The only `<b>` bold is the answer term, at its first mention
@@ -2635,7 +2657,10 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   "de": …, "it": …, "nl": …, "ru": …, "ar": …, "zh": …, "ja": … }`. Each language mirrors the English fields under the
   SAME formatting rules (blank `<span class="blank">_____</span>` mid-sentence, a question of the same
   ~28-word brevity as the English, **a `questions` array with the same 2 extra phrasings translated**, 2×5-sentence abstract with one
-  `<b>` on the answer term, `<i>` for titles, no parentheses, dt-block markup in `answerDate`). Translate
+  `<b>` on the answer term, `<i>` for titles, no parentheses). **`answerDate` is NOT translated** — the
+  date line was cut to a list of dates in Aug 2026 and the translated ones were cleared with it
+  (`set-date-line.js`), so every language falls back to the English line: numerals under a one-word
+  label. Restoring them means translating the labels, and only the labels. Translate
   meaning-for-meaning at native quality — **not a literal, word-for-word rendering of the English.** Each language
   must read as though it were written by a native speaker for teenagers in that language: use its own natural phrasing,
   idiom and word order, at the same plain 14-year-old reading level as the English. Do not transliterate proper names
@@ -2758,6 +2783,26 @@ because the date line repeats the abstract's figures. This does find/replace ins
 language, and **refuses to write unless every `find` string is present**: a silent no-op would leave a
 corrected card still showing the wrong figure on its date line. Batch 6 needed it for three cards, all of
 which would otherwise have shipped corrected prose above an uncorrected date line.
+(A figure that is only on the date line and nowhere else is now usually easier to REWRITE than to patch —
+the whole field is a handful of words. Use `set-date-line.js` for that and `fix-field.js` when the same
+figure also sits in another field.)
+
+**Rewriting a date line** — `node .claude/set-date-line.js <batch.json>`
+(`{ "cards": { "wh-013": [["Lived", "c. 4.2 – 2 Mya"], ["Named", "1925, by Raymond Dart"]], "wh-080": [] } }`).
+Rows are `[label, value]` pairs and the script builds the markup, so the shape cannot drift; a row with an
+EMPTY label is a continuation line under the value above it, and `[]` is an empty date line. It validates
+through `.claude/date-line.js` — the same module `add-card.js` holds a new card to, which is what stops the
+field growing back into a paragraph — clears the field from every translation the card carries
+(`--keep-i18n` opts out), and reports running coverage over the whole deck.
+**The whole deck was converted this way on 2026-08-03** (11 batches, 112 cards): the date line had grown
+into a summary of the card, sometimes three sentences under a one-word label, and is now the dates alone.
+Two things worth keeping from that pass. **The sort order improved as a side effect** — fifteen cards
+changed sort year and every one was a correction, because the old paragraphs carried excavation and
+publication years that `cardYears` read as the card's own date (Atapuerca sorted at **1978 CE**, Denisova
+Cave at 1977, Omo at 1967, Dolní Věstonice at 2016). **A card that states no era of its own needs the
+sort year putting back by hand**: `wh-063` Paleo-Indians lost its only deep date when the Clovis figures
+went, and sorted 5,000 years late until the Clovis row was restored — so run the before/after comparison
+over `cardStartYear`, not just the eye, after a batch.
 
 **Citing the existing content (as of July 2026)** — **most of the shipped content still has no citations.** The
 109 cards, 333 glossary terms and every Atlas description were written before this system existed, from Wikipedia
@@ -3178,9 +3223,9 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Fourteen committed regression tests** (in `.claude/`, not loaded by the site): twelve drive a real browser with
-  Playwright; `test-daily-quote.js` and `test-discovery.js` are plain Node with no dependencies at all. Each slices what
-  it tests out of the real `app.js`/`_headers` by text, so they can't drift from what ships.
+- **Fifteen committed regression tests** (in `.claude/`, not loaded by the site): twelve drive a real browser with
+  Playwright; `test-daily-quote.js`, `test-discovery.js` and `test-date-line.js` are plain Node with no dependencies at
+  all. Each slices what it tests out of the real `app.js`/`_headers` by text, so they can't drift from what ships.
   **Gotcha when writing more of them:** `page.goto()` to a URL that differs only in the `#fragment` is a
   same-document navigation — the app keeps running and its module state survives. Use `page.reload()` when
   a test means "start fresh", or navigate through the UI. Several early failures were this, not real bugs.
@@ -3362,6 +3407,16 @@ dead code (never rendered).
     browser and no dependencies** — the pieces are sliced out of `app.js` and run in a `new Function`.
     The rule is a property of the ARRANGEMENT, so it breaks silently: **re-run after adding or removing
     quotes** (a fifth Confucius line tightens the pool) as well as after touching `quoteRunningOrder`.
+  · `node .claude/test-date-line.js` — 13 assertions on the card date line, run against the real `data.js`:
+    that every shipped card's `answerDate` is still a LIST OF DATES and not the paragraph it replaced
+    (the check is content-aware, since an old date line wore exactly the same tags), that the limits in
+    `date-line.js` still describe a glance, that every card stating a date still yields a sort year from
+    it — four cards on the pre-conversion data yielded none — and that **no card naming a deep date sorts
+    by the year it was dug up**, which is how Atapuerca came to sort at 1978 CE. Plus the compact
+    notation itself: `BP`, `cal BP`, and the ranges that write their unit once, where reading only the
+    closing number sorts a card from the wrong end of its own era. **No browser and no dependencies.**
+    Re-run after touching `cardYears` / `date-line.js`, **and after any batch of date lines** — the field
+    is edited card by card and grew into a paragraph the same way.
   Playwright is a dev dependency and must NOT be installed into the repo (the zero-dependency rule, and
   `node_modules/` is gitignored) — install it in a scratch folder and run with
   `NODE_PATH=<that>/node_modules`. Set `FOLIO_CHROMIUM=<path to chrome>` if Chromium lives outside the

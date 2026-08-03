@@ -118,9 +118,21 @@
       });
     t = t.replace(/([\d][\d,]*(?:\.\d+)?)\s*(thousand|million|billion)?\s*years?\s+ago\b/gi,
       (m0, a, u) => { years.push(-Math.round(deepNum(a) * (u ? DEEP_MAG[u.toLowerCase()] : 1))); return " "; });
-    // the unambiguous abbreviations only \u2014 bare "ka"/"ma"/"ga" are too easy to hit inside ordinary prose
+    // the unambiguous abbreviations only \u2014 bare "ka"/"ma"/"ga" are too easy to hit inside ordinary prose.
+    // The RANGE form comes first, and there the unit always carries leftwards: "4.2 - 2 Mya" is one unit
+    // written once, unlike the spelled-out "700,000 and 1.5 million years ago" above. Without this the
+    // single rule below would read only the closing number and a card would sort from the wrong end.
+    t = t.replace(/([\d][\d,]*(?:\.\d+)?)\s*(?:to|and|or|-)\s*(?:about|around|roughly|approximately|some|c\.|ca\.)?\s*([\d][\d,]*(?:\.\d+)?)\s*(kya|kyr|mya|myr|gya|gyr|bya)\b/gi,
+      (m0, a, b, u) => { const k = DEEP_MAG[u.toLowerCase()]; years.push(-Math.round(deepNum(a) * k), -Math.round(deepNum(b) * k)); return " "; });
     t = t.replace(/([\d][\d,]*(?:\.\d+)?)\s*(kya|kyr|mya|myr|gya|gyr|bya)\b/gi,
       (m0, a, u) => { years.push(-Math.round(deepNum(a) * DEEP_MAG[u.toLowerCase()])); return " "; });
+    // "before present" \u2014 the compact form the date line writes a deep span in ("115,000 - 11,700 BP").
+    // BP counts from 1950 and "years ago" from now; at these magnitudes the 76 years are noise, and a
+    // sort key is what this feeds. Range first, for the same reason as the abbreviations above.
+    t = t.replace(/([\d][\d,]*(?:\.\d+)?)\s*(?:to|and|or|-)\s*(?:about|around|roughly|approximately|some|c\.|ca\.)?\s*([\d][\d,]*(?:\.\d+)?)\s*(?:cal\s*)?BP\b/gi,
+      (m0, a, b) => { years.push(-Math.round(deepNum(a)), -Math.round(deepNum(b))); return " "; });
+    t = t.replace(/([\d][\d,]*(?:\.\d+)?)\s*(?:cal\s*)?BP\b/gi,
+      (m0, a) => { years.push(-Math.round(deepNum(a))); return " "; });
     // comma grouping is allowed here too, or "around 10,000 BCE" would read as the year 0
     t = t.replace(/([\d][\d,]*)\s*(BCE|BC|CE|AD)\s*-\s*([\d][\d,]*)\s*(BCE|BC|CE|AD)\b/gi, (m, a, e1, b, e2) => { years.push((/B/i.test(e1) ? -1 : 1) * deepNum(a), (/B/i.test(e2) ? -1 : 1) * deepNum(b)); return " "; });
     t = t.replace(/([\d][\d,]*)\s*-\s*([\d][\d,]*)\s*(BCE|BC|CE|AD)\b/gi, (m, a, b, era) => { const s = /B/i.test(era) ? -1 : 1; years.push(s * deepNum(a), s * deepNum(b)); return " "; });
