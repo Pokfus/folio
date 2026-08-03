@@ -30,9 +30,9 @@ still finds it.
 
 Measured over `data.js` against `window.GLOSSARY` + `GLOSSARY_TITLES` + `GLOSSARY_ALIASES`:
 
-**87 of 119 cards have an entry for their answer term. 32 do not.** (42 of 119 when the plan opened;
-**P9, P10, P1, P2, P3 and P4 shipped 2026-08-03** and took it to 87.) **Every Ancient Greece card is paired** —
-what remains is backfill of the finished prehistory deck, batches P5–P8.
+**95 of 119 cards have an entry for their answer term. 24 do not.** (42 of 119 when the plan opened;
+**P9, P10 and P1–P5 shipped 2026-08-03** and took it to 95.) **Every Ancient Greece card is paired** —
+what remains is backfill of the finished prehistory deck, batches P6–P8.
 
 **Count plurals when measuring this.** A card whose answer is `Denisovans` is paired by the term
 `Denisovan`, because `buildGlossIndex` auto-pluralizes — but an exact-match count says it is not, which is
@@ -58,7 +58,7 @@ Eight cards each, in card order, so a batch shares its reading with the cards it
 | **P2** ✅ | `wh-029`, `wh-030`, `wh-035`, `wh-036`, `wh-037`, `wh-038`, `wh-039`, `wh-040` | Atapuerca Mountains; Homo heidelbergensis; Denisova Cave; Homo naledi; Homo floresiensis; Liang Bua; Homo luzonensis — **shipped 2026-08-03**; `Denisovans` was already covered by the existing `Denisovan` term |
 | **P3** ✅ | `wh-041`, `wh-042`, `wh-044`, `wh-045`, `wh-046`, `wh-047`, `wh-048`, `wh-050` | Neanderthal extinction; Toba catastrophe theory; Omo remains; Jebel Irhoud; Homo sapiens idaltu; Mitochondrial Eve; Y-chromosomal Adam; Aterian — **shipped 2026-08-03** |
 | **P4** ✅ | `wh-052`, `wh-053`, `wh-054`, `wh-055`, `wh-056`, `wh-058`, `wh-059`, `wh-060` | Howiesons Poort; Sibudu Cave; Border Cave; Klasies River Caves; Pinnacle Point; Behavioural modernity; Madjedbebe; Lake Mungo remains — **shipped 2026-08-03** |
-| **P5** | `wh-062`, `wh-063`, `wh-064`, `wh-065`, `wh-067`, `wh-068`, `wh-069`, `wh-070` | Settlement of the Americas; Paleo-Indians; Cro-Magnon; Châtelperronian; Lion-man; Hohle Fels; Venus of Hohle Fels; Divje Babe flute |
+| **P5** ✅ | `wh-062`, `wh-063`, `wh-064`, `wh-065`, `wh-067`, `wh-068`, `wh-069`, `wh-070` | Settlement of the Americas; Paleo-Indians; Cro-Magnon; Châtelperronian; Lion-man; Hohle Fels; Venus of Hohle Fels; Divje Babe flute — **shipped 2026-08-03** |
 | **P6** | `wh-072`, `wh-073`, `wh-074`, `wh-076`, `wh-080`, `wh-081`, `wh-082`, `wh-083` | Venus figurines; Venus of Willendorf; Dolní Věstonice; Mal'ta-Buret' culture; microlith; spear-thrower; bow and arrow; cave painting |
 | **P7** | `wh-087`, `wh-089`, `wh-090`, `wh-091`, `wh-092`, `wh-093`, `wh-094`, `wh-095` | Cosquer Cave; Quaternary extinction event; Younger Dryas; Clovis culture; Clovis point; Folsom tradition; Monte Verde; Meadowcroft Rockshelter |
 | **P8** | `wh-097`, `wh-098`, `wh-100`, `wh-101`, `wh-103`, `wh-104`, `wh-105`, `wh-106` | petroglyph; control of fire; Epipaleolithic; Nordic Stone Age; Preboreal; Boreal; Atlantic period; Blytt–Sernander sequence |
@@ -263,3 +263,26 @@ did have was three judgement calls worth writing down.
 
 Verified in a browser: all three of the eight that appear in another card's background auto-link and open;
 the other five appear only on their own cards. The self-link check introduced in P3 still reports zero.
+
+## The P5 log
+
+Eight terms, every list open except the one landmark that isn't (Conard 2009 on the Hohle Fels Venus).
+Three findings, and the first is the useful one.
+
+- **THE SAME MEASUREMENT WAS RENDERED TWO WAYS IN TWO FILES.** `Swabian_Jura` gave the Hohle Fels flute as
+  "21.7 cm (8.54 inches)" and `wh-068` as "21.7 centimetres (8.5 inches)". Both follow a defensible rule —
+  the glossary figure came out of the mechanical units pass, which rounds to the source's significant
+  figures, while the card's was written by hand — and a reader meeting both sees the site contradict
+  itself over a third decimal. Harmonised to 8.5. **When the same measurement appears in a card and in a
+  term, grep the FIGURE across both files**, which is batch 26's rule for corrections applied to
+  conversions.
+- **Use the project's splitter, not a regex.** The batch's sentence-count check reported
+  `Paleo-Indians` at six sentences; the prose is fine and the check was wrong, because a naive
+  `/(?<=[.!?])\s+/` breaks on "Frank H. H. Roberts Jr." — precisely the initial-run trap batch 24 fixed in
+  `.claude/split-abstract.js`. The check now loads that module into the page instead. A verification tool
+  that is wrong in the same way the content used to be is worse than none.
+- **A term may already describe its subject in passing, and that is not a duplicate.** `Swabian_Jura`,
+  written in the N-batches, mentions both the Lion-man and the Hohle Fels flute with their measurements;
+  P5 gives each its own term. The region term says what the region is famous for, the object terms say
+  what the objects are — but the figures had to be made to agree, which is how the flute discrepancy above
+  came to light.
