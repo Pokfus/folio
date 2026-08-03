@@ -100,24 +100,21 @@ else to go, and "Macedon and Alexander" would have been a strange address for th
 
 ## History, not archaeology — and how many modern scholars get a card
 
-Written down after the first ten cards shipped reading as archaeology rather than history and had to
-be rewritten (2026-08-03, on request). The fault is easy to fall into on this collection, because the
-Bronze Age Aegean is known almost entirely through excavation, so the reachable sources are dig
-reports and the prose slides into who dug, how deep, how many fragments, and which excavator
-reinterpreted whom. `gr-008 Knossos` spent half its background on Kalokairinos, Stillman, Schliemann
-and a sifted spoil heap; `gr-004 Keros` was a finds inventory; `gr-010` was a list of measurements
-with Evans named four times.
+**The rule itself lives in CLAUDE.md** ("FOLIO IS A HISTORY SITE, NOT AN ARCHAEOLOGY SITE") and the
+site-wide rewrite pass is `docs/history-focus-plan.md`. Do not restate either here; what follows is only
+what is specific to this collection.
 
-**The rule: a card teaches the past, not its recovery.** How people lived, worked, worshipped, traded
-and were governed; what changed and what it cost. The dig belongs in a card only where the discovery
-*is* the historical fact — a script read, a figure that arrives already broken, a findspot lost to the
-antiquities market, a restoration that is what a visitor actually sees. One clause where that is true,
-not five sentences because that is what the source had to hand.
+This collection is where the fault is easiest to fall into, because the Bronze Age Aegean is known
+almost entirely through excavation, so the reachable sources are dig reports and the prose slides into
+who dug, how deep, and which excavator reinterpreted whom. All ten shipped cards had to be rewritten on
+2026-08-03 for exactly that; `docs/history-focus-plan.md` records what the pass found.
 
-**And the corollary this collection needs: a background covers its whole answer term.** See CLAUDE.md
-under "Generating cards" — `gr-001` is the worked example, an *Aegean Bronze Age* card that came back
-seven-tenths about Crete because Crete is where the palaces, the writing and the best open sources
-are. Three named traditions, three shares of the card.
+The corollary that bites hardest here is the other CLAUDE.md rule, **a background covers its whole
+answer term** — `gr-001` is the worked example, an *Aegean Bronze Age* card that came back seven-tenths
+about Crete because Crete is where the palaces, the writing and the best open sources are. Three named
+traditions, three shares of the card. Watch for it again on `gr-056 Mycenaean civilisation`,
+`gr-111 Greek Dark Ages` and `gr-203 Greek colonisation`, each of which spans regions whose evidence is
+very unevenly published.
 
 **Modern scholars are capped at four cards in the thousand**, and these are they:
 
@@ -132,12 +129,14 @@ are. Three named traditions, three shares of the card.
 Sparta's image and Spartan reality is a fact about the ancient sources, not modern scholarship about
 them, and a Sparta deck that omits it teaches the propaganda.
 
-Five slots changed subject to hold that cap — `gr-045`, `gr-076`, `gr-104`, `gr-105` and `gr-134` —
+Five slots changed subject to hold the cap — `gr-045`, `gr-076`, `gr-104`, `gr-105` and `gr-134` —
 and are marked **†** in the list below with what they used to be, so a later session can see the trade
 rather than wonder at the gap. Two more were recast without changing subject and carry no dagger:
 `gr-075` from *Michael Ventris* to the decipherment itself, and `gr-102` from *Troy at Hisarlik* to
 plain *Troy*, since naming the mound the Victorians dug is the archaeology and the city is the
-history.
+history. `gr-104`'s first draft was *The Trojan War in Greek tradition*, which `gr-944 The Trojan War
+in myth` already covers — **check the myth decks before filling a Bronze Age slot**, since they carry
+the same names for different subjects.
 
 ## Cross-listing
 

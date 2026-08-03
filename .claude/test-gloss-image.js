@@ -96,19 +96,42 @@ async function openGlossEditor(page, base) {
     return {
       float: getComputedStyle(slot).float,
       imgH: document.querySelector(".gloss-win .gloss-imgslot img").getBoundingClientRect().height,
+      imgW: document.querySelector(".gloss-win .gloss-imgslot img").getBoundingClientRect().width,
+      // shown WHOLE within its limits (Aug 2026, on request) — so the rendered box has to keep the file's
+      // own proportions, which is what `object-fit:contain` and an auto height buy
+      fit: getComputedStyle(document.querySelector(".gloss-win .gloss-imgslot img")).objectFit,
+      natW: document.querySelector(".gloss-win .gloss-imgslot img").naturalWidth,
+      natH: document.querySelector(".gloss-win .gloss-imgslot img").naturalHeight,
       w: slot.getBoundingClientRect().width, inner: inner,
       slotTop: slot.getBoundingClientRect().top, descTop: desc.getBoundingClientRect().top,
+      // the first IN-FLOW block of the body: a float is out of flow, so this must start level with the
+      // picture's top rather than below it — which is the whole of "the prose runs down its left"
+      flowTop: (() => { const f = [...body.children].find((e) => !e.classList.contains("gloss-imgslot")); return f ? f.getBoundingClientRect().top : null; })(),
       slotRight: slot.getBoundingClientRect().right, bodyRight: body.getBoundingClientRect().right,
+      slotBottom: slot.getBoundingClientRect().bottom,
       padR: parseFloat(cs.paddingRight),
     };
   });
   check("the image floats right", box.float === "right", box.float);
-  check("...at a fixed height", Math.abs(box.imgH - 150) < 1, box.imgH);
+  /* 150px and half the popup are the picture's MAXIMUM, not its shape (Aug 2026, on request). It used to be
+     a fixed 150px height with `object-fit:cover`, which gave every popup one silhouette at the cost of
+     cutting the sides off anything wider than half of it — and a map or a wide landscape is exactly what a
+     glossary term carries. So what is checked now is the LIMITS and the PROPORTIONS. */
+  check("...no taller than its 150px limit", box.imgH <= 151, box.imgH);
   check("...never wider than half the popup", box.w <= box.inner / 2 + 1, box.w + " of " + box.inner);
+  check("...and shown whole rather than cropped to fill the frame",
+    box.fit === "contain" && box.natW > 0 &&
+    Math.abs(box.imgW / box.imgH - box.natW / box.natH) < 0.05,
+    JSON.stringify({ fit: box.fit, shown: [box.imgW, box.imgH], natural: [box.natW, box.natH] }));
   check("...pinned to the top-right with the body's padding",
     Math.abs(box.bodyRight - box.slotRight - box.padR) < 1.5, box.bodyRight - box.slotRight);
-  check("the prose starts beside it, not below it", box.descTop < box.slotTop + box.imgH,
-    "desc " + box.descTop + " vs image bottom " + (box.slotTop + box.imgH));
+  /* It is a FLOAT, so the body's first in-flow block starts LEVEL with the picture and runs down its left.
+     This used to be measured as "the description begins above slotTop + 150px", which passed for the wrong
+     reason — the float was 150px tall whatever the picture was. With the height now the picture's own, the
+     only meaningful test is that the prose is not pushed down at all. */
+  check("the prose starts beside it, not below it",
+    box.flowTop !== null && box.flowTop <= box.slotTop + 2,
+    "first block " + box.flowTop + " vs image top " + box.slotTop);
   check("the figure is a focusable button, like a card image",
     await page.evaluate(() => { const f = document.querySelector(".gloss-win .card-img"); return f.getAttribute("role") === "button" && f.tabIndex === 0; }));
 

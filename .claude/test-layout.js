@@ -654,11 +654,13 @@ async function studyEasy(page, base, n) {
   }
 
   /* ================= 5f. Text size (Aug 2026, on request) =================
-     A reading-text scale, not a page zoom, and the difference is the whole design: the prose has to grow
-     and the SHELL has to stay where it is, because every bar in it is laid out against its own pixels.
-     So this checks both halves — the card and the glossary popup follow the setting, and a tab label and
-     a button do not — plus that it survives a reload, since a text size a reader has to set every time is
-     worse than none. */
+     It scales EVERY px font-size in the stylesheet now — the reading prose, the shell, the buttons, the
+     nav — after a second request; it used to reach a card's question and background, a glossary popup and
+     an Atlas panel and nothing else. What it still does NOT do is move the layout: the boxes are laid out
+     in px and only the text inside them grows, which is what keeps a four-cell grade bar a four-cell grade
+     bar at Large. So this checks that the prose AND the chrome both follow, that nothing in the shell is
+     clipped by the growth, and that the setting survives a reload — a text size a reader has to set every
+     time is worse than none. */
   {
     const page = await browser.newPage({ viewport: PHONE });
     watch(page);
@@ -685,8 +687,12 @@ async function studyEasy(page, base, n) {
       await page.waitForTimeout(600);
       return page.evaluate(() => {
         const px = (s) => { const e = document.querySelector(s); return e ? Math.round(parseFloat(getComputedStyle(e).fontSize) * 10) / 10 : null; };
+        const el = document.querySelector(".tabbar .tab-label");
         return { fs: document.body.dataset.fs, q: px(".study-card .question"), bg: px(".abstract"),
-          tab: px(".tabbar .tab-label"), btn: px(".grade .gl") };
+          tab: px(".tabbar .tab-label"), btn: px(".grade .gl"),
+          // the shell has to survive the growth, not merely take part in it
+          tabClipped: el ? el.scrollWidth > el.clientWidth + 1 : null,
+          gradeRows: new Set([...document.querySelectorAll(".grade")].map((g) => Math.round(g.getBoundingClientRect().top))).size };
       });
     };
     const setFs = async (v) => {
@@ -700,9 +706,12 @@ async function studyEasy(page, base, n) {
     await setFs("small"); const small = await sizes();
     check("...that grows the card's question and background", big.q > med.q && big.bg > med.bg, JSON.stringify({ med, big }));
     check("...and shrinks them", small.q < med.q && small.bg < med.bg, JSON.stringify({ med, small }));
-    check("...while the SHELL stays exactly where it was — a scale, not a page zoom",
-      big.tab === med.tab && small.tab === med.tab && big.btn === med.btn,
+    check("...and the shell with them — every page, not just the reading prose",
+      big.tab > med.tab && small.tab < med.tab && big.btn > med.btn,
       JSON.stringify({ med, big, small }));
+    check("...without breaking it: the tab label still fits and the grades stay on one row",
+      !big.tabClipped && big.gradeRows === 1 && !small.tabClipped && small.gradeRows === 1,
+      JSON.stringify({ big: { clip: big.tabClipped, rows: big.gradeRows }, small: { clip: small.tabClipped, rows: small.gradeRows } }));
     await setFs("large");
     await page.goto(base + "#home", { waitUntil: "load" });
     await page.waitForTimeout(1200);
@@ -847,16 +856,17 @@ async function studyEasy(page, base, n) {
         })(),
         // the games, under a heading, under the review
         mgHead: head ? head.textContent.trim() : "",
-        /* The heading's TEXT centre against the grid's, measured through a Range — NOT its computed
-           text-align, which was "center" while the words sat hard left: the class was first called
+        /* The heading's TEXT left edge against the grid's, measured through a Range — NOT its computed
+           text-align, which was once "center" while the words sat hard left: the class was first called
            `.mg-head`, which is the MAP GAME's card header, and that rule's `display:flex` beats
            text-align outright. A block-level h2 spans the column whatever it does with its text, so
-           only the text's own box can tell the two apart. */
-        headCentred: (() => {
+           only the text's own box can tell the two apart. The heading went back to the LEFT in Aug 2026
+           on request, so what is measured is the same box against the other edge. */
+        headLeft: (() => {
           if (!head || !grid) return 999;
           const r = document.createRange(); r.selectNodeContents(head);
           const t = r.getBoundingClientRect(), g = grid.getBoundingClientRect();
-          return Math.round(Math.abs((t.left + t.width / 2) - (g.left + g.width / 2)));
+          return Math.round(t.left - g.left);
         })(),
         headBelowReview: !!(head && grp && top(head) >= Math.round(grp.getBoundingClientRect().bottom) - 1),
         gridBelowHead: !!(head && grid && top(grid) >= Math.round(head.getBoundingClientRect().bottom) - 1),
@@ -889,7 +899,7 @@ async function studyEasy(page, base, n) {
     await page.waitForTimeout(1500);
     check("the games sit under the review, under a Minigames heading",
       /minigames/i.test(h.mgHead) && h.headBelowReview && h.gridBelowHead, JSON.stringify({ head: h.mgHead, below: h.headBelowReview, grid: h.gridBelowHead }));
-    check("...centred over the grid it names", h.headCentred <= 2, h.headCentred);
+    check("...starting at the left edge of the grid it names", Math.abs(h.headLeft) <= 2, h.headLeft);
     check("...three wide and two tall", h.cols === 3 && h.rows === 2 && h.tiles === 6, JSON.stringify({ cols: h.cols, rows: h.rows, tiles: h.tiles }));
     check("...with the description sentences gone", h.subs === 0, h.subs + " tiles still carry one");
     check("...the quote still above it all", h.quoteAbove);
@@ -919,12 +929,10 @@ async function studyEasy(page, base, n) {
       })),
       row: [...document.querySelectorAll(".active-deck .ad-counts .adc")].map((s) => ({ n: +s.textContent.trim(), col: getComputedStyle(s).color })),
       rowLabels: (document.querySelector(".active-deck .ad-counts") || {}).title || "",
-      // the big gold numeral is the day's PILE, not the level (the level is spelled out in the xp bar's
-      // head just below it) — and a tick, not a "0", once the pile is empty
-      badge: (() => {
-        const b = document.querySelector(".review-group .banner .level-badge");
-        return { n: b.textContent.trim(), tick: !!b.querySelector("svg"), clear: b.classList.contains("pb-clear") };
-      })(),
+      // the big gold numeral is GONE (Aug 2026, on request) — it carried the day's whole pile unlabelled,
+      // over three labelled counts that break the same total up. So is the line that described them.
+      badge: !!document.querySelector(".review-group .banner .level-badge"),
+      desc: (document.querySelector(".review-group .banner .desc") || {}).textContent || "",
       xpLevel: (document.querySelector(".review-group .banner .xp-lvl") || {}).textContent || "",
       // each figure centred over its own label, and the whole row on the button's line
       centred: [...document.querySelectorAll(".review-group .banner .stat")].filter((s) => !s.classList.contains("streak")).map((s) => {
@@ -950,7 +958,16 @@ async function studyEasy(page, base, n) {
     }));
     check("the review banner counts Anki's three piles, in order",
       piles.stats.map((p) => p.label.toLowerCase()).join(",") === "new,learning,review", JSON.stringify(piles.stats.map((p) => p.label)));
-    check("...no two of them the same colour", new Set(piles.stats.map((p) => p.col)).size === 3, JSON.stringify(piles.stats.map((p) => p.col)));
+    /* No two piles that HAVE work share a colour — and a pile at zero is grey, which is the point of the
+       colours: they say where the day's work is, so they have nothing to say on a 0 (Aug 2026, on request).
+       Before that rule all three were always coloured and this simply counted three distinct ones. */
+    {
+      const nz = piles.stats.filter((p) => p.n > 0), z = piles.stats.filter((p) => p.n === 0);
+      check("...no two piles with work in them the same colour",
+        new Set(nz.map((p) => p.col)).size === nz.length, JSON.stringify(piles.stats));
+      check("...and a pile at zero is grey, not coloured",
+        z.every((p) => !nz.some((q) => q.col === p.col)), JSON.stringify(piles.stats));
+    }
     check("...and the same three, unlabelled, open each added deck's row in the same colours",
       piles.row.length === 3 && piles.row.map((r) => r.col).join("|") === piles.stats.map((p) => p.col).join("|"),
       JSON.stringify({ row: piles.row, banner: piles.stats.map((p) => p.col) }));
@@ -958,10 +975,9 @@ async function studyEasy(page, base, n) {
     check("...each figure centred over its own label", piles.centred.every((d) => d <= 1), JSON.stringify(piles.centred));
     check("...and the three of them on the button's own line", piles.onCtaRow);
     check("...with the button centred against them, not on their baseline", piles.ctaOffset <= 1.5, piles.ctaOffset);
-    check("the banner's gold numeral is the DAY'S PILE, not the level",
-      !piles.badge.tick && +piles.badge.n === piles.stats.reduce((a, s) => a + s.n, 0),
-      JSON.stringify({ badge: piles.badge, piles: piles.stats.map((s) => s.n) }));
-    check("...with the level still spelled out under it", /level/i.test(piles.xpLevel), piles.xpLevel);
+    check("the banner carries no big gold numeral over them", !piles.badge);
+    check("...nor the sentence that described them in words", !/scheduled/i.test(piles.desc), piles.desc);
+    check("...with the level still spelled out in the xp bar", /level/i.test(piles.xpLevel), piles.xpLevel);
 
     /* The added deck's row is ONE horizontal line (Aug 2026, on request) — piles, name, figure and bin all
        on the same level, with the bar moved to the row's bottom edge so it costs the line no width. Two
@@ -972,7 +988,7 @@ async function studyEasy(page, base, n) {
       const r = document.querySelector(".active-deck[data-review]"); if (!r) return null;
       const rb = r.getBoundingClientRect();
       const t = r.querySelector(".ad-title"), c = r.querySelector(".ad-prog .count"), k = r.querySelector(".ad-prog .track");
-      const parts = [r.querySelector(".ad-counts"), t, c, r.querySelector(".ad-trash")].filter(Boolean);
+      const parts = [r.querySelector(".ad-counts"), t, c].filter(Boolean);
       const boxes = parts.map((e) => e.getBoundingClientRect());
       return {
         n: parts.length,
@@ -981,13 +997,16 @@ async function studyEasy(page, base, n) {
         rowH: Math.round(rb.height),
         label: c ? c.textContent.trim() : "",
         titleClipped: t ? t.scrollWidth > t.clientWidth + 1 : true,
+        trash: !!r.querySelector(".ad-trash"),
         // the bar underlines the row rather than sitting in the line
         trackWide: k ? k.getBoundingClientRect().width > rb.width * 0.8 : false,
         trackAtFoot: k ? Math.abs(k.getBoundingClientRect().bottom - rb.bottom) <= 1 : false,
         fills: !!r.querySelector(".ad-prog .fill"),
       };
     });
-    check("an added deck's row is one horizontal line", !!row && row.band && row.n === 4, JSON.stringify(row));
+    check("an added deck's row is one horizontal line", !!row && row.band && row.n === 3, JSON.stringify(row));
+    // the bin is gone — Remove moved into the row's options sheet, held down (Aug 2026, on request)
+    check("...with no bin taking a column of its own", !!row && !row.trash, JSON.stringify(row));
     check("...its progress figure shortened to N/N studied", !!row && /^\d+\/\d+ studied$/.test(row.label), row && row.label);
     check("...its bar underlining the row instead of taking width from it",
       !!row && row.trackWide && row.trackAtFoot && row.fills, JSON.stringify(row));
@@ -996,16 +1015,14 @@ async function studyEasy(page, base, n) {
     await studyEasy(page, base, 6);
     await page.goto(base + "#home", { waitUntil: "load" });
     await page.waitForTimeout(1600);
-    const cleared = await page.evaluate(() => {
-      const b = document.querySelector(".review-group .banner .level-badge");
-      return { n: b.textContent.trim(), tick: !!b.querySelector("svg"), clear: b.classList.contains("pb-clear"),
-        piles: [...document.querySelectorAll(".review-group .banner .stat b")].map((x) => +x.textContent.trim()),
-        label: b.getAttribute("aria-label") || "" };
-    });
-    check("...and it becomes a TICK once the day is cleared, never a 0",
-      cleared.piles.reduce((a, n) => a + n, 0) === 0 && cleared.tick && cleared.clear && cleared.n === "",
+    const cleared = await page.evaluate(() => ({
+      badge: !!document.querySelector(".review-group .banner .level-badge"),
+      piles: [...document.querySelectorAll(".review-group .banner .stat b")].map((x) => +x.textContent.trim()),
+      desc: (document.querySelector(".review-group .banner .desc") || {}).textContent || "",
+    }));
+    check("...and a cleared day says so in words, with still no numeral",
+      cleared.piles.reduce((a, n) => a + n, 0) === 0 && !cleared.badge && /caught up/i.test(cleared.desc),
       JSON.stringify(cleared));
-    check("...still saying so for a screen reader", /nothing/i.test(cleared.label), cleared.label);
     await page.close();
   }
   {
