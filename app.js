@@ -954,6 +954,22 @@
     else ADMIN_EDITS.glossarySources[key] = arr;
     queueAdminSave();
   }
+  /* Does this term name somewhere the Atlas can show? (Aug 2026, on request.)
+     Two answers and no third: a term naming a COUNTRY the map draws is lit up on it (the join is done at
+     build time by .claude/fetch-place-coords.js, because world.js is a lazy 1.6 MB bundle and a popup has
+     to decide without it), and a term naming a POINT — a cave, a gorge, a named region — gets a gold dot
+     and its name. A term that is neither (a continent, an ocean, a vague region) shows no marker at all,
+     which is honest: it is not a place you can point at.
+     A community deck's own term never gets one: `GLOSSARY_PLACES` is curated data and a deck key is
+     namespaced, so it can't collide, but the check is explicit rather than accidental. */
+  function glossPlace(key) {
+    if (!key || isDeckGlossKey(key)) return null;
+    const pt = (window.GLOSSARY_PLACES || {})[key];
+    if (pt && isFinite(pt[0]) && isFinite(pt[1])) return { kind: "point", lon: pt[0], lat: pt[1], name: glossTitle(key) };
+    const c = (window.GLOSSARY_MAP_COUNTRY || {})[key];
+    if (c) return { kind: "country", name: c, label: glossTitle(key) };
+    return null;
+  }
   function glossTags(k) {
     const u = uGlossParse(k);
     if (u) return u.entry.tags || [];
@@ -2353,6 +2369,7 @@
         // the discovery chip: shown only on the very first opening, and carrying the running count, because
         // the progress is the point — the account page's meter is not where a reader is looking just now
         (firstSeen ? discChipHTML("New term!", discCounter(glossSeenCount(S), glossTotalCount()), "Glossary terms you have opened") : "") +
+        (glossPlace(key) ? '<button class="gloss-map" type="button" aria-label="Show this place on the Atlas" title="Show on the Atlas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="2.6"/></svg></button>' : "") +
         (isAdmin() && !isDeckGlossKey(key) ? '<button class="gloss-edit" type="button" aria-label="Edit this term" title="Edit this term"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>' : "") +
         '<button class="gloss-close" type="button" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>' +
       '</div>' +
@@ -2381,6 +2398,18 @@
       win.addEventListener("pointerdown", () => focusGlossWin(win));
     }
     win.querySelector(".gloss-close").addEventListener("click", () => removeGlossWin(win, true));
+    {
+      // the map marker: close the popup and take the reader to the Atlas with this place in hand. The
+      // popup goes because the Atlas is the answer to the question the button asks, and a window left
+      // floating over the globe would cover the very thing it sent you to look at.
+      const mp = win.querySelector(".gloss-map");
+      if (mp) mp.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const place = glossPlace(key);
+        closeAllGloss();
+        if (place) route("map", { focus: place });
+      });
+    }
     { const eb = win.querySelector(".gloss-edit"); if (eb) eb.addEventListener("click", () => { removeGlossWin(win, true); route("admin", { gloss: key }); }); }   // admin: jump to this term's editor
     if (ttsEnabled() && !(current && current.name === "mission")) {   // the Mission page is TTS-free, its gloss popups included
       // whole-window text: the title, its dates line, then the full description
@@ -5625,8 +5654,11 @@
       const tip = c.skip
         ? t("Skipped today")
         : t("New") + " " + c.nw + " · " + t("Learning") + " " + c.lr + " · " + t("Review") + " " + c.rv;
+      // a pile at zero goes GREY (Aug 2026, on request) — the colour means "there is work of this kind
+      // here", so keeping it on a 0 spends the reader's attention on nothing
+      const z = (n) => (n ? "" : " adc-zero");
       return `<div class="ad-counts" title="${esc(tip)}">
-        <span class="adc adc-new">${c.nw}</span><span class="adc adc-learn">${c.lr}</span><span class="adc adc-rev">${c.rv}</span>
+        <span class="adc adc-new${z(c.nw)}">${c.nw}</span><span class="adc adc-learn${z(c.lr)}">${c.lr}</span><span class="adc adc-rev${z(c.rv)}">${c.rv}</span>
       </div>`;
     };
     // every row in the review list carries how far through it the reader is — the bar replaced a bare blue dot,
@@ -5637,6 +5669,16 @@
         <div class="track"><div class="fill"></div></div>
         <div class="count">${studied}/${total} studied</div>
       </div>`;
+    };
+    /* Each added deck's row wears its COLLECTION's identity hue rather than the review's bronze (Aug 2026,
+       on request), so the list under the banner reads as the same decks the reader picked out of the
+       Library. The hue is the one COLL_THEME gives the root collection, set as `--coll-bg` on the row; a
+       community deck and the Card-of-the-day list belong to no collection and keep the neutral wash. */
+    const rowHue = (nodeId) => {
+      let n = NODE_BY_ID[nodeId];
+      while (n && n.parentId) n = NODE_BY_ID[n.parentId];
+      const th = n && COLL_THEME[n.id];
+      return th ? ' style="--coll-bg:' + th.bg + ';' : ' style="';
     };
     const activeHTML = (function () {
       const activeSet = new Set(activeIds);
@@ -5653,7 +5695,7 @@
         .map((r) => {
           const pad = 16 + r.depth * 16;   // the indent that carries the hierarchy — tightened Aug 2026 when the row went to one line
           if (r.active) {
-            return `<div class="active-deck" data-review="${esc(r.node.id)}" role="button" tabindex="0" data-depth="${r.depth}" style="padding-left:${pad}px" title="Review just ${esc(r.node.title)}">
+            return `<div class="active-deck" data-review="${esc(r.node.id)}" role="button" tabindex="0" data-depth="${r.depth}"${rowHue(r.node.id)}padding-left:${pad}px" title="Review just ${esc(r.node.title)}">
               ${adCounts(r.node.id)}
               <div class="ad-body">
                 <div class="ad-line"><span class="ad-title">${esc(nodeTitle(r.node))}</span></div>
@@ -5661,7 +5703,7 @@
               </div>
             </div>`;
           }
-          return `<div class="active-deck context" data-depth="${r.depth}" style="padding-left:${pad}px">
+          return `<div class="active-deck context" data-depth="${r.depth}"${rowHue(r.node.id)}padding-left:${pad}px">
             <div class="ad-body">
               <div class="ad-line"><span class="ad-title">${esc(nodeTitle(r.node))}</span></div>
             </div>
@@ -5723,7 +5765,11 @@
     };
     const tile = (o) =>
       `<button class="game-tile ${o.cls || ""}${o.done ? " done" : ""}${o.won ? " won" : ""}" id="${o.id}" style="--tile:${o.color}">
-        ${o.done ? '<span class="gt-done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>' : ""}
+        ${/* Completion is a RIBBON across the top-right corner (Aug 2026, on request) — the whole tile used
+              to fill with its colour, and turn gold on a perfect score, which was a lot of surface to
+              change for one fact. It carries a WORD rather than being a bare band: a colour alone says
+              nothing to a screen reader and little more to the eye. */""}
+        ${o.done ? `<span class="gt-ribbon${o.won ? " gr-gold" : ""}"><span>${o.won ? "Perfect" : "Played"}</span></span>` : ""}
         <span class="gt-glyph${/^\s*<svg/.test(o.glyph) ? " gt-glyph-svg" : ""}">${o.glyph}</span>
         <div class="gt-body">
           ${o.eyebrow ? `<span class="gt-eyebrow">${o.eyebrow}</span>` : ""}
@@ -5846,6 +5892,7 @@
           <span class="glyph glyph-svg">${ICON.review}</span>
         </button>`
       : `<button class="banner${reviewDone ? " done" : ""}${reviewWon ? " won" : ""}" id="b-review">
+          ${reviewDone ? `<span class="gt-ribbon${reviewWon ? " gr-gold" : ""}"><span>${reviewWon ? "Perfect" : "Done"}</span></span>` : ""}
           ${/* The big gold numeral is GONE (Aug 2026, on request), and `pileBadgeMarkup` with it. It
                 carried the day's whole pile and nothing on the banner said so — the three counts below it
                 already break the same total into New / Learning / Review, which is the answer a reader is
@@ -5868,9 +5915,11 @@
                     review. They are ALWAYS all three, coloured whether or not they are zero — a pile that
                     turns grey when empty reads as a pile that has gone away. Each number is CENTRED over
                     its own label, and the whole row sits on the button's line. */""}
-              <div class="stat st-new"><b>${pile.nw}</b><span>New</span></div>
-              <div class="stat st-learn"><b>${pile.lr}</b><span>Learning</span></div>
-              <div class="stat st-rev"><b>${pile.rv}</b><span>Review</span></div>
+              ${/* …and a pile at zero is GREY here too (Aug 2026, on request): the colours say where the
+                    day's work is, so a coloured 0 is a signal pointing at nothing. */""}
+              <div class="stat st-new${pile.nw ? "" : " stat-zero"}"><b>${pile.nw}</b><span>New</span></div>
+              <div class="stat st-learn${pile.lr ? "" : " stat-zero"}"><b>${pile.lr}</b><span>Learning</span></div>
+              <div class="stat st-rev${pile.rv ? "" : " stat-zero"}"><b>${pile.rv}</b><span>Review</span></div>
               ${/* a "Seen total" stat sat here and was removed on request (Aug 2026) — the xp bar directly
                     above it is already the count of distinct cards studied, said as progress towards the
                     next level rather than as a bare number. */""}
@@ -8371,6 +8420,8 @@
 
   // rough type of a card's answer, so the wrong options are the SAME KIND of thing (a person → other people,
   // a dynasty → other dynasties, an event → other events) and the choice is genuinely hard rather than obvious.
+  /* A rough kind read off the answer's WORDS — the fallback for a card with no tags (a community deck's,
+     or a curated one written before tags existed). Tags are the real signal; see cardKinship below. */
   function answerType(card) {
     const s = card.answerText || "";
     if (/\b(dynasty|period|era|kingdom|age|reign|epoch|republic|states)\b/i.test(s)) return "period";
@@ -8378,20 +8429,39 @@
     if (/\b(classic|records|record|book|annals|scripture|canon|odes|rites|changes|documents)\b/i.test(s)) return "text";
     return "figure";   // default: a person / deity / named figure
   }
+  /* How alike two cards are, for choosing a WRONG ANSWER that is worth reading (Aug 2026, on request).
+     Multiple Choice used to offer three answers of the same rough `answerType`, which on a prehistory deck
+     put nearly everything in one bucket — so a question about a stone industry could be answered against a
+     cave, an ice age and a fossil, and the odd one out was the right one. Every card now carries the same
+     kind of categorising tags the glossary does (`card.tags`: kind first, then subject areas, then
+     specifics), and kinship counts the tags two cards share, weighting the FIRST tag heavily because that
+     is the card's kind — an industry against other industries, a cave against other caves.
+     A card with no tags falls back to `answerType`, so a community deck still gets sensible options. */
+  function cardKinship(a, b) {
+    const ta = Array.isArray(a.tags) ? a.tags : null, tb = Array.isArray(b.tags) ? b.tags : null;
+    if (!ta || !tb || !ta.length || !tb.length) return answerType(a) === answerType(b) ? 1 : 0;
+    const set = new Set(tb);
+    let n = 0;
+    for (let i = 0; i < ta.length; i++) if (set.has(ta[i])) n += (i === 0 ? 4 : 1);   // the kind is worth four subject areas
+    // the kind matching is what makes a round hard; without it the two cards merely share a subject
+    if (ta[0] !== tb[0]) n = Math.min(n, 2);
+    return n;
+  }
   function buildChallengeQuestions() {
     const avail = availableCardIdSet();
     const poolIds = ALL_CARD_IDS.filter((id) => avail.has(id));
     const chosen = pick(poolIds, Math.min(5, poolIds.length)).map((id) => CARD_BY_ID[id]);
     return chosen.map((card) => {
-      const correct = card.answerText, t = answerType(card);
-      // prefer distractors of the same type; top up with any others if there aren't three
-      const sameType = pick(CARDS.filter((c) => avail.has(c.id) && c.answerText && c.answerText !== correct && answerType(c) === t).map((c) => c.answerText));
+      const correct = card.answerText;
+      /* The three wrong answers are the cards most AKIN to this one (see cardKinship) — same kind first,
+         then as many shared subjects as possible. Candidates are shuffled before sorting, so a card with
+         several equally-close siblings does not offer the same three every day; the sort is stable, which
+         is what makes that shuffle survive it. */
+      const cands = pick(CARDS.filter((c) => avail.has(c.id) && c.answerText && c.answerText !== correct))
+        .map((c) => ({ a: c.answerText, k: cardKinship(card, c) }))
+        .sort((x, y) => y.k - x.k);
       const uniq = [];
-      for (const d of sameType) { if (uniq.length >= 3) break; if (!uniq.includes(d) && d !== correct) uniq.push(d); }
-      if (uniq.length < 3) {
-        const other = pick(CARDS.filter((c) => avail.has(c.id) && c.answerText && c.answerText !== correct && !uniq.includes(c.answerText)).map((c) => c.answerText));
-        for (const d of other) { if (uniq.length >= 3) break; if (!uniq.includes(d)) uniq.push(d); }
-      }
+      for (const d of cands) { if (uniq.length >= 3) break; if (!uniq.includes(d.a)) uniq.push(d.a); }
       const options = pick([correct, ...uniq]);
       return { card, options, correct };
     }).map((q) => {   // display in the site language when translations exist (typing/distractor matching stays English)
@@ -8752,13 +8822,14 @@
       </div>`;
     }
     function render() {
-      const best = S.chrono && S.chrono.date === todayStr() ? S.chrono.best : 0;
+      const played = !!(S.chrono && S.chrono.date === todayStr());
+      const best = played ? S.chrono.best : 0;
       root.innerHTML = `
         <div class="chrono-shell">
           <div class="page-head" style="margin-bottom:14px">
             <span class="eyebrow">Daily puzzle</span>
             <h1>Timeline</h1>
-            <p>Put these events in chronological order — earliest at the top.${best ? ` Today's best: <b>${best}/${N}</b>.` : ""}</p>
+            <p>Put these events in chronological order — earliest at the top. ${played ? `Today's score: <b>${best}/${N}</b> — your first check is the one that counts.` : "Your first check is the one that counts."}</p>
           </div>
           <div class="chrono-scale"><span>Earliest</span><span>Latest</span></div>
           <div class="chrono-list" id="chrono-list">${order.map(itemHTML).join("")}</div>
@@ -8810,18 +8881,29 @@
       });
       checked = true;
       const solved = score === N;
-      if (!S.chrono || S.chrono.date !== todayStr()) S.chrono = { date: todayStr(), best: 0, plays: 0, solved: false };
-      S.chrono.plays++;
-      S.chrono.best = Math.max(S.chrono.best, score);
-      S.chrono.solved = S.chrono.solved || solved;
-      markGamePlayed("chrono", solved, score, N);
-      save();
-      checkAchievements();
+      /* THE FIRST CHECK OF THE DAY IS THE ANSWER (Aug 2026, on request). Checking used to record the BEST
+         of any number of tries, and since a check reveals every event's date, a reader could check once,
+         read the years off the rows and reorder to a perfect score every single day. The first check is
+         now the one that counts; every check after it still marks the rows and shows the dates, so the
+         puzzle is still usable as a way of learning the order — it just no longer rewrites the score. */
+      const firstToday = !S.chrono || S.chrono.date !== todayStr();
+      if (firstToday) {
+        S.chrono = { date: todayStr(), best: score, plays: 1, solved: solved };
+        markGamePlayed("chrono", solved, score, N);
+        save();
+        checkAchievements();
+      } else {
+        S.chrono.plays++;
+        save();
+      }
       const res = root.querySelector("#chrono-result");
       res.className = "chrono-result show" + (solved ? " win" : "");
-      res.innerHTML = solved
-        ? `<div class="cr-title">Solved — perfect order!</div><div class="cr-sub">All ${N} events placed correctly. A fresh set arrives tomorrow.</div>`
-        : `<div class="cr-title">${score} / ${N} in the right place</div><div class="cr-sub">Green rows sit correctly. Move the rest and check again.</div>`;
+      const kept = firstToday
+        ? ""
+        : `<div class="cr-note">Today's score stays at ${S.chrono.best} / ${N} — the first check is the one that counts.</div>`;
+      res.innerHTML = (solved
+        ? `<div class="cr-title">Solved — perfect order!</div><div class="cr-sub">All ${N} events placed correctly.${firstToday ? " A fresh set arrives tomorrow." : ""}</div>`
+        : `<div class="cr-title">${score} / ${N} in the right place</div><div class="cr-sub">Green rows sit correctly. Move the rest and check again${firstToday ? " — today's score is already in" : ""}.</div>`) + kept;
       root.querySelector("#chrono-check").textContent = "Check again";
     }
   };
@@ -8942,6 +9024,13 @@
               <label class="legend-row"><input type="checkbox" id="citiesToggle" checked><span>Capitals</span></label>
               <label class="legend-row"><input type="checkbox" id="majorToggle"><span>Cities</span></label>
               <label class="legend-row"><input type="checkbox" id="heightmapToggle"><span>Heightmap</span></label>
+              ${/* The relief's strength, under the row that turns it on and shown only while it IS on — a
+                    slider for a layer that is not drawn is a control with nothing to move. It is the one
+                    legend row that is not a toggle, hence its own class rather than another .legend-row. */""}
+              <div class="legend-slider" id="hmOpacityRow" hidden>
+                <input type="range" id="hmOpacity" min="10" max="100" step="5" aria-label="Heightmap strength">
+                <span class="ls-val" id="hmOpacityVal"></span>
+              </div>
               <label class="legend-row"><input type="checkbox" id="riversToggle"><span>Rivers</span></label>
               <label class="legend-row"><input type="checkbox" id="riverLabelsToggle"><span>River labels</span></label>
               <label class="legend-row"><input type="checkbox" id="waterToggle"><span>Water</span></label>
@@ -9482,7 +9571,18 @@
       if (moving && !editable) return;
       ctx.save(); ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.clip();
       const showLabels = zoom >= CAP_Z && !moving; const baseFs = clamp(10 + (zoom - 2) * 1.1, 10, 13.5); ctx.textAlign = "left"; ctx.textBaseline = "middle";   // same label sizing as the present-day map; labels (and their per-city measureText) wait for the settled frame
+      /* The same crowding rule the present-day layer runs (see CITY_SEP): a pin within `sep` px of one
+         already drawn is dropped, and `sep` shrinks with zoom, so a dense region gives up its lesser names
+         until you go in. An era's list is capitals-first, so the one that survives is the one that matters.
+         The map EDITOR is exempt — its pins are what a click is dragging, and hiding one hides the work. */
+      const sep = CITY_SEP(zoom), sep2 = sep * sep, shown = [];
       for (let i = 0; i < cs.length; i++) { const c = cs[i]; proj(c.lon, c.lat); if (PV < 0) continue; const sel = editable && i === mapSelCity;
+        if (!editable) {
+          let near = false;
+          for (let k = 0; k < shown.length; k += 2) { const dx = shown[k] - PX, dy = shown[k + 1] - PY; if (dx * dx + dy * dy < sep2) { near = true; break; } }
+          if (near) continue;
+          shown.push(PX, PY);
+        }
         const tier = c.cap ? 0 : 1, dot = cityDot(tier);
         if (sel) { ctx.beginPath(); ctx.arc(PX, PY, dot + 0.6, 0, TAU); ctx.fillStyle = "rgba(255,176,38,1)"; ctx.fill(); ctx.lineWidth = 1.3; ctx.strokeStyle = "rgba(0,0,0,0.55)"; ctx.stroke(); }
         else drawPin({ x: PX, y: PY, dot: dot, tier: tier });   // identical pin to the present-day map: vermilion CITY_DOT + white CITY_RING
@@ -9556,7 +9656,22 @@
       base: { src: "heightmap.js", vn: "HEIGHTMAP", gray: null, w: 0, h: 0, lo: 0, hi: 0, ready: false, loading: false },
       ultra: { src: "heightmap-ultra.js", vn: "HEIGHTMAP_ULTRA", gray: null, w: 0, h: 0, lo: 0, hi: 0, ready: false, loading: false },
     };
-    const HMULTRA_Z = 4, HM_OPACITY = 0.82, HM_CONTRAST = 1.6;   // the sharper ultra level kicks in past this zoom; HM_OPACITY = strength of the relief, blended onto the map with an "overlay" composite (darks/lights modulate the map's colours); HM_CONTRAST expands the grey ramp around sea level so the relief reads with more punch
+    /* HM_OPACITY is the DEFAULT strength of the relief; the reader sets their own with the slider that
+       appears under the Heightmap row in the legend once the layer is on (Aug 2026, on request). It is
+       applied as `globalAlpha` at the blend rather than baked into the reprojection buffer's per-pixel
+       alpha, so moving the slider is a redraw and not a re-reprojection — and `viewKey` carries it, or the
+       settled base cache would keep serving the old strength. Device-local, like the marker's position and
+       the place sheet's height: how strong a map layer looks is a fact about the screen it is on. */
+    const HMULTRA_Z = 4, HM_OPACITY = 0.82, HM_CONTRAST = 1.6;   // the sharper ultra level kicks in past this zoom; HM_CONTRAST expands the grey ramp around sea level so the relief reads with more punch
+    const HM_OP_KEY = "folio_hm_opacity_v1";
+    let hmOpacity = (function () {
+      try { const v = parseFloat(localStorage.getItem(HM_OP_KEY)); return isFinite(v) && v >= 0.05 && v <= 1 ? v : HM_OPACITY; } catch (e) { return HM_OPACITY; }
+    })();
+    function setHmOpacity(v) {
+      hmOpacity = Math.max(0.05, Math.min(1, v));
+      try { localStorage.setItem(HM_OP_KEY, String(hmOpacity)); } catch (e) {}
+      draw();
+    }
     let hmCv = null, _hmId = null;
     function loadHeightmapLevel(L) {
       if (L.ready || L.loading) return; L.loading = true;
@@ -9585,7 +9700,7 @@
       // (~17 MB/s of minor-GC food mid-drag). Safe to reuse: the loop writes every pixel's alpha (0 off-disk).
       if (!_hmId) _hmId = hx.createImageData(hw, hh);
       const id = _hmId, data = id.data;
-      const SL = 128, HI = 250, aBase = (HM_OPACITY * 255) | 0;   // SL = mid-grey (128) so SEA LEVEL is neutral under the overlay blend (no colour shift); ocean floor < 128 darkens, peaks > 128 lighten
+      const SL = 128, HI = 250, aBase = 255;   // SL = mid-grey (128) so SEA LEVEL is neutral under the overlay blend (no colour shift); ocean floor < 128 darkens, peaks > 128 lighten. The reader's strength is applied at the blend below, so this buffer is opacity-independent
       for (let j = 0; j < hh; j++) {
         const v = (cy - (j + 0.5) / scale) / R;
         for (let i = 0; i < hw; i++) {
@@ -9613,7 +9728,7 @@
       ctx.save();
       ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.clip();
       ctx.globalCompositeOperation = "overlay";
-      ctx.imageSmoothingEnabled = true; ctx.globalAlpha = 1; ctx.drawImage(hmCv, 0, 0, hw, hh, 0, 0, W, H);
+      ctx.imageSmoothingEnabled = true; ctx.globalAlpha = hmOpacity; ctx.drawImage(hmCv, 0, 0, hw, hh, 0, 0, W, H);
       ctx.restore();
     }
     const ADMIN1 = window.ADMIN1 || { b: [], l: [] };   // { b:[ring,...] province borders }
@@ -10164,6 +10279,24 @@
     // place EVERY visible city's label without overlap (right/left, then staggered up/down, with a leader line when
     // displaced). A spatial grid keeps the overlap test ~O(1) so the whole pass runs every frame, even while moving.
     let cityCache = null, cityCacheKey = "", countryLabelRects = [];   // country-name boxes (from drawCountryNames) so city labels can avoid them
+    /* ---------- how crowded the city layer is allowed to get (Aug 2026, on request) ----------
+       Turning Cities on used to put a label on EVERY city in view, because a name that could not be placed
+       cleanly was given a leader line and, failing even that, forced into its last candidate slot. At any
+       zoom below "one country fills the screen" that is dozens of overlapping names, and 2,665 label
+       placements to compute for them.
+       Two rules replace the forced placement, and between them they behave like Google Earth's:
+         · CITIES is already sorted by significance — capitals by population, then cities over a million,
+           then division capitals — so the FIRST name to claim a piece of screen is the most important one
+           there. A city whose pin lands within `sep` pixels of an already-placed one is dropped whole,
+           label and pin together, and `sep` shrinks as the globe is zoomed in, so the names that were
+           crowded out reappear a level at a time.
+         · A label that cannot be placed WITHOUT overlapping something is dropped rather than forced.
+       Both drops take the pin with them: a pin and its name are one thing (see drawCities), and a field of
+       anonymous dots is what the layer used to look like mid-drag, which was rejected before.
+       The separation test also runs BEFORE the 34-candidate label search, so at low zoom most cities exit
+       after two multiplications — which is where the lag went. */
+    const CITY_SEP = (z) => clamp(88 - z * 7.5, 22, 88);   // screen px between two shown pins, by zoom
+    const CITY_CAP = 260;                                   // a hard ceiling, so a pathological view can't melt a frame
     function computeCityLayout(showCap, showCities, showDiv) {
       ensureCityW();
       const baseFs = clamp(10 + (zoom - 2) * 1.1, 10, 13.5);
@@ -10171,17 +10304,32 @@
       const free = (r) => { const x0 = Math.floor(r[0] / CELL), x1 = Math.floor((r[0] + r[2]) / CELL), y0 = Math.floor(r[1] / CELL), y1 = Math.floor((r[1] + r[3]) / CELL); for (let gx = x0; gx <= x1; gx++) for (let gy = y0; gy <= y1; gy++) { const arr = grid.get(gk(gx, gy)); if (arr) for (let j = 0; j < arr.length; j++) if (rectsHit(r, arr[j])) return false; } return true; };
       const put = (r) => { const x0 = Math.floor(r[0] / CELL), x1 = Math.floor((r[0] + r[2]) / CELL), y0 = Math.floor(r[1] / CELL), y1 = Math.floor((r[1] + r[3]) / CELL); for (let gx = x0; gx <= x1; gx++) for (let gy = y0; gy <= y1; gy++) { const key = gk(gx, gy); let arr = grid.get(key); if (!arr) grid.set(key, arr = []); arr.push(r); } };
       for (let i = 0; i < countryLabelRects.length; i++) put(countryLabelRects[i]);   // city labels yield to the persistent country names baked into the base
+      // a second, coarser grid holding the PINS already shown, for the separation rule
+      const sep = CITY_SEP(zoom), sep2 = sep * sep, pins = new Map(), pk = (gx, gy) => gx * 100000 + gy;
+      const crowded = (x, y) => {
+        const gx = Math.floor(x / sep), gy = Math.floor(y / sep);
+        for (let a = gx - 1; a <= gx + 1; a++) for (let b = gy - 1; b <= gy + 1; b++) {
+          const arr = pins.get(pk(a, b)); if (!arr) continue;
+          for (let j = 0; j < arr.length; j += 2) { const dx = arr[j] - x, dy = arr[j + 1] - y; if (dx * dx + dy * dy < sep2) return true; }
+        }
+        return false;
+      };
+      const keepPin = (x, y) => { const key = pk(Math.floor(x / sep), Math.floor(y / sep)); let arr = pins.get(key); if (!arr) pins.set(key, arr = []); arr.push(x, y); };
       for (let i = 0; i < CITIES.length; i++) {              // capitals first (priority), then by population
+        if (out.length >= CITY_CAP) break;
         const ci = CITIES[i], tier = ci.r;
         if (tier === 0 ? !showCap : tier === 1 ? !showCities : !showDiv) continue;   // r0 capitals, r1 cities >=1M, r2 division capitals
         proj(ci.c[0], ci.c[1]); if (PV < 0) continue;        // front hemisphere only
         const x = PX, y = PY;
         if (x < -90 || x > W + 90 || y < -40 || y > H + 40) continue;
+        if (crowded(x, y)) continue;                          // a more significant name already holds this piece of screen
         const fs = tier === 0 ? baseFs : baseFs - 1.5, dot = cityDot(tier), gap = dot + 3, lh = fs + 3, tw = cityW[i] * fs / 12;
         const cands = [[x + gap, y, false], [x - gap - tw, y, false]];   // right, left (no leader)
         for (let d = 1; d <= 16; d++) { const off = d * (lh - 1); cands.push([x + gap, y - off, true], [x + gap, y + off, true], [x - gap - tw, y - off, true], [x - gap - tw, y + off, true]); }
-        let lx = cands[0][0], ly = cands[0][1], lead = false;
-        for (let c = 0; c < cands.length; c++) { const r = [cands[c][0], cands[c][1] - lh / 2, tw, lh]; if (free(r) || c === cands.length - 1) { lx = cands[c][0]; ly = cands[c][1]; lead = cands[c][2]; put(r); break; } }
+        let lx = 0, ly = 0, lead = false, placed = false;
+        for (let c = 0; c < cands.length; c++) { const r = [cands[c][0], cands[c][1] - lh / 2, tw, lh]; if (free(r)) { lx = cands[c][0]; ly = cands[c][1]; lead = cands[c][2]; put(r); placed = true; break; } }
+        if (!placed) continue;                                // nowhere clean to write it — drop the city rather than force it
+        keepPin(x, y);
         out.push({ x, y, name: ci.n, lx, ly, tw, fs, dot, tier, lead });
       }
       return out;
@@ -10518,6 +10666,13 @@
     // change pulse: territory indices (of the CURRENT map) that changed hands vs the era just stepped away from
     let pulseSet = null, pulseT0 = 0, _lastPulseAt = 0;
     let pulsePin = null;   // [lon, lat] — an expanding-ring marker (the game's capital reveal; survives a cancelled fly)
+    /* A place the reader arrived at from a glossary popup's map marker, or picked out of the search box
+       (Aug 2026, on request). A POINT focus is drawn as a gold dot with its name beside it — and ONLY while
+       it is focused: most of these places (a cave, a gorge, a dig site) are not cities and have no business
+       cluttering the map for someone who came to the Atlas to look at something else. A COUNTRY focus needs
+       no drawing of its own; it is lit up through the ordinary selection paint. Cleared by Esc and by the
+       next click on the globe. */
+    let focusPoint = null;   // { lon, lat, name }
     let pulseCol = "rgba(255,178,46,1)";   // the flash colour: gold (change pulse / reveal), game green (right), game red (wrong)
     // which map applies at a given timeline year: present-day at the present year, else the most recent historical era
     // whose year <= y; null when no era covers that year (the globe then shows the work-in-progress note).
@@ -10528,7 +10683,7 @@
       return best;
     }
     function eraKey(y) { const e = activeEra(y); return e ? (e.present ? "P" : "E" + (e.id || e.year)) : "none"; }
-    function viewKey() { return rotLon.toFixed(2) + "," + rotLat.toFixed(2) + "," + zoom.toFixed(3) + "," + W + "," + H + "," + (bordersOn ? 1 : 0) + (riversOn ? 1 : 0) + (riverLabelsOn ? 1 : 0) + (waterOn ? 1 : 0) + (rangesOn ? 1 : 0) + (adminOn ? 1 : 0) + (forestsOn ? 1 : 0) + (countryNamesOn ? 1 : 0) + (heightmapOn ? 1 : 0) + "," + eraKey(year) + "," + mapEditRev + "," + land + "|" + ocean + "|" + border + "|" + rim + "|" + grat; }
+    function viewKey() { return rotLon.toFixed(2) + "," + rotLat.toFixed(2) + "," + zoom.toFixed(3) + "," + W + "," + H + "," + (bordersOn ? 1 : 0) + (riversOn ? 1 : 0) + (riverLabelsOn ? 1 : 0) + (waterOn ? 1 : 0) + (rangesOn ? 1 : 0) + (adminOn ? 1 : 0) + (forestsOn ? 1 : 0) + (countryNamesOn ? 1 : 0) + (heightmapOn ? 1 : 0) + (heightmapOn ? hmOpacity.toFixed(2) : "") + "," + eraKey(year) + "," + mapEditRev + "," + land + "|" + ocean + "|" + border + "|" + rim + "|" + grat; }
     function stipplePattern() {   // 7px dot tile in the theme's stipple colour; rebuilt lazily after every readColors()
       if (_stippleP) return _stippleP;
       const t = document.createElement("canvas"); t.width = 7; t.height = 7;
@@ -10771,6 +10926,22 @@
           ctx.restore(); scheduleDraw();
         }
       }
+      // the focused place's gold dot + name — drawn above the map layers, below the pulse ring
+      if (focusPoint && !GAME) {
+        proj(focusPoint.lon, focusPoint.lat);
+        if (PV >= 0) {
+          const x = PX, y = PY;
+          ctx.save();
+          ctx.beginPath(); ctx.arc(x, y, 5.5, 0, TAU); ctx.fillStyle = "rgba(255,178,46,1)"; ctx.fill();
+          ctx.lineWidth = 1.6; ctx.strokeStyle = "rgba(60,40,0,.75)"; ctx.stroke();
+          ctx.font = "600 " + clamp(11 + (zoom - 2) * 0.9, 11, 14) + "px " + labelFont;
+          ctx.textAlign = "left"; ctx.textBaseline = "middle";
+          const nm = placeName(focusPoint.name);
+          ctx.lineWidth = 3.5; ctx.strokeStyle = LBL_HALO; ctx.strokeText(nm, x + 10, y);
+          ctx.fillStyle = LBL_TEXT; ctx.fillText(nm, x + 10, y);
+          ctx.restore();
+        }
+      }
       // expanding-ring marker (the game's capital reveal) — geo-anchored, so it survives a cancelled fly
       if (pulsePin) {
         const t = (performance.now() - pulseT0) / 1600;
@@ -11006,7 +11177,7 @@
             if (geoEra) {
               const idx = countryAt(tpx, tpy);
               subSelGeo = -1; subSelUK = [];
-              if (idx < 0) { selSet.clear(); hideCountryPopup(); hoverIdx = -1; draw(); }
+              if (idx < 0) { selSet.clear(); hideCountryPopup(); hoverIdx = -1; focusPoint = null; draw(); }
               else if (isDbl || isTriple) { selSet.clear(); selSet.add(idx); showCountryPopup(idx); hoverIdx = idx; draw(); }   // 2nd/3rd click → the specific territory / home country (British Raj, or the UK metropole)
               else { const mother = ht[idx].mother || ht[idx].n; selSet.clear(); for (let i = 0; i < ht.length; i++) if ((ht[i].mother || ht[i].n) === mother) selSet.add(i); showCountryPopupName(empireName(mother)); hoverIdx = idx; draw(); }   // 1st click → the whole EMPIRE (mother + all its colonies), named as the empire (e.g. the British Empire)
               return;
@@ -11102,7 +11273,7 @@
           selSet.clear(); selSet.add(idx); subSelGeo = -1; subSelUK = []; showCountryPopup(idx); draw();
         }
       } else if (k === "Escape") {
-        hideCountryPopup(); selSet.clear(); subSelGeo = -1; subSelUK = []; draw();
+        hideCountryPopup(); selSet.clear(); subSelGeo = -1; subSelUK = []; focusPoint = null; draw();
       } else if ((k === "[" || k === "]") && !GAME) {
         e.preventDefault(); stepYear(k === "[" ? -1 : 1);
       }
@@ -11129,6 +11300,17 @@
         (e.cities || []).forEach((c) => { if (c.cap) add(c.n, "capital", e.year, c.lon, c.lat); });
       });
       for (let i = 0; i < CITIES.length; i++) if (CITIES[i].r === 0) add(CITIES[i].n, "capital", MAXY, CITIES[i].c[0], CITIES[i].c[1]);
+      /* …and the glossary's point-locations (Aug 2026, on request). A cave or a gorge is not a city and is
+         deliberately NOT drawn on the map — it would clutter it for a reader who came to look at something
+         else — but that is no reason for it to be unfindable. Typing its name here takes you to it, with
+         the same gold dot and splash the gloss popup's marker gives. */
+      {
+        const GP = window.GLOSSARY_PLACES || {};
+        Object.keys(GP).forEach((slug) => {
+          const c = GP[slug]; if (!c || !isFinite(c[0]) || !isFinite(c[1])) return;
+          add(glossTitle(slug), "site", MAXY, c[0], c[1]);
+        });
+      }
       const out = [];
       map.forEach((e) => {
         // a territory sharing a present-day country's name folds into the country entry (one row, all its years)
@@ -11161,7 +11343,7 @@
       const f = (y) => (y >= MAXY ? "Today" : y < 0 ? -y + " BCE" : String(y));
       return e.years.length === 1 ? f(e.years[0]) : f(e.years[0]) + " – " + f(e.years[e.years.length - 1]);
     }
-    const GS_KIND = { country: "Country", territory: "Territory", capital: "Capital" };
+    const GS_KIND = { country: "Country", territory: "Territory", capital: "Capital", site: "Place" };
     function gsHide() { gsResults.hidden = true; gsResults.innerHTML = ""; gsRows = []; gsActive = -1; }
     function gsShow(q) {
       const qq = gsFold(q.trim());
@@ -11190,6 +11372,9 @@
         flyTo(entry.lon, entry.lat, Math.max(zoom, 2.6), null);
         return;
       }
+      // a glossary point-location: nothing on the map to select, so it is FOCUSED — the gold dot, its name
+      // and the same splash the gloss popup's marker gives
+      if (entry.kind === "site") { focusPlace({ kind: "point", lon: entry.lon, lat: entry.lat, name: entry.n }); return; }
       let idx = findNow();
       if (idx < 0) {   // not on the current map → jump to the present if it exists there, else the entity's earliest era
         setYear(entry.years.indexOf(MAXY) >= 0 ? MAXY : entry.years[0]);
@@ -11275,7 +11460,24 @@
     wire("#riversToggle", (v) => riversOn = v, true);
     wire("#riverLabelsToggle", (v) => riverLabelsOn = v, true);
     wire("#waterToggle", (v) => waterOn = v, true);
-    wire("#heightmapToggle", (v) => { heightmapOn = v; if (v) loadHeightmap(); }, true);
+    wire("#heightmapToggle", (v) => { heightmapOn = v; if (v) loadHeightmap(); syncHmSlider(); }, true);
+    // the strength slider under it: visible only while the layer is on, and live as it is dragged
+    function syncHmSlider() {
+      const row = document.getElementById("hmOpacityRow"); if (!row) return;
+      row.hidden = !heightmapOn;
+      const inp = document.getElementById("hmOpacity"), val = document.getElementById("hmOpacityVal");
+      if (inp) inp.value = String(Math.round(hmOpacity * 100));
+      if (val) val.textContent = Math.round(hmOpacity * 100) + "%";
+    }
+    {
+      const inp = document.getElementById("hmOpacity");
+      if (inp) inp.addEventListener("input", () => {
+        setHmOpacity((+inp.value || 82) / 100);
+        const val = document.getElementById("hmOpacityVal");
+        if (val) val.textContent = Math.round(hmOpacity * 100) + "%";
+      });
+      syncHmSlider();
+    }
     wire("#countryToggle", (v) => countryNamesOn = v, true);
     wire("#citiesToggle", (v) => citiesOn = v, false);
     wire("#majorToggle", (v) => majorCitiesOn = v, false);
@@ -11750,6 +11952,39 @@
       scheduleWarm();
     }
     if (atlasEditEraId != null) { const _e = (window.TIMELINE || []).find((x) => x.id === atlasEditEraId); atlasEditEraId = null; if (_e) enterMapEdit(_e); }
+
+    /* ---------- arriving from a glossary term's map marker ----------
+       `route("map", { focus })` carries the place the reader pressed the marker on. A COUNTRY is lit up in
+       the map's own gold — the same selection paint a click gives it — with the change-pulse over its
+       polygons and NO info panel, because the reader has just read about it and asked to see where it is,
+       not to be handed a second description. A POINT gets the gold dot and its name, plus the expanding
+       ring, since a dot appearing silently in an ocean of coastline is easy to miss.
+       The splash and the chime fire once, after the flight lands. */
+    function focusPlace(place) {
+      if (!place || GAME) return;
+      selSet.clear(); subSelGeo = -1; subSelUK = []; hideCountryPopup();
+      focusPoint = null;
+      const land = () => {
+        pulseCol = "rgba(255,178,46,1)";
+        if (place.kind === "country") {
+          const terr = histTerr() || GEO, k = String(place.name).toLowerCase(), idxs = [];
+          for (let i = 0; i < terr.length; i++) if ((terr[i].n || "").toLowerCase() === k) idxs.push(i);
+          if (idxs.length) { idxs.forEach((i) => selSet.add(i)); pulseSet = idxs; pulseT0 = performance.now(); }
+        } else {
+          focusPoint = { lon: place.lon, lat: place.lat, name: place.name };
+          pulsePin = [place.lon, place.lat]; pulseT0 = performance.now();
+        }
+        sfx("discover");
+        scheduleDraw();
+      };
+      if (place.kind === "country") {
+        const c = countryCenter(place.name);
+        if (c) flyTo(c.lon, c.lat, Math.max(zoom, 1.6), land); else land();
+      } else {
+        flyTo(place.lon, place.lat, Math.max(zoom, 3.2), land);
+      }
+    }
+    if (params && params.focus) focusPlace(params.focus);
   };
   // "Find it" — the daily geography minigame IS the Atlas page in game mode (same globe, same eras, same renderer)
   PAGES.findit = function (root) { PAGES.map(root, { game: true }); };
@@ -12798,7 +13033,10 @@
                   whole-site zoom — see the FONT_SIZES comment by applyTheme for why it is the prose only.
                   A BLOCK row (the control under its description, like Theme and Language above): the three
                   cells run to 186px, which on a phone leaves the sentence a column four words wide. */""}
-            <div class="info"><h3>Text size</h3><p>How large the text you read is: a card's question and background, a glossary popup, a place on the Atlas.</p></div>
+            ${/* It scales EVERYTHING now (Aug 2026, on request) — it used to reach the reading prose only,
+                  and the sentence named the three surfaces it got to. The one thing it cannot reach is the
+                  Atlas map's own labels, which are drawn on a canvas. */""}
+            <div class="info"><h3>Text size</h3><p>How large the text across Folio is — every page, not just what you read on a card. The Atlas map's own labels keep their size.</p></div>
             <div class="ctl"><div class="fs-pick" id="fsPick" role="group" aria-label="Text size">${
               FONT_SIZES.map((f) => `<button type="button" data-fs="${f}" class="${fsNow === f ? "on" : ""}" aria-pressed="${fsNow === f}"><span class="fs-a" aria-hidden="true">A</span>${f.charAt(0).toUpperCase() + f.slice(1)}</button>`).join("")
             }</div></div>
@@ -13456,7 +13694,7 @@
   function adminSetListCount(n, noun) { const el = document.getElementById("adminListCount"); if (el) el.textContent = n + " " + noun + (n === 1 ? "" : "s"); }
   // serialize the live (delta-applied) in-memory data back into data.js / glossary.js source text
   function serializeCardData() {
-    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
+    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
     const countIds = (node) => { const s = new Set(); (function w(n) { (n.cardIds || []).forEach((i) => s.add(i)); (n.children || []).forEach(w); })(node); return s.size; };
     function ser(node, isTop) {
       const o = { id: node.id, title: node.title };

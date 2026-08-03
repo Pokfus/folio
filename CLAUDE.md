@@ -693,6 +693,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `country-years.js` (a citation filed under a name the panel never looks up is a citation nobody will ever see).
 - `fetch-glossary.js` — standalone Node helper, run manually, that backfills missing glossary
   terms from Wikipedia. Not loaded by the site.
+- `.claude/fetch-place-coords.js` — writes `window.GLOSSARY_PLACES` (slug → `[lon, lat]`, fetched from each
+  Wikipedia article's own published primary coordinate) and `window.GLOSSARY_MAP_COUNTRY` (slug → the name
+  world.js uses) into glossary.js, so a glossary term can put itself on the Atlas. **One title per request** —
+  batching looked economical and quietly lost most of them, because `prop=coordinates` paginates and a
+  single-response reader records a handful and reports the rest as having no coordinate, which is
+  indistinguishable from the truth. Rate-limited hard: it backs off and retries rather than recording a 429 as
+  "no coordinate". Not part of the site.
+- `.claude/add-card-tags.js` — writes `card.tags` (see the card-tags bullet under "How the app is wired").
+  Not part of the site.
 - `fetch-countries.js` — standalone Node helper (run manually, resumable) that fetches the 5-sentence
   Wikipedia summaries into `countries.js` for every clickable name. Re-run after adding timeline eras so
   their new territories get descriptions. Not loaded by the site.
@@ -931,6 +940,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     claimed eats one of this deck's places. So with two decks at 5/day the review draws 5 in all — say 3 and 2 — and
     each row then shows the 2 and 3 that deck still has of its own, which is exactly what a reader sees under a
     cleared banner and is correct rather than a bug.
+  · **A deck's row wears its COLLECTION's hue**, not the review's bronze (Aug 2026, on request): `rowHue` in
+    `PAGES.home` walks up to the root collection and sets `--coll-bg` from `COLL_THEME` — the same colour the
+    Library banner uses — and the row's wash, left bar and hover all read it, falling back to the bronze for a
+    community deck or the Card-of-the-day list, which belong to no collection.
+  · **A pile at ZERO is grey** (`.adc-zero` on a row, `.stat-zero` on the banner, Aug 2026, on request): the
+    colour means "there is work of this kind here", so it has nothing to say on a 0.
   · **`entryPiles(id)`** is what a deck's row shows, and it is deliberately NOT that deck's share of the pooled review.
     `buildSession` uses the same per-deck allowances for a `deck` / `udeck` scope, so tapping a row studies what its
     row promised.
@@ -1125,6 +1140,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **round-trips**; keep that true if you touch either. In a range like `"3.3 to 2.6 million years ago"` the
   unit carries leftwards only when the first number is small and ungrouped — `"700,000 and 1.5 million
   years ago"` is not two millions.
+- **CARDS CARRY CATEGORISING TAGS** (`card.tags`, Aug 2026, on request) — the card-side sibling of the glossary's
+  `GLOSSARY_TAGS`, in the SAME vocabulary: tag 1 is the KIND (`era`, `hominin`, `place`, `industry`, `object`,
+  `practice`, `concept`, `fossil`, `culture`, `event`, `people`, `person`, `animal`, `building`, `theory`), then
+  the subject areas (`archaeology`, `palaeontology`, `geology`, `science`, `history`, `prehistory`, `evolution`,
+  `genetics`, `technology`, `art`, `geography`, `nature`, `climate`, `migration`), then the specifics — a
+  country, a region, a period. **All 119 shipped cards are tagged.** Written by
+  `node .claude/add-card-tags.js <batch.json>` (3–8 tags, lowercase, and it warns about a tag no other card
+  shares — one that can never group anything); carried by `serializeCardData` beside `sources`.
+  What they are FOR is **Multiple Choice**: `cardKinship(a, b)` counts the tags two cards share, weighting the
+  first heavily (the kind is worth four subject areas) and capping the score when the kinds differ, and
+  `buildChallengeQuestions` offers the three closest cards as the wrong answers. Before this the distractors
+  were three cards of the same rough `answerType`, which on a prehistory deck put nearly everything in one
+  bucket — a stone industry answered against a cave, an ice age and a fossil, where the odd one out was the
+  right one. Now the Mousterian is answered against the Oldowan, the Acheulean and the Aurignacian.
+  `answerType` survives as the fallback for a card with no tags (a community deck's).
 - **Card fields (13):** `id, num, category, question` (HTML cloze with blanks), `answer`,
   `answerDate` (HTML), `traditional, hanzi, pinyin, translations` (HTML), `abstract` (rich HTML
   card background; may carry `ttip` glossary links, but newly generated cards omit them),
@@ -1581,11 +1611,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   listener opens the **shared** fullscreen viewer — no wiring of its own. The slot is therefore **first in
   `.gloss-body`, before `.gloss-dates`/`.gloss-desc`** — a float only wraps content that follows it, so don't
   move it back after the prose (both markup sites: `openGlossWin` and the admin glossary editor's preview).
-  **In the popup that frame is sized by HEIGHT, not by the card's fixed 16:9 box** (`.gloss-imgslot`): the
-  `<img>` is a fixed `height:150px` (170 on the mobile sheet) with `width:auto`, and the float carries
-  `max-width:50%` — so every term's picture displays at the same height and never takes more than half the
-  popup, whatever its shape. A picture wider than that half is cropped by `object-fit:cover` (the whole of it
-  is one click away in the fullscreen viewer); that crop is the deliberate price of one silhouette per popup.
+  **In the popup the 150px height and the half-popup width are the picture's MAXIMUM, not its shape**
+  (`.gloss-imgslot`, changed Aug 2026 on request): `max-height:150px` (170 on the mobile sheet),
+  `max-width:50%` on the float, `object-fit:contain` — so within those limits the WHOLE picture is shown. It
+  was a fixed height with `object-fit:cover`, which gave every popup one silhouette at the cost of cutting the
+  sides off anything wider than half the popup — and a map, a diagram or a wide landscape is exactly the kind
+  of picture a glossary term carries. A tall picture is now narrow and a wide one short, and both are whole.
   The **home page's Gloss-of-the-day tile**
   shows the same image to the right of the copy, but as a **profile-picture plate** — a 3:4 frame running the
   tile's full height and **bleeding to its top, bottom and right edges** (negative margins cancelling the
@@ -1614,17 +1645,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - **Text size** (**Settings → Appearance → Text size**, `FONT_SIZES` / `setFontSize` / `S.settings.fontSize`, Aug
   2026, on request): small / medium / large, written by `applyTheme` as `body[data-fs]` — so it is re-applied on
   every `render()` and at boot with no separate call — and read by styles.css as the multiplier **`--fs`**
-  (`:root{--fs:1}`, `.88` and `1.16` on the two `body[data-fs]` rules).
-  **It scales the READING PROSE and deliberately not the shell.** The rules that use it are the study card's
-  root size and question, `.abstract`, `.answer .val`, `.dt-v`, `.src-item`, the gloss popup's title and
-  description (window and sheet) and the Atlas panel's `.cp-desc` — grep `var(--fs)` for the set, each written
-  `calc(<its own px> * var(--fs))` so every one keeps its relative size. It is NOT a page zoom because it
-  cannot be: styles.css sizes **522** things in px and the chrome is laid out against those pixels (the tab
-  bar's labels, the review's one-line deck rows, the Atlas timebar's arithmetic), so a global scale would
-  break the shell to enlarge the text. **The setting's own wording names the surfaces it reaches** — keep the
-  two in step if the set changes. The picker is a three-cell segmented control (`.fs-pick`) whose A is drawn at
-  each size, in a `set-row-block` because at 186px it leaves a phone's description four words a line. Guarded
-  by `test-layout.js`, which asserts both halves: the card and popup grow, a tab label and a grade button do not.
+  (`:root{--fs:1}`, `.9` and `1.14` on the two `body[data-fs]` rules).
+  **It scales EVERY px font-size in the stylesheet** — 519 of them, each rewritten as
+  `calc(<its own px> * var(--fs))`, plus the four `clamp()` headings as `calc(clamp(…) * var(--fs))`. It reached
+  only the reading prose for a fortnight (a card's question and background, a glossary popup, an Atlas panel)
+  and was widened on a second request; **the wording on the Settings row names what it now reaches, so keep the
+  two in step.** What it deliberately does NOT do is move the LAYOUT: the boxes are still laid out in px and
+  only the text inside them grows, which is what keeps a four-cell grade bar four cells at Large.
+  **The one thing outside its reach is the Atlas's own map labels**, which are `ctx.fillText` on a canvas —
+  CSS cannot see them, and their collision arithmetic (`computeCityLayout`'s grid, the leader lines, `CITY_SEP`)
+  is written against those numbers, so scaling them would rearrange the map rather than enlarge it. The setting
+  says so. The picker is a three-cell segmented control (`.fs-pick`) whose A is drawn at each size, in a
+  `set-row-block` because at 186px it leaves a phone's description four words a line. Guarded by
+  `test-layout.js`, which asserts the prose AND the chrome grow, and that nothing in the shell is clipped or
+  wrapped by the growth.
 - **ENGLISH ONLY — `const MULTILANG = false`** (app.js, beside `LANG_CODES`; Aug 2026, on request). The site
   ships in English while the work is on making the English as good as it can be. It is **one switch**, and it
   shuts three doors: the Language card is not rendered on the Settings page, `?lang=xx` no longer switches,
@@ -1791,10 +1825,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   (`S.cards` empty) the banner is a **first-run hero**: purpose sentence + "Study your first cards", which sets
   `S.active = ["china"]` (replacing the bare `cn-qing` default) and routes straight into a session; the level badge,
   xp bar, stats, review-order toggle and active-deck list appear only after that. The banner shows a **🔥 day-streak
-  chip** (`S.streak`, shown at 2+ when the run is alive). **The Daily-review banner earns its colour like a game
-  tile**, in **bronze** (`--tile:#9A6634`, set on `.banner` in styles.css): the idle wash from the left; **`.done`**
-  = the day's pile is cleared → the full bronze fill; **`.won`** = every card today was right on the first try →
-  the same shining gold (`gt-gold-shine`) as a perfect game tile. It reads `S.reviewDay = { d, n, miss }` (in
+  chip** (`S.streak`, shown at 2+ when the run is alive). **Completion is a RIBBON, not a filled tile**
+  (`.gt-ribbon`, Aug 2026, on request — the banner and every game tile used to FILL with their colour once
+  played and turn gold on a perfect score, which was a lot of surface to change for one fact and fought every
+  theme's own treatment of the card). A small diagonal band crosses the TOP-RIGHT corner instead — the tile's
+  own hue reading "Played" / "Done", the same shining gold (`gt-gold-shine`) reading "Perfect" — over a surface
+  left exactly as it was. It carries a WORD rather than being a bare colour: an unlabelled band says nothing to
+  a screen reader and little more to the eye. `.done` / `.won` stay on the element (they are what the tests and
+  the achievements read); all they do now is carry the ribbon. The green `.gt-done` check circle went with the
+  fill, as did the earned fill that used to run down the added decks (`rv-done` / `rv-won` are still set on
+  `.review-group`, and nothing styles them). It reads `S.reviewDay = { d, n, miss }` (in
   `defaultState` + `PROGRESS_FIELDS`), written by **`logReviewDay`** from `grade()`: only a card's FIRST attempt
   of the day counts (`firstToday`, from the pre-grade `c.last`), since a learning card is graded again ten minutes
   later; correct = anything but Again, as in `logReview`. `reviewLog` can't answer this — it counts every grade
@@ -1865,8 +1905,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     from the games above it (Aug 2026, on request — it was `4px 0 2px`, leaving it crowded against the grid).
     Guarded by `test-layout.js`.
 - **Home minigames** (game-grid tiles → `PAGES.*`): **Multiple Choice** (`PAGES.challenge`, formerly "Daily Challenge" — the
-  rival bots + timer were removed; it's now a plain 5-question quiz whose 3 wrong options are the SAME `answerType()` as the
-  answer — a person → other people, a dynasty → other dynasties), **Timeline** (`chrono`), **True or False** (`truefalse`),
+  rival bots + timer were removed; it's now a plain 5-question quiz whose 3 wrong options are the cards most AKIN
+  to the answer, by `cardKinship` — see the card-tags bullet below), **Timeline** (`chrono` — **the FIRST "Check order" of the day is the answer that counts**, Aug 2026, on
+  request: checking used to record the BEST of any number of tries, and since a check reveals every event's
+  date a reader could check once, read the years off the rows and reorder to a perfect score every day. Later
+  checks still mark the rows and show the dates — the puzzle stays usable for learning the order — they just
+  no longer rewrite the score, and the result says so), **True or False** (`truefalse`),
   **Who said it?** (`whosaid`, from `quotes.js`), and **Find it** (`findit`, renamed from "Find it on the map" Aug 2026 on request — see the Atlas game-mode bullet
   below; 5 date-seeded locate-on-the-globe rounds, score = first-try finds). `BOTS`/`drawRace`/podium are now dead code.
   Each of the 5 games records a per-day result in `S.games[key] = { date, played, won }` (`markGamePlayed(key, won)` at each
@@ -2160,6 +2204,43 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `test-layout.js` loads one, because nothing on screen says they still work. Unclaimed land on historical eras gets a
   **terra-incognita stipple** (`stipplePattern()`, theme-aware via `stippleCol`, drawn settled-only under the claimed-land
   refill so it survives only on wilderness).
+  **CITY LABELS THIN OUT WITH ZOOM, Google-Earth style (Aug 2026, on request).** Turning Cities on used to
+  put a label on EVERY city in view: a name that would not fit cleanly got a leader line and, failing that,
+  was FORCED into its last candidate slot, so below "one country fills the screen" the map was dozens of
+  overlapping names and 2,665 label placements per settled frame. Two rules replace the forced placement
+  (`CITY_SEP` / `CITY_CAP` above `computeCityLayout`): **`CITIES` is already sorted by significance** —
+  capitals by population, then cities over a million, then division capitals — so a city whose pin lands
+  within `sep` px of one already placed is dropped WHOLE, and `sep` shrinks with zoom (88px at the globe,
+  22px zoomed right in), which is what reveals the crowded-out names a level at a time; and **a label that
+  cannot be placed without overlapping is dropped rather than forced**. Both drops take the PIN with them —
+  a pin and its name are one thing (the same reason the whole layer waits for the settled frame), and a
+  field of anonymous dots was rejected before. The separation test runs BEFORE the 34-candidate label
+  search, which is where the lag went. `drawEraCities` runs the same rule, with the map EDITOR exempt: its
+  pins are what a click is dragging.
+  **The Heightmap layer's STRENGTH is the reader's** (`hmOpacity` / `setHmOpacity` / `#hmOpacityRow`, Aug
+  2026, on request): a slider in the legend, under the row that turns the layer on and shown only while it
+  IS on. It is applied as `globalAlpha` at the blend rather than baked into the reprojection buffer's
+  per-pixel alpha, so moving it is a redraw and not a re-reprojection — and **`viewKey` carries it**, or the
+  settled base cache would keep serving the old strength. Device-local
+  (`localStorage["folio_hm_opacity_v1"]`), like the marker's position and the place sheet's height.
+  **A GLOSSARY TERM CAN PUT ITSELF ON THE MAP** (`glossPlace` / `focusPlace` / `focusPoint`, Aug 2026, on
+  request). A term the Atlas can show carries a map-marker button beside the × in its popup; pressing it
+  closes the popup and routes to `map` with `{ focus }`. Two shapes and no third:
+  · a term naming a **country** the map draws is flown to and **lit up** in the map's own gold — the ordinary
+    selection paint plus the change-pulse — with **no info panel**, because the reader has just read about it
+    and asked where it is, not for a second description;
+  · a term naming a **point** (a cave, a gorge, a named region) gets a **gold dot and its name**, plus the
+    expanding ring, and is drawn ONLY while focused. Most of these are not cities and have no business
+    cluttering the map for someone who came to look at something else — but they ARE added to the atlas
+    search index as kind `site`, so the place is findable by name and picking it focuses it the same way.
+  Both land on `sfx("discover")` after the flight, and both are cleared by Esc and by the next click on the
+  ocean. **The join is done at BUILD time** by `.claude/fetch-place-coords.js`, which writes two tables into
+  glossary.js: `GLOSSARY_PLACES` (slug → `[lon, lat]`, **fetched from each article's own published primary
+  coordinate**, never hand-written — a term whose article has none simply gets no marker) and
+  `GLOSSARY_MAP_COUNTRY` (slug → the name world.js uses, with a short alias table for the ones the two spell
+  differently). It is a build-time join because **world.js is a lazy 1.6 MB bundle and the popup has to
+  decide whether to show its marker without it**. A continent, an ocean or a vague region is deliberately in
+  neither table: it is not a place you can point at.
   **Frame-cost rules (smoothness batch, July 2026) — keep these when touching the render path:**
   · **Coalesce input renders.** `onGlobeWheel` calls `scheduleDraw()` (one render per rAF), EXCEPT right after its paced
     `forceComposite()` realloc, which needs a synchronous `draw()` (the realloc clears the backing).
@@ -3348,7 +3429,7 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Sixteen committed regression tests** (in `.claude/`, not loaded by the site): thirteen drive a real browser with
+- **Seventeen committed regression tests** (in `.claude/`, not loaded by the site): fourteen drive a real browser with
   Playwright; `test-daily-quote.js`, `test-discovery.js` and `test-date-line.js` are plain Node with no dependencies at
   all. Each slices what it tests out of the real `app.js`/`_headers` by text, so they can't drift from what ships.
   **Gotcha when writing more of them:** `page.goto()` to a URL that differs only in the `#fragment` is a
@@ -3413,9 +3494,10 @@ dead code (never rendered).
     Both halves matter: hiding it everywhere would leave the author with no way to notice.
     **Re-run after touching `videoSource` / `cardVideoHTML` / `openMediaViewer` / `retireOther*Media` /
     the delegated `error` listener / `.media-dead` / the media panel, or the `media-src`/`frame-src` CSP.**
-  · `node .claude/test-gloss-image.js` — 40 assertions on glossary images: the popup floats one to the
-    top-right of the body at a fixed height and at most half its width, with the prose beside rather than
-    below it; it opens the SHARED fullscreen viewer and that viewer stacks **above** the popup,
+  · `node .claude/test-gloss-image.js` — 44 assertions on glossary images: the popup floats one to the
+    top-right of the body within a 150px × half-the-popup box — the LIMITS, not the shape, since Aug 2026 —
+    **shown whole rather than cropped** (`object-fit:contain`, and the rendered box keeping the file's own
+    proportions), with the prose starting level with it rather than below it; it opens the SHARED fullscreen viewer and that viewer stacks **above** the popup,
     the curated editor's overlay delta survives a reload and clears cleanly, and a deck's own term images
     are sanitized on ingest (a `javascript:` src is dropped). **Re-run after touching `glossImage` /
     `renderGlossImage` / `setGlossImageEdit` / `uGlossSetImage`, or any z-index in the gloss/viewer stack.**
@@ -3461,7 +3543,7 @@ dead code (never rendered).
     **Re-run after touching the `SOURCE FOOTNOTES` block, `wireFootnotes` / `sourcesHTML` / `normSources` /
     `linkifySrcItem` / `replaceInSrcText`, the `.src-access` styles, the editors' sources boxes, or the
     `fn` / `data-fn` sanitizer allowlists.**
-  · `node .claude/test-layout.js` — 209 assertions on **the shell**: the rules that break silently because
+  · `node .claude/test-layout.js` — 211 assertions on **the shell**: the rules that break silently because
     nothing throws when a layout is wrong. The phone's bottom tab bar (present, labelled — *every* tab, not
     just the active one, which is the top bar's behaviour — each name **centred under its own icon**, the
     selected one included, since one tab off out of five reads as a design; routing; no Library and no
@@ -3557,6 +3639,19 @@ dead code (never rendered).
     `S.active` (a deck of the coming-soon China collection) NOT filling that one slot. **Re-run after
     touching `reviewQueue` / `deckLimits` / `deckDoneToday` / `entryPiles` / `openDeckMenu` / `addActive` /
     `maxActiveDecks` / `STUDY_KEY` / `qIdx`, or `buildSession`'s per-deck allowances.**
+  · `node .claude/test-atlas-places.js` — the Atlas's label crowding, its heightmap strength slider, and a
+    glossary term's way onto the map (Aug 2026). All three fail silently: a map that quietly writes forty
+    overlapping names looks like a map, a slider that does nothing looks like a slider, and a marker that
+    flies you somewhere and highlights nothing looks like a flight. It asserts that the shipped
+    `GLOSSARY_PLACES` coordinates are all PLAUSIBLE (a `[0,0]` is what a failed fetch leaves behind) and
+    that the country join shipped with them; that `CITY_SEP` falls with zoom and starts at a whole region
+    — sliced out of app.js by text, since the labels are drawn on a canvas and there is nothing in the DOM
+    to measure, the same technique `test-daily-quote.js` uses; that the slider is hidden while the layer is
+    off, live while it is on and remembered; that a point term and a country term show the marker and a
+    term that is neither does not; and that pressing it reaches the Atlas, closes the popup and opens **no
+    info panel** — the reader has just read the term, and a second description is not what the marker
+    offered. **Re-run after touching `glossPlace` / `focusPlace` / `CITY_SEP` / `computeCityLayout` /
+    `gsIndex` / `hmOpacity`, or after re-running `.claude/fetch-place-coords.js`.**
   Playwright is a dev dependency and must NOT be installed into the repo (the zero-dependency rule, and
   `node_modules/` is gitignored) — install it in a scratch folder and run with
   `NODE_PATH=<that>/node_modules`. Set `FOLIO_CHROMIUM=<path to chrome>` if Chromium lives outside the

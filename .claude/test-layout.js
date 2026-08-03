@@ -654,11 +654,13 @@ async function studyEasy(page, base, n) {
   }
 
   /* ================= 5f. Text size (Aug 2026, on request) =================
-     A reading-text scale, not a page zoom, and the difference is the whole design: the prose has to grow
-     and the SHELL has to stay where it is, because every bar in it is laid out against its own pixels.
-     So this checks both halves — the card and the glossary popup follow the setting, and a tab label and
-     a button do not — plus that it survives a reload, since a text size a reader has to set every time is
-     worse than none. */
+     It scales EVERY px font-size in the stylesheet now — the reading prose, the shell, the buttons, the
+     nav — after a second request; it used to reach a card's question and background, a glossary popup and
+     an Atlas panel and nothing else. What it still does NOT do is move the layout: the boxes are laid out
+     in px and only the text inside them grows, which is what keeps a four-cell grade bar a four-cell grade
+     bar at Large. So this checks that the prose AND the chrome both follow, that nothing in the shell is
+     clipped by the growth, and that the setting survives a reload — a text size a reader has to set every
+     time is worse than none. */
   {
     const page = await browser.newPage({ viewport: PHONE });
     watch(page);
@@ -685,8 +687,12 @@ async function studyEasy(page, base, n) {
       await page.waitForTimeout(600);
       return page.evaluate(() => {
         const px = (s) => { const e = document.querySelector(s); return e ? Math.round(parseFloat(getComputedStyle(e).fontSize) * 10) / 10 : null; };
+        const el = document.querySelector(".tabbar .tab-label");
         return { fs: document.body.dataset.fs, q: px(".study-card .question"), bg: px(".abstract"),
-          tab: px(".tabbar .tab-label"), btn: px(".grade .gl") };
+          tab: px(".tabbar .tab-label"), btn: px(".grade .gl"),
+          // the shell has to survive the growth, not merely take part in it
+          tabClipped: el ? el.scrollWidth > el.clientWidth + 1 : null,
+          gradeRows: new Set([...document.querySelectorAll(".grade")].map((g) => Math.round(g.getBoundingClientRect().top))).size };
       });
     };
     const setFs = async (v) => {
@@ -700,9 +706,12 @@ async function studyEasy(page, base, n) {
     await setFs("small"); const small = await sizes();
     check("...that grows the card's question and background", big.q > med.q && big.bg > med.bg, JSON.stringify({ med, big }));
     check("...and shrinks them", small.q < med.q && small.bg < med.bg, JSON.stringify({ med, small }));
-    check("...while the SHELL stays exactly where it was — a scale, not a page zoom",
-      big.tab === med.tab && small.tab === med.tab && big.btn === med.btn,
+    check("...and the shell with them — every page, not just the reading prose",
+      big.tab > med.tab && small.tab < med.tab && big.btn > med.btn,
       JSON.stringify({ med, big, small }));
+    check("...without breaking it: the tab label still fits and the grades stay on one row",
+      !big.tabClipped && big.gradeRows === 1 && !small.tabClipped && small.gradeRows === 1,
+      JSON.stringify({ big: { clip: big.tabClipped, rows: big.gradeRows }, small: { clip: small.tabClipped, rows: small.gradeRows } }));
     await setFs("large");
     await page.goto(base + "#home", { waitUntil: "load" });
     await page.waitForTimeout(1200);
@@ -949,7 +958,16 @@ async function studyEasy(page, base, n) {
     }));
     check("the review banner counts Anki's three piles, in order",
       piles.stats.map((p) => p.label.toLowerCase()).join(",") === "new,learning,review", JSON.stringify(piles.stats.map((p) => p.label)));
-    check("...no two of them the same colour", new Set(piles.stats.map((p) => p.col)).size === 3, JSON.stringify(piles.stats.map((p) => p.col)));
+    /* No two piles that HAVE work share a colour — and a pile at zero is grey, which is the point of the
+       colours: they say where the day's work is, so they have nothing to say on a 0 (Aug 2026, on request).
+       Before that rule all three were always coloured and this simply counted three distinct ones. */
+    {
+      const nz = piles.stats.filter((p) => p.n > 0), z = piles.stats.filter((p) => p.n === 0);
+      check("...no two piles with work in them the same colour",
+        new Set(nz.map((p) => p.col)).size === nz.length, JSON.stringify(piles.stats));
+      check("...and a pile at zero is grey, not coloured",
+        z.every((p) => !nz.some((q) => q.col === p.col)), JSON.stringify(piles.stats));
+    }
     check("...and the same three, unlabelled, open each added deck's row in the same colours",
       piles.row.length === 3 && piles.row.map((r) => r.col).join("|") === piles.stats.map((p) => p.col).join("|"),
       JSON.stringify({ row: piles.row, banner: piles.stats.map((p) => p.col) }));
