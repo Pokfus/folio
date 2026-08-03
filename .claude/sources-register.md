@@ -9816,10 +9816,147 @@ alone when its history had none.
 
 ---
 
-# THE GLOSSARY CITATION PASS IS COMPLETE — 333 of 333
+# THE GLOSSARY CITATION PASS IS COMPLETE — 338 of 338
 
 Every term carries at least `GLOSS_SRC_TARGET` (2) citations, every citation is referenced by at least one
 in-text marker, and the markers are identical across English and all nine translations. `node
 .claude/gloss-source-audit.js` reports `citations to find 0`. The card pass finished at 109 of 109 in
 batch 26; **both passes are now done, and `country-sources.js` — the Atlas — is the only surface in Folio
 that still shows no sources.**
+
+(333 at the close of D3; **five terms were added on 2026-08-03 and were cited as they were written** —
+see N1 below. A term added after the pass joins it at the bar, rather than reopening a backlog.)
+
+---
+
+## Batch N1 — five new Palaeolithic terms, written cited, verified 2026-08-03
+
+Requested as new glossary entries: the African **Middle Stone Age**, the two Levantine caves **Skhul** and
+**Qafzeh**, the **Skhul and Qafzeh hominins** they yielded, and **interglacial**. Ten citation slots from
+**ten distinct works, nine of them open**, and **nine of the ten were already in this register** — these
+terms are the glossary siblings of cards that batches 14, 15, 19 and 22 had already paid for. Batch G7
+found that the register pays for taxa and periods and not for places; the exception is a place whose card
+already exists, which is what `wh-049` and `wh-031` are. **Read the register before searching**, still the
+cheapest rule in the file.
+
+### The one finding that changes a stored citation
+
+**`hal.science` is now Anubis-walled on the landing page as well as on `/document`.** Batch 21 recorded the
+file path going behind the proof-of-work wall; the record page has followed it, so `pages-2016` — cited on
+`wh-011` as `https://hal.science/hal-03245836` — **can no longer be opened by a reader**. The way back is
+an **institutional repository deposit**: `https://www.repository.cam.ac.uk/handle/1810/252679` carries the
+same paper, states the definitional claims on the record page itself, and serves the publisher PDF from
+`/bitstreams/<uuid>/download` (which 302s to `api.repository.cam.ac.uk`, so follow the redirect). The new
+`Interglacial` term cites the Cambridge deposit. **`wh-011`'s citation of the same work still points at
+HAL and should be re-pointed** — recorded here rather than changed, since that card was not in this batch.
+
+Generalised: **when a HAL-hosted citation stops opening, look for the same paper in a university
+repository** before treating it as lost. Batch 25 warned that a correctly-recorded open entry may not
+re-read; this is the repair for that case rather than the resignation.
+
+### Two smaller access notes
+
+- **`ora.ox.ac.uk` serves only the abstract on the record page; the accepted manuscript is at
+  `/objects/uuid:<id>/files/<fileid>`**, which the record's own HTML carries. Batch 15's "fetch the FILE,
+  not the landing page" again, and it is what made `groucutt-2019` usable for anything past its abstract.
+- **`whc.unesco.org` is 403 on `/document/<id>` as well as on the property pages** (C7 found the latter).
+  The ICOMOS evaluation of the Mount Carmel nomination is therefore not reachable, and the excavation
+  history came from the **American School of Prehistoric Research**, the body that funded the digs — batch
+  18's "look for the institution responsible" holding where a heritage register will not open.
+
+### A divergence recorded, not corrected
+
+`wh-049` dates both caves to "roughly 120,000 to 90,000 years ago" and attributes that to heated flints and
+teeth. `Skhul_Cave` says roughly 130,000 to 100,000. **These are not in conflict and neither is wrong**:
+Groucutt et al. give "the clustering of TL results at around 120 ka" *and* "the most likely
+u-series/ESR chronology being 130-100 ka", concluding that the main phase of occupation is the latter. The
+card reports the thermoluminescence result, the term the site's overall chronology. Recorded because the
+two now sit one click apart — `wh-049`'s abstract auto-links to the new terms — and a later reader will
+otherwise read it as an error and "fix" one of them.
+
+### Verified citations (batch N1)
+
+- Huw S. Groucutt, Eleanor M. L. Scerri, Chris Stringer, and Michael D. Petraglia, “Skhul Lithic Technology and the Dispersal of <i>Homo sapiens</i> into Southwest Asia,” <i>Quaternary International</i> 515 (2019): 30–52, sec. 4, https://ora.ox.ac.uk/objects/uuid:26de242d-8c79-44a8-9dea-5631a7400664. [Open access]
+  - opened: 2026-08-03 · **accepted manuscript** via the record's file path (the record page is abstract-only)
+  - supports, beyond what `groucutt-2019` above already records: Skhul located in "the appropriately named
+    Wadi el-Mughara (Valley of the Caves, also known as Nahal [Me'arot])" on Mount Carmel, "3 km east of the
+    current Mediterranean shoreline"; "Skhul consists of a small cave/rockshelter and, primarily, the area
+    immediately in front of this"; "the site of Skhul was excavated by the American student Theodore McCown
+    for two months in 1931 and for three months in 1932"; "At least four, but possibly as many as seven of
+    the Skhul humans (1, 2, 4, 5, 6, 7, and 9) are interpreted as deliberate burials"; "In the Skhul 5
+    burial, the arms of the skeleton seemingly clasp a wild boar mandible, interpreted as a grave good";
+    "the most likely u-series/ESR chronology being 130-100 ka, indicate that at least the main phase of
+    occupation at Skhul dates to MIS 5e"; "all the preserved faces are relatively short and transversely flat"
+  - used by: Skhul_Cave, Skhul_and_Qafzeh_hominins (and, from the earlier entry, Middle_Paleolithic, wh-003, wh-049)
+- “Mount Carmel Excavations,” American School of Prehistoric Research, Harvard University, January 3, 2024, https://sites.harvard.edu/aspr/2024/01/03/mount-carmel-excavations. [Open access]
+  - opened: 2026-08-03 · the funding body's own account of the excavations
+  - supports: "Between April of 1929 and August of 1934, the American School of Prehistoric Research
+    partnered with the British School of Archaeology in Jerusalem to fund seven seasons of excavation" at
+    "the caves of Nahal Me'arot in modern-day Israel", "on the coast near Haifa"; that Dorothy Garrod led
+    them; and that "The excavations focused on three caves: Mugharet el-Wad, Mugharet et-Tabun, and
+    Mugharet es-Sukhul"
+  - **the one work in this batch not already in the register** — and it is an institutional page, not a paper
+  - used by: Skhul_Cave
+- Rachel Sarig et al., “Malocclusion in Early Anatomically Modern Human: A Reflection on the Etiology of Modern Dental Misalignment,” <i>PLOS ONE</i> 8, no. 11 (2013): e80771, under “The Qafzeh Site,” https://pmc.ncbi.nlm.nih.gov/articles/PMC3835570/. [Open access]
+  - opened: 2026-08-03 · full text via PMC
+  - supports: "The Qafzeh Cave is located in the slope of Har Qedumim (Jebel Qafzeh) Lower Galilee, on the
+    eastern bank of the Nahal Mizra (Wadi el-Haj) creek, in the Jezreel Valley, Israel"; excavation by
+    "R. Neuville and M. Stekelis in 1933-1935" and renewed "between 1965 and 1979 by B. Vandermeersch";
+    "The occurrence of purposeful human burials, hearths, ochre and non-edible marine shells in the cave"
+  - **note for `wh-049`**: the card credits the first dig to Neuville alone; the source names **Stekelis
+    with him**, and gives 1933–1935 where the card gives "from 1933". Not corrected here — recorded.
+  - used by: Qafzeh_Cave (and, from the earlier entry, wh-049)
+- Hélène Coqueugniot et al., “Earliest Cranio-Encephalic Trauma from the Levantine Middle Palaeolithic: 3D Reappraisal of the Qafzeh 11 Skull,” <i>PLOS ONE</i> 9, no. 7 (2014): e102822, https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0102822. [Open access]
+  - opened: 2026-08-03 · full text
+  - supports: "The Qafzeh site has yielded the largest hominin collection (N = 27, including partial eight
+    skeletons, isolated bones and teeth) from Middle Palaeolithic layers in south-western Asia"; the
+    sequence "dated by a combination of electron spin resonance and thermoluminescence methods to circa
+    90–100 kyrs BP"; Qafzeh 11 "circa 12–13 yrs old at death", "lying in a pit on its back", with "two deer
+    antlers … on the upper part of the adolescent's chest"
+  - used by: Qafzeh_Cave, Skhul_and_Qafzeh_hominins (and, from the earlier entry, wh-049)
+- Daniella E. Bar-Yosef Mayer et al., “On Holes and Strings: Earliest Displays of Human Adornment in the Middle Palaeolithic,” <i>PLOS ONE</i> 15, no. 7 (2020): e0234924, https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0234924. [Open access]
+  - opened: 2026-08-03 · full text
+  - supports: Skhul shell beads "dated to between 135 and 100 ka BP"; at Qafzeh, "Ten Glycymeris shells …
+    in Layers XXI-XXIV, immediately under human graves", "seven complete or almost complete valves with
+    perforations in the umbo", use-wear "produced by contact with a string", and "coloring treatment with ochre"
+  - used by: Skhul_and_Qafzeh_hominins (and, from the earlier entry, wh-049)
+- Emily Hallinan, “The Southern African Stone Age Site Index (SASSI): A Spatial, Chronological and Contextual Resource for Archaeological Research,” <i>Journal of Open Archaeology Data</i> 14 (2026): 2, under “Overview” and table 1, https://doi.org/10.5334/joad.186. [Open access]
+  - reused unopened from `hallinan-2026` above, for the claims that entry records: the MSA at 300–40 ka,
+    "prepared cores, points, blades", the Goodwin / van Riet Lowe three-stage scheme, and the early schemes
+    that "drew heavily on European frameworks" and directly imported French terminology
+  - used by: Middle_Stone_Age (and wh-031)
+- B. D. Malan, “The Term ‘Middle Stone Age’,” in <i>Third Pan-African Congress on Prehistory, Livingstone 1955</i>, ed. J. Desmond Clark and Sonia Cole (London: Chatto and Windus, 1957), 223–27, https://archive.org/details/in.gov.ignca.6340. [Open access]
+  - reused from `malan-1957` above: Goodwin's 1928 paper, elaborated the next year in *The Stone Age
+    Cultures of South Africa* with van Riet Lowe
+  - used by: Middle_Stone_Age (and wh-031)
+- Daniel Richter et al., “The Age of the Hominin Fossils from Jebel Irhoud, Morocco, and the Origins of the Middle Stone Age,” <i>Nature</i> 546, no. 7657 (2017): 293–96, abstract, https://doi.org/10.1038/nature22335. [Paywalled]
+  - reused from `richter-2017` above: 315 ± 34 ka, and "one of the earliest directly dated Middle Stone Age
+    assemblages" — the term says "some of the earliest directly dated examples", **not "the oldest"**, which
+    is the wording batch 14 already had to correct on `wh-045`
+  - the batch's only paywalled work; `Middle_Stone_Age` is 2 open of 3
+  - used by: Middle_Stone_Age (and wh-045)
+- Past Interglacials Working Group of PAGES, “Interglacials of the Last 800,000 Years,” <i>Reviews of Geophysics</i> 54, no. 1 (2016): 162–219, abstract and sec. 1, https://www.repository.cam.ac.uk/handle/1810/252679. [Open access]
+  - opened: 2026-08-03 · **Cambridge repository deposit** — the HAL link recorded under `pages-2016` above
+    is now behind the Anubis wall (see the finding at the head of this batch)
+  - supports, quoted from the publisher PDF: "Interglacials, including the present (Holocene) period, are
+    warm, low land ice extent (high sea level), end-members of glacial cycles"; "Based on a sea level
+    definition, we identify eleven interglacials in the last 800,000 years"; "Interglacials have been
+    typically 10–30 ka long"; "Terminations involve rapid, nonlinear, reactions of ice volume, CO2, and
+    temperature to external astronomical forcing"; "The end of an interglacial (glacial inception) is a
+    slower process involving a global sequence of changes"; and from §1, "Only at the start of the
+    Quaternary Period and the Pleistocene Epoch, ~2.6 Ma ago, did alternations between cold glacial periods
+    with ice on the NH continents, and warmer intervals with little or no NH continental ice, first appear"
+  - used by: Interglacial (and, at the HAL address, wh-011)
+- Mike Walker et al., “Formal Definition and Dating of the GSSP (Global Stratotype Section and Point) for the Base of the Holocene Using the Greenland NGRIP Ice Core, and Selected Auxiliary Records,” <i>Journal of Quaternary Science</i> 24, no. 1 (2009): 3–17, https://timescalefoundation.org/references/HoloceneGSSP_JQuatSci090.pdf. [Open access]
+  - reused from `walker-2009` above: the base of the Holocene at 11,700 cal yr b2k
+  - used by: Interglacial (and wh-010, wh-012, wh-090)
+
+### Hosts, measured 2026-08-03
+- `hal.science` — **Anubis wall on the record page too**, not only `/document`. Was open on 2026-07-31.
+- `www.repository.cam.ac.uk` — 200, record page and PDF both, via a 302 to `api.repository.cam.ac.uk`.
+- `discovery.ucl.ac.uk` — **403**.
+- `agupubs.onlinelibrary.wiley.com` — **403** (so an AGU paper needs a repository deposit).
+- `whc.unesco.org` — **403**, `/document/<id>` included.
+- `ora.ox.ac.uk` — 200; record page abstract-only, `/files/<fileid>` serves the manuscript.
+- `sites.harvard.edu` — 200.
+- `journals.plos.org`, `pmc.ncbi.nlm.nih.gov`, `archive.org` — 200 (unchanged).
