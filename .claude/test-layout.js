@@ -1002,23 +1002,27 @@ async function studyEasy(page, base, n) {
     check("...nor the sentence that described them in words", !/scheduled/i.test(piles.desc), piles.desc);
     check("...with the level still spelled out in the xp bar", /level/i.test(piles.xpLevel), piles.xpLevel);
 
-    /* The added deck's row is ONE horizontal line (Aug 2026, on request) — piles, name, figure and bin all
-       on the same level, with the bar moved to the row's bottom edge so it costs the line no width. Two
-       lines and one line look equally deliberate in a screenshot, and the failure this pins is the row
-       quietly wrapping again the moment something in it grows: the deck's name is the only part with a
-       shorter form, so if the arithmetic stops working it is the name that gets cut off. */
+    /* The added deck's row is ONE horizontal line (Aug 2026, on request) — piles and name on the same
+       level, with the bar moved to the row's bottom edge so it costs the line no width. Two lines and one
+       line look equally deliberate in a screenshot, and the failure this pins is the row quietly wrapping
+       again the moment something in it grows: the deck's name is the only part with a shorter form, so if
+       the arithmetic stops working it is the name that gets cut off.
+
+       The N/N figure left the row for the options sheet (Aug 2026, on request), so its ABSENCE is asserted
+       here and its presence in the sheet below — the two halves of one move, and each looks deliberate on
+       its own. */
     const row = await page.evaluate(() => {
       const r = document.querySelector(".active-deck[data-review]"); if (!r) return null;
       const rb = r.getBoundingClientRect();
-      const t = r.querySelector(".ad-title"), c = r.querySelector(".ad-prog .count"), k = r.querySelector(".ad-prog .track");
-      const parts = [r.querySelector(".ad-counts"), t, c].filter(Boolean);
+      const t = r.querySelector(".ad-title"), k = r.querySelector(".ad-prog .track");
+      const parts = [r.querySelector(".ad-counts"), t].filter(Boolean);
       const boxes = parts.map((e) => e.getBoundingClientRect());
       return {
         n: parts.length,
         // one line ⇔ every part overlaps one horizontal band
         band: Math.max(...boxes.map((b) => b.top)) < Math.min(...boxes.map((b) => b.bottom)),
         rowH: Math.round(rb.height),
-        label: c ? c.textContent.trim() : "",
+        figure: !!r.querySelector(".ad-prog .count"),
         titleClipped: t ? t.scrollWidth > t.clientWidth + 1 : true,
         trash: !!r.querySelector(".ad-trash"),
         // the bar underlines the row rather than sitting in the line
@@ -1027,13 +1031,60 @@ async function studyEasy(page, base, n) {
         fills: !!r.querySelector(".ad-prog .fill"),
       };
     });
-    check("an added deck's row is one horizontal line", !!row && row.band && row.n === 3, JSON.stringify(row));
+    check("an added deck's row is one horizontal line", !!row && row.band && row.n === 2, JSON.stringify(row));
     // the bin is gone — Remove moved into the row's options sheet, held down (Aug 2026, on request)
     check("...with no bin taking a column of its own", !!row && !row.trash, JSON.stringify(row));
-    check("...its progress figure shortened to N/N studied", !!row && /^\d+\/\d+ studied$/.test(row.label), row && row.label);
+    check("...and no N/N figure either, that having moved into the sheet", !!row && !row.figure, JSON.stringify(row));
     check("...its bar underlining the row instead of taking width from it",
       !!row && row.trackWide && row.trackAtFoot && row.fills, JSON.stringify(row));
     check("...and the deck's name not cut off at 390px", !!row && !row.titleClipped, JSON.stringify(row));
+
+    /* …and the sheet it moved into: the figure on the title's own LINE (a figure that has merely landed
+       somewhere in the head is not what was asked for), and Remove carrying its red in the TEXT with no
+       wash behind it — a highlighted row in a menu reads as one already chosen, which is exactly how it
+       was reported. The wash was a HOVER state, so the pointer is really put on the row: reading the
+       resting style would pass whatever the rule says. */
+    await page.evaluate(async () => {
+      document.querySelector(".active-deck[data-review]")
+        .dispatchEvent(new MouseEvent("contextmenu", { bubbles: true, cancelable: true }));
+      await new Promise((res) => setTimeout(res, 400));
+    });
+    let sheet = await page.evaluate(() => {
+      const ov = document.querySelector(".deck-menu"); if (!ov) return null;
+      const t = ov.querySelector(".dm-title"), f = ov.querySelector(".dm-studied");
+      const mid = (e) => { const b = e.getBoundingClientRect(); return (b.top + b.bottom) / 2; };
+      return {
+        label: f ? f.textContent.trim() : "",
+        // same line as the title, and to the RIGHT of it
+        sameLine: !!(t && f) && Math.abs(mid(t) - mid(f)) <= 3,
+        right: !!(t && f) && f.getBoundingClientRect().left > t.getBoundingClientRect().right,
+        inBox: !!(f && f.getBoundingClientRect().right <= ov.querySelector(".dm-box").getBoundingClientRect().right),
+        remove: !!ov.querySelector(".dm-item.dm-danger"),
+      };
+    });
+    check("holding the row puts its N/N studied in the sheet's head",
+      !!sheet && /^\d+\/\d+ studied$/.test(sheet.label), sheet && sheet.label);
+    check("...on the title's own line, at its right",
+      !!sheet && sheet.sameLine && sheet.right && sheet.inBox, JSON.stringify(sheet));
+    if (sheet && sheet.remove) {
+      // hovered against hovered: an ordinary row's own hover wash is the thing Remove must not exceed
+      await page.hover(".deck-menu .dm-item:not(.dm-danger)");
+      await page.waitForTimeout(220);
+      const plain = await page.evaluate(() => {
+        const el = document.querySelector(".deck-menu .dm-item:not(.dm-danger)");
+        return { bg: getComputedStyle(el).backgroundColor, text: getComputedStyle(el.querySelector("b")).color };
+      });
+      await page.hover(".deck-menu .dm-item.dm-danger");
+      await page.waitForTimeout(220);
+      const rm = await page.evaluate(() => {
+        const el = document.querySelector(".deck-menu .dm-item.dm-danger");
+        return { bg: getComputedStyle(el).backgroundColor, text: getComputedStyle(el.querySelector("b")).color };
+      });
+      check("...with Remove's red kept in its text", rm.text !== plain.text, JSON.stringify({ rm, plain }));
+      check("...and no wash of its own behind it, hovered", rm.bg === plain.bg, JSON.stringify({ rm, plain }));
+    }
+    await page.keyboard.press("Escape");
+    await page.waitForTimeout(300);
     // clear the day: Easy graduates a new card outright, so the allowance runs out with nothing in learning
     await studyEasy(page, base, 6);
     await page.goto(base + "#home", { waitUntil: "load" });

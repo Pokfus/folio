@@ -1807,16 +1807,24 @@ body.night .ph-lvl{color:#F3E3B2; background:#4A3B10; border-color:#E6C765;}
    focus behaviour are written once. */
 .deck-menu{position:fixed; inset:0; z-index:420; display:flex; align-items:center; justify-content:center; padding:20px; background:color-mix(in srgb,var(--ink) 38%,transparent);}
 .dm-box{width:min(400px,94vw); background:var(--card); border:1px solid var(--rule); border-radius:15px; box-shadow:0 24px 60px rgba(0,0,0,.34); padding:8px; display:flex; flex-direction:column;}
-.dm-head{padding:12px 14px 10px; display:flex; flex-direction:column; gap:2px; border-bottom:1px solid var(--rule); margin-bottom:6px;}
+/* Title on the left, how far through the deck the reader is on the right — on the SAME line, which is what
+   `align-items:baseline` buys: the left-hand block is a column, and a column flex item aligns on its own
+   first line's baseline, so the figure sits on the title's baseline and not on the block's centre. */
+.dm-head{padding:12px 14px 10px; display:flex; align-items:baseline; justify-content:space-between; gap:12px; border-bottom:1px solid var(--rule); margin-bottom:6px;}
+.dm-headmain{display:flex; flex-direction:column; gap:2px; min-width:0;}
 .dm-title{font-family:var(--display); font-weight:600; font-size:calc(17px * var(--fs)); color:var(--ink); letter-spacing:-.01em;}
+.dm-studied{flex:none; font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint); white-space:nowrap;}
 .dm-where{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint);}
 .dm-item{appearance:none; text-align:left; cursor:pointer; background:none; border:1px solid transparent; border-radius:10px; padding:10px 14px; display:flex; flex-direction:column; gap:2px; font-family:var(--sans); transition:background .14s var(--ease), border-color .14s;}
 .dm-item b{font-weight:600; font-size:calc(14.5px * var(--fs)); color:var(--ink);}
 .dm-item small{font-size:calc(11.5px * var(--fs)); color:var(--ink-faint); line-height:1.4;}
 .dm-item:hover{background:var(--paper-2); border-color:var(--rule);}
 .dm-item:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px;}
+/* Remove says what it is in its LABEL alone (Aug 2026, on request). It carried a soft red wash on hover
+   as well, and on a phone — where a hover state can be left behind by the tap that opened the sheet —
+   that read as the option having been chosen by accident. It hovers like every other row now; the deep
+   red text is the whole of the warning. */
 .dm-item.dm-danger b{color:var(--zh);}
-.dm-item.dm-danger:hover{background:var(--zh-wash); border-color:color-mix(in srgb,var(--zh) 30%,transparent);}
 /* a sheet row that is one of a SET (the review's Ordered/Random) rather than a command: the chosen one
    carries a tick, so the sheet says what the setting currently is and not only what it can be changed to */
 .dm-choice{position:relative; padding-right:38px;}
@@ -4511,9 +4519,12 @@ body.night .rv-star.on{color:#E6C765;}
 /* The chapter menu bar. Seneca ships 65 chapters and has 124 to come, so the bar SCROLLS rather than
    wrapping: a wrapped grid of 124 buttons is not a menu bar, it is the page. The arrows step one at a
    time and the ☰ opens the whole contents for a jump. */
+/* The bar and its contents panel are ONE sticky block, so the panel can never be left behind at the top
+   of the document while the bar that opens it rides with the reader. Being sticky, the wrapper is a
+   positioned element and therefore the containing block the panel hangs from. */
+.bk-barwrap{position:sticky; top:calc(var(--bar-h) + 4px); z-index:20; margin-bottom:16px;}
 .bk-bar{
-  position:sticky; top:calc(var(--bar-h) + 4px); z-index:20;
-  display:flex; align-items:center; gap:6px; padding:7px 8px; margin-bottom:16px;
+  display:flex; align-items:center; gap:6px; padding:7px 8px;
   background:var(--card); border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow-sm);
 }
 .bk-nav{
@@ -4553,9 +4564,15 @@ body.night .rv-star.on{color:#E6C765;}
    turning that cell into a flex container (which would move .bk-toc-item's own baseline alignment) */
 .bk-toc-n .bk-glyph{display:inline-block; vertical-align:-2px;}
 
+/* Hung off the bar rather than laid out under it: it opens where the button is, at any scroll depth, and
+   overlays the prose instead of shoving it down the page. The ceiling is whichever is smaller — half the
+   screen, or what is actually left between the pinned bar and the bottom bar. */
 .bk-toc{
+  position:absolute; top:calc(100% + 6px); left:0; right:0; z-index:1;
   border:1px solid var(--rule); border-radius:12px; background:var(--card);
-  padding:14px 16px; margin:-8px 0 16px; max-height:52vh; overflow-y:auto;
+  padding:14px 16px; margin:0; overflow-y:auto;
+  max-height:min(52vh, calc(100vh - var(--bar-h) - var(--tabbar-h) - 96px));
+  box-shadow:var(--shadow-lg);
 }
 .bk-toc[hidden]{display:none;}   /* the author display beats the UA rule — cf. .ces-imgpanel */
 .bk-toc-part + .bk-toc-part{margin-top:14px; padding-top:12px; border-top:1px solid var(--rule);}
@@ -4612,7 +4629,8 @@ body.night .rv-star.on{color:#E6C765;}
   .bk-tile-new,.bk-tile-resume{font-size:calc(11px * var(--fs));}
 
   /* the top bar is gone on a phone (--bar-h is 0), so the chapter bar pins to the very top */
-  .bk-bar{top:4px; border-radius:10px; padding:6px;}
+  .bk-barwrap{top:4px;}
+  .bk-bar{border-radius:10px; padding:6px;}
   .bk-tab-t{display:none;}          /* at 390px a title per tab leaves room for two tabs; the numbers scale */
   .bk-tab{max-width:none; padding:6px 10px;}
   .bk-tab-n{font-size:calc(12.5px * var(--fs)); opacity:1;}
