@@ -131,7 +131,11 @@ them, and a Sparta deck that omits it teaches the propaganda.
 
 Five slots changed subject to hold the cap — `gr-045`, `gr-076`, `gr-104`, `gr-105` and `gr-134` —
 and are marked **†** in the list below with what they used to be, so a later session can see the trade
-rather than wonder at the gap. Two more were recast without changing subject and carry no dagger:
+rather than wonder at the gap. `gr-045` moved a second time when it was written: *aftermath* is a topic
+and not an answer term, and the aftermath of the eruption is in any case largely the story of its ash,
+so the card ships as *Theran tephra* — with the Cretan destructions and the Mycenaean takeover left to
+`gr-050` and `gr-051`, which is what kept it from eating them.
+Two more were recast without changing subject and carry no dagger:
 `gr-075` from *Michael Ventris* to the decipherment itself, and `gr-102` from *Troy at Hisarlik* to
 plain *Troy*, since naming the mound the Victorians dug is the archaeology and the city is the
 history. `gr-104`'s first draft was *The Trojan War in Greek tradition*, which `gr-944 The Trojan War
@@ -212,7 +216,7 @@ out-of-copyright Loebs are all open.
     gr-042  Akrotiri
     gr-043  Thera eruption
     gr-044  Flotilla fresco
-    gr-045  Aftermath of the Thera eruption †  (was: Dating the Thera eruption)
+    gr-045  Theran tephra †  (was: Aftermath of the Thera eruption; before that: Dating the Thera eruption)
     gr-046  Minoan trade with Egypt
     gr-047  Keftiu
     gr-048  Minoan thalassocracy
@@ -222,7 +226,7 @@ out-of-copyright Loebs are all open.
     gr-052  Knossos Linear B archive
     gr-053  Postpalatial Crete
     gr-054  Eteocretan
-    gr-055  Mount Ida and the Idaean Cave
+    gr-055  The Idaean Cave †  (was: Mount Ida and the Idaean Cave)
 
 ### Mycenaean Greece — `gr-mycenae`
 
