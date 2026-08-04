@@ -4217,8 +4217,12 @@
          chapter — see `about` in .claude/fetch-book.js — which is a page a reader chooses to read
          rather than one every shelf visitor pays for. */
       chapterWord: "Letter",
-      // shipped so far — the tile can say how long the book is before the text has loaded
-      count: 65,
+      // shipped so far — the tile can say how long the book is before the text has loaded. The two are
+      // equal now that all 124 letters are here, and both are KEPT: `count` is what Folio holds and
+      // `total` what the work contains, and they part company again the moment a book arrives in
+      // instalments. (Seneca's own total is what survives — Aulus Gellius quotes a book numbered past
+      // anything we still have, so 124 is the extant letters, not everything he wrote.)
+      count: 124,
       total: 124,
       parts: [
         { n: 1, label: "Volume I", note: "Letters 1–65" },

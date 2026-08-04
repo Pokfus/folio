@@ -190,7 +190,13 @@ function stripTags(b) {
       continue;
     }
     if (name === "sup") {
-      if (/class="fn"/.test(attrs)) { out.push('<sup class="fn"></sup>'); stack.push({ name, kept: false }); }
+      // the marker's data-fn is which NOTE it points at, resolved in cleanBody — carry it through, or
+      // a reused note's marker silently reverts to its reading-order number
+      if (/class="fn"/.test(attrs)) {
+        const fn = attrs.match(/data-fn="(\d+)"/);
+        out.push('<sup class="fn"' + (fn ? ' data-fn="' + fn[1] + '"' : "") + "></sup>");
+        stack.push({ name, kept: false });
+      }
       else { out.push("<sup>"); stack.push({ name, kept: true }); }
       continue;
     }
@@ -201,7 +207,7 @@ function stripTags(b) {
   return out.join("");
 }
 
-function cleanBody(h) {
+function cleanBody(h, noteIds) {
   let b = h.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<!--[\s\S]*?-->/g, "");
   const i = b.indexOf('<div class="prp-pages-output"');
   if (i < 0) throw new Error("no body");
@@ -225,8 +231,28 @@ function cleanBody(h) {
     /<span class="wst-verse[^"]*"[^>]*>\s*<sup>\s*<b>\s*(\d+)\.?\s*<\/b>\s*<\/sup>\s*<\/span>/g,
     '<span class="bk-n">$1</span>'
   );
-  // a footnote reference becomes Folio's own EMPTY marker; wireFootnotes writes the digit, so the
-  // number in the prose can never disagree with the list under it
+  /* A footnote reference becomes Folio's own marker, and it carries the note it actually points at.
+     wireFootnotes still writes the DIGIT — the number in the prose can never disagree with the list —
+     but which entry a marker resolves to is decided here, from the href MediaWiki put on it.
+
+     A bare marker takes the next number in reading order, which is right only while every note is
+     cited exactly once. Wikisource REUSES a note wherever the translator repeats himself: letter 114
+     cites one note four times and another three times, so its 21 notes carry 26 markers. Numbered by
+     reading order, every marker after the first repeat points one entry too far, and the five that
+     run past the end of the list are DELETED by wireFootnotes — so the letter silently loses the
+     markers on its last five annotated claims and mis-points the twenty before them. Six of the
+     letters added here do this (80, 82, 85, 94, 95, 114); none of the first 65 does, which is why it
+     went unnoticed, and it is invisible to every count: the notes are all present and correct, the
+     prose is intact, and nothing throws.
+
+     Resolving the target keeps the two apart — repeats render as a repeated number, which is what a
+     note cited twice should look like, and nothing is dropped. Note the id attribute escapes its
+     underscore as &#95; while the href does not, so only the note ids need normalising. A marker
+     whose target is missing falls back to the bare form rather than inventing a number. */
+  b = b.replace(/<sup id="cite[^"]*" class="reference">\s*<a href="#([^"]*)"[\s\S]*?<\/sup>/g, (m, tgt) => {
+    const i = noteIds ? noteIds.indexOf(tgt.replace(/&#95;/g, "_")) : -1;
+    return i < 0 ? '<sup class="fn"></sup>' : '<sup class="fn" data-fn="' + (i + 1) + '"></sup>';
+  });
   b = b.replace(/<sup id="cite[^"]*" class="reference">[\s\S]*?<\/sup>/g, '<sup class="fn"></sup>');
   b = b.replace(/<div class="(?:poem|wst-block-center|wst-center)[^"]*"[^>]*>/g, "<blockquote>");
   b = b.replace(/<\/div>/g, "</blockquote>").replace(/<div[^>]*>/g, "<blockquote>");
@@ -264,35 +290,59 @@ function stripWikiCSS(s) {
     .replace(/<style[\s\S]*?<\/style>/g, "")
     .replace(/\.mw-parser-output(?:[^{}]*\{[^{}]*\})+/g, "");
 }
+/* Returns the notes AND their ids, in list order. The ids are what cleanBody resolves each marker's
+   href against, so the two must be read from the SAME pass — a note list and a marker map derived
+   separately are one Wikisource layout change away from disagreeing with each other.
+
+   Pairing the id with its text in one match also avoids a trap worth writing down: the notes cannot
+   be split on "<li", because MediaWiki serves its font templates as <link rel="mw-deduplicated-inline-
+   style"> elements INSIDE a note, and "<link" starts with "<li". */
 function notesOf(h) {
   const m = h.match(/<ol class="references">([\s\S]*?)<\/ol>/);
-  if (!m) return [];
-  const out = [];
-  const rx = /<span class="reference-text">([\s\S]*?)<\/span>\s*<\/li>/g;
+  if (!m) return { notes: [], ids: [] };
+  const notes = [], ids = [];
+  const rx = /<li id="(cite[^"]*)"[\s\S]*?<span class="reference-text">([\s\S]*?)<\/span>\s*<\/li>/g;
   let x;
   while ((x = rx.exec(m[1]))) {
-    out.push(
-      stripWikiCSS(x[1])
+    ids.push(x[1].replace(/&#95;/g, "_"));
+    notes.push(
+      stripWikiCSS(x[2])
         .replace(/<(?!\/?(i|b|em|strong)\b)[^>]*>/g, "")
         .replace(/&#160;|&nbsp;/g, " ")
         .replace(/\s+/g, " ")
         .trim()
     );
   }
-  return out;
+  return { notes, ids };
 }
 
 /* ---------- the chapter titles, from the book's own contents page ---------- */
+/* ---------- the chapter titles, from the book's own contents page ----------
+   Read ROW BY ROW, pairing the numeral cell with the title cell beside it, rather than trusting the
+   href on each link. The contents page is a table — a numeral column, a title column, a page column —
+   and both cells of a row link to the same letter, so keying off the href looks equivalent and is
+   cheaper. It is not: on the CIII row Wikisource's own markup hyperlinks the TITLE cell to Letter
+   104 while the numeral beside it correctly links to Letter 103. Keyed by href, letter 103's title is
+   filed under 104 and then discarded (104's own title, later in the document, overwrites it), and 103
+   is left with nothing but a bare numeral — which the guard below drops, so it falls back to the
+   generic "Letter 103" while every other letter in the book is titled.
+
+   The row is the structure the page actually means, and it is also the more robust reading: it needs
+   the numeral's href alone, and survives the title link being wrong, absent or pointed anywhere. */
 async function chapterTitles() {
   const h = await api(BOOK.indexPage);
   const txt = h.replace(/<style[\s\S]*?<\/style>/g, "");
-  const rx = /<a href="\/wiki\/[^"]*\/Letter_(\d+)"[^>]*>([^<]*)<\/a>/g;
   const d = {};
-  let m;
-  while ((m = rx.exec(txt))) {
-    const t = m[2].trim();
-    if (/^[IVXLC]+\.$/.test(t)) continue;   // the numeral column, not the title column
-    d[+m[1]] = titleCase(t);
+  for (const row of txt.split(/<tr[^>]*>/).slice(1)) {
+    let n = null, title = null;
+    for (const cell of row.split(/<td[^>]*>/).slice(1)) {
+      const a = cell.match(/<a href="\/wiki\/[^"]*\/Letter_(\d+)"[^>]*>([^<]*)<\/a>/);
+      if (!a) continue;
+      const t = a[2].trim();
+      if (/^[IVXLC]+\.$/.test(t)) { if (n === null) n = +a[1]; }   // the numeral column
+      else if (title === null) title = t;                          // the title column
+    }
+    if (n !== null && title) d[n] = titleCase(title);
   }
   return d;
 }
@@ -332,7 +382,8 @@ async function main() {
       continue;
     }
     const h = await api(BOOK.page(n));
-    const html = cleanBody(h), notes = notesOf(h);
+    const { notes, ids } = notesOf(h);
+    const html = cleanBody(h, ids);
     if (html.length < 200) throw new Error("chapter " + n + " came back short (" + html.length + " chars)");
     const rec = { n, t: titles[n] || BOOK.chapterWord + " " + n, p: partOf(n), html, notes };
     fs.writeFileSync(cf, JSON.stringify(rec));
