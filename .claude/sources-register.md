@@ -11363,3 +11363,141 @@ ceiling); a later editor wanting to add it has the citation here.
   JavaScript-rendered or table-only; no readable figures.
 - `www.tanzaniaparks.go.tz` — host up, 404 on the national-park paths tried.
 - `whc.unesco.org`, `chairs-chaires.gc.ca` (per-holder profiles) — unusable.
+
+## Batch N13 — the Olduvai fauna and the Nordic sequence; TWO TERMS DEFERRED (2026-08-04)
+
+Thirteen requested, **eleven shipped**: `Proboscidea`, `Hippopotamus`, `Sivatherium`,
+`Paranthropus_boisei`, `Hamburg_culture`, `Bromme_culture`, `Ahrensburg_culture`,
+`Nordic_Bronze_Age`, `Funnelbeaker_culture`, `Pitted_Ware_culture`, `Dolmen`. **`Hans_Reck` and
+`butterfly` are deferred.**
+
+### THE FINDING: seven of eleven cost no new reading at all
+The seven northern-European terms were paid for entirely out of **batch 17c**, which cited
+`wh-101` (Nordic Stone Age) from sixteen works. Fjellström 2026 and Riede 2024 between them define
+all three Late Palaeolithic cultures; Robson 2024, Groß 2026, Winther Johannsen 2024 and Malmström
+2019 carry the Funnelbeaker and Pitted Ware terms; Schulz Paulsson 2019 carries the dolmen. **This is
+batch 12's economy arriving for the glossary**: a card cited to the bar leaves behind a set of works
+that will write the glossary terms for every proper noun in it. The corollary for choosing the next
+batch: **look at what a well-cited card NAMES, not at what it is about.**
+
+### The two deferrals
+- **`Hans_Reck`** — the same wall as N12's `Wilhelm_Kattwinkel`, and the same single work. Gentry et
+  al. 1995 records his October–December 1913 expedition and his return with the Third East African
+  Archaeological Expedition of 1931–32, and `zobodat.at` is behind the Anubis proof-of-work challenge,
+  so nothing further can be drawn from it. de la Torre's "The Origins of Stone Tool Technology in
+  Africa: A Historical Perspective" (*Phil. Trans. R. Soc. B* 366, 2011, PMC3049100) is the obvious
+  second source and has **no deposited full text** — `fullTextXML` 404s and
+  `royalsocietypublishing.org` is 403 — so batch 24's rule (`isOpenAccess: N` ≠ unreadable) does not
+  rescue it here. Europe PMC returns nothing else on Reck.
+- **`butterfly`** — one usable source and no second. Animal Diversity Web's *Lepidoptera* account is
+  open, prose, and cites its references, so it passes N9; ADW's *Papilionoidea* account is a bare
+  classification tree with **no prose and no references** and cannot serve as the second. The obvious
+  peer-reviewed pairings are papers about butterfly wing scales or lepidopteran brains, which describe
+  a mechanism rather than the animal, and citing one for "a butterfly is an insect whose wings are
+  covered in scales" would be the padding this pass forbids.
+
+### The works
+- Jack M. Craig et al., "Completing a Molecular Timetree of Afrotheria," <i>Frontiers in Bioinformatics</i> 5 (2025): 1710926, https://pmc.ncbi.nlm.nih.gov/articles/PMC12672906/. [Open access]
+  - opened: 2026-08-04 · full text via Europe PMC
+  - supports: "The elephants and mammoths (order Proboscidea), manatees and relatives (order Sirenia),
+    aardvarks (order Tubulidentata), tenrecs and relatives (order Afrosoricida), hyraxes (order
+    Hyracoidea), and elephant shrews (order Macroscelidea) together comprise Afrotheria, a clade
+    supported by robust molecular phylogenies"
+  - used by: Proboscidea
+- Manuel Domínguez-Rodrigo et al., "Earliest Evidence of Elephant Butchery at Olduvai Gorge (Tanzania) Reveals the Evolutionary Impact of Early Human Megafaunal Exploitation," <i>eLife</i> 14 (2026): RP108298, https://pmc.ncbi.nlm.nih.gov/articles/PMC12999177/. [Open access]
+  - opened: 2026-08-04 · full text via Europe PMC
+  - supports: "At Olduvai Gorge, evidence for megafaunal butchery is scarce in the Oldowan of Bed I but
+    becomes more frequent and widespread after 1.8 Ma in Bed II"; "Starting at 1.78 Ma, Olduvai Gorge
+    records extensive evidence of hominin involvement with megafaunal carcasses …, namely Proboscidea
+    and Hippopotamidae, followed closely by Giraffidae and big Bovidae"; and that dynamic green-bone
+    breakage "has been documented in Pelorovis and Sivatherium carcasses at the 1.3 Ma site of BK
+    (Olduvai Gorge)"
+  - **one paper serving three terms**, which is why it was worth reading in full
+  - used by: Proboscidea, Sivatherium
+- Kassandra Mason, "<i>Hippopotamus amphibius</i>," Animal Diversity Web, University of Michigan Museum of Zoology, https://animaldiversity.org/accounts/Hippopotamus_amphibius/. [Open access]
+  - opened: 2026-08-04 · **a route worth keeping**: ADW is the U-M Museum of Zoology's species
+    database, open, written in prose, and **each account ends in its own References list**, so it
+    passes N9's per-article test. It is the natural-history equivalent of the Smithsonian species
+    records that carried the hominins, and there is no comparable openly readable source for common
+    animals — IUCN's Red List is 403 here.
+  - supports: hippos "found exclusively in the Ethiopian region", occurring "in rivers throughout the
+    savanna of Africa"; "Weighing between 1,300 and 3,200 kg, hippopotamusi measure between 209 and 505
+    cm in length"; "They stand between 150 and 165 cm tall"; "Hippos are a semi-aquatic mammal, usually
+    inhabiting shallow lakes, rivers, and swamps. The water must be deep enough for the hippo to
+    submerge its entire body in"; "Outer epidermal skin layers are extremely thin"; "Hippos lack scent
+    and sweat glands. Instead, mucous glands secrete a thick oily layer of red pigmented fluid"; and
+    that they "emerge from water at dusk and go ashore to feed … to dense, grassy grazing areas along
+    the banks"
+  - **caveat noted and NOT repeated in the term**: the account is undergraduate-authored and edited,
+    and its own references are books and field guides rather than primary literature. It is paired
+    with a peer-reviewed study for anything contested.
+  - used by: Hippopotamus
+- Victoria L. Inman et al., "Sleeping Giants: Temporal, Seasonal, and Spatial Variations in the 24-h Activity Budget of <i>Hippopotamus amphibius</i>," <i>Journal of Mammalogy</i> (2025): gyaf068, https://pmc.ncbi.nlm.nih.gov/articles/PMC12854209/. [Open access]
+  - opened: 2026-08-04 · full text via Europe PMC
+  - supports, and it **corrects the textbook picture the ADW account implies**: "Contrary to the
+    persistent assumption that hippos rest in water by day and graze on land all night, hippos in this
+    study fed during only a quarter of the night and were active for a similar proportion of the day.
+    Hippos often spent hours of the day on land feeding or basking in the sun"
+  - **the term states the disagreement rather than picking a side** — the older picture named as the
+    familiar one, the study named as what observation found
+  - used by: Hippopotamus
+- Chenelle Rabe, Anusuya Chinsamy, and Romala Govender, "Osteohistology and Palaeobiology of Giraffids from the Mio-Pliocene Langebaanweg (South Africa)," <i>Journal of Anatomy</i> 243, no. 1 (2023): 89–110, https://pmc.ncbi.nlm.nih.gov/articles/PMC10093165/. [Open access]
+  - opened: 2026-08-04 · full text via Europe PMC
+  - supports: the "Pliocene *Sivatherium hendeyi* Harris, 1976 … from Langebaanweg (LBW) in South
+    Africa"; that "Langebaanweg ranks as one of the richest Neogene fossil vertebrate sites in
+    Africa"; that "*Sivatherium hendeyi*, is more basal than the more common African Sivathere, *S.
+    maurusium*"; and Giraffidae membership, the family being discussed throughout with the okapi and
+    the modern giraffe
+  - **note**: it does NOT support the familiar claim that *Sivatherium* was among the largest
+    ruminants ever, and the term does not make it.
+  - used by: Sivatherium
+- Smithsonian NMNH, Human Origins Program, "<i>Paranthropus boisei</i>" and "OH 5," accessed 4 August 2026. [Open access]
+  - opened: 2026-08-04 · the museum's species and fossil records
+  - supports: "About 2.3 to 1.2 million years ago", eastern Africa; "massive cheek teeth four times the
+    size of a modern human's"; "the thickest dental enamel of any known early human"; "Flaring
+    cheekbones gave *P. boisei* a very wide and dish-shaped face"; that it was "Mary Leakey's 1959
+    discovery of the 'Zinj' skull (OH 5)" that established the species, "'Zinj' became the type
+    specimen"; the Nutcracker Man nickname; and the diet puzzle — "dental microwear patterns seen on
+    *P. boisei* teeth are more similar to living fruit-eaters … It's possible that this species only
+    ate hard or tough foods during times when its preferred resources were scarce"
+  - **written to avoid L9's duplication with the genus term**: `Paranthropus` keeps the genus-level
+    morphology and the three species; `Paranthropus_boisei` keeps OH 5, the nicknames and the diet
+    argument. Measured as written, the two share no eight-word run.
+  - used by: Paranthropus_boisei
+- José Antonio Lozano Rodríguez et al., "Early Science and Colossal Stone Engineering in Menga, a Neolithic Dolmen (Antequera, Spain)," <i>Science Advances</i> 10, no. 34 (2024): eadp1295, https://pmc.ncbi.nlm.nih.gov/articles/PMC11425551/. [Open access]
+  - opened: 2026-08-04 · full text via Europe PMC
+  - supports: "Megaliths represent the earliest form of monumental stone architecture. The earliest
+    megalithic chambers in Europe appeared in France in the fifth millennium BCE"; and the physical
+    description a dolmen term needs — an interior "delimited by 10 uprights on each side, covered by
+    five capstones", with the uprights called orthostats throughout
+  - **this is what Schulz Paulsson 2019 could not give**: that paper distinguishes dolmens from
+    passage and gallery graves but never says what one is made of.
+  - used by: Dolmen
+
+### Reused from the register without re-reading, per G6 (the claim each RECORDS)
+`fjellstrom-2026` and `riede-2024` (Hamburg, Bromme, Ahrensburg); `robson-2024`, `gross-2026`,
+`winther-johannsen-2024`, `malmstrom-2019` (Funnelbeaker, Pitted Ware, and the reuse of megalithic
+tombs); `schulz-paulsson-2019` (the reopening of megalithic graves for successive burials). Two new
+works were opened for the Nordic Bronze Age, which batch 17c did not cover:
+- Heide W. Nørgaard, Ernst Pernicka, and Helle Vandkilde, "Shifting Networks and Mixing Metals…," <i>PLOS ONE</i> 16, no. 6 (2021): e0252376, https://pmc.ncbi.nlm.nih.gov/articles/PMC8208583/. [Open access]
+  - supports: "the Nordic Bronze Age was founded on metal imports from shifting ore sources associated
+    with altered trade routes"; "Southern Scandinavia's rich Bronze Age societies were dependent on
+    copper imported from exogenous sources throughout the 2100–500 BC period"; "the existing local
+    copper deposits have not been exploited before the Middle Ages"; "First to arrive via the central
+    German Únětician hubs was high-impurity metal from the Austrian Inn Valley and Slovakia"; and the
+    apex of the NBA "prior to 1300 BC"
+- Samantha S. Reiter et al., "Into the Fire: Investigating the Introduction of Cremation to Nordic Bronze Age Denmark," <i>PLOS ONE</i> 16, no. 5 (2021): e0249458, https://pmc.ncbi.nlm.nih.gov/articles/PMC8115792/. [Open access]
+  - supports: the introduction of cremation to Nordic Bronze Age Denmark, studied region by region
+    through strontium isotope analysis of burnt remains
+
+### Two checks this batch ran because N12 taught them
+- **The casing probe.** Every new surface was resolved against the casings the CORPUS uses, not the
+  casings the terms are titled in. All clean this time: the deck and the glossary write "Hamburg
+  culture", "Pitted Ware culture", "Funnelbeaker culture" with a lowercase c, which is exactly what
+  the humanised keys produce. Note the probe must include `buildGlossIndex`'s **plural pass** or it
+  reports a false failure — "dolmens" resolves in the app and did not in a probe that stopped at
+  aliases.
+- **`check-style.js` caught a real house-rule violation in this batch's own prose**: `Dolmen` had
+  "the fifth millennium BCE", where the house rule numbers centuries and millennia. Fixed to "5th".
+  **Run it after writing, not only after correcting** — it is the only check that reads the new prose
+  against the style rules.

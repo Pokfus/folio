@@ -2643,6 +2643,34 @@ HTML, the Bavarian statistical office publishes tables rather than a profile, an
 readable sentences calling Munich the capital of Bavaria sit in unrelated medical papers. Rendering the
 JS is the route, once the agent proxy will pass Chromium's CONNECT.
 
+### Batch N13 — the Olduvai fauna and the Nordic sequence (2026-08-04)
+
+Thirteen requested, **eleven shipped**: `Proboscidea`, `Hippopotamus`, `Sivatherium`,
+`Paranthropus_boisei`, `Hamburg_culture`, `Bromme_culture`, `Ahrensburg_culture`,
+`Nordic_Bronze_Age`, `Funnelbeaker_culture`, `Pitted_Ware_culture`, `Dolmen`.
+
+**Its finding is an economy rather than a hazard, and it should shape how batches are chosen.** Seven
+of the eleven cost **no new reading at all**: they were paid for out of batch 17c, which cited one card
+(`wh-101`, Nordic Stone Age) from sixteen works, and those works define the three Late Palaeolithic
+cultures, the Funnelbeaker and Pitted Ware cultures and the dolmen between them. G7 found the register
+pays for taxa and periods and not for places; this is the other side of it — **a card cited to the bar
+leaves behind the sources for a glossary term on every proper noun in it.** So when picking the next
+batch, look at what a well-cited card NAMES rather than at what it is about.
+
+Two deferred, both for one usable source. **`Hans_Reck`** is N12's `Wilhelm_Kattwinkel` again — the
+Anubis-walled Gentry 1995 is the only account, and the obvious second (de la Torre's historical
+perspective, *Phil. Trans. R. Soc. B* 2011) has no deposited full text on PMC and 403s at the
+publisher. **`butterfly`** has Animal Diversity Web's *Lepidoptera* account, which passes N9 — open
+prose with its own reference list — and no second: ADW's *Papilionoidea* page is a bare classification
+tree, and the peer-reviewed alternatives describe wing scales or brains rather than the animal.
+
+**A route worth keeping: Animal Diversity Web** (`animaldiversity.org`), the University of Michigan
+Museum of Zoology's species database. It is the natural-history equivalent of the Smithsonian records
+that carried the hominins — open, in prose, and each account ends in its own references, so it clears
+N9's per-article test. IUCN's Red List is 403 here, so for a common animal there is little else. Pair
+it with a peer-reviewed study for anything contested: ADW gives the hippo's textbook day-in-water
+habit, and Inman et al. 2025 shows observation does not bear it out, which is how the term states it.
+
 **A route worth reusing: Plarr's Lives of the Fellows** (`livesonline.rcseng.ac.uk`), the Royal College
 of Surgeons' open biographical dictionary, carried the whole of `Arthur_Keith`. It covers the anatomists
 palaeoanthropology keeps meeting, and it is the answer to G8's finding that the literature does not pay
