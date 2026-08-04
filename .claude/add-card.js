@@ -149,6 +149,11 @@ for (const m of ["image", "video"]) {
     process.exit(1);
   }
 }
+// …and a picture carries `alt`: what it SHOWS, for a reader who cannot see it — a different sentence from
+// its title, which names it for somebody who can. Warned rather than refused; most shipped images predate it.
+if (card.image && String(card.image.src || "").trim() && !String(card.image.alt || "").trim()) {
+  console.warn("WARNING: card.image has no `alt` — a screen reader will fall back to its title.");
+}
 if (REQUIRE_TRANSLATIONS && !card.skipTranslations) {   // a new card ships in all 9 site languages (i18n block)
   const missing = [];
   for (const l of I18N_LANGS) {

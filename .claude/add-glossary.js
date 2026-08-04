@@ -122,7 +122,10 @@ if (e.delete) {
   // optional illustration ({ src, title, desc, credit }) — same shape as a card image, shown at the foot of the popup
   if (e.image && e.image.src) {
     const im = { src: String(e.image.src) };
-    ["title", "desc", "credit"].forEach((f) => { if (e.image[f]) im[f] = String(e.image[f]); });
+    // `alt` joined the three in Aug 2026: what the picture SHOWS, for a reader who cannot see it, which is
+    // a different sentence from its title. Warned about rather than required — most shipped images predate it.
+    ["title", "desc", "credit", "alt"].forEach((f) => { if (e.image[f]) im[f] = String(e.image[f]); });
+    if (!im.alt) console.warn("WARNING: " + e.slug + ".image has no `alt` — a screen reader will fall back to its title.");
     IMAGES[e.slug] = im;
   } else if ("image" in e) delete IMAGES[e.slug];
   // optional video ({ src, title, desc, credit }) — LINKS ONLY: a YouTube/Vimeo page URL or a direct

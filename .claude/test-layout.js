@@ -372,29 +372,34 @@ async function studyEasy(page, base, n) {
         pad: Math.round(parseFloat(getComputedStyle(document.querySelector(".stage")).paddingBottom) || 0),
       };
     });
-    const dragGrip = (dy) => page.evaluate(async (d) => {
-      const g = document.querySelector(".gb-grab"), r = g.getBoundingClientRect();
-      const x = r.left + r.width / 2, y = r.top + r.height / 2;
-      const ev = (t, cy) => g.dispatchEvent(new PointerEvent(t, { pointerId: 1, clientX: x, clientY: cy, bubbles: true, button: 0 }));
-      ev("pointerdown", y); ev("pointermove", y + d / 2); ev("pointermove", y + d); ev("pointerup", y + d);
+    /* A CHEVRON since Aug 2026, not a drag grip (on request): the bar has exactly two heights, so a drag
+       was a gesture whose whole range mapped onto one bit. What is asserted is unchanged — the short state
+       must genuinely halve the bar, keep the four grades named to a screen reader, and take the page's
+       padding down with it — only the way in is a press. */
+    const fold = () => page.evaluate(async () => {
+      document.querySelector(".gb-fold").click();
       await new Promise((r2) => setTimeout(r2, 250));
-    }, dy);
-    const gripSeen = await page.evaluate(() => { const g = document.querySelector(".gb-grab"); return !!(g && g.checkVisibility()); });
-    check("the grade bar carries a grip to resize it", gripSeen);
+    });
+    const foldSeen = await page.evaluate(() => {
+      const g = document.querySelector(".gb-fold");
+      return g && g.checkVisibility() ? (g.tagName + ":" + g.getAttribute("aria-expanded")) : "";
+    });
+    check("the grade bar carries a chevron to fold it", foldSeen === "BUTTON:true", foldSeen || "no .gb-fold");
     const tall = await read();
-    await dragGrip(44);
+    await fold();
     const short = await read();
-    check("...dragging it down halves the bar", short.compact && short.h <= tall.h * 0.6,
+    check("...pressing it halves the bar", short.compact && short.h <= tall.h * 0.6,
       JSON.stringify({ tall: tall.h, short: short.h }));
+    check("...and says which state it is in", await page.evaluate(() => document.querySelector(".gb-fold").getAttribute("aria-expanded")) === "false");
     check("...leaving the four grades side by side as bare colours",
       short.rows === 1 && !short.gi && !short.gl, JSON.stringify(short));
     check("...still named to a screen reader, which display:none would not be", short.named);
     check("...with the ? and Suspend beside them, not dropped", short.help && short.suspend && short.oneLine, JSON.stringify(short));
     check("...and the page's bottom padding down with it", short.pad < tall.pad && short.pad >= short.h,
       JSON.stringify({ tall: tall.pad, short: short.pad, bar: short.h }));
-    await dragGrip(-44);
+    await fold();
     const back = await read();
-    check("...dragging it back up restores the bar", !back.compact && back.h === tall.h && back.gi,
+    check("...pressing it again restores the bar", !back.compact && back.h === tall.h && back.gi,
       JSON.stringify({ tall: tall.h, back: back.h }));
     await page.close();
   }
@@ -406,10 +411,7 @@ async function studyEasy(page, base, n) {
     await page.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
     await page.waitForTimeout(600);
     await page.evaluate(async () => {
-      const g = document.querySelector(".gb-grab"), r = g.getBoundingClientRect();
-      const x = r.left + r.width / 2, y = r.top + r.height / 2;
-      const ev = (t, cy) => g.dispatchEvent(new PointerEvent(t, { pointerId: 1, clientX: x, clientY: cy, bubbles: true, button: 0 }));
-      ev("pointerdown", y); ev("pointermove", y + 44); ev("pointerup", y + 44);
+      document.querySelector(".gb-fold").click();
       await new Promise((r2) => setTimeout(r2, 250));
     });
     await studyEasy(page, base, 0);
@@ -419,13 +421,13 @@ async function studyEasy(page, base, n) {
     await page.close();
   }
   {
-    // above the breakpoint there is nothing to reclaim: one comfortable row already, and no grip
+    // above the breakpoint there is nothing to reclaim: one comfortable row already, and no chevron
     const page = await browser.newPage({ viewport: DESKTOP });
     watch(page);
     await studyEasy(page, base, 0);
     await page.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
     await page.waitForTimeout(600);
-    check("the grip is phone-only", !(await page.evaluate(() => { const g = document.querySelector(".gb-grab"); return !!(g && g.checkVisibility()); })));
+    check("the chevron is phone-only", !(await page.evaluate(() => { const g = document.querySelector(".gb-fold"); return !!(g && g.checkVisibility()); })));
     await page.close();
   }
 
@@ -860,13 +862,14 @@ async function studyEasy(page, base, n) {
            text-align, which was once "center" while the words sat hard left: the class was first called
            `.mg-head`, which is the MAP GAME's card header, and that rule's `display:flex` beats
            text-align outright. A block-level h2 spans the column whatever it does with its text, so
-           only the text's own box can tell the two apart. The heading went back to the LEFT in Aug 2026
-           on request, so what is measured is the same box against the other edge. */
-        headLeft: (() => {
+           only the text's own box can tell the two apart. The heading went back to CENTRED in Aug 2026
+           on request (it was centred, then left for a fortnight, then centred again), so what is measured
+           is the same box's centre against the grid's. */
+        headOff: (() => {
           if (!head || !grid) return 999;
           const r = document.createRange(); r.selectNodeContents(head);
           const t = r.getBoundingClientRect(), g = grid.getBoundingClientRect();
-          return Math.round(t.left - g.left);
+          return Math.round((t.left + t.width / 2) - (g.left + g.width / 2));
         })(),
         headBelowReview: !!(head && grp && top(head) >= Math.round(grp.getBoundingClientRect().bottom) - 1),
         gridBelowHead: !!(head && grid && top(grid) >= Math.round(head.getBoundingClientRect().bottom) - 1),
@@ -899,7 +902,7 @@ async function studyEasy(page, base, n) {
     await page.waitForTimeout(1500);
     check("the games sit under the review, under a Minigames heading",
       /minigames/i.test(h.mgHead) && h.headBelowReview && h.gridBelowHead, JSON.stringify({ head: h.mgHead, below: h.headBelowReview, grid: h.gridBelowHead }));
-    check("...starting at the left edge of the grid it names", Math.abs(h.headLeft) <= 2, h.headLeft);
+    check("...centred over the grid it names", Math.abs(h.headOff) <= 2, h.headOff);
     check("...three wide and two tall", h.cols === 3 && h.rows === 2 && h.tiles === 6, JSON.stringify({ cols: h.cols, rows: h.rows, tiles: h.tiles }));
     check("...with the description sentences gone", h.subs === 0, h.subs + " tiles still carry one");
     check("...the quote still above it all", h.quoteAbove);
@@ -1202,22 +1205,93 @@ async function studyEasy(page, base, n) {
     await page.close();
   }
 
-  /* ================= 7e. the Atlas sheet's height is the reader's =================
-     Dragged shorter, the sheet must still show its title — the floor is measured through offsetTop, since
-     the head is a scroller inside the box being shrunk and its rect collapses along with it. Dragged taller
-     it must stop at the top of the screen. And the height carries to the next place opened, which is the
-     only reason to set it. */
+  /* ================= 7d2. swiping between pages on a phone (Aug 2026, on request) =================
+     A false positive here TAKES A PAGE AWAY, so what is guarded is as much what must NOT navigate as what
+     must: a diagonal (a scroll that wandered), a short drag, and the Atlas, which is excluded outright
+     because a drag there turns the globe. The gesture is dispatched as real PointerEvents rather than
+     through page.touchscreen: the handler is bound to `document` and keys off pointerType. */
+  {
+    const page = await browser.newPage({ viewport: PHONE, hasTouch: true, isMobile: true });
+    watch(page);
+    const swipe = (dx, dy) => page.evaluate(async ([d, v]) => {
+      const send = (t, x, y) => document.dispatchEvent(new PointerEvent(t, { pointerId: 7, pointerType: "touch", clientX: x, clientY: y, bubbles: true, cancelable: true }));
+      const y0 = 340, x0 = d < 0 ? 300 : 90;
+      send("pointerdown", x0, y0);
+      await new Promise((r) => setTimeout(r, 40));
+      send("pointermove", x0 + d / 2, y0 + v / 2);
+      await new Promise((r) => setTimeout(r, 40));
+      send("pointerup", x0 + d, y0 + v);
+      await new Promise((r) => setTimeout(r, 750));
+    }, [dx, dy || 0]);
+    const where = () => page.evaluate(() => location.hash || "#");
+    await page.goto(base + "#home", { waitUntil: "load" });
+    await page.waitForTimeout(1500);
+    await swipe(-120);
+    check("a swipe left moves to the next page", (await where()) === "#decks", await where());
+    await swipe(-120);
+    check("...and on to the one after it", (await where()) === "#library", await where());
+    await swipe(120);
+    check("...a swipe right comes back", (await where()) === "#decks", await where());
+    await swipe(-30);
+    check("...a short drag is not a swipe", (await where()) === "#decks", await where());
+    await swipe(-120, 220);
+    check("...nor is a diagonal, which is a scroll that wandered", (await where()) === "#decks", await where());
+    await swipe(120);
+    await swipe(120);
+    check("...and the ends are ends, not a carousel", (await where()) === "#", await where());
+    // the Atlas is out of the order in BOTH directions — a drag there turns the globe
+    await atlas(page, base);
+    await swipe(-140);
+    check("a swipe on the Atlas turns the globe rather than leaving it", (await where()) === "#map", await where());
+    await page.close();
+  }
+  {
+    // …and above the breakpoint it is not wired at all: a mouse drag is a selection
+    const page = await browser.newPage({ viewport: DESKTOP, hasTouch: true });
+    watch(page);
+    await page.goto(base + "#home", { waitUntil: "load" });
+    await page.waitForTimeout(1400);
+    await page.evaluate(async () => {
+      const send = (t, x, y) => document.dispatchEvent(new PointerEvent(t, { pointerId: 9, pointerType: "touch", clientX: x, clientY: y, bubbles: true, cancelable: true }));
+      send("pointerdown", 900, 400); send("pointermove", 800, 400); send("pointerup", 700, 400);
+      await new Promise((r) => setTimeout(r, 700));
+    });
+    // "#home" or "" — the app only clears the hash when it ROUTES home, and booting there leaves what was typed
+    check("the swipe is phone-only", /^(#home)?$/.test(await page.evaluate(() => location.hash)),
+      await page.evaluate(() => location.hash));
+    await page.close();
+  }
+
+  /* ================= 7e. the Atlas sheet's height =================
+     TWO rules, and the second was added Aug 2026 on request. The height is the reader's to drag — shorter
+     must still show the title (the floor is measured through offsetTop, since the head is a scroller inside
+     the box being shrunk and its rect collapses along with it), and what it is left at carries to the next
+     place, which is the only reason to set it. And the CEILING is what the page on screen actually needs:
+     "the max height should always be the point where everything is displayed fully, so we are never left
+     with empty space at the bottom." So a drag upward stops at the content, not at the top of the screen,
+     and swiping to a shorter page pulls the sheet down to fit it. Both failures are silent — a sheet half
+     full of nothing looks like a sheet. */
   {
     const page = await browser.newPage({ viewport: PHONE, hasTouch: true });
     watch(page);
     await atlas(page, base);
     await page.evaluate(() => { location.hash = "#map/2026/france"; });
     await page.waitForTimeout(2500);
+    // how much of the scroller is NOT filled by the page in it — the "empty space at the bottom"
+    const slack = () => page.evaluate(() => {
+      const cols = document.querySelector(".cp-cols");
+      const panes = [...cols.children].filter((c) => !c.hidden && !c.classList.contains("cp-blank"));
+      const i = Math.max(0, Math.min(panes.length - 1, Math.round(cols.scrollLeft / (cols.clientWidth || 1))));
+      const p = document.querySelector("#countryPop").getBoundingClientRect();
+      return { slack: Math.round(cols.clientHeight - panes[i].scrollHeight), h: Math.round(p.height), top: Math.round(p.top), pane: i, panes: panes.length };
+    });
     const start = await page.evaluate(() => {
       const p = document.querySelector("#countryPop");
       return { hidden: p.hidden, grip: getComputedStyle(document.querySelector("#cpGrab")).display, h: Math.round(p.getBoundingClientRect().height) };
     });
     check("the place sheet carries a resize grip", !start.hidden && start.grip !== "none", JSON.stringify(start));
+    const s0 = await slack();
+    check("...and opens no taller than the page in it needs", s0.slack <= 24, JSON.stringify(s0));
     const drag = async (toY) => {
       const g = await page.evaluate(() => document.querySelector("#cpGrab").getBoundingClientRect().toJSON());
       await page.mouse.move(g.x + g.width / 2, g.y + g.height / 2);
@@ -1226,17 +1300,23 @@ async function studyEasy(page, base, n) {
       await page.mouse.up();
       await page.waitForTimeout(350);
     };
-    await drag(80);
-    const tall = await page.evaluate(() => {
-      const p = document.querySelector("#countryPop").getBoundingClientRect();
-      return { h: Math.round(p.height), top: Math.round(p.top) };
+    // dragged hard at the top of the screen it must NOT grow past its content — that is the whole request
+    await drag(8);
+    const tall = await slack();
+    check("...and dragging it up stops at the content, not the screen", tall.slack <= 24 && tall.top > 8,
+      JSON.stringify({ start: s0, tall: tall }));
+    // …and a swipe to another page re-fits it. The figures grid is far shorter than the description.
+    await page.evaluate(async () => {
+      const cols = document.querySelector(".cp-cols");
+      cols.scrollLeft = cols.clientWidth * ([...cols.children].filter((c) => !c.hidden && !c.classList.contains("cp-blank")).length - 1);
+      cols.dispatchEvent(new Event("scroll"));
+      await new Promise((r) => setTimeout(r, 500));
     });
-    check("...dragging it up gives it more of the screen", tall.h > start.h + 80, JSON.stringify({ was: start.h, now: tall.h }));
-    check("...stopping at the top of the screen", tall.top >= 4, JSON.stringify(tall));
-    await page.evaluate(() => { location.hash = "#map/2026/spain"; });
-    await page.waitForTimeout(1800);
-    const next = await page.evaluate(() => Math.round(document.querySelector("#countryPop").getBoundingClientRect().height));
-    check("...and the next place opens at the height the last was left at", Math.abs(next - tall.h) <= 4, next + " vs " + tall.h);
+    await page.waitForTimeout(400);
+    const swiped = await slack();
+    check("...swiping to a shorter page shrinks the sheet to fit it", swiped.slack <= 24 && swiped.h <= tall.h + 1,
+      JSON.stringify({ tall: tall, swiped: swiped }));
+    // shrunk by hand: the floor still shows the title, and the height carries to the next place
     await drag(PHONE.height - 10);
     const small = await page.evaluate(() => {
       const p = document.querySelector("#countryPop").getBoundingClientRect();
@@ -1244,6 +1324,10 @@ async function studyEasy(page, base, n) {
       return { h: Math.round(p.height), titleShown: t.top >= p.top - 1 && t.bottom <= p.bottom + 1 };
     });
     check("...shrunk to the floor it still shows its title bar", small.titleShown && small.h < 220, JSON.stringify(small));
+    await page.evaluate(() => { location.hash = "#map/2026/spain"; });
+    await page.waitForTimeout(1800);
+    const next = await page.evaluate(() => Math.round(document.querySelector("#countryPop").getBoundingClientRect().height));
+    check("...and the next place opens at the height the last was left at", Math.abs(next - small.h) <= 6, next + " vs " + small.h);
     await page.close();
   }
 
