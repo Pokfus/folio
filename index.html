@@ -36,6 +36,10 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <!-- Skip link: the first thing a keyboard or screen reader reaches, so the eight nav buttons above the
+       page can be passed in one press. Visually hidden until it takes focus (see .skip-link). -->
+  <a class="skip-link" href="#view">Skip to the page</a>
+
   <!-- ============================================================
        TOP BAR — desktop only (hidden below 640px; see .topbar in styles.css)
        Left:  Home · Decks · Map · About
@@ -88,9 +92,14 @@
        PAGE MOUNT
        app.js renders each page into #view as <div class="page">…</div>
        ============================================================ -->
-  <main class="stage">
-    <div id="view"></div>
+  <main class="stage" id="main">
+    <div id="view" tabindex="-1"></div>
   </main>
+
+  <!-- Where every toast lands. A polite live region declared ONCE in the markup, rather than created with
+       each message: a region announced at the moment it is inserted is a region a screen reader has not
+       been watching, and the announcement is lost. app.js writes the text into it. -->
+  <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
 
   <!-- ============================================================
        BOTTOM TAB BAR — phones only (see .tabbar in styles.css)

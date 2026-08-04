@@ -372,29 +372,34 @@ async function studyEasy(page, base, n) {
         pad: Math.round(parseFloat(getComputedStyle(document.querySelector(".stage")).paddingBottom) || 0),
       };
     });
-    const dragGrip = (dy) => page.evaluate(async (d) => {
-      const g = document.querySelector(".gb-grab"), r = g.getBoundingClientRect();
-      const x = r.left + r.width / 2, y = r.top + r.height / 2;
-      const ev = (t, cy) => g.dispatchEvent(new PointerEvent(t, { pointerId: 1, clientX: x, clientY: cy, bubbles: true, button: 0 }));
-      ev("pointerdown", y); ev("pointermove", y + d / 2); ev("pointermove", y + d); ev("pointerup", y + d);
+    /* A CHEVRON since Aug 2026, not a drag grip (on request): the bar has exactly two heights, so a drag
+       was a gesture whose whole range mapped onto one bit. What is asserted is unchanged — the short state
+       must genuinely halve the bar, keep the four grades named to a screen reader, and take the page's
+       padding down with it — only the way in is a press. */
+    const fold = () => page.evaluate(async () => {
+      document.querySelector(".gb-fold").click();
       await new Promise((r2) => setTimeout(r2, 250));
-    }, dy);
-    const gripSeen = await page.evaluate(() => { const g = document.querySelector(".gb-grab"); return !!(g && g.checkVisibility()); });
-    check("the grade bar carries a grip to resize it", gripSeen);
+    });
+    const foldSeen = await page.evaluate(() => {
+      const g = document.querySelector(".gb-fold");
+      return g && g.checkVisibility() ? (g.tagName + ":" + g.getAttribute("aria-expanded")) : "";
+    });
+    check("the grade bar carries a chevron to fold it", foldSeen === "BUTTON:true", foldSeen || "no .gb-fold");
     const tall = await read();
-    await dragGrip(44);
+    await fold();
     const short = await read();
-    check("...dragging it down halves the bar", short.compact && short.h <= tall.h * 0.6,
+    check("...pressing it halves the bar", short.compact && short.h <= tall.h * 0.6,
       JSON.stringify({ tall: tall.h, short: short.h }));
+    check("...and says which state it is in", await page.evaluate(() => document.querySelector(".gb-fold").getAttribute("aria-expanded")) === "false");
     check("...leaving the four grades side by side as bare colours",
       short.rows === 1 && !short.gi && !short.gl, JSON.stringify(short));
     check("...still named to a screen reader, which display:none would not be", short.named);
     check("...with the ? and Suspend beside them, not dropped", short.help && short.suspend && short.oneLine, JSON.stringify(short));
     check("...and the page's bottom padding down with it", short.pad < tall.pad && short.pad >= short.h,
       JSON.stringify({ tall: tall.pad, short: short.pad, bar: short.h }));
-    await dragGrip(-44);
+    await fold();
     const back = await read();
-    check("...dragging it back up restores the bar", !back.compact && back.h === tall.h && back.gi,
+    check("...pressing it again restores the bar", !back.compact && back.h === tall.h && back.gi,
       JSON.stringify({ tall: tall.h, back: back.h }));
     await page.close();
   }
@@ -406,10 +411,7 @@ async function studyEasy(page, base, n) {
     await page.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
     await page.waitForTimeout(600);
     await page.evaluate(async () => {
-      const g = document.querySelector(".gb-grab"), r = g.getBoundingClientRect();
-      const x = r.left + r.width / 2, y = r.top + r.height / 2;
-      const ev = (t, cy) => g.dispatchEvent(new PointerEvent(t, { pointerId: 1, clientX: x, clientY: cy, bubbles: true, button: 0 }));
-      ev("pointerdown", y); ev("pointermove", y + 44); ev("pointerup", y + 44);
+      document.querySelector(".gb-fold").click();
       await new Promise((r2) => setTimeout(r2, 250));
     });
     await studyEasy(page, base, 0);
@@ -419,13 +421,13 @@ async function studyEasy(page, base, n) {
     await page.close();
   }
   {
-    // above the breakpoint there is nothing to reclaim: one comfortable row already, and no grip
+    // above the breakpoint there is nothing to reclaim: one comfortable row already, and no chevron
     const page = await browser.newPage({ viewport: DESKTOP });
     watch(page);
     await studyEasy(page, base, 0);
     await page.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
     await page.waitForTimeout(600);
-    check("the grip is phone-only", !(await page.evaluate(() => { const g = document.querySelector(".gb-grab"); return !!(g && g.checkVisibility()); })));
+    check("the chevron is phone-only", !(await page.evaluate(() => { const g = document.querySelector(".gb-fold"); return !!(g && g.checkVisibility()); })));
     await page.close();
   }
 
@@ -860,13 +862,14 @@ async function studyEasy(page, base, n) {
            text-align, which was once "center" while the words sat hard left: the class was first called
            `.mg-head`, which is the MAP GAME's card header, and that rule's `display:flex` beats
            text-align outright. A block-level h2 spans the column whatever it does with its text, so
-           only the text's own box can tell the two apart. The heading went back to the LEFT in Aug 2026
-           on request, so what is measured is the same box against the other edge. */
-        headLeft: (() => {
+           only the text's own box can tell the two apart. The heading went back to CENTRED in Aug 2026
+           on request (it was centred, then left for a fortnight, then centred again), so what is measured
+           is the same box's centre against the grid's. */
+        headOff: (() => {
           if (!head || !grid) return 999;
           const r = document.createRange(); r.selectNodeContents(head);
           const t = r.getBoundingClientRect(), g = grid.getBoundingClientRect();
-          return Math.round(t.left - g.left);
+          return Math.round((t.left + t.width / 2) - (g.left + g.width / 2));
         })(),
         headBelowReview: !!(head && grp && top(head) >= Math.round(grp.getBoundingClientRect().bottom) - 1),
         gridBelowHead: !!(head && grid && top(grid) >= Math.round(head.getBoundingClientRect().bottom) - 1),
@@ -899,7 +902,7 @@ async function studyEasy(page, base, n) {
     await page.waitForTimeout(1500);
     check("the games sit under the review, under a Minigames heading",
       /minigames/i.test(h.mgHead) && h.headBelowReview && h.gridBelowHead, JSON.stringify({ head: h.mgHead, below: h.headBelowReview, grid: h.gridBelowHead }));
-    check("...starting at the left edge of the grid it names", Math.abs(h.headLeft) <= 2, h.headLeft);
+    check("...centred over the grid it names", Math.abs(h.headOff) <= 2, h.headOff);
     check("...three wide and two tall", h.cols === 3 && h.rows === 2 && h.tiles === 6, JSON.stringify({ cols: h.cols, rows: h.rows, tiles: h.tiles }));
     check("...with the description sentences gone", h.subs === 0, h.subs + " tiles still carry one");
     check("...the quote still above it all", h.quoteAbove);

@@ -1061,7 +1061,7 @@
       // themeAuto: a first-time visitor follows the operating system's light/dark setting (Aug 2026, on
       // request). `night` stays the RESOLVED value — every stylesheet rule and the canvas globe read
       // body.night — and applyTheme writes it from the system while themeAuto is on.
-      settings: { night: false, themeAuto: true, units: "metric", theme: "folio", fontSize: "medium", newPerDay: 3, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 } },
+      settings: { night: false, themeAuto: true, units: "metric", theme: "folio", fontSize: "medium", dayEnd: 0, animations: true, contrast: false, newPerDay: 3, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 } },
       cards: {}, // id -> {reps,lapses,ease,interval,due,status,last}
       suspended: {}, // id -> true (card set aside; never shown again)
       daily: { lastPlayed: 0, best: 0, games: 0, wins: 0, podiums: 0 },
@@ -1115,6 +1115,9 @@
      to manual, and defaultState()'s `true` reaches first-time visitors alone. */
   if (S.settings && S.settings.themeAuto === undefined) S.settings.themeAuto = false;
   if (S.settings && S.settings.units === undefined) S.settings.units = "metric";
+  if (S.settings && S.settings.dayEnd === undefined) S.settings.dayEnd = 0;          // midnight — see dayKey
+  if (S.settings && S.settings.animations === undefined) S.settings.animations = true;
+  if (S.settings && S.settings.contrast === undefined) S.settings.contrast = false;
   function load() {
     try {
       const raw = localStorage.getItem(STORE_KEY);
@@ -1212,12 +1215,40 @@
     o.connect(g); g.connect(ctx.destination);
     o.start(t0); o.stop(t0 + dur + 0.03);
   }
+  /* A soft TAP — a short burst of noise pushed through a low-pass, plus a low sine body under it. This is
+     what a finger on wood is: a broadband transient that dies almost at once, with no pitch to speak of.
+     A pure oscillator cannot make one, which is why the click used to be a chirp (a triangle sliding
+     1900 → 1300 Hz), and why it was reported as too high and too bright (Aug 2026).
+     The noise buffer is built once and re-used: allocating 0.05s of Math.random() per click is wasteful,
+     and a click is the most frequently played sound on the site by a wide margin. */
+  let _sfxNoise = null;
+  function sfxNoiseBuf(ctx) {
+    if (_sfxNoise && _sfxNoise.sampleRate === ctx.sampleRate) return _sfxNoise;
+    const n = Math.floor(ctx.sampleRate * 0.05);
+    const buf = ctx.createBuffer(1, n, ctx.sampleRate);
+    const d = buf.getChannelData(0);
+    for (let i = 0; i < n; i++) d[i] = Math.random() * 2 - 1;
+    _sfxNoise = buf;
+    return buf;
+  }
+  function sfxTap(ctx, t0, cutoff, dur, vol) {
+    try {
+      const src = ctx.createBufferSource(), lp = ctx.createBiquadFilter(), g = ctx.createGain();
+      src.buffer = sfxNoiseBuf(ctx);
+      lp.type = "lowpass"; lp.frequency.setValueAtTime(cutoff, t0); lp.Q.value = 0.7;
+      g.gain.setValueAtTime(vol, t0);
+      g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+      src.connect(lp); lp.connect(g); g.connect(ctx.destination);
+      src.start(t0); src.stop(t0 + dur + 0.02);
+    } catch (e) {}
+  }
   function sfx(name) {
     if (!sfxEnabled()) return;
     const ctx = sfxCtx(); if (!ctx) return;
     const t = ctx.currentTime + 0.001;
-    if (name === "click") sfxTone(ctx, t, 1900, 0.04, 0.045, "triangle", 1300);
-    else if (name === "toggle") { sfxTone(ctx, t, 1150, 0.04, 0.045, "triangle"); sfxTone(ctx, t + 0.055, 1650, 0.05, 0.045, "triangle"); }
+    // a low, dry knock: the noise gives it the attack, the sine underneath gives it a body rather than a hiss
+    if (name === "click") { sfxTap(ctx, t, 780, 0.045, 0.05); sfxTone(ctx, t, 190, 0.05, 0.035, "sine", 120); }
+    else if (name === "toggle") { sfxTap(ctx, t, 900, 0.04, 0.04); sfxTone(ctx, t, 230, 0.05, 0.032, "sine"); sfxTone(ctx, t + 0.055, 320, 0.06, 0.03, "sine"); }
     else if (name === "pop") sfxTone(ctx, t, 460, 0.1, 0.06, "sine", 940);
     else if (name === "good") { sfxTone(ctx, t, 660, 0.09, 0.05, "sine"); sfxTone(ctx, t + 0.08, 880, 0.13, 0.05, "sine"); }
     else if (name === "bad") sfxTone(ctx, t, 230, 0.13, 0.06, "sine", 155);
@@ -1699,7 +1730,59 @@
   /* ---------- helpers ---------- */
   const DAY = 86400000;
   const now = () => Date.now();
-  const todayStr = () => new Date().toISOString().slice(0, 10);
+  /* ---------- the day boundary (Aug 2026, on request) ----------
+     A day used to be a UTC day (`new Date().toISOString().slice(0,10)`), which is why the daily quote, the
+     card of the day, the streak and the review's allowance all rolled over at an hour that was not midnight
+     for anybody off the Greenwich meridian — reported as "the daily quote doesn't always change exactly at
+     midnight". A day now runs on THIS DEVICE'S OWN CLOCK, which is what midnight means to a reader, and it
+     ends at S.settings.dayEnd — minutes past midnight, 0 by default, up to noon — so somebody who studies
+     until two in the morning can keep the day open until then (Settings → Study → Day ends at).
+
+     `dayKey(ts)` is the SINGLE derivation, and every surface goes through it. It has to: the day key was
+     computed in six places by slicing an ISO string, so a rule applied in five of them would leave one
+     surface rolling over at a different moment from its neighbours — which looks like a bug in whichever
+     surface you happen to be looking at rather than like an inconsistency.
+
+     Note what it deliberately does NOT do: derive a time zone from S.settings.home. A lon/lat cannot be
+     turned into a political time zone without a tz database, and approximating one from longitude would put
+     the Netherlands (lon 5.3) on UTC+0, an hour or two out from the reader's own clock — worse than the
+     device time it replaced. The setting names the device, and the day-end control is what a traveller has. */
+  const DAY_END_MAX = 12 * 60;   // past noon "yesterday" stops meaning anything
+  function dayEndMin() {
+    const v = S && S.settings ? S.settings.dayEnd : 0;
+    return Number.isFinite(v) ? Math.max(0, Math.min(DAY_END_MAX, Math.round(v))) : 0;
+  }
+  const pad2 = (n) => String(n).padStart(2, "0");
+  // the key of a calendar date object — used where DAYS are iterated (the heatmap) rather than derived
+  function dayKeyOfDate(d) { return d.getFullYear() + "-" + pad2(d.getMonth() + 1) + "-" + pad2(d.getDate()); }
+  function dayKey(ts) {
+    const d = new Date(ts == null ? Date.now() : ts);
+    d.setMinutes(d.getMinutes() - dayEndMin());   // before the cut-off it is still yesterday
+    return dayKeyOfDate(d);
+  }
+  const todayStr = () => dayKey();
+  const dayEndHHMM = () => pad2(Math.floor(dayEndMin() / 60)) + ":" + pad2(dayEndMin() % 60);
+  // the instant today ends — what "due by the end of the day" means once the boundary is the reader's
+  function dayEndTs() {
+    const d = new Date();
+    d.setHours(0, 0, 0, 0);
+    d.setMinutes(dayEndMin());
+    if (d.getTime() <= Date.now()) d.setDate(d.getDate() + 1);
+    return d.getTime();
+  }
+  /* A page left open across the boundary must not go on showing yesterday. One timer, re-armed each time it
+     fires, and it only repaints the HOME page — that is where everything dated lives (the quote, the card
+     and term of the day, the review's counts), and a repaint under a reader mid-card would take the card
+     away. Everywhere else simply picks the new day up on its next render. */
+  let _dayRollT = null;
+  function scheduleDayRoll() {
+    if (_dayRollT) clearTimeout(_dayRollT);
+    _dayRollT = setTimeout(() => {
+      _dayRollT = null;
+      scheduleDayRoll();
+      if (current && current.name === "home") render();
+    }, Math.max(1000, Math.min(dayEndTs() - Date.now() + 1000, 6 * 3600000)));
+  }
   function esc(s) {
     return (s || "").replace(/[&<>"]/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[m]));
   }
@@ -2210,7 +2293,7 @@
     }
   }
 
-  /* ---------- glossary windows (desktop: draggable, up to 4; mobile: single bottom sheet) ---------- */
+  /* ---------- glossary windows (desktop: draggable, up to 4; mobile: a single centred window) ---------- */
   const glossWins = [];
   const GLOSS_Z_BASE = 8000, GLOSS_Z_CAP = 9400;   // stays below .img-viewer (9800) — see focusGlossWin
   let glossZ = GLOSS_Z_BASE;
@@ -2365,6 +2448,52 @@
     handle.addEventListener("pointerup", end);
     handle.addEventListener("pointercancel", end);
   }
+  /* ---------- the phone's gloss window (Aug 2026, on request) ----------
+     It was a bottom sheet glued to the foot of the screen; it is a floating window in the MIDDLE of it now,
+     which is where a reader's eye already is and where a definition met mid-sentence belongs. The one thing
+     a centred window loses is the sheet's implicit "there is a page behind me", so the bar can be held and
+     dragged UP AND DOWN to uncover the sentence the term came from.
+
+     Vertical only, and deliberately: the window is as wide as the screen allows, so there is nothing to
+     uncover sideways and a horizontal drag would only fight the page-swipe gesture. The offset is written
+     as a custom property rather than as `top`, because the centring is a `translate(-50%,-50%)` and mixing
+     the two would need the height measured on every move; `--gs-dy` simply rides inside that transform.
+
+     It is NOT remembered. A new term always opens in the middle (the request says so), so the offset lives
+     on the element and dies with it — which also means the restore-after-reload path needs nothing. */
+  const GLOSS_DRAG_SLOP = 4;
+  function makeGlossSheetDraggable(win, handle) {
+    let sy = 0, oy = 0, dragging = false, moved = false;
+    const setDy = (v) => {
+      const vh = document.documentElement.clientHeight || 0;
+      const room = Math.max(0, (vh - win.offsetHeight) / 2 - 8);
+      // it may be pulled a little past centre-line either way, never off the screen
+      win.style.setProperty("--gs-dy", Math.max(-room - 40, Math.min(v, room + 40)) + "px");
+    };
+    handle.addEventListener("pointerdown", (e) => {
+      if (e.target.closest("button")) return;
+      dragging = true; moved = false;
+      sy = e.clientY;
+      oy = parseFloat(win.style.getPropertyValue("--gs-dy")) || 0;
+      try { handle.setPointerCapture(e.pointerId); } catch (_) {}
+    });
+    handle.addEventListener("pointermove", (e) => {
+      if (!dragging) return;
+      const dy = e.clientY - sy;
+      if (!moved && Math.abs(dy) < GLOSS_DRAG_SLOP) return;
+      if (!moved) { moved = true; win.classList.add("dragging"); }
+      e.preventDefault();
+      setDy(oy + dy);
+    });
+    const end = (e) => {
+      if (!dragging) return;
+      dragging = false;
+      win.classList.remove("dragging");
+      try { handle.releasePointerCapture(e.pointerId); } catch (_) {}
+    };
+    handle.addEventListener("pointerup", end);
+    handle.addEventListener("pointercancel", end);
+  }
   function openGlossWin(key, triggerEl, pos) {
     if (!glossGlobalsWired) {
       glossGlobalsWired = true;
@@ -2424,6 +2553,9 @@
       focusGlossWin(win);
       makeGlossDraggable(win, win.querySelector(".gloss-bar"));
       win.addEventListener("pointerdown", () => focusGlossWin(win));
+    } else {
+      // centred by the stylesheet, and held by its bar to shift it up or down — see makeGlossSheetDraggable
+      makeGlossSheetDraggable(win, win.querySelector(".gloss-bar"));
     }
     win.querySelector(".gloss-close").addEventListener("click", () => removeGlossWin(win, true));
     {
@@ -2532,7 +2664,7 @@
     const preStatus = c.status;   // captured before the scheduler rewrites it — the retention rate counts only cards that were genuinely due for recall
     // the card's FIRST attempt today (c.last is still the previous review) — only a first attempt can decide
     // "right first try", since a learning card comes back later in the same session
-    const firstToday = !c.last || new Date(c.last).toISOString().slice(0, 10) !== todayStr();
+    const firstToday = !c.last || dayKey(c.last) !== todayStr();
 
     if (c.status === "new" || c.status === "learning") {
       if (g === "again") {
@@ -2622,7 +2754,7 @@
     S.reviewLog[d] = e;
     // prune on the day-roll only — cheap, and the log can't grow without bound
     if (Object.keys(S.reviewLog).length > REVIEW_LOG_DAYS + 30) {
-      const cut = new Date(Date.now() - REVIEW_LOG_DAYS * DAY).toISOString().slice(0, 10);
+      const cut = dayKey(Date.now() - REVIEW_LOG_DAYS * DAY);
       Object.keys(S.reviewLog).forEach((k) => { if (k < cut) delete S.reviewLog[k]; });
     }
   }
@@ -2645,7 +2777,7 @@
     const start = new Date(); start.setHours(12, 0, 0, 0);   // midday, so a DST shift can't roll the date backwards
     for (let i = days - 1; i >= 0; i--) {
       const dt = new Date(start.getTime() - i * DAY);
-      const key = dt.toISOString().slice(0, 10);
+      const key = dayKeyOfDate(dt);
       out.push({ d: key, date: dt, n: (log[key] && log[key][0]) || 0 });
     }
     return out;
@@ -2662,7 +2794,7 @@
   // null when nothing mature has been reviewed yet — an honest blank beats a made-up 0% or 100%.
   function retentionRate(prog, days) {
     const log = (prog && prog.reviewLog) || {};
-    const cut = new Date(Date.now() - days * DAY).toISOString().slice(0, 10);
+    const cut = dayKey(Date.now() - days * DAY);
     let ok = 0, tot = 0;
     Object.keys(log).forEach((k) => { if (k >= cut) { ok += log[k][1] || 0; tot += log[k][2] || 0; } });
     return tot ? { pct: Math.round((ok / tot) * 100), ok, tot } : null;
@@ -2673,7 +2805,7 @@
     const cards = (prog && prog.cards) || {};
     const susp = (prog && prog.suspended) || {};
     const avail = availableCardIdSet();
-    const end = new Date(); end.setHours(23, 59, 59, 999);
+    const end = new Date(dayEndTs() - 1);   // the reader's own end of day, not 23:59 — see dayKey
     const buckets = new Array(days).fill(0);
     let backlog = 0;
     Object.keys(cards).forEach((id) => {
@@ -2690,7 +2822,7 @@
   function bumpStreak() {
     const t = todayStr();
     if (S.streak.last === t) return;
-    const yest = new Date(Date.now() - DAY).toISOString().slice(0, 10);
+    const yest = dayKey(Date.now() - DAY);
     S.streak.count = S.streak.last === yest ? S.streak.count + 1 : 1;
     S.streak.last = t;
   }
@@ -2728,6 +2860,12 @@
     return activeEntryIds().indexOf(id) !== -1;
   }
   function entryCardIds(id) {
+    // the daily review answers for every added deck at once — see REVIEW_ENTRY
+    if (id === REVIEW_ENTRY) {
+      const seen = new Set();
+      activeEntryIds().forEach((e) => entryCardIds(e).forEach((c) => seen.add(c)));
+      return [...seen];
+    }
     if (id === COTD_ENTRY) return cotdIds();
     const ud = UDECKS[uDeckIdOf(id)];
     if (ud) return (ud.cardIds || []).slice();
@@ -2784,6 +2922,7 @@
   }
   // label + card count for an active entry (deck, subdeck, one of the user's own decks, or the CotD additions)
   function entryInfo(id) {
+    if (id === REVIEW_ENTRY) return { title: REVIEW_TITLE, parent: "", count: entryCardIds(REVIEW_ENTRY).length };
     if (id === COTD_ENTRY) return { title: COTD_TITLE, parent: "", count: cotdIds().length };
     const ud = UDECKS[uDeckIdOf(id)];
     if (ud) return { title: ud.title, parent: "Your decks", count: (ud.cardIds || []).length };
@@ -2804,7 +2943,35 @@
      an undo, and right for a card that sits in two decks at once — a per-deck tally would have to be kept
      in step with all three by hand. */
   const DECK_MAX_REVIEWS = 200;   // Anki's own default, and high enough that it never surprises a reader who has not gone looking for it
+  /* ---------- and the DAILY REVIEW's own limits (Aug 2026, on request) ----------
+     The review is Anki's parent deck: it pools what its decks offer and caps the pool. It had no settings of
+     its own, so the cap came from Settings → New cards per day while each deck's came from its own sheet —
+     and two decks at five new cards a day pooled ten and then handed back three, a number no deck had
+     agreed to and nothing on the page explained. That was the reported bug.
+
+     The review is now an entry like any other, under a reserved id, and everything below (deckLimits,
+     deckDoneToday, deckNewRemaining, deckDay, entryCardIds, entryInfo, the long-press sheet) answers for it
+     as it does for a deck — which is what keeps the banner and the rows it sits over arithmetically
+     incapable of disagreeing.
+
+     Its DEFAULT is the largest allowance any added deck actually offers, not the global number: a pooled
+     view should not impose a figure none of the things it pools has agreed to. Set a limit here explicitly
+     and it wins outright, exactly as a parent deck's does in Anki. Settings → New cards per day remains
+     what a DECK follows until it is given limits of its own. */
+  const REVIEW_ENTRY = "review:all";   // a colon, so it can never collide with a node id or a "u:" deck
+  const REVIEW_TITLE = "Daily review";
+  function reviewLimits() {
+    const o = (S.deckOpts && S.deckOpts[REVIEW_ENTRY]) || {};
+    let widest = 0, any = false;
+    activeEntryIds().forEach((e) => { any = true; widest = Math.max(widest, deckLimits(e).newPerDay); });
+    return {
+      newPerDay: Number.isFinite(o.newPerDay) ? Math.max(0, o.newPerDay) : (any ? widest : S.settings.newPerDay),
+      maxReviews: Number.isFinite(o.maxReviews) ? Math.max(0, o.maxReviews) : DECK_MAX_REVIEWS,
+      newIgnoresReview: o.newIgnoresReview !== false,
+    };
+  }
   function deckLimits(id) {
+    if (id === REVIEW_ENTRY) return reviewLimits();
     const o = (S.deckOpts && S.deckOpts[id]) || {};
     return {
       // the global setting is the DEFAULT rather than a competing limit — a deck the reader has never
@@ -2839,10 +3006,13 @@
     const r = deckDay(id);
     // never below what the deck has already introduced today — "fewer" cannot un-study a card
     r.extra = Math.max(-(deckLimits(id).newPerDay), (r.extra || 0) + n);
-    // the daily review draws against its own global allowance, so a bump that only moved the deck's
-    // number would leave the extra cards unreachable from the banner the reader pressed to ask for them
-    if (S.intro.date !== todayStr()) S.intro = { date: todayStr(), count: 0, extra: 0 };
-    S.intro.extra = Math.max(-(S.settings.newPerDay), (S.intro.extra || 0) + n);
+    // the daily review draws against its OWN allowance, so a bump that only moved the deck's number would
+    // leave the extra cards unreachable from the banner the reader pressed to ask for them. (The review is
+    // an entry of its own now, so this is the same record one level up rather than a parallel one.)
+    if (id !== REVIEW_ENTRY) {
+      const rr = deckDay(REVIEW_ENTRY);
+      rr.extra = Math.max(-(reviewLimits().newPerDay), (rr.extra || 0) + n);
+    }
     save();
   }
   /* What a deck has already done today, DERIVED from the card records rather than tallied. `first` is the
@@ -2855,7 +3025,7 @@
       const c = S.cards[cid];
       if (!c) return;
       if (c.first === d) { nw++; return; }
-      if (c.last && new Date(c.last).toISOString().slice(0, 10) === d) rv++;
+      if (c.last && dayKey(c.last) === d) rv++;
     });
     return { nw: nw, rv: rv };
   }
@@ -2883,12 +3053,15 @@
     });
     return { nw: Math.min(deckNewRemaining(id), unseen), lr: lr, rv: Math.min(rv, deckReviewRemaining(id)), skip: false };
   }
-  function newRemainingToday() {
-    const today = S.intro.date === todayStr();
-    const count = today ? S.intro.count : 0;
-    const extra = today ? (S.intro.extra || 0) : 0;
-    return Math.max(0, S.settings.newPerDay + extra - count);
-  }
+  /* What the DAILY REVIEW still has left of its own new-card allowance. It is the same derivation the decks
+     use, one level up (deckNewRemaining over REVIEW_ENTRY) — and that is the fix, not a tidy-up. It used to
+     read S.intro.count, a running tally grade() increments on ANY card's first grade: a card studied from
+     the Card of the day, or from a deck the reader had tapped into directly, silently ate the review's
+     allowance, and an undo did not give it back. The decks' counts were derived from the card records all
+     along; the banner above them was not, so the two drifted apart in a way nothing on the page explained.
+     S.intro is still written by grade() and still rides in the synced blob, but nothing reads it for a
+     limit any more. */
+  function newRemainingToday() { return deckNewRemaining(REVIEW_ENTRY); }
   /* The daily review, built DECK BY DECK and then pooled.
 
      Each added deck offers what its own allowances still permit, and the day's new cards are drawn at
@@ -2899,6 +3072,8 @@
   function reviewQueue() {
     const avail = availableCardIdSet();
     const due = [], pool = [], seen = new Set();
+    // the review can sit itself out too — the banner's own sheet carries the same "Skip today" its rows do
+    if (deckSkippedToday(REVIEW_ENTRY)) return { due, fresh: [], all: [] };
     activeEntryIds().forEach((e) => {
       if (deckSkippedToday(e)) return;   // "Skip today" sits the deck out without removing it
       const ids = entryCardIds(e).filter((id) => avail.has(id) && !isSuspended(id));
@@ -2913,8 +3088,14 @@
       ids.filter((id) => !isSeen(id) && !seen.has(id)).slice(0, nw).forEach((id) => { seen.add(id); pool.push(id); });
     });
     due.sort((a, b) => S.cards[a].due - S.cards[b].due);
-    const fresh = seededShuffle(pool, mulberry32(hashStr("review-" + todayStr()))).slice(0, newRemainingToday());
-    return { due, fresh, all: [...due, ...fresh] };
+    // …and then the review's own two caps, which are the parent deck's in Anki
+    const RL = reviewLimits();
+    const rvLeft = deckReviewRemaining(REVIEW_ENTRY);
+    const dueCapped = due.slice(0, rvLeft);
+    let take = newRemainingToday();
+    if (!RL.newIgnoresReview) take = Math.min(take, Math.max(0, rvLeft - dueCapped.length));
+    const fresh = seededShuffle(pool, mulberry32(hashStr("review-" + todayStr()))).slice(0, take);
+    return { due: dueCapped, fresh, all: [...dueCapped, ...fresh] };
   }
   function dueCountNow() {
     return activeCardIds().filter((id) => isDueNow(id) && !isSuspended(id)).length;
@@ -3091,7 +3272,7 @@
     }
     if (raw && raw.image && raw.image.src) {
       const src = sanitizeUrl(String(raw.image.src), ["http", "https"]);
-      if (src) c.image = { src: src, title: sanitizePlain(raw.image.title).slice(0, 200), desc: sanitizePlain(raw.image.desc).slice(0, 1000), credit: sanitizePlain(raw.image.credit).slice(0, 300) };
+      if (src) c.image = { src: src, title: sanitizePlain(raw.image.title).slice(0, 200), desc: sanitizePlain(raw.image.desc).slice(0, 1000), credit: sanitizePlain(raw.image.credit).slice(0, 300), alt: sanitizePlain(raw.image.alt).slice(0, 400) };
     }
     // one frame per card: a record carrying both resolves the same way the renderers do — the picture wins
     if (!c.image) { const v = uMediaSanitize(raw && raw.video); if (v) c.video = v; }
@@ -3129,7 +3310,7 @@
       };
       if (t.image && t.image.src) {   // the term's illustration, on the same footing as a card image
         const src = sanitizeUrl(String(t.image.src), ["http", "https"]);
-        if (src) e.image = { src: src, title: sanitizePlain(t.image.title).slice(0, 200), desc: sanitizePlain(t.image.desc).slice(0, 1000), credit: sanitizePlain(t.image.credit).slice(0, 300) };
+        if (src) e.image = { src: src, title: sanitizePlain(t.image.title).slice(0, 200), desc: sanitizePlain(t.image.desc).slice(0, 1000), credit: sanitizePlain(t.image.credit).slice(0, 300), alt: sanitizePlain(t.image.alt).slice(0, 400) };
       }
       if (!e.image) { const tv = uMediaSanitize(t.video); if (tv) e.video = tv; }   // the term's video — one frame, so only when there is no picture
       if (!e.desc && !e.title) return;
@@ -3979,6 +4160,66 @@
     location.hash = name === "home" ? "" : (name === "deck" && current.params.slug ? "deck/" + encodeURIComponent(current.params.slug) : name);
     render();
   }
+  /* ---------- swipe between pages on a phone (Aug 2026, on request) ----------
+     A phone has four ordinary pages and a tab bar that reaches three of them; a horizontal swipe is the
+     gesture every reader already expects to move between them, and it costs no screen.
+
+     The ATLAS is not in this order, and that is the request rather than an oversight: a drag on the globe
+     rotates it, and a page that both rotates under the finger and navigates away from it can only do one of
+     them badly. So the Atlas is reached and left through the tab bar alone. The Library is in the order even
+     though it has no tab — it is a real destination, reached from the review's lip, and leaving it out would
+     make the sequence a subset of the bar rather than a pass over the pages.
+
+     The guards are the whole of the difficulty, because a false positive here TAKES A PAGE AWAY:
+       · touch only. A trackpad's horizontal scroll arrives as wheel, and a mouse drag is a selection.
+       · never out of a horizontal scroller. The Atlas sheet's pager, the heatmap and the theme row all
+         scroll sideways, and a swipe that starts in one belongs to it — walked up the ancestor chain rather
+         than listed by class, so a scroller added later is covered without anyone remembering this.
+       · never while an overlay is up, never mid-gesture on a control, never while grading.
+     And it is deliberately generous on distance (SWIPE_MIN) and strict on angle: a diagonal is a scroll that
+     wandered, and reading the page vertically is what a finger is mostly doing. */
+  const SWIPE_ORDER = ["home", "decks", "account", "settings"];
+  const SWIPE_MIN = 64, SWIPE_RATIO = 1.6, SWIPE_MS = 700;
+  let _navDir = "";        // which way the next render() should come in from
+  function swipeScrollerUnder(el) {
+    for (let n = el; n && n !== document.body; n = n.parentElement) {
+      if (n.nodeType !== 1) continue;
+      if (n.matches("input,textarea,select,[contenteditable=''],[contenteditable='true']")) return true;
+      if (n.scrollWidth > n.clientWidth + 4) {
+        const ox = getComputedStyle(n).overflowX;
+        if (ox === "auto" || ox === "scroll") return true;
+      }
+    }
+    return false;
+  }
+  function swipeEnabled() {
+    if (!window.matchMedia || !matchMedia("(max-width:640px)").matches) return false;
+    if (SWIPE_ORDER.indexOf(current.name) < 0) return false;
+    if (document.body.classList.contains("grading")) return false;
+    return !document.querySelector(".deck-menu, .inline-prompt, .img-viewer, .levelup-pop, .gloss-win, .ctx-menu");
+  }
+  function wirePageSwipe() {
+    let st = null;
+    document.addEventListener("pointerdown", (e) => {
+      st = null;
+      if (e.pointerType !== "touch" || !swipeEnabled()) return;
+      if (swipeScrollerUnder(e.target)) return;
+      st = { x: e.clientX, y: e.clientY, t: Date.now(), id: e.pointerId };
+    }, { passive: true });
+    document.addEventListener("pointerup", (e) => {
+      const s = st; st = null;
+      if (!s || e.pointerId !== s.id || !swipeEnabled()) return;
+      const dx = e.clientX - s.x, dy = e.clientY - s.y;
+      if (Date.now() - s.t > SWIPE_MS) return;
+      if (Math.abs(dx) < SWIPE_MIN || Math.abs(dx) < Math.abs(dy) * SWIPE_RATIO) return;
+      const i = SWIPE_ORDER.indexOf(current.name);
+      const j = i + (dx < 0 ? 1 : -1);
+      if (j < 0 || j >= SWIPE_ORDER.length) return;   // the ends are ends, not a carousel
+      _navDir = dx < 0 ? "next" : "prev";
+      route(SWIPE_ORDER[j]);
+    }, { passive: true });
+    document.addEventListener("pointercancel", () => { st = null; }, { passive: true });
+  }
   function render() {
     hideGradeBar();
     hideWBTools();
@@ -4008,8 +4249,11 @@
     // "pending" flag to keep in step with an editor that has already been torn down.
     if (document.querySelector(".af-reqnote:not([hidden])")) toast("Not saved — an image or video was left without a source.");
     const ghost = makePageGhost();   // the outgoing page, fading out over the incoming one
-    view.innerHTML = '<div class="page"></div>';
-    if (ghost) view.appendChild(ghost);
+    // a swiped navigation arrives from the side the finger came from, and the outgoing page leaves the
+    // other way — so the gesture and the transition tell the same story (see wirePageSwipe)
+    const dir = _navDir; _navDir = "";
+    view.innerHTML = '<div class="page' + (dir ? " page-" + dir : "") + '"></div>';
+    if (ghost) { if (dir) ghost.classList.add("ghost-" + dir); view.appendChild(ghost); }
     const root = view.firstElementChild;
     (PAGES[current.name] || PAGES.home)(root, current.params);
     // one system of measurement, the reader's — see the units block above
@@ -4059,11 +4303,21 @@
     setTimeout(() => ghost.remove(), PAGE_GHOST_MS + 60);
     return ghost;
   }
-  // Motion the CSS `prefers-reduced-motion` block can't cover — JS scroll options, canvas camera
-  // moves. Read live rather than cached: the OS setting can change while the tab is open.
-  function prefersReducedMotion() {
+  /* Motion the CSS `prefers-reduced-motion` block can't cover — JS scroll options, canvas camera moves,
+     the page ghost, the sheets' exits. Read live rather than cached: the OS setting can change while the
+     tab is open, and so can the site's own.
+
+     Two sources, one answer (Aug 2026, on request: "a user should be able to turn off all animations, since
+     they may cause lag on some devices"). Settings → Appearance → Animations is an explicit OFF and nothing
+     else — it cannot turn motion ON over a reader whose operating system has asked for less of it, which is
+     why this is an OR rather than a setting that overrides the query. Everything already written against
+     prefersReducedMotion() therefore follows the switch with no change of its own; the stylesheet's own
+     killswitch gains a `body.no-anim` selector beside its media query for the same reason. */
+  function motionOff() {
+    if (S && S.settings && S.settings.animations === false) return true;
     return !!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
   }
+  function prefersReducedMotion() { return motionOff(); }
   const THEMES = ["folio", "synth", "arcade", "academy", "marble", "gazette"];
   /* Reading-text size (Aug 2026, on request). `--fs` is a multiplier the READING surfaces are written
      against — a card's question and background, a glossary popup, a place panel on the Atlas — and nothing
@@ -4088,6 +4342,15 @@
     const theme = THEMES.includes(S.settings.theme) ? S.settings.theme : "folio";
     document.body.dataset.theme = theme;
     document.body.dataset.fs = FONT_SIZES.indexOf(S.settings.fontSize) < 0 ? "medium" : S.settings.fontSize;
+    /* Two accessibility switches, written here for the same reason `data-fs` is: applyTheme runs on every
+       render() and at boot, so neither needs a call site of its own and neither can be missed by a page.
+       · no-anim — Settings → Appearance → Animations. The stylesheet's reduced-motion killswitch carries a
+         `body.no-anim` selector beside its media query, and prefersReducedMotion() reads the same setting,
+         so the JS-driven motion stops with the CSS-driven motion.
+       · hc — high contrast. Every theme's quiet tokens (--ink-faint, --ink-soft, the washes) are re-toned
+         above 4.5:1 against their own paper. See the CONTRAST block in styles.css for what was measured. */
+    document.body.classList.toggle("no-anim", S.settings.animations === false);
+    document.body.classList.toggle("hc", !!S.settings.contrast);
     // light / dark lives on the Settings page now (it was a top-bar slider until Aug 2026) — this keeps
     // that switch in step whenever the setting changes from anywhere else
     document.querySelectorAll("#sw-night").forEach((el) => {
@@ -4301,6 +4564,7 @@
      only the last had a control before (a bin at the right of the row, now gone). It lives on document.body
      like the other overlays there, so render() has to close it; see closeDeckMenu in the render() list. */
   let _deckMenuClose = null;
+  const DECK_SHEET_OUT_MS = 190;   // keep in step with .deck-menu.closing in styles.css
   function closeDeckMenu() { if (_deckMenuClose) _deckMenuClose(); }
   // one shell for the sheet and its two dialogs, so Escape, the backdrop and the focus trap are written once
   function deckSheet(labelText, innerHTML, wire) {
@@ -4309,11 +4573,17 @@
     ov.className = "deck-menu";
     ov.innerHTML = '<div class="dm-box" role="dialog" aria-modal="true" aria-label="' + esc(labelText) + '">' + innerHTML + "</div>";
     document.body.appendChild(ov);
+    /* It leaves the way it arrived (Aug 2026, on request). The sheet had an entrance and no exit, so
+       dismissing it cut it away on the frame of the click — the one abrupt half of a control that is
+       otherwise entirely animated. The overlay is un-hit-testable the instant `closing` lands, so the
+       gesture is finished immediately whatever the paint is still doing, and `_deckMenuClose` is cleared
+       at the same moment: a second close (Escape over a backdrop click) must not restart the timer. */
     const close = () => {
       if (_deckMenuClose !== close) return;
       _deckMenuClose = null;
-      ov.remove();
       document.removeEventListener("keydown", onKey, true);
+      if (!motionOff()) { ov.classList.add("closing"); setTimeout(() => ov.remove(), DECK_SHEET_OUT_MS); }
+      else ov.remove();
     };
     function onKey(e) { if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); close(); } }
     document.addEventListener("keydown", onKey, true);
@@ -4365,24 +4635,55 @@
       else if (e.key === "ContextMenu" || (e.shiftKey && e.key === "F10")) { e.preventDefault(); fire(); }
     });
   }
+  /* The options sheet, for an added deck's row AND for the daily review banner above them (Aug 2026, on
+     request: "the same menu, without the delete option"). The review is an entry like any other under
+     REVIEW_ENTRY, so the three shared rows need no special case — its settings simply apply to the pooled
+     session the banner starts, while a deck tapped on its own row keeps using its own. What differs is at
+     the ends: the review has no Remove (there is nothing to take it out OF) and carries the Ordered/Random
+     pair, which is a property of the pooled session and of nothing else. */
   function openDeckMenu(id) {
+    const isReview = id === REVIEW_ENTRY;
     const info = entryInfo(id);
     const L = deckLimits(id), skipped = deckSkippedToday(id), left = deckNewRemaining(id);
+    const thing = isReview ? "review" : "deck";
     const item = (act, label, note, cls) =>
       '<button type="button" class="dm-item' + (cls ? " " + cls : "") + '" data-act="' + act + '">' +
       "<b>" + esc(label) + "</b><small>" + esc(note) + "</small></button>";
+    // aria-pressed, not role=menuitemradio: the sheet is a dialog, and menuitemradio is only meaningful
+    // inside a role=menu, where a screen reader would then expect keyboard semantics this has not got
+    const choice = (act, label, note, on) =>
+      '<button type="button" class="dm-item dm-choice' + (on ? " on" : "") + '" data-act="' + act + '" aria-pressed="' + (on ? "true" : "false") + '">' +
+      "<b>" + esc(label) + "</b><small>" + esc(note) + "</small></button>";
+    const random = !!S.settings.reviewRandom;
     const html =
       '<div class="dm-head"><span class="dm-title">' + esc(info.title) + "</span>" +
-        (info.parent ? '<span class="dm-where">' + esc(info.parent) + "</span>" : "") + "</div>" +
+        (isReview ? '<span class="dm-where">Applies to every added deck</span>'
+                  : (info.parent ? '<span class="dm-where">' + esc(info.parent) + "</span>" : "")) + "</div>" +
+      (isReview
+        ? choice("ordered", "Ordered", "Cards come up in their deck order, oldest history first", !random) +
+          choice("random", "Random", "The session is shuffled each day", random)
+        : "") +
       item("custom", "Custom study", "Study more or fewer new cards today — " + left + " left of " + (L.newPerDay + (deckDay(id).extra || 0))) +
       item("limits", "Daily limits", L.newPerDay + " new/day · " + L.maxReviews + " reviews/day") +
-      item("skip", skipped ? "Study today after all" : "Skip today", skipped ? "This deck is sitting today out" : "Leave this deck out of today's review") +
-      item("remove", "Remove", "Take this deck out of the daily review", "dm-danger");
+      item("skip", skipped ? "Study today after all" : "Skip today",
+        skipped ? "This " + thing + " is sitting today out"
+                : (isReview ? "Leave today's review out altogether" : "Leave this deck out of today's review")) +
+      (isReview ? "" : item("remove", "Remove", "Take this deck out of the daily review", "dm-danger"));
     return deckSheet("Options for " + info.title, html, (ov, close) => {
       ov.querySelectorAll(".dm-item").forEach((b) => b.addEventListener("click", () => {
         const act = b.dataset.act;
         if (act === "custom") { close(); openCustomStudy(id); return; }
         if (act === "limits") { close(); openDeckLimits(id); return; }
+        if (act === "ordered" || act === "random") {
+          const want = act === "random";
+          close();
+          if (want === random) return;
+          S.settings.reviewRandom = want;
+          save();
+          render();
+          toast(want ? "Review order: random" : "Review order: ordered");
+          return;
+        }
         if (act === "skip") {
           setDeckSkip(id, !skipped);
           close();
@@ -4398,35 +4699,8 @@
       }));
     });
   }
-  /* The daily review's own options sheet, opened by HOLDING the banner (Aug 2026, on request). The
-     Ordered/Random pair used to be a pill sitting in the banner's top-right corner — a permanent control
-     for a setting almost nobody changes twice, taking a corner of the one block on the home page that has
-     something to say. It moves here, where the deck rows underneath already keep their options, so the
-     gesture is the same one step up the hierarchy. The Settings page's own "Random review order" switch is
-     unchanged and still the other way in. */
-  function openReviewMenu() {
-    const random = !!S.settings.reviewRandom;
-    const item = (act, label, note, on) =>
-      // aria-pressed, not role=menuitemradio: the sheet is a dialog, and menuitemradio is only meaningful
-      // inside a role=menu, where a screen reader would then expect menu keyboard semantics this has not got
-      '<button type="button" class="dm-item dm-choice' + (on ? " on" : "") + '" data-act="' + act + '" aria-pressed="' + (on ? "true" : "false") + '">' +
-      "<b>" + esc(label) + "</b><small>" + esc(note) + "</small></button>";
-    const html =
-      '<div class="dm-head"><span class="dm-title">Daily review</span><span class="dm-where">Order of today\'s session</span></div>' +
-      item("ordered", "Ordered", "Cards come up in their deck order, oldest history first", !random) +
-      item("random", "Random", "The session is shuffled each day", random);
-    return deckSheet("Daily review options", html, (ov, close) => {
-      ov.querySelectorAll(".dm-item").forEach((b) => b.addEventListener("click", () => {
-        const want = b.dataset.act === "random";
-        close();
-        if (want === random) return;
-        S.settings.reviewRandom = want;
-        save();
-        render();
-        toast(want ? "Review order: random" : "Review order: ordered");
-      }));
-    });
-  }
+  // the banner's sheet is the deck sheet, one level up — see openDeckMenu
+  function openReviewMenu() { return openDeckMenu(REVIEW_ENTRY); }
   /* Custom study — today only. Anki opens a whole separate session for this; here it simply moves the
      deck's new-card allowance for the day, up or down, by a number the reader types. The same amount moves
      the DAILY REVIEW's own allowance, or asking for five more cards would raise a number the banner the
@@ -4437,7 +4711,7 @@
       '<div class="dm-head"><span class="dm-title">Custom study</span><span class="dm-where">' + esc(info.title) + "</span></div>" +
       '<label class="dm-field"><span>New cards to add today</span>' +
       '<input class="dm-num" id="csN" type="number" min="1" max="999" step="1" value="5" inputmode="numeric"></label>' +
-      '<p class="dm-note">Today only. Tomorrow the deck goes back to its daily limit.</p>' +
+      '<p class="dm-note">Today only. Tomorrow ' + (id === REVIEW_ENTRY ? "the review goes" : "the deck goes") + ' back to its daily limit.</p>' +
       '<div class="dm-actions"><button type="button" class="btn ghost" data-act="fewer">Study fewer</button>' +
       '<button type="button" class="btn" data-act="more">Study more</button></div>';
     deckSheet("Custom study", html, (ov, close) => {
@@ -4527,15 +4801,18 @@
   }
 
   /* ---------- fixed grade bar (pinned to the bottom of the viewport, Anki-style) ---------- */
-  /* Its HEIGHT is the reader's to set on a phone (Aug 2026, on request): drag the grip along its top edge,
-     as on the Atlas place sheet. Unlike that sheet there are only TWO positions, so this does not track the
-     pointer continuously — the compact state is a different ARRANGEMENT (four colours side by side, no
-     words), not the same bar at a smaller height, and there is nothing sensible to render in between. The
-     state therefore flips the moment the drag passes GB_SLOP, which is also what makes it feel like a snap;
-     a tap on the grip toggles, since a grip nobody drags is a grip nobody finds.
+  /* Its HEIGHT is the reader's to set on a phone (Aug 2026, on request): a CHEVRON on its top edge folds it
+     between two heights — tall, with the four grades named, and short, with them as bare colours beside the
+     ?, Undo and Suspend icons.
+
+     It was a drag grip modelled on the Atlas place sheet's, and the chevron replaced it on request (Aug
+     2026) because the two controls are not doing the same job: the place sheet has a continuum of heights
+     and this has exactly two, so a drag was a gesture whose whole range mapped onto one bit. A chevron says
+     "there are two states and this is the other one" outright, and needs no classification of the press —
+     which also retires GB_SLOP, the guard that told a drag from a tap.
      Device-local, like where the whiteboard marker sits and how tall the place sheet is: how much of THIS
      screen the buttons take is a fact about this screen, not about the account. */
-  const GB_H_KEY = "folio_gb_compact_v1", GB_SLOP = 16;
+  const GB_H_KEY = "folio_gb_compact_v1";
   let gbCompact = null;
   function gbReadCompact() {
     if (gbCompact == null) { try { gbCompact = localStorage.getItem(GB_H_KEY) === "1"; } catch (e) { gbCompact = false; } }
@@ -4544,37 +4821,22 @@
   function gbSetCompact(on, persist) {
     gbCompact = !!on;
     document.body.classList.toggle("gb-compact", gbCompact);
+    // the chevron points the way it will go, and says which state it is in — see gbWireResize
+    document.querySelectorAll(".gb-fold").forEach((b) => {
+      b.setAttribute("aria-expanded", gbCompact ? "false" : "true");
+      const lab = gbCompact ? "Show the full grade buttons" : "Shrink the grade buttons";
+      b.setAttribute("aria-label", lab);
+      b.setAttribute("title", lab);
+    });
     if (persist) { try { gbCompact ? localStorage.setItem(GB_H_KEY, "1") : localStorage.removeItem(GB_H_KEY); } catch (e) {} }
   }
-  function gbWireResize(grip) {
-    let drag = null;
-    grip.addEventListener("pointerdown", (e) => {
-      if (e.button != null && e.button !== 0) return;
-      drag = { id: e.pointerId, y: e.clientY, moved: false };
-      try { grip.setPointerCapture(e.pointerId); } catch (x) {}
-      e.preventDefault();
-    });
-    grip.addEventListener("pointermove", (e) => {
-      if (!drag || e.pointerId !== drag.id) return;
-      const dy = e.clientY - drag.y;
-      if (Math.abs(dy) < GB_SLOP) return;
-      drag.moved = true;
-      // the bar is anchored at the bottom, so dragging its top edge DOWN is what shortens it
-      gbSetCompact(dy > 0, false);
-    });
-    const release = (e) => {
-      if (!drag || (e.pointerId != null && e.pointerId !== drag.id)) return;
-      const tap = !drag.moved;
-      drag = null;
-      gbSetCompact(tap ? !gbReadCompact() : gbCompact, true);
-    };
-    grip.addEventListener("pointerup", release);
-    grip.addEventListener("pointercancel", release);
-    // a keyboard reaches it too — the grip is a real button
-    grip.addEventListener("keydown", (e) => {
+  function gbWireResize(fold) {
+    if (!fold) return;
+    // a real <button>: click and Enter/Space come free, and the arrows reach the two states directly
+    fold.addEventListener("click", () => gbSetCompact(!gbReadCompact(), true));
+    fold.addEventListener("keydown", (e) => {
       if (e.key === "ArrowDown") { e.preventDefault(); gbSetCompact(true, true); }
       else if (e.key === "ArrowUp") { e.preventDefault(); gbSetCompact(false, true); }
-      else if (e.key === "Enter" || e.key === " ") { e.preventDefault(); gbSetCompact(!gbReadCompact(), true); }
     });
   }
   let gradeBarEl = null;
@@ -4582,10 +4844,12 @@
     if (!gradeBarEl) {
       gradeBarEl = document.createElement("div");
       gradeBarEl.id = "gradebar";
-      // the grip sits OUTSIDE .gradebar-inner, whose contents are replaced for every card
-      gradeBarEl.innerHTML = '<button class="gb-grab" id="gbGrab" type="button" aria-label="Drag to shrink or expand the grade buttons"><span></span></button><div class="gradebar-inner"></div>';
+      // the chevron sits OUTSIDE .gradebar-inner, whose contents are replaced for every card
+      gradeBarEl.innerHTML = '<button class="gb-fold" id="gbFold" type="button" aria-expanded="true" aria-label="Shrink the grade buttons" title="Shrink the grade buttons">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>' +
+        '</button><div class="gradebar-inner"></div>';
       document.body.appendChild(gradeBarEl);
-      gbWireResize(gradeBarEl.querySelector("#gbGrab"));
+      gbWireResize(gradeBarEl.querySelector("#gbFold"));
     }
     return gradeBarEl;
   }
@@ -5621,6 +5885,45 @@
       o: { lang: "grc", t: "μὴ εἶναι βασιλικὴν ἀτραπὸν ἐπὶ γεωμετρίαν.", a: "Εὐκλείδης", s: "Πρόκλος, Εἰς τὸ πρῶτον τῶν Εὐκλείδου Στοιχείων" } },
     { t: "I grow old ever learning many things.", a: "Solon", s: "Quoted in Plutarch, Life of Solon 31",
       o: { lang: "grc", t: "γηράσκω δ' αἰεὶ πολλὰ διδασκόμενος.", a: "Σόλων", s: "Πλούταρχος, Σόλων 31" } },
+    /* ---- Aug 2026, on request: twenty more, weighted towards the Indian and Arabic traditions, which the
+       first twenty had none of at all. Two rules held while writing them, and they are the same two the
+       cards are held to: only quotations that are actually DOCUMENTED in a named work, and an `o` block
+       only where the original wording is one I can set down exactly. Several of these therefore carry no
+       original — an Arabic or Prakrit line I could not reproduce with confidence is left in translation
+       rather than approximated, which is what the missing `dq-flip` on Marcus Aurelius already meant.
+       The running order (quoteRunningOrder) rebuilds itself from the pool, so nothing here needs balancing
+       by hand; it only needs to stay solvable, and at forty quotes no author is near the 2n/7 ceiling. ---- */
+    { t: "You have a right to your actions, but never to the fruits of your actions.", a: "Bhagavad Gita", s: "Bhagavad Gita 2.47",
+      o: { lang: "sa", t: "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।", a: "श्रीमद्भगवद्गीता", s: "भगवद्गीता २.४७" } },
+    { t: "From the unreal lead me to the real; from darkness lead me to light; from death lead me to immortality.", a: "Brihadaranyaka Upanishad", s: "Brihadaranyaka Upanishad 1.3.28",
+      o: { lang: "sa", t: "असतो मा सद्गमय। तमसो मा ज्योतिर्गमय। मृत्योर्मा अमृतं गमय।", a: "बृहदारण्यकोपनिषद्", s: "बृहदारण्यकोपनिषद् १.३.२८" } },
+    { t: "All that we are is the result of what we have thought: it is founded on our thoughts, it is made up of our thoughts.", a: "The Buddha", s: "Dhammapada 1.1",
+      o: { lang: "pi", t: "Manopubbaṅgamā dhammā, manoseṭṭhā manomayā.", a: "Buddha", s: "Dhammapada, Yamakavagga 1" } },
+    { t: "In the happiness of his subjects lies the king's happiness; in their welfare, his welfare.", a: "Kautilya", s: "Arthashastra 1.19",
+      o: { lang: "sa", t: "प्रजासुखे सुखं राज्ञः प्रजानां च हिते हितम्।", a: "कौटिल्य", s: "अर्थशास्त्र १.१९" } },
+    { t: "Yoga is the stilling of the movements of the mind.", a: "Patanjali", s: "Yoga Sutras 1.2",
+      o: { lang: "sa", t: "योगश्चित्तवृत्तिनिरोधः।", a: "पतञ्जलि", s: "योगसूत्र १.२" } },
+    { t: "Whoever honours his own sect and disparages another's, thinking to do honour to his own sect, injures his own sect the more gravely.", a: "Ashoka", s: "Major Rock Edict XII" },
+    { t: "Where the mind is without fear and the head is held high — into that heaven of freedom, let my country awake.", a: "Rabindranath Tagore", s: "Gitanjali 35, 1912" },
+    { t: "Education is the manifestation of the perfection already in man.", a: "Swami Vivekananda", s: "Complete Works, vol. IV" },
+    { t: "We ought not to be ashamed of appreciating the truth and of acquiring it wherever it comes from, even if it comes from races distant and nations different from us.", a: "Al-Kindi", s: "On First Philosophy, 9th century" },
+    { t: "Truth does not contradict truth; it agrees with it and bears witness to it.", a: "Ibn Rushd", s: "The Decisive Treatise, c. 1179",
+      o: { lang: "ar", t: "الحق لا يضاد الحق بل يوافقه ويشهد له.", a: "ابن رشد", s: "فصل المقال" } },
+    { t: "The seeker after truth is not one who studies the writings of the ancients and trusts them, but one who questions what he gathers from them.", a: "Ibn al-Haytham", s: "Doubts Concerning Ptolemy, 11th century" },
+    { t: "Knowledge without action is madness, and action without knowledge is vanity.", a: "Al-Ghazali", s: "Ayyuha'l-Walad (O Youth)" },
+    { t: "Hearsay does not equal eyesight.", a: "Al-Biruni", s: "Preface to India (Tahqiq ma li-l-Hind), c. 1030" },
+    { t: "Untruth naturally afflicts historical information, and there are various reasons that make this unavoidable.", a: "Ibn Khaldun", s: "Muqaddimah I, 1377" },
+    { t: "The noblest place in the world is the saddle of a swift horse, and the best companion of all time is a book.", a: "Al-Mutanabbi", s: "Diwan, 10th century",
+      o: { lang: "ar", t: "أعزُّ مكانٍ في الدُّنَى سرجُ سابحٍ · وخيرُ جليسٍ في الزمانِ كتابُ", a: "المتنبي", s: "ديوان المتنبي" } },
+    { t: "Teach your tongue to say \"I do not know\", and you will make progress.", a: "Maimonides", s: "Attributed; cf. Commentary on the Mishnah" },
+    { t: "My work is meant to be a possession for all time, rather than a prize essay to be heard for the moment.", a: "Thucydides", s: "History of the Peloponnesian War 1.22",
+      o: { lang: "grc", t: "κτῆμα ἐς αἰεὶ μᾶλλον ἢ ἀγώνισμα ἐς τὸ παραχρῆμα ἀκούειν.", a: "Θουκυδίδης", s: "Ἱστορίαι Α΄.22" } },
+    { t: "This is the display of the inquiry of Herodotus, so that the deeds of men may not be erased by time.", a: "Herodotus", s: "Histories 1.1",
+      o: { lang: "grc", t: "ὡς μήτε τὰ γενόμενα ἐξ ἀνθρώπων τῷ χρόνῳ ἐξίτηλα γένηται.", a: "Ἡρόδοτος", s: "Ἱστορίαι Α΄.1" } },
+    { t: "History has been assigned the task of judging the past. This work does not presume to such a task; it wants only to show what actually happened.", a: "Leopold von Ranke", s: "Preface to Histories of the Latin and Germanic Nations, 1824",
+      o: { lang: "de", t: "Er will bloß zeigen, wie es eigentlich gewesen.", a: "Leopold von Ranke", s: "Geschichten der romanischen und germanischen Völker, Vorrede, 1824" } },
+    { t: "Misunderstanding of the present grows inevitably out of ignorance of the past.", a: "Marc Bloch", s: "The Historian's Craft, 1949",
+      o: { lang: "fr", t: "L'incompréhension du présent naît fatalement de l'ignorance du passé.", a: "Marc Bloch", s: "Apologie pour l'histoire, 1949" } },
   ];
   /* ---------- the running order the daily quote follows ----------
      The pool leans on a few voices — four of the twenty lines are Confucius, and in the array's own order
@@ -6015,7 +6318,7 @@
     })();
 
     const playedChallengeToday =
-      !!S.daily.lastPlayed && new Date(S.daily.lastPlayed).toISOString().slice(0, 10) === todayStr();
+      !!S.daily.lastPlayed && dayKey(S.daily.lastPlayed) === todayStr();
     const playedChronoToday = !!S.chrono && S.chrono.date === todayStr();
     const playedTrueFalseToday = gamePlayedToday("truefalse");
     const playedWhoSaidToday = gamePlayedToday("whosaid");
@@ -6144,7 +6447,7 @@
     // streak chip: shown once a run of 2+ days is alive (studied today, or yesterday with today still open)
     const streakChip = (() => {
       const st = S.streak || {};
-      const yest = new Date(Date.now() - DAY).toISOString().slice(0, 10);
+      const yest = dayKey(Date.now() - DAY);
       if ((st.last === todayStr() || st.last === yest) && st.count >= 2) return `<div class="stat streak" title="Days studied in a row"><b>🔥 ${st.count}</b><span>Day streak</span></div>`;
       return "";
     })();
@@ -7132,6 +7435,7 @@
                     '<label class="admin-field"><span class="af-label">Image title</span><input class="af-input" data-gimg="title" type="text" value="' + esc((t.image || {}).title || "") + '" /></label>' +
                     '<div class="admin-field"><span class="af-label">Image description</span><textarea class="af-input af-imgdesc" data-gimg="desc" rows="2" spellcheck="true">' + esc((t.image || {}).desc || "") + '</textarea></div>' +
                     '<label class="admin-field"><span class="af-label">Image source</span><input class="af-input" data-gimg="credit" type="text" spellcheck="false" value="' + esc((t.image || {}).credit || "") + '" /></label>' +
+                    '<label class="admin-field"><span class="af-label">Alt text</span><input class="af-input" data-gimg="alt" type="text" value="' + esc((t.image || {}).alt || "") + '" placeholder="What the picture SHOWS, for a reader who cannot see it" /></label>' +
                   '</div>' +
                 '</div>' +
                 '<div class="ces-imgpanel gloss-imgpanel">' +
@@ -8464,7 +8768,9 @@
     return '<figure class="card-img" role="button" tabindex="0" title="Click to enlarge"' +
       ' data-img-src="' + esc(img.src) + '" data-img-title="' + esc(img.title || "") + '"' +
       ' data-img-desc="' + esc(img.desc || "") + '" data-img-credit="' + esc(img.credit || "") + '">' +
-      '<img src="' + esc(img.src) + '" alt="' + esc(img.title || "Card illustration") + '" loading="lazy" draggable="false">' +
+      // the author's own alt text first; the title is a fallback, and the generic string only where there
+      // is neither — an image with no text alternative at all is worse than a weak one
+      '<img src="' + esc(img.src) + '" alt="' + esc(img.alt || img.title || "Card illustration") + '" loading="lazy" draggable="false">' +
       '<span class="ci-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></span>' +
       "</figure>";
   }
@@ -8510,7 +8816,13 @@
      uGlossSetImage) stay dumb, so the ingest paths are untouched: a hand-authored data.js, an imported
      deck file and an installed community deck all render exactly as before. This is a guard against
      forgetting while writing, not a validity rule imposed on other people's decks. */
-  const MEDIA_FIELDS = ["src", "title", "desc", "credit"];
+  /* `alt` joined the four in Aug 2026, on request ("add alt text for images, which can be added when
+     editing/making cards"). It is deliberately a field of its own rather than a reuse of `title`: a title
+     names the picture for a sighted reader who can already see it ("The Lion Man of Hohlenstein-Stadel"),
+     where alt text has to DESCRIBE it to somebody who cannot ("a small ivory figure with a lion's head and
+     a human body, standing upright"). Folding the two together is the commonest way alt text ends up
+     useless. It is carried on the image store only; a video is announced by its own player. */
+  const MEDIA_FIELDS = ["src", "title", "desc", "credit", "alt"];
   // `kind` may be a getter: the card editor's single frame decides picture-or-clip from the URL as it is
   // typed, so the wording of the "where does this come from?" modal has to be read at the moment it opens
   function mediaKindLabel(kind) { return (typeof kind === "function" ? kind() : kind) === "video" ? "video" : "image"; }
@@ -8640,7 +8952,7 @@
     ov.innerHTML =
       (vsrc
         ? '<div class="iv-stage iv-vidstage">' + videoPlayerHTML(vsrc, img.title, "iv-vid", true) + "</div>"
-        : '<div class="iv-stage"><img class="iv-img" src="' + esc(img.src) + '" alt="' + esc(img.title || "") + '" draggable="false"></div>') +
+        : '<div class="iv-stage"><img class="iv-img" src="' + esc(img.src) + '" alt="' + esc(img.alt || img.title || "") + '" draggable="false"></div>') +
       '<button class="iv-close" type="button" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>' +
       ((img.title || img.desc || credit)
         ? '<div class="iv-meta">' +
@@ -9601,18 +9913,54 @@
         (dots && !dots.hidden ? dots.offsetHeight : 0);
       return Math.max(56, h);
     }
-    function cpMaxH() { return (document.documentElement.clientHeight || window.innerHeight || 0) - CP_TOP_GAP - CP_BOTTOM_GAP; }
+    /* The CEILING is the smaller of two things: what the screen has room for, and what the PAGE ON SCREEN
+       actually needs (Aug 2026, on request — "the max height should always be the point where everything is
+       displayed fully, so we are never left with empty space at the bottom"). The pages are wildly uneven —
+       a five-sentence description against a 2×2 grid of figures — so one height for all of them means a
+       sheet either cut off on the long page or half empty on the short one.
+       cpFitH() is what makes the second half of the request work: swiping to a shorter page pulls the sheet
+       down to fit it. The reader's own dragged height is kept as the CAP it always was, not overwritten, so
+       swiping back to a long page restores it — a swipe answers for the page it lands on, and must not
+       quietly relitigate a setting. */
+    function cpPaneNeedH() {
+      if (!cpEl || !cpColsEl) return Infinity;
+      const panes = cpPanes();
+      if (!panes.length) return Infinity;
+      const w = cpColsEl.clientWidth || 1;
+      const pane = panes[Math.max(0, Math.min(panes.length - 1, Math.round(cpColsEl.scrollLeft / w)))];
+      if (!pane) return Infinity;
+      // everything outside the scroller: the head, the dots, the box's own padding — measured through
+      // offsets for the reason cpMinH is (the head scrolls inside the box being resized)
+      const dots = cpEl.querySelector(".cp-dots");
+      const cs = getComputedStyle(cpEl);
+      const chrome = (cpColsEl.offsetTop || 0) + (parseFloat(cs.paddingBottom) || 0) +
+        (dots && !dots.hidden ? dots.offsetHeight : 0);
+      return chrome + pane.scrollHeight + 2;
+    }
+    function cpMaxH() {
+      const room = (document.documentElement.clientHeight || window.innerHeight || 0) - CP_TOP_GAP - CP_BOTTOM_GAP;
+      return Math.max(cpMinH(), Math.min(room, cpPaneNeedH()));
+    }
     // apply the stored fraction (or clear back to the stylesheet's own 52% cap when there isn't one)
     function cpApplyH() {
       if (!cpEl) return;
       const f = cpReadH();
-      if (!cpPagerOn() || f == null) { cpEl.classList.remove("cp-sized"); cpEl.style.height = ""; return; }
-      const max = cpMaxH();
+      if (!cpPagerOn()) { cpEl.classList.remove("cp-sized"); cpEl.style.height = ""; return; }
+      const vh = document.documentElement.clientHeight || 0;
       cpEl.classList.add("cp-sized");
-      cpEl.style.height = Math.round(Math.max(56, Math.min(f * (document.documentElement.clientHeight || 0), max))) + "px";
+      // with no stored height the sheet still fits its page rather than sitting at the stylesheet's flat 52%
+      const want = f == null ? vh : f * vh;
+      cpEl.style.height = Math.round(Math.max(56, Math.min(want, cpMaxH()))) + "px";
       // the floor can only be measured once the box is laid out, so clamp on the second pass
       const min = cpMinH();
       if (cpEl.getBoundingClientRect().height < min) cpEl.style.height = Math.round(min) + "px";
+    }
+    // …and re-fit after a swipe: the ceiling has moved because the page under it has
+    function cpFitH() {
+      if (!cpEl || cpEl.hidden || !cpPagerOn() || !cpEl.classList.contains("cp-sized")) return;
+      const max = cpMaxH();
+      if (cpEl.getBoundingClientRect().height > max + 1) cpEl.style.height = Math.round(max) + "px";
+      else cpApplyH();
     }
     function cpWireResize(grip) {
       if (!grip) return;
@@ -9649,8 +9997,8 @@
     function cpResize() {
       if (!cpEl || cpEl.hidden) { if (cpDotsEl) { cpDotsEl.hidden = true; cpDotsEl.innerHTML = ""; } return; }
       if (!cpPagerOn() && cpColsEl) cpColsEl.scrollLeft = 0;   // back to the stacked layout: a leftover offset would hide the text
-      cpApplyH();
       cpSyncDots(); cpActiveDot();
+      cpApplyH();
     }
     let popPointLL = null;    // the lon/lat that opened the popup (the click point, or a search anchor) — feeds the crumb parent + "Who ruled here?"
     function entityName(idx) { const ht = histTerr(), terr = ht || GEO; return (idx >= 0 && idx < terr.length) ? (terr[idx].n || "") : ""; }
@@ -9789,8 +10137,10 @@
       // the next country on its figures. `scrollLeft` is set with the pages already laid out, so it lands on
       // page one rather than on a stale offset.
       if (cpColsEl) { cpColsEl.scrollTop = 0; cpColsEl.scrollLeft = 0; }
-      cpApplyH();   // …at whatever height the reader left the last one at
+      // the dots FIRST: the height is fitted to the page on screen, and the dot row is part of what the
+      // sheet has to make room for (see cpPaneNeedH)
       cpSyncDots(); cpActiveDot();
+      cpApplyH();   // …at the reader's height, capped by what this page actually needs
     }
     function hideCountryPopup() { if (cpEl) cpEl.hidden = true; }
 
@@ -11856,7 +12206,18 @@
       head.setAttribute("aria-expanded", open ? "true" : "false");
     });
     // the phone pager: dots follow the swipe, and a tap on one turns to that page
-    if (cpColsEl) cpColsEl.addEventListener("scroll", () => { if (cpPagerOn()) cpActiveDot(); }, { passive: true });
+    /* The dots follow the finger; the HEIGHT waits for it to stop. Re-fitting the sheet on every scroll
+       event would resize the box a gesture is being made inside — the snap would be measuring a moving
+       target — so the fit is debounced past the settle, exactly as the dot correction is. */
+    if (cpColsEl) {
+      let fitT = null;
+      cpColsEl.addEventListener("scroll", () => {
+        if (!cpPagerOn()) return;
+        cpActiveDot();
+        if (fitT) clearTimeout(fitT);
+        fitT = setTimeout(() => { fitT = null; cpFitH(); }, 140);
+      }, { passive: true });
+    }
     if (cpColsEl) wireOnePageSwipe(cpColsEl);   // a hard flick must not carry past the year paragraph into the figures
     if (cpDotsEl) cpDotsEl.addEventListener("click", (e) => {
       const b = e.target.closest(".cp-dot"); if (!b) return;
@@ -12339,13 +12700,13 @@
     const today = new Date(); today.setHours(12, 0, 0, 0);
     const dow = (today.getDay() + 6) % 7;                     // Mon = 0
     const full = (HEAT_WEEKS - 1) * 7 + dow + 1;              // whole weeks + the part-week we're in, so day 0 is a Monday
-    const todayKey = today.toISOString().slice(0, 10);        // keyed exactly as reviewHistory keys its days
+    const todayKey = dayKeyOfDate(today);                     // keyed exactly as reviewHistory keys its days
     let startKey = "";                                        // first day that actually belongs to this account
     if (joined) {
       const jd = new Date(joined);
       if (!isNaN(jd.getTime())) {
         jd.setHours(12, 0, 0, 0);
-        startKey = jd.toISOString().slice(0, 10);
+        startKey = dayKeyOfDate(jd);
         const firstLog = firstLoggedDay(prog);
         if (firstLog && firstLog < startKey) startKey = firstLog;
         if (startKey > todayKey) startKey = todayKey;         // a clock-skewed "joined" in the future
@@ -13373,6 +13734,20 @@
               [["metric", "Metric", "km"], ["imperial", "Imperial", "mi"]].map((u) => `<button type="button" data-units="${u[0]}" class="${unitsNow === u[0] ? "on" : ""}" aria-pressed="${unitsNow === u[0]}"><span class="fs-a" aria-hidden="true">${u[2]}</span>${u[1]}</button>`).join("")
             }</div></div>
           </div>
+          <div class="set-row">
+            ${/* Aug 2026, on request: "a user should be able to turn off all animations (since they may
+                  cause lag on some devices)". ON by default; turning it off drives BOTH halves — the
+                  stylesheet's killswitch through body.no-anim, and every JS-driven movement through
+                  prefersReducedMotion(), which reads this same setting. */""}
+            <div class="info"><h3>Animations</h3><p>Page transitions, the entrance of each block, and the small movements on buttons and sheets. Turn them off if the site feels slow on this device.</p></div>
+            <div class="ctl"><div class="switch ${S.settings.animations !== false ? "on" : ""}" id="sw-anim" role="switch" tabindex="0" aria-checked="${S.settings.animations !== false}"></div></div>
+          </div>
+          <div class="set-row">
+            ${/* High contrast — see the CONTRAST block in styles.css for the measurements behind it. The
+                  quiet tokens are quiet on purpose, so this is a mode rather than a redesign. */""}
+            <div class="info"><h3>High contrast</h3><p>Darkens the quieter text — captions, eyebrows, source lines — and strengthens borders and focus outlines, so everything clears a 4.5:1 contrast ratio.</p></div>
+            <div class="ctl"><div class="switch ${S.settings.contrast ? "on" : ""}" id="sw-contrast" role="switch" tabindex="0" aria-checked="${!!S.settings.contrast}"></div></div>
+          </div>
           <div class="set-row set-row-block">
             ${/* Aug 2026, on request. The wording names the surfaces it reaches rather than promising a
                   whole-site zoom — see the FONT_SIZES comment by applyTheme for why it is the prose only.
@@ -13410,6 +13785,16 @@
           <div class="set-row">
             <div class="info"><h3>Random review order</h3><p>Shuffle each day's session and draw its new cards at random from your active decks, instead of chronologically.</p></div>
             <div class="ctl"><div class="switch ${S.settings.reviewRandom ? "on" : ""}" id="sw-random" role="switch" tabindex="0" aria-checked="${!!S.settings.reviewRandom}"></div></div>
+          </div>
+          <div class="set-row">
+            ${/* Aug 2026, on request. Days used to be UTC days, so everything dated changed at an hour that
+                  was not midnight for anybody off the Greenwich meridian; they follow this device's clock
+                  now, and this is where a reader who studies past midnight moves the line. The sentence
+                  says "this device" outright — deriving a time zone from the Atlas home location would
+                  need a tz database the site cannot ship, and guessing one from longitude would be worse
+                  than the clock it replaced. See dayKey in app.js. */""}
+            <div class="info"><h3>Day ends at</h3><p>When one study day becomes the next: the review's new cards reset, the daily quote and the card of the day change, and your streak counts. Useful if you study after midnight. Follows this device's clock.</p></div>
+            <div class="ctl"><input class="set-time" id="dayEnd" type="time" step="900" value="${dayEndHHMM()}" aria-label="The time a study day ends"></div>
           </div>
         </div>
         <div class="set-card">
@@ -13502,6 +13887,38 @@
       swRandom.setAttribute("aria-checked", String(!!S.settings.reviewRandom));
     };
     if (swRandom) { swRandom.addEventListener("click", toggleRandom); swRandom.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleRandom(); } }); }
+
+    // animations off, and high contrast — both are written to the body by applyTheme, so the switch only
+    // has to store the choice and repaint (render() calls applyTheme on its way through)
+    const wireSwitch = (id, get, set) => {
+      const el = root.querySelector(id);
+      if (!el) return;
+      const flip = () => {
+        set(!get());
+        save();
+        el.classList.toggle("on", get());
+        el.setAttribute("aria-checked", String(get()));
+        applyTheme();
+      };
+      el.addEventListener("click", flip);
+      el.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); flip(); } });
+    };
+    wireSwitch("#sw-anim", () => S.settings.animations !== false, (v) => { S.settings.animations = v; });
+    wireSwitch("#sw-contrast", () => !!S.settings.contrast, (v) => { S.settings.contrast = v; });
+
+    /* Day ends at. `change`, not `input`: a time field fires input on every digit typed, and a half-typed
+       hour would move the day boundary — and with it the review's counts and the day's quote — under the
+       reader mid-keystroke. A cleared field means midnight rather than nothing. */
+    const dayEndEl = root.querySelector("#dayEnd");
+    if (dayEndEl) dayEndEl.addEventListener("change", () => {
+      const m = /^(\d{1,2}):(\d{2})/.exec(dayEndEl.value || "");
+      const mins = m ? Math.max(0, Math.min(DAY_END_MAX, (+m[1]) * 60 + (+m[2]))) : 0;
+      S.settings.dayEnd = mins;
+      save();
+      dayEndEl.value = dayEndHHMM();       // a time past the cap is snapped back, visibly
+      scheduleDayRoll();                    // the next roll-over is at a different hour now
+      toast(mins ? "The day now ends at " + dayEndHHMM() : "The day now ends at midnight");
+    });
 
     const npVal = root.querySelector("#np-val");
     const setNp = (d) => {
@@ -14691,6 +15108,8 @@
             '<label class="admin-field"><span class="af-label">title</span><input class="af-input" data-mediafield="title" type="text" /></label>' +
             '<div class="admin-field"><span class="af-label">description</span><textarea class="af-input af-imgdesc" data-mediafield="desc" rows="2" spellcheck="true"></textarea></div>' +
             '<label class="admin-field"><span class="af-label">source</span><input class="af-input" data-mediafield="credit" type="text" spellcheck="false" placeholder="e.g. Wikimedia Commons, public domain, a museum or channel — or a URL" /></label>' +
+            // pictures only: a video announces itself through its own player, and an alt on one goes nowhere
+            '<label class="admin-field ces-altrow" id="cesMediaAlt"><span class="af-label">alt text</span><input class="af-input" data-mediafield="alt" type="text" placeholder="What the picture SHOWS, for a reader who cannot see it — not its title" /></label>' +
           '</div>' +
         '</div>'
       : "";
@@ -14901,6 +15320,8 @@
     function syncMediaMeta() {
       const src = String(curMedia().src || "").trim();
       if (mediaMeta) mediaMeta.hidden = !src;
+      const altRow = host.querySelector("#cesMediaAlt");
+      if (altRow) altRow.hidden = mediaKind === "video";
       if (mediaNote) {
         const vs = src && mediaKind === "video" ? videoSource(src) : null;
         mediaNote.hidden = !src;
@@ -15113,6 +15534,7 @@
                     '<label class="admin-field"><span class="af-label">image title</span><input class="af-input" data-gimgfield="title" type="text" /></label>' +
                     '<div class="admin-field"><span class="af-label">image description</span><textarea class="af-input af-imgdesc" data-gimgfield="desc" rows="2" spellcheck="true"></textarea></div>' +
                     '<label class="admin-field"><span class="af-label">image source</span><input class="af-input" data-gimgfield="credit" type="text" spellcheck="false" placeholder="e.g. Wikimedia Commons, public domain — or a URL" /></label>' +
+                    '<label class="admin-field"><span class="af-label">alt text</span><input class="af-input" data-gimgfield="alt" type="text" placeholder="What the picture SHOWS, for a reader who cannot see it — not its title" /></label>' +
                   '</div>' +
                 '</div>' +
                 '<div class="ces-imgpanel gloss-imgpanel">' +
@@ -16405,6 +16827,8 @@
   // arrive, then repaints translated. English readers never fetch them, and never pay a second render.
   if ((S.settings.lang || "en") !== "en") loadLangData(() => { applyLang(); render(); });
   checkAchievements(true);   // backfill any milestones already met by existing progress
+  wirePageSwipe();   // a phone moves between the ordinary pages with a horizontal swipe
+  scheduleDayRoll();   // …and a page left open across the day boundary picks the new day up on its own
   restoreGlossWins(_glossToRestore);   // re-open any gloss popups that were on screen before the reload
   communityBoot();   // async: the user's own decks load from IndexedDB, then the deck pages re-render
   supaBoot().then(cloudBootOverrides);   // async: restore the session, handle emailed auth links, reconcile progress — then adopt the published content overrides (live edits)

@@ -45,6 +45,42 @@ body.night{
   --shadow-lg:0 20px 60px rgba(0,0,0,.5);
 }
 
+/* ============================================================
+   CONTRAST (Aug 2026, on request: "check whether colour contrasts have a ratio of at least 4.5:1, and if
+   they don't, add a high contrast mode in the settings")
+   ============================================================
+   Measured rather than assumed — every foreground token against every paper it is ever set on, by the WCAG
+   2.x relative-luminance formula. What came back:
+
+     LIGHT   ink 15.9 · ink-soft 8.4 · indigo 9.9 · indigo-bright 6.5   — comfortable
+             ink-faint 3.0–3.5 · ochre 3.3–3.9 · geo 3.0–3.5           — BELOW the bar everywhere
+             zh 4.1–4.8 · good 4.1–4.8                                 — below it on paper-2, above on card
+     NIGHT   everything 4.6+ except ink-faint on --card, at 4.19
+
+   So the quiet tokens are the whole of the problem, and they are quiet ON PURPOSE — an eyebrow, a caption,
+   a source line. Re-toning them for everyone would flatten the typographic hierarchy the design is built
+   on, which is exactly the trade a high-contrast MODE exists to let the reader make for themselves. The
+   values below are solved, not eyeballed: each is its own hue scaled toward the ink until it clears 4.6:1
+   against `--paper-2`, the darkest of the three papers, so it clears the bar on all three.
+
+   One failure was NOT left to the mode, because it is a primary control rather than a caption: in night
+   mode `.btn` was #FFF on the light-lavender --indigo, at 2.29:1. That is fixed outright below. */
+body.night .btn{color:var(--paper);}                       /* 7.9:1, against #fff's 2.29 */
+body.night .btn:not(.ghost):hover{color:var(--paper);}
+body.hc:not(.night){
+  --ink-faint:#6C6A63; --ochre:#945D22; --geo:#935F13; --zh:#BA4038; --good:#3B7556;
+}
+body.hc.night{ --ink-faint:#918E87; }
+/* …and the borders, which are not text and so are not in the table above, but are what tells one card from
+   the next. A hairline at 1.2:1 is invisible to a reader who needs this mode at all. */
+body.hc:not(.night){ --rule:#B9B4A5; }
+body.hc.night{ --rule:#5A5A66; }
+body.hc .btn,body.hc .card,body.hc .set-card{border-width:1.5px;}
+/* the gold level numeral is 2.6:1 on card — decorative, but it carries a number a reader is meant to read */
+body.hc:not(.night) .lb-num,body.hc:not(.night) .banner .lb-num,body.hc:not(.night) .collection-row .lb-num{color:#81661E;}
+/* a focus ring the mode can't leave to chance: thicker, and always the bright indigo rather than the theme's */
+body.hc :focus-visible{outline:3px solid var(--indigo-bright) !important; outline-offset:2px;}
+
 *{box-sizing:border-box;}
 html,body{margin:0;padding:0;}
 body{
@@ -235,12 +271,32 @@ html[dir="rtl"] .page-head{text-align:right;}
    its own children either, or the outgoing page flickers back in as it fades out. */
 .page:has(.atlas) > *,body.admin-mode .page > *,.page-ghost > *{animation:none;}
 
-/* Overlays: the backdrop washes in and the box rises to meet it. These had no entrance at all — a dialog
-   that simply exists on the next frame is the single most abrupt thing left in the interface. */
+/* A swiped navigation comes in from the side the finger came from, and the outgoing page leaves the other
+   way — so the gesture and the transition tell the same story (see wirePageSwipe in app.js). The class is
+   set on the page element itself rather than on the body, so it dies with that page and can never be left
+   behind on a subsequent tab-bar navigation. */
+.page.page-next{animation:pageInNext .34s var(--ease) both;}
+.page.page-prev{animation:pageInPrev .34s var(--ease) both;}
+@keyframes pageInNext{from{opacity:0; transform:translateX(26px);} to{opacity:1; transform:none;}}
+@keyframes pageInPrev{from{opacity:0; transform:translateX(-26px);} to{opacity:1; transform:none;}}
+.page-ghost.ghost-next{animation:pageOutNext .26s var(--ease) both;}
+.page-ghost.ghost-prev{animation:pageOutPrev .26s var(--ease) both;}
+@keyframes pageOutNext{from{opacity:1; transform:none;} to{opacity:0; transform:translateX(-26px);}}
+@keyframes pageOutPrev{from{opacity:1; transform:none;} to{opacity:0; transform:translateX(26px);}}
+
+/* Overlays: the backdrop washes in and the box rises to meet it — and, since Aug 2026, leaves the same way.
+   These had no entrance at all once, and then an entrance and no exit, which left the dismissal as the one
+   abrupt half of a control that is otherwise entirely animated. `.closing` is applied by deckSheet's close
+   (app.js), which also stops hit-testing the overlay at once, so the gesture is finished the instant it is
+   made whatever the paint is still doing. DECK_SHEET_OUT_MS must stay in step with the duration here. */
 .inline-prompt,.deck-menu{animation:overlayIn .18s var(--ease) both;}
 .ip-box,.dm-box{animation:dialogIn .26s var(--ease) both;}
 @keyframes overlayIn{from{opacity:0;} to{opacity:1;}}
 @keyframes dialogIn{from{opacity:0; transform:translateY(12px) scale(.97);} to{opacity:1; transform:none;}}
+.deck-menu.closing{pointer-events:none; animation:overlayOut .19s var(--ease) both;}
+.deck-menu.closing .dm-box{animation:dialogOut .19s var(--ease) both;}
+@keyframes overlayOut{from{opacity:1;} to{opacity:0;}}
+@keyframes dialogOut{from{opacity:1; transform:none;} to{opacity:0; transform:translateY(8px) scale(.98);}}
 
 /* Press feedback on the buttons that had none. `.btn` already lifts and settles; these are the quieter
    controls — the account page's ghost buttons, the editor's mini buttons, the sheet rows — where a click
@@ -494,11 +550,15 @@ body[data-theme="gazette"] .gt-ribbon span{ box-shadow:none; }
    naming this heading `.mg-head` silently gave it that card's `display:flex` — which beats `text-align`
    outright, so the heading rendered left — while pushing this font and colour onto the game's score row. */
 .games-sec{display:flex; flex-direction:column; gap:10px;}
-/* LEFT, not centred (Aug 2026, on request — it was centred for a week). Every other heading and label on
-   the phone's home page starts at the column's left edge, and a centred one in the middle of them reads as
-   a banner rather than as the name of the grid underneath it. */
+/* CENTRED (Aug 2026, on request — it was centred, then moved left for a fortnight, and is centred again).
+   It names the block of six tiles beneath it rather than starting a column of prose, and the tiles are a
+   centred grid; the left edge it used to share is the edge of the review's text above, which is a different
+   thing entirely. `text-align` is enough because the h2 is a block spanning the column — do NOT reach for
+   `display:flex` here, and do NOT rename the class to `.mg-head`: that is the MAP GAME's card header
+   further down the file, whose `display:flex` beats text-align outright and once left this heading
+   rendering hard left with a computed text-align of "center". */
 .games-head{
-  margin:6px 0 0; text-align:left;
+  margin:6px 0 0; text-align:center;
   font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.16em; text-transform:uppercase;
   font-weight:600; color:var(--ink-faint);
 }
@@ -1023,11 +1083,13 @@ kbd{font-family:var(--mono); font-size:.86em; line-height:1; padding:1.5px 5px; 
 #gradebar.show{transform:translateY(0); pointer-events:auto;}
 #gradebar .gradebar-inner{max-width:880px; margin:0 auto; padding:0 clamp(16px,4vw,40px);}
 body.grading .stage{padding-bottom:150px;}
-/* the grip along the bar's top edge — phone-only, like the place sheet's. A draggable edge with no mark on
-   it is one nobody finds, hence the pill; it is a real <button> so a keyboard can reach the two positions
-   too (see gbWireResize). Above the breakpoint the bar is one comfortable row already and there is nothing
-   to reclaim, so it is not rendered at all — display:none rather than a second markup path. */
-.gb-grab{display:none;}
+/* the CHEVRON along the bar's top edge — phone-only (Aug 2026, on request: it was a drag grip). The bar has
+   exactly two heights, so a drag was a gesture whose whole range mapped onto one bit; a chevron says "there
+   are two states and this is the other one" outright, and being a real <button> it needs no press
+   classification and reaches a keyboard for free. Above the breakpoint the bar is one comfortable row
+   already and there is nothing to reclaim, so it is not rendered at all — display:none rather than a
+   second markup path. */
+.gb-fold{display:none;}
 
 /* empty / complete states */
 .placard{
@@ -1625,6 +1687,12 @@ body.night .ph-lvl{color:#F3E3B2; background:#4A3B10; border-color:#E6C765;}
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 12px center; transition:border-color .15s;}
 .set-sel:hover{border-color:var(--indigo);}
 .set-sel:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
+/* Settings → Study → Day ends at. A real <input type=time>, so every platform's own clock picker and every
+   screen reader's own time semantics come free; only the chrome is ours. */
+.set-time{border:1px solid var(--rule); border-radius:9px; background:var(--paper); color:var(--ink);
+  font-family:var(--mono); font-size:calc(14px * var(--fs)); padding:8px 11px; cursor:pointer;}
+.set-time:hover{border-color:var(--indigo);}
+.set-time:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
 
 /* toast */
 .toast{
@@ -1651,11 +1719,14 @@ body.night .ph-lvl{color:#F3E3B2; background:#4A3B10; border-color:#E6C765;}
 .page-head .lib-cap{font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint); margin-top:6px;}
 .page-head .lib-cap b{color:var(--ink-soft); font-weight:600;}
 
-/* ---------- an added deck's options sheet (held down on its row in the daily review) ----------
-   A CENTRED dialog above 560px and a BOTTOM SHEET below it: on a phone the row that was held is near the
-   bottom of the screen and the thumb is already there, and a sheet rising from that edge is the gesture's
-   own answer. Same shell for the two dialogs it opens (Custom study, Daily limits), so Escape, the
-   backdrop and the focus behaviour are written once. */
+/* ---------- the options sheet (held down on a deck's row, or on the review banner above them) ----------
+   CENTRED at every width (Aug 2026, on request). It was a bottom sheet below 560px, on the reasoning that
+   the row held was near the thumb; what that actually produced was a dialog rising out of the tab bar at
+   the very bottom of the screen, furthest from where the reader was looking, and it was reported as such.
+   The middle of the screen is where a modal belongs, and the difference between the two widths is now only
+   how much of it the box takes.
+   Same shell for the two dialogs it opens (Custom study, Daily limits), so Escape, the backdrop and the
+   focus behaviour are written once. */
 .deck-menu{position:fixed; inset:0; z-index:420; display:flex; align-items:center; justify-content:center; padding:20px; background:color-mix(in srgb,var(--ink) 38%,transparent);}
 .dm-box{width:min(400px,94vw); background:var(--card); border:1px solid var(--rule); border-radius:15px; box-shadow:0 24px 60px rgba(0,0,0,.34); padding:8px; display:flex; flex-direction:column;}
 .dm-head{padding:12px 14px 10px; display:flex; flex-direction:column; gap:2px; border-bottom:1px solid var(--rule); margin-bottom:6px;}
@@ -1680,8 +1751,8 @@ body.night .ph-lvl{color:#F3E3B2; background:#4A3B10; border-color:#E6C765;}
 .dm-actions{display:flex; justify-content:flex-end; gap:8px; padding:10px 14px 8px;}
 .dm-actions .btn{font-size:calc(13px * var(--fs)); padding:8px 16px;}
 @media (max-width:560px){
-  .deck-menu{align-items:flex-end; padding:0;}
-  .dm-box{width:100%; border-radius:16px 16px 0 0; padding:8px 8px calc(10px + env(safe-area-inset-bottom));}
+  .deck-menu{padding:16px;}
+  .dm-box{width:100%; padding:8px;}
 }
 
 /* full-screen "level up!" congratulations — dismissed by clicking anywhere on screen (see congratsPopup) */
@@ -2667,14 +2738,16 @@ button.game-tile .gt-glyph{opacity:.14;}
      Undo and Suspend shrink to their icons beside them, all on one row. Nothing is taken away — a phone
      reader who wants the card back has the whole bar's function in half its height — and nothing is
      re-rendered: the same markup, laid out differently, so a grade never has to survive a rebuild. */
-  .gb-grab{
-    display:flex; align-items:center; justify-content:center; width:100%; height:17px;
-    appearance:none; border:0; background:none; padding:0; margin:0 0 -2px; cursor:ns-resize;
-    touch-action:none;   /* or the finger drag is claimed as a page scroll before pointermove fires */
+  .gb-fold{
+    display:flex; align-items:center; justify-content:center; width:100%; height:20px;
+    appearance:none; border:0; background:none; padding:0; margin:0 0 -3px; cursor:pointer;
+    color:var(--ink-faint); transition:color .15s var(--ease);
   }
-  .gb-grab span{display:block; width:38px; height:4px; border-radius:99px; background:var(--rule); transition:background .15s;}
-  .gb-grab:hover span, .gb-grab:focus-visible span{background:var(--indigo);}
-  .gb-grab:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px; border-radius:6px;}
+  .gb-fold svg{width:20px; height:20px; transition:transform .22s var(--ease);}
+  /* it points the way it will GO: down while the bar is tall (press to fold it away), up once it is short */
+  body.gb-compact .gb-fold svg{transform:rotate(180deg);}
+  .gb-fold:hover, .gb-fold:focus-visible{color:var(--indigo);}
+  .gb-fold:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px; border-radius:6px;}
   #gradebar{padding-top:2px;}
   body.gb-compact #gradebar{padding-bottom:max(8px, env(safe-area-inset-bottom));}
   /* one row: [?] [four colours] [undo] [suspend] */
@@ -2764,9 +2837,24 @@ button.game-tile .gt-glyph{opacity:.14;}
   body.grading .wb-tools{bottom:120px;}
 }
 
+/* ---------- the global motion killswitch ----------
+   TWO ways in and one behaviour (Aug 2026, on request: "in the settings, a user should be able to turn off
+   all animations, since they may cause lag on some devices"). The media query is the operating system's
+   request; `body.no-anim` is Folio's own switch, written by applyTheme from S.settings.animations, and
+   prefersReducedMotion() in app.js reads that same setting — so the JS-driven motion (the page ghost, the
+   sheets' exits, the smooth scroll, the globe's camera) stops with the CSS-driven motion rather than
+   half of it carrying on.
+   Everything in the file lands on its END state, which is why entrance animations need no per-rule
+   handling; the two targeted opt-outs below (the confetti, the gold shine) are the cases where the end
+   state is itself wrong. */
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important;}
 }
+body.no-anim *,body.no-anim *::before,body.no-anim *::after{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important;}
+body.no-anim .page > *{animation-delay:0s !important;}
+body.no-anim .lu-conf,body.no-anim .lu-burst{display:none;}
+body.no-anim .gt-ribbon.gr-gold span{animation:none;}
+body.no-anim .data-loading .dl-globe,body.no-anim .data-loading .dl-globe::before{animation:none; border-color:var(--rule); border-top-color:var(--indigo);}
 
 /* ============================================================
    GLOSSARY TOOLTIP TERMS (background text)
@@ -2860,6 +2948,7 @@ button.game-tile .gt-glyph{opacity:.14;}
 .gloss-win.flash{ animation:glossFlash .55s var(--ease); }
 @keyframes glossFlash{ 0%,100%{box-shadow:var(--shadow-lg);} 35%{box-shadow:var(--shadow-lg), 0 0 0 3px color-mix(in srgb,var(--indigo) 45%,transparent);} }
 .gloss-bar{
+  position:relative;   /* the phone window's grab mark is a ::before on this bar */
   display:flex; align-items:center; gap:8px; padding:13px 11px 5px 16px;
   background:linear-gradient(90deg, color-mix(in srgb, var(--indigo) 9%, transparent), transparent 78%); border-bottom:0;
   cursor:grab; user-select:none; touch-action:none;
@@ -2927,21 +3016,40 @@ button.game-tile .gt-glyph{opacity:.14;}
    Declaring the promotion up front means the layer is never created and never thrown away, and the
    transition ends without a repaint at all. Keep it on the sheet only — a permanent layer per element
    is cheap once and expensive by the dozen, and the desktop popups fade rather than slide. */
+/* A CENTRED FLOATING WINDOW on a phone, not a bottom sheet (Aug 2026, on request). It rose out of the
+   bottom edge for months; a definition met mid-sentence belongs in the middle of the screen, where the
+   reader's eye already is, and the sheet was also the furthest point on the page from the word tapped.
+   What a centred window loses is the sheet's implicit "there is a page behind me", so its bar can be HELD
+   and dragged up or down to uncover the sentence the term came from — vertically only, since the window is
+   as wide as the screen allows and a horizontal drag would only fight the page swipe.
+   `--gs-dy` is that offset, and it rides INSIDE the centring transform rather than replacing it with a
+   `top`: mixing the two would mean measuring the window's height on every move. It is not remembered — a
+   new term always opens in the middle — so it lives on the element and dies with it. */
 .gloss-win.gloss-sheet{
-  left:0; right:0; bottom:0; top:auto; width:100%; max-width:100%;
-  border-radius:18px 18px 0 0; border-left:0; border-right:0; border-bottom:0;
-  box-shadow:0 -12px 44px rgba(0,0,0,.20);
-  opacity:1; transform:translateY(100%);
-  transition:transform .26s var(--ease);
+  --gs-dy:0px;
+  left:50%; right:auto; top:50%; bottom:auto;
+  width:calc(100% - 24px); max-width:460px;
+  border-radius:16px;
+  box-shadow:0 18px 54px rgba(0,0,0,.28);
+  opacity:0; transform:translate(-50%,calc(-50% + var(--gs-dy) + 14px)) scale(.97);
+  transition:transform .26s var(--ease), opacity .2s var(--ease);
   will-change:transform; backface-visibility:hidden; -webkit-backface-visibility:hidden;
   z-index:9600;
 }
-.gloss-win.gloss-sheet.show{ transform:translateY(0); }
-.gloss-win.gloss-sheet.closing{ opacity:1; transform:translateY(100%); }
-.gloss-sheet .gloss-bar{ cursor:default; padding:13px 12px 13px 18px; }
+.gloss-win.gloss-sheet.show{ opacity:1; transform:translate(-50%,calc(-50% + var(--gs-dy))) scale(1); }
+.gloss-win.gloss-sheet.closing{ opacity:0; transform:translate(-50%,calc(-50% + var(--gs-dy) + 10px)) scale(.97); }
+.gloss-win.gloss-sheet.dragging{ transition:none; }
+/* the bar is the handle now, so it says so — and a drag on it must not be claimed as a page scroll */
+.gloss-sheet .gloss-bar{ cursor:grab; touch-action:none; padding:13px 12px 13px 18px; }
+.gloss-sheet.dragging .gloss-bar{ cursor:grabbing; }
+/* a grab mark centred above the title: a draggable edge with nothing on it is one nobody finds */
+.gloss-sheet .gloss-bar::before{
+  content:""; position:absolute; left:50%; top:5px; width:34px; height:4px; margin-left:-17px;
+  border-radius:99px; background:var(--rule); pointer-events:none;
+}
 .gloss-sheet .gloss-title{ font-size:calc(16.5px * var(--fs)); }
 .gloss-sheet .gloss-dates{ font-size:calc(12px * var(--fs)); }
-.gloss-sheet .gloss-body{ padding:15px 18px calc(20px + env(safe-area-inset-bottom)); max-height:55vh; }
+.gloss-sheet .gloss-body{ padding:15px 18px 20px; max-height:58vh; }
 .gloss-sheet .gloss-desc{ font-size:calc(15px * var(--fs)); }
 .gloss-sheet .gloss-imgslot{ margin-left:15px; }
 .gloss-sheet .gloss-imgslot .card-img{ border-radius:10px; }
