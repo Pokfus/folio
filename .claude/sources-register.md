@@ -1,5 +1,11 @@
 # Sources register
 
+> **Card ids here are the PRE-2026-08-04 numbering.** The World History collection was replanned from
+> scratch on that date and its cards renumbered into the new running order, with twenty retired;
+> `docs/world-history-card-plan.md` holds the old→new table and the retirement list. This file was
+> deliberately **not** rewritten — it is a record of work done under the old ids, and a rewritten log is
+> a worse log. Read a `wh-NNN` here through that table.
+
 Every citation, once **verified**, in its final form — so a work wanted by six cards is verified once and
 pasted six times, and the formatting cannot drift between them. Not shipped; not loaded by the site.
 
