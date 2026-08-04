@@ -79,15 +79,36 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
   matter (chapter 0 — see the Library bullet). Currently one: `seneca-letters`
-  (~445 KB, 65 chapters, 335 translator notes).
+  (~1.37 MB, **all 124 letters**, 1,065 translator notes — completed Aug 2026 on request; it was 65 and
+  ~445 KB). The size is why the split exists: it is nearly as large as every eagerly-loaded file put
+  together, and a visitor who never opens the book pays none of it.
 - `.claude/fetch-book.js` — the importer that writes those files, from Wikisource. Standalone Node helper,
   zero deps, resumable (per-chapter cache in `.claude/book-cache/`, gitignored), safe to re-run:
   `node .claude/fetch-book.js seneca-letters [--from=N] [--to=N] [--force]`. Adding a book = adding an entry
   to its `BOOKS` table. **The chapter titles and the volume divisions are re-derived on every run**, so
   re-titling costs no refetch; **`--force` is needed to re-run the EXTRACTOR**, since the cache holds the
   extracted prose rather than the fetched page. Not part of the site.
-  **Two extraction faults were found and fixed in Aug 2026, and both are the same mistake:** Wikisource's
-  markup is not stable and neither was assumed wrong until a reader saw it.
+  **FOUR extraction faults have been found and fixed in Aug 2026, and all four are the same mistake:**
+  Wikisource's markup is not stable and none was assumed wrong until a reader saw it.
+  **Two of them only ever appeared in letters 66–124** — the first 65 were clean, which is why they shipped
+  unnoticed — so **the honest check runs over the WHOLE shipped book after a fetch, never over one rendered
+  chapter**, and re-fetching a range that is already correct is cheap insurance rather than wasted work.
+  · **A marker must carry the note it POINTS AT, not its position in the queue** (`data-fn`, written by
+    `cleanBody` from the href MediaWiki put on it). A bare `<sup class="fn"></sup>` takes the next number in
+    reading order, which is right only while every note is cited exactly once — and Wikisource REUSES a note
+    wherever the translator repeats himself. Letter 114 cites one note four times and another three, so its
+    21 notes carry 26 markers; numbered by reading order, every marker after the first repeat pointed one
+    entry too far and the five past the end of the list were DELETED by `wireFootnotes`. Six letters do this
+    (80, 82, 85, 94, 95, 114) and none of the first 65 does. **It is invisible to every count** — the notes
+    are all present and correct, the prose is intact, nothing throws — so the check is to simulate
+    `wireFootnotes` over the shipped data and assert that no marker is dropped and no note goes unreferenced.
+    `stripTags` has to carry the attribute through, or it rewrites the marker back to the bare form.
+  · **Read the contents page ROW BY ROW, not by the href on each link.** Both cells of a row link to the same
+    letter, so keying off the href looks equivalent and is cheaper; it is not. On the `CIII.` row Wikisource's
+    own markup hyperlinks the TITLE cell to Letter 104 while the numeral beside it correctly links to 103 — so
+    103's title was filed under 104, overwritten there by 104's own title later in the document, and 103 fell
+    back to the generic "Letter 103" while every other letter in the book was titled. The row is the structure
+    the page actually means, and it needs only the numeral's href.
   · **Strip `<style>` BEFORE stripping tags.** MediaWiki ships each note's font templates as an inline
     `<style>` element (the Greek face for a quotation, the small caps for A.D./B.C.), and dropping tags
     first leaves the tags gone and the CSS TEXT behind — 24 of Seneca's 335 notes read "…on the Palatine,
@@ -867,9 +888,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `test-library.js`, which watches the request log — a book reaching the eager path makes the site slower
     for every visitor who never opens one, and the only symptom is a slower site.
   · **Chapters are TABS on a bar that SCROLLS** (`.bk-bar` / `.bk-tabs`), plus ‹ › steps, ←/→ keys and a
-    **Contents** panel grouped by the volume the edition itself divides the book into. Seneca has 65 shipped
-    of 124: a wrapped grid of 124 buttons is not a menu bar, it is the page. Below 640px the tab titles give
-    way to their numbers.
+    **Contents** panel grouped by the volume the edition itself divides the book into. Seneca now has all
+    124: a wrapped grid of 124 buttons is not a menu bar, it is the page — the scroller was built for the
+    finished book rather than for the 65 it then had, which is why completing it needed no layout change.
+    Below 640px the tab titles give way to their numbers.
+    **`count` and `total` are equal now and BOTH are kept**: `count` is what Folio holds and `total` what
+    the work contains, and they part company again the moment a book arrives in instalments. Seneca's own
+    `total` is the EXTANT letters, not everything he wrote — Aulus Gellius quotes a book numbered past
+    anything that survives.
   · **THE FRONT MATTER IS CHAPTER 0** (`bookIntroChapter` / `BOOK_INTRO` / `BOOK_GLYPH`, Aug 2026, on
     request). A real chapter rather than a panel — it takes a tab, it steps with the arrows, it is what a
     first-time reader lands on — because that is where front matter goes in a book, and because the "About
@@ -4284,7 +4310,7 @@ dead code (never rendered).
     FRACTION (an index moves when the book grows; a pixel offset moves when the text size does), surviving
     a real RELOAD rather than a re-render, and a deliberate chapter change starting at the top. **The
     apparatus**: notes numbered in reading order by `wireFootnotes` with no marker past the end of the
-    list, and — the assertion most worth having — it walks **all 65 chapters** asserting no lowercase
+    list, and — the assertion most worth having — it walks **every chapter of every book** asserting no lowercase
     surface is ever glossary-linked, which is what keeps `genus`, `epoch`, `iron` and `bronze` from
     quietly mis-defining Seneca. Note that letter 3 contains no glossary term at all, so an assertion
     pointed there passes on nothing; letter 9 is the one to use. **The front matter** (Aug 2026): the book
