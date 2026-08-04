@@ -1058,7 +1058,10 @@
   function defaultState() {
     return {
       user: { name: "Scholar", joined: Date.now() },
-      settings: { night: false, theme: "folio", fontSize: "medium", newPerDay: 3, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 } },
+      // themeAuto: a first-time visitor follows the operating system's light/dark setting (Aug 2026, on
+      // request). `night` stays the RESOLVED value — every stylesheet rule and the canvas globe read
+      // body.night — and applyTheme writes it from the system while themeAuto is on.
+      settings: { night: false, themeAuto: true, units: "metric", theme: "folio", fontSize: "medium", newPerDay: 3, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 } },
       cards: {}, // id -> {reps,lapses,ease,interval,due,status,last}
       suspended: {}, // id -> true (card set aside; never shown again)
       daily: { lastPlayed: 0, best: 0, games: 0, wins: 0, podiums: 0 },
@@ -1106,6 +1109,12 @@
   if (S.settings && S.settings.ttsVoiceEn === undefined) S.settings.ttsVoiceEn = "";   // "" = auto-pick the best available voice
   if (S.settings && S.settings.ttsVoiceZh === undefined) S.settings.ttsVoiceZh = "";
   if (S.settings && S.settings.ttsNarrator === undefined) S.settings.ttsNarrator = "us-male";   // baked narration voice
+  /* Follow-the-system is the default for a NEW install only. An existing save has a `night` its reader
+     chose by hand, and quietly handing that choice to the operating system would flip the site under
+     someone who had already decided — so an older settings object (which cannot carry the key) is pinned
+     to manual, and defaultState()'s `true` reaches first-time visitors alone. */
+  if (S.settings && S.settings.themeAuto === undefined) S.settings.themeAuto = false;
+  if (S.settings && S.settings.units === undefined) S.settings.units = "metric";
   function load() {
     try {
       const raw = localStorage.getItem(STORE_KEY);
@@ -1423,7 +1432,15 @@
     let data = null;
     const txt = await res.text();
     if (txt) { try { data = JSON.parse(txt); } catch (e) { data = txt; } }
-    return { ok: res.ok, status: res.status, data };
+    // PostgREST answers a `Prefer: count=exact` request with the total in Content-Range ("0-0/1234"), which
+    // is the only way to count rows without downloading them. Parsed here so a caller asking for one row
+    // can still learn how many there are; absent on every other request, and harmless.
+    let count = null;
+    try {
+      const cr = res.headers.get("content-range");
+      if (cr && cr.indexOf("/") >= 0) { const n = parseInt(cr.split("/")[1], 10); if (!isNaN(n)) count = n; }
+    } catch (e) {}
+    return { ok: res.ok, status: res.status, data, count };
   }
   function supaErrMsg(r, fallback) {
     const d = r && r.data;
@@ -3898,8 +3915,11 @@
   const PAGES = {};
 
   function setActiveTab(name) {
+    // the discovered-terms list is reached from the account page and belongs to it, so the Account tab
+    // stays lit there rather than the bar going blank under a page that is plainly part of "your record"
+    const lit = name === "glossary" ? "account" : name;
     document.querySelectorAll(".tab").forEach((t) => {
-      t.classList.toggle("active", t.dataset.route === name);
+      t.classList.toggle("active", t.dataset.route === lit);
     });
   }
 
@@ -3916,6 +3936,7 @@
     map:       ["Atlas — Folio", "An interactive globe: present-day borders, physical geography and world maps back to 1500."],
     mission:   ["About — Folio", "What Folio is, how to use it, and what has changed lately."],
     account:   ["Account — Folio", "Your study progress, statistics and badges."],
+    glossary:  ["Glossary discovered — Folio", "Every glossary term you have opened while studying."],
     settings:  ["Settings — Folio", "Themes, study options, language and your Atlas home location."],
     challenge: ["Multiple Choice — Folio", "Today's five-question history quiz."],
     chrono:    ["Timeline — Folio", "Put today's historical events into the right order."],
@@ -3963,6 +3984,12 @@
     hideWBTools();
     hideAdminEditBtn();
     ttsStop();        // navigating away silences any in-progress read-aloud
+    /* …and drops the outgoing page's keyboard handler. `attachKeys` detaches the previous one, so two
+       pages could never both be listening — but a page with no shortcuts of its own attaches nothing, and
+       the last handler stayed live over it. Pressing Space on the Library after a study session therefore
+       ran that session's showAnswer() against a page that no longer exists; it mutated a detached tree, so
+       nothing was visibly wrong and nothing was reported. A page that wants keys re-attaches below. */
+    detachKeys();
     closeCtxMenu();   // …and dismisses the selection context menu
     closeAllGloss();
     closeImageViewer();   // the fullscreen image viewer never outlives its page
@@ -3980,11 +4007,57 @@
     // on the way out rather than let it disappear quietly. Read off the live panel, so there is no
     // "pending" flag to keep in step with an editor that has already been torn down.
     if (document.querySelector(".af-reqnote:not([hidden])")) toast("Not saved — an image or video was left without a source.");
+    const ghost = makePageGhost();   // the outgoing page, fading out over the incoming one
     view.innerHTML = '<div class="page"></div>';
+    if (ghost) view.appendChild(ghost);
     const root = view.firstElementChild;
     (PAGES[current.name] || PAGES.home)(root, current.params);
+    // one system of measurement, the reader's — see the units block above
+    unitizeTree(root);
     // a smooth scroll is a JS scroll option, so the stylesheet's reduced-motion killswitch can't reach it
     window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? "auto" : "smooth" });
+  }
+  /* Page transitions (Aug 2026, on request). `.page` has always faded IN; what was missing was the other
+     half, so a navigation cut the old page away on the same frame the new one appeared. render() is
+     synchronous and has to stay so — several callers query the DOM the moment it returns — so the outgoing
+     page is not held back but LIFTED OUT: it is detached from the flow, laid over the stage and left to
+     fade while the new page renders underneath it, then removed on its own timer.
+
+     Three exclusions. Under reduced motion there is nothing to fade. The ATLAS is skipped in both
+     directions — leaving it, because the ghost keeps the live element rather than a clone and the globe's
+     own teardown has already run under it; and arriving at it, because its stage is full-bleed and a page
+     fading over the globe reads as a rendering fault rather than a transition. (It is the one page that
+     opts out of the enter animation too.) The home page's little ornamental globe is deliberately NOT
+     excluded: it is 170px, it stops itself when it leaves the DOM, and skipping the commonest navigation
+     on the site to protect it would be paying for the transition and not getting it. And the editor is
+     skipped, where a repaint per keystroke is routine and a ghost of the card being typed into would strobe. */
+  const PAGE_GHOST_MS = 260;
+  function makePageGhost() {
+    if (prefersReducedMotion()) return null;
+    const old = view.firstElementChild;
+    if (!old || !old.classList.contains("page")) return null;
+    if (current.name === "admin" || current.name === "map" || current.name === "findit") return null;
+    if (old.querySelector(".atlas")) return null;
+    if (old.offsetHeight > 2600) return null;   // a very long page fading over a short one is a smear, not a transition
+    if (old.querySelectorAll("*").length > 2000) return null;   // not worth cloning; that page is a list, and lists don't need a ghost
+    /* A CLONE, not the element itself. Two reasons, and the second is the one that bites.
+       · Anything still holding a reference to the outgoing page — a stale handler, a pending callback —
+         keeps the original, detached, behaving exactly as it did before this existed.
+       · The clone can then be stripped of every id and control NAME, which it must be: for a quarter of a
+         second the dead page is still IN the document, and anything resolving a name globally can find it.
+         An `id` would let a document.getElementById() in the new page's wiring pick up the dead copy. A
+         `name` is worse — a radio group is scoped to the DOCUMENT when its inputs are not inside a form, so
+         the ghost's radios and the new page's were one group, and inserting the new checked radio silently
+         unchecked the ghost's, making a click that had just landed read back as never having happened
+         (found by test-deck-glossary, whose Studio radios are exactly that shape).
+       Both failures are intermittent, invisible, and would be blamed on anything but a fading copy. */
+    const ghost = old.cloneNode(true);
+    ghost.querySelectorAll("[id],[name]").forEach((el) => { el.removeAttribute("id"); el.removeAttribute("name"); });
+    ghost.removeAttribute("id");
+    ghost.classList.add("page-ghost");
+    ghost.setAttribute("aria-hidden", "true");
+    setTimeout(() => ghost.remove(), PAGE_GHOST_MS + 60);
+    return ghost;
   }
   // Motion the CSS `prefers-reduced-motion` block can't cover — JS scroll options, canvas camera
   // moves. Read live rather than cached: the OS setting can change while the tab is open.
@@ -3999,7 +4072,17 @@
      so scaling all of it would break the chrome to enlarge the prose. Prose reflows; a bar of four cells
      does not. Kept in S.settings beside `theme` — a device preference, not synced. */
   const FONT_SIZES = ["small", "medium", "large"];
+  /* Light or dark from the operating system. Read LIVE (not cached) for the same reason
+     prefersReducedMotion is: the setting can change while the tab is open — a laptop crossing sunset does
+     it without a reload — and the listener below repaints when it does. */
+  function systemPrefersDark() {
+    return !!(window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches);
+  }
   function applyTheme() {
+    // While "Match my device" is on, the system IS the setting: night is resolved from it and written
+    // back, so turning the switch off later keeps whatever is on screen rather than snapping to the
+    // reader's last manual choice from weeks ago.
+    if (S.settings.themeAuto) S.settings.night = systemPrefersDark();
     const night = !!S.settings.night;
     document.body.classList.toggle("night", night);
     const theme = THEMES.includes(S.settings.theme) ? S.settings.theme : "folio";
@@ -4010,13 +4093,39 @@
     document.querySelectorAll("#sw-night").forEach((el) => {
       el.classList.toggle("on", night);
       el.setAttribute("aria-checked", night ? "true" : "false");
+      // while the device decides, the manual switch still SHOWS the truth but is not the control
+      el.classList.toggle("switch-locked", !!S.settings.themeAuto);
     });
+    document.querySelectorAll("#sw-themeAuto").forEach((el) => {
+      const on = !!S.settings.themeAuto;
+      el.classList.toggle("on", on);
+      el.setAttribute("aria-checked", on ? "true" : "false");
+    });
+    const nr = document.querySelector(".set-row-night");
+    if (nr) nr.classList.toggle("row-locked", !!S.settings.themeAuto);
   }
+  // Flipping night by hand is an explicit choice, so it takes the decision back from the device — otherwise
+  // the switch would move and applyTheme would immediately overwrite it, which reads as a broken control.
   function setNight(night) {
+    S.settings.themeAuto = false;
     S.settings.night = !!night;
     applyTheme();
     save();
   }
+  function setThemeAuto(auto) {
+    S.settings.themeAuto = !!auto;
+    applyTheme();
+    save();
+  }
+  // The OS switching under a tab that is already open — the one case a setting-time read cannot cover.
+  try {
+    const mq = window.matchMedia && matchMedia("(prefers-color-scheme: dark)");
+    if (mq) {
+      const onScheme = () => { if (S.settings.themeAuto) { applyTheme(); save(); } };
+      if (mq.addEventListener) mq.addEventListener("change", onScheme);
+      else if (mq.addListener) mq.addListener(onScheme);
+    }
+  } catch (e) {}
   function setTheme(theme) {
     if (!THEMES.includes(theme)) return;
     S.settings.theme = theme;
@@ -4034,6 +4143,92 @@
       b.classList.toggle("on", on);
       b.setAttribute("aria-pressed", on ? "true" : "false");
     });
+  }
+  /* ---------- measurement units: ONE system, the reader's choice (Aug 2026, on request) ----------
+     The content is authored metric-first with the imperial equivalent in parentheses — `about 37
+     kilometres (23 miles)`, `18,272 km² (7,055 sq mi)` — which is what `docs/units-plan.md` put in place
+     across all 119 cards and 414 glossary terms. That stays: it is the one form that carries BOTH figures,
+     and it is what a batch script, a citation pass and a translator all read. What changes is what a
+     READER is shown, which is now one system and not both.
+
+     So this is a DISPLAY transform, never a content edit. Metric (the default) drops the parenthetical;
+     imperial replaces the metric figure with what the parenthetical says and drops the brackets with it.
+     Both directions are idempotent — after either pass the bracket is gone, so a second run is a no-op —
+     which is what lets it run from a MutationObserver without tracking what it has already touched.
+
+     Two patterns, because the corpus has two shapes. CONV is the ordinary `<number><unit> (<imperial>)`.
+     BARE is the second half of a pair that shares its unit with the first — "averaging 151 centimetres
+     (4 ft 11 in) and females 105 (3 ft 5 in)" — where the number carries no unit of its own; without it
+     imperial mode would leave that sentence half-converted.
+
+     The guard against eating an ordinary parenthesis ("in the 1920s (about 30 years later)") is
+     isImperialParen: the bracket must be measurement-shaped ALL THROUGH (numbers, joining words and
+     imperial units and nothing else), must carry a number, and must carry a STRONG imperial unit — `in`
+     and `mi` are allowed as fillers inside a `4 ft 11 in` but never qualify a bracket on their own, or
+     "(in 1920)" would read as a measurement. Verified over the whole corpus: 341 fields transform, no
+     imperial bracket is missed and no other bracket is touched. */
+  const UNIT_SYSTEMS = ["metric", "imperial"];
+  const U_NW = "(?:\\d[\\d.,]*|a|an|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|half)";
+  const U_NUM = "(?:" + U_NW + "(?:\\s+(?:hundred|thousand|million|billion))?)";
+  const U_JOIN = "(?:\\s*(?:–|—|-|,)\\s*|\\s+(?:to|and|or)\\s+)";
+  // longest-first, and the lookahead rather than \b so `km²` (a non-word character) and the bare `m` / `g`
+  // abbreviations both terminate correctly
+  const U_METRIC = "(?:kilometres|kilometers|kilometre|kilometer|centimetres|centimeters|centimetre|centimeter|millimetres|millimeters|millimetre|millimeter|kilogrammes|kilogramme|kilograms|kilogram|hectares|hectare|tonnes|tonne|grammes|gramme|grams|gram|metres|meters|metre|meter|litres|liters|litre|liter|km²|m²|km|cm|mm|kg|ha|°C|m|g)(?![A-Za-z²])";
+  const U_FILL = "(?:and|or|to|about|roughly|nearly|over|under|some|almost|just|in|mi|hundred|thousand|million|billion|–|—|-|,|/|\\s)";
+  const U_IMP = "(?:miles?|sq\\s*mi|feet|foot|ft|inch(?:es)?|yards?|yd|pounds?|lbs?|ounces?|oz|acres?|tons?|gallons?|°F)";
+  const U_ONLY_RX = new RegExp("^(?:" + U_NW + "|" + U_IMP + "|" + U_FILL + ")+$", "i");
+  const U_HAS_IMP_RX = new RegExp("(?:^|[^A-Za-z])" + U_IMP + "(?![A-Za-z])", "i");
+  const U_HAS_NUM_RX = /\d|\b(?:a|an|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|half)\b/i;
+  const U_CONV_RX = new RegExp("(" + U_NUM + "(?:" + U_JOIN + U_NUM + ")*)([\\s-]*)(" + U_METRIC + ")(\\s*)\\(([^()]{1,90})\\)", "gi");
+  const U_BARE_RX = new RegExp("(" + U_NUM + "(?:" + U_JOIN + U_NUM + ")*)(\\s*)\\(([^()]{1,90})\\)", "gi");
+  function unitSystem() { return UNIT_SYSTEMS.includes(S.settings && S.settings.units) ? S.settings.units : "metric"; }
+  function isImperialParen(s) { return U_ONLY_RX.test(s) && U_HAS_IMP_RX.test(s) && U_HAS_NUM_RX.test(s); }
+  // plain text in, plain text out — never HTML: this runs on text NODES, so a tag can never be inside a match
+  function unitizeText(text, imperial) {
+    if (!text || text.indexOf("(") < 0) return text;
+    let out = text.replace(U_CONV_RX, (m, num, gap, unit, sp, inner) => (isImperialParen(inner) ? (imperial ? inner : num + gap + unit) : m));
+    out = out.replace(U_BARE_RX, (m, num, sp, inner) => (isImperialParen(inner) ? (imperial ? inner : num) : m));
+    return out;
+  }
+  /* The rendered-page pass. Deliberately a DOM walk rather than a hook in glossText()/cardLocalized(): the
+     editors read those same accessors, and a card whose stored text had already lost half its measurement
+     would be saved back that way on the next keystroke. Walking text nodes and skipping anything editable
+     means the store is never involved. Skips .notranslate for the reason the i18n engine does — a citation
+     names a work, and its wording is not ours to rewrite. */
+  function unitizeTree(root) {
+    if (!root) return;
+    const imperial = unitSystem() === "imperial";
+    if (root.nodeType === 3) { const v = unitizeText(root.nodeValue, imperial); if (v !== root.nodeValue) root.nodeValue = v; return; }
+    if (!root.querySelectorAll) return;
+    const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+    const nodes = []; let n;
+    while ((n = w.nextNode())) nodes.push(n);
+    nodes.forEach((node) => {
+      const src = node.nodeValue;
+      if (!src || src.indexOf("(") < 0) return;
+      const p = node.parentNode;
+      if (!p || p.nodeName === "SCRIPT" || p.nodeName === "STYLE" || p.nodeName === "TEXTAREA") return;
+      if (p.isContentEditable || (p.closest && p.closest(".notranslate"))) return;
+      const v = unitizeText(src, imperial);
+      if (v !== src) node.nodeValue = v;
+    });
+  }
+  // Later DOM — gloss popups, the Atlas panel, a revealed answer, a toast — arrives after render(), so the
+  // pass needs the same standing observer the i18n engine uses. Cheap: a text node with no "(" returns at once.
+  let _unitObserver = null;
+  function applyUnits() {
+    if (_unitObserver) { _unitObserver.disconnect(); _unitObserver = null; }
+    unitizeTree(document.body);
+    _unitObserver = new MutationObserver((muts) => {
+      muts.forEach((m) => m.addedNodes && m.addedNodes.forEach((nd) => unitizeTree(nd)));
+    });
+    _unitObserver.observe(document.body, { childList: true, subtree: true });
+  }
+  function setUnits(sys) {
+    if (!UNIT_SYSTEMS.includes(sys) || sys === unitSystem()) return;
+    S.settings.units = sys;
+    save();
+    render();   // the transform is one-way per render, so the other system comes back with a fresh paint
   }
   // Reflect the current admin / first-time-visitor mode in the top bar and body class.
   function applyMode() {
@@ -4128,6 +4323,48 @@
     setTimeout(() => { const f = ov.querySelector("button, input"); if (f) f.focus(); }, 0);
     return ov;
   }
+  /* HOLD to open an options sheet — used by the daily review's deck rows and by the review banner above
+     them. A press has to be CLASSIFIED, exactly as the whiteboard marker's drag is: under HOLD_MS it is a
+     tap and does the element's ordinary job, past it the sheet opens and the click that follows must not
+     also fire. A finger that moves more than HOLD_SLOP is scrolling the page, not holding, so the timer is
+     cancelled — without that, every scroll started from a deck row would open a sheet. `contextmenu` opens
+     the same sheet, which is what gives a desktop mouse a way in, and the ContextMenu key gives a keyboard one.
+
+     The click is swallowed by a document-level CAPTURE listener rather than by a flag the element's own
+     handler checks. The banner already had a click listener of its own before this ran, and listener order
+     on one element is registration order — so an element-level guard registered second would fire second,
+     after the very handler it exists to stop. Capture on the document cannot lose that race. */
+  const HOLD_MS = 480, HOLD_SLOP = 10;
+  let _holdUntil = 0;
+  document.addEventListener("click", (e) => {
+    if (!_holdUntil || Date.now() > _holdUntil) return;
+    if (e.target.closest && e.target.closest(".deck-menu")) return;   // a fast click inside the sheet it just opened
+    _holdUntil = 0;
+    e.stopPropagation(); e.preventDefault();
+  }, true);
+  function wireHoldMenu(el, onHold, onTap) {
+    let timer = null, sx = 0, sy = 0;
+    const cancel = () => { if (timer) { clearTimeout(timer); timer = null; } };
+    const fire = () => { _holdUntil = Date.now() + 700; onHold(); };
+    el.addEventListener("pointerdown", (e) => {
+      if (e.button && e.button !== 0) return;
+      sx = e.clientX; sy = e.clientY;
+      cancel();
+      timer = setTimeout(() => { timer = null; fire(); }, HOLD_MS);
+    });
+    el.addEventListener("pointermove", (e) => {
+      if (timer && Math.abs(e.clientX - sx) + Math.abs(e.clientY - sy) > HOLD_SLOP) cancel();
+    });
+    el.addEventListener("pointerup", cancel);
+    el.addEventListener("pointercancel", cancel);
+    el.addEventListener("contextmenu", (e) => { e.preventDefault(); cancel(); fire(); });
+    if (onTap) el.addEventListener("click", onTap);
+    el.addEventListener("keydown", (e) => {
+      if (onTap && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); onTap(); }
+      // a keyboard needs a way to the sheet too, and the context-menu key is the one the platform means
+      else if (e.key === "ContextMenu" || (e.shiftKey && e.key === "F10")) { e.preventDefault(); fire(); }
+    });
+  }
   function openDeckMenu(id) {
     const info = entryInfo(id);
     const L = deckLimits(id), skipped = deckSkippedToday(id), left = deckNewRemaining(id);
@@ -4158,6 +4395,35 @@
         removeActive(id);
         render();
         toast("Removed from review");
+      }));
+    });
+  }
+  /* The daily review's own options sheet, opened by HOLDING the banner (Aug 2026, on request). The
+     Ordered/Random pair used to be a pill sitting in the banner's top-right corner — a permanent control
+     for a setting almost nobody changes twice, taking a corner of the one block on the home page that has
+     something to say. It moves here, where the deck rows underneath already keep their options, so the
+     gesture is the same one step up the hierarchy. The Settings page's own "Random review order" switch is
+     unchanged and still the other way in. */
+  function openReviewMenu() {
+    const random = !!S.settings.reviewRandom;
+    const item = (act, label, note, on) =>
+      // aria-pressed, not role=menuitemradio: the sheet is a dialog, and menuitemradio is only meaningful
+      // inside a role=menu, where a screen reader would then expect menu keyboard semantics this has not got
+      '<button type="button" class="dm-item dm-choice' + (on ? " on" : "") + '" data-act="' + act + '" aria-pressed="' + (on ? "true" : "false") + '">' +
+      "<b>" + esc(label) + "</b><small>" + esc(note) + "</small></button>";
+    const html =
+      '<div class="dm-head"><span class="dm-title">Daily review</span><span class="dm-where">Order of today\'s session</span></div>' +
+      item("ordered", "Ordered", "Cards come up in their deck order, oldest history first", !random) +
+      item("random", "Random", "The session is shuffled each day", random);
+    return deckSheet("Daily review options", html, (ov, close) => {
+      ov.querySelectorAll(".dm-item").forEach((b) => b.addEventListener("click", () => {
+        const want = b.dataset.act === "random";
+        close();
+        if (want === random) return;
+        S.settings.reviewRandom = want;
+        save();
+        render();
+        toast(want ? "Review order: random" : "Review order: ordered");
       }));
     });
   }
@@ -5960,8 +6226,9 @@
     const aboutLink = phone ? `<button class="home-about" id="b-about" type="button">About Folio</button>` : "";
     const reviewGroup = `<div class="review-group ${activeIds.length && !fresh ? "has-active" : ""}${reviewDone ? " rv-done" : ""}${reviewWon ? " rv-won" : ""}">
             ${bannerHTML}
-            ${fresh ? "" : `<button class="review-order" id="reviewOrder" type="button" title="Order your daily review by date, or shuffle it"><span class="${S.settings.reviewRandom ? "" : "on"}">Ordered</span><span class="${S.settings.reviewRandom ? "on" : ""}">Random</span></button>
-            <div class="active-decks">${activeHTML}</div>`}
+            ${/* The Ordered/Random pill lived here until Aug 2026 and is now in the banner's own
+                  long-press sheet (openReviewMenu) — see the comment there. */""}
+            ${fresh ? "" : `<div class="active-decks">${activeHTML}</div>`}
             ${addDecksLip}
           </div>`;
     /* One column on both, in the same order — the phone's three swiped panes are gone (Aug 2026, on request)
@@ -6050,47 +6317,84 @@
     window.addEventListener("resize", _homeResize);
     wireDailyQuote(root);
     showAdminEditBtn(null);   // the phone's way into the editor, top-right (the tab bar no longer carries Edit)
-    const reviewOrderBtn = root.querySelector("#reviewOrder");
-    if (reviewOrderBtn) reviewOrderBtn.addEventListener("click", (e) => { e.stopPropagation(); S.settings.reviewRandom = !S.settings.reviewRandom; save(); render(); });
-    /* Click a deck in the daily-review list → review just that deck. HOLD one → its options sheet (Aug
-       2026, on request): Custom study, Daily limits, Skip today, Remove. The small bin that used to sit at
-       the right of every row is gone with it — it was one command occupying a permanent column on the
-       narrowest screen Folio has, and three of the four commands that replaced it had nowhere to live.
-
-       A press has to be CLASSIFIED, exactly as the whiteboard marker's drag is: under the hold time it is
-       a tap and studies the deck, past it the sheet opens and the click that follows is swallowed
-       (`held`). A finger that moves more than AD_SLOP is scrolling the page, not holding the row, so the
-       timer is cancelled — without that, every scroll started from a deck row would open a sheet.
-       `contextmenu` opens the same sheet, which is what gives a desktop mouse and a keyboard a way in. */
-    const AD_HOLD = 480, AD_SLOP = 10;
     root.querySelectorAll(".active-deck[data-review]").forEach((el) => {
       const id = el.dataset.review;
-      const go = () => {
+      wireHoldMenu(el, () => openDeckMenu(id), () => {
         const ud = uDeckIdOf(id);
         route("study", { scope: id === COTD_ENTRY ? { type: "cotd" } : ud ? { type: "udeck", id: ud } : { type: "deck", id } });
-      };
-      let timer = null, held = false, sx = 0, sy = 0;
-      const cancel = () => { if (timer) { clearTimeout(timer); timer = null; } };
-      el.addEventListener("pointerdown", (e) => {
-        if (e.button && e.button !== 0) return;
-        held = false; sx = e.clientX; sy = e.clientY;
-        cancel();
-        timer = setTimeout(() => { timer = null; held = true; openDeckMenu(id); }, AD_HOLD);
-      });
-      el.addEventListener("pointermove", (e) => {
-        if (timer && Math.abs(e.clientX - sx) + Math.abs(e.clientY - sy) > AD_SLOP) cancel();
-      });
-      el.addEventListener("pointerup", cancel);
-      el.addEventListener("pointercancel", () => { cancel(); held = false; });
-      el.addEventListener("contextmenu", (e) => { e.preventDefault(); cancel(); held = true; openDeckMenu(id); });
-      el.addEventListener("click", () => { if (held) { held = false; return; } go(); });
-      el.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); }
-        // a keyboard needs a way to the sheet too, and the context-menu key is the one the platform means
-        else if (e.key === "ContextMenu" || (e.shiftKey && e.key === "F10")) { e.preventDefault(); openDeckMenu(id); }
       });
     });
+    // …and the banner above them holds open the review's OWN options (the Ordered/Random pair that used to
+    // sit in its corner). Its click is already wired above, so no tap handler is passed here — the shared
+    // `held` guard is what keeps the hold from also starting a session.
+    { const rb = root.querySelector("#b-review"); if (rb) wireHoldMenu(rb, openReviewMenu, null); }
     animateProgs(root);
+  };
+
+  /* ============================================================
+     PAGE: GLOSSARY — the terms this reader has discovered
+     ============================================================
+     Reached from the account page's "Glossary terms opened" meter (Aug 2026, on request). `glossSeen` was
+     already a permanent register of every term whose popup has been opened, and until now it was only ever
+     COUNTED; this is the list behind the number.
+
+     Three things follow from what the register is. It is filtered to terms that STILL EXIST, exactly as
+     glossSeenCount is — a term retired since it was read would otherwise open a popup onto nothing. Deck
+     terms are excluded for the reason they are excluded from the count: the meter measures the curated
+     glossary, and a stranger's deck is not part of it (markSeen never records them anyway, so this is a
+     belt-and-braces filter over an old register). And the undiscovered terms are NOT listed beside them —
+     the page is a record of reading, not a checklist to tick off, and naming what you have not met yet
+     would turn the glossary into homework.
+     ============================================================ */
+  PAGES.glossary = function (root) {
+    const G = window.GLOSSARY || {};
+    const reg = S.glossSeen || {};
+    const keys = Object.keys(reg).filter((k) => G[k] && !uGlossParse(k));
+    const total = glossTotalCount();
+    const pct = total ? Math.min(100, Math.round((keys.length / total) * 100)) : 0;
+    // most recently opened first: the term you have just met is the one you came here about
+    keys.sort((a, b) => (reg[b] || 0) - (reg[a] || 0));
+    const when = (ts) => {
+      if (!ts) return "";
+      const d = new Date(ts);
+      // the date follows the SITE language, like the changelog's — en-GB for English, not the browser's locale
+      const loc = uiLang() === "en" ? "en-GB" : uiLang() === "zh" ? "zh-CN" : uiLang();
+      return isNaN(d) ? "" : d.toLocaleDateString(loc, { day: "numeric", month: "short", year: "numeric" });
+    };
+    const row = (k) => {
+      const dates = glossDates(k), tags = glossTags(k).slice(0, 3);
+      return '<button type="button" class="gl-row" data-gk="' + esc(k) + '">' +
+        '<span class="gl-name">' + esc(glossTitle(k)) + (dates ? '<span class="gl-dates">' + esc(dates) + "</span>" : "") + "</span>" +
+        (tags.length ? '<span class="gl-tags">' + tags.map((t2) => '<span class="gl-tag">' + esc(t2) + "</span>").join("") + "</span>" : '<span class="gl-tags"></span>') +
+        '<span class="gl-when">' + esc(when(reg[k])) + "</span>" +
+        "</button>";
+    };
+    const empty =
+      '<div class="gl-empty"><h3>Nothing opened yet</h3>' +
+      "<p>Words in a card's background with a coloured underline are glossary terms. Click one and it lands here.</p>" +
+      '<button class="btn" type="button" id="glStudy">Start studying</button></div>';
+    root.innerHTML =
+      '<div class="page-head"><span class="eyebrow">Your record</span><h1>Glossary discovered</h1>' +
+      "<p>Every term you have opened, newest first. Click one to read it again.</p></div>" +
+      '<div class="gl-meter"><div class="gl-meter-head"><b>' + keys.length + "</b> of " + total + " terms · " + pct + "%</div>" +
+      '<div class="ds-bar"><i style="width:' + pct + '%"></i></div></div>' +
+      '<div class="gl-search"' + (keys.length ? "" : ' hidden') + '><input type="search" id="glFilter" placeholder="Filter these terms…" autocomplete="off" aria-label="Filter discovered terms"></div>' +
+      '<div class="gl-list" id="glList">' + (keys.length ? keys.map(row).join("") : empty) + "</div>";
+
+    const list = root.querySelector("#glList");
+    // one delegated listener, so filtering can rebuild the rows without rewiring them
+    list.addEventListener("click", (e) => {
+      const b = e.target.closest("[data-gk]");
+      if (b) openGlossWin(b.dataset.gk, b);
+    });
+    const st = root.querySelector("#glStudy");
+    if (st) st.addEventListener("click", () => route("home"));
+    const f = root.querySelector("#glFilter");
+    if (f) f.addEventListener("input", () => {
+      const q = f.value.trim().toLowerCase();
+      const shown = q ? keys.filter((k) => glossTitle(k).toLowerCase().includes(q) || glossTags(k).some((t2) => t2.toLowerCase().includes(q))) : keys;
+      list.innerHTML = shown.length ? shown.map(row).join("") : '<div class="gl-empty"><p>No term here matches that.</p></div>';
+    });
   };
 
   /* ============================================================
@@ -12268,12 +12572,18 @@
     const plays = Object.keys(gl).reduce((a, k) => a + ((gl[k] || {}).plays || 0), 0);
     const wins = Object.keys(gl).reduce((a, k) => a + ((gl[k] || {}).wins || 0), 0);
     const cotd = ((prog && prog.cotd) || []).length;
-    const meter = (n, total, label, note) => {
+    /* `go` makes the whole card a link. Only the glossary meter takes one: the terms a reader has opened
+       are a LIST they can be shown (see PAGES.glossary), where "countries opened on the Atlas" already has
+       a place of its own — the globe — and a list of country names would be a worse version of it. */
+    const meter = (n, total, label, note, go) => {
       const pct = total ? Math.min(100, Math.round((n / total) * 100)) : 0;
-      return '<div class="rs-card ex-meter"><div class="rs-head"><h3>' + esc(label) + "</h3>" +
+      const body = '<div class="rs-head"><h3>' + esc(label) + "</h3>" +
         '<span class="rs-meta">' + (total ? n + " of " + total : String(n)) + "</span></div>" +
         (total ? '<div class="ds-bar"><i style="width:' + pct + '%"></i></div>' : "") +
-        '<span class="rs-sub">' + esc(note) + "</span></div>";
+        '<span class="rs-sub">' + esc(note) + "</span>";
+      return go
+        ? '<button type="button" class="rs-card ex-meter ex-meter-link" data-exgo="' + esc(go) + '">' + body + '<span class="ex-go" aria-hidden="true">→</span></button>'
+        : '<div class="rs-card ex-meter">' + body + "</div>";
     };
     const gameRows = DAILY_GAMES.map((k) => {
       const g = gl[k] || { plays: 0, wins: 0 };
@@ -12284,8 +12594,8 @@
     const tile = (v, label, hint) => '<div class="ds-tile" title="' + esc(hint) + '"><b>' + v + "</b><span>" + esc(label) + "</span></div>";
     return '<div class="revstats">' +
         meter(gloss, glossTotal, "Glossary terms opened", glossTotal
-          ? "Every term whose popup you have opened."
-          : "The glossary hasn't loaded yet.") +
+          ? "Every term whose popup you have opened. Open the list."
+          : "The glossary hasn't loaded yet.", glossTotal && prog === S ? "glossary" : "") +
         meter(places, placeTotal, "Countries opened on the Atlas", placeTotal
           ? "Present-day countries whose info panel you have opened."
           : "Open the Atlas once and the total appears here — the map data loads on demand.") +
@@ -12516,7 +12826,22 @@
           <input class="namefield" id="name" value="${esc(S.user.name)}" maxlength="28" aria-label="Display name" />
           <div class="since">@${esc(me.username)} · ${roleBadge(me.role)} · since ${joined}</div>
         </div>
-        <button class="ghost-btn" id="signout" type="button">Sign out</button>
+        ${/* Aug 2026, on request: Change password moved up here beside Sign out. The two are the same kind
+              of thing — what you do to the ACCOUNT — and it had been sitting a section lower among the
+              photo controls, where it read as one of them. */""}
+        <div class="acct-idacts">
+          <button class="ghost-btn" id="pwToggle" type="button">Change password</button>
+          <button class="ghost-btn" id="signout" type="button">Sign out</button>
+        </div>
+      </div>
+      ${/* …and the sync line moved with them: it says what happens to the thing those two buttons act on,
+            so it belongs directly under them rather than beside a Remove-photo button. */""}
+      <div class="acct-syncnote"><span class="auth-note">${S._supaTs ? "Progress synced to your account ✓" : "Progress will sync automatically as you study"}</span></div>
+      <div class="acct-panel" id="pwPanel" hidden>
+        <label>New password<input class="auth-in" id="pwNew" type="password" autocomplete="new-password"></label>
+        <label>Confirm<input class="auth-in" id="pwNew2" type="password" autocomplete="new-password"></label>
+        <div class="auth-msg" id="pwMsg"></div>
+        <button class="auth-btn sm" id="pwSave" type="button">Update password</button>
       </div>
       <div class="ph-stats">
         ${statTile("st-seen", st.seen, "Cards studied")}
@@ -12524,17 +12849,7 @@
         ${statTile("st-badges", earnedBadges, "Badges")}
         ${statTile("st-wins", st.wins, "Quiz wins")}
       </div>
-      <div class="acct-tools">
-        <button class="ghost-btn" id="pwToggle" type="button">Change password</button>
-        ${me.avatar ? '<button class="ghost-btn" id="avatarRemove" type="button">Remove photo</button>' : ""}
-        <span class="auth-note">${S._supaTs ? "Progress synced to your account ✓" : "Progress will sync automatically as you study"}</span>
-      </div>
-      <div class="acct-panel" id="pwPanel" hidden>
-        <label>New password<input class="auth-in" id="pwNew" type="password" autocomplete="new-password"></label>
-        <label>Confirm<input class="auth-in" id="pwNew2" type="password" autocomplete="new-password"></label>
-        <div class="auth-msg" id="pwMsg"></div>
-        <button class="auth-btn sm" id="pwSave" type="button">Update password</button>
-      </div>
+      ${me.avatar ? '<div class="acct-tools"><button class="ghost-btn" id="avatarRemove" type="button">Remove photo</button></div>' : ""}
       <div class="section-label">Friends</div>
       <div class="friends-box" id="friendsBox"></div>
       <div class="section-label">Badges</div>
@@ -12562,6 +12877,8 @@
     root.querySelector("#reviewStats").innerHTML = reviewStatsHTML(S, S.user && S.user.joined);   // the heatmap opens on the day the account was created
     renderDeckStats(root.querySelector("#deckStats"), S, true);   // your own community decks belong in your picker
     root.querySelector("#exploreStats").innerHTML = exploreStatsHTML(S);
+    // the glossary meter is a way IN to what it counts (a friend's copy carries no link — see exploreStatsHTML)
+    root.querySelectorAll("[data-exgo]").forEach((b) => b.addEventListener("click", () => route(b.dataset.exgo)));
 
     const nameInput = root.querySelector("#name");
     const monoInitial = (v) => { const m = root.querySelector("#mono .monogram:not(.has-img)"); if (m) m.textContent = initialOf(v); };   // only when no photo is set
@@ -13011,6 +13328,7 @@
   PAGES.settings = function (root) {
     const homeName = (S.settings.home && S.settings.home.name) || "Netherlands";
     const fsNow = FONT_SIZES.indexOf(S.settings.fontSize) < 0 ? "medium" : S.settings.fontSize;
+    const unitsNow = unitSystem();
     // world.js is lazy (see DATA_BUNDLES) — until it lands the picker holds just the current home,
     // and fillHomeOpts() below swaps in the full country list once it arrives
     // The option VALUE stays the English name — it keys countryCenter() and is stored in S.settings.home
@@ -13035,9 +13353,25 @@
             <div id="themeGrid"><div class="theme-grid">${THEME_OPTS.map(themeBtn).join("")}</div></div>
           </div>
           <div class="set-row">
+            ${/* Follow the operating system (Aug 2026, on request), and the default for a first-time
+                  visitor. It sits ABOVE the manual switch because it decides whether that switch is the
+                  control or merely the readout — flipping Night mode by hand turns this back off. */""}
+            <div class="info"><h3>Match my device</h3><p>Follow your system's light or dark appearance, and change with it.</p></div>
+            <div class="ctl"><div class="switch ${S.settings.themeAuto ? "on" : ""}" id="sw-themeAuto" role="switch" tabindex="0" aria-checked="${!!S.settings.themeAuto}"></div></div>
+          </div>
+          <div class="set-row set-row-night${S.settings.themeAuto ? " row-locked" : ""}">
             ${/* the light / dark switch — this is its only home now, the top bar's slider having gone (Aug 2026) */""}
             <div class="info"><h3>Night mode</h3><p>Switch to the deck's dark paper palette.</p></div>
-            <div class="ctl"><div class="switch ${S.settings.night ? "on" : ""}" id="sw-night" role="switch" tabindex="0" aria-checked="${S.settings.night}"></div></div>
+            <div class="ctl"><div class="switch ${S.settings.night ? "on" : ""}${S.settings.themeAuto ? " switch-locked" : ""}" id="sw-night" role="switch" tabindex="0" aria-checked="${S.settings.night}"></div></div>
+          </div>
+          <div class="set-row set-row-block">
+            ${/* Measurements — one system, not both (Aug 2026, on request). The content is written metric
+                  first with the imperial equivalent in brackets; this decides which of the two a reader
+                  sees. See the units block by applyTheme for how the swap is made. */""}
+            <div class="info"><h3>Measurements</h3><p>Which system distances, heights, areas and weights are shown in. Scientific figures — cranial capacities, isotope ratios, radiocarbon ages — keep their own units in both.</p></div>
+            <div class="ctl"><div class="fs-pick units-pick" id="unitPick" role="group" aria-label="Measurement units">${
+              [["metric", "Metric", "km"], ["imperial", "Imperial", "mi"]].map((u) => `<button type="button" data-units="${u[0]}" class="${unitsNow === u[0] ? "on" : ""}" aria-pressed="${unitsNow === u[0]}"><span class="fs-a" aria-hidden="true">${u[2]}</span>${u[1]}</button>`).join("")
+            }</div></div>
           </div>
           <div class="set-row set-row-block">
             ${/* Aug 2026, on request. The wording names the surfaces it reaches rather than promising a
@@ -13111,6 +13445,12 @@
     const sw = root.querySelector("#sw-night");
     const toggleNight = () => setNight(!S.settings.night);
     sw.addEventListener("click", toggleNight);
+    sw.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleNight(); } });
+    // …and the device switch above it. applyTheme repaints both, the manual switch's locked state and the
+    // row's dimming, so neither needs touching by hand here.
+    const swAuto = root.querySelector("#sw-themeAuto");
+    const toggleAuto = () => setThemeAuto(!S.settings.themeAuto);
+    if (swAuto) { swAuto.addEventListener("click", toggleAuto); swAuto.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleAuto(); } }); }
     wireLangPicker(root);
 
     // text size — delegated on the group, so the three buttons need no listener each
@@ -13118,6 +13458,12 @@
     if (fsPick) fsPick.addEventListener("click", (e) => {
       const b = e.target.closest("[data-fs]");
       if (b) setFontSize(b.dataset.fs);
+    });
+    // measurements — the same segmented control, and the same delegation
+    const unitPick = root.querySelector("#unitPick");
+    if (unitPick) unitPick.addEventListener("click", (e) => {
+      const b = e.target.closest("[data-units]");
+      if (b) setUnits(b.dataset.units);
     });
 
     // sound effects toggle — turning it ON plays the toggle chirp as confirmation (the delegated
@@ -13281,7 +13627,11 @@
     return arr; // "order" keeps natural order of appearance
   }
 
-  const adminState = { tab: "cards", node: null, card: null, search: "", treeCollapsed: false, glossKey: null, glossTag: null, expanded: {}, selected: new Set(), sort: "order", glossSort: "az", lastSelId: null, preview: false };
+  // tab: the Dashboard is where the editor OPENS (Aug 2026, on request) — a fresh session lands on the
+  // whole-site figures rather than in the middle of a deck. A session that was interrupted mid-edit still
+  // comes back to the card it was on; see restoreAdminUI, which exists because auto-save can live-reload
+  // the page between keystrokes.
+  const adminState = { tab: "dashboard", node: null, card: null, search: "", treeCollapsed: false, glossKey: null, glossTag: null, expanded: {}, selected: new Set(), sort: "order", glossSort: "az", lastSelId: null, preview: false };
   const CARD_I18N_LANGS = ["es", "fr", "de", "it", "nl", "ru", "ar", "zh", "ja"];   // the 9 site languages a card can carry (en = the base fields)
   const CARD_I18N_FIELDS = { question: 1, answer: 1, answerDate: 1, abstract: 1, answerText: 1 };   // translated per language; everything else is shared
   // Remember where the editor was (open card / deck / tab / search / scroll) across FULL page reloads. Auto-save-to-files can make a
@@ -14877,15 +15227,28 @@
     const c = CARD_BY_ID[id];
     const node = CARD_TO_NODE[id];
     const memberLeaves = new Set(cardLeaves(id).map((l) => l.id));
-    // deck-picker: checkable subdecks grouped under their collection
-    let deckHtml = '<div class="deck-pick"><div class="deck-pick-head">Appears in these decks / subdecks</div><div class="deck-pick-body">';
+    /* ONE DECK PER CARD (Aug 2026, on request). The picker was a set of checkboxes: a card could be
+       cross-listed into any number of decks, sharing one set of scheduling. Nothing in the shipped content
+       ever used it — all 119 cards sit in exactly one deck — and it made the deck a card is "in" a
+       question with no single answer, which the editor's own header, the study bar and the home review row
+       all had to hedge around. It is now radios, and setCardMembership is passed a list of one.
+
+       The data model still holds a SET, deliberately: `membership` deltas, `cardLeaves` and
+       `serializeCardData` are all written against one, and narrowing them would be a rewrite of the
+       overlay format to enforce in storage what the editor now enforces at the point of choice. A card
+       that somehow holds two decks still renders honestly — every one of its decks is marked — and the
+       next choice made here collapses it to one. */
+    const multi = memberLeaves.size > 1;
+    let deckHtml = '<div class="deck-pick"><div class="deck-pick-head">Which deck this card is in</div>' +
+      (multi ? '<div class="deck-pick-note">This card is still listed in ' + memberLeaves.size + ' decks. Choosing one below moves it there and takes it out of the others.</div>' : "") +
+      '<div class="deck-pick-body">';
     TREE.collections.forEach((col) => {
       const leaves = LEAF_NODES.filter((l) => { let cur = l; while (cur) { if (cur.id === col.id) return true; cur = cur.parentId ? NODE_BY_ID[cur.parentId] : null; } return false; });
       if (!leaves.length) return;
       deckHtml += '<div class="deck-pick-group"><div class="dpg-title">' + esc(nodeTitle(col)) + '</div>';
       leaves.forEach((l) => {
         const path = nodeParentPath(l);
-        deckHtml += '<label class="deck-pick-item' + (memberLeaves.has(l.id) ? " on" : "") + '"><input type="checkbox" data-leaf="' + esc(l.id) + '"' + (memberLeaves.has(l.id) ? " checked" : "") + ' /><span class="dpi-box"></span><span class="dpi-name">' + esc(l.title) + '</span>' + (path ? '<span class="dpi-path">' + esc(path) + '</span>' : "") + '</label>';
+        deckHtml += '<label class="deck-pick-item' + (memberLeaves.has(l.id) ? " on" : "") + '"><input type="radio" name="cesDeck" data-leaf="' + esc(l.id) + '"' + (memberLeaves.has(l.id) ? " checked" : "") + ' /><span class="dpi-box"></span><span class="dpi-name">' + esc(l.title) + '</span>' + (path ? '<span class="dpi-path">' + esc(path) + '</span>' : "") + '</label>';
       });
       deckHtml += '</div>';
     });
@@ -14907,7 +15270,7 @@
           '<label class="ces-m"><span>chronology</span><input class="af-input" id="adminChrono" type="text" spellcheck="false" placeholder="' + esc("auto: " + (chronoLabel(autoYear) || "—")) + '" title="Sort / timeline year — overrides the date for ordering, e.g. 200 BCE, 618, 12 kya, 3.3 Mya, 2.5 million BCE, 780,000 years ago. Blank = automatic; type none for no year." /></label>' +
           '<label class="ces-m ces-m-wide"><span>answer text — plain, used by the games</span><input class="af-input" id="cesAnswerText" type="text" spellcheck="false" /></label>' +
         '</div>' +
-        '<div class="ces-decks"><button class="ces-decks-head" id="cesDecksHead" type="button" aria-expanded="false"><span class="afs-chev">&#9656;</span> Appears in <b id="cesDeckCount">' + memberLeaves.size + '</b> deck' + (memberLeaves.size === 1 ? "" : "s") + '</button><div class="ces-decks-body" id="cesDecksBody" hidden>' + deckHtml + '</div></div>'
+        '<div class="ces-decks"><button class="ces-decks-head" id="cesDecksHead" type="button" aria-expanded="false"><span class="afs-chev">&#9656;</span> Deck: <b id="cesDeckName">' + esc(node ? node.title : "not in a deck") + '</b></button><div class="ces-decks-body" id="cesDecksBody" hidden>' + deckHtml + '</div></div>'
       : trNote + '<div class="ces-meta"><label class="ces-m ces-m-wide"><span>answer text (' + cardLang + ') — plain, used by the games</span><input class="af-input" id="cesAnswerText" type="text"' + dirAttr + ' /></label></div>';
     const whereTxt = node ? nodeWhere(node) : (memberLeaves.size ? "" : "no deck");
     host.innerHTML =
@@ -14971,15 +15334,17 @@
     // deck-picker toggles (inside the collapsible "Appears in N decks" box)
     const dh = host.querySelector("#cesDecksHead"), db = host.querySelector("#cesDecksBody");
     if (dh && db) dh.addEventListener("click", () => { const show = db.hidden; db.hidden = !show; dh.classList.toggle("open", show); dh.setAttribute("aria-expanded", String(show)); });
+    // one deck per card: the radios are exclusive, so the membership written is always a list of one
     host.querySelectorAll("[data-leaf]").forEach((el) => el.addEventListener("change", () => {
-      const leaves = [...host.querySelectorAll("[data-leaf]")].filter((x) => x.checked).map((x) => x.dataset.leaf);
-      setCardMembership(id, leaves);
+      if (!el.checked) return;
+      setCardMembership(id, [el.dataset.leaf]);
       adminUpdateCount();
-      const item = el.closest(".deck-pick-item"); if (item) item.classList.toggle("on", el.checked);
-      const dc = host.querySelector("#cesDeckCount"); if (dc) dc.textContent = leaves.length;
+      host.querySelectorAll(".deck-pick-item").forEach((it) => it.classList.toggle("on", it.contains(el)));
+      const note = host.querySelector(".deck-pick-note"); if (note) note.remove();   // the card is in one deck now
       const node2 = CARD_TO_NODE[id];
+      const dn = host.querySelector("#cesDeckName"); if (dn) dn.textContent = node2 ? node2.title : "not in a deck";
       const key = host.querySelector(".admin-ed-key");
-      if (key) { const w = node2 ? nodeWhere(node2) : (leaves.length ? "" : "no deck"); key.innerHTML = esc(id) + (w ? " &middot; " + esc(w) : ""); }
+      if (key) { const w = node2 ? nodeWhere(node2) : ""; key.innerHTML = esc(id) + (w ? " &middot; " + esc(w) : ""); }
       adminRenderTree();
     }));
     const rev = host.querySelector("#adminRevert");
@@ -15279,6 +15644,7 @@
       '<div class="admin">' +
         '<aside class="admin-side' + (adminState.treeCollapsed ? " collapsed" : "") + '" id="adminSide">' +
           '<div class="admin-tabs">' +
+            '<button class="admin-tab" type="button" data-atab="dashboard">Dashboard</button>' +
             '<button class="admin-tab" type="button" data-atab="cards">Cards</button>' +
             '<button class="admin-tab" type="button" data-atab="glossary">Glossary</button>' +
             '<button class="admin-tab" type="button" data-atab="timeline">Timeline</button>' +
@@ -15420,6 +15786,197 @@
       const b = root.querySelector("#fbTabBadge"); if (!b) return;
       const n = (_fbRows || []).filter((r) => r.status === "new").length;
       b.textContent = n ? String(n) : ""; b.hidden = !n;
+    }
+    /* ---- Dashboard: what Folio is, in numbers (Aug 2026, on request) ----
+       Two halves, and the split is not cosmetic. THE CONTENT half is derived from the shipped data files
+       and the admin overlay on top of them, so it is exact, instant and works offline — it is the same
+       data the site is rendering. THE PEOPLE half has to be asked for, and what can be asked is bounded by
+       the row-level security in .claude/supabase-schema.sql: `profiles` is readable by any signed-in user
+       and the published-deck tables are public, but `progress` is readable only by its owner and their
+       accepted friends — an admin included. So there is no honest site-wide "cards studied" figure to show
+       and none is invented; the panel says so rather than leaving a reader to assume the number is zero.
+       Counts come from PostgREST's `Prefer: count=exact`, which returns the total in a header, so none of
+       this downloads the rows it is counting. */
+    let _dashRemote = null, _dashErr = "", _dashLoading = false;
+    function dashContentStats() {
+      const cards = CARDS.slice();
+      const leaves = LEAF_NODES.slice();
+      const collections = (TREE.collections || []).slice();
+      const live = collections.filter((c) => !isComingSoon(c));
+      const G = window.GLOSSARY || {};
+      const gKeys = Object.keys(G);
+      const words = (s) => String(s || "").replace(/<[^>]*>/g, " ").trim().split(/\s+/).filter(Boolean).length;
+
+      let srcCards = 0, srcAtBar = 0, srcBlocked = 0, srcTotal = 0, media = 0, phrasings = 0, abstractWords = 0, tagged = 0;
+      cards.forEach((c) => {
+        const n = (c.sources || []).length;
+        srcTotal += n;
+        if (n) srcCards++;
+        if (n >= SRC_TARGET) srcAtBar++;
+        if (c.sourcesBlocked) srcBlocked++;
+        if ((c.image && c.image.src) || (c.video && c.video.src)) media++;
+        phrasings += cardQuestions(c).length;
+        abstractWords += words(c.abstract);
+        if ((c.tags || []).length) tagged++;
+      });
+      let gAtBar = 0, gSrcTotal = 0, gMedia = 0, gTagged = 0, gDated = 0;
+      gKeys.forEach((k) => {
+        const n = glossSources(k).length;
+        gSrcTotal += n;
+        if (n >= GLOSS_SRC_TARGET) gAtBar++;
+        if (glossImage(k) || glossVideo(k)) gMedia++;
+        if (glossTags(k).length) gTagged++;
+        if (glossDates(k)) gDated++;
+      });
+      // per-language coverage, counted the way test-i18n-lang.js counts it: parity with each other, not
+      // with the English total, since everything written since the MULTILANG gate is English-only
+      const langs = CARD_I18N_LANGS.map((l) => ({
+        lang: l,
+        cards: cards.filter((c) => c.i18n && c.i18n[l] && c.i18n[l].abstract).length,
+        gloss: gKeys.filter((k) => ((window.GLOSSARY_I18N || {})[k] || {})[l]).length,
+      }));
+      return {
+        collections: collections.length, live: live.length, soon: collections.length - live.length,
+        decks: leaves.length, cards: cards.length,
+        cardsPerDeck: leaves.length ? Math.round((cards.length / leaves.length) * 10) / 10 : 0,
+        srcCards, srcAtBar, srcBlocked, srcTotal, media, phrasings, tagged,
+        abstractWords, avgAbstract: cards.length ? Math.round(abstractWords / cards.length) : 0,
+        gloss: gKeys.length, gAtBar, gSrcTotal, gMedia, gTagged, gDated,
+        eras: (window.TIMELINE || []).length,
+        places: Object.keys(window.COUNTRY_INFO || {}).length,
+        tfPool: (window.TRUEFALSE || []).length, quotePool: (window.QUOTEGAME || []).length,
+        localDecks: Object.keys(UDECKS || {}).length,
+        overlay: adminEditCount(),
+        langs,
+      };
+    }
+    async function dashLoadRemote() {
+      /* One small request per figure, all in flight together; a table that isn't set up yet simply reports
+         nothing rather than taking the panel down with it.
+
+         `Prefer: count=exact` puts the total in Content-Range, which is the cheap answer — but Content-Range
+         is not a CORS-safelisted response header, so a browser can only read it where the server names it in
+         Access-Control-Expose-Headers. Supabase does; a proxy in front of it might not, and there the count
+         would come back null and every figure would read as an em dash for no visible reason. So the request
+         also asks for up to DASH_CAP ids and falls back to counting them, flagged with a "+" if it filled the
+         page — an honest floor beats a dash that looks like a broken panel. */
+      const DASH_CAP = 1000;
+      const count = (path) => supaFetch(path + (path.indexOf("?") < 0 ? "?" : "&") + "select=id&limit=" + DASH_CAP, { headers: { Prefer: "count=exact" } })
+        .then((r) => {
+          if (!r.ok) return null;
+          if (typeof r.count === "number") return r.count;
+          if (!Array.isArray(r.data)) return null;
+          return r.data.length >= DASH_CAP ? DASH_CAP + "+" : r.data.length;
+        });
+      /* …and a ceiling on the wait. `supaFetch` has no timeout of its own — everywhere else it is called
+         from, a request that never answers simply means a background sync that never happens. Here it is
+         the panel itself, and "Loading…" for ever is the one state that reads as broken rather than as
+         unavailable. A request still in flight at DASH_WAIT is treated as a failure, which is what it is. */
+      const DASH_WAIT = 12000;
+      const capped = (p) => Promise.race([p, new Promise((r) => setTimeout(() => r(null), DASH_WAIT))]);
+      const [people, decks, published, installs, ratings, feedback, reports] = await Promise.all([
+        capped(count("/rest/v1/profiles")),
+        capped(count("/rest/v1/user_decks")),
+        capped(count("/rest/v1/user_decks?status=eq.published")),
+        capped(count("/rest/v1/deck_installs")),
+        capped(count("/rest/v1/deck_ratings")),
+        capped(count("/rest/v1/feedback")),
+        capped(count("/rest/v1/deck_reports")),
+      ]);
+      if (people === null && decks === null && feedback === null) return { error: "Couldn't reach the account database — sign in as an admin, or check that the schema has been applied." };
+      return { people, decks, published, installs, ratings, feedback, reports };
+    }
+    function adminRenderDashboard() {
+      const items = root.querySelector("#adminListItems"), countEl = root.querySelector("#adminListCount");
+      const s = dashContentStats();
+      if (countEl) countEl.textContent = s.cards + " cards · " + s.gloss + " glossary terms";
+      const tile = (v, label, hint) => '<div class="dsh-tile"' + (hint ? ' title="' + esc(hint) + '"' : "") + "><b>" + esc(String(v)) + "</b><span>" + esc(label) + "</span></div>";
+      const bar = (n, total, label, note) => {
+        const pct = total ? Math.min(100, Math.round((n / total) * 100)) : 0;
+        return '<div class="dsh-bar"><div class="dsh-bar-head"><span>' + esc(label) + "</span><b>" + n + " / " + total + " · " + pct + "%</b></div>" +
+          '<div class="ds-bar"><i style="width:' + pct + '%"></i></div>' +
+          (note ? '<small>' + esc(note) + "</small>" : "") + "</div>";
+      };
+      const card = (title, sub, body) => '<section class="dsh-card"><div class="dsh-head"><h3>' + esc(title) + "</h3>" +
+        (sub ? '<span class="dsh-sub">' + esc(sub) + "</span>" : "") + "</div>" + body + "</section>";
+
+      const langRows = s.langs.map((l) =>
+        '<div class="dsh-lang"><span class="dl-code">' + esc(l.lang.toUpperCase()) + "</span>" +
+        '<span class="dl-n">' + l.cards + " cards</span><span class=\"dl-n\">" + l.gloss + " terms</span></div>").join("");
+
+      let remoteBody;
+      if (_dashErr) remoteBody = '<div class="dsh-note">' + esc(_dashErr) + ' <button class="mini-btn" id="dshRetry" type="button">Try again</button></div>';
+      else if (_dashRemote === null) remoteBody = '<div class="dsh-note">Loading…</div>';
+      else {
+        const r = _dashRemote, num = (v) => (v === null || v === undefined ? "—" : String(v));
+        remoteBody =
+          '<div class="dsh-tiles">' +
+            tile(num(r.people), "Accounts", "Every registered profile") +
+            tile(num(r.published), "Published decks", "Community decks currently listed") +
+            tile(num(r.decks), "Decks on the server", "Published and unpublished together") +
+            tile(num(r.installs), "Deck installs", "One row per reader per deck") +
+            tile(num(r.ratings), "Ratings left", "Star ratings on community decks") +
+            tile(num(r.feedback), "Messages received", "Everything in the Feedback queue, all time") +
+            tile(num(r.reports), "Decks reported", "Moderation reports filed") +
+          "</div>" +
+          '<div class="dsh-note">A reader\'s study progress is readable only by that reader and their accepted friends — the row-level security is what makes an account private, and it applies to an editor too. There is no site-wide figure for cards studied, and none is guessed at here.</div>';
+      }
+      if (_dashRemote === null && !_dashErr && !_dashLoading) {
+        _dashLoading = true;
+        dashLoadRemote().then((r) => {
+          _dashLoading = false;
+          if (r.error) _dashErr = r.error; else _dashRemote = r;
+          if (current && current.name === "admin" && adminState.tab === "dashboard") adminRenderDashboard();
+        });
+      }
+
+      items.innerHTML =
+        '<div class="dsh-wrap">' +
+          '<div class="dsh-lede">Everything Folio ships, and everything the account database will say. The content figures are read from the data files and the live overlay, so they are exact and need no network.</div>' +
+          '<div class="dsh-grid">' +
+            card("Content", s.live + " live · " + s.soon + " coming soon",
+              '<div class="dsh-tiles">' +
+                tile(s.cards, "Cards", "Every card in the collection tree") +
+                tile(s.decks, "Decks", "Leaf decks that can hold cards") +
+                tile(s.collections, "Collections") +
+                tile(s.cardsPerDeck, "Cards per deck", "Average across every leaf deck") +
+                tile(s.phrasings, "Question phrasings", "Every way a card can be asked") +
+                tile(s.abstractWords.toLocaleString(), "Words of background", "Across every card's abstract") +
+                tile(s.avgAbstract, "Words per card", "The house target is about 300") +
+                tile(s.media, "Cards with a picture or clip") +
+              "</div>") +
+            card("Glossary", s.gloss + " terms",
+              '<div class="dsh-tiles">' +
+                tile(s.gloss, "Terms") +
+                tile(s.gDated, "With a date line") +
+                tile(s.gTagged, "Tagged") +
+                tile(s.gMedia, "With a picture or clip") +
+              "</div>" +
+              bar(s.gAtBar, s.gloss, "Terms at the " + GLOSS_SRC_TARGET + "-source bar", s.gSrcTotal + " citations in all")) +
+            card("Citations", s.srcTotal + " on cards, " + s.gSrcTotal + " on terms",
+              bar(s.srcAtBar, s.cards, "Cards at the " + SRC_TARGET + "-source bar",
+                s.srcCards + " cards carry at least one source" + (s.srcBlocked ? " · " + s.srcBlocked + " marked blocked" : "")) +
+              bar(s.tagged, s.cards, "Cards with categorising tags", "Tags are what Multiple Choice draws its wrong answers from")) +
+            card("Atlas & games", s.eras + " historical eras",
+              '<div class="dsh-tiles">' +
+                tile(s.eras, "Timeline eras") +
+                tile(s.places, "Places described", "Entries in countries.js — present-day and historical") +
+                tile(s.tfPool, "True-or-False statements") +
+                tile(s.quotePool, "Quotations") +
+              "</div>") +
+            card("Translations", MULTILANG ? "Live" : "Held — the site ships in English",
+              '<div class="dsh-langs">' + langRows + "</div>" +
+              '<div class="dsh-note">Counted against ' + s.cards + " cards and " + s.gloss + " terms. Everything written since the English-only gate went up is English alone, so the nine move together and none is behind the others.</div>") +
+            card("People & sharing", "From the account database", remoteBody) +
+            card("This device", s.overlay + " unsaved edits",
+              '<div class="dsh-tiles">' +
+                tile(s.overlay, "Overlay edits", "Card, glossary and tree changes not yet baked into the data files") +
+                tile(s.localDecks, "Community decks here", "Decks written or installed on this device") +
+              "</div>") +
+          "</div>" +
+        "</div>";
+      const retry = items.querySelector("#dshRetry");
+      if (retry) retry.addEventListener("click", () => { _dashErr = ""; adminRenderDashboard(); });
     }
     function adminRenderFeedback() {
       const items = root.querySelector("#adminListItems"), countEl = root.querySelector("#adminListCount");
@@ -15567,11 +16124,12 @@
     }
     function adminRefresh() {
       root.querySelectorAll(".admin-tab").forEach((t) => t.classList.toggle("active", t.dataset.atab === adminState.tab));
-      const feedback = adminState.tab === "feedback", cards = adminState.tab === "cards", timeline = adminState.tab === "timeline";
-      const admEl = root.querySelector(".admin"); if (admEl) { admEl.classList.toggle("feedback-mode", feedback); admEl.classList.toggle("timeline-mode", timeline); }
+      const feedback = adminState.tab === "feedback", cards = adminState.tab === "cards", timeline = adminState.tab === "timeline", dash = adminState.tab === "dashboard";
+      const admEl = root.querySelector(".admin"); if (admEl) { admEl.classList.toggle("feedback-mode", feedback); admEl.classList.toggle("timeline-mode", timeline); admEl.classList.toggle("dash-mode", dash); }
       // the feedback/timeline branches return before adminRenderList(), which owns this class — clear it here or the
       // glossary tab's column divider lingers as a stray vertical line over those pages
       { const al = root.querySelector(".admin-list"); if (al) al.classList.toggle("gloss-cols", adminState.tab === "glossary"); }
+      if (dash) { adminState.selected.clear(); adminRenderDashboard(); return; }
       if (feedback) { adminState.selected.clear(); adminRenderFeedback(); return; }
       if (timeline) { adminState.selected.clear(); adminRenderTimeline(); return; }
       search.placeholder = cards ? "Search cards by title, id, hanzi…" : "Search glossary terms…";
@@ -15814,7 +16372,7 @@
   }
 
   // initial route from hash
-  const valid = ["home", "decks", "study", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "admin", "mission", "studio", "community", "deck"];
+  const valid = ["home", "decks", "study", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "admin", "mission", "studio", "community", "deck", "glossary"];
   const h = (location.hash || "").replace("#", "");
   const hParts = h.split("/");
   let initName = valid.includes(hParts[0]) ? hParts[0] : "home";
@@ -15842,6 +16400,7 @@
   _adminUndoReady = true;
   render();
   applyLang();   // localize the freshly rendered page + static chrome, set dir/lang, install the i18n observer
+  applyUnits();  // …and put every measurement into the one system this reader has chosen, popups included
   // A non-English reader paints in English for the moment it takes the lazy translation tables to
   // arrive, then repaints translated. English readers never fetch them, and never pay a second render.
   if ((S.settings.lang || "en") !== "en") loadLangData(() => { applyLang(); render(); });

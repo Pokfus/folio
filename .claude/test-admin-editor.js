@@ -16,6 +16,9 @@ const check=(name,ok,extra)=>{console.log((ok?"ok    ":"FAIL  ")+name+(extra?"  
 
 // 1) admin editor: open a card, confirm the live fields + auto-linked abstract render
 await p.goto("http://127.0.0.1:5603/#admin",{waitUntil:"load"});await p.waitForTimeout(1200);
+// the editor opens on the Dashboard tab now — ask for Cards, as a reader would
+await p.evaluate(()=>{const t=document.querySelector('.admin-tab[data-atab="cards"]'); if(t) t.click();});
+await p.waitForTimeout(600);
 check("admin page renders", await p.evaluate(()=>!!document.querySelector("#adminEditor, .admin-wrap, .admin-cols")));
 const opened=await p.evaluate(()=>{const r=document.querySelector(".admin-card-row .acr-open");if(r){r.click();return true;}return false;});
 await p.waitForTimeout(700);
@@ -70,6 +73,61 @@ await p.waitForTimeout(700);
 const term=await p.evaluate(()=>{const r=document.querySelector(".admin-card-row .acr-open,[data-gloss]");if(r){r.click();return true;}return false;});
 await p.waitForTimeout(600);
 check("glossary tab reachable", gt||term);
+
+/* 4) the DASHBOARD is the tab the editor opens on (Aug 2026, on request), and its content figures are
+      derived from the shipped files — exact, instant, no network. The People panel needs the account
+      database and is covered where a session can be mocked; what is asserted here is that the panel exists
+      and says plainly what row-level security will not let it count. */
+// A FRESH session: the remembered position has to be cleared in an init script, not by evaluate — the
+// editor flushes its live position over that key on pagehide, so a clear before the reload is undone by
+// the reload itself. And a reload, not a goto: a goto differing only in the #fragment is a same-document
+// navigation and the editor would keep whatever tab it is already on in memory (CLAUDE.md, Testing).
+await p.addInitScript(()=>{try{localStorage.removeItem("folio_admin_ui_v1");}catch(e){}});
+await p.reload({waitUntil:"load"});await p.waitForTimeout(1600);
+const dash=await p.evaluate(()=>({
+  first:(document.querySelector(".admin-tab")||{}).dataset.atab,
+  active:(document.querySelector(".admin-tab.active")||{}).dataset.atab,
+  wrap:!!document.querySelector(".dsh-wrap"),
+  cards:[...document.querySelectorAll(".dsh-card h3")].map(h=>h.textContent),
+  cardCount:(document.querySelector(".dsh-tile b")||{}).textContent,
+  real:String((window.CARD_DATA||[]).length),
+  /* Signed out there is nothing in the account database this may read, and the panel must never
+     invent one: no figures at all until the request has actually answered. (What it shows when it
+     DOES answer is covered by test-account-page.js, which mocks a session.) */
+  peopleFigures:[...document.querySelectorAll(".dsh-card")]
+    .filter(c=>/People/.test(c.querySelector("h3").textContent))
+    .map(c=>c.querySelectorAll(".dsh-tile").length)[0],
+}));
+check("Dashboard is the first tab", dash.first==="dashboard", dash.first);
+check("...and a fresh session opens on it", dash.active==="dashboard"&&dash.wrap, JSON.stringify(dash.active));
+check("...carrying the content panels", dash.cards.includes("Content")&&dash.cards.includes("Glossary")&&dash.cards.includes("Citations"), JSON.stringify(dash.cards));
+check("...counted from the real data", dash.cardCount===dash.real, dash.cardCount+" vs "+dash.real);
+check("...and inventing no figures before the database has answered", dash.peopleFigures===0, String(dash.peopleFigures));
+
+/* 5) ONE DECK PER CARD. The picker was checkboxes and a card could be cross-listed into any number of
+      decks; it is radios now, and choosing one MOVES the card rather than adding it. A checkbox creeping
+      back would be silent — nothing throws when a card quietly joins a second deck. */
+await p.evaluate(()=>{const t=document.querySelector('.admin-tab[data-atab="cards"]'); if(t) t.click();});
+await p.waitForTimeout(700);
+await p.evaluate(()=>{const r=document.querySelector("#adminListItems [data-open]"); if(r) r.click();});
+await p.waitForTimeout(900);
+const dp=await p.evaluate(()=>({
+  radios:document.querySelectorAll('.deck-pick-item input[type="radio"]').length,
+  boxes:document.querySelectorAll('.deck-pick-item input[type="checkbox"]').length,
+  checked:document.querySelectorAll(".deck-pick-item input:checked").length,
+  head:(document.querySelector("#cesDecksHead")||{}).textContent,
+}));
+check("the deck picker is radios, never checkboxes", dp.radios>0&&dp.boxes===0, JSON.stringify(dp));
+check("...with exactly one deck marked", dp.checked===1, JSON.stringify(dp));
+check("...and the header naming that deck", /Deck:/.test(dp.head||""), dp.head);
+const moved=await p.evaluate(async()=>{
+  const other=[...document.querySelectorAll('.deck-pick-item input[type="radio"]')].find(r=>!r.checked);
+  other.checked=true; other.dispatchEvent(new Event("change",{bubbles:true}));
+  await new Promise(r=>setTimeout(r,400));
+  return {checked:document.querySelectorAll(".deck-pick-item input:checked").length,
+          head:(document.querySelector("#cesDecksHead")||{}).textContent};
+});
+check("choosing another deck MOVES the card rather than adding it", moved.checked===1&&moved.head!==dp.head, JSON.stringify(moved));
 
 check("no console/page errors", errs.length===0, errs.join(" | "));
 await b.close();s.close();

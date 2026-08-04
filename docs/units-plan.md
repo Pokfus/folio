@@ -134,3 +134,26 @@ they do not know about is silently dropped on the next write — which is what h
 `GLOSSARY_PLACES` and `GLOSSARY_MAP_COUNTRY` (the Atlas marker's coordinates and country join, added the
 same day) the first time a citation batch ran after them. Both writers now carry every table. **If you add
 a `window.GLOSSARY_*` table, add it to both serializers**, or the next content batch deletes it.
+
+## Amended the same day: the reader picks ONE system
+
+*"We will replace this with another system: it will show only one of either, and in the settings a user can
+choose which system they want to use."*
+
+**The authoring rule above is unchanged, and this is the point.** The corpus stays metric-first with the
+imperial equivalent in brackets, because that is the only form that carries BOTH figures — which a batch
+script, a citation pass, a translator and a future reader of the data files all need. What changed is the
+DISPLAY: `S.settings.units` (Settings → Appearance → Measurements) decides which of the two a reader is
+shown, and they are never shown both.
+
+The transform is `unitizeText` / `unitizeTree` in app.js — see the "Measurements: ONE system" bullet in
+CLAUDE.md for how it works and why it is a DOM text-node pass rather than a hook in the content accessors.
+Three consequences for anyone working on content:
+
+- **Keep writing `about 37 kilometres (23 miles)`.** A bare metric figure is not wrong, but it will read
+  the same in both systems, which is a gap rather than a decision.
+- **A conversion still costs no words**, since `IMPERIAL_PAREN` is stripped before the length checks in
+  `add-card.js` / `add-questions.js`.
+- **After a units batch, re-run the corpus check** described in the CLAUDE.md bullet: every bracket that
+  looks imperial must be recognised, and no other bracket may be touched. At the time of writing that is
+  341 fields transformed, 0 missed and 0 false positives.

@@ -721,6 +721,45 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   run through `t()` so it localises where a translation exists, English otherwise). Add a route → add its
   `PAGE_META` row, or it inherits the home page's title. `index.html` carries the home-page values as the
   static baseline because most link-preview crawlers don't execute JS — **keep the two in step.**
+  `render()` also **detaches the outgoing page's keyboard handler** (`detachKeys`). `attachKeys` already
+  detached the previous one, so two pages could never both be listening — but a page with no shortcuts of its
+  own attaches nothing, and the last handler stayed live over it: pressing Space on the Library after a study
+  session ran that session's `showAnswer()` against a page that no longer existed. It mutated a detached tree,
+  so nothing looked wrong and nothing was reported (found when the page ghost below stopped ids resolving in
+  the dead copy). A page that wants keys re-attaches when its own render runs, which is after this.
+- **PAGE TRANSITIONS (Aug 2026, on request).** `.page` has always faded IN; the missing half was the exit, so a
+  navigation cut the old page away on the same frame the new one appeared. **`render()` is synchronous and has
+  to stay so** — several callers query the DOM the moment it returns, which rules out `startViewTransition` and
+  anything else that defers the swap — so the outgoing page is not held back but LIFTED OUT: `makePageGhost()`
+  lays a copy over the stage (`.page-ghost`, `position:absolute` inside a now-`relative` `#view`) and leaves it
+  to fade while the new page renders underneath, removing it on its own timer.
+  · **It is a CLONE, not the element itself**, so anything still holding a reference to the outgoing page — a
+    stale handler, a pending callback — keeps the original, detached, behaving exactly as before.
+  · **The clone is stripped of every `id` and every control `name`.** For a quarter of a second the dead page is
+    still IN the document: an `id` would let a `document.getElementById()` in the new page's wiring pick up the
+    dead copy, and a `name` is worse — a radio group is scoped to the DOCUMENT when its inputs are not in a
+    form, so the ghost's radios and the new page's were one group, and inserting the new checked radio silently
+    unchecked the ghost's, making a click that had just landed read back as never having happened (found by
+    `test-deck-glossary`, whose Studio radios are exactly that shape).
+  · **Three exclusions**: reduced motion; the ATLAS in both directions (leaving it, the globe's teardown has run
+    under the clone; arriving at it, its stage is full-bleed and a page fading over the globe reads as a
+    rendering fault); and the editor, where a repaint per keystroke is routine. The home page's 170px ornamental
+    globe is deliberately NOT excluded — skipping the commonest navigation on the site to protect it would be
+    paying for the transition and not getting it.
+  · The stylesheet's MOTION block adds the rest: a staggered entrance for a page's top-level blocks (`sectIn`,
+    capped at eight and opting out exactly where `.page` does, including inside the ghost), an entrance for the
+    overlays (`.inline-prompt`/`.deck-menu`, which had none), and press feedback on the quieter buttons.
+    Everything there is an animation or a transition, so the global reduced-motion killswitch covers it — the
+    one thing it can't reach is a `both`-filled animation's DELAY, which is zeroed explicitly, or a reduced-motion
+    reader would watch a page arrive in blank steps.
+- **PAGES.glossary — the terms this reader has discovered** (`#glossary`, Aug 2026, on request), reached from the
+  account page's "Glossary terms opened" meter, which is a `.ex-meter-link` button carrying `data-exgo`.
+  `glossSeen` was already a permanent register and was only ever COUNTED; this is the list behind the number.
+  Filtered to terms that STILL EXIST (as `glossSeenCount` is — a term retired since it was read would open a
+  popup onto nothing) and to curated terms (a deck's are not part of what the meter measures). **The
+  undiscovered terms are deliberately NOT listed beside them** — it is a record of reading, not a checklist.
+  `setActiveTab` maps this route to `account`, so the tab bar stays lit under a page that is plainly part of
+  "your record"; the meter is a link only on your OWN account (`prog === S`), never on a friend's.
 - **A STUDY SESSION SURVIVES A RELOAD (Aug 2026, on request).** `study` was not a restorable route: its hash said
   only "study", it was not in `valid`, and the whole session lived in a closure — so a refresh mid-card landed the
   reader on the home page with the card gone. **`STUDY_KEY` (`folio_study_v1`, sessionStorage)** now records
@@ -921,10 +960,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scope.type !== "card"`) — with no other card between, the card would reappear instantly and read as a grade that
   never landed, and it is scheduled properly regardless — and `fromHome` (review / card / cotd scopes) sends the exit
   button, the completion screen and the caught-up placard back to **Home** rather than the collections.
-- **Daily review order** (`reviewOrder` toggle → `S.settings.reviewRandom`): **Ordered** (labelled "Chrono" until Aug
-  2026, renamed on request — the old key is retired from all nine language tables) presents cards in their in-deck order;
+- **Daily review order** (`S.settings.reviewRandom`): **Ordered** (labelled "Chrono" until Aug 2026, renamed on
+  request — the old key is retired from all nine language tables) presents cards in their in-deck order;
   **Random** shuffles the session order. The **draw** of the day's new cards is date-seeded-random across the decks in BOTH
-  modes now (see the next bullet) — the toggle decides presentation order only.
+  modes now (see the next bullet) — the setting decides presentation order only.
+  **It is chosen by HOLDING THE BANNER** (`openReviewMenu`, Aug 2026, on request), plus the Settings page's own
+  "Random review order" switch. It was a `.review-order` pill absolutely positioned in the banner's top-right
+  corner: a permanent control, in the corner of the one block on the home page that has something to say, for a
+  setting almost nobody changes twice. The sheet is the same `deckSheet` shell the deck rows use one level down,
+  so the gesture is the same one step up the hierarchy, and the rows are `.dm-choice` — a SET, with the current
+  one ticked, rather than commands. **The long-press wiring is `wireHoldMenu(el, onHold, onTap)`** (beside
+  `openDeckMenu`), shared with the deck rows. Its one subtlety: the click that follows a hold is swallowed by a
+  **document-level CAPTURE listener** keyed off `_holdUntil`, not by a flag the element's own handler checks —
+  the banner already had a click listener before this ran, and listener order on one element is registration
+  order, so an element-level guard registered second would fire after the very handler it exists to stop.
 - **PER-DECK DAILY LIMITS, and a review pooled from all of them (Aug 2026, on request).** There used to be ONE global
   allowance (`S.settings.newPerDay`) sliced off the front of the pooled card list, so a reader with two decks got every
   new card from whichever came first and never saw the second deck at all. That was the bug; per-deck allowances are
@@ -1663,6 +1712,46 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `set-row-block` because at 186px it leaves a phone's description four words a line. Guarded by
   `test-layout.js`, which asserts the prose AND the chrome grow, and that nothing in the shell is clipped or
   wrapped by the growth.
+- **Light / dark FOLLOWS THE DEVICE by default** (**Settings → Appearance → Match my device**,
+  `S.settings.themeAuto` / `systemPrefersDark` / `setThemeAuto`, Aug 2026, on request). `S.settings.night` stays
+  the RESOLVED value — every stylesheet rule and the canvas globe read `body.night`, and nothing else had to
+  change — and `applyTheme` writes it from `matchMedia("(prefers-color-scheme: dark)")` whenever `themeAuto` is
+  on. A `change` listener on that query repaints mid-session (a laptop crossing sunset does it without a reload),
+  and it `save()`s, since the resolved value is what a later manual flip starts from.
+  Three things are deliberate. **`setNight` turns `themeAuto` OFF**: flipping the switch by hand is an explicit
+  choice, and without this `applyTheme` would immediately overwrite it, which reads as a broken control.
+  **The Night mode row stays on the page while the device decides**, dimmed (`.row-locked` / `.switch-locked`)
+  rather than removed and never `pointer-events:none` — a reader needs to see that the site knows it is dark,
+  and clicking it is the way back to deciding for themselves. And the **migration is the part not to remove**:
+  `defaultState()` carries `themeAuto: true` but the back-fill beside the other `S.settings` back-fills pins an
+  OLDER save to `false`, because an existing reader chose their `night` by hand and handing that choice to the
+  operating system would flip the site under someone who had already decided. Guarded by `test-layout.js`, which
+  still asserts `#sw-night` is on the page.
+- **Measurements: ONE system, the reader's** (**Settings → Appearance → Measurements**, `S.settings.units` /
+  `unitizeText` / `unitizeTree` / `applyUnits` / `setUnits`, Aug 2026, on request). The content stays authored
+  **metric-first with the imperial equivalent in brackets** — `about 37 kilometres (23 miles)` — which is what
+  `docs/units-plan.md` put across all 119 cards and 414 glossary terms, and it is the only form that carries both
+  figures for a batch script, a citation pass or a translator. What changed is what a READER sees: metric (the
+  default) drops the bracket, imperial replaces the metric figure with what the bracket says. Both directions are
+  idempotent — after either pass the bracket is gone — which is what lets it run from a `MutationObserver`
+  without tracking what it has already touched.
+  · **It is a DOM text-node pass, not a hook in `glossText()`/`cardLocalized()`**, and that is the load-bearing
+    decision: the editors read those same accessors, and a card whose stored text had already lost half its
+    measurement would be saved back that way on the next keystroke. Walking text nodes and skipping anything
+    editable means the store is never involved. It skips `.notranslate` for the reason the i18n engine does.
+  · **Two patterns.** `U_CONV_RX` is the ordinary `<number><unit> (<imperial>)`. `U_BARE_RX` is the second half
+    of a pair sharing the first's unit — "averaging 151 centimetres (4 ft 11 in) and females 105 (3 ft 5 in)" —
+    without which imperial mode leaves that sentence half-converted.
+  · **`isImperialParen` is the guard against eating an ordinary bracket.** It must be measurement-shaped ALL
+    THROUGH, carry a number, and carry a STRONG imperial unit — `in` and `mi` are allowed as fillers inside a
+    `4 ft 11 in` but never qualify a bracket alone, or "(in 1920)" would read as a measurement. Verified over the
+    whole corpus: 341 fields transform, no imperial bracket is missed and no other bracket is touched. **Re-run
+    that check after a units batch**, and mind the shapes it took to cover: `km²` and the bare `m`/`g` need a
+    lookahead rather than `\b`; a hyphenated `175-metre (574-foot)`; `2.2 million km²`; and spelled numbers up
+    to ninety.
+  · The `MutationObserver` is permanent (both modes transform, so there is no "off"), and `render()` also calls
+    `unitizeTree(root)` directly, since an observer callback is a microtask and would otherwise let one frame of
+    the other system through.
 - **ENGLISH ONLY — `const MULTILANG = false`** (app.js, beside `LANG_CODES`; Aug 2026, on request). The site
   ships in English while the work is on making the English as good as it can be. It is **one switch**, and it
   shuts three doors: the Language card is not rendered on the Settings page, `?lang=xx` no longer switches,
@@ -2659,7 +2748,43 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     for the `<small>(optional)</small>` labels); the **queue itself stays English**, like the rest of the
     editor.
   · `adminState.tab === "accounts"` is a **retired value**: `restoreAdminUI` drops it so a session saved
-    before this change opens on Cards rather than a tab that no longer exists.
+    before this change opens on the editor's default tab rather than one that no longer exists.
+- **Edit → Dashboard: Folio in numbers (Aug 2026, on request).** The editor's FIRST tab and the one a fresh
+  session opens on (`adminState.tab` defaults to `"dashboard"`; a session interrupted mid-edit still comes back
+  to the card it was on — `restoreAdminUI` exists because auto-save can live-reload the page between
+  keystrokes, and losing that would be a worse regression than gaining this). It takes over the admin area the
+  way Feedback and Timeline do (`.dash-mode`, the same hide list).
+  **Two halves, and the split is not cosmetic.** `dashContentStats()` is derived from the shipped data files
+  and the admin overlay on top of them, so it is exact, instant and works offline — it is the same data the
+  site is rendering. `dashLoadRemote()` has to ASK, and what it can ask is bounded by the RLS in
+  `.claude/supabase-schema.sql`: `profiles` is readable by any signed-in user and the published-deck tables are
+  public, but **`progress` is readable only by its owner and their accepted friends — an admin included**. So
+  there is no honest site-wide "cards studied" figure and **none is invented**; the panel says so in prose
+  rather than leaving a reader to read a missing number as a zero. **If you add a figure here, check the policy
+  before the query.**
+  Counting uses PostgREST's `Prefer: count=exact`, whose total arrives in **Content-Range** — which `supaFetch`
+  now parses into `r.count`. Two things about that header: it is not a CORS-safelisted response header, so it
+  is readable only because Supabase names it in `Access-Control-Expose-Headers` (a proxy in front of it might
+  not, which is why `count()` also asks for up to `DASH_CAP` ids and falls back to counting them, flagged with
+  a `+` if it filled the page — an honest floor beats a row of em dashes that looks like a broken panel); and
+  **a mock must send the expose header too**, or every figure comes back null and the panel reports a
+  connection failure that is really a CORS one.
+- **ONE DECK PER CARD (Aug 2026, on request).** The card editor's deck picker was checkboxes — a card could be
+  cross-listed into any number of decks with one set of scheduling. Nothing shipped ever used it (all 119 cards
+  sit in exactly one deck) and it made "which deck is this card in" a question with no single answer, which the
+  editor header, the study bar and the home review row all had to hedge around. It is **radios** now, and
+  `setCardMembership` is passed a list of one; the collapsible header reads `Deck: <name>` rather than
+  `Appears in N decks`. **The data model still holds a SET, deliberately** — `membership` deltas, `cardLeaves`
+  and `serializeCardData` are all written against one, and narrowing them would be a rewrite of the overlay
+  format to enforce in storage what the editor now enforces at the point of choice. A card that somehow holds
+  two decks still renders honestly (every one of its decks is marked, with a note saying so) and the next
+  choice made collapses it to one. The bulk **"Move to deck…"** in the selection bar already wrote a single
+  leaf, so it needed no change.
+- **The account page's identity actions** (Aug 2026, on request): **Change password sits beside Sign out**
+  inside the profile card (`.acct-idacts`), not a section lower among the photo controls — the two act on the
+  same thing — and the "Progress synced to your account" line moved directly under them (`.acct-syncnote`),
+  with the password panel following it so it opens where the button is. `.acct-tools` survives for the
+  Remove-photo button and renders only when there is a photo.
 
 ## Generating cards & glossary entries
 
@@ -3474,7 +3599,7 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Seventeen committed regression tests** (in `.claude/`, not loaded by the site): fourteen drive a real browser with
+- **Twenty-two committed regression tests** (in `.claude/`, not loaded by the site): nineteen drive a real browser with
   Playwright; `test-daily-quote.js`, `test-discovery.js` and `test-date-line.js` are plain Node with no dependencies at
   all. Each slices what it tests out of the real `app.js`/`_headers` by text, so they can't drift from what ships.
   **Gotcha when writing more of them:** `page.goto()` to a URL that differs only in the `#fragment` is a
@@ -3702,6 +3827,39 @@ dead code (never rendered).
     info panel** — the reader has just read the term, and a second description is not what the marker
     offered. **Re-run after touching `glossPlace` / `focusPlace` / `CITY_SEP` / `computeCityLayout` /
     `gsIndex` / `hmOpacity`, or after re-running `.claude/fetch-place-coords.js`.**
+  · `node .claude/test-units.js` — the two Settings that REWRITE what is already on the page (Aug 2026):
+    measurements, and light/dark from the device. The units transform is a regex over every text node, so
+    its two failure modes are a bracket it fails to recognise (both systems left on screen — it looks as
+    though the feature was never built) and a bracket it recognises wrongly (an ordinary parenthesis eaten
+    out of a sentence — it looks like a typo in the card). **The corpus sweep is the assertion that
+    matters**: the engine is sliced out of the real app.js by text and run over all 119 cards and every
+    glossary term, demanding 0 missed and 0 taken in error (341 fields transform today). It also pins that
+    the SHIPPED DATA still carries both figures after a reader has chosen one — the display transform must
+    never reach the store, which is the whole reason it is a DOM pass. On the theme: a first visit follows
+    the system in both directions, a manual Night flip takes the decision back and holds it across a
+    reload, and **an older save keeps the light/dark it chose** — the one way this change could strand
+    somebody. **Re-run after touching `unitizeText` / `unitizeTree` / `applyUnits` / `applyTheme` /
+    `setNight` / `setThemeAuto`, and after any units batch.**
+  · `node .claude/test-glossary-page.js` — the discovered-terms list and the page transition (Aug 2026).
+    The list must drop a term retired since it was read (it would open a popup onto nothing) and a deck's
+    own term (never part of what the meter counts); both filters are invisible until they are wrong. The
+    GHOST is the other half: the outgoing page is cloned into the document for a quarter of a second, so it
+    is asserted to carry **no `id`** (the new page's wiring could find the dead copy) and **no control
+    `name`** (a radio group is document-scoped outside a form, so the ghost's radios joined the new page's
+    and a click that had landed read back as never having happened — which is how it was found), to be out
+    of the accessibility tree and out of the way of a click, and to be gone a moment later. Plus: the Atlas
+    opts out in BOTH directions. **Re-run after touching `makePageGhost` / `.page-ghost` / `PAGES.glossary`
+    / `glossSeen`.**
+  · `node .claude/test-account-page.js` — the SIGNED-IN account page and the Edit dashboard's account
+    figures (Aug 2026). Neither is reachable without a session, so Supabase is a `page.route` stand-in —
+    deliberately, and for the same reason as `test-publish.js`'s mock: the publishable key in app.js points
+    at the REAL project. Like that mock it is a stand-in for the policies, never a proof they are right.
+    It asserts Change password beside Sign out inside the profile card with the sync line under the two of
+    them, that the glossary meter is a link on your own record, and that the dashboard's People panel fills
+    from the database and still says in prose what RLS will not let it count. **The mock sends
+    `Access-Control-Expose-Headers: Content-Range` on purpose** — that header is not CORS-safelisted, and a
+    mock that forgets it reports a connection failure that is really a CORS one. **Re-run after touching
+    `acctSelfView` / `adminRenderDashboard` / `dashLoadRemote` / `supaFetch`'s count parsing.**
   Playwright is a dev dependency and must NOT be installed into the repo (the zero-dependency rule, and
   `node_modules/` is gitignored) — install it in a scratch folder and run with
   `NODE_PATH=<that>/node_modules`. Set `FOLIO_CHROMIUM=<path to chrome>` if Chromium lives outside the

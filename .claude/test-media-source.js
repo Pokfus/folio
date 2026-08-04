@@ -75,6 +75,9 @@ const cardDelta = (page, id, key) => page.evaluate((a) => {
   /* ---------- 1. the curated card editor, on a card that ships no picture ---------- */
   await page.goto(base + "#admin", { waitUntil: "load" });
   await page.waitForTimeout(1400);
+  // the editor opens on the Dashboard tab now — ask for Cards, as a reader would
+  await page.evaluate(() => { const t = document.querySelector('.admin-tab[data-atab="cards"]'); if (t) t.click(); });
+  await page.waitForTimeout(600);
   await openCard(page, "wh-002");
   check("the card editor has one media panel", await page.locator("#cesMediaPanel").count() === 1);
   await page.locator("#cesMediaSlot").first().click();

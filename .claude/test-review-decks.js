@@ -122,22 +122,40 @@ const SETTINGS = {
     check("the bin at the end of each row is gone", home.trash === 0);
     check("the banner carries no big numeral", !home.badge);
     check("...and no line describing the counts under it", !/scheduled/i.test(home.desc), home.desc);
-    /* The numeral used to sit ABOVE the title on a phone and push it clear of the Ordered / Random toggle,
-       which is absolutely positioned at the group's top right. With the numeral gone the title moved up
-       into it — so this measures the TITLE'S TEXT (a Range, since the h2 spans the column whatever its
-       words do) against the toggle, at both widths, and checks it is still one line. */
+    /* The Ordered / Random pill used to be absolutely positioned at the group's top right, and the title
+       had to clear it — that is what this measured. The pill moved into the banner's own long-press sheet
+       (Aug 2026, on request), so what is left to guard is that the title still fits on one line and that
+       the setting really did move rather than simply disappearing. */
+    check("the Ordered / Random pill is gone from the banner",
+      await page.evaluate(() => !document.querySelector("#reviewOrder, .review-order")));
     for (const w of [390, 1280]) {
       await page.setViewportSize({ width: w, height: 900 });
       await page.waitForTimeout(500);
       const t = await page.evaluate(() => {
-        const h = document.querySelector(".review-title"), o = document.querySelector(".review-order");
-        const r = document.createRange(); r.selectNodeContents(h);
-        const tb = r.getBoundingClientRect(), ob = o.getBoundingClientRect(), hb = h.getBoundingClientRect();
-        return { clash: tb.right > ob.left, lines: Math.round(hb.height / parseFloat(getComputedStyle(h).fontSize)) };
+        const h = document.querySelector(".review-title");
+        const hb = h.getBoundingClientRect();
+        return { lines: Math.round(hb.height / parseFloat(getComputedStyle(h).fontSize)) };
       });
-      check("[" + w + "px] the review title clears the Ordered / Random toggle", !t.clash, JSON.stringify(t));
-      check("[" + w + "px] ...on one line", t.lines === 1, JSON.stringify(t));
+      check("[" + w + "px] the review title is on one line", t.lines === 1, JSON.stringify(t));
     }
+    /* …and the setting is where it went. contextmenu is the mouse's route into the same sheet a finger
+       reaches by holding, so it needs no timers here. */
+    await page.evaluate(() => document.querySelector("#b-review").dispatchEvent(new MouseEvent("contextmenu", { bubbles: true, cancelable: true })));
+    await page.waitForTimeout(350);
+    const rm = await page.evaluate(() => {
+      const ov = document.querySelector(".deck-menu");
+      return ov ? { items: [...ov.querySelectorAll(".dm-item")].map((b) => b.querySelector("b").textContent), on: [...ov.querySelectorAll(".dm-item.on b")].map((b) => b.textContent) } : null;
+    });
+    check("holding the banner offers Ordered / Random", rm && rm.items.join(",") === "Ordered,Random", JSON.stringify(rm));
+    check("...with the review's current order marked", rm && rm.on.join(",") === "Ordered", JSON.stringify(rm && rm.on));
+    await page.evaluate(() => document.querySelector('.deck-menu .dm-item[data-act="random"]').click());
+    await page.waitForTimeout(600);
+    check("...and choosing one writes it",
+      await page.evaluate(() => (JSON.parse(localStorage.getItem("folio_v1")).settings || {}).reviewRandom) === true);
+    // put it back — the rest of this file studies the review and reads the order the cards come in
+    await page.evaluate(() => { const st = JSON.parse(localStorage.getItem("folio_v1")); st.settings.reviewRandom = false; localStorage.setItem("folio_v1", JSON.stringify(st)); });
+    await page.reload({ waitUntil: "load" });
+    await page.waitForTimeout(900);
     await page.setViewportSize({ width: 1200, height: 900 });
     await page.waitForTimeout(400);
 
