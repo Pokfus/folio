@@ -1071,6 +1071,26 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   session ran that session's `showAnswer()` against a page that no longer existed. It mutated a detached tree,
   so nothing looked wrong and nothing was reported (found when the page ghost below stopped ids resolving in
   the dead copy). A page that wants keys re-attaches when its own render runs, which is after this.
+- **`touch-action:pan-y pinch-zoom` on `.page` is what makes EVERY horizontal swipe on the site possible**
+  (styles.css, Aug 2026, on a report that the book's chapter swipe did nothing on a phone). Without it none
+  of them worked on a real device — not the chapter swipe and not the page swipe, which had been broken
+  since the day it shipped. Under the default `auto` the browser hands the touch to its scroll machinery
+  the moment it passes the slop and fires **`pointercancel`** at the page: `pointerup` never arrives, and
+  both handlers measure the gesture at `pointerup`. `pan-y` says this box scrolls vertically and nothing
+  else, so a horizontal drag is nobody's scroll and the pointer stream survives; a vertical one still
+  scrolls and still cancels, which is correct. `pinch-zoom` keeps the reader able to zoom, which bare
+  `pan-y` takes away; the cost is double-tap-to-zoom, which the book already suppressed for its own double
+  tap. **Nested horizontal scrollers are unaffected** (measured, not assumed): the intersection deciding a
+  pan stops at the element that will scroll, so the chapter bar, the Atlas sheet's pager and the heatmap
+  still pan sideways, and every draggable declaring `touch-action:none` only narrows this further.
+  **It was invisible to the tests, and that is the part to keep in mind when writing more of them**: a
+  synthesised `PointerEvent` bypasses the browser's gesture arbitration entirely and completes every time,
+  so every swipe assertion passed throughout. `test-layout.js` and `test-library.js` now drive one swipe
+  each through **real CDP touch input** (`Input.dispatchTouchEvent`) beside the synthetic ones, which stay
+  — they are what pins the classification (distance, angle, tap-vs-swipe) precisely. Two gotchas from
+  writing them: a touch landing while an earlier fling is still running is spent stopping it, so a
+  scroller pan measured straight after a vertical drag reads as a few pixels; and the guards must be
+  asserted in both directions, since a false positive TAKES A PAGE AWAY.
 - **SWIPE BETWEEN PAGES ON A PHONE** (`wirePageSwipe` / `SWIPE_ORDER` / `.page-next`/`.page-prev`, Aug 2026,
   on request). A horizontal swipe moves between `home → decks → library → account → settings`, and the outgoing page
   leaves the way the finger came from, so the gesture and the transition tell the same story.
@@ -1179,6 +1199,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
       **clears the pending tap**, or the finger that stepped a chapter counts as half a language flip.
       The book page is deliberately absent from `SWIPE_ORDER`, so the site-wide page swipe is inert here
       and the two can never fight over one gesture.
+      **It did nothing on a real phone for its whole life, and the fix is CSS** (Aug 2026, on a report):
+      see the `touch-action` bullet under "How the app is wired" — the same fault, and the same one line,
+      covers the site-wide page swipe too. `test-library.js` now drives this one through real CDP touch
+      input beside the synthetic version, since the synthetic version passed throughout.
     · **The guards are the whole of it**, because a false positive swaps the language out from under a
       reader mid-sentence: a real target (link, `.ttip`, footnote marker, notes fold, any control) keeps
       its own behaviour, a live SELECTION is not a tap, nothing fires while a gloss popup or any other
@@ -1881,6 +1905,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     (once `wireFootnotes` has written the digit the marker is no longer `:empty`, so the two can't both print).
     A phone once showed a whole card of blank gaps mid-sentence over a fold that would not open, which is what
     an unwired surface looks like — and it looks like nothing, so nobody reports it as a wiring failure.
+  · **…and the ENTRY points back at the prose** (`srcNumHTML` / `jumpToMarker` / `markerForNumber` / `.src-n` /
+    `.src-back`, Aug 2026, on request). The jump down had worked since the apparatus shipped and the return had
+    no way in at all, because the entry's number was a **`::marker`** — which takes no `tabindex`, carries no
+    accessible name and swallows no click of its own. So `list-style` is off and the number is an ELEMENT that
+    both producers write (`sourceListHTML` and the book's `bookNotesHTML`), with the hanging indent coming from
+    a flex row rather than each variant's own padding arithmetic.
+    **Only a number some marker actually points at becomes a control.** `wireFootnotes` is the one pass that can
+    see both ends — it has just numbered the markers and dropped the over-range ones — so it collects the numbers
+    that survived and promotes those entries, leaving an uncited one a plain number. That is the dead-header
+    lesson one level along: a surface that never gets the pass shows **no control** rather than a dead one, which
+    is exactly the Atlas panel, whose prose carries no markers and which never calls `wireFootnotes`.
+    **It returns to the marker the reader LEFT FROM**, recorded on the entry by `jumpToFootnote` as `_fnFrom`:
+    a note may be cited several times over — Seneca's letter 114 cites one note four times — and coming back to
+    the first citation when the reader jumped from the fourth lands them in the wrong sentence. Falling back to
+    the first is the only other honest answer, and `markerForNumber` climbs the way `noteForNode` does, stopping
+    at `<body>`, so a book's notes can never send the reader into a gloss popup open over them. Both ends reuse
+    `scrollNoteIntoView` (it clears the same furniture either way) and the same `.src-flash`, so the reader is
+    told which one at both ends. Guarded by `test-sources.js` and `test-library.js`.
   · **The fold header and the markers are DELEGATED** (one capture-phase document listener each for click and
     Enter/Space, beside `wireFootnotes`), never wired per render — the `.card-img` pattern. Everything a click
     needs is derivable from the DOM at click time, and a per-render listener is one render path away from a

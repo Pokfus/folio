@@ -247,7 +247,21 @@ html[dir="rtl"] .page-head{text-align:right;}
    PAGE SHELL + TRANSITIONS
    ============================================================ */
 .stage{max-width:880px; margin:0 auto; padding:clamp(22px,4vw,42px) clamp(16px,4vw,40px) 90px; position:relative;}
-.page{animation:pageIn .42s var(--ease) both;}
+/* touch-action is what makes every horizontal SWIPE on the site possible, and without it none of them
+   worked on a real phone (Aug 2026, on a report that the book's chapter swipe did nothing — the page swipe
+   between home/collections/library/account/settings was broken in exactly the same way and had been since
+   it shipped). Under the default `auto` the browser hands a touch to its scroll machinery the moment it
+   passes the slop and fires POINTERCANCEL at the page: pointerup never arrives, so a handler that measures
+   the gesture at pointerup can never see one. It is invisible to the tests because a synthesised
+   PointerEvent bypasses that arbitration entirely and completes every time.
+   `pan-y` says this box scrolls vertically and nothing else, so a horizontal drag is no longer anyone's
+   scroll and the pointer stream survives to pointerup; a vertical one still scrolls and still cancels,
+   which is correct — that is a scroll and not a swipe. `pinch-zoom` keeps the reader able to zoom, which
+   bare `pan-y` would take away. It costs double-tap-to-zoom, which the book already suppresses for its own
+   double tap. Nested horizontal scrollers are UNAFFECTED (measured): the intersection that decides a pan
+   stops at the element that will scroll, so the chapter bar, the Atlas sheet's pager and the heatmap still
+   pan sideways, and every draggable that declares touch-action:none only ever narrows this further. */
+.page{animation:pageIn .42s var(--ease) both; touch-action:pan-y pinch-zoom;}
 @keyframes pageIn{from{opacity:0; transform:translateY(10px) scale(.995);} to{opacity:1; transform:none;}}
 /* The outgoing page (see makePageGhost in app.js): a CLONE of it, laid over the stage to fade while the new
    one renders underneath — render() is synchronous and cannot wait for an exit animation, so the exit
@@ -2472,18 +2486,40 @@ body.grading .wb-tools{bottom:108px;}
 .src-collapse{overflow:hidden; display:grid; grid-template-rows:1fr; transition:grid-template-rows .38s var(--ease);}
 .src-collapse.collapsed{grid-template-rows:0fr;}
 .src-collapse-inner{min-height:0; min-width:0;}   /* see .reveal-inner */
-.src-list{margin:10px 0 0; padding:0 0 0 1.5em; list-style:decimal;}
+/* The number is an ELEMENT rather than a ::marker, because the jump runs both ways and a ::marker can
+   never be a control (see srcNumHTML): no tabindex, no accessible name, and a click on it lands on the
+   <li>. So list-style goes off and the hanging indent is a flex row instead, which also spares every
+   variant below its own padding arithmetic. */
+.src-list{margin:10px 0 0; padding:0; list-style:none;}
 /* `anywhere`, NOT `break-word`: both break a long URL once the box is sized, but only `anywhere` counts the
    break opportunity towards the box's MIN-CONTENT width. Under `break-word` a citation ending in a long DOI
    still reported the whole URL as its minimum, which on a phone widened every ancestor up to .reveal-inner. */
 .src-item{
+  display:flex; gap:.55em;
   font-family:var(--sans); font-size:calc(12.5px * var(--fs)); line-height:1.5; color:var(--ink-faint);
   margin:0 0 6px; padding:2px 5px; border-radius:4px; overflow-wrap:anywhere;
 }
-.src-item::marker{font-family:var(--mono); font-size:calc(11px * var(--fs));}
+.src-text{min-width:0; flex:1;}   /* or `anywhere` has nothing to shrink and the DOI widens the row again */
+/* Resting, it reads exactly as the decimal marker it replaced. Where a marker in the prose points at it,
+   wireFootnotes adds .src-back and it takes the vermilion of the markers themselves — the same number in
+   the same colour at both ends of the jump, which is what says the two are one thing. */
+.src-n{
+  flex:none; min-width:1.4em; text-align:right; font-family:var(--mono);
+  font-size:calc(11px * var(--fs)); color:var(--ink-faint); user-select:none;
+}
+.src-n.src-back{
+  color:var(--zh); cursor:pointer; font-weight:600; border-radius:3px;
+  transition:background .15s var(--ease), color .15s var(--ease);
+}
+.src-n.src-back:hover{background:color-mix(in srgb,var(--zh) 18%,transparent); color:var(--ink);}
+.src-n.src-back:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:1px;}
 .src-item a{color:var(--indigo-bright); text-decoration:none; border-bottom:1px solid rgba(78,76,176,.32);}
 /* a marker click lands here — the flash says WHICH entry, since the list is opening at the same moment */
 .src-flash{animation:srcFlash 1.5s var(--ease) 1;}
+/* …and the same flash the other way round, on the marker a note's number sends the reader back to. The
+   marker is two characters of superscript, so it is given a little room to be seen in — without the
+   padding the highlight is narrower than the digit it is meant to point out. */
+sup.fn.src-flash{padding:0 3px;}
 @keyframes srcFlash{
   0%{background:color-mix(in srgb,var(--ochre) 26%,transparent); color:var(--ink);}
   70%{background:color-mix(in srgb,var(--ochre) 18%,transparent); color:var(--ink);}
@@ -2527,10 +2563,11 @@ sup.fn:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:1px;
 /* the gloss-popup variant: narrower column, so everything steps down a size */
 .src-compact{margin:14px 0 0; padding-top:9px; clear:both;}
 .src-compact .src-label{font-size:calc(9px * var(--fs)); letter-spacing:.1em;}
-.src-compact .src-list{margin-top:7px; padding-left:1.35em;}
+.src-compact .src-list{margin-top:7px;}
 .src-compact .src-item{font-size:calc(11.5px * var(--fs)); line-height:1.45; margin-bottom:5px;}
+.src-compact .src-n{font-size:calc(10px * var(--fs));}
 /* the Atlas panel owns its own fold (.cp-sec), so only the list itself lands there */
-.cp-src .src-list{margin:0; padding-left:1.4em;}
+.cp-src .src-list{margin:0;}
 .cp-src .src-item{font-size:calc(11.5px * var(--fs)); line-height:1.5; color:var(--ink-faint);}
 .cp-sec[hidden]{display:none;}
 /* the editors' sources box — a plain textarea, one citation per line */

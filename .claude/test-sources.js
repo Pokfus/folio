@@ -135,6 +135,13 @@ async function closeGloss(page) {
     [...document.querySelectorAll(".gloss-win .src-item")].findIndex((i) => i.classList.contains("src-flash")) === 1));
   check("the entry keeps the citation's own markup",
     (await page.locator(".gloss-win .src-item").nth(1).innerHTML()).includes("<i>The Second Work</i>"));
+  /* The popup's entries carry the same two-way number, and this is the surface worth asserting the
+     NEGATIVE on: the seeded markers point at 2 and 3 and nothing points at 1, so entry 1 must keep a
+     plain number. A back-link on it would offer a jump to a marker that is not on the page. */
+  const gnums = await page.evaluate(() => [...document.querySelectorAll(".gloss-win .src-item .src-n")]
+    .map((n) => n.textContent + (n.classList.contains("src-back") ? "*" : "")));
+  check("the popup numbers its citations too, and only the cited ones are back-links",
+    gnums.join(",") === "1,2*,3*", gnums.join(","));
   // the whole point of requiring a link: the reader can check the claim and follow it further
   const links = await page.evaluate(() => [...document.querySelectorAll(".gloss-win .src-item a")].map((a) => ({
     href: a.getAttribute("href"), text: a.textContent, target: a.target, rel: a.rel })));
@@ -223,6 +230,40 @@ async function closeGloss(page) {
     check("a card marker opens the card's fold on the right entry", await page.evaluate(() =>
       !document.querySelector(".reveal .src-collapse").classList.contains("collapsed") &&
       [...document.querySelectorAll(".reveal .src-item")].findIndex((i) => i.classList.contains("src-flash")) === 1));
+
+    /* …and BACK (Aug 2026, on request). The jump down has always worked; the return had no way in at
+       all, since the number was a ::marker — which cannot take a tabindex, cannot carry a name, and
+       swallows no click of its own. The number is an element now, and only an entry a marker actually
+       points at becomes a control: an uncited entry offering a jump to nowhere is the dead-header
+       failure this whole block exists to prevent, one level along. */
+    const back = await page.evaluate(() => {
+      const items = [...document.querySelectorAll(".reveal .src-item")];
+      const nums = items.map((i) => i.querySelector(".src-n"));
+      return {
+        numbered: nums.every(Boolean) && nums.map((n) => n.textContent).join(",") === items.map((_, i) => i + 1).join(","),
+        // the seeded card cites entry 2 and nothing else, so exactly one number may be a control
+        backs: nums.filter((n) => n && n.classList.contains("src-back")).map((n) => n.textContent).join(","),
+        role: nums[1] && nums[1].getAttribute("role"),
+        tab: nums[1] && nums[1].getAttribute("tabindex"),
+        label: nums[1] && nums[1].getAttribute("aria-label"),
+      };
+    });
+    check("every entry shows its own number", back.numbered, JSON.stringify(back));
+    check("...only the cited one is a back-link", back.backs === "2", JSON.stringify(back));
+    check("...reachable by keyboard and named for a screen reader",
+      back.role === "button" && back.tab === "0" && /back to source 2/i.test(back.label || ""), JSON.stringify(back));
+    // scroll the marker out of view first, so "came back" means the page actually moved
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await page.waitForTimeout(200);
+    await page.locator(".reveal .src-item").nth(1).locator(".src-n").click();
+    await page.waitForTimeout(700);
+    const returned = await page.evaluate(() => {
+      const m = document.querySelector(".abstract sup.fn");
+      const r = m.getBoundingClientRect();
+      return { visible: r.top >= 0 && r.bottom <= innerHeight, flashed: m.classList.contains("src-flash") };
+    });
+    check("clicking an entry's number carries the reader back to the marker", returned.visible, JSON.stringify(returned));
+    check("...flashing it, so which of them is obvious", returned.flashed, JSON.stringify(returned));
 
     /* The apparatus must survive a surface that was never wired. A reader hit exactly this: blank gaps
        where the numbers belong, over a "Sources" header that did nothing however often it was tapped —

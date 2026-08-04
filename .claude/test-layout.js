@@ -1390,6 +1390,35 @@ async function studyEasy(page, base, n) {
     await swipe(120);
     await swipe(120);
     check("...and the ends are ends, not a carousel", (await where()) === "#", await where());
+    /* …and the same gesture as a REAL touch, which is the assertion that was missing (Aug 2026, on a
+       report that the book's chapter swipe did nothing on a phone — this one was broken in exactly the
+       same way and had been since it shipped). Everything above dispatches PointerEvents by hand, which
+       bypasses the browser's own gesture arbitration: under the default touch-action a real finger has
+       the drag claimed for scrolling the moment it passes the slop, POINTERCANCEL is fired, pointerup
+       never arrives, and a handler that measures the gesture at pointerup can never see one. `.page`
+       carries `touch-action:pan-y pinch-zoom` for it, which no JS can substitute — so it is asserted
+       through CDP touch input, and paired with the vertical drag that must still scroll. */
+    await page.goto(base + "#home", { waitUntil: "load" });
+    await page.waitForTimeout(1500);
+    const cdp = await page.context().newCDPSession(page);
+    const realSwipe = async (x0, y0, dx, dy) => {
+      await cdp.send("Input.dispatchTouchEvent", { type: "touchStart", touchPoints: [{ x: x0, y: y0, id: 1 }] });
+      for (let i = 1; i <= 6; i++) {
+        await page.waitForTimeout(25);
+        await cdp.send("Input.dispatchTouchEvent", { type: "touchMove", touchPoints: [{ x: x0 + dx * i / 6, y: y0 + (dy || 0) * i / 6, id: 1 }] });
+      }
+      await cdp.send("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] });
+      await page.waitForTimeout(700);
+    };
+    await realSwipe(320, 500, -170);
+    check("a REAL touch swipe moves page, not just a synthesised one", (await where()) === "#decks", await where());
+    await realSwipe(80, 500, 170);
+    check("...and back the other way", /^#(home)?$/.test(await where()), await where());
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await realSwipe(200, 620, 0, -280);
+    check("...while a vertical drag still scrolls the page rather than navigating",
+      (await where()) === "#home" || (await where()) === "#", await where());
+    await cdp.detach();
     // the Atlas is out of the order in BOTH directions — a drag there turns the globe
     await atlas(page, base);
     await swipe(-140);
