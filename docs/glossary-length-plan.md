@@ -86,7 +86,7 @@ its neighbour) actually has neighbours to compare against. The first tag in `GLO
 | **L2** | `place`, F–L (countries) | 44 | 44 over | **SHIPPED 2026-08-04.** All 44 now 103–110 words, mean 108.0. See the log below. |
 | **L3** | `place`, M–R (countries) | 43 | 43 over | **SHIPPED 2026-08-04.** All 43 now 100–110 words, mean 107.5. See the log below. |
 | **L4** | `place`, S–Z (countries) | 54 | 54 over | **SHIPPED 2026-08-04.** All 54 now 102–110 words, mean 107.2. **Completes every country term in the glossary — 197 of them.** See the log below. |
-| **L5** | `place`, sites, regions and continents | ~40 | ~38 | Everything under `place` that is not a country: caves, gorges and type sites, the continents and oceans, and the odd river (`Awash_River`, which L1's filter turned up). Less formulaic; expect real judgement per term. |
+| **L5** | `place`, sites, regions and continents | 55 | 55 over | **SHIPPED 2026-08-04.** All 55 now 103–110 words, mean 107.9. **Completes every `place` term — 266 of them, 0 outside the bar.** See the log below. |
 | **L6** | `person` | 54 | 28 | Half are already close — the 45 US presidents were written to one template. Cheapest batch per term. |
 | **L7** | `era` + `industry` | 44 | 36 | Do these two together: they share dates, and the sibling check across them is the one that caught the Palaeolithic end-date twice before. |
 | **L8** | `hominin` + `fossil` + `animal` | 40 | 35 | Taxa. Watch the citations: a trimmed sentence must still be the one the marker points at. |
@@ -324,12 +324,88 @@ continental biota and its calypso and steelpan, `Turkmenistan`'s Karakum canal, 
 `Ukraine`'s Carpathians and Crimea, `United_Arab_Emirates`' humidity, `United_Kingdom`'s Welsh uplands and
 Pennines, `Uzbekistan`'s Fergana valley, `Yemen`'s Socotra and Rub' al Khali, and `Zambia`'s Kariba dam.
 
+### L5 — 55 non-country `place` terms: sites, regions, continents and oceans (2026-08-04)
+
+**All 55 were over the bar; all 55 now sit at 103–110 words, mean 107.9.** The glossary moved from 258 to
+**313 terms inside the bar** and its mean from 119.7 to 115.9 words. **`place` is now 266 of 266, 0 outside
+the bar** — the whole kind is finished, and with it the largest tag in the glossary. Scope was the 23 caves
+and type sites, the 11 gorges, lakes, rivers, hills and cities, the 10 continents and oceans, and the 12
+regions.
+
+**L5's finding is the one that explains why these terms had spare words at all: THE DATE LINE WAS IN THE
+PROSE TWICE.** 29 of the 55 carry a `GLOSSARY_DATES` entry, which the popup prints directly above the
+description — `Dmanisi` "c. 1.85 – 1.77 Mya", `Jebel_Irhoud` "c. 315,000 BP", `Lascaux` "occupation
+c. 21,500 – 21,000 BP", `Skhul_Cave` "main occupation c. 130,000 – 100,000 BP", `Zhoukoudian`
+"c. 750,000 – 33,500 BP" — and the description then stated the same span again in words. **Where the date
+line carries the figure, cutting it from the prose loses the reader nothing**, and this was worth ten to
+fifteen words on a type-site term. The check that found it was running the figure diff and the date table
+side by side: eight headline dates had been trimmed out and were queued for restoration before the table
+showed every one of them already on screen. **Read `GLOSSARY_DATES` before deciding a dropped date is a
+loss** — it is the first thing to do on any batch of dated terms, and L7 (`era` + `industry`) and L8 (the
+taxa) are the next two where it will pay.
+
+**Second: the site term's equivalent of the border list is EXCAVATION ADMINISTRATION.** L1 named the border
+list, L3 the island distance locator; here it is who dug, when they started, how many seasons and how deep,
+and it is worth 15–25 words a term. `Skhul_Cave` gave 43 words to McCown's two seasons and Garrod's seven;
+`Klasies_River_Caves` opened on "dug by successive teams since 1967"; `Madjedbebe` on "dug four times since
+1973"; `Pinnacle_Point` on "dug since 2000". **This is also the one padding class the house rules already
+told us to cut** — `docs/history-focus-plan.md` says Folio is a history site and not an archaeology site,
+and at most two of ten sentences may be discovery history. On a three-sentence term the budget is
+proportionally tighter still. Cutting it is not a trim against the rules but the rules being applied. The
+micro-locator is the third class and behaves exactly like the island distance ("about 85 km south-west of
+Tbilisi", "about 100 kilometres west of Marrakesh", "about 50 kilometres from the centre" of Beijing,
+"about 197 km east of Moscow"): eleven terms carried one, all eleven lost it.
+
+**The marked-sentence diff fired four times and every one proved benign** — the first batch where that is
+true, and worth saying, because L2's `Ireland` failure has made it the check that stops a batch. All four
+were an excavation date leaving a sentence that still carried location and subject, and in each the marker's
+work still stood: `Klasies_River_Caves` [1,2] lost 1967, `Madjedbebe` [1] lost 1973, `Pinnacle_Point` [1]
+lost 2000 while keeping the 1997 discovery its citation is actually for, and `Antarctica` [5] lost "in force
+since 1961" while keeping the 1959 signing. **The rule is not that a marked sentence must keep every year;
+it is that the marker must still point at something the source carries** — check the citation, not the
+count. Three OTHER stranded markers were caught mid-draft and restored (`Liang_Bua`'s 2025 study,
+`Lake_Turkana`'s 1997 World Heritage listing, `Greenland`'s 1985 EEC exit), so the check earned its place
+three times over before these four false alarms.
+
+**A limitation of the checker, found by losing a claim it could not see.** `check.js`'s marked-sentence year
+diff matches `\b1\d{3}\b|\b20\d{2}\b`, so it reads calendar years and is **blind to BP, kya and Mya dates** —
+which on a batch of prehistoric sites is most of the dates there are. `Fertile_Crescent` lost "between about
+12,000 and 11,000 years ago" out of a marked sentence and the checker said nothing; it was caught by eye.
+**On a deep-time batch, diff the deep dates by hand**, or extend the pattern before starting.
+
+**Fourth: the hedge grep caught eight, up from three in L4, and they split into two kinds.** Six were the
+hedge leaving with the clause it hedged (an "about" on a dropped locator) and are not losses at all. **Two
+were L2's Grenada failure**: `Madjedbebe`'s occupation "**5,000 to 15,000 years** earlier than the oldest
+dates from any other Australian site" had become "thousands of years earlier", which understates a
+quantified claim as badly as L4's *much of* → *most* overstated one; and `Africa`'s "regained independence
+across **almost all** of its territory" had become "independent again", asserting a completeness the source
+hedges. Both restored, along with four smaller weakenings — `Monte_Verde`'s 2026 paper arguing the deposit
+"thousands of years younger" (which had become simply "younger"), `Americas`' "spread **widely** through both
+continents", `Arctic`'s Arctic Ocean "**largely** ringed" by three continents (it opens to the Atlantic), and
+`Near_East`/`Fennoscandia`'s "**generally** calls" and "now **generally** called".
+
+**No figure was added and 102 distinct figures were dropped**, checked mechanically as in L1–L4 — much the
+largest count of the pass, and almost all of it the three padding classes above plus their imperial
+conversions. **Nine are substantive and are named rather than glossed over**: `Dolní_Věstonice` lost the
+500–800 °C firing temperature of its ceramics and the ages of the three in the triple burial,
+`Denisova_Cave` the 250,000–170,000-year span of its Denisovan layers, `Antarctica` the 0.2% of rock left
+exposed and the under-50 mm of annual precipitation behind its desert status, `Arctic` the 10 °C July
+isotherm as an alternative definition, `Asia` the 60% of humanity, `Border_Cave` the 74,000-year date of its
+infant burial, `Sungir` the ages of the two children and the lengths of the ivory spears, and
+`Klasies_River_Caves` the 21 m depth of its deposit and the "almost 70,000 years" its record covers. The
+substantive PROSE losses: `Cosquer_Cave`'s 150 m entry tunnel, `Skhul_Cave`'s Garrod seasons and the
+alternative name Nahal Me'arot, `Arctic`'s "most of the world's permafrost lies here", `South_America`'s
+Atacama weather stations that have never recorded rain, `Wonderwerk_Cave`'s Kuruman Hills, `Zhoukoudian`'s
+1930s excavation of the Upper Cave, and `Monte_Verde`'s excavators answering the 2026 paper within weeks.
+
 ### Status
 
-**L0, L1, L2, L3 and L4 have shipped** (2026-08-04). The glossary stands at **258 of 477 terms inside the
-bar**, mean 119.7 words, and **every country term is done**. **L5 is next** — the 55 non-country `place`
-terms: caves, gorges and type sites, the continents and oceans, the regions and the odd river. It is the
-first batch with no recipe: there is no border list and no distance locator to cut, the terms are the
-longest left in the glossary (`Dolní_Věstonice` 184, `Madjedbebe` 179, `Africa` 172), and several are the
-type sites whose citations the card pass fought hardest for, so **the marked-sentence diff matters more here
-than anywhere**. Re-run `gloss-length.js` before and after every batch and record the movement here.
+**L0 and L1–L5 have shipped** (2026-08-04). The glossary stands at **313 of 477 terms inside the bar**, mean
+115.9 words, and **the whole `place` kind is done — 266 terms, 0 outside the bar**, which is the formulaic
+half of the pass finished and the largest tag in the glossary closed. **L6 is next** — the 54 `person`
+terms, of which only 28 are over the bar and 45 are the US presidents written to one template, so it is the
+cheapest batch per term in the plan and the natural one to take next. Two things L5 leaves it: **read
+`GLOSSARY_DATES` before treating a dropped date as a loss** (a presidential term's dates are on the line
+above the prose, exactly as a type site's are), and **the biography's padding class is the office list**,
+the `person` equivalent of the border list — expect it to be worth much the same 10–15 words. Re-run
+`gloss-length.js` before and after every batch and record the movement here.

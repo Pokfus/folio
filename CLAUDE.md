@@ -571,13 +571,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   first. Not part of the site.
 - `docs/glossary-length-plan.md` — **every glossary description at 100 words (±10%)**, on request (Aug 2026): the
   bar, the measured baseline, the eleven batches, the per-term workflow and the batch log. **L0 (the tooling)
-  and L1–L4 have shipped, which completes EVERY COUNTRY TERM — all 197 of them** (A–E, F–L, M–R, S–Z) —
+  and L1–L5 have shipped, which completes THE WHOLE `place` KIND — all 266 of them, 0 outside the bar**: the
+  197 countries (A–E, F–L, M–R, S–Z) and then L5's 55 caves, type sites, continents, oceans and regions —
   `node .claude/gloss-length.js` is
-  the measure, with `--over` / `--under` / `--tag=<kind>` / `--list`. Where it stands today: **258 of 477 terms
-  are inside the bar**, 209 are
-  over and 10 under, mean 119.7 words, and the work is overwhelmingly TRIMMING. **L5 is the first batch with
-  no recipe** — the 55 non-country places (caves, type sites, continents, oceans, regions), which are the
-  longest terms left and carry the card pass's hardest-won citations. Three things the bar does not
+  the measure, with `--over` / `--under` / `--tag=<kind>` / `--list`. Where it stands today: **313 of 477 terms
+  are inside the bar**, 154 are
+  over and 10 under, mean 115.9 words, and the work is overwhelmingly TRIMMING. **L6 is next** — the 54
+  `person` terms, only 28 of them over the bar and 45 of them US presidents written to one template, so the
+  cheapest batch per term in the plan. Three things the bar does not
   change and which the pass must not quietly relax: still exactly three sentences, still impartial and
   self-contained, and **still no claim past what the citations carry** — a term padded to length is the one way
   this pass can do real damage. Two rules L1 established and the later batches should just apply:
@@ -606,7 +607,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   figure it added a correction — `Vatican_City` gave its area as "0.44 km² **(0 sq mi)**", a conversion rounded
   to nothing, which the units sweep could not see because it looked for MISSING conversions rather than useless
   ones. **A metric figure below one imperial unit needs two significant figures in its bracket**; the whole
-  glossary was swept and it was the only one. Two more checks L2 made standing, both
+  glossary was swept and it was the only one. **L5 dropped 102 and added none, nine substantive**, and its
+  finding is the one to reach for on any batch of DATED terms: **the date line was in the prose twice.** 29 of
+  its 55 carry a `GLOSSARY_DATES` entry, which the popup prints directly above the description, and the prose
+  then restated the same span in words — so **read `GLOSSARY_DATES` before deciding a dropped date is a loss**
+  (eight headline dates were queued for restoration before the table showed every one already on screen).
+  L7 and L8 are the next two batches where that pays. **L5 also names the SITE term's padding class:
+  excavation administration** — who dug, when, how many seasons, how deep — worth 15–25 words, and the one
+  class the house rules already told us to cut, `docs/history-focus-plan.md` saying Folio is a history site
+  and not an archaeology site. The `person` equivalent L6 should expect is the office list. Two more checks
+  L2 made standing, both
   for failures that are invisible in the
   finished prose. **Diff every MARKED sentence's YEARS before against after** — a trim can strand a marker, and
   `add-sources.js` cannot see it, since every source is still referenced and no marker runs past the end of the
@@ -620,7 +630,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   the shape to watch: a QUANTIFIER in front of a superlative or a fraction**, which reads as filler to someone
   cutting words and is in fact the whole claim — "**some of the** fiercest fighting" says *among the worst*
   where "fiercest fighting" says *the worst*, and `Somalia`'s "the way of life for **much of** the population"
-  had become "for most people", turning a large fraction into over half. Not part of the site.
+  had become "for most people", turning a large fraction into over half. **L5 caught eight, of which six were
+  the hedge leaving with the clause it hedged and two were the real thing** — `Madjedbebe`'s "5,000 to 15,000
+  years earlier" flattened to "thousands of years earlier", and `Africa`'s "regained independence across
+  **almost all** of its territory" to "independent again". **L5 also refines the MARKER check in both
+  directions.** It fired four times and all four were benign, every one an excavation date leaving a sentence
+  that still carried what its citation is for — so the rule is not that a marked sentence must keep every year
+  but that **the marker must still point at something the source carries**: check the citation, not the count.
+  And the checker has a blind spot worth knowing before a deep-time batch — a year regex matching
+  `1\d{3}`/`20\d{2}` **cannot see BP, kya or Mya dates**, which on prehistoric terms is most of the dates
+  there are (`Fertile_Crescent` lost "between about 12,000 and 11,000 years ago" out of a marked sentence in
+  silence, caught by eye). Not part of the site.
 - `docs/units-plan.md` — **metric first, imperial in parentheses**: the rule, the one imperial-first figure in the whole
   corpus (fixed), and the 360 metric figures still to gain their equivalents. Not part of the site.
 - `docs/user-decks-plan.md` — the design plan for **community decks** (user-created decks, sharing,
