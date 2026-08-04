@@ -90,7 +90,7 @@ its neighbour) actually has neighbours to compare against. The first tag in `GLO
 | **L6** | `person` | 54 | 26 over, 2 under | **SHIPPED 2026-08-04.** All 28 now 97–110 words, mean 103. **Completes every `person` term — 54, 0 outside the bar.** The pass's first two GROW cases. See the log below. |
 | **L7** | `era` + `industry` | 44 | 31 over, 5 under | **SHIPPED 2026-08-04.** All 36 now 96–110 words, `era` mean 106 and `industry` 106. **Completes both kinds — 44 terms, 0 outside the bar.** Five grows, the most of any batch. See the log below. |
 | **L8** | `hominin` + `fossil` + `animal` | 40 | 33 over, 2 under | **SHIPPED 2026-08-04.** All 35 now 105–110 words; `hominin` mean 108, `fossil` 107, `animal` 104. **Completes all three kinds — 40 terms, 0 outside the bar.** Fixed a `split-abstract.js` gap on abbreviated binomials. See the log below. |
-| **L9** | `object` + `culture` + `people` + `building` + `event` + `practice` | 45 | 40 | The tail, and the longest terms in the glossary (`Spear-thrower` at 195, `Dolní Věstonice` at 184). |
+| **L9** | `object` + `culture` + `people` + `building` + `event` + `practice` | 45 | 40 over | **SHIPPED 2026-08-04.** All 40 now 97–110 words; `object` mean 108, `culture` 109, `people` 108, `building` 108, `event` 110, `practice` 106. **Completes all six kinds — 45 terms, 0 outside the bar.** Its lever was near-verbatim duplication between sibling terms. See the log below. |
 | **L10** | `concept` + the 10 short definitional terms | ~34 | 21 over, 10 under | **Last on purpose.** These are the GROW cases and the hardest; by L10 the register holds everything the other nine batches read, which is where the honest extra sentences will come from. |
 | **L-audit** | the whole glossary | 477 | — | Re-measure. Report what is still outside 90–110 and why, term by term. |
 
@@ -668,17 +668,95 @@ chimpanzee lineages are **thought** to have separated" (which had become a flat 
 `Homo_luzonensis`'s "on **what seems to have been** a very small body", `Homo_habilis`'s "**comparatively**
 long arms", and `Homo_floresiensis`'s "known to **almost** everyone as the hobbit".
 
+### L9 — 22 `object`, 5 `culture`, 6 `people`, 2 `building`, 4 `event` and 6 `practice` terms (2026-08-04)
+
+**40 were over the bar and all 40 now sit at 97–110 words**: `object` at a mean of 108, `culture` 109,
+`people` 108, `building` 108, `event` 110, `practice` 106. The glossary moved from 412 to **452 terms
+inside the bar** (95%) and its mean from 111.2 to 107.9 words. **All six kinds are 0 outside the bar.**
+This was the longest batch in the pass by a wide margin — it held the corpus maximum (`Spear-thrower` at
+195) and seven terms over 170 — and it is the last one that is purely trimming.
+
+**Its lever was one no earlier batch had, and it is worth looking for first: NEAR-VERBATIM DUPLICATION
+BETWEEN SIBLING TERMS.** L8 found the sibling PAIR — two terms describing the same find, where one of the
+two owns a shared fact. L9 found the same relation at the level of the SENTENCE, and measurably: counting
+shared eight-word runs across the batch turned up **17 between `Chert` and `Flint` and 11 between
+`Gunflint` and `Musket`**, whole clauses repeated word for word ("presumed to be due to their predictable
+fracturing properties", "gunpowder held in a shallow pan on the side of the lock"). Four terms were
+carrying the same two sources — Namen et al. on knapping stone and Skertchly's 1879 Geological Survey
+memoir on the gun-flint trade — and had each been written from them independently. The fix was to decide
+what each term OWNS: `Chert` the mineralogy and why such rocks were chosen, `Flint` the chalk it is dug
+from and its working quality, `Gunflint` the flintlock mechanism and the Brandon workshops with the
+Survey's "continuously carried on from … Neolithic times" quotation, `Musket` the loading drill. The
+measurement afterwards is the point: **17 → 2 and 11 → 0**, the two survivors being a nine-word phrase of
+the source's own wording for isotropy and the geographic formula `Tlingit` and `Haida` must both open on.
+**Grep the batch's own terms against each other for long shared runs before drafting** — it is two minutes,
+it finds words that can be cut with no loss at all, and nothing else in the workflow can see it.
+
+**The second finding is that the padding class here is the MECHANISM DESCRIBED TWICE.** On an `object`
+term the temptation is to explain how the thing works and then explain what that means: `Bow_and_arrow`
+had both "the archer bends a springy stave, the wood holds the energy, and releasing the string drives
+much of it into a light shaft" and "a different trick from throwing, where the speed of the projectile
+can never exceed what the arm itself can generate"; `Spear-thrower` had both "the hunter grips it near
+the far end, lays the spear along it and whips the whole assembly forward" and "so the hook travels
+through a far longer arc than the hand alone could describe". One clause does both jobs. That is where
+most of the 70–90 words came from on the longest terms, and it costs nothing, because the second
+statement was never carrying a claim of its own.
+
+**The date-line rule paid for the fourth batch running, and on a new kind.** 23 of the 45 carry a
+`GLOSSARY_DATES` entry printed directly above the description, and the prose restated it on ten:
+`Minoan_civilisation` ("running from about 3100 to 1050 BCE" over a date line reading `c. 3100 – 1050
+BCE`), `Minoan_palace`, `Lion-man`, `8.2-kiloyear_event`, `Clovis_culture`, `Venus_of_Hohle_Fels`,
+`Venus_figurines`, `Cro-Magnon`, `Neanderthal_extinction` and `Divje_Babe_flute`. **But `Minoan_palace`
+is the case that qualifies it**: cutting "from about 1900 BCE" stranded its second marker, Rutter's
+Chronology Overview, which is in that term's list precisely for the date. The rule is therefore **cut the
+restated span unless a marker is standing on it** — check the source list, not just the date line.
+
+**The sibling-consistency check was run first over the 23 date lines and came back clean**, which after
+L7's real contradiction is worth recording: `Clovis_culture` and `Clovis_point` agree exactly (13,050 –
+12,750 BP), `Minoan_palace` (1900 – 1470 BCE) sits inside `Minoan_civilisation` (3100 – 1050) and
+`Throne_Room_at_Knossos` (after c. 1470) falls just after it, and `Venus_of_Hohle_Fels` ("at least 35,000
+BP") sits outside `Venus_figurines`' "mostly 30,000 – 23,000" but is covered by that line's own hedge.
+
+**Zero figures added and 43 dropped**, most of them restated date-line spans. **Six substantive losses are
+named**: `Cycladic_civilisation` lost the individual phase dates (2650, 2400, 2000 BCE — the phase NAMES
+survive and the outer span is on the date line), `Quaternary_extinction_event` the North American and
+Eurasian points of its extinction gradient (Africa and Australia remain, which is what makes it a
+gradient), `Settlement_of_the_Americas` the "by about 16,000 years ago people were certainly living far
+beyond the ice" (the White Sands claim in the next sentence covers the same ground), `Venus_of_Hohle_Fels`
+that the figure "was carried about" (the cord survives), `Mal'ta-Buret'_culture` the boy's 120-bead
+necklace and the zigzag bone plaques, and `Control_of_fire` "carrying it about" from the second of its
+three achievements.
+
+**The marked-sentence year diff fired eighteen times and found one real stranding** — `Minoan_palace`,
+above — every other case being a date line doing its job. **The hedge grep caught four on surviving
+claims**: `Control_of_fire`'s "the oldest **widely** accepted traces are **about** a million years old"
+had lost both hedges at once, turning a contested threshold into a flat one; `Bow_and_arrow`'s "the oldest
+complete bows are only **about** 10,000 years old"; and `Spear-thrower`'s "read as use **some** 31,000
+years ago". All four are the same shape and it is the shape to watch on a batch of deep dates: **a trim
+takes the hedge off a figure because the hedge reads as filler in front of a number, and a hedged
+prehistoric date is the only honest kind.**
+
+**One marker set was deliberately changed rather than paid for.** `Settlement_of_the_Americas` carried
+markers [2,3] on its Beringia sentence, where source 3 (Waters, "The Age of Clovis") was there for a
+16,000-year clause the trim removed; Waters is still referenced on the third sentence, which is about
+Clovis no longer being first, so the marker was dropped from the second rather than the clause restored.
+`add-sources.js` passes either way — it checks that every source is referenced somewhere — so **this is a
+judgement the tooling cannot make for you**: restore the clause when the source has nowhere else to sit,
+move the marker when it does.
+
 ### Status
 
-**L0 and L1–L8 have shipped** (2026-08-04). The glossary stands at **412 of 477 terms inside the bar**
-(86%), mean 111.2 words, and **seven whole kinds are done — `place` (266), `person` (54), `era` (33),
-`hominin` (19), `industry` (11), `fossil` (11) and `animal` (10), 404 terms between them, 0 outside the
-bar**. What remains is 64 over and 1 under. **L9 is next** — `object` + `culture` + `people` + `building` +
-`event` + `practice` together, 45 terms of which 40 are over, and it holds the longest terms left in the
-glossary (`Spear-thrower` at 195, which is the corpus maximum). Three things L8 leaves it: **run the
-whole-corpus split audit BEFORE drafting, not after** (L8 found a six-sentence term that way and fixed the
-splitter gap behind it); **look for the sibling term before cutting a shared fact**, since on a pair like
-`Taung_Child`/`Australopithecus_africanus` one of the two owns it and the other can let it go; and **read
-each surviving marked sentence against the work it points at**, which is now three batches running the
-only way a stranded marker has been found. Re-run `gloss-length.js` before and after every batch and
-record the movement here. Re-run `gloss-length.js` before and after every batch and record the movement here.
+**L0 and L1–L9 have shipped** (2026-08-04). The glossary stands at **452 of 477 terms inside the bar**
+(95%), mean 107.9 words, and **thirteen whole kinds are done — `place` (266), `person` (54), `era` (33),
+`object` (22), `hominin` (19), `industry` (11), `fossil` (11), `animal` (10), `people` (6), `practice`
+(6), `culture` (5), `event` (4) and `building` (2), 449 terms between them, 0 outside the bar**. What
+remains is 24 over and 1 under, and **all but four of the over are `concept`** — the kind held back on
+purpose, since by now the register holds everything the other nine batches read. **L10 is next** —
+`concept` (24 terms, 21 outside the bar, mean 128) plus the four singleton kinds (`landform`, `plant`,
+`institution`, `theory`, one term each and all over). It is a different job from L1–L9: the longest
+single term in the glossary is now `Behavioural_modernity` at 180, and the under count is a GROW case of
+the sort L6 and L7 met. Three things L9 leaves it: **grep the batch's terms against each other for long
+shared runs before drafting** (L9's largest single saving, and invisible to every other check); **check
+the source list before cutting a restated date-line span**, since a marker may be standing on it; and
+**watch the hedge in front of a figure**, which is where all four of L9's hedge losses were. Re-run
+`gloss-length.js` before and after every batch and record the movement here.

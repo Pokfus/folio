@@ -571,17 +571,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   first. Not part of the site.
 - `docs/glossary-length-plan.md` — **every glossary description at 100 words (±10%)**, on request (Aug 2026): the
   bar, the measured baseline, the eleven batches, the per-term workflow and the batch log. **L0 (the tooling)
-  and L1–L8 have shipped, which completes SEVEN WHOLE KINDS — `place` (266), `person` (54), `era` (33),
-  `hominin` (19), `industry` (11), `fossil` (11) and `animal` (10), 404 terms, 0 outside the bar**: the 197
+  and L1–L9 have shipped, which completes THIRTEEN WHOLE KINDS — `place` (266), `person` (54), `era` (33),
+  `object` (22), `hominin` (19), `industry` (11), `fossil` (11), `animal` (10), `people` (6), `practice` (6),
+  `culture` (5), `event` (4) and `building` (2), 449 terms, 0 outside the bar**: the 197
   countries (A–E, F–L, M–R, S–Z), L5's 55 caves, type sites, continents, oceans and regions, L6's 54 people
   (45 US presidents plus nine antiquarians, archaeologists and a poet), L7's 44 periods and stone industries,
-  and L8's 40 taxa, fossils and animals —
+  L8's 40 taxa, fossils and animals, and L9's 45 tools, artworks, cultures and peoples —
   `node .claude/gloss-length.js` is
-  the measure, with `--over` / `--under` / `--tag=<kind>` / `--list`. Where it stands today: **412 of 477 terms
-  are inside the bar** (86%), 64 are
-  over and 1 under, mean 111.2 words, and the work is overwhelmingly TRIMMING. **L9 is next** — `object` +
-  `culture` + `people` + `building` + `event` + `practice` together, 45 terms of which 40 are over, holding
-  the longest terms left (`Spear-thrower` at 195). Three things the bar does not
+  the measure, with `--over` / `--under` / `--tag=<kind>` / `--list`. Where it stands today: **452 of 477 terms
+  are inside the bar** (95%), 24 are
+  over and 1 under, mean 107.9 words, and the work is overwhelmingly TRIMMING. **L10 is LAST** — `concept`
+  (24 terms, 21 over, mean 128) plus the four singleton kinds (`landform`, `plant`, `institution`, `theory`),
+  which is all that is left; the longest term in the glossary is now `Behavioural_modernity` at 180. Three things the bar does not
   change and which the pass must not quietly relax: still exactly three sentences, still impartial and
   self-contained, and **still no claim past what the citations carry** — a term padded to length is the one way
   this pass can do real damage. Two rules L1 established and the later batches should just apply:
@@ -657,7 +658,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   its terms describe one find from two angles (`Taung_Child`/`Australopithecus_africanus`,
   `Lucy`/`Australopithecus_afarensis`, `KNM-WT_40000`/`Kenyanthropus_platyops`), so a shared fact can be
   given to whichever of the two owns it rather than trimmed twice; and on a taxon the **describer and year
-  are the formal identity and stay**, while the discovery narrative around them goes. Two more checks
+  are the formal identity and stay**, while the discovery narrative around them goes.
+  **L9's lever is L8's one level down, and it is measurable: NEAR-VERBATIM DUPLICATION BETWEEN SIBLING
+  TERMS at the level of the SENTENCE.** Counting shared eight-word runs across its 40 terms found **17
+  between `Chert` and `Flint` and 11 between `Gunflint` and `Musket`** — four terms written independently
+  from the same two sources, repeating whole clauses word for word. Deciding what each term OWNS (`Chert`
+  the mineralogy, `Flint` the chalk and the working quality, `Gunflint` the lock and the Brandon
+  workshops, `Musket` the loading drill) took them to **2 and 0**. **Grep a batch's terms against each
+  other before drafting**: it takes two minutes, it finds words that cost nothing to lose, and no other
+  check in the workflow can see it. L9's padding class is the **MECHANISM DESCRIBED TWICE** — an `object`
+  term explains how the thing works and then explains what that means, and one clause does both jobs,
+  which is where most of the 70–90 words came off `Spear-thrower` (195) and `Bow_and_arrow` (177). And it
+  **qualifies L5's and L7's date-line rule**: `Minoan_palace`'s restated "from about 1900 BCE" was the only
+  thing its second marker (Rutter's chronology page) was standing on, so **check the source list before
+  cutting a restated span**, not just `GLOSSARY_DATES`. Two more checks
   L2 made standing, both
   for failures that are invisible in the
   finished prose. **Diff every MARKED sentence's YEARS before against after** — a trim can strand a marker, and
