@@ -42,7 +42,14 @@ function serve() {
   });
 }
 const DESKTOP = { width: 1280, height: 900 };
-const ROUTES = ["home", "decks", "account", "settings", "mission", "challenge", "truefalse", "whosaid", "chrono", "glossary"];
+/* The reader-facing routes. `map` is in the list — it is where most of the icon-only controls live, which
+   is exactly where an unnamed button hides — but its coach marks have to be dismissed first (they cover the
+   globe) and the contrast walk skips `.globe-stage`, whose labels are ctx.fillText and invisible to CSS.
+   Deliberately NOT here: the editor, the Studio and the community pages, which are tools rather than
+   reading surfaces and would need their own fixtures; they are an honest gap, not a clean bill. */
+const ROUTES = ["home", "decks", "account", "settings", "mission", "challenge", "truefalse", "whosaid", "chrono", "glossary", "map"];
+const SLOW = { map: 5000, home: 1400 };
+const settle = (r) => SLOW[r] || 700;
 
 let pass = 0, fail = 0;
 function check(name, ok, detail) {
@@ -163,13 +170,15 @@ const PROBE = () => {
   const base = "http://127.0.0.1:" + server.address().port + "/";
   const browser = await chromium.launch({ executablePath: process.env.FOLIO_CHROMIUM || undefined });
   const page = await browser.newPage({ viewport: DESKTOP });
+  // the Atlas's first-visit coach marks cover the whole globe — every probe of #map needs them gone
+  await page.addInitScript(() => { try { localStorage.setItem("folio_atlas_tour_v1", "1"); } catch (e) {} });
 
   const allUnnamed = [], allUnreachable = [], allRoleless = [];
   const contrastByRoute = {};
 
   for (const route of ROUTES) {
     await page.goto(base + "#" + route, { waitUntil: "load" });
-    await page.waitForTimeout(route === "home" ? 1400 : 700);
+    await page.waitForTimeout(settle(route));
     const r = await page.evaluate(PROBE);
     r.unnamed.forEach((x) => allUnnamed.push(route + ": " + x));
     r.unreachable.forEach((x) => allUnreachable.push(route + ": " + x));
@@ -214,18 +223,26 @@ const PROBE = () => {
   });
   check("a switch answers to the Space key and reports its state", sw === "true->false->true", sw);
 
-  // …and a glossary term, which is a span standing in for a button
+  /* …and a glossary term, which is a span standing in for a button. It has to be found on a STUDY CARD:
+     the home page carries none (the card of the day has its gloss links stripped), so pointing this at
+     `#home` made it pass by finding nothing, which is the shape of assertion that guards nothing at all. */
   await page.goto(base + "#home", { waitUntil: "load" });
   await page.waitForTimeout(1400);
+  await page.evaluate(() => { const b = document.querySelector(".banner .cta .btn"); if (b) b.click(); });
+  await page.waitForTimeout(1500);
+  await page.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
+  await page.waitForTimeout(700);
   const ttip = await page.evaluate(async () => {
     const t = document.querySelector(".ttip");
-    if (!t) return "no term on the page";
+    if (!t) return "no glossary term on the card";
+    if (t.getAttribute("role") !== "button" || t.getAttribute("tabindex") !== "0") return "not a control: role=" + t.getAttribute("role") + " tabindex=" + t.getAttribute("tabindex");
     t.focus();
+    if (document.activeElement !== t) return "cannot take focus";
     t.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", bubbles: true }));
     await new Promise((r) => setTimeout(r, 400));
     return document.querySelector(".gloss-win") ? "opens" : "nothing happened";
   });
-  check("a glossary term opens from the keyboard", ttip === "opens" || ttip === "no term on the page", ttip);
+  check("a glossary term takes focus and opens on Enter", ttip === "opens", ttip);
 
   // ---- contrast, in the default mode
   const flatDefault = [];
@@ -242,6 +259,7 @@ const PROBE = () => {
      landing), and that write goes out with the in-memory settings — so a flag set from outside can be
      overwritten between the write and the reload. It looks like the mode not working. */
   const hcPage = await browser.newPage({ viewport: DESKTOP });
+  await hcPage.addInitScript(() => { try { localStorage.setItem("folio_atlas_tour_v1", "1"); } catch (e) {} });
   await hcPage.addInitScript(() => {
     try {
       const raw = localStorage.getItem("folio_v1");
@@ -253,7 +271,7 @@ const PROBE = () => {
   const hcBad = [];
   for (const route of ROUTES) {
     await hcPage.goto(base + "#" + route, { waitUntil: "load" });
-    await hcPage.waitForTimeout(route === "home" ? 1400 : 700);
+    await hcPage.waitForTimeout(settle(route));
     const on = await hcPage.evaluate(() => document.body.classList.contains("hc"));
     if (!on) { hcBad.push(route + ": the high-contrast class never reached the body"); continue; }
     const r = await hcPage.evaluate(PROBE);

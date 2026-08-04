@@ -8315,6 +8315,18 @@
           if (canUndo()) undoGrade(); else toast("Nothing to undo — this is the first card of the session.");
           return;
         }
+        /* A CONTROL ON THE CARD OWNS ITS OWN Enter/Space (Aug 2026, found by test-a11y.js). Pressing Enter
+           on a focused glossary term opened its popup AND graded the card underneath, and the re-render
+           then swept the popup away — so what a keyboard reader saw was a term that would not open and a
+           card that had silently moved on. Space did the same over Show answer. The `#gradebar` line below
+           was this same bug found one control at a time; this is it generalised, and it covers the fold
+           headers, Suspend, Undo, the media frame and anything added later without another special case.
+           The cloze box is the deliberate exception: Enter there reveals the answer, which is exactly what
+           a reader who has just typed a guess wants. */
+        const ae = document.activeElement;
+        const focusOwnsKey = !!(ae && ae !== document.body && !ae.classList.contains("blank-input") &&
+          ae.matches && ae.matches('button, a[href], select, textarea, summary, [role="button"], [role="switch"], [contenteditable=""], [contenteditable="true"]'));
+        if ((e.key === "Enter" || e.key === " ") && focusOwnsKey) return;
         if (!revealed && e.key === "Enter") {
           e.preventDefault();
           showAnswer();
