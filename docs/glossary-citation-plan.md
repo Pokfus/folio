@@ -2664,6 +2664,33 @@ publisher. **`butterfly`** has Animal Diversity Web's *Lepidoptera* account, whi
 prose with its own reference list — and no second: ADW's *Papilionoidea* page is a bare classification
 tree, and the peer-reviewed alternatives describe wing scales or brains rather than the animal.
 
+### Batch N14 — the Bering Strait, East Asia, the Single Grave culture and the chronozone (2026-08-04)
+
+Five requested: four new terms, plus an alias added to `Mesopotamia`, which N4 had already written.
+**Check the glossary before researching a requested term** — this is the second time (after N12's
+`Younger_Dryas`) that a request named a term already at the bar.
+
+**Its finding extends N12's alias trap by one step, and the extra step is the dangerous one.** The
+obvious alias *Eastern Asia* for `East_Asia` fails twice over. First it is N12's trap exactly: an
+internal capital sends it to the case-sensitive map while the regex matches case-insensitively, so the
+corpus's lowercase "eastern Asia" matches, fails to resolve, and — being the longest candidate —
+**swallows the plain `Asia` link that already worked**. Second, and new: the word-boundary lookbehind
+is `(?<![\p{L}\p{N}_])` and **a hyphen is none of those**, so the alias matches inside
+"north-**eastern Asia**" — which in this corpus means Siberia, in the peopling of the Americas, three
+times out of five. A lowercase alias would have mis-linked all three. The alias was withheld;
+"eastern Asia" now resolves to `Asia`, which is less specific and correct. **Grep for the alias inside
+a hyphenated compound before adding it** — the casing probe alone passes this one.
+
+**A route worth keeping: the ICS International Stratigraphic Guide** (`stratigraphy.org/guide/*`) is
+open and readable, and it is the authority for every stratigraphic term in this glossary. It supplied
+the formal definition of a chronozone that batches 22 and 25 had worked around — they used the word
+from Walanus & Nalepka without anything saying what one is, and Walker 2012 is 403 at Wiley. N10 found
+the Quaternary subcommission at `quaternary.stratigraphy.org`; the parent guide is on `stratigraphy.org`.
+
+One thing that did **not** work and is worth not retrying: the UN Demographic Yearbook Table 1 PDF,
+which `Asia` cites for its population, is a subset font with no ToUnicode map and extracts as garbage
+(N10's failure mode). It is reachable and not re-readable, so `East_Asia` states no population.
+
 **A route worth keeping: Animal Diversity Web** (`animaldiversity.org`), the University of Michigan
 Museum of Zoology's species database. It is the natural-history equivalent of the Smithsonian records
 that carried the hominins — open, in prose, and each account ends in its own references, so it clears

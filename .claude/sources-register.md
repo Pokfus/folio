@@ -11501,3 +11501,81 @@ works were opened for the Nordic Bronze Age, which batch 17c did not cover:
   "the fifth millennium BCE", where the house rule numbers centuries and millennia. Fixed to "5th".
   **Run it after writing, not only after correcting** — it is the only check that reads the new prose
   against the style rules.
+
+## Batch N14 — the Bering Strait, East Asia, the Single Grave culture and the chronozone (2026-08-04)
+
+Five requested, **four new terms** (`Single_Grave_culture`, `Bering_Strait`, `East_Asia`, `Chronozone`)
+and **one alias added to a term that already existed** (`Mesopotamia`, which N4 wrote — check the
+glossary before researching, as N12's `Younger_Dryas` also showed). Nothing deferred.
+
+### THE FINDING: an alias can mis-link a HYPHENATED compound, and the fix is to withhold it
+The user asked for `East_Asia` with the alias *East Asian*. Adding *Eastern Asia* alongside looked
+obviously right and is **actively harmful**, for two compounding reasons:
+- **N12's trap.** "Eastern Asia" has an internal capital, so `isProperCS` sends it to the
+  case-sensitive map, while the master regex matches case-insensitively. The corpus writes "eastern
+  Asia" with a lowercase e, which matches the alias and then fails to resolve — and being the longest
+  candidate it **swallowed the plain `Asia` link that had been working**. So the alias would have
+  removed a correct link and added nothing.
+- **The hyphen, which is new.** The word-boundary lookbehind is `(?<![\p{L}\p{N}_])`, and a hyphen is
+  none of those, so "eastern Asia" matches **inside "north-eastern Asia"**. Three of the five lowercase
+  occurrences in the corpus are exactly that — `wh-098`, `Americas` and `Settlement_of_the_Americas`,
+  all meaning Siberia in the peopling-of-the-Americas sense, which is not East Asia at all. A
+  lowercase alias would have made all three link to the wrong region.
+**So the alias was withheld and `East_Asia` carries only *East Asian* and *East Asians*, both of which
+the corpus writes in exactly that case.** "eastern Asia" and "north-eastern Asia" now resolve to `Asia`,
+which is less specific and correct. **Grep the corpus for the alias INSIDE a hyphenated compound before
+adding it** — N12's casing probe alone would have passed this one.
+
+### The works
+- International Commission on Stratigraphy, "Chapter 9: Nonhierarchical Formal Chronostratigraphic Units — the Chronozone," <i>International Stratigraphic Guide</i>, https://stratigraphy.org/guide/chron. [Open access]
+  - opened: 2026-08-04 · **the definition the pass had been working around**. Batches 22 and 25 used the
+    word "chronozone" from Walanus & Nalepka without anything that says what one is; `doi.org/10.1002/jqs.2565`
+    (Walker 2012) is 403 at Wiley and Europe PMC has no open work defining it.
+  - supports: "A chronozone is a formal chronostratigraphic unit of unspecified rank, not part of the
+    hierarchy of formal chronostratigraphic units. It is the body of rocks formed anywhere during the
+    time span of some designated stratigraphic unit or geologic feature. The corresponding geochronologic
+    unit is the chron"; and that the span is "the time span of a previously designated stratigraphic unit
+    or interval, such as a lithostratigraphic, biostratigraphic, or magnetostratigraphic polarity unit"
+  - **route worth keeping**: `stratigraphy.org/guide/*` is 200 and readable, and it is the authority for
+    every stratigraphic term this glossary uses. N10 found the Quaternary subcommission at
+    `quaternary.stratigraphy.org` (no `.uk`); the parent guide is on `stratigraphy.org` itself.
+  - used by: Chronozone
+- United Nations Statistics Division, "Standard Country or Area Codes for Statistical Use (M49)," https://unstats.un.org/unsd/methodology/m49/. [Open access]
+  - opened: 2026-08-04 · server-rendered, ~2 MB, and greppable
+  - supports: Eastern Asia (code 030) as China, China–Hong Kong SAR, China–Macao SAR, the Democratic
+    People's Republic of Korea, Japan, Mongolia and the Republic of Korea
+  - **note the pair with G11's warning**: M49 is cited here for what a region CONTAINS, never for a
+    region's area, since the scheme assigns whole countries to regions and so puts all of Russia in Europe.
+  - **and note what did NOT work**: the UN Demographic Yearbook Table 1 PDF, which `Asia` cites for its
+    population, is a **subset font with no ToUnicode map** and extracts as garbage — N10's failure mode.
+    It is reachable and not re-readable, so `East_Asia` states no population.
+  - used by: East_Asia
+- John F. Hoffecker et al., "Beringia and the Peopling of the Western Hemisphere," <i>Proceedings of the Royal Society B</i> 290, no. 1990 (2023): 20222246, https://pmc.ncbi.nlm.nih.gov/articles/PMC9832545/. [Open access]
+  - opened: 2026-08-04 · full text via Europe PMC
+  - supports: "the ancestral Native American population migrated from Asia to North America via the Bering
+    Strait region, where large areas of continental shelf were exposed during periods of cold climate by
+    lowered sea level"; that Hultén proposed "Beringia" in 1937 for those shelf areas; and the
+    Bering-Chukchi Platform, "which adjoins Chukotka and western Alaska and often is equated with the
+    'Bering Land Bridge'"
+  - used by: Bering_Strait
+- Jesse R. Farmer et al., "The Bering Strait Was Flooded 10,000 Years before the Last Glacial Maximum," <i>Proceedings of the National Academy of Sciences</i> 120, no. 1 (2023): e2206742119, https://pmc.ncbi.nlm.nih.gov/articles/PMC9910591/. [Open access]
+  - opened: 2026-08-04 · abstract via Europe PMC (`pnas.org` is 403 here, as N1 recorded; the PMC copy is open)
+  - supports: "reconstructing the flooding history of the shallow Bering Strait since 46 ka. Using a
+    geochemical proxy of Pacific nutrient input to the Arctic Ocean, we find that the Bering Strait was
+    flooded from the beginning of our records at 46 ka" until the ice sheets grew
+  - used by: Bering_Strait
+- Helena Malmström et al. (2019), reused and **re-read** for a claim the register had not recorded:
+  the Battle Axe Culture is "a Middle Neolithic complex in Scandinavia resembling the continental Corded
+  Ware Culture (CWC)", and the megalithic reuse "could possibly also extend to the Danish Single Grave
+  Culture (SGC), as RISE61, a male buried in the Kyndeløse passage grave and with a radiocarbon date
+  overlapping with the BAC/CWC/SGC time period, also displays some steppe ancestry"
+  - **G6 applied as written**: the register recorded only the BAC reuse, so the SGC claim needed the
+    re-read, and the term keeps the paper's own hedge ("possibly") rather than flattening it.
+  - used by: Single_Grave_culture
+
+### Sibling separation, checked before drafting
+`Beringia` already existed and owns the land bridge, the mammoth steppe and the mammoth's extinction;
+`Bering_Strait` was written to own the seaway itself — the Chukotka–Alaska gap, the Pacific-to-Arctic
+flow, the 46 ka flooding record and the migration route. `Asia` owns the continent and its figures;
+`East_Asia` owns the M49 composition, the appearance of Chinese writing and the Movius Line. Neither
+pair shares an eight-word run.
