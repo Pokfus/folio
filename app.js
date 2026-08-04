@@ -4433,6 +4433,14 @@
         "(1969) is still in copyright and is deliberately not used here.",
       sourceName: "Wikisource",
       sourceUrl: "https://en.wikisource.org/wiki/Moral_letters_to_Lucilius",
+      /* The language the book was WRITTEN in, named here in the eager registry so the reader page can
+         offer the original before a word of either text has loaded. The text itself is a separate lazy
+         file (books/<id>.<lang>.js, bundle "bookOrig:<id>"), and the two are kept apart deliberately:
+         Seneca's English runs to 1.37 MB and his Latin to another 862 KB, so folding them into one
+         file would make every reader of the translation download a column they may never open.
+         A book with no `origLang` simply has no original here and shows no control for one. */
+      origLang: "la",
+      origName: "Latin",
       color: "#8257C2",
       /* The tile's `blurb` is gone (Aug 2026, on request: the tiles are small now and a paragraph was
          most of their height). What it said is said properly and at length in the book's own opening
@@ -4465,6 +4473,15 @@
      they open the book does not belong in it, and books/<id>.js is never hand-edited, so an intro
      written straight into that file would not survive the next run of the importer. */
   const BOOK_INTRO = {};
+  /* The book in the language it was written in — id -> { lang, langName, edition, rights, sourceName,
+     sourceUrl, byNum: { <chapter number>: html } }. Its own file, its own bundle, fetched only when a
+     reader actually asks for the original; see `origLang` in the registry above for why the two texts
+     are not one file.
+
+     It is keyed by CHAPTER NUMBER rather than held as an array, because that is how it is looked up:
+     a chapter of the translation asks for its own counterpart, and a book whose original is missing a
+     chapter must answer "not here" rather than hand back whatever sits at that index. */
+  const BOOK_ORIG = {};
   function bookIngest() {
     const q = window.FOLIO_BOOKS_IN || [];
     window.FOLIO_BOOKS_IN = [];
@@ -4474,12 +4491,32 @@
       if (inc.intro) BOOK_INTRO[inc.id] = inc.intro;
     });
   }
+  function bookOrigIngest() {
+    const q = window.FOLIO_BOOK_ORIG_IN || [];
+    window.FOLIO_BOOK_ORIG_IN = [];
+    q.forEach((inc) => {
+      if (!inc || !inc.id) return;
+      const byNum = {};
+      (inc.chapters || []).forEach((c) => { if (c && typeof c.n === "number") byNum[c.n] = c.html || ""; });
+      BOOK_ORIG[inc.id] = {
+        lang: inc.lang || "", langName: inc.langName || "", edition: inc.edition || "",
+        rights: inc.rights || "", sourceName: inc.sourceName || "", sourceUrl: inc.sourceUrl || "",
+        byNum: byNum,
+      };
+    });
+  }
   function bookBundle(id) {
     const name = "book:" + id;
     if (!DATA_BUNDLES[name]) DATA_BUNDLES[name] = { files: ["books/" + id + ".js"], after: bookIngest };
     return name;
   }
+  function bookOrigBundle(b) {
+    const name = "bookOrig:" + b.id;
+    if (!DATA_BUNDLES[name]) DATA_BUNDLES[name] = { files: ["books/" + b.id + "." + b.origLang + ".js"], after: bookOrigIngest };
+    return name;
+  }
   function bookChapters(id) { return BOOK_TEXT[id] || null; }
+  function bookOriginal(id) { return BOOK_ORIG[id] || null; }
 
   const _bundlePromises = {};
   function loadScriptOnce(src) {
@@ -7847,6 +7884,109 @@
     root.normalize();
   }
 
+  /* ------------------------------------------------------------
+     THE ORIGINAL BESIDE THE TRANSLATION (Aug 2026, on request)
+     ------------------------------------------------------------
+     A book should be readable in the language it was written in as well as in English: side by side on
+     a desktop, and one at a time on a phone, where tapping the page turns it over the way the home
+     page's daily quote does.
+
+     PAIRED ON SECTION NUMBERS, NEVER ON PARAGRAPH ORDER — this is the decision the whole feature rests
+     on, and the obvious implementation is the wrong one. Pairing the nth paragraph with the nth
+     paragraph looks right for a screen and then drifts, because Gummere breaks his paragraphs where
+     English prose wants a break and the Latin breaks where the Latin does; a reader who trusted the
+     columns would be reading one passage against another. What the two texts genuinely share is the
+     SECTION number — the [1] [2] [3] by which any passage of Seneca is cited in either language, kept
+     as <span class="bk-n"> on both sides by the importer. Those numbers are an editorial fact about
+     the text rather than a guess about its layout, so a row of the bilingual page is a claim the
+     editions themselves make.
+
+     Where one side has a section the other does not — seven of the 124 letters, because the Latin
+     edition's own numbering skips a few — the row is still drawn, with that side left empty. That is
+     the honest rendering: the alternative, quietly shifting everything up by one, is precisely the
+     mistranslated layout this is built to avoid. */
+
+  // Split one text into its numbered sections. A block with no marker continues the section it is in,
+  // so a section is as many paragraphs as it takes; anything before section 1 (the salutation) sits in
+  // a leading section of its own, which is what puts the two salutations on the same row.
+  function bookSections(html) {
+    const box = document.createElement("div");
+    box.innerHTML = html || "";
+    const out = [];
+    let cur = null;
+    const add = (n, frag) => {
+      if (!frag) return;
+      if (!cur || cur.n !== n) { cur = { n: n, html: "" }; out.push(cur); }
+      cur.html += frag;
+    };
+    Array.from(box.children).forEach((el) => {
+      const marks = el.querySelectorAll(".bk-n");
+      if (!marks.length) { add(cur ? cur.n : null, el.outerHTML); return; }
+      /* Split this block at each marker. The pieces are CLONES of the block — a section that begins
+         mid-paragraph must still be wrapped in that paragraph's own element, or a <p> split in two
+         would render its second half as a bare run of text outside any paragraph. */
+      let buf = [], n = cur ? cur.n : null;
+      const flush = () => {
+        if (!buf.length) return;
+        const c = el.cloneNode(false);
+        buf.forEach((node) => c.appendChild(node.cloneNode(true)));
+        if (c.textContent.trim()) add(n, c.outerHTML);
+        buf = [];
+      };
+      Array.from(el.childNodes).forEach((node) => {
+        if (node.nodeType === 1 && node.classList && node.classList.contains("bk-n")) {
+          flush();
+          const v = parseInt(node.textContent, 10);
+          n = v > 0 ? v : n;
+        }
+        buf.push(node);
+      });
+      flush();
+    });
+    return out;
+  }
+
+  /* Merge the two texts into rows, one per section. A two-pointer walk rather than a lookup table,
+     because it has to preserve ORDER as well as pair by number: a section present on one side only
+     keeps its place in the sequence instead of being appended at the end. */
+  function bookRows(enHTML, origHTML) {
+    const A = bookSections(enHTML), B = bookSections(origHTML);
+    /* The salutation is the one block that carries no section number, and the two editions disagree
+       about it almost every time: the Latin heads all 124 letters with one and Gummere's transcription
+       prints it only once. Left as a row of its own that is a row with one empty cell at the top of
+       123 letters — which reads as a fault in the page rather than as a difference between the
+       editions. So a leading unnumbered block the other side has no counterpart for is folded into the
+       first numbered row instead, where it belongs to the opening of the letter. Where BOTH have one
+       they pair, as they should. */
+    const lead = (X) => (X.length && typeof X[0].n !== "number" ? X[0] : null);
+    if (lead(A) && !lead(B) && A.length > 1) { A[1].html = A[0].html + A[1].html; A.shift(); }
+    else if (lead(B) && !lead(A) && B.length > 1) { B[1].html = B[0].html + B[1].html; B.shift(); }
+
+    const rows = [];
+    let i = 0, j = 0;
+    // `null` is not a number and cannot be compared with one — an unnumbered block sorts before them all
+    const key = (s) => (s && typeof s.n === "number" ? s.n : -1);
+    while (i < A.length || j < B.length) {
+      const a = A[i], b = B[j];
+      if (a && b && key(a) === key(b)) { rows.push({ n: a.n, en: a.html, or: b.html }); i++; j++; }
+      else if (a && (!b || key(a) < key(b))) { rows.push({ n: a.n, en: a.html, or: "" }); i++; }
+      else { rows.push({ n: b.n, en: "", or: b.html }); j++; }
+    }
+    return rows;
+  }
+
+  /* Whether the original is showing. Device-local, like where the whiteboard marker sits and how tall
+     the Atlas place sheet is: it is a fact about this screen and this reader's habit, not about their
+     account, and syncing it would push a desktop's two-column choice onto their phone. */
+  const BOOK_ORIG_KEY = "folio_book_orig_v1";
+  function bookOrigOn() { try { return localStorage.getItem(BOOK_ORIG_KEY) === "1"; } catch (e) { return false; } }
+  function setBookOrigOn(v) { try { localStorage.setItem(BOOK_ORIG_KEY, v ? "1" : "0"); } catch (e) {} }
+  /* Below this width there is not room for two columns of prose, so the page shows ONE and turns
+     between them. It is a media query rather than a `touchDevice()` test on purpose: what decides this
+     is how much horizontal room there is, and a narrow window on a laptop wants the same answer as a
+     phone. */
+  function bookPhone() { return window.matchMedia("(max-width: 900px)").matches; }
+
   function readingPos(id) {
     const r = (S.reading && S.reading[id]) || null;
     return r && typeof r.ch === "number" ? r : null;
@@ -7933,19 +8073,17 @@
       <div class="page-head">
         <span class="eyebrow">Library</span>
         <h1>Books</h1>
-        <p>Whole works, read on the page — with the glossary linked through them and the translator's own
-           notes kept. Every book here is in the public domain, and free to read.</p>
+        <p>Historical books in the public domain, completely free to read.</p>
       </div>
       ${/* The picker ships whatever the shelf holds, one book included — it was asked for outright, and
             a control that appears the day a second book lands is one nobody knows to look for. */""}
       <div class="lib-tools">${sortPickerHTML("bkSort", BOOK_SORTS, bookSort)}</div>
-      <div class="book-grid">${sorted.map(tile).join("")}</div>
-      ${/* Said once, on the page rather than in a policy note: it is why the shelf is short, and it is the
-            rule that decides what may join it. */""}
-      <p class="lib-note">Folio serves these texts itself, so a work can only be shelved here once its
-        copyright has expired — for a classical author that means the <b>translation</b> as much as the
-        original. Each book's own first chapter states the edition it comes from and the grounds it is
-        free on.</p>`;
+      ${/* The licence note that used to close this page is gone (Aug 2026, on request). The RULE it
+            described has not changed and is not weakened by its going: it is still stated in
+            .claude/fetch-book.js, which is what decides what may be shelved, and it is still shown to
+            the reader — in each book's own front matter, beside the edition it applies to, which is
+            where a statement about one book's copyright actually belongs. */""}
+      <div class="book-grid">${sorted.map(tile).join("")}</div>`;
     root.querySelectorAll(".book-tile").forEach((el) =>
       el.addEventListener("click", () => route("book", { id: el.dataset.book }))
     );
@@ -7984,7 +8122,22 @@
         '<p class="bk-rights-note">' + esc(b.rights) + "</p>" +
         '<p class="bk-rights-src">Text from <a href="' + esc(b.sourceUrl) + '" target="_blank" rel="noopener noreferrer">' + esc(b.sourceName) + "</a>.</p>" +
       "</section>";
-    return { n: 0, p: 0, t: "About this book", intro: true, html: essay + rights, notes: [] };
+    /* The original gets a statement of its own, on the same terms and for the same reason: the reader
+       is shown what they are reading and on what grounds it may be served. It is a SECOND box rather
+       than a sentence added to the first, because they are two works with two different answers — the
+       Latin is out of copyright by age and the English by date of publication — and running them
+       together is how the distinction that decides what may be shelved here gets lost. Rendered only
+       once the original's own file has landed, since that file is where these words come from. */
+    const o = bookOriginal(b.id);
+    const orig = o
+      ? '<section class="bk-rights">' +
+          "<h3>About the " + esc(o.langName || "original") + "</h3>" +
+          "<p>" + esc(b.author) + " wrote in " + esc(o.langName || "the original") + ". " + esc(o.edition) + ".</p>" +
+          '<p class="bk-rights-note">' + esc(o.rights) + "</p>" +
+          '<p class="bk-rights-src">Text from <a href="' + esc(o.sourceUrl) + '" target="_blank" rel="noopener noreferrer">' + esc(o.sourceName) + "</a>.</p>" +
+        "</section>"
+      : "";
+    return { n: 0, p: 0, t: "About this book", intro: true, html: essay + rights + orig, notes: [] };
   }
 
   PAGES.book = function (root, params) {
@@ -8009,6 +8162,17 @@
         render();
       });
       return;
+    }
+
+    /* A reader who left the original showing gets it back, and it is fetched WITHOUT holding the page:
+       the translation is already here and readable, so the book opens at once and gains its second
+       column a moment later. Holding a loaded book behind a second download would make the setting cost
+       something every time it is used, which is the surest way to have it turned off again. */
+    if (b.origLang && bookOrigOn() && !bookOriginal(b.id)) {
+      ensureData(bookOrigBundle(b)).then((ok) => {
+        if (!ok || current.name !== "book" || current.params.id !== b.id) return;
+        render();
+      });
     }
 
     const pos = readingPos(b.id);
@@ -8048,6 +8212,10 @@
         <button class="bk-nav bk-toc-btn" type="button" id="bkToc" aria-expanded="false" aria-label="Contents" title="Contents">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
         </button>
+        ${/* The way to the original, and the only one a reader can be expected to FIND — a phone turns
+              the page by tapping it, which is quick once you know and invisible until you are told, so
+              the gesture cannot be the only route. Rendered only for a book that has an original. */""}
+        ${b.origLang ? `<button class="bk-nav bk-lang-btn" type="button" id="bkLang" aria-pressed="false"><span id="bkLangLbl">${esc(b.origName || "Original")}</span></button>` : ""}
       </div>
       <div class="bk-toc" id="bkTocPanel" hidden></div>
       </div>
@@ -8075,21 +8243,51 @@
     function paint(c, restoreFrac) {
       cur = c;
       const part = partOf(c.p);
+      const orig = bookOriginal(b.id);
+      /* The front matter is rebuilt on every paint rather than once when the page was set up, because
+         half of what it says depends on a file that may not have arrived yet: the original's licence
+         box is built from the original's OWN file, and turning the original on repaints without going
+         back through render(). Built once, the reader who had just asked for the Latin would find the
+         front matter still saying nothing about it. */
+      if (c.intro) c.html = bookIntroChapter(b).html;
+      const oh = orig && !c.intro ? orig.byNum[c.n] : "";
+      /* When the original is here, the page is ALWAYS built as paired rows and the columns are shown
+         or hidden in CSS — even for a reader who has the original turned off. That is what makes
+         turning it on a class change rather than a re-render, and it is the whole reason the reader's
+         place survives the switch exactly: the row they were looking at is the same element before and
+         after, so it can simply be put back where it was. Rebuilding the prose each way would leave
+         nothing to measure against. */
+      const rows = oh ? bookRows(c.html, oh) : null;
+      const body = rows
+        ? `<div class="bk-prose bk-bi" data-lang="en">` + rows.map((r) =>
+            `<div class="bk-row"${typeof r.n === "number" ? ` data-sec="${r.n}"` : ""}>` +
+              `<div class="bk-col bk-col-en" lang="en">${r.en}</div>` +
+              `<div class="bk-col bk-col-or" lang="${esc(orig.lang)}">${r.or}</div>` +
+            `</div>`).join("") + `</div>`
+        : `<div class="bk-prose">${c.html}</div>`;
       pageEl.innerHTML = `
         <header class="bk-ch-head">
           ${part ? `<span class="bk-ch-part">${esc(part.label)}</span>` : ""}
           <span class="bk-ch-n">${c.intro ? "Front matter" : esc(b.chapterWord) + " " + c.n}</span>
           <h2 class="bk-ch-t">${esc(c.t)}</h2>
         </header>
-        <div class="bk-prose">${c.html}</div>
+        ${body}
         ${bookNotesHTML(c.notes)}`;
 
-      // the glossary, linked through the prose — the same call a card's background makes
-      const prose = pageEl.querySelector(".bk-prose");
-      try { autoLinkGlossary(prose, "", b.glossOff || null, "site"); linkProperNounsOnly(prose); } catch (e) {}
+      /* The glossary is linked through the ENGLISH only, and that is not an oversight about the other
+         column. Folio's glossary is a glossary of prehistory and geography written in English, and its
+         keys collide with ordinary Latin words far harder than they do with English ones — `genus` is
+         the very example, a rank in taxonomy here and a plain noun there. `linkProperNounsOnly` exists
+         because that collision already bites in translated prose; in the original language it would be
+         the rule rather than the exception. */
+      const proseEn = rows ? pageEl.querySelectorAll(".bk-col-en") : pageEl.querySelectorAll(".bk-prose");
+      proseEn.forEach((el) => {
+        try { autoLinkGlossary(el, "", b.glossOff || null, "site"); linkProperNounsOnly(el); } catch (e) {}
+      });
       setupTooltips(pageEl);
       wireFootnotes(pageEl);
       unitizeTree(pageEl);
+      applyLangMode();
 
       tabsEl.querySelectorAll(".bk-tab").forEach((t) => {
         const on = +t.dataset.ch === c.n;
@@ -8111,6 +8309,97 @@
         }
         markPos();
       });
+    }
+
+    /* ---- the original language: which columns show, and putting the reader back where they were ----
+
+       Three states, from one remembered switch. With the original off the page reads exactly as it
+       always has. With it on, a wide screen sets the two languages side by side and a narrow one shows
+       the original alone — because two columns of prose in 390px is not a bilingual edition, it is two
+       unreadable ones. */
+    function langMode() {
+      if (!bookOrigOn() || !pageEl.querySelector(".bk-bi")) return "en";
+      return bookPhone() ? "or" : "both";
+    }
+    function applyLangMode() {
+      const bi = pageEl.querySelector(".bk-bi");
+      if (bi) bi.dataset.lang = langMode();
+      syncLangBtn();
+    }
+    function syncLangBtn() {
+      const btn = root.querySelector("#bkLang"), lbl = root.querySelector("#bkLangLbl");
+      if (!btn) return;
+      const on = bookOrigOn(), name = b.origName || "the original";
+      btn.classList.toggle("on", on);
+      btn.setAttribute("aria-pressed", on ? "true" : "false");
+      /* The label names the language you are being OFFERED, which on a phone is the one you are not
+         reading and on a desktop is the column that would appear — so it reads as a way in either way,
+         rather than as a report of the state the reader can already see. */
+      if (lbl) lbl.textContent = on && bookPhone() ? "English" : name;
+      const what = on ? (bookPhone() ? "Read the English translation" : "Hide the " + name) : "Read the " + name + " beside the translation";
+      btn.setAttribute("aria-label", what);
+      btn.setAttribute("title", what);
+    }
+
+    /* Where the reader is, said as a SECTION rather than as a scroll offset — because the offset is
+       exactly what the switch invalidates. Latin is about seven tenths the length of Gummere's English,
+       so the same passage sits at a different height in each; putting the pixel position back would
+       land a reader some way from the sentence they were reading, and further the deeper into the
+       chapter they had got. The section number is the one coordinate both languages agree on. */
+    function anchorNow() {
+      const rows = pageEl.querySelectorAll(".bk-row");
+      if (!rows.length) return null;
+      const eye = window.scrollY + window.innerHeight * 0.35;
+      let best = null;
+      rows.forEach((r) => {
+        // an invisible row (its only column hidden) is no use as an anchor — it has no position of its own
+        if (!r.offsetHeight) return;
+        const top = r.getBoundingClientRect().top + window.scrollY;
+        if (!best || Math.abs(top - eye) < Math.abs(best.top - eye)) best = { el: r, top: top };
+      });
+      return best ? { sec: best.el.dataset.sec || "", dy: best.top - window.scrollY } : null;
+    }
+    function restoreAnchor(a) {
+      if (!a) return;
+      const r = a.sec
+        ? pageEl.querySelector('.bk-row[data-sec="' + CSS.escape(a.sec) + '"]')
+        : pageEl.querySelector(".bk-row");
+      if (!r || !r.offsetHeight) return;
+      const top = r.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({ top: Math.max(0, top - a.dy), behavior: "auto" });
+    }
+
+    /* Turn the page over. The first press has to fetch the original — it is a separate lazy file — so
+       it repaints; every press after that is a class change with the scroll put back, which is why the
+       switch is instant and lands on the same passage. */
+    let origLoading = false;
+    function toggleOrig() {
+      if (!b.origLang || origLoading) return;
+      const have = !!bookOriginal(b.id);
+      const next = !bookOrigOn();
+      if (next && !have) {
+        origLoading = true;
+        const btn = root.querySelector("#bkLang");
+        if (btn) btn.classList.add("bk-lang-loading");
+        ensureData(bookOrigBundle(b)).then((ok) => {
+          origLoading = false;
+          if (!pageEl.isConnected) return;              // the reader left while it loaded
+          if (btn) btn.classList.remove("bk-lang-loading");
+          if (!ok || !bookOriginal(b.id)) { toast("The " + (b.origName || "original") + " could not be loaded."); return; }
+          setBookOrigOn(true);
+          // repaint into the paired markup, holding the reader's depth in the chapter as a fraction —
+          // there are no rows to anchor on yet, this being the render that creates them
+          const h = pageEl.offsetHeight || 1;
+          const frac = Math.max(0, Math.min(1, (window.scrollY + window.innerHeight * 0.35 - pageEl.offsetTop) / h));
+          paint(cur, frac);
+        });
+        return;
+      }
+      const a = anchorNow();
+      setBookOrigOn(next);
+      applyLangMode();
+      restoreAnchor(a);
+      markPos();
     }
 
     function go(c, fromReader) {
@@ -8155,6 +8444,52 @@
     root.querySelector("#bkPrev2").addEventListener("click", () => step(-1));
     root.querySelector("#bkNext2").addEventListener("click", () => step(1));
     root.querySelector("#bkBack").addEventListener("click", () => route("library"));
+
+    const langBtn = root.querySelector("#bkLang");
+    if (langBtn) langBtn.addEventListener("click", toggleOrig);
+
+    /* TAP THE PAGE TO TURN IT OVER (narrow screens only), the way the home page's daily quote flips
+       between a translation and the words actually written.
+
+       The guards are the whole of it, because a false positive here SWAPS THE LANGUAGE OUT FROM UNDER
+       A READER mid-sentence — the same reasoning as the page swipe, and the same conclusion: be
+       generous about what counts as a scroll and strict about what counts as a tap.
+         · a finger that MOVED was scrolling, not tapping (BK_TAP_SLOP);
+         · a real target keeps its own behaviour — a glossary link, a footnote marker, the notes fold,
+           any control — since a book is full of them and tapping one must open it, not turn the page;
+         · a SELECTION is not a tap: lifting a finger at the end of selecting a phrase would otherwise
+           throw away the selection and the language together;
+         · nothing happens while a gloss popup is open, which is a reader reading something else.
+       It is deliberately NOT wired above the breakpoint: there both columns are already showing, so
+       there is nothing a tap could reveal, and a stray click would take a column away instead. */
+    const BK_TAP_SLOP = 10;
+    const BK_TAP_SKIP = "a,button,input,textarea,select,summary,label,[role='button'],.ttip,.fn,.src-note,.bk-n";
+    let tapX = 0, tapY = 0, tapOK = false;
+    pageEl.addEventListener("pointerdown", (e) => {
+      tapOK = e.isPrimary && !e.target.closest(BK_TAP_SKIP);
+      tapX = e.clientX; tapY = e.clientY;
+    });
+    pageEl.addEventListener("pointerup", (e) => {
+      if (!tapOK) return;
+      tapOK = false;
+      if (!b.origLang || !bookPhone()) return;
+      if (Math.abs(e.clientX - tapX) > BK_TAP_SLOP || Math.abs(e.clientY - tapY) > BK_TAP_SLOP) return;
+      if (e.target.closest(BK_TAP_SKIP)) return;
+      const sel = window.getSelection && window.getSelection();
+      if (sel && !sel.isCollapsed) return;
+      if (document.querySelector(".gloss-win")) return;
+      toggleOrig();
+    });
+
+    /* A window crossing the breakpoint changes what "showing the original" MEANS — two columns above
+       it, one below — so the mode is re-derived rather than left as whatever the last width decided.
+       It takes itself off when its page goes, exactly as the scroll listener above does, since
+       render() replaces #view without telling anyone. */
+    const onWidth = () => {
+      if (!pageEl.isConnected) { window.removeEventListener("resize", onWidth); return; }
+      applyLangMode();
+    };
+    window.addEventListener("resize", onWidth);
 
     /* Contents: the whole book at once, grouped by the part the edition itself divides it into — with
        the front matter above the parts rather than inside one, since it belongs to no volume (its `p`

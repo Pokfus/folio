@@ -109,6 +109,66 @@ const BOOKS = {
     page: (n) => "Moral letters to Lucilius/Letter " + n,
     indexPage: "Moral letters to Lucilius",
     chapters: Array.from({ length: 124 }, (_, i) => i + 1),
+
+    /* ---------- THE ORIGINAL LANGUAGE ----------
+       (Aug 2026, on request: a book should carry the language it was written in beside the
+       translation.) Seneca wrote in Latin, and the Latin is the older and simpler licence
+       question of the two: it is two thousand years old, so no copyright has subsisted in the
+       words for as long as copyright has existed. What CAN carry a copyright is a modern
+       critical edition's editorial matter — an apparatus, a conjecture, an editor's punctuation
+       — and Latin Wikisource carries the plain text of the old editions rather than any of that.
+
+       It is fetched from a DIFFERENT wiki (la.wikisource.org) and, more awkwardly, is laid out a
+       different way: the English site gives one page per letter, and the Latin site gives one page
+       per BOOK of the collection, with the letters inside it as headings. So `origPages` lists the
+       pages to walk and each one yields several letters, keyed by the Roman numeral its heading
+       opens on — which is the letter number the whole tradition uses, and the same number the
+       English pages are filed under.
+
+       THE ALIGNMENT IS BY SECTION NUMBER, NOT BY PARAGRAPH, and that is the whole reason this is
+       possible at all. Gummere breaks his paragraphs where English prose wants them and the Latin
+       breaks where the Latin does, so pairing the nth paragraph with the nth paragraph would drift
+       apart within a page and silently mistranslate the layout. What both texts carry — because it
+       is how any passage of Seneca is cited, in either language — is the section number, printed
+       here as [1] [2] [3] in the Latin and already kept as <span class="bk-n"> in the English. The
+       importer converts the Latin's brackets into that same marker, and app.js pairs the two texts
+       on it. */
+    original: {
+      lang: "la",
+      langName: "Latin",
+      wiki: "la.wikisource.org",
+      edition: "Latin Wikisource text of the Epistulae Morales",
+      rights:
+        "Public domain: Seneca wrote these letters in Latin in the 60s CE, so the words themselves " +
+        "have been out of copyright for the whole history of copyright. The text here is the plain " +
+        "edition text carried by Latin Wikisource, without a modern editor's apparatus.",
+      sourceName: "Latin Wikisource",
+      sourceUrl: "https://la.wikisource.org/wiki/Epistulae_morales_ad_Lucilium",
+      // one page per book of the collection; the letters are the h2 headings inside each
+      pages: [
+        "Epistulae morales ad Lucilium/Liber I",
+        "Epistulae morales ad Lucilium/Liber II",
+        "Epistulae morales ad Lucilium/Liber III",
+        "Epistulae morales ad Lucilium/Liber IV",
+        "Epistulae morales ad Lucilium/Liber V",
+        "Epistulae morales ad Lucilium/Liber VI",
+        "Epistulae morales ad Lucilium/Liber VII",
+        "Epistulae morales ad Lucilium/Liber VIII",
+        "Epistulae morales ad Lucilium/Liber IX",
+        "Epistulae morales ad Lucilium/Liber X",
+        "Epistulae morales ad Lucilium/Liber XI - XIII",
+        "Epistulae morales ad Lucilium/Liber XIV - XV",
+        "Epistulae morales ad Lucilium/Liber XVI",
+        "Epistulae morales ad Lucilium/Liber XVII - XVIII",
+        "Epistulae morales ad Lucilium/Liber XIX",
+        "Epistulae morales ad Lucilium/Liber XX",
+      ],
+      /* Two pages of that wiki are deliberately NOT walked, and both are the same point the front
+         matter makes: what survives is 124 letters, and there was once more. "Liber XXI" carries no
+         numbered letters at all, and "Liber XXII - Excerpta Gellii" is the fragments Aulus Gellius
+         quotes from a book numbered past anything we still have. Neither has an English counterpart
+         here, so neither has a column to sit beside. */
+    },
   },
 };
 
@@ -120,8 +180,16 @@ const flag = (name, dflt) => {
   return hit ? hit.slice(name.length + 3) : dflt;
 };
 const FORCE = argv.includes("--force");
+/* The two halves can be run apart. A book's English text and its original are separate files from
+   separate wikis, and either can need a refetch on its own — most often the original, which is the
+   newer half and the one whose layout is still being learned. */
+const SKIP_EN = argv.includes("--skip-en") || argv.includes("--only-original");
+const SKIP_ORIG = argv.includes("--skip-original");
 if (!id || !BOOKS[id]) {
-  console.error("usage: node .claude/fetch-book.js <" + Object.keys(BOOKS).join("|") + "> [--from=N] [--to=N] [--force]");
+  console.error(
+    "usage: node .claude/fetch-book.js <" + Object.keys(BOOKS).join("|") +
+    "> [--from=N] [--to=N] [--force] [--only-original] [--skip-original]"
+  );
   process.exit(1);
 }
 const BOOK = BOOKS[id];
@@ -135,9 +203,9 @@ fs.mkdirSync(CACHE, { recursive: true });
    Wikisource rate-limits a fast walk and answers with an HTML error page rather than JSON, which
    is why this retries on a PARSE failure and not only on a bad status. */
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-async function api(page) {
+async function api(page, host) {
   const url =
-    "https://en.wikisource.org/w/api.php?action=parse&page=" +
+    "https://" + (host || "en.wikisource.org") + "/w/api.php?action=parse&page=" +
     encodeURIComponent(page) + "&prop=text&formatversion=2&format=json";
   let last = "";
   for (let a = 0; a < 6; a++) {
@@ -360,6 +428,110 @@ function titleCase(s) {
     .join("");
 }
 
+/* ============================================================
+   THE ORIGINAL LANGUAGE
+   ============================================================
+   A second, smaller extractor, and it is separate from the English one on purpose: the two wikis
+   render different things. The English side is a transcluded page SCAN (page-number markers, per-page
+   style links, a reflist) and cleanBody above is mostly the work of undoing that. The Latin side is
+   plain wikitext — headings and paragraphs — so almost none of that machinery applies, and pointing
+   cleanBody at it would mean guarding every one of those rules against a page that has none of them.
+
+   What the two DO share is the section number, and that is the one thing this must get right, because
+   app.js pairs the columns on it. */
+const ROMAN = { I: 1, V: 5, X: 10, L: 50, C: 100, D: 500, M: 1000 };
+function roman(s) {
+  let n = 0;
+  for (let i = 0; i < s.length; i++) {
+    const v = ROMAN[s[i]], nx = ROMAN[s[i + 1]];
+    if (!v) return 0;
+    n += nx && nx > v ? -v : v;
+  }
+  return n;
+}
+
+/* Turn one page of the Latin site into { n -> html }.
+
+   The heading is doing two jobs at once: its Roman numeral is the letter number, and the rest of it
+   ("SENECA LUCILIO SUO SALUTEM") is the salutation the English prints as its own opening line. It is
+   emitted as the same .bk-salut paragraph, so the two columns start level with each other rather than
+   with the Latin a line high. Some books drop the salutation and head the letter with a bare numeral;
+   those simply get no salutation line, exactly as the page has none. */
+function originalChapters(h, warn) {
+  const out = {};
+  const doc = h.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<!--[\s\S]*?-->/g, "");
+  const parts = doc.split(/<div class="mw-heading mw-heading2">/).slice(1);
+  for (const part of parts) {
+    const hm = part.match(/<h2[^>]*>([\s\S]*?)<\/h2>/);
+    if (!hm) continue;
+    const head = hm[1].replace(/<[^>]*>/g, "").replace(/&#160;|&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+    const num = head.match(/^([IVXLCDM]+)\s*\.\s*(.*)$/);
+    if (!num) { warn("heading without a numeral: " + head.slice(0, 60)); continue; }
+    const n = roman(num[1]);
+    if (!n) { warn("unreadable numeral: " + head.slice(0, 60)); continue; }
+
+    let b = part.slice(part.indexOf("</h2>") + 5);
+    // the [recensere] edit link that follows every heading, and the </div> closing the heading block
+    b = b.replace(/^\s*<span class="mw-editsection">[\s\S]*?<\/div>/, "");
+    b = b.split(/<div class="mw-heading/)[0];
+    // the site's own furniture: the prev/next navigation table, the export bar, the ToC placeholder
+    b = b.replace(/<table[\s\S]*?<\/table>/g, "");
+    b = b.replace(/<div class="ws-noexport"[\s\S]*?<\/div>/g, "");
+    b = b.replace(/<meta[^>]*\/?>/g, "").replace(/<link[^>]*\/?>/g, "");
+
+    /* [1] [2] [3] → the marker the English already uses.
+
+       THREE of this wiki's own habits had to be learned rather than assumed, and every one of them was
+       invisible until the section counts were compared against the English. Some books print the
+       numeral in BOLD inside the brackets ([<b>1</b>], all through Libri VI and VII) and Liber XX
+       prints it in ROUND brackets ((1) rather than [1]) — the same marker wearing different clothes
+       both times, and normalised first. Without that, seventeen letters came through with no section
+       numbers at all, which does not throw, does not shorten the text and does not look wrong: it
+       simply leaves those letters with nothing to pair against.
+
+       And the numbering is not always unbroken: letter 23 has no [2], letter 30 jumps from [1] to [5],
+       letter 48 skips [8]. Those gaps are in the edition, not in this script, so a marker is accepted
+       whenever it moves the sequence FORWARD by a step or a few. What is still refused is a number
+       that goes backwards or leaps — which is what an editor's bracketed supplement looks like, and
+       what must never be mistaken for a section, since app.js pairs the two texts on these numbers and
+       a wrong one would sit the Latin beside the wrong English. Anything refused is left as the
+       literal text it is, and reported at the end of the run. */
+    b = b.replace(/([[(])\s*<b>\s*(\d{1,3})\s*<\/b>\s*([\])])/g, "$1$2$3");
+    let seq = 0;
+    b = b.replace(/\[(\d{1,3})\]|\((\d{1,3})\)/g, (m, d, d2) => {
+      d = d === undefined ? d2 : d;
+      const v = +d;
+      if (v <= seq || v > seq + 6) return m;
+      seq = v;
+      return '<span class="bk-n">' + v + "</span>";
+    });
+    const left = b.match(/\[\d{1,3}\]/g);
+    if (left) warn("letter " + n + ": " + left.length + " bracketed number(s) left as text (" + left.slice(0, 4).join(" ") + ")");
+    if (!seq) warn("letter " + n + ": no section numbers found — it will pair as one whole block");
+
+    b = stripTags(b);
+    b = b.replace(/&#160;|&nbsp;/g, " ").replace(/&#32;/g, " ");
+    b = b.replace(/[ \t]+/g, " ").replace(/\s*\n\s*/g, "\n");
+    for (let k = 0; k < 4; k++) {
+      b = b.replace(/<blockquote>\s*<\/blockquote>/g, "").replace(/<p>\s*<\/p>/g, "");
+    }
+    b = b.replace(/\s+<\/p>/g, "</p>").replace(/<p>\s+/g, "<p>").replace(/\n{2,}/g, "\n").trim();
+
+    /* The salutation, so the two columns start level rather than with the Latin a line high. It is in
+       one of two places depending on the book: in the HEADING beside the numeral, or — where the
+       heading is a bare numeral, as it is through Libri VI and VII — as the letter's own first
+       paragraph. Either way it becomes the .bk-salut line the English side already prints. The second
+       case is recognised by shape rather than by book: a short opening paragraph, before any section
+       number, ending on the word the salutation always ends on. */
+    const salut = num[2].trim();
+    if (salut) b = '<p class="bk-salut">' + titleCase(salut) + "</p>\n" + b;
+    else b = b.replace(/^<p>((?:(?!<\/p>)[\s\S]){0,90}?salutem\.?)<\/p>/i, '<p class="bk-salut">$1</p>');
+    if (b.length < 120) { warn("letter " + n + " came back short (" + b.length + " chars)"); continue; }
+    out[n] = b;
+  }
+  return out;
+}
+
 /* ---------- serialize ---------- */
 function esc(s) { return String(s).replace(/\\/g, "\\\\").replace(/"/g, '\\"').replace(/\n/g, "\\n"); }
 function partOf(n) {
@@ -367,7 +539,7 @@ function partOf(n) {
   return p ? p.n : 1;
 }
 
-async function main() {
+async function fetchEnglish() {
   console.log("Fetching " + BOOK.title + " (" + BOOK.translator + ") — chapters " + FROM + "–" + TO);
   const titles = await chapterTitles();
   const chapters = [];
@@ -436,6 +608,92 @@ async function main() {
     (text.length / 1024).toFixed(0) + " KB, " +
     got.chapters.reduce((a, c) => a + (c.notes ? c.notes.length : 0), 0) + " notes. Re-parsed OK."
   );
+}
+
+/* The original-language half, written to its OWN file — books/<id>.<lang>.js, its own lazy bundle.
+
+   It is not folded into the book's file, and that is the same decision the book file itself is: a
+   reader who only wants the English should not download the Latin to get it. Seneca's English runs to
+   1.37 MB and the Latin is of the same order, so putting the two together would double what every
+   reader of the translation pays for a column they may never turn on. Kept apart, the original is
+   fetched the first time it IS turned on, and never after. */
+async function fetchOriginal() {
+  const O = BOOK.original;
+  const cacheDir = path.join(CACHE, O.lang);
+  fs.mkdirSync(cacheDir, { recursive: true });
+  console.log("\nFetching the " + O.langName + " original — " + O.pages.length + " pages from " + O.wiki);
+
+  const warnings = [];
+  const warn = (m) => { warnings.push(m); };
+  const byNum = {};
+  for (const page of O.pages) {
+    const cf = path.join(cacheDir, page.replace(/[^\w.-]+/g, "_") + ".json");
+    let got;
+    if (!FORCE && fs.existsSync(cf)) {
+      got = JSON.parse(fs.readFileSync(cf, "utf8"));
+    } else {
+      const h = await api(page, O.wiki);
+      got = originalChapters(h, warn);
+      if (!Object.keys(got).length) throw new Error("no chapters found on " + page);
+      fs.writeFileSync(cf, JSON.stringify(got));
+      await sleep(1200);   // this wiki rate-limits a fast walk harder than the English one
+    }
+    const ns = Object.keys(got).map(Number).sort((a, b) => a - b);
+    console.log("  " + page.split("/").pop() + " — " + ns.length + " chapters (" + ns[0] + "–" + ns[ns.length - 1] + ")");
+    Object.assign(byNum, got);
+  }
+
+  const nums = Object.keys(byNum).map(Number).sort((a, b) => a - b);
+  const outDir = path.join(ROOT, "books");
+  const out = path.join(outDir, id + "." + O.lang + ".js");
+  const lines = [];
+  lines.push("/* " + BOOK.title + " — " + BOOK.author + ", in the " + O.langName + " he wrote it in.");
+  lines.push("   " + O.rights);
+  lines.push("   Source: " + O.sourceName + " — " + O.sourceUrl);
+  lines.push("");
+  lines.push("   GENERATED by .claude/fetch-book.js — do not edit by hand; re-run the script instead.");
+  lines.push("   LAZY: bundle \"bookOrig:" + id + "\" in app.js, loaded only when a reader asks for the");
+  lines.push("   original. The <span class=\"bk-n\"> markers are the SECTION numbers, and they are what");
+  lines.push("   app.js pairs this text against the translation on — never the paragraph order, which the");
+  lines.push("   two languages do not share. */");
+  lines.push("window.FOLIO_BOOK_ORIG_IN = window.FOLIO_BOOK_ORIG_IN || [];");
+  lines.push("window.FOLIO_BOOK_ORIG_IN.push({");
+  lines.push('  id: "' + id + '",');
+  lines.push('  lang: "' + O.lang + '",');
+  lines.push('  langName: "' + esc(O.langName) + '",');
+  lines.push('  edition: "' + esc(O.edition) + '",');
+  lines.push('  rights: "' + esc(O.rights) + '",');
+  lines.push('  sourceName: "' + esc(O.sourceName) + '",');
+  lines.push('  sourceUrl: "' + esc(O.sourceUrl) + '",');
+  lines.push("  chapters: [");
+  nums.forEach((n) => lines.push("    { n: " + n + ', html: "' + esc(byNum[n]) + '" },'));
+  lines.push("  ],");
+  lines.push("});");
+  const text = lines.join("\n") + "\n";
+  fs.writeFileSync(out, text);
+
+  global.window = {};
+  delete require.cache[require.resolve(out)];
+  require(out);
+  const got = global.window.FOLIO_BOOK_ORIG_IN[0];
+  const missing = BOOK.chapters.filter((n) => !byNum[n]);
+  console.log(
+    "\nWrote books/" + id + "." + O.lang + ".js — " + got.chapters.length + " chapters, " +
+    (text.length / 1024).toFixed(0) + " KB. Re-parsed OK."
+  );
+  /* Say what is NOT there. A bilingual page falls back to the translation alone for a chapter with no
+     original, which is the right behaviour and also a completely silent one — so the gap is reported
+     here rather than left to be discovered by a reader turning the column on and finding nothing. */
+  if (missing.length) console.log("  no original for " + missing.length + " chapter(s): " + missing.join(", "));
+  if (warnings.length) {
+    console.log("\n  " + warnings.length + " warning(s):");
+    warnings.forEach((w) => console.log("    " + w));
+  }
+}
+
+async function main() {
+  if (!SKIP_EN) await fetchEnglish();
+  if (BOOK.original && !SKIP_ORIG) await fetchOriginal();
 }
 
 main().catch((e) => { console.error("\n" + e.message); process.exit(1); });

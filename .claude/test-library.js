@@ -143,6 +143,7 @@ function shippedBookLeaks() {
       cols: getComputedStyle(document.querySelector(".book-grid")).gridTemplateColumns.split(" ").length,
       sortOpts: [...document.querySelectorAll("#bkSort option")].map((o) => o.value),
       note: (document.querySelector(".lib-note") || {}).textContent || "",
+      blurb: (document.querySelector(".page-head p") || {}).textContent || "",
     }));
     check("the shelf shows a tile per book", d.tiles.length >= 1, JSON.stringify(d.tiles.map((t) => t.id)));
     check("...naming the work and its author", /Letters from a Stoic/i.test(d.tiles[0].title) && /Seneca/i.test(d.tiles[0].author), JSON.stringify(d.tiles[0]));
@@ -158,7 +159,14 @@ function shippedBookLeaks() {
     check("the shelf is one full-width banner per row", d.cols === 1, String(d.cols));
     check("...and can be sorted, by title, author and date as well as by reading",
       ["title", "author", "written"].every((v) => d.sortOpts.includes(v)), d.sortOpts.join(","));
-    check("the page states the rule that decides what may be shelved", /copyright/i.test(d.note) && /translation/i.test(d.note), d.note.slice(0, 90));
+    /* The shelf's own licence paragraph is GONE (Aug 2026, on request) and its replacement is the
+       short line under the heading. Both halves are asserted, because they fail in opposite ways: the
+       paragraph creeping back would undo the request, and the line going missing would leave a page of
+       public-domain books saying nothing about being free to read. The RULE that paragraph described
+       has not gone anywhere — it is asserted below, in the front matter, beside the edition it is
+       actually about. */
+    check("the shelf says what it holds, in one line", /public domain/i.test(d.blurb) && /free to read/i.test(d.blurb), d.blurb.slice(0, 90));
+    check("...and no longer carries the licence paragraph", !d.note, d.note.slice(0, 90));
     check("...and STILL no book text has been fetched", !asked.some((u) => u.startsWith("/books/")), asked.filter((u) => u.startsWith("/books/")).join(","));
     bookHref = d.tiles[0].id;
 
@@ -485,6 +493,154 @@ function shippedBookLeaks() {
     check("[phone] the Library is reachable from the tab bar", ph.libTab);
     check("[phone] ...and no tab label is clipped by the extra cell",
       ph.labels.every((l) => l.w >= l.need - 1), JSON.stringify(ph.labels));
+    await page.close();
+  }
+
+  /* ================= 6. the original beside the translation =================
+     Almost everything here fails SILENTLY, which is why it is worth the assertions. A second column
+     that never appears looks like a book with no original; a column paired one section out looks like
+     a bilingual page and is worse than not having one, because a reader trusts it; and a tap gesture
+     that fires on a glossary link takes the language away instead of opening the term. */
+  console.log("\n6. The original beside the translation");
+  {
+    const page = await browser.newPage({ viewport: DESK });
+    watch(page);
+    await page.goto(base + "#book/" + bookHref, { waitUntil: "load" });
+    await page.waitForTimeout(2500);
+
+    // THE LAZINESS: the original is its own file and must not ride in with the translation
+    check("the original is not fetched until it is asked for",
+      !asked.some((u) => /\.la\.js$/.test(u)), asked.filter((u) => /\.la\.js$/.test(u)).join(","));
+    check("...and there is a control to ask for it", !!(await page.$("#bkLang")));
+
+    await page.evaluate(() => { const t = [...document.querySelectorAll(".bk-tab")].find((x) => x.dataset.ch === "9"); t.click(); });
+    await page.waitForTimeout(500);
+    check("a chapter reads as one column until then", (await page.$$(".bk-row")).length === 0);
+
+    await page.evaluate(() => document.querySelector("#bkLang").click());
+    await page.waitForTimeout(3000);
+    check("asking for it fetches it", asked.some((u) => /\.la\.js$/.test(u)));
+
+    const bi = await page.evaluate(() => {
+      const box = document.querySelector(".bk-bi");
+      const rows = [...document.querySelectorAll(".bk-row")];
+      const r1 = document.querySelector(".bk-row[data-sec='1']");
+      const a = r1.querySelector(".bk-col-en").getBoundingClientRect();
+      const b = r1.querySelector(".bk-col-or").getBoundingClientRect();
+      return {
+        mode: box.dataset.lang,
+        rows: rows.length,
+        // the numbered sections, as each column reports them — this is the pairing itself
+        secs: rows.filter((r) => r.dataset.sec).map((r) => r.dataset.sec),
+        enMarks: rows.filter((r) => r.dataset.sec).map((r) => {
+          const m = r.querySelector(".bk-col-en .bk-n"); return m ? m.textContent.trim() : "";
+        }),
+        orMarks: rows.filter((r) => r.dataset.sec).map((r) => {
+          const m = r.querySelector(".bk-col-or .bk-n"); return m ? m.textContent.trim() : "";
+        }),
+        sideBySide: b.x > a.x + 100 && Math.abs(a.y - b.y) < 4,
+        orLang: r1.querySelector(".bk-col-or").getAttribute("lang"),
+        tips: { en: document.querySelectorAll(".bk-col-en .ttip").length, or: document.querySelectorAll(".bk-col-or .ttip").length },
+      };
+    });
+    check("a wide screen sets the two languages side by side", bi.mode === "both" && bi.sideBySide,
+      JSON.stringify({ mode: bi.mode, sideBySide: bi.sideBySide }));
+    check("...as a row per section", bi.rows > 3, String(bi.rows));
+    /* THE PAIRING, asserted from the RENDERED text rather than from the row's own data-sec — which
+       would only be checking the label against itself. Each column's own section marker must be the
+       number the row claims, in both languages: that is what makes the two cells the same passage. */
+    check("...each row holding the SAME section number in both languages",
+      bi.secs.length > 2 && bi.secs.every((s, i) => bi.enMarks[i] === s && bi.orMarks[i] === s),
+      JSON.stringify({ secs: bi.secs, en: bi.enMarks, or: bi.orMarks }).slice(0, 200));
+    check("...with the original marked as its own language", bi.orLang === "la", bi.orLang);
+    /* The glossary is an ENGLISH glossary of prehistory and geography, and its keys collide with plain
+       Latin words far harder than with English ones. Measured on letter 9, which carries terms; letter
+       1 carries none, so the same check there would pass on nothing. */
+    check("the glossary is linked through the translation only",
+      bi.tips.en > 0 && bi.tips.or === 0, JSON.stringify(bi.tips));
+
+    /* Two works, two licences, two boxes. The Latin is out of copyright by AGE and Gummere's English
+       by its date of publication, and running the two together is how the distinction that decides
+       what may be shelved here gets lost. It is also asserted because it failed silently once: the
+       front matter is built when the page is set up, and the original's box comes from a file that
+       lands later, so it has to be rebuilt on paint rather than once. */
+    await page.evaluate(() => { const t = [...document.querySelectorAll(".bk-tab")].find((x) => x.dataset.ch === "0"); t.click(); });
+    await page.waitForTimeout(600);
+    const fm = await page.evaluate(() => [...document.querySelectorAll(".bk-rights")].map((s) => s.textContent));
+    check("the front matter states the grounds for the translation AND for the original",
+      fm.length === 2 && fm.some((s) => /Gummere/i.test(s)) && fm.some((s) => /Latin/i.test(s) && /public domain/i.test(s)),
+      JSON.stringify(fm.map((s) => s.slice(0, 60))));
+    await page.evaluate(() => { const t = [...document.querySelectorAll(".bk-tab")].find((x) => x.dataset.ch === "9"); t.click(); });
+    await page.waitForTimeout(500);
+
+    // a narrow screen shows ONE language — two columns of prose in 390px is two unreadable ones
+    await page.setViewportSize(PHONE);
+    await page.waitForTimeout(400);
+    const narrow = await page.evaluate(() => {
+      const r = document.querySelector(".bk-row[data-sec='1']");
+      return {
+        mode: document.querySelector(".bk-bi").dataset.lang,
+        en: r.querySelector(".bk-col-en").offsetHeight,
+        or: r.querySelector(".bk-col-or").offsetHeight,
+        overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
+      };
+    });
+    check("[phone] the same setting shows one language, not two columns",
+      narrow.mode === "or" && narrow.en === 0 && narrow.or > 0, JSON.stringify(narrow));
+    check("[phone] ...and the page still never scrolls sideways", !narrow.overflow);
+
+    /* TAPPING THE PAGE TURNS IT OVER, and lands on the SAME SECTION — the reason the whole thing is
+       paired on section numbers rather than on scroll offsets. The Latin runs about seven tenths the
+       length of the English, so a switch that restored the pixel position would land further from the
+       reader's sentence the deeper into the chapter they had got; the assertion is therefore that the
+       section is the same AND that the scroll actually had to move to keep it. */
+    await page.evaluate(() => window.scrollTo(0, 1400));
+    await page.waitForTimeout(300);
+    const nearestSec = () => page.evaluate(() => {
+      const eye = window.scrollY + window.innerHeight * 0.35;
+      let best = null;
+      document.querySelectorAll(".bk-row").forEach((r) => {
+        if (!r.offsetHeight) return;
+        const top = r.getBoundingClientRect().top + window.scrollY;
+        if (!best || Math.abs(top - eye) < Math.abs(best.top - eye)) best = { sec: r.dataset.sec, top: top };
+      });
+      return { sec: best && best.sec, y: window.scrollY, mode: document.querySelector(".bk-bi").dataset.lang };
+    });
+    const tapOn = (sel) => page.evaluate((s) => {
+      const el = document.querySelector(s);
+      const r = el.getBoundingClientRect();
+      const o = { bubbles: true, cancelable: true, clientX: r.x + 4, clientY: r.y + 4, isPrimary: true, pointerType: "touch", pointerId: 1 };
+      el.dispatchEvent(new PointerEvent("pointerdown", o));
+      el.dispatchEvent(new PointerEvent("pointerup", o));
+    }, sel);
+
+    const beforeTap = await nearestSec();
+    await tapOn(".bk-col-or p:not(.bk-salut)");
+    await page.waitForTimeout(400);
+    const afterTap = await nearestSec();
+    check("[phone] a tap on the page turns it to the other language",
+      afterTap.mode === "en", afterTap.mode);
+    check("[phone] ...landing on the same section the reader was on",
+      afterTap.sec === beforeTap.sec && !!beforeTap.sec, "before " + beforeTap.sec + ", after " + afterTap.sec);
+    check("[phone] ...which took a real scroll correction, the two lengths differing",
+      afterTap.y !== beforeTap.y, beforeTap.y + " → " + afterTap.y);
+
+    // ...but a tap on something that already does something keeps doing it
+    const tip = await page.$(".bk-col-en .ttip");
+    if (tip) {
+      await tapOn(".bk-col-en .ttip");
+      await page.waitForTimeout(300);
+      check("[phone] a tap on a glossary term does NOT turn the page",
+        (await page.evaluate(() => document.querySelector(".bk-bi").dataset.lang)) === "en");
+    }
+
+    // the choice is remembered — it is a way of reading, not a per-chapter accident
+    await page.evaluate(() => document.querySelector("#bkLang").click());
+    await page.waitForTimeout(400);
+    await page.reload({ waitUntil: "load" });
+    await page.waitForTimeout(3000);
+    check("[phone] the reader's choice survives a reload",
+      (await page.evaluate(() => { const b = document.querySelector(".bk-bi"); return b && b.dataset.lang; })) === "or");
     await page.close();
   }
 
