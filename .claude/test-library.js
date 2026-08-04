@@ -262,12 +262,17 @@ function shippedBookLeaks() {
         items,
         label: (document.querySelector(".bk-notes .src-label") || {}).textContent || "",
         shut: !!document.querySelector(".bk-notes .src-collapse.collapsed"),
+        expanded: (document.querySelector(".bk-notes .src-head") || {}).getAttribute
+          ? document.querySelector(".bk-notes .src-head").getAttribute("aria-expanded") : "",
         gloss: document.querySelectorAll(".bk-prose .ttip").length,
       };
     });
     check("the translator's notes render as a numbered fold", n.items >= 3, String(n.items));
     check("...labelled Notes, not Sources", /notes/i.test(n.label), n.label);
-    check("...shut by default, since a chapter is long", n.shut);
+    // OPEN by default (Aug 2026, on request — it started shut). An apparatus a reader has to go looking
+    // for is one they will not look at, and this is the translator's commentary rather than a works list.
+    check("...open by default, not collapsed", !n.shut && n.expanded === "true",
+      JSON.stringify({ shut: n.shut, ariaExpanded: n.expanded }));
     check("...with a marker in the prose for each", n.markers >= 3, String(n.markers));
     check("...numbered in reading order by the site's own footnote pass",
       n.numbered.length >= 3 && n.numbered.slice(0, 3).join(",") === "1,2,3", n.numbered.join(","));
@@ -285,6 +290,59 @@ function shippedBookLeaks() {
        the fold ever sees it — which is why this reads the shipped DATA rather than one rendered page,
        and why it also sweeps the prose, where the same leak would land if the wrapper markup moves
        again. */
+    /* TAPPING A MARKER LANDS ON THE NOTE, CLEAR OF THE TAB BAR (Aug 2026, on a bug report: on a phone
+       the jump "doesn't quite go far enough to see the actual note").
+
+       Two things conspired and the assertion has to be able to catch both. scrollIntoView({block:
+       "nearest"}) brings the item's bottom flush with the VIEWPORT's — and a phone has a 58px tab bar
+       fixed over the foot of it, so the note arrived underneath the bar. And when the fold was shut the
+       scroll was computed against a list still zero pixels tall, stopping short by its whole height.
+
+       So the check is not "is it in the viewport" — which the old behaviour passed — but "is it above
+       the tab bar", measured against the bar's own rendered box rather than a hard-coded 58. */
+    {
+      const phone = await browser.newPage({ viewport: PHONE });
+      watch(phone);
+      await phone.goto(base + "#book/seneca-letters", { waitUntil: "networkidle" });
+      await phone.evaluate(() => { const t = [...document.querySelectorAll(".bk-tab")].find((x) => x.dataset.ch === "3"); t.click(); });
+      await phone.waitForTimeout(600);
+      const jump = await phone.evaluate(async () => {
+        const m = document.querySelector(".bk-prose sup.fn");
+        m.scrollIntoView({ block: "center" });                    // start from the marker, as a reader is
+        await new Promise((r) => setTimeout(r, 400));
+        m.click();
+        await new Promise((r) => setTimeout(r, 900));             // let the smooth scroll settle
+        const n = +m.getAttribute("data-fn");
+        const item = document.querySelectorAll(".bk-notes .src-item")[n - 1];
+        const r = item.getBoundingClientRect();
+        const bar = document.querySelector(".tabbar");
+        const barTop = bar && bar.offsetHeight ? bar.getBoundingClientRect().top : window.innerHeight;
+        return { top: r.top, bottom: r.bottom, barTop, h: window.innerHeight, n };
+      });
+      check("[phone] tapping a marker brings its note fully into view",
+        jump.top >= 0 && jump.bottom <= jump.h, JSON.stringify(jump));
+      check("[phone] ...clear of the tab bar, not tucked behind it",
+        jump.bottom <= jump.barTop, JSON.stringify(jump));
+      // …and from a fold the reader had shut, where the scroll used to be computed against a flat list
+      const shutJump = await phone.evaluate(async () => {
+        document.querySelector(".bk-notes .src-head").click();    // shut it
+        await new Promise((r) => setTimeout(r, 600));
+        window.scrollTo(0, 0);
+        await new Promise((r) => setTimeout(r, 300));
+        const m = document.querySelector(".bk-prose sup.fn");
+        m.click();
+        await new Promise((r) => setTimeout(r, 900));
+        const n = +m.getAttribute("data-fn");
+        const r = document.querySelectorAll(".bk-notes .src-item")[n - 1].getBoundingClientRect();
+        const bar = document.querySelector(".tabbar");
+        const barTop = bar && bar.offsetHeight ? bar.getBoundingClientRect().top : window.innerHeight;
+        return { top: r.top, bottom: r.bottom, barTop, h: window.innerHeight };
+      });
+      check("[phone] ...and so does a marker that had to open the fold first",
+        shutJump.top >= 0 && shutJump.bottom <= shutJump.barTop, JSON.stringify(shutJump));
+      await phone.close();
+    }
+
     const leak = shippedBookLeaks();
     check("no note carries Wikisource's own stylesheet as text",
       leak.n > 0 && !leak.notes.length, JSON.stringify({ chapters: leak.n, bad: leak.notes.slice(0, 6) }));
@@ -313,7 +371,15 @@ function shippedBookLeaks() {
        Stoic), `epoch`, `iron` and `bronze` to taxonomy, geology and the ages of the world. Those links
        look perfectly normal on the page — a glossary term, styled like every other — while telling the
        reader something untrue about the sentence they are reading. Nothing throws. So: walk the WHOLE
-       book and assert no lowercase surface was ever linked. */
+       book and assert no lowercase surface was ever linked.
+
+       Reduced motion is turned on for the walk, and it is not incidental: a chapter change is a slide now
+       (slideChapter), so the new chapter is not painted until the swap at the midpoint, and a loop clicking
+       125 tabs a hundredth of a second apart would measure the FIRST chapter 125 times over — which reads
+       as a book with almost nothing linked in it rather than as a test outrunning an animation. This sweep
+       is about what the prose links, so the honest fix is to take the motion out rather than to wait it
+       out three books deep. */
+    await page.emulateMedia({ reducedMotion: "reduce" });
     const sweep = await page.evaluate(async () => {
       const bad = [], seen = {};
       for (const t of [...document.querySelectorAll(".bk-tab")]) {
@@ -327,6 +393,7 @@ function shippedBookLeaks() {
       }
       return { bad, keys: Object.keys(seen) };
     });
+    await page.emulateMedia({ reducedMotion: "no-preference" });
     check("no common noun is linked anywhere in the book", sweep.bad.length === 0, sweep.bad.slice(0, 6).join(", "));
     check("...while the proper nouns still are", sweep.keys.length >= 5, sweep.keys.join(","));
     check("...and the four that mean something else in Seneca are gone",
@@ -606,33 +673,159 @@ function shippedBookLeaks() {
       });
       return { sec: best && best.sec, y: window.scrollY, mode: document.querySelector(".bk-bi").dataset.lang };
     });
-    const tapOn = (sel) => page.evaluate((s) => {
+    /* One press of a finger, start to finish. `n` presses in a row makes a double tap; `dx` makes it a
+       swipe. Dispatched as real PointerEvents rather than through page.touchscreen because the handler
+       is on the page element and keys off pointerType. */
+    const tapOn = (sel, n, dx) => page.evaluate(([s, n, dx]) => {
       const el = document.querySelector(s);
       const r = el.getBoundingClientRect();
-      const o = { bubbles: true, cancelable: true, clientX: r.x + 4, clientY: r.y + 4, isPrimary: true, pointerType: "touch", pointerId: 1 };
-      el.dispatchEvent(new PointerEvent("pointerdown", o));
-      el.dispatchEvent(new PointerEvent("pointerup", o));
-    }, sel);
+      for (let i = 0; i < (n || 1); i++) {
+        const base = { bubbles: true, cancelable: true, isPrimary: true, pointerType: "touch", pointerId: 1 };
+        el.dispatchEvent(new PointerEvent("pointerdown", Object.assign({ clientX: r.x + 4, clientY: r.y + 4 }, base)));
+        el.dispatchEvent(new PointerEvent("pointerup", Object.assign({ clientX: r.x + 4 + (dx || 0), clientY: r.y + 4 }, base)));
+      }
+    }, [sel, n, dx]);
 
+    /* A SINGLE tap must NOT turn the page (Aug 2026, on request). This is the half of the change that
+       fails silently: if the double tap regresses to a single one every assertion below still passes,
+       because a double tap contains a single one — so the cheap gesture is asserted NOT to fire first. */
     const beforeTap = await nearestSec();
-    await tapOn(".bk-col-or p:not(.bk-salut)");
-    await page.waitForTimeout(400);
+    await tapOn(".bk-col-or p:not(.bk-salut)", 1);
+    await page.waitForTimeout(500);
+    check("[phone] a SINGLE tap leaves the language alone",
+      (await nearestSec()).mode === "or", (await nearestSec()).mode);
+
+    await tapOn(".bk-col-or p:not(.bk-salut)", 2);
+    await page.waitForTimeout(500);
     const afterTap = await nearestSec();
-    check("[phone] a tap on the page turns it to the other language",
+    check("[phone] a DOUBLE tap turns the page over to the other language",
       afterTap.mode === "en", afterTap.mode);
     check("[phone] ...landing on the same section the reader was on",
       afterTap.sec === beforeTap.sec && !!beforeTap.sec, "before " + beforeTap.sec + ", after " + afterTap.sec);
     check("[phone] ...which took a real scroll correction, the two lengths differing",
       afterTap.y !== beforeTap.y, beforeTap.y + " → " + afterTap.y);
 
-    // ...but a tap on something that already does something keeps doing it
+    // ...but a double tap on something that already does something keeps doing it
     const tip = await page.$(".bk-col-en .ttip");
     if (tip) {
-      await tapOn(".bk-col-en .ttip");
+      await tapOn(".bk-col-en .ttip", 2);
       await page.waitForTimeout(300);
       check("[phone] a tap on a glossary term does NOT turn the page",
         (await page.evaluate(() => document.querySelector(".bk-bi").dataset.lang)) === "en");
+      await page.evaluate(() => document.querySelectorAll(".gloss-win").forEach((w) => w.remove()));
     }
+
+    /* SWIPE BETWEEN CHAPTERS (Aug 2026, on request). Two things to pin, and the second is the one that
+       breaks quietly: a swipe must step the chapter, and it must NOT also register as half a double tap
+       — the two gestures end in the same pointerup and are told apart only by how far the finger moved. */
+    const chapNow = () => page.evaluate(() => {
+      const t = document.querySelector(".bk-tab.on");
+      return { ch: t && t.dataset.ch, lang: document.querySelector(".bk-bi") ? document.querySelector(".bk-bi").dataset.lang : null };
+    });
+    const beforeSwipe = await chapNow();
+    await tapOn(".bk-prose", 1, -120);              // a firm swipe left
+    await page.waitForTimeout(600);
+    const afterSwipe = await chapNow();
+    check("[phone] swiping left moves to the next chapter",
+      afterSwipe.ch && +afterSwipe.ch === +beforeSwipe.ch + 1, beforeSwipe.ch + " → " + afterSwipe.ch);
+    await tapOn(".bk-prose", 1, 120);               // …and back
+    await page.waitForTimeout(600);
+    check("[phone] swiping right moves back",
+      (await chapNow()).ch === beforeSwipe.ch, beforeSwipe.ch + " → " + (await chapNow()).ch);
+    check("[phone] ...and two swipes are not read as a double tap",
+      (await chapNow()).lang === afterSwipe.lang, "language changed under the swipes");
+    // a short drag is a scroll that wandered, not a swipe
+    await tapOn(".bk-prose", 1, -30);
+    await page.waitForTimeout(500);
+    check("[phone] a short sideways drag does not change the chapter",
+      (await chapNow()).ch === beforeSwipe.ch, (await chapNow()).ch);
+
+    /* …AND THE STEP IS A SLIDE, NOT A CUT (Aug 2026, on request). Measured MID-FLIGHT, because the
+       finished state of a slide and the finished state of a cut are the same chapter in the same place —
+       an assertion made after it settles would pass on a hard swap for ever. The panel leaves the way the
+       finger went (a swipe left → it goes left, and the next one arrives from the right), and the stage
+       clips horizontally while it moves so the travel cannot be scrolled into. */
+    const flight = await page.evaluate(async () => {
+      const el = document.querySelector(".bk-page"), r0 = el.getBoundingClientRect().left;
+      const base = { bubbles: true, cancelable: true, isPrimary: true, pointerType: "touch", pointerId: 1 };
+      const p = document.querySelector(".bk-prose"), r = p.getBoundingClientRect();
+      p.dispatchEvent(new PointerEvent("pointerdown", Object.assign({ clientX: r.x + 4, clientY: r.y + 4 }, base)));
+      p.dispatchEvent(new PointerEvent("pointerup", Object.assign({ clientX: r.x + 4 - 120, clientY: r.y + 4 }, base)));
+      await new Promise((rs) => setTimeout(rs, 90));
+      const out = document.querySelector(".bk-page").getBoundingClientRect().left;
+      const clip = getComputedStyle(document.querySelector(".stage")).overflowX;
+      await new Promise((rs) => setTimeout(rs, 120));         // past the midpoint: the new chapter is painted
+      const inn = document.querySelector(".bk-page").getBoundingClientRect().left;
+      await new Promise((rs) => setTimeout(rs, 600));
+      const el2 = document.querySelector(".bk-page");
+      return { r0: r0, out: out, in: inn, clip: clip,
+               settled: el2.getBoundingClientRect().left,
+               clipEnd: getComputedStyle(document.querySelector(".stage")).overflowX };
+    });
+    check("[phone] the outgoing chapter moves the way the finger went", flight.out < flight.r0 - 4,
+      flight.r0 + " → " + flight.out);
+    check("[phone] ...and the next one comes in from the other side", flight.in > flight.r0 + 4,
+      flight.r0 + " → " + flight.in);
+    check("[phone] ...with the stage clipped while it travels, and released after",
+      flight.clip === "clip" && flight.clipEnd !== "clip", flight.clip + " → " + flight.clipEnd);
+    check("[phone] ...and it lands where a chapter belongs", Math.abs(flight.settled - flight.r0) < 2,
+      flight.r0 + " → " + flight.settled);
+    await tapOn(".bk-prose", 1, 120);               // …and back to where the assertions below expect it
+    await page.waitForTimeout(700);
+
+    /* …and the same swipe as a REAL touch, which is a different test and the reason it is here (Aug 2026,
+       on a report that the swipe did nothing on a phone). Everything above dispatches PointerEvents by
+       hand, which bypasses the browser's own gesture arbitration and so completes every time. A real
+       finger does not: under the default touch-action the browser claims the drag for scrolling the moment
+       it passes the slop and fires POINTERCANCEL, pointerup never arrives, and the handler — which
+       measures the gesture at pointerup — can never see one. The swipe was broken this way for its whole
+       life and every synthetic assertion above passed throughout. `.page` carries `touch-action:pan-y
+       pinch-zoom` for it; nothing in JS can substitute, so this is asserted through CDP touch input.
+       The two that follow are the other halves: a vertical drag must still SCROLL (that one really is a
+       scroll, and pan-y is what keeps it), and the chapter bar must still pan sideways under its own
+       finger, since a touch-action that reached into it would take a nested scroller away. */
+    const cdp = await page.context().newCDPSession(page);
+    const realSwipe = async (x0, y0, dx, dy) => {
+      await cdp.send("Input.dispatchTouchEvent", { type: "touchStart", touchPoints: [{ x: x0, y: y0, id: 1 }] });
+      for (let i = 1; i <= 6; i++) {
+        await page.waitForTimeout(25);
+        await cdp.send("Input.dispatchTouchEvent", { type: "touchMove", touchPoints: [{ x: x0 + dx * i / 6, y: y0 + (dy || 0) * i / 6, id: 1 }] });
+      }
+      await cdp.send("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] });
+      await page.waitForTimeout(700);
+    };
+    await realSwipe(320, 500, -170);
+    const afterReal = await chapNow();
+    check("[phone] a REAL touch swipe steps the chapter, not just a synthesised one",
+      afterReal.ch && +afterReal.ch === +beforeSwipe.ch + 1, beforeSwipe.ch + " → " + afterReal.ch);
+    await realSwipe(80, 500, 170);
+    check("[phone] ...and back the other way",
+      (await chapNow()).ch === beforeSwipe.ch, beforeSwipe.ch + " → " + (await chapNow()).ch);
+    /* The chapter bar goes FIRST of the two below, and the order is not arbitrary: a touch that lands
+       while an earlier fling is still running is spent stopping it, so a bar pan measured straight after
+       the vertical drag reads as a few pixels of scroll and fails on the wrong grounds. */
+    const barPans = await page.evaluate(() => {
+      const t = document.querySelector("#bkTabs");
+      t.scrollTo({ left: 0, behavior: "auto" });
+      return t.scrollWidth > t.clientWidth + 4;
+    });
+    if (barPans) {
+      await page.waitForTimeout(600);
+      const bar = await page.evaluate(() => { const r = document.querySelector("#bkTabs").getBoundingClientRect(); return { x: r.x, y: r.y, w: r.width, h: r.height }; });
+      const chBefore = (await chapNow()).ch;
+      await realSwipe(bar.x + bar.w - 25, bar.y + bar.h / 2, -220);
+      check("[phone] ...and the chapter bar still pans sideways under its own finger",
+        (await page.evaluate(() => document.querySelector("#bkTabs").scrollLeft)) > 80,
+        String(await page.evaluate(() => document.querySelector("#bkTabs").scrollLeft)));
+      check("[phone] ...without that pan also stepping a chapter",
+        (await chapNow()).ch === chBefore, chBefore + " → " + (await chapNow()).ch);
+    }
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await page.waitForTimeout(400);
+    await realSwipe(200, 620, 0, -300);
+    check("[phone] ...while a vertical drag still scrolls the chapter",
+      (await page.evaluate(() => window.scrollY)) > 100, String(await page.evaluate(() => window.scrollY)));
+    await cdp.detach();
 
     // the choice is remembered — it is a way of reading, not a per-chapter accident
     await page.evaluate(() => document.querySelector("#bkLang").click());
@@ -642,6 +835,66 @@ function shippedBookLeaks() {
     check("[phone] the reader's choice survives a reload",
       (await page.evaluate(() => { const b = document.querySelector(".bk-bi"); return b && b.dataset.lang; })) === "or");
     await page.close();
+  }
+
+  /* ================= 7. the switch is a crossfade, not a cut =================
+     A regression here is silent in the worst way: the languages still swap, the reader still lands on
+     the right passage, and every assertion above still passes — the switch just goes back to being the
+     jump it was. So the fade is measured rather than looked at, by sampling the prose's own opacity
+     across the press.
+
+     The second assertion is the one that catches a DRIFT rather than a removal: the JS holds the swap
+     for BK_FADE and the CSS fades for its own duration, and if those two come apart the reader sees
+     the change happen — a flash of the old language at half opacity — which is worse than the cut. It
+     is checked by asserting that the first frame carrying the NEW language is a dark one. */
+  console.log("\n7. Turning the page over is a crossfade");
+  {
+    const page = await browser.newPage({ viewport: DESK });
+    watch(page);
+    await page.goto(base + "#book/seneca-letters", { waitUntil: "networkidle" });
+    await page.evaluate(() => document.querySelectorAll(".bk-tab")[9].click());
+    await page.waitForTimeout(300);
+    await page.click("#bkLang");                       // first press fetches the original and repaints
+    await page.waitForTimeout(2500);
+
+    // every frame for 700ms from the moment of the press: the prose's opacity and which language it holds
+    const frames = await page.evaluate(() => new Promise((done) => {
+      const seen = [], t0 = performance.now();
+      const tick = () => {
+        const el = document.querySelector("#bkPage .bk-prose");
+        seen.push({ o: el ? +getComputedStyle(el).opacity : null, mode: el ? el.dataset.lang : null });
+        if (performance.now() - t0 < 700) requestAnimationFrame(tick); else done(seen);
+      };
+      document.querySelector("#bkLang").click();
+      tick();
+    }));
+    const min = Math.min(...frames.map((f) => f.o));
+    const swap = frames.find((f) => f.mode !== frames[0].mode);
+    const rises = frames.filter((f, i) => i && f.o > frames[i - 1].o + 0.02).length;
+    check("the prose fades right down rather than cutting", min < 0.05, "min opacity " + min);
+    check("...the swap itself happens while nothing is visible",
+      !!swap && swap.o < 0.1, swap ? "opacity " + swap.o + " at the swap" : "the language never changed");
+    check("...and it comes back over several frames, not in one",
+      rises >= 4, rises + " rising frames");
+    check("...ending fully visible", frames[frames.length - 1].o > 0.95, String(frames[frames.length - 1].o));
+    await page.close();
+
+    // a reader who has asked for less motion is not made to wait out a fade they will not see
+    const still = await browser.newPage({ viewport: DESK, reducedMotion: "reduce" });
+    watch(still);
+    await still.goto(base + "#book/seneca-letters", { waitUntil: "networkidle" });
+    await still.evaluate(() => document.querySelectorAll(".bk-tab")[9].click());
+    await still.waitForTimeout(300);
+    await still.click("#bkLang");
+    await still.waitForTimeout(2500);
+    const t0 = Date.now();
+    await still.click("#bkLang");
+    const mode = await still.evaluate(() => document.querySelector(".bk-bi").dataset.lang);
+    const op = await still.evaluate(() => +getComputedStyle(document.querySelector(".bk-prose")).opacity);
+    check("[reduced motion] the switch is immediate, not held for a fade",
+      mode === "en" && Date.now() - t0 < 120, mode + " after " + (Date.now() - t0) + "ms");
+    check("[reduced motion] ...and nothing is left faded out", op > 0.95, String(op));
+    await still.close();
   }
 
   await browser.close();

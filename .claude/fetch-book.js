@@ -37,7 +37,42 @@ const UA = "FolioStudySite/1.0 (public-domain text import; https://github.com/po
 
 /* ---------- the books this script knows how to fetch ----------
    `source` is a Wikisource page-title pattern; `chapters` the numbers to walk. Adding a book
-   means adding an entry here — the extractor below is generic over Wikisource's page layout. */
+   means adding an entry here — the extractor below is generic over Wikisource's ORDINARY page
+   layout, a transcluded scan of a single column of prose. A book whose pages are laid out some
+   other way declares `layout`, and there is one such: see "parallel" on the Art of War below. */
+
+/* The Art of War's thirteen chapter titles, TRANSCRIBED from the contents page of Giles's own
+   edition, where they read "Section I: Laying Plans" and so on. They are a table here rather than a
+   walk of that page because `chapterTitles()` below reads Seneca's contents table specifically — it
+   keys on a /Letter_<digits> href, and this book's contents link to /Section_<Roman numeral>. Thirteen
+   transcribed strings are cheaper and easier to check than a second parser, and the house rule is the
+   same either way: a title is transcribed, never composed. */
+const AOW_TITLES = [
+  "Laying Plans", "Waging War", "Attack by Stratagem", "Tactical Dispositions", "Energy",
+  "Weak Points and Strong", "Manœuvring", "Variation of Tactics", "The Army on the March",
+  "Terrain", "The Nine Situations", "The Attack by Fire", "The Use of Spies",
+];
+
+/* The Republic's ten book-titles, TRANSCRIBED from the headings this edition prints above each book
+   ("BOOK V. / ON MATRIMONY AND PHILOSOPHY"). They are a table here for the reason AOW_TITLES is one:
+   chapterTitles() below reads a contents TABLE, and this volume's contents page is not one. The
+   printed headings are set in capitals and are given here in the same title case titleCase() would
+   have produced, so a title read off the page and a title read off a contents table look alike on the
+   shelf. Transcribed, never composed — these are the edition's own descriptions of its books, not a
+   modern summary of what each one argues. */
+const REPUBLIC_TITLES = [
+  "Of Wealth, Justice, Moderation, and Their Opposites",
+  "The Individual, the State, and Education",
+  "The Arts in Education",
+  "Wealth, Poverty, and Virtue",
+  "On Matrimony and Philosophy",
+  "The Philosophy of Government",
+  "On Shadows and Realities in Education",
+  "Four Forms of Government",
+  "On Wrong or Right Government, and the Pleasures of Each",
+  "The Recompense of Life",
+];
+
 const BOOKS = {
   "seneca-letters": {
     title: "Letters from a Stoic",
@@ -170,6 +205,403 @@ const BOOKS = {
          here, so neither has a column to sit beside. */
     },
   },
+
+  "marcus-aurelius-meditations": {
+    title: "Meditations",
+    subtitle: "To Himself",
+    author: "Marcus Aurelius",
+    translator: "C. R. Haines",
+    edition: "Loeb Classical Library, 1916",
+    written: "c. 170–180 CE",
+    /* The same two-works question Seneca's entry opens on, and here it resolves more cleanly than it
+       does there. Wikisource carries an explicit split tag on this volume: the ORIGINAL is public
+       domain worldwide (Marcus died in 180), and the TRANSLATION is public domain in the United States
+       as a pre-1929 publication — and Haines died in 1935, so it is out of copyright in life-plus-70
+       countries too, which Gummere's 1917–1925 volumes only reach on the publication-date rule.
+       The modern translations a reader is likeliest to own — Hays (2002), Hammond (2006), Gregory
+       Hays's and Robin Hard's Oxford and Penguin texts — are all firmly in copyright and are named
+       here for the same reason Campbell is named above: so nobody reaches for one later. */
+    rights:
+      "Public domain in the United States: Haines's translation was published in 1916, before 1929, so " +
+      "its copyright has expired. Haines died in 1935, so it is also public domain wherever the term is " +
+      "the author's life plus 90 years or less. (The modern translations by Gregory Hays, 2002, and " +
+      "Martin Hammond, 2006, are still in copyright and are not used here.)",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Marcus_Aurelius_(Haines_1916)",
+
+    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out above.
+       Every claim is the standard account and is deliberately unembroidered. Two places where the
+       popular picture of this book is wrong or contested are said plainly rather than smoothed over:
+       the title is not the author's, and the book was not written to be read by anybody. */
+    about: [
+      "<b>Meditations</b> is a private notebook kept by the Roman emperor Marcus Aurelius during the " +
+        "last decade of his life, while he was on campaign on the northern frontier. It was not written " +
+        "for publication and has no argument to make: it is a man setting down, over and over, the " +
+        "things he wants to remember — that anger is a waste, that fame is nothing, that other people's " +
+        "faults are not worth his temper, that he will shortly be dead and so will everyone annoying " +
+        "him. Much of it is addressed to himself in the second person, which is why the Greek title " +
+        "given it by later editors is simply <i>Ta eis heauton</i>, 'to himself'.",
+      "The name <i>Meditations</i> is not the author's, and neither is any other title: the book carries " +
+        "none in the manuscripts. Marcus Aurelius ruled from 161 to 180 CE, the last of the emperors " +
+        "later called the Five Good Emperors, and spent much of his reign fighting on the Danube and " +
+        "managing a plague that ran through the empire. He had been trained in rhetoric and turned to " +
+        "philosophy in his twenties; he never taught it, published nothing on it, and appears to have " +
+        "shown these notes to no one.",
+      "The twelve books are not a sequence and were not composed as one. Book 1 stands apart from the " +
+        "rest — it is a list of debts, naming each person who taught him something and saying what it " +
+        "was, from his grandfather's good temper to his adoptive father's refusal to be flattered. The " +
+        "remaining eleven are collections of short entries, some a page long and many a single " +
+        "sentence, in no order that anyone has been able to establish. Two of them carry a note of " +
+        "where they were written, among the Quadi and at Carnuntum, which places them on campaign in " +
+        "the 170s.",
+      "Its Stoicism is practical rather than systematic. Marcus took the framework from Epictetus, whose " +
+        "lectures he had read closely and quotes often: that we control our own judgements and nothing " +
+        "else, that everything outside them is indifferent, that the world is a single ordered whole and " +
+        "a person is a part of it with work to do. What he adds is the difficulty of believing it. The " +
+        "same resolutions recur because they kept failing, and the book is at its most striking when the " +
+        "most powerful man alive is telling himself, again, to get out of bed.",
+      "The books are numbered here as they have always been numbered, and the small raised figures " +
+        "running through each one are its section numbers, by which any passage is cited — so an entry " +
+        "referred to elsewhere as 'Meditations 4.17' is book 4, section 17. The numbered notes folded " +
+        "under each book are the translator's own.",
+    ],
+
+    /* One volume, so no `parts`: app.js falls back to a single unlabelled group, which is what a book
+       that its own edition does not divide should show. */
+    chapterWord: "Book",
+    /* The Meditations' twelve books have no titles — the volume's contents page heads them "BOOK I" …
+       "BOOK XII" and gives them no names, so that is what they are called here. Composing titles for
+       them ("On Death", "On Anger") would be inventing an apparatus the book does not have. */
+    titleOf: (n) => "Book " + toRoman(n),
+    /* Haines sets his section numbers as plain text at the head of a paragraph rather than as Gummere's
+       raised bold numeral, so they are found by markLeadingSections after the body is cleaned rather
+       than by the `wst-verse` rewrite inside cleanBody. */
+    sections: "leading",
+    /* The running heads this scan carries above the text: every book is headed with its own numeral,
+       and book 1 additionally carries the volume's half-title. Neither is Marcus's writing. */
+    dropHeads: [/^BOOK\s+[IVXLCDM]+$/i, /^MARCUS\s+AURELIUS\s+ANTONINUS$/i],
+    page: (n) => "Marcus Aurelius (Haines 1916)/Book " + n,
+    /* No contents page is walked: the one this volume has lists the books by numeral only, so there
+       are no titles on it to read, and `titleOf` above supplies the same numerals directly. */
+    chapters: Array.from({ length: 12 }, (_, i) => i + 1),
+
+    /* ---------- THE ORIGINAL LANGUAGE: KOINE GREEK ----------
+       WHY THIS IS NOT WIKISOURCE, and it is the most useful thing in this entry.
+
+       The obvious source is Greek Wikisource's `Τα εις εαυτόν`, and it cannot be used. app.js pairs the
+       original against the translation by SECTION NUMBER, never by paragraph order, because the number
+       is the one thing two editions of an ancient work genuinely share. Latin Wikisource prints
+       Seneca's numbers in the text as [1] [2] [3], so the Latin says which section each passage is.
+       Greek Wikisource prints NO numbers at all: each book is a single <ol>, so the only handle it
+       offers is a passage's POSITION in that list — and position is not the same claim as a number.
+       Measured, its edition divides six of the twelve books differently from Haines (book 4 has 50
+       items to Haines's 51, book 7 has 76 to his 75, and so on), so past one splice point per book the
+       position runs one out from the section it would have to be. Pairing by position and correlating
+       the two sides' section lengths gives 0.98–1.00 on the six books whose counts agree and 0.33–0.71
+       on the six that do not. Numbering that text by transferring Leopold's divisions onto it was tried
+       and abandoned too: it is a different edition with its own variants, and even where the counts
+       agree 15 of 185 openings do not match, so every one of those would have been a guess.
+
+       WHAT IS USED INSTEAD is a TEI edition prepared to the CTS standard, where the numbers are
+       STRUCTURE rather than something to be read back out of the prose — `<div subtype="chapter"
+       n="17">`. Nothing is inferred, so nothing can be inferred wrongly. Leopold's numbering agrees
+       with Haines on 486 of the 487 sections; the single exception is a section 18 in book 12 that
+       Leopold's text does not have, and because BOTH sides now state their numbers that pairs as an
+       empty cell rather than as a silent one-place shift.
+
+       THE LICENCE HAS TWO LAYERS AND BOTH ARE STATED, because this is the first book here whose
+       original is not simply an expired copyright. The TEXT is Jan Hendrik Leopold's Teubner edition of
+       1908 — published before 1929, and Leopold died in 1925, so it is public domain on both the
+       publication and the life-plus-70/90 rules, exactly like Haines's translation beside it. What is
+       NOT merely expired is the DIGITAL edition: the Perseus Digital Library releases its file under
+       CC BY-SA 4.0. Folio ships Leopold's words and Leopold's section numbers, re-encoded into its own
+       markup — but Perseus is where this text came from, they are credited as its source on the book's
+       own page, and their licence is named in `rights` and in the generated file's header. That is a
+       deliberate departure from the "expired copyright only" rule at the top of this file, made
+       knowingly and recorded here rather than glossed over; if the site would rather not carry a
+       CC BY-SA obligation at all, deleting this `original` block and `origLang` in app.js removes the
+       Greek and leaves the English untouched. */
+    original: {
+      lang: "grc",
+      langName: "Greek",
+      source: "tei",
+      url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0562/tlg001/tlg0562.tlg001.perseus-grc2.xml",
+      edition: "Jan Hendrik Leopold's Teubner text (Leipzig, 1908), from the Perseus Digital Library",
+      rights:
+        "Two layers, both stated. The text is Jan Hendrik Leopold's edition of the Greek, published by " +
+        "Teubner in 1908 and in the public domain — before 1929, and Leopold died in 1925. The digital " +
+        "edition it is taken from is prepared by the Perseus Digital Library at Tufts University and is " +
+        "released under a Creative Commons Attribution-ShareAlike 4.0 International licence.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0562.tlg001/",
+    },
+  },
+
+  "sun-tzu-art-of-war": {
+    title: "The Art of War",
+    subtitle: "The Oldest Military Treatise in the World",
+    author: "Sun Tzu",
+    translator: "Lionel Giles",
+    edition: "Luzac & Co., London, 1910",
+    written: "c. 5th century BCE",
+
+    /* ---------- THE LICENCE, and this is the first book here that has to state a LIMIT ----------
+       Seneca and the Meditations both clear the bar twice over: their translators died in 1942 and
+       1935, so those texts are out of copyright on the publication rule AND on the life-plus-seventy
+       rule most of Europe uses. Giles clears it once. He published in 1910, comfortably before 1929,
+       so the translation is public domain in the United States on exactly the same ground as the
+       other two — but he lived until 1958, so where the term runs for the author's life plus seventy
+       years the translation stays in copyright until the first day of 2029.
+
+       That is said outright in `rights` below, which the book's own front matter prints, rather than
+       being smoothed into the same sentence the other two books use. The site's stated bar is that
+       the copyright has expired, and the ground the other two are served on is US publication before
+       1929; this meets that bar on that ground, and the reader is told where it does not reach
+       further. The Chinese underneath is some twenty-five centuries old and free everywhere, which is
+       the one half of this that needs no argument at all.
+
+       The modern translations a reader is likeliest to own — Samuel B. Griffith's of 1963 and Roger
+       Ames's of 1993 — are firmly in copyright, and are named here for the reason Campbell and Hays
+       are named above: so that nobody reaches for one later. */
+    rights:
+      "Public domain in the United States: Giles's translation was published in 1910 — before 1929 — " +
+      "so its copyright has expired there. Giles died in 1958, so where the term is the author's life " +
+      "plus seventy years this translation remains in copyright until 2029; the Chinese text it is " +
+      "printed beside is roughly twenty-five centuries old and is in the public domain everywhere. " +
+      "(The modern translations by Samuel B. Griffith, 1963, and Roger Ames, 1993, are still in " +
+      "copyright and are not used here.)",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/The_Art_of_War_(Sun)",
+
+    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out above.
+       Two things the popular picture of this book gets wrong are stated plainly rather than smoothed
+       over: nobody knows who wrote it or when, and Giles is not a neutral narrator. */
+    about: [
+      "<b>The Art of War</b> is a treatise on the conduct of war in thirteen short chapters, which " +
+        "the title page of this edition calls 'the oldest military treatise in the world'. It is " +
+        "attributed to Sun Tzŭ, 'Master Sun', and it has far less to say about battle than its name " +
+        "suggests. Its subject is everything standing around a battle: the calculations made before a " +
+        "campaign is begun, what it costs to keep an army in the field, ground, weather, morale, " +
+        "deception, the management of spies, and the reading of an opponent's mind. Its most quoted " +
+        "claim is that the highest skill is to break an enemy's resistance without fighting at all.",
+      "Who wrote it, and when, is not settled. The traditional account makes Sun Tzŭ a general named " +
+        "Sun Wu who served the king of Wu at the end of the 6th century BCE, and that account is " +
+        "given by the historian Sima Qian some four hundred years after the events it describes. Many " +
+        "modern scholars place the text as it has come down to us considerably later, in the Warring " +
+        "States period, and read it as the work of a school or of several successive hands rather " +
+        "than of one man on one occasion. The two views are not wholly exclusive, and the argument " +
+        "has not ended.",
+      "It has been read and annotated without a break for two thousand years. The earliest commentary " +
+        "to survive is by Ts‘ao Kung — the general and statesman Cao Cao, who died in 220 CE — and " +
+        "others accumulated around the text after him, of whom the ones quoted most often here are Tu " +
+        "Mu, Chang Yü, Li Ch‘üan and Wang Hsi. In the 11th century the book was placed at the head of " +
+        "the Seven Military Classics, the canon set for China's military examinations. In 1972 bamboo " +
+        "slips from Han tombs at Yinqueshan, in Shandong, produced a copy far older than any then " +
+        "known, along with a separate treatise by Sun Bin — which settled a long argument about " +
+        "whether the two Suns were one man.",
+      "Lionel Giles was an assistant in the Department of Oriental Printed Books and Manuscripts at " +
+        "the British Museum, and this is his edition of 1910. It prints the Chinese text, his " +
+        "translation of it, and a running commentary several times the length of the text itself, " +
+        "drawing on the Chinese commentators, on the histories, and on European military writing. It " +
+        "is also, in places, an argument: Giles thought the English version published a few years " +
+        "earlier by Captain E. F. Calthrop very bad indeed, and says so on almost every page. Expect " +
+        "a translator with opinions, and read the notes as one man's case rather than as a verdict.",
+      "The chapters are numbered here as they have always been numbered, and the small raised figures " +
+        "running through each one are the section numbers by which any passage is cited — so a line " +
+        "referred to elsewhere as 'Sun Tzŭ III. 18' is chapter 3, section 18. The numbered notes " +
+        "folded under each chapter are Giles's own commentary, which the printed edition sets in " +
+        "small type beneath the sentence it belongs to. The Chinese that he printed beside his " +
+        "translation can be shown alongside it here, paired against the same section numbers.",
+    ],
+
+    chapterWord: "Chapter",
+    /* Transcribed from the edition's own contents page — see AOW_TITLES above. */
+    titleOf: (n) => AOW_TITLES[n - 1] || "Chapter " + n,
+
+    /* ---------- THE PARALLEL LAYOUT ----------
+       Seneca's and Marcus's pages are one column of prose, and nearly everything in cleanBody is the
+       work of undoing a transcluded scan of one. This edition's pages are a PARALLEL TEXT: each
+       printed page is transcribed as a two-cell table, the Chinese on the left and Giles's English on
+       the right, and a chapter is a run of seven to thirty-three of them. Pointed at that, the
+       ordinary extractor does not merely do a worse job — it fails, and in the worse case it would
+       fail SILENTLY. `prp-pages-output` on these pages wraps only the footnote list at the foot, so
+       slicing from it yields the notes and none of the text; and the two columns, both being table
+       cells that the tag stripper unwraps, would come through INTERLEAVED — a line of classical
+       Chinese, a line of English, all the way down, with nothing throwing to say so.
+
+       So `layout: "parallel"` selects a second extractor, and it does three things the first cannot.
+       It splits the cells and keeps the two columns apart. It lifts Giles's running commentary out of
+       the English column into the book's own notes. And it reads the Chinese column's section
+       numbers, which is what lets this book have an original at all — see `original` below. */
+    layout: "parallel",
+    page: (n) => "The Art of War (Sun)/Section " + toRoman(n),
+    chapters: Array.from({ length: 13 }, (_, i) => i + 1),
+
+    /* ---------- THE ORIGINAL, AND WHY THIS ONE PAIRS WHERE THE MEDITATIONS COULD NOT ----------
+       The long note at the foot of the Meditations entry sets out the rule: app.js sets the two texts
+       side by side on their SECTION NUMBERS and never on paragraph order, so an original may ship
+       only where it says which section each passage is. Greek Wikisource prints the Meditations as an
+       unnumbered list, position is not the same claim as a number, and that book therefore ships in
+       English alone. That note ends by saying the Loeb's own facing Greek would settle it exactly,
+       since it is the same edition and its divisions are the translator's by construction — and that
+       those pages are not transcribed.
+
+       Here they are. This Chinese is not another edition on another wiki: it is the text Giles
+       printed on the facing half of his own page, transcribed in the same table, and the numbering is
+       his. The first item of each printed page's list carries an explicit `value` and the rest run on
+       from it, so the numbers are STATED by the edition rather than counted off a list, and they are
+       the English side's numbers by construction.
+
+       Measured before it was believed, across all thirteen chapters: 385 sections, with the two
+       columns agreeing exactly — same count, same maximum, no number present on one side and missing
+       from the other, and no duplicates. That is why there is no table of corrections here and no
+       hedging in the front matter: there was nothing to correct.
+
+       It has no `wiki` or `pages` of its own, unlike Seneca's Latin, because there is nowhere else to
+       go: both columns come off the pages already being fetched, and fetchOriginal reads them out of
+       the same cache rather than asking Wikisource for them a second time. */
+    original: {
+      lang: "zh",
+      langName: "Chinese",
+      edition: "The Chinese text as printed in Giles's edition, Luzac & Co., London, 1910",
+      rights:
+        "Public domain worldwide: the Chinese text is roughly twenty-five centuries old, and this is " +
+        "a transcription of it as printed in Giles's edition of 1910.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Art_of_War_(Sun)",
+    },
+  },
+
+  "plato-republic": {
+    title: "The Republic",
+    // from this edition's own title page, which sets it under the title in its own line
+    subtitle: "An Ideal Commonwealth",
+    author: "Plato",
+    translator: "Benjamin Jowett",
+    edition: "The Colonial Press, New York, 1901",
+    written: "c. 375 BCE",
+
+    /* ---------- THE LICENCE, and this is the easiest of the four ----------
+       Seneca's and the Meditations' translations are served on the pre-1929 publication rule and
+       clear the life-plus-seventy rule as well; Giles's clears only the first, and his entry has to
+       say where it stops. This one clears everything with room to spare and needs no limit at all.
+       Jowett published his Plato in 1871 and revised it through the 1890s, this printing is of 1901,
+       and Jowett died in 1893 — so the translation is out of copyright on the publication rule, on
+       life plus seventy, and on life plus a hundred. The Greek beneath it is some twenty-four
+       centuries old.
+
+       The 1901 volume carries a Colonial Press copyright notice, which covers what the press added
+       to Jowett rather than Jowett: a special introduction by William Cranston Lawton and a set of
+       engraved plates. Neither is imported — what is taken is the ten books of the translation — and
+       both are pre-1929 in any case.
+
+       The modern translations a reader is likeliest to own — Desmond Lee's Penguin (1955), G. M. A.
+       Grube's revised by C. D. C. Reeve (1992), Allan Bloom's (1968) — are all firmly in copyright,
+       and are named here for the reason Campbell, Hays and Griffith are named above: so that nobody
+       reaches for one later. */
+    rights:
+      "Public domain worldwide: Benjamin Jowett died in 1893 and his translation was published from " +
+      "1871 onwards, this printing in 1901, so its copyright has expired everywhere — on the pre-1929 " +
+      "publication rule and on the author's-life rule alike. The Greek it translates is some " +
+      "twenty-four centuries old. (The modern translations by Desmond Lee, 1955, Allan Bloom, 1968, " +
+      "and G. M. A. Grube revised by C. D. C. Reeve, 1992, are still in copyright and are not used " +
+      "here.)",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/The_Republic_of_Plato",
+
+    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out above.
+       Three things a reader arriving at this book should be told plainly rather than discover late:
+       the argument is about a soul at least as much as about a state, the translation is a Victorian
+       one with a manner of its own, and this printing does not carry the Stephanus numbers by which
+       Plato is cited anywhere else — which is also why there is no Greek column here. */
+    about: [
+      "<b>The Republic</b> is the best known of Plato's dialogues and one of the most widely read " +
+        "books of political philosophy ever written, though calling it that gives a misleading idea " +
+        "of what is in it. It opens on a question about justice — what it is, and whether a just life is better " +
+        "for the person living it than an unjust one — and reaches for an answer by building a city " +
+        "in speech, on the reasoning that justice will be easier to make out written large in a state " +
+        "than small in a single soul. Everything the book is famous for comes out of that " +
+        "construction: the rulers who must be philosophers, the guardians who own nothing, the poets " +
+        "turned out of the city, and the images of the sun, the divided line and the cave.",
+      "Plato was born in Athens around 428 BCE, into a family close to the city's politics, and lived " +
+        "through its defeat by Sparta, the brief and violent oligarchy that followed, and the " +
+        "restored democracy that put Socrates to death in 399. He founded the Academy in the 380s and " +
+        "taught there until he died around 348. The Republic is usually placed in the 370s, in the " +
+        "middle of his writing life, and Socrates narrates the whole of it — as he does in no other " +
+        "dialogue of this length — recounting the previous day's conversation at the house of " +
+        "Cephalus in the Piraeus.",
+      "How much of it is meant as a proposal has been argued over since antiquity, and no reading " +
+        "commands agreement. Some of the city's arrangements are plainly offered as improvements on " +
+        "Athens; others — the rulers' abolition of private families, the falsehood told to hold the " +
+        "classes apart, the censorship of Homer — read to many as deliberately hard to swallow, and " +
+        "Socrates himself calls the whole city a pattern laid up in heaven that may exist nowhere on " +
+        "earth. What is not in doubt is that the city and the soul are built to mirror each other, so " +
+        "that the constitutions of Book VIII are also portraits of characters, and the argument ends " +
+        "where it began, on which life is worth living.",
+      "Benjamin Jowett was Regius Professor of Greek at Oxford and Master of Balliol, and his Plato of " +
+        "1871, revised through the rest of his life, made these dialogues English for several " +
+        "generations of readers. It is a translation with a manner: fluent, dignified, Victorian, and " +
+        "freer with the Greek than a modern version would be, smoothing Plato's abruptness and " +
+        "occasionally saying in one graceful sentence what the original says in two awkward ones. It " +
+        "is read for its English rather than for close construing, and anyone working on a particular " +
+        "passage should check it against a literal modern text.",
+      "The books are numbered here as they have always been numbered, and the titles above them are " +
+        "this edition's own. Note that Plato is normally cited not by book but by <i>Stephanus " +
+        "number</i> — the page and column of Henri Estienne's edition of 1578, which is how a " +
+        "reference such as 'Republic 514a' works — and that this printing does not carry those " +
+        "numbers in its margins. That is why the Greek is not set beside the translation here, as it " +
+        "is for the other books in this library: the two columns are paired on the numbers a text " +
+        "states about itself, and this one states none. The numbered notes folded under each book are " +
+        "the translator's own.",
+    ],
+
+    chapterWord: "Book",
+    /* Transcribed from the headings the edition prints — see REPUBLIC_TITLES above. */
+    titleOf: (n) => REPUBLIC_TITLES[n - 1] || "Book " + toRoman(n),
+    /* Neither of the two section-marking conventions this file knows applies: Jowett's text carries no
+       section numbers of any kind, so there is no `sections` here and every chapter comes through as
+       one block. fetchEnglish() will say so — "10 chapter(s) with NONE" — and that is the expected
+       result for this book rather than a fault to chase. See `about` above and the note at the foot of
+       this entry for what follows from it. */
+    /* The running heads: the volume's half-title above Book I, and each book's own heading, which the
+       edition sets as "BOOK V." and the title on the line beneath — so one pattern anchored to the
+       numeral takes the whole block. */
+    dropHeads: [/^THE REPUBLIC$/i, /^BOOK\s+[IVXLCDM]+\b/i],
+    /* This printing binds engraved plates into the text; the scan labels those leaves rather than
+       numbering them. See the note in cleanBody. */
+    dropUnnumberedPages: true,
+    page: (n) => "The Republic of Plato/Book " + n,
+    /* No contents page is walked: this volume's is a list of books with no titles beside them, and the
+       titles are printed above the books themselves instead — hence REPUBLIC_TITLES. */
+    chapters: Array.from({ length: 10 }, (_, i) => i + 1),
+
+    /* ---------- WHY THERE IS NO `original` HERE ----------
+       This is the first book in the library to fail the test the Meditations entry sets out, and it
+       fails it on the ENGLISH side, which is new. The rule is that app.js pairs the two columns on
+       SECTION NUMBERS and never on paragraph order, so an original may ship only where BOTH texts say
+       which section each passage is. Plato has the best-standardised citation system of any ancient
+       author — the Stephanus page-and-column of 1578, used identically by every edition and
+       translation in every language for four hundred years — and the Greek half is ready and waiting:
+       Burnet's Oxford Classical Text of 1902 is on Perseus in the same TEI/CTS encoding the
+       Meditations' Greek comes from, with the Stephanus numbers as structure rather than as something
+       to be read back out of the prose.
+
+       What is missing is the numbers on Jowett. This Colonial Press printing has no margins to put
+       them in and does not carry them anywhere else either — measured over all ten books, there is
+       not one Stephanus reference in the text — and it is the only complete transcription of the
+       Republic in Wikisource's main namespace. (The Jowett Republic inside "The Dialogues of Plato
+       (Jowett)" is an index of red links; everything else on Wikisource's list of English Republics
+       is an Index: transcription project not transcluded into mainspace. Checked, all of it, before
+       this was concluded.)
+
+       Aligning them anyway would mean deciding by eye where each Stephanus page begins in Jowett's
+       English — several hundred judgements per book, on a translation freer than most, with nothing
+       to check them against. That is precisely what was tried and abandoned for the Meditations'
+       Greek, and it would be worse here. So the Republic ships in English alone, which the reader is
+       told in its own front matter, and the day a numbered transcription appears the Greek can be
+       added by writing an `original` block and an `origLang` — nothing else about the book would have
+       to change. */
+  },
 };
 
 /* ---------- args ---------- */
@@ -221,6 +653,27 @@ async function api(page, host) {
     }
   }
   throw new Error("could not fetch " + page + ": " + last);
+}
+
+/* A plain HTTPS fetch with the same backoff as `api`, for an original that does not live on a wiki.
+   The Meditations' Greek comes from a TEI file in a git repository rather than from a MediaWiki page,
+   so there is no `action=parse` to call and nothing to JSON-decode — but the retry behaviour matters
+   just as much, since a truncated body would silently shorten the text rather than fail. */
+async function fetchText(url) {
+  let last = "";
+  for (let a = 0; a < 6; a++) {
+    try {
+      const r = await fetch(url, { headers: { "User-Agent": UA } });
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      const t = await r.text();
+      if (t.length < 1024) throw new Error("suspiciously short body (" + t.length + " bytes)");
+      return t;
+    } catch (e) {
+      last = e.message;
+      await sleep(2000 + a * 3000);
+    }
+  }
+  throw new Error("could not fetch " + url + ": " + last);
 }
 
 /* ---------- extract the prose ----------
@@ -275,7 +728,44 @@ function stripTags(b) {
   return out.join("");
 }
 
-function cleanBody(h, noteIds) {
+/* The SECOND way a printed edition marks its section numbers, and it needs its own pass.
+
+   Gummere's Loeb sets them as a raised bold numeral, which arrives as its own `wst-verse` element and
+   is converted inside cleanBody below — the number is already fenced off in markup of its own, so it
+   can simply be rewritten. Haines's Loeb sets them as plain text at the head of the paragraph ("1. Say
+   to thyself at daybreak"), which is indistinguishable in the markup from any other sentence opening
+   on a figure. So this runs LAST, over the cleaned text, where the paragraph boundaries are finally
+   `<p>` and nothing else, and it is guarded the way the Latin's bracketed numbers are: a number is a
+   section only when it moves the sequence FORWARD, by a step or a few. A year, a cross-reference or a
+   quoted line beginning on a numeral goes backwards or leaps, and is left as the text it is.
+
+   Two forms, and the second is the whole reason this is a function rather than one regex.
+   · At the head of a paragraph, optionally after a `<br>` — Book 1's opening section is set under the
+     title block and reaches here as `<p><br>\n1. From my Grandfather Verus`, so a rule anchored hard
+     to `<p>` finds every section in the work except the very first one a reader meets.
+   · MID-PARAGRAPH, in round brackets. There is exactly ONE in the whole of the Meditations — Book 12
+     `(15.)` — because Haines runs that section on rather than breaking it out, while keeping the
+     traditional number so the passage can still be cited. It is kept for that reason: these markers
+     are the citation apparatus, and dropping it would leave book 12 numbered 14, 16, 17. */
+function markLeadingSections(b, warn) {
+  let seq = 0, found = 0;
+  /* ONE pass over both forms, in document order, and that matters: run as two passes the paragraph
+     rule reaches the end of the book and leaves `seq` at the last section, after which the
+     forward-only guard rejects every parenthesised number as going backwards — so book 12's (15.)
+     was silently declined and the book shipped numbered 14, 16, 17. The sequence has to advance in
+     READING order, which means the alternatives have to be matched in one sweep. */
+  b = b.replace(/<p>(\s*(?:<br>\s*)?)(\d{1,3})\.\s+|\((\d{1,3})\.\)\s*/g, (m, lead, d, paren) => {
+    const v = +(d === undefined ? paren : d);
+    if (v <= seq || v > seq + 6) return m;
+    seq = v; found++;
+    const mark = '<span class="bk-n">' + v + "</span> ";
+    return d === undefined ? mark : "<p>" + lead + mark;
+  });
+  if (!found && warn) warn("no section numbers found — the chapter will pair as one whole block");
+  return b;
+}
+
+function cleanBody(h, noteIds, book, warn) {
   let b = h.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<!--[\s\S]*?-->/g, "");
   const i = b.indexOf('<div class="prp-pages-output"');
   if (i < 0) throw new Error("no body");
@@ -286,9 +776,56 @@ function cleanBody(h, noteIds) {
      closing </div> becomes an unmatched </blockquote> and stripTags discards it (a closer whose opener
      was never pushed is dropped, which is exactly what that stack is for). Wikisource's markup has
      moved under us once already, so this is asserted rather than assumed: whether the wrapper's closer
-     falls inside the slice is a property of THEIR page, not of ours. */
-  b = b.replace(/^<div class="prp-pages-output"[^>]*>/, "");
-  b = b.split(/<div class="reflist"|<hr class="wst-rule"/)[0];
+     falls inside the slice is a property of THEIR page, not of ours.
+
+     THERE CAN BE MORE THAN ONE OF THESE, which is why the match is global rather than anchored to the
+     start (Aug 2026, adding the Republic — the first book here whose pages carry two). A transclusion
+     is broken into a fresh wrapper wherever something interrupts the run of scan pages: an inserted
+     illustration leaf, or the footnote apparatus at the foot. Anchored to position 0 only the first
+     wrapper was dropped, and every later one survived as an opener with no closer inside the slice —
+     so each of the Republic's ten books ended on a stray empty <blockquote>, an indented rule under
+     the last line of Plato that nothing in the text accounts for. The failure is the quiet kind this
+     file keeps meeting: nothing throws, no prose is lost, and the chapter is the right length.
+     Verified byte-for-byte against the shipped Seneca and Meditations chapters, where there is one
+     wrapper and it leads, so a global match and an anchored one do the same thing. */
+  b = b.replace(/<div class="prp-pages-output"[^>]*>/g, "");
+  /* Cut the note list off the end of the prose. THE CLASS IS A PREFIX, NOT THE WHOLE ATTRIBUTE, and
+     that was a real fault: this used to match `<div class="reflist"` with the closing quote, which is
+     exactly what Seneca's pages carry — and Haines's carry `<div class="reflist wst-smallrefs">`, so
+     the split never fired and every one of the twelve books came through with its entire footnote
+     apparatus appended to the text as prose. It is the fifth extraction fault of the same family and
+     the same shape as the other four: nothing throws, the chapter is LONGER rather than shorter, the
+     note count is right, and only a reader scrolling to the foot of a book meets a wall of "↑ cp.
+     Epict. i. 2" where the last section should be. The Footnotes heading is taken as a boundary too —
+     MediaWiki emits it whatever the reflist is dressed as, so the two guards fail independently. */
+  b = b.split(/<div class="reflist|<hr class="wst-rule"|<div class="mw-heading[^"]*"><h2 id="Footnotes"/)[0];
+  /* AN ILLUSTRATION PLATE IS A LEAF THE EDITION NEVER NUMBERED, and that is the handle to take it by
+     (Aug 2026, adding the Republic). This printing binds engraved plates into the text — a facsimile
+     of a Venetian frontispiece before Book V, the Gemma Augustea cameo before Book VII — each a
+     caption, a paragraph about the engraving, and the picture. None of it is Plato, and Folio's
+     reader drops images anyway (no <img> in ALLOWED), so left alone they arrive as a heading-shaped
+     block, a paragraph on sixteenth-century Venetian printing, and an orphaned caption standing where
+     the book ought to begin.
+
+     Matching that prose by its wording would be guesswork about somebody else's page. The scan states
+     it instead: Wikisource's page markers carry the edition's OWN pagination in data-page-number, and
+     these leaves are labelled "Caption" and "Plate" rather than given a number, because the binder
+     inserted them outside the sequence. So the rule is structural — drop a scan page the edition did
+     not number, from its marker to the next one — and it needs no knowledge of what is printed on it.
+     Measured over all ten books: exactly two such leaves, both in the two books that carry plates,
+     and every other page numbered.
+
+     It also fixes the headings for free. dropHeads below only strips blocks from the START of a
+     chapter, so while the plates stood in front of them Books V and VII kept their running heads
+     where the other eight lost theirs — one of those quiet inconsistencies that reads as a rendering
+     fault in two chapters rather than as a rule that did not fire. With the plates gone the heads are
+     leading again and the ordinary pass reaches them.
+
+     Declared per book, like dropHeads and for the same reason: an unnumbered leaf is an inserted
+     plate in this edition, and could be something else in another. */
+  if (book && book.dropUnnumberedPages) {
+    b = b.replace(/<span><span class="pagenum[^>]*data-page-number="(?!\d)[^"]*"[\s\S]*?(?=<span><span class="pagenum|$)/g, "");
+  }
   b = b.replace(/<span><span class="pagenum[\s\S]*?<\/span><\/span>/g, "");
   b = b.replace(/<span class="pagenum[\s\S]*?<\/span>/g, "");
   b = b.replace(/<link[^>]*\/?>/g, "");
@@ -334,6 +871,28 @@ function cleanBody(h, noteIds) {
     b = b.replace(/<blockquote>\s*(<blockquote>[\s\S]*?<\/blockquote>)\s*<\/blockquote>/g, "$1");
   }
   b = b.replace(/\s+<\/p>/g, "</p>").replace(/<p>\s+/g, "<p>").replace(/\n{2,}/g, "\n").trim();
+  /* THE SCAN'S OWN RUNNING HEAD, which is not part of the text and must not be read as part of it.
+     Seneca's is handled above, where it arrives as a centred div holding a bare Roman numeral. Haines's
+     survives that rule — his heads are "BOOK IV" and, on the first page, the volume's half-title
+     "MARCUS AURELIUS ANTONINUS" — and by this point every centred div has become a <blockquote>, so a
+     head left in place renders as a QUOTATION at the top of the chapter: the words "BOOK IV", indented
+     behind a rule and set in italic, directly beneath a tab and a heading already reading Book IV.
+     Matched on the block's TEXT rather than on the markup it arrived in, anchored to the start so only
+     a head can go, and declared per book — a phrase worth deleting in one edition is ordinary prose in
+     another. The loop is for the first chapter, which carries two of them. */
+  if (book && book.dropHeads) {
+    for (let k = 0; k < 4; k++) {
+      const before = b;
+      b = b.replace(/^<blockquote>\s*<p>([\s\S]*?)<\/p>\s*<\/blockquote>\s*/, (m, inner) => {
+        const t = inner.replace(/<[^>]*>/g, " ").replace(/&#\d+;|&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+        return book.dropHeads.some((rx) => rx.test(t)) ? "" : m;
+      });
+      if (b === before) break;
+    }
+    // the line break the head used to sit above, now opening the first paragraph on a blank line
+    b = b.replace(/^<p>\s*(?:<br>\s*)+/, "<p>");
+  }
+  if (book && book.sections === "leading") b = markLeadingSections(b, warn);
   return b;
 }
 
@@ -384,6 +943,284 @@ function notesOf(h) {
   return { notes, ids };
 }
 
+/* ============================================================
+   THE PARALLEL-TEXT LAYOUT   (a book declaring layout: "parallel")
+   ============================================================
+   Giles's Art of War is transcribed one PRINTED PAGE per table, two cells wide: the Chinese on the
+   left, his English on the right. A chapter is a run of seven to thirty-three of those tables, and
+   everything below exists because the single-column extractor above cannot read them — see the long
+   note on `layout` in the BOOKS entry for what it does instead, which is worse than throwing.
+
+   These functions share stripTags and stripWikiCSS with the main extractor and deliberately do NOT
+   reuse cleanBody itself. cleanBody is a delicate sequence tuned against two books that are guarded
+   by test-library.js, and half of it (the prp-pages-output slice, the reflist split, Gummere's verse
+   numbers, Seneca's salutation) is meaningless here while the half that matters is a dozen lines. A
+   third book's worth of conditionals threaded through it would put the two shipped books at risk to
+   save that dozen; the duplication is the cheaper and the safer of the two. */
+
+/* The matching close for the element opening at `i`. The commentary blocks nest a size-block inside a
+   size-block, so a non-greedy regex stops at the inner closer and takes half the note. */
+function blockEnd(s, i, tag) {
+  const rx = new RegExp("<\\/?" + tag + "\\b[^>]*>", "g");
+  rx.lastIndex = i;
+  let depth = 0, m;
+  while ((m = rx.exec(s))) {
+    if (m[0][1] === "/") { depth--; if (depth === 0) return rx.lastIndex; }
+    else depth++;
+  }
+  return -1;
+}
+
+/* One page's tables, split into the two columns. The body is everything before the footnote list —
+   which on these pages is the ONLY thing inside prp-pages-output, so the slice the main extractor
+   opens with would return exactly the part of the page that is not the book. */
+function parallelCells(h) {
+  const body = h.split(/<div class="reflist|<div class="mw-heading[^"]*"><h2 id="Footnotes"/)[0];
+  const tables = body.match(/<table[^>]*class="wst-translation-table"[\s\S]*?<\/table>/g) || [];
+  const out = { orig: [], en: [] };
+  for (const t of tables) {
+    const cs = [];
+    const rx = /<td[^>]*>([\s\S]*?)<\/td>/g;
+    let m;
+    while ((m = rx.exec(t))) cs.push(m[1]);
+    if (cs.length < 2) continue;
+    out.orig.push(cs[0]);
+    out.en.push(cs[1]);
+  }
+  return out;
+}
+
+/* The chapter's own head — "I. Laying Plans." on the English side, "I. 計篇." on the Chinese — which
+   is the first thing in the first cell and is a real part of the page rather than a running head.
+   It is KEPT, as the leading unnumbered line of the chapter, for a reason that is not decoration:
+   twelve of the thirteen chapters open with a note of Giles's ON THE TITLE ("The heading means
+   literally 'The Nine Variations', but as Sun Tzŭ does not appear to enumerate these…"), and with the
+   head dropped those notes would have to be hung on section 1, which is a different claim about a
+   different sentence. Kept, each sits where the printed page puts it. The two heads also pair across
+   the columns, so a bilingual reader gets the Chinese chapter title beside the English one. */
+function takeHead(cell) {
+  const i = cell.search(/<div class="wst-center/);
+  if (i < 0) return { head: "", rest: cell };
+  const e = blockEnd(cell, i, "div");
+  if (e < 0) return { head: "", rest: cell };
+  const head = cell.slice(i, e).replace(/<[^>]*>/g, " ").replace(/&#160;|&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+  return { head, rest: cell.slice(0, i) + cell.slice(e) };
+}
+
+/* MediaWiki wraps a paragraph in <p> only where the wikitext put a blank line before it, so a
+   sentence that merely follows a commentary block — or follows another sentence on the same printed
+   page — arrives as a BARE TEXT RUN at the top level of the cell. 138 of this book's 163 English
+   cells open on one, and fourteen section numbers sit in one mid-cell.
+
+   markGilesSections anchors on <p>, exactly as the main extractor's equivalent does, so a number in a
+   bare run is invisible to it — and the failure is the quiet kind this file keeps meeting. Nothing
+   throws, the chapter is the right length and the prose is complete; the section simply drops out of
+   the numbering, its sentence is swallowed into the section above it, and the Chinese line it should
+   have paired with is left facing nothing. It was found by counting the two columns against each
+   other, which is the only check that can see it. Every bare run at the top level of a cell is
+   therefore wrapped in the paragraph it plainly already is. */
+function wrapBareRuns(cell) {
+  const wrap = (s) => (/\S/.test(s.replace(/<[^>]*>/g, "")) ? "<p>" + s.trim() + "</p>\n" : s);
+  const openRx = /<(p|div|ol|ul|table|blockquote)\b[^>]*>/g;
+  let out = "", i = 0;
+  for (;;) {
+    openRx.lastIndex = i;
+    const m = openRx.exec(cell);
+    if (!m) { out += wrap(cell.slice(i)); break; }
+    out += wrap(cell.slice(i, m.index));
+    const e = blockEnd(cell, m.index, m[1]);
+    if (e < 0) { out += cell.slice(m.index); break; }
+    out += cell.slice(m.index, e);
+    i = e;
+  }
+  return out;
+}
+
+/* One commentary block, reduced to the text of a note.
+
+   Giles's own footnotes — twenty in the book, and every one of them inside a commentary block rather
+   than on Sun Tzŭ's text — are spliced in here, AT THE POINT THEY WERE CITED, in square brackets. A
+   note cannot contain a note: the apparatus numbers markers against one flat list per chapter, so a
+   marker inside a note would either point into that list at random or be deleted by wireFootnotes as
+   running past its end. Splicing keeps the wording, keeps the position, and the brackets say plainly
+   that the join was made here rather than by Giles. */
+function commentaryNote(block, refs, refIds) {
+  let s = stripWikiCSS(block);
+  s = s.replace(/<sup id="cite[^"]*" class="reference">\s*<a href="#([^"]*)"[\s\S]*?<\/sup>/g, (m, tgt) => {
+    const i = refIds ? refIds.indexOf(tgt.replace(/&#95;/g, "_")) : -1;
+    return i < 0 || !refs[i] ? "" : " [" + refs[i] + "]";
+  });
+  return s
+    /* a space where the block's own paragraphs met, or two sentences are welded into one word */
+    .replace(/<\/p>/g, "</p> ")
+    .replace(/<(?!\/?(i|b|em|strong)\b)[^>]*>/g, "")
+    .replace(/&#160;|&nbsp;/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/* Giles's running commentary → the book's notes.
+
+   This edition is a text WITH a commentary, and the proportions are the whole argument: Sun Tzŭ's
+   thirteen chapters run to some six thousand words and Giles's notes on them to roughly ten times
+   that, set in small type beneath the sentence each belongs to. Folio already has the apparatus for
+   exactly this — the numbered fold under a chapter that carries Gummere's and Haines's translators'
+   notes — so the commentary is lifted into it rather than left in the flow. Nothing is dropped and
+   nothing is invented: one block becomes one note, anchored by a marker at the point the printed page
+   anchors it.
+
+   Leaving it inline was the alternative and it loses twice. It buries the text a reader opened the
+   book for under ten times its own length of philology and textual argument; and it would make the
+   bilingual page useless, setting a line of classical Chinese beside a page of discussion about it,
+   since the columns pair by section and one side would be twenty times the height of the other. */
+function extractCommentary(en, refs, refIds) {
+  const notes = [];
+  let out = "", pos = 0;
+  const open = /<div class="wst-size-block wst-smaller/g;
+  let m;
+  while ((m = open.exec(en))) {
+    const end = blockEnd(en, m.index, "div");
+    if (end < 0) break;
+    out += en.slice(pos, m.index);
+    notes.push(commentaryNote(en.slice(m.index, end), refs, refIds));
+    out += '<sup class="fn" data-fn="' + notes.length + '"></sup>';
+    pos = end;
+    open.lastIndex = end;
+  }
+  out += en.slice(pos);
+  return { html: out, notes };
+}
+
+/* Giles's section numbers, and the one shape of them no other book here has.
+
+   He sets them as plain text at the head of a sentence, as Haines does, so the same forward-only
+   guard applies: a number is a section only where it moves the sequence on by a step or a few, and
+   anything else — a date, a cross-reference, a quoted line opening on a figure — is left as the text
+   it is. What is new is that he sometimes renders two of Sun Tzŭ's sentences as one and heads the
+   result with BOTH numbers: "5, 6." in chapter 1 and "13, 14." in chapter 2, twice in 385 sections.
+
+   The label is kept exactly as printed, so the citation a reader copies is the one the edition gives.
+   app.js pairs on the first number it can parse out of the marker, and the SAME label is put on the
+   matching run of Chinese lines by the caller, so the two columns still agree section for section
+   rather than one of them carrying an orphan row. That is why this returns the groups it found. */
+function markGilesSections(b, warn) {
+  let seq = 0;
+  const groups = [];
+  b = b.replace(/<p>(\s*(?:<br>\s*)?)((?:\d{1,3}\s*,\s*)*\d{1,3})\.\s+/g, (m, lead, label) => {
+    const nums = label.split(",").map((x) => +x.trim());
+    if (nums[0] <= seq || nums[0] > seq + 6) return m;
+    // a combined head is a RUN — "5, 6", never "5, 9" — or it is not one label for one passage
+    if (nums.some((v, i) => i && v !== nums[i - 1] + 1)) return m;
+    seq = nums[nums.length - 1];
+    groups.push(nums);
+    return "<p>" + lead + '<span class="bk-n">' + nums.join(", ") + "</span> ";
+  });
+  if (!groups.length && warn) warn("no section numbers found — the chapter will pair as one whole block");
+  return { html: b, groups };
+}
+
+/* The Chinese column, grouped to the English column's own sections.
+
+   The numbering is read off the list rather than counted: the first item of each printed page's list
+   carries an explicit `value` and the rest run on from it, so what is recorded here is the edition's
+   statement about its own text. An item MediaWiki emits empty is the continuation of the one before
+   it across a page break — it is skipped, and the explicit `value` that follows re-anchors the count
+   in any case.
+
+   The grouping then follows `groups` from the English side, so that where Giles heads one sentence
+   "5, 6." both Chinese lines sit in one row under the same label instead of the second becoming a row
+   with an empty English cell. */
+function parallelOriginalHtml(cells, groups, head, warn) {
+  const lines = {};
+  let cur = 0;
+  for (const cell of cells) {
+    const rx = /<li([^>]*)>([\s\S]*?)<\/li>/g;
+    let m;
+    while ((m = rx.exec(cell))) {
+      const v = (m[1] || "").match(/value="(\d+)"/);
+      if (v) cur = +v[1]; else cur++;
+      const inner = stripWikiCSS(m[2] || "")
+        .replace(/<(?!\/?(i|b|em|strong)\b)[^>]*>/g, "")
+        .replace(/&#160;|&nbsp;/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+      if (!inner) continue;
+      lines[cur] = lines[cur] ? lines[cur] + " " + inner : inner;
+    }
+  }
+  const nums = Object.keys(lines).map(Number).sort((a, b) => a - b);
+  /* The pairing rests on these numbers, so the two things that would quietly break it are asserted
+     rather than hoped for: a gap in the run, and a section the English side never claimed. */
+  if (nums.length && (nums[0] !== 1 || nums[nums.length - 1] !== nums.length)) {
+    warn("original: section numbers are not a clean 1–N run (" + nums.length + " lines, highest " + nums[nums.length - 1] + ")");
+  }
+  const out = [];
+  if (head) out.push('<p class="bk-head">' + head + "</p>");
+  const used = new Set();
+  for (const g of groups) {
+    const parts = g.map((n) => { used.add(n); return lines[n]; }).filter(Boolean);
+    if (!parts.length) { warn("original: no text for section " + g.join(", ")); continue; }
+    out.push('<p><span class="bk-n">' + g.join(", ") + "</span> " + parts.join("</p>\n<p>") + "</p>");
+  }
+  const orphan = nums.filter((n) => !used.has(n));
+  if (orphan.length) warn("original: " + orphan.length + " section(s) the translation never numbers: " + orphan.slice(0, 6).join(", "));
+  return out.join("\n");
+}
+
+/* Both columns of one chapter, from one fetch of one page. */
+function extractParallel(h, book, warn) {
+  const { notes: refs, ids: refIds } = notesOf(h);
+  const cols = parallelCells(h);
+  if (!cols.en.length) throw new Error("no translation tables found");
+
+  let enHead = "", origHead = "";
+  const enCells = cols.en.map((c, i) => {
+    let s = c.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<link[^>]*\/?>/g, "").replace(/<!--[\s\S]*?-->/g, "");
+    if (i === 0) { const t = takeHead(s); enHead = t.head; s = t.rest; }
+    return s;
+  });
+  const origCells = cols.orig.map((c, i) => {
+    let s = c.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<link[^>]*\/?>/g, "").replace(/<!--[\s\S]*?-->/g, "");
+    if (i === 0) { const t = takeHead(s); origHead = t.head; s = t.rest; }
+    return s;
+  });
+
+  const comm = extractCommentary(enCells.map(wrapBareRuns).join("\n"), refs, refIds);
+  let b = comm.html;
+  /* Everything centred that is NOT the head is real: chapter 4 sets two lines of Browning that way.
+     They become blockquotes, as the main extractor's centred blocks do. */
+  b = b.replace(/<div class="(?:poem|wst-block-center|wst-center)[^"]*"[^>]*>/g, "<blockquote>");
+  b = b.replace(/<\/div>/g, "</blockquote>").replace(/<div[^>]*>/g, "<blockquote>");
+  b = stripTags(b);
+  b = b.replace(/&#160;|&nbsp;/g, " ").replace(/&#32;/g, " ");
+  b = b.replace(/[ \t]+/g, " ").replace(/\s*\n\s*/g, "\n");
+  /* A commentary block sits BETWEEN paragraphs, so its marker lands outside them and would render as
+     a lone superscript on a line of its own. Put it back inside the sentence it annotates. */
+  b = b.replace(/<\/p>\s*(<sup class="fn"[^>]*><\/sup>)/g, "$1</p>");
+  for (let k = 0; k < 6; k++) {
+    b = b.replace(/<blockquote>\s*<\/blockquote>/g, "").replace(/<p>\s*<\/p>/g, "");
+    b = b.replace(/<blockquote>\s*(<blockquote>[\s\S]*?<\/blockquote>)\s*<\/blockquote>/g, "$1");
+  }
+  b = b.replace(/\s+<\/p>/g, "</p>").replace(/<p>\s+/g, "<p>").replace(/\n{2,}/g, "\n").trim();
+
+  const marked = markGilesSections(b, warn);
+  b = marked.html;
+  /* The head goes on AFTER stripTags, which drops attributes from every tag it keeps — the same
+     reason the main extractor adds Seneca's .bk-salut at the end rather than in the markup. Any
+     title note left stranded before the first section is drawn back onto the head, which is what it
+     annotates. */
+  if (enHead) {
+    let note = "";
+    b = b.replace(/^(<sup class="fn"[^>]*><\/sup>)\s*/, (m, s) => { note = s; return ""; });
+    b = '<p class="bk-head">' + enHead + note + "</p>\n" + b;
+  }
+  return {
+    html: b,
+    notes: comm.notes,
+    orig: parallelOriginalHtml(origCells, marked.groups, origHead, warn),
+  };
+}
+
 /* ---------- the chapter titles, from the book's own contents page ---------- */
 /* ---------- the chapter titles, from the book's own contents page ----------
    Read ROW BY ROW, pairing the numeral cell with the title cell beside it, rather than trusting the
@@ -398,6 +1235,11 @@ function notesOf(h) {
    The row is the structure the page actually means, and it is also the more robust reading: it needs
    the numeral's href alone, and survives the title link being wrong, absent or pointed anywhere. */
 async function chapterTitles() {
+  /* A book need not have chapter titles at all, and the Meditations does not: its twelve books are
+     headed "BOOK I" … "BOOK XII" on its own contents page and nowhere given names. `titleOf` is how
+     such a book says so, and it is deliberately the book's own numbering rather than an invented
+     name — a title here is transcribed, never composed. */
+  if (!BOOK.indexPage) return {};
   const h = await api(BOOK.indexPage);
   const txt = h.replace(/<style[\s\S]*?<\/style>/g, "");
   const d = {};
@@ -439,7 +1281,17 @@ function titleCase(s) {
 
    What the two DO share is the section number, and that is the one thing this must get right, because
    app.js pairs the columns on it. */
+/* Roman numerals both ways. `roman` READS one, for the Latin wiki's letter headings; `toRoman` WRITES
+   one, for a book whose own contents page numbers its chapters that way and titles them no other way.
+   A function declaration, so the BOOKS table at the top of the file may call it from a `titleOf`. */
 const ROMAN = { I: 1, V: 5, X: 10, L: 50, C: 100, D: 500, M: 1000 };
+function toRoman(n) {
+  const t = [[1000, "M"], [900, "CM"], [500, "D"], [400, "CD"], [100, "C"], [90, "XC"],
+             [50, "L"], [40, "XL"], [10, "X"], [9, "IX"], [5, "V"], [4, "IV"], [1, "I"]];
+  let out = "";
+  for (const [v, s] of t) while (n >= v) { out += s; n -= v; }
+  return out;
+}
 function roman(s) {
   let n = 0;
   for (let i = 0; i < s.length; i++) {
@@ -532,16 +1384,103 @@ function originalChapters(h, warn) {
   return out;
 }
 
+/* ---------- the original as a TEI edition ----------
+   The second shape an original-language text can arrive in, and the better one. A wiki gives prose with
+   the section numbers printed in it, which have to be read back out of the words; a TEI edition
+   prepared to the CTS standard gives the numbers as STRUCTURE — `<div subtype="chapter" n="17">` — so
+   there is nothing to infer and nothing that can be inferred wrongly.
+
+   That distinction is the whole reason the Meditations has a Greek column at all. Greek Wikisource
+   prints no section numbers, so the only handle it offers is a passage's POSITION in a list, and
+   position is not the same claim as a number: its edition divides six of the twelve books differently
+   from Haines, so past one splice point per book the position runs one out from the section it would
+   have to be. Leopold's numbering is stated rather than counted, and it agrees with Haines on 486 of
+   the 487 sections — the single exception being a section 18 in book 12 that Leopold's text does not
+   have, which pairs as an empty cell because both sides now say what they are.
+
+   The mapping onto Folio's model: a CHAPTER here is one of the twelve books, and the numbers running
+   through it are Leopold's chapter numbers — which are what "Meditations 4.17" means and what Haines
+   prints. Leopold's own `section` divisions are a finer split inside a long chapter; they are the same
+   numbered entry and are simply concatenated into it. */
+function teiChapters(xml, warn) {
+  const body = xml.slice(xml.indexOf("<body"));
+  if (body.length < 1000) throw new Error("no <body> in the TEI file");
+  const marks = (re) => {
+    const out = []; let m;
+    while ((m = re.exec(body))) out.push({ n: +m[1], at: m.index });
+    return out;
+  };
+  const books = marks(/<div[^>]*subtype="book"[^>]*\bn="(\d+)"[^>]*>/g);
+  if (!books.length) throw new Error("no book divisions in the TEI file");
+  const out = {};
+  books.forEach((b, i) => {
+    const seg = body.slice(b.at, i + 1 < books.length ? books[i + 1].at : body.length);
+    const cre = /<div[^>]*subtype="chapter"[^>]*\bn="(\d+)"[^>]*>/g;
+    const cs = []; let c;
+    while ((c = cre.exec(seg))) cs.push({ n: +c[1], at: c.index });
+    if (!cs.length) { warn("book " + b.n + " has no chapter divisions"); return; }
+    let html = "", seq = 0;
+    cs.forEach((ch, j) => {
+      const raw = seg.slice(ch.at, j + 1 < cs.length ? cs[j + 1].at : seg.length);
+      /* The edition's own numbering is not always unbroken — Leopold's book 12 runs 17, 19, 20, having
+         no 18 — so a number that goes BACKWARDS is a fault worth hearing about while a gap is not. */
+      if (ch.n <= seq) warn("book " + b.n + ": chapter " + ch.n + " follows " + seq + " — out of order");
+      seq = ch.n;
+      const text = teiProse(raw);
+      if (!text) { warn("book " + b.n + " chapter " + ch.n + " came back empty"); return; }
+      // the marker goes INSIDE the first paragraph, which is where bookSections looks for it
+      html += text.replace(/^<p>/, '<p><span class="bk-n">' + ch.n + "</span> ");
+    });
+    out[b.n] = html.trim();
+  });
+  return out;
+}
+
+/* One chapter of TEI down to the small tag set Folio's reader understands. The vocabulary is tiny —
+   this file uses only div, p, add, del, quote and lb — but two of those are editorial judgements and
+   have to be resolved rather than passed through:
+
+   · `<add>` is text the EDITOR SUPPLIED and the edition prints as part of the text (an article, a
+     missing verb). It is kept, because without it the sentence is not the sentence Leopold constituted.
+   · `<del>` is text the editor marks as SPURIOUS — the reading he judged does not belong. It is
+     dropped, because keeping it would present as Marcus's words something this edition says are not.
+     Dropping it yields exactly the text the printed page carries, which is what a reader following the
+     English alongside is entitled to. Both are single words or short phrases and there are 82 and 36 of
+     them in the whole work.
+
+   A `<quote>` becomes an inline `<q>` rather than a `<blockquote>`, because these quotations sit MID
+   SENTENCE ("if to all of them you can still say: <quote>…</quote>, then…") and a block element inside
+   a paragraph is invalid nesting that would break the paragraph in two. `<lb/>` becomes `<br>`, which
+   is what keeps the verse quotations as verse. */
+function teiProse(raw) {
+  let b = raw.replace(/<del\b[^>]*>[\s\S]*?<\/del>/g, "");   // the editor's deletions, and their text
+  b = b.replace(/<\/?add\b[^>]*>/g, "");                     // the editor's supplements: keep the words
+  b = b.replace(/<lb\s*\/?>/g, "<br>");
+  b = b.replace(/<quote\b[^>]*>/g, "<q>").replace(/<\/quote>/g, "</q>");
+  const ps = [...b.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/g)].map((m) => m[1]);
+  return ps
+    .map((p) => p.replace(/<[^>]*>/g, (t) => (/^<\/?(q|br)\b/.test(t) ? (t === "<br>" ? "<br>" : t) : "")))
+    .map((p) => p.replace(/\s+/g, " ").trim())
+    .filter(Boolean)
+    .map((p) => "<p>" + p + "</p>")
+    .join("\n");
+}
+
 /* ---------- serialize ---------- */
 function esc(s) { return String(s).replace(/\\/g, "\\\\").replace(/"/g, '\\"').replace(/\n/g, "\\n"); }
 function partOf(n) {
   const p = (BOOK.parts || []).find((x) => n >= x.from && n <= x.to);
   return p ? p.n : 1;
 }
+// what a chapter is called when the book's contents page gives it no name of its own
+function chapterTitle(n) {
+  return BOOK.titleOf ? BOOK.titleOf(n) : BOOK.chapterWord + " " + n;
+}
 
 async function fetchEnglish() {
   console.log("Fetching " + BOOK.title + " (" + BOOK.translator + ") — chapters " + FROM + "–" + TO);
   const titles = await chapterTitles();
+  const warnings = [];
   const chapters = [];
   for (const n of BOOK.chapters) {
     if (n < FROM || n > TO) continue;
@@ -550,14 +1489,25 @@ async function fetchEnglish() {
       // the cache holds the extracted prose only — the title and the part are re-derived on every
       // run, so re-titling or re-dividing a book costs no refetch
       const c = JSON.parse(fs.readFileSync(cf, "utf8"));
-      chapters.push({ n, t: titles[n] || c.t || BOOK.chapterWord + " " + n, p: partOf(n), html: c.html, notes: c.notes || [] });
+      chapters.push({ n, t: titles[n] || c.t || chapterTitle(n), p: partOf(n), html: c.html, notes: c.notes || [] });
       continue;
     }
     const h = await api(BOOK.page(n));
-    const { notes, ids } = notesOf(h);
-    const html = cleanBody(h, ids);
+    const warn = (m) => warnings.push(BOOK.chapterWord + " " + n + ": " + m);
+    let html, notes, orig = "";
+    if (BOOK.layout === "parallel") {
+      /* Both columns come off this one page, so the original is extracted here too and cached beside
+         the translation — fetchOriginal then costs no requests at all. */
+      const got = extractParallel(h, BOOK, warn);
+      html = got.html; notes = got.notes; orig = got.orig;
+    } else {
+      const got = notesOf(h);
+      notes = got.notes;
+      html = cleanBody(h, got.ids, BOOK, warn);
+    }
     if (html.length < 200) throw new Error("chapter " + n + " came back short (" + html.length + " chars)");
-    const rec = { n, t: titles[n] || BOOK.chapterWord + " " + n, p: partOf(n), html, notes };
+    const rec = { n, t: titles[n] || chapterTitle(n), p: partOf(n), html, notes };
+    if (orig) rec.orig = orig;
     fs.writeFileSync(cf, JSON.stringify(rec));
     chapters.push(rec);
     console.log("  " + BOOK.chapterWord + " " + n + " — " + rec.t + " (" + html.length + " chars, " + notes.length + " notes)");
@@ -608,6 +1558,16 @@ async function fetchEnglish() {
     (text.length / 1024).toFixed(0) + " KB, " +
     got.chapters.reduce((a, c) => a + (c.notes ? c.notes.length : 0), 0) + " notes. Re-parsed OK."
   );
+  /* Say what the extractor was unsure of. A chapter that comes through with no section numbers is the
+     quietest failure this script has: it does not throw, it does not shorten the text and it does not
+     look wrong on the page — it simply leaves that chapter with nothing to cite and nothing to pair. */
+  if (warnings.length) {
+    console.log("\n  " + warnings.length + " warning(s):");
+    warnings.forEach((w) => console.log("    " + w));
+  }
+  const secs = got.chapters.map((c) => (c.html.match(/class="bk-n"/g) || []).length);
+  console.log("  " + secs.reduce((a, b) => a + b, 0) + " section numbers across " + secs.length + " chapters" +
+    (secs.some((s) => !s) ? "  — " + secs.filter((s) => !s).length + " chapter(s) with NONE" : ""));
 }
 
 /* The original-language half, written to its OWN file — books/<id>.<lang>.js, its own lazy bundle.
@@ -619,13 +1579,55 @@ async function fetchEnglish() {
    fetched the first time it IS turned on, and never after. */
 async function fetchOriginal() {
   const O = BOOK.original;
-  const cacheDir = path.join(CACHE, O.lang);
-  fs.mkdirSync(cacheDir, { recursive: true });
-  console.log("\nFetching the " + O.langName + " original — " + O.pages.length + " pages from " + O.wiki);
-
   const warnings = [];
   const warn = (m) => { warnings.push(m); };
   const byNum = {};
+
+  /* A PARALLEL book's original needs no wiki of its own and no second walk: it was printed on the
+     facing half of the same page and was extracted when the translation was. This reads it back out
+     of that cache, and fetches a chapter only where the cache has none — which is what an
+     --only-original run on a clean checkout looks like. */
+  if (BOOK.layout === "parallel") {
+    console.log("\nReading the " + O.langName + " original out of the parallel text — " +
+      BOOK.chapters.length + " chapters");
+    for (const n of BOOK.chapters) {
+      const cf = path.join(CACHE, n + ".json");
+      let rec = !FORCE && fs.existsSync(cf) ? JSON.parse(fs.readFileSync(cf, "utf8")) : null;
+      if (!rec || !rec.orig) {
+        const h = await api(BOOK.page(n));
+        const got = extractParallel(h, BOOK, (m) => warn(BOOK.chapterWord + " " + n + ": " + m));
+        rec = rec || { n, t: chapterTitle(n), p: partOf(n), html: got.html, notes: got.notes };
+        rec.orig = got.orig;
+        fs.writeFileSync(cf, JSON.stringify(rec));
+        await sleep(700);
+      }
+      if (rec.orig) byNum[n] = rec.orig;
+    }
+    return writeOriginal(byNum, warnings);
+  }
+
+  const cacheDir = path.join(CACHE, O.lang);
+  fs.mkdirSync(cacheDir, { recursive: true });
+
+  /* A TEI edition is one FILE rather than a walk of wiki pages, so like the parallel branch above it
+     short-circuits the walk below. `warnings` / `warn` / `byNum` are already declared at the top of
+     this function — all three source shapes share them. */
+  if (O.source === "tei") {
+    console.log("\nFetching the " + O.langName + " original — " + O.edition);
+    const cf = path.join(cacheDir, "tei.xml");
+    let xml;
+    if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
+    else { xml = await fetchText(O.url); fs.writeFileSync(cf, xml); }
+    Object.assign(byNum, teiChapters(xml, warn));
+    const ns = Object.keys(byNum).map(Number).sort((a, b) => a - b);
+    ns.forEach((n) => {
+      const secs = (byNum[n].match(/class="bk-n"/g) || []).length;
+      console.log("  " + BOOK.chapterWord + " " + n + " — " + secs + " sections (" + (byNum[n].length / 1024).toFixed(0) + " KB)");
+    });
+    return writeOriginal(byNum, warnings);
+  }
+
+  console.log("\nFetching the " + O.langName + " original — " + O.pages.length + " pages from " + O.wiki);
   for (const page of O.pages) {
     const cf = path.join(cacheDir, page.replace(/[^\w.-]+/g, "_") + ".json");
     let got;
@@ -643,6 +1645,15 @@ async function fetchOriginal() {
     Object.assign(byNum, got);
   }
 
+  return writeOriginal(byNum, warnings);
+}
+
+/* Serialize the original-language half. Split out from fetchOriginal so the THREE ways of GATHERING
+   it — a walk of another wiki, a read of the parallel text's own cache, and a single TEI edition —
+   share one way of writing it out and one report at the end, and so cannot drift apart in what they
+   emit. */
+function writeOriginal(byNum, warnings) {
+  const O = BOOK.original;
   const nums = Object.keys(byNum).map(Number).sort((a, b) => a - b);
   const outDir = path.join(ROOT, "books");
   const out = path.join(outDir, id + "." + O.lang + ".js");
@@ -690,6 +1701,7 @@ async function fetchOriginal() {
     warnings.forEach((w) => console.log("    " + w));
   }
 }
+
 
 async function main() {
   if (!SKIP_EN) await fetchEnglish();

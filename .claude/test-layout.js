@@ -1127,6 +1127,86 @@ async function studyEasy(page, base, n) {
     await page.close();
   }
 
+  /* ================= 7b2. the version line in the home page's top-left corner =================
+     Aug 2026, on request. Every failure here is silent, and the last one is the reason the feature exists:
+     a version number that STOPS following `window.FOLIO_VERSION` still prints a plausible number, and the
+     reader quoting it in a bug report is then telling you about a build nobody shipped. So the record is
+     mutated in the page and the line re-rendered — a boot-time capture passes every other assertion here
+     and fails that one. */
+  {
+    for (const [label, vp] of [["desktop", DESKTOP], ["phone", PHONE]]) {
+      const page = await browser.newPage({ viewport: vp });
+      watch(page);
+      await page.goto(base + "#home", { waitUntil: "load" });
+      await page.waitForTimeout(1500);
+      const v = await page.evaluate(() => {
+        const el = document.querySelector(".page .site-ver");
+        if (!el) return null;
+        const r = el.getBoundingClientRect(), cs = getComputedStyle(el);
+        const head = document.querySelector(".page .page-head").getBoundingClientRect();
+        return {
+          text: el.textContent.trim(), fs: parseFloat(cs.fontSize),
+          x: Math.round(r.left), y: Math.round(r.top), bottom: Math.round(r.bottom),
+          headX: Math.round(head.left), headY: Math.round(head.top),
+          first: document.querySelector(".page").firstElementChild === el,
+          notranslate: el.classList.contains("notranslate"),
+          // the site's own quiet token, so High contrast re-tones it with every other caption (test-a11y)
+          faint: (() => {
+            const p = document.createElement("i");
+            p.style.cssText = "color:var(--ink-faint);position:absolute;left:-9999px";
+            document.body.appendChild(p);
+            const want = getComputedStyle(p).color; p.remove();
+            return cs.color === want ? "ok" : cs.color + " ≠ " + want;
+          })(),
+          // and nothing painted over it — the phone's Edit button holds the opposite corner
+          clear: document.elementFromPoint(Math.round(r.left) + 2, Math.round(r.top + r.height / 2)) === el,
+        };
+      });
+      check("[" + label + "] the home page carries a version line", !!v, v ? v.text : "missing");
+      if (!v) { await page.close(); continue; }
+      check("[" + label + "] ...reading as a version and a timestamp", /^v\d+\.\d+ · .*\d/.test(v.text), v.text);
+      check("[" + label + "] ...very small and in the quiet ink", v.fs <= 11 && v.faint === "ok", JSON.stringify({ fs: v.fs, col: v.faint }));
+      /* TOP-LEFT in both layouts, and the left half is the one that breaks: below 640px `.page-head` is
+         CENTRED, and a version line that inherited that would sit in the middle of the page reading as a
+         title rather than as a stamp. It is a sibling before the head, so it must clear it upward too. */
+      check("[" + label + "] ...first on the page, above the head", v.first && v.bottom <= v.headY, JSON.stringify({ first: v.first, bottom: v.bottom, head: v.headY }));
+      check("[" + label + "] ...and flush LEFT with it, not centred", v.x === v.headX, JSON.stringify({ x: v.x, headX: v.headX }));
+      check("[" + label + "] ...with nothing painted over it", v.clear);
+      check("[" + label + "] ...and marked notranslate", v.notranslate);
+      await page.close();
+    }
+
+    const page = await browser.newPage({ viewport: DESKTOP });
+    watch(page);
+    await page.goto(base + "#home", { waitUntil: "load" });
+    await page.waitForTimeout(1400);
+    check("the version line is the home page's alone", await page.evaluate(async () => {
+      location.hash = "#decks";
+      await new Promise((r) => setTimeout(r, 700));
+      return !document.querySelector(".page .site-ver");
+    }));
+    // read at RENDER, never captured at boot — see the section header
+    const live = await page.evaluate(async () => {
+      window.FOLIO_VERSION = { v: "9.9", released: "2031-01-02T03:04Z" };
+      location.hash = "#home";
+      await new Promise((r) => setTimeout(r, 800));
+      const el = document.querySelector(".page .site-ver");
+      return el ? el.textContent.trim() : "";
+    });
+    check("...and is read from FOLIO_VERSION at render, not captured at boot", /^v9\.9 · /.test(live) && /2031/.test(live), live);
+    // a build that somehow ships without a record prints NOTHING — a placeholder version is a lie
+    const none = await page.evaluate(async () => {
+      delete window.FOLIO_VERSION;
+      location.hash = "#decks";
+      await new Promise((r) => setTimeout(r, 500));
+      location.hash = "#home";
+      await new Promise((r) => setTimeout(r, 800));
+      return { ver: !!document.querySelector(".site-ver"), head: !!document.querySelector(".page-head h1") };
+    });
+    check("...printing nothing at all when the record is missing", !none.ver && none.head, JSON.stringify(none));
+    await page.close();
+  }
+
   /* ================= 7c. the Atlas panel's discovery chip and its pages ================= */
   {
     const page = await browser.newPage({ viewport: PHONE });
@@ -1280,7 +1360,14 @@ async function studyEasy(page, base, n) {
      A false positive here TAKES A PAGE AWAY, so what is guarded is as much what must NOT navigate as what
      must: a diagonal (a scroll that wandered), a short drag, and the Atlas, which is excluded outright
      because a drag there turns the globe. The gesture is dispatched as real PointerEvents rather than
-     through page.touchscreen: the handler is bound to `document` and keys off pointerType. */
+     through page.touchscreen: the handler is bound to `document` and keys off pointerType.
+
+     Two things were added Aug 2026, on request, and both fail silently. COLLECTIONS is out of the order —
+     it has no tab, so the swipe was landing readers on a page the bar cannot reach, with nothing lit in it
+     to say where they were; a swipe that still reaches it looks exactly like one that does not, since the
+     page renders fine either way. And the transition is a full CROSS-SLIDE rather than the 26px nudge it
+     was, which was reported as "a hard cut": that one is measured MID-FLIGHT, because the finished state
+     of a slide and the finished state of a cut are the same page in the same place. */
   {
     const page = await browser.newPage({ viewport: PHONE, hasTouch: true, isMobile: true });
     watch(page);
@@ -1298,18 +1385,96 @@ async function studyEasy(page, base, n) {
     await page.goto(base + "#home", { waitUntil: "load" });
     await page.waitForTimeout(1500);
     await swipe(-120);
-    check("a swipe left moves to the next page", (await where()) === "#decks", await where());
+    check("a swipe left moves to the next page", (await where()) === "#library", await where());
+    check("...and that page is NOT Collections, which has no tab and is out of the order",
+      (await where()) !== "#decks", await where());
     await swipe(-120);
-    check("...and on to the one after it", (await where()) === "#library", await where());
+    check("...and on to the one after it", (await where()) === "#account", await where());
     await swipe(120);
-    check("...a swipe right comes back", (await where()) === "#decks", await where());
+    check("...a swipe right comes back", (await where()) === "#library", await where());
     await swipe(-30);
-    check("...a short drag is not a swipe", (await where()) === "#decks", await where());
+    check("...a short drag is not a swipe", (await where()) === "#library", await where());
     await swipe(-120, 220);
-    check("...nor is a diagonal, which is a scroll that wandered", (await where()) === "#decks", await where());
+    check("...nor is a diagonal, which is a scroll that wandered", (await where()) === "#library", await where());
     await swipe(120);
     await swipe(120);
     check("...and the ends are ends, not a carousel", (await where()) === "#", await where());
+    /* The order IS the tab bar's, minus the Atlas — asserted against the bar itself rather than against a
+       list written out here, so a tab added or removed later fails on the rule instead of on a copy of it
+       that nobody remembered to update. */
+    const order = await page.evaluate(() =>
+      ({ tabs: [...document.querySelectorAll(".tabbar .tab")].map((t) => t.dataset.route) }));
+    const appjs = fs.readFileSync(path.join(ROOT, "app.js"), "utf8");
+    const swipeOrder = (appjs.match(/const SWIPE_ORDER = \[([^\]]*)\]/) || [])[1] || "";
+    const swipeNames = swipeOrder.split(",").map((s) => s.trim().replace(/^"|"$/g, "")).filter(Boolean);
+    check("the swipe order is the tab bar's, minus the Atlas",
+      swipeNames.join(",") === order.tabs.filter((t) => t !== "map").join(","),
+      swipeNames.join(",") + "  vs bar " + order.tabs.join(","));
+
+    /* IT IS A SLIDE, NOT A CUT — measured 60ms into the transition, since by the end the two are
+       indistinguishable. Both halves have to be there: the outgoing page must still exist (a ghost, or
+       there is nothing to slide off) and the incoming one must be genuinely off to the side rather than
+       nudged. `page-next` means the finger went left, so the arriving page starts to the RIGHT. */
+    await page.goto(base + "#home", { waitUntil: "load" });
+    await page.waitForTimeout(1400);
+    const mid = await page.evaluate(async () => {
+      const send = (t, x, y) => document.dispatchEvent(new PointerEvent(t, { pointerId: 8, pointerType: "touch", clientX: x, clientY: y, bubbles: true, cancelable: true }));
+      send("pointerdown", 300, 340);
+      await new Promise((r) => setTimeout(r, 40));
+      send("pointerup", 160, 340);
+      await new Promise((r) => setTimeout(r, 60));
+      const pg = document.querySelector("#view > .page"), gh = document.querySelector(".page-ghost");
+      return {
+        dirClass: pg && pg.className,
+        pageLeft: pg && pg.getBoundingClientRect().left,
+        ghostLeft: gh && gh.getBoundingClientRect().left,
+        ghost: !!gh, w: innerWidth,
+        clipped: getComputedStyle(document.querySelector(".stage")).overflowX,
+      };
+    });
+    check("a swiped page carries its direction", /page-next/.test(mid.dirClass || ""), String(mid.dirClass));
+    check("...the outgoing page is still there to slide off", mid.ghost, JSON.stringify(mid));
+    check("...the incoming one is a whole page-width off to the side, not a 26px nudge",
+      mid.pageLeft > mid.w * 0.4, mid.pageLeft + " of " + mid.w);
+    check("...and the outgoing one has set off the other way", mid.ghostLeft < -10, String(mid.ghostLeft));
+    check("...with the stage clipped so neither can be scrolled into", mid.clipped === "clip", mid.clipped);
+    await page.waitForTimeout(600);
+    const settled = await page.evaluate(() => ({
+      left: document.querySelector("#view > .page").getBoundingClientRect().left,
+      ghost: !!document.querySelector(".page-ghost"),
+      clipped: getComputedStyle(document.querySelector(".stage")).overflowX,
+    }));
+    check("...and it lands, the copy removed and the clip released",
+      Math.abs(settled.left - 16) < 30 && !settled.ghost && settled.clipped !== "clip", JSON.stringify(settled));
+    /* …and the same gesture as a REAL touch, which is the assertion that was missing (Aug 2026, on a
+       report that the book's chapter swipe did nothing on a phone — this one was broken in exactly the
+       same way and had been since it shipped). Everything above dispatches PointerEvents by hand, which
+       bypasses the browser's own gesture arbitration: under the default touch-action a real finger has
+       the drag claimed for scrolling the moment it passes the slop, POINTERCANCEL is fired, pointerup
+       never arrives, and a handler that measures the gesture at pointerup can never see one. `.page`
+       carries `touch-action:pan-y pinch-zoom` for it, which no JS can substitute — so it is asserted
+       through CDP touch input, and paired with the vertical drag that must still scroll. */
+    await page.goto(base + "#home", { waitUntil: "load" });
+    await page.waitForTimeout(1500);
+    const cdp = await page.context().newCDPSession(page);
+    const realSwipe = async (x0, y0, dx, dy) => {
+      await cdp.send("Input.dispatchTouchEvent", { type: "touchStart", touchPoints: [{ x: x0, y: y0, id: 1 }] });
+      for (let i = 1; i <= 6; i++) {
+        await page.waitForTimeout(25);
+        await cdp.send("Input.dispatchTouchEvent", { type: "touchMove", touchPoints: [{ x: x0 + dx * i / 6, y: y0 + (dy || 0) * i / 6, id: 1 }] });
+      }
+      await cdp.send("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] });
+      await page.waitForTimeout(700);
+    };
+    await realSwipe(320, 500, -170);
+    check("a REAL touch swipe moves page, not just a synthesised one", (await where()) === "#library", await where());
+    await realSwipe(80, 500, 170);
+    check("...and back the other way", /^#(home)?$/.test(await where()), await where());
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await realSwipe(200, 620, 0, -280);
+    check("...while a vertical drag still scrolls the page rather than navigating",
+      (await where()) === "#home" || (await where()) === "#", await where());
+    await cdp.detach();
     // the Atlas is out of the order in BOTH directions — a drag there turns the globe
     await atlas(page, base);
     await swipe(-140);

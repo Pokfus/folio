@@ -4460,6 +4460,129 @@
         { n: 3, label: "Volume III", note: "Letters 93–124" },
       ],
     },
+    {
+      id: "marcus-aurelius-meditations",
+      title: "Meditations",
+      subtitle: "To Himself",
+      author: "Marcus Aurelius",
+      written: "c. 170–180 CE",
+      year: 170,
+      translator: "C. R. Haines",
+      edition: "Loeb Classical Library, 1916",
+      rights:
+        "Public domain in the United States: Haines's translation was published in 1916 — before 1929 — " +
+        "so its copyright has expired. Haines died in 1935, so it is also public domain wherever the term " +
+        "is the author's life plus 90 years or less. The modern translations by Gregory Hays (2002) and " +
+        "Martin Hammond (2006) are still in copyright and are deliberately not used here.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Marcus_Aurelius_(Haines_1916)",
+      /* The Greek Marcus actually wrote in, from Leopold's Teubner edition of 1908 by way of the
+         Perseus Digital Library — NOT from Greek Wikisource, which prints no section numbers and whose
+         edition divides six of the twelve books differently, so pairing it would mean guessing. Leopold
+         states his numbers as structure, and they agree with Haines on 486 of the 487 sections: the one
+         exception is a section 18 in book 12 that Leopold's text does not carry, which draws as an empty
+         cell precisely because both sides say what they are. Its licence has two layers — Leopold's text
+         is public domain, Perseus's digital edition is CC BY-SA 4.0 — and both are stated in `rights`
+         and printed on the book's own page. See .claude/fetch-book.js for the measurements. */
+      origLang: "grc",
+      origName: "Greek",
+      color: "#2F7D6E",
+      chapterWord: "Book",
+      // the whole work — twelve books is all there is of it, so `count` and `total` agree and will stay
+      // agreed; unlike Seneca, this one did not arrive in instalments
+      count: 12,
+      total: 12,
+      /* No `parts`: one Loeb volume, and its own edition divides it no further. app.js falls back to a
+         single unlabelled group, which is the honest rendering of a book with no volumes. */
+    },
+    {
+      id: "sun-tzu-art-of-war",
+      title: "The Art of War",
+      subtitle: "The Oldest Military Treatise in the World",
+      author: "Sun Tzu",
+      written: "c. 5th century BCE",
+      // negative, and this is the book the signed sort key was written for: it files two and a half
+      // thousand years before the other two, where a parse of the prose above could not have put it
+      year: -500,
+      translator: "Lionel Giles",
+      edition: "Luzac & Co., London, 1910",
+      /* The only book here whose licence has to state a LIMIT as well as a ground. Giles published in
+         1910, so the translation is public domain in the United States on exactly the ground the other
+         two are served on — but he lived until 1958, where Gummere and Haines died in 1942 and 1935,
+         so this one does not also clear the life-plus-seventy rule the way they do. Said outright
+         rather than folded into the same sentence they use; the reasoning is in .claude/fetch-book.js
+         and the reader meets this string in the book's own front matter. */
+      rights:
+        "Public domain in the United States: Giles's translation was published in 1910 — before 1929 — " +
+        "so its copyright has expired there. Giles died in 1958, so where the term is the author's life " +
+        "plus seventy years this translation remains in copyright until 2029; the Chinese text it is " +
+        "printed beside is roughly twenty-five centuries old and is in the public domain everywhere. " +
+        "The modern translations by Samuel B. Griffith (1963) and Roger Ames (1993) are still in " +
+        "copyright and are deliberately not used here.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Art_of_War_(Sun)",
+      /* The original is CHINESE, and it is the cleanest of the three cases here because the original
+         is not another edition on another wiki at all — it is the Chinese Giles printed on the facing
+         half of his own page, transcribed in the same table, carrying his own numbering explicitly.
+         Measured across all thirteen chapters before it was believed: 385 sections, the two columns
+         agreeing exactly, no number on one side missing from the other. That is one of the two shapes
+         that answer the only question which decides whether a book can have an original — does the
+         text SAY which section each passage is? — the other being the TEI edition the Meditations
+         uses. Both beat a wiki walk, where the numbers have to be read back out of the prose. */
+      origLang: "zh",
+      origName: "Chinese",
+      color: "#A6452F",
+      chapterWord: "Chapter",
+      // the whole work — thirteen chapters is all there has ever been of it, so the two agree and will
+      // stay agreed, as the Meditations' do and unlike Seneca's, which arrived in instalments
+      count: 13,
+      total: 13,
+      /* No `parts`: the edition divides the thirteen chapters no further. */
+    },
+    {
+      id: "plato-republic",
+      title: "The Republic",
+      // the edition's own title page sets this under the title, on its own line
+      subtitle: "An Ideal Commonwealth",
+      author: "Plato",
+      written: "c. 375 BCE",
+      year: -375,
+      translator: "Benjamin Jowett",
+      edition: "The Colonial Press, New York, 1901",
+      /* The simplest licence of the four, and the only one that needs no qualification of any kind.
+         Seneca and the Meditations are served on the pre-1929 publication rule and happen to clear
+         life-plus-seventy as well; Giles clears only the first, and his entry has to say where it
+         stops. Jowett died in 1893, so this one has been out of copyright everywhere for longer than
+         most countries have had their present term. */
+      rights:
+        "Public domain worldwide: Benjamin Jowett died in 1893 and his translation was published from " +
+        "1871 onwards, this printing in 1901 — so its copyright has expired everywhere, on the " +
+        "pre-1929 publication rule and on the author's-life rule alike. The Greek it translates is " +
+        "some twenty-four centuries old. The modern translations by Desmond Lee (1955), Allan Bloom " +
+        "(1968) and G. M. A. Grube revised by C. D. C. Reeve (1992) are still in copyright and are " +
+        "deliberately not used here.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Republic_of_Plato",
+      /* NO `origLang`, and this is the first book here to go without one — so it is also the first
+         demonstration that the field is genuinely optional: the reader page simply shows no
+         original-language control, and nothing else about the book differs.
+
+         It is not for want of a Greek text. Plato has the best-standardised citation system of any
+         ancient author — Stephanus's page-and-column of 1578, which every edition in every language
+         has used since — and Burnet's Oxford text sits on Perseus in the same TEI encoding the
+         Meditations' Greek comes from. What is missing is the numbers on JOWETT: this printing does
+         not carry them, and it is the only complete transcription of the Republic in Wikisource's
+         main namespace. The columns pair on numbers a text states about itself, so a book whose
+         English states none cannot have a second column without several hundred alignments made by
+         eye — which is exactly what was tried and abandoned for the Meditations. The reader is told
+         so in the book's own front matter; see .claude/fetch-book.js for the whole finding. */
+      color: "#35619C",
+      chapterWord: "Book",
+      // ten books is the whole work, so the two agree and will stay agreed
+      count: 10,
+      total: 10,
+      /* No `parts`: one volume, and its own edition divides the ten books no further. */
+    },
   ];
   const BOOK_BY_ID = {};
   BOOKS.forEach((b) => (BOOK_BY_ID[b.id] = b));
@@ -4628,15 +4751,21 @@
     render();
   }
   /* ---------- swipe between pages on a phone (Aug 2026, on request) ----------
-     A phone has five ordinary pages and a tab bar that reaches four of them; a horizontal swipe is the
-     gesture every reader already expects to move between them, and it costs no screen.
+     A horizontal swipe is the gesture every reader already expects for moving between the pages of a phone
+     app, and it costs no screen. THE ORDER IS THE TAB BAR'S, minus the Atlas.
 
      The ATLAS is not in this order, and that is the request rather than an oversight: a drag on the globe
      rotates it, and a page that both rotates under the finger and navigates away from it can only do one of
-     them badly. So the Atlas is reached and left through the tab bar alone. COLLECTIONS is in the order even
-     though it has no tab — it is a real destination, reached from the review's lip, and leaving it out would
-     make the sequence a subset of the bar rather than a pass over the pages. (The books LIBRARY, added Aug
-     2026, does have a tab and sits between them.)
+     them badly. So the Atlas is reached and left through the tab bar alone.
+
+     COLLECTIONS was in the order for a fortnight and was TAKEN OUT on request (Aug 2026). The reasoning for
+     including it — that it is a real destination even without a tab, and that leaving it out makes the
+     sequence a subset of the bar rather than a pass over the pages — is exactly backwards once the tab bar
+     is what a reader has to go on: the swipe was landing them on a page the bar cannot reach, with nothing
+     lit in it to say where they were, and no gesture in the same family to get back except the one that had
+     just taken them there. It is reached from the review's own lip ("+ Add decks"), which is the route the
+     home page advertises, and that is now the only one. **A page belongs in this order when it has a tab**;
+     that is the whole rule, and it is why the books LIBRARY is here and Collections is not.
 
      The guards are the whole of the difficulty, because a false positive here TAKES A PAGE AWAY:
        · touch only. A trackpad's horizontal scroll arrives as wheel, and a mouse drag is a selection.
@@ -4646,7 +4775,7 @@
        · never while an overlay is up, never mid-gesture on a control, never while grading.
      And it is deliberately generous on distance (SWIPE_MIN) and strict on angle: a diagonal is a scroll that
      wandered, and reading the page vertically is what a finger is mostly doing. */
-  const SWIPE_ORDER = ["home", "decks", "library", "account", "settings"];
+  const SWIPE_ORDER = ["home", "library", "account", "settings"];
   const SWIPE_MIN = 64, SWIPE_RATIO = 1.6, SWIPE_MS = 700;
   let _navDir = "";        // which way the next render() should come in from
   function swipeScrollerUnder(el) {
@@ -4716,10 +4845,12 @@
     // on the way out rather than let it disappear quietly. Read off the live panel, so there is no
     // "pending" flag to keep in step with an editor that has already been torn down.
     if (document.querySelector(".af-reqnote:not([hidden])")) toast("Not saved — an image or video was left without a source.");
-    const ghost = makePageGhost();   // the outgoing page, fading out over the incoming one
     // a swiped navigation arrives from the side the finger came from, and the outgoing page leaves the
     // other way — so the gesture and the transition tell the same story (see wirePageSwipe)
     const dir = _navDir; _navDir = "";
+    const ghost = makePageGhost(dir);   // the outgoing page, leaving over the incoming one
+    // …and nothing travels under reduced motion, so nothing needs clipping
+    if (dir && !prefersReducedMotion()) clipStageFor(PAGE_GHOST_MS + 80);
     view.innerHTML = '<div class="page' + (dir ? " page-" + dir : "") + '"></div>';
     if (ghost) { if (dir) ghost.classList.add("ghost-" + dir); view.appendChild(ghost); }
     const root = view.firstElementChild;
@@ -4742,15 +4873,30 @@
      opts out of the enter animation too.) The home page's little ornamental globe is deliberately NOT
      excluded: it is 170px, it stops itself when it leaves the DOM, and skipping the commonest navigation
      on the site to protect it would be paying for the transition and not getting it. And the editor is
-     skipped, where a repaint per keystroke is routine and a ghost of the card being typed into would strobe. */
-  const PAGE_GHOST_MS = 260;
-  function makePageGhost() {
+     skipped, where a repaint per keystroke is routine and a ghost of the card being typed into would strobe.
+
+     A SWIPED navigation is a different transition and not merely a longer one (Aug 2026, on a report that
+     it was "a hard cut"). It was a 26px nudge under a cross-fade, which at that distance is a fade with a
+     lean in it — so on a phone, where the gesture had just dragged a page sideways, what arrived read as a
+     cut. It is a full CROSS-SLIDE now: the outgoing page leaves by its own whole width and the incoming one
+     follows it in, the two exactly adjacent (plus a 24px gutter so their edges never abut), at one duration
+     and one easing — which is what makes it read as one sheet of paper moving rather than two things
+     happening at once. That is only possible because BOTH pages exist for those 340ms, the ghost being a
+     real copy of the outgoing one; a fade needs no such thing, which is why it was the cheaper transition
+     to write and the wrong one to keep.
+
+     Hence the height guard is skipped for a swipe. Its reason — "a very long page fading over a short one
+     is a smear" — is a fact about fading in PLACE, and a page that slides off the side never overlays the
+     new one at all. The element-count guard stays: that one is about the cost of the clone, which a
+     direction does not change. */
+  const PAGE_GHOST_MS = 340;
+  function makePageGhost(dir) {
     if (prefersReducedMotion()) return null;
     const old = view.firstElementChild;
     if (!old || !old.classList.contains("page")) return null;
     if (current.name === "admin" || current.name === "map" || current.name === "findit") return null;
     if (old.querySelector(".atlas")) return null;
-    if (old.offsetHeight > 2600) return null;   // a very long page fading over a short one is a smear, not a transition
+    if (!dir && old.offsetHeight > 2600) return null;   // a very long page fading over a short one is a smear, not a transition
     if (old.querySelectorAll("*").length > 2000) return null;   // not worth cloning; that page is a list, and lists don't need a ghost
     /* A CLONE, not the element itself. Two reasons, and the second is the one that bites.
        · Anything still holding a reference to the outgoing page — a stale handler, a pending callback —
@@ -4770,6 +4916,25 @@
     ghost.setAttribute("aria-hidden", "true");
     setTimeout(() => ghost.remove(), PAGE_GHOST_MS + 60);
     return ghost;
+  }
+  /* A page travelling a whole screen width overflows the document while it does it, and an untamed
+     horizontal overflow on a phone is a scrollbar, a rubber-band and a page that can be dragged sideways
+     into empty space mid-transition. So the stage clips for the length of the move and no longer.
+
+     Three things about it are deliberate. It is on the STAGE rather than on #view, because #view sits
+     inside the stage's own 16–40px padding and clipping there would cut both pages off short of the screen
+     edge — a hard vertical line an inch from the edge, which reads as a rendering fault rather than as a
+     page leaving. It is `overflow-x` alone, never the shorthand: `overflow-x:clip` beside an untouched
+     `overflow-y:visible` is the one pairing that clips without creating a scroll container, so the book's
+     sticky chapter bar and every other sticky thing on the site still resolve against the viewport (with
+     `hidden`, or with both axes set, they would stick to the stage instead). And it is a class on the body
+     with a timer, not a `:has()` rule keyed off the ghost — the incoming page slides whether or not a ghost
+     was made, so a rule that watched the ghost would leave exactly the case with no ghost unclipped. */
+  let _clipT = 0;
+  function clipStageFor(ms) {
+    document.body.classList.add("stage-sliding");
+    clearTimeout(_clipT);
+    _clipT = setTimeout(() => document.body.classList.remove("stage-sliding"), ms);
   }
   /* Motion the CSS `prefers-reduced-motion` block can't cover — JS scroll options, canvas camera moves,
      the page ghost, the sheets' exits. Read live rather than cached: the OS setting can change while the
@@ -6756,6 +6921,34 @@
     requestAnimationFrame(frame);
   }
 
+  /* THE SHIPPED VERSION — very small, in the top-left corner of the home page (Aug 2026, on request).
+     The record itself lives in `changelog.js` (`window.FOLIO_VERSION`), beside the release notes it
+     describes, so that bumping it and writing the day's changelog line are one edit in one file and the
+     two can never disagree about what shipped when; the policy comment is there rather than here.
+
+     Read at RENDER rather than captured at boot, so a reader on a cached copy of the site is told which
+     build they are actually running, and a build that somehow ships without a record simply prints
+     nothing rather than a placeholder.
+
+     The instant is stored in UTC and printed in the READER'S own clock and locale — it is a moment in
+     time, not a day of publication, so it follows the same rule as the day boundary rather than the
+     changelog's headings, which are deliberately fixed to the site language. */
+  function versionLineHTML() {
+    const V = window.FOLIO_VERSION;
+    if (!V || !V.v) return "";
+    const l = uiLang(), loc = l === "en" ? "en-GB" : l === "zh" ? "zh-CN" : l;
+    const t = V.released ? new Date(V.released) : null;
+    const when = t && !isNaN(t.getTime())
+      ? t.toLocaleDateString(loc, { day: "numeric", month: "short", year: "numeric" }) + ", " +
+        t.toLocaleTimeString(loc, { hour: "2-digit", minute: "2-digit" })
+      : "";
+    /* notranslate for the reason the discovery chip's figure carries it: a version number and a timestamp
+       are not prose, and the localisation walker must not go hunting for a key for them. */
+    const v = esc(V.v), w = esc(when);
+    return `<div class="site-ver notranslate"${when ? ` title="Folio v${v}, released ${w}"` : ""}>` +
+           `v${v}${when ? " · " + w : ""}</div>`;
+  }
+
   let _homeResize = null;   // the one resize listener the home page installs (see the foot of PAGES.home)
   PAGES.home = function (root) {
     /* The phone and the desktop build DIFFERENT pages here, not the same page styled two ways — the phone
@@ -7109,6 +7302,7 @@
        reading order: the review and its decks, then the games under a heading of their own. The games keep
        their place on the desktop too, with the discovery row after them exactly as before. */
     root.innerHTML = `
+      ${versionLineHTML()}
       <div class="page-head">
         <span class="eyebrow">${greeting}, ${esc(S.user.name)}</span>
         <h1>Today</h1>
@@ -7845,19 +8039,29 @@
      citation to 600 characters (Gummere's longest note runs to 729, and a note cut mid-sentence is worse
      than no note) and drops everything past 24 (a chapter legitimately has more notes than a card has
      sources — silently dropping them would leave wireFootnotes deleting the markers that pointed at them).
-     It carries `src-compact` for the BEHAVIOUR that class buys: the fold starts shut, and opening it says
-     something about this chapter rather than rewriting the reader's card-wide S.settings.srcCollapsed. */
+
+     It renders OPEN (Aug 2026, on request), like a card's sources and the Atlas panel's, and for the same
+     reason those do: an apparatus the reader has to go looking for is one they will not look at, and here
+     it is the translator's own commentary rather than a list of works — the part of the page most worth
+     reading after the letter itself. It started shut for a fortnight, which also meant every marker jump
+     had to expand the fold first, and that is exactly the case openFootnote used to get wrong.
+
+     It keeps `src-compact` for the OTHER half of what that class buys — opening or shutting it says
+     something about this chapter and never rewrites the reader's card-wide S.settings.srcCollapsed — and
+     for the smaller type that goes with it. So the class no longer implies a starting state; the two
+     surfaces that use it now differ there, a gloss popup still opening shut (see sourcesHTML). */
   function bookNotesHTML(notes) {
     const list = (Array.isArray(notes) ? notes : []).map((s) => String(s == null ? "" : s).trim()).filter(Boolean);
     if (!list.length) return "";
-    const items = list.map((s) => '<li class="src-item">' + sanitizeHTML(s) + "</li>").join("");
+    const items = list.map((s, i) =>
+      '<li class="src-item">' + srcNumHTML(i + 1) + '<span class="src-text">' + sanitizeHTML(s) + "</span></li>").join("");
     return '<section class="src-note src-compact bk-notes">' +
-      '<button class="src-head" type="button" aria-expanded="false" aria-label="Show or hide the notes" title="Show or hide the notes">' +
+      '<button class="src-head" type="button" aria-expanded="true" aria-label="Show or hide the notes" title="Show or hide the notes">' +
         '<span class="src-label">Notes</span>' +
         '<span class="src-count notranslate">' + list.length + "</span>" +
-        '<span class="src-toggle collapsed">' + SRC_CHEV + "</span>" +
+        '<span class="src-toggle">' + SRC_CHEV + "</span>" +
       "</button>" +
-      '<div class="src-collapse collapsed"><div class="src-collapse-inner">' +
+      '<div class="src-collapse"><div class="src-collapse-inner">' +
         '<ol class="src-list notranslate">' + items + "</ol>" +
       "</div></div></section>";
   }
@@ -8377,12 +8581,60 @@
       window.scrollTo({ top: Math.max(0, top - a.dy), behavior: "auto" });
     }
 
+    /* TURNING THE PAGE OVER IS A CROSSFADE, NOT A CUT (Aug 2026, on request).
+
+       The switch itself is unchanged — still the instant `data-lang` change the paired-rows markup was
+       built for, which is what keeps the reader's place exact. What happens now is that it happens
+       BEHIND A FADE, the way the home page's daily quote flips between a translation and the words
+       actually written; this page has cited that flip as its model since it was written, and was the
+       one place doing it without the fade.
+
+       It has to be a fade rather than a transition on the columns themselves. Going to two languages
+       takes the row from one grid track to two and brings back a column that was `display:none`, and
+       neither of those is a value CSS can interpolate — so there is nothing to transition even in
+       principle. `flipMove` is no help either: it translates elements, and what changes here is the
+       WIDTH of a column of prose, which can only be animated by scaling it, i.e. by squashing the text.
+
+       The fade is on the PROSE ALONE, not the panel. The chapter heading and the translator's notes say
+       the same thing in both states, and a heading that blinks on every tap reads as the page reloading
+       rather than as the text turning over. */
+    // BK_FADE must stay in step with the .bk-prose transition in styles.css — the swap is held for it,
+    // and if the two come apart the reader sees the change happen. BK_IN only releases the guard below,
+    // so it just has to outlast the incoming motion.
+    const BK_FADE = 160, BK_IN = 230;
+    let flipping = false;
+    /* Make the change while nothing is visible: the words on screen fade out and lift, `mutate` runs,
+       and the incoming ones rise into place. The prose is looked up AGAIN after the mutation rather
+       than held across the gap, because on the first press `mutate` is a whole repaint and the element
+       that faded out no longer exists.
+
+       Nothing is mutated if the reader LEFT during the fade. `mutate` ends in markPos(), which would
+       measure a detached page against the new page's scroll position and write that home as the place
+       they had got to — the same hazard the scroll listener above guards against, and just as silent. */
+    function flipProse(mutate) {
+      const out = pageEl.querySelector(".bk-prose");
+      if (!out || prefersReducedMotion()) { mutate(); return; }
+      flipping = true;
+      out.classList.add("bk-fade-out");
+      setTimeout(() => {
+        if (!pageEl.isConnected) { flipping = false; return; }
+        mutate();
+        const el = pageEl.querySelector(".bk-prose");
+        if (!el) { flipping = false; return; }
+        el.classList.add("bk-fade-in");            // held invisible and a touch low, with no transition
+        el.classList.remove("bk-fade-out");
+        // two frames: the start state has to be painted before removing the class can animate away from it
+        requestAnimationFrame(() => requestAnimationFrame(() => el.classList.remove("bk-fade-in")));
+        setTimeout(() => { flipping = false; }, BK_IN);
+      }, BK_FADE);
+    }
+
     /* Turn the page over. The first press has to fetch the original — it is a separate lazy file — so
        it repaints; every press after that is a class change with the scroll put back, which is why the
-       switch is instant and lands on the same passage. */
+       switch lands on the same passage. */
     let origLoading = false;
     function toggleOrig() {
-      if (!b.origLang || origLoading) return;
+      if (!b.origLang || origLoading || flipping) return;
       const have = !!bookOriginal(b.id);
       const next = !bookOrigOn();
       if (next && !have) {
@@ -8394,29 +8646,102 @@
           if (!pageEl.isConnected) return;              // the reader left while it loaded
           if (btn) btn.classList.remove("bk-lang-loading");
           if (!ok || !bookOriginal(b.id)) { toast("The " + (b.origName || "original") + " could not be loaded."); return; }
-          setBookOrigOn(true);
-          // repaint into the paired markup, holding the reader's depth in the chapter as a fraction —
-          // there are no rows to anchor on yet, this being the render that creates them
+          // the reader's depth in the chapter as a fraction — there are no rows to anchor on yet, this
+          // being the render that creates them. Measured before the fade, like the anchor below.
           const h = pageEl.offsetHeight || 1;
           const frac = Math.max(0, Math.min(1, (window.scrollY + window.innerHeight * 0.35 - pageEl.offsetTop) / h));
-          paint(cur, frac);
+          flipProse(() => { setBookOrigOn(true); paint(cur, frac); });
         });
         return;
       }
+      // captured BEFORE the fade begins: fading out lifts the prose a few pixels, and an anchor read
+      // mid-lift would put the reader back that far off the passage they were on
       const a = anchorNow();
-      setBookOrigOn(next);
-      applyLangMode();
-      restoreAnchor(a);
-      markPos();
+      flipProse(() => {
+        setBookOrigOn(next);
+        applyLangMode();
+        restoreAnchor(a);
+        markPos();
+      });
     }
 
+    /* ---- stepping a chapter, which used to be a hard cut (Aug 2026, on request) ----
+       It was an innerHTML swap and nothing else: the words changed between one frame and the next, and on
+       a phone that followed a finger which had just dragged the page sideways, so the gesture said "carry
+       this away" and the page said nothing back. The chapter now LEAVES the way the finger went and the
+       next one follows it in.
+
+       It cannot be the page swipe's cross-slide, and the difference is worth stating because it looks like
+       an inconsistency: that one has both pages in hand at once (the outgoing one is a clone laid over the
+       stage), where a chapter's prose does not exist until it is painted and a chapter of this book can be
+       thirty screens of it — cloning one to slide it off would be a real cost for a gesture a reader
+       repeats all evening. So this is the other standard shape: the panel leaves and the new one arrives
+       from the opposite side, the swap happening at the midpoint while nothing is on screen to see it. The
+       travel is 10% of the panel's own width rather than a whole one, since with nothing behind it a full
+       slide is mostly a wait, and it fades as it goes.
+
+       The scroll to the top of the chapter goes UNDER the slide (instantly, at the midpoint) where the old
+       code rode it out afterwards with a smooth scroll. A reader thirty screens into a letter who steps to
+       the next one is not travelling anywhere they want to watch; and a smooth scroll running against an
+       incoming panel is two motions disagreeing about what just happened.
+
+       IT IS `Element.animate` AND NOT A CSS CLASS, and that is not a stylistic preference — the CSS
+       version does nothing at all. `.bk-page` is a direct child of `.page`, so the entrance stagger
+       (`.page > *{animation:sectIn … both}`) matches it, and a `both`-filled animation keeps applying its
+       last keyframe FOREVER after it finishes. That keyframe is `transform:none`, and an animation outranks
+       any ordinary declaration in the cascade — so `.bk-page.bk-out-next{transform:translateX(-10%)}` is
+       overridden by an animation that ended half a second after the page loaded. The class went on, the
+       computed transform stayed the identity matrix, and the chapter changed exactly as abruptly as before
+       (measured; it is invisible unless something reads the transform MID-flight). A script-generated
+       animation sorts after CSS animations and wins, which is also why flipMove is written this way. */
+    const BK_SLIDE_OUT = 150, BK_SLIDE_IN = 240, BK_EASE = "cubic-bezier(.22,.61,.36,1)";
+    let slideT = 0, slideAnim = null;
+    function slideChapter(d, mutate) {
+      if (prefersReducedMotion() || !pageEl.isConnected || typeof pageEl.animate !== "function") { mutate(); return; }
+      const off = (d > 0 ? -10 : 10) + "%", back = (d > 0 ? 10 : -10) + "%";
+      clearTimeout(slideT);
+      if (slideAnim) { slideAnim.cancel(); slideAnim = null; }
+      clipStageFor(BK_SLIDE_OUT + BK_SLIDE_IN + 80);
+      try {
+        // `forwards`, so the panel STAYS off the side for the frames between the two halves — without it
+        // the swap would happen with the old chapter back in place, which is the cut this replaces
+        slideAnim = pageEl.animate([{ transform: "none", opacity: 1 }, { transform: "translateX(" + off + ")", opacity: 0 }],
+          { duration: BK_SLIDE_OUT, easing: BK_EASE, fill: "forwards" });
+      } catch (e) { mutate(); return; }
+      slideT = setTimeout(() => {
+        // the reader left while it was moving — mutate() ends in markPos(), which would measure a detached
+        // page against the new page's scroll position and write that home as the place they had got to
+        if (!pageEl.isConnected) return;
+        mutate();
+        /* The incoming animation is created BEFORE the outgoing one is cancelled, and the order is the
+           whole of it: both are script animations, so the newer wins, and its first keyframe holds the
+           panel off the other side from the same tick. Cancel first and there is a frame with no animation
+           on the element at all — the new chapter, in place, at full opacity, a flash mid-transition. */
+        let next = null;
+        try {
+          next = pageEl.animate([{ transform: "translateX(" + back + ")", opacity: 0 }, { transform: "none", opacity: 1 }],
+            { duration: BK_SLIDE_IN, easing: BK_EASE });
+        } catch (e) {}
+        if (slideAnim) slideAnim.cancel();
+        slideAnim = next;
+      }, BK_SLIDE_OUT);
+    }
+    /* The chapter a slide is on its way to. step() counts from it rather than from `cur`, which the paint
+       at the midpoint is what updates — without it a reader swiping twice quickly would ask for the same
+       next chapter twice and stand still. */
+    let queued = null;
     function go(c, fromReader) {
-      if (!c || c === cur) return;
-      // a deliberate move to another chapter starts that chapter at the top; only a RESUME restores a depth
-      paint(c, 0);
-      if (fromReader) setReadingPos(b.id, c.n, 0);
-      if (!prefersReducedMotion()) window.scrollTo({ top: 0, behavior: "smooth" });
-      else window.scrollTo(0, 0);
+      const from = queued || cur;
+      if (!c || c === from) return;
+      const d = chapters.indexOf(c) > chapters.indexOf(from) ? 1 : -1;
+      queued = c;
+      slideChapter(d, () => {
+        queued = null;
+        // a deliberate move to another chapter starts that chapter at the top; only a RESUME restores a depth
+        window.scrollTo(0, 0);
+        paint(c, 0);
+        if (fromReader) setReadingPos(b.id, c.n, 0);
+      });
     }
 
     /* Record the place, throttled. A scroll listener that wrote on every frame would push a synced
@@ -8446,7 +8771,7 @@
     tabsEl.querySelectorAll(".bk-tab").forEach((t) =>
       t.addEventListener("click", () => go(chapters.find((c) => c.n === +t.dataset.ch), true))
     );
-    const step = (d) => { const i = chapters.indexOf(cur) + d; if (i >= 0 && i < chapters.length) go(chapters[i], true); };
+    const step = (d) => { const i = chapters.indexOf(queued || cur) + d; if (i >= 0 && i < chapters.length) go(chapters[i], true); };
     root.querySelector("#bkPrev").addEventListener("click", () => step(-1));
     root.querySelector("#bkNext").addEventListener("click", () => step(1));
     root.querySelector("#bkPrev2").addEventListener("click", () => step(-1));
@@ -8456,38 +8781,84 @@
     const langBtn = root.querySelector("#bkLang");
     if (langBtn) langBtn.addEventListener("click", toggleOrig);
 
-    /* TAP THE PAGE TO TURN IT OVER (narrow screens only), the way the home page's daily quote flips
-       between a translation and the words actually written.
+    /* ---- THE PHONE'S TWO GESTURES ON THE PAGE ITSELF (narrow screens only) ----
 
-       The guards are the whole of it, because a false positive here SWAPS THE LANGUAGE OUT FROM UNDER
-       A READER mid-sentence — the same reasoning as the page swipe, and the same conclusion: be
-       generous about what counts as a scroll and strict about what counts as a tap.
-         · a finger that MOVED was scrolling, not tapping (BK_TAP_SLOP);
+       DOUBLE-TAP turns the page over between the translation and the original; a horizontal SWIPE moves
+       between chapters.
+
+       The language half was a SINGLE tap until Aug 2026 and was changed on request. A single tap is far
+       too cheap a target for something that swaps the whole text out from under a reader: it is also how
+       you put a keyboard away, dismiss a selection, or simply hold the phone. The gloss window made the
+       same move for the same reason, so this is now the site's one meaning for a double tap on a body of
+       text — and the deliberate cost is that the gesture is harder to discover, which is why the LATIN
+       button in the chapter bar exists and remains the route a reader is expected to find.
+
+       The two cannot be classified independently, and that is the whole difficulty: a swipe ends in a
+       pointerup that is indistinguishable from a tap unless the movement is measured. So the tap half
+       rejects anything that MOVED (BK_TAP_SLOP) and the swipe half rejects anything that did not move
+       far enough or moved mostly downward (SWIPE_MIN / SWIPE_RATIO, shared with the page swipe so the
+       two gestures cannot come to disagree about what a swipe is). A swipe also clears the pending tap,
+       or the finger that stepped a chapter would count as the first half of a language flip.
+
+       The guards both halves share:
          · a real target keeps its own behaviour — a glossary link, a footnote marker, the notes fold,
            any control — since a book is full of them and tapping one must open it, not turn the page;
          · a SELECTION is not a tap: lifting a finger at the end of selecting a phrase would otherwise
            throw away the selection and the language together;
-         · nothing happens while a gloss popup is open, which is a reader reading something else.
-       It is deliberately NOT wired above the breakpoint: there both columns are already showing, so
-       there is nothing a tap could reveal, and a stray click would take a column away instead. */
-    const BK_TAP_SLOP = 10;
+         · nothing fires while a gloss popup or any other overlay is up, which is a reader reading
+           something else;
+         · a swipe that starts in a horizontal scroller belongs to that scroller — the chapter bar is
+           one, and swipeScrollerUnder walks the ancestors rather than naming it, so a scroller added
+           here later is covered without anyone remembering this.
+
+       Neither is wired above the breakpoint. The language flip has nothing to reveal there (both columns
+       already show, so a stray one would take a column AWAY), and a wide screen reaches the chapters by
+       the tabs, the ‹ › steps and the arrow keys. The book page is deliberately absent from SWIPE_ORDER,
+       so the site-wide page swipe is inert here and these two can never fight over one gesture. */
+    const BK_TAP_SLOP = 10, BK_TAP_MS = 320, BK_TAP_GAP = 30;
     const BK_TAP_SKIP = "a,button,input,textarea,select,summary,label,[role='button'],.ttip,.fn,.src-note,.bk-n";
-    let tapX = 0, tapY = 0, tapOK = false;
-    pageEl.addEventListener("pointerdown", (e) => {
-      tapOK = e.isPrimary && !e.target.closest(BK_TAP_SKIP);
-      tapX = e.clientX; tapY = e.clientY;
-    });
-    pageEl.addEventListener("pointerup", (e) => {
-      if (!tapOK) return;
-      tapOK = false;
-      if (!b.origLang || !bookPhone()) return;
-      if (Math.abs(e.clientX - tapX) > BK_TAP_SLOP || Math.abs(e.clientY - tapY) > BK_TAP_SLOP) return;
-      if (e.target.closest(BK_TAP_SKIP)) return;
+    // listeners go on `root` — a fresh .page div per render (see render()), so they die with the page
+    // and cannot accumulate the way one on the persistent #view would
+    function bkGestureOK() {
+      return bookPhone() && !document.querySelector(".gloss-win, .img-viewer, .inline-prompt, .ctx-menu, .deck-menu, .levelup-pop");
+    }
+    let g = null, lastT = 0, lastX = 0, lastY = 0;
+    root.addEventListener("pointerdown", (e) => {
+      g = null;
+      if (!e.isPrimary || !bkGestureOK()) return;
+      if (e.target.closest(BK_TAP_SKIP)) { lastT = 0; return; }
+      g = { x: e.clientX, y: e.clientY, t: Date.now(), id: e.pointerId, touch: e.pointerType === "touch",
+            scroller: swipeScrollerUnder(e.target) };
+    }, { passive: true });
+    root.addEventListener("pointerup", (e) => {
+      const s = g; g = null;
+      if (!s || e.pointerId !== s.id || !bkGestureOK()) return;
+      if (e.target.closest(BK_TAP_SKIP)) { lastT = 0; return; }
+      const dx = e.clientX - s.x, dy = e.clientY - s.y, dt = Date.now() - s.t;
+
+      // a swipe: touch only (a mouse drag is a selection), far enough sideways, and more sideways than down
+      if (s.touch && !s.scroller && dt <= SWIPE_MS &&
+          Math.abs(dx) >= SWIPE_MIN && Math.abs(dx) >= Math.abs(dy) * SWIPE_RATIO) {
+        lastT = 0;                                  // …and never the first half of a double tap
+        step(dx < 0 ? 1 : -1);                      // the finger carries the page, as the page swipe does
+        return;
+      }
+      // …otherwise a tap, and only from a finger that stayed put and left no selection behind
+      if (Math.abs(dx) > BK_TAP_SLOP || Math.abs(dy) > BK_TAP_SLOP) { lastT = 0; return; }
       const sel = window.getSelection && window.getSelection();
-      if (sel && !sel.isCollapsed) return;
-      if (document.querySelector(".gloss-win")) return;
-      toggleOrig();
+      if (sel && !sel.isCollapsed) { lastT = 0; return; }
+      const now = Date.now();
+      if (now - lastT < BK_TAP_MS && Math.abs(e.clientX - lastX) < BK_TAP_GAP && Math.abs(e.clientY - lastY) < BK_TAP_GAP) {
+        lastT = 0;
+        e.preventDefault();                         // the second tap is ours, not a zoom
+        if (b.origLang) toggleOrig();
+        return;
+      }
+      lastT = now; lastX = e.clientX; lastY = e.clientY;
     });
+    // a gesture the browser took for a scroll is not a tap and not a swipe — it never reaches pointerup,
+    // so drop it here rather than leave it pending against the next finger (cf. wirePageSwipe)
+    root.addEventListener("pointercancel", () => { g = null; lastT = 0; }, { passive: true });
 
     /* A window crossing the breakpoint changes what "showing the original" MEANS — two columns above
        it, one below — so the mode is re-derived rather than left as whatever the last width decided.
@@ -10073,6 +10444,17 @@
     return normSources([].concat(gen || [], per || []));
   }
   const SRC_CHEV = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
+  /* An entry's own number, written into the markup rather than left to `list-style:decimal`. The jump runs
+     BOTH WAYS since Aug 2026 (on request: a note's number should carry the reader back to the place in the
+     text that cited it), and a ::marker cannot be a control — a click on it lands on the <li>, it takes no
+     tabindex and no accessible name. So the number is an element, and wireFootnotes turns it into a
+     back-link only where a marker for it actually exists on that surface. An entry nothing points at keeps
+     a plain number, which is what a list of works should look like: the Atlas panel's prose carries no
+     markers at all and never calls wireFootnotes, so its numbers stay exactly as they read today.
+     That split is deliberate and is the fold header's lesson (see the delegated listeners below) applied
+     one level up: the CONTROL is created by the pass that can see both ends of the jump, so a surface that
+     never gets that pass shows no control rather than a dead one. */
+  function srcNumHTML(n) { return '<span class="src-n notranslate">' + n + "</span>"; }
   /* Just the numbered list — for a surface that already owns a fold of its own (the Atlas panel's .cp-sec).
      The links and the access chips are built HERE, into the markup, rather than by a pass over the page
      afterwards. They used to depend on wireSourceLinks() reaching the list, which is the same fragility the
@@ -10087,10 +10469,10 @@
     if (!src.length) return "";
     const ol = document.createElement("ol");
     ol.className = "src-list notranslate";
-    src.forEach((s) => {
+    src.forEach((s, i) => {
       const li = document.createElement("li");
       li.className = "src-item";
-      li.innerHTML = s;
+      li.innerHTML = srcNumHTML(i + 1) + '<span class="src-text">' + s + "</span>";
       try { linkifySrcItem(li); } catch (err) {}   // decoration over text this code did not write
       ol.appendChild(li);
     });
@@ -10198,14 +10580,74 @@
     if (head) head.setAttribute("aria-expanded", collapsed ? "false" : "true");
     return !collapsed;
   }
+  /* The nearest ancestor that actually scrolls, or null when the item scrolls with the page. A gloss
+     popup's body and the Atlas panel's columns are their own scrollports; a card's and a book's notes
+     are not. */
+  function noteScrollParent(el) {
+    for (let n = el.parentElement; n && n !== document.body && n !== document.documentElement; n = n.parentElement) {
+      const oy = getComputedStyle(n).overflowY;
+      if ((oy === "auto" || oy === "scroll") && n.scrollHeight > n.clientHeight + 1) return n;
+    }
+    return null;
+  }
+  /* Bring a note into view PAST THE FURNITURE (Aug 2026, on a bug report: on a phone the jump "doesn't
+     quite go far enough to see the actual note").
+
+     scrollIntoView({block:"nearest"}) brings the item's bottom flush with the SCROLLPORT's bottom — and
+     the scrollport is the whole viewport, which on a phone has a 58px tab bar fixed over the foot of it.
+     So the note the reader was sent to arrives underneath the bar: in view by the browser's reckoning,
+     unreadable by the reader's, and needing exactly the little extra scroll that was reported. The bars
+     are read from the custom properties that position them (both are 0 on the side of the breakpoint
+     where they do not exist), so this can never drift out of step with them.
+
+     Already clear of both? Nothing moves — a note the reader can already see should not jolt. Otherwise
+     it is placed in the middle of what is genuinely visible, except when the note is taller than that
+     band, where it is aligned to its top instead: centring a long note lands the reader mid-sentence.
+
+     It takes EITHER END of the jump — the note on the way down, the marker in the prose on the way back —
+     since both have to clear the same furniture and a marker is inside the same scrollers a note is. */
+  function scrollNoteIntoView(item) {
+    const smooth = prefersReducedMotion() ? "auto" : "smooth";
+    const sc = noteScrollParent(item);
+    const r = item.getBoundingClientRect();
+    const pad = 14;
+    if (sc) {
+      const b = sc.getBoundingClientRect();
+      if (r.top >= b.top + pad && r.bottom <= b.bottom - pad) return;
+      try { item.scrollIntoView({ block: "nearest", behavior: smooth }); } catch (e) { item.scrollIntoView(); }
+      return;
+    }
+    const cs = getComputedStyle(document.documentElement);
+    const bar = (v) => parseFloat(cs.getPropertyValue(v)) || 0;
+    const top = bar("--bar-h"), bottom = window.innerHeight - bar("--tabbar-h");
+    if (r.top >= top + pad && r.bottom <= bottom - pad) return;
+    const band = bottom - top;
+    const want = r.height > band - pad * 2
+      ? window.scrollY + r.top - top - pad
+      : window.scrollY + r.top - top - (band - r.height) / 2;
+    window.scrollTo({ top: Math.max(0, want), behavior: smooth });
+  }
   function openFootnote(note, item) {
     if (!item) return;
-    toggleSourceNote(note, true);
+    /* Expand the fold WITHOUT its animation before measuring anything. `.src-collapse` opens over .38s
+       (grid-template-rows 0fr → 1fr), so a scroll issued in the same tick — as this did — is computed
+       against a list that is still zero pixels tall, and stops short by however tall the list was about
+       to become. That is the larger half of the same report, and it is worst exactly where it was
+       noticed: at the foot of a long chapter, where the notes are the last thing in the document and the
+       page cannot even scroll that far until they exist. Animating here would only mean scrolling to a
+       moving target; the scroll IS the movement the reader asked for. */
+    const box = note && note.querySelector(".src-collapse");
+    if (box && box.classList.contains("collapsed")) {
+      const t = box.style.transition;
+      box.style.transition = "none";
+      toggleSourceNote(note, true);
+      void box.offsetHeight;          // flush the expansion into layout before it is measured
+      box.style.transition = t;
+    } else toggleSourceNote(note, true);
     item.classList.remove("src-flash");
     void item.offsetWidth;   // restart the flash when the same marker is clicked twice
     item.classList.add("src-flash");
-    try { item.scrollIntoView({ block: "nearest", behavior: prefersReducedMotion() ? "auto" : "smooth" }); }
-    catch (e) { item.scrollIntoView(); }
+    scrollNoteIntoView(item);
   }
   /* The fold header and the markers are DELEGATED, never wired per render — the pattern `.card-img`
      already uses. Everything a click has to know is derivable from the DOM at the moment it happens, and
@@ -10227,7 +10669,36 @@
   }
   function jumpToFootnote(fn) {
     const note = noteForNode(fn), n = parseInt(fn.getAttribute("data-fn"), 10);
-    if (note && n > 0) openFootnote(note, note.querySelectorAll(".src-item")[n - 1]);
+    if (!note || !(n > 0)) return;
+    const item = note.querySelectorAll(".src-item")[n - 1];
+    // remember which marker sent the reader here, so the number's back-link returns to THAT one. A note
+    // may be cited several times over — Seneca's letter 114 cites one note four times — and coming back
+    // to the first citation when the reader jumped from the fourth is landing them in the wrong sentence.
+    if (item) item._fnFrom = fn;
+    openFootnote(note, item);
+  }
+  /* …and back. The climb mirrors noteForNode's: up from the note until an ancestor is found that holds a
+     marker with this number, stopping at <body>, so a book's notes can never send the reader into a gloss
+     popup that happens to be open over them. The marker jumped from wins where it is still on the page;
+     otherwise the first citation of that note, which is the only other honest answer. */
+  function markerForNumber(note, n) {
+    for (let a = note.parentElement; a && a !== document.body; a = a.parentElement) {
+      const fn = a.querySelector('sup.fn[data-fn="' + n + '"]');
+      if (fn) return fn;
+    }
+    return null;
+  }
+  function jumpToMarker(num) {
+    const note = num.closest(".src-note"), item = num.closest(".src-item");
+    if (!note || !item) return;
+    const n = [].indexOf.call(note.querySelectorAll(".src-item"), item) + 1;
+    let fn = item._fnFrom;
+    if (!fn || !fn.isConnected) fn = markerForNumber(note, n);
+    if (!fn) return;
+    fn.classList.remove("src-flash");
+    void fn.offsetWidth;   // restart the flash when the same number is clicked twice
+    fn.classList.add("src-flash");
+    scrollNoteIntoView(fn);
   }
   document.addEventListener("click", (e) => {
     const t = e.target;
@@ -10241,6 +10712,13 @@
       if (S.settings && note && !note.classList.contains("src-compact")) { S.settings.srcCollapsed = !open; save(); }
       return;
     }
+    const num = t.closest(".src-n.src-back");
+    if (num) {
+      e.preventDefault();
+      e.stopPropagation();   // the number sits inside a list a surface may treat as clickable itself
+      jumpToMarker(num);
+      return;
+    }
     const fn = t.closest("sup.fn");
     if (!fn) return;
     e.preventDefault();
@@ -10251,6 +10729,8 @@
     if (e.key !== "Enter" && e.key !== " ") return;
     const t = e.target;
     if (!t || !t.closest) return;
+    const num = t.closest(".src-n.src-back");
+    if (num) { e.preventDefault(); jumpToMarker(num); return; }
     const fn = t.closest("sup.fn");
     if (!fn) return;
     e.preventDefault();
@@ -10267,6 +10747,7 @@
     const note = scope.querySelector(".src-note");
     const items = note ? note.querySelectorAll(".src-item").length : 0;
     let seq = 0;
+    const cited = Object.create(null);   // the numbers a marker actually points at, for the back-links below
     scope.querySelectorAll("sup.fn").forEach((el) => {
       const explicit = parseInt(el.getAttribute("data-fn"), 10);
       const n = explicit > 0 ? explicit : ++seq;
@@ -10277,6 +10758,26 @@
       el.setAttribute("tabindex", "0");
       el.setAttribute("aria-label", "Source " + n);
       el.setAttribute("title", "Source " + n);
+      cited[n] = true;
+    });
+    /* The jump back (Aug 2026, on request). Only a number some marker points at becomes a control — the
+       markers are numbered a few lines above, and this is the one place that knows which of them survived,
+       so an entry nothing cites keeps a plain number rather than offering a jump to nowhere. Idempotent
+       for the same reason the rest of this function is: wireFootnotes is called twice on some surfaces. */
+    // …named for what the list actually holds. A book's are the translator's notes and a card's are its
+    // sources, and a screen reader offering to go "back to source 4" in a letter of Seneca is describing
+    // a surface the reader is not on.
+    const what = note && note.classList.contains("bk-notes") ? "note " : "source ";
+    if (note) note.querySelectorAll(".src-item").forEach((li, i) => {
+      const num = li.querySelector(".src-n");
+      if (!num) return;
+      const on = !!cited[i + 1];
+      num.classList.toggle("src-back", on);
+      if (!on) { ["role", "tabindex", "aria-label", "title"].forEach((a) => num.removeAttribute(a)); return; }
+      num.setAttribute("role", "button");
+      num.setAttribute("tabindex", "0");
+      num.setAttribute("aria-label", "Back to " + what + (i + 1) + " in the text");
+      num.setAttribute("title", "Back to the text");
     });
   }
 
@@ -15312,6 +15813,8 @@
             <li><a href="https://www.wikidata.org" target="_blank" rel="noopener">Wikidata</a> <span class="cr-lic">CC0</span> — country statistics (population, area, GDP).</li>
             <li><a href="https://www.naturalearthdata.com" target="_blank" rel="noopener">Natural Earth</a> <span class="cr-lic">public domain</span> — coastlines, borders, lakes, rivers and cities on the globe.</li>
             <li><a href="https://github.com/aourednik/historical-basemaps" target="_blank" rel="noopener">historical-basemaps</a> <span class="cr-lic">CC BY-SA 4.0</span> — the historical border eras on the Atlas timeline.</li>
+            <li><a href="https://en.wikisource.org" target="_blank" rel="noopener">Wikisource</a> <span class="cr-lic">public domain</span> — the Library's texts: Gummere's Seneca, Haines's Marcus Aurelius, Giles's Sun Tzu and Jowett's Plato, with Seneca's Latin and Sun Tzu's Chinese.</li>
+            <li><a href="https://scaife.perseus.org/library/urn:cts:greekLit:tlg0562.tlg001/" target="_blank" rel="noopener">Perseus Digital Library</a> <span class="cr-lic">CC BY-SA 4.0</span> — the Greek of the <i>Meditations</i>, in Jan Hendrik Leopold's edition of 1908.</li>
             <li><a href="https://registry.opendata.aws/terrain-tiles/" target="_blank" rel="noopener">Terrain Tiles on AWS</a> — terrain relief, from open elevation data by NASA (SRTM), USGS (GMTED2010), NOAA (ETOPO1) and the EU (EU-DEM), among others.</li>
             <li><a href="https://github.com/rhasspy/piper" target="_blank" rel="noopener">Piper</a> <span class="cr-lic">MIT</span> — the card narration voices, trained on <a href="https://www.openslr.org/141/" target="_blank" rel="noopener">LibriTTS-R</a> <span class="cr-lic">CC BY 4.0</span> and <a href="https://datashare.ed.ac.uk/handle/10283/3443" target="_blank" rel="noopener">VCTK</a> <span class="cr-lic">CC BY 4.0</span>.</li>
             <li><a href="https://fonts.google.com" target="_blank" rel="noopener">Google Fonts</a> <span class="cr-lic">OFL / Apache</span> — Fraunces, Newsreader, Inter, IBM Plex Mono, Noto Sans SC and the theme faces.</li>

@@ -2583,6 +2583,126 @@ least one in-text marker, and the markers are identical across English and all n
 109 in batch 26, **`country-sources.js` — the Atlas place panels — is the only surface in Folio that still
 shows no sources.**
 
+**It has STAYED complete through the N-batches, and that is the point of them** — 487 of 487 as of
+2026-08-04. A term added after the pass joins at the bar rather than reopening a backlog, so the audit has
+never gone back above zero.
+
+### Batch N11 — the Leakey circle, two Oldowan sites, Clark's modes and Latin (2026-08-04)
+
+Ten terms on request: `Paranthropus`, `Ledi-Geraru`, `Nyayanga`, `Louis_Leakey`, `Mary_Leakey`,
+`Phillip_Tobias`, `John_Napier`, `Grahame_Clark`, `Mode_1`, `Latin`. `Younger_Dryas` was asked for with
+them and already existed, at the bar, on four sources — **check the glossary before researching a
+requested term**, which cost nothing here and would have cost a batch's work.
+
+Its findings are in full in `.claude/sources-register.md`; three are worth carrying:
+
+- **A British Academy Biographical Memoir is an ENCRYPTED PDF, not an unreachable one.** The root domain
+  is 403 and the `/documents/<id>/<vol>p<page>.pdf` paths are 200, but the streams will not inflate,
+  because the trailer carries `/Encrypt` — the standard handler with an empty user password. Decrypting it
+  is about forty lines of RC4. This matters beyond one term: the Memoirs are the canonical scholarly life
+  of every Fellow, which is exactly the class of source G8 found the literature does not otherwise pay for.
+  Ligatures extract badly (fi/fl have no `/ToUnicode` map), so read numbers carefully.
+- **N9's encyclopedia test passes for a foundation's own history page.** The Leakey Foundation's carries a
+  numbered footnote to J. Desmond Clark's British Academy memoir of Louis Leakey — tested per article, as
+  N9 requires, and it clears where Britannica and SNL did not.
+- **`John_Napier` ships with no date line and no job title**, because nothing openable here carries them:
+  his *Journal of Anatomy* obituary is on PMC and is not open access, and Europe PMC's affiliation field is
+  empty for every pre-1988 record, which kills the one trick that would have supplied his post. The term
+  describes his work instead. Do not promote him to "British anatomist" later without a source.
+
+And a cheap way to pick the next batch: **every one of the ten already appeared in shipped card prose**
+(`wh-016` alone names six of them), so all ten began auto-linking on arrival. Grep the deck for
+capitalised surfaces that resolve to no term.
+
+### Batch N12 — the Olduvai circle, the Serengeti and the Maasai (2026-08-04)
+
+Twelve requested, **nine shipped**: `Jonny's_Child`, `Jonathan_Leakey`, `Arthur_Keith`,
+`Cerebral_Rubicon`, `Bernard_Wood`, `Mark_Collard`, `Serengeti`, `Ngorongoro_Conservation_Area`,
+`Maasai`. All twelve were already words in `wh-017` and `wh-018`, which is N11's selection rule paying
+off a second time.
+
+**Its finding is a trap in the linker, and it is the batch's most useful output.** The master regex in
+`buildGlossIndex` matches case-INsensitively; `resolveGlossKey` resolves a proper-noun surface
+case-SENSITIVELY; and surfaces are tried longest first. So a long surface that matches and then fails
+to resolve **swallows the shorter one that would have resolved**. Adding `Serengeti Plains` as an alias
+therefore *stopped* `Serengeti` linking in `Olduvai_Gorge`, whose prose reads "Serengeti **plains**",
+and `Cerebral_Rubicon` never linked at all because `wh-018` writes "**c**erebral Rubicon". Nothing looks
+broken when this happens — neighbouring terms still link. **The fix is an all-lowercase alias**
+(`isProperCS` only inspects the surface after its first character, so the lowercase form lands in the
+case-insensitive map and resolves at any casing). **Check the casing the CARDS use, not the casing the
+term is titled in**, and re-run the resolution probe over the batch's surfaces before shipping.
+
+**Three deferred, and both reasons are access rather than scholarship.** `zobodat.at` has gone behind
+the Anubis proof-of-work wall (200 with a challenge page — a sixth variety of 200-status error
+document), which leaves Gentry et al. 1995 open to a reader and unreadable here; it is the only work
+describing the **`Balbal_Depression`** and the only account of **`Wilhelm_Kattwinkel`**, so both fall to
+one source against a bar of two. The twelve Europe PMC hits for "Olbalbal" are an NCA administrative
+ward and a herbarium locality, **not the depression** — do not conflate them. **`Munich`** fails
+differently: the city's own statistics pages are 200 but JavaScript-rendered with no figures in the
+HTML, the Bavarian statistical office publishes tables rather than a profile, and the only openly
+readable sentences calling Munich the capital of Bavaria sit in unrelated medical papers. Rendering the
+JS is the route, once the agent proxy will pass Chromium's CONNECT.
+
+### Batch N13 — the Olduvai fauna and the Nordic sequence (2026-08-04)
+
+Thirteen requested, **eleven shipped**: `Proboscidea`, `Hippopotamus`, `Sivatherium`,
+`Paranthropus_boisei`, `Hamburg_culture`, `Bromme_culture`, `Ahrensburg_culture`,
+`Nordic_Bronze_Age`, `Funnelbeaker_culture`, `Pitted_Ware_culture`, `Dolmen`.
+
+**Its finding is an economy rather than a hazard, and it should shape how batches are chosen.** Seven
+of the eleven cost **no new reading at all**: they were paid for out of batch 17c, which cited one card
+(`wh-101`, Nordic Stone Age) from sixteen works, and those works define the three Late Palaeolithic
+cultures, the Funnelbeaker and Pitted Ware cultures and the dolmen between them. G7 found the register
+pays for taxa and periods and not for places; this is the other side of it — **a card cited to the bar
+leaves behind the sources for a glossary term on every proper noun in it.** So when picking the next
+batch, look at what a well-cited card NAMES rather than at what it is about.
+
+Two deferred, both for one usable source. **`Hans_Reck`** is N12's `Wilhelm_Kattwinkel` again — the
+Anubis-walled Gentry 1995 is the only account, and the obvious second (de la Torre's historical
+perspective, *Phil. Trans. R. Soc. B* 2011) has no deposited full text on PMC and 403s at the
+publisher. **`butterfly`** has Animal Diversity Web's *Lepidoptera* account, which passes N9 — open
+prose with its own reference list — and no second: ADW's *Papilionoidea* page is a bare classification
+tree, and the peer-reviewed alternatives describe wing scales or brains rather than the animal.
+
+### Batch N14 — the Bering Strait, East Asia, the Single Grave culture and the chronozone (2026-08-04)
+
+Five requested: four new terms, plus an alias added to `Mesopotamia`, which N4 had already written.
+**Check the glossary before researching a requested term** — this is the second time (after N12's
+`Younger_Dryas`) that a request named a term already at the bar.
+
+**Its finding extends N12's alias trap by one step, and the extra step is the dangerous one.** The
+obvious alias *Eastern Asia* for `East_Asia` fails twice over. First it is N12's trap exactly: an
+internal capital sends it to the case-sensitive map while the regex matches case-insensitively, so the
+corpus's lowercase "eastern Asia" matches, fails to resolve, and — being the longest candidate —
+**swallows the plain `Asia` link that already worked**. Second, and new: the word-boundary lookbehind
+is `(?<![\p{L}\p{N}_])` and **a hyphen is none of those**, so the alias matches inside
+"north-**eastern Asia**" — which in this corpus means Siberia, in the peopling of the Americas, three
+times out of five. A lowercase alias would have mis-linked all three. The alias was withheld;
+"eastern Asia" now resolves to `Asia`, which is less specific and correct. **Grep for the alias inside
+a hyphenated compound before adding it** — the casing probe alone passes this one.
+
+**A route worth keeping: the ICS International Stratigraphic Guide** (`stratigraphy.org/guide/*`) is
+open and readable, and it is the authority for every stratigraphic term in this glossary. It supplied
+the formal definition of a chronozone that batches 22 and 25 had worked around — they used the word
+from Walanus & Nalepka without anything saying what one is, and Walker 2012 is 403 at Wiley. N10 found
+the Quaternary subcommission at `quaternary.stratigraphy.org`; the parent guide is on `stratigraphy.org`.
+
+One thing that did **not** work and is worth not retrying: the UN Demographic Yearbook Table 1 PDF,
+which `Asia` cites for its population, is a subset font with no ToUnicode map and extracts as garbage
+(N10's failure mode). It is reachable and not re-readable, so `East_Asia` states no population.
+
+**A route worth keeping: Animal Diversity Web** (`animaldiversity.org`), the University of Michigan
+Museum of Zoology's species database. It is the natural-history equivalent of the Smithsonian records
+that carried the hominins — open, in prose, and each account ends in its own references, so it clears
+N9's per-article test. IUCN's Red List is 403 here, so for a common animal there is little else. Pair
+it with a peer-reviewed study for anything contested: ADW gives the hippo's textbook day-in-water
+habit, and Inman et al. 2025 shows observation does not bear it out, which is how the term states it.
+
+**A route worth reusing: Plarr's Lives of the Fellows** (`livesonline.rcseng.ac.uk`), the Royal College
+of Surgeons' open biographical dictionary, carried the whole of `Arthur_Keith`. It covers the anatomists
+palaeoanthropology keeps meeting, and it is the answer to G8's finding that the literature does not pay
+for lives. Fetch the `?qu=<record id>` search URL, which returns the full text; the asset URL does not.
+
 ## Tracking
 
 ```
