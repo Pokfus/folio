@@ -1436,10 +1436,32 @@ async function studyEasy(page, base, n) {
   {
     const page = await browser.newPage({ viewport: DESKTOP });
     watch(page);
-    // Folio level 1 costs 3 cards, and Easy graduates a new card outright, so the third grade levels up
-    await studyEasy(page, base, 3);
+    // Folio level 1 costs XP_PER_LEVEL cards, and Easy graduates a new card outright, so the last grade levels
+    // up. The figure is READ OUT OF app.js rather than written here: it was 3 and is 5 (Aug 2026), and a
+    // hard-coded 3 turns a deliberate change to the curve into a failure that reads as a broken overlay.
+    const XP_STEP = Number((/const XP_PER_LEVEL = (\d+);/.exec(fs.readFileSync(path.join(ROOT, "app.js"), "utf8")) || [, 3])[1]);
+    /* …and the day has to be willing to SHOW that many. The default allowance is 3 new cards a day, which is
+       fewer than a level now costs, so the day has to be widened first — otherwise this section studies the
+       whole day out, never levels up, and reports a limit as a broken overlay.
+       It takes two phases because a fresh visitor's state lives in memory: `folio_v1` is not written until the
+       app first saves, so there is nothing to patch until one card has been graded. Grade one, widen the day,
+       reload so the app reads it, then grade the rest. */
+    await studyEasy(page, base, 1);
+    await page.addInitScript((n) => {
+      try {
+        const raw = localStorage.getItem("folio_v1");
+        if (!raw) return;
+        const st = JSON.parse(raw);
+        if (!st || !st.settings) return;
+        st.settings.newPerDay = n;
+        localStorage.setItem("folio_v1", JSON.stringify(st));
+      } catch (e) { /* leave the day as it is; the assertion below will say so */ }
+    }, XP_STEP + 2);
+    await page.reload({ waitUntil: "load" });
+    await page.waitForTimeout(900);
+    await studyEasy(page, base, XP_STEP - 1);
     const up = await page.locator(".levelup-pop").count();
-    check("levelling up raises its card", up === 1, "3 cards studied → " + up + " popup(s)");
+    check("levelling up raises its card", up === 1, XP_STEP + " cards studied → " + up + " popup(s)");
     if (up) {
       // a hash change, NOT a click — a click would dismiss it and prove nothing
       await page.evaluate(() => { location.hash = "#decks"; });

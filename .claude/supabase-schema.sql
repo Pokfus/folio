@@ -693,3 +693,21 @@ create trigger feedback_guard before insert or update on public.feedback
 drop trigger if exists feedback_touch on public.feedback;
 create trigger feedback_touch before update on public.feedback
   for each row execute function public.touch_updated_at();
+
+
+-- ============================================================
+-- 8) CARD TYPES  (run once, on top of the phase-2 block)
+--
+-- A deck's own card types: the field names, the front and back templates and the CSS an author writes in the
+-- Studio. They live on the DECK because the deck is the unit that travels — a template left behind would
+-- leave an installed copy rendering its fields as raw prose.
+--
+-- Client-writable on purpose: this is the owner's content, like the title or the tags, so it is deliberately
+-- NOT added to guard_user_deck_columns() (which exists for the columns the SERVER maintains). Everything in
+-- it is re-sanitized on the client at ingest — uTypesSanitize in app.js — because the server copy is not
+-- trusted just because it came from our own API.
+--
+-- Until this runs, publishing a deck that HAS custom types fails with a clear message and everything else
+-- carries on: app.js sends the column only when the deck actually uses a type of its own.
+-- ============================================================
+alter table public.user_decks add column if not exists types jsonb not null default '{}'::jsonb;

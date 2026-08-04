@@ -4406,6 +4406,27 @@ body[data-theme="arcade"] .mini-globe{ border-radius:50% !important; }
 .gm-label{font-family:var(--sans); font-size:calc(13.5px * var(--fs)); font-weight:600; color:var(--ink);}
 .gm-hint{font-family:var(--sans); font-size:calc(12.5px * var(--fs)); color:var(--ink-faint); line-height:1.45;}
 .gm-warn{margin-bottom:14px; padding:10px 13px; border-left:3px solid var(--ochre,var(--ink-faint)); background:color-mix(in srgb,var(--ochre,#8A6D3F) 7%, transparent); border-radius:0 9px 9px 0; font-family:var(--sans); font-size:calc(13px * var(--fs)); line-height:1.55; color:var(--ink-soft);}
+/* --- Card types: the Studio's template editor --- */
+.ut-form{display:flex; flex-direction:column; gap:12px; padding:2px;}
+.ut-about{font-family:var(--sans); font-size:calc(13.5px * var(--fs)); line-height:1.6; color:var(--ink-soft);}
+.ut-about p{margin:0 0 10px;}
+.ut-builtin{flex:0 0 auto; padding-right:6px; font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint);}
+.ut-help{padding:9px 11px; border-radius:9px; background:var(--paper-2); font-family:var(--sans); font-size:calc(12.5px * var(--fs)); line-height:1.6; color:var(--ink-soft);}
+.ut-help code{font-family:var(--mono); font-size:calc(11.5px * var(--fs)); padding:1px 4px; border-radius:4px; background:var(--card); color:var(--ink);}
+/* a template is code, so it is set as code — and never spell-checked or auto-capitalised */
+.ut-code{font-family:var(--mono); font-size:calc(12px * var(--fs)); line-height:1.55; white-space:pre; overflow-wrap:normal; overflow-x:auto; tab-size:2;}
+.ut-preview{display:flex; flex-direction:column; gap:5px;}
+.ut-preview-box{padding:10px; border:1px dashed var(--rule); border-radius:11px; background:var(--paper-2);}
+/* The wrapper a type's own CSS is scoped to. It sets nothing but the containing block, so an author starts
+   from the page's own typography rather than from a box that has already made decisions for them — and
+   `position:relative` is what keeps an absolutely-positioned rule inside the card it belongs to. */
+.uc-card{position:relative;}
+.ces-typebar{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:12px;}
+.ces-typepick{display:flex; align-items:center; gap:8px;}
+.ces-typepick span{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.07em; text-transform:uppercase; color:var(--ink-faint);}
+.ces-typepick .af-input{width:auto; min-width:220px;}
+.ces-typenote{font-family:var(--sans); font-size:calc(12.5px * var(--fs)); color:var(--ink-faint);}
+
 .gloss-edit-form{display:flex; flex-direction:column; gap:12px; padding:2px;}
 .gloss-desc-edit{min-height:120px; line-height:1.6; font-family:var(--sans); font-size:calc(14px * var(--fs)); white-space:pre-wrap;}
 .gloss-desc-edit:focus{outline:2px solid var(--indigo-bright); outline-offset:1px;}
