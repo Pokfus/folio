@@ -896,6 +896,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the work contains, and they part company again the moment a book arrives in instalments. Seneca's own
     `total` is the EXTANT letters, not everything he wrote — Aulus Gellius quotes a book numbered past
     anything that survives.
+    **The bar and the Contents panel are ONE sticky block** (`.bk-barwrap`, Aug 2026, on a bug report). The
+    bar has always been sticky and the panel sat below it in the FLOW, so opening it a few screens into a
+    chapter drew the contents back at the top of the DOCUMENT — off screen, nowhere near the button just
+    pressed, and the reader's own scroll position unchanged. The wrapper carries the `position:sticky` now
+    (which also makes it the containing block) and the panel is `position:absolute; top:calc(100% + 6px)`,
+    so it hangs off the bar's own bottom edge at any scroll depth and OVERLAYS the prose rather than
+    shoving it down, which is what a menu opened from a pinned bar has to do. Its ceiling is
+    `min(52vh, calc(100vh - var(--bar-h) - var(--tabbar-h) - 96px))` — half the screen, or what is actually
+    left between the pinned bar and the bottom bar, whichever is smaller. **A phone rule that used to set
+    `.bk-bar{top:4px}` now sets `.bk-barwrap{top:4px}`**; a `top` on the inner box is inert. Guarded by
+    `test-library.js`, which opens it 2,400px down and measures the gap to the bar.
   · **THE FRONT MATTER IS CHAPTER 0** (`bookIntroChapter` / `BOOK_INTRO` / `BOOK_GLYPH`, Aug 2026, on
     request). A real chapter rather than a panel — it takes a tab, it steps with the arrows, it is what a
     first-time reader lands on — because that is where front matter goes in a book, and because the "About
@@ -1280,6 +1291,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the whiteboard marker's drag — a finger that moves more than `AD_SLOP` is scrolling, not holding — and
     `contextmenu` plus the ContextMenu key give a mouse and a keyboard the same way in. The sheet lives on
     `document.body`, so **`render()` closes it** (`closeDeckMenu`).
+  · **The N/N STUDIED figure lives in the sheet's head, not on the row** (`.dm-studied`, Aug 2026, on request).
+    It sat at the right of the row, where on a 390px line it competed with the deck's own name — the one part
+    of the row with a shorter form, so the name is what gave way. The **bar stays on the row** and says the
+    same thing at a glance, which is all a row of a list is for; the exact count is something a reader goes
+    looking for, and holding the row IS that. It is derived from `entryCardIds(id)` + `isSeen`, so it answers
+    for a deck, a community deck, the Card-of-the-day list and the pooled review alike, and is omitted
+    outright on an entry with no cards. `.dm-head` is a `justify-content:space-between` row on
+    **`align-items:baseline`**: the left-hand block (`.dm-headmain`) is a column, and a column flex item
+    aligns on its own FIRST line's baseline — which is what puts the figure on the title's line rather than
+    on the block's centre. `adProg` no longer emits `.count`.
+  · **Remove carries its red in the TEXT and nothing else** (Aug 2026, on request). It had `--zh-wash` behind
+    it on hover, and on a phone a hover state can be left behind by the very tap that opened the sheet — a
+    highlighted row in a menu reads as one already chosen. The rule is gone; `.dm-item.dm-danger b` keeps
+    `--zh` and the row hovers like every other. `test-layout.js` asserts it HOVERED, against an ordinary
+    row's own hover wash — reading the resting style would pass whatever the rule says.
 - **The Folio LEVEL is how many decks may sit in the daily review** (`maxActiveDecks` = the level, Aug 2026, on
   request — levels were a score and nothing else, and this is the first thing they decide). `addActive` returns
   **false** when the cap turned it down so `wireAddButton` can say why rather than doing nothing, and the Library's

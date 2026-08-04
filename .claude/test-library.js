@@ -194,7 +194,9 @@ function shippedBookLeaks() {
       chTitle: (document.querySelector(".bk-ch-t") || {}).textContent || "",
       paras: document.querySelectorAll(".bk-prose p").length,
       words: ((document.querySelector(".bk-prose") || {}).textContent || "").trim().split(/\s+/).length,
-      barSticky: getComputedStyle(document.querySelector(".bk-bar")).position,
+      // the bar and its contents panel are one sticky block, so it is the WRAPPER that pins
+      barSticky: getComputedStyle(document.querySelector(".bk-barwrap")).position,
+      barInWrap: !!document.querySelector(".bk-barwrap > .bk-bar") && !!document.querySelector(".bk-barwrap > #bkTocPanel"),
       // the lit tab in the top bar — a book belongs under the Library
       lit: [...document.querySelectorAll(".topbar .tab.active")].map((t) => t.dataset.route).join(","),
       rights: (document.querySelector(".bk-rights") || {}).textContent || "",
@@ -209,6 +211,7 @@ function shippedBookLeaks() {
     check("...showing that chapter's title", d.chTitle.trim().length > 3, d.chTitle);
     check("...and its prose, in paragraphs", d.paras >= 3 && d.words > 300, JSON.stringify({ paras: d.paras, words: d.words }));
     check("the chapter bar sticks to the top as the reader scrolls", d.barSticky === "sticky", d.barSticky);
+    check("...carrying its contents panel with it", d.barInWrap, String(d.barInWrap));
     check("a book lights the Library tab", d.lit === "library", d.lit);
 
     /* THE FRONT MATTER (Aug 2026, on request): a real chapter 0 rather than a panel, and the "About
@@ -413,6 +416,30 @@ function shippedBookLeaks() {
     check("Contents starts closed and opens", toc.before && !toc.after, JSON.stringify(toc));
     check("...listing every chapter", toc.items >= 60, String(toc.items));
     check("...grouped by the volume the edition itself divides it into", toc.parts >= 1, String(toc.parts));
+
+    /* The panel TRAVELS WITH THE BAR (Aug 2026, on a bug report). The bar is sticky and the panel used to
+       sit below it in the flow, so opening it a few screens into a chapter drew the contents back at the
+       top of the DOCUMENT — off screen, nowhere near the button just pressed. Nothing throws when that
+       happens and the panel is still perfectly correct in the DOM, which is why it is asserted here: the
+       panel must open under the bar wherever the reader has scrolled to, and be on screen when it does. */
+    await page.evaluate(() => { document.querySelector("#bkTocPanel").hidden = true; window.scrollTo(0, 2400); });
+    await page.waitForTimeout(400);
+    const tocDeep = await page.evaluate(() => {
+      document.querySelector("#bkToc").click();
+      const p = document.querySelector("#bkTocPanel").getBoundingClientRect();
+      const bar = document.querySelector(".bk-bar").getBoundingClientRect();
+      return {
+        y: Math.round(window.scrollY),
+        gap: Math.round(p.top - bar.bottom),          // hangs off the bar's own bottom edge
+        onScreen: p.top >= 0 && p.top < window.innerHeight,
+        fits: p.height <= window.innerHeight - bar.bottom + 1,
+      };
+    });
+    check("...opening under the bar however far the reader has scrolled",
+      tocDeep.y > 1000 && tocDeep.gap >= 0 && tocDeep.gap <= 14 && tocDeep.onScreen, JSON.stringify(tocDeep));
+    check("...and fitting in what is left of the screen below it", tocDeep.fits, JSON.stringify(tocDeep));
+    await page.evaluate(() => { window.scrollTo(0, 0); });
+    await page.waitForTimeout(300);
 
     await page.evaluate(() => { [...document.querySelectorAll(".bk-toc-item")].find((t) => t.dataset.ch === "40").click(); });
     await page.waitForTimeout(600);
