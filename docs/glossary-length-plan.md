@@ -84,7 +84,7 @@ its neighbour) actually has neighbours to compare against. The first tag in `GLO
 | **L0** | tooling | — | — | **SHIPPED 2026-08-04.** `.claude/gloss-length.js` — the measure, plus `--over` / `--under` / `--tag=<kind>` / `--list`, and the per-kind table the batches below are cut from. |
 | **L1** | `place`, A–E (countries) | 56 | 54 over | **SHIPPED 2026-08-04.** All 56 now 102–110 words, mean 107.3. See the log below. |
 | **L2** | `place`, F–L (countries) | 44 | 44 over | **SHIPPED 2026-08-04.** All 44 now 103–110 words, mean 108.0. See the log below. |
-| **L3** | `place`, M–R | ~70 | ~66 | " |
+| **L3** | `place`, M–R (countries) | 43 | 43 over | **SHIPPED 2026-08-04.** All 43 now 100–110 words, mean 107.5. See the log below. |
 | **L4** | `place`, S–Z | ~56 | ~53 | " |
 | **L5** | `place`, sites, regions and continents | ~40 | ~38 | Everything under `place` that is not a country: caves, gorges and type sites, the continents and oceans, and the odd river (`Awash_River`, which L1's filter turned up). Less formulaic; expect real judgement per term. |
 | **L6** | `person` | 54 | 28 | Half are already close — the 45 US presidents were written to one template. Cheapest batch per term. |
@@ -210,8 +210,66 @@ clean on glossary.js; `test-sources.js` passes 74/74; and a table-by-table diff 
 descriptions changed — sources, dates, tags, aliases, case-sensitivity, places and the Atlas map-country
 table are byte-identical.
 
-## Status
+### L3 — 43 country terms, M–R (2026-08-04)
 
-**L0, L1 and L2 have shipped** (2026-08-04). The glossary stands at **161 of 477 terms inside the bar**, mean
-125.1 words. **L3 is next** — `place`, M–R, the same recipe again, now with the marker diff and the hedge grep
-as standing steps. Re-run `gloss-length.js` before and after every batch and record the movement here.
+**All 43 were over the bar; all 43 now sit at 100–110 words, mean 107.5.** The glossary moved from 161 to
+**204 terms inside the bar** and its mean from 125.1 to 122.8 words; within the `place` kind it is now 157 of
+266, the first batch to leave that kind majority-done. The scope is the 43 COUNTRIES between M and R — the
+twelve non-country places in that stretch (`Madjedbebe`, `Meadowcroft_Rockshelter`, `Mesopotamia`,
+`Monte_Verde`, `Near_East`, `North_America`, `Oceania`, `Olduvai_Gorge`, `Pacific_Northwest_Coast`,
+`Pacific_Ocean`, `Pinnacle_Point`, `Qafzeh_Cave`) belong to L5, as they did in L1 and L2.
+
+**L3's finding is the ISLAND term's equivalent of the border list, and it is worth naming because L4 is full
+of islands.** L1 established that the first thing to cut on a country term is the list of neighbours; an
+island has no neighbours to list, and what it carries instead is a **distance-to-the-mainland locator** —
+"about 400 km (250 miles) off the southeast coast of Africa", "about 640 km (400 miles) apart", "about 900 km
+(560 miles) east of the Philippines". It is the same clause in a different coat: formulaic, worth 8–11 words
+with its conversion, and telling a reader nothing that "in the Indian Ocean off the southeast coast of Africa"
+has not already said. Six of L3's terms carried one and all six lost it. Measured across the whole glossary
+the pattern is real and it is front-loaded into the batch after this one: **`São_Tomé_and_Príncipe`,
+`Seychelles`, `Solomon_Islands` and `Tuvalu` are waiting in L4**, with `Sungir` and `Dmanisi` in L5. (Three
+terms keep theirs because they are already inside the bar — `Cape_Verde`, `Chile`,
+`Federated_States_of_Micronesia` — which is the right outcome: this pass edits what is out of band.)
+
+**Second finding: the border-list exception is not an exception.** L1 named Bhutan and Bangladesh, L2 added
+Luxembourg, and all three read as odd cases. In L3 **nine of 43 kept their neighbours** — `Moldova` (between
+Romania and Ukraine), `Mongolia` (wedged between Russia and China), `Nepal` (between China and India on the
+southern flank of the Himalaya), `Netherlands` (between Belgium and Germany), `North_Korea` (China, Russia,
+and South Korea across a fortified line), `Panama` (Costa Rica and Colombia), `Portugal` and `Qatar` (one land
+neighbour each), `Monaco` (surrounded by France). That is a fifth of the batch, and the reason is arithmetic
+rather than luck: **a list of two is not a list.** Better stated as a test to run on every term than as an
+exception to remember — *does naming the neighbours say more than the region already did?* — which is true
+whenever there are one or two of them, or where one of them is the fact (North Korea's fortified line).
+
+**Third: the recipe's 30 words are not always there to find, and this batch names more substantive losses than
+L1 or L2 for that reason.** Seven terms are not three-part country terms in the standard shape — `Monaco` has
+no border list and no landscape sentence, `Russia` opens on a superlative rather than a figures list,
+`Marshall_Islands` and `Nauru` are single-island states whose "geography" sentence IS their existential
+problem, and `Malta`, `Norway` and `Oman` carry their character in the geography rather than the figures. On
+those the formulaic cut yields little and the words have to come out of real claims.
+
+**No figure was added and 15 were dropped**, checked mechanically as in L1 and L2. Ten went with a locating
+clause or an aside (six of them the island distances above, plus Mozambique's 2,500 km coast). **Four are
+substantive and are named rather than glossed over**: `Nepal` lost the Tarai's 60 m elevation, which framed
+the rise to Everest; `New_Zealand` lost the Southern Alps' 3,700 m; `Portugal` lost "with borders little
+changed since the 13th century"; and `Russia` lost "some 11 percent of all the land on Earth". The
+substantive PROSE losses, likewise named: `Marshall_Islands`' stick-and-shell navigation charts and its
+ocean-sized territorial waters, `Mauritius`' modern economy, `Monaco`'s reclaimed land, `Morocco`'s "never
+part of the Ottoman Empire", `Netherlands`' Rhine–Meuse–Scheldt delta, `New_Zealand`'s plate boundary and
+earthquakes, `Norway`'s shoreline measured in tens of thousands of kilometres, `Oman`'s Dhofar monsoon,
+`Pakistan`'s Thar desert and Balochistan plateau, `Peru`'s Lake Titicaca, `Philippines`' coral reefs,
+`Poland`'s borders moved west after 1945, and `Rwanda`'s coffee, tea and gorilla tourism.
+
+**The two checks L2 made standing both ran, and one of them caught something.** The marked-sentence year diff
+came back clean — no marker was stranded, which is what the nine kept accession and independence dates were
+watched for. **The hedge grep caught one, and it is L2's Grenada in a new coat**: `Myanmar`'s "teak forests,
+jade and gemstones have long been **among** its exports" had been trimmed to "are long-standing exports",
+which reads the same and says something stronger — the claim survived the trim and the hedge did not. Two
+words put it back. One in 43 is the same rate L2 found, and it is not a rate that will fall.
+
+### Status
+
+**L0, L1, L2 and L3 have shipped** (2026-08-04). The glossary stands at **204 of 477 terms inside the bar**,
+mean 122.8 words; `place` is 157 of 266. **L4 is next** — `place`, S–Z, the last of the big formulaic batches
+and the one holding most of the remaining island states, so cut the distance-locator alongside the border
+list from the start. Re-run `gloss-length.js` before and after every batch and record the movement here.

@@ -571,28 +571,43 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   first. Not part of the site.
 - `docs/glossary-length-plan.md` — **every glossary description at 100 words (±10%)**, on request (Aug 2026): the
   bar, the measured baseline, the eleven batches, the per-term workflow and the batch log. **L0 (the tooling),
-  L1 (56 country terms, A–E) and L2 (44 country terms, F–L) have shipped** — `node .claude/gloss-length.js` is
-  the measure, with `--over` / `--under` / `--tag=<kind>` / `--list`. Where it stands today: **161 of 477 terms
-  are inside the bar**, 306 are
-  over and 10 under, mean 125.1 words, and the work is overwhelmingly TRIMMING. Three things the bar does not
+  L1 (56 country terms, A–E), L2 (44 country terms, F–L) and L3 (43 country terms, M–R) have shipped** —
+  `node .claude/gloss-length.js` is
+  the measure, with `--over` / `--under` / `--tag=<kind>` / `--list`. Where it stands today: **204 of 477 terms
+  are inside the bar**, 263 are
+  over and 10 under, mean 122.8 words, and the work is overwhelmingly TRIMMING. Three things the bar does not
   change and which the pass must not quietly relax: still exactly three sentences, still impartial and
   self-contained, and **still no claim past what the citations carry** — a term padded to length is the one way
   this pass can do real damage. Two rules L1 established and the later batches should just apply:
   **an imperial conversion does not count** (`gloss-length.js` strips it, exactly as `add-card.js` does — the
   measure counted them at first, which held the glossary to a tighter prose budget than the cards for no reason
   but its subject matter), and **the border list is the first thing to cut** on a country term, worth 9–13 words
-  and telling a reader less than the region already did — keep it only where the borders ARE the fact (L2 adds
-  the microstate to that exception: `Luxembourg`'s three neighbours are the fact about it).
+  and telling a reader less than the region already did. **L3 recast the "keep it where the borders ARE the
+  fact" exception as a TEST to run on every term** — *does naming the neighbours say more than the region
+  already did?* — because nine of its 43 kept theirs (Moldova, Mongolia, Nepal, the Netherlands, North Korea,
+  Panama, Portugal, Qatar, Monaco) against one apiece in L1 (Bhutan, Bangladesh) and L2 (Luxembourg). The
+  reason is arithmetic rather than luck: **a list of two is not a list.**
+  **L3 also names the ISLAND term's equivalent of the border list, and L4 is full of islands**: a
+  distance-to-the-mainland locator ("about 400 km (250 miles) off the southeast coast of Africa"), the same
+  formulaic clause in a different coat, worth 8–11 words with its conversion and saying nothing the region
+  already hasn't. Six of L3's terms lost one; **`São_Tomé_and_Príncipe`, `Seychelles`, `Solomon_Islands` and
+  `Tuvalu` are waiting in L4**, `Sungir` and `Dmanisi` in L5. On the other hand **not every country term has
+  the recipe's 30 spare words**: a microstate, a single-island state or a term opening on a superlative
+  (`Monaco`, `Nauru`, `Marshall_Islands`, `Russia`) has no border list and no ordinary landscape sentence, and
+  there the words come out of real claims — which is why L3 names more substantive losses than L1 or L2.
   **Diff the FIGURES before and after a batch**: L1 shipped with zero numbers added or altered and 23 dropped
   with their clauses, three of them substantive, and naming which is the honest half of a trim; L2 the same, with
-  17 dropped and six substantive. Two more checks L2 made standing, both for failures that are invisible in the
+  17 dropped and six substantive; L3 with 15 dropped and four substantive. Two more checks L2 made standing, both
+  for failures that are invisible in the
   finished prose. **Diff every MARKED sentence's YEARS before against after** — a trim can strand a marker, and
   `add-sources.js` cannot see it, since every source is still referenced and no marker runs past the end of the
   list: `Ireland`'s EU-country-page marker was left on a sentence about the famine once the 1973 accession it
   carried was cut, and the fix is to restore the datable clause rather than move the marker, that clause being
   what the recipe's second source exists to carry. And **grep the HEDGE vocabulary before and after** — a trim
   eats hedges silently, four of L2's six losses sat on claims that survived, and turning "often called the Isle
-  of Spice" into "hence its name" saved four words by inventing a fact. Not part of the site.
+  of Spice" into "hence its name" saved four words by inventing a fact. **The hedge grep keeps paying at about
+  one term a batch**: L3's was `Myanmar`, where "have long been **among** its exports" became "are long-standing
+  exports" — reads the same, says something stronger. Not part of the site.
 - `docs/units-plan.md` — **metric first, imperial in parentheses**: the rule, the one imperial-first figure in the whole
   corpus (fixed), and the 360 metric figures still to gain their equivalents. Not part of the site.
 - `docs/user-decks-plan.md` — the design plan for **community decks** (user-created decks, sharing,
