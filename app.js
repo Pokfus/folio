@@ -4539,6 +4539,50 @@
       total: 13,
       /* No `parts`: the edition divides the thirteen chapters no further. */
     },
+    {
+      id: "plato-republic",
+      title: "The Republic",
+      // the edition's own title page sets this under the title, on its own line
+      subtitle: "An Ideal Commonwealth",
+      author: "Plato",
+      written: "c. 375 BCE",
+      year: -375,
+      translator: "Benjamin Jowett",
+      edition: "The Colonial Press, New York, 1901",
+      /* The simplest licence of the four, and the only one that needs no qualification of any kind.
+         Seneca and the Meditations are served on the pre-1929 publication rule and happen to clear
+         life-plus-seventy as well; Giles clears only the first, and his entry has to say where it
+         stops. Jowett died in 1893, so this one has been out of copyright everywhere for longer than
+         most countries have had their present term. */
+      rights:
+        "Public domain worldwide: Benjamin Jowett died in 1893 and his translation was published from " +
+        "1871 onwards, this printing in 1901 — so its copyright has expired everywhere, on the " +
+        "pre-1929 publication rule and on the author's-life rule alike. The Greek it translates is " +
+        "some twenty-four centuries old. The modern translations by Desmond Lee (1955), Allan Bloom " +
+        "(1968) and G. M. A. Grube revised by C. D. C. Reeve (1992) are still in copyright and are " +
+        "deliberately not used here.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Republic_of_Plato",
+      /* NO `origLang`, and this is the first book here to go without one — so it is also the first
+         demonstration that the field is genuinely optional: the reader page simply shows no
+         original-language control, and nothing else about the book differs.
+
+         It is not for want of a Greek text. Plato has the best-standardised citation system of any
+         ancient author — Stephanus's page-and-column of 1578, which every edition in every language
+         has used since — and Burnet's Oxford text sits on Perseus in the same TEI encoding the
+         Meditations' Greek comes from. What is missing is the numbers on JOWETT: this printing does
+         not carry them, and it is the only complete transcription of the Republic in Wikisource's
+         main namespace. The columns pair on numbers a text states about itself, so a book whose
+         English states none cannot have a second column without several hundred alignments made by
+         eye — which is exactly what was tried and abandoned for the Meditations. The reader is told
+         so in the book's own front matter; see .claude/fetch-book.js for the whole finding. */
+      color: "#35619C",
+      chapterWord: "Book",
+      // ten books is the whole work, so the two agree and will stay agreed
+      count: 10,
+      total: 10,
+      /* No `parts`: one volume, and its own edition divides the ten books no further. */
+    },
   ];
   const BOOK_BY_ID = {};
   BOOKS.forEach((b) => (BOOK_BY_ID[b.id] = b));
@@ -15657,7 +15701,7 @@
             <li><a href="https://www.wikidata.org" target="_blank" rel="noopener">Wikidata</a> <span class="cr-lic">CC0</span> — country statistics (population, area, GDP).</li>
             <li><a href="https://www.naturalearthdata.com" target="_blank" rel="noopener">Natural Earth</a> <span class="cr-lic">public domain</span> — coastlines, borders, lakes, rivers and cities on the globe.</li>
             <li><a href="https://github.com/aourednik/historical-basemaps" target="_blank" rel="noopener">historical-basemaps</a> <span class="cr-lic">CC BY-SA 4.0</span> — the historical border eras on the Atlas timeline.</li>
-            <li><a href="https://en.wikisource.org" target="_blank" rel="noopener">Wikisource</a> <span class="cr-lic">public domain</span> — the Library's texts: Gummere's Seneca, Haines's Marcus Aurelius and Giles's Sun Tzu, with Seneca's Latin and Sun Tzu's Chinese.</li>
+            <li><a href="https://en.wikisource.org" target="_blank" rel="noopener">Wikisource</a> <span class="cr-lic">public domain</span> — the Library's texts: Gummere's Seneca, Haines's Marcus Aurelius, Giles's Sun Tzu and Jowett's Plato, with Seneca's Latin and Sun Tzu's Chinese.</li>
             <li><a href="https://scaife.perseus.org/library/urn:cts:greekLit:tlg0562.tlg001/" target="_blank" rel="noopener">Perseus Digital Library</a> <span class="cr-lic">CC BY-SA 4.0</span> — the Greek of the <i>Meditations</i>, in Jan Hendrik Leopold's edition of 1908.</li>
             <li><a href="https://registry.opendata.aws/terrain-tiles/" target="_blank" rel="noopener">Terrain Tiles on AWS</a> — terrain relief, from open elevation data by NASA (SRTM), USGS (GMTED2010), NOAA (ETOPO1) and the EU (EU-DEM), among others.</li>
             <li><a href="https://github.com/rhasspy/piper" target="_blank" rel="noopener">Piper</a> <span class="cr-lic">MIT</span> — the card narration voices, trained on <a href="https://www.openslr.org/141/" target="_blank" rel="noopener">LibriTTS-R</a> <span class="cr-lic">CC BY 4.0</span> and <a href="https://datashare.ed.ac.uk/handle/10283/3443" target="_blank" rel="noopener">VCTK</a> <span class="cr-lic">CC BY 4.0</span>.</li>
