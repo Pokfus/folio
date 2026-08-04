@@ -301,15 +301,41 @@ html[dir="rtl"] .page-head{text-align:right;}
 /* A swiped navigation comes in from the side the finger came from, and the outgoing page leaves the other
    way — so the gesture and the transition tell the same story (see wirePageSwipe in app.js). The class is
    set on the page element itself rather than on the body, so it dies with that page and can never be left
-   behind on a subsequent tab-bar navigation. */
+   behind on a subsequent tab-bar navigation.
+
+   It is a full CROSS-SLIDE (Aug 2026, on a report that it was "a hard cut"). It used to be a 26px nudge
+   under a cross-fade, which at that distance is a fade with a lean in it: the finger had just dragged a
+   page sideways and what arrived barely moved. Both halves now travel a whole page width — the two exactly
+   adjacent, with a 24px gutter so their edges never abut — at ONE duration and ONE easing, which is what
+   makes it read as a single sheet moving rather than as two things happening at once. Hence no opacity
+   here at all: a page that is off the side of the screen needs no fading, and fading it would only make
+   the sheet look like it were dissolving as it went. PAGE_GHOST_MS in app.js must stay in step with the
+   .34s, or the outgoing page is removed part-way across.
+
+   The stage clips horizontally for the length of the move (body.stage-sliding — see clipStageFor); without
+   that, a page a whole screen wide overflows the document while it travels. */
 .page.page-next{animation:pageInNext .34s var(--ease) both;}
 .page.page-prev{animation:pageInPrev .34s var(--ease) both;}
-@keyframes pageInNext{from{opacity:0; transform:translateX(26px);} to{opacity:1; transform:none;}}
-@keyframes pageInPrev{from{opacity:0; transform:translateX(-26px);} to{opacity:1; transform:none;}}
-.page-ghost.ghost-next{animation:pageOutNext .26s var(--ease) both;}
-.page-ghost.ghost-prev{animation:pageOutPrev .26s var(--ease) both;}
-@keyframes pageOutNext{from{opacity:1; transform:none;} to{opacity:0; transform:translateX(-26px);}}
-@keyframes pageOutPrev{from{opacity:1; transform:none;} to{opacity:0; transform:translateX(26px);}}
+@keyframes pageInNext{from{transform:translateX(calc(100% + 24px));} to{transform:none;}}
+@keyframes pageInPrev{from{transform:translateX(calc(-100% - 24px));} to{transform:none;}}
+.page-ghost.ghost-next{animation:pageOutNext .34s var(--ease) both;}
+.page-ghost.ghost-prev{animation:pageOutPrev .34s var(--ease) both;}
+@keyframes pageOutNext{from{transform:none;} to{transform:translateX(calc(-100% - 24px));}}
+@keyframes pageOutPrev{from{transform:none;} to{transform:translateX(calc(100% + 24px));}}
+/* The staggered entrance is for a page ARRIVING in place; on a page that is sliding in as one slab it
+   would hold each block invisible until the slab had nearly landed, and they would then pop in behind it.
+   Same opt-out as the Atlas and the editor take, two rules above. */
+.page.page-next > *,.page.page-prev > *{animation:none;}
+/* overflow-x ALONE — never the shorthand and never `hidden`. `overflow-x:clip` beside an untouched
+   `overflow-y:visible` is the one pairing that clips without making the stage a scroll container, so the
+   book's sticky chapter bar and every other sticky thing on the site keep resolving against the viewport.
+   The clip is at the stage's PADDING box, which on a phone is the screen edge — which is why this is on the
+   stage and not on #view, that sitting inside the padding. `overflow-clip-margin` then gives the paint a
+   little slack past it, for the desktop, where the stage is 880px centred in a wider window and the book's
+   chapter slide would otherwise be cut off at the column edge with room to spare either side. It buys
+   nothing on a phone (past the screen edge is past the window) and costs nothing where it is unsupported:
+   clipping is what stops the overflow being scrollable, and the margin only moves where it is painted. */
+body.stage-sliding .stage{overflow-x:clip; overflow-clip-margin:80px;}
 
 /* Overlays: the backdrop washes in and the box rises to meet it — and, since Aug 2026, leaves the same way.
    These had no entrance at all once, and then an entrance and no exit, which left the dismissal as the one
@@ -4720,6 +4746,13 @@ body.night .rv-star.on{color:#E6C765;}
 .bk-prose{transition:opacity .16s ease, transform .16s ease;}
 .bk-prose.bk-fade-out{opacity:0; transform:translateY(-4px);}
 .bk-prose.bk-fade-in{opacity:0; transform:translateY(6px); transition:none;}
+/* STEPPING A CHAPTER IS A SLIDE, NOT A CUT (Aug 2026, on request) — and there is deliberately NO CSS for
+   it, which is worth a note here because this is where anyone would look for it. The panel leaves the way
+   the finger went and the next one arrives from the opposite side, all of it driven by slideChapter() in
+   app.js through Element.animate. It cannot be done from this file: `.bk-page` is a direct child of
+   `.page`, so the entrance stagger above matches it, and a `both`-filled animation goes on applying its
+   last keyframe — `transform:none` — for the life of the page, outranking any declaration written here.
+   A `.bk-page{transform:translateX(-10%)}` rule is simply ignored, silently and for ever. */
 /* The second column ARRIVES rather than appearing: it rises a little further and settles a moment after
    the translation beside it, so a wide screen reads as gaining a column rather than as the whole page
    repainting. Scoped to the two-column state on purpose — on a phone this column is the only one

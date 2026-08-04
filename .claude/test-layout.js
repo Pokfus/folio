@@ -1360,7 +1360,14 @@ async function studyEasy(page, base, n) {
      A false positive here TAKES A PAGE AWAY, so what is guarded is as much what must NOT navigate as what
      must: a diagonal (a scroll that wandered), a short drag, and the Atlas, which is excluded outright
      because a drag there turns the globe. The gesture is dispatched as real PointerEvents rather than
-     through page.touchscreen: the handler is bound to `document` and keys off pointerType. */
+     through page.touchscreen: the handler is bound to `document` and keys off pointerType.
+
+     Two things were added Aug 2026, on request, and both fail silently. COLLECTIONS is out of the order —
+     it has no tab, so the swipe was landing readers on a page the bar cannot reach, with nothing lit in it
+     to say where they were; a swipe that still reaches it looks exactly like one that does not, since the
+     page renders fine either way. And the transition is a full CROSS-SLIDE rather than the 26px nudge it
+     was, which was reported as "a hard cut": that one is measured MID-FLIGHT, because the finished state
+     of a slide and the finished state of a cut are the same page in the same place. */
   {
     const page = await browser.newPage({ viewport: PHONE, hasTouch: true, isMobile: true });
     watch(page);
@@ -1378,18 +1385,67 @@ async function studyEasy(page, base, n) {
     await page.goto(base + "#home", { waitUntil: "load" });
     await page.waitForTimeout(1500);
     await swipe(-120);
-    check("a swipe left moves to the next page", (await where()) === "#decks", await where());
+    check("a swipe left moves to the next page", (await where()) === "#library", await where());
+    check("...and that page is NOT Collections, which has no tab and is out of the order",
+      (await where()) !== "#decks", await where());
     await swipe(-120);
-    check("...and on to the one after it", (await where()) === "#library", await where());
+    check("...and on to the one after it", (await where()) === "#account", await where());
     await swipe(120);
-    check("...a swipe right comes back", (await where()) === "#decks", await where());
+    check("...a swipe right comes back", (await where()) === "#library", await where());
     await swipe(-30);
-    check("...a short drag is not a swipe", (await where()) === "#decks", await where());
+    check("...a short drag is not a swipe", (await where()) === "#library", await where());
     await swipe(-120, 220);
-    check("...nor is a diagonal, which is a scroll that wandered", (await where()) === "#decks", await where());
+    check("...nor is a diagonal, which is a scroll that wandered", (await where()) === "#library", await where());
     await swipe(120);
     await swipe(120);
     check("...and the ends are ends, not a carousel", (await where()) === "#", await where());
+    /* The order IS the tab bar's, minus the Atlas — asserted against the bar itself rather than against a
+       list written out here, so a tab added or removed later fails on the rule instead of on a copy of it
+       that nobody remembered to update. */
+    const order = await page.evaluate(() =>
+      ({ tabs: [...document.querySelectorAll(".tabbar .tab")].map((t) => t.dataset.route) }));
+    const appjs = fs.readFileSync(path.join(ROOT, "app.js"), "utf8");
+    const swipeOrder = (appjs.match(/const SWIPE_ORDER = \[([^\]]*)\]/) || [])[1] || "";
+    const swipeNames = swipeOrder.split(",").map((s) => s.trim().replace(/^"|"$/g, "")).filter(Boolean);
+    check("the swipe order is the tab bar's, minus the Atlas",
+      swipeNames.join(",") === order.tabs.filter((t) => t !== "map").join(","),
+      swipeNames.join(",") + "  vs bar " + order.tabs.join(","));
+
+    /* IT IS A SLIDE, NOT A CUT — measured 60ms into the transition, since by the end the two are
+       indistinguishable. Both halves have to be there: the outgoing page must still exist (a ghost, or
+       there is nothing to slide off) and the incoming one must be genuinely off to the side rather than
+       nudged. `page-next` means the finger went left, so the arriving page starts to the RIGHT. */
+    await page.goto(base + "#home", { waitUntil: "load" });
+    await page.waitForTimeout(1400);
+    const mid = await page.evaluate(async () => {
+      const send = (t, x, y) => document.dispatchEvent(new PointerEvent(t, { pointerId: 8, pointerType: "touch", clientX: x, clientY: y, bubbles: true, cancelable: true }));
+      send("pointerdown", 300, 340);
+      await new Promise((r) => setTimeout(r, 40));
+      send("pointerup", 160, 340);
+      await new Promise((r) => setTimeout(r, 60));
+      const pg = document.querySelector("#view > .page"), gh = document.querySelector(".page-ghost");
+      return {
+        dirClass: pg && pg.className,
+        pageLeft: pg && pg.getBoundingClientRect().left,
+        ghostLeft: gh && gh.getBoundingClientRect().left,
+        ghost: !!gh, w: innerWidth,
+        clipped: getComputedStyle(document.querySelector(".stage")).overflowX,
+      };
+    });
+    check("a swiped page carries its direction", /page-next/.test(mid.dirClass || ""), String(mid.dirClass));
+    check("...the outgoing page is still there to slide off", mid.ghost, JSON.stringify(mid));
+    check("...the incoming one is a whole page-width off to the side, not a 26px nudge",
+      mid.pageLeft > mid.w * 0.4, mid.pageLeft + " of " + mid.w);
+    check("...and the outgoing one has set off the other way", mid.ghostLeft < -10, String(mid.ghostLeft));
+    check("...with the stage clipped so neither can be scrolled into", mid.clipped === "clip", mid.clipped);
+    await page.waitForTimeout(600);
+    const settled = await page.evaluate(() => ({
+      left: document.querySelector("#view > .page").getBoundingClientRect().left,
+      ghost: !!document.querySelector(".page-ghost"),
+      clipped: getComputedStyle(document.querySelector(".stage")).overflowX,
+    }));
+    check("...and it lands, the copy removed and the clip released",
+      Math.abs(settled.left - 16) < 30 && !settled.ghost && settled.clipped !== "clip", JSON.stringify(settled));
     /* …and the same gesture as a REAL touch, which is the assertion that was missing (Aug 2026, on a
        report that the book's chapter swipe did nothing on a phone — this one was broken in exactly the
        same way and had been since it shipped). Everything above dispatches PointerEvents by hand, which
@@ -1411,7 +1467,7 @@ async function studyEasy(page, base, n) {
       await page.waitForTimeout(700);
     };
     await realSwipe(320, 500, -170);
-    check("a REAL touch swipe moves page, not just a synthesised one", (await where()) === "#decks", await where());
+    check("a REAL touch swipe moves page, not just a synthesised one", (await where()) === "#library", await where());
     await realSwipe(80, 500, 170);
     check("...and back the other way", /^#(home)?$/.test(await where()), await where());
     await page.evaluate(() => window.scrollTo(0, 0));
