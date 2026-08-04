@@ -4476,14 +4476,16 @@
         "Martin Hammond (2006) are still in copyright and are deliberately not used here.",
       sourceName: "Wikisource",
       sourceUrl: "https://en.wikisource.org/wiki/Marcus_Aurelius_(Haines_1916)",
-      /* NO `origLang`, and deliberately: Marcus wrote in Greek and the Greek is as free as Seneca's
-         Latin, but Greek Wikisource prints no section numbers — each book is one list, and list
-         position is not the same claim as a section number. The two editions divide six of the twelve
-         books differently, so from one splice point onwards the position runs one out from the section
-         it would have to be. Rather than guess the offsets and risk setting one passage beside another
-         with nothing on the page to say so, the book ships in English alone; a book with no `origLang`
-         shows no original-language control at all. The reasoning, the measurements and what would
-         settle it are in .claude/fetch-book.js. */
+      /* The Greek Marcus actually wrote in, from Leopold's Teubner edition of 1908 by way of the
+         Perseus Digital Library — NOT from Greek Wikisource, which prints no section numbers and whose
+         edition divides six of the twelve books differently, so pairing it would mean guessing. Leopold
+         states his numbers as structure, and they agree with Haines on 486 of the 487 sections: the one
+         exception is a section 18 in book 12 that Leopold's text does not carry, which draws as an empty
+         cell precisely because both sides say what they are. Its licence has two layers — Leopold's text
+         is public domain, Perseus's digital edition is CC BY-SA 4.0 — and both are stated in `rights`
+         and printed on the book's own page. See .claude/fetch-book.js for the measurements. */
+      origLang: "grc",
+      origName: "Greek",
       color: "#2F7D6E",
       chapterWord: "Book",
       // the whole work — twelve books is all there is of it, so `count` and `total` agree and will stay
@@ -4519,13 +4521,14 @@
         "copyright and are deliberately not used here.",
       sourceName: "Wikisource",
       sourceUrl: "https://en.wikisource.org/wiki/The_Art_of_War_(Sun)",
-      /* The original is CHINESE, and this is the case the Meditations entry above says would settle
-         the question it could not settle. That book has no `origLang` because Greek Wikisource prints
-         no section numbers, and list position is not the same claim as a number. Here the original is
-         not another edition on another wiki at all — it is the Chinese Giles printed on the facing
+      /* The original is CHINESE, and it is the cleanest of the three cases here because the original
+         is not another edition on another wiki at all — it is the Chinese Giles printed on the facing
          half of his own page, transcribed in the same table, carrying his own numbering explicitly.
          Measured across all thirteen chapters before it was believed: 385 sections, the two columns
-         agreeing exactly, no number on one side missing from the other. */
+         agreeing exactly, no number on one side missing from the other. That is one of the two shapes
+         that answer the only question which decides whether a book can have an original — does the
+         text SAY which section each passage is? — the other being the TEI edition the Meditations
+         uses. Both beat a wiki walk, where the numbers have to be read back out of the prose. */
       origLang: "zh",
       origName: "Chinese",
       color: "#A6452F",

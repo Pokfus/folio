@@ -265,39 +265,56 @@ const BOOKS = {
        are no titles on it to read, and `titleOf` above supplies the same numerals directly. */
     chapters: Array.from({ length: 12 }, (_, i) => i + 1),
 
-    /* ---------- NO ORIGINAL-LANGUAGE COLUMN, AND THIS IS A DECISION RATHER THAN AN OMISSION ----------
-       Marcus wrote in Greek, and the Greek is as free of copyright as Seneca's Latin — so the licence
-       question, which is what usually stops a book, is not what stops this one. What stops it is that
-       the two texts cannot be shown to pair.
+    /* ---------- THE ORIGINAL LANGUAGE: KOINE GREEK ----------
+       WHY THIS IS NOT WIKISOURCE, and it is the most useful thing in this entry.
 
-       app.js sets the original beside the translation by SECTION NUMBER, never by paragraph order,
-       because the numbers are the one thing two editions of an ancient work genuinely share. Latin
-       Wikisource prints Seneca's section numbers in the text, as [1] [2] [3], so the Latin says which
-       section each passage is. Greek Wikisource's `Τα εις εαυτόν` prints NO section numbers at all:
-       each book is one <ol> and the only thing identifying a section is its position in that list.
-       Position is not the same claim as number, and here the difference is real — the Greek edition
-       and Haines divide six of the twelve books differently, so from one splice point onwards the
-       list position runs one ahead of or behind the section it would have to be:
+       The obvious source is Greek Wikisource's `Τα εις εαυτόν`, and it cannot be used. app.js pairs the
+       original against the translation by SECTION NUMBER, never by paragraph order, because the number
+       is the one thing two editions of an ancient work genuinely share. Latin Wikisource prints
+       Seneca's numbers in the text as [1] [2] [3], so the Latin says which section each passage is.
+       Greek Wikisource prints NO numbers at all: each book is a single <ol>, so the only handle it
+       offers is a passage's POSITION in that list — and position is not the same claim as a number.
+       Measured, its edition divides six of the twelve books differently from Haines (book 4 has 50
+       items to Haines's 51, book 7 has 76 to his 75, and so on), so past one splice point per book the
+       position runs one out from the section it would have to be. Pairing by position and correlating
+       the two sides' section lengths gives 0.98–1.00 on the six books whose counts agree and 0.33–0.71
+       on the six that do not. Numbering that text by transferring Leopold's divisions onto it was tried
+       and abandoned too: it is a different edition with its own variants, and even where the counts
+       agree 15 of 185 openings do not match, so every one of those would have been a guess.
 
-           book  4   Haines 51 sections, the Greek 50, parting at 9
-           book  6   Haines 59, the Greek 58, parting at 54
-           book  7   Haines 75, the Greek 76, parting at 55
-           book  9   Haines 42, the Greek 43, parting at 39
-           book 10   Haines 38, the Greek 39, parting at 33
-           book 12   Haines 36, the Greek 35, parting at 18
+       WHAT IS USED INSTEAD is a TEI edition prepared to the CTS standard, where the numbers are
+       STRUCTURE rather than something to be read back out of the prose — `<div subtype="chapter"
+       n="17">`. Nothing is inferred, so nothing can be inferred wrongly. Leopold's numbering agrees
+       with Haines on 486 of the 487 sections; the single exception is a section 18 in book 12 that
+       Leopold's text does not have, and because BOTH sides now state their numbers that pairs as an
+       empty cell rather than as a silent one-place shift.
 
-       (Measured, not assumed: pairing by position and correlating the two sides' section lengths gives
-       0.98–1.00 on the six books whose counts agree and falls to 0.33–0.71 on these six.)
-
-       The offsets could be guessed at and written down as a table of corrections. They are not, because
-       a guess that is wrong is not a missing feature but a lying one: the reader would be shown one
-       passage of Greek beside a different passage of English, with nothing on the page to say so, which
-       is the failure this whole design was built to avoid. The Loeb's own facing Greek would settle it
-       exactly — it is the same edition, so its divisions are Haines's by construction — but those pages
-       are not transcribed on Wikisource (the even-numbered scans are marked as not needing proofreading,
-       and carry no text). If they are ever transcribed, or a numbered Greek edition turns up, this is a
-       few lines of `original: {...}` and a refetch. Until then the book ships in English alone, and
-       app.js shows no original-language control for a book with no `origLang`. */
+       THE LICENCE HAS TWO LAYERS AND BOTH ARE STATED, because this is the first book here whose
+       original is not simply an expired copyright. The TEXT is Jan Hendrik Leopold's Teubner edition of
+       1908 — published before 1929, and Leopold died in 1925, so it is public domain on both the
+       publication and the life-plus-70/90 rules, exactly like Haines's translation beside it. What is
+       NOT merely expired is the DIGITAL edition: the Perseus Digital Library releases its file under
+       CC BY-SA 4.0. Folio ships Leopold's words and Leopold's section numbers, re-encoded into its own
+       markup — but Perseus is where this text came from, they are credited as its source on the book's
+       own page, and their licence is named in `rights` and in the generated file's header. That is a
+       deliberate departure from the "expired copyright only" rule at the top of this file, made
+       knowingly and recorded here rather than glossed over; if the site would rather not carry a
+       CC BY-SA obligation at all, deleting this `original` block and `origLang` in app.js removes the
+       Greek and leaves the English untouched. */
+    original: {
+      lang: "grc",
+      langName: "Greek",
+      source: "tei",
+      url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0562/tlg001/tlg0562.tlg001.perseus-grc2.xml",
+      edition: "Jan Hendrik Leopold's Teubner text (Leipzig, 1908), from the Perseus Digital Library",
+      rights:
+        "Two layers, both stated. The text is Jan Hendrik Leopold's edition of the Greek, published by " +
+        "Teubner in 1908 and in the public domain — before 1929, and Leopold died in 1925. The digital " +
+        "edition it is taken from is prepared by the Perseus Digital Library at Tufts University and is " +
+        "released under a Creative Commons Attribution-ShareAlike 4.0 International licence.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0562.tlg001/",
+    },
   },
 
   "sun-tzu-art-of-war": {
@@ -485,6 +502,27 @@ async function api(page, host) {
     }
   }
   throw new Error("could not fetch " + page + ": " + last);
+}
+
+/* A plain HTTPS fetch with the same backoff as `api`, for an original that does not live on a wiki.
+   The Meditations' Greek comes from a TEI file in a git repository rather than from a MediaWiki page,
+   so there is no `action=parse` to call and nothing to JSON-decode — but the retry behaviour matters
+   just as much, since a truncated body would silently shorten the text rather than fail. */
+async function fetchText(url) {
+  let last = "";
+  for (let a = 0; a < 6; a++) {
+    try {
+      const r = await fetch(url, { headers: { "User-Agent": UA } });
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      const t = await r.text();
+      if (t.length < 1024) throw new Error("suspiciously short body (" + t.length + " bytes)");
+      return t;
+    } catch (e) {
+      last = e.message;
+      await sleep(2000 + a * 3000);
+    }
+  }
+  throw new Error("could not fetch " + url + ": " + last);
 }
 
 /* ---------- extract the prose ----------
@@ -1157,6 +1195,88 @@ function originalChapters(h, warn) {
   return out;
 }
 
+/* ---------- the original as a TEI edition ----------
+   The second shape an original-language text can arrive in, and the better one. A wiki gives prose with
+   the section numbers printed in it, which have to be read back out of the words; a TEI edition
+   prepared to the CTS standard gives the numbers as STRUCTURE — `<div subtype="chapter" n="17">` — so
+   there is nothing to infer and nothing that can be inferred wrongly.
+
+   That distinction is the whole reason the Meditations has a Greek column at all. Greek Wikisource
+   prints no section numbers, so the only handle it offers is a passage's POSITION in a list, and
+   position is not the same claim as a number: its edition divides six of the twelve books differently
+   from Haines, so past one splice point per book the position runs one out from the section it would
+   have to be. Leopold's numbering is stated rather than counted, and it agrees with Haines on 486 of
+   the 487 sections — the single exception being a section 18 in book 12 that Leopold's text does not
+   have, which pairs as an empty cell because both sides now say what they are.
+
+   The mapping onto Folio's model: a CHAPTER here is one of the twelve books, and the numbers running
+   through it are Leopold's chapter numbers — which are what "Meditations 4.17" means and what Haines
+   prints. Leopold's own `section` divisions are a finer split inside a long chapter; they are the same
+   numbered entry and are simply concatenated into it. */
+function teiChapters(xml, warn) {
+  const body = xml.slice(xml.indexOf("<body"));
+  if (body.length < 1000) throw new Error("no <body> in the TEI file");
+  const marks = (re) => {
+    const out = []; let m;
+    while ((m = re.exec(body))) out.push({ n: +m[1], at: m.index });
+    return out;
+  };
+  const books = marks(/<div[^>]*subtype="book"[^>]*\bn="(\d+)"[^>]*>/g);
+  if (!books.length) throw new Error("no book divisions in the TEI file");
+  const out = {};
+  books.forEach((b, i) => {
+    const seg = body.slice(b.at, i + 1 < books.length ? books[i + 1].at : body.length);
+    const cre = /<div[^>]*subtype="chapter"[^>]*\bn="(\d+)"[^>]*>/g;
+    const cs = []; let c;
+    while ((c = cre.exec(seg))) cs.push({ n: +c[1], at: c.index });
+    if (!cs.length) { warn("book " + b.n + " has no chapter divisions"); return; }
+    let html = "", seq = 0;
+    cs.forEach((ch, j) => {
+      const raw = seg.slice(ch.at, j + 1 < cs.length ? cs[j + 1].at : seg.length);
+      /* The edition's own numbering is not always unbroken — Leopold's book 12 runs 17, 19, 20, having
+         no 18 — so a number that goes BACKWARDS is a fault worth hearing about while a gap is not. */
+      if (ch.n <= seq) warn("book " + b.n + ": chapter " + ch.n + " follows " + seq + " — out of order");
+      seq = ch.n;
+      const text = teiProse(raw);
+      if (!text) { warn("book " + b.n + " chapter " + ch.n + " came back empty"); return; }
+      // the marker goes INSIDE the first paragraph, which is where bookSections looks for it
+      html += text.replace(/^<p>/, '<p><span class="bk-n">' + ch.n + "</span> ");
+    });
+    out[b.n] = html.trim();
+  });
+  return out;
+}
+
+/* One chapter of TEI down to the small tag set Folio's reader understands. The vocabulary is tiny —
+   this file uses only div, p, add, del, quote and lb — but two of those are editorial judgements and
+   have to be resolved rather than passed through:
+
+   · `<add>` is text the EDITOR SUPPLIED and the edition prints as part of the text (an article, a
+     missing verb). It is kept, because without it the sentence is not the sentence Leopold constituted.
+   · `<del>` is text the editor marks as SPURIOUS — the reading he judged does not belong. It is
+     dropped, because keeping it would present as Marcus's words something this edition says are not.
+     Dropping it yields exactly the text the printed page carries, which is what a reader following the
+     English alongside is entitled to. Both are single words or short phrases and there are 82 and 36 of
+     them in the whole work.
+
+   A `<quote>` becomes an inline `<q>` rather than a `<blockquote>`, because these quotations sit MID
+   SENTENCE ("if to all of them you can still say: <quote>…</quote>, then…") and a block element inside
+   a paragraph is invalid nesting that would break the paragraph in two. `<lb/>` becomes `<br>`, which
+   is what keeps the verse quotations as verse. */
+function teiProse(raw) {
+  let b = raw.replace(/<del\b[^>]*>[\s\S]*?<\/del>/g, "");   // the editor's deletions, and their text
+  b = b.replace(/<\/?add\b[^>]*>/g, "");                     // the editor's supplements: keep the words
+  b = b.replace(/<lb\s*\/?>/g, "<br>");
+  b = b.replace(/<quote\b[^>]*>/g, "<q>").replace(/<\/quote>/g, "</q>");
+  const ps = [...b.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/g)].map((m) => m[1]);
+  return ps
+    .map((p) => p.replace(/<[^>]*>/g, (t) => (/^<\/?(q|br)\b/.test(t) ? (t === "<br>" ? "<br>" : t) : "")))
+    .map((p) => p.replace(/\s+/g, " ").trim())
+    .filter(Boolean)
+    .map((p) => "<p>" + p + "</p>")
+    .join("\n");
+}
+
 /* ---------- serialize ---------- */
 function esc(s) { return String(s).replace(/\\/g, "\\\\").replace(/"/g, '\\"').replace(/\n/g, "\\n"); }
 function partOf(n) {
@@ -1299,8 +1419,26 @@ async function fetchOriginal() {
 
   const cacheDir = path.join(CACHE, O.lang);
   fs.mkdirSync(cacheDir, { recursive: true });
-  console.log("\nFetching the " + O.langName + " original — " + O.pages.length + " pages from " + O.wiki);
 
+  /* A TEI edition is one FILE rather than a walk of wiki pages, so like the parallel branch above it
+     short-circuits the walk below. `warnings` / `warn` / `byNum` are already declared at the top of
+     this function — all three source shapes share them. */
+  if (O.source === "tei") {
+    console.log("\nFetching the " + O.langName + " original — " + O.edition);
+    const cf = path.join(cacheDir, "tei.xml");
+    let xml;
+    if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
+    else { xml = await fetchText(O.url); fs.writeFileSync(cf, xml); }
+    Object.assign(byNum, teiChapters(xml, warn));
+    const ns = Object.keys(byNum).map(Number).sort((a, b) => a - b);
+    ns.forEach((n) => {
+      const secs = (byNum[n].match(/class="bk-n"/g) || []).length;
+      console.log("  " + BOOK.chapterWord + " " + n + " — " + secs + " sections (" + (byNum[n].length / 1024).toFixed(0) + " KB)");
+    });
+    return writeOriginal(byNum, warnings);
+  }
+
+  console.log("\nFetching the " + O.langName + " original — " + O.pages.length + " pages from " + O.wiki);
   for (const page of O.pages) {
     const cf = path.join(cacheDir, page.replace(/[^\w.-]+/g, "_") + ".json");
     let got;
@@ -1321,9 +1459,10 @@ async function fetchOriginal() {
   return writeOriginal(byNum, warnings);
 }
 
-/* Serialize the original-language half. Split out from fetchOriginal so the two ways of GATHERING it
-   — a walk of another wiki, or a read of the parallel text's own cache — share one way of writing it
-   out and one report at the end. */
+/* Serialize the original-language half. Split out from fetchOriginal so the THREE ways of GATHERING
+   it — a walk of another wiki, a read of the parallel text's own cache, and a single TEI edition —
+   share one way of writing it out and one report at the end, and so cannot drift apart in what they
+   emit. */
 function writeOriginal(byNum, warnings) {
   const O = BOOK.original;
   const nums = Object.keys(byNum).map(Number).sort((a, b) => a - b);
@@ -1373,6 +1512,7 @@ function writeOriginal(byNum, warnings) {
     warnings.forEach((w) => console.log("    " + w));
   }
 }
+
 
 async function main() {
   if (!SKIP_EN) await fetchEnglish();
