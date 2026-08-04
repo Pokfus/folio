@@ -571,15 +571,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   first. Not part of the site.
 - `docs/glossary-length-plan.md` — **every glossary description at 100 words (±10%)**, on request (Aug 2026): the
   bar, the measured baseline, the eleven batches, the per-term workflow and the batch log. **L0 (the tooling)
-  and L1–L6 have shipped, which completes THE WHOLE `place` AND `person` KINDS — 320 terms, 0 outside the
-  bar**: the 197 countries (A–E, F–L, M–R, S–Z), L5's 55 caves, type sites, continents, oceans and regions,
-  and L6's 54 people (45 US presidents plus nine antiquarians, archaeologists and a poet) —
+  and L1–L7 have shipped, which completes FOUR WHOLE KINDS — `place` (266), `person` (54), `era` (33) and
+  `industry` (11), 364 terms, 0 outside the bar**: the 197 countries (A–E, F–L, M–R, S–Z), L5's 55 caves,
+  type sites, continents, oceans and regions, L6's 54 people (45 US presidents plus nine antiquarians,
+  archaeologists and a poet), and L7's 44 periods and stone industries —
   `node .claude/gloss-length.js` is
-  the measure, with `--over` / `--under` / `--tag=<kind>` / `--list`. Where it stands today: **341 of 477 terms
-  are inside the bar**, 128 are
-  over and 8 under, mean 115.0 words, and the work is overwhelmingly TRIMMING. **L7 is next** — `era` +
-  `industry` together, 44 terms of which 36 are over, paired because they share dates and the
-  sibling-consistency check across them has caught the Palaeolithic end-date twice. Three things the bar does not
+  the measure, with `--over` / `--under` / `--tag=<kind>` / `--list`. Where it stands today: **377 of 477 terms
+  are inside the bar** (79%), 97 are
+  over and 3 under, mean 113.3 words, and the work is overwhelmingly TRIMMING. **L8 is next** — `hominin` +
+  `fossil` + `animal` together, 40 terms of which 35 are over. Three things the bar does not
   change and which the pass must not quietly relax: still exactly three sentences, still impartial and
   self-contained, and **still no claim past what the citations carry** — a term padded to length is the one way
   this pass can do real damage. Two rules L1 established and the later batches should just apply:
@@ -629,7 +629,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   and `add-sources.js` refuses the batch — read the source list before choosing what to cut. And its two
   GROW cases (the pass's first) both grew from a work already in the term's own list rather than from
   padding: **a term under the bar is usually under it because it left something out** — `Sima_Qian` never
-  cashed its own promise to say what the Shiji's "arrangement" was. Two more checks
+  cashed its own promise to say what the Shiji's "arrangement" was. **L7 then transferred the date-line rule a
+  third time and sharpened it — CUT THE SPAN, KEEP THE CAVEAT**, since a period's date line always carries its
+  span but never "though both ends are debated" or "a lowstand plateau rather than a single peak"; its own
+  padding class is **HISTORIOGRAPHY** (who named it, when, after what — keep the type site, cut the dig
+  history); and it had FIVE grows, all paid for out of `.claude/sources-register.md`, which records Thomsen's
+  1848 definitions verbatim and is why `Bronze_Age` and `Iron_Age` could grow at all with `brill.com` 403 here.
+  **L7's hardest finding is L6's constraint in a subtler form: a marker can be left pointing at a claim the
+  trim removed, and `add-sources.js` PASSES it** — the source is still *referenced* and the marker is still on
+  the page — so `Châtelperronian` kept a citation titled "No Reliable Evidence for a Neanderthal–Châtelperronian
+  [association]" after the 2018 challenge it IS had been cut, and `Howiesons_Poort` kept a climate-change paper
+  after the clause it explained. Only reading each surviving marked sentence against the work it points at
+  catches this. L7 also names two things to do BEFORE drafting: **run the sibling-consistency check over the
+  whole batch's date lines** (it holds — and the `Paleolithic` 9700 BCE against `Neolithic` 10,000 BCE
+  "overlap" is two regional schemes, recorded and deliberately not "fixed"), and **read a sentence that argues
+  with itself before trimming it**, since `Boreal`'s "does not reach down to 8,000 years ago as loose usage
+  suggests" is card batch 22's correction written into the prose and reads exactly like a stray figure. Two more checks
   L2 made standing, both
   for failures that are invisible in the
   finished prose. **Diff every MARKED sentence's YEARS before against after** — a trim can strand a marker, and
@@ -658,7 +673,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   own regex, which broke on initials and read `John F. Kennedy` as two sentences — `split-abstract.js`
   learned about runs of initials in card batch 24 and the check script had not. **L6's hedge grep caught
   only two against L5's eight**, which is what a batch of institutional prose produces: a presidential essay
-  hedges very little. Not part of the site.
+  hedges very little; **L7's caught four, three of them the quantifier-before-superlative shape for the third
+  batch running** (`Middle_Stone_Age`'s "some of the earliest", `Lomekwian`'s "mostly", `Ice_Age`'s and
+  `Würm`'s "generally"). One blind spot remains, worth knowing before a batch of calibrated dates: the year
+  regex needs the number immediately before "years ago", so an intervening word defeats it and `Boreal`'s
+  "8,000 **calendar** years ago" reads as lost when it survived. Not part of the site.
 - `docs/units-plan.md` — **metric first, imperial in parentheses**: the rule, the one imperial-first figure in the whole
   corpus (fixed), and the 360 metric figures still to gain their equivalents. Not part of the site.
 - `docs/user-decks-plan.md` — the design plan for **community decks** (user-created decks, sharing,

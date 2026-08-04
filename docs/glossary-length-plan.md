@@ -88,7 +88,7 @@ its neighbour) actually has neighbours to compare against. The first tag in `GLO
 | **L4** | `place`, S–Z (countries) | 54 | 54 over | **SHIPPED 2026-08-04.** All 54 now 102–110 words, mean 107.2. **Completes every country term in the glossary — 197 of them.** See the log below. |
 | **L5** | `place`, sites, regions and continents | 55 | 55 over | **SHIPPED 2026-08-04.** All 55 now 103–110 words, mean 107.9. **Completes every `place` term — 266 of them, 0 outside the bar.** See the log below. |
 | **L6** | `person` | 54 | 26 over, 2 under | **SHIPPED 2026-08-04.** All 28 now 97–110 words, mean 103. **Completes every `person` term — 54, 0 outside the bar.** The pass's first two GROW cases. See the log below. |
-| **L7** | `era` + `industry` | 44 | 36 | Do these two together: they share dates, and the sibling check across them is the one that caught the Palaeolithic end-date twice before. |
+| **L7** | `era` + `industry` | 44 | 31 over, 5 under | **SHIPPED 2026-08-04.** All 36 now 96–110 words, `era` mean 106 and `industry` 106. **Completes both kinds — 44 terms, 0 outside the bar.** Five grows, the most of any batch. See the log below. |
 | **L8** | `hominin` + `fossil` + `animal` | 40 | 35 | Taxa. Watch the citations: a trimmed sentence must still be the one the marker points at. |
 | **L9** | `object` + `culture` + `people` + `building` + `event` + `practice` | 45 | 40 | The tail, and the longest terms in the glossary (`Spear-thrower` at 195, `Dolní Věstonice` at 184). |
 | **L10** | `concept` + the 10 short definitional terms | ~34 | 21 over, 10 under | **Last on purpose.** These are the GROW cases and the hardest; by L10 the register holds everything the other nine batches read, which is where the honest extra sentences will come from. |
@@ -487,18 +487,117 @@ fire on exactly that loss before being used here. And the checker now splits wit
 terms. Batch 24 had already taught `split-abstract.js` about runs of initials; the check script had not
 learned it.
 
+### L7 — 33 `era` and 11 `industry` terms (2026-08-04)
+
+**36 were outside the bar — 31 over and 5 under — and all 36 now sit at 96–110 words**, `era` at a mean of
+106 and `industry` at 106. The glossary moved from 341 to **377 terms inside the bar** (79%) and its mean
+from 115.0 to 113.3 words. **Both kinds are now 0 outside the bar.** The under count across the whole
+glossary fell from 8 to 3.
+
+**The date-line finding transferred a third time and paid best of all here**, because a period's span is
+the one thing its date line is certain to carry: `Mousterian` opened "current in Europe, western Asia and
+North Africa from roughly 300,000 to 40,000 years ago" above a line reading `c. 300,000 – 40,000 BP`, and
+twenty-two terms did the same. **But it is NOT applied where the prose qualifies the span in a way the
+terse line cannot** — `Last_Glacial_Maximum`'s "a lowstand plateau some 7,500 years long rather than a
+single peak", `Aterian`'s "though both ends are debated", `Oldowan`'s "recent finds in Kenya suggesting an
+origin closer to 2.9 million", `Middle_Stone_Age`'s gradual regional boundaries. **The rule to carry: cut
+the span, keep the caveat.**
+
+**The batch's own padding class is HISTORIOGRAPHY — who named it, when, and after what.** It is the
+`era`/`industry` equivalent of L1's border list and L5's excavation administration, it appears on nearly
+every industry term, and it is worth 10–20 words: "where such tools were recovered in the 1850s"
+(`Acheulean`), "where Louis Leakey identified such tools in the 1930s" (`Oldowan`), "dug in 1927 and 1928"
+(`Howiesons_Poort`), "Henri Breuil defined it in 1909 … and the name in use is Dorothy Garrod's, from
+1938" (`Châtelperronian`). **Keep the type site and cut the dig history** — the type site is part of what
+defines an industry, the excavation date is not. The exception is where the naming IS the correction:
+`Middle_Stone_Age` keeps Goodwin's 1928 paper and the 1929 joint volume separate, because card batch 20
+established that distinction against the literature and flattening it would undo the finding.
+
+**FIVE GROW CASES, the most of any batch, and all five grew from a work the term already cited.**
+`Paleolithic` (68), `Iron_Age` (75), `Bronze_Age` (78), `Middle_Paleolithic` (80) and `Gravettian` (82).
+The route that made it safe was **the register**: `.claude/sources-register.md` records Thomsen's own
+definitions verbatim from the 1848 Ellesmere translation — the Bronze Age as the age in which "weapons and
+cutting implements were made of copper or bronze", the Iron Age as that "in which iron was used for those
+articles to which that metal is eminently suited" — and both terms already cite it as [1]. So the growth
+was reading the register, not searching. **Cooper & Grebnev's recorded support did the same second job**,
+adding to both terms the fact that the Bronze Age "is therefore not justifiably applicable to much of the
+southern half of the African continent", where iron production precedes bronze — a genuinely interesting
+claim both terms had room for and neither made. `Paleolithic` gained Lubbock's 1865 coinage from the Greek
+for 'old stone' (its source [1] is Lubbock's *Pre-historic Times*, pages 2–3, which is exactly where he
+defines the word) plus its start and end dates; `Gravettian` gained its personal-ornament finding from the
+d'Errico paper its [1] already was; `Middle_Paleolithic` gained the compound adhesives from Wadley and the
+Mousterian by name from Gennai.
+
+**An access finding to record: `brill.com` is 403 here**, so Cooper & Grebnev cannot be re-read, and G6's
+rule bars extending it to new claims — which is why the register mattered rather than being a convenience.
+`isac.uchicago.edu`'s ISAC volume is reachable but **the PDF is over 10 MB and defeats the fetcher**, and
+the `archive.org` `_djvu.txt` of the 1848 Thomsen volume is truncated before the pages that matter. Three
+works cited by this batch are open, correctly labelled, and not re-readable from here today.
+
+**One claim is flagged for a citation top-up rather than silently rewritten.** `Iron_Age`'s second
+sentence — iron replacing bronze "once techniques for removing impurities and controlling carbon content
+were mastered" — is marked to Güder et al. 2025 "under 'Introduction'", and a read of that Introduction
+suggests it discusses Archaic Aegean iron technology without stating the general replacement mechanism
+(the article's own words are that "our knowledge of Archaic iron technology is still elusive"). The claim
+is standard and uncontroversial; the question is only whether that section carries it. **A length batch is
+the wrong place to re-cut a citation on one summariser's reading**, so the sentence and its marker are
+untouched and the doubt is written down here.
+
+**The sibling-consistency check was run FIRST**, as the plan requires, over all 44 date lines and every
+date in the prose. The chains hold: Lower → Middle → Upper Palaeolithic (2.6 Mya → 300,000 → 50,000 →
+11,700 BP) is exact; Stone Age → Bronze Age → Iron Age hands over cleanly at 3300 and 1200 BCE;
+Quaternary/Pleistocene/Holocene agree; the Blytt–Sernander chronozones run Preboreal → Boreal → Atlantic
+without a gap; and the industries nest inside their periods. **One apparent contradiction was found and
+deliberately NOT "fixed": `Paleolithic` ends at 9700 BCE and `Neolithic` begins at 10,000 BCE**, which
+looks like a 300-year overlap and is in fact two regional schemes side by side — the Neolithic's own third
+sentence says it "begins around 10,000 BCE in the Middle East and only in the 3rd millennium BCE
+elsewhere", where the Palaeolithic's close is the Holocene GSSP. Recorded rather than resolved; re-dating
+the corpus is a citation batch's job, not a length batch's.
+
+**A clause that looks like a stray figure may be a correction being made explicit.** `Boreal`'s prose
+contains "does not reach down to 8,000 years ago as loose usage suggests" — which reads like a loose
+figure to cut and is in fact card batch 22's finding written into the term, the uncalibrated-radiocarbon
+error stated so a reader meets it. It was identified before drafting and kept. **Read a sentence that
+argues with itself before trimming it.**
+
+**Two markers were left pointing at claims the trim had removed, and both were caught by the year diff
+rather than by any tool that can see it.** `Châtelperronian` kept marker [3] — Gravina et al., "No
+Reliable Evidence for a Neanderthal–Châtelperronian [association]" — after the 2018 challenge that paper
+IS had been cut; and `Howiesons_Poort` kept [4] — Ziegler et al. on Middle Stone Age innovation and rapid
+climate change — after the clause about why the backed segments drop out. Both restored, paid for
+elsewhere. This is L6's one-claim-citation constraint in its subtler form: `add-sources.js` sees the
+source is still *referenced* and passes it, because the marker is still on the page. **Only reading the
+citation against the surviving sentence catches it.**
+
+**Four figures were added, all sourced, and 49 dropped**, of which about forty are the spans the date line
+carries. **Seven substantive losses are named**: `Last_Glacial_Maximum`'s deglaciation beginning
+19,000–20,000 years ago, `Weichselian_glaciation`'s correlation table covering "the last 2.7 million
+years", `Châtelperronian`'s Breuil definition of 1909 and the Grotte des Fées as type site,
+`Early_Minoan_Crete`'s tholos diameters, `Atlantic_period`'s overlap with the Holocene climatic optimum
+(cut on the house rule against comparative framing with a sibling term as much as for length),
+`Epipaleolithic`'s whole second sentence contrasting it with the Mesolithic (same rule — and the rule and
+the word budget pointed the same way, which is worth knowing), and `Nordic_Stone_Age` being "one of the
+last Stone Ages in Europe to end". **The hedge grep caught the usual four on surviving claims**:
+`Middle_Stone_Age`'s "**some of** the earliest directly dated examples" flattened to "the earliest"
+(L4's quantifier-before-superlative shape, third batch running), `Lomekwian`'s "**mostly** by bringing the
+block down" (turning a predominant method into the only one), and `Ice_Age`'s and `Würm`'s "generally".
+All restored.
+
+**A second blind spot in the check script, recorded not fixed**: its year regex requires the number to
+sit immediately before "years ago", so it cannot see "8,000 **calendar** years ago" and reported `Boreal`
+as having lost the very clause that survived. An intervening word defeats it. Worth knowing before
+trusting a clean run on a batch full of calibrated dates.
+
 ### Status
 
-**L0 and L1–L6 have shipped** (2026-08-04). The glossary stands at **341 of 477 terms inside the bar**, mean
-115.0 words, and **two whole kinds are done — `place` (266) and `person` (54), 320 terms between them, 0
-outside the bar**. That is every formulaic kind in the glossary finished; what remains is 128 terms over
-and 8 under across the subject-matter kinds. **L7 is next** — `era` + `industry` together, 44 terms of which
-36 are over the bar, and the plan pairs them deliberately because they share dates and the
-sibling-consistency check across them is the one that caught the Palaeolithic end-date twice before. Two
-things L6 leaves it: **read `GLOSSARY_DATES` first** (L5's finding, which paid twice as well on L6 as on L5
-— measured, **27 of the 33 `era` terms and all 11 `industry` terms carry a date line**, so expect the same
-duplication, and expect the six undated `era` terms to be the `Hesiod` shape where every cut word comes out
-of real content), and **check the source list for one-claim citations before choosing what to cut**, since
-a period term's citations are often one paper per boundary — five `era` terms are at the two-source
-minimum, where dropping a claim is most likely to orphan a citation and have `add-sources.js` refuse the
-batch. Re-run `gloss-length.js` before and after every batch and record the movement here.
+**L0 and L1–L7 have shipped** (2026-08-04). The glossary stands at **377 of 477 terms inside the bar**
+(79%), mean 113.3 words, and **four whole kinds are done — `place` (266), `person` (54), `era` (33) and
+`industry` (11), 364 terms between them, 0 outside the bar**. What remains is 97 over and 3 under, all of
+it in the subject-matter kinds. **L8 is next** — `hominin` + `fossil` + `animal` together, 40 terms of
+which 35 are over the bar. Three things L7 leaves it: **read `GLOSSARY_DATES` first and then cut the span
+but keep the caveat**; **check the source list for one-claim citations before choosing what to cut, and
+then read each surviving marked sentence against the work it points at** (L7 caught two markers stranded
+that way and neither `add-sources.js` nor the audit could see either); and expect the taxon's padding
+class to be **the naming history** — who described the species, when, from which type specimen — which is
+this batch's historiography class in another coat, and which on a taxon may be the claim rather than the
+padding. Re-run `gloss-length.js` before and after every batch and record the movement here. Re-run `gloss-length.js` before and after every batch and record the movement here.
