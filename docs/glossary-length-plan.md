@@ -87,7 +87,7 @@ its neighbour) actually has neighbours to compare against. The first tag in `GLO
 | **L3** | `place`, M–R (countries) | 43 | 43 over | **SHIPPED 2026-08-04.** All 43 now 100–110 words, mean 107.5. See the log below. |
 | **L4** | `place`, S–Z (countries) | 54 | 54 over | **SHIPPED 2026-08-04.** All 54 now 102–110 words, mean 107.2. **Completes every country term in the glossary — 197 of them.** See the log below. |
 | **L5** | `place`, sites, regions and continents | 55 | 55 over | **SHIPPED 2026-08-04.** All 55 now 103–110 words, mean 107.9. **Completes every `place` term — 266 of them, 0 outside the bar.** See the log below. |
-| **L6** | `person` | 54 | 28 | Half are already close — the 45 US presidents were written to one template. Cheapest batch per term. |
+| **L6** | `person` | 54 | 26 over, 2 under | **SHIPPED 2026-08-04.** All 28 now 97–110 words, mean 103. **Completes every `person` term — 54, 0 outside the bar.** The pass's first two GROW cases. See the log below. |
 | **L7** | `era` + `industry` | 44 | 36 | Do these two together: they share dates, and the sibling check across them is the one that caught the Palaeolithic end-date twice before. |
 | **L8** | `hominin` + `fossil` + `animal` | 40 | 35 | Taxa. Watch the citations: a trimmed sentence must still be the one the marker points at. |
 | **L9** | `object` + `culture` + `people` + `building` + `event` + `practice` | 45 | 40 | The tail, and the longest terms in the glossary (`Spear-thrower` at 195, `Dolní Věstonice` at 184). |
@@ -398,14 +398,107 @@ alternative name Nahal Me'arot, `Arctic`'s "most of the world's permafrost lies 
 Atacama weather stations that have never recorded rain, `Wonderwerk_Cave`'s Kuruman Hills, `Zhoukoudian`'s
 1930s excavation of the Upper Cave, and `Monte_Verde`'s excavators answering the 2026 paper within weeks.
 
+### L6 — 54 `person` terms: the 45 US presidents and nine others (2026-08-04)
+
+**28 were outside the bar — 26 over and 2 under — and all 28 now sit at 97–110 words, mean 103.** The
+glossary moved from 313 to **341 terms inside the bar** and its mean from 115.9 to 115.0 words. **`person`
+is now 54 of 54, 0 outside the bar.** The other 26 were already at the bar and were left alone, as in
+every batch since L1.
+
+**L5's date-line finding transferred exactly, and it is the whole recipe here.** Every president carries a
+`GLOSSARY_DATES` line of the form `1872–1933; president 1923–1929`, and every presidential description
+opened by restating the term dates in words — "in office from 1923 to 1929", "from 1909 to 1913", "from
+2021 to 2025". Cutting that clause is worth 4 to 9 words and costs the reader nothing, since the popup, the
+home tile and the admin list all print the date line directly above the description. **But it must NOT
+become a template change, and that is the finding.** Applying it to all 45 presidents would push nine of
+the in-band ones below 90 — `George_Washington` (95), `James_Monroe` and `Martin_Van_Buren` (94),
+`John_Adams` (93), `James_Madison`, `Franklin_Pierce` and `Zachary_Taylor` (91), `James_A._Garfield` and
+`John_Tyler` (90) — so it is a clause available to a term that NEEDS words, exactly like L1's border list,
+not an edict applied across the kind. The resulting variation between a trimmed president and an untouched
+one is deliberate: the date line says the same thing either way.
+
+**Second: the plan's prediction about the office list was half right, and the wrong half matters.** L5
+predicted the `person` equivalent of the border list would be the office list. On a president it is NOT
+padding — the prior career is how they got there and is different for each, and `George_H._W._Bush`'s
+congressman → UN → CIA → vice president is the single most distinctive thing about him. Where it IS
+padding is a term whose whole middle sentence is an enumeration of posts with dates: `Jens_Jacob_Worsaae`
+gave 48 words to four offices across 1841–1877. **The test is L3's border test in another coat — does
+naming the offices say more than a summary of the career would?** — and it comes out differently for those
+two.
+
+**Third: the real padding class on a modern president is the ENUMERATION**, the third sentence written as a
+run-on list of achievements joined by "and … and … and". `George_W._Bush`'s ran to 88 words and nine items,
+`Jimmy_Carter`'s to 76 and nine, `Barack_Obama`'s to 72 and nine. That is where the words are, and it is
+the one class where cutting costs real claims rather than repetition. It also explains the batch's shape:
+**the presidents are ordered by length almost exactly chronologically** — Washington 95 and Madison 91 at
+one end, Obama 140 and Trump 150 at the other — because a recent presidency has more documented, citable
+events. Every president before 1900 was already at the bar; the trimming fell almost entirely on the
+modern half.
+
+**Fourth, and this one is a HARD CONSTRAINT the earlier batches never met: a term whose citations are
+one-per-claim cannot lose that claim.** `Barack_Obama`'s source [6] is the Nobel Foundation's *Barack H.
+Obama — Facts* and its only job in the term is the Nobel Prize; `Donald_Trump`'s [4] is the Miller Center's
+*Foreign Affairs* essay and its only job is the accords between Israel and several Arab states. Cutting
+either clause — and the first draft cut both — **orphans the source, and `add-sources.js` refuses a source
+nothing points at**, so the batch would not have shipped. This did not arise in L1–L5 because a country
+term's two or three sources are general profiles carrying several claims each, where a president's six or
+seven are one essay per topic. **Read the source list before choosing what to cut.** `check.js` now reports
+`ORPHANED SOURCE` so it fails at draft time rather than at the writer. The softer version is the one no
+tool can see: the Obama draft dropped the Nobel while KEEPING marker [6], leaving a marker pointing at a
+claim that was gone — L5's rule exactly, caught by the marked-sentence year diff.
+
+**The two GROW cases are the pass's first, and both grew from a source rather than from padding.**
+`Sima_Qian` (84) said the *Records of the Grand Historian* "laid down the arrangement that the official
+histories of the later dynasties kept" — a promissory note the description never cashed. The cited Inalco
+encyclopedia entry states the arrangement outright ("Les *Mémoires historiques* sont structurés en cinq
+parties"), so the term now names it: 130 chapters in five parts, annals, chronological tables, treatises,
+hereditary houses and biographies. `Benjamin_Harrison` (84) had no foreign policy at all and never said how
+his presidency ended; the cited *Life in Brief* carries the first Pan-American Conference of 1889 and the
+1892 defeat by the predecessor he had beaten in 1888. **A term under the bar is usually under it because it
+left something out, not because it is terse — look for the claim the prose gestures at without making**,
+and take it from a work already in the term's own list. That is what keeps a grow from being padding, which
+is the one way this pass can do real damage.
+
+**Two figures were added, both verified against the term's own sources, and 41 were dropped.** Thirty-two
+of the 41 are the term dates the date line already carries. **Six substantive losses are named rather than
+glossed over**: `Arthur_Evans` lost the Ashmolean Keepership dates (1884–1908), the end date of the Knossos
+excavation (1931) and "argued over still"; `Raymond_Dart` the Witwatersrand tenure (1922–1958);
+`Jens_Jacob_Worsaae` his joining the antiquities commission in 1841 and the dates of his ministry, which
+survives undated; `Christian_Jürgensen_Thomsen` the detail that he arranged the museum so visitors walked
+through the sequence; `Barack_Obama` the winding down of the war in Iraq and the tightening of bank
+regulation; and `Hesiod` his father's migration from Cyme in Asia Minor. **`Hesiod` is the one term in the
+batch with NO date line** (it has no `GLOSSARY_DATES` entry), so every one of its 41 cut words came out of
+real content — and it needed the most, 150 down to 109. It is the shape L7 and L8 should expect wherever a
+term is undated.
+
+**The hedge grep caught only two, down from eight in L5**, which is what a batch of institutional prose
+produces — a presidential essay hedges very little. One was restored: `Christian_Jürgensen_Thomsen`'s
+"several antiquaries had put forward before him" had become "others had published before him", and
+*several antiquaries* is the specificity G4's finding earned (Vedel Simonsen published the theory ten years
+before Thomsen). The other, `Arthur_Evans`'s "and that is argued over still", went with its clause while
+"extensive and controversial" survived, and is recorded rather than restored.
+
+**Two tooling repairs, both paying off L5's own log.** `check.js`'s marked-sentence year diff now sees
+**BP, cal BP, kya, Mya and BCE dates** as well as calendar years — the blind spot L5 recorded after
+`Fertile_Crescent` lost "between about 12,000 and 11,000 years ago" in silence — and it was verified to
+fire on exactly that loss before being used here. And the checker now splits with `split-abstract.js`'s
+`pieces()` rather than its own regex, because the naive splitter broke on initials and reported
+`John F. Kennedy`, `Harry S. Truman`, `Warren G. Harding` and `Dwight D. Eisenhower` as four-sentence
+terms. Batch 24 had already taught `split-abstract.js` about runs of initials; the check script had not
+learned it.
+
 ### Status
 
-**L0 and L1–L5 have shipped** (2026-08-04). The glossary stands at **313 of 477 terms inside the bar**, mean
-115.9 words, and **the whole `place` kind is done — 266 terms, 0 outside the bar**, which is the formulaic
-half of the pass finished and the largest tag in the glossary closed. **L6 is next** — the 54 `person`
-terms, of which only 28 are over the bar and 45 are the US presidents written to one template, so it is the
-cheapest batch per term in the plan and the natural one to take next. Two things L5 leaves it: **read
-`GLOSSARY_DATES` before treating a dropped date as a loss** (a presidential term's dates are on the line
-above the prose, exactly as a type site's are), and **the biography's padding class is the office list**,
-the `person` equivalent of the border list — expect it to be worth much the same 10–15 words. Re-run
-`gloss-length.js` before and after every batch and record the movement here.
+**L0 and L1–L6 have shipped** (2026-08-04). The glossary stands at **341 of 477 terms inside the bar**, mean
+115.0 words, and **two whole kinds are done — `place` (266) and `person` (54), 320 terms between them, 0
+outside the bar**. That is every formulaic kind in the glossary finished; what remains is 128 terms over
+and 8 under across the subject-matter kinds. **L7 is next** — `era` + `industry` together, 44 terms of which
+36 are over the bar, and the plan pairs them deliberately because they share dates and the
+sibling-consistency check across them is the one that caught the Palaeolithic end-date twice before. Two
+things L6 leaves it: **read `GLOSSARY_DATES` first** (L5's finding, which paid twice as well on L6 as on L5
+— measured, **27 of the 33 `era` terms and all 11 `industry` terms carry a date line**, so expect the same
+duplication, and expect the six undated `era` terms to be the `Hesiod` shape where every cut word comes out
+of real content), and **check the source list for one-claim citations before choosing what to cut**, since
+a period term's citations are often one paper per boundary — five `era` terms are at the two-source
+minimum, where dropping a claim is most likely to orphan a citation and have `add-sources.js` refuse the
+batch. Re-run `gloss-length.js` before and after every batch and record the movement here.

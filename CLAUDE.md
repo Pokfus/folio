@@ -571,14 +571,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   first. Not part of the site.
 - `docs/glossary-length-plan.md` — **every glossary description at 100 words (±10%)**, on request (Aug 2026): the
   bar, the measured baseline, the eleven batches, the per-term workflow and the batch log. **L0 (the tooling)
-  and L1–L5 have shipped, which completes THE WHOLE `place` KIND — all 266 of them, 0 outside the bar**: the
-  197 countries (A–E, F–L, M–R, S–Z) and then L5's 55 caves, type sites, continents, oceans and regions —
+  and L1–L6 have shipped, which completes THE WHOLE `place` AND `person` KINDS — 320 terms, 0 outside the
+  bar**: the 197 countries (A–E, F–L, M–R, S–Z), L5's 55 caves, type sites, continents, oceans and regions,
+  and L6's 54 people (45 US presidents plus nine antiquarians, archaeologists and a poet) —
   `node .claude/gloss-length.js` is
-  the measure, with `--over` / `--under` / `--tag=<kind>` / `--list`. Where it stands today: **313 of 477 terms
-  are inside the bar**, 154 are
-  over and 10 under, mean 115.9 words, and the work is overwhelmingly TRIMMING. **L6 is next** — the 54
-  `person` terms, only 28 of them over the bar and 45 of them US presidents written to one template, so the
-  cheapest batch per term in the plan. Three things the bar does not
+  the measure, with `--over` / `--under` / `--tag=<kind>` / `--list`. Where it stands today: **341 of 477 terms
+  are inside the bar**, 128 are
+  over and 8 under, mean 115.0 words, and the work is overwhelmingly TRIMMING. **L7 is next** — `era` +
+  `industry` together, 44 terms of which 36 are over, paired because they share dates and the
+  sibling-consistency check across them has caught the Palaeolithic end-date twice. Three things the bar does not
   change and which the pass must not quietly relax: still exactly three sentences, still impartial and
   self-contained, and **still no claim past what the citations carry** — a term padded to length is the one way
   this pass can do real damage. Two rules L1 established and the later batches should just apply:
@@ -615,7 +616,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   L7 and L8 are the next two batches where that pays. **L5 also names the SITE term's padding class:
   excavation administration** — who dug, when, how many seasons, how deep — worth 15–25 words, and the one
   class the house rules already told us to cut, `docs/history-focus-plan.md` saying Folio is a history site
-  and not an archaeology site. The `person` equivalent L6 should expect is the office list. Two more checks
+  and not an archaeology site. **L6 then transferred the date-line finding to the 45 presidents**, every one
+  of whom opened by restating the term dates its `GLOSSARY_DATES` line already carries — but it must NOT
+  become a template change, since cutting it from all 45 would push nine in-band ones below 90; it is a
+  clause available to a term that NEEDS words, exactly like the border list. L6 also **half-refutes the
+  office-list prediction made here**: on a president the prior career is how they got there and is not
+  padding (Bush Sr's congressman → UN → CIA → vice president is the point of him), and the real padding
+  class is the **run-on ENUMERATION** third sentence — nine achievements joined by "and … and … and", 88
+  words on `George_W._Bush`. **L6's own hard finding is a constraint the earlier batches never met: a term
+  whose citations are ONE-PER-CLAIM cannot lose that claim.** `Barack_Obama`'s Nobel Foundation source and
+  `Donald_Trump`'s *Foreign Affairs* essay each carry exactly one clause, so cutting it ORPHANS the source
+  and `add-sources.js` refuses the batch — read the source list before choosing what to cut. And its two
+  GROW cases (the pass's first) both grew from a work already in the term's own list rather than from
+  padding: **a term under the bar is usually under it because it left something out** — `Sima_Qian` never
+  cashed its own promise to say what the Shiji's "arrangement" was. Two more checks
   L2 made standing, both
   for failures that are invisible in the
   finished prose. **Diff every MARKED sentence's YEARS before against after** — a trim can strand a marker, and
@@ -640,7 +654,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   And the checker has a blind spot worth knowing before a deep-time batch — a year regex matching
   `1\d{3}`/`20\d{2}` **cannot see BP, kya or Mya dates**, which on prehistoric terms is most of the dates
   there are (`Fertile_Crescent` lost "between about 12,000 and 11,000 years ago" out of a marked sentence in
-  silence, caught by eye). Not part of the site.
+  silence, caught by eye); **L6 fixed that**, and also stopped the check script splitting sentences with its
+  own regex, which broke on initials and read `John F. Kennedy` as two sentences — `split-abstract.js`
+  learned about runs of initials in card batch 24 and the check script had not. **L6's hedge grep caught
+  only two against L5's eight**, which is what a batch of institutional prose produces: a presidential essay
+  hedges very little. Not part of the site.
 - `docs/units-plan.md` — **metric first, imperial in parentheses**: the rule, the one imperial-first figure in the whole
   corpus (fixed), and the 360 metric figures still to gain their equivalents. Not part of the site.
 - `docs/user-decks-plan.md` — the design plan for **community decks** (user-created decks, sharing,
