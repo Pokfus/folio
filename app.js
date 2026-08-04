@@ -4915,10 +4915,18 @@
       '<button type="button" class="dm-item dm-choice' + (on ? " on" : "") + '" data-act="' + act + '" aria-pressed="' + (on ? "true" : "false") + '">' +
       "<b>" + esc(label) + "</b><small>" + esc(note) + "</small></button>";
     const random = !!S.settings.reviewRandom;
+    /* How far through the deck the reader is, on the title's own line (Aug 2026, on request). It used to
+       sit at the right of the row in the review list, where it competed with the deck's name for a 390px
+       line; the bar stays there and says the same thing at a glance, and the count is here, where a reader
+       who wants the number has come to look. Derived from the card records like every other figure in this
+       sheet, so it answers for a deck, for a community deck, for the Card-of-the-day list and for the
+       pooled review alike. */
+    const ids = entryCardIds(id), total = ids.length, studied = ids.filter(isSeen).length;
     const html =
-      '<div class="dm-head"><span class="dm-title">' + esc(info.title) + "</span>" +
+      '<div class="dm-head"><div class="dm-headmain"><span class="dm-title">' + esc(info.title) + "</span>" +
         (isReview ? '<span class="dm-where">Applies to every added deck</span>'
                   : (info.parent ? '<span class="dm-where">' + esc(info.parent) + "</span>" : "")) + "</div>" +
+        (total ? '<span class="dm-studied">' + studied + "/" + total + " studied</span>" : "") + "</div>" +
       (isReview
         ? choice("ordered", "Ordered", "Cards come up in their deck order, oldest history first", !random) +
           choice("random", "Random", "The session is shuffled each day", random)
@@ -6526,13 +6534,15 @@
         <span class="adc adc-new${z(c.nw)}">${c.nw}</span><span class="adc adc-learn${z(c.lr)}">${c.lr}</span><span class="adc adc-rev${z(c.rv)}">${c.rv}</span>
       </div>`;
     };
-    // every row in the review list carries how far through it the reader is — the bar replaced a bare blue dot,
-    // and its label replaced the plain card count beside the title, which said the same total twice
+    /* Every row in the review list carries how far through it the reader is — the bar replaced a bare blue
+       dot. The FIGURE beside it moved into the row's options sheet in Aug 2026, on request: a bar says
+       "some of the way" at a glance, which is all a row of a list is for, and the exact count is a thing
+       you go looking for — which is what holding the row is. It also gives the deck's name back the width
+       the figure was taking on a 390px line. */
     const adProg = (ids) => {
       const total = ids.length, studied = ids.filter(isSeen).length;
       return `<div class="prog ad-prog" data-pct="${total ? ((studied / total) * 100).toFixed(2) : 0}">
         <div class="track"><div class="fill"></div></div>
-        <div class="count">${studied}/${total} studied</div>
       </div>`;
     };
     /* Each added deck's row wears its COLLECTION's identity hue rather than the review's bronze (Aug 2026,
@@ -7783,6 +7793,13 @@
         <p class="bk-byline">${esc(b.author)} · ${esc(b.written)} · translated by ${esc(b.translator)}</p>
       </div>
 
+      ${/* The bar and its contents panel are ONE sticky block (Aug 2026, on a bug report). The bar has
+            always travelled with the reader; the panel sat below it in the FLOW, so opening it halfway
+            through a chapter drew the contents back at the top of the document, out of sight of the
+            button that had just been pressed. It is now positioned against the bar itself, so the two
+            can never come apart — and it overlays the prose rather than pushing it, which is what a
+            menu opened from a pinned bar has to do. */""}
+      <div class="bk-barwrap">
       <div class="bk-bar" role="tablist" aria-label="Chapters">
         <button class="bk-nav" type="button" id="bkPrev" aria-label="Previous ${esc(b.chapterWord.toLowerCase())}" title="Previous">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
@@ -7803,6 +7820,7 @@
         </button>
       </div>
       <div class="bk-toc" id="bkTocPanel" hidden></div>
+      </div>
 
       ${/* the panel the tablist above drives — aria-live="polite" so a screen reader is told the chapter
             changed, which a silent innerHTML swap would not do */""}
