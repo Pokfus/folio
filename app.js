@@ -6756,6 +6756,34 @@
     requestAnimationFrame(frame);
   }
 
+  /* THE SHIPPED VERSION — very small, in the top-left corner of the home page (Aug 2026, on request).
+     The record itself lives in `changelog.js` (`window.FOLIO_VERSION`), beside the release notes it
+     describes, so that bumping it and writing the day's changelog line are one edit in one file and the
+     two can never disagree about what shipped when; the policy comment is there rather than here.
+
+     Read at RENDER rather than captured at boot, so a reader on a cached copy of the site is told which
+     build they are actually running, and a build that somehow ships without a record simply prints
+     nothing rather than a placeholder.
+
+     The instant is stored in UTC and printed in the READER'S own clock and locale — it is a moment in
+     time, not a day of publication, so it follows the same rule as the day boundary rather than the
+     changelog's headings, which are deliberately fixed to the site language. */
+  function versionLineHTML() {
+    const V = window.FOLIO_VERSION;
+    if (!V || !V.v) return "";
+    const l = uiLang(), loc = l === "en" ? "en-GB" : l === "zh" ? "zh-CN" : l;
+    const t = V.released ? new Date(V.released) : null;
+    const when = t && !isNaN(t.getTime())
+      ? t.toLocaleDateString(loc, { day: "numeric", month: "short", year: "numeric" }) + ", " +
+        t.toLocaleTimeString(loc, { hour: "2-digit", minute: "2-digit" })
+      : "";
+    /* notranslate for the reason the discovery chip's figure carries it: a version number and a timestamp
+       are not prose, and the localisation walker must not go hunting for a key for them. */
+    const v = esc(V.v), w = esc(when);
+    return `<div class="site-ver notranslate"${when ? ` title="Folio v${v}, released ${w}"` : ""}>` +
+           `v${v}${when ? " · " + w : ""}</div>`;
+  }
+
   let _homeResize = null;   // the one resize listener the home page installs (see the foot of PAGES.home)
   PAGES.home = function (root) {
     /* The phone and the desktop build DIFFERENT pages here, not the same page styled two ways — the phone
@@ -7109,6 +7137,7 @@
        reading order: the review and its decks, then the games under a heading of their own. The games keep
        their place on the desktop too, with the discovery row after them exactly as before. */
     root.innerHTML = `
+      ${versionLineHTML()}
       <div class="page-head">
         <span class="eyebrow">${greeting}, ${esc(S.user.name)}</span>
         <h1>Today</h1>
@@ -7845,19 +7874,28 @@
      citation to 600 characters (Gummere's longest note runs to 729, and a note cut mid-sentence is worse
      than no note) and drops everything past 24 (a chapter legitimately has more notes than a card has
      sources — silently dropping them would leave wireFootnotes deleting the markers that pointed at them).
-     It carries `src-compact` for the BEHAVIOUR that class buys: the fold starts shut, and opening it says
-     something about this chapter rather than rewriting the reader's card-wide S.settings.srcCollapsed. */
+
+     It renders OPEN (Aug 2026, on request), like a card's sources and the Atlas panel's, and for the same
+     reason those do: an apparatus the reader has to go looking for is one they will not look at, and here
+     it is the translator's own commentary rather than a list of works — the part of the page most worth
+     reading after the letter itself. It started shut for a fortnight, which also meant every marker jump
+     had to expand the fold first, and that is exactly the case openFootnote used to get wrong.
+
+     It keeps `src-compact` for the OTHER half of what that class buys — opening or shutting it says
+     something about this chapter and never rewrites the reader's card-wide S.settings.srcCollapsed — and
+     for the smaller type that goes with it. So the class no longer implies a starting state; the two
+     surfaces that use it now differ there, a gloss popup still opening shut (see sourcesHTML). */
   function bookNotesHTML(notes) {
     const list = (Array.isArray(notes) ? notes : []).map((s) => String(s == null ? "" : s).trim()).filter(Boolean);
     if (!list.length) return "";
     const items = list.map((s) => '<li class="src-item">' + sanitizeHTML(s) + "</li>").join("");
     return '<section class="src-note src-compact bk-notes">' +
-      '<button class="src-head" type="button" aria-expanded="false" aria-label="Show or hide the notes" title="Show or hide the notes">' +
+      '<button class="src-head" type="button" aria-expanded="true" aria-label="Show or hide the notes" title="Show or hide the notes">' +
         '<span class="src-label">Notes</span>' +
         '<span class="src-count notranslate">' + list.length + "</span>" +
-        '<span class="src-toggle collapsed">' + SRC_CHEV + "</span>" +
+        '<span class="src-toggle">' + SRC_CHEV + "</span>" +
       "</button>" +
-      '<div class="src-collapse collapsed"><div class="src-collapse-inner">' +
+      '<div class="src-collapse"><div class="src-collapse-inner">' +
         '<ol class="src-list notranslate">' + items + "</ol>" +
       "</div></div></section>";
   }
@@ -8377,12 +8415,60 @@
       window.scrollTo({ top: Math.max(0, top - a.dy), behavior: "auto" });
     }
 
+    /* TURNING THE PAGE OVER IS A CROSSFADE, NOT A CUT (Aug 2026, on request).
+
+       The switch itself is unchanged — still the instant `data-lang` change the paired-rows markup was
+       built for, which is what keeps the reader's place exact. What happens now is that it happens
+       BEHIND A FADE, the way the home page's daily quote flips between a translation and the words
+       actually written; this page has cited that flip as its model since it was written, and was the
+       one place doing it without the fade.
+
+       It has to be a fade rather than a transition on the columns themselves. Going to two languages
+       takes the row from one grid track to two and brings back a column that was `display:none`, and
+       neither of those is a value CSS can interpolate — so there is nothing to transition even in
+       principle. `flipMove` is no help either: it translates elements, and what changes here is the
+       WIDTH of a column of prose, which can only be animated by scaling it, i.e. by squashing the text.
+
+       The fade is on the PROSE ALONE, not the panel. The chapter heading and the translator's notes say
+       the same thing in both states, and a heading that blinks on every tap reads as the page reloading
+       rather than as the text turning over. */
+    // BK_FADE must stay in step with the .bk-prose transition in styles.css — the swap is held for it,
+    // and if the two come apart the reader sees the change happen. BK_IN only releases the guard below,
+    // so it just has to outlast the incoming motion.
+    const BK_FADE = 160, BK_IN = 230;
+    let flipping = false;
+    /* Make the change while nothing is visible: the words on screen fade out and lift, `mutate` runs,
+       and the incoming ones rise into place. The prose is looked up AGAIN after the mutation rather
+       than held across the gap, because on the first press `mutate` is a whole repaint and the element
+       that faded out no longer exists.
+
+       Nothing is mutated if the reader LEFT during the fade. `mutate` ends in markPos(), which would
+       measure a detached page against the new page's scroll position and write that home as the place
+       they had got to — the same hazard the scroll listener above guards against, and just as silent. */
+    function flipProse(mutate) {
+      const out = pageEl.querySelector(".bk-prose");
+      if (!out || prefersReducedMotion()) { mutate(); return; }
+      flipping = true;
+      out.classList.add("bk-fade-out");
+      setTimeout(() => {
+        if (!pageEl.isConnected) { flipping = false; return; }
+        mutate();
+        const el = pageEl.querySelector(".bk-prose");
+        if (!el) { flipping = false; return; }
+        el.classList.add("bk-fade-in");            // held invisible and a touch low, with no transition
+        el.classList.remove("bk-fade-out");
+        // two frames: the start state has to be painted before removing the class can animate away from it
+        requestAnimationFrame(() => requestAnimationFrame(() => el.classList.remove("bk-fade-in")));
+        setTimeout(() => { flipping = false; }, BK_IN);
+      }, BK_FADE);
+    }
+
     /* Turn the page over. The first press has to fetch the original — it is a separate lazy file — so
        it repaints; every press after that is a class change with the scroll put back, which is why the
-       switch is instant and lands on the same passage. */
+       switch lands on the same passage. */
     let origLoading = false;
     function toggleOrig() {
-      if (!b.origLang || origLoading) return;
+      if (!b.origLang || origLoading || flipping) return;
       const have = !!bookOriginal(b.id);
       const next = !bookOrigOn();
       if (next && !have) {
@@ -8394,20 +8480,23 @@
           if (!pageEl.isConnected) return;              // the reader left while it loaded
           if (btn) btn.classList.remove("bk-lang-loading");
           if (!ok || !bookOriginal(b.id)) { toast("The " + (b.origName || "original") + " could not be loaded."); return; }
-          setBookOrigOn(true);
-          // repaint into the paired markup, holding the reader's depth in the chapter as a fraction —
-          // there are no rows to anchor on yet, this being the render that creates them
+          // the reader's depth in the chapter as a fraction — there are no rows to anchor on yet, this
+          // being the render that creates them. Measured before the fade, like the anchor below.
           const h = pageEl.offsetHeight || 1;
           const frac = Math.max(0, Math.min(1, (window.scrollY + window.innerHeight * 0.35 - pageEl.offsetTop) / h));
-          paint(cur, frac);
+          flipProse(() => { setBookOrigOn(true); paint(cur, frac); });
         });
         return;
       }
+      // captured BEFORE the fade begins: fading out lifts the prose a few pixels, and an anchor read
+      // mid-lift would put the reader back that far off the passage they were on
       const a = anchorNow();
-      setBookOrigOn(next);
-      applyLangMode();
-      restoreAnchor(a);
-      markPos();
+      flipProse(() => {
+        setBookOrigOn(next);
+        applyLangMode();
+        restoreAnchor(a);
+        markPos();
+      });
     }
 
     function go(c, fromReader) {
@@ -8456,37 +8545,80 @@
     const langBtn = root.querySelector("#bkLang");
     if (langBtn) langBtn.addEventListener("click", toggleOrig);
 
-    /* TAP THE PAGE TO TURN IT OVER (narrow screens only), the way the home page's daily quote flips
-       between a translation and the words actually written.
+    /* ---- THE PHONE'S TWO GESTURES ON THE PAGE ITSELF (narrow screens only) ----
 
-       The guards are the whole of it, because a false positive here SWAPS THE LANGUAGE OUT FROM UNDER
-       A READER mid-sentence — the same reasoning as the page swipe, and the same conclusion: be
-       generous about what counts as a scroll and strict about what counts as a tap.
-         · a finger that MOVED was scrolling, not tapping (BK_TAP_SLOP);
+       DOUBLE-TAP turns the page over between the translation and the original; a horizontal SWIPE moves
+       between chapters.
+
+       The language half was a SINGLE tap until Aug 2026 and was changed on request. A single tap is far
+       too cheap a target for something that swaps the whole text out from under a reader: it is also how
+       you put a keyboard away, dismiss a selection, or simply hold the phone. The gloss window made the
+       same move for the same reason, so this is now the site's one meaning for a double tap on a body of
+       text — and the deliberate cost is that the gesture is harder to discover, which is why the LATIN
+       button in the chapter bar exists and remains the route a reader is expected to find.
+
+       The two cannot be classified independently, and that is the whole difficulty: a swipe ends in a
+       pointerup that is indistinguishable from a tap unless the movement is measured. So the tap half
+       rejects anything that MOVED (BK_TAP_SLOP) and the swipe half rejects anything that did not move
+       far enough or moved mostly downward (SWIPE_MIN / SWIPE_RATIO, shared with the page swipe so the
+       two gestures cannot come to disagree about what a swipe is). A swipe also clears the pending tap,
+       or the finger that stepped a chapter would count as the first half of a language flip.
+
+       The guards both halves share:
          · a real target keeps its own behaviour — a glossary link, a footnote marker, the notes fold,
            any control — since a book is full of them and tapping one must open it, not turn the page;
          · a SELECTION is not a tap: lifting a finger at the end of selecting a phrase would otherwise
            throw away the selection and the language together;
-         · nothing happens while a gloss popup is open, which is a reader reading something else.
-       It is deliberately NOT wired above the breakpoint: there both columns are already showing, so
-       there is nothing a tap could reveal, and a stray click would take a column away instead. */
-    const BK_TAP_SLOP = 10;
+         · nothing fires while a gloss popup or any other overlay is up, which is a reader reading
+           something else;
+         · a swipe that starts in a horizontal scroller belongs to that scroller — the chapter bar is
+           one, and swipeScrollerUnder walks the ancestors rather than naming it, so a scroller added
+           here later is covered without anyone remembering this.
+
+       Neither is wired above the breakpoint. The language flip has nothing to reveal there (both columns
+       already show, so a stray one would take a column AWAY), and a wide screen reaches the chapters by
+       the tabs, the ‹ › steps and the arrow keys. The book page is deliberately absent from SWIPE_ORDER,
+       so the site-wide page swipe is inert here and these two can never fight over one gesture. */
+    const BK_TAP_SLOP = 10, BK_TAP_MS = 320, BK_TAP_GAP = 30;
     const BK_TAP_SKIP = "a,button,input,textarea,select,summary,label,[role='button'],.ttip,.fn,.src-note,.bk-n";
-    let tapX = 0, tapY = 0, tapOK = false;
-    pageEl.addEventListener("pointerdown", (e) => {
-      tapOK = e.isPrimary && !e.target.closest(BK_TAP_SKIP);
-      tapX = e.clientX; tapY = e.clientY;
-    });
-    pageEl.addEventListener("pointerup", (e) => {
-      if (!tapOK) return;
-      tapOK = false;
-      if (!b.origLang || !bookPhone()) return;
-      if (Math.abs(e.clientX - tapX) > BK_TAP_SLOP || Math.abs(e.clientY - tapY) > BK_TAP_SLOP) return;
-      if (e.target.closest(BK_TAP_SKIP)) return;
+    // listeners go on `root` — a fresh .page div per render (see render()), so they die with the page
+    // and cannot accumulate the way one on the persistent #view would
+    function bkGestureOK() {
+      return bookPhone() && !document.querySelector(".gloss-win, .img-viewer, .inline-prompt, .ctx-menu, .deck-menu, .levelup-pop");
+    }
+    let g = null, lastT = 0, lastX = 0, lastY = 0;
+    root.addEventListener("pointerdown", (e) => {
+      g = null;
+      if (!e.isPrimary || !bkGestureOK()) return;
+      if (e.target.closest(BK_TAP_SKIP)) { lastT = 0; return; }
+      g = { x: e.clientX, y: e.clientY, t: Date.now(), id: e.pointerId, touch: e.pointerType === "touch",
+            scroller: swipeScrollerUnder(e.target) };
+    }, { passive: true });
+    root.addEventListener("pointerup", (e) => {
+      const s = g; g = null;
+      if (!s || e.pointerId !== s.id || !bkGestureOK()) return;
+      if (e.target.closest(BK_TAP_SKIP)) { lastT = 0; return; }
+      const dx = e.clientX - s.x, dy = e.clientY - s.y, dt = Date.now() - s.t;
+
+      // a swipe: touch only (a mouse drag is a selection), far enough sideways, and more sideways than down
+      if (s.touch && !s.scroller && dt <= SWIPE_MS &&
+          Math.abs(dx) >= SWIPE_MIN && Math.abs(dx) >= Math.abs(dy) * SWIPE_RATIO) {
+        lastT = 0;                                  // …and never the first half of a double tap
+        step(dx < 0 ? 1 : -1);                      // the finger carries the page, as the page swipe does
+        return;
+      }
+      // …otherwise a tap, and only from a finger that stayed put and left no selection behind
+      if (Math.abs(dx) > BK_TAP_SLOP || Math.abs(dy) > BK_TAP_SLOP) { lastT = 0; return; }
       const sel = window.getSelection && window.getSelection();
-      if (sel && !sel.isCollapsed) return;
-      if (document.querySelector(".gloss-win")) return;
-      toggleOrig();
+      if (sel && !sel.isCollapsed) { lastT = 0; return; }
+      const now = Date.now();
+      if (now - lastT < BK_TAP_MS && Math.abs(e.clientX - lastX) < BK_TAP_GAP && Math.abs(e.clientY - lastY) < BK_TAP_GAP) {
+        lastT = 0;
+        e.preventDefault();                         // the second tap is ours, not a zoom
+        if (b.origLang) toggleOrig();
+        return;
+      }
+      lastT = now; lastX = e.clientX; lastY = e.clientY;
     });
 
     /* A window crossing the breakpoint changes what "showing the original" MEANS — two columns above
@@ -10198,14 +10330,71 @@
     if (head) head.setAttribute("aria-expanded", collapsed ? "false" : "true");
     return !collapsed;
   }
+  /* The nearest ancestor that actually scrolls, or null when the item scrolls with the page. A gloss
+     popup's body and the Atlas panel's columns are their own scrollports; a card's and a book's notes
+     are not. */
+  function noteScrollParent(el) {
+    for (let n = el.parentElement; n && n !== document.body && n !== document.documentElement; n = n.parentElement) {
+      const oy = getComputedStyle(n).overflowY;
+      if ((oy === "auto" || oy === "scroll") && n.scrollHeight > n.clientHeight + 1) return n;
+    }
+    return null;
+  }
+  /* Bring a note into view PAST THE FURNITURE (Aug 2026, on a bug report: on a phone the jump "doesn't
+     quite go far enough to see the actual note").
+
+     scrollIntoView({block:"nearest"}) brings the item's bottom flush with the SCROLLPORT's bottom — and
+     the scrollport is the whole viewport, which on a phone has a 58px tab bar fixed over the foot of it.
+     So the note the reader was sent to arrives underneath the bar: in view by the browser's reckoning,
+     unreadable by the reader's, and needing exactly the little extra scroll that was reported. The bars
+     are read from the custom properties that position them (both are 0 on the side of the breakpoint
+     where they do not exist), so this can never drift out of step with them.
+
+     Already clear of both? Nothing moves — a note the reader can already see should not jolt. Otherwise
+     it is placed in the middle of what is genuinely visible, except when the note is taller than that
+     band, where it is aligned to its top instead: centring a long note lands the reader mid-sentence. */
+  function scrollNoteIntoView(item) {
+    const smooth = prefersReducedMotion() ? "auto" : "smooth";
+    const sc = noteScrollParent(item);
+    const r = item.getBoundingClientRect();
+    const pad = 14;
+    if (sc) {
+      const b = sc.getBoundingClientRect();
+      if (r.top >= b.top + pad && r.bottom <= b.bottom - pad) return;
+      try { item.scrollIntoView({ block: "nearest", behavior: smooth }); } catch (e) { item.scrollIntoView(); }
+      return;
+    }
+    const cs = getComputedStyle(document.documentElement);
+    const bar = (v) => parseFloat(cs.getPropertyValue(v)) || 0;
+    const top = bar("--bar-h"), bottom = window.innerHeight - bar("--tabbar-h");
+    if (r.top >= top + pad && r.bottom <= bottom - pad) return;
+    const band = bottom - top;
+    const want = r.height > band - pad * 2
+      ? window.scrollY + r.top - top - pad
+      : window.scrollY + r.top - top - (band - r.height) / 2;
+    window.scrollTo({ top: Math.max(0, want), behavior: smooth });
+  }
   function openFootnote(note, item) {
     if (!item) return;
-    toggleSourceNote(note, true);
+    /* Expand the fold WITHOUT its animation before measuring anything. `.src-collapse` opens over .38s
+       (grid-template-rows 0fr → 1fr), so a scroll issued in the same tick — as this did — is computed
+       against a list that is still zero pixels tall, and stops short by however tall the list was about
+       to become. That is the larger half of the same report, and it is worst exactly where it was
+       noticed: at the foot of a long chapter, where the notes are the last thing in the document and the
+       page cannot even scroll that far until they exist. Animating here would only mean scrolling to a
+       moving target; the scroll IS the movement the reader asked for. */
+    const box = note && note.querySelector(".src-collapse");
+    if (box && box.classList.contains("collapsed")) {
+      const t = box.style.transition;
+      box.style.transition = "none";
+      toggleSourceNote(note, true);
+      void box.offsetHeight;          // flush the expansion into layout before it is measured
+      box.style.transition = t;
+    } else toggleSourceNote(note, true);
     item.classList.remove("src-flash");
     void item.offsetWidth;   // restart the flash when the same marker is clicked twice
     item.classList.add("src-flash");
-    try { item.scrollIntoView({ block: "nearest", behavior: prefersReducedMotion() ? "auto" : "smooth" }); }
-    catch (e) { item.scrollIntoView(); }
+    scrollNoteIntoView(item);
   }
   /* The fold header and the markers are DELEGATED, never wired per render — the pattern `.card-img`
      already uses. Everything a click has to know is derivable from the DOM at the moment it happens, and

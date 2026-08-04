@@ -16,6 +16,17 @@ It is a plain static website — open `index.html` and it runs.
   matters. If unsure about a fact, say so; don't invent dates, names, or definitions.
 - **Be honest about scope and tradeoffs.** Flag limitations and judgment calls plainly rather than
   papering over them.
+- **Bump the version with it.** `window.FOLIO_VERSION = { v, released }` at the top of `changelog.js` is printed
+  very small in the top-left corner of the home page, and it is the reader's answer to "which Folio am I
+  looking at?" — so it must be bumped **in the same commit as the changelog line**, on every merge to main.
+  `v` is MAJOR.MINOR: the minor goes up by one per release, the major only when a whole new area of the site
+  lands (the Library would have been one). `released` is an ISO instant in **UTC** and must be the real moment
+  the work was finished — the page prints it in the reader's own clock, so a placeholder rounded to midnight
+  is wrong in every timezone at once. It lives in `changelog.js` rather than app.js precisely so that
+  bumping it and writing the day's line are one file open and two edits, and the two can never come to
+  disagree about what shipped when. It is **not** sw.js's `VERSION`, which is a cache generation — bumping
+  that one throws every cached file away and costs each reader ~1.4 MB, so the two are counted separately and
+  a release does not touch it.
 - **Keep the changelog current.** Whenever a user-requested change ships to the live site (committed/pushed),
   append a one-line plain-English summary to TODAY's entry in `changelog.js` (create the day if missing; newest
   day first). Reader-facing wording — what changed for the user, not how. **Card/glossary content changes are
@@ -890,6 +901,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   "About" but the route/hash stay `mission`; section order: intro prose + forgetting-curve SVG → "How to use Folio"
   walkthrough + feature blurbs → FAQ (collapsible `.faq-item`s) → **beta feedback form** → changelog →
   credits/licenses). See the golden rule: append to today's entry on every ship.
+  It also carries **`window.FOLIO_VERSION = { v, released }`** at the top — the shipped version, printed in the
+  top-left corner of the home page by `versionLineHTML()` (see the golden rule above, and the bullet under
+  "How the app is wired"). Nothing rewrites this file programmatically, so both are hand-edited together.
 - `mission.js` — `window.MISSION = { title, paras:[…] }`, the About-page intro copy (raw HTML; **deliberately
   jargon-free and written at a low reading level — NO glossary auto-linking on this page**, `autoLinkGlossary` is not
   called). **Admins click the title or a paragraph on the page to edit it in place** (Esc cancels, Ctrl+Enter/blur
@@ -1059,11 +1073,29 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
       prehistory and geography and its keys collide with plain Latin far harder than with English —
       `genus` is the example. `linkProperNounsOnly` exists because that already bites in translated prose;
       in the original language it would be the rule rather than the exception.
-    · **The tap gesture's guards are the whole of it**, because a false positive swaps the language out
-      from under a reader mid-sentence: a finger that MOVED was scrolling, a real target (link, `.ttip`,
-      footnote marker, notes fold, any control) keeps its own behaviour, a live SELECTION is not a tap,
-      and nothing fires while a gloss popup is open. Narrow screens only — above the breakpoint both
-      columns already show, so a stray click would take one AWAY rather than reveal anything.
+    · **It is a DOUBLE tap** (Aug 2026, on request — it was a single one, and the wording above is what
+      that gesture was for). A single tap is far too cheap a target for something that swaps the whole
+      text out from under a reader: it is also how you put a keyboard away, dismiss a selection or
+      simply hold the phone. The gloss window made the same move for the same reason, so a double tap
+      on a body of text now means one thing across the site. The deliberate cost is discoverability,
+      which is what the **LATIN button in the chapter bar** is for and why it must stay.
+    · **A horizontal SWIPE steps between chapters** (Aug 2026, on request), and the two gestures cannot
+      be classified independently — a swipe ends in a pointerup indistinguishable from a tap unless the
+      movement is measured. So the tap half rejects anything that MOVED (`BK_TAP_SLOP`) and the swipe
+      half rejects anything short or mostly-downward (`SWIPE_MIN` / `SWIPE_RATIO`, **shared with the
+      page swipe** so the two gestures cannot come to disagree about what a swipe is); a swipe also
+      **clears the pending tap**, or the finger that stepped a chapter counts as half a language flip.
+      The book page is deliberately absent from `SWIPE_ORDER`, so the site-wide page swipe is inert here
+      and the two can never fight over one gesture.
+    · **The guards are the whole of it**, because a false positive swaps the language out from under a
+      reader mid-sentence: a real target (link, `.ttip`, footnote marker, notes fold, any control) keeps
+      its own behaviour, a live SELECTION is not a tap, nothing fires while a gloss popup or any other
+      overlay is up, and a swipe out of a horizontal scroller belongs to that scroller (the chapter bar
+      is one — walked up the ancestors by `swipeScrollerUnder`, not named). Narrow screens only: above
+      the breakpoint both columns already show, so a stray tap would take one AWAY rather than reveal
+      anything, and the chapters are reached by the tabs, the ‹ › steps and the arrow keys.
+      **Both listeners go on `root`** — a fresh `.page` div per render — so they die with the page;
+      one on the persistent `#view` would accumulate a copy per navigation.
     · The choice is device-local (`folio_book_orig_v1`), like the marker's position and the place sheet's
       height. **The front matter is rebuilt on every paint**, not once, because the original's licence box
       is built from the original's own file, which lands after the page was set up.
@@ -1142,9 +1174,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `wireFootnotes` numbers the markers and the delegated fold handler opens it with no new wiring). It is
     NOT `sourcesHTML`, because that carries caps written for a card — `normSources` trims a citation to 600
     characters (Gummere's longest note is 729, and a note cut mid-sentence is worse than none) and drops
-    everything past 24, which would leave `wireFootnotes` deleting the markers that pointed at them. It
-    carries `src-compact` for that class's BEHAVIOUR: shut by default, and opening it never rewrites the
-    reader's card-wide `S.settings.srcCollapsed`.
+    everything past 24, which would leave `wireFootnotes` deleting the markers that pointed at them.
+    **It renders OPEN** (Aug 2026, on request — it was shut for a fortnight), like a card's sources and
+    the Atlas panel's and for the same reason: an apparatus a reader has to go looking for is one they
+    will not look at, and here it is the translator's own commentary rather than a works list. It keeps
+    `src-compact` for the OTHER half of what that class buys — opening or shutting it never rewrites the
+    reader's card-wide `S.settings.srcCollapsed` — and for the smaller type. **So the class no longer
+    implies a starting state**: the two surfaces using it now differ there, a gloss popup still opening
+    shut. Its being shut was also why every marker jump had to expand the fold first, which is exactly
+    the case `openFootnote` used to get wrong (next bullet but one).
   · **`linkProperNounsOnly` — a book links only what the prose CAPITALISES.** Folio's glossary is a glossary
     of prehistory, palaeoanthropology, geography and heads of state; run unrestricted over Roman philosophy
     it links the right proper nouns (Greece, Sicily, Syria, Egypt, Hesiod) and then four words that mean
@@ -1762,9 +1800,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     attributes, with `wireSourceLinks` in a try/catch: the links are decoration over text this code didn't
     write, the numbering is the join between the prose and the list, and one must not be able to take the
     other down.
-  · **A card's and the Atlas panel's folds are OPEN by default; a GLOSS POPUP's is always SHUT.** On the two
-    big surfaces a citation the reader has to go looking for is one they will not check, and checking is the
-    whole point of shipping the apparatus (July 2026, on request — they were collapsed before). **A reader who
+  · **A card's, the Atlas panel's and a BOOK's folds are OPEN by default; a GLOSS POPUP's is always SHUT.** On
+    the big surfaces a citation the reader has to go looking for is one they will not check, and checking is the
+    whole point of shipping the apparatus (July 2026, on request — they were collapsed before; the book's notes
+    joined them Aug 2026, also on request). **A reader who
     shuts one there is remembered**: `S.settings.srcCollapsed` (in `defaultState`, so old saves back-fill; a
     device setting, not synced) is written by the **delegated header handler only** — a marker jump force-opens
     the fold for one look and deliberately does NOT change the preference. The Atlas section follows the same
@@ -1777,6 +1816,29 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     is not remembered, and the next popup opens shut again. A popup is a glance at a word met mid-sentence and
     the fold is a third of its height; expanding one says something about that term, not about every term
     opened afterwards. A marker jump still force-opens it, there as everywhere. Guarded by `test-sources.js`.
+  · **A MARKER JUMP MUST CLEAR THE FURNITURE, AND MUST MEASURE A FOLD THAT IS ALREADY OPEN**
+    (`openFootnote` / `scrollNoteIntoView`, Aug 2026, on a bug report: on a phone the jump "doesn't quite go
+    far enough to see the actual note"). Two faults compounded, and each is invisible to a test that only
+    asks whether the note is in the viewport.
+    · `scrollIntoView({block:"nearest"})` brings the item's bottom flush with the **scrollport's**, and the
+      scrollport is the whole viewport — which on a phone has a 58px tab bar fixed over the foot of it. So
+      the note arrived UNDERNEATH the bar: in view by the browser's reckoning, unreadable by the reader's.
+      Measured on a 390×844 phone, the note landed at 807–844 with the bar starting at 786.
+    · `.src-collapse` opens over .38s (`grid-template-rows` 0fr → 1fr), and the scroll was issued in the
+      same tick — so it was computed against a list still zero pixels tall and stopped short by however
+      tall the list was about to become. Same phone, fold shut: the note landed at **850–887, entirely
+      below an 844px viewport**. Worst exactly where it was noticed, at the foot of a long chapter, where
+      the notes are the last thing in the document and the page cannot scroll that far until they exist.
+    The fold is now expanded WITHOUT its animation before anything is measured (animating would only mean
+    scrolling to a moving target; the scroll IS the movement asked for), and `scrollNoteIntoView` reads the
+    bars off the custom properties that position them (`--bar-h`, `--tabbar-h` — both 0 on the side of the
+    breakpoint where they do not exist, so this cannot drift out of step with them). Already clear of both →
+    **nothing moves**, since a note the reader can see should not jolt; otherwise it is placed in the middle
+    of what is genuinely visible, except when the note is taller than that band, where it is aligned to its
+    top — centring a long note lands the reader mid-sentence. A note inside its OWN scroller (a gloss popup's
+    body, the Atlas panel's columns — `noteScrollParent`) has no fixed furniture over it and keeps
+    `scrollIntoView`. Guarded by `test-library.js`, which asserts against the tab bar's own rendered box
+    rather than a hard-coded 58, from an open fold and from a shut one.
   · **A citation ends in its URL, written as plain text**, and `linkifySrcItem` turns it into an anchor —
     **inside `sourceListHTML`, so the list is serialized already wired** rather than fixed up by a pass over the
     rendered page. That was the second half of the same lesson the fold header learned: a list that depends on a
@@ -2459,6 +2521,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `_ttsAudio`. Chinese hanzi stays on the device voice (no commercially-clear zh Piper voice). The bake is incremental
   (manifest hash check; `--force` re-bakes; `--scan-speakers=N` pitch-scans voices; toolchain auto-downloads into gitignored
   `.claude/tts-cache/`). Gloss popups + selection read-aloud always use the engine.
+- **THE VERSION LINE** (`versionLineHTML`, just above `PAGES.home`; `.site-ver` in styles.css — Aug 2026, on
+  request). The shipped version and the moment it went out, very small in the **top-left corner of the home
+  page**, above the greeting. Four decisions in it are load-bearing.
+  · **The record lives in `changelog.js`, not in app.js** — see the golden rule. Bumping it and writing the
+    day's changelog line are then one edit in one file.
+  · **It is read at RENDER, never captured at boot.** A reader on a service-worker-cached copy of the site is
+    running an older build, and the number they are shown must be that build's, since the whole point of it is
+    to be quotable in a bug report. It also means a missing record prints **nothing** rather than a
+    placeholder, which is the honest failure.
+  · **The instant is stored in UTC and printed in the READER's own clock and locale**, like the day boundary
+    and unlike the changelog's day headings, which are deliberately fixed to the site language: this is a
+    moment in time rather than a day of publication.
+  · It is a **sibling BEFORE `.page-head`, not inside it**, and carries its own `text-align:left`: below 640px
+    and in the academy and gazette themes the page head is centred or boxed in a rule, and a centred version
+    number reads as a title rather than as a stamp. `notranslate` for the reason the discovery chip's figure
+    carries it. Its colour is `--ink-faint`, the site's own quiet token — so it joins the captions and source
+    lines that the **High contrast** mode re-tones, and `test-a11y.js` covers it with no change of its own
+    (3.25:1 reported in the default mode, clearing the bar with the mode on). Guarded by `test-layout.js`.
 - **Home page** (`PAGES.home`): greeting → daily quote (`QUOTES` — world sources East and West, standard published
   translations only, no loose internet attributions; **clicking one flips it to the original** — text, speaker and
   source from the entry's `o` block, `wireDailyQuote` swapping `hidden` on the `.dq-live`/`.dq-orig` spans, clicking

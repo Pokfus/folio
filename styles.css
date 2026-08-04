@@ -323,6 +323,18 @@ html[dir="rtl"] .page-head{text-align:right;}
    watch a page arrive in blank steps over a fifth of a second. Delays go to zero there. */
 @media (prefers-reduced-motion:reduce){ .page > *{animation-delay:0s !important;} }
 
+/* The shipped version and the moment it was released, in the top-left corner of the home page — quiet
+   enough to be ignored and precise enough to quote in a bug report (see versionLineHTML in app.js).
+   `--ink-faint` is the site's own quiet token, so the high-contrast mode re-tones it along with every
+   caption and source line; don't hard-code a grey here. It stays LEFT-aligned at every width: below
+   640px the page head under it is centred, and a centred version number reads as a title rather than
+   as a stamp. */
+.site-ver{
+  font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.06em;
+  color:var(--ink-faint); line-height:1; margin:0 0 8px; text-align:left;
+}
+html[dir="rtl"] .site-ver{text-align:right;}
+
 .page-head{margin:2px 0 22px;}
 .page-head h1{font-family:var(--display); font-weight:600; font-size:calc(clamp(28px,5vw,38px) * var(--fs)); margin:6px 0 0; letter-spacing:-.015em;}
 .page-head p{color:var(--ink-faint); margin:8px 0 0; font-size:calc(15.5px * var(--fs)); max-width:60ch;}
@@ -4656,6 +4668,21 @@ body.night .rv-star.on{color:#E6C765;}
    drawn, because closing the gap would sit each column beside a passage it is not; the empty side is
    simply left empty, which is what "this edition has nothing here" looks like. */
 .bk-bi[data-lang="both"] .bk-col:empty{min-height:1.78em;}
+/* TURNING THE PAGE OVER IS A CROSSFADE, NOT A CUT (Aug 2026, on request). The languages dissolve into
+   each other the way the home page's daily quote does: the words on screen fade out and lift, the
+   `data-lang` change is made while nothing is visible, and the incoming ones rise into place.
+   `bk-fade-in` holds that incoming state with NO transition — removing the class is what animates it.
+   The global prefers-reduced-motion killswitch flattens all of this, and flipProse() swaps outright in
+   that case rather than waiting out the timings. */
+.bk-prose{transition:opacity .16s ease, transform .16s ease;}
+.bk-prose.bk-fade-out{opacity:0; transform:translateY(-4px);}
+.bk-prose.bk-fade-in{opacity:0; transform:translateY(6px); transition:none;}
+/* The second column ARRIVES rather than appearing: it rises a little further and settles a moment after
+   the translation beside it, so a wide screen reads as gaining a column rather than as the whole page
+   repainting. Scoped to the two-column state on purpose — on a phone this column is the only one
+   showing, and the delay would do nothing there but make every tap feel slower. */
+.bk-bi[data-lang="both"] .bk-col-or{transition:opacity .26s ease .06s, transform .26s ease .06s;}
+.bk-bi[data-lang="both"].bk-fade-in .bk-col-or{opacity:0; transform:translateY(9px); transition:none;}
 .bk-lang-btn{width:auto; padding:0 11px; gap:5px; font-family:var(--mono);
   font-size:calc(10.5px * var(--fs)); letter-spacing:.06em; text-transform:uppercase;}
 .bk-lang-btn.on{background:var(--indigo); border-color:var(--indigo); color:#FFFFFF;}
