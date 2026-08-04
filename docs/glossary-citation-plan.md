@@ -2614,6 +2614,40 @@ And a cheap way to pick the next batch: **every one of the ten already appeared 
 (`wh-016` alone names six of them), so all ten began auto-linking on arrival. Grep the deck for
 capitalised surfaces that resolve to no term.
 
+### Batch N12 — the Olduvai circle, the Serengeti and the Maasai (2026-08-04)
+
+Twelve requested, **nine shipped**: `Jonny's_Child`, `Jonathan_Leakey`, `Arthur_Keith`,
+`Cerebral_Rubicon`, `Bernard_Wood`, `Mark_Collard`, `Serengeti`, `Ngorongoro_Conservation_Area`,
+`Maasai`. All twelve were already words in `wh-017` and `wh-018`, which is N11's selection rule paying
+off a second time.
+
+**Its finding is a trap in the linker, and it is the batch's most useful output.** The master regex in
+`buildGlossIndex` matches case-INsensitively; `resolveGlossKey` resolves a proper-noun surface
+case-SENSITIVELY; and surfaces are tried longest first. So a long surface that matches and then fails
+to resolve **swallows the shorter one that would have resolved**. Adding `Serengeti Plains` as an alias
+therefore *stopped* `Serengeti` linking in `Olduvai_Gorge`, whose prose reads "Serengeti **plains**",
+and `Cerebral_Rubicon` never linked at all because `wh-018` writes "**c**erebral Rubicon". Nothing looks
+broken when this happens — neighbouring terms still link. **The fix is an all-lowercase alias**
+(`isProperCS` only inspects the surface after its first character, so the lowercase form lands in the
+case-insensitive map and resolves at any casing). **Check the casing the CARDS use, not the casing the
+term is titled in**, and re-run the resolution probe over the batch's surfaces before shipping.
+
+**Three deferred, and both reasons are access rather than scholarship.** `zobodat.at` has gone behind
+the Anubis proof-of-work wall (200 with a challenge page — a sixth variety of 200-status error
+document), which leaves Gentry et al. 1995 open to a reader and unreadable here; it is the only work
+describing the **`Balbal_Depression`** and the only account of **`Wilhelm_Kattwinkel`**, so both fall to
+one source against a bar of two. The twelve Europe PMC hits for "Olbalbal" are an NCA administrative
+ward and a herbarium locality, **not the depression** — do not conflate them. **`Munich`** fails
+differently: the city's own statistics pages are 200 but JavaScript-rendered with no figures in the
+HTML, the Bavarian statistical office publishes tables rather than a profile, and the only openly
+readable sentences calling Munich the capital of Bavaria sit in unrelated medical papers. Rendering the
+JS is the route, once the agent proxy will pass Chromium's CONNECT.
+
+**A route worth reusing: Plarr's Lives of the Fellows** (`livesonline.rcseng.ac.uk`), the Royal College
+of Surgeons' open biographical dictionary, carried the whole of `Arthur_Keith`. It covers the anatomists
+palaeoanthropology keeps meeting, and it is the answer to G8's finding that the literature does not pay
+for lives. Fetch the `?qu=<record id>` search URL, which returns the full text; the asset URL does not.
+
 ## Tracking
 
 ```

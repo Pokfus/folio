@@ -11199,3 +11199,167 @@ to "British anatomist" on a later pass without a source.**
 - `www.nature.com` — **303** to an identity-provider endpoint.
 - `vatican.va` — 200 but JavaScript-rendered; the constitution's text never arrives.
 - `doaj.org/api` — 200 and useful for finding open articles by title.
+
+## Batch N12 — the Olduvai circle, the Serengeti and the Maasai; THREE TERMS DEFERRED (2026-08-04)
+
+Twelve terms requested, **nine shipped**: `Jonny's_Child`, `Jonathan_Leakey`, `Arthur_Keith`,
+`Cerebral_Rubicon`, `Bernard_Wood`, `Mark_Collard`, `Serengeti`, `Ngorongoro_Conservation_Area`,
+`Maasai`. **`Balbal_Depression`, `Wilhelm_Kattwinkel` and `Munich` are deferred** — see below.
+As in N11, every one of the twelve already appeared in shipped card prose, all of it in `wh-017`
+(Olduvai Gorge) and `wh-018` (*Homo habilis*).
+
+### THE FINDING: a proper-noun ALIAS can silently kill the link it was added to make
+The master regex in `buildGlossIndex` carries the `i` flag, so it matches **case-insensitively**;
+`resolveGlossKey` then resolves a surface through `byNameCS` **case-sensitively** whenever
+`isProperCS` is true — that is, whenever the surface has a capital anywhere after its first character.
+The two disagree, and because `names` is sorted **longest first**, a long surface that MATCHES and then
+fails to RESOLVE swallows the shorter surface that would have resolved. Measured, not reasoned:
+
+- Adding `Serengeti Plains` as an alias of `Serengeti` **stopped `Serengeti` linking** in
+  `Olduvai_Gorge`, whose prose reads "the eastern Serengeti **plains**" with a lowercase p. The regex
+  preferred the 16-character alias, `byNameCS["Serengeti plains"]` missed, `byName` had no entry
+  (the alias went to the CS map), and the whole phrase went unlinked — while `Tanzania` three words
+  later linked normally, so nothing looked broken.
+- `Cerebral_Rubicon` had the same fault from birth: `wh-018` writes "**c**erebral Rubicon" and the
+  humanised key is "Cerebral Rubicon".
+
+**The fix is an all-lowercase alias**, because `isProperCS` only looks after the first character:
+`serengeti plains` / `cerebral rubicon` land in `byName` and then resolve at ANY casing. Both terms
+carry one. **When a term's surface has an internal capital, add the all-lowercase form as an alias** —
+and check the casing the CARDS actually use, not the casing the term is titled in.
+Verified by slicing `isProperCS` + the index build + `resolveGlossKey` out of app.js and resolving all
+23 surfaces from N11 and N12 at the corpus's own casings; all 23 resolve.
+
+### The three deferrals, and they are one problem in two shapes
+**`zobodat.at` is now behind the Anubis proof-of-work wall** — the same wall batch 21 recorded on
+`hal.science` and `journals.openedition.org`. `https://www.zobodat.at/pdf/Mitt-Bayer-Staatsslg-Pal-hist-Geol_35_0125-0135.pdf`
+answers **200 with a 4.4 KB HTML challenge page** rather than the PDF, which is a **sixth variety of
+200-status error document** for the list C0/C7/P7 have been keeping. Gentry et al. 1995 is therefore
+open to a human reader and unreadable from here. Under G6's rule its **recorded** claims stay citable
+(they are quoted verbatim in the batch-17 entry above), but nothing new can be drawn from it.
+- **`Balbal_Depression`** — Gentry is the ONLY work that describes it ("after another 9 km drains into
+  the Balbal depression"). Europe PMC has no open paper on it; the twelve hits for "Olbalbal" are an
+  administrative WARD of the NCA and a herbarium locality, **not the depression**, and conflating the
+  two would be a real error. One source against a bar of two, so deferred rather than padded.
+- **`Wilhelm_Kattwinkel`** — same shape. Gentry's introduction is the whole of the openable record
+  (1911, Martha present, the sleeping-sickness expedition against the butterfly-collector legend, the
+  fossils carried to Munich). Mercader 2021 and 2020, both open, contain no history of research; a
+  Europe PMC search for "Kattwinkel" returns nothing about him.
+- **`Munich`** — a different failure and the more annoying one. The city's own statistics pages
+  (`stadt.muenchen.de/infos/muenchen-in-zahlen.html`, `.../statistik-muenchen.html`) answer **200 with
+  ~118 KB of JavaScript shell** and no figures in the HTML; `statistik.bayern.de` publishes data tables
+  rather than a readable profile; `whc.unesco.org` is 403. The one class of source that DOES mention
+  Munich openly is medical papers that say "Munich, the capital of Bavaria" in passing, and citing a
+  COVID-vaccination survey for a city's definition is exactly the padding this pass forbids.
+  **Route for next time: render the JS.** Chromium is present here and Playwright drives it, but the
+  agent proxy refuses its CONNECT (`ERR_CONNECTION_RESET` even with `proxy:{server:$HTTPS_PROXY}`), so
+  that route needs the proxy sorted first.
+
+### The works
+- Royal College of Surgeons of England, "Keith, Sir Arthur (1866–1955)," Plarr's Lives of the Fellows, record E005084, https://livesonline.rcseng.ac.uk/client/en_GB/lives/search/results?qu=E005084. [Open access]
+  - opened: 2026-08-04 · **the find of the batch, and a route to reuse**: Plarr's Lives is the RCS's
+    biographical dictionary of its Fellows, open, and it covers the anatomists that palaeoanthropology
+    keeps meeting. The `?qu=<record id>` search URL returns the FULL text; the human-readable asset page
+    (`/search/asset/<n>/0`) returns "Resource Error" when fetched directly.
+  - supports: born at Old Machar, Aberdeenshire; Aberdeen University with first-class honours in 1888;
+    taught anatomy at the London Hospital Medical College from 1895 to 1908; "he was the first to
+    describe, with his pupil Martin Flack, the sino-atrial node or pace-maker of the human heart";
+    "Keith was appointed Conservator of the Hunterian Museum at the College in 1908"; that "the last
+    forty years of his life were devoted to anthropology"; *The Antiquity of Man* (1915); President of
+    the Royal Anthropological Institute 1914–17; "During the 1920s he became a one-man 'court of
+    appeal' for physical anthropologists from all over the world"; knighted 1921; died at Downe on
+    7 January 1955 aged 88
+  - **does NOT mention Piltdown**, which is why the term does not
+  - used by: Arthur_Keith
+- Ian Tattersall, "Endocranial Volumes and Human Evolution," <i>F1000Research</i> 12 (2023): 565, https://pmc.ncbi.nlm.nih.gov/articles/PMC10517302/. [Open access]
+  - opened: 2026-08-04 · full text via Europe PMC
+  - supports: "Arthur Keith's (1948) 750 ml 'cerebral Rubicon' for the achievement of 'humanity,' by
+    which he broadly meant membership in the genus *Homo*" — the only open work found that states both
+    the figure and what Keith meant by it
+  - used by: Cerebral_Rubicon, Arthur_Keith
+- Department of Anthropology, George Washington University, "Bernard Wood," https://anthropology.columbian.gwu.edu/bernard-wood. [Open access]
+  - opened: 2026-08-04 · the faculty page, written in the first person
+  - supports: "I am a medically-trained paleoanthropologist"; "University Professor of Human Origins";
+    that "it was Michael Day who, via Mary Leakey, arranged for me to be included in Richard Leakey's
+    initial 1968 expedition to what was then called East Rudolf"; "the topic of my PhD (The University
+    of London, 1975) was sexual dimorphism in the skeleton of higher primates"; and his stated interests
+    in hominin systematics and phylogeny reconstruction
+  - used by: Bernard_Wood
+- Department of Archaeology, Simon Fraser University, "Mark Collard," https://www.sfu.ca/archaeology/about/people/faculty/mcollard.html. [Open access]
+  - opened: 2026-08-04 · the faculty page, first person
+  - supports: "I joined the Department in July 2007, after stints at University College London,
+    Washington State University, and the University of British Columbia. Currently, I am the Canada
+    Research Chair in Human Evolutionary Studies and a Full Professor of Archaeology and Biological
+    Anthropology. I am also the director of the SFU Human Evolutionary Studies Program"; and the
+    research list — "the identification of species in the hominin fossil record, the reconstruction of
+    fossil hominin and non-human primate phylogenetic relationships, and the estimation of body mass,
+    stature and age from skeletal material"
+  - **note**: `chairs-chaires.gc.ca/chairholders-titulaires/profile-eng.aspx?profileId=<n>` looks like a
+    per-holder government profile and is not — it serves the whole chairholder list whatever the id.
+  - used by: Mark_Collard
+- E. V. Williams, J. Elia Ntandu, P. Ficinski, and M. Vorontsova, "Checklist of Serengeti Ecosystem Grasses," <i>Biodiversity Data Journal</i> 4 (2016): e8286, https://pmc.ncbi.nlm.nih.gov/articles/PMC4867701/. [Open access]
+  - opened: 2026-08-04 · full text via Europe PMC
+  - supports, in one sentence of its introduction and better than any conservation-agency page reachable
+    here: "The Serengeti Ecosystem Region … is an area of 25,000 km 2 , found south of the Tanzania and
+    Kenya border between 2° and 4° S, defined by the movement of migratory wildebeest"; "The Serengeti
+    National Park (established in 1940, 14,700 km 2 ) and the Ngorongoro Conservation Area (established
+    in 1959, 8,300 km 2 ) form the majority of the SER. Both are also designated by UNESCO as World
+    Heritage Sites and Biosphere Reserves"
+  - **a grass checklist carrying the geography**: batch 17's gentry-1995 lesson repeated — the best
+    account of a place is often the introduction to a paper about something else entirely
+  - used by: Serengeti, Ngorongoro_Conservation_Area
+- Isla Duporge et al., "AI-Based Satellite Survey Offers Independent Assessment of Migratory Wildebeest Numbers in the Serengeti," <i>PNAS Nexus</i> 4, no. 9 (2025): pgaf264, https://pmc.ncbi.nlm.nih.gov/articles/PMC12418379/. [Open access]
+  - opened: 2026-08-04 · full text via Europe PMC
+  - supports: "fewer than 600,000 individuals—approximately half the widely cited estimate of 1.3
+    million wildebeest, which has remained largely unchanged since the 1970s"
+  - **cited as a live disagreement, not as a correction**: the term gives both figures and says the
+    question is open, which is what the paper itself asks for ("Rather than undermining previous
+    methods, this discrepancy underscores the importance of using independent … tools")
+  - used by: Serengeti
+- O. R. Aminu et al., "Participatory Mapping Identifies Risk Areas and Environmental Predictors of Endemic Anthrax in Rural Africa," <i>Scientific Reports</i> 12 (2022): 10514, https://pmc.ncbi.nlm.nih.gov/articles/PMC9217952/. [Open access]
+  - opened: 2026-08-04 · full text via Europe PMC, under "Study area"
+  - supports: "The NCA encompasses an area of 8292 km 2 and in 2020 had approximately 87,000
+    inhabitants, who are primarily dependent on livestock for their livelihoods. It is a multiple-use
+    area where people coexist with wildlife and livestock, and practise pastoralism with transhumance,
+    characterised by seasonal movements of livestock for accessing resources such as grazing areas and
+    water"; and the eleven administrative wards, of which one is Olbalbal
+  - used by: Ngorongoro_Conservation_Area
+- David M. Goldman, Tyler J. Waterfall, and Micaela Nagra, "Traditional Maasai Dietary Practices and Their Inapplicability to Modern Carnivore Diets: A Narrative Review," <i>Cureus</i> 17, no. 2 (2025): e78448, https://pmc.ncbi.nlm.nih.gov/articles/PMC11882341/. [Open access]
+  - opened: 2026-08-04 · full text via Europe PMC
+  - supports: "The Maasai are semi-nomadic pastoralists primarily inhabiting southern Kenya and northern
+    Tanzania, whose livelihoods center on herding cattle, sheep, and goats"; "the Maasai practice
+    seasonal migration to manage grazing lands and water resources, establishing temporary settlements
+    during the wet season and more permanent dwellings in the dry season"
+  - used by: Maasai
+- Tara B. Mtuy et al., "The Role of Cultural Safety and Ethical Space within Postcolonial Healthcare for Maasai in Tanzania," <i>BMJ Global Health</i> 7, no. 11 (2022): e009907, https://pmc.ncbi.nlm.nih.gov/articles/PMC9660600/. [Open access]
+  - opened: 2026-08-04 · full text via Europe PMC
+  - supports: "Maa, the primary language spoken by Maasai people"; "The Maasai originated in what is
+    today Sudan and the lower Nile Valley and slowly migrated south along the Rift Valley to Tanzania";
+    that Maasai are "1 of around 120 ethnic groups in Tanzania" and that the ground for calling them
+    indigenous "is the maintenance of a way of life and a history of social and political
+    marginalisation"
+  - **G9's rule bent, not broken**: the register still does not pay for peoples, but a health-services
+    paper written WITH the community carries the ethnography its methods section needs. Look for the
+    paper that had to describe the people in order to study something else.
+  - used by: Maasai
+
+### A source for N11's open question about John Napier
+N11 shipped `John_Napier` with no nationality, having found nothing openable that gave one, and warned
+against promoting him to "British anatomist" without a source. The Smithsonian's *Homo habilis* species
+record — already cited on four terms — says outright: "Louis Leakey, South African scientist Philip
+Tobias, and **British scientist John Napier** declared these fossils a new species". So **"British" is
+now sourced and "anatomist" still is not.** The term was left as written (it sits at the 110-word
+ceiling); a later editor wanting to add it has the citation here.
+
+### Hosts, measured 2026-08-04 (batch N12)
+- `www.ncaa.go.tz` — **gateway policy denial** (the proxy reports `connect_rejected … 502 to CONNECT`),
+  not link rot; it answered on 2026-07-31 and is cited by `Olduvai_Gorge` and `Louis_Leakey`. Left in
+  place, as `whc.unesco.org` 403s are.
+- `www.zobodat.at` — **200 with an Anubis challenge page**; see above.
+- `livesonline.rcseng.ac.uk` — 200 on the `?qu=` search URL, "Resource Error" on the asset URL.
+- `anthropology.columbian.gwu.edu`, `www.sfu.ca`, `scielo.org.za`, `humanorigins.si.edu`,
+  `leakeyfoundation.org` — 200.
+- `stadt.muenchen.de`, `www.muenchen.de`, `statistik.bayern.de`, `bayern.de`, `snsb.de` — 200 but
+  JavaScript-rendered or table-only; no readable figures.
+- `www.tanzaniaparks.go.tz` — host up, 404 on the national-park paths tried.
+- `whc.unesco.org`, `chairs-chaires.gc.ca` (per-holder profiles) — unusable.
