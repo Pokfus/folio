@@ -371,7 +371,15 @@ function shippedBookLeaks() {
        Stoic), `epoch`, `iron` and `bronze` to taxonomy, geology and the ages of the world. Those links
        look perfectly normal on the page — a glossary term, styled like every other — while telling the
        reader something untrue about the sentence they are reading. Nothing throws. So: walk the WHOLE
-       book and assert no lowercase surface was ever linked. */
+       book and assert no lowercase surface was ever linked.
+
+       Reduced motion is turned on for the walk, and it is not incidental: a chapter change is a slide now
+       (slideChapter), so the new chapter is not painted until the swap at the midpoint, and a loop clicking
+       125 tabs a hundredth of a second apart would measure the FIRST chapter 125 times over — which reads
+       as a book with almost nothing linked in it rather than as a test outrunning an animation. This sweep
+       is about what the prose links, so the honest fix is to take the motion out rather than to wait it
+       out three books deep. */
+    await page.emulateMedia({ reducedMotion: "reduce" });
     const sweep = await page.evaluate(async () => {
       const bad = [], seen = {};
       for (const t of [...document.querySelectorAll(".bk-tab")]) {
@@ -385,6 +393,7 @@ function shippedBookLeaks() {
       }
       return { bad, keys: Object.keys(seen) };
     });
+    await page.emulateMedia({ reducedMotion: "no-preference" });
     check("no common noun is linked anywhere in the book", sweep.bad.length === 0, sweep.bad.slice(0, 6).join(", "));
     check("...while the proper nouns still are", sweep.keys.length >= 5, sweep.keys.join(","));
     check("...and the four that mean something else in Seneca are gone",
@@ -730,6 +739,39 @@ function shippedBookLeaks() {
     await page.waitForTimeout(500);
     check("[phone] a short sideways drag does not change the chapter",
       (await chapNow()).ch === beforeSwipe.ch, (await chapNow()).ch);
+
+    /* …AND THE STEP IS A SLIDE, NOT A CUT (Aug 2026, on request). Measured MID-FLIGHT, because the
+       finished state of a slide and the finished state of a cut are the same chapter in the same place —
+       an assertion made after it settles would pass on a hard swap for ever. The panel leaves the way the
+       finger went (a swipe left → it goes left, and the next one arrives from the right), and the stage
+       clips horizontally while it moves so the travel cannot be scrolled into. */
+    const flight = await page.evaluate(async () => {
+      const el = document.querySelector(".bk-page"), r0 = el.getBoundingClientRect().left;
+      const base = { bubbles: true, cancelable: true, isPrimary: true, pointerType: "touch", pointerId: 1 };
+      const p = document.querySelector(".bk-prose"), r = p.getBoundingClientRect();
+      p.dispatchEvent(new PointerEvent("pointerdown", Object.assign({ clientX: r.x + 4, clientY: r.y + 4 }, base)));
+      p.dispatchEvent(new PointerEvent("pointerup", Object.assign({ clientX: r.x + 4 - 120, clientY: r.y + 4 }, base)));
+      await new Promise((rs) => setTimeout(rs, 90));
+      const out = document.querySelector(".bk-page").getBoundingClientRect().left;
+      const clip = getComputedStyle(document.querySelector(".stage")).overflowX;
+      await new Promise((rs) => setTimeout(rs, 120));         // past the midpoint: the new chapter is painted
+      const inn = document.querySelector(".bk-page").getBoundingClientRect().left;
+      await new Promise((rs) => setTimeout(rs, 600));
+      const el2 = document.querySelector(".bk-page");
+      return { r0: r0, out: out, in: inn, clip: clip,
+               settled: el2.getBoundingClientRect().left,
+               clipEnd: getComputedStyle(document.querySelector(".stage")).overflowX };
+    });
+    check("[phone] the outgoing chapter moves the way the finger went", flight.out < flight.r0 - 4,
+      flight.r0 + " → " + flight.out);
+    check("[phone] ...and the next one comes in from the other side", flight.in > flight.r0 + 4,
+      flight.r0 + " → " + flight.in);
+    check("[phone] ...with the stage clipped while it travels, and released after",
+      flight.clip === "clip" && flight.clipEnd !== "clip", flight.clip + " → " + flight.clipEnd);
+    check("[phone] ...and it lands where a chapter belongs", Math.abs(flight.settled - flight.r0) < 2,
+      flight.r0 + " → " + flight.settled);
+    await tapOn(".bk-prose", 1, 120);               // …and back to where the assertions below expect it
+    await page.waitForTimeout(700);
 
     /* …and the same swipe as a REAL touch, which is a different test and the reason it is here (Aug 2026,
        on a report that the swipe did nothing on a phone). Everything above dispatches PointerEvents by

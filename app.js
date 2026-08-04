@@ -4704,15 +4704,21 @@
     render();
   }
   /* ---------- swipe between pages on a phone (Aug 2026, on request) ----------
-     A phone has five ordinary pages and a tab bar that reaches four of them; a horizontal swipe is the
-     gesture every reader already expects to move between them, and it costs no screen.
+     A horizontal swipe is the gesture every reader already expects for moving between the pages of a phone
+     app, and it costs no screen. THE ORDER IS THE TAB BAR'S, minus the Atlas.
 
      The ATLAS is not in this order, and that is the request rather than an oversight: a drag on the globe
      rotates it, and a page that both rotates under the finger and navigates away from it can only do one of
-     them badly. So the Atlas is reached and left through the tab bar alone. COLLECTIONS is in the order even
-     though it has no tab — it is a real destination, reached from the review's lip, and leaving it out would
-     make the sequence a subset of the bar rather than a pass over the pages. (The books LIBRARY, added Aug
-     2026, does have a tab and sits between them.)
+     them badly. So the Atlas is reached and left through the tab bar alone.
+
+     COLLECTIONS was in the order for a fortnight and was TAKEN OUT on request (Aug 2026). The reasoning for
+     including it — that it is a real destination even without a tab, and that leaving it out makes the
+     sequence a subset of the bar rather than a pass over the pages — is exactly backwards once the tab bar
+     is what a reader has to go on: the swipe was landing them on a page the bar cannot reach, with nothing
+     lit in it to say where they were, and no gesture in the same family to get back except the one that had
+     just taken them there. It is reached from the review's own lip ("+ Add decks"), which is the route the
+     home page advertises, and that is now the only one. **A page belongs in this order when it has a tab**;
+     that is the whole rule, and it is why the books LIBRARY is here and Collections is not.
 
      The guards are the whole of the difficulty, because a false positive here TAKES A PAGE AWAY:
        · touch only. A trackpad's horizontal scroll arrives as wheel, and a mouse drag is a selection.
@@ -4722,7 +4728,7 @@
        · never while an overlay is up, never mid-gesture on a control, never while grading.
      And it is deliberately generous on distance (SWIPE_MIN) and strict on angle: a diagonal is a scroll that
      wandered, and reading the page vertically is what a finger is mostly doing. */
-  const SWIPE_ORDER = ["home", "decks", "library", "account", "settings"];
+  const SWIPE_ORDER = ["home", "library", "account", "settings"];
   const SWIPE_MIN = 64, SWIPE_RATIO = 1.6, SWIPE_MS = 700;
   let _navDir = "";        // which way the next render() should come in from
   function swipeScrollerUnder(el) {
@@ -4792,10 +4798,12 @@
     // on the way out rather than let it disappear quietly. Read off the live panel, so there is no
     // "pending" flag to keep in step with an editor that has already been torn down.
     if (document.querySelector(".af-reqnote:not([hidden])")) toast("Not saved — an image or video was left without a source.");
-    const ghost = makePageGhost();   // the outgoing page, fading out over the incoming one
     // a swiped navigation arrives from the side the finger came from, and the outgoing page leaves the
     // other way — so the gesture and the transition tell the same story (see wirePageSwipe)
     const dir = _navDir; _navDir = "";
+    const ghost = makePageGhost(dir);   // the outgoing page, leaving over the incoming one
+    // …and nothing travels under reduced motion, so nothing needs clipping
+    if (dir && !prefersReducedMotion()) clipStageFor(PAGE_GHOST_MS + 80);
     view.innerHTML = '<div class="page' + (dir ? " page-" + dir : "") + '"></div>';
     if (ghost) { if (dir) ghost.classList.add("ghost-" + dir); view.appendChild(ghost); }
     const root = view.firstElementChild;
@@ -4818,15 +4826,30 @@
      opts out of the enter animation too.) The home page's little ornamental globe is deliberately NOT
      excluded: it is 170px, it stops itself when it leaves the DOM, and skipping the commonest navigation
      on the site to protect it would be paying for the transition and not getting it. And the editor is
-     skipped, where a repaint per keystroke is routine and a ghost of the card being typed into would strobe. */
-  const PAGE_GHOST_MS = 260;
-  function makePageGhost() {
+     skipped, where a repaint per keystroke is routine and a ghost of the card being typed into would strobe.
+
+     A SWIPED navigation is a different transition and not merely a longer one (Aug 2026, on a report that
+     it was "a hard cut"). It was a 26px nudge under a cross-fade, which at that distance is a fade with a
+     lean in it — so on a phone, where the gesture had just dragged a page sideways, what arrived read as a
+     cut. It is a full CROSS-SLIDE now: the outgoing page leaves by its own whole width and the incoming one
+     follows it in, the two exactly adjacent (plus a 24px gutter so their edges never abut), at one duration
+     and one easing — which is what makes it read as one sheet of paper moving rather than two things
+     happening at once. That is only possible because BOTH pages exist for those 340ms, the ghost being a
+     real copy of the outgoing one; a fade needs no such thing, which is why it was the cheaper transition
+     to write and the wrong one to keep.
+
+     Hence the height guard is skipped for a swipe. Its reason — "a very long page fading over a short one
+     is a smear" — is a fact about fading in PLACE, and a page that slides off the side never overlays the
+     new one at all. The element-count guard stays: that one is about the cost of the clone, which a
+     direction does not change. */
+  const PAGE_GHOST_MS = 340;
+  function makePageGhost(dir) {
     if (prefersReducedMotion()) return null;
     const old = view.firstElementChild;
     if (!old || !old.classList.contains("page")) return null;
     if (current.name === "admin" || current.name === "map" || current.name === "findit") return null;
     if (old.querySelector(".atlas")) return null;
-    if (old.offsetHeight > 2600) return null;   // a very long page fading over a short one is a smear, not a transition
+    if (!dir && old.offsetHeight > 2600) return null;   // a very long page fading over a short one is a smear, not a transition
     if (old.querySelectorAll("*").length > 2000) return null;   // not worth cloning; that page is a list, and lists don't need a ghost
     /* A CLONE, not the element itself. Two reasons, and the second is the one that bites.
        · Anything still holding a reference to the outgoing page — a stale handler, a pending callback —
@@ -4846,6 +4869,25 @@
     ghost.setAttribute("aria-hidden", "true");
     setTimeout(() => ghost.remove(), PAGE_GHOST_MS + 60);
     return ghost;
+  }
+  /* A page travelling a whole screen width overflows the document while it does it, and an untamed
+     horizontal overflow on a phone is a scrollbar, a rubber-band and a page that can be dragged sideways
+     into empty space mid-transition. So the stage clips for the length of the move and no longer.
+
+     Three things about it are deliberate. It is on the STAGE rather than on #view, because #view sits
+     inside the stage's own 16–40px padding and clipping there would cut both pages off short of the screen
+     edge — a hard vertical line an inch from the edge, which reads as a rendering fault rather than as a
+     page leaving. It is `overflow-x` alone, never the shorthand: `overflow-x:clip` beside an untouched
+     `overflow-y:visible` is the one pairing that clips without creating a scroll container, so the book's
+     sticky chapter bar and every other sticky thing on the site still resolve against the viewport (with
+     `hidden`, or with both axes set, they would stick to the stage instead). And it is a class on the body
+     with a timer, not a `:has()` rule keyed off the ghost — the incoming page slides whether or not a ghost
+     was made, so a rule that watched the ghost would leave exactly the case with no ghost unclipped. */
+  let _clipT = 0;
+  function clipStageFor(ms) {
+    document.body.classList.add("stage-sliding");
+    clearTimeout(_clipT);
+    _clipT = setTimeout(() => document.body.classList.remove("stage-sliding"), ms);
   }
   /* Motion the CSS `prefers-reduced-motion` block can't cover — JS scroll options, canvas camera moves,
      the page ghost, the sheets' exits. Read live rather than cached: the OS setting can change while the
@@ -8576,13 +8618,83 @@
       });
     }
 
+    /* ---- stepping a chapter, which used to be a hard cut (Aug 2026, on request) ----
+       It was an innerHTML swap and nothing else: the words changed between one frame and the next, and on
+       a phone that followed a finger which had just dragged the page sideways, so the gesture said "carry
+       this away" and the page said nothing back. The chapter now LEAVES the way the finger went and the
+       next one follows it in.
+
+       It cannot be the page swipe's cross-slide, and the difference is worth stating because it looks like
+       an inconsistency: that one has both pages in hand at once (the outgoing one is a clone laid over the
+       stage), where a chapter's prose does not exist until it is painted and a chapter of this book can be
+       thirty screens of it — cloning one to slide it off would be a real cost for a gesture a reader
+       repeats all evening. So this is the other standard shape: the panel leaves and the new one arrives
+       from the opposite side, the swap happening at the midpoint while nothing is on screen to see it. The
+       travel is 10% of the panel's own width rather than a whole one, since with nothing behind it a full
+       slide is mostly a wait, and it fades as it goes.
+
+       The scroll to the top of the chapter goes UNDER the slide (instantly, at the midpoint) where the old
+       code rode it out afterwards with a smooth scroll. A reader thirty screens into a letter who steps to
+       the next one is not travelling anywhere they want to watch; and a smooth scroll running against an
+       incoming panel is two motions disagreeing about what just happened.
+
+       IT IS `Element.animate` AND NOT A CSS CLASS, and that is not a stylistic preference — the CSS
+       version does nothing at all. `.bk-page` is a direct child of `.page`, so the entrance stagger
+       (`.page > *{animation:sectIn … both}`) matches it, and a `both`-filled animation keeps applying its
+       last keyframe FOREVER after it finishes. That keyframe is `transform:none`, and an animation outranks
+       any ordinary declaration in the cascade — so `.bk-page.bk-out-next{transform:translateX(-10%)}` is
+       overridden by an animation that ended half a second after the page loaded. The class went on, the
+       computed transform stayed the identity matrix, and the chapter changed exactly as abruptly as before
+       (measured; it is invisible unless something reads the transform MID-flight). A script-generated
+       animation sorts after CSS animations and wins, which is also why flipMove is written this way. */
+    const BK_SLIDE_OUT = 150, BK_SLIDE_IN = 240, BK_EASE = "cubic-bezier(.22,.61,.36,1)";
+    let slideT = 0, slideAnim = null;
+    function slideChapter(d, mutate) {
+      if (prefersReducedMotion() || !pageEl.isConnected || typeof pageEl.animate !== "function") { mutate(); return; }
+      const off = (d > 0 ? -10 : 10) + "%", back = (d > 0 ? 10 : -10) + "%";
+      clearTimeout(slideT);
+      if (slideAnim) { slideAnim.cancel(); slideAnim = null; }
+      clipStageFor(BK_SLIDE_OUT + BK_SLIDE_IN + 80);
+      try {
+        // `forwards`, so the panel STAYS off the side for the frames between the two halves — without it
+        // the swap would happen with the old chapter back in place, which is the cut this replaces
+        slideAnim = pageEl.animate([{ transform: "none", opacity: 1 }, { transform: "translateX(" + off + ")", opacity: 0 }],
+          { duration: BK_SLIDE_OUT, easing: BK_EASE, fill: "forwards" });
+      } catch (e) { mutate(); return; }
+      slideT = setTimeout(() => {
+        // the reader left while it was moving — mutate() ends in markPos(), which would measure a detached
+        // page against the new page's scroll position and write that home as the place they had got to
+        if (!pageEl.isConnected) return;
+        mutate();
+        /* The incoming animation is created BEFORE the outgoing one is cancelled, and the order is the
+           whole of it: both are script animations, so the newer wins, and its first keyframe holds the
+           panel off the other side from the same tick. Cancel first and there is a frame with no animation
+           on the element at all — the new chapter, in place, at full opacity, a flash mid-transition. */
+        let next = null;
+        try {
+          next = pageEl.animate([{ transform: "translateX(" + back + ")", opacity: 0 }, { transform: "none", opacity: 1 }],
+            { duration: BK_SLIDE_IN, easing: BK_EASE });
+        } catch (e) {}
+        if (slideAnim) slideAnim.cancel();
+        slideAnim = next;
+      }, BK_SLIDE_OUT);
+    }
+    /* The chapter a slide is on its way to. step() counts from it rather than from `cur`, which the paint
+       at the midpoint is what updates — without it a reader swiping twice quickly would ask for the same
+       next chapter twice and stand still. */
+    let queued = null;
     function go(c, fromReader) {
-      if (!c || c === cur) return;
-      // a deliberate move to another chapter starts that chapter at the top; only a RESUME restores a depth
-      paint(c, 0);
-      if (fromReader) setReadingPos(b.id, c.n, 0);
-      if (!prefersReducedMotion()) window.scrollTo({ top: 0, behavior: "smooth" });
-      else window.scrollTo(0, 0);
+      const from = queued || cur;
+      if (!c || c === from) return;
+      const d = chapters.indexOf(c) > chapters.indexOf(from) ? 1 : -1;
+      queued = c;
+      slideChapter(d, () => {
+        queued = null;
+        // a deliberate move to another chapter starts that chapter at the top; only a RESUME restores a depth
+        window.scrollTo(0, 0);
+        paint(c, 0);
+        if (fromReader) setReadingPos(b.id, c.n, 0);
+      });
     }
 
     /* Record the place, throttled. A scroll listener that wrote on every frame would push a synced
@@ -8612,7 +8724,7 @@
     tabsEl.querySelectorAll(".bk-tab").forEach((t) =>
       t.addEventListener("click", () => go(chapters.find((c) => c.n === +t.dataset.ch), true))
     );
-    const step = (d) => { const i = chapters.indexOf(cur) + d; if (i >= 0 && i < chapters.length) go(chapters[i], true); };
+    const step = (d) => { const i = chapters.indexOf(queued || cur) + d; if (i >= 0 && i < chapters.length) go(chapters[i], true); };
     root.querySelector("#bkPrev").addEventListener("click", () => step(-1));
     root.querySelector("#bkNext").addEventListener("click", () => step(1));
     root.querySelector("#bkPrev2").addEventListener("click", () => step(-1));
