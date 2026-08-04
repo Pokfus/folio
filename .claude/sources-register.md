@@ -2398,7 +2398,9 @@ definitional cards. The first pass worked at the raised five-source bar.
 Christian Jürgensen Thomsen, “Of the Different Periods to Which the Heathen Antiquities May Be Referred,”
 in *Guide to Northern Archaeology*, ed. the Earl of Ellesmere (London: James Bain, 1848), 64–67,
 https://archive.org/details/guidetonorthern00ellegoog. [Open access]
-- opened: 2026-07-31 · Google scan of the 1848 volume, public domain, printed pagination intact. This is
+- opened: 2026-07-31 · Google scan of the 1848 volume, public domain, printed pagination intact. **2026-08-04
+  (L7): the `archive.org/stream/…_djvu.txt` full text is truncated by the fetcher before pages 63–70**, so the
+  definitions below are the readable record of them. This is
   the English translation of Thomsen's 1836 *Ledetraad* chapter that Rowley-Conwy 2004 discusses; the
   periodisation section is where Rowley-Conwy says it is (Ellesmere 63–71).
 - supports: the definitions in Thomsen's own words — "The age of stone, or that period when weapons and
@@ -2443,6 +2445,10 @@ Julien Cooper and Yegor Grebnev, “Introduction: Bronze Age Civilizations,” *
 Africa and Eurasia* 3, no. 1 (2023): 3–4, https://doi.org/10.1163/26670755-20230009. [Open access]
 - opened: 2026-07-31 · publisher PDF, CC BY 4.0 (the DOI landing page 403s to a plain fetch; the
   `brill.com/downloadpdf/…` file serves)
+- **2026-08-04 (glossary length L7): NOT re-readable.** The DOI now 302s to
+  `brill.com/view/journals/ow/3/1/article-p1_009.xml`, which is **403**. The work stays cited and correctly
+  labelled open; it can only be reused for the claims recorded above (G6's rule), which is what `Bronze_Age`
+  and `Iron_Age` did when they grew.
 - supports: that "the arctic tundra, archipelago Southeast Asia, Oceania, and the entirety of sub-Saharan
   Africa did not possess bronze metallurgy techniques until fairly late in history"; that "the early dates
   for iron production (and lack of Bronze production) in many parts of Sub-Saharan Africa go against the
@@ -2475,6 +2481,8 @@ Writing in the Ancient Middle East and Beyond*, ed. Christopher Woods, Oriental 
 Publications 32 (Chicago: Oriental Institute of the University of Chicago, 2010), 15–17,
 https://isac.uchicago.edu/sites/default/files/uploads/shared/docs/oimp32.pdf. [Open access]
 - opened: 2026-07-31 · ISAC's own free PDF of the volume
+- **2026-08-04 (L7): the PDF is over 10 MB and defeats WebFetch's content limit**, so it is reachable but
+  not re-readable in one fetch; reuse via the recorded support above.
 - supports: writing as "the boundary between history and prehistory" (15); that in Mesopotamia and Egypt it
   appears "toward the end of the fourth millennium bc," in China "at the end of the second millennium bc"
   and in Mesoamerica "by the middle of the first millennium bc" (15) — the card's very different times in

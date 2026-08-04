@@ -638,29 +638,153 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   and the backfill plan for the 77 of 119 shipped cards that have none. Its P9/P10 (the ten Ancient Greece terms) come
   first. Not part of the site.
 - `docs/glossary-length-plan.md` — **every glossary description at 100 words (±10%)**, on request (Aug 2026): the
-  bar, the measured baseline, the eleven batches, the per-term workflow and the batch log. **L0 (the tooling),
-  L1 (56 country terms, A–E) and L2 (44 country terms, F–L) have shipped** — `node .claude/gloss-length.js` is
-  the measure, with `--over` / `--under` / `--tag=<kind>` / `--list`. Where it stands today: **161 of 477 terms
-  are inside the bar**, 306 are
-  over and 10 under, mean 125.1 words, and the work is overwhelmingly TRIMMING. Three things the bar does not
+  bar, the measured baseline, the eleven batches, the per-term workflow and the batch log. **L0 (the tooling)
+  L1–L10 and the L-audit have ALL SHIPPED — **THE PASS IS COMPLETE: 477 of 477 terms are inside the bar
+  (100%), mean 106.7 words, range 90 (`James_A._Garfield`) – 110 (`Y-chromosomal_Adam`), and every one of the
+  eighteen kinds is 0 outside**: the 197 countries (A–E, F–L, M–R, S–Z), L5's 55 caves, type sites, continents,
+  oceans and regions, L6's 54 people (45 US presidents plus nine antiquarians, archaeologists and a poet),
+  L7's 44 periods and stone industries, L8's 40 taxa, fossils and animals, L9's 45 tools, artworks, cultures
+  and peoples, and L10's 24 concepts with the four singleton kinds.
+  `node .claude/gloss-length.js` is
+  the measure, with `--over` / `--under` / `--tag=<kind>` / `--list`. **What keeps it true is the rule, not the
+  measure**: a new term ships at 90–110 words, three sentences, cited at the bar, exactly as it ships with its
+  citations — so **re-run `gloss-length.js` after `add-sources.js` and after `add-glossary.js`**, since both
+  write prose and neither measures it. Three things the bar does not
   change and which the pass must not quietly relax: still exactly three sentences, still impartial and
   self-contained, and **still no claim past what the citations carry** — a term padded to length is the one way
   this pass can do real damage. Two rules L1 established and the later batches should just apply:
   **an imperial conversion does not count** (`gloss-length.js` strips it, exactly as `add-card.js` does — the
   measure counted them at first, which held the glossary to a tighter prose budget than the cards for no reason
   but its subject matter), and **the border list is the first thing to cut** on a country term, worth 9–13 words
-  and telling a reader less than the region already did — keep it only where the borders ARE the fact (L2 adds
-  the microstate to that exception: `Luxembourg`'s three neighbours are the fact about it).
+  and telling a reader less than the region already did. **L3 recast the "keep it where the borders ARE the
+  fact" exception as a TEST to run on every term** — *does naming the neighbours say more than the region
+  already did?* — because nine of its 43 kept theirs (Moldova, Mongolia, Nepal, the Netherlands, North Korea,
+  Panama, Portugal, Qatar, Monaco) against one apiece in L1 (Bhutan, Bangladesh) and L2 (Luxembourg). The
+  reason is arithmetic rather than luck: **a list of two is not a list.**
+  **L3 also names the ISLAND term's equivalent of the border list**: a
+  distance-to-the-mainland locator ("about 400 km (250 miles) off the southeast coast of Africa"), the same
+  formulaic clause in a different coat, worth 8–11 words with its conversion and saying nothing the region
+  already hasn't. Six of L3's terms lost one, and **L4 confirmed L3's measurement exactly** — all four terms
+  it named carried the clause and all four lost it. **L4's refinement is that the clause has a PROSE form the
+  regex cannot see** (`Tonga`'s "spread over a long north-south stretch of ocean", `Vanuatu`'s "lying east of
+  Australia and north of New Caledonia"), so the numeric grep found four of six: **grep the shape to plan a
+  batch, then read the batch's own first sentences.** On the other hand **not every country term has
+  the recipe's 30 spare words**: a microstate, a single-island state or a term opening on a superlative
+  (`Monaco`, `Nauru`, `Marshall_Islands`, `Russia`) has no border list and no ordinary landscape sentence, and
+  there the words come out of real claims — which is why L3 and L4 name more substantive losses than L1 or L2.
   **Diff the FIGURES before and after a batch**: L1 shipped with zero numbers added or altered and 23 dropped
   with their clauses, three of them substantive, and naming which is the honest half of a trim; L2 the same, with
-  17 dropped and six substantive. Two more checks L2 made standing, both for failures that are invisible in the
+  17 dropped and six substantive; L3 with 15 dropped and four; L4 with 24 dropped, six substantive, and the ONE
+  figure it added a correction — `Vatican_City` gave its area as "0.44 km² **(0 sq mi)**", a conversion rounded
+  to nothing, which the units sweep could not see because it looked for MISSING conversions rather than useless
+  ones. **A metric figure below one imperial unit needs two significant figures in its bracket**; the whole
+  glossary was swept and it was the only one. **L5 dropped 102 and added none, nine substantive**, and its
+  finding is the one to reach for on any batch of DATED terms: **the date line was in the prose twice.** 29 of
+  its 55 carry a `GLOSSARY_DATES` entry, which the popup prints directly above the description, and the prose
+  then restated the same span in words — so **read `GLOSSARY_DATES` before deciding a dropped date is a loss**
+  (eight headline dates were queued for restoration before the table showed every one already on screen).
+  L7 and L8 are the next two batches where that pays. **L5 also names the SITE term's padding class:
+  excavation administration** — who dug, when, how many seasons, how deep — worth 15–25 words, and the one
+  class the house rules already told us to cut, `docs/history-focus-plan.md` saying Folio is a history site
+  and not an archaeology site. **L6 then transferred the date-line finding to the 45 presidents**, every one
+  of whom opened by restating the term dates its `GLOSSARY_DATES` line already carries — but it must NOT
+  become a template change, since cutting it from all 45 would push nine in-band ones below 90; it is a
+  clause available to a term that NEEDS words, exactly like the border list. L6 also **half-refutes the
+  office-list prediction made here**: on a president the prior career is how they got there and is not
+  padding (Bush Sr's congressman → UN → CIA → vice president is the point of him), and the real padding
+  class is the **run-on ENUMERATION** third sentence — nine achievements joined by "and … and … and", 88
+  words on `George_W._Bush`. **L6's own hard finding is a constraint the earlier batches never met: a term
+  whose citations are ONE-PER-CLAIM cannot lose that claim.** `Barack_Obama`'s Nobel Foundation source and
+  `Donald_Trump`'s *Foreign Affairs* essay each carry exactly one clause, so cutting it ORPHANS the source
+  and `add-sources.js` refuses the batch — read the source list before choosing what to cut. And its two
+  GROW cases (the pass's first) both grew from a work already in the term's own list rather than from
+  padding: **a term under the bar is usually under it because it left something out** — `Sima_Qian` never
+  cashed its own promise to say what the Shiji's "arrangement" was. **L7 then transferred the date-line rule a
+  third time and sharpened it — CUT THE SPAN, KEEP THE CAVEAT**, since a period's date line always carries its
+  span but never "though both ends are debated" or "a lowstand plateau rather than a single peak"; its own
+  padding class is **HISTORIOGRAPHY** (who named it, when, after what — keep the type site, cut the dig
+  history); and it had FIVE grows, all paid for out of `.claude/sources-register.md`, which records Thomsen's
+  1848 definitions verbatim and is why `Bronze_Age` and `Iron_Age` could grow at all with `brill.com` 403 here.
+  **L7's hardest finding is L6's constraint in a subtler form: a marker can be left pointing at a claim the
+  trim removed, and `add-sources.js` PASSES it** — the source is still *referenced* and the marker is still on
+  the page — so `Châtelperronian` kept a citation titled "No Reliable Evidence for a Neanderthal–Châtelperronian
+  [association]" after the 2018 challenge it IS had been cut, and `Howiesons_Poort` kept a climate-change paper
+  after the clause it explained. Only reading each surviving marked sentence against the work it points at
+  catches this. L7 also names two things to do BEFORE drafting: **run the sibling-consistency check over the
+  whole batch's date lines** (it holds — and the `Paleolithic` 9700 BCE against `Neolithic` 10,000 BCE
+  "overlap" is two regional schemes, recorded and deliberately not "fixed"), and **read a sentence that argues
+  with itself before trimming it**, since `Boreal`'s "does not reach down to 8,000 years ago as loose usage
+  suggests" is card batch 22's correction written into the prose and reads exactly like a stray figure.
+  **L8 found a splitter gap the same way and its lesson is to look BEFORE drafting**: `Smilodon` was not
+  three sentences but SIX, because `split-abstract.js` broke on an abbreviated binomial (`S. fatalis`) — the
+  run rule needs a second initial and G5's lone-initial rule requires a CAPITALISED word to follow, where a
+  species epithet is lowercase. Fixed with the exact test that **a single capital, a full stop and a
+  LOWERCASE word can only be an abbreviated genus** (plus `>` in the lookbehind, since the letter sits
+  inside `<i>…</i>`), and verified over 1,377 texts with one split changed and no regressions. **Run the
+  whole-corpus split audit at the START of a batch.** L8's other lever is new: **the SIBLING PAIR** — six of
+  its terms describe one find from two angles (`Taung_Child`/`Australopithecus_africanus`,
+  `Lucy`/`Australopithecus_afarensis`, `KNM-WT_40000`/`Kenyanthropus_platyops`), so a shared fact can be
+  given to whichever of the two owns it rather than trimmed twice; and on a taxon the **describer and year
+  are the formal identity and stay**, while the discovery narrative around them goes.
+  **L9's lever is L8's one level down, and it is measurable: NEAR-VERBATIM DUPLICATION BETWEEN SIBLING
+  TERMS at the level of the SENTENCE.** Counting shared eight-word runs across its 40 terms found **17
+  between `Chert` and `Flint` and 11 between `Gunflint` and `Musket`** — four terms written independently
+  from the same two sources, repeating whole clauses word for word. Deciding what each term OWNS (`Chert`
+  the mineralogy, `Flint` the chalk and the working quality, `Gunflint` the lock and the Brandon
+  workshops, `Musket` the loading drill) took them to **2 and 0**. **Grep a batch's terms against each
+  other before drafting**: it takes two minutes, it finds words that cost nothing to lose, and no other
+  check in the workflow can see it. L9's padding class is the **MECHANISM DESCRIBED TWICE** — an `object`
+  term explains how the thing works and then explains what that means, and one clause does both jobs,
+  which is where most of the 70–90 words came off `Spear-thrower` (195) and `Bow_and_arrow` (177). And it
+  **qualifies L5's and L7's date-line rule**: `Minoan_palace`'s restated "from about 1900 BCE" was the only
+  thing its second marker (Rutter's chronology page) was standing on, so **check the source list before
+  cutting a restated span**, not just `GLOSSARY_DATES`.
+  **L10 is L9's lever meeting a wall, and the wall is the more useful half.** Its cluster —
+  `Chronology`, `Stratum`, `Stratigraphy`, `Geology` and `Geological_epoch`, all reciting the same two
+  GSSP facts out of the same three papers — could NOT be fixed by assigning ownership, because **each
+  term's source list requires each of those works to be referenced somewhere in it** (L6's constraint),
+  so dropping the shared clause orphans a source and `add-sources.js` refuses the batch. **Where several
+  definitional terms rest on one small source set, the duplication cannot be deleted, only RE-REGISTERED**:
+  each states the shared fact in the register it owns and in the fewest words (`Geological_epoch` the GSSP
+  machinery, `Geology` the marker driven into a rock face, `Stratum` the sequence, `Stratigraphy` the
+  combination of relative and scientific dating, `Chronology` the calibration) — every pair then measures
+  0, with no marker lost. Its own padding class is L7's **historiography** again (`Post-glacial_rebound`
+  lost Celsius in 1743 and Jamieson in 1865, 30 words), and its grow is the pass's largest —
+  **`Archaeology`, 43 → 103, out of the register alone**, having left out the range of its own subject,
+  the words *artifact* and *feature*, and **context**, which is the discipline's central idea. Two more checks
+  L2 made standing, both
+  for failures that are invisible in the
   finished prose. **Diff every MARKED sentence's YEARS before against after** — a trim can strand a marker, and
   `add-sources.js` cannot see it, since every source is still referenced and no marker runs past the end of the
   list: `Ireland`'s EU-country-page marker was left on a sentence about the famine once the 1973 accession it
   carried was cut, and the fix is to restore the datable clause rather than move the marker, that clause being
   what the recipe's second source exists to carry. And **grep the HEDGE vocabulary before and after** — a trim
   eats hedges silently, four of L2's six losses sat on claims that survived, and turning "often called the Isle
-  of Spice" into "hence its name" saved four words by inventing a fact. Not part of the site.
+  of Spice" into "hence its name" saved four words by inventing a fact. **The hedge grep keeps paying, one to
+  three terms a batch**: L3's was `Myanmar`, where "have long been **among** its exports" became "are
+  long-standing exports" — reads the same, says something stronger. **L4 caught three, all one shape, and it is
+  the shape to watch: a QUANTIFIER in front of a superlative or a fraction**, which reads as filler to someone
+  cutting words and is in fact the whole claim — "**some of the** fiercest fighting" says *among the worst*
+  where "fiercest fighting" says *the worst*, and `Somalia`'s "the way of life for **much of** the population"
+  had become "for most people", turning a large fraction into over half. **L5 caught eight, of which six were
+  the hedge leaving with the clause it hedged and two were the real thing** — `Madjedbebe`'s "5,000 to 15,000
+  years earlier" flattened to "thousands of years earlier", and `Africa`'s "regained independence across
+  **almost all** of its territory" to "independent again". **L5 also refines the MARKER check in both
+  directions.** It fired four times and all four were benign, every one an excavation date leaving a sentence
+  that still carried what its citation is for — so the rule is not that a marked sentence must keep every year
+  but that **the marker must still point at something the source carries**: check the citation, not the count.
+  And the checker has a blind spot worth knowing before a deep-time batch — a year regex matching
+  `1\d{3}`/`20\d{2}` **cannot see BP, kya or Mya dates**, which on prehistoric terms is most of the dates
+  there are (`Fertile_Crescent` lost "between about 12,000 and 11,000 years ago" out of a marked sentence in
+  silence, caught by eye); **L6 fixed that**, and also stopped the check script splitting sentences with its
+  own regex, which broke on initials and read `John F. Kennedy` as two sentences — `split-abstract.js`
+  learned about runs of initials in card batch 24 and the check script had not. **L6's hedge grep caught
+  only two against L5's eight**, which is what a batch of institutional prose produces: a presidential essay
+  hedges very little; **L7's caught four, three of them the quantifier-before-superlative shape for the third
+  batch running** (`Middle_Stone_Age`'s "some of the earliest", `Lomekwian`'s "mostly", `Ice_Age`'s and
+  `Würm`'s "generally"). One blind spot remains, worth knowing before a batch of calibrated dates: the year
+  regex needs the number immediately before "years ago", so an intervening word defeats it and `Boreal`'s
+  "8,000 **calendar** years ago" reads as lost when it survived. Not part of the site.
 - `docs/units-plan.md` — **metric first, imperial in parentheses**: the rule, the one imperial-first figure in the whole
   corpus (fixed), and the 360 metric figures still to gain their equivalents. Not part of the site.
 - `docs/user-decks-plan.md` — the design plan for **community decks** (user-created decks, sharing,
