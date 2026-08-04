@@ -262,12 +262,17 @@ function shippedBookLeaks() {
         items,
         label: (document.querySelector(".bk-notes .src-label") || {}).textContent || "",
         shut: !!document.querySelector(".bk-notes .src-collapse.collapsed"),
+        expanded: (document.querySelector(".bk-notes .src-head") || {}).getAttribute
+          ? document.querySelector(".bk-notes .src-head").getAttribute("aria-expanded") : "",
         gloss: document.querySelectorAll(".bk-prose .ttip").length,
       };
     });
     check("the translator's notes render as a numbered fold", n.items >= 3, String(n.items));
     check("...labelled Notes, not Sources", /notes/i.test(n.label), n.label);
-    check("...shut by default, since a chapter is long", n.shut);
+    // OPEN by default (Aug 2026, on request — it started shut). An apparatus a reader has to go looking
+    // for is one they will not look at, and this is the translator's commentary rather than a works list.
+    check("...open by default, not collapsed", !n.shut && n.expanded === "true",
+      JSON.stringify({ shut: n.shut, ariaExpanded: n.expanded }));
     check("...with a marker in the prose for each", n.markers >= 3, String(n.markers));
     check("...numbered in reading order by the site's own footnote pass",
       n.numbered.length >= 3 && n.numbered.slice(0, 3).join(",") === "1,2,3", n.numbered.join(","));
@@ -285,6 +290,59 @@ function shippedBookLeaks() {
        the fold ever sees it — which is why this reads the shipped DATA rather than one rendered page,
        and why it also sweeps the prose, where the same leak would land if the wrapper markup moves
        again. */
+    /* TAPPING A MARKER LANDS ON THE NOTE, CLEAR OF THE TAB BAR (Aug 2026, on a bug report: on a phone
+       the jump "doesn't quite go far enough to see the actual note").
+
+       Two things conspired and the assertion has to be able to catch both. scrollIntoView({block:
+       "nearest"}) brings the item's bottom flush with the VIEWPORT's — and a phone has a 58px tab bar
+       fixed over the foot of it, so the note arrived underneath the bar. And when the fold was shut the
+       scroll was computed against a list still zero pixels tall, stopping short by its whole height.
+
+       So the check is not "is it in the viewport" — which the old behaviour passed — but "is it above
+       the tab bar", measured against the bar's own rendered box rather than a hard-coded 58. */
+    {
+      const phone = await browser.newPage({ viewport: PHONE });
+      watch(phone);
+      await phone.goto(base + "#book/seneca-letters", { waitUntil: "networkidle" });
+      await phone.evaluate(() => { const t = [...document.querySelectorAll(".bk-tab")].find((x) => x.dataset.ch === "3"); t.click(); });
+      await phone.waitForTimeout(600);
+      const jump = await phone.evaluate(async () => {
+        const m = document.querySelector(".bk-prose sup.fn");
+        m.scrollIntoView({ block: "center" });                    // start from the marker, as a reader is
+        await new Promise((r) => setTimeout(r, 400));
+        m.click();
+        await new Promise((r) => setTimeout(r, 900));             // let the smooth scroll settle
+        const n = +m.getAttribute("data-fn");
+        const item = document.querySelectorAll(".bk-notes .src-item")[n - 1];
+        const r = item.getBoundingClientRect();
+        const bar = document.querySelector(".tabbar");
+        const barTop = bar && bar.offsetHeight ? bar.getBoundingClientRect().top : window.innerHeight;
+        return { top: r.top, bottom: r.bottom, barTop, h: window.innerHeight, n };
+      });
+      check("[phone] tapping a marker brings its note fully into view",
+        jump.top >= 0 && jump.bottom <= jump.h, JSON.stringify(jump));
+      check("[phone] ...clear of the tab bar, not tucked behind it",
+        jump.bottom <= jump.barTop, JSON.stringify(jump));
+      // …and from a fold the reader had shut, where the scroll used to be computed against a flat list
+      const shutJump = await phone.evaluate(async () => {
+        document.querySelector(".bk-notes .src-head").click();    // shut it
+        await new Promise((r) => setTimeout(r, 600));
+        window.scrollTo(0, 0);
+        await new Promise((r) => setTimeout(r, 300));
+        const m = document.querySelector(".bk-prose sup.fn");
+        m.click();
+        await new Promise((r) => setTimeout(r, 900));
+        const n = +m.getAttribute("data-fn");
+        const r = document.querySelectorAll(".bk-notes .src-item")[n - 1].getBoundingClientRect();
+        const bar = document.querySelector(".tabbar");
+        const barTop = bar && bar.offsetHeight ? bar.getBoundingClientRect().top : window.innerHeight;
+        return { top: r.top, bottom: r.bottom, barTop, h: window.innerHeight };
+      });
+      check("[phone] ...and so does a marker that had to open the fold first",
+        shutJump.top >= 0 && shutJump.bottom <= shutJump.barTop, JSON.stringify(shutJump));
+      await phone.close();
+    }
+
     const leak = shippedBookLeaks();
     check("no note carries Wikisource's own stylesheet as text",
       leak.n > 0 && !leak.notes.length, JSON.stringify({ chapters: leak.n, bad: leak.notes.slice(0, 6) }));
@@ -606,33 +664,72 @@ function shippedBookLeaks() {
       });
       return { sec: best && best.sec, y: window.scrollY, mode: document.querySelector(".bk-bi").dataset.lang };
     });
-    const tapOn = (sel) => page.evaluate((s) => {
+    /* One press of a finger, start to finish. `n` presses in a row makes a double tap; `dx` makes it a
+       swipe. Dispatched as real PointerEvents rather than through page.touchscreen because the handler
+       is on the page element and keys off pointerType. */
+    const tapOn = (sel, n, dx) => page.evaluate(([s, n, dx]) => {
       const el = document.querySelector(s);
       const r = el.getBoundingClientRect();
-      const o = { bubbles: true, cancelable: true, clientX: r.x + 4, clientY: r.y + 4, isPrimary: true, pointerType: "touch", pointerId: 1 };
-      el.dispatchEvent(new PointerEvent("pointerdown", o));
-      el.dispatchEvent(new PointerEvent("pointerup", o));
-    }, sel);
+      for (let i = 0; i < (n || 1); i++) {
+        const base = { bubbles: true, cancelable: true, isPrimary: true, pointerType: "touch", pointerId: 1 };
+        el.dispatchEvent(new PointerEvent("pointerdown", Object.assign({ clientX: r.x + 4, clientY: r.y + 4 }, base)));
+        el.dispatchEvent(new PointerEvent("pointerup", Object.assign({ clientX: r.x + 4 + (dx || 0), clientY: r.y + 4 }, base)));
+      }
+    }, [sel, n, dx]);
 
+    /* A SINGLE tap must NOT turn the page (Aug 2026, on request). This is the half of the change that
+       fails silently: if the double tap regresses to a single one every assertion below still passes,
+       because a double tap contains a single one — so the cheap gesture is asserted NOT to fire first. */
     const beforeTap = await nearestSec();
-    await tapOn(".bk-col-or p:not(.bk-salut)");
-    await page.waitForTimeout(400);
+    await tapOn(".bk-col-or p:not(.bk-salut)", 1);
+    await page.waitForTimeout(500);
+    check("[phone] a SINGLE tap leaves the language alone",
+      (await nearestSec()).mode === "or", (await nearestSec()).mode);
+
+    await tapOn(".bk-col-or p:not(.bk-salut)", 2);
+    await page.waitForTimeout(500);
     const afterTap = await nearestSec();
-    check("[phone] a tap on the page turns it to the other language",
+    check("[phone] a DOUBLE tap turns the page over to the other language",
       afterTap.mode === "en", afterTap.mode);
     check("[phone] ...landing on the same section the reader was on",
       afterTap.sec === beforeTap.sec && !!beforeTap.sec, "before " + beforeTap.sec + ", after " + afterTap.sec);
     check("[phone] ...which took a real scroll correction, the two lengths differing",
       afterTap.y !== beforeTap.y, beforeTap.y + " → " + afterTap.y);
 
-    // ...but a tap on something that already does something keeps doing it
+    // ...but a double tap on something that already does something keeps doing it
     const tip = await page.$(".bk-col-en .ttip");
     if (tip) {
-      await tapOn(".bk-col-en .ttip");
+      await tapOn(".bk-col-en .ttip", 2);
       await page.waitForTimeout(300);
       check("[phone] a tap on a glossary term does NOT turn the page",
         (await page.evaluate(() => document.querySelector(".bk-bi").dataset.lang)) === "en");
+      await page.evaluate(() => document.querySelectorAll(".gloss-win").forEach((w) => w.remove()));
     }
+
+    /* SWIPE BETWEEN CHAPTERS (Aug 2026, on request). Two things to pin, and the second is the one that
+       breaks quietly: a swipe must step the chapter, and it must NOT also register as half a double tap
+       — the two gestures end in the same pointerup and are told apart only by how far the finger moved. */
+    const chapNow = () => page.evaluate(() => {
+      const t = document.querySelector(".bk-tab.on");
+      return { ch: t && t.dataset.ch, lang: document.querySelector(".bk-bi") ? document.querySelector(".bk-bi").dataset.lang : null };
+    });
+    const beforeSwipe = await chapNow();
+    await tapOn(".bk-prose", 1, -120);              // a firm swipe left
+    await page.waitForTimeout(600);
+    const afterSwipe = await chapNow();
+    check("[phone] swiping left moves to the next chapter",
+      afterSwipe.ch && +afterSwipe.ch === +beforeSwipe.ch + 1, beforeSwipe.ch + " → " + afterSwipe.ch);
+    await tapOn(".bk-prose", 1, 120);               // …and back
+    await page.waitForTimeout(600);
+    check("[phone] swiping right moves back",
+      (await chapNow()).ch === beforeSwipe.ch, beforeSwipe.ch + " → " + (await chapNow()).ch);
+    check("[phone] ...and two swipes are not read as a double tap",
+      (await chapNow()).lang === afterSwipe.lang, "language changed under the swipes");
+    // a short drag is a scroll that wandered, not a swipe
+    await tapOn(".bk-prose", 1, -30);
+    await page.waitForTimeout(500);
+    check("[phone] a short sideways drag does not change the chapter",
+      (await chapNow()).ch === beforeSwipe.ch, (await chapNow()).ch);
 
     // the choice is remembered — it is a way of reading, not a per-chapter accident
     await page.evaluate(() => document.querySelector("#bkLang").click());
