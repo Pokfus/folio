@@ -5,6 +5,15 @@
    user, not how). Loaded before app.js. */
 window.CHANGELOG = [
   {
+    d: "2026-08-04",
+    t: "A Library of books to read",
+    items: [
+      "Folio has a Library. It is a reading room rather than a deck of cards: whole books, in English, laid out one tile to a book, with the glossary linked through the text and the translator’s own notes kept as numbered footnotes you can open where you are. The first book on the shelf is Seneca’s letters to Lucilius — the sixty-five letters of the first volume, on time, fear, friendship, wealth, illness and how to die — in the English of Richard Mott Gummere, whose translation is out of copyright and free for anyone to read. Each letter sits on its own tab along a bar at the top, with a Contents button for jumping about, and the arrow keys step between them.",
+      "A book always opens where you left it. Not the chapter you were on — the paragraph: close Folio halfway down a letter, come back tomorrow on another device, and it opens there.",
+      "The page that used to be called the Library is now called Collections, which is what it has always been — the collections and decks you study from. Nothing about it has changed but the name, and every link to it still works.",
+    ],
+  },
+  {
     d: "2026-08-03",
     t: "Sixty-eight more glossary terms",
     items: [

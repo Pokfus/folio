@@ -1064,6 +1064,11 @@
       settings: { night: false, themeAuto: true, units: "metric", theme: "folio", fontSize: "medium", newPerDay: 3, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 } },
       cards: {}, // id -> {reps,lapses,ease,interval,due,status,last}
       suspended: {}, // id -> true (card set aside; never shown again)
+      /* Where the reader had got to in each Library book: bookId -> { ch, y, at }. A book runs to
+         hundreds of screens, so "open it again where I left off" is not a convenience but the only way
+         it is usable at all. It is PROGRESS, not a device setting — it rides in PROGRESS_FIELDS so a
+         reader who starts a letter on the train finds it open on the same paragraph at home. */
+      reading: {},
       daily: { lastPlayed: 0, best: 0, games: 0, wins: 0, podiums: 0 },
       chrono: { date: "", best: 0, plays: 0, solved: false }, // timeline game daily record
       games: {}, // minigame id ("challenge"/"chrono"/"truefalse"/"whosaid") -> { date, played, won } for today's tile checkmarks + the daily-sweep badge
@@ -1266,7 +1271,7 @@
      Kept for: the admin page's local-user manager, the guest-progress stash helpers (extractProgress /
      applyProgress / emptyProgress), and older saves. The account page no longer signs in against this. */
   const ACCT_KEY = "folio_acct_v1";
-  const PROGRESS_FIELDS = ["cards", "suspended", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "reviewLog", "reviewDay", "streak", "active", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog"];
+  const PROGRESS_FIELDS = ["cards", "suspended", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "reviewLog", "reviewDay", "streak", "active", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading"];
   const B32 = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
   function defaultAcct() { return { users: {}, current: null, guest: null }; }
   let ACCT = (function () {
@@ -3878,6 +3883,73 @@
     q.forEach((inc) => { const d = inc.data || {}; for (const k in d) (PLACE_I18N[k] = PLACE_I18N[k] || {})[inc.lang] = d[k]; });
     if (q.length && typeof mapBump === "function") mapBump();   // the globe caches label layouts by view key
   }
+  /* ============================================================
+     THE LIBRARY — public-domain books, read on the site
+     ============================================================
+     The Library is a reading room, not a deck: whole works in English, with the glossary linked
+     through them, the translator's own notes kept, and a reader's place remembered.
+
+     WHAT MAY BE HERE, and it is the only rule that matters. Folio serves the text itself, so a
+     book may be imported only where the copyright has EXPIRED. For a classical author the trap is
+     that the original and the TRANSLATION are two different works: Seneca's Latin is free, and the
+     English is a 20th-century work with a copyright of its own. `rights` on each book records the
+     grounds, and the book's own page prints it — the reasoning is shown to the reader rather than
+     kept in a commit message. See .claude/fetch-book.js, which is what writes books/<id>.js.
+
+     This registry is EAGER and the text is not. It holds a tile's worth of metadata per book — a
+     few hundred bytes — so the Library page can paint its grid, say how long each book is and
+     show where the reader had got to, without fetching a word of any book. A book's chapters are
+     ~450 KB and arrive only when that book is opened. */
+  const BOOKS = [
+    {
+      id: "seneca-letters",
+      title: "Letters from a Stoic",
+      subtitle: "Moral Letters to Lucilius",
+      author: "Seneca",
+      written: "c. 62–65 CE",
+      translator: "Richard Mott Gummere",
+      edition: "Loeb Classical Library, 1917–1925",
+      rights:
+        "Public domain in the United States: Gummere's translation was published in 1917, 1920 and 1925 — " +
+        "all before 1929 — so its copyright has expired. The widely-read Penguin translation by Robin Campbell " +
+        "(1969) is still in copyright and is deliberately not used here.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Moral_letters_to_Lucilius",
+      color: "#8257C2",
+      // what a reader wants to know before opening it, in the register the cards are written in
+      blurb:
+        "A hundred and twenty-four letters written by a Roman statesman to a younger friend in the last years " +
+        "of his life, on how to live: time, fear, friendship, wealth, illness and death. They read less like a " +
+        "treatise than like letters actually sent, and are the most approachable Stoic writing to survive.",
+      chapterWord: "Letter",
+      // shipped so far — the tile can say how long the book is before the text has loaded
+      count: 65,
+      total: 124,
+      parts: [
+        { n: 1, label: "Volume I", note: "Letters 1–65" },
+        { n: 2, label: "Volume II", note: "Letters 66–92" },
+        { n: 3, label: "Volume III", note: "Letters 93–124" },
+      ],
+    },
+  ];
+  const BOOK_BY_ID = {};
+  BOOKS.forEach((b) => (BOOK_BY_ID[b.id] = b));
+  // id -> [chapter] once the book's own file has landed. A book file pushes onto window.FOLIO_BOOKS_IN
+  // rather than assigning a global, and this drains that QUEUE — the same shape as the i18n ingests, and
+  // for the same reason: two books whose scripts land before either hook must both survive.
+  const BOOK_TEXT = {};
+  function bookIngest() {
+    const q = window.FOLIO_BOOKS_IN || [];
+    window.FOLIO_BOOKS_IN = [];
+    q.forEach((inc) => { if (inc && inc.id) BOOK_TEXT[inc.id] = inc.chapters || []; });
+  }
+  function bookBundle(id) {
+    const name = "book:" + id;
+    if (!DATA_BUNDLES[name]) DATA_BUNDLES[name] = { files: ["books/" + id + ".js"], after: bookIngest };
+    return name;
+  }
+  function bookChapters(id) { return BOOK_TEXT[id] || null; }
+
   const _bundlePromises = {};
   function loadScriptOnce(src) {
     return new Promise((resolve, reject) => {
@@ -3917,7 +3989,9 @@
   function setActiveTab(name) {
     // the discovered-terms list is reached from the account page and belongs to it, so the Account tab
     // stays lit there rather than the bar going blank under a page that is plainly part of "your record"
-    const lit = name === "glossary" ? "account" : name;
+    // A route with no tab of its own lights the tab it plainly belongs under: the discovered-terms list
+    // is part of "your record", and one book is part of the Library it was opened from.
+    const lit = name === "glossary" ? "account" : name === "book" ? "library" : name;
     document.querySelectorAll(".tab").forEach((t) => {
       t.classList.toggle("active", t.dataset.route === lit);
     });
@@ -3931,7 +4005,9 @@
      everything that does — the tab strip, history, bookmarks and in-app share sheets. */
   const PAGE_META = {
     home:      ["Folio — a study companion", "Spaced-repetition flashcards for history, daily games and an interactive atlas."],
-    decks:     ["Library — Folio", "Browse Folio's collections and decks, and pick what to review each day."],
+    decks:     ["Collections — Folio", "Browse Folio's collections and decks, and pick what to review each day."],
+    library:   ["Library — Folio", "Read whole works of history and philosophy in public-domain English translations."],
+    book:      ["Library — Folio", "Read a public-domain English translation, with the glossary linked through it."],
     study:     ["Study — Folio", "Review the cards that are due, one at a time."],
     map:       ["Atlas — Folio", "An interactive globe: present-day borders, physical geography and world maps back to 1500."],
     mission:   ["About — Folio", "What Folio is, how to use it, and what has changed lately."],
@@ -3976,7 +4052,11 @@
     if (name === "admin" && !isAdmin()) name = "home";
     current = { name, params: params || {} };
     // #deck/<slug> is a shareable address, so the slug rides in the hash (the same shape as #map/<year>/<slug>)
-    location.hash = name === "home" ? "" : (name === "deck" && current.params.slug ? "deck/" + encodeURIComponent(current.params.slug) : name);
+    location.hash =
+      name === "home" ? ""
+      : name === "deck" && current.params.slug ? "deck/" + encodeURIComponent(current.params.slug)
+      : name === "book" && current.params.id ? "book/" + encodeURIComponent(current.params.id)
+      : name;
     render();
   }
   function render() {
@@ -6427,9 +6507,13 @@
 
     root.innerHTML = `
       <div class="page-head">
-        <span class="eyebrow">Library</span>
+        ${/* The eyebrow read "Library" until Aug 2026, when that name moved to the reading room next
+              door (PAGES.library — whole books rather than cards). Two pages called Library, one of them
+              titled Collections, is how a reader ends up on the wrong one; this page is the Collections
+              page now, top to bottom. */""}
+        <span class="eyebrow">Study</span>
         <h1>Collections</h1>
-        <p>Curated collections. New subjects are on the way.</p>
+        <p>Curated collections of flashcards. New subjects are on the way.</p>
         ${/* What the Folio level is FOR (Aug 2026, on request): how many decks may sit in the daily review
               at once. Said here, where a reader is choosing one, rather than only in the toast that turns
               the choice down. */""}
@@ -6902,6 +6986,327 @@
     }
     return { queue, where, scope };
   }
+
+  /* ============================================================
+     THE LIBRARY — the grid of books, and one book's reading room
+     ============================================================ */
+
+  /* Where a reader had got to. `ch` is the chapter NUMBER (not its index), because a book can gain
+     chapters between visits — Seneca ships 65 of 124 — and an index would silently move a reader's place
+     the day the rest arrive. `y` is a fraction of the chapter's own scroll height rather than a pixel
+     offset, so the place survives a font-size change, a rotation and a narrower screen, none of which
+     preserve pixels. */
+  /* The translator's own notes, rendered as the numbered fold the rest of the site already uses.
+     It emits the SAME markup as sourcesHTML — .src-note / .src-head / .src-list / .src-item — so
+     wireFootnotes numbers the markers and the delegated fold handler opens it with no new wiring, and a
+     note marker in a book behaves exactly like a source marker on a card.
+
+     It is not sourcesHTML itself for two reasons, both about caps written for a card: normSources trims a
+     citation to 600 characters (Gummere's longest note runs to 729, and a note cut mid-sentence is worse
+     than no note) and drops everything past 24 (a chapter legitimately has more notes than a card has
+     sources — silently dropping them would leave wireFootnotes deleting the markers that pointed at them).
+     It carries `src-compact` for the BEHAVIOUR that class buys: the fold starts shut, and opening it says
+     something about this chapter rather than rewriting the reader's card-wide S.settings.srcCollapsed. */
+  function bookNotesHTML(notes) {
+    const list = (Array.isArray(notes) ? notes : []).map((s) => String(s == null ? "" : s).trim()).filter(Boolean);
+    if (!list.length) return "";
+    const items = list.map((s) => '<li class="src-item">' + sanitizeHTML(s) + "</li>").join("");
+    return '<section class="src-note src-compact bk-notes">' +
+      '<button class="src-head" type="button" aria-expanded="false" aria-label="Show or hide the notes" title="Show or hide the notes">' +
+        '<span class="src-label">Notes</span>' +
+        '<span class="src-count notranslate">' + list.length + "</span>" +
+        '<span class="src-toggle collapsed">' + SRC_CHEV + "</span>" +
+      "</button>" +
+      '<div class="src-collapse collapsed"><div class="src-collapse-inner">' +
+        '<ol class="src-list notranslate">' + items + "</ol>" +
+      "</div></div></section>";
+  }
+
+  /* Auto-linking a PREHISTORY glossary into Roman philosophy, and why a book needs one extra rule.
+
+     Folio's glossary is a glossary of prehistory, palaeoanthropology, geography and heads of state. Run
+     over a card's background that is exactly right, because the card is about those things. Run over
+     Seneca it links the right proper nouns — Greece, Sicily, Syria, Egypt, Hesiod — and then links four
+     words that mean something else entirely in his prose: `genus` is a logical category to a Stoic and not
+     a rank in taxonomy, `epoch` is a stretch of time and not a geological epoch, and `iron` and `bronze`
+     are metals in a moralist's simile rather than ages of the world. Those are not noise; they are a
+     glossary confidently telling a reader something untrue about the sentence in front of them.
+
+     The rule that separates the two sets cleanly is CAPITALISATION IN THE TEXT: a place or a person keeps
+     its capital wherever it falls, a common noun does not. So a book links only what the prose itself
+     capitalises, and a lowercase match is unwrapped again. It is deliberately narrower than a card's
+     linking and it belongs to books alone — a card's background is written against this glossary and
+     should keep linking `knapping` and `bipedalism`, which no book would.
+
+     It cannot be done by choosing terms up front: the SAME key is right or wrong depending on the
+     sentence, and only the matched surface can tell you which. A book may still name keys outright in
+     `glossOff` for anything this rule lets through. */
+  function linkProperNounsOnly(root) {
+    if (!root) return;
+    root.querySelectorAll(".ttip[data-k]").forEach((el) => {
+      const s = (el.textContent || "").trim();
+      // a mid-sentence capital is the signal; a term opening a sentence would be ambiguous, but every
+      // such match here is also matched elsewhere mid-sentence, so nothing is lost by being strict
+      if (s && s[0] === s[0].toLowerCase()) el.replaceWith(document.createTextNode(el.textContent));
+    });
+    root.normalize();
+  }
+
+  function readingPos(id) {
+    const r = (S.reading && S.reading[id]) || null;
+    return r && typeof r.ch === "number" ? r : null;
+  }
+  function setReadingPos(id, ch, frac) {
+    if (!S.reading || typeof S.reading !== "object") S.reading = {};
+    const prev = S.reading[id];
+    const y = Math.max(0, Math.min(1, frac || 0));
+    // don't churn the synced blob on every scroll frame — a move of less than a screen-ish is not a place
+    if (prev && prev.ch === ch && Math.abs((prev.y || 0) - y) < 0.02) return;
+    S.reading[id] = { ch: ch, y: y, at: Date.now() };
+    save();
+  }
+  // how far through the whole book that place is, for the tile's progress line
+  function readingPct(b) {
+    const r = readingPos(b.id);
+    if (!r) return 0;
+    const i = Math.max(0, r.ch - 1);
+    return Math.max(0, Math.min(100, Math.round(((i + (r.y || 0)) / Math.max(1, b.count)) * 100)));
+  }
+
+  PAGES.library = function (root) {
+    const tile = (b) => {
+      const pos = readingPos(b.id), pct = readingPct(b);
+      return `<button class="book-tile" type="button" data-book="${esc(b.id)}" style="--tile:${b.color}"
+                aria-label="${esc(b.title)} by ${esc(b.author)}">
+        <span class="bk-spine" aria-hidden="true"></span>
+        <span class="bk-tile-body">
+          <span class="bk-tile-author">${esc(b.author)}</span>
+          <span class="bk-tile-title">${esc(b.title)}</span>
+          ${b.subtitle ? `<span class="bk-tile-sub">${esc(b.subtitle)}</span>` : ""}
+          <span class="bk-tile-blurb">${esc(b.blurb)}</span>
+          <span class="bk-tile-foot">
+            <span class="bk-tile-meta">${b.count} ${b.count === 1 ? b.chapterWord.toLowerCase() : b.chapterWord.toLowerCase() + "s"}${b.total > b.count ? ` <span class="bk-of">of ${b.total}</span>` : ""}</span>
+            ${pos ? `<span class="bk-tile-resume">${esc(b.chapterWord)} ${pos.ch} · ${pct}%</span>` : `<span class="bk-tile-new">Start reading</span>`}
+          </span>
+          ${pos ? `<span class="bk-tile-bar"><span style="width:${pct}%"></span></span>` : ""}
+        </span>
+      </button>`;
+    };
+    root.innerHTML = `
+      <div class="page-head">
+        <span class="eyebrow">Library</span>
+        <h1>Books</h1>
+        <p>Whole works, read on the page — with the glossary linked through them and the translator's own
+           notes kept. Every book here is in the public domain, and free to read.</p>
+      </div>
+      <div class="book-grid">${BOOKS.map(tile).join("")}</div>
+      ${/* Said once, on the page rather than in a policy note: it is why the shelf is short, and it is the
+            rule that decides what may join it. */""}
+      <p class="lib-note">Folio serves these texts itself, so a work can only be shelved here once its
+        copyright has expired — for a classical author that means the <b>translation</b> as much as the
+        original. Each book's page states the edition it comes from and the grounds it is free on.</p>`;
+    root.querySelectorAll(".book-tile").forEach((el) =>
+      el.addEventListener("click", () => route("book", { id: el.dataset.book }))
+    );
+  };
+
+  /* One book. Chapters are TABS along a menu bar that scrolls, which is the only arrangement that scales:
+     Seneca has 65 shipped and 124 to come, and a dropdown alone hides the shape of the book while a wrapped
+     grid of 124 buttons IS the page. The bar carries the chapter number and title; the "Contents" button
+     opens the whole list when a reader wants to jump rather than step. */
+  PAGES.book = function (root, params) {
+    const b = BOOK_BY_ID[(params && params.id) || ""];
+    if (!b) { route("library"); return; }
+
+    const chapters = bookChapters(b.id);
+    if (!chapters) {
+      // the text is ~450 KB and lazy — hold the page rather than paint an empty book
+      root.innerHTML = `
+        <div class="page-head"><span class="eyebrow">Library</span><h1>${esc(b.title)}</h1></div>
+        <div class="data-loading">Opening ${esc(b.title)}…</div>`;
+      ensureData(bookBundle(b.id)).then((ok) => {
+        if (current.name !== "book" || current.params.id !== b.id) return;   // the reader left while it loaded
+        if (!ok) {
+          root.querySelector(".data-loading").textContent = "This book could not be loaded. Check your connection and try again.";
+          return;
+        }
+        render();
+      });
+      return;
+    }
+
+    const pos = readingPos(b.id);
+    // resume on the chapter the reader left, falling back to the first if that chapter is not shipped yet
+    let cur = chapters.find((c) => pos && c.n === pos.ch) || chapters[0];
+    const partOf = (n) => (b.parts || []).find((p) => p.n === n);
+
+    root.innerHTML = `
+      <div class="page-head bk-head">
+        <span class="eyebrow"><button class="bk-back" type="button" id="bkBack">← Library</button></span>
+        <h1>${esc(b.title)}</h1>
+        <p class="bk-byline">${esc(b.author)} · ${esc(b.written)} · translated by ${esc(b.translator)}</p>
+      </div>
+
+      <div class="bk-bar" role="tablist" aria-label="Chapters">
+        <button class="bk-nav" type="button" id="bkPrev" aria-label="Previous ${esc(b.chapterWord.toLowerCase())}" title="Previous">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="bk-tabs" id="bkTabs">
+          ${chapters.map((c) => `<button class="bk-tab${c.n === cur.n ? " on" : ""}" type="button" role="tab"
+             aria-selected="${c.n === cur.n}" data-ch="${c.n}" title="${esc(b.chapterWord)} ${c.n} — ${esc(c.t)}">
+             <span class="bk-tab-n">${c.n}</span><span class="bk-tab-t">${esc(c.t)}</span></button>`).join("")}
+        </div>
+        <button class="bk-nav" type="button" id="bkNext" aria-label="Next ${esc(b.chapterWord.toLowerCase())}" title="Next">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <button class="bk-nav bk-toc-btn" type="button" id="bkToc" aria-expanded="false" aria-label="Contents" title="Contents">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="bk-toc" id="bkTocPanel" hidden></div>
+
+      ${/* the panel the tablist above drives — aria-live="polite" so a screen reader is told the chapter
+            changed, which a silent innerHTML swap would not do */""}
+      <article class="bk-page" id="bkPage" role="tabpanel" aria-live="polite"></article>
+
+      <div class="bk-foot">
+        <button class="btn ghost" type="button" id="bkPrev2">← Previous</button>
+        <button class="btn ghost" type="button" id="bkNext2">Next →</button>
+      </div>
+
+      <section class="bk-rights">
+        <h3>About this text</h3>
+        <p><i>${esc(b.subtitle || b.title)}</i> by ${esc(b.author)}, written ${esc(b.written)}. This English
+           translation is by ${esc(b.translator)} — ${esc(b.edition)}.</p>
+        <p class="bk-rights-note">${esc(b.rights)}</p>
+        <p class="bk-rights-src">Text from <a href="${esc(b.sourceUrl)}" target="_blank" rel="noopener noreferrer">${esc(b.sourceName)}</a>.</p>
+      </section>`;
+
+    const pageEl = root.querySelector("#bkPage");
+    const tabsEl = root.querySelector("#bkTabs");
+    const tocEl = root.querySelector("#bkTocPanel");
+
+    /* Paint one chapter. The prose is the book file's own markup — the glossary is auto-linked over it
+       exactly as a card's background is, and the translator's notes become the numbered fold the rest of
+       the site uses (sourcesHTML + wireFootnotes), so a note marker behaves like every other one on the
+       site and the numbering can never drift from the list. */
+    function paint(c, restoreFrac) {
+      cur = c;
+      const part = partOf(c.p);
+      pageEl.innerHTML = `
+        <header class="bk-ch-head">
+          ${part ? `<span class="bk-ch-part">${esc(part.label)}</span>` : ""}
+          <span class="bk-ch-n">${esc(b.chapterWord)} ${c.n}</span>
+          <h2 class="bk-ch-t">${esc(c.t)}</h2>
+        </header>
+        <div class="bk-prose">${c.html}</div>
+        ${bookNotesHTML(c.notes)}`;
+
+      // the glossary, linked through the prose — the same call a card's background makes
+      const prose = pageEl.querySelector(".bk-prose");
+      try { autoLinkGlossary(prose, "", b.glossOff || null, "site"); linkProperNounsOnly(prose); } catch (e) {}
+      setupTooltips(pageEl);
+      wireFootnotes(pageEl);
+      unitizeTree(pageEl);
+
+      tabsEl.querySelectorAll(".bk-tab").forEach((t) => {
+        const on = +t.dataset.ch === c.n;
+        t.classList.toggle("on", on);
+        t.setAttribute("aria-selected", on ? "true" : "false");
+      });
+      const onTab = tabsEl.querySelector(".bk-tab.on");
+      if (onTab) onTab.scrollIntoView({ block: "nearest", inline: "center", behavior: prefersReducedMotion() ? "auto" : "smooth" });
+
+      const i = chapters.indexOf(c);
+      [root.querySelector("#bkPrev"), root.querySelector("#bkPrev2")].forEach((el) => el && (el.disabled = i <= 0));
+      [root.querySelector("#bkNext"), root.querySelector("#bkNext2")].forEach((el) => el && (el.disabled = i >= chapters.length - 1));
+
+      // restore the reader's place within the chapter, once the browser has laid the prose out
+      requestAnimationFrame(() => {
+        if (restoreFrac > 0) {
+          const top = pageEl.offsetTop + pageEl.offsetHeight * restoreFrac;
+          window.scrollTo({ top: Math.max(0, top - 80), behavior: "auto" });
+        }
+        markPos();
+      });
+    }
+
+    function go(c, fromReader) {
+      if (!c || c === cur) return;
+      // a deliberate move to another chapter starts that chapter at the top; only a RESUME restores a depth
+      paint(c, 0);
+      if (fromReader) setReadingPos(b.id, c.n, 0);
+      if (!prefersReducedMotion()) window.scrollTo({ top: 0, behavior: "smooth" });
+      else window.scrollTo(0, 0);
+    }
+
+    /* Record the place, throttled. A scroll listener that wrote on every frame would push a synced
+       progress blob on every frame with it; this samples and setReadingPos ignores a move smaller than a
+       fiftieth of the chapter. */
+    let posT = 0;
+    function markPos() {
+      const h = pageEl.offsetHeight || 1;
+      // measured a third of the way down the viewport, not at its top edge: that is roughly where a
+      // reader's eye is, and it means reopening the book puts the line they stopped on back in front of
+      // them rather than just above the fold
+      const frac = Math.max(0, Math.min(1, (window.scrollY + window.innerHeight * 0.35 - pageEl.offsetTop) / h));
+      setReadingPos(b.id, cur.n, frac);
+    }
+    /* The listener is on WINDOW, which outlives the page — and render() replaces #view wholesale without
+       telling anyone, so there is no teardown hook to hang a removal on. It takes itself off instead, the
+       moment it notices its own page has been detached (the same self-stopping shape as the home page's
+       mini globe). A leaked scroll listener writing a reading position for a book nobody is reading is
+       exactly the kind of fault that never surfaces as a bug report. */
+    const onScroll = () => {
+      if (!pageEl.isConnected) { window.removeEventListener("scroll", onScroll); clearTimeout(posT); return; }
+      clearTimeout(posT);
+      posT = setTimeout(() => { if (pageEl.isConnected) markPos(); }, 400);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    tabsEl.querySelectorAll(".bk-tab").forEach((t) =>
+      t.addEventListener("click", () => go(chapters.find((c) => c.n === +t.dataset.ch), true))
+    );
+    const step = (d) => { const i = chapters.indexOf(cur) + d; if (i >= 0 && i < chapters.length) go(chapters[i], true); };
+    root.querySelector("#bkPrev").addEventListener("click", () => step(-1));
+    root.querySelector("#bkNext").addEventListener("click", () => step(1));
+    root.querySelector("#bkPrev2").addEventListener("click", () => step(-1));
+    root.querySelector("#bkNext2").addEventListener("click", () => step(1));
+    root.querySelector("#bkBack").addEventListener("click", () => route("library"));
+
+    // Contents: the whole book at once, grouped by the part the edition itself divides it into
+    tocEl.innerHTML = (b.parts || [{ n: 1, label: "" }]).map((p) => {
+      const inPart = chapters.filter((c) => c.p === p.n);
+      if (!inPart.length) return "";
+      return `<div class="bk-toc-part"><h4>${esc(p.label)}${p.note ? ` <span>${esc(p.note)}</span>` : ""}</h4>
+        <div class="bk-toc-list">${inPart.map((c) =>
+          `<button class="bk-toc-item" type="button" data-ch="${c.n}"><span class="bk-toc-n">${c.n}</span><span>${esc(c.t)}</span></button>`
+        ).join("")}</div></div>`;
+    }).join("");
+    tocEl.querySelectorAll(".bk-toc-item").forEach((t) =>
+      t.addEventListener("click", () => {
+        go(chapters.find((c) => c.n === +t.dataset.ch), true);
+        tocEl.hidden = true;
+        root.querySelector("#bkToc").setAttribute("aria-expanded", "false");
+      })
+    );
+    root.querySelector("#bkToc").addEventListener("click", (e) => {
+      const btn = e.currentTarget;
+      tocEl.hidden = !tocEl.hidden;
+      btn.setAttribute("aria-expanded", tocEl.hidden ? "false" : "true");
+    });
+
+    // ←/→ step chapters, as they do on any reader — but not while a field or a gloss popup has the keys
+    attachKeys((e) => {
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      const ae = document.activeElement;
+      if (ae && (ae.isContentEditable || ae.tagName === "INPUT" || ae.tagName === "TEXTAREA" || ae.tagName === "SELECT")) return;
+      if (e.key === "ArrowLeft") { e.preventDefault(); step(-1); }
+      else if (e.key === "ArrowRight") { e.preventDefault(); step(1); }
+    });
+
+    paint(cur, pos && pos.ch === cur.n ? pos.y || 0 : 0);
+  };
 
   /* ============================================================
      STUDIO — where a user writes their own deck
@@ -16372,13 +16777,15 @@
   }
 
   // initial route from hash
-  const valid = ["home", "decks", "study", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "admin", "mission", "studio", "community", "deck", "glossary"];
+  const valid = ["home", "decks", "study", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "admin", "mission", "studio", "community", "deck", "glossary", "library", "book"];
   const h = (location.hash || "").replace("#", "");
   const hParts = h.split("/");
   let initName = valid.includes(hParts[0]) ? hParts[0] : "home";
   if (initName === "map" && hParts.length > 1) parseMapHash(hParts);   // #map/<year>/<slug> deep link
   let initParams = {};
   if (initName === "deck") { try { initParams.slug = decodeURIComponent(hParts[1] || ""); } catch (e) { initParams.slug = hParts[1] || ""; } }   // a mangled %-escape must not kill boot
+  // #book/<id> — a book is a shareable address, the same shape as #deck/<slug> and #map/<year>/<slug>
+  if (initName === "book") { try { initParams.id = decodeURIComponent(hParts[1] || ""); } catch (e) { initParams.id = hParts[1] || ""; } }
   /* A reload on #study picks the session back up where it was — same card, same phrasing, and revealed if
      it was revealed. The scope lives in the record rather than the hash because a queue is not an address:
      what a reader wants back is the session they were in, not a fresh one built from the same deck. With no
@@ -16511,6 +16918,12 @@
       let slug = "";
       try { slug = decodeURIComponent(parts[1] || ""); } catch (e) { slug = parts[1] || ""; }
       if (!(current.name === "deck" && current.params.slug === slug)) route("deck", { slug: slug });
+      return;
+    }
+    if (parts[0] === "book") {   // #book/<id> pasted or followed mid-session
+      let bid = "";
+      try { bid = decodeURIComponent(parts[1] || ""); } catch (e) { bid = parts[1] || ""; }
+      if (!(current.name === "book" && current.params.id === bid)) route("book", { id: bid });
       return;
     }
     if (hh === "study" && current.name !== "study") {   // back/forward onto a study address — resume, or go home if the session is gone
