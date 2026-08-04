@@ -14,7 +14,7 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.2", released: "2026-08-04T17:11Z" };
+window.FOLIO_VERSION = { v: "1.3", released: "2026-08-04T19:07Z" };
 
 window.CHANGELOG = [
   {
@@ -23,6 +23,8 @@ window.CHANGELOG = [
     items: [
       "Folio has a Library. It is a reading room rather than a deck of cards: whole books, in English, laid out one banner to a book, with the glossary linked through the text and the translator’s own notes kept as numbered footnotes you can open where you are. There are two books on the shelf to begin with, both complete. Seneca’s letters to Lucilius: all 124 that survive, across the three volumes, on time, fear, friendship, wealth, illness and how to die — in the English of Richard Mott Gummere. And the <i>Meditations</i> of Marcus Aurelius, all twelve books of the private notebook he kept on campaign, in the English of C. R. Haines; both translations are out of copyright and free for anyone to read. Each letter or book sits on its own tab along a bar at the top, with a Contents button for jumping about, and the arrow keys step between them.",
       "A book always opens where you left it. Not the chapter you were on — the paragraph: close Folio halfway down a letter, come back tomorrow on another device, and it opens there.",
+      "In a book, a note's number now carries you back to the place in the text that cited it, so you can read a footnote and return to the sentence you were on without hunting for it. The same works on a card and in a glossary popup. If a note is quoted more than once in a letter, it takes you back to the one you came from.",
+      "Swiping sideways to turn to the next chapter works. It never did on a phone — the browser was taking the gesture for a scroll before Folio saw it — and the same fault was quietly stopping the swipe between the main pages, which works now too.",
       "The page that used to be called the Library is now called Collections, which is what it has always been — the collections and decks you study from. Nothing about it has changed but the name, and every link to it still works.",
       "World History is now laid out the way a course would be: eight period decks running from human origins to the present, thirty-nine subdecks between them, and a fixed running order for the thousand cards that will fill it. Nothing outside Europe is filed under “and elsewhere” — Africa, the Islamic world, the steppe, East Asia, South and Southeast Asia and the Americas each have decks of their own. Until now the collection was a single prehistory deck sitting beside a row of empty ones.",
       "Eighty-nine of the prehistory cards took their place in that order and twenty were retired — single caves, single carvings and single pollen periods, finer detail than a survey of the whole human past can carry, and the makings of a prehistory collection of its own one day. Nothing went from the glossary: every one of those subjects still has its entry and its sources. One consequence to expect — because the cards were renumbered, they will come round in your daily review as though you were meeting them for the first time.",

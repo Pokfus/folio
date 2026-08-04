@@ -7921,7 +7921,8 @@
   function bookNotesHTML(notes) {
     const list = (Array.isArray(notes) ? notes : []).map((s) => String(s == null ? "" : s).trim()).filter(Boolean);
     if (!list.length) return "";
-    const items = list.map((s) => '<li class="src-item">' + sanitizeHTML(s) + "</li>").join("");
+    const items = list.map((s, i) =>
+      '<li class="src-item">' + srcNumHTML(i + 1) + '<span class="src-text">' + sanitizeHTML(s) + "</span></li>").join("");
     return '<section class="src-note src-compact bk-notes">' +
       '<button class="src-head" type="button" aria-expanded="true" aria-label="Show or hide the notes" title="Show or hide the notes">' +
         '<span class="src-label">Notes</span>' +
@@ -8653,6 +8654,9 @@
       }
       lastT = now; lastX = e.clientX; lastY = e.clientY;
     });
+    // a gesture the browser took for a scroll is not a tap and not a swipe — it never reaches pointerup,
+    // so drop it here rather than leave it pending against the next finger (cf. wirePageSwipe)
+    root.addEventListener("pointercancel", () => { g = null; lastT = 0; }, { passive: true });
 
     /* A window crossing the breakpoint changes what "showing the original" MEANS — two columns above
        it, one below — so the mode is re-derived rather than left as whatever the last width decided.
@@ -10238,6 +10242,17 @@
     return normSources([].concat(gen || [], per || []));
   }
   const SRC_CHEV = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
+  /* An entry's own number, written into the markup rather than left to `list-style:decimal`. The jump runs
+     BOTH WAYS since Aug 2026 (on request: a note's number should carry the reader back to the place in the
+     text that cited it), and a ::marker cannot be a control — a click on it lands on the <li>, it takes no
+     tabindex and no accessible name. So the number is an element, and wireFootnotes turns it into a
+     back-link only where a marker for it actually exists on that surface. An entry nothing points at keeps
+     a plain number, which is what a list of works should look like: the Atlas panel's prose carries no
+     markers at all and never calls wireFootnotes, so its numbers stay exactly as they read today.
+     That split is deliberate and is the fold header's lesson (see the delegated listeners below) applied
+     one level up: the CONTROL is created by the pass that can see both ends of the jump, so a surface that
+     never gets that pass shows no control rather than a dead one. */
+  function srcNumHTML(n) { return '<span class="src-n notranslate">' + n + "</span>"; }
   /* Just the numbered list — for a surface that already owns a fold of its own (the Atlas panel's .cp-sec).
      The links and the access chips are built HERE, into the markup, rather than by a pass over the page
      afterwards. They used to depend on wireSourceLinks() reaching the list, which is the same fragility the
@@ -10252,10 +10267,10 @@
     if (!src.length) return "";
     const ol = document.createElement("ol");
     ol.className = "src-list notranslate";
-    src.forEach((s) => {
+    src.forEach((s, i) => {
       const li = document.createElement("li");
       li.className = "src-item";
-      li.innerHTML = s;
+      li.innerHTML = srcNumHTML(i + 1) + '<span class="src-text">' + s + "</span>";
       try { linkifySrcItem(li); } catch (err) {}   // decoration over text this code did not write
       ol.appendChild(li);
     });
@@ -10385,7 +10400,10 @@
 
      Already clear of both? Nothing moves — a note the reader can already see should not jolt. Otherwise
      it is placed in the middle of what is genuinely visible, except when the note is taller than that
-     band, where it is aligned to its top instead: centring a long note lands the reader mid-sentence. */
+     band, where it is aligned to its top instead: centring a long note lands the reader mid-sentence.
+
+     It takes EITHER END of the jump — the note on the way down, the marker in the prose on the way back —
+     since both have to clear the same furniture and a marker is inside the same scrollers a note is. */
   function scrollNoteIntoView(item) {
     const smooth = prefersReducedMotion() ? "auto" : "smooth";
     const sc = noteScrollParent(item);
@@ -10449,7 +10467,36 @@
   }
   function jumpToFootnote(fn) {
     const note = noteForNode(fn), n = parseInt(fn.getAttribute("data-fn"), 10);
-    if (note && n > 0) openFootnote(note, note.querySelectorAll(".src-item")[n - 1]);
+    if (!note || !(n > 0)) return;
+    const item = note.querySelectorAll(".src-item")[n - 1];
+    // remember which marker sent the reader here, so the number's back-link returns to THAT one. A note
+    // may be cited several times over — Seneca's letter 114 cites one note four times — and coming back
+    // to the first citation when the reader jumped from the fourth is landing them in the wrong sentence.
+    if (item) item._fnFrom = fn;
+    openFootnote(note, item);
+  }
+  /* …and back. The climb mirrors noteForNode's: up from the note until an ancestor is found that holds a
+     marker with this number, stopping at <body>, so a book's notes can never send the reader into a gloss
+     popup that happens to be open over them. The marker jumped from wins where it is still on the page;
+     otherwise the first citation of that note, which is the only other honest answer. */
+  function markerForNumber(note, n) {
+    for (let a = note.parentElement; a && a !== document.body; a = a.parentElement) {
+      const fn = a.querySelector('sup.fn[data-fn="' + n + '"]');
+      if (fn) return fn;
+    }
+    return null;
+  }
+  function jumpToMarker(num) {
+    const note = num.closest(".src-note"), item = num.closest(".src-item");
+    if (!note || !item) return;
+    const n = [].indexOf.call(note.querySelectorAll(".src-item"), item) + 1;
+    let fn = item._fnFrom;
+    if (!fn || !fn.isConnected) fn = markerForNumber(note, n);
+    if (!fn) return;
+    fn.classList.remove("src-flash");
+    void fn.offsetWidth;   // restart the flash when the same number is clicked twice
+    fn.classList.add("src-flash");
+    scrollNoteIntoView(fn);
   }
   document.addEventListener("click", (e) => {
     const t = e.target;
@@ -10463,6 +10510,13 @@
       if (S.settings && note && !note.classList.contains("src-compact")) { S.settings.srcCollapsed = !open; save(); }
       return;
     }
+    const num = t.closest(".src-n.src-back");
+    if (num) {
+      e.preventDefault();
+      e.stopPropagation();   // the number sits inside a list a surface may treat as clickable itself
+      jumpToMarker(num);
+      return;
+    }
     const fn = t.closest("sup.fn");
     if (!fn) return;
     e.preventDefault();
@@ -10473,6 +10527,8 @@
     if (e.key !== "Enter" && e.key !== " ") return;
     const t = e.target;
     if (!t || !t.closest) return;
+    const num = t.closest(".src-n.src-back");
+    if (num) { e.preventDefault(); jumpToMarker(num); return; }
     const fn = t.closest("sup.fn");
     if (!fn) return;
     e.preventDefault();
@@ -10489,6 +10545,7 @@
     const note = scope.querySelector(".src-note");
     const items = note ? note.querySelectorAll(".src-item").length : 0;
     let seq = 0;
+    const cited = Object.create(null);   // the numbers a marker actually points at, for the back-links below
     scope.querySelectorAll("sup.fn").forEach((el) => {
       const explicit = parseInt(el.getAttribute("data-fn"), 10);
       const n = explicit > 0 ? explicit : ++seq;
@@ -10499,6 +10556,26 @@
       el.setAttribute("tabindex", "0");
       el.setAttribute("aria-label", "Source " + n);
       el.setAttribute("title", "Source " + n);
+      cited[n] = true;
+    });
+    /* The jump back (Aug 2026, on request). Only a number some marker points at becomes a control — the
+       markers are numbered a few lines above, and this is the one place that knows which of them survived,
+       so an entry nothing cites keeps a plain number rather than offering a jump to nowhere. Idempotent
+       for the same reason the rest of this function is: wireFootnotes is called twice on some surfaces. */
+    // …named for what the list actually holds. A book's are the translator's notes and a card's are its
+    // sources, and a screen reader offering to go "back to source 4" in a letter of Seneca is describing
+    // a surface the reader is not on.
+    const what = note && note.classList.contains("bk-notes") ? "note " : "source ";
+    if (note) note.querySelectorAll(".src-item").forEach((li, i) => {
+      const num = li.querySelector(".src-n");
+      if (!num) return;
+      const on = !!cited[i + 1];
+      num.classList.toggle("src-back", on);
+      if (!on) { ["role", "tabindex", "aria-label", "title"].forEach((a) => num.removeAttribute(a)); return; }
+      num.setAttribute("role", "button");
+      num.setAttribute("tabindex", "0");
+      num.setAttribute("aria-label", "Back to " + what + (i + 1) + " in the text");
+      num.setAttribute("title", "Back to the text");
     });
   }
 

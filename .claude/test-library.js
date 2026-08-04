@@ -731,6 +731,60 @@ function shippedBookLeaks() {
     check("[phone] a short sideways drag does not change the chapter",
       (await chapNow()).ch === beforeSwipe.ch, (await chapNow()).ch);
 
+    /* …and the same swipe as a REAL touch, which is a different test and the reason it is here (Aug 2026,
+       on a report that the swipe did nothing on a phone). Everything above dispatches PointerEvents by
+       hand, which bypasses the browser's own gesture arbitration and so completes every time. A real
+       finger does not: under the default touch-action the browser claims the drag for scrolling the moment
+       it passes the slop and fires POINTERCANCEL, pointerup never arrives, and the handler — which
+       measures the gesture at pointerup — can never see one. The swipe was broken this way for its whole
+       life and every synthetic assertion above passed throughout. `.page` carries `touch-action:pan-y
+       pinch-zoom` for it; nothing in JS can substitute, so this is asserted through CDP touch input.
+       The two that follow are the other halves: a vertical drag must still SCROLL (that one really is a
+       scroll, and pan-y is what keeps it), and the chapter bar must still pan sideways under its own
+       finger, since a touch-action that reached into it would take a nested scroller away. */
+    const cdp = await page.context().newCDPSession(page);
+    const realSwipe = async (x0, y0, dx, dy) => {
+      await cdp.send("Input.dispatchTouchEvent", { type: "touchStart", touchPoints: [{ x: x0, y: y0, id: 1 }] });
+      for (let i = 1; i <= 6; i++) {
+        await page.waitForTimeout(25);
+        await cdp.send("Input.dispatchTouchEvent", { type: "touchMove", touchPoints: [{ x: x0 + dx * i / 6, y: y0 + (dy || 0) * i / 6, id: 1 }] });
+      }
+      await cdp.send("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] });
+      await page.waitForTimeout(700);
+    };
+    await realSwipe(320, 500, -170);
+    const afterReal = await chapNow();
+    check("[phone] a REAL touch swipe steps the chapter, not just a synthesised one",
+      afterReal.ch && +afterReal.ch === +beforeSwipe.ch + 1, beforeSwipe.ch + " → " + afterReal.ch);
+    await realSwipe(80, 500, 170);
+    check("[phone] ...and back the other way",
+      (await chapNow()).ch === beforeSwipe.ch, beforeSwipe.ch + " → " + (await chapNow()).ch);
+    /* The chapter bar goes FIRST of the two below, and the order is not arbitrary: a touch that lands
+       while an earlier fling is still running is spent stopping it, so a bar pan measured straight after
+       the vertical drag reads as a few pixels of scroll and fails on the wrong grounds. */
+    const barPans = await page.evaluate(() => {
+      const t = document.querySelector("#bkTabs");
+      t.scrollTo({ left: 0, behavior: "auto" });
+      return t.scrollWidth > t.clientWidth + 4;
+    });
+    if (barPans) {
+      await page.waitForTimeout(600);
+      const bar = await page.evaluate(() => { const r = document.querySelector("#bkTabs").getBoundingClientRect(); return { x: r.x, y: r.y, w: r.width, h: r.height }; });
+      const chBefore = (await chapNow()).ch;
+      await realSwipe(bar.x + bar.w - 25, bar.y + bar.h / 2, -220);
+      check("[phone] ...and the chapter bar still pans sideways under its own finger",
+        (await page.evaluate(() => document.querySelector("#bkTabs").scrollLeft)) > 80,
+        String(await page.evaluate(() => document.querySelector("#bkTabs").scrollLeft)));
+      check("[phone] ...without that pan also stepping a chapter",
+        (await chapNow()).ch === chBefore, chBefore + " → " + (await chapNow()).ch);
+    }
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await page.waitForTimeout(400);
+    await realSwipe(200, 620, 0, -300);
+    check("[phone] ...while a vertical drag still scrolls the chapter",
+      (await page.evaluate(() => window.scrollY)) > 100, String(await page.evaluate(() => window.scrollY)));
+    await cdp.detach();
+
     // the choice is remembered — it is a way of reading, not a per-chapter accident
     await page.evaluate(() => document.querySelector("#bkLang").click());
     await page.waitForTimeout(400);
