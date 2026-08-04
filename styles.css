@@ -4627,6 +4627,40 @@ body.night .rv-star.on{color:#E6C765;}
   font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink-faint);
   vertical-align:.28em; margin-right:5px; user-select:none;
 }
+/* THE ORIGINAL BESIDE THE TRANSLATION.
+   The page is always built as paired rows once the original is loaded, and these rules decide which
+   columns are shown — so turning the original on is a class change rather than a re-render, which is
+   what lets the reader's place survive the switch exactly. `data-lang` is set by applyLangMode(). */
+.bk-bi{max-width:none;}                       /* two columns need the width the single column caps */
+.bk-bi .bk-row{display:grid; gap:0 34px; align-items:start;}
+.bk-bi .bk-col{min-width:0;}
+.bk-bi .bk-col > :last-child{margin-bottom:0;}
+.bk-bi .bk-row + .bk-row{margin-top:1.05em;}  /* the paragraph gap the rows take over from <p> */
+/* one language: the row is a single column and the other side is not rendered at all, so an empty
+   cell can never leave a gap where its opposite number is long */
+.bk-bi[data-lang="en"] .bk-row{grid-template-columns:1fr;}
+.bk-bi[data-lang="en"] .bk-col-or{display:none;}
+.bk-bi[data-lang="or"] .bk-row{grid-template-columns:1fr;}
+.bk-bi[data-lang="or"] .bk-col-en{display:none;}
+.bk-bi[data-lang="en"], .bk-bi[data-lang="or"]{max-width:68ch;}   /* back to a readable measure */
+.bk-bi[data-lang="both"] .bk-row{grid-template-columns:1fr 1fr;}
+/* The original set apart from the translation without being demoted: the same face, size and leading,
+   a little quieter in colour, and ruled off so the eye knows which column it is in. Deliberately NOT
+   italicised — italic is for a foreign phrase inside a sentence, and a whole column of it is simply
+   harder to read for as long as this text lasts. It would also have set the same passage in two
+   different faces depending on the window width, since a phone shows this column on its own. */
+.bk-bi[data-lang="both"] .bk-col-or{
+  padding-left:34px; margin-left:-34px; border-left:1px solid var(--rule); color:var(--ink-soft);
+}
+/* A section one edition numbers and the other does not — 15 of Seneca's 2,141. The row is still
+   drawn, because closing the gap would sit each column beside a passage it is not; the empty side is
+   simply left empty, which is what "this edition has nothing here" looks like. */
+.bk-bi[data-lang="both"] .bk-col:empty{min-height:1.78em;}
+.bk-lang-btn{width:auto; padding:0 11px; gap:5px; font-family:var(--mono);
+  font-size:calc(10.5px * var(--fs)); letter-spacing:.06em; text-transform:uppercase;}
+.bk-lang-btn.on{background:var(--indigo); border-color:var(--indigo); color:#FFFFFF;}
+.bk-lang-loading{opacity:.6; pointer-events:none;}
+
 .bk-notes{margin-top:20px;}
 .bk-foot{display:flex; justify-content:space-between; gap:10px; margin:16px 0 22px;}
 .bk-foot .btn:disabled{opacity:.4; cursor:default;}
