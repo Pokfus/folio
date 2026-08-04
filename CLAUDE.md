@@ -61,6 +61,7 @@ of blocking JS to flip a card; the Atlas layers and the translation tables are ~
 | `glossI18n:<lang>` | `i18n/gloss-<lang>.js` | ditto |
 | `gamesI18n:<lang>` | `i18n/games-<lang>.js` | ditto (the True-or-False / Who-said-it pools) |
 | `placeI18n:<lang>` | `i18n/places-<lang>.js` | ditto (country / territory / capital names on the globe) |
+| `book:<id>` | `books/<id>.js` | that book is opened in the Library (never on the shelf — see the Library bullet) |
 
 (`heightmap.js` + `heightmap-ultra.js` are lazy too, but on their own older path — `loadHeightmapLevel`, keyed off
 the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
@@ -69,6 +70,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 
 - `index.html` — app shell. `<main class="stage"><div id="view"></div></main>`. Also the static
   `<title>`/description/OG baseline (link-preview crawlers don't run JS) and the `<link rel="manifest">`.
+- `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, chapters:[{ n, p, t, html, notes }] })`.
+  **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
+  QUEUE rather than assigning a global, for the reason the i18n files do. Currently one: `seneca-letters`
+  (~447 KB, 65 chapters, 335 translator notes).
+- `.claude/fetch-book.js` — the importer that writes those files, from Wikisource. Standalone Node helper,
+  zero deps, resumable (per-chapter cache in `.claude/book-cache/`, gitignored), safe to re-run:
+  `node .claude/fetch-book.js seneca-letters [--from=N] [--to=N] [--force]`. Adding a book = adding an entry
+  to its `BOOKS` table. **The chapter titles and the volume divisions are re-derived on every run**, so
+  re-titling costs no refetch. Not part of the site.
 - `styles.css` (~235 KB) — editorial design system; 8 themes via CSS custom properties.
   **All theme color variables are hex** (e.g. `--ink:#1B1A17`) so the canvas globe can parse and
   blend them — keep them hex, not `rgb()`/`hsl()`.
@@ -770,6 +780,59 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     Everything there is an animation or a transition, so the global reduced-motion killswitch covers it — the
     one thing it can't reach is a `both`-filled animation's DELAY, which is zeroed explicitly, or a reduced-motion
     reader would watch a page arrive in blank steps.
+- **THE LIBRARY — whole books, read on the site** (`PAGES.library` at `#library`, `PAGES.book` at
+  `#book/<id>`, the `THE LIBRARY` block in app.js; Aug 2026, on request). A reading room beside the
+  flashcards. **The page that used to be called the Library is now Collections** — its route, hash and
+  markup are untouched (`#decks`, every shared link still works); only the label, the eyebrow and its
+  `PAGE_META` title changed. Two pages called Library, one titled Collections, is how a reader lands on the
+  wrong one.
+  · **WHAT MAY BE SHELVED, and it is the only content rule.** Folio serves the text itself, so a book goes
+    up only where the copyright has **expired**. For a classical author the trap is that the original and
+    the TRANSLATION are separate works: Seneca's Latin is free and the English is a 20th-century work with
+    its own copyright. Seneca ships in **Gummere's Loeb translation (1917/1920/1925)**, public domain in the
+    US as pre-1929 publication; the familiar Penguin translation (Campbell, 1969) is **still in copyright
+    and must not be used**, and is named in `fetch-book.js` so nobody reaches for it later. Each book's
+    `rights` string states the grounds and **the book's own page prints it** — the reasoning is shown to the
+    reader, not buried in a commit message.
+  · **`BOOKS` is EAGER and the text is not.** The registry holds a tile's worth of metadata per book (a few
+    hundred bytes) so the shelf can paint, say how long a book is and show where the reader got to **without
+    fetching a word**. `BOOK_TEXT` fills from the lazy bundle only when a book is opened. Guarded by
+    `test-library.js`, which watches the request log — a book reaching the eager path makes the site slower
+    for every visitor who never opens one, and the only symptom is a slower site.
+  · **Chapters are TABS on a bar that SCROLLS** (`.bk-bar` / `.bk-tabs`), plus ‹ › steps, ←/→ keys and a
+    **Contents** panel grouped by the volume the edition itself divides the book into. Seneca has 65 shipped
+    of 124: a wrapped grid of 124 buttons is not a menu bar, it is the page. Below 640px the tab titles give
+    way to their numbers.
+  · **The reader's place is the point of the feature** (`S.reading[bookId] = { ch, y, at }`, in
+    `defaultState` + `PROGRESS_FIELDS`, so it back-fills and SYNCS — a letter begun on a phone opens on the
+    same paragraph on a laptop). `ch` is the chapter **number, not an index**: a book gains chapters between
+    visits (Seneca will), and an index would silently move a reader's place the day the rest arrive. `y` is
+    a **fraction of the chapter's own height**, not a pixel offset, so the place survives a text-size
+    change, a rotation and a narrower screen — none of which preserve pixels. It is sampled a third of the
+    way down the viewport (roughly where the eye is) and written only on a move of more than ~2% of the
+    chapter, or a scroll would push the synced blob on every frame. **A deliberate move to another chapter
+    starts it at the top; only a RESUME restores a depth.**
+  · The scroll listener is on `window`, which outlives the page, and `render()` replaces `#view` without
+    telling anyone — so it **takes itself off when it notices its own page is detached** (`isConnected`), the
+    self-stopping shape `startMiniGlobe` uses. There is no teardown hook to hang it on.
+  · **The notes are the site's own footnote apparatus** (`bookNotesHTML` emits `.src-note` / `.src-item`, so
+    `wireFootnotes` numbers the markers and the delegated fold handler opens it with no new wiring). It is
+    NOT `sourcesHTML`, because that carries caps written for a card — `normSources` trims a citation to 600
+    characters (Gummere's longest note is 729, and a note cut mid-sentence is worse than none) and drops
+    everything past 24, which would leave `wireFootnotes` deleting the markers that pointed at them. It
+    carries `src-compact` for that class's BEHAVIOUR: shut by default, and opening it never rewrites the
+    reader's card-wide `S.settings.srcCollapsed`.
+  · **`linkProperNounsOnly` — a book links only what the prose CAPITALISES.** Folio's glossary is a glossary
+    of prehistory, palaeoanthropology, geography and heads of state; run unrestricted over Roman philosophy
+    it links the right proper nouns (Greece, Sicily, Syria, Egypt, Hesiod) and then four words that mean
+    something else entirely in Seneca — `genus` is a logical category to a Stoic, `epoch` a stretch of time,
+    `iron` and `bronze` metals in a simile. Those look exactly like any other glossary link while telling
+    the reader something untrue about the sentence in front of them. It cannot be fixed by a term blocklist:
+    the SAME key is right or wrong depending on the sentence, and only the matched surface can tell you
+    which. Deliberately narrower than a card's linking and **books-only** — a card's background is written
+    against this glossary and should keep linking `knapping`. A book may still name keys in `glossOff`.
+  · TTS is the next step and is **not** wired: `ttsEnabled()` returns false site-wide (see the read-aloud
+    bullet), so a play control here would render and do nothing.
 - **PAGES.glossary — the terms this reader has discovered** (`#glossary`, Aug 2026, on request), reached from the
   account page's "Glossary terms opened" meter, which is a `.ex-meter-link` button carrying `data-exgo`.
   `glossSeen` was already a permanent register and was only ever COUNTED; this is the list behind the number.
@@ -3632,7 +3695,7 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Twenty-two committed regression tests** (in `.claude/`, not loaded by the site): nineteen drive a real browser with
+- **Twenty-three committed regression tests** (in `.claude/`, not loaded by the site): twenty drive a real browser with
   Playwright; `test-daily-quote.js`, `test-discovery.js` and `test-date-line.js` are plain Node with no dependencies at
   all. Each slices what it tests out of the real `app.js`/`_headers` by text, so they can't drift from what ships.
   **Gotcha when writing more of them:** `page.goto()` to a URL that differs only in the `#fragment` is a
@@ -3883,6 +3946,21 @@ dead code (never rendered).
     of the accessibility tree and out of the way of a click, and to be gone a moment later. Plus: the Atlas
     opts out in BOTH directions. **Re-run after touching `makePageGhost` / `.page-ghost` / `PAGES.glossary`
     / `glossSeen`.**
+  · `node .claude/test-library.js` — the Library (57 assertions): the rename, the shelf, one book, and the
+    reader's place. Each half guards something that fails SILENTLY. **The rename**: `#decks` must still
+    resolve (every link ever shared points at it) while calling itself Collections everywhere, and exactly
+    one nav tab may read "Library". **The laziness**: it watches the request log and asserts no
+    `books/*.js` is fetched on boot OR on the shelf, and is fetched on the book — a book on the eager path
+    just makes the site slower, which nobody reports. **The place**: stored as a chapter NUMBER and a
+    FRACTION (an index moves when the book grows; a pixel offset moves when the text size does), surviving
+    a real RELOAD rather than a re-render, and a deliberate chapter change starting at the top. **The
+    apparatus**: notes numbered in reading order by `wireFootnotes` with no marker past the end of the
+    list, and — the assertion most worth having — it walks **all 65 chapters** asserting no lowercase
+    surface is ever glossary-linked, which is what keeps `genus`, `epoch`, `iron` and `bronze` from
+    quietly mis-defining Seneca. Note that letter 3 contains no glossary term at all, so an assertion
+    pointed there passes on nothing; letter 9 is the one to use. **Re-run after touching `PAGES.library` /
+    `PAGES.book` / `BOOKS` / `bookIngest` / `bookNotesHTML` / `linkProperNounsOnly` / `readingPos` /
+    `setReadingPos`, after running `fetch-book.js`, or after renaming anything on the Collections page.**
   · `node .claude/test-account-page.js` — the SIGNED-IN account page and the Edit dashboard's account
     figures (Aug 2026). Neither is reachable without a session, so Supabase is a `page.route` stand-in —
     deliberately, and for the same reason as `test-publish.js`'s mock: the publishable key in app.js points

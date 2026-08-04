@@ -38,7 +38,10 @@ const server = http.createServer((req, res) => {
   });
 });
 
-const ROUTES = ["", "decks", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "mission", "studio", "community", "deck/does-not-exist"];
+const ROUTES = ["", "decks", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "mission", "studio", "community", "deck/does-not-exist",
+  // the Library: the shelf, a real book (its text arrives as a lazily injected <script>, which is
+  // exactly the kind of thing script-src 'self' is there to police) and a book that does not exist
+  "library", "book/seneca-letters", "book/does-not-exist"];
 
 (async () => {
   await new Promise((r) => server.listen(5599, r));
