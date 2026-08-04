@@ -226,7 +226,7 @@ out-of-copyright Loebs are all open.
     gr-052  Knossos Linear B archive
     gr-053  Postpalatial Crete
     gr-054  Eteocretan
-    gr-055  Mount Ida and the Idaean Cave
+    gr-055  The Idaean Cave †  (was: Mount Ida and the Idaean Cave)
 
 ### Mycenaean Greece — `gr-mycenae`
 
