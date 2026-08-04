@@ -570,19 +570,29 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   and the backfill plan for the 77 of 119 shipped cards that have none. Its P9/P10 (the ten Ancient Greece terms) come
   first. Not part of the site.
 - `docs/glossary-length-plan.md` — **every glossary description at 100 words (±10%)**, on request (Aug 2026): the
-  bar, the measured baseline, the eleven batches, the per-term workflow and the batch log. **L0 (the tooling) and
-  L1 (56 country terms, A–E) have shipped** — `node .claude/gloss-length.js` is the measure, with `--over` /
-  `--under` / `--tag=<kind>` / `--list`. Where it stands today: **117 of 477 terms are inside the bar**, 350 are
-  over and 10 under, mean 127.2 words, and the work is overwhelmingly TRIMMING. Three things the bar does not
+  bar, the measured baseline, the eleven batches, the per-term workflow and the batch log. **L0 (the tooling),
+  L1 (56 country terms, A–E) and L2 (44 country terms, F–L) have shipped** — `node .claude/gloss-length.js` is
+  the measure, with `--over` / `--under` / `--tag=<kind>` / `--list`. Where it stands today: **161 of 477 terms
+  are inside the bar**, 306 are
+  over and 10 under, mean 125.1 words, and the work is overwhelmingly TRIMMING. Three things the bar does not
   change and which the pass must not quietly relax: still exactly three sentences, still impartial and
   self-contained, and **still no claim past what the citations carry** — a term padded to length is the one way
   this pass can do real damage. Two rules L1 established and the later batches should just apply:
   **an imperial conversion does not count** (`gloss-length.js` strips it, exactly as `add-card.js` does — the
   measure counted them at first, which held the glossary to a tighter prose budget than the cards for no reason
   but its subject matter), and **the border list is the first thing to cut** on a country term, worth 9–13 words
-  and telling a reader less than the region already did — keep it only where the borders ARE the fact.
+  and telling a reader less than the region already did — keep it only where the borders ARE the fact (L2 adds
+  the microstate to that exception: `Luxembourg`'s three neighbours are the fact about it).
   **Diff the FIGURES before and after a batch**: L1 shipped with zero numbers added or altered and 23 dropped
-  with their clauses, three of them substantive, and naming which is the honest half of a trim. Not part of the site.
+  with their clauses, three of them substantive, and naming which is the honest half of a trim; L2 the same, with
+  17 dropped and six substantive. Two more checks L2 made standing, both for failures that are invisible in the
+  finished prose. **Diff every MARKED sentence's YEARS before against after** — a trim can strand a marker, and
+  `add-sources.js` cannot see it, since every source is still referenced and no marker runs past the end of the
+  list: `Ireland`'s EU-country-page marker was left on a sentence about the famine once the 1973 accession it
+  carried was cut, and the fix is to restore the datable clause rather than move the marker, that clause being
+  what the recipe's second source exists to carry. And **grep the HEDGE vocabulary before and after** — a trim
+  eats hedges silently, four of L2's six losses sat on claims that survived, and turning "often called the Isle
+  of Spice" into "hence its name" saved four words by inventing a fact. Not part of the site.
 - `docs/units-plan.md` — **metric first, imperial in parentheses**: the rule, the one imperial-first figure in the whole
   corpus (fixed), and the 360 metric figures still to gain their equivalents. Not part of the site.
 - `docs/user-decks-plan.md` — the design plan for **community decks** (user-created decks, sharing,

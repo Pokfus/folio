@@ -83,7 +83,7 @@ its neighbour) actually has neighbours to compare against. The first tag in `GLO
 |---|---|---|---|---|
 | **L0** | tooling | — | — | **SHIPPED 2026-08-04.** `.claude/gloss-length.js` — the measure, plus `--over` / `--under` / `--tag=<kind>` / `--list`, and the per-kind table the batches below are cut from. |
 | **L1** | `place`, A–E (countries) | 56 | 54 over | **SHIPPED 2026-08-04.** All 56 now 102–110 words, mean 107.3. See the log below. |
-| **L2** | `place`, F–L | ~70 | ~66 | " |
+| **L2** | `place`, F–L (countries) | 44 | 44 over | **SHIPPED 2026-08-04.** All 44 now 103–110 words, mean 108.0. See the log below. |
 | **L3** | `place`, M–R | ~70 | ~66 | " |
 | **L4** | `place`, S–Z | ~56 | ~53 | " |
 | **L5** | `place`, sites, regions and continents | ~40 | ~38 | Everything under `place` that is not a country: caves, gorges and type sites, the continents and oceans, and the odd river (`Awash_River`, which L1's filter turned up). Less formulaic; expect real judgement per term. |
@@ -168,9 +168,50 @@ shows** — expect one or two of these a batch.
 clean on glossary.js; `test-sources.js` passes 74/74; and a table-by-table diff confirms only descriptions
 changed — sources, dates, tags, aliases, places and the Atlas map-country table are byte-identical.
 
+### L2 — 44 country terms, F–L (2026-08-04)
+
+**All 44 were over the bar; all 44 now sit at 103–110 words, mean 108.0.** The glossary moved from 117 to
+**161 terms inside the bar** and its mean from 127.2 to 125.1 words; within the `place` kind it is now 114 of
+266. **L1's recipe held without modification** — drop the border list, take the geography sentence's tail,
+tighten — and the batch went about twice as fast as L1 for that reason. One exception to the border rule
+worth adding to L1's two: **`Luxembourg` keeps "wedged between Belgium, Germany and France"**, because a
+microstate's neighbours are the fact about it, which is the same test that kept Bhutan's and Bangladesh's.
+
+**L2's finding is a failure mode L1 did not produce: a trim can STRAND A MARKER, and reading the term will
+not show it.** `Ireland`'s second source is the EU country page, and the only thing that page carried in its
+third sentence was "joined what is now the European Union in 1973" — which the trim cut, leaving marker [2]
+sitting on a sentence about Christianisation, English rule, the famine and 1922, none of which the EU states.
+Nothing catches this: `add-sources.js` checks that every source is referenced and no marker runs past the end
+of the list, and both were still true. **The check is a diff of every MARKED sentence's years, before against
+after** — six of the 44 lost a dated claim from a marked sentence, and reading each of the six against its
+own source showed five were fine (the guide still carries Iraq's 1932 and 1958 after its wars went; NATO
+still carries Finland's 2023) and one was not. The fix was to **restore the accession clause rather than move
+the marker**, since that clause is the datable act the recipe's second source exists to carry. Run the diff on
+every batch from here.
+
+**Second finding: a trim eats HEDGES silently, exactly as this plan warned it would.** Six terms lost a hedge
+word. Two went out with the clause they sat in and are honest losses; **four were on claims that survived the
+trim and were restored** — `India`'s "roughly 1.4 billion", `Guinea`'s "sometimes called the water tower",
+`Grenada`'s "often called the Isle of Spice", `Ireland`'s "about five-sixths". The Grenada one is the
+instructive one: trimming "which is why it is often called the Isle of Spice" to "hence its name, the Isle of
+Spice" saved four words and turned a nickname into the country's name. **Grep the hedge vocabulary before and
+after** — it costs one word to put back and it is the difference between a rounded figure and a false exact one.
+
+**No figure was added and 17 were dropped**, each with its clause, checked mechanically as in L1. Six are
+substantive and are named rather than glossed over: `Iraq` lost the wars of 1980, 1991 and 2003; `Finland`
+lost the wars of 1939 to 1944; `Kiribati` lost the fighting at Tarawa in 1943; `Liberia` lost the 2014 Ebola
+epidemic; `Kazakhstan` lost Baikonur's crewed launches since 1961; and `Guyana` lost Venezuela's standing
+claim to the Essequibo region, which is before the International Court of Justice. The rest are asides — a
+dune barrier's length, a basin's altitude range, a river's name.
+
+**Verified before shipping:** all 44 split into exactly three sentences and round-trip through
+`split-abstract.js`; `gloss-source-audit.js` still reports 477/477 at the 2-source bar; `check-style.js` is
+clean on glossary.js; `test-sources.js` passes 74/74; and a table-by-table diff confirms only the 44
+descriptions changed — sources, dates, tags, aliases, case-sensitivity, places and the Atlas map-country
+table are byte-identical.
+
 ## Status
 
-**L0 and L1 have shipped** (2026-08-04). The glossary stands at **117 of 477 terms inside the bar**, mean
-127.2 words. **L2 is next** — the same recipe, and it should go faster now that the shape is known: drop the
-border list, take the geography sentence's tail, tighten. Re-run `gloss-length.js` before and after every
-batch and record the movement here.
+**L0, L1 and L2 have shipped** (2026-08-04). The glossary stands at **161 of 477 terms inside the bar**, mean
+125.1 words. **L3 is next** — `place`, M–R, the same recipe again, now with the marker diff and the hedge grep
+as standing steps. Re-run `gloss-length.js` before and after every batch and record the movement here.
