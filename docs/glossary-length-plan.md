@@ -85,7 +85,7 @@ its neighbour) actually has neighbours to compare against. The first tag in `GLO
 | **L1** | `place`, A–E (countries) | 56 | 54 over | **SHIPPED 2026-08-04.** All 56 now 102–110 words, mean 107.3. See the log below. |
 | **L2** | `place`, F–L (countries) | 44 | 44 over | **SHIPPED 2026-08-04.** All 44 now 103–110 words, mean 108.0. See the log below. |
 | **L3** | `place`, M–R (countries) | 43 | 43 over | **SHIPPED 2026-08-04.** All 43 now 100–110 words, mean 107.5. See the log below. |
-| **L4** | `place`, S–Z | ~56 | ~53 | " |
+| **L4** | `place`, S–Z (countries) | 54 | 54 over | **SHIPPED 2026-08-04.** All 54 now 102–110 words, mean 107.2. **Completes every country term in the glossary — 197 of them.** See the log below. |
 | **L5** | `place`, sites, regions and continents | ~40 | ~38 | Everything under `place` that is not a country: caves, gorges and type sites, the continents and oceans, and the odd river (`Awash_River`, which L1's filter turned up). Less formulaic; expect real judgement per term. |
 | **L6** | `person` | 54 | 28 | Half are already close — the 45 US presidents were written to one template. Cheapest batch per term. |
 | **L7** | `era` + `industry` | 44 | 36 | Do these two together: they share dates, and the sibling check across them is the one that caught the Palaeolithic end-date twice before. |
@@ -267,9 +267,69 @@ jade and gemstones have long been **among** its exports" had been trimmed to "ar
 which reads the same and says something stronger — the claim survived the trim and the hedge did not. Two
 words put it back. One in 43 is the same rate L2 found, and it is not a rate that will fall.
 
+### L4 — 54 country terms, S–Z (2026-08-04)
+
+**All 54 were over the bar; all 54 now sit at 102–110 words, mean 107.2.** The glossary moved from 204 to
+**258 terms inside the bar** and its mean from 122.8 to 119.7 words; `place` is now **211 of 266**. Scope is
+the 54 COUNTRIES from S to Z, the sixteen non-country places in that stretch (`Sahara`, `Sicily`, `Siberia`,
+`Scandinavia`, `South_America`, `Western_Europe`, `Swabia`, `Swabian_Jura`, `Sulawesi` and the seven caves
+and type sites) belonging to L5.
+
+**L4 finishes the countries. Every one of the 197 country terms in the glossary is now inside the bar** — the
+55 `place` terms still over it are, without exception, L5's caves, gorges, type sites, regions, continents
+and oceans. That is the formulaic half of the pass done and the judgement half beginning.
+
+**L3's prediction was exact, and its one gap is the finding.** L3 measured the island distance-locator across
+the whole glossary and named four terms waiting in L4 — `São_Tomé_and_Príncipe`, `Seychelles`,
+`Solomon_Islands`, `Tuvalu`. All four carried it and all four lost it. **But the clause has a PROSE form the
+regex cannot see**, and two more terms carried that: `Tonga`'s "spread over a long north-south stretch of
+ocean" and `Vanuatu`'s "lying east of Australia and north of New Caledonia" — the same locating work, doing
+the same nothing, with no figure for a numeric grep to find. So the measure found four of six. **When
+measuring a clause for the next batch, grep the SHAPE and then read the batch's own first sentences** — the
+numeric form is the one that indexes, not the one that exhausts.
+
+**Second finding: the hedge grep caught THREE, up from one in L3, and all three are one shape** — a
+quantifier attached to a superlative or a fraction, which reads as pure filler to someone cutting words.
+`Solomon_Islands`' "**some of the** fiercest fighting of the Pacific war" had become "fierce fighting",
+`Syria`'s "**some of the** earliest farming settlements" had become "early farming settlements", and
+`Somalia`'s "the way of life for **much of** the population" had become "for most people". The first two are
+weakenings — they cost information without asserting anything false — but **the third is L2's Grenada
+failure exactly**: *much of* a population is a large fraction, *most* is over half, and the trim quietly
+turned one into the other. All three were restored. The rule to carry: **a quantifier in front of a
+superlative is not filler, it is the whole claim** ("some of the fiercest" says *among the worst*, "fiercest"
+says *the worst*), and a fraction word is never safe to swap for a shorter one.
+
+**Third: S–Z is the heaviest stretch of the country terms** — mean 135.3 before the pass against L3's 133.2,
+and it holds the longest country term in the glossary (`Spain`, 172, which had to lose 67 words) along with
+`The_Gambia` at 151, `Tuvalu` at 150 and `Yemen` at 149. Every chunk took three passes rather than L3's two,
+and the reason is worth stating: on a 150-word term the formulaic cuts (border list, distance locator,
+geography tail) come to about 30 words and the other 15 have to come out of claims. Budget for it.
+
+**An error the units pass left behind, found by reading slowly.** `Vatican_City` gave its area as
+"about 0.44 km² **(0 sq mi)**" — a conversion rounded to nothing, which tells a reader strictly less than no
+conversion would, and which the units sweep could not see because it was looking for figures that were
+MISSING rather than figures that were useless. Corrected to **0.17 sq mi**, and the whole glossary swept: it
+is the only one. **A metric figure below one imperial unit needs two significant figures in its bracket.**
+
+**No figure was added except that correction, and 24 were dropped**, checked mechanically as in L1–L3. Most
+went with a locating clause or an aside (the six island distances above, `Somalia`'s 3,300 km coast,
+`Vietnam`'s 3,000 km coast, `Tunisia`'s 1,300 km coast, `Togo`'s 56 km one). **Six are substantive and are
+named rather than glossed over**: `Singapore` lost its 164 m high point, `Slovenia` its 47 km of Adriatic
+coast, `Uganda` the Rwenzori's 5,110 m, `Vietnam` the 50 km narrows of its waist, `Sri_Lanka` the 19th-century
+dating of its tea, and `State_of_Palestine` the self-government that followed the accords of the 1990s. The
+substantive PROSE losses: `Seychelles`' highest income per head in Africa, `Suriname`'s standing among the
+world's most forested countries, `Serbia`'s Morava corridor, `South_Africa`'s climate range, `Spain`'s Roman
+and Visigothic rule and its two African cities, `Taiwan`'s typhoons and plate boundary, `Trinidad_and_Tobago`'s
+continental biota and its calypso and steelpan, `Turkmenistan`'s Karakum canal, `Tuvalu`'s climate diplomacy,
+`Ukraine`'s Carpathians and Crimea, `United_Arab_Emirates`' humidity, `United_Kingdom`'s Welsh uplands and
+Pennines, `Uzbekistan`'s Fergana valley, `Yemen`'s Socotra and Rub' al Khali, and `Zambia`'s Kariba dam.
+
 ### Status
 
-**L0, L1, L2 and L3 have shipped** (2026-08-04). The glossary stands at **204 of 477 terms inside the bar**,
-mean 122.8 words; `place` is 157 of 266. **L4 is next** — `place`, S–Z, the last of the big formulaic batches
-and the one holding most of the remaining island states, so cut the distance-locator alongside the border
-list from the start. Re-run `gloss-length.js` before and after every batch and record the movement here.
+**L0, L1, L2, L3 and L4 have shipped** (2026-08-04). The glossary stands at **258 of 477 terms inside the
+bar**, mean 119.7 words, and **every country term is done**. **L5 is next** — the 55 non-country `place`
+terms: caves, gorges and type sites, the continents and oceans, the regions and the odd river. It is the
+first batch with no recipe: there is no border list and no distance locator to cut, the terms are the
+longest left in the glossary (`Dolní_Věstonice` 184, `Madjedbebe` 179, `Africa` 172), and several are the
+type sites whose citations the card pass fought hardest for, so **the marked-sentence diff matters more here
+than anywhere**. Re-run `gloss-length.js` before and after every batch and record the movement here.
