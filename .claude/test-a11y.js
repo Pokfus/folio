@@ -236,22 +236,30 @@ const PROBE = () => {
   flatDefault.slice(0, 14).forEach((l) => console.log("    " + l));
   if (flatDefault.length > 14) console.log("    …+" + (flatDefault.length - 14) + " more");
 
-  // ---- contrast with High contrast ON: here nothing may fall short
-  const hcBad = [];
-  for (const route of ROUTES) {
-    await page.goto(base + "#" + route, { waitUntil: "load" });
-    await page.waitForTimeout(route === "home" ? 1400 : 700);
-    await page.evaluate(() => {
+  /* ---- contrast with High contrast ON: here nothing may fall short ----
+     Seeded through addInitScript on a page of its own, NOT by writing localStorage into a live page and
+     reloading: the app calls save() of its own accord (a game recording a day, the streak, a lazy bundle
+     landing), and that write goes out with the in-memory settings — so a flag set from outside can be
+     overwritten between the write and the reload. It looks like the mode not working. */
+  const hcPage = await browser.newPage({ viewport: DESKTOP });
+  await hcPage.addInitScript(() => {
+    try {
       const raw = localStorage.getItem("folio_v1");
       const s = raw ? JSON.parse(raw) : {};
-      s.settings = Object.assign({}, s.settings, { contrast: true });
+      s.settings = Object.assign({ theme: "folio", night: false, themeAuto: false }, s.settings, { contrast: true, night: false, themeAuto: false });
       localStorage.setItem("folio_v1", JSON.stringify(s));
-    });
-    await page.reload({ waitUntil: "load" });
-    await page.waitForTimeout(route === "home" ? 1400 : 700);
-    const r = await page.evaluate(PROBE);
+    } catch (e) {}
+  });
+  const hcBad = [];
+  for (const route of ROUTES) {
+    await hcPage.goto(base + "#" + route, { waitUntil: "load" });
+    await hcPage.waitForTimeout(route === "home" ? 1400 : 700);
+    const on = await hcPage.evaluate(() => document.body.classList.contains("hc"));
+    if (!on) { hcBad.push(route + ": the high-contrast class never reached the body"); continue; }
+    const r = await hcPage.evaluate(PROBE);
     r.bad.forEach((b) => hcBad.push(route + ": " + b.el + " " + b.r + "<" + b.need + " (" + b.px + "px) “" + b.text + "”"));
   }
+  await hcPage.close();
   check("with High contrast on, every text colour clears its WCAG ratio", hcBad.length === 0,
     hcBad.length ? "\n    " + hcBad.slice(0, 20).join("\n    ") : "");
 

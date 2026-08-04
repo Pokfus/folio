@@ -4734,7 +4734,7 @@
       '<label class="dm-field"><span>New cards/day</span><input class="dm-num" id="dlNew" type="number" min="0" max="999" step="1" value="' + L.newPerDay + '" inputmode="numeric"></label>' +
       '<label class="dm-field"><span>Maximum reviews/day</span><input class="dm-num" id="dlRev" type="number" min="0" max="9999" step="1" value="' + L.maxReviews + '" inputmode="numeric"></label>' +
       '<div class="dm-field dm-switchrow"><span>New cards ignore review limit</span>' +
-      '<div class="switch' + (L.newIgnoresReview ? " on" : "") + '" id="dlIgn" role="switch" tabindex="0" aria-checked="' + (L.newIgnoresReview ? "true" : "false") + '"></div></div>' +
+      '<div class="switch' + (L.newIgnoresReview ? " on" : "") + '" id="dlIgn" role="switch" aria-label="New cards ignore review limit" tabindex="0" aria-checked="' + (L.newIgnoresReview ? "true" : "false") + '"></div></div>' +
       '<div class="dm-actions"><button type="button" class="btn ghost" data-act="cancel">Cancel</button>' +
       '<button type="button" class="btn" data-act="save">Save</button></div>';
     deckSheet("Daily limits", html, (ov, close) => {
@@ -7038,6 +7038,9 @@
     const subEl = document.createElement("div");
     subEl.className = "node" + (soon ? " placeholder" : "");
     subEl.tabIndex = 0;
+    // a div in the tab order with a click handler is a button to everyone but a screen reader, which is
+    // told nothing at all unless it says so (the branch rows a few lines up already carry it)
+    subEl.setAttribute("role", "button");
     subEl.style.cursor = "pointer";
     subEl.dataset.libitem = node.id; subEl.dataset.libkind = "node"; subEl.dataset.libparent = pid;
     subEl.innerHTML = `
@@ -13718,12 +13721,12 @@
                   visitor. It sits ABOVE the manual switch because it decides whether that switch is the
                   control or merely the readout — flipping Night mode by hand turns this back off. */""}
             <div class="info"><h3>Match my device</h3><p>Follow your system's light or dark appearance, and change with it.</p></div>
-            <div class="ctl"><div class="switch ${S.settings.themeAuto ? "on" : ""}" id="sw-themeAuto" role="switch" tabindex="0" aria-checked="${!!S.settings.themeAuto}"></div></div>
+            <div class="ctl"><div class="switch ${S.settings.themeAuto ? "on" : ""}" id="sw-themeAuto" role="switch" aria-label="Match my device" tabindex="0" aria-checked="${!!S.settings.themeAuto}"></div></div>
           </div>
           <div class="set-row set-row-night${S.settings.themeAuto ? " row-locked" : ""}">
             ${/* the light / dark switch — this is its only home now, the top bar's slider having gone (Aug 2026) */""}
             <div class="info"><h3>Night mode</h3><p>Switch to the deck's dark paper palette.</p></div>
-            <div class="ctl"><div class="switch ${S.settings.night ? "on" : ""}${S.settings.themeAuto ? " switch-locked" : ""}" id="sw-night" role="switch" tabindex="0" aria-checked="${S.settings.night}"></div></div>
+            <div class="ctl"><div class="switch ${S.settings.night ? "on" : ""}${S.settings.themeAuto ? " switch-locked" : ""}" id="sw-night" role="switch" aria-label="Night mode" tabindex="0" aria-checked="${S.settings.night}"></div></div>
           </div>
           <div class="set-row set-row-block">
             ${/* Measurements — one system, not both (Aug 2026, on request). The content is written metric
@@ -13740,13 +13743,13 @@
                   stylesheet's killswitch through body.no-anim, and every JS-driven movement through
                   prefersReducedMotion(), which reads this same setting. */""}
             <div class="info"><h3>Animations</h3><p>Page transitions, the entrance of each block, and the small movements on buttons and sheets. Turn them off if the site feels slow on this device.</p></div>
-            <div class="ctl"><div class="switch ${S.settings.animations !== false ? "on" : ""}" id="sw-anim" role="switch" tabindex="0" aria-checked="${S.settings.animations !== false}"></div></div>
+            <div class="ctl"><div class="switch ${S.settings.animations !== false ? "on" : ""}" id="sw-anim" role="switch" aria-label="Animations" tabindex="0" aria-checked="${S.settings.animations !== false}"></div></div>
           </div>
           <div class="set-row">
             ${/* High contrast — see the CONTRAST block in styles.css for the measurements behind it. The
                   quiet tokens are quiet on purpose, so this is a mode rather than a redesign. */""}
             <div class="info"><h3>High contrast</h3><p>Darkens the quieter text — captions, eyebrows, source lines — and strengthens borders and focus outlines, so everything clears a 4.5:1 contrast ratio.</p></div>
-            <div class="ctl"><div class="switch ${S.settings.contrast ? "on" : ""}" id="sw-contrast" role="switch" tabindex="0" aria-checked="${!!S.settings.contrast}"></div></div>
+            <div class="ctl"><div class="switch ${S.settings.contrast ? "on" : ""}" id="sw-contrast" role="switch" aria-label="High contrast" tabindex="0" aria-checked="${!!S.settings.contrast}"></div></div>
           </div>
           <div class="set-row set-row-block">
             ${/* Aug 2026, on request. The wording names the surfaces it reaches rather than promising a
@@ -13784,7 +13787,7 @@
           </div>
           <div class="set-row">
             <div class="info"><h3>Random review order</h3><p>Shuffle each day's session and draw its new cards at random from your active decks, instead of chronologically.</p></div>
-            <div class="ctl"><div class="switch ${S.settings.reviewRandom ? "on" : ""}" id="sw-random" role="switch" tabindex="0" aria-checked="${!!S.settings.reviewRandom}"></div></div>
+            <div class="ctl"><div class="switch ${S.settings.reviewRandom ? "on" : ""}" id="sw-random" role="switch" aria-label="Random review order" tabindex="0" aria-checked="${!!S.settings.reviewRandom}"></div></div>
           </div>
           <div class="set-row">
             ${/* Aug 2026, on request. Days used to be UTC days, so everything dated changed at an hour that
@@ -13801,7 +13804,7 @@
           ${setHead("#8257C2", '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>', "Audio")}
           <div class="set-row">
             <div class="info"><h3>Sound effects</h3><p>Soft clicks and chimes for buttons, card reveals, grades and level-ups.</p></div>
-            <div class="ctl"><div class="switch ${S.settings.sfx !== false ? "on" : ""}" id="sw-sfx" role="switch" tabindex="0" aria-checked="${S.settings.sfx !== false}"></div></div>
+            <div class="ctl"><div class="switch ${S.settings.sfx !== false ? "on" : ""}" id="sw-sfx" role="switch" aria-label="Sound effects" tabindex="0" aria-checked="${S.settings.sfx !== false}"></div></div>
           </div>
         </div>
         <div class="set-card">

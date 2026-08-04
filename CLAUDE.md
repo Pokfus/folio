@@ -67,7 +67,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 `ranges.js` + `admin1.js` — the removed Mountains / Divisions layers — are **never loaded**; app.js reads
 `window.RANGES`/`window.ADMIN1` with empty-fallbacks, so the files stay on disk for a future revival.)
 
-- `index.html` — app shell. `<main class="stage"><div id="view"></div></main>`. Also the static
+- `index.html` — app shell. `<main class="stage"><div id="view"></div></main>`, and two things added for
+  accessibility in Aug 2026: a **`.skip-link`** as the document's first element (positioned off screen until
+  it takes focus, never `display:none`, which would take it out of the tab order and defeat the point of it)
+  so a keyboard reader can pass the eight nav buttons in one press; and the **`#toast` live region declared
+  in the markup** rather than created on the first message — a region announced at the moment it is inserted
+  is one the screen reader has not been watching, and the announcement is lost. Also the static
   `<title>`/description/OG baseline (link-preview crawlers don't run JS) and the `<link rel="manifest">`.
 - `styles.css` (~235 KB) — editorial design system; 8 themes via CSS custom properties.
   **All theme color variables are hex** (e.g. `--ink:#1B1A17`) so the canvas globe can parse and
@@ -3950,9 +3955,16 @@ dead code (never rendered).
     goes home; that the **phrasing chevrons** change the question and the change sticks; that holding a row
     opens **Custom study / Daily limits / Skip today / Remove** and each does what it says, the bin having
     gone; and that the **Folio level caps** the decks a review will take — with the shipped default
-    `S.active` (a deck of the coming-soon China collection) NOT filling that one slot. **Re-run after
-    touching `reviewQueue` / `deckLimits` / `deckDoneToday` / `entryPiles` / `openDeckMenu` / `addActive` /
-    `maxActiveDecks` / `STUDY_KEY` / `qIdx`, or `buildSession`'s per-deck allowances.**
+    `S.active` (a deck of the coming-soon China collection) NOT filling that one slot.
+    It also pins the **review's own limits** (Aug 2026): the banner's sheet carries the deck sheet's rows
+    minus Remove, its Daily limits opens on the REVIEW and shows the allowance it is actually using, its
+    default is the WIDEST deck's rather than a global figure (two decks at 5 draw 5, from the ten between
+    them), and an explicit limit set there caps the pooled draw **without changing what a deck offers when
+    tapped on its own** — which is the distinction the whole design turns on and which nothing on screen
+    states. **Re-run after
+    touching `reviewQueue` / `reviewLimits` / `REVIEW_ENTRY` / `deckLimits` / `deckDoneToday` / `entryPiles` /
+    `openDeckMenu` / `addActive` / `maxActiveDecks` / `STUDY_KEY` / `qIdx`, or `buildSession`'s per-deck
+    allowances.**
   · `node .claude/test-atlas-places.js` — the Atlas's label crowding, its heightmap strength slider, and a
     glossary term's way onto the map (Aug 2026). All three fail silently: a map that quietly writes forty
     overlapping names looks like a map, a slider that does nothing looks like a slider, and a marker that
