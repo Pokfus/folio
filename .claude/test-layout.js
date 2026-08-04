@@ -1205,6 +1205,61 @@ async function studyEasy(page, base, n) {
     await page.close();
   }
 
+  /* ================= 7d2. swiping between pages on a phone (Aug 2026, on request) =================
+     A false positive here TAKES A PAGE AWAY, so what is guarded is as much what must NOT navigate as what
+     must: a diagonal (a scroll that wandered), a short drag, and the Atlas, which is excluded outright
+     because a drag there turns the globe. The gesture is dispatched as real PointerEvents rather than
+     through page.touchscreen: the handler is bound to `document` and keys off pointerType. */
+  {
+    const page = await browser.newPage({ viewport: PHONE, hasTouch: true, isMobile: true });
+    watch(page);
+    const swipe = (dx, dy) => page.evaluate(async ([d, v]) => {
+      const send = (t, x, y) => document.dispatchEvent(new PointerEvent(t, { pointerId: 7, pointerType: "touch", clientX: x, clientY: y, bubbles: true, cancelable: true }));
+      const y0 = 340, x0 = d < 0 ? 300 : 90;
+      send("pointerdown", x0, y0);
+      await new Promise((r) => setTimeout(r, 40));
+      send("pointermove", x0 + d / 2, y0 + v / 2);
+      await new Promise((r) => setTimeout(r, 40));
+      send("pointerup", x0 + d, y0 + v);
+      await new Promise((r) => setTimeout(r, 750));
+    }, [dx, dy || 0]);
+    const where = () => page.evaluate(() => location.hash || "#");
+    await page.goto(base + "#home", { waitUntil: "load" });
+    await page.waitForTimeout(1500);
+    await swipe(-120);
+    check("a swipe left moves to the next page", (await where()) === "#decks", await where());
+    await swipe(-120);
+    check("...and on to the one after it", (await where()) === "#account", await where());
+    await swipe(120);
+    check("...a swipe right comes back", (await where()) === "#decks", await where());
+    await swipe(-30);
+    check("...a short drag is not a swipe", (await where()) === "#decks", await where());
+    await swipe(-120, 220);
+    check("...nor is a diagonal, which is a scroll that wandered", (await where()) === "#decks", await where());
+    await swipe(120);
+    await swipe(120);
+    check("...and the ends are ends, not a carousel", (await where()) === "#", await where());
+    // the Atlas is out of the order in BOTH directions — a drag there turns the globe
+    await atlas(page, base);
+    await swipe(-140);
+    check("a swipe on the Atlas turns the globe rather than leaving it", (await where()) === "#map", await where());
+    await page.close();
+  }
+  {
+    // …and above the breakpoint it is not wired at all: a mouse drag is a selection
+    const page = await browser.newPage({ viewport: DESKTOP, hasTouch: true });
+    watch(page);
+    await page.goto(base + "#home", { waitUntil: "load" });
+    await page.waitForTimeout(1400);
+    await page.evaluate(async () => {
+      const send = (t, x, y) => document.dispatchEvent(new PointerEvent(t, { pointerId: 9, pointerType: "touch", clientX: x, clientY: y, bubbles: true, cancelable: true }));
+      send("pointerdown", 900, 400); send("pointermove", 800, 400); send("pointerup", 700, 400);
+      await new Promise((r) => setTimeout(r, 700));
+    });
+    check("the swipe is phone-only", (await page.evaluate(() => location.hash || "#")) === "#");
+    await page.close();
+  }
+
   /* ================= 7e. the Atlas sheet's height =================
      TWO rules, and the second was added Aug 2026 on request. The height is the reader's to drag — shorter
      must still show the title (the floor is measured through offsetTop, since the head is a scroller inside

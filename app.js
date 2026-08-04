@@ -9613,7 +9613,12 @@
       <div class="atlas${GAME ? " atlas-game" : ""}">
         <div class="globe-stage" id="globeStage">
           <div class="globe-limb-glow" id="globeHalo" aria-hidden="true"></div>
-          <canvas id="globe" tabindex="0" aria-label="Interactive globe — arrow keys rotate, plus and minus zoom, Enter selects the centre, [ and ] step the map years"></canvas>
+          ${/* role=application, because it IS one: a canvas driven entirely by keys of its own (arrows,
+                +/-, Enter, Esc, [ and ]). The role tells a screen reader to pass those keys straight
+                through rather than intercepting them for its own browse mode, which is the difference
+                between a globe a keyboard can turn and one it cannot. The aria-label is what it says
+                instead of the map, which no assistive technology can read off a canvas. */""}
+          <canvas id="globe" tabindex="0" role="application" aria-label="Interactive globe — arrow keys rotate, plus and minus zoom, Enter selects the centre, [ and ] step the map years"></canvas>
           <div class="globe-limb-shade" id="globeShade" aria-hidden="true"></div>
           <div class="atlas-wip" id="atlasWip" role="status" aria-live="polite">
             <strong>No map for this year yet</strong>

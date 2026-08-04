@@ -2316,6 +2316,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the marker landed exactly on its `?`. A stored drag position still overrides both.
     Guarded by `test-layout.js`: a marker that cannot be moved and one that turns drawing on
     every time you move it are opposite failures, both silent.
+    `test-layout.js` also guards the phone's **page SWIPE** (Aug 2026) — and guards as hard against what
+    must NOT navigate as against what must, since a false positive TAKES A PAGE AWAY: a short drag, a
+    diagonal (a scroll that wandered), the ends of the order, and the ATLAS, which is excluded outright
+    because a drag there turns the globe. The gesture is dispatched as real `PointerEvent`s rather than
+    through `page.touchscreen`, because the handler is on `document` and keys off `pointerType`.
+    And the Atlas sheet's **content-fitted ceiling**: it opens no taller than the page in it needs, a drag
+    upward stops at the content rather than at the top of the screen, and a swipe to a shorter page shrinks
+    it — measured as the SLACK between the scroller and the pane inside it, which is exactly the "empty
+    space at the bottom" the request names.
 - **Reduced motion:** styles.css ends with a **global killswitch** — `@media (prefers-reduced-motion:reduce){ *,*::before,*::after
   { animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; } }`.
   It covers every CSS animation and transition in the file (entrance animations land on their end state), so a new one usually
@@ -3897,10 +3906,11 @@ dead code (never rendered).
     **Re-run after touching `.tabbar` / `--tabbar-h` / `--timebar-h` / `layoutTicks` / the Atlas chrome's
     media queries / `.settings` / `.auth-split` / the coming-soon rows / `wireOnePageSwipe`
     / `.rv-lip` / `.games-sec` / `.home-about` / `gameSub` / `pileCounts` / `adProg` / `.active-deck` /
-    `gbWireResize` / `.gb-fold` / `body.gb-compact` / `applyTheme`'s `data-fs` / `var(--fs)` / `MULTILANG` /
+    `gbWireResize` / `.gb-fold` / `body.gb-compact` / `wirePageSwipe` / `SWIPE_ORDER` /
+    `applyTheme`'s `data-fs` / `var(--fs)` / `MULTILANG` /
     `ensureWBTools` / `.wb-pick` /
     the ink layer's pass-through /
-    `cpWireResize` / `lockHeight`, or after adding an overlay to `document.body`.** Its clicks go through `evaluate`
+    `cpWireResize` / `cpPaneNeedH` / `cpFitH` / `lockHeight`, or after adding an overlay to `document.body`.** Its clicks go through `evaluate`
     rather than `page.click`: clicking an element the
     CSS has hidden waits 30s and then THROWS, and a missing chip is exactly what some of this is here to
     catch — it has to report, not abort the file. Verified against five deliberately reintroduced
