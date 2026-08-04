@@ -1205,22 +1205,36 @@ async function studyEasy(page, base, n) {
     await page.close();
   }
 
-  /* ================= 7e. the Atlas sheet's height is the reader's =================
-     Dragged shorter, the sheet must still show its title — the floor is measured through offsetTop, since
-     the head is a scroller inside the box being shrunk and its rect collapses along with it. Dragged taller
-     it must stop at the top of the screen. And the height carries to the next place opened, which is the
-     only reason to set it. */
+  /* ================= 7e. the Atlas sheet's height =================
+     TWO rules, and the second was added Aug 2026 on request. The height is the reader's to drag — shorter
+     must still show the title (the floor is measured through offsetTop, since the head is a scroller inside
+     the box being shrunk and its rect collapses along with it), and what it is left at carries to the next
+     place, which is the only reason to set it. And the CEILING is what the page on screen actually needs:
+     "the max height should always be the point where everything is displayed fully, so we are never left
+     with empty space at the bottom." So a drag upward stops at the content, not at the top of the screen,
+     and swiping to a shorter page pulls the sheet down to fit it. Both failures are silent — a sheet half
+     full of nothing looks like a sheet. */
   {
     const page = await browser.newPage({ viewport: PHONE, hasTouch: true });
     watch(page);
     await atlas(page, base);
     await page.evaluate(() => { location.hash = "#map/2026/france"; });
     await page.waitForTimeout(2500);
+    // how much of the scroller is NOT filled by the page in it — the "empty space at the bottom"
+    const slack = () => page.evaluate(() => {
+      const cols = document.querySelector(".cp-cols");
+      const panes = [...cols.children].filter((c) => !c.hidden && !c.classList.contains("cp-blank"));
+      const i = Math.max(0, Math.min(panes.length - 1, Math.round(cols.scrollLeft / (cols.clientWidth || 1))));
+      const p = document.querySelector("#countryPop").getBoundingClientRect();
+      return { slack: Math.round(cols.clientHeight - panes[i].scrollHeight), h: Math.round(p.height), top: Math.round(p.top), pane: i, panes: panes.length };
+    });
     const start = await page.evaluate(() => {
       const p = document.querySelector("#countryPop");
       return { hidden: p.hidden, grip: getComputedStyle(document.querySelector("#cpGrab")).display, h: Math.round(p.getBoundingClientRect().height) };
     });
     check("the place sheet carries a resize grip", !start.hidden && start.grip !== "none", JSON.stringify(start));
+    const s0 = await slack();
+    check("...and opens no taller than the page in it needs", s0.slack <= 24, JSON.stringify(s0));
     const drag = async (toY) => {
       const g = await page.evaluate(() => document.querySelector("#cpGrab").getBoundingClientRect().toJSON());
       await page.mouse.move(g.x + g.width / 2, g.y + g.height / 2);
@@ -1229,17 +1243,23 @@ async function studyEasy(page, base, n) {
       await page.mouse.up();
       await page.waitForTimeout(350);
     };
-    await drag(80);
-    const tall = await page.evaluate(() => {
-      const p = document.querySelector("#countryPop").getBoundingClientRect();
-      return { h: Math.round(p.height), top: Math.round(p.top) };
+    // dragged hard at the top of the screen it must NOT grow past its content — that is the whole request
+    await drag(8);
+    const tall = await slack();
+    check("...and dragging it up stops at the content, not the screen", tall.slack <= 24 && tall.top > 8,
+      JSON.stringify({ start: s0, tall: tall }));
+    // …and a swipe to another page re-fits it. The figures grid is far shorter than the description.
+    await page.evaluate(async () => {
+      const cols = document.querySelector(".cp-cols");
+      cols.scrollLeft = cols.clientWidth * ([...cols.children].filter((c) => !c.hidden && !c.classList.contains("cp-blank")).length - 1);
+      cols.dispatchEvent(new Event("scroll"));
+      await new Promise((r) => setTimeout(r, 500));
     });
-    check("...dragging it up gives it more of the screen", tall.h > start.h + 80, JSON.stringify({ was: start.h, now: tall.h }));
-    check("...stopping at the top of the screen", tall.top >= 4, JSON.stringify(tall));
-    await page.evaluate(() => { location.hash = "#map/2026/spain"; });
-    await page.waitForTimeout(1800);
-    const next = await page.evaluate(() => Math.round(document.querySelector("#countryPop").getBoundingClientRect().height));
-    check("...and the next place opens at the height the last was left at", Math.abs(next - tall.h) <= 4, next + " vs " + tall.h);
+    await page.waitForTimeout(400);
+    const swiped = await slack();
+    check("...swiping to a shorter page shrinks the sheet to fit it", swiped.slack <= 24 && swiped.h <= tall.h + 1,
+      JSON.stringify({ tall: tall, swiped: swiped }));
+    // shrunk by hand: the floor still shows the title, and the height carries to the next place
     await drag(PHONE.height - 10);
     const small = await page.evaluate(() => {
       const p = document.querySelector("#countryPop").getBoundingClientRect();
@@ -1247,6 +1267,10 @@ async function studyEasy(page, base, n) {
       return { h: Math.round(p.height), titleShown: t.top >= p.top - 1 && t.bottom <= p.bottom + 1 };
     });
     check("...shrunk to the floor it still shows its title bar", small.titleShown && small.h < 220, JSON.stringify(small));
+    await page.evaluate(() => { location.hash = "#map/2026/spain"; });
+    await page.waitForTimeout(1800);
+    const next = await page.evaluate(() => Math.round(document.querySelector("#countryPop").getBoundingClientRect().height));
+    check("...and the next place opens at the height the last was left at", Math.abs(next - small.h) <= 6, next + " vs " + small.h);
     await page.close();
   }
 

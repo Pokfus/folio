@@ -83,6 +83,19 @@ body.hc :focus-visible{outline:3px solid var(--indigo-bright) !important; outlin
 
 *{box-sizing:border-box;}
 html,body{margin:0;padding:0;}
+/* ---------- skip link (index.html's first element) ----------
+   Off screen until it takes focus, then a real button at the top-left. Positioned rather than
+   `display:none`, which would take it out of the tab order and defeat the whole point of it. */
+.skip-link{
+  position:fixed; left:12px; top:-70px; z-index:9900;
+  background:var(--indigo); color:#fff; font-family:var(--mono); font-size:calc(12.5px * var(--fs));
+  letter-spacing:.06em; text-transform:uppercase; text-decoration:none;
+  padding:11px 18px; border-radius:9px; box-shadow:var(--shadow-md);
+  transition:top .18s var(--ease);
+}
+.skip-link:focus{top:12px;}
+body.night .skip-link{color:var(--paper);}
+#view:focus{outline:none;}   /* it takes focus only as the skip link's target, never by tabbing to it */
 body{
   background:var(--paper); color:var(--ink);
   font-family:var(--serif); font-size:calc(17px * var(--fs)); line-height:1.6;
@@ -1847,6 +1860,12 @@ body.night .lu-badge{color:#E6C765;}
    .country-pop itself or the × scrolls away. */
 .country-pop{position:absolute; left:clamp(16px,4vw,40px); top:16px; bottom:16px; width:min(360px, calc(100% - 32px)); max-height:none; display:flex; flex-direction:column; background:var(--card); border:1px solid var(--rule); border-radius:13px; padding:15px 20px; box-shadow:0 16px 40px -16px rgba(0,0,0,.5); z-index:7;}
 .country-pop[hidden]{display:none;}
+/* It arrives rather than appearing (Aug 2026). An animation on the frame it stops being `hidden`, not a
+   transition: the element is reused for every place, so there is no insertion for a transition to catch.
+   The HEIGHT is deliberately left out of it — the phone sheet's height is fitted to the page on screen
+   (cpApplyH) and measured while it settles, and an animating height would be measured mid-flight. */
+.country-pop:not([hidden]){animation:cpIn .2s var(--ease) both;}
+@keyframes cpIn{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;}}
 /* the phone sheet's resize grip — hidden on the desktop panel, which already runs the height of the stage.
    touch-action:none, or the browser claims the drag as a page scroll before pointermove reaches us. */
 .cp-grab{display:none; position:absolute; top:0; left:0; right:0; height:18px; cursor:ns-resize; touch-action:none; z-index:2; align-items:center; justify-content:center;}
@@ -1918,6 +1937,9 @@ body.night .lu-badge{color:#E6C765;}
      is nothing under a page to uncover by folding it) and an empty one is dropped from the run rather than
      shown, so a swipe never lands on a dash. The title block above and the dots below stay put. */
   .country-pop{left:50%; top:auto; bottom:14px; transform:translateX(-50%); width:calc(100% - 28px); max-height:52%; padding:22px 16px 8px;}
+  /* the sheet is centred by a transform, so its entrance has to carry that translate rather than replace it */
+  .country-pop:not([hidden]){animation-name:cpInSheet;}
+  @keyframes cpInSheet{from{opacity:0; transform:translateX(-50%) translateY(10px);} to{opacity:1; transform:translateX(-50%);}}
   .cp-grab{display:flex;}
   .cp-close{top:15px;}   /* the grip took the top edge */
   /* dragged to a height of the reader's own: the 52% cap gives way to it entirely, and the head gives up
@@ -2062,6 +2084,8 @@ body.night .lu-badge{color:#E6C765;}
 .gs-results{position:absolute; top:calc(100% + 6px); left:0; right:0; display:flex; flex-direction:column; overflow:hidden;
   background:var(--card); border:1px solid var(--rule); border-radius:11px; box-shadow:var(--shadow-md, var(--shadow-sm));}
 .gs-results[hidden]{display:none;}   /* the author display:flex would otherwise defeat the hidden attribute (codebase convention, cf. .country-pop[hidden]) */
+.gs-results:not([hidden]){animation:gsIn .15s var(--ease) both;}
+@keyframes gsIn{from{opacity:0; transform:translateY(-5px);} to{opacity:1; transform:none;}}
 .gs-row{display:flex; flex-direction:column; align-items:flex-start; gap:1px; padding:7px 12px; border:0; background:none; cursor:pointer; text-align:left; font:inherit; color:var(--ink);}
 .gs-row + .gs-row{border-top:1px solid color-mix(in srgb, var(--rule) 55%, transparent);}
 .gs-row:hover, .gs-row.active{background:color-mix(in srgb, var(--indigo) 10%, transparent);}
@@ -2232,7 +2256,12 @@ body.grading .wb-tools{bottom:108px;}
 }
 .wb-tools.wb-flip .wb-panel{bottom:auto; top:calc(100% + 9px);}
 .wb-tools.wb-left .wb-panel{right:auto; left:0;}
-.wb-tools.active .wb-panel{display:flex;}
+/* it arrives rather than appearing (Aug 2026): display can't be transitioned, so the entrance is an
+   animation on the frame the panel becomes `flex`. The killswitch at the foot of the file covers it. */
+.wb-tools.active .wb-panel{display:flex; animation:wbPanelIn .17s var(--ease) both; transform-origin:bottom right;}
+.wb-tools.wb-flip.active .wb-panel{transform-origin:top right;}
+.wb-tools.wb-left.active .wb-panel{transform-origin:bottom left;}
+@keyframes wbPanelIn{from{opacity:0; transform:translateY(6px) scale(.96);} to{opacity:1; transform:none;}}
 .wb-row{display:flex; gap:7px; align-items:center; justify-content:center;}
 .wb-color{
   width:23px; height:23px; border-radius:50%; cursor:pointer; padding:0;
@@ -2554,9 +2583,11 @@ button.game-tile .gt-glyph{opacity:.14;}
 .clog-chev{color:var(--ink-faint); align-self:center;}
 .clog-chev svg{width:14px; height:14px; display:block; transition:transform .18s var(--ease);}
 .clog-day.open .clog-chev svg{transform:rotate(180deg);}
-.clog-body{display:none; padding:10px 2px 6px;}
-.clog-day.open .clog-body{display:block;}
-.clog-body ul{margin:0; padding:0 0 0 18px;}
+/* …and the changelog's days, the same way */
+.clog-body{display:grid; grid-template-rows:0fr; overflow:hidden; transition:grid-template-rows .32s var(--ease);}
+.clog-day.open .clog-body{grid-template-rows:1fr;}
+.clog-body > *{min-height:0;}
+.clog-body ul{margin:0; padding:10px 2px 6px 20px;}
 .clog-body li{font-family:var(--serif); font-size:calc(14px * var(--fs)); line-height:1.6; color:var(--ink-soft); margin-bottom:7px;}
 /* about page: per-card accent hue + icon chip, forgetting-curve diagram, how-to steps, FAQ */
 .msn-card{border-top:3px solid var(--msn-accent, var(--rule));}
@@ -2600,9 +2631,14 @@ button.game-tile .gt-glyph{opacity:.14;}
 .faq-q{appearance:none; width:100%; display:flex; align-items:center; gap:12px; background:none; border:0; border-bottom:1px solid var(--rule); padding:11px 2px; cursor:pointer; font-family:var(--display); font-weight:600; font-size:calc(15px * var(--fs)); color:var(--ink); text-align:left;}
 .faq-q .clog-chev{margin-left:auto;}
 .faq-item.open .clog-chev svg{transform:rotate(180deg);}
-.faq-a{display:none; padding:10px 2px 8px;}
-.faq-item.open .faq-a{display:block;}
-.faq-a p{font-family:var(--serif); font-size:calc(14.5px * var(--fs)); line-height:1.65; color:var(--ink-soft); margin:0;}
+/* The fold OPENS rather than appearing (Aug 2026). Same technique as the sources fold above — a grid row
+   eased from 0fr to 1fr — which is the only way to animate "as tall as the content is" without measuring
+   it in JS. The padding rides on the inner element, or it would be there while the row is still zero and
+   the shut state would carry an 18px gap. */
+.faq-a{display:grid; grid-template-rows:0fr; overflow:hidden; transition:grid-template-rows .32s var(--ease);}
+.faq-item.open .faq-a{grid-template-rows:1fr;}
+.faq-a > *{min-height:0;}
+.faq-a p{font-family:var(--serif); font-size:calc(14.5px * var(--fs)); line-height:1.65; color:var(--ink-soft); margin:0; padding:10px 2px 8px;}
 .faq-a b{color:var(--ink); font-weight:600;}
 /* admin: the Mission title/paragraphs are click-to-edit */
 .msn-editable{cursor:text; border-radius:6px;}

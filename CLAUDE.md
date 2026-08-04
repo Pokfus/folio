@@ -541,6 +541,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `docs/card-glossary-pairing.md` — the rule that **a new card ships with a glossary entry for its own answer term**,
   and the backfill plan for the 77 of 119 shipped cards that have none. Its P9/P10 (the ten Ancient Greece terms) come
   first. Not part of the site.
+- `docs/glossary-length-plan.md` — **every glossary description at 100 words (±10%)**, on request (Aug 2026): the
+  bar, the measured baseline, the eleven batches and the per-term workflow. **L0 (the tooling) has shipped** —
+  `node .claude/gloss-length.js` is the measure, with `--over` / `--under` / `--tag=<kind>` / `--list`. Where it
+  stands today: **62 of 477 terms are inside the bar**, 405 are over and 10 under, mean 131.8 words, and the work
+  is overwhelmingly TRIMMING. Three things the bar does not change and which the pass must not quietly relax:
+  still exactly three sentences, still impartial and self-contained, and **still no claim past what the citations
+  carry** — a term padded to length is the one way this pass can do real damage. Not part of the site.
 - `docs/units-plan.md` — **metric first, imperial in parentheses**: the rule, the one imperial-first figure in the whole
   corpus (fixed), and the 360 metric figures still to gain their equivalents. Not part of the site.
 - `docs/user-decks-plan.md` — the design plan for **community decks** (user-created decks, sharing,
@@ -727,6 +734,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   session ran that session's `showAnswer()` against a page that no longer existed. It mutated a detached tree,
   so nothing looked wrong and nothing was reported (found when the page ghost below stopped ids resolving in
   the dead copy). A page that wants keys re-attaches when its own render runs, which is after this.
+- **SWIPE BETWEEN PAGES ON A PHONE** (`wirePageSwipe` / `SWIPE_ORDER` / `.page-next`/`.page-prev`, Aug 2026,
+  on request). A horizontal swipe moves between `home → decks → account → settings`, and the outgoing page
+  leaves the way the finger came from, so the gesture and the transition tell the same story.
+  · **The ATLAS is not in the order**, and that is the request rather than an oversight: a drag on the globe
+    rotates it, and a page that both rotates under the finger and navigates away from it can only do one of
+    them badly. It is reached and left through the tab bar alone. The LIBRARY is in the order despite having
+    no tab — it is a real destination, reached from the review's lip, and leaving it out would make the
+    sequence a subset of the bar rather than a pass over the pages.
+  · **The guards are the whole of the difficulty, because a false positive TAKES A PAGE AWAY.** Touch only (a
+    trackpad's horizontal scroll is a `wheel` and a mouse drag is a selection); never out of a horizontal
+    scroller, walked up the ancestor chain by measuring `scrollWidth`/`overflow-x` rather than by listing
+    classes, so a scroller added later is covered with nobody remembering this; never while an overlay is up,
+    never on a form control, never while `body.grading`. Generous on distance (`SWIPE_MIN` 64px), strict on
+    angle (`SWIPE_RATIO` 1.6) — a diagonal is a scroll that wandered.
+  · The direction class is set on the PAGE ELEMENT, not the body, so it dies with that page and can never be
+    left behind on a later tab-bar navigation.
 - **PAGE TRANSITIONS (Aug 2026, on request).** `.page` has always faded IN; the missing half was the exit, so a
   navigation cut the old page away on the same frame the new one appeared. **`render()` is synchronous and has
   to stay so** — several callers query the DOM the moment it returns, which rules out `startViewTransition` and
@@ -877,17 +900,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `_adminUndoReady` (false until boot, so the load-time overlay cleanup isn't captured). Known limitation: undoing a **first
   timeline-era edit** (`ADMIN_EDITS.timeline` array→null) doesn't reset the in-memory `window.TIMELINE` (a deep snapshot would cost
   MBs) — the overlay reverts, so it self-heals on reload; timeline eras are edited on the map page anyway, out of this handler's scope.
-- **The mobile gloss sheet is a PERMANENTLY promoted layer** (`.gloss-win.gloss-sheet` carries
-  `will-change:transform` + `backface-visibility:hidden` — Aug 2026, on a bug report). It blinked out for a
-  fraction of a second the instant its slide-up finished. Nothing in the markup or the styles changes at that
-  moment: a per-frame probe of the sheet from `.show` onwards reads `opacity:1`, `visibility:visible`, one
-  `.gloss-win`, no missing frame — so the gap is the browser DISCARDING the compositing layer it made for the
-  transform animation and repainting the sheet back into the page a frame or two after removing it, which the
-  `backdrop-filter` on the tab bar underneath makes worse. Declaring the promotion up front means the layer is
-  never created and never thrown away and the transition ends with no repaint at all. **Keep it on the sheet
-  only** — one permanent layer is cheap, a dozen are not, and the desktop popups fade rather than slide.
-  (It could not be reproduced in headless Linux Chromium, which composites in software; the diagnosis is from
-  the probe ruling out every style-level cause, not from a reproduction.)
+- **The phone's gloss window is CENTRED, and its bar drags it** (`.gloss-win.gloss-sheet` /
+  `makeGlossSheetDraggable`, Aug 2026, on request). It was a bottom sheet glued to the foot of the screen
+  for months; a definition met mid-sentence belongs in the middle of the screen, where the reader's eye
+  already is, and the sheet was also the furthest point on the page from the word tapped.
+  What a centred window loses is the sheet's implicit "there is a page behind me", so the bar can be HELD
+  and dragged UP AND DOWN to uncover the sentence the term came from. **Vertical only**, deliberately: the
+  window is as wide as the screen allows, so there is nothing to uncover sideways and a horizontal drag
+  would fight the page-swipe gesture. The offset is a custom property, **`--gs-dy`, riding INSIDE the
+  `translate(-50%,-50%)`** rather than replacing it with a `top` — mixing the two would need the height
+  measured on every move. It is **not remembered**: a new term always opens in the middle (the request says
+  so), so the offset lives on the element and dies with it, which also means the restore-after-reload path
+  needed no change.
+  It keeps the sheet's **permanent compositing layer** (`will-change:transform` + `backface-visibility`),
+  and that is not decoration: it was the fix for a reported flicker, where the sheet blinked out for a
+  fraction of a second the instant its slide finished. A per-frame probe read `opacity:1`,
+  `visibility:visible` and one `.gloss-win` throughout, so the gap is the browser DISCARDING the layer it
+  made for the transform animation and repainting a frame or two later. Declaring the promotion up front
+  means the layer is never created and never thrown away. **Keep it on this one element** — a permanent
+  layer is cheap once and expensive by the dozen, and the desktop popups fade rather than move.
 - **Gloss popups persist across reload:** the open glossary popups (`glossWins`, the draggable `.gloss-win` windows opened by
   clicking a `.ttip` term) are recorded to `sessionStorage["folio_gloss_open_v1"]` as `{ r: <route>, w: [{ k, l, t }] }` (owning page
   + term slug + left/top) by `persistGlossOpen()` on open / user-close / drag-end. **`sessionStorage` (not local)** so an F5 /
@@ -964,8 +995,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   request — the old key is retired from all nine language tables) presents cards in their in-deck order;
   **Random** shuffles the session order. The **draw** of the day's new cards is date-seeded-random across the decks in BOTH
   modes now (see the next bullet) — the setting decides presentation order only.
-  **It is chosen by HOLDING THE BANNER** (`openReviewMenu`, Aug 2026, on request), plus the Settings page's own
-  "Random review order" switch. It was a `.review-order` pill absolutely positioned in the banner's top-right
+  **It is chosen by HOLDING THE BANNER** (`openReviewMenu` → `openDeckMenu(REVIEW_ENTRY)`, Aug 2026, on request),
+  plus the Settings page's own "Random review order" switch. **The banner's sheet IS the deck sheet now** (Aug 2026,
+  on request: "the same menu, without the delete option"): Custom study, Daily limits and Skip today above it, no
+  Remove — there is nothing to take the review out OF — and the Ordered/Random pair kept, being a property of the
+  pooled session and of nothing else. It was a `.review-order` pill absolutely positioned in the banner's top-right
   corner: a permanent control, in the corner of the one block on the home page that has something to say, for a
   setting almost nobody changes twice. The sheet is the same `deckSheet` shell the deck rows use one level down,
   so the gesture is the same one step up the hierarchy, and the rows are `.dm-choice` — a SET, with the current
@@ -993,6 +1027,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     claimed eats one of this deck's places. So with two decks at 5/day the review draws 5 in all — say 3 and 2 — and
     each row then shows the 2 and 3 that deck still has of its own, which is exactly what a reader sees under a
     cleared banner and is correct rather than a bug.
+  · **…and the REVIEW ITSELF is an entry, under `REVIEW_ENTRY` (`"review:all"`)** — Aug 2026, on a bug report. It is
+    Anki's parent deck: it pools what its decks offer and caps the pool, and it had no settings of its own, so the cap
+    came from Settings → New cards per day while each deck's came from its own sheet. Two decks at five a day pooled
+    ten and then handed back three — a figure no deck had agreed to, and nothing on the page explained it.
+    `deckLimits` / `deckDoneToday` / `deckNewRemaining` / `deckDay` / `entryCardIds` / `entryInfo` and the long-press
+    sheet all answer for that id as they do for a deck, which is what makes the banner and the rows under it
+    arithmetically incapable of disagreeing. Two things about it are decisions rather than plumbing.
+    **Its DEFAULT new-card limit is the LARGEST any added deck offers** (`reviewLimits`), not the global number: a
+    pooled view must not impose a figure none of the things it pools has agreed to. An explicit limit set in its own
+    sheet wins outright, exactly as a parent deck's does in Anki, and Settings → New cards per day remains what a DECK
+    follows until it is given limits of its own. **And `newRemainingToday()` is now `deckNewRemaining(REVIEW_ENTRY)`,
+    derived from the card records** — it used to read `S.intro.count`, a running tally `grade()` increments on ANY
+    card's first grade, so a Card of the day or a deck tapped into directly silently ate the review's allowance and an
+    undo did not give it back. The decks' counts were derived all along; the banner above them was not, and the two
+    drifted apart. `S.intro` is still written and still rides in the synced blob; nothing reads it for a limit.
   · **A deck's row wears its COLLECTION's hue**, not the review's bronze (Aug 2026, on request): `rowHue` in
     `PAGES.home` walks up to the root collection and sets `--coll-bg` from `COLL_THEME` — the same colour the
     Library banner uses — and the row's wash, left bar and hover all read it, falling back to the bronze for a
@@ -1002,6 +1051,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **`entryPiles(id)`** is what a deck's row shows, and it is deliberately NOT that deck's share of the pooled review.
     `buildSession` uses the same per-deck allowances for a `deck` / `udeck` scope, so tapping a row studies what its
     row promised.
+  · **The sheet is CENTRED at every width and leaves the way it arrives** (Aug 2026, on request). It was a
+    bottom sheet below 560px, on the reasoning that the row held was near the thumb; what that produced was a
+    dialog rising out of the tab bar at the very bottom of the screen, furthest from where the reader was
+    looking. It also had an entrance and no exit, so dismissing it cut it away on the frame of the click —
+    the one abrupt half of a control that is otherwise entirely animated. `deckSheet`'s close adds `.closing`
+    and removes the element after `DECK_SHEET_OUT_MS` (keep that in step with the CSS), and clears
+    `_deckMenuClose` at the same moment so a second close cannot restart the timer; the overlay stops
+    hit-testing the instant the class lands, so the gesture is finished whatever the paint is still doing.
   · **The row's options are a LONG PRESS** (`openDeckMenu` / `deckSheet` / `openCustomStudy` / `openDeckLimits`), and
     the small bin that used to sit at the right of every row is gone with it — one command holding a permanent column
     on a 390px row, with three more that had nowhere to live. Custom study bumps the deck's allowance for today AND
@@ -1018,6 +1075,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   would otherwise make that button silently stop working), and **`countedActiveEntries` skips an entry with no
   available cards** — the shipped default `S.active` is a deck of the China collection, which is set aside as coming
   soon, and counting it would have left a brand-new reader at their cap before choosing anything.
+- **THE DAY BOUNDARY** (`dayKey` / `dayKeyOfDate` / `dayEndMin` / `dayEndTs` / `scheduleDayRoll`, Aug 2026,
+  on a bug report: "the daily quote doesn't always change exactly at midnight"). A day used to be a UTC day
+  (`new Date().toISOString().slice(0,10)`), so the quote, the card of the day, the streak, the review's
+  allowance and the games' per-day records all rolled over at an hour that was not midnight for anybody off
+  the Greenwich meridian. A day now runs on **THIS DEVICE'S OWN CLOCK** and ends at `S.settings.dayEnd` —
+  minutes past midnight, 0 by default, capped at noon (`DAY_END_MAX`), set in **Settings → Study → Day ends
+  at** — so a reader who studies until two in the morning can keep the day open until then.
+  · **`dayKey(ts)` is the SINGLE derivation and everything goes through it.** The key was computed in ten
+    places by slicing an ISO string; a rule applied in nine of them would leave one surface rolling over at a
+    different moment from its neighbours, which reads as a bug in whichever surface you happen to be looking
+    at. `dayKeyOfDate(d)` is the sibling for the two places that ITERATE days (`reviewHistory`, the heatmap)
+    rather than deriving one from a timestamp, and `dayEndTs()` is what `dueForecast` means by "the end of
+    today" now that 23:59 is not it.
+  · **It deliberately does NOT derive a zone from `S.settings.home`.** A lon/lat cannot be turned into a
+    political time zone without a tz database, and approximating one from longitude would put the Netherlands
+    (lon 5.3) on UTC+0 — an hour or two out from the reader's own clock, and worse than the device time it
+    replaced. The Settings row says "this device's clock" outright.
+  · **`scheduleDayRoll()`** re-arms itself and repaints ONLY the home page, which is where everything dated
+    lives; a repaint under a reader mid-card would take the card away.
 - **Scheduling (`grade()`):** SM-2-ish with Anki-style learning steps. A **new card graded "Good"** becomes a `learning` step
   (`interval 1/144`, `due = now + 10 min`) that **re-appears the same session/day** — grade() returns `{requeue: due-now < 11 min}`
   and the study session does `queue.shift(); if (requeue) queue.push(id)` — and only **graduates to `review` (due tomorrow) on the
@@ -1050,19 +1126,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   quarter of a phone screen, over a card whose background already runs several screens. Four columns fit once
   `.gk` goes — those digits name keys a phone does not have — and `body.grading .stage`'s bottom padding drops
   from 206px to 150px to match.
-- **…and on a phone its HEIGHT is the reader's** (`.gb-grab` / `gbWireResize` / `body.gb-compact`, Aug 2026, on
-  request): drag the grip along its top edge and the bar halves, 111px → 58px, the four grades going side by
-  side as bare COLOURS with the `?`, Undo and Suspend as icons on the same row. **Two positions and no third,
-  and it does NOT track the pointer** the way the Atlas sheet's grip does (`cpWireResize`) — the short state is
-  a different ARRANGEMENT rather than the same bar smaller, so there is nothing to render in between; the state
-  flips the moment the drag passes `GB_SLOP` (16px), which is also what makes it feel like a snap. A tap on the
-  grip toggles, since a grip nobody drags is a grip nobody finds, and ↑/↓ reach it from a keyboard.
-  Three things are load-bearing. The grip lives **outside `.gradebar-inner`**, whose contents are replaced for
+- **…and on a phone its HEIGHT is the reader's** (`.gb-fold` / `gbWireResize` / `body.gb-compact`, Aug 2026, on
+  request): a **CHEVRON** on its top edge folds the bar to half its height, 111px → 58px, the four grades going
+  side by side as bare COLOURS with the `?`, Undo and Suspend as icons on the same row. It was a DRAG GRIP for a
+  fortnight and became a chevron on request (Aug 2026): the bar has exactly two positions, so a drag was a
+  gesture whose whole range mapped onto one bit, and a chevron says "there are two states and this is the other
+  one" outright. Being a real `<button>` it also needs no press classification — `GB_SLOP`, which told a drag
+  from a tap, is retired — and Enter/Space come free, with ↑/↓ reaching the two states directly.
+  Three things are load-bearing. The chevron lives **outside `.gradebar-inner`**, whose contents are replaced for
   every card, so it is wired once in `ensureGradeBar` and a grade never has to survive a rebuild. Nothing is
   **lost** in the short state: the label is CLIPPED (`clip-path`, 1px) rather than `display:none`, or the four
   buttons would be four unnamed colours to a screen reader as well as to the eye, and the `?`/Undo/Suspend go
   icon-only via **`font-size:0` on the button** — their text is a bare node beside an `<svg>`, which no
-  selector can reach, and the svg keeps its own px size. And `body.gb-compact.grading .stage`'s padding drops
+  selector can reach, and the svg keeps its own px size. The chevron's own svg is rotated 180° in the short
+  state, so it always points the way pressing it will go. And `body.gb-compact.grading .stage`'s padding drops
   to 96px with it (specificity, not source order — the ≤430px block's `body.grading .stage` sits further
   down). Device-local in `localStorage["folio_gb_compact_v1"]`, like where the marker sits and how tall the
   place sheet is. Guarded by `test-layout.js`.
@@ -1562,13 +1639,23 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   its own `<!-- QUESTION -->` / `<!-- QUESTION 2 -->` … section. Extras ride through export/publish/install
   and are sanitized on ingest (`uCardSanitize`, capped at 9 extras). The admin card search matches every
   phrasing. Backfill existing cards with `.claude/add-questions.js` (see "Generating cards").
-- **Card image (optional):** `card.image = { src, title, desc, credit }` — rendered by `buildBack` as a **16:9
+- **Card image (optional):** `card.image = { src, title, desc, credit, alt }` — rendered by `buildBack` as a **16:9
   frame** (`.card-img`, `cardImageHTML`) at the top of the Background section, above the prose (the section now
   renders when a card has an image even without an abstract). Clicking it opens the **fullscreen viewer**
   (`openImageViewer`: wheel zoom toward the cursor 1–8×, click toggles 1↔2.5×, drag pans when zoomed, Esc/×/backdrop
   closes, `closeImageViewer()` runs in `render()`), with title/description/source in a bottom caption bar (a URL
   source becomes a link). One **delegated** document click/keydown listener opens it from any `.card-img` (study,
   previews, editor) via the figure's `data-img-*` attributes — no per-render wiring.
+  **`alt` is the text alternative, and it is a field of its own** (Aug 2026, on request: "add alt text for
+  images, which can be added when editing/making cards"). Deliberately not a reuse of `title`: a title NAMES
+  the picture for a reader who can already see it, where alt text has to DESCRIBE it to somebody who cannot,
+  and folding the two together is the commonest way alt text ends up useless. `cardImageHTML` and the
+  fullscreen viewer read `img.alt || img.title || "Card illustration"` — the generic string only where there
+  is neither, since an image with no alternative at all is worse than a weak one. It rides in `MEDIA_FIELDS`,
+  so the editor's one media panel, the source gate, the store and the clearing path all carry it with no
+  special case; the row is hidden when the pasted URL is a VIDEO, which announces itself through its player.
+  Carried through `uCardSanitize` / `uGlossSanitize`, and warned about (never refused) by `add-card.js` and
+  `add-glossary.js` — most shipped images predate it.
   **A file that will not load is handled** (Aug 2026): there is deliberately no upload path, so every picture
   and clip anywhere in Folio is somebody else's URL and link rot is a certainty rather than an edge case.
   A delegated **capture-phase `error` listener** (`error` does not bubble) marks the figure `.media-dead`.
@@ -1656,7 +1743,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   (`data-gvidfield` → `setGlossVideoEdit`) and in the Studio's term form (`data-gvid` → `uGlossSetVideo`) —
   metadata is shared across languages, like an image's. The home page's Gloss-of-the-day plate stays
   image-only on purpose: it is a silhouette, not a player.
-- **Glossary image (optional):** a term can carry the **same `{ src, title, desc, credit }` object as a card**,
+- **Glossary image (optional):** a term can carry the **same `{ src, title, desc, credit, alt }` object as a card**,
   read through `glossImage(key)` and rendered by `renderGlossImage` into the `.gloss-imgslot`, which is
   **floated to the TOP-RIGHT of the popup body** — so the opening sentences run down its left and the
   description resumes the popup's full width below it. It reuses `cardImageHTML`/`.card-img`, so the existing
@@ -1712,6 +1799,32 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `set-row-block` because at 186px it leaves a phone's description four words a line. Guarded by
   `test-layout.js`, which asserts the prose AND the chrome grow, and that nothing in the shell is clipped or
   wrapped by the growth.
+- **ANIMATIONS OFF** (**Settings → Appearance → Animations**, `S.settings.animations` / `motionOff()` /
+  `body.no-anim`, Aug 2026, on request: "since they may cause lag on some devices"). ONE switch driving BOTH
+  halves: the stylesheet's global killswitch gained a `body.no-anim` selector beside its
+  `prefers-reduced-motion` media query, and **`prefersReducedMotion()` now returns `motionOff()`**, which
+  reads the same setting — so every JS-driven movement already written against it (the page ghost, the sheet
+  exits, `render()`'s smooth scroll, the globe's camera, the era crossfade, `pulseChanges`) stops with the
+  CSS-driven movement rather than half of it carrying on. It is an **OR, not an override**: an explicit OFF
+  only ever adds to what the operating system has asked for, and cannot turn motion back ON over a reader
+  whose OS wants less of it. Written to the body by `applyTheme`, which runs on every render and at boot, so
+  it needs no call site of its own.
+- **HIGH CONTRAST** (**Settings → Appearance → High contrast**, `S.settings.contrast` / `body.hc`, Aug 2026,
+  on request: "check whether colour contrasts have a ratio of at least 4.5:1 — if they don't, add a high
+  contrast mode"). **The check was run, and the numbers are in the CONTRAST block at the top of styles.css.**
+  What it found: in LIGHT mode `--ink-faint` (3.0–3.5), `--ochre` (3.3–3.9) and `--geo` (3.0–3.5) are below
+  the bar on every paper, and `--zh` / `--good` are below it on `--paper-2`; in NIGHT mode everything clears
+  it except `--ink-faint` on `--card`, at 4.19. Those are the QUIET tokens — an eyebrow, a caption, a source
+  line — and they are quiet on purpose, so re-toning them for everyone would flatten the typographic
+  hierarchy the design is built on. Hence a mode: `body.hc` re-tones exactly those, plus `--rule` (a hairline
+  at 1.2:1 is invisible to a reader who needs this at all) and the focus ring. **The values are solved, not
+  eyeballed** — each is its own hue scaled toward the ink until it clears 4.6:1 against `--paper-2`, the
+  darkest of the three papers, so it clears the bar on all three.
+  **One failure was NOT left to the mode**: in night mode `.btn` was `#FFF` on the light-lavender `--indigo`
+  at **2.29:1**, and that is a primary control rather than a caption, so `body.night .btn{color:var(--paper)}`
+  fixes it for everybody at 7.9:1. Guarded by `.claude/test-a11y.js`, which measures every text node's
+  computed colour against the background it actually renders on and demands that NOTHING falls short with
+  the mode on.
 - **Light / dark FOLLOWS THE DEVICE by default** (**Settings → Appearance → Match my device**,
   `S.settings.themeAuto` / `systemPrefersDark` / `setThemeAuto`, Aug 2026, on request). `S.settings.night` stays
   the RESOLVED value — every stylesheet rule and the canvas globe read `body.night`, and nothing else had to
@@ -1833,6 +1946,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **Known gap:** the `PAGE_META` titles/descriptions have no `i18n/ui-<lang>.js` entries yet, so `document.title` stays
   English in other languages (the documented graceful fallback). Adding them is a content task.
 - **UI sound effects** (the `/* UI sound effects */` block in app.js): tiny synthesized Web-Audio sounds, no files —
+  **`click` and `toggle` are a soft TAP since Aug 2026** (`sfxTap` / `sfxNoiseBuf`, on request: "something more
+  akin to a low soft tapping sound than a high chirp"): a short burst of noise through a low-pass with a low
+  sine under it, which is what a finger on wood actually is — a broadband transient that dies at once, with no
+  pitch to speak of. A pure oscillator cannot make one, which is why the old click was a triangle sliding
+  1900 → 1300 Hz. The noise buffer is built once and reused; a click is by a wide margin the most frequently
+  played sound on the site. —
   `sfx(name)` with click / toggle / pop / good / bad / win / **discover** (a term or place opened for the first
   time — see the discovery-marks bullet above), played by ONE delegated **capture-phase** click listener
   (so a handler's `stopPropagation` can't swallow the tick) that maps button-likes to sounds (grades → good/bad,
@@ -2446,6 +2565,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **The discovery chip shares the title's row** (`.cp-titlerow` wrapping `#cpName` + `#cpNew`, Aug 2026, on
   request): it names the place beside it, and a line of its own cost the short phone sheet a whole line before
   the description started. The 20px right margin that clears the × moved from `.cp-name` up to the row.
+  **The sheet's CEILING is what the PAGE ON SCREEN needs** (`cpPaneNeedH` / `cpFitH`, Aug 2026, on request:
+  "the max height should always be the point where everything is displayed fully, so we are never left with
+  empty space at the bottom"). `cpMaxH()` is now the smaller of the room the screen has and the height the
+  active pane actually asks for, and a swipe to a shorter page pulls the sheet down to fit it. The reader's
+  own dragged height is kept as the CAP it always was rather than overwritten, so swiping back to a long page
+  restores it — a swipe answers for the page it lands on and must not quietly relitigate a setting. The fit
+  is **debounced past the scroll settle**, not run per scroll event: resizing the box a gesture is being made
+  inside means the snap is measuring a moving target. `cpSyncDots` has to run BEFORE `cpApplyH` on every
+  populate, since the dot row is part of what the sheet must make room for.
   **The sheet's HEIGHT is the reader's to set** (`.cp-grab` / `cpWireResize` / `cpApplyH` / `cpMinH` / `cpMaxH`,
   Aug 2026, on request): drag the grip at its top edge — a pill centred on it, since a draggable edge with no
   mark on it is one nobody will find — down to the title bar alone or up to the top of the screen. Stored as a
@@ -3599,7 +3727,7 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Twenty-two committed regression tests** (in `.claude/`, not loaded by the site): nineteen drive a real browser with
+- **Twenty-three committed regression tests** (in `.claude/`, not loaded by the site): twenty drive a real browser with
   Playwright; `test-daily-quote.js`, `test-discovery.js` and `test-date-line.js` are plain Node with no dependencies at
   all. Each slices what it tests out of the real `app.js`/`_headers` by text, so they can't drift from what ships.
   **Gotcha when writing more of them:** `page.goto()` to a URL that differs only in the `#fragment` is a
@@ -3764,7 +3892,7 @@ dead code (never rendered).
     **Re-run after touching `.tabbar` / `--tabbar-h` / `--timebar-h` / `layoutTicks` / the Atlas chrome's
     media queries / `.settings` / `.auth-split` / the coming-soon rows / `wireOnePageSwipe`
     / `.rv-lip` / `.games-sec` / `.home-about` / `gameSub` / `pileCounts` / `adProg` / `.active-deck` /
-    `gbWireResize` / `.gb-grab` / `body.gb-compact` / `applyTheme`'s `data-fs` / `var(--fs)` / `MULTILANG` /
+    `gbWireResize` / `.gb-fold` / `body.gb-compact` / `applyTheme`'s `data-fs` / `var(--fs)` / `MULTILANG` /
     `ensureWBTools` / `.wb-pick` /
     the ink layer's pass-through /
     `cpWireResize` / `lockHeight`, or after adding an overlay to `document.body`.** Its clicks go through `evaluate`
@@ -3783,6 +3911,17 @@ dead code (never rendered).
     dependencies.** Re-run after touching `markSeen` / `SEEN_CAP` / the `*SeenCount` helpers, **and after
     adding a timeline era or a batch of glossary terms** — the sizing, not just the logic, is what it
     guards.
+  · `node .claude/test-a11y.js` — the accessibility floor (Aug 2026), and every one of its three passes covers
+    something that fails SILENTLY. **Names**: every visible control resolves an accessible name, which in a UI
+    made largely of SVG is the commonest screen-reader failure — an icon-only button with no `aria-label` is
+    announced as "button" and nothing else. **Keyboard**: every control is in the tab order, a non-native one
+    declares a role, the first Tab lands on the skip link, and — operation, not merely reach — a `.switch`
+    answers to Space and reports its state, a `.ttip` opens on Enter. **Contrast**: every text node's computed
+    colour against the paper it ACTUALLY renders on (the ancestor walk, alphas composited), at 4.5:1, or 3:1
+    for large text. Measured live rather than from the token table, so a rule that re-tones something in one
+    theme is caught. The default mode is REPORTED — the quiet tokens are quiet on purpose and the high-contrast
+    mode is the answer to them — while **with `body.hc` on, nothing may fall short**, which is the assertion.
+    **Re-run after touching a control's markup, `body.hc`, or any theme's colour tokens.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it
     simulates 400 days off the real `QUOTE_ORDER` and checks every seven-day window in them, so a repeat
     two days running or a third appearance inside a week fails here rather than on the live page. **No

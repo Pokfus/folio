@@ -117,7 +117,10 @@ const SETTINGS = {
     }));
     check("both added decks offer new cards of their own",
       home.rows.length >= 2 && home.rows.every((r) => r.counts[0] > 0), JSON.stringify(home.rows));
-    check("...and the review's own pile is the global allowance, not their sum",
+    /* Not their SUM, and not a smaller figure neither deck agreed to either (Aug 2026, on a bug report):
+       the review's default limit is the WIDEST any added deck offers, so two decks at 5 draw 5 — from the
+       ten between them — where the old global default handed back 3 and nothing on the page explained it. */
+    check("...and the review draws the widest deck's allowance, not their sum",
       home.banner[0] === 5, JSON.stringify({ banner: home.banner, rows: home.rows.map((r) => r.counts[0]) }));
     check("the bin at the end of each row is gone", home.trash === 0);
     check("the banner carries no big numeral", !home.badge);
@@ -146,7 +149,11 @@ const SETTINGS = {
       const ov = document.querySelector(".deck-menu");
       return ov ? { items: [...ov.querySelectorAll(".dm-item")].map((b) => b.querySelector("b").textContent), on: [...ov.querySelectorAll(".dm-item.on b")].map((b) => b.textContent) } : null;
     });
-    check("holding the banner offers Ordered / Random", rm && rm.items.join(",") === "Ordered,Random", JSON.stringify(rm));
+    /* The banner's sheet IS the deck sheet now (Aug 2026, on request: "the same menu, without the delete
+       option"), one level up: the three shared rows plus the Ordered/Random pair, and NO Remove — there is
+       nothing to take the review out of. */
+    check("holding the banner offers the deck sheet's options, minus Remove",
+      rm && rm.items.join(",") === "Ordered,Random,Custom study,Daily limits,Skip today", JSON.stringify(rm));
     check("...with the review's current order marked", rm && rm.on.join(",") === "Ordered", JSON.stringify(rm && rm.on));
     await page.evaluate(() => document.querySelector('.deck-menu .dm-item[data-act="random"]').click());
     await page.waitForTimeout(600);
@@ -174,7 +181,11 @@ const SETTINGS = {
     await page.waitForTimeout(1400);
     const after = await page.evaluate((ids) => {
       const S = JSON.parse(localStorage.getItem("folio_v1"));
-      const today = new Date().toISOString().slice(0, 10);
+      // the day key the app writes, not a UTC one: days run on the device's clock since Aug 2026 (see
+      // dayKey in app.js), and hard-coding toISOString here would agree only in a UTC container
+      const d = new Date();
+      const p2 = (n) => String(n).padStart(2, "0");
+      const today = d.getFullYear() + "-" + p2(d.getMonth() + 1) + "-" + p2(d.getDate());
       const from = {};
       (window.COLLECTION_TREE.collections || []).forEach(function walk(n) {
         (n.children || []).forEach(walk);
@@ -190,6 +201,42 @@ const SETTINGS = {
     check("...and each deck's row still shows the rest of its own share",
       after.rows.length >= 2 && after.rows.every((n) => n > 0) && after.rows.reduce((a, n) => a + n, 0) === 5,
       JSON.stringify({ rows: after.rows, from: after.from }));
+    await page.close();
+  }
+
+  /* ================= 2b. the review's OWN daily limits (Aug 2026) =================
+     The default is the widest deck's allowance; an explicit limit set in the banner's own sheet WINS, which
+     is Anki's parent-deck rule. Both halves matter and both are invisible from the page: a cap that does not
+     bite looks like a setting nobody wired, and a cap that bites when it should not is the bug this replaced. */
+  {
+    const page = await newPage(seeded);
+    await page.goto(base + "#home", { waitUntil: "load" });
+    await page.reload({ waitUntil: "load" });
+    await page.waitForTimeout(1400);
+    await page.evaluate(() => document.querySelector("#b-review").dispatchEvent(new MouseEvent("contextmenu", { bubbles: true, cancelable: true })));
+    await page.waitForTimeout(300);
+    await page.evaluate(() => document.querySelector('.deck-menu .dm-item[data-act="limits"]').click());
+    await page.waitForTimeout(300);
+    const dl = await page.evaluate(() => {
+      const ov = document.querySelector(".deck-menu");
+      return ov ? { where: (ov.querySelector(".dm-where") || {}).textContent || "", n: (ov.querySelector("#dlNew") || {}).value } : null;
+    });
+    check("the review's Daily limits opens on the review, not a deck", dl && /daily review/i.test(dl.where), JSON.stringify(dl));
+    check("...showing the allowance it is actually using", dl && dl.n === "5", JSON.stringify(dl));
+    await page.evaluate(() => {
+      document.querySelector("#dlNew").value = "2";
+      document.querySelector('.deck-menu [data-act="save"]').click();
+    });
+    await page.waitForTimeout(700);
+    const capped = await page.evaluate(() => ({
+      banner: [...document.querySelectorAll(".banner .stat")].filter((s) => !s.classList.contains("streak")).map((s) => +s.querySelector("b").textContent.trim()),
+      // the DECKS are untouched: the cap is on the pooled draw, not on what a deck offers when tapped
+      rows: [...document.querySelectorAll(".active-deck[data-review] .adc-new")].map((x) => +x.textContent.trim()),
+      stored: (JSON.parse(localStorage.getItem("folio_v1")).deckOpts || {})["review:all"],
+    }));
+    check("an explicit review limit caps the pooled draw", capped.banner[0] === 2, JSON.stringify(capped));
+    check("...without changing what each deck offers on its own", capped.rows.every((n) => n === 5), JSON.stringify(capped.rows));
+    check("...and is stored under the review's own entry", capped.stored && capped.stored.newPerDay === 2, JSON.stringify(capped.stored));
     await page.close();
   }
 

@@ -5,6 +5,19 @@
    user, not how). Loaded before app.js. */
 window.CHANGELOG = [
   {
+    d: "2026-08-04",
+    t: "The daily review, the day itself, and getting around on a phone",
+    items: [
+      "The daily review now offers as many new cards as your decks actually do. If you have two decks set to five new cards a day, the review draws five — picked at random from the ten those decks have between them — instead of quietly handing back some smaller number that neither deck had agreed to. Holding the review down opens the same options a deck's row has, minus Remove: study more or fewer new cards today, set the review's own daily limits, sit the whole day out, and choose whether it comes in order or shuffled. Those settings apply to the review; tapping a single deck still uses that deck's own. The count behind it is now worked out from your cards rather than kept as a running tally, so studying a card of the day, or dipping into a deck on its own, no longer eats into the review's allowance.",
+      "Your day now ends when your clock says it does. Folio was counting days by Greenwich time, which is why the daily quote, the card of the day and the review's new cards changed at some hour that was not midnight where you are. They follow this device's clock now — and if you study past midnight you can move the line yourself, with a new “Day ends at” setting under Study. A page left open across the boundary picks the new day up on its own.",
+      "Twenty more daily quotes, drawn especially from the Indian and Arabic traditions, which had none at all: the Bhagavad Gita and the Upanishads, the Buddha, Kautilya, Patanjali, Ashoka, Tagore and Vivekananda; al-Kindi, Ibn Rushd, Ibn al-Haytham, al-Ghazali, al-Biruni, Ibn Khaldun, al-Mutanabbi and Maimonides — with Thucydides, Herodotus, Ranke and Marc Bloch beside them. Most can be turned over to read in their own language, as the others can.",
+      "On a phone, a lot less of Folio comes at you from the bottom edge. A glossary term now opens as a small window in the middle of the screen, which you can hold by its top bar and slide up or down to see the sentence it came from; a new term always opens back in the middle. The options sheets open in the middle too, and fade away instead of being cut off. You can swipe left and right to move between the home page, the Library, your account and Settings — the Atlas is left out, since a swipe there turns the globe. The grade buttons are folded to half their height by a chevron rather than by dragging their edge. On the Atlas, a place's panel is now only ever as tall as the page you are looking at needs, and shrinks when you swipe to a shorter one, so there is never a band of nothing at the bottom. And the Minigames heading is centred again.",
+      "The click you hear when you press a button is a low, soft tap now instead of a high chirp.",
+      "Two new switches under Appearance. Animations turns off every transition and movement on the site, for a device where they feel slow. High contrast darkens the quieter text — captions, eyebrows, the source lines under a card — and strengthens borders and focus outlines, so everything on screen clears the standard 4.5-to-1 contrast ratio; the measurements behind it are written down. Elsewhere for accessibility: pictures on cards and glossary terms can now carry a description of what they show, for a reader using a screen reader, and there is a Skip to the page link for anyone moving by keyboard. The primary button in dark mode was hard to read and has been fixed for everybody.",
+      "And a few more places where Folio used to cut rather than move: the answer to a question on the About page and a day of these notes now unfold instead of appearing, as do the Atlas's search results, a place's panel and the drawing tools.",
+    ],
+  },
+  {
     d: "2026-08-03",
     t: "Sixty-eight more glossary terms",
     items: [
