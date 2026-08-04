@@ -1159,8 +1159,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - **Cards** can belong to several decks at once (cross-listed by era/date) with shared progress,
   and are ordered chronologically.
 - **XP / levels** (`levelFromXP` / `xpBarMarkup` / `levelBadgeMarkup` in app.js): **XP = the number of distinct cards
-  studied** (derived from `S.cards`; no separate persistence). Each level costs `3 × level` more cards (bar starts at
-  0/3, then 0/6, 0/9, …). Each **collection** has its own level (distinct cards studied within it, `collectionXP` =
+  studied** (derived from `S.cards`; no separate persistence). Each level costs **`XP_PER_LEVEL × level`** more cards,
+  and **`XP_PER_LEVEL` is 5** (bar starts at 0/5, then 0/10, 0/15, …). It was 3 until Aug 2026 and was raised on
+  request, because the daily allowance now defaults to FIVE new cards: at a step of three a level turned over in the
+  middle of an ordinary day's work, which made the badge mean nothing. **Keep the step and the default allowance in
+  step** — the number is a constant precisely so the two can be read against each other. Nothing migrates: XP is
+  derived from `S.cards` on every read, so an existing reader's level simply recomputes on the new curve (roughly
+  ×0.77 of the old level number at the same card count). Guarded by `test-card-types.js`, which slices `levelFromXP`
+  out of app.js and walks every threshold through level 13. Each **collection** has its own level (distinct cards studied within it, `collectionXP` =
   `studiedInNode`) shown on its **Library banner**; the whole of Folio has a **general level** (`folioXP` =
   `Object.keys(S.cards).length`) shown on the **home Daily-review banner**. Both banners carry a **large level numeral**
   on the left (`.level-badge` — just the numeral now; the small "Level" label under it was removed since the blue "Level N"
@@ -3148,6 +3154,67 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     which publishes every user's username and display name — a privacy decision for the site owner, not
     one to make in passing. "More from this author" queries `user_decks` by `owner` instead, which is
     already public, and gets most of the value.
+- **Community decks — CARD TYPES (Aug 2026, on request).** Anki's note types, cut to the three things an
+  author actually programs: the **front template**, the **back template** and the **CSS** for the card as a
+  whole. A type declares its own field names; a card of that type carries a `fields` map instead of the
+  thirteen `CARD_FIELDS`. **⚠ Publishing a deck that uses one needs the `8) CARD TYPES` block at the end of
+  `.claude/supabase-schema.sql` run once** — everything else (writing, studying, export, import) is entirely
+  local and needs nothing.
+  · **"Basic" is Folio's own format and is NOT one of these records.** It is what a card with no `type`
+    renders as — question, answer, date line, background, sources — so **every card written before this
+    existed is a Basic card and nothing migrates**. `CARD_TYPE_BASIC` is a reserved id: `uTypeSanitize`
+    refuses a type that tries to take the name, or an imported deck could shadow the built-in format.
+  · **Types live on the DECK (`deck.types`), not on the device**, and ride in `UDECK_META_KEYS` — so one
+    entry covers the record, the export file, the import and the fork with no plumbing of its own. A deck is
+    the unit that travels, and a template left behind would leave an installed copy rendering its fields as
+    raw prose. Publishing sends `user_decks.types`, **but only when the deck actually has types**, so a deck
+    of Basic cards still publishes from a database whose owner has not run that SQL block (`typesColumnMissing`
+    turns PostgREST's PGRST204 into a sentence saying what to do instead).
+  · **The template language is `{{Field}}`, `{{FrontSide}}`, `{{#Field}}…{{/Field}}` and `{{^Field}}…{{/Field}}`**
+    (`tplRender`) — Anki's, minus the filters. There are deliberately no filters: a template needing more than
+    this is a template that wants a build step, which Folio does not have.
+  · **The safety rests on the LAST sanitize, not the first.** The templates and the field values are each
+    cleaned on ingest, and that is not enough — a value dropped into `<img src="{{X}}">` is only checkable once
+    the two are one string. So `cardTypeSideHTML` is the single choke point, and it runs `sanitizeHTML` over
+    the COMPOSED result at render. Don't "optimise" that pass away.
+  · **The CSS gets its own treatment, because it is not HTML and cannot go through the HTML sanitizer** (which
+    drops `<style>` outright). `sanitizeCSSText` strips comments, strips `<` (so `</style>` cannot be spelled —
+    **`>` is deliberately KEPT**, it is the child combinator and only the opening bracket can end the element)
+    and strips backslashes (a CSS escape can spell any blocked keyword; the cost is that `content:"\201C"` has
+    to be written as the character); drops `@import`/`@charset`/`@namespace`; narrows `url()` to https and
+    `data:image/`; and **demotes `position:fixed` to `absolute`, since scoping a SELECTOR does nothing to stop
+    a fixed box being painted across the whole page.**
+  · **`cssScoped` prefixes every selector** with `.uc-card[data-uct="<deckId>__<typeId>"]`, drops block-form
+    at-rules it doesn't allow (`@font-face`, `@page`, `@document`), keeps `@media`/`@supports`/`@layer` and
+    scopes the rules inside them, and leaves `@keyframes` stops alone (`0%` is not a page selector).
+    **Anki's convention is that `.card` is the card itself**, and `html`/`body`/`:root` are read the same way —
+    an author who writes `body{}` means this card, not the site around it. `ensureCardTypeStyle` injects ONE
+    `<style data-uct>` per (deck, type) into the head; leaving them is safe precisely because they are scoped,
+    and re-injecting per render would restyle the page on every card. Needs `style-src 'unsafe-inline'`, which
+    `_headers` already has — **no CSP change, and none should be needed.**
+  · **Switching a card's type is reversible and deleting a type is not, and the code says so both ways.**
+    `uCardSetType` keeps `c.fields` when a card goes back to Basic (a `<select>` is one keystroke from being
+    hit by accident), and `uCardSanitize` therefore keeps a `fields` map whether or not there is a `type` —
+    while a card that has never held one carries no key at all, so a Basic-only deck's export is unchanged.
+    `uTypeDelete` does destroy them, and asks first, naming the number of cards.
+  · **Studio**: a third tab, **Card types**, with Basic at the head of the list as a read-only row. The card
+    editor gets a type picker above the card; choosing a type replaces the whole Basic surface with one box per
+    field plus a live preview, rather than dressing the Basic surface up as something it isn't. Both previews
+    render through the same `cardFrontHTML`/`buildBack` the study page calls — a second implementation would
+    drift.
+  · **A typed card has no phrasing pool** (`renderCard` skips `cardQuestions` for one): the chevrons and the
+    "1 / 3" counter are about the Basic format's `questions` array.
+  · **The deck PAGE's sample card** belongs to no local deck, so it carries its type on `card._type`
+    (sanitized from `row.types` there) — `cardTypeOf` reads that before looking a deck up.
+  · Guarded by **`.claude/test-card-types.js` (110 assertions)**, which tests the CSS scoper and the template
+    engine as pure string functions (a scoping bug reads far better as a failed comparison than as a screenshot
+    of a restyled page), then drives the real Studio, then imports a **hostile deck file** through the real
+    file picker. **Re-run after touching `sanitizeCSSText` / `cssScoped` / `cssScopeSelector` / `tplRender` /
+    `cardTypeSideHTML` / `ensureCardTypeStyle` / `uTypeSanitize` / `uCardSanitize`, or `levelFromXP`.**
+    Two things that bit while writing it and will bit again: **`render()` called from inside a `change` handler
+    throws** — removing the still-focused input fires blur in the middle of `#view`'s innerHTML assignment, so
+    blur first and defer the render out of the event; and a test that opens IndexedDB **must close it**, or the
+    idle connection blocks the app's own open after a reload and pushes it onto the localStorage fallback.
 - **Reader feedback (beta, July 2026).** Readers write to the editors from the **foot of the About page**
   (`.msn-feedback`, between the FAQ and the changelog); admins triage the messages in **Edit → Feedback**,
   which **replaced the Accounts tab** — that tab managed the legacy device-local accounts (`folio_acct_v1`)
@@ -4051,12 +4118,16 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Twenty-three committed regression tests** (in `.claude/`, not loaded by the site): twenty drive a real browser with
+- **Twenty-four committed regression tests** (in `.claude/`, not loaded by the site): twenty-one drive a real browser with
   Playwright; `test-daily-quote.js`, `test-discovery.js` and `test-date-line.js` are plain Node with no dependencies at
-  all. Each slices what it tests out of the real `app.js`/`_headers` by text, so they can't drift from what ships.
+  all (`test-card-types.js` is half and half — its XP, CSS-scoper and template-engine assertions need no browser).
+  Each slices what it tests out of the real `app.js`/`_headers` by text, so they can't drift from what ships.
   **Gotcha when writing more of them:** `page.goto()` to a URL that differs only in the `#fragment` is a
   same-document navigation — the app keeps running and its module state survives. Use `page.reload()` when
   a test means "start fresh", or navigate through the UI. Several early failures were this, not real bugs.
+  **And close any IndexedDB connection the test itself opens** — an idle one blocks the app's own open after a
+  reload, which silently pushes it onto the localStorage fallback, and the test then goes looking for a deck in
+  the store the app has just stopped using (`test-card-types.js` learned this the hard way).
   · `node .claude/test-sanitize.js` — 48 XSS vectors through `sanitizeHTML()`, each one also injected into
     a live DOM to confirm nothing executes. **Re-run after touching `SANITIZE_*` or `sanitizeUrl`.**
   · `node .claude/test-csp.js` — serves the site with the real `_headers` CSP and walks every route,
@@ -4359,6 +4430,19 @@ dead code (never rendered).
     `Access-Control-Expose-Headers: Content-Range` on purpose** — that header is not CORS-safelisted, and a
     mock that forgets it reports a connection failure that is really a CORS one. **Re-run after touching
     `acctSelfView` / `adminRenderDashboard` / `dashLoadRemote` / `supaFetch`'s count parsing.**
+  · `node .claude/test-card-types.js` — the XP curve and community-deck **card types** (Aug 2026), 110
+    assertions in three parts. The **XP** part slices `levelFromXP` out of app.js and walks every threshold
+    through level 13, so the shape of the curve is asserted rather than three sample points. The **pure** part
+    runs `sanitizeCSSText` / `cssScoped` / `tplRender` as string functions with no browser at all — a scoping
+    bug reads far better as a failed comparison than as a screenshot of a restyled page — and its central
+    assertion is that a type's `.studio-tab{display:none}` cannot reach the site around it (probed on
+    `.studio-tab` and NOT `.tabbar`, which is `display:none` above 640px anyway and would pass whatever the
+    scoper did). The **browser** part builds a type and a card of it through the real Studio, studies it,
+    reads the store back to prove the type travels with the DECK, and finally imports a **hostile deck file**
+    through the real file picker: a type calling itself `basic`, a field name that is markup, an `onclick` in
+    a template, a `javascript:` href, and CSS carrying `</style>`, `@import`, `url(javascript:)` and
+    `position:fixed`. **Re-run after touching the CARD TYPES block, `cardTypeSideHTML` / `ensureCardTypeStyle`
+    / `uCardSanitize` / `uDeckSanitizeMeta`, the Studio's Types tab, or `levelFromXP`.**
   Playwright is a dev dependency and must NOT be installed into the repo (the zero-dependency rule, and
   `node_modules/` is gitignored) — install it in a scratch folder and run with
   `NODE_PATH=<that>/node_modules`. Set `FOLIO_CHROMIUM=<path to chrome>` if Chromium lives outside the

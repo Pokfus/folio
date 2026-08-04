@@ -3341,6 +3341,7 @@
     o.id = /^[a-z0-9]{4,16}$/.test(String(m && m.id)) ? m.id : uid(8);
     o.tags = Array.isArray(m && m.tags) ? m.tags.map((t) => sanitizePlain(t).slice(0, 40)).filter(Boolean).slice(0, 12) : [];
     o.glossMode = ["site", "own", "both"].indexOf(m && m.glossMode) >= 0 ? m.glossMode : "site";
+    o.types = uTypesSanitize(m && m.types);   // the deck's own card types — see the CARD TYPES block above
     o.version = Number(m && m.version) > 0 ? Math.floor(Number(m.version)) : 1;
     o.createdAt = Number(m && m.createdAt) || Date.now();
     o.updatedAt = Number(m && m.updatedAt) || o.createdAt;
@@ -3361,6 +3362,122 @@
       : null;
     return o;
   }
+  /* ---------- CARD TYPES ----------
+     Anki's note types, cut to the three things an author actually programs: the FRONT template, the BACK
+     template and the CSS for the card as a whole. A type declares its own field names; a card of that type
+     carries a `fields` map instead of the thirteen CARD_FIELDS.
+
+     "Basic" is Folio's own format — question / answer / date line / background / sources — and is NOT one of
+     these records: it is what a card with no `type` renders as, so every card written before this existed is
+     a Basic card and needs no migration.
+
+     Types live on the DECK, not on the device. A deck is the unit that travels (export, publish, install),
+     and a template that stayed behind would leave an installed deck rendering its fields as raw prose.
+
+     Everything here is written for content Folio did not author. The templates go through sanitizeHTML on
+     ingest AND the composed result goes through it again at render — the second pass is the one that matters,
+     since a field value interpolated into `<img src="{{X}}">` is not covered by sanitizing the two halves
+     separately. The CSS gets its own treatment: it can't execute, but it can break out of the <style> element
+     it lands in, pull in remote stylesheets, or float a card over the rest of the page. */
+  const CARD_TYPE_BASIC = "basic";
+  const UTYPE_ID_RX = /^[a-z0-9][a-z0-9-]{0,31}$/;
+  const UTYPE_FIELD_RX = /^[A-Za-z0-9][\w .'-]{0,39}$/;
+  const UDECK_MAX_TYPES = 20, UTYPE_MAX_FIELDS = 24, UTYPE_TPL_MAX = 8000, UTYPE_CSS_MAX = 20000, UTYPE_VALUE_MAX = 20000;
+
+  /* A type's stylesheet, cleaned. It is not executable, so this is about three narrower things:
+     · `<` goes, because the text is written into a <style> ELEMENT and "</style>" would end it early. Only
+       the opening bracket is taken: `>` is the child combinator and a stylesheet that cannot say `.a > .b`
+       is missing a third of CSS, while "</style>" cannot be spelled without a `<`;
+     · a backslash goes with them — a CSS escape can spell any of the keywords below, and the cost is that a
+       `content:"\201C"` has to be written as the character itself, which is the better way round anyway;
+     · @import / @charset / @namespace are dropped as statements (the block-form at-rules go in cssScoped),
+       remote url() is narrowed to https and inline images, and `position:fixed` is demoted to `absolute`,
+       since scoping a SELECTOR does nothing to stop a fixed box being painted across the whole page. */
+  function sanitizeCSSText(raw) {
+    let s = String(raw == null ? "" : raw).slice(0, UTYPE_CSS_MAX);
+    s = s.replace(/\/\*[\s\S]*?\*\//g, " ");
+    s = s.replace(/[<\\]/g, " ");
+    s = s.replace(/@(?:import|charset|namespace)[^;{}]*;?/gi, " ");
+    s = s.replace(/expression\s*\(/gi, "none(").replace(/(?:-moz-)?binding\s*:/gi, "--x:").replace(/behaviou?r\s*:/gi, "--x:");
+    s = s.replace(/position\s*:\s*fixed/gi, "position:absolute");
+    s = s.replace(/url\(\s*(['"]?)([^'")]*)\1\s*\)/gi, (m, q, u) =>
+      /^(?:https?:\/\/|\/\/|data:image\/)/i.test(u.trim()) ? "url(" + q + u.trim() + q + ")" : "none");
+    return s.trim();
+  }
+  // at-rules whose body is a nested set of RULES (the head is kept, the rules inside are still scoped)
+  const CSS_AT_NEST = /^(?:media|supports|layer|container|scope)$/;
+  /* Prefix every selector with the card's own scope, so a type's CSS can only ever reach that type's cards.
+     Anki's convention is that `.card` means the card itself; the document roots are read the same way, since
+     an author who writes `body{}` means "this card", not the site around it. */
+  function cssScopeSelector(sel, scope) {
+    return String(sel).split(",").map((one) => {
+      const s = one.trim();
+      if (!s) return "";
+      const m = /^(?:html|body|:root|\.card)(?![\w-])/i.exec(s);
+      if (!m) return scope + " " + s;
+      const rest = s.slice(m[0].length);
+      if (!rest.trim()) return scope;
+      return /^[\s>+~]/.test(rest) ? scope + " " + rest.trim() : scope + rest;   // `.card.dark` must not become a descendant
+    }).filter(Boolean).join(",");
+  }
+  function cssScoped(css, scope) {
+    const src = String(css == null ? "" : css);
+    let out = "", buf = "", drop = 0;
+    const stack = [];
+    for (let i = 0; i < src.length; i++) {
+      const ch = src.charAt(i);
+      if (ch === "{") {
+        const head = buf.trim(); buf = "";
+        let kind = "decl";
+        if (head.charAt(0) === "@") {
+          const name = ((/^@([\w-]+)/.exec(head) || [, ""])[1] || "").toLowerCase().replace(/^-[a-z]+-/, "");
+          kind = name === "keyframes" ? "kf" : CSS_AT_NEST.test(name) ? "at" : "drop";
+        } else if (stack[stack.length - 1] === "kf") {
+          kind = "frame";   // 0% / from / to — a keyframe selector, not a page selector
+        }
+        stack.push(kind);
+        if (drop || kind === "drop") { drop++; continue; }
+        out += (kind === "decl" ? cssScopeSelector(head, scope) : head) + "{";
+        continue;
+      }
+      if (ch === "}") {
+        stack.pop();
+        if (drop) { drop--; buf = ""; continue; }
+        out += buf + "}"; buf = "";
+        continue;
+      }
+      buf += ch;
+    }
+    return out;
+  }
+  function uTypeSanitize(raw, fallbackId) {
+    const id = String((raw && raw.id) || fallbackId || "").trim();
+    if (!UTYPE_ID_RX.test(id) || id === CARD_TYPE_BASIC) return null;   // "basic" is the built-in format's name and cannot be taken
+    const fields = [];
+    (Array.isArray(raw && raw.fields) ? raw.fields : []).forEach((f) => {
+      const n = sanitizePlain(f).trim();
+      if (UTYPE_FIELD_RX.test(n) && fields.indexOf(n) < 0 && fields.length < UTYPE_MAX_FIELDS) fields.push(n);
+    });
+    if (!fields.length) fields.push("Front", "Back");
+    return {
+      id: id,
+      name: sanitizePlain(raw && raw.name).slice(0, 60) || id,
+      fields: fields,
+      front: sanitizeHTML(String((raw && raw.front) == null ? "" : raw.front)).slice(0, UTYPE_TPL_MAX),
+      back: sanitizeHTML(String((raw && raw.back) == null ? "" : raw.back)).slice(0, UTYPE_TPL_MAX),
+      css: sanitizeCSSText(raw && raw.css),
+    };
+  }
+  function uTypesSanitize(raw) {
+    const out = {};
+    if (!raw || typeof raw !== "object") return out;
+    Object.keys(raw).slice(0, UDECK_MAX_TYPES).forEach((k) => {
+      const t = uTypeSanitize(raw[k], k);
+      if (t) out[t.id] = t;
+    });
+    return out;
+  }
+
   function uCardSanitize(raw, deckId, idx) {
     const c = { id: "", deckId: deckId };
     const id = String((raw && raw.id) || "");
@@ -3391,6 +3508,23 @@
     }
     // one frame per card: a record carrying both resolves the same way the renderers do — the picture wins
     if (!c.image) { const v = uMediaSanitize(raw && raw.video); if (v) c.video = v; }
+    /* A card of one of the deck's own types. `type` is written ONLY for a custom card, so a Basic card that
+       has never been anything else is byte-for-byte the record it was before card types existed — nothing to
+       migrate, and an export of a Basic-only deck is unchanged. `fields` outlives a switch back to Basic on
+       purpose (see uCardSetType): the values are what make the change reversible, and a card that has never
+       held any carries no key at all. The field VALUES are rich HTML like everything else here; the NAMES are
+       held to the same pattern a type declares them with, so a hostile file cannot smuggle a key that
+       collides with something the renderer reads. */
+    const ty = String((raw && raw.type) || "").trim();
+    if (UTYPE_ID_RX.test(ty) && ty !== CARD_TYPE_BASIC) c.type = ty;
+    if (raw && raw.fields && typeof raw.fields === "object") {
+      const f = {};
+      Object.keys(raw.fields).slice(0, UTYPE_MAX_FIELDS).forEach((k) => {
+        const name = String(k).trim();
+        if (UTYPE_FIELD_RX.test(name)) f[name] = sanitizeHTML(raw.fields[k] == null ? "" : String(raw.fields[k])).slice(0, UTYPE_VALUE_MAX);
+      });
+      if (c.type || Object.keys(f).length) c.fields = f;
+    }
     return c;
   }
   // A card's or term's video, cleaned on ingest like every other field. An http/https src is kept even when
@@ -3457,7 +3591,7 @@
     norm.cards.forEach((c) => { UCARDS[c.id] = c; });
     return d;
   }
-  const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language", "tags", "glossMode", "version", "createdAt", "updatedAt", "forkedFrom"];
+  const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language", "tags", "glossMode", "types", "version", "createdAt", "updatedAt", "forkedFrom"];
   const UDECK_PUBLISH_KEYS = ["remoteId", "slug", "origin", "remoteStatus", "publishedVersion", "installedVersion", "ownerName"];
   function uDeckRecord(deckId) {   // the on-disk shape (also the export shape, minus the publishing keys)
     const d = UDECKS[deckId];
@@ -3477,7 +3611,7 @@
   function uDeckCreate(title) {
     const id = uid(8);
     const now2 = Date.now();
-    const d = { id: id, title: sanitizePlain(title) || "Untitled deck", subtitle: "", desc: "", author: "", language: uiLang() || "en", tags: [], glossMode: "site", version: 1, createdAt: now2, updatedAt: now2, cardIds: [] };
+    const d = { id: id, title: sanitizePlain(title) || "Untitled deck", subtitle: "", desc: "", author: "", language: uiLang() || "en", tags: [], glossMode: "site", types: {}, version: 1, createdAt: now2, updatedAt: now2, cardIds: [] };
     UDECKS[id] = d;
     UGLOSS[id] = {};
     uDeckSave(id);
@@ -3495,6 +3629,82 @@
     d.tags = String(str || "").split(",").map((t) => sanitizePlain(t).slice(0, 40)).filter(Boolean).slice(0, 12);
     uDeckSave(deckId);
   }
+  /* ---------- card types: the Studio's API ----------
+     Each writer re-sanitizes through uTypeSanitize rather than trusting the caller, for the reason uCardSet
+     does: the store is what gets exported and published, so it has to be clean at the source and not only
+     at the next importer's end. */
+  function uDeckTypes(d) { return (d && d.types) || {}; }
+  function uTypeGet(deckId, typeId) { return uDeckTypes(UDECKS[deckId])[typeId] || null; }
+  function uTypeList(deckId) {
+    const t = uDeckTypes(UDECKS[deckId]);
+    return Object.keys(t).map((k) => t[k]).sort((a, b) => String(a.name).localeCompare(String(b.name)));
+  }
+  const UTYPE_STARTER = {
+    front: '<div class="uc-q">{{Front}}</div>',
+    back: '<div class="uc-a">{{Back}}</div>',
+    css: ".card {\n  font-size: 17px;\n  line-height: 1.55;\n}\n.uc-q {\n  font-weight: 600;\n}\n",
+  };
+  function uTypeCreate(deckId, name) {
+    const d = UDECKS[deckId];
+    if (!d) return null;
+    if (!d.types) d.types = {};
+    if (Object.keys(d.types).length >= UDECK_MAX_TYPES) { toast("A deck holds at most " + UDECK_MAX_TYPES + " card types."); return null; }
+    const clean = sanitizePlain(name).slice(0, 60) || "New type";
+    let base = clean.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 24);
+    if (!UTYPE_ID_RX.test(base) || base === CARD_TYPE_BASIC) base = "type";
+    let id = base, n = 2;
+    while (d.types[id]) id = (base + "-" + n++).slice(0, 32);
+    const t = uTypeSanitize({ id: id, name: clean, fields: ["Front", "Back"], front: UTYPE_STARTER.front, back: UTYPE_STARTER.back, css: UTYPE_STARTER.css });
+    if (!t) return null;
+    d.types[id] = t;
+    uDeckSave(deckId);
+    return t;
+  }
+  function uTypeSet(deckId, typeId, field, value) {
+    const d = UDECKS[deckId], t = uTypeGet(deckId, typeId);
+    if (!t || ["name", "front", "back", "css"].indexOf(field) < 0) return;
+    const next = uTypeSanitize(Object.assign({}, t, { [field]: value }));
+    if (next) { d.types[typeId] = next; uDeckSave(deckId); }
+  }
+  // the field list, written as one comma-separated line. A field dropped here leaves the values behind on
+  // the cards rather than deleting them — re-adding the name brings the text back, and a typo costs nothing.
+  function uTypeSetFields(deckId, typeId, str) {
+    const d = UDECKS[deckId], t = uTypeGet(deckId, typeId);
+    if (!t) return;
+    const next = uTypeSanitize(Object.assign({}, t, { fields: String(str || "").split(",") }));
+    if (next) { d.types[typeId] = next; uDeckSave(deckId); }
+  }
+  // Deleting a type puts its cards back to Basic. Their `fields` go with it: the values describe a template
+  // that no longer exists, and leaving them would make an exported deck carry text nothing can render.
+  function uTypeDelete(deckId, typeId) {
+    const d = UDECKS[deckId];
+    if (!d || !d.types || !d.types[typeId]) return;
+    delete d.types[typeId];
+    uDeckCards(d).forEach((c) => { if (c.type === typeId) { delete c.type; delete c.fields; } });
+    uDeckSave(deckId);
+  }
+  function uCardSetType(cardId, typeId) {
+    const c = UCARDS[cardId];
+    if (!c) return;
+    const t = c.deckId ? uTypeGet(c.deckId, typeId) : null;
+    // The field VALUES are never thrown away here, so switching type is reversible: a card turned back to
+    // Basic keeps its question and background, and one turned back to a type finds its fields as they were.
+    // Deleting the TYPE is the destructive act, and that one asks first. A card that has never held a field
+    // still gets no `fields` key, so a Basic-only deck's export is unchanged.
+    if (t) { c.type = t.id; if (!c.fields || typeof c.fields !== "object") c.fields = {}; }
+    else delete c.type;   // anything unrecognised — "basic" included — is the built-in format
+    if (c.deckId) uDeckSave(c.deckId);
+  }
+  function uCardSetFieldValue(cardId, name, value) {
+    const c = UCARDS[cardId];
+    if (!c || !c.type) return;
+    const n = String(name || "").trim();
+    if (!UTYPE_FIELD_RX.test(n)) return;
+    if (!c.fields || typeof c.fields !== "object") c.fields = {};
+    c.fields[n] = sanitizeHTML(value == null ? "" : String(value)).slice(0, UTYPE_VALUE_MAX);
+    if (c.deckId) uDeckSave(c.deckId);
+  }
+
   function uCardCreate(deckId) {
     const d = UDECKS[deckId];
     if (!d) return null;
@@ -3738,7 +3948,19 @@
       author: d.author || (SUPA_PROFILE ? SUPA_PROFILE.name : "") || "", language: d.language || "en",
       tags: d.tags || [], gloss_mode: d.glossMode || "site", status: "published", version: (d.publishedVersion || 0) + 1,
       forked_from: d.forkedFrom || null,
+      // The deck's own card types travel with it, or an installed copy renders its fields as raw prose. Sent
+      // only when there ARE any: `user_decks.types` arrived with card types, so a deck of Basic cards still
+      // publishes from a database whose owner hasn't run that block of .claude/supabase-schema.sql yet.
+      types: Object.keys(uDeckTypes(d)).length ? uDeckTypes(d) : undefined,
     };
+  }
+  // PostgREST answers an unknown column with PGRST204. It means one thing here and it is worth saying plainly,
+  // since the deck itself is fine and only the templates have nowhere to go.
+  const TYPES_COLUMN_MSG = "This deck uses custom card types, and card-type sharing isn't set up on this site yet. Export the deck as a file, or turn its cards back to Basic to publish.";
+  function typesColumnMissing(r) {
+    const body = r && r.data;
+    const msg = (body && (body.message || body.code)) ? String(body.message || "") + " " + String(body.code || "") : "";
+    return r && r.status === 400 && /types/.test(msg);
   }
   // returns { ok } | { error }
   async function uDeckPublish(deckId) {
@@ -3756,7 +3978,7 @@
       const r = await supaFetch("/rest/v1/user_decks?id=eq." + encodeURIComponent(d.remoteId), {
         method: "PATCH", body: uDeckRemotePayload(d), headers: { Prefer: "return=representation" },
       });
-      if (!r.ok) return { error: communityErr(r, "Couldn't update the published deck.") };
+      if (!r.ok) return { error: typesColumnMissing(r) ? TYPES_COLUMN_MSG : communityErr(r, "Couldn't update the published deck.") };
       row = Array.isArray(r.data) ? r.data[0] : r.data;
     } else {
       let attempt = 0;
@@ -3766,7 +3988,7 @@
         if (r.ok) { row = Array.isArray(r.data) ? r.data[0] : r.data; break; }
         // 409 = the slug is taken; try another suffix before giving up
         if (r.status === 409) { d.slug = slugify(d.title); attempt++; continue; }
-        return { error: communityErr(r, "Couldn't publish the deck.") };
+        return { error: typesColumnMissing(r) ? TYPES_COLUMN_MSG : communityErr(r, "Couldn't publish the deck.") };
       }
       if (!row) return { error: "That deck name is taken — try a different title." };
     }
@@ -3865,7 +4087,7 @@
       id: localId,
       meta: {
         id: localId, title: row.title, subtitle: row.subtitle, desc: row.description, author: row.author,
-        language: row.language, tags: row.tags || [], glossMode: row.gloss_mode, version: 1,
+        language: row.language, tags: row.tags || [], glossMode: row.gloss_mode, types: row.types || {}, version: 1,
         createdAt: Date.parse(row.created_at) || Date.now(), updatedAt: Date.now(),
         remoteId: row.id, slug: row.slug, origin: "installed", remoteStatus: row.status, forkedFrom: row.forked_from || null,
         installedVersion: row.version, ownerName: row.author,
@@ -6033,13 +6255,17 @@
   }
 
   /* ---------- levels / XP ----------
-     XP = the number of distinct cards a user has studied. Each level costs `3 × level` more cards (3, 6, 9, …),
-     so the bar starts at 0/3 and the requirement grows every level. Collections have their own level (distinct
-     cards studied within that collection); the whole of Folio has a general level (all distinct cards studied). */
+     XP = the number of distinct cards a user has studied. Each level costs `XP_PER_LEVEL × level` more cards
+     (5, 10, 15, …), so the bar starts at 0/5 and the requirement grows every level. The step is FIVE rather
+     than the original three because the daily allowance now defaults to five new cards: at three a level
+     turned over in the middle of an ordinary day's work, which made the badge mean nothing. Collections have
+     their own level (distinct cards studied within that collection); the whole of Folio has a general level
+     (all distinct cards studied). */
+  const XP_PER_LEVEL = 5;
   function levelFromXP(xp) {
     xp = Math.max(0, xp | 0);
-    let level = 1, need = 3, into = xp;
-    while (into >= need) { into -= need; level++; need = 3 * level; }
+    let level = 1, need = XP_PER_LEVEL, into = xp;
+    while (into >= need) { into -= need; level++; need = XP_PER_LEVEL * level; }
     return { level, into, need };   // into/need = progress within the current level toward the next
   }
   function folioXP() { return Object.keys(S.cards).length; }        // all distinct cards studied → general Folio level
@@ -7975,7 +8201,7 @@
      ADMIN_EDITS, adminUndo, Save-to-project) and may only ever touch curated cards. What the two share is
      the card SURFACE, via liveCardEditorHTML / wireLiveCardEditor.
      ============================================================ */
-  const studioState = { deck: null, card: null, tab: "cards", term: null };
+  const studioState = { deck: null, card: null, tab: "cards", term: null, type: "" };   // type "" = the built-in Basic row
   let _deckUpdates = {};   // local deckId -> the newer remote version, filled after boot by communityCheckUpdates()
   const STUDIO_META_FIELDS = [
     ["title", "Title", "text", "What is this deck about?"],
@@ -8091,17 +8317,19 @@
           '</div></div>' +
       '</div></details>' +
       '<div class="studio-tabs">' +
-        '<button class="studio-tab' + (studioState.tab !== "gloss" ? " active" : "") + '" type="button" data-tab="cards">Cards <span>' + cards.length + '</span></button>' +
+        '<button class="studio-tab' + (studioState.tab === "cards" ? " active" : "") + '" type="button" data-tab="cards">Cards <span>' + cards.length + '</span></button>' +
+        '<button class="studio-tab' + (studioState.tab === "types" ? " active" : "") + '" type="button" data-tab="types">Card types <span>' + (uTypeList(d.id).length + 1) + '</span></button>' +
         '<button class="studio-tab' + (studioState.tab === "gloss" ? " active" : "") + '" type="button" data-tab="gloss">Glossary <span>' + uGlossList(d.id).length + '</span></button>' +
       '</div>' +
       (studioState.tab === "gloss" ? studioGlossHTML(d) :
+       studioState.tab === "types" ? studioTypesHTML(d) :
       '<div class="studio-cols">' +
         '<div class="studio-cardlist">' +
           '<div class="studio-cardlist-head"><span>' + cards.length + " " + (cards.length === 1 ? "card" : "cards") + '</span><button class="btn tiny" type="button" id="stAddCard">Add a card</button></div>' +
           '<div class="studio-cardrows" id="stRows">' +
             (cards.length ? cards.map((c, i) =>
               '<div class="studio-cardrow' + (c.id === studioState.card ? " active" : "") + '" data-card="' + esc(c.id) + '">' +
-                '<button class="scr-open" type="button" data-copen="' + esc(c.id) + '"><span class="scr-n">' + (i + 1) + '</span><span class="scr-title">' + esc(sanitizePlain(c.answer) || "(untitled)") + '</span></button>' +
+                '<button class="scr-open" type="button" data-copen="' + esc(c.id) + '"><span class="scr-n">' + (i + 1) + '</span><span class="scr-title">' + esc(uCardTitle(c)) + '</span></button>' +
                 '<span class="scr-move">' +
                   '<button class="scr-btn" type="button" data-up="' + esc(c.id) + '" title="Move up" aria-label="Move up"' + (i === 0 ? " disabled" : "") + '>&#9650;</button>' +
                   '<button class="scr-btn" type="button" data-down="' + esc(c.id) + '" title="Move down" aria-label="Move down"' + (i === cards.length - 1 ? " disabled" : "") + '>&#9660;</button>' +
@@ -8116,6 +8344,7 @@
     root.querySelectorAll("[data-tab]").forEach((b) => b.addEventListener("click", () => { studioState.tab = b.dataset.tab; render(); }));
     root.querySelectorAll('input[name="glossmode"]').forEach((r) => r.addEventListener("change", () => { uDeckSetGlossMode(d.id, r.value); render(); }));
     if (studioState.tab === "gloss") { studioWireGloss(root, d); }
+    if (studioState.tab === "types") { studioWireTypes(root, d); }
 
     root.querySelector("#stAll").addEventListener("click", () => { studioState.deck = null; studioState.card = null; render(); });
     const ex = root.querySelector("#stExport"); if (ex) ex.addEventListener("click", () => uDeckExport(d.id));
@@ -8148,7 +8377,131 @@
       "Unpublish “" + d.title + "”? It disappears from the shared list. People who already installed it keep their copy.",
       async () => { const r = await uDeckUnpublish(d.id); toast(r.error || "Unpublished"); render(); }, "Unpublish"));
 
-    if (studioState.tab !== "gloss") studioRenderCardEditor(root.querySelector("#stEditor"));
+    if (studioState.tab === "cards") studioRenderCardEditor(root.querySelector("#stEditor"));
+  }
+
+  /* ---------- the Studio's card-types tab ----------
+     Where an author programs a type: its field names, the HTML of the front, the HTML of the back, and the CSS
+     for the card as a whole. "Basic" heads the list and is not editable — it is Folio's own format, the one
+     every card starts as, and the thing the other types are an alternative to. */
+  function studioTypesHTML(d) {
+    const types = uTypeList(d.id);
+    const sel = studioState.type && uTypeGet(d.id, studioState.type) ? studioState.type : "";
+    const t = sel ? uTypeGet(d.id, sel) : null;
+    const counts = {};
+    uDeckCards(d).forEach((c) => { const k = c.type || CARD_TYPE_BASIC; counts[k] = (counts[k] || 0) + 1; });
+    const row = (id, name, note, active) =>
+      '<div class="studio-cardrow' + (active ? " active" : "") + '">' +
+        '<button class="scr-open" type="button" data-topensel="' + esc(id) + '">' +
+          '<span class="scr-title">' + esc(name) + '</span>' +
+          '<span class="scr-n">' + (counts[id] || 0) + '</span>' +
+        '</button>' + (note ? '<span class="ut-builtin">' + note + "</span>" : "") +
+      "</div>";
+    return '<div class="studio-cols">' +
+      '<div class="studio-cardlist">' +
+        '<div class="studio-cardlist-head"><span>' + (types.length + 1) + " types</span>" +
+          '<button class="btn tiny" type="button" id="stAddType">Add a type</button></div>' +
+        '<div class="studio-cardrows">' +
+          row(CARD_TYPE_BASIC, "Basic", "built in", !sel) +
+          types.map((x) => row(x.id, x.name, "", x.id === sel)).join("") +
+        '</div>' +
+      '</div>' +
+      '<div class="studio-editor" id="stTypeEditor">' + (t ? studioTypeFormHTML(d, t) : studioBasicTypeHTML()) + "</div>" +
+    "</div>";
+  }
+  function studioBasicTypeHTML() {
+    return '<div class="admin-ed-head"><div class="admin-ed-headinfo"><h2 class="admin-ed-title">Basic</h2>' +
+      '<div class="admin-ed-key">Folio&rsquo;s own format</div></div></div>' +
+      '<div class="ut-about"><p>A Basic card is the one the rest of Folio is written in: a question with a blank in it, ' +
+      'an answer with its date line, a background, an illustration and the works behind it. Its layout is Folio&rsquo;s, ' +
+      'and it is edited on the Cards tab.</p>' +
+      '<p>A type of your own replaces all of that with templates you write yourself — the HTML of the front, the HTML of ' +
+      'the back, and one stylesheet for the card. Add one on the left, then pick it at the top of any card.</p></div>';
+  }
+  function studioTypeFormHTML(d, t) {
+    // a LABEL rather than a div: it is what gives the textarea its accessible name, and these boxes are the
+    // only thing on the page a screen reader has to tell apart
+    const box = (key, label, hint, value, rows) =>
+      '<label class="admin-field"><span class="af-label">' + label + (hint ? ' <small>— ' + hint + "</small>" : "") + "</span>" +
+      '<textarea class="af-input ut-code" data-utype="' + key + '" rows="' + rows + '" spellcheck="false">' + esc(value || "") + "</textarea></label>";
+    return '<div class="admin-ed-head"><div class="admin-ed-headinfo"><h2 class="admin-ed-title">' + esc(t.name) + "</h2>" +
+        '<div class="admin-ed-key">' + esc(t.id) + "</div></div>" +
+        '<div class="admin-ed-actions"><span class="admin-saved" id="adminSaved"></span>' +
+        '<button class="admin-delete" id="stDelType" type="button">Delete type</button></div></div>' +
+      '<div class="ut-form">' +
+        '<label class="admin-field"><span class="af-label">Name</span>' +
+          '<input class="af-input" data-utype="name" type="text" value="' + esc(t.name) + '" /></label>' +
+        '<label class="admin-field"><span class="af-label">Fields <small>&mdash; comma separated, in the order you want to fill them in</small></span>' +
+          '<input class="af-input" id="stTypeFields" type="text" spellcheck="false" value="' + esc(t.fields.join(", ")) + '" /></label>' +
+        '<div class="ut-help">Write <code>{{' + esc(t.fields[0] || "Front") + "}}</code> in a template to drop that field in. " +
+          "<code>{{FrontSide}}</code> on the back is the front as it rendered. " +
+          "<code>{{#Field}}…{{/Field}}</code> keeps a block only when that field is filled in, and " +
+          "<code>{{^Field}}…{{/Field}}</code> only when it is empty.</div>" +
+        box("front", "Front template", "the HTML shown before the answer", t.front, 7) +
+        box("back", "Back template", "the HTML shown once the card is turned over", t.back, 7) +
+        box("css", "CSS", "styles this type&rsquo;s cards and nothing else; <code>.card</code> is the card itself", t.css, 10) +
+        '<div class="ut-preview"><span class="af-label">Preview</span><div class="ut-preview-box" id="stTypePv"></div></div>' +
+      "</div>";
+  }
+  // The preview renders a REAL card — the one being edited if it uses this type, else a stand-in whose fields
+  // are their own names — through the same cardTypeSideHTML the study page calls, so what it shows is what
+  // a learner gets rather than a second implementation that can drift from it.
+  function studioTypePreview(d, t) {
+    const box = document.getElementById("stTypePv");
+    if (!box) return;
+    const real = uDeckCards(d).find((c) => c.type === t.id && Object.keys(c.fields || {}).some((k) => String(c.fields[k]).trim()));
+    const fields = {};
+    t.fields.forEach((f) => { fields[f] = real && real.fields && String(real.fields[f] || "").trim() ? real.fields[f] : esc(f); });
+    const stand = { id: "preview", deckId: d.id, type: t.id, fields: fields };
+    box.innerHTML =
+      '<div class="study-card admin-pv-card">' +
+        '<span class="label">Question</span><div class="question">' + cardFrontHTML(stand) + "</div>" +
+        '<div class="reveal show"><div class="reveal-inner">' + buildBack(stand) + "</div></div>" +
+      "</div>";
+    openLinks(box);
+  }
+  function studioWireTypes(root, d) {
+    root.querySelectorAll("[data-topensel]").forEach((b) => b.addEventListener("click", () => {
+      studioState.type = b.dataset.topensel === CARD_TYPE_BASIC ? "" : b.dataset.topensel;
+      render();
+    }));
+    const add = root.querySelector("#stAddType");
+    if (add) add.addEventListener("click", () => {
+      const t = uTypeCreate(d.id, "New type");
+      if (t) { studioState.type = t.id; render(); }
+    });
+    const t = studioState.type ? uTypeGet(d.id, studioState.type) : null;
+    if (!t) return;
+    studioTypePreview(d, t);
+    // Every keystroke saves and repaints the preview IN PLACE — a full render() would take the caret out of
+    // the textarea the author is typing in, which is why the type list is not rebuilt here either.
+    root.querySelectorAll("[data-utype]").forEach((el) => el.addEventListener("input", () => {
+      uTypeSet(d.id, t.id, el.dataset.utype, el.value);
+      adminFlashSaved();
+      const live = uTypeGet(d.id, t.id);
+      if (live) studioTypePreview(d, live);
+      if (el.dataset.utype === "name") {
+        const h = root.querySelector(".admin-ed-title"); if (h) h.textContent = live ? live.name : el.value;
+      }
+    }));
+    const ff = root.querySelector("#stTypeFields");
+    // the field LIST does re-render: it changes which boxes a card of this type offers, and the help line above
+    // …and it does so OUT of the event. render() replaces #view, and removing a still-focused input fires
+    // blur in the middle of that innerHTML assignment, which Chrome refuses outright — so drop focus first
+    // and let the change event finish before the page is rebuilt under it.
+    if (ff) ff.addEventListener("change", () => {
+      uTypeSetFields(d.id, t.id, ff.value);
+      adminFlashSaved();
+      ff.blur();
+      setTimeout(render, 0);
+    });
+    const del = root.querySelector("#stDelType");
+    if (del) del.addEventListener("click", () => {
+      const n = uDeckCards(d).filter((c) => c.type === t.id).length;
+      inlineConfirm("Delete the “" + t.name + "” card type?" +
+        (n ? " " + n + " " + (n === 1 ? "card goes" : "cards go") + " back to Basic, and the text written into its fields goes with it." : ""),
+        () => { uTypeDelete(d.id, t.id); studioState.type = ""; toast("Card type deleted"); render(); }, "Delete");
+    });
   }
 
   /* ---------- the Studio's glossary tab ----------
@@ -8315,7 +8668,7 @@
         '<div class="studio-cardlist-head"><span>' + cards.length + " " + (cards.length === 1 ? "card" : "cards") + '</span></div>' +
         '<div class="studio-cardrows">' + cards.map((c, i) =>
           '<div class="studio-cardrow"><span class="scr-open"><span class="scr-n">' + (i + 1) + '</span>' +
-          '<span class="scr-title">' + esc(sanitizePlain(c.answer) || "(untitled)") + '</span></span></div>').join("") + '</div>' +
+          '<span class="scr-title">' + esc(uCardTitle(c)) + '</span></span></div>').join("") + '</div>' +
       '</div>';
     root.querySelector("#stAll").addEventListener("click", () => { studioState.deck = null; studioState.card = null; render(); });
     const sy = root.querySelector("#stStudy"); if (sy) sy.addEventListener("click", () => route("study", { scope: { type: "udeck", id: d.id } }));
@@ -8342,17 +8695,23 @@
     const c = UCARDS[studioState.card];
     if (!c) { host.innerHTML = '<div class="admin-editor-empty">Add a card to start writing, then double-click any part of it to edit.</div>'; return; }
     const d = UDECKS[c.deckId];
+    const typePicker = studioTypePickerHTML(d, c);
+    // A card of one of the deck's own types has no question / answer / background — it has that type's fields —
+    // so the whole Basic surface is replaced rather than dressed up. The picker stays, which is the way back.
+    if (cardTypeOf(c)) { studioRenderTypedCardEditor(host, c, d, typePicker); return; }
     const metaRow =
       '<div class="ces-meta">' +
         '<label class="ces-m ces-m-wide"><span>answer text — plain, used when the card is read back</span><input class="af-input" id="cesAnswerText" type="text" spellcheck="false" /></label>' +
       '</div>';
     host.innerHTML =
-      '<div class="admin-ed-head"><div class="admin-ed-headinfo"><h2 class="admin-ed-title">' + esc(sanitizePlain(c.answer) || "(untitled)") + '</h2>' +
+      '<div class="admin-ed-head"><div class="admin-ed-headinfo"><h2 class="admin-ed-title">' + esc(uCardTitle(c)) + '</h2>' +
         '<div class="admin-ed-key">' + esc(d ? d.title : "") + '</div></div>' +
         '<div class="admin-ed-actions"><span class="admin-saved" id="adminSaved"></span>' +
         '<button class="admin-delete" id="stDelCard" type="button">Delete card</button></div></div>' +
+      typePicker +
       liveCardEditorHTML({ dirAttr: "", metaHtml: metaRow, imagePanel: true, videoPanel: true, sourcesPanel: true });
 
+    studioWireTypePicker(host, c);
     wireLiveCardEditor(host, {
       card: c,
       isEn: true,
@@ -8392,6 +8751,91 @@
         uCardDelete(c.id); studioState.card = null; toast("Card deleted"); render();
       }, "Delete");
     });
+  }
+  /* ---------- choosing a card's type ----------
+     One row above the card, on both surfaces, so the answer to "what kind of card is this?" is in the same
+     place whichever kind it currently is. A deck with no types of its own still shows it, with a line saying
+     where to make one — a picker of one option explains the feature better than no picker at all does. */
+  function studioTypePickerHTML(d, c) {
+    const types = uTypeList(d ? d.id : "");
+    const cur = c.type && uTypeGet(c.deckId, c.type) ? c.type : CARD_TYPE_BASIC;
+    return '<div class="ces-typebar">' +
+      '<label class="ces-typepick"><span>Card type</span>' +
+        '<select class="af-input" id="cesCardType">' +
+          '<option value="' + CARD_TYPE_BASIC + '"' + (cur === CARD_TYPE_BASIC ? " selected" : "") + ">Basic — Folio&rsquo;s own format</option>" +
+          types.map((t) => '<option value="' + esc(t.id) + '"' + (cur === t.id ? " selected" : "") + ">" + esc(t.name) + "</option>").join("") +
+        "</select></label>" +
+      (types.length ? "" : '<span class="ces-typenote">Write your own on the <b>Card types</b> tab.</span>') +
+    "</div>";
+  }
+  function studioWireTypePicker(host, c) {
+    const sel = host.querySelector("#cesCardType");
+    if (!sel) return;
+    sel.addEventListener("change", () => {
+      const to = sel.value;
+      const from = c.type || CARD_TYPE_BASIC;
+      if (to === from) return;
+      // Changing type does not throw anything away: a Basic card keeps its question and background, and a
+      // typed card keeps its field values, so switching back and forth is free and reversible.
+      uCardSetType(c.id, to);
+      render();
+    });
+  }
+  function studioRenderTypedCardEditor(host, c, d, typePicker) {
+    const t = cardTypeOf(c);
+    const vals = c.fields || {};
+    host.innerHTML =
+      '<div class="admin-ed-head"><div class="admin-ed-headinfo"><h2 class="admin-ed-title">' + esc(uCardTitle(c)) + "</h2>" +
+        '<div class="admin-ed-key">' + esc(t.name) + (d ? " · " + esc(d.title) : "") + "</div></div>" +
+        '<div class="admin-ed-actions"><span class="admin-saved" id="adminSaved"></span>' +
+        '<button class="admin-delete" id="stDelCard" type="button">Delete card</button></div></div>' +
+      typePicker +
+      '<div class="ut-form">' +
+        t.fields.map((f) =>
+          '<label class="admin-field"><span class="af-label">' + esc(f) + "</span>" +
+          '<textarea class="af-input ut-code" data-ufield="' + esc(f) + '" rows="3" spellcheck="false">' + esc(vals[f] || "") + "</textarea></label>").join("") +
+        '<div class="ut-preview"><span class="af-label">Preview</span><div class="ut-preview-box" id="stCardPv"></div></div>' +
+      "</div>";
+    studioWireTypePicker(host, c);
+    function paint() {
+      const box = host.querySelector("#stCardPv");
+      if (!box) return;
+      box.innerHTML =
+        '<div class="study-card admin-pv-card">' +
+          '<span class="label">Question</span><div class="question">' + cardFrontHTML(c) + "</div>" +
+          '<div class="reveal show"><div class="reveal-inner">' + buildBack(c) + "</div></div>" +
+        "</div>";
+      openLinks(box);
+    }
+    paint();
+    host.querySelectorAll("[data-ufield]").forEach((el) => el.addEventListener("input", () => {
+      uCardSetFieldValue(c.id, el.dataset.ufield, el.value);
+      adminFlashSaved();
+      paint();   // in place, so the caret stays where the author is typing
+      const title = uCardTitle(c);
+      const h = host.querySelector(".admin-ed-title"); if (h) h.textContent = title;
+      const row = document.querySelector('.studio-cardrow[data-card="' + cssEsc(c.id) + '"] .scr-title');
+      if (row) row.textContent = title;
+    }));
+    host.querySelector("#stDelCard").addEventListener("click", () => {
+      inlineConfirm("Delete this card from “" + (d ? d.title : "the deck") + "”?", () => {
+        uCardDelete(c.id); studioState.card = null; toast("Card deleted"); render();
+      }, "Delete");
+    });
+  }
+  // What a card is called in the deck's own list. A Basic card is its answer; a typed card has no answer, so
+  // it is the first field with anything in it — which is the one an author fills in first.
+  function uCardTitle(c) {
+    if (!c) return "(untitled)";
+    if (cardTypeOf(c)) {
+      const t = cardTypeOf(c), vals = c.fields || {};
+      for (let i = 0; i < t.fields.length; i++) {
+        const v = sanitizePlain(vals[t.fields[i]]).trim();
+        if (v) return v.slice(0, 120);
+      }
+      return "(empty " + t.name + ")";
+    }
+    return sanitizePlain(c.answer) || "(untitled)";
   }
   function cssEsc(s) { return String(s).replace(/["\\]/g, "\\$&"); }
 
@@ -8556,6 +9000,9 @@
     const first = cards[0];
     if (first && first.data) {
       const norm = uCardSanitize(first.data, "preview0", 0);   // never trust the server copy
+      // The sample belongs to no local deck, so a card of one of the author's own types has nowhere to look
+      // its template up. Hand it the type directly — sanitized here, since row.types is the server's word.
+      if (norm.type) { const pt = uTypesSanitize(row.types)[norm.type]; if (pt) norm._type = pt; }
       renderCardPreviewInto(sampleBox, norm);
     } else {
       sampleBox.innerHTML = '<div class="lib-empty">This deck has no cards to preview.</div>';
@@ -8880,7 +9327,9 @@
          random sibling of it. */
       const codPick = params.scope.addTo === "cotd" ? (n) => (hashStr("codq-" + todayStr()) >>> 0) % n : undefined;
       const base = cardLocalized(cardById(id));
-      const pool = cardQuestions(base);
+      // a card of one of a deck's own types asks its FRONT TEMPLATE and has no phrasing pool — the chevrons
+      // and the "1 / 3" counter are about the Basic format's `questions` array, which such a card doesn't carry
+      const pool = cardTypeOf(base) ? [] : cardQuestions(base);
       if (!Number.isInteger(qIdx) || qIdx < 0 || qIdx >= pool.length) {
         qIdx = pool.length <= 1 ? 0 : (codPick ? codPick(pool.length) : Math.floor(Math.random() * pool.length));
       }
@@ -8905,7 +9354,7 @@
             <div class="study-card">
               ${ttsEnabled() ? `<button class="tts-mute${S.settings.ttsMuted ? " muted" : ""}" id="ttsMute" type="button" aria-label="${S.settings.ttsMuted ? "Unmute read-aloud" : "Mute read-aloud"}" title="Mute / unmute read-aloud">${ttsMuteIconSVG()}</button>` : ""}
               <span class="label">Question${pool.length > 1 ? `<span class="q-cycle"><button type="button" class="qc-btn" data-qc="-1" aria-label="Previous phrasing of this question"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button><span class="qc-n" id="qcN">${qIdx + 1} / ${pool.length}</span><button type="button" class="qc-btn" data-qc="1" aria-label="Next phrasing of this question"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button></span>` : ""}${ttsPlayHTML("question", true)}</span>
-              <div class="question">${c.question}</div>
+              <div class="question">${cardFrontHTML(c)}</div>
               <div class="reveal" id="reveal"><div class="reveal-inner" id="revealInner"></div></div>
             </div>
             <div class="actions" id="actions"></div>
@@ -9489,7 +9938,90 @@
   }
 
   // build the back-of-card markup from deck fields (mirrors the deck's back template)
+  /* ---------- rendering a card of a custom type ----------
+     The template language is Anki's, cut to what a hand-written template needs: {{Field}} interpolates a
+     value, {{FrontSide}} on the back is the rendered front, and {{#Field}}…{{/Field}} / {{^Field}}…{{/Field}}
+     keep a block only when the field is filled in / empty. There are no filters — a template that needs
+     something cleverer than this is a template that wants a build step, which Folio does not have.
+
+     One choke point, cardTypeSideHTML, and everything it composes passes through sanitizeHTML on the way out.
+     That LAST pass is what makes interpolation safe: the template and the field values are each clean in the
+     store, but a value dropped into `<img src="{{X}}">` is only checked once the two are one string. */
+  function tplRender(tpl, get) {
+    let s = String(tpl == null ? "" : tpl);
+    // conditional sections, innermost pair first; the pass cap is a backstop against a pathological template
+    for (let pass = 0; pass < 8; pass++) {
+      let changed = false;
+      s = s.replace(/\{\{([#^])\s*([^{}#^/]{1,60}?)\s*\}\}([\s\S]*?)\{\{\/\s*\2\s*\}\}/g, (m, kind, name, body) => {
+        changed = true;
+        return ((kind === "#") === (String(get(name.trim()) || "").trim() !== "")) ? body : "";
+      });
+      if (!changed) break;
+    }
+    return s.replace(/\{\{\s*([^{}#^/][^{}]{0,59}?)\s*\}\}/g, (m, name) => {
+      const v = get(name.trim());
+      return v == null ? "" : String(v);
+    });
+  }
+  function cardTypeOf(c) {
+    if (!c || !c.type || c.type === CARD_TYPE_BASIC) return null;
+    if (c._type) return c._type;   // a card previewed outside any local deck carries its own type — see PAGES.deck
+    if (!c.deckId) return null;
+    const d = UDECKS[c.deckId];
+    return (d && d.types && d.types[c.type]) || null;
+  }
+  function cardTypeFieldGetter(c, frontHTML) {
+    const f = (c && c.fields) || {};
+    return function (name) {
+      if (/^frontside$/i.test(name)) return frontHTML == null ? "" : frontHTML;
+      if (Object.prototype.hasOwnProperty.call(f, name)) return f[name];
+      // a template and its field list can differ in case; matching loosely beats rendering a silent blank
+      const k = Object.keys(f).find((x) => x.toLowerCase() === String(name).toLowerCase());
+      return k ? f[k] : "";
+    };
+  }
+  /* A type's stylesheet as ONE <style> element per (deck, type), scoped to that type's own cards. Leaving
+     them in place is safe precisely because they are scoped — nothing can collide — and re-injecting per
+     render would restyle the page on every card. The cap is a backstop for a session that installs decks all
+     afternoon; the oldest goes first, so the type on screen is always the one that has a stylesheet. */
+  const UTYPE_STYLE_CAP = 60;
+  function cardTypeScopeId(deckId, typeId) { return String(deckId) + "__" + String(typeId); }
+  function ensureCardTypeStyle(deckId, type) {
+    const scopeId = cardTypeScopeId(deckId, type.id);
+    const key = "uct-" + scopeId;
+    let el = document.getElementById(key);
+    if (!el) {
+      const live = document.querySelectorAll("style[data-uct]");
+      if (live.length >= UTYPE_STYLE_CAP) live[0].remove();
+      el = document.createElement("style");
+      el.id = key;
+      el.setAttribute("data-uct", scopeId);
+      document.head.appendChild(el);
+    }
+    const css = cssScoped(sanitizeCSSText(type.css), '.uc-card[data-uct="' + cssEsc(scopeId) + '"]');
+    if (el.textContent !== css) el.textContent = css;
+    return scopeId;
+  }
+  // the card's front or back as HTML, or null when the card is a Basic one (which every caller falls back on)
+  function cardTypeSideHTML(c, side) {
+    const t = cardTypeOf(c);
+    if (!t) return null;
+    const scopeId = ensureCardTypeStyle(c.deckId, t);
+    const front = tplRender(t.front, cardTypeFieldGetter(c, null));
+    const html = side === "front" ? front : tplRender(t.back, cardTypeFieldGetter(c, front));
+    return '<div class="uc-card uc-' + side + '" data-uct="' + esc(scopeId) + '">' + sanitizeHTML(html) + "</div>";
+  }
+  // what goes in the study card's question area: a custom type's front template, or the Basic question
+  function cardFrontHTML(c) {
+    const custom = cardTypeSideHTML(c, "front");
+    return custom == null ? ((c && c.question) || "") : custom;
+  }
+
   function buildBack(c) {
+    // a custom type owns the whole of the back — but keeps the site's own source apparatus below it, since
+    // a community card can carry citations and the fold is not the template's to reinvent
+    const typed = cardTypeSideHTML(c, "back");
+    if (typed != null) return typed + sourcesHTML(cardSources(c));
     let html = "";
     if (c.answer) {
       const hasTr = !!c.hanzi;
@@ -9781,7 +10313,7 @@
     box.innerHTML =
       '<div class="study-card admin-pv-card">' +
         '<span class="label">Question</span>' +
-        '<div class="question">' + (c.question || '<em style="color:var(--ink-faint)">(no question)</em>') + '</div>' +
+        '<div class="question">' + (cardFrontHTML(c) || '<em style="color:var(--ink-faint)">(no question)</em>') + '</div>' +
         '<div class="reveal show"><div class="reveal-inner">' + buildBack(c) + '</div></div>' +
       '</div>';
     const inner = box.querySelector(".reveal-inner");
