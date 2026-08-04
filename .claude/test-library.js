@@ -644,6 +644,66 @@ function shippedBookLeaks() {
     await page.close();
   }
 
+  /* ================= 7. the switch is a crossfade, not a cut =================
+     A regression here is silent in the worst way: the languages still swap, the reader still lands on
+     the right passage, and every assertion above still passes — the switch just goes back to being the
+     jump it was. So the fade is measured rather than looked at, by sampling the prose's own opacity
+     across the press.
+
+     The second assertion is the one that catches a DRIFT rather than a removal: the JS holds the swap
+     for BK_FADE and the CSS fades for its own duration, and if those two come apart the reader sees
+     the change happen — a flash of the old language at half opacity — which is worse than the cut. It
+     is checked by asserting that the first frame carrying the NEW language is a dark one. */
+  console.log("\n7. Turning the page over is a crossfade");
+  {
+    const page = await browser.newPage({ viewport: DESK });
+    watch(page);
+    await page.goto(base + "#book/seneca-letters", { waitUntil: "networkidle" });
+    await page.evaluate(() => document.querySelectorAll(".bk-tab")[9].click());
+    await page.waitForTimeout(300);
+    await page.click("#bkLang");                       // first press fetches the original and repaints
+    await page.waitForTimeout(2500);
+
+    // every frame for 700ms from the moment of the press: the prose's opacity and which language it holds
+    const frames = await page.evaluate(() => new Promise((done) => {
+      const seen = [], t0 = performance.now();
+      const tick = () => {
+        const el = document.querySelector("#bkPage .bk-prose");
+        seen.push({ o: el ? +getComputedStyle(el).opacity : null, mode: el ? el.dataset.lang : null });
+        if (performance.now() - t0 < 700) requestAnimationFrame(tick); else done(seen);
+      };
+      document.querySelector("#bkLang").click();
+      tick();
+    }));
+    const min = Math.min(...frames.map((f) => f.o));
+    const swap = frames.find((f) => f.mode !== frames[0].mode);
+    const rises = frames.filter((f, i) => i && f.o > frames[i - 1].o + 0.02).length;
+    check("the prose fades right down rather than cutting", min < 0.05, "min opacity " + min);
+    check("...the swap itself happens while nothing is visible",
+      !!swap && swap.o < 0.1, swap ? "opacity " + swap.o + " at the swap" : "the language never changed");
+    check("...and it comes back over several frames, not in one",
+      rises >= 4, rises + " rising frames");
+    check("...ending fully visible", frames[frames.length - 1].o > 0.95, String(frames[frames.length - 1].o));
+    await page.close();
+
+    // a reader who has asked for less motion is not made to wait out a fade they will not see
+    const still = await browser.newPage({ viewport: DESK, reducedMotion: "reduce" });
+    watch(still);
+    await still.goto(base + "#book/seneca-letters", { waitUntil: "networkidle" });
+    await still.evaluate(() => document.querySelectorAll(".bk-tab")[9].click());
+    await still.waitForTimeout(300);
+    await still.click("#bkLang");
+    await still.waitForTimeout(2500);
+    const t0 = Date.now();
+    await still.click("#bkLang");
+    const mode = await still.evaluate(() => document.querySelector(".bk-bi").dataset.lang);
+    const op = await still.evaluate(() => +getComputedStyle(document.querySelector(".bk-prose")).opacity);
+    check("[reduced motion] the switch is immediate, not held for a fade",
+      mode === "en" && Date.now() - t0 < 120, mode + " after " + (Date.now() - t0) + "ms");
+    check("[reduced motion] ...and nothing is left faded out", op > 0.95, String(op));
+    await still.close();
+  }
+
   await browser.close();
   server.close();
 

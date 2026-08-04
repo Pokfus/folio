@@ -8377,12 +8377,60 @@
       window.scrollTo({ top: Math.max(0, top - a.dy), behavior: "auto" });
     }
 
+    /* TURNING THE PAGE OVER IS A CROSSFADE, NOT A CUT (Aug 2026, on request).
+
+       The switch itself is unchanged — still the instant `data-lang` change the paired-rows markup was
+       built for, which is what keeps the reader's place exact. What happens now is that it happens
+       BEHIND A FADE, the way the home page's daily quote flips between a translation and the words
+       actually written; this page has cited that flip as its model since it was written, and was the
+       one place doing it without the fade.
+
+       It has to be a fade rather than a transition on the columns themselves. Going to two languages
+       takes the row from one grid track to two and brings back a column that was `display:none`, and
+       neither of those is a value CSS can interpolate — so there is nothing to transition even in
+       principle. `flipMove` is no help either: it translates elements, and what changes here is the
+       WIDTH of a column of prose, which can only be animated by scaling it, i.e. by squashing the text.
+
+       The fade is on the PROSE ALONE, not the panel. The chapter heading and the translator's notes say
+       the same thing in both states, and a heading that blinks on every tap reads as the page reloading
+       rather than as the text turning over. */
+    // BK_FADE must stay in step with the .bk-prose transition in styles.css — the swap is held for it,
+    // and if the two come apart the reader sees the change happen. BK_IN only releases the guard below,
+    // so it just has to outlast the incoming motion.
+    const BK_FADE = 160, BK_IN = 230;
+    let flipping = false;
+    /* Make the change while nothing is visible: the words on screen fade out and lift, `mutate` runs,
+       and the incoming ones rise into place. The prose is looked up AGAIN after the mutation rather
+       than held across the gap, because on the first press `mutate` is a whole repaint and the element
+       that faded out no longer exists.
+
+       Nothing is mutated if the reader LEFT during the fade. `mutate` ends in markPos(), which would
+       measure a detached page against the new page's scroll position and write that home as the place
+       they had got to — the same hazard the scroll listener above guards against, and just as silent. */
+    function flipProse(mutate) {
+      const out = pageEl.querySelector(".bk-prose");
+      if (!out || prefersReducedMotion()) { mutate(); return; }
+      flipping = true;
+      out.classList.add("bk-fade-out");
+      setTimeout(() => {
+        if (!pageEl.isConnected) { flipping = false; return; }
+        mutate();
+        const el = pageEl.querySelector(".bk-prose");
+        if (!el) { flipping = false; return; }
+        el.classList.add("bk-fade-in");            // held invisible and a touch low, with no transition
+        el.classList.remove("bk-fade-out");
+        // two frames: the start state has to be painted before removing the class can animate away from it
+        requestAnimationFrame(() => requestAnimationFrame(() => el.classList.remove("bk-fade-in")));
+        setTimeout(() => { flipping = false; }, BK_IN);
+      }, BK_FADE);
+    }
+
     /* Turn the page over. The first press has to fetch the original — it is a separate lazy file — so
        it repaints; every press after that is a class change with the scroll put back, which is why the
-       switch is instant and lands on the same passage. */
+       switch lands on the same passage. */
     let origLoading = false;
     function toggleOrig() {
-      if (!b.origLang || origLoading) return;
+      if (!b.origLang || origLoading || flipping) return;
       const have = !!bookOriginal(b.id);
       const next = !bookOrigOn();
       if (next && !have) {
@@ -8394,20 +8442,23 @@
           if (!pageEl.isConnected) return;              // the reader left while it loaded
           if (btn) btn.classList.remove("bk-lang-loading");
           if (!ok || !bookOriginal(b.id)) { toast("The " + (b.origName || "original") + " could not be loaded."); return; }
-          setBookOrigOn(true);
-          // repaint into the paired markup, holding the reader's depth in the chapter as a fraction —
-          // there are no rows to anchor on yet, this being the render that creates them
+          // the reader's depth in the chapter as a fraction — there are no rows to anchor on yet, this
+          // being the render that creates them. Measured before the fade, like the anchor below.
           const h = pageEl.offsetHeight || 1;
           const frac = Math.max(0, Math.min(1, (window.scrollY + window.innerHeight * 0.35 - pageEl.offsetTop) / h));
-          paint(cur, frac);
+          flipProse(() => { setBookOrigOn(true); paint(cur, frac); });
         });
         return;
       }
+      // captured BEFORE the fade begins: fading out lifts the prose a few pixels, and an anchor read
+      // mid-lift would put the reader back that far off the passage they were on
       const a = anchorNow();
-      setBookOrigOn(next);
-      applyLangMode();
-      restoreAnchor(a);
-      markPos();
+      flipProse(() => {
+        setBookOrigOn(next);
+        applyLangMode();
+        restoreAnchor(a);
+        markPos();
+      });
     }
 
     function go(c, fromReader) {
