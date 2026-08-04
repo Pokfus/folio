@@ -143,7 +143,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **measured over all ten books, not assumed** — and it is the ONLY complete transcription of the Republic
   in Wikisource's main namespace (the Jowett Republic inside *The Dialogues of Plato* is an index of red
   links; every other English Republic on Wikisource's own list is an `Index:` transcription project not
-  transcluded into mainspace — all of it checked before this was concluded). Aligning them anyway would
+  transcluded into mainspace — all of it checked before this was concluded).
+  **THE SEARCH WAS THEN WIDENED PAST WIKISOURCE, ON REQUEST, AND IT CHANGES NOTHING — so do not run it
+  again** (Aug 2026). Measured, source by source: the four other English editions on Wikisource
+  (Vaughan 1891, Lindsay 1923, Rouse 1906, Spens 1919) are all **"To be proofread" with not one page
+  transcribed**; **Perseus's English Republic is Paul Shorey's Loeb (Harvard, 1935–37)** — numbered as
+  structure and therefore exactly what is wanted, and **post-1929, so it fails the shelving rule at the
+  top of this file** as squarely as the Penguin does; **Project Gutenberg's Jowett (#1497) carries zero
+  Stephanus tokens**; and of eleven Internet Archive scans, the Stephanus apparatus appears **only in
+  GREEK editions with commentary** (Adam, CUP 1902/1905/1926) and in no English translation — the 1901
+  Colonial Press scan Wikisource transcribes independently confirms it carries none. The pattern is
+  worth keeping: **the numbers travel with the Greek and with 20th-century scholarly translations, and
+  the Victorian translations that are free do not print them.**
+  What remains technically possible is to INFER where each Stephanus section falls in Jowett — by
+  aligning his English against the Greek, or against Shorey's numbered English used purely as an
+  alignment aid and shipped nowhere. **It was declined rather than attempted**, and the reason is this
+  file's oldest rule: that is several hundred inferred markers per book on a famously free translation,
+  the errors are invisible (nothing throws, no prose is lost, the columns simply stop meaning what they
+  claim), and it is the same move abandoned for the Meditations' Greek. Aligning them anyway would
   mean several hundred by-eye judgements per book on a free Victorian translation with nothing to check
   them against, which is exactly what was tried and abandoned for the Meditations' Greek. **So the honest
   move was to ship the book in English alone and say so in its own front matter** — a reader who knows
