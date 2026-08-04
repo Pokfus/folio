@@ -75,15 +75,35 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   in the markup** rather than created on the first message — a region announced at the moment it is inserted
   is one the screen reader has not been watching, and the announcement is lost. Also the static
   `<title>`/description/OG baseline (link-preview crawlers don't run JS) and the `<link rel="manifest">`.
-- `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, chapters:[{ n, p, t, html, notes }] })`.
+- `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
-  QUEUE rather than assigning a global, for the reason the i18n files do. Currently one: `seneca-letters`
-  (~447 KB, 65 chapters, 335 translator notes).
+  QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
+  matter (chapter 0 — see the Library bullet). Currently one: `seneca-letters`
+  (~445 KB, 65 chapters, 335 translator notes).
 - `.claude/fetch-book.js` — the importer that writes those files, from Wikisource. Standalone Node helper,
   zero deps, resumable (per-chapter cache in `.claude/book-cache/`, gitignored), safe to re-run:
   `node .claude/fetch-book.js seneca-letters [--from=N] [--to=N] [--force]`. Adding a book = adding an entry
   to its `BOOKS` table. **The chapter titles and the volume divisions are re-derived on every run**, so
-  re-titling costs no refetch. Not part of the site.
+  re-titling costs no refetch; **`--force` is needed to re-run the EXTRACTOR**, since the cache holds the
+  extracted prose rather than the fetched page. Not part of the site.
+  **Two extraction faults were found and fixed in Aug 2026, and both are the same mistake:** Wikisource's
+  markup is not stable and neither was assumed wrong until a reader saw it.
+  · **Strip `<style>` BEFORE stripping tags.** MediaWiki ships each note's font templates as an inline
+    `<style>` element (the Greek face for a quotation, the small caps for A.D./B.C.), and dropping tags
+    first leaves the tags gone and the CSS TEXT behind — 24 of Seneca's 335 notes read "…on the Palatine,
+    `.mw-parser-output .wst-asc{font-variant:all-small-caps}`…A.D. 41." for weeks. `cleanBody` had always
+    done this for the prose; `notesOf` had not. It is **invisible to every check**: the note is a non-empty
+    string of the right shape, the count is right, the markers all resolve, and only a reader opening that
+    chapter's fold ever sees it. `stripWikiCSS` now does both halves, and `test-library.js` sweeps the
+    SHIPPED data — every note of every book, not one rendered chapter, which would pass on luck.
+  · **The `prp-pages-output` wrapper must not become a `<blockquote>`.** `cleanBody` turns every `<div>`
+    into one, and the container holding the whole letter became a quotation OF the whole letter — every
+    paragraph indented behind a rule and set in italic. 23 of the 65 chapters shipped that way. Its opening
+    tag is now dropped before the generic pass, and `stripTags` discards the unmatched closer, which is
+    exactly what its stack is for.
+  · It also carries each book's **`about`** — the front matter prose, authored by hand here and emitted as
+    `intro`. It lives in the generator rather than in app.js's eager `BOOKS` registry (a page of prose every
+    visitor would pay for) or in the generated file (the next run would destroy it).
 - `styles.css` (~235 KB) — editorial design system; 8 themes via CSS custom properties.
   **All theme color variables are hex** (e.g. `--ink:#1B1A17`) so the canvas globe can parse and
   blend them — keep them hex, not `rgb()`/`hsl()`.
@@ -850,6 +870,34 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     **Contents** panel grouped by the volume the edition itself divides the book into. Seneca has 65 shipped
     of 124: a wrapped grid of 124 buttons is not a menu bar, it is the page. Below 640px the tab titles give
     way to their numbers.
+  · **THE FRONT MATTER IS CHAPTER 0** (`bookIntroChapter` / `BOOK_INTRO` / `BOOK_GLYPH`, Aug 2026, on
+    request). A real chapter rather than a panel — it takes a tab, it steps with the arrows, it is what a
+    first-time reader lands on — because that is where front matter goes in a book, and because the "About
+    this text" box it replaces sat at the FOOT of every chapter, which made it the last thing under letter 1
+    and the last thing under letter 65 alike. Its `n` is **0 as a NUMBER, not an index**: `S.reading[id].ch`
+    stores the chapter number precisely so a book gaining chapters cannot move a reader's place, and 0 sits
+    below every letter Seneca wrote without disturbing one. Its tab wears a **book glyph** where the others
+    wear their number (a "0" beside 1, 2, 3 reads as a chapter the author did not write, and on a phone the
+    titles are hidden and the number is all there is) and is **`position:sticky` at the left of the
+    scroller**, or the way back to it is sixty tabs behind wherever the reader has got to.
+    **The split is the part to keep**: the ESSAY travels with the text (authored in `.claude/fetch-book.js`'s
+    `about`, emitted as `intro` into the generated file) and the LICENCE half is built in app.js from the
+    registry's own `rights` / `edition` / `sourceUrl`. The essay cannot live in the eager `BOOKS` registry
+    (a page of prose every visitor pays for and nobody reads until they open the book) and cannot be written
+    into `books/<id>.js` by hand (the next `fetch-book.js` run would destroy it); the licence half needs a
+    live link and has always been built from those fields. A reader still in the front matter is told so on
+    the shelf — "About this book", never "Letter 0".
+  · **The shelf is one full-width BANNER per book** (`.book-grid` at `1fr`), reading left to right: author,
+    title and the **year it was written** on the left, how much of the work is on Folio and where you had got
+    to on the right, with the reading bar along the banner's own bottom edge (absolutely positioned, so it
+    costs the row no height). It was 320px tiles two to a row with a paragraph of blurb in each, then briefly
+    210px tiles two-up on a phone; all of that is gone. **The `blurb` field went with it** — a book is chosen
+    from its author, title and date, and what it is about is a tap away in its own front matter — and that is
+    what lets a full-width banner still be short. **`b.year` is an explicit signed sort key** beside the prose
+    `written`, because a shelf that sorts by date needs one number per book and "c. 62–65 CE" is not one.
+    A **sort picker** (`BOOK_SORTS`, shared `sortPickerHTML` with the glossary record) ships whatever the
+    shelf holds, one book included: it was asked for outright, and a control that appears the day a second
+    book lands is one nobody knows to look for.
   · **The reader's place is the point of the feature** (`S.reading[bookId] = { ch, y, at }`, in
     `defaultState` + `PROGRESS_FIELDS`, so it back-fills and SYNCS — a letter begun on a phone opens on the
     same paragraph on a laptop). `ch` is the chapter **number, not an index**: a book gains chapters between
@@ -888,6 +936,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   undiscovered terms are deliberately NOT listed beside them** — it is a record of reading, not a checklist.
   `setActiveTab` maps this route to `account`, so the tab bar stays lit under a page that is plainly part of
   "your record"; the meter is a link only on your OWN account (`prog === S`), never on a friend's.
+  **It SORTS four ways** (`GLOSS_SORTS`, Aug 2026, on request: "by alphabet and date of discovery") — newest
+  first stays the default, since the term just met is the one a reader came here about. Two things about it.
+  The choice lives in a **module-level `glossSort`, not in `S`**: it is a way of looking at a list rather than
+  a preference about Folio, the same call `renderDeckStats` makes about its own picker, so it survives
+  navigating away and back and resets on reload. And the filter and the picker share **ONE `repaint()`** —
+  the obvious implementation gives each its own handler rebuilding from the full set, which silently throws
+  away a filter the reader has typed the moment they re-sort. Alphabetical uses `localeCompare` so an
+  accented head word files where a reader expects it, and both date sorts fall back to the title so a
+  restored session (which opens several popups in the same millisecond) has a stable order.
 - **A STUDY SESSION SURVIVES A RELOAD (Aug 2026, on request).** `study` was not a restorable route: its hash said
   only "study", it was not in `valid`, and the whole session lived in a closure — so a refresh mid-card landed the
   reader on the home page with the card gone. **`STUDY_KEY` (`folio_study_v1`, sessionStorage)** now records
@@ -1005,18 +1062,43 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `_adminUndoReady` (false until boot, so the load-time overlay cleanup isn't captured). Known limitation: undoing a **first
   timeline-era edit** (`ADMIN_EDITS.timeline` array→null) doesn't reset the in-memory `window.TIMELINE` (a deep snapshot would cost
   MBs) — the overlay reverts, so it self-heals on reload; timeline eras are edited on the map page anyway, out of this handler's scope.
-- **The phone's gloss window is CENTRED, and its bar drags it** (`.gloss-win.gloss-sheet` /
-  `makeGlossSheetDraggable`, Aug 2026, on request). It was a bottom sheet glued to the foot of the screen
-  for months; a definition met mid-sentence belongs in the middle of the screen, where the reader's eye
-  already is, and the sheet was also the furthest point on the page from the word tapped.
-  What a centred window loses is the sheet's implicit "there is a page behind me", so the bar can be HELD
-  and dragged UP AND DOWN to uncover the sentence the term came from. **Vertical only**, deliberately: the
+- **The phone's gloss window is CENTRED, the WHOLE of it drags, and the page behind it goes soft**
+  (`.gloss-win.gloss-sheet` / `makeGlossSheetDraggable` / `glossScrim` / `wireGlossDoubleTap`, Aug 2026, on
+  request). It was a bottom sheet glued to the foot of the screen for months; a definition met mid-sentence
+  belongs in the middle of the screen, where the reader's eye already is, and the sheet was also the
+  furthest point on the page from the word tapped.
+  What a centred window loses is the sheet's implicit "there is a page behind me", so it can be HELD and
+  dragged UP AND DOWN to uncover the sentence the term came from. **Vertical only**, deliberately: the
   window is as wide as the screen allows, so there is nothing to uncover sideways and a horizontal drag
   would fight the page-swipe gesture. The offset is a custom property, **`--gs-dy`, riding INSIDE the
   `translate(-50%,-50%)`** rather than replacing it with a `top` — mixing the two would need the height
   measured on every move. It is **not remembered**: a new term always opens in the middle (the request says
   so), so the offset lives on the element and dies with it, which also means the restore-after-reload path
   needed no change.
+  · **EVERY PART of the window is the handle**, not a bar. It was the title bar, then briefly a grab bar at
+    each end, and both marks went on request — a window in the middle of the screen can want moving either
+    way and which end falls under the thumb depends on where it currently is. The one exception is the
+    DESCRIPTION when there is more of it than fits: that box scrolls, and the choice is made at
+    **pointerdown** (`body.scrollHeight > body.clientHeight` → this is a scroll) rather than arbitrated
+    mid-gesture, because a gesture that changes its mind half way through is what reads as broken. Most
+    terms are three sentences and scroll nothing, so for most of them the whole window really does drag.
+    `touch-action:none` on the window with **`pan-y` back on `.gloss-body`** is the CSS half of the same
+    split; controls and `.ttip` are exempt through `GLOSS_NODRAG`.
+  · **A DOUBLE TAP anywhere closes it** — the × is a 26px target in one corner of a window that fills most
+    of the screen. Written on pointer events, not `dblclick`, which a phone may swallow for double-tap-to-
+    zoom. Two guards: the taps must land close TOGETHER as well as close in time (`GLOSS_TAP_SLOP`), so
+    tapping one word and then another further down is not a close; and an interactive target is exempt
+    (`GLOSS_TAP_SKIP`), or a nested glossary link and the sources fold would become unusable. The end of a
+    drag is told from a tap by a **one-shot flag** (`win._glossDragged`) that the drag sets and the tap
+    handler clears — NOT by reading the `dragging` class, which is gone by the time the tap handler runs
+    and which, if held for a frame instead, swallows the first real tap after every drag.
+  · **The scrim is ONE element with `backdrop-filter`** (`#glossScrim`), never a `filter` over a list of the
+    page's own containers: that list would need keeping in step with every fixed thing on the site, and a
+    `filter` on an ancestor becomes the containing block for its `position:fixed` descendants — which would
+    move the very bars it was blurring. **`pointer-events:none`**: this is focus, not a modal, and tapping
+    outside still does not close a popup. It is raised **explicitly** in `openGlossWin` rather than through
+    `syncGlossScrim`, because at that point the new window has not yet been pushed onto `glossWins` (that
+    is the last thing the function does) and a count-based call would find zero.
   It keeps the sheet's **permanent compositing layer** (`will-change:transform` + `backface-visibility`),
   and that is not decoration: it was the fix for a reported flicker, where the sheet blinked out for a
   fraction of a second the instant its slide finished. A per-frame probe read `opacity:1`,
@@ -1248,6 +1330,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   to 96px with it (specificity, not source order — the ≤430px block's `body.grading .stage` sits further
   down). Device-local in `localStorage["folio_gb_compact_v1"]`, like where the marker sits and how tall the
   place sheet is. Guarded by `test-layout.js`.
+  **It FOLDS rather than cutting** (Aug 2026, on a report). The two states differ by more than a height —
+  the four grades go from two rows of two to one row of four, and the `?`, Undo and Suspend move up beside
+  them — and none of that is a property CSS can transition. So the SIZES transition in CSS and the
+  POSITIONS are FLIPped in JS (`gbSetCompact(on, persist, animate)` → `flipHeight` around `flipMove`), and
+  the two halves have to be written against each other: the tall state states `.grade`'s height explicitly
+  (`calc(56px * var(--fs))`, since `auto` is a value nothing can transition from) and **`GB_FOLD_MS` must
+  stay in step with the 280ms in styles.css**. The animation is not gated on being a phone — above the
+  breakpoint the chevron is `display:none` and it is unreachable, and `flipMove` skips anything that did
+  not move — but it IS gated on the reader's motion setting, inside both helpers. Note for the tests: a
+  height read sooner than `GB_FOLD_MS` after the press measures a state half way between the two.
 - **Undo is repeated INSIDE the grade bar on a phone** (`#undoGradeBar`, `.gb-undo` — Aug 2026, on request).
   The study bar's `#undoGrade` sits at the top of a card that runs several screens, so on a phone the one way
   back from a misclicked grade was scrolled off screen at exactly the moment it was wanted. The grade bar's copy
@@ -1900,10 +1992,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **The one thing outside its reach is the Atlas's own map labels**, which are `ctx.fillText` on a canvas —
   CSS cannot see them, and their collision arithmetic (`computeCityLayout`'s grid, the leader lines, `CITY_SEP`)
   is written against those numbers, so scaling them would rearrange the map rather than enlarge it. The setting
-  says so. The picker is a three-cell segmented control (`.fs-pick`) whose A is drawn at each size, in a
-  `set-row-block` because at 186px it leaves a phone's description four words a line. Guarded by
-  `test-layout.js`, which asserts the prose AND the chrome grow, and that nothing in the shell is clipped or
-  wrapped by the growth.
+  says so. **The picker is a SLIDER across the full width of the row** (`.fs-slide` / `#fsRange` /
+  `.fs-ticks`, Aug 2026, on request — it was a three-cell segmented control, `.fs-pick`, which ran to 186px
+  and left the rest of the row empty). Three sizes are an ORDERED SCALE and a segmented control says nothing
+  about that ordering; a native `<input type="range">` is the one control the browser already gives arrow
+  keys, Home/End and a drag to. **Its value is the INDEX into `FONT_SIZES`**, not the name, so the scale and
+  the stored setting cannot drift apart, and `setFontSize` writes the range's `value` + `aria-valuetext` back
+  so a change made anywhere else moves it. The tick marks under the track are `aria-hidden` — the range
+  itself announces the size, and labelling them again would read the scale twice. **`.fs-pick` stays** and is
+  still the Measurements picker, which is a CHOICE between two systems rather than a point on a scale.
+  Guarded by `test-layout.js`, which asserts the prose AND the chrome grow, that the control fills its row,
+  and that nothing in the shell is clipped or wrapped by the growth.
 - **ANIMATIONS OFF** (**Settings → Appearance → Animations**, `S.settings.animations` / `motionOff()` /
   `body.no-anim`, Aug 2026, on request: "since they may cause lag on some devices"). ONE switch driving BOTH
   halves: the stylesheet's global killswitch gained a `body.no-anim` selector beside its
@@ -2052,11 +2151,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   English in other languages (the documented graceful fallback). Adding them is a content task.
 - **UI sound effects** (the `/* UI sound effects */` block in app.js): tiny synthesized Web-Audio sounds, no files —
   **`click` and `toggle` are a soft TAP since Aug 2026** (`sfxTap` / `sfxNoiseBuf`, on request: "something more
-  akin to a low soft tapping sound than a high chirp"): a short burst of noise through a low-pass with a low
-  sine under it, which is what a finger on wood actually is — a broadband transient that dies at once, with no
-  pitch to speak of. A pure oscillator cannot make one, which is why the old click was a triangle sliding
-  1900 → 1300 Hz. The noise buffer is built once and reused; a click is by a wide margin the most frequently
-  played sound on the site. —
+  akin to a low soft tapping sound than a high chirp"): a short burst of noise with a light body under it,
+  which is what a finger on wood actually is — a broadband transient that dies at once, with no pitch to
+  speak of. A pure oscillator cannot make one, which is why the old click was a triangle sliding
+  1900 → 1300 Hz. **The filter is a BANDPASS, and that is the second correction** (Aug 2026, on a report that
+  the tap had become "a low thud"): a low-pass at 780 Hz keeps everything BELOW it, so most of what was left
+  was rumble, and under it sat a sine falling 190 → 120 Hz — which is a bass drum, not a fingertip. A
+  bandpass keeps a band and throws the rest away, so the tap has a MATERIAL rather than a weight, and the
+  centre frequency is what says whether a finger landed on wood or on glass. **Nothing goes below 500 Hz
+  now** (~1.9 kHz band, a 560 Hz body, both under 32ms — the decay mattered as much as the pitch), and the
+  gains are LARGER than the low-pass version's for a quieter result, a band being less energy than
+  everything below a corner. `sfxTap` deliberately has **no attack ramp** where `sfxTone` does: a tap starts
+  at full level on its first sample, and a 5ms fade-in turns it into a small swell. The noise buffer is
+  built once and reused; a click is by a wide margin the most frequently played sound on the site. —
   `sfx(name)` with click / toggle / pop / good / bad / win / **discover** (a term or place opened for the first
   time — see the discovery-marks bullet above), played by ONE delegated **capture-phase** click listener
   (so a handler's `stopPropagation` can't swallow the tick) that maps button-likes to sounds (grades → good/bad,
@@ -2227,7 +2334,23 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   request: checking used to record the BEST of any number of tries, and since a check reveals every event's
   date a reader could check once, read the years off the rows and reorder to a perfect score every day. Later
   checks still mark the rows and show the dates — the puzzle stays usable for learning the order — they just
-  no longer rewrite the score, and the result says so), **True or False** (`truefalse`),
+  no longer rewrite the score, and the result says so.
+  **Its DRAG was rewritten in Aug 2026, on a report that it felt unpleasant** (`setupChronoDrag`). The old
+  one called `insertBefore` on every `pointermove` and did nothing else, so the row being dragged never
+  went anywhere under the finger — it was re-inserted at the new index and appeared there — and every other
+  row CUT to its new place, a reorder being a reflow. The two are now held apart: the dragged row is moved
+  by **transform** and follows the pointer exactly, and its siblings are reordered in the DOM and then
+  **FLIPped** around it. Four things are load-bearing. The row **stays in the flow** — never absolutely
+  positioned, no placeholder — so the list's height never changes, the DOM order is the answer at every
+  instant, and an interrupted drag cannot leave the puzzle in a state the reader did not choose. Reordering
+  moves the dragged row's own layout slot out from under it, so its transform is **recomputed against the
+  new layout on every reorder** (`pinToPointer`), or it jumps by exactly one row's height at the moment it
+  swaps. The target index is measured against the siblings' **LAYOUT** positions (`chronoLayoutTop`), never
+  their painted ones — a sibling mid-FLIP is painted somewhere it is not, and reading that makes the list
+  flicker between two orders. And `.chrono-item.dragging` must NOT set `transform` (the JS owns it) or a
+  `transition` on it (the row would lag the finger by its own duration); it lifts with shadow and z-index
+  instead. The ‹ › arrows FLIP the same way, or they would be the one remaining way to reorder with a cut),
+  **True or False** (`truefalse`),
   **Who said it?** (`whosaid`, from `quotes.js`), and **Find it** (`findit`, renamed from "Find it on the map" Aug 2026 on request — see the Atlas game-mode bullet
   below; 5 date-seeded locate-on-the-globe rounds, score = first-try finds). `BOTS`/`drawRace`/podium are now dead code.
   Each of the 5 games records a per-day result in `S.games[key] = { date, played, won }` (`markGamePlayed(key, won)` at each
@@ -2436,6 +2559,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   smooth `scrollTo` and the home mini globe; inside the Atlas closure the same check is cached as `REDUCED`, gating
   `pulseChanges`, the era crossfade and `flyTo`'s duration. Globe drag inertia is deliberately left alone — it's the
   continuation of a direct gesture, not decorative motion.
+- **FLIP — animating a layout change CSS cannot transition** (`flipMove` / `flipHeight`, beside
+  `prefersReducedMotion`; Aug 2026, on two reports of hard cuts). CSS transitions a PROPERTY; it cannot
+  transition a REFLOW. Move an element between two grid areas or reorder two siblings and it is simply in
+  the new place on the next frame — which is what the grade bar's fold and the Timeline game's drag both
+  looked like, and a hard cut does not read as fast, it reads as broken. `flipMove(els, mutate, opts)`
+  measures where everything is, runs the mutation, and animates each element from its old paint position
+  back to its new one; `flipHeight(el, mutate)` does the same for a container's content height, which is
+  not an animatable value on its own. **`Element.animate`** — the Web Animations API, part of the platform,
+  off the main thread, no dependency. Three deliberate choices: **scaling is opt-in** (`opts.scale`), since
+  scaling a button squashes the text in it and a translate-only FLIP over an element whose SIZE is
+  transitioned in CSS looks better than either alone; an element that has not moved is **skipped**, so
+  calling it over a whole list costs nothing for the rows that stayed put; and `composite:"add"`, so it
+  layers over a transform the element already has rather than replacing it. Both helpers gate on
+  `prefersReducedMotion()` internally, so no caller has to. Used by `gbSetCompact` and by the Timeline
+  game's drag and arrows — **reach for it rather than adding a transition that cannot fire.**
 - **Atlas:** an orthographic Canvas-2D globe (drag to rotate, wheel/pinch zoom, **on-screen `+`/`−` buttons (`#gzIn`/`#gzOut`,
   `.globe-zoom`) + keyboard `+`/`−`** via `zoomStep()`; `ZMIN 0.82 … ZMAX 10`). Zooming scales the disk
   radius (`R = baseR·zoom`), so the globe fills the screen by ~zoom 2.1 (`R ≥ dist(centre,corner)`). The **wheel-zoom listener is
@@ -2997,7 +3135,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   session opens on (`adminState.tab` defaults to `"dashboard"`; a session interrupted mid-edit still comes back
   to the card it was on — `restoreAdminUI` exists because auto-save can live-reload the page between
   keystrokes, and losing that would be a worse regression than gaining this). It takes over the admin area the
-  way Feedback and Timeline do (`.dash-mode`, the same hide list).
+  way Feedback and Timeline do (`.dash-mode`, the same hide list). **Its tab is PURPLE and spans both columns
+  of `.admin-tabs`** (Aug 2026, on request) — it is the only one of the five that describes the whole site
+  rather than a kind of content, so it sits above the four as a header rather than beside them as a fifth
+  peer. `grid-column:1 / -1`, not `span 2`, so it stays full width if the grid ever gains a third column.
   **Two halves, and the split is not cosmetic.** `dashContentStats()` is derived from the shipped data files
   and the admin overlay on top of them, so it is exact, instant and works offline — it is the same data the
   site is rendering. `dashLoadRemote()` has to ASK, and what it can ask is bounded by the RLS in
@@ -4014,7 +4155,10 @@ dead code (never rendered).
     one-row grade bar and the study page's padding clearing it — and its two HEIGHTS, where dragging the grip
     down must genuinely halve it (a "compact" state saving 15px is not what was asked for), leave the four
     grades as bare colours that a screen reader can still name, keep the ? and Suspend beside them rather
-    than dropping them, and take the page's bottom padding down with it; the Text size setting, which must
+    than dropping them, and take the page's bottom padding down with it — note that the fold is ANIMATED
+    since Aug 2026, so a height read sooner than `GB_FOLD_MS` after the press measures a state half way
+    between the two; the Text size setting, which is a SLIDER filling its row (asserted, that being the
+    visible half of the request) and which must
     grow the card and the glossary popup and must leave a tab label and a grade button exactly where they
     were, that being the difference between a reading scale and a page zoom; Settings and Account filling the stage;
     a coming-soon collection carrying no level badge and no XP bar; and **no overlay outliving the page
@@ -4024,7 +4168,7 @@ dead code (never rendered).
     media queries / `.settings` / `.auth-split` / the coming-soon rows / `wireOnePageSwipe`
     / `.rv-lip` / `.games-sec` / `.home-about` / `gameSub` / `pileCounts` / `adProg` / `.active-deck` /
     `gbWireResize` / `.gb-fold` / `body.gb-compact` / `wirePageSwipe` / `SWIPE_ORDER` /
-    `applyTheme`'s `data-fs` / `var(--fs)` / `MULTILANG` /
+    `applyTheme`'s `data-fs` / `var(--fs)` / `.fs-slide` / `#fsRange` / `MULTILANG` /
     `ensureWBTools` / `.wb-pick` /
     the ink layer's pass-through /
     `cpWireResize` / `cpPaneNeedH` / `cpFitH` / `lockHeight`, or after adding an overlay to `document.body`.** Its clicks go through `evaluate`
@@ -4126,9 +4270,12 @@ dead code (never rendered).
     `name`** (a radio group is document-scoped outside a form, so the ghost's radios joined the new page's
     and a click that had landed read back as never having happened — which is how it was found), to be out
     of the accessibility tree and out of the way of a click, and to be gone a moment later. Plus: the Atlas
-    opts out in BOTH directions. **Re-run after touching `makePageGhost` / `.page-ghost` / `PAGES.glossary`
-    / `glossSeen`.**
-  · `node .claude/test-library.js` — the Library (57 assertions): the rename, the shelf, one book, and the
+    opts out in BOTH directions. It also guards the **SORT** (Aug 2026): alphabetical is asserted against
+    the ORDER rather than against the picker's value — a control that changes nothing looks exactly like
+    one that works — and, the assertion most worth having, that re-sorting KEEPS a filter the reader has
+    typed, which the obvious two-handler implementation silently throws away. **Re-run after touching
+    `makePageGhost` / `.page-ghost` / `PAGES.glossary` / `GLOSS_SORTS` / `glossSeen`.**
+  · `node .claude/test-library.js` — the Library (70 assertions): the rename, the shelf, one book, and the
     reader's place. Each half guards something that fails SILENTLY. **The rename**: `#decks` must still
     resolve (every link ever shared points at it) while calling itself Collections everywhere, and exactly
     one nav tab may read "Library". **The laziness**: it watches the request log and asserts no
@@ -4140,9 +4287,16 @@ dead code (never rendered).
     list, and — the assertion most worth having — it walks **all 65 chapters** asserting no lowercase
     surface is ever glossary-linked, which is what keeps `genus`, `epoch`, `iron` and `bronze` from
     quietly mis-defining Seneca. Note that letter 3 contains no glossary term at all, so an assertion
-    pointed there passes on nothing; letter 9 is the one to use. **Re-run after touching `PAGES.library` /
-    `PAGES.book` / `BOOKS` / `bookIngest` / `bookNotesHTML` / `linkProperNounsOnly` / `readingPos` /
-    `setReadingPos`, after running `fetch-book.js`, or after renaming anything on the Collections page.**
+    pointed there passes on nothing; letter 9 is the one to use. **The front matter** (Aug 2026): the book
+    opens on chapter 0, there is exactly one of it, it carries the translator and the licence, and — the
+    other half, which fails the opposite way — that rights box is NOT repeated under every chapter, and a
+    letter still carries the section numbers by which the text is cited. **No Wikisource stylesheet in the
+    prose**: read off the SHIPPED data over every chapter of every book (`shippedBookLeaks`), not off one
+    rendered page, because the leak sat in 24 of 335 notes and each is visible only to a reader who opens
+    that chapter's fold. **Re-run after touching `PAGES.library` /
+    `PAGES.book` / `BOOKS` / `bookIngest` / `bookIntroChapter` / `bookNotesHTML` / `linkProperNounsOnly` /
+    `readingPos` / `setReadingPos`, after running `fetch-book.js`, or after renaming anything on the
+    Collections page.**
   · `node .claude/test-account-page.js` — the SIGNED-IN account page and the Edit dashboard's account
     figures (Aug 2026). Neither is reachable without a session, so Supabase is a `page.route` stand-in —
     deliberately, and for the same reason as `test-publish.js`'s mock: the publishable key in app.js points

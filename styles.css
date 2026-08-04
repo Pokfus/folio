@@ -1298,8 +1298,25 @@ body.grading .stage{padding-bottom:150px;}
 .gl-meter-head{font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint);}
 .gl-meter-head b{font-family:var(--display); font-size:calc(20px * var(--fs)); letter-spacing:0; text-transform:none; color:var(--ink); margin-right:4px;}
 .gl-meter .ds-bar{width:100%; flex:none;}
+/* filter on the left, order on the right — one row, so a narrow column drops the picker under the
+   field rather than squeezing both */
+.gl-tools{display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-bottom:12px;}
+.gl-tools[hidden]{display:none;}   /* the author display beats the UA rule — cf. .ces-imgpanel */
+.gl-tools .gl-search{flex:1 1 220px; margin-bottom:0;}
 .gl-search{margin-bottom:12px;}
 .gl-search input{width:100%; max-width:340px; font-family:var(--sans); font-size:calc(13.5px * var(--fs)); padding:9px 12px; border:1px solid var(--rule); border-radius:9px; background:var(--card); color:var(--ink); transition:border-color .16s var(--ease), box-shadow .16s var(--ease);}
+
+/* The sort picker shared by the glossary record and the Library shelf. A native <select>: the options
+   are a short closed set, and on a phone the platform's own picker beats a row of buttons taking a
+   line the list needs. */
+.sort-pick{display:inline-flex; align-items:center; gap:7px; flex:none;}
+.sort-pick-label{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint);}
+.sort-pick select{
+  font-family:var(--sans); font-size:calc(13px * var(--fs)); color:var(--ink);
+  background:var(--card); border:1px solid var(--rule); border-radius:9px; padding:8px 10px; cursor:pointer;
+  transition:border-color .16s var(--ease), box-shadow .16s var(--ease);
+}
+.sort-pick select:focus-visible{outline:none; border-color:var(--indigo); box-shadow:0 0 0 3px var(--indigo-wash);}
 .gl-search input:focus{outline:none; border-color:var(--indigo); box-shadow:0 0 0 3px var(--indigo-wash);}
 .gl-list{background:var(--card); border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow-sm); overflow:hidden;}
 .gl-row{display:flex; align-items:baseline; gap:14px; width:100%; text-align:left; appearance:none; background:none; border:0; border-bottom:1px solid color-mix(in srgb,var(--rule) 60%,transparent); padding:12px 18px; cursor:pointer; font:inherit; color:inherit; transition:background .14s var(--ease), padding-left .14s var(--ease);}
@@ -1661,9 +1678,11 @@ body.night .ph-lvl{color:#F3E3B2; background:#4A3B10; border-color:#E6C765;}
 .switch.on::after{transform:translateX(22px);}
 .switch:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
 
-/* Text size — a three-cell segmented control (Settings → Appearance). Each cell shows an A at the size it
-   sets, above its name: the control demonstrates itself, which is quicker to read than three equal words.
-   The A is drawn from --fs's own values so a change to those moves the preview with it. */
+/* A three-cell segmented control (Settings → Appearance). Each cell shows a specimen — an A at the size
+   it sets, a unit abbreviation — above its name: the control demonstrates itself, which is quicker to
+   read than three equal words. Text size used the same control until Aug 2026 and is a slider now (see
+   .fs-slide below); Measurements, which is a CHOICE between two systems rather than a point on a scale,
+   keeps it. */
 .fs-pick{display:inline-flex; align-items:stretch; border:1px solid var(--rule); border-radius:9px; overflow:hidden;}
 .fs-pick button{
   appearance:none; cursor:pointer; border:0; background:var(--paper); color:var(--ink-soft);
@@ -1682,6 +1701,52 @@ body.night .ph-lvl{color:#F3E3B2; background:#4A3B10; border-color:#E6C765;}
 .fs-pick button:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px;}
 /* the measurements picker is the same segmented control, with a unit abbreviation where the A sits */
 .units-pick .fs-a{font-family:var(--mono); font-size:calc(12px * var(--fs)); letter-spacing:.02em;}
+
+/* Text size — a SLIDER across the full width of the row (Aug 2026, on request; it was three cells of
+   the segmented control above, which ran to 186px and left the rest of the row empty). Three sizes are
+   an ordered scale, and a slider is the control that says so.
+
+   The track is styled on the input itself rather than faked with a div, so the browser's own drag,
+   arrow keys, Home/End and touch target all come free. The two vendor thumb selectors CANNOT be
+   comma-joined — a rule with one unknown selector in the list is dropped whole by both engines — so
+   they are written out twice, which is why this block looks repetitive. */
+.fs-slide{display:block; width:100%; max-width:none;}
+.fs-range{
+  -webkit-appearance:none; appearance:none; display:block; width:100%; height:26px; margin:0;
+  background:transparent; cursor:pointer;
+}
+.fs-range::-webkit-slider-runnable-track{height:6px; border-radius:3px; background:var(--rule);}
+.fs-range::-moz-range-track{height:6px; border-radius:3px; background:var(--rule);}
+.fs-range::-webkit-slider-thumb{
+  -webkit-appearance:none; appearance:none; width:20px; height:20px; margin-top:-7px;
+  border-radius:50%; background:var(--indigo); border:2px solid var(--card);
+  box-shadow:0 1px 4px rgba(0,0,0,.28); transition:transform .12s var(--ease);
+}
+.fs-range::-moz-range-thumb{
+  width:20px; height:20px; border-radius:50%; background:var(--indigo); border:2px solid var(--card);
+  box-shadow:0 1px 4px rgba(0,0,0,.28); transition:transform .12s var(--ease);
+}
+.fs-range:hover::-webkit-slider-thumb{transform:scale(1.12);}
+.fs-range:hover::-moz-range-thumb{transform:scale(1.12);}
+.fs-range:focus-visible{outline:none;}
+.fs-range:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 4px var(--indigo-wash);}
+.fs-range:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px var(--indigo-wash);}
+/* The marks under the track. space-between puts the first and last hard against the ends, where the
+   thumb's own travel puts them; the A in each is drawn at the size that stop sets, so the scale shows
+   what it does rather than only naming it. */
+.fs-ticks{display:flex; justify-content:space-between; align-items:flex-end; margin-top:2px;}
+.fs-tick{
+  display:flex; flex-direction:column; align-items:center; gap:1px; flex:0 0 auto;
+  font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.08em;
+  text-transform:uppercase; font-weight:600; color:var(--ink-faint); transition:color .15s;
+}
+.fs-tick:first-child{align-items:flex-start;}
+.fs-tick:last-child{align-items:flex-end;}
+.fs-tick.on{color:var(--indigo);}
+.fs-tick .fs-a{font-family:var(--serif); font-weight:600; line-height:1; letter-spacing:0; text-transform:none;}
+.fs-tick[data-fs="small"] .fs-a{font-size:calc(12px * var(--fs));}
+.fs-tick[data-fs="medium"] .fs-a{font-size:calc(16px * var(--fs));}
+.fs-tick[data-fs="large"] .fs-a{font-size:calc(20px * var(--fs));}
 /* While "Match my device" is on, the Night mode switch still SHOWS which way the system has gone — the row
    is dimmed rather than removed, because a reader needs to see that the site knows it is dark. Clicking it
    is still allowed and takes the decision back (setNight turns the device switch off), so it must NOT be
@@ -2658,10 +2723,24 @@ button.game-tile .gt-glyph{opacity:.14;}
   padding:13px 14px; box-shadow:var(--shadow-sm); user-select:none;
   transition:border-color .18s, box-shadow .18s, background .18s, transform .08s;
 }
-.chrono-item.dragging{opacity:.95; box-shadow:var(--shadow-lg); border-color:var(--indigo); transform:scale(1.01);}
+/* THE CARRIED ROW (Aug 2026, on request — the drag was rewritten; see setupChronoDrag). It stays in
+   the flow and is moved by transform, so `transform` here must be left alone: the JS owns it for the
+   length of the drag, and a `scale()` in this rule would be overwritten by the first pointermove. It is
+   lifted with shadow and z-index instead, which is what "picked up" actually looks like.
+   `transition:none` is the load-bearing line — the row follows the pointer frame by frame, and a
+   transition on transform would make it lag behind the finger by its own duration. */
+.chrono-item.dragging{
+  z-index:5; position:relative; cursor:grabbing;
+  box-shadow:var(--shadow-lg), 0 0 0 2px var(--indigo-wash); border-color:var(--indigo);
+  transition:none;
+}
+/* …and let go, it eases into its slot rather than snapping to it */
+.chrono-item.settling{z-index:5; position:relative; transition:transform .2s var(--ease), box-shadow .2s, border-color .2s;}
 .chrono-item.correct{background:color-mix(in srgb,var(--good) 12%, var(--card)); border-color:color-mix(in srgb,var(--good) 45%, var(--rule));}
 .chrono-item.wrong{background:color-mix(in srgb,var(--zh) 8%, var(--card)); border-color:color-mix(in srgb,var(--zh) 32%, var(--rule));}
-.ci-grip{flex:none; cursor:grab; color:var(--ink-faint); display:inline-flex; touch-action:none; padding:2px;}
+/* a bigger target than the icon: this is the one part of the row a finger has to find, and 18px of
+   svg is under the 44px a touch guideline asks for */
+.ci-grip{flex:none; cursor:grab; color:var(--ink-faint); display:inline-flex; align-items:center; justify-content:center; touch-action:none; padding:8px; margin:-8px 0 -8px -6px;}
 .ci-grip:active{cursor:grabbing;}
 .ci-grip svg{width:18px; height:18px;}
 .ci-name{flex:1; min-width:0; font-family:var(--serif); font-size:calc(16px * var(--fs)); color:var(--ink); line-height:1.3;}
@@ -2789,6 +2868,16 @@ button.game-tile .gt-glyph{opacity:.14;}
   /* one row: [?] [four colours] [undo] [suspend] */
   body.gb-compact .grade-wrap{grid-template-columns:auto 1fr auto auto; grid-template-areas:"help grades undo suspend"; gap:8px; align-items:center;}
   body.gb-compact .grade-wrap .grades{grid-template-columns:repeat(4,1fr); gap:6px;}
+  /* The SIZES transition in CSS while the POSITIONS are FLIPped in JS (see gbSetCompact): between them
+     the fold moves instead of cutting. The two halves have to be written against each other — a button
+     whose height snaps under a sliding position looks worse than either doing it alone — so the tall
+     state states its height explicitly, `auto` being a value nothing can transition from. Keep the
+     280ms in step with GB_FOLD_MS in app.js. */
+  .grade{height:calc(56px * var(--fs)); padding:0; overflow:hidden;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    transition:transform .12s var(--ease), box-shadow .2s, filter .2s,
+               height .28s var(--ease), border-radius .28s var(--ease);}
+  .grade-help,.grade-wrap .gb-undo,.grade-wrap .suspendbtn{transition:width .28s var(--ease), height .28s var(--ease), padding .28s var(--ease), font-size .28s var(--ease);}
   body.gb-compact .grade{position:relative; padding:0; height:32px; border-radius:8px;}
   /* the label is CLIPPED, not removed: display:none would take it out of the accessibility tree too, and
      then the four buttons would be four unnamed colours to a screen reader as well as to the eye */
@@ -3075,14 +3164,15 @@ body.no-anim .data-loading .dl-globe,body.no-anim .data-loading .dl-globe::befor
 .gloss-win.gloss-sheet.show{ opacity:1; transform:translate(-50%,calc(-50% + var(--gs-dy))) scale(1); }
 .gloss-win.gloss-sheet.closing{ opacity:0; transform:translate(-50%,calc(-50% + var(--gs-dy) + 10px)) scale(.97); }
 .gloss-win.gloss-sheet.dragging{ transition:none; }
-/* the bar is the handle now, so it says so — and a drag on it must not be claimed as a page scroll */
-.gloss-sheet .gloss-bar{ cursor:grab; touch-action:none; padding:13px 12px 13px 18px; }
-.gloss-sheet.dragging .gloss-bar{ cursor:grabbing; }
-/* a grab mark centred above the title: a draggable edge with nothing on it is one nobody finds */
-.gloss-sheet .gloss-bar::before{
-  content:""; position:absolute; left:50%; top:5px; width:34px; height:4px; margin-left:-17px;
-  border-radius:99px; background:var(--rule); pointer-events:none;
-}
+/* THE WHOLE WINDOW IS THE HANDLE (Aug 2026, on request — it was the title bar, then a grab bar at each
+   end, and both marks are gone with them). `touch-action:none` on the window is what lets a vertical
+   drag be claimed here instead of being taken as a page scroll; the BODY gets it back, because when
+   there is more description than fits, that box has to scroll. See makeGlossSheetDraggable, which reads
+   the same distinction at pointerdown so the two can never both act on one gesture. */
+.gloss-sheet{ touch-action:none; cursor:grab; }
+.gloss-sheet.dragging{ cursor:grabbing; }
+.gloss-sheet .gloss-body{ touch-action:pan-y; }
+.gloss-sheet .gloss-bar{ padding:13px 12px 13px 18px; cursor:inherit; }
 .gloss-sheet .gloss-title{ font-size:calc(16.5px * var(--fs)); }
 .gloss-sheet .gloss-dates{ font-size:calc(12px * var(--fs)); }
 .gloss-sheet .gloss-body{ padding:15px 18px 20px; max-height:58vh; }
@@ -3091,6 +3181,20 @@ body.no-anim .data-loading .dl-globe,body.no-anim .data-loading .dl-globe::befor
 .gloss-sheet .gloss-imgslot .card-img{ border-radius:10px; }
 .gloss-sheet .gloss-imgslot .card-img img{ height:auto; max-height:170px; }
 .gloss-sheet .gloss-imgslot .card-vid{ height:170px; border-radius:10px; }
+
+/* THE SCRIM — everything behind the phone's popup goes soft while it is up (Aug 2026, on request).
+   ONE element with backdrop-filter, not a filter over a list of the page's own containers: that list
+   would need keeping in step with every fixed thing on the site, and a filter on an ancestor becomes the
+   containing block for its position:fixed descendants, which would move the very bars it was blurring.
+   pointer-events:none — this is focus, not a modal: tapping outside never closed a popup and still
+   doesn't, and the page behind can still be scrolled. */
+.gloss-scrim{
+  position:fixed; inset:0; z-index:9590; pointer-events:none; opacity:0;
+  backdrop-filter:blur(7px) saturate(88%); -webkit-backdrop-filter:blur(7px) saturate(88%);
+  background:color-mix(in srgb, var(--paper) 22%, transparent);
+  transition:opacity .22s var(--ease);
+}
+.gloss-scrim.on{ opacity:1; }
 
 /* glossary editor: fields on the left, a live popup preview on the right */
 .gloss-edit-cols{ display:flex; gap:0; align-items:flex-start; flex-wrap:wrap; }
@@ -3130,6 +3234,12 @@ body.admin-mode .page{animation:none;}
 .admin-tabs{flex:none; display:grid; grid-template-columns:1fr 1fr; gap:8px; padding:14px;}
 .admin-tab{display:flex; align-items:center; justify-content:center; min-height:54px; appearance:none; border:1px solid transparent; border-radius:11px; font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; font-weight:700; cursor:pointer; transition:transform .12s ease, box-shadow .15s, background .15s, color .15s;}
 .admin-tab:hover{transform:translateY(-1px);}
+/* Dashboard is the editor's front page — the tab a fresh session opens on, and the only one that
+   describes the whole site rather than a kind of content. So it spans BOTH columns and sits above the
+   four kinds of work as a header rather than as a fifth peer (Aug 2026, on request). `1 / -1` rather
+   than `span 2`, so it stays full width if the grid ever gains a third column. */
+.admin-tab[data-atab="dashboard"]{grid-column:1 / -1; min-height:46px; color:#7a4fd0; background:rgba(122,79,208,.13); border-color:rgba(122,79,208,.32);}
+.admin-tab[data-atab="dashboard"].active{color:#fff; background:#7a4fd0; border-color:#7a4fd0; box-shadow:0 5px 15px -7px rgba(122,79,208,.9);}
 .admin-tab[data-atab="cards"]{color:#4f6bed; background:rgba(79,107,237,.12); border-color:rgba(79,107,237,.30);}
 .admin-tab[data-atab="cards"].active{color:#fff; background:#4f6bed; border-color:#4f6bed; box-shadow:0 5px 15px -7px rgba(79,107,237,.9);}
 .admin-tab[data-atab="glossary"]{color:#1f9d63; background:rgba(38,158,107,.13); border-color:rgba(38,158,107,.32);}
@@ -4349,9 +4459,13 @@ body.night .rv-star.on{color:#E6C765;}
    same page twice. A book tile is a portrait card with a coloured spine down its left edge, laid out
    two to a row where the game grid runs three — a blurb and a title need the width, and a shelf of
    six narrow tiles reads as a menu rather than as books. */
-/* auto-fill rather than a fixed 2, so the shelf keeps its tile size as books are added and collapses to
-   one column on its own when the column is narrow — at the 800px stage this is two */
-.book-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:14px; margin-bottom:22px;}
+/* ONE BANNER PER ROW, full width, at every size (Aug 2026, on request). It was 320px tiles two to a
+   row with a paragraph of blurb in each, then briefly 210px tiles; both are gone. What stays from that
+   pass is the BLURB being gone — a book is chosen from its author, title and date, and what it is
+   about is a tap away in its own front matter — which is what lets a full-width banner still be short.
+   Reading left to right rather than top to bottom is the other half of that. */
+.book-grid{display:grid; grid-template-columns:1fr; gap:10px; margin-bottom:22px;}
+.lib-tools{display:flex; justify-content:flex-end; margin-bottom:12px;}
 .book-tile{
   position:relative; display:flex; gap:0; text-align:left; padding:0; overflow:hidden;
   background:var(--card); border:1px solid var(--rule); border-radius:14px;
@@ -4362,20 +4476,28 @@ body.night .rv-star.on{color:#E6C765;}
 .book-tile:active{transform:translateY(0) scale(.995);}
 .book-tile:focus-visible{outline:2px solid var(--tile,var(--indigo-bright)); outline-offset:3px;}
 /* the spine: the one place a book's own colour is stated, so the shelf reads as a shelf */
-.bk-spine{flex:0 0 10px; align-self:stretch; background:var(--tile,var(--indigo)); position:relative;}
+.bk-spine{flex:0 0 8px; align-self:stretch; background:var(--tile,var(--indigo)); position:relative;}
 .bk-spine::after{content:""; position:absolute; inset:0 2px; border-left:1px solid rgba(255,255,255,.25); border-right:1px solid rgba(0,0,0,.12);}
-.bk-tile-body{display:flex; flex-direction:column; gap:5px; padding:16px 18px 14px; min-width:0; flex:1;}
-.bk-tile-author{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--tile,var(--indigo));}
-.bk-tile-title{font-family:var(--display); font-size:calc(20px * var(--fs)); font-weight:600; line-height:1.2; color:var(--ink);}
-.bk-tile-sub{font-family:var(--serif); font-style:italic; font-size:calc(13.5px * var(--fs)); color:var(--ink-soft); margin-top:-2px;}
-.bk-tile-blurb{font-family:var(--sans); font-size:calc(13.5px * var(--fs)); line-height:1.55; color:var(--ink-soft); margin-top:4px;}
-.bk-tile-foot{display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-top:auto; padding-top:10px;}
-.bk-tile-meta{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint);}
+/* the banner's own row: who and what on the left, how long and where you got to on the right */
+.bk-tile-body{display:flex; flex-flow:row wrap; align-items:center; gap:6px 18px; padding:13px 18px; min-width:0; flex:1;}
+.bk-tile-main{display:flex; flex-direction:column; gap:2px; min-width:0; flex:1 1 220px;}
+.bk-tile-author{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--tile,var(--indigo));}
+.bk-tile-title{font-family:var(--display); font-size:calc(19px * var(--fs)); font-weight:600; line-height:1.2; color:var(--ink);}
+.bk-tile-sub{font-family:var(--serif); font-style:italic; font-size:calc(12.5px * var(--fs)); color:var(--ink-soft); margin-top:-2px;}
+/* When it was written — the one fact about a work of history a reader wants before opening it, and
+   what took the blurb's place on the banner (Aug 2026, on request). */
+.bk-tile-when{font-family:var(--serif); font-style:italic; font-size:calc(13px * var(--fs)); color:var(--ink-soft);}
+.bk-tile-foot{display:flex; flex-direction:column; align-items:flex-end; gap:3px; flex:none; min-width:0;}
+.bk-tile-meta{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint);}
 .bk-of{opacity:.72;}
-.bk-tile-new{font-family:var(--sans); font-size:calc(12.5px * var(--fs)); font-weight:600; color:var(--tile,var(--indigo));}
-/* where the reader left off — the tile's one changing fact, so it gets the emphasis the blurb doesn't */
-.bk-tile-resume{font-family:var(--sans); font-size:calc(12.5px * var(--fs)); font-weight:600; color:var(--tile,var(--indigo));}
-.bk-tile-bar{display:block; height:4px; border-radius:2px; background:var(--rule); overflow:hidden; margin-top:8px;}
+.bk-tile-new{font-family:var(--sans); font-size:calc(11.5px * var(--fs)); font-weight:600; color:var(--tile,var(--indigo));}
+/* where the reader left off — the tile's one changing fact, so it takes the accent colour */
+.bk-tile-resume{font-family:var(--sans); font-size:calc(11.5px * var(--fs)); font-weight:600; color:var(--tile,var(--indigo));}
+/* The reading bar as the banner's own bottom EDGE (Aug 2026, on request — it was a short bar inside the
+   right-hand block). Absolutely positioned, so it takes no height from the row and the banner stays as
+   short as it is without one; .book-tile is already `position:relative` and `overflow:hidden`, so it
+   follows the banner's rounded corners. */
+.bk-tile-bar{position:absolute; left:0; right:0; bottom:0; height:3px; background:var(--rule); overflow:hidden;}
 .bk-tile-bar span{display:block; height:100%; background:var(--tile,var(--indigo)); border-radius:2px;}
 .lib-note{font-family:var(--sans); font-size:calc(13px * var(--fs)); line-height:1.6; color:var(--ink-soft);
   background:var(--card); border:1px dashed var(--rule); border-radius:12px; padding:13px 16px; max-width:70ch;}
@@ -4419,6 +4541,17 @@ body.night .rv-star.on{color:#E6C765;}
 .bk-tab:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
 .bk-tab-n{font-family:var(--mono); font-size:calc(11px * var(--fs)); opacity:.8;}
 .bk-tab-t{font-family:var(--sans); font-size:calc(12.5px * var(--fs)); overflow:hidden; text-overflow:ellipsis;}
+/* The front matter's tab wears a book rather than a number: "0" beside 1, 2, 3 reads as a chapter the
+   author did not write, and on a phone the titles are hidden and the number is all there is. It is
+   also pinned to the left of the scroller, so the way back to the front matter is always in view —
+   otherwise it is 60 tabs behind wherever the reader has got to. */
+.bk-tab-intro{position:sticky; left:0; z-index:1; background:var(--card); padding-left:8px;}
+.bk-tab-intro.on{background:var(--indigo);}
+.bk-tab-intro .bk-tab-n{display:flex; align-items:center; opacity:1;}
+.bk-glyph{width:14px; height:14px; display:block;}
+/* in the contents row the number cell is inline text, so the glyph rides the baseline rather than
+   turning that cell into a flex container (which would move .bk-toc-item's own baseline alignment) */
+.bk-toc-n .bk-glyph{display:inline-block; vertical-align:-2px;}
 
 .bk-toc{
   border:1px solid var(--rule); border-radius:12px; background:var(--card);
@@ -4426,6 +4559,8 @@ body.night .rv-star.on{color:#E6C765;}
 }
 .bk-toc[hidden]{display:none;}   /* the author display beats the UA rule — cf. .ces-imgpanel */
 .bk-toc-part + .bk-toc-part{margin-top:14px; padding-top:12px; border-top:1px solid var(--rule);}
+/* the front matter sits above the volumes and belongs to none of them, so it has no heading of its own */
+.bk-toc-front{margin-bottom:10px;}
 .bk-toc-part h4{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); margin:0 0 8px;}
 .bk-toc-part h4 span{text-transform:none; letter-spacing:.02em; opacity:.8;}
 .bk-toc-list{display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:2px;}
@@ -4464,10 +4599,18 @@ body.night .rv-star.on{color:#E6C765;}
 .bk-rights-note{border-left:2px solid var(--good); padding-left:12px;}
 .bk-rights-src{margin-bottom:0 !important;}
 
-@media (max-width:860px){
-  .book-grid{grid-template-columns:1fr;}
-}
 @media (max-width:640px){
+  /* The banner keeps the full width on a phone; what changes is that the right-hand block comes DOWN
+     onto a line of its own rather than trying to sit beside a title in 330px. Left-aligned there, since
+     a right-aligned column under a left-aligned title reads as two unrelated things. */
+  .bk-tile-body{padding:10px 13px; gap:4px 12px;}
+  .bk-tile-main{flex:1 1 100%;}
+  .bk-tile-foot{flex-direction:row; align-items:center; align-self:stretch; gap:10px; margin-top:3px;}
+  .bk-tile-title{font-size:calc(16.5px * var(--fs));}
+  .bk-tile-when,.bk-tile-sub{font-size:calc(12px * var(--fs));}
+  .bk-tile-meta{font-size:calc(9px * var(--fs));}
+  .bk-tile-new,.bk-tile-resume{font-size:calc(11px * var(--fs));}
+
   /* the top bar is gone on a phone (--bar-h is 0), so the chapter bar pins to the very top */
   .bk-bar{top:4px; border-radius:10px; padding:6px;}
   .bk-tab-t{display:none;}          /* at 390px a title per tab leaves room for two tabs; the numbers scale */

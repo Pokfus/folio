@@ -376,9 +376,13 @@ async function studyEasy(page, base, n) {
        was a gesture whose whole range mapped onto one bit. What is asserted is unchanged — the short state
        must genuinely halve the bar, keep the four grades named to a screen reader, and take the page's
        padding down with it — only the way in is a press. */
+    /* 450ms, not 250: the fold is ANIMATED since Aug 2026 (on request — it was a hard cut), and the
+       bar's height is part of what moves. Reading it before GB_FOLD_MS has elapsed measures a height
+       half way between the two states, which fails an assertion about the short one for a reason that
+       has nothing to do with the short one. */
     const fold = () => page.evaluate(async () => {
       document.querySelector(".gb-fold").click();
-      await new Promise((r2) => setTimeout(r2, 250));
+      await new Promise((r2) => setTimeout(r2, 450));
     });
     const foldSeen = await page.evaluate(() => {
       const g = document.querySelector(".gb-fold");
@@ -668,18 +672,29 @@ async function studyEasy(page, base, n) {
     watch(page);
     await page.goto(base + "#settings", { waitUntil: "load" });
     await page.waitForTimeout(1400);
+    /* A SLIDER since Aug 2026, not three buttons on the left (on request). The three sizes are an
+       ordered scale and the control now says so — and it spans the row, which is the visible half of
+       the request and therefore the thing to assert. The value is the INDEX into FONT_SIZES, so the
+       range and the setting cannot drift apart. */
     const pick = await page.evaluate(() => {
       const g = document.querySelector("#fsPick");
-      if (!g) return null;
+      const r0 = document.querySelector("#fsRange");
+      if (!g || !r0) return null;
       const r = g.getBoundingClientRect(), row = g.closest(".set-row").getBoundingClientRect();
-      return { n: g.children.length, on: [...g.children].filter((b) => b.classList.contains("on")).map((b) => b.dataset.fs),
+      const ticks = [...g.querySelectorAll(".fs-tick")];
+      return { range: r0.type, max: +r0.max, val: +r0.value, ticks: ticks.length,
+        on: ticks.filter((t) => t.classList.contains("on")).map((t) => t.dataset.fs),
+        vt: r0.getAttribute("aria-valuetext"),
         fs: document.body.dataset.fs, fits: r.right <= row.right + 1,
-        clipped: [...g.children].some((b) => b.scrollWidth > b.clientWidth + 1) };
+        // the point of the change: it fills the row rather than sitting in the left third of it
+        wide: r.width >= row.width - 2 };
     });
-    check("Settings offers a text size", !!pick && pick.n === 3, JSON.stringify(pick));
-    check("...with exactly one marked, matching the setting in force",
+    check("Settings offers a text size", !!pick && pick.range === "range" && pick.max === 2 && pick.ticks === 3, JSON.stringify(pick));
+    check("...as a slider spanning the whole row, not three buttons on the left", !!pick && pick.wide, JSON.stringify(pick));
+    check("...with exactly one mark lit, matching the setting in force",
       !!pick && pick.on.length === 1 && pick.on[0] === pick.fs, JSON.stringify(pick));
-    check("...and no cell of it clipped or overflowing its row", !!pick && pick.fits && !pick.clipped, JSON.stringify(pick));
+    check("...and announcing which size it is on", !!pick && (pick.vt || "").toLowerCase() === pick.fs, JSON.stringify(pick));
+    check("...without overflowing its row", !!pick && pick.fits, JSON.stringify(pick));
     const sizes = async () => {
       await page.goto(base + "#home", { waitUntil: "load" });
       await page.waitForTimeout(1200);
@@ -700,7 +715,12 @@ async function studyEasy(page, base, n) {
     const setFs = async (v) => {
       await page.goto(base + "#settings", { waitUntil: "load" });
       await page.waitForTimeout(1100);
-      await page.evaluate((f) => { const b = document.querySelector('#fsPick [data-fs="' + f + '"]'); if (b) b.click(); }, v);
+      // the slider's own event, dispatched by hand: setting .value programmatically fires nothing
+      await page.evaluate((f) => {
+        const r2 = document.querySelector("#fsRange");
+        const i = ["small", "medium", "large"].indexOf(f);
+        if (r2 && i >= 0) { r2.value = String(i); r2.dispatchEvent(new Event("input", { bubbles: true })); }
+      }, v);
       await page.waitForTimeout(250);
     };
     const med = await sizes();
