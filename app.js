@@ -6434,7 +6434,15 @@
       o: { lang: "ar", t: "الحق لا يضاد الحق بل يوافقه ويشهد له.", a: "ابن رشد", s: "فصل المقال" } },
     { t: "The seeker after truth is not one who studies the writings of the ancients and trusts them, but one who questions what he gathers from them.", a: "Ibn al-Haytham", s: "Doubts Concerning Ptolemy, 11th century" },
     { t: "Knowledge without action is madness, and action without knowledge is vanity.", a: "Al-Ghazali", s: "Ayyuha'l-Walad (O Youth)" },
-    { t: "Hearsay does not equal eyesight.", a: "Al-Biruni", s: "Preface to India (Tahqiq ma li-l-Hind), c. 1030" },
+    // Checked against Sachau on both sides — his Arabic edition (London 1887, p. 2) and his own English
+    // of it (Alberuni's India, PREFACE, p. 3). Two things came out of that. The printed translation reads
+    // "hearsay does not equal EYE-WITNESS"; "eyesight", which this line carried, is a paraphrase that
+    // circulates widely and is in neither, so it is corrected here — the pool takes published translations
+    // rather than what the search results say. And the Arabic keeps al-Biruni's own frame: the words are a
+    // standing Arabic proverb, so he writes "the saying of him who said it is true" rather than claiming
+    // the line for himself, which is worth a reader seeing when they flip it.
+    { t: "Hearsay does not equal eye-witness.", a: "Al-Biruni", s: "Preface to India (Tahqiq ma li-l-Hind), c. 1030",
+      o: { lang: "ar", t: "إنما صدق قول القائل ليس الخبر كالعيان.", a: "البيروني", s: "تحقيق ما للهند، المقدمة" } },
     { t: "Untruth naturally afflicts historical information, and there are various reasons that make this unavoidable.", a: "Ibn Khaldun", s: "Muqaddimah I, 1377" },
     { t: "The noblest place in the world is the saddle of a swift horse, and the best companion of all time is a book.", a: "Al-Mutanabbi", s: "Diwan, 10th century",
       o: { lang: "ar", t: "أعزُّ مكانٍ في الدُّنَى سرجُ سابحٍ · وخيرُ جليسٍ في الزمانِ كتابُ", a: "المتنبي", s: "ديوان المتنبي" } },
