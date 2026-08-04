@@ -170,6 +170,120 @@ const BOOKS = {
          here, so neither has a column to sit beside. */
     },
   },
+
+  "marcus-aurelius-meditations": {
+    title: "Meditations",
+    subtitle: "To Himself",
+    author: "Marcus Aurelius",
+    translator: "C. R. Haines",
+    edition: "Loeb Classical Library, 1916",
+    written: "c. 170–180 CE",
+    /* The same two-works question Seneca's entry opens on, and here it resolves more cleanly than it
+       does there. Wikisource carries an explicit split tag on this volume: the ORIGINAL is public
+       domain worldwide (Marcus died in 180), and the TRANSLATION is public domain in the United States
+       as a pre-1929 publication — and Haines died in 1935, so it is out of copyright in life-plus-70
+       countries too, which Gummere's 1917–1925 volumes only reach on the publication-date rule.
+       The modern translations a reader is likeliest to own — Hays (2002), Hammond (2006), Gregory
+       Hays's and Robin Hard's Oxford and Penguin texts — are all firmly in copyright and are named
+       here for the same reason Campbell is named above: so nobody reaches for one later. */
+    rights:
+      "Public domain in the United States: Haines's translation was published in 1916, before 1929, so " +
+      "its copyright has expired. Haines died in 1935, so it is also public domain wherever the term is " +
+      "the author's life plus 90 years or less. (The modern translations by Gregory Hays, 2002, and " +
+      "Martin Hammond, 2006, are still in copyright and are not used here.)",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Marcus_Aurelius_(Haines_1916)",
+
+    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out above.
+       Every claim is the standard account and is deliberately unembroidered. Two places where the
+       popular picture of this book is wrong or contested are said plainly rather than smoothed over:
+       the title is not the author's, and the book was not written to be read by anybody. */
+    about: [
+      "<b>Meditations</b> is a private notebook kept by the Roman emperor Marcus Aurelius during the " +
+        "last decade of his life, while he was on campaign on the northern frontier. It was not written " +
+        "for publication and has no argument to make: it is a man setting down, over and over, the " +
+        "things he wants to remember — that anger is a waste, that fame is nothing, that other people's " +
+        "faults are not worth his temper, that he will shortly be dead and so will everyone annoying " +
+        "him. Much of it is addressed to himself in the second person, which is why the Greek title " +
+        "given it by later editors is simply <i>Ta eis heauton</i>, 'to himself'.",
+      "The name <i>Meditations</i> is not the author's, and neither is any other title: the book carries " +
+        "none in the manuscripts. Marcus Aurelius ruled from 161 to 180 CE, the last of the emperors " +
+        "later called the Five Good Emperors, and spent much of his reign fighting on the Danube and " +
+        "managing a plague that ran through the empire. He had been trained in rhetoric and turned to " +
+        "philosophy in his twenties; he never taught it, published nothing on it, and appears to have " +
+        "shown these notes to no one.",
+      "The twelve books are not a sequence and were not composed as one. Book 1 stands apart from the " +
+        "rest — it is a list of debts, naming each person who taught him something and saying what it " +
+        "was, from his grandfather's good temper to his adoptive father's refusal to be flattered. The " +
+        "remaining eleven are collections of short entries, some a page long and many a single " +
+        "sentence, in no order that anyone has been able to establish. Two of them carry a note of " +
+        "where they were written, among the Quadi and at Carnuntum, which places them on campaign in " +
+        "the 170s.",
+      "Its Stoicism is practical rather than systematic. Marcus took the framework from Epictetus, whose " +
+        "lectures he had read closely and quotes often: that we control our own judgements and nothing " +
+        "else, that everything outside them is indifferent, that the world is a single ordered whole and " +
+        "a person is a part of it with work to do. What he adds is the difficulty of believing it. The " +
+        "same resolutions recur because they kept failing, and the book is at its most striking when the " +
+        "most powerful man alive is telling himself, again, to get out of bed.",
+      "The books are numbered here as they have always been numbered, and the small raised figures " +
+        "running through each one are its section numbers, by which any passage is cited — so an entry " +
+        "referred to elsewhere as 'Meditations 4.17' is book 4, section 17. The numbered notes folded " +
+        "under each book are the translator's own.",
+    ],
+
+    /* One volume, so no `parts`: app.js falls back to a single unlabelled group, which is what a book
+       that its own edition does not divide should show. */
+    chapterWord: "Book",
+    /* The Meditations' twelve books have no titles — the volume's contents page heads them "BOOK I" …
+       "BOOK XII" and gives them no names, so that is what they are called here. Composing titles for
+       them ("On Death", "On Anger") would be inventing an apparatus the book does not have. */
+    titleOf: (n) => "Book " + toRoman(n),
+    /* Haines sets his section numbers as plain text at the head of a paragraph rather than as Gummere's
+       raised bold numeral, so they are found by markLeadingSections after the body is cleaned rather
+       than by the `wst-verse` rewrite inside cleanBody. */
+    sections: "leading",
+    /* The running heads this scan carries above the text: every book is headed with its own numeral,
+       and book 1 additionally carries the volume's half-title. Neither is Marcus's writing. */
+    dropHeads: [/^BOOK\s+[IVXLCDM]+$/i, /^MARCUS\s+AURELIUS\s+ANTONINUS$/i],
+    page: (n) => "Marcus Aurelius (Haines 1916)/Book " + n,
+    /* No contents page is walked: the one this volume has lists the books by numeral only, so there
+       are no titles on it to read, and `titleOf` above supplies the same numerals directly. */
+    chapters: Array.from({ length: 12 }, (_, i) => i + 1),
+
+    /* ---------- NO ORIGINAL-LANGUAGE COLUMN, AND THIS IS A DECISION RATHER THAN AN OMISSION ----------
+       Marcus wrote in Greek, and the Greek is as free of copyright as Seneca's Latin — so the licence
+       question, which is what usually stops a book, is not what stops this one. What stops it is that
+       the two texts cannot be shown to pair.
+
+       app.js sets the original beside the translation by SECTION NUMBER, never by paragraph order,
+       because the numbers are the one thing two editions of an ancient work genuinely share. Latin
+       Wikisource prints Seneca's section numbers in the text, as [1] [2] [3], so the Latin says which
+       section each passage is. Greek Wikisource's `Τα εις εαυτόν` prints NO section numbers at all:
+       each book is one <ol> and the only thing identifying a section is its position in that list.
+       Position is not the same claim as number, and here the difference is real — the Greek edition
+       and Haines divide six of the twelve books differently, so from one splice point onwards the
+       list position runs one ahead of or behind the section it would have to be:
+
+           book  4   Haines 51 sections, the Greek 50, parting at 9
+           book  6   Haines 59, the Greek 58, parting at 54
+           book  7   Haines 75, the Greek 76, parting at 55
+           book  9   Haines 42, the Greek 43, parting at 39
+           book 10   Haines 38, the Greek 39, parting at 33
+           book 12   Haines 36, the Greek 35, parting at 18
+
+       (Measured, not assumed: pairing by position and correlating the two sides' section lengths gives
+       0.98–1.00 on the six books whose counts agree and falls to 0.33–0.71 on these six.)
+
+       The offsets could be guessed at and written down as a table of corrections. They are not, because
+       a guess that is wrong is not a missing feature but a lying one: the reader would be shown one
+       passage of Greek beside a different passage of English, with nothing on the page to say so, which
+       is the failure this whole design was built to avoid. The Loeb's own facing Greek would settle it
+       exactly — it is the same edition, so its divisions are Haines's by construction — but those pages
+       are not transcribed on Wikisource (the even-numbered scans are marked as not needing proofreading,
+       and carry no text). If they are ever transcribed, or a numbered Greek edition turns up, this is a
+       few lines of `original: {...}` and a refetch. Until then the book ships in English alone, and
+       app.js shows no original-language control for a book with no `origLang`. */
+  },
 };
 
 /* ---------- args ---------- */
@@ -275,7 +389,44 @@ function stripTags(b) {
   return out.join("");
 }
 
-function cleanBody(h, noteIds) {
+/* The SECOND way a printed edition marks its section numbers, and it needs its own pass.
+
+   Gummere's Loeb sets them as a raised bold numeral, which arrives as its own `wst-verse` element and
+   is converted inside cleanBody below — the number is already fenced off in markup of its own, so it
+   can simply be rewritten. Haines's Loeb sets them as plain text at the head of the paragraph ("1. Say
+   to thyself at daybreak"), which is indistinguishable in the markup from any other sentence opening
+   on a figure. So this runs LAST, over the cleaned text, where the paragraph boundaries are finally
+   `<p>` and nothing else, and it is guarded the way the Latin's bracketed numbers are: a number is a
+   section only when it moves the sequence FORWARD, by a step or a few. A year, a cross-reference or a
+   quoted line beginning on a numeral goes backwards or leaps, and is left as the text it is.
+
+   Two forms, and the second is the whole reason this is a function rather than one regex.
+   · At the head of a paragraph, optionally after a `<br>` — Book 1's opening section is set under the
+     title block and reaches here as `<p><br>\n1. From my Grandfather Verus`, so a rule anchored hard
+     to `<p>` finds every section in the work except the very first one a reader meets.
+   · MID-PARAGRAPH, in round brackets. There is exactly ONE in the whole of the Meditations — Book 12
+     `(15.)` — because Haines runs that section on rather than breaking it out, while keeping the
+     traditional number so the passage can still be cited. It is kept for that reason: these markers
+     are the citation apparatus, and dropping it would leave book 12 numbered 14, 16, 17. */
+function markLeadingSections(b, warn) {
+  let seq = 0, found = 0;
+  /* ONE pass over both forms, in document order, and that matters: run as two passes the paragraph
+     rule reaches the end of the book and leaves `seq` at the last section, after which the
+     forward-only guard rejects every parenthesised number as going backwards — so book 12's (15.)
+     was silently declined and the book shipped numbered 14, 16, 17. The sequence has to advance in
+     READING order, which means the alternatives have to be matched in one sweep. */
+  b = b.replace(/<p>(\s*(?:<br>\s*)?)(\d{1,3})\.\s+|\((\d{1,3})\.\)\s*/g, (m, lead, d, paren) => {
+    const v = +(d === undefined ? paren : d);
+    if (v <= seq || v > seq + 6) return m;
+    seq = v; found++;
+    const mark = '<span class="bk-n">' + v + "</span> ";
+    return d === undefined ? mark : "<p>" + lead + mark;
+  });
+  if (!found && warn) warn("no section numbers found — the chapter will pair as one whole block");
+  return b;
+}
+
+function cleanBody(h, noteIds, book, warn) {
   let b = h.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<!--[\s\S]*?-->/g, "");
   const i = b.indexOf('<div class="prp-pages-output"');
   if (i < 0) throw new Error("no body");
@@ -288,7 +439,16 @@ function cleanBody(h, noteIds) {
      moved under us once already, so this is asserted rather than assumed: whether the wrapper's closer
      falls inside the slice is a property of THEIR page, not of ours. */
   b = b.replace(/^<div class="prp-pages-output"[^>]*>/, "");
-  b = b.split(/<div class="reflist"|<hr class="wst-rule"/)[0];
+  /* Cut the note list off the end of the prose. THE CLASS IS A PREFIX, NOT THE WHOLE ATTRIBUTE, and
+     that was a real fault: this used to match `<div class="reflist"` with the closing quote, which is
+     exactly what Seneca's pages carry — and Haines's carry `<div class="reflist wst-smallrefs">`, so
+     the split never fired and every one of the twelve books came through with its entire footnote
+     apparatus appended to the text as prose. It is the fifth extraction fault of the same family and
+     the same shape as the other four: nothing throws, the chapter is LONGER rather than shorter, the
+     note count is right, and only a reader scrolling to the foot of a book meets a wall of "↑ cp.
+     Epict. i. 2" where the last section should be. The Footnotes heading is taken as a boundary too —
+     MediaWiki emits it whatever the reflist is dressed as, so the two guards fail independently. */
+  b = b.split(/<div class="reflist|<hr class="wst-rule"|<div class="mw-heading[^"]*"><h2 id="Footnotes"/)[0];
   b = b.replace(/<span><span class="pagenum[\s\S]*?<\/span><\/span>/g, "");
   b = b.replace(/<span class="pagenum[\s\S]*?<\/span>/g, "");
   b = b.replace(/<link[^>]*\/?>/g, "");
@@ -334,6 +494,28 @@ function cleanBody(h, noteIds) {
     b = b.replace(/<blockquote>\s*(<blockquote>[\s\S]*?<\/blockquote>)\s*<\/blockquote>/g, "$1");
   }
   b = b.replace(/\s+<\/p>/g, "</p>").replace(/<p>\s+/g, "<p>").replace(/\n{2,}/g, "\n").trim();
+  /* THE SCAN'S OWN RUNNING HEAD, which is not part of the text and must not be read as part of it.
+     Seneca's is handled above, where it arrives as a centred div holding a bare Roman numeral. Haines's
+     survives that rule — his heads are "BOOK IV" and, on the first page, the volume's half-title
+     "MARCUS AURELIUS ANTONINUS" — and by this point every centred div has become a <blockquote>, so a
+     head left in place renders as a QUOTATION at the top of the chapter: the words "BOOK IV", indented
+     behind a rule and set in italic, directly beneath a tab and a heading already reading Book IV.
+     Matched on the block's TEXT rather than on the markup it arrived in, anchored to the start so only
+     a head can go, and declared per book — a phrase worth deleting in one edition is ordinary prose in
+     another. The loop is for the first chapter, which carries two of them. */
+  if (book && book.dropHeads) {
+    for (let k = 0; k < 4; k++) {
+      const before = b;
+      b = b.replace(/^<blockquote>\s*<p>([\s\S]*?)<\/p>\s*<\/blockquote>\s*/, (m, inner) => {
+        const t = inner.replace(/<[^>]*>/g, " ").replace(/&#\d+;|&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+        return book.dropHeads.some((rx) => rx.test(t)) ? "" : m;
+      });
+      if (b === before) break;
+    }
+    // the line break the head used to sit above, now opening the first paragraph on a blank line
+    b = b.replace(/^<p>\s*(?:<br>\s*)+/, "<p>");
+  }
+  if (book && book.sections === "leading") b = markLeadingSections(b, warn);
   return b;
 }
 
@@ -398,6 +580,11 @@ function notesOf(h) {
    The row is the structure the page actually means, and it is also the more robust reading: it needs
    the numeral's href alone, and survives the title link being wrong, absent or pointed anywhere. */
 async function chapterTitles() {
+  /* A book need not have chapter titles at all, and the Meditations does not: its twelve books are
+     headed "BOOK I" … "BOOK XII" on its own contents page and nowhere given names. `titleOf` is how
+     such a book says so, and it is deliberately the book's own numbering rather than an invented
+     name — a title here is transcribed, never composed. */
+  if (!BOOK.indexPage) return {};
   const h = await api(BOOK.indexPage);
   const txt = h.replace(/<style[\s\S]*?<\/style>/g, "");
   const d = {};
@@ -439,7 +626,17 @@ function titleCase(s) {
 
    What the two DO share is the section number, and that is the one thing this must get right, because
    app.js pairs the columns on it. */
+/* Roman numerals both ways. `roman` READS one, for the Latin wiki's letter headings; `toRoman` WRITES
+   one, for a book whose own contents page numbers its chapters that way and titles them no other way.
+   A function declaration, so the BOOKS table at the top of the file may call it from a `titleOf`. */
 const ROMAN = { I: 1, V: 5, X: 10, L: 50, C: 100, D: 500, M: 1000 };
+function toRoman(n) {
+  const t = [[1000, "M"], [900, "CM"], [500, "D"], [400, "CD"], [100, "C"], [90, "XC"],
+             [50, "L"], [40, "XL"], [10, "X"], [9, "IX"], [5, "V"], [4, "IV"], [1, "I"]];
+  let out = "";
+  for (const [v, s] of t) while (n >= v) { out += s; n -= v; }
+  return out;
+}
 function roman(s) {
   let n = 0;
   for (let i = 0; i < s.length; i++) {
@@ -538,10 +735,15 @@ function partOf(n) {
   const p = (BOOK.parts || []).find((x) => n >= x.from && n <= x.to);
   return p ? p.n : 1;
 }
+// what a chapter is called when the book's contents page gives it no name of its own
+function chapterTitle(n) {
+  return BOOK.titleOf ? BOOK.titleOf(n) : BOOK.chapterWord + " " + n;
+}
 
 async function fetchEnglish() {
   console.log("Fetching " + BOOK.title + " (" + BOOK.translator + ") — chapters " + FROM + "–" + TO);
   const titles = await chapterTitles();
+  const warnings = [];
   const chapters = [];
   for (const n of BOOK.chapters) {
     if (n < FROM || n > TO) continue;
@@ -550,14 +752,14 @@ async function fetchEnglish() {
       // the cache holds the extracted prose only — the title and the part are re-derived on every
       // run, so re-titling or re-dividing a book costs no refetch
       const c = JSON.parse(fs.readFileSync(cf, "utf8"));
-      chapters.push({ n, t: titles[n] || c.t || BOOK.chapterWord + " " + n, p: partOf(n), html: c.html, notes: c.notes || [] });
+      chapters.push({ n, t: titles[n] || c.t || chapterTitle(n), p: partOf(n), html: c.html, notes: c.notes || [] });
       continue;
     }
     const h = await api(BOOK.page(n));
     const { notes, ids } = notesOf(h);
-    const html = cleanBody(h, ids);
+    const html = cleanBody(h, ids, BOOK, (m) => warnings.push(BOOK.chapterWord + " " + n + ": " + m));
     if (html.length < 200) throw new Error("chapter " + n + " came back short (" + html.length + " chars)");
-    const rec = { n, t: titles[n] || BOOK.chapterWord + " " + n, p: partOf(n), html, notes };
+    const rec = { n, t: titles[n] || chapterTitle(n), p: partOf(n), html, notes };
     fs.writeFileSync(cf, JSON.stringify(rec));
     chapters.push(rec);
     console.log("  " + BOOK.chapterWord + " " + n + " — " + rec.t + " (" + html.length + " chars, " + notes.length + " notes)");
@@ -608,6 +810,16 @@ async function fetchEnglish() {
     (text.length / 1024).toFixed(0) + " KB, " +
     got.chapters.reduce((a, c) => a + (c.notes ? c.notes.length : 0), 0) + " notes. Re-parsed OK."
   );
+  /* Say what the extractor was unsure of. A chapter that comes through with no section numbers is the
+     quietest failure this script has: it does not throw, it does not shorten the text and it does not
+     look wrong on the page — it simply leaves that chapter with nothing to cite and nothing to pair. */
+  if (warnings.length) {
+    console.log("\n  " + warnings.length + " warning(s):");
+    warnings.forEach((w) => console.log("    " + w));
+  }
+  const secs = got.chapters.map((c) => (c.html.match(/class="bk-n"/g) || []).length);
+  console.log("  " + secs.reduce((a, b) => a + b, 0) + " section numbers across " + secs.length + " chapters" +
+    (secs.some((s) => !s) ? "  — " + secs.filter((s) => !s).length + " chapter(s) with NONE" : ""));
 }
 
 /* The original-language half, written to its OWN file — books/<id>.<lang>.js, its own lazy bundle.

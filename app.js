@@ -4460,6 +4460,39 @@
         { n: 3, label: "Volume III", note: "Letters 93–124" },
       ],
     },
+    {
+      id: "marcus-aurelius-meditations",
+      title: "Meditations",
+      subtitle: "To Himself",
+      author: "Marcus Aurelius",
+      written: "c. 170–180 CE",
+      year: 170,
+      translator: "C. R. Haines",
+      edition: "Loeb Classical Library, 1916",
+      rights:
+        "Public domain in the United States: Haines's translation was published in 1916 — before 1929 — " +
+        "so its copyright has expired. Haines died in 1935, so it is also public domain wherever the term " +
+        "is the author's life plus 90 years or less. The modern translations by Gregory Hays (2002) and " +
+        "Martin Hammond (2006) are still in copyright and are deliberately not used here.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Marcus_Aurelius_(Haines_1916)",
+      /* NO `origLang`, and deliberately: Marcus wrote in Greek and the Greek is as free as Seneca's
+         Latin, but Greek Wikisource prints no section numbers — each book is one list, and list
+         position is not the same claim as a section number. The two editions divide six of the twelve
+         books differently, so from one splice point onwards the position runs one out from the section
+         it would have to be. Rather than guess the offsets and risk setting one passage beside another
+         with nothing on the page to say so, the book ships in English alone; a book with no `origLang`
+         shows no original-language control at all. The reasoning, the measurements and what would
+         settle it are in .claude/fetch-book.js. */
+      color: "#2F7D6E",
+      chapterWord: "Book",
+      // the whole work — twelve books is all there is of it, so `count` and `total` agree and will stay
+      // agreed; unlike Seneca, this one did not arrive in instalments
+      count: 12,
+      total: 12,
+      /* No `parts`: one Loeb volume, and its own edition divides it no further. app.js falls back to a
+         single unlabelled group, which is the honest rendering of a book with no volumes. */
+    },
   ];
   const BOOK_BY_ID = {};
   BOOKS.forEach((b) => (BOOK_BY_ID[b.id] = b));
