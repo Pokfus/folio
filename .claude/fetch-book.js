@@ -37,7 +37,22 @@ const UA = "FolioStudySite/1.0 (public-domain text import; https://github.com/po
 
 /* ---------- the books this script knows how to fetch ----------
    `source` is a Wikisource page-title pattern; `chapters` the numbers to walk. Adding a book
-   means adding an entry here — the extractor below is generic over Wikisource's page layout. */
+   means adding an entry here — the extractor below is generic over Wikisource's ORDINARY page
+   layout, a transcluded scan of a single column of prose. A book whose pages are laid out some
+   other way declares `layout`, and there is one such: see "parallel" on the Art of War below. */
+
+/* The Art of War's thirteen chapter titles, TRANSCRIBED from the contents page of Giles's own
+   edition, where they read "Section I: Laying Plans" and so on. They are a table here rather than a
+   walk of that page because `chapterTitles()` below reads Seneca's contents table specifically — it
+   keys on a /Letter_<digits> href, and this book's contents link to /Section_<Roman numeral>. Thirteen
+   transcribed strings are cheaper and easier to check than a second parser, and the house rule is the
+   same either way: a title is transcribed, never composed. */
+const AOW_TITLES = [
+  "Laying Plans", "Waging War", "Attack by Stratagem", "Tactical Dispositions", "Energy",
+  "Weak Points and Strong", "Manœuvring", "Variation of Tactics", "The Army on the March",
+  "Terrain", "The Nine Situations", "The Attack by Fire", "The Use of Spies",
+];
+
 const BOOKS = {
   "seneca-letters": {
     title: "Letters from a Stoic",
@@ -283,6 +298,141 @@ const BOOKS = {
        and carry no text). If they are ever transcribed, or a numbered Greek edition turns up, this is a
        few lines of `original: {...}` and a refetch. Until then the book ships in English alone, and
        app.js shows no original-language control for a book with no `origLang`. */
+  },
+
+  "sun-tzu-art-of-war": {
+    title: "The Art of War",
+    subtitle: "The Oldest Military Treatise in the World",
+    author: "Sun Tzu",
+    translator: "Lionel Giles",
+    edition: "Luzac & Co., London, 1910",
+    written: "c. 5th century BCE",
+
+    /* ---------- THE LICENCE, and this is the first book here that has to state a LIMIT ----------
+       Seneca and the Meditations both clear the bar twice over: their translators died in 1942 and
+       1935, so those texts are out of copyright on the publication rule AND on the life-plus-seventy
+       rule most of Europe uses. Giles clears it once. He published in 1910, comfortably before 1929,
+       so the translation is public domain in the United States on exactly the same ground as the
+       other two — but he lived until 1958, so where the term runs for the author's life plus seventy
+       years the translation stays in copyright until the first day of 2029.
+
+       That is said outright in `rights` below, which the book's own front matter prints, rather than
+       being smoothed into the same sentence the other two books use. The site's stated bar is that
+       the copyright has expired, and the ground the other two are served on is US publication before
+       1929; this meets that bar on that ground, and the reader is told where it does not reach
+       further. The Chinese underneath is some twenty-five centuries old and free everywhere, which is
+       the one half of this that needs no argument at all.
+
+       The modern translations a reader is likeliest to own — Samuel B. Griffith's of 1963 and Roger
+       Ames's of 1993 — are firmly in copyright, and are named here for the reason Campbell and Hays
+       are named above: so that nobody reaches for one later. */
+    rights:
+      "Public domain in the United States: Giles's translation was published in 1910 — before 1929 — " +
+      "so its copyright has expired there. Giles died in 1958, so where the term is the author's life " +
+      "plus seventy years this translation remains in copyright until 2029; the Chinese text it is " +
+      "printed beside is roughly twenty-five centuries old and is in the public domain everywhere. " +
+      "(The modern translations by Samuel B. Griffith, 1963, and Roger Ames, 1993, are still in " +
+      "copyright and are not used here.)",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/The_Art_of_War_(Sun)",
+
+    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out above.
+       Two things the popular picture of this book gets wrong are stated plainly rather than smoothed
+       over: nobody knows who wrote it or when, and Giles is not a neutral narrator. */
+    about: [
+      "<b>The Art of War</b> is a treatise on the conduct of war in thirteen short chapters, which " +
+        "the title page of this edition calls 'the oldest military treatise in the world'. It is " +
+        "attributed to Sun Tzŭ, 'Master Sun', and it has far less to say about battle than its name " +
+        "suggests. Its subject is everything standing around a battle: the calculations made before a " +
+        "campaign is begun, what it costs to keep an army in the field, ground, weather, morale, " +
+        "deception, the management of spies, and the reading of an opponent's mind. Its most quoted " +
+        "claim is that the highest skill is to break an enemy's resistance without fighting at all.",
+      "Who wrote it, and when, is not settled. The traditional account makes Sun Tzŭ a general named " +
+        "Sun Wu who served the king of Wu at the end of the 6th century BCE, and that account is " +
+        "given by the historian Sima Qian some four hundred years after the events it describes. Many " +
+        "modern scholars place the text as it has come down to us considerably later, in the Warring " +
+        "States period, and read it as the work of a school or of several successive hands rather " +
+        "than of one man on one occasion. The two views are not wholly exclusive, and the argument " +
+        "has not ended.",
+      "It has been read and annotated without a break for two thousand years. The earliest commentary " +
+        "to survive is by Ts‘ao Kung — the general and statesman Cao Cao, who died in 220 CE — and " +
+        "others accumulated around the text after him, of whom the ones quoted most often here are Tu " +
+        "Mu, Chang Yü, Li Ch‘üan and Wang Hsi. In the 11th century the book was placed at the head of " +
+        "the Seven Military Classics, the canon set for China's military examinations. In 1972 bamboo " +
+        "slips from Han tombs at Yinqueshan, in Shandong, produced a copy far older than any then " +
+        "known, along with a separate treatise by Sun Bin — which settled a long argument about " +
+        "whether the two Suns were one man.",
+      "Lionel Giles was an assistant in the Department of Oriental Printed Books and Manuscripts at " +
+        "the British Museum, and this is his edition of 1910. It prints the Chinese text, his " +
+        "translation of it, and a running commentary several times the length of the text itself, " +
+        "drawing on the Chinese commentators, on the histories, and on European military writing. It " +
+        "is also, in places, an argument: Giles thought the English version published a few years " +
+        "earlier by Captain E. F. Calthrop very bad indeed, and says so on almost every page. Expect " +
+        "a translator with opinions, and read the notes as one man's case rather than as a verdict.",
+      "The chapters are numbered here as they have always been numbered, and the small raised figures " +
+        "running through each one are the section numbers by which any passage is cited — so a line " +
+        "referred to elsewhere as 'Sun Tzŭ III. 18' is chapter 3, section 18. The numbered notes " +
+        "folded under each chapter are Giles's own commentary, which the printed edition sets in " +
+        "small type beneath the sentence it belongs to. The Chinese that he printed beside his " +
+        "translation can be shown alongside it here, paired against the same section numbers.",
+    ],
+
+    chapterWord: "Chapter",
+    /* Transcribed from the edition's own contents page — see AOW_TITLES above. */
+    titleOf: (n) => AOW_TITLES[n - 1] || "Chapter " + n,
+
+    /* ---------- THE PARALLEL LAYOUT ----------
+       Seneca's and Marcus's pages are one column of prose, and nearly everything in cleanBody is the
+       work of undoing a transcluded scan of one. This edition's pages are a PARALLEL TEXT: each
+       printed page is transcribed as a two-cell table, the Chinese on the left and Giles's English on
+       the right, and a chapter is a run of seven to thirty-three of them. Pointed at that, the
+       ordinary extractor does not merely do a worse job — it fails, and in the worse case it would
+       fail SILENTLY. `prp-pages-output` on these pages wraps only the footnote list at the foot, so
+       slicing from it yields the notes and none of the text; and the two columns, both being table
+       cells that the tag stripper unwraps, would come through INTERLEAVED — a line of classical
+       Chinese, a line of English, all the way down, with nothing throwing to say so.
+
+       So `layout: "parallel"` selects a second extractor, and it does three things the first cannot.
+       It splits the cells and keeps the two columns apart. It lifts Giles's running commentary out of
+       the English column into the book's own notes. And it reads the Chinese column's section
+       numbers, which is what lets this book have an original at all — see `original` below. */
+    layout: "parallel",
+    page: (n) => "The Art of War (Sun)/Section " + toRoman(n),
+    chapters: Array.from({ length: 13 }, (_, i) => i + 1),
+
+    /* ---------- THE ORIGINAL, AND WHY THIS ONE PAIRS WHERE THE MEDITATIONS COULD NOT ----------
+       The long note at the foot of the Meditations entry sets out the rule: app.js sets the two texts
+       side by side on their SECTION NUMBERS and never on paragraph order, so an original may ship
+       only where it says which section each passage is. Greek Wikisource prints the Meditations as an
+       unnumbered list, position is not the same claim as a number, and that book therefore ships in
+       English alone. That note ends by saying the Loeb's own facing Greek would settle it exactly,
+       since it is the same edition and its divisions are the translator's by construction — and that
+       those pages are not transcribed.
+
+       Here they are. This Chinese is not another edition on another wiki: it is the text Giles
+       printed on the facing half of his own page, transcribed in the same table, and the numbering is
+       his. The first item of each printed page's list carries an explicit `value` and the rest run on
+       from it, so the numbers are STATED by the edition rather than counted off a list, and they are
+       the English side's numbers by construction.
+
+       Measured before it was believed, across all thirteen chapters: 385 sections, with the two
+       columns agreeing exactly — same count, same maximum, no number present on one side and missing
+       from the other, and no duplicates. That is why there is no table of corrections here and no
+       hedging in the front matter: there was nothing to correct.
+
+       It has no `wiki` or `pages` of its own, unlike Seneca's Latin, because there is nowhere else to
+       go: both columns come off the pages already being fetched, and fetchOriginal reads them out of
+       the same cache rather than asking Wikisource for them a second time. */
+    original: {
+      lang: "zh",
+      langName: "Chinese",
+      edition: "The Chinese text as printed in Giles's edition, Luzac & Co., London, 1910",
+      rights:
+        "Public domain worldwide: the Chinese text is roughly twenty-five centuries old, and this is " +
+        "a transcription of it as printed in Giles's edition of 1910.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Art_of_War_(Sun)",
+    },
   },
 };
 
@@ -566,6 +716,284 @@ function notesOf(h) {
   return { notes, ids };
 }
 
+/* ============================================================
+   THE PARALLEL-TEXT LAYOUT   (a book declaring layout: "parallel")
+   ============================================================
+   Giles's Art of War is transcribed one PRINTED PAGE per table, two cells wide: the Chinese on the
+   left, his English on the right. A chapter is a run of seven to thirty-three of those tables, and
+   everything below exists because the single-column extractor above cannot read them — see the long
+   note on `layout` in the BOOKS entry for what it does instead, which is worse than throwing.
+
+   These functions share stripTags and stripWikiCSS with the main extractor and deliberately do NOT
+   reuse cleanBody itself. cleanBody is a delicate sequence tuned against two books that are guarded
+   by test-library.js, and half of it (the prp-pages-output slice, the reflist split, Gummere's verse
+   numbers, Seneca's salutation) is meaningless here while the half that matters is a dozen lines. A
+   third book's worth of conditionals threaded through it would put the two shipped books at risk to
+   save that dozen; the duplication is the cheaper and the safer of the two. */
+
+/* The matching close for the element opening at `i`. The commentary blocks nest a size-block inside a
+   size-block, so a non-greedy regex stops at the inner closer and takes half the note. */
+function blockEnd(s, i, tag) {
+  const rx = new RegExp("<\\/?" + tag + "\\b[^>]*>", "g");
+  rx.lastIndex = i;
+  let depth = 0, m;
+  while ((m = rx.exec(s))) {
+    if (m[0][1] === "/") { depth--; if (depth === 0) return rx.lastIndex; }
+    else depth++;
+  }
+  return -1;
+}
+
+/* One page's tables, split into the two columns. The body is everything before the footnote list —
+   which on these pages is the ONLY thing inside prp-pages-output, so the slice the main extractor
+   opens with would return exactly the part of the page that is not the book. */
+function parallelCells(h) {
+  const body = h.split(/<div class="reflist|<div class="mw-heading[^"]*"><h2 id="Footnotes"/)[0];
+  const tables = body.match(/<table[^>]*class="wst-translation-table"[\s\S]*?<\/table>/g) || [];
+  const out = { orig: [], en: [] };
+  for (const t of tables) {
+    const cs = [];
+    const rx = /<td[^>]*>([\s\S]*?)<\/td>/g;
+    let m;
+    while ((m = rx.exec(t))) cs.push(m[1]);
+    if (cs.length < 2) continue;
+    out.orig.push(cs[0]);
+    out.en.push(cs[1]);
+  }
+  return out;
+}
+
+/* The chapter's own head — "I. Laying Plans." on the English side, "I. 計篇." on the Chinese — which
+   is the first thing in the first cell and is a real part of the page rather than a running head.
+   It is KEPT, as the leading unnumbered line of the chapter, for a reason that is not decoration:
+   twelve of the thirteen chapters open with a note of Giles's ON THE TITLE ("The heading means
+   literally 'The Nine Variations', but as Sun Tzŭ does not appear to enumerate these…"), and with the
+   head dropped those notes would have to be hung on section 1, which is a different claim about a
+   different sentence. Kept, each sits where the printed page puts it. The two heads also pair across
+   the columns, so a bilingual reader gets the Chinese chapter title beside the English one. */
+function takeHead(cell) {
+  const i = cell.search(/<div class="wst-center/);
+  if (i < 0) return { head: "", rest: cell };
+  const e = blockEnd(cell, i, "div");
+  if (e < 0) return { head: "", rest: cell };
+  const head = cell.slice(i, e).replace(/<[^>]*>/g, " ").replace(/&#160;|&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+  return { head, rest: cell.slice(0, i) + cell.slice(e) };
+}
+
+/* MediaWiki wraps a paragraph in <p> only where the wikitext put a blank line before it, so a
+   sentence that merely follows a commentary block — or follows another sentence on the same printed
+   page — arrives as a BARE TEXT RUN at the top level of the cell. 138 of this book's 163 English
+   cells open on one, and fourteen section numbers sit in one mid-cell.
+
+   markGilesSections anchors on <p>, exactly as the main extractor's equivalent does, so a number in a
+   bare run is invisible to it — and the failure is the quiet kind this file keeps meeting. Nothing
+   throws, the chapter is the right length and the prose is complete; the section simply drops out of
+   the numbering, its sentence is swallowed into the section above it, and the Chinese line it should
+   have paired with is left facing nothing. It was found by counting the two columns against each
+   other, which is the only check that can see it. Every bare run at the top level of a cell is
+   therefore wrapped in the paragraph it plainly already is. */
+function wrapBareRuns(cell) {
+  const wrap = (s) => (/\S/.test(s.replace(/<[^>]*>/g, "")) ? "<p>" + s.trim() + "</p>\n" : s);
+  const openRx = /<(p|div|ol|ul|table|blockquote)\b[^>]*>/g;
+  let out = "", i = 0;
+  for (;;) {
+    openRx.lastIndex = i;
+    const m = openRx.exec(cell);
+    if (!m) { out += wrap(cell.slice(i)); break; }
+    out += wrap(cell.slice(i, m.index));
+    const e = blockEnd(cell, m.index, m[1]);
+    if (e < 0) { out += cell.slice(m.index); break; }
+    out += cell.slice(m.index, e);
+    i = e;
+  }
+  return out;
+}
+
+/* One commentary block, reduced to the text of a note.
+
+   Giles's own footnotes — twenty in the book, and every one of them inside a commentary block rather
+   than on Sun Tzŭ's text — are spliced in here, AT THE POINT THEY WERE CITED, in square brackets. A
+   note cannot contain a note: the apparatus numbers markers against one flat list per chapter, so a
+   marker inside a note would either point into that list at random or be deleted by wireFootnotes as
+   running past its end. Splicing keeps the wording, keeps the position, and the brackets say plainly
+   that the join was made here rather than by Giles. */
+function commentaryNote(block, refs, refIds) {
+  let s = stripWikiCSS(block);
+  s = s.replace(/<sup id="cite[^"]*" class="reference">\s*<a href="#([^"]*)"[\s\S]*?<\/sup>/g, (m, tgt) => {
+    const i = refIds ? refIds.indexOf(tgt.replace(/&#95;/g, "_")) : -1;
+    return i < 0 || !refs[i] ? "" : " [" + refs[i] + "]";
+  });
+  return s
+    /* a space where the block's own paragraphs met, or two sentences are welded into one word */
+    .replace(/<\/p>/g, "</p> ")
+    .replace(/<(?!\/?(i|b|em|strong)\b)[^>]*>/g, "")
+    .replace(/&#160;|&nbsp;/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/* Giles's running commentary → the book's notes.
+
+   This edition is a text WITH a commentary, and the proportions are the whole argument: Sun Tzŭ's
+   thirteen chapters run to some six thousand words and Giles's notes on them to roughly ten times
+   that, set in small type beneath the sentence each belongs to. Folio already has the apparatus for
+   exactly this — the numbered fold under a chapter that carries Gummere's and Haines's translators'
+   notes — so the commentary is lifted into it rather than left in the flow. Nothing is dropped and
+   nothing is invented: one block becomes one note, anchored by a marker at the point the printed page
+   anchors it.
+
+   Leaving it inline was the alternative and it loses twice. It buries the text a reader opened the
+   book for under ten times its own length of philology and textual argument; and it would make the
+   bilingual page useless, setting a line of classical Chinese beside a page of discussion about it,
+   since the columns pair by section and one side would be twenty times the height of the other. */
+function extractCommentary(en, refs, refIds) {
+  const notes = [];
+  let out = "", pos = 0;
+  const open = /<div class="wst-size-block wst-smaller/g;
+  let m;
+  while ((m = open.exec(en))) {
+    const end = blockEnd(en, m.index, "div");
+    if (end < 0) break;
+    out += en.slice(pos, m.index);
+    notes.push(commentaryNote(en.slice(m.index, end), refs, refIds));
+    out += '<sup class="fn" data-fn="' + notes.length + '"></sup>';
+    pos = end;
+    open.lastIndex = end;
+  }
+  out += en.slice(pos);
+  return { html: out, notes };
+}
+
+/* Giles's section numbers, and the one shape of them no other book here has.
+
+   He sets them as plain text at the head of a sentence, as Haines does, so the same forward-only
+   guard applies: a number is a section only where it moves the sequence on by a step or a few, and
+   anything else — a date, a cross-reference, a quoted line opening on a figure — is left as the text
+   it is. What is new is that he sometimes renders two of Sun Tzŭ's sentences as one and heads the
+   result with BOTH numbers: "5, 6." in chapter 1 and "13, 14." in chapter 2, twice in 385 sections.
+
+   The label is kept exactly as printed, so the citation a reader copies is the one the edition gives.
+   app.js pairs on the first number it can parse out of the marker, and the SAME label is put on the
+   matching run of Chinese lines by the caller, so the two columns still agree section for section
+   rather than one of them carrying an orphan row. That is why this returns the groups it found. */
+function markGilesSections(b, warn) {
+  let seq = 0;
+  const groups = [];
+  b = b.replace(/<p>(\s*(?:<br>\s*)?)((?:\d{1,3}\s*,\s*)*\d{1,3})\.\s+/g, (m, lead, label) => {
+    const nums = label.split(",").map((x) => +x.trim());
+    if (nums[0] <= seq || nums[0] > seq + 6) return m;
+    // a combined head is a RUN — "5, 6", never "5, 9" — or it is not one label for one passage
+    if (nums.some((v, i) => i && v !== nums[i - 1] + 1)) return m;
+    seq = nums[nums.length - 1];
+    groups.push(nums);
+    return "<p>" + lead + '<span class="bk-n">' + nums.join(", ") + "</span> ";
+  });
+  if (!groups.length && warn) warn("no section numbers found — the chapter will pair as one whole block");
+  return { html: b, groups };
+}
+
+/* The Chinese column, grouped to the English column's own sections.
+
+   The numbering is read off the list rather than counted: the first item of each printed page's list
+   carries an explicit `value` and the rest run on from it, so what is recorded here is the edition's
+   statement about its own text. An item MediaWiki emits empty is the continuation of the one before
+   it across a page break — it is skipped, and the explicit `value` that follows re-anchors the count
+   in any case.
+
+   The grouping then follows `groups` from the English side, so that where Giles heads one sentence
+   "5, 6." both Chinese lines sit in one row under the same label instead of the second becoming a row
+   with an empty English cell. */
+function parallelOriginalHtml(cells, groups, head, warn) {
+  const lines = {};
+  let cur = 0;
+  for (const cell of cells) {
+    const rx = /<li([^>]*)>([\s\S]*?)<\/li>/g;
+    let m;
+    while ((m = rx.exec(cell))) {
+      const v = (m[1] || "").match(/value="(\d+)"/);
+      if (v) cur = +v[1]; else cur++;
+      const inner = stripWikiCSS(m[2] || "")
+        .replace(/<(?!\/?(i|b|em|strong)\b)[^>]*>/g, "")
+        .replace(/&#160;|&nbsp;/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+      if (!inner) continue;
+      lines[cur] = lines[cur] ? lines[cur] + " " + inner : inner;
+    }
+  }
+  const nums = Object.keys(lines).map(Number).sort((a, b) => a - b);
+  /* The pairing rests on these numbers, so the two things that would quietly break it are asserted
+     rather than hoped for: a gap in the run, and a section the English side never claimed. */
+  if (nums.length && (nums[0] !== 1 || nums[nums.length - 1] !== nums.length)) {
+    warn("original: section numbers are not a clean 1–N run (" + nums.length + " lines, highest " + nums[nums.length - 1] + ")");
+  }
+  const out = [];
+  if (head) out.push('<p class="bk-head">' + head + "</p>");
+  const used = new Set();
+  for (const g of groups) {
+    const parts = g.map((n) => { used.add(n); return lines[n]; }).filter(Boolean);
+    if (!parts.length) { warn("original: no text for section " + g.join(", ")); continue; }
+    out.push('<p><span class="bk-n">' + g.join(", ") + "</span> " + parts.join("</p>\n<p>") + "</p>");
+  }
+  const orphan = nums.filter((n) => !used.has(n));
+  if (orphan.length) warn("original: " + orphan.length + " section(s) the translation never numbers: " + orphan.slice(0, 6).join(", "));
+  return out.join("\n");
+}
+
+/* Both columns of one chapter, from one fetch of one page. */
+function extractParallel(h, book, warn) {
+  const { notes: refs, ids: refIds } = notesOf(h);
+  const cols = parallelCells(h);
+  if (!cols.en.length) throw new Error("no translation tables found");
+
+  let enHead = "", origHead = "";
+  const enCells = cols.en.map((c, i) => {
+    let s = c.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<link[^>]*\/?>/g, "").replace(/<!--[\s\S]*?-->/g, "");
+    if (i === 0) { const t = takeHead(s); enHead = t.head; s = t.rest; }
+    return s;
+  });
+  const origCells = cols.orig.map((c, i) => {
+    let s = c.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<link[^>]*\/?>/g, "").replace(/<!--[\s\S]*?-->/g, "");
+    if (i === 0) { const t = takeHead(s); origHead = t.head; s = t.rest; }
+    return s;
+  });
+
+  const comm = extractCommentary(enCells.map(wrapBareRuns).join("\n"), refs, refIds);
+  let b = comm.html;
+  /* Everything centred that is NOT the head is real: chapter 4 sets two lines of Browning that way.
+     They become blockquotes, as the main extractor's centred blocks do. */
+  b = b.replace(/<div class="(?:poem|wst-block-center|wst-center)[^"]*"[^>]*>/g, "<blockquote>");
+  b = b.replace(/<\/div>/g, "</blockquote>").replace(/<div[^>]*>/g, "<blockquote>");
+  b = stripTags(b);
+  b = b.replace(/&#160;|&nbsp;/g, " ").replace(/&#32;/g, " ");
+  b = b.replace(/[ \t]+/g, " ").replace(/\s*\n\s*/g, "\n");
+  /* A commentary block sits BETWEEN paragraphs, so its marker lands outside them and would render as
+     a lone superscript on a line of its own. Put it back inside the sentence it annotates. */
+  b = b.replace(/<\/p>\s*(<sup class="fn"[^>]*><\/sup>)/g, "$1</p>");
+  for (let k = 0; k < 6; k++) {
+    b = b.replace(/<blockquote>\s*<\/blockquote>/g, "").replace(/<p>\s*<\/p>/g, "");
+    b = b.replace(/<blockquote>\s*(<blockquote>[\s\S]*?<\/blockquote>)\s*<\/blockquote>/g, "$1");
+  }
+  b = b.replace(/\s+<\/p>/g, "</p>").replace(/<p>\s+/g, "<p>").replace(/\n{2,}/g, "\n").trim();
+
+  const marked = markGilesSections(b, warn);
+  b = marked.html;
+  /* The head goes on AFTER stripTags, which drops attributes from every tag it keeps — the same
+     reason the main extractor adds Seneca's .bk-salut at the end rather than in the markup. Any
+     title note left stranded before the first section is drawn back onto the head, which is what it
+     annotates. */
+  if (enHead) {
+    let note = "";
+    b = b.replace(/^(<sup class="fn"[^>]*><\/sup>)\s*/, (m, s) => { note = s; return ""; });
+    b = '<p class="bk-head">' + enHead + note + "</p>\n" + b;
+  }
+  return {
+    html: b,
+    notes: comm.notes,
+    orig: parallelOriginalHtml(origCells, marked.groups, origHead, warn),
+  };
+}
+
 /* ---------- the chapter titles, from the book's own contents page ---------- */
 /* ---------- the chapter titles, from the book's own contents page ----------
    Read ROW BY ROW, pairing the numeral cell with the title cell beside it, rather than trusting the
@@ -756,10 +1184,21 @@ async function fetchEnglish() {
       continue;
     }
     const h = await api(BOOK.page(n));
-    const { notes, ids } = notesOf(h);
-    const html = cleanBody(h, ids, BOOK, (m) => warnings.push(BOOK.chapterWord + " " + n + ": " + m));
+    const warn = (m) => warnings.push(BOOK.chapterWord + " " + n + ": " + m);
+    let html, notes, orig = "";
+    if (BOOK.layout === "parallel") {
+      /* Both columns come off this one page, so the original is extracted here too and cached beside
+         the translation — fetchOriginal then costs no requests at all. */
+      const got = extractParallel(h, BOOK, warn);
+      html = got.html; notes = got.notes; orig = got.orig;
+    } else {
+      const got = notesOf(h);
+      notes = got.notes;
+      html = cleanBody(h, got.ids, BOOK, warn);
+    }
     if (html.length < 200) throw new Error("chapter " + n + " came back short (" + html.length + " chars)");
     const rec = { n, t: titles[n] || chapterTitle(n), p: partOf(n), html, notes };
+    if (orig) rec.orig = orig;
     fs.writeFileSync(cf, JSON.stringify(rec));
     chapters.push(rec);
     console.log("  " + BOOK.chapterWord + " " + n + " — " + rec.t + " (" + html.length + " chars, " + notes.length + " notes)");
@@ -831,13 +1270,37 @@ async function fetchEnglish() {
    fetched the first time it IS turned on, and never after. */
 async function fetchOriginal() {
   const O = BOOK.original;
+  const warnings = [];
+  const warn = (m) => { warnings.push(m); };
+  const byNum = {};
+
+  /* A PARALLEL book's original needs no wiki of its own and no second walk: it was printed on the
+     facing half of the same page and was extracted when the translation was. This reads it back out
+     of that cache, and fetches a chapter only where the cache has none — which is what an
+     --only-original run on a clean checkout looks like. */
+  if (BOOK.layout === "parallel") {
+    console.log("\nReading the " + O.langName + " original out of the parallel text — " +
+      BOOK.chapters.length + " chapters");
+    for (const n of BOOK.chapters) {
+      const cf = path.join(CACHE, n + ".json");
+      let rec = !FORCE && fs.existsSync(cf) ? JSON.parse(fs.readFileSync(cf, "utf8")) : null;
+      if (!rec || !rec.orig) {
+        const h = await api(BOOK.page(n));
+        const got = extractParallel(h, BOOK, (m) => warn(BOOK.chapterWord + " " + n + ": " + m));
+        rec = rec || { n, t: chapterTitle(n), p: partOf(n), html: got.html, notes: got.notes };
+        rec.orig = got.orig;
+        fs.writeFileSync(cf, JSON.stringify(rec));
+        await sleep(700);
+      }
+      if (rec.orig) byNum[n] = rec.orig;
+    }
+    return writeOriginal(byNum, warnings);
+  }
+
   const cacheDir = path.join(CACHE, O.lang);
   fs.mkdirSync(cacheDir, { recursive: true });
   console.log("\nFetching the " + O.langName + " original — " + O.pages.length + " pages from " + O.wiki);
 
-  const warnings = [];
-  const warn = (m) => { warnings.push(m); };
-  const byNum = {};
   for (const page of O.pages) {
     const cf = path.join(cacheDir, page.replace(/[^\w.-]+/g, "_") + ".json");
     let got;
@@ -855,6 +1318,14 @@ async function fetchOriginal() {
     Object.assign(byNum, got);
   }
 
+  return writeOriginal(byNum, warnings);
+}
+
+/* Serialize the original-language half. Split out from fetchOriginal so the two ways of GATHERING it
+   — a walk of another wiki, or a read of the parallel text's own cache — share one way of writing it
+   out and one report at the end. */
+function writeOriginal(byNum, warnings) {
+  const O = BOOK.original;
   const nums = Object.keys(byNum).map(Number).sort((a, b) => a - b);
   const outDir = path.join(ROOT, "books");
   const out = path.join(outDir, id + "." + O.lang + ".js");

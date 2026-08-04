@@ -4493,6 +4493,49 @@
       /* No `parts`: one Loeb volume, and its own edition divides it no further. app.js falls back to a
          single unlabelled group, which is the honest rendering of a book with no volumes. */
     },
+    {
+      id: "sun-tzu-art-of-war",
+      title: "The Art of War",
+      subtitle: "The Oldest Military Treatise in the World",
+      author: "Sun Tzu",
+      written: "c. 5th century BCE",
+      // negative, and this is the book the signed sort key was written for: it files two and a half
+      // thousand years before the other two, where a parse of the prose above could not have put it
+      year: -500,
+      translator: "Lionel Giles",
+      edition: "Luzac & Co., London, 1910",
+      /* The only book here whose licence has to state a LIMIT as well as a ground. Giles published in
+         1910, so the translation is public domain in the United States on exactly the ground the other
+         two are served on — but he lived until 1958, where Gummere and Haines died in 1942 and 1935,
+         so this one does not also clear the life-plus-seventy rule the way they do. Said outright
+         rather than folded into the same sentence they use; the reasoning is in .claude/fetch-book.js
+         and the reader meets this string in the book's own front matter. */
+      rights:
+        "Public domain in the United States: Giles's translation was published in 1910 — before 1929 — " +
+        "so its copyright has expired there. Giles died in 1958, so where the term is the author's life " +
+        "plus seventy years this translation remains in copyright until 2029; the Chinese text it is " +
+        "printed beside is roughly twenty-five centuries old and is in the public domain everywhere. " +
+        "The modern translations by Samuel B. Griffith (1963) and Roger Ames (1993) are still in " +
+        "copyright and are deliberately not used here.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Art_of_War_(Sun)",
+      /* The original is CHINESE, and this is the case the Meditations entry above says would settle
+         the question it could not settle. That book has no `origLang` because Greek Wikisource prints
+         no section numbers, and list position is not the same claim as a number. Here the original is
+         not another edition on another wiki at all — it is the Chinese Giles printed on the facing
+         half of his own page, transcribed in the same table, carrying his own numbering explicitly.
+         Measured across all thirteen chapters before it was believed: 385 sections, the two columns
+         agreeing exactly, no number on one side missing from the other. */
+      origLang: "zh",
+      origName: "Chinese",
+      color: "#A6452F",
+      chapterWord: "Chapter",
+      // the whole work — thirteen chapters is all there has ever been of it, so the two agree and will
+      // stay agreed, as the Meditations' do and unlike Seneca's, which arrived in instalments
+      count: 13,
+      total: 13,
+      /* No `parts`: the edition divides the thirteen chapters no further. */
+    },
   ];
   const BOOK_BY_ID = {};
   BOOKS.forEach((b) => (BOOK_BY_ID[b.id] = b));
