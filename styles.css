@@ -4669,7 +4669,13 @@ body.night .rv-star.on{color:#E6C765;}
 .bk-prose{font-family:var(--serif); font-size:calc(17px * var(--fs)); line-height:1.78; color:var(--ink); max-width:68ch;}
 .bk-prose p{margin:0 0 1.05em;}
 .bk-prose blockquote{margin:1.2em 0; padding-left:18px; border-left:2px solid var(--rule); font-style:italic; color:var(--ink-soft);}
-.bk-salut{font-style:italic; color:var(--ink-soft);}
+/* The leading unnumbered line of a chapter, in both columns: Seneca's salutation, and the chapter
+   head of a book that prints one (the Art of War's "I. Laying Plans." beside its "I. 計篇."). Two
+   names for one role — a line that belongs to the chapter rather than to any section of it, and that
+   therefore pairs across the two languages — kept apart so that a chapter title is not marked up as
+   somebody's greeting. Both are written on by the importer AFTER the tag stripper, which drops
+   attributes from every tag it keeps. */
+.bk-salut,.bk-head{font-style:italic; color:var(--ink-soft);}
 /* Gummere's section numbers — how this text is cited, so they are kept and set apart rather than
    folded into the prose */
 .bk-prose .bk-n{
