@@ -602,6 +602,173 @@ const BOOKS = {
        added by writing an `original` block and an `origLang` — nothing else about the book would have
        to change. */
   },
+
+  "ovid-metamorphoses": {
+    title: "Metamorphoses",
+    subtitle: "Of Bodies Changed to Other Forms",
+    author: "Ovid",
+    translator: "Brookes More",
+    edition: "Cornhill Publishing Company, Boston, 1922",
+    written: "completed c. 8 CE",
+
+    /* ---------- THE LICENCE, and it has TWO LAYERS on BOTH sides ----------
+       The four books above are served on an expired copyright and nothing else; the Meditations' Greek
+       was the first text here to carry a second layer, because Perseus releases its DIGITAL editions
+       under CC BY-SA 4.0 even where the text they encode is long out of copyright. This is the first
+       book whose ENGLISH comes from Perseus too, so the disclosure applies to both columns rather than
+       only to the original — which is why it is stated in the book's own `rights` and not just in the
+       original's.
+
+       The expired-copyright half is the easiest kind. Brookes More's translation was published in
+       Boston in 1922, before 1929, so it is public domain in the United States on exactly the ground
+       Gummere, Haines, Giles and Jowett are served on; and More died in 1942, so it also clears the
+       life-plus-seventy rule, as Gummere's and Haines's do and Giles's does not.
+
+       For the LATIN the ground is stated by publication date and by the age of the poem, and
+       deliberately NOT by the editor's death year. Hugo Magnus's edition was published between 1892 and
+       1919 — all before 1929 — and the poem itself is two thousand years old. There is a Wikisource
+       author page for a Hugo Magnus who died in 1907, and it is a DIFFERENT MAN, a German
+       ophthalmologist; asserting a life-plus-seventy claim off it would have been a fabricated fact
+       supporting a licence, which is the worst kind. The publication date is checkable from the edition
+       itself and is sufficient, so that is what is claimed.
+
+       The modern translations a reader is likeliest to own — Rolfe Humphries (1955), A. D. Melville
+       (1986), Allen Mandelbaum (1993), Charles Martin (2004) and Stephanie McCarter (2022), along with
+       Ted Hughes's Tales from Ovid (1997) — are all firmly in copyright, and are named here for the
+       reason Campbell, Hays, Griffith and Lee are named above: so that nobody reaches for one later. */
+    rights:
+      "Two layers, both stated. Brookes More's translation was published in Boston in 1922 — before " +
+      "1929 — so its copyright has expired in the United States; More died in 1942, so it is also " +
+      "public domain wherever the term is the author's life plus seventy years or less. The digital " +
+      "edition it is taken from is prepared by the Perseus Digital Library at Tufts University and is " +
+      "released under a Creative Commons Attribution-ShareAlike 4.0 International licence. (The modern " +
+      "translations by Rolfe Humphries, 1955, Allen Mandelbaum, 1993, Charles Martin, 2004, and " +
+      "Stephanie McCarter, 2022, are still in copyright and are not used here.)",
+    sourceName: "Perseus Digital Library",
+    sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0959.phi006/",
+
+    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out above.
+       Three things a reader should be told plainly rather than discover late: the poem is one
+       continuous song rather than a collection of separate tales, its author was banished for reasons
+       he never explained, and it is numbered here by the LINE of the Latin rather than by any division
+       of the English — which is also what lets the Latin sit beside it. */
+    about: [
+      "<b>Metamorphoses</b> is a poem in fifteen books, running to nearly twelve thousand lines, in " +
+        "which Ovid tells something like two hundred and fifty stories of shape and change. It begins " +
+        "with the making of the world out of chaos and ends in his own lifetime, and almost everything " +
+        "in between turns on a body becoming something else: men and women into trees, birds, springs, " +
+        "stones and stars. Daphne into the laurel, Actaeon into the stag his own hounds bring down, " +
+        "Arachne into the spider, Narcissus into the flower — these are the versions the western world " +
+        "has told ever since, and for most of them Ovid is the reason.",
+      "It is not a collection, and that is the thing most often missed about it. Ovid calls it a " +
+        "<i>carmen perpetuum</i>, a continuous song, and the tales are joined end to end — one " +
+        "character begins another's story, a listener answers with a second, a river god takes up a " +
+        "third — so that the poem runs without a break from the first line to the last. The joins are " +
+        "part of the art, and some of them are jokes. It is written in dactylic hexameter, the metre " +
+        "of Homer and Virgil, which sets an epic frame around subject matter that is often anything " +
+        "but heroic.",
+      "Publius Ovidius Naso was born at Sulmo, in the mountains east of Rome, in 43 BCE, the year after " +
+        "Julius Caesar was killed. He was trained for public life, abandoned it for poetry, and was the " +
+        "most celebrated poet in Rome by his forties. Then, in 8 CE, the emperor Augustus banished him " +
+        "to Tomis on the Black Sea, at the far edge of the empire. Ovid says the cause was <i>carmen et " +
+        "error</i> — a poem and a mistake. The poem is usually taken to be his handbook of seduction, " +
+        "the <i>Ars Amatoria</i>; the mistake he never explains, and nobody since has established what " +
+        "it was. He wrote from exile for years asking to be recalled, and died there around 17 CE.",
+      "By his own account the poem left his hands unfinished. Writing from exile he says he burned his " +
+        "copy of it when he was sent away, and that it never had the final revision he meant to give " +
+        "it; it survives because friends in Rome already had copies of their own. Whether the burning " +
+        "happened as he tells it is not something anyone can now check, and the poem as we have it does " +
+        "not read like a draft. What is certain is that it went on being read when much else did not: " +
+        "through the Middle Ages, when it was moralised into Christian allegory to keep it respectable, " +
+        "and then straight into Chaucer, Shakespeare, Milton, Titian and Bernini.",
+      "The translation here is Brookes More's blank verse of 1922, and the Latin printed beside it is " +
+        "Hugo Magnus's edition. The small raised figures running through both are LINE numbers of the " +
+        "Latin, marking where each passage begins — so a reference such as 'Metamorphoses 1.452' is " +
+        "book 1, line 452, and the figures are how you find it. They are also what pairs the two " +
+        "columns: an English passage and a Latin one carrying the same figure are the same place in " +
+        "the poem. This edition prints no translator's notes, so unlike the other books in this " +
+        "library there is no fold of them under each chapter.",
+    ],
+
+    /* ---------- A TEI EDITION ON THE ENGLISH SIDE TOO, which is new ----------
+       The three source shapes this file knew were a Wikisource page-scan walk, a facing-page parallel
+       table, and a TEI file — and the last was available only to an `original`. This book uses one for
+       BOTH halves, and it is worth saying why rather than reaching for Wikisource out of habit.
+
+       Wikisource has three English Metamorphoses and none of them will do. Miller's Loeb prose, which
+       would have been the natural fourth Loeb after Gummere, Haines and Giles, is transcribed only as
+       far as Book VIII — eight books of fifteen, with no Book IX to XV in the main namespace at all.
+       Golding's of 1567 and the Garth–Dryden of 1717 are complete and both are firmly out of
+       copyright, but the first is Elizabethan verse a modern reader has to decode line by line and the
+       second is an eighteenth-century couplet paraphrase by a dozen different hands. More's blank
+       verse is plain, complete, and the closest of the four to the register the rest of this library
+       reads in.
+
+       The deciding factor is the numbering, as it always is here. See `original` below. */
+    source: "tei",
+    url: "https://raw.githubusercontent.com/PerseusDL/canonical-latinLit/master/data/phi0959/phi006/phi0959.phi006.perseus-eng3.xml",
+    /* The lines are VERSE and are kept as verse: one <br> per line inside the stanza breaks the edition
+       marks, rather than reflowed into prose paragraphs. `teiChapters` above cannot do this — it reads
+       <p> elements and this file has none, only <l> — hence the second TEI extractor. */
+    layout: "verse",
+    /* The cards are real divisions in the English file and bare milestones in the Latin one, so each
+       side says how to find its own. */
+    cards: "div",
+    chapterWord: "Book",
+    /* The fifteen books have no titles: this edition heads them "Book 1" … "Book 15" and gives them no
+       names, exactly as Haines's Meditations does. Composing names for them — "The Creation", "The
+       House of Cadmus" — would be inventing an apparatus the poem does not have, and the edition's own
+       tale headings are not usable for it (see the note in reconcileCards). */
+    titleOf: (n) => "Book " + toRoman(n),
+    chapters: Array.from({ length: 15 }, (_, i) => i + 1),
+
+    /* ---------- THE ORIGINAL, AND THE QUESTION THAT DECIDES EVERY ORIGINAL ----------
+       The rule the Meditations entry states and the Republic entry fails: app.js pairs the two columns
+       on the SECTION NUMBER and never on paragraph order, so an original may ship only where both
+       texts say which section each passage is. Plato's Republic has the best citation system in
+       antiquity and still ships alone, because Jowett's printing does not carry it.
+
+       Ovid passes, and by a route neither of the shipped originals uses. He is cited by BOOK AND LINE
+       — 'Metamorphoses 1.452' — and the Latin file states its line numbers as structure, <l n="452">,
+       the way Leopold's Greek states its chapters. What More's translation cannot do is carry those
+       numbers line for line: blank verse runs longer than hexameter, and this translation is 18,113
+       English lines against 11,927 Latin ones, so its own <l> numbering is More's and not Ovid's.
+
+       What both files DO carry is the CARD — a division of the poem into passages of fifty or sixty
+       lines, numbered by the LATIN LINE EACH ONE BEGINS AT. That number is the same claim on both
+       sides, stated by the edition rather than counted off a list, and it is the handle used here.
+
+       MEASURED BEFORE IT WAS BELIEVED, over all fifteen books: 156 cards, of which 142 carry the
+       identical number on both sides. Thirteen more are one to three lines apart, because the two
+       editors put the same boundary at slightly different lines; those are reconciled by
+       reconcileCards below, which refuses to do it silently — see the note there, and the tale-name
+       check that confirms each one is genuinely the same passage. One English card, book 1 line 650,
+       has no Latin counterpart at all and draws as an empty cell, exactly as the Meditations'
+       section 12.18 does.
+
+       One quiet fault in the English file was found by this and is worth recording: its Book 3 is
+       spelled `subtype="BOOK"` in capitals where every other book is lowercase, so a case-sensitive
+       reader silently loses Book 3 as a book and files its ten cards inside Book 2 — fourteen books
+       instead of fifteen, with no error anywhere. Every book-division match here is case-insensitive
+       for that reason. */
+    original: {
+      lang: "la",
+      langName: "Latin",
+      source: "tei",
+      layout: "verse",
+      cards: "milestone",
+      url: "https://raw.githubusercontent.com/PerseusDL/canonical-latinLit/master/data/phi0959/phi006/phi0959.phi006.perseus-lat2.xml",
+      edition: "Hugo Magnus's edition (Gotha, F. A. Perthes, 1892–1919), from the Perseus Digital Library",
+      rights:
+        "Two layers, both stated. The poem is two thousand years old and is in the public domain " +
+        "everywhere, and Hugo Magnus's edition of it was published between 1892 and 1919 — before " +
+        "1929. The digital edition it is taken from is prepared by the Perseus Digital Library at " +
+        "Tufts University and is released under a Creative Commons Attribution-ShareAlike 4.0 " +
+        "International licence.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0959.phi006/",
+    },
+  },
 };
 
 /* ---------- args ---------- */
@@ -1466,6 +1633,153 @@ function teiProse(raw) {
     .join("\n");
 }
 
+/* ============================================================
+   TEI VERSE   (a book declaring layout: "verse")
+   ============================================================
+   teiChapters above reads a TEI edition of PROSE: it walks <div> chapters and pulls <p> elements out
+   of them. A poem has no <p> at all — every line is an <l>, and the paragraphing is carried by
+   milestones between them — so pointing that function at Ovid returns fifteen empty books. This is
+   its verse counterpart, and it is used for BOTH halves of the Metamorphoses.
+
+   A CARD is the unit, and the number on it is the LATIN LINE the passage begins at, which is how Ovid
+   is cited and the only figure both editions state about the same thing. It is spelled as a real
+   division in the English file and as a bare milestone in the Latin one, so the caller says which. */
+function teiVerseBooks(xml, opts, warn) {
+  const body = xml.slice(xml.indexOf("<body"));
+  if (body.length < 1000) throw new Error("no <body> in the TEI file");
+
+  /* THE APPARATUS COMES OUT FIRST, and getting this order wrong is the quiet fault in this file.
+     Magnus's notes are a critical apparatus and they CONTAIN <l> elements — the vulgate readings he
+     rejects, and the lines he brackets as spurious, each written out as a line of verse inside the
+     note. A line sweep run before the notes are removed therefore pulls the apparatus into the poem:
+     nothing throws, no book is missing, and the text is simply longer than Ovid wrote it with variant
+     half-lines scattered through it. Seventy-four notes, every one of them in the Latin. */
+  let b = body.replace(/<note\b[^>]*>[\s\S]*?<\/note>/g, "");
+  /* The editor's marks of SPURIOUS text, dropped with their words — the same judgement teiProse makes
+     for the Meditations, and for the same reason: what ships is the text the printed page constitutes.
+     Every <del> in this edition happens to sit inside a note and so has already gone, which is checked
+     rather than assumed; the rule stays because the next edition's may not. */
+  b = b.replace(/<del\b[^>]*>[\s\S]*?<\/del>/g, "");
+  // the file's own "Book 1" head, where Folio prints its own chapter title
+  b = b.replace(/<head\b[^>]*>[\s\S]*?<\/head>/g, "");
+
+  /* CASE-INSENSITIVE, and that is load-bearing rather than defensive. The English file spells Book 3
+     `subtype="BOOK"` in capitals and every other book lowercase, so a case-sensitive match returns
+     fourteen books and quietly files Book 3's ten cards inside Book 2 — no error, no missing text, and
+     a book that has silently ceased to exist as a book. */
+  const bs = [...b.matchAll(/<div[^>]*subtype="book"[^>]*\bn="(\d+)"[^>]*>/gi)];
+  if (!bs.length) throw new Error("no book divisions in the TEI file");
+  const cardRe = () => (opts.cards === "milestone"
+    ? /<milestone[^>]*\bn="(\d+)"[^>]*unit="card"[^>]*\/>/gi
+    : /<div[^>]*subtype="card"[^>]*\bn="(\d+)"[^>]*>/gi);
+
+  const out = {};
+  bs.forEach((bk, i) => {
+    const seg = b.slice(bk.index, i + 1 < bs.length ? bs[i + 1].index : b.length);
+    const cs = [...seg.matchAll(cardRe())];
+    if (!cs.length) { warn("book " + bk[1] + ": no cards — it would pair as one whole block"); return; }
+    // verse before the first card would be dropped in silence; say so instead
+    const stray = (seg.slice(0, cs[0].index).match(/<l\b/g) || []).length;
+    if (stray) warn("book " + bk[1] + ": " + stray + " line(s) stand before the first card");
+    let seq = 0;
+    out[+bk[1]] = cs.map((c, j) => {
+      const raw = seg.slice(c.index, j + 1 < cs.length ? cs[j + 1].index : seg.length);
+      const n = +c[1];
+      if (n <= seq) warn("book " + bk[1] + ": card " + n + " follows " + seq + " — out of order");
+      seq = n;
+      /* The tale name each edition prints at this boundary — Magnus's, which BOTH files carry, and
+         which reconcileCards uses to check that a reconciled pair really is the same passage. */
+      const t = raw.match(/<milestone[^>]*ed="Magnus"[^>]*\bn="([^"]*)"[^>]*unit="tale"[^>]*\/>/);
+      return { n: n, tale: t ? t[1].trim() : "", html: teiVerse(raw), lines: (raw.match(/<l\b/g) || []).length };
+    }).filter((c) => { if (!c.html) warn("card " + c.n + " came back empty"); return c.html; });
+  });
+  return out;
+}
+
+/* One card's lines, as verse rather than as a paragraph of prose. The para milestones are the
+   edition's own stanza breaks; within a stanza the lines are joined with <br>, which is what keeps a
+   poem looking like one. Everything else inside a line — the placeName and persName wrappers the
+   English file marks its geography with — is unwrapped, keeping the words and dropping the tagging. */
+function teiVerse(raw) {
+  const paras = [];
+  let cur = [];
+  const rx = /<milestone[^>]*unit="para"[^>]*\/>|<l\b[^>]*>([\s\S]*?)<\/l>/g;
+  let m;
+  while ((m = rx.exec(raw))) {
+    if (m[1] === undefined) { if (cur.length) { paras.push(cur); cur = []; } continue; }
+    const line = m[1].replace(/<[^>]*>/g, "").replace(/&#160;|&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+    if (line) cur.push(line);
+  }
+  if (cur.length) paras.push(cur);
+  return paras.map((p) => "<p>" + p.join("<br>") + "</p>").join("\n");
+}
+
+/* The cards of one book, assembled into the chapter html, each opening on its own section marker. The
+   marker goes INSIDE the first paragraph, which is where bookSections looks for it. */
+function teiVerseHtml(cards) {
+  return cards
+    .map((c) => c.html.replace(/^<p>/, '<p><span class="bk-n">' + c.n + "</span> "))
+    .join("\n");
+}
+
+/* ---------- reconciling the two columns' card numbers ----------
+   142 of the 156 cards carry the identical number on both sides and need nothing. Thirteen are one to
+   three Latin lines apart, because Magnus and the editor who aligned More's translation put the same
+   tale boundary at slightly different lines. app.js pairs on the marker exactly, so left alone each of
+   those thirteen becomes TWO half-empty rows — an English passage facing nothing, then the same Latin
+   passage facing nothing — twenty-six broken rows through the poem.
+
+   WHY NUDGING THEM IS NOT THE MISTAKE THE MEDITATIONS ENTRY WARNS ABOUT. That warning is against
+   transferring one edition's numbering onto a text that states NONE, where every assignment is a guess
+   and 15 of 185 openings proved wrong. Here both texts state their numbers, in the SAME coordinate
+   system — the line count of the Latin poem — so a card at 567 and a card at 568 are two editors'
+   statements about one boundary, a line apart, not two guesses about position in a list. The move is
+   bounded (never more than a few lines), one-to-one, order-preserving, and reported line by line.
+
+   AND IT IS CHECKED AGAINST SOMETHING OTHER THAN THE NUMBERS, which is the discipline the Greek's
+   proper-name check established: both files carry Magnus's own tale names, so a reconciled pair whose
+   two sides name DIFFERENT tales is not the same passage and is refused rather than nudged. Measured
+   over the thirteen: eight name a tale on both sides and all eight agree, five carry no name on either
+   side, and none disagrees.
+
+   (Those names are read for this check only and are never printed. More's tale names in the English
+   file are run together in places — two headings concatenated into one string — and splitting them
+   would mean guessing where one ends, which is composing an apparatus rather than transcribing it.) */
+function reconcileCards(enBooks, laBooks, warn, log) {
+  const TOL = 4;
+  let exact = 0, moved = 0, unEN = 0, unLA = 0;
+  Object.keys(laBooks).forEach((k) => {
+    const E = enBooks[k] || [], L = laBooks[k];
+    let i = 0, j = 0;
+    while (i < E.length && j < L.length) {
+      const d = L[j].n - E[i].n;
+      if (d === 0) { exact++; i++; j++; continue; }
+      if (Math.abs(d) <= TOL) {
+        const a = E[i].tale, c = L[j].tale;
+        if (a && c && a !== c) {
+          // two different tales: not one boundary seen twice, so leave both where they are
+          warn("book " + k + ": cards " + E[i].n + " and " + L[j].n + " are " + Math.abs(d) +
+            " line(s) apart but name different tales (\"" + a + "\" / \"" + c + "\") — left unpaired");
+          if (d < 0) { unLA++; j++; } else { unEN++; i++; }
+          continue;
+        }
+        log("    book " + k + ": Latin card " + L[j].n + " → " + E[i].n +
+          " (" + Math.abs(d) + " line" + (Math.abs(d) === 1 ? "" : "s") + ", " +
+          (a && c ? "tale name agrees" : "no tale name on either side") + ")");
+        L[j].n = E[i].n;
+        moved++; i++; j++;
+        continue;
+      }
+      if (d > 0) { unEN++; i++; } else { unLA++; j++; }
+    }
+    unEN += E.length - i;
+    unLA += L.length - j;
+  });
+  log("  " + exact + " cards pair exactly, " + moved + " reconciled, " +
+    unEN + " English and " + unLA + " Latin left unpaired (they draw as an empty cell).");
+  return { exact: exact, moved: moved, unEN: unEN, unLA: unLA };
+}
+
 /* ---------- serialize ---------- */
 function esc(s) { return String(s).replace(/\\/g, "\\\\").replace(/"/g, '\\"').replace(/\n/g, "\\n"); }
 function partOf(n) {
@@ -1482,6 +1796,33 @@ async function fetchEnglish() {
   const titles = await chapterTitles();
   const warnings = [];
   const chapters = [];
+
+  /* A TEI EDITION ON THE ENGLISH SIDE — one file for the whole book, rather than a page per chapter.
+     Until Ovid this shape was available only to an `original`; the Metamorphoses uses it for both
+     halves, because no complete English of it on Wikisource is both readable and numbered (see the
+     BOOKS entry). One fetch, cached whole, so --from/--to cost nothing and a re-extract needs no
+     network at all. The cache holds the XML rather than the extracted prose precisely because the
+     original's reconciliation pass has to read the English cards back out of it later. */
+  if (BOOK.source === "tei") {
+    const warn = (m) => warnings.push(m);
+    const cf = path.join(CACHE, "en-tei.xml");
+    let xml;
+    if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
+    else { xml = await fetchText(BOOK.url); fs.writeFileSync(cf, xml); }
+    const books = teiVerseBooks(xml, { cards: BOOK.cards }, warn);
+    for (const n of BOOK.chapters) {
+      if (n < FROM || n > TO) continue;
+      const cards = books[n];
+      if (!cards || !cards.length) { warn(BOOK.chapterWord + " " + n + " is missing from the edition"); continue; }
+      const html = teiVerseHtml(cards);
+      if (html.length < 200) throw new Error("chapter " + n + " came back short (" + html.length + " chars)");
+      chapters.push({ n: n, t: titles[n] || chapterTitle(n), p: partOf(n), html: html, notes: [] });
+      console.log("  " + BOOK.chapterWord + " " + n + " — " + cards.length + " sections, " +
+        cards.reduce((a, c) => a + c.lines, 0) + " lines (" + (html.length / 1024).toFixed(0) + " KB)");
+    }
+    return writeEnglish(chapters, warnings);
+  }
+
   for (const n of BOOK.chapters) {
     if (n < FROM || n > TO) continue;
     const cf = path.join(CACHE, n + ".json");
@@ -1513,6 +1854,14 @@ async function fetchEnglish() {
     console.log("  " + BOOK.chapterWord + " " + n + " — " + rec.t + " (" + html.length + " chars, " + notes.length + " notes)");
     await sleep(700);
   }
+  return writeEnglish(chapters, warnings);
+}
+
+/* Serialize the translation. Split out of fetchEnglish so the TWO ways of gathering it — a walk of
+   Wikisource pages and a single TEI edition — share one way of writing it out and one report at the
+   end, and so cannot drift apart in what they emit. The same split, and the same reason, as
+   writeOriginal below. */
+function writeEnglish(chapters, warnings) {
   chapters.sort((a, b) => a.n - b.n);
 
   const outDir = path.join(ROOT, "books");
@@ -1618,6 +1967,25 @@ async function fetchOriginal() {
     let xml;
     if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
     else { xml = await fetchText(O.url); fs.writeFileSync(cf, xml); }
+
+    /* A VERSE edition pairs on CARDS rather than on prose chapters, and the two sides' card numbers
+       have to be reconciled before either is written — see reconcileCards, which is where the thirteen
+       one-to-three-line differences between Magnus and More's aligner are resolved, checked against
+       the tale names, and reported. The English cards are read back out of that side's own cached TEI,
+       so an --only-original run reconciles against exactly the file that shipped. */
+    if (O.layout === "verse") {
+      const enCache = path.join(CACHE, "en-tei.xml");
+      let enXml;
+      if (fs.existsSync(enCache)) enXml = fs.readFileSync(enCache, "utf8");
+      else { enXml = await fetchText(BOOK.url); fs.writeFileSync(enCache, enXml); }
+      const enBooks = teiVerseBooks(enXml, { cards: BOOK.cards }, warn);
+      const laBooks = teiVerseBooks(xml, { cards: O.cards }, warn);
+      console.log("  reconciling the two columns' section numbers:");
+      reconcileCards(enBooks, laBooks, warn, (m) => console.log(m));
+      Object.keys(laBooks).forEach((n) => { byNum[n] = teiVerseHtml(laBooks[n]); });
+      return writeOriginal(byNum, warnings);
+    }
+
     Object.assign(byNum, teiChapters(xml, warn));
     const ns = Object.keys(byNum).map(Number).sort((a, b) => a - b);
     ns.forEach((n) => {
