@@ -1127,6 +1127,86 @@ async function studyEasy(page, base, n) {
     await page.close();
   }
 
+  /* ================= 7b2. the version line in the home page's top-left corner =================
+     Aug 2026, on request. Every failure here is silent, and the last one is the reason the feature exists:
+     a version number that STOPS following `window.FOLIO_VERSION` still prints a plausible number, and the
+     reader quoting it in a bug report is then telling you about a build nobody shipped. So the record is
+     mutated in the page and the line re-rendered — a boot-time capture passes every other assertion here
+     and fails that one. */
+  {
+    for (const [label, vp] of [["desktop", DESKTOP], ["phone", PHONE]]) {
+      const page = await browser.newPage({ viewport: vp });
+      watch(page);
+      await page.goto(base + "#home", { waitUntil: "load" });
+      await page.waitForTimeout(1500);
+      const v = await page.evaluate(() => {
+        const el = document.querySelector(".page .site-ver");
+        if (!el) return null;
+        const r = el.getBoundingClientRect(), cs = getComputedStyle(el);
+        const head = document.querySelector(".page .page-head").getBoundingClientRect();
+        return {
+          text: el.textContent.trim(), fs: parseFloat(cs.fontSize),
+          x: Math.round(r.left), y: Math.round(r.top), bottom: Math.round(r.bottom),
+          headX: Math.round(head.left), headY: Math.round(head.top),
+          first: document.querySelector(".page").firstElementChild === el,
+          notranslate: el.classList.contains("notranslate"),
+          // the site's own quiet token, so High contrast re-tones it with every other caption (test-a11y)
+          faint: (() => {
+            const p = document.createElement("i");
+            p.style.cssText = "color:var(--ink-faint);position:absolute;left:-9999px";
+            document.body.appendChild(p);
+            const want = getComputedStyle(p).color; p.remove();
+            return cs.color === want ? "ok" : cs.color + " ≠ " + want;
+          })(),
+          // and nothing painted over it — the phone's Edit button holds the opposite corner
+          clear: document.elementFromPoint(Math.round(r.left) + 2, Math.round(r.top + r.height / 2)) === el,
+        };
+      });
+      check("[" + label + "] the home page carries a version line", !!v, v ? v.text : "missing");
+      if (!v) { await page.close(); continue; }
+      check("[" + label + "] ...reading as a version and a timestamp", /^v\d+\.\d+ · .*\d/.test(v.text), v.text);
+      check("[" + label + "] ...very small and in the quiet ink", v.fs <= 11 && v.faint === "ok", JSON.stringify({ fs: v.fs, col: v.faint }));
+      /* TOP-LEFT in both layouts, and the left half is the one that breaks: below 640px `.page-head` is
+         CENTRED, and a version line that inherited that would sit in the middle of the page reading as a
+         title rather than as a stamp. It is a sibling before the head, so it must clear it upward too. */
+      check("[" + label + "] ...first on the page, above the head", v.first && v.bottom <= v.headY, JSON.stringify({ first: v.first, bottom: v.bottom, head: v.headY }));
+      check("[" + label + "] ...and flush LEFT with it, not centred", v.x === v.headX, JSON.stringify({ x: v.x, headX: v.headX }));
+      check("[" + label + "] ...with nothing painted over it", v.clear);
+      check("[" + label + "] ...and marked notranslate", v.notranslate);
+      await page.close();
+    }
+
+    const page = await browser.newPage({ viewport: DESKTOP });
+    watch(page);
+    await page.goto(base + "#home", { waitUntil: "load" });
+    await page.waitForTimeout(1400);
+    check("the version line is the home page's alone", await page.evaluate(async () => {
+      location.hash = "#decks";
+      await new Promise((r) => setTimeout(r, 700));
+      return !document.querySelector(".page .site-ver");
+    }));
+    // read at RENDER, never captured at boot — see the section header
+    const live = await page.evaluate(async () => {
+      window.FOLIO_VERSION = { v: "9.9", released: "2031-01-02T03:04Z" };
+      location.hash = "#home";
+      await new Promise((r) => setTimeout(r, 800));
+      const el = document.querySelector(".page .site-ver");
+      return el ? el.textContent.trim() : "";
+    });
+    check("...and is read from FOLIO_VERSION at render, not captured at boot", /^v9\.9 · /.test(live) && /2031/.test(live), live);
+    // a build that somehow ships without a record prints NOTHING — a placeholder version is a lie
+    const none = await page.evaluate(async () => {
+      delete window.FOLIO_VERSION;
+      location.hash = "#decks";
+      await new Promise((r) => setTimeout(r, 500));
+      location.hash = "#home";
+      await new Promise((r) => setTimeout(r, 800));
+      return { ver: !!document.querySelector(".site-ver"), head: !!document.querySelector(".page-head h1") };
+    });
+    check("...printing nothing at all when the record is missing", !none.ver && none.head, JSON.stringify(none));
+    await page.close();
+  }
+
   /* ================= 7c. the Atlas panel's discovery chip and its pages ================= */
   {
     const page = await browser.newPage({ viewport: PHONE });

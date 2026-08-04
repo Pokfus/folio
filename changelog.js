@@ -3,6 +3,19 @@
    POLICY: whenever a user-requested change ships to the live site, append a one-line summary to TODAY's
    entry (create it if missing). Keep items short, plain-English, and reader-facing (what changed for the
    user, not how). Loaded before app.js. */
+
+/* The shipped version, printed very small in the top-left corner of the home page (`versionLineHTML` in
+   app.js). It lives here rather than in app.js because bumping it is the SAME act as writing the changelog
+   day below — one file open, two edits, and the two can never come to disagree about what shipped when.
+
+   POLICY, and it is a golden rule: bump this on every merge to main, in the same commit as the changelog
+   line. `v` is MAJOR.MINOR — the minor goes up by one on each release, the major only when a whole new
+   area of the site lands (the Library would have been one). `released` is an ISO instant, the real moment
+   the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
+   the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
+   away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
+window.FOLIO_VERSION = { v: "1.0", released: "2026-08-04T15:04Z" };
+
 window.CHANGELOG = [
   {
     d: "2026-08-04",
@@ -26,6 +39,7 @@ window.CHANGELOG = [
       "Decks you write yourself can now have card types of your own design. Folio's own format is called Basic and is still what every card starts as — a question with a blank in it, an answer, a background and its sources. Beside it you can now build types of your own: name the fields a card of that type has, write the HTML of its front and of its back, and give it a stylesheet, much as you would in Anki. A card's type is chosen from a picker above it and can be changed back at any time without losing what you have written. Types travel with the deck, so anyone you share it with sees your cards the way you designed them.",
       "Levels take a little longer to earn. Each one now costs five more cards than the last rather than three, which matches the five new cards a day the review offers — before this a level could turn over in the middle of an ordinary day's study. Your level is worked out from the cards you have studied, so it simply recounts on the new scale; nothing you have done is lost.",
       "A book can now be read in the language it was written in. Seneca's letters have their Latin beside them: on a wide screen the two run side by side, passage by passage, and on a phone you tap the page to turn it over from one to the other — the way the daily quote on the home page flips. It always comes back to the passage you were reading, not to the top. The two are lined up by the section numbers the letters have always been cited by, which is what both editions agree on, rather than by paragraph, which they do not. The Latin button in the chapter bar turns it on and off, and Folio remembers which way you read. On a phone it takes a double tap to turn the page over rather than a single one, so a stray touch no longer swaps the text out mid-sentence, and swiping left or right moves between chapters. The book's opening chapter now states the grounds for the original as well as for the translation.",
+      "Folio now says which version of itself you are looking at: a small line in the top-left corner of the home page giving the version number and the moment that version went out, in your own clock. It changes with every update from here on.",
       "Every glossary entry is now about a hundred words long, so opening one always gives you the same amount to read rather than anywhere between a sentence and a page. All 477 are done: the countries, the caves and regions, the people, the ages and stone-tool traditions, the human species, fossils and animals, the tools and artworks, and last the ideas archaeologists and geologists work with. Almost nothing has been added: what goes is the padding — a country's list of neighbours, an island's distance from the mainland, a dig site's account of who excavated it, a tool's second explanation of how it worked, a period's span of years — most of which the words around it had already told you, and much of which repeated the dates printed at the top. Ten entries that were too short have grown instead, each by saying something its own sources carried and it had left out — the entry on archaeology itself had left out what the word context means; two small errors turned up on the way and were fixed.",
     ],
   },

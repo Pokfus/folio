@@ -323,6 +323,18 @@ html[dir="rtl"] .page-head{text-align:right;}
    watch a page arrive in blank steps over a fifth of a second. Delays go to zero there. */
 @media (prefers-reduced-motion:reduce){ .page > *{animation-delay:0s !important;} }
 
+/* The shipped version and the moment it was released, in the top-left corner of the home page — quiet
+   enough to be ignored and precise enough to quote in a bug report (see versionLineHTML in app.js).
+   `--ink-faint` is the site's own quiet token, so the high-contrast mode re-tones it along with every
+   caption and source line; don't hard-code a grey here. It stays LEFT-aligned at every width: below
+   640px the page head under it is centred, and a centred version number reads as a title rather than
+   as a stamp. */
+.site-ver{
+  font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.06em;
+  color:var(--ink-faint); line-height:1; margin:0 0 8px; text-align:left;
+}
+html[dir="rtl"] .site-ver{text-align:right;}
+
 .page-head{margin:2px 0 22px;}
 .page-head h1{font-family:var(--display); font-weight:600; font-size:calc(clamp(28px,5vw,38px) * var(--fs)); margin:6px 0 0; letter-spacing:-.015em;}
 .page-head p{color:var(--ink-faint); margin:8px 0 0; font-size:calc(15.5px * var(--fs)); max-width:60ch;}

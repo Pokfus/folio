@@ -6756,6 +6756,34 @@
     requestAnimationFrame(frame);
   }
 
+  /* THE SHIPPED VERSION — very small, in the top-left corner of the home page (Aug 2026, on request).
+     The record itself lives in `changelog.js` (`window.FOLIO_VERSION`), beside the release notes it
+     describes, so that bumping it and writing the day's changelog line are one edit in one file and the
+     two can never disagree about what shipped when; the policy comment is there rather than here.
+
+     Read at RENDER rather than captured at boot, so a reader on a cached copy of the site is told which
+     build they are actually running, and a build that somehow ships without a record simply prints
+     nothing rather than a placeholder.
+
+     The instant is stored in UTC and printed in the READER'S own clock and locale — it is a moment in
+     time, not a day of publication, so it follows the same rule as the day boundary rather than the
+     changelog's headings, which are deliberately fixed to the site language. */
+  function versionLineHTML() {
+    const V = window.FOLIO_VERSION;
+    if (!V || !V.v) return "";
+    const l = uiLang(), loc = l === "en" ? "en-GB" : l === "zh" ? "zh-CN" : l;
+    const t = V.released ? new Date(V.released) : null;
+    const when = t && !isNaN(t.getTime())
+      ? t.toLocaleDateString(loc, { day: "numeric", month: "short", year: "numeric" }) + ", " +
+        t.toLocaleTimeString(loc, { hour: "2-digit", minute: "2-digit" })
+      : "";
+    /* notranslate for the reason the discovery chip's figure carries it: a version number and a timestamp
+       are not prose, and the localisation walker must not go hunting for a key for them. */
+    const v = esc(V.v), w = esc(when);
+    return `<div class="site-ver notranslate"${when ? ` title="Folio v${v}, released ${w}"` : ""}>` +
+           `v${v}${when ? " · " + w : ""}</div>`;
+  }
+
   let _homeResize = null;   // the one resize listener the home page installs (see the foot of PAGES.home)
   PAGES.home = function (root) {
     /* The phone and the desktop build DIFFERENT pages here, not the same page styled two ways — the phone
@@ -7109,6 +7137,7 @@
        reading order: the review and its decks, then the games under a heading of their own. The games keep
        their place on the desktop too, with the discovery row after them exactly as before. */
     root.innerHTML = `
+      ${versionLineHTML()}
       <div class="page-head">
         <span class="eyebrow">${greeting}, ${esc(S.user.name)}</span>
         <h1>Today</h1>
