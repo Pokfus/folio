@@ -509,7 +509,8 @@ window.GLOSSARY = {
 "Pseira": "Pseira is a barren island about 3 kilometres (2 miles) off the north coast of eastern Crete, its west side a line of cliffs and its east sloping to three sandy coves, on the middle of which a Minoan town stood.<sup class=\"fn\" data-fn=\"1\"></sup> The place had little to offer settlers besides a sheltered harbour open only to the east, and Seager thought the town's prosperity rested on that port.<sup class=\"fn\" data-fn=\"1\"></sup> Its streets and houses cover the top and sides of a rocky point, the level roads floored with natural rock and every side alley running down to the sea by a paved stepway, with heavy Late Minoan I walls built over lighter Middle Minoan work.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Palaikastro_Kouros": "The Palaikastro Kouros is a Minoan statuette of a young man about 50 centimetres (20 inches) high, recovered in several hundred fragments from an urban sanctuary in eastern Crete and now in the museum at Sitia.<sup class=\"fn\" data-fn=\"1\"></sup> It is made of several materials at once: a body of hippopotamus ivory on a wooden armature, a head of stone, eyes of rock crystal and thin sheets of gold for the loincloth and sandals.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The figure stands with both fists against the chest and the left foot slightly advanced, and it comes from a Late Minoan IB destruction level of the middle of the 15th century BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Petras": "Petras is a Minoan settlement on a hill east of modern Siteia in eastern Crete, looking out over Siteia Bay, with a small palatial building at its centre and a town spread around it.<sup class=\"fn\" data-fn=\"1\"></sup> Occupation runs from a Late Neolithic settlement on the eastern slope through an extensive Early Minoan I one on the north, and a Late Minoan III wall was later thrown round the site.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> On the neighbouring hill lies a cemetery of house tombs built much as those at Mochlos are, with a rock shelter beside them that held a deep secondary deposit of bones, vases and jewellery.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Akrotiri": "Akrotiri is a Bronze Age town on the island of Thera, buried by the eruption of the island's volcano and preserved under metres of volcanic debris.<sup class=\"fn\" data-fn=\"1\"></sup> An earthquake had wrecked much of it years earlier, and the demolition and rebuilding that followed were unfinished when the volcano erupted; no bodies and hardly any portable valuables were found, so its people had warning and left.<sup class=\"fn\" data-fn=\"1\"></sup> Its frescoes survive in larger pieces than those of any other Aegean site and can be placed back on their own walls, so whole painted rooms can be reconstructed, and radiocarbon dates from beetles in its jars run earlier than the pottery's.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
+"Akrotiri": "Akrotiri is a Bronze Age town on the island of Thera, buried by the eruption of the island's volcano and preserved under metres of volcanic debris.<sup class=\"fn\" data-fn=\"1\"></sup> An earthquake had wrecked much of it years earlier, and the demolition and rebuilding that followed were unfinished when the volcano erupted; no bodies and hardly any portable valuables were found, so its people had warning and left.<sup class=\"fn\" data-fn=\"1\"></sup> Its frescoes survive in larger pieces than those of any other Aegean site and can be placed back on their own walls, so whole painted rooms can be reconstructed, and radiocarbon dates from beetles in its jars run earlier than the pottery's.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Minoan_eruption": "The Minoan eruption was a Late Bronze Age eruption on the Aegean island of Thera, among the largest of the Holocene, which destroyed the island's middle and left a caldera 10 by 7 kilometres (6 by 4 miles) across.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its deposits record four phases: a plinian pumice fall, surges thrown up where seawater reached the vent, a coarse ignimbrite 55 metres (180 feet) thick, and a finer, hotter one accompanying the caldera's collapse.<sup class=\"fn\" data-fn=\"1\"></sup> Radiocarbon places it between 1627 and 1600 BCE, and since the caldera was sealed from the sea as it formed, the waves recorded on Crete are attributed to pyroclastic flows running into the water rather than to its collapse.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -718,7 +719,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Ayia_Triada_sarcophagus": "LM IIIA, c. 1400 – 1350 BCE",
 "Mesara_tholos_tomb": "EM I onward, from c. 3000 BCE",
 "Palaikastro_Kouros": "LM IB, c. 1500 – 1450 BCE",
-"Akrotiri": "buried late LM IA, c. 1500 BCE"
+"Akrotiri": "buried late LM IA, c. 1500 BCE",
+"Minoan_eruption": "c. 1627 – 1600 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -1069,7 +1071,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Labrys": ["double axe","double axes"],
 "Larnax": ["larnakes"],
 "Mesara_tholos_tomb": ["Mesara tholos","Mesara tholoi"],
-"Minoan_road": ["Minoan roads"]
+"Minoan_road": ["Minoan roads"],
+"Minoan_eruption": ["Thera eruption","Theran eruption"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -1589,7 +1592,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Pseira": ["place","geography","archaeology","greece","bronze age"],
 "Palaikastro_Kouros": ["object","art","religion","archaeology","greece","bronze age"],
 "Petras": ["place","geography","archaeology","greece","bronze age"],
-"Akrotiri": ["place","geography","archaeology","greece","bronze age"]
+"Akrotiri": ["place","geography","archaeology","greece","bronze age"],
+"Minoan_eruption": ["event","geology","nature","greece","bronze age"]
 });
 
 /* Source footnotes per term (slug -> [Chicago note-form citations]) — a numbered fold at the foot of the popup.
@@ -2103,7 +2107,8 @@ window.GLOSSARY_SOURCES = Object.assign(window.GLOSSARY_SOURCES || {}, {
 "Pseira": ["Richard B. Seager, <i>Excavations on the Island of Pseira, Crete</i> (Philadelphia: University Museum, 1910), 5–9, https://archive.org/details/excavationsonisl00seag. [Open access]","Jeremy B. Rutter, \"Lesson 13: Minoan Domestic and Funerary Architecture of the Neopalatial and Post-Palatial Periods,\" <i>Aegean Prehistoric Archaeology</i> (Hanover, NH: Dartmouth College), https://sites.dartmouth.edu/aegean-prehistory/lessons/lesson-13-narrative/. [Open access]"],
 "Palaikastro_Kouros": ["Jean-Claude Poursat, review of <i>The Palaikastro Kouros: A Minoan Chryselephantine Statuette and Its Aegean Bronze Age Context</i>, <i>Topoi. Orient-Occident</i> 11, no. 2 (2001): 707–10, https://www.persee.fr/doc/topoi_1161-9473_2001_num_11_2_1961. [Open access]","Paul Faure, review of <i>The Palaikastro Kouros: A Minoan Chryselephantine Statuette and Its Aegean Bronze Age Context</i>, <i>Revue des Études Grecques</i> 114, no. 1 (2001): 284–85, https://www.persee.fr/doc/reg_0035-2039_2001_num_114_1_4448_t1_0284_0000_2. [Open access]"],
 "Petras": ["R. Angus K. Smith, review of <i>Petras, Siteia II: A Minoan Palatial Settlement in Eastern Crete. Late Bronze Age Pottery from Houses I.1 and I.2</i>, <i>Bryn Mawr Classical Review</i> 2023.08.04, https://bmcr.brynmawr.edu/2023/2023.08.04/. [Open access]","\"KEPHALA, Petras — 2009,\" <i>Chronique des fouilles en ligne</i>, no. 1793, École française d'Athènes, https://chronique.efa.gr/?kroute=report&id=1793. [Open access]"],
-"Akrotiri": ["Jeremy B. Rutter, \"Lesson 17: Akrotiri on Thera, the Santorini Volcano and the Middle and Late Cycladic Periods in the Central Aegean Islands,\" <i>Aegean Prehistoric Archaeology</i> (Hanover, NH: Dartmouth College), https://sites.dartmouth.edu/aegean-prehistory/lessons/lesson-17-narrative/. [Open access]","\"THERA — 2011,\" <i>Chronique des fouilles en ligne</i>, no. 2761, École française d'Athènes, https://chronique.efa.gr/?id=2761&kroute=report. [Open access]"]
+"Akrotiri": ["Jeremy B. Rutter, \"Lesson 17: Akrotiri on Thera, the Santorini Volcano and the Middle and Late Cycladic Periods in the Central Aegean Islands,\" <i>Aegean Prehistoric Archaeology</i> (Hanover, NH: Dartmouth College), https://sites.dartmouth.edu/aegean-prehistory/lessons/lesson-17-narrative/. [Open access]","\"THERA — 2011,\" <i>Chronique des fouilles en ligne</i>, no. 2761, École française d'Athènes, https://chronique.efa.gr/?id=2761&kroute=report. [Open access]"],
+"Minoan_eruption": ["Dávid Karátson et al., \"Towards Reconstruction of the Lost Late Bronze Age Intra-Caldera Island of Santorini, Greece,\" <i>Scientific Reports</i> 8 (2018): 7026, https://pmc.ncbi.nlm.nih.gov/articles/PMC5935677/. [Open access]","Global Volcanism Program, \"Santorini,\" <i>Volcanoes of the World</i>, Smithsonian Institution, https://volcano.si.edu/volcano.cfm?vn=212040. [Open access]","Paraskevi Nomikou et al., \"Post-Eruptive Flooding of Santorini Caldera and Implications for Tsunami Generation,\" <i>Nature Communications</i> 7 (2016): 13332, https://pmc.ncbi.nlm.nih.gov/articles/PMC5105177/. [Open access]"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
