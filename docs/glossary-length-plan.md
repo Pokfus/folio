@@ -91,8 +91,8 @@ its neighbour) actually has neighbours to compare against. The first tag in `GLO
 | **L7** | `era` + `industry` | 44 | 31 over, 5 under | **SHIPPED 2026-08-04.** All 36 now 96–110 words, `era` mean 106 and `industry` 106. **Completes both kinds — 44 terms, 0 outside the bar.** Five grows, the most of any batch. See the log below. |
 | **L8** | `hominin` + `fossil` + `animal` | 40 | 33 over, 2 under | **SHIPPED 2026-08-04.** All 35 now 105–110 words; `hominin` mean 108, `fossil` 107, `animal` 104. **Completes all three kinds — 40 terms, 0 outside the bar.** Fixed a `split-abstract.js` gap on abbreviated binomials. See the log below. |
 | **L9** | `object` + `culture` + `people` + `building` + `event` + `practice` | 45 | 40 over | **SHIPPED 2026-08-04.** All 40 now 97–110 words; `object` mean 108, `culture` 109, `people` 108, `building` 108, `event` 110, `practice` 106. **Completes all six kinds — 45 terms, 0 outside the bar.** Its lever was near-verbatim duplication between sibling terms. See the log below. |
-| **L10** | `concept` + the 10 short definitional terms | ~34 | 21 over, 10 under | **Last on purpose.** These are the GROW cases and the hardest; by L10 the register holds everything the other nine batches read, which is where the honest extra sentences will come from. |
-| **L-audit** | the whole glossary | 477 | — | Re-measure. Report what is still outside 90–110 and why, term by term. |
+| **L10** | `concept` + the four singleton kinds | 28 | 24 over, 1 under | **SHIPPED 2026-08-04.** All 25 now 98–110 words; `concept` mean 107. **Completes the last five kinds, and the pass: 477 of 477 at the bar.** The pass's largest grow (`Archaeology`, 43 → 103) and its densest duplication cluster. See the log below. |
+| **L-audit** | the whole glossary | 477 | — | **SHIPPED 2026-08-04, and it has nothing to report:** 477 of 477 inside the bar, 0 over and 0 under, mean 106.7 words, range 90 (`James_A._Garfield`) – 110 (`Y-chromosomal_Adam`). Every kind is 0 outside. |
 
 Roughly 35–70 terms a batch; L1–L4 are the big formulaic ones and can go faster than the tail.
 
@@ -744,19 +744,95 @@ Clovis no longer being first, so the marker was dropped from the second rather t
 judgement the tooling cannot make for you**: restore the clause when the source has nowhere else to sit,
 move the marker when it does.
 
+### L10 — 24 `concept` terms and the four singleton kinds (2026-08-04)
+
+**25 were outside the bar — 24 over and 1 under — and all 25 now sit at 98–110 words**, `concept` at a
+mean of 107. **This finishes the pass: 477 of 477 inside the bar, mean 106.7 words, range 90–110, and
+every kind 0 outside.** The glossary moved from 452 to 477 and its mean from 107.9 to 106.7.
+
+**The batch's finding is L9's lever meeting a wall, and the wall is the more useful half.** L9 broke
+near-verbatim duplication between `Chert`/`Flint` and `Gunflint`/`Musket` by deciding what each term
+OWNS and letting the others drop the shared clause. L10 opened on a bigger cluster —
+`Chronology`, `Stratum`, `Stratigraphy`, `Geology` and `Geological_epoch` all reciting the same two
+facts (the Quaternary's base at Monte San Nicola, the Holocene's in a Greenland ice core) out of the same
+three papers, with 8 shared eight-word runs between `Stratum` and `Stratigraphy` alone and 5 between
+`Stratum` and `Chronology` — **and ownership could not be assigned, because each term's source list
+requires each of those works to be referenced somewhere in it** (L6's constraint). Drop the clause and
+`add-sources.js` refuses the batch. So the resolution is different and worth naming as its own move:
+**where several definitional terms rest on one small source set, the duplication cannot be deleted, only
+RE-REGISTERED** — each term states the shared fact in the register it owns, in the fewest words it can.
+`Geological_epoch` keeps the GSSP machinery (it is the term about formally defined divisions);
+`Geology` keeps only that the discipline drives a marker into a rock face rather than arguing from
+definitions; `Stratum` keeps the two boundaries as instances of what a sequence is for; `Stratigraphy`
+keeps the combination of relative and scientific dating; `Chronology` keeps the calibration. Measured
+afterwards, **every pair in the cluster is at 0**, and no source lost its marker. The same move fixed
+`Northern_Hemisphere`/`Southern_Hemisphere` (4 → 0), where each hemisphere states its own Coriolis
+direction rather than sharing a sentence about the effect, and `Conchoidal_fracture`, which was carrying
+two of the four claims L9 had just assigned to `Chert` and `Flint` and now states the third — that the
+rocks which fracture this way are the ones presumed to have been chosen for it.
+
+**The pass's largest grow is here and it is the L6/L8 rule at full strength: `Archaeology`, 43 → 103
+words.** It was the shortest term in the glossary by a wide margin, three flat sentences, and it grew
+without a single new source — everything came out of `.claude/sources-register.md`, which records the
+Society for American Archaeology's page verbatim. What it had left out was the *range* of the subject
+("the million-year-old fossils of our earliest human ancestors in Africa" against "20th-century
+buildings in present-day New York City"), the vocabulary (artifacts, the non-portable ones called
+features), and **context** — "the relationship that artifacts have to each other and to their
+surroundings" — which is the discipline's central idea and was not in the term at all. A term under the
+bar is under it because it left something out; a term 57 words under it has left out the middle of its
+own subject.
+
+**The historiography rule cost the most words.** L7 named it on `era` terms and it is the padding class
+here too: `Post-glacial_rebound` lost Anders Celsius reading the falling water of the Gulf of Bothnia in
+1743 as a shrinking sea and Thomas Jamieson giving the right cause in 1865 — 30 words, and the best
+story in the term — while the mechanism and the measured centimetre a year both stay, and both its
+markers still land. `Milankovitch_cycles` lost "his theory was ignored for some fifty years". A term is
+about a thing, not about who worked it out; where the person IS the term (`National_Museum_of_Denmark`,
+`Blytt–Sernander_sequence`) the names stay.
+
+**Zero figures added and 21 dropped**, of which the substantive ones are named: `Post-glacial_rebound`'s
+1743 and 1865, `Geological_epoch`'s exact ratification date of 29 June 2009 (the year stays),
+`Milankovitch_cycles`'s fifty ignored years, and `Behavioural_modernity`'s "fishing and specialised
+hunting" and "goods carried far from home" from its list of traits, which ran to nine and now runs to
+five. `Toba_catastrophe_theory` and `Mitochondrial_Eve` lost restated date-line spans and nothing else.
+
+**The hedge grep caught four, all one shape for the second batch running** — a hedge stripped off a
+figure because it reads as filler in front of a number: `Southern_Hemisphere`'s "Summer falls **around**
+December" and its "belt of water **around** 60° south", `Y-chromosomal_Adam`'s "in Africa between
+**about** 200,000 and 300,000 years ago", and `Behavioural_modernity`'s "Neanderthals used pigment and
+pierced shells in Spain **about** 115,000 years ago". It also caught a fifth thing that is not a hedge:
+`Y-chromosomal_Adam`'s "that figure has moved further and more **often** than almost any number in the
+field" had become "has moved more than", collapsing two claims into one. **The grep finds narrowings as
+well as hedges; read what it reports rather than only counting it.**
+
+**One marked-sentence year diff and one grammar slip, both caught by the check script.**
+`Post-glacial_rebound`'s S3 lost 1743 and 1865 — benign, since Whitehouse still carries the forebulge
+and Sella the measured rise. And `Behavioural_modernity` had been trimmed from "after about 45,000 years
+ago" to "after about 45,000 years", which is a different claim as well as bad English; the year diff
+flagged it as a lost date, which is how it was found. **A trim can change a sentence's meaning without
+removing a word from it.**
+
 ### Status
 
-**L0 and L1–L9 have shipped** (2026-08-04). The glossary stands at **452 of 477 terms inside the bar**
-(95%), mean 107.9 words, and **thirteen whole kinds are done — `place` (266), `person` (54), `era` (33),
-`object` (22), `hominin` (19), `industry` (11), `fossil` (11), `animal` (10), `people` (6), `practice`
-(6), `culture` (5), `event` (4) and `building` (2), 449 terms between them, 0 outside the bar**. What
-remains is 24 over and 1 under, and **all but four of the over are `concept`** — the kind held back on
-purpose, since by now the register holds everything the other nine batches read. **L10 is next** —
-`concept` (24 terms, 21 outside the bar, mean 128) plus the four singleton kinds (`landform`, `plant`,
-`institution`, `theory`, one term each and all over). It is a different job from L1–L9: the longest
-single term in the glossary is now `Behavioural_modernity` at 180, and the under count is a GROW case of
-the sort L6 and L7 met. Three things L9 leaves it: **grep the batch's terms against each other for long
-shared runs before drafting** (L9's largest single saving, and invisible to every other check); **check
-the source list before cutting a restated date-line span**, since a marker may be standing on it; and
-**watch the hedge in front of a figure**, which is where all four of L9's hedge losses were. Re-run
-`gloss-length.js` before and after every batch and record the movement here.
+**THE PASS IS COMPLETE.** L0, L1–L10 and the L-audit have all shipped (2026-08-04). **The glossary
+stands at 477 of 477 terms inside the bar — 100%** — mean 106.7 words, range 90 (`James_A._Garfield`)
+to 110 (`Y-chromosomal_Adam`), and **every one of the eighteen kinds is 0 outside**: `place` (266),
+`person` (54), `era` (33), `concept` (24), `object` (22), `hominin` (19), `fossil` (11), `industry`
+(11), `animal` (10), `people` (6), `practice` (6), `culture` (5), `event` (4), `building` (2) and the
+four singletons `landform`, `plant`, `institution` and `theory`. Nothing is over and nothing is under.
+
+**What keeps it true is the rule, not the measure.** A new glossary term ships at 90–110 words, three
+sentences, cited at the `GLOSS_SRC_TARGET` bar — the same way the citation pass stayed at 477/477
+through sixty-eight new terms. `node .claude/gloss-length.js` is the check to run after any batch of new
+terms or any prose correction; `--over` / `--under` / `--tag=<kind>` / `--list` narrow it. **Re-run it
+after `add-sources.js` and after `add-glossary.js`**, since both write prose and neither measures it.
+
+**The seven checks the ten batches made standing**, in the order they pay: run the whole-corpus split
+audit BEFORE drafting (L8); grep the batch's terms against each other for long shared runs (L9), and
+where ownership cannot be assigned because every source must stay referenced, re-register rather than
+delete (L10); read `GLOSSARY_DATES` before deciding a dropped date is a loss (L5), **and the source list
+before cutting a restated span** (L9); run the sibling-consistency check over the batch's date lines
+(L7); diff the FIGURES before and after (L1); diff every MARKED sentence's YEARS (L2), which is the only
+thing that has ever found a stranded marker or a trim that changed a claim; and grep the HEDGE
+vocabulary (L2), watching especially for a hedge taken off a figure (L9, L10) and for a quantifier in
+front of a superlative (L4, L7).

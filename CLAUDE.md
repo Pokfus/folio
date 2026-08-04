@@ -571,18 +571,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   first. Not part of the site.
 - `docs/glossary-length-plan.md` — **every glossary description at 100 words (±10%)**, on request (Aug 2026): the
   bar, the measured baseline, the eleven batches, the per-term workflow and the batch log. **L0 (the tooling)
-  and L1–L9 have shipped, which completes THIRTEEN WHOLE KINDS — `place` (266), `person` (54), `era` (33),
-  `object` (22), `hominin` (19), `industry` (11), `fossil` (11), `animal` (10), `people` (6), `practice` (6),
-  `culture` (5), `event` (4) and `building` (2), 449 terms, 0 outside the bar**: the 197
-  countries (A–E, F–L, M–R, S–Z), L5's 55 caves, type sites, continents, oceans and regions, L6's 54 people
-  (45 US presidents plus nine antiquarians, archaeologists and a poet), L7's 44 periods and stone industries,
-  L8's 40 taxa, fossils and animals, and L9's 45 tools, artworks, cultures and peoples —
+  L1–L10 and the L-audit have ALL SHIPPED — **THE PASS IS COMPLETE: 477 of 477 terms are inside the bar
+  (100%), mean 106.7 words, range 90 (`James_A._Garfield`) – 110 (`Y-chromosomal_Adam`), and every one of the
+  eighteen kinds is 0 outside**: the 197 countries (A–E, F–L, M–R, S–Z), L5's 55 caves, type sites, continents,
+  oceans and regions, L6's 54 people (45 US presidents plus nine antiquarians, archaeologists and a poet),
+  L7's 44 periods and stone industries, L8's 40 taxa, fossils and animals, L9's 45 tools, artworks, cultures
+  and peoples, and L10's 24 concepts with the four singleton kinds.
   `node .claude/gloss-length.js` is
-  the measure, with `--over` / `--under` / `--tag=<kind>` / `--list`. Where it stands today: **452 of 477 terms
-  are inside the bar** (95%), 24 are
-  over and 1 under, mean 107.9 words, and the work is overwhelmingly TRIMMING. **L10 is LAST** — `concept`
-  (24 terms, 21 over, mean 128) plus the four singleton kinds (`landform`, `plant`, `institution`, `theory`),
-  which is all that is left; the longest term in the glossary is now `Behavioural_modernity` at 180. Three things the bar does not
+  the measure, with `--over` / `--under` / `--tag=<kind>` / `--list`. **What keeps it true is the rule, not the
+  measure**: a new term ships at 90–110 words, three sentences, cited at the bar, exactly as it ships with its
+  citations — so **re-run `gloss-length.js` after `add-sources.js` and after `add-glossary.js`**, since both
+  write prose and neither measures it. Three things the bar does not
   change and which the pass must not quietly relax: still exactly three sentences, still impartial and
   self-contained, and **still no claim past what the citations carry** — a term padded to length is the one way
   this pass can do real damage. Two rules L1 established and the later batches should just apply:
@@ -671,7 +670,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   which is where most of the 70–90 words came off `Spear-thrower` (195) and `Bow_and_arrow` (177). And it
   **qualifies L5's and L7's date-line rule**: `Minoan_palace`'s restated "from about 1900 BCE" was the only
   thing its second marker (Rutter's chronology page) was standing on, so **check the source list before
-  cutting a restated span**, not just `GLOSSARY_DATES`. Two more checks
+  cutting a restated span**, not just `GLOSSARY_DATES`.
+  **L10 is L9's lever meeting a wall, and the wall is the more useful half.** Its cluster —
+  `Chronology`, `Stratum`, `Stratigraphy`, `Geology` and `Geological_epoch`, all reciting the same two
+  GSSP facts out of the same three papers — could NOT be fixed by assigning ownership, because **each
+  term's source list requires each of those works to be referenced somewhere in it** (L6's constraint),
+  so dropping the shared clause orphans a source and `add-sources.js` refuses the batch. **Where several
+  definitional terms rest on one small source set, the duplication cannot be deleted, only RE-REGISTERED**:
+  each states the shared fact in the register it owns and in the fewest words (`Geological_epoch` the GSSP
+  machinery, `Geology` the marker driven into a rock face, `Stratum` the sequence, `Stratigraphy` the
+  combination of relative and scientific dating, `Chronology` the calibration) — every pair then measures
+  0, with no marker lost. Its own padding class is L7's **historiography** again (`Post-glacial_rebound`
+  lost Celsius in 1743 and Jamieson in 1865, 30 words), and its grow is the pass's largest —
+  **`Archaeology`, 43 → 103, out of the register alone**, having left out the range of its own subject,
+  the words *artifact* and *feature*, and **context**, which is the discipline's central idea. Two more checks
   L2 made standing, both
   for failures that are invisible in the
   finished prose. **Diff every MARKED sentence's YEARS before against after** — a trim can strand a marker, and
