@@ -11,9 +11,13 @@ ships.
 
 ## The bar
 
-**90–110 words**, counted on the rendered prose of the ENGLISH description:
-tags stripped, footnote markers stripped, entities resolved. `.claude/gloss-length.js` (below) is the
-measure, and it is the only measure — do not count by eye, and do not count the HTML.
+**90–110 words**, counted on the rendered prose of the ENGLISH description: tags stripped, footnote markers
+stripped, entities resolved, and — as on a card — **an imperial conversion not counted**. That last is the
+house rule already written down in CLAUDE.md, and it matters here more than anywhere: a country term states
+an area, and often a height and a length too, at three words of conversion each, so counting them would hold
+the glossary to a tighter PROSE budget than the cards for no reason but its subject matter.
+`.claude/gloss-length.js` is the measure, and it is the only measure — do not count by eye, and do not count
+the HTML.
 
 Three things the bar does **not** change, and they are what keeps this a length pass rather than a rewrite:
 
@@ -33,30 +37,30 @@ Three things the bar does **not** change, and they are what keeps this a length 
 | | |
 |---|---|
 | terms | **477** |
-| already 90–110 | **62** |
+| already 90–110 | **64** |
 | under 90 | **10** |
-| over 110 | **405** |
-| mean | 131.8 words |
+| over 110 | **403** |
+| mean | 129.5 words |
 | range | 43 (`Archaeology`) – 195 (`Spear-thrower`) |
 
 ```
   40– 59    1
   60– 79    4
-  80– 99   32
- 100–119   78
- 120–139  201     <- the bulk
- 140–159  117
+  80– 99   33
+ 100–119   92
+ 120–139  216     <- the bulk
+ 140–159   88
  160–179   39
- 180–199    5
+ 180–199    4
 ```
 
-So **415 terms need work and 62 are already there**, and the work is overwhelmingly *trimming*: 405 over
+So **413 terms need work and 64 are already there**, and the work is overwhelmingly *trimming*: 403 over
 against 10 under. That asymmetry decides the shape of the pass — cutting a sentence back to what its source
 states is quick and safe, where growing one is where fabrication gets in.
 
 ## The two kinds of edit, and why they are not the same job
 
-**TRIM (405 terms).** A description at 135 words has about 30 words that are doing no work: a second example
+**TRIM (403 terms).** A description at 135 words has about 30 words that are doing no work: a second example
 where one served, a subordinate clause restating the main one, a date already on the term's own date line.
 Cut those first, before touching a claim. If the term is still over after the padding is gone, drop the
 *weakest* claim entire rather than shaving every sentence — three full sentences beat three clipped ones.
@@ -78,11 +82,11 @@ its neighbour) actually has neighbours to compare against. The first tag in `GLO
 | batch | scope | terms | over/under | notes |
 |---|---|---|---|---|
 | **L0** | tooling | — | — | **SHIPPED 2026-08-04.** `.claude/gloss-length.js` — the measure, plus `--over` / `--under` / `--tag=<kind>` / `--list`, and the per-kind table the batches below are cut from. |
-| **L1** | `place`, A–E | ~70 | ~66 | The country terms. Highly formulaic (figures / history / accession), so one trim pattern covers the batch. |
+| **L1** | `place`, A–E (countries) | 56 | 54 over | **SHIPPED 2026-08-04.** All 56 now 102–110 words, mean 107.3. See the log below. |
 | **L2** | `place`, F–L | ~70 | ~66 | " |
 | **L3** | `place`, M–R | ~70 | ~66 | " |
 | **L4** | `place`, S–Z | ~56 | ~53 | " |
-| **L5** | `place`, sites & regions | ~30 | ~28 | The non-country places: caves, gorges, type sites. Less formulaic; expect real judgement per term. |
+| **L5** | `place`, sites, regions and continents | ~40 | ~38 | Everything under `place` that is not a country: caves, gorges and type sites, the continents and oceans, and the odd river (`Awash_River`, which L1's filter turned up). Less formulaic; expect real judgement per term. |
 | **L6** | `person` | 54 | 28 | Half are already close — the 45 US presidents were written to one template. Cheapest batch per term. |
 | **L7** | `era` + `industry` | 44 | 36 | Do these two together: they share dates, and the sibling check across them is the one that caught the Palaeolithic end-date twice before. |
 | **L8** | `hominin` + `fossil` + `animal` | 40 | 35 | Taxa. Watch the citations: a trimmed sentence must still be the one the marker points at. |
@@ -117,9 +121,56 @@ Roughly 35–70 terms a batch; L1–L4 are the big formulaic ones and can go fas
 - **Siblings still agree.** Trimming is where a hedge gets dropped: "scholars disagree about" costs four
   words and is the first thing a careless trim removes, which turns a contested claim into a flat one.
 
+## The batch log
+
+### L1 — 56 country terms, A–E (2026-08-04)
+
+**56 terms, 54 of them over the bar; all 56 now sit at 102–110 words, mean 107.3.** The glossary as a whole
+moved from 64 to 117 terms inside the bar and its mean from 129.5 to 127.2 words. Two terms — `Belarus`
+(103) and `Denmark` (102) — were already inside it and were passed through untouched, which is the right
+outcome and worth saying: this pass edits what is out of band, not everything it looks at.
+
+**The measure was wrong before any prose was touched, and fixing it first is the reusable lesson.**
+`gloss-length.js` counted imperial conversions; `add-card.js` has exempted them since the units pass, and a
+country term carries two or three of them at three words each. Counting them held the glossary to a tighter
+PROSE budget than the cards for no reason but its subject matter. Corrected, the baseline moved from 62 to 64
+terms in band — small, but it is the difference between trimming prose and trimming parentheses.
+
+**What a country term is made of, and where the 30 words come from.** Every one has the same three
+sentences: FIGURES (area, region, population, borders, capital, marked to UNdata), GEOGRAPHY (landscape,
+usually unmarked), HISTORY (colonial rule, independence, the modern state, marked to the recognition guide).
+The padding is in two predictable places, and taking both is almost exactly the 30 words a 135-word term
+needs to lose:
+- **the border list, worth 9–13 words**, and the first thing to go. "Bordered by Mali, Niger, Benin, Togo,
+  Ghana and Côte d'Ivoire" tells a reader less than "in West Africa" already did, and it is the most
+  formulaic clause in the corpus. Keep it only where the borders ARE the fact (Bhutan wedged between China
+  and India; Bangladesh almost surrounded by India).
+- **the second and third clauses of the geography sentence.** These run on semicolons and are where a term
+  lists a third landscape, a second river or a climate note after the point is made.
+Tightening the remaining prose finds the last ten. **Cutting a whole clause beats shaving every sentence** —
+three full sentences read better than three clipped ones, which is what the plan said and what the batch bore out.
+
+**No figure was added or altered, and that is checked mechanically rather than trusted.** Diffing every
+number in all 56 terms before and after: **zero added**, 23 dropped, each with the clause it sat in. Most are
+asides (a causeway length, a strait width, the distance to the Galápagos), but three are substantive and are
+recorded here rather than glossed over — `Afghanistan` lost "resisted British campaigns in the 19th and early
+20th centuries", `Eritrea` lost the 1998–2000 border war with Ethiopia, and `Bulgaria`'s Cyrillic clause lost
+its 9th- and 10th-century dating. **A trim to length removes real facts; the honest thing is to name which.**
+
+**Two incidental finds.** `Bhutan` carried a typo — "a index it calls gross national happiness" — fixed in
+passing. And `Costa_Rica`'s markers were both parked at the end of its third sentence, where the register
+records that the 1821 clause is carried by the guide's **El Salvador** page and the 1848 by Costa Rica's own;
+they now sit on their own claims. **A length pass reads every term slowly, which is when marker sloppiness
+shows** — expect one or two of these a batch.
+
+**Verified before shipping:** all 56 split into exactly three sentences and round-trip through
+`split-abstract.js`; `gloss-source-audit.js` still reports 477/477 at the 2-source bar; `check-style.js` is
+clean on glossary.js; `test-sources.js` passes 74/74; and a table-by-table diff confirms only descriptions
+changed — sources, dates, tags, aliases, places and the Atlas map-country table are byte-identical.
+
 ## Status
 
-**L0 has shipped** (2026-08-04): `node .claude/gloss-length.js` is the measure, and every figure in this
-document came out of it rather than out of an estimate. **L1 is next.** No prose has been edited — the
-count above is the baseline the pass will be measured against, so re-run L0 before and after every batch
-and record the movement here.
+**L0 and L1 have shipped** (2026-08-04). The glossary stands at **117 of 477 terms inside the bar**, mean
+127.2 words. **L2 is next** — the same recipe, and it should go faster now that the shape is known: drop the
+border list, take the geography sentence's tail, tighten. Re-run `gloss-length.js` before and after every
+batch and record the movement here.

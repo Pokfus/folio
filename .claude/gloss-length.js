@@ -25,6 +25,13 @@ require(path.join(__dirname, "..", "glossary.js"));
 const G = global.window.GLOSSARY || {};
 const TAGS = global.window.GLOSSARY_TAGS || {};
 
+/* An IMPERIAL conversion does not count, exactly as it does not on a card — the identical pattern lives in
+   add-card.js and add-questions.js, and the rule is written down in CLAUDE.md ("THE WORD LIMITS DO NOT
+   COUNT A CONVERSION"). Without this the glossary would be held to a tighter PROSE budget than the cards
+   purely because its terms carry more measurements: a country term states an area, sometimes a height and a
+   length too, at three words of conversion each. The leading space goes with the parenthetical, or the
+   stripped text leaves a stray token behind. */
+const IMPERIAL_PAREN = /\s*\((?=[^)]*\d)[^)]*\b(?:miles?|foot|feet|ft|inch(?:es)?|in|yards?|pounds?|lbs?|ounces?|oz|tons?|acres?|sq\s?mi|°F)\b[^)]*\)/gi;
 // the same order the popup renders in: markers first (they sit inside the prose), then tags, then entities
 function words(html) {
   return String(html || "")
@@ -32,6 +39,7 @@ function words(html) {
     .replace(/<[^>]*>/g, " ")
     .replace(/&nbsp;/gi, " ")
     .replace(/&[a-z]+;/gi, "x")          // an entity is one word's worth of glyph, not a gap
+    .replace(IMPERIAL_PAREN, "")
     .replace(/\s+/g, " ")
     .trim()
     .split(" ")
