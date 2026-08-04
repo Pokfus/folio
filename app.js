@@ -1061,7 +1061,7 @@
       // themeAuto: a first-time visitor follows the operating system's light/dark setting (Aug 2026, on
       // request). `night` stays the RESOLVED value — every stylesheet rule and the canvas globe read
       // body.night — and applyTheme writes it from the system while themeAuto is on.
-      settings: { night: false, themeAuto: true, units: "metric", theme: "folio", fontSize: "medium", dayEnd: 0, animations: true, contrast: false, newPerDay: 3, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 } },
+      settings: { night: false, themeAuto: true, units: "metric", theme: "folio", fontSize: "medium", dayEnd: 0, animations: true, contrast: false, newPerDay: 3, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 }, bookSort: "recent", bookSortRev: false },
       cards: {}, // id -> {reps,lapses,ease,interval,due,status,last}
       suspended: {}, // id -> true (card set aside; never shown again)
       /* Where the reader had got to in each Library book: bookId -> { ch, y, at }. A book runs to
@@ -1069,6 +1069,11 @@
          it is usable at all. It is PROGRESS, not a device setting — it rides in PROGRESS_FIELDS so a
          reader who starts a letter on the train finds it open on the same paragraph at home. */
       reading: {},
+      /* Which Library books the reader has starred: bookId -> when it was starred. PROGRESS, not a device
+         setting, and for the same reason `reading` is — a favourite is a fact about the reader, so the
+         shelf a phone shows is the shelf the laptop shows. The timestamp rather than `true` is what lets
+         the Favourites section keep the order they were starred in. */
+      bookFavs: {},
       daily: { lastPlayed: 0, best: 0, games: 0, wins: 0, podiums: 0 },
       chrono: { date: "", best: 0, plays: 0, solved: false }, // timeline game daily record
       games: {}, // minigame id ("challenge"/"chrono"/"truefalse"/"whosaid") -> { date, played, won } for today's tile checkmarks + the daily-sweep badge
@@ -1318,7 +1323,7 @@
      Kept for: the admin page's local-user manager, the guest-progress stash helpers (extractProgress /
      applyProgress / emptyProgress), and older saves. The account page no longer signs in against this. */
   const ACCT_KEY = "folio_acct_v1";
-  const PROGRESS_FIELDS = ["cards", "suspended", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "reviewLog", "reviewDay", "streak", "active", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading"];
+  const PROGRESS_FIELDS = ["cards", "suspended", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "reviewLog", "reviewDay", "streak", "active", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs"];
   const B32 = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
   function defaultAcct() { return { users: {}, current: null, guest: null }; }
   let ACCT = (function () {
@@ -5601,8 +5606,67 @@
      There is no "Draw" button (removed Aug 2026, on request): the three SIZE buttons are the pen, and
      clicking the selected size again is what puts it back up — so the pen costs one control instead of two,
      and the row that named it now carries Mark beside the sizes. */
-  const WB = { enabled: false, panelOpen: false, mode: "pen", penColor: WB_COLORS[0], hlColor: WB_HL_COLORS[0], color: WB_COLORS[0], size: WB_SIZES[1], canvas: null, ctx: null, drawing: false, last: null, ro: null, backup: null, hlPts: null, dirtied: false, undoStack: [], redoStack: [] };
+  const WB = { enabled: false, panelOpen: false, mode: "pen", penColor: WB_COLORS[0], hlColor: WB_HL_COLORS[0], color: WB_COLORS[0], size: WB_SIZES[1], canvas: null, ctx: null, drawing: false, last: null, ro: null, backup: null, hlPts: null, dirtied: false, undoStack: [], redoStack: [], stylusSeen: false, penOnly: true };
   const WB_HIST_MAX = 20;   // cap on undo history (raster card snapshots are full-canvas bitmaps)
+  /* ---------- A STYLUS TAKES THE PEN, AND FINGERS GO BACK TO SCROLLING (Aug 2026, on request) ----------
+     Anki's behaviour, and the reason it exists: with the marker down the canvas covers the whole visible
+     page, so on a tablet a reader annotating with a stylus could not scroll the card they were annotating
+     without first putting the pen up, drawing on it, and undoing that. Once a stylus has been seen on this
+     device, `pointerType === "pen"` draws and `"touch"` is handed back to the browser to scroll with.
+
+     It is DETECTED, not configured — the request is that the site recognise a stylus — but it is not
+     irreversible: the panel grows a "Stylus only" row the moment one is seen, so a reader who wants to
+     go back to drawing with a finger can, and the choice is remembered. Detection is remembered too
+     (device-local, like where the marker sits and how tall the Atlas sheet is): a pen that has touched
+     this screen once will touch it again, and asking the reader to re-teach the site every reload is
+     exactly the friction this is meant to remove.
+
+     `stylusSeen` and `penOnly` are separate on purpose. The first is a fact about the hardware and only
+     ever goes true; the second is the reader's answer to it, and defaults to yes. */
+  const WB_STYLUS_KEY = "folio_wb_stylus_v1";
+  function wbLoadStylus() {
+    try {
+      const raw = localStorage.getItem(WB_STYLUS_KEY);
+      if (!raw) return;
+      const v = JSON.parse(raw);
+      WB.stylusSeen = !!(v && v.seen);
+      WB.penOnly = !(v && v.penOnly === false);
+    } catch (e) {}
+  }
+  function wbSaveStylus() {
+    try { localStorage.setItem(WB_STYLUS_KEY, JSON.stringify({ seen: WB.stylusSeen, penOnly: WB.penOnly })); } catch (e) {}
+  }
+  wbLoadStylus();
+  // true when a finger must be left to the browser: a stylus is in use and the reader has not said otherwise
+  function wbPenOnly() { return WB.stylusSeen && WB.penOnly; }
+  /* One document listener, registered once and removed the moment it fires. A pen announces itself on any
+     pointer event — including a hover, which is why `pointerover` is watched as well as `pointerdown`: a
+     stylus held over the screen has already identified itself before it touches, so the very first stroke
+     is drawn under the right rule rather than the one after it. */
+  function wbNoteStylus() {
+    if (WB.stylusSeen) return;
+    WB.stylusSeen = true;
+    wbSaveStylus();
+    wbApplyStylusMode();
+    if (wbRefreshTools) wbRefreshTools();
+    if (WB.enabled) toast("Stylus detected — your finger scrolls now, the pen draws");
+  }
+  (function watchForStylus() {
+    const on = (e) => { if (e.pointerType === "pen") { document.removeEventListener("pointerdown", on, true); document.removeEventListener("pointerover", on, true); wbNoteStylus(); } };
+    if (WB.stylusSeen) return;                       // already known — nothing to watch for
+    document.addEventListener("pointerdown", on, true);
+    document.addEventListener("pointerover", on, true);
+  })();
+  /* The CSS half, and it is the load-bearing half: `touch-action` is what decides whether the browser may
+     scroll under a finger at all. The canvas declares `none` normally — a drawing surface must not have its
+     strokes stolen by the scroller — and `pan-y pinch-zoom` in stylus mode, which hands vertical drags and
+     pinches back while leaving horizontal ones (nothing scrolls sideways under the card) alone. The JS half
+     is in setupWhiteboard's pointerdown, and BOTH are needed: preventDefault on a pointerdown cancels the
+     scroll whatever touch-action says. */
+  function wbApplyStylusMode() {
+    if (WB.canvas) WB.canvas.classList.toggle("wb-pen-only", wbPenOnly());
+  }
+  const WB_TAP_SLOP = 8;   // px a finger may wander in stylus mode and still count as a tap on the control under it
   let wbToolsRef = null;
   let wbRefreshTools = null;   // set by ensureWBTools — re-marks the selected tool from WB.enabled/WB.mode
   /* The custom colour beside the five presets. It is device-local and NOT in S: a marker colour is a fact
@@ -5737,6 +5801,13 @@
           <button class="wb-btn wb-eraser"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20H8.5L3.5 15a1.8 1.8 0 0 1 0-2.5l8-8a1.8 1.8 0 0 1 2.5 0l5 5a1.8 1.8 0 0 1 0 2.5L13 19"/></svg>Erase</button>
           <button class="wb-btn wb-clear"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg>Clear</button>
         </div>
+        ${/* The reader's answer to a stylus being detected. The row does not exist until one has been seen,
+              so a phone or a laptop never carries a control for hardware it has not got; from then on it
+              stays, because detection is remembered and a reader who wants to go back to drawing with a
+              finger needs a way to say so. It is marked with `wb-on` and NOT `sel` — see refreshModes. */""}
+        <div class="wb-row wb-stylus-row" hidden>
+          <button class="wb-btn wb-stylus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19 3 21l2-9L15.5 1.5a2.1 2.1 0 0 1 3 3z"/><path d="m13.5 3.5 4 4"/></svg>Stylus only</button>
+        </div>
         <div class="wb-row">
           <button class="wb-btn wb-undo" aria-label="Undo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>Undo</button>
           <button class="wb-btn wb-redo" aria-label="Redo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>Redo</button>
@@ -5757,6 +5828,16 @@
         x.classList.toggle("sel", mine);
         x.classList.toggle("on", mine && WB.enabled && WB.mode === "pen");
       });
+      // the stylus row appears the moment a pen is seen and never goes away again — see WB_STYLUS_KEY
+      const srow = el.querySelector(".wb-stylus-row"), sbtn = el.querySelector(".wb-stylus");
+      srow.hidden = !WB.stylusSeen;
+      /* Marked with `wb-on`, deliberately NOT `sel`. In this panel `.sel` means "this is the tool being
+         drawn with", and anything reading the panel back — the reader's eye, and test-layout.js, which
+         collects `.wb-btn.sel` to say which tool is down — would take a lit switch here for a fourth tool.
+         It looks the same and means something else: who may draw, not what with. */
+      sbtn.classList.toggle("wb-on", WB.penOnly);
+      sbtn.setAttribute("aria-pressed", WB.penOnly ? "true" : "false");
+      sbtn.title = WB.penOnly ? "Your finger scrolls the page; the stylus draws" : "Your finger draws too";
     };
     wbRefreshTools = refreshModes;
     const useColor = (c) => {
@@ -5895,6 +5976,16 @@
     };
     el.querySelector(".wb-hl").addEventListener("click", () => pickTool("hl"));
     el.querySelector(".wb-eraser").addEventListener("click", () => pickTool("erase"));
+    /* Not a TOOL — it changes nothing about what is being drawn with, only about who may draw. So it does
+       not go through pickTool, and it never puts the pen up: a reader turning finger-drawing back on is
+       asking to carry on drawing, by hand. */
+    el.querySelector(".wb-stylus").addEventListener("click", () => {
+      WB.penOnly = !WB.penOnly;
+      wbSaveStylus();
+      wbApplyStylusMode();
+      refreshModes();
+      toast(WB.penOnly ? "Your finger scrolls; the stylus draws" : "Your finger draws too");
+    });
     el.querySelector(".wb-undo").addEventListener("click", wbUndo);
     el.querySelector(".wb-redo").addEventListener("click", wbRedo);
     el.querySelector(".wb-clear").addEventListener("click", wbClear);
@@ -6027,6 +6118,7 @@
     const stage = document.querySelector(".stage") || document.body;
     stage.appendChild(canvas);
     WB.canvas = canvas; WB.ctx = canvas.getContext("2d");
+    wbApplyStylusMode();   // a canvas built while a stylus is already known must scroll under a finger at once
     WB.drawing = false; WB.backup = null; WB.hlPts = null;
     wbResize(false);
     WB.undoStack.length = 0; WB.redoStack.length = 0; WB.dirtied = false; wbSnapCard();   // base (empty) snapshot so undo can return to a blank card
@@ -6052,9 +6144,22 @@
       const ctl = el && el.closest ? el.closest(CTL_SEL) : null;
       return ctl && ctl !== canvas ? ctl : null;
     };
-    let passCtl = null;
+    let passCtl = null, passScroll = false, sx = 0, sy = 0;
     canvas.addEventListener("pointerdown", (e) => {
       if (!WB.enabled) return;
+      if (e.pointerType === "pen") wbNoteStylus();    // the first stroke of a stylus is what usually teaches us
+      sx = e.clientX; sy = e.clientY;
+      /* A FINGER IN STYLUS MODE IS NOT A STROKE — it is a scroll, and possibly a tap on a control. So the
+         press is neither drawn nor preventDefault'd: `touch-action:pan-y pinch-zoom` (the .wb-pen-only
+         class) is what lets the browser take it, and preventDefault here would cancel that whatever the
+         CSS says. What still has to be done by hand is the control underneath — a tap must reach Show
+         answer exactly as it does with the pen up — so the same pass-through the ink already uses runs,
+         and pointerup activates the control if the finger is still on it. */
+      if (wbPenOnly() && e.pointerType === "touch") {
+        passCtl = controlUnder(e); passScroll = true;
+        return;
+      }
+      passScroll = false;
       passCtl = controlUnder(e);
       if (passCtl) { e.preventDefault(); return; }   // a button under the ink: this press is its, not a stroke
       WB.drawing = true; WB.last = posOf(e);
@@ -6098,10 +6203,14 @@
     });
     const end = () => { const drew = WB.drawing && WB.dirtied; WB.drawing = false; WB.backup = null; WB.hlPts = null; if (drew) { WB.dirtied = false; wbSnapCard(); } };
     canvas.addEventListener("pointerup", (e) => {
-      const ctl = passCtl; passCtl = null;
+      const ctl = passCtl, scrolled = passScroll; passCtl = null; passScroll = false;
       if (ctl) {
-        // released on the same control it was pressed on → activate it, the way the click we suppressed would have
-        if (controlUnder(e) === ctl) {
+        /* Released on the same control it was pressed on → activate it, the way the click we suppressed
+           would have. In stylus mode nothing was suppressed (the press had to stay scrollable), so a
+           finger that MOVED has scrolled the page rather than tapped, and activating anything then would
+           fire a button the reader was only using to push the page along. */
+        const moved = scrolled && (Math.abs(e.clientX - sx) > WB_TAP_SLOP || Math.abs(e.clientY - sy) > WB_TAP_SLOP);
+        if (!moved && controlUnder(e) === ctl) {
           if (/^(INPUT|TEXTAREA|SELECT)$/.test(ctl.tagName)) { try { ctl.focus(); } catch (x) {} }
           else ctl.click();
         }
@@ -6109,7 +6218,7 @@
       }
       end();
     });
-    canvas.addEventListener("pointercancel", () => { passCtl = null; end(); });
+    canvas.addEventListener("pointercancel", () => { passCtl = null; passScroll = false; end(); });
     if (WB._onResize) window.removeEventListener("resize", WB._onResize);
     WB._onResize = () => wbResize(true);
     window.addEventListener("resize", WB._onResize);
@@ -6822,104 +6931,11 @@
     fig.addEventListener("click", flip);
     fig.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); flip(); } });
   }
-  // same pick all day, a different one tomorrow (card of the day, term of the day)
-  function dailyPick(arr, salt) {
-    if (!arr || !arr.length) return null;
-    return arr[(hashStr(salt + todayStr()) >>> 0) % arr.length];
-  }
-  // small decorative globe on the home page's Atlas tile: present-day landmasses (world.js), orthographic,
-  // slowly turning. Decimated vertices — it's a 170px ornament, not the Atlas.
-  function startMiniGlobe(canvas) {
-    if (!canvas) return;
-    // world.js is lazy (see DATA_BUNDLES). This globe is a 170px ornament on the landing page, so
-    // it must never delay first paint: fetch at idle and start once the borders arrive.
-    if (!dataReady("world")) {
-      // 1.6 MB of borders for a decorative ornament isn't a fair trade on a metered connection
-      const conn = navigator.connection || {};
-      if (conn.saveData) { canvas.remove(); return; }
-      whenIdle(() => ensureData("world").then((ok) => { if (ok && document.body.contains(canvas)) startMiniGlobe(canvas); }));
-      return;
-    }
-    const GEO = window.WORLD_GEO || [];
-    if (!GEO.length) return;
-    // decimate gently (every 2nd vertex). Each ring is decimated independently, so shared borders
-    // diverge slightly — the draw pass welds the seams by stroking every ring in the LAND colour
-    // before the thin border pass, otherwise ocean shows through as gaps between countries.
-    const rings = [];
-    GEO.forEach((c) => (c.p || []).forEach((r) => {
-      if (r.length < 8) return;
-      const s = [];
-      for (let i = 0; i < r.length; i += 2) s.push(r[i]);
-      s.push(r[r.length - 1]);
-      rings.push(s);
-    }));
-    const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
-    const size = canvas.clientWidth || 170;
-    canvas.width = size * dpr; canvas.height = size * dpr;
-    const hex2rgb = (h) => { h = h.replace("#", ""); if (h.length === 3) h = h.split("").map((c) => c + c).join(""); const n = parseInt(h, 16); return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; };
-    const mix = (a, b, t) => { const A = hex2rgb(a), B = hex2rgb(b); return "rgb(" + Math.round(A[0] + (B[0] - A[0]) * t) + "," + Math.round(A[1] + (B[1] - A[1]) * t) + "," + Math.round(A[2] + (B[2] - A[2]) * t) + ")"; };
-    // theme colours are re-read on day/night or theme switches (the toggle doesn't re-render the page,
-    // so colours captured once would go stale — the globe kept its daylight water in night mode)
-    let ocean, land, border, rim;
-    function readCols() {
-      const cs = getComputedStyle(document.body);
-      const cv = (n) => cs.getPropertyValue(n).trim() || "#888888";
-      const ink = cv("--ink"), paper = cv("--paper"), paper2 = cv("--paper-2"), indigo = cv("--indigo");
-      const L = hex2rgb(paper), dark = L[0] * 0.299 + L[1] * 0.587 + L[2] * 0.114 < 128;
-      ocean = dark ? mix(paper2, indigo, 0.30) : "#b3ebff";   // same water as the Atlas
-      land = mix(paper, ink, 0.12); border = mix(paper, ink, 0.40); rim = mix(paper, ink, 0.32);
-    }
-    readCols();
-    const ctx = canvas.getContext("2d");
-    const cx = canvas.width / 2, cy = canvas.height / 2, R = canvas.width / 2 - dpr;
-    const rad = Math.PI / 180, phi0 = 18 * rad, sp0 = Math.sin(phi0), cp0 = Math.cos(phi0);
-    let lon0 = -20;
-    function draw() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.beginPath(); ctx.arc(cx, cy, R, 0, 2 * Math.PI); ctx.fillStyle = ocean; ctx.fill();
-      ctx.save(); ctx.beginPath(); ctx.arc(cx, cy, R, 0, 2 * Math.PI); ctx.clip();
-      // pass 1 — land: fill each ring AND stroke it in the land colour, welding the hairline gaps
-      // that independent per-ring decimation opens along shared borders
-      const paths = [];
-      for (const ring of rings) {
-        let started = false;
-        const p = new Path2D();
-        for (let i = 0; i < ring.length; i++) {
-          const lam = (ring[i][0] - lon0) * rad, phi = ring[i][1] * rad;
-          const cp = Math.cos(phi), sp = Math.sin(phi), cl = Math.cos(lam);
-          if (sp0 * sp + cp0 * cp * cl <= 0) continue;   // behind the globe (a horizon-crossing ring closes with a chord — fine at this size)
-          const x = cx + R * cp * Math.sin(lam), y = cy - R * (cp0 * sp - sp0 * cp * cl);
-          if (started) p.lineTo(x, y); else { p.moveTo(x, y); started = true; }
-        }
-        if (!started) continue;
-        p.closePath();
-        paths.push(p);
-      }
-      ctx.fillStyle = land; ctx.strokeStyle = land; ctx.lineWidth = dpr * 1.7; ctx.lineJoin = "round";
-      for (const p of paths) { ctx.fill(p); ctx.stroke(p); }
-      // pass 2 — thin borders on top of the welded landmass
-      ctx.strokeStyle = border; ctx.lineWidth = dpr * 0.5;
-      for (const p of paths) ctx.stroke(p);
-      ctx.restore();
-      ctx.beginPath(); ctx.arc(cx, cy, R - dpr / 2, 0, 2 * Math.PI); ctx.strokeStyle = rim; ctx.lineWidth = dpr; ctx.stroke();
-    }
-    draw();
-    // repaint in the new palette when the user flips day/night or switches theme (covers the
-    // reduced-motion static globe too); disconnects itself once the canvas leaves the DOM
-    const mo = new MutationObserver(() => {
-      if (!canvas.isConnected) { mo.disconnect(); return; }
-      readCols(); draw();
-    });
-    mo.observe(document.body, { attributes: true, attributeFilter: ["class", "data-theme"] });
-    if (prefersReducedMotion()) return;   // the globe still draws — it just doesn't turn
-    let last = 0;
-    function frame(t) {
-      if (!canvas.isConnected) return;   // navigated away — render() replaced #view
-      if (t - last >= 40) { last = t; lon0 = (lon0 + 0.15) % 360; draw(); }
-      requestAnimationFrame(frame);
-    }
-    requestAnimationFrame(frame);
-  }
+  /* `dailyPick` (the date-seeded "same pick all day" chooser) and `startMiniGlobe` (the 170px turning
+     ornament on the home page's Atlas tile) were removed with the discovery row they served — the card of
+     the day, the gloss of the day and the Atlas teaser (Aug 2026, on request; see PAGES.home). The globe
+     was the only caller of the `world` bundle outside the Atlas itself, so the home page no longer fetches
+     ~1.6 MB of borders at idle for decoration. The daily GAMES seed their own rounds and never used either. */
 
   /* THE SHIPPED VERSION — very small, in the top-left corner of the home page (Aug 2026, on request).
      The record itself lives in `changelog.js` (`window.FOLIO_VERSION`), beside the release notes it
@@ -7123,83 +7139,35 @@
     // The sixth slot in the grid. It used to read "Coming soon / —", which names nothing and looks like a tile
     // that failed to load; it says what it is instead.
     const blankTile = (g, color) =>
-      `<div class="game-tile blank" style="--tile:${color}"><span class="gt-glyph${/^\s*<svg/.test(g) ? " gt-glyph-svg" : ""}">${g}</span><div class="gt-body"><span class="gt-eyebrow">Coming soon</span><span class="gt-title">More games</span>${phone ? "" : '<span class="gt-sub">Another one is being written.</span>'}</div></div>`;
-    /* Today's score, once the game has been played. On a PHONE that is all a tile's tagline can ever be:
-       the descriptions were removed there on request (Aug 2026) — three tiles to a row leaves about 86px of
-       text column, where one sentence runs to four lines and buries the name of the game above it — and the
-       score is dropped to its bare figures for the same reason. A score is not a description: it is the one
-       thing on the tile that changes during the day, so it stays. */
-    const gameScore = (key, wording) => {
+      `<div class="game-tile blank" style="--tile:${color}"><span class="gt-glyph${/^\s*<svg/.test(g) ? " gt-glyph-svg" : ""}">${g}</span><div class="gt-body"><span class="gt-eyebrow">Coming soon</span><span class="gt-title">More games</span></div></div>`;
+    /* Today's score, once the game has been played — and now the ONLY thing a tile's tagline can ever be.
+       The descriptions went from the phone in Aug 2026 (three tiles to a row leaves about 86px of text
+       column, where one sentence runs to four lines and buries the name of the game above it) and from the
+       desktop a fortnight later, on request, so that the two pages read the same. A score is not a
+       description: it is the one thing on the tile that changes during the day, so it stays — and it stays
+       in its bare figures, which is all a tile that no longer carries a sentence has room to say. */
+    const gameSub = (key) => {
       const g = S.games && S.games[key];
       if (!(g && g.date === todayStr() && g.played && typeof g.s === "number" && typeof g.n === "number")) return "";
-      return phone ? g.s + "/" + g.n : g.s + "/" + g.n + " " + (wording || "correct!");
+      return g.s + "/" + g.n;
     };
-    const gameSub = (key, fallback, wording) => gameScore(key, wording) || (phone ? "" : fallback);
     const gameGrid = `<div class="game-grid">
-      ${tile({ id: "g-challenge", cls: "g-challenge", color: "#D9544C", glyph: ICON.choices, title: "Multiple Choice", sub: gameSub("challenge", "Pick the answer · 5 rounds"), done: playedChallengeToday, won: wonToday.challenge })}
-      ${tile({ id: "g-chrono", cls: "g-chrono", color: "#4F74C2", glyph: ICON.timeline, title: "Timeline", sub: gameSub("chrono", "Put the events in order", "in order!"), done: playedChronoToday, won: wonToday.chrono })}
-      ${tile({ id: "g-truefalse", cls: "g-truefalse", color: "#4F9D67", glyph: ICON.truefalse, title: "True or False", sub: gameSub("truefalse", "Myth or fact? 5 rounds"), done: playedTrueFalseToday, won: wonToday.truefalse })}
-      ${tile({ id: "g-whosaid", cls: "g-whosaid", color: "#8257C2", glyph: ICON.whosaid, title: "Who said it?", sub: gameSub("whosaid", "Guess the speaker · 5 rounds"), done: playedWhoSaidToday, won: wonToday.whosaid })}
-      ${tile({ id: "g-findit", cls: "g-findit", color: "#2BA6A0", glyph: ICON.findit, title: "Find it", sub: gameSub("findit", "Click the globe · 5 rounds", "found first try!"), done: playedFindItToday, won: wonToday.findit })}
+      ${tile({ id: "g-challenge", cls: "g-challenge", color: "#D9544C", glyph: ICON.choices, title: "Multiple Choice", sub: gameSub("challenge"), done: playedChallengeToday, won: wonToday.challenge })}
+      ${tile({ id: "g-chrono", cls: "g-chrono", color: "#4F74C2", glyph: ICON.timeline, title: "Timeline", sub: gameSub("chrono"), done: playedChronoToday, won: wonToday.chrono })}
+      ${tile({ id: "g-truefalse", cls: "g-truefalse", color: "#4F9D67", glyph: ICON.truefalse, title: "True or False", sub: gameSub("truefalse"), done: playedTrueFalseToday, won: wonToday.truefalse })}
+      ${tile({ id: "g-whosaid", cls: "g-whosaid", color: "#8257C2", glyph: ICON.whosaid, title: "Who said it?", sub: gameSub("whosaid"), done: playedWhoSaidToday, won: wonToday.whosaid })}
+      ${tile({ id: "g-findit", cls: "g-findit", color: "#2BA6A0", glyph: ICON.findit, title: "Find it", sub: gameSub("findit"), done: playedFindItToday, won: wonToday.findit })}
       ${blankTile(ICON.help, "#DB8B3A")}
     </div>`;
 
-    // --- discovery row: a real card to flip, a glossary term, and the Atlas ---
     const fresh = Object.keys(S.cards).length === 0;   // never studied anything → first-run hero + how-it-works strip
-    const availSet = availableCardIdSet();
-    /* The whole discovery row is DESKTOP-ONLY (Aug 2026, on request — the Atlas teaser had gone a week
-       earlier, on the same grounds). A phone's home page is the day's work: the review, the decks under it
-       and the games. Skipped at RENDER rather than hidden in CSS, so a phone pays for none of it — no
-       date-seeded pick over every card, no glossary scan, and above all no ~1.6 MB of globe geometry for an
-       ornament nobody can see. The resize listener at the foot of this function rebuilds the page, and with
-       it the row, if the window ever grows past the breakpoint. */
-    // the day's card asks the same phrasing all day (date-seeded, like the pick of the card itself)
-    const cod = phone ? null : cardWithQuestion(cardLocalized(dailyPick(CARDS.filter((c) => availSet.has(c.id) && c.question && c.answerText), "cod-")), (n) => (hashStr("codq-" + todayStr()) >>> 0) % n);
-    const todKeys = phone || !window.GLOSSARY ? [] : Object.keys(window.GLOSSARY).filter((k) => (window.GLOSSARY_DATES || {})[k]);
-    const tod = dailyPick(todKeys, "term-");
-    const todImg = tod ? glossImage(tod) : null;   // the term's illustration, shown at the right of the tile
-    const exploreGrid = phone ? "" : `<div class="explore-grid${todImg ? " has-term-img" : ""}">
-      ${cod ? `<button class="exp-tile exp-card" id="exp-card" type="button" aria-label="Card of the day — click to flip it over">
-        <div class="flip">
-          <div class="flip-face flip-front">
-            ${/* The tile is a fixed height and the question is often three lines, so the front used to end in a
-                  band of nothing. The card's DECK fills it — deliberately not its era, which on a prehistory
-                  card is most of the answer. It also tells a reader where to go to study more like it. */""}
-            <div class="cod-head"><span class="exp-eyebrow">Card of the day</span>${(() => {
-              const l = cardLeaves(cod.id)[0];
-              return l ? `<span class="cod-where">${esc(nodeWhere(l))}</span>` : "";
-            })()}</div>
-            <div class="cod-q">${cod.question}</div>
-            <span class="exp-hint">Click to turn the card over</span>
-          </div>
-          <div class="flip-face flip-back">
-            <span class="exp-eyebrow">Card of the day</span>
-            <div class="cod-a">${esc(cod.answerText)}</div>
-            ${cod.hanzi ? `<div class="cod-han">${esc(cod.hanzi)}${cod.pinyin ? ` <span class="cod-pin">${esc(cod.pinyin)}</span>` : ""}</div>` : ""}
-            <span class="btn cod-study" id="cod-study">Study this card</span>
-          </div>
-        </div>
-      </button>` : ""}
-      ${tod ? `<button class="exp-tile exp-term" id="exp-term" type="button">
-        <span class="term-copy">
-          <span class="exp-eyebrow">Gloss of the day</span>
-          <span class="term-title">${esc(glossTitle(tod))}</span>
-          ${glossDates(tod) ? `<span class="term-dates">${esc(glossDates(tod))}</span>` : ""}
-          <span class="term-desc" id="term-desc"></span>
-          <span class="exp-hint">Term of the day — click to read</span>
-        </span>
-        ${todImg ? `<span class="term-img"><img src="${esc(todImg.src)}" alt="${esc(todImg.title || glossTitle(tod))}" loading="lazy" draggable="false"></span>` : ""}
-      </button>` : ""}
-      <button class="exp-tile exp-atlas" id="exp-atlas" type="button">
-        <div class="atlas-copy">
-          <span class="exp-eyebrow">The Atlas</span>
-          <span class="atlas-title">See the world's borders move</span>
-          <span class="atlas-sub">A globe you can spin and rewind.</span>
-          <span class="exp-hint">Open the Atlas</span>
-        </div>
-        <canvas id="miniGlobe" class="mini-globe" aria-hidden="true"></canvas>
-      </button>
-    </div>`;
+    /* THE DISCOVERY ROW IS GONE — the card of the day, the gloss of the day and the Atlas teaser with it
+       (Aug 2026, on request). It went from the phone first, on the grounds that a phone's home page is the
+       day's work; the request a fortnight later was to bring the desktop into line with the phone rather
+       than the other way round, so the whole row goes for everyone and `exp-card` / `exp-term` / `exp-atlas`
+       go with it. What it cost is worth stating, because it is the same cost the phone was already paying
+       and is now paid nowhere: a date-seeded pick over every card, a scan of the glossary for dated terms,
+       and above all the ~1.6 MB `world` bundle fetched at idle to turn a 170px ornament. */
     // shown until the first card is graded: the three-beat explanation of the method
     const howit = fresh ? `<div class="howit" aria-label="How Folio works">
       <div class="hi-step"><span class="hi-num">1</span><div class="hi-body"><b>Study a card</b><span>Each one asks you to recall the missing name, date or term.</span></div></div>
@@ -7274,18 +7242,17 @@
           </div>
           <span class="glyph glyph-svg">${ICON.review}</span>
         </button>`;
-    /* The way to the Library on a phone (Aug 2026, on request). It was a banner of its own under the review
-       — a second full-width block saying, at length, what one word says — and is now a small tab hanging off
+    /* The way to the collections (Aug 2026, on request). It was a banner of its own under the review — a
+       second full-width block saying, at length, what one word says — and is now a small tab hanging off
        the BOTTOM EDGE of the review group, under the list of decks it adds to. It is the LAST child of that
        group rather than a floating overlay: the deck list is glued flush to the banner above it (see
        .has-active in styles.css), so there is no bottom edge to hang from until the whole group has one, and
        an absolutely-positioned lip would have to guess the list's height on every render.
-       PHONE-ONLY and rendered only there — above the breakpoint the top bar still carries the Library tab,
-       and it is the ONLY route to the collections down here, so it ships in every state the review can be
-       in, first run included. */
-    const addDecksLip = phone
-      ? `<button class="rv-lip" id="b-addDecks" type="button">+ Add decks</button>`
-      : "";
+       It was PHONE-ONLY for a fortnight and now ships at EVERY width, because the Collections tab has left
+       the desktop's top bar too (on request, bringing the two pages into line): this is the ONLY route to
+       the collections anywhere on the site, so it ships in every state the review can be in, first run
+       included, and must not be gated on having decks or on a breakpoint. */
+    const addDecksLip = `<button class="rv-lip" id="b-addDecks" type="button">+ Add decks</button>`;
     // About left the phone's tab bar (Aug 2026, on request) — a page read once does not deserve a share of a
     // row the day's destinations need. This quiet grey line is the way in instead, phone-only for the same
     // reason as the lip above it.
@@ -7297,10 +7264,12 @@
             ${fresh ? "" : `<div class="active-decks">${activeHTML}</div>`}
             ${addDecksLip}
           </div>`;
-    /* One column on both, in the same order — the phone's three swiped panes are gone (Aug 2026, on request)
-       along with the two tiles that filled the third of them. What a phone gets instead is the day's work in
-       reading order: the review and its decks, then the games under a heading of their own. The games keep
-       their place on the desktop too, with the discovery row after them exactly as before. */
+    /* ONE PAGE at every width now, in one order: the quote, the day's work (the review, the decks under it
+       and the lip to the collections), then the games under a heading of their own. The phone's three swiped
+       panes went first (Aug 2026, on request); the discovery row that used to follow the games on a desktop
+       went a fortnight later, on the request to bring the desktop into line with the phone rather than the
+       other way round. The one remaining difference is the About line at the foot, which a desktop reaches
+       from its top bar. */
     root.innerHTML = `
       ${versionLineHTML()}
       <div class="page-head">
@@ -7311,13 +7280,13 @@
       <div class="banners">
         ${reviewGroup}
         ${howit}
-        ${phone
-          ? `<section class="games-sec">
-               <h2 class="games-head">Minigames</h2>
-               ${gameGrid}
-             </section>`
-          : gameGrid}
-        ${exploreGrid}
+        ${/* The heading over the games ships at every width now (Aug 2026, on request), like the lip above
+              it: with the discovery row gone the grid is the last thing on the page, and a block of six
+              coloured squares under nothing at all does not say what it is. */""}
+        <section class="games-sec">
+          <h2 class="games-head">Minigames</h2>
+          ${gameGrid}
+        </section>
         ${aboutLink}
       </div>`;
 
@@ -7341,35 +7310,12 @@
       if (dueN + newN > 0) route("study", { scope: { type: "review" } });
       else route("decks");
     });
-    // discovery row: flip the card of the day, open the term's gloss popup, launch the Atlas
-    const expCard = root.querySelector("#exp-card");
-    if (expCard) {
-      expCard.querySelectorAll(".ttip").forEach((t) => t.replaceWith(t.textContent || ""));   // gloss links inside the question stay plain here
-      expCard.addEventListener("click", (e) => {
-        // the button studies THIS card, not its deck — and grading it is what adds it to the daily review
-        if (e.target.closest("#cod-study")) { route("study", { scope: { type: "card", id: cod.id, addTo: "cotd" } }); return; }
-        expCard.classList.toggle("flipped");
-      });
-    }
-    const expTerm = root.querySelector("#exp-term");
-    if (expTerm && tod) {
-      const tmp = document.createElement("div");
-      tmp.innerHTML = glossText(tod);
-      expTerm.querySelector("#term-desc").textContent = (tmp.textContent || "").trim();
-      expTerm.addEventListener("click", () => openGlossWin(tod, expTerm));
-    }
-    const expAtlas = root.querySelector("#exp-atlas");   // absent on a phone — the tile isn't built there
-    if (expAtlas) {
-      expAtlas.addEventListener("click", () => route("map"));
-      startMiniGlobe(expAtlas.querySelector("#miniGlobe"));
-    }
-    // the lip under the review group, and the About line under the games: both phone-only, both absent above
-    // the breakpoint, where the top bar carries a tab for each
+    // the lip under the review group (every width — it is the only route to the collections now), and the
+    // About line under the games (phone-only: the top bar still carries an About tab above the breakpoint)
     { const add = root.querySelector("#b-addDecks"); if (add) add.addEventListener("click", () => route("decks")); }
     { const ab = root.querySelector("#b-about"); if (ab) ab.addEventListener("click", () => route("mission")); }
-    // crossing the breakpoint changes what this page IS — the day's card, the day's term and the Atlas teaser
-    // are BUILT on a desktop and not on a phone — so it is rebuilt rather than restyled. Exactly one listener
-    // is ever installed:
+    // crossing the breakpoint still changes what this page IS — the About line is BUILT on a phone and not on
+    // a desktop — so it is rebuilt rather than restyled. Exactly one listener is ever installed:
     // render() re-enters this function, and a per-render listener would pile up for the life of the session.
     if (_homeResize) window.removeEventListener("resize", _homeResize);
     _homeResize = (function () {
@@ -8220,16 +8166,45 @@
     return Math.max(0, Math.min(100, Math.round(((i + (r.y || 0)) / Math.max(1, b.count)) * 100)));
   }
 
-  /* How the shelf is ordered (Aug 2026, on request). "Recently read" leads because a shelf a reader
-     comes back to is a shelf they are part-way through; the rest are the ways of finding a book they
-     have not opened. `year` is the registry's own signed sort key, not a parse of `written`. */
+  /* ---------- the reader's favourite books (Aug 2026, on request) ----------
+     Starred from a book's own long-press sheet and pinned to the top of the shelf in a section of their
+     own. The register is `S.bookFavs` (see defaultState), which rides in PROGRESS_FIELDS, so a book
+     starred on a phone is starred on the laptop too. */
+  function isBookFav(id) { return !!(S.bookFavs && S.bookFavs[id]); }
+  function toggleBookFav(id) {
+    if (!S.bookFavs || typeof S.bookFavs !== "object") S.bookFavs = {};
+    const on = !isBookFav(id);
+    if (on) S.bookFavs[id] = Date.now(); else delete S.bookFavs[id];
+    save();
+    return on;
+  }
+
+  /* How the shelf is ordered (Aug 2026, on request). "Last read" leads because a shelf a reader comes
+     back to is a shelf they are part-way through; the rest are the ways of finding a book they have not
+     opened. `year` is the registry's own signed sort key, not a parse of `written`.
+
+     EVERY ORDER REVERSES, and the choice is REMEMBERED (Aug 2026, on request). Both halves changed how
+     this is written down. The select used to carry the direction in its option labels ("Title (A – Z)",
+     "Oldest first"), which cannot survive a reverse button — the control would then be saying one thing
+     and the button the opposite — so an entry is now `[key, field, forward, reverse]`: the select names
+     the FIELD and the button names the DIRECTION, in that field's own words, because "A – Z" and "Oldest
+     first" are the same direction wearing different clothes and a bare ascending/descending arrow makes
+     the reader translate. And unlike the glossary's picker (a way of looking at a list, deliberately not
+     in S) this one is a preference: it lives in `S.settings`, which is device-local, so the shelf opens
+     the way it was left. */
   const BOOK_SORTS = [
-    ["recent", "Recently read"],
-    ["title", "Title (A – Z)"],
-    ["author", "Author"],
-    ["written", "Oldest first"],
+    ["recent", "Last read", "Most recent first", "Least recent first"],
+    ["title", "Title", "A – Z", "Z – A"],
+    ["author", "Author", "A – Z", "Z – A"],
+    ["written", "Written", "Oldest first", "Newest first"],
   ];
-  let bookSort = "recent";
+  // read through a whitelist, like the theme: a key retired from BOOK_SORTS must fall back rather than
+  // leave the shelf sorted by nothing at all
+  function bookSortKey() {
+    const k = S.settings && S.settings.bookSort;
+    return BOOK_SORTS.some((o) => o[0] === k) ? k : "recent";
+  }
+  function bookSortRev() { return !!(S.settings && S.settings.bookSortRev); }
   PAGES.library = function (root) {
     /* A BANNER across the full width, at every screen size (Aug 2026, on request — briefly two narrow
        tiles side by side on a phone, which was asked for and then asked back). What is gone for good is
@@ -8252,9 +8227,13 @@
       const len = b.total > b.count
         ? `${b.count} of ${b.total} ${unit} <span class="bk-of">on Folio so far</span>`
         : `${b.count} ${unit}`;
-      return `<button class="book-tile" type="button" data-book="${esc(b.id)}" style="--tile:${b.color}"
-                aria-label="${esc(b.title)} by ${esc(b.author)}, written ${esc(b.written)}">
+      const fav = isBookFav(b.id);
+      return `<button class="book-tile${fav ? " bk-fav" : ""}" type="button" data-book="${esc(b.id)}" style="--tile:${b.color}"
+                aria-label="${esc(b.title)} by ${esc(b.author)}, written ${esc(b.written)}${fav ? ", a favourite" : ""}">
         <span class="bk-spine" aria-hidden="true"></span>
+        ${/* the star is a MARK, not a control: the way to set and clear one is the long-press sheet, so a
+              second target here would be a second answer to the same question sitting 8px from the first */""}
+        ${fav ? `<span class="bk-star" aria-hidden="true">${BOOK_STAR}</span>` : ""}
         <span class="bk-tile-body">
           <span class="bk-tile-main">
             <span class="bk-tile-author">${esc(b.author)}</span>
@@ -8273,14 +8252,32 @@
       </button>`;
     };
     // a book never opened has no `at`, so it files below every book that has been — which is what
-    // "recently read" should mean, rather than putting the untouched books first by accident
+    // "last read" should mean, rather than putting the untouched books first by accident
     const readAt = (b) => { const r = readingPos(b.id); return (r && r.at) || 0; };
-    const sorted = BOOKS.slice().sort((a, b) => {
-      if (bookSort === "title") return a.title.localeCompare(b.title, undefined, { sensitivity: "base" });
-      if (bookSort === "author") return a.author.localeCompare(b.author, undefined, { sensitivity: "base" }) || a.title.localeCompare(b.title);
-      if (bookSort === "written") return (a.year || 0) - (b.year || 0) || a.title.localeCompare(b.title);
+    const key = bookSortKey(), rev = bookSortRev();
+    /* One comparator, in the FORWARD direction each row of BOOK_SORTS names, and the reverse is that
+       comparator negated — tie-break and all. Reversing only the primary key would leave two books written
+       in the same year swapping about between renders for no reason a reader could see. */
+    const forward = (a, b) => {
+      if (key === "title") return a.title.localeCompare(b.title, undefined, { sensitivity: "base" });
+      if (key === "author") return a.author.localeCompare(b.author, undefined, { sensitivity: "base" }) || a.title.localeCompare(b.title);
+      if (key === "written") return (a.year || 0) - (b.year || 0) || a.title.localeCompare(b.title);
       return readAt(b) - readAt(a) || a.title.localeCompare(b.title);
-    });
+    };
+    const sorted = BOOKS.slice().sort((a, b) => (rev ? -forward(a, b) : forward(a, b)));
+    /* FAVOURITES SIT IN A SECTION OF THEIR OWN AT THE TOP (Aug 2026, on request), and a starred book is
+       NOT repeated in the shelf below — one book, one banner, or a reader scrolling past their own
+       favourites twice has to work out which of the two is the real one. The lower section is therefore
+       headed honestly ("Everything else") whenever anything has been starred, and both headings disappear
+       when nothing has: an unstarred shelf is exactly the page it always was. The favourites keep the
+       chosen sort rather than the order they were starred in — it is the same shelf, split. */
+    const favs = sorted.filter((b) => isBookFav(b.id));
+    const rest = sorted.filter((b) => !isBookFav(b.id));
+    const section = (label, list) =>
+      list.length
+        ? `<section class="lib-sec">${label ? `<h2 class="lib-sec-head">${label}</h2>` : ""}` +
+          `<div class="book-grid">${list.map(tile).join("")}</div></section>`
+        : "";
     root.innerHTML = `
       <div class="page-head">
         <span class="eyebrow">Library</span>
@@ -8288,20 +8285,96 @@
         <p>Historical books in the public domain, completely free to read.</p>
       </div>
       ${/* The picker ships whatever the shelf holds, one book included — it was asked for outright, and
-            a control that appears the day a second book lands is one nobody knows to look for. */""}
-      <div class="lib-tools">${sortPickerHTML("bkSort", BOOK_SORTS, bookSort)}</div>
+            a control that appears the day a second book lands is one nobody knows to look for. Beside it
+            the direction, in the chosen field's own words rather than as a bare arrow. */""}
+      <div class="lib-tools">${sortPickerHTML("bkSort", BOOK_SORTS, key)}${sortDirHTML("bkSortDir", BOOK_SORTS, key, rev)}</div>
       ${/* The licence note that used to close this page is gone (Aug 2026, on request). The RULE it
             described has not changed and is not weakened by its going: it is still stated in
             .claude/fetch-book.js, which is what decides what may be shelved, and it is still shown to
             the reader — in each book's own front matter, beside the edition it applies to, which is
             where a statement about one book's copyright actually belongs. */""}
-      <div class="book-grid">${sorted.map(tile).join("")}</div>`;
+      ${favs.length ? section("Favourites", favs) + section("Everything else", rest) : section("", rest)}`;
+    /* HOLD a banner for its options — share it, or star it (Aug 2026, on request). Same gesture, same
+       shell and same classification as an added deck's row on the home page: a tap opens the book, a
+       press past HOLD_MS opens the sheet, and a finger that wanders is scrolling rather than holding.
+       wireHoldMenu installs the tap listener itself, so there is no separate click wiring here — two
+       would open the book from under the sheet the hold had just raised. */
     root.querySelectorAll(".book-tile").forEach((el) =>
-      el.addEventListener("click", () => route("book", { id: el.dataset.book }))
+      wireHoldMenu(el, () => openBookMenu(el.dataset.book), () => route("book", { id: el.dataset.book }))
     );
     const so = root.querySelector("#bkSort");
-    if (so) so.addEventListener("change", () => { bookSort = so.value; render(); });
+    if (so) so.addEventListener("change", () => { setBookSort(so.value, false); });
+    const sd = root.querySelector("#bkSortDir");
+    if (sd) sd.addEventListener("click", () => { setBookSort(bookSortKey(), !bookSortRev()); });
   };
+  /* The direction control. A real button rather than four more options in the select, because the field
+     and the direction are two independent choices and a select of eight rows makes the reader find the
+     one row that is both. Its LABEL is the direction it is currently in, in this field's words, and its
+     title says what pressing it will do — a control whose face and whose effect are the same string is
+     the reliable way to leave a reader unsure which they are looking at. */
+  function sortDirHTML(id, opts, curKey, rev) {
+    const row = opts.find((o) => o[0] === curKey) || opts[0];
+    const now = rev ? row[3] : row[2], next = rev ? row[2] : row[3];
+    return '<button type="button" class="sort-dir' + (rev ? " rev" : "") + '" id="' + id + '"' +
+      ' title="' + esc("Reverse the order — " + next) + '" aria-label="' + esc("Order: " + now + ". Reverse it to " + next) + '">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      '<path d="M7 4v16"/><path d="m3 8 4-4 4 4"/><path d="M17 20V4"/><path d="m13 16 4 4 4-4"/></svg>' +
+      "<span>" + esc(now) + "</span></button>";
+  }
+  function setBookSort(key, rev) {
+    S.settings.bookSort = BOOK_SORTS.some((o) => o[0] === key) ? key : "recent";
+    S.settings.bookSortRev = !!rev;
+    save();
+    render();
+  }
+  // the mark a starred book wears on its banner, and the glyph its sheet row wears
+  const BOOK_STAR =
+    '<svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true">' +
+    '<path d="m12 3.4 2.6 5.3 5.9.9-4.3 4.1 1 5.9-5.2-2.8-5.2 2.8 1-5.9L3.5 9.6l5.9-.9z"/></svg>';
+  /* A book's own options sheet: share it, or star it. Held down on its banner on the shelf — the same
+     shell the daily review's deck rows use one page over (deckSheet), so Escape, the backdrop, the focus
+     trap and the exit animation are all written once. It lives on document.body, so render() closes it
+     through closeDeckMenu like every other sheet there. */
+  function openBookMenu(id) {
+    const b = BOOKS.find((x) => x.id === id);
+    if (!b) return;
+    const fav = isBookFav(id);
+    const html =
+      '<div class="dm-head"><div class="dm-headmain"><span class="dm-title">' + esc(b.title) + "</span>" +
+        '<span class="dm-where">' + esc(b.author) + "</span></div></div>" +
+      '<button type="button" class="dm-item' + (fav ? " dm-choice on" : "") + '" data-act="fav" aria-pressed="' + (fav ? "true" : "false") + '">' +
+        "<b>" + (fav ? "Remove from favourites" : "Add to favourites") + "</b>" +
+        "<small>" + (fav ? "Take it out of the section at the top of the shelf" : "Pin it to a section at the top of the shelf") + "</small></button>" +
+      '<button type="button" class="dm-item" data-act="share"><b>Share this book</b>' +
+        "<small>A link that opens it here, at its first page</small></button>";
+    return deckSheet("Options for " + b.title, html, (ov, close) => {
+      ov.querySelectorAll(".dm-item").forEach((btn) => btn.addEventListener("click", () => {
+        if (btn.dataset.act === "fav") {
+          const on = toggleBookFav(id);
+          close();
+          render();
+          toast(on ? "Added to favourites" : "Removed from favourites");
+          return;
+        }
+        close();
+        shareBook(b);
+      }));
+    });
+  }
+  /* Sharing. The platform's own share sheet where there is one — on a phone that is the whole point, since
+     it reaches the apps a reader actually sends things with — and the clipboard everywhere else. The URL is
+     built from the page's own address rather than from a stored origin, so it is right on the live site,
+     on a local server and from a file:// copy alike. An abort (the reader dismissing the sheet) is not a
+     failure and must not fall through to a copy, or dismissing it would silently take the clipboard. */
+  function shareBook(b) {
+    const url = location.origin + location.pathname + "#book/" + b.id;
+    const data = { title: b.title, text: b.title + " by " + b.author + " — free to read on Folio", url: url };
+    if (navigator.share && (!navigator.canShare || navigator.canShare(data))) {
+      navigator.share(data).catch((e) => { if (e && e.name !== "AbortError") copySelText(url); });
+      return;
+    }
+    copySelText(url);
+  }
 
   /* One book. Chapters are TABS along a menu bar that scrolls, which is the only arrangement that scales:
      Seneca has 65 shipped and 124 to come, and a dropdown alone hides the shape of the book while a wrapped
@@ -8544,6 +8617,24 @@
       const on = bookOrigOn(), name = b.origName || "the original";
       btn.classList.toggle("on", on);
       btn.setAttribute("aria-pressed", on ? "true" : "false");
+      /* THE FRONT MATTER HAS NO ORIGINAL, so the control that offers one is dead there (Aug 2026, on
+         request — the double tap was reported doing nothing visible, which it was, while silently
+         flipping the stored preference). Chapter 0 is written here, in English, about this edition; it
+         is not a passage of Seneca with a Latin facing page, so there is nothing to turn over. It is
+         DISABLED rather than removed: a control that vanishes on one chapter and returns on the next
+         reads as a page that failed to draw, where a greyed one with a reason on it reads as a fact
+         about the chapter. The gesture is guarded separately, in the pointerup handler below — this
+         only greys the button. */
+      const dead = !!(cur && cur.intro);
+      btn.disabled = dead;
+      btn.classList.toggle("bk-lang-na", dead);
+      if (dead) {
+        if (lbl) lbl.textContent = name;
+        const why = "The front matter is in English only — there is no " + name + " to show";
+        btn.setAttribute("aria-label", why);
+        btn.setAttribute("title", why);
+        return;
+      }
       /* The label names the language you are being OFFERED, which on a phone is the one you are not
          reading and on a desktop is the column that would appear — so it reads as a way in either way,
          rather than as a report of the state the reader can already see. */
@@ -8850,8 +8941,16 @@
       const now = Date.now();
       if (now - lastT < BK_TAP_MS && Math.abs(e.clientX - lastX) < BK_TAP_GAP && Math.abs(e.clientY - lastY) < BK_TAP_GAP) {
         lastT = 0;
+        /* …but NOT on the front matter (Aug 2026, on request): chapter 0 is written here, in English,
+           about this edition, and has no facing original to turn over to. It used to flip the stored
+           preference anyway — nothing on screen changed, since applyLangMode finds no .bk-bi to switch,
+           so the reader's next real chapter opened in a language they had not asked for and could not
+           see themselves asking for. The condition is `cur.intro` rather than "this chapter happens to
+           have no rows": a numbered chapter the original is still loading for is a chapter the gesture
+           should keep working on. */
+        if (!b.origLang || (cur && cur.intro)) return;
         e.preventDefault();                         // the second tap is ours, not a zoom
-        if (b.origLang) toggleOrig();
+        toggleOrig();
         return;
       }
       lastT = now; lastX = e.clientX; lastY = e.clientY;

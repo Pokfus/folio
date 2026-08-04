@@ -357,7 +357,7 @@ body.stage-sliding .stage{overflow-x:clip; overflow-clip-margin:80px;}
 .ghost-btn,.mini-btn{transition:background .15s var(--ease), border-color .15s var(--ease), transform .1s var(--ease);}
 .ghost-btn:active,.mini-btn:active,.dm-item:active{transform:scale(.975);}
 /* A tile is big enough that a scale reads as a shove; it dips instead. */
-.game-tile:active,.exp-tile:active{transform:translateY(1px);}
+.game-tile:active{transform:translateY(1px);}
 /* The global killswitch at the foot of this file collapses DURATIONS, not delays — and `both` holds an
    element at its start state (invisible) through its delay, so without this a reduced-motion reader would
    watch a page arrive in blank steps over a fifth of a second. Delays go to zero there. */
@@ -576,17 +576,17 @@ body[data-theme="gazette"] .gt-ribbon span{ box-shadow:none; }
 .hero-alt{font-size:calc(13.5px * var(--fs)); color:var(--ink-soft); text-decoration:underline; text-underline-offset:3px; text-decoration-color:color-mix(in srgb,var(--ink) 30%, transparent);}
 .hero-alt:hover{color:var(--ink);}
 
-/* ---------- home: the way to the Library on a phone ----------
+/* ---------- home: the way to the collections ----------
    A whole banner of its own sat here until Aug 2026 — a second full-width block spending a heading and a
    sentence on what one word says. This is what replaced it, on request: a small tab hanging off the bottom
    edge of the review group, under the deck list it adds to. It is the group's last child and sits IN FLOW
    (see .rv-lip in the markup), so it needs no guess at the list's height; the group's own bottom border runs
    behind it, hence no top border and the -1px pull.
-   PHONE-ONLY, and RENDERED only on a phone rather than hidden here: above the breakpoint the top bar still
-   carries the Library tab.
-   It is INDIGO (Aug 2026, on request), not a quiet paper tab: it is the only route to the collections on a
-   phone, and in paper-on-paper it read as part of the card's edge rather than as the way onward. The blue is
-   the site's own primary-button indigo, so it matches Start review directly above it. */
+   It was phone-only for a fortnight and now ships at EVERY width, the Collections tab having left the
+   desktop's top bar too (on request): this is the ONLY route to the collections anywhere on the site.
+   It is INDIGO (Aug 2026, on request), not a quiet paper tab: paper-on-paper it read as part of the card's
+   edge rather than as the way onward, and the blue is the site's own primary-button indigo, so it matches
+   Start review directly above it. */
 .rv-lip{
   appearance:none; cursor:pointer; align-self:center; margin-top:-1px; position:relative; z-index:3;
   display:inline-flex; align-items:center; padding:6px 17px 7px;
@@ -608,9 +608,10 @@ body[data-theme="gazette"] .gt-ribbon span{ box-shadow:none; }
 .home-about:hover{color:var(--ink-soft);}
 .home-about:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:3px; border-radius:6px;}
 
-/* ---------- home: the Minigames section (phones) ----------
-   The games are the second thing on a phone's home page now — the day's card and term are not built there
-   at all — so they get a heading rather than arriving as an unannounced grid of six coloured squares.
+/* ---------- home: the Minigames section ----------
+   The games are the last thing on the home page now — the discovery row that used to follow them is not
+   built at any width — so they get a heading rather than arriving as an unannounced grid of six coloured
+   squares. Phone-only for a fortnight, then at every width, on request, with the row's removal.
    NOT `.mg-*`: that prefix is the MAP GAME's (`.mg-card` / `.mg-head` / `.mg-score`, further down), and
    naming this heading `.mg-head` silently gave it that card's `display:flex` — which beats `text-align`
    outright, so the heading rendered left — while pushing this font and colour onto the game's score row. */
@@ -636,97 +637,11 @@ body[data-theme="gazette"] .gt-ribbon span{ box-shadow:none; }
 .hi-body b{font-family:var(--display); font-weight:600; font-size:calc(14.5px * var(--fs)); color:var(--ink);}
 .hi-body span{font-size:calc(12.5px * var(--fs)); line-height:1.45; color:var(--ink-soft);}
 
-/* ---------- home: discovery row (card of the day / term of the day / Atlas) ---------- */
-.explore-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
-/* the term of the day takes a little more of the row on the days its term has an illustration —
-   at one third of the row the copy is squeezed to three words a line beside the picture */
-.explore-grid.has-term-img{grid-template-columns:repeat(2,1fr);}
-.explore-grid.has-term-img .exp-card{grid-column:span 1;}
-.explore-grid.has-term-img .exp-term{grid-column:span 1;}
-.exp-tile{
-  position:relative; text-align:left; cursor:pointer;
-  background:var(--card); border:1px solid var(--rule); border-radius:14px;
-  padding:18px 20px; box-shadow:var(--shadow-md); color:var(--ink);
-  display:flex; flex-direction:column; gap:8px; min-height:196px;
-  transition:transform .2s var(--ease), box-shadow .25s var(--ease), border-color .2s;
-}
-.exp-tile:hover{transform:translateY(-2px); box-shadow:var(--shadow-lg); border-color:color-mix(in srgb,var(--indigo) 30%, var(--rule));}
-.exp-tile:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:3px;}
-.exp-eyebrow{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.18em; text-transform:uppercase; color:var(--ink-faint);}
-/* each discovery tile carries its own accent, echoing the game tiles' coloured edges
-   (the card-of-day's raspberry left edge lives in the .flip-face base rule below — the border: shorthand there would reset it) */
-.exp-card .exp-eyebrow{color:#B5476B;}
-.exp-term{border-left:4px solid var(--indigo); --exp:var(--indigo);}
-.exp-term .exp-eyebrow{color:var(--indigo);}
-.exp-atlas{border-left:4px solid var(--geo); --exp:var(--geo);}
-.exp-atlas .exp-eyebrow, .exp-atlas .exp-hint{color:var(--geo);}
-/* discovery tiles carry the same two-layer wash as the game tiles: accent hue washing in from the left + the soft glow bottom-right */
-.exp-term, .exp-atlas{
-  background:linear-gradient(105deg, color-mix(in srgb, var(--exp) 20%, transparent), transparent 64%),
-             linear-gradient(150deg, var(--card) 56%, color-mix(in srgb, var(--exp) 14%, var(--card)));
-}
-body.night .exp-term, body.night .exp-atlas{
-  background:linear-gradient(105deg, color-mix(in srgb, var(--exp) 10%, transparent), transparent 64%),
-             linear-gradient(150deg, var(--card) 56%, color-mix(in srgb, var(--exp) 14%, var(--card)));
-}
-.exp-hint{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.14em; text-transform:uppercase; color:var(--indigo); margin-top:auto;}
-/* card of the day — a real flashcard, flipping over on click */
-.exp-card{grid-column:span 2; background:transparent; border:none; box-shadow:none; padding:0; perspective:1200px; display:block;}
-.exp-card:hover{transform:none; box-shadow:none;}
-.exp-card .flip{position:relative; width:100%; height:100%; min-height:196px; transform-style:preserve-3d; transition:transform .55s cubic-bezier(.3,.7,.3,1);}
-.exp-card.flipped .flip{transform:rotateY(180deg);}
-.exp-card .flip-face{
-  position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden; overflow:hidden;
-  background:linear-gradient(105deg, color-mix(in srgb, #B5476B 20%, transparent), transparent 64%),
-             linear-gradient(150deg, var(--card) 56%, color-mix(in srgb, #B5476B 14%, var(--card)));   /* raspberry — the card-of-day's own hue, used nowhere else */
-  border:1px solid var(--rule); border-left:4px solid #B5476B; border-radius:14px; box-shadow:var(--shadow-md);
-  padding:18px 20px; display:flex; flex-direction:column; gap:9px;
-  transition:box-shadow .25s var(--ease), border-color .2s;
-}
-body.night .exp-card .flip-face{
-  background:linear-gradient(105deg, color-mix(in srgb, #B5476B 10%, transparent), transparent 64%),
-             linear-gradient(150deg, var(--card) 56%, color-mix(in srgb, #B5476B 14%, var(--card)));
-}
-.exp-card:hover .flip-face{box-shadow:var(--shadow-lg); border-color:color-mix(in srgb,var(--indigo) 30%, var(--rule));}
-.exp-card .flip-back{transform:rotateY(180deg);}
-/* eyebrow on the left, the card's deck on the right — the tile is a fixed height, so a short question left
-   a band of nothing under it. The hint stays pinned to the bottom (margin-top:auto on .exp-hint's row). */
-.cod-head{display:flex; align-items:baseline; justify-content:space-between; gap:12px;}
-.cod-where{font-family:var(--mono); font-size:calc(9px * var(--fs)); letter-spacing:.09em; text-transform:uppercase; color:var(--ink-faint);
-  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:52%; text-align:right;}
-.exp-card .flip-front .exp-hint{margin-top:auto;}
-.cod-q{font-family:var(--serif); font-size:calc(15.5px * var(--fs)); line-height:1.55; color:var(--ink); display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical; overflow:hidden;}
-.cod-q .blank{display:inline-block; box-sizing:border-box; width:2.7em; color:transparent; overflow:hidden; white-space:nowrap; vertical-align:baseline; border-bottom:2px solid var(--ochre); margin:0 3px; line-height:1;}
-.cod-q i{font-style:italic;}
-.cod-a{font-family:var(--display); font-weight:600; font-size:calc(24px * var(--fs)); letter-spacing:-.01em; color:var(--ink);}
-.cod-han{font-family:var(--han); font-size:calc(17px * var(--fs)); color:var(--ink-soft);}
-.cod-han .cod-pin{font-family:var(--serif); font-style:italic; font-size:calc(13.5px * var(--fs)); color:var(--ink-faint); margin-left:6px;}
-.cod-study{align-self:flex-start; margin-top:auto;}
-/* term of the day — copy on the left, the term's illustration (when it has one) on the right.
-   With no image the single .term-copy child fills the tile, so the layout is unchanged. */
-.exp-term{flex-direction:row; align-items:stretch; gap:14px;}
-.term-copy{display:flex; flex-direction:column; gap:8px; flex:1 1 auto; min-width:0;}
-/* a portrait plate, the shape of a profile picture: every term's picture is the same 3:4 frame whatever its
-   own proportions, so the tile keeps one silhouette from day to day. It runs the full height of the tile and
-   bleeds to the top, bottom and right edges — the negative margins cancel the tile's own padding, and the
-   right corners carry the tile's radius less its 1px border. Unlike the popup (which shows the picture whole)
-   this one fills the frame and crops; the crop sits a little above centre, where a portrait's subject is. */
-.term-img{
-  flex:none; align-self:stretch; width:auto; aspect-ratio:3/4; max-width:46%;
-  margin:-18px 0; margin-inline-end:-20px; overflow:hidden; line-height:0;
-  border-radius:0; border-start-end-radius:13px; border-end-end-radius:13px;   /* logical: the plate is on the left in Arabic */
-  background:var(--paper-2);
-}
-.term-img img{display:block; width:100%; height:100%; object-fit:cover; object-position:center 40%;}
-.term-title{font-family:var(--display); font-weight:600; font-size:calc(20px * var(--fs)); letter-spacing:-.01em; color:var(--ink);}
-.term-dates{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.08em; color:var(--ink-faint);}
-.term-desc{font-family:var(--serif); font-size:calc(13.5px * var(--fs)); line-height:1.5; color:var(--ink-soft); display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;}
-/* the Atlas teaser — copy left, a slowly turning mini globe right */
-.exp-atlas{grid-column:1 / -1; flex-direction:row; align-items:center; gap:26px; min-height:0; padding:20px 26px;}
-.atlas-copy{display:flex; flex-direction:column; gap:8px; flex:1; min-width:0;}
-.atlas-title{font-family:var(--display); font-weight:600; font-size:calc(24px * var(--fs)); letter-spacing:-.012em; color:var(--ink);}
-.atlas-sub{font-size:calc(14px * var(--fs)); line-height:1.5; color:var(--ink-soft); max-width:58ch;}
-.mini-globe{flex:none; width:170px; height:170px; border-radius:50%; box-shadow:var(--shadow-md);}
+/* The discovery row — .explore-grid with its card of the day, gloss of the day and Atlas teaser — was
+   REMOVED in Aug 2026 on request, from the phone first and then from the desktop, so that the two home
+   pages read the same. Its ~90 rules (.exp-tile / .exp-card / .cod-* / .term-* / .atlas-* / .mini-globe)
+   went with it: PAGES.home no longer BUILDS any of it at any width, so nothing they described can exist.
+   The tile-press transform they shared with .game-tile is the one line kept, up in the BUTTONS block. */
 
 /* ============================================================
    DECKS
@@ -1369,6 +1284,19 @@ body.grading .stage{padding-bottom:150px;}
   transition:border-color .16s var(--ease), box-shadow .16s var(--ease);
 }
 .sort-pick select:focus-visible{outline:none; border-color:var(--indigo); box-shadow:0 0 0 3px var(--indigo-wash);}
+/* The reverse control beside it (Aug 2026, on request). It carries the direction IN WORDS — "A – Z",
+   "Oldest first" — because an arrow alone makes the reader translate, and the same direction is called
+   different things by different fields. The arrows flip with .rev so the icon and the words agree. */
+.sort-dir{
+  appearance:none; cursor:pointer; display:inline-flex; align-items:center; gap:6px; flex:none;
+  padding:7px 11px; border:1px solid var(--rule); border-radius:9px; background:var(--card); color:var(--ink-soft);
+  font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.06em;
+  transition:border-color .16s var(--ease), color .16s var(--ease), background .16s var(--ease);
+}
+.sort-dir svg{width:13px; height:13px; flex:none; transition:transform .18s var(--ease);}
+.sort-dir.rev svg{transform:scaleY(-1);}
+.sort-dir:hover{border-color:var(--indigo); color:var(--ink);}
+.sort-dir:focus-visible{outline:none; border-color:var(--indigo); box-shadow:0 0 0 3px var(--indigo-wash);}
 .gl-search input:focus{outline:none; border-color:var(--indigo); box-shadow:0 0 0 3px var(--indigo-wash);}
 .gl-list{background:var(--card); border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow-sm); overflow:hidden;}
 .gl-row{display:flex; align-items:baseline; gap:14px; width:100%; text-align:left; appearance:none; background:none; border:0; border-bottom:1px solid color-mix(in srgb,var(--rule) 60%,transparent); padding:12px 18px; cursor:pointer; font:inherit; color:inherit; transition:background .14s var(--ease), padding-left .14s var(--ease);}
@@ -2360,6 +2288,13 @@ body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, va
    ============================================================ */
 .draw-canvas{position:absolute; top:0; left:0; z-index:40; pointer-events:none; touch-action:none;}
 .draw-canvas.on{pointer-events:auto; cursor:crosshair;}
+/* ---- a stylus takes the pen, and fingers go back to scrolling (Aug 2026, on request) ----
+   `touch-action` is what decides whether the browser may scroll under a finger at all, and it is half the
+   feature: with `none` the drawing surface keeps every gesture, which is right when the finger IS the pen
+   and wrong the moment a stylus is doing the drawing. `pan-y pinch-zoom` hands vertical drags and pinches
+   back — nothing under a card scrolls sideways — and the JS half (setupWhiteboard's pointerdown) must stop
+   calling preventDefault to match, since a prevented pointerdown cancels the scroll whatever this says. */
+.draw-canvas.wb-pen-only{touch-action:pan-y pinch-zoom;}
 /* The marker is DRAGGABLE anywhere on the screen (see wbMakeDraggable in app.js), which is why the box is
    exactly the toggle button and the panel hangs off it absolutely rather than sharing a flex column. Two
    things follow from that. The element is positioned by right/bottom, so the corner the drag moves is the
@@ -2409,6 +2344,11 @@ body.grading .wb-tools{bottom:108px;}
    press always lands on the field under them. */
 .wb-pick{flex-direction:column; align-items:stretch; gap:8px; padding:2px 1px 0;}
 .wb-pick[hidden]{display:none;}   /* the author display:flex on .wb-row would otherwise defeat it (codebase convention) */
+/* Shown only once a stylus has been seen on this device — most readers never have one, and a control for
+   hardware that isn't there is clutter. Same [hidden] note as .wb-pick above: .wb-row's author
+   display:flex beats the UA rule, so it has to be said again here (codebase convention). */
+.wb-stylus-row[hidden]{display:none;}
+.wb-stylus{flex:1;}
 .wb-sv{
   position:relative; height:88px; border-radius:9px; cursor:crosshair; touch-action:none;
   border:1px solid var(--rule);
@@ -2454,6 +2394,9 @@ body.grading .wb-tools{bottom:108px;}
 .wb-btn.sel{background:var(--ochre); border-color:var(--ochre); color:#fff;}
 .wb-btn.wb-hl.sel{background:var(--ochre); border-color:var(--ochre); color:#fff;}
 .wb-btn.wb-eraser.sel{background:var(--ink-soft); border-color:var(--ink-soft); color:#fff;}
+/* The stylus switch is lit like a selected tool and is NOT one — see refreshModes in app.js: `.sel` in
+   this panel means "the tool being drawn with", and this says who may draw rather than what with. */
+.wb-btn.wb-stylus.wb-on{background:var(--indigo); border-color:var(--indigo); color:#fff;}
 /* touch-action:none — the handle is dragged with a finger, and without it the browser claims the gesture
    as a page scroll before pointermove ever reaches us */
 .wb-toggle{
@@ -2985,9 +2928,6 @@ button.game-tile .gt-glyph{opacity:.14;}
   .gt-glyph-svg svg{width:78px; height:78px;}   /* a 112px ornament fills a 110px tile edge to edge */
   .gt-glyph-svg{top:-10px; right:-10px;}
   .howit{grid-template-columns:1fr; gap:10px;}
-  /* The .explore-grid / .exp-card / .exp-atlas / .mini-globe rules that stood here are gone with the row
-     itself: PAGES.home does not BUILD the discovery row below this breakpoint, so nothing they described
-     can exist here. */
   .chrono-actions{flex-direction:column;} .chrono-actions .btn{width:100%;}
   body.grading .stage{padding-bottom:206px;}
   body.grading .wb-tools{bottom:170px;}
@@ -3954,7 +3894,6 @@ body[data-theme="arcade"] .placard{ border:2px solid var(--ink); box-shadow:3px 
 body[data-theme="arcade"] .gloss-win{ border:2px solid var(--ink); box-shadow:8px 8px 0 var(--hard); }
 body[data-theme="arcade"] .gloss-bar{ background:var(--indigo-wash); border-bottom:2px solid var(--ink); }
 body[data-theme="arcade"] .msn-card{ border:2px solid var(--ink); box-shadow:5px 5px 0 var(--hard); }
-body[data-theme="arcade"] .exp-card .flip-face{ border:2px solid var(--ink); box-shadow:5px 5px 0 var(--hard); }
 /* home epigraph = RPG dialog box (static continue-arrow) */
 body[data-theme="arcade"] .daily-quote{ position:relative; border:2px solid var(--ink); background:var(--card); box-shadow:4px 4px 0 var(--hard); padding:16px 20px; }
 body[data-theme="arcade"] .daily-quote::after{ content:"\25BC"; position:absolute; right:11px; bottom:7px; font-size:calc(9px * var(--fs)); color:var(--ink-faint); }
@@ -4272,7 +4211,7 @@ body[data-theme="gazette"] .msn-card, body[data-theme="gazette"] .msn-curve, bod
 body[data-theme="gazette"] .faq-q, body[data-theme="gazette"] .chev, body[data-theme="gazette"] .xp-track,
 body[data-theme="gazette"] .xp-fill, body[data-theme="gazette"] .prog, body[data-theme="gazette"] .prog .fill,
 body[data-theme="gazette"] .active-deck, body[data-theme="gazette"] .node, body[data-theme="gazette"] .pill,
-body[data-theme="gazette"] .daily-quote, body[data-theme="gazette"] .exp-card, body[data-theme="gazette"] .theme-opt,
+body[data-theme="gazette"] .daily-quote, body[data-theme="gazette"] .theme-opt,
 body[data-theme="gazette"] .mode-switch, body[data-theme="gazette"] .lang-opt{ border-radius:0; }
 
 /* ink frames + hard offsets */
@@ -4316,8 +4255,6 @@ body[data-theme="gazette"] .daily-quote::before{ content:"\201C"; position:absol
 body[data-theme="gazette"] .xp-track{ border:1px solid var(--ink); background:var(--paper-2); }
 body[data-theme="gazette"] .xp-fill, body[data-theme="gazette"] .prog .fill{ background:var(--ink); }
 body[data-theme="gazette"] .banner .lb-num, body[data-theme="gazette"] .collection-row .lb-num{ color:var(--ink); }
-
-body[data-theme="arcade"] .mini-globe{ border-radius:50% !important; }
 
 /* ---- theme picker (settings) ---- */
 .set-row-block{flex-direction:column; align-items:stretch; gap:16px;}
@@ -4569,7 +4506,23 @@ body.night .rv-star.on{color:#E6C765;}
    about is a tap away in its own front matter — which is what lets a full-width banner still be short.
    Reading left to right rather than top to bottom is the other half of that. */
 .book-grid{display:grid; grid-template-columns:1fr; gap:10px; margin-bottom:22px;}
-.lib-tools{display:flex; justify-content:flex-end; margin-bottom:12px;}
+.lib-tools{display:flex; justify-content:flex-end; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:12px;}
+/* ---------- the shelf's two sections: favourites, then the rest (Aug 2026, on request) ----------
+   Headings appear only once something has been starred — an unstarred shelf is the page it always was,
+   and a lone "Everything else" over the only section there is would be a heading naming nothing. A
+   starred book is NOT repeated below, so the lower heading is honest as written. */
+.lib-sec{display:block;}
+.lib-sec-head{
+  margin:0 0 9px; font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.16em;
+  text-transform:uppercase; font-weight:600; color:var(--ink-faint);
+}
+.lib-sec + .lib-sec .lib-sec-head{margin-top:4px;}
+/* The star a favourite wears: a MARK on the banner, not a control — the way to set and clear one is the
+   long-press sheet, and a second target 8px from the first is two answers to one question. It sits in
+   the banner's top-right corner, out of the way of the reading-progress line below it. */
+.bk-star{position:absolute; top:9px; right:11px; width:14px; height:14px; color:var(--ochre); pointer-events:none;}
+.bk-star svg{display:block; width:100%; height:100%;}
+.book-tile.bk-fav .bk-tile-foot{padding-right:20px;}   /* …so the star never lands on the length line */
 .book-tile{
   position:relative; display:flex; gap:0; text-align:left; padding:0; overflow:hidden;
   background:var(--card); border:1px solid var(--rule); border-radius:14px;
@@ -4763,6 +4716,10 @@ body.night .rv-star.on{color:#E6C765;}
   font-size:calc(10.5px * var(--fs)); letter-spacing:.06em; text-transform:uppercase;}
 .bk-lang-btn.on{background:var(--indigo); border-color:var(--indigo); color:#FFFFFF;}
 .bk-lang-loading{opacity:.6; pointer-events:none;}
+/* Dead on the front matter (Aug 2026, on request): chapter 0 is in English only and has no facing
+   original to turn to. Greyed rather than removed — a control that disappears on one chapter and comes
+   back on the next reads as a page that failed to draw; its title says why. */
+.bk-lang-btn.bk-lang-na{opacity:.42; cursor:default; background:var(--card); border-color:var(--rule); color:var(--ink-faint);}
 
 .bk-notes{margin-top:20px;}
 .bk-foot{display:flex; justify-content:space-between; gap:10px; margin:16px 0 22px;}
