@@ -1,5 +1,11 @@
 # Citing the glossary — batch plan
 
+> **Card ids here are the PRE-2026-08-04 numbering.** The World History collection was replanned from
+> scratch on that date and its cards renumbered into the new running order, with twenty retired;
+> `docs/world-history-card-plan.md` holds the old→new table and the retirement list. This file was
+> deliberately **not** rewritten — it is a record of work done under the old ids, and a rewritten log is
+> a worse log. Read a `wh-NNN` here through that table.
+
 The glossary was **333 terms and not one of them carried a source**. `window.GLOSSARY_SOURCES` was an empty
 table; the fold at the foot of a gloss popup never appeared. This is the plan for filling it. Not part of
 the site. **As of 2026-08-02, 333 of the 333 are cited and at the bar** — batches G1–G11, P1–P7 with the P-topup, and C0–C12 with D1–D3, five of which also

@@ -1,5 +1,11 @@
 # Citing the cards — batch plan
 
+> **Card ids here are the PRE-2026-08-04 numbering.** The World History collection was replanned from
+> scratch on that date and its cards renumbered into the new running order, with twenty retired;
+> `docs/world-history-card-plan.md` holds the old→new table and the retirement list. This file was
+> deliberately **not** rewritten — it is a record of work done under the old ids, and a rewritten log is
+> a worse log. Read a `wh-NNN` here through that table.
+
 The World History › Prehistory deck is 109 cards, all written before the footnote system existed. This is
 the plan for giving every one of them sources. Not part of the site.
 

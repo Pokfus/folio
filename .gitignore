@@ -12,3 +12,7 @@ node_modules/
 
 # build-time TTS toolchain + voice models (fetched by .claude/build-tts.js; ~150 MB, never shipped)
 .claude/tts-cache/
+
+# per-chapter scratch for .claude/fetch-book.js, so a re-run costs no refetch. The generated
+# books/<id>.js IS committed — this is only the working cache behind it.
+.claude/book-cache/

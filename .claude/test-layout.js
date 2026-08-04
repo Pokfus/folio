@@ -1229,7 +1229,7 @@ async function studyEasy(page, base, n) {
     await swipe(-120);
     check("a swipe left moves to the next page", (await where()) === "#decks", await where());
     await swipe(-120);
-    check("...and on to the one after it", (await where()) === "#account", await where());
+    check("...and on to the one after it", (await where()) === "#library", await where());
     await swipe(120);
     check("...a swipe right comes back", (await where()) === "#decks", await where());
     await swipe(-30);

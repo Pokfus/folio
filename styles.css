@@ -4341,3 +4341,140 @@ body.night .rv-star.on{color:#E6C765;}
 .rv-who{font-family:var(--sans); font-size:calc(13px * var(--fs)); font-weight:600; color:var(--ink);}
 .rv-when{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint);}
 .rv-body{font-family:var(--sans); font-size:calc(14px * var(--fs)); line-height:1.6; color:var(--ink-soft); margin:0; max-width:66ch;}
+
+/* ============================================================
+   THE LIBRARY — the shelf of books, and one book's reading room
+   ============================================================
+   The Collections page is a list of DECKS; this is a list of BOOKS, and it should not read like the
+   same page twice. A book tile is a portrait card with a coloured spine down its left edge, laid out
+   two to a row where the game grid runs three — a blurb and a title need the width, and a shelf of
+   six narrow tiles reads as a menu rather than as books. */
+/* auto-fill rather than a fixed 2, so the shelf keeps its tile size as books are added and collapses to
+   one column on its own when the column is narrow — at the 800px stage this is two */
+.book-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:14px; margin-bottom:22px;}
+.book-tile{
+  position:relative; display:flex; gap:0; text-align:left; padding:0; overflow:hidden;
+  background:var(--card); border:1px solid var(--rule); border-radius:14px;
+  box-shadow:var(--shadow-sm); cursor:pointer; font:inherit; color:inherit;
+  transition:transform .14s var(--ease), box-shadow .14s var(--ease), border-color .14s var(--ease);
+}
+.book-tile:hover{transform:translateY(-3px); box-shadow:var(--shadow-lg); border-color:color-mix(in srgb,var(--tile,var(--indigo)) 45%, var(--rule));}
+.book-tile:active{transform:translateY(0) scale(.995);}
+.book-tile:focus-visible{outline:2px solid var(--tile,var(--indigo-bright)); outline-offset:3px;}
+/* the spine: the one place a book's own colour is stated, so the shelf reads as a shelf */
+.bk-spine{flex:0 0 10px; align-self:stretch; background:var(--tile,var(--indigo)); position:relative;}
+.bk-spine::after{content:""; position:absolute; inset:0 2px; border-left:1px solid rgba(255,255,255,.25); border-right:1px solid rgba(0,0,0,.12);}
+.bk-tile-body{display:flex; flex-direction:column; gap:5px; padding:16px 18px 14px; min-width:0; flex:1;}
+.bk-tile-author{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--tile,var(--indigo));}
+.bk-tile-title{font-family:var(--display); font-size:calc(20px * var(--fs)); font-weight:600; line-height:1.2; color:var(--ink);}
+.bk-tile-sub{font-family:var(--serif); font-style:italic; font-size:calc(13.5px * var(--fs)); color:var(--ink-soft); margin-top:-2px;}
+.bk-tile-blurb{font-family:var(--sans); font-size:calc(13.5px * var(--fs)); line-height:1.55; color:var(--ink-soft); margin-top:4px;}
+.bk-tile-foot{display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-top:auto; padding-top:10px;}
+.bk-tile-meta{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint);}
+.bk-of{opacity:.72;}
+.bk-tile-new{font-family:var(--sans); font-size:calc(12.5px * var(--fs)); font-weight:600; color:var(--tile,var(--indigo));}
+/* where the reader left off — the tile's one changing fact, so it gets the emphasis the blurb doesn't */
+.bk-tile-resume{font-family:var(--sans); font-size:calc(12.5px * var(--fs)); font-weight:600; color:var(--tile,var(--indigo));}
+.bk-tile-bar{display:block; height:4px; border-radius:2px; background:var(--rule); overflow:hidden; margin-top:8px;}
+.bk-tile-bar span{display:block; height:100%; background:var(--tile,var(--indigo)); border-radius:2px;}
+.lib-note{font-family:var(--sans); font-size:calc(13px * var(--fs)); line-height:1.6; color:var(--ink-soft);
+  background:var(--card); border:1px dashed var(--rule); border-radius:12px; padding:13px 16px; max-width:70ch;}
+
+/* ---------- one book ---------- */
+.bk-head{margin-bottom:14px;}
+.bk-back{background:none; border:0; padding:0; cursor:pointer; font:inherit; color:var(--indigo); letter-spacing:inherit;}
+.bk-back:hover{text-decoration:underline;}
+.bk-byline{font-family:var(--serif); font-style:italic; font-size:calc(14.5px * var(--fs)); color:var(--ink-soft);}
+
+/* The chapter menu bar. Seneca ships 65 chapters and has 124 to come, so the bar SCROLLS rather than
+   wrapping: a wrapped grid of 124 buttons is not a menu bar, it is the page. The arrows step one at a
+   time and the ☰ opens the whole contents for a jump. */
+.bk-bar{
+  position:sticky; top:calc(var(--bar-h) + 4px); z-index:20;
+  display:flex; align-items:center; gap:6px; padding:7px 8px; margin-bottom:16px;
+  background:var(--card); border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow-sm);
+}
+.bk-nav{
+  flex:0 0 auto; display:grid; place-items:center; width:32px; height:32px; padding:0;
+  background:none; border:1px solid var(--rule); border-radius:8px; cursor:pointer; color:var(--ink-soft);
+  transition:background .12s var(--ease), color .12s var(--ease), border-color .12s var(--ease);
+}
+.bk-nav svg{width:16px; height:16px;}
+.bk-nav:hover:not(:disabled){background:var(--paper); color:var(--ink); border-color:var(--indigo);}
+.bk-nav:disabled{opacity:.35; cursor:default;}
+.bk-tabs{
+  flex:1 1 auto; display:flex; gap:5px; overflow-x:auto; scroll-behavior:smooth;
+  scrollbar-width:thin; padding:1px 0;
+}
+.bk-tabs::-webkit-scrollbar{height:5px;}
+.bk-tabs::-webkit-scrollbar-thumb{background:var(--rule); border-radius:3px;}
+.bk-tab{
+  flex:0 0 auto; display:flex; align-items:baseline; gap:6px; max-width:230px;
+  padding:6px 11px; background:none; border:1px solid transparent; border-radius:8px;
+  cursor:pointer; font:inherit; color:var(--ink-soft); white-space:nowrap;
+  transition:background .12s var(--ease), color .12s var(--ease), border-color .12s var(--ease);
+}
+.bk-tab:hover{background:var(--paper); color:var(--ink);}
+.bk-tab.on{background:var(--indigo); border-color:var(--indigo); color:#FFFFFF;}
+.bk-tab:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
+.bk-tab-n{font-family:var(--mono); font-size:calc(11px * var(--fs)); opacity:.8;}
+.bk-tab-t{font-family:var(--sans); font-size:calc(12.5px * var(--fs)); overflow:hidden; text-overflow:ellipsis;}
+
+.bk-toc{
+  border:1px solid var(--rule); border-radius:12px; background:var(--card);
+  padding:14px 16px; margin:-8px 0 16px; max-height:52vh; overflow-y:auto;
+}
+.bk-toc[hidden]{display:none;}   /* the author display beats the UA rule — cf. .ces-imgpanel */
+.bk-toc-part + .bk-toc-part{margin-top:14px; padding-top:12px; border-top:1px solid var(--rule);}
+.bk-toc-part h4{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); margin:0 0 8px;}
+.bk-toc-part h4 span{text-transform:none; letter-spacing:.02em; opacity:.8;}
+.bk-toc-list{display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:2px;}
+.bk-toc-item{
+  display:flex; gap:9px; align-items:baseline; text-align:left; padding:6px 9px;
+  background:none; border:0; border-radius:7px; cursor:pointer; font:inherit;
+  font-family:var(--sans); font-size:calc(13px * var(--fs)); color:var(--ink-soft);
+}
+.bk-toc-item:hover{background:var(--paper); color:var(--ink);}
+.bk-toc-n{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); color:var(--ink-faint); min-width:22px; text-align:right;}
+
+/* The reading surface. This is the one page on the site that is nothing but prose, so it is set for
+   READING: a serif, a long measure capped in ch, and generous leading. */
+.bk-page{background:var(--card); border:1px solid var(--rule); border-radius:14px; padding:26px 30px 22px; box-shadow:var(--shadow-sm);}
+.bk-ch-head{margin-bottom:18px; padding-bottom:14px; border-bottom:1px solid var(--rule);}
+.bk-ch-part{display:block; font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint);}
+.bk-ch-n{display:block; font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--indigo); margin-top:3px;}
+.bk-ch-t{font-family:var(--display); font-size:calc(27px * var(--fs)); font-weight:600; line-height:1.22; color:var(--ink); margin:4px 0 0;}
+.bk-prose{font-family:var(--serif); font-size:calc(17px * var(--fs)); line-height:1.78; color:var(--ink); max-width:68ch;}
+.bk-prose p{margin:0 0 1.05em;}
+.bk-prose blockquote{margin:1.2em 0; padding-left:18px; border-left:2px solid var(--rule); font-style:italic; color:var(--ink-soft);}
+.bk-salut{font-style:italic; color:var(--ink-soft);}
+/* Gummere's section numbers — how this text is cited, so they are kept and set apart rather than
+   folded into the prose */
+.bk-prose .bk-n{
+  font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink-faint);
+  vertical-align:.28em; margin-right:5px; user-select:none;
+}
+.bk-notes{margin-top:20px;}
+.bk-foot{display:flex; justify-content:space-between; gap:10px; margin:16px 0 22px;}
+.bk-foot .btn:disabled{opacity:.4; cursor:default;}
+
+.bk-rights{border:1px solid var(--rule); border-radius:12px; background:var(--card); padding:16px 18px; max-width:74ch;}
+.bk-rights h3{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); margin:0 0 9px;}
+.bk-rights p{font-family:var(--sans); font-size:calc(13.5px * var(--fs)); line-height:1.62; color:var(--ink-soft); margin:0 0 8px;}
+.bk-rights-note{border-left:2px solid var(--good); padding-left:12px;}
+.bk-rights-src{margin-bottom:0 !important;}
+
+@media (max-width:860px){
+  .book-grid{grid-template-columns:1fr;}
+}
+@media (max-width:640px){
+  /* the top bar is gone on a phone (--bar-h is 0), so the chapter bar pins to the very top */
+  .bk-bar{top:4px; border-radius:10px; padding:6px;}
+  .bk-tab-t{display:none;}          /* at 390px a title per tab leaves room for two tabs; the numbers scale */
+  .bk-tab{max-width:none; padding:6px 10px;}
+  .bk-tab-n{font-size:calc(12.5px * var(--fs)); opacity:1;}
+  .bk-page{padding:20px 18px 18px; border-radius:12px;}
+  .bk-prose{font-size:calc(16.5px * var(--fs)); line-height:1.74;}
+  .bk-ch-t{font-size:calc(23px * var(--fs));}
+  .bk-toc-list{grid-template-columns:1fr;}
+}

@@ -47,7 +47,7 @@ const DESKTOP = { width: 1280, height: 900 };
    globe) and the contrast walk skips `.globe-stage`, whose labels are ctx.fillText and invisible to CSS.
    Deliberately NOT here: the editor, the Studio and the community pages, which are tools rather than
    reading surfaces and would need their own fixtures; they are an honest gap, not a clean bill. */
-const ROUTES = ["home", "decks", "account", "settings", "mission", "challenge", "truefalse", "whosaid", "chrono", "glossary", "map"];
+const ROUTES = ["home", "decks", "library", "account", "settings", "mission", "challenge", "truefalse", "whosaid", "chrono", "glossary", "map"];
 const SLOW = { map: 5000, home: 1400 };
 const settle = (r) => SLOW[r] || 700;
 
