@@ -571,15 +571,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   first. Not part of the site.
 - `docs/glossary-length-plan.md` — **every glossary description at 100 words (±10%)**, on request (Aug 2026): the
   bar, the measured baseline, the eleven batches, the per-term workflow and the batch log. **L0 (the tooling)
-  and L1–L7 have shipped, which completes FOUR WHOLE KINDS — `place` (266), `person` (54), `era` (33) and
-  `industry` (11), 364 terms, 0 outside the bar**: the 197 countries (A–E, F–L, M–R, S–Z), L5's 55 caves,
-  type sites, continents, oceans and regions, L6's 54 people (45 US presidents plus nine antiquarians,
-  archaeologists and a poet), and L7's 44 periods and stone industries —
+  and L1–L8 have shipped, which completes SEVEN WHOLE KINDS — `place` (266), `person` (54), `era` (33),
+  `hominin` (19), `industry` (11), `fossil` (11) and `animal` (10), 404 terms, 0 outside the bar**: the 197
+  countries (A–E, F–L, M–R, S–Z), L5's 55 caves, type sites, continents, oceans and regions, L6's 54 people
+  (45 US presidents plus nine antiquarians, archaeologists and a poet), L7's 44 periods and stone industries,
+  and L8's 40 taxa, fossils and animals —
   `node .claude/gloss-length.js` is
-  the measure, with `--over` / `--under` / `--tag=<kind>` / `--list`. Where it stands today: **377 of 477 terms
-  are inside the bar** (79%), 97 are
-  over and 3 under, mean 113.3 words, and the work is overwhelmingly TRIMMING. **L8 is next** — `hominin` +
-  `fossil` + `animal` together, 40 terms of which 35 are over. Three things the bar does not
+  the measure, with `--over` / `--under` / `--tag=<kind>` / `--list`. Where it stands today: **412 of 477 terms
+  are inside the bar** (86%), 64 are
+  over and 1 under, mean 111.2 words, and the work is overwhelmingly TRIMMING. **L9 is next** — `object` +
+  `culture` + `people` + `building` + `event` + `practice` together, 45 terms of which 40 are over, holding
+  the longest terms left (`Spear-thrower` at 195). Three things the bar does not
   change and which the pass must not quietly relax: still exactly three sentences, still impartial and
   self-contained, and **still no claim past what the citations carry** — a term padded to length is the one way
   this pass can do real damage. Two rules L1 established and the later batches should just apply:
@@ -644,7 +646,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   whole batch's date lines** (it holds — and the `Paleolithic` 9700 BCE against `Neolithic` 10,000 BCE
   "overlap" is two regional schemes, recorded and deliberately not "fixed"), and **read a sentence that argues
   with itself before trimming it**, since `Boreal`'s "does not reach down to 8,000 years ago as loose usage
-  suggests" is card batch 22's correction written into the prose and reads exactly like a stray figure. Two more checks
+  suggests" is card batch 22's correction written into the prose and reads exactly like a stray figure.
+  **L8 found a splitter gap the same way and its lesson is to look BEFORE drafting**: `Smilodon` was not
+  three sentences but SIX, because `split-abstract.js` broke on an abbreviated binomial (`S. fatalis`) — the
+  run rule needs a second initial and G5's lone-initial rule requires a CAPITALISED word to follow, where a
+  species epithet is lowercase. Fixed with the exact test that **a single capital, a full stop and a
+  LOWERCASE word can only be an abbreviated genus** (plus `>` in the lookbehind, since the letter sits
+  inside `<i>…</i>`), and verified over 1,377 texts with one split changed and no regressions. **Run the
+  whole-corpus split audit at the START of a batch.** L8's other lever is new: **the SIBLING PAIR** — six of
+  its terms describe one find from two angles (`Taung_Child`/`Australopithecus_africanus`,
+  `Lucy`/`Australopithecus_afarensis`, `KNM-WT_40000`/`Kenyanthropus_platyops`), so a shared fact can be
+  given to whichever of the two owns it rather than trimmed twice; and on a taxon the **describer and year
+  are the formal identity and stay**, while the discovery narrative around them goes. Two more checks
   L2 made standing, both
   for failures that are invisible in the
   finished prose. **Diff every MARKED sentence's YEARS before against after** — a trim can strand a marker, and

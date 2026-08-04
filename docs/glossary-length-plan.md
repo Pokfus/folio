@@ -89,7 +89,7 @@ its neighbour) actually has neighbours to compare against. The first tag in `GLO
 | **L5** | `place`, sites, regions and continents | 55 | 55 over | **SHIPPED 2026-08-04.** All 55 now 103–110 words, mean 107.9. **Completes every `place` term — 266 of them, 0 outside the bar.** See the log below. |
 | **L6** | `person` | 54 | 26 over, 2 under | **SHIPPED 2026-08-04.** All 28 now 97–110 words, mean 103. **Completes every `person` term — 54, 0 outside the bar.** The pass's first two GROW cases. See the log below. |
 | **L7** | `era` + `industry` | 44 | 31 over, 5 under | **SHIPPED 2026-08-04.** All 36 now 96–110 words, `era` mean 106 and `industry` 106. **Completes both kinds — 44 terms, 0 outside the bar.** Five grows, the most of any batch. See the log below. |
-| **L8** | `hominin` + `fossil` + `animal` | 40 | 35 | Taxa. Watch the citations: a trimmed sentence must still be the one the marker points at. |
+| **L8** | `hominin` + `fossil` + `animal` | 40 | 33 over, 2 under | **SHIPPED 2026-08-04.** All 35 now 105–110 words; `hominin` mean 108, `fossil` 107, `animal` 104. **Completes all three kinds — 40 terms, 0 outside the bar.** Fixed a `split-abstract.js` gap on abbreviated binomials. See the log below. |
 | **L9** | `object` + `culture` + `people` + `building` + `event` + `practice` | 45 | 40 | The tail, and the longest terms in the glossary (`Spear-thrower` at 195, `Dolní Věstonice` at 184). |
 | **L10** | `concept` + the 10 short definitional terms | ~34 | 21 over, 10 under | **Last on purpose.** These are the GROW cases and the hardest; by L10 the register holds everything the other nine batches read, which is where the honest extra sentences will come from. |
 | **L-audit** | the whole glossary | 477 | — | Re-measure. Report what is still outside 90–110 and why, term by term. |
@@ -588,16 +588,97 @@ sit immediately before "years ago", so it cannot see "8,000 **calendar** years a
 as having lost the very clause that survived. An intervening word defeats it. Worth knowing before
 trusting a clean run on a batch full of calibrated dates.
 
+### L8 — 19 `hominin`, 11 `fossil` and 10 `animal` terms (2026-08-04)
+
+**35 were outside the bar — 33 over and 2 under — and all 35 now sit at 105–110 words**: `hominin` at a
+mean of 108, `fossil` 107, `animal` 104. The glossary moved from 377 to **412 terms inside the bar** (86%)
+and its mean from 113.3 to 111.2 words. **All three kinds are 0 outside the bar**, and the under count
+across the whole glossary is down to 1.
+
+**The batch opened by finding a structural fault, and it is the most reusable thing in it: `Smilodon` was
+not three sentences but SIX.** `split-abstract.js` breaks on an abbreviated binomial — `S. fatalis`,
+`S. populator` — because the two guards it already had cannot see that shape: the run rule needs a second
+initial, and the lone-initial rule (added in G5 for "V. Gordon Childe") requires a CAPITALISED word to
+follow, where a species epithet is always lowercase. The fix is exact and safe: **a single capital letter,
+a full stop and a LOWERCASE word can only ever be an abbreviated genus**, because a real sentence boundary
+is always followed by a capital. It also needed `>` in the lookbehind, since the text is `<i>S. fatalis</i>`
+and the letter is preceded by a tag close, not a space — which is why the first attempt silently did
+nothing. **Verified over the whole corpus as card batch 24 verified its own splitter change**: 1,377 texts
+(477 glossary terms plus 99 card abstracts in ten languages), exactly one split changed — the one being
+fixed — zero round-trip failures, and the glossary now splits 3/3 everywhere and the cards 10/10. This is
+C7's Chinese-semicolon finding in another coat: **a splitter gap sits unnoticed until a batch walks into
+it, and it is worth running the whole-corpus split audit at the START of a batch rather than the end.**
+
+**The plan predicted the taxon's padding class would be the naming history, and that is half right in a
+way worth stating.** On a taxon the describer and year are part of the formal identity — a species IS its
+type specimen and its authority — so "named in 1908 by Otto Schoetensack", "established in 1964 by Louis
+Leakey, Phillip Tobias and John Napier", "Meave Leakey and her colleagues named it in 2001" all stay.
+What goes is the **discovery narrative around it**: the excavation years (`Java_Man` "in 1891 and 1892"),
+the finder's affiliation, the catalogue-number exegesis (`KNM-WT_40000` explained that its number "records
+the Kenya National Museums and the West Turkana collecting area"), and the micro-locator (`Peking_Man`'s
+"about 50 kilometres (31 miles) southwest of Beijing", which `Zhoukoudian` carries anyway). That is L5's
+excavation-administration class applied to a taxon, and it is where the words are.
+
+**A second lever this batch has and the earlier ones did not: the SIBLING PAIR.** Six of its terms come in
+pairs describing the same find from two angles — `Taung_Child` and `Australopithecus_africanus`, `Lucy` and
+`Australopithecus_afarensis`, `KNM-WT_40000` and `Kenyanthropus_platyops`. Each pair could be given a clean
+division of labour rather than trimmed twice: the specimen term keeps the discovery (who found it, when),
+the taxon term keeps the nomenclature and the diagnosis. So `Kenyanthropus_platyops` lost "found in 1999"
+and `KNM-WT_40000` kept it, deliberately. **Look for the sibling before cutting a shared fact — one of the
+two usually owns it.**
+
+**The sibling-consistency check was run first and came back clean, which is itself the result.** Every
+species nests inside its genus (`Homo` from 2.8 Mya over habilis 2.4–1.4, ergaster 1.9–1.5, erectus 2
+Mya–110 ka, heidelbergensis 700–300 ka, naledi 335–236 ka, floresiensis 100–60 ka, luzonensis 67–50 ka,
+sapiens from 300 ka; `Australopithecus` 4.2–2 Mya over afarensis 3.9–2.9 and africanus 3.3–2.1); every
+fossil falls inside its species (`Turkana_Boy` 1.6 Mya, `Java_Man` 830–380 ka, `Peking_Man` 750–230 ka,
+`Omo_remains` over 233 ka, `Homo_sapiens_idaltu` 160–154 ka); and **no two brain volumes disagree**, the
+nine stated figures each belonging to a different taxon or specimen. L7 found a real cross-scheme
+contradiction; L8 found none, and the difference is that a taxonomic hierarchy is checkable in a way a
+regional chronostratigraphy is not.
+
+**Two grow cases, and both grew by naming what the term had left out.** `Australopithecus` (68) never
+named its own species, while citing the Smithsonian records for three of them — so it now names
+*A. anamensis*, *A. afarensis* and *A. africanus*, with the diet and the climbing anatomy the same records
+carry. `Homo_sapiens` (86) never named Jebel Irhoud while citing Hublin's paper on it — added as "the
+earliest" fossils **assigned to** the species, the phrasing the register specifically preserves, since
+Meneganzin flags that calling them "the oldest *Homo sapiens* fossils" is too hasty. **The register's
+cautions are as reusable as its support statements**; read both before growing.
+
+**Zero figures added and 57 dropped**, about forty of them the date-line spans. **Seven substantive losses
+are named**: `Omo_remains` lost what Omo I physically consists of (a skull vault with parts of the face and
+jaw and much of the skeleton), `Skhul_and_Qafzeh_hominins` the per-cave dating that showed Skhul older than
+Qafzeh — the anatomical version of that claim survives — and the adolescent's age, `Homo_naledi` the body
+height of 1.44 m, `Smilodon` the canine eruption finishing at 34–41 months and the finding that declining
+prey does not explain its extinction, `Woolly_mammoth` the ear size, `Rhinoceros` the five specific
+epithets (the genera survive because the third sentence's phylogeny names them), and `Lake_Mungo_remains`
+the "beside a long-dry lake bed" that gives the place its name.
+
+**One marker was left stranded and the year diff caught it**: `Homo_floresiensis` kept marker [3] — Sutikna
+et al., "Revised Stratigraphy and Chronology for *Homo floresiensis* at Liang Bua" — after the dating
+clause it carries had gone, leaving a stratigraphy paper attached to a sentence about brain size and stone
+tools. Restored as "a 2016 restudy fixed the layers' age", paid for elsewhere. Third batch running that
+this failure appears, and third batch running that only the year diff finds it.
+
+**The hedge grep caught five on surviving claims, the most since L5**, and the first is the one that
+matters: `Homo_sapiens`'s "these features **seem** to have emerged piecemeal" had become "the features
+emerged piecemeal", turning the contested pan-African reading into a settled one on the very term whose
+register entry warns against exactly that. Also restored: `Ardipithecus_kadabba`'s "the human and
+chimpanzee lineages are **thought** to have separated" (which had become a flat assertion of the split),
+`Homo_luzonensis`'s "on **what seems to have been** a very small body", `Homo_habilis`'s "**comparatively**
+long arms", and `Homo_floresiensis`'s "known to **almost** everyone as the hobbit".
+
 ### Status
 
-**L0 and L1–L7 have shipped** (2026-08-04). The glossary stands at **377 of 477 terms inside the bar**
-(79%), mean 113.3 words, and **four whole kinds are done — `place` (266), `person` (54), `era` (33) and
-`industry` (11), 364 terms between them, 0 outside the bar**. What remains is 97 over and 3 under, all of
-it in the subject-matter kinds. **L8 is next** — `hominin` + `fossil` + `animal` together, 40 terms of
-which 35 are over the bar. Three things L7 leaves it: **read `GLOSSARY_DATES` first and then cut the span
-but keep the caveat**; **check the source list for one-claim citations before choosing what to cut, and
-then read each surviving marked sentence against the work it points at** (L7 caught two markers stranded
-that way and neither `add-sources.js` nor the audit could see either); and expect the taxon's padding
-class to be **the naming history** — who described the species, when, from which type specimen — which is
-this batch's historiography class in another coat, and which on a taxon may be the claim rather than the
-padding. Re-run `gloss-length.js` before and after every batch and record the movement here. Re-run `gloss-length.js` before and after every batch and record the movement here.
+**L0 and L1–L8 have shipped** (2026-08-04). The glossary stands at **412 of 477 terms inside the bar**
+(86%), mean 111.2 words, and **seven whole kinds are done — `place` (266), `person` (54), `era` (33),
+`hominin` (19), `industry` (11), `fossil` (11) and `animal` (10), 404 terms between them, 0 outside the
+bar**. What remains is 64 over and 1 under. **L9 is next** — `object` + `culture` + `people` + `building` +
+`event` + `practice` together, 45 terms of which 40 are over, and it holds the longest terms left in the
+glossary (`Spear-thrower` at 195, which is the corpus maximum). Three things L8 leaves it: **run the
+whole-corpus split audit BEFORE drafting, not after** (L8 found a six-sentence term that way and fixed the
+splitter gap behind it); **look for the sibling term before cutting a shared fact**, since on a pair like
+`Taung_Child`/`Australopithecus_africanus` one of the two owns it and the other can let it go; and **read
+each surviving marked sentence against the work it points at**, which is now three batches running the
+only way a stranded marker has been found. Re-run `gloss-length.js` before and after every batch and
+record the movement here. Re-run `gloss-length.js` before and after every batch and record the movement here.

@@ -47,6 +47,13 @@ function pieces(block) {
   // carry over; a lone Arabic letter standing between whitespace and a full stop is an initial for the
   // same reason — no Arabic sentence ends on one. "عالم الآثار ف. غوردون تشايلد" and "جيسون إ. لويس".
   hold(/(?<=^|[\s(«"'([])[ء-ي]\.\s(?=[ء-ي])/g);
+  // An ABBREVIATED GENUS in a binomial — "S. fatalis", "H. sapiens", "A. afarensis". The two rules above
+  // cannot see it: the run rule needs a second initial, and the lone-initial rule requires a CAPITALISED
+  // word to follow, where a species epithet is always lowercase. It split the Smilodon term into SIX
+  // sentences, in English, and it is the shape every taxon term is written in. The test is exact: a
+  // sentence boundary is always followed by a capital, so a single capital letter, a full stop and a
+  // LOWERCASE word can only ever be an abbreviated genus.
+  hold(/(?<=^|[\s>(«"'‘\[])\p{Lu}\.\s(?=\p{Ll})/gu);
   hold(/\b(?:Jr|Sr|Dr|Prof|Mr|Mrs|Ms|St|Mt)\.\s?/g);        // "Roberts Jr. used the name in 1940"
   hold(new RegExp("\\d{1,2}\\.\\s(?=(?:" + MONTHS + "))", "g"));   // "25. August"
   hold(/\d{1,2}\.\s(?=Jahrhundert|Jh\.)/g);                 // "im frühen 19. Jahrhundert"
