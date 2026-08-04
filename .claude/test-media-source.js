@@ -136,7 +136,7 @@ const cardDelta = (page, id, key) => page.evaluate((a) => {
   check("clearing the URL leaves nothing pending", !(await page.locator("#cesMediaPanel .af-reqnote").isVisible()));
 
   /* ---------- 2. a shipped, credited picture is untouched by any of this ---------- */
-  await openCard(page, "wh-001");
+  await openCard(page, "wh-046");   // the one shipped card that carries an image
   check("a shipped picture still renders", await page.locator("#cesMediaSlot .card-img img").count() === 1);
   check("...unflagged, because it carries a source", await page.locator("#cesMediaSlot .ces-media-pending").count() === 0);
 

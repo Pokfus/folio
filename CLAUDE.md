@@ -98,7 +98,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `docs/citation-plan.md` — the batch plan for **citing the 109 prehistory cards** (the bar a source must
   clear, the per-card workflow, how translations are staged, and the batches with their source spines).
   Not part of the site. **The bar is at least 5 citations per card** (`SRC_TARGET` in app.js; raised from
-  2–4 on 2026-07-31) — **all 109 are there, with nothing blocked and nothing left to find**; batches 0–26 are complete.
+  2–4 on 2026-07-31) — **all 109 were there, with nothing blocked and nothing left to find**; batches 0–26 are complete.
+  **That deck no longer exists**: World History was replanned on 2026-08-04 and 89 of those 109 were renumbered
+  while 20 were retired, so the live figure is 89 cards all at the bar (plus Greece), and this file's `wh-NNN`
+  references are the old numbering — read them through the table in `docs/world-history-card-plan.md`.
   Coverage is reported by `add-sources.js` on every run and in full by `node .claude/source-audit.js`. Its **Pilot log** records
   that batch 0 was attempted and stopped: this sandbox's egress policy blocks every scholarly host, so no
   source could be opened and none was cited. `.claude/sources-register.md` holds the verified citations
@@ -545,8 +548,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   can be grown one card at a time over many sessions. See the "ANCIENT GREECE" bullet under "Generating
   cards & glossary entries" for the workflow — the short version is that the next card to write is the
   lowest `gr-NNN` not yet in `data.js`. Not part of the site.
+- `docs/world-history-card-plan.md` — the **1000-card running order for the World History collection**
+  (`col-8`): every card's number, topic and deck, fixed in advance across 8 decks and 39 leaf subdecks,
+  so the collection can be grown one card at a time over many sessions. The sibling of the Greece plan
+  and used the same way — the next card to write is the lowest `wh-NNN` not yet in `data.js` — see the
+  "WORLD HISTORY" bullet under "Generating cards & glossary entries". It also holds **the 2026-08-04
+  renumbering record**: the collection was replanned from scratch on request, 89 of the 109 shipped
+  prehistory cards were renumbered into their planned slots and **20 were retired**, and that file has
+  the old→new table every earlier document's `wh-NNN` references must be read through. Not part of the
+  site.
 - `docs/history-focus-plan.md` — the rule that **Folio is a history site, not an archaeology site**, the measure that
-  finds cards written the other way round (24 of 119 flagged), and the six rewrite batches. Opened Aug 2026 on request
+  finds cards written the other way round (24 of 119 flagged, measured before the 2026-08-04 renumbering — the
+  flags travel with the cards, the ids in its table do not), and the six rewrite batches. Opened Aug 2026 on request
   after `gr-008` Knossos was found to be mostly about who dug it. Not part of the site.
 - `docs/card-glossary-pairing.md` — the rule that **a new card ships with a glossary entry for its own answer term**,
   and the backfill plan for the 77 of 119 shipped cards that have none. Its P9/P10 (the ten Ancient Greece terms) come
@@ -556,9 +569,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `docs/user-decks-plan.md` — the design plan for **community decks** (user-created decks, sharing,
   ratings, an optional per-deck glossary, and a later paid tier). Phases 0–1 have shipped; see the bullet
   in "How the app is wired". Not part of the site.
-- `data.js` — `window.CARD_DATA` and `window.COLLECTION_TREE`. **Currently 105 cards** (wh-001…wh-105), **each carrying its full pool of 3 question phrasings** (`question` + 2 `questions` extras) in EN + all 9 languages, all in the
-  `wh-prehistory` deck under World History (regrown from the `cnh-001` template, which remains the canonical
-  format); the deck is grown one card at a time (see "Generating cards & glossary entries" below).
+- `data.js` — `window.CARD_DATA` and `window.COLLECTION_TREE`. **Currently 99 cards** — 89 in World
+  History (`col-8`, scattered across the first three subdecks of its 1000-slot plan) and 10 in Ancient
+  Greece (`gr-001`…`gr-010`) — **each carrying its full pool of 3 question phrasings** (`question` + 2
+  `questions` extras) in EN + all 9 languages (regrown from the `cnh-001` template, which remains the
+  canonical format); both collections are grown one card at a time (see "Generating cards & glossary
+  entries" below). **The old single `wh-prehistory` deck and the empty `col-44`…`col-64` period decks
+  are gone** (2026-08-04) — World History's tree is now the one in `docs/world-history-card-plan.md`,
+  and card ids follow that plan's numbering.
 - `glossary.js` — `window.GLOSSARY` plus `window.GLOSSARY_DATES`, `GLOSSARY_TITLES`, `GLOSSARY_ALIASES`,
   `GLOSSARY_CASESENSITIVE`, `GLOSSARY_TAGS` (per-term category tags — the admin glossary's left-bar
   filter), `GLOSSARY_IMAGES` (per-term illustration — see the "Glossary image" bullet below) and
@@ -1261,7 +1279,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `practice`, `concept`, `fossil`, `culture`, `event`, `people`, `person`, `animal`, `building`, `theory`), then
   the subject areas (`archaeology`, `palaeontology`, `geology`, `science`, `history`, `prehistory`, `evolution`,
   `genetics`, `technology`, `art`, `geography`, `nature`, `climate`, `migration`), then the specifics — a
-  country, a region, a period. **All 119 shipped cards are tagged.** Written by
+  country, a region, a period. **Every shipped card is tagged.** Written by
   `node .claude/add-card-tags.js <batch.json>` (3–8 tags, lowercase, and it warns about a tag no other card
   shares — one that can never group anything); carried by `serializeCardData` beside `sources`.
   What they are FOR is **Multiple Choice**: `cardKinship(a, b)` counts the tags two cards share, weighting the
@@ -2926,7 +2944,7 @@ contested; and **the date line carries the dates of the THING, not of the dig** 
 `First dug`, `Named` and `Published` belong only on a card whose subject IS a modern act (`wh-006` the
 three-age system, `gr-007` Arthur Evans), and `Built` / `In use` / `Occupied` / `Destroyed` everywhere else.
 What does not change is the apparatus: saying less about the dig is not saying less about how we know, and
-the 5-source bar stands. **24 of the 119 shipped cards are flagged**, measured rather than guessed (a card
+the 5-source bar stands. **24 of the 119 cards shipped in Aug 2026 are flagged**, measured rather than guessed (a card
 scores on how many of its ten sentences carry a year between 1800 and 2029, whether its question carries
 one, and whether its date line uses a discovery label) — `docs/history-focus-plan.md` holds the measure, the
 table and the six rewrite batches. Re-run the measure after each batch; and read the card before rewriting
@@ -2939,7 +2957,7 @@ use in their own backgrounds, and a term with no entry auto-links to nothing. Wr
 401/401 through sixty-eight new terms — and to the GLOSSARY's rules rather than the card's: three sentences,
 impartial, deck-agnostic, self-contained, never written as a companion to the card that prompted it. Where
 the answer is a phrase the glossary would never head, give the entry the head noun and add the card's exact
-answer as an **alias**. **THE BACKFILL IS COMPLETE: all 119 shipped cards have such an entry** (42 did when the rule was written),
+answer as an **alias**. **THE BACKFILL IS COMPLETE: every shipped card has such an entry** (42 of 119 did when the rule was written),
 and the glossary stands at **477 terms, every one at the bar**. `docs/card-glossary-pairing.md` holds the
 record of the ten batches and what each turned up — the rule itself is what remains in force. Worth knowing
 before writing the next one: give the NARROWER thing its own key and let the broader one take the short
@@ -2955,8 +2973,23 @@ template entries are the canonical format: card `cnh-001` in `data.js`, glossary
 
 **Current direction (July 2026): the China collection is SET ASIDE** — its tree node carries
 `placeholder: true`, so it sits under "Coming soon" and `availableCardIdSet()` (app.js) keeps its cards
-out of the daily review, the games, the card of the day and study deep-links. **New cards go to the
-World History collection (`col-8`)** — create leaf decks under it as topics demand.
+out of the daily review, the games, the card of the day and study deep-links.
+
+**WORLD HISTORY (`col-8`) runs off a 1000-card plan of its own (Aug 2026).** Its 8 decks and 39 leaf
+subdecks are laid out in `data.js` and the running order is `docs/world-history-card-plan.md`.
+**"Generate the next World History card" means: take the lowest `wh-NNN` not yet in `data.js`, read
+its topic and deck from that plan, research it, and add it** with `node .claude/add-card.js <card.json>
+<deckId>` — always passing the deck id. The next number is:
+`node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='wh-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"`
+(the padding is right for every id but `wh-1000`). **Do not create leaf decks under `col-8` as topics
+demand** — that is what the plan replaced; a topic with nowhere to go means the plan needs changing, in
+the same commit, and saying so. The collection is **not** contiguous: the 89 cards inherited from the
+old prehistory deck fill scattered slots in `wh-evolution`, `wh-paleolithic`, `wh-peopling` and
+`wh-neolithic`, so the "next" id is an early gap, not the high-water mark — which is the intended
+behaviour, since those gaps are the cards the old deck never had.
+**World History overlaps Greece, Rome, the US, Russia and India on purpose and never waits for them**:
+it is written at survey altitude, and the plan's "Living beside the other collections" section is the
+rule for how the two registers differ.
 
 **ANCIENT GREECE (`col-13`) is the collection being grown (Aug 2026).** Its 19 leaf decks are laid out
 in `data.js` and its full 1000-card running order is `docs/greece-card-plan.md` — number, topic and
@@ -3246,7 +3279,7 @@ over `cardStartYear`, not just the eye, after a batch.
 **Citing the existing content (as of July 2026)** — **most of the shipped content still has no citations.** The
 109 cards, 333 glossary terms and every Atlas description were written before this system existed, from Wikipedia
 and its sources, and were fact-checked rather than referenced. A batched pass is working through the cards —
-**all 109 carry sources, and all 109 meet the 5-source bar** (`docs/citation-plan.md`; `add-sources.js`
+**every shipped card carries sources and meets the 5-source bar** (`docs/citation-plan.md`; `add-sources.js`
 reports both on every run, `node .claude/source-audit.js` reports them per card, and the Edit page's card list
 shows each card's coverage as an amber or red chip) — and **a second pass has started on the glossary**, batched
 through `docs/glossary-citation-plan.md` at a bar of **2 citations per term** (`GLOSS_SRC_TARGET`), with
@@ -3895,7 +3928,7 @@ dead code (never rendered).
     its two failure modes are a bracket it fails to recognise (both systems left on screen — it looks as
     though the feature was never built) and a bracket it recognises wrongly (an ordinary parenthesis eaten
     out of a sentence — it looks like a typo in the card). **The corpus sweep is the assertion that
-    matters**: the engine is sliced out of the real app.js by text and run over all 119 cards and every
+    matters**: the engine is sliced out of the real app.js by text and run over every shipped card and every
     glossary term, demanding 0 missed and 0 taken in error (341 fields transform today). It also pins that
     the SHIPPED DATA still carries both figures after a reader has chosen one — the display transform must
     never reach the store, which is the whole reason it is a DOM pass. On the theme: a first visit follows

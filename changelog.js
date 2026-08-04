@@ -6,11 +6,13 @@
 window.CHANGELOG = [
   {
     d: "2026-08-04",
-    t: "A Library of books to read",
+    t: "A Library of books, and World History replanned",
     items: [
       "Folio has a Library. It is a reading room rather than a deck of cards: whole books, in English, laid out one tile to a book, with the glossary linked through the text and the translator’s own notes kept as numbered footnotes you can open where you are. The first book on the shelf is Seneca’s letters to Lucilius — the sixty-five letters of the first volume, on time, fear, friendship, wealth, illness and how to die — in the English of Richard Mott Gummere, whose translation is out of copyright and free for anyone to read. Each letter sits on its own tab along a bar at the top, with a Contents button for jumping about, and the arrow keys step between them.",
       "A book always opens where you left it. Not the chapter you were on — the paragraph: close Folio halfway down a letter, come back tomorrow on another device, and it opens there.",
       "The page that used to be called the Library is now called Collections, which is what it has always been — the collections and decks you study from. Nothing about it has changed but the name, and every link to it still works.",
+      "World History is now laid out the way a course would be: eight period decks running from human origins to the present, thirty-nine subdecks between them, and a fixed running order for the thousand cards that will fill it. Nothing outside Europe is filed under “and elsewhere” — Africa, the Islamic world, the steppe, East Asia, South and Southeast Asia and the Americas each have decks of their own. Until now the collection was a single prehistory deck sitting beside a row of empty ones.",
+      "Eighty-nine of the prehistory cards took their place in that order and twenty were retired — single caves, single carvings and single pollen periods, finer detail than a survey of the whole human past can carry, and the makings of a prehistory collection of its own one day. Nothing went from the glossary: every one of those subjects still has its entry and its sources. One consequence to expect — because the cards were renumbered, they will come round in your daily review as though you were meeting them for the first time.",
     ],
   },
   {
