@@ -1059,11 +1059,29 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
       prehistory and geography and its keys collide with plain Latin far harder than with English —
       `genus` is the example. `linkProperNounsOnly` exists because that already bites in translated prose;
       in the original language it would be the rule rather than the exception.
-    · **The tap gesture's guards are the whole of it**, because a false positive swaps the language out
-      from under a reader mid-sentence: a finger that MOVED was scrolling, a real target (link, `.ttip`,
-      footnote marker, notes fold, any control) keeps its own behaviour, a live SELECTION is not a tap,
-      and nothing fires while a gloss popup is open. Narrow screens only — above the breakpoint both
-      columns already show, so a stray click would take one AWAY rather than reveal anything.
+    · **It is a DOUBLE tap** (Aug 2026, on request — it was a single one, and the wording above is what
+      that gesture was for). A single tap is far too cheap a target for something that swaps the whole
+      text out from under a reader: it is also how you put a keyboard away, dismiss a selection or
+      simply hold the phone. The gloss window made the same move for the same reason, so a double tap
+      on a body of text now means one thing across the site. The deliberate cost is discoverability,
+      which is what the **LATIN button in the chapter bar** is for and why it must stay.
+    · **A horizontal SWIPE steps between chapters** (Aug 2026, on request), and the two gestures cannot
+      be classified independently — a swipe ends in a pointerup indistinguishable from a tap unless the
+      movement is measured. So the tap half rejects anything that MOVED (`BK_TAP_SLOP`) and the swipe
+      half rejects anything short or mostly-downward (`SWIPE_MIN` / `SWIPE_RATIO`, **shared with the
+      page swipe** so the two gestures cannot come to disagree about what a swipe is); a swipe also
+      **clears the pending tap**, or the finger that stepped a chapter counts as half a language flip.
+      The book page is deliberately absent from `SWIPE_ORDER`, so the site-wide page swipe is inert here
+      and the two can never fight over one gesture.
+    · **The guards are the whole of it**, because a false positive swaps the language out from under a
+      reader mid-sentence: a real target (link, `.ttip`, footnote marker, notes fold, any control) keeps
+      its own behaviour, a live SELECTION is not a tap, nothing fires while a gloss popup or any other
+      overlay is up, and a swipe out of a horizontal scroller belongs to that scroller (the chapter bar
+      is one — walked up the ancestors by `swipeScrollerUnder`, not named). Narrow screens only: above
+      the breakpoint both columns already show, so a stray tap would take one AWAY rather than reveal
+      anything, and the chapters are reached by the tabs, the ‹ › steps and the arrow keys.
+      **Both listeners go on `root`** — a fresh `.page` div per render — so they die with the page;
+      one on the persistent `#view` would accumulate a copy per navigation.
     · The choice is device-local (`folio_book_orig_v1`), like the marker's position and the place sheet's
       height. **The front matter is rebuilt on every paint**, not once, because the original's licence box
       is built from the original's own file, which lands after the page was set up.
@@ -1142,9 +1160,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `wireFootnotes` numbers the markers and the delegated fold handler opens it with no new wiring). It is
     NOT `sourcesHTML`, because that carries caps written for a card — `normSources` trims a citation to 600
     characters (Gummere's longest note is 729, and a note cut mid-sentence is worse than none) and drops
-    everything past 24, which would leave `wireFootnotes` deleting the markers that pointed at them. It
-    carries `src-compact` for that class's BEHAVIOUR: shut by default, and opening it never rewrites the
-    reader's card-wide `S.settings.srcCollapsed`.
+    everything past 24, which would leave `wireFootnotes` deleting the markers that pointed at them.
+    **It renders OPEN** (Aug 2026, on request — it was shut for a fortnight), like a card's sources and
+    the Atlas panel's and for the same reason: an apparatus a reader has to go looking for is one they
+    will not look at, and here it is the translator's own commentary rather than a works list. It keeps
+    `src-compact` for the OTHER half of what that class buys — opening or shutting it never rewrites the
+    reader's card-wide `S.settings.srcCollapsed` — and for the smaller type. **So the class no longer
+    implies a starting state**: the two surfaces using it now differ there, a gloss popup still opening
+    shut. Its being shut was also why every marker jump had to expand the fold first, which is exactly
+    the case `openFootnote` used to get wrong (next bullet but one).
   · **`linkProperNounsOnly` — a book links only what the prose CAPITALISES.** Folio's glossary is a glossary
     of prehistory, palaeoanthropology, geography and heads of state; run unrestricted over Roman philosophy
     it links the right proper nouns (Greece, Sicily, Syria, Egypt, Hesiod) and then four words that mean
@@ -1762,9 +1786,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     attributes, with `wireSourceLinks` in a try/catch: the links are decoration over text this code didn't
     write, the numbering is the join between the prose and the list, and one must not be able to take the
     other down.
-  · **A card's and the Atlas panel's folds are OPEN by default; a GLOSS POPUP's is always SHUT.** On the two
-    big surfaces a citation the reader has to go looking for is one they will not check, and checking is the
-    whole point of shipping the apparatus (July 2026, on request — they were collapsed before). **A reader who
+  · **A card's, the Atlas panel's and a BOOK's folds are OPEN by default; a GLOSS POPUP's is always SHUT.** On
+    the big surfaces a citation the reader has to go looking for is one they will not check, and checking is the
+    whole point of shipping the apparatus (July 2026, on request — they were collapsed before; the book's notes
+    joined them Aug 2026, also on request). **A reader who
     shuts one there is remembered**: `S.settings.srcCollapsed` (in `defaultState`, so old saves back-fill; a
     device setting, not synced) is written by the **delegated header handler only** — a marker jump force-opens
     the fold for one look and deliberately does NOT change the preference. The Atlas section follows the same
@@ -1777,6 +1802,29 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     is not remembered, and the next popup opens shut again. A popup is a glance at a word met mid-sentence and
     the fold is a third of its height; expanding one says something about that term, not about every term
     opened afterwards. A marker jump still force-opens it, there as everywhere. Guarded by `test-sources.js`.
+  · **A MARKER JUMP MUST CLEAR THE FURNITURE, AND MUST MEASURE A FOLD THAT IS ALREADY OPEN**
+    (`openFootnote` / `scrollNoteIntoView`, Aug 2026, on a bug report: on a phone the jump "doesn't quite go
+    far enough to see the actual note"). Two faults compounded, and each is invisible to a test that only
+    asks whether the note is in the viewport.
+    · `scrollIntoView({block:"nearest"})` brings the item's bottom flush with the **scrollport's**, and the
+      scrollport is the whole viewport — which on a phone has a 58px tab bar fixed over the foot of it. So
+      the note arrived UNDERNEATH the bar: in view by the browser's reckoning, unreadable by the reader's.
+      Measured on a 390×844 phone, the note landed at 807–844 with the bar starting at 786.
+    · `.src-collapse` opens over .38s (`grid-template-rows` 0fr → 1fr), and the scroll was issued in the
+      same tick — so it was computed against a list still zero pixels tall and stopped short by however
+      tall the list was about to become. Same phone, fold shut: the note landed at **850–887, entirely
+      below an 844px viewport**. Worst exactly where it was noticed, at the foot of a long chapter, where
+      the notes are the last thing in the document and the page cannot scroll that far until they exist.
+    The fold is now expanded WITHOUT its animation before anything is measured (animating would only mean
+    scrolling to a moving target; the scroll IS the movement asked for), and `scrollNoteIntoView` reads the
+    bars off the custom properties that position them (`--bar-h`, `--tabbar-h` — both 0 on the side of the
+    breakpoint where they do not exist, so this cannot drift out of step with them). Already clear of both →
+    **nothing moves**, since a note the reader can see should not jolt; otherwise it is placed in the middle
+    of what is genuinely visible, except when the note is taller than that band, where it is aligned to its
+    top — centring a long note lands the reader mid-sentence. A note inside its OWN scroller (a gloss popup's
+    body, the Atlas panel's columns — `noteScrollParent`) has no fixed furniture over it and keeps
+    `scrollIntoView`. Guarded by `test-library.js`, which asserts against the tab bar's own rendered box
+    rather than a hard-coded 58, from an open fold and from a shut one.
   · **A citation ends in its URL, written as plain text**, and `linkifySrcItem` turns it into an anchor —
     **inside `sourceListHTML`, so the list is serialized already wired** rather than fixed up by a pass over the
     rendered page. That was the second half of the same lesson the fold header learned: a list that depends on a
