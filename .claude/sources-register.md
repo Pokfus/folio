@@ -11047,3 +11047,535 @@ New to the register:
 - `www.mdpi.com`, `royalsocietypublishing.org` — **403**.
 - `www.diva-portal.org` — **503**.
 - `www.stratigraphy.org` — 200.
+
+## Batch N11 — the Leakey circle, two Oldowan sites, Clark's modes and Latin (2026-08-04)
+
+Ten new terms, written cited at the bar rather than cited afterwards: `Paranthropus`, `Ledi-Geraru`,
+`Nyayanga`, `Louis_Leakey`, `Mary_Leakey`, `Phillip_Tobias`, `John_Napier`, `Grahame_Clark`, `Mode_1`,
+`Latin`. (`Younger_Dryas` was requested with them and already existed, at the bar, with four sources.)
+
+**Every one of the ten already appeared in shipped card prose** — `wh-016` alone names Mode 1, Grahame
+Clark, Nyayanga, Ledi-Geraru, Paranthropus and both Leakeys — so all ten began auto-linking the moment
+they landed. That is the card→glossary pairing rule read backwards, and it is the cheapest way to choose
+the next batch: **grep the deck for capitalised surfaces that resolve to nothing.**
+
+### The access finding, and it is reusable: a British Academy memoir is an ENCRYPTED PDF
+`thebritishacademy.ac.uk/documents/<id>/<vol>p<page>.pdf` serves the Biographical Memoirs — the canonical
+scholarly life of any FBA, and the only substantial open source for `Grahame_Clark`. The root domain is
+**403**, but the document paths are **200**. The file then decompresses to nothing: 39 `/FlateDecode`
+streams and not one that inflates, because the trailer carries `/Encrypt` — the standard security handler
+with an empty user password and the copy-protection flag set. Decrypting it is ~40 lines (pad the empty
+password, MD5 with `/O`, `/P` and the first `/ID`, iterate 50 times for R≥3, then RC4 per object with the
+object and generation numbers appended). `.claude/` deliberately does NOT carry the tool — it is a scratch
+helper, not part of the site — but **do not record a British Academy memoir as unreadable**; it is
+readable. Caveat: the fi/fl ligatures carry no `/ToUnicode` map, so "first" extracts as "rst" and
+"thirty-five" as "thirty-ve". Read numbers with that in mind.
+
+### The Leakey Foundation passes N9's encyclopedia test, and says so in a footnote
+- The Leakey Foundation, "The Leakey Family," accessed 4 August 2026, https://leakeyfoundation.org/about-us/the-leakey-family/. [Open access]
+  - opened: 2026-08-04 · the foundation's own history page
+  - supports: Louis Leakey born 7 August 1903 at Kabete Mission near Nairobi to English missionaries to
+    the Kikuyu, "spoke Kikuyu as fluently as English"; Cambridge from 1922, graduating 1926 "with honors
+    in anthropology and archaeology"; that he backed African origins while "the European scientific
+    community believed that Europe, or possibly Asia were the most likely cradles of humankind"; "In
+    1931, Leakey made his first expedition to Oldupai Gorge"; his death 1 October 1972; Jonathan
+    Leakey's 1960 jaw, "described in 1964 and named Homo habilis by Leakey and his colleagues Phillip
+    Tobias and John Napier"; his mentorship of Goodall, Fossey and Galdikas. And for Mary: born Mary
+    Douglas Nicol 6 February 1913; at seventeen an illustrator on the Hembury dig under Dorothy Liddell;
+    working in Kenya and Tanzania from 1935; *Proconsul africanus*, "an 18 million-year-old fossil ape",
+    Rusinga Island 1948; the 1959 Zinjanthropus skull; Laetoli in 1976 and 1977, "what she considered
+    the most exciting find of her career", footprints in tuffs matching *Australopithecus afarensis*;
+    died 9 December 1996
+  - **why it qualifies**: N9 set the test as *does this article cite its own sources?*, per article rather
+    than per publisher. This one does — a numbered footnote to J. Desmond Clark's British Academy memoir
+    of Louis Leakey (*Proceedings of the British Academy*, 1973, 447–71). Britannica's and SNL's articles
+    failed the same test in N9; a foundation's history page passed it.
+  - used by: Louis_Leakey, Mary_Leakey
+
+### The works
+- John Coles, "John Grahame Douglas Clark, 1907–1995," <i>Proceedings of the British Academy</i> 94 (1997): 357–87, https://www.thebritishacademy.ac.uk/documents/1403/94p357.pdf. [Open access]
+  - opened: 2026-08-04 · decrypted as above; page range read off the running heads (odd 359–387)
+  - supports: born 28 July 1907 at Shortlands near Bromley in Kent, died 12 September 1995; Editor of the
+    *Proceedings of the Prehistoric Society* "for thirty-five years"; "Dorothy Garrod made way and Clark
+    was elected to the Disney Professorship in Cambridge" in 1952; *Prehistoric Europe: The Economic
+    Basis* (London, 1952); *Excavations at Star Carr* (Cambridge, 1954); "In 1961 Clark published the
+    first edition of *World Prehistory: An Outline*"; "his pioneering work in prehistoric economies, in
+    the ecological approach"; a Fellowship at Peterhouse from 1950; the knighthood of 1992
+  - **does NOT mention the technological modes at all** — the attribution to Clark 1969 comes from Lee
+    2013 below, and the two are marked together on that sentence
+  - used by: Grahame_Clark
+- Hyeong Woo Lee, "The Persistence of Mode 1 Technology in the Korean Late Paleolithic," <i>PLoS ONE</i> 8, no. 5 (2013): e64999, https://pmc.ncbi.nlm.nih.gov/articles/PMC3665775/. [Open access]
+  - opened: 2026-08-04 · full text via Europe PMC
+  - supports: "In terms of Clark's technological Modes [17]", reference 17 being "Clark G (1969) World
+    prehistory: a new outline. Cambridge: Cambridge University Press" — the attribution of the numbered
+    modes; "conventional Mode 1 lithic production … simple direct percussion, with artifact types such
+    as choppers, polyhedrons, discoids and various forms of simply made flake tools"; Mode 2 as "crude
+    bifacially worked core tools"; and, in its title and argument, that Mode 1 assemblages persist into
+    the Late Palaeolithic of eastern Asia
+  - **note**: the paper names Modes 1–5 but never states that the scheme HAS five. `wh-016` says "the
+    simplest of his five"; the term says "the first of the numbered technological modes", which is what
+    this source will bear.
+  - used by: Mode_1, Grahame_Clark
+- Marie-Hélène Moncel et al., "What Is the Acheulean?," <i>Evolutionary Anthropology</i> 35, no. 2 (2026): e70029, https://pmc.ncbi.nlm.nih.gov/articles/PMC13066721/. [Open access]
+  - opened: 2026-08-04 · full text via Europe PMC
+  - supports: "the archaeological record of the Nihewan Basin … has traditionally been attributed to Mode
+    1 (Oldowan-like) technology"; the Movius Line as a supposed boundary "separating the Acheulean
+    traditions of the West from the supposedly 'conservative' Mode 1 industries of eastern Asia"
+  - used by: Mode_1
+- Brian Villmoare et al., "New Discoveries of <i>Australopithecus</i> and <i>Homo</i> from Ledi-Geraru, Ethiopia," <i>Nature</i> 650, no. 8101 (2026): 374–80, https://pmc.ncbi.nlm.nih.gov/articles/PMC12893913/. [Open access]
+  - opened: 2026-08-04 · full text via Europe PMC
+  - supports: the LGRP area "towards the northern extent of palaeoanthropological sites in the Afar
+    Region, Ethiopia"; that "the hominin fossil record between the last appearance of A. afarensis
+    (around 2.95 Ma) and 2.0 Ma is patchy"; "the presence of Homo at 2.78 and 2.59 million years ago and
+    Australopithecus at 2.63 million years ago"; that those Australopithecus specimens "cannot yet be
+    identified to species level"; and that the two "co-existed as two non-robust lineages in the Afar
+    Region before 2.5 million years ago". Also gives *Paranthropus* at Nyayanga "at approximately 2.7 Ma"
+  - used by: Ledi-Geraru
+- Emma M. Finestone et al., "Selective Use of Distant Stone Resources by the Earliest Oldowan Toolmakers," <i>Science Advances</i> 11, no. 33 (2025): eadu5838, https://pmc.ncbi.nlm.nih.gov/articles/PMC12356259/. [Open access]
+  - opened: 2026-08-04 · full text via Europe PMC
+  - supports: "Nyayanga is located on the Homa Peninsula on the western flank of the Homa Mountain
+    carbonatite complex", in "the Nyanza rift area of Kenya … on the southern margin of the Kavirondo
+    Gulf of Lake Victoria"; that it "preserves one of the oldest Oldowan artifact accumulations (3.040
+    to 2.581 Ma)"; "an early Oldowan assemblage associated with Paranthropus remains and multiple
+    hippopotamid butchery sites"; "the taxonomic identity of Nyayanga toolmakers remains unknown";
+    "Nonlocal cobbles were transported up to 13 kilometers"; and that this is beyond what nonhuman
+    primates do
+  - used by: Nyayanga
+- Alan Morris, "Phillip Tobias: Anthropologist and Mentor (1925–2012)," <i>South African Journal of Science</i> 108, no. 7–8 (2012), https://scielo.org.za/scielo.php?script=sci_arttext&pid=S0038-23532012000400008. [Open access]
+  - opened: 2026-08-04 · full text on SciELO South Africa; CC BY
+  - supports: born Durban 1925, died 7 June 2012; "initially trained as a medical doctor, graduating in
+    1950"; "Professor of Anatomy from 1959 until 1990" at the University of the Witwatersrand; that at
+    the 1959 Pan-African Congress "Louis and Mary Leakey offered him the opportunity to describe their
+    newly excavated 'Zinjanthropus' fossil cranium", leading to monographs on *Australopithecus boisei*
+    and *Homo habilis*; "In that year, he, Leakey and John Napier described Homo habilis for the first
+    time"; the Kalahari Research Programme and his work on the living Khoesan; that he was "an
+    implacable debunker of myths, especially those that have ranked intelligence of human races"; and
+    his opposition to apartheid "from his earliest student days"
+  - **note**: this article spells him Phillip **Valentine** Tobias; the Royal Society memoir spells it
+    Vallentine. The term uses neither — it carries no middle name.
+  - used by: Phillip_Tobias, John_Napier
+- Wenbo Zheng et al., "Human Grasp Mechanism Understanding, Human-Inspired Grasp Control and Robotic Grasping Planning for Agricultural Robots," <i>Sensors</i> 22, no. 14 (2022): 5240, https://pmc.ncbi.nlm.nih.gov/articles/PMC9324230/. [Open access]
+  - opened: 2026-08-04 · full text via Europe PMC
+  - supports: "Napier [15] … divided the grasping configuration into the precision grip and power grip",
+    reference 15 being "Napier J.R. The prehensile movements of the human hand J. Bone Jt. Surgery. Br.
+    1956 38 902 913"
+  - **an odd-looking citation on a prehistory term, and deliberate**: it is the only OPEN work found that
+    states the attribution outright. The palaeoanthropological papers that cite Napier 1956 (PeerJ
+    PMC8489413 among them) cite him for the fact and never name the classification as his.
+  - used by: John_Napier
+- Smithsonian National Museum of Natural History, Human Origins Program, "<i>Paranthropus aethiopicus</i>" / "<i>Paranthropus boisei</i>" / "<i>Paranthropus robustus</i>," accessed 4 August 2026. [Open access]
+  - opened: 2026-08-04 · the museum's species records, as for the *Australopithecus* trio in batch 19
+  - supports: aethiopicus "About 2.7 to 2.3 million years ago", eastern Africa; boisei "About 2.3 to 1.2
+    million years ago", eastern Africa, with "a strong sagittal crest", "flaring cheekbones", "massive
+    cheek teeth four times the size of a modern human's" and "the thickest dental enamel of any known
+    early human"; robustus "About 1.8 to 1.2 million years ago", South Africa, named by Robert Broom in
+    1938, "*Paranthropus* meaning 'beside man'", and that "'robust' refers solely to tooth and face size,
+    not to the body size"; and that the genus "belongs to just one of the many side branches of human
+    evolution … and did not lead to H. sapiens"
+  - used by: Paranthropus
+
+### `John_Napier` ships with NO date line and NO job title — G8's limit, met head on
+G8 found that the literature pays for results and not for definitions or for lives. Napier is the sharpest
+case yet. His obituary exists and is **not open**: "Professor John Russell Napier," *Journal of Anatomy*
+159 (1988): 227–29, `PMC1262025` — the NCBI OA service answers `identifier 'PMC1262025' is not Open
+Access`, `fullTextXML` 404s and the PDF route is 403. Nothing else openable here states his dates,
+nationality or post: `psgb.org` has no history page, `archiveshub.jisc.ac.uk` is 403, `siarchives.si.edu`
+returns nothing for him, and the Virginia Tech *Biographical Dictionary of the History of
+Paleoanthropology* has only two entries, neither his. **One trick was tried and failed and is worth
+recording so nobody tries it twice**: Europe PMC `resultType=core` exposes `authorAffiliationDetailsList`,
+which would have given "Department of Anatomy, Royal Free Hospital School of Medicine" from one of his own
+papers — but the field is empty for every pre-1988 record, and all eighteen of his indexed papers are
+older than that. So the term describes his WORK and never says what he was. **Do not quietly promote him
+to "British anatomist" on a later pass without a source.**
+
+### Hosts, measured 2026-08-04 (batch N11)
+- `www.thebritishacademy.ac.uk` — **403 on the root, 200 on `/documents/<id>/<file>.pdf`**. The PDFs are
+  RC4-encrypted; see above.
+- `humanorigins.si.edu`, `leakeyfoundation.org`, `scielo.org.za`, `lrc.la.utexas.edu`, `www.rom.uga.edu`,
+  `par.nsf.gov` — 200.
+- `www.ebi.ac.uk/europepmc/webservices/rest/<PMCID>/fullTextXML` — the working route; `pmc.ncbi.nlm.nih.gov`
+  article HTML now serves a browser check, so it is a reader's link and not a fetchable one.
+- `www.science.org`, `royalsocietypublishing.org`, `archiveshub.jisc.ac.uk`, `peerj.com` — **403**.
+- `www.nature.com` — **303** to an identity-provider endpoint.
+- `vatican.va` — 200 but JavaScript-rendered; the constitution's text never arrives.
+- `doaj.org/api` — 200 and useful for finding open articles by title.
+
+## Batch N12 — the Olduvai circle, the Serengeti and the Maasai; THREE TERMS DEFERRED (2026-08-04)
+
+Twelve terms requested, **nine shipped**: `Jonny's_Child`, `Jonathan_Leakey`, `Arthur_Keith`,
+`Cerebral_Rubicon`, `Bernard_Wood`, `Mark_Collard`, `Serengeti`, `Ngorongoro_Conservation_Area`,
+`Maasai`. **`Balbal_Depression`, `Wilhelm_Kattwinkel` and `Munich` are deferred** — see below.
+As in N11, every one of the twelve already appeared in shipped card prose, all of it in `wh-017`
+(Olduvai Gorge) and `wh-018` (*Homo habilis*).
+
+### THE FINDING: a proper-noun ALIAS can silently kill the link it was added to make
+The master regex in `buildGlossIndex` carries the `i` flag, so it matches **case-insensitively**;
+`resolveGlossKey` then resolves a surface through `byNameCS` **case-sensitively** whenever
+`isProperCS` is true — that is, whenever the surface has a capital anywhere after its first character.
+The two disagree, and because `names` is sorted **longest first**, a long surface that MATCHES and then
+fails to RESOLVE swallows the shorter surface that would have resolved. Measured, not reasoned:
+
+- Adding `Serengeti Plains` as an alias of `Serengeti` **stopped `Serengeti` linking** in
+  `Olduvai_Gorge`, whose prose reads "the eastern Serengeti **plains**" with a lowercase p. The regex
+  preferred the 16-character alias, `byNameCS["Serengeti plains"]` missed, `byName` had no entry
+  (the alias went to the CS map), and the whole phrase went unlinked — while `Tanzania` three words
+  later linked normally, so nothing looked broken.
+- `Cerebral_Rubicon` had the same fault from birth: `wh-018` writes "**c**erebral Rubicon" and the
+  humanised key is "Cerebral Rubicon".
+
+**The fix is an all-lowercase alias**, because `isProperCS` only looks after the first character:
+`serengeti plains` / `cerebral rubicon` land in `byName` and then resolve at ANY casing. Both terms
+carry one. **When a term's surface has an internal capital, add the all-lowercase form as an alias** —
+and check the casing the CARDS actually use, not the casing the term is titled in.
+Verified by slicing `isProperCS` + the index build + `resolveGlossKey` out of app.js and resolving all
+23 surfaces from N11 and N12 at the corpus's own casings; all 23 resolve.
+
+### The three deferrals, and they are one problem in two shapes
+**`zobodat.at` is now behind the Anubis proof-of-work wall** — the same wall batch 21 recorded on
+`hal.science` and `journals.openedition.org`. `https://www.zobodat.at/pdf/Mitt-Bayer-Staatsslg-Pal-hist-Geol_35_0125-0135.pdf`
+answers **200 with a 4.4 KB HTML challenge page** rather than the PDF, which is a **sixth variety of
+200-status error document** for the list C0/C7/P7 have been keeping. Gentry et al. 1995 is therefore
+open to a human reader and unreadable from here. Under G6's rule its **recorded** claims stay citable
+(they are quoted verbatim in the batch-17 entry above), but nothing new can be drawn from it.
+- **`Balbal_Depression`** — Gentry is the ONLY work that describes it ("after another 9 km drains into
+  the Balbal depression"). Europe PMC has no open paper on it; the twelve hits for "Olbalbal" are an
+  administrative WARD of the NCA and a herbarium locality, **not the depression**, and conflating the
+  two would be a real error. One source against a bar of two, so deferred rather than padded.
+- **`Wilhelm_Kattwinkel`** — same shape. Gentry's introduction is the whole of the openable record
+  (1911, Martha present, the sleeping-sickness expedition against the butterfly-collector legend, the
+  fossils carried to Munich). Mercader 2021 and 2020, both open, contain no history of research; a
+  Europe PMC search for "Kattwinkel" returns nothing about him.
+- **`Munich`** — a different failure and the more annoying one. The city's own statistics pages
+  (`stadt.muenchen.de/infos/muenchen-in-zahlen.html`, `.../statistik-muenchen.html`) answer **200 with
+  ~118 KB of JavaScript shell** and no figures in the HTML; `statistik.bayern.de` publishes data tables
+  rather than a readable profile; `whc.unesco.org` is 403. The one class of source that DOES mention
+  Munich openly is medical papers that say "Munich, the capital of Bavaria" in passing, and citing a
+  COVID-vaccination survey for a city's definition is exactly the padding this pass forbids.
+  **Route for next time: render the JS.** Chromium is present here and Playwright drives it, but the
+  agent proxy refuses its CONNECT (`ERR_CONNECTION_RESET` even with `proxy:{server:$HTTPS_PROXY}`), so
+  that route needs the proxy sorted first.
+
+### The works
+- Royal College of Surgeons of England, "Keith, Sir Arthur (1866–1955)," Plarr's Lives of the Fellows, record E005084, https://livesonline.rcseng.ac.uk/client/en_GB/lives/search/results?qu=E005084. [Open access]
+  - opened: 2026-08-04 · **the find of the batch, and a route to reuse**: Plarr's Lives is the RCS's
+    biographical dictionary of its Fellows, open, and it covers the anatomists that palaeoanthropology
+    keeps meeting. The `?qu=<record id>` search URL returns the FULL text; the human-readable asset page
+    (`/search/asset/<n>/0`) returns "Resource Error" when fetched directly.
+  - supports: born at Old Machar, Aberdeenshire; Aberdeen University with first-class honours in 1888;
+    taught anatomy at the London Hospital Medical College from 1895 to 1908; "he was the first to
+    describe, with his pupil Martin Flack, the sino-atrial node or pace-maker of the human heart";
+    "Keith was appointed Conservator of the Hunterian Museum at the College in 1908"; that "the last
+    forty years of his life were devoted to anthropology"; *The Antiquity of Man* (1915); President of
+    the Royal Anthropological Institute 1914–17; "During the 1920s he became a one-man 'court of
+    appeal' for physical anthropologists from all over the world"; knighted 1921; died at Downe on
+    7 January 1955 aged 88
+  - **does NOT mention Piltdown**, which is why the term does not
+  - used by: Arthur_Keith
+- Ian Tattersall, "Endocranial Volumes and Human Evolution," <i>F1000Research</i> 12 (2023): 565, https://pmc.ncbi.nlm.nih.gov/articles/PMC10517302/. [Open access]
+  - opened: 2026-08-04 · full text via Europe PMC
+  - supports: "Arthur Keith's (1948) 750 ml 'cerebral Rubicon' for the achievement of 'humanity,' by
+    which he broadly meant membership in the genus *Homo*" — the only open work found that states both
+    the figure and what Keith meant by it
+  - used by: Cerebral_Rubicon, Arthur_Keith
+- Department of Anthropology, George Washington University, "Bernard Wood," https://anthropology.columbian.gwu.edu/bernard-wood. [Open access]
+  - opened: 2026-08-04 · the faculty page, written in the first person
+  - supports: "I am a medically-trained paleoanthropologist"; "University Professor of Human Origins";
+    that "it was Michael Day who, via Mary Leakey, arranged for me to be included in Richard Leakey's
+    initial 1968 expedition to what was then called East Rudolf"; "the topic of my PhD (The University
+    of London, 1975) was sexual dimorphism in the skeleton of higher primates"; and his stated interests
+    in hominin systematics and phylogeny reconstruction
+  - used by: Bernard_Wood
+- Department of Archaeology, Simon Fraser University, "Mark Collard," https://www.sfu.ca/archaeology/about/people/faculty/mcollard.html. [Open access]
+  - opened: 2026-08-04 · the faculty page, first person
+  - supports: "I joined the Department in July 2007, after stints at University College London,
+    Washington State University, and the University of British Columbia. Currently, I am the Canada
+    Research Chair in Human Evolutionary Studies and a Full Professor of Archaeology and Biological
+    Anthropology. I am also the director of the SFU Human Evolutionary Studies Program"; and the
+    research list — "the identification of species in the hominin fossil record, the reconstruction of
+    fossil hominin and non-human primate phylogenetic relationships, and the estimation of body mass,
+    stature and age from skeletal material"
+  - **note**: `chairs-chaires.gc.ca/chairholders-titulaires/profile-eng.aspx?profileId=<n>` looks like a
+    per-holder government profile and is not — it serves the whole chairholder list whatever the id.
+  - used by: Mark_Collard
+- E. V. Williams, J. Elia Ntandu, P. Ficinski, and M. Vorontsova, "Checklist of Serengeti Ecosystem Grasses," <i>Biodiversity Data Journal</i> 4 (2016): e8286, https://pmc.ncbi.nlm.nih.gov/articles/PMC4867701/. [Open access]
+  - opened: 2026-08-04 · full text via Europe PMC
+  - supports, in one sentence of its introduction and better than any conservation-agency page reachable
+    here: "The Serengeti Ecosystem Region … is an area of 25,000 km 2 , found south of the Tanzania and
+    Kenya border between 2° and 4° S, defined by the movement of migratory wildebeest"; "The Serengeti
+    National Park (established in 1940, 14,700 km 2 ) and the Ngorongoro Conservation Area (established
+    in 1959, 8,300 km 2 ) form the majority of the SER. Both are also designated by UNESCO as World
+    Heritage Sites and Biosphere Reserves"
+  - **a grass checklist carrying the geography**: batch 17's gentry-1995 lesson repeated — the best
+    account of a place is often the introduction to a paper about something else entirely
+  - used by: Serengeti, Ngorongoro_Conservation_Area
+- Isla Duporge et al., "AI-Based Satellite Survey Offers Independent Assessment of Migratory Wildebeest Numbers in the Serengeti," <i>PNAS Nexus</i> 4, no. 9 (2025): pgaf264, https://pmc.ncbi.nlm.nih.gov/articles/PMC12418379/. [Open access]
+  - opened: 2026-08-04 · full text via Europe PMC
+  - supports: "fewer than 600,000 individuals—approximately half the widely cited estimate of 1.3
+    million wildebeest, which has remained largely unchanged since the 1970s"
+  - **cited as a live disagreement, not as a correction**: the term gives both figures and says the
+    question is open, which is what the paper itself asks for ("Rather than undermining previous
+    methods, this discrepancy underscores the importance of using independent … tools")
+  - used by: Serengeti
+- O. R. Aminu et al., "Participatory Mapping Identifies Risk Areas and Environmental Predictors of Endemic Anthrax in Rural Africa," <i>Scientific Reports</i> 12 (2022): 10514, https://pmc.ncbi.nlm.nih.gov/articles/PMC9217952/. [Open access]
+  - opened: 2026-08-04 · full text via Europe PMC, under "Study area"
+  - supports: "The NCA encompasses an area of 8292 km 2 and in 2020 had approximately 87,000
+    inhabitants, who are primarily dependent on livestock for their livelihoods. It is a multiple-use
+    area where people coexist with wildlife and livestock, and practise pastoralism with transhumance,
+    characterised by seasonal movements of livestock for accessing resources such as grazing areas and
+    water"; and the eleven administrative wards, of which one is Olbalbal
+  - used by: Ngorongoro_Conservation_Area
+- David M. Goldman, Tyler J. Waterfall, and Micaela Nagra, "Traditional Maasai Dietary Practices and Their Inapplicability to Modern Carnivore Diets: A Narrative Review," <i>Cureus</i> 17, no. 2 (2025): e78448, https://pmc.ncbi.nlm.nih.gov/articles/PMC11882341/. [Open access]
+  - opened: 2026-08-04 · full text via Europe PMC
+  - supports: "The Maasai are semi-nomadic pastoralists primarily inhabiting southern Kenya and northern
+    Tanzania, whose livelihoods center on herding cattle, sheep, and goats"; "the Maasai practice
+    seasonal migration to manage grazing lands and water resources, establishing temporary settlements
+    during the wet season and more permanent dwellings in the dry season"
+  - used by: Maasai
+- Tara B. Mtuy et al., "The Role of Cultural Safety and Ethical Space within Postcolonial Healthcare for Maasai in Tanzania," <i>BMJ Global Health</i> 7, no. 11 (2022): e009907, https://pmc.ncbi.nlm.nih.gov/articles/PMC9660600/. [Open access]
+  - opened: 2026-08-04 · full text via Europe PMC
+  - supports: "Maa, the primary language spoken by Maasai people"; "The Maasai originated in what is
+    today Sudan and the lower Nile Valley and slowly migrated south along the Rift Valley to Tanzania";
+    that Maasai are "1 of around 120 ethnic groups in Tanzania" and that the ground for calling them
+    indigenous "is the maintenance of a way of life and a history of social and political
+    marginalisation"
+  - **G9's rule bent, not broken**: the register still does not pay for peoples, but a health-services
+    paper written WITH the community carries the ethnography its methods section needs. Look for the
+    paper that had to describe the people in order to study something else.
+  - used by: Maasai
+
+### A source for N11's open question about John Napier
+N11 shipped `John_Napier` with no nationality, having found nothing openable that gave one, and warned
+against promoting him to "British anatomist" without a source. The Smithsonian's *Homo habilis* species
+record — already cited on four terms — says outright: "Louis Leakey, South African scientist Philip
+Tobias, and **British scientist John Napier** declared these fossils a new species". So **"British" is
+now sourced and "anatomist" still is not.** The term was left as written (it sits at the 110-word
+ceiling); a later editor wanting to add it has the citation here.
+
+### Hosts, measured 2026-08-04 (batch N12)
+- `www.ncaa.go.tz` — **gateway policy denial** (the proxy reports `connect_rejected … 502 to CONNECT`),
+  not link rot; it answered on 2026-07-31 and is cited by `Olduvai_Gorge` and `Louis_Leakey`. Left in
+  place, as `whc.unesco.org` 403s are.
+- `www.zobodat.at` — **200 with an Anubis challenge page**; see above.
+- `livesonline.rcseng.ac.uk` — 200 on the `?qu=` search URL, "Resource Error" on the asset URL.
+- `anthropology.columbian.gwu.edu`, `www.sfu.ca`, `scielo.org.za`, `humanorigins.si.edu`,
+  `leakeyfoundation.org` — 200.
+- `stadt.muenchen.de`, `www.muenchen.de`, `statistik.bayern.de`, `bayern.de`, `snsb.de` — 200 but
+  JavaScript-rendered or table-only; no readable figures.
+- `www.tanzaniaparks.go.tz` — host up, 404 on the national-park paths tried.
+- `whc.unesco.org`, `chairs-chaires.gc.ca` (per-holder profiles) — unusable.
+
+## Batch N13 — the Olduvai fauna and the Nordic sequence; TWO TERMS DEFERRED (2026-08-04)
+
+Thirteen requested, **eleven shipped**: `Proboscidea`, `Hippopotamus`, `Sivatherium`,
+`Paranthropus_boisei`, `Hamburg_culture`, `Bromme_culture`, `Ahrensburg_culture`,
+`Nordic_Bronze_Age`, `Funnelbeaker_culture`, `Pitted_Ware_culture`, `Dolmen`. **`Hans_Reck` and
+`butterfly` are deferred.**
+
+### THE FINDING: seven of eleven cost no new reading at all
+The seven northern-European terms were paid for entirely out of **batch 17c**, which cited
+`wh-101` (Nordic Stone Age) from sixteen works. Fjellström 2026 and Riede 2024 between them define
+all three Late Palaeolithic cultures; Robson 2024, Groß 2026, Winther Johannsen 2024 and Malmström
+2019 carry the Funnelbeaker and Pitted Ware terms; Schulz Paulsson 2019 carries the dolmen. **This is
+batch 12's economy arriving for the glossary**: a card cited to the bar leaves behind a set of works
+that will write the glossary terms for every proper noun in it. The corollary for choosing the next
+batch: **look at what a well-cited card NAMES, not at what it is about.**
+
+### The two deferrals
+- **`Hans_Reck`** — the same wall as N12's `Wilhelm_Kattwinkel`, and the same single work. Gentry et
+  al. 1995 records his October–December 1913 expedition and his return with the Third East African
+  Archaeological Expedition of 1931–32, and `zobodat.at` is behind the Anubis proof-of-work challenge,
+  so nothing further can be drawn from it. de la Torre's "The Origins of Stone Tool Technology in
+  Africa: A Historical Perspective" (*Phil. Trans. R. Soc. B* 366, 2011, PMC3049100) is the obvious
+  second source and has **no deposited full text** — `fullTextXML` 404s and
+  `royalsocietypublishing.org` is 403 — so batch 24's rule (`isOpenAccess: N` ≠ unreadable) does not
+  rescue it here. Europe PMC returns nothing else on Reck.
+- **`butterfly`** — one usable source and no second. Animal Diversity Web's *Lepidoptera* account is
+  open, prose, and cites its references, so it passes N9; ADW's *Papilionoidea* account is a bare
+  classification tree with **no prose and no references** and cannot serve as the second. The obvious
+  peer-reviewed pairings are papers about butterfly wing scales or lepidopteran brains, which describe
+  a mechanism rather than the animal, and citing one for "a butterfly is an insect whose wings are
+  covered in scales" would be the padding this pass forbids.
+
+### The works
+- Jack M. Craig et al., "Completing a Molecular Timetree of Afrotheria," <i>Frontiers in Bioinformatics</i> 5 (2025): 1710926, https://pmc.ncbi.nlm.nih.gov/articles/PMC12672906/. [Open access]
+  - opened: 2026-08-04 · full text via Europe PMC
+  - supports: "The elephants and mammoths (order Proboscidea), manatees and relatives (order Sirenia),
+    aardvarks (order Tubulidentata), tenrecs and relatives (order Afrosoricida), hyraxes (order
+    Hyracoidea), and elephant shrews (order Macroscelidea) together comprise Afrotheria, a clade
+    supported by robust molecular phylogenies"
+  - used by: Proboscidea
+- Manuel Domínguez-Rodrigo et al., "Earliest Evidence of Elephant Butchery at Olduvai Gorge (Tanzania) Reveals the Evolutionary Impact of Early Human Megafaunal Exploitation," <i>eLife</i> 14 (2026): RP108298, https://pmc.ncbi.nlm.nih.gov/articles/PMC12999177/. [Open access]
+  - opened: 2026-08-04 · full text via Europe PMC
+  - supports: "At Olduvai Gorge, evidence for megafaunal butchery is scarce in the Oldowan of Bed I but
+    becomes more frequent and widespread after 1.8 Ma in Bed II"; "Starting at 1.78 Ma, Olduvai Gorge
+    records extensive evidence of hominin involvement with megafaunal carcasses …, namely Proboscidea
+    and Hippopotamidae, followed closely by Giraffidae and big Bovidae"; and that dynamic green-bone
+    breakage "has been documented in Pelorovis and Sivatherium carcasses at the 1.3 Ma site of BK
+    (Olduvai Gorge)"
+  - **one paper serving three terms**, which is why it was worth reading in full
+  - used by: Proboscidea, Sivatherium
+- Kassandra Mason, "<i>Hippopotamus amphibius</i>," Animal Diversity Web, University of Michigan Museum of Zoology, https://animaldiversity.org/accounts/Hippopotamus_amphibius/. [Open access]
+  - opened: 2026-08-04 · **a route worth keeping**: ADW is the U-M Museum of Zoology's species
+    database, open, written in prose, and **each account ends in its own References list**, so it
+    passes N9's per-article test. It is the natural-history equivalent of the Smithsonian species
+    records that carried the hominins, and there is no comparable openly readable source for common
+    animals — IUCN's Red List is 403 here.
+  - supports: hippos "found exclusively in the Ethiopian region", occurring "in rivers throughout the
+    savanna of Africa"; "Weighing between 1,300 and 3,200 kg, hippopotamusi measure between 209 and 505
+    cm in length"; "They stand between 150 and 165 cm tall"; "Hippos are a semi-aquatic mammal, usually
+    inhabiting shallow lakes, rivers, and swamps. The water must be deep enough for the hippo to
+    submerge its entire body in"; "Outer epidermal skin layers are extremely thin"; "Hippos lack scent
+    and sweat glands. Instead, mucous glands secrete a thick oily layer of red pigmented fluid"; and
+    that they "emerge from water at dusk and go ashore to feed … to dense, grassy grazing areas along
+    the banks"
+  - **caveat noted and NOT repeated in the term**: the account is undergraduate-authored and edited,
+    and its own references are books and field guides rather than primary literature. It is paired
+    with a peer-reviewed study for anything contested.
+  - used by: Hippopotamus
+- Victoria L. Inman et al., "Sleeping Giants: Temporal, Seasonal, and Spatial Variations in the 24-h Activity Budget of <i>Hippopotamus amphibius</i>," <i>Journal of Mammalogy</i> (2025): gyaf068, https://pmc.ncbi.nlm.nih.gov/articles/PMC12854209/. [Open access]
+  - opened: 2026-08-04 · full text via Europe PMC
+  - supports, and it **corrects the textbook picture the ADW account implies**: "Contrary to the
+    persistent assumption that hippos rest in water by day and graze on land all night, hippos in this
+    study fed during only a quarter of the night and were active for a similar proportion of the day.
+    Hippos often spent hours of the day on land feeding or basking in the sun"
+  - **the term states the disagreement rather than picking a side** — the older picture named as the
+    familiar one, the study named as what observation found
+  - used by: Hippopotamus
+- Chenelle Rabe, Anusuya Chinsamy, and Romala Govender, "Osteohistology and Palaeobiology of Giraffids from the Mio-Pliocene Langebaanweg (South Africa)," <i>Journal of Anatomy</i> 243, no. 1 (2023): 89–110, https://pmc.ncbi.nlm.nih.gov/articles/PMC10093165/. [Open access]
+  - opened: 2026-08-04 · full text via Europe PMC
+  - supports: the "Pliocene *Sivatherium hendeyi* Harris, 1976 … from Langebaanweg (LBW) in South
+    Africa"; that "Langebaanweg ranks as one of the richest Neogene fossil vertebrate sites in
+    Africa"; that "*Sivatherium hendeyi*, is more basal than the more common African Sivathere, *S.
+    maurusium*"; and Giraffidae membership, the family being discussed throughout with the okapi and
+    the modern giraffe
+  - **note**: it does NOT support the familiar claim that *Sivatherium* was among the largest
+    ruminants ever, and the term does not make it.
+  - used by: Sivatherium
+- Smithsonian NMNH, Human Origins Program, "<i>Paranthropus boisei</i>" and "OH 5," accessed 4 August 2026. [Open access]
+  - opened: 2026-08-04 · the museum's species and fossil records
+  - supports: "About 2.3 to 1.2 million years ago", eastern Africa; "massive cheek teeth four times the
+    size of a modern human's"; "the thickest dental enamel of any known early human"; "Flaring
+    cheekbones gave *P. boisei* a very wide and dish-shaped face"; that it was "Mary Leakey's 1959
+    discovery of the 'Zinj' skull (OH 5)" that established the species, "'Zinj' became the type
+    specimen"; the Nutcracker Man nickname; and the diet puzzle — "dental microwear patterns seen on
+    *P. boisei* teeth are more similar to living fruit-eaters … It's possible that this species only
+    ate hard or tough foods during times when its preferred resources were scarce"
+  - **written to avoid L9's duplication with the genus term**: `Paranthropus` keeps the genus-level
+    morphology and the three species; `Paranthropus_boisei` keeps OH 5, the nicknames and the diet
+    argument. Measured as written, the two share no eight-word run.
+  - used by: Paranthropus_boisei
+- José Antonio Lozano Rodríguez et al., "Early Science and Colossal Stone Engineering in Menga, a Neolithic Dolmen (Antequera, Spain)," <i>Science Advances</i> 10, no. 34 (2024): eadp1295, https://pmc.ncbi.nlm.nih.gov/articles/PMC11425551/. [Open access]
+  - opened: 2026-08-04 · full text via Europe PMC
+  - supports: "Megaliths represent the earliest form of monumental stone architecture. The earliest
+    megalithic chambers in Europe appeared in France in the fifth millennium BCE"; and the physical
+    description a dolmen term needs — an interior "delimited by 10 uprights on each side, covered by
+    five capstones", with the uprights called orthostats throughout
+  - **this is what Schulz Paulsson 2019 could not give**: that paper distinguishes dolmens from
+    passage and gallery graves but never says what one is made of.
+  - used by: Dolmen
+
+### Reused from the register without re-reading, per G6 (the claim each RECORDS)
+`fjellstrom-2026` and `riede-2024` (Hamburg, Bromme, Ahrensburg); `robson-2024`, `gross-2026`,
+`winther-johannsen-2024`, `malmstrom-2019` (Funnelbeaker, Pitted Ware, and the reuse of megalithic
+tombs); `schulz-paulsson-2019` (the reopening of megalithic graves for successive burials). Two new
+works were opened for the Nordic Bronze Age, which batch 17c did not cover:
+- Heide W. Nørgaard, Ernst Pernicka, and Helle Vandkilde, "Shifting Networks and Mixing Metals…," <i>PLOS ONE</i> 16, no. 6 (2021): e0252376, https://pmc.ncbi.nlm.nih.gov/articles/PMC8208583/. [Open access]
+  - supports: "the Nordic Bronze Age was founded on metal imports from shifting ore sources associated
+    with altered trade routes"; "Southern Scandinavia's rich Bronze Age societies were dependent on
+    copper imported from exogenous sources throughout the 2100–500 BC period"; "the existing local
+    copper deposits have not been exploited before the Middle Ages"; "First to arrive via the central
+    German Únětician hubs was high-impurity metal from the Austrian Inn Valley and Slovakia"; and the
+    apex of the NBA "prior to 1300 BC"
+- Samantha S. Reiter et al., "Into the Fire: Investigating the Introduction of Cremation to Nordic Bronze Age Denmark," <i>PLOS ONE</i> 16, no. 5 (2021): e0249458, https://pmc.ncbi.nlm.nih.gov/articles/PMC8115792/. [Open access]
+  - supports: the introduction of cremation to Nordic Bronze Age Denmark, studied region by region
+    through strontium isotope analysis of burnt remains
+
+### Two checks this batch ran because N12 taught them
+- **The casing probe.** Every new surface was resolved against the casings the CORPUS uses, not the
+  casings the terms are titled in. All clean this time: the deck and the glossary write "Hamburg
+  culture", "Pitted Ware culture", "Funnelbeaker culture" with a lowercase c, which is exactly what
+  the humanised keys produce. Note the probe must include `buildGlossIndex`'s **plural pass** or it
+  reports a false failure — "dolmens" resolves in the app and did not in a probe that stopped at
+  aliases.
+- **`check-style.js` caught a real house-rule violation in this batch's own prose**: `Dolmen` had
+  "the fifth millennium BCE", where the house rule numbers centuries and millennia. Fixed to "5th".
+  **Run it after writing, not only after correcting** — it is the only check that reads the new prose
+  against the style rules.
+
+## Batch N14 — the Bering Strait, East Asia, the Single Grave culture and the chronozone (2026-08-04)
+
+Five requested, **four new terms** (`Single_Grave_culture`, `Bering_Strait`, `East_Asia`, `Chronozone`)
+and **one alias added to a term that already existed** (`Mesopotamia`, which N4 wrote — check the
+glossary before researching, as N12's `Younger_Dryas` also showed). Nothing deferred.
+
+### THE FINDING: an alias can mis-link a HYPHENATED compound, and the fix is to withhold it
+The user asked for `East_Asia` with the alias *East Asian*. Adding *Eastern Asia* alongside looked
+obviously right and is **actively harmful**, for two compounding reasons:
+- **N12's trap.** "Eastern Asia" has an internal capital, so `isProperCS` sends it to the
+  case-sensitive map, while the master regex matches case-insensitively. The corpus writes "eastern
+  Asia" with a lowercase e, which matches the alias and then fails to resolve — and being the longest
+  candidate it **swallowed the plain `Asia` link that had been working**. So the alias would have
+  removed a correct link and added nothing.
+- **The hyphen, which is new.** The word-boundary lookbehind is `(?<![\p{L}\p{N}_])`, and a hyphen is
+  none of those, so "eastern Asia" matches **inside "north-eastern Asia"**. Three of the five lowercase
+  occurrences in the corpus are exactly that — `wh-098`, `Americas` and `Settlement_of_the_Americas`,
+  all meaning Siberia in the peopling-of-the-Americas sense, which is not East Asia at all. A
+  lowercase alias would have made all three link to the wrong region.
+**So the alias was withheld and `East_Asia` carries only *East Asian* and *East Asians*, both of which
+the corpus writes in exactly that case.** "eastern Asia" and "north-eastern Asia" now resolve to `Asia`,
+which is less specific and correct. **Grep the corpus for the alias INSIDE a hyphenated compound before
+adding it** — N12's casing probe alone would have passed this one.
+
+### The works
+- International Commission on Stratigraphy, "Chapter 9: Nonhierarchical Formal Chronostratigraphic Units — the Chronozone," <i>International Stratigraphic Guide</i>, https://stratigraphy.org/guide/chron. [Open access]
+  - opened: 2026-08-04 · **the definition the pass had been working around**. Batches 22 and 25 used the
+    word "chronozone" from Walanus & Nalepka without anything that says what one is; `doi.org/10.1002/jqs.2565`
+    (Walker 2012) is 403 at Wiley and Europe PMC has no open work defining it.
+  - supports: "A chronozone is a formal chronostratigraphic unit of unspecified rank, not part of the
+    hierarchy of formal chronostratigraphic units. It is the body of rocks formed anywhere during the
+    time span of some designated stratigraphic unit or geologic feature. The corresponding geochronologic
+    unit is the chron"; and that the span is "the time span of a previously designated stratigraphic unit
+    or interval, such as a lithostratigraphic, biostratigraphic, or magnetostratigraphic polarity unit"
+  - **route worth keeping**: `stratigraphy.org/guide/*` is 200 and readable, and it is the authority for
+    every stratigraphic term this glossary uses. N10 found the Quaternary subcommission at
+    `quaternary.stratigraphy.org` (no `.uk`); the parent guide is on `stratigraphy.org` itself.
+  - used by: Chronozone
+- United Nations Statistics Division, "Standard Country or Area Codes for Statistical Use (M49)," https://unstats.un.org/unsd/methodology/m49/. [Open access]
+  - opened: 2026-08-04 · server-rendered, ~2 MB, and greppable
+  - supports: Eastern Asia (code 030) as China, China–Hong Kong SAR, China–Macao SAR, the Democratic
+    People's Republic of Korea, Japan, Mongolia and the Republic of Korea
+  - **note the pair with G11's warning**: M49 is cited here for what a region CONTAINS, never for a
+    region's area, since the scheme assigns whole countries to regions and so puts all of Russia in Europe.
+  - **and note what did NOT work**: the UN Demographic Yearbook Table 1 PDF, which `Asia` cites for its
+    population, is a **subset font with no ToUnicode map** and extracts as garbage — N10's failure mode.
+    It is reachable and not re-readable, so `East_Asia` states no population.
+  - used by: East_Asia
+- John F. Hoffecker et al., "Beringia and the Peopling of the Western Hemisphere," <i>Proceedings of the Royal Society B</i> 290, no. 1990 (2023): 20222246, https://pmc.ncbi.nlm.nih.gov/articles/PMC9832545/. [Open access]
+  - opened: 2026-08-04 · full text via Europe PMC
+  - supports: "the ancestral Native American population migrated from Asia to North America via the Bering
+    Strait region, where large areas of continental shelf were exposed during periods of cold climate by
+    lowered sea level"; that Hultén proposed "Beringia" in 1937 for those shelf areas; and the
+    Bering-Chukchi Platform, "which adjoins Chukotka and western Alaska and often is equated with the
+    'Bering Land Bridge'"
+  - used by: Bering_Strait
+- Jesse R. Farmer et al., "The Bering Strait Was Flooded 10,000 Years before the Last Glacial Maximum," <i>Proceedings of the National Academy of Sciences</i> 120, no. 1 (2023): e2206742119, https://pmc.ncbi.nlm.nih.gov/articles/PMC9910591/. [Open access]
+  - opened: 2026-08-04 · abstract via Europe PMC (`pnas.org` is 403 here, as N1 recorded; the PMC copy is open)
+  - supports: "reconstructing the flooding history of the shallow Bering Strait since 46 ka. Using a
+    geochemical proxy of Pacific nutrient input to the Arctic Ocean, we find that the Bering Strait was
+    flooded from the beginning of our records at 46 ka" until the ice sheets grew
+  - used by: Bering_Strait
+- Helena Malmström et al. (2019), reused and **re-read** for a claim the register had not recorded:
+  the Battle Axe Culture is "a Middle Neolithic complex in Scandinavia resembling the continental Corded
+  Ware Culture (CWC)", and the megalithic reuse "could possibly also extend to the Danish Single Grave
+  Culture (SGC), as RISE61, a male buried in the Kyndeløse passage grave and with a radiocarbon date
+  overlapping with the BAC/CWC/SGC time period, also displays some steppe ancestry"
+  - **G6 applied as written**: the register recorded only the BAC reuse, so the SGC claim needed the
+    re-read, and the term keeps the paper's own hedge ("possibly") rather than flattening it.
+  - used by: Single_Grave_culture
+
+### Sibling separation, checked before drafting
+`Beringia` already existed and owns the land bridge, the mammoth steppe and the mammoth's extinction;
+`Bering_Strait` was written to own the seaway itself — the Chukotka–Alaska gap, the Pacific-to-Arctic
+flow, the 46 ka flooding record and the migration route. `Asia` owns the continent and its figures;
+`East_Asia` owns the M49 composition, the appearance of Chinese writing and the Movius Line. Neither
+pair shares an eight-word run.
