@@ -198,6 +198,10 @@ const PROBE = () => {
   await page.goto(base + "#home", { waitUntil: "load" });
   await page.waitForTimeout(1200);
   await page.keyboard.press("Tab");
+  // the link SLIDES down on focus (`transition:top .18s`), so measuring on the next tick measures a
+  // position part way there — which fails or passes on how busy the machine is rather than on anything
+  // about the link. This was flaky in both directions before it was waited for.
+  await page.waitForTimeout(400);
   const skip = await page.evaluate(() => {
     const a = document.activeElement;
     return { cls: a ? a.className : "", href: a ? a.getAttribute("href") : "", top: a ? Math.round(a.getBoundingClientRect().top) : -999 };

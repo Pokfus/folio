@@ -376,9 +376,13 @@ async function studyEasy(page, base, n) {
        was a gesture whose whole range mapped onto one bit. What is asserted is unchanged — the short state
        must genuinely halve the bar, keep the four grades named to a screen reader, and take the page's
        padding down with it — only the way in is a press. */
+    /* 450ms, not 250: the fold is ANIMATED since Aug 2026 (on request — it was a hard cut), and the
+       bar's height is part of what moves. Reading it before GB_FOLD_MS has elapsed measures a height
+       half way between the two states, which fails an assertion about the short one for a reason that
+       has nothing to do with the short one. */
     const fold = () => page.evaluate(async () => {
       document.querySelector(".gb-fold").click();
-      await new Promise((r2) => setTimeout(r2, 250));
+      await new Promise((r2) => setTimeout(r2, 450));
     });
     const foldSeen = await page.evaluate(() => {
       const g = document.querySelector(".gb-fold");
@@ -668,18 +672,29 @@ async function studyEasy(page, base, n) {
     watch(page);
     await page.goto(base + "#settings", { waitUntil: "load" });
     await page.waitForTimeout(1400);
+    /* A SLIDER since Aug 2026, not three buttons on the left (on request). The three sizes are an
+       ordered scale and the control now says so — and it spans the row, which is the visible half of
+       the request and therefore the thing to assert. The value is the INDEX into FONT_SIZES, so the
+       range and the setting cannot drift apart. */
     const pick = await page.evaluate(() => {
       const g = document.querySelector("#fsPick");
-      if (!g) return null;
+      const r0 = document.querySelector("#fsRange");
+      if (!g || !r0) return null;
       const r = g.getBoundingClientRect(), row = g.closest(".set-row").getBoundingClientRect();
-      return { n: g.children.length, on: [...g.children].filter((b) => b.classList.contains("on")).map((b) => b.dataset.fs),
+      const ticks = [...g.querySelectorAll(".fs-tick")];
+      return { range: r0.type, max: +r0.max, val: +r0.value, ticks: ticks.length,
+        on: ticks.filter((t) => t.classList.contains("on")).map((t) => t.dataset.fs),
+        vt: r0.getAttribute("aria-valuetext"),
         fs: document.body.dataset.fs, fits: r.right <= row.right + 1,
-        clipped: [...g.children].some((b) => b.scrollWidth > b.clientWidth + 1) };
+        // the point of the change: it fills the row rather than sitting in the left third of it
+        wide: r.width >= row.width - 2 };
     });
-    check("Settings offers a text size", !!pick && pick.n === 3, JSON.stringify(pick));
-    check("...with exactly one marked, matching the setting in force",
+    check("Settings offers a text size", !!pick && pick.range === "range" && pick.max === 2 && pick.ticks === 3, JSON.stringify(pick));
+    check("...as a slider spanning the whole row, not three buttons on the left", !!pick && pick.wide, JSON.stringify(pick));
+    check("...with exactly one mark lit, matching the setting in force",
       !!pick && pick.on.length === 1 && pick.on[0] === pick.fs, JSON.stringify(pick));
-    check("...and no cell of it clipped or overflowing its row", !!pick && pick.fits && !pick.clipped, JSON.stringify(pick));
+    check("...and announcing which size it is on", !!pick && (pick.vt || "").toLowerCase() === pick.fs, JSON.stringify(pick));
+    check("...without overflowing its row", !!pick && pick.fits, JSON.stringify(pick));
     const sizes = async () => {
       await page.goto(base + "#home", { waitUntil: "load" });
       await page.waitForTimeout(1200);
@@ -700,7 +715,12 @@ async function studyEasy(page, base, n) {
     const setFs = async (v) => {
       await page.goto(base + "#settings", { waitUntil: "load" });
       await page.waitForTimeout(1100);
-      await page.evaluate((f) => { const b = document.querySelector('#fsPick [data-fs="' + f + '"]'); if (b) b.click(); }, v);
+      // the slider's own event, dispatched by hand: setting .value programmatically fires nothing
+      await page.evaluate((f) => {
+        const r2 = document.querySelector("#fsRange");
+        const i = ["small", "medium", "large"].indexOf(f);
+        if (r2 && i >= 0) { r2.value = String(i); r2.dispatchEvent(new Event("input", { bubbles: true })); }
+      }, v);
       await page.waitForTimeout(250);
     };
     const med = await sizes();
@@ -982,23 +1002,27 @@ async function studyEasy(page, base, n) {
     check("...nor the sentence that described them in words", !/scheduled/i.test(piles.desc), piles.desc);
     check("...with the level still spelled out in the xp bar", /level/i.test(piles.xpLevel), piles.xpLevel);
 
-    /* The added deck's row is ONE horizontal line (Aug 2026, on request) — piles, name, figure and bin all
-       on the same level, with the bar moved to the row's bottom edge so it costs the line no width. Two
-       lines and one line look equally deliberate in a screenshot, and the failure this pins is the row
-       quietly wrapping again the moment something in it grows: the deck's name is the only part with a
-       shorter form, so if the arithmetic stops working it is the name that gets cut off. */
+    /* The added deck's row is ONE horizontal line (Aug 2026, on request) — piles and name on the same
+       level, with the bar moved to the row's bottom edge so it costs the line no width. Two lines and one
+       line look equally deliberate in a screenshot, and the failure this pins is the row quietly wrapping
+       again the moment something in it grows: the deck's name is the only part with a shorter form, so if
+       the arithmetic stops working it is the name that gets cut off.
+
+       The N/N figure left the row for the options sheet (Aug 2026, on request), so its ABSENCE is asserted
+       here and its presence in the sheet below — the two halves of one move, and each looks deliberate on
+       its own. */
     const row = await page.evaluate(() => {
       const r = document.querySelector(".active-deck[data-review]"); if (!r) return null;
       const rb = r.getBoundingClientRect();
-      const t = r.querySelector(".ad-title"), c = r.querySelector(".ad-prog .count"), k = r.querySelector(".ad-prog .track");
-      const parts = [r.querySelector(".ad-counts"), t, c].filter(Boolean);
+      const t = r.querySelector(".ad-title"), k = r.querySelector(".ad-prog .track");
+      const parts = [r.querySelector(".ad-counts"), t].filter(Boolean);
       const boxes = parts.map((e) => e.getBoundingClientRect());
       return {
         n: parts.length,
         // one line ⇔ every part overlaps one horizontal band
         band: Math.max(...boxes.map((b) => b.top)) < Math.min(...boxes.map((b) => b.bottom)),
         rowH: Math.round(rb.height),
-        label: c ? c.textContent.trim() : "",
+        figure: !!r.querySelector(".ad-prog .count"),
         titleClipped: t ? t.scrollWidth > t.clientWidth + 1 : true,
         trash: !!r.querySelector(".ad-trash"),
         // the bar underlines the row rather than sitting in the line
@@ -1007,13 +1031,60 @@ async function studyEasy(page, base, n) {
         fills: !!r.querySelector(".ad-prog .fill"),
       };
     });
-    check("an added deck's row is one horizontal line", !!row && row.band && row.n === 3, JSON.stringify(row));
+    check("an added deck's row is one horizontal line", !!row && row.band && row.n === 2, JSON.stringify(row));
     // the bin is gone — Remove moved into the row's options sheet, held down (Aug 2026, on request)
     check("...with no bin taking a column of its own", !!row && !row.trash, JSON.stringify(row));
-    check("...its progress figure shortened to N/N studied", !!row && /^\d+\/\d+ studied$/.test(row.label), row && row.label);
+    check("...and no N/N figure either, that having moved into the sheet", !!row && !row.figure, JSON.stringify(row));
     check("...its bar underlining the row instead of taking width from it",
       !!row && row.trackWide && row.trackAtFoot && row.fills, JSON.stringify(row));
     check("...and the deck's name not cut off at 390px", !!row && !row.titleClipped, JSON.stringify(row));
+
+    /* …and the sheet it moved into: the figure on the title's own LINE (a figure that has merely landed
+       somewhere in the head is not what was asked for), and Remove carrying its red in the TEXT with no
+       wash behind it — a highlighted row in a menu reads as one already chosen, which is exactly how it
+       was reported. The wash was a HOVER state, so the pointer is really put on the row: reading the
+       resting style would pass whatever the rule says. */
+    await page.evaluate(async () => {
+      document.querySelector(".active-deck[data-review]")
+        .dispatchEvent(new MouseEvent("contextmenu", { bubbles: true, cancelable: true }));
+      await new Promise((res) => setTimeout(res, 400));
+    });
+    let sheet = await page.evaluate(() => {
+      const ov = document.querySelector(".deck-menu"); if (!ov) return null;
+      const t = ov.querySelector(".dm-title"), f = ov.querySelector(".dm-studied");
+      const mid = (e) => { const b = e.getBoundingClientRect(); return (b.top + b.bottom) / 2; };
+      return {
+        label: f ? f.textContent.trim() : "",
+        // same line as the title, and to the RIGHT of it
+        sameLine: !!(t && f) && Math.abs(mid(t) - mid(f)) <= 3,
+        right: !!(t && f) && f.getBoundingClientRect().left > t.getBoundingClientRect().right,
+        inBox: !!(f && f.getBoundingClientRect().right <= ov.querySelector(".dm-box").getBoundingClientRect().right),
+        remove: !!ov.querySelector(".dm-item.dm-danger"),
+      };
+    });
+    check("holding the row puts its N/N studied in the sheet's head",
+      !!sheet && /^\d+\/\d+ studied$/.test(sheet.label), sheet && sheet.label);
+    check("...on the title's own line, at its right",
+      !!sheet && sheet.sameLine && sheet.right && sheet.inBox, JSON.stringify(sheet));
+    if (sheet && sheet.remove) {
+      // hovered against hovered: an ordinary row's own hover wash is the thing Remove must not exceed
+      await page.hover(".deck-menu .dm-item:not(.dm-danger)");
+      await page.waitForTimeout(220);
+      const plain = await page.evaluate(() => {
+        const el = document.querySelector(".deck-menu .dm-item:not(.dm-danger)");
+        return { bg: getComputedStyle(el).backgroundColor, text: getComputedStyle(el.querySelector("b")).color };
+      });
+      await page.hover(".deck-menu .dm-item.dm-danger");
+      await page.waitForTimeout(220);
+      const rm = await page.evaluate(() => {
+        const el = document.querySelector(".deck-menu .dm-item.dm-danger");
+        return { bg: getComputedStyle(el).backgroundColor, text: getComputedStyle(el.querySelector("b")).color };
+      });
+      check("...with Remove's red kept in its text", rm.text !== plain.text, JSON.stringify({ rm, plain }));
+      check("...and no wash of its own behind it, hovered", rm.bg === plain.bg, JSON.stringify({ rm, plain }));
+    }
+    await page.keyboard.press("Escape");
+    await page.waitForTimeout(300);
     // clear the day: Easy graduates a new card outright, so the allowance runs out with nothing in learning
     await studyEasy(page, base, 6);
     await page.goto(base + "#home", { waitUntil: "load" });
@@ -1365,10 +1436,32 @@ async function studyEasy(page, base, n) {
   {
     const page = await browser.newPage({ viewport: DESKTOP });
     watch(page);
-    // Folio level 1 costs 3 cards, and Easy graduates a new card outright, so the third grade levels up
-    await studyEasy(page, base, 3);
+    // Folio level 1 costs XP_PER_LEVEL cards, and Easy graduates a new card outright, so the last grade levels
+    // up. The figure is READ OUT OF app.js rather than written here: it was 3 and is 5 (Aug 2026), and a
+    // hard-coded 3 turns a deliberate change to the curve into a failure that reads as a broken overlay.
+    const XP_STEP = Number((/const XP_PER_LEVEL = (\d+);/.exec(fs.readFileSync(path.join(ROOT, "app.js"), "utf8")) || [, 3])[1]);
+    /* …and the day has to be willing to SHOW that many. The default allowance is 3 new cards a day, which is
+       fewer than a level now costs, so the day has to be widened first — otherwise this section studies the
+       whole day out, never levels up, and reports a limit as a broken overlay.
+       It takes two phases because a fresh visitor's state lives in memory: `folio_v1` is not written until the
+       app first saves, so there is nothing to patch until one card has been graded. Grade one, widen the day,
+       reload so the app reads it, then grade the rest. */
+    await studyEasy(page, base, 1);
+    await page.addInitScript((n) => {
+      try {
+        const raw = localStorage.getItem("folio_v1");
+        if (!raw) return;
+        const st = JSON.parse(raw);
+        if (!st || !st.settings) return;
+        st.settings.newPerDay = n;
+        localStorage.setItem("folio_v1", JSON.stringify(st));
+      } catch (e) { /* leave the day as it is; the assertion below will say so */ }
+    }, XP_STEP + 2);
+    await page.reload({ waitUntil: "load" });
+    await page.waitForTimeout(900);
+    await studyEasy(page, base, XP_STEP - 1);
     const up = await page.locator(".levelup-pop").count();
-    check("levelling up raises its card", up === 1, "3 cards studied → " + up + " popup(s)");
+    check("levelling up raises its card", up === 1, XP_STEP + " cards studied → " + up + " popup(s)");
     if (up) {
       // a hash change, NOT a click — a click would dismiss it and prove nothing
       await page.evaluate(() => { location.hash = "#decks"; });

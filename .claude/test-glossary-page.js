@@ -60,7 +60,10 @@ function serve() {
   check("an empty register says so rather than showing an empty box",
     await page.evaluate(() => !!document.querySelector(".gl-empty") && /Nothing opened yet/.test(document.querySelector(".gl-empty").textContent)));
   check("...and offers a way to start", await page.evaluate(() => !!document.querySelector("#glStudy")));
-  check("...with no filter box over an empty list", await page.evaluate(() => { const s = document.querySelector(".gl-search"); return !s || s.hidden; }));
+  // neither control is shown over an empty list — tested by whether they RENDER rather than by the
+  // hidden attribute, which now sits on the row that holds both of them rather than on each
+  check("...with no filter box or sort picker over an empty list",
+    await page.evaluate(() => ["#glFilter", "#glSort"].every((s) => { const e = document.querySelector(s); return !e || !e.offsetParent; })));
 
   /* ================= 2. three read terms, one retired, one from a deck ================= */
   await page.evaluate(() => {
@@ -105,6 +108,35 @@ function serve() {
   });
   check("the filter narrows the list", filtered.some >= 1 && filtered.some <= 3, JSON.stringify(filtered));
   check("...and says so when nothing matches", filtered.none === 0 && filtered.empty, JSON.stringify(filtered));
+
+  /* THE SORT (Aug 2026, on request: "sorted by alphabet and date of discovery"). Alphabetical is
+     asserted against the ORDER, not against the control's value — a picker that changes nothing looks
+     exactly like one that works. The last assertion is the one worth having: filter and order are two
+     controls over one list, and the obvious implementation gives each its own handler rebuilding from
+     the full set, which silently throws a reader's typed filter away the moment they re-sort. */
+  const sorted = await page.evaluate(async () => {
+    const f = document.querySelector("#glFilter"), s = document.querySelector("#glSort");
+    f.value = ""; f.dispatchEvent(new Event("input", { bubbles: true }));
+    await new Promise((r) => setTimeout(r, 150));
+    const names = () => [...document.querySelectorAll(".gl-name")].map((n) => n.firstChild.textContent.trim());
+    const pick = async (v) => { s.value = v; s.dispatchEvent(new Event("change", { bubbles: true })); await new Promise((r) => setTimeout(r, 150)); return names(); };
+    const recent = names();
+    const az = await pick("az"), za = await pick("za"), old = await pick("oldest");
+    // now type a filter and re-sort: the filter must survive the re-order
+    f.value = az[0].slice(0, 3); f.dispatchEvent(new Event("input", { bubbles: true }));
+    await new Promise((r) => setTimeout(r, 150));
+    const narrowed = names().length;
+    const afterResort = (await pick("az")).length;
+    return { recent, az, za, old, narrowed, afterResort, total: recent.length };
+  });
+  check("the list can be sorted alphabetically",
+    sorted.az.join("|") === sorted.az.slice().sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" })).join("|"), sorted.az.join(" | "));
+  check("...and back the other way", sorted.za.join("|") === sorted.az.slice().reverse().join("|"), sorted.za.join(" | "));
+  check("...and by date of discovery, both ends", sorted.old.join("|") === sorted.recent.slice().reverse().join("|"),
+    JSON.stringify({ recent: sorted.recent, old: sorted.old }));
+  check("re-sorting keeps the filter the reader typed",
+    sorted.narrowed < sorted.total && sorted.afterResort === sorted.narrowed,
+    JSON.stringify({ total: sorted.total, narrowed: sorted.narrowed, afterResort: sorted.afterResort }));
 
   /* ================= 3. the page transition ================= */
   const ghost = await page.evaluate(async () => {

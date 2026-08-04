@@ -52,6 +52,53 @@ const BOOKS = {
       "Campbell, 1969, is still in copyright and is not used here.)",
     sourceName: "Wikisource",
     sourceUrl: "https://en.wikisource.org/wiki/Moral_letters_to_Lucilius",
+    /* THE FRONT MATTER — the book's own opening chapter, written by hand and emitted as `intro` into
+       books/<id>.js (Aug 2026, on request: "add a chapter at the start with information about the book
+       itself and the used translation").
+
+       It lives HERE, in the generator, rather than in app.js's BOOKS registry, for two reasons that
+       point the same way. That registry is EAGER — it is loaded by every visitor to the site so the
+       shelf can paint without fetching a word — and a page of prose nobody reads until they open the
+       book has no business in it. And books/<id>.js is generated and never hand-edited, so an intro
+       written straight into that file would be destroyed by the next run of this script. Written into
+       the generator, it is authored once and survives every refetch.
+
+       The book's LICENCE half is not here: app.js builds that from its own `rights` / `edition` /
+       `sourceUrl` fields, which is where the reader-facing statement has always come from, and it needs
+       a real link. This is the essay; that is the paperwork.
+
+       Every claim below is the standard account of the letters and is not to be embroidered. Where the
+       scholarship is divided — whether these were letters actually posted — it says so. */
+    about: [
+      "<b>Letters from a Stoic</b> is a collection of 124 letters written by the Roman statesman and " +
+        "philosopher Lucius Annaeus Seneca to his friend Lucilius Junior, then serving as an imperial " +
+        "official in Sicily. Seneca calls them <i>Epistulae Morales ad Lucilium</i> — moral letters — and " +
+        "that is what they are: short essays on how to live, each opening on some small occasion and " +
+        "working outwards from it. A noisy bathhouse below his window becomes a letter on concentration; " +
+        "a journey down the coast, one on travel as a cure for unhappiness; the death of a friend, one on " +
+        "grief.",
+      "Seneca was among the richest and most powerful men of his age, and the letters were written at the " +
+        "end of it. Born in Spain around the beginning of the first century, he made his name in Rome as " +
+        "an orator and writer, was exiled to Corsica by the emperor Claudius, recalled to tutor the young " +
+        "Nero, and then spent years as the most senior adviser to Nero's court. He withdrew from public " +
+        "life around 62 CE, and it is from that retirement that these letters date. In 65 CE, implicated " +
+        "in a conspiracy against the emperor, he was ordered to take his own life and did.",
+      "Whether they were letters in the ordinary sense — sealed, carried, answered — has been argued over " +
+        "for a long time, and no answer commands agreement. They address a real man, they refer to real " +
+        "journeys and real weather, and they read as though sent; they are also carefully shaped, and " +
+        "Seneca plainly expected them to be read by more people than Lucilius. What survives is 124 " +
+        "letters in twenty books, and there were once more: the later Roman writer Aulus Gellius quotes a " +
+        "book of them numbered beyond any we still have.",
+      "They are the most approachable Stoic writing to come down to us, and the least doctrinaire. Seneca " +
+        "is not building a system — Stoic physics and logic barely appear — but arguing with a friend, " +
+        "and with himself, about time, fear, friendship, money, illness, crowds, old age and death. He is " +
+        "also, by his own admission, not a good Stoic: the letters return again and again to the distance " +
+        "between what he knows he should want and what he finds he does want, and he writes as a patient " +
+        "rather than as a physician.",
+      "The letters are numbered here as they have always been numbered, and the small raised figures " +
+        "running through each one are its section numbers, by which any passage is cited. The numbered " +
+        "notes folded under each letter are the translator's own.",
+    ],
     // Gummere's three Loeb volumes, as Wikisource's own transclusions divide them
     parts: [
       { n: 1, label: "Volume I", from: 1, to: 65 },
@@ -143,7 +190,13 @@ function stripTags(b) {
       continue;
     }
     if (name === "sup") {
-      if (/class="fn"/.test(attrs)) { out.push('<sup class="fn"></sup>'); stack.push({ name, kept: false }); }
+      // the marker's data-fn is which NOTE it points at, resolved in cleanBody — carry it through, or
+      // a reused note's marker silently reverts to its reading-order number
+      if (/class="fn"/.test(attrs)) {
+        const fn = attrs.match(/data-fn="(\d+)"/);
+        out.push('<sup class="fn"' + (fn ? ' data-fn="' + fn[1] + '"' : "") + "></sup>");
+        stack.push({ name, kept: false });
+      }
       else { out.push("<sup>"); stack.push({ name, kept: true }); }
       continue;
     }
@@ -154,11 +207,19 @@ function stripTags(b) {
   return out.join("");
 }
 
-function cleanBody(h) {
+function cleanBody(h, noteIds) {
   let b = h.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<!--[\s\S]*?-->/g, "");
   const i = b.indexOf('<div class="prp-pages-output"');
   if (i < 0) throw new Error("no body");
   b = b.slice(i);
+  /* Drop the WRAPPER's own opening tag before the generic div→blockquote pass below, which would
+     otherwise turn the container that holds the whole letter into a quotation of the whole letter —
+     every paragraph indented behind a rule and set in italic, which is not what Seneca is doing. Its
+     closing </div> becomes an unmatched </blockquote> and stripTags discards it (a closer whose opener
+     was never pushed is dropped, which is exactly what that stack is for). Wikisource's markup has
+     moved under us once already, so this is asserted rather than assumed: whether the wrapper's closer
+     falls inside the slice is a property of THEIR page, not of ours. */
+  b = b.replace(/^<div class="prp-pages-output"[^>]*>/, "");
   b = b.split(/<div class="reflist"|<hr class="wst-rule"/)[0];
   b = b.replace(/<span><span class="pagenum[\s\S]*?<\/span><\/span>/g, "");
   b = b.replace(/<span class="pagenum[\s\S]*?<\/span>/g, "");
@@ -170,8 +231,28 @@ function cleanBody(h) {
     /<span class="wst-verse[^"]*"[^>]*>\s*<sup>\s*<b>\s*(\d+)\.?\s*<\/b>\s*<\/sup>\s*<\/span>/g,
     '<span class="bk-n">$1</span>'
   );
-  // a footnote reference becomes Folio's own EMPTY marker; wireFootnotes writes the digit, so the
-  // number in the prose can never disagree with the list under it
+  /* A footnote reference becomes Folio's own marker, and it carries the note it actually points at.
+     wireFootnotes still writes the DIGIT — the number in the prose can never disagree with the list —
+     but which entry a marker resolves to is decided here, from the href MediaWiki put on it.
+
+     A bare marker takes the next number in reading order, which is right only while every note is
+     cited exactly once. Wikisource REUSES a note wherever the translator repeats himself: letter 114
+     cites one note four times and another three times, so its 21 notes carry 26 markers. Numbered by
+     reading order, every marker after the first repeat points one entry too far, and the five that
+     run past the end of the list are DELETED by wireFootnotes — so the letter silently loses the
+     markers on its last five annotated claims and mis-points the twenty before them. Six of the
+     letters added here do this (80, 82, 85, 94, 95, 114); none of the first 65 does, which is why it
+     went unnoticed, and it is invisible to every count: the notes are all present and correct, the
+     prose is intact, and nothing throws.
+
+     Resolving the target keeps the two apart — repeats render as a repeated number, which is what a
+     note cited twice should look like, and nothing is dropped. Note the id attribute escapes its
+     underscore as &#95; while the href does not, so only the note ids need normalising. A marker
+     whose target is missing falls back to the bare form rather than inventing a number. */
+  b = b.replace(/<sup id="cite[^"]*" class="reference">\s*<a href="#([^"]*)"[\s\S]*?<\/sup>/g, (m, tgt) => {
+    const i = noteIds ? noteIds.indexOf(tgt.replace(/&#95;/g, "_")) : -1;
+    return i < 0 ? '<sup class="fn"></sup>' : '<sup class="fn" data-fn="' + (i + 1) + '"></sup>';
+  });
   b = b.replace(/<sup id="cite[^"]*" class="reference">[\s\S]*?<\/sup>/g, '<sup class="fn"></sup>');
   b = b.replace(/<div class="(?:poem|wst-block-center|wst-center)[^"]*"[^>]*>/g, "<blockquote>");
   b = b.replace(/<\/div>/g, "</blockquote>").replace(/<div[^>]*>/g, "<blockquote>");
@@ -188,32 +269,80 @@ function cleanBody(h) {
   return b;
 }
 
-// the translator's own footnotes — these are the explanatory notes the reader gets
+/* The translator's own footnotes — these are the explanatory notes the reader gets.
+
+   The <style> BLOCK is stripped BEFORE the tags are, and that order is the whole of it. Wikisource
+   ships each note's font templates as an inline <style> element — the Greek face for a quotation, the
+   small caps for A.D./B.C., the no-wrap rule for an ellipsis — and dropping tags first leaves the tags
+   gone and the CSS TEXT behind, so a note read
+     "A reference to the murder of Caligula, on the Palatine, .mw-parser-output .wst-asc{font-variant:
+      all-small-caps}…{padding-left:0}A.D. 41."
+   with a paragraph of stylesheet sitting mid-sentence. It shipped in 24 of Seneca's 335 notes, and it
+   is invisible to every check here — the note is a non-empty string of the right shape, and only a
+   reader opening the fold ever sees it. cleanBody has always stripped <style> first for the prose;
+   this is the same guard on the same page's other half.
+
+   The .mw-parser-output sweep after it is belt and braces: MediaWiki also serves these rules through
+   TemplateStyles link elements whose CSS the parser may inline without a <style> wrapper, and a rule
+   set is recognisable — it starts at that class and runs through balanced { } blocks. */
+function stripWikiCSS(s) {
+  return s
+    .replace(/<style[\s\S]*?<\/style>/g, "")
+    .replace(/\.mw-parser-output(?:[^{}]*\{[^{}]*\})+/g, "");
+}
+/* Returns the notes AND their ids, in list order. The ids are what cleanBody resolves each marker's
+   href against, so the two must be read from the SAME pass — a note list and a marker map derived
+   separately are one Wikisource layout change away from disagreeing with each other.
+
+   Pairing the id with its text in one match also avoids a trap worth writing down: the notes cannot
+   be split on "<li", because MediaWiki serves its font templates as <link rel="mw-deduplicated-inline-
+   style"> elements INSIDE a note, and "<link" starts with "<li". */
 function notesOf(h) {
   const m = h.match(/<ol class="references">([\s\S]*?)<\/ol>/);
-  if (!m) return [];
-  const out = [];
-  const rx = /<span class="reference-text">([\s\S]*?)<\/span>\s*<\/li>/g;
+  if (!m) return { notes: [], ids: [] };
+  const notes = [], ids = [];
+  const rx = /<li id="(cite[^"]*)"[\s\S]*?<span class="reference-text">([\s\S]*?)<\/span>\s*<\/li>/g;
   let x;
   while ((x = rx.exec(m[1]))) {
-    out.push(
-      x[1].replace(/<(?!\/?(i|b|em|strong)\b)[^>]*>/g, "").replace(/\s+/g, " ").trim()
+    ids.push(x[1].replace(/&#95;/g, "_"));
+    notes.push(
+      stripWikiCSS(x[2])
+        .replace(/<(?!\/?(i|b|em|strong)\b)[^>]*>/g, "")
+        .replace(/&#160;|&nbsp;/g, " ")
+        .replace(/\s+/g, " ")
+        .trim()
     );
   }
-  return out;
+  return { notes, ids };
 }
 
 /* ---------- the chapter titles, from the book's own contents page ---------- */
+/* ---------- the chapter titles, from the book's own contents page ----------
+   Read ROW BY ROW, pairing the numeral cell with the title cell beside it, rather than trusting the
+   href on each link. The contents page is a table — a numeral column, a title column, a page column —
+   and both cells of a row link to the same letter, so keying off the href looks equivalent and is
+   cheaper. It is not: on the CIII row Wikisource's own markup hyperlinks the TITLE cell to Letter
+   104 while the numeral beside it correctly links to Letter 103. Keyed by href, letter 103's title is
+   filed under 104 and then discarded (104's own title, later in the document, overwrites it), and 103
+   is left with nothing but a bare numeral — which the guard below drops, so it falls back to the
+   generic "Letter 103" while every other letter in the book is titled.
+
+   The row is the structure the page actually means, and it is also the more robust reading: it needs
+   the numeral's href alone, and survives the title link being wrong, absent or pointed anywhere. */
 async function chapterTitles() {
   const h = await api(BOOK.indexPage);
   const txt = h.replace(/<style[\s\S]*?<\/style>/g, "");
-  const rx = /<a href="\/wiki\/[^"]*\/Letter_(\d+)"[^>]*>([^<]*)<\/a>/g;
   const d = {};
-  let m;
-  while ((m = rx.exec(txt))) {
-    const t = m[2].trim();
-    if (/^[IVXLC]+\.$/.test(t)) continue;   // the numeral column, not the title column
-    d[+m[1]] = titleCase(t);
+  for (const row of txt.split(/<tr[^>]*>/).slice(1)) {
+    let n = null, title = null;
+    for (const cell of row.split(/<td[^>]*>/).slice(1)) {
+      const a = cell.match(/<a href="\/wiki\/[^"]*\/Letter_(\d+)"[^>]*>([^<]*)<\/a>/);
+      if (!a) continue;
+      const t = a[2].trim();
+      if (/^[IVXLC]+\.$/.test(t)) { if (n === null) n = +a[1]; }   // the numeral column
+      else if (title === null) title = t;                          // the title column
+    }
+    if (n !== null && title) d[n] = titleCase(title);
   }
   return d;
 }
@@ -253,7 +382,8 @@ async function main() {
       continue;
     }
     const h = await api(BOOK.page(n));
-    const html = cleanBody(h), notes = notesOf(h);
+    const { notes, ids } = notesOf(h);
+    const html = cleanBody(h, ids);
     if (html.length < 200) throw new Error("chapter " + n + " came back short (" + html.length + " chars)");
     const rec = { n, t: titles[n] || BOOK.chapterWord + " " + n, p: partOf(n), html, notes };
     fs.writeFileSync(cf, JSON.stringify(rec));
@@ -277,6 +407,12 @@ async function main() {
   lines.push("window.FOLIO_BOOKS_IN = window.FOLIO_BOOKS_IN || [];");
   lines.push("window.FOLIO_BOOKS_IN.push({");
   lines.push('  id: "' + id + '",');
+  /* The front matter, as ONE html string in the same shape a chapter's is — so the reader page can
+     treat it as a chapter and needs no second renderer for it. Written before `chapters` because it
+     reads first. */
+  if (BOOK.about && BOOK.about.length) {
+    lines.push('  intro: "' + esc(BOOK.about.map((p) => "<p>" + p + "</p>").join("\n")) + '",');
+  }
   lines.push("  chapters: [");
   chapters.forEach((c) => {
     lines.push(

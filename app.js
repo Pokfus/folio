@@ -1220,12 +1220,22 @@
     o.connect(g); g.connect(ctx.destination);
     o.start(t0); o.stop(t0 + dur + 0.03);
   }
-  /* A soft TAP — a short burst of noise pushed through a low-pass, plus a low sine body under it. This is
-     what a finger on wood is: a broadband transient that dies almost at once, with no pitch to speak of.
-     A pure oscillator cannot make one, which is why the click used to be a chirp (a triangle sliding
-     1900 → 1300 Hz), and why it was reported as too high and too bright (Aug 2026).
-     The noise buffer is built once and re-used: allocating 0.05s of Math.random() per click is wasteful,
-     and a click is the most frequently played sound on the site by a wide margin. */
+  /* A soft TAP — a short burst of noise through a BANDPASS, plus a light body under it. A tap is a
+     broadband transient that dies almost at once with no pitch to speak of, which no oscillator can
+     make; that is why the click was a noise burst rather than a tone, and why the chirp it replaced
+     (a triangle sliding 1900 → 1300 Hz) was reported as too high and too bright.
+
+     The filter is a BANDPASS and not a low-pass, and that is the whole of the second correction
+     (Aug 2026, on a report that the tap had become "a low thud"). A low-pass at 780 Hz keeps
+     everything BELOW it, so most of what was left was rumble, and under it sat a sine falling
+     190 → 120 Hz — which is a bass drum, not a fingertip. A bandpass keeps a band and throws away
+     the rest, so the tap has a MATERIAL rather than a weight: the centre frequency is what says
+     whether a finger has landed on wood or on glass. It also costs level (a band is less energy than
+     everything below a corner), so the gains here are larger than the low-pass version's for a
+     quieter result.
+
+     The noise buffer is built once and re-used: allocating 0.05s of Math.random() per click is
+     wasteful, and a click is the most frequently played sound on the site by a wide margin. */
   let _sfxNoise = null;
   function sfxNoiseBuf(ctx) {
     if (_sfxNoise && _sfxNoise.sampleRate === ctx.sampleRate) return _sfxNoise;
@@ -1236,14 +1246,16 @@
     _sfxNoise = buf;
     return buf;
   }
-  function sfxTap(ctx, t0, cutoff, dur, vol) {
+  function sfxTap(ctx, t0, freq, dur, vol) {
     try {
-      const src = ctx.createBufferSource(), lp = ctx.createBiquadFilter(), g = ctx.createGain();
+      const src = ctx.createBufferSource(), bp = ctx.createBiquadFilter(), g = ctx.createGain();
       src.buffer = sfxNoiseBuf(ctx);
-      lp.type = "lowpass"; lp.frequency.setValueAtTime(cutoff, t0); lp.Q.value = 0.7;
+      bp.type = "bandpass"; bp.frequency.setValueAtTime(freq, t0); bp.Q.value = 1.1;
+      // no attack ramp: the whole character of a tap is that it starts at full level on the first
+      // sample. A 5ms fade-in — which sfxTone has, and wants — turns a tap into a small swell.
       g.gain.setValueAtTime(vol, t0);
       g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
-      src.connect(lp); lp.connect(g); g.connect(ctx.destination);
+      src.connect(bp); bp.connect(g); g.connect(ctx.destination);
       src.start(t0); src.stop(t0 + dur + 0.02);
     } catch (e) {}
   }
@@ -1251,9 +1263,13 @@
     if (!sfxEnabled()) return;
     const ctx = sfxCtx(); if (!ctx) return;
     const t = ctx.currentTime + 0.001;
-    // a low, dry knock: the noise gives it the attack, the sine underneath gives it a body rather than a hiss
-    if (name === "click") { sfxTap(ctx, t, 780, 0.045, 0.05); sfxTone(ctx, t, 190, 0.05, 0.035, "sine", 120); }
-    else if (name === "toggle") { sfxTap(ctx, t, 900, 0.04, 0.04); sfxTone(ctx, t, 230, 0.05, 0.032, "sine"); sfxTone(ctx, t + 0.055, 320, 0.06, 0.03, "sine"); }
+    /* A soft, dry tap. The band at ~1.9 kHz is the contact — the part the ear reads as a fingertip on
+       something hard — and the short 560 Hz sine under it is the surface answering, a woody resonance
+       rather than a weight. Both are BRIEF (28ms and 32ms): what separated a tap from a thud in the
+       version this replaces was as much the decay as the pitch. Nothing here goes below 500 Hz, which
+       is deliberate — the sub-bass body is exactly what was reported as a thud. */
+    if (name === "click") { sfxTap(ctx, t, 1900, 0.028, 0.075); sfxTone(ctx, t, 560, 0.032, 0.02, "sine", 430); }
+    else if (name === "toggle") { sfxTap(ctx, t, 2300, 0.026, 0.07); sfxTone(ctx, t, 660, 0.03, 0.018, "sine"); sfxTone(ctx, t + 0.05, 880, 0.05, 0.022, "sine"); }
     else if (name === "pop") sfxTone(ctx, t, 460, 0.1, 0.06, "sine", 940);
     else if (name === "good") { sfxTone(ctx, t, 660, 0.09, 0.05, "sine"); sfxTone(ctx, t + 0.08, 880, 0.13, 0.05, "sine"); }
     else if (name === "bad") sfxTone(ctx, t, 230, 0.13, 0.06, "sine", 155);
@@ -2354,10 +2370,47 @@
     });
   }
 
+  /* ---------- the phone's scrim: everything behind the popup goes soft (Aug 2026, on request) ----------
+     A definition met mid-sentence is a small window over a whole page of prose, and on a phone that page
+     is the same width as the window. Blurring it is what makes the popup read as the thing being looked
+     at rather than as a box that happens to be on top.
+
+     It is ONE element with `backdrop-filter`, not a `filter` on a list of everything else, and that is
+     the whole design. A blur applied to the page's own containers would need that list kept in step with
+     every new fixed thing on the site (the tab bar, the grade bar, the whiteboard, the edit button, the
+     next one), and a `filter` on an ancestor makes it the containing block for any `position:fixed`
+     descendant — which would move the very bars it was trying to blur. backdrop-filter blurs whatever is
+     painted behind this one element and touches nothing else's layout.
+
+     `pointer-events:none` is deliberate: this is a visual change and not a modal. Tapping outside did not
+     close a popup before and still does not, and the page behind can still be scrolled — the request was
+     for focus, not for a dialog. */
+  function glossScrim(on) {
+    let s = document.getElementById("glossScrim");
+    if (on) {
+      if (!s) {
+        s = document.createElement("div");
+        s.id = "glossScrim";
+        s.className = "gloss-scrim";
+        document.body.appendChild(s);
+        // one frame at opacity 0 so the class change is a transition rather than an appearance
+        requestAnimationFrame(() => s.classList.add("on"));
+      }
+    } else if (s) {
+      s.classList.remove("on");
+      setTimeout(() => { if (s && !s.classList.contains("on")) s.remove(); }, 220);
+    }
+  }
+  /* The scrim belongs to the phone's single sheet, so it is up exactly while one is. It is raised
+     explicitly on open rather than through here, because at that point the new window has not yet been
+     pushed onto `glossWins` — the push is the last thing openGlossWin does, after TTS and the show
+     class — so a count-based call there would find zero and take the scrim straight back down. */
+  function syncGlossScrim() { glossScrim(isMobileGloss() && glossWins.length > 0); }
   function removeGlossWin(win, animate) {
     const i = glossWins.indexOf(win);
     if (i >= 0) glossWins.splice(i, 1);
     persistGlossOpen();
+    syncGlossScrim();
     if (animate) {
       win.classList.add("closing");
       win.classList.remove("show");
@@ -2369,6 +2422,7 @@
   function closeAllGloss() {
     glossWins.slice().forEach((w) => w.remove());
     glossWins.length = 0;
+    glossScrim(false);
     try { sessionStorage.removeItem(GLOSS_OPEN_KEY); } catch (e) {}   // navigation dismisses popups; don't resurrect them on the next reload
   }
   // Raise a popup to the top of the gloss stack. The counter is renormalized before it can reach the
@@ -2465,9 +2519,25 @@
      the two would need the height measured on every move; `--gs-dy` simply rides inside that transform.
 
      It is NOT remembered. A new term always opens in the middle (the request says so), so the offset lives
-     on the element and dies with it — which also means the restore-after-reload path needs nothing. */
+     on the element and dies with it — which also means the restore-after-reload path needs nothing.
+
+     THE WHOLE WINDOW IS THE HANDLE (Aug 2026, on request — it was the title bar, then briefly a grab bar
+     at each end, and both are gone). A window in the middle of the screen can need moving either way and
+     which end falls under the thumb depends on where it currently sits, so rather than adding handles
+     until one of them is always convenient, every part of it drags.
+
+     The one part that cannot is the DESCRIPTION when there is more of it than fits: that box scrolls, and
+     a vertical gesture inside it has to mean one thing or the other. The rule is decided at pointerdown
+     rather than arbitrated mid-gesture — if the press lands in a body that has something to scroll, this
+     is a scroll and not a drag — because a gesture that changes its mind half way through is the thing
+     that reads as broken. Most terms are three sentences and scroll nothing, so for most of them the
+     whole window really is the handle, description included.
+
+     Controls are exempt for the obvious reason, and `.ttip` with them: a nested glossary link is a tap
+     target sitting in the middle of the drag surface. */
   const GLOSS_DRAG_SLOP = 4;
-  function makeGlossSheetDraggable(win, handle) {
+  const GLOSS_NODRAG = "button, a[href], input, textarea, select, .ttip, .card-img";
+  function makeGlossSheetDraggable(win) {
     let sy = 0, oy = 0, dragging = false, moved = false;
     const setDy = (v) => {
       const vh = document.documentElement.clientHeight || 0;
@@ -2475,14 +2545,16 @@
       // it may be pulled a little past centre-line either way, never off the screen
       win.style.setProperty("--gs-dy", Math.max(-room - 40, Math.min(v, room + 40)) + "px");
     };
-    handle.addEventListener("pointerdown", (e) => {
-      if (e.target.closest("button")) return;
+    win.addEventListener("pointerdown", (e) => {
+      if (e.target.closest(GLOSS_NODRAG)) return;
+      const body = e.target.closest(".gloss-body");
+      if (body && body.scrollHeight > body.clientHeight + 1) return;   // it scrolls; let it
       dragging = true; moved = false;
       sy = e.clientY;
       oy = parseFloat(win.style.getPropertyValue("--gs-dy")) || 0;
-      try { handle.setPointerCapture(e.pointerId); } catch (_) {}
+      try { win.setPointerCapture(e.pointerId); } catch (_) {}
     });
-    handle.addEventListener("pointermove", (e) => {
+    win.addEventListener("pointermove", (e) => {
       if (!dragging) return;
       const dy = e.clientY - sy;
       if (!moved && Math.abs(dy) < GLOSS_DRAG_SLOP) return;
@@ -2494,10 +2566,46 @@
       if (!dragging) return;
       dragging = false;
       win.classList.remove("dragging");
-      try { handle.releasePointerCapture(e.pointerId); } catch (_) {}
+      /* A one-shot flag, not the class, is how the double-tap handler below tells the end of a drag
+         from a tap. The class is gone by the time that handler runs (it is registered later on the same
+         element, so this fires first), and holding it for a frame instead would swallow the FIRST real
+         tap after every drag — which is a tap the reader made. The flag is set here and cleared by the
+         one handler that reads it, so it can never outlive the gesture it describes. */
+      if (moved) win._glossDragged = true;
+      try { win.releasePointerCapture(e.pointerId); } catch (_) {}
     };
-    handle.addEventListener("pointerup", end);
-    handle.addEventListener("pointercancel", end);
+    win.addEventListener("pointerup", end);
+    win.addEventListener("pointercancel", end);
+  }
+
+  /* DOUBLE-TAP ANYWHERE TO CLOSE (Aug 2026, on request) — the phone's × is a 26px target in one corner
+     of a window that fills most of the screen, and a reader who has finished reading is holding the
+     phone, not aiming at it.
+
+     Written on pointer events rather than on `dblclick`, because a phone does not reliably fire one:
+     browsers reserve the second tap for double-tap-to-zoom and may swallow it. Two guards make it safe.
+     The taps must land close TOGETHER (`GLOSS_TAP_SLOP`) as well as close in time, so a reader tapping
+     one word and then another further down the description is not closing the window they are reading.
+     And an INTERACTIVE target is exempt: a nested glossary link, the sources fold, the map button and
+     the close button all do something of their own on a second tap, and taking the window away instead
+     would make those controls unusable rather than merely surprising. */
+  const GLOSS_TAP_MS = 320, GLOSS_TAP_SLOP = 30;
+  const GLOSS_TAP_SKIP = "button, a[href], input, textarea, select, .ttip, .src-head, .src-item, .card-img";
+  function wireGlossDoubleTap(win) {
+    let lastT = 0, lastX = 0, lastY = 0;
+    win.addEventListener("pointerup", (e) => {
+      if (e.target.closest(GLOSS_TAP_SKIP)) { lastT = 0; return; }
+      // the end of a drag is not a tap — see the flag's note in makeGlossSheetDraggable
+      if (win._glossDragged) { win._glossDragged = false; lastT = 0; return; }
+      const now = e.timeStamp || Date.now();
+      if (now - lastT < GLOSS_TAP_MS && Math.abs(e.clientX - lastX) < GLOSS_TAP_SLOP && Math.abs(e.clientY - lastY) < GLOSS_TAP_SLOP) {
+        lastT = 0;
+        e.preventDefault();     // and not a zoom either
+        removeGlossWin(win, true);
+        return;
+      }
+      lastT = now; lastX = e.clientX; lastY = e.clientY;
+    });
   }
   function openGlossWin(key, triggerEl, pos) {
     if (!glossGlobalsWired) {
@@ -2559,8 +2667,10 @@
       makeGlossDraggable(win, win.querySelector(".gloss-bar"));
       win.addEventListener("pointerdown", () => focusGlossWin(win));
     } else {
-      // centred by the stylesheet, and held by its bar to shift it up or down — see makeGlossSheetDraggable
-      makeGlossSheetDraggable(win, win.querySelector(".gloss-bar"));
+      // centred by the stylesheet, and held ANYWHERE to shift it up or down — see makeGlossSheetDraggable
+      makeGlossSheetDraggable(win);
+      wireGlossDoubleTap(win);
+      glossScrim(true);          // the page behind goes soft while this is up
     }
     win.querySelector(".gloss-close").addEventListener("click", () => removeGlossWin(win, true));
     {
@@ -3231,6 +3341,7 @@
     o.id = /^[a-z0-9]{4,16}$/.test(String(m && m.id)) ? m.id : uid(8);
     o.tags = Array.isArray(m && m.tags) ? m.tags.map((t) => sanitizePlain(t).slice(0, 40)).filter(Boolean).slice(0, 12) : [];
     o.glossMode = ["site", "own", "both"].indexOf(m && m.glossMode) >= 0 ? m.glossMode : "site";
+    o.types = uTypesSanitize(m && m.types);   // the deck's own card types — see the CARD TYPES block above
     o.version = Number(m && m.version) > 0 ? Math.floor(Number(m.version)) : 1;
     o.createdAt = Number(m && m.createdAt) || Date.now();
     o.updatedAt = Number(m && m.updatedAt) || o.createdAt;
@@ -3251,6 +3362,122 @@
       : null;
     return o;
   }
+  /* ---------- CARD TYPES ----------
+     Anki's note types, cut to the three things an author actually programs: the FRONT template, the BACK
+     template and the CSS for the card as a whole. A type declares its own field names; a card of that type
+     carries a `fields` map instead of the thirteen CARD_FIELDS.
+
+     "Basic" is Folio's own format — question / answer / date line / background / sources — and is NOT one of
+     these records: it is what a card with no `type` renders as, so every card written before this existed is
+     a Basic card and needs no migration.
+
+     Types live on the DECK, not on the device. A deck is the unit that travels (export, publish, install),
+     and a template that stayed behind would leave an installed deck rendering its fields as raw prose.
+
+     Everything here is written for content Folio did not author. The templates go through sanitizeHTML on
+     ingest AND the composed result goes through it again at render — the second pass is the one that matters,
+     since a field value interpolated into `<img src="{{X}}">` is not covered by sanitizing the two halves
+     separately. The CSS gets its own treatment: it can't execute, but it can break out of the <style> element
+     it lands in, pull in remote stylesheets, or float a card over the rest of the page. */
+  const CARD_TYPE_BASIC = "basic";
+  const UTYPE_ID_RX = /^[a-z0-9][a-z0-9-]{0,31}$/;
+  const UTYPE_FIELD_RX = /^[A-Za-z0-9][\w .'-]{0,39}$/;
+  const UDECK_MAX_TYPES = 20, UTYPE_MAX_FIELDS = 24, UTYPE_TPL_MAX = 8000, UTYPE_CSS_MAX = 20000, UTYPE_VALUE_MAX = 20000;
+
+  /* A type's stylesheet, cleaned. It is not executable, so this is about three narrower things:
+     · `<` goes, because the text is written into a <style> ELEMENT and "</style>" would end it early. Only
+       the opening bracket is taken: `>` is the child combinator and a stylesheet that cannot say `.a > .b`
+       is missing a third of CSS, while "</style>" cannot be spelled without a `<`;
+     · a backslash goes with them — a CSS escape can spell any of the keywords below, and the cost is that a
+       `content:"\201C"` has to be written as the character itself, which is the better way round anyway;
+     · @import / @charset / @namespace are dropped as statements (the block-form at-rules go in cssScoped),
+       remote url() is narrowed to https and inline images, and `position:fixed` is demoted to `absolute`,
+       since scoping a SELECTOR does nothing to stop a fixed box being painted across the whole page. */
+  function sanitizeCSSText(raw) {
+    let s = String(raw == null ? "" : raw).slice(0, UTYPE_CSS_MAX);
+    s = s.replace(/\/\*[\s\S]*?\*\//g, " ");
+    s = s.replace(/[<\\]/g, " ");
+    s = s.replace(/@(?:import|charset|namespace)[^;{}]*;?/gi, " ");
+    s = s.replace(/expression\s*\(/gi, "none(").replace(/(?:-moz-)?binding\s*:/gi, "--x:").replace(/behaviou?r\s*:/gi, "--x:");
+    s = s.replace(/position\s*:\s*fixed/gi, "position:absolute");
+    s = s.replace(/url\(\s*(['"]?)([^'")]*)\1\s*\)/gi, (m, q, u) =>
+      /^(?:https?:\/\/|\/\/|data:image\/)/i.test(u.trim()) ? "url(" + q + u.trim() + q + ")" : "none");
+    return s.trim();
+  }
+  // at-rules whose body is a nested set of RULES (the head is kept, the rules inside are still scoped)
+  const CSS_AT_NEST = /^(?:media|supports|layer|container|scope)$/;
+  /* Prefix every selector with the card's own scope, so a type's CSS can only ever reach that type's cards.
+     Anki's convention is that `.card` means the card itself; the document roots are read the same way, since
+     an author who writes `body{}` means "this card", not the site around it. */
+  function cssScopeSelector(sel, scope) {
+    return String(sel).split(",").map((one) => {
+      const s = one.trim();
+      if (!s) return "";
+      const m = /^(?:html|body|:root|\.card)(?![\w-])/i.exec(s);
+      if (!m) return scope + " " + s;
+      const rest = s.slice(m[0].length);
+      if (!rest.trim()) return scope;
+      return /^[\s>+~]/.test(rest) ? scope + " " + rest.trim() : scope + rest;   // `.card.dark` must not become a descendant
+    }).filter(Boolean).join(",");
+  }
+  function cssScoped(css, scope) {
+    const src = String(css == null ? "" : css);
+    let out = "", buf = "", drop = 0;
+    const stack = [];
+    for (let i = 0; i < src.length; i++) {
+      const ch = src.charAt(i);
+      if (ch === "{") {
+        const head = buf.trim(); buf = "";
+        let kind = "decl";
+        if (head.charAt(0) === "@") {
+          const name = ((/^@([\w-]+)/.exec(head) || [, ""])[1] || "").toLowerCase().replace(/^-[a-z]+-/, "");
+          kind = name === "keyframes" ? "kf" : CSS_AT_NEST.test(name) ? "at" : "drop";
+        } else if (stack[stack.length - 1] === "kf") {
+          kind = "frame";   // 0% / from / to — a keyframe selector, not a page selector
+        }
+        stack.push(kind);
+        if (drop || kind === "drop") { drop++; continue; }
+        out += (kind === "decl" ? cssScopeSelector(head, scope) : head) + "{";
+        continue;
+      }
+      if (ch === "}") {
+        stack.pop();
+        if (drop) { drop--; buf = ""; continue; }
+        out += buf + "}"; buf = "";
+        continue;
+      }
+      buf += ch;
+    }
+    return out;
+  }
+  function uTypeSanitize(raw, fallbackId) {
+    const id = String((raw && raw.id) || fallbackId || "").trim();
+    if (!UTYPE_ID_RX.test(id) || id === CARD_TYPE_BASIC) return null;   // "basic" is the built-in format's name and cannot be taken
+    const fields = [];
+    (Array.isArray(raw && raw.fields) ? raw.fields : []).forEach((f) => {
+      const n = sanitizePlain(f).trim();
+      if (UTYPE_FIELD_RX.test(n) && fields.indexOf(n) < 0 && fields.length < UTYPE_MAX_FIELDS) fields.push(n);
+    });
+    if (!fields.length) fields.push("Front", "Back");
+    return {
+      id: id,
+      name: sanitizePlain(raw && raw.name).slice(0, 60) || id,
+      fields: fields,
+      front: sanitizeHTML(String((raw && raw.front) == null ? "" : raw.front)).slice(0, UTYPE_TPL_MAX),
+      back: sanitizeHTML(String((raw && raw.back) == null ? "" : raw.back)).slice(0, UTYPE_TPL_MAX),
+      css: sanitizeCSSText(raw && raw.css),
+    };
+  }
+  function uTypesSanitize(raw) {
+    const out = {};
+    if (!raw || typeof raw !== "object") return out;
+    Object.keys(raw).slice(0, UDECK_MAX_TYPES).forEach((k) => {
+      const t = uTypeSanitize(raw[k], k);
+      if (t) out[t.id] = t;
+    });
+    return out;
+  }
+
   function uCardSanitize(raw, deckId, idx) {
     const c = { id: "", deckId: deckId };
     const id = String((raw && raw.id) || "");
@@ -3281,6 +3508,23 @@
     }
     // one frame per card: a record carrying both resolves the same way the renderers do — the picture wins
     if (!c.image) { const v = uMediaSanitize(raw && raw.video); if (v) c.video = v; }
+    /* A card of one of the deck's own types. `type` is written ONLY for a custom card, so a Basic card that
+       has never been anything else is byte-for-byte the record it was before card types existed — nothing to
+       migrate, and an export of a Basic-only deck is unchanged. `fields` outlives a switch back to Basic on
+       purpose (see uCardSetType): the values are what make the change reversible, and a card that has never
+       held any carries no key at all. The field VALUES are rich HTML like everything else here; the NAMES are
+       held to the same pattern a type declares them with, so a hostile file cannot smuggle a key that
+       collides with something the renderer reads. */
+    const ty = String((raw && raw.type) || "").trim();
+    if (UTYPE_ID_RX.test(ty) && ty !== CARD_TYPE_BASIC) c.type = ty;
+    if (raw && raw.fields && typeof raw.fields === "object") {
+      const f = {};
+      Object.keys(raw.fields).slice(0, UTYPE_MAX_FIELDS).forEach((k) => {
+        const name = String(k).trim();
+        if (UTYPE_FIELD_RX.test(name)) f[name] = sanitizeHTML(raw.fields[k] == null ? "" : String(raw.fields[k])).slice(0, UTYPE_VALUE_MAX);
+      });
+      if (c.type || Object.keys(f).length) c.fields = f;
+    }
     return c;
   }
   // A card's or term's video, cleaned on ingest like every other field. An http/https src is kept even when
@@ -3347,7 +3591,7 @@
     norm.cards.forEach((c) => { UCARDS[c.id] = c; });
     return d;
   }
-  const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language", "tags", "glossMode", "version", "createdAt", "updatedAt", "forkedFrom"];
+  const UDECK_META_KEYS = ["id", "title", "subtitle", "desc", "author", "language", "tags", "glossMode", "types", "version", "createdAt", "updatedAt", "forkedFrom"];
   const UDECK_PUBLISH_KEYS = ["remoteId", "slug", "origin", "remoteStatus", "publishedVersion", "installedVersion", "ownerName"];
   function uDeckRecord(deckId) {   // the on-disk shape (also the export shape, minus the publishing keys)
     const d = UDECKS[deckId];
@@ -3367,7 +3611,7 @@
   function uDeckCreate(title) {
     const id = uid(8);
     const now2 = Date.now();
-    const d = { id: id, title: sanitizePlain(title) || "Untitled deck", subtitle: "", desc: "", author: "", language: uiLang() || "en", tags: [], glossMode: "site", version: 1, createdAt: now2, updatedAt: now2, cardIds: [] };
+    const d = { id: id, title: sanitizePlain(title) || "Untitled deck", subtitle: "", desc: "", author: "", language: uiLang() || "en", tags: [], glossMode: "site", types: {}, version: 1, createdAt: now2, updatedAt: now2, cardIds: [] };
     UDECKS[id] = d;
     UGLOSS[id] = {};
     uDeckSave(id);
@@ -3385,6 +3629,82 @@
     d.tags = String(str || "").split(",").map((t) => sanitizePlain(t).slice(0, 40)).filter(Boolean).slice(0, 12);
     uDeckSave(deckId);
   }
+  /* ---------- card types: the Studio's API ----------
+     Each writer re-sanitizes through uTypeSanitize rather than trusting the caller, for the reason uCardSet
+     does: the store is what gets exported and published, so it has to be clean at the source and not only
+     at the next importer's end. */
+  function uDeckTypes(d) { return (d && d.types) || {}; }
+  function uTypeGet(deckId, typeId) { return uDeckTypes(UDECKS[deckId])[typeId] || null; }
+  function uTypeList(deckId) {
+    const t = uDeckTypes(UDECKS[deckId]);
+    return Object.keys(t).map((k) => t[k]).sort((a, b) => String(a.name).localeCompare(String(b.name)));
+  }
+  const UTYPE_STARTER = {
+    front: '<div class="uc-q">{{Front}}</div>',
+    back: '<div class="uc-a">{{Back}}</div>',
+    css: ".card {\n  font-size: 17px;\n  line-height: 1.55;\n}\n.uc-q {\n  font-weight: 600;\n}\n",
+  };
+  function uTypeCreate(deckId, name) {
+    const d = UDECKS[deckId];
+    if (!d) return null;
+    if (!d.types) d.types = {};
+    if (Object.keys(d.types).length >= UDECK_MAX_TYPES) { toast("A deck holds at most " + UDECK_MAX_TYPES + " card types."); return null; }
+    const clean = sanitizePlain(name).slice(0, 60) || "New type";
+    let base = clean.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 24);
+    if (!UTYPE_ID_RX.test(base) || base === CARD_TYPE_BASIC) base = "type";
+    let id = base, n = 2;
+    while (d.types[id]) id = (base + "-" + n++).slice(0, 32);
+    const t = uTypeSanitize({ id: id, name: clean, fields: ["Front", "Back"], front: UTYPE_STARTER.front, back: UTYPE_STARTER.back, css: UTYPE_STARTER.css });
+    if (!t) return null;
+    d.types[id] = t;
+    uDeckSave(deckId);
+    return t;
+  }
+  function uTypeSet(deckId, typeId, field, value) {
+    const d = UDECKS[deckId], t = uTypeGet(deckId, typeId);
+    if (!t || ["name", "front", "back", "css"].indexOf(field) < 0) return;
+    const next = uTypeSanitize(Object.assign({}, t, { [field]: value }));
+    if (next) { d.types[typeId] = next; uDeckSave(deckId); }
+  }
+  // the field list, written as one comma-separated line. A field dropped here leaves the values behind on
+  // the cards rather than deleting them — re-adding the name brings the text back, and a typo costs nothing.
+  function uTypeSetFields(deckId, typeId, str) {
+    const d = UDECKS[deckId], t = uTypeGet(deckId, typeId);
+    if (!t) return;
+    const next = uTypeSanitize(Object.assign({}, t, { fields: String(str || "").split(",") }));
+    if (next) { d.types[typeId] = next; uDeckSave(deckId); }
+  }
+  // Deleting a type puts its cards back to Basic. Their `fields` go with it: the values describe a template
+  // that no longer exists, and leaving them would make an exported deck carry text nothing can render.
+  function uTypeDelete(deckId, typeId) {
+    const d = UDECKS[deckId];
+    if (!d || !d.types || !d.types[typeId]) return;
+    delete d.types[typeId];
+    uDeckCards(d).forEach((c) => { if (c.type === typeId) { delete c.type; delete c.fields; } });
+    uDeckSave(deckId);
+  }
+  function uCardSetType(cardId, typeId) {
+    const c = UCARDS[cardId];
+    if (!c) return;
+    const t = c.deckId ? uTypeGet(c.deckId, typeId) : null;
+    // The field VALUES are never thrown away here, so switching type is reversible: a card turned back to
+    // Basic keeps its question and background, and one turned back to a type finds its fields as they were.
+    // Deleting the TYPE is the destructive act, and that one asks first. A card that has never held a field
+    // still gets no `fields` key, so a Basic-only deck's export is unchanged.
+    if (t) { c.type = t.id; if (!c.fields || typeof c.fields !== "object") c.fields = {}; }
+    else delete c.type;   // anything unrecognised — "basic" included — is the built-in format
+    if (c.deckId) uDeckSave(c.deckId);
+  }
+  function uCardSetFieldValue(cardId, name, value) {
+    const c = UCARDS[cardId];
+    if (!c || !c.type) return;
+    const n = String(name || "").trim();
+    if (!UTYPE_FIELD_RX.test(n)) return;
+    if (!c.fields || typeof c.fields !== "object") c.fields = {};
+    c.fields[n] = sanitizeHTML(value == null ? "" : String(value)).slice(0, UTYPE_VALUE_MAX);
+    if (c.deckId) uDeckSave(c.deckId);
+  }
+
   function uCardCreate(deckId) {
     const d = UDECKS[deckId];
     if (!d) return null;
@@ -3628,7 +3948,19 @@
       author: d.author || (SUPA_PROFILE ? SUPA_PROFILE.name : "") || "", language: d.language || "en",
       tags: d.tags || [], gloss_mode: d.glossMode || "site", status: "published", version: (d.publishedVersion || 0) + 1,
       forked_from: d.forkedFrom || null,
+      // The deck's own card types travel with it, or an installed copy renders its fields as raw prose. Sent
+      // only when there ARE any: `user_decks.types` arrived with card types, so a deck of Basic cards still
+      // publishes from a database whose owner hasn't run that block of .claude/supabase-schema.sql yet.
+      types: Object.keys(uDeckTypes(d)).length ? uDeckTypes(d) : undefined,
     };
+  }
+  // PostgREST answers an unknown column with PGRST204. It means one thing here and it is worth saying plainly,
+  // since the deck itself is fine and only the templates have nowhere to go.
+  const TYPES_COLUMN_MSG = "This deck uses custom card types, and card-type sharing isn't set up on this site yet. Export the deck as a file, or turn its cards back to Basic to publish.";
+  function typesColumnMissing(r) {
+    const body = r && r.data;
+    const msg = (body && (body.message || body.code)) ? String(body.message || "") + " " + String(body.code || "") : "";
+    return r && r.status === 400 && /types/.test(msg);
   }
   // returns { ok } | { error }
   async function uDeckPublish(deckId) {
@@ -3646,7 +3978,7 @@
       const r = await supaFetch("/rest/v1/user_decks?id=eq." + encodeURIComponent(d.remoteId), {
         method: "PATCH", body: uDeckRemotePayload(d), headers: { Prefer: "return=representation" },
       });
-      if (!r.ok) return { error: communityErr(r, "Couldn't update the published deck.") };
+      if (!r.ok) return { error: typesColumnMissing(r) ? TYPES_COLUMN_MSG : communityErr(r, "Couldn't update the published deck.") };
       row = Array.isArray(r.data) ? r.data[0] : r.data;
     } else {
       let attempt = 0;
@@ -3656,7 +3988,7 @@
         if (r.ok) { row = Array.isArray(r.data) ? r.data[0] : r.data; break; }
         // 409 = the slug is taken; try another suffix before giving up
         if (r.status === 409) { d.slug = slugify(d.title); attempt++; continue; }
-        return { error: communityErr(r, "Couldn't publish the deck.") };
+        return { error: typesColumnMissing(r) ? TYPES_COLUMN_MSG : communityErr(r, "Couldn't publish the deck.") };
       }
       if (!row) return { error: "That deck name is taken — try a different title." };
     }
@@ -3755,7 +4087,7 @@
       id: localId,
       meta: {
         id: localId, title: row.title, subtitle: row.subtitle, desc: row.description, author: row.author,
-        language: row.language, tags: row.tags || [], glossMode: row.gloss_mode, version: 1,
+        language: row.language, tags: row.tags || [], glossMode: row.gloss_mode, types: row.types || {}, version: 1,
         createdAt: Date.parse(row.created_at) || Date.now(), updatedAt: Date.now(),
         remoteId: row.id, slug: row.slug, origin: "installed", remoteStatus: row.status, forkedFrom: row.forked_from || null,
         installedVersion: row.version, ownerName: row.author,
@@ -4088,6 +4420,11 @@
       subtitle: "Moral Letters to Lucilius",
       author: "Seneca",
       written: "c. 62–65 CE",
+      // the sort key behind `written`, which is prose and carries a range, a circa and an era. Stated
+      // rather than parsed out of that string: a shelf that sorts by date needs one number per book,
+      // and guessing it from "c. 62–65 CE" is a parser nobody asked for. Signed, so a BCE book is
+      // simply negative and files before this one.
+      year: 62,
       translator: "Richard Mott Gummere",
       edition: "Loeb Classical Library, 1917–1925",
       rights:
@@ -4097,14 +4434,17 @@
       sourceName: "Wikisource",
       sourceUrl: "https://en.wikisource.org/wiki/Moral_letters_to_Lucilius",
       color: "#8257C2",
-      // what a reader wants to know before opening it, in the register the cards are written in
-      blurb:
-        "A hundred and twenty-four letters written by a Roman statesman to a younger friend in the last years " +
-        "of his life, on how to live: time, fear, friendship, wealth, illness and death. They read less like a " +
-        "treatise than like letters actually sent, and are the most approachable Stoic writing to survive.",
+      /* The tile's `blurb` is gone (Aug 2026, on request: the tiles are small now and a paragraph was
+         most of their height). What it said is said properly and at length in the book's own opening
+         chapter — see `about` in .claude/fetch-book.js — which is a page a reader chooses to read
+         rather than one every shelf visitor pays for. */
       chapterWord: "Letter",
-      // shipped so far — the tile can say how long the book is before the text has loaded
-      count: 65,
+      // shipped so far — the tile can say how long the book is before the text has loaded. The two are
+      // equal now that all 124 letters are here, and both are KEPT: `count` is what Folio holds and
+      // `total` what the work contains, and they part company again the moment a book arrives in
+      // instalments. (Seneca's own total is what survives — Aulus Gellius quotes a book numbered past
+      // anything we still have, so 124 is the extant letters, not everything he wrote.)
+      count: 124,
       total: 124,
       parts: [
         { n: 1, label: "Volume I", note: "Letters 1–65" },
@@ -4119,10 +4459,20 @@
   // rather than assigning a global, and this drains that QUEUE — the same shape as the i18n ingests, and
   // for the same reason: two books whose scripts land before either hook must both survive.
   const BOOK_TEXT = {};
+  /* The book's own front matter — who wrote it, when, and what these letters are — kept beside the
+     chapters and drained from the same queue. It is authored in .claude/fetch-book.js and emitted into
+     the generated file for two reasons: this registry is EAGER, so a page of prose nobody reads until
+     they open the book does not belong in it, and books/<id>.js is never hand-edited, so an intro
+     written straight into that file would not survive the next run of the importer. */
+  const BOOK_INTRO = {};
   function bookIngest() {
     const q = window.FOLIO_BOOKS_IN || [];
     window.FOLIO_BOOKS_IN = [];
-    q.forEach((inc) => { if (inc && inc.id) BOOK_TEXT[inc.id] = inc.chapters || []; });
+    q.forEach((inc) => {
+      if (!inc || !inc.id) return;
+      BOOK_TEXT[inc.id] = inc.chapters || [];
+      if (inc.intro) BOOK_INTRO[inc.id] = inc.intro;
+    });
   }
   function bookBundle(id) {
     const name = "book:" + id;
@@ -4399,6 +4749,59 @@
     return !!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
   }
   function prefersReducedMotion() { return motionOff(); }
+
+  /* ---------- FLIP: animating a layout change the browser would otherwise cut to ----------
+     CSS can transition a property; it cannot transition a REFLOW. Move an element between two grid
+     areas, or reorder two siblings, and it is simply in the new place on the next frame — which is what
+     both the grade bar's fold and the Timeline game's drag were reported for (Aug 2026), and what a hard
+     cut always looks like: not fast, but broken.
+
+     FLIP is the standard answer. Measure where everything is (First), make the change (Last), work out
+     the difference (Invert) and let the browser animate the elements from their old place back to their
+     new one (Play). The elements are already where they belong the whole time — only their PAINT is
+     offset — so nothing here can leave the layout in a half-finished state if an animation is interrupted.
+
+     Element.animate is the Web Animations API: part of the platform, no dependency, and its animations
+     run off the main thread. Two deliberate choices. Scaling is OPT-IN (`scale`), because scaling a
+     button squashes the text inside it, and a translate-only FLIP over an element whose size is
+     transitioned in CSS looks better than either alone. And an element that has not actually moved is
+     skipped, so calling this over a whole list costs nothing for the rows that stayed put. */
+  function flipMove(els, mutate, opts) {
+    const list = [].slice.call(els || []).filter(Boolean);
+    const o = opts || {};
+    if (prefersReducedMotion() || !list.length || typeof list[0].animate !== "function") { mutate(); return; }
+    const first = new Map();
+    list.forEach((el) => first.set(el, el.getBoundingClientRect()));
+    mutate();
+    list.forEach((el) => {
+      const a = first.get(el), b = el.getBoundingClientRect();
+      if (!a || !a.width || !b.width) return;
+      const dx = a.left - b.left, dy = a.top - b.top;
+      const sx = o.scale ? a.width / b.width : 1, sy = o.scale ? a.height / b.height : 1;
+      if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5 && Math.abs(sx - 1) < 0.01 && Math.abs(sy - 1) < 0.01) return;
+      try {
+        el.animate(
+          [{ transform: "translate(" + dx + "px," + dy + "px) scale(" + sx + "," + sy + ")" }, { transform: "none" }],
+          { duration: o.duration || 260, easing: o.easing || "cubic-bezier(.22,.61,.36,1)", composite: "add" }
+        );
+      } catch (e) {}
+    });
+  }
+  /* Animate an element between two CONTENT heights across a change that alters them. The height is
+     measured on both sides and animated explicitly, because `height:auto` is not an animatable value and
+     a container that snaps while its contents slide reads worse than either moving alone. */
+  function flipHeight(el, mutate, dur) {
+    if (!el || prefersReducedMotion() || typeof el.animate !== "function") { mutate(); return; }
+    const from = el.getBoundingClientRect().height;
+    mutate();
+    const to = el.getBoundingClientRect().height;
+    if (Math.abs(from - to) < 1) return;
+    try {
+      el.animate([{ height: from + "px" }, { height: to + "px" }],
+        { duration: dur || 260, easing: "cubic-bezier(.22,.61,.36,1)" });
+    } catch (e) {}
+  }
+
   const THEMES = ["folio", "synth", "arcade", "academy", "marble", "gazette"];
   /* Reading-text size (Aug 2026, on request). `--fs` is a multiplier the READING surfaces are written
      against — a card's question and background, a glossary popup, a place panel on the Atlas — and nothing
@@ -4481,12 +4884,14 @@
     S.settings.fontSize = size;
     applyTheme();
     save();
-    // the picker is a segmented control, so the mark has to move with the setting wherever it was changed
-    document.querySelectorAll("#fsPick [data-fs]").forEach((b) => {
-      const on = b.dataset.fs === size;
-      b.classList.toggle("on", on);
-      b.setAttribute("aria-pressed", on ? "true" : "false");
-    });
+    // keep the slider and its tick marks in step with the setting wherever it was changed — the range's
+    // own value is already right when the reader dragged it, and wrong when anything else set the size
+    const range = document.querySelector("#fsRange");
+    if (range) {
+      range.value = String(FONT_SIZES.indexOf(size));
+      range.setAttribute("aria-valuetext", size.charAt(0).toUpperCase() + size.slice(1));
+    }
+    document.querySelectorAll("#fsPick .fs-tick").forEach((t) => t.classList.toggle("on", t.dataset.fs === size));
   }
   /* ---------- measurement units: ONE system, the reader's choice (Aug 2026, on request) ----------
      The content is authored metric-first with the imperial equivalent in parentheses — `about 37
@@ -4736,10 +5141,18 @@
       '<button type="button" class="dm-item dm-choice' + (on ? " on" : "") + '" data-act="' + act + '" aria-pressed="' + (on ? "true" : "false") + '">' +
       "<b>" + esc(label) + "</b><small>" + esc(note) + "</small></button>";
     const random = !!S.settings.reviewRandom;
+    /* How far through the deck the reader is, on the title's own line (Aug 2026, on request). It used to
+       sit at the right of the row in the review list, where it competed with the deck's name for a 390px
+       line; the bar stays there and says the same thing at a glance, and the count is here, where a reader
+       who wants the number has come to look. Derived from the card records like every other figure in this
+       sheet, so it answers for a deck, for a community deck, for the Card-of-the-day list and for the
+       pooled review alike. */
+    const ids = entryCardIds(id), total = ids.length, studied = ids.filter(isSeen).length;
     const html =
-      '<div class="dm-head"><span class="dm-title">' + esc(info.title) + "</span>" +
+      '<div class="dm-head"><div class="dm-headmain"><span class="dm-title">' + esc(info.title) + "</span>" +
         (isReview ? '<span class="dm-where">Applies to every added deck</span>'
                   : (info.parent ? '<span class="dm-where">' + esc(info.parent) + "</span>" : "")) + "</div>" +
+        (total ? '<span class="dm-studied">' + studied + "/" + total + " studied</span>" : "") + "</div>" +
       (isReview
         ? choice("ordered", "Ordered", "Cards come up in their deck order, oldest history first", !random) +
           choice("random", "Random", "The session is shuffled each day", random)
@@ -4894,30 +5307,51 @@
      Device-local, like where the whiteboard marker sits and how tall the place sheet is: how much of THIS
      screen the buttons take is a fact about this screen, not about the account. */
   const GB_H_KEY = "folio_gb_compact_v1";
+  // keep in step with the .grade / .grade-help / .gb-undo transition durations in styles.css
+  const GB_FOLD_MS = 280;
   let gbCompact = null;
   function gbReadCompact() {
     if (gbCompact == null) { try { gbCompact = localStorage.getItem(GB_H_KEY) === "1"; } catch (e) { gbCompact = false; } }
     return gbCompact;
   }
-  function gbSetCompact(on, persist) {
-    gbCompact = !!on;
-    document.body.classList.toggle("gb-compact", gbCompact);
-    // the chevron points the way it will go, and says which state it is in — see gbWireResize
-    document.querySelectorAll(".gb-fold").forEach((b) => {
-      b.setAttribute("aria-expanded", gbCompact ? "false" : "true");
-      const lab = gbCompact ? "Show the full grade buttons" : "Shrink the grade buttons";
-      b.setAttribute("aria-label", lab);
-      b.setAttribute("title", lab);
-    });
+  /* The fold is ANIMATED (Aug 2026, on a report that it was a hard cut). The two states differ by more
+     than a height: the four grades go from two rows of two to one row of four, and the ?, Undo and
+     Suspend move from a row of their own up beside them. None of that is a property CSS can transition
+     — it is a reflow — so it is FLIPped: every part is measured, the class is flipped, and each part is
+     animated from where it was to where it now is. The bar's own height is animated alongside them
+     (flipHeight), because a container that snaps while its contents slide looks worse than either.
+
+     `animate` is not gated on being on a phone: above the breakpoint the chevron is display:none and
+     this is unreachable, and flipMove skips anything that did not actually move, so the desktop pays
+     nothing for it. It IS gated on the reader's motion setting, inside both helpers. */
+  function gbSetCompact(on, persist, animate) {
+    const bar = gradeBarEl;
+    const wrap = bar && bar.querySelector(".grade-wrap");
+    const apply = () => {
+      gbCompact = !!on;
+      document.body.classList.toggle("gb-compact", gbCompact);
+      // the chevron points the way it will go, and says which state it is in — see gbWireResize
+      document.querySelectorAll(".gb-fold").forEach((b) => {
+        b.setAttribute("aria-expanded", gbCompact ? "false" : "true");
+        const lab = gbCompact ? "Show the full grade buttons" : "Shrink the grade buttons";
+        b.setAttribute("aria-label", lab);
+        b.setAttribute("title", lab);
+      });
+    };
+    if (animate && wrap && bar.classList.contains("show")) {
+      // the grade buttons AND the row of controls: the buttons change row and size, the controls change row
+      const parts = [].concat([].slice.call(wrap.children), [].slice.call(wrap.querySelectorAll(".grade")));
+      flipHeight(bar.querySelector(".gradebar-inner"), () => flipMove(parts, apply, { duration: GB_FOLD_MS }), GB_FOLD_MS);
+    } else apply();
     if (persist) { try { gbCompact ? localStorage.setItem(GB_H_KEY, "1") : localStorage.removeItem(GB_H_KEY); } catch (e) {} }
   }
   function gbWireResize(fold) {
     if (!fold) return;
     // a real <button>: click and Enter/Space come free, and the arrows reach the two states directly
-    fold.addEventListener("click", () => gbSetCompact(!gbReadCompact(), true));
+    fold.addEventListener("click", () => gbSetCompact(!gbReadCompact(), true, true));
     fold.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowDown") { e.preventDefault(); gbSetCompact(true, true); }
-      else if (e.key === "ArrowUp") { e.preventDefault(); gbSetCompact(false, true); }
+      if (e.key === "ArrowDown") { e.preventDefault(); gbSetCompact(true, true, true); }
+      else if (e.key === "ArrowUp") { e.preventDefault(); gbSetCompact(false, true, true); }
     });
   }
   let gradeBarEl = null;
@@ -5821,13 +6255,17 @@
   }
 
   /* ---------- levels / XP ----------
-     XP = the number of distinct cards a user has studied. Each level costs `3 × level` more cards (3, 6, 9, …),
-     so the bar starts at 0/3 and the requirement grows every level. Collections have their own level (distinct
-     cards studied within that collection); the whole of Folio has a general level (all distinct cards studied). */
+     XP = the number of distinct cards a user has studied. Each level costs `XP_PER_LEVEL × level` more cards
+     (5, 10, 15, …), so the bar starts at 0/5 and the requirement grows every level. The step is FIVE rather
+     than the original three because the daily allowance now defaults to five new cards: at three a level
+     turned over in the middle of an ordinary day's work, which made the badge mean nothing. Collections have
+     their own level (distinct cards studied within that collection); the whole of Folio has a general level
+     (all distinct cards studied). */
+  const XP_PER_LEVEL = 5;
   function levelFromXP(xp) {
     xp = Math.max(0, xp | 0);
-    let level = 1, need = 3, into = xp;
-    while (into >= need) { into -= need; level++; need = 3 * level; }
+    let level = 1, need = XP_PER_LEVEL, into = xp;
+    while (into >= need) { into -= need; level++; need = XP_PER_LEVEL * level; }
     return { level, into, need };   // into/need = progress within the current level toward the next
   }
   function folioXP() { return Object.keys(S.cards).length; }        // all distinct cards studied → general Folio level
@@ -5985,14 +6423,26 @@
     { t: "Yoga is the stilling of the movements of the mind.", a: "Patanjali", s: "Yoga Sutras 1.2",
       o: { lang: "sa", t: "योगश्चित्तवृत्तिनिरोधः।", a: "पतञ्जलि", s: "योगसूत्र १.२" } },
     { t: "Whoever honours his own sect and disparages another's, thinking to do honour to his own sect, injures his own sect the more gravely.", a: "Ashoka", s: "Major Rock Edict XII" },
-    { t: "Where the mind is without fear and the head is held high — into that heaven of freedom, let my country awake.", a: "Rabindranath Tagore", s: "Gitanjali 35, 1912" },
+    { t: "Where the mind is without fear and the head is held high — into that heaven of freedom, let my country awake.", a: "Rabindranath Tagore", s: "Gitanjali 35, 1912",
+      // Tagore's own English of his Bengali poem, so the "original" is Naibedya 72 (1901) rather than
+      // anything in Gitanjali. Both ends of the sentence, as the English quotes them, with the same middle
+      // elided. Text from the scanned Naibedya on Bengali Wikisource.
+      o: { lang: "bn", t: "চিত্ত যেথা ভয়শূন্য, উচ্চ যেথা শির — ভারতেরে সেই স্বর্গে করো জাগরিত।", a: "রবীন্দ্রনাথ ঠাকুর", s: "নৈবেদ্য ৭২, ১৯০১" } },
     { t: "Education is the manifestation of the perfection already in man.", a: "Swami Vivekananda", s: "Complete Works, vol. IV" },
     { t: "We ought not to be ashamed of appreciating the truth and of acquiring it wherever it comes from, even if it comes from races distant and nations different from us.", a: "Al-Kindi", s: "On First Philosophy, 9th century" },
     { t: "Truth does not contradict truth; it agrees with it and bears witness to it.", a: "Ibn Rushd", s: "The Decisive Treatise, c. 1179",
       o: { lang: "ar", t: "الحق لا يضاد الحق بل يوافقه ويشهد له.", a: "ابن رشد", s: "فصل المقال" } },
     { t: "The seeker after truth is not one who studies the writings of the ancients and trusts them, but one who questions what he gathers from them.", a: "Ibn al-Haytham", s: "Doubts Concerning Ptolemy, 11th century" },
     { t: "Knowledge without action is madness, and action without knowledge is vanity.", a: "Al-Ghazali", s: "Ayyuha'l-Walad (O Youth)" },
-    { t: "Hearsay does not equal eyesight.", a: "Al-Biruni", s: "Preface to India (Tahqiq ma li-l-Hind), c. 1030" },
+    // Checked against Sachau on both sides — his Arabic edition (London 1887, p. 2) and his own English
+    // of it (Alberuni's India, PREFACE, p. 3). Two things came out of that. The printed translation reads
+    // "hearsay does not equal EYE-WITNESS"; "eyesight", which this line carried, is a paraphrase that
+    // circulates widely and is in neither, so it is corrected here — the pool takes published translations
+    // rather than what the search results say. And the Arabic keeps al-Biruni's own frame: the words are a
+    // standing Arabic proverb, so he writes "the saying of him who said it is true" rather than claiming
+    // the line for himself, which is worth a reader seeing when they flip it.
+    { t: "Hearsay does not equal eye-witness.", a: "Al-Biruni", s: "Preface to India (Tahqiq ma li-l-Hind), c. 1030",
+      o: { lang: "ar", t: "إنما صدق قول القائل ليس الخبر كالعيان.", a: "البيروني", s: "تحقيق ما للهند، المقدمة" } },
     { t: "Untruth naturally afflicts historical information, and there are various reasons that make this unavoidable.", a: "Ibn Khaldun", s: "Muqaddimah I, 1377" },
     { t: "The noblest place in the world is the saddle of a swift horse, and the best companion of all time is a book.", a: "Al-Mutanabbi", s: "Diwan, 10th century",
       o: { lang: "ar", t: "أعزُّ مكانٍ في الدُّنَى سرجُ سابحٍ · وخيرُ جليسٍ في الزمانِ كتابُ", a: "المتنبي", s: "ديوان المتنبي" } },
@@ -6322,13 +6772,15 @@
         <span class="adc adc-new${z(c.nw)}">${c.nw}</span><span class="adc adc-learn${z(c.lr)}">${c.lr}</span><span class="adc adc-rev${z(c.rv)}">${c.rv}</span>
       </div>`;
     };
-    // every row in the review list carries how far through it the reader is — the bar replaced a bare blue dot,
-    // and its label replaced the plain card count beside the title, which said the same total twice
+    /* Every row in the review list carries how far through it the reader is — the bar replaced a bare blue
+       dot. The FIGURE beside it moved into the row's options sheet in Aug 2026, on request: a bar says
+       "some of the way" at a glance, which is all a row of a list is for, and the exact count is a thing
+       you go looking for — which is what holding the row is. It also gives the deck's name back the width
+       the figure was taking on a 390px line. */
     const adProg = (ids) => {
       const total = ids.length, studied = ids.filter(isSeen).length;
       return `<div class="prog ad-prog" data-pct="${total ? ((studied / total) * 100).toFixed(2) : 0}">
         <div class="track"><div class="fill"></div></div>
-        <div class="count">${studied}/${total} studied</div>
       </div>`;
     };
     /* Each added deck's row wears its COLLECTION's identity hue rather than the review's bronze (Aug 2026,
@@ -6730,14 +7182,49 @@
      the page is a record of reading, not a checklist to tick off, and naming what you have not met yet
      would turn the glossary into homework.
      ============================================================ */
+  /* A sort picker for a reader-facing list — the glossary record and the Library shelf both have one,
+     and one control for both is what keeps them from drifting into two different-looking controls doing
+     the same job. A native <select>: the options are a short closed set, and on a phone the platform
+     gives it a proper picker where a row of buttons would take a line the list needs.
+
+     The CHOICE is deliberately not in S. It is a way of looking at a list, not a preference about
+     Folio — the same call renderDeckStats makes about its own picker — so it lives in a module-level
+     variable, which survives navigating away and back within the session and resets on reload. */
+  function sortPickerHTML(id, opts, cur, label) {
+    return '<label class="sort-pick"><span class="sort-pick-label">' + esc(label || "Sort") + "</span>" +
+      '<select id="' + id + '">' +
+      opts.map((o) => '<option value="' + esc(o[0]) + '"' + (o[0] === cur ? " selected" : "") + ">" + esc(o[1]) + "</option>").join("") +
+      "</select></label>";
+  }
+
+  /* The order the discovered terms are listed in (Aug 2026, on request: "sorted by alphabet and date of
+     discovery"). Newest-first stays the default — the term just met is the one a reader has come here
+     about — and the other three are the ways round it. */
+  const GLOSS_SORTS = [
+    ["recent", "Newest first"],
+    ["oldest", "Oldest first"],
+    ["az", "A – Z"],
+    ["za", "Z – A"],
+  ];
+  let glossSort = "recent";
   PAGES.glossary = function (root) {
     const G = window.GLOSSARY || {};
     const reg = S.glossSeen || {};
     const keys = Object.keys(reg).filter((k) => G[k] && !uGlossParse(k));
     const total = glossTotalCount();
     const pct = total ? Math.min(100, Math.round((keys.length / total) * 100)) : 0;
-    // most recently opened first: the term you have just met is the one you came here about
-    keys.sort((a, b) => (reg[b] || 0) - (reg[a] || 0));
+    /* localeCompare, not `<`, so an accented head word files where a reader expects it — Nüwa belongs
+       beside Nu-, and a codepoint comparison puts it after Z. The date sorts fall back to the title, so
+       two terms opened in the same millisecond (a restored session opens several at once) keep a stable
+       order rather than swapping about between renders. */
+    const byTitle = (a, b) => glossTitle(a).localeCompare(glossTitle(b), undefined, { sensitivity: "base" });
+    const sortKeys = (arr) => {
+      const l = arr.slice();
+      if (glossSort === "az") return l.sort(byTitle);
+      if (glossSort === "za") return l.sort((a, b) => byTitle(b, a));
+      if (glossSort === "oldest") return l.sort((a, b) => (reg[a] || 0) - (reg[b] || 0) || byTitle(a, b));
+      return l.sort((a, b) => (reg[b] || 0) - (reg[a] || 0) || byTitle(a, b));
+    };
     const when = (ts) => {
       if (!ts) return "";
       const d = new Date(ts);
@@ -6759,14 +7246,17 @@
       '<button class="btn" type="button" id="glStudy">Start studying</button></div>';
     root.innerHTML =
       '<div class="page-head"><span class="eyebrow">Your record</span><h1>Glossary discovered</h1>' +
-      "<p>Every term you have opened, newest first. Click one to read it again.</p></div>" +
+      "<p>Every term you have opened. Click one to read it again.</p></div>" +
       '<div class="gl-meter"><div class="gl-meter-head"><b>' + keys.length + "</b> of " + total + " terms · " + pct + "%</div>" +
       '<div class="ds-bar"><i style="width:' + pct + '%"></i></div></div>' +
-      '<div class="gl-search"' + (keys.length ? "" : ' hidden') + '><input type="search" id="glFilter" placeholder="Filter these terms…" autocomplete="off" aria-label="Filter discovered terms"></div>' +
-      '<div class="gl-list" id="glList">' + (keys.length ? keys.map(row).join("") : empty) + "</div>";
+      '<div class="gl-tools"' + (keys.length ? "" : ' hidden') + '>' +
+        '<div class="gl-search"><input type="search" id="glFilter" placeholder="Filter these terms…" autocomplete="off" aria-label="Filter discovered terms"></div>' +
+        sortPickerHTML("glSort", GLOSS_SORTS, glossSort) +
+      "</div>" +
+      '<div class="gl-list" id="glList">' + (keys.length ? sortKeys(keys).map(row).join("") : empty) + "</div>";
 
     const list = root.querySelector("#glList");
-    // one delegated listener, so filtering can rebuild the rows without rewiring them
+    // one delegated listener, so filtering and re-sorting can rebuild the rows without rewiring them
     list.addEventListener("click", (e) => {
       const b = e.target.closest("[data-gk]");
       if (b) openGlossWin(b.dataset.gk, b);
@@ -6774,11 +7264,17 @@
     const st = root.querySelector("#glStudy");
     if (st) st.addEventListener("click", () => route("home"));
     const f = root.querySelector("#glFilter");
-    if (f) f.addEventListener("input", () => {
-      const q = f.value.trim().toLowerCase();
-      const shown = q ? keys.filter((k) => glossTitle(k).toLowerCase().includes(q) || glossTags(k).some((t2) => t2.toLowerCase().includes(q))) : keys;
+    // ONE painter for both controls: the filter narrows and the picker orders, and a reader who has
+    // typed something and then changes the order must keep their filter — which is exactly what two
+    // separate handlers, each rebuilding from `keys`, would quietly throw away.
+    const repaint = () => {
+      const q = f ? f.value.trim().toLowerCase() : "";
+      const shown = sortKeys(q ? keys.filter((k) => glossTitle(k).toLowerCase().includes(q) || glossTags(k).some((t2) => t2.toLowerCase().includes(q))) : keys);
       list.innerHTML = shown.length ? shown.map(row).join("") : '<div class="gl-empty"><p>No term here matches that.</p></div>';
-    });
+    };
+    if (f) f.addEventListener("input", repaint);
+    const so = root.querySelector("#glSort");
+    if (so) so.addEventListener("change", () => { glossSort = so.value; repaint(); });
   };
 
   /* ============================================================
@@ -7380,25 +7876,67 @@
     return Math.max(0, Math.min(100, Math.round(((i + (r.y || 0)) / Math.max(1, b.count)) * 100)));
   }
 
+  /* How the shelf is ordered (Aug 2026, on request). "Recently read" leads because a shelf a reader
+     comes back to is a shelf they are part-way through; the rest are the ways of finding a book they
+     have not opened. `year` is the registry's own signed sort key, not a parse of `written`. */
+  const BOOK_SORTS = [
+    ["recent", "Recently read"],
+    ["title", "Title (A – Z)"],
+    ["author", "Author"],
+    ["written", "Oldest first"],
+  ];
+  let bookSort = "recent";
   PAGES.library = function (root) {
+    /* A BANNER across the full width, at every screen size (Aug 2026, on request — briefly two narrow
+       tiles side by side on a phone, which was asked for and then asked back). What is gone for good is
+       the BLURB: a paragraph about the book was most of the banner's height, and the book's own front
+       matter says all of it, at length, one tap away. What took its place is the one fact a reader wants
+       about a work of history before opening it — WHEN IT WAS WRITTEN.
+
+       Full width means the banner reads left to right rather than top to bottom: who and what on the
+       left, how long and where you had got to on the right. That is also what lets it stay short. */
     const tile = (b) => {
       const pos = readingPos(b.id), pct = readingPct(b);
+      const unit = b.count === 1 ? b.chapterWord.toLowerCase() : b.chapterWord.toLowerCase() + "s";
+      // "Letter 0" is not a letter Seneca wrote — a reader still in the front matter is told so
+      const where = pos && pos.ch === 0 ? "About this book" : pos ? `${b.chapterWord} ${pos.ch} · ${pct}%` : "";
+      /* HOW MUCH OF THE WORK IS HERE, said in words rather than as a bare ratio (Aug 2026, on a question:
+         "what does the 65 out of 124 letters refer to?"). It is how many of the book's chapters have been
+         imported so far, and "65 of 124 letters" beside a reading-progress bar reads as though it were
+         reading progress, which is the one thing it is not. A partial book now says "on Folio so far",
+         and a complete one just says how long it is. */
+      const len = b.total > b.count
+        ? `${b.count} of ${b.total} ${unit} <span class="bk-of">on Folio so far</span>`
+        : `${b.count} ${unit}`;
       return `<button class="book-tile" type="button" data-book="${esc(b.id)}" style="--tile:${b.color}"
-                aria-label="${esc(b.title)} by ${esc(b.author)}">
+                aria-label="${esc(b.title)} by ${esc(b.author)}, written ${esc(b.written)}">
         <span class="bk-spine" aria-hidden="true"></span>
         <span class="bk-tile-body">
-          <span class="bk-tile-author">${esc(b.author)}</span>
-          <span class="bk-tile-title">${esc(b.title)}</span>
-          ${b.subtitle ? `<span class="bk-tile-sub">${esc(b.subtitle)}</span>` : ""}
-          <span class="bk-tile-blurb">${esc(b.blurb)}</span>
-          <span class="bk-tile-foot">
-            <span class="bk-tile-meta">${b.count} ${b.count === 1 ? b.chapterWord.toLowerCase() : b.chapterWord.toLowerCase() + "s"}${b.total > b.count ? ` <span class="bk-of">of ${b.total}</span>` : ""}</span>
-            ${pos ? `<span class="bk-tile-resume">${esc(b.chapterWord)} ${pos.ch} · ${pct}%</span>` : `<span class="bk-tile-new">Start reading</span>`}
+          <span class="bk-tile-main">
+            <span class="bk-tile-author">${esc(b.author)}</span>
+            <span class="bk-tile-title">${esc(b.title)}</span>
+            <span class="bk-tile-when">${esc(b.written)}</span>
           </span>
-          ${pos ? `<span class="bk-tile-bar"><span style="width:${pct}%"></span></span>` : ""}
+          <span class="bk-tile-foot">
+            <span class="bk-tile-meta">${len}</span>
+            ${pos ? `<span class="bk-tile-resume">${esc(where)}</span>` : `<span class="bk-tile-new">Start reading</span>`}
+          </span>
         </span>
+        ${/* the reading bar runs along the banner's own bottom EDGE (Aug 2026, on request) — it costs the
+              row no width at all, which is what lets the banner stay short, and a bar drawn across the
+              whole width of a book is the one place a fraction reads as a fraction */""}
+        ${pos ? `<span class="bk-tile-bar"><span style="width:${pct}%"></span></span>` : ""}
       </button>`;
     };
+    // a book never opened has no `at`, so it files below every book that has been — which is what
+    // "recently read" should mean, rather than putting the untouched books first by accident
+    const readAt = (b) => { const r = readingPos(b.id); return (r && r.at) || 0; };
+    const sorted = BOOKS.slice().sort((a, b) => {
+      if (bookSort === "title") return a.title.localeCompare(b.title, undefined, { sensitivity: "base" });
+      if (bookSort === "author") return a.author.localeCompare(b.author, undefined, { sensitivity: "base" }) || a.title.localeCompare(b.title);
+      if (bookSort === "written") return (a.year || 0) - (b.year || 0) || a.title.localeCompare(b.title);
+      return readAt(b) - readAt(a) || a.title.localeCompare(b.title);
+    });
     root.innerHTML = `
       <div class="page-head">
         <span class="eyebrow">Library</span>
@@ -7406,26 +7944,65 @@
         <p>Whole works, read on the page — with the glossary linked through them and the translator's own
            notes kept. Every book here is in the public domain, and free to read.</p>
       </div>
-      <div class="book-grid">${BOOKS.map(tile).join("")}</div>
+      ${/* The picker ships whatever the shelf holds, one book included — it was asked for outright, and
+            a control that appears the day a second book lands is one nobody knows to look for. */""}
+      <div class="lib-tools">${sortPickerHTML("bkSort", BOOK_SORTS, bookSort)}</div>
+      <div class="book-grid">${sorted.map(tile).join("")}</div>
       ${/* Said once, on the page rather than in a policy note: it is why the shelf is short, and it is the
             rule that decides what may join it. */""}
       <p class="lib-note">Folio serves these texts itself, so a work can only be shelved here once its
         copyright has expired — for a classical author that means the <b>translation</b> as much as the
-        original. Each book's page states the edition it comes from and the grounds it is free on.</p>`;
+        original. Each book's own first chapter states the edition it comes from and the grounds it is
+        free on.</p>`;
     root.querySelectorAll(".book-tile").forEach((el) =>
       el.addEventListener("click", () => route("book", { id: el.dataset.book }))
     );
+    const so = root.querySelector("#bkSort");
+    if (so) so.addEventListener("change", () => { bookSort = so.value; render(); });
   };
 
   /* One book. Chapters are TABS along a menu bar that scrolls, which is the only arrangement that scales:
      Seneca has 65 shipped and 124 to come, and a dropdown alone hides the shape of the book while a wrapped
      grid of 124 buttons IS the page. The bar carries the chapter number and title; the "Contents" button
      opens the whole list when a reader wants to jump rather than step. */
+  /* The book's opening chapter: what the work is, and which translation this is (Aug 2026, on request).
+     It is a real chapter rather than a panel — it takes a tab, it steps with the arrows, it is what a
+     first-time reader lands on — because that is where front matter goes in a book, and because the
+     "About this text" box it replaces sat at the FOOT of every chapter, where it was both the last thing
+     under letter 1 and the last thing under letter 65.
+
+     Its number is 0, and that is a number rather than an index: `S.reading[id].ch` stores the chapter
+     NUMBER precisely so that a book gaining chapters cannot move a reader's place, and 0 sits below
+     every letter Seneca wrote without disturbing one of them.
+
+     The essay half travels with the text (BOOK_INTRO, from the generated file); the licence half is
+     built here from the registry's own `rights` / `edition` / `sourceUrl`, which is where the statement
+     shown to a reader has always come from and is the one part that needs a live link. */
+  // the mark the front matter's tab and contents row wear where a letter wears its number
+  const BOOK_GLYPH =
+    '<svg class="bk-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+    '<path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v18H6.5A2.5 2.5 0 0 0 4 22z"/></svg>';
+  function bookIntroChapter(b) {
+    const essay = BOOK_INTRO[b.id] || "";
+    const rights =
+      '<section class="bk-rights">' +
+        "<h3>About this translation</h3>" +
+        "<p><i>" + esc(b.subtitle || b.title) + "</i> by " + esc(b.author) + ", written " + esc(b.written) +
+          ". This English translation is by " + esc(b.translator) + " — " + esc(b.edition) + ".</p>" +
+        '<p class="bk-rights-note">' + esc(b.rights) + "</p>" +
+        '<p class="bk-rights-src">Text from <a href="' + esc(b.sourceUrl) + '" target="_blank" rel="noopener noreferrer">' + esc(b.sourceName) + "</a>.</p>" +
+      "</section>";
+    return { n: 0, p: 0, t: "About this book", intro: true, html: essay + rights, notes: [] };
+  }
+
   PAGES.book = function (root, params) {
     const b = BOOK_BY_ID[(params && params.id) || ""];
     if (!b) { route("library"); return; }
 
-    const chapters = bookChapters(b.id);
+    const shipped = bookChapters(b.id);
+    // the front matter is chapter 0, ahead of the text; a fresh copy per render, so nothing can be
+    // left over from a previous book on the same page
+    const chapters = shipped ? [bookIntroChapter(b)].concat(shipped) : null;
     if (!chapters) {
       // the text is ~450 KB and lazy — hold the page rather than paint an empty book
       root.innerHTML = `
@@ -7454,14 +8031,24 @@
         <p class="bk-byline">${esc(b.author)} · ${esc(b.written)} · translated by ${esc(b.translator)}</p>
       </div>
 
+      ${/* The bar and its contents panel are ONE sticky block (Aug 2026, on a bug report). The bar has
+            always travelled with the reader; the panel sat below it in the FLOW, so opening it halfway
+            through a chapter drew the contents back at the top of the document, out of sight of the
+            button that had just been pressed. It is now positioned against the bar itself, so the two
+            can never come apart — and it overlays the prose rather than pushing it, which is what a
+            menu opened from a pinned bar has to do. */""}
+      <div class="bk-barwrap">
       <div class="bk-bar" role="tablist" aria-label="Chapters">
         <button class="bk-nav" type="button" id="bkPrev" aria-label="Previous ${esc(b.chapterWord.toLowerCase())}" title="Previous">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
         </button>
+        ${/* The front matter's tab carries a BOOK GLYPH where every other tab carries its number: "0"
+              beside 1, 2, 3 reads as a letter Seneca did not write, and on a phone the titles are
+              dropped and the numbers are all a reader has to go on. */""}
         <div class="bk-tabs" id="bkTabs">
-          ${chapters.map((c) => `<button class="bk-tab${c.n === cur.n ? " on" : ""}" type="button" role="tab"
-             aria-selected="${c.n === cur.n}" data-ch="${c.n}" title="${esc(b.chapterWord)} ${c.n} — ${esc(c.t)}">
-             <span class="bk-tab-n">${c.n}</span><span class="bk-tab-t">${esc(c.t)}</span></button>`).join("")}
+          ${chapters.map((c) => `<button class="bk-tab${c.n === cur.n ? " on" : ""}${c.intro ? " bk-tab-intro" : ""}" type="button" role="tab"
+             aria-selected="${c.n === cur.n}" data-ch="${c.n}" title="${c.intro ? esc(c.t) : esc(b.chapterWord) + " " + c.n + " — " + esc(c.t)}">
+             <span class="bk-tab-n">${c.intro ? BOOK_GLYPH : c.n}</span><span class="bk-tab-t">${esc(c.t)}</span></button>`).join("")}
         </div>
         <button class="bk-nav" type="button" id="bkNext" aria-label="Next ${esc(b.chapterWord.toLowerCase())}" title="Next">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
@@ -7471,23 +8058,19 @@
         </button>
       </div>
       <div class="bk-toc" id="bkTocPanel" hidden></div>
+      </div>
 
       ${/* the panel the tablist above drives — aria-live="polite" so a screen reader is told the chapter
             changed, which a silent innerHTML swap would not do */""}
       <article class="bk-page" id="bkPage" role="tabpanel" aria-live="polite"></article>
 
+      ${/* The "About this text" panel that used to sit here is gone (Aug 2026, on request): it is the
+            front matter now, in chapter 0, where it is read once rather than repeated under all 65
+            letters. */""}
       <div class="bk-foot">
         <button class="btn ghost" type="button" id="bkPrev2">← Previous</button>
         <button class="btn ghost" type="button" id="bkNext2">Next →</button>
-      </div>
-
-      <section class="bk-rights">
-        <h3>About this text</h3>
-        <p><i>${esc(b.subtitle || b.title)}</i> by ${esc(b.author)}, written ${esc(b.written)}. This English
-           translation is by ${esc(b.translator)} — ${esc(b.edition)}.</p>
-        <p class="bk-rights-note">${esc(b.rights)}</p>
-        <p class="bk-rights-src">Text from <a href="${esc(b.sourceUrl)}" target="_blank" rel="noopener noreferrer">${esc(b.sourceName)}</a>.</p>
-      </section>`;
+      </div>`;
 
     const pageEl = root.querySelector("#bkPage");
     const tabsEl = root.querySelector("#bkTabs");
@@ -7503,7 +8086,7 @@
       pageEl.innerHTML = `
         <header class="bk-ch-head">
           ${part ? `<span class="bk-ch-part">${esc(part.label)}</span>` : ""}
-          <span class="bk-ch-n">${esc(b.chapterWord)} ${c.n}</span>
+          <span class="bk-ch-n">${c.intro ? "Front matter" : esc(b.chapterWord) + " " + c.n}</span>
           <h2 class="bk-ch-t">${esc(c.t)}</h2>
         </header>
         <div class="bk-prose">${c.html}</div>
@@ -7581,15 +8164,19 @@
     root.querySelector("#bkNext2").addEventListener("click", () => step(1));
     root.querySelector("#bkBack").addEventListener("click", () => route("library"));
 
-    // Contents: the whole book at once, grouped by the part the edition itself divides it into
-    tocEl.innerHTML = (b.parts || [{ n: 1, label: "" }]).map((p) => {
-      const inPart = chapters.filter((c) => c.p === p.n);
-      if (!inPart.length) return "";
-      return `<div class="bk-toc-part"><h4>${esc(p.label)}${p.note ? ` <span>${esc(p.note)}</span>` : ""}</h4>
-        <div class="bk-toc-list">${inPart.map((c) =>
-          `<button class="bk-toc-item" type="button" data-ch="${c.n}"><span class="bk-toc-n">${c.n}</span><span>${esc(c.t)}</span></button>`
-        ).join("")}</div></div>`;
-    }).join("");
+    /* Contents: the whole book at once, grouped by the part the edition itself divides it into — with
+       the front matter above the parts rather than inside one, since it belongs to no volume (its `p`
+       is 0, which matches no entry in b.parts, so it would otherwise be listed nowhere at all). */
+    const tocRow = (c) =>
+      `<button class="bk-toc-item" type="button" data-ch="${c.n}"><span class="bk-toc-n">${c.intro ? BOOK_GLYPH : c.n}</span><span>${esc(c.t)}</span></button>`;
+    tocEl.innerHTML =
+      `<div class="bk-toc-part bk-toc-front"><div class="bk-toc-list">${chapters.filter((c) => c.intro).map(tocRow).join("")}</div></div>` +
+      (b.parts || [{ n: 1, label: "" }]).map((p) => {
+        const inPart = chapters.filter((c) => !c.intro && c.p === p.n);
+        if (!inPart.length) return "";
+        return `<div class="bk-toc-part"><h4>${esc(p.label)}${p.note ? ` <span>${esc(p.note)}</span>` : ""}</h4>
+          <div class="bk-toc-list">${inPart.map(tocRow).join("")}</div></div>`;
+      }).join("");
     tocEl.querySelectorAll(".bk-toc-item").forEach((t) =>
       t.addEventListener("click", () => {
         go(chapters.find((c) => c.n === +t.dataset.ch), true);
@@ -7622,7 +8209,7 @@
      ADMIN_EDITS, adminUndo, Save-to-project) and may only ever touch curated cards. What the two share is
      the card SURFACE, via liveCardEditorHTML / wireLiveCardEditor.
      ============================================================ */
-  const studioState = { deck: null, card: null, tab: "cards", term: null };
+  const studioState = { deck: null, card: null, tab: "cards", term: null, type: "" };   // type "" = the built-in Basic row
   let _deckUpdates = {};   // local deckId -> the newer remote version, filled after boot by communityCheckUpdates()
   const STUDIO_META_FIELDS = [
     ["title", "Title", "text", "What is this deck about?"],
@@ -7738,17 +8325,19 @@
           '</div></div>' +
       '</div></details>' +
       '<div class="studio-tabs">' +
-        '<button class="studio-tab' + (studioState.tab !== "gloss" ? " active" : "") + '" type="button" data-tab="cards">Cards <span>' + cards.length + '</span></button>' +
+        '<button class="studio-tab' + (studioState.tab === "cards" ? " active" : "") + '" type="button" data-tab="cards">Cards <span>' + cards.length + '</span></button>' +
+        '<button class="studio-tab' + (studioState.tab === "types" ? " active" : "") + '" type="button" data-tab="types">Card types <span>' + (uTypeList(d.id).length + 1) + '</span></button>' +
         '<button class="studio-tab' + (studioState.tab === "gloss" ? " active" : "") + '" type="button" data-tab="gloss">Glossary <span>' + uGlossList(d.id).length + '</span></button>' +
       '</div>' +
       (studioState.tab === "gloss" ? studioGlossHTML(d) :
+       studioState.tab === "types" ? studioTypesHTML(d) :
       '<div class="studio-cols">' +
         '<div class="studio-cardlist">' +
           '<div class="studio-cardlist-head"><span>' + cards.length + " " + (cards.length === 1 ? "card" : "cards") + '</span><button class="btn tiny" type="button" id="stAddCard">Add a card</button></div>' +
           '<div class="studio-cardrows" id="stRows">' +
             (cards.length ? cards.map((c, i) =>
               '<div class="studio-cardrow' + (c.id === studioState.card ? " active" : "") + '" data-card="' + esc(c.id) + '">' +
-                '<button class="scr-open" type="button" data-copen="' + esc(c.id) + '"><span class="scr-n">' + (i + 1) + '</span><span class="scr-title">' + esc(sanitizePlain(c.answer) || "(untitled)") + '</span></button>' +
+                '<button class="scr-open" type="button" data-copen="' + esc(c.id) + '"><span class="scr-n">' + (i + 1) + '</span><span class="scr-title">' + esc(uCardTitle(c)) + '</span></button>' +
                 '<span class="scr-move">' +
                   '<button class="scr-btn" type="button" data-up="' + esc(c.id) + '" title="Move up" aria-label="Move up"' + (i === 0 ? " disabled" : "") + '>&#9650;</button>' +
                   '<button class="scr-btn" type="button" data-down="' + esc(c.id) + '" title="Move down" aria-label="Move down"' + (i === cards.length - 1 ? " disabled" : "") + '>&#9660;</button>' +
@@ -7763,6 +8352,7 @@
     root.querySelectorAll("[data-tab]").forEach((b) => b.addEventListener("click", () => { studioState.tab = b.dataset.tab; render(); }));
     root.querySelectorAll('input[name="glossmode"]').forEach((r) => r.addEventListener("change", () => { uDeckSetGlossMode(d.id, r.value); render(); }));
     if (studioState.tab === "gloss") { studioWireGloss(root, d); }
+    if (studioState.tab === "types") { studioWireTypes(root, d); }
 
     root.querySelector("#stAll").addEventListener("click", () => { studioState.deck = null; studioState.card = null; render(); });
     const ex = root.querySelector("#stExport"); if (ex) ex.addEventListener("click", () => uDeckExport(d.id));
@@ -7795,7 +8385,131 @@
       "Unpublish “" + d.title + "”? It disappears from the shared list. People who already installed it keep their copy.",
       async () => { const r = await uDeckUnpublish(d.id); toast(r.error || "Unpublished"); render(); }, "Unpublish"));
 
-    if (studioState.tab !== "gloss") studioRenderCardEditor(root.querySelector("#stEditor"));
+    if (studioState.tab === "cards") studioRenderCardEditor(root.querySelector("#stEditor"));
+  }
+
+  /* ---------- the Studio's card-types tab ----------
+     Where an author programs a type: its field names, the HTML of the front, the HTML of the back, and the CSS
+     for the card as a whole. "Basic" heads the list and is not editable — it is Folio's own format, the one
+     every card starts as, and the thing the other types are an alternative to. */
+  function studioTypesHTML(d) {
+    const types = uTypeList(d.id);
+    const sel = studioState.type && uTypeGet(d.id, studioState.type) ? studioState.type : "";
+    const t = sel ? uTypeGet(d.id, sel) : null;
+    const counts = {};
+    uDeckCards(d).forEach((c) => { const k = c.type || CARD_TYPE_BASIC; counts[k] = (counts[k] || 0) + 1; });
+    const row = (id, name, note, active) =>
+      '<div class="studio-cardrow' + (active ? " active" : "") + '">' +
+        '<button class="scr-open" type="button" data-topensel="' + esc(id) + '">' +
+          '<span class="scr-title">' + esc(name) + '</span>' +
+          '<span class="scr-n">' + (counts[id] || 0) + '</span>' +
+        '</button>' + (note ? '<span class="ut-builtin">' + note + "</span>" : "") +
+      "</div>";
+    return '<div class="studio-cols">' +
+      '<div class="studio-cardlist">' +
+        '<div class="studio-cardlist-head"><span>' + (types.length + 1) + " types</span>" +
+          '<button class="btn tiny" type="button" id="stAddType">Add a type</button></div>' +
+        '<div class="studio-cardrows">' +
+          row(CARD_TYPE_BASIC, "Basic", "built in", !sel) +
+          types.map((x) => row(x.id, x.name, "", x.id === sel)).join("") +
+        '</div>' +
+      '</div>' +
+      '<div class="studio-editor" id="stTypeEditor">' + (t ? studioTypeFormHTML(d, t) : studioBasicTypeHTML()) + "</div>" +
+    "</div>";
+  }
+  function studioBasicTypeHTML() {
+    return '<div class="admin-ed-head"><div class="admin-ed-headinfo"><h2 class="admin-ed-title">Basic</h2>' +
+      '<div class="admin-ed-key">Folio&rsquo;s own format</div></div></div>' +
+      '<div class="ut-about"><p>A Basic card is the one the rest of Folio is written in: a question with a blank in it, ' +
+      'an answer with its date line, a background, an illustration and the works behind it. Its layout is Folio&rsquo;s, ' +
+      'and it is edited on the Cards tab.</p>' +
+      '<p>A type of your own replaces all of that with templates you write yourself — the HTML of the front, the HTML of ' +
+      'the back, and one stylesheet for the card. Add one on the left, then pick it at the top of any card.</p></div>';
+  }
+  function studioTypeFormHTML(d, t) {
+    // a LABEL rather than a div: it is what gives the textarea its accessible name, and these boxes are the
+    // only thing on the page a screen reader has to tell apart
+    const box = (key, label, hint, value, rows) =>
+      '<label class="admin-field"><span class="af-label">' + label + (hint ? ' <small>— ' + hint + "</small>" : "") + "</span>" +
+      '<textarea class="af-input ut-code" data-utype="' + key + '" rows="' + rows + '" spellcheck="false">' + esc(value || "") + "</textarea></label>";
+    return '<div class="admin-ed-head"><div class="admin-ed-headinfo"><h2 class="admin-ed-title">' + esc(t.name) + "</h2>" +
+        '<div class="admin-ed-key">' + esc(t.id) + "</div></div>" +
+        '<div class="admin-ed-actions"><span class="admin-saved" id="adminSaved"></span>' +
+        '<button class="admin-delete" id="stDelType" type="button">Delete type</button></div></div>' +
+      '<div class="ut-form">' +
+        '<label class="admin-field"><span class="af-label">Name</span>' +
+          '<input class="af-input" data-utype="name" type="text" value="' + esc(t.name) + '" /></label>' +
+        '<label class="admin-field"><span class="af-label">Fields <small>&mdash; comma separated, in the order you want to fill them in</small></span>' +
+          '<input class="af-input" id="stTypeFields" type="text" spellcheck="false" value="' + esc(t.fields.join(", ")) + '" /></label>' +
+        '<div class="ut-help">Write <code>{{' + esc(t.fields[0] || "Front") + "}}</code> in a template to drop that field in. " +
+          "<code>{{FrontSide}}</code> on the back is the front as it rendered. " +
+          "<code>{{#Field}}…{{/Field}}</code> keeps a block only when that field is filled in, and " +
+          "<code>{{^Field}}…{{/Field}}</code> only when it is empty.</div>" +
+        box("front", "Front template", "the HTML shown before the answer", t.front, 7) +
+        box("back", "Back template", "the HTML shown once the card is turned over", t.back, 7) +
+        box("css", "CSS", "styles this type&rsquo;s cards and nothing else; <code>.card</code> is the card itself", t.css, 10) +
+        '<div class="ut-preview"><span class="af-label">Preview</span><div class="ut-preview-box" id="stTypePv"></div></div>' +
+      "</div>";
+  }
+  // The preview renders a REAL card — the one being edited if it uses this type, else a stand-in whose fields
+  // are their own names — through the same cardTypeSideHTML the study page calls, so what it shows is what
+  // a learner gets rather than a second implementation that can drift from it.
+  function studioTypePreview(d, t) {
+    const box = document.getElementById("stTypePv");
+    if (!box) return;
+    const real = uDeckCards(d).find((c) => c.type === t.id && Object.keys(c.fields || {}).some((k) => String(c.fields[k]).trim()));
+    const fields = {};
+    t.fields.forEach((f) => { fields[f] = real && real.fields && String(real.fields[f] || "").trim() ? real.fields[f] : esc(f); });
+    const stand = { id: "preview", deckId: d.id, type: t.id, fields: fields };
+    box.innerHTML =
+      '<div class="study-card admin-pv-card">' +
+        '<span class="label">Question</span><div class="question">' + cardFrontHTML(stand) + "</div>" +
+        '<div class="reveal show"><div class="reveal-inner">' + buildBack(stand) + "</div></div>" +
+      "</div>";
+    openLinks(box);
+  }
+  function studioWireTypes(root, d) {
+    root.querySelectorAll("[data-topensel]").forEach((b) => b.addEventListener("click", () => {
+      studioState.type = b.dataset.topensel === CARD_TYPE_BASIC ? "" : b.dataset.topensel;
+      render();
+    }));
+    const add = root.querySelector("#stAddType");
+    if (add) add.addEventListener("click", () => {
+      const t = uTypeCreate(d.id, "New type");
+      if (t) { studioState.type = t.id; render(); }
+    });
+    const t = studioState.type ? uTypeGet(d.id, studioState.type) : null;
+    if (!t) return;
+    studioTypePreview(d, t);
+    // Every keystroke saves and repaints the preview IN PLACE — a full render() would take the caret out of
+    // the textarea the author is typing in, which is why the type list is not rebuilt here either.
+    root.querySelectorAll("[data-utype]").forEach((el) => el.addEventListener("input", () => {
+      uTypeSet(d.id, t.id, el.dataset.utype, el.value);
+      adminFlashSaved();
+      const live = uTypeGet(d.id, t.id);
+      if (live) studioTypePreview(d, live);
+      if (el.dataset.utype === "name") {
+        const h = root.querySelector(".admin-ed-title"); if (h) h.textContent = live ? live.name : el.value;
+      }
+    }));
+    const ff = root.querySelector("#stTypeFields");
+    // the field LIST does re-render: it changes which boxes a card of this type offers, and the help line above
+    // …and it does so OUT of the event. render() replaces #view, and removing a still-focused input fires
+    // blur in the middle of that innerHTML assignment, which Chrome refuses outright — so drop focus first
+    // and let the change event finish before the page is rebuilt under it.
+    if (ff) ff.addEventListener("change", () => {
+      uTypeSetFields(d.id, t.id, ff.value);
+      adminFlashSaved();
+      ff.blur();
+      setTimeout(render, 0);
+    });
+    const del = root.querySelector("#stDelType");
+    if (del) del.addEventListener("click", () => {
+      const n = uDeckCards(d).filter((c) => c.type === t.id).length;
+      inlineConfirm("Delete the “" + t.name + "” card type?" +
+        (n ? " " + n + " " + (n === 1 ? "card goes" : "cards go") + " back to Basic, and the text written into its fields goes with it." : ""),
+        () => { uTypeDelete(d.id, t.id); studioState.type = ""; toast("Card type deleted"); render(); }, "Delete");
+    });
   }
 
   /* ---------- the Studio's glossary tab ----------
@@ -7962,7 +8676,7 @@
         '<div class="studio-cardlist-head"><span>' + cards.length + " " + (cards.length === 1 ? "card" : "cards") + '</span></div>' +
         '<div class="studio-cardrows">' + cards.map((c, i) =>
           '<div class="studio-cardrow"><span class="scr-open"><span class="scr-n">' + (i + 1) + '</span>' +
-          '<span class="scr-title">' + esc(sanitizePlain(c.answer) || "(untitled)") + '</span></span></div>').join("") + '</div>' +
+          '<span class="scr-title">' + esc(uCardTitle(c)) + '</span></span></div>').join("") + '</div>' +
       '</div>';
     root.querySelector("#stAll").addEventListener("click", () => { studioState.deck = null; studioState.card = null; render(); });
     const sy = root.querySelector("#stStudy"); if (sy) sy.addEventListener("click", () => route("study", { scope: { type: "udeck", id: d.id } }));
@@ -7989,17 +8703,23 @@
     const c = UCARDS[studioState.card];
     if (!c) { host.innerHTML = '<div class="admin-editor-empty">Add a card to start writing, then double-click any part of it to edit.</div>'; return; }
     const d = UDECKS[c.deckId];
+    const typePicker = studioTypePickerHTML(d, c);
+    // A card of one of the deck's own types has no question / answer / background — it has that type's fields —
+    // so the whole Basic surface is replaced rather than dressed up. The picker stays, which is the way back.
+    if (cardTypeOf(c)) { studioRenderTypedCardEditor(host, c, d, typePicker); return; }
     const metaRow =
       '<div class="ces-meta">' +
         '<label class="ces-m ces-m-wide"><span>answer text — plain, used when the card is read back</span><input class="af-input" id="cesAnswerText" type="text" spellcheck="false" /></label>' +
       '</div>';
     host.innerHTML =
-      '<div class="admin-ed-head"><div class="admin-ed-headinfo"><h2 class="admin-ed-title">' + esc(sanitizePlain(c.answer) || "(untitled)") + '</h2>' +
+      '<div class="admin-ed-head"><div class="admin-ed-headinfo"><h2 class="admin-ed-title">' + esc(uCardTitle(c)) + '</h2>' +
         '<div class="admin-ed-key">' + esc(d ? d.title : "") + '</div></div>' +
         '<div class="admin-ed-actions"><span class="admin-saved" id="adminSaved"></span>' +
         '<button class="admin-delete" id="stDelCard" type="button">Delete card</button></div></div>' +
+      typePicker +
       liveCardEditorHTML({ dirAttr: "", metaHtml: metaRow, imagePanel: true, videoPanel: true, sourcesPanel: true });
 
+    studioWireTypePicker(host, c);
     wireLiveCardEditor(host, {
       card: c,
       isEn: true,
@@ -8039,6 +8759,91 @@
         uCardDelete(c.id); studioState.card = null; toast("Card deleted"); render();
       }, "Delete");
     });
+  }
+  /* ---------- choosing a card's type ----------
+     One row above the card, on both surfaces, so the answer to "what kind of card is this?" is in the same
+     place whichever kind it currently is. A deck with no types of its own still shows it, with a line saying
+     where to make one — a picker of one option explains the feature better than no picker at all does. */
+  function studioTypePickerHTML(d, c) {
+    const types = uTypeList(d ? d.id : "");
+    const cur = c.type && uTypeGet(c.deckId, c.type) ? c.type : CARD_TYPE_BASIC;
+    return '<div class="ces-typebar">' +
+      '<label class="ces-typepick"><span>Card type</span>' +
+        '<select class="af-input" id="cesCardType">' +
+          '<option value="' + CARD_TYPE_BASIC + '"' + (cur === CARD_TYPE_BASIC ? " selected" : "") + ">Basic — Folio&rsquo;s own format</option>" +
+          types.map((t) => '<option value="' + esc(t.id) + '"' + (cur === t.id ? " selected" : "") + ">" + esc(t.name) + "</option>").join("") +
+        "</select></label>" +
+      (types.length ? "" : '<span class="ces-typenote">Write your own on the <b>Card types</b> tab.</span>') +
+    "</div>";
+  }
+  function studioWireTypePicker(host, c) {
+    const sel = host.querySelector("#cesCardType");
+    if (!sel) return;
+    sel.addEventListener("change", () => {
+      const to = sel.value;
+      const from = c.type || CARD_TYPE_BASIC;
+      if (to === from) return;
+      // Changing type does not throw anything away: a Basic card keeps its question and background, and a
+      // typed card keeps its field values, so switching back and forth is free and reversible.
+      uCardSetType(c.id, to);
+      render();
+    });
+  }
+  function studioRenderTypedCardEditor(host, c, d, typePicker) {
+    const t = cardTypeOf(c);
+    const vals = c.fields || {};
+    host.innerHTML =
+      '<div class="admin-ed-head"><div class="admin-ed-headinfo"><h2 class="admin-ed-title">' + esc(uCardTitle(c)) + "</h2>" +
+        '<div class="admin-ed-key">' + esc(t.name) + (d ? " · " + esc(d.title) : "") + "</div></div>" +
+        '<div class="admin-ed-actions"><span class="admin-saved" id="adminSaved"></span>' +
+        '<button class="admin-delete" id="stDelCard" type="button">Delete card</button></div></div>' +
+      typePicker +
+      '<div class="ut-form">' +
+        t.fields.map((f) =>
+          '<label class="admin-field"><span class="af-label">' + esc(f) + "</span>" +
+          '<textarea class="af-input ut-code" data-ufield="' + esc(f) + '" rows="3" spellcheck="false">' + esc(vals[f] || "") + "</textarea></label>").join("") +
+        '<div class="ut-preview"><span class="af-label">Preview</span><div class="ut-preview-box" id="stCardPv"></div></div>' +
+      "</div>";
+    studioWireTypePicker(host, c);
+    function paint() {
+      const box = host.querySelector("#stCardPv");
+      if (!box) return;
+      box.innerHTML =
+        '<div class="study-card admin-pv-card">' +
+          '<span class="label">Question</span><div class="question">' + cardFrontHTML(c) + "</div>" +
+          '<div class="reveal show"><div class="reveal-inner">' + buildBack(c) + "</div></div>" +
+        "</div>";
+      openLinks(box);
+    }
+    paint();
+    host.querySelectorAll("[data-ufield]").forEach((el) => el.addEventListener("input", () => {
+      uCardSetFieldValue(c.id, el.dataset.ufield, el.value);
+      adminFlashSaved();
+      paint();   // in place, so the caret stays where the author is typing
+      const title = uCardTitle(c);
+      const h = host.querySelector(".admin-ed-title"); if (h) h.textContent = title;
+      const row = document.querySelector('.studio-cardrow[data-card="' + cssEsc(c.id) + '"] .scr-title');
+      if (row) row.textContent = title;
+    }));
+    host.querySelector("#stDelCard").addEventListener("click", () => {
+      inlineConfirm("Delete this card from “" + (d ? d.title : "the deck") + "”?", () => {
+        uCardDelete(c.id); studioState.card = null; toast("Card deleted"); render();
+      }, "Delete");
+    });
+  }
+  // What a card is called in the deck's own list. A Basic card is its answer; a typed card has no answer, so
+  // it is the first field with anything in it — which is the one an author fills in first.
+  function uCardTitle(c) {
+    if (!c) return "(untitled)";
+    if (cardTypeOf(c)) {
+      const t = cardTypeOf(c), vals = c.fields || {};
+      for (let i = 0; i < t.fields.length; i++) {
+        const v = sanitizePlain(vals[t.fields[i]]).trim();
+        if (v) return v.slice(0, 120);
+      }
+      return "(empty " + t.name + ")";
+    }
+    return sanitizePlain(c.answer) || "(untitled)";
   }
   function cssEsc(s) { return String(s).replace(/["\\]/g, "\\$&"); }
 
@@ -8203,6 +9008,9 @@
     const first = cards[0];
     if (first && first.data) {
       const norm = uCardSanitize(first.data, "preview0", 0);   // never trust the server copy
+      // The sample belongs to no local deck, so a card of one of the author's own types has nowhere to look
+      // its template up. Hand it the type directly — sanitized here, since row.types is the server's word.
+      if (norm.type) { const pt = uTypesSanitize(row.types)[norm.type]; if (pt) norm._type = pt; }
       renderCardPreviewInto(sampleBox, norm);
     } else {
       sampleBox.innerHTML = '<div class="lib-empty">This deck has no cards to preview.</div>';
@@ -8527,7 +9335,9 @@
          random sibling of it. */
       const codPick = params.scope.addTo === "cotd" ? (n) => (hashStr("codq-" + todayStr()) >>> 0) % n : undefined;
       const base = cardLocalized(cardById(id));
-      const pool = cardQuestions(base);
+      // a card of one of a deck's own types asks its FRONT TEMPLATE and has no phrasing pool — the chevrons
+      // and the "1 / 3" counter are about the Basic format's `questions` array, which such a card doesn't carry
+      const pool = cardTypeOf(base) ? [] : cardQuestions(base);
       if (!Number.isInteger(qIdx) || qIdx < 0 || qIdx >= pool.length) {
         qIdx = pool.length <= 1 ? 0 : (codPick ? codPick(pool.length) : Math.floor(Math.random() * pool.length));
       }
@@ -8552,7 +9362,7 @@
             <div class="study-card">
               ${ttsEnabled() ? `<button class="tts-mute${S.settings.ttsMuted ? " muted" : ""}" id="ttsMute" type="button" aria-label="${S.settings.ttsMuted ? "Unmute read-aloud" : "Mute read-aloud"}" title="Mute / unmute read-aloud">${ttsMuteIconSVG()}</button>` : ""}
               <span class="label">Question${pool.length > 1 ? `<span class="q-cycle"><button type="button" class="qc-btn" data-qc="-1" aria-label="Previous phrasing of this question"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button><span class="qc-n" id="qcN">${qIdx + 1} / ${pool.length}</span><button type="button" class="qc-btn" data-qc="1" aria-label="Next phrasing of this question"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button></span>` : ""}${ttsPlayHTML("question", true)}</span>
-              <div class="question">${c.question}</div>
+              <div class="question">${cardFrontHTML(c)}</div>
               <div class="reveal" id="reveal"><div class="reveal-inner" id="revealInner"></div></div>
             </div>
             <div class="actions" id="actions"></div>
@@ -9136,7 +9946,90 @@
   }
 
   // build the back-of-card markup from deck fields (mirrors the deck's back template)
+  /* ---------- rendering a card of a custom type ----------
+     The template language is Anki's, cut to what a hand-written template needs: {{Field}} interpolates a
+     value, {{FrontSide}} on the back is the rendered front, and {{#Field}}…{{/Field}} / {{^Field}}…{{/Field}}
+     keep a block only when the field is filled in / empty. There are no filters — a template that needs
+     something cleverer than this is a template that wants a build step, which Folio does not have.
+
+     One choke point, cardTypeSideHTML, and everything it composes passes through sanitizeHTML on the way out.
+     That LAST pass is what makes interpolation safe: the template and the field values are each clean in the
+     store, but a value dropped into `<img src="{{X}}">` is only checked once the two are one string. */
+  function tplRender(tpl, get) {
+    let s = String(tpl == null ? "" : tpl);
+    // conditional sections, innermost pair first; the pass cap is a backstop against a pathological template
+    for (let pass = 0; pass < 8; pass++) {
+      let changed = false;
+      s = s.replace(/\{\{([#^])\s*([^{}#^/]{1,60}?)\s*\}\}([\s\S]*?)\{\{\/\s*\2\s*\}\}/g, (m, kind, name, body) => {
+        changed = true;
+        return ((kind === "#") === (String(get(name.trim()) || "").trim() !== "")) ? body : "";
+      });
+      if (!changed) break;
+    }
+    return s.replace(/\{\{\s*([^{}#^/][^{}]{0,59}?)\s*\}\}/g, (m, name) => {
+      const v = get(name.trim());
+      return v == null ? "" : String(v);
+    });
+  }
+  function cardTypeOf(c) {
+    if (!c || !c.type || c.type === CARD_TYPE_BASIC) return null;
+    if (c._type) return c._type;   // a card previewed outside any local deck carries its own type — see PAGES.deck
+    if (!c.deckId) return null;
+    const d = UDECKS[c.deckId];
+    return (d && d.types && d.types[c.type]) || null;
+  }
+  function cardTypeFieldGetter(c, frontHTML) {
+    const f = (c && c.fields) || {};
+    return function (name) {
+      if (/^frontside$/i.test(name)) return frontHTML == null ? "" : frontHTML;
+      if (Object.prototype.hasOwnProperty.call(f, name)) return f[name];
+      // a template and its field list can differ in case; matching loosely beats rendering a silent blank
+      const k = Object.keys(f).find((x) => x.toLowerCase() === String(name).toLowerCase());
+      return k ? f[k] : "";
+    };
+  }
+  /* A type's stylesheet as ONE <style> element per (deck, type), scoped to that type's own cards. Leaving
+     them in place is safe precisely because they are scoped — nothing can collide — and re-injecting per
+     render would restyle the page on every card. The cap is a backstop for a session that installs decks all
+     afternoon; the oldest goes first, so the type on screen is always the one that has a stylesheet. */
+  const UTYPE_STYLE_CAP = 60;
+  function cardTypeScopeId(deckId, typeId) { return String(deckId) + "__" + String(typeId); }
+  function ensureCardTypeStyle(deckId, type) {
+    const scopeId = cardTypeScopeId(deckId, type.id);
+    const key = "uct-" + scopeId;
+    let el = document.getElementById(key);
+    if (!el) {
+      const live = document.querySelectorAll("style[data-uct]");
+      if (live.length >= UTYPE_STYLE_CAP) live[0].remove();
+      el = document.createElement("style");
+      el.id = key;
+      el.setAttribute("data-uct", scopeId);
+      document.head.appendChild(el);
+    }
+    const css = cssScoped(sanitizeCSSText(type.css), '.uc-card[data-uct="' + cssEsc(scopeId) + '"]');
+    if (el.textContent !== css) el.textContent = css;
+    return scopeId;
+  }
+  // the card's front or back as HTML, or null when the card is a Basic one (which every caller falls back on)
+  function cardTypeSideHTML(c, side) {
+    const t = cardTypeOf(c);
+    if (!t) return null;
+    const scopeId = ensureCardTypeStyle(c.deckId, t);
+    const front = tplRender(t.front, cardTypeFieldGetter(c, null));
+    const html = side === "front" ? front : tplRender(t.back, cardTypeFieldGetter(c, front));
+    return '<div class="uc-card uc-' + side + '" data-uct="' + esc(scopeId) + '">' + sanitizeHTML(html) + "</div>";
+  }
+  // what goes in the study card's question area: a custom type's front template, or the Basic question
+  function cardFrontHTML(c) {
+    const custom = cardTypeSideHTML(c, "front");
+    return custom == null ? ((c && c.question) || "") : custom;
+  }
+
   function buildBack(c) {
+    // a custom type owns the whole of the back — but keeps the site's own source apparatus below it, since
+    // a community card can carry citations and the fold is not the template's to reinvent
+    const typed = cardTypeSideHTML(c, "back");
+    if (typed != null) return typed + sourcesHTML(cardSources(c));
     let html = "";
     if (c.answer) {
       const hasTr = !!c.hanzi;
@@ -9428,7 +10321,7 @@
     box.innerHTML =
       '<div class="study-card admin-pv-card">' +
         '<span class="label">Question</span>' +
-        '<div class="question">' + (c.question || '<em style="color:var(--ink-faint)">(no question)</em>') + '</div>' +
+        '<div class="question">' + (cardFrontHTML(c) || '<em style="color:var(--ink-faint)">(no question)</em>') + '</div>' +
         '<div class="reveal show"><div class="reveal-inner">' + buildBack(c) + '</div></div>' +
       '</div>';
     const inner = box.querySelector(".reveal-inner");
@@ -9807,35 +10700,98 @@
     }
     return chosen;
   }
-  function chronoAfterEl(container, y) {
-    const els = [...container.querySelectorAll(".chrono-item:not(.dragging)")];
-    let closest = { offset: -Infinity, el: null };
-    els.forEach((c) => {
-      const b = c.getBoundingClientRect();
-      const o = y - b.top - b.height / 2;
-      if (o < 0 && o > closest.offset) closest = { offset: o, el: c };
-    });
-    return closest.el;
+  /* ---------- the Timeline game's drag, rewritten (Aug 2026, on request) ----------
+     The old one moved the row by calling insertBefore on every pointermove and nothing else. Two things
+     followed, and both were reported as the drag feeling unpleasant. The row being dragged never went
+     anywhere under the finger — it was re-inserted at the new index and simply appeared there — so there
+     was no sense of carrying it. And every other row CUT to its new position, because a DOM reorder is a
+     reflow and a reflow is instant: five rows would rearrange between two frames with nothing to say
+     they had.
+
+     What replaces it holds those two apart. The dragged row is moved by TRANSFORM and follows the
+     pointer exactly; its siblings are reordered in the DOM as before, and then FLIPped from where they
+     were to where they now are, so they slide around it. The row stays IN THE FLOW throughout — it is
+     never absolutely positioned and there is no placeholder — which means the list's height never
+     changes, the DOM order is the answer at every instant, and an interrupted drag cannot leave the
+     puzzle in a state the reader did not choose.
+
+     The one subtlety is that reordering moves the dragged row's own layout position out from under it,
+     so its transform has to be recomputed against the new layout on every reorder — otherwise it jumps
+     by exactly one row's height at the moment it swaps. `pinToPointer` is that recomputation, and it is
+     why the offset is tracked as "where the pointer grabbed it" rather than as a running delta. */
+  const CHRONO_FLIP_MS = 200;
+  function chronoSetY(el, y) {
+    el._cdy = y;
+    el.style.transform = y ? "translateY(" + y + "px)" : "";
   }
+  // where the row would sit with no transform on it — a rect reads the PAINTED position, which is not
+  // the layout position while the row is being carried
+  function chronoLayoutTop(el) { return el.getBoundingClientRect().top - (el._cdy || 0); }
   function setupChronoDrag(listEl, onChange) {
-    let dragging = null;
-    listEl.querySelectorAll(".chrono-item").forEach((item) => {
-      const grip = item.querySelector(".ci-grip");
-      grip.addEventListener("pointerdown", (e) => {
-        dragging = item; item.classList.add("dragging");
-        try { grip.setPointerCapture(e.pointerId); } catch (x) {}
-        e.preventDefault();
-      });
-      grip.addEventListener("pointermove", (e) => {
-        if (!dragging) return;
-        const after = chronoAfterEl(listEl, e.clientY);
-        if (after == null) listEl.appendChild(dragging);
-        else listEl.insertBefore(dragging, after);
-      });
-      const end = () => { if (dragging) { dragging.classList.remove("dragging"); dragging = null; onChange && onChange(); } };
-      grip.addEventListener("pointerup", end);
-      grip.addEventListener("pointercancel", end);
+    let drag = null;
+    const rows = () => [].slice.call(listEl.querySelectorAll(".chrono-item"));
+
+    // glue the dragged row to the pointer, whatever the list has done underneath it
+    const pinToPointer = (e) => {
+      chronoSetY(drag.el, (drag.startTop + (e.clientY - drag.grabY)) - chronoLayoutTop(drag.el));
+    };
+
+    listEl.addEventListener("pointerdown", (e) => {
+      const grip = e.target.closest(".ci-grip");
+      if (!grip || (e.button != null && e.button > 0)) return;
+      const el = grip.closest(".chrono-item");
+      if (!el) return;
+      drag = { el: el, grabY: e.clientY, startTop: el.getBoundingClientRect().top, moved: false, pid: e.pointerId };
+      el.classList.add("dragging");
+      // capture on the LIST, not the grip: the pointer spends the whole drag over OTHER rows, and a
+      // capture on the handle that has just been transformed away from under it is asking for trouble
+      try { listEl.setPointerCapture(e.pointerId); } catch (x) {}
+      e.preventDefault();
     });
+
+    listEl.addEventListener("pointermove", (e) => {
+      if (!drag) return;
+      if (!drag.moved) {
+        if (Math.abs(e.clientY - drag.grabY) < 3) return;   // a press that has not become a drag
+        drag.moved = true;
+      }
+      pinToPointer(e);
+
+      /* Where does it belong now? Measured against the LAYOUT positions of the other rows, never their
+         painted ones — a sibling part-way through its own FLIP animation is painted somewhere it is not,
+         and reading that would make the list flicker between two orders. */
+      const carried = drag.el.getBoundingClientRect();
+      const mid = carried.top + carried.height / 2;
+      const others = rows().filter((r) => r !== drag.el);
+      let before = null;
+      for (const r of others) {
+        const top = chronoLayoutTop(r);
+        if (mid < top + r.offsetHeight / 2) { before = r; break; }
+      }
+      const next = before || null;
+      // already there? nothing to do — and no FLIP, so a drag within one row's height is free
+      if ((next && drag.el.nextElementSibling === next) || (!next && !drag.el.nextElementSibling)) return;
+
+      flipMove(others, () => {
+        if (next) listEl.insertBefore(drag.el, next);
+        else listEl.appendChild(drag.el);
+      }, { duration: CHRONO_FLIP_MS });
+      pinToPointer(e);   // the reorder moved its layout slot; keep it under the finger
+      if (onChange) onChange();
+    });
+
+    const end = () => {
+      if (!drag) return;
+      const el = drag.el;
+      drag = null;
+      // let go and it settles into its slot rather than snapping to it
+      el.classList.remove("dragging");
+      el.classList.add("settling");
+      chronoSetY(el, 0);
+      setTimeout(() => el.classList.remove("settling"), CHRONO_FLIP_MS + 40);
+    };
+    listEl.addEventListener("pointerup", end);
+    listEl.addEventListener("pointercancel", end);
   }
 
   PAGES.chrono = function (root) {
@@ -9901,10 +10857,16 @@
       const btn = root.querySelector("#chrono-check");
       if (btn) btn.textContent = "Check order";
     }
+    // the arrows swap two rows, and a swap is a reflow — so they FLIP too. Without this the buttons
+    // beside a dragged row would be the one way left of reordering the list with a hard cut.
     function move(item, dir) {
       const list = item.parentElement;
-      if (dir < 0 && item.previousElementSibling) list.insertBefore(item, item.previousElementSibling);
-      else if (dir > 0 && item.nextElementSibling) list.insertBefore(item.nextElementSibling, item);
+      const other = dir < 0 ? item.previousElementSibling : item.nextElementSibling;
+      if (!other) return;
+      flipMove([item, other], () => {
+        if (dir < 0) list.insertBefore(item, other);
+        else list.insertBefore(other, item);
+      }, { duration: CHRONO_FLIP_MS });
       clearMarks();
     }
     function wire() {
@@ -14182,10 +15144,23 @@
             ${/* It scales EVERYTHING now (Aug 2026, on request) — it used to reach the reading prose only,
                   and the sentence named the three surfaces it got to. The one thing it cannot reach is the
                   Atlas map's own labels, which are drawn on a canvas. */""}
+            ${/* A SLIDER across the full width, not three buttons on the left (Aug 2026, on request). The
+                  three sizes are an ORDERED scale — small, medium, large — and a segmented control says
+                  nothing about that ordering while leaving two thirds of the row empty. A native
+                  <input type="range"> is what carries it: it is the one control a browser already gives
+                  arrow keys, Home/End and a drag to, and its value is the INDEX into FONT_SIZES rather
+                  than the name, so the scale and the stored setting can never disagree. The tick labels
+                  are aria-hidden marks under the track — the range itself is the control and announces
+                  the size through aria-valuetext, so labelling them again would read the scale twice. */""}
             <div class="info"><h3>Text size</h3><p>How large the text across Folio is — every page, not just what you read on a card. The Atlas map's own labels keep their size.</p></div>
-            <div class="ctl"><div class="fs-pick" id="fsPick" role="group" aria-label="Text size">${
-              FONT_SIZES.map((f) => `<button type="button" data-fs="${f}" class="${fsNow === f ? "on" : ""}" aria-pressed="${fsNow === f}"><span class="fs-a" aria-hidden="true">A</span>${f.charAt(0).toUpperCase() + f.slice(1)}</button>`).join("")
-            }</div></div>
+            <div class="ctl"><div class="fs-slide" id="fsPick">
+              <input type="range" id="fsRange" class="fs-range" min="0" max="${FONT_SIZES.length - 1}" step="1"
+                     value="${FONT_SIZES.indexOf(fsNow)}" aria-label="Text size"
+                     aria-valuetext="${fsNow.charAt(0).toUpperCase() + fsNow.slice(1)}">
+              <div class="fs-ticks" aria-hidden="true">${
+                FONT_SIZES.map((f) => `<span class="fs-tick${fsNow === f ? " on" : ""}" data-fs="${f}"><span class="fs-a">A</span>${f.charAt(0).toUpperCase() + f.slice(1)}</span>`).join("")
+              }</div>
+            </div></div>
           </div>
         </div>
         ${/* The language picker (moved off the top bar Aug 2026 — see langPickerHTML). Gone from the page
@@ -14264,12 +15239,11 @@
     if (swAuto) { swAuto.addEventListener("click", toggleAuto); swAuto.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleAuto(); } }); }
     wireLangPicker(root);
 
-    // text size — delegated on the group, so the three buttons need no listener each
-    const fsPick = root.querySelector("#fsPick");
-    if (fsPick) fsPick.addEventListener("click", (e) => {
-      const b = e.target.closest("[data-fs]");
-      if (b) setFontSize(b.dataset.fs);
-    });
+    // text size — a range over the FONT_SIZES index. `input` rather than `change`, so the site resizes
+    // under the thumb as it is dragged; setFontSize is idempotent and a drag across one step is two
+    // events at most, so there is nothing here worth debouncing.
+    const fsRange = root.querySelector("#fsRange");
+    if (fsRange) fsRange.addEventListener("input", () => setFontSize(FONT_SIZES[+fsRange.value] || "medium"));
     // measurements — the same segmented control, and the same delegation
     const unitPick = root.querySelector("#unitPick");
     if (unitPick) unitPick.addEventListener("click", (e) => {
