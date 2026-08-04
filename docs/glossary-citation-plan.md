@@ -2583,6 +2583,37 @@ least one in-text marker, and the markers are identical across English and all n
 109 in batch 26, **`country-sources.js` — the Atlas place panels — is the only surface in Folio that still
 shows no sources.**
 
+**It has STAYED complete through the N-batches, and that is the point of them** — 487 of 487 as of
+2026-08-04. A term added after the pass joins at the bar rather than reopening a backlog, so the audit has
+never gone back above zero.
+
+### Batch N11 — the Leakey circle, two Oldowan sites, Clark's modes and Latin (2026-08-04)
+
+Ten terms on request: `Paranthropus`, `Ledi-Geraru`, `Nyayanga`, `Louis_Leakey`, `Mary_Leakey`,
+`Phillip_Tobias`, `John_Napier`, `Grahame_Clark`, `Mode_1`, `Latin`. `Younger_Dryas` was asked for with
+them and already existed, at the bar, on four sources — **check the glossary before researching a
+requested term**, which cost nothing here and would have cost a batch's work.
+
+Its findings are in full in `.claude/sources-register.md`; three are worth carrying:
+
+- **A British Academy Biographical Memoir is an ENCRYPTED PDF, not an unreachable one.** The root domain
+  is 403 and the `/documents/<id>/<vol>p<page>.pdf` paths are 200, but the streams will not inflate,
+  because the trailer carries `/Encrypt` — the standard handler with an empty user password. Decrypting it
+  is about forty lines of RC4. This matters beyond one term: the Memoirs are the canonical scholarly life
+  of every Fellow, which is exactly the class of source G8 found the literature does not otherwise pay for.
+  Ligatures extract badly (fi/fl have no `/ToUnicode` map), so read numbers carefully.
+- **N9's encyclopedia test passes for a foundation's own history page.** The Leakey Foundation's carries a
+  numbered footnote to J. Desmond Clark's British Academy memoir of Louis Leakey — tested per article, as
+  N9 requires, and it clears where Britannica and SNL did not.
+- **`John_Napier` ships with no date line and no job title**, because nothing openable here carries them:
+  his *Journal of Anatomy* obituary is on PMC and is not open access, and Europe PMC's affiliation field is
+  empty for every pre-1988 record, which kills the one trick that would have supplied his post. The term
+  describes his work instead. Do not promote him to "British anatomist" later without a source.
+
+And a cheap way to pick the next batch: **every one of the ten already appeared in shipped card prose**
+(`wh-016` alone names six of them), so all ten began auto-linking on arrival. Grep the deck for
+capitalised surfaces that resolve to no term.
+
 ## Tracking
 
 ```

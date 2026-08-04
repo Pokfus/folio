@@ -11047,3 +11047,155 @@ New to the register:
 - `www.mdpi.com`, `royalsocietypublishing.org` — **403**.
 - `www.diva-portal.org` — **503**.
 - `www.stratigraphy.org` — 200.
+
+## Batch N11 — the Leakey circle, two Oldowan sites, Clark's modes and Latin (2026-08-04)
+
+Ten new terms, written cited at the bar rather than cited afterwards: `Paranthropus`, `Ledi-Geraru`,
+`Nyayanga`, `Louis_Leakey`, `Mary_Leakey`, `Phillip_Tobias`, `John_Napier`, `Grahame_Clark`, `Mode_1`,
+`Latin`. (`Younger_Dryas` was requested with them and already existed, at the bar, with four sources.)
+
+**Every one of the ten already appeared in shipped card prose** — `wh-016` alone names Mode 1, Grahame
+Clark, Nyayanga, Ledi-Geraru, Paranthropus and both Leakeys — so all ten began auto-linking the moment
+they landed. That is the card→glossary pairing rule read backwards, and it is the cheapest way to choose
+the next batch: **grep the deck for capitalised surfaces that resolve to nothing.**
+
+### The access finding, and it is reusable: a British Academy memoir is an ENCRYPTED PDF
+`thebritishacademy.ac.uk/documents/<id>/<vol>p<page>.pdf` serves the Biographical Memoirs — the canonical
+scholarly life of any FBA, and the only substantial open source for `Grahame_Clark`. The root domain is
+**403**, but the document paths are **200**. The file then decompresses to nothing: 39 `/FlateDecode`
+streams and not one that inflates, because the trailer carries `/Encrypt` — the standard security handler
+with an empty user password and the copy-protection flag set. Decrypting it is ~40 lines (pad the empty
+password, MD5 with `/O`, `/P` and the first `/ID`, iterate 50 times for R≥3, then RC4 per object with the
+object and generation numbers appended). `.claude/` deliberately does NOT carry the tool — it is a scratch
+helper, not part of the site — but **do not record a British Academy memoir as unreadable**; it is
+readable. Caveat: the fi/fl ligatures carry no `/ToUnicode` map, so "first" extracts as "rst" and
+"thirty-five" as "thirty-ve". Read numbers with that in mind.
+
+### The Leakey Foundation passes N9's encyclopedia test, and says so in a footnote
+- The Leakey Foundation, "The Leakey Family," accessed 4 August 2026, https://leakeyfoundation.org/about-us/the-leakey-family/. [Open access]
+  - opened: 2026-08-04 · the foundation's own history page
+  - supports: Louis Leakey born 7 August 1903 at Kabete Mission near Nairobi to English missionaries to
+    the Kikuyu, "spoke Kikuyu as fluently as English"; Cambridge from 1922, graduating 1926 "with honors
+    in anthropology and archaeology"; that he backed African origins while "the European scientific
+    community believed that Europe, or possibly Asia were the most likely cradles of humankind"; "In
+    1931, Leakey made his first expedition to Oldupai Gorge"; his death 1 October 1972; Jonathan
+    Leakey's 1960 jaw, "described in 1964 and named Homo habilis by Leakey and his colleagues Phillip
+    Tobias and John Napier"; his mentorship of Goodall, Fossey and Galdikas. And for Mary: born Mary
+    Douglas Nicol 6 February 1913; at seventeen an illustrator on the Hembury dig under Dorothy Liddell;
+    working in Kenya and Tanzania from 1935; *Proconsul africanus*, "an 18 million-year-old fossil ape",
+    Rusinga Island 1948; the 1959 Zinjanthropus skull; Laetoli in 1976 and 1977, "what she considered
+    the most exciting find of her career", footprints in tuffs matching *Australopithecus afarensis*;
+    died 9 December 1996
+  - **why it qualifies**: N9 set the test as *does this article cite its own sources?*, per article rather
+    than per publisher. This one does — a numbered footnote to J. Desmond Clark's British Academy memoir
+    of Louis Leakey (*Proceedings of the British Academy*, 1973, 447–71). Britannica's and SNL's articles
+    failed the same test in N9; a foundation's history page passed it.
+  - used by: Louis_Leakey, Mary_Leakey
+
+### The works
+- John Coles, "John Grahame Douglas Clark, 1907–1995," <i>Proceedings of the British Academy</i> 94 (1997): 357–87, https://www.thebritishacademy.ac.uk/documents/1403/94p357.pdf. [Open access]
+  - opened: 2026-08-04 · decrypted as above; page range read off the running heads (odd 359–387)
+  - supports: born 28 July 1907 at Shortlands near Bromley in Kent, died 12 September 1995; Editor of the
+    *Proceedings of the Prehistoric Society* "for thirty-five years"; "Dorothy Garrod made way and Clark
+    was elected to the Disney Professorship in Cambridge" in 1952; *Prehistoric Europe: The Economic
+    Basis* (London, 1952); *Excavations at Star Carr* (Cambridge, 1954); "In 1961 Clark published the
+    first edition of *World Prehistory: An Outline*"; "his pioneering work in prehistoric economies, in
+    the ecological approach"; a Fellowship at Peterhouse from 1950; the knighthood of 1992
+  - **does NOT mention the technological modes at all** — the attribution to Clark 1969 comes from Lee
+    2013 below, and the two are marked together on that sentence
+  - used by: Grahame_Clark
+- Hyeong Woo Lee, "The Persistence of Mode 1 Technology in the Korean Late Paleolithic," <i>PLoS ONE</i> 8, no. 5 (2013): e64999, https://pmc.ncbi.nlm.nih.gov/articles/PMC3665775/. [Open access]
+  - opened: 2026-08-04 · full text via Europe PMC
+  - supports: "In terms of Clark's technological Modes [17]", reference 17 being "Clark G (1969) World
+    prehistory: a new outline. Cambridge: Cambridge University Press" — the attribution of the numbered
+    modes; "conventional Mode 1 lithic production … simple direct percussion, with artifact types such
+    as choppers, polyhedrons, discoids and various forms of simply made flake tools"; Mode 2 as "crude
+    bifacially worked core tools"; and, in its title and argument, that Mode 1 assemblages persist into
+    the Late Palaeolithic of eastern Asia
+  - **note**: the paper names Modes 1–5 but never states that the scheme HAS five. `wh-016` says "the
+    simplest of his five"; the term says "the first of the numbered technological modes", which is what
+    this source will bear.
+  - used by: Mode_1, Grahame_Clark
+- Marie-Hélène Moncel et al., "What Is the Acheulean?," <i>Evolutionary Anthropology</i> 35, no. 2 (2026): e70029, https://pmc.ncbi.nlm.nih.gov/articles/PMC13066721/. [Open access]
+  - opened: 2026-08-04 · full text via Europe PMC
+  - supports: "the archaeological record of the Nihewan Basin … has traditionally been attributed to Mode
+    1 (Oldowan-like) technology"; the Movius Line as a supposed boundary "separating the Acheulean
+    traditions of the West from the supposedly 'conservative' Mode 1 industries of eastern Asia"
+  - used by: Mode_1
+- Brian Villmoare et al., "New Discoveries of <i>Australopithecus</i> and <i>Homo</i> from Ledi-Geraru, Ethiopia," <i>Nature</i> 650, no. 8101 (2026): 374–80, https://pmc.ncbi.nlm.nih.gov/articles/PMC12893913/. [Open access]
+  - opened: 2026-08-04 · full text via Europe PMC
+  - supports: the LGRP area "towards the northern extent of palaeoanthropological sites in the Afar
+    Region, Ethiopia"; that "the hominin fossil record between the last appearance of A. afarensis
+    (around 2.95 Ma) and 2.0 Ma is patchy"; "the presence of Homo at 2.78 and 2.59 million years ago and
+    Australopithecus at 2.63 million years ago"; that those Australopithecus specimens "cannot yet be
+    identified to species level"; and that the two "co-existed as two non-robust lineages in the Afar
+    Region before 2.5 million years ago". Also gives *Paranthropus* at Nyayanga "at approximately 2.7 Ma"
+  - used by: Ledi-Geraru
+- Emma M. Finestone et al., "Selective Use of Distant Stone Resources by the Earliest Oldowan Toolmakers," <i>Science Advances</i> 11, no. 33 (2025): eadu5838, https://pmc.ncbi.nlm.nih.gov/articles/PMC12356259/. [Open access]
+  - opened: 2026-08-04 · full text via Europe PMC
+  - supports: "Nyayanga is located on the Homa Peninsula on the western flank of the Homa Mountain
+    carbonatite complex", in "the Nyanza rift area of Kenya … on the southern margin of the Kavirondo
+    Gulf of Lake Victoria"; that it "preserves one of the oldest Oldowan artifact accumulations (3.040
+    to 2.581 Ma)"; "an early Oldowan assemblage associated with Paranthropus remains and multiple
+    hippopotamid butchery sites"; "the taxonomic identity of Nyayanga toolmakers remains unknown";
+    "Nonlocal cobbles were transported up to 13 kilometers"; and that this is beyond what nonhuman
+    primates do
+  - used by: Nyayanga
+- Alan Morris, "Phillip Tobias: Anthropologist and Mentor (1925–2012)," <i>South African Journal of Science</i> 108, no. 7–8 (2012), https://scielo.org.za/scielo.php?script=sci_arttext&pid=S0038-23532012000400008. [Open access]
+  - opened: 2026-08-04 · full text on SciELO South Africa; CC BY
+  - supports: born Durban 1925, died 7 June 2012; "initially trained as a medical doctor, graduating in
+    1950"; "Professor of Anatomy from 1959 until 1990" at the University of the Witwatersrand; that at
+    the 1959 Pan-African Congress "Louis and Mary Leakey offered him the opportunity to describe their
+    newly excavated 'Zinjanthropus' fossil cranium", leading to monographs on *Australopithecus boisei*
+    and *Homo habilis*; "In that year, he, Leakey and John Napier described Homo habilis for the first
+    time"; the Kalahari Research Programme and his work on the living Khoesan; that he was "an
+    implacable debunker of myths, especially those that have ranked intelligence of human races"; and
+    his opposition to apartheid "from his earliest student days"
+  - **note**: this article spells him Phillip **Valentine** Tobias; the Royal Society memoir spells it
+    Vallentine. The term uses neither — it carries no middle name.
+  - used by: Phillip_Tobias, John_Napier
+- Wenbo Zheng et al., "Human Grasp Mechanism Understanding, Human-Inspired Grasp Control and Robotic Grasping Planning for Agricultural Robots," <i>Sensors</i> 22, no. 14 (2022): 5240, https://pmc.ncbi.nlm.nih.gov/articles/PMC9324230/. [Open access]
+  - opened: 2026-08-04 · full text via Europe PMC
+  - supports: "Napier [15] … divided the grasping configuration into the precision grip and power grip",
+    reference 15 being "Napier J.R. The prehensile movements of the human hand J. Bone Jt. Surgery. Br.
+    1956 38 902 913"
+  - **an odd-looking citation on a prehistory term, and deliberate**: it is the only OPEN work found that
+    states the attribution outright. The palaeoanthropological papers that cite Napier 1956 (PeerJ
+    PMC8489413 among them) cite him for the fact and never name the classification as his.
+  - used by: John_Napier
+- Smithsonian National Museum of Natural History, Human Origins Program, "<i>Paranthropus aethiopicus</i>" / "<i>Paranthropus boisei</i>" / "<i>Paranthropus robustus</i>," accessed 4 August 2026. [Open access]
+  - opened: 2026-08-04 · the museum's species records, as for the *Australopithecus* trio in batch 19
+  - supports: aethiopicus "About 2.7 to 2.3 million years ago", eastern Africa; boisei "About 2.3 to 1.2
+    million years ago", eastern Africa, with "a strong sagittal crest", "flaring cheekbones", "massive
+    cheek teeth four times the size of a modern human's" and "the thickest dental enamel of any known
+    early human"; robustus "About 1.8 to 1.2 million years ago", South Africa, named by Robert Broom in
+    1938, "*Paranthropus* meaning 'beside man'", and that "'robust' refers solely to tooth and face size,
+    not to the body size"; and that the genus "belongs to just one of the many side branches of human
+    evolution … and did not lead to H. sapiens"
+  - used by: Paranthropus
+
+### `John_Napier` ships with NO date line and NO job title — G8's limit, met head on
+G8 found that the literature pays for results and not for definitions or for lives. Napier is the sharpest
+case yet. His obituary exists and is **not open**: "Professor John Russell Napier," *Journal of Anatomy*
+159 (1988): 227–29, `PMC1262025` — the NCBI OA service answers `identifier 'PMC1262025' is not Open
+Access`, `fullTextXML` 404s and the PDF route is 403. Nothing else openable here states his dates,
+nationality or post: `psgb.org` has no history page, `archiveshub.jisc.ac.uk` is 403, `siarchives.si.edu`
+returns nothing for him, and the Virginia Tech *Biographical Dictionary of the History of
+Paleoanthropology* has only two entries, neither his. **One trick was tried and failed and is worth
+recording so nobody tries it twice**: Europe PMC `resultType=core` exposes `authorAffiliationDetailsList`,
+which would have given "Department of Anatomy, Royal Free Hospital School of Medicine" from one of his own
+papers — but the field is empty for every pre-1988 record, and all eighteen of his indexed papers are
+older than that. So the term describes his WORK and never says what he was. **Do not quietly promote him
+to "British anatomist" on a later pass without a source.**
+
+### Hosts, measured 2026-08-04 (batch N11)
+- `www.thebritishacademy.ac.uk` — **403 on the root, 200 on `/documents/<id>/<file>.pdf`**. The PDFs are
+  RC4-encrypted; see above.
+- `humanorigins.si.edu`, `leakeyfoundation.org`, `scielo.org.za`, `lrc.la.utexas.edu`, `www.rom.uga.edu`,
+  `par.nsf.gov` — 200.
+- `www.ebi.ac.uk/europepmc/webservices/rest/<PMCID>/fullTextXML` — the working route; `pmc.ncbi.nlm.nih.gov`
+  article HTML now serves a browser check, so it is a reader's link and not a fetchable one.
+- `www.science.org`, `royalsocietypublishing.org`, `archiveshub.jisc.ac.uk`, `peerj.com` — **403**.
+- `www.nature.com` — **303** to an identity-provider endpoint.
+- `vatican.va` — 200 but JavaScript-rendered; the constitution's text never arrives.
+- `doaj.org/api` — 200 and useful for finding open articles by title.
