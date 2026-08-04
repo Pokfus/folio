@@ -1256,7 +1256,9 @@ async function studyEasy(page, base, n) {
       send("pointerdown", 900, 400); send("pointermove", 800, 400); send("pointerup", 700, 400);
       await new Promise((r) => setTimeout(r, 700));
     });
-    check("the swipe is phone-only", (await page.evaluate(() => location.hash || "#")) === "#");
+    // "#home" or "" — the app only clears the hash when it ROUTES home, and booting there leaves what was typed
+    check("the swipe is phone-only", /^(#home)?$/.test(await page.evaluate(() => location.hash)),
+      await page.evaluate(() => location.hash));
     await page.close();
   }
 
