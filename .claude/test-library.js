@@ -41,6 +41,33 @@ const check = (label, ok, detail) => {
 const PHONE = { width: 390, height: 844 };
 const DESK = { width: 1280, height: 900 };
 
+/* Read the SHIPPED book files and look for Wikisource's own stylesheet in them. Done in Node, over
+   every chapter of every book, rather than in the page over whichever chapter happens to be open —
+   the leak sat in 24 of Seneca's 335 notes and each one is only visible to a reader who opens that
+   chapter's fold, so a one-chapter check is a check that passes by luck. */
+function shippedBookLeaks() {
+  const dir = path.join(ROOT, "books");
+  const bad = { n: 0, notes: [], html: [] };
+  if (!fs.existsSync(dir)) return bad;
+  fs.readdirSync(dir).filter((f) => f.endsWith(".js")).forEach((f) => {
+    global.window = {};
+    delete require.cache[require.resolve(path.join(dir, f))];
+    require(path.join(dir, f));
+    (global.window.FOLIO_BOOKS_IN || []).forEach((b) => {
+      (b.chapters || []).forEach((c) => {
+        bad.n++;
+        // a CSS rule set, however it arrived: the class MediaWiki scopes them with, a surviving
+        // <style> tag, or a bare `selector{prop:value}` in what should be a sentence
+        (c.notes || []).forEach((s, i) => {
+          if (/\.mw-parser-output|<style|\{[^{}]*:[^{}]*\}/.test(s)) bad.notes.push(b.id + " " + c.n + "#" + (i + 1));
+        });
+        if (/\.mw-parser-output|<style/.test(c.html || "")) bad.html.push(b.id + " " + c.n);
+      });
+    });
+  });
+  return bad;
+}
+
 (async () => {
   // every request the page makes, so "is the book lazy?" is answered by observation
   const asked = [];
@@ -108,19 +135,47 @@ const DESK = { width: 1280, height: 900 };
         title: (t.querySelector(".bk-tile-title") || {}).textContent || "",
         author: (t.querySelector(".bk-tile-author") || {}).textContent || "",
         meta: (t.querySelector(".bk-tile-meta") || {}).textContent || "",
+        when: (t.querySelector(".bk-tile-when") || {}).textContent || "",
+        blurb: !!t.querySelector(".bk-tile-blurb"),
         spine: !!t.querySelector(".bk-spine"),
+        h: Math.round(t.getBoundingClientRect().height),
       })),
       cols: getComputedStyle(document.querySelector(".book-grid")).gridTemplateColumns.split(" ").length,
+      sortOpts: [...document.querySelectorAll("#bkSort option")].map((o) => o.value),
       note: (document.querySelector(".lib-note") || {}).textContent || "",
     }));
     check("the shelf shows a tile per book", d.tiles.length >= 1, JSON.stringify(d.tiles.map((t) => t.id)));
     check("...naming the work and its author", /Letters from a Stoic/i.test(d.tiles[0].title) && /Seneca/i.test(d.tiles[0].author), JSON.stringify(d.tiles[0]));
     check("...saying how long it is", /\d+\s+letters/i.test(d.tiles[0].meta), d.tiles[0].meta);
     check("...each with its coloured spine", d.tiles.every((t) => t.spine));
-    check("the shelf lays out two to a row on a desktop", d.cols === 2, String(d.cols));
+    /* The tile is SMALL (Aug 2026, on request), and the two halves of that are asserted separately
+       because they fail in opposite ways: the blurb creeping back would make it tall again, and the
+       date going missing would leave a history shelf saying nothing about when anything was written.
+       The height ceiling is what a "smaller tile" actually means — it was ~200px with the blurb. */
+    check("...with the year it was written, where the blurb used to be",
+      /\d/.test(d.tiles[0].when) && !d.tiles.some((t) => t.blurb), JSON.stringify({ when: d.tiles[0].when, blurb: d.tiles.some((t) => t.blurb) }));
+    check("...and short with it", d.tiles.every((t) => t.h <= 120), JSON.stringify(d.tiles.map((t) => t.h)));
+    check("the shelf is one full-width banner per row", d.cols === 1, String(d.cols));
+    check("...and can be sorted, by title, author and date as well as by reading",
+      ["title", "author", "written"].every((v) => d.sortOpts.includes(v)), d.sortOpts.join(","));
     check("the page states the rule that decides what may be shelved", /copyright/i.test(d.note) && /translation/i.test(d.note), d.note.slice(0, 90));
     check("...and STILL no book text has been fetched", !asked.some((u) => u.startsWith("/books/")), asked.filter((u) => u.startsWith("/books/")).join(","));
     bookHref = d.tiles[0].id;
+
+    /* A banner spans the FULL width on a phone too (Aug 2026, on request — it was briefly two narrow
+       tiles side by side, which was asked for and then asked back). The count is read off the GRID as
+       well as off the banner, so this still holds the day a second book lands. */
+    await page.setViewportSize(PHONE);
+    await page.waitForTimeout(400);
+    const ph = await page.evaluate(() => {
+      const g = document.querySelector(".book-grid"), t = document.querySelector(".book-tile");
+      return { cols: getComputedStyle(g).gridTemplateColumns.split(" ").length,
+        w: Math.round(t.getBoundingClientRect().width), page: Math.round(g.getBoundingClientRect().width),
+        h: Math.round(t.getBoundingClientRect().height) };
+    });
+    check("[phone] the shelf is still one banner per row", ph.cols === 1, JSON.stringify(ph));
+    check("[phone] ...spanning the full width", ph.w >= ph.page - 1, JSON.stringify(ph));
+    check("[phone] ...and still short, without the blurb", ph.h <= 120, JSON.stringify(ph));
     await page.close();
   }
 
@@ -139,11 +194,13 @@ const DESK = { width: 1280, height: 900 };
       chTitle: (document.querySelector(".bk-ch-t") || {}).textContent || "",
       paras: document.querySelectorAll(".bk-prose p").length,
       words: ((document.querySelector(".bk-prose") || {}).textContent || "").trim().split(/\s+/).length,
-      sections: document.querySelectorAll(".bk-prose .bk-n").length,
       barSticky: getComputedStyle(document.querySelector(".bk-bar")).position,
       // the lit tab in the top bar — a book belongs under the Library
       lit: [...document.querySelectorAll(".topbar .tab.active")].map((t) => t.dataset.route).join(","),
       rights: (document.querySelector(".bk-rights") || {}).textContent || "",
+      // the front matter is chapter 0, and nothing else may be
+      zeros: [...document.querySelectorAll(".bk-tab")].filter((t) => t.dataset.ch === "0").length,
+      footRights: !!document.querySelector(".bk-page ~ .bk-rights, .bk-foot ~ .bk-rights"),
     }));
     check("the book's text was fetched, and only now", asked.some((u) => u.startsWith("/books/")), asked.filter((u) => u.startsWith("/books/")).join(","));
     check("the book opens on its own page", /Letters from a Stoic/i.test(d.h1), d.h1);
@@ -151,11 +208,29 @@ const DESK = { width: 1280, height: 900 };
     check("...exactly one of them selected", d.on.length === 1, d.on.join(","));
     check("...showing that chapter's title", d.chTitle.trim().length > 3, d.chTitle);
     check("...and its prose, in paragraphs", d.paras >= 3 && d.words > 300, JSON.stringify({ paras: d.paras, words: d.words }));
-    check("the cited section numbers are kept", d.sections >= 3, String(d.sections));
     check("the chapter bar sticks to the top as the reader scrolls", d.barSticky === "sticky", d.barSticky);
     check("a book lights the Library tab", d.lit === "library", d.lit);
-    check("the page states the translator and the grounds it is free on",
+
+    /* THE FRONT MATTER (Aug 2026, on request): a real chapter 0 rather than a panel, and the "About
+       this text" box that used to sit under EVERY chapter is gone with it. Both halves are checked —
+       a front matter that fails to appear and a rights box that comes back at the foot of all 65
+       letters are opposite failures and neither raises anything. */
+    check("the book opens on its own front matter", d.on[0] === "0" && /about this book/i.test(d.chTitle),
+      JSON.stringify({ on: d.on, title: d.chTitle }));
+    check("...which is one chapter, numbered 0, not a second copy", d.zeros === 1, String(d.zeros));
+    check("...carrying the translator and the grounds it is free on",
       /Gummere/i.test(d.rights) && /public domain/i.test(d.rights), d.rights.slice(0, 120));
+    check("...and NOT repeated below every chapter, as it used to be", !d.footRights, String(d.footRights));
+
+    // the section numbers by which this text is cited belong to the letters, not to the front matter
+    await page.evaluate(() => { const t = [...document.querySelectorAll(".bk-tab")].find((x) => x.dataset.ch === "1"); t.click(); });
+    await page.waitForTimeout(500);
+    const l1 = await page.evaluate(() => ({
+      sections: document.querySelectorAll(".bk-prose .bk-n").length,
+      rights: document.querySelectorAll(".bk-rights").length,
+    }));
+    check("the cited section numbers are kept", l1.sections >= 3, String(l1.sections));
+    check("...and a letter carries no rights box of its own", l1.rights === 0, String(l1.rights));
 
     // the apparatus: gloss links in the prose, and the translator's notes numbered by the site's own pass
     const ap = await page.evaluate(() => {
@@ -187,6 +262,22 @@ const DESK = { width: 1280, height: 900 };
       n.numbered.length >= 3 && n.numbered.slice(0, 3).join(",") === "1,2,3", n.numbered.join(","));
     check("...and no marker points past the end of the list",
       n.numbered.every((x) => +x <= n.items), JSON.stringify({ markers: n.numbered, items: n.items }));
+
+    /* NO STYLESHEET IN THE PROSE, and this is checked over the WHOLE book rather than one chapter.
+       Wikisource ships each note's font templates as an inline <style> element — the Greek face for a
+       quotation, the small caps for A.D./B.C. — and the importer used to drop the tags and leave the
+       CSS TEXT behind, so 24 of Seneca's 335 notes read "…on the Palatine, .mw-parser-output
+       .wst-asc{font-variant:all-small-caps}…A.D. 41." (reported Aug 2026, with a screenshot).
+
+       It fails SILENTLY in every way that matters: the note is a non-empty string of the right shape,
+       the count is right, the markers all resolve, and nothing anywhere throws. Only a reader opening
+       the fold ever sees it — which is why this reads the shipped DATA rather than one rendered page,
+       and why it also sweeps the prose, where the same leak would land if the wrapper markup moves
+       again. */
+    const leak = shippedBookLeaks();
+    check("no note carries Wikisource's own stylesheet as text",
+      leak.n > 0 && !leak.notes.length, JSON.stringify({ chapters: leak.n, bad: leak.notes.slice(0, 6) }));
+    check("...nor does any chapter's prose", leak.n > 0 && !leak.html.length, JSON.stringify(leak.html.slice(0, 6)));
     /* The glossary, linked through the prose. Letter 3 deliberately is NOT the chapter to look at —
        it is about friendship and contains no glossary term at all, and an assertion pointed there
        passes or fails on nothing. Letter 9 names the Greeks, which the glossary has. */
@@ -285,7 +376,9 @@ const DESK = { width: 1280, height: 900 };
     watch(page);
     await page.goto(base + "#book/" + bookHref, { waitUntil: "load" });
     await page.waitForTimeout(2500);
-    await page.evaluate(() => { const t = [...document.querySelectorAll(".bk-tab")].find((x) => x.dataset.ch === "1"); t.click(); });
+    // the first chapter is the front matter now, so that is where Previous runs out — the arrows step
+    // through it like any other chapter rather than treating it as a panel beside the book
+    await page.evaluate(() => { const t = [...document.querySelectorAll(".bk-tab")].find((x) => x.dataset.ch === "0"); t.click(); });
     await page.waitForTimeout(500);
 
     const first = await page.evaluate(() => ({
@@ -294,6 +387,11 @@ const DESK = { width: 1280, height: 900 };
     }));
     check("on the first chapter, Previous is disabled and Next is not",
       first.prevDisabled && !first.nextDisabled, JSON.stringify(first));
+
+    await page.evaluate(() => document.querySelector("#bkNext").click());
+    await page.waitForTimeout(500);
+    check("Next steps from the front matter into the first letter",
+      (await page.evaluate(() => [...document.querySelectorAll(".bk-tab.on")].map((t) => t.dataset.ch).join(","))) === "1");
 
     await page.evaluate(() => document.querySelector("#bkNext").click());
     await page.waitForTimeout(500);

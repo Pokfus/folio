@@ -1220,12 +1220,22 @@
     o.connect(g); g.connect(ctx.destination);
     o.start(t0); o.stop(t0 + dur + 0.03);
   }
-  /* A soft TAP — a short burst of noise pushed through a low-pass, plus a low sine body under it. This is
-     what a finger on wood is: a broadband transient that dies almost at once, with no pitch to speak of.
-     A pure oscillator cannot make one, which is why the click used to be a chirp (a triangle sliding
-     1900 → 1300 Hz), and why it was reported as too high and too bright (Aug 2026).
-     The noise buffer is built once and re-used: allocating 0.05s of Math.random() per click is wasteful,
-     and a click is the most frequently played sound on the site by a wide margin. */
+  /* A soft TAP — a short burst of noise through a BANDPASS, plus a light body under it. A tap is a
+     broadband transient that dies almost at once with no pitch to speak of, which no oscillator can
+     make; that is why the click was a noise burst rather than a tone, and why the chirp it replaced
+     (a triangle sliding 1900 → 1300 Hz) was reported as too high and too bright.
+
+     The filter is a BANDPASS and not a low-pass, and that is the whole of the second correction
+     (Aug 2026, on a report that the tap had become "a low thud"). A low-pass at 780 Hz keeps
+     everything BELOW it, so most of what was left was rumble, and under it sat a sine falling
+     190 → 120 Hz — which is a bass drum, not a fingertip. A bandpass keeps a band and throws away
+     the rest, so the tap has a MATERIAL rather than a weight: the centre frequency is what says
+     whether a finger has landed on wood or on glass. It also costs level (a band is less energy than
+     everything below a corner), so the gains here are larger than the low-pass version's for a
+     quieter result.
+
+     The noise buffer is built once and re-used: allocating 0.05s of Math.random() per click is
+     wasteful, and a click is the most frequently played sound on the site by a wide margin. */
   let _sfxNoise = null;
   function sfxNoiseBuf(ctx) {
     if (_sfxNoise && _sfxNoise.sampleRate === ctx.sampleRate) return _sfxNoise;
@@ -1236,14 +1246,16 @@
     _sfxNoise = buf;
     return buf;
   }
-  function sfxTap(ctx, t0, cutoff, dur, vol) {
+  function sfxTap(ctx, t0, freq, dur, vol) {
     try {
-      const src = ctx.createBufferSource(), lp = ctx.createBiquadFilter(), g = ctx.createGain();
+      const src = ctx.createBufferSource(), bp = ctx.createBiquadFilter(), g = ctx.createGain();
       src.buffer = sfxNoiseBuf(ctx);
-      lp.type = "lowpass"; lp.frequency.setValueAtTime(cutoff, t0); lp.Q.value = 0.7;
+      bp.type = "bandpass"; bp.frequency.setValueAtTime(freq, t0); bp.Q.value = 1.1;
+      // no attack ramp: the whole character of a tap is that it starts at full level on the first
+      // sample. A 5ms fade-in — which sfxTone has, and wants — turns a tap into a small swell.
       g.gain.setValueAtTime(vol, t0);
       g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
-      src.connect(lp); lp.connect(g); g.connect(ctx.destination);
+      src.connect(bp); bp.connect(g); g.connect(ctx.destination);
       src.start(t0); src.stop(t0 + dur + 0.02);
     } catch (e) {}
   }
@@ -1251,9 +1263,13 @@
     if (!sfxEnabled()) return;
     const ctx = sfxCtx(); if (!ctx) return;
     const t = ctx.currentTime + 0.001;
-    // a low, dry knock: the noise gives it the attack, the sine underneath gives it a body rather than a hiss
-    if (name === "click") { sfxTap(ctx, t, 780, 0.045, 0.05); sfxTone(ctx, t, 190, 0.05, 0.035, "sine", 120); }
-    else if (name === "toggle") { sfxTap(ctx, t, 900, 0.04, 0.04); sfxTone(ctx, t, 230, 0.05, 0.032, "sine"); sfxTone(ctx, t + 0.055, 320, 0.06, 0.03, "sine"); }
+    /* A soft, dry tap. The band at ~1.9 kHz is the contact — the part the ear reads as a fingertip on
+       something hard — and the short 560 Hz sine under it is the surface answering, a woody resonance
+       rather than a weight. Both are BRIEF (28ms and 32ms): what separated a tap from a thud in the
+       version this replaces was as much the decay as the pitch. Nothing here goes below 500 Hz, which
+       is deliberate — the sub-bass body is exactly what was reported as a thud. */
+    if (name === "click") { sfxTap(ctx, t, 1900, 0.028, 0.075); sfxTone(ctx, t, 560, 0.032, 0.02, "sine", 430); }
+    else if (name === "toggle") { sfxTap(ctx, t, 2300, 0.026, 0.07); sfxTone(ctx, t, 660, 0.03, 0.018, "sine"); sfxTone(ctx, t + 0.05, 880, 0.05, 0.022, "sine"); }
     else if (name === "pop") sfxTone(ctx, t, 460, 0.1, 0.06, "sine", 940);
     else if (name === "good") { sfxTone(ctx, t, 660, 0.09, 0.05, "sine"); sfxTone(ctx, t + 0.08, 880, 0.13, 0.05, "sine"); }
     else if (name === "bad") sfxTone(ctx, t, 230, 0.13, 0.06, "sine", 155);
@@ -2354,10 +2370,47 @@
     });
   }
 
+  /* ---------- the phone's scrim: everything behind the popup goes soft (Aug 2026, on request) ----------
+     A definition met mid-sentence is a small window over a whole page of prose, and on a phone that page
+     is the same width as the window. Blurring it is what makes the popup read as the thing being looked
+     at rather than as a box that happens to be on top.
+
+     It is ONE element with `backdrop-filter`, not a `filter` on a list of everything else, and that is
+     the whole design. A blur applied to the page's own containers would need that list kept in step with
+     every new fixed thing on the site (the tab bar, the grade bar, the whiteboard, the edit button, the
+     next one), and a `filter` on an ancestor makes it the containing block for any `position:fixed`
+     descendant — which would move the very bars it was trying to blur. backdrop-filter blurs whatever is
+     painted behind this one element and touches nothing else's layout.
+
+     `pointer-events:none` is deliberate: this is a visual change and not a modal. Tapping outside did not
+     close a popup before and still does not, and the page behind can still be scrolled — the request was
+     for focus, not for a dialog. */
+  function glossScrim(on) {
+    let s = document.getElementById("glossScrim");
+    if (on) {
+      if (!s) {
+        s = document.createElement("div");
+        s.id = "glossScrim";
+        s.className = "gloss-scrim";
+        document.body.appendChild(s);
+        // one frame at opacity 0 so the class change is a transition rather than an appearance
+        requestAnimationFrame(() => s.classList.add("on"));
+      }
+    } else if (s) {
+      s.classList.remove("on");
+      setTimeout(() => { if (s && !s.classList.contains("on")) s.remove(); }, 220);
+    }
+  }
+  /* The scrim belongs to the phone's single sheet, so it is up exactly while one is. It is raised
+     explicitly on open rather than through here, because at that point the new window has not yet been
+     pushed onto `glossWins` — the push is the last thing openGlossWin does, after TTS and the show
+     class — so a count-based call there would find zero and take the scrim straight back down. */
+  function syncGlossScrim() { glossScrim(isMobileGloss() && glossWins.length > 0); }
   function removeGlossWin(win, animate) {
     const i = glossWins.indexOf(win);
     if (i >= 0) glossWins.splice(i, 1);
     persistGlossOpen();
+    syncGlossScrim();
     if (animate) {
       win.classList.add("closing");
       win.classList.remove("show");
@@ -2369,6 +2422,7 @@
   function closeAllGloss() {
     glossWins.slice().forEach((w) => w.remove());
     glossWins.length = 0;
+    glossScrim(false);
     try { sessionStorage.removeItem(GLOSS_OPEN_KEY); } catch (e) {}   // navigation dismisses popups; don't resurrect them on the next reload
   }
   // Raise a popup to the top of the gloss stack. The counter is renormalized before it can reach the
@@ -2465,9 +2519,25 @@
      the two would need the height measured on every move; `--gs-dy` simply rides inside that transform.
 
      It is NOT remembered. A new term always opens in the middle (the request says so), so the offset lives
-     on the element and dies with it — which also means the restore-after-reload path needs nothing. */
+     on the element and dies with it — which also means the restore-after-reload path needs nothing.
+
+     THE WHOLE WINDOW IS THE HANDLE (Aug 2026, on request — it was the title bar, then briefly a grab bar
+     at each end, and both are gone). A window in the middle of the screen can need moving either way and
+     which end falls under the thumb depends on where it currently sits, so rather than adding handles
+     until one of them is always convenient, every part of it drags.
+
+     The one part that cannot is the DESCRIPTION when there is more of it than fits: that box scrolls, and
+     a vertical gesture inside it has to mean one thing or the other. The rule is decided at pointerdown
+     rather than arbitrated mid-gesture — if the press lands in a body that has something to scroll, this
+     is a scroll and not a drag — because a gesture that changes its mind half way through is the thing
+     that reads as broken. Most terms are three sentences and scroll nothing, so for most of them the
+     whole window really is the handle, description included.
+
+     Controls are exempt for the obvious reason, and `.ttip` with them: a nested glossary link is a tap
+     target sitting in the middle of the drag surface. */
   const GLOSS_DRAG_SLOP = 4;
-  function makeGlossSheetDraggable(win, handle) {
+  const GLOSS_NODRAG = "button, a[href], input, textarea, select, .ttip, .card-img";
+  function makeGlossSheetDraggable(win) {
     let sy = 0, oy = 0, dragging = false, moved = false;
     const setDy = (v) => {
       const vh = document.documentElement.clientHeight || 0;
@@ -2475,14 +2545,16 @@
       // it may be pulled a little past centre-line either way, never off the screen
       win.style.setProperty("--gs-dy", Math.max(-room - 40, Math.min(v, room + 40)) + "px");
     };
-    handle.addEventListener("pointerdown", (e) => {
-      if (e.target.closest("button")) return;
+    win.addEventListener("pointerdown", (e) => {
+      if (e.target.closest(GLOSS_NODRAG)) return;
+      const body = e.target.closest(".gloss-body");
+      if (body && body.scrollHeight > body.clientHeight + 1) return;   // it scrolls; let it
       dragging = true; moved = false;
       sy = e.clientY;
       oy = parseFloat(win.style.getPropertyValue("--gs-dy")) || 0;
-      try { handle.setPointerCapture(e.pointerId); } catch (_) {}
+      try { win.setPointerCapture(e.pointerId); } catch (_) {}
     });
-    handle.addEventListener("pointermove", (e) => {
+    win.addEventListener("pointermove", (e) => {
       if (!dragging) return;
       const dy = e.clientY - sy;
       if (!moved && Math.abs(dy) < GLOSS_DRAG_SLOP) return;
@@ -2494,10 +2566,46 @@
       if (!dragging) return;
       dragging = false;
       win.classList.remove("dragging");
-      try { handle.releasePointerCapture(e.pointerId); } catch (_) {}
+      /* A one-shot flag, not the class, is how the double-tap handler below tells the end of a drag
+         from a tap. The class is gone by the time that handler runs (it is registered later on the same
+         element, so this fires first), and holding it for a frame instead would swallow the FIRST real
+         tap after every drag — which is a tap the reader made. The flag is set here and cleared by the
+         one handler that reads it, so it can never outlive the gesture it describes. */
+      if (moved) win._glossDragged = true;
+      try { win.releasePointerCapture(e.pointerId); } catch (_) {}
     };
-    handle.addEventListener("pointerup", end);
-    handle.addEventListener("pointercancel", end);
+    win.addEventListener("pointerup", end);
+    win.addEventListener("pointercancel", end);
+  }
+
+  /* DOUBLE-TAP ANYWHERE TO CLOSE (Aug 2026, on request) — the phone's × is a 26px target in one corner
+     of a window that fills most of the screen, and a reader who has finished reading is holding the
+     phone, not aiming at it.
+
+     Written on pointer events rather than on `dblclick`, because a phone does not reliably fire one:
+     browsers reserve the second tap for double-tap-to-zoom and may swallow it. Two guards make it safe.
+     The taps must land close TOGETHER (`GLOSS_TAP_SLOP`) as well as close in time, so a reader tapping
+     one word and then another further down the description is not closing the window they are reading.
+     And an INTERACTIVE target is exempt: a nested glossary link, the sources fold, the map button and
+     the close button all do something of their own on a second tap, and taking the window away instead
+     would make those controls unusable rather than merely surprising. */
+  const GLOSS_TAP_MS = 320, GLOSS_TAP_SLOP = 30;
+  const GLOSS_TAP_SKIP = "button, a[href], input, textarea, select, .ttip, .src-head, .src-item, .card-img";
+  function wireGlossDoubleTap(win) {
+    let lastT = 0, lastX = 0, lastY = 0;
+    win.addEventListener("pointerup", (e) => {
+      if (e.target.closest(GLOSS_TAP_SKIP)) { lastT = 0; return; }
+      // the end of a drag is not a tap — see the flag's note in makeGlossSheetDraggable
+      if (win._glossDragged) { win._glossDragged = false; lastT = 0; return; }
+      const now = e.timeStamp || Date.now();
+      if (now - lastT < GLOSS_TAP_MS && Math.abs(e.clientX - lastX) < GLOSS_TAP_SLOP && Math.abs(e.clientY - lastY) < GLOSS_TAP_SLOP) {
+        lastT = 0;
+        e.preventDefault();     // and not a zoom either
+        removeGlossWin(win, true);
+        return;
+      }
+      lastT = now; lastX = e.clientX; lastY = e.clientY;
+    });
   }
   function openGlossWin(key, triggerEl, pos) {
     if (!glossGlobalsWired) {
@@ -2559,8 +2667,10 @@
       makeGlossDraggable(win, win.querySelector(".gloss-bar"));
       win.addEventListener("pointerdown", () => focusGlossWin(win));
     } else {
-      // centred by the stylesheet, and held by its bar to shift it up or down — see makeGlossSheetDraggable
-      makeGlossSheetDraggable(win, win.querySelector(".gloss-bar"));
+      // centred by the stylesheet, and held ANYWHERE to shift it up or down — see makeGlossSheetDraggable
+      makeGlossSheetDraggable(win);
+      wireGlossDoubleTap(win);
+      glossScrim(true);          // the page behind goes soft while this is up
     }
     win.querySelector(".gloss-close").addEventListener("click", () => removeGlossWin(win, true));
     {
@@ -4088,6 +4198,11 @@
       subtitle: "Moral Letters to Lucilius",
       author: "Seneca",
       written: "c. 62–65 CE",
+      // the sort key behind `written`, which is prose and carries a range, a circa and an era. Stated
+      // rather than parsed out of that string: a shelf that sorts by date needs one number per book,
+      // and guessing it from "c. 62–65 CE" is a parser nobody asked for. Signed, so a BCE book is
+      // simply negative and files before this one.
+      year: 62,
       translator: "Richard Mott Gummere",
       edition: "Loeb Classical Library, 1917–1925",
       rights:
@@ -4097,11 +4212,10 @@
       sourceName: "Wikisource",
       sourceUrl: "https://en.wikisource.org/wiki/Moral_letters_to_Lucilius",
       color: "#8257C2",
-      // what a reader wants to know before opening it, in the register the cards are written in
-      blurb:
-        "A hundred and twenty-four letters written by a Roman statesman to a younger friend in the last years " +
-        "of his life, on how to live: time, fear, friendship, wealth, illness and death. They read less like a " +
-        "treatise than like letters actually sent, and are the most approachable Stoic writing to survive.",
+      /* The tile's `blurb` is gone (Aug 2026, on request: the tiles are small now and a paragraph was
+         most of their height). What it said is said properly and at length in the book's own opening
+         chapter — see `about` in .claude/fetch-book.js — which is a page a reader chooses to read
+         rather than one every shelf visitor pays for. */
       chapterWord: "Letter",
       // shipped so far — the tile can say how long the book is before the text has loaded
       count: 65,
@@ -4119,10 +4233,20 @@
   // rather than assigning a global, and this drains that QUEUE — the same shape as the i18n ingests, and
   // for the same reason: two books whose scripts land before either hook must both survive.
   const BOOK_TEXT = {};
+  /* The book's own front matter — who wrote it, when, and what these letters are — kept beside the
+     chapters and drained from the same queue. It is authored in .claude/fetch-book.js and emitted into
+     the generated file for two reasons: this registry is EAGER, so a page of prose nobody reads until
+     they open the book does not belong in it, and books/<id>.js is never hand-edited, so an intro
+     written straight into that file would not survive the next run of the importer. */
+  const BOOK_INTRO = {};
   function bookIngest() {
     const q = window.FOLIO_BOOKS_IN || [];
     window.FOLIO_BOOKS_IN = [];
-    q.forEach((inc) => { if (inc && inc.id) BOOK_TEXT[inc.id] = inc.chapters || []; });
+    q.forEach((inc) => {
+      if (!inc || !inc.id) return;
+      BOOK_TEXT[inc.id] = inc.chapters || [];
+      if (inc.intro) BOOK_INTRO[inc.id] = inc.intro;
+    });
   }
   function bookBundle(id) {
     const name = "book:" + id;
@@ -4399,6 +4523,59 @@
     return !!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
   }
   function prefersReducedMotion() { return motionOff(); }
+
+  /* ---------- FLIP: animating a layout change the browser would otherwise cut to ----------
+     CSS can transition a property; it cannot transition a REFLOW. Move an element between two grid
+     areas, or reorder two siblings, and it is simply in the new place on the next frame — which is what
+     both the grade bar's fold and the Timeline game's drag were reported for (Aug 2026), and what a hard
+     cut always looks like: not fast, but broken.
+
+     FLIP is the standard answer. Measure where everything is (First), make the change (Last), work out
+     the difference (Invert) and let the browser animate the elements from their old place back to their
+     new one (Play). The elements are already where they belong the whole time — only their PAINT is
+     offset — so nothing here can leave the layout in a half-finished state if an animation is interrupted.
+
+     Element.animate is the Web Animations API: part of the platform, no dependency, and its animations
+     run off the main thread. Two deliberate choices. Scaling is OPT-IN (`scale`), because scaling a
+     button squashes the text inside it, and a translate-only FLIP over an element whose size is
+     transitioned in CSS looks better than either alone. And an element that has not actually moved is
+     skipped, so calling this over a whole list costs nothing for the rows that stayed put. */
+  function flipMove(els, mutate, opts) {
+    const list = [].slice.call(els || []).filter(Boolean);
+    const o = opts || {};
+    if (prefersReducedMotion() || !list.length || typeof list[0].animate !== "function") { mutate(); return; }
+    const first = new Map();
+    list.forEach((el) => first.set(el, el.getBoundingClientRect()));
+    mutate();
+    list.forEach((el) => {
+      const a = first.get(el), b = el.getBoundingClientRect();
+      if (!a || !a.width || !b.width) return;
+      const dx = a.left - b.left, dy = a.top - b.top;
+      const sx = o.scale ? a.width / b.width : 1, sy = o.scale ? a.height / b.height : 1;
+      if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5 && Math.abs(sx - 1) < 0.01 && Math.abs(sy - 1) < 0.01) return;
+      try {
+        el.animate(
+          [{ transform: "translate(" + dx + "px," + dy + "px) scale(" + sx + "," + sy + ")" }, { transform: "none" }],
+          { duration: o.duration || 260, easing: o.easing || "cubic-bezier(.22,.61,.36,1)", composite: "add" }
+        );
+      } catch (e) {}
+    });
+  }
+  /* Animate an element between two CONTENT heights across a change that alters them. The height is
+     measured on both sides and animated explicitly, because `height:auto` is not an animatable value and
+     a container that snaps while its contents slide reads worse than either moving alone. */
+  function flipHeight(el, mutate, dur) {
+    if (!el || prefersReducedMotion() || typeof el.animate !== "function") { mutate(); return; }
+    const from = el.getBoundingClientRect().height;
+    mutate();
+    const to = el.getBoundingClientRect().height;
+    if (Math.abs(from - to) < 1) return;
+    try {
+      el.animate([{ height: from + "px" }, { height: to + "px" }],
+        { duration: dur || 260, easing: "cubic-bezier(.22,.61,.36,1)" });
+    } catch (e) {}
+  }
+
   const THEMES = ["folio", "synth", "arcade", "academy", "marble", "gazette"];
   /* Reading-text size (Aug 2026, on request). `--fs` is a multiplier the READING surfaces are written
      against — a card's question and background, a glossary popup, a place panel on the Atlas — and nothing
@@ -4481,12 +4658,14 @@
     S.settings.fontSize = size;
     applyTheme();
     save();
-    // the picker is a segmented control, so the mark has to move with the setting wherever it was changed
-    document.querySelectorAll("#fsPick [data-fs]").forEach((b) => {
-      const on = b.dataset.fs === size;
-      b.classList.toggle("on", on);
-      b.setAttribute("aria-pressed", on ? "true" : "false");
-    });
+    // keep the slider and its tick marks in step with the setting wherever it was changed — the range's
+    // own value is already right when the reader dragged it, and wrong when anything else set the size
+    const range = document.querySelector("#fsRange");
+    if (range) {
+      range.value = String(FONT_SIZES.indexOf(size));
+      range.setAttribute("aria-valuetext", size.charAt(0).toUpperCase() + size.slice(1));
+    }
+    document.querySelectorAll("#fsPick .fs-tick").forEach((t) => t.classList.toggle("on", t.dataset.fs === size));
   }
   /* ---------- measurement units: ONE system, the reader's choice (Aug 2026, on request) ----------
      The content is authored metric-first with the imperial equivalent in parentheses — `about 37
@@ -4894,30 +5073,51 @@
      Device-local, like where the whiteboard marker sits and how tall the place sheet is: how much of THIS
      screen the buttons take is a fact about this screen, not about the account. */
   const GB_H_KEY = "folio_gb_compact_v1";
+  // keep in step with the .grade / .grade-help / .gb-undo transition durations in styles.css
+  const GB_FOLD_MS = 280;
   let gbCompact = null;
   function gbReadCompact() {
     if (gbCompact == null) { try { gbCompact = localStorage.getItem(GB_H_KEY) === "1"; } catch (e) { gbCompact = false; } }
     return gbCompact;
   }
-  function gbSetCompact(on, persist) {
-    gbCompact = !!on;
-    document.body.classList.toggle("gb-compact", gbCompact);
-    // the chevron points the way it will go, and says which state it is in — see gbWireResize
-    document.querySelectorAll(".gb-fold").forEach((b) => {
-      b.setAttribute("aria-expanded", gbCompact ? "false" : "true");
-      const lab = gbCompact ? "Show the full grade buttons" : "Shrink the grade buttons";
-      b.setAttribute("aria-label", lab);
-      b.setAttribute("title", lab);
-    });
+  /* The fold is ANIMATED (Aug 2026, on a report that it was a hard cut). The two states differ by more
+     than a height: the four grades go from two rows of two to one row of four, and the ?, Undo and
+     Suspend move from a row of their own up beside them. None of that is a property CSS can transition
+     — it is a reflow — so it is FLIPped: every part is measured, the class is flipped, and each part is
+     animated from where it was to where it now is. The bar's own height is animated alongside them
+     (flipHeight), because a container that snaps while its contents slide looks worse than either.
+
+     `animate` is not gated on being on a phone: above the breakpoint the chevron is display:none and
+     this is unreachable, and flipMove skips anything that did not actually move, so the desktop pays
+     nothing for it. It IS gated on the reader's motion setting, inside both helpers. */
+  function gbSetCompact(on, persist, animate) {
+    const bar = gradeBarEl;
+    const wrap = bar && bar.querySelector(".grade-wrap");
+    const apply = () => {
+      gbCompact = !!on;
+      document.body.classList.toggle("gb-compact", gbCompact);
+      // the chevron points the way it will go, and says which state it is in — see gbWireResize
+      document.querySelectorAll(".gb-fold").forEach((b) => {
+        b.setAttribute("aria-expanded", gbCompact ? "false" : "true");
+        const lab = gbCompact ? "Show the full grade buttons" : "Shrink the grade buttons";
+        b.setAttribute("aria-label", lab);
+        b.setAttribute("title", lab);
+      });
+    };
+    if (animate && wrap && bar.classList.contains("show")) {
+      // the grade buttons AND the row of controls: the buttons change row and size, the controls change row
+      const parts = [].concat([].slice.call(wrap.children), [].slice.call(wrap.querySelectorAll(".grade")));
+      flipHeight(bar.querySelector(".gradebar-inner"), () => flipMove(parts, apply, { duration: GB_FOLD_MS }), GB_FOLD_MS);
+    } else apply();
     if (persist) { try { gbCompact ? localStorage.setItem(GB_H_KEY, "1") : localStorage.removeItem(GB_H_KEY); } catch (e) {} }
   }
   function gbWireResize(fold) {
     if (!fold) return;
     // a real <button>: click and Enter/Space come free, and the arrows reach the two states directly
-    fold.addEventListener("click", () => gbSetCompact(!gbReadCompact(), true));
+    fold.addEventListener("click", () => gbSetCompact(!gbReadCompact(), true, true));
     fold.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowDown") { e.preventDefault(); gbSetCompact(true, true); }
-      else if (e.key === "ArrowUp") { e.preventDefault(); gbSetCompact(false, true); }
+      if (e.key === "ArrowDown") { e.preventDefault(); gbSetCompact(true, true, true); }
+      else if (e.key === "ArrowUp") { e.preventDefault(); gbSetCompact(false, true, true); }
     });
   }
   let gradeBarEl = null;
@@ -5985,7 +6185,11 @@
     { t: "Yoga is the stilling of the movements of the mind.", a: "Patanjali", s: "Yoga Sutras 1.2",
       o: { lang: "sa", t: "योगश्चित्तवृत्तिनिरोधः।", a: "पतञ्जलि", s: "योगसूत्र १.२" } },
     { t: "Whoever honours his own sect and disparages another's, thinking to do honour to his own sect, injures his own sect the more gravely.", a: "Ashoka", s: "Major Rock Edict XII" },
-    { t: "Where the mind is without fear and the head is held high — into that heaven of freedom, let my country awake.", a: "Rabindranath Tagore", s: "Gitanjali 35, 1912" },
+    { t: "Where the mind is without fear and the head is held high — into that heaven of freedom, let my country awake.", a: "Rabindranath Tagore", s: "Gitanjali 35, 1912",
+      // Tagore's own English of his Bengali poem, so the "original" is Naibedya 72 (1901) rather than
+      // anything in Gitanjali. Both ends of the sentence, as the English quotes them, with the same middle
+      // elided. Text from the scanned Naibedya on Bengali Wikisource.
+      o: { lang: "bn", t: "চিত্ত যেথা ভয়শূন্য, উচ্চ যেথা শির — ভারতেরে সেই স্বর্গে করো জাগরিত।", a: "রবীন্দ্রনাথ ঠাকুর", s: "নৈবেদ্য ৭২, ১৯০১" } },
     { t: "Education is the manifestation of the perfection already in man.", a: "Swami Vivekananda", s: "Complete Works, vol. IV" },
     { t: "We ought not to be ashamed of appreciating the truth and of acquiring it wherever it comes from, even if it comes from races distant and nations different from us.", a: "Al-Kindi", s: "On First Philosophy, 9th century" },
     { t: "Truth does not contradict truth; it agrees with it and bears witness to it.", a: "Ibn Rushd", s: "The Decisive Treatise, c. 1179",
@@ -6730,14 +6934,49 @@
      the page is a record of reading, not a checklist to tick off, and naming what you have not met yet
      would turn the glossary into homework.
      ============================================================ */
+  /* A sort picker for a reader-facing list — the glossary record and the Library shelf both have one,
+     and one control for both is what keeps them from drifting into two different-looking controls doing
+     the same job. A native <select>: the options are a short closed set, and on a phone the platform
+     gives it a proper picker where a row of buttons would take a line the list needs.
+
+     The CHOICE is deliberately not in S. It is a way of looking at a list, not a preference about
+     Folio — the same call renderDeckStats makes about its own picker — so it lives in a module-level
+     variable, which survives navigating away and back within the session and resets on reload. */
+  function sortPickerHTML(id, opts, cur, label) {
+    return '<label class="sort-pick"><span class="sort-pick-label">' + esc(label || "Sort") + "</span>" +
+      '<select id="' + id + '">' +
+      opts.map((o) => '<option value="' + esc(o[0]) + '"' + (o[0] === cur ? " selected" : "") + ">" + esc(o[1]) + "</option>").join("") +
+      "</select></label>";
+  }
+
+  /* The order the discovered terms are listed in (Aug 2026, on request: "sorted by alphabet and date of
+     discovery"). Newest-first stays the default — the term just met is the one a reader has come here
+     about — and the other three are the ways round it. */
+  const GLOSS_SORTS = [
+    ["recent", "Newest first"],
+    ["oldest", "Oldest first"],
+    ["az", "A – Z"],
+    ["za", "Z – A"],
+  ];
+  let glossSort = "recent";
   PAGES.glossary = function (root) {
     const G = window.GLOSSARY || {};
     const reg = S.glossSeen || {};
     const keys = Object.keys(reg).filter((k) => G[k] && !uGlossParse(k));
     const total = glossTotalCount();
     const pct = total ? Math.min(100, Math.round((keys.length / total) * 100)) : 0;
-    // most recently opened first: the term you have just met is the one you came here about
-    keys.sort((a, b) => (reg[b] || 0) - (reg[a] || 0));
+    /* localeCompare, not `<`, so an accented head word files where a reader expects it — Nüwa belongs
+       beside Nu-, and a codepoint comparison puts it after Z. The date sorts fall back to the title, so
+       two terms opened in the same millisecond (a restored session opens several at once) keep a stable
+       order rather than swapping about between renders. */
+    const byTitle = (a, b) => glossTitle(a).localeCompare(glossTitle(b), undefined, { sensitivity: "base" });
+    const sortKeys = (arr) => {
+      const l = arr.slice();
+      if (glossSort === "az") return l.sort(byTitle);
+      if (glossSort === "za") return l.sort((a, b) => byTitle(b, a));
+      if (glossSort === "oldest") return l.sort((a, b) => (reg[a] || 0) - (reg[b] || 0) || byTitle(a, b));
+      return l.sort((a, b) => (reg[b] || 0) - (reg[a] || 0) || byTitle(a, b));
+    };
     const when = (ts) => {
       if (!ts) return "";
       const d = new Date(ts);
@@ -6759,14 +6998,17 @@
       '<button class="btn" type="button" id="glStudy">Start studying</button></div>';
     root.innerHTML =
       '<div class="page-head"><span class="eyebrow">Your record</span><h1>Glossary discovered</h1>' +
-      "<p>Every term you have opened, newest first. Click one to read it again.</p></div>" +
+      "<p>Every term you have opened. Click one to read it again.</p></div>" +
       '<div class="gl-meter"><div class="gl-meter-head"><b>' + keys.length + "</b> of " + total + " terms · " + pct + "%</div>" +
       '<div class="ds-bar"><i style="width:' + pct + '%"></i></div></div>' +
-      '<div class="gl-search"' + (keys.length ? "" : ' hidden') + '><input type="search" id="glFilter" placeholder="Filter these terms…" autocomplete="off" aria-label="Filter discovered terms"></div>' +
-      '<div class="gl-list" id="glList">' + (keys.length ? keys.map(row).join("") : empty) + "</div>";
+      '<div class="gl-tools"' + (keys.length ? "" : ' hidden') + '>' +
+        '<div class="gl-search"><input type="search" id="glFilter" placeholder="Filter these terms…" autocomplete="off" aria-label="Filter discovered terms"></div>' +
+        sortPickerHTML("glSort", GLOSS_SORTS, glossSort) +
+      "</div>" +
+      '<div class="gl-list" id="glList">' + (keys.length ? sortKeys(keys).map(row).join("") : empty) + "</div>";
 
     const list = root.querySelector("#glList");
-    // one delegated listener, so filtering can rebuild the rows without rewiring them
+    // one delegated listener, so filtering and re-sorting can rebuild the rows without rewiring them
     list.addEventListener("click", (e) => {
       const b = e.target.closest("[data-gk]");
       if (b) openGlossWin(b.dataset.gk, b);
@@ -6774,11 +7016,17 @@
     const st = root.querySelector("#glStudy");
     if (st) st.addEventListener("click", () => route("home"));
     const f = root.querySelector("#glFilter");
-    if (f) f.addEventListener("input", () => {
-      const q = f.value.trim().toLowerCase();
-      const shown = q ? keys.filter((k) => glossTitle(k).toLowerCase().includes(q) || glossTags(k).some((t2) => t2.toLowerCase().includes(q))) : keys;
+    // ONE painter for both controls: the filter narrows and the picker orders, and a reader who has
+    // typed something and then changes the order must keep their filter — which is exactly what two
+    // separate handlers, each rebuilding from `keys`, would quietly throw away.
+    const repaint = () => {
+      const q = f ? f.value.trim().toLowerCase() : "";
+      const shown = sortKeys(q ? keys.filter((k) => glossTitle(k).toLowerCase().includes(q) || glossTags(k).some((t2) => t2.toLowerCase().includes(q))) : keys);
       list.innerHTML = shown.length ? shown.map(row).join("") : '<div class="gl-empty"><p>No term here matches that.</p></div>';
-    });
+    };
+    if (f) f.addEventListener("input", repaint);
+    const so = root.querySelector("#glSort");
+    if (so) so.addEventListener("change", () => { glossSort = so.value; repaint(); });
   };
 
   /* ============================================================
@@ -7380,25 +7628,67 @@
     return Math.max(0, Math.min(100, Math.round(((i + (r.y || 0)) / Math.max(1, b.count)) * 100)));
   }
 
+  /* How the shelf is ordered (Aug 2026, on request). "Recently read" leads because a shelf a reader
+     comes back to is a shelf they are part-way through; the rest are the ways of finding a book they
+     have not opened. `year` is the registry's own signed sort key, not a parse of `written`. */
+  const BOOK_SORTS = [
+    ["recent", "Recently read"],
+    ["title", "Title (A – Z)"],
+    ["author", "Author"],
+    ["written", "Oldest first"],
+  ];
+  let bookSort = "recent";
   PAGES.library = function (root) {
+    /* A BANNER across the full width, at every screen size (Aug 2026, on request — briefly two narrow
+       tiles side by side on a phone, which was asked for and then asked back). What is gone for good is
+       the BLURB: a paragraph about the book was most of the banner's height, and the book's own front
+       matter says all of it, at length, one tap away. What took its place is the one fact a reader wants
+       about a work of history before opening it — WHEN IT WAS WRITTEN.
+
+       Full width means the banner reads left to right rather than top to bottom: who and what on the
+       left, how long and where you had got to on the right. That is also what lets it stay short. */
     const tile = (b) => {
       const pos = readingPos(b.id), pct = readingPct(b);
+      const unit = b.count === 1 ? b.chapterWord.toLowerCase() : b.chapterWord.toLowerCase() + "s";
+      // "Letter 0" is not a letter Seneca wrote — a reader still in the front matter is told so
+      const where = pos && pos.ch === 0 ? "About this book" : pos ? `${b.chapterWord} ${pos.ch} · ${pct}%` : "";
+      /* HOW MUCH OF THE WORK IS HERE, said in words rather than as a bare ratio (Aug 2026, on a question:
+         "what does the 65 out of 124 letters refer to?"). It is how many of the book's chapters have been
+         imported so far, and "65 of 124 letters" beside a reading-progress bar reads as though it were
+         reading progress, which is the one thing it is not. A partial book now says "on Folio so far",
+         and a complete one just says how long it is. */
+      const len = b.total > b.count
+        ? `${b.count} of ${b.total} ${unit} <span class="bk-of">on Folio so far</span>`
+        : `${b.count} ${unit}`;
       return `<button class="book-tile" type="button" data-book="${esc(b.id)}" style="--tile:${b.color}"
-                aria-label="${esc(b.title)} by ${esc(b.author)}">
+                aria-label="${esc(b.title)} by ${esc(b.author)}, written ${esc(b.written)}">
         <span class="bk-spine" aria-hidden="true"></span>
         <span class="bk-tile-body">
-          <span class="bk-tile-author">${esc(b.author)}</span>
-          <span class="bk-tile-title">${esc(b.title)}</span>
-          ${b.subtitle ? `<span class="bk-tile-sub">${esc(b.subtitle)}</span>` : ""}
-          <span class="bk-tile-blurb">${esc(b.blurb)}</span>
-          <span class="bk-tile-foot">
-            <span class="bk-tile-meta">${b.count} ${b.count === 1 ? b.chapterWord.toLowerCase() : b.chapterWord.toLowerCase() + "s"}${b.total > b.count ? ` <span class="bk-of">of ${b.total}</span>` : ""}</span>
-            ${pos ? `<span class="bk-tile-resume">${esc(b.chapterWord)} ${pos.ch} · ${pct}%</span>` : `<span class="bk-tile-new">Start reading</span>`}
+          <span class="bk-tile-main">
+            <span class="bk-tile-author">${esc(b.author)}</span>
+            <span class="bk-tile-title">${esc(b.title)}</span>
+            <span class="bk-tile-when">${esc(b.written)}</span>
           </span>
-          ${pos ? `<span class="bk-tile-bar"><span style="width:${pct}%"></span></span>` : ""}
+          <span class="bk-tile-foot">
+            <span class="bk-tile-meta">${len}</span>
+            ${pos ? `<span class="bk-tile-resume">${esc(where)}</span>` : `<span class="bk-tile-new">Start reading</span>`}
+          </span>
         </span>
+        ${/* the reading bar runs along the banner's own bottom EDGE (Aug 2026, on request) — it costs the
+              row no width at all, which is what lets the banner stay short, and a bar drawn across the
+              whole width of a book is the one place a fraction reads as a fraction */""}
+        ${pos ? `<span class="bk-tile-bar"><span style="width:${pct}%"></span></span>` : ""}
       </button>`;
     };
+    // a book never opened has no `at`, so it files below every book that has been — which is what
+    // "recently read" should mean, rather than putting the untouched books first by accident
+    const readAt = (b) => { const r = readingPos(b.id); return (r && r.at) || 0; };
+    const sorted = BOOKS.slice().sort((a, b) => {
+      if (bookSort === "title") return a.title.localeCompare(b.title, undefined, { sensitivity: "base" });
+      if (bookSort === "author") return a.author.localeCompare(b.author, undefined, { sensitivity: "base" }) || a.title.localeCompare(b.title);
+      if (bookSort === "written") return (a.year || 0) - (b.year || 0) || a.title.localeCompare(b.title);
+      return readAt(b) - readAt(a) || a.title.localeCompare(b.title);
+    });
     root.innerHTML = `
       <div class="page-head">
         <span class="eyebrow">Library</span>
@@ -7406,26 +7696,65 @@
         <p>Whole works, read on the page — with the glossary linked through them and the translator's own
            notes kept. Every book here is in the public domain, and free to read.</p>
       </div>
-      <div class="book-grid">${BOOKS.map(tile).join("")}</div>
+      ${/* The picker ships whatever the shelf holds, one book included — it was asked for outright, and
+            a control that appears the day a second book lands is one nobody knows to look for. */""}
+      <div class="lib-tools">${sortPickerHTML("bkSort", BOOK_SORTS, bookSort)}</div>
+      <div class="book-grid">${sorted.map(tile).join("")}</div>
       ${/* Said once, on the page rather than in a policy note: it is why the shelf is short, and it is the
             rule that decides what may join it. */""}
       <p class="lib-note">Folio serves these texts itself, so a work can only be shelved here once its
         copyright has expired — for a classical author that means the <b>translation</b> as much as the
-        original. Each book's page states the edition it comes from and the grounds it is free on.</p>`;
+        original. Each book's own first chapter states the edition it comes from and the grounds it is
+        free on.</p>`;
     root.querySelectorAll(".book-tile").forEach((el) =>
       el.addEventListener("click", () => route("book", { id: el.dataset.book }))
     );
+    const so = root.querySelector("#bkSort");
+    if (so) so.addEventListener("change", () => { bookSort = so.value; render(); });
   };
 
   /* One book. Chapters are TABS along a menu bar that scrolls, which is the only arrangement that scales:
      Seneca has 65 shipped and 124 to come, and a dropdown alone hides the shape of the book while a wrapped
      grid of 124 buttons IS the page. The bar carries the chapter number and title; the "Contents" button
      opens the whole list when a reader wants to jump rather than step. */
+  /* The book's opening chapter: what the work is, and which translation this is (Aug 2026, on request).
+     It is a real chapter rather than a panel — it takes a tab, it steps with the arrows, it is what a
+     first-time reader lands on — because that is where front matter goes in a book, and because the
+     "About this text" box it replaces sat at the FOOT of every chapter, where it was both the last thing
+     under letter 1 and the last thing under letter 65.
+
+     Its number is 0, and that is a number rather than an index: `S.reading[id].ch` stores the chapter
+     NUMBER precisely so that a book gaining chapters cannot move a reader's place, and 0 sits below
+     every letter Seneca wrote without disturbing one of them.
+
+     The essay half travels with the text (BOOK_INTRO, from the generated file); the licence half is
+     built here from the registry's own `rights` / `edition` / `sourceUrl`, which is where the statement
+     shown to a reader has always come from and is the one part that needs a live link. */
+  // the mark the front matter's tab and contents row wear where a letter wears its number
+  const BOOK_GLYPH =
+    '<svg class="bk-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+    '<path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v18H6.5A2.5 2.5 0 0 0 4 22z"/></svg>';
+  function bookIntroChapter(b) {
+    const essay = BOOK_INTRO[b.id] || "";
+    const rights =
+      '<section class="bk-rights">' +
+        "<h3>About this translation</h3>" +
+        "<p><i>" + esc(b.subtitle || b.title) + "</i> by " + esc(b.author) + ", written " + esc(b.written) +
+          ". This English translation is by " + esc(b.translator) + " — " + esc(b.edition) + ".</p>" +
+        '<p class="bk-rights-note">' + esc(b.rights) + "</p>" +
+        '<p class="bk-rights-src">Text from <a href="' + esc(b.sourceUrl) + '" target="_blank" rel="noopener noreferrer">' + esc(b.sourceName) + "</a>.</p>" +
+      "</section>";
+    return { n: 0, p: 0, t: "About this book", intro: true, html: essay + rights, notes: [] };
+  }
+
   PAGES.book = function (root, params) {
     const b = BOOK_BY_ID[(params && params.id) || ""];
     if (!b) { route("library"); return; }
 
-    const chapters = bookChapters(b.id);
+    const shipped = bookChapters(b.id);
+    // the front matter is chapter 0, ahead of the text; a fresh copy per render, so nothing can be
+    // left over from a previous book on the same page
+    const chapters = shipped ? [bookIntroChapter(b)].concat(shipped) : null;
     if (!chapters) {
       // the text is ~450 KB and lazy — hold the page rather than paint an empty book
       root.innerHTML = `
@@ -7458,10 +7787,13 @@
         <button class="bk-nav" type="button" id="bkPrev" aria-label="Previous ${esc(b.chapterWord.toLowerCase())}" title="Previous">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
         </button>
+        ${/* The front matter's tab carries a BOOK GLYPH where every other tab carries its number: "0"
+              beside 1, 2, 3 reads as a letter Seneca did not write, and on a phone the titles are
+              dropped and the numbers are all a reader has to go on. */""}
         <div class="bk-tabs" id="bkTabs">
-          ${chapters.map((c) => `<button class="bk-tab${c.n === cur.n ? " on" : ""}" type="button" role="tab"
-             aria-selected="${c.n === cur.n}" data-ch="${c.n}" title="${esc(b.chapterWord)} ${c.n} — ${esc(c.t)}">
-             <span class="bk-tab-n">${c.n}</span><span class="bk-tab-t">${esc(c.t)}</span></button>`).join("")}
+          ${chapters.map((c) => `<button class="bk-tab${c.n === cur.n ? " on" : ""}${c.intro ? " bk-tab-intro" : ""}" type="button" role="tab"
+             aria-selected="${c.n === cur.n}" data-ch="${c.n}" title="${c.intro ? esc(c.t) : esc(b.chapterWord) + " " + c.n + " — " + esc(c.t)}">
+             <span class="bk-tab-n">${c.intro ? BOOK_GLYPH : c.n}</span><span class="bk-tab-t">${esc(c.t)}</span></button>`).join("")}
         </div>
         <button class="bk-nav" type="button" id="bkNext" aria-label="Next ${esc(b.chapterWord.toLowerCase())}" title="Next">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
@@ -7476,18 +7808,13 @@
             changed, which a silent innerHTML swap would not do */""}
       <article class="bk-page" id="bkPage" role="tabpanel" aria-live="polite"></article>
 
+      ${/* The "About this text" panel that used to sit here is gone (Aug 2026, on request): it is the
+            front matter now, in chapter 0, where it is read once rather than repeated under all 65
+            letters. */""}
       <div class="bk-foot">
         <button class="btn ghost" type="button" id="bkPrev2">← Previous</button>
         <button class="btn ghost" type="button" id="bkNext2">Next →</button>
-      </div>
-
-      <section class="bk-rights">
-        <h3>About this text</h3>
-        <p><i>${esc(b.subtitle || b.title)}</i> by ${esc(b.author)}, written ${esc(b.written)}. This English
-           translation is by ${esc(b.translator)} — ${esc(b.edition)}.</p>
-        <p class="bk-rights-note">${esc(b.rights)}</p>
-        <p class="bk-rights-src">Text from <a href="${esc(b.sourceUrl)}" target="_blank" rel="noopener noreferrer">${esc(b.sourceName)}</a>.</p>
-      </section>`;
+      </div>`;
 
     const pageEl = root.querySelector("#bkPage");
     const tabsEl = root.querySelector("#bkTabs");
@@ -7503,7 +7830,7 @@
       pageEl.innerHTML = `
         <header class="bk-ch-head">
           ${part ? `<span class="bk-ch-part">${esc(part.label)}</span>` : ""}
-          <span class="bk-ch-n">${esc(b.chapterWord)} ${c.n}</span>
+          <span class="bk-ch-n">${c.intro ? "Front matter" : esc(b.chapterWord) + " " + c.n}</span>
           <h2 class="bk-ch-t">${esc(c.t)}</h2>
         </header>
         <div class="bk-prose">${c.html}</div>
@@ -7581,15 +7908,19 @@
     root.querySelector("#bkNext2").addEventListener("click", () => step(1));
     root.querySelector("#bkBack").addEventListener("click", () => route("library"));
 
-    // Contents: the whole book at once, grouped by the part the edition itself divides it into
-    tocEl.innerHTML = (b.parts || [{ n: 1, label: "" }]).map((p) => {
-      const inPart = chapters.filter((c) => c.p === p.n);
-      if (!inPart.length) return "";
-      return `<div class="bk-toc-part"><h4>${esc(p.label)}${p.note ? ` <span>${esc(p.note)}</span>` : ""}</h4>
-        <div class="bk-toc-list">${inPart.map((c) =>
-          `<button class="bk-toc-item" type="button" data-ch="${c.n}"><span class="bk-toc-n">${c.n}</span><span>${esc(c.t)}</span></button>`
-        ).join("")}</div></div>`;
-    }).join("");
+    /* Contents: the whole book at once, grouped by the part the edition itself divides it into — with
+       the front matter above the parts rather than inside one, since it belongs to no volume (its `p`
+       is 0, which matches no entry in b.parts, so it would otherwise be listed nowhere at all). */
+    const tocRow = (c) =>
+      `<button class="bk-toc-item" type="button" data-ch="${c.n}"><span class="bk-toc-n">${c.intro ? BOOK_GLYPH : c.n}</span><span>${esc(c.t)}</span></button>`;
+    tocEl.innerHTML =
+      `<div class="bk-toc-part bk-toc-front"><div class="bk-toc-list">${chapters.filter((c) => c.intro).map(tocRow).join("")}</div></div>` +
+      (b.parts || [{ n: 1, label: "" }]).map((p) => {
+        const inPart = chapters.filter((c) => !c.intro && c.p === p.n);
+        if (!inPart.length) return "";
+        return `<div class="bk-toc-part"><h4>${esc(p.label)}${p.note ? ` <span>${esc(p.note)}</span>` : ""}</h4>
+          <div class="bk-toc-list">${inPart.map(tocRow).join("")}</div></div>`;
+      }).join("");
     tocEl.querySelectorAll(".bk-toc-item").forEach((t) =>
       t.addEventListener("click", () => {
         go(chapters.find((c) => c.n === +t.dataset.ch), true);
@@ -9807,35 +10138,98 @@
     }
     return chosen;
   }
-  function chronoAfterEl(container, y) {
-    const els = [...container.querySelectorAll(".chrono-item:not(.dragging)")];
-    let closest = { offset: -Infinity, el: null };
-    els.forEach((c) => {
-      const b = c.getBoundingClientRect();
-      const o = y - b.top - b.height / 2;
-      if (o < 0 && o > closest.offset) closest = { offset: o, el: c };
-    });
-    return closest.el;
+  /* ---------- the Timeline game's drag, rewritten (Aug 2026, on request) ----------
+     The old one moved the row by calling insertBefore on every pointermove and nothing else. Two things
+     followed, and both were reported as the drag feeling unpleasant. The row being dragged never went
+     anywhere under the finger — it was re-inserted at the new index and simply appeared there — so there
+     was no sense of carrying it. And every other row CUT to its new position, because a DOM reorder is a
+     reflow and a reflow is instant: five rows would rearrange between two frames with nothing to say
+     they had.
+
+     What replaces it holds those two apart. The dragged row is moved by TRANSFORM and follows the
+     pointer exactly; its siblings are reordered in the DOM as before, and then FLIPped from where they
+     were to where they now are, so they slide around it. The row stays IN THE FLOW throughout — it is
+     never absolutely positioned and there is no placeholder — which means the list's height never
+     changes, the DOM order is the answer at every instant, and an interrupted drag cannot leave the
+     puzzle in a state the reader did not choose.
+
+     The one subtlety is that reordering moves the dragged row's own layout position out from under it,
+     so its transform has to be recomputed against the new layout on every reorder — otherwise it jumps
+     by exactly one row's height at the moment it swaps. `pinToPointer` is that recomputation, and it is
+     why the offset is tracked as "where the pointer grabbed it" rather than as a running delta. */
+  const CHRONO_FLIP_MS = 200;
+  function chronoSetY(el, y) {
+    el._cdy = y;
+    el.style.transform = y ? "translateY(" + y + "px)" : "";
   }
+  // where the row would sit with no transform on it — a rect reads the PAINTED position, which is not
+  // the layout position while the row is being carried
+  function chronoLayoutTop(el) { return el.getBoundingClientRect().top - (el._cdy || 0); }
   function setupChronoDrag(listEl, onChange) {
-    let dragging = null;
-    listEl.querySelectorAll(".chrono-item").forEach((item) => {
-      const grip = item.querySelector(".ci-grip");
-      grip.addEventListener("pointerdown", (e) => {
-        dragging = item; item.classList.add("dragging");
-        try { grip.setPointerCapture(e.pointerId); } catch (x) {}
-        e.preventDefault();
-      });
-      grip.addEventListener("pointermove", (e) => {
-        if (!dragging) return;
-        const after = chronoAfterEl(listEl, e.clientY);
-        if (after == null) listEl.appendChild(dragging);
-        else listEl.insertBefore(dragging, after);
-      });
-      const end = () => { if (dragging) { dragging.classList.remove("dragging"); dragging = null; onChange && onChange(); } };
-      grip.addEventListener("pointerup", end);
-      grip.addEventListener("pointercancel", end);
+    let drag = null;
+    const rows = () => [].slice.call(listEl.querySelectorAll(".chrono-item"));
+
+    // glue the dragged row to the pointer, whatever the list has done underneath it
+    const pinToPointer = (e) => {
+      chronoSetY(drag.el, (drag.startTop + (e.clientY - drag.grabY)) - chronoLayoutTop(drag.el));
+    };
+
+    listEl.addEventListener("pointerdown", (e) => {
+      const grip = e.target.closest(".ci-grip");
+      if (!grip || (e.button != null && e.button > 0)) return;
+      const el = grip.closest(".chrono-item");
+      if (!el) return;
+      drag = { el: el, grabY: e.clientY, startTop: el.getBoundingClientRect().top, moved: false, pid: e.pointerId };
+      el.classList.add("dragging");
+      // capture on the LIST, not the grip: the pointer spends the whole drag over OTHER rows, and a
+      // capture on the handle that has just been transformed away from under it is asking for trouble
+      try { listEl.setPointerCapture(e.pointerId); } catch (x) {}
+      e.preventDefault();
     });
+
+    listEl.addEventListener("pointermove", (e) => {
+      if (!drag) return;
+      if (!drag.moved) {
+        if (Math.abs(e.clientY - drag.grabY) < 3) return;   // a press that has not become a drag
+        drag.moved = true;
+      }
+      pinToPointer(e);
+
+      /* Where does it belong now? Measured against the LAYOUT positions of the other rows, never their
+         painted ones — a sibling part-way through its own FLIP animation is painted somewhere it is not,
+         and reading that would make the list flicker between two orders. */
+      const carried = drag.el.getBoundingClientRect();
+      const mid = carried.top + carried.height / 2;
+      const others = rows().filter((r) => r !== drag.el);
+      let before = null;
+      for (const r of others) {
+        const top = chronoLayoutTop(r);
+        if (mid < top + r.offsetHeight / 2) { before = r; break; }
+      }
+      const next = before || null;
+      // already there? nothing to do — and no FLIP, so a drag within one row's height is free
+      if ((next && drag.el.nextElementSibling === next) || (!next && !drag.el.nextElementSibling)) return;
+
+      flipMove(others, () => {
+        if (next) listEl.insertBefore(drag.el, next);
+        else listEl.appendChild(drag.el);
+      }, { duration: CHRONO_FLIP_MS });
+      pinToPointer(e);   // the reorder moved its layout slot; keep it under the finger
+      if (onChange) onChange();
+    });
+
+    const end = () => {
+      if (!drag) return;
+      const el = drag.el;
+      drag = null;
+      // let go and it settles into its slot rather than snapping to it
+      el.classList.remove("dragging");
+      el.classList.add("settling");
+      chronoSetY(el, 0);
+      setTimeout(() => el.classList.remove("settling"), CHRONO_FLIP_MS + 40);
+    };
+    listEl.addEventListener("pointerup", end);
+    listEl.addEventListener("pointercancel", end);
   }
 
   PAGES.chrono = function (root) {
@@ -9901,10 +10295,16 @@
       const btn = root.querySelector("#chrono-check");
       if (btn) btn.textContent = "Check order";
     }
+    // the arrows swap two rows, and a swap is a reflow — so they FLIP too. Without this the buttons
+    // beside a dragged row would be the one way left of reordering the list with a hard cut.
     function move(item, dir) {
       const list = item.parentElement;
-      if (dir < 0 && item.previousElementSibling) list.insertBefore(item, item.previousElementSibling);
-      else if (dir > 0 && item.nextElementSibling) list.insertBefore(item.nextElementSibling, item);
+      const other = dir < 0 ? item.previousElementSibling : item.nextElementSibling;
+      if (!other) return;
+      flipMove([item, other], () => {
+        if (dir < 0) list.insertBefore(item, other);
+        else list.insertBefore(other, item);
+      }, { duration: CHRONO_FLIP_MS });
       clearMarks();
     }
     function wire() {
@@ -14182,10 +14582,23 @@
             ${/* It scales EVERYTHING now (Aug 2026, on request) — it used to reach the reading prose only,
                   and the sentence named the three surfaces it got to. The one thing it cannot reach is the
                   Atlas map's own labels, which are drawn on a canvas. */""}
+            ${/* A SLIDER across the full width, not three buttons on the left (Aug 2026, on request). The
+                  three sizes are an ORDERED scale — small, medium, large — and a segmented control says
+                  nothing about that ordering while leaving two thirds of the row empty. A native
+                  <input type="range"> is what carries it: it is the one control a browser already gives
+                  arrow keys, Home/End and a drag to, and its value is the INDEX into FONT_SIZES rather
+                  than the name, so the scale and the stored setting can never disagree. The tick labels
+                  are aria-hidden marks under the track — the range itself is the control and announces
+                  the size through aria-valuetext, so labelling them again would read the scale twice. */""}
             <div class="info"><h3>Text size</h3><p>How large the text across Folio is — every page, not just what you read on a card. The Atlas map's own labels keep their size.</p></div>
-            <div class="ctl"><div class="fs-pick" id="fsPick" role="group" aria-label="Text size">${
-              FONT_SIZES.map((f) => `<button type="button" data-fs="${f}" class="${fsNow === f ? "on" : ""}" aria-pressed="${fsNow === f}"><span class="fs-a" aria-hidden="true">A</span>${f.charAt(0).toUpperCase() + f.slice(1)}</button>`).join("")
-            }</div></div>
+            <div class="ctl"><div class="fs-slide" id="fsPick">
+              <input type="range" id="fsRange" class="fs-range" min="0" max="${FONT_SIZES.length - 1}" step="1"
+                     value="${FONT_SIZES.indexOf(fsNow)}" aria-label="Text size"
+                     aria-valuetext="${fsNow.charAt(0).toUpperCase() + fsNow.slice(1)}">
+              <div class="fs-ticks" aria-hidden="true">${
+                FONT_SIZES.map((f) => `<span class="fs-tick${fsNow === f ? " on" : ""}" data-fs="${f}"><span class="fs-a">A</span>${f.charAt(0).toUpperCase() + f.slice(1)}</span>`).join("")
+              }</div>
+            </div></div>
           </div>
         </div>
         ${/* The language picker (moved off the top bar Aug 2026 — see langPickerHTML). Gone from the page
@@ -14264,12 +14677,11 @@
     if (swAuto) { swAuto.addEventListener("click", toggleAuto); swAuto.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleAuto(); } }); }
     wireLangPicker(root);
 
-    // text size — delegated on the group, so the three buttons need no listener each
-    const fsPick = root.querySelector("#fsPick");
-    if (fsPick) fsPick.addEventListener("click", (e) => {
-      const b = e.target.closest("[data-fs]");
-      if (b) setFontSize(b.dataset.fs);
-    });
+    // text size — a range over the FONT_SIZES index. `input` rather than `change`, so the site resizes
+    // under the thumb as it is dragged; setFontSize is idempotent and a drag across one step is two
+    // events at most, so there is nothing here worth debouncing.
+    const fsRange = root.querySelector("#fsRange");
+    if (fsRange) fsRange.addEventListener("input", () => setFontSize(FONT_SIZES[+fsRange.value] || "medium"));
     // measurements — the same segmented control, and the same delegation
     const unitPick = root.querySelector("#unitPick");
     if (unitPick) unitPick.addEventListener("click", (e) => {
