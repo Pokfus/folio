@@ -72,7 +72,7 @@ ok(!undated.length, "every card that states a date yields a sort year from it",
 
 /* A card that STATES a deep date and still sorts inside living memory is the Atapuerca failure: the
    parser found only the discovery or excavation year sitting beside it. A card whose subject really is
-   a 19th-century idea (`wh-006` the three-age system, `wh-106` the Blytt–Sernander sequence) has no
+   a 19th-century idea (`wh-002` the three-age system, `gr-007` Arthur Evans) has no
    deep date to lose and belongs where it sorts — so the test is the presence of the notation, not the
    size of the year. Nothing on the page ever says which year a card sorted by. */
 // "years ago" and "million years" are in the test alongside the compact notation ON PURPOSE: they are

@@ -410,10 +410,12 @@ async function openGlossEditor(page, base) {
     if (b) b.click();
   });
   await page.waitForTimeout(500);
-  await page.evaluate(() => { const r = document.querySelector(".admin-card-row .acr-open"); if (r) r.click(); });
+  // wh-046 (Paleolithic) is the one shipped card carrying an image, which is exactly the interesting case:
+  // pasting a VIDEO link into the one media box must be recognised as a video and must retire the shipped
+  // picture. Opened BY ID rather than by taking the first row — the list's order is the collection's, and
+  // the collection was renumbered once already (2026-08-04, docs/world-history-card-plan.md).
+  await page.evaluate(() => { const r = document.querySelector('[data-open="wh-046"]'); if (r) r.click(); });
   await page.waitForTimeout(800);
-  // the first shipped card (wh-001) carries an image, which is exactly the interesting case: pasting a VIDEO
-  // link into the one media box must be recognised as a video and must retire the shipped picture
   check("the card editor offers one media panel", await page.locator('[data-mediafield="src"]').count() === 1);
   check("a card with a picture shows one frame and no empty box",
     await page.locator("#cesMediaSlot .card-img").count() === 1 && await page.locator("#cesMediaSlot .ces-img-ph").count() === 0);

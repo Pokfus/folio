@@ -5,6 +5,14 @@
    user, not how). Loaded before app.js. */
 window.CHANGELOG = [
   {
+    d: "2026-08-04",
+    t: "World History, replanned",
+    items: [
+      "World History is now laid out the way a course would be: eight period decks running from human origins to the present, thirty-nine subdecks between them, and a fixed running order for the thousand cards that will fill it. Nothing outside Europe is filed under “and elsewhere” — Africa, the Islamic world, the steppe, East Asia, South and Southeast Asia and the Americas each have decks of their own. Until now the collection was a single prehistory deck sitting beside a row of empty ones.",
+      "Eighty-nine of the prehistory cards took their place in that order and twenty were retired — single caves, single carvings and single pollen periods, finer detail than a survey of the whole human past can carry, and the makings of a prehistory collection of its own one day. Nothing went from the glossary: every one of those subjects still has its entry and its sources. One consequence to expect — because the cards were renumbered, they will come round in your daily review as though you were meeting them for the first time.",
+    ],
+  },
+  {
     d: "2026-08-03",
     t: "Sixty-eight more glossary terms",
     items: [

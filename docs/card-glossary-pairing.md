@@ -1,5 +1,11 @@
 # Every card's answer term gets a glossary entry — the backfill plan
 
+> **Card ids here are the PRE-2026-08-04 numbering.** The World History collection was replanned from
+> scratch on that date and its cards renumbered into the new running order, with twenty retired;
+> `docs/world-history-card-plan.md` holds the old→new table and the retirement list. This file was
+> deliberately **not** rewritten — it is a record of work done under the old ids, and a rewritten log is
+> a worse log. Read a `wh-NNN` here through that table.
+
 *Opened 2026-08-03, on request: "whenever we add a new card, we should also immediately add a gloss entry
 for that same answer term. Identify which current cards do not yet have a corresponding gloss and plan
 batches to add them."*
