@@ -4476,14 +4476,16 @@
         "Martin Hammond (2006) are still in copyright and are deliberately not used here.",
       sourceName: "Wikisource",
       sourceUrl: "https://en.wikisource.org/wiki/Marcus_Aurelius_(Haines_1916)",
-      /* NO `origLang`, and deliberately: Marcus wrote in Greek and the Greek is as free as Seneca's
-         Latin, but Greek Wikisource prints no section numbers — each book is one list, and list
-         position is not the same claim as a section number. The two editions divide six of the twelve
-         books differently, so from one splice point onwards the position runs one out from the section
-         it would have to be. Rather than guess the offsets and risk setting one passage beside another
-         with nothing on the page to say so, the book ships in English alone; a book with no `origLang`
-         shows no original-language control at all. The reasoning, the measurements and what would
-         settle it are in .claude/fetch-book.js. */
+      /* The Greek Marcus actually wrote in, from Leopold's Teubner edition of 1908 by way of the
+         Perseus Digital Library — NOT from Greek Wikisource, which prints no section numbers and whose
+         edition divides six of the twelve books differently, so pairing it would mean guessing. Leopold
+         states his numbers as structure, and they agree with Haines on 486 of the 487 sections: the one
+         exception is a section 18 in book 12 that Leopold's text does not carry, which draws as an empty
+         cell precisely because both sides say what they are. Its licence has two layers — Leopold's text
+         is public domain, Perseus's digital edition is CC BY-SA 4.0 — and both are stated in `rights`
+         and printed on the book's own page. See .claude/fetch-book.js for the measurements. */
+      origLang: "grc",
+      origName: "Greek",
       color: "#2F7D6E",
       chapterWord: "Book",
       // the whole work — twelve books is all there is of it, so `count` and `total` agree and will stay
@@ -4519,13 +4521,14 @@
         "copyright and are deliberately not used here.",
       sourceName: "Wikisource",
       sourceUrl: "https://en.wikisource.org/wiki/The_Art_of_War_(Sun)",
-      /* The original is CHINESE, and this is the case the Meditations entry above says would settle
-         the question it could not settle. That book has no `origLang` because Greek Wikisource prints
-         no section numbers, and list position is not the same claim as a number. Here the original is
-         not another edition on another wiki at all — it is the Chinese Giles printed on the facing
+      /* The original is CHINESE, and it is the cleanest of the three cases here because the original
+         is not another edition on another wiki at all — it is the Chinese Giles printed on the facing
          half of his own page, transcribed in the same table, carrying his own numbering explicitly.
          Measured across all thirteen chapters before it was believed: 385 sections, the two columns
-         agreeing exactly, no number on one side missing from the other. */
+         agreeing exactly, no number on one side missing from the other. That is one of the two shapes
+         that answer the only question which decides whether a book can have an original — does the
+         text SAY which section each passage is? — the other being the TEI edition the Meditations
+         uses. Both beat a wiki walk, where the numbers have to be read back out of the prose. */
       origLang: "zh",
       origName: "Chinese",
       color: "#A6452F",
@@ -15654,6 +15657,8 @@
             <li><a href="https://www.wikidata.org" target="_blank" rel="noopener">Wikidata</a> <span class="cr-lic">CC0</span> — country statistics (population, area, GDP).</li>
             <li><a href="https://www.naturalearthdata.com" target="_blank" rel="noopener">Natural Earth</a> <span class="cr-lic">public domain</span> — coastlines, borders, lakes, rivers and cities on the globe.</li>
             <li><a href="https://github.com/aourednik/historical-basemaps" target="_blank" rel="noopener">historical-basemaps</a> <span class="cr-lic">CC BY-SA 4.0</span> — the historical border eras on the Atlas timeline.</li>
+            <li><a href="https://en.wikisource.org" target="_blank" rel="noopener">Wikisource</a> <span class="cr-lic">public domain</span> — the Library's texts: Gummere's Seneca, Haines's Marcus Aurelius and Giles's Sun Tzu, with Seneca's Latin and Sun Tzu's Chinese.</li>
+            <li><a href="https://scaife.perseus.org/library/urn:cts:greekLit:tlg0562.tlg001/" target="_blank" rel="noopener">Perseus Digital Library</a> <span class="cr-lic">CC BY-SA 4.0</span> — the Greek of the <i>Meditations</i>, in Jan Hendrik Leopold's edition of 1908.</li>
             <li><a href="https://registry.opendata.aws/terrain-tiles/" target="_blank" rel="noopener">Terrain Tiles on AWS</a> — terrain relief, from open elevation data by NASA (SRTM), USGS (GMTED2010), NOAA (ETOPO1) and the EU (EU-DEM), among others.</li>
             <li><a href="https://github.com/rhasspy/piper" target="_blank" rel="noopener">Piper</a> <span class="cr-lic">MIT</span> — the card narration voices, trained on <a href="https://www.openslr.org/141/" target="_blank" rel="noopener">LibriTTS-R</a> <span class="cr-lic">CC BY 4.0</span> and <a href="https://datashare.ed.ac.uk/handle/10283/3443" target="_blank" rel="noopener">VCTK</a> <span class="cr-lic">CC BY 4.0</span>.</li>
             <li><a href="https://fonts.google.com" target="_blank" rel="noopener">Google Fonts</a> <span class="cr-lic">OFL / Apache</span> — Fraunces, Newsreader, Inter, IBM Plex Mono, Noto Sans SC and the theme faces.</li>
