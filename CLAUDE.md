@@ -16,6 +16,17 @@ It is a plain static website — open `index.html` and it runs.
   matters. If unsure about a fact, say so; don't invent dates, names, or definitions.
 - **Be honest about scope and tradeoffs.** Flag limitations and judgment calls plainly rather than
   papering over them.
+- **Bump the version with it.** `window.FOLIO_VERSION = { v, released }` at the top of `changelog.js` is printed
+  very small in the top-left corner of the home page, and it is the reader's answer to "which Folio am I
+  looking at?" — so it must be bumped **in the same commit as the changelog line**, on every merge to main.
+  `v` is MAJOR.MINOR: the minor goes up by one per release, the major only when a whole new area of the site
+  lands (the Library would have been one). `released` is an ISO instant in **UTC** and must be the real moment
+  the work was finished — the page prints it in the reader's own clock, so a placeholder rounded to midnight
+  is wrong in every timezone at once. It lives in `changelog.js` rather than app.js precisely so that
+  bumping it and writing the day's line are one file open and two edits, and the two can never come to
+  disagree about what shipped when. It is **not** sw.js's `VERSION`, which is a cache generation — bumping
+  that one throws every cached file away and costs each reader ~1.4 MB, so the two are counted separately and
+  a release does not touch it.
 - **Keep the changelog current.** Whenever a user-requested change ships to the live site (committed/pushed),
   append a one-line plain-English summary to TODAY's entry in `changelog.js` (create the day if missing; newest
   day first). Reader-facing wording — what changed for the user, not how. **Card/glossary content changes are
@@ -890,6 +901,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   "About" but the route/hash stay `mission`; section order: intro prose + forgetting-curve SVG → "How to use Folio"
   walkthrough + feature blurbs → FAQ (collapsible `.faq-item`s) → **beta feedback form** → changelog →
   credits/licenses). See the golden rule: append to today's entry on every ship.
+  It also carries **`window.FOLIO_VERSION = { v, released }`** at the top — the shipped version, printed in the
+  top-left corner of the home page by `versionLineHTML()` (see the golden rule above, and the bullet under
+  "How the app is wired"). Nothing rewrites this file programmatically, so both are hand-edited together.
 - `mission.js` — `window.MISSION = { title, paras:[…] }`, the About-page intro copy (raw HTML; **deliberately
   jargon-free and written at a low reading level — NO glossary auto-linking on this page**, `autoLinkGlossary` is not
   called). **Admins click the title or a paragraph on the page to edit it in place** (Esc cancels, Ctrl+Enter/blur
@@ -2507,6 +2521,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `_ttsAudio`. Chinese hanzi stays on the device voice (no commercially-clear zh Piper voice). The bake is incremental
   (manifest hash check; `--force` re-bakes; `--scan-speakers=N` pitch-scans voices; toolchain auto-downloads into gitignored
   `.claude/tts-cache/`). Gloss popups + selection read-aloud always use the engine.
+- **THE VERSION LINE** (`versionLineHTML`, just above `PAGES.home`; `.site-ver` in styles.css — Aug 2026, on
+  request). The shipped version and the moment it went out, very small in the **top-left corner of the home
+  page**, above the greeting. Four decisions in it are load-bearing.
+  · **The record lives in `changelog.js`, not in app.js** — see the golden rule. Bumping it and writing the
+    day's changelog line are then one edit in one file.
+  · **It is read at RENDER, never captured at boot.** A reader on a service-worker-cached copy of the site is
+    running an older build, and the number they are shown must be that build's, since the whole point of it is
+    to be quotable in a bug report. It also means a missing record prints **nothing** rather than a
+    placeholder, which is the honest failure.
+  · **The instant is stored in UTC and printed in the READER's own clock and locale**, like the day boundary
+    and unlike the changelog's day headings, which are deliberately fixed to the site language: this is a
+    moment in time rather than a day of publication.
+  · It is a **sibling BEFORE `.page-head`, not inside it**, and carries its own `text-align:left`: below 640px
+    and in the academy and gazette themes the page head is centred or boxed in a rule, and a centred version
+    number reads as a title rather than as a stamp. `notranslate` for the reason the discovery chip's figure
+    carries it. Its colour is `--ink-faint`, the site's own quiet token — so it joins the captions and source
+    lines that the **High contrast** mode re-tones, and `test-a11y.js` covers it with no change of its own
+    (3.25:1 reported in the default mode, clearing the bar with the mode on). Guarded by `test-layout.js`.
 - **Home page** (`PAGES.home`): greeting → daily quote (`QUOTES` — world sources East and West, standard published
   translations only, no loose internet attributions; **clicking one flips it to the original** — text, speaker and
   source from the entry's `o` block, `wireDailyQuote` swapping `hidden` on the `.dq-live`/`.dq-orig` spans, clicking
