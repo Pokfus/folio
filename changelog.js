@@ -14,14 +14,14 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.9", released: "2026-08-05T05:12Z" };
+window.FOLIO_VERSION = { v: "1.10", released: "2026-08-05T06:38Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-05",
-    t: "A fifth book in the Library",
+    t: "A fifth and sixth book in the Library",
     items: [
-      "Ovid’s <i>Metamorphoses</i> joins the Library, all fifteen books of it, with the Latin printed beside the English. It is the poem of shape and change — it begins with the making of the world out of chaos and comes down to Ovid’s own lifetime, and it is where the western world gets Daphne turning into the laurel, Narcissus into the flower, Arachne into the spider and a couple of hundred more. The English is Brookes More’s blank verse of 1922, and both it and the Latin are out of copyright and free for anyone to read; where they come from, and on what terms, is said on the book’s own first page. The small raised figures running through both columns are line numbers of the Latin, which is how Ovid is cited and how the two languages are lined up against each other. This edition prints no translator’s notes, so unlike the other four books there is no fold of them under a chapter.",
+      "Two more books join the Library, each with its original Latin beside the English. Ovid’s <i>Metamorphoses</i>, all fifteen books — the poem of shape and change, from the making of the world out of chaos down to Ovid’s own lifetime, and where we get Daphne turning into the laurel, Narcissus into the flower and a couple of hundred more — in Brookes More’s blank verse of 1922. And Suetonius’s <i>The Twelve Caesars</i>, all twelve lives from Julius Caesar to Domitian, in Alexander Thomson’s English: it is where nearly every story we tell about the early emperors comes from, and it is arranged by topic rather than as a narrative, so each life goes over the same reign several times from different angles. Both translations are out of copyright and free for anyone to read, and where each comes from is said on the book’s own first page. The raised figures pair the two columns — line numbers of the Latin in Ovid, chapter numbers in Suetonius. Thomson, translating in the 1790s, passes over a few passages about his subjects’ private lives, and the page says so where he does.",
     ],
   },
   {
