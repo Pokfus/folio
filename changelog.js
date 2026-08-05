@@ -14,14 +14,16 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.10", released: "2026-08-05T06:38Z" };
+window.FOLIO_VERSION = { v: "1.11", released: "2026-08-05T08:06Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-05",
-    t: "A fifth and sixth book in the Library",
+    t: "A fifth and sixth book in the Library, and notes in the margins",
     items: [
       "Two more books join the Library, each with its original Latin beside the English. Ovid’s <i>Metamorphoses</i>, all fifteen books — the poem of shape and change, from the making of the world out of chaos down to Ovid’s own lifetime, and where we get Daphne turning into the laurel, Narcissus into the flower and a couple of hundred more — in Brookes More’s blank verse of 1922. And Suetonius’s <i>The Twelve Caesars</i>, all twelve lives from Julius Caesar to Domitian, in Alexander Thomson’s English: it is where nearly every story we tell about the early emperors comes from, and it is arranged by topic rather than as a narrative, so each life goes over the same reign several times from different angles. Both translations are out of copyright and free for anyone to read, and where each comes from is said on the book’s own first page. The raised figures pair the two columns — line numbers of the Latin in Ovid, chapter numbers in Suetonius. Thomson, translating in the 1790s, passes over a few passages about his subjects’ private lives, and the page says so where he does.",
+      "You can write in the books now. The drawing marker that has always been on a study card is on the reading page too, and what you draw there is kept — close the book, close the browser, come back next week, and your notes are still on the page you left them on, chapter by chapter. Select a passage and right-click it for a second kind of note: Highlight, in the same five colours as the marker’s highlighter, alongside Copy, Select all, Web search and Read aloud. A highlight stays on its own words whatever size you read at; right-click one again to take it off.",
+      "The daily review is now called Daily study, holding the marker puts the pen back up without opening the tools, and the text size in Settings gains a very small and a very large at the ends of the scale. A sideways swipe between pages also works when your finger starts in the empty space below everything on the page, which it did not before.",
     ],
   },
   {

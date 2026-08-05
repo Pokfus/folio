@@ -3079,7 +3079,7 @@
      and it wins outright, exactly as a parent deck's does in Anki. Settings → New cards per day remains
      what a DECK follows until it is given limits of its own. */
   const REVIEW_ENTRY = "review:all";   // a colon, so it can never collide with a node id or a "u:" deck
-  const REVIEW_TITLE = "Daily review";
+  const REVIEW_TITLE = "Daily study";   // renamed from "Daily review" Aug 2026, on request
   function reviewLimits() {
     const o = (S.deckOpts && S.deckOpts[REVIEW_ENTRY]) || {};
     let widest = 0, any = false;
@@ -5123,7 +5123,14 @@
      layouts are tuned to those pixels (the tab bar's labels, the review's deck rows, the Atlas timebar),
      so scaling all of it would break the chrome to enlarge the prose. Prose reflows; a bar of four cells
      does not. Kept in S.settings beside `theme` — a device preference, not synced. */
-  const FONT_SIZES = ["small", "medium", "large"];
+  /* FIVE stops since Aug 2026, on request — "very small" and "very large" at the ends of the three that
+     were there. The stored value is the NAME, so the three existing ones keep working untouched and no
+     save has to be migrated; the two new keys simply had no reader before today. The label is a table
+     rather than a capitalised key, because "Very small" is two words and `tiny`/`huge` are not what a
+     reader should be shown. */
+  const FONT_SIZES = ["tiny", "small", "medium", "large", "huge"];
+  const FONT_SIZE_LABELS = { tiny: "Very small", small: "Small", medium: "Medium", large: "Large", huge: "Very large" };
+  function fontSizeLabel(f) { return FONT_SIZE_LABELS[f] || f; }
   /* Light or dark from the operating system. Read LIVE (not cached) for the same reason
      prefersReducedMotion is: the setting can change while the tab is open — a laptop crossing sunset does
      it without a reload — and the listener below repaints when it does. */
@@ -5203,7 +5210,7 @@
     const range = document.querySelector("#fsRange");
     if (range) {
       range.value = String(FONT_SIZES.indexOf(size));
-      range.setAttribute("aria-valuetext", size.charAt(0).toUpperCase() + size.slice(1));
+      range.setAttribute("aria-valuetext", fontSizeLabel(size));
     }
     document.querySelectorAll("#fsPick .fs-tick").forEach((t) => t.classList.toggle("on", t.dataset.fs === size));
   }
@@ -5713,7 +5720,14 @@
      There is no "Draw" button (removed Aug 2026, on request): the three SIZE buttons are the pen, and
      clicking the selected size again is what puts it back up — so the pen costs one control instead of two,
      and the row that named it now carries Mark beside the sizes. */
-  const WB = { enabled: false, panelOpen: false, mode: "pen", penColor: WB_COLORS[0], hlColor: WB_HL_COLORS[0], color: WB_COLORS[0], size: WB_SIZES[1], canvas: null, ctx: null, drawing: false, last: null, ro: null, backup: null, hlPts: null, dirtied: false, undoStack: [], redoStack: [], stylusSeen: false, penOnly: true };
+  /* THE INK HAS TWO BACKENDS, and which one is in force is decided by whether a page installs the hooks.
+     A card's whiteboard is a RASTER canvas whose history is a stack of full-canvas bitmaps and whose
+     strokes die with the card — that is right for a card, which is a thing you meet again on a schedule.
+     A page that sets `onInk` / `onRedraw` (and the undo/redo/clear hooks beside them) instead keeps the
+     strokes as a VECTOR list of its own, which is what makes them saveable: the book's notes are kept
+     across sessions, and a bitmap the size of a chapter is neither storable nor re-drawable at another
+     text size. The Atlas is the third case, a vector list anchored to lon/lat rather than to the page. */
+  const WB = { enabled: false, panelOpen: false, mode: "pen", penColor: WB_COLORS[0], hlColor: WB_HL_COLORS[0], color: WB_COLORS[0], size: WB_SIZES[1], canvas: null, ctx: null, drawing: false, last: null, ro: null, backup: null, hlPts: null, dirtied: false, undoStack: [], redoStack: [], stylusSeen: false, penOnly: true, onInk: null, onRedraw: null };
   const WB_HIST_MAX = 20;   // cap on undo history (raster card snapshots are full-canvas bitmaps)
   /* ---------- A STYLUS TAKES THE PEN, AND FINGERS GO BACK TO SCROLLING (Aug 2026, on request) ----------
      Anki's behaviour, and the reason it exists: with the marker down the canvas covers the whole visible
@@ -5885,6 +5899,52 @@
     window.addEventListener("resize", () => wbApplyPos(el));
   }
 
+  /* ---- HOLDING the marker puts the pen up (Aug 2026, on request) ----
+     The toggle already carried two meanings — a tap opens and shuts the tools, a drag moves them — and
+     the one thing it could not do was the thing a reader with a tool selected most often wants: stop
+     drawing without first finding the panel and unselecting the tool inside it. A hold is the third
+     gesture the button had left, and it is the same one the deck rows and the review banner use one
+     level up, so it is not a new idea to learn.
+
+     It is deliberately a NO-OP when nothing is selected. A hold that turned drawing ON would make the
+     gesture mean opposite things depending on a state the shut panel barely shows, and the tap already
+     turns it on. So this only ever puts the pen down again — one direction, always safe.
+
+     Three things it has to get right, all of them about not firing twice:
+       · a hold that has fired swallows the click that follows it (`wbHeld`), exactly as a drag does
+         through `wbDragged` — otherwise the finger that put the pen up would also open the tools;
+       · a press that turns into a DRAG cancels the pending hold, since the reader is moving the marker
+         and not answering a question about the tool;
+       · `contextmenu` is suppressed on the handle, or a long press on a phone raises the browser's own
+         menu over the gesture and a right-click on a desktop fires it twice. */
+  const WB_HOLD_MS = 480;
+  let wbHeld = false;
+  function wbWireHoldToRelease(handle) {
+    let t = 0, sx = 0, sy = 0, id = null;
+    const cancel = () => { clearTimeout(t); t = 0; id = null; };
+    handle.addEventListener("pointerdown", (e) => {
+      if (e.button != null && e.button !== 0) return;
+      wbHeld = false;
+      id = e.pointerId; sx = e.clientX; sy = e.clientY;
+      clearTimeout(t);
+      t = setTimeout(() => {
+        t = 0;
+        if (wbDragged || !WB.enabled) return;   // moving the marker, or nothing to put away
+        wbHeld = true;
+        wbSetEnabled(false);
+        toast("Marker off");
+        try { if (navigator.vibrate) navigator.vibrate(12); } catch (x) {}
+      }, WB_HOLD_MS);
+    });
+    handle.addEventListener("pointermove", (e) => {
+      if (id == null || e.pointerId !== id || !t) return;
+      if (Math.abs(e.clientX - sx) > WB_DRAG_SLOP || Math.abs(e.clientY - sy) > WB_DRAG_SLOP) cancel();
+    });
+    handle.addEventListener("pointerup", cancel);
+    handle.addEventListener("pointercancel", cancel);
+    handle.addEventListener("contextmenu", (e) => e.preventDefault());
+  }
+
   function ensureWBTools() {
     if (wbToolsRef) return wbToolsRef;
     const el = document.createElement("div");
@@ -5920,7 +5980,7 @@
           <button class="wb-btn wb-redo" aria-label="Redo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>Redo</button>
         </div>
       </div>
-      <button class="wb-toggle" aria-label="Drawing tools" title="Draw on the card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>`;
+      <button class="wb-toggle" aria-label="Drawing tools" title="Drawing tools — hold to put the pen up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>`;
     document.body.appendChild(el);
     /* Nothing selected IS the pen-up state — that is what makes "unselect the tool" a way to stop drawing.
        The size buttons carry TWO marks because they do two jobs since the Draw button went: `.sel` says
@@ -6099,6 +6159,8 @@
     el.querySelector(".wb-toggle").addEventListener("click", () => {
       // the press that ended a drag also fires a click — it moved the marker, it did not press it
       if (wbDragged) { wbDragged = false; return; }
+      // …and the press that put the pen up by being HELD is likewise not a press on the button
+      if (wbHeld) { wbHeld = false; return; }
       if (WB.panelOpen) { WB.panelOpen = false; applyWBState(); return; }   // putting the tools away leaves the pen down
       WB.panelOpen = true;
       // opening the tools with nothing selected picks the pen, so one tap still gets you drawing
@@ -6106,6 +6168,7 @@
       applyWBState();
     });
     wbMakeDraggable(el, el.querySelector(".wb-toggle"));
+    wbWireHoldToRelease(el.querySelector(".wb-toggle"));
     wbToolsRef = el;
     return el;
   }
@@ -6131,8 +6194,12 @@
     if (WB.ro) { WB.ro.disconnect(); WB.ro = null; }
     if (WB.canvas && WB.canvas.parentNode) WB.canvas.parentNode.removeChild(WB.canvas);
     WB.canvas = null; WB.ctx = null; WB.drawing = false; WB.backup = null; WB.hlPts = null;
-    WB.onToggle = null; WB.onClear = null; WB.onUndo = null; WB.onRedo = null; WB.onCanUndo = null; WB.onCanRedo = null; // globe (atlas) draw-mode hooks, set up per visit
+    // per-page hooks, set up on the way in and dropped on the way out: the globe's draw-mode, and the
+    // book's vector ink store (onInk / onRedraw)
+    WB.onToggle = null; WB.onClear = null; WB.onUndo = null; WB.onRedo = null; WB.onCanUndo = null; WB.onCanRedo = null;
+    WB.onInk = null; WB.onRedraw = null; WB.onScroll = null;
     WB.undoStack.length = 0; WB.redoStack.length = 0; WB.dirtied = false;   // don't leak draw-history across pages
+    WB.fixed = false;
     WB.enabled = false; WB.panelOpen = false; // every page entry starts with draw-mode off and the tools shut (don't leak across pages)
   }
   function wbClear() {
@@ -6169,6 +6236,13 @@
     ctx.restore();
   }
   function wbResetHist() { WB.undoStack.length = 0; WB.redoStack.length = 0; wbUpdateHistBtns(); }
+  /* The width a stroke is drawn at, in ONE place, because two things draw it: the live pointermove in
+     setupWhiteboard and the replay in the book's ink store, which repaints saved strokes from scratch on
+     every resize. Written twice they would drift, and the symptom would be a reader's own notes coming
+     back a different weight than they were made — which reads as the file having been damaged. */
+  function wbLineWidth(mode, size) {
+    return mode === "hl" ? Math.max(13, size * 5) : mode === "erase" ? Math.max(16, size * 6) : size;
+  }
   function wbUndo() {
     if (WB.onUndo) { WB.onUndo(); wbUpdateHistBtns(); return; }   // globe: geo-anchored strokes
     if (WB.undoStack.length <= 1) return;                         // keep the empty base state
@@ -6187,6 +6261,29 @@
     const c = WB.canvas; if (!c) return;
     const stage = c.parentElement; if (!stage) return;
     const dpr = window.devicePixelRatio || 1;
+    /* A VIEWPORT-SIZED canvas, fixed to the screen — what the book uses, and it is not an optimisation
+       but the only thing that works there. A card is a page or two, so a canvas the height of the whole
+       scroll is a few megabytes and the strokes scroll with the page for free. A BOOK CHAPTER IS NOT:
+       measured, a book of the Republic is ~41,500px tall, which at this width is a 200 MB backing store
+       reallocated on every chapter turn — and on a phone at devicePixelRatio 3 it is past the area
+       Chrome will allocate at all, where a canvas does not throw but silently stops drawing.
+       So the book paints only what is on screen, and the ink store keeps its strokes in the PAGE's own
+       coordinates and re-draws them at the current scroll offset (see BOOK INK). Constant memory,
+       whatever the chapter. */
+    if (WB.fixed) {
+      const vw = Math.max(1, Math.round(document.documentElement.clientWidth));
+      const vh = Math.max(1, Math.round(document.documentElement.clientHeight || window.innerHeight || 0));
+      c.style.left = "0px"; c.style.top = "0px";
+      c.style.width = vw + "px"; c.style.height = vh + "px";
+      const FW = Math.round(vw * dpr), FH = Math.round(vh * dpr);
+      if (c.width !== FW || c.height !== FH) {
+        c.width = FW; c.height = FH;
+        const fx = c.getContext("2d"); WB.ctx = fx;
+        fx.setTransform(dpr, 0, 0, dpr, 0, 0); fx.lineCap = "round"; fx.lineJoin = "round";
+      }
+      if (WB.onRedraw) WB.onRedraw();
+      return;
+    }
     // Read the STAGE's size (independent of the canvas) — canvas is a replaced element, so
     // we must set its display size explicitly rather than rely on inset:0 (which would make
     // its size track its own backing store and grow unboundedly).
@@ -6211,16 +6308,32 @@
     c.width = W; c.height = H;
     const ctx = c.getContext("2d"); WB.ctx = ctx;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.lineCap = "round"; ctx.lineJoin = "round";
+    /* A VECTOR backend repaints instead (the book's ink store — see BOOK INK). Its strokes are held as
+       fractions of the canvas, so a resize is not something to preserve a bitmap through: the marks are
+       simply drawn again at the new size, which is also why its history survives a resize where the
+       card's cannot. A bitmap snapshot is dimension-specific, so the card still resets its stack to the
+       preserved frame. */
+    if (WB.onRedraw) { WB.onRedraw(); return; }
     if (prev) { ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.drawImage(prev, 0, 0); ctx.restore(); }
     if (preserve) { WB.undoStack.length = 0; WB.redoStack.length = 0; wbSnapCard(); }   // bitmap snapshots are dim-specific → on a real resize, reset history to the (preserved) current frame
   }
-  function setupWhiteboard() {
+  /* `host` overrides where the ink layer is mounted, and the book is what needs it. The canvas paints
+     above everything in its own stacking context, and `.page` animates with a fill mode — which makes it
+     a stacking context of its own, so nothing INSIDE the page can ever paint above a canvas that is the
+     stage's child (this is the same fact that made the controls-under-the-ink pass-through necessary).
+     A card has nothing sticky inside it and does not care. The book has the chapter bar, pinned to the
+     top of the screen, and a stroke made in the prose would slide up and smear across the tabs as the
+     reader scrolled. Mounted INSIDE the page instead, the bar and the ink are in one stacking context
+     and an ordinary z-index settles it (.bk-barwrap sits above .draw-canvas). */
+  function setupWhiteboard(opts) {
+    const o = opts || {};
     // remove any prior overlay (e.g. from the previous card) and start fresh
     if (WB.canvas && WB.canvas.parentNode) WB.canvas.parentNode.removeChild(WB.canvas);
     if (WB._onResize) { window.removeEventListener("resize", WB._onResize); WB._onResize = null; }
     if (WB.ro) { WB.ro.disconnect(); WB.ro = null; }
+    WB.fixed = !!o.fixed;
     const canvas = document.createElement("canvas");
-    canvas.className = "draw-canvas";
+    canvas.className = "draw-canvas" + (WB.fixed ? " wb-fixed" : "");
     // mount inside the scrolling content container so strokes scroll & recenter with the card
     const stage = document.querySelector(".stage") || document.body;
     stage.appendChild(canvas);
@@ -6228,7 +6341,10 @@
     wbApplyStylusMode();   // a canvas built while a stylus is already known must scroll under a finger at once
     WB.drawing = false; WB.backup = null; WB.hlPts = null;
     wbResize(false);
-    WB.undoStack.length = 0; WB.redoStack.length = 0; WB.dirtied = false; wbSnapCard();   // base (empty) snapshot so undo can return to a blank card
+    // A vector backend owns its own history (the book's ink store), so the bitmap stack is neither built
+    // nor needed there — see wbResize and the BOOK INK block.
+    WB.undoStack.length = 0; WB.redoStack.length = 0; WB.dirtied = false;
+    if (!WB.onInk) wbSnapCard();   // base (empty) snapshot so undo can return to a blank card
     const posOf = (e) => { const r = canvas.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; };
     /* ---- controls under the ink stay usable ----
        The canvas covers the whole visible page, so with the pen down it also covered Show answer, the study
@@ -6251,7 +6367,7 @@
       const ctl = el && el.closest ? el.closest(CTL_SEL) : null;
       return ctl && ctl !== canvas ? ctl : null;
     };
-    let passCtl = null, passScroll = false, sx = 0, sy = 0;
+    let passCtl = null, passScroll = false, sx = 0, sy = 0, strokePts = null;
     canvas.addEventListener("pointerdown", (e) => {
       if (!WB.enabled) return;
       if (e.pointerType === "pen") wbNoteStylus();    // the first stroke of a stylus is what usually teaches us
@@ -6270,6 +6386,7 @@
       passCtl = controlUnder(e);
       if (passCtl) { e.preventDefault(); return; }   // a button under the ink: this press is its, not a stroke
       WB.drawing = true; WB.last = posOf(e);
+      strokePts = [WB.last];   // the stroke as a list of points — only read by a vector backend (WB.onInk)
       if (WB.mode === "hl") {
         WB.hlPts = [WB.last];
         WB.backup = document.createElement("canvas");
@@ -6283,6 +6400,7 @@
       if (!WB.enabled || !WB.drawing) return;
       WB.dirtied = true;   // an actual stroke happened → snapshot it on pointerup (for undo)
       const p = posOf(e), ctx = WB.ctx, dpr = window.devicePixelRatio || 1;
+      if (strokePts) strokePts.push(p);
       if (WB.mode === "hl") {
         // redraw the whole stroke fresh over the pre-stroke snapshot -> even translucency, no overlap buildup
         WB.hlPts.push(p);
@@ -6293,7 +6411,7 @@
         ctx.globalCompositeOperation = "source-over";
         ctx.globalAlpha = 0.34;
         ctx.strokeStyle = WB.color;
-        ctx.lineWidth = Math.max(13, WB.size * 5);
+        ctx.lineWidth = wbLineWidth("hl", WB.size);
         const pts = WB.hlPts;
         ctx.beginPath(); ctx.moveTo(pts[0].x, pts[0].y);
         for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i].x, pts[i].y);
@@ -6303,12 +6421,24 @@
         ctx.globalAlpha = 1;
         ctx.globalCompositeOperation = WB.mode === "erase" ? "destination-out" : "source-over";
         ctx.strokeStyle = WB.color;
-        ctx.lineWidth = WB.mode === "erase" ? Math.max(16, WB.size * 6) : WB.size;
+        ctx.lineWidth = wbLineWidth(WB.mode, WB.size);
         ctx.beginPath(); ctx.moveTo(WB.last.x, WB.last.y); ctx.lineTo(p.x, p.y); ctx.stroke();
         WB.last = p;
       }
     });
-    const end = () => { const drew = WB.drawing && WB.dirtied; WB.drawing = false; WB.backup = null; WB.hlPts = null; if (drew) { WB.dirtied = false; wbSnapCard(); } };
+    const end = () => {
+      const drew = WB.drawing && WB.dirtied;
+      const pts = strokePts;
+      WB.drawing = false; WB.backup = null; WB.hlPts = null; strokePts = null;
+      if (!drew) return;
+      WB.dirtied = false;
+      /* A vector backend takes the stroke and owns the history from here (the book's ink store); the
+         card keeps its bitmap snapshots. The canvas's CSS size travels with the stroke because the
+         points are in CSS pixels and the store keeps them as fractions of it. */
+      if (WB.onInk) WB.onInk({ mode: WB.mode, color: WB.color, size: WB.size, pts: pts || [],
+                               w: canvas.offsetWidth || 1, h: canvas.offsetHeight || 1 });
+      else wbSnapCard();
+    };
     canvas.addEventListener("pointerup", (e) => {
       const ctl = passCtl, scrolled = passScroll; passCtl = null; passScroll = false;
       if (ctl) {
@@ -6552,11 +6682,38 @@
   // right-click on a selection inside the background paragraph -> Copy / Read aloud
   let ctxMenuEl = null;
   function closeCtxMenu() { if (ctxMenuEl) { ctxMenuEl.remove(); ctxMenuEl = null; } }
+  /* An item is either a plain command or a row of COLOURS (`it.colors`), which is what the book's
+     Highlight offers. A colour row is drawn in place rather than as a nested submenu: five swatches are
+     smaller than the words naming them, a submenu needs a second decision about which way it opens, and
+     on a phone a menu inside a menu is a target inside a target. `it.act` then takes the colour. */
   function showCtxMenu(x, y, items) {
     closeCtxMenu();
     const m = document.createElement("div");
     m.className = "ctx-menu";
     items.forEach((it) => {
+      if (it.colors) {
+        const wrap = document.createElement("div");
+        wrap.className = "ctx-swatches";
+        const lab = document.createElement("span");
+        lab.className = "ctx-swlabel";
+        lab.textContent = it.label;
+        wrap.appendChild(lab);
+        const row = document.createElement("div");
+        row.className = "ctx-swrow";
+        it.colors.forEach((c) => {
+          const s = document.createElement("button");
+          s.type = "button";
+          s.className = "ctx-sw";
+          s.style.background = c;
+          s.setAttribute("aria-label", it.label + " in " + c);
+          s.title = it.label;
+          s.addEventListener("click", () => { closeCtxMenu(); it.act(c); });
+          row.appendChild(s);
+        });
+        wrap.appendChild(row);
+        m.appendChild(wrap);
+        return;
+      }
       const b = document.createElement("button");
       b.type = "button";
       b.textContent = it.label;
@@ -6596,6 +6753,50 @@
       ]);
     });
   }
+  /* ---- the book's own selection menu (Aug 2026, on request) ----
+     Highlight · Copy · Select all · Web search · Read aloud, plus Remove highlight where the click
+     lands on one. Deliberately NOT wireReadAloudMenu, which is a two-item menu for a card's background
+     and is gated on ttsEnabled() — that gate turns the whole read-aloud SYSTEM off (auto-read, the play
+     triangles, the baked narration), and a reader who has selected a phrase and asked for it to be read
+     has asked for one thing rather than turned a system on, so this speaks it directly.
+
+     Every item except Select all needs a selection, and Remove needs a highlight under the pointer, so
+     the menu is BUILT from what is actually there — a row that would do nothing is not shown. Remove is
+     here because Highlight writes something permanent: an item that can only ever be added is a trap
+     the first time a reader mis-drags. */
+  function wireBookCtxMenu(pageEl, onHighlight, onRemoveHighlight) {
+    if (!pageEl || pageEl._bkCtxWired) return;
+    pageEl._bkCtxWired = true;
+    pageEl.addEventListener("contextmenu", (e) => {
+      const sel = window.getSelection();
+      const text = sel ? String(sel).trim() : "";
+      const inProse = !!(sel && sel.rangeCount && pageEl.contains(sel.getRangeAt(0).commonAncestorContainer));
+      const hl = e.target && e.target.closest ? e.target.closest(".bk-hl") : null;
+      if (!text && !hl) return;                    // nothing to act on → leave the browser's own menu alone
+      e.preventDefault();
+      const items = [];
+      if (text && inProse) items.push({ label: "Highlight", colors: WB_HL_COLORS, act: (c) => onHighlight(c) });
+      if (hl) items.push({ label: "Remove highlight", act: () => onRemoveHighlight(hl) });
+      if (text) items.push({ label: "Copy", act: () => copySelText(text) });
+      items.push({ label: "Select all", act: () => {
+        const s = window.getSelection();
+        const prose = pageEl.querySelector(".bk-prose");
+        if (!s || !prose) return;
+        s.removeAllRanges();
+        const r = document.createRange();
+        r.selectNodeContents(prose);
+        s.addRange(r);
+      } });
+      if (text) items.push({ label: "Web search", act: () => {
+        try { window.open("https://www.google.com/search?q=" + encodeURIComponent(text), "_blank", "noopener"); } catch (x) {}
+      } });
+      // shown only where the device can actually speak — an item that toasts "not available" is worse
+      // than one that is not offered
+      if (text && ttsSupported()) items.push({ label: "Read aloud", act: () => ttsSay([{ text: text }], 0) });
+      showCtxMenu(e.clientX, e.clientY, items);
+    });
+  }
+
   // Chinese pronunciation buttons (.tr-play) — the shared slow female Chinese voice
   function speak(text, btn) {
     if (!text) return;
@@ -7317,7 +7518,7 @@
                 actually after, so the numeral was a fourth unlabelled number competing with three
                 labelled ones. */""}
           <div class="body">
-            <h2 class="review-title">Daily review</h2>
+            <h2 class="review-title">${REVIEW_TITLE}</h2>
             ${/* …and with it the "Cards scheduled for today, plus a few new ones" line, which described the
                   three counts underneath it in words. The other two branches are kept: one says the day is
                   finished and the other says there is nothing here yet, and neither is visible anywhere
@@ -8265,6 +8466,307 @@
     S.reading[id] = { ch: ch, y: y, at: Date.now() };
     save();
   }
+  /* ============================================================
+     BOOK INK — the marker's notes, kept (Aug 2026, on request)
+
+     "Add the whiteboard marker to the book reading page, and ensure that drawn lines are remembered
+     across sessions, so a user can make notes in the text and keep these saved."
+
+     THE CARD'S WHITEBOARD CANNOT BE SAVED, and that is the whole reason this exists rather than a call
+     to setupWhiteboard and nothing else. A card's ink is a raster canvas and its history a stack of
+     full-canvas bitmaps: at a chapter's height that is megabytes per chapter, it cannot be re-drawn at
+     another text size or on another screen, and it is exactly the wrong thing to put in localStorage.
+     So a book's ink is a VECTOR list — the strokes themselves — and the canvas is only where they are
+     painted. That is what `WB.onInk` / `WB.onRedraw` are for; see the WB declaration.
+
+     A POINT IS A FRACTION OF THE CANVAS, not a pixel. The same chapter is a different height on a
+     phone, on a laptop, at Very large text and with the Latin column showing, so a pixel offset would
+     put a reader's own note somewhere they never made it — and would be worst exactly where notes
+     matter most, deep in a long chapter. Fractions put a mark back in the same PLACE IN THE CHAPTER,
+     which is the same promise `readingPos` makes about the reader's place and is the most that can be
+     promised over prose that reflows. The honest cost is that a note is anchored to the chapter and not
+     to a sentence: change the width a lot and the mark lands beside the line it was drawn on rather
+     than on it. Anchoring to sentences is what the HIGHLIGHTS below do, which is why both exist.
+
+     Keyed by BOOK AND CHAPTER, so one chapter's notes cannot appear over another's — and stored
+     device-locally, like where the marker sits and how tall the Atlas sheet is, rather than in S: this
+     is ink on a screen, and the synced progress blob is not the place for a megabyte of it.
+     ============================================================ */
+  const BOOK_INK_KEY = "folio_book_ink_v1";
+  const INK_MAX_STROKES = 400;    // per chapter — a hard stop, so one chapter cannot fill the quota
+  const INK_MAX_PTS = 600;        // per stroke; a long slow drag samples far more than it needs
+  const INK_MIN_STEP = 1.2;       // px between kept points — pointermove fires far finer than a line needs
+  let _bookInk = null;
+  function bookInkAll() {
+    if (_bookInk) return _bookInk;
+    _bookInk = {};
+    try {
+      const o = JSON.parse(localStorage.getItem(BOOK_INK_KEY) || "null");
+      if (o && typeof o === "object") _bookInk = o;
+    } catch (e) {}
+    return _bookInk;
+  }
+  function bookInkKey(id, ch) { return id + "|" + ch; }
+  function bookInkGet(id, ch) {
+    const a = bookInkAll()[bookInkKey(id, ch)];
+    return Array.isArray(a) ? a : [];
+  }
+  /* Writing can FAIL, and it fails silently unless it is caught: localStorage has a quota, ink is the
+     bulkiest thing Folio puts in it, and a reader whose notes stopped being saved without being told is
+     the one outcome this feature must not have. An empty chapter drops its key rather than storing `[]`,
+     so a book read through and cleared leaves nothing behind. */
+  let _inkWarned = false;
+  function bookInkSet(id, ch, strokes) {
+    const all = bookInkAll(), k = bookInkKey(id, ch);
+    if (strokes && strokes.length) all[k] = strokes; else delete all[k];
+    try {
+      localStorage.setItem(BOOK_INK_KEY, JSON.stringify(all));
+      _inkWarned = false;
+    } catch (e) {
+      if (!_inkWarned) { _inkWarned = true; toast("There's no room left to save notes on this device."); }
+    }
+  }
+  // 4 decimal places is a tenth of a pixel on a 1000px column — below anything an eye can see, and it
+  // roughly halves what a stroke costs to store against the raw float
+  const inkR = (v) => Math.round(v * 10000) / 10000;
+  /* One drawn stroke → one stored record, in the PAGE's coordinates rather than the canvas's. The
+     canvas is the size of the screen (see wbResize's `fixed` branch), so a point has to be lifted out
+     of it before it can be stored — `frame` is the page's box in document space, supplied by the book.
+     `z` is the brush SIZE rather than the pixel width, and `rw` the page width it was drawn at, so the
+     replay can widen the line with the column instead of leaving a hairline across a wide screen; the
+     width itself comes from wbLineWidth at both ends. */
+  function inkRecord(s, frame) {
+    const w = Math.max(1, frame.w), h = Math.max(1, frame.h);
+    const pts = (s.pts || []).map((p) => ({ x: p.x + window.scrollX - frame.x, y: p.y + window.scrollY - frame.y }));
+    const out = [];
+    let lx = -1e9, ly = -1e9;
+    pts.forEach((p, i) => {
+      // the first and the last point are always kept — the first opens the stroke and the last is where
+      // the reader's hand actually stopped; everything between is thinned, since pointermove samples far
+      // finer than a line needs and every point costs storage
+      const ends = i === 0 || i === pts.length - 1;
+      if (!ends && Math.abs(p.x - lx) < INK_MIN_STEP && Math.abs(p.y - ly) < INK_MIN_STEP) return;
+      lx = p.x; ly = p.y;
+      out.push([inkR(p.x / w), inkR(p.y / h)]);
+    });
+    if (out.length > INK_MAX_PTS) {
+      // keep the ends and thin the middle evenly — a stroke this long is a slow drag, not more detail
+      const step = out.length / INK_MAX_PTS, kept = [];
+      for (let i = 0; i < INK_MAX_PTS; i++) kept.push(out[Math.min(out.length - 1, Math.round(i * step))]);
+      kept[kept.length - 1] = out[out.length - 1];
+      return { m: s.mode, c: s.color, z: s.size, rw: Math.round(w), p: kept };
+    }
+    return { m: s.mode, c: s.color, z: s.size, rw: Math.round(w), p: out };
+  }
+  /* Repaint the whole chapter's strokes at the CURRENT scroll offset, from scratch. Called on load,
+     after every undo/redo/clear, on resize, and on scroll — the canvas is only as tall as the screen,
+     so scrolling is what moves the ink rather than the canvas moving with it.
+
+     The sticky chapter bar is CLIPPED OUT rather than painted over. The bar lives inside `.page`, which
+     animates with a fill mode and is therefore a stacking context of its own, so nothing inside it can
+     be raised above a canvas that is a child of the stage — no z-index settles this. Clipping does: the
+     bar is pinned to the viewport and so is the canvas, so its band is simply excluded, and a stroke
+     that runs under it is cut off at its edge exactly as one under a real bookmark would be. */
+  function inkReplay(strokes, frame) {
+    const c = WB.canvas, ctx = WB.ctx;
+    if (!c || !ctx || !frame) return;
+    const dpr = window.devicePixelRatio || 1;
+    const w = Math.max(1, frame.w), h = Math.max(1, frame.h);
+    const ox = frame.x - window.scrollX, oy = frame.y - window.scrollY;
+    const vw = c.offsetWidth || 1, vh = c.offsetHeight || 1;
+    ctx.save();
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, c.width, c.height);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.lineCap = "round"; ctx.lineJoin = "round";
+    const bar = document.querySelector(".bk-barwrap");
+    const top = bar ? Math.max(0, bar.getBoundingClientRect().bottom) : 0;
+    if (top > 0) { ctx.beginPath(); ctx.rect(0, top, vw, Math.max(0, vh - top)); ctx.clip(); }
+    (strokes || []).forEach((s) => {
+      const pts = s.p || [];
+      if (!pts.length) return;
+      // nothing on screen → nothing to draw. A chapter is tens of screens tall and this runs on every
+      // scroll frame, so the strokes that are nowhere near the viewport must cost a comparison and no more
+      let lo = Infinity, hi = -Infinity;
+      for (let i = 0; i < pts.length; i++) { const y = pts[i][1] * h + oy; if (y < lo) lo = y; if (y > hi) hi = y; }
+      const pad = wbLineWidth(s.m, s.z || 2) + 4;
+      if (hi + pad < 0 || lo - pad > vh) return;
+      ctx.globalCompositeOperation = s.m === "erase" ? "destination-out" : "source-over";
+      ctx.globalAlpha = s.m === "hl" ? 0.34 : 1;
+      ctx.strokeStyle = s.c || "#000";
+      ctx.lineWidth = Math.max(0.5, wbLineWidth(s.m, s.z || 2) * (w / (s.rw || w)));
+      ctx.beginPath();
+      ctx.moveTo(pts[0][0] * w + ox, pts[0][1] * h + oy);
+      if (pts.length === 1) ctx.lineTo(pts[0][0] * w + ox + 0.01, pts[0][1] * h + oy);   // a dot is a stroke too
+      else for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0] * w + ox, pts[i][1] * h + oy);
+      ctx.stroke();
+    });
+    ctx.globalAlpha = 1;
+    ctx.globalCompositeOperation = "source-over";
+    ctx.restore();
+  }
+  /* Mount the vector backend on the canvas setupWhiteboard has just built, and hand it a way to say
+     which chapter it is on. Undo/redo run on the stroke list rather than on bitmaps, which is what
+     lets them survive a resize — and every change is written through at once, because "saved" has to
+     mean saved even if the tab is closed on the next breath. */
+  /* History is a stack of whole LISTS rather than of single strokes, and that is what makes Clear
+     undoable — the one step that is not "one more stroke" and the one a reader most needs back. A
+     snapshot is an array of references to records that are never mutated once made, so it costs almost
+     nothing to keep.
+
+     With an EMPTY past and strokes on the page — which is every chapter reopened from disk — undo peels
+     the last stroke instead. Without that, reopening a book would leave a reader who wants one mark gone
+     with only Clear, which takes the chapter's notes with it. */
+  function bookInkMount(bookId, frameOf) {
+    let ch = null, strokes = [], past = [], future = [];
+    const persist = () => bookInkSet(bookId, ch, strokes);
+    const paint = () => inkReplay(strokes, frameOf());
+    const step = (next) => { past.push(strokes.slice()); while (past.length > WB_HIST_MAX) past.shift(); strokes = next; future.length = 0; };
+    const settle = () => { paint(); persist(); wbUpdateHistBtns(); };
+    WB.onInk = (s) => {
+      if (ch == null) return;
+      const rec = inkRecord(s, frameOf());
+      if (!rec.p.length) return;
+      const next = strokes.concat([rec]);
+      while (next.length > INK_MAX_STROKES) next.shift();
+      step(next);
+      persist();
+      /* Repainted rather than left as drawn, unlike the card's raster ink: the live stroke was painted
+         with no clip, so a mark made across the chapter bar would sit ON the bar until something else
+         redrew it. One repaint at the end of a stroke settles it. */
+      paint();
+      wbUpdateHistBtns();
+    };
+    WB.onRedraw = paint;
+    // the ink is fixed to the screen and the prose is not, so SCROLLING is what moves the marks
+    WB.onScroll = paint;
+    WB.onUndo = () => {
+      if (past.length) { future.push(strokes.slice()); strokes = past.pop(); }
+      else if (strokes.length) { future.push(strokes.slice()); strokes = strokes.slice(0, -1); }
+      else return;
+      settle();
+    };
+    WB.onRedo = () => { if (!future.length) return; past.push(strokes.slice()); strokes = future.pop(); settle(); };
+    WB.onCanUndo = () => past.length > 0 || strokes.length > 0;
+    WB.onCanRedo = () => future.length > 0;
+    WB.onClear = () => { if (!strokes.length) return; step([]); settle(); };
+    // moving to another chapter swaps the whole list, history included: an undo that reached back into
+    // the chapter before would take away a mark the reader cannot see
+    return function setChapter(n) {
+      ch = n; strokes = bookInkGet(bookId, n); past = []; future = [];
+      paint();
+      wbUpdateHistBtns();
+    };
+  }
+
+  /* ============================================================
+     BOOK HIGHLIGHTS — marking the words themselves (Aug 2026, on request)
+
+     The marker above draws OVER the page; a highlight is made OF it, and the difference is what each
+     survives. Ink is anchored to the chapter as a proportion, so it keeps its place through a scroll
+     and drifts if the column is re-shaped; a highlight is anchored to the TEXT — a character range in
+     the chapter's own prose — so it stays on its sentence at any width, any text size and either
+     language column, which is what marking a passage has to mean.
+
+     `k` is which column the range is measured in: "en" for the translation (or the whole prose, when
+     there is no original) and "or" for the original beside it. The offsets are taken AFTER the glossary
+     linking and the units pass have run, so what is measured is what the reader is actually looking at.
+     The one thing that moves them is switching measurement systems mid-book, which rewrites the prose
+     itself — rare, recoverable (switch back), and the honest price of anchoring to text rather than to
+     a fragile guess at sentence identity.
+     ============================================================ */
+  const BOOK_HL_KEY = "folio_book_hl_v1";
+  let _bookHl = null;
+  function bookHlAll() {
+    if (_bookHl) return _bookHl;
+    _bookHl = {};
+    try { const o = JSON.parse(localStorage.getItem(BOOK_HL_KEY) || "null"); if (o && typeof o === "object") _bookHl = o; } catch (e) {}
+    return _bookHl;
+  }
+  function bookHlGet(id, ch) { const a = bookHlAll()[bookInkKey(id, ch)]; return Array.isArray(a) ? a : []; }
+  function bookHlSet(id, ch, list) {
+    const all = bookHlAll(), k = bookInkKey(id, ch);
+    if (list && list.length) all[k] = list; else delete all[k];
+    try { localStorage.setItem(BOOK_HL_KEY, JSON.stringify(all)); } catch (e) { toast("There's no room left to save notes on this device."); }
+  }
+  // The text nodes of one column, in reading order — the coordinate system every offset is measured in.
+  // A node already inside a highlight counts exactly as it did before it was wrapped, which is what
+  // lets a second highlight be placed over prose that already carries one.
+  function bkTextNodes(pageEl, col) {
+    const roots = pageEl.querySelectorAll(col === "or" ? ".bk-col-or" : (pageEl.querySelector(".bk-bi") ? ".bk-col-en" : ".bk-prose"));
+    const out = [];
+    roots.forEach((r) => {
+      const w = document.createTreeWalker(r, NodeFilter.SHOW_TEXT, null);
+      let n; while ((n = w.nextNode())) if (n.nodeValue) out.push(n);
+    });
+    return out;
+  }
+  // where a selection boundary falls in that coordinate system (-1 when it is not in this column)
+  function bkOffsetOf(nodes, node, off) {
+    let n = node;
+    if (n && n.nodeType !== 3) {   // an element boundary: take the first text node at or after it
+      const kid = n.childNodes[Math.min(off, n.childNodes.length - 1)];
+      const w = document.createTreeWalker(kid || n, NodeFilter.SHOW_TEXT, null);
+      n = (kid && kid.nodeType === 3) ? kid : w.nextNode();
+      off = 0;
+    }
+    let acc = 0;
+    for (let i = 0; i < nodes.length; i++) {
+      if (nodes[i] === n) return acc + off;
+      acc += nodes[i].nodeValue.length;
+    }
+    return -1;
+  }
+  function bkHlColorCSS(hex) {
+    const m = /^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i.exec(hex || "");
+    if (!m) return hex || "transparent";
+    return "rgba(" + parseInt(m[1], 16) + "," + parseInt(m[2], 16) + "," + parseInt(m[3], 16) + ",.34)";
+  }
+  /* Wrap one character range. A range over prose almost always crosses element boundaries — a sentence
+     with an italic title in it, a glossary link, a footnote marker — so `surroundContents` cannot be
+     used; each text node the range touches is split and its middle wrapped on its own. The snapshot is
+     taken first and each node's length read before it is split, so the splitting cannot move the
+     offsets out from under the loop. */
+  function bkPaintHl(nodes, a, b, color, idx) {
+    let acc = 0;
+    nodes.forEach((n) => {
+      const len = n.nodeValue.length, s = acc, e = acc + len;
+      acc = e;
+      if (e <= a || s >= b || !n.parentNode) return;
+      const from = Math.max(0, a - s), to = Math.min(len, b - s);
+      if (to <= from) return;
+      let mid = n;
+      if (from > 0) mid = mid.splitText(from);
+      if (to - from < mid.nodeValue.length) mid.splitText(to - from);
+      const span = document.createElement("span");
+      span.className = "bk-hl";
+      span.dataset.hl = String(idx);
+      span.style.background = bkHlColorCSS(color);
+      mid.parentNode.insertBefore(span, mid);
+      span.appendChild(mid);
+    });
+  }
+  // Put a chapter's highlights back on the page, after everything else that rewrites the prose has run.
+  function bookHlApply(pageEl, id, ch) {
+    const list = bookHlGet(id, ch);
+    if (!list.length) return;
+    ["en", "or"].forEach((col) => {
+      const mine = list.filter((h) => (h.k || "en") === col);
+      if (!mine.length) return;
+      /* Painted from the END of the chapter backwards. Every range's offsets were measured against the
+         un-split text, and wrapping one splits the nodes under it — so painting a LATER one first can
+         never disturb an earlier one's coordinates, while the other order would.
+         The span carries the highlight's own id and NOT its position in the list, which is what lets
+         Remove find every span of one highlight and the record behind it: an index shifts the moment
+         anything before it is removed, and this shipped with the index for an hour, which took the
+         marks off the page and left the record on disk to put them back on the next reload. */
+      mine.slice().sort((x, y) => y.a - x.a).forEach((h) => {
+        const nodes = bkTextNodes(pageEl, col);
+        if (nodes.length) bkPaintHl(nodes, h.a, h.b, h.c, h.i);
+      });
+    });
+  }
+
   // how far through the whole book that place is, for the tile's progress line
   function readingPct(b) {
     const r = readingPos(b.id);
@@ -8686,7 +9188,13 @@
       setupTooltips(pageEl);
       wireFootnotes(pageEl);
       unitizeTree(pageEl);
+      /* The reader's own marks go on LAST, over the finished prose — the offsets they are stored as are
+         measured against the text after the glossary links and the units pass have rewritten it, so
+         putting them back any earlier would put them back against a different string. */
+      bookHlApply(pageEl, b.id, c.n);
       applyLangMode();
+      // …and the chapter's ink, which is a fresh list per chapter, history included
+      if (inkChapter) inkChapter(c.n);
 
       tabsEl.querySelectorAll(".bk-tab").forEach((t) => {
         const on = +t.dataset.ch === c.n;
@@ -9024,7 +9532,12 @@
     const BK_TAP_SKIP = "a,button,input,textarea,select,summary,label,[role='button'],.ttip,.fn,.src-note,.bk-n";
     // listeners go on `root` — a fresh .page div per render (see render()), so they die with the page
     // and cannot accumulate the way one on the persistent #view would
+    /* WITH THE PEN DOWN THE FINGER DRAWS, and neither of these gestures may fire. It is not a nicety:
+       the ink layer is mounted INSIDE the page (see setupWhiteboard's `host`), so a stroke's pointer
+       events bubble to these very listeners — and a horizontal line drawn under a passage is exactly
+       the shape this handler reads as "turn the chapter". */
     function bkGestureOK() {
+      if (WB.enabled) return false;
       return bookPhone() && !document.querySelector(".gloss-win, .img-viewer, .inline-prompt, .ctx-menu, .deck-menu, .levelup-pop");
     }
     let g = null, lastT = 0, lastX = 0, lastY = 0;
@@ -9117,6 +9630,82 @@
       if (e.key === "ArrowLeft") { e.preventDefault(); step(-1); }
       else if (e.key === "ArrowRight") { e.preventDefault(); step(1); }
     });
+
+    /* ---- the marker, and the notes it leaves behind (Aug 2026, on request) ----
+
+       The same floating marker as a study card's, over the book instead — mounted here rather than left
+       to the card page because a chapter is where a reader actually wants to write. What is different is
+       underneath: `bookInkMount` installs the VECTOR backend (see BOOK INK), so the strokes are a list
+       that is written to disk as it is drawn rather than a bitmap that dies with the page.
+
+       Order matters twice over. The store is mounted BEFORE setupWhiteboard, because setupWhiteboard
+       asks whether a vector backend is present to decide whether to build a bitmap history it would
+       otherwise never use; and paint() runs after both, because it is what tells the store which chapter
+       it is on. */
+    /* The box every stroke is measured against: the CHAPTER PANEL in document coordinates. Deliberately
+       the panel and not the whole page — its top moves when the head or the chapter bar changes height,
+       and a note is about the prose rather than about the furniture above it. Read fresh each time, so a
+       chapter that grows a column of Latin re-scales its own notes with it. */
+    const inkFrame = () => {
+      const r = pageEl.getBoundingClientRect();
+      return { x: r.left + window.scrollX, y: r.top + window.scrollY, w: r.width || 1, h: r.height || 1 };
+    };
+    const inkChapter = bookInkMount(b.id, inkFrame);
+    setupWhiteboard({ fixed: true });
+    showWBTools();
+    /* The ink is pinned to the screen while the prose scrolls past it, so a scroll is what moves every
+       mark — one repaint per frame, and only over the strokes that are actually on screen. It takes
+       itself off when its page goes, exactly as the reading-position listener above does. */
+    let inkRAF = 0;
+    const onInkScroll = () => {
+      if (!pageEl.isConnected) { window.removeEventListener("scroll", onInkScroll); return; }
+      if (inkRAF || !WB.onScroll) return;
+      inkRAF = requestAnimationFrame(() => { inkRAF = 0; if (WB.onScroll) WB.onScroll(); });
+    };
+    window.addEventListener("scroll", onInkScroll, { passive: true });
+
+    /* ---- highlighting the words themselves ---- */
+    function hlColumnOf(range) {
+      if (!pageEl.querySelector(".bk-bi")) return "en";
+      let n = range.startContainer;
+      if (n && n.nodeType === 3) n = n.parentElement;
+      return n && n.closest && n.closest(".bk-col-or") ? "or" : "en";
+    }
+    function addHighlight(color) {
+      const sel = window.getSelection();
+      if (!sel || !sel.rangeCount || sel.isCollapsed) return;
+      const range = sel.getRangeAt(0);
+      if (!pageEl.contains(range.commonAncestorContainer)) return;
+      const col = hlColumnOf(range);
+      const nodes = bkTextNodes(pageEl, col);
+      const a = bkOffsetOf(nodes, range.startContainer, range.startOffset);
+      const bEnd = bkOffsetOf(nodes, range.endContainer, range.endOffset);
+      /* A selection that starts in one column and ends in the other measures as -1 at one end, and a
+         highlight guessed across that boundary would sit over prose the reader did not choose. Say so
+         rather than mark the wrong words. */
+      if (a < 0 || bEnd < 0 || bEnd <= a) { toast("That selection can't be highlighted — try one column at a time."); return; }
+      const id = String(Date.now().toString(36)) + Math.random().toString(36).slice(2, 6);
+      const list = bookHlGet(b.id, cur.n).concat([{ i: id, k: col, a: a, b: bEnd, c: color }]);
+      bookHlSet(b.id, cur.n, list);
+      bkPaintHl(nodes, a, bEnd, color, id);
+      sel.removeAllRanges();   // the words are marked now; leaving them selected as well reads as unfinished
+    }
+    function removeHighlight(span) {
+      const id = span && span.dataset ? span.dataset.hl : "";
+      if (!id) return;
+      bookHlSet(b.id, cur.n, bookHlGet(b.id, cur.n).filter((h) => h.i !== id));
+      // one highlight can be several spans — a range over prose is split at every element boundary it
+      // crosses — so all of them come off together, and the text nodes are re-joined behind them so the
+      // next offset measured over this column matches the one the stored ranges were taken against
+      pageEl.querySelectorAll('.bk-hl[data-hl="' + CSS.escape(id) + '"]').forEach((el) => {
+        const p = el.parentNode;
+        if (!p) return;
+        while (el.firstChild) p.insertBefore(el.firstChild, el);
+        p.removeChild(el);
+        p.normalize();
+      });
+    }
+    wireBookCtxMenu(pageEl, addHighlight, removeHighlight);
 
     paint(cur, pos && pos.ch === cur.n ? pos.y || 0 : 0);
   };
@@ -16195,8 +16784,8 @@
             ${/* It scales EVERYTHING now (Aug 2026, on request) — it used to reach the reading prose only,
                   and the sentence named the three surfaces it got to. The one thing it cannot reach is the
                   Atlas map's own labels, which are drawn on a canvas. */""}
-            ${/* A SLIDER across the full width, not three buttons on the left (Aug 2026, on request). The
-                  three sizes are an ORDERED scale — small, medium, large — and a segmented control says
+            ${/* A SLIDER across the full width, not buttons on the left (Aug 2026, on request). The sizes
+                  are an ORDERED scale — very small through very large — and a segmented control says
                   nothing about that ordering while leaving two thirds of the row empty. A native
                   <input type="range"> is what carries it: it is the one control a browser already gives
                   arrow keys, Home/End and a drag to, and its value is the INDEX into FONT_SIZES rather
@@ -16207,9 +16796,9 @@
             <div class="ctl"><div class="fs-slide" id="fsPick">
               <input type="range" id="fsRange" class="fs-range" min="0" max="${FONT_SIZES.length - 1}" step="1"
                      value="${FONT_SIZES.indexOf(fsNow)}" aria-label="Text size"
-                     aria-valuetext="${fsNow.charAt(0).toUpperCase() + fsNow.slice(1)}">
+                     aria-valuetext="${esc(fontSizeLabel(fsNow))}">
               <div class="fs-ticks" aria-hidden="true">${
-                FONT_SIZES.map((f) => `<span class="fs-tick${fsNow === f ? " on" : ""}" data-fs="${f}"><span class="fs-a">A</span>${f.charAt(0).toUpperCase() + f.slice(1)}</span>`).join("")
+                FONT_SIZES.map((f) => `<span class="fs-tick${fsNow === f ? " on" : ""}" data-fs="${f}"><span class="fs-a">A</span><span class="fs-lbl">${esc(fontSizeLabel(f))}</span></span>`).join("")
               }</div>
             </div></div>
           </div>
