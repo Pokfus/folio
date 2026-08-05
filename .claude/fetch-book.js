@@ -73,6 +73,11 @@ const REPUBLIC_TITLES = [
   "The Recompense of Life",
 ];
 
+/* This volume's ten books are transcluded under subpages titled with the number SPELLED OUT — "Book
+   One" rather than "Book 1" — so the page address cannot be built from the chapter number by
+   arithmetic the way the Republic's and Seneca's are. */
+const NE_BOOK_WORDS = ["One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten"];
+
 /* The twelve lives' names, TRANSCRIBED from the labels this edition files them under — the same
    names Perseus's catalogue records for its twelve English texts, which are the running heads of the
    printing itself. They are a table here for the reason AOW_TITLES and REPUBLIC_TITLES are: there is
@@ -1308,6 +1313,176 @@ const BOOKS = {
       sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0550.phi001/",
     },
   },
+
+  "aristotle-nicomachean-ethics": {
+    title: "Nicomachean Ethics",
+    // the running head this volume prints over the work, not a description composed here
+    subtitle: "Ethica Nicomachea",
+    author: "Aristotle",
+    translator: "W. D. Ross",
+    edition: "The Works of Aristotle Translated into English, Volume IX, Clarendon Press, Oxford, 1925",
+    written: "c. 340 BCE",
+
+    /* ---------- THE LICENCE, and this is the SECOND book here to state a LIMIT ----------
+       The Art of War is the other one, and the shape is the same: the ground is publication before
+       1929 and the limit is the translator's life. Ross's volume was printed at Oxford in 1925, so
+       its copyright has expired in the United States; Ross lived until 1971, so in a country whose
+       term is the author's life plus seventy it does not expire until 2042. Wikisource's own tag on
+       the work says exactly this — public domain in the US, and elsewhere only where the term is
+       life plus 54 years or less — and it is quoted rather than paraphrased into something softer.
+
+       That limit is longer than Giles's, which runs to 2029, and it was weighed rather than waved
+       through. What buys it is the second column: Ross's is the translation that carries the Bekker
+       pages, and without them Aristotle cannot be set beside his own Greek here at all. The
+       alternative on the same shelf is Chase's translation of 1847, whose copyright has expired
+       everywhere — and it prints the Bekker numbers in Book One and in none of the other nine, so it
+       could only ever ship as an English column on its own. Measured, both of them, before the choice
+       was made: Chase agrees with the Greek on 18 of its 181 pages and Ross on 173 of 173.
+
+       The Greek costs nothing on either rule. Bywater's Oxford Classical Text was printed in 1894 and
+       Bywater died in 1914, so it clears the pre-1929 rule and life-plus-seventy alike, and the work
+       under both columns is some twenty-four centuries old. Its DIGITAL edition carries the Perseus
+       CC BY-SA 4.0 layer the Meditations' Greek introduced, which is credited in `rights` on both
+       sides and on the book's own page.
+
+       The modern translations a reader is likeliest to own — Terence Irwin's (1985, revised 1999),
+       Roger Crisp's Cambridge text (2000) and Christopher Rowe's with Sarah Broadie's commentary
+       (2002) — are all firmly in copyright, and are named for the reason Campbell, Hays, Griffith and
+       Lee are named above. One of them needs naming with particular care: the Oxford World's Classics
+       Aristotle sold today is ROSS REVISED BY LESLEY BROWN (2009), which carries this translator's
+       name on its cover and is a separate copyrighted work. It is not what is here, and it is not to
+       be reached for on the strength of the name. */
+    rights:
+      "Public domain in the United States: Ross's translation was published at Oxford in 1925 — before " +
+      "1929 — so its copyright there has expired. Ross died in 1971, so it remains in copyright in " +
+      "countries whose term is the author's life plus more than 54 years, including the United Kingdom " +
+      "and the European Union, until 2042. The Greek beside it is Ingram Bywater's Oxford Classical " +
+      "Text of 1894, and Bywater died in 1914, so that is public domain on both rules; the digital " +
+      "edition of it is released by the Perseus Digital Library under a Creative Commons " +
+      "Attribution-ShareAlike 4.0 International licence. Aristotle's own text is some twenty-four " +
+      "centuries old. (The modern translations by Terence Irwin, 1985, Roger Crisp, 2000, and " +
+      "Christopher Rowe, 2002, are still in copyright and are not used here — as is the 2009 Oxford " +
+      "World's Classics revision of this very translation by Lesley Brown, which is a separate work.)",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Nicomachean_Ethics_(Ross)",
+
+    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out above.
+       Four things a reader arriving at this book should be told rather than discover late: it is
+       lecture material and reads like it, its central question is not the one modern ethics asks,
+       three of its ten books are shared with another work of Aristotle's, and the translation is a
+       hundred years old and has a manner. */
+    about: [
+      "<b>Nicomachean Ethics</b> is Aristotle's inquiry into how a human life goes well, and it opens " +
+        "by asking what the highest good for a person is rather than what our duties are. His answer " +
+        "is <i>eudaimonia</i> — usually rendered 'happiness', though it means something closer to " +
+        "flourishing, or living and doing well over a whole life. What follows is an attempt to say " +
+        "what such a life consists in: not pleasure, not honour, not wealth, but activity of the soul " +
+        "in accordance with virtue, argued for on the ground that a good anything is one that performs " +
+        "its characteristic work well, and that the work characteristic of a human being is reasoning.",
+      "Aristotle was born at Stagira in northern Greece in 384 BCE, came to Athens at about seventeen " +
+        "and spent some twenty years in Plato's Academy, left after Plato's death, tutored the young " +
+        "Alexander of Macedon, and returned to Athens in 335 to found his own school at the Lyceum. He " +
+        "died in 322. This book is generally taken to be teaching material from the Lyceum years — " +
+        "not a treatise written for the public but the substance of lectures, which is why it can be " +
+        "abrupt, why it argues with unnamed opponents, and why it sometimes announces a plan it then " +
+        "carries out in a different order. The title refers to Nicomachus, the name of both Aristotle's " +
+        "father and his son; what the connection is has never been settled.",
+      "The most famous doctrine in it is the mean: a virtue of character is a disposition lying between " +
+        "an excess and a deficiency, courage between recklessness and cowardice, generosity between " +
+        "waste and meanness. It is easy to mistake this for a recommendation of moderation in all " +
+        "things, which Aristotle does not make — the mean is relative to the person and the situation, " +
+        "some actions admit of no mean at all, and hitting it is the difficult thing rather than the " +
+        "safe one. Virtue of character is acquired by habituation rather than teaching, and is " +
+        "inseparable from <i>phronesis</i>, practical wisdom, the capacity to see what a particular " +
+        "situation calls for. Nearly a fifth of the whole work — two of the ten books — is about " +
+        "friendship, which Aristotle takes to be a condition of a good life rather than an ornament " +
+        "of one.",
+      "Three of the ten books, V, VI and VII, are shared word for word with the <i>Eudemian Ethics</i>, " +
+        "another ethical work of Aristotle's; they are known as the common books, and which treatise " +
+        "they were written for is an old and unresolved question. That is worth knowing before reading " +
+        "them, because it is part of why the discussion of pleasure in Book VII and the one in Book X " +
+        "do not sit altogether comfortably together. The last book ends by arguing that the highest " +
+        "happiness is contemplative, and then turns outward: virtue needs law and upbringing to " +
+        "produce it, which is a matter for the statesman — and the closing paragraphs hand the reader " +
+        "straight on to the <i>Politics</i>.",
+      "The numbers in the margin are <i>Bekker numbers</i> — the page and column of Immanuel Bekker's " +
+        "Berlin edition of 1831, by which Aristotle has been cited in every language ever since, so " +
+        "that a reference such as 'NE 1106b36' means the same passage in any edition. This work runs " +
+        "from 1094a to 1181b, and because both texts here state those numbers the Greek can be set " +
+        "beside the English and paired on them exactly. The Greek is Ingram Bywater's Oxford text of " +
+        "1894. The bold figures running through each book are its chapter numbers, as this edition " +
+        "sets them, and the numbered notes folded underneath are the translator's own. W. D. Ross " +
+        "edited the Oxford Translation of Aristotle and did this volume himself in 1925; it has been " +
+        "the standard English Aristotle for a century, and it is a close, careful, rather austere " +
+        "rendering that follows the Greek's compression faithfully enough to be hard going in the same " +
+        "places the Greek is.",
+    ],
+
+    chapterWord: "Book",
+    /* The ten books have no titles: this volume heads them "BOOK I" … "BOOK X" and gives them no
+       names, so that is what they are called here. The edition does carry an analytical table of
+       contents, and composing titles out of it — "Pleasure", "Friendship" — would be inventing an
+       apparatus the text does not have, which is the rule the Meditations' twelve books established. */
+    titleOf: (n) => "Book " + toRoman(n),
+    /* THE FOURTH WAY an edition marks its numbers — Bekker pages, a figure with a column letter, set
+       in the margin as a nested `wst-verse`. See the note in cleanBody: neither the Gummere rule nor
+       the Jowett one can read them, and this edition marks Bekker's LINE numbers the same way, which
+       is what the pass has to tell them apart from. */
+    sections: "bekker",
+    /* The volume's half-title above Book I and each book's own head, both of which arrive as centred
+       blocks and would otherwise render as a quotation at the top of a chapter already headed Book I.
+       Anchored to the start of a block, as the Republic's are. */
+    dropHeads: [/^ETHICA NICOMACHEA\b/i, /^BOOK\s+[IVXLCDM]+\.?$/i],
+    /* This volume's subpages are titled with the book number spelled out rather than numbered. */
+    page: (n) => "Nicomachean Ethics (Ross)/Book " + NE_BOOK_WORDS[n - 1],
+    chapters: Array.from({ length: 10 }, (_, i) => i + 1),
+
+    /* ---------- THE GREEK, and why it is Bywater rather than another text ----------
+       The rule is the one the Meditations' entry sets out: the columns pair on numbers a text states
+       about itself, so an original may ship only where BOTH sides state them. Aristotle states his
+       everywhere — the Bekker page is printed in the margin of essentially every edition and
+       translation in every language — so the question here was never whether the numbers exist but
+       whether the two files carry them, and both do: Bywater's as `<milestone unit="page"
+       resp="Bekker"/>` standing in the prose, Ross's as marginal figures.
+
+       MEASURED BEFORE IT WAS BELIEVED, over all ten books. Bywater has 181 Bekker pages and Ross 173,
+       and every one of Ross's 173 is present in the Greek — nothing on the English side that is not
+       on the Greek side, which is the direction that would signal a misread. Of the eight the Greek
+       has and Ross does not, five are the page a BOOK BEGINS IN THE MIDDLE OF: Bekker's pages run
+       continuously across the work while the book divisions fall where they fall, so 1109b holds the
+       end of Book II and the start of Book III, and the Greek marks it in both while Ross's margin
+       gives it once. Those pair as an empty cell, which is the honest rendering and not a fault.
+       The remaining three — 1138b in Book V, 1142a in Book VI, 1170a in Book IX — are the casualties
+       of the three repeated marks described below, and are the only ones a repair would recover.
+
+       THE THREE REPEATS ARE RECORDED AND DELIBERATELY NOT REPAIRED. This transcription marks one page
+       twice in each of Books V, VI and IX — 1138a, 1142b and 1170b — and in each case lacks the page
+       the Greek states next to it (1138b, 1142a, 1170a). The obvious reading is that the second mark
+       of each pair is a slip for its neighbour, and the evidence for it is decent: the pattern is the
+       same all three times and the missing page is exactly the one that would fill it. It is still an
+       inference about somebody else's printed page, so the forward-only guard in cleanBody drops the
+       repeat, the material folds into the page already open, and the Greek's own page draws beside an
+       empty cell — three rows out of 181. Correcting them here would be composing an apparatus, which
+       is what the Meditations' Greek was abandoned for. */
+    original: {
+      lang: "grc",
+      langName: "Greek",
+      source: "tei",
+      layout: "paged",
+      // the count teiPagedBooks checks itself against, so a silent under-read reports rather than ships
+      pages: 181,
+      url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0086/tlg010/tlg0086.tlg010.perseus-grc2.xml",
+      edition: "Ingram Bywater's Oxford Classical Text (Clarendon Press, 1894), from the Perseus Digital Library",
+      rights:
+        "Two layers, both stated. The text is Ingram Bywater's edition of the Greek, printed by the " +
+        "Clarendon Press at Oxford in 1894 and in the public domain — before 1929, and Bywater died in " +
+        "1914. The digital edition it is taken from is prepared by the Perseus Digital Library at " +
+        "Tufts University and is released under a Creative Commons Attribution-ShareAlike 4.0 " +
+        "International licence.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0086.tlg010/",
+    },
+  },
 };
 
 /* ---------- args ---------- */
@@ -1413,7 +1588,16 @@ function stripTags(b) {
       // the only span we keep is the section number we made below
       const keep = /bk-n/.test(attrs);
       stack.push({ name, kept: keep });
-      if (keep) out.push('<span class="bk-n">');
+      /* data-n is the marker's SORT KEY where the number a reader sees is not a number to sort on —
+         a Bekker page is "1094a", and app.js reads this attribute in preference to the text. Carried
+         through for exactly the reason the footnote marker's data-fn is carried through directly
+         below: this rebuilds the tag from scratch, so an attribute not named here is silently lost,
+         and losing this one collapses 1094a and 1094b onto one section without anything throwing.
+         A marker with no data-n emits precisely what it always did. */
+      if (keep) {
+        const dn = attrs.match(/data-n="([^"]*)"/);
+        out.push('<span class="bk-n"' + (dn ? ' data-n="' + dn[1] + '"' : "") + ">");
+      }
       continue;
     }
     if (name === "sup") {
@@ -1561,6 +1745,56 @@ function cleanBody(h, noteIds, book, warn) {
       const n = inner.replace(/<[^>]*>/g, "").match(/(\d+)\s*$/);
       return n ? '<span class="bk-n">' + n[1] + "</span>" : whole;
     });
+  }
+  /* THE FOURTH WAY an edition marks its numbers, and the first whose number is not an integer
+     (Aug 2026, adding the Nicomachean Ethics). Aristotle is cited by BEKKER PAGE — the page and
+     column of Bekker's Berlin edition of 1831, so that "1094a" and "1094b" are two different places
+     and every edition in every language prints them. Ross's Oxford translation sets them in the
+     margin, which arrives as `wst-verse` like Gummere's and Jowett's, but nested: the page number in
+     a `<b>` with the column letter in a `<sup>` INSIDE it, `<sup><b>1094<sup>a</sup></b></sup>`.
+     Neither rule above can take it — Gummere's wants nothing but digits between the `<b>` tags, and
+     Jowett's takes the trailing number, which here is the page with its letter thrown away.
+
+     THE ID IS READ RATHER THAN THE MARKUP, which is what makes this simple: Wikisource anchors each
+     marker with the clean citation as its id, so the page is `id="1094a"` however the visible number
+     is dressed. That also tells the two kinds of marker apart, and they must be told apart — this
+     edition marks Bekker's LINE numbers the same way, every fifth line, as `wst-verse` spans whose
+     id is a bare figure. There are 1,141 of them against 173 pages. Left alone they survive the
+     tag strip as loose superscript digits scattered through the prose, which read as footnote
+     markers that open nothing; taken as sections they would bury the page numbers under them. They
+     are dropped, and the pairing runs on the pages, which is the unit both editions state.
+
+     Two more things this pass owes the reader. The marker carries an explicit `data-n` sort key,
+     because "1094a" is not a number and app.js pairs the columns on one — see the note there. And a
+     page is accepted only where it moves the sequence FORWARD, the guard the Latin's bracketed
+     numbers and Haines's leading numerals both use: this transcription marks a page twice in each
+     of books V, VI and IX, and without the guard the second one reopens a section that is already
+     closed. See the entry in BOOKS for what those three are and why they are not repaired here. */
+  if (book && book.sections === "bekker") {
+    let seq = 0, pages = 0, lines = 0;
+    b = b.replace(/<span class="wst-verse[^"]*"[^>]*>[\s\S]*?<\/span>/g, (whole) => {
+      const id = (whole.match(/\bid="([^"]*)"/) || [])[1] || "";
+      const pg = /^(\d{3,4})([ab])$/.exec(id);
+      /* EVERYTHING IN THIS EDITION'S MARGIN THAT IS NOT A PAGE IS A LINE NUMBER, so the fallback
+         drops rather than keeps. It matters because the transcription is not perfectly regular:
+         inventoried over all ten books there are 176 pages and 1,141 line numbers, and ONE marker
+         that is neither — a line 5 in Book II mistyped as `id="5:"` with an empty `<sup>`. Left
+         alone that survives the tag strip as a bare empty superscript sitting mid-sentence, which
+         renders as nothing and reads, to anyone inspecting the markup, like a footnote marker that
+         has lost its note. A span carrying visible text that is not a plain figure is reported
+         before it goes, so a genuinely new kind of marker cannot leave in silence. */
+      if (!pg) {
+        const txt = whole.replace(/<[^>]*>/g, "").trim();
+        if (txt && !/^\d{1,3}$/.test(txt) && warn) warn("dropped an unrecognised margin mark: " + JSON.stringify(txt));
+        lines++;
+        return "";
+      }
+      const key = +pg[1] * 10 + (pg[2] === "a" ? 0 : 1);
+      if (key <= seq) { warn && warn("Bekker page " + id + " repeats or goes backwards — left as text"); return ""; }
+      seq = key; pages++;
+      return '<span class="bk-n" data-n="' + key + '">' + id + "</span>";
+    });
+    if (!pages && warn) warn("no Bekker pages found — the chapter will pair as one whole block");
   }
   /* A footnote reference becomes Folio's own marker, and it carries the note it actually points at.
      wireFootnotes still writes the DIGIT — the number in the prose can never disagree with the list —
@@ -2330,6 +2564,84 @@ function teiInline(s) {
 }
 
 /* ============================================================
+   TEI PROSE PAGED BY MILESTONE   (an original declaring source:"tei" with layout:"paged")
+   ============================================================
+   The fourth TEI reader, and it exists because the unit the two columns pair on is not always the
+   unit the edition is DIVIDED into (Aug 2026, adding the Nicomachean Ethics).
+
+   The three readers above each take their numbers from a `<div>`: teiChapters from `subtype="book"`,
+   teiSections from the numbered divisions inside one file, teiVerseBooks from the card milestones of
+   a poem. Bywater's Greek is divided into ten books and 116 numbered sections — but a section is a
+   modern editor's paragraphing, and it is NOT what Aristotle is cited by, nor what Ross's margin
+   prints. Both editions state the BEKKER PAGE, and Bywater's states it as a milestone standing inside
+   the prose: `<milestone unit="page" resp="Bekker" n="1094a"/>`. So the pairing runs on those, and
+   the section divisions are simply concatenated into the book the way teiChapters concatenates
+   Leopold's.
+
+   Four things it was worth measuring before writing this rather than after.
+   · EVERY page milestone sits INSIDE a `<p>` — all 181 of them — so a paragraph has to be split at
+     its markers rather than merely prefixed with one. Had any stood between paragraphs a `<p>`-
+     anchored reader would have dropped it in silence, which is the Art of War's fault in a new file.
+   · 100% of this edition's text is inside `<p>`, so nothing is lost by walking them. Measured for
+     the same reason: 138 of the Art of War's English cells opened on a bare run, and nothing threw.
+   · The line milestones are dropped. There are 1,330 of them against 181 pages — Bekker's every-fifth
+     line — and the English side's are dropped too, so the columns carry the same apparatus.
+   · The `<note>` elements go FIRST, which is Ovid's lesson: 16 of them here, all bibliographic
+     references to the works Aristotle quotes. teiInline unwraps whatever it does not recognise, so
+     left in place their text would land in the prose as though Aristotle had written it.
+
+   THE MARKER TRAVELS AS A SENTINEL because teiInline strips every tag it does not know, and the
+   marker is a `<span>`. Widening that keep-list would reach four shipped books through a shared
+   function; a sentinel is plain text, passes through untouched, and is asserted absent from the
+   source before anything relies on it. */
+function teiPagedBooks(xml, opts, warn) {
+  const body = xml.slice(xml.indexOf("<body"));
+  if (body.length < 1000) throw new Error("no <body> in the TEI file");
+  if (body.includes("@@")) throw new Error("the sentinel '@@' occurs in the source text");
+
+  // attributes read independently of their order — the fault Lucretius's cards found in cardMarks
+  const attr = (t, a) => (t.match(new RegExp("\\b" + a + '="([^"]*)"')) || [])[1] || "";
+  const books = [];
+  const bre = /<div\b([^>]*)>/g;
+  let m;
+  while ((m = bre.exec(body))) {
+    if (/subtype="book"/i.test(m[1]) && attr(m[1], "n")) books.push({ n: +attr(m[1], "n"), at: m.index });
+  }
+  if (!books.length) throw new Error("no book divisions in the TEI file");
+
+  const out = {};
+  let total = 0;
+  books.forEach((b, i) => {
+    let seg = body.slice(b.at, i + 1 < books.length ? books[i + 1].at : body.length);
+    seg = seg.replace(/<note\b[^>]*>[\s\S]*?<\/note>/g, "");
+    let seq = 0, kept = 0;
+    seg = seg.replace(/<milestone\b[^>]*?\/>/g, (t) => {
+      if (attr(t, "unit") !== "page") return "";
+      const pg = /^(\d{3,4})([ab])$/.exec(attr(t, "n"));
+      if (!pg) return "";
+      const key = +pg[1] * 10 + (pg[2] === "a" ? 0 : 1);
+      /* A page that does not advance the sequence is a fault worth hearing about rather than a
+         silent merge — the same guard the English side runs, so the two can only disagree loudly. */
+      if (key <= seq) { warn("book " + b.n + ": Bekker page " + attr(t, "n") + " repeats or goes backwards"); return ""; }
+      seq = key; kept++;
+      return "@@BKP" + key + ":" + attr(t, "n") + "@@";
+    });
+    const ps = [...seg.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/g)].map((x) => teiInline(x[1]));
+    const html = ps
+      .filter(Boolean)
+      .map((p) => "<p>" + p + "</p>")
+      .join("\n")
+      .replace(/@@BKP(\d+):(\d{3,4}[ab])@@\s*/g, '<span class="bk-n" data-n="$1">$2</span> ');
+    if (!html) { warn("book " + b.n + " came back empty"); return; }
+    if (!kept) warn("book " + b.n + " has no Bekker pages — it will pair as one whole block");
+    total += kept;
+    out[b.n] = html;
+  });
+  if (opts && opts.expect && total !== opts.expect) warn("read " + total + " Bekker pages, expected " + opts.expect);
+  return out;
+}
+
+/* ============================================================
    TEI VERSE   (a book declaring layout: "verse")
    ============================================================
    teiChapters above reads a TEI edition of PROSE: it walks <div> chapters and pulls <p> elements out
@@ -2751,7 +3063,11 @@ async function fetchOriginal() {
       return writeOriginal(byNum, warnings);
     }
 
-    Object.assign(byNum, teiChapters(xml, warn));
+    /* A PAGED edition is divided into one thing and cited by another — see teiPagedBooks. The
+       sections Bywater prints are a modern editor's paragraphing; the Bekker pages standing inside
+       them are what Ross's margin carries and what the two columns pair on. */
+    if (O.layout === "paged") Object.assign(byNum, teiPagedBooks(xml, { expect: O.pages }, warn));
+    else Object.assign(byNum, teiChapters(xml, warn));
     const ns = Object.keys(byNum).map(Number).sort((a, b) => a - b);
     ns.forEach((n) => {
       const secs = (byNum[n].match(/class="bk-n"/g) || []).length;
