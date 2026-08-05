@@ -4556,6 +4556,20 @@
        warm half is where nine of the eleven already sit, and every muted red, ochre or brown that fits
        here lands 11–17 from Sun Tzu, Suetonius or Ovid. A third blue it is. */
     "Niccolò Machiavelli": "#2C74BC",
+    /* Measured the same way again, and the warm half is now genuinely full: searched over the shelf's
+       own lightness and chroma band, the best-separated colour left anywhere in it is a magenta at 32,
+       which is the one quarter of the wheel nobody occupies — and it was REJECTED as tonally wrong for
+       a Roman campaign memoir rather than adopted for its number. The obvious choices for one were
+       measured and rejected too, and for a better reason than taste: a legionary vermilion lands 16.5
+       from Sun Tzu's rust and a bronze 22.8 from Suetonius's ochre, both closer than the shelf's own
+       tightest pair at 20.4, because five of the twelve already sit in the warm half. This burnt
+       orange is the one warm slot actually empty — Suetonius's gold is desaturated and Sun Tzu's rust
+       leans red — and it clears its two nearest neighbours almost equally at 25.1 and 27.4, which is a
+       colour placed in a gap rather than one hugging a boundary. The final nudge darker is an
+       accessibility one and not an aesthetic one: it puts the swatch inside the shelf's lightness band
+       and takes it to 4.61:1 against the folio paper, where the better-separated #B46000 reads 4.26
+       and would fail the 4.5 bar that test-a11y.js holds the site to. */
+    "Julius Caesar": "#AE5A02",
   };
   const bookColor = (b) => BOOK_AUTHOR_COLOR[b.author] || "var(--indigo)";
 
@@ -5205,6 +5219,65 @@
          principality, the arms that hold them, the prince's own conduct, and the closing appeal to the
          Medici — but that is a modern reader's grouping and not a division this edition prints, so the
          shelf shows one unlabelled run. The Analects' position exactly. */
+    },
+    {
+      id: "caesar-gallic-war",
+      title: "The Gallic War",
+      // the work's own Latin title, which is what its Latin column is an edition of — the pattern
+      // Lucretius set with De Rerum Natura and Herodotus and The Prince followed
+      subtitle: "Commentarii de Bello Gallico",
+      author: "Julius Caesar",
+      /* The seven books Caesar wrote cover the campaigning seasons of 58 to 51 BCE and were most
+         likely sent to Rome year by year as they were finished; Hirtius's eighth, which completes the
+         work, covers 51 and 50 and was written after Caesar's death in 44. So the span is the war's
+         rather than one act of composition, and the front matter carries that rather than leaving the
+         `c.` to do all of it. */
+      written: "c. 58–50 BCE",
+      year: -58,
+      translator: "W. A. McDevitte and W. S. Bohn",
+      edition: "Harper's New Classical Library, 1870–1872",
+      /* THE EXPIRY IS CERTAIN ON THE PUBLICATION RULE AND CANNOT BE STATED ON THE OTHER ONE, which is
+         what makes this licence unlike any other on the shelf. Everywhere else the translator's death
+         year is known and the entry says which rules it clears — Godley on all three, Giles only in
+         the United States until 2029, Ross until 2042. Here half of the byline cannot be found at
+         all: "W. S. Bohn" has no first name, no dates and no biography in anything openable, and a
+         joint work's life-plus-seventy term runs from the LAST surviving author, so that term cannot
+         honestly be asserted for the whole translation. McDevitte's own dates are known and checked
+         (1834–1909, Library of Congress and Wikisource), as are Holmes's for the Latin (1855–1933,
+         Dictionary of Irish Biography and Wikipedia), both looked up rather than recalled for the
+         Hugo Magnus reason.
+         So the ground relied on is the DATE OF PUBLICATION — 1870–1872 for the English and 1914 for
+         the Latin, both well before 1929 — which is certain, checkable on the title page, and enough.
+         The gap is named in `rights` and on the book's own front-matter page rather than rounded up
+         into a confident sentence: it is the Lucretius judgement, where the Latin's editor was unnamed
+         by the source and the entry claimed less instead of guessing. See .claude/fetch-book.js. */
+      rights:
+        "Public domain in the United States on the publication rule, with one gap stated plainly. " +
+        "This translation was published by Harper and Brothers in 1870–1872 and the Latin printed " +
+        "beside it is T. Rice Holmes's Oxford text of 1914 — both well before 1929 — so the copyright " +
+        "in both has expired. Caesar wrote the work in Latin some twenty centuries ago. Of the two " +
+        "translators, William Alexander McDevitte lived from 1834 to 1909 and T. Rice Holmes from " +
+        "1855 to 1933, so both are also out of copyright wherever the term is the author's life plus " +
+        "seventy years; nothing is recorded of the co-translator W. S. Bohn beyond the name on the " +
+        "title page, so for that half of the English no life-plus-seventy date can honestly be given, " +
+        "and the ground relied on here is the date of publication. The digital editions of both texts " +
+        "are prepared by the Perseus Digital Library at Tufts University and are released under a " +
+        "Creative Commons Attribution-ShareAlike 4.0 International licence. (The modern translations " +
+        "by S. A. Handford, 1951, Carolyn Hammond, 1996, and James O'Donnell, 2019, are still in " +
+        "copyright and are not used here.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0448.phi001/",
+      origLang: "la",
+      chapterWord: "Book",
+      /* The whole work, and the eighth of them is not Caesar's — Hirtius finished what he left, and
+         says so in the letter that opens it. `count` and `total` are equal because all eight are here;
+         they part company again the moment a book arrives in instalments. */
+      count: 8,
+      total: 8,
+      /* No `parts`. The eight books are one run of campaigning seasons and this edition divides them
+         no further; the two British expeditions and the revolt of Vercingetorix are the movements a
+         reader remembers, but grouping the books under those would be a modern reader's arrangement
+         rather than a division the edition prints. The Analects' and The Prince's position exactly. */
     },
   ];
   const BOOK_BY_ID = {};
@@ -9007,7 +9080,18 @@
              without one is read exactly as it always was. */
           const raw = node.getAttribute && node.getAttribute("data-n");
           const v = parseInt(raw != null && raw !== "" ? raw : node.textContent, 10);
-          n = v > 0 ? v : n;
+          /* ZERO IS A SECTION NUMBER, and the Gallic War is the first book here to use one (Aug 2026):
+             book 8 opens on a chapter 0, Hirtius's covering letter to Balbus, which both editions
+             print before chapter 1 and number apart from the war it introduces. The test was `v > 0`,
+             written when 0 could only mean "this marker holds nothing numeric" — so that chapter fell
+             through to the UNNUMBERED path and paired only by luck, both columns happening to carry
+             exactly one leading unnumbered block. It rendered correctly and for the wrong reason,
+             which is the kind of accident that stops being one as soon as a book carries a chapter 0
+             on one side only. Measured over every book on the shelf before the guard was widened: the
+             only markers anywhere whose value is not above zero are this book's two. An empty or
+             non-numeric marker still parses to NaN and is still ignored, which is what the guard was
+             really for. */
+          n = v >= 0 ? v : n;
         }
         buf.push(node);
       });

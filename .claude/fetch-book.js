@@ -2167,6 +2167,196 @@ const BOOKS = {
       dropHead: /\bCAPITOLO\s+[IVXLCDM]+\./i,
     },
   },
+
+  "caesar-gallic-war": {
+    title: "The Gallic War",
+    // the work's own Latin title, as Lucretius, the Oedipus Rex, Herodotus and The Prince give theirs
+    subtitle: "Commentarii de Bello Gallico",
+    author: "Julius Caesar",
+    translator: "W. A. McDevitte and W. S. Bohn",
+    edition: "Caesar's Commentaries, translated by W. A. McDevitte and W. S. Bohn, Harper's New Classical Library, Harper and Brothers, New York, 1870–1872",
+    written: "c. 58–50 BCE",
+
+    /* ---------- THE LICENCE, and it is the first here to rest on the PUBLICATION alone ----------
+       The certain half is the easiest kind and covers everything: this translation was published by
+       Harper and Brothers in 1870–1872 and the Latin beside it is T. Rice Holmes's Oxford text of
+       1914, both long before 1929, so the United States copyright in both has expired. Holmes's dates
+       are stated and were CHECKED rather than recalled, for the Hugo Magnus reason — 24 May 1855 to
+       4 August 1933, agreed by the Dictionary of Irish Biography, the Online Books Page and Wikipedia
+       — which also clears him on life-plus-seventy (2003) and life-plus-ninety.
+
+       WHAT CANNOT BE STATED IS THE OTHER TRANSLATOR'S DEATH, and this entry says so rather than
+       rounding it up. W. A. McDevitte is William Alexander McDevitte, 1834–1909, given by the Library
+       of Congress name authority and by Wikisource, whose author page carries the died-at-least-a-
+       hundred-years-ago tag; life-plus-seventy ran out for him in 1980. His co-translator is a byline
+       and nothing else. "W. S. Bohn" has no first name, no dates and no biography in anything openable
+       — the name is probably connected with Henry Bohn's Classical Library, whose series this
+       translation first appeared in, but that is an inference and is not used to hold anything up. A
+       joint work's life-plus-seventy term runs from the last surviving author, so with one of the two
+       unknown that term cannot honestly be asserted for the whole translation, and it is not.
+
+       That is the Lucretius judgement in a second book: there the Latin's editor was unnamed by the
+       source and no editor and no date were claimed for it, and the ground stated was the age of the
+       poem, which anyone can check. Here the ground stated is the date of PUBLICATION, which anyone
+       can check on the title page, and the gap is named on the book's own front matter rather than
+       papered over — a reader in a life-plus-seventy country is told exactly what is known and what
+       is not, which is better than a confident sentence resting on a man nobody can find.
+
+       The modern translations a reader is likeliest to own — S. A. Handford's Penguin (1951, revised
+       by Jane Gardner 1982), Carolyn Hammond's Oxford World's Classics (1996) and James O'Donnell's
+       (2019) — are all firmly in copyright, and are named here for the reason Campbell, Hays,
+       Griffith, Lee, Humphries, Melville, Bull and de Sélincourt are named above: so that nobody
+       reaches for one later. */
+    rights:
+      "Public domain in the United States on the publication rule, with one gap stated plainly. This " +
+      "translation was published by Harper and Brothers in 1870–1872 and the Latin printed beside it " +
+      "is T. Rice Holmes's Oxford text of 1914 — both well before 1929 — so the copyright in both has " +
+      "expired. Caesar wrote the work in Latin some twenty centuries ago. Of the two translators, " +
+      "William Alexander McDevitte lived from 1834 to 1909 and T. Rice Holmes from 1855 to 1933, so " +
+      "both are also out of copyright wherever the term is the author's life plus seventy years; " +
+      "nothing is recorded of the co-translator W. S. Bohn beyond the name on the title page, so for " +
+      "that half of the English no life-plus-seventy date can honestly be given, and the ground " +
+      "relied on here is the date of publication. The digital editions of both texts are prepared by " +
+      "the Perseus Digital Library at Tufts University and are released under a Creative Commons " +
+      "Attribution-ShareAlike 4.0 International licence, which both files state in their own headers. " +
+      "(The modern translations by S. A. Handford, 1951, Carolyn Hammond, 1996, and James O'Donnell, " +
+      "2019, are still in copyright and are not used here.)",
+    sourceName: "Perseus Digital Library",
+    sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0448.phi001/",
+
+    /* THE FRONT MATTER — chapter 0. Six things a reader should be told before they start rather than
+       work out late: what the book is and that it is a dispatch rather than a history, that the man
+       writing it is the man who won and what that does to the prose, that the third-person voice is a
+       deliberate device, that the last of the eight books is not by Caesar at all, who he was, and
+       what the two columns and the small figures running through them are. Nothing here is
+       embroidered: where the scholarship is divided — on how far the book is propaganda, and on the
+       casualty figures — it says so rather than picking a side. */
+    about: [
+      "<b>The Gallic War</b> is Julius Caesar's own account of the nine campaigning seasons, from 58 " +
+        "to 50 BCE, in which he conquered the whole of Gaul — roughly modern France and Belgium with " +
+        "parts of Switzerland, Germany and the Netherlands — and twice crossed into Britain. It is not " +
+        "a history written at leisure afterwards. Each of the first seven books covers a single year " +
+        "and seems to have been sent to Rome at or near the end of it, which makes the work something " +
+        "closer to a dispatch: a serving general telling the city that pays and votes for him what he " +
+        "has been doing with its legions. That is why it moves as it does, and it is also the first " +
+        "thing to hold onto about it.",
+      "The prose is famously plain, and the plainness is the achievement. Caesar writes short " +
+        "declarative sentences, a small vocabulary and almost no rhetorical ornament, at a time when " +
+        "Latin oratory was as ornate as it has ever been; Cicero, who was no friend of his politics, " +
+        "said the commentaries were stripped bare of ornament like an athlete and that sensible men " +
+        "were deterred from touching the subject again. It is the reason the book has been the first " +
+        "real Latin put in front of schoolchildren for five centuries. It is also, as every reader " +
+        "since antiquity has noticed, an extremely effective way of seeming to have no case to make.",
+      "For he plainly does have one. Caesar was fighting on a legal footing that his enemies in Rome " +
+        "disputed, and he needed the war to look both necessary and finished; the book explains every " +
+        "campaign as a response to somebody else's aggression, and it is at its least believable at " +
+        "exactly those moments. Scholars divide on how far to call it propaganda — some read it as a " +
+        "sustained justification, others as a broadly accurate record whose slant is in what it leaves " +
+        "out rather than in what it says — and no reading commands general agreement. The casualty " +
+        "figures are the sharpest case: the numbers given for the enemy dead and enslaved are enormous, " +
+        "they cannot be checked against anything, and few historians now take them at face value. " +
+        "Modern readers should also be told plainly that what is described in places is the destruction " +
+        "of whole peoples, reported by the man who ordered it and in the same even tone as a march.",
+      "One device is worth knowing before the first page. Caesar never says \"I\": he refers to " +
+        "himself throughout in the third person, as \"Caesar\", so the man giving the orders arrives on " +
+        "the page as a figure being described by somebody else. The effect is of a plain report rather " +
+        "than a memoir, which is exactly the effect intended. A second thing is not a device at all: " +
+        "the eighth and last book is not by Caesar. He left the work unfinished, and it was completed " +
+        "after his death by Aulus Hirtius, one of his officers, who says so himself in the covering " +
+        "letter to Balbus that opens the book — it stands here as its own numbered chapter at the head " +
+        "of book 8. Hirtius went on to be consul in 43 BCE and was killed in battle that year. His " +
+        "Latin is a careful imitation and not quite the same thing, and the difference is audible.",
+      "Gaius Julius Caesar was born in 100 BCE into an old but unremarkable patrician family, and was " +
+        "past forty and deep in debt when he took the Gallic command in 58. The war made him: it gave " +
+        "him nine years of victories, a fortune in plunder and an army loyal to him personally, and " +
+        "when the senate ordered him to give up that army in 49 he crossed the Rubicon instead. He won " +
+        "the civil war that followed, was made dictator, and was murdered in the senate house in March " +
+        "44 BCE by a conspiracy of senators. The Gallic War is therefore the record of the campaigns " +
+        "that put an end to the Roman republic, written by their commander while they were happening " +
+        "and before anyone, himself included, knew what they would lead to.",
+      "The translation here is W. A. McDevitte and W. S. Bohn's, published by Harper and Brothers, and " +
+        "the Latin beside it is T. Rice Holmes's Oxford text of 1914 — Holmes being the scholar who " +
+        "spent much of his life on this campaign and wrote the standard narrative of it. The small " +
+        "raised figures running through both columns are CHAPTER numbers, and they are how any passage " +
+        "of Caesar is cited in any language: \"Caesar, Gallic War 1.29\" means book 1, chapter 29. " +
+        "Measured over the whole work, the two editions agree exactly — 404 chapters on each side, the " +
+        "same numbers in the same order in all eight books, with nothing missing on either side and no " +
+        "duplicates — which makes this the most cleanly paired text on these shelves after the Art of " +
+        "War, and that one is a facing-page edition where a single editor numbered both columns at " +
+        "once. Editions divide a chapter into finer numbered sections as well; those are not used for " +
+        "pairing, and this English does not print them at all. This edition carries almost no notes: " +
+        "one, on a disputed numeral.",
+    ],
+
+    /* ---------- PROSE IN BOOKS OF NUMBERED CHAPTERS: the sixth layout, second outing ----------
+       Herodotus's shape exactly, and the reason it needed no new reader — see the block above
+       teiBookChapters. A Folio chapter is one of the eight books, the pairing runs on the CHAPTER
+       numbers inside it, and the Latin's finer `section` divisions are concatenated into the chapter
+       the way Leopold's are into a chapter of the Meditations.
+
+       MEASURED over both editions before any of it was believed, and this is the cleanest result the
+       shelf has had from two independently-edited texts: 8 books on each side; 404 chapters on each
+       side, with identical numbers in identical order in every one of the eight books; no duplicates
+       and no gaps; and not one chapter number carrying a letter, so none of the Nicomachean Ethics'
+       or Herodotus's `data-n` sort-key trouble arises here. The two columns simply agree.
+
+       The asymmetry is in the SUBDIVISION rather than the numbering. Holmes's Latin divides its 404
+       chapters into 2,150 numbered sections; this English divides them into none at all, printing one
+       paragraph per chapter. That costs nothing, because the chapter is the pairing unit on both
+       sides and the Latin's sections are concatenated into it — but it is why the Latin column reads
+       as several paragraphs against the English column's one, which is a fact about the two editions
+       and not a rendering fault.
+
+       BOOK 8 OPENS ON A CHAPTER 0 in both editions, and it is not an off-by-one: it is Hirtius's
+       covering letter to Balbus, which every edition prints before chapter 1 and numbers apart from
+       the war it introduces. Both columns carry it and it pairs like any other chapter.
+
+       THREE ELEMENTS THIS EDITION CARRIES that Herodotus's did not, all checked before the run:
+       · the Latin's eight `<head>`s ("COMMENTARIUS PRIMUS" and so on) sit between the book division
+         and its first chapter, and teiBookChapters slices from the first chapter, so they fall
+         outside every slice and need no `dropHeads`. That is worth stating because it is luck of the
+         markup rather than design, and a future edition that puts its head INSIDE chapter 1 would
+         need the rule the Meditations has.
+       · the Latin's two `<sic>` elements stand BARE — there is no `<choice>` and no `<corr>` anywhere
+         in either file — so the generic sweep unwraps them and keeps the reading the edition prints,
+         which is right: a bare `<sic>` is the editor saying the manuscript says this odd thing, not
+         offering a correction to prefer instead.
+       · the English's one `<list>` is Caesar's census of the Helvetii at 1.29, and it needed a rule
+         in teiInline, where it is described at length. Left alone it flattened into the sentence
+         after it.
+       Perseus's name-authority `<reg>`, which put a modern Turkish gazetteer entry inside the first
+       sentence of the Histories, does NOT occur here: this file's revision log records it converted
+       to an attribute in 2016, and a count over both files confirms zero. */
+    source: "tei",
+    url: "https://raw.githubusercontent.com/PerseusDL/canonical-latinLit/master/data/phi0448/phi001/phi0448.phi001.perseus-eng2.xml",
+    layout: "chaptered",
+    chapterWord: "Book",
+    // eight is the whole work, the last of them Hirtius's; checked against the file on every run
+    chapters: Array.from({ length: 8 }, (_, i) => i + 1),
+    /* No `titleOf`. The Latin heads its eight books COMMENTARIUS PRIMUS to OCTAVUS, which is "book
+       one" to "book eight" and no more of a title than the Meditations' "BOOK I"; the English heads
+       them with nothing at all. So they are Book 1 to Book 8, and composing "The Helvetian Campaign"
+       for book 1 would be an apparatus this work does not have. Said in the front matter instead. */
+
+    original: {
+      lang: "la",
+      langName: "Latin",
+      source: "tei",
+      layout: "chaptered",
+      edition: "C. Iuli Caesaris Commentarii Rerum in Gallia Gestarum VII, A. Hirti Commentarius VIII, edited by T. Rice Holmes, Scriptorum Classicorum Bibliotheca Oxoniensis, Clarendon Press, Oxford, 1914",
+      rights:
+        "Public domain on both grounds. Caesar wrote the work in Latin in the 50s BCE, so the words " +
+        "themselves have been out of copyright for as long as copyright has existed. The text printed " +
+        "here is the Oxford Classical Text edited by T. Rice Holmes and published in 1914 — before " +
+        "1929, so its United States copyright has expired — and Holmes lived from 1855 to 1933, so it " +
+        "is also public domain wherever the term is the editor's life plus seventy years or more. The " +
+        "digital edition is prepared by the Perseus Digital Library at Tufts University and is " +
+        "released under a Creative Commons Attribution-ShareAlike 4.0 International licence.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0448.phi001/",
+      url: "https://raw.githubusercontent.com/PerseusDL/canonical-latinLit/master/data/phi0448/phi001/phi0448.phi001.perseus-lat2.xml",
+    },
+  },
 };
 
 /* ---------- args ---------- */
@@ -3577,7 +3767,14 @@ function teiBookChapters(xml, opts, warn) {
 
     const notes = [];
     const skipped = [];
-    let html = "", seq = 0, kept = 0;
+    /* SEQ STARTS BELOW ZERO BECAUSE A CHAPTER MAY LEGITIMATELY BE NUMBERED 0, which the Gallic War is
+       the first book here to do: Hirtius's covering letter to Balbus stands at the head of book 8,
+       numbered apart from the war it introduces, and both editions print it that way. With the
+       counter starting at 0 the forward-only guard below read that chapter as following itself and
+       warned twice on every run — a false alarm on a perfectly ordered book, which is the kind of
+       noise that teaches the next person to ignore the warnings. Herodotus's chapters all start at 1
+       and are unaffected: any real chapter scales to 100 or more. */
+    let html = "", seq = -1, kept = 0;
     chs.forEach((ch, j) => {
       const raw = body.slice(ch.at, j + 1 < chs.length ? chs[j + 1].at : end);
       /* A CHAPTER NUMBER HERE IS NOT ALWAYS AN INTEGER, and taking it for one costs the book real
@@ -3782,6 +3979,34 @@ function teiInline(s) {
     const r = /rend="([^"]*)"/.exec(a);
     return r && r[1].trim() ? " " + r[1].trim() + " " : " … ";
   });
+  /* A TABLE SET AS A LIST, kept as rows — added Aug 2026 with the Gallic War, which is the first book
+     here whose translator prints one. Caesar's chapter 1.29 is the census tablets found in the
+     Helvetian camp, and the edition sets the six entries as a `<list>` of `<label>`/`<item>` pairs: a
+     people on the left, a number on the right. The generic sweep at the foot of this function unwraps
+     all three tags and keeps the words, so left alone the passage arrives as one run-on line — "Of the
+     Boii 32,000 The sum of all amounted to 368,000 Out of these, such as could bear arms…" — where the
+     table's last number runs into the sentence after it and the column of figures is gone. It is the
+     `wrapBareRuns` fault in a new element: nothing throws, no word is lost, and the chapter is exactly
+     the right length. Folio's reader has no table, but it has `<br>`, and one row to a line carries
+     what the column carried.
+
+     IT IS SCOPED TO A `<label>` INSIDE A `<list>`, and that scoping is the whole care in the rule.
+     TEI's `<label>` is also how a play marks WHO IS SPEAKING, and the Symposium's Greek — already
+     shipped — carries six of them doing exactly that: `<label>ΑΠΟΛ.</label>` opening Apollodorus's
+     speeches. A rule keyed on `<label>` alone would put a line break before every one of those and
+     silently re-set a shipped book. Measured over every TEI file this importer reads before the rule
+     was written: `<list>` occurs in this one English file and nowhere else on the shelf, so what
+     follows is provably inert for all thirteen books already here — which the byte-for-byte re-run
+     confirmed rather than assumed. No separator is invented between the two cells: the edition prints
+     none, and a space is what the eye reads as the gap in a table of this shape. */
+  b = b.replace(/<list\b[^>]*>([\s\S]*?)<\/list>/g, (whole, inner) => {
+    const rows = inner
+      .split(/(?=<label\b)/)
+      .map((r) => r.replace(/<\/?(?:label|item)\b[^>]*>/g, " ").replace(/\s+/g, " ").trim())
+      .filter(Boolean);
+    return rows.length ? " " + rows.join("<br>") + "<br>" : "";
+  });
+
   b = b.replace(/<lb\s*\/?>/g, "<br>");
   b = b.replace(/<\/l>\s*<l\b[^>]*>/g, "<br>").replace(/<\/?l\b[^>]*>/g, "");
   b = b.replace(/<quote\b[^>]*>/g, "<q>").replace(/<\/quote>/g, "</q>");
