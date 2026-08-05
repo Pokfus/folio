@@ -1631,6 +1631,172 @@ const BOOKS = {
       url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0011/tlg004/tlg0011.tlg004.perseus-grc2.xml",
     },
   },
+
+  "herodotus-histories": {
+    title: "The Histories",
+    // the work's own Greek title, as the Lucretius and Sophocles entries give theirs
+    subtitle: "Ἱστορίαι",
+    author: "Herodotus",
+    translator: "A. D. Godley",
+    edition: "Herodotus, with an English translation by A. D. Godley, Loeb Classical Library, Harvard University Press and William Heinemann, 1920–1925",
+    written: "c. 430 BCE",
+
+    /* ---------- THE LICENCE, and the second layer is THICKER here than anywhere else on the shelf ----------
+       The expired-copyright half is the easiest kind, the Republic's and the Oedipus Rex's: Alfred Denis
+       Godley published this translation and the Greek facing it in the Loeb between 1920 and 1925, and
+       he died in 1925. So both columns are public domain in the United States on the pre-1929
+       publication rule, and everywhere the term is the author's life plus a hundred years or less.
+       CHECKED rather than recalled — Wikisource's author page gives 1856–1925 and carries the
+       died-at-least-a-hundred-years-ago tag — because the Ovid entry's Hugo Magnus mistake was exactly
+       a death year asserted from memory to hold up a licence. No limit needs stating, as one does for
+       Giles (2029) and for Ross (2042).
+
+       WHAT IS DIFFERENT HERE IS THE PERSEUS LAYER, and it must not be smoothed into the sentence the
+       other Perseus books use. For the Meditations' Greek, and for both columns of Ovid, Suetonius,
+       Lucretius and the Oedipus Rex, Perseus's contribution is the DIGITAL EDITION — the transcription,
+       the markup, the CTS numbering — over a printed text left as its editor set it. Here they have
+       also edited the PROSE. The file says so in its own header, and it is quoted rather than
+       paraphrased: "This text was modernized by Steven Ott, to remove archaisms. It was reviewed by
+       John Marincola, and revisions were made accordingly." So what ships is Godley's translation with
+       its thees and thous brought up to date by a named modern hand, which is a derivative work of
+       Perseus's own making and is covered by their licence rather than by an expiry.
+
+       That is a real departure and is stated three times over — in `rights`, on the book's own front
+       matter page, and in this comment — because a reader who goes looking for the 1920 printing must
+       not be surprised by what they find. It is the same departure the Meditations' Greek made when
+       CC BY-SA content first came onto the shelf, one degree further: the repository states "Unless
+       otherwise indicated, all contents of this repository are licensed under a Creative Commons
+       Attribution-ShareAlike 4.0 International License", and neither of these two files indicates
+       otherwise (both were checked for an <availability> element; neither carries one).
+
+       The translations a reader is likeliest to own — Aubrey de Sélincourt's of 1954, Robin
+       Waterfield's of 1998, Andrea Purvis's for the Landmark Herodotus of 2007 and Tom Holland's of
+       2013 — are all firmly in copyright, and are named here for the reason Campbell, Hays, Griffith,
+       Lee, Humphries, Melville, Brown and Fagles are named above: so that nobody reaches for one. */
+    rights:
+      "Public domain on every ground, in both columns, with one modern layer stated plainly. A. D. " +
+      "Godley's translation and the Greek text facing it were published in the Loeb Classical Library " +
+      "between 1920 and 1925 — before 1929 — and Godley died in 1925, so their copyright has expired " +
+      "in the United States and everywhere that the term is the author's life plus a hundred years or " +
+      "less. Herodotus wrote the work in Greek some twenty-five centuries ago. The English here is " +
+      "not quite the 1920 printing, however: it is Godley's translation as modernized by the Perseus " +
+      "Digital Library to remove archaisms, a revision made by Steven Ott and reviewed by John " +
+      "Marincola. That revision, and the digital editions of both texts, are prepared by the Perseus " +
+      "Digital Library at Tufts University and are released under a Creative Commons " +
+      "Attribution-ShareAlike 4.0 International licence. (The modern translations by Aubrey de " +
+      "Sélincourt, 1954, Robin Waterfield, 1998, Andrea Purvis, 2007, and Tom Holland, 2013, are " +
+      "still in copyright and are not used here.)",
+    sourceName: "Perseus Digital Library",
+    sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0016.tlg001/",
+
+    /* THE FRONT MATTER — chapter 0. Five things a reader should be told before they start rather than
+       work out late: what the book is and how little of it is the war it is named for, what Herodotus
+       thought he was doing and why he is both trusted and distrusted, that the Muse names everyone
+       has heard are not in this edition, who he was, and what the two columns and the small figures
+       running through them are. */
+    about: [
+      "<b>The Histories</b> is the oldest work of history in the Western tradition that survives " +
+        "whole, and it is the book that gave the enterprise its name. Herodotus set out to explain why " +
+        "the Greeks and the Persians went to war, a conflict that reached its crisis in his own " +
+        "parents' lifetime, when the invasions of 490 and 480 BCE were turned back at Marathon, " +
+        "Salamis and Plataea. He opens by saying exactly what he is doing: \"This is the display of " +
+        "the inquiry of Herodotus of Halicarnassus, so that things done by man not be forgotten in " +
+        "time, and that great and marvelous deeds, some displayed by the Hellenes, some by the " +
+        "barbarians, not lose their glory.\" What is surprising on first reading is how little of the " +
+        "book is battle. Rather more than half of it is the story of how Persia grew large enough to " +
+        "make the war possible, and the peoples it swallowed on the way — so the reader gets Egypt, " +
+        "Scythia, Lydia, Babylon and Libya at length before a Persian ship reaches Greece.",
+      "The word in that opening sentence translated \"inquiry\" is <i>historiē</i>, which meant asking " +
+        "and finding out rather than the written record it has come to mean since. That is what he " +
+        "does: he travelled, he asked people, and he set down what they told him — often several " +
+        "incompatible versions of the same event, with the sources named and sometimes his own opinion " +
+        "of them attached. He is candid about the method to the point of stating it as a rule, in the " +
+        "middle of a story he plainly disbelieves: \"although it is my business to set down that which " +
+        "is told me, to believe it is none at all of my business.\" Antiquity took both possible views " +
+        "of this. Cicero called him the father of history; Plutarch wrote a whole essay accusing him " +
+        "of malice and invention. Modern readers have generally come round to him, partly because " +
+        "excavation and Egyptian and Near Eastern records have confirmed a good deal that used to be " +
+        "dismissed — but he reports marvels as marvels, and the reader is expected to keep their wits.",
+      "The work is in nine books, and you will have heard that they are named after the nine Muses — " +
+        "Clio, Euterpe, Thalia and the rest. They are, by long convention, but not by Herodotus: the " +
+        "division and the names are the work of later editors, first attested centuries after his " +
+        "death, and this edition uses neither. It numbers its nine books and does not name them, so " +
+        "Folio does the same. Their shape is roughly two movements. Books 1 to 4 are the rise of " +
+        "Persia under Cyrus, Cambyses and Darius, carrying the great descriptions of the countries " +
+        "they conquered — book 2, on Egypt, is nearly a separate work. Books 5 to 9 are the war " +
+        "itself: the Ionian revolt, Marathon, then Xerxes' invasion and the campaigns of Thermopylae, " +
+        "Salamis, Plataea and Mycale.",
+      "Herodotus came from Halicarnassus, a Greek city on the coast of what is now Turkey, and was " +
+        "born in about 484 BCE; he seems to have died around 425. Both dates are conventional and rest " +
+        "on very little. He was a subject of the Persian empire by birth, which is worth holding onto " +
+        "while reading him on Persia — he is not writing from outside it — and he travelled widely " +
+        "enough that the book claims first-hand knowledge of Egypt, the Black Sea coast and " +
+        "Mesopotamia. Later tradition associates him with Thurii, an Athenian colony in southern " +
+        "Italy, and with public readings of the work at Athens. Almost everything else said about his " +
+        "life comes from a Byzantine encyclopedia compiled well over a thousand years after he died, " +
+        "and is worth about as much as that suggests.",
+      "The translation here is A. D. Godley's, made for the Loeb Classical Library and published in " +
+        "four volumes between 1920 and 1925, and the Greek beside it is the text Godley printed on the " +
+        "facing page. One thing about the English should be said outright: it is not word for word the " +
+        "1920 printing. The Perseus Digital Library has modernized it to remove archaisms — the " +
+        "revision was made by Steven Ott and reviewed by John Marincola — so the thees and thous are " +
+        "gone, which is why it reads more plainly than a translation of its age usually does. The " +
+        "small raised figures running through both columns are CHAPTER numbers, and they are how any " +
+        "passage of Herodotus is cited in any language: \"Herodotus 1.32\" means book 1, chapter 32. " +
+        "Both editions state them and, measured over the whole work, they agree exactly — 1,578 " +
+        "chapters on each side, the same numbers in the same order in all nine books, which makes this " +
+        "the most cleanly paired text on these shelves. Editions also divide a chapter into finer " +
+        "numbered sections; those are not used for pairing here, because nine of the 1,578 chapters " +
+        "number them differently in the two editions, and a passage set beside one that is not its " +
+        "counterpart is worse than a longer passage. The numbered notes are the edition's own.",
+    ],
+
+    /* ---------- PROSE IN BOOKS OF NUMBERED CHAPTERS: the sixth layout ----------
+       See the block above teiBookChapters for the whole of the reasoning. The short version: a Folio
+       chapter is one of the nine books, the pairing runs on the CHAPTER numbers inside it, and the
+       finer `section` divisions are concatenated into the chapter the way Leopold's are into a chapter
+       of the Meditations.
+
+       MEASURED over the whole work before any of it was believed: 9 books on each side; 1,578 chapters
+       on each side with identical numbers in identical order in every book; 4,338 sections on each
+       side, of which nine chapters number them differently — which is precisely why the chapter and
+       not the section is the unit. The nine are recorded rather than repaired.
+
+       TWO EXTRACTION FAULTS were found in this edition and both are fixed in teiInline, where they are
+       described at length: Perseus's name-authority `<reg>` (4,305 of them, which put a modern Turkish
+       gazetteer entry with coordinates inside the book's first sentence) and the `<choice>` element of
+       the Greek. Neither throws, both leave the prose complete, and each was found only by reading the
+       output rather than by counting it. */
+    source: "tei",
+    url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0016/tlg001/tlg0016.tlg001.perseus-eng2.xml",
+    layout: "chaptered",
+    chapterWord: "Book",
+    // nine is the whole work, and it is checked against the file on every run
+    chapters: Array.from({ length: 9 }, (_, i) => i + 1),
+    /* No `titleOf`: this edition heads its nine books with nothing at all — measured, there is not a
+       single <head> element in either file — so they are Book 1 to Book 9, exactly as the Meditations'
+       twelve are. The Muse names are the obvious thing to reach for and are deliberately not used:
+       they are a later convention this edition does not print, and transcribing a title rather than
+       composing one is the rule. Said in the front matter instead, where it belongs. */
+
+    original: {
+      lang: "grc",
+      langName: "Greek",
+      source: "tei",
+      layout: "chaptered",
+      edition: "A. D. Godley, Loeb Classical Library, Harvard University Press and William Heinemann, 1920–1925",
+      rights:
+        "Two layers, both stated. Herodotus wrote the work in Greek in the fifth century BCE, so the " +
+        "words themselves are in the public domain everywhere. The text printed here is the one A. D. " +
+        "Godley set on the facing page of his Loeb edition, published between 1920 and 1925 by an " +
+        "editor who died in 1925, so its copyright has expired on every rule. The digital edition is " +
+        "prepared by the Perseus Digital Library at Tufts University and is released under a Creative " +
+        "Commons Attribution-ShareAlike 4.0 International licence.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0016.tlg001/",
+      url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0016/tlg001/tlg0016.tlg001.perseus-grc2.xml",
+    },
+  },
 };
 
 /* ---------- args ---------- */
@@ -2575,6 +2741,129 @@ function teiProse(raw) {
 }
 
 /* ============================================================
+   TEI PROSE IN BOOKS OF NUMBERED CHAPTERS   (a book declaring layout: "chaptered")
+   ============================================================
+   The sixth TEI reader, added Aug 2026 with Herodotus, and the shape it reads is the commonest one
+   in ancient prose: a work divided into BOOKS, each divided into numbered CHAPTERS, each of those
+   divided again into SECTIONS. "Herodotus 1.32.4" is book, chapter, section.
+
+   teiChapters above walks exactly that tree already — a Folio chapter is a `book` division and the
+   numbers inside it are `chapter` divisions — so the honest question was why this is not simply that
+   function with another book pointed at it. Three answers, and each is a fault this file has met
+   before under another name.
+
+   · IT READS THE ATTRIBUTES INDEPENDENTLY OF THEIR ORDER, AND THE SUBTYPE WITHOUT REGARD TO CASE.
+     teiChapters matches `subtype="book"` and then `n="…"` in that order, lowercase. Herodotus's Greek
+     spells its divisions `subtype="book" n="1"` and its English spells them `n="1" subtype="Book"` —
+     the other order AND the other case, both at once. That regex therefore returns nine books from
+     the Greek and throws on the English. It is Suetonius's attribute-order fault and Ovid's
+     capitalised `subtype="BOOK"` arriving together in one work, which is the argument for reading
+     both robustly here rather than for the third time in a row discovering that one edition spells
+     something the way the last one did not.
+
+   · IT LIFTS THE NOTES OUT. teiChapters uses teiProse, which knows nothing about `<note>`; the
+     Meditations' Greek carries none, so that has never cost anything. This edition carries 528 in
+     the English and 83 in the Greek — the translator's and the Perseus editors' glosses, set at the
+     point they are cited. teiProse's tag sweep would strip the wrapper and leave the note's TEXT
+     standing in the middle of Herodotus's sentence, which is the Meditations' reflist fault in a new
+     element and just as invisible: the prose is complete and simply says more than the author did.
+     So this walks teiSectionProse instead, which is the reader Suetonius's notes were written for,
+     and each marker carries the entry it points at rather than its place in the queue.
+
+   · IT PAIRS ON THE CHAPTER, WHICH IS NOT THE DEEPEST DIVISION. The finer `section` divisions are the
+     same numbered entry and are simply concatenated into it, exactly as Leopold's sections are folded
+     into a chapter of the Meditations. That is a decision about this work rather than a convenience,
+     and it was MEASURED over the whole of both editions before it was made:
+
+       chapters : 1,578 on each side, and in all nine books the chapter NUMBERS are identical —
+                  same count, same values, in order, nothing missing on either side.
+       sections : 4,338 on each side, but nine chapters number them differently. Book 1 chapter 1
+                  opens on a section the English calls `pr` and the Greek calls `0`; eight more
+                  (6.11, 6.49, 6.58, 7.19, 7.37, 7.41 and two others in book 7) run 1,2,4 against
+                  1,2,3 or 1,3 against 1,2, the English numbering skipping where the Greek does not.
+
+     So the chapter is the unit both editions agree on without exception and the section is not, which
+     settles it: pairing on the chapter is provably clean, and pairing on the section would have put
+     nine chapters of the two columns beside passages that are not each other. The nine are recorded
+     rather than repaired, as the Nicomachean Ethics' three repeated Bekker pages are — reconciling
+     them would mean composing an apparatus over two editions that each state their own numbering.
+
+   THE SPACING IS TIDIED, and only here. This edition's English is tagged so densely — 35,714 `<name>`
+   elements — that the whitespace sitting between two tags survives them both and lands in front of
+   the punctuation that followed: "of Halicarnassus , so that". It is an artefact of unwrapping rather
+   than anything the translator wrote, there are 834 of them, and every one would read as a typo. It
+   is done in this reader instead of in teiInline because teiInline is shared with five shipped books
+   and a rule that rewrites their punctuation is a rule that has to be proved against all five. */
+function teiBookChapters(xml, opts, warn) {
+  const body = xml.slice(xml.indexOf("<body"));
+  if (body.length < 1000) throw new Error("no <body> in the TEI file");
+
+  // attributes read independently of their order, and the subtype without regard to case — see above
+  const attr = (t, a) => (t.match(new RegExp("\\b" + a + '="([^"]*)"')) || [])[1] || "";
+  const divs = [];
+  const dre = /<div\b([^>]*)>/g;
+  let m;
+  while ((m = dre.exec(body))) {
+    const st = (/subtype="([^"]*)"/i.exec(m[1]) || [])[1] || "";
+    if (st) divs.push({ sub: st.toLowerCase(), n: attr(m[1], "n"), at: m.index });
+  }
+  const books = divs.filter((d) => d.sub === "book" && /^\d+$/.test(d.n));
+  if (!books.length) throw new Error("no book divisions in the TEI file");
+
+  const out = {};
+  books.forEach((b, i) => {
+    const end = i + 1 < books.length ? books[i + 1].at : body.length;
+    const chs = divs.filter((d) => d.sub === "chapter" && d.at > b.at && d.at < end);
+    if (!chs.length) { warn("book " + b.n + " has no chapter divisions"); return; }
+
+    const notes = [];
+    const skipped = [];
+    let html = "", seq = 0, kept = 0;
+    chs.forEach((ch, j) => {
+      const raw = body.slice(ch.at, j + 1 < chs.length ? chs[j + 1].at : end);
+      /* A CHAPTER NUMBER HERE IS NOT ALWAYS AN INTEGER, and taking it for one costs the book real
+         text. 45 of this work's 1,578 chapters carry a letter — 2.121A to 2.121F, 7.10A to 7.10H,
+         and so on — which is how an editor numbers a passage inserted into a sequence already fixed
+         by everyone who cites it. They are Herodotus, not apparatus: 2.121A is the opening of the
+         story of Rhampsinitus's treasury, one of the most famous things in the book. The first cut of
+         this reader borrowed teiSections' "a division numbered with a word is not a chapter" guard,
+         which is right for Suetonius's appended essays and wrong here, and it silently dropped all 45
+         from both columns — nothing threw, every book was present, and the run reported a clean
+         1,533-for-1,533 pairing of a book missing forty-five of its chapters.
+         So the guard now admits a trailing letter, and anything else is still skipped and reported. */
+      const key = /^(\d+)([A-Z])?$/.exec(ch.n);
+      if (!key) { skipped.push(ch.n); return; }
+      /* THE NUMBER SHOWN AND THE NUMBER SORTED ON COME APART the moment a letter is allowed, which is
+         the Nicomachean Ethics' Bekker-page problem in a second work: parseInt reads 121, 121A and
+         121B as one section 121, merging three rows into one and taking the ordering with it. So the
+         marker carries an explicit `data-n` sort key, on a scale with room for the letter — 121 →
+         12100, 121A → 12101 — and app.js's bookSections reads it in preference to the text.
+         IT IS WRITTEN ON EVERY MARKER IN THIS BOOK, not only the lettered ones, and that is the part
+         to keep: bookSections falls back to parsing the text where the attribute is absent, so a
+         book mixing bare 121 with data-n="12101" would be sorting two scales against each other. */
+      const n = +key[1] * 100 + (key[2] ? key[2].charCodeAt(0) - 64 : 0);
+      /* A number that goes BACKWARDS is a fault worth hearing about; a gap is not, an edition being
+         entitled to have none. Both columns run this, so the two can only disagree loudly. */
+      if (n <= seq) warn("book " + b.n + ": chapter " + ch.n + " follows " + seq + " — out of order");
+      seq = n;
+      const text = teiSectionProse(raw, notes);
+      if (!text) { warn("book " + b.n + " chapter " + ch.n + " came back empty"); return; }
+      kept++;
+      // the marker goes INSIDE the first paragraph, which is where bookSections looks for it
+      html += (html ? "\n" : "") +
+        text.replace(/^<p>/, '<p><span class="bk-n" data-n="' + n + '">' + ch.n + "</span> ");
+    });
+    /* The unwrapping artefact, not the translator's punctuation — see the note above. IT HAS TO REACH
+       THE NOTES TOO: they are lifted out of the prose into their own list before any of this runs, so
+       a tidy applied to `html` alone leaves 74 of them sitting in 59 notes, where they read exactly as
+       badly ("Not the modern Red Sea , but the Persian Gulf") and are simply harder to notice. */
+    const tidy = (s) => s.replace(/\s+([,.;:!?·])/g, "$1");
+    out[b.n] = { html: tidy(html), notes: notes.map(tidy), chapters: kept, skipped: skipped };
+  });
+  return out;
+}
+
+/* ============================================================
    TEI, ONE FILE PER CHAPTER   (a book declaring source:"tei" with perChapter)
    ============================================================
    teiChapters above reads a TEI edition holding a whole work, and finds Folio's chapters as `book`
@@ -2695,6 +2984,41 @@ function teiInline(s) {
   let b = s;
   b = b.replace(/<del\b[^>]*>[\s\S]*?<\/del>/g, "");
   b = b.replace(/<\/?add\b[^>]*>/g, "");
+
+  /* PERSEUS'S NAME AUTHORITY, dropped WITH its words — and it is the quiet fault of the Herodotus
+     files, which are the first here to carry it. Their English tags every person, place and people
+     against a gazetteer, and a place is encoded as the authority's entry FOLLOWED by the words the
+     translator actually wrote:
+
+       <name key="tgn,7016142" type="place"><reg>Bodrum [27.466,37.5] (inhabited place), Mugla Ili,
+       Ege kiyilari, Turkey, Asia </reg> <placeName key="tgn,7016142">Halicarnassus</placeName></name>
+
+     The sweep at the foot of this function unwraps what it does not recognise and KEEPS the words, so
+     left alone the first sentence of the Histories reads "the inquiry of Herodotus of Bodrum
+     [27.466,37.5] (inhabited place), Mugla Ili, Ege kiyilari, Turkey, Asia Halicarnassus" — a modern
+     Turkish gazetteer entry, with coordinates, inside the book's opening line. Nothing throws, no
+     passage is missing and every count reads as healthy; it is only wrong. 4,305 of them.
+
+     IT IS SCOPED TO <name> ON PURPOSE, and that is the whole care in this rule. TEI's own `<reg>` is
+     the REGULARIZED form of a word — <choice><orig>ye</orig><reg>you</reg></choice> — which an editor
+     means to be read and which a blanket drop would delete from some future edition's prose. What is
+     dropped here is only a `<reg>` standing inside a `<name>`, which is Perseus's own use and is
+     metadata rather than text. Measured over the whole work before this was written: all 4,305 sit
+     inside a `<name>` and none outside one. The non-greedy match mis-reads a `<name>` nested in
+     another — there are four, all of the shape "Racecourse of <name>Achilles</name>" — but none of
+     the four contains a `<reg>`, so nothing is lost and the stray closing tag unwraps below. */
+  b = b.replace(/<name\b[^>]*>([\s\S]*?)<\/name>/g, (whole, inner) =>
+    inner.replace(/<reg\b[^>]*>[\s\S]*?<\/reg>/g, ""));
+
+  /* THE EDITOR'S CORRECTION, kept over the reading he is correcting — the same judgement `add` and
+     `del` above make, in the one element that states both halves at once. Godley's Greek marks four:
+     <choice><sic>αἱ</sic> <corr>οἱ</corr></choice>. Unwrapped by the generic sweep both survive and
+     the text reads "αἱ οἱ", which is a word the author did not write standing next to the word he
+     did. A `<choice>` carrying no `<corr>` keeps whatever else it holds rather than emptying. */
+  b = b.replace(/<choice\b[^>]*>([\s\S]*?)<\/choice>/g, (whole, inner) => {
+    const corr = /<corr\b[^>]*>([\s\S]*?)<\/corr>/.exec(inner);
+    return corr ? corr[1] : inner.replace(/<sic\b[^>]*>[\s\S]*?<\/sic>/g, "");
+  });
   b = b.replace(/<gap\b([^>]*?)\/?>/g, (whole, a) => {
     const r = /rend="([^"]*)"/.exec(a);
     return r && r[1].trim() ? " " + r[1].trim() + " " : " … ";
@@ -3244,6 +3568,30 @@ async function fetchEnglish() {
     return writeEnglish(chapters, warnings);
   }
 
+  /* A PROSE WORK IN BOOKS OF NUMBERED CHAPTERS — see teiBookChapters. One fetch for the whole
+     history, cached whole, so --from/--to cost nothing and a re-extract needs no network at all. */
+  if (BOOK.source === "tei" && BOOK.layout === "chaptered") {
+    const warn = (m) => warnings.push(m);
+    const cf = path.join(CACHE, "en-tei.xml");
+    let xml;
+    if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
+    else { xml = await fetchText(BOOK.url); fs.writeFileSync(cf, xml); }
+    const books = teiBookChapters(xml, {}, warn);
+    for (const n of BOOK.chapters) {
+      if (n < FROM || n > TO) continue;
+      const got = books[n];
+      if (!got) { warn(BOOK.chapterWord + " " + n + " is missing from the edition"); continue; }
+      if (got.html.length < 200) throw new Error("chapter " + n + " came back short (" + got.html.length + " chars)");
+      chapters.push({ n: n, t: titles[n] || chapterTitle(n), p: partOf(n), html: got.html, notes: got.notes });
+      console.log("  " + BOOK.chapterWord + " " + n + " — " + got.chapters + " chapters, " +
+        got.notes.length + " notes (" + (got.html.length / 1024).toFixed(0) + " KB)");
+      // AFTER the line naming the book, or the reader attributes the skips to the book above — which
+      // is exactly how the 45 lettered chapters were first mis-read as belonging to the wrong books
+      if (got.skipped.length) console.log("    skipped non-chapter division(s): " + got.skipped.join(", "));
+    }
+    return writeEnglish(chapters, warnings);
+  }
+
   if (BOOK.source === "tei") {
     const warn = (m) => warnings.push(m);
     const cf = path.join(CACHE, "en-tei.xml");
@@ -3490,6 +3838,50 @@ async function fetchOriginal() {
         const keys = new Set([...byNum[n].matchAll(/data-n="(\d+)"/g)].map((m) => m[1]));
         console.log("  Part " + n + " — " + keys.size + " sections (" + (byNum[n].length / 1024).toFixed(0) + " KB)");
       });
+      return writeOriginal(byNum, warnings);
+    }
+
+    /* A PROSE WORK IN BOOKS OF NUMBERED CHAPTERS pairs on the CHAPTER — see teiBookChapters for the
+       measurement that settled it on the chapter rather than the finer section. The two columns are
+       reconciled before either is believed, and the English is read back out of its own cached TEI so
+       that an --only-original run checks against exactly the file that shipped — the discipline the
+       verse and drama branches above follow, and for the same reason: a pairing asserted from the
+       entry rather than from the files is a pairing nobody has checked.
+
+       THE ORIGINAL'S OWN NOTES ARE DROPPED, and that is a consequence of the page rather than a
+       judgement about them. teiSectionProse lifts a note out of the prose into a list, and Folio's
+       reader folds notes under the TRANSLATION alone — the original column has nowhere to put one —
+       so the Greek's 83 editorial notes are removed from the text instead of being left standing in
+       the middle of it. The count is printed on every run rather than passed over in silence. */
+    if (O.layout === "chaptered") {
+      const enCache = path.join(CACHE, "en-tei.xml");
+      let enXml;
+      if (fs.existsSync(enCache)) enXml = fs.readFileSync(enCache, "utf8");
+      else { enXml = await fetchText(BOOK.url); fs.writeFileSync(enCache, enXml); }
+      const en = teiBookChapters(enXml, {}, warn);
+      const or = teiBookChapters(xml, {}, warn);
+      /* The chapter as the reader sees it — "121A", not the sort key behind it — because both columns
+         print the same label and a human reading this report needs the citation, not the scale. */
+      const nums = (o) => (o ? [...o.html.matchAll(/class="bk-n"[^>]*>([^<]+)</g)].map((m) => m[1]) : []);
+      console.log("  reconciling the two columns' chapter numbers:");
+      let paired = 0, blankOrig = 0, blankEng = 0, notes = 0;
+      Object.keys(en).map(Number).sort((a, b) => a - b).forEach((n) => {
+        if (!or[n]) { warn(BOOK.chapterWord + " " + n + " is missing from the original"); return; }
+        const e = nums(en[n]), o = nums(or[n]);
+        const es = new Set(e), os = new Set(o);
+        const miss = e.filter((c) => !os.has(c)), extra = o.filter((c) => !es.has(c));
+        paired += e.filter((c) => os.has(c)).length;
+        blankOrig += miss.length; blankEng += extra.length;
+        notes += or[n].notes.length;
+        console.log("    " + BOOK.chapterWord + " " + n + " — " + e.length + " chapters in the " +
+          "translation, " + o.length + " in the original" +
+          (miss.length ? ", " + miss.length + " with no original (" + miss.slice(0, 6).join(", ") + ")" : "") +
+          (extra.length ? ", " + extra.length + " with no translation (" + extra.slice(0, 6).join(", ") + ")" : ""));
+      });
+      console.log("  paired " + paired + " of " + (paired + blankOrig) + " chapters; " + blankOrig +
+        " draw an empty " + O.langName + " cell and " + blankEng + " an empty English one");
+      console.log("  " + notes + " editorial notes dropped from the original column (it has no fold)");
+      Object.keys(or).forEach((n) => { byNum[n] = or[n].html; });
       return writeOriginal(byNum, warnings);
     }
 
