@@ -14,14 +14,14 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.10", released: "2026-08-05T06:38Z" };
+window.FOLIO_VERSION = { v: "1.11", released: "2026-08-05T08:25Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-05",
-    t: "A fifth and sixth book in the Library",
+    t: "A fifth, sixth and seventh book in the Library",
     items: [
-      "Two more books join the Library, each with its original Latin beside the English. Ovid’s <i>Metamorphoses</i>, all fifteen books — the poem of shape and change, from the making of the world out of chaos down to Ovid’s own lifetime, and where we get Daphne turning into the laurel, Narcissus into the flower and a couple of hundred more — in Brookes More’s blank verse of 1922. And Suetonius’s <i>The Twelve Caesars</i>, all twelve lives from Julius Caesar to Domitian, in Alexander Thomson’s English: it is where nearly every story we tell about the early emperors comes from, and it is arranged by topic rather than as a narrative, so each life goes over the same reign several times from different angles. Both translations are out of copyright and free for anyone to read, and where each comes from is said on the book’s own first page. The raised figures pair the two columns — line numbers of the Latin in Ovid, chapter numbers in Suetonius. Thomson, translating in the 1790s, passes over a few passages about his subjects’ private lives, and the page says so where he does.",
+      "Three more books join the Library, each with its original Latin beside the English. Ovid’s <i>Metamorphoses</i>, all fifteen books — the poem of shape and change, from the making of the world down to Ovid’s own lifetime, and where we get Daphne turning into the laurel and Narcissus into the flower — in Brookes More’s blank verse of 1922. Suetonius’s <i>The Twelve Caesars</i>, all twelve lives from Julius Caesar to Domitian, which is where nearly every story we tell about the early emperors comes from; it is arranged by topic rather than as a narrative, so each life goes over the same reign several times from different angles. And Lucretius’s <i>On the Nature of Things</i>, all six books, which sets out to explain the whole universe as atoms moving in empty space, and argues that if that is all there is then neither death nor the gods are anything to be afraid of — in William Ellery Leonard’s verse of 1916. All three translations are out of copyright and free for anyone to read, and where each comes from is said on the book’s own first page. The raised figures pair the two columns: line numbers of the Latin in Ovid and Lucretius, chapter numbers in Suetonius. Thomson, translating Suetonius in the 1790s, passes over a few passages about his subjects’ private lives, and the page says so where he does.",
     ],
   },
   {

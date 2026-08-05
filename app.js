@@ -4695,6 +4695,59 @@
         { n: 8, label: "Book VIII", note: "Vespasian, Titus, Domitian" },
       ],
     },
+    {
+      id: "lucretius-nature-of-things",
+      title: "On the Nature of Things",
+      // the work's own Latin title, which is what the column beside the English is an edition of
+      subtitle: "De Rerum Natura",
+      author: "Lucretius",
+      written: "c. 55 BCE",
+      // negative, like the Art of War's: this one files second on a shelf sorted oldest first
+      year: -55,
+      translator: "William Ellery Leonard",
+      edition: "E. P. Dutton & Co., New York, 1916",
+      /* Two layers on both columns, the position the Metamorphoses and the Twelve Caesars are in.
+         The expired-copyright half is easy — Leonard published in 1916 and died in 1944, so the
+         pre-1929 rule and the life-plus-seventy rule are both cleared, over a poem of the 50s BCE.
+         What is deliberately NOT claimed is an editor for the Latin: Perseus's file names none and
+         gives its imprint as "Lost information", so the ground stated is the age of the poem rather
+         than an edition guessed at from the likely candidates. That is the Ovid discipline — a
+         fabricated fact holding up a licence is the worst kind — and it is said on the book's own
+         page rather than smoothed over. See .claude/fetch-book.js. */
+      rights:
+        "Two layers, both stated. William Ellery Leonard's translation was published in New York in " +
+        "1916 — before 1929 — so its copyright has expired in the United States; Leonard died in 1944, " +
+        "so it is also public domain wherever the term is the author's life plus seventy years or less. " +
+        "The poem it translates was written in the 50s BCE and is in the public domain everywhere. The " +
+        "digital editions both columns are taken from are prepared by the Perseus Digital Library at " +
+        "Tufts University and are released under a Creative Commons Attribution-ShareAlike 4.0 " +
+        "International licence; Perseus's file for the Latin names neither an editor nor a date for the " +
+        "text it prints, so none is claimed here. The modern translations by Rolfe Humphries (1968), " +
+        "Ronald Melville (1997) and A. E. Stallings (2007) are still in copyright and are deliberately " +
+        "not used here.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0550.phi001/",
+      /* The Latin Lucretius wrote. It pairs the way the Metamorphoses does — on the CARD, a passage
+         labelled with the Latin LINE it opens at, which is the handle both editions state and the only
+         figure they say the same thing about (Leonard's blank verse runs 9,784 lines against the
+         Latin's 7,382, so neither side can carry line numbers one for one). Measured over all six
+         books before it was believed: 213 cards a side and ALL 213 CARRYING THE IDENTICAL NUMBER —
+         the cleanest pairing in this library, needing none of the reconciliation Ovid's thirteen
+         near-misses required — with length correlation 0.968 across the pairs. Finding it meant fixing
+         a silent fault first: this edition writes its card milestones with the attributes in the other
+         order from Ovid's, which returned every English card and not one Latin one. See
+         .claude/fetch-book.js. */
+      origLang: "la",
+      origName: "Latin",
+      color: "#4F7A3A",
+      chapterWord: "Book",
+      // six books is the whole poem, so the two agree and will stay agreed
+      count: 6,
+      total: 6,
+      /* No `parts`: one poem in six books, and its edition divides it no further. app.js falls back to
+         a single unlabelled group, which is the honest rendering of a book with no volumes — the same
+         position the Meditations and the Metamorphoses are in. */
+    },
   ];
   const BOOK_BY_ID = {};
   BOOKS.forEach((b) => (BOOK_BY_ID[b.id] = b));
