@@ -14,9 +14,16 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.8", released: "2026-08-04T22:20Z" };
+window.FOLIO_VERSION = { v: "1.9", released: "2026-08-05T01:48Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-08-05",
+    t: "A new Ancient Greece card",
+    items: [
+      "One new card in the Ancient Greece deck, with a glossary entry to go with it. It opens the collection's second deck, which had been empty until now.",
+    ],
+  },
   {
     d: "2026-08-04",
     t: "A Library of books, World History replanned, and the day itself",
