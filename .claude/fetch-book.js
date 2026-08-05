@@ -73,6 +73,22 @@ const REPUBLIC_TITLES = [
   "The Recompense of Life",
 ];
 
+/* The twelve lives' names, TRANSCRIBED from the labels this edition files them under — the same
+   names Perseus's catalogue records for its twelve English texts, which are the running heads of the
+   printing itself. They are a table here for the reason AOW_TITLES and REPUBLIC_TITLES are: there is
+   no contents table to walk, because this edition arrives as twelve separate files rather than as one
+   volume. A title is transcribed, never composed — "Caligula" is what the edition calls the fourth
+   life, not a description of it that has been thought up here. */
+const CAESAR_TITLES = [
+  "Julius Caesar", "Augustus", "Tiberius", "Caligula", "Claudius", "Nero",
+  "Galba", "Otho", "Vitellius", "Vespasian", "Titus", "Domitian",
+];
+
+/* Which of Perseus's twelve work ids holds each life, in the order the work itself puts them. The
+   ids are not guessable from the numbering — the lives run abo011 to abo022 for chapters 1 to 12 —
+   so both halves of the book are addressed through this one table. */
+const CAESAR_WORK = (n) => "abo0" + (10 + n);
+
 const BOOKS = {
   "seneca-letters": {
     title: "Letters from a Stoic",
@@ -767,6 +783,203 @@ const BOOKS = {
         "International licence.",
       sourceName: "Perseus Digital Library",
       sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0959.phi006/",
+    },
+  },
+
+  "suetonius-twelve-caesars": {
+    title: "The Twelve Caesars",
+    // the work's own Latin title, which is what its Latin column is an edition of
+    subtitle: "De vita Caesarum",
+    author: "Suetonius",
+    translator: "Alexander Thomson",
+    edition: "Gebbie & Co., Philadelphia, 1883",
+    written: "c. 121 CE",
+
+    /* ---------- THE LICENCE, and it is the Ovid shape: two layers on both sides ----------
+       The expired-copyright half is the least anxious of the six. Thomson's translation was first
+       published in 1796 and this printing, revised by J. Eugene Reed, is of 1883 — both so far before
+       1929 that the United States rule is not close, and a work published in 1796 by a man writing in
+       the 1760s is out of copyright under a life-plus-anything term as well. The Latin beneath it is
+       Maximilian Ihm's Teubner text of 1908, also pre-1929, over a work of the early second century.
+
+       Note what is NOT claimed. Thomson's dates are not firmly established — Wikisource records him
+       only as "fl. 1761" — so the ground stated in `rights` is the publication dates, which are
+       checkable from the editions themselves, and not a death year that would have to be guessed at.
+       That is the discipline the Ovid entry above adopted after a Wikisource author page for a
+       different Hugo Magnus nearly supplied a fabricated fact in support of a licence.
+
+       The SECOND layer is Perseus's, and it applies to both columns because both come from there —
+       the same position the Metamorphoses is in. The digital editions live in Perseus's
+       canonical-latinLit repository and are released under CC BY-SA 4.0; the two files of the twelve
+       that have been through Perseus's 2026 markup review state that licence in their own TEI
+       headers, and the remaining twenty-two are the older release of the same repository and carry a
+       bare publication statement. So the obligation is honoured the way the other two Perseus books
+       honour it: named in `rights`, printed on the book's own page, and credited on the About page.
+
+       The modern translations a reader is likeliest to own — Robert Graves's Penguin of 1957, revised
+       by Michael Grant in 1979, Catharine Edwards's Oxford World's Classics of 2000 and Tom Holland's
+       of 2021 — are all firmly in copyright, and are named here for the reason Campbell, Hays,
+       Griffith, Lee and Humphries are named above: so that nobody reaches for one later. */
+    rights:
+      "Two layers, both stated. Alexander Thomson's translation was first published in 1796 and this " +
+      "printing, revised by J. Eugene Reed, in 1883 — both long before 1929 — so its copyright has " +
+      "expired, on the United States publication rule and on the author's-life rule alike. The Latin " +
+      "it is printed beside is Maximilian Ihm's edition of 1908, over a work of the early second " +
+      "century. The digital editions both columns are taken from are prepared by the Perseus Digital " +
+      "Library at Tufts University and are released under a Creative Commons Attribution-ShareAlike " +
+      "4.0 International licence. (The modern translations by Robert Graves, 1957, Catharine Edwards, " +
+      "2000, and Tom Holland, 2021, are still in copyright and are not used here.)",
+    sourceName: "Perseus Digital Library",
+    sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi1348/",
+
+    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out above.
+       Four things a reader should be told plainly rather than discover late: the book is arranged by
+       topic and not as a story, its opening pages are lost, its translator passes over some passages
+       in silence, and the numbers running through both columns are the chapter numbers Suetonius is
+       cited by. The last two are the ones that would otherwise read as faults in the page. */
+    about: [
+      "<b>The Twelve Caesars</b> is a set of twelve biographies, running from Julius Caesar to " +
+        "Domitian and covering the first century and a half of one-man rule at Rome. Suetonius wrote " +
+        "it around 121 CE, while he held office in the imperial palace, and it is the reason we know " +
+        "most of what we think we know about these men: that Caesar was sensitive about his baldness, " +
+        "that Augustus wore extra layers in winter, that Claudius stammered, that Nero sang. Almost " +
+        "every later portrait of the early emperors — the histories, the novels, the television — " +
+        "runs back to this book.",
+      "It is not a narrative, and that is the thing most often missed about it. Suetonius says he will " +
+        "set out each life <i>per species</i>, by categories rather than by date, and he does: family " +
+        "and birth, then career, then buildings and public acts, then appearance, habits, private " +
+        "life, and finally death and omens. The effect is a dossier rather than a story. It also " +
+        "means the same reign is gone over several times from different angles, and that the famous " +
+        "damning details arrive in a list rather than in a plot — which is part of why they are so " +
+        "quotable and why historians treat them with care.",
+      "Gaius Suetonius Tranquillus was born around 69 CE, the year of the four emperors, into the " +
+        "Roman knightly class rather than the senatorial one. He was a friend of the younger Pliny, " +
+        "who wrote letters on his behalf, and he made his career as an imperial secretary, ending as " +
+        "the official in charge of the emperor Hadrian's correspondence — a post that put the palace " +
+        "archives within reach, and it shows: he quotes documents, wills and Augustus's own letters " +
+        "in a way no other ancient biographer does. He was dismissed around 122 CE, for reasons the " +
+        "sources give only vaguely, and nothing certain is known of him afterwards.",
+      "The book has lost its opening. What survives begins abruptly, with Caesar already in his " +
+        "sixteenth year, and the dedication to Septicius Clarus that ancient readers knew is gone " +
+        "along with the first chapters — the Latin here opens on the mark an editor uses for a gap in " +
+        "the manuscripts. Some of what Suetonius wrote elsewhere is lost in the same way, and the " +
+        "twelve lives are themselves the surviving part of a much larger output on Roman writers, " +
+        "customs and antiquities.",
+      "The translation is Alexander Thomson's, first published in 1796, in the revision of 1883; the " +
+        "Latin printed beside it is Maximilian Ihm's edition of 1908. Two things follow from the age " +
+        "of the translation and should not be mistaken for faults in this page. Suetonius is frank " +
+        "about his subjects' sexual lives, and Thomson is not: two chapters — the forty-ninth of " +
+        "Julius Caesar and the twenty-ninth of Nero — are passed over entirely, with the edition " +
+        "saying so in a note where the text should be, and a few others are shortened. And the small " +
+        "raised figures running through both columns are the chapter numbers by which any passage is " +
+        "cited, so that a reference such as 'Nero 16' is a number you can find on the page; they are " +
+        "also what pairs the two texts, an English chapter and a Latin one carrying the same figure " +
+        "being the same place in the book. The numbered notes folded under each life are the " +
+        "translator's and his editor's.",
+    ],
+
+    /* ---------- A TEI EDITION IN TWELVE FILES, WHICH IS THE NEW SHAPE HERE ----------
+       The three TEI books above are each ONE file holding the whole work, split into books inside it.
+       Suetonius is catalogued the way antiquity actually transmitted him — as twelve separate lives —
+       so Perseus gives twelve files per language, and a Folio CHAPTER is one whole file rather than a
+       division inside one. Hence `perChapter`, and a `url` that takes the chapter number.
+
+       THE PAIRING, which is the only question that decides whether an original can ship at all.
+       Suetonius is cited by life and CHAPTER — "Divus Iulius 32", "Nero 16" — and both editions state
+       their chapter numbers as STRUCTURE, `<div subtype="chapter" n="32">`, in the CTS encoding the
+       Meditations' Greek comes from. Nothing has to be read back out of the prose.
+
+       MEASURED BEFORE IT WAS BELIEVED, over all twelve lives and both languages: 541 Latin chapters
+       against 551 English divisions, and eleven of the twelve lives agree with the standard chapter
+       count exactly on both sides. Length correlation across the 539 paired chapters is 0.971, and
+       66% of the Latin's proper names of six letters or more are present in the English chapter of
+       the same number — which is what a real translation looks like through a check that has to match
+       inflected Latin against English (Augustum against Augustus) on a five-letter prefix.
+
+       TWO THINGS THE MEASUREMENT FOUND, and both would have been invisible without it.
+
+       · THE ATTRIBUTE ORDER IS NOT STABLE ACROSS THE FILES. Divus Julius spells its divisions
+         `subtype="chapter" n="1"` and the other eleven spell them `n="1" subtype="chapter"`, so a
+         regex that expects one order returns 90 chapters for the whole work instead of 551 — eleven
+         lives silently reduced to nothing. It is the Metamorphoses' `subtype="BOOK"` fault in a new
+         coat, and the answer is the same: read the attributes independently of their order, which is
+         what teiSections below does. (The first count run here was that regex, and it reported a
+         perfectly plausible-looking table.)
+
+       · AUGUSTUS'S ENGLISH NUMBERING RUNS TWO BEHIND FROM CHAPTER 59 ON, and this is the one place
+         the book needs a repair rather than a reading. Perseus's English file for Augustus has 99
+         chapter divisions where every edition of Suetonius has 101, and the divergence has a single
+         cause: the file runs Ihm's chapters 58, 59 and 60 together into one division, and then
+         numbers everything after it sequentially, so its "59" is chapter 61, its "99" is chapter 101,
+         and the last two chapters appear to be missing. Left alone, forty-one chapters of Augustus
+         would pair the English against the wrong Latin — the failure the Meditations entry warns
+         about, arriving quietly: nothing throws, no text is lost, and every chapter faces something.
+
+         IT IS A MARKUP ARTIFACT AND NOT THE EDITION'S NUMBERING, which is why correcting it is a
+         repair and not a renumbering. The printed Thomson–Forester text prints LIX. against the
+         chapter on the physician Antonius Musa, exactly where Ihm's 59 is, and runs on to CI. — so
+         the edition's own printed numbers agree with the Latin's throughout, and it is Perseus's
+         sequential `n` that is counting divisions rather than reading numerals. Checked against that
+         printing before the offset was applied.
+
+         The repair is `renumber` below, and it is stated rather than smoothed over: applying it takes
+         Augustus's length correlation from 0.385 to 0.980 and its proper-name agreement from 45% to
+         69%, and moves the unpaired Latin chapters from 100 and 101 — which would have been wrong —
+         to 59 and 60, which are precisely the two the English division swallowed. Those two draw as
+         empty English cells, exactly as the Meditations' section 12.18 draws as an empty Greek one,
+         and their translation sits at the end of chapter 58. That is the honest rendering of an
+         edition that ran three chapters together, and the alternative — splitting the merged division
+         by eye at the sentence the printed page marks LIX — would be composing structure rather than
+         transcribing it.
+
+       WHAT IS DELIBERATELY NOT IMPORTED: each of the twelve English files ends with an essay headed
+       "Remarks on Julius Caesar", "Remarks on Augustus" and so on — the edition's own appended
+       commentary on the reign, running to a dozen kilobytes apiece. It is filed as a thirteenth
+       chapter division numbered `note` (and `appendix` in Divus Julius), and it is skipped for the
+       reason the Republic's engraved plates are skipped: it is not Suetonius. It has no counterpart
+       in the Latin, so it would draw as a page-long block facing nothing, and it is an eighteenth-
+       century editor's historical judgement rather than the text a reader opened the book for.
+       teiSections reports every division it skips, so this stays a decision rather than a silence. */
+    source: "tei",
+    perChapter: true,
+    url: (n) => "https://raw.githubusercontent.com/PerseusDL/canonical-latinLit/master/data/phi1348/" +
+      CAESAR_WORK(n) + "/phi1348." + CAESAR_WORK(n) + ".perseus-eng2.xml",
+    /* Chapter 2 is Augustus. See the long note above for why this exists and what was checked before
+       it was written; it is applied to the ENGLISH only, the Latin's numbering being the edition's. */
+    renumber: (n, chapter) => (chapter === 2 && n >= 59 ? n + 2 : n),
+    chapterWord: "Life",
+    titleOf: (n) => CAESAR_TITLES[n - 1] || "Life " + n,
+    chapters: Array.from({ length: 12 }, (_, i) => i + 1),
+    /* The eight books the work itself is divided into, which is how the lives were published and how
+       the manuscripts carry them: one book each down to Nero, then the three short reigns of 69 CE
+       together, then the three Flavians together. */
+    parts: [
+      { n: 1, label: "Book I", from: 1, to: 1 },
+      { n: 2, label: "Book II", from: 2, to: 2 },
+      { n: 3, label: "Book III", from: 3, to: 3 },
+      { n: 4, label: "Book IV", from: 4, to: 4 },
+      { n: 5, label: "Book V", from: 5, to: 5 },
+      { n: 6, label: "Book VI", from: 6, to: 6 },
+      { n: 7, label: "Book VII", from: 7, to: 9 },
+      { n: 8, label: "Book VIII", from: 10, to: 12 },
+    ],
+
+    original: {
+      lang: "la",
+      langName: "Latin",
+      source: "tei",
+      perChapter: true,
+      url: (n) => "https://raw.githubusercontent.com/PerseusDL/canonical-latinLit/master/data/phi1348/" +
+        CAESAR_WORK(n) + "/phi1348." + CAESAR_WORK(n) + ".perseus-lat2.xml",
+      edition: "Maximilian Ihm's edition (Leipzig, Teubner, 1908), from the Perseus Digital Library",
+      rights:
+        "Two layers, both stated. Suetonius wrote in Latin in the early second century, so the words " +
+        "themselves are in the public domain everywhere, and Maximilian Ihm's edition of them was " +
+        "published in 1908 — before 1929. The digital edition it is taken from is prepared by the " +
+        "Perseus Digital Library at Tufts University and is released under a Creative Commons " +
+        "Attribution-ShareAlike 4.0 International licence.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi1348/",
     },
   },
 };
@@ -1634,6 +1847,137 @@ function teiProse(raw) {
 }
 
 /* ============================================================
+   TEI, ONE FILE PER CHAPTER   (a book declaring source:"tei" with perChapter)
+   ============================================================
+   teiChapters above reads a TEI edition holding a whole work, and finds Folio's chapters as `book`
+   divisions inside it. Suetonius is catalogued as antiquity transmitted him — twelve separate lives,
+   twelve separate files per language — so here a Folio CHAPTER is one whole file and the numbered
+   divisions inside it are its SECTIONS: the chapter numbers any passage of Suetonius is cited by.
+
+   Three things this reader does that teiChapters does not, each of them learned from a file rather
+   than anticipated.
+
+   · IT READS THE ATTRIBUTES INDEPENDENTLY OF THEIR ORDER. One of the twelve lives spells its
+     divisions `subtype="chapter" n="1"` and the other eleven spell them `n="1" subtype="chapter"`.
+     A regex fixing either order returns one life and silently loses the other eleven — the same
+     quiet shape as the Metamorphoses' capitalised `subtype="BOOK"`, and just as invisible, since
+     what comes back is a shorter book rather than an error.
+
+   · IT LIFTS THE NOTES OUT. This edition's notes are the translator's and his editor's, set inline
+     at the point they are cited, and there are about eight hundred of them across the twelve lives —
+     historical glosses, dates in the Roman calendar, the Latin behind a rendering. They become
+     Folio's per-chapter note fold, each marker carrying the entry it points at rather than its
+     position in the queue, which is the rule Seneca's reused notes established.
+
+   · IT SKIPS DIVISIONS THAT ARE NOT CHAPTERS, and says which. Each English file ends with the
+     edition's own appended essay on the reign, filed as a division numbered `note` or `appendix`;
+     it is not Suetonius and is not imported. Reporting the skips is what keeps that a decision. */
+function teiSections(xml, opts, warn) {
+  const body = xml.slice(xml.indexOf("<body"));
+  if (body.length < 500) throw new Error("no <body> in the TEI file");
+
+  const marks = [];
+  const dre = /<div\b([^>]*)>/g;
+  let m;
+  while ((m = dre.exec(body))) {
+    const a = m[1];
+    const st = /subtype="([^"]*)"/i.exec(a);
+    const n = /\bn="([^"]*)"/.exec(a);
+    if (st && st[1].toLowerCase() === "chapter" && n) marks.push({ raw: n[1], at: m.index });
+  }
+  if (!marks.length) throw new Error("no chapter divisions in the TEI file");
+
+  const notes = [];
+  const skipped = [];
+  let html = "", seq = 0, kept = 0;
+  marks.forEach((c, i) => {
+    const raw = body.slice(c.at, i + 1 < marks.length ? marks[i + 1].at : body.length);
+    // the appended essay, filed as a division with a word for a number
+    if (!/^\d+$/.test(c.raw)) { skipped.push(c.raw); return; }
+    const n = opts.renumber ? opts.renumber(+c.raw) : +c.raw;
+    /* A number that goes BACKWARDS is a fault worth hearing about; a gap is not, since an edition may
+       genuinely have none — and after a renumber the sequence must still climb, which is the cheapest
+       check that the repair has not crossed two chapters over each other. */
+    if (n <= seq) warn("section " + n + " follows " + seq + " — out of order");
+    seq = n;
+    const text = teiSectionProse(raw, notes);
+    if (!text) { warn("section " + n + " came back empty"); return; }
+    kept++;
+    // the marker goes INSIDE the first paragraph, which is where bookSections looks for it
+    html += (html ? "\n" : "") + text.replace(/^<p>/, '<p><span class="bk-n">' + n + "</span> ");
+  });
+  return { html: html, notes: notes, count: kept, skipped: skipped };
+}
+
+/* One numbered section down to paragraphs, with its notes lifted out into `notes` as it goes.
+
+   THE NOTES COME OUT FIRST and are replaced where they stood by an EMPTY marker carrying the entry
+   it points at in `data-fn`. Both halves of that matter. Empty, because the digit a reader sees is
+   written by app.js at render time from the list itself, so re-ordering the notes can never leave a
+   stale number in a sentence; and carrying its target, because a marker numbered by its position in
+   reading order is right only while every note is cited exactly once — the assumption that cost
+   Seneca's letter 114 five deleted markers. Notes are collected per LIFE, which is the unit Folio
+   folds them under, so the entry number and the reading order do agree here — the attribute is
+   written anyway rather than relied upon not to be needed. */
+function teiSectionProse(raw, notes) {
+  const b = raw.replace(/<note\b([^>]*)>([\s\S]*?)<\/note>/g, (whole, attrs, inner) => {
+    const t = teiInline(inner);
+    if (!t) return "";
+    /* A NOTE MARKED place="inline" IS NOT A FOOTNOTE, and this edition has ten of them: the asterisk
+       marks it prints IN THE TEXT where the translator passes something over — "* * * Thomson omits
+       material here * * *". TEI's `place` says where the printed page puts a note, and `inline` means
+       the text flow rather than the foot, so lifting these into the fold moves them off the page they
+       belong on. It also loses a section outright: Nero's chapter 29 is nothing BUT one of these
+       marks, so with it gone the paragraph held only a marker, the section came back empty, and the
+       Latin's chapter 29 was left facing nothing — which is how the first run of this book shipped 56
+       of Nero's 57 chapters with one line of warning to say so. Set in italic, as an editorial
+       interpolation in someone else's text should be. */
+    if (/place="inline"/.test(attrs)) return " <i>" + t + "</i> ";
+    notes.push(t);
+    return '<sup class="fn" data-fn="' + notes.length + '"></sup>';
+  });
+  const ps = [...b.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/g)].map((x) => teiInline(x[1]));
+  return ps.filter(Boolean).map((p) => "<p>" + p + "</p>").join("\n");
+}
+
+/* TEI's inline vocabulary down to the four tags Folio's reader understands, plus the footnote marker
+   teiSectionProse has already put in. The editorial elements are resolved rather than passed through,
+   exactly as teiProse resolves them for the Meditations: `<add>` is the editor's supplement and is
+   part of the constituted text, so its words are kept; `<del>` is what he marks as spurious, so it
+   goes with its words. Ihm's text carries 125 of the second across the twelve lives.
+
+   `<gap>` KEEPS THE MARK THE EDITION PRINTS, and that is not decoration. Two of them are load-
+   bearing: the lacuna at the head of Divus Julius, where the book's lost opening was, and the
+   ellipsis this translator leaves in place of the chapters he passes over. Stripped as an unknown
+   empty tag — which is what the ordinary sweep would do to it — a chapter Thomson omitted comes
+   through as a bare footnote marker floating in an otherwise empty paragraph, and the reader is left
+   to guess whether the page has failed. With the mark kept it reads as what it is.
+
+   A `<quote>` becomes an inline `<q>` for teiProse's reason: these sit mid-sentence, and a block
+   element inside a paragraph is invalid nesting. Verse quoted inside prose keeps its line breaks —
+   Suetonius quotes a good deal of it, epigrams and lines of Homer and Euripides — and `<foreign>`
+   becomes italic, which is how the printed page sets the Latin and Greek it glosses. */
+function teiInline(s) {
+  let b = s;
+  b = b.replace(/<del\b[^>]*>[\s\S]*?<\/del>/g, "");
+  b = b.replace(/<\/?add\b[^>]*>/g, "");
+  b = b.replace(/<gap\b([^>]*?)\/?>/g, (whole, a) => {
+    const r = /rend="([^"]*)"/.exec(a);
+    return r && r[1].trim() ? " " + r[1].trim() + " " : " … ";
+  });
+  b = b.replace(/<lb\s*\/?>/g, "<br>");
+  b = b.replace(/<\/l>\s*<l\b[^>]*>/g, "<br>").replace(/<\/?l\b[^>]*>/g, "");
+  b = b.replace(/<quote\b[^>]*>/g, "<q>").replace(/<\/quote>/g, "</q>");
+  b = b.replace(/<foreign\b[^>]*>/g, "<i>").replace(/<\/foreign>/g, "</i>");
+  b = b.replace(/<q\b[^>]*>/g, "<q>");
+  // everything else unwraps: the words stay, the tagging goes — but never the footnote marker
+  b = b.replace(/<(?!\/?(?:i|q|br)\b)(?!sup class="fn")(?!\/sup)[^>]*>/g, "");
+  b = b.replace(/&#160;|&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+  // a paragraph that held nothing but a page break or a stray anchor is not a paragraph
+  return /[^\s<>]/.test(b.replace(/<[^>]*>/g, "")) ? b : "";
+}
+
+/* ============================================================
    TEI VERSE   (a book declaring layout: "verse")
    ============================================================
    teiChapters above reads a TEI edition of PROSE: it walks <div> chapters and pulls <p> elements out
@@ -1803,6 +2147,32 @@ async function fetchEnglish() {
      BOOKS entry). One fetch, cached whole, so --from/--to cost nothing and a re-extract needs no
      network at all. The cache holds the XML rather than the extracted prose precisely because the
      original's reconciliation pass has to read the English cards back out of it later. */
+  /* A TEI EDITION IN ONE FILE PER CHAPTER. Suetonius's twelve lives are twelve separate texts in
+     Perseus's catalogue, so a Folio chapter is a whole file and the numbers inside it are its
+     sections. Each file is cached under its own chapter number, which is what makes --from/--to and a
+     re-extract behave here exactly as they do for a walk of wiki pages. */
+  if (BOOK.source === "tei" && BOOK.perChapter) {
+    console.log("  one TEI file per " + BOOK.chapterWord.toLowerCase() + " — " + BOOK.sourceName);
+    for (const n of BOOK.chapters) {
+      if (n < FROM || n > TO) continue;
+      const warn = (m) => warnings.push(BOOK.chapterWord + " " + n + ": " + m);
+      const cf = path.join(CACHE, "en-tei-" + n + ".xml");
+      let xml;
+      if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
+      else { xml = await fetchText(BOOK.url(n)); fs.writeFileSync(cf, xml); await sleep(500); }
+      const got = teiSections(xml, { renumber: (s) => (BOOK.renumber ? BOOK.renumber(s, n) : s) }, warn);
+      if (got.html.length < 200) throw new Error("chapter " + n + " came back short (" + got.html.length + " chars)");
+      /* Say what was left out, every run. The appended "Remarks on …" essay is skipped deliberately
+         (see the BOOKS entry) and a silent skip is how a deliberate omission turns into a forgotten
+         one three books later. */
+      if (got.skipped.length) console.log("    skipped non-chapter division(s): " + got.skipped.join(", "));
+      chapters.push({ n: n, t: titles[n] || chapterTitle(n), p: partOf(n), html: got.html, notes: got.notes });
+      console.log("  " + BOOK.chapterWord + " " + n + " — " + (titles[n] || chapterTitle(n)) + ": " +
+        got.count + " sections, " + got.notes.length + " notes (" + (got.html.length / 1024).toFixed(0) + " KB)");
+    }
+    return writeEnglish(chapters, warnings);
+  }
+
   if (BOOK.source === "tei") {
     const warn = (m) => warnings.push(m);
     const cf = path.join(CACHE, "en-tei.xml");
@@ -1961,6 +2331,29 @@ async function fetchOriginal() {
   /* A TEI edition is one FILE rather than a walk of wiki pages, so like the parallel branch above it
      short-circuits the walk below. `warnings` / `warn` / `byNum` are already declared at the top of
      this function — all three source shapes share them. */
+  /* One TEI file per chapter, the shape the English side above uses — see the note there. The
+     ORIGINAL is never renumbered: the repair applied to Suetonius's Augustus corrects Perseus's
+     English divisions back to the numbers the printed translation itself carries, and those are the
+     Latin edition's own numbers already. */
+  if (O.source === "tei" && O.perChapter) {
+    console.log("\nFetching the " + O.langName + " original — " + O.edition);
+    for (const n of BOOK.chapters) {
+      if (n < FROM || n > TO) continue;
+      const w = (m) => warn(BOOK.chapterWord + " " + n + ": " + m);
+      const cf = path.join(cacheDir, "tei-" + n + ".xml");
+      let xml;
+      if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
+      else { xml = await fetchText(O.url(n)); fs.writeFileSync(cf, xml); await sleep(500); }
+      const got = teiSections(xml, {}, w);
+      if (!got.html) { w("came back empty"); continue; }
+      if (got.skipped.length) console.log("    skipped non-chapter division(s): " + got.skipped.join(", "));
+      byNum[n] = got.html;
+      console.log("  " + BOOK.chapterWord + " " + n + " — " + got.count + " sections (" +
+        (got.html.length / 1024).toFixed(0) + " KB)");
+    }
+    return writeOriginal(byNum, warnings);
+  }
+
   if (O.source === "tei") {
     console.log("\nFetching the " + O.langName + " original — " + O.edition);
     const cf = path.join(cacheDir, "tei.xml");
