@@ -1301,8 +1301,13 @@ async function studyEasy(page, base, n) {
       custom: !!document.querySelector(".wb-custom"),
       nativeDialog: !!document.querySelector(".wb-custom input[type=color]"),
       pickShut: (() => { const p = document.querySelector(".wb-pick"); return !!p && !p.checkVisibility(); })(),
-      // Erase over Undo, Clear over Redo: two columns, and which cell each lands in is the request
-      grid: [...document.querySelectorAll(".wb-panel .wb-row")].slice(-2).map((r) => [...r.children].map((c) => c.className.replace(/wb-btn ?/, "")).join("+")).join(" / "),
+      /* Erase over Undo, Clear over Redo: two columns, and which cell each lands in is the request.
+         The last two VISIBLE rows — the stylus row sits between them in the markup and is `hidden` until
+         a pen has been seen, and querySelectorAll finds a hidden element like any other. Read off the
+         raw list this had been comparing a hidden row against undo/redo ever since the stylus row
+         landed, and reporting the panel as wrong when it was right (found Aug 2026, while adding the
+         book's ink; it fails identically on the commit before that work). */
+      grid: [...document.querySelectorAll(".wb-panel .wb-row")].filter((r) => !r.hidden).slice(-2).map((r) => [...r.children].map((c) => c.className.replace(/wb-btn ?/, "")).join("+")).join(" / "),
       penDown: document.querySelector(".draw-canvas").classList.contains("on"),
       sizeOn: (document.querySelector(".wb-size.on") || {}).dataset,
     }));
