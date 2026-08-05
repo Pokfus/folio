@@ -54,6 +54,13 @@ const MARKED_ABSTRACT =
   'A first claim about the past.<sup class="fn" data-fn="2"></sup> ' +
   'A second claim.<sup class="fn"></sup> ' +
   'A third claim.<sup class="fn" data-fn="9"></sup>';
+/* The seeded card's background, which is MARKED_ABSTRACT plus one sentence naming a real glossary term.
+   That term is how this file reaches a gloss popup at all, now that the home page's Term-of-the-day tile
+   has gone (Aug 2026): autoLinkGlossary runs over a card's background, so the plain word arrives on the
+   page as a `.ttip` to click. It carries NO footnote marker, so every marker assertion above and below is
+   counting exactly what it counted before. */
+const GLOSS_TERM = "Neolithic";
+const ABSTRACT_WITH_TERM = MARKED_ABSTRACT + " The " + GLOSS_TERM + " is named here so the background carries a glossary link.";
 
 /* Card content is snapshotted into CARDS at boot, so a test card has to exist BEFORE app.js runs.
    Intercepting the assignment data.js makes is the least invasive way in — no fixture file, and the
@@ -78,6 +85,35 @@ async function closeGloss(page) {
     await page.waitForTimeout(280);
   }
 }
+/* ---- a glossary popup, and a study card, without the home page's discovery row ----
+   The Term-of-the-day and Card-of-the-day tiles were the convenient way in here until Aug 2026, when the
+   whole discovery row was removed on request (from the phone first, then from the desktop). What replaces
+   them is the route a reader actually takes: start the daily review, reveal the answer, and click a
+   glossary link in the card's background. It stays inside ONE document — hash navigation and clicks, never
+   page.goto — which matters in this file because it mutates window.GLOSSARY / GLOSSARY_SOURCES in the page
+   first, and a reload would throw those mutations away. */
+async function openStudyCard(page) {
+  await page.evaluate(() => { location.hash = "home"; });
+  await page.waitForTimeout(450);
+  await page.evaluate(() => { const b = document.querySelector("#b-review"); if (b) b.click(); });
+  await page.waitForTimeout(1000);
+}
+async function openAnyGloss(page) {
+  await closeGloss(page);
+  if (!(await page.locator(".ttip").count())) {
+    await openStudyCard(page);
+    if (await page.locator("#reveal-btn").count()) { await page.click("#reveal-btn"); await page.waitForTimeout(500); }
+  }
+  await page.locator(".ttip").first().click();
+  await page.waitForTimeout(450);
+}
+/* The seeded abstract carries a glossary term for exactly one reason, and it is worth failing loudly on
+   rather than timing out inside a locator: if that term is ever retired from glossary.js there is no
+   `.ttip` on the page and every popup assertion in section 1 goes unrun. */
+async function requireTerm(page) {
+  const ok = await page.evaluate((k) => !!(window.GLOSSARY && window.GLOSSARY[k]), GLOSS_TERM);
+  if (!ok) throw new Error("GLOSS_TERM '" + GLOSS_TERM + "' is no longer in the glossary — pick another");
+}
 
 (async () => {
   await new Promise((r) => server.listen(0, r));
@@ -90,7 +126,7 @@ async function closeGloss(page) {
   page.on("pageerror", (e) => errs.push("pageerror: " + e));
   page.on("console", (m) => { if (m.type() === "error") errs.push("console: " + m.text()); });
 
-  await seedCards(page, SRC.slice(0, 2), MARKED_ABSTRACT.replace(' data-fn="9"', ' data-fn="7"'));
+  await seedCards(page, SRC.slice(0, 2), ABSTRACT_WITH_TERM.replace(' data-fn="9"', ' data-fn="7"'));
 
   /* ================= 1. the glossary popup ================= */
   await page.goto(base, { waitUntil: "load" });
@@ -98,9 +134,8 @@ async function closeGloss(page) {
   await page.evaluate(([src, abs]) => {
     Object.keys(window.GLOSSARY).forEach((k) => { window.GLOSSARY_SOURCES[k] = src.slice(); window.GLOSSARY[k] = abs; });
   }, [SRC, MARKED_ABSTRACT]);
-  await closeGloss(page);
-  await page.click("#exp-term");
-  await page.waitForTimeout(450);
+  await requireTerm(page);
+  await openAnyGloss(page);
 
   check("a glossary popup opened", await page.locator(".gloss-win").count() === 1);
   check("the popup carries a Sources fold", await page.locator(".gloss-win .src-note").count() === 1);
@@ -177,9 +212,7 @@ async function closeGloss(page) {
   check("...but the stored citation still carries them, so the data stays plain text",
     SRC[0].includes("[Open access]"));
   // clicking the header alone toggles it — the fold has to work without a marker, in both directions
-  await closeGloss(page);
-  await page.click("#exp-term");
-  await page.waitForTimeout(400);
+  await openAnyGloss(page);
   await page.locator(".gloss-win .src-head").click();
   await page.waitForTimeout(350);
   check("the Sources header alone opens the fold",
@@ -195,20 +228,16 @@ async function closeGloss(page) {
   await page.waitForTimeout(350);
   check("expanding a popup's fold does NOT write the card setting", await page.evaluate(() =>
     JSON.parse(localStorage.getItem("folio_v1") || "{}").settings.srcCollapsed !== true));
-  await closeGloss(page);
-  await page.click("#exp-term");
-  await page.waitForTimeout(450);
+  await openAnyGloss(page);
   check("...and the NEXT popup opens collapsed all the same",
     await page.evaluate(() => document.querySelector(".gloss-win .src-collapse").classList.contains("collapsed")));
   await closeGloss(page);
 
   /* ================= 2. a card's back ================= */
-  await page.click("#exp-card");             // flip the card of the day
-  await page.waitForTimeout(500);
-  await page.click("#cod-study");            // study that one card
-  await page.waitForTimeout(700);
+  await closeGloss(page);
+  await openStudyCard(page);                 // the daily review, the tile that used to do this having gone
   const hasReveal = await page.locator("#reveal-btn").count() === 1;
-  check("a study session opened on the card of the day", hasReveal);
+  check("a study session opened on a card", hasReveal);
   if (hasReveal) {
     await page.click("#reveal-btn");
     await page.waitForTimeout(500);
@@ -337,8 +366,7 @@ async function closeGloss(page) {
   });
   await bare.goto(base, { waitUntil: "load" });
   await bare.waitForTimeout(600);
-  await bare.click("#exp-card"); await bare.waitForTimeout(400);
-  await bare.click("#cod-study"); await bare.waitForTimeout(700);
+  await openStudyCard(bare);
   if (await bare.locator("#reveal-btn").count()) {
     await bare.click("#reveal-btn");
     await bare.waitForTimeout(400);

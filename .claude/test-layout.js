@@ -829,12 +829,15 @@ async function studyEasy(page, base, n) {
     await page.close();
   }
 
-  /* ================= 7b. the phone's home page: the day's work, in one column =================
-     Three swiped panes became one column again (Aug 2026, on request): the day's card, the day's term and
-     the Atlas teaser are not built on a phone at all, and the games moved up under the review with a heading
-     of their own. Every failure here is silent — a tile that is still built costs a phone the ~1.6 MB globe
-     for something nobody can see, and the ONE route to the Library on a phone is now a lip the size of a
-     word, which is easy to lose and impossible to notice the loss of. */
+  /* ================= 7b. the home page: the day's work, in one column =================
+     Three swiped panes became one column (Aug 2026, on request): the day's card, the day's term and the
+     Atlas teaser were dropped from the phone, and the games moved up under the review with a heading of
+     their own. A fortnight later the request was to bring the DESKTOP into line with the phone rather than
+     the other way round, so the discovery row is built at no width at all, the taglines are gone from every
+     tile, and the lip and the heading ship everywhere — which is why the desktop block further down now
+     asserts the same page rather than the opposite one. Every failure here is silent: a tile that is still
+     built costs ~1.6 MB of globe for something nobody looks at, and the ONE route to the collections is now
+     a lip the size of a word, easy to lose and impossible to notice the loss of. */
   {
     const page = await browser.newPage({ viewport: PHONE });
     watch(page);
@@ -909,7 +912,7 @@ async function studyEasy(page, base, n) {
     check("the phone's home page is one column again — no pager", !h.pager && !h.dots, JSON.stringify({ pager: h.pager, dots: h.dots }));
     check("...with no card of the day and no gloss of the day", !h.cod && !h.tod && !h.explore, JSON.stringify(h));
     check("...and no Atlas teaser: a phone never fetches the globe for an ornament", !h.atlasTile);
-    check("the Library banner is gone, replaced by a lip on the review", !h.libBanner && /add decks/i.test(h.lip), JSON.stringify({ banner: h.libBanner, lip: h.lip }));
+    check("the collections banner is gone, replaced by a lip on the review", !h.libBanner && /add decks/i.test(h.lip), JSON.stringify({ banner: h.libBanner, lip: h.lip }));
     check("...hanging off the bottom edge of the review group", h.lipLast && Math.abs(h.lipAtBottom) <= 1, JSON.stringify({ last: h.lipLast, edge: h.lipAtBottom }));
     check("...centred on it, and a tab rather than a second banner", h.lipCentred <= 2 && h.lipFrac < 0.7, JSON.stringify({ off: h.lipCentred, frac: h.lipFrac }));
     check("...filled in the same indigo as Start review, not paper on paper", h.lipBlue === "ok", h.lipBlue);
@@ -1100,30 +1103,52 @@ async function studyEasy(page, base, n) {
     await page.close();
   }
   {
-    // above the breakpoint nothing about the home page changed: one column, in the order it always had, with
-    // the day's card, the day's term and the Atlas teaser all still in it
+    /* Above the breakpoint the home page is now the SAME page (Aug 2026, on request: the desktop was brought
+       into line with the phone). It was the opposite assertion for a fortnight, which is why every clause
+       here is stated in both directions — the discovery row must be gone, the lip and the heading must be
+       present, and the ONE remaining difference (the About line, which a desktop reaches from its top bar)
+       must still be a difference. The `world` bundle is watched as well as the markup: the Atlas teaser's
+       ornament was the only thing outside the Atlas that fetched it, so a tile creeping back would show up
+       here as a 1.6 MB request on a page nobody asked to see a globe on. */
+    const asked = [];
     const page = await browser.newPage({ viewport: DESKTOP });
     watch(page);
+    page.on("request", (r) => asked.push(r.url()));
     await page.goto(base, { waitUntil: "load" });
-    await page.waitForTimeout(1600);
+    await page.waitForTimeout(2500);
     const d = await page.evaluate(() => {
       const top = (s) => { const el = document.querySelector(s); return el ? Math.round(el.getBoundingClientRect().top) : -1; };
+      const grp = document.querySelector(".review-group"), grid = document.querySelector(".game-grid");
+      const head = document.querySelector(".games-head"), lip = document.querySelector(".rv-lip");
       return {
-        order: [top(".review-group"), top(".game-grid"), top(".explore-grid")],
+        order: [top(".review-group"), top(".games-head"), top(".game-grid")],
+        explore: !!document.querySelector(".explore-grid"),
         atlasTile: !!document.querySelector("#exp-atlas"),
         cod: !!document.querySelector("#exp-card"), tod: !!document.querySelector("#exp-term"),
-        cols: getComputedStyle(document.querySelector(".game-grid")).gridTemplateColumns.split(/\s+/).length,
-        // the taglines are a phone-only removal: three to a row is what left no room for them
+        cols: getComputedStyle(grid).gridTemplateColumns.split(/\s+/).length,
         subs: [...document.querySelectorAll(".game-tile")].filter((t) => t.querySelector(".gt-sub")).length,
-        lip: !!document.querySelector(".rv-lip"), head: !!document.querySelector(".games-head"),
+        mgHead: head ? head.textContent.trim() : "",
+        lip: lip ? lip.textContent.trim() : "",
+        lipLast: !!(lip && grp && lip === grp.lastElementChild),
         about: !!document.querySelector(".home-about"),
+        // Collections left the top bar with the tile row; the lip is the only way to it now
+        decksTab: !!document.querySelector('.topbar [data-route="decks"]'),
       };
     });
-    check("[desktop] the home page keeps the order it always had", d.order[0] < d.order[1] && d.order[1] < d.order[2], JSON.stringify(d.order));
-    check("[desktop] ...with the day's card, the day's term and the Atlas teaser still in it", d.atlasTile && d.cod && d.tod, JSON.stringify(d));
-    check("[desktop] ...the games three to a row, taglines and all", d.cols === 3 && d.subs === 6, JSON.stringify({ cols: d.cols, subs: d.subs }));
-    check("[desktop] ...and no lip, no Minigames heading and no About link: the top bar carries both tabs",
-      !d.lip && !d.head && !d.about, JSON.stringify(d));
+    check("[desktop] the home page is the phone's page now: no discovery row",
+      !d.explore && !d.atlasTile && !d.cod && !d.tod, JSON.stringify(d));
+    check("[desktop] ...so the globe is not fetched for an ornament",
+      !asked.some((u) => /\/world\.js/.test(u)), asked.filter((u) => /\/world\.js/.test(u)).join(","));
+    check("[desktop] ...the games three to a row, and no taglines on them", d.cols === 3 && d.subs === 0, JSON.stringify({ cols: d.cols, subs: d.subs }));
+    check("[desktop] ...under a Minigames heading, under the review", /minigames/i.test(d.mgHead) && d.order[0] < d.order[1] && d.order[1] < d.order[2], JSON.stringify(d.order));
+    check("[desktop] ...with the Add decks lip on the review group", /add decks/i.test(d.lip) && d.lipLast, JSON.stringify({ lip: d.lip, last: d.lipLast }));
+    check("[desktop] ...and Collections gone from the top bar, the lip being the way to it", !d.decksTab);
+    check("[desktop] ...and still no About link: the top bar carries that tab", !d.about);
+    check("[desktop] ...but #decks itself still resolves — every shared link points at it", await page.evaluate(async () => {
+      location.hash = "decks";
+      await new Promise((r) => setTimeout(r, 700));
+      return !!document.querySelector(".collection-list, .collection");
+    }));
     await page.close();
   }
 

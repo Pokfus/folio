@@ -45,6 +45,28 @@ async function closeGloss(page) {
     await page.waitForTimeout(280);
   }
 }
+/* ---- a glossary popup, and a study card, without the home page's discovery row ----
+   The Term-of-the-day and Card-of-the-day tiles were the convenient way in here until Aug 2026, when the
+   whole discovery row was removed on request (from the phone first, then from the desktop). What replaces
+   them is the route a reader actually takes: start the daily review, reveal the answer, and click a
+   glossary link in the card's background. It stays inside ONE document — hash navigation and clicks, never
+   page.goto — which matters in these files because they mutate window.GLOSSARY / GLOSSARY_SOURCES in the
+   page first, and a reload would throw those mutations away. */
+async function openStudyCard(page) {
+  await page.evaluate(() => { location.hash = "home"; });
+  await page.waitForTimeout(450);
+  await page.evaluate(() => { const b = document.querySelector("#b-review"); if (b) b.click(); });
+  await page.waitForTimeout(1000);
+}
+async function openAnyGloss(page) {
+  await closeGloss(page);
+  if (!(await page.locator(".ttip").count())) {
+    await openStudyCard(page);
+    if (await page.locator("#reveal-btn").count()) { await page.click("#reveal-btn"); await page.waitForTimeout(500); }
+  }
+  await page.locator(".ttip").first().click();
+  await page.waitForTimeout(450);
+}
 // Nothing is stored uncredited (wireMediaSource in app.js): typing a URL with an empty source box stages
 // it and pops a modal asking for one. These two keep that out of the way of the tests that are about
 // something else — the gate itself is exercised by test-gloss-image.js and in section 2 below.
@@ -175,16 +197,12 @@ async function openGlossEditor(page, base) {
       window.GLOSSARY_VIDEOS[k] = { src: args.yt, title: "A short film", desc: "What it shows.", credit: "https://example.org/channel" };
     });
   }, { png: PNG, yt: YT });
-  await closeGloss(page);
-  await page.click("#exp-term");
-  await page.waitForTimeout(400);
+  await openAnyGloss(page);
   check("a term carrying both renders ONE frame", await page.locator(".gloss-win .gloss-imgslot .card-img").count() === 1);
   check("...and it is the picture", await page.locator(".gloss-win .gloss-imgslot .card-vid").count() === 0);
 
   await page.evaluate(() => { Object.keys(window.GLOSSARY).forEach((k) => { delete window.GLOSSARY_IMAGES[k]; }); });
-  await closeGloss(page);
-  await page.click("#exp-term");
-  await page.waitForTimeout(400);
+  await openAnyGloss(page);
   check("with no picture, the popup carries the term's video", await page.locator(".gloss-win .gloss-imgslot .card-vid").count() === 1);
   check("...as the only frame in the slot", await page.locator(".gloss-win .gloss-imgslot .card-img").count() === 1);
   const gbox = await page.evaluate(() => {
@@ -468,7 +486,11 @@ async function openGlossEditor(page, base) {
     if (b) b.click();
   });
   await page.waitForTimeout(500);
-  await page.evaluate(() => { const r = document.querySelector(".admin-card-row .acr-open"); if (r) r.click(); });
+  /* …opened BY ID, exactly as it was opened above and for the same reason. This step used to take the
+     FIRST row of the list and revert that, which is a different card (wh-001) — so it was asserting that
+     wh-046's delta had gone after reverting somebody else's, and only passed while the two happened to
+     coincide. The list's order is the collection's, and that collection has been renumbered once already. */
+  await page.evaluate(() => { const r = document.querySelector('[data-open="wh-046"]'); if (r) r.click(); });
   await page.waitForTimeout(700);
   await page.evaluate(() => { const b = document.querySelector("#adminRevert"); if (b) b.click(); });
   await page.waitForTimeout(700);

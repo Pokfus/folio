@@ -111,8 +111,13 @@ function shippedBookLeaks() {
     const libTabs = d.tabs.filter((t) => /^library$/i.test(t.l));
     check("exactly one tab is called Library, and it is the books one",
       libTabs.length === 1 && libTabs[0].r === "library", JSON.stringify(d.tabs));
-    check("...and the decks tab now reads Collections",
-      d.tabs.some((t) => t.r === "decks" && /^collections$/i.test(t.l)), JSON.stringify(d.tabs));
+    /* …and there is no #decks TAB at all any more (Aug 2026, on request): Collections left the phone's bar
+       first and the desktop's a fortnight later, and is reached from the "+ Add decks" lip under the daily
+       review. So the assertion the rename needs is the pair — no tab called Collections, and none called
+       Library except the books one, which is what "two pages called Library" was ever about. The ROUTE is
+       asserted above, and separately: every #decks link ever shared still has to resolve. */
+    check("...and no tab claims the collections at all — the home page's lip is the way in",
+      !d.tabs.some((t) => t.r === "decks"), JSON.stringify(d.tabs));
     await page.close();
   }
 
@@ -142,6 +147,8 @@ function shippedBookLeaks() {
       })),
       cols: getComputedStyle(document.querySelector(".book-grid")).gridTemplateColumns.split(" ").length,
       sortOpts: [...document.querySelectorAll("#bkSort option")].map((o) => o.value),
+      sortLabels: [...document.querySelectorAll("#bkSort option")].map((o) => o.textContent),
+      sortDir: (document.querySelector("#bkSortDir") || {}).textContent || "",
       note: (document.querySelector(".lib-note") || {}).textContent || "",
       blurb: (document.querySelector(".page-head p") || {}).textContent || "",
     }));
@@ -159,6 +166,98 @@ function shippedBookLeaks() {
     check("the shelf is one full-width banner per row", d.cols === 1, String(d.cols));
     check("...and can be sorted, by title, author and date as well as by reading",
       ["title", "author", "written"].every((v) => d.sortOpts.includes(v)), d.sortOpts.join(","));
+    /* EVERY ORDER REVERSES, and the choice is REMEMBERED (Aug 2026, on request). Three things are asserted
+       and each fails silently on its own: the select must not carry a direction in its option labels (it
+       used to say "Title (A – Z)", which a reverse button turns into a control contradicting itself); the
+       button must name the direction in THIS field's words rather than as a bare arrow; and the pair must
+       survive a full reload, which is the whole of "the page should remember". */
+    check("...the select names the FIELD, leaving the direction to the button beside it",
+      d.sortLabels.every((l) => !/A – Z|Z – A|Oldest|Newest|recent first/i.test(l)) && !!d.sortDir,
+      JSON.stringify({ labels: d.sortLabels, dir: d.sortDir }));
+    const rev = await page.evaluate(async () => {
+      const sel = document.querySelector("#bkSort");
+      sel.value = "title"; sel.dispatchEvent(new Event("change", { bubbles: true }));
+      await new Promise((r) => setTimeout(r, 500));
+      const az = [...document.querySelectorAll(".bk-tile-title")].map((t) => t.textContent);
+      const azLbl = document.querySelector("#bkSortDir").textContent.trim();
+      document.querySelector("#bkSortDir").click();
+      await new Promise((r) => setTimeout(r, 500));
+      return { az, azLbl, za: [...document.querySelectorAll(".bk-tile-title")].map((t) => t.textContent),
+               zaLbl: document.querySelector("#bkSortDir").textContent.trim() };
+    });
+    check("...ordered A – Z, and reversed to Z – A",
+      rev.za.join("|") === rev.az.slice().reverse().join("|") && /A – Z/.test(rev.azLbl) && /Z – A/.test(rev.zaLbl),
+      JSON.stringify(rev));
+    await page.reload({ waitUntil: "load" });
+    await page.waitForTimeout(1200);
+    const kept = await page.evaluate(() => ({
+      sel: document.querySelector("#bkSort").value,
+      lbl: document.querySelector("#bkSortDir").textContent.trim(),
+      list: [...document.querySelectorAll(".bk-tile-title")].map((t) => t.textContent),
+    }));
+    check("...and the shelf opens the way it was left, after a reload",
+      kept.sel === "title" && /Z – A/.test(kept.lbl) && kept.list.join("|") === rev.za.join("|"), JSON.stringify(kept));
+
+    /* FAVOURITES (Aug 2026, on request): starred from the banner's own long-press sheet — the same gesture
+       and the same shell as an added deck's row on the home page — and pinned to a section at the top. The
+       assertions that matter are the ones about the SHELF rather than the sheet: a starred book must not be
+       listed twice (a reader scrolling past their own favourite again has to work out which is the real
+       one), and the headings must not appear at all until something is starred. */
+    const sheet = await page.evaluate(async () => {
+      const el = document.querySelector(".book-tile"), r = el.getBoundingClientRect();
+      const x = r.left + 40, y = r.top + 20;
+      const send = (t) => el.dispatchEvent(new PointerEvent(t, { pointerId: 3, pointerType: "touch", clientX: x, clientY: y, bubbles: true, cancelable: true }));
+      send("pointerdown");
+      await new Promise((z) => setTimeout(z, 700));
+      send("pointerup");
+      await new Promise((z) => setTimeout(z, 300));
+      return { open: !!document.querySelector(".deck-menu"), hash: location.hash,
+        acts: [...document.querySelectorAll(".deck-menu .dm-item")].map((i) => i.dataset.act) };
+    });
+    check("holding a banner opens its options rather than the book",
+      sheet.open && sheet.hash === "#library", JSON.stringify(sheet));
+    check("...offering the two things asked for: favourite and share",
+      sheet.acts.join(",") === "fav,share", sheet.acts.join(","));
+    const starred = await page.evaluate(async () => {
+      document.querySelector('.deck-menu [data-act="fav"]').click();
+      await new Promise((z) => setTimeout(z, 600));
+      const titles = [...document.querySelectorAll(".bk-tile-title")].map((t) => t.textContent);
+      return {
+        heads: [...document.querySelectorAll(".lib-sec-head")].map((h) => h.textContent),
+        first: [...document.querySelectorAll(".lib-sec")][0].querySelectorAll(".book-tile").length,
+        dup: titles.length !== new Set(titles).size,
+        stars: document.querySelectorAll(".bk-star").length,
+        stored: Object.keys(JSON.parse(localStorage.getItem("folio_v1")).bookFavs || {}).length,
+      };
+    });
+    check("starring puts the book in a Favourites section at the top",
+      starred.heads[0] === "Favourites" && starred.first === 1, JSON.stringify(starred.heads));
+    check("...with the rest below it, and no book listed twice", !starred.dup && /Everything else/i.test(starred.heads[1] || ""), JSON.stringify(starred));
+    check("...the banner wearing a star, and the choice stored as progress", starred.stars === 1 && starred.stored === 1, JSON.stringify(starred));
+    // …and Share hands out a link that opens the book here. navigator.share is absent in headless Chromium,
+    // so this exercises the clipboard fallback — which is the desktop path either way.
+    const shared = await page.evaluate(async () => {
+      window.__copied = null;
+      navigator.clipboard.writeText = (t) => { window.__copied = t; return Promise.resolve(); };
+      const el = document.querySelector(".book-tile"), r = el.getBoundingClientRect();
+      const send = (t) => el.dispatchEvent(new PointerEvent(t, { pointerId: 4, pointerType: "touch", clientX: r.left + 40, clientY: r.top + 20, bubbles: true, cancelable: true }));
+      send("pointerdown");
+      await new Promise((z) => setTimeout(z, 700));
+      send("pointerup");
+      await new Promise((z) => setTimeout(z, 300));
+      document.querySelector('.deck-menu [data-act="share"]').click();
+      await new Promise((z) => setTimeout(z, 400));
+      return window.__copied;
+    });
+    check("Share hands out a #book/<id> link", /#book\/[a-z0-9-]+$/.test(shared || ""), String(shared));
+    // put the shelf back the way the rest of this file expects to find it
+    await page.evaluate(() => {
+      const s = JSON.parse(localStorage.getItem("folio_v1")); s.bookFavs = {};
+      s.settings.bookSort = "recent"; s.settings.bookSortRev = false;
+      localStorage.setItem("folio_v1", JSON.stringify(s));
+    });
+    await page.reload({ waitUntil: "load" });
+    await page.waitForTimeout(1000);
     /* The shelf's own licence paragraph is GONE (Aug 2026, on request) and its replacement is the
        short line under the heading. Both halves are asserted, because they fail in opposite ways: the
        paragraph creeping back would undo the request, and the line going missing would leave a page of
@@ -704,6 +803,39 @@ function shippedBookLeaks() {
       afterTap.sec === beforeTap.sec && !!beforeTap.sec, "before " + beforeTap.sec + ", after " + afterTap.sec);
     check("[phone] ...which took a real scroll correction, the two lengths differing",
       afterTap.y !== beforeTap.y, beforeTap.y + " → " + afterTap.y);
+
+    /* THE FRONT MATTER HAS NOTHING TO TURN TO (Aug 2026, on request). Chapter 0 is written here, in
+       English, about this edition; it has no facing original. The double tap used to flip the stored
+       preference there anyway, which is the worst shape of bug this file exists to catch — nothing on
+       screen changed (applyLangMode finds no .bk-bi to switch), so the reader's NEXT real chapter opened
+       in a language they had not asked for and could not see themselves asking for. Both halves are
+       asserted, because they fail in opposite directions: the gesture must do nothing here, and it must
+       still work one chapter along. */
+    {
+      const stored = () => page.evaluate(() => String(localStorage.getItem("folio_book_orig_v1")));
+      await page.evaluate(() => { const t = [...document.querySelectorAll(".bk-tab")].find((x) => x.dataset.ch === "0"); t.click(); });
+      await page.waitForTimeout(600);
+      const was = await stored();
+      await tapOn(".bk-prose", 2);
+      await page.waitForTimeout(500);
+      check("[phone] a double tap on the front matter changes nothing", (await stored()) === was, was + " → " + (await stored()));
+      const btn = await page.evaluate(() => {
+        const b2 = document.querySelector("#bkLang");
+        return b2 ? { there: true, dead: b2.disabled, why: b2.title } : { there: false };
+      });
+      check("[phone] ...and the language control is greyed rather than gone, saying why",
+        btn.there && btn.dead && /English only/i.test(btn.why || ""), JSON.stringify(btn));
+      await page.evaluate(() => { const t = [...document.querySelectorAll(".bk-tab")].find((x) => x.dataset.ch === "9"); t.click(); });
+      await page.waitForTimeout(700);
+      await tapOn(".bk-col-en p:not(.bk-salut), .bk-prose", 2);
+      await page.waitForTimeout(600);
+      check("[phone] ...while a real chapter still turns over", (await stored()) !== was, was + " → " + (await stored()));
+      // put the reader back on the language this section's later assertions expect
+      if ((await page.evaluate(() => document.querySelector(".bk-bi").dataset.lang)) !== "en") {
+        await tapOn(".bk-col-or p:not(.bk-salut), .bk-prose", 2);
+        await page.waitForTimeout(600);
+      }
+    }
 
     // ...but a double tap on something that already does something keeps doing it
     const tip = await page.$(".bk-col-en .ttip");
