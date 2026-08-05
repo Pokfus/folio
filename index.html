@@ -36,13 +36,13 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- Skip link: the first thing a keyboard or screen reader reaches, so the eight nav buttons above the
-       page can be passed in one press. Visually hidden until it takes focus (see .skip-link). -->
+  <!-- Skip link: the first thing a keyboard or screen reader reaches, so the whole row of nav buttons above
+       the page can be passed in one press. Visually hidden until it takes focus (see .skip-link). -->
   <a class="skip-link" href="#view">Skip to the page</a>
 
   <!-- ============================================================
        TOP BAR — desktop only (hidden below 640px; see .topbar in styles.css)
-       Left:  Home · Decks · Map · About
+       Left:  Home · Library · Map · About
        Right: Editor/Visitor · Edit · Account · Settings
        Light/dark and the language picker used to live here too; both now sit on the
        Settings page, which is where a preference belongs and where a phone can reach
@@ -54,10 +54,11 @@
         <svg class="tab-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.4 12 4l9 7.4"/><path d="M5.5 9.8V20h13V9.8"/></svg>
         <span class="tab-label">Home</span><span class="ink"></span>
       </button>
-      <button class="tab" type="button" data-route="decks">
-        <svg class="tab-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-        <span class="tab-label">Collections</span><span class="ink"></span>
-      </button>
+      <!-- Collections (#decks) is NOT a tab here either (Aug 2026, on request — it left the phone's bar a
+           fortnight earlier and now leaves the desktop's, so the two read the same). It is reached from the
+           "+ Add decks" lip hanging off the bottom of the home page's daily-review group (see .rv-lip),
+           which is the route the home page advertises and is now the only one. The route itself is
+           untouched: every #decks link ever shared still works. -->
       <button class="tab" type="button" data-route="library">
         <svg class="tab-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5.5h5.5a2.5 2.5 0 0 1 2.5 2.5v11a2 2 0 0 0-2-2H3z"/><path d="M21 5.5h-5.5A2.5 2.5 0 0 0 13 8v11a2 2 0 0 1 2-2h6z"/></svg>
         <span class="tab-label">Library</span><span class="ink"></span>

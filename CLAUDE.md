@@ -1322,6 +1322,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
       simply hold the phone. The gloss window made the same move for the same reason, so a double tap
       on a body of text now means one thing across the site. The deliberate cost is discoverability,
       which is what the **LATIN button in the chapter bar** is for and why it must stay.
+    · **…AND IT DOES NOTHING ON THE FRONT MATTER** (Aug 2026, on request). Chapter 0 is written HERE, in
+      English, about this edition, and has no facing original to turn over to. It used to flip the
+      stored preference anyway, and the shape of that bug is the reason it is worth a bullet: nothing on
+      screen changed — `applyLangMode` finds no `.bk-bi` to switch — so the reader's NEXT real chapter
+      opened in a language they had not asked for and could not see themselves asking for. The guard is
+      `cur.intro`, deliberately NOT "this chapter happens to have no rows": a numbered chapter whose
+      original is still loading is a chapter the gesture should keep working on. `syncLangBtn` greys the
+      button there for the same reason, **disabled rather than removed** — a control that vanishes on one
+      chapter and returns on the next reads as a page that failed to draw, where a greyed one with a
+      reason in its title reads as a fact about the chapter. (A book with no `origLang` at all still has
+      no control, which is a different case and unchanged.) Guarded by `test-library.js`, in both
+      directions: the gesture must do nothing here AND must still work one chapter along.
     · **A horizontal SWIPE steps between chapters** (Aug 2026, on request), and the two gestures cannot
       be classified independently — a swipe ends in a pointerup indistinguishable from a tap unless the
       movement is measured. So the tap half rejects anything that MOVED (`BK_TAP_SLOP`) and the swipe
@@ -1425,6 +1437,40 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     A **sort picker** (`BOOK_SORTS`, shared `sortPickerHTML` with the glossary record) ships whatever the
     shelf holds, one book included: it was asked for outright, and a control that appears the day a second
     book lands is one nobody knows to look for.
+    · **EVERY ORDER REVERSES, and the choice is REMEMBERED** (`sortDirHTML` / `setBookSort` /
+      `bookSortKey()` / `bookSortRev()`, Aug 2026, on request). Both halves changed how the control is
+      written. A `BOOK_SORTS` row is now `[key, field, forward, reverse]`: the **select names the FIELD**
+      and the **button names the DIRECTION**, because the labels used to carry the direction ("Title
+      (A – Z)", "Oldest first") and a reverse button beside those makes the two controls contradict each
+      other. The direction is given IN WORDS, in that field's own words — a bare ascending/descending
+      arrow makes the reader translate, and "A – Z" and "Oldest first" are the same direction wearing
+      different clothes. Reversing negates the WHOLE comparator, tie-break included, or two books of the
+      same year would swap about between renders for no reason a reader could see.
+      And unlike the glossary record's picker — a way of looking at a list, deliberately module-level and
+      not in `S` — this one is a PREFERENCE: `S.settings.bookSort` / `bookSortRev`, device-local like the
+      theme, read back through a whitelist so a retired key falls back rather than leaving the shelf
+      sorted by nothing.
+    · **FAVOURITES SIT IN A SECTION OF THEIR OWN AT THE TOP** (`S.bookFavs`, `isBookFav` /
+      `toggleBookFav`, `.lib-sec` / `.lib-sec-head` / `.bk-star`, Aug 2026, on request). The register is
+      **id → when it was starred**, in `defaultState` AND `PROGRESS_FIELDS`, for the reason `reading` is:
+      a favourite is a fact about the reader, so the shelf a phone shows is the shelf the laptop shows.
+      Two decisions worth keeping. **A starred book is NOT repeated below** — one book, one banner, or a
+      reader scrolling past their own favourite twice has to work out which of the two is the real one —
+      which is what lets the lower heading be honest ("Everything else"); and **both headings disappear
+      when nothing is starred**, so an unstarred shelf is exactly the page it always was. The favourites
+      keep the CHOSEN SORT rather than the order they were starred in: it is the same shelf, split. The
+      star on the banner is a **mark, not a control** (`pointer-events:none`) — the way to set and clear
+      one is the sheet below, and a second target 8px from the first is two answers to one question.
+    · **HOLDING A BANNER opens the book's own options** (`openBookMenu`, `wireHoldMenu` + `deckSheet` —
+      the same gesture, shell and classification as an added deck's row on the home page, so Escape, the
+      backdrop, the focus trap and the exit animation are written once and `render()` closes it through
+      `closeDeckMenu`). Two rows, as asked for: **favourite** and **share**. `wireHoldMenu` installs the
+      TAP listener itself, so the tile must NOT also carry a click handler — two would open the book from
+      under the sheet the hold had just raised. `shareBook` uses the platform's own share sheet where
+      there is one (on a phone that is the point of it) and the clipboard otherwise; an **AbortError is
+      the reader dismissing the sheet and must not fall through to a copy**, or dismissing it would
+      silently take the clipboard. The URL is built from `location.origin + pathname`, so it is right on
+      the live site, on a local server and from a `file://` copy alike.
     **The shelf's licence paragraph (`.lib-note`) is gone** (Aug 2026, on request) and the blurb under the
     heading is now one line. **The RULE it stated is not weakened by its going** and must not be quietly
     dropped with it: it still governs `.claude/fetch-book.js`, which is what decides what may be shelved,
@@ -2860,12 +2906,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   n/c days" preference that is what makes the spread even rather than merely legal; seeded retries when a seating
   gets stuck. It rebuilds at load, so **adding quotes needs no thought here** — but the pool must stay solvable:
   an author with more than `2n/7` lines (5 of 20 today) cannot be spread by any arrangement, and the fallback is
-  the best attempt, not a guarantee. Guarded by `.claude/test-daily-quote.js`) → review banner → (first-run only) a 3-step how-it-works strip →
-  game tiles → a **discovery row** (`.explore-grid`): **Card of the day** (a real card, CSS-3D flip to its answer, gloss
-  links stripped, **"Study this card"** button — see the CotD-additions bullet below), **Term of the day** (a dated glossary term → `openGlossWin`), and an **Atlas
-  teaser** with a slowly turning decorative mini globe (`startMiniGlobe` — decimated `WORLD_GEO`, orthographic,
-  theme-coloured like the Atlas, stops when the canvas leaves the DOM, static under `prefers-reduced-motion`). Both
-  daily picks come from `dailyPick(arr, salt)` (date-seeded). **Until the first card is ever graded**
+  the best attempt, not a guarantee. Guarded by `.claude/test-daily-quote.js`) → review banner (+ the "+ Add decks"
+  lip) → (first-run only) a 3-step how-it-works strip → a **Minigames** heading over the game tiles. That is the
+  whole page, at every width.
+  **THE DISCOVERY ROW IS GONE** (`.explore-grid`, and with it the **Card of the day** flip tile, the **Term of the
+  day** tile and the **Atlas teaser**) — dropped from the phone in Aug 2026 and from the DESKTOP a fortnight later,
+  on the request to bring the desktop into line with the phone rather than the other way round. `dailyPick` and
+  `startMiniGlobe` went with it and are **not dead code left lying about — they are deleted**; ~90 CSS rules
+  (`.exp-tile` / `.exp-card` / `.cod-*` / `.term-*` / `.atlas-*` / `.mini-globe`) went too. The one worth stating
+  is the cost that is no longer paid anywhere: the mini globe was the **only caller of the `world` bundle outside
+  the Atlas**, so the home page no longer fetches ~1.6 MB of borders at idle to turn an ornament. The
+  Card-of-the-day PSEUDO-ENTRY (`COTD_ENTRY`, `S.cotd`) survives untouched — a reader who added cards that way
+  still has them in the review, and the entry retires itself when its list empties. **Until the first card is ever graded**
   (`S.cards` empty) the banner is a **first-run hero**: purpose sentence + "Study your first cards", which sets
   `S.active = ["china"]` (replacing the bare `cn-qing` default) and routes straight into a session; the level badge,
   xp bar, stats, review-order toggle and active-deck list appear only after that. The banner shows a **🔥 day-streak
@@ -2911,35 +2963,39 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   The button is **CENTRED against them** (`align-items:center`, Aug 2026, on request): a figure over a label is a
   two-line column, and the `flex-end` this rule used to carry put a one-line button on its baseline, reading as
   having slipped down.
-- **The phone home page is ONE COLUMN, and it is a DIFFERENT PAGE from the desktop's** (`const phone = phoneHome()`
-  at the top of `PAGES.home`, Aug 2026, on request). It was three swiped panes for a week (`.home-pager` /
-  `.hp-pane` / `#homeDots` — all gone, along with their ≤640px rules); the reason they went is that two of the
-  three panes stopped existing. The order on a phone is: quote → review group (+ the first-run how-it-works
-  strip) → a **Minigames** heading over the game grid → the About line. The desktop is unchanged: review, games,
-  discovery row, in `.banners`, which is the flex column the pager used to be.
-  · **`phone` gates what is BUILT, not what is shown.** The card of the day, the term of the day and the Atlas
-    teaser are not rendered on a phone at all — no date-seeded pick over every card, no glossary scan, and above
-    all no ~1.6 MB `world` bundle for an ornament nobody can see. So **crossing the breakpoint re-renders**
-    (`_homeResize`, one listener ever — `render()` re-enters `PAGES.home`, so a per-render listener would pile
-    up for the session).
-  · **The games are 3 × 2 on a phone** under a LEFT-ALIGNED `.games-head` (`.game-grid` at ≤640px; it was 2-up on
-    the pane it had to itself). The heading was centred for a week and moved back to the left in Aug 2026 on
-    request — every other heading and label on that page starts at the column's left edge, and a centred one
-    among them reads as a banner rather than as the name of the grid underneath it. The class is deliberately **not** `.mg-head`: `mg-` is the MAP GAME's prefix
+- **The home page is ONE COLUMN and, since Aug 2026, ONE PAGE at every width** (`const phone = phoneHome()` at
+  the top of `PAGES.home`). It was three swiped panes for a week (`.home-pager` / `.hp-pane` / `#homeDots` — all
+  gone, along with their ≤640px rules), then one column on a phone and a longer page on a desktop, and is now the
+  same page on both: quote → review group (+ the lip, + the first-run how-it-works strip) → a **Minigames**
+  heading over the game grid → (phone only) the About line, in `.banners`, which is the flex column the pager
+  used to be. **`phone` now gates exactly ONE thing — the About line** — because a desktop still has a top bar
+  with an About tab in it; everything else it used to gate has been removed for everyone.
+  · **Crossing the breakpoint still RE-RENDERS** (`_homeResize`, one listener ever — `render()` re-enters
+    `PAGES.home`, so a per-render listener would pile up for the session). The About line is BUILT on a phone
+    and not on a desktop, which is a difference CSS cannot make; don't "simplify" this away.
+  · **The games are 3 × 2 on a phone and 3-wide on a desktop, under a `.games-head` heading that now ships at
+    EVERY width** (Aug 2026, on request — it was phone-only, and with the discovery row gone the grid is the
+    last thing on the page, so six coloured squares under nothing at all do not say what they are). The heading
+    was centred, then left for a fortnight, then centred again on request. The class is deliberately **not** `.mg-head`: `mg-` is the MAP GAME's prefix
     (`.mg-card` / `.mg-head` / `.mg-score`), and reusing it gave the heading that card's `display:flex` —
     which beats `text-align` outright, so it rendered hard left with a computed `text-align:center` — while
     pushing this heading's font and colour onto the game's own score row. `test-layout.js` measures the
     heading TEXT's centre through a Range rather than reading `text-align`, which is the only way to tell
-    the two apart. The tiles' **taglines are dropped at the source**, in `gameSub`, not hidden in CSS. Three to a row leaves ~86px
-    of text column, where one sentence runs to four lines and buries the name above it. **Today's SCORE stays**
-    (`gameScore`, bare figures — "3/5" — on a phone): it is not a description, it is the one thing on the tile
-    that changes during the day. The blank sixth tile drops its sentence the same way.
-  · **The way to the Library is `.rv-lip`** — a small "+ Add decks" tab hanging off the bottom edge of the
+    the two apart. The tiles' **taglines are gone at EVERY width now, and dropped at the source** — `gameSub`
+    returns the score or nothing, so there is no `.gt-sub` to hide in CSS. They went from the phone first
+    (three to a row leaves ~86px of text column, where one sentence runs to four lines and buries the name
+    above it) and from the desktop with the discovery row, on request. **Today's SCORE stays**, in its bare
+    figures ("3/5"): it is not a description, it is the one thing on the tile that changes during the day. The
+    blank sixth tile lost its sentence the same way.
+  · **The way to the collections is `.rv-lip`** — a small "+ Add decks" tab hanging off the bottom edge of the
     review group, replacing the full-width `.lib-banner` that sat under it (removed Aug 2026, on request). It is
     the group's **last child, in flow**: the deck list is glued flush to the banner above it (`.has-active`), so
     there is no bottom edge to hang from until the whole group has one, and an absolutely-positioned lip would
-    have to guess the list's height on every render. It is **the ONLY route to the collections on a phone**, so
-    it ships in every state the review can be in, first run included — don't gate it on having decks.
+    have to guess the list's height on every render. It was phone-only for a fortnight and now ships at **EVERY
+    width**, the Collections tab having left the desktop's top bar too (Aug 2026, on request): it is **the ONLY
+    route to the collections anywhere on the site**, so it ships in every state the review can be in, first run
+    included — don't gate it on having decks or on a breakpoint. The `#decks` ROUTE is untouched and must stay
+    so: every link ever shared points at it, and `test-library.js` loads one.
     It is **filled indigo with white text** (Aug 2026, on request), not the paper tab it started as: it is the
     only route to the collections down here, and paper-on-paper it read as part of the card's own edge. The
     blue is the site's primary-button indigo, so it matches Start review directly above it.
@@ -3158,6 +3214,33 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     links and its picture is a `role="button"` figure, and drawing over a word means drawing over it.
     (The grade bar itself never needed this — it is `z-index:60` against the canvas's 40, in the root
     stacking context — but it is asserted anyway, since nothing on screen says which of them is which.)
+  · **A STYLUS TAKES THE PEN, AND FINGERS GO BACK TO SCROLLING** (`WB.stylusSeen` / `WB.penOnly` /
+    `wbPenOnly()` / `wbNoteStylus` / `wbApplyStylusMode` / `.draw-canvas.wb-pen-only`, Aug 2026, on request —
+    Anki's behaviour). With the marker down the canvas covers the whole visible page, so on a tablet a
+    reader annotating with a stylus could not scroll the card they were annotating without first putting
+    the pen up, drawing on it and undoing that. Once a stylus has been seen on this device,
+    `pointerType === "pen"` draws and `"touch"` is handed back to the browser to scroll with.
+    · **BOTH HALVES ARE NEEDED and they are in different files.** `touch-action:pan-y pinch-zoom` (the
+      `wb-pen-only` class) is what lets the browser take a finger drag at all — the canvas declares `none`
+      normally, which is right when the finger IS the pen — and the JS half must stop calling
+      `preventDefault` on that pointerdown to match, since a prevented pointerdown cancels the scroll
+      whatever the CSS says. Change one and the other does nothing.
+    · **A finger in stylus mode still reaches the CONTROLS under the ink** — it runs the same
+      `controlUnder` pass-through as the pen, and pointerup activates the control if the finger is still on
+      it. With one difference: nothing was preventDefault'd, so a finger that MOVED more than `WB_TAP_SLOP`
+      has scrolled rather than tapped, and firing a button the reader was only using to push the page along
+      is the one way this can be worse than what it replaced.
+    · **`stylusSeen` and `penOnly` are separate on purpose**: the first is a fact about the hardware and
+      only ever goes true, the second is the reader's answer to it and defaults to yes. Both are
+      device-local (`folio_wb_stylus_v1`), like where the marker sits — a pen that has touched this screen
+      once will touch it again, and re-teaching the site every reload is exactly the friction this removes.
+      The panel grows a **"Stylus only" row the moment one is seen** and keeps it, so the reader can go
+      back to drawing with a finger; it is NOT a tool, so it never puts the pen up and it is marked
+      **`wb-on`, deliberately not `sel`** — in this panel `.sel` means "the tool being drawn with", and
+      `test-layout.js` reads `.wb-btn.sel` back to say which tool is down.
+    · Detection watches `pointerover` as well as `pointerdown`, at the document, once: a stylus held over
+      the screen has identified itself before it touches, so the FIRST stroke is drawn under the right rule
+      rather than the one after it. The listener removes itself when it fires.
   · **On a phone the default corner clears the bottom bars**: `bottom:calc(var(--tabbar-h) + 12px)` on the
     study page and `calc(var(--tabbar-h) + var(--timebar-h) + 10px)` on the Atlas, where it also steps to
     `right:62px` — the zoom column (`.globe-zoom`, 34px wide at a 16px inset) holds that same corner, and
@@ -4813,14 +4896,15 @@ dead code (never rendered).
     **Re-run after touching the `SOURCE FOOTNOTES` block, `wireFootnotes` / `sourcesHTML` / `normSources` /
     `linkifySrcItem` / `replaceInSrcText`, the `.src-access` styles, the editors' sources boxes, or the
     `fn` / `data-fn` sanitizer allowlists.**
-  · `node .claude/test-layout.js` — 211 assertions on **the shell**: the rules that break silently because
+  · `node .claude/test-layout.js` — 259 assertions on **the shell**: the rules that break silently because
     nothing throws when a layout is wrong. The phone's bottom tab bar (present, labelled — *every* tab, not
     just the active one, which is the top bar's behaviour — each name **centred under its own icon**, the
     selected one included, since one tab off out of five reads as a design; routing; no Library and no
     About, which the home page's banner and its grey line carry now; and gone while grading); the home
-    page on a phone
+    page, which is now ASSERTED THE SAME AT BOTH WIDTHS and was asserted as opposites for a fortnight
     (one column, no pager, no card of the day, no gloss of the day and no Atlas teaser — none of which is
-    BUILT there, so a missing assertion costs a phone the ~1.6 MB globe; the "+ Add decks" lip hanging off
+    BUILT at any width, watched on the desktop through the REQUEST LOG as well as the markup, since the
+    teaser's ornament was the only thing outside the Atlas that fetched the ~1.6 MB globe; the "+ Add decks" lip hanging off
     the bottom of the review group, centred, narrower than the group, routing to the collections and filled
     in the site's own `--indigo` read off a probe rather than hard-coded; the
     Minigames heading over a 3 × 2 grid whose tiles carry no tagline; the About link last, routing to the
@@ -4829,8 +4913,9 @@ dead code (never rendered).
     the same colour, repeated unlabelled in the same colours on each added deck's row, with the button
     CENTRED against them; and that deck row on ONE line — every part in a single horizontal band, its
     figure reading `N/N studied`, its bar underlining the row instead of taking width from it, and the
-    deck's NAME not cut off at 390px, that being what gives way if the arithmetic ever stops working) and the same page above the breakpoint, where the day's card, the day's term, the
-    Atlas teaser and the taglines are all still there and the lip, the heading and the About line are not;
+    deck's NAME not cut off at 390px, that being what gives way if the arithmetic ever stops working) and the same page above the breakpoint, where the only thing that may differ
+    is the About line (a desktop reaches About from its top bar) and where `#decks` must still RESOLVE with
+    no tab left pointing at it;
     the whiteboard marker on a phone (clear of the tab bar, no Draw button, the sizes toggling the pen, the
     custom colour picked in the inline picker — its hue bar setting the hue, its field the saturation and
     brightness, the choice surviving the session, and **no `input[type=color]` anywhere**, which is what a
@@ -4971,7 +5056,7 @@ dead code (never rendered).
     one that works — and, the assertion most worth having, that re-sorting KEEPS a filter the reader has
     typed, which the obvious two-handler implementation silently throws away. **Re-run after touching
     `makePageGhost` / `.page-ghost` / `PAGES.glossary` / `GLOSS_SORTS` / `glossSeen`.**
-  · `node .claude/test-library.js` — the Library (70 assertions): the rename, the shelf, one book, and the
+  · `node .claude/test-library.js` — the Library (125 assertions): the rename, the shelf, one book, and the
     reader's place. Each half guards something that fails SILENTLY. **The rename**: `#decks` must still
     resolve (every link ever shared points at it) while calling itself Collections everywhere, and exactly
     one nav tab may read "Library". **The laziness**: it watches the request log and asserts no
@@ -5008,7 +5093,18 @@ dead code (never rendered).
     with almost nothing linked in it. **Re-run after touching `PAGES.library` /
     `PAGES.book` / `BOOKS` / `bookIngest` / `bookIntroChapter` / `bookNotesHTML` / `linkProperNounsOnly` /
     `readingPos` / `setReadingPos` / `bookSections` / `bookRows` / `applyLangMode` / `anchorNow` /
-    `slideChapter`, after running `fetch-book.js`, or after renaming anything on the Collections page.**
+    `slideChapter` / `BOOK_SORTS` / `sortDirHTML` / `setBookSort` / `openBookMenu` / `shareBook` /
+    `isBookFav` / `toggleBookFav`, after running `fetch-book.js`, or after renaming anything on the
+    Collections page.**
+    Two things it now pins that are new (Aug 2026, on request) and both fail silently. **The SORT**: the
+    select must carry no direction in its labels (a reverse button beside "Title (A – Z)" makes the two
+    controls contradict each other), the reverse must actually reverse, and the pair must survive a full
+    RELOAD — a control that changes nothing looks exactly like one that works, and "the page should
+    remember" is only testable across a reload. **The FAVOURITES**: holding a banner must open the sheet
+    and NOT the book, and a starred book must appear ONCE — the duplicate is the failure a reader meets,
+    since two identical banners leave them working out which is the real one. It also puts the shelf back
+    (favourites cleared, sort reset) before section 3 runs, so the later sections still find the page they
+    expect.
   · `node .claude/test-account-page.js` — the SIGNED-IN account page and the Edit dashboard's account
     figures (Aug 2026). Neither is reachable without a session, so Supabase is a `page.route` stand-in —
     deliberately, and for the same reason as `test-publish.js`'s mock: the publishable key in app.js points

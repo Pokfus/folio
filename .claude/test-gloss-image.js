@@ -45,10 +45,27 @@ async function closeGloss(page) {
     await page.waitForTimeout(280);
   }
 }
-async function openTermOfDay(page) {
+/* ---- a glossary popup, and a study card, without the home page's discovery row ----
+   The Term-of-the-day and Card-of-the-day tiles were the convenient way in here until Aug 2026, when the
+   whole discovery row was removed on request (from the phone first, then from the desktop). What replaces
+   them is the route a reader actually takes: start the daily review, reveal the answer, and click a
+   glossary link in the card's background. It stays inside ONE document — hash navigation and clicks, never
+   page.goto — which matters in these files because they mutate window.GLOSSARY / GLOSSARY_SOURCES in the
+   page first, and a reload would throw those mutations away. */
+async function openStudyCard(page) {
+  await page.evaluate(() => { location.hash = "home"; });
+  await page.waitForTimeout(450);
+  await page.evaluate(() => { const b = document.querySelector("#b-review"); if (b) b.click(); });
+  await page.waitForTimeout(1000);
+}
+async function openAnyGloss(page) {
   await closeGloss(page);
-  await page.click("#exp-term");
-  await page.waitForTimeout(300);
+  if (!(await page.locator(".ttip").count())) {
+    await openStudyCard(page);
+    if (await page.locator("#reveal-btn").count()) { await page.click("#reveal-btn"); await page.waitForTimeout(500); }
+  }
+  await page.locator(".ttip").first().click();
+  await page.waitForTimeout(450);
 }
 async function openGlossEditor(page, base) {
   await page.goto(base + "#admin", { waitUntil: "load" });
@@ -79,7 +96,7 @@ async function openGlossEditor(page, base) {
       window.GLOSSARY_IMAGES[k] = { src: src, title: "A test plate", desc: "Something depicted.", credit: "https://example.org/plate" };
     });
   }, PNG);
-  await openTermOfDay(page);
+  await openAnyGloss(page);
 
   check("a glossary popup opened", await page.locator(".gloss-win").count() === 1);
   const fig = page.locator(".gloss-win .gloss-imgslot .card-img");
@@ -168,7 +185,7 @@ async function openGlossEditor(page, base) {
 
   /* ---------- 3. a term with no image renders nothing ---------- */
   await page.evaluate(() => { window.GLOSSARY_IMAGES = {}; });
-  await openTermOfDay(page);
+  await openAnyGloss(page);
   check("a term without an image renders no figure", await page.locator(".gloss-win .gloss-imgslot .card-img").count() === 0);
   check("...and the empty slot is hidden", await page.evaluate(() => document.querySelector(".gloss-win .gloss-imgslot").hidden));
 
