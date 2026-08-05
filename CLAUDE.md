@@ -1181,15 +1181,36 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   scroller pan measured straight after a vertical drag reads as a few pixels; and the guards must be
   asserted in both directions, since a false positive TAKES A PAGE AWAY.
 - **SWIPE BETWEEN PAGES ON A PHONE** (`wirePageSwipe` / `SWIPE_ORDER` / `.page-next`/`.page-prev`, Aug 2026,
-  on request). A horizontal swipe moves between `home → decks → library → account → settings`, and the outgoing page
+  on request). A horizontal swipe moves between `home → library → account → settings`, and the outgoing page
   leaves the way the finger came from, so the gesture and the transition tell the same story.
-  · **The ATLAS is not in the order**, and that is the request rather than an oversight: a drag on the globe
-    rotates it, and a page that both rotates under the finger and navigates away from it can only do one of
-    them badly. It is reached and left through the tab bar alone. COLLECTIONS (`decks`) is in the order
-    despite having no tab — it is a real destination, reached from the review's lip, and leaving it out would
-    make the sequence a subset of the bar rather than a pass over the pages. The books LIBRARY, which does
-    have a tab, joined the order when it landed; **a new phone destination belongs in `SWIPE_ORDER`**, or the
-    swipe quietly offers less than the bar does.
+  · **THE ORDER IS THE TAB BAR'S, MINUS THE ATLAS — that is the whole rule**, and it is what decides whether
+    a new destination belongs in `SWIPE_ORDER` (`test-layout.js` asserts the two against each other rather
+    than against a list, so a tab added or removed later fails on the rule and not on a stale copy of it).
+    The ATLAS is out because a drag on the globe rotates it, and a page that both rotates under the finger
+    and navigates away from it can only do one of them badly; it is reached and left through the tab bar
+    alone. **COLLECTIONS (`decks`) was in the order for a fortnight and came OUT on request (Aug 2026)** —
+    the reasoning for including it (a real destination even without a tab, and leaving it out makes the
+    sequence a subset of the bar) is backwards once the bar is what a reader has to go on: the swipe was
+    landing them on a page the bar cannot reach, with nothing lit in it to say where they were. It is
+    reached from the review's own lip ("+ Add decks"), which is the route the home page advertises, and
+    that is now the only one.
+  · **It is a full CROSS-SLIDE** (Aug 2026, on a report that it was "a hard cut"). It was a 26px nudge under
+    a cross-fade, which at that distance is a fade with a lean in it — so after a finger had dragged a page
+    sideways, what arrived barely moved. Both halves now travel a whole page width, exactly adjacent (plus a
+    24px gutter so their edges never abut), at ONE duration and ONE easing, which is what makes it read as a
+    single sheet moving rather than two things happening at once. **No opacity at all**: a page off the side
+    of the screen needs no fading. It is only possible because both pages exist for those 340ms — the ghost
+    being a real copy of the outgoing one — which is why the height guard in `makePageGhost` is skipped for
+    a swipe (that guard is about fading in PLACE) while the element-count guard, which is about the cost of
+    the clone, stays. The `sectIn` stagger opts out on a sliding page, or its blocks would pop in behind it.
+  · **`clipStageFor` is what stops a page a whole screen wide from overflowing the document** while it
+    travels — `body.stage-sliding .stage{overflow-x:clip}`, on a timer. Three things about it: it is on the
+    STAGE rather than `#view`, which sits inside the stage's own padding and would cut both pages off short
+    of the screen edge; it is **`overflow-x` alone, never the shorthand and never `hidden`**, since
+    `overflow-x:clip` beside an untouched `overflow-y:visible` is the one pairing that clips without making
+    a scroll container (with `hidden` the book's sticky chapter bar would stick to the stage instead of the
+    viewport); and it is a body class on a timer rather than a `:has()` rule keyed off the ghost, because
+    the incoming page slides whether or not a ghost was made.
   · **The guards are the whole of the difficulty, because a false positive TAKES A PAGE AWAY.** Touch only (a
     trackpad's horizontal scroll is a `wheel` and a mouse drag is a selection); never out of a horizontal
     scroller, walked up the ancestor chain by measuring `scrollWidth`/`overflow-x` rather than by listing
@@ -1217,6 +1238,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     rendering fault); and the editor, where a repaint per keystroke is routine. The home page's 170px ornamental
     globe is deliberately NOT excluded — skipping the commonest navigation on the site to protect it would be
     paying for the transition and not getting it.
+  · **A SWIPED navigation is a different transition, not a longer one** — the full cross-slide described in
+    the swipe bullet above, which is why `makePageGhost` takes the direction and relaxes its height guard
+    for one. A tab-bar navigation keeps the vertical fade.
   · The stylesheet's MOTION block adds the rest: a staggered entrance for a page's top-level blocks (`sectIn`,
     capped at eight and opting out exactly where `.page` does, including inside the ghost), an entrance for the
     overlays (`.inline-prompt`/`.deck-menu`, which had none), and press feedback on the quieter buttons.
@@ -1304,6 +1328,32 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
       half rejects anything short or mostly-downward (`SWIPE_MIN` / `SWIPE_RATIO`, **shared with the
       page swipe** so the two gestures cannot come to disagree about what a swipe is); a swipe also
       **clears the pending tap**, or the finger that stepped a chapter counts as half a language flip.
+    · **STEPPING A CHAPTER IS A SLIDE** (`slideChapter` / `BK_SLIDE_OUT` / `BK_SLIDE_IN`, Aug 2026, on
+      request) — it was an `innerHTML` swap and nothing else, so on a phone the finger said "carry this
+      away" and the page said nothing back. The panel leaves the way the finger went and the next one
+      arrives from the opposite side, the swap happening at the midpoint while nothing is on screen.
+      · **It is NOT the page swipe's cross-slide, and the difference is a cost rather than an oversight**:
+        that one has both pages in hand at once (a clone laid over the stage), where a chapter's prose does
+        not exist until it is painted and one chapter of this book can be thirty screens of it. Hence the
+        travel is 10% of the panel's own width rather than a whole one, with a fade — with nothing behind
+        it a full slide is mostly a wait.
+      · **It is `Element.animate` and there is deliberately NO CSS for it**, which is the trap worth
+        carrying: `.bk-page` is a direct child of `.page`, so the `sectIn` entrance stagger matches it, and
+        a **`both`-filled animation goes on applying its last keyframe for the life of the page** —
+        `transform:none`, which outranks any ordinary declaration. A `.bk-page.bk-out-next{transform:…}`
+        rule is ignored silently and for ever: the class goes on, the computed transform stays the identity
+        matrix, and the chapter changes exactly as abruptly as before (it shipped that way for an hour and
+        is invisible unless something reads the transform MID-flight). A script animation sorts after CSS
+        animations and wins, which is why `flipMove` is written the same way.
+      · The incoming animation is created **before** the outgoing one is cancelled — the newer of two
+        script animations wins, so its first keyframe holds the panel off the other side from the same
+        tick; cancel first and there is a frame with the new chapter in place at full opacity.
+      · The scroll to the top of the chapter goes **under** the slide, instantly, where it used to be a
+        smooth scroll afterwards: a reader thirty screens into a letter is not travelling anywhere they
+        want to watch, and a smooth scroll against an incoming panel is two motions disagreeing.
+      · `queued` is the chapter a slide is on its way to, and `step()` counts from it rather than from
+        `cur` (which the midpoint paint is what updates) — without it a reader swiping twice quickly asks
+        for the same next chapter twice and stands still.
       The book page is deliberately absent from `SWIPE_ORDER`, so the site-wide page swipe is inert here
       and the two can never fight over one gesture.
       **It did nothing on a real phone for its whole life, and the fix is CSS** (Aug 2026, on a report):
@@ -3004,6 +3054,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   described below: the editor is one person's tool and it was taking a seventh of a row six readers share.
   **Nor is COLLECTIONS** (`#decks`, Aug 2026, on request): it is reached from the home page's `.rv-lip`
   instead, which is why nothing in the bar is active there — that page is not one of the bar's destinations.
+  **The page swipe stopped reaching it too** (Aug 2026, on request), for the same reason and a fortnight
+  later: a gesture that lands a reader on a page the bar cannot reach leaves them somewhere with nothing lit
+  to say where they are. The lip is the only route now.
   (The tab labelled **Library** is the books one, `#library`, which is a different page — see the Library
   bullet. Two pages called Library was exactly the confusion the rename settled.)
   **Nor About**, which left the same way a week later (Aug 2026, on request) for the `.home-about` line at the
@@ -3116,6 +3169,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     diagonal (a scroll that wandered), the ends of the order, and the ATLAS, which is excluded outright
     because a drag there turns the globe. The gesture is dispatched as real `PointerEvent`s rather than
     through `page.touchscreen`, because the handler is on `document` and keys off `pointerType`.
+    It also asserts that **`SWIPE_ORDER` IS the tab bar minus the Atlas** — read off the bar rather than
+    off a list written into the test, so a tab added or removed later fails on the rule rather than on a
+    stale copy of it, and Collections cannot creep back in — and that the transition is a real **slide**,
+    measured MID-FLIGHT (the finished state of a slide and of a cut are the same page in the same place, so
+    an assertion made after it settles would pass on a hard swap for ever): the ghost exists, the incoming
+    page is a whole width off to the side rather than nudged, the stage is clipped while they travel, and
+    both are cleaned up after.
     And the Atlas sheet's **content-fitted ceiling**: it opens no taller than the page in it needs, a drag
     upward stops at the content rather than at the top of the screen, and a swipe to a shorter page shrinks
     it — measured as the SLACK between the scroller and the pane inside it, which is exactly the "empty
@@ -4803,6 +4863,7 @@ dead code (never rendered).
     media queries / `.settings` / `.auth-split` / the coming-soon rows / `wireOnePageSwipe`
     / `.rv-lip` / `.games-sec` / `.home-about` / `gameSub` / `pileCounts` / `adProg` / `.active-deck` /
     `gbWireResize` / `.gb-fold` / `body.gb-compact` / `wirePageSwipe` / `SWIPE_ORDER` /
+    `makePageGhost` / `clipStageFor` / the `.page-next`/`.page-prev` keyframes /
     `applyTheme`'s `data-fs` / `var(--fs)` / `.fs-slide` / `#fsRange` / `MULTILANG` /
     `ensureWBTools` / `.wb-pick` /
     the ink layer's pass-through /
@@ -4939,10 +5000,15 @@ dead code (never rendered).
     asserted with it — they fail in opposite ways. **No Wikisource stylesheet in the
     prose**: read off the SHIPPED data over every chapter of every book (`shippedBookLeaks`), not off one
     rendered page, because the leak sat in 24 of 335 notes and each is visible only to a reader who opens
-    that chapter's fold. **Re-run after touching `PAGES.library` /
+    that chapter's fold. **The chapter SLIDE** (Aug 2026) is measured MID-FLIGHT for the same reason the
+    page swipe's is — the panel leaves the way the finger went, the next arrives from the other side, the
+    stage clips while they travel and releases after. Note that the whole-book proper-noun sweep now runs
+    under `emulateMedia({reducedMotion:"reduce"})`: it clicks 125 tabs a hundredth of a second apart, and
+    against an animated chapter change it would measure the FIRST chapter 125 times over and read as a book
+    with almost nothing linked in it. **Re-run after touching `PAGES.library` /
     `PAGES.book` / `BOOKS` / `bookIngest` / `bookIntroChapter` / `bookNotesHTML` / `linkProperNounsOnly` /
-    `readingPos` / `setReadingPos` / `bookSections` / `bookRows` / `applyLangMode` / `anchorNow`, after
-    running `fetch-book.js`, or after renaming anything on the Collections page.**
+    `readingPos` / `setReadingPos` / `bookSections` / `bookRows` / `applyLangMode` / `anchorNow` /
+    `slideChapter`, after running `fetch-book.js`, or after renaming anything on the Collections page.**
   · `node .claude/test-account-page.js` — the SIGNED-IN account page and the Edit dashboard's account
     figures (Aug 2026). Neither is reachable without a session, so Supabase is a `page.route` stand-in —
     deliberately, and for the same reason as `test-publish.js`'s mock: the publishable key in app.js points
