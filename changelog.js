@@ -21,7 +21,7 @@ window.CHANGELOG = [
     d: "2026-08-05",
     t: "New Ancient Greece cards",
     items: [
-      "Twenty-four new cards in the Ancient Greece deck, each with a glossary entry to go with it. They open the collection's second deck, which had been empty until now.",
+      "Twenty-five new cards in the Ancient Greece deck, each with a glossary entry to go with it. They open the collection's second deck, which had been empty until now.",
     ],
   },
   {
