@@ -5001,6 +5001,74 @@
       total: 15,
       /* No `parts`: a single play, and its edition divides it no further than the fifteen. */
     },
+    {
+      id: "herodotus-histories",
+      title: "The Histories",
+      // the work's own Greek title, which is what its Greek column is an edition of — the pattern
+      // Lucretius set with De Rerum Natura and the Oedipus Rex followed
+      subtitle: "Ἱστορίαι",
+      author: "Herodotus",
+      /* The date is not recorded and the estimate is broad. Composition ran through the middle of the
+         fifth century BCE and the work seems to have been finished, or abandoned, some time in the
+         430s or 420s; it ends mid-stride, on an episode from 479. The front matter carries the doubt
+         rather than leaving the `c.` to do all of it. */
+      written: "c. 430 BCE",
+      year: -430,
+      translator: "A. D. Godley",
+      edition: "Loeb Classical Library, 1920–1925",
+      /* THE EXPIRY IS EASY AND THE SECOND LAYER IS NOT, which makes this licence unlike any other on
+         the shelf. Godley published the translation and the Greek facing it between 1920 and 1925 and
+         died in 1925, so both columns clear the pre-1929 publication rule AND life-plus-seventy AND
+         life-plus-a-hundred — the Republic's and the Oedipus Rex's position, needing no limit stated
+         as the Art of War does for Giles (2029) or the Nicomachean Ethics for Ross (2042). His dates
+         were checked against Wikisource's author page rather than recalled, for the Hugo Magnus
+         reason.
+         What is different is Perseus's part. Everywhere else on this shelf their contribution is the
+         DIGITAL edition — transcription, markup, CTS numbering — over a printed text left as its
+         editor set it. Here they have also edited the PROSE: this English is Godley modernized to
+         remove archaisms, by Steven Ott and reviewed by John Marincola, which the source file states
+         in its own header. That is a recent derivative work carried by their CC BY-SA 4.0 licence
+         rather than by an expiry, so it is said outright here, in `rights`, and on the book's own
+         front-matter page — a reader who goes looking for the 1920 printing should not be surprised
+         by what they find. See .claude/fetch-book.js. */
+      rights:
+        "Public domain on every ground, in both columns, with one modern layer stated plainly. A. D. " +
+        "Godley's translation and the Greek text facing it were published in the Loeb Classical " +
+        "Library between 1920 and 1925, and Godley died in 1925, so both are public domain in the " +
+        "United States on the pre-1929 publication rule and everywhere that the term is the author's " +
+        "life plus a hundred years or less. Herodotus wrote the work some twenty-five centuries ago. " +
+        "The English here is not quite the 1920 printing, however: it is Godley's translation as " +
+        "modernized by the Perseus Digital Library to remove archaisms, a revision made by Steven Ott " +
+        "and reviewed by John Marincola. That revision, and the digital editions of both texts, are " +
+        "prepared by the Perseus Digital Library at Tufts University and are released under a " +
+        "Creative Commons Attribution-ShareAlike 4.0 International licence. (The modern translations " +
+        "by Aubrey de Sélincourt, 1954, Robin Waterfield, 1998, Andrea Purvis, 2007, and Tom " +
+        "Holland, 2013, are still in copyright and are not used here.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0016.tlg001/",
+      /* Paired on the CHAPTER — "Herodotus 1.32" — which both editions state as structure and which,
+         measured over the whole work, they agree on without a single exception: 1,578 chapters, the
+         same numbers in the same order in all nine books. That makes it the most cleanly paired text
+         here, the Art of War's facing-page edition aside. Editions also divide a chapter into finer
+         sections; those are NOT the pairing unit, because nine of the 1,578 number them differently
+         in the two editions. 45 chapters carry a letter (2.121A, 7.10H) — a real part of the text,
+         not apparatus — so the markers need the explicit `data-n` sort key the Bekker pages
+         introduced and the lettered lines of the Oedipus Rex reused. One row, 6.122, draws an empty
+         Greek cell: Godley brackets that chapter as spurious, so it is in his English and not in his
+         Greek. */
+      origLang: "grc",
+      origName: "Greek",
+      color: "#43479C",
+      chapterWord: "Book",
+      // the whole work — nine books is all there is of it, and it has come down entire
+      count: 9,
+      total: 9,
+      /* No `parts`. The Loeb prints it in four volumes, but the edition does not state which books
+         fall in which, and nine chapters need no grouping to be navigable — so app.js falls back to a
+         single unlabelled group rather than to a division composed here. The Muse names traditionally
+         attached to the nine books are likewise not used: they are a later convention this edition
+         does not print, and the front matter explains them instead. */
+    },
   ];
   const BOOK_BY_ID = {};
   BOOKS.forEach((b) => (BOOK_BY_ID[b.id] = b));
@@ -17199,8 +17267,8 @@
             <li><a href="https://www.wikidata.org" target="_blank" rel="noopener">Wikidata</a> <span class="cr-lic">CC0</span> — country statistics (population, area, GDP).</li>
             <li><a href="https://www.naturalearthdata.com" target="_blank" rel="noopener">Natural Earth</a> <span class="cr-lic">public domain</span> — coastlines, borders, lakes, rivers and cities on the globe.</li>
             <li><a href="https://github.com/aourednik/historical-basemaps" target="_blank" rel="noopener">historical-basemaps</a> <span class="cr-lic">CC BY-SA 4.0</span> — the historical border eras on the Atlas timeline.</li>
-            <li><a href="https://en.wikisource.org" target="_blank" rel="noopener">Wikisource</a> <span class="cr-lic">public domain</span> — the Library's texts: Gummere's Seneca, Haines's Marcus Aurelius, Giles's Sun Tzu and Jowett's Plato, with Seneca's Latin and Sun Tzu's Chinese.</li>
-            <li><a href="https://scaife.perseus.org/library/" target="_blank" rel="noopener">Perseus Digital Library</a> <span class="cr-lic">CC BY-SA 4.0</span> — the Greek of the <i>Meditations</i>, in Jan Hendrik Leopold's edition of 1908; both halves of the <i>Metamorphoses</i>, in Brookes More's translation of 1922 and Hugo Magnus's Latin; and both halves of <i>The Twelve Caesars</i>, in Alexander Thomson's translation and Maximilian Ihm's Latin of 1908.</li>
+            <li><a href="https://en.wikisource.org" target="_blank" rel="noopener">Wikisource</a> <span class="cr-lic">public domain</span> — the Library's texts: Gummere's Seneca, Haines's Marcus Aurelius, Giles's Sun Tzu, Jowett's Plato and Ross's Aristotle, with Seneca's Latin and Sun Tzu's Chinese.</li>
+            <li><a href="https://scaife.perseus.org/library/" target="_blank" rel="noopener">Perseus Digital Library</a> <span class="cr-lic">CC BY-SA 4.0</span> — the Greek of the <i>Meditations</i> (Jan Hendrik Leopold's edition of 1908), of the <i>Symposium</i> (John Burnet) and of the <i>Nicomachean Ethics</i> (Ingram Bywater); and both halves of the <i>Metamorphoses</i> (Brookes More's translation of 1922, with Hugo Magnus's Latin), <i>The Twelve Caesars</i> (Alexander Thomson's translation, with Maximilian Ihm's Latin of 1908), <i>On the Nature of Things</i> (William Ellery Leonard's verse of 1916), <i>Oedipus Rex</i> (Richard Jebb's translation of 1887, with Francis Storr's Greek of 1912) and <i>The Histories</i> (A. D. Godley's translation of 1920–1925 with his facing Greek — the English modernized by Perseus to remove archaisms, a revision by Steven Ott reviewed by John Marincola).</li>
             <li><a href="https://registry.opendata.aws/terrain-tiles/" target="_blank" rel="noopener">Terrain Tiles on AWS</a> — terrain relief, from open elevation data by NASA (SRTM), USGS (GMTED2010), NOAA (ETOPO1) and the EU (EU-DEM), among others.</li>
             <li><a href="https://github.com/rhasspy/piper" target="_blank" rel="noopener">Piper</a> <span class="cr-lic">MIT</span> — the card narration voices, trained on <a href="https://www.openslr.org/141/" target="_blank" rel="noopener">LibriTTS-R</a> <span class="cr-lic">CC BY 4.0</span> and <a href="https://datashare.ed.ac.uk/handle/10283/3443" target="_blank" rel="noopener">VCTK</a> <span class="cr-lic">CC BY 4.0</span>.</li>
             <li><a href="https://fonts.google.com" target="_blank" rel="noopener">Google Fonts</a> <span class="cr-lic">OFL / Apache</span> — Fraunces, Newsreader, Inter, IBM Plex Mono, Noto Sans SC and the theme faces.</li>
