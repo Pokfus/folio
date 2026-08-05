@@ -4588,6 +4588,52 @@
       total: 10,
       /* No `parts`: one volume, and its own edition divides the ten books no further. */
     },
+    {
+      id: "ovid-metamorphoses",
+      title: "Metamorphoses",
+      subtitle: "Of Bodies Changed to Other Forms",
+      author: "Ovid",
+      written: "completed c. 8 CE",
+      year: 8,
+      translator: "Brookes More",
+      edition: "Cornhill Publishing Company, Boston, 1922",
+      /* TWO LAYERS ON BOTH SIDES, and this is the first book here where that is true of the ENGLISH.
+         The Meditations' Greek introduced the Perseus CC BY-SA layer; here both columns come from
+         Perseus, so the obligation attaches to the translation as well as to the original and is
+         stated in the book's own rights rather than only in the original's. The expired-copyright
+         half is straightforward — More published in 1922 and died in 1942, so this clears the
+         pre-1929 rule and life-plus-seventy alike, as Gummere's and Haines's do and Giles's does not.
+         The Latin's ground is the publication date and the age of the poem, deliberately NOT the
+         editor's death year: see .claude/fetch-book.js for why claiming one would have meant
+         inventing a fact to support a licence. */
+      rights:
+        "Two layers, both stated. Brookes More's translation was published in Boston in 1922 — before " +
+        "1929 — so its copyright has expired in the United States; More died in 1942, so it is also " +
+        "public domain wherever the term is the author's life plus seventy years or less. The digital " +
+        "edition it is taken from is prepared by the Perseus Digital Library at Tufts University and " +
+        "is released under a Creative Commons Attribution-ShareAlike 4.0 International licence. The " +
+        "modern translations by Rolfe Humphries (1955), Allen Mandelbaum (1993), Charles Martin (2004) " +
+        "and Stephanie McCarter (2022) are still in copyright and are deliberately not used here.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0959.phi006/",
+      /* The Latin Ovid wrote, from Hugo Magnus's edition by way of Perseus — and it pairs on a handle
+         neither of the other originals uses. Ovid is cited by book and LINE, and More's blank verse
+         runs 18,113 lines against the Latin's 11,927, so the translation cannot carry those numbers
+         line for line. What both editions DO state is the CARD: a passage of fifty or sixty lines,
+         labelled with the Latin line it begins at. Measured over all fifteen books before it was
+         believed — 156 cards, 142 carrying the identical number on both sides, thirteen one to three
+         lines apart and reconciled only where Magnus's own tale name agrees across the pair, and one
+         English card with no Latin counterpart, which draws as an empty cell. See
+         .claude/fetch-book.js for the whole finding. */
+      origLang: "la",
+      origName: "Latin",
+      color: "#9C3557",
+      chapterWord: "Book",
+      // fifteen books is the whole poem, so the two agree and will stay agreed
+      count: 15,
+      total: 15,
+      /* No `parts`: Ovid calls it a continuous song and no edition divides it into volumes. */
+    },
   ];
   const BOOK_BY_ID = {};
   BOOKS.forEach((b) => (BOOK_BY_ID[b.id] = b));

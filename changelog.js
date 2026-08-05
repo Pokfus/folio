@@ -14,9 +14,16 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.8", released: "2026-08-04T22:20Z" };
+window.FOLIO_VERSION = { v: "1.9", released: "2026-08-05T05:12Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-08-05",
+    t: "A fifth book in the Library",
+    items: [
+      "Ovid’s <i>Metamorphoses</i> joins the Library, all fifteen books of it, with the Latin printed beside the English. It is the poem of shape and change — it begins with the making of the world out of chaos and comes down to Ovid’s own lifetime, and it is where the western world gets Daphne turning into the laurel, Narcissus into the flower, Arachne into the spider and a couple of hundred more. The English is Brookes More’s blank verse of 1922, and both it and the Latin are out of copyright and free for anyone to read; where they come from, and on what terms, is said on the book’s own first page. The small raised figures running through both columns are line numbers of the Latin, which is how Ovid is cited and how the two languages are lined up against each other. This edition prints no translator’s notes, so unlike the other four books there is no fold of them under a chapter.",
+    ],
+  },
   {
     d: "2026-08-04",
     t: "A Library of books, World History replanned, and the day itself",
