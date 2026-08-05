@@ -619,6 +619,159 @@ const BOOKS = {
        to change. */
   },
 
+  "plato-symposium": {
+    title: "Symposium",
+    // the edition's own running head for the dialogue, and what its first page is headed
+    subtitle: "The Banquet",
+    author: "Plato",
+    translator: "Benjamin Jowett",
+    edition: "Third edition, Clarendon Press, Oxford, 1892",
+    written: "c. 385–370 BCE",
+
+    /* ---------- THE LICENCE, the same easy one the Republic has ----------
+       Jowett died in 1893 and this is his third edition of 1892, so the translation is out of
+       copyright on every rule anyone applies: pre-1929 publication, life plus seventy, life plus a
+       hundred. The Greek beside it is Burnet's, and it clears the same bar twice over — the Oxford
+       Classical Text was printed in 1910 and Burnet died in 1928, so life-plus-seventy expired in
+       1998. The dialogue underneath both is some twenty-four centuries old.
+
+       What is NOT merely an expired copyright is the DIGITAL edition of the Greek: Perseus releases
+       its files under CC BY-SA 4.0, verified in the canonical-greekLit repository rather than carried
+       over on the strength of the Meditations' entry. That is the same knowing departure from the
+       expired-copyright-only rule recorded there, and it is credited on the book's own page and in
+       both `rights` strings. The English has no such layer — it comes from Wikisource, not Perseus —
+       so unlike the Metamorphoses the obligation attaches to one column only.
+
+       The modern translations a reader is likeliest to own — Walter Hamilton's Penguin (1951),
+       Alexander Nehamas and Paul Woodruff's (1989), Robin Waterfield's Oxford World's Classics
+       (1994) — are all firmly in copyright, and are named here for the reason Campbell, Hays,
+       Griffith and Lee are named above: so that nobody reaches for one later. */
+    rights:
+      "Public domain worldwide: Benjamin Jowett died in 1893 and this third edition of his translation " +
+      "was printed in 1892, so its copyright has expired everywhere — on the pre-1929 publication rule " +
+      "and on the author's-life rule alike. The Greek it is printed beside is John Burnet's Oxford text " +
+      "of 1910, and Burnet died in 1928, so that too is public domain on both rules. The dialogue itself " +
+      "is some twenty-four centuries old. (The modern translations by Walter Hamilton, 1951, Alexander " +
+      "Nehamas and Paul Woodruff, 1989, and Robin Waterfield, 1994, are still in copyright and are not " +
+      "used here.)",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/The_Dialogues_of_Plato_(Jowett)/Symposium",
+
+    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out above.
+       Three things a reader arriving at this dialogue should be told rather than discover late: it is
+       a chain of speeches and not an argument between two people, it is narrated at third hand on
+       purpose, and Jowett is a Victorian with a manner. The fourth is the one this book can say and
+       the Republic cannot — that the Greek IS here, and why. */
+    about: [
+      "<b>Symposium</b> is Plato's dialogue on love, and it is built quite unlike most of them. There " +
+        "is no cross-examination running through it and no single question driven to an answer. A " +
+        "group of Athenians at a drinking party agree that each will make a speech in praise of Eros, " +
+        "and the dialogue is those speeches in turn — the doctor's, the comic poet's, the tragic " +
+        "poet's, Socrates' — each taking up what the last one said and turning it. The result reads " +
+        "less like an argument than like a competition, which is what the characters take it to be.",
+      "The setting is the house of the tragedian Agathon, on the night after he won his first victory " +
+        "at the dramatic festival, which places the party in 416 BCE. The company includes Phaedrus, " +
+        "Pausanias, the physician Eryximachus, the comic playwright Aristophanes, Agathon himself and " +
+        "Socrates. None of it reaches the reader directly: Apollodorus is repeating what Aristodemus " +
+        "told him, years after the event, to a companion on the road — so the whole evening arrives at " +
+        "second hand from a man who was not there, a distance Plato sets up deliberately and never " +
+        "lets the reader forget.",
+      "Two of the speeches are read far more than the rest. Aristophanes explains desire with a story " +
+        "about human beings having once been round and doubled, cut in half by Zeus, and ever since " +
+        "searching for the half they lost — the source of the phrase about finding one's other half. " +
+        "Socrates then declines to praise Eros as the others have and reports instead what he says he " +
+        "was taught by a woman of Mantinea, Diotima: that love is not a god but a spirit between " +
+        "mortal and divine, that it is desire for what one lacks, and that it can be led from one " +
+        "beautiful body up to beauty itself. The evening is then broken open by Alcibiades, who " +
+        "arrives drunk and, told to praise Eros, praises Socrates instead.",
+      "Benjamin Jowett was Regius Professor of Greek at Oxford and Master of Balliol, and his Plato of " +
+        "1871, revised through the rest of his life, made these dialogues English for several " +
+        "generations of readers. This is his third edition of 1892, the last he saw through the press. " +
+        "It is a translation with a manner: fluent, dignified, Victorian, and freer with the Greek " +
+        "than a modern version would be. It is also a Victorian rendering of a Greek book about desire " +
+        "between men, and it handles that subject with a reticence the original does not have — " +
+        "anyone reading the dialogue for what it says about love, rather than for Jowett's English, " +
+        "should check it against a modern translation.",
+      "The numbers in the margin are <i>Stephanus numbers</i> — the pages of Henri Estienne's edition " +
+        "of 1578, by which Plato has been cited in every language ever since, so that a reference like " +
+        "'Symposium 189c' means the same passage in any edition. This dialogue runs from 172 to 223, " +
+        "and because both texts here state those numbers the Greek can be set beside the English and " +
+        "paired on them exactly. The Greek is John Burnet's Oxford text of 1910. There is no chapter " +
+        "division below this level because the dialogue has none — it was written as one continuous " +
+        "evening, and this edition breaks it nowhere. The numbered notes folded underneath are the " +
+        "translator's own.",
+    ],
+
+    /* ONE CHAPTER, because the work has one. Every other book in this library arrives pre-divided —
+       124 letters, 12 books, 13 chapters, 12 lives — and the Symposium is a single unbroken evening
+       that this edition divides nowhere: measured, the transcription carries no headings at all.
+
+       The temptation is to cut it into the seven speeches and title them by speaker, and that is
+       exactly the apparatus the house rule forbids: a title is TRANSCRIBED, never composed. The
+       edition prints a speaker's name in the margin as a running side-note, but where one speech ends
+       and the next begins would be a judgement made here rather than a division the printed page
+       states — and inventing six boundaries is no better than inventing six titles. So the dialogue
+       ships whole, which is also how it reads. The 52 Stephanus sections give the reader (and the
+       bilingual pairing) all the internal structure the text actually has. */
+    chapterWord: "Dialogue",
+    // the heading the edition's own first page carries
+    titleOf: () => "Symposium",
+    chapters: [1],
+    page: () => "The Dialogues of Plato (Jowett)/Symposium",
+
+    /* THE SECTION NUMBERS ARE MARGINAL FLOATS, which is a third form — see the note in cleanBody.
+       Gummere's are a raised bold numeral in the line and Haines's are plain text at the head of a
+       paragraph; these sit in the outer margin as `wst-verse wst-verse-float`, and the first of the
+       52 is labelled "Steph. 172" where the other 51 are bare figures. */
+    sections: "float",
+    /* The volume's running heads: the dialogue's own title above its first page, and the scan's
+       per-page head. Anchored to the start of a block, as the Republic's are. */
+    dropHeads: [/^SYMPOSIUM\.?$/i, /^PERSONS OF THE DIALOGUE\.?$/i],
+
+    /* ---------- WHY THERE *IS* AN `original` HERE, WHERE THE REPUBLIC HAS NONE ----------
+       The Republic entry above concludes that Plato cannot have a Greek column, and it is right about
+       the Republic and wrong as a general fact about Plato — which is worth stating plainly, because
+       the obvious inference from that entry is that no Plato in this library can ever have one.
+
+       The rule is that app.js pairs the two columns on SECTION NUMBERS and never on paragraph order,
+       so an original may ship only where BOTH texts say which section each passage is. What defeats
+       the Republic is its PRINTING: the Colonial Press volume of 1901 carries no Stephanus references
+       anywhere, measured over all ten books. That is a fact about that book, not about Plato — and
+       this volume is a different printing by a different press, which sets the Stephanus pages in the
+       margin throughout.
+
+       MEASURED BEFORE IT WAS BELIEVED, and the first measurement was wrong, which is the part worth
+       keeping. A search for the usual citation form — a number followed by a column letter, 189c —
+       returns ZERO across the whole dialogue, because Jowett's margin carries the Stephanus PAGE
+       alone. Read for what is actually there, the English has 52 marginal numbers running 172 to 223,
+       strictly ascending with no duplicates; Burnet's Greek has 52 `subtype="section"` divisions
+       running 172 to 223. The two sets are IDENTICAL — nothing on either side that is not on the
+       other — so there is no table of corrections here and nothing to hedge. That is a cleaner
+       pairing than the Meditations, which is short one section of 487.
+
+       The Greek's divisions are FLAT: Burnet's file has no book level above them, so `teiChapters`
+       (which requires `subtype="book"`) cannot read it. The reader it wants is `teiSections`, written
+       for Suetonius — one file, numbered divisions inside it, which is exactly this shape — with the
+       division's word declared, since this edition says `section` where Suetonius says `chapter`. */
+    original: {
+      lang: "grc",
+      langName: "Greek",
+      source: "tei",
+      perChapter: true,
+      subtype: "section",
+      url: () => "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0059/tlg011/tlg0059.tlg011.perseus-grc2.xml",
+      edition: "John Burnet's Oxford Classical Text (Clarendon Press, 1910), from the Perseus Digital Library",
+      rights:
+        "Two layers, both stated. The text is John Burnet's edition of the Greek, printed by the " +
+        "Clarendon Press at Oxford in 1910 and in the public domain — before 1929, and Burnet died in " +
+        "1928. The digital edition it is taken from is prepared by the Perseus Digital Library at " +
+        "Tufts University and is released under a Creative Commons Attribution-ShareAlike 4.0 " +
+        "International licence.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0059.tlg011/",
+    },
+  },
+
   "ovid-metamorphoses": {
     title: "Metamorphoses",
     subtitle: "Of Bodies Changed to Other Forms",
@@ -1389,6 +1542,26 @@ function cleanBody(h, noteIds, book, warn) {
     /<span class="wst-verse[^"]*"[^>]*>\s*<sup>\s*<b>\s*(\d+)\.?\s*<\/b>\s*<\/sup>\s*<\/span>/g,
     '<span class="bk-n">$1</span>'
   );
+  /* THE THIRD WAY an edition marks its numbers, and it is a MARGINAL FLOAT rather than a raised
+     numeral in the line. Jowett's Dialogues sets the Stephanus pages — the page-and-column of
+     Estienne's edition of 1578, by which every edition of Plato in every language has been cited for
+     four hundred years — in the outer margin, which arrives as `wst-verse wst-verse-float`. The
+     Gummere rule above cannot take them: it requires a `<b>` inside the `<sup>`, and these carry none.
+
+     Two forms, and the first is the one that would be lost in silence. The opening marker of the
+     dialogue is labelled — a linked "Steph" abbreviation and then the number — where the other
+     fifty-one are the bare figure, so a rule anchored to a `<sup>` holding nothing but digits finds
+     every Stephanus page in the work except the very first, and the book pairs from 173 while its own
+     opening passage faces nothing. Hence the inner tags are stripped and the TRAILING number taken,
+     which reads both forms the same way.
+
+     Gated on `sections: "float"`, so the four books already shipped cannot be touched by it. */
+  if (book && book.sections === "float") {
+    b = b.replace(/<span class="wst-verse[^"]*wst-verse-float[^"]*"[^>]*>([\s\S]*?)<\/span>/g, (whole, inner) => {
+      const n = inner.replace(/<[^>]*>/g, "").match(/(\d+)\s*$/);
+      return n ? '<span class="bk-n">' + n[1] + "</span>" : whole;
+    });
+  }
   /* A footnote reference becomes Folio's own marker, and it carries the note it actually points at.
      wireFootnotes still writes the DIGIT — the number in the prose can never disagree with the list —
      but which entry a marker resolves to is decided here, from the href MediaWiki put on it.
@@ -2049,6 +2222,12 @@ function teiSections(xml, opts, warn) {
   const body = xml.slice(xml.indexOf("<body"));
   if (body.length < 500) throw new Error("no <body> in the TEI file");
 
+  /* WHICH WORD THE EDITION USES FOR ITS NUMBERED UNIT is the edition's business, not ours. Suetonius
+     is divided into `subtype="chapter"` and Burnet's Plato into `subtype="section"`, and both mean the
+     same thing to this reader: the numbered unit a passage is cited by, which Folio pairs the two
+     columns on. Declared per book and defaulting to "chapter", so the twelve lives read exactly as
+     they did before this was a parameter. */
+  const want = (opts.subtype || "chapter").toLowerCase();
   const marks = [];
   const dre = /<div\b([^>]*)>/g;
   let m;
@@ -2056,9 +2235,9 @@ function teiSections(xml, opts, warn) {
     const a = m[1];
     const st = /subtype="([^"]*)"/i.exec(a);
     const n = /\bn="([^"]*)"/.exec(a);
-    if (st && st[1].toLowerCase() === "chapter" && n) marks.push({ raw: n[1], at: m.index });
+    if (st && st[1].toLowerCase() === want && n) marks.push({ raw: n[1], at: m.index });
   }
-  if (!marks.length) throw new Error("no chapter divisions in the TEI file");
+  if (!marks.length) throw new Error("no " + want + " divisions in the TEI file");
 
   const notes = [];
   const skipped = [];
@@ -2537,7 +2716,7 @@ async function fetchOriginal() {
       let xml;
       if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
       else { xml = await fetchText(O.url(n)); fs.writeFileSync(cf, xml); await sleep(500); }
-      const got = teiSections(xml, {}, w);
+      const got = teiSections(xml, { subtype: O.subtype }, w);
       if (!got.html) { w("came back empty"); continue; }
       if (got.skipped.length) console.log("    skipped non-chapter division(s): " + got.skipped.join(", "));
       byNum[n] = got.html;
