@@ -4634,6 +4634,67 @@
       total: 15,
       /* No `parts`: Ovid calls it a continuous song and no edition divides it into volumes. */
     },
+    {
+      id: "suetonius-twelve-caesars",
+      title: "The Twelve Caesars",
+      // the work's own Latin title, which is what the column beside the English is an edition of
+      subtitle: "De vita Caesarum",
+      author: "Suetonius",
+      written: "c. 121 CE",
+      year: 121,
+      translator: "Alexander Thomson",
+      edition: "Gebbie & Co., Philadelphia, 1883",
+      /* Two layers on both columns, the position the Metamorphoses is in — and the expired-copyright
+         half is the least anxious of the six: Thomson published in 1796 and this revision is of 1883,
+         so the pre-1929 rule and the author's-life rule are both cleared with a century to spare, over
+         a Latin text of 1908 and a work of the early second century. Note what is deliberately NOT
+         claimed: Thomson's dates are not firmly established, so the ground stated is the publication
+         dates rather than a death year that would have to be guessed at — the discipline the Ovid
+         entry adopted. See .claude/fetch-book.js. */
+      rights:
+        "Two layers, both stated. Alexander Thomson's translation was first published in 1796 and this " +
+        "printing, revised by J. Eugene Reed, in 1883 — both long before 1929 — so its copyright has " +
+        "expired, on the United States publication rule and on the author's-life rule alike. The Latin " +
+        "it is printed beside is Maximilian Ihm's edition of 1908, over a work of the early second " +
+        "century. The digital editions both columns are taken from are prepared by the Perseus Digital " +
+        "Library at Tufts University and are released under a Creative Commons Attribution-ShareAlike " +
+        "4.0 International licence. The modern translations by Robert Graves (1957), Catharine Edwards " +
+        "(2000) and Tom Holland (2021) are still in copyright and are deliberately not used here.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi1348/",
+      /* The Latin Suetonius wrote, from Ihm's Teubner text by way of Perseus. It pairs on the handle
+         the Meditations established and the Republic went without: both editions state their CHAPTER
+         numbers as structure, which is how Suetonius has always been cited — "Nero 16" is a chapter.
+         Measured over all twelve lives before it was believed: 539 English chapters against the
+         Latin's 541, every one paired, length correlation 0.971 and two thirds of the Latin's proper
+         names present in the English chapter of the same number. The two unpaired are Augustus 59 and
+         60, which this translation runs together with 58 into a single chapter; they draw as empty
+         English cells, as the Meditations' 12.18 draws as an empty Greek one. That life needed a
+         numbering repair, checked against the printed page before it was applied — see
+         .claude/fetch-book.js for the whole finding. */
+      origLang: "la",
+      origName: "Latin",
+      color: "#8C6D1F",
+      chapterWord: "Life",
+      // the one book here whose plural is not the singular plus an "s" — see `unit` in the shelf tile
+      chapterWordPlural: "Lives",
+      // twelve lives is the whole work, so the two agree and will stay agreed
+      count: 12,
+      total: 12,
+      /* The eight books the work itself is divided into, and the only one of the six books here whose
+         parts are uneven: one book each down to Nero, then the three short reigns of 69 CE together,
+         then the three Flavians. */
+      parts: [
+        { n: 1, label: "Book I", note: "Julius Caesar" },
+        { n: 2, label: "Book II", note: "Augustus" },
+        { n: 3, label: "Book III", note: "Tiberius" },
+        { n: 4, label: "Book IV", note: "Caligula" },
+        { n: 5, label: "Book V", note: "Claudius" },
+        { n: 6, label: "Book VI", note: "Nero" },
+        { n: 7, label: "Book VII", note: "Galba, Otho, Vitellius" },
+        { n: 8, label: "Book VIII", note: "Vespasian, Titus, Domitian" },
+      ],
+    },
   ];
   const BOOK_BY_ID = {};
   BOOKS.forEach((b) => (BOOK_BY_ID[b.id] = b));
@@ -8764,7 +8825,14 @@
        left, how long and where you had got to on the right. That is also what lets it stay short. */
     const tile = (b) => {
       const pos = readingPos(b.id), pct = readingPct(b);
-      const unit = b.count === 1 ? b.chapterWord.toLowerCase() : b.chapterWord.toLowerCase() + "s";
+      /* A book may STATE its plural, and one has to: adding an "s" to `chapterWord` covers letters,
+         books and chapters and turns Suetonius's twelve Lives into twelve "lifes". The fix is a
+         declared field rather than a pluraliser, for the reason `year` is a declared field beside the
+         prose `written` — English plurals are not derivable, and a rule good enough for one more book
+         is a rule that will be wrong for the one after it. */
+      const unit = b.count === 1
+        ? b.chapterWord.toLowerCase()
+        : (b.chapterWordPlural || b.chapterWord + "s").toLowerCase();
       // "Letter 0" is not a letter Seneca wrote — a reader still in the front matter is told so
       const where = pos && pos.ch === 0 ? "About this book" : pos ? `${b.chapterWord} ${pos.ch} · ${pct}%` : "";
       /* HOW MUCH OF THE WORK IS HERE, said in words rather than as a bare ratio (Aug 2026, on a question:
@@ -16548,7 +16616,7 @@
             <li><a href="https://www.naturalearthdata.com" target="_blank" rel="noopener">Natural Earth</a> <span class="cr-lic">public domain</span> — coastlines, borders, lakes, rivers and cities on the globe.</li>
             <li><a href="https://github.com/aourednik/historical-basemaps" target="_blank" rel="noopener">historical-basemaps</a> <span class="cr-lic">CC BY-SA 4.0</span> — the historical border eras on the Atlas timeline.</li>
             <li><a href="https://en.wikisource.org" target="_blank" rel="noopener">Wikisource</a> <span class="cr-lic">public domain</span> — the Library's texts: Gummere's Seneca, Haines's Marcus Aurelius, Giles's Sun Tzu and Jowett's Plato, with Seneca's Latin and Sun Tzu's Chinese.</li>
-            <li><a href="https://scaife.perseus.org/library/urn:cts:greekLit:tlg0562.tlg001/" target="_blank" rel="noopener">Perseus Digital Library</a> <span class="cr-lic">CC BY-SA 4.0</span> — the Greek of the <i>Meditations</i>, in Jan Hendrik Leopold's edition of 1908.</li>
+            <li><a href="https://scaife.perseus.org/library/" target="_blank" rel="noopener">Perseus Digital Library</a> <span class="cr-lic">CC BY-SA 4.0</span> — the Greek of the <i>Meditations</i>, in Jan Hendrik Leopold's edition of 1908; both halves of the <i>Metamorphoses</i>, in Brookes More's translation of 1922 and Hugo Magnus's Latin; and both halves of <i>The Twelve Caesars</i>, in Alexander Thomson's translation and Maximilian Ihm's Latin of 1908.</li>
             <li><a href="https://registry.opendata.aws/terrain-tiles/" target="_blank" rel="noopener">Terrain Tiles on AWS</a> — terrain relief, from open elevation data by NASA (SRTM), USGS (GMTED2010), NOAA (ETOPO1) and the EU (EU-DEM), among others.</li>
             <li><a href="https://github.com/rhasspy/piper" target="_blank" rel="noopener">Piper</a> <span class="cr-lic">MIT</span> — the card narration voices, trained on <a href="https://www.openslr.org/141/" target="_blank" rel="noopener">LibriTTS-R</a> <span class="cr-lic">CC BY 4.0</span> and <a href="https://datashare.ed.ac.uk/handle/10283/3443" target="_blank" rel="noopener">VCTK</a> <span class="cr-lic">CC BY 4.0</span>.</li>
             <li><a href="https://fonts.google.com" target="_blank" rel="noopener">Google Fonts</a> <span class="cr-lic">OFL / Apache</span> — Fraunces, Newsreader, Inter, IBM Plex Mono, Noto Sans SC and the theme faces.</li>
