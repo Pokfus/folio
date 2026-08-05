@@ -1183,7 +1183,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   session ran that session's `showAnswer()` against a page that no longer existed. It mutated a detached tree,
   so nothing looked wrong and nothing was reported (found when the page ghost below stopped ids resolving in
   the dead copy). A page that wants keys re-attaches when its own render runs, which is after this.
-- **`touch-action:pan-y pinch-zoom` on `.page` is what makes EVERY horizontal swipe on the site possible**
+- **`touch-action:pan-y pinch-zoom` on `body`, `.stage`, `#view` AND `.page` is what makes EVERY horizontal
+  swipe on the site possible**
   (styles.css, Aug 2026, on a report that the book's chapter swipe did nothing on a phone). Without it none
   of them worked on a real device — not the chapter swipe and not the page swipe, which had been broken
   since the day it shipped. Under the default `auto` the browser hands the touch to its scroll machinery
@@ -1195,6 +1196,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   tap. **Nested horizontal scrollers are unaffected** (measured, not assumed): the intersection deciding a
   pan stops at the element that will scroll, so the chapter bar, the Atlas sheet's pager and the heatmap
   still pan sideways, and every draggable declaring `touch-action:none` only narrows this further.
+  **IT HAS TO BE ON THE PAGE'S ANCESTORS TOO, and it was on `.page` alone for a fortnight** (Aug 2026, on a
+  report that swiping left from the Library did nothing when the finger started in the empty space below the
+  content). A short page leaves the bottom of the screen covered by `.stage`'s 90px of padding and then by
+  `body`, and neither of those is `.page`: a finger landing there met the default `auto` and the browser took
+  the gesture for a scroll. **The gesture worked or did not depending on WHERE it began**, which reads as the
+  swipe being unreliable rather than as a rule with a hole in it — so it is declared on `body` as well, the
+  document scrolling vertically and nothing else at every width and on every route.
   **It was invisible to the tests, and that is the part to keep in mind when writing more of them**: a
   synthesised `PointerEvent` bypasses the browser's gesture arbitration entirely and completes every time,
   so every swipe assertion passed throughout. `test-layout.js` and `test-library.js` now drive one swipe
@@ -1545,8 +1553,74 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the SAME key is right or wrong depending on the sentence, and only the matched surface can tell you
     which. Deliberately narrower than a card's linking and **books-only** — a card's background is written
     against this glossary and should keep linking `knapping`. A book may still name keys in `glossOff`.
-  · TTS is the next step and is **not** wired: `ttsEnabled()` returns false site-wide (see the read-aloud
-    bullet), so a play control here would render and do nothing.
+  · **WRITING IN THE BOOK — the marker's notes, kept** (`BOOK INK` block: `BOOK_INK_KEY` / `bookInkMount` /
+    `inkRecord` / `inkReplay`; `setupWhiteboard({fixed:true})`; Aug 2026, on request). The same floating
+    marker as a study card's, over the book instead — but the storage underneath is different, and it had
+    to be.
+    · **A CARD'S WHITEBOARD CANNOT BE SAVED, which is the whole reason this exists.** A card's ink is a
+      raster canvas and its history a stack of full-canvas bitmaps: at a chapter's height that is megabytes
+      per chapter, it cannot be re-drawn at another text size or on another screen, and it is exactly the
+      wrong thing to put in localStorage. A book's ink is a VECTOR list — the strokes themselves — written
+      to disk as it is drawn. `WB.onInk` / `WB.onRedraw` / `WB.onScroll` (plus the undo/redo/clear hooks the
+      Atlas already used) are what select that backend; see the `WB` declaration for the three cases.
+    · **THE CANVAS IS THE SIZE OF THE SCREEN, not of the chapter** (`WB.fixed`, `wbResize`'s fixed branch,
+      `.draw-canvas.wb-fixed`), and this is not an optimisation. **Measured: a book of the Republic is
+      ~41,500px tall, which at 1280px wide is a 200 MB backing store** reallocated on every chapter turn —
+      and on a phone at devicePixelRatio 3 it is past the area Chrome will allocate at all, where a canvas
+      does not throw but **silently stops drawing**. So the book paints only what is on screen and repaints
+      on scroll, skipping every stroke whose band is off-viewport. It shipped as a full-height absolute
+      canvas for an hour and the first symptom was **the language flip going from 40ms to 380ms**, which is
+      what an A/B of the timing against HEAD found; the memory was the real fault behind it.
+    · **A POINT IS A FRACTION OF THE CHAPTER PANEL** (`inkFrame`), not a pixel and not a fraction of the
+      canvas. The same chapter is a different height on a phone, at Very large text and with the Latin
+      column showing, so a pixel offset would put a reader's own note somewhere they never made it — worst
+      exactly where notes matter most, deep in a long chapter. It is the same promise `readingPos` makes
+      about the reader's place. The honest cost: a note is anchored to the chapter, not to a sentence, so a
+      big width change lands it beside the line it was drawn on. That is what the HIGHLIGHTS below are for.
+    · **The sticky chapter bar is CLIPPED OUT rather than painted over.** The bar lives inside `.page`,
+      which animates with a fill mode and is therefore a stacking context, so nothing inside it can be
+      raised above a canvas that is a child of the stage — **no z-index settles this** (the same fact behind
+      the controls-under-the-ink pass-through). Both the bar and the canvas are pinned to the viewport, so
+      the band is simply excluded and a stroke running under it is cut at its edge. Mounting the canvas
+      INSIDE the page was tried and had to be abandoned: `position:fixed` inside a transformed ancestor is
+      not fixed at all.
+    · **`bkGestureOK` returns false while `WB.enabled`.** With the pen down the finger draws, and a
+      horizontal line drawn under a passage is exactly the shape the chapter-swipe handler reads as "turn
+      the page".
+    · Keyed by **book AND chapter** — a chapter change swaps the whole list, history included — and
+      **device-local**, like where the marker sits: this is ink on a screen, not something for the synced
+      progress blob. History is a stack of whole LISTS rather than of single strokes, which is what makes
+      **Clear undoable**; with an empty past and strokes on the page (every chapter reopened from disk)
+      undo peels the last stroke instead, or reopening a book would leave Clear as the only way to remove
+      one mark.
+  · **HIGHLIGHTING THE WORDS THEMSELVES** (`BOOK HIGHLIGHTS`: `BOOK_HL_KEY` / `bkTextNodes` / `bkOffsetOf` /
+    `bkPaintHl` / `bookHlApply`; `wireBookCtxMenu`; Aug 2026, on request). Right-click a selection for
+    **Highlight · Copy · Select all · Web search · Read aloud**, plus **Remove highlight** where the click
+    lands on one.
+    · The marker draws OVER the page; a highlight is made OF it, and **that is what each survives**. Ink is
+      a proportion of the chapter and drifts if the column is re-shaped; a highlight is a CHARACTER RANGE in
+      the chapter's own prose, so it stays on its sentence at any width, any text size and in either column
+      (`k` is `"en"` or `"or"`). Offsets are taken AFTER the glossary linking and the units pass, so what is
+      measured is what the reader is looking at; switching measurement systems mid-book is the one thing
+      that moves them, and it is recoverable by switching back.
+    · **The span carries the highlight's own id, NEVER its index in the list.** An index shifts the moment
+      anything before it is removed — it shipped that way for an hour, which took the marks off the page and
+      left the record on disk to put them back on the next reload.
+    · Ranges are painted **from the end of the chapter backwards**, since every one was measured against the
+      un-split text and wrapping splits the nodes under it. `surroundContents` cannot be used at all: a
+      range over prose crosses element boundaries (an italic title, a glossary link, a footnote marker), so
+      each text node is split and its middle wrapped on its own.
+    · Deliberately NOT `wireReadAloudMenu`, which is a two-item menu for a card's background and is gated on
+      `ttsEnabled()` — that gate turns the whole read-aloud SYSTEM off, and a reader who has selected a
+      phrase and asked for it to be read has asked for one thing rather than turned a system on, so this
+      calls `ttsSay` directly and shows the row only where `ttsSupported()`. **Remove highlight is not
+      decoration**: Highlight writes something permanent, and an item that can only ever be added is a trap
+      the first time a reader mis-drags. Web search opens Google in a new tab.
+    · An item may carry `colors` instead of an action (`showCtxMenu`), drawn as a swatch row IN PLACE rather
+      than as a submenu: five swatches take less room than the words naming them, and a menu inside a menu
+      is a target inside a target on a phone.
+  · TTS is otherwise **not** wired: `ttsEnabled()` returns false site-wide (see the read-aloud bullet), so a
+    play control here would render and do nothing.
 - **PAGES.glossary — the terms this reader has discovered** (`#glossary`, Aug 2026, on request), reached from the
   account page's "Glossary terms opened" meter, which is a `.ex-meter-link` button carrying `data-exgo`.
   `glossSeen` was already a permanent register and was only ever COUNTED; this is the list behind the number.
@@ -2662,9 +2736,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   them. **Collection banners and all theme decorations are STATIC — no animated/moving patterns (removed on request).**
   Themes register in `THEMES` (app.js) + the `THEME_OPTS` settings-picker table (mini-mockup previews, hover try-on).
 - **Text size** (**Settings → Appearance → Text size**, `FONT_SIZES` / `setFontSize` / `S.settings.fontSize`, Aug
-  2026, on request): small / medium / large, written by `applyTheme` as `body[data-fs]` — so it is re-applied on
+  2026, on request): **very small / small / medium / large / very large**, written by `applyTheme` as
+  `body[data-fs]` — so it is re-applied on
   every `render()` and at boot with no separate call — and read by styles.css as the multiplier **`--fs`**
-  (`:root{--fs:1}`, `.9` and `1.14` on the two `body[data-fs]` rules).
+  (`:root{--fs:1}`, plus `.8`/`.9`/`1.14`/`1.32` on the four `body[data-fs]` rules).
+  **It was three stops until Aug 2026 and gained the two ends on request.** The stored value is the NAME
+  (`tiny` / `small` / `medium` / `large` / `huge`), so the three existing ones keep working untouched and **no
+  save is migrated**; `FONT_SIZE_LABELS` carries the display text because "Very small" is two words and
+  `tiny`/`huge` are not what a reader should be shown. The steps are deliberately UNEVEN — the middle three
+  keep the values they always had, so nobody's chosen size moves under them, and the two new ends sit further
+  out than that spacing would give, a reader asking for "very large" wanting a real difference rather than one
+  more nudge. Two of the five names are two words, and five labels have no room to run on one line across a
+  390px row, so **the tick label WRAPS and is centred under its own specimen** rather than being abbreviated.
   **It scales EVERY px font-size in the stylesheet** — 519 of them, each rewritten as
   `calc(<its own px> * var(--fs))`, plus the four `clamp()` headings as `calc(clamp(…) * var(--fs))`. It reached
   only the reading prose for a fortnight (a card's question and background, a glossary popup, an Atlas panel)
@@ -2974,6 +3057,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   covers many history topics; copy stays subject-neutral (China is just the first live collection).
   **A "Seen total" stat sat beside Due and New and was removed on request (Aug 2026)** — the xp bar directly above
   it already counts the distinct cards studied, as progress towards the next level rather than a bare number.
+  **The banner is headed "Daily study"** (Aug 2026, renamed from "Daily review" on request). It is
+  `REVIEW_TITLE`, and the heading now INTERPOLATES that constant rather than restating it, so the banner and
+  the long-press sheet's own head cannot come to disagree about what the thing is called. The route, the
+  entry id (`REVIEW_ENTRY`, `"review:all"`) and every internal name are untouched, and the prose in this file
+  still says "daily review" for the mechanism — only what a reader is shown changed.
   **The banner carries NO big numeral and no description line while there is work** (Aug 2026, on request —
   it had a gold numeral of the day's whole pile for a fortnight, and `pileBadgeMarkup` went with it). The
   numeral was a fourth unlabelled number competing with the three labelled counts directly below it, which
@@ -3213,6 +3301,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     control sits on a screen is a fact about that screen) and **clamped on every apply and on resize**, so a
     position saved on a wide window cannot strand the marker off the edge of a narrow one. With nothing
     stored the inline styles are cleared, which is what lets `.on-atlas` and `body.grading`'s offsets take
+  · **HOLDING the marker puts the pen up** (`wbWireHoldToRelease` / `WB_HOLD_MS` / `wbHeld`, Aug 2026, on
+    request). The toggle already carried a tap (open/shut the tools) and a drag (move them); a hold is the
+    third gesture it had left, and it is the same one the deck rows and the review banner use one level up.
+    It is deliberately **one-directional and a NO-OP when nothing is selected**: a hold that turned drawing
+    ON would make the gesture mean opposite things depending on a state the shut panel barely shows, and the
+    tap already turns it on. Three things it has to get right, all about not firing twice — the click that
+    follows a fired hold is swallowed through `wbHeld` exactly as a drag's is through `wbDragged`; a press
+    that becomes a DRAG cancels the pending hold; and `contextmenu` is suppressed on the handle, or a long
+    press on a phone raises the browser's own menu over the gesture.
   · **There is no Draw button: the three SIZE buttons ARE the pen** (Aug 2026, on request). Clicking a size
     picks the pen at that width and clicking the width it is already down at lifts it, which is why the size
     buttons carry **two** marks — `.sel` for the width in use (true under Mark and Erase too, which are drawn

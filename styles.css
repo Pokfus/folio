@@ -112,8 +112,14 @@ body{
    What this deliberately does NOT reach is the ATLAS's canvas labels: those are `ctx.fillText` at computed
    sizes, and their spacing arithmetic (the collision grid, the leader lines) is written against those
    numbers. CSS cannot see them and scaling them would rearrange the map, not enlarge it. */
+/* Five stops (Aug 2026, on request — "very small" and "very large" were added at the ends). The steps
+   are deliberately not even: the middle three keep the values they have always had, so nobody's chosen
+   size moves under them, and the two new ends sit a little further out than that spacing would give —
+   a reader who asks for "very large" is asking for a real difference, not one more nudge. */
+body[data-fs="tiny"]{--fs:.8;}
 body[data-fs="small"]{--fs:.9;}
 body[data-fs="large"]{--fs:1.14;}
+body[data-fs="huge"]{--fs:1.32;}
 body::before{
   content:""; position:fixed; inset:-15%; z-index:-1; pointer-events:none;
   background:
@@ -260,7 +266,19 @@ html[dir="rtl"] .page-head{text-align:right;}
    bare `pan-y` would take away. It costs double-tap-to-zoom, which the book already suppresses for its own
    double tap. Nested horizontal scrollers are UNAFFECTED (measured): the intersection that decides a pan
    stops at the element that will scroll, so the chapter bar, the Atlas sheet's pager and the heatmap still
-   pan sideways, and every draggable that declares touch-action:none only ever narrows this further. */
+   pan sideways, and every draggable that declares touch-action:none only ever narrows this further.
+
+   IT HAS TO BE ON THE PAGE'S ANCESTORS TOO, and it was on `.page` alone for a fortnight (Aug 2026, on a
+   report that swiping left from the Library did nothing when the finger started in the empty space below
+   the content). A short page leaves the bottom of the screen covered by `.stage`'s 90px of padding and
+   then by the body itself, and neither of those is `.page` — so a finger landing there met the default
+   `auto`, the browser took the gesture for a scroll, and pointerup never arrived. The gesture worked or
+   did not depending on WHERE on the page it began, which reads as the swipe being unreliable rather than
+   as a rule with a hole in it. `body` is the honest place for it: the document scrolls vertically and
+   nothing else, at every width and on every route. Nested horizontal scrollers are still unaffected for
+   the reason above — the intersection stops at the element that will scroll. */
+body{touch-action:pan-y pinch-zoom;}
+.stage,#view{touch-action:pan-y pinch-zoom;}
 .page{animation:pageIn .42s var(--ease) both; touch-action:pan-y pinch-zoom;}
 @keyframes pageIn{from{opacity:0; transform:translateY(10px) scale(.995);} to{opacity:1; transform:none;}}
 /* The outgoing page (see makePageGhost in app.js): a CLONE of it, laid over the stage to fade while the new
@@ -1716,17 +1734,26 @@ body.night .ph-lvl{color:#F3E3B2; background:#4A3B10; border-color:#E6C765;}
    what it does rather than only naming it. */
 .fs-ticks{display:flex; justify-content:space-between; align-items:flex-end; margin-top:2px;}
 .fs-tick{
-  display:flex; flex-direction:column; align-items:center; gap:1px; flex:0 0 auto;
-  font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.08em;
+  display:flex; flex-direction:column; align-items:center; gap:1px; flex:0 1 auto; min-width:0;
+  font-family:var(--mono); font-size:calc(9px * var(--fs)); letter-spacing:.06em;
   text-transform:uppercase; font-weight:600; color:var(--ink-faint); transition:color .15s;
 }
 .fs-tick:first-child{align-items:flex-start;}
 .fs-tick:last-child{align-items:flex-end;}
 .fs-tick.on{color:var(--indigo);}
+/* Two of the five names are two words ("Very small", "Very large"), and five labels across a 390px row
+   have no space to run them on one line — so the label WRAPS and is centred under its own specimen
+   rather than being abbreviated. The ends stay hard against the track's ends, where the thumb's travel
+   puts them, so their text is aligned to the outside rather than centred. */
+.fs-tick .fs-lbl{display:block; text-align:center; line-height:1.15; max-width:7.5em;}
+.fs-tick:first-child .fs-lbl{text-align:left;}
+.fs-tick:last-child .fs-lbl{text-align:right;}
 .fs-tick .fs-a{font-family:var(--serif); font-weight:600; line-height:1; letter-spacing:0; text-transform:none;}
+.fs-tick[data-fs="tiny"] .fs-a{font-size:calc(10px * var(--fs));}
 .fs-tick[data-fs="small"] .fs-a{font-size:calc(12px * var(--fs));}
 .fs-tick[data-fs="medium"] .fs-a{font-size:calc(16px * var(--fs));}
 .fs-tick[data-fs="large"] .fs-a{font-size:calc(20px * var(--fs));}
+.fs-tick[data-fs="huge"] .fs-a{font-size:calc(24px * var(--fs));}
 /* While "Match my device" is on, the Night mode switch still SHOWS which way the system has gone — the row
    is dimmed rather than removed, because a reader needs to see that the site knows it is dark. Clicking it
    is still allowed and takes the decision back (setNight turns the device switch off), so it must NOT be
@@ -2287,6 +2314,10 @@ body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, va
    WHITEBOARD — draw on the card
    ============================================================ */
 .draw-canvas{position:absolute; top:0; left:0; z-index:40; pointer-events:none; touch-action:none;}
+/* The BOOK's ink layer: the size of the SCREEN, pinned to it, with the strokes re-drawn at the current
+   scroll offset instead of the canvas being as tall as the chapter. See wbResize's `fixed` branch —
+   a book of the Republic is ~41,500px tall, which as a backing store is 200 MB. */
+.draw-canvas.wb-fixed{position:fixed;}
 .draw-canvas.on{pointer-events:auto; cursor:crosshair;}
 /* ---- a stylus takes the pen, and fingers go back to scrolling (Aug 2026, on request) ----
    `touch-action` is what decides whether the browser may scroll under a finger at all, and it is half the
@@ -2653,6 +2684,19 @@ button.game-tile .gt-glyph{opacity:.14;}
 .ctx-menu{position:fixed; z-index:9500; min-width:136px; background:var(--card); border:1px solid var(--rule); border-radius:10px; box-shadow:var(--shadow-lg); padding:5px; display:flex; flex-direction:column; gap:1px;}
 .ctx-menu button{appearance:none; border:none; background:transparent; text-align:left; font-family:var(--sans); font-size:calc(13px * var(--fs)); color:var(--ink); padding:7px 11px; border-radius:7px; cursor:pointer;}
 .ctx-menu button:hover{background:var(--paper-2);}
+/* A row of colours where a command would be (the book's Highlight — see wireBookCtxMenu). Drawn in place
+   rather than as a submenu: five swatches take less room than the words naming them, and a menu inside a
+   menu is a target inside a target on a phone. The label sits above them in the menu's own type so the
+   row reads as one item and not as five unexplained dots. */
+.ctx-swatches{padding:5px 11px 7px;}
+.ctx-swlabel{display:block; font-family:var(--sans); font-size:calc(13px * var(--fs)); color:var(--ink); margin-bottom:6px;}
+.ctx-swrow{display:flex; gap:6px;}
+.ctx-sw{
+  appearance:none; width:22px; height:22px; flex:none; padding:0; border-radius:50%;
+  border:1px solid var(--rule); cursor:pointer; transition:transform .12s var(--ease), box-shadow .12s;
+}
+.ctx-sw:hover{transform:scale(1.14);}
+.ctx-sw:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
 /* ---------- Mission page (about: spaced repetition, credits, changelog) ---------- */
 .mission{display:flex; flex-direction:column; gap:18px; max-width:760px;}
 .msn-card{position:relative; background:var(--card); border:1px solid var(--rule); border-radius:14px; padding:26px 30px; box-shadow:var(--shadow-sm);}   /* relative: hosts the intro's absolute read-aloud button */
@@ -4572,6 +4616,11 @@ body.night .rv-star.on{color:#E6C765;}
    of the document while the bar that opens it rides with the reader. Being sticky, the wrapper is a
    positioned element and therefore the containing block the panel hangs from. */
 .bk-barwrap{position:sticky; top:calc(var(--bar-h) + 4px); z-index:20; margin-bottom:16px;}
+/* A highlight made from the reader's own selection (see BOOK HIGHLIGHTS). The colour is set inline —
+   it is one of the marker's five and is already an rgba by the time it arrives — so all this carries is
+   the shape. `box-decoration-break:clone` keeps the rounding on every line a highlight wraps onto
+   instead of only its first and last. */
+.bk-hl{border-radius:2px; padding:.05em 0; -webkit-box-decoration-break:clone; box-decoration-break:clone;}
 .bk-bar{
   display:flex; align-items:center; gap:6px; padding:7px 8px;
   background:var(--card); border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow-sm);
