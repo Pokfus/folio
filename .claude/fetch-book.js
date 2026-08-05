@@ -73,6 +73,20 @@ const REPUBLIC_TITLES = [
   "The Recompense of Life",
 ];
 
+/* The Analects' twenty book-titles, TRANSCRIBED from the headings this edition prints at the head of
+   each book ("BOOK I. HSIO R.") and from its own contents list, which gives the same names. They are
+   Legge's transliterations of the Chinese book names, and those names are not descriptions: a book of
+   the Analects is called after the words it OPENS with, so 學而 — Legge's "Hsio R." — is simply the
+   first two characters of the first sentence of book 1. That is said in the front matter rather than
+   repaired here, because the alternative is composing twenty subject headings for an editor who
+   deliberately gave none, which is the line the Meditations' entry draws below. Transcribed with the
+   edition's own spelling and its trailing stops, hyphens and apostrophes intact. */
+const ANALECTS_TITLES = [
+  "Hsio R.", "Wei Chang.", "Pa Yih.", "Le Jin.", "Kung-ye Ch'ang.", "Yung Yey.", "Shu R.",
+  "T'ai-po.", "Tsze Han.", "Heang Tang.", "Hsien Tsin.", "Yen Yuan.", "Tsze-lu.", "Hsien Wan.",
+  "Wei Ling Kung.", "Ke She.", "Yang Ho.", "Wei Tsze.", "Tsze-chang.", "Yao Yueh.",
+];
+
 /* This volume's ten books are transcluded under subpages titled with the number SPELLED OUT — "Book
    One" rather than "Book 1" — so the page address cannot be built from the chapter number by
    arithmetic the way the Republic's and Seneca's are. */
@@ -1797,6 +1811,138 @@ const BOOKS = {
       url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0016/tlg001/tlg0016.tlg001.perseus-grc2.xml",
     },
   },
+
+  "confucius-analects": {
+    title: "The Analects",
+    subtitle: "Confucian Analects",
+    author: "Confucius",
+    translator: "James Legge",
+    edition: "The Chinese Classics, Vol. I, 2nd revised edition, Clarendon Press, Oxford, 1893",
+    written: "c. 5th–3rd century BCE",
+
+    /* ---------- THE LICENCE, and this is the second book here that needs no qualification ----------
+       The Republic was the first. Legge published this translation in 1861 and revised it for the
+       second edition of 1893, both comfortably before 1929, so it is public domain in the United
+       States on the same ground as everything else on this shelf; and he died in 1897, so it is
+       public domain on life-plus-seventy and on life-plus-a-hundred as well. There is no limit to
+       state, as there is for Giles (2029) and Ross (2042). The Chinese underneath is some
+       twenty-four centuries old and free everywhere.
+
+       The modern translations a reader is likeliest to own are all in copyright and are named so that
+       nobody reaches for one later: Arthur Waley's of 1938, D. C. Lau's Penguin of 1979, Simon Leys's
+       of 1997 and Edward Slingerland's of 2003. */
+    rights:
+      "Public domain worldwide: Legge published this translation in 1861 and revised it for the " +
+      "second edition of 1893 — both before 1929, so its United States copyright has expired — and " +
+      "he died in 1897, so it is out of copyright wherever the term runs for the author's life plus " +
+      "seventy or even a hundred years. The Chinese it is printed beside is some twenty-four " +
+      "centuries old and is in the public domain everywhere. (The modern translations by Arthur " +
+      "Waley, 1938, D. C. Lau, 1979, Simon Leys, 1997, and Edward Slingerland, 2003, are still in " +
+      "copyright and are not used here.)",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/The_Chinese_Classics/Volume_1/Confucian_Analects",
+
+    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out above.
+       Two things a reader meets at once are stated rather than smoothed over: that Confucius did not
+       write this book, and that Legge's English is a Victorian missionary's, with a vocabulary that
+       has since been argued over word by word. */
+    about: [
+      "<b>The Analects</b> is a collection of sayings, exchanges and short scenes recording what " +
+        "Confucius said and how he behaved, put together by his followers after his death. The " +
+        "Chinese title, <i>Lunyu</i>, means something like 'selected sayings', and that is the shape " +
+        "of the book: several hundred separate passages, most of them a sentence or two long, with " +
+        "no argument running through them and very little to say about who is speaking or when. A " +
+        "disciple asks what filial piety is; the Master answers, and the passage ends. The next one " +
+        "may be about music, or archery, or a minister of a neighbouring state.",
+      "Confucius wrote none of it. He was born in the small state of Lu in 551 BCE and died there in " +
+        "479, having spent much of his life trying and failing to find a ruler who would employ him, " +
+        "and having taught a body of students who outlived him and taught their own. The book grew " +
+        "out of that succession rather than out of a single act of composition, over a period " +
+        "scholars still argue about — some of its twenty books look markedly older than others, and " +
+        "the received text was not settled until the Han dynasty, four centuries after his death. " +
+        "Its authority afterwards is easier to date than its making: chosen in the 12th century as " +
+        "one of the Four Books, it stood at the centre of the Chinese civil service examinations " +
+        "from 1313 until they were abolished in 1905.",
+      "The twenty books are not chapters in any ordinary sense, and their titles here are not " +
+        "descriptions. A book of the Analects is named after the words it opens with, so Legge's " +
+        "'Hsio R.' is simply the first two characters of the first sentence of book 1. Within a book " +
+        "the numbered chapters are the passages themselves, and it is by those numbers — book, then " +
+        "chapter — that any line of the Analects is cited in any language. They are printed here on " +
+        "both sides of the page, which is what lets the Chinese sit beside the English.",
+      "James Legge, who made this translation, was a Scottish missionary who spent three decades in " +
+        "Malacca and Hong Kong and became the first Professor of Chinese at Oxford in 1876. His " +
+        "Chinese Classics, published from 1861, set the Chinese text, a literal English rendering and " +
+        "a commentary far longer than either on the same page, and it is still the edition English " +
+        "readers of these books most often meet. What has not aged as well is the vocabulary: Legge's " +
+        "'the superior man' for <i>junzi</i>, 'benevolence' or 'perfect virtue' for <i>ren</i>, and " +
+        "'the rules of propriety' for <i>li</i> are all his choices among several defensible ones, " +
+        "and every translator since has argued with at least one of them. Read them as one man's " +
+        "answer to a hard problem rather than as what the Chinese says.",
+      "This is Legge's text and the Chinese he printed beside it, and nothing else. His notes, his " +
+        "prolegomena and his commentary — which in the printed volume run to several times the length " +
+        "of the translation — are not part of the transcription this comes from, so unlike Seneca or " +
+        "Suetonius there is no apparatus underneath these pages. What you are reading is the whole of " +
+        "the work and none of the argument about it.",
+    ],
+
+    /* ---------- THE INTERLEAVED LAYOUT, a second parallel shape ----------
+       The Art of War entry above describes the first: a printed page transcribed as a two-cell
+       table, Chinese in one cell and English in the other. This edition is just as much a parallel
+       text and is transcribed quite differently — the two languages ALTERNATE down a single column,
+       each chapter's Chinese in a `wst-lang` element and its English in the paragraphs after it, with
+       no table anywhere on the page.
+
+       Neither existing extractor can read that. `cleanBody` would unwrap the Chinese containers and
+       hand back one text with the two languages interleaved line by line, which is the failure mode
+       the Art of War entry calls the silent one — nothing throws, nothing is short, and the book is
+       simply unreadable. `extractParallel` looks for `wst-translation-table` and finds none, so it
+       throws, which is the better outcome but not a book. Hence a third extractor, which separates
+       the columns by their own markup rather than by table cell, and then splits each column on the
+       chapter numbers its own language marks.
+
+       They are NOT alternating one for one, which is the trap here: a run of several chapters' Chinese
+       often sits in a single element, followed by that run's English. So the two columns are gathered
+       whole and paired on the NUMBER, exactly as app.js pairs them at render time, and never on the
+       order the markers happen to appear in. Pairing by position looks right on book 1 and drifts. */
+    layout: "interleaved",
+    page: (n) => "The Chinese Classics/Volume 1/Confucian Analects/" + toRoman(n),
+    chapters: Array.from({ length: 20 }, (_, i) => i + 1),
+    chapterWord: "Book",
+    titleOf: (n) => ANALECTS_TITLES[n - 1] || "Book " + n,
+
+    /* ---------- THE ORIGINAL, AND WHY IT PAIRS ----------
+       The rule the Meditations entry sets out is that an original may ship only where its text states
+       which section each passage is. This one states it twice over, in both languages, on the same
+       page: the Chinese marks every chapter 【第一章】…【四七章】 and the English marks the same
+       chapter "Chapter I." …"Chapter XLVII.", and the two were set beside each other by the same
+       editor.
+
+       Measured before it was believed, across all twenty books: 499 chapters on the Chinese side and
+       499 on the English, each a clean 1–N run in every book, with nothing missing on either side and
+       no duplicates. Only the Art of War does better, and it does so by construction.
+
+       ONE repair, and it is recorded rather than smoothed away. In book 2 the English marker for
+       chapter 18 is printed "Chapter XVII." — a second time, the previous chapter having just used
+       it — while the Chinese beside it reads 【十八章】 and the passage is the one every edition of
+       the Analects cites as 2.18. So the English side is numbered by a forward-only sequence: a
+       printed numeral is taken where it moves the count forward and replaced by the next number where
+       it does not, with a warning naming the book and both numbers. That restores what the printed
+       page carries rather than composing anything — but it is a repair, so it is reported on every
+       run instead of being quietly correct.
+
+       Like the Art of War's, this original has no `wiki` or `pages` of its own: both columns come off
+       the pages already being fetched, and fetchOriginal reads them back out of the same cache. */
+    original: {
+      lang: "zh",
+      langName: "Chinese",
+      edition: "The Chinese text as printed in Legge's Chinese Classics, Vol. I, Oxford, 1893",
+      rights:
+        "Public domain worldwide: the Chinese text is some twenty-four centuries old, and this is a " +
+        "transcription of it as printed in Legge's edition of 1893.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Chinese_Classics/Volume_1/Confucian_Analects",
+    },
+  },
 };
 
 /* ---------- args ---------- */
@@ -2493,6 +2639,198 @@ function extractParallel(h, book, warn) {
     notes: comm.notes,
     orig: parallelOriginalHtml(origCells, marked.groups, origHead, warn),
   };
+}
+
+/* ---------- THE INTERLEAVED PARALLEL TEXT (the Analects) ----------
+   The second shape a facing-page edition arrives in, and the reason for it is in the BOOKS entry.
+   Everything below reads ONE page — one book of the Analects — and returns both of its columns.
+
+   A Chinese numeral, in the several costumes this edition writes them in. Chapter numbers here run
+   from 一 to 四七, and the marks are not one system: the first ten carry 第 and the rest do not; the
+   twenties, thirties and forties are written with the compressed forms 廿 and 卅, or as a tens digit
+   and a units digit run together (四五 for forty-five, which spelled out in full would be 四十五).
+   All of it is read, and anything that is not returns null so the caller can say so rather than
+   silently dropping a chapter — which is the one failure here that would take prose off the page. */
+const CN_DIGIT = { 一: 1, 二: 2, 三: 3, 四: 4, 五: 5, 六: 6, 七: 7, 八: 8, 九: 9 };
+const CN_TEN = { 十: 10, 廿: 20, 卅: 30, 卌: 40 };
+function cnNum(s) {
+  s = String(s).replace(/^第/, "").trim();
+  let m;
+  // 十 / 十一 / 三十 / 三十二 / 廿 / 廿三 / 卅九
+  if ((m = /^([一二三四五六七八九])?([十廿卅卌])([一二三四五六七八九])?$/.exec(s)))
+    return (m[1] ? CN_DIGIT[m[1]] * 10 : CN_TEN[m[2]]) + (m[3] ? CN_DIGIT[m[3]] : 0);
+  // 四五 — the tens word dropped, which this edition does from the twenties up
+  if ((m = /^([一二三四五六七八九])([一二三四五六七八九])$/.exec(s))) return CN_DIGIT[m[1]] * 10 + CN_DIGIT[m[2]];
+  if ((m = /^([一二三四五六七八九])$/.exec(s))) return CN_DIGIT[m[1]];
+  return null;
+}
+
+/* The two languages, separated by the markup that already distinguishes them. Every run of Chinese on
+   these pages is inside an element carrying `wst-lang`, as a span mid-paragraph or as a div holding
+   several paragraphs, and nothing else on the page is. So the Chinese is lifted out in reading order
+   and what remains IS the English — which is more robust than trying to split on the chapter markers
+   alone, since a run of several chapters' Chinese often sits in one element with no English between.
+   `blockEnd` walks the nesting rather than matching the next closing tag, so a formatting span inside
+   a Chinese block cannot end it early. */
+function splitInterleaved(h) {
+  const zh = [];
+  let en = "", i = 0;
+  const rx = /<(span|div)[^>]*class="[^"]*wst-lang[^"]*"[^>]*>/g;
+  for (;;) {
+    rx.lastIndex = i;
+    const m = rx.exec(h);
+    if (!m) break;
+    const e = blockEnd(h, m.index, m[1]);
+    if (e < 0) break;
+    en += h.slice(i, m.index);
+    zh.push(h.slice(m.index + m[0].length, e).replace(/<\/(?:span|div)>\s*$/, ""));
+    i = e;
+  }
+  en += h.slice(i);
+  return { zh, en };
+}
+
+/* Classical Chinese is written without word spaces, so every space between two Chinese characters
+   here is an artifact of the transcription rather than something on the printed page — mostly a
+   sentence carried across two `wst-lang` elements where the printed line broke, rejoined with the
+   whitespace that separated the markup. 43 of them across the twenty books, and each reads as a gap
+   in the middle of a phrase. Removed only BETWEEN Chinese characters, so anything Latin in this
+   column keeps the spacing that makes it readable. */
+const cnPlain = (s) =>
+  stripWikiCSS(s)
+    .replace(/<[^>]*>/g, " ")
+    .replace(/&#160;|&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/\s+/g, " ")
+    .replace(/([⺀-鿿豈-﫿＀-￯])\s+(?=[⺀-鿿豈-﫿＀-￯])/g, "$1")
+    .trim();
+
+/* Both columns of one book, from one fetch of one page. */
+function extractInterleaved(h, book, warn) {
+  /* This transcription carries no footnotes at all — measured over all twenty books, zero reference
+     marks — so the book renders with no note fold, exactly as Ovid and Lucretius do. It is still
+     asked for, because a note appearing in a later revision of the transcription would otherwise be
+     dropped in silence, and a silent drop is how a translator's note becomes nobody's. */
+  const { notes } = notesOf(h);
+  if (notes.length) warn(notes.length + " footnote(s) found — this edition carried none, so they are not wired");
+
+  const { zh, en } = splitInterleaved(h);
+
+  /* ---- the Chinese column ----
+     Split on its own chapter marks. Inside a chapter the edition also marks Legge's numbered
+     paragraphs 【一節】, and those become paragraph BREAKS rather than printed numbers: the English
+     beside them prints "1." "2." itself, so the two columns line up without the bracket being
+     repeated in a script most readers of this column cannot read either. They are also not always
+     right — book 2's chapter 18 numbers both of its sections 一 — and a break says nothing a
+     duplicate could falsify. */
+  const zhBy = {};
+  const zparts = zh.join("\n").split(/【([^】]{1,6})章】/);
+  for (let k = 1; k < zparts.length; k += 2) {
+    const n = cnNum(zparts[k]);
+    if (n === null) { warn("could not read the Chinese chapter mark 【" + zparts[k] + "章】"); continue; }
+    const paras = cnPlain(zparts[k + 1]).split(/【[^】]{1,6}節】/).map((s) => s.trim()).filter(Boolean);
+    if (paras.length) zhBy[n] = paras;
+  }
+
+  /* ---- the English column ----
+     Legge's own emphasis is set in SMALL CAPITALS — "what you do not want done to yourself, do not do
+     to others" turns on a small-cap RECIPROCITY, and the transliterated Chinese words he leaves
+     untranslated are set the same way. Folio's reader has no small-caps style for book prose and this
+     transcription uses italics nowhere at all, so they become italics: the emphasis survives and
+     nothing it could be confused with is lost. The chapter markers are the same element, so they are
+     taken out first, before the rest are converted. */
+  /* The sentinel is a pair of printable characters no printed page can contain, rather than a tag:
+     it has to survive stripTags, which rules out markup. The chapter marker sits INSIDE its
+     paragraph — <p><span…>Chapter</span> I. 1. The Master said — so the opening tag is swallowed
+     with it and re-emitted after the sentinel, or every chapter would begin mid-paragraph and end
+     on the next one dangling p tag. */
+  const SEP = "@@CH@@";
+  const CHAP = '<span class="smallcaps"[^>]*>Chapter<\\/span>\\s*([IVXLC]+)\\s*\\.?\\s*';
+  let b = en.replace(new RegExp("<p>\\s*" + CHAP, "g"), (m, r) => SEP + r + SEP + "<p>");
+  b = b.replace(new RegExp(CHAP, "g"), (m, r) => SEP + r + SEP);
+  /* Everything before the first chapter is the page's own running head — the book's title in Chinese
+     and again in English — which is not part of the text and would otherwise open every book as an
+     unattributed line. Cut at the first SENTINEL rather than at the first marker in the markup, and
+     this is load-bearing rather than tidy: the marker sits inside its paragraph, so cutting at the
+     marker leaves the opening `<p>` behind and hands stripTags a closing tag it never saw opened,
+     which its stack correctly discards — and the first chapter of every book then runs into the
+     second with no paragraph break between them. Nothing throws and no prose is lost; the page just
+     quietly stops having paragraphs. Cutting at the sentinel keeps the pair together. */
+  const first = b.indexOf(SEP);
+  if (first > 0) b = b.slice(first);
+  b = b.replace(/<span class="smallcaps"[^>]*>([\s\S]*?)<\/span>/g, "<i>$1</i>");
+  b = stripWikiCSS(b).replace(/<!--[\s\S]*?-->/g, "");
+  b = stripTags(b).replace(/&#160;|&nbsp;/g, " ").replace(/[ \t]+/g, " ");
+
+  const enBy = {};
+  const eparts = b.split(new RegExp(SEP + "([IVXLC]+)" + SEP, "g"));
+  let seq = 0;
+  for (let k = 1; k < eparts.length; k += 2) {
+    const printed = roman(eparts[k]);
+    let n = printed;
+    /* FORWARD-ONLY, and the one book where it fires is recorded in the BOOKS entry: a numeral that
+       does not move the count on is a slip in the transcription, and the chapter it opens is a real
+       chapter that has to keep its place. A numeral that leaps forward is left alone — an edition may
+       genuinely skip a number — but it is reported, since here none does. */
+    if (!(n > seq)) {
+      n = seq + 1;
+      warn('book chapter numbering: "' + eparts[k] + '" (' + printed + ") printed where the sequence reaches " + n + " — taking " + n);
+    } else if (n > seq + 1) {
+      warn("chapter numbering jumps from " + seq + " to " + n);
+    }
+    seq = n;
+    /* The trailing <p><br></p> between chapters is the printed page's spacing, not a paragraph. */
+    let t = eparts[k + 1]
+      .replace(/<p>\s*(?:<br>\s*)+<\/p>/g, "")
+      .replace(/<p>\s*<\/p>/g, "")
+      .replace(/<br>\s*(?=<\/p>)/g, "")
+      .replace(/<p>\s*(?:<br>\s*)+/g, "<p>")
+      .trim();
+    /* A Chinese block can interrupt an English sentence, because the printed page alternates the two
+       languages line by line rather than chapter by chapter. Lifting that block out leaves the
+       sentence in two paragraphs — "in the giving pay" / "or rewards to men" — which is a break the
+       printed page does not have and this extractor made. 26 of them across the twenty books, every
+       one in books 14–20 where the interleaving is finest.
+
+       Rejoined on the narrowest test that identifies them: the paragraph before ends on no sentence
+       punctuation at all AND the one after opens on a lower-case letter. A paragraph Legge really
+       does begin here always opens on its own number ("2. The Master said"), so the rule cannot
+       swallow a real break. */
+    t = t.replace(/([^.!?:;"'’”)\]]\s*)<\/p>\s*<p>\s*(?=[a-z])/g, "$1 ");
+    if (t) enBy[n] = t;
+  }
+
+  const enNums = Object.keys(enBy).map(Number).sort((a, b2) => a - b2);
+  const zhNums = Object.keys(zhBy).map(Number).sort((a, b2) => a - b2);
+  if (!enNums.length) throw new Error("no chapters found — the page's markup has changed");
+  /* The pairing rests on these two runs, so what would quietly break it is asserted rather than
+     hoped for: a gap in either, and a chapter one column has that the other does not. */
+  const brokenRun = (a) => a.some((v, i2) => v !== i2 + 1);
+  if (brokenRun(enNums)) warn("the English chapters are not a clean 1–N run (" + enNums.length + " of them, highest " + enNums[enNums.length - 1] + ")");
+  if (zhNums.length && brokenRun(zhNums)) warn("the Chinese chapters are not a clean 1–N run (" + zhNums.length + " of them, highest " + zhNums[zhNums.length - 1] + ")");
+  const noZh = enNums.filter((n) => !zhBy[n]);
+  const noEn = zhNums.filter((n) => !enBy[n]);
+  if (noZh.length) warn("no Chinese for chapter(s) " + noZh.slice(0, 8).join(", "));
+  if (noEn.length) warn("no English for chapter(s) " + noEn.slice(0, 8).join(", "));
+
+  const html = enNums
+    .map((n) => {
+      const mark = '<span class="bk-n">' + n + "</span> ";
+      const t = enBy[n];
+      return /^<p>/.test(t) ? t.replace(/^<p>/, "<p>" + mark) : "<p>" + mark + t;
+    })
+    .join("\n");
+  const orig = zhNums
+    .map((n) => zhBy[n].map((p, i2) => "<p>" + (i2 ? "" : '<span class="bk-n">' + n + "</span> ") + p + "</p>").join("\n"))
+    .join("\n");
+  return { html, notes: [], orig, count: enNums.length, origCount: zhNums.length };
+}
+
+/* A facing-page edition, whichever way it is transcribed. One choke point, so the two callers that
+   want both columns — the English walk and the original's read-back out of its cache — can never
+   come to disagree about which extractor a book uses. */
+function bothColumns(h, book, warn) {
+  return book.layout === "interleaved" ? extractInterleaved(h, book, warn) : extractParallel(h, book, warn);
 }
 
 /* ---------- the chapter titles, from the book's own contents page ---------- */
@@ -3625,10 +3963,12 @@ async function fetchEnglish() {
     const h = await api(BOOK.page(n));
     const warn = (m) => warnings.push(BOOK.chapterWord + " " + n + ": " + m);
     let html, notes, orig = "";
-    if (BOOK.layout === "parallel") {
+    if (BOOK.layout === "parallel" || BOOK.layout === "interleaved") {
       /* Both columns come off this one page, so the original is extracted here too and cached beside
-         the translation — fetchOriginal then costs no requests at all. */
-      const got = extractParallel(h, BOOK, warn);
+         the translation — fetchOriginal then costs no requests at all. The two shapes a facing-page
+         edition is transcribed in take different extractors; see the Analects entry for what
+         separates them. */
+      const got = bothColumns(h, BOOK, warn);
       html = got.html; notes = got.notes; orig = got.orig;
     } else {
       const got = notesOf(h);
@@ -3725,7 +4065,7 @@ async function fetchOriginal() {
      facing half of the same page and was extracted when the translation was. This reads it back out
      of that cache, and fetches a chapter only where the cache has none — which is what an
      --only-original run on a clean checkout looks like. */
-  if (BOOK.layout === "parallel") {
+  if (BOOK.layout === "parallel" || BOOK.layout === "interleaved") {
     console.log("\nReading the " + O.langName + " original out of the parallel text — " +
       BOOK.chapters.length + " chapters");
     for (const n of BOOK.chapters) {
@@ -3733,7 +4073,7 @@ async function fetchOriginal() {
       let rec = !FORCE && fs.existsSync(cf) ? JSON.parse(fs.readFileSync(cf, "utf8")) : null;
       if (!rec || !rec.orig) {
         const h = await api(BOOK.page(n));
-        const got = extractParallel(h, BOOK, (m) => warn(BOOK.chapterWord + " " + n + ": " + m));
+        const got = bothColumns(h, BOOK, (m) => warn(BOOK.chapterWord + " " + n + ": " + m));
         rec = rec || { n, t: chapterTitle(n), p: partOf(n), html: got.html, notes: got.notes };
         rec.orig = got.orig;
         fs.writeFileSync(cf, JSON.stringify(rec));

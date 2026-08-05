@@ -4644,7 +4644,9 @@ body.night .rv-star.on{color:#E6C765;}
 .book-tile:hover{transform:translateY(-3px); box-shadow:var(--shadow-lg); border-color:color-mix(in srgb,var(--tile,var(--indigo)) 45%, var(--rule));}
 .book-tile:active{transform:translateY(0) scale(.995);}
 .book-tile:focus-visible{outline:2px solid var(--tile,var(--indigo-bright)); outline-offset:3px;}
-/* the spine: the one place a book's own colour is stated, so the shelf reads as a shelf */
+/* the spine: where the book's colour is stated boldest, so the shelf reads as a shelf. The colour is
+   its AUTHOR'S (BOOK_AUTHOR_COLOR in app.js), so two books by one hand carry one spine — which is why
+   the author line below takes it too, and the title does not. */
 .bk-spine{flex:0 0 8px; align-self:stretch; background:var(--tile,var(--indigo)); position:relative;}
 .bk-spine::after{content:""; position:absolute; inset:0 2px; border-left:1px solid rgba(255,255,255,.25); border-right:1px solid rgba(0,0,0,.12);}
 /* the banner's own row: who and what on the left, how long and where you got to on the right */
