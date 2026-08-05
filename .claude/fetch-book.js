@@ -982,6 +982,179 @@ const BOOKS = {
       sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi1348/",
     },
   },
+
+  "lucretius-nature-of-things": {
+    title: "On the Nature of Things",
+    // the work's own Latin title, which is what its Latin column is an edition of
+    subtitle: "De Rerum Natura",
+    author: "Lucretius",
+    translator: "William Ellery Leonard",
+    edition: "E. P. Dutton & Co., New York, 1916",
+    written: "c. 55 BCE",
+
+    /* ---------- THE LICENCE, the Ovid shape: two layers on both sides ----------
+       The expired-copyright half is among the least anxious here. William Ellery Leonard's verse
+       translation was published by Dutton in 1916 — before 1929 — so it is public domain in the
+       United States on exactly the ground Gummere, Haines, Giles, Jowett and More are served on; and
+       Leonard died in 1944, so it also clears the life-plus-seventy rule, as Gummere's, Haines's and
+       More's do and Giles's does not. The poem beneath it was written in the 50s BCE.
+
+       WHAT IS DELIBERATELY NOT CLAIMED, and it is the Ovid discipline applied a second time. That
+       entry refused to ground a licence on an editor's death year because the Wikisource author page
+       for "Hugo Magnus" turned out to be a different man. Here the gap is more basic: Perseus's Latin
+       file NAMES NO EDITOR AND NO DATE — its sourceDesc imprint reads, literally, "Lost information".
+       So no editor is named in `edition` or `rights`, no publication date is asserted for the Latin,
+       and the ground stated is the age of the poem, which needs no edition to establish it and is
+       checkable by anyone. Naming a plausible editor — Munro, Lachmann, Bailey are all one search
+       away — would have been a fabricated fact holding up a licence, which is the worst place to put
+       one. It is said plainly on the book's own page too, rather than smoothed over.
+
+       The SECOND layer is Perseus's, and it applies to both columns because both come from there —
+       the position the Metamorphoses and the Twelve Caesars are in. Neither of these two files
+       carries a licence element of its own, so the ground is the repository's own statement: the
+       README of PerseusDL/canonical-latinLit says that unless otherwise indicated all contents are
+       licensed under a Creative Commons Attribution-ShareAlike 4.0 International licence. Checked
+       rather than assumed from the other Perseus books. The obligation is honoured the way theirs is:
+       named in `rights`, printed on the book's own page, and credited on the About page.
+
+       The modern translations a reader is likeliest to own — Rolfe Humphries's of 1968, Martin
+       Ferguson Smith's revision of the Loeb, Ronald Melville's Oxford of 1997 and A. E. Stallings's
+       Penguin of 2007 — are all firmly in copyright, and are named here for the reason Campbell,
+       Hays, Griffith, Lee, Humphries and Graves are named above: so that nobody reaches for one. */
+    rights:
+      "Two layers, both stated. William Ellery Leonard's translation was published in New York in " +
+      "1916 — before 1929 — so its copyright has expired in the United States; Leonard died in 1944, " +
+      "so it is also public domain wherever the term is the author's life plus seventy years or " +
+      "less. The poem it translates was written in the 50s BCE and is in the public domain " +
+      "everywhere. The digital editions both columns are taken from are prepared by the Perseus " +
+      "Digital Library at Tufts University and are released under a Creative Commons " +
+      "Attribution-ShareAlike 4.0 International licence; Perseus's file for the Latin names neither " +
+      "an editor nor a date for the text it prints, so none is claimed here. (The modern " +
+      "translations by Rolfe Humphries, 1968, Ronald Melville, 1997, and A. E. Stallings, 2007, are " +
+      "still in copyright and are not used here.)",
+    sourceName: "Perseus Digital Library",
+    sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0550.phi001/",
+
+    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out above.
+       Four things a reader should be told plainly rather than discover late: the poem is an argument
+       rather than a story and is trying to do something to them, almost nothing is known about the
+       man who wrote it, the one biographical story they may have heard is late and hostile, and the
+       small figures running through both columns are Latin line numbers — which are also what pairs
+       the two texts. The last would otherwise read as a fault in the page, as would the absence of a
+       note fold. */
+    about: [
+      "<b>On the Nature of Things</b> is a poem in six books, running to some seven thousand four " +
+        "hundred lines of Latin hexameter, which sets out to explain the entire universe in physical " +
+        "terms. Everything that exists, it argues, is atoms moving in empty space: the earth and the " +
+        "stars, the weather, plants and animals, the human body, and the mind and soul along with " +
+        "it. From that single premise Lucretius derives the mortality of the soul, the origin of the " +
+        "world without a maker, the beginnings of human society and language, and the causes of " +
+        "thunder, earthquakes, magnetism and disease.",
+      "It is an argument rather than a story, and it is trying to do something to the reader. " +
+        "Lucretius is setting out the philosophy of Epicurus, and the point of the physics is " +
+        "therapeutic: if the world is atoms and void, then the gods do not intervene in it and the " +
+        "soul does not survive the body, so the two great sources of human misery — fear of divine " +
+        "punishment and fear of death — rest on nothing. He says himself that he is coating a bitter " +
+        "medicine with honey, the honey being the verse. The result is a scientific treatise written " +
+        "with the intensity of poetry, and it swings between close physical reasoning and passages of " +
+        "great power: the opening hymn to Venus, the attack on the fear of death in Book III, the " +
+        "anatomy of love in Book IV, and the plague at Athens on which the poem breaks off.",
+      "Almost nothing is known about Titus Lucretius Carus. He was probably born around 99 BCE and " +
+        "died around 55 BCE; the poem is addressed to a Roman aristocrat, Gaius Memmius, and Cicero " +
+        "mentions it in a letter of 54 BCE, which is very nearly the whole of the contemporary " +
+        "record. The story most often repeated about him — that he was driven mad by a love potion, " +
+        "wrote in the intervals of his insanity and killed himself — comes from a note by Jerome " +
+        "written more than four centuries later, in a Christian tradition with every reason to " +
+        "discredit him. There is no earlier trace of it, and most scholars treat it with caution or " +
+        "reject it outright.",
+      "The poem very nearly did not survive. It was read and imitated in antiquity — Virgil knew it " +
+        "well — but its argument had few friends in the Christian centuries that followed, and by the " +
+        "Middle Ages it had all but disappeared from circulation. In 1417 the book-hunter Poggio " +
+        "Bracciolini found a copy in a German monastery and had it transcribed; every later text " +
+        "descends from that recovery and from two ninth-century manuscripts now at Leiden. What came " +
+        "back with it was ancient atomism, and it went on to matter a great deal: to Montaigne, to " +
+        "the scientific revolution's revival of the atom, and to Thomas Jefferson, who owned several " +
+        "copies and once described himself as an Epicurean.",
+      "The translation here is William Ellery Leonard's blank verse of 1916. The small raised figures " +
+        "running through both columns are LINE numbers of the Latin, marking where each passage " +
+        "begins — so a reference such as 'De Rerum Natura 3.830' is book 3, line 830, and the figures " +
+        "are how you find it. They are also what pairs the two texts: an English passage and a Latin " +
+        "one carrying the same figure are the same place in the poem, and here all two hundred and " +
+        "thirteen of them agree exactly. Two things follow from the edition and are not faults in " +
+        "this page: it prints no translator's notes, so unlike most of this library there is no fold " +
+        "of them under each book, and Perseus's Latin file names no editor for the text it prints, so " +
+        "this book cannot tell you whose edition the Latin is.",
+    ],
+
+    /* ---------- A VERSE TEI EDITION ON BOTH SIDES — the Ovid shape exactly ----------
+       Cited by BOOK AND LINE, like the Metamorphoses, and for the same reason neither text can carry
+       the numbers line for line: Leonard's blank verse runs 9,784 lines against the Latin's 7,382, so
+       its own line numbering is Leonard's and not Lucretius's. What both files state is the CARD — a
+       passage of thirty to sixty lines labelled with the LATIN LINE IT OPENS AT — and that number is
+       the same claim on both sides, stated by the edition rather than counted off a list.
+
+       MEASURED BEFORE IT WAS BELIEVED, over all six books: 213 cards on each side, and ALL 213 CARRY
+       THE IDENTICAL NUMBER — the cleanest pairing of any book in this library, needing none of the
+       reconciliation Ovid's thirteen one-to-three-line differences required. Length correlation
+       across the 213 pairs is 0.968. (The proper-name check the Greek established reports a lower
+       figure here, 60%, and reading the misses rather than assuming them shows why it is a floor and
+       not a warning: most are line-initial Latin adverbs — Praeterea, Denique, Principio — that a
+       capital-letter heuristic mistakes for names, and most of the rest are Venus in oblique cases,
+       Veneris and Venerem, which a five-letter prefix cannot match to Venus. This poem simply has few
+       proper names to check with, being about atoms.)
+
+       THE FAULT THIS BOOK FOUND, which was fixed in teiVerseBooks above rather than worked around:
+       Ovid's Latin writes its card boundaries `<milestone n="452" unit="card"/>` and this one writes
+       them `<milestone unit="card" n="1"/>`. The old order-fixed pattern therefore returned 213 cards
+       for the English and ZERO for the Latin — silently, the fetch succeeding and the whole poem
+       arriving as six unpaired blocks with a flawless-looking English column. It is the Suetonius
+       attribute-order fault on a different element, and the answer is the same one: read the
+       attributes independently of their order. Verified byte-for-byte over Ovid's own two files
+       before the change was kept, the extractor being shared.
+
+       ONE THING THE STRIP DOES HERE THAT IT DID NOT DO FOR OVID, measured and recorded rather than
+       discovered later. Magnus's <del> elements all sat inside notes and were already gone by the
+       time teiVerseBooks removed them; this edition has no notes at all, so its 116 <del> marks are
+       live in the text — and they are the editor's brackets round what he judges spurious. All 116
+       sit inside a line rather than round whole ones: 84 lines are shortened and survive, and 30 are
+       bracketed entire and drop out, taking the Latin from 7,412 lines to 7,382. That is the same
+       judgement the Meditations' Greek makes and for the same reason — what ships is the text the
+       edition constitutes — but here it changes the count, so the count is stated. */
+    source: "tei",
+    url: "https://raw.githubusercontent.com/PerseusDL/canonical-latinLit/master/data/phi0550/phi001/phi0550.phi001.perseus-eng1.xml",
+    layout: "verse",
+    /* The cards are real divisions in the English file and bare milestones in the Latin one — the
+       same split Ovid's two files make, so each side says how to find its own. */
+    cards: "div",
+    chapterWord: "Book",
+    /* The six books have no titles: this edition heads them "BOOK I" … "BOOK VI" and gives them no
+       names, exactly as Haines's Meditations and More's Ovid do. The subjects are famous enough that
+       composing names — "Atoms and Void", "The Mortality of the Soul" — would be tempting and would
+       be inventing an apparatus the poem does not have. The English file's own per-card heads
+       ("PROEM" and the like) are the editor's running heads, not book titles, and are stripped. */
+    titleOf: (n) => "Book " + toRoman(n),
+    chapters: Array.from({ length: 6 }, (_, i) => i + 1),
+
+    original: {
+      lang: "la",
+      langName: "Latin",
+      source: "tei",
+      layout: "verse",
+      cards: "milestone",
+      url: "https://raw.githubusercontent.com/PerseusDL/canonical-latinLit/master/data/phi0550/phi001/phi0550.phi001.perseus-lat1.xml",
+      /* No editor and no date: see the licence note above. This string says what is known, which is
+         where the file came from, and does not fill the gap with a guess. */
+      edition: "The Latin text from the Perseus Digital Library, which names no editor for it",
+      rights:
+        "Two layers, both stated. Lucretius wrote in Latin in the 50s BCE, so the words themselves " +
+        "are in the public domain everywhere. The digital edition is prepared by the Perseus Digital " +
+        "Library at Tufts University and is released under a Creative Commons Attribution-ShareAlike " +
+        "4.0 International licence. Perseus's file names neither an editor nor a publication date " +
+        "for the text it prints, so neither is claimed here.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0550.phi001/",
+    },
+  },
 };
 
 /* ---------- args ---------- */
@@ -2013,14 +2186,34 @@ function teiVerseBooks(xml, opts, warn) {
      a book that has silently ceased to exist as a book. */
   const bs = [...b.matchAll(/<div[^>]*subtype="book"[^>]*\bn="(\d+)"[^>]*>/gi)];
   if (!bs.length) throw new Error("no book divisions in the TEI file");
-  const cardRe = () => (opts.cards === "milestone"
-    ? /<milestone[^>]*\bn="(\d+)"[^>]*unit="card"[^>]*\/>/gi
-    : /<div[^>]*subtype="card"[^>]*\bn="(\d+)"[^>]*>/gi);
+  /* THE ATTRIBUTES ARE READ INDEPENDENTLY OF THEIR ORDER, and that is load-bearing rather than
+     tidiness — it is the Suetonius fault (`subtype` before `n` in one file of twelve and after it in
+     the other eleven) arriving on a different element. Ovid's Latin writes its card boundaries
+     `<milestone n="452" unit="card"/>` and Lucretius's writes them `<milestone unit="card" n="1"/>`,
+     so a pattern that fixes the order returns every card of the one and NOT ONE CARD of the other.
+
+     It fails the quiet way this file keeps meeting: nothing throws, the fetch succeeds, the poem is
+     all present — and the whole original comes through as six unpaired blocks, because with no card
+     boundaries there is nothing for app.js to pair the two columns on. The English side would look
+     perfect throughout. Measured on Lucretius before this was changed: 213 English cards against 0
+     Latin ones. */
+  const cardMarks = (seg) => {
+    const tag = opts.cards === "milestone" ? /<milestone\b([^>]*?)\/?>/g : /<div\b([^>]*)>/g;
+    const key = opts.cards === "milestone" ? /\bunit="([^"]*)"/i : /\bsubtype="([^"]*)"/i;
+    const marks = [];
+    let m;
+    while ((m = tag.exec(seg))) {
+      const k = key.exec(m[1]);
+      const n = /\bn="(\d+)"/.exec(m[1]);
+      if (k && k[1].toLowerCase() === "card" && n) marks.push({ n: +n[1], index: m.index });
+    }
+    return marks;
+  };
 
   const out = {};
   bs.forEach((bk, i) => {
     const seg = b.slice(bk.index, i + 1 < bs.length ? bs[i + 1].index : b.length);
-    const cs = [...seg.matchAll(cardRe())];
+    const cs = cardMarks(seg);
     if (!cs.length) { warn("book " + bk[1] + ": no cards — it would pair as one whole block"); return; }
     // verse before the first card would be dropped in silence; say so instead
     const stray = (seg.slice(0, cs[0].index).match(/<l\b/g) || []).length;
@@ -2028,7 +2221,7 @@ function teiVerseBooks(xml, opts, warn) {
     let seq = 0;
     out[+bk[1]] = cs.map((c, j) => {
       const raw = seg.slice(c.index, j + 1 < cs.length ? cs[j + 1].index : seg.length);
-      const n = +c[1];
+      const n = c.n;
       if (n <= seq) warn("book " + bk[1] + ": card " + n + " follows " + seq + " — out of order");
       seq = n;
       /* The tale name each edition prints at this boundary — Magnus's, which BOTH files carry, and
