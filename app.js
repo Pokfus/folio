@@ -4518,6 +4518,40 @@
      few hundred bytes — so the Library page can paint its grid, say how long each book is and
      show where the reader had got to, without fetching a word of any book. A book's chapters are
      ~450 KB and arrive only when that book is opened. */
+
+  /* A BOOK'S COLOUR IS ITS AUTHOR'S (Aug 2026, on request). It was a per-book field, and with two
+     books by Plato on the shelf that was already saying the wrong thing: the spine and the author
+     line above the title are painted in it, so a colour that changes between one man's two books
+     tells a reader they are looking at two unrelated things. Keyed by the `author` string the tile
+     already prints, so the two can never come apart — and a book whose author is missing here simply
+     falls through to the `var(--tile, var(--indigo))` fallback every rule in styles.css already
+     declares, rather than to a second default kept in step by hand.
+
+     Plato takes the SYMPOSIUM's plum rather than the Republic's blue, which is the one real choice
+     this collapse forced: three of the eleven books were blue (Aristotle's steel, Herodotus's indigo
+     and the Republic's), and merging the pair was a chance to spend one of them.
+
+     They are chosen to be told apart, and measured rather than eyeballed: in CIELAB the closest pair
+     on the shelf is ΔE 20 (Seneca against Herodotus), and Confucius's walnut is 26 from its nearest
+     neighbour, so the newcomer is further from everything than the shelf's own tightest pair. The
+     obvious green for the Analects was measured and REJECTED — every green that sits in this palette
+     lands 12–17 from Lucretius, which is half the shelf's own separation, and the only greens that
+     clear it are bright enough to glow beside ten muted colours. */
+  const BOOK_AUTHOR_COLOR = {
+    "Seneca": "#8257C2",
+    "Marcus Aurelius": "#2F7D6E",
+    "Sun Tzu": "#A6452F",
+    "Plato": "#7A3B6B",
+    "Ovid": "#9C3557",
+    "Suetonius": "#8C6D1F",
+    "Lucretius": "#4F7A3A",
+    "Aristotle": "#3F6E8C",
+    "Sophocles": "#7A2E2E",
+    "Herodotus": "#43479C",
+    "Confucius": "#6B4D2E",
+  };
+  const bookColor = (b) => BOOK_AUTHOR_COLOR[b.author] || "var(--indigo)";
+
   const BOOKS = [
     {
       id: "seneca-letters",
@@ -4546,7 +4580,6 @@
          A book with no `origLang` simply has no original here and shows no control for one. */
       origLang: "la",
       origName: "Latin",
-      color: "#8257C2",
       /* The tile's `blurb` is gone (Aug 2026, on request: the tiles are small now and a paragraph was
          most of their height). What it said is said properly and at length in the book's own opening
          chapter — see `about` in .claude/fetch-book.js — which is a page a reader chooses to read
@@ -4591,7 +4624,6 @@
          and printed on the book's own page. See .claude/fetch-book.js for the measurements. */
       origLang: "grc",
       origName: "Greek",
-      color: "#2F7D6E",
       chapterWord: "Book",
       // the whole work — twelve books is all there is of it, so `count` and `total` agree and will stay
       // agreed; unlike Seneca, this one did not arrive in instalments
@@ -4636,7 +4668,6 @@
          uses. Both beat a wiki walk, where the numbers have to be read back out of the prose. */
       origLang: "zh",
       origName: "Chinese",
-      color: "#A6452F",
       chapterWord: "Chapter",
       // the whole work — thirteen chapters is all there has ever been of it, so the two agree and will
       // stay agreed, as the Meditations' do and unlike Seneca's, which arrived in instalments
@@ -4681,7 +4712,6 @@
          English states none cannot have a second column without several hundred alignments made by
          eye — which is exactly what was tried and abandoned for the Meditations. The reader is told
          so in the book's own front matter; see .claude/fetch-book.js for the whole finding. */
-      color: "#35619C",
       chapterWord: "Book",
       // ten books is the whole work, so the two agree and will stay agreed
       count: 10,
@@ -4729,7 +4759,6 @@
          form, 189c, finds nothing at all, because this margin carries the Stephanus page without the
          column letter. See .claude/fetch-book.js for the whole finding. */
       origLang: "grc",
-      color: "#7A3B6B",
       /* ONE CHAPTER, because the dialogue is one unbroken evening and this edition divides it nowhere.
          Cutting it into the seven speeches would mean composing both the boundaries and the titles,
          which is the apparatus the house rule forbids; the 52 Stephanus sections carry all the
@@ -4778,7 +4807,6 @@
          .claude/fetch-book.js for the whole finding. */
       origLang: "la",
       origName: "Latin",
-      color: "#9C3557",
       chapterWord: "Book",
       // fifteen books is the whole poem, so the two agree and will stay agreed
       count: 15,
@@ -4825,7 +4853,6 @@
          .claude/fetch-book.js for the whole finding. */
       origLang: "la",
       origName: "Latin",
-      color: "#8C6D1F",
       chapterWord: "Life",
       // the one book here whose plural is not the singular plus an "s" — see `unit` in the shelf tile
       chapterWordPlural: "Lives",
@@ -4890,7 +4917,6 @@
          .claude/fetch-book.js. */
       origLang: "la",
       origName: "Latin",
-      color: "#4F7A3A",
       chapterWord: "Book",
       // six books is the whole poem, so the two agree and will stay agreed
       count: 6,
@@ -4939,7 +4965,6 @@
          1094a and 1094b collapse onto one section and take the ordering with them. See bookSections
          below and the entry in .claude/fetch-book.js. */
       origLang: "grc",
-      color: "#3F6E8C",
       chapterWord: "Book",
       // ten books is the whole work, so the two agree and will stay agreed
       count: 10,
@@ -4991,7 +5016,6 @@
          needs the same explicit `data-n` sort key the Bekker pages introduced. */
       origLang: "grc",
       origName: "Greek",
-      color: "#7A2E2E",
       /* Folio's own neutral word for a division, deliberately not "Scene" or "Act": this edition
          numbers its divisions not at all, and an act is a later theatre's unit that a Greek tragedy
          does not have. The number is Folio's; the name of each part is the edition's own. */
@@ -5058,7 +5082,6 @@
          Greek. */
       origLang: "grc",
       origName: "Greek",
-      color: "#43479C",
       chapterWord: "Book",
       // the whole work — nine books is all there is of it, and it has come down entire
       count: 9,
@@ -5068,6 +5091,59 @@
          single unlabelled group rather than to a division composed here. The Muse names traditionally
          attached to the nine books are likewise not used: they are a later convention this edition
          does not print, and the front matter explains them instead. */
+    },
+    {
+      id: "confucius-analects",
+      title: "The Analects",
+      subtitle: "Confucian Analects",
+      author: "Confucius",
+      /* THE ONE DATE ON THE SHELF THAT IS NOT A DATE OF COMPOSITION, because there was no act of
+         composition: Confucius wrote none of this, and the book grew out of his students and their
+         students over a span nobody can close. What is firm is that it starts after his death in 479
+         BCE and that the received text was settled by the Han. The prose says the span; `year` is the
+         single number a shelf that sorts by date has to have, and it is the early end of it rather
+         than a midpoint nothing marks. */
+      written: "c. 5th–3rd century BCE",
+      year: -450,
+      translator: "James Legge",
+      edition: "The Chinese Classics, Vol. I, 2nd ed., Clarendon Press, Oxford, 1893",
+      /* THE EASIEST LICENCE HERE, and the second that needs no qualification at all — the Republic's
+         position. Legge published in 1861 and revised for the second edition of 1893, both before
+         1929, and died in 1897: public domain in the United States on the publication rule, and out
+         of copyright on life-plus-seventy and life-plus-a-hundred alike. Nothing to state as the Art
+         of War must for Giles (2029) or the Nicomachean Ethics for Ross (2042), and no modern
+         editorial layer as the Histories and the Meditations carry. The Chinese beside it is some
+         twenty-four centuries old. */
+      rights:
+        "Public domain worldwide. James Legge published this translation in 1861 and revised it for " +
+        "the second edition of 1893 — both before 1929, so its United States copyright has expired — " +
+        "and he died in 1897, so it is out of copyright wherever the term runs for the author's life " +
+        "plus seventy or even a hundred years. The Chinese text printed beside it is some " +
+        "twenty-four centuries old and is in the public domain everywhere. (The modern translations " +
+        "by Arthur Waley, 1938, D. C. Lau, 1979, Simon Leys, 1997, and Edward Slingerland, 2003, are " +
+        "still in copyright and are not used here.)",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Chinese_Classics/Volume_1/Confucian_Analects",
+      /* Paired on the CHAPTER — "Analects 2.18" is book, then chapter — which both columns of this
+         edition mark in their own script, the Chinese 【十八章】 against the English "Chapter XVIII.",
+         because one editor set them side by side. Measured over all twenty books: 499 chapters on
+         each side, a clean 1–N run in every book, nothing missing on either side and no duplicates.
+         Only the Art of War is cleaner, and it is cleaner by construction.
+         ONE repair, recorded rather than smoothed away: in book 2 the English marker for chapter 18
+         is printed "Chapter XVII." a second time while the Chinese beside it reads 十八. See
+         .claude/fetch-book.js, which numbers that column forward-only and reports the substitution
+         on every run.
+         The chapter numbers are all integers, so the markers need no `data-n` sort key — unlike the
+         Bekker pages, the Oedipus Rex's lines and Herodotus's lettered chapters. */
+      origLang: "zh",
+      origName: "Chinese",
+      chapterWord: "Book",
+      // the whole work: twenty books is all there is of it, and it has come down entire
+      count: 20,
+      total: 20,
+      /* No `parts`. The twenty books are traditionally read in two halves — the first ten held to be
+         the older — but that is a scholarly view about the text rather than a division this edition
+         prints, so the shelf shows one unlabelled group and the front matter carries the doubt. */
     },
   ];
   const BOOK_BY_ID = {};
@@ -9332,7 +9408,7 @@
         ? `${b.count} of ${b.total} ${unit} <span class="bk-of">on Folio so far</span>`
         : `${b.count} ${unit}`;
       const fav = isBookFav(b.id);
-      return `<button class="book-tile${fav ? " bk-fav" : ""}" type="button" data-book="${esc(b.id)}" style="--tile:${b.color}"
+      return `<button class="book-tile${fav ? " bk-fav" : ""}" type="button" data-book="${esc(b.id)}" style="--tile:${bookColor(b)}"
                 aria-label="${esc(b.title)} by ${esc(b.author)}, written ${esc(b.written)}${fav ? ", a favourite" : ""}">
         <span class="bk-spine" aria-hidden="true"></span>
         ${/* the star is a MARK, not a control: the way to set and clear one is the long-press sheet, so a
