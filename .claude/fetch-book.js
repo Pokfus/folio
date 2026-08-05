@@ -87,6 +87,50 @@ const ANALECTS_TITLES = [
   "Wei Ling Kung.", "Ke She.", "Yang Ho.", "Wei Tsze.", "Tsze-chang.", "Yao Yueh.",
 ];
 
+/* The Prince's twenty-six chapter titles, TRANSCRIBED from the headings this edition prints ABOVE the
+   chapters themselves rather than from its contents page, and set in the title case titleCase() would
+   have produced — the Republic's arrangement, and the same reason: chapterTitles() below walks
+   Seneca's contents TABLE specifically, keying on a /Letter_<digits> href, and twenty-six transcribed
+   strings are cheaper and easier to check than a second parser.
+
+   WHICH OF THE TWO PRINTED LISTS TO TAKE THEM FROM had to be decided rather than assumed, because this
+   volume's contents page and its chapter headings do not agree, and the disagreement is not decorative.
+   Three of the contents entries are wrong where the headings are right — VII reads "the Arms of of
+   others" against the heading's "the Arms of Others", XVII "better to be loved then feared" against
+   "Loved Than Feared", XX "many other things to which Princes resort" against "Many Things to Which
+   Princes Often Resort". The heading is what stands at the head of the text a reader is reading, it is
+   the list that comes through internally consistent, and taking it means the shelf carries neither
+   somebody else's typographical slip nor a correction composed here. Both lists were read in full
+   before choosing; the contents page is the one that is out. */
+const PRINCE_TITLES = [
+  "How Many Kinds of Principalities There Are, and by What Means They Are Acquired",
+  "Concerning Hereditary Principalities",
+  "Concerning Mixed Principalities",
+  "Why the Kingdom of Darius, Conquered by Alexander, Did Not Rebel Against the Successors of Alexander at His Death",
+  "Concerning the Way to Govern Cities or Principalities Which Lived Under Their Own Laws Before They Were Annexed",
+  "Concerning New Principalities Which Are Acquired by One's Own Arms and Ability",
+  "Concerning New Principalities Which Are Acquired Either by the Arms of Others or by Good Fortune",
+  "Concerning Those Who Have Obtained a Principality by Wickedness",
+  "Concerning a Civil Principality",
+  "Concerning the Way in Which the Strength of All Principalities Ought to Be Measured",
+  "Concerning Ecclesiastical Principalities",
+  "How Many Kinds of Soldiery There Are, and Concerning Mercenaries",
+  "Concerning Auxiliaries, Mixed Soldiery, and One's Own",
+  "That Which Concerns a Prince on the Subject of the Art of War",
+  "Concerning Things for Which Men, and Especially Princes, Are Praised or Blamed",
+  "Concerning Liberality and Meanness",
+  "Concerning Cruelty and Clemency, and Whether It Is Better to Be Loved Than Feared",
+  "Concerning the Way in Which Princes Should Keep Faith",
+  "That One Should Avoid Being Despised and Hated",
+  "Are Fortresses, and Many Things to Which Princes Often Resort, Advantageous or Hurtful?",
+  "How a Prince Should Conduct Himself So as to Gain Renown",
+  "Concerning the Secretaries of Princes",
+  "How Flatterers Should Be Avoided",
+  "Why the Princes of Italy Have Lost Their States",
+  "What Fortune Can Effect in Human Affairs, and How to Withstand Her",
+  "An Exhortation to Liberate Italy from the Barbarians",
+];
+
 /* This volume's ten books are transcluded under subpages titled with the number SPELLED OUT — "Book
    One" rather than "Book 1" — so the page address cannot be built from the chapter number by
    arithmetic the way the Republic's and Seneca's are. */
@@ -1943,6 +1987,186 @@ const BOOKS = {
       sourceUrl: "https://en.wikisource.org/wiki/The_Chinese_Classics/Volume_1/Confucian_Analects",
     },
   },
+
+  "machiavelli-prince": {
+    title: "The Prince",
+    // the work's own Italian title, which is what every edition of it in any language is called after
+    subtitle: "Il Principe",
+    author: "Niccolò Machiavelli",
+    translator: "W. K. Marriott",
+    edition: "Everyman's Library No. 280, J. M. Dent & Sons, London, 1908",
+    written: "1513",
+
+    /* ---------- THE LICENCE, and it is the third that needs no qualification at all ----------
+       The Republic's and the Analects' position, and the easiest kind of answer this shelf gets.
+       Marriott published in 1908 — before 1929, so the United States copyright has expired — and he
+       lived from 1847 to 1927, which puts him out of copyright on life-plus-seventy (1998) and on
+       life-plus-ninety-five alike. Nothing to state as the Art of War must for Giles (2029) or the
+       Nicomachean Ethics for Ross (2042), and no modern editorial layer as the Histories and the
+       Meditations' Greek carry. His dates are not guessed at from the printing: they are stated on
+       the scan's own index page at Wikisource and on Wikidata, and the two agree.
+       The Italian beside it is five centuries old, and this transcription is of an edition of 1814.
+
+       What is NOT imported from this volume is Marriott's own introduction and the two shorter works
+       the Everyman prints after The Prince — they are outside what a reader opening this book came
+       for, and the introduction is the one part of the volume that argues with the text rather than
+       carrying it.
+
+       The modern translations a reader is likeliest to own — George Bull's Penguin (1961), Harvey
+       Mansfield's (1985), Peter Bondanella's Oxford World's Classics (2005) and Tim Parks's Penguin
+       (2009) — are all firmly in copyright, and are named here for the reason Campbell, Hays, Griffith
+       and Lee are named above: so that nobody reaches for one later. */
+    rights:
+      "Public domain worldwide. W. K. Marriott published this translation in 1908 — before 1929, so " +
+      "its United States copyright has expired — and he lived from 1847 to 1927, so it is out of " +
+      "copyright wherever the term runs for the author's life plus seventy years or more. The Italian " +
+      "text printed beside it is five centuries old and is in the public domain everywhere. (The " +
+      "modern translations by George Bull, 1961, Harvey Mansfield, 1985, Peter Bondanella, 2005, and " +
+      "Tim Parks, 2009, are still in copyright and are not used here.)",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/The_Prince_(Marriott)",
+
+    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out above.
+       Four things a reader arriving at this book should be told plainly rather than discover late:
+       what the book was written for and when, that its author spent his career serving a republic
+       and wrote this out of office, that the two columns here are paired chapter by chapter because
+       the work carries no finer numbering, and that the dedicatory letter is not here. Nothing in it
+       is to be embroidered: where the scholarship is divided — above all on how the book squares with
+       the Discourses — it says so rather than picking a side. */
+    about: [
+      "<b>The Prince</b> is a short book of advice on how to take a state and how to keep one, written " +
+        "in 1513 by a Florentine civil servant who had just lost his post. It runs to twenty-six " +
+        "chapters, each headed with the question it takes up — how many kinds of principality there " +
+        "are, whether a ruler should be feared or loved, how flatterers are to be avoided — and it " +
+        "argues throughout from examples rather than from principles, drawing on Roman history and on " +
+        "the Italian politics its author had spent fourteen years watching at close range.",
+      "Niccolò Machiavelli was born in Florence in 1469 and served the restored republic there from " +
+        "1498 to 1512 as second chancellor and as secretary to the magistracy that ran its wars, which " +
+        "sent him on embassies to the King of France, the Emperor, the papal court and Cesare Borgia. " +
+        "When the Medici returned in 1512 he lost everything: he was dismissed, then arrested and " +
+        "tortured on suspicion of conspiracy, and finally released to a small property outside the " +
+        "city. He wrote this book there within the year, and dedicated it to Lorenzo de' Medici in the " +
+        "hope — which came to nothing — of employment.",
+      "It was read in manuscript by his friends and not printed until 1532, five years after his " +
+        "death, and its reputation has been an argument ever since. Within a generation the book was " +
+        "on the papal Index of Prohibited Books and its author's name had become an English adjective " +
+        "for cunning; readers since have found in it everything from a handbook for tyrants to a " +
+        "satire on them to the first cold description of politics as it is rather than as it ought to " +
+        "be. What makes the question hard is that the same man wrote the <i>Discourses on Livy</i>, a " +
+        "long and unmistakably republican work, in the same years and partly in the same room, and no " +
+        "reading of the two together commands general agreement.",
+      "Two words carry most of the argument and neither survives translation cleanly. <i>Virtù</i> is " +
+        "not virtue in the moral sense but something closer to force of character — skill, nerve, the " +
+        "capacity to act well at the moment that decides things — and <i>fortuna</i> is the run of " +
+        "events that no amount of it can wholly govern. The book's most famous chapters are attempts " +
+        "to say how much of a ruler's fate belongs to each, and its last chapter drops the analysis " +
+        "altogether to call on the Medici to drive the foreign armies out of Italy.",
+      "W. K. Marriott's translation of 1908 was made for Everyman's Library, and he says in his own " +
+        "introduction that he aimed at an exact literal rendering rather than a fluent paraphrase — " +
+        "which is why it reads plainly and sometimes stiffly, and why it is a good text to read " +
+        "against the Italian. The numbered notes folded under a chapter are the edition's own, " +
+        "gathered at the back of the printed volume and brought here to the chapters they belong to. " +
+        "Most of that apparatus is not here: the printed volume annotates some fifty passages, and only " +
+        "a handful of them say in the transcription this text comes from which note belongs to which " +
+        "place, so only those few are shown rather than joined up by guesswork.",
+      "Two things about this copy. The Prince is cited by chapter and carries no smaller numbered " +
+        "divisions, so where the other books in this library set the two languages beside each other " +
+        "passage by passage, this one pairs them <i>chapter by chapter</i> — each column is the whole " +
+        "of its own chapter, beginning together and running at its own length. And Machiavelli's " +
+        "dedicatory letter to Lorenzo, which stands before chapter 1 in both editions, is not included " +
+        "here: the reader is given the twenty-six chapters of the book itself.",
+    ],
+
+    chapterWord: "Chapter",
+    /* Transcribed from the contents page this edition prints, which gives the chapters Roman numerals
+       and these titles — see PRINCE_TITLES above for the two slips carried across with them. */
+    titleOf: (n) => PRINCE_TITLES[n - 1] || "Chapter " + toRoman(n),
+    /* No `sections`. Neither this edition nor any other divides a chapter of The Prince into numbered
+       sections — the chapter IS the unit the whole tradition cites — so every chapter comes through as
+       one block and fetchEnglish will say so ("26 chapter(s) with NONE"). That is the expected result
+       for this book rather than a fault to chase, and it is what decides the shape of the pairing; see
+       the note on `original` at the foot of this entry. */
+    /* The heading this edition prints above each chapter, in the two centred blocks it sets it in: the
+       number spelled out as a word ("EIGHTEENTH CHAPTER") and the chapter's title in capitals beneath
+       it. Folio prints its own number and title above the text, so left in place every chapter opens
+       on its own name said twice, the first time as a quotation. The number pattern is anchored to the
+       word CHAPTER so nothing else can match it; the title pattern takes an all-capitals line, which
+       is a safe shape to name here because dropHeads only ever strips blocks from the START of a
+       chapter and no chapter of this book opens in capitals. */
+    dropHeads: [/^[A-Z]+(?:-[A-Z]+)?\s+CHAPTER$/i, /^[-A-Z\s,.'?!;:—–]+$/],
+    page: (n) => "The Prince (Marriott)/Chapter " + n,
+    chapters: Array.from({ length: 26 }, (_, i) => i + 1),
+
+    /* ---------- THE NOTES ARE AT THE BACK OF THE BOOK, AND THAT IS A NEW SHAPE ----------
+       (Aug 2026, adding this book — the first here whose apparatus is ENDNOTES rather than footnotes.)
+
+       Every earlier book prints its notes at the foot of the page they belong to, so MediaWiki's own
+       reference list carries the text and `notesOf` reads it straight off the chapter. This edition
+       gathers them at the back of the volume instead, keyed by the page they annotate, and the markers
+       in the text point AT that page: what stands in the chapter's own reference list is the words
+       "See Note." and nothing else, twenty-nine times over.
+
+       Left alone that is the quiet kind of failure this file keeps meeting. Nothing throws, the marker
+       count is right, every marker resolves, `wireFootnotes` numbers them all — and the reader opens a
+       fold to find a list of identical stubs pointing at a page they cannot reach. So the endnote page
+       is fetched once and each stub is replaced by the note it stands for, joined on the anchor the
+       marker itself carries (`cite_note-n16-1` → the endnote anchored `n16`), which is the same rule
+       the footnote markers already follow: a marker carries the note it POINTS AT, never its position
+       in a queue.
+
+       MEASURED, BECAUSE THE APPARATUS TURNS OUT TO BE ONLY PARTLY WIRED: the printed volume gathers
+       fifty-five notes at the back, the transcription marks fifteen places in the text, and five of
+       those fifteen name the note they mean. The other ten are dropped rather than guessed at — see
+       resolveEndnotes for the page-number join that was tried and measured and does not work — so what
+       ships is five notes, on chapters 3 and 6, and the front matter tells the reader where the rest
+       of the apparatus is. */
+    endnotes: { page: "The Prince (Marriott)/Notes" },
+
+    /* ---------- THE ORIGINAL LANGUAGE, AND WHY IT PAIRS ON THE CHAPTER ----------
+       The rule the Meditations' entry sets out is that app.js pairs the two columns on the numbers the
+       texts state about themselves, never on paragraph order, so an original may ship only where both
+       sides say which section each passage is. The Prince passes that test at ONE level and no finer:
+       both editions are divided into the same twenty-six numbered chapters, in the same order, and
+       neither divides a chapter into anything smaller. That is not a gap in these two printings — it
+       is how the work is cited everywhere, "Prince XVIII" and no more.
+
+       So each chapter is a single unnumbered block on both sides, and bookRows pairs the two into one
+       row: the whole English chapter beside the whole Italian one, beginning together and each running
+       at its own length. It is a coarser join than the Art of War's facing page or Herodotus's
+       chapters, and it is a true one — nothing is claimed about where in the Italian a given English
+       sentence falls, because nothing is asserted below the chapter. The reader is told as much in the
+       front matter above rather than left to infer it from a long row.
+
+       THE REPUBLIC'S ANSWER WAS NO AND THIS IS NOT THAT CASE, which is worth stating because the two
+       look alike from a distance. Plato has the best-standardised citation system of any ancient
+       author and this printing of Jowett simply does not carry it, so a reader who knows Plato goes
+       looking for the Stephanus numbers and finds them missing. Machiavelli has no such system to be
+       missing: the chapter is the whole of it, and the chapter is here.
+
+       The Italian is on its own wiki, one page per chapter — a shape no earlier original has used.
+       Seneca's Latin gives one page per BOOK of the collection with the letters as headings inside it,
+       and the two facing-page books take both columns off the translation's own page; this is the
+       simple case those two are complications of, and it gets `perChapter` and a `page` of its own. */
+    original: {
+      lang: "it",
+      langName: "Italian",
+      perChapter: true,
+      wiki: "it.wikisource.org",
+      page: (n) => "Il Principe/Capitolo " + toRoman(n),
+      edition: "Il Principe, Italy, 1814, as transcribed at Italian Wikisource",
+      rights:
+        "Public domain worldwide: Machiavelli died in 1527 and wrote this in 1513, so no copyright " +
+        "has subsisted in the words for as long as copyright has existed. The transcription is of a " +
+        "printing of 1814, itself long out of copyright.",
+      sourceName: "Wikisource (Italian)",
+      sourceUrl: "https://it.wikisource.org/wiki/Il_Principe",
+      /* The printed page heads each chapter with "CAPITOLO XVIII." and then its title in italics on a
+         line of its own. Folio prints its own chapter number and title above the text, so both would
+         stand there twice; they are dropped, and the title is echoed in the run's log line so that a
+         run says which title it took off each chapter rather than removing it in silence. */
+      dropHead: /\bCAPITOLO\s+[IVXLCDM]+\./i,
+    },
+  },
 };
 
 /* ---------- args ---------- */
@@ -2120,6 +2344,31 @@ function cleanBody(h, noteIds, book, warn) {
   const i = b.indexOf('<div class="prp-pages-output"');
   if (i < 0) throw new Error("no body");
   b = b.slice(i);
+  /* THE WIKI'S OWN FURNITURE, WHEN IT FALLS INSIDE THE SLICE (Aug 2026, adding The Prince).
+     Every earlier book's page puts MediaWiki's navigation header — the ← previous / next → block with
+     the work's title, its author and translator, and the scan pages this chapter covers — OUTSIDE
+     .prp-pages-output, so the slice above has always dropped it for free. This transcription puts the
+     transclusion wrapper first and the header inside it, and the failure is the quiet one: nothing
+     throws, no prose is lost, and every chapter simply opens on a quotation of its own bibliographic
+     header, the previous chapter's title included.
+
+     Wikisource marks exactly this furniture with `ws-noexport` — the class means "not part of the
+     exported text", which is precisely the question being asked here — so the rule is the page's own
+     rather than a guess about its wording, in the same spirit as the Republic's unnumbered-leaf rule.
+     Removal is BALANCED (blockEnd) because the header nests four divs deep and a non-greedy match
+     would take the opener and leave the rest of it standing.
+
+     Scoped to DIVs deliberately: `ws-noexport` also sits on the zero-width span inside every page
+     marker, which the pass below already removes and which is not a block. Verified byte-for-byte
+     against the shipped Seneca, Meditations, Symposium and Republic chapters, where no such div falls
+     inside the slice and this does nothing at all. */
+  for (let k = 0; k < 8; k++) {
+    const m = /<div class="[^"]*\bws-noexport\b[^"]*"[^>]*>/.exec(b);
+    if (!m) break;
+    const end = blockEnd(b, m.index, "div");
+    if (end < 0) break;
+    b = b.slice(0, m.index) + b.slice(end);
+  }
   /* Drop the WRAPPER's own opening tag before the generic div→blockquote pass below, which would
      otherwise turn the container that holds the whole letter into a quotation of the whole letter —
      every paragraph indented behind a rule and set in italic, which is not what Seneca is doing. Its
@@ -2148,7 +2397,14 @@ function cleanBody(h, noteIds, book, warn) {
      note count is right, and only a reader scrolling to the foot of a book meets a wall of "↑ cp.
      Epict. i. 2" where the last section should be. The Footnotes heading is taken as a boundary too —
      MediaWiki emits it whatever the reflist is dressed as, so the two guards fail independently. */
-  b = b.split(/<div class="reflist|<hr class="wst-rule"|<div class="mw-heading[^"]*"><h2 id="Footnotes"/)[0];
+  /* …and `<ol class="references"` is a fourth boundary, for the same reason the Footnotes heading is a
+     second one: the guards have to fail independently. MediaWiki wraps that list in a reflist div
+     wherever a page asks for one, and The Prince's chapters do not ask — they carry the bare list, so
+     none of the three older patterns fires and the whole apparatus arrives appended to the text as
+     prose. That is the Meditations' fault again (the chapter comes through LONGER rather than shorter,
+     so every count reads as healthy), and it costs nothing on a page that has the wrapper, since the
+     wrapper opens before the list it contains. */
+  b = b.split(/<div class="reflist|<hr class="wst-rule"|<ol class="references"|<div class="mw-heading[^"]*"><h2 id="Footnotes"/)[0];
   /* AN ILLUSTRATION PLATE IS A LEAF THE EDITION NEVER NUMBERED, and that is the handle to take it by
      (Aug 2026, adding the Republic). This printing binds engraved plates into the text — a facsimile
      of a Venetian frontispiece before Book V, the Gemma Augustea cameo before Book VII — each a
@@ -2301,12 +2557,24 @@ function cleanBody(h, noteIds, book, warn) {
      a head can go, and declared per book — a phrase worth deleting in one edition is ordinary prose in
      another. The loop is for the first chapter, which carries two of them. */
   if (book && book.dropHeads) {
+    /* TWO SHAPES OF LEADING BLOCK, because a centred head need not be a paragraph. Seneca's and
+       Haines's arrive as a <p> inside the centred div; The Prince's chapter TITLE is a bare run of
+       text inside its own, so a <p>-anchored pattern reaches its "EIGHTEENTH CHAPTER" line and leaves
+       the title standing underneath — a quotation of the chapter's own name, directly below the
+       heading Folio has already printed. The bare form is required to open on a non-tag character, so
+       it can never swallow a nested block's opening tag and take the rest of the chapter with it. */
+    const HEAD_SHAPES = [
+      /^<blockquote>\s*<p>([\s\S]*?)<\/p>\s*<\/blockquote>\s*/,
+      /^<blockquote>\s*([^<][\s\S]*?)\s*<\/blockquote>\s*/,
+    ];
     for (let k = 0; k < 4; k++) {
       const before = b;
-      b = b.replace(/^<blockquote>\s*<p>([\s\S]*?)<\/p>\s*<\/blockquote>\s*/, (m, inner) => {
-        const t = inner.replace(/<[^>]*>/g, " ").replace(/&#\d+;|&nbsp;/g, " ").replace(/\s+/g, " ").trim();
-        return book.dropHeads.some((rx) => rx.test(t)) ? "" : m;
-      });
+      for (const shape of HEAD_SHAPES) {
+        b = b.replace(shape, (m, inner) => {
+          const t = inner.replace(/<[^>]*>/g, " ").replace(/&#\d+;|&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+          return book.dropHeads.some((rx) => rx.test(t)) ? "" : m;
+        });
+      }
       if (b === before) break;
     }
     // the line break the head used to sit above, now opening the first paragraph on a blank line
@@ -2352,15 +2620,83 @@ function notesOf(h) {
   let x;
   while ((x = rx.exec(m[1]))) {
     ids.push(x[1].replace(/&#95;/g, "_"));
-    notes.push(
-      stripWikiCSS(x[2])
-        .replace(/<(?!\/?(i|b|em|strong)\b)[^>]*>/g, "")
-        .replace(/&#160;|&nbsp;/g, " ")
-        .replace(/\s+/g, " ")
-        .trim()
-    );
+    notes.push(noteText(x[2]));
   }
   return { notes, ids };
+}
+
+/* One note, reduced to the small tag set a note may carry. Split out of notesOf so the endnote table
+   below cleans its entries exactly as a footnote is cleaned and the two cannot drift — a note is a
+   note whether the edition printed it at the foot of the page or at the back of the book. */
+function noteText(s) {
+  return stripWikiCSS(s)
+    .replace(/<(?!\/?(i|b|em|strong)\b)[^>]*>/g, "")
+    .replace(/&#160;|&nbsp;/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/* ---------- ENDNOTES: an apparatus gathered at the back of the volume ----------
+   See `endnotes` in the BOOKS entry for The Prince, which is the first book here to have one. The
+   page is a two-column table — the page number annotated on the left, the note on the right — and the
+   left cell carries an anchor (`<span id="n16">`) that the in-text markers point at. This returns
+   anchor -> note text; resolveEndnotes then swaps each chapter's stub for the note it stands for.
+
+   The LAST cell of the row is the note, not the second: a row may carry a style link before its cells
+   and the annotated-page cell is always first, so counting from the end is the stable end to count
+   from. A row with no anchor is the table's own "PAGE" heading and is skipped. */
+function endnoteTable(h, warn) {
+  const out = {};
+  const doc = h.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<!--[\s\S]*?-->/g, "");
+  for (const row of doc.split(/<tr[^>]*>/).slice(1)) {
+    const a = row.match(/\bid="(n\d+)"/);
+    if (!a) continue;
+    const cells = row.split(/<td[^>]*>/).slice(1);
+    if (cells.length < 2) { warn && warn("endnote " + a[1] + " has no note cell"); continue; }
+    const txt = noteText(cells[cells.length - 1].split(/<\/td>/)[0]);
+    if (txt) out[a[1]] = txt;
+    else warn && warn("endnote " + a[1] + " came back empty");
+  }
+  return out;
+}
+
+/* Replace each stub with the endnote its own marker points at, and DROP the stubs that point at
+   nothing. The join is the marker's anchor — MediaWiki names the reference after it, so
+   `cite_note-n16-1` is the note anchored `n16` — which is the rule the footnote markers already follow
+   and the reason `notesOf` returns its ids at all.
+
+   WHY THE REST ARE DROPPED RATHER THAN GUESSED AT. This transcription marks fifteen places in the text
+   against fifty-five notes at the back, and only five of the fifteen name the note they mean; the
+   other ten carry the bare words "See Note." and no target. The obvious repair is to join them on the
+   PRINTED PAGE, which is what the note table is keyed by and what the anchors turn out to be — and it
+   was measured before it was believed, and it does not work: of the ten, four sit on a page carrying
+   exactly one note and could be joined, three sit on a page carrying two or three, and one sits on a
+   page carrying none at all. So the join would be a guess for most of them, and a marker pointing at
+   the wrong note is worse than no marker — the rule the citation passes elsewhere in this project keep
+   arriving at. What ships is the notes this edition's own apparatus states, and the front matter says
+   that the rest of it is at the back of a book Folio does not carry.
+
+   The dropped notes take their MARKERS with them (see pruneNotes), or wireFootnotes would renumber the
+   survivors and leave every marker after the first gap pointing one entry too far. */
+function resolveEndnotes(got, table, warn) {
+  const keep = [], notes = [];
+  got.notes.forEach((txt, i) => {
+    const key = (got.ids[i].match(/^cite_note-(n\d+)-/) || [])[1];
+    if (key && table[key]) { keep.push(i + 1); notes.push(table[key]); return; }
+    warn("note " + (i + 1) + " points at the endnotes without saying which — marker dropped");
+  });
+  got.notes = notes;
+  return keep;
+}
+
+/* Keep only the markers whose notes survived, and renumber them to their new places in the list.
+   `keep` is the surviving notes' ORIGINAL 1-based positions, in order, which is exactly the map from
+   the numbers cleanBody has just written to the numbers the shipped list will have. */
+function pruneNotes(html, keep) {
+  const map = {};
+  keep.forEach((old, i) => (map[old] = i + 1));
+  return html.replace(/<sup class="fn" data-fn="(\d+)"><\/sup>/g, (m, d) =>
+    map[d] ? '<sup class="fn" data-fn="' + map[d] + '"></sup>' : "");
 }
 
 /* ============================================================
@@ -2994,6 +3330,91 @@ function originalChapters(h, warn) {
     out[n] = b;
   }
   return out;
+}
+
+/* Turn ONE page of another wiki into one chapter's html — the `perChapter` original, added with The
+   Prince (Aug 2026) and the simplest of the three wiki shapes rather than a complication of them.
+   Seneca's Latin gives one page per BOOK of the collection with the letters as headings inside it, so
+   originalChapters above has to split a page and read a numeral off each heading; here the page IS the
+   chapter and there is nothing to split.
+
+   What it does have that the Latin does not is a page SCAN, like the English side — so the body is
+   inside .prp-pages-output and is threaded with page markers. Those markers are the Italian wiki's own
+   (`numeropagina`, and a visible "[p. 66 modifica]" link inside them) rather than the English wiki's
+   `pagenum`, which is why cleanBody's pass does not reach them and this does its own. They are removed
+   from the INNER span outwards by a balanced walk, since they nest four deep and the outermost span
+   carries no class to match on; the empty wrappers left behind are swept with the other empties below.
+
+   No section pass. A book reaching this function pairs on its CHAPTER — see the note on `original` in
+   The Prince's entry — so the chapter is returned as one block, which is what bookRows then sets
+   beside the whole of the English chapter. */
+function originalChapter(h, O, warn) {
+  let b = h.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<!--[\s\S]*?-->/g, "");
+  const i = b.indexOf('<div class="prp-pages-output"');
+  if (i < 0) throw new Error("no body");
+  b = b.slice(i);
+  b = b.split(/<div class="reflist|<ol class="references"|<div class="mw-heading[^"]*"><h2/)[0];
+  b = b.replace(/<div class="prp-pages-output"[^>]*>/g, "");
+  for (let k = 0; k < 200; k++) {
+    const m = /<span class="numeropagina\b[^>]*>/.exec(b);
+    if (!m) break;
+    const end = blockEnd(b, m.index, "span");
+    if (end < 0) break;
+    b = b.slice(0, m.index) + b.slice(end);
+  }
+  b = b.replace(/<link[^>]*\/?>/g, "").replace(/<meta[^>]*\/?>/g, "");
+  b = b.replace(/<div[^>]*>/g, "<blockquote>").replace(/<\/div>/g, "</blockquote>");
+  b = stripTags(b);
+  b = b.replace(/&#160;|&nbsp;/g, " ").replace(/&#32;/g, " ");
+  b = b.replace(/[ \t]+/g, " ").replace(/\s*\n\s*/g, "\n");
+  for (let k = 0; k < 6; k++) {
+    b = b.replace(/<span>\s*<\/span>/g, "");
+    /* A paragraph holding nothing but line breaks. This edition sets a blank line above and below its
+       chapter title that way, so the title does not follow the heading directly and a pass looking for
+       it at the head of the text finds a spacer instead — which is how the first run of this reported
+       twenty-six chapters with no printed title while every one of them has one. */
+    b = b.replace(/<p>(?:\s*<br>\s*)+<\/p>/g, "");
+    b = b.replace(/<blockquote>\s*<\/blockquote>/g, "").replace(/<p>\s*<\/p>/g, "");
+    b = b.replace(/<blockquote>\s*(<blockquote>[\s\S]*?<\/blockquote>)\s*<\/blockquote>/g, "$1");
+  }
+  b = b.replace(/\s+<\/p>/g, "</p>").replace(/<p>\s+/g, "<p>").replace(/\n{2,}/g, "\n").trim();
+
+  /* The printed chapter heading, in the two pieces this edition sets it in: "CAPITOLO XVIII." centred
+     — a <blockquote> by the time it is seen, exactly as Haines's running heads are — and the chapter's
+     own title in italics on the line below it. Folio prints both above the text already, so left in
+     place each chapter opens on its own number and title said twice, the first time as a quotation.
+     Anchored to the START, so only a head can go, and the title is RETURNED rather than discarded so
+     that the run's log can say which one it took off each chapter.
+
+     THE TITLE IS NOT ALWAYS IN THE SAME BLOCK AS THE NUMBER, and assuming it is loses it on a third of
+     the book. Nine of the twenty-six chapters here set "CAPITOLO IX." and the title together inside one
+     centred block and the other seventeen set the title in a paragraph of its own below it — the same
+     text, printed two ways, which is what an edition of 1814 transcribed page by page looks like. So
+     the whole leading block goes whenever it carries the number (chapter 1's also carries the volume's
+     half-title, which is not chapter 1 and would otherwise stand at the top of the book), and a
+     following italic-only paragraph goes after it. Neither can run away with the prose: the first is
+     bounded by the block it is in, and the second must be a paragraph containing nothing but an italic
+     run, which no chapter of Machiavelli opens with. */
+  let head = "";
+  const takeHead = (inner) => {
+    const it = inner.match(/<i>([\s\S]*?)<\/i>/);
+    if (it && !head) head = it[1].replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+  };
+  b = b.replace(/^<blockquote>([\s\S]*?)<\/blockquote>\s*/, (m, inner) => {
+    if (/<blockquote>/.test(inner)) return m;
+    const t = inner.replace(/<[^>]*>/g, " ").replace(/&#\d+;|&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+    if (!O.dropHead || !O.dropHead.test(t)) return m;
+    takeHead(inner);
+    return "";
+  });
+  b = b.replace(/^<p>\s*<i>([\s\S]*?)<\/i>\s*<\/p>\s*/, (m, inner) => {
+    if (/<\/?p\b/.test(inner)) return m;
+    takeHead("<i>" + inner + "</i>");
+    return "";
+  });
+  b = b.replace(/^<p>\s*(?:<br>\s*)+/, "<p>");
+  if (!head && warn) warn("no printed title found at the head of the chapter");
+  return { html: b, head: head };
 }
 
 /* ---------- the original as a TEI edition ----------
@@ -3950,6 +4371,23 @@ async function fetchEnglish() {
     return writeEnglish(chapters, warnings);
   }
 
+  /* The endnote table, fetched ONCE for the whole book rather than per chapter — it is one page at the
+     back of the volume and every chapter's markers point into it. Cached beside the chapters, so a
+     resumed or a --from/--to run costs no extra request; --force refetches it with everything else. */
+  let endnotes = null;
+  if (BOOK.endnotes) {
+    const ef = path.join(CACHE, "endnotes.json");
+    if (!FORCE && fs.existsSync(ef)) endnotes = JSON.parse(fs.readFileSync(ef, "utf8"));
+    else {
+      const eh = await api(BOOK.endnotes.page);
+      endnotes = endnoteTable(eh, (m) => warnings.push("endnotes: " + m));
+      if (!Object.keys(endnotes).length) throw new Error("no endnotes found on " + BOOK.endnotes.page);
+      fs.writeFileSync(ef, JSON.stringify(endnotes));
+      await sleep(700);
+    }
+    console.log("  " + Object.keys(endnotes).length + " endnotes read from " + BOOK.endnotes.page);
+  }
+
   for (const n of BOOK.chapters) {
     if (n < FROM || n > TO) continue;
     const cf = path.join(CACHE, n + ".json");
@@ -3972,8 +4410,10 @@ async function fetchEnglish() {
       html = got.html; notes = got.notes; orig = got.orig;
     } else {
       const got = notesOf(h);
+      const keep = endnotes && got.notes.length ? resolveEndnotes(got, endnotes, warn) : null;
       notes = got.notes;
       html = cleanBody(h, got.ids, BOOK, warn);
+      if (keep) html = pruneNotes(html, keep);
     }
     if (html.length < 200) throw new Error("chapter " + n + " came back short (" + html.length + " chars)");
     const rec = { n, t: titles[n] || chapterTitle(n), p: partOf(n), html, notes };
@@ -4235,6 +4675,32 @@ async function fetchOriginal() {
       const secs = (byNum[n].match(/class="bk-n"/g) || []).length;
       console.log("  " + BOOK.chapterWord + " " + n + " — " + secs + " sections (" + (byNum[n].length / 1024).toFixed(0) + " KB)");
     });
+    return writeOriginal(byNum, warnings);
+  }
+
+  /* ONE PAGE PER CHAPTER on another wiki — the simplest of the three wiki shapes; see originalChapter
+     above. Cached per chapter, like the English walk, so --from/--to and a resumed run behave here
+     exactly as they do there. */
+  if (O.perChapter) {
+    console.log("\nFetching the " + O.langName + " original — one page per " +
+      BOOK.chapterWord.toLowerCase() + " from " + O.wiki);
+    for (const n of BOOK.chapters) {
+      if (n < FROM || n > TO) continue;
+      const cf = path.join(cacheDir, n + ".json");
+      let rec;
+      if (!FORCE && fs.existsSync(cf)) rec = JSON.parse(fs.readFileSync(cf, "utf8"));
+      else {
+        const h = await api(O.page(n), O.wiki);
+        rec = originalChapter(h, O, (m) => warn(BOOK.chapterWord + " " + n + ": " + m));
+        if (rec.html.length < 200)
+          throw new Error(BOOK.chapterWord + " " + n + " came back short (" + rec.html.length + " chars)");
+        fs.writeFileSync(cf, JSON.stringify(rec));
+        await sleep(1200);   // this wiki rate-limits a fast walk harder than the English one
+      }
+      byNum[n] = rec.html;
+      console.log("  " + BOOK.chapterWord + " " + n + " — " + (rec.html.length / 1024).toFixed(1) +
+        " KB" + (rec.head ? " — " + rec.head : ""));
+    }
     return writeOriginal(byNum, warnings);
   }
 

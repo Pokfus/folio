@@ -4549,6 +4549,13 @@
     "Sophocles": "#7A2E2E",
     "Herodotus": "#43479C",
     "Confucius": "#6B4D2E",
+    /* Measured the same way, and the palette is getting full: searched over the shelf's own lightness
+       and chroma band, the best-separated colour left anywhere in it clears its nearest neighbour by
+       25 — Aristotle's steel and Herodotus's indigo, in that order — which is still better than the
+       shelf's own tightest pair at 20. The obvious warm alternatives were measured and REJECTED: the
+       warm half is where nine of the eleven already sit, and every muted red, ochre or brown that fits
+       here lands 11–17 from Sun Tzu, Suetonius or Ovid. A third blue it is. */
+    "Niccolò Machiavelli": "#2C74BC",
   };
   const bookColor = (b) => BOOK_AUTHOR_COLOR[b.author] || "var(--indigo)";
 
@@ -5144,6 +5151,60 @@
       /* No `parts`. The twenty books are traditionally read in two halves — the first ten held to be
          the older — but that is a scholarly view about the text rather than a division this edition
          prints, so the shelf shows one unlabelled group and the front matter carries the doubt. */
+    },
+    {
+      id: "machiavelli-prince",
+      title: "The Prince",
+      subtitle: "Il Principe",
+      author: "Niccolò Machiavelli",
+      /* The one firm date this shelf gets: it was written in the second half of 1513, in the year
+         Machiavelli lost his post, and his letters say so while he was doing it. `written` and `year`
+         therefore agree exactly, which is unusual here — the date of PUBLICATION is the loose one, the
+         book having circulated in manuscript and been printed in 1532, five years after he died. */
+      written: "1513",
+      year: 1513,
+      translator: "W. K. Marriott",
+      edition: "Everyman's Library No. 280, J. M. Dent & Sons, London, 1908",
+      /* THE THIRD LICENCE HERE THAT NEEDS NO QUALIFICATION — the Republic's and the Analects'
+         position. Marriott published in 1908, before 1929, so the United States copyright has expired;
+         and he lived from 1847 to 1927, so it is out of copyright on life-plus-seventy and
+         life-plus-ninety-five alike. Nothing to state as the Art of War must for Giles (2029) or the
+         Nicomachean Ethics for Ross (2042), and no modern editorial layer as the Histories and the
+         Meditations' Greek carry. His dates are not inferred from the printing: the scan's own index
+         page at Wikisource and Wikidata both give them, and they agree. */
+      rights:
+        "Public domain worldwide. W. K. Marriott published this translation in 1908 — before 1929, so " +
+        "its United States copyright has expired — and he lived from 1847 to 1927, so it is out of " +
+        "copyright wherever the term runs for the author's life plus seventy years or more. The Italian " +
+        "text printed beside it is five centuries old and is in the public domain everywhere. (The " +
+        "modern translations by George Bull, 1961, Harvey Mansfield, 1985, Peter Bondanella, 2005, and " +
+        "Tim Parks, 2009, are still in copyright and are not used here.)",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Prince_(Marriott)",
+      /* Paired on the CHAPTER, and this is the coarsest join on the shelf — one row per chapter, the
+         whole English beside the whole Italian, beginning together and each running at its own length.
+         It is coarse because the work gives nothing finer: The Prince is cited as "Prince XVIII" and
+         neither edition divides a chapter into numbered sections, so there is nothing below the
+         chapter for the two columns to agree about. Measured: twenty-six chapters on each side, the
+         same numbers in the same order, nothing missing either way.
+         It is deliberately NOT the Republic's answer, which the two resemble from a distance. Plato
+         has a citation system this printing fails to carry, so a reader goes looking for the Stephanus
+         numbers and finds them gone; Machiavelli has none to be missing, and the unit he does have is
+         here. The reader is told which of the two this is in the book's own front matter. */
+      origLang: "it",
+      origName: "Italian",
+      chapterWord: "Chapter",
+      /* The whole work, and it has come down entire. What is NOT here is the dedicatory letter to
+         Lorenzo that stands before chapter 1 in both editions — a chapter of this reader is numbered,
+         chapter 0 is the front matter, and there is no honest number left for a piece that precedes
+         chapter I without displacing the numbering the whole tradition cites the book by. Said plainly
+         in the front matter rather than left for a reader to notice. */
+      count: 26,
+      total: 26,
+      /* No `parts`. The twenty-six chapters are usually described in four movements — the kinds of
+         principality, the arms that hold them, the prince's own conduct, and the closing appeal to the
+         Medici — but that is a modern reader's grouping and not a division this edition prints, so the
+         shelf shows one unlabelled run. The Analects' position exactly. */
     },
   ];
   const BOOK_BY_ID = {};

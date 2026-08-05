@@ -14,7 +14,7 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.18", released: "2026-08-05T15:57Z" };
+window.FOLIO_VERSION = { v: "1.19", released: "2026-08-05T17:15Z" };
 
 window.CHANGELOG = [
   {
@@ -28,6 +28,7 @@ window.CHANGELOG = [
       "Writing your own deck no longer starts with a blank template. Adding a card type now offers three ready-made shapes to start from: <b>Vocabulary</b>, which shows a word and its part of speech and turns over to the translation, its conjugations and a button that reads it aloud in the language you are learning; <b>Picture</b>, which shows an image and asks what it is, for paintings and their painters, faces and their names, maps and their places; and <b>Fill in the blank</b>, a passage with words hidden that open when you turn the card over. Each arrives ready to fill in and can be changed afterwards like any other, and writing one from scratch is still there.",
       "Forty-five new cards in the Ancient Greece deck, each with a glossary entry to go with it. They open the collection's second deck, which had been empty until now.",
       "Confucius’s <i>The Analects</i> joins the Library — all twenty books of it, with the Chinese beside the English. It is not a book Confucius wrote: it is what his students and their students remembered him saying, a few hundred short passages with no argument running between them, and for six centuries it was the book every Chinese official had to know by heart. James Legge’s translation of 1861 is out of copyright everywhere. The small figures pair the two columns — “Analects 2.18” is book two, chapter eighteen, and all 499 of them line up.",
+      "Machiavelli’s <i>The Prince</i> joins the Library — all twenty-six chapters, with the Italian he wrote it in beside the English. He wrote it in 1513, in the year he lost his job running the Florentine republic’s wars, and it is a short book of advice on how to take a state and how to hold one, argued from examples rather than from principles. W. K. Marriott’s translation of 1908 is out of copyright everywhere. Unlike the other books here the two columns are paired chapter by chapter rather than passage by passage, because a chapter is the smallest piece The Prince has ever been quoted by — the book’s own first page says so, and says why the dedication to Lorenzo is not included.",
       "Books by the same author now share a colour on the shelf, so Plato’s two both wear his plum rather than one each.",
     ],
   },
