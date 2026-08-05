@@ -1492,6 +1492,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
       not in `S` — this one is a PREFERENCE: `S.settings.bookSort` / `bookSortRev`, device-local like the
       theme, read back through a whitelist so a retired key falls back rather than leaving the shelf
       sorted by nothing.
+    · **A SEARCH BOX beside the sort** (`bookQuery` / `bookFold` / `bookMatches` / `shelfHTML` / `#bkFilter`
+      / `.lib-search`, Aug 2026, on request). It matches TITLE, AUTHOR and the year written — the three
+      things the banner itself shows, so a reader can always see why a book matched — folding diacritics
+      (`normalize("NFD")`, marks stripped) so `sun tzu` finds Sun Tzŭ, and requiring every word of the query
+      somewhere in any order, since "seneca letters" and "letters seneca" are the same request.
+      Three decisions are load-bearing. It repaints the shelf **IN PLACE** rather than through `render()` —
+      a re-render per keystroke takes the caret out of the box being typed in — which means the banners it
+      paints have to be **RE-WIRED** (`wireShelf`), the hold sheet being a per-element gesture rather than a
+      delegated one, or a book found by searching is a book that cannot be opened. The query lives in a
+      **module-level `bookQuery`, not in `S`**: it is a way of looking at the shelf rather than a preference
+      about Folio, the same call the glossary record's picker makes — and module-level rather than local to
+      the page precisely because `setBookSort` re-renders, so without it changing the order would silently
+      throw away what the reader had typed (the glossary page's own documented lesson, one page over). And
+      the favourites/rest split SURVIVES filtering, so the shelf narrows rather than rearranging itself.
+      Nothing matching draws `.lib-none` and says so; an empty shelf reads as a page that failed to draw.
+      Guarded by `test-library.js`, which opens a book from a banner the search painted.
     · **FAVOURITES SIT IN A SECTION OF THEIR OWN AT THE TOP** (`S.bookFavs`, `isBookFav` /
       `toggleBookFav`, `.lib-sec` / `.lib-sec-head` / `.bk-star`, Aug 2026, on request). The register is
       **id → when it was starred**, in `defaultState` AND `PROGRESS_FIELDS`, for the reason `reading` is:
@@ -3959,6 +3975,50 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **The template language is `{{Field}}`, `{{FrontSide}}`, `{{#Field}}…{{/Field}}` and `{{^Field}}…{{/Field}}`**
     (`tplRender`) — Anki's, minus the filters. There are deliberately no filters: a template needing more than
     this is a template that wants a build step, which Folio does not have.
+  · **THREE READY-MADE SHAPES, so writing a deck does not start with a blank template** (`CARD_TYPE_PRESETS` /
+    `cardTypePreset` / `cardTypePresetSpec` / `openTypePresetSheet` / `.ut-preset`, Aug 2026, on request).
+    **Vocabulary** (a word and its part of speech; the translation, its conjugations and a read-aloud button),
+    **Picture** (an image and what it is) and **Fill in the blank** (a passage whose blanks close on the front).
+    They are the shapes the popular Anki decks are made of. Three things about them are decisions rather than
+    content. **A preset is an ORDINARY type once created** — same record, same editor, nothing marks it
+    afterwards — and its templates and CSS go through the same sanitizers as anyone else's; they are not
+    privileged, only already typed out. **Each styles itself**; only the two behaviours Folio LENDS a type
+    (below) are styled in styles.css. And they are offered **in two places on purpose**: the "Add a type"
+    button opens them in a `deckSheet`, and the pane behind it (`studioBasicTypeHTML`) shows the same three as
+    a gallery — a feature reached only through a button labelled with what it does rather than with what it
+    offers is one nobody goes looking for. `uTypeCreate(deckId, name, spec)` takes the spec over the blank
+    starter and puts the deduped id and name over that, so a second "Vocabulary" in one deck cannot quietly
+    overwrite the first.
+  · **A type may declare a SPOKEN LANGUAGE, and any type may mark text to be read aloud** (`type.speechLang` /
+    `SPEECH_LANG_RX` / `SPEECH_LANGS` / `.uc-tts` / `cardSpeak` / `speechVoiceFor` / `wireSpeakControls`).
+    `<span class="uc-tts">{{Translation}}</span>` in a template becomes a button that speaks those words;
+    `cardTypeSideHTML` puts the type's `lang` on the `.uc-card` **wrapper**, so every control inside inherits
+    it and a template wanting a second language need only say so on the one element. Four things are
+    load-bearing. **The language lives on the TYPE, not the card or the deck** — a vocabulary deck teaches one
+    language, so the answer is written once beside the template that reads it, and it rides inside the `types`
+    jsonb with **no schema change**. **It is asked for at CREATION** (`openSpeechLangSheet`, a closed list —
+    a BCP-47 tag is a thing an author should not have to know, and a mistyped one has the device pick a voice
+    at random), from a list that says which languages this device has no voice for rather than hiding them,
+    since a deck is written on one machine and studied on another. **It deliberately bypasses `ttsEnabled()`**,
+    which has the read-aloud SYSTEM set aside — that switch is about things Folio does TO a reader (auto-read,
+    the play triangles), where this is a control a reader presses on a card whose author put it there; it is
+    the same call the book's own "Read aloud" makes. And the **behaviour is DELEGATED** at the document while
+    `wireSpeakControls` adds only what a delegated listener cannot (role, tab stop, name), so a paint path
+    that forgets it loses keyboard access rather than the feature; `body.no-tts` (written by `applyTheme`,
+    like `no-anim`) takes the button chrome away where there is no engine, leaving the words as words.
+  · **CLOZE DELETIONS — `{{c1::answer}}` / `{{c1::answer::hint}}`** (`clozeMark` / `CLOZE_RX` /
+    `CLOZE_NAME_RX` / `.uc-cloze`). Anki's syntax, because a learner who has written cloze cards before will
+    type it without being told. **The braces go in the CARD'S TEXT, not in the template** — a substituted
+    value is not rescanned, so `tplRender` never sees them — but a marker written straight into a template
+    means the same thing, so `tplRender` **skips a name matching `CLOZE_NAME_RX`** rather than substituting a
+    field called `c1::1066` and leaving a silent blank with nothing to explain it. `clozeMark` runs BEFORE the
+    composed string is sanitized, and what it emits around the author's text is a span rather than an
+    attribute, so a value ending mid-tag cannot escape into one. The FRONT's blanks are closed before it is
+    handed to the back as `{{FrontSide}}`, which is Anki's behaviour and the right one — the top of the back
+    is the question as it was asked. **ONE simplification, said in the type editor's own help rather than
+    hidden**: Anki turns one note into one card per number, where a Folio card is a single record, so every
+    blank on a card is hidden and revealed together. The numbers are still read, so a deck written elsewhere
+    renders as its author wrote it.
   · **The safety rests on the LAST sanitize, not the first.** The templates and the field values are each
     cleaned on ingest, and that is not enough — a value dropped into `<img src="{{X}}">` is only checkable once
     the two are one string. So `cardTypeSideHTML` is the single choke point, and it runs `sanitizeHTML` over
@@ -3992,11 +4052,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     "1 / 3" counter are about the Basic format's `questions` array.
   · **The deck PAGE's sample card** belongs to no local deck, so it carries its type on `card._type`
     (sanitized from `row.types` there) — `cardTypeOf` reads that before looking a deck up.
-  · Guarded by **`.claude/test-card-types.js` (110 assertions)**, which tests the CSS scoper and the template
-    engine as pure string functions (a scoping bug reads far better as a failed comparison than as a screenshot
-    of a restyled page), then drives the real Studio, then imports a **hostile deck file** through the real
-    file picker. **Re-run after touching `sanitizeCSSText` / `cssScoped` / `cssScopeSelector` / `tplRender` /
-    `cardTypeSideHTML` / `ensureCardTypeStyle` / `uTypeSanitize` / `uCardSanitize`, or `levelFromXP`.**
+  · Guarded by **`.claude/test-card-types.js` (139 assertions)**, which tests the CSS scoper, the template
+    engine and the cloze pass as pure string functions (a scoping bug reads far better as a failed comparison
+    than as a screenshot of a restyled page), then drives the real Studio, then imports a **hostile deck file**
+    through the real file picker. Its preset section (`presetChecks`) runs LAST, after the export round trip,
+    so `travelChecks` measures the deck the rest of the file built rather than one with two more types in it —
+    and it therefore finds its own way back to the Studio. **Re-run after touching `sanitizeCSSText` /
+    `cssScoped` / `cssScopeSelector` / `tplRender` / `clozeMark` / `cardTypeSideHTML` / `ensureCardTypeStyle` /
+    `uTypeSanitize` / `uTypeCreate` / `uCardSanitize` / `CARD_TYPE_PRESETS` / `wireSpeakControls`, or
+    `levelFromXP`.**
     Two things that bit while writing it and will bit again: **`render()` called from inside a `change` handler
     throws** — removing the still-focused input fires blur in the middle of `#view`'s innerHTML assignment, so
     blur first and defer the render out of the event; and a test that opens IndexedDB **must close it**, or the
@@ -5187,7 +5251,7 @@ dead code (never rendered).
     one that works — and, the assertion most worth having, that re-sorting KEEPS a filter the reader has
     typed, which the obvious two-handler implementation silently throws away. **Re-run after touching
     `makePageGhost` / `.page-ghost` / `PAGES.glossary` / `GLOSS_SORTS` / `glossSeen`.**
-  · `node .claude/test-library.js` — the Library (125 assertions): the rename, the shelf, one book, and the
+  · `node .claude/test-library.js` — the Library (135 assertions): the rename, the shelf, one book, and the
     reader's place. Each half guards something that fails SILENTLY. **The rename**: `#decks` must still
     resolve (every link ever shared points at it) while calling itself Collections everywhere, and exactly
     one nav tab may read "Library". **The laziness**: it watches the request log and asserts no
@@ -5225,8 +5289,8 @@ dead code (never rendered).
     `PAGES.book` / `BOOKS` / `bookIngest` / `bookIntroChapter` / `bookNotesHTML` / `linkProperNounsOnly` /
     `readingPos` / `setReadingPos` / `bookSections` / `bookRows` / `applyLangMode` / `anchorNow` /
     `slideChapter` / `BOOK_SORTS` / `sortDirHTML` / `setBookSort` / `openBookMenu` / `shareBook` /
-    `isBookFav` / `toggleBookFav`, after running `fetch-book.js`, or after renaming anything on the
-    Collections page.**
+    `isBookFav` / `toggleBookFav` / `bookQuery` / `bookMatches` / `shelfHTML`, after running
+    `fetch-book.js`, or after renaming anything on the Collections page.**
     Two things it now pins that are new (Aug 2026, on request) and both fail silently. **The SORT**: the
     select must carry no direction in its labels (a reverse button beside "Title (A – Z)" makes the two
     controls contradict each other), the reverse must actually reverse, and the pair must survive a full
@@ -5235,7 +5299,12 @@ dead code (never rendered).
     and NOT the book, and a starred book must appear ONCE — the duplicate is the failure a reader meets,
     since two identical banners leave them working out which is the real one. It also puts the shelf back
     (favourites cleared, sort reset) before section 3 runs, so the later sections still find the page they
-    expect.
+    expect. **The SEARCH BOX** (Aug 2026) is pinned the same way and mostly for silent failures: the fold
+    (`sun tzu` → Sun Tzŭ), words in any order, a line rather than an empty shelf when nothing matches, the
+    query surviving a navigation AND a re-sort — the two-handler bug the glossary page documents — and,
+    the one a reader actually meets, **a banner the search painted still opening its book**, since the hold
+    sheet is wired per element and a repaint that forgets to rewire leaves a shelf that looks perfect. It
+    runs AFTER the no-book-text-fetched assertion, because opening a book is the point of it.
   · `node .claude/test-account-page.js` — the SIGNED-IN account page and the Edit dashboard's account
     figures (Aug 2026). Neither is reachable without a session, so Supabase is a `page.route` stand-in —
     deliberately, and for the same reason as `test-publish.js`'s mock: the publishable key in app.js points

@@ -3455,6 +3455,13 @@
     }
     return out;
   }
+  /* The language a type's read-aloud controls speak in — a BCP-47 tag ("es", "pt-BR", "zh-CN"). It lives on
+     the TYPE rather than on the card or the deck for the reason the templates do: a vocabulary deck teaches
+     ONE language, so the answer is written once beside the template that reads it out, not repeated on every
+     card. It rides inside the deck's `types` object, so it travels through export, publish and install with
+     no schema change of its own. Anything that is not tag-shaped is dropped rather than corrected — an
+     invented tag would have the device pick a voice at random, which is worse than none. */
+  const SPEECH_LANG_RX = /^[A-Za-z]{2,3}(?:-[A-Za-z0-9]{2,8}){0,3}$/;
   function uTypeSanitize(raw, fallbackId) {
     const id = String((raw && raw.id) || fallbackId || "").trim();
     if (!UTYPE_ID_RX.test(id) || id === CARD_TYPE_BASIC) return null;   // "basic" is the built-in format's name and cannot be taken
@@ -3464,6 +3471,7 @@
       if (UTYPE_FIELD_RX.test(n) && fields.indexOf(n) < 0 && fields.length < UTYPE_MAX_FIELDS) fields.push(n);
     });
     if (!fields.length) fields.push("Front", "Back");
+    const lang = sanitizePlain(raw && raw.speechLang).trim();
     return {
       id: id,
       name: sanitizePlain(raw && raw.name).slice(0, 60) || id,
@@ -3471,6 +3479,7 @@
       front: sanitizeHTML(String((raw && raw.front) == null ? "" : raw.front)).slice(0, UTYPE_TPL_MAX),
       back: sanitizeHTML(String((raw && raw.back) == null ? "" : raw.back)).slice(0, UTYPE_TPL_MAX),
       css: sanitizeCSSText(raw && raw.css),
+      speechLang: SPEECH_LANG_RX.test(lang) ? lang : "",
     };
   }
   function uTypesSanitize(raw) {
@@ -3649,17 +3658,108 @@
     back: '<div class="uc-a">{{Back}}</div>',
     css: ".card {\n  font-size: 17px;\n  line-height: 1.55;\n}\n.uc-q {\n  font-weight: 600;\n}\n",
   };
-  function uTypeCreate(deckId, name) {
+  /* ---------- card types you do not have to write ----------
+     Writing a type from nothing means writing two HTML templates and a stylesheet, which is a fair thing to
+     ask of someone who wants a shape Folio has not thought of and an unfair one to ask of everybody else.
+     These three are the shapes the popular Anki decks are made of, ready to fill in — a language deck, a
+     picture deck, and the fill-in-the-blank passage that most of the medicine, law and exam-revision decks
+     on Anki are built out of. Every one of them is an ordinary type once created: same record, same editor,
+     nothing marks it as a preset afterwards, so an author can change any part of it without leaving the
+     page they are on. Their templates and CSS go through the same sanitizers as anyone else's — they are
+     not privileged, they are just already typed out.
+
+     Each preset styles itself. Only the two behaviours Folio LENDS a type — `.uc-tts` (read this aloud) and
+     the cloze blank — are styled in styles.css, because they are things the site does rather than things a
+     template looks like. */
+  const CARD_TYPE_PRESETS = [
+    {
+      id: "vocabulary",
+      name: "Vocabulary",
+      blurb: "A word and its part of speech on the front; on the back the translation, its conjugations, and a button that reads it aloud.",
+      askLang: true,
+      fields: ["Word", "Word type", "Translation", "Conjugations", "Notes"],
+      front:
+        '<div class="uc-word">{{Word}}</div>' +
+        "{{#Word type}}<div class=\"uc-pos\">{{Word type}}</div>{{/Word type}}",
+      back:
+        "{{FrontSide}}<hr>" +
+        '<div class="uc-target"><span class="uc-tts">{{Translation}}</span></div>' +
+        '{{#Conjugations}}<div class="uc-block"><div class="uc-blocklabel">Conjugations</div>' +
+          '<div class="uc-conj">{{Conjugations}}</div></div>{{/Conjugations}}' +
+        '{{#Notes}}<div class="uc-note">{{Notes}}</div>{{/Notes}}',
+      css:
+        ".card {\n  text-align: center;\n  font-size: 17px;\n  line-height: 1.6;\n}\n" +
+        ".uc-word {\n  font-size: 30px;\n  font-weight: 600;\n  line-height: 1.2;\n}\n" +
+        ".uc-pos {\n  margin-top: 7px;\n  font-size: 11px;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  opacity: 0.6;\n}\n" +
+        "hr {\n  margin: 16px 0;\n  border: 0;\n  border-top: 1px solid currentColor;\n  opacity: 0.18;\n}\n" +
+        ".uc-target {\n  font-size: 26px;\n  font-weight: 600;\n}\n" +
+        ".uc-block {\n  margin-top: 16px;\n}\n" +
+        ".uc-blocklabel {\n  margin-bottom: 4px;\n  font-size: 10px;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  opacity: 0.55;\n}\n" +
+        ".uc-conj {\n  font-size: 15px;\n  line-height: 1.75;\n  white-space: pre-line;\n}\n" +
+        ".uc-note {\n  margin-top: 14px;\n  font-size: 14px;\n  line-height: 1.65;\n  opacity: 0.78;\n}\n",
+    },
+    {
+      id: "picture",
+      name: "Picture",
+      blurb: "A picture on the front and what it is on the back — a painting and its painter, a face and its name, a map and its place.",
+      fields: ["Image", "Question", "Answer", "Details", "Credit"],
+      front:
+        '{{#Image}}<div class="uc-pic"><img src="{{Image}}" alt="{{Question}}" loading="lazy"></div>{{/Image}}' +
+        '<div class="uc-ask">{{#Question}}{{Question}}{{/Question}}{{^Question}}What is this?{{/Question}}</div>',
+      back:
+        "{{FrontSide}}<hr>" +
+        '<div class="uc-target">{{Answer}}</div>' +
+        '{{#Details}}<div class="uc-note">{{Details}}</div>{{/Details}}' +
+        '{{#Credit}}<div class="uc-credit">{{Credit}}</div>{{/Credit}}',
+      css:
+        ".card {\n  text-align: center;\n  font-size: 17px;\n  line-height: 1.6;\n}\n" +
+        ".uc-pic img {\n  max-width: 100%;\n  max-height: 340px;\n  border-radius: 12px;\n}\n" +
+        ".uc-ask {\n  margin-top: 13px;\n  font-size: 17px;\n  font-weight: 600;\n}\n" +
+        "hr {\n  margin: 16px 0;\n  border: 0;\n  border-top: 1px solid currentColor;\n  opacity: 0.18;\n}\n" +
+        ".uc-target {\n  font-size: 22px;\n  font-weight: 600;\n}\n" +
+        ".uc-note {\n  margin-top: 12px;\n  font-size: 14px;\n  line-height: 1.65;\n  opacity: 0.78;\n}\n" +
+        ".uc-credit {\n  margin-top: 12px;\n  font-size: 11px;\n  letter-spacing: 0.03em;\n  opacity: 0.55;\n}\n",
+    },
+    {
+      id: "cloze",
+      name: "Fill in the blank",
+      blurb: "One passage with the words to recall wrapped in {{c1::…}}. They close on the front and open on the back.",
+      fields: ["Text", "Notes", "Source"],
+      front: '<div class="uc-passage">{{Text}}</div>',
+      back:
+        '<div class="uc-passage">{{Text}}</div>' +
+        '{{#Notes}}<div class="uc-note">{{Notes}}</div>{{/Notes}}' +
+        '{{#Source}}<div class="uc-credit">{{Source}}</div>{{/Source}}',
+      css:
+        ".card {\n  font-size: 17px;\n  line-height: 1.75;\n}\n" +
+        ".uc-passage {\n  text-align: left;\n}\n" +
+        ".uc-note {\n  margin-top: 16px;\n  font-size: 14px;\n  line-height: 1.65;\n  opacity: 0.78;\n}\n" +
+        ".uc-credit {\n  margin-top: 12px;\n  font-size: 11px;\n  letter-spacing: 0.03em;\n  opacity: 0.55;\n}\n",
+    },
+  ];
+  function cardTypePreset(id) { return CARD_TYPE_PRESETS.find((p) => p.id === id) || null; }
+  // what a preset contributes to a new type record — everything but the id and the name, which uTypeCreate
+  // owns because it is the one that has to keep them unique within the deck
+  function cardTypePresetSpec(p, lang) {
+    return { id: p.id, fields: p.fields.slice(), front: p.front, back: p.back, css: p.css, speechLang: lang || "" };
+  }
+  function uTypeCreate(deckId, name, spec) {
     const d = UDECKS[deckId];
     if (!d) return null;
     if (!d.types) d.types = {};
     if (Object.keys(d.types).length >= UDECK_MAX_TYPES) { toast("A deck holds at most " + UDECK_MAX_TYPES + " card types."); return null; }
     const clean = sanitizePlain(name).slice(0, 60) || "New type";
-    let base = clean.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 24);
+    let base = String((spec && spec.id) || clean).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 24);
     if (!UTYPE_ID_RX.test(base) || base === CARD_TYPE_BASIC) base = "type";
     let id = base, n = 2;
     while (d.types[id]) id = (base + "-" + n++).slice(0, 32);
-    const t = uTypeSanitize({ id: id, name: clean, fields: ["Front", "Back"], front: UTYPE_STARTER.front, back: UTYPE_STARTER.back, css: UTYPE_STARTER.css });
+    // the spec sits over the blank starter, and the id/name go over the spec: a second "Vocabulary" in one
+    // deck is a real thing to want, and it must not quietly overwrite the first
+    const t = uTypeSanitize(Object.assign(
+      { fields: ["Front", "Back"], front: UTYPE_STARTER.front, back: UTYPE_STARTER.back, css: UTYPE_STARTER.css },
+      spec || {},
+      { id: id, name: clean }
+    ));
     if (!t) return null;
     d.types[id] = t;
     uDeckSave(deckId);
@@ -3667,7 +3767,7 @@
   }
   function uTypeSet(deckId, typeId, field, value) {
     const d = UDECKS[deckId], t = uTypeGet(deckId, typeId);
-    if (!t || ["name", "front", "back", "css"].indexOf(field) < 0) return;
+    if (!t || ["name", "front", "back", "css", "speechLang"].indexOf(field) < 0) return;
     const next = uTypeSanitize(Object.assign({}, t, { [field]: value }));
     if (next) { d.types[typeId] = next; uDeckSave(deckId); }
   }
@@ -5022,6 +5122,9 @@
     (PAGES[current.name] || PAGES.home)(root, current.params);
     // one system of measurement, the reader's — see the units block above
     unitizeTree(root);
+    // a community card type's read-aloud spans, wherever a page painted one (the Studio's previews, a
+    // shared deck's sample card). The study card's own reveal paints after this and wires its own.
+    wireSpeakControls(root);
     // a smooth scroll is a JS scroll option, so the stylesheet's reduced-motion killswitch can't reach it
     window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? "auto" : "smooth" });
   }
@@ -5209,6 +5312,11 @@
          above 4.5:1 against their own paper. See the CONTRAST block in styles.css for what was measured. */
     document.body.classList.toggle("no-anim", S.settings.animations === false);
     document.body.classList.toggle("hc", !!S.settings.contrast);
+    /* …and one fact about the DEVICE rather than a setting: whether it can speak at all. A community card
+       type's `.uc-tts` control is styled as a button only where there is a speech engine behind it, so on a
+       device without one the words are simply words rather than a control that answers a press with
+       nothing. It is written here for the same reason as the two above — no call site to miss. */
+    document.body.classList.toggle("no-tts", !ttsSupported());
     // light / dark lives on the Settings page now (it was a top-bar slider until Aug 2026) — this keeps
     // that switch in step whenever the setting changes from anywhere else
     document.querySelectorAll("#sw-night").forEach((el) => {
@@ -6854,6 +6962,81 @@
   function speak(text, btn) {
     if (!text) return;
     ttsPlayClick([{ text, zh: true, btn }], btn);
+  }
+
+  /* ---------- read-aloud inside a community card type (.uc-tts) ----------
+     A card type may mark any run of text as something to hear: `<span class="uc-tts">{{Translation}}</span>`
+     in the template, and the type's own `speechLang` says which language it is in. It is what makes the
+     Vocabulary preset work — a word you are learning is a word you need to hear — and any type may use it.
+
+     It deliberately does NOT go through ttsEnabled(), which is the site-wide switch that has the whole
+     read-aloud SYSTEM set aside. That switch turns off auto-read, the card mute button and the play
+     triangles — things Folio does TO a reader. This is a control a reader presses, on a card whose author
+     put it there, and it is the same call the book's own "Read aloud" makes for the same reason. It is
+     offered only where the device can actually speak (`body.no-tts` takes the button chrome away and
+     leaves the words as words) — a control that answers a press with "not available" is worse than none.
+
+     The BEHAVIOUR is delegated at the document, so it cannot depend on a paint path remembering to wire it;
+     wireSpeakControls() adds only the things a delegated listener cannot (a role, a tab stop, a name), so a
+     surface that misses it loses keyboard access rather than the feature. */
+  function speechVoiceFor(lang) {
+    const want = String(lang || "").toLowerCase().replace(/_/g, "-");
+    if (!want) return null;
+    const all = ttsAllVoices();
+    const tag = (v) => String(v.lang || "").toLowerCase().replace(/_/g, "-");
+    const exact = all.filter((v) => tag(v) === want);
+    const base = want.split("-")[0];
+    const pool = exact.length ? exact : all.filter((v) => tag(v).split("-")[0] === base);
+    if (!pool.length) return null;
+    // quality/network scoring only — a language is not a gender, so neither preference regex may match
+    return ttsPickVoice(pool, /$^/, /$^/, null) || pool[0];
+  }
+  const SPEECH_RATE = 0.85;   // the same deliberate slowness the English narration reads at
+  function cardSpeak(el) {
+    if (!el || !ttsSupported()) return;
+    const text = (el.textContent || "").replace(/\s+/g, " ").trim();
+    if (!text) return;
+    const holder = el.closest("[lang]");
+    const lang = holder ? holder.getAttribute("lang") : "";
+    ttsStop();                              // …which also clears every .tts-playing, so mark it after
+    const gen = _ttsSeq;
+    try {
+      const u = new SpeechSynthesisUtterance(text.slice(0, 400));
+      if (lang) u.lang = lang;
+      u.rate = SPEECH_RATE;
+      const v = speechVoiceFor(lang);
+      if (v) u.voice = v;
+      el.classList.add("tts-playing");
+      const done = () => { if (gen === _ttsSeq) el.classList.remove("tts-playing"); };
+      u.onend = done; u.onerror = done;
+      setTimeout(() => { if (gen === _ttsSeq) try { speechSynthesis.speak(u); } catch (e) { done(); } }, 60);
+    } catch (e) { el.classList.remove("tts-playing"); }
+  }
+  document.addEventListener("click", (e) => {
+    const el = e.target.closest && e.target.closest(".uc-tts");
+    if (!el || !ttsSupported()) return;
+    e.preventDefault();
+    e.stopPropagation();   // a card type's speak control must not also turn the card over
+    cardSpeak(el);
+  }, true);
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Enter" && e.key !== " " && e.key !== "Spacebar") return;
+    const el = e.target.closest && e.target.closest(".uc-tts");
+    if (!el || !ttsSupported()) return;
+    e.preventDefault();
+    e.stopPropagation();
+    cardSpeak(el);
+  }, true);
+  function wireSpeakControls(scope) {
+    if (!scope || !ttsSupported()) return;
+    scope.querySelectorAll(".uc-tts").forEach((el) => {
+      if (el.getAttribute("role") === "button") return;
+      const text = (el.textContent || "").replace(/\s+/g, " ").trim();
+      el.setAttribute("role", "button");
+      el.setAttribute("tabindex", "0");
+      el.setAttribute("aria-label", text ? "Hear “" + text + "” read aloud" : "Read aloud");
+      el.setAttribute("title", "Read aloud");
+    });
   }
 
   /* ---------- progress bar element ---------- */
@@ -8867,6 +9050,27 @@
     return BOOK_SORTS.some((o) => o[0] === k) ? k : "recent";
   }
   function bookSortRev() { return !!(S.settings && S.settings.bookSortRev); }
+  /* What the shelf's search box is holding (Aug 2026, on request). Deliberately NOT in S, and for the
+     reason the glossary record's picker is not: a filter is a way of LOOKING at the shelf rather than a
+     preference about Folio, so it survives navigating away and back within a session and resets on
+     reload — where the sort, which is a preference, is written to S.settings. It is module-level rather
+     than a local of PAGES.library precisely because setBookSort re-renders the page: without it, changing
+     the order would silently throw away whatever the reader had typed. */
+  let bookQuery = "";
+  /* Title, author and the year it was written — the three things the banner itself shows, so a reader can
+     always see why a book matched. Diacritics are folded (NFD, marks stripped) so "Meditations" finds a
+     title spelled with an accent and "Sun Tzu" finds "Sun Tzŭ", which is exactly the case this shelf has.
+     Every word of the query must appear somewhere, in any order — "seneca letters" and "letters seneca"
+     are the same request. */
+  function bookFold(s) {
+    const v = String(s == null ? "" : s).toLowerCase();
+    try { return v.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); } catch (e) { return v; }
+  }
+  function bookMatches(b, words) {
+    if (!words.length) return true;
+    const hay = bookFold(b.title + " " + b.author + " " + (b.written || ""));
+    return words.every((w) => hay.indexOf(w) >= 0);
+  }
   PAGES.library = function (root) {
     /* A BANNER across the full width, at every screen size (Aug 2026, on request — briefly two narrow
        tiles side by side on a phone, which was asked for and then asked back). What is gone for good is
@@ -8940,13 +9144,25 @@
        headed honestly ("Everything else") whenever anything has been starred, and both headings disappear
        when nothing has: an unstarred shelf is exactly the page it always was. The favourites keep the
        chosen sort rather than the order they were starred in — it is the same shelf, split. */
-    const favs = sorted.filter((b) => isBookFav(b.id));
-    const rest = sorted.filter((b) => !isBookFav(b.id));
     const section = (label, list) =>
       list.length
         ? `<section class="lib-sec">${label ? `<h2 class="lib-sec-head">${label}</h2>` : ""}` +
           `<div class="book-grid">${list.map(tile).join("")}</div></section>`
         : "";
+    /* The shelf itself, for a given query. It is a function rather than a string because the search box
+       repaints it IN PLACE — a full render() on every keystroke would take the caret out of the box being
+       typed in, which is the same reason the Studio's field editors repaint their previews rather than
+       re-rendering. The favourites/rest split survives filtering: a starred book that matches still sits
+       in its own section, so the shelf a reader knows does not rearrange itself while they narrow it. */
+    const shelfHTML = (q) => {
+      const words = bookFold(q).split(/\s+/).filter(Boolean);
+      const hits = sorted.filter((b) => bookMatches(b, words));
+      if (!hits.length)
+        return `<div class="lib-none"><p>No book here matches <b>${esc(q.trim())}</b>.</p></div>`;
+      const favs = hits.filter((b) => isBookFav(b.id));
+      const rest = hits.filter((b) => !isBookFav(b.id));
+      return favs.length ? section("Favourites", favs) + section("Everything else", rest) : section("", rest);
+    };
     root.innerHTML = `
       <div class="page-head">
         <span class="eyebrow">Library</span>
@@ -8956,21 +9172,36 @@
       ${/* The picker ships whatever the shelf holds, one book included — it was asked for outright, and
             a control that appears the day a second book lands is one nobody knows to look for. Beside it
             the direction, in the chosen field's own words rather than as a bare arrow. */""}
-      <div class="lib-tools">${sortPickerHTML("bkSort", BOOK_SORTS, key)}${sortDirHTML("bkSortDir", BOOK_SORTS, key, rev)}</div>
+      <div class="lib-tools">
+        <div class="lib-search"><input type="search" id="bkFilter" placeholder="Search these books…" autocomplete="off" aria-label="Search the library by title, author or date" value="${esc(bookQuery)}"></div>
+        ${sortPickerHTML("bkSort", BOOK_SORTS, key)}${sortDirHTML("bkSortDir", BOOK_SORTS, key, rev)}
+      </div>
       ${/* The licence note that used to close this page is gone (Aug 2026, on request). The RULE it
             described has not changed and is not weakened by its going: it is still stated in
             .claude/fetch-book.js, which is what decides what may be shelved, and it is still shown to
             the reader — in each book's own front matter, beside the edition it applies to, which is
             where a statement about one book's copyright actually belongs. */""}
-      ${favs.length ? section("Favourites", favs) + section("Everything else", rest) : section("", rest)}`;
+      <div id="bkShelf">${shelfHTML(bookQuery)}</div>`;
     /* HOLD a banner for its options — share it, or star it (Aug 2026, on request). Same gesture, same
        shell and same classification as an added deck's row on the home page: a tap opens the book, a
        press past HOLD_MS opens the sheet, and a finger that wanders is scrolling rather than holding.
        wireHoldMenu installs the tap listener itself, so there is no separate click wiring here — two
-       would open the book from under the sheet the hold had just raised. */
-    root.querySelectorAll(".book-tile").forEach((el) =>
+       would open the book from under the sheet the hold had just raised.
+
+       It has to be re-run after a filter repaint: the sheet is a per-element gesture rather than a
+       delegated one (it classifies a press, which needs the element's own pointer stream), so a banner
+       painted by the search box would otherwise be a book that cannot be opened. */
+    const shelf = root.querySelector("#bkShelf");
+    const wireShelf = () => shelf.querySelectorAll(".book-tile").forEach((el) =>
       wireHoldMenu(el, () => openBookMenu(el.dataset.book), () => route("book", { id: el.dataset.book }))
     );
+    wireShelf();
+    const f = root.querySelector("#bkFilter");
+    if (f) f.addEventListener("input", () => {
+      bookQuery = f.value;
+      shelf.innerHTML = shelfHTML(bookQuery);
+      wireShelf();
+    });
     const so = root.querySelector("#bkSort");
     if (so) so.addEventListener("change", () => { setBookSort(so.value, false); });
     const sd = root.querySelector("#bkSortDir");
@@ -9953,6 +10184,74 @@
      Where an author programs a type: its field names, the HTML of the front, the HTML of the back, and the CSS
      for the card as a whole. "Basic" heads the list and is not editable — it is Folio's own format, the one
      every card starts as, and the thing the other types are an alternative to. */
+  /* The languages the read-aloud control can be set to. A closed list rather than a free-text box: a BCP-47
+     tag is a thing an author should not have to know, and a mistyped one has the device choose a voice at
+     random. Whether the device has a voice for one is reported beside it rather than hidden — a deck is
+     written on one machine and studied on another, so an author must be able to pick a language their own
+     laptop cannot speak and still ship a deck that speaks on a phone that can. */
+  const SPEECH_LANGS = [
+    ["es", "Spanish"], ["fr", "French"], ["de", "German"], ["it", "Italian"],
+    ["pt-PT", "Portuguese"], ["pt-BR", "Portuguese (Brazil)"], ["nl", "Dutch"], ["sv", "Swedish"],
+    ["da", "Danish"], ["nb", "Norwegian"], ["fi", "Finnish"], ["is", "Icelandic"],
+    ["pl", "Polish"], ["cs", "Czech"], ["hu", "Hungarian"], ["ro", "Romanian"],
+    ["el", "Greek"], ["ru", "Russian"], ["uk", "Ukrainian"], ["tr", "Turkish"],
+    ["ar", "Arabic"], ["he", "Hebrew"], ["fa", "Persian"], ["hi", "Hindi"],
+    ["zh-CN", "Chinese (Mandarin)"], ["zh-HK", "Chinese (Cantonese)"], ["ja", "Japanese"], ["ko", "Korean"],
+    ["vi", "Vietnamese"], ["th", "Thai"], ["id", "Indonesian"], ["sw", "Swahili"],
+    ["la", "Latin"], ["en-US", "English (US)"], ["en-GB", "English (UK)"],
+  ];
+  function speechLangName(code) {
+    const row = SPEECH_LANGS.find((l) => l[0] === code);
+    return row ? row[1] : code;
+  }
+  function speechLangOptions(cur) {
+    return SPEECH_LANGS.map(([code, label]) =>
+      '<option value="' + esc(code) + '"' + (code === cur ? " selected" : "") + ">" +
+      esc(label) + (speechVoiceFor(code) ? "" : esc(" — no voice on this device")) + "</option>").join("");
+  }
+  /* Adding a type starts with a shape rather than with a blank template. The sheet is the same shell the
+     deck rows and the book banners use (deckSheet), so Escape, the backdrop, the focus trap and the exit
+     animation are written once — and "Start from scratch" is last, because it is what the other three are
+     an alternative to rather than the other way round. */
+  function openTypePresetSheet(deckId, after) {
+    const html =
+      '<div class="dm-head"><div class="dm-headmain"><span class="dm-title">Add a card type</span>' +
+        '<span class="dm-where">Start from a ready-made shape, or from nothing</span></div></div>' +
+      CARD_TYPE_PRESETS.map((p) =>
+        '<button type="button" class="dm-item" data-preset="' + esc(p.id) + '">' +
+        "<b>" + esc(p.name) + "</b><small>" + esc(p.blurb) + "</small></button>").join("") +
+      '<button type="button" class="dm-item" data-preset=""><b>Start from scratch</b>' +
+      "<small>Two fields and an empty template, to write yourself</small></button>";
+    return deckSheet("Add a card type", html, (ov, close) => {
+      ov.querySelectorAll("[data-preset]").forEach((b) => b.addEventListener("click", () => {
+        const p = cardTypePreset(b.dataset.preset);
+        close();
+        if (!p) { const blank = uTypeCreate(deckId, "New type"); if (blank) after(blank); return; }
+        // the vocabulary shape reads its answer aloud, and which language that is in is the one thing about
+        // it Folio cannot guess — so it is asked once, here, instead of left wrong until somebody notices
+        if (p.askLang) { openSpeechLangSheet(p, (lang) => { const t = uTypeCreate(deckId, p.name, cardTypePresetSpec(p, lang)); if (t) after(t); }); return; }
+        const t = uTypeCreate(deckId, p.name, cardTypePresetSpec(p));
+        if (t) after(t);
+      }));
+    });
+  }
+  function openSpeechLangSheet(p, cb) {
+    const html =
+      '<div class="dm-head"><div class="dm-headmain"><span class="dm-title">Which language are you studying?</span>' +
+        '<span class="dm-where">The read-aloud button speaks the answer in it. You can change it later.</span></div></div>' +
+      '<label class="dm-field"><span>Language</span><select class="af-input" id="dmSpeechLang">' +
+        speechLangOptions("es") + "</select></label>" +
+      '<button type="button" class="dm-item" id="dmSpeechOk"><b>Add the ' + esc(p.name.toLowerCase()) + " type</b>" +
+      "<small>It appears in the list on the left, ready to edit</small></button>";
+    return deckSheet("Which language are you studying?", html, (ov, close) => {
+      ov.querySelector("#dmSpeechOk").addEventListener("click", () => {
+        const sel = ov.querySelector("#dmSpeechLang");
+        const v = sel ? sel.value : "";
+        close();
+        cb(v);
+      });
+    });
+  }
   function studioTypesHTML(d) {
     const types = uTypeList(d.id);
     const sel = studioState.type && uTypeGet(d.id, studioState.type) ? studioState.type : "";
@@ -9985,7 +10284,17 @@
       'an answer with its date line, a background, an illustration and the works behind it. Its layout is Folio&rsquo;s, ' +
       'and it is edited on the Cards tab.</p>' +
       '<p>A type of your own replaces all of that with templates you write yourself — the HTML of the front, the HTML of ' +
-      'the back, and one stylesheet for the card. Add one on the left, then pick it at the top of any card.</p></div>';
+      'the back, and one stylesheet for the card. Pick one of these to start from, or add a blank one on the left.</p></div>' +
+      /* The presets again, as a gallery — the "Add a type" button opens the same list in a sheet, but this
+         pane is what a first-time author is already looking at, and a feature reached only through a button
+         labelled with what it does rather than with what it offers is one nobody goes looking for. */
+      '<div class="ut-presets">' +
+        CARD_TYPE_PRESETS.map((p) =>
+          '<button type="button" class="ut-preset" data-preset="' + esc(p.id) + '">' +
+          '<span class="ut-preset-name">' + esc(p.name) + "</span>" +
+          '<span class="ut-preset-blurb">' + esc(p.blurb) + "</span>" +
+          '<span class="ut-preset-fields">' + esc(p.fields.join(" · ")) + "</span></button>").join("") +
+      "</div>";
   }
   function studioTypeFormHTML(d, t) {
     // a LABEL rather than a div: it is what gives the textarea its accessible name, and these boxes are the
@@ -10002,10 +10311,22 @@
           '<input class="af-input" data-utype="name" type="text" value="' + esc(t.name) + '" /></label>' +
         '<label class="admin-field"><span class="af-label">Fields <small>&mdash; comma separated, in the order you want to fill them in</small></span>' +
           '<input class="af-input" id="stTypeFields" type="text" spellcheck="false" value="' + esc(t.fields.join(", ")) + '" /></label>' +
+        '<label class="admin-field"><span class="af-label">Spoken language ' +
+          '<small>&mdash; what a read-aloud button on this type says its words in</small></span>' +
+          '<select class="af-input" data-utype="speechLang">' +
+            '<option value=""' + (t.speechLang ? "" : " selected") + ">Not set &mdash; the device&rsquo;s own voice</option>" +
+            speechLangOptions(t.speechLang) +
+          "</select></label>" +
         '<div class="ut-help">Write <code>{{' + esc(t.fields[0] || "Front") + "}}</code> in a template to drop that field in. " +
           "<code>{{FrontSide}}</code> on the back is the front as it rendered. " +
           "<code>{{#Field}}…{{/Field}}</code> keeps a block only when that field is filled in, and " +
-          "<code>{{^Field}}…{{/Field}}</code> only when it is empty.</div>" +
+          "<code>{{^Field}}…{{/Field}}</code> only when it is empty." +
+          /* The two things a template can ask Folio for, rather than draw itself — said here because this
+             box is the only reference an author has, and neither is guessable. */
+          "<br>Wrap anything in <code>&lt;span class=\"uc-tts\"&gt;…&lt;/span&gt;</code> and it becomes a button that reads " +
+          "those words aloud in the language above. Wrap the words to recall in a card's own text in " +
+          "<code>{{c1::…}}</code> — or <code>{{c1::…::a hint}}</code> — and they close on the front and open on the back. " +
+          "Every blank on a card opens together: a Folio card is one card, where Anki would make one per number.</div>" +
         box("front", "Front template", "the HTML shown before the answer", t.front, 7) +
         box("back", "Back template", "the HTML shown once the card is turned over", t.back, 7) +
         box("css", "CSS", "styles this type&rsquo;s cards and nothing else; <code>.card</code> is the card itself", t.css, 10) +
@@ -10028,17 +10349,25 @@
         '<div class="reveal show"><div class="reveal-inner">' + buildBack(stand) + "</div></div>" +
       "</div>";
     openLinks(box);
+    wireSpeakControls(box);
   }
   function studioWireTypes(root, d) {
     root.querySelectorAll("[data-topensel]").forEach((b) => b.addEventListener("click", () => {
       studioState.type = b.dataset.topensel === CARD_TYPE_BASIC ? "" : b.dataset.topensel;
       render();
     }));
+    // both ways in — the button at the head of the list opens the presets in a sheet, the pane behind it
+    // shows the same three as a gallery — and both land in the same place: the new type, open for editing
+    const open = (t) => { studioState.type = t.id; render(); };
     const add = root.querySelector("#stAddType");
-    if (add) add.addEventListener("click", () => {
-      const t = uTypeCreate(d.id, "New type");
-      if (t) { studioState.type = t.id; render(); }
-    });
+    if (add) add.addEventListener("click", () => openTypePresetSheet(d.id, open));
+    root.querySelectorAll(".ut-preset[data-preset]").forEach((b) => b.addEventListener("click", () => {
+      const p = cardTypePreset(b.dataset.preset);
+      if (!p) return;
+      if (p.askLang) { openSpeechLangSheet(p, (lang) => { const t = uTypeCreate(d.id, p.name, cardTypePresetSpec(p, lang)); if (t) open(t); }); return; }
+      const t = uTypeCreate(d.id, p.name, cardTypePresetSpec(p));
+      if (t) open(t);
+    }));
     const t = studioState.type ? uTypeGet(d.id, studioState.type) : null;
     if (!t) return;
     studioTypePreview(d, t);
@@ -10375,6 +10704,7 @@
           '<div class="reveal show"><div class="reveal-inner">' + buildBack(c) + "</div></div>" +
         "</div>";
       openLinks(box);
+      wireSpeakControls(box);
     }
     paint();
     host.querySelectorAll("[data-ufield]").forEach((el) => el.addEventListener("input", () => {
@@ -10399,7 +10729,9 @@
     if (cardTypeOf(c)) {
       const t = cardTypeOf(c), vals = c.fields || {};
       for (let i = 0; i < t.fields.length; i++) {
-        const v = sanitizePlain(vals[t.fields[i]]).trim();
+        // cloze markers are OPENED for the list: a row reading "fought in {{c1::1066}}" makes the author
+        // read past the apparatus to find out which card it is, which is the one thing a list is for
+        const v = sanitizePlain(clozeMark(vals[t.fields[i]], true)).trim();
         if (v) return v.slice(0, 120);
       }
       return "(empty " + t.name + ")";
@@ -10995,6 +11327,7 @@
         processAbstract(inner, c);
         setupTooltips(inner);
         wireFootnotes(inner);   // number the in-prose markers and join them to the source list below
+        wireSpeakControls(inner);   // a card type's read-aloud spans become real, focusable controls
         const bgHead = inner.querySelector(".bg-head");
         const bgToggle = inner.querySelector(".bg-toggle");
         const bgCollapse = inner.querySelector(".bg-collapse");
@@ -11658,9 +11991,37 @@
       if (!changed) break;
     }
     return s.replace(/\{\{\s*([^{}#^/][^{}]{0,59}?)\s*\}\}/g, (m, name) => {
+      // A cloze marker is not a field reference. It normally lives in a card's own TEXT — where this pass
+      // never sees it, since a substituted value is not rescanned — but an author who writes one straight
+      // into a template means the same thing by it, and substituting a field called "c1::1066" would leave
+      // them with a silent blank and nothing to explain it. clozeMark() takes it from here.
+      if (CLOZE_NAME_RX.test(name)) return m;
       const v = get(name.trim());
       return v == null ? "" : String(v);
     });
+  }
+  /* ---------- cloze deletions: {{c1::the answer}} / {{c1::the answer::a hint}} ----------
+     Anki's syntax, because a learner who has written cloze cards before will type it without being told, and
+     it is the note type most of Anki's popular decks are built out of. The braces go in the CARD'S TEXT, not
+     in the template — the template says `{{Text}}` once and both sides pass through here.
+
+     ONE simplification, said plainly in the type editor's own help rather than hidden: Anki turns one note
+     into one card per numbered deletion (c1, c2, c3 …), where a Folio card is a single record, so every
+     blank on a card is hidden together and revealed together. The numbers are still accepted and still
+     read, so a deck written elsewhere renders as its author wrote it; they simply do not split the card.
+
+     It runs BEFORE the composed string is sanitized, so what it emits is checked with everything else — and
+     what it emits around the author's own text is a span, not an attribute, so a value that ends mid-tag
+     cannot escape into one. */
+  const CLOZE_NAME_RX = /^c\d{0,2}::/i;
+  const CLOZE_RX = /\{\{\s*c\d{0,2}::([\s\S]*?)(?:::([\s\S]*?))?\s*\}\}/gi;
+  function clozeMark(html, reveal) {
+    const s = String(html == null ? "" : html);
+    if (s.indexOf("{{") < 0) return s;   // the common case: no markers at all
+    return s.replace(CLOZE_RX, (m, answer, hint) =>
+      reveal
+        ? '<span class="uc-cloze uc-cloze-on">' + answer + "</span>"
+        : '<span class="uc-cloze">' + (String(hint == null ? "" : hint).trim() ? "[" + hint + "]" : "[&hellip;]") + "</span>");
   }
   function cardTypeOf(c) {
     if (!c || !c.type || c.type === CARD_TYPE_BASIC) return null;
@@ -11706,9 +12067,16 @@
     const t = cardTypeOf(c);
     if (!t) return null;
     const scopeId = ensureCardTypeStyle(c.deckId, t);
-    const front = tplRender(t.front, cardTypeFieldGetter(c, null));
-    const html = side === "front" ? front : tplRender(t.back, cardTypeFieldGetter(c, front));
-    return '<div class="uc-card uc-' + side + '" data-uct="' + esc(scopeId) + '">' + sanitizeHTML(html) + "</div>";
+    /* The front's blanks are closed before it is handed to the back as {{FrontSide}} — which is Anki's
+       behaviour and the right one: the top of the back is the question AS IT WAS ASKED, so a reader
+       comparing the two is looking at their own guess rather than at the answer twice. Its markers are
+       already spent by then, so the back's own pass finds nothing left to close. */
+    const front = clozeMark(tplRender(t.front, cardTypeFieldGetter(c, null)), false);
+    const html = side === "front" ? front : clozeMark(tplRender(t.back, cardTypeFieldGetter(c, front)), true);
+    /* The spoken language goes on the WRAPPER, so every read-aloud control inside a card of this type
+       inherits it and a template that wants a second language need only say so on the one element. */
+    const lang = t.speechLang ? ' lang="' + esc(t.speechLang) + '"' : "";
+    return '<div class="uc-card uc-' + side + '" data-uct="' + esc(scopeId) + '"' + lang + ">" + sanitizeHTML(html) + "</div>";
   }
   // what goes in the study card's question area: a custom type's front template, or the Basic question
   function cardFrontHTML(c) {
@@ -12020,7 +12388,7 @@
     inner.querySelectorAll(".bg-collapse, .bg-toggle, .answer-tr").forEach((el) => el.classList.remove("collapsed"));   // expand so all edits are visible
     const bh = inner.querySelector(".bg-head"); if (bh) bh.setAttribute("aria-expanded", "true");
     const tt = inner.querySelector(".tr-toggle"); if (tt) tt.setAttribute("aria-expanded", "true");
-    processAbstract(inner, c); setupTooltips(inner); wireFootnotes(inner);
+    processAbstract(inner, c); setupTooltips(inner); wireFootnotes(inner); wireSpeakControls(box);
     const trToggle = inner.querySelector(".tr-toggle"), answerTr = inner.querySelector(".answer-tr");
     if (trToggle && answerTr) trToggle.addEventListener("click", () => { const col = answerTr.classList.toggle("collapsed"); trToggle.setAttribute("aria-expanded", col ? "false" : "true"); });
     const bgHead = inner.querySelector(".bg-head"), bgToggle = inner.querySelector(".bg-toggle"), bgCollapse = inner.querySelector(".bg-collapse");
