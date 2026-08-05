@@ -4689,6 +4689,57 @@
       /* No `parts`: one volume, and its own edition divides the ten books no further. */
     },
     {
+      id: "plato-symposium",
+      title: "Symposium",
+      // the edition's own heading for the dialogue's first page
+      subtitle: "The Banquet",
+      author: "Plato",
+      written: "c. 385–370 BCE",
+      year: -380,
+      translator: "Benjamin Jowett",
+      edition: "Third edition, Clarendon Press, Oxford, 1892",
+      /* As easy a licence as the Republic's, and easy on both sides. Jowett died in 1893 and this is
+         his third edition of 1892; Burnet's Greek was printed in 1910 and Burnet died in 1928, so it
+         clears the pre-1929 rule and life-plus-seventy alike. The Perseus digital edition of the Greek
+         carries a CC BY-SA 4.0 layer on top of that expired copyright, which is credited here, in the
+         original's own `rights`, and on the book's page — the same knowing departure recorded for the
+         Meditations. The English has no such layer: it comes from Wikisource, not Perseus. */
+      rights:
+        "Public domain worldwide: Benjamin Jowett died in 1893 and this third edition of his " +
+        "translation was printed in 1892 — so its copyright has expired everywhere, on the pre-1929 " +
+        "publication rule and on the author's-life rule alike. The Greek it is printed beside is John " +
+        "Burnet's Oxford text of 1910, and Burnet died in 1928, so that too is public domain on both " +
+        "rules; the digital edition of it is released by the Perseus Digital Library under a Creative " +
+        "Commons Attribution-ShareAlike 4.0 International licence. The modern translations by Walter " +
+        "Hamilton (1951), Alexander Nehamas and Paul Woodruff (1989) and Robin Waterfield (1994) are " +
+        "still in copyright and are deliberately not used here.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Dialogues_of_Plato_(Jowett)/Symposium",
+      /* AN `origLang` WHERE THE REPUBLIC HAS NONE, and the difference is the PRINTING rather than the
+         author. The entry above concludes that Plato cannot have a Greek column; it is right about the
+         Republic and would be wrong as a general rule, which is worth saying here because this is the
+         book that disproves it.
+
+         The columns pair on section numbers a text states about itself. The Colonial Press Republic of
+         1901 states none — measured over all ten books — so it has no second column. This volume is a
+         different press setting the same translator, and it prints the Stephanus pages in the margin
+         all the way through: 52 of them, 172 to 223. Burnet's Greek carries the same 52 as structure,
+         and the two sets are identical, which makes this the cleanest pairing in the library. The
+         first measurement of it was WRONG and is worth remembering — searching for the usual citation
+         form, 189c, finds nothing at all, because this margin carries the Stephanus page without the
+         column letter. See .claude/fetch-book.js for the whole finding. */
+      origLang: "grc",
+      color: "#7A3B6B",
+      /* ONE CHAPTER, because the dialogue is one unbroken evening and this edition divides it nowhere.
+         Cutting it into the seven speeches would mean composing both the boundaries and the titles,
+         which is the apparatus the house rule forbids; the 52 Stephanus sections carry all the
+         internal structure the text actually has, and they are what the two columns pair on. So the
+         chapter bar here is the front matter and the dialogue, and nothing is missing. */
+      chapterWord: "Dialogue",
+      count: 1,
+      total: 1,
+    },
+    {
       id: "ovid-metamorphoses",
       title: "Metamorphoses",
       subtitle: "Of Bodies Changed to Other Forms",
@@ -4847,6 +4898,54 @@
       /* No `parts`: one poem in six books, and its edition divides it no further. app.js falls back to
          a single unlabelled group, which is the honest rendering of a book with no volumes — the same
          position the Meditations and the Metamorphoses are in. */
+    },
+    {
+      id: "aristotle-nicomachean-ethics",
+      title: "Nicomachean Ethics",
+      // this volume's own running head over the work
+      subtitle: "Ethica Nicomachea",
+      author: "Aristotle",
+      written: "c. 340 BCE",
+      year: -340,
+      translator: "W. D. Ross",
+      edition: "The Works of Aristotle, Volume IX, Clarendon Press, Oxford, 1925",
+      /* THE SECOND BOOK HERE TO STATE A LIMIT AS WELL AS A GROUND, the Art of War being the first.
+         The ground is publication before 1929 and the limit is the translator's life: Ross died in
+         1971, so where the term is life plus seventy this is in copyright until 2042 — longer than
+         Giles's 2029. It was weighed rather than waved through, and what buys it is the second
+         column. Ross's is the translation that carries the Bekker pages; Chase's of 1847, whose
+         copyright has expired everywhere, prints them in Book One and in none of the other nine, so
+         it could only ever have shipped as an English column alone. Measured over all ten books
+         before the choice was made: Chase agrees with the Greek on 18 of its 181 pages, Ross on 173
+         of 173. The Greek costs nothing on either rule — Bywater died in 1914 — and carries the
+         Perseus CC BY-SA 4.0 layer the Meditations introduced. See .claude/fetch-book.js. */
+      rights:
+        "Public domain in the United States: Ross's translation was published at Oxford in 1925 — " +
+        "before 1929 — so its copyright there has expired. Ross died in 1971, so it remains in " +
+        "copyright in countries whose term is the author's life plus more than 54 years, including " +
+        "the United Kingdom and the European Union, until 2042. The Greek beside it is Ingram " +
+        "Bywater's Oxford Classical Text of 1894, and Bywater died in 1914, so that is public domain " +
+        "on both rules; the digital edition of it is released by the Perseus Digital Library under a " +
+        "Creative Commons Attribution-ShareAlike 4.0 International licence. Aristotle's own text is " +
+        "some twenty-four centuries old. (The modern translations by Terence Irwin, 1985, Roger " +
+        "Crisp, 2000, and Christopher Rowe, 2002, are still in copyright and are not used here — as " +
+        "is the 2009 Oxford World's Classics revision of this very translation by Lesley Brown, " +
+        "which is a separate work.)",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Nicomachean_Ethics_(Ross)",
+      /* Paired on BEKKER PAGES — the page and column of Bekker's Berlin edition of 1831, by which
+         Aristotle is cited in every language. It is the first citation unit here that is not a plain
+         integer, which is why the marker carries an explicit `data-n` sort key: read as a number,
+         1094a and 1094b collapse onto one section and take the ordering with them. See bookSections
+         below and the entry in .claude/fetch-book.js. */
+      origLang: "grc",
+      color: "#3F6E8C",
+      chapterWord: "Book",
+      // ten books is the whole work, so the two agree and will stay agreed
+      count: 10,
+      total: 10,
+      /* No `parts`: the Oxford Translation gives this work a volume to itself and divides it no
+         further, so app.js falls back to a single unlabelled group. */
     },
   ];
   const BOOK_BY_ID = {};
@@ -8638,7 +8737,17 @@
       Array.from(el.childNodes).forEach((node) => {
         if (node.nodeType === 1 && node.classList && node.classList.contains("bk-n")) {
           flush();
-          const v = parseInt(node.textContent, 10);
+          /* THE NUMBER SHOWN AND THE NUMBER SORTED ON ARE NOT ALWAYS THE SAME, and `data-n` is what
+             keeps them apart (Aug 2026, adding the Nicomachean Ethics). Every book before it is cited
+             by a plain integer — a letter, a chapter, a Stephanus page — so the marker's own text was
+             the whole of it. Aristotle is cited by BEKKER PAGE, a number and a column letter: 1094a,
+             1094b. Read with parseInt those two collapse to one section 1094, which merges the pair
+             into a single row and takes the ordering with it — the quiet kind of failure, since the
+             prose is all present and only the pairing is wrong.
+             So the importer writes an explicit sort key beside the text it prints, and a marker
+             without one is read exactly as it always was. */
+          const raw = node.getAttribute && node.getAttribute("data-n");
+          const v = parseInt(raw != null && raw !== "" ? raw : node.textContent, 10);
           n = v > 0 ? v : n;
         }
         buf.push(node);
