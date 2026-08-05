@@ -4778,6 +4778,42 @@ body.night .rv-star.on{color:#E6C765;}
   font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink-faint);
   vertical-align:.28em; margin-right:5px; user-select:none;
 }
+/* ---------- A PLAY ----------
+   Oedipus Rex is the first work here that is performed rather than read, and the two things that
+   makes necessary are both about telling KINDS of text apart. In a play the speaker's name is not
+   furniture around the text, it is part of it — a page that renders it as an ordinary word turns a
+   drama into an unattributed argument — and a stage direction is not spoken at all.
+
+   A speech is one paragraph per section, so a long speech is several and only the FIRST of them
+   carries the name (bookSections cuts a block at each marker, and repeating the speaker at every
+   line number would read as the character starting again). `.bk-cont` is the rest of that speech,
+   indented to hang under the name rather than under the margin, so the eye can see the speech is
+   still running. Below the two-column breakpoint that indent is dropped — at a phone's measure it
+   costs more than it says.
+
+   The name is INLINE, run into the head of the line the way a printed play sets it, rather than
+   standing on a line of its own. Two reasons, and the first is structural: it has to follow the
+   section marker in the markup (see dramaHtml in .claude/fetch-book.js — a name before the marker is
+   given to the previous section), and a block element after an inline number would strand that
+   number alone on the line above. The second is that this text is cut into a section every couple of
+   lines, so a name on its own line would roughly double the length of the page. */
+.bk-prose .bk-sp{margin:0 0 .62em;}
+.bk-prose .bk-who{
+  font-family:var(--mono); font-size:calc(10.5px * var(--fs)); font-weight:600;
+  letter-spacing:.09em; text-transform:uppercase; color:var(--tile,var(--indigo));
+  margin-right:.5em; white-space:nowrap;
+}
+.bk-prose .bk-cont{padding-left:1.6em;}
+/* Jebb's own, and the Greek carries none — the ancient text records no directions, so every one in a
+   modern edition is its editor's inference. Set as a different kind of thing from the spoken line,
+   and centred away from the margin so it cannot be mistaken for one. */
+.bk-prose .bk-stage{
+  font-style:italic; color:var(--ink-soft); font-size:calc(15.5px * var(--fs));
+  margin:1.1em 0; padding-left:1.6em; max-width:56ch;
+}
+/* In two columns the stage direction sits beside an empty Greek cell, so it keeps the row's own
+   spacing rather than opening a gap the other side cannot match. */
+.bk-bi .bk-prose .bk-stage,.bk-bi .bk-stage{margin:.5em 0;}
 /* THE ORIGINAL BESIDE THE TRANSLATION.
    The page is always built as paired rows once the original is loaded, and these rules decide which
    columns are shown — so turning the original on is a class change rather than a re-render, which is
@@ -4868,6 +4904,9 @@ body.night .rv-star.on{color:#E6C765;}
   .bk-tab-n{font-size:calc(12.5px * var(--fs)); opacity:1;}
   .bk-page{padding:20px 18px 18px; border-radius:12px;}
   .bk-prose{font-size:calc(16.5px * var(--fs)); line-height:1.74;}
+  /* at a phone's measure the hanging indent of a continued speech costs more width than it says */
+  .bk-prose .bk-cont{padding-left:0;}
+  .bk-prose .bk-stage{padding-left:0;}
   .bk-ch-t{font-size:calc(23px * var(--fs));}
   .bk-toc-list{grid-template-columns:1fr;}
 }

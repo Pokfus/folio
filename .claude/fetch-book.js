@@ -1483,6 +1483,154 @@ const BOOKS = {
       sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0086.tlg010/",
     },
   },
+
+  "sophocles-oedipus-rex": {
+    title: "Oedipus Rex",
+    // the play's own Greek title, which is what its Greek column is an edition of — the Lucretius
+    // pattern. Latin gives it as both Oedipus Rex and Oedipus Tyrannus, and this edition uses the
+    // second; the two are the same play and the front matter says so.
+    subtitle: "Οἰδίπους Τύραννος",
+    author: "Sophocles",
+    translator: "Richard Jebb",
+    edition: "Sophocles: The Plays and Fragments, Volume 1, Cambridge University Press, 1887",
+    written: "c. 429 BCE",
+
+    /* ---------- THE LICENCE, and it is the easiest on this shelf ----------
+       The Republic's was called the only one needing no qualification at all. This one matches it and
+       does so on BOTH columns at once, which no other book here manages.
+
+       Richard Claverhouse Jebb published this translation at Cambridge in 1887 and died in 1905, so it
+       is public domain on the pre-1929 publication rule, on life plus seventy, and on life plus a
+       hundred. Francis Storr's Greek text was published in the Loeb Classical Library in 1912 and
+       Storr died in 1919, so the same three grounds carry it. Both years were CHECKED rather than
+       recalled — Wikisource's author pages give Jebb 1841–1905 and Storr 1839–1919 — because the Ovid
+       entry's Hugo Magnus mistake was exactly a death year asserted from memory to hold up a licence.
+       Neither needs the limit the Art of War states for Giles (in copyright in life-plus-seventy
+       countries until 2029) or the Nicomachean Ethics for Ross (until 2042). The play beneath them was
+       written in Athens in the fifth century BCE.
+
+       The second layer is Perseus's, as it is for the Meditations' Greek and for both columns of Ovid,
+       Suetonius and Lucretius: the digital editions of both texts are prepared by the Perseus Digital
+       Library, whose canonical-greekLit repository releases its contents under CC BY-SA 4.0 unless
+       otherwise indicated, and neither of these two files indicates otherwise. Credited in `rights`,
+       printed on the book's own page, and named in the About page's credits.
+
+       The translations a reader is likeliest to own — Dudley Fitts and Robert Fitzgerald's of 1949,
+       David Grene's of 1942, Robert Fagles's of 1982 and Anne Carson's Antigonick-era versions — are
+       all firmly in copyright, and are named here for the reason Campbell, Hays, Griffith, Lee,
+       Humphries, Melville and Brown are named above: so that nobody reaches for one. */
+    rights:
+      "Public domain on every ground, in both columns. Richard Jebb's translation was published at " +
+      "Cambridge in 1887 and Jebb died in 1905, so its copyright has expired in the United States on " +
+      "the pre-1929 publication rule and everywhere that the term is the author's life plus a hundred " +
+      "years or less. The Greek beside it is Francis Storr's text of 1912, and Storr died in 1919, so " +
+      "the same holds of it. Sophocles wrote the play in Athens some twenty-four centuries ago. The " +
+      "digital editions of both texts are prepared by the Perseus Digital Library at Tufts University " +
+      "and are released under a Creative Commons Attribution-ShareAlike 4.0 International licence. " +
+      "(The modern translations by David Grene, 1942, Dudley Fitts and Robert Fitzgerald, 1949, and " +
+      "Robert Fagles, 1982, are still in copyright and are not used here.)",
+    sourceName: "Perseus Digital Library",
+    sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0011.tlg004/",
+
+    /* THE FRONT MATTER — chapter 0. Five things a reader should be told before they start rather than
+       work out late: that the story was already old when it was staged and the suspense is not
+       whodunnit, what the alternating parts and the singing chorus are, how little is known about the
+       date, what the play's enormous afterlife has done to how it is read, and what the small figures
+       and the italic directions in the two columns are. */
+    about: [
+      "<b>Oedipus Rex</b> is a tragedy staged in Athens in the fifth century BCE, and it is usually " +
+        "the play people mean when they talk about Greek tragedy at all. Thebes is dying of plague, " +
+        "and the oracle at Delphi says the cause is the unpunished murder of the city's previous " +
+        "king. Oedipus, who solved the riddle of the Sphinx and was given the throne and the widowed " +
+        "queen as his reward, undertakes to find the killer. The play is the investigation, and it " +
+        "takes about ninety minutes: a sequence of witnesses, each of whom knows one piece of it, and " +
+        "each of whom Oedipus compels to speak against their own strong wish not to.",
+      "The story was already old when Sophocles staged it, and the first audience knew the ending. " +
+        "That is not a defect in the suspense but the source of it. Every scene is watched by people " +
+        "who can see what the man on stage cannot, so his confidence reads as danger and his " +
+        "determination to know the truth is what destroys him; the word he uses for himself again and " +
+        "again is the one for a man who sees clearly, and the man who does see clearly is the blind " +
+        "prophet he insults. What the play is asking is not what happened — everyone knows what " +
+        "happened — but whether a man who did what Oedipus did, in ignorance and while trying to " +
+        "avoid it, is guilty of it. It does not answer.",
+      "It is written in the shape every Athenian tragedy uses, and this edition marks it: spoken " +
+        "scenes alternating with odes sung and danced by a chorus of Theban elders, who are characters " +
+        "in the story as well as commentators on it. Folio's parts follow the edition's own divisions, " +
+        "and its own labels for them — a spoken part is an <i>episode</i> and a sung one a " +
+        "<i>choral ode</i>. Elsewhere you will meet a more precise set of names for the same " +
+        "divisions: prologue for the opening scene, parodos for the chorus's entrance song, stasimon " +
+        "for each ode after it, and exodos for the final scene. Those are the standard analysis and " +
+        "they are worth knowing, but they are not the words this edition uses, so they are not used " +
+        "here.",
+      "Almost nothing is documented about the play's first performance, including its date. It is " +
+        "usually put around 429 BCE, and the argument for that is internal — the plague at Thebes is " +
+        "described in terms that recall the plague which struck Athens in 430 — which is suggestive " +
+        "rather than decisive. What is recorded is that it did not win first prize. Sophocles lived " +
+        "from about 496 to 406 BCE, wrote some hundred and twenty plays of which seven survive whole, " +
+        "and served Athens as a treasurer and a general. Two of the other six take up the same family: " +
+        "<i>Oedipus at Colonus</i>, written at the very end of his life, and <i>Antigone</i>, about " +
+        "Oedipus's daughter, which he wrote first — so the three are not a trilogy and were composed " +
+        "in the reverse of their story's order.",
+      "The translation here is Richard Jebb's of 1887, and the Greek beside it is Francis Storr's " +
+        "text of 1912. The small raised figures running through both columns are LINE numbers of the " +
+        "Greek, which is how any passage of a tragedy is cited in any language: Jebb translates into " +
+        "prose and so numbers the line each block of it begins at, while Storr's verse numbers every " +
+        "line, and a figure appearing in both columns marks the same place in the play. Two things " +
+        "about the page are differences between the editions rather than faults in it. Three of the " +
+        "six hundred and eighty-three English passages draw beside an empty Greek cell, where Jebb " +
+        "numbers a line Storr does not. And the italic stage directions are JEBB'S: the ancient text " +
+        "records none, and every one printed in a modern edition is its editor's inference from what " +
+        "the characters say, which is why the Greek column beside them is blank.",
+    ],
+
+    /* ---------- A PLAY: the fifth layout, and the first work here that is performed ----------
+       See the drama block above teiDramaDivisions for the whole of the reasoning. The short version:
+       the two columns pair on the LINE NUMBER, which both editions state on every line and which is
+       the universal citation unit for Greek tragedy; the fifteen parts are the edition's own
+       divisions and open at the same fifteen lines on both sides; and the speaker of each speech is
+       carried through, because in a play it is not furniture around the text but part of it.
+
+       MEASURED over the whole play before any of it was believed: 15 divisions on each side with
+       identical kinds and identical opening lines, 458 speeches on each side, 683 English sections of
+       which 680 draw Greek beside them. The three that do not are lines 159, 669 and 689, where Jebb
+       numbers a line Storr does not; they are recorded rather than repaired, as the Nicomachean
+       Ethics' three repeated Bekker pages are, because closing them would mean composing an
+       apparatus.
+
+       AND THE <del> RULE IS NOT INERT HERE, which is the thing Lucretius said to measure rather than
+       assume. This edition carries exactly one, and it wraps a WHOLE line — 625a, an answer of
+       Oedipus's that the edition brackets as spurious — so dropping it with its words takes the
+       English from 684 sections to 683. That is the same judgement the Meditations' Greek and
+       Lucretius's Latin make (what ships is the text the edition constitutes), but as there it
+       changes the count, so the count is stated. */
+    source: "tei",
+    url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0011/tlg004/tlg0011.tlg004.perseus-eng2.xml",
+    layout: "drama",
+    /* "Part" is Folio's own neutral word for a division, and is deliberately not "Scene" or "Act":
+       this edition numbers its divisions not at all, and an act is a later theatre's unit that a
+       Greek tragedy does not have. The number is Folio's; the NAME of each part is the edition's. */
+    chapterWord: "Part",
+    // fifteen is what the edition divides the play into, and is checked against the file on every run
+    chapters: Array.from({ length: 15 }, (_, i) => i + 1),
+
+    original: {
+      lang: "grc",
+      langName: "Greek",
+      source: "tei",
+      layout: "drama",
+      edition: "Francis Storr, Loeb Classical Library, William Heinemann, London, 1912",
+      rights:
+        "Two layers, both stated. Sophocles wrote the play in Greek in the fifth century BCE, so the " +
+        "words themselves are in the public domain everywhere. The text printed here is Francis " +
+        "Storr's of 1912, published before 1929 and by an editor who died in 1919, so its copyright " +
+        "has expired on every rule. The digital edition is prepared by the Perseus Digital Library at " +
+        "Tufts University and is released under a Creative Commons Attribution-ShareAlike 4.0 " +
+        "International licence.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0011.tlg004/",
+      url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0011/tlg004/tlg0011.tlg004.perseus-grc2.xml",
+    },
+  },
 };
 
 /* ---------- args ---------- */
@@ -2750,6 +2898,208 @@ function teiVerseHtml(cards) {
     .join("\n");
 }
 
+/* ============================================================
+   A PLAY — the fifth shape, and the first work here that is not read but performed
+   ============================================================
+   Every book above is a column of prose or of verse with one voice in it. A tragedy is a score for
+   several: who is speaking is not decoration around the text, it IS the text, and a page that drops
+   the speaker names turns a play into an unattributed argument. So the drama reader below keeps three
+   things the other four extractors have never had to carry — the speaker of each speech, the stage
+   directions, and the division of the play into its own alternating scenes and choral odes.
+
+   THE PAIRING KEY IS THE LINE NUMBER, which is how any passage of Greek tragedy is cited in any
+   language, and both editions state it on every line. That is worth saying precisely, because the
+   two columns state it at DIFFERENT GRAIN. Storr's Greek is verse and numbers every line, 1 to 1530.
+   Jebb's English is prose, and numbers a block of it with the line that block BEGINS at — 1, then 5,
+   then 10 — which is the ordinary convention of a printed translation. So the English's numbers are a
+   SUBSET of the Greek's, and a Greek line joins the English block whose range contains ITS OWN stated
+   number: line 163 sits under the marker 159 because 163 is at least 159 and less than 169.
+
+   THAT IS NOT THE MOVE THE MEDITATIONS ENTRY WARNS AGAINST, and the difference is the whole of why
+   this book could be added at all. That warning is against transferring one edition's numbering onto
+   a text that states NONE, where every assignment is a guess about position in a list. Here both
+   texts state their numbers, in the same coordinate system — the line count of the Greek play, fixed
+   since the Renaissance and identical in every edition and translation of it. Nothing is inferred
+   from order.
+
+   MEASURED BEFORE IT WAS BELIEVED, over the whole play: the two files divide it into the SAME fifteen
+   parts, beginning at the same fifteen lines; 683 English sections, of which 680 draw Greek beside
+   them and 3 do not. Those three are places where Jebb's constitution of the text and Storr's differ —
+   a line one of them numbers and the other does not — and they are left as an English cell beside an
+   empty Greek one, which is what both editions saying what they say looks like. Repairing them would
+   mean composing an apparatus, which is what the Meditations' Greek was abandoned for.
+
+   THE ORIGINAL MAY CARRY MORE MARKERS THAN THE TRANSLATION, and that is correct rather than a
+   miscount. Where the Greek changes speaker inside one of Jebb's blocks — Sophocles writes long
+   stretches of line-for-line exchange, and a prose translation does not always break with them — that
+   block is emitted as two speeches under the SAME number, so each keeps its speaker's name. app.js's
+   bookSections folds consecutive blocks sharing a number back into one section, so the pair draws as
+   one row with both speakers in the Greek cell. Hence the run below reports DISTINCT numbers, which
+   is what pairs, rather than a count of markers, which is what would look like a discrepancy.
+
+   THE STAGE DIRECTIONS ARE JEBB'S AND THE GREEK HAS NONE, which is not a gap in the import: the
+   ancient text does not transmit them, and every one a modern edition prints is its editor's
+   inference from the words. So they are marked as a different kind of thing from the spoken line, and
+   the Greek column beside them is empty because Storr's page is empty there too. Said in the front
+   matter as well, or it reads as a fault in this page. */
+
+/* A line number is a figure and an optional letter, and 625 and 625a are TWO DIFFERENT PLACES —
+   parseInt collapses them onto one, merging the pair into a single row and taking the ordering with
+   it. It is the Bekker-page fault the Nicomachean Ethics found, on a different citation system: this
+   play carries sixteen lettered lines in the English and twenty in the Greek. So every marker gets an
+   explicit sort key beside the number it prints — 625 -> 6250, 625a -> 6251 — which app.js reads in
+   preference to the text (see `data-n` in bookSections). */
+function lineSortKey(n) {
+  const m = /^(\d+)([a-z]?)$/.exec(String(n == null ? "" : n).trim());
+  if (!m) return null;
+  return +m[1] * 10 + (m[2] ? m[2].charCodeAt(0) - 96 : 0);
+}
+
+/* The words of one element, keeping ONLY the stage directions set inside a spoken line — Jebb marks
+   four of them that way ("He exits.", "She rushes into the palace."), and they are not spoken. Strip
+   the tag and they read as part of the sentence the character is saying, which is the quiet kind of
+   fault this file keeps meeting: nothing throws and the words are all present. */
+function dramaText(s) {
+  return s
+    .replace(/<stage\b[^>]*>([\s\S]*?)<\/stage>/g, (m, t) => "<i>" + t.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim() + "</i>")
+    .replace(/<(?!\/?i\b)[^>]*>/g, "")
+    .replace(/&#160;|&nbsp;/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+const dramaPlain = (s) => s.replace(/<[^>]*>/g, "").replace(/&#160;|&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+
+/* The play's own divisions. This encoding marks a spoken scene `subtype="episode"` and a sung one
+   `subtype="choral"`, and nests everything else INSIDE those — the strophe and antistrophe of each
+   ode, and in the Greek two further marks the English does not carry. So selecting the two top-level
+   names is the whole of the depth question, and needs no bracket counting. */
+function teiDramaDivisions(xml, warn) {
+  const body = xml.slice(xml.indexOf("<body"));
+  if (body.length < 1000) throw new Error("no <body> in the TEI file");
+  // this edition prints no notes and no heads; the rule stays because the next one's may not
+  let b = body.replace(/<note\b[^>]*>[\s\S]*?<\/note>/g, "");
+  // the editor's mark of spurious text, dropped with its words — the judgement teiProse and
+  // teiVerseBooks both make, and for the same reason: what ships is the text the edition constitutes
+  b = b.replace(/<del\b[^>]*>[\s\S]*?<\/del>/g, "");
+  b = b.replace(/<head\b[^>]*>[\s\S]*?<\/head>/g, "");
+
+  const rx = /<div\b[^>]*subtype="(episode|choral)"[^>]*>/gi;
+  const marks = [];
+  let m;
+  while ((m = rx.exec(b))) marks.push({ kind: m[1].toLowerCase(), index: m.index });
+  if (!marks.length) throw new Error("no episode or choral divisions in the TEI file");
+  return marks.map((d, i) => {
+    const raw = b.slice(d.index, i + 1 < marks.length ? marks[i + 1].index : b.length);
+    const blocks = teiDramaBlocks(raw, warn);
+    const nums = [];
+    blocks.forEach((x) => x.kind === "sp" && x.lines.forEach((l) => l.n && nums.push(l.n)));
+    if (!nums.length) warn("a " + d.kind + " division carries no numbered line");
+    return { kind: d.kind, blocks: blocks, from: nums[0] || null, last: nums[nums.length - 1] || null };
+  });
+}
+
+/* One division's contents in reading order: a stage direction, or a speech with its speaker and its
+   numbered lines. A <stage> occurs in THREE positions in this file and each means something slightly
+   different — between the speeches (the scene changing), inside a speech but outside its lines (whom
+   a character turns to address), and inside a single line (an exit mid-speech). All three were found
+   by counting them against the file rather than by reading one scene: a scanner that walks only
+   <sp> and <l> silently drops the first two kinds, and the loss is invisible in the finished page. */
+function teiDramaBlocks(raw, warn) {
+  const out = [];
+  const rx = /<stage\b[^>]*>([\s\S]*?)<\/stage>|<sp\b[^>]*>([\s\S]*?)<\/sp>/g;
+  let m;
+  while ((m = rx.exec(raw))) {
+    if (m[1] !== undefined) {
+      const t = dramaPlain(m[1]);
+      if (t) out.push({ kind: "stage", text: t });
+      continue;
+    }
+    const sp = m[2];
+    const who = /<speaker\b[^>]*>([\s\S]*?)<\/speaker>/.exec(sp);
+    const lines = [];
+    // <stage> first, so a direction standing BETWEEN two lines is kept; one standing inside a line is
+    // reached by the <l> arm instead, since the alternation is tried at each position in turn
+    const lr = /<stage\b[^>]*>([\s\S]*?)<\/stage>|<l\b([^>]*)>([\s\S]*?)<\/l>/g;
+    let l;
+    while ((l = lr.exec(sp))) {
+      if (l[1] !== undefined) {
+        const t = dramaPlain(l[1]);
+        if (t) lines.push({ n: null, stage: true, text: t });
+        continue;
+      }
+      const n = /\bn="([^"]*)"/.exec(l[2] || "");
+      const t = dramaText(l[3]);
+      if (n && lineSortKey(n[1]) === null) warn("line number " + n[1] + " is not a figure and an optional letter");
+      if (t) lines.push({ n: n ? n[1].trim() : null, text: t });
+    }
+    if (lines.length) out.push({ kind: "sp", who: who ? dramaPlain(who[1]) : "", lines: lines });
+  }
+  return out;
+}
+
+/* One division's blocks, cut into the numbered sections app.js pairs the columns on.
+   `bounds` is null for the translation, whose own stated numbers ARE the boundaries; for the original
+   it is the translation's list, and each Greek line joins the boundary containing its own number. */
+function dramaSections(blocks, bounds) {
+  const keys = bounds ? bounds.map(lineSortKey).filter((k) => k !== null) : null;
+  const labels = {};
+  if (bounds) bounds.forEach((n) => { const k = lineSortKey(n); if (k !== null) labels[k] = n; });
+  const out = [];
+  let cur = null;
+  const open = (n, key, who) => { cur = { kind: "sec", n: n, key: key, who: who || "", lines: [] }; out.push(cur); };
+  blocks.forEach((b) => {
+    if (b.kind === "stage") { out.push({ kind: "stage", text: b.text }); cur = null; return; }
+    let first = true;
+    b.lines.forEach((l) => {
+      if (l.stage) { out.push({ kind: "stage", text: l.text }); cur = null; return; }
+      const k = lineSortKey(l.n);
+      if (k === null) { if (!cur) open(l.n, null, first ? b.who : ""); cur.lines.push(l.text); first = false; return; }
+      if (!keys) {
+        // the translation: every stated number opens a section of its own
+        open(l.n, k, first ? b.who : "");
+      } else {
+        // the original: the boundary whose range contains this line's OWN number
+        let b0 = null;
+        for (const c of keys) { if (c <= k) b0 = c; else break; }
+        if (b0 === null) b0 = keys[0];
+        if (!cur || cur.key !== b0) open(labels[b0], b0, first ? b.who : "");
+        else if (first && !cur.who) cur.who = b.who;
+      }
+      cur.lines.push(l.text);
+      first = false;
+    });
+    cur = null;   // a speech does not run on into the next one
+  });
+  return out.filter((s) => s.kind === "stage" || s.lines.length);
+}
+
+/* The sections of one division as the chapter html. ONE marker per top-level block, which is the
+   shape bookSections reads most simply: it splits a block at each marker, so a block carrying one
+   needs no splitting at all. A speech's opening section wears the speaker's name and the rest of it
+   are marked as continuations, or the second half of a long speech reads as nobody speaking.
+
+   THE MARKER COMES FIRST IN THE BLOCK, BEFORE THE SPEAKER'S NAME, and that is not a matter of taste.
+   bookSections walks a block's own child nodes and cuts at each marker, giving everything it has
+   collected SO FAR to the section that is currently open. Put the name first and it is flushed ahead
+   of its own number: the speaker of every speech is handed to the PREVIOUS section, so each name
+   renders at the foot of the row above the words it introduces, and the first name in each part —
+   having no previous section to fall into — opens an unnumbered one of its own that pairs with the
+   Greek's and adds a phantom row to every part. It shipped that way for an hour and is the quiet kind
+   of fault this file keeps meeting: every count still adds up (the rows were 698 for 683 sections, one
+   too many per part), no text is lost, and only a reader looking at who says what would see it. */
+function dramaHtml(sections) {
+  return sections
+    .map((s) => {
+      if (s.kind === "stage") return '<p class="bk-stage">' + s.text + "</p>";
+      const mark = s.key === null ? "" :
+        '<span class="bk-n" data-n="' + s.key + '">' + s.n + "</span>";
+      const who = s.who ? '<b class="bk-who">' + s.who + "</b>" : "";
+      return '<p class="bk-sp' + (s.who ? "" : " bk-cont") + '">' + mark + who +
+        (mark || who ? " " : "") + s.lines.join("<br>") + "</p>";
+    })
+    .join("\n");
+}
+
 /* ---------- reconciling the two columns' card numbers ----------
    142 of the 156 cards carry the identical number on both sides and need nothing. Thirteen are one to
    three Latin lines apart, because Magnus and the editor who aligned More's translation put the same
@@ -2854,6 +3204,43 @@ async function fetchEnglish() {
       console.log("  " + BOOK.chapterWord + " " + n + " — " + (titles[n] || chapterTitle(n)) + ": " +
         got.count + " sections, " + got.notes.length + " notes (" + (got.html.length / 1024).toFixed(0) + " KB)");
     }
+    return writeEnglish(chapters, warnings);
+  }
+
+  if (BOOK.source === "tei" && BOOK.layout === "drama") {
+    const warn = (m) => warnings.push(m);
+    const cf = path.join(CACHE, "en-tei.xml");
+    let xml;
+    if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
+    else { xml = await fetchText(BOOK.url); fs.writeFileSync(cf, xml); }
+    const divs = teiDramaDivisions(xml, warn);
+    if (divs.length !== BOOK.chapters.length)
+      warn("the edition divides the play into " + divs.length + " parts; the entry expects " + BOOK.chapters.length);
+    divs.forEach((d, i) => {
+      const n = i + 1;
+      if (n < FROM || n > TO) return;
+      const secs = dramaSections(d.blocks, null);
+      const html = dramaHtml(secs);
+      if (html.length < 200) throw new Error("part " + n + " came back short (" + html.length + " chars)");
+      /* The title is the division's OWN name in this encoding — a spoken `episode` or a sung
+         `choral` — with the lines it covers, which is how anyone navigates a play and is stated by
+         the file rather than composed here. The end is the line before the next division opens, and
+         for the last it is the play's own last line. Deliberately NOT the conventional prologue /
+         parodos / stasimon / exodos: those are the standard analysis of a tragedy's shape and are
+         genuinely useful, but this edition does not use them — it calls its opening division an
+         episode where the convention calls it the prologue — so printing them here would be
+         composing an apparatus over the top of the one the file states. Said in the front matter. */
+      const to = i + 1 < divs.length
+        ? String(+String(divs[i + 1].from).replace(/\D/g, "") - 1)
+        : String(d.last);
+      const t = (d.kind === "choral" ? "Choral ode" : "Episode") + ", lines " + d.from + "–" + to;
+      const marks = secs.filter((s) => s.kind === "sec").length;
+      const stage = secs.filter((s) => s.kind === "stage").length;
+      chapters.push({ n: n, t: t, p: partOf(n), html: html, notes: [] });
+      console.log("  Part " + n + " — " + t + ": " + marks + " sections, " +
+        secs.filter((s) => s.kind === "sec").reduce((a, s) => a + s.lines.length, 0) + " lines, " +
+        stage + " stage direction(s) (" + (html.length / 1024).toFixed(0) + " KB)");
+    });
     return writeEnglish(chapters, warnings);
   }
 
@@ -3060,6 +3447,49 @@ async function fetchOriginal() {
       console.log("  reconciling the two columns' section numbers:");
       reconcileCards(enBooks, laBooks, warn, (m) => console.log(m));
       Object.keys(laBooks).forEach((n) => { byNum[n] = teiVerseHtml(laBooks[n]); });
+      return writeOriginal(byNum, warnings);
+    }
+
+    /* A PLAY pairs on the LINE NUMBER, and the two columns state it at different grain — Storr's
+       Greek numbers every line, Jebb's prose numbers the line each block begins at. So the
+       translation's numbers are the boundaries and each Greek line joins the one containing its own
+       number; see the drama block above for why that is not the Meditations' mistake. The English
+       side is read back out of its own cached TEI, so an --only-original run pairs against exactly
+       the file that shipped — the same discipline the verse branch above follows. */
+    if (O.layout === "drama") {
+      const enCache = path.join(CACHE, "en-tei.xml");
+      let enXml;
+      if (fs.existsSync(enCache)) enXml = fs.readFileSync(enCache, "utf8");
+      else { enXml = await fetchText(BOOK.url); fs.writeFileSync(enCache, enXml); }
+      const en = teiDramaDivisions(enXml, warn);
+      const or = teiDramaDivisions(xml, warn);
+      if (en.length !== or.length)
+        warn("the two editions divide the play differently — " + en.length + " parts against " + or.length);
+      /* The divisions must open on the SAME LINE on both sides, or the two columns are being paired
+         part for part by their position in a list, which is the one thing this must never do. Checked
+         rather than assumed: all fifteen agree. */
+      let paired = 0, empty = 0;
+      or.forEach((d, i) => {
+        const e = en[i];
+        if (!e) { warn("part " + (i + 1) + " has no counterpart in the translation"); return; }
+        if (String(e.from) !== String(d.from))
+          warn("part " + (i + 1) + " opens at line " + e.from + " in the translation and " + d.from + " in the original");
+        const bounds = [];
+        e.blocks.forEach((b) => b.kind === "sp" && b.lines.forEach((l) => l.n && bounds.push(l.n)));
+        const secs = dramaSections(d.blocks, bounds);
+        byNum[i + 1] = dramaHtml(secs);
+        const got = new Set(secs.filter((s) => s.kind === "sec").map((s) => s.key));
+        bounds.forEach((n) => (got.has(lineSortKey(n)) ? paired++ : empty++));
+      });
+      console.log("  paired " + paired + " of " + (paired + empty) + " sections; " + empty +
+        " draw an empty " + O.langName + " cell (the two editions' own numbering)");
+      const ns = Object.keys(byNum).map(Number).sort((a, b) => a - b);
+      ns.forEach((n) => {
+        // DISTINCT numbers, not markers: two speeches sharing one of the translation's blocks are
+        // emitted under the same number and fold back into one row — see the drama block above
+        const keys = new Set([...byNum[n].matchAll(/data-n="(\d+)"/g)].map((m) => m[1]));
+        console.log("  Part " + n + " — " + keys.size + " sections (" + (byNum[n].length / 1024).toFixed(0) + " KB)");
+      });
       return writeOriginal(byNum, warnings);
     }
 

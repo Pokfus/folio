@@ -4947,6 +4947,60 @@
       /* No `parts`: the Oxford Translation gives this work a volume to itself and divides it no
          further, so app.js falls back to a single unlabelled group. */
     },
+    {
+      id: "sophocles-oedipus-rex",
+      title: "Oedipus Rex",
+      // the play's own Greek title, which is what its Greek column is an edition of — the pattern
+      // Lucretius set with De Rerum Natura
+      subtitle: "Οἰδίπους Τύραννος",
+      author: "Sophocles",
+      /* The date is not recorded. Around 429 BCE is the usual estimate and the argument for it is
+         internal — the plague at Thebes reads like the one that struck Athens in 430 — which is
+         suggestive rather than decisive, and the front matter says so rather than letting the `c.`
+         carry the whole of the doubt. */
+      written: "c. 429 BCE",
+      year: -429,
+      translator: "Richard Jebb",
+      edition: "Sophocles: The Plays and Fragments, Cambridge University Press, 1887",
+      /* THE EASIEST LICENCE ON THIS SHELF, and the only one that is easy on BOTH columns. The
+         Republic's was the first to need no qualification at all; this one matches it twice over.
+         Jebb published in 1887 and died in 1905; Storr's Greek was published in 1912 and Storr died
+         in 1919. So both clear the pre-1929 publication rule AND life-plus-seventy AND life-plus-a-
+         hundred, and neither needs the limit the Art of War states for Giles (2029) or the
+         Nicomachean Ethics for Ross (2042). Both death years were checked against Wikisource's author
+         pages rather than recalled — the Ovid entry's Hugo Magnus mistake was precisely a death year
+         asserted from memory to hold up a licence. See .claude/fetch-book.js. */
+      rights:
+        "Public domain on every ground, in both columns. Richard Jebb's translation was published at " +
+        "Cambridge in 1887 and Jebb died in 1905; the Greek beside it is Francis Storr's text of " +
+        "1912, and Storr died in 1919. Both are therefore public domain in the United States on the " +
+        "pre-1929 publication rule and everywhere that the term is the author's life plus a hundred " +
+        "years or less. Sophocles wrote the play in Athens some twenty-four centuries ago. The " +
+        "digital editions of both texts are prepared by the Perseus Digital Library at Tufts " +
+        "University and are released under a Creative Commons Attribution-ShareAlike 4.0 " +
+        "International licence. (The modern translations by David Grene, 1942, Dudley Fitts and " +
+        "Robert Fitzgerald, 1949, and Robert Fagles, 1982, are still in copyright and are not used " +
+        "here.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0011.tlg004/",
+      /* Paired on the LINE NUMBER, which is how any passage of a Greek tragedy is cited in any
+         language and which both editions state on every line — at different grain, since Jebb
+         translates into prose and numbers the line each block begins at while Storr's verse numbers
+         every line. It is also the first book here whose markers are not all integers for a reason
+         other than Aristotle's: a tragedy's text carries lettered lines (625a, 676a), so the marker
+         needs the same explicit `data-n` sort key the Bekker pages introduced. */
+      origLang: "grc",
+      origName: "Greek",
+      color: "#7A2E2E",
+      /* Folio's own neutral word for a division, deliberately not "Scene" or "Act": this edition
+         numbers its divisions not at all, and an act is a later theatre's unit that a Greek tragedy
+         does not have. The number is Folio's; the name of each part is the edition's own. */
+      chapterWord: "Part",
+      // the whole play — the edition divides it into fifteen and there is no more of it
+      count: 15,
+      total: 15,
+      /* No `parts`: a single play, and its edition divides it no further than the fifteen. */
+    },
   ];
   const BOOK_BY_ID = {};
   BOOKS.forEach((b) => (BOOK_BY_ID[b.id] = b));
