@@ -112,8 +112,14 @@ body{
    What this deliberately does NOT reach is the ATLAS's canvas labels: those are `ctx.fillText` at computed
    sizes, and their spacing arithmetic (the collision grid, the leader lines) is written against those
    numbers. CSS cannot see them and scaling them would rearrange the map, not enlarge it. */
+/* Five stops (Aug 2026, on request — "very small" and "very large" were added at the ends). The steps
+   are deliberately not even: the middle three keep the values they have always had, so nobody's chosen
+   size moves under them, and the two new ends sit a little further out than that spacing would give —
+   a reader who asks for "very large" is asking for a real difference, not one more nudge. */
+body[data-fs="tiny"]{--fs:.8;}
 body[data-fs="small"]{--fs:.9;}
 body[data-fs="large"]{--fs:1.14;}
+body[data-fs="huge"]{--fs:1.32;}
 body::before{
   content:""; position:fixed; inset:-15%; z-index:-1; pointer-events:none;
   background:
@@ -260,7 +266,19 @@ html[dir="rtl"] .page-head{text-align:right;}
    bare `pan-y` would take away. It costs double-tap-to-zoom, which the book already suppresses for its own
    double tap. Nested horizontal scrollers are UNAFFECTED (measured): the intersection that decides a pan
    stops at the element that will scroll, so the chapter bar, the Atlas sheet's pager and the heatmap still
-   pan sideways, and every draggable that declares touch-action:none only ever narrows this further. */
+   pan sideways, and every draggable that declares touch-action:none only ever narrows this further.
+
+   IT HAS TO BE ON THE PAGE'S ANCESTORS TOO, and it was on `.page` alone for a fortnight (Aug 2026, on a
+   report that swiping left from the Library did nothing when the finger started in the empty space below
+   the content). A short page leaves the bottom of the screen covered by `.stage`'s 90px of padding and
+   then by the body itself, and neither of those is `.page` — so a finger landing there met the default
+   `auto`, the browser took the gesture for a scroll, and pointerup never arrived. The gesture worked or
+   did not depending on WHERE on the page it began, which reads as the swipe being unreliable rather than
+   as a rule with a hole in it. `body` is the honest place for it: the document scrolls vertically and
+   nothing else, at every width and on every route. Nested horizontal scrollers are still unaffected for
+   the reason above — the intersection stops at the element that will scroll. */
+body{touch-action:pan-y pinch-zoom;}
+.stage,#view{touch-action:pan-y pinch-zoom;}
 .page{animation:pageIn .42s var(--ease) both; touch-action:pan-y pinch-zoom;}
 @keyframes pageIn{from{opacity:0; transform:translateY(10px) scale(.995);} to{opacity:1; transform:none;}}
 /* The outgoing page (see makePageGhost in app.js): a CLONE of it, laid over the stage to fade while the new
@@ -1716,17 +1734,26 @@ body.night .ph-lvl{color:#F3E3B2; background:#4A3B10; border-color:#E6C765;}
    what it does rather than only naming it. */
 .fs-ticks{display:flex; justify-content:space-between; align-items:flex-end; margin-top:2px;}
 .fs-tick{
-  display:flex; flex-direction:column; align-items:center; gap:1px; flex:0 0 auto;
-  font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.08em;
+  display:flex; flex-direction:column; align-items:center; gap:1px; flex:0 1 auto; min-width:0;
+  font-family:var(--mono); font-size:calc(9px * var(--fs)); letter-spacing:.06em;
   text-transform:uppercase; font-weight:600; color:var(--ink-faint); transition:color .15s;
 }
 .fs-tick:first-child{align-items:flex-start;}
 .fs-tick:last-child{align-items:flex-end;}
 .fs-tick.on{color:var(--indigo);}
+/* Two of the five names are two words ("Very small", "Very large"), and five labels across a 390px row
+   have no space to run them on one line — so the label WRAPS and is centred under its own specimen
+   rather than being abbreviated. The ends stay hard against the track's ends, where the thumb's travel
+   puts them, so their text is aligned to the outside rather than centred. */
+.fs-tick .fs-lbl{display:block; text-align:center; line-height:1.15; max-width:7.5em;}
+.fs-tick:first-child .fs-lbl{text-align:left;}
+.fs-tick:last-child .fs-lbl{text-align:right;}
 .fs-tick .fs-a{font-family:var(--serif); font-weight:600; line-height:1; letter-spacing:0; text-transform:none;}
+.fs-tick[data-fs="tiny"] .fs-a{font-size:calc(10px * var(--fs));}
 .fs-tick[data-fs="small"] .fs-a{font-size:calc(12px * var(--fs));}
 .fs-tick[data-fs="medium"] .fs-a{font-size:calc(16px * var(--fs));}
 .fs-tick[data-fs="large"] .fs-a{font-size:calc(20px * var(--fs));}
+.fs-tick[data-fs="huge"] .fs-a{font-size:calc(24px * var(--fs));}
 /* While "Match my device" is on, the Night mode switch still SHOWS which way the system has gone — the row
    is dimmed rather than removed, because a reader needs to see that the site knows it is dark. Clicking it
    is still allowed and takes the decision back (setNight turns the device switch off), so it must NOT be
@@ -1812,6 +1839,9 @@ body.night .ph-lvl{color:#F3E3B2; background:#4A3B10; border-color:#E6C765;}
 .dm-choice.on b{color:var(--indigo);}
 .dm-choice.on::after{content:""; position:absolute; right:16px; top:50%; width:6px; height:11px; margin-top:-7px; border:solid var(--indigo); border-width:0 2px 2px 0; transform:rotate(45deg);}
 .dm-field{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:9px 14px; font-family:var(--sans); font-size:calc(13.5px * var(--fs)); color:var(--ink);}
+/* a sheet row holding a picker rather than a number — the label stays on the left and the control takes
+   what is left, which on a 390px screen is most of the row */
+.dm-field select.af-input{flex:1 1 auto; min-width:0; width:auto; max-width:62%;}
 .dm-field .dm-num{width:88px; flex:none; appearance:auto; font-family:var(--mono); font-size:calc(14px * var(--fs)); padding:6px 8px; border:1px solid var(--rule); border-radius:8px; background:var(--paper); color:var(--ink);}
 .dm-note{margin:2px 14px 4px; font-size:calc(11.5px * var(--fs)); line-height:1.45; color:var(--ink-faint);}
 .dm-actions{display:flex; justify-content:flex-end; gap:8px; padding:10px 14px 8px;}
@@ -2287,6 +2317,10 @@ body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, va
    WHITEBOARD — draw on the card
    ============================================================ */
 .draw-canvas{position:absolute; top:0; left:0; z-index:40; pointer-events:none; touch-action:none;}
+/* The BOOK's ink layer: the size of the SCREEN, pinned to it, with the strokes re-drawn at the current
+   scroll offset instead of the canvas being as tall as the chapter. See wbResize's `fixed` branch —
+   a book of the Republic is ~41,500px tall, which as a backing store is 200 MB. */
+.draw-canvas.wb-fixed{position:fixed;}
 .draw-canvas.on{pointer-events:auto; cursor:crosshair;}
 /* ---- a stylus takes the pen, and fingers go back to scrolling (Aug 2026, on request) ----
    `touch-action` is what decides whether the browser may scroll under a finger at all, and it is half the
@@ -2653,6 +2687,19 @@ button.game-tile .gt-glyph{opacity:.14;}
 .ctx-menu{position:fixed; z-index:9500; min-width:136px; background:var(--card); border:1px solid var(--rule); border-radius:10px; box-shadow:var(--shadow-lg); padding:5px; display:flex; flex-direction:column; gap:1px;}
 .ctx-menu button{appearance:none; border:none; background:transparent; text-align:left; font-family:var(--sans); font-size:calc(13px * var(--fs)); color:var(--ink); padding:7px 11px; border-radius:7px; cursor:pointer;}
 .ctx-menu button:hover{background:var(--paper-2);}
+/* A row of colours where a command would be (the book's Highlight — see wireBookCtxMenu). Drawn in place
+   rather than as a submenu: five swatches take less room than the words naming them, and a menu inside a
+   menu is a target inside a target on a phone. The label sits above them in the menu's own type so the
+   row reads as one item and not as five unexplained dots. */
+.ctx-swatches{padding:5px 11px 7px;}
+.ctx-swlabel{display:block; font-family:var(--sans); font-size:calc(13px * var(--fs)); color:var(--ink); margin-bottom:6px;}
+.ctx-swrow{display:flex; gap:6px;}
+.ctx-sw{
+  appearance:none; width:22px; height:22px; flex:none; padding:0; border-radius:50%;
+  border:1px solid var(--rule); cursor:pointer; transition:transform .12s var(--ease), box-shadow .12s;
+}
+.ctx-sw:hover{transform:scale(1.14);}
+.ctx-sw:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
 /* ---------- Mission page (about: spaced repetition, credits, changelog) ---------- */
 .mission{display:flex; flex-direction:column; gap:18px; max-width:760px;}
 .msn-card{position:relative; background:var(--card); border:1px solid var(--rule); border-radius:14px; padding:26px 30px; box-shadow:var(--shadow-sm);}   /* relative: hosts the intro's absolute read-aloud button */
@@ -4427,12 +4474,61 @@ body[data-theme="gazette"] .banner .lb-num, body[data-theme="gazette"] .collecti
 .ut-help code{font-family:var(--mono); font-size:calc(11.5px * var(--fs)); padding:1px 4px; border-radius:4px; background:var(--card); color:var(--ink);}
 /* a template is code, so it is set as code — and never spell-checked or auto-capitalised */
 .ut-code{font-family:var(--mono); font-size:calc(12px * var(--fs)); line-height:1.55; white-space:pre; overflow-wrap:normal; overflow-x:auto; tab-size:2;}
+/* The ready-made shapes, shown in the pane an author is already looking at rather than only behind the
+   "Add a type" button. Each names the fields it comes with, because that is what tells you whether it is
+   the shape you want — a blurb says what it is for, a field list says what you will be filling in. */
+.ut-presets{display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:10px; margin-top:14px;}
+.ut-preset{
+  appearance:none; display:flex; flex-direction:column; gap:5px; text-align:left; cursor:pointer;
+  padding:12px 13px; border:1px solid var(--rule); border-radius:12px; background:var(--card);
+  font-family:var(--sans); color:inherit;
+  transition:border-color .14s var(--ease), background .14s var(--ease), transform .14s var(--ease);
+}
+.ut-preset:hover{border-color:var(--indigo); background:var(--paper-2); transform:translateY(-1px);}
+.ut-preset:focus-visible{outline:none; border-color:var(--indigo); box-shadow:0 0 0 3px var(--indigo-wash);}
+.ut-preset-name{font-family:var(--display); font-weight:600; font-size:calc(15px * var(--fs)); color:var(--ink);}
+.ut-preset-blurb{font-size:calc(12.5px * var(--fs)); line-height:1.5; color:var(--ink-soft);}
+.ut-preset-fields{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.05em; color:var(--ink-faint);}
 .ut-preview{display:flex; flex-direction:column; gap:5px;}
 .ut-preview-box{padding:10px; border:1px dashed var(--rule); border-radius:11px; background:var(--paper-2);}
 /* The wrapper a type's own CSS is scoped to. It sets nothing but the containing block, so an author starts
    from the page's own typography rather than from a box that has already made decisions for them — and
    `position:relative` is what keeps an absolutely-positioned rule inside the card it belongs to. */
 .uc-card{position:relative;}
+/* ---------- the two behaviours Folio lends a card type ----------
+   A type's own CSS is scoped to its own cards, so anything a type needs to LOOK like it must style itself.
+   These two are different: they are things Folio DOES — reading a run of text aloud, and closing a blank —
+   so their base appearance ships here, unscoped, and works in any type without being written out again. A
+   type's own stylesheet can still override either, since its selectors are more specific. */
+/* A run of text a card type has marked to be heard: <span class="uc-tts">{{Word}}</span>. The speaker is a
+   mask rather than an <img> or an inline <svg> — a template's HTML is sanitized and cannot carry an svg, and
+   a mask takes `currentColor`, so the icon follows the theme, the night mode and the high-contrast mode with
+   nothing further to keep in step. */
+.uc-tts{
+  --uc-spk:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M11 5 6 9H2v6h4l5 4z'/%3E%3Cpath d='M15.5 8.5a5 5 0 0 1 0 7'/%3E%3Cpath d='M19 5a9 9 0 0 1 0 14'/%3E%3C/svg%3E");
+  display:inline-flex; align-items:center; gap:.42em; cursor:pointer;
+  padding:.1em .5em .1em .45em; border-radius:8px;
+  border:1px solid var(--rule); background:var(--paper-2); color:inherit;
+  transition:border-color .14s var(--ease), background .14s var(--ease), box-shadow .14s var(--ease);
+}
+.uc-tts::before{
+  content:""; flex:none; width:.92em; height:.92em; background-color:currentColor;
+  -webkit-mask:var(--uc-spk) center/contain no-repeat; mask:var(--uc-spk) center/contain no-repeat;
+}
+.uc-tts:hover{border-color:var(--indigo); background:var(--indigo-wash);}
+.uc-tts:focus-visible{outline:none; border-color:var(--indigo); box-shadow:0 0 0 3px var(--indigo-wash);}
+.uc-tts.tts-playing{border-color:var(--indigo); background:var(--indigo-wash); box-shadow:0 0 0 3px var(--indigo-wash);}
+/* No speech engine on this device → the words stay words. A control that answers a press with nothing is
+   worse than no control, and the text it wraps is the answer the card is about, so it must still read. */
+body.no-tts .uc-tts{display:inline; padding:0; border:0; background:none; cursor:auto; box-shadow:none;}
+body.no-tts .uc-tts::before{display:none;}
+/* A cloze blank. Closed on the front, and on the back the same words in the same place, marked — a reader
+   comparing the two is looking for exactly where the sentence changed. */
+.uc-cloze{color:var(--indigo); font-weight:600;}
+.uc-cloze-on{
+  color:inherit; background:var(--indigo-wash); border-radius:5px; padding:0 .18em;
+  box-shadow:inset 0 -.42em 0 var(--indigo-wash);
+}
 .ces-typebar{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:12px;}
 .ces-typepick{display:flex; align-items:center; gap:8px;}
 .ces-typepick span{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.07em; text-transform:uppercase; color:var(--ink-faint);}
@@ -4506,7 +4602,23 @@ body.night .rv-star.on{color:#E6C765;}
    about is a tap away in its own front matter — which is what lets a full-width banner still be short.
    Reading left to right rather than top to bottom is the other half of that. */
 .book-grid{display:grid; grid-template-columns:1fr; gap:10px; margin-bottom:22px;}
+/* The shelf's tools row: the search box on the left, taking whatever width is going, and the two sort
+   controls held to the right. It was `flex-end` with only the sort in it; a search box has to be the wide
+   one, since a field narrow enough to fit beside two controls holds about four characters. */
 .lib-tools{display:flex; justify-content:flex-end; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:12px;}
+.lib-search{flex:1 1 220px; min-width:180px;}
+.lib-search input{
+  width:100%; font-family:var(--sans); font-size:calc(13.5px * var(--fs)); padding:9px 12px;
+  border:1px solid var(--rule); border-radius:9px; background:var(--card); color:var(--ink);
+  transition:border-color .16s var(--ease), box-shadow .16s var(--ease);
+}
+.lib-search input:focus{outline:none; border-color:var(--indigo); box-shadow:0 0 0 3px var(--indigo-wash);}
+/* Nothing matched. A line rather than an empty shelf, which reads as a page that failed to draw. */
+.lib-none{
+  padding:26px 18px; text-align:center; border:1px dashed var(--rule); border-radius:14px;
+  background:var(--paper-2); font-family:var(--sans); font-size:calc(14px * var(--fs)); color:var(--ink-soft);
+}
+.lib-none p{margin:0;}
 /* ---------- the shelf's two sections: favourites, then the rest (Aug 2026, on request) ----------
    Headings appear only once something has been starred — an unstarred shelf is the page it always was,
    and a lone "Everything else" over the only section there is would be a heading naming nothing. A
@@ -4572,6 +4684,11 @@ body.night .rv-star.on{color:#E6C765;}
    of the document while the bar that opens it rides with the reader. Being sticky, the wrapper is a
    positioned element and therefore the containing block the panel hangs from. */
 .bk-barwrap{position:sticky; top:calc(var(--bar-h) + 4px); z-index:20; margin-bottom:16px;}
+/* A highlight made from the reader's own selection (see BOOK HIGHLIGHTS). The colour is set inline —
+   it is one of the marker's five and is already an rgba by the time it arrives — so all this carries is
+   the shape. `box-decoration-break:clone` keeps the rounding on every line a highlight wraps onto
+   instead of only its first and last. */
+.bk-hl{border-radius:2px; padding:.05em 0; -webkit-box-decoration-break:clone; box-decoration-break:clone;}
 .bk-bar{
   display:flex; align-items:center; gap:6px; padding:7px 8px;
   background:var(--card); border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow-sm);
@@ -4661,6 +4778,42 @@ body.night .rv-star.on{color:#E6C765;}
   font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink-faint);
   vertical-align:.28em; margin-right:5px; user-select:none;
 }
+/* ---------- A PLAY ----------
+   Oedipus Rex is the first work here that is performed rather than read, and the two things that
+   makes necessary are both about telling KINDS of text apart. In a play the speaker's name is not
+   furniture around the text, it is part of it — a page that renders it as an ordinary word turns a
+   drama into an unattributed argument — and a stage direction is not spoken at all.
+
+   A speech is one paragraph per section, so a long speech is several and only the FIRST of them
+   carries the name (bookSections cuts a block at each marker, and repeating the speaker at every
+   line number would read as the character starting again). `.bk-cont` is the rest of that speech,
+   indented to hang under the name rather than under the margin, so the eye can see the speech is
+   still running. Below the two-column breakpoint that indent is dropped — at a phone's measure it
+   costs more than it says.
+
+   The name is INLINE, run into the head of the line the way a printed play sets it, rather than
+   standing on a line of its own. Two reasons, and the first is structural: it has to follow the
+   section marker in the markup (see dramaHtml in .claude/fetch-book.js — a name before the marker is
+   given to the previous section), and a block element after an inline number would strand that
+   number alone on the line above. The second is that this text is cut into a section every couple of
+   lines, so a name on its own line would roughly double the length of the page. */
+.bk-prose .bk-sp{margin:0 0 .62em;}
+.bk-prose .bk-who{
+  font-family:var(--mono); font-size:calc(10.5px * var(--fs)); font-weight:600;
+  letter-spacing:.09em; text-transform:uppercase; color:var(--tile,var(--indigo));
+  margin-right:.5em; white-space:nowrap;
+}
+.bk-prose .bk-cont{padding-left:1.6em;}
+/* Jebb's own, and the Greek carries none — the ancient text records no directions, so every one in a
+   modern edition is its editor's inference. Set as a different kind of thing from the spoken line,
+   and centred away from the margin so it cannot be mistaken for one. */
+.bk-prose .bk-stage{
+  font-style:italic; color:var(--ink-soft); font-size:calc(15.5px * var(--fs));
+  margin:1.1em 0; padding-left:1.6em; max-width:56ch;
+}
+/* In two columns the stage direction sits beside an empty Greek cell, so it keeps the row's own
+   spacing rather than opening a gap the other side cannot match. */
+.bk-bi .bk-prose .bk-stage,.bk-bi .bk-stage{margin:.5em 0;}
 /* THE ORIGINAL BESIDE THE TRANSLATION.
    The page is always built as paired rows once the original is loaded, and these rules decide which
    columns are shown — so turning the original on is a class change rather than a re-render, which is
@@ -4751,6 +4904,9 @@ body.night .rv-star.on{color:#E6C765;}
   .bk-tab-n{font-size:calc(12.5px * var(--fs)); opacity:1;}
   .bk-page{padding:20px 18px 18px; border-radius:12px;}
   .bk-prose{font-size:calc(16.5px * var(--fs)); line-height:1.74;}
+  /* at a phone's measure the hanging indent of a continued speech costs more width than it says */
+  .bk-prose .bk-cont{padding-left:0;}
+  .bk-prose .bk-stage{padding-left:0;}
   .bk-ch-t{font-size:calc(23px * var(--fs));}
   .bk-toc-list{grid-template-columns:1fr;}
 }

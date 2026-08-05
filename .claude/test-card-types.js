@@ -78,8 +78,12 @@ function pureChecks() {
     slice(/  function cssScopeSelector\(sel, scope\) \{[\s\S]*?\n  \}/, "cssScopeSelector"),
     slice(/  function cssScoped\(css, scope\) \{[\s\S]*?\n  \}/, "cssScoped"),
     slice(/  function tplRender\(tpl, get\) \{[\s\S]*?\n  \}/, "tplRender"),
+    // tplRender defers to these — a cloze marker is not a field reference — so they are sliced with it
+    slice(/  const CLOZE_NAME_RX = [^\n]*\n  const CLOZE_RX = [^\n]*\n/, "the cloze patterns"),
+    slice(/  function clozeMark\(html, reveal\) \{[\s\S]*?\n  \}/, "clozeMark"),
+    slice(/  const SPEECH_LANG_RX = [^\n]*\n/, "SPEECH_LANG_RX"),
   ].join("\n");
-  const api = new Function(parts + "; return { sanitizeCSSText, cssScoped, cssScopeSelector, tplRender };")();
+  const api = new Function(parts + "; return { sanitizeCSSText, cssScoped, cssScopeSelector, tplRender, clozeMark, SPEECH_LANG_RX };")();
   const SCOPE = '.uc-card[data-uct="d1__t1"]';
   const scoped = (css) => api.cssScoped(api.sanitizeCSSText(css), SCOPE);
 
@@ -131,6 +135,30 @@ function pureChecks() {
   check("a section's own field still interpolates", api.tplRender("{{#Back}}[{{Back}}]{{/Back}}", get) === "[A]");
   check("a value carrying braces is not re-expanded", api.tplRender("{{X}}", (f) => (f === "X" ? "{{Front}}" : "")) === "{{Front}}");
   check("{{FrontSide}} resolves from the getter", api.tplRender("{{FrontSide}}", (f) => (/frontside/i.test(f) ? "FRONT" : "")) === "FRONT");
+  // a field name may contain a space, and the Vocabulary preset's "Word type" section depends on it —
+  // the conditional matches its closing tag by BACKREFERENCE, which is the part that could quietly not
+  const spaced = (f) => ({ "Word type": "verb", Empty: "" })[f] || "";
+  check("a field name with a space interpolates", api.tplRender("{{Word type}}", spaced) === "verb");
+  check("...and closes its own section", api.tplRender("{{#Word type}}[{{Word type}}]{{/Word type}}", spaced) === "[verb]");
+
+  /* --- cloze deletions ---
+     The failure this guards is silent in the worst way: a marker read as a FIELD name renders as nothing at
+     all, so the card would show a sentence with a hole in it on both sides and no sign of what went wrong. */
+  const clozeGet = (f) => ({ Text: "Hastings, {{c1::1066}}, won by {{c2::William::which duke?}}." }[f] || "");
+  const front = api.clozeMark(api.tplRender("<p>{{Text}}</p>", clozeGet), false);
+  const back = api.clozeMark(api.tplRender("<p>{{Text}}</p>", clozeGet), true);
+  check("a marker in a field is not swallowed as a field name", /Hastings/.test(front) && front.indexOf("1066") < 0, front);
+  check("the front closes every blank on the card", (front.match(/class="uc-cloze"/g) || []).length === 2, front);
+  check("a hint stands in for the words it hides", /\[which duke\?\]/.test(front), front);
+  check("the back opens them, marked", /uc-cloze-on/.test(back) && /1066/.test(back) && /William/.test(back), back);
+  check("…and does not leave the hint behind", back.indexOf("which duke") < 0, back);
+  check("a marker written into a TEMPLATE is left for the cloze pass", api.tplRender("{{c1::x}}", get) === "{{c1::x}}");
+  check("…and is then closed like any other", /uc-cloze/.test(api.clozeMark(api.tplRender("{{c1::x}}", get), false)));
+  check("text with no marker is returned untouched", api.clozeMark("<p>plain</p>", false) === "<p>plain</p>");
+
+  // --- the spoken language a type may declare ---
+  check("a language tag is accepted", api.SPEECH_LANG_RX.test("es") && api.SPEECH_LANG_RX.test("pt-BR") && api.SPEECH_LANG_RX.test("zh-CN"));
+  check("anything not tag-shaped is refused", !api.SPEECH_LANG_RX.test("Spanish!") && !api.SPEECH_LANG_RX.test("javascript:x") && !api.SPEECH_LANG_RX.test(""));
 }
 
 /* ---------- part 3: the browser ---------- */
@@ -152,7 +180,16 @@ async function studioChecks(page, base) {
   check("Basic is marked as built in", await page.$(".ut-builtin") !== null);
   check("Basic has no delete button", await page.$("#stDelType") === null);
 
+  /* Adding a type starts with a SHAPE (Aug 2026, on request): the button opens a sheet of ready-made types
+     with "Start from scratch" last. The presets are covered further down; this is the blank one, which is
+     what the rest of this section then programs by hand. */
+  check("the ready-made shapes are offered in the pane itself", (await page.$$(".ut-preset")).length === 3,
+    String((await page.$$(".ut-preset")).length));
   await page.click("#stAddType");
+  await page.waitForTimeout(350);
+  check("Add a type offers the same shapes plus a blank one", (await page.$$(".deck-menu [data-preset]")).length === 4,
+    String((await page.$$(".deck-menu [data-preset]")).length));
+  await page.click('.deck-menu [data-preset=""]');
   await page.waitForTimeout(400);
   check("a new type opens its own form", await page.$('[data-utype="front"]') !== null);
   check("…with a fields box", await page.$("#stTypeFields") !== null);
@@ -233,6 +270,81 @@ async function studioChecks(page, base) {
   check("…and one element per type, not one per render", (await page.$$("style[data-uct]")).length === 1);
 
   return opts[1];
+}
+
+/* ---------- the ready-made shapes (Aug 2026, on request) ----------
+   Three of the four things here fail SILENTLY, which is why they are asserted rather than looked at once:
+   a preset that ships without its fields renders an empty card, a read-aloud control on a card with no
+   language declared speaks the answer in whatever voice the device happens to boot with, and a cloze whose
+   marker leaks through tplRender shows a sentence with a hole in it on BOTH sides. Only the last of the
+   four — a shape that never appears in the list — is visible without asking. */
+async function presetChecks(page, base) {
+  /* It runs AFTER the round trip, on the same deck, so travelChecks measures the deck studioChecks built
+     rather than one this section has added two more types to — and it therefore has to find its own way
+     back to the Studio, since studyChecks left the page on a study session. */
+  await page.goto(base + "/#studio");
+  await page.waitForTimeout(700);
+  // the Studio remembers which deck was open, so it may land on the deck itself rather than on the list
+  if (await page.$(".studio-deck-open")) { await page.click(".studio-deck-open"); await page.waitForTimeout(600); }
+  check("the Studio came back to the deck", await page.$('[data-tab="types"]') !== null);
+  await page.click('[data-tab="types"]');
+  await page.waitForTimeout(350);
+  // the gallery is the pane shown when no type of the deck's own is selected — Basic's pane
+  await page.click('[data-topensel="basic"]');
+  await page.waitForTimeout(350);
+  const names = await page.$$eval(".ut-preset-name", (els) => els.map((e) => e.textContent));
+  check("the pane names all three shapes", JSON.stringify(names) === '["Vocabulary","Picture","Fill in the blank"]', JSON.stringify(names));
+
+  // --- vocabulary: the one that reads its answer aloud ---
+  await page.click("#stAddType");
+  await page.waitForTimeout(300);
+  await page.click('.deck-menu [data-preset="vocabulary"]');
+  await page.waitForTimeout(300);
+  check("the vocabulary shape asks which language before creating anything", await page.$("#dmSpeechLang") !== null);
+  await page.selectOption("#dmSpeechLang", "fr");
+  await page.click("#dmSpeechOk");
+  await page.waitForTimeout(600);
+  check("it opens the type it just made", await page.$eval(".admin-ed-title", (el) => el.textContent) === "Vocabulary",
+    await page.$eval(".admin-ed-title", (el) => el.textContent).catch(() => "-"));
+  check("the language chosen is the language it carries", await page.$eval('[data-utype="speechLang"]', (el) => el.value) === "fr");
+  const fieldsVal = await page.$eval("#stTypeFields", (el) => el.value);
+  check("it arrives with its fields already named", /^Word, Word type, Translation, Conjugations, Notes$/.test(fieldsVal), fieldsVal);
+  const pv = await page.$eval("#stTypePv", (el) => el.innerHTML);
+  check("its back carries a read-aloud control", /uc-tts/.test(pv), pv.replace(/\s+/g, " ").slice(0, 140));
+  check("…inside a card that declares the language", /lang="fr"/.test(pv), pv.replace(/\s+/g, " ").slice(0, 200));
+  // a span is not a button until something says so, and the delegated click handler cannot say it
+  check("the control is focusable and named", await page.$eval("#stTypePv .uc-tts",
+    (el) => el.getAttribute("role") + "/" + el.getAttribute("tabindex") + "/" + (el.getAttribute("aria-label") ? "named" : "unnamed")) === "button/0/named");
+
+  // --- fill in the blank: no language asked for, and the blanks close on the front only ---
+  await page.click("#stAddType");
+  await page.waitForTimeout(300);
+  await page.click('.deck-menu [data-preset="cloze"]');
+  await page.waitForTimeout(600);
+  check("a shape with nothing to speak does not ask for a language",
+    await page.$eval(".admin-ed-title", (el) => el.textContent) === "Fill in the blank",
+    await page.$eval(".admin-ed-title", (el) => el.textContent).catch(() => "-"));
+
+  const tabs = await page.$$(".studio-tab");
+  for (const t of tabs) if (/^Cards/.test((await t.textContent()).trim())) { await t.click(); break; }
+  await page.waitForTimeout(400);
+  await page.click("#stAddCard");
+  await page.waitForTimeout(400);
+  await page.selectOption("#cesCardType", { label: "Fill in the blank" });
+  await page.waitForTimeout(500);
+  const boxes = await page.$$("[data-ufield]");
+  check("a card of it offers one box per field", boxes.length === 3, String(boxes.length));
+  await boxes[0].fill("The Battle of Hastings was fought in {{c1::1066}}.");
+  await page.waitForTimeout(450);
+  const q = await page.$eval("#stCardPv .question", (el) => el.innerHTML);
+  const a = await page.$eval("#stCardPv .reveal-inner", (el) => el.innerHTML);
+  check("the question closes the blank", q.indexOf("1066") < 0 && /Hastings/.test(q), q.replace(/\s+/g, " ").slice(-120));
+  check("the answer opens it, marked", /1066/.test(a) && /uc-cloze-on/.test(a), a.replace(/\s+/g, " ").slice(0, 160));
+  // the templates and CSS a preset ships are nobody's privilege — they pass the same sanitizers
+  const injected = await page.$$eval("style[data-uct]", (els) => els.map((e) => e.textContent).join("\n"));
+  check("every preset's stylesheet is scoped like anyone else's",
+    injected.split("}").filter((r) => r.trim() && r.indexOf("@") < 0).every((r) => r.indexOf(".uc-card[data-uct=") >= 0),
+    injected.slice(0, 90));
 }
 
 async function studyChecks(page, base) {
@@ -389,6 +501,7 @@ async function hostileChecks(page, base) {
     await studioChecks(page, base);
     await studyChecks(page, base);
     await travelChecks(page, base);
+    await presetChecks(page, base);
     await hostileChecks(page, base);
   } catch (e) {
     check("the run completed", false, String(e && e.message).split("\n")[0]);

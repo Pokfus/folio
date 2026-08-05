@@ -672,10 +672,14 @@ async function studyEasy(page, base, n) {
     watch(page);
     await page.goto(base + "#settings", { waitUntil: "load" });
     await page.waitForTimeout(1400);
-    /* A SLIDER since Aug 2026, not three buttons on the left (on request). The three sizes are an
-       ordered scale and the control now says so — and it spans the row, which is the visible half of
-       the request and therefore the thing to assert. The value is the INDEX into FONT_SIZES, so the
-       range and the setting cannot drift apart. */
+    /* A SLIDER since Aug 2026, not buttons on the left (on request). The sizes are an ordered scale and
+       the control now says so — and it spans the row, which is the visible half of the request and
+       therefore the thing to assert. The value is the INDEX into FONT_SIZES, so the range and the
+       setting cannot drift apart.
+       FIVE stops since Aug 2026, "very small" and "very large" having been added at the ends on request.
+       The tick labels are read back as WORDS rather than counted, because the two new ones are two words
+       each and the row is 390px wide — a label that has been quietly abbreviated to fit is exactly the
+       kind of thing nobody notices. */
     const pick = await page.evaluate(() => {
       const g = document.querySelector("#fsPick");
       const r0 = document.querySelector("#fsRange");
@@ -683,18 +687,23 @@ async function studyEasy(page, base, n) {
       const r = g.getBoundingClientRect(), row = g.closest(".set-row").getBoundingClientRect();
       const ticks = [...g.querySelectorAll(".fs-tick")];
       return { range: r0.type, max: +r0.max, val: +r0.value, ticks: ticks.length,
+        labels: ticks.map((t) => { const l = t.querySelector(".fs-lbl"); return l ? l.textContent : ""; }),
         on: ticks.filter((t) => t.classList.contains("on")).map((t) => t.dataset.fs),
         vt: r0.getAttribute("aria-valuetext"),
         fs: document.body.dataset.fs, fits: r.right <= row.right + 1,
         // the point of the change: it fills the row rather than sitting in the left third of it
-        wide: r.width >= row.width - 2 };
+        wide: r.width >= row.width - 2,
+        // …and five labels still fit across it rather than being cut off
+        clipped: g.scrollWidth > g.clientWidth + 1 };
     });
-    check("Settings offers a text size", !!pick && pick.range === "range" && pick.max === 2 && pick.ticks === 3, JSON.stringify(pick));
-    check("...as a slider spanning the whole row, not three buttons on the left", !!pick && pick.wide, JSON.stringify(pick));
+    check("Settings offers a text size", !!pick && pick.range === "range" && pick.max === 4 && pick.ticks === 5, JSON.stringify(pick));
+    check("...from very small to very large",
+      !!pick && pick.labels.join("|") === "Very small|Small|Medium|Large|Very large", JSON.stringify(pick && pick.labels));
+    check("...as a slider spanning the whole row, not buttons on the left", !!pick && pick.wide, JSON.stringify(pick));
     check("...with exactly one mark lit, matching the setting in force",
       !!pick && pick.on.length === 1 && pick.on[0] === pick.fs, JSON.stringify(pick));
-    check("...and announcing which size it is on", !!pick && (pick.vt || "").toLowerCase() === pick.fs, JSON.stringify(pick));
-    check("...without overflowing its row", !!pick && pick.fits, JSON.stringify(pick));
+    check("...and announcing which size it is on", !!pick && (pick.vt || "") === "Medium", JSON.stringify(pick));
+    check("...without overflowing its row", !!pick && pick.fits && !pick.clipped, JSON.stringify(pick));
     const sizes = async () => {
       await page.goto(base + "#home", { waitUntil: "load" });
       await page.waitForTimeout(1200);
@@ -718,7 +727,7 @@ async function studyEasy(page, base, n) {
       // the slider's own event, dispatched by hand: setting .value programmatically fires nothing
       await page.evaluate((f) => {
         const r2 = document.querySelector("#fsRange");
-        const i = ["small", "medium", "large"].indexOf(f);
+        const i = ["tiny", "small", "medium", "large", "huge"].indexOf(f);
         if (r2 && i >= 0) { r2.value = String(i); r2.dispatchEvent(new Event("input", { bubbles: true })); }
       }, v);
       await page.waitForTimeout(250);
@@ -1292,8 +1301,13 @@ async function studyEasy(page, base, n) {
       custom: !!document.querySelector(".wb-custom"),
       nativeDialog: !!document.querySelector(".wb-custom input[type=color]"),
       pickShut: (() => { const p = document.querySelector(".wb-pick"); return !!p && !p.checkVisibility(); })(),
-      // Erase over Undo, Clear over Redo: two columns, and which cell each lands in is the request
-      grid: [...document.querySelectorAll(".wb-panel .wb-row")].slice(-2).map((r) => [...r.children].map((c) => c.className.replace(/wb-btn ?/, "")).join("+")).join(" / "),
+      /* Erase over Undo, Clear over Redo: two columns, and which cell each lands in is the request.
+         The last two VISIBLE rows — the stylus row sits between them in the markup and is `hidden` until
+         a pen has been seen, and querySelectorAll finds a hidden element like any other. Read off the
+         raw list this had been comparing a hidden row against undo/redo ever since the stylus row
+         landed, and reporting the panel as wrong when it was right (found Aug 2026, while adding the
+         book's ink; it fails identically on the commit before that work). */
+      grid: [...document.querySelectorAll(".wb-panel .wb-row")].filter((r) => !r.hidden).slice(-2).map((r) => [...r.children].map((c) => c.className.replace(/wb-btn ?/, "")).join("+")).join(" / "),
       penDown: document.querySelector(".draw-canvas").classList.contains("on"),
       sizeOn: (document.querySelector(".wb-size.on") || {}).dataset,
     }));

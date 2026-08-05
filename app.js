@@ -3079,7 +3079,7 @@
      and it wins outright, exactly as a parent deck's does in Anki. Settings → New cards per day remains
      what a DECK follows until it is given limits of its own. */
   const REVIEW_ENTRY = "review:all";   // a colon, so it can never collide with a node id or a "u:" deck
-  const REVIEW_TITLE = "Daily review";
+  const REVIEW_TITLE = "Daily study";   // renamed from "Daily review" Aug 2026, on request
   function reviewLimits() {
     const o = (S.deckOpts && S.deckOpts[REVIEW_ENTRY]) || {};
     let widest = 0, any = false;
@@ -3455,6 +3455,13 @@
     }
     return out;
   }
+  /* The language a type's read-aloud controls speak in — a BCP-47 tag ("es", "pt-BR", "zh-CN"). It lives on
+     the TYPE rather than on the card or the deck for the reason the templates do: a vocabulary deck teaches
+     ONE language, so the answer is written once beside the template that reads it out, not repeated on every
+     card. It rides inside the deck's `types` object, so it travels through export, publish and install with
+     no schema change of its own. Anything that is not tag-shaped is dropped rather than corrected — an
+     invented tag would have the device pick a voice at random, which is worse than none. */
+  const SPEECH_LANG_RX = /^[A-Za-z]{2,3}(?:-[A-Za-z0-9]{2,8}){0,3}$/;
   function uTypeSanitize(raw, fallbackId) {
     const id = String((raw && raw.id) || fallbackId || "").trim();
     if (!UTYPE_ID_RX.test(id) || id === CARD_TYPE_BASIC) return null;   // "basic" is the built-in format's name and cannot be taken
@@ -3464,6 +3471,7 @@
       if (UTYPE_FIELD_RX.test(n) && fields.indexOf(n) < 0 && fields.length < UTYPE_MAX_FIELDS) fields.push(n);
     });
     if (!fields.length) fields.push("Front", "Back");
+    const lang = sanitizePlain(raw && raw.speechLang).trim();
     return {
       id: id,
       name: sanitizePlain(raw && raw.name).slice(0, 60) || id,
@@ -3471,6 +3479,7 @@
       front: sanitizeHTML(String((raw && raw.front) == null ? "" : raw.front)).slice(0, UTYPE_TPL_MAX),
       back: sanitizeHTML(String((raw && raw.back) == null ? "" : raw.back)).slice(0, UTYPE_TPL_MAX),
       css: sanitizeCSSText(raw && raw.css),
+      speechLang: SPEECH_LANG_RX.test(lang) ? lang : "",
     };
   }
   function uTypesSanitize(raw) {
@@ -3649,17 +3658,108 @@
     back: '<div class="uc-a">{{Back}}</div>',
     css: ".card {\n  font-size: 17px;\n  line-height: 1.55;\n}\n.uc-q {\n  font-weight: 600;\n}\n",
   };
-  function uTypeCreate(deckId, name) {
+  /* ---------- card types you do not have to write ----------
+     Writing a type from nothing means writing two HTML templates and a stylesheet, which is a fair thing to
+     ask of someone who wants a shape Folio has not thought of and an unfair one to ask of everybody else.
+     These three are the shapes the popular Anki decks are made of, ready to fill in — a language deck, a
+     picture deck, and the fill-in-the-blank passage that most of the medicine, law and exam-revision decks
+     on Anki are built out of. Every one of them is an ordinary type once created: same record, same editor,
+     nothing marks it as a preset afterwards, so an author can change any part of it without leaving the
+     page they are on. Their templates and CSS go through the same sanitizers as anyone else's — they are
+     not privileged, they are just already typed out.
+
+     Each preset styles itself. Only the two behaviours Folio LENDS a type — `.uc-tts` (read this aloud) and
+     the cloze blank — are styled in styles.css, because they are things the site does rather than things a
+     template looks like. */
+  const CARD_TYPE_PRESETS = [
+    {
+      id: "vocabulary",
+      name: "Vocabulary",
+      blurb: "A word and its part of speech on the front; on the back the translation, its conjugations, and a button that reads it aloud.",
+      askLang: true,
+      fields: ["Word", "Word type", "Translation", "Conjugations", "Notes"],
+      front:
+        '<div class="uc-word">{{Word}}</div>' +
+        "{{#Word type}}<div class=\"uc-pos\">{{Word type}}</div>{{/Word type}}",
+      back:
+        "{{FrontSide}}<hr>" +
+        '<div class="uc-target"><span class="uc-tts">{{Translation}}</span></div>' +
+        '{{#Conjugations}}<div class="uc-block"><div class="uc-blocklabel">Conjugations</div>' +
+          '<div class="uc-conj">{{Conjugations}}</div></div>{{/Conjugations}}' +
+        '{{#Notes}}<div class="uc-note">{{Notes}}</div>{{/Notes}}',
+      css:
+        ".card {\n  text-align: center;\n  font-size: 17px;\n  line-height: 1.6;\n}\n" +
+        ".uc-word {\n  font-size: 30px;\n  font-weight: 600;\n  line-height: 1.2;\n}\n" +
+        ".uc-pos {\n  margin-top: 7px;\n  font-size: 11px;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  opacity: 0.6;\n}\n" +
+        "hr {\n  margin: 16px 0;\n  border: 0;\n  border-top: 1px solid currentColor;\n  opacity: 0.18;\n}\n" +
+        ".uc-target {\n  font-size: 26px;\n  font-weight: 600;\n}\n" +
+        ".uc-block {\n  margin-top: 16px;\n}\n" +
+        ".uc-blocklabel {\n  margin-bottom: 4px;\n  font-size: 10px;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  opacity: 0.55;\n}\n" +
+        ".uc-conj {\n  font-size: 15px;\n  line-height: 1.75;\n  white-space: pre-line;\n}\n" +
+        ".uc-note {\n  margin-top: 14px;\n  font-size: 14px;\n  line-height: 1.65;\n  opacity: 0.78;\n}\n",
+    },
+    {
+      id: "picture",
+      name: "Picture",
+      blurb: "A picture on the front and what it is on the back — a painting and its painter, a face and its name, a map and its place.",
+      fields: ["Image", "Question", "Answer", "Details", "Credit"],
+      front:
+        '{{#Image}}<div class="uc-pic"><img src="{{Image}}" alt="{{Question}}" loading="lazy"></div>{{/Image}}' +
+        '<div class="uc-ask">{{#Question}}{{Question}}{{/Question}}{{^Question}}What is this?{{/Question}}</div>',
+      back:
+        "{{FrontSide}}<hr>" +
+        '<div class="uc-target">{{Answer}}</div>' +
+        '{{#Details}}<div class="uc-note">{{Details}}</div>{{/Details}}' +
+        '{{#Credit}}<div class="uc-credit">{{Credit}}</div>{{/Credit}}',
+      css:
+        ".card {\n  text-align: center;\n  font-size: 17px;\n  line-height: 1.6;\n}\n" +
+        ".uc-pic img {\n  max-width: 100%;\n  max-height: 340px;\n  border-radius: 12px;\n}\n" +
+        ".uc-ask {\n  margin-top: 13px;\n  font-size: 17px;\n  font-weight: 600;\n}\n" +
+        "hr {\n  margin: 16px 0;\n  border: 0;\n  border-top: 1px solid currentColor;\n  opacity: 0.18;\n}\n" +
+        ".uc-target {\n  font-size: 22px;\n  font-weight: 600;\n}\n" +
+        ".uc-note {\n  margin-top: 12px;\n  font-size: 14px;\n  line-height: 1.65;\n  opacity: 0.78;\n}\n" +
+        ".uc-credit {\n  margin-top: 12px;\n  font-size: 11px;\n  letter-spacing: 0.03em;\n  opacity: 0.55;\n}\n",
+    },
+    {
+      id: "cloze",
+      name: "Fill in the blank",
+      blurb: "One passage with the words to recall wrapped in {{c1::…}}. They close on the front and open on the back.",
+      fields: ["Text", "Notes", "Source"],
+      front: '<div class="uc-passage">{{Text}}</div>',
+      back:
+        '<div class="uc-passage">{{Text}}</div>' +
+        '{{#Notes}}<div class="uc-note">{{Notes}}</div>{{/Notes}}' +
+        '{{#Source}}<div class="uc-credit">{{Source}}</div>{{/Source}}',
+      css:
+        ".card {\n  font-size: 17px;\n  line-height: 1.75;\n}\n" +
+        ".uc-passage {\n  text-align: left;\n}\n" +
+        ".uc-note {\n  margin-top: 16px;\n  font-size: 14px;\n  line-height: 1.65;\n  opacity: 0.78;\n}\n" +
+        ".uc-credit {\n  margin-top: 12px;\n  font-size: 11px;\n  letter-spacing: 0.03em;\n  opacity: 0.55;\n}\n",
+    },
+  ];
+  function cardTypePreset(id) { return CARD_TYPE_PRESETS.find((p) => p.id === id) || null; }
+  // what a preset contributes to a new type record — everything but the id and the name, which uTypeCreate
+  // owns because it is the one that has to keep them unique within the deck
+  function cardTypePresetSpec(p, lang) {
+    return { id: p.id, fields: p.fields.slice(), front: p.front, back: p.back, css: p.css, speechLang: lang || "" };
+  }
+  function uTypeCreate(deckId, name, spec) {
     const d = UDECKS[deckId];
     if (!d) return null;
     if (!d.types) d.types = {};
     if (Object.keys(d.types).length >= UDECK_MAX_TYPES) { toast("A deck holds at most " + UDECK_MAX_TYPES + " card types."); return null; }
     const clean = sanitizePlain(name).slice(0, 60) || "New type";
-    let base = clean.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 24);
+    let base = String((spec && spec.id) || clean).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 24);
     if (!UTYPE_ID_RX.test(base) || base === CARD_TYPE_BASIC) base = "type";
     let id = base, n = 2;
     while (d.types[id]) id = (base + "-" + n++).slice(0, 32);
-    const t = uTypeSanitize({ id: id, name: clean, fields: ["Front", "Back"], front: UTYPE_STARTER.front, back: UTYPE_STARTER.back, css: UTYPE_STARTER.css });
+    // the spec sits over the blank starter, and the id/name go over the spec: a second "Vocabulary" in one
+    // deck is a real thing to want, and it must not quietly overwrite the first
+    const t = uTypeSanitize(Object.assign(
+      { fields: ["Front", "Back"], front: UTYPE_STARTER.front, back: UTYPE_STARTER.back, css: UTYPE_STARTER.css },
+      spec || {},
+      { id: id, name: clean }
+    ));
     if (!t) return null;
     d.types[id] = t;
     uDeckSave(deckId);
@@ -3667,7 +3767,7 @@
   }
   function uTypeSet(deckId, typeId, field, value) {
     const d = UDECKS[deckId], t = uTypeGet(deckId, typeId);
-    if (!t || ["name", "front", "back", "css"].indexOf(field) < 0) return;
+    if (!t || ["name", "front", "back", "css", "speechLang"].indexOf(field) < 0) return;
     const next = uTypeSanitize(Object.assign({}, t, { [field]: value }));
     if (next) { d.types[typeId] = next; uDeckSave(deckId); }
   }
@@ -4588,6 +4688,319 @@
       total: 10,
       /* No `parts`: one volume, and its own edition divides the ten books no further. */
     },
+    {
+      id: "plato-symposium",
+      title: "Symposium",
+      // the edition's own heading for the dialogue's first page
+      subtitle: "The Banquet",
+      author: "Plato",
+      written: "c. 385–370 BCE",
+      year: -380,
+      translator: "Benjamin Jowett",
+      edition: "Third edition, Clarendon Press, Oxford, 1892",
+      /* As easy a licence as the Republic's, and easy on both sides. Jowett died in 1893 and this is
+         his third edition of 1892; Burnet's Greek was printed in 1910 and Burnet died in 1928, so it
+         clears the pre-1929 rule and life-plus-seventy alike. The Perseus digital edition of the Greek
+         carries a CC BY-SA 4.0 layer on top of that expired copyright, which is credited here, in the
+         original's own `rights`, and on the book's page — the same knowing departure recorded for the
+         Meditations. The English has no such layer: it comes from Wikisource, not Perseus. */
+      rights:
+        "Public domain worldwide: Benjamin Jowett died in 1893 and this third edition of his " +
+        "translation was printed in 1892 — so its copyright has expired everywhere, on the pre-1929 " +
+        "publication rule and on the author's-life rule alike. The Greek it is printed beside is John " +
+        "Burnet's Oxford text of 1910, and Burnet died in 1928, so that too is public domain on both " +
+        "rules; the digital edition of it is released by the Perseus Digital Library under a Creative " +
+        "Commons Attribution-ShareAlike 4.0 International licence. The modern translations by Walter " +
+        "Hamilton (1951), Alexander Nehamas and Paul Woodruff (1989) and Robin Waterfield (1994) are " +
+        "still in copyright and are deliberately not used here.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Dialogues_of_Plato_(Jowett)/Symposium",
+      /* AN `origLang` WHERE THE REPUBLIC HAS NONE, and the difference is the PRINTING rather than the
+         author. The entry above concludes that Plato cannot have a Greek column; it is right about the
+         Republic and would be wrong as a general rule, which is worth saying here because this is the
+         book that disproves it.
+
+         The columns pair on section numbers a text states about itself. The Colonial Press Republic of
+         1901 states none — measured over all ten books — so it has no second column. This volume is a
+         different press setting the same translator, and it prints the Stephanus pages in the margin
+         all the way through: 52 of them, 172 to 223. Burnet's Greek carries the same 52 as structure,
+         and the two sets are identical, which makes this the cleanest pairing in the library. The
+         first measurement of it was WRONG and is worth remembering — searching for the usual citation
+         form, 189c, finds nothing at all, because this margin carries the Stephanus page without the
+         column letter. See .claude/fetch-book.js for the whole finding. */
+      origLang: "grc",
+      color: "#7A3B6B",
+      /* ONE CHAPTER, because the dialogue is one unbroken evening and this edition divides it nowhere.
+         Cutting it into the seven speeches would mean composing both the boundaries and the titles,
+         which is the apparatus the house rule forbids; the 52 Stephanus sections carry all the
+         internal structure the text actually has, and they are what the two columns pair on. So the
+         chapter bar here is the front matter and the dialogue, and nothing is missing. */
+      chapterWord: "Dialogue",
+      count: 1,
+      total: 1,
+    },
+    {
+      id: "ovid-metamorphoses",
+      title: "Metamorphoses",
+      subtitle: "Of Bodies Changed to Other Forms",
+      author: "Ovid",
+      written: "completed c. 8 CE",
+      year: 8,
+      translator: "Brookes More",
+      edition: "Cornhill Publishing Company, Boston, 1922",
+      /* TWO LAYERS ON BOTH SIDES, and this is the first book here where that is true of the ENGLISH.
+         The Meditations' Greek introduced the Perseus CC BY-SA layer; here both columns come from
+         Perseus, so the obligation attaches to the translation as well as to the original and is
+         stated in the book's own rights rather than only in the original's. The expired-copyright
+         half is straightforward — More published in 1922 and died in 1942, so this clears the
+         pre-1929 rule and life-plus-seventy alike, as Gummere's and Haines's do and Giles's does not.
+         The Latin's ground is the publication date and the age of the poem, deliberately NOT the
+         editor's death year: see .claude/fetch-book.js for why claiming one would have meant
+         inventing a fact to support a licence. */
+      rights:
+        "Two layers, both stated. Brookes More's translation was published in Boston in 1922 — before " +
+        "1929 — so its copyright has expired in the United States; More died in 1942, so it is also " +
+        "public domain wherever the term is the author's life plus seventy years or less. The digital " +
+        "edition it is taken from is prepared by the Perseus Digital Library at Tufts University and " +
+        "is released under a Creative Commons Attribution-ShareAlike 4.0 International licence. The " +
+        "modern translations by Rolfe Humphries (1955), Allen Mandelbaum (1993), Charles Martin (2004) " +
+        "and Stephanie McCarter (2022) are still in copyright and are deliberately not used here.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0959.phi006/",
+      /* The Latin Ovid wrote, from Hugo Magnus's edition by way of Perseus — and it pairs on a handle
+         neither of the other originals uses. Ovid is cited by book and LINE, and More's blank verse
+         runs 18,113 lines against the Latin's 11,927, so the translation cannot carry those numbers
+         line for line. What both editions DO state is the CARD: a passage of fifty or sixty lines,
+         labelled with the Latin line it begins at. Measured over all fifteen books before it was
+         believed — 156 cards, 142 carrying the identical number on both sides, thirteen one to three
+         lines apart and reconciled only where Magnus's own tale name agrees across the pair, and one
+         English card with no Latin counterpart, which draws as an empty cell. See
+         .claude/fetch-book.js for the whole finding. */
+      origLang: "la",
+      origName: "Latin",
+      color: "#9C3557",
+      chapterWord: "Book",
+      // fifteen books is the whole poem, so the two agree and will stay agreed
+      count: 15,
+      total: 15,
+      /* No `parts`: Ovid calls it a continuous song and no edition divides it into volumes. */
+    },
+    {
+      id: "suetonius-twelve-caesars",
+      title: "The Twelve Caesars",
+      // the work's own Latin title, which is what the column beside the English is an edition of
+      subtitle: "De vita Caesarum",
+      author: "Suetonius",
+      written: "c. 121 CE",
+      year: 121,
+      translator: "Alexander Thomson",
+      edition: "Gebbie & Co., Philadelphia, 1883",
+      /* Two layers on both columns, the position the Metamorphoses is in — and the expired-copyright
+         half is the least anxious of the six: Thomson published in 1796 and this revision is of 1883,
+         so the pre-1929 rule and the author's-life rule are both cleared with a century to spare, over
+         a Latin text of 1908 and a work of the early second century. Note what is deliberately NOT
+         claimed: Thomson's dates are not firmly established, so the ground stated is the publication
+         dates rather than a death year that would have to be guessed at — the discipline the Ovid
+         entry adopted. See .claude/fetch-book.js. */
+      rights:
+        "Two layers, both stated. Alexander Thomson's translation was first published in 1796 and this " +
+        "printing, revised by J. Eugene Reed, in 1883 — both long before 1929 — so its copyright has " +
+        "expired, on the United States publication rule and on the author's-life rule alike. The Latin " +
+        "it is printed beside is Maximilian Ihm's edition of 1908, over a work of the early second " +
+        "century. The digital editions both columns are taken from are prepared by the Perseus Digital " +
+        "Library at Tufts University and are released under a Creative Commons Attribution-ShareAlike " +
+        "4.0 International licence. The modern translations by Robert Graves (1957), Catharine Edwards " +
+        "(2000) and Tom Holland (2021) are still in copyright and are deliberately not used here.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi1348/",
+      /* The Latin Suetonius wrote, from Ihm's Teubner text by way of Perseus. It pairs on the handle
+         the Meditations established and the Republic went without: both editions state their CHAPTER
+         numbers as structure, which is how Suetonius has always been cited — "Nero 16" is a chapter.
+         Measured over all twelve lives before it was believed: 539 English chapters against the
+         Latin's 541, every one paired, length correlation 0.971 and two thirds of the Latin's proper
+         names present in the English chapter of the same number. The two unpaired are Augustus 59 and
+         60, which this translation runs together with 58 into a single chapter; they draw as empty
+         English cells, as the Meditations' 12.18 draws as an empty Greek one. That life needed a
+         numbering repair, checked against the printed page before it was applied — see
+         .claude/fetch-book.js for the whole finding. */
+      origLang: "la",
+      origName: "Latin",
+      color: "#8C6D1F",
+      chapterWord: "Life",
+      // the one book here whose plural is not the singular plus an "s" — see `unit` in the shelf tile
+      chapterWordPlural: "Lives",
+      // twelve lives is the whole work, so the two agree and will stay agreed
+      count: 12,
+      total: 12,
+      /* The eight books the work itself is divided into, and the only one of the six books here whose
+         parts are uneven: one book each down to Nero, then the three short reigns of 69 CE together,
+         then the three Flavians. */
+      parts: [
+        { n: 1, label: "Book I", note: "Julius Caesar" },
+        { n: 2, label: "Book II", note: "Augustus" },
+        { n: 3, label: "Book III", note: "Tiberius" },
+        { n: 4, label: "Book IV", note: "Caligula" },
+        { n: 5, label: "Book V", note: "Claudius" },
+        { n: 6, label: "Book VI", note: "Nero" },
+        { n: 7, label: "Book VII", note: "Galba, Otho, Vitellius" },
+        { n: 8, label: "Book VIII", note: "Vespasian, Titus, Domitian" },
+      ],
+    },
+    {
+      id: "lucretius-nature-of-things",
+      title: "On the Nature of Things",
+      // the work's own Latin title, which is what the column beside the English is an edition of
+      subtitle: "De Rerum Natura",
+      author: "Lucretius",
+      written: "c. 55 BCE",
+      // negative, like the Art of War's: this one files second on a shelf sorted oldest first
+      year: -55,
+      translator: "William Ellery Leonard",
+      edition: "E. P. Dutton & Co., New York, 1916",
+      /* Two layers on both columns, the position the Metamorphoses and the Twelve Caesars are in.
+         The expired-copyright half is easy — Leonard published in 1916 and died in 1944, so the
+         pre-1929 rule and the life-plus-seventy rule are both cleared, over a poem of the 50s BCE.
+         What is deliberately NOT claimed is an editor for the Latin: Perseus's file names none and
+         gives its imprint as "Lost information", so the ground stated is the age of the poem rather
+         than an edition guessed at from the likely candidates. That is the Ovid discipline — a
+         fabricated fact holding up a licence is the worst kind — and it is said on the book's own
+         page rather than smoothed over. See .claude/fetch-book.js. */
+      rights:
+        "Two layers, both stated. William Ellery Leonard's translation was published in New York in " +
+        "1916 — before 1929 — so its copyright has expired in the United States; Leonard died in 1944, " +
+        "so it is also public domain wherever the term is the author's life plus seventy years or less. " +
+        "The poem it translates was written in the 50s BCE and is in the public domain everywhere. The " +
+        "digital editions both columns are taken from are prepared by the Perseus Digital Library at " +
+        "Tufts University and are released under a Creative Commons Attribution-ShareAlike 4.0 " +
+        "International licence; Perseus's file for the Latin names neither an editor nor a date for the " +
+        "text it prints, so none is claimed here. The modern translations by Rolfe Humphries (1968), " +
+        "Ronald Melville (1997) and A. E. Stallings (2007) are still in copyright and are deliberately " +
+        "not used here.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0550.phi001/",
+      /* The Latin Lucretius wrote. It pairs the way the Metamorphoses does — on the CARD, a passage
+         labelled with the Latin LINE it opens at, which is the handle both editions state and the only
+         figure they say the same thing about (Leonard's blank verse runs 9,784 lines against the
+         Latin's 7,382, so neither side can carry line numbers one for one). Measured over all six
+         books before it was believed: 213 cards a side and ALL 213 CARRYING THE IDENTICAL NUMBER —
+         the cleanest pairing in this library, needing none of the reconciliation Ovid's thirteen
+         near-misses required — with length correlation 0.968 across the pairs. Finding it meant fixing
+         a silent fault first: this edition writes its card milestones with the attributes in the other
+         order from Ovid's, which returned every English card and not one Latin one. See
+         .claude/fetch-book.js. */
+      origLang: "la",
+      origName: "Latin",
+      color: "#4F7A3A",
+      chapterWord: "Book",
+      // six books is the whole poem, so the two agree and will stay agreed
+      count: 6,
+      total: 6,
+      /* No `parts`: one poem in six books, and its edition divides it no further. app.js falls back to
+         a single unlabelled group, which is the honest rendering of a book with no volumes — the same
+         position the Meditations and the Metamorphoses are in. */
+    },
+    {
+      id: "aristotle-nicomachean-ethics",
+      title: "Nicomachean Ethics",
+      // this volume's own running head over the work
+      subtitle: "Ethica Nicomachea",
+      author: "Aristotle",
+      written: "c. 340 BCE",
+      year: -340,
+      translator: "W. D. Ross",
+      edition: "The Works of Aristotle, Volume IX, Clarendon Press, Oxford, 1925",
+      /* THE SECOND BOOK HERE TO STATE A LIMIT AS WELL AS A GROUND, the Art of War being the first.
+         The ground is publication before 1929 and the limit is the translator's life: Ross died in
+         1971, so where the term is life plus seventy this is in copyright until 2042 — longer than
+         Giles's 2029. It was weighed rather than waved through, and what buys it is the second
+         column. Ross's is the translation that carries the Bekker pages; Chase's of 1847, whose
+         copyright has expired everywhere, prints them in Book One and in none of the other nine, so
+         it could only ever have shipped as an English column alone. Measured over all ten books
+         before the choice was made: Chase agrees with the Greek on 18 of its 181 pages, Ross on 173
+         of 173. The Greek costs nothing on either rule — Bywater died in 1914 — and carries the
+         Perseus CC BY-SA 4.0 layer the Meditations introduced. See .claude/fetch-book.js. */
+      rights:
+        "Public domain in the United States: Ross's translation was published at Oxford in 1925 — " +
+        "before 1929 — so its copyright there has expired. Ross died in 1971, so it remains in " +
+        "copyright in countries whose term is the author's life plus more than 54 years, including " +
+        "the United Kingdom and the European Union, until 2042. The Greek beside it is Ingram " +
+        "Bywater's Oxford Classical Text of 1894, and Bywater died in 1914, so that is public domain " +
+        "on both rules; the digital edition of it is released by the Perseus Digital Library under a " +
+        "Creative Commons Attribution-ShareAlike 4.0 International licence. Aristotle's own text is " +
+        "some twenty-four centuries old. (The modern translations by Terence Irwin, 1985, Roger " +
+        "Crisp, 2000, and Christopher Rowe, 2002, are still in copyright and are not used here — as " +
+        "is the 2009 Oxford World's Classics revision of this very translation by Lesley Brown, " +
+        "which is a separate work.)",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Nicomachean_Ethics_(Ross)",
+      /* Paired on BEKKER PAGES — the page and column of Bekker's Berlin edition of 1831, by which
+         Aristotle is cited in every language. It is the first citation unit here that is not a plain
+         integer, which is why the marker carries an explicit `data-n` sort key: read as a number,
+         1094a and 1094b collapse onto one section and take the ordering with them. See bookSections
+         below and the entry in .claude/fetch-book.js. */
+      origLang: "grc",
+      color: "#3F6E8C",
+      chapterWord: "Book",
+      // ten books is the whole work, so the two agree and will stay agreed
+      count: 10,
+      total: 10,
+      /* No `parts`: the Oxford Translation gives this work a volume to itself and divides it no
+         further, so app.js falls back to a single unlabelled group. */
+    },
+    {
+      id: "sophocles-oedipus-rex",
+      title: "Oedipus Rex",
+      // the play's own Greek title, which is what its Greek column is an edition of — the pattern
+      // Lucretius set with De Rerum Natura
+      subtitle: "Οἰδίπους Τύραννος",
+      author: "Sophocles",
+      /* The date is not recorded. Around 429 BCE is the usual estimate and the argument for it is
+         internal — the plague at Thebes reads like the one that struck Athens in 430 — which is
+         suggestive rather than decisive, and the front matter says so rather than letting the `c.`
+         carry the whole of the doubt. */
+      written: "c. 429 BCE",
+      year: -429,
+      translator: "Richard Jebb",
+      edition: "Sophocles: The Plays and Fragments, Cambridge University Press, 1887",
+      /* THE EASIEST LICENCE ON THIS SHELF, and the only one that is easy on BOTH columns. The
+         Republic's was the first to need no qualification at all; this one matches it twice over.
+         Jebb published in 1887 and died in 1905; Storr's Greek was published in 1912 and Storr died
+         in 1919. So both clear the pre-1929 publication rule AND life-plus-seventy AND life-plus-a-
+         hundred, and neither needs the limit the Art of War states for Giles (2029) or the
+         Nicomachean Ethics for Ross (2042). Both death years were checked against Wikisource's author
+         pages rather than recalled — the Ovid entry's Hugo Magnus mistake was precisely a death year
+         asserted from memory to hold up a licence. See .claude/fetch-book.js. */
+      rights:
+        "Public domain on every ground, in both columns. Richard Jebb's translation was published at " +
+        "Cambridge in 1887 and Jebb died in 1905; the Greek beside it is Francis Storr's text of " +
+        "1912, and Storr died in 1919. Both are therefore public domain in the United States on the " +
+        "pre-1929 publication rule and everywhere that the term is the author's life plus a hundred " +
+        "years or less. Sophocles wrote the play in Athens some twenty-four centuries ago. The " +
+        "digital editions of both texts are prepared by the Perseus Digital Library at Tufts " +
+        "University and are released under a Creative Commons Attribution-ShareAlike 4.0 " +
+        "International licence. (The modern translations by David Grene, 1942, Dudley Fitts and " +
+        "Robert Fitzgerald, 1949, and Robert Fagles, 1982, are still in copyright and are not used " +
+        "here.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0011.tlg004/",
+      /* Paired on the LINE NUMBER, which is how any passage of a Greek tragedy is cited in any
+         language and which both editions state on every line — at different grain, since Jebb
+         translates into prose and numbers the line each block begins at while Storr's verse numbers
+         every line. It is also the first book here whose markers are not all integers for a reason
+         other than Aristotle's: a tragedy's text carries lettered lines (625a, 676a), so the marker
+         needs the same explicit `data-n` sort key the Bekker pages introduced. */
+      origLang: "grc",
+      origName: "Greek",
+      color: "#7A2E2E",
+      /* Folio's own neutral word for a division, deliberately not "Scene" or "Act": this edition
+         numbers its divisions not at all, and an act is a later theatre's unit that a Greek tragedy
+         does not have. The number is Folio's; the name of each part is the edition's own. */
+      chapterWord: "Part",
+      // the whole play — the edition divides it into fifteen and there is no more of it
+      count: 15,
+      total: 15,
+      /* No `parts`: a single play, and its edition divides it no further than the fifteen. */
+    },
   ];
   const BOOK_BY_ID = {};
   BOOKS.forEach((b) => (BOOK_BY_ID[b.id] = b));
@@ -4862,6 +5275,9 @@
     (PAGES[current.name] || PAGES.home)(root, current.params);
     // one system of measurement, the reader's — see the units block above
     unitizeTree(root);
+    // a community card type's read-aloud spans, wherever a page painted one (the Studio's previews, a
+    // shared deck's sample card). The study card's own reveal paints after this and wires its own.
+    wireSpeakControls(root);
     // a smooth scroll is a JS scroll option, so the stylesheet's reduced-motion killswitch can't reach it
     window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? "auto" : "smooth" });
   }
@@ -5016,7 +5432,14 @@
      layouts are tuned to those pixels (the tab bar's labels, the review's deck rows, the Atlas timebar),
      so scaling all of it would break the chrome to enlarge the prose. Prose reflows; a bar of four cells
      does not. Kept in S.settings beside `theme` — a device preference, not synced. */
-  const FONT_SIZES = ["small", "medium", "large"];
+  /* FIVE stops since Aug 2026, on request — "very small" and "very large" at the ends of the three that
+     were there. The stored value is the NAME, so the three existing ones keep working untouched and no
+     save has to be migrated; the two new keys simply had no reader before today. The label is a table
+     rather than a capitalised key, because "Very small" is two words and `tiny`/`huge` are not what a
+     reader should be shown. */
+  const FONT_SIZES = ["tiny", "small", "medium", "large", "huge"];
+  const FONT_SIZE_LABELS = { tiny: "Very small", small: "Small", medium: "Medium", large: "Large", huge: "Very large" };
+  function fontSizeLabel(f) { return FONT_SIZE_LABELS[f] || f; }
   /* Light or dark from the operating system. Read LIVE (not cached) for the same reason
      prefersReducedMotion is: the setting can change while the tab is open — a laptop crossing sunset does
      it without a reload — and the listener below repaints when it does. */
@@ -5042,6 +5465,11 @@
          above 4.5:1 against their own paper. See the CONTRAST block in styles.css for what was measured. */
     document.body.classList.toggle("no-anim", S.settings.animations === false);
     document.body.classList.toggle("hc", !!S.settings.contrast);
+    /* …and one fact about the DEVICE rather than a setting: whether it can speak at all. A community card
+       type's `.uc-tts` control is styled as a button only where there is a speech engine behind it, so on a
+       device without one the words are simply words rather than a control that answers a press with
+       nothing. It is written here for the same reason as the two above — no call site to miss. */
+    document.body.classList.toggle("no-tts", !ttsSupported());
     // light / dark lives on the Settings page now (it was a top-bar slider until Aug 2026) — this keeps
     // that switch in step whenever the setting changes from anywhere else
     document.querySelectorAll("#sw-night").forEach((el) => {
@@ -5096,7 +5524,7 @@
     const range = document.querySelector("#fsRange");
     if (range) {
       range.value = String(FONT_SIZES.indexOf(size));
-      range.setAttribute("aria-valuetext", size.charAt(0).toUpperCase() + size.slice(1));
+      range.setAttribute("aria-valuetext", fontSizeLabel(size));
     }
     document.querySelectorAll("#fsPick .fs-tick").forEach((t) => t.classList.toggle("on", t.dataset.fs === size));
   }
@@ -5606,7 +6034,14 @@
      There is no "Draw" button (removed Aug 2026, on request): the three SIZE buttons are the pen, and
      clicking the selected size again is what puts it back up — so the pen costs one control instead of two,
      and the row that named it now carries Mark beside the sizes. */
-  const WB = { enabled: false, panelOpen: false, mode: "pen", penColor: WB_COLORS[0], hlColor: WB_HL_COLORS[0], color: WB_COLORS[0], size: WB_SIZES[1], canvas: null, ctx: null, drawing: false, last: null, ro: null, backup: null, hlPts: null, dirtied: false, undoStack: [], redoStack: [], stylusSeen: false, penOnly: true };
+  /* THE INK HAS TWO BACKENDS, and which one is in force is decided by whether a page installs the hooks.
+     A card's whiteboard is a RASTER canvas whose history is a stack of full-canvas bitmaps and whose
+     strokes die with the card — that is right for a card, which is a thing you meet again on a schedule.
+     A page that sets `onInk` / `onRedraw` (and the undo/redo/clear hooks beside them) instead keeps the
+     strokes as a VECTOR list of its own, which is what makes them saveable: the book's notes are kept
+     across sessions, and a bitmap the size of a chapter is neither storable nor re-drawable at another
+     text size. The Atlas is the third case, a vector list anchored to lon/lat rather than to the page. */
+  const WB = { enabled: false, panelOpen: false, mode: "pen", penColor: WB_COLORS[0], hlColor: WB_HL_COLORS[0], color: WB_COLORS[0], size: WB_SIZES[1], canvas: null, ctx: null, drawing: false, last: null, ro: null, backup: null, hlPts: null, dirtied: false, undoStack: [], redoStack: [], stylusSeen: false, penOnly: true, onInk: null, onRedraw: null };
   const WB_HIST_MAX = 20;   // cap on undo history (raster card snapshots are full-canvas bitmaps)
   /* ---------- A STYLUS TAKES THE PEN, AND FINGERS GO BACK TO SCROLLING (Aug 2026, on request) ----------
      Anki's behaviour, and the reason it exists: with the marker down the canvas covers the whole visible
@@ -5778,6 +6213,52 @@
     window.addEventListener("resize", () => wbApplyPos(el));
   }
 
+  /* ---- HOLDING the marker puts the pen up (Aug 2026, on request) ----
+     The toggle already carried two meanings — a tap opens and shuts the tools, a drag moves them — and
+     the one thing it could not do was the thing a reader with a tool selected most often wants: stop
+     drawing without first finding the panel and unselecting the tool inside it. A hold is the third
+     gesture the button had left, and it is the same one the deck rows and the review banner use one
+     level up, so it is not a new idea to learn.
+
+     It is deliberately a NO-OP when nothing is selected. A hold that turned drawing ON would make the
+     gesture mean opposite things depending on a state the shut panel barely shows, and the tap already
+     turns it on. So this only ever puts the pen down again — one direction, always safe.
+
+     Three things it has to get right, all of them about not firing twice:
+       · a hold that has fired swallows the click that follows it (`wbHeld`), exactly as a drag does
+         through `wbDragged` — otherwise the finger that put the pen up would also open the tools;
+       · a press that turns into a DRAG cancels the pending hold, since the reader is moving the marker
+         and not answering a question about the tool;
+       · `contextmenu` is suppressed on the handle, or a long press on a phone raises the browser's own
+         menu over the gesture and a right-click on a desktop fires it twice. */
+  const WB_HOLD_MS = 480;
+  let wbHeld = false;
+  function wbWireHoldToRelease(handle) {
+    let t = 0, sx = 0, sy = 0, id = null;
+    const cancel = () => { clearTimeout(t); t = 0; id = null; };
+    handle.addEventListener("pointerdown", (e) => {
+      if (e.button != null && e.button !== 0) return;
+      wbHeld = false;
+      id = e.pointerId; sx = e.clientX; sy = e.clientY;
+      clearTimeout(t);
+      t = setTimeout(() => {
+        t = 0;
+        if (wbDragged || !WB.enabled) return;   // moving the marker, or nothing to put away
+        wbHeld = true;
+        wbSetEnabled(false);
+        toast("Marker off");
+        try { if (navigator.vibrate) navigator.vibrate(12); } catch (x) {}
+      }, WB_HOLD_MS);
+    });
+    handle.addEventListener("pointermove", (e) => {
+      if (id == null || e.pointerId !== id || !t) return;
+      if (Math.abs(e.clientX - sx) > WB_DRAG_SLOP || Math.abs(e.clientY - sy) > WB_DRAG_SLOP) cancel();
+    });
+    handle.addEventListener("pointerup", cancel);
+    handle.addEventListener("pointercancel", cancel);
+    handle.addEventListener("contextmenu", (e) => e.preventDefault());
+  }
+
   function ensureWBTools() {
     if (wbToolsRef) return wbToolsRef;
     const el = document.createElement("div");
@@ -5813,7 +6294,7 @@
           <button class="wb-btn wb-redo" aria-label="Redo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>Redo</button>
         </div>
       </div>
-      <button class="wb-toggle" aria-label="Drawing tools" title="Draw on the card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>`;
+      <button class="wb-toggle" aria-label="Drawing tools" title="Drawing tools — hold to put the pen up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></button>`;
     document.body.appendChild(el);
     /* Nothing selected IS the pen-up state — that is what makes "unselect the tool" a way to stop drawing.
        The size buttons carry TWO marks because they do two jobs since the Draw button went: `.sel` says
@@ -5992,6 +6473,8 @@
     el.querySelector(".wb-toggle").addEventListener("click", () => {
       // the press that ended a drag also fires a click — it moved the marker, it did not press it
       if (wbDragged) { wbDragged = false; return; }
+      // …and the press that put the pen up by being HELD is likewise not a press on the button
+      if (wbHeld) { wbHeld = false; return; }
       if (WB.panelOpen) { WB.panelOpen = false; applyWBState(); return; }   // putting the tools away leaves the pen down
       WB.panelOpen = true;
       // opening the tools with nothing selected picks the pen, so one tap still gets you drawing
@@ -5999,6 +6482,7 @@
       applyWBState();
     });
     wbMakeDraggable(el, el.querySelector(".wb-toggle"));
+    wbWireHoldToRelease(el.querySelector(".wb-toggle"));
     wbToolsRef = el;
     return el;
   }
@@ -6024,8 +6508,12 @@
     if (WB.ro) { WB.ro.disconnect(); WB.ro = null; }
     if (WB.canvas && WB.canvas.parentNode) WB.canvas.parentNode.removeChild(WB.canvas);
     WB.canvas = null; WB.ctx = null; WB.drawing = false; WB.backup = null; WB.hlPts = null;
-    WB.onToggle = null; WB.onClear = null; WB.onUndo = null; WB.onRedo = null; WB.onCanUndo = null; WB.onCanRedo = null; // globe (atlas) draw-mode hooks, set up per visit
+    // per-page hooks, set up on the way in and dropped on the way out: the globe's draw-mode, and the
+    // book's vector ink store (onInk / onRedraw)
+    WB.onToggle = null; WB.onClear = null; WB.onUndo = null; WB.onRedo = null; WB.onCanUndo = null; WB.onCanRedo = null;
+    WB.onInk = null; WB.onRedraw = null; WB.onScroll = null;
     WB.undoStack.length = 0; WB.redoStack.length = 0; WB.dirtied = false;   // don't leak draw-history across pages
+    WB.fixed = false;
     WB.enabled = false; WB.panelOpen = false; // every page entry starts with draw-mode off and the tools shut (don't leak across pages)
   }
   function wbClear() {
@@ -6062,6 +6550,13 @@
     ctx.restore();
   }
   function wbResetHist() { WB.undoStack.length = 0; WB.redoStack.length = 0; wbUpdateHistBtns(); }
+  /* The width a stroke is drawn at, in ONE place, because two things draw it: the live pointermove in
+     setupWhiteboard and the replay in the book's ink store, which repaints saved strokes from scratch on
+     every resize. Written twice they would drift, and the symptom would be a reader's own notes coming
+     back a different weight than they were made — which reads as the file having been damaged. */
+  function wbLineWidth(mode, size) {
+    return mode === "hl" ? Math.max(13, size * 5) : mode === "erase" ? Math.max(16, size * 6) : size;
+  }
   function wbUndo() {
     if (WB.onUndo) { WB.onUndo(); wbUpdateHistBtns(); return; }   // globe: geo-anchored strokes
     if (WB.undoStack.length <= 1) return;                         // keep the empty base state
@@ -6080,6 +6575,29 @@
     const c = WB.canvas; if (!c) return;
     const stage = c.parentElement; if (!stage) return;
     const dpr = window.devicePixelRatio || 1;
+    /* A VIEWPORT-SIZED canvas, fixed to the screen — what the book uses, and it is not an optimisation
+       but the only thing that works there. A card is a page or two, so a canvas the height of the whole
+       scroll is a few megabytes and the strokes scroll with the page for free. A BOOK CHAPTER IS NOT:
+       measured, a book of the Republic is ~41,500px tall, which at this width is a 200 MB backing store
+       reallocated on every chapter turn — and on a phone at devicePixelRatio 3 it is past the area
+       Chrome will allocate at all, where a canvas does not throw but silently stops drawing.
+       So the book paints only what is on screen, and the ink store keeps its strokes in the PAGE's own
+       coordinates and re-draws them at the current scroll offset (see BOOK INK). Constant memory,
+       whatever the chapter. */
+    if (WB.fixed) {
+      const vw = Math.max(1, Math.round(document.documentElement.clientWidth));
+      const vh = Math.max(1, Math.round(document.documentElement.clientHeight || window.innerHeight || 0));
+      c.style.left = "0px"; c.style.top = "0px";
+      c.style.width = vw + "px"; c.style.height = vh + "px";
+      const FW = Math.round(vw * dpr), FH = Math.round(vh * dpr);
+      if (c.width !== FW || c.height !== FH) {
+        c.width = FW; c.height = FH;
+        const fx = c.getContext("2d"); WB.ctx = fx;
+        fx.setTransform(dpr, 0, 0, dpr, 0, 0); fx.lineCap = "round"; fx.lineJoin = "round";
+      }
+      if (WB.onRedraw) WB.onRedraw();
+      return;
+    }
     // Read the STAGE's size (independent of the canvas) — canvas is a replaced element, so
     // we must set its display size explicitly rather than rely on inset:0 (which would make
     // its size track its own backing store and grow unboundedly).
@@ -6104,16 +6622,32 @@
     c.width = W; c.height = H;
     const ctx = c.getContext("2d"); WB.ctx = ctx;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.lineCap = "round"; ctx.lineJoin = "round";
+    /* A VECTOR backend repaints instead (the book's ink store — see BOOK INK). Its strokes are held as
+       fractions of the canvas, so a resize is not something to preserve a bitmap through: the marks are
+       simply drawn again at the new size, which is also why its history survives a resize where the
+       card's cannot. A bitmap snapshot is dimension-specific, so the card still resets its stack to the
+       preserved frame. */
+    if (WB.onRedraw) { WB.onRedraw(); return; }
     if (prev) { ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.drawImage(prev, 0, 0); ctx.restore(); }
     if (preserve) { WB.undoStack.length = 0; WB.redoStack.length = 0; wbSnapCard(); }   // bitmap snapshots are dim-specific → on a real resize, reset history to the (preserved) current frame
   }
-  function setupWhiteboard() {
+  /* `host` overrides where the ink layer is mounted, and the book is what needs it. The canvas paints
+     above everything in its own stacking context, and `.page` animates with a fill mode — which makes it
+     a stacking context of its own, so nothing INSIDE the page can ever paint above a canvas that is the
+     stage's child (this is the same fact that made the controls-under-the-ink pass-through necessary).
+     A card has nothing sticky inside it and does not care. The book has the chapter bar, pinned to the
+     top of the screen, and a stroke made in the prose would slide up and smear across the tabs as the
+     reader scrolled. Mounted INSIDE the page instead, the bar and the ink are in one stacking context
+     and an ordinary z-index settles it (.bk-barwrap sits above .draw-canvas). */
+  function setupWhiteboard(opts) {
+    const o = opts || {};
     // remove any prior overlay (e.g. from the previous card) and start fresh
     if (WB.canvas && WB.canvas.parentNode) WB.canvas.parentNode.removeChild(WB.canvas);
     if (WB._onResize) { window.removeEventListener("resize", WB._onResize); WB._onResize = null; }
     if (WB.ro) { WB.ro.disconnect(); WB.ro = null; }
+    WB.fixed = !!o.fixed;
     const canvas = document.createElement("canvas");
-    canvas.className = "draw-canvas";
+    canvas.className = "draw-canvas" + (WB.fixed ? " wb-fixed" : "");
     // mount inside the scrolling content container so strokes scroll & recenter with the card
     const stage = document.querySelector(".stage") || document.body;
     stage.appendChild(canvas);
@@ -6121,7 +6655,10 @@
     wbApplyStylusMode();   // a canvas built while a stylus is already known must scroll under a finger at once
     WB.drawing = false; WB.backup = null; WB.hlPts = null;
     wbResize(false);
-    WB.undoStack.length = 0; WB.redoStack.length = 0; WB.dirtied = false; wbSnapCard();   // base (empty) snapshot so undo can return to a blank card
+    // A vector backend owns its own history (the book's ink store), so the bitmap stack is neither built
+    // nor needed there — see wbResize and the BOOK INK block.
+    WB.undoStack.length = 0; WB.redoStack.length = 0; WB.dirtied = false;
+    if (!WB.onInk) wbSnapCard();   // base (empty) snapshot so undo can return to a blank card
     const posOf = (e) => { const r = canvas.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; };
     /* ---- controls under the ink stay usable ----
        The canvas covers the whole visible page, so with the pen down it also covered Show answer, the study
@@ -6144,7 +6681,7 @@
       const ctl = el && el.closest ? el.closest(CTL_SEL) : null;
       return ctl && ctl !== canvas ? ctl : null;
     };
-    let passCtl = null, passScroll = false, sx = 0, sy = 0;
+    let passCtl = null, passScroll = false, sx = 0, sy = 0, strokePts = null;
     canvas.addEventListener("pointerdown", (e) => {
       if (!WB.enabled) return;
       if (e.pointerType === "pen") wbNoteStylus();    // the first stroke of a stylus is what usually teaches us
@@ -6163,6 +6700,7 @@
       passCtl = controlUnder(e);
       if (passCtl) { e.preventDefault(); return; }   // a button under the ink: this press is its, not a stroke
       WB.drawing = true; WB.last = posOf(e);
+      strokePts = [WB.last];   // the stroke as a list of points — only read by a vector backend (WB.onInk)
       if (WB.mode === "hl") {
         WB.hlPts = [WB.last];
         WB.backup = document.createElement("canvas");
@@ -6176,6 +6714,7 @@
       if (!WB.enabled || !WB.drawing) return;
       WB.dirtied = true;   // an actual stroke happened → snapshot it on pointerup (for undo)
       const p = posOf(e), ctx = WB.ctx, dpr = window.devicePixelRatio || 1;
+      if (strokePts) strokePts.push(p);
       if (WB.mode === "hl") {
         // redraw the whole stroke fresh over the pre-stroke snapshot -> even translucency, no overlap buildup
         WB.hlPts.push(p);
@@ -6186,7 +6725,7 @@
         ctx.globalCompositeOperation = "source-over";
         ctx.globalAlpha = 0.34;
         ctx.strokeStyle = WB.color;
-        ctx.lineWidth = Math.max(13, WB.size * 5);
+        ctx.lineWidth = wbLineWidth("hl", WB.size);
         const pts = WB.hlPts;
         ctx.beginPath(); ctx.moveTo(pts[0].x, pts[0].y);
         for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i].x, pts[i].y);
@@ -6196,12 +6735,24 @@
         ctx.globalAlpha = 1;
         ctx.globalCompositeOperation = WB.mode === "erase" ? "destination-out" : "source-over";
         ctx.strokeStyle = WB.color;
-        ctx.lineWidth = WB.mode === "erase" ? Math.max(16, WB.size * 6) : WB.size;
+        ctx.lineWidth = wbLineWidth(WB.mode, WB.size);
         ctx.beginPath(); ctx.moveTo(WB.last.x, WB.last.y); ctx.lineTo(p.x, p.y); ctx.stroke();
         WB.last = p;
       }
     });
-    const end = () => { const drew = WB.drawing && WB.dirtied; WB.drawing = false; WB.backup = null; WB.hlPts = null; if (drew) { WB.dirtied = false; wbSnapCard(); } };
+    const end = () => {
+      const drew = WB.drawing && WB.dirtied;
+      const pts = strokePts;
+      WB.drawing = false; WB.backup = null; WB.hlPts = null; strokePts = null;
+      if (!drew) return;
+      WB.dirtied = false;
+      /* A vector backend takes the stroke and owns the history from here (the book's ink store); the
+         card keeps its bitmap snapshots. The canvas's CSS size travels with the stroke because the
+         points are in CSS pixels and the store keeps them as fractions of it. */
+      if (WB.onInk) WB.onInk({ mode: WB.mode, color: WB.color, size: WB.size, pts: pts || [],
+                               w: canvas.offsetWidth || 1, h: canvas.offsetHeight || 1 });
+      else wbSnapCard();
+    };
     canvas.addEventListener("pointerup", (e) => {
       const ctl = passCtl, scrolled = passScroll; passCtl = null; passScroll = false;
       if (ctl) {
@@ -6445,11 +6996,38 @@
   // right-click on a selection inside the background paragraph -> Copy / Read aloud
   let ctxMenuEl = null;
   function closeCtxMenu() { if (ctxMenuEl) { ctxMenuEl.remove(); ctxMenuEl = null; } }
+  /* An item is either a plain command or a row of COLOURS (`it.colors`), which is what the book's
+     Highlight offers. A colour row is drawn in place rather than as a nested submenu: five swatches are
+     smaller than the words naming them, a submenu needs a second decision about which way it opens, and
+     on a phone a menu inside a menu is a target inside a target. `it.act` then takes the colour. */
   function showCtxMenu(x, y, items) {
     closeCtxMenu();
     const m = document.createElement("div");
     m.className = "ctx-menu";
     items.forEach((it) => {
+      if (it.colors) {
+        const wrap = document.createElement("div");
+        wrap.className = "ctx-swatches";
+        const lab = document.createElement("span");
+        lab.className = "ctx-swlabel";
+        lab.textContent = it.label;
+        wrap.appendChild(lab);
+        const row = document.createElement("div");
+        row.className = "ctx-swrow";
+        it.colors.forEach((c) => {
+          const s = document.createElement("button");
+          s.type = "button";
+          s.className = "ctx-sw";
+          s.style.background = c;
+          s.setAttribute("aria-label", it.label + " in " + c);
+          s.title = it.label;
+          s.addEventListener("click", () => { closeCtxMenu(); it.act(c); });
+          row.appendChild(s);
+        });
+        wrap.appendChild(row);
+        m.appendChild(wrap);
+        return;
+      }
       const b = document.createElement("button");
       b.type = "button";
       b.textContent = it.label;
@@ -6489,10 +7067,129 @@
       ]);
     });
   }
+  /* ---- the book's own selection menu (Aug 2026, on request) ----
+     Highlight · Copy · Select all · Web search · Read aloud, plus Remove highlight where the click
+     lands on one. Deliberately NOT wireReadAloudMenu, which is a two-item menu for a card's background
+     and is gated on ttsEnabled() — that gate turns the whole read-aloud SYSTEM off (auto-read, the play
+     triangles, the baked narration), and a reader who has selected a phrase and asked for it to be read
+     has asked for one thing rather than turned a system on, so this speaks it directly.
+
+     Every item except Select all needs a selection, and Remove needs a highlight under the pointer, so
+     the menu is BUILT from what is actually there — a row that would do nothing is not shown. Remove is
+     here because Highlight writes something permanent: an item that can only ever be added is a trap
+     the first time a reader mis-drags. */
+  function wireBookCtxMenu(pageEl, onHighlight, onRemoveHighlight) {
+    if (!pageEl || pageEl._bkCtxWired) return;
+    pageEl._bkCtxWired = true;
+    pageEl.addEventListener("contextmenu", (e) => {
+      const sel = window.getSelection();
+      const text = sel ? String(sel).trim() : "";
+      const inProse = !!(sel && sel.rangeCount && pageEl.contains(sel.getRangeAt(0).commonAncestorContainer));
+      const hl = e.target && e.target.closest ? e.target.closest(".bk-hl") : null;
+      if (!text && !hl) return;                    // nothing to act on → leave the browser's own menu alone
+      e.preventDefault();
+      const items = [];
+      if (text && inProse) items.push({ label: "Highlight", colors: WB_HL_COLORS, act: (c) => onHighlight(c) });
+      if (hl) items.push({ label: "Remove highlight", act: () => onRemoveHighlight(hl) });
+      if (text) items.push({ label: "Copy", act: () => copySelText(text) });
+      items.push({ label: "Select all", act: () => {
+        const s = window.getSelection();
+        const prose = pageEl.querySelector(".bk-prose");
+        if (!s || !prose) return;
+        s.removeAllRanges();
+        const r = document.createRange();
+        r.selectNodeContents(prose);
+        s.addRange(r);
+      } });
+      if (text) items.push({ label: "Web search", act: () => {
+        try { window.open("https://www.google.com/search?q=" + encodeURIComponent(text), "_blank", "noopener"); } catch (x) {}
+      } });
+      // shown only where the device can actually speak — an item that toasts "not available" is worse
+      // than one that is not offered
+      if (text && ttsSupported()) items.push({ label: "Read aloud", act: () => ttsSay([{ text: text }], 0) });
+      showCtxMenu(e.clientX, e.clientY, items);
+    });
+  }
+
   // Chinese pronunciation buttons (.tr-play) — the shared slow female Chinese voice
   function speak(text, btn) {
     if (!text) return;
     ttsPlayClick([{ text, zh: true, btn }], btn);
+  }
+
+  /* ---------- read-aloud inside a community card type (.uc-tts) ----------
+     A card type may mark any run of text as something to hear: `<span class="uc-tts">{{Translation}}</span>`
+     in the template, and the type's own `speechLang` says which language it is in. It is what makes the
+     Vocabulary preset work — a word you are learning is a word you need to hear — and any type may use it.
+
+     It deliberately does NOT go through ttsEnabled(), which is the site-wide switch that has the whole
+     read-aloud SYSTEM set aside. That switch turns off auto-read, the card mute button and the play
+     triangles — things Folio does TO a reader. This is a control a reader presses, on a card whose author
+     put it there, and it is the same call the book's own "Read aloud" makes for the same reason. It is
+     offered only where the device can actually speak (`body.no-tts` takes the button chrome away and
+     leaves the words as words) — a control that answers a press with "not available" is worse than none.
+
+     The BEHAVIOUR is delegated at the document, so it cannot depend on a paint path remembering to wire it;
+     wireSpeakControls() adds only the things a delegated listener cannot (a role, a tab stop, a name), so a
+     surface that misses it loses keyboard access rather than the feature. */
+  function speechVoiceFor(lang) {
+    const want = String(lang || "").toLowerCase().replace(/_/g, "-");
+    if (!want) return null;
+    const all = ttsAllVoices();
+    const tag = (v) => String(v.lang || "").toLowerCase().replace(/_/g, "-");
+    const exact = all.filter((v) => tag(v) === want);
+    const base = want.split("-")[0];
+    const pool = exact.length ? exact : all.filter((v) => tag(v).split("-")[0] === base);
+    if (!pool.length) return null;
+    // quality/network scoring only — a language is not a gender, so neither preference regex may match
+    return ttsPickVoice(pool, /$^/, /$^/, null) || pool[0];
+  }
+  const SPEECH_RATE = 0.85;   // the same deliberate slowness the English narration reads at
+  function cardSpeak(el) {
+    if (!el || !ttsSupported()) return;
+    const text = (el.textContent || "").replace(/\s+/g, " ").trim();
+    if (!text) return;
+    const holder = el.closest("[lang]");
+    const lang = holder ? holder.getAttribute("lang") : "";
+    ttsStop();                              // …which also clears every .tts-playing, so mark it after
+    const gen = _ttsSeq;
+    try {
+      const u = new SpeechSynthesisUtterance(text.slice(0, 400));
+      if (lang) u.lang = lang;
+      u.rate = SPEECH_RATE;
+      const v = speechVoiceFor(lang);
+      if (v) u.voice = v;
+      el.classList.add("tts-playing");
+      const done = () => { if (gen === _ttsSeq) el.classList.remove("tts-playing"); };
+      u.onend = done; u.onerror = done;
+      setTimeout(() => { if (gen === _ttsSeq) try { speechSynthesis.speak(u); } catch (e) { done(); } }, 60);
+    } catch (e) { el.classList.remove("tts-playing"); }
+  }
+  document.addEventListener("click", (e) => {
+    const el = e.target.closest && e.target.closest(".uc-tts");
+    if (!el || !ttsSupported()) return;
+    e.preventDefault();
+    e.stopPropagation();   // a card type's speak control must not also turn the card over
+    cardSpeak(el);
+  }, true);
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Enter" && e.key !== " " && e.key !== "Spacebar") return;
+    const el = e.target.closest && e.target.closest(".uc-tts");
+    if (!el || !ttsSupported()) return;
+    e.preventDefault();
+    e.stopPropagation();
+    cardSpeak(el);
+  }, true);
+  function wireSpeakControls(scope) {
+    if (!scope || !ttsSupported()) return;
+    scope.querySelectorAll(".uc-tts").forEach((el) => {
+      if (el.getAttribute("role") === "button") return;
+      const text = (el.textContent || "").replace(/\s+/g, " ").trim();
+      el.setAttribute("role", "button");
+      el.setAttribute("tabindex", "0");
+      el.setAttribute("aria-label", text ? "Hear “" + text + "” read aloud" : "Read aloud");
+      el.setAttribute("title", "Read aloud");
+    });
   }
 
   /* ---------- progress bar element ---------- */
@@ -7210,7 +7907,7 @@
                 actually after, so the numeral was a fourth unlabelled number competing with three
                 labelled ones. */""}
           <div class="body">
-            <h2 class="review-title">Daily review</h2>
+            <h2 class="review-title">${REVIEW_TITLE}</h2>
             ${/* …and with it the "Cards scheduled for today, plus a few new ones" line, which described the
                   three counts underneath it in words. The other two branches are kept: one says the day is
                   finished and the other says there is nothing here yet, and neither is visible anywhere
@@ -8094,7 +8791,17 @@
       Array.from(el.childNodes).forEach((node) => {
         if (node.nodeType === 1 && node.classList && node.classList.contains("bk-n")) {
           flush();
-          const v = parseInt(node.textContent, 10);
+          /* THE NUMBER SHOWN AND THE NUMBER SORTED ON ARE NOT ALWAYS THE SAME, and `data-n` is what
+             keeps them apart (Aug 2026, adding the Nicomachean Ethics). Every book before it is cited
+             by a plain integer — a letter, a chapter, a Stephanus page — so the marker's own text was
+             the whole of it. Aristotle is cited by BEKKER PAGE, a number and a column letter: 1094a,
+             1094b. Read with parseInt those two collapse to one section 1094, which merges the pair
+             into a single row and takes the ordering with it — the quiet kind of failure, since the
+             prose is all present and only the pairing is wrong.
+             So the importer writes an explicit sort key beside the text it prints, and a marker
+             without one is read exactly as it always was. */
+          const raw = node.getAttribute && node.getAttribute("data-n");
+          const v = parseInt(raw != null && raw !== "" ? raw : node.textContent, 10);
           n = v > 0 ? v : n;
         }
         buf.push(node);
@@ -8158,6 +8865,307 @@
     S.reading[id] = { ch: ch, y: y, at: Date.now() };
     save();
   }
+  /* ============================================================
+     BOOK INK — the marker's notes, kept (Aug 2026, on request)
+
+     "Add the whiteboard marker to the book reading page, and ensure that drawn lines are remembered
+     across sessions, so a user can make notes in the text and keep these saved."
+
+     THE CARD'S WHITEBOARD CANNOT BE SAVED, and that is the whole reason this exists rather than a call
+     to setupWhiteboard and nothing else. A card's ink is a raster canvas and its history a stack of
+     full-canvas bitmaps: at a chapter's height that is megabytes per chapter, it cannot be re-drawn at
+     another text size or on another screen, and it is exactly the wrong thing to put in localStorage.
+     So a book's ink is a VECTOR list — the strokes themselves — and the canvas is only where they are
+     painted. That is what `WB.onInk` / `WB.onRedraw` are for; see the WB declaration.
+
+     A POINT IS A FRACTION OF THE CANVAS, not a pixel. The same chapter is a different height on a
+     phone, on a laptop, at Very large text and with the Latin column showing, so a pixel offset would
+     put a reader's own note somewhere they never made it — and would be worst exactly where notes
+     matter most, deep in a long chapter. Fractions put a mark back in the same PLACE IN THE CHAPTER,
+     which is the same promise `readingPos` makes about the reader's place and is the most that can be
+     promised over prose that reflows. The honest cost is that a note is anchored to the chapter and not
+     to a sentence: change the width a lot and the mark lands beside the line it was drawn on rather
+     than on it. Anchoring to sentences is what the HIGHLIGHTS below do, which is why both exist.
+
+     Keyed by BOOK AND CHAPTER, so one chapter's notes cannot appear over another's — and stored
+     device-locally, like where the marker sits and how tall the Atlas sheet is, rather than in S: this
+     is ink on a screen, and the synced progress blob is not the place for a megabyte of it.
+     ============================================================ */
+  const BOOK_INK_KEY = "folio_book_ink_v1";
+  const INK_MAX_STROKES = 400;    // per chapter — a hard stop, so one chapter cannot fill the quota
+  const INK_MAX_PTS = 600;        // per stroke; a long slow drag samples far more than it needs
+  const INK_MIN_STEP = 1.2;       // px between kept points — pointermove fires far finer than a line needs
+  let _bookInk = null;
+  function bookInkAll() {
+    if (_bookInk) return _bookInk;
+    _bookInk = {};
+    try {
+      const o = JSON.parse(localStorage.getItem(BOOK_INK_KEY) || "null");
+      if (o && typeof o === "object") _bookInk = o;
+    } catch (e) {}
+    return _bookInk;
+  }
+  function bookInkKey(id, ch) { return id + "|" + ch; }
+  function bookInkGet(id, ch) {
+    const a = bookInkAll()[bookInkKey(id, ch)];
+    return Array.isArray(a) ? a : [];
+  }
+  /* Writing can FAIL, and it fails silently unless it is caught: localStorage has a quota, ink is the
+     bulkiest thing Folio puts in it, and a reader whose notes stopped being saved without being told is
+     the one outcome this feature must not have. An empty chapter drops its key rather than storing `[]`,
+     so a book read through and cleared leaves nothing behind. */
+  let _inkWarned = false;
+  function bookInkSet(id, ch, strokes) {
+    const all = bookInkAll(), k = bookInkKey(id, ch);
+    if (strokes && strokes.length) all[k] = strokes; else delete all[k];
+    try {
+      localStorage.setItem(BOOK_INK_KEY, JSON.stringify(all));
+      _inkWarned = false;
+    } catch (e) {
+      if (!_inkWarned) { _inkWarned = true; toast("There's no room left to save notes on this device."); }
+    }
+  }
+  // 4 decimal places is a tenth of a pixel on a 1000px column — below anything an eye can see, and it
+  // roughly halves what a stroke costs to store against the raw float
+  const inkR = (v) => Math.round(v * 10000) / 10000;
+  /* One drawn stroke → one stored record, in the PAGE's coordinates rather than the canvas's. The
+     canvas is the size of the screen (see wbResize's `fixed` branch), so a point has to be lifted out
+     of it before it can be stored — `frame` is the page's box in document space, supplied by the book.
+     `z` is the brush SIZE rather than the pixel width, and `rw` the page width it was drawn at, so the
+     replay can widen the line with the column instead of leaving a hairline across a wide screen; the
+     width itself comes from wbLineWidth at both ends. */
+  function inkRecord(s, frame) {
+    const w = Math.max(1, frame.w), h = Math.max(1, frame.h);
+    const pts = (s.pts || []).map((p) => ({ x: p.x + window.scrollX - frame.x, y: p.y + window.scrollY - frame.y }));
+    const out = [];
+    let lx = -1e9, ly = -1e9;
+    pts.forEach((p, i) => {
+      // the first and the last point are always kept — the first opens the stroke and the last is where
+      // the reader's hand actually stopped; everything between is thinned, since pointermove samples far
+      // finer than a line needs and every point costs storage
+      const ends = i === 0 || i === pts.length - 1;
+      if (!ends && Math.abs(p.x - lx) < INK_MIN_STEP && Math.abs(p.y - ly) < INK_MIN_STEP) return;
+      lx = p.x; ly = p.y;
+      out.push([inkR(p.x / w), inkR(p.y / h)]);
+    });
+    if (out.length > INK_MAX_PTS) {
+      // keep the ends and thin the middle evenly — a stroke this long is a slow drag, not more detail
+      const step = out.length / INK_MAX_PTS, kept = [];
+      for (let i = 0; i < INK_MAX_PTS; i++) kept.push(out[Math.min(out.length - 1, Math.round(i * step))]);
+      kept[kept.length - 1] = out[out.length - 1];
+      return { m: s.mode, c: s.color, z: s.size, rw: Math.round(w), p: kept };
+    }
+    return { m: s.mode, c: s.color, z: s.size, rw: Math.round(w), p: out };
+  }
+  /* Repaint the whole chapter's strokes at the CURRENT scroll offset, from scratch. Called on load,
+     after every undo/redo/clear, on resize, and on scroll — the canvas is only as tall as the screen,
+     so scrolling is what moves the ink rather than the canvas moving with it.
+
+     The sticky chapter bar is CLIPPED OUT rather than painted over. The bar lives inside `.page`, which
+     animates with a fill mode and is therefore a stacking context of its own, so nothing inside it can
+     be raised above a canvas that is a child of the stage — no z-index settles this. Clipping does: the
+     bar is pinned to the viewport and so is the canvas, so its band is simply excluded, and a stroke
+     that runs under it is cut off at its edge exactly as one under a real bookmark would be. */
+  function inkReplay(strokes, frame) {
+    const c = WB.canvas, ctx = WB.ctx;
+    if (!c || !ctx || !frame) return;
+    const dpr = window.devicePixelRatio || 1;
+    const w = Math.max(1, frame.w), h = Math.max(1, frame.h);
+    const ox = frame.x - window.scrollX, oy = frame.y - window.scrollY;
+    const vw = c.offsetWidth || 1, vh = c.offsetHeight || 1;
+    ctx.save();
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, c.width, c.height);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.lineCap = "round"; ctx.lineJoin = "round";
+    const bar = document.querySelector(".bk-barwrap");
+    const top = bar ? Math.max(0, bar.getBoundingClientRect().bottom) : 0;
+    if (top > 0) { ctx.beginPath(); ctx.rect(0, top, vw, Math.max(0, vh - top)); ctx.clip(); }
+    (strokes || []).forEach((s) => {
+      const pts = s.p || [];
+      if (!pts.length) return;
+      // nothing on screen → nothing to draw. A chapter is tens of screens tall and this runs on every
+      // scroll frame, so the strokes that are nowhere near the viewport must cost a comparison and no more
+      let lo = Infinity, hi = -Infinity;
+      for (let i = 0; i < pts.length; i++) { const y = pts[i][1] * h + oy; if (y < lo) lo = y; if (y > hi) hi = y; }
+      const pad = wbLineWidth(s.m, s.z || 2) + 4;
+      if (hi + pad < 0 || lo - pad > vh) return;
+      ctx.globalCompositeOperation = s.m === "erase" ? "destination-out" : "source-over";
+      ctx.globalAlpha = s.m === "hl" ? 0.34 : 1;
+      ctx.strokeStyle = s.c || "#000";
+      ctx.lineWidth = Math.max(0.5, wbLineWidth(s.m, s.z || 2) * (w / (s.rw || w)));
+      ctx.beginPath();
+      ctx.moveTo(pts[0][0] * w + ox, pts[0][1] * h + oy);
+      if (pts.length === 1) ctx.lineTo(pts[0][0] * w + ox + 0.01, pts[0][1] * h + oy);   // a dot is a stroke too
+      else for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0] * w + ox, pts[i][1] * h + oy);
+      ctx.stroke();
+    });
+    ctx.globalAlpha = 1;
+    ctx.globalCompositeOperation = "source-over";
+    ctx.restore();
+  }
+  /* Mount the vector backend on the canvas setupWhiteboard has just built, and hand it a way to say
+     which chapter it is on. Undo/redo run on the stroke list rather than on bitmaps, which is what
+     lets them survive a resize — and every change is written through at once, because "saved" has to
+     mean saved even if the tab is closed on the next breath. */
+  /* History is a stack of whole LISTS rather than of single strokes, and that is what makes Clear
+     undoable — the one step that is not "one more stroke" and the one a reader most needs back. A
+     snapshot is an array of references to records that are never mutated once made, so it costs almost
+     nothing to keep.
+
+     With an EMPTY past and strokes on the page — which is every chapter reopened from disk — undo peels
+     the last stroke instead. Without that, reopening a book would leave a reader who wants one mark gone
+     with only Clear, which takes the chapter's notes with it. */
+  function bookInkMount(bookId, frameOf) {
+    let ch = null, strokes = [], past = [], future = [];
+    const persist = () => bookInkSet(bookId, ch, strokes);
+    const paint = () => inkReplay(strokes, frameOf());
+    const step = (next) => { past.push(strokes.slice()); while (past.length > WB_HIST_MAX) past.shift(); strokes = next; future.length = 0; };
+    const settle = () => { paint(); persist(); wbUpdateHistBtns(); };
+    WB.onInk = (s) => {
+      if (ch == null) return;
+      const rec = inkRecord(s, frameOf());
+      if (!rec.p.length) return;
+      const next = strokes.concat([rec]);
+      while (next.length > INK_MAX_STROKES) next.shift();
+      step(next);
+      persist();
+      /* Repainted rather than left as drawn, unlike the card's raster ink: the live stroke was painted
+         with no clip, so a mark made across the chapter bar would sit ON the bar until something else
+         redrew it. One repaint at the end of a stroke settles it. */
+      paint();
+      wbUpdateHistBtns();
+    };
+    WB.onRedraw = paint;
+    // the ink is fixed to the screen and the prose is not, so SCROLLING is what moves the marks
+    WB.onScroll = paint;
+    WB.onUndo = () => {
+      if (past.length) { future.push(strokes.slice()); strokes = past.pop(); }
+      else if (strokes.length) { future.push(strokes.slice()); strokes = strokes.slice(0, -1); }
+      else return;
+      settle();
+    };
+    WB.onRedo = () => { if (!future.length) return; past.push(strokes.slice()); strokes = future.pop(); settle(); };
+    WB.onCanUndo = () => past.length > 0 || strokes.length > 0;
+    WB.onCanRedo = () => future.length > 0;
+    WB.onClear = () => { if (!strokes.length) return; step([]); settle(); };
+    // moving to another chapter swaps the whole list, history included: an undo that reached back into
+    // the chapter before would take away a mark the reader cannot see
+    return function setChapter(n) {
+      ch = n; strokes = bookInkGet(bookId, n); past = []; future = [];
+      paint();
+      wbUpdateHistBtns();
+    };
+  }
+
+  /* ============================================================
+     BOOK HIGHLIGHTS — marking the words themselves (Aug 2026, on request)
+
+     The marker above draws OVER the page; a highlight is made OF it, and the difference is what each
+     survives. Ink is anchored to the chapter as a proportion, so it keeps its place through a scroll
+     and drifts if the column is re-shaped; a highlight is anchored to the TEXT — a character range in
+     the chapter's own prose — so it stays on its sentence at any width, any text size and either
+     language column, which is what marking a passage has to mean.
+
+     `k` is which column the range is measured in: "en" for the translation (or the whole prose, when
+     there is no original) and "or" for the original beside it. The offsets are taken AFTER the glossary
+     linking and the units pass have run, so what is measured is what the reader is actually looking at.
+     The one thing that moves them is switching measurement systems mid-book, which rewrites the prose
+     itself — rare, recoverable (switch back), and the honest price of anchoring to text rather than to
+     a fragile guess at sentence identity.
+     ============================================================ */
+  const BOOK_HL_KEY = "folio_book_hl_v1";
+  let _bookHl = null;
+  function bookHlAll() {
+    if (_bookHl) return _bookHl;
+    _bookHl = {};
+    try { const o = JSON.parse(localStorage.getItem(BOOK_HL_KEY) || "null"); if (o && typeof o === "object") _bookHl = o; } catch (e) {}
+    return _bookHl;
+  }
+  function bookHlGet(id, ch) { const a = bookHlAll()[bookInkKey(id, ch)]; return Array.isArray(a) ? a : []; }
+  function bookHlSet(id, ch, list) {
+    const all = bookHlAll(), k = bookInkKey(id, ch);
+    if (list && list.length) all[k] = list; else delete all[k];
+    try { localStorage.setItem(BOOK_HL_KEY, JSON.stringify(all)); } catch (e) { toast("There's no room left to save notes on this device."); }
+  }
+  // The text nodes of one column, in reading order — the coordinate system every offset is measured in.
+  // A node already inside a highlight counts exactly as it did before it was wrapped, which is what
+  // lets a second highlight be placed over prose that already carries one.
+  function bkTextNodes(pageEl, col) {
+    const roots = pageEl.querySelectorAll(col === "or" ? ".bk-col-or" : (pageEl.querySelector(".bk-bi") ? ".bk-col-en" : ".bk-prose"));
+    const out = [];
+    roots.forEach((r) => {
+      const w = document.createTreeWalker(r, NodeFilter.SHOW_TEXT, null);
+      let n; while ((n = w.nextNode())) if (n.nodeValue) out.push(n);
+    });
+    return out;
+  }
+  // where a selection boundary falls in that coordinate system (-1 when it is not in this column)
+  function bkOffsetOf(nodes, node, off) {
+    let n = node;
+    if (n && n.nodeType !== 3) {   // an element boundary: take the first text node at or after it
+      const kid = n.childNodes[Math.min(off, n.childNodes.length - 1)];
+      const w = document.createTreeWalker(kid || n, NodeFilter.SHOW_TEXT, null);
+      n = (kid && kid.nodeType === 3) ? kid : w.nextNode();
+      off = 0;
+    }
+    let acc = 0;
+    for (let i = 0; i < nodes.length; i++) {
+      if (nodes[i] === n) return acc + off;
+      acc += nodes[i].nodeValue.length;
+    }
+    return -1;
+  }
+  function bkHlColorCSS(hex) {
+    const m = /^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i.exec(hex || "");
+    if (!m) return hex || "transparent";
+    return "rgba(" + parseInt(m[1], 16) + "," + parseInt(m[2], 16) + "," + parseInt(m[3], 16) + ",.34)";
+  }
+  /* Wrap one character range. A range over prose almost always crosses element boundaries — a sentence
+     with an italic title in it, a glossary link, a footnote marker — so `surroundContents` cannot be
+     used; each text node the range touches is split and its middle wrapped on its own. The snapshot is
+     taken first and each node's length read before it is split, so the splitting cannot move the
+     offsets out from under the loop. */
+  function bkPaintHl(nodes, a, b, color, idx) {
+    let acc = 0;
+    nodes.forEach((n) => {
+      const len = n.nodeValue.length, s = acc, e = acc + len;
+      acc = e;
+      if (e <= a || s >= b || !n.parentNode) return;
+      const from = Math.max(0, a - s), to = Math.min(len, b - s);
+      if (to <= from) return;
+      let mid = n;
+      if (from > 0) mid = mid.splitText(from);
+      if (to - from < mid.nodeValue.length) mid.splitText(to - from);
+      const span = document.createElement("span");
+      span.className = "bk-hl";
+      span.dataset.hl = String(idx);
+      span.style.background = bkHlColorCSS(color);
+      mid.parentNode.insertBefore(span, mid);
+      span.appendChild(mid);
+    });
+  }
+  // Put a chapter's highlights back on the page, after everything else that rewrites the prose has run.
+  function bookHlApply(pageEl, id, ch) {
+    const list = bookHlGet(id, ch);
+    if (!list.length) return;
+    ["en", "or"].forEach((col) => {
+      const mine = list.filter((h) => (h.k || "en") === col);
+      if (!mine.length) return;
+      /* Painted from the END of the chapter backwards. Every range's offsets were measured against the
+         un-split text, and wrapping one splits the nodes under it — so painting a LATER one first can
+         never disturb an earlier one's coordinates, while the other order would.
+         The span carries the highlight's own id and NOT its position in the list, which is what lets
+         Remove find every span of one highlight and the record behind it: an index shifts the moment
+         anything before it is removed, and this shipped with the index for an hour, which took the
+         marks off the page and left the record on disk to put them back on the next reload. */
+      mine.slice().sort((x, y) => y.a - x.a).forEach((h) => {
+        const nodes = bkTextNodes(pageEl, col);
+        if (nodes.length) bkPaintHl(nodes, h.a, h.b, h.c, h.i);
+      });
+    });
+  }
+
   // how far through the whole book that place is, for the tile's progress line
   function readingPct(b) {
     const r = readingPos(b.id);
@@ -8205,6 +9213,27 @@
     return BOOK_SORTS.some((o) => o[0] === k) ? k : "recent";
   }
   function bookSortRev() { return !!(S.settings && S.settings.bookSortRev); }
+  /* What the shelf's search box is holding (Aug 2026, on request). Deliberately NOT in S, and for the
+     reason the glossary record's picker is not: a filter is a way of LOOKING at the shelf rather than a
+     preference about Folio, so it survives navigating away and back within a session and resets on
+     reload — where the sort, which is a preference, is written to S.settings. It is module-level rather
+     than a local of PAGES.library precisely because setBookSort re-renders the page: without it, changing
+     the order would silently throw away whatever the reader had typed. */
+  let bookQuery = "";
+  /* Title, author and the year it was written — the three things the banner itself shows, so a reader can
+     always see why a book matched. Diacritics are folded (NFD, marks stripped) so "Meditations" finds a
+     title spelled with an accent and "Sun Tzu" finds "Sun Tzŭ", which is exactly the case this shelf has.
+     Every word of the query must appear somewhere, in any order — "seneca letters" and "letters seneca"
+     are the same request. */
+  function bookFold(s) {
+    const v = String(s == null ? "" : s).toLowerCase();
+    try { return v.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); } catch (e) { return v; }
+  }
+  function bookMatches(b, words) {
+    if (!words.length) return true;
+    const hay = bookFold(b.title + " " + b.author + " " + (b.written || ""));
+    return words.every((w) => hay.indexOf(w) >= 0);
+  }
   PAGES.library = function (root) {
     /* A BANNER across the full width, at every screen size (Aug 2026, on request — briefly two narrow
        tiles side by side on a phone, which was asked for and then asked back). What is gone for good is
@@ -8216,7 +9245,14 @@
        left, how long and where you had got to on the right. That is also what lets it stay short. */
     const tile = (b) => {
       const pos = readingPos(b.id), pct = readingPct(b);
-      const unit = b.count === 1 ? b.chapterWord.toLowerCase() : b.chapterWord.toLowerCase() + "s";
+      /* A book may STATE its plural, and one has to: adding an "s" to `chapterWord` covers letters,
+         books and chapters and turns Suetonius's twelve Lives into twelve "lifes". The fix is a
+         declared field rather than a pluraliser, for the reason `year` is a declared field beside the
+         prose `written` — English plurals are not derivable, and a rule good enough for one more book
+         is a rule that will be wrong for the one after it. */
+      const unit = b.count === 1
+        ? b.chapterWord.toLowerCase()
+        : (b.chapterWordPlural || b.chapterWord + "s").toLowerCase();
       // "Letter 0" is not a letter Seneca wrote — a reader still in the front matter is told so
       const where = pos && pos.ch === 0 ? "About this book" : pos ? `${b.chapterWord} ${pos.ch} · ${pct}%` : "";
       /* HOW MUCH OF THE WORK IS HERE, said in words rather than as a bare ratio (Aug 2026, on a question:
@@ -8271,13 +9307,25 @@
        headed honestly ("Everything else") whenever anything has been starred, and both headings disappear
        when nothing has: an unstarred shelf is exactly the page it always was. The favourites keep the
        chosen sort rather than the order they were starred in — it is the same shelf, split. */
-    const favs = sorted.filter((b) => isBookFav(b.id));
-    const rest = sorted.filter((b) => !isBookFav(b.id));
     const section = (label, list) =>
       list.length
         ? `<section class="lib-sec">${label ? `<h2 class="lib-sec-head">${label}</h2>` : ""}` +
           `<div class="book-grid">${list.map(tile).join("")}</div></section>`
         : "";
+    /* The shelf itself, for a given query. It is a function rather than a string because the search box
+       repaints it IN PLACE — a full render() on every keystroke would take the caret out of the box being
+       typed in, which is the same reason the Studio's field editors repaint their previews rather than
+       re-rendering. The favourites/rest split survives filtering: a starred book that matches still sits
+       in its own section, so the shelf a reader knows does not rearrange itself while they narrow it. */
+    const shelfHTML = (q) => {
+      const words = bookFold(q).split(/\s+/).filter(Boolean);
+      const hits = sorted.filter((b) => bookMatches(b, words));
+      if (!hits.length)
+        return `<div class="lib-none"><p>No book here matches <b>${esc(q.trim())}</b>.</p></div>`;
+      const favs = hits.filter((b) => isBookFav(b.id));
+      const rest = hits.filter((b) => !isBookFav(b.id));
+      return favs.length ? section("Favourites", favs) + section("Everything else", rest) : section("", rest);
+    };
     root.innerHTML = `
       <div class="page-head">
         <span class="eyebrow">Library</span>
@@ -8287,21 +9335,36 @@
       ${/* The picker ships whatever the shelf holds, one book included — it was asked for outright, and
             a control that appears the day a second book lands is one nobody knows to look for. Beside it
             the direction, in the chosen field's own words rather than as a bare arrow. */""}
-      <div class="lib-tools">${sortPickerHTML("bkSort", BOOK_SORTS, key)}${sortDirHTML("bkSortDir", BOOK_SORTS, key, rev)}</div>
+      <div class="lib-tools">
+        <div class="lib-search"><input type="search" id="bkFilter" placeholder="Search these books…" autocomplete="off" aria-label="Search the library by title, author or date" value="${esc(bookQuery)}"></div>
+        ${sortPickerHTML("bkSort", BOOK_SORTS, key)}${sortDirHTML("bkSortDir", BOOK_SORTS, key, rev)}
+      </div>
       ${/* The licence note that used to close this page is gone (Aug 2026, on request). The RULE it
             described has not changed and is not weakened by its going: it is still stated in
             .claude/fetch-book.js, which is what decides what may be shelved, and it is still shown to
             the reader — in each book's own front matter, beside the edition it applies to, which is
             where a statement about one book's copyright actually belongs. */""}
-      ${favs.length ? section("Favourites", favs) + section("Everything else", rest) : section("", rest)}`;
+      <div id="bkShelf">${shelfHTML(bookQuery)}</div>`;
     /* HOLD a banner for its options — share it, or star it (Aug 2026, on request). Same gesture, same
        shell and same classification as an added deck's row on the home page: a tap opens the book, a
        press past HOLD_MS opens the sheet, and a finger that wanders is scrolling rather than holding.
        wireHoldMenu installs the tap listener itself, so there is no separate click wiring here — two
-       would open the book from under the sheet the hold had just raised. */
-    root.querySelectorAll(".book-tile").forEach((el) =>
+       would open the book from under the sheet the hold had just raised.
+
+       It has to be re-run after a filter repaint: the sheet is a per-element gesture rather than a
+       delegated one (it classifies a press, which needs the element's own pointer stream), so a banner
+       painted by the search box would otherwise be a book that cannot be opened. */
+    const shelf = root.querySelector("#bkShelf");
+    const wireShelf = () => shelf.querySelectorAll(".book-tile").forEach((el) =>
       wireHoldMenu(el, () => openBookMenu(el.dataset.book), () => route("book", { id: el.dataset.book }))
     );
+    wireShelf();
+    const f = root.querySelector("#bkFilter");
+    if (f) f.addEventListener("input", () => {
+      bookQuery = f.value;
+      shelf.innerHTML = shelfHTML(bookQuery);
+      wireShelf();
+    });
     const so = root.querySelector("#bkSort");
     if (so) so.addEventListener("change", () => { setBookSort(so.value, false); });
     const sd = root.querySelector("#bkSortDir");
@@ -8572,7 +9635,13 @@
       setupTooltips(pageEl);
       wireFootnotes(pageEl);
       unitizeTree(pageEl);
+      /* The reader's own marks go on LAST, over the finished prose — the offsets they are stored as are
+         measured against the text after the glossary links and the units pass have rewritten it, so
+         putting them back any earlier would put them back against a different string. */
+      bookHlApply(pageEl, b.id, c.n);
       applyLangMode();
+      // …and the chapter's ink, which is a fresh list per chapter, history included
+      if (inkChapter) inkChapter(c.n);
 
       tabsEl.querySelectorAll(".bk-tab").forEach((t) => {
         const on = +t.dataset.ch === c.n;
@@ -8910,7 +9979,12 @@
     const BK_TAP_SKIP = "a,button,input,textarea,select,summary,label,[role='button'],.ttip,.fn,.src-note,.bk-n";
     // listeners go on `root` — a fresh .page div per render (see render()), so they die with the page
     // and cannot accumulate the way one on the persistent #view would
+    /* WITH THE PEN DOWN THE FINGER DRAWS, and neither of these gestures may fire. It is not a nicety:
+       the ink layer is mounted INSIDE the page (see setupWhiteboard's `host`), so a stroke's pointer
+       events bubble to these very listeners — and a horizontal line drawn under a passage is exactly
+       the shape this handler reads as "turn the chapter". */
     function bkGestureOK() {
+      if (WB.enabled) return false;
       return bookPhone() && !document.querySelector(".gloss-win, .img-viewer, .inline-prompt, .ctx-menu, .deck-menu, .levelup-pop");
     }
     let g = null, lastT = 0, lastX = 0, lastY = 0;
@@ -9003,6 +10077,82 @@
       if (e.key === "ArrowLeft") { e.preventDefault(); step(-1); }
       else if (e.key === "ArrowRight") { e.preventDefault(); step(1); }
     });
+
+    /* ---- the marker, and the notes it leaves behind (Aug 2026, on request) ----
+
+       The same floating marker as a study card's, over the book instead — mounted here rather than left
+       to the card page because a chapter is where a reader actually wants to write. What is different is
+       underneath: `bookInkMount` installs the VECTOR backend (see BOOK INK), so the strokes are a list
+       that is written to disk as it is drawn rather than a bitmap that dies with the page.
+
+       Order matters twice over. The store is mounted BEFORE setupWhiteboard, because setupWhiteboard
+       asks whether a vector backend is present to decide whether to build a bitmap history it would
+       otherwise never use; and paint() runs after both, because it is what tells the store which chapter
+       it is on. */
+    /* The box every stroke is measured against: the CHAPTER PANEL in document coordinates. Deliberately
+       the panel and not the whole page — its top moves when the head or the chapter bar changes height,
+       and a note is about the prose rather than about the furniture above it. Read fresh each time, so a
+       chapter that grows a column of Latin re-scales its own notes with it. */
+    const inkFrame = () => {
+      const r = pageEl.getBoundingClientRect();
+      return { x: r.left + window.scrollX, y: r.top + window.scrollY, w: r.width || 1, h: r.height || 1 };
+    };
+    const inkChapter = bookInkMount(b.id, inkFrame);
+    setupWhiteboard({ fixed: true });
+    showWBTools();
+    /* The ink is pinned to the screen while the prose scrolls past it, so a scroll is what moves every
+       mark — one repaint per frame, and only over the strokes that are actually on screen. It takes
+       itself off when its page goes, exactly as the reading-position listener above does. */
+    let inkRAF = 0;
+    const onInkScroll = () => {
+      if (!pageEl.isConnected) { window.removeEventListener("scroll", onInkScroll); return; }
+      if (inkRAF || !WB.onScroll) return;
+      inkRAF = requestAnimationFrame(() => { inkRAF = 0; if (WB.onScroll) WB.onScroll(); });
+    };
+    window.addEventListener("scroll", onInkScroll, { passive: true });
+
+    /* ---- highlighting the words themselves ---- */
+    function hlColumnOf(range) {
+      if (!pageEl.querySelector(".bk-bi")) return "en";
+      let n = range.startContainer;
+      if (n && n.nodeType === 3) n = n.parentElement;
+      return n && n.closest && n.closest(".bk-col-or") ? "or" : "en";
+    }
+    function addHighlight(color) {
+      const sel = window.getSelection();
+      if (!sel || !sel.rangeCount || sel.isCollapsed) return;
+      const range = sel.getRangeAt(0);
+      if (!pageEl.contains(range.commonAncestorContainer)) return;
+      const col = hlColumnOf(range);
+      const nodes = bkTextNodes(pageEl, col);
+      const a = bkOffsetOf(nodes, range.startContainer, range.startOffset);
+      const bEnd = bkOffsetOf(nodes, range.endContainer, range.endOffset);
+      /* A selection that starts in one column and ends in the other measures as -1 at one end, and a
+         highlight guessed across that boundary would sit over prose the reader did not choose. Say so
+         rather than mark the wrong words. */
+      if (a < 0 || bEnd < 0 || bEnd <= a) { toast("That selection can't be highlighted — try one column at a time."); return; }
+      const id = String(Date.now().toString(36)) + Math.random().toString(36).slice(2, 6);
+      const list = bookHlGet(b.id, cur.n).concat([{ i: id, k: col, a: a, b: bEnd, c: color }]);
+      bookHlSet(b.id, cur.n, list);
+      bkPaintHl(nodes, a, bEnd, color, id);
+      sel.removeAllRanges();   // the words are marked now; leaving them selected as well reads as unfinished
+    }
+    function removeHighlight(span) {
+      const id = span && span.dataset ? span.dataset.hl : "";
+      if (!id) return;
+      bookHlSet(b.id, cur.n, bookHlGet(b.id, cur.n).filter((h) => h.i !== id));
+      // one highlight can be several spans — a range over prose is split at every element boundary it
+      // crosses — so all of them come off together, and the text nodes are re-joined behind them so the
+      // next offset measured over this column matches the one the stored ranges were taken against
+      pageEl.querySelectorAll('.bk-hl[data-hl="' + CSS.escape(id) + '"]').forEach((el) => {
+        const p = el.parentNode;
+        if (!p) return;
+        while (el.firstChild) p.insertBefore(el.firstChild, el);
+        p.removeChild(el);
+        p.normalize();
+      });
+    }
+    wireBookCtxMenu(pageEl, addHighlight, removeHighlight);
 
     paint(cur, pos && pos.ch === cur.n ? pos.y || 0 : 0);
   };
@@ -9197,6 +10347,74 @@
      Where an author programs a type: its field names, the HTML of the front, the HTML of the back, and the CSS
      for the card as a whole. "Basic" heads the list and is not editable — it is Folio's own format, the one
      every card starts as, and the thing the other types are an alternative to. */
+  /* The languages the read-aloud control can be set to. A closed list rather than a free-text box: a BCP-47
+     tag is a thing an author should not have to know, and a mistyped one has the device choose a voice at
+     random. Whether the device has a voice for one is reported beside it rather than hidden — a deck is
+     written on one machine and studied on another, so an author must be able to pick a language their own
+     laptop cannot speak and still ship a deck that speaks on a phone that can. */
+  const SPEECH_LANGS = [
+    ["es", "Spanish"], ["fr", "French"], ["de", "German"], ["it", "Italian"],
+    ["pt-PT", "Portuguese"], ["pt-BR", "Portuguese (Brazil)"], ["nl", "Dutch"], ["sv", "Swedish"],
+    ["da", "Danish"], ["nb", "Norwegian"], ["fi", "Finnish"], ["is", "Icelandic"],
+    ["pl", "Polish"], ["cs", "Czech"], ["hu", "Hungarian"], ["ro", "Romanian"],
+    ["el", "Greek"], ["ru", "Russian"], ["uk", "Ukrainian"], ["tr", "Turkish"],
+    ["ar", "Arabic"], ["he", "Hebrew"], ["fa", "Persian"], ["hi", "Hindi"],
+    ["zh-CN", "Chinese (Mandarin)"], ["zh-HK", "Chinese (Cantonese)"], ["ja", "Japanese"], ["ko", "Korean"],
+    ["vi", "Vietnamese"], ["th", "Thai"], ["id", "Indonesian"], ["sw", "Swahili"],
+    ["la", "Latin"], ["en-US", "English (US)"], ["en-GB", "English (UK)"],
+  ];
+  function speechLangName(code) {
+    const row = SPEECH_LANGS.find((l) => l[0] === code);
+    return row ? row[1] : code;
+  }
+  function speechLangOptions(cur) {
+    return SPEECH_LANGS.map(([code, label]) =>
+      '<option value="' + esc(code) + '"' + (code === cur ? " selected" : "") + ">" +
+      esc(label) + (speechVoiceFor(code) ? "" : esc(" — no voice on this device")) + "</option>").join("");
+  }
+  /* Adding a type starts with a shape rather than with a blank template. The sheet is the same shell the
+     deck rows and the book banners use (deckSheet), so Escape, the backdrop, the focus trap and the exit
+     animation are written once — and "Start from scratch" is last, because it is what the other three are
+     an alternative to rather than the other way round. */
+  function openTypePresetSheet(deckId, after) {
+    const html =
+      '<div class="dm-head"><div class="dm-headmain"><span class="dm-title">Add a card type</span>' +
+        '<span class="dm-where">Start from a ready-made shape, or from nothing</span></div></div>' +
+      CARD_TYPE_PRESETS.map((p) =>
+        '<button type="button" class="dm-item" data-preset="' + esc(p.id) + '">' +
+        "<b>" + esc(p.name) + "</b><small>" + esc(p.blurb) + "</small></button>").join("") +
+      '<button type="button" class="dm-item" data-preset=""><b>Start from scratch</b>' +
+      "<small>Two fields and an empty template, to write yourself</small></button>";
+    return deckSheet("Add a card type", html, (ov, close) => {
+      ov.querySelectorAll("[data-preset]").forEach((b) => b.addEventListener("click", () => {
+        const p = cardTypePreset(b.dataset.preset);
+        close();
+        if (!p) { const blank = uTypeCreate(deckId, "New type"); if (blank) after(blank); return; }
+        // the vocabulary shape reads its answer aloud, and which language that is in is the one thing about
+        // it Folio cannot guess — so it is asked once, here, instead of left wrong until somebody notices
+        if (p.askLang) { openSpeechLangSheet(p, (lang) => { const t = uTypeCreate(deckId, p.name, cardTypePresetSpec(p, lang)); if (t) after(t); }); return; }
+        const t = uTypeCreate(deckId, p.name, cardTypePresetSpec(p));
+        if (t) after(t);
+      }));
+    });
+  }
+  function openSpeechLangSheet(p, cb) {
+    const html =
+      '<div class="dm-head"><div class="dm-headmain"><span class="dm-title">Which language are you studying?</span>' +
+        '<span class="dm-where">The read-aloud button speaks the answer in it. You can change it later.</span></div></div>' +
+      '<label class="dm-field"><span>Language</span><select class="af-input" id="dmSpeechLang">' +
+        speechLangOptions("es") + "</select></label>" +
+      '<button type="button" class="dm-item" id="dmSpeechOk"><b>Add the ' + esc(p.name.toLowerCase()) + " type</b>" +
+      "<small>It appears in the list on the left, ready to edit</small></button>";
+    return deckSheet("Which language are you studying?", html, (ov, close) => {
+      ov.querySelector("#dmSpeechOk").addEventListener("click", () => {
+        const sel = ov.querySelector("#dmSpeechLang");
+        const v = sel ? sel.value : "";
+        close();
+        cb(v);
+      });
+    });
+  }
   function studioTypesHTML(d) {
     const types = uTypeList(d.id);
     const sel = studioState.type && uTypeGet(d.id, studioState.type) ? studioState.type : "";
@@ -9229,7 +10447,17 @@
       'an answer with its date line, a background, an illustration and the works behind it. Its layout is Folio&rsquo;s, ' +
       'and it is edited on the Cards tab.</p>' +
       '<p>A type of your own replaces all of that with templates you write yourself — the HTML of the front, the HTML of ' +
-      'the back, and one stylesheet for the card. Add one on the left, then pick it at the top of any card.</p></div>';
+      'the back, and one stylesheet for the card. Pick one of these to start from, or add a blank one on the left.</p></div>' +
+      /* The presets again, as a gallery — the "Add a type" button opens the same list in a sheet, but this
+         pane is what a first-time author is already looking at, and a feature reached only through a button
+         labelled with what it does rather than with what it offers is one nobody goes looking for. */
+      '<div class="ut-presets">' +
+        CARD_TYPE_PRESETS.map((p) =>
+          '<button type="button" class="ut-preset" data-preset="' + esc(p.id) + '">' +
+          '<span class="ut-preset-name">' + esc(p.name) + "</span>" +
+          '<span class="ut-preset-blurb">' + esc(p.blurb) + "</span>" +
+          '<span class="ut-preset-fields">' + esc(p.fields.join(" · ")) + "</span></button>").join("") +
+      "</div>";
   }
   function studioTypeFormHTML(d, t) {
     // a LABEL rather than a div: it is what gives the textarea its accessible name, and these boxes are the
@@ -9246,10 +10474,22 @@
           '<input class="af-input" data-utype="name" type="text" value="' + esc(t.name) + '" /></label>' +
         '<label class="admin-field"><span class="af-label">Fields <small>&mdash; comma separated, in the order you want to fill them in</small></span>' +
           '<input class="af-input" id="stTypeFields" type="text" spellcheck="false" value="' + esc(t.fields.join(", ")) + '" /></label>' +
+        '<label class="admin-field"><span class="af-label">Spoken language ' +
+          '<small>&mdash; what a read-aloud button on this type says its words in</small></span>' +
+          '<select class="af-input" data-utype="speechLang">' +
+            '<option value=""' + (t.speechLang ? "" : " selected") + ">Not set &mdash; the device&rsquo;s own voice</option>" +
+            speechLangOptions(t.speechLang) +
+          "</select></label>" +
         '<div class="ut-help">Write <code>{{' + esc(t.fields[0] || "Front") + "}}</code> in a template to drop that field in. " +
           "<code>{{FrontSide}}</code> on the back is the front as it rendered. " +
           "<code>{{#Field}}…{{/Field}}</code> keeps a block only when that field is filled in, and " +
-          "<code>{{^Field}}…{{/Field}}</code> only when it is empty.</div>" +
+          "<code>{{^Field}}…{{/Field}}</code> only when it is empty." +
+          /* The two things a template can ask Folio for, rather than draw itself — said here because this
+             box is the only reference an author has, and neither is guessable. */
+          "<br>Wrap anything in <code>&lt;span class=\"uc-tts\"&gt;…&lt;/span&gt;</code> and it becomes a button that reads " +
+          "those words aloud in the language above. Wrap the words to recall in a card's own text in " +
+          "<code>{{c1::…}}</code> — or <code>{{c1::…::a hint}}</code> — and they close on the front and open on the back. " +
+          "Every blank on a card opens together: a Folio card is one card, where Anki would make one per number.</div>" +
         box("front", "Front template", "the HTML shown before the answer", t.front, 7) +
         box("back", "Back template", "the HTML shown once the card is turned over", t.back, 7) +
         box("css", "CSS", "styles this type&rsquo;s cards and nothing else; <code>.card</code> is the card itself", t.css, 10) +
@@ -9272,17 +10512,25 @@
         '<div class="reveal show"><div class="reveal-inner">' + buildBack(stand) + "</div></div>" +
       "</div>";
     openLinks(box);
+    wireSpeakControls(box);
   }
   function studioWireTypes(root, d) {
     root.querySelectorAll("[data-topensel]").forEach((b) => b.addEventListener("click", () => {
       studioState.type = b.dataset.topensel === CARD_TYPE_BASIC ? "" : b.dataset.topensel;
       render();
     }));
+    // both ways in — the button at the head of the list opens the presets in a sheet, the pane behind it
+    // shows the same three as a gallery — and both land in the same place: the new type, open for editing
+    const open = (t) => { studioState.type = t.id; render(); };
     const add = root.querySelector("#stAddType");
-    if (add) add.addEventListener("click", () => {
-      const t = uTypeCreate(d.id, "New type");
-      if (t) { studioState.type = t.id; render(); }
-    });
+    if (add) add.addEventListener("click", () => openTypePresetSheet(d.id, open));
+    root.querySelectorAll(".ut-preset[data-preset]").forEach((b) => b.addEventListener("click", () => {
+      const p = cardTypePreset(b.dataset.preset);
+      if (!p) return;
+      if (p.askLang) { openSpeechLangSheet(p, (lang) => { const t = uTypeCreate(d.id, p.name, cardTypePresetSpec(p, lang)); if (t) open(t); }); return; }
+      const t = uTypeCreate(d.id, p.name, cardTypePresetSpec(p));
+      if (t) open(t);
+    }));
     const t = studioState.type ? uTypeGet(d.id, studioState.type) : null;
     if (!t) return;
     studioTypePreview(d, t);
@@ -9619,6 +10867,7 @@
           '<div class="reveal show"><div class="reveal-inner">' + buildBack(c) + "</div></div>" +
         "</div>";
       openLinks(box);
+      wireSpeakControls(box);
     }
     paint();
     host.querySelectorAll("[data-ufield]").forEach((el) => el.addEventListener("input", () => {
@@ -9643,7 +10892,9 @@
     if (cardTypeOf(c)) {
       const t = cardTypeOf(c), vals = c.fields || {};
       for (let i = 0; i < t.fields.length; i++) {
-        const v = sanitizePlain(vals[t.fields[i]]).trim();
+        // cloze markers are OPENED for the list: a row reading "fought in {{c1::1066}}" makes the author
+        // read past the apparatus to find out which card it is, which is the one thing a list is for
+        const v = sanitizePlain(clozeMark(vals[t.fields[i]], true)).trim();
         if (v) return v.slice(0, 120);
       }
       return "(empty " + t.name + ")";
@@ -10239,6 +11490,7 @@
         processAbstract(inner, c);
         setupTooltips(inner);
         wireFootnotes(inner);   // number the in-prose markers and join them to the source list below
+        wireSpeakControls(inner);   // a card type's read-aloud spans become real, focusable controls
         const bgHead = inner.querySelector(".bg-head");
         const bgToggle = inner.querySelector(".bg-toggle");
         const bgCollapse = inner.querySelector(".bg-collapse");
@@ -10902,9 +12154,37 @@
       if (!changed) break;
     }
     return s.replace(/\{\{\s*([^{}#^/][^{}]{0,59}?)\s*\}\}/g, (m, name) => {
+      // A cloze marker is not a field reference. It normally lives in a card's own TEXT — where this pass
+      // never sees it, since a substituted value is not rescanned — but an author who writes one straight
+      // into a template means the same thing by it, and substituting a field called "c1::1066" would leave
+      // them with a silent blank and nothing to explain it. clozeMark() takes it from here.
+      if (CLOZE_NAME_RX.test(name)) return m;
       const v = get(name.trim());
       return v == null ? "" : String(v);
     });
+  }
+  /* ---------- cloze deletions: {{c1::the answer}} / {{c1::the answer::a hint}} ----------
+     Anki's syntax, because a learner who has written cloze cards before will type it without being told, and
+     it is the note type most of Anki's popular decks are built out of. The braces go in the CARD'S TEXT, not
+     in the template — the template says `{{Text}}` once and both sides pass through here.
+
+     ONE simplification, said plainly in the type editor's own help rather than hidden: Anki turns one note
+     into one card per numbered deletion (c1, c2, c3 …), where a Folio card is a single record, so every
+     blank on a card is hidden together and revealed together. The numbers are still accepted and still
+     read, so a deck written elsewhere renders as its author wrote it; they simply do not split the card.
+
+     It runs BEFORE the composed string is sanitized, so what it emits is checked with everything else — and
+     what it emits around the author's own text is a span, not an attribute, so a value that ends mid-tag
+     cannot escape into one. */
+  const CLOZE_NAME_RX = /^c\d{0,2}::/i;
+  const CLOZE_RX = /\{\{\s*c\d{0,2}::([\s\S]*?)(?:::([\s\S]*?))?\s*\}\}/gi;
+  function clozeMark(html, reveal) {
+    const s = String(html == null ? "" : html);
+    if (s.indexOf("{{") < 0) return s;   // the common case: no markers at all
+    return s.replace(CLOZE_RX, (m, answer, hint) =>
+      reveal
+        ? '<span class="uc-cloze uc-cloze-on">' + answer + "</span>"
+        : '<span class="uc-cloze">' + (String(hint == null ? "" : hint).trim() ? "[" + hint + "]" : "[&hellip;]") + "</span>");
   }
   function cardTypeOf(c) {
     if (!c || !c.type || c.type === CARD_TYPE_BASIC) return null;
@@ -10950,9 +12230,16 @@
     const t = cardTypeOf(c);
     if (!t) return null;
     const scopeId = ensureCardTypeStyle(c.deckId, t);
-    const front = tplRender(t.front, cardTypeFieldGetter(c, null));
-    const html = side === "front" ? front : tplRender(t.back, cardTypeFieldGetter(c, front));
-    return '<div class="uc-card uc-' + side + '" data-uct="' + esc(scopeId) + '">' + sanitizeHTML(html) + "</div>";
+    /* The front's blanks are closed before it is handed to the back as {{FrontSide}} — which is Anki's
+       behaviour and the right one: the top of the back is the question AS IT WAS ASKED, so a reader
+       comparing the two is looking at their own guess rather than at the answer twice. Its markers are
+       already spent by then, so the back's own pass finds nothing left to close. */
+    const front = clozeMark(tplRender(t.front, cardTypeFieldGetter(c, null)), false);
+    const html = side === "front" ? front : clozeMark(tplRender(t.back, cardTypeFieldGetter(c, front)), true);
+    /* The spoken language goes on the WRAPPER, so every read-aloud control inside a card of this type
+       inherits it and a template that wants a second language need only say so on the one element. */
+    const lang = t.speechLang ? ' lang="' + esc(t.speechLang) + '"' : "";
+    return '<div class="uc-card uc-' + side + '" data-uct="' + esc(scopeId) + '"' + lang + ">" + sanitizeHTML(html) + "</div>";
   }
   // what goes in the study card's question area: a custom type's front template, or the Basic question
   function cardFrontHTML(c) {
@@ -11264,7 +12551,7 @@
     inner.querySelectorAll(".bg-collapse, .bg-toggle, .answer-tr").forEach((el) => el.classList.remove("collapsed"));   // expand so all edits are visible
     const bh = inner.querySelector(".bg-head"); if (bh) bh.setAttribute("aria-expanded", "true");
     const tt = inner.querySelector(".tr-toggle"); if (tt) tt.setAttribute("aria-expanded", "true");
-    processAbstract(inner, c); setupTooltips(inner); wireFootnotes(inner);
+    processAbstract(inner, c); setupTooltips(inner); wireFootnotes(inner); wireSpeakControls(box);
     const trToggle = inner.querySelector(".tr-toggle"), answerTr = inner.querySelector(".answer-tr");
     if (trToggle && answerTr) trToggle.addEventListener("click", () => { const col = answerTr.classList.toggle("collapsed"); trToggle.setAttribute("aria-expanded", col ? "false" : "true"); });
     const bgHead = inner.querySelector(".bg-head"), bgToggle = inner.querySelector(".bg-toggle"), bgCollapse = inner.querySelector(".bg-collapse");
@@ -15913,7 +17200,7 @@
             <li><a href="https://www.naturalearthdata.com" target="_blank" rel="noopener">Natural Earth</a> <span class="cr-lic">public domain</span> — coastlines, borders, lakes, rivers and cities on the globe.</li>
             <li><a href="https://github.com/aourednik/historical-basemaps" target="_blank" rel="noopener">historical-basemaps</a> <span class="cr-lic">CC BY-SA 4.0</span> — the historical border eras on the Atlas timeline.</li>
             <li><a href="https://en.wikisource.org" target="_blank" rel="noopener">Wikisource</a> <span class="cr-lic">public domain</span> — the Library's texts: Gummere's Seneca, Haines's Marcus Aurelius, Giles's Sun Tzu and Jowett's Plato, with Seneca's Latin and Sun Tzu's Chinese.</li>
-            <li><a href="https://scaife.perseus.org/library/urn:cts:greekLit:tlg0562.tlg001/" target="_blank" rel="noopener">Perseus Digital Library</a> <span class="cr-lic">CC BY-SA 4.0</span> — the Greek of the <i>Meditations</i>, in Jan Hendrik Leopold's edition of 1908.</li>
+            <li><a href="https://scaife.perseus.org/library/" target="_blank" rel="noopener">Perseus Digital Library</a> <span class="cr-lic">CC BY-SA 4.0</span> — the Greek of the <i>Meditations</i>, in Jan Hendrik Leopold's edition of 1908; both halves of the <i>Metamorphoses</i>, in Brookes More's translation of 1922 and Hugo Magnus's Latin; and both halves of <i>The Twelve Caesars</i>, in Alexander Thomson's translation and Maximilian Ihm's Latin of 1908.</li>
             <li><a href="https://registry.opendata.aws/terrain-tiles/" target="_blank" rel="noopener">Terrain Tiles on AWS</a> — terrain relief, from open elevation data by NASA (SRTM), USGS (GMTED2010), NOAA (ETOPO1) and the EU (EU-DEM), among others.</li>
             <li><a href="https://github.com/rhasspy/piper" target="_blank" rel="noopener">Piper</a> <span class="cr-lic">MIT</span> — the card narration voices, trained on <a href="https://www.openslr.org/141/" target="_blank" rel="noopener">LibriTTS-R</a> <span class="cr-lic">CC BY 4.0</span> and <a href="https://datashare.ed.ac.uk/handle/10283/3443" target="_blank" rel="noopener">VCTK</a> <span class="cr-lic">CC BY 4.0</span>.</li>
             <li><a href="https://fonts.google.com" target="_blank" rel="noopener">Google Fonts</a> <span class="cr-lic">OFL / Apache</span> — Fraunces, Newsreader, Inter, IBM Plex Mono, Noto Sans SC and the theme faces.</li>
@@ -16081,8 +17368,8 @@
             ${/* It scales EVERYTHING now (Aug 2026, on request) — it used to reach the reading prose only,
                   and the sentence named the three surfaces it got to. The one thing it cannot reach is the
                   Atlas map's own labels, which are drawn on a canvas. */""}
-            ${/* A SLIDER across the full width, not three buttons on the left (Aug 2026, on request). The
-                  three sizes are an ORDERED scale — small, medium, large — and a segmented control says
+            ${/* A SLIDER across the full width, not buttons on the left (Aug 2026, on request). The sizes
+                  are an ORDERED scale — very small through very large — and a segmented control says
                   nothing about that ordering while leaving two thirds of the row empty. A native
                   <input type="range"> is what carries it: it is the one control a browser already gives
                   arrow keys, Home/End and a drag to, and its value is the INDEX into FONT_SIZES rather
@@ -16093,9 +17380,9 @@
             <div class="ctl"><div class="fs-slide" id="fsPick">
               <input type="range" id="fsRange" class="fs-range" min="0" max="${FONT_SIZES.length - 1}" step="1"
                      value="${FONT_SIZES.indexOf(fsNow)}" aria-label="Text size"
-                     aria-valuetext="${fsNow.charAt(0).toUpperCase() + fsNow.slice(1)}">
+                     aria-valuetext="${esc(fontSizeLabel(fsNow))}">
               <div class="fs-ticks" aria-hidden="true">${
-                FONT_SIZES.map((f) => `<span class="fs-tick${fsNow === f ? " on" : ""}" data-fs="${f}"><span class="fs-a">A</span>${f.charAt(0).toUpperCase() + f.slice(1)}</span>`).join("")
+                FONT_SIZES.map((f) => `<span class="fs-tick${fsNow === f ? " on" : ""}" data-fs="${f}"><span class="fs-a">A</span><span class="fs-lbl">${esc(fontSizeLabel(f))}</span></span>`).join("")
               }</div>
             </div></div>
           </div>
