@@ -2357,6 +2357,187 @@ const BOOKS = {
       url: "https://raw.githubusercontent.com/PerseusDL/canonical-latinLit/master/data/phi0448/phi001/phi0448.phi001.perseus-lat2.xml",
     },
   },
+
+  "thucydides-peloponnesian-war": {
+    title: "The History of the Peloponnesian War",
+    /* NOT the work's own Greek title, which is the one thing it cannot be. Thucydides' history and
+       Herodotus's are both Ἱστορίαι, and Herodotus is already on this shelf under that subtitle — two
+       books labelled identically in Greek is precisely the confusion a subtitle exists to prevent. So
+       this one is descriptive, which is well precedented here (Seneca's "Moral Letters to Lucilius",
+       Sun Tzu's "The Oldest Military Treatise in the World", the Republic's "An Ideal Commonwealth"). */
+    subtitle: "The War between Athens and Sparta",
+    author: "Thucydides",
+    translator: "Richard Crawley",
+    edition: "The History of the Peloponnesian War, translated by Richard Crawley, London, 1874",
+    written: "c. 431–400 BCE",
+
+    /* ---------- THE LICENCE, and it is the easiest kind: nothing here needs qualifying ----------
+       Three layers and all three are long expired. Thucydides wrote in Greek in the fifth century BCE.
+       Richard Crawley's translation was published in 1874 and he lived from 1840 to 1893 — dates
+       looked up rather than recalled, for the Hugo Magnus reason — so it is public domain on the
+       pre-1929 publication rule, on life-plus-seventy, and on life-plus-a-hundred alike. The Greek
+       beside it is Henry Stuart Jones's Oxford Classical Text, whose own Perseus header gives it as
+       published in 1910 and reprinted in 1942; Stuart Jones lived from 1867 to 1939, so it clears
+       both rules too. This is the Republic's and the Analects' position — a licence with no limit to
+       state, unlike Giles's (in copyright in life-plus-seventy countries until 2029) and Ross's
+       (until 2042).
+
+       ONE THING IS WORTH SAYING PRECISELY, because the reprint date is the sort of figure that looks
+       like a problem: the 1942 Oxford text is the same Stuart Jones edition with an apparatus by
+       J. E. Powell added, and it is the TEXT that is imported here, not the apparatus. The file
+       states the 1910 publication itself, which is the ground relied on.
+
+       The modern translations a reader is likeliest to own — Rex Warner's Penguin (1954), Steven
+       Lattimore's (1998) and Jeremy Mynott's Cambridge (2013), along with the Landmark Thucydides
+       (1996), which prints a revised Crawley with modern maps and notes that are themselves in
+       copyright — are all firmly in copyright and are named here for the reason Campbell, Hays,
+       Griffith, Lee, Humphries, de Sélincourt and Handford are named above: so that nobody reaches
+       for one later. What is imported is Crawley's own 1874 text, not the Landmark's revision of it. */
+    rights:
+      "Public domain on every ground, with nothing left to qualify. Thucydides wrote the work in " +
+      "Greek in the fifth century BCE. Richard Crawley's translation was published in 1874 and he " +
+      "lived from 1840 to 1893, so it is out of copyright under the pre-1929 publication rule, " +
+      "wherever the term is the translator's life plus seventy years, and wherever it is life plus a " +
+      "hundred. The Greek printed beside it is the Oxford Classical Text edited by Henry Stuart " +
+      "Jones, published in 1910 and reprinted with an apparatus by J. E. Powell in 1942; the text " +
+      "imported here is Stuart Jones's, not Powell's apparatus, and Stuart Jones lived from 1867 to " +
+      "1939, so it too is public domain on both rules. The digital edition of the Greek is prepared " +
+      "by the Perseus Digital Library at Tufts University and is released under a Creative Commons " +
+      "Attribution-ShareAlike 4.0 International licence. (The modern translations by Rex Warner, " +
+      "1954, Steven Lattimore, 1998, and Jeremy Mynott, 2013, are still in copyright and are not " +
+      "used here, and neither is the revised Crawley printed in the Landmark Thucydides of 1996.)",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/History_of_the_Peloponnesian_War",
+
+    /* THE FRONT MATTER — chapter 0. What a reader should be told before they start: what the war was
+       and how the book ends, who wrote it and why his exile matters, what he does with the speeches
+       (the single thing most likely to mislead a reader who takes them as transcripts), what is
+       famous in it, and what the two columns and the small figures are. Where the scholarship is
+       divided — on the speeches and on how the book was composed — it says so rather than picking a
+       side, as the Gallic War's does on the propaganda question. */
+    about: [
+      "<b>The History of the Peloponnesian War</b> is Thucydides' account of the war fought between " +
+        "Athens and Sparta, and the alliances each of them led, from 431 BCE until his narrative " +
+        "stops. The war itself ran to 404 and ended in the defeat of Athens; the book does not get " +
+        "there. It breaks off in the middle of a sentence in the year 411, unfinished, and no one " +
+        "knows why — the likeliest explanation is simply that its author died. A reader should know " +
+        "that before starting, because the ending is not an ending and arrives without warning.",
+      "Thucydides was an Athenian, born around 460 BCE into a wealthy family with property in Thrace. " +
+        "He caught the plague that devastated Athens in 430 and survived it, and he describes the " +
+        "symptoms with a precision that has kept doctors arguing about which disease it was ever " +
+        "since. In 424 he was elected general and given a command in the north; he failed to reach " +
+        "Amphipolis in time to stop the Spartan Brasidas taking it, and was exiled for twenty years. " +
+        "He says himself that the exile was useful to him, because it let him spend time on the " +
+        "Peloponnesian side and watch the war from both. It is one of the few times he mentions " +
+        "himself at all.",
+      "The method is the reason the book is still read, and Thucydides sets it out at the start. He " +
+        "will not put in the legendary and the marvellous, though he knows it makes for a better " +
+        "listen; what he wants is an accurate record of what happened, and he says plainly that it " +
+        "will be less of a pleasure to hear for it. He checked accounts against each other and found " +
+        "that eyewitnesses of the same event told it differently. He looked for causes underneath " +
+        "the stated ones — his own account of why the war began is that Sparta went to war because " +
+        "Athens had grown powerful and Sparta was afraid, which is not what either side said at the " +
+        "time. That habit of looking past the official reason for the real one is what later readers " +
+        "took from him.",
+      "The speeches are where a modern reader is most likely to go wrong. Roughly a quarter of the " +
+        "book is people making speeches — Pericles over the Athenian dead, the Athenian and Melian " +
+        "envoys arguing about whether justice means anything between unequal powers, generals before " +
+        "battles — and they are not transcripts. Thucydides says so: it was difficult to remember the " +
+        "exact words, so he has given what was called for on each occasion, keeping as close as he " +
+        "could to the general sense of what was really said. How much is the speaker and how much is " +
+        "Thucydides has been argued over for centuries and is not settled. A related question, the " +
+        "composition question, is likewise open: the eighth book contains no speeches at all and " +
+        "reads as though it was never revised, and scholars disagree about which parts were written " +
+        "when. Read the speeches as the best surviving argument about what was at stake, made by a " +
+        "writer who was present for some of it — not as a record of words anyone actually said.",
+      "What people remember from it: the funeral oration, in which Pericles tells the Athenians what " +
+        "their city is for; the plague arriving the next summer and the description of what it did to " +
+        "the city's morals as well as its bodies; the debate over what to do with the people of " +
+        "Mytilene, and the second ship sent to overtake the first; the Melian dialogue, where the " +
+        "Athenians tell a small neutral island that the strong do what they can and the weak suffer " +
+        "what they must, and then kill or enslave the population; and the expedition to Sicily in " +
+        "books six and seven, which is the finest sustained narrative in the work and ends in the " +
+        "destruction of an Athenian army and fleet. The book has been claimed since as the founding " +
+        "text of realist thinking about power, and is quoted freely in modern political argument; " +
+        "that reception is worth knowing about and is not the same thing as what the book says.",
+      "The translation here is Richard Crawley's, published in 1874 and still the version most " +
+        "English readers meet, and the Greek beside it is Henry Stuart Jones's Oxford text of 1910. " +
+        "The small raised figures running through both columns are CHAPTER numbers, and they are how " +
+        "any passage of Thucydides is cited in any language: \"Thucydides 2.34\" means book 2, " +
+        "chapter 34. Measured over the whole work before it was believed, the two editions agree " +
+        "almost exactly — 917 chapters in the Greek, running 1 to N in each of the eight books with " +
+        "no gaps, no duplicates and not one number carrying a letter, and 916 of them present in the " +
+        "English. The single exception is chapter 61 of book 8, where this transcription of Crawley " +
+        "simply omits the number: the prose is all there, folded into the chapter before it, so the " +
+        "Greek's 61 draws beside an empty cell rather than being quietly renumbered. Editions divide " +
+        "a chapter into finer numbered sections as well; those are not used for pairing here. This " +
+        "edition carries almost no notes — four in the whole history — so the chapters render with " +
+        "no note fold, as Ovid's, Lucretius's and the Analects' do.",
+    ],
+
+    /* ---------- A PLAIN WIKI TRANSCRIPTION IN BOOKS OF NUMBERED CHAPTERS ----------
+       Herodotus's and the Gallic War's shape — a work divided into BOOKS of numbered CHAPTERS, one
+       Folio chapter to a book — but reached down the wiki path rather than the TEI one, and it is the
+       first book here to combine the two: a Wikisource English against a Perseus TEI original.
+
+       WHY CRAWLEY AND NOT THE PERSEUS ENGLISH, which would have been less work and is the obvious
+       move. Perseus's English for Thucydides is Thomas Hobbes's translation of 1629, in the same
+       TEI/CTS encoding as the Greek — so it would have paired 917 against 917 by construction, out
+       of one source, needing no new code at all. It was measured and rejected on the reader's behalf:
+       Hobbes's English is seventeenth-century English, and the Library is a reading room. Crawley's
+       1874 version is the one most English readers actually meet, and the cost of taking it is one
+       missing chapter number in 917 (see the front matter) plus the three small rules below. That is
+       the Nicomachean Ethics' trade made in the other direction and for the same kind of reason: the
+       cleanest text to import is not always the one worth reading.
+
+       THREE THINGS THIS PAGE NEEDS THAT NO EARLIER WIKI BOOK DID, each described where it is
+       implemented in cleanBody:
+       · `body: "plain"` — this is not a proofread transcription of a scan, so there is no
+         .prp-pages-output wrapper and the old slice threw "no body" outright.
+       · `dropHeadings: true` — Crawley's summary headings fall BETWEEN numbered chapters, and
+         bookSections attaches an unmarked block to the section already open, so each one would print
+         at the foot of the chapter before it.
+       · `sections: "bookchapter"` — the chapter marks are wst-verse spans whose id is the full
+         citation, "2:34". None of the four older marker rules can read them.
+
+       MEASURED over both editions before any of it was believed: 8 books on each side; the Greek's
+       917 chapters run 1..N in every book with no gaps, no duplicates and no lettered numbers, so
+       none of Herodotus's or the Ethics' data-n trouble arises; the English carries 916 of them, in
+       order, with the single omission at 8.61 recorded rather than repaired. Notes: four reference
+       marks in the whole work. */
+    source: "wiki",
+    body: "plain",
+    dropHeadings: true,
+    sections: "bookchapter",
+    chapterWord: "Book",
+    page: (n) => "History of the Peloponnesian War/Book " + n,
+    chapters: Array.from({ length: 8 }, (_, i) => i + 1),
+    /* No `indexPage` and so no titleOf: the contents page lists the eight books as "Book 1" to
+       "Book 8" and gives them no names, exactly as the Meditations' and the Gallic War's do.
+       Composing "The Sicilian Expedition" for book 6 would be an apparatus this edition does not
+       have — the front matter says what is in them instead. */
+
+    original: {
+      lang: "grc",
+      langName: "Ancient Greek",
+      source: "tei",
+      layout: "chaptered",
+      edition: "Historiae, edited by Henry Stuart Jones, Oxford Classical Texts, Clarendon Press, Oxford, 1910",
+      rights:
+        "Public domain on both grounds. Thucydides wrote in Greek in the fifth century BCE, so the " +
+        "words themselves have been out of copyright for as long as copyright has existed. The text " +
+        "printed here is the Oxford Classical Text edited by Henry Stuart Jones and published in " +
+        "1910 — before 1929, so its United States copyright has expired — and Stuart Jones lived " +
+        "from 1867 to 1939, so it is also public domain wherever the term is the editor's life plus " +
+        "seventy years or more. The 1942 reprint of this text added an apparatus criticus by J. E. " +
+        "Powell; that apparatus is not part of what is imported here. The digital edition is " +
+        "prepared by the Perseus Digital Library at Tufts University and is released under a " +
+        "Creative Commons Attribution-ShareAlike 4.0 International licence.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0003.tlg001/",
+      url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0003/tlg001/tlg0003.tlg001.perseus-grc2.xml",
+    },
+  },
 };
 
 /* ---------- args ---------- */
@@ -2531,7 +2712,26 @@ function markLeadingSections(b, warn) {
 
 function cleanBody(h, noteIds, book, warn) {
   let b = h.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<!--[\s\S]*?-->/g, "");
-  const i = b.indexOf('<div class="prp-pages-output"');
+  /* WHERE THE TEXT STARTS, and until Thucydides there was only one answer (Aug 2026). Every wiki book
+     before it is a PROOFREAD transcription — a transcription of a scan, page by page, transcluded into
+     the chapter page, which MediaWiki wraps in .prp-pages-output. Crawley's Peloponnesian War is not
+     one: it is a plain transcription typed straight onto the page, with no scan behind it and so no
+     wrapper at all, so the indexOf below returned -1 and threw "no body" on a page carrying the whole
+     of Book 1. The fallback is the parser's own container, which every MediaWiki page has.
+
+     It is GATED on `body: "plain"` rather than simply tried when the wrapper is missing, and that is
+     the whole care in it: on a proofread page the parser container exists TOO and sits OUTSIDE the
+     transclusion wrapper, so an automatic fallback would widen the slice of any of the four books
+     already shipped on the day Wikisource next moves its markup — taking the navigation furniture in
+     with the text, which is the quiet failure the ws-noexport rule below exists to undo. Ungated it
+     cannot fire at all; gated it can only fire on a book that asks for it. Its opening tag is dropped
+     for the same reason the wrapper's is below: left standing, the container that holds the whole book
+     becomes a blockquote OF the whole book. */
+  let i = b.indexOf('<div class="prp-pages-output"');
+  if (i < 0 && book && book.body === "plain") {
+    const m = /<div class="[^"]*\bmw-parser-output\b[^"]*"[^>]*>/.exec(b);
+    if (m) { i = m.index; b = b.slice(0, m.index) + b.slice(m.index + m[0].length); }
+  }
   if (i < 0) throw new Error("no body");
   b = b.slice(i);
   /* THE WIKI'S OWN FURNITURE, WHEN IT FALLS INSIDE THE SLICE (Aug 2026, adding The Prince).
@@ -2595,6 +2795,30 @@ function cleanBody(h, noteIds, book, warn) {
      so every count reads as healthy), and it costs nothing on a page that has the wrapper, since the
      wrapper opens before the list it contains. */
   b = b.split(/<div class="reflist|<hr class="wst-rule"|<ol class="references"|<div class="mw-heading[^"]*"><h2 id="Footnotes"/)[0];
+  /* THE TRANSCRIPTION'S OWN SECTION HEADINGS, dropped like a running head and for a sharper reason
+     (Aug 2026, adding the Peloponnesian War). Crawley's books are broken up by summary headings — "The
+     State of Greece from the earliest Times to the Commencement of the Peloponnesian War" and four
+     more in Book 1 alone — which arrive as .mw-heading divs and would become BLOCKQUOTES under the
+     generic div pass below, standing between the chapters as indented quotations of themselves. That
+     much is the Meditations' running-head fault again.
+
+     What settles it is the pairing rather than the styling. These headings fall BETWEEN numbered
+     chapters, and app.js's bookSections attaches a block carrying no marker to the section already
+     open — so every heading would render at the FOOT of the chapter before it, pointing backwards at
+     the text it does not describe rather than forwards at the text it does. A signpost placed at the
+     wrong end of the road is worse than no signpost, the Greek edition beside it prints none, and
+     composing a proper place for them would be building an apparatus this edition does not have.
+     Removal is BALANCED, because the heading div wraps an h2 and an edit link. Gated per book, like
+     dropHeads: a heading worth dropping in this transcription is a heading worth keeping in another. */
+  if (book && book.dropHeadings) {
+    for (let k = 0; k < 400; k++) {
+      const m = /<div class="[^"]*\bmw-heading\b[^"]*"[^>]*>/.exec(b);
+      if (!m) break;
+      const end = blockEnd(b, m.index, "div");
+      if (end < 0) break;
+      b = b.slice(0, m.index) + b.slice(end);
+    }
+  }
   /* AN ILLUSTRATION PLATE IS A LEAF THE EDITION NEVER NUMBERED, and that is the handle to take it by
      (Aug 2026, adding the Republic). This printing binds engraved plates into the text — a facsimile
      of a Venetian frontispiece before Book V, the Gemma Augustea cameo before Book VII — each a
@@ -2701,6 +2925,54 @@ function cleanBody(h, noteIds, book, warn) {
       return '<span class="bk-n" data-n="' + key + '">' + id + "</span>";
     });
     if (!pages && warn) warn("no Bekker pages found — the chapter will pair as one whole block");
+  }
+  /* THE FIFTH WAY an edition marks its numbers, and the first read ENTIRELY out of the id (Aug 2026,
+     adding the Peloponnesian War). Thucydides is cited by book and chapter — "Thucydides 2.34" is book
+     2, chapter 34 — and this transcription marks each chapter with a template that renders as a
+     wst-verse span holding a bare superscript figure, anchored with the full citation as its id:
+     id="2:34" around <sup>34</sup>.
+
+     None of the four rules above can take it, and each fails differently: Gummere's wants a <b> inside
+     the <sup> and there is none, Jowett's wants the float class and this is a default-styled span, and
+     the Bekker rule wants a page-and-column id. Left unmatched the span survives the tag strip as a
+     loose superscript digit mid-sentence — which reads as a footnote marker opening nothing — and the
+     book pairs as one 146-chapter block against a Greek column that states every one of its numbers.
+     That is this file's usual quiet failure: nothing throws and no prose is lost.
+
+     THE ID IS READ RATHER THAN THE VISIBLE FIGURE, for the reason the Bekker rule reads it: the id is
+     the citation the wiki itself asserts, where the printed figure is whatever the template chose to
+     show. Here it also carries the BOOK, which is what makes it worth checking rather than merely
+     parsing — a page transcluding the wrong book would announce itself as a mismatch instead of
+     silently filing 146 chapters under Book 2. Hence `expect`, passed by the caller as the Folio
+     chapter being fetched and compared against the id's first half.
+
+     The chapter number is a plain integer here, so no data-n sort key is written: app.js reads the
+     marker's own text where the attribute is absent, which is exactly the pre-Aristotle behaviour and
+     is right for a book whose numbers are integers. Accepted only where it moves the sequence FORWARD,
+     the guard every rule above uses, and zero is admitted (`>= 0`) because the Gallic War established
+     that a chapter may be numbered 0 — this work has none, and the guard costs nothing either way. */
+  if (book && book.sections === "bookchapter") {
+    let seq = -1, chapters = 0;
+    b = b.replace(/<span class="wst-verse[^"]*"[^>]*>[\s\S]*?<\/span>/g, (whole) => {
+      const id = (whole.match(/\bid="([^"]*)"/) || [])[1] || "";
+      const m = /^(\d+):(\d+)$/.exec(id);
+      /* A span that is not a chapter mark is REPORTED before it goes, never kept: kept, it is a stray
+         superscript in the prose; dropped in silence, a genuinely new kind of marker leaves without
+         anyone learning it existed. The Ethics' one mistyped line number is why this is worded so. */
+      if (!m) {
+        const txt = whole.replace(/<[^>]*>/g, "").trim();
+        if (warn) warn("dropped an unrecognised verse mark" + (id ? ' id="' + id + '"' : "") +
+          (txt ? ": " + JSON.stringify(txt) : ""));
+        return "";
+      }
+      if (book.expect != null && +m[1] !== +book.expect)
+        warn && warn("chapter mark " + id + " belongs to book " + m[1] + ", not " + book.expect);
+      const n = +m[2];
+      if (n <= seq) { warn && warn("chapter " + id + " repeats or goes backwards — dropped"); return ""; }
+      seq = n; chapters++;
+      return '<span class="bk-n">' + n + "</span>";
+    });
+    if (!chapters && warn) warn("no chapter numbers found — the book will pair as one whole block");
   }
   /* A footnote reference becomes Folio's own marker, and it carries the note it actually points at.
      wireFootnotes still writes the DIGIT — the number in the prose can never disagree with the list —
@@ -4637,6 +4909,10 @@ async function fetchEnglish() {
       const got = notesOf(h);
       const keep = endnotes && got.notes.length ? resolveEndnotes(got, endnotes, warn) : null;
       notes = got.notes;
+      /* Which book this page is supposed to BE, for the one marker rule that can check (see
+         `sections: "bookchapter"` in cleanBody — Thucydides' chapter marks carry the book number as
+         well as the chapter). Set only for that shape, so no other book's config is touched. */
+      if (BOOK.sections === "bookchapter") BOOK.expect = n;
       html = cleanBody(h, got.ids, BOOK, warn);
       if (keep) html = pruneNotes(html, keep);
     }
@@ -4859,11 +5135,36 @@ async function fetchOriginal() {
        so the Greek's 83 editorial notes are removed from the text instead of being left standing in
        the middle of it. The count is printed on every run rather than passed over in silence. */
     if (O.layout === "chaptered") {
-      const enCache = path.join(CACHE, "en-tei.xml");
-      let enXml;
-      if (fs.existsSync(enCache)) enXml = fs.readFileSync(enCache, "utf8");
-      else { enXml = await fetchText(BOOK.url); fs.writeFileSync(enCache, enXml); }
-      const en = teiBookChapters(enXml, {}, warn);
+      /* WHERE THE ENGLISH SIDE IS READ BACK FROM, and until Thucydides there was only one answer
+         (Aug 2026). Herodotus's and the Gallic War's translations are TEI editions, so this branch
+         re-read the cached XML and ran teiBookChapters over it. Thucydides is the first book here
+         whose two columns come from DIFFERENT KINDS of source — a Wikisource English against a
+         Perseus TEI original — and on that shape there is no en-tei.xml at all and no BOOK.url to
+         fetch one from, so the old path asked fetchText for `undefined` and died after the English
+         had already been written.
+
+         The wiki side has its own per-chapter cache, holding exactly the html that shipped, with the
+         bk-n markers already in it — which is the same thing teiBookChapters returns and all the
+         reconciliation below needs. So it is read from there, and the discipline the verse, drama and
+         TEI branches follow is kept intact: the pairing is checked against the file that actually
+         shipped rather than asserted from the entry. A chapter whose cache is missing is reported
+         rather than skipped in silence, since a quietly absent English book would read as a clean
+         pairing of the ones that remain. */
+      let en;
+      if (BOOK.source === "wiki") {
+        en = {};
+        for (const n of BOOK.chapters) {
+          const cf = path.join(CACHE, n + ".json");
+          if (!fs.existsSync(cf)) { warn(BOOK.chapterWord + " " + n + " has no cached translation to pair against"); continue; }
+          en[n] = { html: JSON.parse(fs.readFileSync(cf, "utf8")).html, notes: [] };
+        }
+      } else {
+        const enCache = path.join(CACHE, "en-tei.xml");
+        let enXml;
+        if (fs.existsSync(enCache)) enXml = fs.readFileSync(enCache, "utf8");
+        else { enXml = await fetchText(BOOK.url); fs.writeFileSync(enCache, enXml); }
+        en = teiBookChapters(enXml, {}, warn);
+      }
       const or = teiBookChapters(xml, {}, warn);
       /* The chapter as the reader sees it — "121A", not the sort key behind it — because both columns
          print the same label and a human reading this report needs the citation, not the scale. */

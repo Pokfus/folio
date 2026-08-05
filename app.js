@@ -4570,6 +4570,25 @@
        and takes it to 4.61:1 against the folio paper, where the better-separated #B46000 reads 4.26
        and would fail the 4.5 bar that test-a11y.js holds the site to. */
     "Julius Caesar": "#AE5A02",
+    /* Measured the same way once more, and this time the number and the tone pointed in different
+       directions, which is worth recording. The best-separated colour anywhere in the shelf's own
+       lightness and chroma band is a bright magenta at 29 — the quarter of the wheel Caesar's entry
+       identified as empty and then rejected as tonally wrong for a campaign memoir. It is no better
+       suited to a grave analytical war history at full strength, so the hue was kept and taken darker
+       and a little less saturated: this mulberry clears its nearest neighbours, Plato's plum and
+       Ovid's crimson, by 24.4 and 25.7, against the shelf's own tightest pair at 20.4, and reads
+       4.5:1 or better on every paper (5.23 on the folio one, where Caesar's burnt orange manages
+       4.61).
+       WHAT RULED OUT THE OBVIOUS CHOICE is the shelf's own grammar rather than any measurement. A
+       sober slate-blue or steel is exactly the tone this book wants, and every one of them lands
+       19–22 — at or below that tightest pair — because the blue quarter already holds Aristotle,
+       Machiavelli and Herodotus. Herodotus is the one that settles it: he is the other Greek
+       historian, the two are read against each other constantly, and putting them in neighbouring
+       blues would have the shelf assert a kinship where its colours are meant to assert identity.
+       Several of the best sober violets were nearest to HIS indigo of anything on the shelf, which
+       is the single pairing to avoid here. A colour that cannot be mistaken for his is worth more
+       than four points of separation. */
+    "Thucydides": "#AE3688",
   };
   const bookColor = (b) => BOOK_AUTHOR_COLOR[b.author] || "var(--indigo)";
 
@@ -5278,6 +5297,64 @@
          no further; the two British expeditions and the revolt of Vercingetorix are the movements a
          reader remembers, but grouping the books under those would be a modern reader's arrangement
          rather than a division the edition prints. The Analects' and The Prince's position exactly. */
+    },
+    {
+      id: "thucydides-peloponnesian-war",
+      title: "The History of the Peloponnesian War",
+      /* Deliberately NOT the work's own Greek title, which is the one subtitle it cannot have:
+         Thucydides' history and Herodotus's are both Ἱστορίαι, and Herodotus is already on this shelf
+         under that word. Two banners reading the same thing in Greek is exactly what a subtitle is
+         for preventing, so this one describes the book instead — the Republic's and the Art of War's
+         pattern rather than Lucretius's. */
+      subtitle: "The War between Athens and Sparta",
+      author: "Thucydides",
+      /* The war ran from 431 to 404 BCE and the book does not reach the end of it: the narrative
+         breaks off mid-sentence in 411, almost certainly because its author died. So the span is the
+         writing's rather than the war's, and the front matter carries the rest — a reader meeting an
+         unfinished sentence for an ending should have been told first. */
+      written: "c. 431–400 BCE",
+      year: -431,
+      translator: "Richard Crawley",
+      edition: "London, 1874",
+      /* THE EASIEST LICENCE ON THE SHELF, alongside the Republic's and the Analects': three layers,
+         all long expired, and nothing to qualify. Thucydides wrote in the fifth century BCE; Crawley
+         published in 1874 and died in 1893; the Greek is Stuart Jones's Oxford text of 1910 and he
+         died in 1939. Every one of them clears the pre-1929 publication rule, life-plus-seventy and
+         life-plus-a-hundred alike, so unlike Giles (2029) and Ross (2042) there is no limit to state.
+         The dates were looked up rather than recalled, for the Hugo Magnus reason.
+         The one figure that looks like a problem and is not: this Greek text is usually met as the
+         1942 Oxford printing, which is Stuart Jones's same text with an apparatus criticus added by
+         J. E. Powell. It is the text that is imported here and not the apparatus, and the source file
+         states the 1910 publication itself. Rex Warner (1954), Steven Lattimore (1998) and Jeremy
+         Mynott (2013) are named in .claude/fetch-book.js as the translations not to reach for, and
+         with them the Landmark Thucydides of 1996 — which prints a REVISED Crawley, and is the one a
+         reader is likeliest to own; what is here is Crawley's own 1874 text. */
+      rights:
+        "Public domain on every ground, with nothing left to qualify. Thucydides wrote the work in " +
+        "Greek in the fifth century BCE. Richard Crawley's translation was published in 1874 and he " +
+        "lived from 1840 to 1893, so it is out of copyright under the pre-1929 publication rule, " +
+        "wherever the term is the translator's life plus seventy years, and wherever it is life plus " +
+        "a hundred. The Greek printed beside it is the Oxford Classical Text edited by Henry Stuart " +
+        "Jones, published in 1910 and reprinted with an apparatus by J. E. Powell in 1942; the text " +
+        "imported here is Stuart Jones's, not Powell's apparatus, and Stuart Jones lived from 1867 " +
+        "to 1939, so it too is public domain on both rules. The digital edition of the Greek is " +
+        "prepared by the Perseus Digital Library at Tufts University and is released under a Creative " +
+        "Commons Attribution-ShareAlike 4.0 International licence. (The modern translations by Rex " +
+        "Warner, 1954, Steven Lattimore, 1998, and Jeremy Mynott, 2013, are still in copyright and " +
+        "are not used here, and neither is the revised Crawley printed in the Landmark Thucydides of " +
+        "1996.)",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/History_of_the_Peloponnesian_War",
+      origLang: "grc",
+      chapterWord: "Book",
+      /* The whole of what survives, which is not the whole of the war. `count` and `total` are equal
+         because all eight books are here; they part company the moment a book arrives in instalments. */
+      count: 8,
+      total: 8,
+      /* No `parts`. The eight books are one continuous narrative and this edition divides them no
+         further. The Sicilian expedition of books six and seven is the movement every reader
+         remembers, but grouping the books under headings of that kind would be a modern reader's
+         arrangement rather than a division the edition prints — the Gallic War's position exactly. */
     },
   ];
   const BOOK_BY_ID = {};
