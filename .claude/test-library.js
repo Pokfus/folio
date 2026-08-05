@@ -250,6 +250,7 @@ function shippedBookLeaks() {
       return window.__copied;
     });
     check("Share hands out a #book/<id> link", /#book\/[a-z0-9-]+$/.test(shared || ""), String(shared));
+
     // put the shelf back the way the rest of this file expects to find it
     await page.evaluate(() => {
       const s = JSON.parse(localStorage.getItem("folio_v1")); s.bookFavs = {};
@@ -268,6 +269,69 @@ function shippedBookLeaks() {
     check("...and no longer carries the licence paragraph", !d.note, d.note.slice(0, 90));
     check("...and STILL no book text has been fetched", !asked.some((u) => u.startsWith("/books/")), asked.filter((u) => u.startsWith("/books/")).join(","));
     bookHref = d.tiles[0].id;
+    /* THE SEARCH BOX (Aug 2026, on request). Three of these fail silently. A filter that quietly loses the
+       favourites split, or one whose repainted banners have no listener on them, both leave a shelf that
+       LOOKS right — the second only bites when a reader tries to open the book they just searched for, and
+       it is a real risk here because the hold sheet is a per-element gesture rather than a delegated one.
+       And re-sorting is the case the glossary record's own filter documents: two independent handlers, each
+       rebuilding the list from scratch, throw away whatever the reader had typed. */
+    const search = await page.evaluate(async () => {
+      const box = document.querySelector("#bkFilter");
+      const type = async (v) => {
+        box.value = v;
+        box.dispatchEvent(new Event("input", { bubbles: true }));
+        await new Promise((z) => setTimeout(z, 120));
+      };
+      const titles = () => [...document.querySelectorAll(".bk-tile-title")].map((t) => t.textContent);
+      const out = { box: !!box, all: titles().length };
+      await type("seneca");
+      out.byAuthor = [...document.querySelectorAll(".bk-tile-author")].map((t) => t.textContent);
+      await type("sun tzu");                    // the shelf spells him Tzŭ — the fold is the point
+      out.folded = titles();
+      await type("republic plato");             // two words, the wrong way round
+      out.anyOrder = titles();
+      await type("zzzz");
+      out.none = { line: !!document.querySelector(".lib-none"), tiles: document.querySelectorAll(".book-tile").length };
+      await type("");
+      out.cleared = titles().length;
+      return out;
+    });
+    check("the shelf has a search box", search.box);
+    check("searching by author narrows the shelf",
+      search.byAuthor.length === 1 && /Seneca/i.test(search.byAuthor[0]), JSON.stringify(search.byAuthor));
+    check("...diacritics fold, so “Sun Tzu” finds “Sun Tzŭ”",
+      search.folded.length === 1 && /Art of War/i.test(search.folded[0]), JSON.stringify(search.folded));
+    check("...the words may come in any order",
+      search.anyOrder.length === 1 && /Republic/i.test(search.anyOrder[0]), JSON.stringify(search.anyOrder));
+    check("...nothing matching says so rather than drawing an empty shelf",
+      search.none.line && search.none.tiles === 0, JSON.stringify(search.none));
+    check("...and clearing it puts every book back", search.cleared === search.all, search.cleared + " of " + search.all);
+    // a banner the SEARCH painted must still be a book you can open — the hold sheet is wired per element
+    const afterFilter = await page.evaluate(async () => {
+      const box = document.querySelector("#bkFilter");
+      box.value = "meditations";
+      box.dispatchEvent(new Event("input", { bubbles: true }));
+      await new Promise((z) => setTimeout(z, 150));
+      document.querySelector(".book-tile").click();
+      await new Promise((z) => setTimeout(z, 700));
+      return location.hash;
+    });
+    check("...and a banner it painted still opens its book", /^#book\//.test(afterFilter), afterFilter);
+    await page.evaluate(() => { location.hash = "#library"; });
+    await page.waitForTimeout(700);
+    const kept2 = await page.evaluate(async () => {
+      const before = document.querySelector("#bkFilter").value;
+      const sel = document.querySelector("#bkSort");
+      sel.value = "title";
+      sel.dispatchEvent(new Event("change", { bubbles: true }));
+      await new Promise((z) => setTimeout(z, 500));
+      return { before: before, after: document.querySelector("#bkFilter").value,
+        tiles: document.querySelectorAll(".book-tile").length };
+    });
+    check("the query survives leaving the page and coming back", kept2.before === "meditations", JSON.stringify(kept2));
+    check("...and re-sorting keeps both the query and the narrowed shelf",
+      kept2.after === "meditations" && kept2.tiles === 1, JSON.stringify(kept2));
+
 
     /* A banner spans the FULL width on a phone too (Aug 2026, on request — it was briefly two narrow
        tiles side by side, which was asked for and then asked back). The count is read off the GRID as
