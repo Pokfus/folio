@@ -4642,6 +4642,28 @@
        against either; the hue is simply where the empty space is, and it happens to suit a book of
        animals, hedgerows and country roads better than the crimson or the navy that came next. */
     "Aesop": "#324A2C",
+    /* THE FIRST BOOK HERE WITH NO AUTHOR TO NAME, so this key is a fact about the shelf rather than
+       about a man: the Song of Roland's poet is unknown, and the Turoldus of its last line may have
+       composed it, recited it or merely copied it out. The fallback would have served — `bookColor`
+       drops to the generic indigo for an author it does not know — but only until a second anonymous
+       work arrives, at which point two unrelated books would silently share a colour that is also the
+       shelf's default. Keyed like every other, it stays one book one colour.
+       Measured as the five above were, and the search made the case for itself twice over. The
+       shelf's largest EMPTY hue quarter is the 74° between Marcus Aurelius's teal and Aristotle's
+       steel, and it is a trap: it is empty in hue and crowded in fact, because it is only reachable
+       at the bottom of the shelf's chroma band, so the best colour anywhere in it clears its nearest
+       neighbour by 19.1 — BELOW the shelf's own tightest pair at 20.4. Hue coverage is not
+       separation. Searched instead over the whole band, this dark slate-violet is the best-separated
+       colour available at 24.5 from Herodotus's indigo, comfortably above that tightest pair, and it
+       reads 5.64:1 against the tightest of the sixteen papers where several shipped colours sit near
+       4.6.
+       IT IS A FOURTH COLOUR IN THE BLUE QUARTER, which Thucydides' entry warned about, and the
+       warning does not bite here: what it forbids is a crowding that asserts a KINSHIP the shelf does
+       not mean — a sober blue beside Herodotus would tie the two Greek historians together — and no
+       reader pairs a French chanson de geste with Herodotus, Aristotle, Machiavelli or Seneca. The
+       tone is right on its own terms as well: dark, cold and grave, which is iron, and this is a poem
+       about armour. */
+    "Anonymous": "#42426F",
   };
   const bookColor = (b) => BOOK_AUTHOR_COLOR[b.author] || "var(--indigo)";
 
@@ -5494,6 +5516,65 @@
          rather than any numbering the edition carries — it carries none, and its own index files
          alphabetically by title — which is stated on the book's first page rather than left to look
          like a citation system it does not have. */
+    },
+    {
+      id: "song-of-roland",
+      title: "The Song of Roland",
+      /* No subtitle: the volume's title page carries none, and the work has had these three words
+         for its name in every language for nine hundred years. */
+      author: "Anonymous",
+      written: "c. 1100",
+      /* The poem is conventionally put around 1100 — argued from its language and from what it seems
+         to know of the First Crusade, not stated anywhere by the text — and the Oxford manuscript
+         that carries it is dated on its handwriting to the middle of the twelfth century. 1100 is
+         the figure everyone uses and the only one the shelf can honestly sort on; how loose it is is
+         said on the book's own first page. */
+      year: 1100,
+      translator: "Charles Kenneth Scott Moncrieff",
+      edition: "Chapman & Hall, London, 1919",
+      /* THE THIRD BOOK HERE TO STATE A LIMIT AS WELL AS A GROUND, after the Art of War (Giles, in
+         copyright in life-plus-seventy countries until 2029) and the Nicomachean Ethics (Ross, until
+         2042) — and the FIRST where the limit falls on BOTH columns rather than on one, since the
+         translation and the Old French edition are both works of the 1920s. Dates looked up rather
+         than recalled, for the Hugo Magnus reason: Scott Moncrieff 1889–1930, Bédier 1864–1938. */
+      rights:
+        "Public domain, with one limit worth stating. The poem itself is Old French and around nine " +
+        "hundred years old. Charles Scott Moncrieff's translation was published in 1919 and he lived " +
+        "from 1889 to 1930; the Old French column is Joseph Bédier's text of 1920–1922, and he lived " +
+        "from 1864 to 1938. Both are public domain in the United States under the pre-1929 " +
+        "publication rule, and both are out of copyright wherever the term is the author's life plus " +
+        "seventy years — expired in 2001 for Scott Moncrieff and in 2009 for Bédier. Where the term " +
+        "is life plus a hundred they remain in copyright until 2031 and 2039. The volume's " +
+        "introduction by G. K. Chesterton and its note on technique by George Saintsbury are later " +
+        "works by other hands and are not reproduced here; what is taken is the poem.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Song_of_Roland",
+      /* Old French — ISO 639-3 `fro`, the language of 842 to about 1400, and not `fr`, which would
+         tell a reader (and a screen reader) that Bédier's column is modern French. It is the first
+         code here that names a historical stage of a living language rather than a dead one. */
+      origLang: "fro",
+      origName: "Old French",
+      /* THE LAISSE IS BOTH THE CHAPTER AND THE PAIRING UNIT, which no earlier book does, and it
+         follows from the editions rather than from a choice made here: neither Scott Moncrieff's
+         volume nor Bédier's divides the poem above the laisse — measured over both, there is no
+         part, book or canto heading in either — so the smallest unit they DO number is what the tabs
+         count, as Aesop's fable is. The consequence is a short chapter, a median of thirteen lines,
+         and that is the poem rather than the import: a chanson de geste was sung one laisse at a
+         time, each stanza on a single vowel, and stopping at the end of one is what it was built
+         for. */
+      chapterWord: "Laisse",
+      /* 291, and the two figures agree because the whole poem is here. They also agree ACROSS the
+         two editions, which is the thing actually worth knowing: Scott Moncrieff and Bédier divide
+         the Oxford manuscript into the same 291 laisses, so every one of them draws with both
+         columns filled. Verified rather than assumed — see the correlation the importer prints. */
+      count: 291,
+      total: 291,
+      /* No `parts`. Neither edition divides the poem above the laisse, so the Contents panel falls
+         back to a single unlabelled group, as the Meditations', the Republic's, the Art of War's and
+         Aesop's do. And no chapter titles: the laisses have no names in either edition, so the tabs
+         read "Laisse 1", "Laisse 2" and so on, which is the whole of what the editions state about
+         them — composing 291 descriptive headings for a poet who gave none is the line the
+         Meditations' entry draws. */
     },
   ];
   const BOOK_BY_ID = {};
