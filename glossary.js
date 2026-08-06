@@ -632,7 +632,8 @@ window.GLOSSARY = {
 "Aoidos": "An aoidos was an early Greek singer of tales, who told stories in verse to the sound of a lyre and made the song in the act of performing it rather than repeating a memorised one.<sup class=\"fn\" data-fn=\"1\"></sup> The Odyssey portrays four of them, all living in other men's halls and singing at feasts of the expedition to Troy, the returns from it and the doings of the gods, in short pieces chosen to suit the moment.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Such singers credited their art to the Muse or to a god who had planted songs in the mind, and they were succeeded by rhapsodes, who recited poems that writing had fixed.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Homer": "Homer is the name Greek tradition gave to the poet of the <i>Iliad</i> and the <i>Odyssey</i>, about whom nothing is securely known: no dated life, no agreed birthplace and no contemporary testimony.<sup class=\"fn\" data-fn=\"1\"></sup> The language of the poems, in which Ionic predominates over Aeolic, Mycenaean and Attic elements, places the beginnings of Greek epic in Ionia, and the objects they describe put their composition not much before 700 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Ancient accounts of his life are late and made from motifs shared with other early poets, and his name once carried more verse than it does now, including parts of the epic cycle that most sources gave to others.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Homeric_Question": "The Homeric Question is the name given to a cluster of disputes about the making of the two Greek epics: their authorship, the share in them of an inherited tradition, and the point at which they stopped changing.<sup class=\"fn\" data-fn=\"1\"></sup> Its modern phase begins with Friedrich August Wolf in 1795 and ran through a century of scholars hunting for the seams where shorter songs had been joined.<sup class=\"fn\" data-fn=\"1\"></sup> Milman Parry's fieldwork among the singers of Yugoslavia recast it, since the poems' traditional diction is now generally read as the mark of song composed in performance, leaving the manner of their writing down as the part still in dispute.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
-"Iliad": "The Iliad is an ancient Greek epic, the older of the two poems handed down under Homer's name, whose subject is the anger of Achilles rather than the Trojan war entire.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> It runs from a quarrel between Achilles and Agamemnon, through the defeat of the Greeks and the killing of Patroclus, to the death of Hector, and it stops before the fall of Troy, which the poems of the epic cycle told instead.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its familiar division into 24 books is the work of Alexandrian scholars rather than of the poet, and it was memorised, quoted and taught in classical Greece as a standard of poetic excellence.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Iliad": "The Iliad is an ancient Greek epic, the older of the two poems handed down under Homer's name, whose subject is the anger of Achilles rather than the Trojan war entire.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> It runs from a quarrel between Achilles and Agamemnon, through the defeat of the Greeks and the killing of Patroclus, to the death of Hector, and it stops before the fall of Troy, which the poems of the epic cycle told instead.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its familiar division into 24 books is the work of Alexandrian scholars rather than of the poet, and it was memorised, quoted and taught in classical Greece as a standard of poetic excellence.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Odyssey": "The Odyssey is one of the two ancient Greek epics ascribed to Homer, and it follows Odysseus from Troy back to Ithaca and the killing of the suitors who had taken over his house.<sup class=\"fn\" data-fn=\"1\"></sup> Half of it is set before he reaches home, and its most famous episodes are told by the hero himself to the Phaeacians rather than by the narrator.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Ancient scholars judged its closing book and part of one underworld scene to be later additions, and modern ones long treated the poem as a different poet's work from that of the <i>Iliad</i>.<sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -938,7 +939,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Geometric_pottery": "c. 900 – 700 BCE",
 "Hero_cult": "from the 8th century BCE",
 "Homeric_Question": "from 1795",
-"Iliad": "not much before 700 BCE"
+"Iliad": "not much before 700 BCE",
+"Odyssey": "not much before 700 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -1357,7 +1359,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Aoidos": ["aoidoi","the aoidos"],
 "Homer": ["Homeros"],
 "Homeric_Question": ["the Homeric Question","Homeric question"],
-"Iliad": ["the Iliad"]
+"Iliad": ["the Iliad"],
+"Odyssey": ["the Odyssey"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -2001,7 +2004,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Aoidos": ["title","practice","literature","history","greece","iron age"],
 "Homer": ["person","literature","history","greece","iron age"],
 "Homeric_Question": ["concept","literature","history","greece","iron age"],
-"Iliad": ["text","literature","history","greece","iron age"]
+"Iliad": ["text","literature","history","greece","iron age"],
+"Odyssey": ["text","literature","history","greece","iron age"]
 });
 
 /* Source footnotes per term (slug -> [Chicago note-form citations]) — a numbered fold at the foot of the popup.
@@ -2638,7 +2642,8 @@ window.GLOSSARY_SOURCES = Object.assign(window.GLOSSARY_SOURCES || {}, {
 "Aoidos": ["William C. Scott, \"Oral Verse-Making in Homer's Odyssey,\" <i>Oral Tradition</i> 4, no. 3 (1989): 382–412, https://journal.oraltradition.org/wp-content/uploads/files/articles/4iii/6_scott.pdf. [Open access]","Mauricio Vélez Upegui, \"Cantores palaciegos: un estudio sobre la figura del aedo en la Odisea,\" <i>Folios</i> 50 (2019): 83–96, https://doi.org/10.17227/folios.50-7457. [Open access]","Carol Dougherty, \"Phemius' Last Stand: The Impact of Occasion on Tradition in the Odyssey,\" <i>Oral Tradition</i> 6, no. 1 (1991): 93–103, https://journal.oraltradition.org/wp-content/uploads/files/articles/6i/9_dougherty.pdf. [Open access]"],
 "Homer": ["Carmine Pisano, review of <i>Homer</i>, by Barbara Graziosi, Bryn Mawr Classical Review 2017.12.16, https://bmcr.brynmawr.edu/2017/2017.12.16/. [Open access]","Mary R. Lefkowitz, review of <i>Early Greek Poets' Lives: The Shaping of the Tradition</i>, by Maarit Kivilo, Bryn Mawr Classical Review 2011.05.38, https://bmcr.brynmawr.edu/2011/2011.05.38/. [Open access]","Ingrid Holmberg, \"The Creation of the Ancient Greek Epic Cycle,\" <i>Oral Tradition</i> 13, no. 2 (1998): 456–478, https://journal.oraltradition.org/wp-content/uploads/files/articles/13ii/10_holmberg.pdf. [Open access]"],
 "Homeric_Question": ["Gustavo Frade, \"Homero e a questão homérica,\" <i>Em Tese</i> 23, no. 3 (2017): 209–36, https://doi.org/10.17851/1982-0739.23.3.209-236. [Open access]","Minna Skafte Jensen, review of <i>The Singer of Tales</i>, 3rd ed., by Albert Bates Lord, ed. David F. Elmer, Bryn Mawr Classical Review 2019.10.09, https://bmcr.brynmawr.edu/2019/2019.10.09/. [Open access]"],
-"Iliad": ["Gustavo Frade, \"Homero e a questão homérica,\" <i>Em Tese</i> 23, no. 3 (2017): 209–36, https://doi.org/10.17851/1982-0739.23.3.209-236. [Open access]","Ingrid Holmberg, \"The Creation of the Ancient Greek Epic Cycle,\" <i>Oral Tradition</i> 13, no. 2 (1998): 456–478, https://journal.oraltradition.org/wp-content/uploads/files/articles/13ii/10_holmberg.pdf. [Open access]","Michael Lynn-George, review of <i>The Anger of Achilles: Menis in Greek Epic</i>, by Leonard Charles Muellner, Bryn Mawr Classical Review 1997.02.10, https://bmcr.brynmawr.edu/1997/1997.02.10/. [Open access]"]
+"Iliad": ["Gustavo Frade, \"Homero e a questão homérica,\" <i>Em Tese</i> 23, no. 3 (2017): 209–36, https://doi.org/10.17851/1982-0739.23.3.209-236. [Open access]","Ingrid Holmberg, \"The Creation of the Ancient Greek Epic Cycle,\" <i>Oral Tradition</i> 13, no. 2 (1998): 456–478, https://journal.oraltradition.org/wp-content/uploads/files/articles/13ii/10_holmberg.pdf. [Open access]","Michael Lynn-George, review of <i>The Anger of Achilles: Menis in Greek Epic</i>, by Leonard Charles Muellner, Bryn Mawr Classical Review 1997.02.10, https://bmcr.brynmawr.edu/1997/1997.02.10/. [Open access]"],
+"Odyssey": ["Ingrid Holmberg, \"The Creation of the Ancient Greek Epic Cycle,\" <i>Oral Tradition</i> 13, no. 2 (1998): 456–478, https://journal.oraltradition.org/wp-content/uploads/files/articles/13ii/10_holmberg.pdf. [Open access]","Silvio Bär, review of <i>Reading Homer's Odyssey</i>, by Kostas Myrsiades, Bryn Mawr Classical Review 2019.10.05, https://bmcr.brynmawr.edu/2019/2019.10.05/. [Open access]","Carmine Pisano, review of <i>Homer</i>, by Barbara Graziosi, Bryn Mawr Classical Review 2017.12.16, https://bmcr.brynmawr.edu/2017/2017.12.16/. [Open access]","Gustavo Frade, \"Homero e a questão homérica,\" <i>Em Tese</i> 23, no. 3 (2017): 209–36, https://doi.org/10.17851/1982-0739.23.3.209-236. [Open access]"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
