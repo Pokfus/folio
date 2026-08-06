@@ -73,6 +73,64 @@ const REPUBLIC_TITLES = [
   "The Recompense of Life",
 ];
 
+/* The Analects' twenty book-titles, TRANSCRIBED from the headings this edition prints at the head of
+   each book ("BOOK I. HSIO R.") and from its own contents list, which gives the same names. They are
+   Legge's transliterations of the Chinese book names, and those names are not descriptions: a book of
+   the Analects is called after the words it OPENS with, so 學而 — Legge's "Hsio R." — is simply the
+   first two characters of the first sentence of book 1. That is said in the front matter rather than
+   repaired here, because the alternative is composing twenty subject headings for an editor who
+   deliberately gave none, which is the line the Meditations' entry draws below. Transcribed with the
+   edition's own spelling and its trailing stops, hyphens and apostrophes intact. */
+const ANALECTS_TITLES = [
+  "Hsio R.", "Wei Chang.", "Pa Yih.", "Le Jin.", "Kung-ye Ch'ang.", "Yung Yey.", "Shu R.",
+  "T'ai-po.", "Tsze Han.", "Heang Tang.", "Hsien Tsin.", "Yen Yuan.", "Tsze-lu.", "Hsien Wan.",
+  "Wei Ling Kung.", "Ke She.", "Yang Ho.", "Wei Tsze.", "Tsze-chang.", "Yao Yueh.",
+];
+
+/* The Prince's twenty-six chapter titles, TRANSCRIBED from the headings this edition prints ABOVE the
+   chapters themselves rather than from its contents page, and set in the title case titleCase() would
+   have produced — the Republic's arrangement, and the same reason: chapterTitles() below walks
+   Seneca's contents TABLE specifically, keying on a /Letter_<digits> href, and twenty-six transcribed
+   strings are cheaper and easier to check than a second parser.
+
+   WHICH OF THE TWO PRINTED LISTS TO TAKE THEM FROM had to be decided rather than assumed, because this
+   volume's contents page and its chapter headings do not agree, and the disagreement is not decorative.
+   Three of the contents entries are wrong where the headings are right — VII reads "the Arms of of
+   others" against the heading's "the Arms of Others", XVII "better to be loved then feared" against
+   "Loved Than Feared", XX "many other things to which Princes resort" against "Many Things to Which
+   Princes Often Resort". The heading is what stands at the head of the text a reader is reading, it is
+   the list that comes through internally consistent, and taking it means the shelf carries neither
+   somebody else's typographical slip nor a correction composed here. Both lists were read in full
+   before choosing; the contents page is the one that is out. */
+const PRINCE_TITLES = [
+  "How Many Kinds of Principalities There Are, and by What Means They Are Acquired",
+  "Concerning Hereditary Principalities",
+  "Concerning Mixed Principalities",
+  "Why the Kingdom of Darius, Conquered by Alexander, Did Not Rebel Against the Successors of Alexander at His Death",
+  "Concerning the Way to Govern Cities or Principalities Which Lived Under Their Own Laws Before They Were Annexed",
+  "Concerning New Principalities Which Are Acquired by One's Own Arms and Ability",
+  "Concerning New Principalities Which Are Acquired Either by the Arms of Others or by Good Fortune",
+  "Concerning Those Who Have Obtained a Principality by Wickedness",
+  "Concerning a Civil Principality",
+  "Concerning the Way in Which the Strength of All Principalities Ought to Be Measured",
+  "Concerning Ecclesiastical Principalities",
+  "How Many Kinds of Soldiery There Are, and Concerning Mercenaries",
+  "Concerning Auxiliaries, Mixed Soldiery, and One's Own",
+  "That Which Concerns a Prince on the Subject of the Art of War",
+  "Concerning Things for Which Men, and Especially Princes, Are Praised or Blamed",
+  "Concerning Liberality and Meanness",
+  "Concerning Cruelty and Clemency, and Whether It Is Better to Be Loved Than Feared",
+  "Concerning the Way in Which Princes Should Keep Faith",
+  "That One Should Avoid Being Despised and Hated",
+  "Are Fortresses, and Many Things to Which Princes Often Resort, Advantageous or Hurtful?",
+  "How a Prince Should Conduct Himself So as to Gain Renown",
+  "Concerning the Secretaries of Princes",
+  "How Flatterers Should Be Avoided",
+  "Why the Princes of Italy Have Lost Their States",
+  "What Fortune Can Effect in Human Affairs, and How to Withstand Her",
+  "An Exhortation to Liberate Italy from the Barbarians",
+];
+
 /* This volume's ten books are transcluded under subpages titled with the number SPELLED OUT — "Book
    One" rather than "Book 1" — so the page address cannot be built from the chapter number by
    arithmetic the way the Republic's and Seneca's are. */
@@ -93,6 +151,202 @@ const CAESAR_TITLES = [
    ids are not guessable from the numbering — the lives run abo011 to abo022 for chapters 1 to 12 —
    so both halves of the book are addressed through this one table. */
 const CAESAR_WORK = (n) => "abo0" + (10 + n);
+
+/* ---------- THE DIALOGUES, and this table IS the book ----------
+   Every other multi-part book here is divided by its own edition into things that share a name and a
+   numbering — 124 letters, 12 books, 12 lives — so a chapter is addressed by arithmetic. Plato's
+   dialogues share neither: each has its own name, its own Perseus work id and its own Stephanus
+   range, and nothing about "Crito" can be derived from the fact that it is chapter 3. So both halves
+   of the book are addressed through this one table, as Suetonius's two are through CAESAR_TITLES and
+   CAESAR_WORK.
+
+   THE ORDER IS THRASYLLUS'S NINE TETRALOGIES, which is not an arrangement composed here: it is the
+   ancient ordering of Plato recorded by Diogenes Laertius, and Perseus's own work numbering follows
+   it exactly — tlg001–004 are Euthyphro, Apology, Crito, Phaedo, and so on in fours to tlg036. That
+   correspondence was checked across all thirty-six before it was relied on, so `tet` is read off the
+   work id rather than stored twice, and the reader's Contents panel groups by it.
+
+   THE REPUBLIC IS THE ONE GAP, and it is a LICENCE gap rather than a textual one. Perseus's English
+   Republic is Paul Shorey's, published 1935–37, which is not in the public domain in the United
+   States and cannot be shelved here — where every other work in this table was published between
+   1914 and 1929. It is in the library already as a book of its own, in Jowett's translation from a
+   different printing, so nothing is actually missing from the shelf; it is missing from THIS book,
+   and its slot in Tetralogy VIII is simply left out. That is also why `total` is 36 against a
+   `count` of 35.
+
+   Five of the works are of disputed authorship and were so in antiquity — Alcibiades II, Hipparchus,
+   Rival Lovers, Theages, Minos, and the Epinomis and Letters are argued over too. They are kept
+   because Thrasyllus's arrangement keeps them and because the Loeb edition prints them; that is a
+   fact about the transmission rather than a claim about who wrote them, and the front matter says so
+   rather than letting a reader assume the shelf is asserting authorship. */
+const DIALOGUES = [
+  { t: "Euthyphro",       w: "tlg001", grc: "grc1" },
+  { t: "Apology",         w: "tlg002" },
+  { t: "Crito",           w: "tlg003" },
+  { t: "Phaedo",          w: "tlg004" },
+  { t: "Cratylus",        w: "tlg005" },
+  { t: "Theaetetus",      w: "tlg006" },
+  { t: "Sophist",         w: "tlg007" },
+  { t: "Statesman",       w: "tlg008" },
+  { t: "Parmenides",      w: "tlg009" },
+  { t: "Philebus",        w: "tlg010" },
+  { t: "Symposium",       w: "tlg011" },
+  { t: "Phaedrus",        w: "tlg012" },
+  { t: "Alcibiades I",    w: "tlg013" },
+  { t: "Alcibiades II",   w: "tlg014" },
+  { t: "Hipparchus",      w: "tlg015" },
+  { t: "Rival Lovers",    w: "tlg016" },
+  { t: "Theages",         w: "tlg017" },
+  { t: "Charmides",       w: "tlg018" },
+  { t: "Laches",          w: "tlg019" },
+  { t: "Lysis",           w: "tlg020" },
+  { t: "Euthydemus",      w: "tlg021" },
+  { t: "Protagoras",      w: "tlg022" },
+  { t: "Gorgias",         w: "tlg023" },
+  { t: "Meno",            w: "tlg024" },
+  { t: "Greater Hippias", w: "tlg025" },
+  { t: "Lesser Hippias",  w: "tlg026" },
+  { t: "Ion",             w: "tlg027" },
+  { t: "Menexenus",       w: "tlg028" },
+  { t: "Cleitophon",      w: "tlg029" },
+  /* tlg030 is the Republic — see the note above. */
+  { t: "Timaeus",         w: "tlg031" },
+  { t: "Critias",         w: "tlg032" },
+  { t: "Minos",           w: "tlg033" },
+  { t: "Laws",            w: "tlg034" },
+  { t: "Epinomis",        w: "tlg035" },
+  { t: "Letters",         w: "tlg036" },
+];
+const DIALOGUE = (n) => DIALOGUES[n - 1];
+/* The tetralogy a work belongs to, derived from Perseus's work id rather than stored beside it — the
+   numbering IS the tetralogical order, so a second copy could only ever drift out of step with it. */
+const TETRALOGY = (d) => Math.ceil(parseInt(d.w.slice(3), 10) / 4);
+const TET_ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"];
+
+/* ---------- THE 313 FABLES, IN THE ORDER THIS EDITION PRINTS THEM ----------
+   A table rather than arithmetic, because there is no arithmetic to do: the fables are reached by
+   NAME, one Wikisource subpage each, and the only thing that says what order they come in is the
+   edition's own contents. Read off that contents list once and written down here, so that page(n)
+   and titleOf(n) are the same fact stated twice and cannot drift apart.
+
+   THE TITLES ARE THE TRANSCRIPTION'S OWN, VERBATIM, and that is a decision rather than laziness.
+   The printed page sets every fable's title in CAPITALS, so its capitalisation is not recoverable
+   from the book at all — a case has to be chosen by somebody. titleCase() is already in this file
+   and is what Seneca's contents page goes through for exactly that reason, and it was tried here
+   and rejected: it would rewrite 57 of the 313, and its damage is on the hyphenated compounds this
+   collection is full of — "The Charcoal-Burner and the Fuller", "The Walnut-Tree", "The Old Woman
+   and the Wine-Jar". Wikisource's forms are mildly inconsistent about "his" and "her" and right
+   about the hyphens; they are also the names the subpages actually carry, so a reader who goes
+   looking for one finds it. Inconsistency somebody else introduced beats damage introduced here.
+
+   FIVE TITLES OCCUR TWICE, and they are five genuinely different fables that Townsend gave the same
+   name — The Kid and the Wolf, The Fox and the Monkey, The Wolf and the Lion, The Two Frogs and The
+   Fox and the Lion, each printed once in the first half of the book and once in the second. The
+   "(1)" and "(2)" here are Wikisource's disambiguation of its own page names, not the book's, so
+   they are stripped for display by AESOP_TITLE below: the tab bar shows two tabs reading The Two
+   Frogs, which is what the edition does, and the fable number beside each is the only thing that
+   tells them apart. It is the sharpest argument for numbering the tabs at all. */
+const AESOP_FABLES = [
+  "The Lion and the Mouse", "The Wolf and the Lamb", "The Ass and the Grasshopper",
+  "The Wolf and the Crane", "The Father and his Sons", "The Bat and the Weasels", "The Cock and the Jewel",
+  "The Swallow and the Crow", "The Kingdom of the Lion", "The Traveller and his Dog",
+  "The Ants and the Grasshopper", "The Hare and the Tortoise", "The Charcoal-burner and the Fuller",
+  "The Boy hunting Locusts", "The Fisherman Piping", "The Dog and the Shadow", "Hercules and the Waggoner",
+  "The Mole and his Mother", "The Herdsman and the lost Bull", "The Fawn and his Mother",
+  "The Ass, the Fox, and the Lion", "The Flies and the Honey Pot", "The Lioness",
+  "The Farmer and the Snake", "The Man and the Lion", "The Pomegranate, Apple-tree, and Bramble",
+  "The Farmer and the Stork", "The Mountain in Labour", "The Bear and the Fox",
+  "The Tortoise and the Eagle", "The Fox and the Goat", "The Raven and the Swan", "The Thirsty Pigeon",
+  "The Dog in the Manger", "The Oxen and the Axle-trees", "The Farmer and the Cranes", "The Sick Lion",
+  "The Bear and the Two Travellers", "The Fox who had lost his Tail", "The Cat and the Cock",
+  "The Wolf in Sheep's Clothing", "The Goat and the Goatherd", "The Boasting Traveller", "The Lion in Love",
+  "The Miser", "The Porker, the Sheep, and the Goat", "The Boy and the Filberts",
+  "The Frogs asking for a King", "The Labourer and the Snake", "The Lion, the Mouse, and the Fox",
+  "The Horse and Groom", "The Ass and the Mule", "The Ass and the Lap-dog", "The Oxen and the Butchers",
+  "The Shepherd's Boy and the Wolf", "The Boys and the Frogs", "The Salt Merchant and his Ass",
+  "The Mischievous Dog", "The Goatherd and the Wild Goats", "The Man and his Two Sweethearts",
+  "The Sick Stag", "The Boy and the Nettles", "The Astronomer", "The Wolves and the Sheep",
+  "The Cat and the Birds", "The Vain Jackdaw", "The Kid and the Wolf (1)",
+  "The Old Woman and the Physician", "The Ox and the Frog", "The Farmer and his Sons",
+  "The Heifer and the Ox", "The Fighting Cocks and the Eagle", "The Charger and the Miller",
+  "The Fox and the Monkey (1)", "The Horse and his Rider", "The Belly and the Members",
+  "The Widow and her Little Maidens", "The Vine and the Goat", "Jupiter and the Monkey",
+  "The Hawk, the Kite, and the Pigeons", "The Dolphins, the Whales, and the Sprat",
+  "The Swallow, the Serpent, and the Court of Justice", "The Two Pots", "The Shepherd and the Wolf",
+  "The Crab and its Mother", "The Father and his Two Daughters", "The Thief and his Mother",
+  "The Old Man and Death", "The Fir Tree and the Bramble", "The Æthiop",
+  "The Mouse, the Frog, and the Hawk", "The Fisherman and his Nets", "The Wolf and the Sheep",
+  "The Old Woman and the Wine-jar", "The Man bitten by a Dog", "The Huntsman and the Fisherman",
+  "The Fox and the Crow", "The Widow and the Sheep", "The Playful Ass", "The Stag in the Ox-stall",
+  "The Two Dogs", "The Wild Ass and the Lion", "The Lion and the Dolphin", "The Eagle and the Arrow",
+  "The Sick Kite", "The Lion and the Boar", "The Mice in Council", "The One-eyed Doe",
+  "The Mice and the Weasels", "The Shepherd and the Sea", "The Ass, the Cock, and the Lion",
+  "The Rivers and the Sea", "The Wild Boar and the Fox", "The Milkwoman and her Pail",
+  "The Bee and Jupiter", "The Wolf and the House-dog", "The Three Tradesmen", "The Ass carrying the Image",
+  "The Master and his Dogs", "The Old Hound", "The Two Travellers and the Axe", "The Old Lion",
+  "The Wolf and the Shepherds", "The Seaside Travellers", "The Ass and his Shadow",
+  "The Ass and his Masters", "Mercury and the Sculptor", "The Fox and the Wood-cutter",
+  "The Oak and the Reeds", "The Lion in a Farmyard", "The Wolf and the Lion (1)",
+  "The Birdcatcher, the Partridge, and the Cock", "The Ant and the Dove", "The Hares and the Frogs",
+  "The Monkey and the Fishermen", "The Swan and the Goose", "The Doe and the Lion",
+  "The Fisherman and the Little Fish", "The Hunter and the Woodman", "The Swollen Fox", "The Two Frogs (1)",
+  "The Lamp", "The Camel and the Arab", "The Miller, his Son, and their Ass", "The Cat and the Mice",
+  "The Mouse and the Bull", "The Dog and the Cook", "The Thieves and the Cock", "The Dancing Monkeys",
+  "The Farmer and the Fox", "The Traveller and Fortune", "The Sea-gull and the Kite",
+  "The Lion, the Bear, and the Fox", "The Philosopher, the Ants, and Mercury", "The Peasant and the Eagle",
+  "The Fox and the Leopard", "The Lion and the Hare", "The Image of Mercury and the Carpenter",
+  "The Lion, the Fox, and the Ass", "The Bull and the Goat", "The Bald Knight", "The Oaks and Jupiter",
+  "The Monkeys and their Mother", "The Hare and the Hound", "The Shepherd and the Dog",
+  "The Oak and the Wood-cutters", "The Wasp and the Snake", "The Peacock and the Crane",
+  "The Hen and the Golden Eggs", "The Ass and the Frogs", "The Crow and the Raven", "The Trees and the Axe",
+  "The Wolves and the Sheep-dogs", "The Bull, the Lioness, and the Wild-Boar Hunter", "The Bowman and Lion",
+  "The Camel", "The Crab and the Fox", "The Ass and the Old Shepherd", "The Fox and the Hedgehog",
+  "The Woman and her Hen", "The Kites and the Swans", "The Dog and the Hare", "The Hares and the Foxes",
+  "The Bull and the Calf", "The Stag, the Wolf, and the Sheep", "The Eagle, the Cat, and the Wild Sow",
+  "The Wolf and the Fox", "The Mule", "The Prophet", "The Two Frogs (2)", "The Serpent and the Eagle",
+  "The Crow and the Pitcher", "The Thief and the Innkeeper", "The Hart and the Vine",
+  "The Gnat and the Lion", "The Fox and the Grapes", "The Walnut-tree", "The Kid and the Wolf (2)",
+  "The Monkey and the Dolphin", "The Horse and the Stag", "The Jackdaw and the Doves",
+  "The Fox and the Monkey (2)", "The Man and his Wife", "The Man, the Horse, the Ox, and the Dog",
+  "The Thief and the House-Dog", "The Apes and the Two Travellers", "The Fox and the Lion (1)",
+  "The Weasel and the the Mice", "The Boy Bathing", "The Peacock and Juno", "The Wolf and the Shepherd",
+  "The Hares and the Lions", "The Seller of Images", "The Hawk and the Nightingale",
+  "The Lark and her Young Ones", "The Dog, the Cock, and the Fox", "The Geese and the Cranes",
+  "The Ass and the Wolf", "The Goat and the Ass", "The Lion and the Bull", "The Fox and the Mask",
+  "The Grasshopper and the Owl", "The Fowler and the Viper", "The Horse and the Ass",
+  "The Lion and the Three Bulls", "The Wolf and the Goat", "The Fly and the Draught-mule", "The Fishermen",
+  "The Town Mouse and the Country Mouse", "The Wolf, the Fox, and the Ape",
+  "The Wasps, the Partridges, and the Farmer", "The Brother and the Sister", "The Dogs and the Fox",
+  "The Blind Man and the Whelp", "The Cobbler turned Doctor", "The Wolf and the Horse",
+  "The Two Men who were Enemies", "The Game-cocks and the Partridge", "The Fox and the Lion (2)",
+  "The Quack Frog", "The Lion, the Wolf, and the Fox", "The Dog's House", "The North Wind and the Sun",
+  "The Crow and Mercury", "The Fox and the Crane", "The Wolf and the Lion (2)",
+  "The Birds, the Beasts, and the Bat", "The Spendthrift and the Swallow", "The Trumpeter taken Prisoner",
+  "The Owl and the Birds", "The Goods and the Ills", "The Ass in the Lion's Skin",
+  "The Sparrow and the Hare", "The Flea and the Ox", "The Ass and his Purchaser", "The Dove and the Crow",
+  "The Man and the Satyr", "Jupiter, Neptune, Minerva, and Momus", "The Eagle and the Jackdaw",
+  "The Eagle and the Fox", "The Two Bags", "The Bitch and her Whelps", "The Stag at the Pool",
+  "The Lark burying its Father", "The Gnat and the Bull", "The Monkey and the Camel",
+  "The Dogs and the Hides", "The Jackdaw and the Fox", "Mercury and the Workmen",
+  "The Peasant and the Apple-tree", "The Two Soldiers and the Robber", "The Shepherd and the Sheep",
+  "The Trees under the protection of the Gods", "The Flea and the Wrestler", "The Lion and the Fox",
+  "Truth and the Traveller", "The Manslayer", "The Lion and the Eagle", "The Ass and the Driver",
+  "The Thrush and the Fowler", "The Mother and the Wolf", "The Hen and the Swallow",
+  "The Rose and the Amaranth", "The Travellers and the Plane-tree", "The Ass and the Horse",
+  "The Crow and the Sheep", "The Fox and the Bramble", "The Ass and the Charger",
+  "The Lion, Jupiter, and the Elephant", "The Dog and the Oyster", "The Mules and the Robbers",
+  "The Lamb and the Wolf", "The Partridge and the Fowler", "The Flea and the Man",
+  "The Rich Man and the Tanner", "The Viper and the File", "The Lion and the Shepherd",
+  "The Camel and Jupiter", "The Panther and the Shepherds", "The Eagle and the Kite",
+  "The Eagle and his Captor", "The King's Son and the Painted Lion", "The Cat and Venus",
+  "The Eagle and the Beetle", "The She-goats and their Beards", "The Bald Man and the Fly",
+  "The Shipwrecked Man and the Sea", "The Buffoon and the Countryman", "The Crow and the Serpent",
+  "The Hunter and the Horseman", "The Olive-tree and the Fig-tree", "The Frogs' complaint against the Sun",
+  "The Brazier and his Dog",
+];
+/* The subpage name is the display title plus Wikisource's disambiguator, and nothing else — asserted
+   over all 313 when the table was built, not assumed. */
+const AESOP_TITLE = (s) => s.replace(/\s*\(\d+\)$/, "");
 
 const BOOKS = {
   "seneca-letters": {
@@ -624,156 +878,178 @@ const BOOKS = {
        to change. */
   },
 
-  "plato-symposium": {
-    title: "Symposium",
-    // the edition's own running head for the dialogue, and what its first page is headed
-    subtitle: "The Banquet",
+  "plato-dialogues": {
+    title: "The Dialogues",
+    // descriptive rather than transcribed: this gathering is Folio's, so it does not borrow a title page
+    subtitle: "Thirty-five Works in Nine Tetralogies",
     author: "Plato",
-    translator: "Benjamin Jowett",
-    edition: "Third edition, Clarendon Press, Oxford, 1892",
-    written: "c. 385–370 BCE",
+    translator: "Harold North Fowler, W. R. M. Lamb and R. G. Bury",
+    edition: "Loeb Classical Library, Harvard University Press, 1914–1929",
+    written: "c. 399–347 BCE",
 
-    /* ---------- THE LICENCE, the same easy one the Republic has ----------
-       Jowett died in 1893 and this is his third edition of 1892, so the translation is out of
-       copyright on every rule anyone applies: pre-1929 publication, life plus seventy, life plus a
-       hundred. The Greek beside it is Burnet's, and it clears the same bar twice over — the Oxford
-       Classical Text was printed in 1910 and Burnet died in 1928, so life-plus-seventy expired in
-       1998. The dialogue underneath both is some twenty-four centuries old.
+    /* ---------- THE LICENCE, and it has THREE grounds and one thing it declines to claim ----------
+       WHY NOT JOWETT, since this book shipped in his translation first. Jowett's copyright is the
+       easiest on the shelf and the reason for leaving him is not licensing at all: Wikisource's
+       transcription of his edition is unfinished, and measured page by page it carries only eleven
+       of the dialogues whole. The Loeb set is complete, and choosing it is the Thucydides trade made
+       in the other direction — there the cleanest text to import (Hobbes, 1629) was refused because
+       the Library is a reading room, and here the complete text and the readable one are the same
+       text, so nothing is given up.
 
-       What is NOT merely an expired copyright is the DIGITAL edition of the Greek: Perseus releases
-       its files under CC BY-SA 4.0, verified in the canonical-greekLit repository rather than carried
-       over on the strength of the Meditations' entry. That is the same knowing departure from the
-       expired-copyright-only rule recorded there, and it is credited on the book's own page and in
-       both `rights` strings. The English has no such layer — it comes from Wikisource, not Perseus —
-       so unlike the Metamorphoses the obligation attaches to one column only.
+       THE ENGLISH rests on the date of publication and on nothing else. These translations were
+       published between 1914 and 1929, so their United States copyright has expired: thirty of the
+       thirty-five are pre-1929 outright, and the five in the Loeb volume of 1929 — Menexenus,
+       Cleitophon, Timaeus, Critias and the Letters — reached the public domain on 1 January 2025,
+       when the 95-year term for that year's publications ran out. That is a longer sentence than the
+       other books here need and it is stated in full rather than rounded into "before 1929", which
+       is the shorthand the rest of the shelf uses and which these five do not satisfy.
 
-       The modern translations a reader is likeliest to own — Walter Hamilton's Penguin (1951),
-       Alexander Nehamas and Paul Woodruff's (1989), Robin Waterfield's Oxford World's Classics
-       (1994) — are all firmly in copyright, and are named here for the reason Campbell, Hays,
-       Griffith and Lee are named above: so that nobody reaches for one later. */
+       WHAT IS NOT CLAIMED is a life-plus-seventy term for two of the three translators. R. G. Bury's
+       dates are established (1869–1951), so his work clears that rule too. Harold North Fowler's and
+       W. R. M. Lamb's death years are in nothing openable from here — no Wikidata entity for either
+       — and a joint edition's term runs from the last surviving author, so no such claim is made for
+       this translation anywhere. It is the Caesar entry's position exactly: half a byline that
+       cannot be pinned down, publication date stated instead, and the gap named on the book's own
+       page rather than rounded up. Do not fill these in from memory; the Hugo Magnus note under the
+       Metamorphoses is what that costs.
+
+       THE GREEK is Burnet's Oxford Classical Text, printed between 1903 and 1910, and Burnet died in
+       1928 — so it clears the publication rule and life-plus-seventy alike, with nothing to qualify.
+
+       AND BOTH COLUMNS NOW CARRY THE PERSEUS LAYER, which is new for this book and is why the
+       disclosure moved into the book's own `rights` rather than sitting only in the original's. The
+       English used to come from Wikisource and the Greek from Perseus; both now come from Perseus,
+       whose digital editions are released under CC BY-SA 4.0 — verified in the canonical-greekLit
+       repository itself. That is the Metamorphoses' position, not the Symposium's.
+
+       The modern translations a reader is likeliest to own — the Hackett Complete Works edited by
+       John Cooper (1997) and the Penguin and Oxford versions by Walter Hamilton, Robin Waterfield
+       and Christopher Rowe — are all firmly in copyright, and are named here for the reason
+       Campbell, Hays, Griffith and Lee are named above: so that nobody reaches for one later. */
     rights:
-      "Public domain worldwide: Benjamin Jowett died in 1893 and this third edition of his translation " +
-      "was printed in 1892, so its copyright has expired everywhere — on the pre-1929 publication rule " +
-      "and on the author's-life rule alike. The Greek it is printed beside is John Burnet's Oxford text " +
-      "of 1910, and Burnet died in 1928, so that too is public domain on both rules. The dialogue itself " +
-      "is some twenty-four centuries old. (The modern translations by Walter Hamilton, 1951, Alexander " +
-      "Nehamas and Paul Woodruff, 1989, and Robin Waterfield, 1994, are still in copyright and are not " +
-      "used here.)",
-    sourceName: "Wikisource",
-    sourceUrl: "https://en.wikisource.org/wiki/The_Dialogues_of_Plato_(Jowett)/Symposium",
+      "Public domain in the United States, on the date of publication. These Loeb Classical Library " +
+      "translations were published between 1914 and 1929: thirty of the thirty-five works here were " +
+      "published before 1929, and the five from the volume of 1929 — Menexenus, Cleitophon, " +
+      "Timaeus, Critias and the Letters — entered the public domain on 1 January 2025, when the " +
+      "95-year term for that year's publications expired. R. G. Bury died in 1951, so his share also " +
+      "clears the author's-life rule; no such claim is made for Harold North Fowler's or W. R. M. " +
+      "Lamb's share, because their dates could not be established here and a term running from the " +
+      "last surviving translator cannot honestly be asserted without them. The Greek is John " +
+      "Burnet's Oxford Classical Text, printed between 1903 and 1910, and Burnet died in 1928, so it " +
+      "is public domain on both rules. Both texts are taken from the Perseus Digital Library, whose " +
+      "digital editions are released under a Creative Commons Attribution-ShareAlike 4.0 " +
+      "International licence. (The modern translations — the Hackett Complete Works edited by John " +
+      "Cooper, 1997, and the Penguin and Oxford versions by Walter Hamilton, Robin Waterfield and " +
+      "Christopher Rowe — are still in copyright and are not used here.)",
+    sourceName: "Perseus Digital Library",
+    sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0059/",
 
     /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out above.
-       Three things a reader arriving at this dialogue should be told rather than discover late: it is
-       a chain of speeches and not an argument between two people, it is narrated at third hand on
-       purpose, and Jowett is a Victorian with a manner. The fourth is the one this book can say and
-       the Republic cannot — that the Greek IS here, and why. */
+       Five things a reader arriving at this book should be told rather than discover late: what a
+       Platonic dialogue is and who is talking, how the thirty-five are arranged and why in that
+       order, that several of them are probably not by Plato, where the Republic went, and what the
+       numbers in the margin are for. */
     about: [
-      "<b>Symposium</b> is Plato's dialogue on love, and it is built quite unlike most of them. There " +
-        "is no cross-examination running through it and no single question driven to an answer. A " +
-        "group of Athenians at a drinking party agree that each will make a speech in praise of Eros, " +
-        "and the dialogue is those speeches in turn — the doctor's, the comic poet's, the tragic " +
-        "poet's, Socrates' — each taking up what the last one said and turning it. The result reads " +
-        "less like an argument than like a competition, which is what the characters take it to be.",
-      "The setting is the house of the tragedian Agathon, on the night after he won his first victory " +
-        "at the dramatic festival, which places the party in 416 BCE. The company includes Phaedrus, " +
-        "Pausanias, the physician Eryximachus, the comic playwright Aristophanes, Agathon himself and " +
-        "Socrates. None of it reaches the reader directly: Apollodorus is repeating what Aristodemus " +
-        "told him, years after the event, to a companion on the road — so the whole evening arrives at " +
-        "second hand from a man who was not there, a distance Plato sets up deliberately and never " +
-        "lets the reader forget.",
-      "Two of the speeches are read far more than the rest. Aristophanes explains desire with a story " +
-        "about human beings having once been round and doubled, cut in half by Zeus, and ever since " +
-        "searching for the half they lost — the source of the phrase about finding one's other half. " +
-        "Socrates then declines to praise Eros as the others have and reports instead what he says he " +
-        "was taught by a woman of Mantinea, Diotima: that love is not a god but a spirit between " +
-        "mortal and divine, that it is desire for what one lacks, and that it can be led from one " +
-        "beautiful body up to beauty itself. The evening is then broken open by Alcibiades, who " +
-        "arrives drunk and, told to praise Eros, praises Socrates instead.",
-      "Benjamin Jowett was Regius Professor of Greek at Oxford and Master of Balliol, and his Plato of " +
-        "1871, revised through the rest of his life, made these dialogues English for several " +
-        "generations of readers. This is his third edition of 1892, the last he saw through the press. " +
-        "It is a translation with a manner: fluent, dignified, Victorian, and freer with the Greek " +
-        "than a modern version would be. It is also a Victorian rendering of a Greek book about desire " +
-        "between men, and it handles that subject with a reticence the original does not have — " +
-        "anyone reading the dialogue for what it says about love, rather than for Jowett's English, " +
-        "should check it against a modern translation.",
-      "The numbers in the margin are <i>Stephanus numbers</i> — the pages of Henri Estienne's edition " +
-        "of 1578, by which Plato has been cited in every language ever since, so that a reference like " +
-        "'Symposium 189c' means the same passage in any edition. This dialogue runs from 172 to 223, " +
-        "and because both texts here state those numbers the Greek can be set beside the English and " +
-        "paired on them exactly. The Greek is John Burnet's Oxford text of 1910. There is no chapter " +
-        "division below this level because the dialogue has none — it was written as one continuous " +
-        "evening, and this edition breaks it nowhere. The numbered notes folded underneath are the " +
-        "translator's own.",
+      "<b>The Dialogues</b> are the whole of Plato's surviving work, and they are conversations " +
+        "rather than treatises. Plato wrote no lectures and argues nothing in his own voice; he " +
+        "wrote scenes, with a time and a place and people who interrupt each other, and the " +
+        "philosophy happens inside them. In most of them the questioner is Socrates, who wrote " +
+        "nothing himself and was put to death by Athens in 399 BCE, and who here does what he was " +
+        "famous for doing in life — asking men confident that they know what courage or friendship " +
+        "or justice is to say what it is, and taking their answers apart. How much of the Socrates " +
+        "in these pages is the historical man and how much is Plato has been argued about for two " +
+        "thousand years and is not going to be settled.",
+      "Plato was born in Athens around 428 BCE, into a family close to the city's politics, and " +
+        "lived through its defeat by Sparta, the brief and violent oligarchy that followed, and the " +
+        "restored democracy that killed his teacher. He founded the Academy in the 380s and taught " +
+        "there until he died around 348. Readers usually sort the dialogues into an early group that " +
+        "stays close to Socrates and ends without an answer, a middle group where Plato's own " +
+        "doctrines arrive, and late works of a drier and more technical kind. That ordering is a " +
+        "modern reconstruction and every part of it is disputed.",
+      "They are arranged here in <i>tetralogies</i> — nine groups of four, the order in which Plato " +
+        "was arranged in antiquity, credited to the scholar Thrasyllus in the first century CE and " +
+        "still the order the standard reference numbering follows. It is not a chronology and was " +
+        "never meant as one; the first group is a sequence of a different sort, running straight " +
+        "through the end of Socrates' life — <i>Euthyphro</i> on the way in to court, the " +
+        "<i>Apology</i> being his defence to the jury that condemned him, <i>Crito</i> in the cell " +
+        "where he refuses to escape, and <i>Phaedo</i> on the last afternoon. Those four are where " +
+        "most readers start, and they are short.",
+      "Not everything here is certainly by Plato, and that was already being said in antiquity. " +
+        "<i>Alcibiades II</i>, <i>Hipparchus</i>, <i>Rival Lovers</i>, <i>Theages</i> and " +
+        "<i>Minos</i> are widely judged to be by someone else, the <i>Epinomis</i> is usually given " +
+        "to a pupil, and the <i>Letters</i> are argued over one by one. They are kept because the " +
+        "ancient arrangement keeps them and the edition prints them — this is what was transmitted " +
+        "under Plato's name — and saying so is better than quietly dropping them or quietly passing " +
+        "them off. <i>The Republic</i> is the one work of Plato's missing from this book, and only " +
+        "because the English of it in this edition is still in copyright; it is in this library " +
+        "already, in Benjamin Jowett's translation, as a book of its own.",
+      "The numbers in the margin are <i>Stephanus numbers</i> — the pages of Henri Estienne's " +
+        "edition of 1578, by which Plato has been cited in every language ever since, so that a " +
+        "reference like 'Symposium 189c' means the same passage in any edition. Because both texts " +
+        "here carry them, the Greek can be set beside the English and paired on them exactly, and " +
+        "every one of the thirty-five works pairs without a single gap on either side. The Greek is " +
+        "John Burnet's Oxford text; the English is the Loeb Classical Library translation, by Harold " +
+        "North Fowler, W. R. M. Lamb and R. G. Bury. The numbered notes folded under each dialogue " +
+        "are the translators' own.",
     ],
 
-    /* ONE CHAPTER, because the work has one. Every other book in this library arrives pre-divided —
-       124 letters, 12 books, 13 chapters, 12 lives — and the Symposium is a single unbroken evening
-       that this edition divides nowhere: measured, the transcription carries no headings at all.
-
-       The temptation is to cut it into the seven speeches and title them by speaker, and that is
-       exactly the apparatus the house rule forbids: a title is TRANSCRIBED, never composed. The
-       edition prints a speaker's name in the margin as a running side-note, but where one speech ends
-       and the next begins would be a judgement made here rather than a division the printed page
-       states — and inventing six boundaries is no better than inventing six titles. So the dialogue
-       ships whole, which is also how it reads. The 52 Stephanus sections give the reader (and the
-       bilingual pairing) all the internal structure the text actually has. */
+    /* A CHAPTER IS A WHOLE DIALOGUE — a division the transmission states rather than one composed
+       here, these being thirty-five separate works. Nothing is subdivided, not even the Laws, which
+       is much the longest and which the edition splits across two volumes: its 327 Stephanus
+       sections carry its twelve books' worth of structure, and cutting it further would mean
+       composing boundaries. The sections are what the two columns pair on. */
     chapterWord: "Dialogue",
-    // the heading the edition's own first page carries
-    titleOf: () => "Symposium",
-    chapters: [1],
-    page: () => "The Dialogues of Plato (Jowett)/Symposium",
+    // TRANSCRIBED, never composed — the names the edition files them under. See DIALOGUES.
+    titleOf: (n) => DIALOGUE(n).t,
+    chapters: DIALOGUES.map((_, i) => i + 1),
+    /* The nine tetralogies, DERIVED from the table rather than written out beside it, so the groups
+       and the order cannot come to disagree. Tetralogy VIII has three members here and not four,
+       the Republic being absent — see the note above the table. */
+    parts: TET_ROMAN.map((r, i) => {
+      const idx = DIALOGUES.map((d, k) => (TETRALOGY(d) === i + 1 ? k + 1 : 0)).filter(Boolean);
+      return { n: i + 1, label: "Tetralogy " + r, from: idx[0], to: idx[idx.length - 1] };
+    }),
 
-    /* THE SECTION NUMBERS ARE MARGINAL FLOATS, which is a third form — see the note in cleanBody.
-       Gummere's are a raised bold numeral in the line and Haines's are plain text at the head of a
-       paragraph; these sit in the outer margin as `wst-verse wst-verse-float`, and the first of the
-       52 is labelled "Steph. 172" where the other 51 are bare figures. */
-    sections: "float",
-    /* The volume's running heads: the dialogue's own title above its first page, and the scan's
-       per-page head. Anchored to the start of a block, as the Republic's are. */
-    dropHeads: [/^SYMPOSIUM\.?$/i, /^PERSONS OF THE DIALOGUE\.?$/i],
+    /* BOTH COLUMNS ARE TEI NOW, one file per dialogue, which is what the whole of this rewrite buys.
+       The book used to walk Wikisource for its English and read Perseus for its Greek, and the two
+       had to be measured against each other afterwards. Here they are the same encoding of the same
+       citation scheme from the same publisher, so the pairing is exact BY CONSTRUCTION rather than
+       by luck — measured anyway, over all thirty-five, and it is 1,486 sections on each side with
+       identical numbers in identical order and not one exception. That is better than the Art of
+       War's facing page, which is the only other book here that pairs by construction.
 
-    /* ---------- WHY THERE *IS* AN `original` HERE, WHERE THE REPUBLIC HAS NONE ----------
-       The Republic entry above concludes that Plato cannot have a Greek column, and it is right about
-       the Republic and wrong as a general fact about Plato — which is worth stating plainly, because
-       the obvious inference from that entry is that no Plato in this library can ever have one.
+       `subtype: "section"` is declared once and used by BOTH sides: teiSections defaults to
+       "chapter" for Suetonius, and Burnet and the Loeb both say "section". */
+    source: "tei",
+    perChapter: true,
+    subtype: "section",
+    url: (n) =>
+      "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0059/" +
+      DIALOGUE(n).w + "/tlg0059." + DIALOGUE(n).w + ".perseus-eng2.xml",
 
-       The rule is that app.js pairs the two columns on SECTION NUMBERS and never on paragraph order,
-       so an original may ship only where BOTH texts say which section each passage is. What defeats
-       the Republic is its PRINTING: the Colonial Press volume of 1901 carries no Stephanus references
-       anywhere, measured over all ten books. That is a fact about that book, not about Plato — and
-       this volume is a different printing by a different press, which sets the Stephanus pages in the
-       margin throughout.
-
-       MEASURED BEFORE IT WAS BELIEVED, and the first measurement was wrong, which is the part worth
-       keeping. A search for the usual citation form — a number followed by a column letter, 189c —
-       returns ZERO across the whole dialogue, because Jowett's margin carries the Stephanus PAGE
-       alone. Read for what is actually there, the English has 52 marginal numbers running 172 to 223,
-       strictly ascending with no duplicates; Burnet's Greek has 52 `subtype="section"` divisions
-       running 172 to 223. The two sets are IDENTICAL — nothing on either side that is not on the
-       other — so there is no table of corrections here and nothing to hedge. That is a cleaner
-       pairing than the Meditations, which is short one section of 487.
-
-       The Greek's divisions are FLAT: Burnet's file has no book level above them, so `teiChapters`
-       (which requires `subtype="book"`) cannot read it. The reader it wants is `teiSections`, written
-       for Suetonius — one file, numbered divisions inside it, which is exactly this shape — with the
-       division's word declared, since this edition says `section` where Suetonius says `chapter`. */
     original: {
       lang: "grc",
       langName: "Greek",
       source: "tei",
       perChapter: true,
       subtype: "section",
-      url: () => "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0059/tlg011/tlg0059.tlg011.perseus-grc2.xml",
-      edition: "John Burnet's Oxford Classical Text (Clarendon Press, 1910), from the Perseus Digital Library",
+      /* Ten of the eleven originally shipped dialogues were `perseus-grc2` and the Euthyphro was
+         not; that holds across all thirty-five. Its grc1 file is the older encoding, whose divisions
+         read `resp n subtype` where the newer ones read `n subtype` — inert, because teiSections
+         reads a division's attributes independently of their order, but a probe that fixes the order
+         reports that dialogue as having no sections whatever, which is how it was first measured. */
+      url: (n) =>
+        "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0059/" +
+        DIALOGUE(n).w + "/tlg0059." + DIALOGUE(n).w + ".perseus-" + (DIALOGUE(n).grc || "grc2") + ".xml",
+      edition: "John Burnet's Oxford Classical Text (Clarendon Press, 1903–1910), from the Perseus Digital Library",
       rights:
         "Two layers, both stated. The text is John Burnet's edition of the Greek, printed by the " +
-        "Clarendon Press at Oxford in 1910 and in the public domain — before 1929, and Burnet died in " +
-        "1928. The digital edition it is taken from is prepared by the Perseus Digital Library at " +
-        "Tufts University and is released under a Creative Commons Attribution-ShareAlike 4.0 " +
-        "International licence.",
+        "Clarendon Press at Oxford between 1903 and 1910 and in the public domain — before 1929, and " +
+        "Burnet died in 1928. The digital edition it is taken from is prepared by the Perseus " +
+        "Digital Library at Tufts University and is released under a Creative Commons " +
+        "Attribution-ShareAlike 4.0 International licence.",
       sourceName: "Perseus Digital Library",
-      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0059.tlg011/",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0059/",
     },
   },
 
@@ -1519,16 +1795,27 @@ const BOOKS = {
        David Grene's of 1942, Robert Fagles's of 1982 and Anne Carson's Antigonick-era versions — are
        all firmly in copyright, and are named here for the reason Campbell, Hays, Griffith, Lee,
        Humphries, Melville and Brown are named above: so that nobody reaches for one. */
+    /* CORRECTED Aug 2026, when the Antigone was added: this said "public domain on every ground, in
+       both columns" and left out that Perseus has edited the PROSE as well as digitising it. The
+       English served here is Jebb MODERNIZED TO REMOVE ARCHAISMS, by Alex Sens in 1988 and reviewed
+       by John Gibert, which this file's own header states — a recent derivative work carried by
+       CC BY-SA 4.0 rather than by an expiry, which is the Histories' case and is now stated here as
+       it is on the Antigone. Found by running the check across all three plays rather than only over
+       the book being added; Coleridge's Medea carries no such note, checked rather than assumed. */
     rights:
-      "Public domain on every ground, in both columns. Richard Jebb's translation was published at " +
-      "Cambridge in 1887 and Jebb died in 1905, so its copyright has expired in the United States on " +
-      "the pre-1929 publication rule and everywhere that the term is the author's life plus a hundred " +
-      "years or less. The Greek beside it is Francis Storr's text of 1912, and Storr died in 1919, so " +
-      "the same holds of it. Sophocles wrote the play in Athens some twenty-four centuries ago. The " +
-      "digital editions of both texts are prepared by the Perseus Digital Library at Tufts University " +
-      "and are released under a Creative Commons Attribution-ShareAlike 4.0 International licence. " +
-      "(The modern translations by David Grene, 1942, Dudley Fitts and Robert Fitzgerald, 1949, and " +
-      "Robert Fagles, 1982, are still in copyright and are not used here.)",
+      "Public domain in both columns, with one addition stated. Richard Jebb's translation was " +
+      "published at Cambridge in 1887 and Jebb died in 1905, so its copyright has expired in the " +
+      "United States on the pre-1929 publication rule and everywhere that the term is the author's " +
+      "life plus a hundred years or less. The Greek beside it is Francis Storr's text of 1912, and " +
+      "Storr died in 1919, so the same holds of it. Sophocles wrote the play in Athens some " +
+      "twenty-four centuries ago. The English printed here is not quite Jebb's page, however: it is " +
+      "his translation modernized to remove archaisms, by Alex Sens in 1988 and reviewed by John " +
+      "Gibert, which the source file records in its own header. That editing is a recent work rather " +
+      "than an expired one, and it — with the digital editions of both texts — is prepared by the " +
+      "Perseus Digital Library at Tufts University and released under a Creative Commons " +
+      "Attribution-ShareAlike 4.0 International licence. (The modern translations by David Grene, " +
+      "1942, Dudley Fitts and Robert Fitzgerald, 1949, and Robert Fagles, 1982, are still in " +
+      "copyright and are not used here.)",
     sourceName: "Perseus Digital Library",
     sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0011.tlg004/",
 
@@ -1572,7 +1859,10 @@ const BOOKS = {
         "Oedipus's daughter, which he wrote first — so the three are not a trilogy and were composed " +
         "in the reverse of their story's order.",
       "The translation here is Richard Jebb's of 1887, and the Greek beside it is Francis Storr's " +
-        "text of 1912. The small raised figures running through both columns are LINE numbers of the " +
+        "text of 1912. One thing about the English should be said plainly: it is not quite Jebb's " +
+        "page. The Perseus Digital Library, which prepared both texts, also modernized this " +
+        "translation in 1988 to remove archaisms, so the wording is Jebb's revised rather than " +
+        "Jebb's as printed. The small raised figures running through both columns are LINE numbers of the " +
         "Greek, which is how any passage of a tragedy is cited in any language: Jebb translates into " +
         "prose and so numbers the line each block of it begins at, while Storr's verse numbers every " +
         "line, and a figure appearing in both columns marks the same place in the play. Two things " +
@@ -1630,6 +1920,1796 @@ const BOOKS = {
       sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0011.tlg004/",
       url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0011/tlg004/tlg0011.tlg004.perseus-grc2.xml",
     },
+  },
+
+  "herodotus-histories": {
+    title: "The Histories",
+    // the work's own Greek title, as the Lucretius and Sophocles entries give theirs
+    subtitle: "Ἱστορίαι",
+    author: "Herodotus",
+    translator: "A. D. Godley",
+    edition: "Herodotus, with an English translation by A. D. Godley, Loeb Classical Library, Harvard University Press and William Heinemann, 1920–1925",
+    written: "c. 430 BCE",
+
+    /* ---------- THE LICENCE, and the second layer is THICKER here than anywhere else on the shelf ----------
+       The expired-copyright half is the easiest kind, the Republic's and the Oedipus Rex's: Alfred Denis
+       Godley published this translation and the Greek facing it in the Loeb between 1920 and 1925, and
+       he died in 1925. So both columns are public domain in the United States on the pre-1929
+       publication rule, and everywhere the term is the author's life plus a hundred years or less.
+       CHECKED rather than recalled — Wikisource's author page gives 1856–1925 and carries the
+       died-at-least-a-hundred-years-ago tag — because the Ovid entry's Hugo Magnus mistake was exactly
+       a death year asserted from memory to hold up a licence. No limit needs stating, as one does for
+       Giles (2029) and for Ross (2042).
+
+       WHAT IS DIFFERENT HERE IS THE PERSEUS LAYER, and it must not be smoothed into the sentence the
+       other Perseus books use. For the Meditations' Greek, and for both columns of Ovid, Suetonius,
+       Lucretius and the Oedipus Rex, Perseus's contribution is the DIGITAL EDITION — the transcription,
+       the markup, the CTS numbering — over a printed text left as its editor set it. Here they have
+       also edited the PROSE. The file says so in its own header, and it is quoted rather than
+       paraphrased: "This text was modernized by Steven Ott, to remove archaisms. It was reviewed by
+       John Marincola, and revisions were made accordingly." So what ships is Godley's translation with
+       its thees and thous brought up to date by a named modern hand, which is a derivative work of
+       Perseus's own making and is covered by their licence rather than by an expiry.
+
+       That is a real departure and is stated three times over — in `rights`, on the book's own front
+       matter page, and in this comment — because a reader who goes looking for the 1920 printing must
+       not be surprised by what they find. It is the same departure the Meditations' Greek made when
+       CC BY-SA content first came onto the shelf, one degree further: the repository states "Unless
+       otherwise indicated, all contents of this repository are licensed under a Creative Commons
+       Attribution-ShareAlike 4.0 International License", and neither of these two files indicates
+       otherwise (both were checked for an <availability> element; neither carries one).
+
+       The translations a reader is likeliest to own — Aubrey de Sélincourt's of 1954, Robin
+       Waterfield's of 1998, Andrea Purvis's for the Landmark Herodotus of 2007 and Tom Holland's of
+       2013 — are all firmly in copyright, and are named here for the reason Campbell, Hays, Griffith,
+       Lee, Humphries, Melville, Brown and Fagles are named above: so that nobody reaches for one. */
+    rights:
+      "Public domain on every ground, in both columns, with one modern layer stated plainly. A. D. " +
+      "Godley's translation and the Greek text facing it were published in the Loeb Classical Library " +
+      "between 1920 and 1925 — before 1929 — and Godley died in 1925, so their copyright has expired " +
+      "in the United States and everywhere that the term is the author's life plus a hundred years or " +
+      "less. Herodotus wrote the work in Greek some twenty-five centuries ago. The English here is " +
+      "not quite the 1920 printing, however: it is Godley's translation as modernized by the Perseus " +
+      "Digital Library to remove archaisms, a revision made by Steven Ott and reviewed by John " +
+      "Marincola. That revision, and the digital editions of both texts, are prepared by the Perseus " +
+      "Digital Library at Tufts University and are released under a Creative Commons " +
+      "Attribution-ShareAlike 4.0 International licence. (The modern translations by Aubrey de " +
+      "Sélincourt, 1954, Robin Waterfield, 1998, Andrea Purvis, 2007, and Tom Holland, 2013, are " +
+      "still in copyright and are not used here.)",
+    sourceName: "Perseus Digital Library",
+    sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0016.tlg001/",
+
+    /* THE FRONT MATTER — chapter 0. Five things a reader should be told before they start rather than
+       work out late: what the book is and how little of it is the war it is named for, what Herodotus
+       thought he was doing and why he is both trusted and distrusted, that the Muse names everyone
+       has heard are not in this edition, who he was, and what the two columns and the small figures
+       running through them are. */
+    about: [
+      "<b>The Histories</b> is the oldest work of history in the Western tradition that survives " +
+        "whole, and it is the book that gave the enterprise its name. Herodotus set out to explain why " +
+        "the Greeks and the Persians went to war, a conflict that reached its crisis in his own " +
+        "parents' lifetime, when the invasions of 490 and 480 BCE were turned back at Marathon, " +
+        "Salamis and Plataea. He opens by saying exactly what he is doing: \"This is the display of " +
+        "the inquiry of Herodotus of Halicarnassus, so that things done by man not be forgotten in " +
+        "time, and that great and marvelous deeds, some displayed by the Hellenes, some by the " +
+        "barbarians, not lose their glory.\" What is surprising on first reading is how little of the " +
+        "book is battle. Rather more than half of it is the story of how Persia grew large enough to " +
+        "make the war possible, and the peoples it swallowed on the way — so the reader gets Egypt, " +
+        "Scythia, Lydia, Babylon and Libya at length before a Persian ship reaches Greece.",
+      "The word in that opening sentence translated \"inquiry\" is <i>historiē</i>, which meant asking " +
+        "and finding out rather than the written record it has come to mean since. That is what he " +
+        "does: he travelled, he asked people, and he set down what they told him — often several " +
+        "incompatible versions of the same event, with the sources named and sometimes his own opinion " +
+        "of them attached. He is candid about the method to the point of stating it as a rule, in the " +
+        "middle of a story he plainly disbelieves: \"although it is my business to set down that which " +
+        "is told me, to believe it is none at all of my business.\" Antiquity took both possible views " +
+        "of this. Cicero called him the father of history; Plutarch wrote a whole essay accusing him " +
+        "of malice and invention. Modern readers have generally come round to him, partly because " +
+        "excavation and Egyptian and Near Eastern records have confirmed a good deal that used to be " +
+        "dismissed — but he reports marvels as marvels, and the reader is expected to keep their wits.",
+      "The work is in nine books, and you will have heard that they are named after the nine Muses — " +
+        "Clio, Euterpe, Thalia and the rest. They are, by long convention, but not by Herodotus: the " +
+        "division and the names are the work of later editors, first attested centuries after his " +
+        "death, and this edition uses neither. It numbers its nine books and does not name them, so " +
+        "Folio does the same. Their shape is roughly two movements. Books 1 to 4 are the rise of " +
+        "Persia under Cyrus, Cambyses and Darius, carrying the great descriptions of the countries " +
+        "they conquered — book 2, on Egypt, is nearly a separate work. Books 5 to 9 are the war " +
+        "itself: the Ionian revolt, Marathon, then Xerxes' invasion and the campaigns of Thermopylae, " +
+        "Salamis, Plataea and Mycale.",
+      "Herodotus came from Halicarnassus, a Greek city on the coast of what is now Turkey, and was " +
+        "born in about 484 BCE; he seems to have died around 425. Both dates are conventional and rest " +
+        "on very little. He was a subject of the Persian empire by birth, which is worth holding onto " +
+        "while reading him on Persia — he is not writing from outside it — and he travelled widely " +
+        "enough that the book claims first-hand knowledge of Egypt, the Black Sea coast and " +
+        "Mesopotamia. Later tradition associates him with Thurii, an Athenian colony in southern " +
+        "Italy, and with public readings of the work at Athens. Almost everything else said about his " +
+        "life comes from a Byzantine encyclopedia compiled well over a thousand years after he died, " +
+        "and is worth about as much as that suggests.",
+      "The translation here is A. D. Godley's, made for the Loeb Classical Library and published in " +
+        "four volumes between 1920 and 1925, and the Greek beside it is the text Godley printed on the " +
+        "facing page. One thing about the English should be said outright: it is not word for word the " +
+        "1920 printing. The Perseus Digital Library has modernized it to remove archaisms — the " +
+        "revision was made by Steven Ott and reviewed by John Marincola — so the thees and thous are " +
+        "gone, which is why it reads more plainly than a translation of its age usually does. The " +
+        "small raised figures running through both columns are CHAPTER numbers, and they are how any " +
+        "passage of Herodotus is cited in any language: \"Herodotus 1.32\" means book 1, chapter 32. " +
+        "Both editions state them and, measured over the whole work, they agree exactly — 1,578 " +
+        "chapters on each side, the same numbers in the same order in all nine books, which makes this " +
+        "the most cleanly paired text on these shelves. Editions also divide a chapter into finer " +
+        "numbered sections; those are not used for pairing here, because nine of the 1,578 chapters " +
+        "number them differently in the two editions, and a passage set beside one that is not its " +
+        "counterpart is worse than a longer passage. The numbered notes are the edition's own.",
+    ],
+
+    /* ---------- PROSE IN BOOKS OF NUMBERED CHAPTERS: the sixth layout ----------
+       See the block above teiBookChapters for the whole of the reasoning. The short version: a Folio
+       chapter is one of the nine books, the pairing runs on the CHAPTER numbers inside it, and the
+       finer `section` divisions are concatenated into the chapter the way Leopold's are into a chapter
+       of the Meditations.
+
+       MEASURED over the whole work before any of it was believed: 9 books on each side; 1,578 chapters
+       on each side with identical numbers in identical order in every book; 4,338 sections on each
+       side, of which nine chapters number them differently — which is precisely why the chapter and
+       not the section is the unit. The nine are recorded rather than repaired.
+
+       TWO EXTRACTION FAULTS were found in this edition and both are fixed in teiInline, where they are
+       described at length: Perseus's name-authority `<reg>` (4,305 of them, which put a modern Turkish
+       gazetteer entry with coordinates inside the book's first sentence) and the `<choice>` element of
+       the Greek. Neither throws, both leave the prose complete, and each was found only by reading the
+       output rather than by counting it. */
+    source: "tei",
+    url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0016/tlg001/tlg0016.tlg001.perseus-eng2.xml",
+    layout: "chaptered",
+    chapterWord: "Book",
+    // nine is the whole work, and it is checked against the file on every run
+    chapters: Array.from({ length: 9 }, (_, i) => i + 1),
+    /* No `titleOf`: this edition heads its nine books with nothing at all — measured, there is not a
+       single <head> element in either file — so they are Book 1 to Book 9, exactly as the Meditations'
+       twelve are. The Muse names are the obvious thing to reach for and are deliberately not used:
+       they are a later convention this edition does not print, and transcribing a title rather than
+       composing one is the rule. Said in the front matter instead, where it belongs. */
+
+    original: {
+      lang: "grc",
+      langName: "Greek",
+      source: "tei",
+      layout: "chaptered",
+      edition: "A. D. Godley, Loeb Classical Library, Harvard University Press and William Heinemann, 1920–1925",
+      rights:
+        "Two layers, both stated. Herodotus wrote the work in Greek in the fifth century BCE, so the " +
+        "words themselves are in the public domain everywhere. The text printed here is the one A. D. " +
+        "Godley set on the facing page of his Loeb edition, published between 1920 and 1925 by an " +
+        "editor who died in 1925, so its copyright has expired on every rule. The digital edition is " +
+        "prepared by the Perseus Digital Library at Tufts University and is released under a Creative " +
+        "Commons Attribution-ShareAlike 4.0 International licence.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0016.tlg001/",
+      url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0016/tlg001/tlg0016.tlg001.perseus-grc2.xml",
+    },
+  },
+
+  "confucius-analects": {
+    title: "The Analects",
+    subtitle: "Confucian Analects",
+    author: "Confucius",
+    translator: "James Legge",
+    edition: "The Chinese Classics, Vol. I, 2nd revised edition, Clarendon Press, Oxford, 1893",
+    written: "c. 5th–3rd century BCE",
+
+    /* ---------- THE LICENCE, and this is the second book here that needs no qualification ----------
+       The Republic was the first. Legge published this translation in 1861 and revised it for the
+       second edition of 1893, both comfortably before 1929, so it is public domain in the United
+       States on the same ground as everything else on this shelf; and he died in 1897, so it is
+       public domain on life-plus-seventy and on life-plus-a-hundred as well. There is no limit to
+       state, as there is for Giles (2029) and Ross (2042). The Chinese underneath is some
+       twenty-four centuries old and free everywhere.
+
+       The modern translations a reader is likeliest to own are all in copyright and are named so that
+       nobody reaches for one later: Arthur Waley's of 1938, D. C. Lau's Penguin of 1979, Simon Leys's
+       of 1997 and Edward Slingerland's of 2003. */
+    rights:
+      "Public domain worldwide: Legge published this translation in 1861 and revised it for the " +
+      "second edition of 1893 — both before 1929, so its United States copyright has expired — and " +
+      "he died in 1897, so it is out of copyright wherever the term runs for the author's life plus " +
+      "seventy or even a hundred years. The Chinese it is printed beside is some twenty-four " +
+      "centuries old and is in the public domain everywhere. (The modern translations by Arthur " +
+      "Waley, 1938, D. C. Lau, 1979, Simon Leys, 1997, and Edward Slingerland, 2003, are still in " +
+      "copyright and are not used here.)",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/The_Chinese_Classics/Volume_1/Confucian_Analects",
+
+    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out above.
+       Two things a reader meets at once are stated rather than smoothed over: that Confucius did not
+       write this book, and that Legge's English is a Victorian missionary's, with a vocabulary that
+       has since been argued over word by word. */
+    about: [
+      "<b>The Analects</b> is a collection of sayings, exchanges and short scenes recording what " +
+        "Confucius said and how he behaved, put together by his followers after his death. The " +
+        "Chinese title, <i>Lunyu</i>, means something like 'selected sayings', and that is the shape " +
+        "of the book: several hundred separate passages, most of them a sentence or two long, with " +
+        "no argument running through them and very little to say about who is speaking or when. A " +
+        "disciple asks what filial piety is; the Master answers, and the passage ends. The next one " +
+        "may be about music, or archery, or a minister of a neighbouring state.",
+      "Confucius wrote none of it. He was born in the small state of Lu in 551 BCE and died there in " +
+        "479, having spent much of his life trying and failing to find a ruler who would employ him, " +
+        "and having taught a body of students who outlived him and taught their own. The book grew " +
+        "out of that succession rather than out of a single act of composition, over a period " +
+        "scholars still argue about — some of its twenty books look markedly older than others, and " +
+        "the received text was not settled until the Han dynasty, four centuries after his death. " +
+        "Its authority afterwards is easier to date than its making: chosen in the 12th century as " +
+        "one of the Four Books, it stood at the centre of the Chinese civil service examinations " +
+        "from 1313 until they were abolished in 1905.",
+      "The twenty books are not chapters in any ordinary sense, and their titles here are not " +
+        "descriptions. A book of the Analects is named after the words it opens with, so Legge's " +
+        "'Hsio R.' is simply the first two characters of the first sentence of book 1. Within a book " +
+        "the numbered chapters are the passages themselves, and it is by those numbers — book, then " +
+        "chapter — that any line of the Analects is cited in any language. They are printed here on " +
+        "both sides of the page, which is what lets the Chinese sit beside the English.",
+      "James Legge, who made this translation, was a Scottish missionary who spent three decades in " +
+        "Malacca and Hong Kong and became the first Professor of Chinese at Oxford in 1876. His " +
+        "Chinese Classics, published from 1861, set the Chinese text, a literal English rendering and " +
+        "a commentary far longer than either on the same page, and it is still the edition English " +
+        "readers of these books most often meet. What has not aged as well is the vocabulary: Legge's " +
+        "'the superior man' for <i>junzi</i>, 'benevolence' or 'perfect virtue' for <i>ren</i>, and " +
+        "'the rules of propriety' for <i>li</i> are all his choices among several defensible ones, " +
+        "and every translator since has argued with at least one of them. Read them as one man's " +
+        "answer to a hard problem rather than as what the Chinese says.",
+      "This is Legge's text and the Chinese he printed beside it, and nothing else. His notes, his " +
+        "prolegomena and his commentary — which in the printed volume run to several times the length " +
+        "of the translation — are not part of the transcription this comes from, so unlike Seneca or " +
+        "Suetonius there is no apparatus underneath these pages. What you are reading is the whole of " +
+        "the work and none of the argument about it.",
+    ],
+
+    /* ---------- THE INTERLEAVED LAYOUT, a second parallel shape ----------
+       The Art of War entry above describes the first: a printed page transcribed as a two-cell
+       table, Chinese in one cell and English in the other. This edition is just as much a parallel
+       text and is transcribed quite differently — the two languages ALTERNATE down a single column,
+       each chapter's Chinese in a `wst-lang` element and its English in the paragraphs after it, with
+       no table anywhere on the page.
+
+       Neither existing extractor can read that. `cleanBody` would unwrap the Chinese containers and
+       hand back one text with the two languages interleaved line by line, which is the failure mode
+       the Art of War entry calls the silent one — nothing throws, nothing is short, and the book is
+       simply unreadable. `extractParallel` looks for `wst-translation-table` and finds none, so it
+       throws, which is the better outcome but not a book. Hence a third extractor, which separates
+       the columns by their own markup rather than by table cell, and then splits each column on the
+       chapter numbers its own language marks.
+
+       They are NOT alternating one for one, which is the trap here: a run of several chapters' Chinese
+       often sits in a single element, followed by that run's English. So the two columns are gathered
+       whole and paired on the NUMBER, exactly as app.js pairs them at render time, and never on the
+       order the markers happen to appear in. Pairing by position looks right on book 1 and drifts. */
+    layout: "interleaved",
+    page: (n) => "The Chinese Classics/Volume 1/Confucian Analects/" + toRoman(n),
+    chapters: Array.from({ length: 20 }, (_, i) => i + 1),
+    chapterWord: "Book",
+    titleOf: (n) => ANALECTS_TITLES[n - 1] || "Book " + n,
+
+    /* ---------- THE ORIGINAL, AND WHY IT PAIRS ----------
+       The rule the Meditations entry sets out is that an original may ship only where its text states
+       which section each passage is. This one states it twice over, in both languages, on the same
+       page: the Chinese marks every chapter 【第一章】…【四七章】 and the English marks the same
+       chapter "Chapter I." …"Chapter XLVII.", and the two were set beside each other by the same
+       editor.
+
+       Measured before it was believed, across all twenty books: 499 chapters on the Chinese side and
+       499 on the English, each a clean 1–N run in every book, with nothing missing on either side and
+       no duplicates. Only the Art of War does better, and it does so by construction.
+
+       ONE repair, and it is recorded rather than smoothed away. In book 2 the English marker for
+       chapter 18 is printed "Chapter XVII." — a second time, the previous chapter having just used
+       it — while the Chinese beside it reads 【十八章】 and the passage is the one every edition of
+       the Analects cites as 2.18. So the English side is numbered by a forward-only sequence: a
+       printed numeral is taken where it moves the count forward and replaced by the next number where
+       it does not, with a warning naming the book and both numbers. That restores what the printed
+       page carries rather than composing anything — but it is a repair, so it is reported on every
+       run instead of being quietly correct.
+
+       Like the Art of War's, this original has no `wiki` or `pages` of its own: both columns come off
+       the pages already being fetched, and fetchOriginal reads them back out of the same cache. */
+    original: {
+      lang: "zh",
+      langName: "Chinese",
+      edition: "The Chinese text as printed in Legge's Chinese Classics, Vol. I, Oxford, 1893",
+      rights:
+        "Public domain worldwide: the Chinese text is some twenty-four centuries old, and this is a " +
+        "transcription of it as printed in Legge's edition of 1893.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Chinese_Classics/Volume_1/Confucian_Analects",
+    },
+  },
+
+  "machiavelli-prince": {
+    title: "The Prince",
+    // the work's own Italian title, which is what every edition of it in any language is called after
+    subtitle: "Il Principe",
+    author: "Niccolò Machiavelli",
+    translator: "W. K. Marriott",
+    edition: "Everyman's Library No. 280, J. M. Dent & Sons, London, 1908",
+    written: "1513",
+
+    /* ---------- THE LICENCE, and it is the third that needs no qualification at all ----------
+       The Republic's and the Analects' position, and the easiest kind of answer this shelf gets.
+       Marriott published in 1908 — before 1929, so the United States copyright has expired — and he
+       lived from 1847 to 1927, which puts him out of copyright on life-plus-seventy (1998) and on
+       life-plus-ninety-five alike. Nothing to state as the Art of War must for Giles (2029) or the
+       Nicomachean Ethics for Ross (2042), and no modern editorial layer as the Histories and the
+       Meditations' Greek carry. His dates are not guessed at from the printing: they are stated on
+       the scan's own index page at Wikisource and on Wikidata, and the two agree.
+       The Italian beside it is five centuries old, and this transcription is of an edition of 1814.
+
+       What is NOT imported from this volume is Marriott's own introduction and the two shorter works
+       the Everyman prints after The Prince — they are outside what a reader opening this book came
+       for, and the introduction is the one part of the volume that argues with the text rather than
+       carrying it.
+
+       The modern translations a reader is likeliest to own — George Bull's Penguin (1961), Harvey
+       Mansfield's (1985), Peter Bondanella's Oxford World's Classics (2005) and Tim Parks's Penguin
+       (2009) — are all firmly in copyright, and are named here for the reason Campbell, Hays, Griffith
+       and Lee are named above: so that nobody reaches for one later. */
+    rights:
+      "Public domain worldwide. W. K. Marriott published this translation in 1908 — before 1929, so " +
+      "its United States copyright has expired — and he lived from 1847 to 1927, so it is out of " +
+      "copyright wherever the term runs for the author's life plus seventy years or more. The Italian " +
+      "text printed beside it is five centuries old and is in the public domain everywhere. (The " +
+      "modern translations by George Bull, 1961, Harvey Mansfield, 1985, Peter Bondanella, 2005, and " +
+      "Tim Parks, 2009, are still in copyright and are not used here.)",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/The_Prince_(Marriott)",
+
+    /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out above.
+       Four things a reader arriving at this book should be told plainly rather than discover late:
+       what the book was written for and when, that its author spent his career serving a republic
+       and wrote this out of office, that the two columns here are paired chapter by chapter because
+       the work carries no finer numbering, and that the dedicatory letter is not here. Nothing in it
+       is to be embroidered: where the scholarship is divided — above all on how the book squares with
+       the Discourses — it says so rather than picking a side. */
+    about: [
+      "<b>The Prince</b> is a short book of advice on how to take a state and how to keep one, written " +
+        "in 1513 by a Florentine civil servant who had just lost his post. It runs to twenty-six " +
+        "chapters, each headed with the question it takes up — how many kinds of principality there " +
+        "are, whether a ruler should be feared or loved, how flatterers are to be avoided — and it " +
+        "argues throughout from examples rather than from principles, drawing on Roman history and on " +
+        "the Italian politics its author had spent fourteen years watching at close range.",
+      "Niccolò Machiavelli was born in Florence in 1469 and served the restored republic there from " +
+        "1498 to 1512 as second chancellor and as secretary to the magistracy that ran its wars, which " +
+        "sent him on embassies to the King of France, the Emperor, the papal court and Cesare Borgia. " +
+        "When the Medici returned in 1512 he lost everything: he was dismissed, then arrested and " +
+        "tortured on suspicion of conspiracy, and finally released to a small property outside the " +
+        "city. He wrote this book there within the year, and dedicated it to Lorenzo de' Medici in the " +
+        "hope — which came to nothing — of employment.",
+      "It was read in manuscript by his friends and not printed until 1532, five years after his " +
+        "death, and its reputation has been an argument ever since. Within a generation the book was " +
+        "on the papal Index of Prohibited Books and its author's name had become an English adjective " +
+        "for cunning; readers since have found in it everything from a handbook for tyrants to a " +
+        "satire on them to the first cold description of politics as it is rather than as it ought to " +
+        "be. What makes the question hard is that the same man wrote the <i>Discourses on Livy</i>, a " +
+        "long and unmistakably republican work, in the same years and partly in the same room, and no " +
+        "reading of the two together commands general agreement.",
+      "Two words carry most of the argument and neither survives translation cleanly. <i>Virtù</i> is " +
+        "not virtue in the moral sense but something closer to force of character — skill, nerve, the " +
+        "capacity to act well at the moment that decides things — and <i>fortuna</i> is the run of " +
+        "events that no amount of it can wholly govern. The book's most famous chapters are attempts " +
+        "to say how much of a ruler's fate belongs to each, and its last chapter drops the analysis " +
+        "altogether to call on the Medici to drive the foreign armies out of Italy.",
+      "W. K. Marriott's translation of 1908 was made for Everyman's Library, and he says in his own " +
+        "introduction that he aimed at an exact literal rendering rather than a fluent paraphrase — " +
+        "which is why it reads plainly and sometimes stiffly, and why it is a good text to read " +
+        "against the Italian. The numbered notes folded under a chapter are the edition's own, " +
+        "gathered at the back of the printed volume and brought here to the chapters they belong to. " +
+        "Most of that apparatus is not here: the printed volume annotates some fifty passages, and only " +
+        "a handful of them say in the transcription this text comes from which note belongs to which " +
+        "place, so only those few are shown rather than joined up by guesswork.",
+      "Two things about this copy. The Prince is cited by chapter and carries no smaller numbered " +
+        "divisions, so where the other books in this library set the two languages beside each other " +
+        "passage by passage, this one pairs them <i>chapter by chapter</i> — each column is the whole " +
+        "of its own chapter, beginning together and running at its own length. And Machiavelli's " +
+        "dedicatory letter to Lorenzo, which stands before chapter 1 in both editions, is not included " +
+        "here: the reader is given the twenty-six chapters of the book itself.",
+    ],
+
+    chapterWord: "Chapter",
+    /* Transcribed from the contents page this edition prints, which gives the chapters Roman numerals
+       and these titles — see PRINCE_TITLES above for the two slips carried across with them. */
+    titleOf: (n) => PRINCE_TITLES[n - 1] || "Chapter " + toRoman(n),
+    /* No `sections`. Neither this edition nor any other divides a chapter of The Prince into numbered
+       sections — the chapter IS the unit the whole tradition cites — so every chapter comes through as
+       one block and fetchEnglish will say so ("26 chapter(s) with NONE"). That is the expected result
+       for this book rather than a fault to chase, and it is what decides the shape of the pairing; see
+       the note on `original` at the foot of this entry. */
+    /* The heading this edition prints above each chapter, in the two centred blocks it sets it in: the
+       number spelled out as a word ("EIGHTEENTH CHAPTER") and the chapter's title in capitals beneath
+       it. Folio prints its own number and title above the text, so left in place every chapter opens
+       on its own name said twice, the first time as a quotation. The number pattern is anchored to the
+       word CHAPTER so nothing else can match it; the title pattern takes an all-capitals line, which
+       is a safe shape to name here because dropHeads only ever strips blocks from the START of a
+       chapter and no chapter of this book opens in capitals. */
+    dropHeads: [/^[A-Z]+(?:-[A-Z]+)?\s+CHAPTER$/i, /^[-A-Z\s,.'?!;:—–]+$/],
+    page: (n) => "The Prince (Marriott)/Chapter " + n,
+    chapters: Array.from({ length: 26 }, (_, i) => i + 1),
+
+    /* ---------- THE NOTES ARE AT THE BACK OF THE BOOK, AND THAT IS A NEW SHAPE ----------
+       (Aug 2026, adding this book — the first here whose apparatus is ENDNOTES rather than footnotes.)
+
+       Every earlier book prints its notes at the foot of the page they belong to, so MediaWiki's own
+       reference list carries the text and `notesOf` reads it straight off the chapter. This edition
+       gathers them at the back of the volume instead, keyed by the page they annotate, and the markers
+       in the text point AT that page: what stands in the chapter's own reference list is the words
+       "See Note." and nothing else, twenty-nine times over.
+
+       Left alone that is the quiet kind of failure this file keeps meeting. Nothing throws, the marker
+       count is right, every marker resolves, `wireFootnotes` numbers them all — and the reader opens a
+       fold to find a list of identical stubs pointing at a page they cannot reach. So the endnote page
+       is fetched once and each stub is replaced by the note it stands for, joined on the anchor the
+       marker itself carries (`cite_note-n16-1` → the endnote anchored `n16`), which is the same rule
+       the footnote markers already follow: a marker carries the note it POINTS AT, never its position
+       in a queue.
+
+       MEASURED, BECAUSE THE APPARATUS TURNS OUT TO BE ONLY PARTLY WIRED: the printed volume gathers
+       fifty-five notes at the back, the transcription marks fifteen places in the text, and five of
+       those fifteen name the note they mean. The other ten are dropped rather than guessed at — see
+       resolveEndnotes for the page-number join that was tried and measured and does not work — so what
+       ships is five notes, on chapters 3 and 6, and the front matter tells the reader where the rest
+       of the apparatus is. */
+    endnotes: { page: "The Prince (Marriott)/Notes" },
+
+    /* ---------- THE ORIGINAL LANGUAGE, AND WHY IT PAIRS ON THE CHAPTER ----------
+       The rule the Meditations' entry sets out is that app.js pairs the two columns on the numbers the
+       texts state about themselves, never on paragraph order, so an original may ship only where both
+       sides say which section each passage is. The Prince passes that test at ONE level and no finer:
+       both editions are divided into the same twenty-six numbered chapters, in the same order, and
+       neither divides a chapter into anything smaller. That is not a gap in these two printings — it
+       is how the work is cited everywhere, "Prince XVIII" and no more.
+
+       So each chapter is a single unnumbered block on both sides, and bookRows pairs the two into one
+       row: the whole English chapter beside the whole Italian one, beginning together and each running
+       at its own length. It is a coarser join than the Art of War's facing page or Herodotus's
+       chapters, and it is a true one — nothing is claimed about where in the Italian a given English
+       sentence falls, because nothing is asserted below the chapter. The reader is told as much in the
+       front matter above rather than left to infer it from a long row.
+
+       THE REPUBLIC'S ANSWER WAS NO AND THIS IS NOT THAT CASE, which is worth stating because the two
+       look alike from a distance. Plato has the best-standardised citation system of any ancient
+       author and this printing of Jowett simply does not carry it, so a reader who knows Plato goes
+       looking for the Stephanus numbers and finds them missing. Machiavelli has no such system to be
+       missing: the chapter is the whole of it, and the chapter is here.
+
+       The Italian is on its own wiki, one page per chapter — a shape no earlier original has used.
+       Seneca's Latin gives one page per BOOK of the collection with the letters as headings inside it,
+       and the two facing-page books take both columns off the translation's own page; this is the
+       simple case those two are complications of, and it gets `perChapter` and a `page` of its own. */
+    original: {
+      lang: "it",
+      langName: "Italian",
+      perChapter: true,
+      wiki: "it.wikisource.org",
+      page: (n) => "Il Principe/Capitolo " + toRoman(n),
+      edition: "Il Principe, Italy, 1814, as transcribed at Italian Wikisource",
+      rights:
+        "Public domain worldwide: Machiavelli died in 1527 and wrote this in 1513, so no copyright " +
+        "has subsisted in the words for as long as copyright has existed. The transcription is of a " +
+        "printing of 1814, itself long out of copyright.",
+      sourceName: "Wikisource (Italian)",
+      sourceUrl: "https://it.wikisource.org/wiki/Il_Principe",
+      /* The printed page heads each chapter with "CAPITOLO XVIII." and then its title in italics on a
+         line of its own. Folio prints its own chapter number and title above the text, so both would
+         stand there twice; they are dropped, and the title is echoed in the run's log line so that a
+         run says which title it took off each chapter rather than removing it in silence. */
+      dropHead: /\bCAPITOLO\s+[IVXLCDM]+\./i,
+    },
+  },
+
+  "caesar-gallic-war": {
+    title: "The Gallic War",
+    // the work's own Latin title, as Lucretius, the Oedipus Rex, Herodotus and The Prince give theirs
+    subtitle: "Commentarii de Bello Gallico",
+    author: "Julius Caesar",
+    translator: "W. A. McDevitte and W. S. Bohn",
+    edition: "Caesar's Commentaries, translated by W. A. McDevitte and W. S. Bohn, Harper's New Classical Library, Harper and Brothers, New York, 1870–1872",
+    written: "c. 58–50 BCE",
+
+    /* ---------- THE LICENCE, and it is the first here to rest on the PUBLICATION alone ----------
+       The certain half is the easiest kind and covers everything: this translation was published by
+       Harper and Brothers in 1870–1872 and the Latin beside it is T. Rice Holmes's Oxford text of
+       1914, both long before 1929, so the United States copyright in both has expired. Holmes's dates
+       are stated and were CHECKED rather than recalled, for the Hugo Magnus reason — 24 May 1855 to
+       4 August 1933, agreed by the Dictionary of Irish Biography, the Online Books Page and Wikipedia
+       — which also clears him on life-plus-seventy (2003) and life-plus-ninety.
+
+       WHAT CANNOT BE STATED IS THE OTHER TRANSLATOR'S DEATH, and this entry says so rather than
+       rounding it up. W. A. McDevitte is William Alexander McDevitte, 1834–1909, given by the Library
+       of Congress name authority and by Wikisource, whose author page carries the died-at-least-a-
+       hundred-years-ago tag; life-plus-seventy ran out for him in 1980. His co-translator is a byline
+       and nothing else. "W. S. Bohn" has no first name, no dates and no biography in anything openable
+       — the name is probably connected with Henry Bohn's Classical Library, whose series this
+       translation first appeared in, but that is an inference and is not used to hold anything up. A
+       joint work's life-plus-seventy term runs from the last surviving author, so with one of the two
+       unknown that term cannot honestly be asserted for the whole translation, and it is not.
+
+       That is the Lucretius judgement in a second book: there the Latin's editor was unnamed by the
+       source and no editor and no date were claimed for it, and the ground stated was the age of the
+       poem, which anyone can check. Here the ground stated is the date of PUBLICATION, which anyone
+       can check on the title page, and the gap is named on the book's own front matter rather than
+       papered over — a reader in a life-plus-seventy country is told exactly what is known and what
+       is not, which is better than a confident sentence resting on a man nobody can find.
+
+       The modern translations a reader is likeliest to own — S. A. Handford's Penguin (1951, revised
+       by Jane Gardner 1982), Carolyn Hammond's Oxford World's Classics (1996) and James O'Donnell's
+       (2019) — are all firmly in copyright, and are named here for the reason Campbell, Hays,
+       Griffith, Lee, Humphries, Melville, Bull and de Sélincourt are named above: so that nobody
+       reaches for one later. */
+    rights:
+      "Public domain in the United States on the publication rule, with one gap stated plainly. This " +
+      "translation was published by Harper and Brothers in 1870–1872 and the Latin printed beside it " +
+      "is T. Rice Holmes's Oxford text of 1914 — both well before 1929 — so the copyright in both has " +
+      "expired. Caesar wrote the work in Latin some twenty centuries ago. Of the two translators, " +
+      "William Alexander McDevitte lived from 1834 to 1909 and T. Rice Holmes from 1855 to 1933, so " +
+      "both are also out of copyright wherever the term is the author's life plus seventy years; " +
+      "nothing is recorded of the co-translator W. S. Bohn beyond the name on the title page, so for " +
+      "that half of the English no life-plus-seventy date can honestly be given, and the ground " +
+      "relied on here is the date of publication. The digital editions of both texts are prepared by " +
+      "the Perseus Digital Library at Tufts University and are released under a Creative Commons " +
+      "Attribution-ShareAlike 4.0 International licence, which both files state in their own headers. " +
+      "(The modern translations by S. A. Handford, 1951, Carolyn Hammond, 1996, and James O'Donnell, " +
+      "2019, are still in copyright and are not used here.)",
+    sourceName: "Perseus Digital Library",
+    sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0448.phi001/",
+
+    /* THE FRONT MATTER — chapter 0. Six things a reader should be told before they start rather than
+       work out late: what the book is and that it is a dispatch rather than a history, that the man
+       writing it is the man who won and what that does to the prose, that the third-person voice is a
+       deliberate device, that the last of the eight books is not by Caesar at all, who he was, and
+       what the two columns and the small figures running through them are. Nothing here is
+       embroidered: where the scholarship is divided — on how far the book is propaganda, and on the
+       casualty figures — it says so rather than picking a side. */
+    about: [
+      "<b>The Gallic War</b> is Julius Caesar's own account of the nine campaigning seasons, from 58 " +
+        "to 50 BCE, in which he conquered the whole of Gaul — roughly modern France and Belgium with " +
+        "parts of Switzerland, Germany and the Netherlands — and twice crossed into Britain. It is not " +
+        "a history written at leisure afterwards. Each of the first seven books covers a single year " +
+        "and seems to have been sent to Rome at or near the end of it, which makes the work something " +
+        "closer to a dispatch: a serving general telling the city that pays and votes for him what he " +
+        "has been doing with its legions. That is why it moves as it does, and it is also the first " +
+        "thing to hold onto about it.",
+      "The prose is famously plain, and the plainness is the achievement. Caesar writes short " +
+        "declarative sentences, a small vocabulary and almost no rhetorical ornament, at a time when " +
+        "Latin oratory was as ornate as it has ever been; Cicero, who was no friend of his politics, " +
+        "said the commentaries were stripped bare of ornament like an athlete and that sensible men " +
+        "were deterred from touching the subject again. It is the reason the book has been the first " +
+        "real Latin put in front of schoolchildren for five centuries. It is also, as every reader " +
+        "since antiquity has noticed, an extremely effective way of seeming to have no case to make.",
+      "For he plainly does have one. Caesar was fighting on a legal footing that his enemies in Rome " +
+        "disputed, and he needed the war to look both necessary and finished; the book explains every " +
+        "campaign as a response to somebody else's aggression, and it is at its least believable at " +
+        "exactly those moments. Scholars divide on how far to call it propaganda — some read it as a " +
+        "sustained justification, others as a broadly accurate record whose slant is in what it leaves " +
+        "out rather than in what it says — and no reading commands general agreement. The casualty " +
+        "figures are the sharpest case: the numbers given for the enemy dead and enslaved are enormous, " +
+        "they cannot be checked against anything, and few historians now take them at face value. " +
+        "Modern readers should also be told plainly that what is described in places is the destruction " +
+        "of whole peoples, reported by the man who ordered it and in the same even tone as a march.",
+      "One device is worth knowing before the first page. Caesar never says \"I\": he refers to " +
+        "himself throughout in the third person, as \"Caesar\", so the man giving the orders arrives on " +
+        "the page as a figure being described by somebody else. The effect is of a plain report rather " +
+        "than a memoir, which is exactly the effect intended. A second thing is not a device at all: " +
+        "the eighth and last book is not by Caesar. He left the work unfinished, and it was completed " +
+        "after his death by Aulus Hirtius, one of his officers, who says so himself in the covering " +
+        "letter to Balbus that opens the book — it stands here as its own numbered chapter at the head " +
+        "of book 8. Hirtius went on to be consul in 43 BCE and was killed in battle that year. His " +
+        "Latin is a careful imitation and not quite the same thing, and the difference is audible.",
+      "Gaius Julius Caesar was born in 100 BCE into an old but unremarkable patrician family, and was " +
+        "past forty and deep in debt when he took the Gallic command in 58. The war made him: it gave " +
+        "him nine years of victories, a fortune in plunder and an army loyal to him personally, and " +
+        "when the senate ordered him to give up that army in 49 he crossed the Rubicon instead. He won " +
+        "the civil war that followed, was made dictator, and was murdered in the senate house in March " +
+        "44 BCE by a conspiracy of senators. The Gallic War is therefore the record of the campaigns " +
+        "that put an end to the Roman republic, written by their commander while they were happening " +
+        "and before anyone, himself included, knew what they would lead to.",
+      "The translation here is W. A. McDevitte and W. S. Bohn's, published by Harper and Brothers, and " +
+        "the Latin beside it is T. Rice Holmes's Oxford text of 1914 — Holmes being the scholar who " +
+        "spent much of his life on this campaign and wrote the standard narrative of it. The small " +
+        "raised figures running through both columns are CHAPTER numbers, and they are how any passage " +
+        "of Caesar is cited in any language: \"Caesar, Gallic War 1.29\" means book 1, chapter 29. " +
+        "Measured over the whole work, the two editions agree exactly — 404 chapters on each side, the " +
+        "same numbers in the same order in all eight books, with nothing missing on either side and no " +
+        "duplicates — which makes this the most cleanly paired text on these shelves after the Art of " +
+        "War, and that one is a facing-page edition where a single editor numbered both columns at " +
+        "once. Editions divide a chapter into finer numbered sections as well; those are not used for " +
+        "pairing, and this English does not print them at all. This edition carries almost no notes: " +
+        "one, on a disputed numeral.",
+    ],
+
+    /* ---------- PROSE IN BOOKS OF NUMBERED CHAPTERS: the sixth layout, second outing ----------
+       Herodotus's shape exactly, and the reason it needed no new reader — see the block above
+       teiBookChapters. A Folio chapter is one of the eight books, the pairing runs on the CHAPTER
+       numbers inside it, and the Latin's finer `section` divisions are concatenated into the chapter
+       the way Leopold's are into a chapter of the Meditations.
+
+       MEASURED over both editions before any of it was believed, and this is the cleanest result the
+       shelf has had from two independently-edited texts: 8 books on each side; 404 chapters on each
+       side, with identical numbers in identical order in every one of the eight books; no duplicates
+       and no gaps; and not one chapter number carrying a letter, so none of the Nicomachean Ethics'
+       or Herodotus's `data-n` sort-key trouble arises here. The two columns simply agree.
+
+       The asymmetry is in the SUBDIVISION rather than the numbering. Holmes's Latin divides its 404
+       chapters into 2,150 numbered sections; this English divides them into none at all, printing one
+       paragraph per chapter. That costs nothing, because the chapter is the pairing unit on both
+       sides and the Latin's sections are concatenated into it — but it is why the Latin column reads
+       as several paragraphs against the English column's one, which is a fact about the two editions
+       and not a rendering fault.
+
+       BOOK 8 OPENS ON A CHAPTER 0 in both editions, and it is not an off-by-one: it is Hirtius's
+       covering letter to Balbus, which every edition prints before chapter 1 and numbers apart from
+       the war it introduces. Both columns carry it and it pairs like any other chapter.
+
+       THREE ELEMENTS THIS EDITION CARRIES that Herodotus's did not, all checked before the run:
+       · the Latin's eight `<head>`s ("COMMENTARIUS PRIMUS" and so on) sit between the book division
+         and its first chapter, and teiBookChapters slices from the first chapter, so they fall
+         outside every slice and need no `dropHeads`. That is worth stating because it is luck of the
+         markup rather than design, and a future edition that puts its head INSIDE chapter 1 would
+         need the rule the Meditations has.
+       · the Latin's two `<sic>` elements stand BARE — there is no `<choice>` and no `<corr>` anywhere
+         in either file — so the generic sweep unwraps them and keeps the reading the edition prints,
+         which is right: a bare `<sic>` is the editor saying the manuscript says this odd thing, not
+         offering a correction to prefer instead.
+       · the English's one `<list>` is Caesar's census of the Helvetii at 1.29, and it needed a rule
+         in teiInline, where it is described at length. Left alone it flattened into the sentence
+         after it.
+       Perseus's name-authority `<reg>`, which put a modern Turkish gazetteer entry inside the first
+       sentence of the Histories, does NOT occur here: this file's revision log records it converted
+       to an attribute in 2016, and a count over both files confirms zero. */
+    source: "tei",
+    url: "https://raw.githubusercontent.com/PerseusDL/canonical-latinLit/master/data/phi0448/phi001/phi0448.phi001.perseus-eng2.xml",
+    layout: "chaptered",
+    chapterWord: "Book",
+    // eight is the whole work, the last of them Hirtius's; checked against the file on every run
+    chapters: Array.from({ length: 8 }, (_, i) => i + 1),
+    /* No `titleOf`. The Latin heads its eight books COMMENTARIUS PRIMUS to OCTAVUS, which is "book
+       one" to "book eight" and no more of a title than the Meditations' "BOOK I"; the English heads
+       them with nothing at all. So they are Book 1 to Book 8, and composing "The Helvetian Campaign"
+       for book 1 would be an apparatus this work does not have. Said in the front matter instead. */
+
+    original: {
+      lang: "la",
+      langName: "Latin",
+      source: "tei",
+      layout: "chaptered",
+      edition: "C. Iuli Caesaris Commentarii Rerum in Gallia Gestarum VII, A. Hirti Commentarius VIII, edited by T. Rice Holmes, Scriptorum Classicorum Bibliotheca Oxoniensis, Clarendon Press, Oxford, 1914",
+      rights:
+        "Public domain on both grounds. Caesar wrote the work in Latin in the 50s BCE, so the words " +
+        "themselves have been out of copyright for as long as copyright has existed. The text printed " +
+        "here is the Oxford Classical Text edited by T. Rice Holmes and published in 1914 — before " +
+        "1929, so its United States copyright has expired — and Holmes lived from 1855 to 1933, so it " +
+        "is also public domain wherever the term is the editor's life plus seventy years or more. The " +
+        "digital edition is prepared by the Perseus Digital Library at Tufts University and is " +
+        "released under a Creative Commons Attribution-ShareAlike 4.0 International licence.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0448.phi001/",
+      url: "https://raw.githubusercontent.com/PerseusDL/canonical-latinLit/master/data/phi0448/phi001/phi0448.phi001.perseus-lat2.xml",
+    },
+  },
+
+  "thucydides-peloponnesian-war": {
+    title: "The History of the Peloponnesian War",
+    /* NOT the work's own Greek title, which is the one thing it cannot be. Thucydides' history and
+       Herodotus's are both Ἱστορίαι, and Herodotus is already on this shelf under that subtitle — two
+       books labelled identically in Greek is precisely the confusion a subtitle exists to prevent. So
+       this one is descriptive, which is well precedented here (Seneca's "Moral Letters to Lucilius",
+       Sun Tzu's "The Oldest Military Treatise in the World", the Republic's "An Ideal Commonwealth"). */
+    subtitle: "The War between Athens and Sparta",
+    author: "Thucydides",
+    translator: "Richard Crawley",
+    edition: "The History of the Peloponnesian War, translated by Richard Crawley, London, 1874",
+    written: "c. 431–400 BCE",
+
+    /* ---------- THE LICENCE, and it is the easiest kind: nothing here needs qualifying ----------
+       Three layers and all three are long expired. Thucydides wrote in Greek in the fifth century BCE.
+       Richard Crawley's translation was published in 1874 and he lived from 1840 to 1893 — dates
+       looked up rather than recalled, for the Hugo Magnus reason — so it is public domain on the
+       pre-1929 publication rule, on life-plus-seventy, and on life-plus-a-hundred alike. The Greek
+       beside it is Henry Stuart Jones's Oxford Classical Text, whose own Perseus header gives it as
+       published in 1910 and reprinted in 1942; Stuart Jones lived from 1867 to 1939, so it clears
+       both rules too. This is the Republic's and the Analects' position — a licence with no limit to
+       state, unlike Giles's (in copyright in life-plus-seventy countries until 2029) and Ross's
+       (until 2042).
+
+       ONE THING IS WORTH SAYING PRECISELY, because the reprint date is the sort of figure that looks
+       like a problem: the 1942 Oxford text is the same Stuart Jones edition with an apparatus by
+       J. E. Powell added, and it is the TEXT that is imported here, not the apparatus. The file
+       states the 1910 publication itself, which is the ground relied on.
+
+       The modern translations a reader is likeliest to own — Rex Warner's Penguin (1954), Steven
+       Lattimore's (1998) and Jeremy Mynott's Cambridge (2013), along with the Landmark Thucydides
+       (1996), which prints a revised Crawley with modern maps and notes that are themselves in
+       copyright — are all firmly in copyright and are named here for the reason Campbell, Hays,
+       Griffith, Lee, Humphries, de Sélincourt and Handford are named above: so that nobody reaches
+       for one later. What is imported is Crawley's own 1874 text, not the Landmark's revision of it. */
+    rights:
+      "Public domain on every ground, with nothing left to qualify. Thucydides wrote the work in " +
+      "Greek in the fifth century BCE. Richard Crawley's translation was published in 1874 and he " +
+      "lived from 1840 to 1893, so it is out of copyright under the pre-1929 publication rule, " +
+      "wherever the term is the translator's life plus seventy years, and wherever it is life plus a " +
+      "hundred. The Greek printed beside it is the Oxford Classical Text edited by Henry Stuart " +
+      "Jones, published in 1910 and reprinted with an apparatus by J. E. Powell in 1942; the text " +
+      "imported here is Stuart Jones's, not Powell's apparatus, and Stuart Jones lived from 1867 to " +
+      "1939, so it too is public domain on both rules. The digital edition of the Greek is prepared " +
+      "by the Perseus Digital Library at Tufts University and is released under a Creative Commons " +
+      "Attribution-ShareAlike 4.0 International licence. (The modern translations by Rex Warner, " +
+      "1954, Steven Lattimore, 1998, and Jeremy Mynott, 2013, are still in copyright and are not " +
+      "used here, and neither is the revised Crawley printed in the Landmark Thucydides of 1996.)",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/History_of_the_Peloponnesian_War",
+
+    /* THE FRONT MATTER — chapter 0. What a reader should be told before they start: what the war was
+       and how the book ends, who wrote it and why his exile matters, what he does with the speeches
+       (the single thing most likely to mislead a reader who takes them as transcripts), what is
+       famous in it, and what the two columns and the small figures are. Where the scholarship is
+       divided — on the speeches and on how the book was composed — it says so rather than picking a
+       side, as the Gallic War's does on the propaganda question. */
+    about: [
+      "<b>The History of the Peloponnesian War</b> is Thucydides' account of the war fought between " +
+        "Athens and Sparta, and the alliances each of them led, from 431 BCE until his narrative " +
+        "stops. The war itself ran to 404 and ended in the defeat of Athens; the book does not get " +
+        "there. It breaks off in the middle of a sentence in the year 411, unfinished, and no one " +
+        "knows why — the likeliest explanation is simply that its author died. A reader should know " +
+        "that before starting, because the ending is not an ending and arrives without warning.",
+      "Thucydides was an Athenian, born around 460 BCE into a wealthy family with property in Thrace. " +
+        "He caught the plague that devastated Athens in 430 and survived it, and he describes the " +
+        "symptoms with a precision that has kept doctors arguing about which disease it was ever " +
+        "since. In 424 he was elected general and given a command in the north; he failed to reach " +
+        "Amphipolis in time to stop the Spartan Brasidas taking it, and was exiled for twenty years. " +
+        "He says himself that the exile was useful to him, because it let him spend time on the " +
+        "Peloponnesian side and watch the war from both. It is one of the few times he mentions " +
+        "himself at all.",
+      "The method is the reason the book is still read, and Thucydides sets it out at the start. He " +
+        "will not put in the legendary and the marvellous, though he knows it makes for a better " +
+        "listen; what he wants is an accurate record of what happened, and he says plainly that it " +
+        "will be less of a pleasure to hear for it. He checked accounts against each other and found " +
+        "that eyewitnesses of the same event told it differently. He looked for causes underneath " +
+        "the stated ones — his own account of why the war began is that Sparta went to war because " +
+        "Athens had grown powerful and Sparta was afraid, which is not what either side said at the " +
+        "time. That habit of looking past the official reason for the real one is what later readers " +
+        "took from him.",
+      "The speeches are where a modern reader is most likely to go wrong. Roughly a quarter of the " +
+        "book is people making speeches — Pericles over the Athenian dead, the Athenian and Melian " +
+        "envoys arguing about whether justice means anything between unequal powers, generals before " +
+        "battles — and they are not transcripts. Thucydides says so: it was difficult to remember the " +
+        "exact words, so he has given what was called for on each occasion, keeping as close as he " +
+        "could to the general sense of what was really said. How much is the speaker and how much is " +
+        "Thucydides has been argued over for centuries and is not settled. A related question, the " +
+        "composition question, is likewise open: the eighth book contains no speeches at all and " +
+        "reads as though it was never revised, and scholars disagree about which parts were written " +
+        "when. Read the speeches as the best surviving argument about what was at stake, made by a " +
+        "writer who was present for some of it — not as a record of words anyone actually said.",
+      "What people remember from it: the funeral oration, in which Pericles tells the Athenians what " +
+        "their city is for; the plague arriving the next summer and the description of what it did to " +
+        "the city's morals as well as its bodies; the debate over what to do with the people of " +
+        "Mytilene, and the second ship sent to overtake the first; the Melian dialogue, where the " +
+        "Athenians tell a small neutral island that the strong do what they can and the weak suffer " +
+        "what they must, and then kill or enslave the population; and the expedition to Sicily in " +
+        "books six and seven, which is the finest sustained narrative in the work and ends in the " +
+        "destruction of an Athenian army and fleet. The book has been claimed since as the founding " +
+        "text of realist thinking about power, and is quoted freely in modern political argument; " +
+        "that reception is worth knowing about and is not the same thing as what the book says.",
+      "The translation here is Richard Crawley's, published in 1874 and still the version most " +
+        "English readers meet, and the Greek beside it is Henry Stuart Jones's Oxford text of 1910. " +
+        "The small raised figures running through both columns are CHAPTER numbers, and they are how " +
+        "any passage of Thucydides is cited in any language: \"Thucydides 2.34\" means book 2, " +
+        "chapter 34. Measured over the whole work before it was believed, the two editions agree " +
+        "almost exactly — 917 chapters in the Greek, running 1 to N in each of the eight books with " +
+        "no gaps, no duplicates and not one number carrying a letter, and 916 of them present in the " +
+        "English. The single exception is chapter 61 of book 8, where this transcription of Crawley " +
+        "simply omits the number: the prose is all there, folded into the chapter before it, so the " +
+        "Greek's 61 draws beside an empty cell rather than being quietly renumbered. Editions divide " +
+        "a chapter into finer numbered sections as well; those are not used for pairing here. This " +
+        "edition carries almost no notes — four in the whole history — so the chapters render with " +
+        "no note fold, as Ovid's, Lucretius's and the Analects' do.",
+    ],
+
+    /* ---------- A PLAIN WIKI TRANSCRIPTION IN BOOKS OF NUMBERED CHAPTERS ----------
+       Herodotus's and the Gallic War's shape — a work divided into BOOKS of numbered CHAPTERS, one
+       Folio chapter to a book — but reached down the wiki path rather than the TEI one, and it is the
+       first book here to combine the two: a Wikisource English against a Perseus TEI original.
+
+       WHY CRAWLEY AND NOT THE PERSEUS ENGLISH, which would have been less work and is the obvious
+       move. Perseus's English for Thucydides is Thomas Hobbes's translation of 1629, in the same
+       TEI/CTS encoding as the Greek — so it would have paired 917 against 917 by construction, out
+       of one source, needing no new code at all. It was measured and rejected on the reader's behalf:
+       Hobbes's English is seventeenth-century English, and the Library is a reading room. Crawley's
+       1874 version is the one most English readers actually meet, and the cost of taking it is one
+       missing chapter number in 917 (see the front matter) plus the three small rules below. That is
+       the Nicomachean Ethics' trade made in the other direction and for the same kind of reason: the
+       cleanest text to import is not always the one worth reading.
+
+       THREE THINGS THIS PAGE NEEDS THAT NO EARLIER WIKI BOOK DID, each described where it is
+       implemented in cleanBody:
+       · `body: "plain"` — this is not a proofread transcription of a scan, so there is no
+         .prp-pages-output wrapper and the old slice threw "no body" outright.
+       · `dropHeadings: true` — Crawley's summary headings fall BETWEEN numbered chapters, and
+         bookSections attaches an unmarked block to the section already open, so each one would print
+         at the foot of the chapter before it.
+       · `sections: "bookchapter"` — the chapter marks are wst-verse spans whose id is the full
+         citation, "2:34". None of the four older marker rules can read them.
+
+       MEASURED over both editions before any of it was believed: 8 books on each side; the Greek's
+       917 chapters run 1..N in every book with no gaps, no duplicates and no lettered numbers, so
+       none of Herodotus's or the Ethics' data-n trouble arises; the English carries 916 of them, in
+       order, with the single omission at 8.61 recorded rather than repaired. Notes: four reference
+       marks in the whole work. */
+    source: "wiki",
+    body: "plain",
+    dropHeadings: true,
+    sections: "bookchapter",
+    chapterWord: "Book",
+    page: (n) => "History of the Peloponnesian War/Book " + n,
+    chapters: Array.from({ length: 8 }, (_, i) => i + 1),
+    /* No `indexPage` and so no titleOf: the contents page lists the eight books as "Book 1" to
+       "Book 8" and gives them no names, exactly as the Meditations' and the Gallic War's do.
+       Composing "The Sicilian Expedition" for book 6 would be an apparatus this edition does not
+       have — the front matter says what is in them instead. */
+
+    original: {
+      lang: "grc",
+      langName: "Ancient Greek",
+      source: "tei",
+      layout: "chaptered",
+      edition: "Historiae, edited by Henry Stuart Jones, Oxford Classical Texts, Clarendon Press, Oxford, 1910",
+      rights:
+        "Public domain on both grounds. Thucydides wrote in Greek in the fifth century BCE, so the " +
+        "words themselves have been out of copyright for as long as copyright has existed. The text " +
+        "printed here is the Oxford Classical Text edited by Henry Stuart Jones and published in " +
+        "1910 — before 1929, so its United States copyright has expired — and Stuart Jones lived " +
+        "from 1867 to 1939, so it is also public domain wherever the term is the editor's life plus " +
+        "seventy years or more. The 1942 reprint of this text added an apparatus criticus by J. E. " +
+        "Powell; that apparatus is not part of what is imported here. The digital edition is " +
+        "prepared by the Perseus Digital Library at Tufts University and is released under a " +
+        "Creative Commons Attribution-ShareAlike 4.0 International licence.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0003.tlg001/",
+      url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0003/tlg001/tlg0003.tlg001.perseus-grc2.xml",
+    },
+  },
+  "aesop-fables": {
+    title: "Aesop's Fables",
+    /* The edition's own title page, which claims three hundred and prints three hundred and
+       thirteen. Kept as the subtitle because it is what the book calls itself and what its spine
+       says; the count is corrected in the front matter rather than in the title, where correcting
+       it would mean retitling somebody else's book. */
+    subtitle: "Three Hundred Æsop's Fables",
+    author: "Aesop",
+    translator: "George Fyler Townsend",
+    edition: "Three Hundred Æsop's Fables, translated by George Fyler Townsend, George Routledge and Sons, London, 1867",
+    written: "c. 6th century BCE, collected later",
+    /* Negative, and vaguer than any other sort key on the shelf, because the thing being dated is
+       not a book. Aesop is placed in the sixth century BCE by the ancient tradition; the collection
+       that carries his name was assembled and reassembled for the next two thousand years. -550
+       files him where the tradition puts the man, which is the only date the shelf can honestly
+       sort on. */
+    year: -550,
+
+    /* ---------- THE LICENCE, and it is the easiest class on the shelf ----------
+       The fourth book here needing no qualification of any kind, after the Republic, the Analects
+       and the Peloponnesian War. Both layers are long gone: the Greek is some twenty-five centuries
+       old, and Townsend published in 1867 and lived from 1814 to 1900 — dates looked up on Wikidata
+       rather than recalled, for the Hugo Magnus reason — so the translation clears the pre-1929
+       publication rule, life-plus-seventy (expired 1970) and life-plus-a-hundred (expired 2000)
+       alike. There is no limit to state as Giles's entry (in copyright in life-plus-seventy
+       countries until 2029) and Ross's (until 2042) have to, and no modern editorial layer as the
+       Histories and the Meditations' Greek carry: this is a scan of the printed book and nothing
+       has been added to it.
+
+       ONE FIGURE LOOKS LIKE A DISAGREEMENT AND IS NOT. The Wikisource header dates the translation
+       1867 and the scan's own index page gives the printing as 1887. Routledge reprinted Townsend
+       for decades and both are true of different objects — the translation's date and this copy's.
+       The date relied on is 1867 and the reprint is not asserted as anything else; either is
+       comfortably pre-1929 and the translator's death settles it in any case.
+
+       The modern translations a reader is likeliest to own — S. A. Handford's Penguin (1954), the
+       Temples' Penguin (1998) and Laura Gibbs's Oxford World's Classics (2002) — are all firmly in
+       copyright and are named here for the reason Campbell, Hays, Griffith, Lee, Humphries, de
+       Sélincourt, Handford and Warner are named above: so that nobody reaches for one later. */
+    rights:
+      "Public domain on every ground, with nothing left to qualify. The fables themselves are Greek " +
+      "and some twenty-five centuries old, so the words behind this book have been out of copyright " +
+      "for as long as copyright has existed. George Fyler Townsend's translation was published in " +
+      "1867 by George Routledge and Sons, and Townsend lived from 1814 to 1900 — so it is out of " +
+      "copyright under the pre-1929 publication rule, wherever the term is the translator's life " +
+      "plus seventy years, and wherever it is life plus a hundred. The scan this text is taken from " +
+      "is a Routledge reprint its own index page dates to 1887; the translation is the 1867 one " +
+      "either way. (The modern translations by S. A. Handford, 1954, Olivia and Robert Temple, 1998, " +
+      "and Laura Gibbs, 2002, are still in copyright and are not used here.)",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Three_Hundred_%C3%86sop%27s_Fables",
+
+    /* ---------- THE FRONT MATTER — chapter 0 ----------
+       What a reader should be told before they start, and here that is more than usual, because the
+       thing they have opened is not what its cover implies. It is not a book by an author; it is a
+       corpus, and the single most useful thing the front matter can do is say so. Then: who Aesop
+       was and how little of that is known, how the fables actually came down, what the morals are
+       and why they should be read with some suspicion, and finally what THIS edition is — the count
+       it gets wrong, the numbers it does not have, and why there is no Greek column. */
+    about: [
+      "<b>Aesop's Fables</b> is not a book somebody wrote. It is a collection — a few hundred very " +
+        "short stories, most of them about animals who talk, that were told in Greek for centuries " +
+        "before anyone gathered them up, and that have been gathered up differently by every editor " +
+        "since. No two collections contain quite the same fables in quite the same order, and none " +
+        "of them goes back to a manuscript by Aesop, because there was never one to go back to. " +
+        "What a reader is holding is one Victorian translator's arrangement of that corpus, which " +
+        "is the only kind of Aesop there is.",
+      "About Aesop himself almost nothing can be said with confidence. The ancient tradition makes " +
+        "him a slave in the sixth century BCE, ugly and clever, and has him killed by the people of " +
+        "Delphi. The earliest surviving mention is in Herodotus, who is also on this shelf: at 2.134 " +
+        "he calls Aesop a story-writer and a fellow-slave of the courtesan Rhodopis under a Samian " +
+        "master named Iadmon, and reports that the Delphians later paid compensation for killing " +
+        "him. That is roughly a century after Aesop is supposed to have lived, and it is the best " +
+        "evidence there is. A long comic <i>Life of Aesop</i> circulated in later antiquity and is " +
+        "plainly a folk tale rather than a biography. Scholars differ on whether there was a real " +
+        "man at the bottom of it or whether \"Aesop\" was simply the name Greeks attached to any " +
+        "fable, much as jokes attach themselves to whoever is famous; the question is open and this " +
+        "edition's own preface, written in 1867, takes a more confident view of it than the evidence " +
+        "now supports.",
+      "How the fables came down is worth knowing, because it explains why the collection has the " +
+        "shape it does. They began as things people said — a fable is an argument in disguise, and " +
+        "the ancient ones are quoted in court speeches and political rows rather than read for " +
+        "pleasure. Around 300 BCE Demetrius of Phalerum made a collection in Athens, which is lost. " +
+        "In the first century CE Phaedrus put fables into Latin verse and in the second Babrius put " +
+        "them into Greek verse, and both added and invented freely. Prose collections went on being " +
+        "copied and rearranged through the Byzantine centuries, one of them associated with the " +
+        "scholar Maximus Planudes around 1300. Caxton printed an English Aesop in 1484, La Fontaine " +
+        "turned the material into French verse in the seventeenth century, and translators have been " +
+        "reshuffling it ever since. Modern scholarship refers to a fable by its number in the index " +
+        "Ben Edwin Perry published in 1952, which is the first thing resembling a stable catalogue " +
+        "the corpus has ever had — and which came eighty-five years too late for this edition.",
+      "The morals deserve a word of warning. Most fables here end with a sentence telling you what " +
+        "they mean, and those sentences are not part of the story in the way the story is. Some are " +
+        "ancient, some were added by later editors, some are the translator's, and a good many fit " +
+        "the tale they are attached to only loosely — the moral of the fox and the grapes has been " +
+        "stated four different ways in four different centuries. They are also flatter than the " +
+        "fables. A fable works by leaving the reader to do the last step, and an appended moral does " +
+        "that step for them. Read them as part of the tradition rather than as the point of it, and " +
+        "notice how often the story is cannier than the lesson bolted to its end.",
+      "What people remember from it: the tortoise beating the hare, the fox deciding the grapes were " +
+        "sour, the boy who cried wolf, the ant and the grasshopper, the lion spared by a mouse and " +
+        "repaid, the dog that lost its dinner to its own reflection, the town mouse and the country " +
+        "mouse, the goose that laid golden eggs, the wolf in sheep's clothing. Several have become " +
+        "ordinary English idiom, which is the strongest thing that can be said about a book — that " +
+        "people use it without knowing they are quoting. They are very short and they are meant to " +
+        "be read a few at a time rather than straight through; a fable is a thing to stop after.",
+      "This edition is George Fyler Townsend's, published by Routledge in 1867 and, in his own words " +
+        "on the title page, literally translated from the Greek. Two things about it a reader should " +
+        "know. It is called <i>Three Hundred Æsop's Fables</i> and it prints <b>313</b>, counted " +
+        "here rather than taken on trust. And it numbers nothing at all: every fable is headed by " +
+        "its title and by nothing else, and the book's own index at the back files them " +
+        "alphabetically by title with a page number beside each. So the figures on the tabs here are " +
+        "simply the order the fables are printed in, supplied so that they can be navigated and " +
+        "cited — they are Folio's, not Townsend's. They earn their place chiefly because he gave " +
+        "five pairs of quite different fables the same name, so that two tabs read The Two Frogs and " +
+        "only the number tells them apart. There is no Greek column, and unlike every other book " +
+        "here that lacks one the reason lies on both sides at once: this English states no section " +
+        "numbers, and the Greek collections state none either — the standard text on Greek " +
+        "Wikisource is Émile Chambry's of 1927, which lists 359 fables alphabetically by their Greek " +
+        "titles with no numbering anywhere. Two unnumbered collections of different sizes in " +
+        "different orders have nothing to pair on, and matching them fable by fable would mean " +
+        "several hundred judgements made by eye, which is exactly the work that was tried and " +
+        "abandoned for the Meditations' Greek. Better to say so than to guess three hundred times.",
+    ],
+
+    /* ---------- ONE FABLE, ONE CHAPTER — 313 of them, the most on the shelf ----------
+       This is the Dialogues' shape taken to its limit: a chapter here is a whole separate WORK
+       rather than a division of one, and where Plato's volumes gave eleven of those, Townsend's
+       gives 313. It is also Seneca's shape — a collection of short independent pieces, each with
+       its own title, reached by tab — at two and a half times Seneca's 124, which the chapter
+       scroller was built for and handles.
+
+       IT WAS WEIGHED AGAINST GROUPING THEM, which is the obvious alternative and is wrong twice
+       over. Twenty-five fables to a chapter would give a tidy dozen tabs and a chapter you can read
+       in one sitting — but the divisions would be composed here, and this file's standing rule is
+       that a title is transcribed and never composed; and it would bury 313 titles inside twelve,
+       so that the one thing a reader of Aesop actually wants to do — find the one about the fox and
+       the grapes — could not be done from the contents at all. The fable is the unit the edition
+       itself uses, it is the unit the book's own index uses, and it is the unit a reader's saved
+       place should be measured in: "you were on The Fox and the Grapes" says something, where "38%
+       of the way through chapter 5" does not.
+
+       THE NUMBERS ARE OURS AND THE FRONT MATTER SAYS SO. The edition numbers nothing — measured, not
+       assumed: the fables carry titles and no figures, and the index at the back is alphabetical
+       with page numbers. What is written on the tabs is the ORDER the fables are printed in, which
+       is a fact about the edition rather than an invention about it, and it is stated as such on the
+       book's own first page. Below 640px the tab bar shows numbers alone, so a book of 313 chapters
+       cannot go without them; and Townsend's five repeated titles mean the number is the only thing
+       distinguishing two tabs even on a wide screen.
+
+       THE EDITION'S OWN FRONT MATTER IS NOT IMPORTED — its Preface, its Life of Æsop and its list of
+       illustrations. That is the Republic's precedent, where the 1901 printing's added introduction
+       was left behind and what was taken was the translation; here the ground is the same and one
+       more besides, that chapter 0 already covers the history in prose written for a reader now, and
+       Townsend's preface is confident about Aesop's biography in a way the evidence does not support.
+       Leaving it out costs the reader nothing and saves them being told something untrue. */
+    source: "wiki",
+    chapterWord: "Fable",
+    /* The only book here that has to lower the short-chapter guard, and the reason is simply that a
+       chapter is one paragraph. The shortest fable in the collection is 191 characters — fable 123,
+       The Wolf and the Shepherds, read against its own source page to be sure it was complete and
+       not truncated — where the shortest chapter in every other book on the shelf runs to
+       thousands. 120 sits below the shortest real fable and far above anything a failed extraction
+       produces, which is a handful of characters or none. */
+    minChars: 120,
+    page: (n) => "Three Hundred Æsop's Fables/" + AESOP_FABLES[n - 1],
+    titleOf: (n) => AESOP_TITLE(AESOP_FABLES[n - 1]),
+    chapters: Array.from({ length: AESOP_FABLES.length }, (_, i) => i + 1),
+    /* No `indexPage`: titleOf reads the table above, which was built from the contents page once.
+       No `parts` either — the edition prints the fables in one undivided run and gives them no
+       volumes, so app.js falls back to a single unlabelled group, as the Meditations, the Republic
+       and the Art of War do. */
+
+    /* THE SCAN'S OWN HEADS. Every fable page opens with the fable's title set in capitals, which by
+       the time dropHeads runs has become a <blockquote> — so left alone each of the 313 chapters
+       would open on a quotation of the title Folio has just printed above it, which is the
+       Meditations' running-head fault 313 times over. The first page carries two more, the
+       collection's half-title and the caption under its frontispiece, both in the same centred
+       block.
+
+       Matched on being ALL CAPITALS rather than on any particular wording, and that is the only
+       shape that can work here: the heads are 313 different strings, one per fable, so a list of
+       them would be the fable table written out a second time and free to fall out of step with it.
+       Capitals are safe in this edition because its prose is not set in them — Townsend's opening
+       words are small capitals, which arrive as ordinary case — and the pattern requires the WHOLE
+       block to be capitals, so a sentence merely beginning on a shout cannot match. Gated per book,
+       like every other dropHeads, so no shipped book can be touched by it. */
+    dropHeads: [/^[A-ZÆŒ][A-ZÆŒ0-9'’.,;:!?()\-— ]*$/],
+
+    /* No `sections`. There are no section numbers to find — see the front matter — so cleanBody's
+       marker rules are all left off and the chapters render with no <span class="bk-n"> at all,
+       which is correct and not a wiring fault. It is the first book here where that is true of the
+       ENGLISH: the Republic has no original either, but its English still carries Jowett's
+       paragraphs and this one carries nothing to number.
+
+       No `original`, and this is the second book on the shelf without one after the Republic — but
+       the first whose answer is no on BOTH sides. The Republic's Greek states Stephanus numbers and
+       it is Jowett who states none; here neither edition states anything, so there is not even a
+       column to align badly. The whole finding is in the front matter, where the reader can see it. */
+  },
+
+  "song-of-roland": {
+    title: "The Song of Roland",
+    /* No subtitle. The volume's title page carries none, and the work has no second name — the two
+       words are what it has been called in every language for nine hundred years. */
+    author: "Anonymous",
+    translator: "Charles Kenneth Scott Moncrieff",
+    edition: "The Song of Roland, translated by Charles Scott Moncrieff, Chapman & Hall, London, 1919",
+    written: "c. 1100",
+    /* The Oxford manuscript is dated on its handwriting to somewhere in the middle of the twelfth
+       century and the poem it copies is generally put around 1100 — a date argued from its language
+       and from what it seems to know of the First Crusade, not from anything the poem states. 1100
+       is the conventional figure and is the only one the shelf can honestly sort on; the front
+       matter says how loose it is. */
+    year: 1100,
+
+    /* ---------- THE LICENCE — three layers, and the middle one is the only one to think about ----------
+       The poem is around nine hundred years old and free everywhere. Bédier's constitution of the Old
+       French, which is the original column, was published 1920–1922 and he lived 1864–1938 — dates
+       looked up on Wikidata rather than recalled, for the Hugo Magnus reason. Scott Moncrieff's
+       English was published in 1919 and he lived 1889–1930, likewise checked.
+
+       SO IT IS THE THIRD BOOK HERE THAT MUST STATE A LIMIT AS WELL AS A GROUND, after the Art of War
+       (Giles, in copyright in life-plus-seventy countries until 2029) and the Nicomachean Ethics
+       (Ross, until 2042) — and the FIRST where the limit falls on BOTH columns rather than on one.
+       Both halves are public domain in the United States under the pre-1929 publication rule and
+       both are out of copyright wherever the term is the author's life plus seventy, which expired
+       in 2001 for Scott Moncrieff and in 2009 for Bédier. Neither has yet cleared life plus a
+       hundred, which runs to 2031 and 2039. The site's bar is that the copyright has expired and the
+       ground the rest of the shelf is served on is US publication before 1929; this meets that bar
+       on that ground, and the limit is said outright rather than smoothed into the sentence the
+       easier books use.
+
+       WHAT IS AND IS NOT TAKEN FROM THE VOLUME. Only the poem. Scott Moncrieff's 1919 book also
+       carries an introduction by G. K. Chesterton, who died in 1936, and a note on technique by
+       George Saintsbury, who died in 1933 — both later works by other hands, and neither is imported.
+       That is the Republic's precedent, where the 1901 printing's added introduction and its engraved
+       plates were left behind and what was taken was the translation.
+
+       The modern translations a reader is likeliest to own — Dorothy L. Sayers's Penguin of 1957,
+       Robert Harrison's of 1970, Frederick Goldin's of 1978, Gerard Brault's of 1978 and Glyn
+       Burgess's Penguin of 1990 — are all firmly in copyright and are named here for the reason
+       Campbell, Hays, Griffith, Lee, Humphries, de Sélincourt, Handford, Warner and the rest are
+       named above: so that nobody reaches for one later. */
+    rights:
+      "Public domain, with one limit worth stating. The poem itself is Old French and around nine " +
+      "hundred years old, so the words behind this book have been free for as long as copyright has " +
+      "existed. Charles Scott Moncrieff's translation was published in 1919 and he lived from 1889 " +
+      "to 1930; the Old French column is Joseph Bédier's text, published in 1920–1922, and he lived " +
+      "from 1864 to 1938. Both are therefore public domain in the United States under the pre-1929 " +
+      "publication rule, and both are out of copyright wherever the term is the author's life plus " +
+      "seventy years — which expired in 2001 for Scott Moncrieff and in 2009 for Bédier. In the few " +
+      "countries where the term is life plus a hundred they remain in copyright until 2031 and 2039. " +
+      "The volume's introduction by G. K. Chesterton and its note on technique by George Saintsbury " +
+      "are later works by other hands and are not reproduced here; what is taken is the poem. (The " +
+      "modern translations by Dorothy L. Sayers, 1957, Robert Harrison, 1970, Frederick Goldin, " +
+      "1978, Gerard Brault, 1978, and Glyn Burgess, 1990, are still in copyright and are not used.)",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/The_Song_of_Roland",
+
+    /* ---------- THE FRONT MATTER — chapter 0 ----------
+       What a reader needs before they start, and here the first thing is that the battle in the poem
+       did not happen the way the poem has it. Then: what a chanson de geste is and how this one was
+       performed, the manuscript and the name at the end of it, what the poem is remembered for, how
+       it portrays its enemies — which cannot be left unsaid — and finally what this edition is,
+       including the two misprinted numerals and why the tabs read the way they do. */
+    about: [
+      "<b>The Song of Roland</b> is the oldest major work of French literature and the finest of the " +
+        "<i>chansons de geste</i>, the songs of deeds that were sung in France from the eleventh " +
+        "century onwards. It tells how Charlemagne's rearguard, commanded by his nephew Roland, is " +
+        "betrayed to a Saracen army in a pass of the Pyrenees, how Roland refuses to sound his horn " +
+        "for help until it is too late, how he and every man with him is killed, and how the emperor " +
+        "returns to avenge them and to try the traitor. It is about four thousand lines long and it " +
+        "is, before anything else, a poem about loyalty — what a man owes his lord, his companions " +
+        "and his own name, and what it costs him to pay it.",
+      "The battle behind it was real and almost nothing else is. On 15 August 778 Charlemagne's army " +
+        "was withdrawing from a campaign in Spain when its rearguard was ambushed in the Pyrenees and " +
+        "destroyed. Einhard, writing the emperor's life some fifty years later, names three of the " +
+        "dead, among them a <i>Hruodlandus</i> who was warden of the Breton March — one line, and it " +
+        "is the whole of what history knows of Roland. The attackers in Einhard's account are " +
+        "Basques, Christian mountain people defending their own country, and the raid was a small " +
+        "disaster in a campaign that had gone badly. Three centuries later the poem has turned the " +
+        "Basques into a Saracen host of hundreds of thousands, the skirmish into a holy war, and a " +
+        "dead margrave into the emperor's nephew and the greatest knight in the world. Watching an " +
+        "ambush become an epic is one of the best-documented cases we have of how legend works on " +
+        "fact.",
+      "It was made to be performed rather than read, and its shape is the shape of performance. The " +
+        "lines are decasyllables, and they are grouped into <i>laisses</i> — stanzas of anything from " +
+        "half a dozen lines to thirty-odd — which are held together not by rhyme but by " +
+        "<b>assonance</b>: every line in a laisse ends on the same stressed vowel, and the next " +
+        "laisse takes a new one. A singer could hold a stanza as long as the sense wanted and change " +
+        "vowel when he turned to something new, and a listener heard each stanza as a block of sound. " +
+        "The poet also uses the form to do something a modern narrative would not dare: he tells the " +
+        "same moment two or three times over in successive laisses, each on a different vowel, " +
+        "circling a death or a decision rather than moving past it. Those are called <i>laisses " +
+        "similaires</i>, and they are not repetition by accident. Many laisses in the manuscript end " +
+        "with the letters <b>AOI</b>, whose meaning nobody has established in two hundred years of " +
+        "trying.",
+      "The poem survives in several versions and the one everybody means is the Oxford manuscript, " +
+        "Bodleian Digby 23 — an unassuming twelfth-century copy in Anglo-Norman, the oldest, the " +
+        "shortest and much the best. It is the only one in assonance; the later versions rhyme, and " +
+        "pad. Its last line says that here ends the <i>geste</i> that <b>Turoldus</b> " +
+        "<i>declinet</i> — a verb that might mean composed, or recited, or copied out, of a man about " +
+        "whom nothing else is known. Whether Turoldus wrote the poem, performed it or merely wrote it " +
+        "down is the oldest unsettled question in French literature, and it is why this book is " +
+        "shelved as anonymous. What can be said is that the Oxford text is the work of someone with a " +
+        "very sure ear, and that the poem was famous early: a Norman chronicler writing about a " +
+        "century after Hastings says a <i>cantilena Rollandi</i> was sung before the army as it " +
+        "advanced.",
+      "What people remember from it: Oliver seeing the Saracen host from the hill and begging Roland " +
+        "to blow the oliphant, and Roland refusing three times; the line that sums the two of them up, " +
+        "that Roland is brave and Oliver is wise; Archbishop Turpin absolving the whole rearguard and " +
+        "then fighting beside them; Roland blowing the horn at last so hard that he bursts the veins " +
+        "of his temple; his attempt to break his sword Durendal on the rock so that no pagan shall " +
+        "have it, and the stone splitting instead of the blade; his death on the hill facing Spain, " +
+        "having offered his glove up to God; Charlemagne holding back the sun to finish the pursuit; " +
+        "and Aude, who is Oliver's sister and Roland's betrothed, being offered the emperor's own son " +
+        "instead and falling dead at his feet without another word. The poem ends not in triumph but " +
+        "with an exhausted old emperor called to yet another war, weeping and pulling his beard.",
+      "One thing has to be said plainly, because a reader meets it in the first hundred lines. The " +
+        "poem's Saracens are not Muslims as Muslims are or were: they worship an idolatrous trinity " +
+        "of Mahumet, Tervagant and Apollin, they keep images in a crypt and beat them when they lose, " +
+        "and they exist to be killed or converted. That is not a report of Islam but a Christian " +
+        "fantasy of it, composed in the years around the First Crusade by someone who had almost " +
+        "certainly never met a Muslim, and it sits at the centre of a poem of real moral seriousness " +
+        "about courage, friendship and the cost of pride. Both things are true of it at once, and " +
+        "reading it well means holding them together rather than choosing one — it is a document of " +
+        "how medieval Christian Europe imagined its enemies, and it is one of the great poems.",
+      "This edition is Charles Scott Moncrieff's, published by Chapman & Hall in 1919 — the same " +
+        "translator who would shortly begin the English Proust. He renders the poem line for line and " +
+        "keeps the assonance, which almost nobody attempts, and the result is strange and stiff and " +
+        "much closer to the sound of the original than a smoother version would be. Beside it is the " +
+        "Old French, in Joseph Bédier's text of 1920–1922, the standard edition for a century and a " +
+        "conservative one — Bédier set out to print what the Oxford scribe wrote rather than to " +
+        "reconstruct what the poet might have. The two are paired on the <b>laisse number</b>, which " +
+        "is how any passage of the poem is cited in any language, and they agree on all <b>291</b> of " +
+        "them. Two numerals are misprinted and both are left visible in this note rather than " +
+        "corrected in silence: Scott Moncrieff's page 87 prints laisse 135 as CXXXXV, an X too many, " +
+        "and Bédier's laisse 286 appears as CCXXXVI, having lost an L. Each is read as the place the " +
+        "sequence puts it. Neither edition divides the poem above the laisse — there are no parts, " +
+        "books or cantos in either — so the laisse is what the tabs here count, and a chapter is " +
+        "therefore short, a median of thirteen lines. That is the poem's own unit and not a " +
+        "convenience: a chanson de geste was sung one laisse at a time, and stopping at the end of " +
+        "one is what it was built for.",
+    ],
+
+    /* ---------- ONE PAGE, 291 CHAPTERS — the shape that is new here ----------
+       Every other wiki book on the shelf is a walk of pages, one per chapter. Both halves of this one
+       are transcribed whole onto a single page per language, so the chapters are cut rather than
+       fetched — see the LAISSES block above for how, and for why the French is cut at its <hr>
+       separators rather than at its numerals. */
+    source: "wiki",
+    layout: "laisses",
+    onePage: "The Song of Roland/The Song of Roland",
+    chapterWord: "Laisse",
+    chapters: Array.from({ length: 291 }, (_, i) => i + 1),
+    /* The second book after Aesop to lower the short-chapter guard, and for the same reason: the
+       guard catches an extraction that has returned wiki furniture instead of text, and 200
+       characters is a broken chapter only where a chapter is a book of Herodotus. The shortest
+       laisse in this translation is four lines and 230 characters of prose — measured over all 291,
+       not assumed — and its Old French is 206. 150 sits below both and far above anything a failed
+       extraction produces, which is a handful of characters or none. */
+    minChars: 150,
+    /* No `titleOf` and no `indexPage`: the laisses have no names in either edition, so the tabs read
+       "Laisse 1", "Laisse 2" and so on, which is the whole of what the editions state about them.
+       Composing 291 descriptive headings for a poet who gave none is the line the Meditations' entry
+       draws. No `parts` either — neither edition divides the poem above the laisse, so app.js falls
+       back to a single unlabelled group, as the Meditations, the Republic and the Art of War do. */
+
+    original: {
+      lang: "fro",
+      langName: "Old French",
+      edition: "La Chanson de Roland, edited by Joseph Bédier, L'Édition d'Art H. Piazza, Paris, 1920–1922",
+      rights:
+        "The poem is Old French and around nine hundred years old. Joseph Bédier's edition of it was " +
+        "published in 1920–1922 and he lived from 1864 to 1938, so his text is public domain in the " +
+        "United States under the pre-1929 publication rule and out of copyright wherever the term is " +
+        "life plus seventy years, which expired in 2009; where the term is life plus a hundred it " +
+        "runs until 2039. Bédier's own facing modern-French translation is not reproduced here — what " +
+        "is taken is his Old French text.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://fr.wikisource.org/wiki/La_Chanson_de_Roland/Joseph_B%C3%A9dier",
+      wiki: "fr.wikisource.org",
+      layout: "laisses",
+      /* Bédier's own bilingual presentation, in the six pages Wikisource divides it into. Those
+         divisions are the wiki's, not the edition's, and they are used only to fetch: the laisses are
+         cut at the <hr> between one and the next and numbered straight through 1–291, so where the
+         page boundaries fall makes no difference to what is written out. */
+      pages: [
+        "La Chanson de Roland/Joseph Bédier/La Chanson de Roland/Sequence/001-050",
+        "La Chanson de Roland/Joseph Bédier/La Chanson de Roland/Sequence/051-100",
+        "La Chanson de Roland/Joseph Bédier/La Chanson de Roland/Sequence/101-150",
+        "La Chanson de Roland/Joseph Bédier/La Chanson de Roland/Sequence/151-200",
+        "La Chanson de Roland/Joseph Bédier/La Chanson de Roland/Sequence/201-250",
+        "La Chanson de Roland/Joseph Bédier/La Chanson de Roland/Sequence/251-291",
+      ],
+    },
+  },
+
+  "euripides-medea": {
+    title: "Medea",
+    // the play's own Greek title, which is what its Greek column is an edition of — the pattern
+    // Lucretius set and the Oedipus Rex followed
+    subtitle: "Μήδεια",
+    author: "Euripides",
+    translator: "Edward P. Coleridge",
+    edition: "The Plays of Euripides, Volume 1, George Bell and Sons, London, 1906",
+    written: "431 BCE",
+
+    /* ---------- THE LICENCE, and it is the THIRD here to state a limit as well as a ground ----------
+       The Art of War states one for Giles (in copyright where the term is life plus seventy until
+       2029) and the Nicomachean Ethics for Ross (until 2042). This is the third, and the limit falls
+       on the GREEK rather than on the English, which is a first — everywhere else on the shelf the
+       original is the older and easier half.
+
+       Both columns are public domain in the United States on the ground the shelf uses most: Edward
+       Coleridge's translation was published by George Bell and Sons in 1906 and Gilbert Murray's
+       Oxford Classical Text at the Clarendon Press in 1902, both long before 1929. Where they part
+       company is on the author's-life rules. Coleridge died in 1936, so his English has been public
+       domain on life-plus-seventy since 2007. MURRAY DIED IN 1957, so his Greek remains in copyright
+       where the term is life plus seventy — the United Kingdom and the European Union among them —
+       until 2028, and where it is life plus a hundred until 2058. Coleridge's own hundred-year term
+       runs to 2037.
+
+       BOTH DATES WERE CHECKED RATHER THAN RECALLED, against Wikisource's author pages, which give
+       Coleridge 1863–1936 and Murray 1866–1957: the Ovid entry's Hugo Magnus mistake was precisely a
+       death year asserted from memory to hold up a licence, and Murray's is the year the whole of this
+       paragraph turns on. It is said outright in `rights` and on the book's own front matter rather
+       than smoothed into the easier sentence the Oedipus Rex can honestly use, which is the judgement
+       Lucretius's entry states: claim less, and put on the page what cannot be said.
+
+       THERE WAS NO CLEANER GREEK TO REACH FOR, which is worth recording because the Ethics' entry
+       makes the opposite choice look available. There it was a real trade — Chase's 1847 English is
+       free everywhere and pairs on 18 of 181 pages, Ross's is limited and pairs on 173 of 173 — so the
+       licence question and the pairing question were decided together. Here Perseus carries exactly
+       one Greek Medea, Murray's; the older grc1 file does not exist. So the choice is this text or no
+       original at all, and a second column that pairs on 500 of the translation's 502 sections is
+       worth a stated limit that expires in two years.
+
+       The translations a reader is likeliest to own — Rex Warner's of 1944, Philip Vellacott's Penguin
+       of 1963 and Diane Arnson Svarlien's of 2008 — are all firmly in copyright, and are named here
+       for the reason Campbell, Hays, Griffith, Lee, Humphries, Melville, Brown, Fagles and de
+       Sélincourt are named above: so that nobody reaches for one. */
+    rights:
+      "Public domain in the United States, with one limit stated. Edward Coleridge's translation was " +
+      "published in London in 1906 and Gilbert Murray's Greek text at Oxford in 1902, both before " +
+      "1929, so the copyright in both has expired in the United States. Coleridge died in 1936, so " +
+      "his English is also public domain everywhere the term is the author's life plus seventy years " +
+      "or less. Murray, however, died in 1957, so the Greek beside it remains in copyright where the " +
+      "term is life plus seventy — including the United Kingdom and the European Union — until 2028. " +
+      "Euripides wrote the play in Athens some twenty-five centuries ago. The digital editions of " +
+      "both texts are prepared by the Perseus Digital Library at Tufts University and are released " +
+      "under a Creative Commons Attribution-ShareAlike 4.0 International licence. (The modern " +
+      "translations by Rex Warner, 1944, Philip Vellacott, 1963, and Diane Arnson Svarlien, 2008, are " +
+      "still in copyright and are not used here.)",
+    sourceName: "Perseus Digital Library",
+    sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0006.tlg003/",
+
+    /* THE FRONT MATTER — chapter 0. Five things a reader should be told before they start rather than
+       work out late: what happens and how little of the play is the thing it is famous for, what
+       Euripides appears to have changed and why the argument about it is still live, what the parts
+       and the chorus are, what is known about the first performance, and what the two columns, the
+       small figures and the notes running through them are. */
+    about: [
+      "<b>Medea</b> was staged in Athens in 431 BCE, and it is the Greek tragedy that modern readers " +
+        "argue about most. Jason has brought Medea back from the far edge of the Black Sea, where she " +
+        "betrayed her father and killed her brother to win him the Golden Fleece; the two have been " +
+        "living as exiles in Corinth with their two sons. The play opens on the morning after Jason " +
+        "has married the Corinthian king's daughter. Medea is to be banished the same day, and she " +
+        "asks for one more, which she is given. What she does with it is the play. The famous part of " +
+        "the story occupies a few minutes at the end; almost all of what comes before is argument — " +
+        "with the king, with Jason, with a visiting king of Athens, with the chorus, and at the " +
+        "centre of it a long speech in which she argues with herself.",
+      "Euripides seems to have made the worst of it up, and the ancient evidence for that is thin " +
+        "enough to keep the question open. Older versions of the story have the children killed by " +
+        "the Corinthians or dying by accident; commentators in antiquity say Euripides was the one " +
+        "who had their mother do it deliberately, and some of them add that Corinth paid him to shift " +
+        "the blame. What is not in doubt is what the play does with the act. Medea is given the " +
+        "clearest arguments in it, and she uses them on her own position — she is a foreigner nobody " +
+        "will shelter, a wife discarded once her usefulness ended, and she says so in a speech about " +
+        "the lives of women that is quoted far more often than anything else in the play. The chorus " +
+        "hears her plan and does not stop her. She is neither punished nor forgiven at the end, which " +
+        "is the part that unsettles people.",
+      "It is written in the shape every Athenian tragedy uses, and this edition marks it: spoken " +
+        "scenes alternating with odes sung and danced by a chorus, here of Corinthian women, who are " +
+        "characters in the story as well as commentators on it. Folio's parts follow the edition's " +
+        "own divisions and its own labels for them — a spoken part is an <i>episode</i> and a sung " +
+        "one a <i>choral ode</i>, thirteen in all. Elsewhere you will meet a more precise set of " +
+        "names for the same divisions: prologue for the opening scene, parodos for the chorus's " +
+        "entrance song, stasimon for each ode after it, and exodos for the final scene. Those are the " +
+        "standard analysis and they are worth knowing, but they are not the words this edition uses, " +
+        "so they are not used here.",
+      "Unusually for a Greek play, the date of the first performance is recorded rather than " +
+        "reconstructed: the spring of 431 BCE, at the festival of Dionysus, a few months before the " +
+        "war between Athens and Sparta began. It came third of three, which is last. Euripides lived " +
+        "from about 480 to 406 BCE and wrote some ninety plays, of which about nineteen survive whole " +
+        "— far more than either of the other two great tragedians, largely because a volume of them " +
+        "seems to have come through the Middle Ages by luck rather than by choice. He won the first " +
+        "prize only a handful of times in his life and became the most read and most performed of the " +
+        "three within a generation of his death.",
+      "The translation here is Edward Coleridge's of 1906 and the Greek beside it is Gilbert Murray's " +
+        "Oxford text of 1902. The small raised figures running through both columns are LINE numbers " +
+        "of the Greek, which is how any passage of a tragedy is cited in any language: Coleridge " +
+        "translates into prose and numbers the line each block of it begins at, while Murray's verse " +
+        "numbers every line, and a figure appearing in both columns marks the same place in the play. " +
+        "Three things about the page are differences between the editions rather than faults in it. " +
+        "The italic stage directions are the English edition's: the ancient text records none, and " +
+        "every one printed in a modern edition is its editor's inference from what the characters " +
+        "say, which is why the Greek column beside them is blank. The numbered notes are the English " +
+        "edition's too — Coleridge's own, on the manuscript readings he follows, and Perseus's, on " +
+        "the handful of places where this translation parts company with Murray's Greek over who " +
+        "speaks a line. And two of the five hundred and two English passages draw beside an empty " +
+        "Greek cell, both in Part 12, where the children are heard crying out inside the house: " +
+        "Murray runs those lines together and gives them to the two boys speaking at once, so the " +
+        "numbers beside them do not stand alone on his side. The notes on those lines say so, which " +
+        "is the tidiest answer this shelf has yet had to a blank cell.",
+    ],
+
+    /* ---------- A PLAY: the same shape as the Oedipus Rex, and it needed no new reader ----------
+       The second play here, and the Gallic War's lesson repeated one layout along: a shape already met
+       costs nothing to meet again. Both of these files divide the work with `subtype="episode"` and
+       `subtype="choral"` at the top level and nest everything else — the strophe, antistrophe,
+       anapests and epode of each ode — inside them, which is exactly what teiDramaDivisions selects.
+
+       MEASURED OVER THE WHOLE PLAY BEFORE ANY OF IT WAS BELIEVED: 13 divisions on each side, of the
+       same kinds, in the same order, opening at the same 13 lines; 502 English sections, of which 500
+       draw Greek beside them and 2 do not; and no number in the Greek that the English has not got,
+       which is the direction that would signal a misread. All of it is re-checked against the files on
+       every run rather than resting on this comment.
+
+       THE TWO EMPTY CELLS ARE EXPLAINED BY THE EDITION'S OWN NOTES, which is a first here and worth
+       saying. The Oedipus Rex's three unpaired lines are simply places where Jebb constitutes the text
+       differently from Storr, recorded and left alone; these two — 1271 and 1273, both in Part 12, at
+       the moment the children are heard from inside the house — are places where Murray's Greek runs
+       two of the translation's lines together and gives them to both children speaking at once, so
+       neither number stands alone on that side. Perseus's notes on those very lines say so, and the
+       notes now ship, so a reader who meets the blank cell finds the reason a marker away.
+
+       WHAT IS NEW IS THE APPARATUS, and it is why the drama reader changed. The Oedipus Rex prints no
+       notes; this edition prints 38, and the reader was stripping them. See dramaNotes for the lift,
+       for the empty marker carrying its own target, and for the seven of them that stand between two
+       lines and had to be attached to the line before.
+
+       AND <del> IS LIVE HERE AND CHANGES NOTHING, which is the thing Lucretius's entry says to measure
+       rather than assume. The English carries two and the Greek eleven, and — unlike the Oedipus Rex's
+       single one, which wrapped a whole line and took the English from 684 sections to 683 — not one
+       of these thirteen wraps a whole line. Every one sits inside a line, so dropping them with their
+       words shortens thirteen lines and removes no section from either column. */
+    source: "tei",
+    url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0006/tlg003/tlg0006.tlg003.perseus-eng2.xml",
+    layout: "drama",
+    /* "Part" is Folio's own neutral word for a division, as it is for the Oedipus Rex: this edition
+       numbers its divisions not at all, and an act is a later theatre's unit a Greek tragedy has not
+       got. The number is Folio's; the NAME of each part is the edition's. */
+    chapterWord: "Part",
+    // thirteen is what the edition divides the play into, and is checked against the file on every run
+    chapters: Array.from({ length: 13 }, (_, i) => i + 1),
+
+    original: {
+      lang: "grc",
+      langName: "Greek",
+      source: "tei",
+      layout: "drama",
+      edition: "Gilbert Murray, Euripidis Fabulae, Volume 1, Clarendon Press, Oxford, 1902",
+      rights:
+        "Two layers, and the first of them carries a limit. Euripides wrote the play in Greek in the " +
+        "fifth century BCE, so the words themselves are in the public domain everywhere. The text " +
+        "printed here is Gilbert Murray's of 1902, published well before 1929 and so public domain in " +
+        "the United States — but Murray died in 1957, so his edition remains in copyright where the " +
+        "term is the author's life plus seventy years, including the United Kingdom and the European " +
+        "Union, until 2028. The digital edition is prepared by the Perseus Digital Library at Tufts " +
+        "University and is released under a Creative Commons Attribution-ShareAlike 4.0 " +
+        "International licence.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0006.tlg003/",
+      url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0006/tlg003/tlg0006.tlg003.perseus-grc2.xml",
+    },
+  },
+
+  "sophocles-antigone": {
+    title: "Antigone",
+    // the play's own Greek title, which is what its Greek column is an edition of — the pattern
+    // Lucretius set and both earlier plays followed
+    subtitle: "Ἀντιγόνη",
+    author: "Sophocles",
+    translator: "Richard Jebb",
+    edition: "Sophocles: The Plays and Fragments, Volume 3, Cambridge University Press, 1891",
+    /* NOT the Oedipus Rex's volume, and the difference is worth stating rather than copying across:
+       that book is Jebb's volume 1 of 1887 and this is his volume 3 of 1891, the same commentary
+       series a few years on. A second book by an author already on the shelf is exactly where an
+       edition line gets inherited by hand and quietly made wrong. */
+    written: "c. 441 BCE",
+
+    /* ---------- THE LICENCE, and it is the OEDIPUS REX'S PLUS ONE LAYER ----------
+       The two columns are the easy case twice over, and then there is a third thing that has to be
+       said out loud, which is why this entry is longer than its sibling's.
+
+       THE TWO PRINTED EDITIONS. Richard Jebb published this translation at Cambridge in 1891 and died
+       in 1905; Francis Storr's Greek is the 1912 Loeb — the same volume the Oedipus Rex takes its
+       Greek from, since Storr's first volume holds Oedipus the King, Oedipus at Colonus and Antigone
+       together — and Storr died in 1919. So both clear the pre-1929 publication rule, life plus
+       seventy, and life plus a hundred, and neither needs the limit the Art of War states for Giles
+       (2029), the Nicomachean Ethics for Ross (2042), the Song of Roland for both its columns, or the
+       Medea for Murray (2028). BOTH YEARS WERE CHECKED RATHER THAN RECALLED, against Wikisource's
+       author pages, which give Jebb 1841–1905 and Storr 1839–1919: the Ovid entry's Hugo Magnus
+       mistake was precisely a death year asserted from memory to hold up a licence. The play beneath
+       them was written in Athens about twenty-five centuries ago.
+
+       AND THE THIRD LAYER, WHICH IS THE HERODOTUS CASE A SECOND TIME. Everywhere else on this shelf
+       Perseus's contribution is the DIGITAL edition over a printed text left as its editor set it.
+       Here, as with Godley's Herodotus, they have also edited the PROSE: this English is Jebb
+       MODERNIZED TO REMOVE ARCHAISMS, by Pierre Habel in 1988, reviewed by John Gibert, which the
+       source file states in its own header — its subtitle is "Modernized by Perseus" — and which is
+       quoted here rather than paraphrased into something softer. That is a recent derivative work
+       carried by CC BY-SA 4.0 rather than by an expiry, so it is stated in `rights`, in the book's
+       own front matter and here, exactly as the Histories' entry sets out. A reader who goes looking
+       for the 1891 printing must not be surprised by what they find.
+
+       THE SHIPPED OEDIPUS REX CARRIES THE SAME LAYER AND ITS RIGHTS STRING DID NOT SAY SO — found by
+       running this check across the shelf's other two plays rather than only on the book being added,
+       which is the sibling-consistency check the citation plans keep prescribing. That file's header
+       records the same 1988 modernization, by Alex Sens rather than Habel and reviewed by the same
+       John Gibert, and its `rights` called the book "public domain on every ground, in both columns"
+       with no mention of it. Corrected in the same commit as this book landed. (Coleridge's Medea
+       carries no such note — checked, not assumed — so the Medea's entry is right as it stands.)
+
+       The translations a reader is likeliest to own — Dudley Fitts and Robert Fitzgerald's of 1939,
+       Elizabeth Wyckoff's of 1954, Robert Fagles's of 1982 and Anne Carson's Antigonick of 2012 — are
+       all firmly in copyright, and are named here for the reason Campbell, Hays, Griffith, Lee,
+       Humphries, Melville, Brown, Warner and de Sélincourt are named above: so that nobody reaches
+       for one. */
+    rights:
+      "Public domain in both columns, with one addition stated. Richard Jebb's translation was " +
+      "published at Cambridge in 1891 and Jebb died in 1905; the Greek beside it is Francis Storr's " +
+      "text of 1912, and Storr died in 1919. Both are therefore public domain in the United States on " +
+      "the pre-1929 publication rule and everywhere the term is the author's life plus a hundred " +
+      "years or less. Sophocles wrote the play in Athens some twenty-five centuries ago. The English " +
+      "printed here is not quite Jebb's page, however: it is his translation modernized to remove " +
+      "archaisms, by Pierre Habel in 1988 and reviewed by John Gibert, which the source file records " +
+      "in its own header. That editing is a recent work rather than an expired one, and it — with the " +
+      "digital editions of both texts — is prepared by the Perseus Digital Library at Tufts " +
+      "University and released under a Creative Commons Attribution-ShareAlike 4.0 International " +
+      "licence. (The modern translations by Dudley Fitts and Robert Fitzgerald, 1939, Elizabeth " +
+      "Wyckoff, 1954, and Robert Fagles, 1982, are still in copyright and are not used here.)",
+    sourceName: "Perseus Digital Library",
+    sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0011.tlg002/",
+
+    /* THE FRONT MATTER — chapter 0. Five things a reader should be told before they start rather than
+       work out late: what the situation is and how quickly it is set up, what the argument at the
+       centre of it actually is and why it is still argued about, what the parts and the chorus are,
+       what is and is not known about the date and where the play sits among Sophocles' other two on
+       the same family, and what the two columns, the small figures and the italic directions are —
+       including the modernization, which belongs on the page and not only in a licence string. */
+    about: [
+      "<b>Antigone</b> is a tragedy staged in Athens in the fifth century BCE, and its situation is " +
+        "set up in the first two minutes. Thebes has survived a siege; the two brothers who led the " +
+        "two sides, Eteocles and Polyneices, have killed each other; and Creon, their uncle and now " +
+        "the city's ruler, has buried one with full honours and forbidden anyone to bury the other, " +
+        "on pain of death. Antigone, sister to both, tells her sister Ismene that she intends to bury " +
+        "him anyway. She is caught doing it, and the rest of the play is what follows from two people " +
+        "who will not move: Creon condemns her, and by the time he is talked out of it he has lost " +
+        "his son, his wife and any reason to go on living.",
+      "What the play is famous for is that both of them have a case, and it does not adjudicate. " +
+        "Creon is not a tyrant when the play opens — he is a new ruler with a city just out of a " +
+        "civil war, and his argument is that a state which honours its attackers has no claim on " +
+        "anyone's loyalty. Antigone's is that the obligation to bury her brother is older than any " +
+        "decree and not the city's to withdraw. The play gives each of them the strongest form of " +
+        "their own position and then shows what it costs to hold it without bending; the chorus, " +
+        "asked to take a side, mostly declines. That symmetry is why the philosopher Hegel used it as " +
+        "his central example of tragedy as a collision between two goods rather than between right " +
+        "and wrong, and why the play has been staged as a political argument in almost every " +
+        "generation since.",
+      "It is written in the shape every Athenian tragedy uses, and this edition marks it: spoken " +
+        "scenes alternating with odes sung and danced by a chorus, here of Theban elders, who are " +
+        "characters in the story as well as commentators on it. Folio's parts follow the edition's " +
+        "own divisions and its own labels for them — a spoken part is an <i>episode</i> and a sung " +
+        "one a <i>choral ode</i>, sixteen in all. Elsewhere you will meet a more precise set of names " +
+        "for the same divisions: prologue for the opening scene, parodos for the chorus's entrance " +
+        "song, stasimon for each ode after it, and exodos for the final scene. Those are the standard " +
+        "analysis and they are worth knowing, but they are not the words this edition uses, so they " +
+        "are not used here. Part 4 is the ode beginning \"Wonders are many, and none is more " +
+        "wonderful than man\", which is the most quoted chorus in Greek tragedy.",
+      "The date is not recorded. It is usually put at about 441 BCE on the strength of an ancient " +
+        "note which says Sophocles was elected general on the back of the play's success — he did " +
+        "hold that office around then — but that is a story told about the play rather than a record " +
+        "of its performance, and it is worth treating as tradition. What is clearer is where it sits " +
+        "among his work: Sophocles wrote three plays about this family, and <i>Antigone</i> came " +
+        "first, some twelve years before <i>Oedipus Rex</i> and more than thirty before " +
+        "<i>Oedipus at Colonus</i>. They are not a trilogy and were not composed in their story's " +
+        "order, which is why details differ between them. Sophocles lived from about 496 to 406 BCE, " +
+        "wrote some hundred and twenty plays of which seven survive whole, and served Athens as a " +
+        "treasurer and a general.",
+      "The translation here is Richard Jebb's of 1891 and the Greek beside it is Francis Storr's " +
+        "text of 1912. One thing about the English should be said plainly: it is not quite Jebb's " +
+        "page. The Perseus Digital Library, which prepared both texts, also modernized this " +
+        "translation in 1988 to remove archaisms, so the wording is Jebb's revised rather than Jebb's " +
+        "as printed. The small raised figures running through both columns are LINE numbers of the " +
+        "Greek, which is how any passage of a tragedy is cited in any language: Jebb translates into " +
+        "prose and numbers the line each block of it begins at, while Storr's verse numbers every " +
+        "line, and a figure appearing in both columns marks the same place in the play. Two further " +
+        "differences between the editions are visible on the page. The italic stage directions are " +
+        "the English edition's — the ancient text records none, and every one printed in a modern " +
+        "edition is its editor's inference from what the characters say, which is why the Greek " +
+        "column beside them is blank. And the Greek tells two messengers apart where the English " +
+        "calls both of them simply Messenger.",
+    ],
+
+    /* ---------- A PLAY: the drama layout a THIRD time, and it needed no new reader ----------
+       The Medea's entry recorded that a shape already met costs nothing to meet again, and this is
+       that a second time: all three of these files divide the work with `subtype="episode"` and
+       `subtype="choral"` at the top level and nest the strophe and antistrophe of each ode inside
+       them, which is exactly what teiDramaDivisions selects.
+
+       MEASURED OVER THE WHOLE PLAY BEFORE ANY OF IT WAS BELIEVED, against both files rather than
+       against this comment, and re-checked on every run: 16 divisions on each side, of the same kinds
+       in the same order; 299 speeches on each side; and the Greek running 1 to 1353 against the
+       English's 513 numbered blocks.
+
+       IT IS THE CLEANEST PAIRING OF THE THREE PLAYS: 513 of 513 sections pair and NOT ONE draws an
+       empty Greek cell, where the Oedipus Rex leaves three of 683 unpaired and the Medea two of 502.
+       So this is the first drama here with no table of exceptions to state, and the front matter says
+       nothing about empty cells because there are none to explain.
+
+       THE ONE DIVERGENCE IS A SINGLE LINE NUMBER, AND IT COSTS THE PAGE NOTHING — which is worth
+       writing down precisely, because the warning it raises on every run looks like a fault and is
+       not. Fifteen of the sixteen divisions open at the same line on both sides; the fourth opens at
+       332 in Jebb and 333 in Storr, which is the first line of the ode on man. Both editions carry
+       the ode and neither loses a word of it — they simply number its opening line differently — and
+       because the pairing is a RANGE test rather than an equality one (a Greek line joins the English
+       block whose range contains its own number) the Greek's 333 falls inside the English's 332 block
+       and the row draws with both columns filled. Confirmed by the run, not merely predicted here:
+       513 of 513. The divergence is reported rather than smoothed away, as the Oedipus Rex's three
+       unpaired lines and the Nicomachean Ethics' three repeated Bekker pages are.
+
+       THIS EDITION PRINTS NO NOTES AT ALL — measured, zero in the whole English body, as the Oedipus
+       Rex's prints none — so the book renders with no note fold, which is correct and not a wiring
+       fault. dramaNotes is still run over it and reports anything that ever appears.
+
+       AND <del> IS LIVE AND CHANGES NOTHING, which is the thing Lucretius' entry says to measure
+       rather than assume. The English carries five and the Greek none, and — unlike the Oedipus Rex's
+       single one, which wrapped a whole line and took that play from 684 sections to 683 — not one of
+       the five wraps a whole line. Every one sits inside a line, so dropping them with their words
+       shortens five lines and removes no section from either column. That is the Medea's finding a
+       second time, and it is why the rule is measured per book instead of being carried over.
+
+       ONE MORE THING THE GREEK NEEDS AND THE ENGLISH DOES NOT: five of Storr's line numbers carry a
+       letter (161b, 323a, 1048a, 1261a, 1284a) where none of Jebb's does, so the `data-n` sort key
+       lineSortKey writes is doing real work on this book's original column — 323 and 323a are two
+       different places, and parseInt would collapse them into one row and take the ordering with it. */
+    source: "tei",
+    url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0011/tlg002/tlg0011.tlg002.perseus-eng2.xml",
+    layout: "drama",
+    /* "Part" is Folio's own neutral word for a division, as it is for both earlier plays: this
+       edition numbers its divisions not at all, and an act is a later theatre's unit a Greek tragedy
+       has not got. The number is Folio's; the NAME of each part is the edition's. */
+    chapterWord: "Part",
+    // sixteen is what the edition divides the play into, and is checked against the file on every run
+    chapters: Array.from({ length: 16 }, (_, i) => i + 1),
+
+    original: {
+      lang: "grc",
+      langName: "Greek",
+      source: "tei",
+      layout: "drama",
+      edition: "Francis Storr, Loeb Classical Library, William Heinemann, London, 1912",
+      rights:
+        "Two layers, both stated, and neither carries a limit. Sophocles wrote the play in Greek in " +
+        "the fifth century BCE, so the words themselves are in the public domain everywhere. The text " +
+        "printed here is Francis Storr's of 1912, published before 1929 and so public domain in the " +
+        "United States, and Storr died in 1919, so it is equally free where the term is the author's " +
+        "life plus seventy or a hundred years. The digital edition is prepared by the Perseus Digital " +
+        "Library at Tufts University and is released under a Creative Commons Attribution-ShareAlike " +
+        "4.0 International licence.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0011.tlg002/",
+      url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0011/tlg002/tlg0011.tlg002.perseus-grc2.xml",
+    },
+  },
+
+  "epic-of-gilgamesh": {
+    title: "The Epic of Gilgamesh",
+    /* No subtitle. Thompson's title page reads "The Epic of Gilgamish", with his transliteration of
+       the name, and the entry keeps his spelling wherever it quotes his edition — but the book is
+       shelved under the spelling every reader will look for. Both are on its own first page. */
+    author: "Anonymous",
+    translator: "R. Campbell Thompson",
+    edition:
+      "The Epic of Gilgamish: A New Translation from a Collation of the Cuneiform Tablets in the " +
+      "British Museum, Rendered Literally into English Hexameters, Luzac & Co., London, 1928",
+    written: "c. 1200 BCE",
+    /* The standard twelve-tablet version Thompson translates was put together somewhere around
+       1200 BCE out of poems already six or seven centuries old, and the copies we read it from were
+       written later still. No date is stated anywhere by the text; this is the conventional figure
+       for the version in front of the reader and the only one the shelf can honestly sort on, which
+       is the Song of Roland's position exactly. How loose it is is said on the book's own page. */
+    year: -1200,
+
+    /* ---------- THE LICENCE — one layer, and it needs a limit stated ----------
+       The poem is between three and four thousand years old and free everywhere; the only modern
+       layer is Thompson's translation. Published in London in 1928 and Thompson lived 1876–1941 —
+       dates looked up on Wikidata rather than recalled, for the Hugo Magnus reason.
+
+       SO IT IS THE FIFTH BOOK HERE TO STATE A LIMIT AS WELL AS A GROUND, after the Art of War
+       (Giles, 2029), the Nicomachean Ethics (Ross, 2042), the Song of Roland (both columns, 2031 and
+       2039) and the Medea (Murray, 2028). It is public domain in the United States — a foreign work
+       published in 1928, whose 95-year term expired at the start of 2024 — and out of copyright
+       wherever the term is the author's life plus seventy, which expired at the start of 2012. Where
+       the term is life plus a hundred it runs until 2042.
+
+       WHAT IS AND IS NOT TAKEN. The twelve tablets. Thompson's own preface is left behind, as the
+       Republic's added introduction and the Song of Roland's Chesterton essay were — what the reader
+       needs before starting is said in the book's own front matter, in Folio's voice, and a 1928
+       preface addressed to Assyriologists is not that.
+
+       The modern translations a reader is likeliest to own — Nancy Sandars's Penguin of 1960, Maureen
+       Gallery Kovacs's of 1989, Andrew George's Penguin of 1999, Benjamin Foster's Norton of 2001 and
+       Stephen Mitchell's version of 2004 — are all firmly in copyright and are named here for the
+       reason Campbell, Hays, Griffith, Lee, Humphries, de Sélincourt, Handford, Warner and the rest
+       are named above: so that nobody reaches for one later. George's is the standard scholarly text
+       and is the one to buy; it is not one to copy. */
+    rights:
+      "Public domain, with one limit worth stating. The poem itself is Babylonian and some three " +
+      "thousand years old, so the words behind this book have been free for as long as copyright has " +
+      "existed. The only modern layer is the translation: R. Campbell Thompson published it in London " +
+      "in 1928 and lived from 1876 to 1941. It is therefore public domain in the United States, where " +
+      "the term for a work published in 1928 expired at the start of 2024, and out of copyright " +
+      "wherever the term is the author's life plus seventy years, which expired at the start of 2012. " +
+      "In the few countries where the term is life plus a hundred it remains in copyright until 2042. " +
+      "Thompson's own preface is not reproduced here; what is taken is the twelve tablets. (The modern " +
+      "translations by N. K. Sandars, 1960, Maureen Gallery Kovacs, 1989, Andrew George, 1999, " +
+      "Benjamin Foster, 2001, and Stephen Mitchell, 2004, are still in copyright and are not used.)",
+    /* THE FIRST BOOK HERE FROM NEITHER WIKISOURCE NOR PERSEUS, and the block above extractTablets is
+       where the reasoning lives: both of the shelf's usual sources hold about a sixth of this poem
+       between them, and the Internet Archive's scan of the 1928 volume has an OCR layer missing a
+       third of it. The transcriber is named because a transcription is work, and because a reader
+       who wants to check this text against the printed page should be told which copy they are
+       reading. */
+    sourceName: "Global Grey",
+    sourceUrl: "https://www.globalgreyebooks.com/epic-of-gilgamesh-ebook.html",
+    source: "html",
+    layout: "tablets",
+    url: "https://www.globalgreyebooks.com/online-ebooks/reginald-campbell-thompson_epic-of-gilgamesh_complete-text.html",
+    chapterWord: "Tablet",
+    chapters: Array.from({ length: 12 }, (_, i) => i + 1),
+    /* The tablets have names in this edition — Thompson heads each with a line saying what happens in
+       it — so the tabs carry them and nothing is composed here. `titleOf` is therefore absent: the
+       titles are read off the headings by extractTablets, which is the only book on the shelf that
+       takes them from the text itself rather than from a contents page or an entry in this file.
+
+       No `parts`. The edition divides the poem into tablets and nothing above them, so the Contents
+       panel falls back to a single unlabelled group, as the Meditations', the Republic's, the Art of
+       War's, Aesop's and the Song of Roland's do.
+
+       The floor stays at the default 200: the shortest tablet here is the Eighth, and even that runs
+       to several thousand characters, so nothing about this book needs the lower guard Aesop and the
+       Song of Roland set. */
+
+    /* ---------- NO ORIGINAL COLUMN, AND THE REASON IS NOT THE USUAL ONE ----------
+       Every other book without a facing original fails the shelf's own test — does the text say which
+       section each passage is? The Republic's Jowett states no Stephanus numbers; neither of Aesop's
+       two collections numbers anything at all. Gilgamesh fails one step earlier, and it is worth
+       being precise about where.
+
+       The original is Akkadian written in cuneiform on tablets that are broken. There is no edition
+       of it in the sense the rest of this shelf means: what exists is a transliteration assembled
+       from dozens of fragments, and the assembling is itself the scholarship. The standard one is
+       Andrew George's of 2003 and it is in copyright. The Electronic Text Corpus of Sumerian
+       Literature carries the five SUMERIAN Gilgamesh poems, which are a different and older set of
+       texts rather than this poem in its original words. The electronic Babylonian Library carries
+       the Akkadian and licenses it for non-commercial use, which is not a licence this site can build
+       on and, more to the point, is not an expired copyright.
+
+       So a book that is one of the two or three most famous poems in the world ships in translation
+       alone, and its own front matter says why — a reader who goes looking for the Akkadian should
+       find the reason rather than the absence, which is the Republic's judgement in a harder case. */
+
+    /* ---------- THE FRONT MATTER — chapter 0 ----------
+       What a reader needs before they start. The poem first and at length, because most people
+       arriving here know the name and one anecdote; then the thing that makes it unlike anything else
+       on this shelf, which is that it was lost for two and a half thousand years and had to be dug
+       up; then how broken it is, which governs every page they are about to read; then this
+       translation, its age, and what its brackets and dots mean; and last the two absences a reader
+       will notice — no Akkadian column and no twelfth-tablet continuity. */
+    about: [
+      "<b>The Epic of Gilgamesh</b> is the oldest great poem in the world. It was written in " +
+        "Akkadian, the language of Babylon and Assyria, on clay tablets in cuneiform, and the version " +
+        "translated here was assembled around 1200 BCE out of Sumerian poems already six or seven " +
+        "hundred years older. That makes it older than the <i>Iliad</i> by something like five " +
+        "centuries and older than the Hebrew Bible by more. It tells of Gilgamesh, king of Uruk, a " +
+        "tyrant two-thirds divine whom the gods check by creating his equal — Enkidu, a wild man of " +
+        "the steppe who lives among the animals until a woman brings him into the human world. The two " +
+        "fight, become inseparable, and go together to kill the guardian of the cedar forest and then " +
+        "the Bull of Heaven. For that the gods take Enkidu's life, and the second half of the poem is " +
+        "about what his death does to the man left behind.",
+      "It is, in the end, a poem about refusing to accept mortality and having to accept it anyway. " +
+        "Gilgamesh goes out to the ends of the earth looking for Uta-Napishtim, the one man granted " +
+        "eternal life, and what he is given is not a cure but a story: the account of the Flood, which " +
+        "stands in the Eleventh Tablet and is the most famous passage in the book. A god warns one " +
+        "man, who builds a boat, loads it with his family and the animals, rides out a deluge that " +
+        "drowns the world, grounds on a mountain and sends out birds to find dry land. It was read for " +
+        "the first time in the modern world in 1872, and the resemblance to Noah was immediately " +
+        "obvious to everyone who heard it — a discovery that changed how the Book of Genesis was read " +
+        "and has been argued about ever since.",
+      "That date matters, because this poem's history is unlike that of anything else on this shelf. " +
+        "Homer, Plato and Herodotus were copied by hand in an unbroken line from antiquity to the " +
+        "printing press and have never once been out of the world's hands. Gilgamesh was. Its language " +
+        "died, its script became unreadable, and the poem was completely lost for something like two " +
+        "and a half thousand years — until the palace library of Ashurbanipal at Nineveh was excavated " +
+        "in the 1850s and its tablets shipped to the British Museum, where George Smith, a former " +
+        "banknote engraver who had taught himself cuneiform, recognised the Flood story among them. " +
+        "Everything in this book has been recovered within the last hundred and seventy years, and " +
+        "fragments are still being identified now.",
+      "Which is why it is full of holes, and a reader should know that before opening it rather than " +
+        "be puzzled by it. The tablets are broken. Lines are chipped away, whole columns are missing, " +
+        "and some of the joins between one episode and the next are simply gone. Thompson prints what " +
+        "the clay carries and marks everything else: rows of dots are lacunae, words in square " +
+        "brackets are his restorations of damaged text, a bracketed question mark means he is not sure " +
+        "of a reading, and the notes in round brackets between passages tell you roughly how much is " +
+        "lost and what is thought to have stood there. None of this is damage to the edition — it is " +
+        "the edition being honest, and reading around the gaps is part of reading this poem at all.",
+      "The translation is R. Campbell Thompson's of 1928, the first complete scholarly English " +
+        "version, made directly from the tablets in the British Museum and set out in long verse " +
+        "lines. It is nearly a century old, and that shows in two ways worth knowing. Its English is " +
+        "of its period — 'twas, hallow'd, thou — and it renders names in the older forms Gilgamish and " +
+        "Uta-Napishtim where a modern book writes Gilgamesh and Utnapishtim. And a great deal of clay " +
+        "has been found since: Andrew George's edition of 2003 is fuller and more accurate, and is the " +
+        "translation to buy if you want the current state of the text. What Thompson offers is a " +
+        "complete, careful, public-domain rendering by a scholar working from the originals, and the " +
+        "poem's power survives the archaisms easily.",
+      "Two absences to explain. There is no facing Akkadian column here, unlike most books on this " +
+        "shelf, and the reason is not that the original is unavailable but that it barely exists as a " +
+        "settled text: what scholars work from is a transliteration pieced together from scattered " +
+        "fragments, the piecing-together is itself modern scholarship, and every such edition is " +
+        "either in copyright or licensed in a way this site cannot build on. And the Twelfth Tablet " +
+        "does not continue the story — it is a partial translation of a separate Sumerian poem, " +
+        "appended to the epic in antiquity, in which Enkidu is alive again and describes the " +
+        "underworld. It contradicts the ending of the Eleventh Tablet, most modern editions print it " +
+        "as an appendix for that reason, and it is included here because Thompson's edition includes " +
+        "it and because it is genuinely part of what the ancient scribes handed down.",
+    ],
   },
 };
 
@@ -1713,6 +3793,10 @@ async function fetchText(url) {
    something it does not own). */
 const ALLOWED = new Set(["p", "i", "b", "em", "strong", "br", "blockquote", "sup", "span", "q", "cite"]);
 
+/* The HTML elements that never carry a closing tag. `br` is handled a line or two below on its own,
+   because it is the one void element this extractor KEEPS. */
+const VOID_TAGS = new Set(["area", "base", "col", "embed", "hr", "img", "input",
+                           "link", "meta", "param", "source", "track", "wbr"]);
 function stripTags(b) {
   const out = [];
   const stack = [];
@@ -1724,6 +3808,28 @@ function stripTags(b) {
     pos = rx.lastIndex;
     const closing = !!m[1], name = m[2].toLowerCase(), attrs = m[3] || "";
     if (name === "br") { if (!closing) out.push("<br>"); continue; }
+    /* A VOID ELEMENT HAS NO CLOSER, AND PUSHING ONE ONTO THE STACK EATS SOMEBODY ELSE'S (Aug 2026,
+       adding Aesop's Fables — the first book here whose illustrations survive as far as this pass).
+       Everything not in ALLOWED is unwrapped by pushing a kept:false frame and waiting for the
+       matching closer; an <img> or an <hr> never sends one, so its frame sits on top of the stack
+       for the rest of the chapter and every subsequent closer is compared against IT, matches
+       nothing, and is DROPPED. Townsend's frontispiece is an <img> inside a <p> inside the centred
+       block that heads his first fable, so the </p> went, then the </div> that closed the block —
+       and the whole of fable 1 rendered inside a <blockquote> that never closed.
+
+       It fails the quiet way this file keeps meeting: nothing throws, not one word is lost, the
+       chapter is exactly the right length, and only the indent gives it away. `br` was already
+       special-cased above, which is why no earlier book met it.
+
+       MEASURED BEFORE IT WAS FIXED, over every shipped chapter of all fifteen books and all
+       fourteen originals: <p>, <blockquote>, <i>, <b> and <q> balance exactly everywhere, and the
+       only imbalance anywhere on the shelf was this one chapter. So no shipped file can change —
+       which was then confirmed byte-for-byte rather than left as an argument, the extractor being
+       shared and the check this file's own history prescribes.
+
+       Both tests are needed and neither implies the other: XHTML-style `<img ... />` announces
+       itself with the slash, while MediaWiki emits a bare `<hr class="...">` with none. */
+    if (!closing && (VOID_TAGS.has(name) || /\/>$/.test(m[0]))) continue;
     if (closing) {
       if (stack.length && stack[stack.length - 1].name === name) {
         const kept = stack.pop().kept;
@@ -1805,9 +3911,53 @@ function markLeadingSections(b, warn) {
 
 function cleanBody(h, noteIds, book, warn) {
   let b = h.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<!--[\s\S]*?-->/g, "");
-  const i = b.indexOf('<div class="prp-pages-output"');
+  /* WHERE THE TEXT STARTS, and until Thucydides there was only one answer (Aug 2026). Every wiki book
+     before it is a PROOFREAD transcription — a transcription of a scan, page by page, transcluded into
+     the chapter page, which MediaWiki wraps in .prp-pages-output. Crawley's Peloponnesian War is not
+     one: it is a plain transcription typed straight onto the page, with no scan behind it and so no
+     wrapper at all, so the indexOf below returned -1 and threw "no body" on a page carrying the whole
+     of Book 1. The fallback is the parser's own container, which every MediaWiki page has.
+
+     It is GATED on `body: "plain"` rather than simply tried when the wrapper is missing, and that is
+     the whole care in it: on a proofread page the parser container exists TOO and sits OUTSIDE the
+     transclusion wrapper, so an automatic fallback would widen the slice of any of the four books
+     already shipped on the day Wikisource next moves its markup — taking the navigation furniture in
+     with the text, which is the quiet failure the ws-noexport rule below exists to undo. Ungated it
+     cannot fire at all; gated it can only fire on a book that asks for it. Its opening tag is dropped
+     for the same reason the wrapper's is below: left standing, the container that holds the whole book
+     becomes a blockquote OF the whole book. */
+  let i = b.indexOf('<div class="prp-pages-output"');
+  if (i < 0 && book && book.body === "plain") {
+    const m = /<div class="[^"]*\bmw-parser-output\b[^"]*"[^>]*>/.exec(b);
+    if (m) { i = m.index; b = b.slice(0, m.index) + b.slice(m.index + m[0].length); }
+  }
   if (i < 0) throw new Error("no body");
   b = b.slice(i);
+  /* THE WIKI'S OWN FURNITURE, WHEN IT FALLS INSIDE THE SLICE (Aug 2026, adding The Prince).
+     Every earlier book's page puts MediaWiki's navigation header — the ← previous / next → block with
+     the work's title, its author and translator, and the scan pages this chapter covers — OUTSIDE
+     .prp-pages-output, so the slice above has always dropped it for free. This transcription puts the
+     transclusion wrapper first and the header inside it, and the failure is the quiet one: nothing
+     throws, no prose is lost, and every chapter simply opens on a quotation of its own bibliographic
+     header, the previous chapter's title included.
+
+     Wikisource marks exactly this furniture with `ws-noexport` — the class means "not part of the
+     exported text", which is precisely the question being asked here — so the rule is the page's own
+     rather than a guess about its wording, in the same spirit as the Republic's unnumbered-leaf rule.
+     Removal is BALANCED (blockEnd) because the header nests four divs deep and a non-greedy match
+     would take the opener and leave the rest of it standing.
+
+     Scoped to DIVs deliberately: `ws-noexport` also sits on the zero-width span inside every page
+     marker, which the pass below already removes and which is not a block. Verified byte-for-byte
+     against the shipped Seneca, Meditations, Symposium and Republic chapters, where no such div falls
+     inside the slice and this does nothing at all. */
+  for (let k = 0; k < 8; k++) {
+    const m = /<div class="[^"]*\bws-noexport\b[^"]*"[^>]*>/.exec(b);
+    if (!m) break;
+    const end = blockEnd(b, m.index, "div");
+    if (end < 0) break;
+    b = b.slice(0, m.index) + b.slice(end);
+  }
   /* Drop the WRAPPER's own opening tag before the generic div→blockquote pass below, which would
      otherwise turn the container that holds the whole letter into a quotation of the whole letter —
      every paragraph indented behind a rule and set in italic, which is not what Seneca is doing. Its
@@ -1836,7 +3986,38 @@ function cleanBody(h, noteIds, book, warn) {
      note count is right, and only a reader scrolling to the foot of a book meets a wall of "↑ cp.
      Epict. i. 2" where the last section should be. The Footnotes heading is taken as a boundary too —
      MediaWiki emits it whatever the reflist is dressed as, so the two guards fail independently. */
-  b = b.split(/<div class="reflist|<hr class="wst-rule"|<div class="mw-heading[^"]*"><h2 id="Footnotes"/)[0];
+  /* …and `<ol class="references"` is a fourth boundary, for the same reason the Footnotes heading is a
+     second one: the guards have to fail independently. MediaWiki wraps that list in a reflist div
+     wherever a page asks for one, and The Prince's chapters do not ask — they carry the bare list, so
+     none of the three older patterns fires and the whole apparatus arrives appended to the text as
+     prose. That is the Meditations' fault again (the chapter comes through LONGER rather than shorter,
+     so every count reads as healthy), and it costs nothing on a page that has the wrapper, since the
+     wrapper opens before the list it contains. */
+  b = b.split(/<div class="reflist|<hr class="wst-rule"|<ol class="references"|<div class="mw-heading[^"]*"><h2 id="Footnotes"/)[0];
+  /* THE TRANSCRIPTION'S OWN SECTION HEADINGS, dropped like a running head and for a sharper reason
+     (Aug 2026, adding the Peloponnesian War). Crawley's books are broken up by summary headings — "The
+     State of Greece from the earliest Times to the Commencement of the Peloponnesian War" and four
+     more in Book 1 alone — which arrive as .mw-heading divs and would become BLOCKQUOTES under the
+     generic div pass below, standing between the chapters as indented quotations of themselves. That
+     much is the Meditations' running-head fault again.
+
+     What settles it is the pairing rather than the styling. These headings fall BETWEEN numbered
+     chapters, and app.js's bookSections attaches a block carrying no marker to the section already
+     open — so every heading would render at the FOOT of the chapter before it, pointing backwards at
+     the text it does not describe rather than forwards at the text it does. A signpost placed at the
+     wrong end of the road is worse than no signpost, the Greek edition beside it prints none, and
+     composing a proper place for them would be building an apparatus this edition does not have.
+     Removal is BALANCED, because the heading div wraps an h2 and an edit link. Gated per book, like
+     dropHeads: a heading worth dropping in this transcription is a heading worth keeping in another. */
+  if (book && book.dropHeadings) {
+    for (let k = 0; k < 400; k++) {
+      const m = /<div class="[^"]*\bmw-heading\b[^"]*"[^>]*>/.exec(b);
+      if (!m) break;
+      const end = blockEnd(b, m.index, "div");
+      if (end < 0) break;
+      b = b.slice(0, m.index) + b.slice(end);
+    }
+  }
   /* AN ILLUSTRATION PLATE IS A LEAF THE EDITION NEVER NUMBERED, and that is the handle to take it by
      (Aug 2026, adding the Republic). This printing binds engraved plates into the text — a facsimile
      of a Venetian frontispiece before Book V, the Gemma Augustea cameo before Book VII — each a
@@ -1944,6 +4125,54 @@ function cleanBody(h, noteIds, book, warn) {
     });
     if (!pages && warn) warn("no Bekker pages found — the chapter will pair as one whole block");
   }
+  /* THE FIFTH WAY an edition marks its numbers, and the first read ENTIRELY out of the id (Aug 2026,
+     adding the Peloponnesian War). Thucydides is cited by book and chapter — "Thucydides 2.34" is book
+     2, chapter 34 — and this transcription marks each chapter with a template that renders as a
+     wst-verse span holding a bare superscript figure, anchored with the full citation as its id:
+     id="2:34" around <sup>34</sup>.
+
+     None of the four rules above can take it, and each fails differently: Gummere's wants a <b> inside
+     the <sup> and there is none, Jowett's wants the float class and this is a default-styled span, and
+     the Bekker rule wants a page-and-column id. Left unmatched the span survives the tag strip as a
+     loose superscript digit mid-sentence — which reads as a footnote marker opening nothing — and the
+     book pairs as one 146-chapter block against a Greek column that states every one of its numbers.
+     That is this file's usual quiet failure: nothing throws and no prose is lost.
+
+     THE ID IS READ RATHER THAN THE VISIBLE FIGURE, for the reason the Bekker rule reads it: the id is
+     the citation the wiki itself asserts, where the printed figure is whatever the template chose to
+     show. Here it also carries the BOOK, which is what makes it worth checking rather than merely
+     parsing — a page transcluding the wrong book would announce itself as a mismatch instead of
+     silently filing 146 chapters under Book 2. Hence `expect`, passed by the caller as the Folio
+     chapter being fetched and compared against the id's first half.
+
+     The chapter number is a plain integer here, so no data-n sort key is written: app.js reads the
+     marker's own text where the attribute is absent, which is exactly the pre-Aristotle behaviour and
+     is right for a book whose numbers are integers. Accepted only where it moves the sequence FORWARD,
+     the guard every rule above uses, and zero is admitted (`>= 0`) because the Gallic War established
+     that a chapter may be numbered 0 — this work has none, and the guard costs nothing either way. */
+  if (book && book.sections === "bookchapter") {
+    let seq = -1, chapters = 0;
+    b = b.replace(/<span class="wst-verse[^"]*"[^>]*>[\s\S]*?<\/span>/g, (whole) => {
+      const id = (whole.match(/\bid="([^"]*)"/) || [])[1] || "";
+      const m = /^(\d+):(\d+)$/.exec(id);
+      /* A span that is not a chapter mark is REPORTED before it goes, never kept: kept, it is a stray
+         superscript in the prose; dropped in silence, a genuinely new kind of marker leaves without
+         anyone learning it existed. The Ethics' one mistyped line number is why this is worded so. */
+      if (!m) {
+        const txt = whole.replace(/<[^>]*>/g, "").trim();
+        if (warn) warn("dropped an unrecognised verse mark" + (id ? ' id="' + id + '"' : "") +
+          (txt ? ": " + JSON.stringify(txt) : ""));
+        return "";
+      }
+      if (book.expect != null && +m[1] !== +book.expect)
+        warn && warn("chapter mark " + id + " belongs to book " + m[1] + ", not " + book.expect);
+      const n = +m[2];
+      if (n <= seq) { warn && warn("chapter " + id + " repeats or goes backwards — dropped"); return ""; }
+      seq = n; chapters++;
+      return '<span class="bk-n">' + n + "</span>";
+    });
+    if (!chapters && warn) warn("no chapter numbers found — the book will pair as one whole block");
+  }
   /* A footnote reference becomes Folio's own marker, and it carries the note it actually points at.
      wireFootnotes still writes the DIGIT — the number in the prose can never disagree with the list —
      but which entry a marker resolves to is decided here, from the href MediaWiki put on it.
@@ -1989,12 +4218,56 @@ function cleanBody(h, noteIds, book, warn) {
      a head can go, and declared per book — a phrase worth deleting in one edition is ordinary prose in
      another. The loop is for the first chapter, which carries two of them. */
   if (book && book.dropHeads) {
-    for (let k = 0; k < 4; k++) {
+    /* TWO SHAPES OF LEADING BLOCK, because a centred head need not be a paragraph. Seneca's and
+       Haines's arrive as a <p> inside the centred div; The Prince's chapter TITLE is a bare run of
+       text inside its own, so a <p>-anchored pattern reaches its "EIGHTEENTH CHAPTER" line and leaves
+       the title standing underneath — a quotation of the chapter's own name, directly below the
+       heading Folio has already printed. The bare form is required to open on a non-tag character, so
+       it can never swallow a nested block's opening tag and take the rest of the chapter with it. */
+    /* A THIRD SHAPE: a centred head of SEVERAL paragraphs (Aug 2026, adding Aesop's Fables). The
+       first fable opens on one centred block holding the collection's half-title, the rules under
+       it, the frontispiece and its caption — four paragraphs in one <blockquote>, where shape one
+       wants exactly one <p> and shape two wants no tags at all, so neither can see it and the book
+       began on a quotation of its own title page.
+
+       It is not a loosening: the test applied to what it matches is the same one, so a block is
+       still removed only when its whole text matches a pattern the book itself declares, and
+       dropHeads is per book. Matching to the FIRST </blockquote> rather than the last is deliberate
+       — a leading block that contains a nested one yields a partial text, which will simply fail
+       the test and be left alone, where a greedy match could swallow real prose. It is listed last
+       so the two older shapes keep first refusal and go on behaving exactly as they did. */
+    const HEAD_SHAPES = [
+      /^<blockquote>\s*<p>([\s\S]*?)<\/p>\s*<\/blockquote>\s*/,
+      /^<blockquote>\s*([^<][\s\S]*?)\s*<\/blockquote>\s*/,
+      /^<blockquote>\s*((?:(?!<\/?blockquote>)[\s\S])*?)<\/blockquote>\s*/,
+    ];
+    /* THE FURNITURE A DROPPED HEAD LEAVES BEHIND HAS TO GO ROUND THE LOOP TOO, or the SECOND head
+       is unreachable (Aug 2026, adding The Dialogues). Every shape here is anchored to position 0,
+       deliberately, so that only a head can go; the blank line a head sat above is a `<p><br></p>`
+       that stands between it and whatever follows. With one head that never mattered — the tidy-up
+       below runs after the loop and clears it. With TWO, the first head goes, its blank line is now
+       at position 0, and the edition's "PERSONS OF THE DIALOGUE" label behind it can no longer be
+       seen by any pattern: it stands at the top of the chapter as a quotation, in three dialogues
+       out of eleven, which reads as an inconsistent transcription rather than as a rule that did
+       not fire. Nothing throws, no prose is lost and the chapter is the right length — the quiet
+       shape this file keeps meeting.
+
+       So a leading paragraph holding nothing but line breaks is peeled INSIDE the loop, before each
+       pass at the heads. It cannot eat prose: the `</p>` has to follow the breaks immediately, so
+       `<p><br>Real text</p>` does not match. MEASURED BEFORE IT WAS MADE, over every shipped
+       chapter of every book: none of them begins with an empty or break-only paragraph, so this is
+       provably inert on the five older books that declare dropHeads — which is the check this
+       file's own history says to run on any edit to cleanBody, the extractor being shared and its
+       other callers already proof-read by readers. */
+    for (let k = 0; k < 8; k++) {
       const before = b;
-      b = b.replace(/^<blockquote>\s*<p>([\s\S]*?)<\/p>\s*<\/blockquote>\s*/, (m, inner) => {
-        const t = inner.replace(/<[^>]*>/g, " ").replace(/&#\d+;|&nbsp;/g, " ").replace(/\s+/g, " ").trim();
-        return book.dropHeads.some((rx) => rx.test(t)) ? "" : m;
-      });
+      b = b.replace(/^<p>\s*(?:<br>\s*)*<\/p>\s*/, "");
+      for (const shape of HEAD_SHAPES) {
+        b = b.replace(shape, (m, inner) => {
+          const t = inner.replace(/<[^>]*>/g, " ").replace(/&#\d+;|&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+          return book.dropHeads.some((rx) => rx.test(t)) ? "" : m;
+        });
+      }
       if (b === before) break;
     }
     // the line break the head used to sit above, now opening the first paragraph on a blank line
@@ -2040,15 +4313,83 @@ function notesOf(h) {
   let x;
   while ((x = rx.exec(m[1]))) {
     ids.push(x[1].replace(/&#95;/g, "_"));
-    notes.push(
-      stripWikiCSS(x[2])
-        .replace(/<(?!\/?(i|b|em|strong)\b)[^>]*>/g, "")
-        .replace(/&#160;|&nbsp;/g, " ")
-        .replace(/\s+/g, " ")
-        .trim()
-    );
+    notes.push(noteText(x[2]));
   }
   return { notes, ids };
+}
+
+/* One note, reduced to the small tag set a note may carry. Split out of notesOf so the endnote table
+   below cleans its entries exactly as a footnote is cleaned and the two cannot drift — a note is a
+   note whether the edition printed it at the foot of the page or at the back of the book. */
+function noteText(s) {
+  return stripWikiCSS(s)
+    .replace(/<(?!\/?(i|b|em|strong)\b)[^>]*>/g, "")
+    .replace(/&#160;|&nbsp;/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/* ---------- ENDNOTES: an apparatus gathered at the back of the volume ----------
+   See `endnotes` in the BOOKS entry for The Prince, which is the first book here to have one. The
+   page is a two-column table — the page number annotated on the left, the note on the right — and the
+   left cell carries an anchor (`<span id="n16">`) that the in-text markers point at. This returns
+   anchor -> note text; resolveEndnotes then swaps each chapter's stub for the note it stands for.
+
+   The LAST cell of the row is the note, not the second: a row may carry a style link before its cells
+   and the annotated-page cell is always first, so counting from the end is the stable end to count
+   from. A row with no anchor is the table's own "PAGE" heading and is skipped. */
+function endnoteTable(h, warn) {
+  const out = {};
+  const doc = h.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<!--[\s\S]*?-->/g, "");
+  for (const row of doc.split(/<tr[^>]*>/).slice(1)) {
+    const a = row.match(/\bid="(n\d+)"/);
+    if (!a) continue;
+    const cells = row.split(/<td[^>]*>/).slice(1);
+    if (cells.length < 2) { warn && warn("endnote " + a[1] + " has no note cell"); continue; }
+    const txt = noteText(cells[cells.length - 1].split(/<\/td>/)[0]);
+    if (txt) out[a[1]] = txt;
+    else warn && warn("endnote " + a[1] + " came back empty");
+  }
+  return out;
+}
+
+/* Replace each stub with the endnote its own marker points at, and DROP the stubs that point at
+   nothing. The join is the marker's anchor — MediaWiki names the reference after it, so
+   `cite_note-n16-1` is the note anchored `n16` — which is the rule the footnote markers already follow
+   and the reason `notesOf` returns its ids at all.
+
+   WHY THE REST ARE DROPPED RATHER THAN GUESSED AT. This transcription marks fifteen places in the text
+   against fifty-five notes at the back, and only five of the fifteen name the note they mean; the
+   other ten carry the bare words "See Note." and no target. The obvious repair is to join them on the
+   PRINTED PAGE, which is what the note table is keyed by and what the anchors turn out to be — and it
+   was measured before it was believed, and it does not work: of the ten, four sit on a page carrying
+   exactly one note and could be joined, three sit on a page carrying two or three, and one sits on a
+   page carrying none at all. So the join would be a guess for most of them, and a marker pointing at
+   the wrong note is worse than no marker — the rule the citation passes elsewhere in this project keep
+   arriving at. What ships is the notes this edition's own apparatus states, and the front matter says
+   that the rest of it is at the back of a book Folio does not carry.
+
+   The dropped notes take their MARKERS with them (see pruneNotes), or wireFootnotes would renumber the
+   survivors and leave every marker after the first gap pointing one entry too far. */
+function resolveEndnotes(got, table, warn) {
+  const keep = [], notes = [];
+  got.notes.forEach((txt, i) => {
+    const key = (got.ids[i].match(/^cite_note-(n\d+)-/) || [])[1];
+    if (key && table[key]) { keep.push(i + 1); notes.push(table[key]); return; }
+    warn("note " + (i + 1) + " points at the endnotes without saying which — marker dropped");
+  });
+  got.notes = notes;
+  return keep;
+}
+
+/* Keep only the markers whose notes survived, and renumber them to their new places in the list.
+   `keep` is the surviving notes' ORIGINAL 1-based positions, in order, which is exactly the map from
+   the numbers cleanBody has just written to the numbers the shipped list will have. */
+function pruneNotes(html, keep) {
+  const map = {};
+  keep.forEach((old, i) => (map[old] = i + 1));
+  return html.replace(/<sup class="fn" data-fn="(\d+)"><\/sup>/g, (m, d) =>
+    map[d] ? '<sup class="fn" data-fn="' + map[d] + '"></sup>' : "");
 }
 
 /* ============================================================
@@ -2329,6 +4670,361 @@ function extractParallel(h, book, warn) {
   };
 }
 
+/* ---------- THE INTERLEAVED PARALLEL TEXT (the Analects) ----------
+   The second shape a facing-page edition arrives in, and the reason for it is in the BOOKS entry.
+   Everything below reads ONE page — one book of the Analects — and returns both of its columns.
+
+   A Chinese numeral, in the several costumes this edition writes them in. Chapter numbers here run
+   from 一 to 四七, and the marks are not one system: the first ten carry 第 and the rest do not; the
+   twenties, thirties and forties are written with the compressed forms 廿 and 卅, or as a tens digit
+   and a units digit run together (四五 for forty-five, which spelled out in full would be 四十五).
+   All of it is read, and anything that is not returns null so the caller can say so rather than
+   silently dropping a chapter — which is the one failure here that would take prose off the page. */
+const CN_DIGIT = { 一: 1, 二: 2, 三: 3, 四: 4, 五: 5, 六: 6, 七: 7, 八: 8, 九: 9 };
+const CN_TEN = { 十: 10, 廿: 20, 卅: 30, 卌: 40 };
+function cnNum(s) {
+  s = String(s).replace(/^第/, "").trim();
+  let m;
+  // 十 / 十一 / 三十 / 三十二 / 廿 / 廿三 / 卅九
+  if ((m = /^([一二三四五六七八九])?([十廿卅卌])([一二三四五六七八九])?$/.exec(s)))
+    return (m[1] ? CN_DIGIT[m[1]] * 10 : CN_TEN[m[2]]) + (m[3] ? CN_DIGIT[m[3]] : 0);
+  // 四五 — the tens word dropped, which this edition does from the twenties up
+  if ((m = /^([一二三四五六七八九])([一二三四五六七八九])$/.exec(s))) return CN_DIGIT[m[1]] * 10 + CN_DIGIT[m[2]];
+  if ((m = /^([一二三四五六七八九])$/.exec(s))) return CN_DIGIT[m[1]];
+  return null;
+}
+
+/* The two languages, separated by the markup that already distinguishes them. Every run of Chinese on
+   these pages is inside an element carrying `wst-lang`, as a span mid-paragraph or as a div holding
+   several paragraphs, and nothing else on the page is. So the Chinese is lifted out in reading order
+   and what remains IS the English — which is more robust than trying to split on the chapter markers
+   alone, since a run of several chapters' Chinese often sits in one element with no English between.
+   `blockEnd` walks the nesting rather than matching the next closing tag, so a formatting span inside
+   a Chinese block cannot end it early. */
+function splitInterleaved(h) {
+  const zh = [];
+  let en = "", i = 0;
+  const rx = /<(span|div)[^>]*class="[^"]*wst-lang[^"]*"[^>]*>/g;
+  for (;;) {
+    rx.lastIndex = i;
+    const m = rx.exec(h);
+    if (!m) break;
+    const e = blockEnd(h, m.index, m[1]);
+    if (e < 0) break;
+    en += h.slice(i, m.index);
+    zh.push(h.slice(m.index + m[0].length, e).replace(/<\/(?:span|div)>\s*$/, ""));
+    i = e;
+  }
+  en += h.slice(i);
+  return { zh, en };
+}
+
+/* Classical Chinese is written without word spaces, so every space between two Chinese characters
+   here is an artifact of the transcription rather than something on the printed page — mostly a
+   sentence carried across two `wst-lang` elements where the printed line broke, rejoined with the
+   whitespace that separated the markup. 43 of them across the twenty books, and each reads as a gap
+   in the middle of a phrase. Removed only BETWEEN Chinese characters, so anything Latin in this
+   column keeps the spacing that makes it readable. */
+const cnPlain = (s) =>
+  stripWikiCSS(s)
+    .replace(/<[^>]*>/g, " ")
+    .replace(/&#160;|&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/\s+/g, " ")
+    .replace(/([⺀-鿿豈-﫿＀-￯])\s+(?=[⺀-鿿豈-﫿＀-￯])/g, "$1")
+    .trim();
+
+/* Both columns of one book, from one fetch of one page. */
+function extractInterleaved(h, book, warn) {
+  /* This transcription carries no footnotes at all — measured over all twenty books, zero reference
+     marks — so the book renders with no note fold, exactly as Ovid and Lucretius do. It is still
+     asked for, because a note appearing in a later revision of the transcription would otherwise be
+     dropped in silence, and a silent drop is how a translator's note becomes nobody's. */
+  const { notes } = notesOf(h);
+  if (notes.length) warn(notes.length + " footnote(s) found — this edition carried none, so they are not wired");
+
+  const { zh, en } = splitInterleaved(h);
+
+  /* ---- the Chinese column ----
+     Split on its own chapter marks. Inside a chapter the edition also marks Legge's numbered
+     paragraphs 【一節】, and those become paragraph BREAKS rather than printed numbers: the English
+     beside them prints "1." "2." itself, so the two columns line up without the bracket being
+     repeated in a script most readers of this column cannot read either. They are also not always
+     right — book 2's chapter 18 numbers both of its sections 一 — and a break says nothing a
+     duplicate could falsify. */
+  const zhBy = {};
+  const zparts = zh.join("\n").split(/【([^】]{1,6})章】/);
+  for (let k = 1; k < zparts.length; k += 2) {
+    const n = cnNum(zparts[k]);
+    if (n === null) { warn("could not read the Chinese chapter mark 【" + zparts[k] + "章】"); continue; }
+    const paras = cnPlain(zparts[k + 1]).split(/【[^】]{1,6}節】/).map((s) => s.trim()).filter(Boolean);
+    if (paras.length) zhBy[n] = paras;
+  }
+
+  /* ---- the English column ----
+     Legge's own emphasis is set in SMALL CAPITALS — "what you do not want done to yourself, do not do
+     to others" turns on a small-cap RECIPROCITY, and the transliterated Chinese words he leaves
+     untranslated are set the same way. Folio's reader has no small-caps style for book prose and this
+     transcription uses italics nowhere at all, so they become italics: the emphasis survives and
+     nothing it could be confused with is lost. The chapter markers are the same element, so they are
+     taken out first, before the rest are converted. */
+  /* The sentinel is a pair of printable characters no printed page can contain, rather than a tag:
+     it has to survive stripTags, which rules out markup. The chapter marker sits INSIDE its
+     paragraph — <p><span…>Chapter</span> I. 1. The Master said — so the opening tag is swallowed
+     with it and re-emitted after the sentinel, or every chapter would begin mid-paragraph and end
+     on the next one dangling p tag. */
+  const SEP = "@@CH@@";
+  const CHAP = '<span class="smallcaps"[^>]*>Chapter<\\/span>\\s*([IVXLC]+)\\s*\\.?\\s*';
+  let b = en.replace(new RegExp("<p>\\s*" + CHAP, "g"), (m, r) => SEP + r + SEP + "<p>");
+  b = b.replace(new RegExp(CHAP, "g"), (m, r) => SEP + r + SEP);
+  /* Everything before the first chapter is the page's own running head — the book's title in Chinese
+     and again in English — which is not part of the text and would otherwise open every book as an
+     unattributed line. Cut at the first SENTINEL rather than at the first marker in the markup, and
+     this is load-bearing rather than tidy: the marker sits inside its paragraph, so cutting at the
+     marker leaves the opening `<p>` behind and hands stripTags a closing tag it never saw opened,
+     which its stack correctly discards — and the first chapter of every book then runs into the
+     second with no paragraph break between them. Nothing throws and no prose is lost; the page just
+     quietly stops having paragraphs. Cutting at the sentinel keeps the pair together. */
+  const first = b.indexOf(SEP);
+  if (first > 0) b = b.slice(first);
+  b = b.replace(/<span class="smallcaps"[^>]*>([\s\S]*?)<\/span>/g, "<i>$1</i>");
+  b = stripWikiCSS(b).replace(/<!--[\s\S]*?-->/g, "");
+  b = stripTags(b).replace(/&#160;|&nbsp;/g, " ").replace(/[ \t]+/g, " ");
+
+  const enBy = {};
+  const eparts = b.split(new RegExp(SEP + "([IVXLC]+)" + SEP, "g"));
+  let seq = 0;
+  for (let k = 1; k < eparts.length; k += 2) {
+    const printed = roman(eparts[k]);
+    let n = printed;
+    /* FORWARD-ONLY, and the one book where it fires is recorded in the BOOKS entry: a numeral that
+       does not move the count on is a slip in the transcription, and the chapter it opens is a real
+       chapter that has to keep its place. A numeral that leaps forward is left alone — an edition may
+       genuinely skip a number — but it is reported, since here none does. */
+    if (!(n > seq)) {
+      n = seq + 1;
+      warn('book chapter numbering: "' + eparts[k] + '" (' + printed + ") printed where the sequence reaches " + n + " — taking " + n);
+    } else if (n > seq + 1) {
+      warn("chapter numbering jumps from " + seq + " to " + n);
+    }
+    seq = n;
+    /* The trailing <p><br></p> between chapters is the printed page's spacing, not a paragraph. */
+    let t = eparts[k + 1]
+      .replace(/<p>\s*(?:<br>\s*)+<\/p>/g, "")
+      .replace(/<p>\s*<\/p>/g, "")
+      .replace(/<br>\s*(?=<\/p>)/g, "")
+      .replace(/<p>\s*(?:<br>\s*)+/g, "<p>")
+      .trim();
+    /* A Chinese block can interrupt an English sentence, because the printed page alternates the two
+       languages line by line rather than chapter by chapter. Lifting that block out leaves the
+       sentence in two paragraphs — "in the giving pay" / "or rewards to men" — which is a break the
+       printed page does not have and this extractor made. 26 of them across the twenty books, every
+       one in books 14–20 where the interleaving is finest.
+
+       Rejoined on the narrowest test that identifies them: the paragraph before ends on no sentence
+       punctuation at all AND the one after opens on a lower-case letter. A paragraph Legge really
+       does begin here always opens on its own number ("2. The Master said"), so the rule cannot
+       swallow a real break. */
+    t = t.replace(/([^.!?:;"'’”)\]]\s*)<\/p>\s*<p>\s*(?=[a-z])/g, "$1 ");
+    if (t) enBy[n] = t;
+  }
+
+  const enNums = Object.keys(enBy).map(Number).sort((a, b2) => a - b2);
+  const zhNums = Object.keys(zhBy).map(Number).sort((a, b2) => a - b2);
+  if (!enNums.length) throw new Error("no chapters found — the page's markup has changed");
+  /* The pairing rests on these two runs, so what would quietly break it is asserted rather than
+     hoped for: a gap in either, and a chapter one column has that the other does not. */
+  const brokenRun = (a) => a.some((v, i2) => v !== i2 + 1);
+  if (brokenRun(enNums)) warn("the English chapters are not a clean 1–N run (" + enNums.length + " of them, highest " + enNums[enNums.length - 1] + ")");
+  if (zhNums.length && brokenRun(zhNums)) warn("the Chinese chapters are not a clean 1–N run (" + zhNums.length + " of them, highest " + zhNums[zhNums.length - 1] + ")");
+  const noZh = enNums.filter((n) => !zhBy[n]);
+  const noEn = zhNums.filter((n) => !enBy[n]);
+  if (noZh.length) warn("no Chinese for chapter(s) " + noZh.slice(0, 8).join(", "));
+  if (noEn.length) warn("no English for chapter(s) " + noEn.slice(0, 8).join(", "));
+
+  const html = enNums
+    .map((n) => {
+      const mark = '<span class="bk-n">' + n + "</span> ";
+      const t = enBy[n];
+      return /^<p>/.test(t) ? t.replace(/^<p>/, "<p>" + mark) : "<p>" + mark + t;
+    })
+    .join("\n");
+  const orig = zhNums
+    .map((n) => zhBy[n].map((p, i2) => "<p>" + (i2 ? "" : '<span class="bk-n">' + n + "</span> ") + p + "</p>").join("\n"))
+    .join("\n");
+  return { html, notes: [], orig, count: enNums.length, origCount: zhNums.length };
+}
+
+/* A facing-page edition, whichever way it is transcribed. One choke point, so the two callers that
+   want both columns — the English walk and the original's read-back out of its cache — can never
+   come to disagree about which extractor a book uses. */
+function bothColumns(h, book, warn) {
+  return book.layout === "interleaved" ? extractInterleaved(h, book, warn) : extractParallel(h, book, warn);
+}
+
+/* ============================================================
+   A POEM IN LAISSES — the eighth shape, and the first where ONE PAGE HOLDS EVERY CHAPTER
+   ============================================================
+   Every wiki book above walks a page per chapter: a page per letter of Seneca, per book of the
+   Republic, per fable of Aesop. The Song of Roland is transcribed whole onto a single page in each
+   language, so the chapters are not fetched, they are CUT — and what they are cut at is the poem's
+   own laisse numbering, the assonant stanza by which any passage of the poem is cited in any
+   language.
+
+   THE LAISSE IS THE CHAPTER *AND* THE SECTION HERE, which is new and follows from the editions
+   rather than from a choice made here. Neither of the two prints any division above the laisse —
+   measured, not assumed: Scott Moncrieff's volume carries no part, book or canto heading anywhere in
+   its 291 stanzas, and Bédier's carries none either. Composing some would be exactly the apparatus
+   the Meditations' entry refuses to invent, so the smallest unit the editions DO state is what the
+   reader navigates by, as Aesop's fable is. The consequence worth knowing is that a chapter is short
+   — a median of 13 lines — and that is what the poem is: a chanson de geste was sung one laisse at a
+   time, each on a single vowel, and stopping at the end of one is what it is built for.
+
+   BOTH COLUMNS NUMBER FORWARD-ONLY, AND EACH EDITION NEEDS THE REPAIR EXACTLY ONCE. The rule is the
+   Analects' — a numeral is taken where it carries the count on by one and replaced by the expected
+   number where it does not, with a warning naming the book and both numbers on every run — and here
+   it is unusually well checked, because the two editions are independent and agree on 291 laisses.
+   Scott Moncrieff's page 87 prints CXXXXV where the sequence demands CXXXV: an extra X, and it is in
+   the SCAN and not in the transcription, read off the page image rather than guessed at. Bédier's
+   prints CCXXXVI at laisse 286, where a dropped L turns CCLXXXVI into a numeral 50 lower. Neither is
+   composed away in silence; both are reported every run and recorded in the front matter.
+
+   THE FRENCH IS CUT AT ITS OWN SEPARATOR RATHER THAN AT ITS NUMERALS, and that is the whole reason
+   the original could be paired at all. Bédier's presentation drops six of its 291 numerals (188, 238,
+   278, 283, 287, 288) — they are simply not in the transcription — so a cut made at the numerals
+   would lose six laisses and shift everything after them. What it does carry, exactly 291 times
+   across the six pages, is an <hr> between one laisse and the next, and inside each of those a first
+   margin block holding the Old French and a second holding Bédier's modern French. So the cut is
+   structural and the numbering is read into it: 285 of the 291 printed numerals then AGREE with the
+   position the cut gives them, which is what turns the six inferences from a guess into the only
+   reading consistent with the other 285. */
+
+/* Every laisse of both editions is set as verse, and both wrap a second numbering around it — the
+   running line-count of the poem, printed every fifth line in the margin. It is not the citation
+   unit and it is not what the columns pair on, and left alone it survives the tag strip as a bare
+   figure sitting inside a line of verse, which reads as a footnote marker opening nothing. That is
+   the Nicomachean Ethics' Bekker-line fault on a third edition, so it gets the Ethics' answer: the
+   gadget is removed outright, and because the two editions build it quite differently — Wikisource's
+   own `wst-pline` float in the English, a `visibility:hidden` nest of four spans in the French — it
+   is removed by BALANCED span-matching rather than by a non-greedy pattern that would stop at the
+   first inner closer and leave the rest of the nest standing in the verse. */
+function dropLineNumbers(b) {
+  const marks = [/<span[^>]*class="[^"]*\bwst-pline\b[^"]*"[^>]*>/, /<span style="visibility:hidden">/];
+  for (const rx of marks) {
+    for (let k = 0; k < 4000; k++) {
+      const m = rx.exec(b);
+      if (!m) break;
+      const end = blockEnd(b, m.index, "span");
+      if (end < 0) break;
+      b = b.slice(0, m.index) + b.slice(end);
+    }
+  }
+  // the stylesheet links MediaWiki de-duplicates alongside them are furniture too
+  return b.replace(/<link\b[^>]*>/g, "");
+}
+
+/* One laisse's verse, as the single paragraph the shelf's other verse books use: the citation number
+   in a .bk-n marker, then the lines separated by <br>. Ovid and Lucretius emit exactly this shape, so
+   a poem in laisses needs no styling of its own and renders beside its original the way they do. */
+/* STRIP THE WHOLE LAISSE BEFORE SPLITTING IT, never line by line. stripTags balances opening tags
+   against closing ones on a stack, so a fragment holding a <p> whose </p> lives in the next fragment
+   is unbalanced ON ITS OWN and the opener survives into the output. Splitting first therefore emitted
+   a stray <p> in most laisses of the poem — the quiet failure this file keeps meeting: nothing throws,
+   not one word is lost, every line is present and in order, and only counting a tag against its closer
+   over the shipped data shows it. The paragraph tags are then dropped outright, because a laisse is
+   emitted as ONE paragraph with its lines separated by <br>, which is the shape Ovid and Lucretius
+   already use and the shape the reader's verse styling expects. */
+function laisseHtml(n, body, warn, where) {
+  const lines = stripTags(dropLineNumbers(body))
+    .replace(/<\/?p\b[^>]*>/g, "<br>")
+    .split(/<br\s*\/?>/)
+    .map((s) => s.replace(/\s+/g, " ").trim())
+    .filter(Boolean)
+    /* ONE LINE NUMBER IS TYPED AS ORDINARY TEXT rather than set in the template the other 800-odd
+       use, so no amount of span-matching above can see it: the transcriber simply keyed the figure
+       into the verse. The test is deliberately as narrow as the evidence — a run of digits at the
+       very head of a line, a multiple of five (which is how often this edition numbers), and inside
+       the poem's own line range — because a verse line could in principle open on a number and
+       throwing away the first word of a line is not a repair. Measured over both cached editions
+       before it was written: exactly one line in the whole poem matches, laisse 231's 3210. It is
+       reported rather than dropped in silence, so a second one cannot appear unnoticed. */
+    .map((s) => {
+      const m = /^(\d{1,5})\s+(?=\S)/.exec(s);
+      if (!m || +m[1] % 5 || +m[1] < 1 || +m[1] > 4200) return s;
+      warn(where + ": a bare line number (" + m[1] + ") was typed into the verse and has been removed");
+      return s.slice(m[0].length);
+    });
+  if (!lines.length) warn(where + " came through with no lines");
+  return '<p><span class="bk-n">' + n + "</span> " + lines.join("<br>") + "</p>";
+}
+
+/* Read a numeral off a marker and carry the count forward — the shared half of both cuts below. */
+function laisseNumber(raw, expect, warn, side) {
+  const v = raw ? roman(raw) : 0;
+  if (v === expect) return expect;
+  if (raw) {
+    warn(side + " laisse " + expect + " is numbered " + raw + " (" + v + ") in the edition; " +
+      "read as " + expect + ", which is where the sequence puts it");
+  }
+  return expect;
+}
+
+/* THE ENGLISH: cut one transcribed page into its 291 laisses at the centred numerals that head them.
+   The slice and the furniture removal are cleanBody's, deliberately — this book is a proofread
+   transcription like every other wiki book here, and only its DIVISION is unusual — but the body
+   itself is not run through cleanBody's generic div→blockquote pass, which exists for prose and would
+   turn each of the centred numeral blocks into a quotation of its own number. */
+function extractLaisses(h, book, warn) {
+  let b = h.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<!--[\s\S]*?-->/g, "");
+  for (let k = 0; k < 8; k++) {
+    const m = /<div class="[^"]*\bws-noexport\b[^"]*"[^>]*>/.exec(b);
+    if (!m) break;
+    const end = blockEnd(b, m.index, "div");
+    if (end < 0) break;
+    b = b.slice(0, m.index) + b.slice(end);
+  }
+  const i = b.indexOf('<div class="prp-pages-output"');
+  if (i < 0) throw new Error("no body");
+  b = b.slice(i);
+
+  const rx = /<div class="wst-center[^"]*"[^>]*>\s*<p>([^<]{1,14})<\/p>\s*<\/div>/g;
+  const hits = [];
+  let m;
+  while ((m = rx.exec(b))) {
+    const t = m[1].trim();
+    if (/^[IVXLC]+$/.test(t)) hits.push({ raw: t, at: m.index, end: rx.lastIndex });
+  }
+  if (!hits.length) throw new Error("no laisse numerals found");
+
+  return hits.map((x, k) => {
+    const n = laisseNumber(x.raw, k + 1, warn, "English");
+    const body = b.slice(x.end, k + 1 < hits.length ? hits[k + 1].at : b.length);
+    return { n: n, html: laisseHtml(n, body, warn, "English laisse " + n) };
+  });
+}
+
+/* THE OLD FRENCH: six pages of Bédier's own bilingual presentation, each laisse an <hr>-separated
+   unit whose FIRST margin block is the Old French and whose second is his modern French. Only the
+   first is taken; the modern French is a second translation and this shelf already carries one. */
+function extractLaissesFr(pages, warn) {
+  const out = [];
+  pages.forEach((h) => {
+    const b = h.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<!--[\s\S]*?-->/g, "");
+    const units = b.split(/<hr\s*\/?>/);
+    units.shift();                        // everything before the first rule is the page's own header
+    units.forEach((u) => {
+      const divs = [...u.matchAll(/<div style="margin-left:\d+%; margin-right:\d+%;">/g)];
+      const of = divs.length ? u.slice(divs[0].index, divs.length > 1 ? divs[1].index : u.length) : u;
+      const mm = /<div style="text-align:center[^"]*">\s*([IVXLC]{1,8})\s*<\/div>/.exec(of);
+      const n = laisseNumber(mm ? mm[1] : null, out.length + 1, warn, "Old French");
+      if (!mm) warn("Old French laisse " + n + " carries no numeral in the transcription; " +
+        "numbered from its place in the sequence");
+      out.push({ n: n, html: laisseHtml(n, of.replace(/<div style="text-align:center[^"]*">\s*[IVXLC]{1,8}\s*<\/div>/, ""), warn, "Old French laisse " + n) });
+    });
+  });
+  return out;
+}
+
 /* ---------- the chapter titles, from the book's own contents page ---------- */
 /* ---------- the chapter titles, from the book's own contents page ----------
    Read ROW BY ROW, pairing the numeral cell with the title cell beside it, rather than trusting the
@@ -2342,6 +5038,228 @@ function extractParallel(h, book, warn) {
 
    The row is the structure the page actually means, and it is also the more robust reading: it needs
    the numeral's href alone, and survives the title link being wrong, absent or pointed anywhere. */
+
+/* ---------- A WHOLE BOOK ON ONE PAGE THAT IS NOT A WIKI PAGE ----------
+   (Aug 2026, adding the Epic of Gilgamesh — the twentieth book, the ninth layout, and the FIRST from
+   a host that is neither Wikisource nor Perseus.)
+
+   WHY THE SHELF'S TWO USUAL SOURCES BOTH FAIL HERE, because that is the whole justification for a
+   third one. Wikisource carries exactly two Gilgamesh editions and BOTH are one-tablet editions of
+   the Old Babylonian version — Langdon's Pennsylvania tablet of 1917 and Jastrow & Clay's
+   Pennsylvania and Yale tablets of 1920. Project Gutenberg carries the second of those and nothing
+   else. Perseus is Greek and Latin. So the obvious sources between them hold perhaps a sixth of the
+   poem, and building on one would have shipped a book that is correct about everything it contains
+   and is not the Epic of Gilgamesh — which is the Dialogues' lesson exactly: ASK WHAT THE SOURCE IS
+   MISSING BEFORE BUILDING ON IT.
+
+   THE COMPLETE PUBLIC-DOMAIN TRANSLATION IS THOMPSON'S OF 1928 and it is reachable in two places,
+   one of which is unusable. sacred-texts.com is behind a Cloudflare challenge from here (the bot
+   wall the citation batches record on hal.science). The Internet Archive's scan of the 1928 volume
+   has a full-text layer, and it was MEASURED rather than assumed: 13,838 words against the clean
+   transcription's 21,600, so it is missing about a third of the poem outright — the Twelfth Tablet's
+   first column arrives as bare line numbers with the verse gone — and what survives has the marginal
+   line numbers fused into the words ("1He who"), the footnote digits welded onto the names beside
+   them, the running heads inline, and the quotation marks mangled throughout. On a LITERAL
+   translation that last part is not untidiness: Thompson's brackets, parentheses and question marks
+   are the apparatus that says which words are restored and which are guessed, and an OCR that
+   corrupts them makes the text claim things the translator did not. There is no cleaning pass that
+   fixes it without inventing text, so it was rejected.
+
+   What is used instead is Global Grey's transcription, which is complete, hand-made and clean, and
+   which was CHECKED AGAINST THE 1928 SCAN rather than trusted: sampled eight-word runs out of it are
+   found in the scan's own OCR, it is the longer of the two by a third, and the apparatus is all
+   there — 1,099 square brackets, 179 (?) marks, 439 lacuna dot-runs and the six "lines wanting"
+   notes. The transcriber is credited on the book's own page beside the edition, exactly as
+   Wikisource and Perseus are.
+
+   THE MARKUP IS A GIFT compared with a wiki page, and the extractor is correspondingly small: an
+   <article> holding an <h2> per chapter, verse in <p> blocks with <br> between the lines, the
+   column headings as their own one-line paragraph, and a <footer class="footnotes"> of
+   <div id="_ftnN"> definitions that the in-text <a href="#_ftnN"> markers point at. Four things have
+   to be done to it and each is below.
+
+   ONE REQUEST FOR THE WHOLE BOOK, cached like a TEI file — so --from/--to cost nothing, a re-extract
+   needs no network, and the site the text comes from is asked once rather than twenty times. */
+
+/* The apparatus, read off the footer. Returns note number -> text, cleaned to the small tag set a
+   note may carry by the same noteText the wiki books use, so a note is cleaned identically wherever
+   the edition printed it. The number is the BOOK's own continuous numbering, 1 to 166; the mapping
+   onto each chapter's own list is done in extractTablets, where the markers are. */
+function tabletNotes(h, warn) {
+  const m = h.match(/<footer[^>]*class="footnotes"[\s\S]*$/);
+  if (!m) { warn("no footnote section found"); return {}; }
+  const out = {};
+  const rx = /<div id="_ftn(\d+)"[^>]*>([\s\S]*?)<\/div>/g;
+  let x;
+  while ((x = rx.exec(m[0]))) {
+    /* The definition opens with its own back-link ("[12]") — the marker, not the note.
+       The nbsp is normalised to its named form FIRST, because noteText knows `&#160;` and `&nbsp;`
+       and not the hex `&#xa0;` this host writes: left alone, 32 of the 166 notes ship with the raw
+       entity showing in the fold. Done here rather than by widening noteText, which fourteen other
+       books share and none of them needs changed. */
+    const body = x[2]
+      .replace(/<a href="#_ftnref\d+"[^>]*>[\s\S]*?<\/a>/, "")
+      .replace(/&#xa0;/gi, "&nbsp;");
+    const t = noteText(body);
+    if (t) out[x[1]] = t;
+  }
+  return out;
+}
+
+/* THOMPSON'S MARGINAL LINE NUMBERS, which are the citation apparatus and arrive fused to the verse.
+   The printed edition numbers every fifth line down the margin; the transcription sets each number
+   at the head of its own line with no space after the point ("5.He 'twas discovered..."), so this
+   runs over a chapter AFTER the lines have been split and turns each one into the <span class="bk-n">
+   marker the reader page draws.
+
+   THE COUNT RESTARTS PER COLUMN, NOT PER TABLET, and that is the thing to get right rather than
+   assume — a guard that simply ran forward through a tablet found 138 of the book's 325 numbers and
+   threw the rest away as going backwards. A cuneiform tablet is written in columns and each column
+   is numbered from its own first line, so the sequence legitimately falls back to 5 every time a new
+   column opens. Hence the reset here, driven by the column headings the caller has just marked.
+
+   AND IT CAN RESTART MID-COLUMN TOO. Measured over the whole book rather than reasoned about: six
+   numbers fall back inside a column, always to a low one (First Tablet column I, Fourth column I,
+   Tenth column IV among them), which is what a column made of two separated fragments looks like.
+   So a number is accepted when it moves the count FORWARD — the Analects' and the Song of Roland's
+   rule — or when it is a plausible RESTART, meaning it goes backwards to somewhere near the top of a
+   column. Everything else is left as the text it is and reported.
+
+   OVER THE WHOLE BOOK THAT ACCEPTS 324 OF 325 CANDIDATES, and the single rejection is a real
+   irregularity worth naming rather than smoothing away: the Eleventh Tablet runs
+   ... 170, 175, 150, 185, 190 ..., where every other number in the run is a multiple of five in
+   order, so the 150 stands exactly where 180 belongs. Whether the slip is the 1928 printing's or the
+   transcriber's could NOT be settled — the Internet Archive's text layer has dropped the marginal
+   numbers in that column altogether — so nothing is asserted about its cause and the number is not
+   quietly rewritten to 180, which would be composing an apparatus. The guard drops the marker, that
+   one line of the Flood goes unnumbered, and the run says so every time.
+
+   The separator matters and is easy to miss: the number is welded to the word after it, so a marker
+   emitted without one leaves "5He" on the page. A remainder that already opens on punctuation (a
+   lacuna's dots) keeps its own spacing. */
+const LINE_RESTART_MAX = 15;
+function markTabletLines(html, warn, where) {
+  let last = 0, n = 0, restarts = 0;
+  /* A LINE STARTS AFTER A <br> AND ALSO AT THE HEAD OF A PARAGRAPH, which is not a quibble: this
+     edition opens a fresh <p> at every gap in the clay, so 61 of the book's 325 marginal numbers sit
+     at the top of a paragraph rather than after a line break, and splitting on <br> alone silently
+     left every one of them as text. The column-heading alternative has to come FIRST in the
+     alternation — it contains a <p> of its own, and a bare <p> matching earlier would cut the
+     heading in half and stop the reset below from ever firing. */
+  const out = html.split(/(<p>(?:<sup[^>]*><\/sup>)?<b>Column[^<]*<\/b><\/p>|<br>|<\/?p>)/).map((piece) => {
+    if (/^<p>(?:<sup[^>]*><\/sup>)?<b>Column/.test(piece)) { last = 0; return piece; }   // a new column starts again at its own line 1
+    if (piece === "<br>") return piece;
+    return piece.replace(/^(\s*)(?:<sup class="fn"[^>]*><\/sup>)?(\d{1,3})\.(?!\d)/, (all, sp, num) => {
+      const v = parseInt(num, 10);
+      const forward = v > last;
+      const restart = v < last && v <= LINE_RESTART_MAX;   // a column built from two broken fragments
+      if (!forward && !restart) {
+        warn(where + ": line number " + v + " goes backwards after " + last + " — left as text");
+        return all;
+      }
+      if (restart) restarts++;
+      last = v; n++;
+      return all.slice(0, all.length - (num.length + 1)) + '<span class="bk-n">' + v + "</span> ";
+    });
+  }).join("");
+  if (!n) warn(where + ": no line numbers found");
+  return out;
+}
+
+/* One page, cut into its chapters and cleaned. Returns [{ n, t, html, notes }] in tablet order.
+
+   The chapter is found by its HEADING rather than by counting <h2>s, because the page carries
+   Thompson's own Preface as an <h2> too and the footer carries another. A heading that does not name
+   a tablet is skipped and reported, so a transcription that grows a section cannot quietly shift the
+   numbering — the failure this file keeps meeting is the silent one.
+
+   THE NOTES ARE RENUMBERED PER CHAPTER, which is the Seneca `data-fn` lesson in a new coat. The
+   edition numbers its 166 notes straight through the book while a Folio chapter carries its own
+   list, so each marker is rewritten to point at this chapter's index — and a note cited twice keeps
+   ONE entry and both markers point at it, rather than the list gaining a duplicate. */
+function extractTablets(h, book, warn) {
+  /* CRLF, NORMALISED AT THE DOOR, and it is worth a line because of how it fails. This host serves
+     the page with Windows line endings; every other source on the shelf does not, so `esc` — which
+     escapes a backslash, a quote and a newline — has never had to think about a carriage return and
+     passes one straight through into the generated string literal, where it IS a line terminator and
+     the file will not parse. The failure is at least loud (the importer's own re-parse catches it),
+     but it is a property of this transcription's line endings rather than of its content, so it is
+     stripped here rather than by widening a helper fourteen other books depend on. */
+  h = h.replace(/\r\n?/g, "\n");
+  const notes = tabletNotes(h, warn);
+  const body = h.replace(/<footer[^>]*class="footnotes"[\s\S]*$/, "");
+  const art = body.match(/<article[^>]*class="reading-body"[\s\S]*$/);
+  if (!art) throw new Error("no <article class=\"reading-body\"> — the page's markup has changed");
+
+  const secs = art[0].split(/<h2[^>]*>/).slice(1);
+  const want = book.chapters.length;
+  const out = [];
+  const seenHead = [];
+
+  secs.forEach((sec) => {
+    const cut = sec.indexOf("</h2>");
+    const title = noteText(sec.slice(0, cut)).replace(/\s+/g, " ").trim();
+    const rest = sec.slice(cut + 5);
+    const m = title.match(/^The\s+(\w+)\s+Tablet\s*[:.]?\s*(.*)$/i);
+    seenHead.push(title);
+    if (!m) return;                                   // the Preface, and anything else added later
+    const n = ORDINAL_WORD[m[1].toLowerCase()];
+    if (!n) { warn('heading names a tablet this entry cannot number: "' + title + '"'); return; }
+
+    /* The chapter's own notes, in the order their markers appear. Built while the markers are
+       rewritten so the list and the numbers cannot come apart. */
+    const local = [], byNum = {};
+    let html = rest.replace(
+      /(?:&#xa0;|&nbsp;| )*<a name="_ftnref(\d+)"[^>]*>\s*<\/a>\s*<a href="#_ftn\1"[^>]*>[\s\S]*?<\/a>(?:&#xa0;|&nbsp;| )*/g,
+      (all, num) => {
+        if (!notes[num]) { warn("tablet " + n + ": marker [" + num + "] points at no note"); return ""; }
+        if (!byNum[num]) { local.push(notes[num]); byNum[num] = local.length; }
+        return '<sup class="fn" data-fn="' + byNum[num] + '"></sup>';
+      }
+    );
+
+    /* The column headings. Each is a paragraph whose whole text is "Column IV." — the edition's own
+       division inside a tablet, and the coarse half of how the poem is cited. Bolded so it reads as
+       the heading it is; nothing else about it is changed, and no heading is composed where the
+       edition gives none.
+
+       THE OPTIONAL <sup> IS NOT DECORATION. One heading in the book — the Second Tablet's Column II —
+       carries a footnote marker in the same paragraph, and the marker has already been rewritten by
+       the pass above by the time this runs. Anchored hard to `<p>`, this rule missed that one, which
+       cost the tablet a column heading AND, because markTabletLines resets its count at these
+       headings, left the whole of that column's numbering to be judged against the column before it.
+       A single unmatched heading is the quiet kind of failure this file keeps meeting: nothing
+       throws, no word is lost, and the only symptom is a column of missing marginal numbers. */
+    let cols = 0;
+    html = html.replace(
+      /<p>\s*(<sup class="fn"[^>]*><\/sup>)?\s*(Column\s+[IVXL]+)\.?\s*<\/p>/gi,
+      (all, sup, c) => { cols++; return "<p>" + (sup || "") + "<b>" + c + ".</b></p>"; }
+    );
+
+    html = stripTags(html)
+      .replace(/&#xa0;|&nbsp;| /g, " ")
+      .replace(/<p>\s*<\/p>/g, "")
+      .replace(/[ \t]+/g, " ")
+      .replace(/\s+<br>/g, "<br>")
+      .replace(/\n+/g, "\n")
+      .trim();
+    html = markTabletLines(html, warn, "tablet " + n);
+
+    out.push({ n, t: m[2] ? m[2].trim() : book.chapterWord + " " + n, html, notes: local, cols });
+  });
+
+  if (out.length !== want)
+    warn("the edition carries " + out.length + " tablets; the entry expects " + want +
+         " (headings seen: " + seenHead.length + ")");
+  out.sort((a, b) => a.n - b.n);
+  return out;
+}
+
+const ORDINAL_WORD = {
+  first: 1, second: 2, third: 3, fourth: 4, fifth: 5, sixth: 6,
+  seventh: 7, eighth: 8, ninth: 9, tenth: 10, eleventh: 11, twelfth: 12,
+};
+
 async function chapterTitles() {
   /* A book need not have chapter titles at all, and the Meditations does not: its twelve books are
      headed "BOOK I" … "BOOK XII" on its own contents page and nowhere given names. `titleOf` is how
@@ -2492,6 +5410,91 @@ function originalChapters(h, warn) {
   return out;
 }
 
+/* Turn ONE page of another wiki into one chapter's html — the `perChapter` original, added with The
+   Prince (Aug 2026) and the simplest of the three wiki shapes rather than a complication of them.
+   Seneca's Latin gives one page per BOOK of the collection with the letters as headings inside it, so
+   originalChapters above has to split a page and read a numeral off each heading; here the page IS the
+   chapter and there is nothing to split.
+
+   What it does have that the Latin does not is a page SCAN, like the English side — so the body is
+   inside .prp-pages-output and is threaded with page markers. Those markers are the Italian wiki's own
+   (`numeropagina`, and a visible "[p. 66 modifica]" link inside them) rather than the English wiki's
+   `pagenum`, which is why cleanBody's pass does not reach them and this does its own. They are removed
+   from the INNER span outwards by a balanced walk, since they nest four deep and the outermost span
+   carries no class to match on; the empty wrappers left behind are swept with the other empties below.
+
+   No section pass. A book reaching this function pairs on its CHAPTER — see the note on `original` in
+   The Prince's entry — so the chapter is returned as one block, which is what bookRows then sets
+   beside the whole of the English chapter. */
+function originalChapter(h, O, warn) {
+  let b = h.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<!--[\s\S]*?-->/g, "");
+  const i = b.indexOf('<div class="prp-pages-output"');
+  if (i < 0) throw new Error("no body");
+  b = b.slice(i);
+  b = b.split(/<div class="reflist|<ol class="references"|<div class="mw-heading[^"]*"><h2/)[0];
+  b = b.replace(/<div class="prp-pages-output"[^>]*>/g, "");
+  for (let k = 0; k < 200; k++) {
+    const m = /<span class="numeropagina\b[^>]*>/.exec(b);
+    if (!m) break;
+    const end = blockEnd(b, m.index, "span");
+    if (end < 0) break;
+    b = b.slice(0, m.index) + b.slice(end);
+  }
+  b = b.replace(/<link[^>]*\/?>/g, "").replace(/<meta[^>]*\/?>/g, "");
+  b = b.replace(/<div[^>]*>/g, "<blockquote>").replace(/<\/div>/g, "</blockquote>");
+  b = stripTags(b);
+  b = b.replace(/&#160;|&nbsp;/g, " ").replace(/&#32;/g, " ");
+  b = b.replace(/[ \t]+/g, " ").replace(/\s*\n\s*/g, "\n");
+  for (let k = 0; k < 6; k++) {
+    b = b.replace(/<span>\s*<\/span>/g, "");
+    /* A paragraph holding nothing but line breaks. This edition sets a blank line above and below its
+       chapter title that way, so the title does not follow the heading directly and a pass looking for
+       it at the head of the text finds a spacer instead — which is how the first run of this reported
+       twenty-six chapters with no printed title while every one of them has one. */
+    b = b.replace(/<p>(?:\s*<br>\s*)+<\/p>/g, "");
+    b = b.replace(/<blockquote>\s*<\/blockquote>/g, "").replace(/<p>\s*<\/p>/g, "");
+    b = b.replace(/<blockquote>\s*(<blockquote>[\s\S]*?<\/blockquote>)\s*<\/blockquote>/g, "$1");
+  }
+  b = b.replace(/\s+<\/p>/g, "</p>").replace(/<p>\s+/g, "<p>").replace(/\n{2,}/g, "\n").trim();
+
+  /* The printed chapter heading, in the two pieces this edition sets it in: "CAPITOLO XVIII." centred
+     — a <blockquote> by the time it is seen, exactly as Haines's running heads are — and the chapter's
+     own title in italics on the line below it. Folio prints both above the text already, so left in
+     place each chapter opens on its own number and title said twice, the first time as a quotation.
+     Anchored to the START, so only a head can go, and the title is RETURNED rather than discarded so
+     that the run's log can say which one it took off each chapter.
+
+     THE TITLE IS NOT ALWAYS IN THE SAME BLOCK AS THE NUMBER, and assuming it is loses it on a third of
+     the book. Nine of the twenty-six chapters here set "CAPITOLO IX." and the title together inside one
+     centred block and the other seventeen set the title in a paragraph of its own below it — the same
+     text, printed two ways, which is what an edition of 1814 transcribed page by page looks like. So
+     the whole leading block goes whenever it carries the number (chapter 1's also carries the volume's
+     half-title, which is not chapter 1 and would otherwise stand at the top of the book), and a
+     following italic-only paragraph goes after it. Neither can run away with the prose: the first is
+     bounded by the block it is in, and the second must be a paragraph containing nothing but an italic
+     run, which no chapter of Machiavelli opens with. */
+  let head = "";
+  const takeHead = (inner) => {
+    const it = inner.match(/<i>([\s\S]*?)<\/i>/);
+    if (it && !head) head = it[1].replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+  };
+  b = b.replace(/^<blockquote>([\s\S]*?)<\/blockquote>\s*/, (m, inner) => {
+    if (/<blockquote>/.test(inner)) return m;
+    const t = inner.replace(/<[^>]*>/g, " ").replace(/&#\d+;|&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+    if (!O.dropHead || !O.dropHead.test(t)) return m;
+    takeHead(inner);
+    return "";
+  });
+  b = b.replace(/^<p>\s*<i>([\s\S]*?)<\/i>\s*<\/p>\s*/, (m, inner) => {
+    if (/<\/?p\b/.test(inner)) return m;
+    takeHead("<i>" + inner + "</i>");
+    return "";
+  });
+  b = b.replace(/^<p>\s*(?:<br>\s*)+/, "<p>");
+  if (!head && warn) warn("no printed title found at the head of the chapter");
+  return { html: b, head: head };
+}
+
 /* ---------- the original as a TEI edition ----------
    The second shape an original-language text can arrive in, and the better one. A wiki gives prose with
    the section numbers printed in it, which have to be read back out of the words; a TEI edition
@@ -2572,6 +5575,136 @@ function teiProse(raw) {
     .filter(Boolean)
     .map((p) => "<p>" + p + "</p>")
     .join("\n");
+}
+
+/* ============================================================
+   TEI PROSE IN BOOKS OF NUMBERED CHAPTERS   (a book declaring layout: "chaptered")
+   ============================================================
+   The sixth TEI reader, added Aug 2026 with Herodotus, and the shape it reads is the commonest one
+   in ancient prose: a work divided into BOOKS, each divided into numbered CHAPTERS, each of those
+   divided again into SECTIONS. "Herodotus 1.32.4" is book, chapter, section.
+
+   teiChapters above walks exactly that tree already — a Folio chapter is a `book` division and the
+   numbers inside it are `chapter` divisions — so the honest question was why this is not simply that
+   function with another book pointed at it. Three answers, and each is a fault this file has met
+   before under another name.
+
+   · IT READS THE ATTRIBUTES INDEPENDENTLY OF THEIR ORDER, AND THE SUBTYPE WITHOUT REGARD TO CASE.
+     teiChapters matches `subtype="book"` and then `n="…"` in that order, lowercase. Herodotus's Greek
+     spells its divisions `subtype="book" n="1"` and its English spells them `n="1" subtype="Book"` —
+     the other order AND the other case, both at once. That regex therefore returns nine books from
+     the Greek and throws on the English. It is Suetonius's attribute-order fault and Ovid's
+     capitalised `subtype="BOOK"` arriving together in one work, which is the argument for reading
+     both robustly here rather than for the third time in a row discovering that one edition spells
+     something the way the last one did not.
+
+   · IT LIFTS THE NOTES OUT. teiChapters uses teiProse, which knows nothing about `<note>`; the
+     Meditations' Greek carries none, so that has never cost anything. This edition carries 528 in
+     the English and 83 in the Greek — the translator's and the Perseus editors' glosses, set at the
+     point they are cited. teiProse's tag sweep would strip the wrapper and leave the note's TEXT
+     standing in the middle of Herodotus's sentence, which is the Meditations' reflist fault in a new
+     element and just as invisible: the prose is complete and simply says more than the author did.
+     So this walks teiSectionProse instead, which is the reader Suetonius's notes were written for,
+     and each marker carries the entry it points at rather than its place in the queue.
+
+   · IT PAIRS ON THE CHAPTER, WHICH IS NOT THE DEEPEST DIVISION. The finer `section` divisions are the
+     same numbered entry and are simply concatenated into it, exactly as Leopold's sections are folded
+     into a chapter of the Meditations. That is a decision about this work rather than a convenience,
+     and it was MEASURED over the whole of both editions before it was made:
+
+       chapters : 1,578 on each side, and in all nine books the chapter NUMBERS are identical —
+                  same count, same values, in order, nothing missing on either side.
+       sections : 4,338 on each side, but nine chapters number them differently. Book 1 chapter 1
+                  opens on a section the English calls `pr` and the Greek calls `0`; eight more
+                  (6.11, 6.49, 6.58, 7.19, 7.37, 7.41 and two others in book 7) run 1,2,4 against
+                  1,2,3 or 1,3 against 1,2, the English numbering skipping where the Greek does not.
+
+     So the chapter is the unit both editions agree on without exception and the section is not, which
+     settles it: pairing on the chapter is provably clean, and pairing on the section would have put
+     nine chapters of the two columns beside passages that are not each other. The nine are recorded
+     rather than repaired, as the Nicomachean Ethics' three repeated Bekker pages are — reconciling
+     them would mean composing an apparatus over two editions that each state their own numbering.
+
+   THE SPACING IS TIDIED, and only here. This edition's English is tagged so densely — 35,714 `<name>`
+   elements — that the whitespace sitting between two tags survives them both and lands in front of
+   the punctuation that followed: "of Halicarnassus , so that". It is an artefact of unwrapping rather
+   than anything the translator wrote, there are 834 of them, and every one would read as a typo. It
+   is done in this reader instead of in teiInline because teiInline is shared with five shipped books
+   and a rule that rewrites their punctuation is a rule that has to be proved against all five. */
+function teiBookChapters(xml, opts, warn) {
+  const body = xml.slice(xml.indexOf("<body"));
+  if (body.length < 1000) throw new Error("no <body> in the TEI file");
+
+  // attributes read independently of their order, and the subtype without regard to case — see above
+  const attr = (t, a) => (t.match(new RegExp("\\b" + a + '="([^"]*)"')) || [])[1] || "";
+  const divs = [];
+  const dre = /<div\b([^>]*)>/g;
+  let m;
+  while ((m = dre.exec(body))) {
+    const st = (/subtype="([^"]*)"/i.exec(m[1]) || [])[1] || "";
+    if (st) divs.push({ sub: st.toLowerCase(), n: attr(m[1], "n"), at: m.index });
+  }
+  const books = divs.filter((d) => d.sub === "book" && /^\d+$/.test(d.n));
+  if (!books.length) throw new Error("no book divisions in the TEI file");
+
+  const out = {};
+  books.forEach((b, i) => {
+    const end = i + 1 < books.length ? books[i + 1].at : body.length;
+    const chs = divs.filter((d) => d.sub === "chapter" && d.at > b.at && d.at < end);
+    if (!chs.length) { warn("book " + b.n + " has no chapter divisions"); return; }
+
+    const notes = [];
+    const skipped = [];
+    /* SEQ STARTS BELOW ZERO BECAUSE A CHAPTER MAY LEGITIMATELY BE NUMBERED 0, which the Gallic War is
+       the first book here to do: Hirtius's covering letter to Balbus stands at the head of book 8,
+       numbered apart from the war it introduces, and both editions print it that way. With the
+       counter starting at 0 the forward-only guard below read that chapter as following itself and
+       warned twice on every run — a false alarm on a perfectly ordered book, which is the kind of
+       noise that teaches the next person to ignore the warnings. Herodotus's chapters all start at 1
+       and are unaffected: any real chapter scales to 100 or more. */
+    let html = "", seq = -1, kept = 0;
+    chs.forEach((ch, j) => {
+      const raw = body.slice(ch.at, j + 1 < chs.length ? chs[j + 1].at : end);
+      /* A CHAPTER NUMBER HERE IS NOT ALWAYS AN INTEGER, and taking it for one costs the book real
+         text. 45 of this work's 1,578 chapters carry a letter — 2.121A to 2.121F, 7.10A to 7.10H,
+         and so on — which is how an editor numbers a passage inserted into a sequence already fixed
+         by everyone who cites it. They are Herodotus, not apparatus: 2.121A is the opening of the
+         story of Rhampsinitus's treasury, one of the most famous things in the book. The first cut of
+         this reader borrowed teiSections' "a division numbered with a word is not a chapter" guard,
+         which is right for Suetonius's appended essays and wrong here, and it silently dropped all 45
+         from both columns — nothing threw, every book was present, and the run reported a clean
+         1,533-for-1,533 pairing of a book missing forty-five of its chapters.
+         So the guard now admits a trailing letter, and anything else is still skipped and reported. */
+      const key = /^(\d+)([A-Z])?$/.exec(ch.n);
+      if (!key) { skipped.push(ch.n); return; }
+      /* THE NUMBER SHOWN AND THE NUMBER SORTED ON COME APART the moment a letter is allowed, which is
+         the Nicomachean Ethics' Bekker-page problem in a second work: parseInt reads 121, 121A and
+         121B as one section 121, merging three rows into one and taking the ordering with it. So the
+         marker carries an explicit `data-n` sort key, on a scale with room for the letter — 121 →
+         12100, 121A → 12101 — and app.js's bookSections reads it in preference to the text.
+         IT IS WRITTEN ON EVERY MARKER IN THIS BOOK, not only the lettered ones, and that is the part
+         to keep: bookSections falls back to parsing the text where the attribute is absent, so a
+         book mixing bare 121 with data-n="12101" would be sorting two scales against each other. */
+      const n = +key[1] * 100 + (key[2] ? key[2].charCodeAt(0) - 64 : 0);
+      /* A number that goes BACKWARDS is a fault worth hearing about; a gap is not, an edition being
+         entitled to have none. Both columns run this, so the two can only disagree loudly. */
+      if (n <= seq) warn("book " + b.n + ": chapter " + ch.n + " follows " + seq + " — out of order");
+      seq = n;
+      const text = teiSectionProse(raw, notes);
+      if (!text) { warn("book " + b.n + " chapter " + ch.n + " came back empty"); return; }
+      kept++;
+      // the marker goes INSIDE the first paragraph, which is where bookSections looks for it
+      html += (html ? "\n" : "") +
+        text.replace(/^<p>/, '<p><span class="bk-n" data-n="' + n + '">' + ch.n + "</span> ");
+    });
+    /* The unwrapping artefact, not the translator's punctuation — see the note above. IT HAS TO REACH
+       THE NOTES TOO: they are lifted out of the prose into their own list before any of this runs, so
+       a tidy applied to `html` alone leaves 74 of them sitting in 59 notes, where they read exactly as
+       badly ("Not the modern Red Sea , but the Persian Gulf") and are simply harder to notice. */
+    const tidy = (s) => s.replace(/\s+([,.;:!?·])/g, "$1");
+    out[b.n] = { html: tidy(html), notes: notes.map(tidy), chapters: kept, skipped: skipped };
+  });
+  return out;
 }
 
 /* ============================================================
@@ -2695,10 +5828,73 @@ function teiInline(s) {
   let b = s;
   b = b.replace(/<del\b[^>]*>[\s\S]*?<\/del>/g, "");
   b = b.replace(/<\/?add\b[^>]*>/g, "");
+
+  /* PERSEUS'S NAME AUTHORITY, dropped WITH its words — and it is the quiet fault of the Herodotus
+     files, which are the first here to carry it. Their English tags every person, place and people
+     against a gazetteer, and a place is encoded as the authority's entry FOLLOWED by the words the
+     translator actually wrote:
+
+       <name key="tgn,7016142" type="place"><reg>Bodrum [27.466,37.5] (inhabited place), Mugla Ili,
+       Ege kiyilari, Turkey, Asia </reg> <placeName key="tgn,7016142">Halicarnassus</placeName></name>
+
+     The sweep at the foot of this function unwraps what it does not recognise and KEEPS the words, so
+     left alone the first sentence of the Histories reads "the inquiry of Herodotus of Bodrum
+     [27.466,37.5] (inhabited place), Mugla Ili, Ege kiyilari, Turkey, Asia Halicarnassus" — a modern
+     Turkish gazetteer entry, with coordinates, inside the book's opening line. Nothing throws, no
+     passage is missing and every count reads as healthy; it is only wrong. 4,305 of them.
+
+     IT IS SCOPED TO <name> ON PURPOSE, and that is the whole care in this rule. TEI's own `<reg>` is
+     the REGULARIZED form of a word — <choice><orig>ye</orig><reg>you</reg></choice> — which an editor
+     means to be read and which a blanket drop would delete from some future edition's prose. What is
+     dropped here is only a `<reg>` standing inside a `<name>`, which is Perseus's own use and is
+     metadata rather than text. Measured over the whole work before this was written: all 4,305 sit
+     inside a `<name>` and none outside one. The non-greedy match mis-reads a `<name>` nested in
+     another — there are four, all of the shape "Racecourse of <name>Achilles</name>" — but none of
+     the four contains a `<reg>`, so nothing is lost and the stray closing tag unwraps below. */
+  b = b.replace(/<name\b[^>]*>([\s\S]*?)<\/name>/g, (whole, inner) =>
+    inner.replace(/<reg\b[^>]*>[\s\S]*?<\/reg>/g, ""));
+
+  /* THE EDITOR'S CORRECTION, kept over the reading he is correcting — the same judgement `add` and
+     `del` above make, in the one element that states both halves at once. Godley's Greek marks four:
+     <choice><sic>αἱ</sic> <corr>οἱ</corr></choice>. Unwrapped by the generic sweep both survive and
+     the text reads "αἱ οἱ", which is a word the author did not write standing next to the word he
+     did. A `<choice>` carrying no `<corr>` keeps whatever else it holds rather than emptying. */
+  b = b.replace(/<choice\b[^>]*>([\s\S]*?)<\/choice>/g, (whole, inner) => {
+    const corr = /<corr\b[^>]*>([\s\S]*?)<\/corr>/.exec(inner);
+    return corr ? corr[1] : inner.replace(/<sic\b[^>]*>[\s\S]*?<\/sic>/g, "");
+  });
   b = b.replace(/<gap\b([^>]*?)\/?>/g, (whole, a) => {
     const r = /rend="([^"]*)"/.exec(a);
     return r && r[1].trim() ? " " + r[1].trim() + " " : " … ";
   });
+  /* A TABLE SET AS A LIST, kept as rows — added Aug 2026 with the Gallic War, which is the first book
+     here whose translator prints one. Caesar's chapter 1.29 is the census tablets found in the
+     Helvetian camp, and the edition sets the six entries as a `<list>` of `<label>`/`<item>` pairs: a
+     people on the left, a number on the right. The generic sweep at the foot of this function unwraps
+     all three tags and keeps the words, so left alone the passage arrives as one run-on line — "Of the
+     Boii 32,000 The sum of all amounted to 368,000 Out of these, such as could bear arms…" — where the
+     table's last number runs into the sentence after it and the column of figures is gone. It is the
+     `wrapBareRuns` fault in a new element: nothing throws, no word is lost, and the chapter is exactly
+     the right length. Folio's reader has no table, but it has `<br>`, and one row to a line carries
+     what the column carried.
+
+     IT IS SCOPED TO A `<label>` INSIDE A `<list>`, and that scoping is the whole care in the rule.
+     TEI's `<label>` is also how a play marks WHO IS SPEAKING, and the Symposium's Greek — already
+     shipped — carries six of them doing exactly that: `<label>ΑΠΟΛ.</label>` opening Apollodorus's
+     speeches. A rule keyed on `<label>` alone would put a line break before every one of those and
+     silently re-set a shipped book. Measured over every TEI file this importer reads before the rule
+     was written: `<list>` occurs in this one English file and nowhere else on the shelf, so what
+     follows is provably inert for all thirteen books already here — which the byte-for-byte re-run
+     confirmed rather than assumed. No separator is invented between the two cells: the edition prints
+     none, and a space is what the eye reads as the gap in a table of this shape. */
+  b = b.replace(/<list\b[^>]*>([\s\S]*?)<\/list>/g, (whole, inner) => {
+    const rows = inner
+      .split(/(?=<label\b)/)
+      .map((r) => r.replace(/<\/?(?:label|item)\b[^>]*>/g, " ").replace(/\s+/g, " ").trim())
+      .filter(Boolean);
+    return rows.length ? " " + rows.join("<br>") + "<br>" : "";
+  });
+
   b = b.replace(/<lb\s*\/?>/g, "<br>");
   b = b.replace(/<\/l>\s*<l\b[^>]*>/g, "<br>").replace(/<\/?l\b[^>]*>/g, "");
   b = b.replace(/<quote\b[^>]*>/g, "<q>").replace(/<\/quote>/g, "</q>");
@@ -2962,22 +6158,75 @@ function lineSortKey(n) {
 function dramaText(s) {
   return s
     .replace(/<stage\b[^>]*>([\s\S]*?)<\/stage>/g, (m, t) => "<i>" + t.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim() + "</i>")
-    .replace(/<(?!\/?i\b)[^>]*>/g, "")
+    /* `sup` joins `i` in the keep list for the footnote marker dramaNotes has already put in — the
+       whole point of lifting a note is that something is left behind pointing at it, and the sweep
+       below would take the marker out again. TEI has no `<sup>` of its own, so nothing else can come
+       through this door; measured over both columns of both plays, the only ones present are ours. */
+    .replace(/<(?!\/?(?:i|sup)\b)[^>]*>/g, "")
     .replace(/&#160;|&nbsp;/g, " ")
     .replace(/\s+/g, " ")
     .trim();
 }
 const dramaPlain = (s) => s.replace(/<[^>]*>/g, "").replace(/&#160;|&nbsp;/g, " ").replace(/\s+/g, " ").trim();
 
+/* ONE DIVISION'S NOTES, LIFTED OUT INTO THE FOLD — added Aug 2026 with the Medea, the second play
+   here and the first whose edition annotates itself.
+
+   The Oedipus Rex prints no notes at all, so the drama reader was written to STRIP them, with a line
+   saying the rule stayed because the next edition's might not. It did: Coleridge's Medea carries 38,
+   of which 37 stand inside the play's own divisions, and stripping them would have discarded the
+   whole apparatus of a text that needs one — 29 are the translator's own notes on where he departs
+   from the manuscripts and which conjecture he follows, and 8 are Perseus's on where this English
+   parts company with the Greek's line numbering or its attribution of a line to a speaker. That is
+   exactly the quiet fault this file keeps meeting: nothing throws, every line of the play is present,
+   the counts all read as healthy, and only the notes are gone.
+
+   THE MARKER IS EMPTY AND CARRIES ITS TARGET, which is the rule teiSectionProse sets out at length:
+   the digit a reader sees is written by app.js from the list at render time, so re-ordering the notes
+   can never strand a stale number in a line, and `data-fn` says which entry this one opens rather
+   than trusting its position in reading order.
+
+   A MARKER STANDING BETWEEN TWO LINES BELONGS TO THE LINE BEFORE IT, and without that rule seven of
+   the 37 would be lifted into the fold with nothing left pointing at them. teiDramaBlocks walks the
+   `<stage>` and `<l>` elements inside a speech and nothing else, so a note sitting in the gap after a
+   `</l>` — which is where Perseus puts all seven of its own, each being about the line it follows —
+   has its marker dropped on the floor while its text still reaches the list. The note would then be
+   unreferenced, which app.js renders as an entry no sentence opens: the mirror of the dead marker the
+   apparatus already refuses to draw. Measured over the whole play before this was written: all seven
+   sit immediately after a closing line tag and none anywhere else, so the move is as narrow as the
+   evidence, and teiDramaDivisions reports any note it still cannot find a marker for. */
+function dramaNotes(raw, notes) {
+  const out = raw.replace(/<note\b([^>]*)>([\s\S]*?)<\/note>/g, (whole, attrs, inner) => {
+    const t = teiInline(inner);
+    if (!t) return "";
+    /* A note marked place="inline" is not a footnote — TEI's `place` says where the printed page puts
+       it, and `inline` means the flow of the text rather than the foot of it. Lifting one into the
+       fold would move it off the page it belongs on. The rule teiSectionProse learned on Suetonius;
+       this play's one such note is its cast list, which stands ahead of the first division and is
+       never reached, so the rule is here for the edition after this one. */
+    if (/place="inline"/.test(attrs)) return " <i>" + t + "</i> ";
+    notes.push(t);
+    return '<sup class="fn" data-fn="' + notes.length + '"></sup>';
+  });
+  return out.replace(/<\/l>(\s*)(<sup class="fn" data-fn="\d+"><\/sup>)/g, "$2</l>$1");
+}
+
 /* The play's own divisions. This encoding marks a spoken scene `subtype="episode"` and a sung one
    `subtype="choral"`, and nests everything else INSIDE those — the strophe and antistrophe of each
    ode, and in the Greek two further marks the English does not carry. So selecting the two top-level
-   names is the whole of the depth question, and needs no bracket counting. */
-function teiDramaDivisions(xml, warn) {
+   names is the whole of the depth question, and needs no bracket counting.
+
+   `opts.notes` lifts each division's notes into its own list rather than dropping them; see
+   dramaNotes. It is off by default, which is what keeps the Oedipus Rex byte-identical and is also
+   right for every ORIGINAL column: Folio folds notes under the translation alone, so a note lifted
+   out of the Greek would have nowhere to go. The count dropped that way is reported rather than
+   passed over, as the chaptered branch reports Herodotus's 83. */
+function teiDramaDivisions(xml, warn, opts) {
+  const O = opts || {};
   const body = xml.slice(xml.indexOf("<body"));
   if (body.length < 1000) throw new Error("no <body> in the TEI file");
-  // this edition prints no notes and no heads; the rule stays because the next one's may not
-  let b = body.replace(/<note\b[^>]*>[\s\S]*?<\/note>/g, "");
+  let b = body;
+  if (!O.notes) b = b.replace(/<note\b[^>]*>[\s\S]*?<\/note>/g, "");
   // the editor's mark of spurious text, dropped with its words — the judgement teiProse and
   // teiVerseBooks both make, and for the same reason: what ships is the text the edition constitutes
   b = b.replace(/<del\b[^>]*>[\s\S]*?<\/del>/g, "");
@@ -2989,12 +6238,24 @@ function teiDramaDivisions(xml, warn) {
   while ((m = rx.exec(b))) marks.push({ kind: m[1].toLowerCase(), index: m.index });
   if (!marks.length) throw new Error("no episode or choral divisions in the TEI file");
   return marks.map((d, i) => {
-    const raw = b.slice(d.index, i + 1 < marks.length ? marks[i + 1].index : b.length);
+    let raw = b.slice(d.index, i + 1 < marks.length ? marks[i + 1].index : b.length);
+    const notes = [];
+    if (O.notes) raw = dramaNotes(raw, notes);
     const blocks = teiDramaBlocks(raw, warn);
     const nums = [];
     blocks.forEach((x) => x.kind === "sp" && x.lines.forEach((l) => l.n && nums.push(l.n)));
     if (!nums.length) warn("a " + d.kind + " division carries no numbered line");
-    return { kind: d.kind, blocks: blocks, from: nums[0] || null, last: nums[nums.length - 1] || null };
+    /* A note that reached the list with no marker left pointing at it. app.js draws that as an entry
+       nothing opens — the mirror of the dead marker the apparatus already refuses to draw — so it is
+       reported here rather than shipped. See the note-position rule in dramaNotes. */
+    if (notes.length) {
+      const seen = new Set();
+      blocks.forEach((x) => x.kind === "sp" && x.lines.forEach((l) =>
+        [...String(l.text).matchAll(/data-fn="(\d+)"/g)].forEach((m) => seen.add(+m[1]))));
+      const lost = notes.map((t, k) => k + 1).filter((k) => !seen.has(k));
+      if (lost.length) warn("note " + lost.join(", ") + " of this division has no marker in the text");
+    }
+    return { kind: d.kind, blocks: blocks, notes: notes, from: nums[0] || null, last: nums[nums.length - 1] || null };
   });
 }
 
@@ -3194,7 +6455,14 @@ async function fetchEnglish() {
       let xml;
       if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
       else { xml = await fetchText(BOOK.url(n)); fs.writeFileSync(cf, xml); await sleep(500); }
-      const got = teiSections(xml, { renumber: (s) => (BOOK.renumber ? BOOK.renumber(s, n) : s) }, warn);
+      /* `subtype` is threaded through here for the same reason the ORIGINAL side already threads it
+         (see the note in teiSections): which word an edition uses for its numbered unit is the
+         edition's business, and Suetonius says `chapter` where Burnet's and the Loeb Plato say
+         `section`. It defaults to "chapter" inside teiSections, so the twelve lives are untouched. */
+      const got = teiSections(xml, {
+        subtype: BOOK.subtype,
+        renumber: (s) => (BOOK.renumber ? BOOK.renumber(s, n) : s),
+      }, warn);
       if (got.html.length < 200) throw new Error("chapter " + n + " came back short (" + got.html.length + " chars)");
       /* Say what was left out, every run. The appended "Remarks on …" essay is skipped deliberately
          (see the BOOKS entry) and a silent skip is how a deliberate omission turns into a forgotten
@@ -3213,7 +6481,10 @@ async function fetchEnglish() {
     let xml;
     if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
     else { xml = await fetchText(BOOK.url); fs.writeFileSync(cf, xml); }
-    const divs = teiDramaDivisions(xml, warn);
+    /* Notes are LIFTED on the translation side, which is the only side Folio can fold them under.
+       The Oedipus Rex's edition prints none, so this changes nothing there; Coleridge's Medea prints
+       38 and would otherwise lose the lot in silence. See dramaNotes. */
+    const divs = teiDramaDivisions(xml, warn, { notes: true });
     if (divs.length !== BOOK.chapters.length)
       warn("the edition divides the play into " + divs.length + " parts; the entry expects " + BOOK.chapters.length);
     divs.forEach((d, i) => {
@@ -3236,11 +6507,36 @@ async function fetchEnglish() {
       const t = (d.kind === "choral" ? "Choral ode" : "Episode") + ", lines " + d.from + "–" + to;
       const marks = secs.filter((s) => s.kind === "sec").length;
       const stage = secs.filter((s) => s.kind === "stage").length;
-      chapters.push({ n: n, t: t, p: partOf(n), html: html, notes: [] });
+      chapters.push({ n: n, t: t, p: partOf(n), html: html, notes: d.notes });
       console.log("  Part " + n + " — " + t + ": " + marks + " sections, " +
         secs.filter((s) => s.kind === "sec").reduce((a, s) => a + s.lines.length, 0) + " lines, " +
-        stage + " stage direction(s) (" + (html.length / 1024).toFixed(0) + " KB)");
+        stage + " stage direction(s), " + d.notes.length + " note(s) (" +
+        (html.length / 1024).toFixed(0) + " KB)");
     });
+    return writeEnglish(chapters, warnings);
+  }
+
+  /* A PROSE WORK IN BOOKS OF NUMBERED CHAPTERS — see teiBookChapters. One fetch for the whole
+     history, cached whole, so --from/--to cost nothing and a re-extract needs no network at all. */
+  if (BOOK.source === "tei" && BOOK.layout === "chaptered") {
+    const warn = (m) => warnings.push(m);
+    const cf = path.join(CACHE, "en-tei.xml");
+    let xml;
+    if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
+    else { xml = await fetchText(BOOK.url); fs.writeFileSync(cf, xml); }
+    const books = teiBookChapters(xml, {}, warn);
+    for (const n of BOOK.chapters) {
+      if (n < FROM || n > TO) continue;
+      const got = books[n];
+      if (!got) { warn(BOOK.chapterWord + " " + n + " is missing from the edition"); continue; }
+      if (got.html.length < 200) throw new Error("chapter " + n + " came back short (" + got.html.length + " chars)");
+      chapters.push({ n: n, t: titles[n] || chapterTitle(n), p: partOf(n), html: got.html, notes: got.notes });
+      console.log("  " + BOOK.chapterWord + " " + n + " — " + got.chapters + " chapters, " +
+        got.notes.length + " notes (" + (got.html.length / 1024).toFixed(0) + " KB)");
+      // AFTER the line naming the book, or the reader attributes the skips to the book above — which
+      // is exactly how the 45 lettered chapters were first mis-read as belonging to the wrong books
+      if (got.skipped.length) console.log("    skipped non-chapter division(s): " + got.skipped.join(", "));
+    }
     return writeEnglish(chapters, warnings);
   }
 
@@ -3264,6 +6560,75 @@ async function fetchEnglish() {
     return writeEnglish(chapters, warnings);
   }
 
+  /* A POEM IN LAISSES — one transcribed page holding every chapter, cut rather than walked. The page
+     is cached whole, exactly as a TEI file is, so --from/--to cost nothing and a re-extract needs no
+     network at all; --force refetches it. `chapters` is filtered afterwards rather than before,
+     because the cut has to see the whole sequence to number it. */
+  if (BOOK.layout === "laisses") {
+    const warn = (m) => warnings.push(m);
+    const cf = path.join(CACHE, "en-page.html");
+    let h;
+    if (!FORCE && fs.existsSync(cf)) h = fs.readFileSync(cf, "utf8");
+    else { h = await api(BOOK.onePage); fs.writeFileSync(cf, h); }
+    const got = extractLaisses(h, BOOK, warn);
+    if (got.length !== BOOK.chapters.length)
+      warn("the edition carries " + got.length + " laisses; the entry expects " + BOOK.chapters.length);
+    got.forEach((c) => {
+      if (c.n < FROM || c.n > TO) return;
+      if (c.html.length < (BOOK.minChars || 200))
+        throw new Error("laisse " + c.n + " came back short (" + c.html.length + " chars)");
+      chapters.push({ n: c.n, t: titles[c.n] || chapterTitle(c.n), p: partOf(c.n), html: c.html, notes: [] });
+    });
+    const lines = chapters.reduce((a, c) => a + (c.html.match(/<br>/g) || []).length + 1, 0);
+    console.log("  " + chapters.length + " laisses, " + lines + " lines");
+    return writeEnglish(chapters, warnings);
+  }
+
+  /* A WHOLE BOOK ON ONE PAGE FROM A HOST THAT IS NOT A WIKI — see the block above extractTablets for
+     why this book needs a third source at all and what was measured before it was chosen. One
+     request for the lot, cached exactly as a TEI file is: --from/--to cost nothing, a re-extract
+     needs no network, and the site is asked once rather than once per tablet. */
+  if (BOOK.layout === "tablets") {
+    const warn = (m) => warnings.push(m);
+    const cf = path.join(CACHE, "en-page.html");
+    let h;
+    if (!FORCE && fs.existsSync(cf)) h = fs.readFileSync(cf, "utf8");
+    else { h = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, h); }
+    const got = extractTablets(h, BOOK, warn);
+    let notes = 0, cols = 0, marks = 0;
+    got.forEach((c) => {
+      if (c.n < FROM || c.n > TO) return;
+      if (c.html.length < (BOOK.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + c.n + " came back short (" + c.html.length + " chars)");
+      notes += c.notes.length; cols += c.cols;
+      marks += (c.html.match(/class="bk-n"/g) || []).length;
+      chapters.push({ n: c.n, t: titles[c.n] || c.t, p: partOf(c.n), html: c.html, notes: c.notes });
+      console.log("  " + BOOK.chapterWord + " " + c.n + " — " + c.t +
+        " (" + c.html.length + " chars, " + c.cols + " columns, " + c.notes.length + " notes)");
+    });
+    const lines = chapters.reduce((a, c) => a + (c.html.match(/<br>/g) || []).length + 1, 0);
+    console.log("  " + chapters.length + " tablets, " + lines + " lines, " +
+      cols + " columns, " + marks + " line numbers, " + notes + " notes");
+    return writeEnglish(chapters, warnings);
+  }
+
+  /* The endnote table, fetched ONCE for the whole book rather than per chapter — it is one page at the
+     back of the volume and every chapter's markers point into it. Cached beside the chapters, so a
+     resumed or a --from/--to run costs no extra request; --force refetches it with everything else. */
+  let endnotes = null;
+  if (BOOK.endnotes) {
+    const ef = path.join(CACHE, "endnotes.json");
+    if (!FORCE && fs.existsSync(ef)) endnotes = JSON.parse(fs.readFileSync(ef, "utf8"));
+    else {
+      const eh = await api(BOOK.endnotes.page);
+      endnotes = endnoteTable(eh, (m) => warnings.push("endnotes: " + m));
+      if (!Object.keys(endnotes).length) throw new Error("no endnotes found on " + BOOK.endnotes.page);
+      fs.writeFileSync(ef, JSON.stringify(endnotes));
+      await sleep(700);
+    }
+    console.log("  " + Object.keys(endnotes).length + " endnotes read from " + BOOK.endnotes.page);
+  }
+
   for (const n of BOOK.chapters) {
     if (n < FROM || n > TO) continue;
     const cf = path.join(CACHE, n + ".json");
@@ -3277,17 +6642,34 @@ async function fetchEnglish() {
     const h = await api(BOOK.page(n));
     const warn = (m) => warnings.push(BOOK.chapterWord + " " + n + ": " + m);
     let html, notes, orig = "";
-    if (BOOK.layout === "parallel") {
+    if (BOOK.layout === "parallel" || BOOK.layout === "interleaved") {
       /* Both columns come off this one page, so the original is extracted here too and cached beside
-         the translation — fetchOriginal then costs no requests at all. */
-      const got = extractParallel(h, BOOK, warn);
+         the translation — fetchOriginal then costs no requests at all. The two shapes a facing-page
+         edition is transcribed in take different extractors; see the Analects entry for what
+         separates them. */
+      const got = bothColumns(h, BOOK, warn);
       html = got.html; notes = got.notes; orig = got.orig;
     } else {
       const got = notesOf(h);
+      const keep = endnotes && got.notes.length ? resolveEndnotes(got, endnotes, warn) : null;
       notes = got.notes;
+      /* Which book this page is supposed to BE, for the one marker rule that can check (see
+         `sections: "bookchapter"` in cleanBody — Thucydides' chapter marks carry the book number as
+         well as the chapter). Set only for that shape, so no other book's config is touched. */
+      if (BOOK.sections === "bookchapter") BOOK.expect = n;
       html = cleanBody(h, got.ids, BOOK, warn);
+      if (keep) html = pruneNotes(html, keep);
     }
-    if (html.length < 200) throw new Error("chapter " + n + " came back short (" + html.length + " chars)");
+    /* THE FLOOR IS PER BOOK, because 200 characters is a broken chapter in every book here except
+       one (Aug 2026, adding Aesop's Fables). This guard is what catches an extraction that has
+       quietly returned the wiki furniture instead of the text, and 200 has been a safe floor while
+       a chapter meant a book of Herodotus or a letter of Seneca. A fable is one paragraph: fable
+       123, The Wolf and the Shepherds, is 191 characters and is complete — checked against the
+       source page rather than assumed, since a short chapter is exactly what a truncation looks
+       like. Lowering the floor for everybody would blunt the guard on the fourteen books that
+       need it, so the book that needs a different one says so and the default is unchanged. */
+    const floor = BOOK.minChars || 200;
+    if (html.length < floor) throw new Error("chapter " + n + " came back short (" + html.length + " chars)");
     const rec = { n, t: titles[n] || chapterTitle(n), p: partOf(n), html, notes };
     if (orig) rec.orig = orig;
     fs.writeFileSync(cf, JSON.stringify(rec));
@@ -3377,7 +6759,7 @@ async function fetchOriginal() {
      facing half of the same page and was extracted when the translation was. This reads it back out
      of that cache, and fetches a chapter only where the cache has none — which is what an
      --only-original run on a clean checkout looks like. */
-  if (BOOK.layout === "parallel") {
+  if (BOOK.layout === "parallel" || BOOK.layout === "interleaved") {
     console.log("\nReading the " + O.langName + " original out of the parallel text — " +
       BOOK.chapters.length + " chapters");
     for (const n of BOOK.chapters) {
@@ -3385,7 +6767,7 @@ async function fetchOriginal() {
       let rec = !FORCE && fs.existsSync(cf) ? JSON.parse(fs.readFileSync(cf, "utf8")) : null;
       if (!rec || !rec.orig) {
         const h = await api(BOOK.page(n));
-        const got = extractParallel(h, BOOK, (m) => warn(BOOK.chapterWord + " " + n + ": " + m));
+        const got = bothColumns(h, BOOK, (m) => warn(BOOK.chapterWord + " " + n + ": " + m));
         rec = rec || { n, t: chapterTitle(n), p: partOf(n), html: got.html, notes: got.notes };
         rec.orig = got.orig;
         fs.writeFileSync(cf, JSON.stringify(rec));
@@ -3461,8 +6843,16 @@ async function fetchOriginal() {
       let enXml;
       if (fs.existsSync(enCache)) enXml = fs.readFileSync(enCache, "utf8");
       else { enXml = await fetchText(BOOK.url); fs.writeFileSync(enCache, enXml); }
+      /* Neither call lifts notes. On the English side only the line NUMBERS are read here — the
+         boundaries the Greek is cut against — and the text that ships was written by the English pass,
+         which does lift them. On the Greek side there is nowhere to put one: Folio folds notes under
+         the translation alone, so the original's are dropped, and the count is printed rather than
+         passed over in silence, exactly as the chaptered branch prints Herodotus's 83. */
       const en = teiDramaDivisions(enXml, warn);
       const or = teiDramaDivisions(xml, warn);
+      const orNotes = (xml.slice(xml.indexOf("<body")).match(/<note\b/g) || []).length;
+      if (orNotes) console.log("  dropped " + orNotes + " note(s) from the " + O.langName +
+        " — the reader folds notes under the translation alone");
       if (en.length !== or.length)
         warn("the two editions divide the play differently — " + en.length + " parts against " + or.length);
       /* The divisions must open on the SAME LINE on both sides, or the two columns are being paired
@@ -3493,6 +6883,75 @@ async function fetchOriginal() {
       return writeOriginal(byNum, warnings);
     }
 
+    /* A PROSE WORK IN BOOKS OF NUMBERED CHAPTERS pairs on the CHAPTER — see teiBookChapters for the
+       measurement that settled it on the chapter rather than the finer section. The two columns are
+       reconciled before either is believed, and the English is read back out of its own cached TEI so
+       that an --only-original run checks against exactly the file that shipped — the discipline the
+       verse and drama branches above follow, and for the same reason: a pairing asserted from the
+       entry rather than from the files is a pairing nobody has checked.
+
+       THE ORIGINAL'S OWN NOTES ARE DROPPED, and that is a consequence of the page rather than a
+       judgement about them. teiSectionProse lifts a note out of the prose into a list, and Folio's
+       reader folds notes under the TRANSLATION alone — the original column has nowhere to put one —
+       so the Greek's 83 editorial notes are removed from the text instead of being left standing in
+       the middle of it. The count is printed on every run rather than passed over in silence. */
+    if (O.layout === "chaptered") {
+      /* WHERE THE ENGLISH SIDE IS READ BACK FROM, and until Thucydides there was only one answer
+         (Aug 2026). Herodotus's and the Gallic War's translations are TEI editions, so this branch
+         re-read the cached XML and ran teiBookChapters over it. Thucydides is the first book here
+         whose two columns come from DIFFERENT KINDS of source — a Wikisource English against a
+         Perseus TEI original — and on that shape there is no en-tei.xml at all and no BOOK.url to
+         fetch one from, so the old path asked fetchText for `undefined` and died after the English
+         had already been written.
+
+         The wiki side has its own per-chapter cache, holding exactly the html that shipped, with the
+         bk-n markers already in it — which is the same thing teiBookChapters returns and all the
+         reconciliation below needs. So it is read from there, and the discipline the verse, drama and
+         TEI branches follow is kept intact: the pairing is checked against the file that actually
+         shipped rather than asserted from the entry. A chapter whose cache is missing is reported
+         rather than skipped in silence, since a quietly absent English book would read as a clean
+         pairing of the ones that remain. */
+      let en;
+      if (BOOK.source === "wiki") {
+        en = {};
+        for (const n of BOOK.chapters) {
+          const cf = path.join(CACHE, n + ".json");
+          if (!fs.existsSync(cf)) { warn(BOOK.chapterWord + " " + n + " has no cached translation to pair against"); continue; }
+          en[n] = { html: JSON.parse(fs.readFileSync(cf, "utf8")).html, notes: [] };
+        }
+      } else {
+        const enCache = path.join(CACHE, "en-tei.xml");
+        let enXml;
+        if (fs.existsSync(enCache)) enXml = fs.readFileSync(enCache, "utf8");
+        else { enXml = await fetchText(BOOK.url); fs.writeFileSync(enCache, enXml); }
+        en = teiBookChapters(enXml, {}, warn);
+      }
+      const or = teiBookChapters(xml, {}, warn);
+      /* The chapter as the reader sees it — "121A", not the sort key behind it — because both columns
+         print the same label and a human reading this report needs the citation, not the scale. */
+      const nums = (o) => (o ? [...o.html.matchAll(/class="bk-n"[^>]*>([^<]+)</g)].map((m) => m[1]) : []);
+      console.log("  reconciling the two columns' chapter numbers:");
+      let paired = 0, blankOrig = 0, blankEng = 0, notes = 0;
+      Object.keys(en).map(Number).sort((a, b) => a - b).forEach((n) => {
+        if (!or[n]) { warn(BOOK.chapterWord + " " + n + " is missing from the original"); return; }
+        const e = nums(en[n]), o = nums(or[n]);
+        const es = new Set(e), os = new Set(o);
+        const miss = e.filter((c) => !os.has(c)), extra = o.filter((c) => !es.has(c));
+        paired += e.filter((c) => os.has(c)).length;
+        blankOrig += miss.length; blankEng += extra.length;
+        notes += or[n].notes.length;
+        console.log("    " + BOOK.chapterWord + " " + n + " — " + e.length + " chapters in the " +
+          "translation, " + o.length + " in the original" +
+          (miss.length ? ", " + miss.length + " with no original (" + miss.slice(0, 6).join(", ") + ")" : "") +
+          (extra.length ? ", " + extra.length + " with no translation (" + extra.slice(0, 6).join(", ") + ")" : ""));
+      });
+      console.log("  paired " + paired + " of " + (paired + blankOrig) + " chapters; " + blankOrig +
+        " draw an empty " + O.langName + " cell and " + blankEng + " an empty English one");
+      console.log("  " + notes + " editorial notes dropped from the original column (it has no fold)");
+      Object.keys(or).forEach((n) => { byNum[n] = or[n].html; });
+      return writeOriginal(byNum, warnings);
+    }
+
     /* A PAGED edition is divided into one thing and cited by another — see teiPagedBooks. The
        sections Bywater prints are a modern editor's paragraphing; the Bekker pages standing inside
        them are what Ross's margin carries and what the two columns pair on. */
@@ -3503,6 +6962,85 @@ async function fetchOriginal() {
       const secs = (byNum[n].match(/class="bk-n"/g) || []).length;
       console.log("  " + BOOK.chapterWord + " " + n + " — " + secs + " sections (" + (byNum[n].length / 1024).toFixed(0) + " KB)");
     });
+    return writeOriginal(byNum, warnings);
+  }
+
+  /* ONE PAGE PER CHAPTER on another wiki — the simplest of the three wiki shapes; see originalChapter
+     above. Cached per chapter, like the English walk, so --from/--to and a resumed run behave here
+     exactly as they do there. */
+  if (O.perChapter) {
+    console.log("\nFetching the " + O.langName + " original — one page per " +
+      BOOK.chapterWord.toLowerCase() + " from " + O.wiki);
+    for (const n of BOOK.chapters) {
+      if (n < FROM || n > TO) continue;
+      const cf = path.join(cacheDir, n + ".json");
+      let rec;
+      if (!FORCE && fs.existsSync(cf)) rec = JSON.parse(fs.readFileSync(cf, "utf8"));
+      else {
+        const h = await api(O.page(n), O.wiki);
+        rec = originalChapter(h, O, (m) => warn(BOOK.chapterWord + " " + n + ": " + m));
+        if (rec.html.length < 200)
+          throw new Error(BOOK.chapterWord + " " + n + " came back short (" + rec.html.length + " chars)");
+        fs.writeFileSync(cf, JSON.stringify(rec));
+        await sleep(1200);   // this wiki rate-limits a fast walk harder than the English one
+      }
+      byNum[n] = rec.html;
+      console.log("  " + BOOK.chapterWord + " " + n + " — " + (rec.html.length / 1024).toFixed(1) +
+        " KB" + (rec.head ? " — " + rec.head : ""));
+    }
+    return writeOriginal(byNum, warnings);
+  }
+
+  /* A POEM IN LAISSES on the original side too. The six pages are fetched and cached as raw HTML and
+     then cut as ONE sequence, because the numbering runs straight through them and six pages cut
+     independently could not carry a count across a page boundary — which is exactly what the six
+     unnumbered laisses need. Cached per page all the same, so a rate-limited run resumes. */
+  if (O.layout === "laisses") {
+    console.log("\nFetching the " + O.langName + " original — " + O.pages.length + " pages from " + O.wiki);
+    const raw = [];
+    for (const page of O.pages) {
+      const cf = path.join(cacheDir, page.replace(/[^\w.-]+/g, "_") + ".html");
+      if (!FORCE && fs.existsSync(cf)) raw.push(fs.readFileSync(cf, "utf8"));
+      else {
+        const h = await api(page, O.wiki);
+        fs.writeFileSync(cf, h);
+        raw.push(h);
+        await sleep(1200);   // this wiki rate-limits a fast walk harder than the English one
+      }
+      console.log("  " + page.split("/").pop() + " fetched");
+    }
+    const got = extractLaissesFr(raw, warn);
+    got.forEach((c) => { byNum[c.n] = c.html; });
+    const lines = got.reduce((a, c) => a + (c.html.match(/<br>/g) || []).length + 1, 0);
+    console.log("  " + got.length + " laisses, " + lines + " lines");
+
+    /* THE PAIRING, CHECKED AGAINST THE FILE THAT SHIPPED rather than asserted from this entry — the
+       discipline the verse, drama and TEI branches share. The English is read back out of its own
+       cached page and cut again, so what is compared is what the two columns actually contain. */
+    const enCache = path.join(CACHE, "en-page.html");
+    if (fs.existsSync(enCache)) {
+      const en = extractLaisses(fs.readFileSync(enCache, "utf8"), BOOK, () => {});
+      const ours = new Set(got.map((c) => c.n));
+      const theirs = new Set(en.map((c) => c.n));
+      const missing = en.filter((c) => !ours.has(c.n)).map((c) => c.n);
+      const extra = got.filter((c) => !theirs.has(c.n)).map((c) => c.n);
+      if (missing.length) warn("laisse(s) in the translation with no original: " + missing.join(", "));
+      if (extra.length) warn("laisse(s) in the original with no translation: " + extra.join(", "));
+      /* Counts agreeing is not passages agreeing, so the two columns' LENGTHS are correlated as well:
+         a real alignment tracks closely and a column shifted by one laisse does not. Both figures are
+         printed, because the shifted control is what makes the first number mean anything. */
+      const lens = (a) => a.map((c) => (c.html.match(/<br>/g) || []).length + 1);
+      const A = lens(en), B = lens(got);
+      const r = (x, y) => {
+        const n = Math.min(x.length, y.length);
+        const mx = x.slice(0, n).reduce((s, v) => s + v, 0) / n, my = y.slice(0, n).reduce((s, v) => s + v, 0) / n;
+        let num = 0, dx = 0, dy = 0;
+        for (let i = 0; i < n; i++) { num += (x[i] - mx) * (y[i] - my); dx += (x[i] - mx) ** 2; dy += (y[i] - my) ** 2; }
+        return num / Math.sqrt(dx * dy);
+      };
+      console.log("  line-count correlation " + r(A, B).toFixed(4) +
+        " (shifted by one laisse: " + r(A.slice(1), B).toFixed(4) + ")");
+    }
     return writeOriginal(byNum, warnings);
   }
 

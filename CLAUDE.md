@@ -90,13 +90,30 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `books/<id>.js` — one **Library book**'s text: `window.FOLIO_BOOKS_IN.push({ id, intro, chapters:[{ n, p, t, html, notes }] })`.
   **Lazy** (bundle `book:<id>`), **generated — never hand-edited** (see `.claude/fetch-book.js`), and it pushes onto a
   QUEUE rather than assigning a global, for the reason the i18n files do. `intro` is the book's own front
-  matter (chapter 0 — see the Library bullet). Currently nine: `seneca-letters`,
+  matter (chapter 0 — see the Library bullet). Currently nineteen: `seneca-letters`,
   `marcus-aurelius-meditations` (~341 KB, all 12 books, 487 section numbers, 812 translator notes),
   `sun-tzu-art-of-war` (~379 KB, all 13 chapters, 385 section numbers in 383 rows, 608 notes),
   `plato-republic` (~666 KB, all 10 books, **no section numbers at all**, 117 translator notes — the
   first book here with none, which is why it has no original; see the `<id>.<lang>.js` bullet below),
-  `plato-symposium` (~131 KB, the whole dialogue as ONE chapter, 52 Stephanus sections, 22 notes — the
-  edition divides it nowhere, so composing speech boundaries and titles for it was declined),
+  `plato-dialogues` (**~3.9 MB, much the largest book on the shelf** — **thirty-five whole WORKS as
+  thirty-five chapters**, 1,484 Stephanus sections, 1,627 notes. The first book here whose chapter is a
+  separate work rather than a division of one, so both columns are addressed through a table
+  (`DIALOGUES` in the importer) instead of by arithmetic. It **absorbed the standalone
+  `plato-symposium`** on 2026-08-06 — a `S.reading` / `S.bookFavs` migration in app.js carries the
+  reader's place and star across the id change, and **its chapter number is re-derived, not constant**
+  (7 while the book was Jowett's eleven, 11 once it was rebuilt in the ancient order; a stale number
+  there does not throw, it just opens a reader on the wrong dialogue).
+  **IT SHIPPED TWICE IN ONE DAY AND THE SECOND SHAPE IS THE LESSON.** It was first built from
+  Wikisource's Jowett, which is the obvious source and is UNFINISHED: measured against Perseus's own
+  section counts, the Gorgias carried 1 of its 81 Stephanus pages, the Phaedrus 2 of 53, the Phaedo 26
+  of 62, and ten works were unusable — **the test being the visible `Page:…djvu/NNN` red-link text an
+  untranscribed leaf leaves in the rendered page**, never a count of section markers, which cannot tell
+  a short dialogue from a truncated one. Rebuilt on request from the **Loeb** translations on Perseus,
+  which are complete, it went from eleven dialogues to thirty-five. **Ask what the source is MISSING
+  before building on it**: the first shape was correct about everything it contained and was a third of
+  the book.
+  Thirty-five of thirty-six because Perseus's English Republic is Shorey's of 1935–37 and still in
+  copyright — a LICENCE gap, not a textual one; the Republic is on the shelf from another printing),
   `ovid-metamorphoses` (~813 KB, all 15 books, 156 section numbers, **0 notes** — the first book
   here whose edition carries none, so its chapters render with no note fold at all, which is correct
   and not a wiring fault), `suetonius-twelve-caesars` (~952 KB, all 12 lives, 551 chapter numbers,
@@ -105,19 +122,151 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   all 6 books, 213 section numbers, **0 notes** — the second book after Ovid whose edition carries
   none, so it too renders with no note fold) and `aristotle-nicomachean-ethics` (~515 KB, all 10
   books, 173 section numbers, 362 translator notes — and the first book here whose section number is
-  **not an integer**, being a Bekker page like `1094a`; see the `data-n` note in the Library bullet).
+  **not an integer**, being a Bekker page like `1094a`; see the `data-n` note in the Library bullet)
+  and `sophocles-oedipus-rex` (~140 KB, the whole play in the edition's own 15 parts, 683 line-number
+  sections, **0 notes** — the first PLAY here, so the speaker of each speech is part of the text and
+  the italic stage directions are the translator's, the ancient text recording none) and
+  `euripides-medea` (~128 KB, the whole play in the edition's own 13 parts, 502 line-number sections,
+  **37 notes** — the SECOND play, and it needed no new reader at all: both its columns divide the work
+  with the same top-level `episode`/`choral` marks the Oedipus Rex uses, so `layout: "drama"` read it
+  unchanged. What it did need is an APPARATUS. The Oedipus Rex's edition prints no notes, so the drama
+  reader was written to STRIP them; this one prints 38 and would have lost the lot in silence — the
+  quiet shape again, since every line of the play is present and only the notes are gone. See
+  `dramaNotes` in the importer for the lift, and for the rule that **a marker standing between two
+  lines belongs to the line before it**: seven of Perseus's own notes sit in the gap after a `</l>`,
+  which `teiDramaBlocks` never walks, so their markers would have been dropped on the floor while
+  their text still reached the list — an entry no sentence opens, the mirror of the dead marker the
+  apparatus already refuses to draw. Measured over the whole play before it was written: all seven sit
+  there and none anywhere else, and any note left without a marker is reported. **`<del>` is live here
+  and changes NOTHING**, which is the thing Lucretius says to measure rather than assume: 2 in the
+  English and 11 in the Greek, and — unlike the Oedipus Rex's single one, which wrapped a whole line
+  and took the English from 684 sections to 683 — not one of the thirteen wraps a whole line, so
+  dropping them shortens thirteen lines and removes no section from either column) and
+  `sophocles-antigone` (~118 KB, the whole play in the edition's own 16 parts, 513 line-number
+  sections, **0 notes** — the THIRD play, Sophocles' second book here, and it too needed no new
+  reader: same top-level `episode`/`choral` marks, so `layout: "drama"` read it unchanged. It is
+  **the cleanest pairing of the three plays — 513 of 513, not one empty Greek cell**, where the
+  Oedipus Rex leaves 3 of 683 and the Medea 2 of 502, so it is the first drama here with no table of
+  exceptions to state. Its one divergence costs the page NOTHING and that is the thing to know before
+  reading the warning it raises on every run: part 4 opens at line 332 in Jebb and 333 in Storr — the
+  first line of the ode on man — and because the pairing is a RANGE test rather than an equality one,
+  the Greek's 333 falls inside the English's 332 block and the row draws filled. `<del>` is live and
+  changes nothing (5 in the English, 0 in the Greek, not one wrapping a whole line — the Medea's
+  finding again, which is why the rule is measured per book rather than carried over), and the
+  **lettered line numbers are on the GREEK side alone** (161b, 323a, 1048a, 1261a, 1284a; none in the
+  English), so `data-n` is doing real work on the original column.
+  **ITS LICENCE FOUND A FAULT IN A SHIPPED BOOK, which is the argument for running the check across
+  the SIBLINGS and not only over the book being added.** Both columns are the Oedipus Rex's easy case
+  — Jebb 1891 (d. 1905) and Storr's 1912 Loeb, the same volume, (d. 1919), so no limit to state as
+  Giles (2029), Ross (2042), Murray (2028) or the Song of Roland need — but Perseus has edited the
+  PROSE as well as digitising it: this English is Jebb **modernized to remove archaisms**, by Pierre
+  Habel in 1988 reviewed by John Gibert, which the file states in its own header. That is the
+  Histories' third layer a second time, carried by CC BY-SA rather than by an expiry, and is stated
+  in `rights`, in the front matter and in the importer entry. **The shipped `sophocles-oedipus-rex`
+  carries the SAME layer** (Alex Sens, same year, same reviewer) **and its `rights` called the book
+  "public domain on every ground" without mentioning it** — corrected in both files and in the About
+  page's credits in the same commit. Coleridge's Medea carries no such note; checked, not assumed) and
+  `herodotus-histories` (**~1.44 MB, the largest book on the shelf**, all 9 books, **1,578 chapter
+  numbers** and 528 notes — the first work here divided into books of numbered chapters, which is the
+  commonest shape in ancient prose; see the sixth layout below) and
+  `confucius-analects` (~181 KB, all 20 books, **499 chapter numbers**, **0 notes** — Herodotus's
+  shape a second time, and the first book here whose two columns are transcribed INTERLEAVED down one
+  page rather than in a two-cell table; see the seventh layout below) and
+  `machiavelli-prince` (~174 KB, all 26 chapters, **no section numbers at all**, 5 translator notes —
+  the second book after the Republic with none, and unlike the Republic it still has an original,
+  because its two columns pair on the CHAPTER, which the work is divided into and both editions state)
+  and `caesar-gallic-war` (~508 KB, all 8 books, **404 chapter numbers**, **1 note** — Herodotus's
+  shape a third time and the cleanest pairing on the shelf bar the Art of War's facing page, the two
+  editions agreeing on all 404 chapter numbers in order in every book; also the first book here
+  carrying a **chapter numbered 0**, Hirtius's covering letter at the head of book 8, and the first
+  whose translator sets a TABLE — see the `<list>` note under the sixth layout) and
+  `thucydides-peloponnesian-war` (~1.19 MB, all 8 books, **916 chapter numbers**, 4 notes — Herodotus's
+  shape a fourth time, and **the first book here whose two columns come from DIFFERENT KINDS of source**:
+  a Wikisource English against a Perseus TEI original, where every earlier pairing took both halves from
+  one kind. It is also the first wiki book that is NOT a proofread transcription of a scan — see the
+  three new rules under `.claude/fetch-book.js`) and
+  `aesop-fables` (~209 KB, **313 fables in 313 chapters** — by a wide margin the most on the shelf,
+  where Seneca's 124 letters were the previous high — with **no section numbers at all** and **0
+  notes**. Two firsts, and both are about what an edition does NOT state. It is the first book here
+  whose CHAPTER is the whole unit of the work at this scale: a fable is one paragraph, so
+  `minChars` had to become a per-book floor (120 here against the default 200) or the shortest
+  fable, at 191 characters and complete, reads as a truncation. And it is the first book with **no
+  original whose answer is no on BOTH columns** — see the `books/<id>.<lang>.js` bullet. Its titles
+  are the transcription's own, verbatim: the printed page sets every fable's title in capitals, so
+  the case is unrecoverable and `titleCase()` was tried and REJECTED, since it rewrites 57 of the
+  313 and damages every hyphenated compound the collection is full of. **Five titles occur twice** —
+  five genuinely different fables Townsend gave one name — so two tabs can read the same thing and
+  only the number tells them apart, which is the sharpest argument for numbering them at all) and
+  `song-of-roland` (~219 KB, all **291 laisses**, 4,309 lines, **0 notes** — Scott Moncrieff's verse
+  of 1919, and **the first book here whose CHAPTERS ARE CUT OUT OF ONE PAGE rather than fetched one
+  by one**. Both columns are transcribed whole onto a single page per language, so the eighth layout
+  (`layout: "laisses"`) splits rather than walks; see `.claude/fetch-book.js`. It is also the first
+  where **the laisse is BOTH the chapter and the pairing unit**, which follows from the editions and
+  not from a choice made here: measured over both, neither prints a part, book or canto heading
+  anywhere, so the smallest unit they number is what the tabs count, as Aesop's fable is. A chapter
+  is therefore short — a median of 13 lines — and that is the poem rather than the import, a chanson
+  de geste having been sung one laisse at a time, each stanza on one vowel. **Each edition carries
+  exactly ONE malformed numeral and the forward-only rule repairs both**: Scott Moncrieff's scan page
+  87 prints laisse 135 as CXXXXV, an X too many — read off the page image rather than guessed, so it
+  is the PRINTING and not the transcription — and Bédier's laisse 286 appears as CCXXXVI, having lost
+  an L. Both are reported every run and named in the front matter. Its author is **Anonymous**, the
+  first on the shelf, which is why `BOOK_AUTHOR_COLOR` needed that key rather than the generic
+  fallback — see the Library bullet).
 - `books/<id>.<lang>.js` — the same book in the language it was WRITTEN in
   (`window.FOLIO_BOOK_ORIG_IN.push({ id, lang, langName, edition, rights, sourceName, sourceUrl, chapters:[{ n, html }] })`).
-  Its own **lazy** bundle (`bookOrig:<id>`), generated by the same importer, never hand-edited. Currently eight:
+  Its own **lazy** bundle (`bookOrig:<id>`), generated by the same importer, never hand-edited. Currently seventeen:
   `seneca-letters.la.js` (~862 KB, all 124 letters), `marcus-aurelius-meditations.grc.js` (~366 KB, all 12
   books, 486 sections), `sun-tzu-art-of-war.zh.js` (~34 KB, all 13 chapters — classical Chinese is terse,
   and this is the whole work), `ovid-metamorphoses.la.js` (~575 KB, all 15 books, 156 cards, 11,927
   lines of hexameter), `suetonius-twelve-caesars.la.js` (~530 KB, all 12 lives, 541 chapters) and
   `lucretius-nature-of-things.la.js` (~352 KB, all 6 books, 213 cards, 7,382 lines of hexameter) and
   `aristotle-nicomachean-ethics.grc.js` (~335 KB, all 10 books, 181 Bekker pages) and
-  `plato-symposium.grc.js` (~106 KB, the whole dialogue, 52 Stephanus sections).
-  **Nine books, eight originals**: the Republic has none, and the reason is the
-  next paragraph's rule biting for the first time.
+  `plato-dialogues.grc.js` (**~5.6 MB, much the largest file in the project** — all thirty-five works,
+  1,484 Stephanus sections. Burnet's Oxford Classical Text, and the FIRST original assembled from a
+  file PER CHAPTER of a multi-work book, one Perseus work id each. Thirty-four are `perseus-grc2`; the
+  Euthyphro has no grc2 at all and its grc1 is the older encoding, whose divisions read
+  `resp n subtype` where the newer ones read `n subtype` — inert, because `teiSections` reads a
+  division's attributes independently of their order, but a probe that fixes the order reports that
+  dialogue as having no sections whatever, which is how it was first measured here.
+  **THE ONLY PAIRING IN THE LIBRARY THAT IS EXACT BY CONSTRUCTION AT SCALE**: both columns are the
+  same TEI encoding of the same citation scheme from the same publisher, so they cannot drift.
+  Measured anyway, all 35 works — 1,484 sections a side, identical numbers in identical order, no
+  exception either way. **The Letters repeat ten Stephanus numbers** (a page spanning the join between
+  one letter and the next) **and both columns repeat the same ten in the same places** — worth checking
+  rather than assuming, since a duplicate on ONE side only is what would quietly merge two passages
+  into one row) and
+  `sophocles-oedipus-rex.grc.js` (~123 KB, the whole play, 691 line numbers) and
+  `herodotus-histories.grc.js` (~1.26 MB, all 9 books, 1,577 of the translation's 1,578 chapters) and
+  `confucius-analects.zh.js` (~44 KB, all 20 books, all 499 chapters — the smallest original on the
+  shelf, classical Chinese being terse, and the second after the Art of War to pair on every chapter
+  the translation has) and `machiavelli-prince.it.js` (~162 KB, all 26 chapters) and
+  `caesar-gallic-war.la.js` (~405 KB, all 8 books, all 404 chapters — T. Rice Holmes's Oxford text of
+  1914, and the third original after the Art of War and the Analects to pair on every chapter the
+  translation has, here without a single exception on either side).
+  `thucydides-peloponnesian-war.grc.js` (~1.02 MB, all 8 books, **all 917 chapters** — Henry Stuart
+  Jones's Oxford text of 1910, and the cleanest Greek on the shelf: 1..N in every book, no gaps, no
+  duplicates and not one lettered number, so none of the Ethics' or Herodotus's `data-n` trouble
+  arises. The English carries 916 of the 917; see the Library bullet for the one that is missing).
+  `song-of-roland.fro.js` (~198 KB, all 291 laisses, 4,012 lines — Bédier's text of 1920–1922, and the
+  first original here in **Old French** (`fro`), a historical stage of a living language rather than a
+  dead one; see the `song-of-roland` entry below for the `<hr>` cut and the six unnumbered laisses).
+  `euripides-medea.grc.js` (~149 KB, the whole play, 500 of the translation's 502 line numbers —
+  Gilbert Murray's Oxford text of 1902, and **the first original here whose LICENCE is the harder half
+  of the pair**: everywhere else the original is the older and easier column, and Murray died in 1957,
+  so his Greek stays in copyright where the term is life plus seventy until 2028. The two empty cells
+  are the first on the shelf the EDITION'S OWN NOTES explain — 1271 and 1273, where Murray runs the
+  translation's lines together and gives them to both children speaking at once, which Perseus's notes
+  on those very lines say and which now ship, so a reader who meets the blank finds the reason a marker
+  away).
+  `sophocles-antigone.grc.js` (~96 KB, the whole play, **all 513 of the translation's line numbers** —
+  Francis Storr's 1912 Loeb, the same volume the Oedipus Rex's Greek comes from, and the only ORIGINAL
+  on the shelf that pairs on every one of its translation's sections without a single exception in
+  either direction bar the constructed cases (the Art of War's facing page, the Analects, the Gallic
+  War). It carries 515 markers against 513 sections, which is correct and not a miscount: where the
+  Greek changes speaker inside one of Jebb's prose blocks the block is emitted twice under the same
+  number so each keeps its speaker, and `bookSections` folds the pair back into one row).
+  **Nineteen books, seventeen originals**: the Republic and Aesop's Fables have none, and the reason is the
+  next paragraph's rule biting — on the Republic's ENGLISH only, and on BOTH of Aesop's columns.
   **THE ONE QUESTION THAT DECIDES WHETHER A BOOK CAN HAVE AN ORIGINAL AT ALL** is not "does a text of it
   exist?" but **"does that text say which section each passage is?"** — because app.js pairs the two columns
   on the section NUMBER, never on paragraph or list order. **And the number need not be the unit the
@@ -169,6 +318,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   finding them missing. It is also the proof that `origLang` is genuinely optional: nothing else about
   the book differs, and the day a numbered transcription appears an `original` block and an `origLang`
   are the whole of the work.
+  **`aesop-fables` ANSWERS NO ON BOTH COLUMNS, which the Republic does not** (Aug 2026), and it is
+  the cleanest illustration of the rule because there is nothing to be tempted by. The Republic's
+  Greek states Stephanus numbers and only Jowett stays silent, so the pairing fails on one side and
+  a numbered English would fix it. Here NEITHER edition states anything: Townsend prints a title
+  over each fable and no figure anywhere — measured, and his own index at the back files
+  alphabetically by title with a page number — while the standard Greek text on Greek Wikisource is
+  Chambry's of 1927, which lists **359** fables alphabetically by their Greek titles with no
+  numbering at all. Two unnumbered collections of different sizes in different orders have no shared
+  key even in principle, and matching them fable by fable would be several hundred judgements made
+  by eye, which is the work abandoned for the Meditations' Greek. **So the shelf now has both
+  failure modes side by side**: one column silent (fixable by a better transcription) and both
+  columns silent (not fixable at all). The tab figures here are the printed ORDER and the front
+  matter says so outright — the honest alternative to a citation system the book has not got.
   **`aristotle-nicomachean-ethics` IS THE THIRD SHAPE, and it separates two questions that had always
   been answered together** (Aug 2026): *what is this edition DIVIDED into* and *what is it CITED by*.
   Every original before it pairs on the unit its own `<div>`s carry. Bywater's Greek is divided into 10
@@ -198,6 +360,76 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `bookSections` reads it in preference to the text. **A marker with no `data-n` is read exactly as it
   always was**, which is what keeps all seven earlier books byte-identical — verified by re-running the
   Symposium end to end and diffing, since the extractor is shared.
+  **`herodotus-histories` IS THE FIFTH SHAPE AND THE CLEANEST PAIRING ON THE SHELF** (Aug 2026): a work
+  divided into BOOKS of numbered CHAPTERS, each divided again into sections — which is the commonest
+  shape in ancient prose, and the one the shelf had somehow not met. "Herodotus 1.32.4" is book, chapter,
+  section. **Measured over both editions before any of it was believed: 1,578 chapters on each side, the
+  same numbers in the same order in all nine books — nothing missing on either side, no duplicates.**
+  Only the Art of War's facing-page edition does better, and it does so by construction. The finer
+  SECTION level is deliberately not the pairing unit: there are 4,338 on each side and **nine chapters
+  number them differently** (1.1 opens on a section the English calls `pr` and the Greek calls `0`; eight
+  more run 1,2,4 against 1,2,3), so pairing there would have set nine chapters of the two columns beside
+  passages that are not each other. Recorded rather than repaired, as the Ethics' three repeated Bekker
+  pages are. Three more things it settled:
+  · **A CHAPTER NUMBER IS NOT ALWAYS AN INTEGER FOR ARISTOTLE'S REASON.** 45 of the 1,578 carry a letter
+    (2.121A–121F, 7.10A–10H) — an editor's way of numbering a passage inserted into a sequence everyone
+    already cites. They are Herodotus, not apparatus: 2.121A opens the story of Rhampsinitus's treasury.
+    The first cut of the reader borrowed teiSections' "a division numbered with a word is not a chapter"
+    guard — right for Suetonius's appended essays, wrong here — and **silently dropped all 45 from both
+    columns, reporting a clean 1,533-for-1,533 pairing of a book missing forty-five of its chapters.**
+    So they take the same `data-n` sort key the Bekker pages introduced, on a ×100 scale (121 → 12100,
+    121A → 12101), and **it is written on EVERY marker in the book, not only the lettered ones**, since
+    `bookSections` falls back to parsing the text where the attribute is absent and a book mixing bare
+    `121` with `data-n="12101"` would be sorting two scales against each other.
+  · **`<del>` CHANGES THE COUNT AGAIN, and this is the third book it has.** Godley brackets the whole of
+    6.122 — the Callias passage — as spurious in his Greek while still translating it, so that row draws
+    the English beside an **empty Greek cell**, which is the honest rendering and reads as one: his
+    English prints the passage in square brackets, so the page explains itself. 1,577 of 1,578 pair.
+  · **PERSEUS'S NAME AUTHORITY IS THIS EDITION'S QUIET FAULT** (fixed in `teiInline`, scoped to `<reg>`
+    inside `<name>` — TEI's own `<reg>` is a regularized reading an editor means to be read, so a blanket
+    drop would delete prose from some future edition). Its English tags every person and place against a
+    gazetteer, and the tag sweep keeps the words: left alone the book's first sentence reads "the inquiry
+    of Herodotus of **Bodrum [27.466,37.5] (inhabited place), Mugla Ili, Ege kiyilari, Turkey, Asia**
+    Halicarnassus". 4,305 of them, nothing throws, every count healthy. Found by READING the output.
+  **`caesar-gallic-war` IS THE FIFTH SHAPE A SECOND TIME, and it needed no new reader at all** (Aug 2026)
+  — books of numbered chapters, both columns from Perseus TEI, `layout: "chaptered"` on each side. It is
+  worth carrying for four things rather than for its shape.
+  · **IT IS THE CLEANEST PAIRING TWO INDEPENDENTLY-EDITED TEXTS HAVE MANAGED HERE.** Measured over both
+    editions before any of it was believed: 8 books on each side, **404 chapters on each side, identical
+    numbers in identical order in every book**, no duplicates, no gaps, and not one chapter number
+    carrying a letter — so none of the Ethics' or Herodotus's `data-n` trouble arises. Only the Art of
+    War does better, and it does so by construction, one editor having numbered both columns at once.
+    The asymmetry is in the SUBDIVISION instead: Holmes's Latin divides its 404 chapters into 2,150
+    numbered sections and this English prints one paragraph per chapter and no sections at all, which is
+    why the Latin column reads as several paragraphs against the English column's one. A fact about the
+    two editions, not a rendering fault.
+  · **ZERO IS A SECTION NUMBER, and this is the first book here to use one.** Book 8 opens on a chapter
+    0 — Hirtius's covering letter to Balbus, which both editions print before chapter 1 and number apart
+    from the war it introduces. Two guards read 0 as "no number": `teiBookChapters`'s forward-only check
+    warned twice a run on a perfectly ordered book, and **app.js's `bookSections` dropped the chapter to
+    the UNNUMBERED path**, where it paired only by luck — both columns happening to carry exactly one
+    leading unnumbered block. It rendered correctly for the wrong reason, which stops being an accident
+    the day a book carries a chapter 0 on one side only. Both now admit zero (`seq = -1`, `v >= 0`);
+    measured over the whole shelf first, the only markers anywhere whose value is not above zero are
+    this book's two, so widening the guard is provably inert everywhere else.
+  · **A TRANSLATOR MAY SET A TABLE, and the flattening is silent** (fixed in `teiInline`, scoped to
+    `<label>` INSIDE a `<list>`). Caesar's 1.29 is the census tablets found in the Helvetian camp, set
+    by this edition as a `<list>` of `<label>`/`<item>` pairs — a people on the left, a number on the
+    right. The generic sweep unwraps all three and keeps the words, so left alone the passage arrived as
+    one run-on line with the table's last figure running into the sentence after it. Nothing throws, no
+    word is lost, the chapter is the right length. **The scoping is the whole care in the rule**: TEI's
+    `<label>` is also how a play marks WHO IS SPEAKING, and the already-shipped Symposium Greek carries
+    six of those; a rule keyed on `<label>` alone would have re-set a shipped book. `<list>` occurs in
+    this one English file and nowhere else on the shelf, and the Symposium was re-run and diffed
+    byte-for-byte to prove it.
+  · **THE LICENCE RESTS ON THE PUBLICATION DATE ALONE, which is new** — see the entry in fetch-book.js.
+    Half the byline cannot be found: "W. S. Bohn" has no first name, no dates and no biography in
+    anything openable, and a joint work's life-plus-seventy runs from the LAST surviving author, so that
+    term cannot honestly be asserted for the translation. McDevitte (1834–1909) and Holmes (1855–1933)
+    were both looked up rather than recalled, for the Hugo Magnus reason. The ground stated is therefore
+    the date of publication — 1870–1872 and 1914, both pre-1929 — and the gap is named in `rights` and
+    on the book's own front matter rather than rounded up. Lucretius's judgement in a second book:
+    **claim less, and say on the page what cannot be said.**
   **It is a separate file from the translation on purpose** —
   together they are 2.2 MB, and a reader who only wants the English must not download the Latin to get it.
   Its `<span class="bk-n">` markers are the **section numbers**, and they are the whole point: app.js pairs the
@@ -210,7 +442,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `node .claude/fetch-book.js seneca-letters [--from=N] [--to=N] [--force] [--only-original] [--skip-original]`.
   Adding a book = adding an entry to its `BOOKS` table (**and a matching one in app.js's eager `BOOKS`
   registry** — the importer writes the text, app.js holds the tile's metadata, and a book with only one of the
-  two either never appears on the shelf or appears and cannot be opened).
+  two either never appears on the shelf or appears and cannot be opened; **plus a row in
+  `BOOK_AUTHOR_COLOR` if the author is new to the shelf**, or the book falls through to the generic
+  indigo every `--tile` rule already declares).
   **A second edition needs the entry to say HOW IT IS SET, not just where it is** (Aug 2026, adding the
   Meditations — the first book after Seneca, and every difference between them became a field):
   · **`sections`** — how the printed edition marks the numbers any passage is cited by. Gummere sets them as a
@@ -273,6 +507,81 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     swallowed into the one above, and the Chinese line it should have faced is left facing nothing. It was found
     only by **counting the two columns against each other**, which is the check to run after any parallel fetch.
     `wrapBareRuns` now wraps every top-level bare run; the count went 369 → 383.
+  **A PARALLEL TEXT COMES IN A SECOND SHAPE, and it is not a table at all** (`layout: "interleaved"` →
+  `extractInterleaved` / `splitInterleaved` / `cnNum` / `bothColumns`; Aug 2026, adding the Analects —
+  the twelfth book). Legge's edition is as much a facing-page text as Giles's and is transcribed quite
+  differently: the two languages **alternate down one column**, each chapter's Chinese inside a
+  `wst-lang` span or div and its English in the paragraphs after it, with no table anywhere. Neither
+  existing extractor can read it — `cleanBody` unwraps the Chinese containers and hands back one text
+  with the languages interleaved line by line (the silent failure the Art of War entry names), and
+  `extractParallel` finds no `wst-translation-table` and throws. So the columns are separated by their
+  own markup instead of by table cell. Five things it settled:
+  · **THEY DO NOT ALTERNATE ONE FOR ONE, and assuming they do is the trap.** A run of several
+    chapters' Chinese often sits in a SINGLE element, followed by that run's English — 7 of the 20
+    books do this. Pairing by position looks perfect on book 1 and drifts thereafter. Both columns are
+    therefore gathered whole and paired on the NUMBER, which is what app.js does at render time
+    anyway; measured over all 20 books, **499 chapters on each side, a clean 1–N run in every book**,
+    nothing missing either side and no duplicates. Only the Art of War's facing page does better.
+  · **A CHINESE NUMERAL WEARS SEVERAL COSTUMES IN ONE EDITION** (`cnNum`): 第一…第十 with the prefix
+    and 十一 onwards without it, the compressed 廿 (20) and 卅 (30), and a tens digit run straight into
+    a units digit (四五 for 45, which written out is 四十五). An unreadable mark is REPORTED rather
+    than skipped, since a dropped mark takes a chapter of prose off the page with it.
+  · **ONE REPAIR, recorded rather than smoothed away**: in book 2 the English marker for chapter 18 is
+    printed "Chapter XVII." a second time while the Chinese beside it reads 十八 and the passage is
+    what every edition cites as 2.18. The English column is numbered **forward-only** — a numeral is
+    taken where it moves the count on and replaced by the next number where it does not, with a
+    warning naming the book and both numbers on every run. It restores the printed page rather than
+    composing anything, but it is a repair, so it is said out loud.
+  · **CUT THE RUNNING HEAD AT THE SENTINEL, NOT AT THE MARKER.** The chapter marker sits INSIDE its
+    paragraph, so slicing the page at the marker leaves the opening `<p>` behind and hands `stripTags`
+    a closing tag it never saw opened — which its stack correctly discards, after which the first
+    chapter of every book runs into the second with no paragraph break. Nothing throws and no prose is
+    lost; the page just quietly stops having paragraphs. Caught by counting `<p>` against `</p>` over
+    the shipped file, which is the cheap check to run after any new extractor.
+  · **LIFTING ONE COLUMN OUT LEAVES SCARS IN THE OTHER, in both directions.** The printed page
+    alternates line by line, so a Chinese block can interrupt an English SENTENCE ("in the giving pay"
+    / "or rewards to men") — 26 of those, all in books 14–20 — and the rejoining of two Chinese
+    fragments leaves a space in a script that has no word spaces (43 of those). Both are repaired on
+    narrow tests: paragraphs are joined only where the first ends on no sentence punctuation AND the
+    second opens lower-case (a real Legge paragraph always opens on its own number), and whitespace is
+    dropped only BETWEEN two Chinese characters. Neither is visible in a count — the chapter is the
+    right length either way.
+  Legge's own emphasis is set in SMALL CAPITALS ("is not <i>reciprocity</i> such a word?"), which the
+  reader has no style for, so it becomes ITALIC — safe here precisely because this transcription uses
+  italics nowhere at all. **This edition has no footnotes** (measured: zero reference marks over all 20
+  books), so the book renders with no note fold, as Ovid, Lucretius and the Oedipus Rex do; `notesOf`
+  is still called and warns if one ever appears.
+  **A WHOLE BOOK MAY ARRIVE ON ONE PAGE, and then the chapters are CUT rather than walked**
+  (`layout: "laisses"` → `extractLaisses` / `extractLaissesFr` / `laisseHtml` / `laisseNumber` /
+  `dropLineNumbers`; Aug 2026, adding the Song of Roland — the seventeenth book, and the eighth
+  layout). Every wiki book before it fetches a page per chapter; both columns of this one are
+  transcribed whole onto a single page per language, so the fetch is one request and the 291 chapters
+  are split out of it. Four things it settled, and three are about not trusting the numerals.
+  · **STRIP THE WHOLE UNIT BEFORE SPLITTING IT INTO LINES, never line by line.** `stripTags` balances
+    openers against closers on a stack, so a fragment holding a `<p>` whose `</p>` lives in the next
+    fragment is unbalanced ON ITS OWN and the opener survives. Splitting first emitted a stray `<p>`
+    in most laisses of the poem — the usual quiet shape: nothing throws, not one word is lost, every
+    line is present and in order, and **only counting a tag against its closer over the shipped data
+    shows it**, which is the sweep this file already prescribes after any `stripTags`-adjacent change.
+  · **CUT THE ORIGINAL AT ITS OWN SEPARATOR, NOT AT ITS NUMERALS.** Bédier's presentation simply does
+    not carry six of its 291 laisse numerals (188, 238, 278, 283, 287, 288), so a cut made at the
+    numerals loses six laisses and shifts everything after them. What it does carry, exactly 291 times
+    across its six pages, is an `<hr>` between one laisse and the next, with the Old French in the
+    first margin block of each unit and Bédier's modern French in the second. Cut structurally and
+    number forward-only, and **285 of the 291 printed numerals then AGREE with the position the cut
+    gives them** — which is what turns six inferences from a guess into the only reading consistent
+    with the other 285. The English is cut at its numerals because it carries all 291.
+  · **EACH EDITION HAS EXACTLY ONE MALFORMED NUMERAL**, and the forward-only rule (the Analects') fixes
+    both with a warning naming the book and both numbers: CXXXXV for 135 in the English — **verified on
+    the scan image, so it is the 1919 PRINTING and not the transcription** — and CCXXXVI for 286 in the
+    French, an L dropped. Recorded in the front matter rather than corrected in silence.
+  · **AND ONE LINE NUMBER IS TYPED AS ORDINARY TEXT.** Both editions set their running line-count in
+    templates `dropLineNumbers` removes by balanced span-matching, and exactly one line in the whole
+    poem has the figure keyed straight into the verse where no span-matching can see it. The rule that
+    removes it is as narrow as the evidence — a digit run at the very head of a line, a multiple of
+    five (which is how often the edition numbers), inside the poem's line range — **measured over both
+    cached editions before it was written: one line matches, laisse 231's 3210** — and it is reported
+    when it fires, so a second cannot appear unnoticed.
   **A book whose SCAN CONTAINS LEAVES THE EDITION NEVER NUMBERED declares `dropUnnumberedPages`** (Aug 2026,
   adding the Republic — the fourth book, and the first whose volume is illustrated). Jowett's 1901 printing
   binds engraved plates into the text: a facsimile of a Venetian frontispiece before Book V, the Gemma
@@ -298,6 +607,40 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   the chapter is the right length. **Both changes were verified byte-for-byte against the shipped Seneca
   and Meditations chapters before being made**, which is the check to run on any edit to `cleanBody`: the
   extractor is shared, and its other three callers have already been proof-read by readers.
+  **A WIKI PAGE NEED NOT BE A PROOFREAD TRANSCRIPTION AT ALL, and that breaks the extractor outright**
+  (Aug 2026, adding the Peloponnesian War — the fifteenth book, and the first of the five wiki books
+  whose page has no scan behind it). Every earlier one is a page-by-page transcription of a scan,
+  transcluded into the chapter page and wrapped by MediaWiki in `prp-pages-output`; Crawley's Thucydides
+  is typed straight onto the page, so there is no wrapper, `cleanBody`'s opening slice returned -1 and it
+  threw **"no body"** on a page holding a whole book. That is the loud failure, and the good one. Three
+  rules were needed and **all three are GATED per book**, which is what let the shipped Symposium be
+  re-run end to end and diffed **byte-for-byte, both columns**, before any of them was kept:
+  · **`body: "plain"`** — fall back to the parser's own container. Deliberately NOT tried automatically
+    whenever the wrapper is missing: a proofread page HAS that container too, OUTSIDE the transclusion
+    wrapper, so an automatic fallback would silently widen the slice of any of the four older books the
+    day Wikisource next moves its markup, taking the navigation furniture in with the text.
+  · **`dropHeadings: true`** — Crawley's summary headings would become BLOCKQUOTES under the generic div
+    pass (the Meditations' running-head fault again), but the sharper reason is the pairing: they fall
+    BETWEEN numbered chapters, and `bookSections` attaches an unmarked block to the section already open,
+    so every one would print at the FOOT of the chapter before it, pointing backwards at prose it does
+    not describe. A signpost at the wrong end of the road is worse than none.
+  · **`sections: "bookchapter"`** — THE FIFTH WAY an edition marks its numbers, and the first read
+    entirely out of the marker's `id`. The chapter marks are `wst-verse` spans whose id is the whole
+    citation (`id="2:34"`), which none of the four older rules can read: Gummere's wants a `<b>` inside
+    the `<sup>`, Jowett's wants the float class, Bekker's wants a page-and-column id. Unmatched they
+    survive the tag strip as loose superscript digits mid-sentence — footnote markers opening nothing —
+    and the book pairs as one 146-chapter block against a Greek column stating every number it has.
+    The id carries the BOOK as well, so it is CHECKED rather than merely parsed (`expect`, set per
+    chapter by the caller): a page transcluding the wrong book announces itself instead of silently
+    filing 146 chapters under Book 2. No `data-n` is written — these numbers are integers, and app.js
+    reads the marker's own text where the attribute is absent.
+  **AND THE TWO COLUMNS MAY COME FROM DIFFERENT KINDS OF SOURCE**, which is the same book's other first.
+  `fetchOriginal`'s `chaptered` branch reconciles the original against the ENGLISH, and re-read that side
+  out of `en-tei.xml` — which a wiki-side book does not have, and whose `BOOK.url` is `undefined`, so it
+  asked `fetchText` for undefined and died AFTER the English had already been written. It now reads the
+  English back out of whichever cache the translation actually used, keeping the discipline the verse,
+  drama and TEI branches share: **the pairing is checked against the files that shipped, never asserted
+  from the entry.**
   **A book's ORIGINAL language is a second half of the same entry** (`original: { lang, langName, … }`),
   written to `books/<id>.<lang>.js` with its own cache under `book-cache/<id>/<lang>/`. **It comes in THREE
   shapes, and the wiki walk — the first one written — is the worst of them**, because it is the only one that
@@ -362,6 +705,33 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   neither has an English counterpart, so neither has a column to sit beside. **The chapter titles and the volume divisions are re-derived on every run**, so
   re-titling costs no refetch; **`--force` is needed to re-run the EXTRACTOR**, since the cache holds the
   extracted prose rather than the fetched page. Not part of the site.
+  **A VOID ELEMENT MUST NOT GO ON `stripTags`' STACK, and this one was latent from the beginning**
+  (Aug 2026, adding Aesop's Fables — the first book here whose illustrations reach that pass).
+  Everything outside `ALLOWED` is unwrapped by pushing a `kept:false` frame and waiting for its
+  closer; an `<img>` or an `<hr>` never sends one, so its frame sits on top of the stack for the rest
+  of the chapter and **every later closing tag is compared against IT, matches nothing, and is
+  silently dropped**. Townsend's frontispiece is an `<img>` inside a `<p>` inside the centred block
+  heading his first fable, so the `</p>` went, then the `</div>` closing that block — and the whole
+  of fable 1 rendered inside a `<blockquote>` that never closed. The usual quiet shape: nothing
+  throws, not one word is lost, the chapter is exactly the right length, and only the indent shows
+  it. `br` was already special-cased, which is why fifteen books never met it. **`VOID_TAGS` plus a
+  `/>` test now covers both spellings** — XHTML-style `<img … />` announces itself and MediaWiki's
+  bare `<hr class="…">` does not. **Measured before it was fixed over every shipped chapter of all
+  books and originals: `<p>`, `<blockquote>`, `<i>`, `<b>` and `<q>` balance exactly everywhere and
+  that one chapter was the only imbalance on the shelf** — then confirmed byte-for-byte by re-running
+  the five wiki books. **Counting a tag against its closer over the shipped data is the cheap sweep
+  to run after any `stripTags` change.**
+  **`dropHeads` GAINED A THIRD SHAPE at the same time**, for a centred head of SEVERAL paragraphs
+  (Aesop's first page carries the half-title, the frontispiece and its caption in one block, where
+  shape one wants exactly one `<p>` and shape two wants no tags at all). It is not a loosening: the
+  test applied is the same one, so a block still goes only when its whole text matches a pattern the
+  book itself declares, and it matches to the FIRST `</blockquote>` so a nested block yields a
+  partial text that simply fails rather than swallowing prose.
+  **AND `minChars` IS NOW PER BOOK** (default 200, Aesop 120): the short-chapter guard is what
+  catches an extraction that has returned the wiki furniture instead of the text, and 200 is right
+  while a chapter means a book of Herodotus — but a fable is one paragraph, and the shortest is 191
+  characters and complete, checked against its own source page rather than assumed. Lowering the
+  floor for everybody would blunt the guard on the books that need it.
   **FIVE extraction faults have been found and fixed in Aug 2026, and all five are the same mistake:**
   Wikisource's markup is not stable and none was assumed wrong until a reader saw it.
   **Two of them only ever appeared in letters 66–124** — the first 65 were clean, which is why they shipped
@@ -1353,7 +1723,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     that ground, and the limit is **said outright in `rights` rather than smoothed into the sentence the
     other two use**. (The Chinese underneath is ~25 centuries old and free everywhere.) The Republic ships
     in **Jowett's translation (1871, revised through the 1890s; this printing 1901)**, and it is the
-    easiest licence of the four — **the only one needing no qualification at all**: Jowett died in 1893, so
+    easiest licence of the four — **needing no qualification at all**, which only the Analects has
+    matched since: Jowett died in 1893, so
     it is PD on the pre-1929 publication rule, on life-plus-seventy, and on life-plus-a-hundred. The 1901
     Colonial Press volume carries a copyright notice, which covers what the press ADDED to Jowett — a
     special introduction by W. C. Lawton and a set of engraved plates — and neither is imported; what is
@@ -1395,9 +1766,118 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     rule and carries the Perseus CC BY-SA 4.0 layer. Irwin (1985), Crisp (2000) and Rowe (2002) are named
     as the ones not to reach for — and with them, particularly, **Ross REVISED BY LESLEY BROWN (Oxford
     World's Classics, 2009)**, which carries this translator's name on its cover, is the edition a reader
-    is likeliest to own, and is a separate copyrighted work. Each book's
+    is likeliest to own, and is a separate copyrighted work. **The Histories is the first book here whose
+    SECOND LAYER IS THICKER THAN A DIGITAL EDITION, and that has to be said rather than smoothed over**
+    (Aug 2026). Godley's translation and the Greek facing it are the Republic's and the Oedipus Rex's
+    easy case — published 1920–1925, and he died in 1925, so both columns are public domain on the
+    pre-1929 rule, on life-plus-seventy and on life-plus-a-hundred, with no limit to state as Giles
+    (2029) and Ross (2042) need. What is different is that everywhere else Perseus's contribution is the
+    *digital* edition over a printed text left as its editor set it, while here **they have also edited
+    the PROSE**: this English is Godley modernized to remove archaisms, by Steven Ott and reviewed by
+    John Marincola, which the source file states in its own header and which is quoted rather than
+    paraphrased. That is a recent derivative work carried by CC BY-SA 4.0 rather than by an expiry, so it
+    is stated in `rights`, in the book's front matter and in the importer entry — a reader who goes
+    looking for the 1920 printing must not be surprised by what they find. De Sélincourt (1954),
+    Waterfield (1998), Purvis (2007) and Holland (2013) are named as the ones not to reach for.
+    **The Analects is the shelf's EASIEST licence and the second needing no qualification at all**
+    (Aug 2026), the Republic being the first: Legge published in 1861 and revised for the second
+    edition of 1893 — both pre-1929 — and **died in 1897**, so it is PD on the publication rule, on
+    life-plus-seventy and on life-plus-a-hundred, with no limit to state as Giles (2029) and Ross
+    (2042) need and no modern editorial layer as the Histories and the Meditations' Greek carry. The
+    Chinese beside it is ~24 centuries old. Waley (1938), Lau (1979), Leys (1997) and Slingerland
+    (2003) are named as the ones not to reach for.
+    **The Gallic War is the first here whose ground is the PUBLICATION DATE and nothing else** (Aug
+    2026), and the reason is a translator who cannot be found. McDevitte and Bohn's English was
+    published by Harper in 1870–1872 and T. Rice Holmes's Latin at Oxford in 1914, both long pre-1929,
+    so the United States copyright in both has expired and that much is certain. But a joint work's
+    life-plus-seventy term runs from the LAST surviving author, and while McDevitte's dates are known
+    (1834–1909, Library of Congress and Wikisource) and Holmes's are (1855–1933, Dictionary of Irish
+    Biography and Wikipedia), **"W. S. Bohn" has no first name, no dates and no biography in anything
+    openable** — probably connected with Henry Bohn's Classical Library, whose series the translation
+    first appeared in, but that is an inference and is not used to hold anything up. So no
+    life-plus-seventy date is claimed for that half, the gap is stated in `rights` and on the book's own
+    front matter, and the reader is told what is known and what is not. It is the Lucretius judgement in
+    a second book — **claim less rather than round up** — and it is the honest shape for any future book
+    whose byline outruns the record. Handford (1951), Hammond (1996) and O'Donnell (2019) are named as
+    the ones not to reach for.
+    **The Peloponnesian War is the THIRD needing no qualification at all** (Aug 2026), after the Republic
+    and the Analects, and all three of its layers are clear: Thucydides wrote in the fifth century BCE,
+    Richard Crawley published in 1874 and died in 1893, and the Greek is Henry Stuart Jones's Oxford text
+    of 1910 (he died in 1939) — so every layer clears the pre-1929 publication rule, life-plus-seventy and
+    life-plus-a-hundred alike, with no limit to state as Giles (2029) and Ross (2042) need. **One figure
+    looks like a problem and is not**: this Greek is usually met as the 1942 Oxford printing, which is the
+    same Stuart Jones text with an apparatus criticus added by J. E. Powell — it is the TEXT that is
+    imported and not the apparatus, and the source file states the 1910 publication itself. Warner (1954),
+    Lattimore (1998) and Mynott (2013) are named as the ones not to reach for, and **with them the Landmark
+    Thucydides of 1996, which is the edition a reader is likeliest to own and prints a REVISED Crawley**;
+    what is here is Crawley's own 1874 text. **The choice of translation was itself a licence-and-pairing
+    decision**, the Ethics' trade made the other way: Perseus's English for Thucydides is Hobbes's of 1629,
+    in the same TEI encoding as the Greek, which would have paired 917 against 917 by construction out of
+    one source and needed no new code — and it was rejected on the reader's behalf, because the Library is
+    a reading room and Hobbes's English is seventeenth-century English. **The cleanest text to import is
+    not always the one worth reading**; the cost was one missing chapter number in 917.
+    **The Song of Roland is the THIRD book to state a LIMIT as well as a ground, and the first where
+    the limit falls on BOTH columns** (Aug 2026) — the Art of War (Giles, 2029) and the Nicomachean
+    Ethics (Ross, 2042) being the earlier two, each with the limit on one side only. The poem is
+    around nine hundred years old and free everywhere, but both modern layers are works of the 1920s:
+    Scott Moncrieff's translation of 1919 (he lived 1889–1930) and Bédier's Old French text of
+    1920–1922 (1864–1938), so both clear the pre-1929 publication rule and life-plus-seventy —
+    expired 2001 and 2009 — and **neither has yet cleared life plus a hundred, which runs to 2031 and
+    2039**. Said outright in `rights` rather than smoothed into the easier sentence, as Lucretius's
+    entry says: claim less, and put on the page what cannot be said. Dates looked up rather than
+    recalled, for the Hugo Magnus reason. **Only the poem is imported**: the 1919 volume also carries
+    an introduction by G. K. Chesterton (d. 1936) and a note on technique by George Saintsbury
+    (d. 1933), later works by other hands, left behind exactly as the Republic's 1901 introduction and
+    plates were. Sayers (1957), Harrison (1970), Goldin (1978), Brault (1978) and Burgess (1990) are
+    named as the ones not to reach for.
+    **Medea is the FOURTH to state a LIMIT, and the first where the limit falls on the ORIGINAL**
+    (Aug 2026) — the Art of War (Giles, 2029), the Nicomachean Ethics (Ross, 2042) and the Song of
+    Roland (both columns, 2031 and 2039 on life-plus-a-hundred) being the earlier three. Everywhere
+    else on this shelf the original is the older and easier half; here it is the harder one. Both
+    columns clear the pre-1929 rule — Edward Coleridge's translation was published in London in 1906
+    and Gilbert Murray's Greek at Oxford in 1902 — and Coleridge died in 1936, so his English also
+    cleared life-plus-seventy in 2007. **Murray died in 1957, so his Greek stays in copyright where
+    the term is life plus seventy — the UK and the EU among them — until 2028.** Said outright in
+    `rights` and on the book's own front matter rather than smoothed into the easier sentence the
+    Oedipus Rex can honestly use; both years were checked against Wikisource's author pages rather
+    than recalled, for the Hugo Magnus reason, and Murray's is the year the whole licence turns on.
+    **THERE WAS NO CLEANER GREEK TO REACH FOR**, which is worth recording because the Ethics makes
+    the opposite choice look available: there it was a real trade (Chase's free 1847 English pairs on
+    18 of 181 Bekker pages, Ross's limited one on 173 of 173), where Perseus carries exactly one
+    Greek Medea and the older `grc1` file does not exist. So the choice was this text or no original
+    at all, and a second column pairing on 500 of the translation's 502 sections is worth a stated
+    limit that expires in two years. Warner (1944), Vellacott (1963) and Arnson Svarlien (2008) are
+    named as the ones not to reach for. Each book's
     `rights` string states the grounds and **the book's own page prints it** — the reasoning is shown to the
     reader, not buried in a commit message.
+    **`BOOK_AUTHOR_COLOR` GAINED AN `"Anonymous"` KEY with it**, and the reasoning is worth keeping
+    because the obvious answer was to do nothing: `bookColor` already falls through to the generic
+    indigo for an author it does not know, so the Song of Roland would have rendered. It would also
+    have been the first of an unbounded set of anonymous works all sharing one colour that is ALSO the
+    shelf's default. Keyed like every other, it stays one book one colour. The search behind
+    `#42426F` settled a question the earlier colour notes had not: **hue coverage is not separation.**
+    The shelf's largest EMPTY hue quarter is the 74° between Marcus Aurelius's teal and Aristotle's
+    steel, and it is reachable only at the bottom of the shelf's chroma band, so the best colour
+    anywhere in it clears its nearest neighbour by **19.1 — below the shelf's own tightest pair at
+    20.4**. Searched over the whole band instead, this dark slate-violet is the best available at
+    **24.5** from Herodotus's indigo and reads 5.64:1 on the tightest of the sixteen papers. It is a
+    fourth colour in the blue quarter, which Thucydides' entry warns about, and the warning does not
+    bite: what it forbids is a crowding that asserts a KINSHIP the shelf does not mean — a sober blue
+    beside Herodotus would tie the two Greek historians together — and nobody reads a French chanson
+    de geste against Herodotus, Aristotle, Machiavelli or Seneca.
+    **`"Euripides"` (`#72187F`) IS THE FIRST TIME THE BEST NUMBER WAS REJECTED OUTRIGHT** (Aug 2026),
+    and it is the Thucydides rule finally biting rather than being reasoned around. Searched over the
+    shelf's own lightness and chroma band, the best-separated colour left anywhere in it is a crimson
+    at **24.0** — and it is a RED for the second Athenian tragedian, landing 27.7 from Sophocles's dark
+    brick. Euripides and Sophocles are read against each other more constantly than any other two
+    writers here, so a red beside his would say they are a set, which is exactly the kinship that kept
+    Thucydides out of the sober blues beside Herodotus. Obeying it cost two tenths of a point: this
+    deep magenta-purple clears Thucydides's mulberry and Seneca's violet by **23.8 and 24.0** against
+    the tightest pair at 20.4, stands **57.7** from Sophocles where no reading of the two as a pair is
+    possible, and reads **5.87:1** on the tightest of the sixteen papers where the crimson scrapes 4.66
+    against a bar of 4.5. So the accessibility figure and the grammar agreed against the raw number —
+    and note that the number is only ever measured against the SIXTEEN LIGHT papers, not all 34: a
+    swatch this dark reads 1.5–3.0 on the dark ones, as every shipped colour does.
   · **THE ORIGINAL BESIDE THE TRANSLATION** (`bookSections` / `bookRows` / `applyLangMode` /
     `anchorNow` + `restoreAnchor`, Aug 2026, on request). Side by side on a wide screen, one at a time on
     a phone where **tapping the page turns it over**, as the daily quote does.
@@ -1545,6 +2025,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     from its author, title and date, and what it is about is a tap away in its own front matter — and that is
     what lets a full-width banner still be short. **`b.year` is an explicit signed sort key** beside the prose
     `written`, because a shelf that sorts by date needs one number per book and "c. 62–65 CE" is not one.
+    · **A BOOK'S COLOUR IS ITS AUTHOR'S** (`BOOK_AUTHOR_COLOR` / `bookColor(b)`, Aug 2026, on request).
+      It was a per-book `color` field, and with two books by Plato on the shelf that was already saying
+      the wrong thing — the spine and the author line above the title are painted in it, so a colour
+      changing between one man's two books tells a reader they are unrelated. Keyed by the `author`
+      string the banner already prints, so the two cannot come apart, and a book whose author is
+      missing falls through to the `var(--tile, var(--indigo))` fallback every rule in styles.css
+      already declares rather than to a second default kept in step by hand. **The per-book field is
+      GONE, not merely ignored** — a dead `color:` beside a live table is the next person's bug.
+      Plato took the Symposium's plum rather than the Republic's blue: three of the eleven books were
+      blue, and merging the pair was a chance to spend one of them. The colours are **measured, not
+      eyeballed** — in CIELAB the shelf's own closest pair is ΔE 20 (Seneca against Herodotus) and
+      Confucius's walnut is 26 from its nearest neighbour. The obvious green for the Analects was
+      measured and REJECTED: every green that sits inside this palette lands 12–17 from Lucretius, and
+      the only greens clearing that are bright enough to glow beside ten muted colours.
     A **sort picker** (`BOOK_SORTS`, shared `sortPickerHTML` with the glossary record) ships whatever the
     shelf holds, one book included: it was asked for outright, and a control that appears the day a second
     book lands is one nobody knows to look for.
@@ -2080,12 +2574,48 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     replaced. The Settings row says "this device's clock" outright.
   · **`scheduleDayRoll()`** re-arms itself and repaints ONLY the home page, which is where everything dated
     lives; a repaint under a reader mid-card would take the card away.
-- **Scheduling (`grade()`):** SM-2-ish with Anki-style learning steps. A **new card graded "Good"** becomes a `learning` step
-  (`interval 1/144`, `due = now + 10 min`) that **re-appears the same session/day** — grade() returns `{requeue: due-now < 11 min}`
-  and the study session does `queue.shift(); if (requeue) queue.push(id)` — and only **graduates to `review` (due tomorrow) on the
-  next "Good"** (Anki-like; before this it jumped straight to tomorrow). "Again"/"Hard" on a new/learning card also requeue
-  (1 min / 6 min); "Easy" graduates immediately (4 days). `S.intro.count` (the daily new-card cap via `newRemainingToday`) is
-  incremented only on a card's FIRST grade (`fresh`), so a requeued learning card is never re-counted.
+- **THE SCHEDULER — Anki's SM-2, ported (Aug 2026, on request).** The `THE SCHEDULER` block in app.js, just above the SRS
+  helpers. It replaced an approximation of Anki with the thing itself, on the request to "copy the entire spaced interval
+  system exactly from Anki".
+  · **The whole of it is PURE** — `schedAnswer(card, grade, t, seed)` returns a NEW record and reads no global, no DOM and
+    no clock beyond its `t`. That is what lets `.claude/test-scheduler.js` walk every path as arithmetic rather than
+    through a browser, and it is also what keeps the undo snapshot valid (the caller's record is never mutated).
+    `grade()` is now only the bookkeeping around it: the review log, the streak, the day's new-card count, level-ups.
+  · **`SCHED` holds Anki's defaults in one place** — learning steps `1m 10m`, relearning `10m`, graduating 1 day, easy
+    4 days, starting ease 2.5 (floor 1.3), hard ×1.2, easy bonus ×1.35, lapse ×0 with a 1-day minimum, max 36500 days,
+    leech at 8 lapses. There is deliberately **no UI for these** — the request was for Anki's schedule, not Anki's deck
+    options — but they are a config object rather than scattered literals so a per-deck override is a small change.
+  · **A new card WALKS THE STEPS, which is the reported bug.** The first Good sends it to the 10-minute step and the back
+    of the day's queue; only the second graduates it to a day. `Hard` on the first step is the **midpoint of the two
+    steps** (5.5m), or Again and Hard would both mean one minute and the button would be a lie.
+  · **A lapse RELEARNS rather than resetting** — status `"relearn"`, ease −0.20, and the interval it returns to is
+    computed at the moment it lapses and carried on the card as **`lapseIv`**. The record gains **`step`** too. Both
+    back-fill by their own absence, so **nothing migrates**: an older single-step learning card reads as standing on
+    step 1 and takes one more Good, which is the intended new behaviour anyway.
+  · **`status` gains `"relearn"` beside new / learning / review.** Every counter that used to test `=== "learning"` calls
+    **`schedIsLearning()`** now — a lapsed card is being learned again and Anki files it in the same pile — so reach for
+    that helper rather than adding a third comparison.
+  · **THE FUZZ IS SEEDED BY THE CARD, NOT THE CLOCK**, and that is what makes the grade buttons honest: `schedPreview`
+    and `schedAnswer` compute the same number, so a button reading "12d" schedules 12 days. **Both take the same `t`** —
+    a preview that read `Date.now()` while the grade took the passed time previewed one interval and scheduled another
+    on any overdue card (caught by the test, not by eye).
+  · **`fmtInterval` renders real minutes.** It answered `<10m` for everything under an hour and then labelled HOURS as
+    minutes, so both rungs of the ladder read the same and neither read correctly.
+  · **The requeue rule is the DAY BOUNDARY**, not a fixed window: `{requeue: schedIsLearning(status) && (due < dayEndTs()
+    || due - now <= SCHED_AHEAD_MS)}`. The old 11-minute window silently stopped requeuing the moment a step ran longer
+    than it; the learn-ahead allowance is Anki's, and is what stops the last card of a late-night session being stranded
+    a few minutes the wrong side of the cut-off.
+  · `S.intro.count` (the daily new-card cap via `newRemainingToday`) is still incremented only on a card's FIRST grade
+    (`fresh`), so a requeued learning card is never re-counted.
+  · **Guarded by `.claude/test-scheduler.js` (62 assertions, no browser, no dependencies)** — including the ordering
+    guarantee Hard < Good < Easy over 1,600 interval/ease combinations, that preview and grade agree over 360 cases,
+    that nothing is ever scheduled into the past, and that old records back-fill. Its two most useful finds were both
+    invisible on the page: the ordering floor walking Easy past the maximum interval, and the preview/grade clock
+    mismatch above. `.claude/test-review-decks.js` section 6 pins the same thing end to end in a real session — and
+    **tracks the card by ID out of the session record, never by the question on screen**, which is a different one of
+    its three phrasings each time it is shown.
+  · **Re-run both after touching `SCHED` / `schedAnswer` / `schedPreview` / `schedPass` / `schedFuzz` / `schedIsLearning`
+    / `fmtInterval`, or the requeue line in `grade()`.**
 - **Undoing a grade (Aug 2026, on request)** — `undoStack` / `undoSnapshot` / `undoGrade` inside `PAGES.study`,
   reached by the `#undoGrade` button in the study bar (rendered only when there is something to undo), by
   **Ctrl/Cmd+Z**, and by "Undo the last card" on the completion screen (where the queue is empty and there is no
@@ -3386,12 +3916,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     control sits on a screen is a fact about that screen) and **clamped on every apply and on resize**, so a
     position saved on a wide window cannot strand the marker off the edge of a narrow one. With nothing
     stored the inline styles are cleared, which is what lets `.on-atlas` and `body.grading`'s offsets take
-  · **HOLDING the marker puts the pen up** (`wbWireHoldToRelease` / `WB_HOLD_MS` / `wbHeld`, Aug 2026, on
+  · **HOLDING the marker TOGGLES the pen** (`wbWireHoldToRelease` / `WB_HOLD_MS` / `wbHeld`, Aug 2026, on
     request). The toggle already carried a tap (open/shut the tools) and a drag (move them); a hold is the
     third gesture it had left, and it is the same one the deck rows and the review banner use one level up.
-    It is deliberately **one-directional and a NO-OP when nothing is selected**: a hold that turned drawing
-    ON would make the gesture mean opposite things depending on a state the shut panel barely shows, and the
-    tap already turns it on. Three things it has to get right, all about not firing twice — the click that
+    It was **one-directional for a fortnight** — a hold put the pen up and a hold with nothing selected did
+    nothing at all — on the reasoning that a gesture meaning opposite things depending on a state the shut
+    panel barely shows is one nobody can predict. **That reasoning is backwards once you hold the thing**
+    (changed on request): a control that answers on one press and is inert on the next reads as broken, and
+    the state IS shown — the button carries `.on` while the pen is down, panel open or shut. So it toggles,
+    and the **toast says which way it went**, which settles the ambiguity the one-way rule was avoiding.
+    Turning it back on **restores the tool and colour last drawn with** rather than resetting to the default
+    pen (a hold is a way back to what you were doing), which is why `ensureWBTools` now also exposes
+    **`wbRenderColors`** beside `wbRefreshTools` — `applyWBState` re-marks the tool but does not rebuild the
+    swatch row, whose selected colour follows it. Three things it has to get right, all about not firing twice — the click that
     follows a fired hold is swallowed through `wbHeld` exactly as a drag's is through `wbDragged`; a press
     that becomes a DRAG cancels the pending hold; and `contextmenu` is suppressed on the handle, or a long
     press on a phone raises the browser's own menu over the gesture.
@@ -3436,16 +3973,39 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     reader annotating with a stylus could not scroll the card they were annotating without first putting
     the pen up, drawing on it and undoing that. Once a stylus has been seen on this device,
     `pointerType === "pen"` draws and `"touch"` is handed back to the browser to scroll with.
-    · **BOTH HALVES ARE NEEDED and they are in different files.** `touch-action:pan-y pinch-zoom` (the
-      `wb-pen-only` class) is what lets the browser take a finger drag at all — the canvas declares `none`
-      normally, which is right when the finger IS the pen — and the JS half must stop calling
-      `preventDefault` on that pointerdown to match, since a prevented pointerdown cancels the scroll
-      whatever the CSS says. Change one and the other does nothing.
+    · **THE SCROLL IS PERFORMED, NOT PERMITTED, AND THAT IS THE WHOLE OF IT** (`scrollerUnder` / `panFling`
+      in `setupWhiteboard`; Aug 2026, on a bug report — "the stylus only draws a line for a tiny bit and
+      then switches to moving the page"). It was done through CSS for a fortnight —
+      `.draw-canvas.wb-pen-only{touch-action:pan-y pinch-zoom}` — and **that is what was broken**, because
+      `touch-action` is a property of the ELEMENT and cannot tell a pen from a finger: the permission
+      written for the finger applied to the stylus too, so the scroller claimed the pen's drag the moment
+      it passed the pan slop, fired `pointercancel` at the canvas and scrolled the page out from under a
+      half-drawn stroke. **No amount of `preventDefault` fixes it** — once a permitted pan has begun the
+      browser stops listening, which is why the earlier note here saying the two halves had to agree about
+      preventDefault was solving the wrong problem.
+      So the canvas keeps **`touch-action:none` in every state** (a drawing surface never gives a gesture
+      away) and a finger's scroll is done by hand: `scrollerUnder` finds what the finger is over by the
+      same `elementFromPoint` hit-test the ink uses to find a control — so a gloss popup's body and the
+      Atlas panel's columns are covered without a list of selectors kept in step by hand — and
+      `pointermove` moves its `scrollTop`. **Vertical only**, which is what the CSS it replaces permitted.
+      · **The momentum is not a flourish.** This replaces a native scroll, and one that stops dead on the
+        lift reads as a page that has snagged; `panFling` continues under friction, clamps the velocity
+        (one stray sample must not launch the page), is caught by the next finger down, and gates on
+        `prefersReducedMotion()` like every other movement on the site. `WB._panStop` lets the next
+        `setupWhiteboard` kill a fling still running over the card it is replacing.
+      · **The cost, stated:** pinch-zoom over the canvas goes with `pan-y pinch-zoom`. Putting the marker
+        up gives it back, and it was not worth keeping a rule that loses every stylus stroke.
+      · This is also **where Anki makes the decision** — per gesture, by the tool that started it: a stylus
+        event is consumed by the whiteboard and a finger event passed down to the scroller beneath. There
+        is nothing to pass down to here, so the scroll is performed instead of delegated.
+      · **`.wb-pen-only` carries no style now** and is still set: it is the state written where it can be
+        read. A rule added back there would be the wrong fix twice over.
     · **A finger in stylus mode still reaches the CONTROLS under the ink** — it runs the same
       `controlUnder` pass-through as the pen, and pointerup activates the control if the finger is still on
-      it. With one difference: nothing was preventDefault'd, so a finger that MOVED more than `WB_TAP_SLOP`
-      has scrolled rather than tapped, and firing a button the reader was only using to push the page along
-      is the one way this can be worse than what it replaced.
+      it. A finger that MOVED more than `WB_TAP_SLOP` has scrolled rather than tapped, and firing a button
+      the reader was only using to push the page along is the one way this can be worse than what it
+      replaced. (The press IS `preventDefault`'d now — with `touch-action:none` there is no scroll left to
+      cancel, and it keeps the compatibility click off the canvas.)
     · **`stylusSeen` and `penOnly` are separate on purpose**: the first is a fact about the hardware and
       only ever goes true, the second is the reader's answer to it and defaults to yes. Both are
       device-local (`folio_wb_stylus_v1`), like where the marker sits — a pen that has touched this screen
@@ -3696,10 +4256,38 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   popup is therefore NOT in the `.atlas-game` hide list — it is the game's learning surface; `gameShowRound` closes it
   per round. `pulseCol` resets to gold wherever pulses fire outside the game (`pulseChanges` does). Scoring: first-try
   finds; `won` needs `n >= 5` AND all first-try; `gameEnd` → `markGamePlayed("findit", …)` + `save()` +
-  `checkAchievements()`. **Anti-cheat gating**: `.atlas-game` CSS hides search/legend/hover-chip/hint, game mode
-  **forces `citiesOn`/`majorCitiesOn`/`countryNamesOn` false** (a capital label on the board IS the answer), the timebar
-  is **`inert`** (not just pointer-events:none — buttons stay keyboard-focusable otherwise) + `stepYear`/`playTick`
-  carry GAME guards, and the whiteboard never mounts. **Same-day replays are PRACTICE** (`gamePractice` — playable,
+  `checkAchievements()`.
+  · **A PULSE CANNOT CARRY AN ANSWER, AND FOR A FORTNIGHT IT WAS ASKED TO** (`gameMarks` / `gamePin` /
+    `drawGameMarks` / `TINT_MISS` / `TINT_FOUND` / `TINT_ANSWER`, Aug 2026, on a bug report). The pulse is a
+    1.6-second throb and then nothing, which is right for "these territories changed hands on that step" and
+    wrong for an answer: a reader who missed twice was told "It was here." and looked up to find the flash
+    already over and the map exactly as it had been — the answer announced and then withdrawn before it could
+    be read. The wrong guess had the same fault the other way round, flashing red at the one moment the reader
+    is looking at their own finger rather than at the map. So both are now **PAINTED and stay painted until
+    `gameShowRound` clears them**: a LIST, since a round can hold two wrong guesses in red with the answer's
+    gold over them. A revealed CAPITAL gets `gamePin` instead — a dot with its name beside it, drawn like
+    `focusPoint` — because a city on a coastline of a thousand others cannot be shown by a ring that fades.
+    · **Deliberately NOT `selSet`.** That is the map's gold, and `drawSelectionOverlay` caches it into `selCv`
+      under a key made of its MEMBERS alone, so two marks wanting different colours would blit whichever was
+      cached first. `drawGameMarks` paints direct instead, which costs nothing here: a mark lives for one
+      round, there are never more than a handful, and the reveal is followed by a `flyTo`, so the frames it
+      appears on are moving frames the cache would be rebuilding for anyway.
+    · **`paintFillGroups` / `strokeCoastClipped` take an optional TINT** (`{rgb, fillA, line, glow}`, default
+      `TINT_SEL`) so the game's three colours reuse the painter's exact edge-tracing — mask-aware, coast-clipped
+      — rather than a second outline routine that would trace the era polygon's own offset shore. `TINT_SEL`
+      writes `line` and `glow` out in full so the shipped gold selection is unchanged: its outline is a
+      LIGHTER amber than its fill, which deriving them from one triple would have quietly flattened.
+  **Anti-cheat gating**: `.atlas-game` CSS hides search/legend/hover-chip/hint, game mode
+  **forces `citiesOn`/`majorCitiesOn`/`countryNamesOn` false** (a capital label on the board IS the answer),
+  **the timebar is GONE** — `.atlas-game{--timebar-h:0px}` plus `display:none` on the bar, Aug 2026 on request.
+  It used to be left on screen `inert` and slightly dimmed so the board would still look like the Atlas, but the
+  round names its own year in the question, the rail cannot be touched and stepping years is precisely what the
+  game must not allow, so it was a fifth of a phone screen spent on a control with nothing to say. **Setting the
+  variable on `.atlas-game` rather than `:root` is what gives that height back**: `.globe-stage` is a descendant,
+  so it inherits the zero and grows into the space, and every other rule written against `--timebar-h` is left
+  describing the ordinary Atlas. The markup stays (hidden, so out of the tab order too), so `paintYear`,
+  `renderMapYearMarks` and `layoutTicks` need no game branch — the last returns early on a zero `clientWidth`.
+  `stepYear`/`playTick` keep their GAME guards, and the whiteboard never mounts. **Same-day replays are PRACTICE** (`gamePractice` — playable,
   never records: the rounds are deterministic and every answer was revealed). The Atlas also gained **first-visit coach
   marks** (`#atlasHelp` overlay, auto-shown once via `localStorage["folio_atlas_tour_v1"]`, reopened by the `#gzHelp`
   "?" button) and **keyboard navigation** (canvas `tabindex=0`: arrows rotate, Enter selects/answers at the disk
@@ -5052,9 +5640,10 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Twenty-four committed regression tests** (in `.claude/`, not loaded by the site): twenty-one drive a real browser with
-  Playwright; `test-daily-quote.js`, `test-discovery.js` and `test-date-line.js` are plain Node with no dependencies at
-  all (`test-card-types.js` is half and half — its XP, CSS-scoper and template-engine assertions need no browser).
+- **Twenty-five committed regression tests** (in `.claude/`, not loaded by the site): twenty-one drive a real browser with
+  Playwright; `test-daily-quote.js`, `test-discovery.js`, `test-date-line.js` and `test-scheduler.js` are plain Node with
+  no dependencies at all (`test-card-types.js` is half and half — its XP, CSS-scoper and template-engine assertions need
+  no browser).
   Each slices what it tests out of the real `app.js`/`_headers` by text, so they can't drift from what ships.
   **Gotcha when writing more of them:** `page.goto()` to a URL that differs only in the `#fragment` is a
   same-document navigation — the app keeps running and its module state survives. Use `page.reload()` when
@@ -5264,6 +5853,20 @@ dead code (never rendered).
     browser and no dependencies** — the pieces are sliced out of `app.js` and run in a `new Function`.
     The rule is a property of the ARRANGEMENT, so it breaks silently: **re-run after adding or removing
     quotes** (a fifth Confucius line tightens the pool) as well as after touching `quoteRunningOrder`.
+  · `node .claude/test-scheduler.js` — 62 assertions on **the schedule itself**, which is the thing a study site is
+    most worth getting right and the thing that fails most silently: a wrong interval is still a number on a button,
+    and a card that graduates a step early looks exactly like a card being studied. Nobody reports it; they just learn
+    less. So it is pinned as ARITHMETIC — the pure `THE SCHEDULER` block is sliced out of app.js by text and run in a
+    `new Function`, the way `test-daily-quote.js` takes `quoteRunningOrder`. **No browser and no dependencies.** It
+    covers the learning ladder (a new card's Good is 10 minutes, not a day; the second Good graduates; Hard is the
+    midpoint of the first two steps), the review formulas, the ordering guarantee **Hard < Good < Easy over 1,600
+    interval/ease combinations**, days-late credit, lapses and relearning, that **every button shows exactly the
+    interval grading it will apply** (360 cases — the property the card-seeded fuzz exists to give), that older records
+    back-fill, that the block is pure and reads no global, and that **no state × grade is ever scheduled into the
+    past** (24 cases). Its two finds were both invisible on the page: the Hard<Good<Easy floor walking Easy past the
+    maximum interval, and a preview that read the live clock while the grade took the passed one, so an overdue card
+    previewed one interval and scheduled another. **Re-run after touching anything named `sched*`, `SCHED`, or
+    `fmtInterval`** — and note that the end-to-end half lives in `test-review-decks.js` section 6.
   · `node .claude/test-date-line.js` — 13 assertions on the card date line, run against the real `data.js`:
     that every shipped card's `answerDate` is still a LIST OF DATES and not the paragraph it replaced
     (the check is content-aware, since an old date line wore exactly the same tags), that the limits in
@@ -5292,10 +5895,19 @@ dead code (never rendered).
     default is the WIDEST deck's rather than a global figure (two decks at 5 draw 5, from the ten between
     them), and an explicit limit set there caps the pooled draw **without changing what a deck offers when
     tapped on its own** — which is the distinction the whole design turns on and which nothing on screen
-    states. **Re-run after
+    states. **Section 6 (Aug 2026) pins THE LEARNING STEPS end to end**, in a real session, where
+    `test-scheduler.js` pins their arithmetic: a new card's Good button offers minutes rather than a day and
+    the four buttons are four different answers (on the old scheduler three of them read `<10m`), one Good
+    leaves the card learning on its second step, **the same card comes BACK later in the session**, and a
+    second Good graduates it to tomorrow. Two things it must keep doing: **track the card by ID out of the
+    session record**, never by the question on screen — that is a different one of the card's three phrasings
+    each time it is shown, so comparing the prose reports a card that never returned when it returned wearing
+    another sentence — and assert the banner's **"Start"** button on a reader who has STUDIED, since with no
+    cards graded at all the banner is the first-run hero and its button says something else entirely.
+    **Re-run after
     touching `reviewQueue` / `reviewLimits` / `REVIEW_ENTRY` / `deckLimits` / `deckDoneToday` / `entryPiles` /
-    `openDeckMenu` / `addActive` / `maxActiveDecks` / `STUDY_KEY` / `qIdx`, or `buildSession`'s per-deck
-    allowances.**
+    `openDeckMenu` / `addActive` / `maxActiveDecks` / `STUDY_KEY` / `qIdx`, `buildSession`'s per-deck
+    allowances, or anything named `sched*`.**
   · `node .claude/test-atlas-places.js` — the Atlas's label crowding, its heightmap strength slider, and a
     glossary term's way onto the map (Aug 2026). All three fail silently: a map that quietly writes forty
     overlapping names looks like a map, a slider that does nothing looks like a slider, and a marker that
@@ -5374,13 +5986,33 @@ dead code (never rendered).
     `readingPos` / `setReadingPos` / `bookSections` / `bookRows` / `applyLangMode` / `anchorNow` /
     `slideChapter` / `BOOK_SORTS` / `sortDirHTML` / `setBookSort` / `openBookMenu` / `shareBook` /
     `isBookFav` / `toggleBookFav` / `bookQuery` / `bookMatches` / `shelfHTML` / `teiPagedBooks` /
-    `stripTags`'s `data-n` carry, after running `fetch-book.js`, or after renaming anything on the
-    Collections page.**
+    `teiDramaDivisions` / `dramaNotes` / `dramaText` /
+    `stripTags`'s `data-n` carry and its `VOID_TAGS` guard, after running `fetch-book.js`, or after
+    renaming anything on the Collections page.**
+    **Sections 3–6 NAME `seneca-letters` rather than opening whatever the shelf puts first** (fixed
+    Aug 2026, when Aesop's Fables was added and took the lead under the "recent" sort). Two of those
+    checks can only ever pass on Seneca — the four common nouns that mean something else in him, and
+    the original-language control, which Aesop deliberately has not got — so a first-tile target made
+    the whole block fail at once and report a missing Stoic on a page where nothing was wrong. **A
+    check written about ONE book must name it**; that the first tile opens at all is asserted
+    separately, in the shelf and search sections. The two banner assertions above it were fixed the
+    other way, by checking EVERY banner names a work, an author and a length — order-proof, and a
+    stronger claim, since a book added later with no author now fails there.
     **A shared-extractor change needs the byte-for-byte check as well as this suite**, since the suite
     walks the SHIPPED files and cannot see that an extractor would now produce something different:
-    re-run one wiki book and one TEI book (the Symposium is both and takes a minute) and diff the
-    generated files against the committed ones. That is what proved the `data-n` carry inert on the
-    seven books that predate it.
+    re-run one wiki book and one TEI book and diff the generated files against the committed ones.
+    That is what proved the `data-n` carry inert on the seven books that predate it. **`plato-dialogues`
+    is both at once** and is the cheapest single check (eleven wiki pages, eleven TEI files); a change to
+    `cleanBody`'s `dropHeads` pass additionally needs the four OTHER books that declare `dropHeads` —
+    `marcus-aurelius-meditations`, `plato-republic`, `aristotle-nicomachean-ethics`, `machiavelli-prince`
+    — which is how the 2026-08-06 leading-furniture fix was shown inert (all four byte-identical). Run
+    them with `--force --skip-original`: `--force` is what re-runs the EXTRACTOR, and the original is on
+    a different path and need not be refetched to prove an English-side change.
+    **A change to the DRAMA reader needs `sophocles-oedipus-rex`, and it needs BOTH columns** — it is
+    the only other play, `plato-dialogues` does not touch that path, and the two columns go through the
+    same reader with different options (the English lifts its notes, the original drops them), so a
+    change that is inert on one may not be on the other. Run it with `--force` and no `--skip-original`;
+    that is how the 2026-08-06 note lift was shown inert on the shipped play, byte-identical both sides.
     Two things it now pins that are new (Aug 2026, on request) and both fail silently. **The SORT**: the
     select must carry no direction in its labels (a reverse button beside "Title (A – Z)" makes the two
     controls contradict each other), the reverse must actually reverse, and the pair must survive a full

@@ -1128,6 +1128,36 @@
   if (S.settings && S.settings.dayEnd === undefined) S.settings.dayEnd = 0;          // midnight — see dayKey
   if (S.settings && S.settings.animations === undefined) S.settings.animations = true;
   if (S.settings && S.settings.contrast === undefined) S.settings.contrast = false;
+  /* THE SYMPOSIUM BECAME A CHAPTER OF THE DIALOGUES (Aug 2026), and both registers that remember a
+     book are keyed by its id — so without this a reader who had the dialogue open, or had starred
+     it, would find their place and their star simply gone, with nothing on screen to say why. The
+     book still contains that dialogue, so the place is still meaningful: it was chapter 1 of a
+     one-chapter book and is chapter 11 here — its position in Thrasyllus's tetralogies — and `y` is
+     a fraction of the chapter's own height, so it survives the change of translation. Chapter 0 was
+     the front matter and still is, so it maps to itself.
+
+     THE CHAPTER NUMBER IS NOT A CONSTANT AND MUST BE RE-DERIVED, which is the one thing to check if
+     this book is ever re-ordered: it was 7 while the book was Jowett's eleven in his volumes' order,
+     and became 11 when the book was rebuilt from the complete Loeb set in the ancient order. A stale
+     number here does not throw — it just opens a reader on the wrong dialogue.
+
+     The old keys are dropped whichever way the branch goes, so this cannot run twice and cannot
+     leave a dead entry behind; and it defers to an existing `plato-dialogues` entry rather than
+     overwriting it, since a reader who has already opened the merged book has a newer place than
+     the one being migrated. Both registers ride in PROGRESS_FIELDS, so this runs on whichever
+     device boots first and syncs from there. */
+  (function migrateSymposium() {
+    const OLD = "plato-symposium", NEW = "plato-dialogues";
+    if (S.reading && S.reading[OLD]) {
+      const r = S.reading[OLD];
+      if (!S.reading[NEW]) S.reading[NEW] = { ch: r.ch === 0 ? 0 : 11, y: r.y, at: r.at };
+      delete S.reading[OLD];
+    }
+    if (S.bookFavs && S.bookFavs[OLD]) {
+      if (!S.bookFavs[NEW]) S.bookFavs[NEW] = S.bookFavs[OLD];
+      delete S.bookFavs[OLD];
+    }
+  })();
   function load() {
     try {
       const raw = localStorage.getItem(STORE_KEY);
@@ -1787,6 +1817,15 @@
     return dayKeyOfDate(d);
   }
   const todayStr = () => dayKey();
+  /* The same day, counted rather than named — what a date-seeded daily pick needs. It goes through the
+     calendar components dayKeyOfDate reads, NOT through the shifted timestamp divided by DAY: local
+     midnight is not a multiple of DAY, so dividing it leans on a rounding that a DST shift can tip either
+     way, where Date.UTC of the three components is an exact ordinal that moves by exactly one per day. */
+  function dayIndex(ts) {
+    const d = new Date(ts == null ? Date.now() : ts);
+    d.setMinutes(d.getMinutes() - dayEndMin());   // before the cut-off it is still yesterday
+    return Math.floor(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / DAY);
+  }
   const dayEndHHMM = () => pad2(Math.floor(dayEndMin() / 60)) + ":" + pad2(dayEndMin() % 60);
   // the instant today ends — what "due by the end of the day" means once the boundary is the reader's
   function dayEndTs() {
@@ -1973,9 +2012,14 @@
     }
     return n == null ? a : a.slice(0, n);
   }
+  /* A grade button's next interval. Sub-day values are real MINUTES now that the learning steps differ
+     from each other (1m then 10m): it used to answer "<10m" for anything under an hour and then label
+     HOURS as minutes, so both steps of the ladder read the same and neither read correctly. */
   function fmtInterval(days) {
-    if (days < 1 / 24) return "<10m";
-    if (days < 1) return Math.max(1, Math.round(days * 24)) + "m";
+    if (days < 1) {
+      const m = Math.max(1, Math.round(days * 1440));
+      return m < 60 ? m + "m" : Math.round(days * 24) + "h";
+    }
     if (days < 30) return Math.round(days) + "d";
     if (days < 365) return Math.round(days / 30) + "mo";
     return (days / 365).toFixed(1) + "y";
@@ -2748,7 +2792,202 @@
     return (name || "S").trim().charAt(0).toUpperCase() || "S";
   }
 
-  /* ---------- SRS (simplified SM-2) ---------- */
+  /* ================= THE SCHEDULER — Anki's SM-2, ported =================
+
+     What a reader gets wrong about a study app is usually the schedule, so this follows Anki's rather
+     than approximating it. The whole of it is PURE: schedAnswer() takes a card record and a grade and
+     returns the next record, touching no global and no DOM, which is what lets `test-scheduler.js`
+     walk every path as string-in/string-out comparisons rather than through a browser. grade() below
+     is the bookkeeping around it (the review log, the streak, the day's new-card count, level-ups).
+
+     THE PART THIS EXISTS TO FIX (Aug 2026, on a bug report): a new card answered Good used to jump
+     straight to tomorrow. It now walks the LEARNING STEPS — 1 minute, then 10 minutes — so the first
+     Good sends it to the back of the day's queue and only the second graduates it to a day. That is
+     Anki's default `1m 10m`, and it is the difference between meeting a card once and learning it.
+
+     A card record grows two fields, both back-filled by their own absence:
+       · `step`    — how far along the steps a learning/relearning card is (missing → 0, which is what
+                     an older single-step learning card should become: one more Good to graduate).
+       · `lapseIv` — the interval a lapsed card returns to once it finishes relearning, computed at the
+                     moment it lapsed, exactly as Anki does.
+     `status` gains "relearn" beside new / learning / review. Every counter that used to test
+     `=== "learning"` tests both now — a lapsed card is being learned again, and Anki files it in the
+     same pile — so search for `isLearning` rather than adding a third comparison. */
+  const SCHED = {
+    learnSteps: [1, 10],     // minutes; a new card's ladder. Anki's default is `1m 10m`
+    relearnSteps: [10],      // minutes; where a lapsed review card goes. Anki's default is `10m`
+    graduateIv: 1,           // days — Good on the last learning step
+    easyIv: 4,               // days — Easy on a card still in learning
+    startEase: 2.5,          // the ease a card graduates with
+    minEase: 1.3,            // Anki's floor; below this a card would never grow
+    hardMult: 1.2,
+    easyBonus: 1.35,
+    lapseMult: 0,            // a lapse multiplies the old interval by this…
+    minLapseIv: 1,           // …and never returns below a day
+    ivMult: 1,               // a thumb on the scale for every review interval
+    maxIv: 36500,            // a hundred years, Anki's ceiling
+    leech: 8,                // lapses before a card is called a leech
+  };
+  const MIN_MS = 60 * 1000;
+  const SCHED_AHEAD_MS = 20 * MIN_MS;   // Anki's learn-ahead limit: how far into the future a learning step may be pulled
+  const schedIsLearning = (st) => st === "learning" || st === "relearn";
+  const schedSteps = (c, cfg) => (c.status === "relearn" ? cfg.relearnSteps : cfg.learnSteps);
+  /* Which step a learning card is standing on, clamped — a record written before `step` existed, or one
+     whose deck has since been given fewer steps, must land somewhere real rather than off the end. */
+  function schedStep(c, steps) {
+    if (c.status === "new") return 0;
+    const i = Math.floor(Number(c.step) || 0);
+    return Math.max(0, Math.min(i, Math.max(steps.length - 1, 0)));
+  }
+  /* Hard on a learning card repeats the step it is on. The exception is the FIRST step of a multi-step
+     ladder, where Anki uses the midpoint between it and the next: without that, Hard and Again would
+     both mean "one minute" and the button would be a lie. A single-step ladder stretches by half. */
+  function schedHardDelay(steps, i) {
+    if (!steps.length) return 1;
+    if (i === 0 && steps.length > 1) return (steps[0] + steps[1]) / 2;
+    return steps[Math.min(i, steps.length - 1)] * (steps.length === 1 ? 1.5 : 1);
+  }
+  /* Anki fuzzes every review interval by a few percent so that cards learned on the same day do not
+     come back on the same day for ever. The spread widens with the interval: about a day either side
+     at 2.5 days, ±15% out to a week, then ±10%, then ±5%.
+     THE SEED IS THE CARD, NOT THE CLOCK, and that is what makes the grade buttons honest: the preview
+     and the grade that follows it compute the same number, so a button reading "12d" schedules 12 days.
+     A clock-seeded fuzz would show one figure and apply another, which is worse than no fuzz at all. */
+  function schedFuzzRand(seed) {
+    let h = 2166136261;
+    const s = String(seed);
+    for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
+    return ((h >>> 0) % 100000) / 100000;
+  }
+  function schedFuzz(iv, seed) {
+    if (!(iv >= 2.5)) return iv;
+    const d = 1
+      + Math.max(0, Math.min(iv, 7) - 2.5) * 0.15
+      + Math.max(0, Math.min(iv, 20) - 7) * 0.1
+      + Math.max(0, iv - 20) * 0.05;
+    const lo = Math.max(1, Math.round(iv - d)), hi = Math.max(lo, Math.round(iv + d));
+    return lo + Math.floor(schedFuzzRand(seed) * (hi - lo + 1));
+  }
+  /* A passing interval: fuzzed, never below its floor (which is what keeps Hard < Good < Easy), capped.
+     The cap is applied LAST, after the floor — the other order lets the "one day longer than the button
+     to my left" rule walk Easy past the ceiling on a card already sitting at it. At the ceiling the three
+     buttons converge, which is correct and is the only place the ordering does not hold. */
+  function schedPass(iv, floor, cfg, seed) {
+    const v = Math.round(schedFuzz(iv * cfg.ivMult, seed));
+    return Math.min(cfg.maxIv, Math.max(floor, Math.max(1, v)));
+  }
+  /* The three passing intervals of a REVIEW card, in days. Days LATE are credited back — a card
+     answered a week after it was due has plainly survived that week, so Anki counts a quarter of the
+     overdue days into Hard, half into Good and all of them into Easy. */
+  function schedReviewIvs(c, cfg, seed, late) {
+    const iv = Math.max(1, Number(c.interval) || 1);
+    const ease = Math.max(cfg.minEase, Number(c.ease) || cfg.startEase);
+    const od = Math.max(0, Number(late) || 0);
+    const hard = schedPass((iv + od / 4) * cfg.hardMult, 1, cfg, seed + ":h");
+    const good = schedPass((iv + od / 2) * ease, hard + 1, cfg, seed + ":g");
+    const easy = schedPass((iv + od) * (ease + 0.15) * cfg.easyBonus, good + 1, cfg, seed + ":e");
+    return { hard: hard, good: good, easy: easy };
+  }
+  const schedBlank = () => ({ reps: 0, lapses: 0, ease: SCHED.startEase, interval: 0, due: Date.now(), status: "new", last: 0, step: 0 });
+  /* Answer a card. Returns a NEW record — the caller's is untouched, so the undo snapshot taken before
+     this runs stays valid whatever happens in here. `seed` should be the card id: see schedFuzz. */
+  function schedAnswer(card, g, t, seed, cfg) {
+    cfg = cfg || SCHED;
+    const c = Object.assign({}, card || schedBlank());
+    const relearn = c.status === "relearn";
+    c.ease = Math.max(cfg.minEase, Number(c.ease) || cfg.startEase);
+
+    if (c.status === "new" || schedIsLearning(c.status)) {
+      const steps = schedSteps(c, cfg);
+      const step = schedStep(c, steps);
+      const stay = relearn ? "relearn" : "learning";
+      if (g === "again") {
+        c.status = stay;
+        c.step = 0;
+        c.due = t + (steps[0] || 1) * MIN_MS;
+      } else if (g === "hard") {
+        c.status = stay;
+        c.step = step;
+        c.due = t + schedHardDelay(steps, step) * MIN_MS;
+      } else if (g === "good" && step + 1 < steps.length) {
+        c.status = stay;                       // one rung up the ladder — back of today's queue, not tomorrow
+        c.step = step + 1;
+        c.due = t + steps[step + 1] * MIN_MS;
+      } else {
+        /* Graduating. A card that got here by lapsing returns to the interval its lapse computed
+           (Easy adds a day, as Anki does); one that has never been a review card takes the deck's
+           graduating or easy interval. */
+        const base = relearn
+          ? Math.max(cfg.minLapseIv, Number(c.lapseIv) || cfg.minLapseIv) + (g === "easy" ? 1 : 0)
+          : (g === "easy" ? cfg.easyIv : cfg.graduateIv);
+        c.status = "review";
+        c.step = 0;
+        c.interval = Math.min(cfg.maxIv, Math.max(1, Math.round(base)));
+        c.due = t + c.interval * DAY;
+        c.reps = (c.reps || 0) + 1;
+        delete c.lapseIv;
+      }
+    } else {
+      const late = (t - (Number(c.due) || t)) / DAY;
+      if (g === "again") {
+        // a lapse: the ease drops, the interval collapses, and the card is learned again
+        c.lapses = (c.lapses || 0) + 1;
+        c.ease = Math.max(cfg.minEase, c.ease - 0.2);
+        const back = Math.min(cfg.maxIv, Math.max(cfg.minLapseIv, Math.round((Number(c.interval) || 1) * cfg.lapseMult)));
+        if (cfg.relearnSteps.length) {
+          c.status = "relearn";
+          c.step = 0;
+          c.lapseIv = back;                    // where it returns to once the relearning steps are done
+          c.due = t + cfg.relearnSteps[0] * MIN_MS;
+        } else {
+          c.status = "review";                 // no relearning steps configured: straight back to a day
+          c.interval = back;
+          c.due = t + c.interval * DAY;
+        }
+        if (c.lapses >= cfg.leech) c.leech = true;   // recorded, never acted on — Folio does not auto-suspend
+      } else {
+        const ivs = schedReviewIvs(c, cfg, String(seed) + ":" + (c.reps || 0), late);
+        if (g === "hard") c.ease = Math.max(cfg.minEase, c.ease - 0.15);
+        else if (g === "easy") c.ease = c.ease + 0.15;
+        c.status = "review";
+        c.step = 0;
+        c.interval = ivs[g] || ivs.good;
+        c.due = t + c.interval * DAY;
+        c.reps = (c.reps || 0) + 1;
+      }
+    }
+    c.last = t;
+    return c;
+  }
+  /* What each button will do, in DAYS, computed the same way the grade itself will be — see schedFuzz.
+     A learning delay comes back as a fraction of a day, which is what fmtInterval renders in minutes. */
+  function schedPreview(card, seed, t, cfg) {
+    cfg = cfg || SCHED;
+    const c = card || schedBlank();
+    if (t == null) t = Date.now();   // …but it must be the SAME instant schedAnswer will use, or an overdue
+    const day = (m) => m / 1440;     // card previews one interval and schedules another (caught by the test)
+    if (c.status === "new" || schedIsLearning(c.status)) {
+      const steps = schedSteps(c, cfg);
+      const step = schedStep(c, steps);
+      const relearn = c.status === "relearn";
+      const graduate = relearn
+        ? Math.max(cfg.minLapseIv, Number(c.lapseIv) || cfg.minLapseIv)
+        : cfg.graduateIv;
+      return {
+        again: day(steps[0] || 1),
+        hard: day(schedHardDelay(steps, step)),
+        good: step + 1 < steps.length ? day(steps[step + 1]) : graduate,
+        easy: relearn ? graduate + 1 : cfg.easyIv,
+      };
+    }
+    const ivs = schedReviewIvs(c, cfg, String(seed) + ":" + (c.reps || 0), (t - (Number(c.due) || t)) / DAY);
+    const again = cfg.relearnSteps.length
+      ? day(cfg.relearnSteps[0])
+      : Math.max(cfg.minLapseIv, Math.round((Number(c.interval) || 1) * cfg.lapseMult));
+    return { again: again, hard: ivs.hard, good: ivs.good, easy: ivs.easy };
+  }
+
+  /* ---------- SRS ---------- */
   function cardState(id) {
     return S.cards[id] || null;
   }
@@ -2760,86 +2999,22 @@
   }
   function isDueNow(id) {
     const c = S.cards[id];
-    return c && (c.status === "review" || c.status === "learning") && c.due <= now();
+    return c && (c.status === "review" || schedIsLearning(c.status)) && c.due <= now();
   }
   // preview next intervals (in days) for a grade, given current card
   function preview(id) {
-    const c = S.cards[id];
-    if (!c) return { again: 1 / 144, hard: 1 / 144, good: 1 / 144, easy: 4 }; // new: Good is a same-day learning step (grade() re-shows it), Easy graduates
-    if (c.status === "learning") return { again: 1 / 144, hard: 1 / 144, good: 1, easy: 3 };   // learning: Good now graduates to 1 day
-    const ease = c.ease;
-    return {
-      again: 1 / 144,
-      hard: Math.max(1, c.interval * 1.2),
-      good: Math.max(1, c.interval * ease),
-      easy: Math.max(1, c.interval * ease * 1.35),
-    };
+    return schedPreview(S.cards[id], id);
   }
   // apply a grade; returns {requeue: bool} for in-session relearning
   function grade(id, g) {
     const fresh = !S.cards[id];
-    let c =
-      S.cards[id] ||
-      { reps: 0, lapses: 0, ease: 2.5, interval: 0, due: now(), status: "new", last: 0 };
+    let c = S.cards[id] || schedBlank();
     const preStatus = c.status;   // captured before the scheduler rewrites it — the retention rate counts only cards that were genuinely due for recall
     // the card's FIRST attempt today (c.last is still the previous review) — only a first attempt can decide
     // "right first try", since a learning card comes back later in the same session
     const firstToday = !c.last || dayKey(c.last) !== todayStr();
 
-    if (c.status === "new" || c.status === "learning") {
-      if (g === "again") {
-        c.status = "learning";
-        c.interval = 1 / 144;
-        c.due = now() + 60 * 1000;
-      } else if (g === "hard") {
-        c.status = "learning";
-        c.interval = 1 / 144;
-        c.due = now() + 6 * 60 * 1000;
-      } else if (g === "good") {
-        if (c.status === "new") {
-          // Anki-style learning step: a new card graded Good re-appears the same session/day (its due is within the
-          // ~11-min requeue window below) before graduating on the next Good — instead of jumping straight to tomorrow.
-          c.status = "learning";
-          c.interval = 1 / 144;
-          c.due = now() + 10 * 60 * 1000;
-        } else {
-          // a learning card completing its step graduates to review (due tomorrow)
-          c.status = "review";
-          c.interval = 1;
-          c.reps += 1;
-          c.due = now() + DAY;
-        }
-      } else {
-        c.status = "review";
-        c.interval = 4;
-        c.reps += 1;
-        c.due = now() + 4 * DAY;
-      }
-    } else {
-      // review card
-      if (g === "again") {
-        c.lapses += 1;
-        c.ease = Math.max(1.3, c.ease - 0.2);
-        c.status = "learning";
-        c.interval = 1 / 144;
-        c.due = now() + 10 * 60 * 1000;
-      } else if (g === "hard") {
-        c.ease = Math.max(1.3, c.ease - 0.15);
-        c.interval = Math.max(1, c.interval * 1.2);
-        c.due = now() + c.interval * DAY;
-        c.reps += 1;
-      } else if (g === "good") {
-        c.interval = Math.max(1, c.interval * c.ease);
-        c.due = now() + c.interval * DAY;
-        c.reps += 1;
-      } else {
-        c.ease = c.ease + 0.15;
-        c.interval = Math.max(1, c.interval * c.ease * 1.35);
-        c.due = now() + c.interval * DAY;
-        c.reps += 1;
-      }
-    }
-    c.last = now();
+    c = schedAnswer(c, g, now(), id);   // the whole of the schedule — see THE SCHEDULER above
     S.cards[id] = c;
     logReview(preStatus === "review", g !== "again");
     logReviewDay(firstToday, g !== "again");
@@ -2857,8 +3032,13 @@
     bumpStreak();
     save();
     checkAchievements();   // unlock study / streak / deck milestones (toasts any new badge)
-    // requeue within session if it will be due again very soon (learning step)
-    return { requeue: c.due - now() < 11 * 60 * 1000 };
+    /* Does this card come back in THIS session? Anki's rule, and the reader-visible half of the whole
+       block above: a card still walking its learning steps is unfinished work for today, so it goes to
+       the back of the queue. The test is the DAY BOUNDARY rather than a fixed window (11 minutes, once,
+       which quietly stopped requeuing the moment a step ran longer than it) — plus Anki's learn-ahead
+       allowance, so the last card of a late-night session is still finishable rather than stranded a
+       few minutes the wrong side of the cut-off. */
+    return { requeue: schedIsLearning(c.status) && (c.due < dayEndTs() || c.due - now() <= SCHED_AHEAD_MS) };
   }
   /* ---------- review history ----------
      S.reviewLog is the only record of what happened on a PAST day: a card keeps just its latest
@@ -3168,7 +3348,7 @@
     ids.forEach((cid) => {
       const c = S.cards[cid];
       if (!c) { unseen++; return; }
-      if (c.status === "learning") lr++;
+      if (schedIsLearning(c.status)) lr++;
       else if (isDueNow(cid)) rv++;
     });
     return { nw: Math.min(deckNewRemaining(id), unseen), lr: lr, rv: Math.min(rv, deckReviewRemaining(id)), skip: false };
@@ -4518,6 +4698,156 @@
      few hundred bytes — so the Library page can paint its grid, say how long each book is and
      show where the reader had got to, without fetching a word of any book. A book's chapters are
      ~450 KB and arrive only when that book is opened. */
+
+  /* A BOOK'S COLOUR IS ITS AUTHOR'S (Aug 2026, on request). It was a per-book field, and with two
+     books by Plato on the shelf that was already saying the wrong thing: the spine and the author
+     line above the title are painted in it, so a colour that changes between one man's two books
+     tells a reader they are looking at two unrelated things. Keyed by the `author` string the tile
+     already prints, so the two can never come apart — and a book whose author is missing here simply
+     falls through to the `var(--tile, var(--indigo))` fallback every rule in styles.css already
+     declares, rather than to a second default kept in step by hand.
+
+     Plato takes the SYMPOSIUM's plum rather than the Republic's blue, which is the one real choice
+     this collapse forced: three of the eleven books were blue (Aristotle's steel, Herodotus's indigo
+     and the Republic's), and merging the pair was a chance to spend one of them.
+
+     They are chosen to be told apart, and measured rather than eyeballed: in CIELAB the closest pair
+     on the shelf is ΔE 20 (Seneca against Herodotus), and Confucius's walnut is 26 from its nearest
+     neighbour, so the newcomer is further from everything than the shelf's own tightest pair. The
+     obvious green for the Analects was measured and REJECTED — every green that sits in this palette
+     lands 12–17 from Lucretius, which is half the shelf's own separation, and the only greens that
+     clear it are bright enough to glow beside ten muted colours. */
+  const BOOK_AUTHOR_COLOR = {
+    "Seneca": "#8257C2",
+    "Marcus Aurelius": "#2F7D6E",
+    "Sun Tzu": "#A6452F",
+    "Plato": "#7A3B6B",
+    "Ovid": "#9C3557",
+    "Suetonius": "#8C6D1F",
+    "Lucretius": "#4F7A3A",
+    "Aristotle": "#3F6E8C",
+    "Sophocles": "#7A2E2E",
+    "Herodotus": "#43479C",
+    "Confucius": "#6B4D2E",
+    /* Measured the same way, and the palette is getting full: searched over the shelf's own lightness
+       and chroma band, the best-separated colour left anywhere in it clears its nearest neighbour by
+       25 — Aristotle's steel and Herodotus's indigo, in that order — which is still better than the
+       shelf's own tightest pair at 20. The obvious warm alternatives were measured and REJECTED: the
+       warm half is where nine of the eleven already sit, and every muted red, ochre or brown that fits
+       here lands 11–17 from Sun Tzu, Suetonius or Ovid. A third blue it is. */
+    "Niccolò Machiavelli": "#2C74BC",
+    /* Measured the same way again, and the warm half is now genuinely full: searched over the shelf's
+       own lightness and chroma band, the best-separated colour left anywhere in it is a magenta at 32,
+       which is the one quarter of the wheel nobody occupies — and it was REJECTED as tonally wrong for
+       a Roman campaign memoir rather than adopted for its number. The obvious choices for one were
+       measured and rejected too, and for a better reason than taste: a legionary vermilion lands 16.5
+       from Sun Tzu's rust and a bronze 22.8 from Suetonius's ochre, both closer than the shelf's own
+       tightest pair at 20.4, because five of the twelve already sit in the warm half. This burnt
+       orange is the one warm slot actually empty — Suetonius's gold is desaturated and Sun Tzu's rust
+       leans red — and it clears its two nearest neighbours almost equally at 25.1 and 27.4, which is a
+       colour placed in a gap rather than one hugging a boundary. The final nudge darker is an
+       accessibility one and not an aesthetic one: it puts the swatch inside the shelf's lightness band
+       and takes it to 4.61:1 against the folio paper, where the better-separated #B46000 reads 4.26
+       and would fail the 4.5 bar that test-a11y.js holds the site to. */
+    "Julius Caesar": "#AE5A02",
+    /* Measured the same way once more, and this time the number and the tone pointed in different
+       directions, which is worth recording. The best-separated colour anywhere in the shelf's own
+       lightness and chroma band is a bright magenta at 29 — the quarter of the wheel Caesar's entry
+       identified as empty and then rejected as tonally wrong for a campaign memoir. It is no better
+       suited to a grave analytical war history at full strength, so the hue was kept and taken darker
+       and a little less saturated: this mulberry clears its nearest neighbours, Plato's plum and
+       Ovid's crimson, by 24.4 and 25.7, against the shelf's own tightest pair at 20.4, and reads
+       4.5:1 or better on every paper (5.23 on the folio one, where Caesar's burnt orange manages
+       4.61).
+       WHAT RULED OUT THE OBVIOUS CHOICE is the shelf's own grammar rather than any measurement. A
+       sober slate-blue or steel is exactly the tone this book wants, and every one of them lands
+       19–22 — at or below that tightest pair — because the blue quarter already holds Aristotle,
+       Machiavelli and Herodotus. Herodotus is the one that settles it: he is the other Greek
+       historian, the two are read against each other constantly, and putting them in neighbouring
+       blues would have the shelf assert a kinship where its colours are meant to assert identity.
+       Several of the best sober violets were nearest to HIS indigo of anything on the shelf, which
+       is the single pairing to avoid here. A colour that cannot be mistaken for his is worth more
+       than four points of separation. */
+    "Thucydides": "#AE3688",
+    /* Measured the same way as the four above, and for once the best number and the right tone were
+       the same colour. Searched over the shelf's own lightness and chroma band, the best-separated
+       colour left anywhere in it is this dark olive at 26.1 — comfortably clear of the shelf's own
+       tightest pair at 20.4, and better separated than any of the last four entries managed. It
+       reads 5.88:1 against the tightest of the sixteen papers, where Caesar's burnt orange manages
+       4.61 and the best warm candidate here scraped 4.51.
+       IT IS THE THIRD GREEN, which is the one thing worth defending. The rule Thucydides' entry set
+       is that a crowded quarter is only a problem where the crowding would assert a kinship the
+       shelf does not mean — the reason his mulberry avoided the sober blues was that a fourth blue
+       beside Herodotus would tie the two Greek historians together. There is no such pairing here.
+       Marcus Aurelius's green is a teal and Lucretius's a bright leaf, and nobody reads Aesop
+       against either; the hue is simply where the empty space is, and it happens to suit a book of
+       animals, hedgerows and country roads better than the crimson or the navy that came next. */
+    "Aesop": "#324A2C",
+    /* THE FIRST BOOK HERE WITH NO AUTHOR TO NAME, so this key is a fact about the shelf rather than
+       about a man: the Song of Roland's poet is unknown, and the Turoldus of its last line may have
+       composed it, recited it or merely copied it out. The fallback would have served — `bookColor`
+       drops to the generic indigo for an author it does not know — but only until a second anonymous
+       work arrives, at which point two unrelated books would silently share a colour that is also the
+       shelf's default. Keyed like every other, it stays one book one colour.
+       Measured as the five above were, and the search made the case for itself twice over. The
+       shelf's largest EMPTY hue quarter is the 74° between Marcus Aurelius's teal and Aristotle's
+       steel, and it is a trap: it is empty in hue and crowded in fact, because it is only reachable
+       at the bottom of the shelf's chroma band, so the best colour anywhere in it clears its nearest
+       neighbour by 19.1 — BELOW the shelf's own tightest pair at 20.4. Hue coverage is not
+       separation. Searched instead over the whole band, this dark slate-violet is the best-separated
+       colour available at 24.5 from Herodotus's indigo, comfortably above that tightest pair, and it
+       reads 5.64:1 against the tightest of the sixteen papers where several shipped colours sit near
+       4.6.
+       IT IS A FOURTH COLOUR IN THE BLUE QUARTER, which Thucydides' entry warned about, and the
+       warning does not bite here: what it forbids is a crowding that asserts a KINSHIP the shelf does
+       not mean — a sober blue beside Herodotus would tie the two Greek historians together — and no
+       reader pairs a French chanson de geste with Herodotus, Aristotle, Machiavelli or Seneca. The
+       tone is right on its own terms as well: dark, cold and grave, which is iron, and this is a poem
+       about armour. */
+    /* KEYED BY THE BOOK RATHER THAN BY THE AUTHOR, and it had to change the moment a SECOND anonymous
+       work reached the shelf (Aug 2026, adding the Epic of Gilgamesh). "Anonymous" is the absence of
+       an author, not one that two poems share, so keying on it painted a Babylonian epic and a French
+       chanson de geste the same colour — which is precisely the false KINSHIP Thucydides' and
+       Euripides' entries above are about, and worse than the crowding they refuse, since two books in
+       one colour reads as one writer. bookColor therefore looks an anonymous book up by its id.
+       Everything else is untouched: a book with a named author still keys on the author, which is what
+       keeps Plato's two books one colour. */
+    "song-of-roland": "#42426F",
+    /* Measured as the six above were, and this is the first time the best NUMBER was rejected outright
+       on the shelf's own grammar rather than on tone. Searched over the shelf's lightness and chroma
+       band, the best-separated colour left anywhere in it is a crimson at 24.0 — and it is a red for
+       the second Athenian tragedian, landing 27.7 from Sophocles' dark brick. That is the pairing
+       Thucydides' entry was written about: what a crowded quarter must never do is assert a KINSHIP
+       the shelf does not mean, and Euripides and Sophocles are read against each other more constantly
+       than any other two writers here. A red beside his would say they are a set. So the rule that
+       kept Thucydides out of the sober blues beside Herodotus keeps Euripides out of the reds beside
+       Sophocles, and it costs almost nothing to obey: this deep magenta-purple clears its nearest
+       neighbours — Thucydides' mulberry and Seneca's violet — by 23.8 and 24.0 against the shelf's own
+       tightest pair at 20.4, which is two tenths of a point behind the crimson, and it stands 57.7 from
+       Sophocles, where no reading of the two as a pair is possible.
+       It is a fourth colour in the violet quarter, and the warning does not bite for the reason the
+       Song of Roland's did not: nobody pairs a Greek tragedian with a Roman Stoic, a Greek historian
+       or Plato. The accessibility figure is the better one too — 5.87:1 against the tightest of the
+       sixteen papers, where the crimson scrapes 4.66 against a bar of 4.5 — and the tone is right on
+       its own terms, this being a play whose instrument of revenge is a royal robe. */
+    "Euripides": "#72187F",
+    /* Measured as the eight above were, and the raw number lost again — for the Caesar entry's reason
+       this time rather than for Euripides' grammatical one. The best-separated colour left in the
+       shelf's own lightness and chroma band is a crimson at 24.0, which is a FOURTH red landing 24.0
+       from Ovid and 24.8 from Sun Tzu, and it reads 4.66:1 against the tightest of the light papers.
+       This dark olive is 23.7 from Suetonius' ochre and 24.3 from Aesop's green — three tenths of a
+       point behind the crimson, and still comfortably above the shelf's own tightest pair at 20.4 —
+       and it reads 5.54:1, which is most of a point of headroom over the 4.5 bar test-a11y.js holds
+       the site to. Caesar's entry settled that tie the same way: where two candidates are level on
+       separation, the accessibility figure decides. The tone is right on its own terms as well —
+       bitumen and dark clay, for a poem read off clay tablets. */
+    "epic-of-gilgamesh": "#484B00",
+  };
+  /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
+     row above for why — "Anonymous" is not an author two books can share. */
+  const bookColor = (b) =>
+    BOOK_AUTHOR_COLOR[b.author === "Anonymous" ? b.id : b.author] || "var(--indigo)";
+
   const BOOKS = [
     {
       id: "seneca-letters",
@@ -4546,7 +4876,6 @@
          A book with no `origLang` simply has no original here and shows no control for one. */
       origLang: "la",
       origName: "Latin",
-      color: "#8257C2",
       /* The tile's `blurb` is gone (Aug 2026, on request: the tiles are small now and a paragraph was
          most of their height). What it said is said properly and at length in the book's own opening
          chapter — see `about` in .claude/fetch-book.js — which is a page a reader chooses to read
@@ -4591,7 +4920,6 @@
          and printed on the book's own page. See .claude/fetch-book.js for the measurements. */
       origLang: "grc",
       origName: "Greek",
-      color: "#2F7D6E",
       chapterWord: "Book",
       // the whole work — twelve books is all there is of it, so `count` and `total` agree and will stay
       // agreed; unlike Seneca, this one did not arrive in instalments
@@ -4636,7 +4964,6 @@
          uses. Both beat a wiki walk, where the numbers have to be read back out of the prose. */
       origLang: "zh",
       origName: "Chinese",
-      color: "#A6452F",
       chapterWord: "Chapter",
       // the whole work — thirteen chapters is all there has ever been of it, so the two agree and will
       // stay agreed, as the Meditations' do and unlike Seneca's, which arrived in instalments
@@ -4681,7 +5008,6 @@
          English states none cannot have a second column without several hundred alignments made by
          eye — which is exactly what was tried and abandoned for the Meditations. The reader is told
          so in the book's own front matter; see .claude/fetch-book.js for the whole finding. */
-      color: "#35619C",
       chapterWord: "Book",
       // ten books is the whole work, so the two agree and will stay agreed
       count: 10,
@@ -4689,55 +5015,92 @@
       /* No `parts`: one volume, and its own edition divides the ten books no further. */
     },
     {
-      id: "plato-symposium",
-      title: "Symposium",
-      // the edition's own heading for the dialogue's first page
-      subtitle: "The Banquet",
+      id: "plato-dialogues",
+      title: "The Dialogues",
+      // descriptive rather than transcribed: this gathering is Folio's, so it borrows no title page
+      subtitle: "Thirty-five Works in Nine Tetralogies",
       author: "Plato",
-      written: "c. 385–370 BCE",
+      // Plato's writing life, now that the whole surviving corpus but one work is here
+      written: "c. 399–347 BCE",
       year: -380,
-      translator: "Benjamin Jowett",
-      edition: "Third edition, Clarendon Press, Oxford, 1892",
-      /* As easy a licence as the Republic's, and easy on both sides. Jowett died in 1893 and this is
-         his third edition of 1892; Burnet's Greek was printed in 1910 and Burnet died in 1928, so it
-         clears the pre-1929 rule and life-plus-seventy alike. The Perseus digital edition of the Greek
-         carries a CC BY-SA 4.0 layer on top of that expired copyright, which is credited here, in the
-         original's own `rights`, and on the book's page — the same knowing departure recorded for the
-         Meditations. The English has no such layer: it comes from Wikisource, not Perseus. */
+      translator: "Harold North Fowler, W. R. M. Lamb and R. G. Bury",
+      edition: "Loeb Classical Library, Harvard University Press, 1914–1929",
+      /* THREE GROUNDS AND ONE REFUSAL, which is why this `rights` is the longest on the shelf.
+         The English rests on the date of publication alone: thirty of the thirty-five works were
+         published before 1929, the shorthand the rest of the shelf uses, and the five in the Loeb
+         volume of 1929 — Menexenus, Cleitophon, Timaeus, Critias and the Letters — reached the
+         public domain on 1 January 2025, when the 95-year term for that year ran out. Those five do
+         NOT satisfy the pre-1929 wording, so the wording is spelled out rather than rounded.
+         What is refused is a life-plus-seventy claim. Bury's dates are established (1869–1951);
+         Fowler's and Lamb's are in nothing openable here, and a joint edition's term runs from the
+         last surviving author, so no such term is asserted for this translation anywhere. That is
+         the Caesar entry's position — half a byline that cannot be pinned down, publication date
+         stated instead, and the gap named on the book's own page rather than quietly rounded up.
+         The Greek is Burnet's Oxford text of 1903–1910 and he died in 1928, so it clears both rules
+         with nothing to qualify. AND BOTH COLUMNS NOW CARRY THE PERSEUS CC BY-SA LAYER, which is new
+         for this book: the English used to come from Wikisource, and both halves now come from
+         Perseus, so the obligation attaches to the whole book — the Metamorphoses' position rather
+         than the Symposium's, and stated here rather than only in the original's own rights. */
       rights:
-        "Public domain worldwide: Benjamin Jowett died in 1893 and this third edition of his " +
-        "translation was printed in 1892 — so its copyright has expired everywhere, on the pre-1929 " +
-        "publication rule and on the author's-life rule alike. The Greek it is printed beside is John " +
-        "Burnet's Oxford text of 1910, and Burnet died in 1928, so that too is public domain on both " +
-        "rules; the digital edition of it is released by the Perseus Digital Library under a Creative " +
-        "Commons Attribution-ShareAlike 4.0 International licence. The modern translations by Walter " +
-        "Hamilton (1951), Alexander Nehamas and Paul Woodruff (1989) and Robin Waterfield (1994) are " +
-        "still in copyright and are deliberately not used here.",
-      sourceName: "Wikisource",
-      sourceUrl: "https://en.wikisource.org/wiki/The_Dialogues_of_Plato_(Jowett)/Symposium",
-      /* AN `origLang` WHERE THE REPUBLIC HAS NONE, and the difference is the PRINTING rather than the
-         author. The entry above concludes that Plato cannot have a Greek column; it is right about the
-         Republic and would be wrong as a general rule, which is worth saying here because this is the
-         book that disproves it.
+        "Public domain in the United States, on the date of publication. These Loeb Classical " +
+        "Library translations were published between 1914 and 1929: thirty of the thirty-five works " +
+        "here appeared before 1929, and the five from the volume of 1929 — Menexenus, Cleitophon, " +
+        "Timaeus, Critias and the Letters — entered the public domain on 1 January 2025, when the " +
+        "95-year term for that year's publications expired. R. G. Bury died in 1951, so his share " +
+        "also clears the author's-life rule; no such claim is made for Harold North Fowler's or " +
+        "W. R. M. Lamb's share, because their dates could not be established here and a term running " +
+        "from the last surviving translator cannot honestly be asserted without them. The Greek is " +
+        "John Burnet's Oxford Classical Text, printed between 1903 and 1910, and Burnet died in " +
+        "1928, so it is public domain on both rules. Both texts come from the Perseus Digital " +
+        "Library, whose digital editions are released under a Creative Commons " +
+        "Attribution-ShareAlike 4.0 International licence. (The modern translations — the Hackett " +
+        "Complete Works edited by John Cooper, 1997, and the Penguin and Oxford versions by Walter " +
+        "Hamilton, Robin Waterfield and Christopher Rowe — are still in copyright and are not used " +
+        "here.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0059/",
+      /* AN `origLang` WHERE THE REPUBLIC HAS NONE, and the difference is the PRINTING rather than
+         the author. The Republic entry above concludes that Plato cannot have a Greek column; it is
+         right about that printing and wrong as a general rule, which is worth saying because this is
+         the book that disproves it — the columns pair on section numbers a text states about itself,
+         the Colonial Press Republic states none, and every text here states all of them.
 
-         The columns pair on section numbers a text states about itself. The Colonial Press Republic of
-         1901 states none — measured over all ten books — so it has no second column. This volume is a
-         different press setting the same translator, and it prints the Stephanus pages in the margin
-         all the way through: 52 of them, 172 to 223. Burnet's Greek carries the same 52 as structure,
-         and the two sets are identical, which makes this the cleanest pairing in the library. The
-         first measurement of it was WRONG and is worth remembering — searching for the usual citation
-         form, 189c, finds nothing at all, because this margin carries the Stephanus page without the
-         column letter. See .claude/fetch-book.js for the whole finding. */
+         THE CLEANEST PAIRING IN THE LIBRARY, and the first that is exact BY CONSTRUCTION rather than
+         by measurement: both columns are the same TEI encoding of the same citation scheme from the
+         same publisher. Measured anyway, over all thirty-five works — 1,484 sections on each side,
+         identical numbers in identical order, not one exception in either direction. Only the Art of
+         War's facing page comes close, and it covers thirteen chapters against these thirty-five.
+         The Letters repeat ten Stephanus numbers, a page spanning the join between one letter and
+         the next, and BOTH columns repeat exactly the same ten in the same places — checked, since
+         a duplicate on one side only is what would quietly merge two passages into one row. */
       origLang: "grc",
-      color: "#7A3B6B",
-      /* ONE CHAPTER, because the dialogue is one unbroken evening and this edition divides it nowhere.
-         Cutting it into the seven speeches would mean composing both the boundaries and the titles,
-         which is the apparatus the house rule forbids; the 52 Stephanus sections carry all the
-         internal structure the text actually has, and they are what the two columns pair on. So the
-         chapter bar here is the front matter and the dialogue, and nothing is missing. */
+      /* A CHAPTER IS A WHOLE DIALOGUE, a division the transmission states rather than one composed
+         here. Nothing is subdivided, not even the Laws, which is much the longest and which the
+         edition splits over two volumes: its 327 Stephanus sections carry its twelve books' worth of
+         structure, and cutting it further would mean composing boundaries. */
       chapterWord: "Dialogue",
-      count: 1,
-      total: 1,
+      /* THIRTY-FIVE OF THE THIRTY-SIX, and the one gap is a LICENCE gap rather than a textual one:
+         Perseus's English Republic is Paul Shorey's of 1935–37, which is not in the public domain
+         and cannot be shelved. It is in this library already, in Jowett's translation from a
+         different printing, as a book of its own — so nothing is missing from the shelf, only from
+         this book, and its slot in Tetralogy VIII is simply left out. `total` counts the surviving
+         works transmitted under Plato's name, which is what this book is a gathering of. */
+      count: 35,
+      total: 36,
+      /* Thrasyllus's nine tetralogies — the ancient arrangement of Plato, which Perseus's own work
+         numbering follows exactly, so this is the source's order rather than one chosen here.
+         Tetralogy VIII has three members and not four, the Republic being absent. */
+      parts: [
+        { n: 1, label: "Tetralogy I", note: "Euthyphro – Phaedo" },
+        { n: 2, label: "Tetralogy II", note: "Cratylus – Statesman" },
+        { n: 3, label: "Tetralogy III", note: "Parmenides – Phaedrus" },
+        { n: 4, label: "Tetralogy IV", note: "Alcibiades I – Rival Lovers" },
+        { n: 5, label: "Tetralogy V", note: "Theages – Lysis" },
+        { n: 6, label: "Tetralogy VI", note: "Euthydemus – Meno" },
+        { n: 7, label: "Tetralogy VII", note: "Greater Hippias – Menexenus" },
+        { n: 8, label: "Tetralogy VIII", note: "Cleitophon – Critias" },
+        { n: 9, label: "Tetralogy IX", note: "Minos – Letters" },
+      ],
     },
     {
       id: "ovid-metamorphoses",
@@ -4778,7 +5141,6 @@
          .claude/fetch-book.js for the whole finding. */
       origLang: "la",
       origName: "Latin",
-      color: "#9C3557",
       chapterWord: "Book",
       // fifteen books is the whole poem, so the two agree and will stay agreed
       count: 15,
@@ -4825,7 +5187,6 @@
          .claude/fetch-book.js for the whole finding. */
       origLang: "la",
       origName: "Latin",
-      color: "#8C6D1F",
       chapterWord: "Life",
       // the one book here whose plural is not the singular plus an "s" — see `unit` in the shelf tile
       chapterWordPlural: "Lives",
@@ -4890,7 +5251,6 @@
          .claude/fetch-book.js. */
       origLang: "la",
       origName: "Latin",
-      color: "#4F7A3A",
       chapterWord: "Book",
       // six books is the whole poem, so the two agree and will stay agreed
       count: 6,
@@ -4939,7 +5299,6 @@
          1094a and 1094b collapse onto one section and take the ordering with them. See bookSections
          below and the entry in .claude/fetch-book.js. */
       origLang: "grc",
-      color: "#3F6E8C",
       chapterWord: "Book",
       // ten books is the whole work, so the two agree and will stay agreed
       count: 10,
@@ -4962,22 +5321,33 @@
       year: -429,
       translator: "Richard Jebb",
       edition: "Sophocles: The Plays and Fragments, Cambridge University Press, 1887",
-      /* THE EASIEST LICENCE ON THIS SHELF, and the only one that is easy on BOTH columns. The
-         Republic's was the first to need no qualification at all; this one matches it twice over.
-         Jebb published in 1887 and died in 1905; Storr's Greek was published in 1912 and Storr died
-         in 1919. So both clear the pre-1929 publication rule AND life-plus-seventy AND life-plus-a-
-         hundred, and neither needs the limit the Art of War states for Giles (2029) or the
-         Nicomachean Ethics for Ross (2042). Both death years were checked against Wikisource's author
-         pages rather than recalled — the Ovid entry's Hugo Magnus mistake was precisely a death year
-         asserted from memory to hold up a licence. See .claude/fetch-book.js. */
+      /* THE EXPIRIES ARE THE EASIEST ON THIS SHELF AND THERE IS A THIRD LAYER UNDER THEM — corrected
+         Aug 2026, when the Antigone was added and the same check was run across all three plays
+         rather than only over the book being added. Jebb published in 1887 and died in 1905; Storr's
+         Greek was published in 1912 and Storr died in 1919. So both clear the pre-1929 publication
+         rule AND life-plus-seventy AND life-plus-a-hundred, and neither needs the limit the Art of
+         War states for Giles (2029) or the Nicomachean Ethics for Ross (2042). Both death years were
+         checked against Wikisource's author pages rather than recalled — the Ovid entry's Hugo Magnus
+         mistake was precisely a death year asserted from memory to hold up a licence.
+
+         WHAT THIS ENTRY USED TO LEAVE OUT is that Perseus has edited the PROSE as well as digitising
+         it: the English served here is Jebb modernized to remove archaisms, by Alex Sens in 1988 and
+         reviewed by John Gibert, which the source file states in its own header and which this string
+         called "public domain on every ground" without mentioning. That is a recent derivative work
+         carried by CC BY-SA 4.0 rather than by an expiry — the Histories' case, which its own entry
+         sets out at length — so it is now stated here as it is on the Antigone. (Coleridge's Medea
+         carries no such note; checked, not assumed.) See .claude/fetch-book.js. */
       rights:
-        "Public domain on every ground, in both columns. Richard Jebb's translation was published at " +
-        "Cambridge in 1887 and Jebb died in 1905; the Greek beside it is Francis Storr's text of " +
-        "1912, and Storr died in 1919. Both are therefore public domain in the United States on the " +
-        "pre-1929 publication rule and everywhere that the term is the author's life plus a hundred " +
-        "years or less. Sophocles wrote the play in Athens some twenty-four centuries ago. The " +
-        "digital editions of both texts are prepared by the Perseus Digital Library at Tufts " +
-        "University and are released under a Creative Commons Attribution-ShareAlike 4.0 " +
+        "Public domain in both columns, with one addition stated. Richard Jebb's translation was " +
+        "published at Cambridge in 1887 and Jebb died in 1905; the Greek beside it is Francis Storr's " +
+        "text of 1912, and Storr died in 1919. Both are therefore public domain in the United States " +
+        "on the pre-1929 publication rule and everywhere that the term is the author's life plus a " +
+        "hundred years or less. Sophocles wrote the play in Athens some twenty-four centuries ago. " +
+        "The English printed here is not quite Jebb's page, however: it is his translation modernized " +
+        "to remove archaisms, by Alex Sens in 1988 and reviewed by John Gibert, which the source file " +
+        "records in its own header. That editing is a recent work rather than an expired one, and it " +
+        "— with the digital editions of both texts — is prepared by the Perseus Digital Library at " +
+        "Tufts University and released under a Creative Commons Attribution-ShareAlike 4.0 " +
         "International licence. (The modern translations by David Grene, 1942, Dudley Fitts and " +
         "Robert Fitzgerald, 1949, and Robert Fagles, 1982, are still in copyright and are not used " +
         "here.)",
@@ -4991,7 +5361,6 @@
          needs the same explicit `data-n` sort key the Bekker pages introduced. */
       origLang: "grc",
       origName: "Greek",
-      color: "#7A2E2E",
       /* Folio's own neutral word for a division, deliberately not "Scene" or "Act": this edition
          numbers its divisions not at all, and an act is a later theatre's unit that a Greek tragedy
          does not have. The number is Folio's; the name of each part is the edition's own. */
@@ -5000,6 +5369,585 @@
       count: 15,
       total: 15,
       /* No `parts`: a single play, and its edition divides it no further than the fifteen. */
+    },
+    {
+      id: "euripides-medea",
+      title: "Medea",
+      // the play's own Greek title, which is what its Greek column is an edition of — the pattern
+      // Lucretius set and the Oedipus Rex followed
+      subtitle: "Μήδεια",
+      author: "Euripides",
+      /* Unusually for a Greek play the date is recorded rather than reconstructed — the spring of 431
+         BCE, where the Oedipus Rex's "c. 429" is an inference from the plague it describes — so this
+         one carries no `c.` and the front matter says why it need not. */
+      written: "431 BCE",
+      year: -431,
+      translator: "Edward P. Coleridge",
+      edition: "The Plays of Euripides, Volume 1, George Bell and Sons, 1906",
+      /* THE THIRD LICENCE HERE TO STATE A LIMIT AS WELL AS A GROUND, after the Art of War (Giles,
+         2029) and the Nicomachean Ethics (Ross, 2042) — and the first where the limit falls on the
+         GREEK rather than on the English, the original being the older and easier half everywhere else
+         on the shelf. Both columns were published well before 1929, so both are public domain in the
+         United States. Coleridge died in 1936, so his translation is public domain on life-plus-seventy
+         as well; Murray died in 1957, so his Greek stays in copyright where the term is life plus
+         seventy — the United Kingdom and the European Union among them — until 2028. Said outright
+         rather than smoothed into the easier sentence the Oedipus Rex can honestly use, which is
+         Lucretius's judgement: claim less, and put on the page what cannot be said. Both death years
+         were checked against Wikisource's author pages rather than recalled, for the Hugo Magnus
+         reason, and Murray's is the year the whole licence turns on. There was no cleaner Greek to
+         reach for — Perseus carries exactly one Medea and this is it. See .claude/fetch-book.js. */
+      rights:
+        "Public domain in the United States, with one limit stated. Edward Coleridge's translation " +
+        "was published in London in 1906 and Gilbert Murray's Greek text at Oxford in 1902, both " +
+        "before 1929, so the copyright in both has expired in the United States. Coleridge died in " +
+        "1936, so his English is also public domain everywhere the term is the author's life plus " +
+        "seventy years or less. Murray, however, died in 1957, so the Greek beside it remains in " +
+        "copyright where the term is life plus seventy — including the United Kingdom and the " +
+        "European Union — until 2028. Euripides wrote the play in Athens some twenty-five centuries " +
+        "ago. The digital editions of both texts are prepared by the Perseus Digital Library at Tufts " +
+        "University and are released under a Creative Commons Attribution-ShareAlike 4.0 " +
+        "International licence. (The modern translations by Rex Warner, 1944, Philip Vellacott, 1963, " +
+        "and Diane Arnson Svarlien, 2008, are still in copyright and are not used here.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0006.tlg003/",
+      /* Paired on the LINE NUMBER, as the Oedipus Rex is and for the same reason: it is how any
+         passage of a Greek tragedy is cited in any language, both editions state it, and they state it
+         at different grain — Coleridge translates into prose and numbers the line each block begins
+         at, while Murray's verse numbers every line. Its markers carry the same explicit `data-n` sort
+         key, since a tragedy's text has lettered lines (1005a, 1270a) and reading one as a number
+         collapses it onto its neighbour. */
+      origLang: "grc",
+      origName: "Greek",
+      /* Folio's own neutral word for a division, as for the Oedipus Rex: this edition numbers its
+         divisions not at all, and an act is a later theatre's unit a Greek tragedy has not got. The
+         number is Folio's; the name of each part is the edition's own. */
+      chapterWord: "Part",
+      // the whole play — the edition divides it into thirteen and there is no more of it
+      count: 13,
+      total: 13,
+      /* No `parts`: a single play, and its edition divides it no further than the thirteen. */
+    },
+    {
+      id: "sophocles-antigone",
+      title: "Antigone",
+      // the play's own Greek title, which is what its Greek column is an edition of — the pattern
+      // Lucretius set and both earlier plays followed
+      subtitle: "Ἀντιγόνη",
+      author: "Sophocles",
+      /* The date is not recorded. About 441 BCE is the usual estimate and the argument for it is an
+         ancient note saying the play won Sophocles election as general — a story told about the play
+         rather than a record of its performance — so the front matter carries the doubt rather than
+         letting the `c.` do all of it, as the Oedipus Rex's does. */
+      written: "c. 441 BCE",
+      year: -441,
+      translator: "Richard Jebb",
+      /* NOT the Oedipus Rex's volume: that is Jebb's volume 1 of 1887 and this his volume 3 of 1891,
+         the same series a few years on. A second book by an author already on the shelf is exactly
+         where an edition line gets copied across by hand and quietly made wrong. */
+      edition: "Sophocles: The Plays and Fragments, Volume 3, Cambridge University Press, 1891",
+      /* THE OEDIPUS REX'S LICENCE PLUS A THIRD LAYER, which is the Histories' case a second time and
+         the reason this entry is longer than its sibling's. The two printed editions are the easy
+         ones: Jebb published in 1891 and died in 1905, Storr's Greek is the 1912 Loeb — the same
+         volume the Oedipus Rex takes its Greek from — and Storr died in 1919, so both clear the
+         pre-1929 rule AND life-plus-seventy AND life-plus-a-hundred, needing none of the limits the
+         Art of War (2029), the Nicomachean Ethics (2042) or the Medea (2028) state. Both years were
+         checked against Wikisource's author pages rather than recalled, for the Hugo Magnus reason.
+         What is NOT easy is that Perseus has edited the prose as well as digitising it: this English
+         is Jebb modernized to remove archaisms, by Pierre Habel in 1988 and reviewed by John Gibert,
+         which the source file states in its own header. That is a recent derivative work carried by
+         CC BY-SA 4.0 rather than by an expiry, so it is said in `rights`, on the book's own front
+         matter and in .claude/fetch-book.js — a reader who goes looking for the 1891 printing must
+         not be surprised by what they find. */
+      rights:
+        "Public domain in both columns, with one addition stated. Richard Jebb's translation was " +
+        "published at Cambridge in 1891 and Jebb died in 1905; the Greek beside it is Francis " +
+        "Storr's text of 1912, and Storr died in 1919. Both are therefore public domain in the " +
+        "United States on the pre-1929 publication rule and everywhere that the term is the author's " +
+        "life plus a hundred years or less. Sophocles wrote the play in Athens some twenty-five " +
+        "centuries ago. The English printed here is not quite Jebb's page, however: it is his " +
+        "translation modernized to remove archaisms, by Pierre Habel in 1988 and reviewed by John " +
+        "Gibert, which the source file records in its own header. That editing is a recent work " +
+        "rather than an expired one, and it — with the digital editions of both texts — is prepared " +
+        "by the Perseus Digital Library at Tufts University and released under a Creative Commons " +
+        "Attribution-ShareAlike 4.0 International licence. (The modern translations by Dudley Fitts " +
+        "and Robert Fitzgerald, 1939, Elizabeth Wyckoff, 1954, and Robert Fagles, 1982, are still in " +
+        "copyright and are not used here.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0011.tlg002/",
+      /* Paired on the LINE NUMBER, like both earlier plays, and this is the cleanest of the three:
+         513 of 513 sections pair and not one draws an empty Greek cell, where the Oedipus Rex leaves
+         three of 683 and the Medea two of 502. The lettered lines are on the GREEK side alone here
+         (161b, 323a, 1048a, 1261a, 1284a) and none is in the English, so the explicit `data-n` sort
+         key the Bekker pages introduced is doing its work on the original column: 323 and 323a are
+         two different places, and parseInt would collapse them into one row. */
+      origLang: "grc",
+      origName: "Greek",
+      /* Folio's own neutral word for a division, as for both earlier plays: this edition numbers its
+         divisions not at all, and an act is a later theatre's unit a Greek tragedy has not got. The
+         number is Folio's; the name of each part is the edition's own. */
+      chapterWord: "Part",
+      // the whole play — the edition divides it into sixteen and there is no more of it
+      count: 16,
+      total: 16,
+      /* No `parts`: a single play, and its edition divides it no further than the sixteen. */
+    },
+    {
+      id: "herodotus-histories",
+      title: "The Histories",
+      // the work's own Greek title, which is what its Greek column is an edition of — the pattern
+      // Lucretius set with De Rerum Natura and the Oedipus Rex followed
+      subtitle: "Ἱστορίαι",
+      author: "Herodotus",
+      /* The date is not recorded and the estimate is broad. Composition ran through the middle of the
+         fifth century BCE and the work seems to have been finished, or abandoned, some time in the
+         430s or 420s; it ends mid-stride, on an episode from 479. The front matter carries the doubt
+         rather than leaving the `c.` to do all of it. */
+      written: "c. 430 BCE",
+      year: -430,
+      translator: "A. D. Godley",
+      edition: "Loeb Classical Library, 1920–1925",
+      /* THE EXPIRY IS EASY AND THE SECOND LAYER IS NOT, which makes this licence unlike any other on
+         the shelf. Godley published the translation and the Greek facing it between 1920 and 1925 and
+         died in 1925, so both columns clear the pre-1929 publication rule AND life-plus-seventy AND
+         life-plus-a-hundred — the Republic's and the Oedipus Rex's position, needing no limit stated
+         as the Art of War does for Giles (2029) or the Nicomachean Ethics for Ross (2042). His dates
+         were checked against Wikisource's author page rather than recalled, for the Hugo Magnus
+         reason.
+         What is different is Perseus's part. Everywhere else on this shelf their contribution is the
+         DIGITAL edition — transcription, markup, CTS numbering — over a printed text left as its
+         editor set it. Here they have also edited the PROSE: this English is Godley modernized to
+         remove archaisms, by Steven Ott and reviewed by John Marincola, which the source file states
+         in its own header. That is a recent derivative work carried by their CC BY-SA 4.0 licence
+         rather than by an expiry, so it is said outright here, in `rights`, and on the book's own
+         front-matter page — a reader who goes looking for the 1920 printing should not be surprised
+         by what they find. See .claude/fetch-book.js. */
+      rights:
+        "Public domain on every ground, in both columns, with one modern layer stated plainly. A. D. " +
+        "Godley's translation and the Greek text facing it were published in the Loeb Classical " +
+        "Library between 1920 and 1925, and Godley died in 1925, so both are public domain in the " +
+        "United States on the pre-1929 publication rule and everywhere that the term is the author's " +
+        "life plus a hundred years or less. Herodotus wrote the work some twenty-five centuries ago. " +
+        "The English here is not quite the 1920 printing, however: it is Godley's translation as " +
+        "modernized by the Perseus Digital Library to remove archaisms, a revision made by Steven Ott " +
+        "and reviewed by John Marincola. That revision, and the digital editions of both texts, are " +
+        "prepared by the Perseus Digital Library at Tufts University and are released under a " +
+        "Creative Commons Attribution-ShareAlike 4.0 International licence. (The modern translations " +
+        "by Aubrey de Sélincourt, 1954, Robin Waterfield, 1998, Andrea Purvis, 2007, and Tom " +
+        "Holland, 2013, are still in copyright and are not used here.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0016.tlg001/",
+      /* Paired on the CHAPTER — "Herodotus 1.32" — which both editions state as structure and which,
+         measured over the whole work, they agree on without a single exception: 1,578 chapters, the
+         same numbers in the same order in all nine books. That makes it the most cleanly paired text
+         here, the Art of War's facing-page edition aside. Editions also divide a chapter into finer
+         sections; those are NOT the pairing unit, because nine of the 1,578 number them differently
+         in the two editions. 45 chapters carry a letter (2.121A, 7.10H) — a real part of the text,
+         not apparatus — so the markers need the explicit `data-n` sort key the Bekker pages
+         introduced and the lettered lines of the Oedipus Rex reused. One row, 6.122, draws an empty
+         Greek cell: Godley brackets that chapter as spurious, so it is in his English and not in his
+         Greek. */
+      origLang: "grc",
+      origName: "Greek",
+      chapterWord: "Book",
+      // the whole work — nine books is all there is of it, and it has come down entire
+      count: 9,
+      total: 9,
+      /* No `parts`. The Loeb prints it in four volumes, but the edition does not state which books
+         fall in which, and nine chapters need no grouping to be navigable — so app.js falls back to a
+         single unlabelled group rather than to a division composed here. The Muse names traditionally
+         attached to the nine books are likewise not used: they are a later convention this edition
+         does not print, and the front matter explains them instead. */
+    },
+    {
+      id: "confucius-analects",
+      title: "The Analects",
+      subtitle: "Confucian Analects",
+      author: "Confucius",
+      /* THE ONE DATE ON THE SHELF THAT IS NOT A DATE OF COMPOSITION, because there was no act of
+         composition: Confucius wrote none of this, and the book grew out of his students and their
+         students over a span nobody can close. What is firm is that it starts after his death in 479
+         BCE and that the received text was settled by the Han. The prose says the span; `year` is the
+         single number a shelf that sorts by date has to have, and it is the early end of it rather
+         than a midpoint nothing marks. */
+      written: "c. 5th–3rd century BCE",
+      year: -450,
+      translator: "James Legge",
+      edition: "The Chinese Classics, Vol. I, 2nd ed., Clarendon Press, Oxford, 1893",
+      /* THE EASIEST LICENCE HERE, and the second that needs no qualification at all — the Republic's
+         position. Legge published in 1861 and revised for the second edition of 1893, both before
+         1929, and died in 1897: public domain in the United States on the publication rule, and out
+         of copyright on life-plus-seventy and life-plus-a-hundred alike. Nothing to state as the Art
+         of War must for Giles (2029) or the Nicomachean Ethics for Ross (2042), and no modern
+         editorial layer as the Histories and the Meditations carry. The Chinese beside it is some
+         twenty-four centuries old. */
+      rights:
+        "Public domain worldwide. James Legge published this translation in 1861 and revised it for " +
+        "the second edition of 1893 — both before 1929, so its United States copyright has expired — " +
+        "and he died in 1897, so it is out of copyright wherever the term runs for the author's life " +
+        "plus seventy or even a hundred years. The Chinese text printed beside it is some " +
+        "twenty-four centuries old and is in the public domain everywhere. (The modern translations " +
+        "by Arthur Waley, 1938, D. C. Lau, 1979, Simon Leys, 1997, and Edward Slingerland, 2003, are " +
+        "still in copyright and are not used here.)",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Chinese_Classics/Volume_1/Confucian_Analects",
+      /* Paired on the CHAPTER — "Analects 2.18" is book, then chapter — which both columns of this
+         edition mark in their own script, the Chinese 【十八章】 against the English "Chapter XVIII.",
+         because one editor set them side by side. Measured over all twenty books: 499 chapters on
+         each side, a clean 1–N run in every book, nothing missing on either side and no duplicates.
+         Only the Art of War is cleaner, and it is cleaner by construction.
+         ONE repair, recorded rather than smoothed away: in book 2 the English marker for chapter 18
+         is printed "Chapter XVII." a second time while the Chinese beside it reads 十八. See
+         .claude/fetch-book.js, which numbers that column forward-only and reports the substitution
+         on every run.
+         The chapter numbers are all integers, so the markers need no `data-n` sort key — unlike the
+         Bekker pages, the Oedipus Rex's lines and Herodotus's lettered chapters. */
+      origLang: "zh",
+      origName: "Chinese",
+      chapterWord: "Book",
+      // the whole work: twenty books is all there is of it, and it has come down entire
+      count: 20,
+      total: 20,
+      /* No `parts`. The twenty books are traditionally read in two halves — the first ten held to be
+         the older — but that is a scholarly view about the text rather than a division this edition
+         prints, so the shelf shows one unlabelled group and the front matter carries the doubt. */
+    },
+    {
+      id: "machiavelli-prince",
+      title: "The Prince",
+      subtitle: "Il Principe",
+      author: "Niccolò Machiavelli",
+      /* The one firm date this shelf gets: it was written in the second half of 1513, in the year
+         Machiavelli lost his post, and his letters say so while he was doing it. `written` and `year`
+         therefore agree exactly, which is unusual here — the date of PUBLICATION is the loose one, the
+         book having circulated in manuscript and been printed in 1532, five years after he died. */
+      written: "1513",
+      year: 1513,
+      translator: "W. K. Marriott",
+      edition: "Everyman's Library No. 280, J. M. Dent & Sons, London, 1908",
+      /* THE THIRD LICENCE HERE THAT NEEDS NO QUALIFICATION — the Republic's and the Analects'
+         position. Marriott published in 1908, before 1929, so the United States copyright has expired;
+         and he lived from 1847 to 1927, so it is out of copyright on life-plus-seventy and
+         life-plus-ninety-five alike. Nothing to state as the Art of War must for Giles (2029) or the
+         Nicomachean Ethics for Ross (2042), and no modern editorial layer as the Histories and the
+         Meditations' Greek carry. His dates are not inferred from the printing: the scan's own index
+         page at Wikisource and Wikidata both give them, and they agree. */
+      rights:
+        "Public domain worldwide. W. K. Marriott published this translation in 1908 — before 1929, so " +
+        "its United States copyright has expired — and he lived from 1847 to 1927, so it is out of " +
+        "copyright wherever the term runs for the author's life plus seventy years or more. The Italian " +
+        "text printed beside it is five centuries old and is in the public domain everywhere. (The " +
+        "modern translations by George Bull, 1961, Harvey Mansfield, 1985, Peter Bondanella, 2005, and " +
+        "Tim Parks, 2009, are still in copyright and are not used here.)",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Prince_(Marriott)",
+      /* Paired on the CHAPTER, and this is the coarsest join on the shelf — one row per chapter, the
+         whole English beside the whole Italian, beginning together and each running at its own length.
+         It is coarse because the work gives nothing finer: The Prince is cited as "Prince XVIII" and
+         neither edition divides a chapter into numbered sections, so there is nothing below the
+         chapter for the two columns to agree about. Measured: twenty-six chapters on each side, the
+         same numbers in the same order, nothing missing either way.
+         It is deliberately NOT the Republic's answer, which the two resemble from a distance. Plato
+         has a citation system this printing fails to carry, so a reader goes looking for the Stephanus
+         numbers and finds them gone; Machiavelli has none to be missing, and the unit he does have is
+         here. The reader is told which of the two this is in the book's own front matter. */
+      origLang: "it",
+      origName: "Italian",
+      chapterWord: "Chapter",
+      /* The whole work, and it has come down entire. What is NOT here is the dedicatory letter to
+         Lorenzo that stands before chapter 1 in both editions — a chapter of this reader is numbered,
+         chapter 0 is the front matter, and there is no honest number left for a piece that precedes
+         chapter I without displacing the numbering the whole tradition cites the book by. Said plainly
+         in the front matter rather than left for a reader to notice. */
+      count: 26,
+      total: 26,
+      /* No `parts`. The twenty-six chapters are usually described in four movements — the kinds of
+         principality, the arms that hold them, the prince's own conduct, and the closing appeal to the
+         Medici — but that is a modern reader's grouping and not a division this edition prints, so the
+         shelf shows one unlabelled run. The Analects' position exactly. */
+    },
+    {
+      id: "caesar-gallic-war",
+      title: "The Gallic War",
+      // the work's own Latin title, which is what its Latin column is an edition of — the pattern
+      // Lucretius set with De Rerum Natura and Herodotus and The Prince followed
+      subtitle: "Commentarii de Bello Gallico",
+      author: "Julius Caesar",
+      /* The seven books Caesar wrote cover the campaigning seasons of 58 to 51 BCE and were most
+         likely sent to Rome year by year as they were finished; Hirtius's eighth, which completes the
+         work, covers 51 and 50 and was written after Caesar's death in 44. So the span is the war's
+         rather than one act of composition, and the front matter carries that rather than leaving the
+         `c.` to do all of it. */
+      written: "c. 58–50 BCE",
+      year: -58,
+      translator: "W. A. McDevitte and W. S. Bohn",
+      edition: "Harper's New Classical Library, 1870–1872",
+      /* THE EXPIRY IS CERTAIN ON THE PUBLICATION RULE AND CANNOT BE STATED ON THE OTHER ONE, which is
+         what makes this licence unlike any other on the shelf. Everywhere else the translator's death
+         year is known and the entry says which rules it clears — Godley on all three, Giles only in
+         the United States until 2029, Ross until 2042. Here half of the byline cannot be found at
+         all: "W. S. Bohn" has no first name, no dates and no biography in anything openable, and a
+         joint work's life-plus-seventy term runs from the LAST surviving author, so that term cannot
+         honestly be asserted for the whole translation. McDevitte's own dates are known and checked
+         (1834–1909, Library of Congress and Wikisource), as are Holmes's for the Latin (1855–1933,
+         Dictionary of Irish Biography and Wikipedia), both looked up rather than recalled for the
+         Hugo Magnus reason.
+         So the ground relied on is the DATE OF PUBLICATION — 1870–1872 for the English and 1914 for
+         the Latin, both well before 1929 — which is certain, checkable on the title page, and enough.
+         The gap is named in `rights` and on the book's own front-matter page rather than rounded up
+         into a confident sentence: it is the Lucretius judgement, where the Latin's editor was unnamed
+         by the source and the entry claimed less instead of guessing. See .claude/fetch-book.js. */
+      rights:
+        "Public domain in the United States on the publication rule, with one gap stated plainly. " +
+        "This translation was published by Harper and Brothers in 1870–1872 and the Latin printed " +
+        "beside it is T. Rice Holmes's Oxford text of 1914 — both well before 1929 — so the copyright " +
+        "in both has expired. Caesar wrote the work in Latin some twenty centuries ago. Of the two " +
+        "translators, William Alexander McDevitte lived from 1834 to 1909 and T. Rice Holmes from " +
+        "1855 to 1933, so both are also out of copyright wherever the term is the author's life plus " +
+        "seventy years; nothing is recorded of the co-translator W. S. Bohn beyond the name on the " +
+        "title page, so for that half of the English no life-plus-seventy date can honestly be given, " +
+        "and the ground relied on here is the date of publication. The digital editions of both texts " +
+        "are prepared by the Perseus Digital Library at Tufts University and are released under a " +
+        "Creative Commons Attribution-ShareAlike 4.0 International licence. (The modern translations " +
+        "by S. A. Handford, 1951, Carolyn Hammond, 1996, and James O'Donnell, 2019, are still in " +
+        "copyright and are not used here.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0448.phi001/",
+      origLang: "la",
+      chapterWord: "Book",
+      /* The whole work, and the eighth of them is not Caesar's — Hirtius finished what he left, and
+         says so in the letter that opens it. `count` and `total` are equal because all eight are here;
+         they part company again the moment a book arrives in instalments. */
+      count: 8,
+      total: 8,
+      /* No `parts`. The eight books are one run of campaigning seasons and this edition divides them
+         no further; the two British expeditions and the revolt of Vercingetorix are the movements a
+         reader remembers, but grouping the books under those would be a modern reader's arrangement
+         rather than a division the edition prints. The Analects' and The Prince's position exactly. */
+    },
+    {
+      id: "thucydides-peloponnesian-war",
+      title: "The History of the Peloponnesian War",
+      /* Deliberately NOT the work's own Greek title, which is the one subtitle it cannot have:
+         Thucydides' history and Herodotus's are both Ἱστορίαι, and Herodotus is already on this shelf
+         under that word. Two banners reading the same thing in Greek is exactly what a subtitle is
+         for preventing, so this one describes the book instead — the Republic's and the Art of War's
+         pattern rather than Lucretius's. */
+      subtitle: "The War between Athens and Sparta",
+      author: "Thucydides",
+      /* The war ran from 431 to 404 BCE and the book does not reach the end of it: the narrative
+         breaks off mid-sentence in 411, almost certainly because its author died. So the span is the
+         writing's rather than the war's, and the front matter carries the rest — a reader meeting an
+         unfinished sentence for an ending should have been told first. */
+      written: "c. 431–400 BCE",
+      year: -431,
+      translator: "Richard Crawley",
+      edition: "London, 1874",
+      /* THE EASIEST LICENCE ON THE SHELF, alongside the Republic's and the Analects': three layers,
+         all long expired, and nothing to qualify. Thucydides wrote in the fifth century BCE; Crawley
+         published in 1874 and died in 1893; the Greek is Stuart Jones's Oxford text of 1910 and he
+         died in 1939. Every one of them clears the pre-1929 publication rule, life-plus-seventy and
+         life-plus-a-hundred alike, so unlike Giles (2029) and Ross (2042) there is no limit to state.
+         The dates were looked up rather than recalled, for the Hugo Magnus reason.
+         The one figure that looks like a problem and is not: this Greek text is usually met as the
+         1942 Oxford printing, which is Stuart Jones's same text with an apparatus criticus added by
+         J. E. Powell. It is the text that is imported here and not the apparatus, and the source file
+         states the 1910 publication itself. Rex Warner (1954), Steven Lattimore (1998) and Jeremy
+         Mynott (2013) are named in .claude/fetch-book.js as the translations not to reach for, and
+         with them the Landmark Thucydides of 1996 — which prints a REVISED Crawley, and is the one a
+         reader is likeliest to own; what is here is Crawley's own 1874 text. */
+      rights:
+        "Public domain on every ground, with nothing left to qualify. Thucydides wrote the work in " +
+        "Greek in the fifth century BCE. Richard Crawley's translation was published in 1874 and he " +
+        "lived from 1840 to 1893, so it is out of copyright under the pre-1929 publication rule, " +
+        "wherever the term is the translator's life plus seventy years, and wherever it is life plus " +
+        "a hundred. The Greek printed beside it is the Oxford Classical Text edited by Henry Stuart " +
+        "Jones, published in 1910 and reprinted with an apparatus by J. E. Powell in 1942; the text " +
+        "imported here is Stuart Jones's, not Powell's apparatus, and Stuart Jones lived from 1867 " +
+        "to 1939, so it too is public domain on both rules. The digital edition of the Greek is " +
+        "prepared by the Perseus Digital Library at Tufts University and is released under a Creative " +
+        "Commons Attribution-ShareAlike 4.0 International licence. (The modern translations by Rex " +
+        "Warner, 1954, Steven Lattimore, 1998, and Jeremy Mynott, 2013, are still in copyright and " +
+        "are not used here, and neither is the revised Crawley printed in the Landmark Thucydides of " +
+        "1996.)",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/History_of_the_Peloponnesian_War",
+      origLang: "grc",
+      chapterWord: "Book",
+      /* The whole of what survives, which is not the whole of the war. `count` and `total` are equal
+         because all eight books are here; they part company the moment a book arrives in instalments. */
+      count: 8,
+      total: 8,
+      /* No `parts`. The eight books are one continuous narrative and this edition divides them no
+         further. The Sicilian expedition of books six and seven is the movement every reader
+         remembers, but grouping the books under headings of that kind would be a modern reader's
+         arrangement rather than a division the edition prints — the Gallic War's position exactly. */
+    },
+    {
+      id: "aesop-fables",
+      title: "Aesop's Fables",
+      // the edition's own title page, which promises three hundred and prints 313
+      subtitle: "Three Hundred Æsop's Fables",
+      author: "Aesop",
+      /* Deliberately vaguer than any other line on the shelf, because the thing being dated is not a
+         book. The tradition puts Aesop in the sixth century BCE; the collection carrying his name
+         was assembled, lost, versified and rearranged for the two thousand years after that, and no
+         single date is true of it. The front matter says so at length. */
+      written: "c. 6th century BCE, collected later",
+      year: -550,
+      translator: "George Fyler Townsend",
+      edition: "George Routledge and Sons, London, 1867",
+      /* The fourth licence here that needs no qualification at all, after the Republic, the Analects
+         and the Peloponnesian War — and the shortest, because both layers are long gone and neither
+         carries a modern editorial layer of the kind the Histories and the Meditations' Greek do. */
+      rights:
+        "Public domain worldwide: George Fyler Townsend lived from 1814 to 1900 and his translation " +
+        "was published in 1867 — so its copyright has expired everywhere, on the pre-1929 " +
+        "publication rule and on the translator's-life rule alike. The Greek fables behind it are " +
+        "some twenty-five centuries old. The modern translations by S. A. Handford (1954), Olivia " +
+        "and Robert Temple (1998) and Laura Gibbs (2002) are still in copyright and are " +
+        "deliberately not used here.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Three_Hundred_%C3%86sop%27s_Fables",
+      /* NO `origLang`, and this is the second book here to go without one after the Republic — but
+         the first whose answer is no on BOTH sides at once. The Republic's Greek states Stephanus
+         numbers and it is Jowett who states none, so the pairing fails on one column. Here neither
+         edition states anything a column could be hung on: Townsend numbers nothing, and the Greek
+         collections number nothing either — Chambry's standard text lists its 359 fables
+         alphabetically by their Greek titles. Two unnumbered collections of different sizes in
+         different orders have nothing to pair on at all, and matching them fable by fable would be
+         several hundred judgements made by eye, which is the work abandoned for the Meditations'
+         Greek. Said to the reader in the book's own front matter rather than left to be noticed. */
+      chapterWord: "Fable",
+      /* 313, and the two agree because the whole edition is here. Note that `total` is this BOOK's
+         count and not the corpus's: there is no total for Aesop, which is rather the point of him —
+         Perry's index of 1952 runs past 700 and every collection draws a different line. */
+      count: 313,
+      total: 313,
+      /* No `parts`. The fables are printed in one undivided run with no volumes, sections or
+         headings of any kind, so the Contents panel falls back to a single unlabelled group, as the
+         Meditations', the Republic's and the Art of War's do. The tab figures are the printed ORDER
+         rather than any numbering the edition carries — it carries none, and its own index files
+         alphabetically by title — which is stated on the book's first page rather than left to look
+         like a citation system it does not have. */
+    },
+    {
+      id: "song-of-roland",
+      title: "The Song of Roland",
+      /* No subtitle: the volume's title page carries none, and the work has had these three words
+         for its name in every language for nine hundred years. */
+      author: "Anonymous",
+      written: "c. 1100",
+      /* The poem is conventionally put around 1100 — argued from its language and from what it seems
+         to know of the First Crusade, not stated anywhere by the text — and the Oxford manuscript
+         that carries it is dated on its handwriting to the middle of the twelfth century. 1100 is
+         the figure everyone uses and the only one the shelf can honestly sort on; how loose it is is
+         said on the book's own first page. */
+      year: 1100,
+      translator: "Charles Kenneth Scott Moncrieff",
+      edition: "Chapman & Hall, London, 1919",
+      /* THE THIRD BOOK HERE TO STATE A LIMIT AS WELL AS A GROUND, after the Art of War (Giles, in
+         copyright in life-plus-seventy countries until 2029) and the Nicomachean Ethics (Ross, until
+         2042) — and the FIRST where the limit falls on BOTH columns rather than on one, since the
+         translation and the Old French edition are both works of the 1920s. Dates looked up rather
+         than recalled, for the Hugo Magnus reason: Scott Moncrieff 1889–1930, Bédier 1864–1938. */
+      rights:
+        "Public domain, with one limit worth stating. The poem itself is Old French and around nine " +
+        "hundred years old. Charles Scott Moncrieff's translation was published in 1919 and he lived " +
+        "from 1889 to 1930; the Old French column is Joseph Bédier's text of 1920–1922, and he lived " +
+        "from 1864 to 1938. Both are public domain in the United States under the pre-1929 " +
+        "publication rule, and both are out of copyright wherever the term is the author's life plus " +
+        "seventy years — expired in 2001 for Scott Moncrieff and in 2009 for Bédier. Where the term " +
+        "is life plus a hundred they remain in copyright until 2031 and 2039. The volume's " +
+        "introduction by G. K. Chesterton and its note on technique by George Saintsbury are later " +
+        "works by other hands and are not reproduced here; what is taken is the poem.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Song_of_Roland",
+      /* Old French — ISO 639-3 `fro`, the language of 842 to about 1400, and not `fr`, which would
+         tell a reader (and a screen reader) that Bédier's column is modern French. It is the first
+         code here that names a historical stage of a living language rather than a dead one. */
+      origLang: "fro",
+      origName: "Old French",
+      /* THE LAISSE IS BOTH THE CHAPTER AND THE PAIRING UNIT, which no earlier book does, and it
+         follows from the editions rather than from a choice made here: neither Scott Moncrieff's
+         volume nor Bédier's divides the poem above the laisse — measured over both, there is no
+         part, book or canto heading in either — so the smallest unit they DO number is what the tabs
+         count, as Aesop's fable is. The consequence is a short chapter, a median of thirteen lines,
+         and that is the poem rather than the import: a chanson de geste was sung one laisse at a
+         time, each stanza on a single vowel, and stopping at the end of one is what it was built
+         for. */
+      chapterWord: "Laisse",
+      /* 291, and the two figures agree because the whole poem is here. They also agree ACROSS the
+         two editions, which is the thing actually worth knowing: Scott Moncrieff and Bédier divide
+         the Oxford manuscript into the same 291 laisses, so every one of them draws with both
+         columns filled. Verified rather than assumed — see the correlation the importer prints. */
+      count: 291,
+      total: 291,
+      /* No `parts`. Neither edition divides the poem above the laisse, so the Contents panel falls
+         back to a single unlabelled group, as the Meditations', the Republic's, the Art of War's and
+         Aesop's do. And no chapter titles: the laisses have no names in either edition, so the tabs
+         read "Laisse 1", "Laisse 2" and so on, which is the whole of what the editions state about
+         them — composing 291 descriptive headings for a poet who gave none is the line the
+         Meditations' entry draws. */
+    },
+    {
+      id: "epic-of-gilgamesh",
+      title: "The Epic of Gilgamesh",
+      /* No subtitle. Thompson's title page spells the name "Gilgamish" and the entry keeps his
+         spelling wherever it quotes his edition, but the book is shelved under the spelling a reader
+         will look for. Both are on its own first page. */
+      author: "Anonymous",
+      written: "c. 1200 BCE",
+      /* The twelve-tablet version translated here was assembled around 1200 BCE out of Sumerian poems
+         already six or seven centuries older, and the copies it is read from were written later
+         still. No date is stated by the text; this is the conventional figure for the version in
+         front of the reader and the only one the shelf can honestly sort on, which is the Song of
+         Roland's position exactly. How loose it is is said on the book's own page. It is by a long way
+         the OLDEST book here — the next is the Analects, eight hundred years later. */
+      year: -1200,
+      translator: "R. Campbell Thompson",
+      edition: "Luzac & Co., London, 1928",
+      /* THE FIFTH BOOK HERE TO STATE A LIMIT AS WELL AS A GROUND, after the Art of War (Giles, 2029),
+         the Nicomachean Ethics (Ross, 2042), the Song of Roland (both columns, 2031 and 2039) and the
+         Medea (Murray, 2028). Dates looked up rather than recalled, for the Hugo Magnus reason:
+         Thompson 1876–1941. */
+      rights:
+        "Public domain, with one limit worth stating. The poem itself is Babylonian and some three " +
+        "thousand years old, so the words behind this book have been free for as long as copyright " +
+        "has existed. The only modern layer is the translation: R. Campbell Thompson published it in " +
+        "London in 1928 and lived from 1876 to 1941. It is therefore public domain in the United " +
+        "States, where the term for a work published in 1928 expired at the start of 2024, and out of " +
+        "copyright wherever the term is the author's life plus seventy years, which expired at the " +
+        "start of 2012. In the few countries where the term is life plus a hundred it remains in " +
+        "copyright until 2042. Thompson's own preface is not reproduced here; what is taken is the " +
+        "twelve tablets.",
+      /* THE FIRST BOOK HERE FROM NEITHER WIKISOURCE NOR PERSEUS. Both of the shelf's usual sources
+         hold about a sixth of this poem between them — Wikisource has only one-tablet editions of the
+         Old Babylonian version, and Perseus is Greek and Latin — so a third source was needed to ship
+         the epic rather than a fragment of it. See the block above extractTablets in
+         .claude/fetch-book.js for what was measured before this one was chosen, including why the
+         Internet Archive's scan of the 1928 volume could not be used. */
+      sourceName: "Global Grey",
+      sourceUrl: "https://www.globalgreyebooks.com/epic-of-gilgamesh-ebook.html",
+      /* NO `origLang`, and the reason is not the usual one. Every other book here without a facing
+         original fails the shelf's test — does the text state which section each passage is? The
+         Republic's Jowett prints no Stephanus numbers; neither of Aesop's collections numbers
+         anything. Gilgamesh fails a step earlier: there is no settled original text to face. What
+         scholars read is a transliteration pieced together from broken fragments, the piecing-together
+         is itself modern scholarship, and every such edition is either in copyright or licensed in a
+         way this site cannot build on. The book's own front matter says so, so a reader who goes
+         looking for the Akkadian meets the reason rather than the absence. */
+      chapterWord: "Tablet",
+      /* Twelve, and the whole poem is here. The Twelfth is an appendix rather than a continuation —
+         a partial translation of a separate Sumerian poem that the ancient scribes attached to the
+         epic, and which contradicts the ending of the Eleventh. It is counted because this edition
+         carries it, and the front matter explains what it is. */
+      count: 12,
+      total: 12,
+      /* No `parts`: the edition divides the poem into tablets and nothing above them, so the Contents
+         panel falls back to a single unlabelled group, as the Meditations', the Republic's, the Art of
+         War's, Aesop's and the Song of Roland's do. And no titles in this file — the tablets DO have
+         names here, and they are read off the edition's own headings by the importer rather than
+         composed, which no other book on the shelf does. */
     },
   ];
   const BOOK_BY_ID = {};
@@ -6092,18 +7040,26 @@
     document.addEventListener("pointerdown", on, true);
     document.addEventListener("pointerover", on, true);
   })();
-  /* The CSS half, and it is the load-bearing half: `touch-action` is what decides whether the browser may
-     scroll under a finger at all. The canvas declares `none` normally — a drawing surface must not have its
-     strokes stolen by the scroller — and `pan-y pinch-zoom` in stylus mode, which hands vertical drags and
-     pinches back while leaving horizontal ones (nothing scrolls sideways under the card) alone. The JS half
-     is in setupWhiteboard's pointerdown, and BOTH are needed: preventDefault on a pointerdown cancels the
-     scroll whatever touch-action says. */
+  /* This used to hand the browser the scroll through CSS — `touch-action:pan-y pinch-zoom` on the canvas —
+     and that was the bug, reported as "the stylus draws a line for a tiny bit and then the page moves".
+     `touch-action` is a property of the ELEMENT, not of the gesture, and it cannot tell a pen from a finger:
+     the permission written for the finger applied to the stylus too, so the scroller claimed the pen's drag
+     the moment it passed the pan slop, fired `pointercancel` at the canvas and scrolled the page out from
+     under a half-drawn stroke. No amount of preventDefault fixes it — once a permitted pan has begun the
+     browser stops listening.
+     So the canvas keeps `touch-action:none` in every state (a drawing surface never gives a gesture away)
+     and the finger is scrolled BY HAND in setupWhiteboard. That is also where Anki makes the same decision:
+     per gesture, by the tool that started it — a stylus event is consumed by the whiteboard and a finger
+     event is passed down to the scroller. Here there is nothing to pass down to, so the scroll is performed
+     rather than delegated.
+     The class stays: it carries no style now, but it is this state written where it can be read. */
   function wbApplyStylusMode() {
     if (WB.canvas) WB.canvas.classList.toggle("wb-pen-only", wbPenOnly());
   }
   const WB_TAP_SLOP = 8;   // px a finger may wander in stylus mode and still count as a tap on the control under it
   let wbToolsRef = null;
   let wbRefreshTools = null;   // set by ensureWBTools — re-marks the selected tool from WB.enabled/WB.mode
+  let wbRenderColors = null;   // ditto — rebuilds the swatch row, whose selected colour follows the active tool
   /* The custom colour beside the five presets. It is device-local and NOT in S: a marker colour is a fact
      about this device's screen, like where the marker sits. One per palette — a highlighter yellow chosen
      for marking is not a pen colour — kept in a single record so both survive a reload. */
@@ -6213,16 +7169,21 @@
     window.addEventListener("resize", () => wbApplyPos(el));
   }
 
-  /* ---- HOLDING the marker puts the pen up (Aug 2026, on request) ----
+  /* ---- HOLDING the marker TOGGLES the pen (Aug 2026, on request) ----
      The toggle already carried two meanings — a tap opens and shuts the tools, a drag moves them — and
      the one thing it could not do was the thing a reader with a tool selected most often wants: stop
      drawing without first finding the panel and unselecting the tool inside it. A hold is the third
      gesture the button had left, and it is the same one the deck rows and the review banner use one
      level up, so it is not a new idea to learn.
 
-     It is deliberately a NO-OP when nothing is selected. A hold that turned drawing ON would make the
-     gesture mean opposite things depending on a state the shut panel barely shows, and the tap already
-     turns it on. So this only ever puts the pen down again — one direction, always safe.
+     It was ONE-DIRECTIONAL for a fortnight — a hold put the pen up and a hold with nothing selected did
+     nothing at all — on the reasoning that a gesture meaning opposite things depending on a state the
+     shut panel barely shows is a gesture nobody can predict. That reasoning is backwards once you hold
+     the thing: a control that answers on one press and is inert on the next reads as broken, and the
+     state IS shown — the button carries `.on` while the pen is down, with the panel shut or open. So it
+     toggles, and the toast says which way it went, which is what settles the ambiguity the one-way rule
+     was avoiding. Turning the pen back on restores the tool and colour the reader last drew with rather
+     than resetting to the default pen, since a hold is a way back to what you were doing.
 
      Three things it has to get right, all of them about not firing twice:
        · a hold that has fired swallows the click that follows it (`wbHeld`), exactly as a drag does
@@ -6243,10 +7204,17 @@
       clearTimeout(t);
       t = setTimeout(() => {
         t = 0;
-        if (wbDragged || !WB.enabled) return;   // moving the marker, or nothing to put away
+        if (wbDragged) return;   // the reader is moving the marker, not answering a question about the tool
         wbHeld = true;
-        wbSetEnabled(false);
-        toast("Marker off");
+        if (WB.enabled) wbSetEnabled(false);
+        else {
+          // back to the tool and colour last drawn with — a hold is a way back to what you were doing
+          if (!WB.mode) WB.mode = "pen";
+          if (WB.mode !== "erase") WB.color = WB.mode === "hl" ? WB.hlColor : WB.penColor;
+          wbSetEnabled(true);
+          if (wbRenderColors) wbRenderColors();   // the swatch row's selected colour follows the tool
+        }
+        toast(WB.enabled ? "Marker on" : "Marker off");
         try { if (navigator.vibrate) navigator.vibrate(12); } catch (x) {}
       }, WB_HOLD_MS);
     });
@@ -6321,6 +7289,8 @@
       sbtn.title = WB.penOnly ? "Your finger scrolls the page; the stylus draws" : "Your finger draws too";
     };
     wbRefreshTools = refreshModes;
+    // exposed for the hold gesture, which turns the pen back on from outside this closure
+    wbRenderColors = () => renderColors();
     const useColor = (c) => {
       if (WB.mode === "erase") WB.mode = "pen";
       if (WB.mode === "hl") WB.hlColor = c; else WB.penColor = c;
@@ -6643,6 +7613,7 @@
     const o = opts || {};
     // remove any prior overlay (e.g. from the previous card) and start fresh
     if (WB.canvas && WB.canvas.parentNode) WB.canvas.parentNode.removeChild(WB.canvas);
+    if (WB._panStop) { WB._panStop(); WB._panStop = null; }   // a fling from the previous card would keep scrolling this one
     if (WB._onResize) { window.removeEventListener("resize", WB._onResize); WB._onResize = null; }
     if (WB.ro) { WB.ro.disconnect(); WB.ro = null; }
     WB.fixed = !!o.fixed;
@@ -6681,19 +7652,59 @@
       const ctl = el && el.closest ? el.closest(CTL_SEL) : null;
       return ctl && ctl !== canvas ? ctl : null;
     };
+    /* ---- the finger's scroll, performed rather than permitted (stylus mode) ----
+       See wbApplyStylusMode for why CSS cannot do this. `scrollerUnder` finds what the finger is actually
+       over — the document under a card, but a gloss popup's body or the Atlas panel's columns are their own
+       scrollports — by the same hit-test the ink uses to find a control, so it needs no list of selectors
+       kept in step by hand. Vertical only, which is what the CSS it replaces permitted: nothing under a card
+       scrolls sideways, and a horizontal drag inside a nested scroller is that scroller's own business.
+       The MOMENTUM is not a flourish. A scroll that stops dead on the lift reads as a page that has snagged,
+       and this replaces a native scroll that had it — so a fling continues under friction, and lands on the
+       reader's motion setting like every other movement on the site. */
+    const scrollerUnder = (e) => {
+      const prev = canvas.style.pointerEvents;
+      canvas.style.pointerEvents = "none";
+      let el = document.elementFromPoint(e.clientX, e.clientY);
+      canvas.style.pointerEvents = prev;
+      const doc = document.scrollingElement || document.documentElement;
+      while (el && el !== document.body && el !== document.documentElement) {
+        const oy = getComputedStyle(el).overflowY;
+        if ((oy === "auto" || oy === "scroll" || oy === "overlay") && el.scrollHeight > el.clientHeight + 1) return el;
+        el = el.parentElement;
+      }
+      return doc;
+    };
+    let panEl = null, panLast = 0, panAt = 0, panV = 0, panRAF = 0;
+    const panStop = () => { if (panRAF) cancelAnimationFrame(panRAF); panRAF = 0; };
+    WB._panStop = () => { panStop(); panEl = null; };   // so a rebuild (the next card) can kill a fling still running
+    const panFling = () => {
+      panStop();
+      const el = panEl; panEl = null;
+      if (!el || prefersReducedMotion() || Math.abs(panV) < 0.08) return;   // px/ms — below this it was a hold, not a throw
+      let v = Math.max(-6, Math.min(6, panV));   // a wild velocity from one stray sample must not launch the page
+      const step = () => {
+        v *= 0.94;
+        el.scrollTop -= v * 16;
+        if (Math.abs(v) < 0.02) { panRAF = 0; return; }
+        panRAF = requestAnimationFrame(step);
+      };
+      panRAF = requestAnimationFrame(step);
+    };
     let passCtl = null, passScroll = false, sx = 0, sy = 0, strokePts = null;
     canvas.addEventListener("pointerdown", (e) => {
       if (!WB.enabled) return;
       if (e.pointerType === "pen") wbNoteStylus();    // the first stroke of a stylus is what usually teaches us
       sx = e.clientX; sy = e.clientY;
-      /* A FINGER IN STYLUS MODE IS NOT A STROKE — it is a scroll, and possibly a tap on a control. So the
-         press is neither drawn nor preventDefault'd: `touch-action:pan-y pinch-zoom` (the .wb-pen-only
-         class) is what lets the browser take it, and preventDefault here would cancel that whatever the
-         CSS says. What still has to be done by hand is the control underneath — a tap must reach Show
-         answer exactly as it does with the pen up — so the same pass-through the ink already uses runs,
-         and pointerup activates the control if the finger is still on it. */
+      /* A FINGER IN STYLUS MODE IS NOT A STROKE — it is a scroll, and possibly a tap on a control. Both are
+         done by hand: the scroll above, and the control underneath through the same pass-through the ink
+         already uses (a tap must reach Show answer exactly as it does with the pen up), activated on
+         pointerup if the finger is still on it. */
       if (wbPenOnly() && e.pointerType === "touch") {
+        panStop();                                    // a second finger down mid-fling catches the page, as a scroller does
         passCtl = controlUnder(e); passScroll = true;
+        panEl = scrollerUnder(e); panLast = e.clientY; panAt = e.timeStamp || performance.now(); panV = 0;
+        try { canvas.setPointerCapture(e.pointerId); } catch (x) {}
+        e.preventDefault();                           // no compatibility click — pointerup activates the control itself
         return;
       }
       passScroll = false;
@@ -6711,6 +7722,14 @@
       e.preventDefault();
     });
     canvas.addEventListener("pointermove", (e) => {
+      if (passScroll) {   // stylus mode, finger down: this gesture is the page's, not the ink's
+        if (!panEl) return;
+        const now = e.timeStamp || performance.now(), dy = e.clientY - panLast, dt = now - panAt;
+        panEl.scrollTop -= dy;
+        if (dt > 0) panV = dy / dt;   // px/ms, the last sample only — a mean lags the flick the reader just made
+        panLast = e.clientY; panAt = now;
+        return;
+      }
       if (!WB.enabled || !WB.drawing) return;
       WB.dirtied = true;   // an actual stroke happened → snapshot it on pointerup (for undo)
       const p = posOf(e), ctx = WB.ctx, dpr = window.devicePixelRatio || 1;
@@ -6755,11 +7774,13 @@
     };
     canvas.addEventListener("pointerup", (e) => {
       const ctl = passCtl, scrolled = passScroll; passCtl = null; passScroll = false;
+      if (scrolled) panFling();
       if (ctl) {
         /* Released on the same control it was pressed on → activate it, the way the click we suppressed
-           would have. In stylus mode nothing was suppressed (the press had to stay scrollable), so a
-           finger that MOVED has scrolled the page rather than tapped, and activating anything then would
-           fire a button the reader was only using to push the page along. */
+           would have. In stylus mode a finger that MOVED has scrolled the page rather than tapped, and
+           activating anything then would fire a button the reader was only using to push the page along —
+           which is why the slop test is on `scrolled` and not on the pen's path, where any movement at all
+           is a stroke and the control was never a candidate. */
         const moved = scrolled && (Math.abs(e.clientX - sx) > WB_TAP_SLOP || Math.abs(e.clientY - sy) > WB_TAP_SLOP);
         if (!moved && controlUnder(e) === ctl) {
           if (/^(INPUT|TEXTAREA|SELECT)$/.test(ctl.tagName)) { try { ctl.focus(); } catch (x) {} }
@@ -6769,7 +7790,7 @@
       }
       end();
     });
-    canvas.addEventListener("pointercancel", () => { passCtl = null; passScroll = false; end(); });
+    canvas.addEventListener("pointercancel", () => { passCtl = null; passScroll = false; panEl = null; panStop(); end(); });
     if (WB._onResize) window.removeEventListener("resize", WB._onResize);
     WB._onResize = () => wbResize(true);
     window.addEventListener("resize", WB._onResize);
@@ -7402,7 +8423,12 @@
       o: { lang: "la", t: "Nescire autem quid ante quam natus sis acciderit, id est semper esse puerum.", a: "Marcus Tullius Cicero", s: "Orator 34.120" } },
     { t: "The life of the dead is set in the memory of the living.", a: "Cicero", s: "Philippics 9.5",
       o: { lang: "la", t: "Vita enim mortuorum in memoria est posita vivorum.", a: "Marcus Tullius Cicero", s: "Philippicae IX.5" } },
-    { t: "Look back over the past, with its changing empires that rose and fell, and you can foresee the future too.", a: "Marcus Aurelius", s: "Meditations VII.49" },
+    { t: "Look back over the past, with its changing empires that rose and fell, and you can foresee the future too.", a: "Marcus Aurelius", s: "Meditations VII.49",
+      // The one quote whose Greek could not be verified when this pool was written, and it can be now:
+      // the Library ships Leopold's Teubner text (1908) beside Haines, so 7.49 is read out of the
+      // project's own books/marcus-aurelius-meditations.grc.js rather than set down from memory. The
+      // English above is a free rendering of the section's opening two clauses; those are the clauses here.
+      o: { lang: "grc", t: "Τὰ προγεγονότα ἀναθεωρεῖν, τὰς τοσαύτας τῶν ἡγεμονιῶν μεταβολάς· ἔξεστι καὶ τὰ ἐσόμενα προεφορᾶν.", a: "Μᾶρκος Αὐρήλιος", s: "Τὰ εἰς ἑαυτόν Ζ΄.49" } },
     { t: "Knowledge which is acquired under compulsion obtains no hold on the mind.", a: "Plato", s: "Republic VII, 536e",
       o: { lang: "grc", t: "ψυχῇ δὲ βίαιον οὐδὲν ἔμμονον μάθημα.", a: "Πλάτων", s: "Πολιτεία Ζ΄, 536e" } },
     { t: "It is impossible for a man to learn what he thinks he already knows.", a: "Epictetus", s: "Discourses II.17",
@@ -7545,7 +8571,7 @@
   // thing on the page the i18n engine must leave alone, or a Spanish reader would click through to
   // Spanish. A quote with no verified original is rendered exactly as before — no cursor, no handler.
   function dailyQuoteHTML() {
-    const q = QUOTES[QUOTE_ORDER[Math.floor(Date.now() / DAY) % QUOTE_ORDER.length]];
+    const q = QUOTES[QUOTE_ORDER[dayIndex() % QUOTE_ORDER.length]];
     const o = q.o;
     const pair = (en, orig) =>
       '<span class="dq-live">' + esc(en) + "</span>" +
@@ -7690,7 +8716,7 @@
         // ten-minute step has come round yet — the pile is what is still being learned, not what is playable
         // this second, and a count that emptied while the card was on its timer would say the work was done
         if (!c) { if (freshSet.has(id)) nw++; }
-        else if (c.status === "learning") lr++;
+        else if (schedIsLearning(c.status)) lr++;
         else if (dueSet.has(id)) rv++;
       });
       return { nw, lr, rv };
@@ -7933,7 +8959,7 @@
                     next level rather than as a bare number. */""}
               ${streakChip}
               <span class="cta"><span class="btn ${dueN + newN ? "" : "ghost"}">${
-          dueN + newN ? "Start review" : "Browse collections"
+          dueN + newN ? "Start" : "Browse collections"
         }</span></span>
             </div>
           </div>
@@ -8802,7 +9828,18 @@
              without one is read exactly as it always was. */
           const raw = node.getAttribute && node.getAttribute("data-n");
           const v = parseInt(raw != null && raw !== "" ? raw : node.textContent, 10);
-          n = v > 0 ? v : n;
+          /* ZERO IS A SECTION NUMBER, and the Gallic War is the first book here to use one (Aug 2026):
+             book 8 opens on a chapter 0, Hirtius's covering letter to Balbus, which both editions
+             print before chapter 1 and number apart from the war it introduces. The test was `v > 0`,
+             written when 0 could only mean "this marker holds nothing numeric" — so that chapter fell
+             through to the UNNUMBERED path and paired only by luck, both columns happening to carry
+             exactly one leading unnumbered block. It rendered correctly and for the wrong reason,
+             which is the kind of accident that stops being one as soon as a book carries a chapter 0
+             on one side only. Measured over every book on the shelf before the guard was widened: the
+             only markers anywhere whose value is not above zero are this book's two. An empty or
+             non-numeric marker still parses to NaN and is still ignored, which is what the guard was
+             really for. */
+          n = v >= 0 ? v : n;
         }
         buf.push(node);
       });
@@ -9264,7 +10301,7 @@
         ? `${b.count} of ${b.total} ${unit} <span class="bk-of">on Folio so far</span>`
         : `${b.count} ${unit}`;
       const fav = isBookFav(b.id);
-      return `<button class="book-tile${fav ? " bk-fav" : ""}" type="button" data-book="${esc(b.id)}" style="--tile:${b.color}"
+      return `<button class="book-tile${fav ? " bk-fav" : ""}" type="button" data-book="${esc(b.id)}" style="--tile:${bookColor(b)}"
                 aria-label="${esc(b.title)} by ${esc(b.author)}, written ${esc(b.written)}${fav ? ", a favourite" : ""}">
         <span class="bk-spine" aria-hidden="true"></span>
         ${/* the star is a MARK, not a control: the way to set and clear one is the long-press sheet, so a
@@ -11370,7 +12407,7 @@
       queue.forEach((id) => {
         const c = S.cards[id];
         if (!c) nw++;
-        else if (c.status === "learning") lr++;
+        else if (schedIsLearning(c.status)) lr++;
         else rv++;
       });
       return { nw, lr, rv };
@@ -14352,6 +15389,14 @@
       for (let i = 0; i < GRAT.length; i++) { ctx.beginPath(); addClipped(GRAT[i], false); ctx.stroke(); }
       ctx.restore();
     }
+    /* A highlight's colours, derived from one rgb triple so a second one costs a line rather than a fork of
+       the painter. The map has exactly one — its gold — until the Find-it game, which has to say three
+       different things on the same map (here is the answer · here is where you went · you found it) and
+       cannot say them all in one colour. `line` and `glow` are written out on the gold so the shipped
+       selection stays exactly as it was: its outline is a LIGHTER amber than its fill, not the same value
+       at full alpha, which is what deriving them would have quietly made it. */
+    const TINT_SEL = { rgb: "255,178,46", fillA: 0.24, line: "rgba(255,192,74,1)", glow: "rgba(255,184,60,0.75)" };
+    const tintOf = (rgb, fillA) => ({ rgb: rgb, fillA: fillA, line: "rgba(" + rgb + ",1)", glow: "rgba(" + rgb + ",0.75)" });
     // paint a country with its stable matte colour (clipped to the country) when hovered / selected
     function paintFill(idx, selected) {
       const ht = histTerr(), terr = ht || GEO;
@@ -14372,8 +15417,9 @@
     // two full Gaussian shadowBlur passes PER TERRITORY, every frame. That made dragging with a colonial empire
     // selected roughly four times the cost of dragging with nothing selected: the single most expensive thing on the
     // map. Batched, the whole selection shares one clip, one stroke path and one coast pass.
-    function paintFillGroups(groups, selected, hidden, clipCoast) {
+    function paintFillGroups(groups, selected, hidden, clipCoast, tint) {
       if (!groups.length) return;
+      const T = tint || TINT_SEL;
       // cohesive amber highlight: a subtle warm tint (lets the map read through) + a crisp bright outline, with a soft glow when selected
       ctx.save();
       // On a historical era, clip the FILL to the present-day world.js land so the gold follows the DRAWN coastline
@@ -14383,12 +15429,12 @@
         ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.clip();
         ctx.beginPath(); for (let g = 0; g < GEO.length; g++) { const b = BBOX[g]; if (b[2] < x0 || b[0] > x1 || b[3] < y0 || b[1] > y1) continue; if (cullHidden(g)) continue; const gr = GEO[g].p; for (let r = 0; r < gr.length; r++) addClipped(gr[r], true); } ctx.clip("evenodd");   // horizon/viewport cull too: a world-spanning empire's bbox otherwise drags every country on the far side of the globe into the clip mask
       }
-      ctx.fillStyle = selected ? "rgba(255,178,46,0.24)" : "rgba(255,178,46,0.12)";
+      ctx.fillStyle = "rgba(" + T.rgb + "," + (selected ? T.fillA : 0.12) + ")";
       for (const g of groups) { ctx.beginPath(); const rings = g.p; for (let r = 0; r < rings.length; r++) addClipped(rings[r], true); ctx.fill("evenodd"); }   // per entity, so a ring hole stays a hole
       ctx.restore();
       ctx.save();
-      if (selected && !moving) { ctx.shadowColor = "rgba(255,184,60,0.75)"; ctx.shadowBlur = 9; }   // shadowBlur is a full Gaussian pass per stroke — invisible mid-drag, so motion frames skip it
-      ctx.lineWidth = selected ? 2.6 : 1.5; ctx.strokeStyle = selected ? "rgba(255,192,74,1)" : "rgba(255,178,46,0.82)";
+      if (selected && !moving) { ctx.shadowColor = T.glow; ctx.shadowBlur = 9; }   // shadowBlur is a full Gaussian pass per stroke — invisible mid-drag, so motion frames skip it
+      ctx.lineWidth = selected ? 2.6 : 1.5; ctx.strokeStyle = selected ? T.line : "rgba(" + T.rgb + ",0.82)";
       ctx.beginPath();
       const seg = [0, 0];
       for (const g of groups) {
@@ -14407,7 +15453,7 @@
       // its border outline, and gains the coast back on release — the same bargain motion frames already make for the glow.
       if (clipCoast && selected && !moving) {
         const all = []; for (const g of groups) for (const ring of g.p) all.push(ring);
-        strokeCoastClipped(all, selected);
+        strokeCoastClipped(all, selected, T);
       }
     }
     const _rnd1e3 = (v) => Math.round(v * 1e3) / 1e3;
@@ -14429,12 +15475,13 @@
       }
       return _coastCaps;
     }
-    function strokeCoastClipped(rings, selected) {   // stroke the present-day coastline (coastEdges), clipped to `rings`, in the gold highlight style
+    function strokeCoastClipped(rings, selected, tint) {   // stroke the present-day coastline (coastEdges), clipped to `rings`, in the highlight style
+      const T = tint || TINT_SEL;
       let x0 = 180, y0 = 90, x1 = -180, y1 = -90; for (const ring of rings) for (const p of ring) { if (p[0] < x0) x0 = p[0]; if (p[0] > x1) x1 = p[0]; if (p[1] < y0) y0 = p[1]; if (p[1] > y1) y1 = p[1]; }
       const ce = coastEdges(), bb = coastBBoxes(), cc = coastCaps();
       ctx.save();
-      if (selected && !moving) { ctx.shadowColor = "rgba(255,184,60,0.75)"; ctx.shadowBlur = 7; }   // no Gaussian passes mid-drag
-      ctx.lineWidth = selected ? 2.2 : 1.3; ctx.strokeStyle = selected ? "rgba(255,192,74,1)" : "rgba(255,178,46,0.82)";
+      if (selected && !moving) { ctx.shadowColor = T.glow; ctx.shadowBlur = 7; }   // no Gaussian passes mid-drag
+      ctx.lineWidth = selected ? 2.2 : 1.3; ctx.strokeStyle = selected ? T.line : "rgba(" + T.rgb + ",0.82)";
       ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.clip();
       ctx.beginPath(); for (let r = 0; r < rings.length; r++) addClipped(rings[r], true); ctx.clip("evenodd");
       ctx.beginPath();
@@ -14917,6 +15964,18 @@
       for (let u = 0; u < subSelUK.length; u++) { const ui = subSelUK[u]; if (ui >= 0 && ui < UK.length) uk.push({ p: UK[ui].p, c: UK[ui].c }); }   // drilled UK constituent(s): internal '0' borders + present-day coast clipped to them
       paintFillGroups(uk, true, null, true);
     }
+    /* Painted direct on every frame rather than cached like the selection: a mark lives for one round, the
+       game never has more than a handful of entities marked, and the reveal is followed by a flyTo — so the
+       frames it appears on are moving frames, which the cache would be rebuilt for anyway. */
+    function drawGameMarks() {
+      if (!gameMarks.length) return;
+      const ht = histTerr(), terr = ht || GEO;
+      for (const m of gameMarks) {
+        const groups = [];
+        for (const i of m.idxs) if (i >= 0 && i < terr.length) groups.push({ p: terr[i].p, c: ht ? terr[i].c : null });
+        paintFillGroups(groups, true, null, !!ht, m.tint);   // `selected` — a mark is an assertion, not a hover
+      }
+    }
     function drawSelectionOverlay() {
       if (!selSet.size && subSelGeo < 0 && !subSelUK.length) {
         if (selCv.width) { selCv.width = 0; selCv.height = 0; selKey = ""; }   // nothing selected — release the backing
@@ -14941,6 +16000,22 @@
     // change pulse: territory indices (of the CURRENT map) that changed hands vs the era just stepped away from
     let pulseSet = null, pulseT0 = 0, _lastPulseAt = 0;
     let pulsePin = null;   // [lon, lat] — an expanding-ring marker (the game's capital reveal; survives a cancelled fly)
+    /* ---- the Find-it game's PERSISTENT marks (Aug 2026, on a bug report) ----
+       The pulse is a 1.6-second throb and then nothing, which is exactly right for "these territories
+       changed hands on that step" and exactly wrong for an answer. A reader who guessed wrong twice was
+       told "It was here." and looked up to find the flash already over and the map precisely as it had
+       been — the answer announced and then withdrawn before it could be read. Same for the wrong guess:
+       it flashed red at the moment of the tap, which is the one moment the reader is looking at their own
+       finger rather than at the map.
+       So both are PAINTED and stay painted until the next round clears them. A round can hold several —
+       two wrong guesses in red and the answer over them — hence a list rather than a slot.
+       Deliberately NOT selSet: that is the map's gold, and it is cached into selCv under a key made of its
+       members alone, so two marks wanting different colours would blit whichever was drawn first. */
+    let gameMarks = [];    // [{ idxs, tint }] — a wrong guess, or the revealed answer
+    let gamePin = null;    // { lon, lat, name, tint } — a revealed capital, which a ring that fades cannot show
+    const TINT_MISS = tintOf("224,68,56", 0.34);    // where you went — the game red
+    const TINT_FOUND = tintOf("46,164,90", 0.34);   // you found it — the game green
+    const TINT_ANSWER = tintOf("255,178,46", 0.38); // where it was — the map's own gold, laid on harder
     /* A place the reader arrived at from a glossary popup's map marker, or picked out of the search box
        (Aug 2026, on request). A POINT focus is drawn as a gold dot with its name beside it — and ONLY while
        it is focused: most of these places (a cave, a gorge, a dig site) are not cities and have no business
@@ -15178,6 +16253,7 @@
       ctx.save(); ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.clip(); ctx.lineJoin = "round"; ctx.lineCap = "round";
       if (fillsOn) {   // clickable countries (present-day) or era territories (historical) — hover + selection fills
         drawSelectionOverlay();   // selection (cached offscreen while settled — pulse/fade animation frames blit instead of re-blurring dozens of territories)
+        drawGameMarks();          // the game's own marks, over the selection and under the borders, as the selection is
         if (hoverIdx >= 0 && !selSet.has(hoverIdx)) paintFill(hoverIdx, false);
       }
       drawStrokes();
@@ -15214,6 +16290,22 @@
           const nm = placeName(focusPoint.name);
           ctx.lineWidth = 3.5; ctx.strokeStyle = LBL_HALO; ctx.strokeText(nm, x + 10, y);
           ctx.fillStyle = LBL_TEXT; ctx.fillText(nm, x + 10, y);
+          ctx.restore();
+        }
+      }
+      /* the game's revealed capital, kept on the map. The expanding ring below says "look here" and is gone
+         in 1.6s; a city named on a coastline of a thousand others has to stay named until the next round. */
+      if (gamePin) {
+        proj(gamePin.lon, gamePin.lat);
+        if (PV >= 0) {
+          const x = PX, y = PY;
+          ctx.save();
+          ctx.beginPath(); ctx.arc(x, y, 5.5, 0, TAU); ctx.fillStyle = gamePin.tint.line; ctx.fill();
+          ctx.lineWidth = 1.6; ctx.strokeStyle = "rgba(30,20,0,.7)"; ctx.stroke();
+          ctx.font = "600 " + clamp(11 + (zoom - 2) * 0.9, 11, 14) + "px " + labelFont;
+          ctx.textAlign = "left"; ctx.textBaseline = "middle";
+          ctx.lineWidth = 3.5; ctx.strokeStyle = LBL_HALO; ctx.strokeText(gamePin.name, x + 10, y);
+          ctx.fillStyle = LBL_TEXT; ctx.fillText(gamePin.name, x + 10, y);
           ctx.restore();
         }
       }
@@ -16128,22 +17220,27 @@
       mgScoreEl.textContent = gameFirstTry + (gameFirstTry === 1 ? " point" : " points");
       mgQEl.innerHTML = (r.kind === "capital" ? "Find the city of <b>" + esc(r.n) + "</b>" : "Find <b>" + esc(r.n) + "</b>") + (r.year >= MAXY ? " on today's map" : " — in " + fmtYearG(r.year));
       mgFeedbackEl.hidden = true; mgNextEl.hidden = true;
-      selSet.clear(); subSelGeo = -1; subSelUK = []; pulseSet = null; scheduleDraw();
+      selSet.clear(); subSelGeo = -1; subSelUK = []; pulseSet = null;
+      gameMarks = []; gamePin = null;   // last round's wrong guesses and its answer come off the board with it
+      scheduleDraw();
     }
     function gameReveal(r, ok) {
       gameLock = true;
       const tgt = gameTargetLL(r);
+      const tint = ok ? TINT_FOUND : TINT_ANSWER;
       pulseCol = ok ? GAME_GREEN : "rgba(255,178,46,1)";   // green = you found it; gold = "here's the one you missed"
       if (r.kind !== "capital") {   // flash ALL same-named polygons via the pulse machinery (the 1900 map has 35 "Fiji" pieces)
         const terr = histTerr() || GEO, k = r.n.toLowerCase(), idxs = [];
         for (let i = 0; i < terr.length; i++) if ((terr[i].n || "").toLowerCase() === k) idxs.push(i);
         if (idxs.length) {
           pulseSet = idxs; pulseT0 = performance.now();
+          gameMarks.push({ idxs: idxs, tint: tint });   // …and it STAYS lit, which is what "It was here" promises
           if (tgt) popPointLL = [tgt[0], tgt[1]];
           showCountryPopup(idxs[0]);   // the answer's info panel — the round ends on something learned
         }
       } else {   // capitals: a geo-anchored ring marker (the fly alone is cancellable — the marker isn't) + the owning state's panel
         pulsePin = [r.lon, r.lat]; pulseT0 = performance.now();
+        gamePin = { lon: r.lon, lat: r.lat, name: r.n, tint: tint };   // the ring fades; the named dot does not
         const oi = ownerIdxAt(activeEra(year), r.lon, r.lat);
         if (oi >= 0) { popPointLL = [r.lon, r.lat]; showCountryPopup(oi); }
       }
@@ -16172,7 +17269,14 @@
         if (gameTries === 0) gameFirstTry++;
         sfx("good");
         gameReveal(r, true);
-      } else if (gameTries === 0) {
+        return;
+      }
+      /* A wrong pick STAYS red for the rest of the round (Aug 2026, on request). It used to flash and fade,
+         which is the one moment the reader is looking at their own finger rather than at the map — and by
+         the reveal there was nothing left to say where they had been. Both guesses are marked, so the
+         second try can see where the first went, and the answer's own mark lands over them. */
+      if (clickedIdx >= 0 && !gameMarks.some((m) => m.idxs[0] === clickedIdx)) gameMarks.push({ idxs: [clickedIdx], tint: TINT_MISS });
+      if (gameTries === 0) {
         gameTries = 1; sfx("bad");
         if (clickedIdx >= 0) {   // the wrong pick flashes red and its info panel opens — a miss still teaches something
           pulseSet = [clickedIdx]; pulseCol = GAME_RED; pulseT0 = performance.now();
@@ -17199,8 +18303,8 @@
             <li><a href="https://www.wikidata.org" target="_blank" rel="noopener">Wikidata</a> <span class="cr-lic">CC0</span> — country statistics (population, area, GDP).</li>
             <li><a href="https://www.naturalearthdata.com" target="_blank" rel="noopener">Natural Earth</a> <span class="cr-lic">public domain</span> — coastlines, borders, lakes, rivers and cities on the globe.</li>
             <li><a href="https://github.com/aourednik/historical-basemaps" target="_blank" rel="noopener">historical-basemaps</a> <span class="cr-lic">CC BY-SA 4.0</span> — the historical border eras on the Atlas timeline.</li>
-            <li><a href="https://en.wikisource.org" target="_blank" rel="noopener">Wikisource</a> <span class="cr-lic">public domain</span> — the Library's texts: Gummere's Seneca, Haines's Marcus Aurelius, Giles's Sun Tzu and Jowett's Plato, with Seneca's Latin and Sun Tzu's Chinese.</li>
-            <li><a href="https://scaife.perseus.org/library/" target="_blank" rel="noopener">Perseus Digital Library</a> <span class="cr-lic">CC BY-SA 4.0</span> — the Greek of the <i>Meditations</i>, in Jan Hendrik Leopold's edition of 1908; both halves of the <i>Metamorphoses</i>, in Brookes More's translation of 1922 and Hugo Magnus's Latin; and both halves of <i>The Twelve Caesars</i>, in Alexander Thomson's translation and Maximilian Ihm's Latin of 1908.</li>
+            <li><a href="https://en.wikisource.org" target="_blank" rel="noopener">Wikisource</a> <span class="cr-lic">public domain</span> — the Library's texts: Gummere's Seneca, Haines's Marcus Aurelius, Giles's Sun Tzu, Jowett's Plato and Ross's Aristotle, with Seneca's Latin and Sun Tzu's Chinese.</li>
+            <li><a href="https://scaife.perseus.org/library/" target="_blank" rel="noopener">Perseus Digital Library</a> <span class="cr-lic">CC BY-SA 4.0</span> — the Greek of the <i>Meditations</i> (Jan Hendrik Leopold's edition of 1908), of the <i>Symposium</i> (John Burnet) and of the <i>Nicomachean Ethics</i> (Ingram Bywater); and both halves of the <i>Metamorphoses</i> (Brookes More's translation of 1922, with Hugo Magnus's Latin), <i>The Twelve Caesars</i> (Alexander Thomson's translation, with Maximilian Ihm's Latin of 1908), <i>On the Nature of Things</i> (William Ellery Leonard's verse of 1916), <i>Oedipus Rex</i> (Richard Jebb's translation of 1887) and <i>Antigone</i> (Jebb's of 1891), both with Francis Storr's Greek of 1912 and both Englished from Jebb by way of Perseus's 1988 modernization to remove archaisms — Alex Sens on the <i>Oedipus Rex</i> and Pierre Habel on the <i>Antigone</i>, each reviewed by John Gibert; and <i>The Histories</i> (A. D. Godley's translation of 1920–1925 with his facing Greek — the English likewise modernized, a revision by Steven Ott reviewed by John Marincola).</li>
             <li><a href="https://registry.opendata.aws/terrain-tiles/" target="_blank" rel="noopener">Terrain Tiles on AWS</a> — terrain relief, from open elevation data by NASA (SRTM), USGS (GMTED2010), NOAA (ETOPO1) and the EU (EU-DEM), among others.</li>
             <li><a href="https://github.com/rhasspy/piper" target="_blank" rel="noopener">Piper</a> <span class="cr-lic">MIT</span> — the card narration voices, trained on <a href="https://www.openslr.org/141/" target="_blank" rel="noopener">LibriTTS-R</a> <span class="cr-lic">CC BY 4.0</span> and <a href="https://datashare.ed.ac.uk/handle/10283/3443" target="_blank" rel="noopener">VCTK</a> <span class="cr-lic">CC BY 4.0</span>.</li>
             <li><a href="https://fonts.google.com" target="_blank" rel="noopener">Google Fonts</a> <span class="cr-lic">OFL / Apache</span> — Fraunces, Newsreader, Inter, IBM Plex Mono, Noto Sans SC and the theme faces.</li>
