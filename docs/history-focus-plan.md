@@ -387,3 +387,48 @@ findspot compressed, two clauses ended up side by side saying the inscription "c
 centre" and is "read from the outside inward" — geometry and reading direction, two different facts, and
 nothing on the page saying so. Reworded to spiral "between rim and centre". Neither the word count, the
 marker check, the split nor the style pass can see a sentence that contradicts its neighbour.
+
+### F5 — `wh-014` `wh-025` `wh-035` `wh-037` `wh-041` `wh-042` `wh-043` `wh-046` `wh-059` `wh-061` `wh-093` `wh-094` `wh-100` (2026-08-06) — SHIPPED
+
+**THE PASS IS COMPLETE. `node .claude/card-focus.js` reports 0 of 269 cards needing revision** — no question
+anywhere names a modern scholar, and no abstract is more than three-tenths historiography. Fifteen clues
+rewritten, one abstract rebuilt, six date lines cut.
+
+**`wh-061` is the card that could have been exempted and was not.** Its answer term is a modern construct —
+its own date line names two MODELS rather than two dates — so it sits close to `wh-064` and `wh-106`, and
+adding it to `EXEMPT` would have closed the batch in one line. That would have moved the bar rather than met
+it. Rewritten instead, so that each block now leads with evidence and the models follow: the trait list and
+what a proxy is, then the African record from 300,000 to 70,000 years ago, then Cueva de los Aviones, with
+the revolution and demographic cases stated without their authors. It went from 4/10 to 0 and reads better,
+because a reader now learns what the traits ARE before learning that their timing is argued.
+
+**A TAXON'S NAMING AUTHORITY IS NOT A DIG DATE, and that line had to be drawn here.** Part one's rule is
+that `Found`, `Excavated`, `Named` and `Published` belong only on a card whose subject is a modern act — and
+applied literally it would strip `Named 1758, by Carl Linnaeus` off *Homo sapiens*, which is not the story of
+a discovery but the species' formal name, the thing every reference work prints beside it. So the dig and
+publication rows went from the SITES and the period (`wh-014`, `wh-043`, `wh-059`, `wh-093`, and the coining
+of "Paleo-Indian" on `wh-100`), `wh-041` lost its `Found 2013–2014` and kept its `Named 2015`, and `wh-042`
+was left alone. **The glossary pass reached the same conclusion from the other side** — L8's finding that on
+a taxon the describer and year are the formal identity and stay.
+
+**Four F5 cards were deliberately NOT touched on the date line** — `wh-025`, `wh-035`, `wh-037`, `wh-094` —
+because they belong to part one's own pending H-batches, and doing them piecemeal here would leave those
+batches with a record that no longer matches what they find. They still carry `Type fossil 1856`,
+`Published 1860s–1870s`, `Found Mungo Lady 1968` and the rest.
+
+**F5 IS THE FIRST BATCH TO TOUCH A CARD THAT HAS TRANSLATIONS, and the finding is worth carrying.** F1–F4
+were all Ancient Greece cards, written since the `MULTILANG` gate and English-only; every F5 card carries all
+nine. `add-sources.js` caught it at once — `wh-061`'s Japanese abstract has 14 markers against the new
+English 13 — and the check that matters was run before deciding anything: **the highest `data-fn` in all nine
+translations is 7, which is exactly the length of the source list, so not one marker is dead.** What ships is
+stale prose with a stale marker arrangement, which is the accepted state of every translation under the gate,
+and not the dangerous kind of stale, which is a marker pointing past the end of a list or at a work that no
+longer says what the sentence claims. Left as it is, deliberately, and recorded. **The check to run after
+rewriting a translated card's abstract is the MAXIMUM `data-fn` per language against the source count** — the
+marker COUNT differing is expected and harmless; a marker running past the end is not.
+
+**One clue lost a claim rather than a name.** `wh-094`'s second phrasing called the Lake Mungo woman "the
+oldest known cremation anywhere" while the card's own seventh sentence says the burning is incomplete, no
+pyre survives, and specialists now hedge that word. It now says "the earliest burnt human remains on record",
+which is what the background states plainly. **A clue must not assert what its own background withholds** —
+the mirror of F1's guardrail about not cutting a hedge to lose a name.
