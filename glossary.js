@@ -641,7 +641,8 @@ window.GLOSSARY = {
 "Oikos": "An oikos was a Greek household taken as a whole: the dwelling, the farmland attached to it, the goods and livestock, and every person belonging to it, free or enslaved.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> It was the working unit of ancient Greek society, and the ties that ran through it, between spouses, between parents and children and between owner and slave, mattered more in daily life than membership of any wider kin group.<sup class=\"fn\" data-fn=\"1\"></sup> Historians once held that the growth of the city-state destroyed it, but the household kept its importance alongside the polis and was expected to mirror the city's own political order.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Xenia": "Xenia was the ancient Greek bond of guest-friendship, obliging a host to receive, feed and protect a traveller who came to the door, and obliging the guest not to abuse what he was given.<sup class=\"fn\" data-fn=\"1\"></sup> The relationship was sealed and renewed by presents passing between the two households, and it outlasted the visit itself.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Because it applied to strangers rather than to kin or neighbours, Greek literature uses it as a measure of character, and the treatment of visitors in the <i>Odyssey</i> is a standard against which nearly every figure in the poem is weighed.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Kleos": "Kleos is the ancient Greek word for the renown that survives a person, literally what is heard said of them, and in early epic it is the compensation a warrior accepts for a short and dangerous life.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Because renown of that kind depends on being repeated, poets are its keepers rather than its subjects, and epic represents the singing of famous men as the means by which their fame reaches the sky.<sup class=\"fn\" data-fn=\"2\"></sup> The concern with it long outlived epic and shaped the praise poetry of the following centuries, which celebrated the winners of athletic contests by setting them beside the heroes of the past.<sup class=\"fn\" data-fn=\"4\"></sup>",
-"Basileus": "A basileus was a Greek leader or ruler, the word later used for a king, though its earliest form in the Linear B tablets belongs to officials well below the top of the palace hierarchy.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> After the collapse of the palaces the title rose in standing, and a community could hold several such men at once, heads of leading families rather than a single monarch.<sup class=\"fn\" data-fn=\"2\"></sup> Their position rested on wealth, on trade in metal and fine goods, on the feasts they gave and on their part in cult, as much as on any success in war.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Basileus": "A basileus was a Greek leader or ruler, the word later used for a king, though its earliest form in the Linear B tablets belongs to officials well below the top of the palace hierarchy.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> After the collapse of the palaces the title rose in standing, and a community could hold several such men at once, heads of leading families rather than a single monarch.<sup class=\"fn\" data-fn=\"2\"></sup> Their position rested on wealth, on trade in metal and fine goods, on the feasts they gave and on their part in cult, as much as on any success in war.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Theogony": "The <i>Theogony</i> is an early Greek poem in hexameters, ascribed to Hesiod, that sets the gods in a single genealogy reaching from the earliest powers to the established reign of Zeus.<sup class=\"fn\" data-fn=\"1\"></sup> Its first beings are Chaos, Gaia and Eros, and what Chaos denotes — a gap, or a power that goes on to bear other gods — remains disputed.<sup class=\"fn\" data-fn=\"2\"></sup> Sovereignty in it changes hands by violence across three generations, and editors differ over how much of the transmitted text is the poet's, several verses and the ending being marked as spurious by some and defended by others.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -1376,7 +1377,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Oikos": ["oikoi","the oikos"],
 "Xenia": ["guest-friendship","xenos"],
 "Kleos": ["kleos aphthiton"],
-"Basileus": ["basileis","the basileus"]
+"Basileus": ["basileis","the basileus"],
+"Theogony": ["Hesiod's Theogony","the Theogony"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -1384,7 +1386,8 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Homo": true,
 "Turkey": true,
 "Boreal": true,
-"Mode_1": true
+"Mode_1": true,
+"Theogony": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -2029,7 +2032,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Oikos": ["institution","concept","history","greece","iron age"],
 "Xenia": ["practice","concept","history","greece","iron age"],
 "Kleos": ["concept","literature","history","greece","iron age"],
-"Basileus": ["title","institution","history","greece","iron age"]
+"Basileus": ["title","institution","history","greece","iron age"],
+"Theogony": ["text","literature","history","greece","iron age"]
 });
 
 /* Source footnotes per term (slug -> [Chicago note-form citations]) — a numbered fold at the foot of the popup.
@@ -2675,7 +2679,8 @@ window.GLOSSARY_SOURCES = Object.assign(window.GLOSSARY_SOURCES || {}, {
 "Oikos": ["Tim Parkin, review of <i>The Family in Greek History</i>, by Cynthia Patterson, Bryn Mawr Classical Review 1999.06.07, https://bmcr.brynmawr.edu/1999/1999.06.07/. [Open access]","Cathal Woods, review of <i>The Household as the Foundation of Aristotle's Polis</i>, by D. Brendan Nagle, Bryn Mawr Classical Review 2006.11.14, https://bmcr.brynmawr.edu/2006/2006.11.14/. [Open access]"],
 "Xenia": ["David Pollio, review of <i>A Companion to Homer's Odyssey</i>, by James V. Morrison, Bryn Mawr Classical Review 2004.07.04, https://bmcr.brynmawr.edu/2004/2004.07.04/. [Open access]","John Papadopoulos, review of <i>Homer's World: Fiction, Tradition, Reality</i>, ed. Øivind Andersen and Matthew Dickie, Bryn Mawr Classical Review 1996.05.02, https://bmcr.brynmawr.edu/1996/1996.05.02/. [Open access]"],
 "Kleos": ["Mark W. Edwards, \"Homer and Oral Tradition: The Formula, Part I,\" <i>Oral Tradition</i> 1, no. 2 (1986): 171–230, https://journal.oraltradition.org/wp-content/uploads/files/articles/1ii/2_edwards.pdf. [Open access]","William C. Scott, \"Oral Verse-Making in Homer's Odyssey,\" <i>Oral Tradition</i> 4, no. 3 (1989): 382–412, https://journal.oraltradition.org/wp-content/uploads/files/articles/4iii/6_scott.pdf. [Open access]","David Pollio, review of <i>A Companion to Homer's Odyssey</i>, by James V. Morrison, Bryn Mawr Classical Review 2004.07.04, https://bmcr.brynmawr.edu/2004/2004.07.04/. [Open access]","Ralph Rosen, review of <i>Pindar's Homer: The Lyric Possession of an Epic Past</i>, by Gregory Nagy, Bryn Mawr Classical Review 1991.01.13, https://bmcr.brynmawr.edu/1991/1991.01.13/. [Open access]"],
-"Basileus": ["Silke Knippschild, review of <i>Ancient Greece: From the Mycenaean Palaces to the Age of Homer</i>, ed. Sigrid Deger-Jalkotzy and Irene S. Lemos, Bryn Mawr Classical Review 2007.08.39, https://bmcr.brynmawr.edu/2007/2007.08.39/. [Open access]","Edmund Bloedow, review of <i>Early Greece</i>, by Oswyn Murray, Bryn Mawr Classical Review 1994.02.01, https://bmcr.brynmawr.edu/1994/1994.02.01/. [Open access]"]
+"Basileus": ["Silke Knippschild, review of <i>Ancient Greece: From the Mycenaean Palaces to the Age of Homer</i>, ed. Sigrid Deger-Jalkotzy and Irene S. Lemos, Bryn Mawr Classical Review 2007.08.39, https://bmcr.brynmawr.edu/2007/2007.08.39/. [Open access]","Edmund Bloedow, review of <i>Early Greece</i>, by Oswyn Murray, Bryn Mawr Classical Review 1994.02.01, https://bmcr.brynmawr.edu/1994/1994.02.01/. [Open access]"],
+"Theogony": ["Cashman Kerr Prince, review of <i>Hesiod's Cosmos</i>, by Jenny Strauss Clay, Bryn Mawr Classical Review 2005.04.23, https://bmcr.brynmawr.edu/2005/2005.04.23/. [Open access]","Carolina López Ruiz, review of <i>Chaos, Cosmos and Creation in Early Greek Theogonies: An Ontological Exploration</i>, by Olaf Almqvist, Bryn Mawr Classical Review 2023.02.16, https://bmcr.brynmawr.edu/2023/2023.02.16/. [Open access]","Richard Janko, review of <i>Hesiod: Theogony, Works and Days, Testimonia</i>, ed. and trans. Glenn W. Most, Loeb Classical Library 57, Bryn Mawr Classical Review 2007.03.31, https://bmcr.brynmawr.edu/2007/2007.03.31/. [Open access]"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
