@@ -14,13 +14,14 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.23", released: "2026-08-06T06:23Z" };
+window.FOLIO_VERSION = { v: "1.24", released: "2026-08-06T07:11Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-06",
     t: "Plato’s dialogues gathered into one book, a stylus that keeps drawing, and a clearer Find it",
     items: [
+      "The daily quote on the home page turns over to its original language when you click it, and today’s — Marcus Aurelius, on reading the past to see the shape of what is coming — was one of the few with nothing to turn over to. Its Greek was on the shelf in the Library all along, so it has it now. The quote also changes over at midnight on your own clock rather than at midnight in Greenwich, which is what everything else dated on the page already did.",
       "Drawing with a stylus works properly now. It used to draw for a moment and then hand the page over to scrolling half way through a stroke; a stylus keeps the whole stroke, and your finger still scrolls the page underneath it. Holding the marker button also works both ways now — it puts the pen down and picks it back up, returning to the colour and tool you were last drawing with, instead of only ever putting it away.",
       "Find it gives the map the whole screen: the timeline at the bottom is gone, since the round says which year it is on and there was nothing there to use. A wrong guess now stays red until the next round rather than flashing once, and when the answer is revealed the place stays lit — so “It was here” shows you where, instead of blinking and leaving the map as it was.",
       "Plato’s <i>The Dialogues</i> joins the Library — everything of his that survives bar one, thirty-five works, each with the Greek beside the English. They are in the order Plato was arranged in antiquity, opening with the four that run through the end of Socrates’ life: <i>Euthyphro</i> on the way in to court, the <i>Apology</i>, his defence to the jury that condemned him, <i>Crito</i> in the cell where he refuses to escape, and <i>Phaedo</i> on the last afternoon. The <i>Symposium</i>, <i>Gorgias</i>, <i>Meno</i>, <i>Phaedrus</i>, the <i>Timaeus</i> that gave us Atlantis and the <i>Laws</i> are all here too. Several are probably not by Plato, which was already being said in antiquity; they are kept because that is what came down under his name, and the book’s first page says which. The translations are the Loeb ones by Fowler, Lamb and Bury, published 1914–1929 and long out of copyright in the United States. Every one of the thirty-five lines up against the Greek without a gap on either side. <i>The Republic</i> is the exception, its English here still being in copyright — it is on the shelf already, in Jowett’s translation, as a book of its own.",
