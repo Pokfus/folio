@@ -1795,16 +1795,27 @@ const BOOKS = {
        David Grene's of 1942, Robert Fagles's of 1982 and Anne Carson's Antigonick-era versions — are
        all firmly in copyright, and are named here for the reason Campbell, Hays, Griffith, Lee,
        Humphries, Melville and Brown are named above: so that nobody reaches for one. */
+    /* CORRECTED Aug 2026, when the Antigone was added: this said "public domain on every ground, in
+       both columns" and left out that Perseus has edited the PROSE as well as digitising it. The
+       English served here is Jebb MODERNIZED TO REMOVE ARCHAISMS, by Alex Sens in 1988 and reviewed
+       by John Gibert, which this file's own header states — a recent derivative work carried by
+       CC BY-SA 4.0 rather than by an expiry, which is the Histories' case and is now stated here as
+       it is on the Antigone. Found by running the check across all three plays rather than only over
+       the book being added; Coleridge's Medea carries no such note, checked rather than assumed. */
     rights:
-      "Public domain on every ground, in both columns. Richard Jebb's translation was published at " +
-      "Cambridge in 1887 and Jebb died in 1905, so its copyright has expired in the United States on " +
-      "the pre-1929 publication rule and everywhere that the term is the author's life plus a hundred " +
-      "years or less. The Greek beside it is Francis Storr's text of 1912, and Storr died in 1919, so " +
-      "the same holds of it. Sophocles wrote the play in Athens some twenty-four centuries ago. The " +
-      "digital editions of both texts are prepared by the Perseus Digital Library at Tufts University " +
-      "and are released under a Creative Commons Attribution-ShareAlike 4.0 International licence. " +
-      "(The modern translations by David Grene, 1942, Dudley Fitts and Robert Fitzgerald, 1949, and " +
-      "Robert Fagles, 1982, are still in copyright and are not used here.)",
+      "Public domain in both columns, with one addition stated. Richard Jebb's translation was " +
+      "published at Cambridge in 1887 and Jebb died in 1905, so its copyright has expired in the " +
+      "United States on the pre-1929 publication rule and everywhere that the term is the author's " +
+      "life plus a hundred years or less. The Greek beside it is Francis Storr's text of 1912, and " +
+      "Storr died in 1919, so the same holds of it. Sophocles wrote the play in Athens some " +
+      "twenty-four centuries ago. The English printed here is not quite Jebb's page, however: it is " +
+      "his translation modernized to remove archaisms, by Alex Sens in 1988 and reviewed by John " +
+      "Gibert, which the source file records in its own header. That editing is a recent work rather " +
+      "than an expired one, and it — with the digital editions of both texts — is prepared by the " +
+      "Perseus Digital Library at Tufts University and released under a Creative Commons " +
+      "Attribution-ShareAlike 4.0 International licence. (The modern translations by David Grene, " +
+      "1942, Dudley Fitts and Robert Fitzgerald, 1949, and Robert Fagles, 1982, are still in " +
+      "copyright and are not used here.)",
     sourceName: "Perseus Digital Library",
     sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0011.tlg004/",
 
@@ -1848,7 +1859,10 @@ const BOOKS = {
         "Oedipus's daughter, which he wrote first — so the three are not a trilogy and were composed " +
         "in the reverse of their story's order.",
       "The translation here is Richard Jebb's of 1887, and the Greek beside it is Francis Storr's " +
-        "text of 1912. The small raised figures running through both columns are LINE numbers of the " +
+        "text of 1912. One thing about the English should be said plainly: it is not quite Jebb's " +
+        "page. The Perseus Digital Library, which prepared both texts, also modernized this " +
+        "translation in 1988 to remove archaisms, so the wording is Jebb's revised rather than " +
+        "Jebb's as printed. The small raised figures running through both columns are LINE numbers of the " +
         "Greek, which is how any passage of a tragedy is cited in any language: Jebb translates into " +
         "prose and so numbers the line each block of it begins at, while Storr's verse numbers every " +
         "line, and a figure appearing in both columns marks the same place in the play. Two things " +
@@ -3332,6 +3346,206 @@ const BOOKS = {
       sourceName: "Perseus Digital Library",
       sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0006.tlg003/",
       url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0006/tlg003/tlg0006.tlg003.perseus-grc2.xml",
+    },
+  },
+
+  "sophocles-antigone": {
+    title: "Antigone",
+    // the play's own Greek title, which is what its Greek column is an edition of — the pattern
+    // Lucretius set and both earlier plays followed
+    subtitle: "Ἀντιγόνη",
+    author: "Sophocles",
+    translator: "Richard Jebb",
+    edition: "Sophocles: The Plays and Fragments, Volume 3, Cambridge University Press, 1891",
+    /* NOT the Oedipus Rex's volume, and the difference is worth stating rather than copying across:
+       that book is Jebb's volume 1 of 1887 and this is his volume 3 of 1891, the same commentary
+       series a few years on. A second book by an author already on the shelf is exactly where an
+       edition line gets inherited by hand and quietly made wrong. */
+    written: "c. 441 BCE",
+
+    /* ---------- THE LICENCE, and it is the OEDIPUS REX'S PLUS ONE LAYER ----------
+       The two columns are the easy case twice over, and then there is a third thing that has to be
+       said out loud, which is why this entry is longer than its sibling's.
+
+       THE TWO PRINTED EDITIONS. Richard Jebb published this translation at Cambridge in 1891 and died
+       in 1905; Francis Storr's Greek is the 1912 Loeb — the same volume the Oedipus Rex takes its
+       Greek from, since Storr's first volume holds Oedipus the King, Oedipus at Colonus and Antigone
+       together — and Storr died in 1919. So both clear the pre-1929 publication rule, life plus
+       seventy, and life plus a hundred, and neither needs the limit the Art of War states for Giles
+       (2029), the Nicomachean Ethics for Ross (2042), the Song of Roland for both its columns, or the
+       Medea for Murray (2028). BOTH YEARS WERE CHECKED RATHER THAN RECALLED, against Wikisource's
+       author pages, which give Jebb 1841–1905 and Storr 1839–1919: the Ovid entry's Hugo Magnus
+       mistake was precisely a death year asserted from memory to hold up a licence. The play beneath
+       them was written in Athens about twenty-five centuries ago.
+
+       AND THE THIRD LAYER, WHICH IS THE HERODOTUS CASE A SECOND TIME. Everywhere else on this shelf
+       Perseus's contribution is the DIGITAL edition over a printed text left as its editor set it.
+       Here, as with Godley's Herodotus, they have also edited the PROSE: this English is Jebb
+       MODERNIZED TO REMOVE ARCHAISMS, by Pierre Habel in 1988, reviewed by John Gibert, which the
+       source file states in its own header — its subtitle is "Modernized by Perseus" — and which is
+       quoted here rather than paraphrased into something softer. That is a recent derivative work
+       carried by CC BY-SA 4.0 rather than by an expiry, so it is stated in `rights`, in the book's
+       own front matter and here, exactly as the Histories' entry sets out. A reader who goes looking
+       for the 1891 printing must not be surprised by what they find.
+
+       THE SHIPPED OEDIPUS REX CARRIES THE SAME LAYER AND ITS RIGHTS STRING DID NOT SAY SO — found by
+       running this check across the shelf's other two plays rather than only on the book being added,
+       which is the sibling-consistency check the citation plans keep prescribing. That file's header
+       records the same 1988 modernization, by Alex Sens rather than Habel and reviewed by the same
+       John Gibert, and its `rights` called the book "public domain on every ground, in both columns"
+       with no mention of it. Corrected in the same commit as this book landed. (Coleridge's Medea
+       carries no such note — checked, not assumed — so the Medea's entry is right as it stands.)
+
+       The translations a reader is likeliest to own — Dudley Fitts and Robert Fitzgerald's of 1939,
+       Elizabeth Wyckoff's of 1954, Robert Fagles's of 1982 and Anne Carson's Antigonick of 2012 — are
+       all firmly in copyright, and are named here for the reason Campbell, Hays, Griffith, Lee,
+       Humphries, Melville, Brown, Warner and de Sélincourt are named above: so that nobody reaches
+       for one. */
+    rights:
+      "Public domain in both columns, with one addition stated. Richard Jebb's translation was " +
+      "published at Cambridge in 1891 and Jebb died in 1905; the Greek beside it is Francis Storr's " +
+      "text of 1912, and Storr died in 1919. Both are therefore public domain in the United States on " +
+      "the pre-1929 publication rule and everywhere the term is the author's life plus a hundred " +
+      "years or less. Sophocles wrote the play in Athens some twenty-five centuries ago. The English " +
+      "printed here is not quite Jebb's page, however: it is his translation modernized to remove " +
+      "archaisms, by Pierre Habel in 1988 and reviewed by John Gibert, which the source file records " +
+      "in its own header. That editing is a recent work rather than an expired one, and it — with the " +
+      "digital editions of both texts — is prepared by the Perseus Digital Library at Tufts " +
+      "University and released under a Creative Commons Attribution-ShareAlike 4.0 International " +
+      "licence. (The modern translations by Dudley Fitts and Robert Fitzgerald, 1939, Elizabeth " +
+      "Wyckoff, 1954, and Robert Fagles, 1982, are still in copyright and are not used here.)",
+    sourceName: "Perseus Digital Library",
+    sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0011.tlg002/",
+
+    /* THE FRONT MATTER — chapter 0. Five things a reader should be told before they start rather than
+       work out late: what the situation is and how quickly it is set up, what the argument at the
+       centre of it actually is and why it is still argued about, what the parts and the chorus are,
+       what is and is not known about the date and where the play sits among Sophocles' other two on
+       the same family, and what the two columns, the small figures and the italic directions are —
+       including the modernization, which belongs on the page and not only in a licence string. */
+    about: [
+      "<b>Antigone</b> is a tragedy staged in Athens in the fifth century BCE, and its situation is " +
+        "set up in the first two minutes. Thebes has survived a siege; the two brothers who led the " +
+        "two sides, Eteocles and Polyneices, have killed each other; and Creon, their uncle and now " +
+        "the city's ruler, has buried one with full honours and forbidden anyone to bury the other, " +
+        "on pain of death. Antigone, sister to both, tells her sister Ismene that she intends to bury " +
+        "him anyway. She is caught doing it, and the rest of the play is what follows from two people " +
+        "who will not move: Creon condemns her, and by the time he is talked out of it he has lost " +
+        "his son, his wife and any reason to go on living.",
+      "What the play is famous for is that both of them have a case, and it does not adjudicate. " +
+        "Creon is not a tyrant when the play opens — he is a new ruler with a city just out of a " +
+        "civil war, and his argument is that a state which honours its attackers has no claim on " +
+        "anyone's loyalty. Antigone's is that the obligation to bury her brother is older than any " +
+        "decree and not the city's to withdraw. The play gives each of them the strongest form of " +
+        "their own position and then shows what it costs to hold it without bending; the chorus, " +
+        "asked to take a side, mostly declines. That symmetry is why the philosopher Hegel used it as " +
+        "his central example of tragedy as a collision between two goods rather than between right " +
+        "and wrong, and why the play has been staged as a political argument in almost every " +
+        "generation since.",
+      "It is written in the shape every Athenian tragedy uses, and this edition marks it: spoken " +
+        "scenes alternating with odes sung and danced by a chorus, here of Theban elders, who are " +
+        "characters in the story as well as commentators on it. Folio's parts follow the edition's " +
+        "own divisions and its own labels for them — a spoken part is an <i>episode</i> and a sung " +
+        "one a <i>choral ode</i>, sixteen in all. Elsewhere you will meet a more precise set of names " +
+        "for the same divisions: prologue for the opening scene, parodos for the chorus's entrance " +
+        "song, stasimon for each ode after it, and exodos for the final scene. Those are the standard " +
+        "analysis and they are worth knowing, but they are not the words this edition uses, so they " +
+        "are not used here. Part 4 is the ode beginning \"Wonders are many, and none is more " +
+        "wonderful than man\", which is the most quoted chorus in Greek tragedy.",
+      "The date is not recorded. It is usually put at about 441 BCE on the strength of an ancient " +
+        "note which says Sophocles was elected general on the back of the play's success — he did " +
+        "hold that office around then — but that is a story told about the play rather than a record " +
+        "of its performance, and it is worth treating as tradition. What is clearer is where it sits " +
+        "among his work: Sophocles wrote three plays about this family, and <i>Antigone</i> came " +
+        "first, some twelve years before <i>Oedipus Rex</i> and more than thirty before " +
+        "<i>Oedipus at Colonus</i>. They are not a trilogy and were not composed in their story's " +
+        "order, which is why details differ between them. Sophocles lived from about 496 to 406 BCE, " +
+        "wrote some hundred and twenty plays of which seven survive whole, and served Athens as a " +
+        "treasurer and a general.",
+      "The translation here is Richard Jebb's of 1891 and the Greek beside it is Francis Storr's " +
+        "text of 1912. One thing about the English should be said plainly: it is not quite Jebb's " +
+        "page. The Perseus Digital Library, which prepared both texts, also modernized this " +
+        "translation in 1988 to remove archaisms, so the wording is Jebb's revised rather than Jebb's " +
+        "as printed. The small raised figures running through both columns are LINE numbers of the " +
+        "Greek, which is how any passage of a tragedy is cited in any language: Jebb translates into " +
+        "prose and numbers the line each block of it begins at, while Storr's verse numbers every " +
+        "line, and a figure appearing in both columns marks the same place in the play. Two further " +
+        "differences between the editions are visible on the page. The italic stage directions are " +
+        "the English edition's — the ancient text records none, and every one printed in a modern " +
+        "edition is its editor's inference from what the characters say, which is why the Greek " +
+        "column beside them is blank. And the Greek tells two messengers apart where the English " +
+        "calls both of them simply Messenger.",
+    ],
+
+    /* ---------- A PLAY: the drama layout a THIRD time, and it needed no new reader ----------
+       The Medea's entry recorded that a shape already met costs nothing to meet again, and this is
+       that a second time: all three of these files divide the work with `subtype="episode"` and
+       `subtype="choral"` at the top level and nest the strophe and antistrophe of each ode inside
+       them, which is exactly what teiDramaDivisions selects.
+
+       MEASURED OVER THE WHOLE PLAY BEFORE ANY OF IT WAS BELIEVED, against both files rather than
+       against this comment, and re-checked on every run: 16 divisions on each side, of the same kinds
+       in the same order; 299 speeches on each side; and the Greek running 1 to 1353 against the
+       English's 513 numbered blocks.
+
+       IT IS THE CLEANEST PAIRING OF THE THREE PLAYS: 513 of 513 sections pair and NOT ONE draws an
+       empty Greek cell, where the Oedipus Rex leaves three of 683 unpaired and the Medea two of 502.
+       So this is the first drama here with no table of exceptions to state, and the front matter says
+       nothing about empty cells because there are none to explain.
+
+       THE ONE DIVERGENCE IS A SINGLE LINE NUMBER, AND IT COSTS THE PAGE NOTHING — which is worth
+       writing down precisely, because the warning it raises on every run looks like a fault and is
+       not. Fifteen of the sixteen divisions open at the same line on both sides; the fourth opens at
+       332 in Jebb and 333 in Storr, which is the first line of the ode on man. Both editions carry
+       the ode and neither loses a word of it — they simply number its opening line differently — and
+       because the pairing is a RANGE test rather than an equality one (a Greek line joins the English
+       block whose range contains its own number) the Greek's 333 falls inside the English's 332 block
+       and the row draws with both columns filled. Confirmed by the run, not merely predicted here:
+       513 of 513. The divergence is reported rather than smoothed away, as the Oedipus Rex's three
+       unpaired lines and the Nicomachean Ethics' three repeated Bekker pages are.
+
+       THIS EDITION PRINTS NO NOTES AT ALL — measured, zero in the whole English body, as the Oedipus
+       Rex's prints none — so the book renders with no note fold, which is correct and not a wiring
+       fault. dramaNotes is still run over it and reports anything that ever appears.
+
+       AND <del> IS LIVE AND CHANGES NOTHING, which is the thing Lucretius' entry says to measure
+       rather than assume. The English carries five and the Greek none, and — unlike the Oedipus Rex's
+       single one, which wrapped a whole line and took that play from 684 sections to 683 — not one of
+       the five wraps a whole line. Every one sits inside a line, so dropping them with their words
+       shortens five lines and removes no section from either column. That is the Medea's finding a
+       second time, and it is why the rule is measured per book instead of being carried over.
+
+       ONE MORE THING THE GREEK NEEDS AND THE ENGLISH DOES NOT: five of Storr's line numbers carry a
+       letter (161b, 323a, 1048a, 1261a, 1284a) where none of Jebb's does, so the `data-n` sort key
+       lineSortKey writes is doing real work on this book's original column — 323 and 323a are two
+       different places, and parseInt would collapse them into one row and take the ordering with it. */
+    source: "tei",
+    url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0011/tlg002/tlg0011.tlg002.perseus-eng2.xml",
+    layout: "drama",
+    /* "Part" is Folio's own neutral word for a division, as it is for both earlier plays: this
+       edition numbers its divisions not at all, and an act is a later theatre's unit a Greek tragedy
+       has not got. The number is Folio's; the NAME of each part is the edition's. */
+    chapterWord: "Part",
+    // sixteen is what the edition divides the play into, and is checked against the file on every run
+    chapters: Array.from({ length: 16 }, (_, i) => i + 1),
+
+    original: {
+      lang: "grc",
+      langName: "Greek",
+      source: "tei",
+      layout: "drama",
+      edition: "Francis Storr, Loeb Classical Library, William Heinemann, London, 1912",
+      rights:
+        "Two layers, both stated, and neither carries a limit. Sophocles wrote the play in Greek in " +
+        "the fifth century BCE, so the words themselves are in the public domain everywhere. The text " +
+        "printed here is Francis Storr's of 1912, published before 1929 and so public domain in the " +
+        "United States, and Storr died in 1919, so it is equally free where the term is the author's " +
+        "life plus seventy or a hundred years. The digital edition is prepared by the Perseus Digital " +
+        "Library at Tufts University and is released under a Creative Commons Attribution-ShareAlike " +
+        "4.0 International licence.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0011.tlg002/",
+      url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0011/tlg002/tlg0011.tlg002.perseus-grc2.xml",
     },
   },
 };
