@@ -165,6 +165,10 @@ be avoided but the same afternoons written twice on purpose: Cynoscephalae is th
 independence here and the beginning of Rome's government of the East there. Write the card this
 collection needs.
 
+There is one pair outside that deck: **`gr-738 The invasion of India` and `in-111 Alexander's Indian
+campaign`** in `docs/india-card-plan.md` — the same months from opposite ends, one about the limit of a
+Macedonian army's reach and one about what arrived on the Indus.
+
 ## Glossary
 
 The glossary has essentially nothing Greek — of 401 terms only `Greece` (the modern country) and

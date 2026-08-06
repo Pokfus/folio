@@ -1338,6 +1338,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   set **date, name and transliteration conventions** (the Julian/Gregorian gap, Kyiv against Kiev), and the
   first whose subject reaches the present day — read its "History, not archaeology" and "Sourcing" sections
   before writing anything after 1917. Not part of the site.
+- `docs/india-card-plan.md` — the **1000-card running order for the India collection** (`col-43`): every
+  card's number, topic and deck, fixed in advance across 9 decks and 31 leaf subdecks, so the collection
+  can be grown one card at a time over many sessions. The fifth of the planned collections and used
+  exactly like the others — the next card to write is the lowest `in-NNN` not yet in `data.js` — see the
+  "INDIA" bullet under "Generating cards & glossary entries". **No card has been written yet**: the plan
+  and the tree shipped together on 2026-08-06 and the collection starts at `in-001`. Read its "What this
+  collection is about" section before writing anything — the subject is the SUBCONTINENT before 1947 and
+  the Republic after, and getting that wrong makes a political claim without noticing. Not part of the site.
 - `docs/history-focus-plan.md` — the rule that **Folio is a history site, not an archaeology site**, the measure that
   finds cards written the other way round (24 of 119 flagged, measured before the 2026-08-04 renumbering — the
   flags travel with the cards, the ids in its table do not), and the six rewrite batches. Opened Aug 2026 on request
@@ -1506,9 +1514,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   entries" below). **The old single `wh-prehistory` deck and the empty `col-44`…`col-64` period decks
   are gone** (2026-08-04) — World History's tree is now the one in `docs/world-history-card-plan.md`,
   and card ids follow that plan's numbering. **`col-40` Ancient Rome gained its 7 decks and 25 leaf
-  subdecks, and `col-42` Russia its 9 decks and 29 leaf decks, on 2026-08-06** from
-  `docs/rome-card-plan.md` and `docs/russia-card-plan.md`, all empty; both stay under "Coming soon" until
-  their first card ships, since a collection with no cards is coming-soon whatever its `placeholder` says.
+  subdecks, `col-42` Russia its 9 decks and 29 leaf decks, and `col-43` India its 9 decks and 31 leaf
+  subdecks, on 2026-08-06** from `docs/rome-card-plan.md`, `docs/russia-card-plan.md` and
+  `docs/india-card-plan.md`, all empty; all three stay under "Coming soon" until their first card ships,
+  since a collection with no cards is coming-soon whatever its `placeholder` says.
 - `glossary.js` — `window.GLOSSARY` plus `window.GLOSSARY_DATES`, `GLOSSARY_TITLES`, `GLOSSARY_ALIASES`,
   `GLOSSARY_CASESENSITIVE`, `GLOSSARY_TAGS` (per-term category tags — the admin glossary's left-bar
   filter), `GLOSSARY_IMAGES` (per-term illustration — see the "Glossary image" bullet below) and
@@ -5096,6 +5105,37 @@ citation pass, and everything historical (`Rus'`, `Tsar`, `Serfdom`, `Boyar`, `B
 term whose surface is an ordinary English word (`Soviet`, `Duma`, `Thaw`, `Terror`) needs
 `GLOSSARY_CASESENSITIVE` or a narrower head word, and a term with a well-known variant spelling needs its
 alias the day it ships.
+
+**INDIA (`col-43`) is planned and not yet started (Aug 2026).** Its 9 decks and 31 leaf subdecks are laid
+out in `data.js` and its full 1000-card running order is `docs/india-card-plan.md`, written to the same
+rules as the other four plans and used the same way: **"Generate the next India card" means take the
+lowest `in-NNN` not yet in `data.js`, read its topic and deck from that plan, research it, and add it**
+with `node .claude/add-card.js <card.json> <deckId>` — always passing the deck id. The next number is:
+`node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='in-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"`
+(the padding is right for every id but `in-1000`). **Read its "What this collection is about" section
+first**: before 1947 the subject is the SUBCONTINENT and after 1947 the Republic of India, because the
+Indus cities are in Pakistan, Lahore was a Mughal capital and the Bengal of 1905 is now two countries —
+a collection that treats all of that as the early history of one modern state has made a political claim
+without noticing. Four more things in that plan are decisions rather than lists. **The tree rejects
+James Mill's Hindu / Muslim / British periodisation** and periodises by polity and region instead, which
+is why it has decks for the Delhi Sultanate, Vijayanagara, the Deccan sultanates and the Mughals rather
+than a "Muslim period"; religion has its own 110-card deck where the questions can be asked properly.
+**The south gets 130 cards of its own** (`in-south-early`, `in-deccan-early`, `in-vijayanagara`,
+`in-deccan-sultanates`) rather than hanging off a northern spine. **Caste is periodised, not assumed** —
+`in-867` and `in-596` are both about the colonial census and codes hardening it, and a card that
+describes caste as a timeless four-fold order has repeated a nineteenth-century administrative document.
+And **`in-033 The Aryan migration debate` is this collection's Normanist controversy**, the exact
+counterpart of `ru-031`: the card is about the evidence and the argument and does not settle it. It is
+also the first plan to SPEND both modern-scholar slots — `in-134 The decipherment of Brahmi` (Ashoka was
+forgotten until 1837) and `in-920 The discovery of the Indo-European family` — both events rather than
+biographies, on Greece's `gr-075` reasoning. Conventions it fixes: plain English forms without
+diacritics, aliases the day a term ships (variant spellings are the rule here), the name current at the
+time for an event and the modern name for the place, and **chronological ranges given as ranges**, since
+the Buddha's dates move by more than a century between schemes. The glossary has the region's eight
+modern countries and nothing else — no `Dharma`, no `Varna`, no `Stupa`, no `Mughal_Empire` — so write
+those **cited from the start** at the `GLOSS_SRC_TARGET` bar, and mind that a term which is an ordinary
+English word (`Raj`, `Congress`, `Partition`, `Emergency`) needs `GLOSSARY_CASESENSITIVE` or a narrower
+head word.
 
 **ENGLISH ONLY (Aug 2026, on request): a new card or glossary term does NOT need its nine translations.**
 The site ships in English while the work is on making the English as good as it can be, so put the effort

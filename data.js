@@ -2171,7 +2171,257 @@ window.COLLECTION_TREE = {
       "title": "India",
       "total": 0,
       "placeholder": false,
-      "cardIds": [],
+      "children": [
+        {
+          "id": "in-ancient",
+          "title": "Ancient India",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "in-prehistory",
+              "title": "Prehistory and the Indus cities",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-vedic",
+              "title": "The Vedic period",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-mahajanapadas",
+              "title": "The Mahajanapadas and the new religions",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-mauryas",
+              "title": "The Mauryan Empire",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-after-mauryas",
+              "title": "After the Mauryas",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-guptas",
+              "title": "The Gupta age",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "in-early-medieval",
+          "title": "Early Medieval India",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "in-north-kingdoms",
+              "title": "The northern kingdoms",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-deccan-early",
+              "title": "The Deccan: Chalukyas and Rashtrakutas",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-south-early",
+              "title": "The Tamil south and the Cholas",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "in-sultanates",
+          "title": "Sultanates and Successor States",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "in-delhi-sultanate",
+              "title": "The Delhi Sultanate",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-vijayanagara",
+              "title": "Vijayanagara",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-deccan-sultanates",
+              "title": "The Deccan sultanates and the regional kingdoms",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "in-mughals",
+          "title": "The Mughals",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "in-early-mughals",
+              "title": "Babur to Akbar",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-high-mughal",
+              "title": "Jahangir to Aurangzeb",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-mughal-successors",
+              "title": "The successor states",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "in-colonial",
+          "title": "Company and Crown",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "in-company",
+              "title": "The East India Company",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-raj",
+              "title": "The Raj",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-colonial-impact",
+              "title": "Colonial rule and its consequences",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "in-freedom",
+          "title": "Nationalism and Independence",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "in-nationalism",
+              "title": "The rise of nationalism",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-gandhi",
+              "title": "Gandhi and mass politics",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-partition",
+              "title": "Independence and Partition",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "in-republic",
+          "title": "India since 1947",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "in-nehru",
+              "title": "The Nehru years",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-modern",
+              "title": "India since 1964",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "in-religion",
+          "title": "Religion and Philosophy",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "in-hinduism",
+              "title": "Hindu traditions",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-buddhism-jainism",
+              "title": "Buddhism and Jainism",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-other-faiths",
+              "title": "Islam, Sikhism and India's other faiths",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "in-culture",
+          "title": "Society, Economy and Culture",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "in-society",
+              "title": "Caste, family and society",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-economy",
+              "title": "Land, trade and the economy",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-languages",
+              "title": "Languages and literatures",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-arts",
+              "title": "Art, architecture and music",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "in-science",
+              "title": "Science, mathematics and medicine",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        }
+      ],
       "i18n": {
         "es": "India",
         "fr": "Inde",
