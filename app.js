@@ -4859,7 +4859,76 @@
        1.7–2.3, as every shipped colour on this shelf does. Saffron is also simply the right colour
        for the book, which is worth saying only because it did not have to be traded against
        anything: it happens to be where the numbers led. */
+    /* THE PREDICTION IN VYASA'S ROW HAS COME TRUE, and this row is what it said to do: say so rather
+       than quietly ship a colour nobody can tell from its neighbour. With nineteen colours down,
+       NOTHING anywhere in the shelf's own lightness and chroma band clears 25 of its nearest
+       neighbour, and only three places in it clear the shelf's own tightest pair at 20.4 at all — a
+       crimson at 24.0, and two greens at 22.2 and 20.1.
+
+       BOTH GREENS WERE REJECTED for the reason Vyasa's row already records: green is where Lucretius
+       and Aesop sit, and the only greens that clear them sit at the very top of the band's chroma,
+       which is what "bright enough to glow" means. A glowing green beside nineteen muted colours is a
+       failure every reader can see.
+
+       SO THE CRIMSON QUARTER IT IS, AND THAT NEEDS ANSWERING, because Euripides's row rejected a
+       crimson at exactly this separation. Its reason was specific and does not transfer: a red for the
+       SECOND ATHENIAN TRAGEDIAN, beside Sophocles's brick, would say the two of them are a set, and
+       Euripides and Sophocles are read against each other more constantly than any other two writers
+       here. Aristophanes is the comic poet — the one writer on this shelf whose whole point is that he
+       is not a tragedian — so the kinship that ruled it out for Euripides is the very thing a reader
+       would be right to reject here, and Euripides's own magenta-purple sits between the two reds in
+       any case, breaking the reading.
+
+       The exact swatch is then chosen for the ACCESSIBILITY margin rather than for the last tenth of a
+       point, which is the trade Caesar's row makes: the best-separated crimson reads 4.66:1 on the
+       tightest of the sixteen light papers, and this one gives up 0.1 of separation for 4.79. It
+       clears Sun Tzu's rust, Ovid's crimson and Sophocles's brick at 23.9, 24.4 and 26.9 — evenly
+       enough to read as its own colour against all three rather than as a near-miss of one.
+
+       THE NEXT BOOK AFTER THIS ONE WILL HAVE TO WIDEN THE BAND. Measured: widening the lightness band
+       upward is shut off by the 4.5:1 bar test-a11y.js holds the site to, so the room that is left is
+       darker and duller than anything here. Say that out loud then, as this row does now. */
+    "Aristophanes": "#A50030",
+    /* RESTORED, NOT NEW — and it is worth saying which. This row shipped with the Bhagavad Gita and
+       was deleted by accident in the very next commit, the one that added the Aristophanes row above
+       it, so for one release the Gita's banner and spine fell through to the generic indigo that
+       every `--tile` rule already declares. Two things made it invisible: the fallback renders
+       perfectly well, and the comment two rows up still refers to "the reason Vyasa's row already
+       records", so the file read as though the row were present. Found while measuring the shelf for
+       Kalidasa's colour below, which has to know which swatches are occupied. The value is the one
+       that was measured for it — see the note below the Antigone row for the search behind it. */
     "Vyasa": "#743C00",
+    /* AND HERE IS THE WIDENED BAND ARISTOPHANES' ROW SAID WOULD BE NEEDED — measured, and its
+       prediction was exactly right in both directions. Inside the shelf's own lightness and chroma
+       band (L 28.8–47.8, C 22.0–64.1) the best-separated colour left anywhere that also clears the
+       4.5:1 bar is a green at 22.2 from Lucretius, and it is a near-primary green: the glowing green
+       beside twenty muted colours that both Vyasa's row and Aristophanes' row already refused. Every
+       other hue family is worse than the shelf's own tightest pair at 20.4 — red 19.7, teal 19.7,
+       violet 17.7, blue 17.3, gold 15.7 — so the band really is full, and the choice was to widen it
+       or ship a colour nobody can tell from its neighbour.
+
+       WIDENING IT DOWNWARD COSTS NOTHING AND BUYS ACCESSIBILITY, which is the part worth carrying.
+       Aristophanes' row measured that the room upward is shut off by the contrast bar; the room
+       DOWNWARD is not, because a darker swatch reads better on a light paper, not worse. Dropping the
+       lightness floor to 24.8 and the chroma floor to 18.3 opens three genuinely separated places at
+       23.5–24.3, all of them reading 6.7–7.4:1 where the cramped band's best manages 4.54 — so the
+       widened band is the more accessible one, not a concession.
+
+       OF THE THREE, THE NUMBER AND THE EURIPIDES TEST AGREED FOR ONCE. A deep maroon ties Sophocles
+       at 24.3 and was rejected on his row's own reasoning: with five plays now on the shelf, a wine
+       red beside the tragedian's brick says Kalidasa and Sophocles are a set, which is the kinship
+       Euripides' row refused a better number to avoid. A deep forest green ties Aesop at 23.6 and
+       sits 24.1 from Lucretius and 24.6 from Gilgamesh — evenly crowded against all three at once,
+       which is the crowded quarter Vyasa's row warns about, and green is the obvious choice for a
+       forest pastoral precisely because it is the obvious one. This deep peacock-teal clears Aesop at
+       24.3, Aristotle at 24.8 and Marcus Aurelius at 27.4 — three writers no reader ties to a Sanskrit
+       court poet, and evenly enough that it reads as its own colour rather than as a near-miss of any
+       of them. It reads 6.75:1 on the tightest of the sixteen light papers, better than all but two
+       shipped colours, and 1.3–1.8 on the dark papers as every one of them does.
+
+       THE NEXT BOOK WILL HAVE TO WIDEN THE BAND AGAIN, and there is less room than this row had:
+       darker still costs saturation until the swatches stop being colours at all. Say so then. */
+    "Kalidasa": "#004248",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -5508,6 +5577,143 @@
       count: 16,
       total: 16,
       /* No `parts`: a single play, and its edition divides it no further than the sixteen. */
+    },
+    {
+      id: "aristophanes-lysistrata",
+      title: "Lysistrata",
+      /* No subtitle, and deliberately not the Greek one. The three tragedies each carry their play's
+         Greek title there because that is what their Greek COLUMN is an edition of; this book has no
+         Greek column, so a Greek subtitle would advertise a second text that is not on the page. */
+      author: "Aristophanes",
+      /* One of the firmer dates in Greek drama — the year of the oligarchic coup at Athens, with the
+         war twenty-one years old — so no `c.`. Which of the two festivals it was staged at is not
+         recorded, and the front matter says so rather than the date line pretending to know. */
+      written: "411 BCE",
+      year: -411,
+      /* The volume names no translator: it was printed for the Athenian Society and published
+         anonymously. That is a fact about the edition rather than a gap in the record, and it is what
+         makes this the simplest licence on the shelf — there is no death year for it to depend on. */
+      translator: "The Athenian Society",
+      edition: "Aristophanes: The Eleven Comedies, Volume 1, printed for the Athenian Society, London, 1912",
+      /* THE SIMPLEST LICENCE HERE, and the only one resting on no person's dates at all. An anonymous
+         work printed in London in 1912 is public domain in the United States on the pre-1929
+         publication rule, and under the seventy-years-from-publication term an anonymous work is given
+         it has been free everywhere since 1983 — so unlike the Art of War (2029), the Nicomachean
+         Ethics (2042), the Song of Roland (2031/2039) and the Medea (2028) there is no limit to state.
+         THE OSCAR WILDE ATTRIBUTION IS NOT RELIED ON: Wikisource's index page presumes it, Wilde died
+         in 1900 — twelve years before the book appeared — and nothing openable establishes it, so the
+         book is shelved as what its title page says it is. Asserting it would be the Hugo Magnus
+         mistake with a better-known name attached. It changes nothing either way: a 1912 anonymous
+         printing is public domain on its date, and so is anything by a man who died in 1900. */
+      rights:
+        "Public domain, and the simplest case on this shelf. This translation was printed for the " +
+        "Athenian Society in London in 1912 and published anonymously, so its United States copyright " +
+        "expired under the pre-1929 publication rule, and under the seventy-years-from-publication " +
+        "term an anonymous work is given it has been free everywhere since 1983 — there is no " +
+        "translator's death year for it to depend on, and so no limit to state. Aristophanes staged " +
+        "the play in Athens some twenty-four centuries ago. The volume is sometimes said to be the " +
+        "work of Oscar Wilde; he died in 1900, twelve years before it appeared, nothing establishes " +
+        "the attribution, and it is not relied on here. The volume's general foreword and its list of " +
+        "authorities belong to all eleven comedies rather than to this one and are not reproduced; " +
+        "what is taken is the play and the introduction printed with it. (The modern translations by " +
+        "Dudley Fitts, 1954, Douglass Parker, 1964, Alan Sommerstein, 1973, Jeffrey Henderson, 2000, " +
+        "and Sarah Ruden, 2003, are still in copyright and are not used here.)",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Aristophanes:_The_Eleven_Comedies/Lysistrata",
+      /* NO `origLang`, and this is the Republic's case reached from the other side — the proof, a
+         second time, that the field is genuinely optional. The rule the shelf pairs on is not "does a
+         text of the original exist?" but "does that text say which section each passage is?", and here
+         the GREEK is the ready half: Hall and Geldart's Oxford text of 1907 sits on Perseus in the same
+         encoding the three tragedies use, with all 1,443 of its lines numbered. What is missing is the
+         numbers on the ENGLISH — this translation is prose and prints none — and pairing on the order
+         of speeches instead was refused for the reason the Seneca entry gives, with the measurement to
+         match: this English divides the play into 634 speaker labels against the Greek's 565 speeches,
+         so the two columns disagree about where a speech begins some seventy times before any question
+         of drift arises. The free English that IS numbered, Rogers's verse, has 52 of its scan leaves
+         untranscribed on Wikisource — the Jowett Dialogues' red links exactly — and Perseus carries no
+         English Lysistrata at all. So the book ships in one column and its own front matter says why.
+         The day a numbered transcription appears, an `original` block and an `origLang` are the whole
+         of the work. */
+      /* Folio's own neutral word, as for the three tragedies: this edition numbers its divisions not
+         at all, and an act is a later theatre's unit a Greek comedy has not got. */
+      chapterWord: "Part",
+      /* The whole play, and the tabs count what the EDITION separates — its introduction and the
+         comedy — because it divides the comedy itself into no acts or scenes whatever. Aesop's rule:
+         state the order the book actually has rather than invent a structure it has not got. */
+      count: 2,
+      total: 2,
+    },
+    {
+      id: "kalidasa-shakuntala",
+      /* The edition's own title and subtitle, spelling and all. "Shakuntala" is the spelling a reader
+         will type, and the shelf's search folds diacritics and matches the author and the year as well
+         as the title, so it is findable either way; but the title page says Sacontala, and Jones's
+         transliteration is not a slip to be tidied — it is the form in which the heroine's name
+         reached Europe. Chapter 0 explains it in its first sentence. */
+      title: "Sacontala",
+      subtitle: "or, The Fatal Ring",
+      author: "Kalidasa",
+      /* Nothing dates Kalidasa. No document fixes him and the placing is made from the language he
+         writes and the company he seems to keep; the fourth-to-fifth-century placing is the
+         conventional one and estimates well outside it have been argued seriously. The front matter
+         carries that doubt rather than leaving the `c.` to do all the work, as the Song of Roland's
+         and Gilgamesh's entries do. */
+      written: "c. 4th–5th century CE",
+      year: 400,
+      translator: "William Jones",
+      edition: "Reprinted from the translation of Sir William Jones, Charlton Tucker, London, 1870",
+      /* THE EASIEST LICENCE ON THE SHELF, and the only one clear by a full century on every ground at
+         once. Jones lived 1746–1794 — dates read off Wikisource's own author page rather than
+         recalled, for the Hugo Magnus reason — so the translation cleared life-plus-seventy in 1864
+         and life-plus-a-hundred in 1894, and it was published at Calcutta in 1789 with this reprint
+         following in 1870, so it clears the pre-1929 publication rule several times over. Unlike the
+         Art of War (2029), the Nicomachean Ethics (2042), the Song of Roland (2031/2039), the Medea
+         (2028), Gilgamesh (2042) and the Bhagavad Gita (2034) there is no limit to state; and unlike
+         the Histories, the two Sophocles plays and the Meditations' Greek there is no modern
+         editorial layer either, this being a volunteer proofreading of the 1870 scan rather than a
+         scholar's revision. The play itself is some sixteen centuries old. */
+      rights:
+        "Public domain worldwide, and the simplest licence on this shelf. Kalidasa wrote the play some " +
+        "sixteen centuries ago. Sir William Jones lived from 1746 to 1794, so his translation cleared " +
+        "the life-plus-seventy term in 1864 and the life-plus-a-hundred term in 1894 — there is no " +
+        "limit anywhere that has not long since expired, and so, unlike the Art of War, the Nicomachean " +
+        "Ethics, the Song of Roland, the Medea, Gilgamesh and the Bhagavad Gita, nothing here needs a " +
+        "date stating. The translation was first published at Calcutta in 1789; this is an 1870 London " +
+        "reprint of the third edition of 1792, published by Charlton Tucker, so it is also public " +
+        "domain in the United States under the pre-1929 publication rule. Nothing in the text carries a " +
+        "modern editorial layer: the transcription is a volunteer proofreading of the 1870 scan. What " +
+        "is reproduced is Jones's preface, the prologue and the seven acts. (The later translations by " +
+        "Arthur Ryder, 1912, Michael Coulson, 1981, Barbara Stoler Miller, 1984, Chandra Rajan, 1989, " +
+        "and Somadeva Vasudeva, 2006, are not used here.)",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Sacontala_(Jones_1870)",
+      /* NO SANSKRIT COLUMN, and the answer is no on three independent grounds rather than the usual
+         one — see .claude/fetch-book.js for the measurements behind each. The English states no
+         numbers at all (measured over all nine pages: no verse markers, no superscripts, not one
+         standalone numeral), so the finest key the two columns could share is the ACT, and a row would
+         be four thousand words of prose facing a column of Sanskrit. The freely available Sanskrit is
+         a DIFFERENT RECENSION from the one Jones translated — he worked from the Bengali, the standard
+         printed text is Devanagari, and they differ in whole verses — so even act by act the columns
+         would face passages that are not each other. And that Sanskrit source names no editor, no
+         edition and no recension whatever, so nothing can honestly be said about which text it is,
+         which is the very question the first two grounds turn on. The obvious fix, Monier Williams's
+         translation from the Devanagari, is five proofread leaves out of about three hundred on
+         Wikisource — the Jowett Dialogues' failure again. */
+      /* Folio's own neutral word, as for the four plays already here, and for a reason peculiar to
+         this book: the edition numbers SOME of its divisions and not others. The seven acts carry
+         numerals; the preface and the prologue do not, and both are part of what this volume prints.
+         No single scheme can call all nine an act, so the running order is Part 1–9 and the tab titles
+         carry the edition's own names. */
+      chapterWord: "Part",
+      /* The whole of what this volume prints of the play: Jones's preface, the prologue and the seven
+         acts. The cast list is on the volume's contents page rather than on any transcribed subpage
+         and is not imported; chapter 0 names the people who matter in prose instead. */
+      count: 9,
+      total: 9,
+      /* No `parts`. Wikisource groups the nine as "Front matter" and "Acts of the Play" and states on
+         its own page that neither heading is in the original, so adopting them would present a modern
+         editor's grouping as the edition's. Nine tabs need none to be navigable, and app.js falls back
+         to a single unlabelled group as it does for the Meditations and the Republic. */
     },
     {
       id: "herodotus-histories",
