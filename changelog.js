@@ -26,7 +26,7 @@ window.CHANGELOG = [
       "The daily review is now called Daily study, holding the marker puts the pen back up without opening the tools, and the text size in Settings gains a very small and a very large at the ends of the scale. A sideways swipe between pages also works when your finger starts in the empty space below everything on the page, which it did not before.",
       "The Library has a search box. Type a title, an author or a date and the shelf narrows to what matches — “sun tzu” finds the book however its author’s name is spelled — and your favourites stay in their own section at the top.",
       "Writing your own deck no longer starts with a blank template. Adding a card type now offers three ready-made shapes to start from: <b>Vocabulary</b>, which shows a word and its part of speech and turns over to the translation, its conjugations and a button that reads it aloud in the language you are learning; <b>Picture</b>, which shows an image and asks what it is, for paintings and their painters, faces and their names, maps and their places; and <b>Fill in the blank</b>, a passage with words hidden that open when you turn the card over. Each arrives ready to fill in and can be changed afterwards like any other, and writing one from scratch is still there.",
-"A hundred and eleven new cards in the Ancient Greece deck, each with a glossary entry to go with it. They fill the collection's second deck, which had been empty until now, and open the third.",
+"A hundred and twelve new cards in the Ancient Greece deck, each with a glossary entry to go with it. They fill the collection's second deck, which had been empty until now, and open the third.",
     ],
   },
   {
