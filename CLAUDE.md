@@ -1346,6 +1346,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   and the tree shipped together on 2026-08-06 and the collection starts at `in-001`. Read its "What this
   collection is about" section before writing anything — the subject is the SUBCONTINENT before 1947 and
   the Republic after, and getting that wrong makes a political claim without noticing. Not part of the site.
+- `docs/china-card-plan.md` — the **1000-card running order for the China collection** (`china`): every
+  card's number, topic and deck, fixed in advance across 7 decks and 39 leaf decks, so the collection can
+  be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
+  written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
+  are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
+  see the "CHINA" bullet under "Generating cards & glossary entries". **No card has been written yet**,
+  and the collection carries **`placeholder: true`** (set aside July 2026), which `availableCardIdSet()`
+  reads — so read that file's warning before writing `cnh-001` or the cards will be written and never
+  studied. Not part of the site.
 - `docs/history-focus-plan.md` — the rule that **Folio is a history site, not an archaeology site**, the measure that
   finds cards written the other way round (24 of 119 flagged, measured before the 2026-08-04 renumbering — the
   flags travel with the cards, the ids in its table do not), and the six rewrite batches. Opened Aug 2026 on request
@@ -1517,7 +1526,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   subdecks, `col-42` Russia its 9 decks and 29 leaf decks, and `col-43` India its 9 decks and 31 leaf
   subdecks, on 2026-08-06** from `docs/rome-card-plan.md`, `docs/russia-card-plan.md` and
   `docs/india-card-plan.md`, all empty; all three stay under "Coming soon" until their first card ships,
-  since a collection with no cards is coming-soon whatever its `placeholder` says.
+  since a collection with no cards is coming-soon whatever its `placeholder` says. **`china` was the one
+  collection that already had a tree**, and on the same day `docs/china-card-plan.md` made four changes to
+  it — dropping the duplicate `col-9 Xin`, retitling `col-30 Jin` → `Jurchen Jin` and `col-2 Xia` →
+  `Neolithic China and the Xia`, and adding the `cn-state` / `cn-belief` / `cn-culture` thematic decks —
+  taking it to 7 decks and 39 leaf decks. Its `placeholder: true` was deliberately left alone.
 - `glossary.js` — `window.GLOSSARY` plus `window.GLOSSARY_DATES`, `GLOSSARY_TITLES`, `GLOSSARY_ALIASES`,
   `GLOSSARY_CASESENSITIVE`, `GLOSSARY_TAGS` (per-term category tags — the admin glossary's left-bar
   filter), `GLOSSARY_IMAGES` (per-term illustration — see the "Glossary image" bullet below) and
@@ -5022,7 +5035,8 @@ linked to a Holocene chronozone.
 
 The deck and glossary are being regrown one entry at a time, each researched from **Wikipedia and
 academic sources** — accuracy is non-negotiable, never invent dates, names, or definitions. The kept
-template entries are the canonical format: card `cnh-001` in `data.js`, glossary term `Sima_Qian` in
+template entries are the canonical format: card `cnh-001` in `.claude/backup/data.js` (it is NOT in the
+shipped `data.js` — the China deck was trimmed to nothing and regrown as `wh-`/`gr-`), glossary term `Sima_Qian` in
 `glossary.js`. The full pre-trim originals are backed up in `.claude/backup/`.
 
 **Current direction (July 2026): the China collection is SET ASIDE** — its tree node carries
@@ -5136,6 +5150,43 @@ modern countries and nothing else — no `Dharma`, no `Varna`, no `Stupa`, no `M
 those **cited from the start** at the `GLOSS_SRC_TARGET` bar, and mind that a term which is an ordinary
 English word (`Raj`, `Congress`, `Partition`, `Emergency`) needs `GLOSSARY_CASESENSITIVE` or a narrower
 head word.
+
+**CHINA (`china`) is planned, SET ASIDE, and not yet started (Aug 2026).** Its 7 decks and 39 leaf decks
+are in `data.js` and its full 1000-card running order is `docs/china-card-plan.md`: **"Generate the next
+China card" means take the lowest `cnh-NNN` not yet in `data.js`, read its topic and deck from that plan,
+research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`. The next number is:
+`node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='cnh-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"`
+(the padding is right for every id but `cnh-1000`). The prefix is **`cnh-`, not `cn-`**, because `cn-myth`
+and the new thematic leaves are DECK ids and `cn-001` beside them invites exactly the confusion ids exist
+to prevent; `cnh-` is also the collection's own historical convention, its template card surviving in
+`.claude/backup/data.js`. **⚠ READ THE PLAN'S WARNING BEFORE `cnh-001`**: the collection carries
+`placeholder: true`, which `availableCardIdSet()` reads, so cards written into it today reach no review,
+no game and no card of the day — they would be written and never studied. **Clearing that flag is the
+site owner's call**, so the plan deliberately left it alone.
+**It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
+at the top of the file: the **duplicate `col-9 Xin`** is dropped (Xin stays at `col-11`, inside Han, which
+is where Wang Mang belongs); **`col-30 Jin` is retitled `Jurchen Jin`**, the tree having carried two decks
+called Jin nine centuries apart (`col-17` 晉 266–420 and `col-30` 金 1115–1234); **`col-2 Xia` is retitled
+`Neolithic China and the Xia`**, since it is the earliest deck and therefore the only home for Yangshao,
+Longshan, Liangzhu and Sanxingdui, none of which is Xia; and **three thematic decks are added**
+(`cn-state`, `cn-belief`, `cn-culture`, 300 cards). That last is the substantial one: **China needed
+thematic decks more than any other collection and had none**, because the dynastic frame is so strong that
+the examinations (605–1905), Confucianism, the characters, silk and the standard histories had nowhere to
+live. Four more decisions are arguments rather than lists. **The dynastic decks are deliberately unequal,
+8 cards to 45** — the Xin lasted 14 years and the Tang 289, so an equal share would be a false claim.
+**`cnh-703 The dynastic cycle` is a card, not the tree's silent assumption**, being a Chinese
+historiographical theory bound up with the Mandate of Heaven rather than a description of what happened.
+**The standard histories were each compiled by the dynasty that replaced the one they describe**, which is
+the collection's central source-critical fact (`cnh-736`–`cnh-738`). And **"China" is not only the Han**:
+`cn-peoples` gets 28 cards, the conquest dynasties are part of the history rather than interruptions of
+it. Conventions it fixes: **pinyin**, except where a non-pinyin form IS the English name (Confucius,
+Mencius, Taoism, the *Tao Te Ching*, Peking opera, the Yangtze); aliases mandatory; conventional dynastic
+dates named as conventional. Two names to watch — *Jin* is two dynasties, and *li* is two different
+central concepts (禮 ritual propriety `cnh-831`, 理 principle `cnh-861`). The glossary has `China`,
+`Mongolia`, `Taiwan`, `Zhoukoudian` and `Sima_Qian` and nothing else Chinese, so write terms **cited from
+the start** at the `GLOSS_SRC_TARGET` bar — and mind that romanised Chinese names collide on their
+syllables (*Yang Yan* against *yin and yang*, *Ban Zhao* against *Han-Zhao*), so prefer the fuller head
+word.
 
 **ENGLISH ONLY (Aug 2026, on request): a new card or glossary term does NOT need its nine translations.**
 The site ships in English while the work is on making the English as good as it can be, so put the effort

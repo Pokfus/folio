@@ -275,6 +275,12 @@ one about the limit of a Macedonian army's reach and one about what arrived on t
 British side of the Company and the Raj belongs to a Britain collection that does not yet exist; when
 it does, the pairs are Plassey, 1857 and Partition.
 
+**Two more pairs are already written into `docs/china-card-plan.md`**: `in-812 The spread of Buddhism
+beyond India` against `cnh-883 The transmission of Buddhism into China` — a religion leaving one country
+and arriving in another, and what it had to become to stay — and `in-199 Xuanzang`, where he is a
+visitor whose account is a source for Gupta-age India, against `cnh-388 Xuanzang`, where he is a Tang
+monk whose journey produced a translation programme.
+
 ## Cross-listing
 
 A card may belong to several decks; `subtreeCardIds` dedupes with a `Set` at every branch, so the

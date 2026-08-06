@@ -252,6 +252,10 @@ written, the Cuban Missile Crisis, the space race and the arms control treaties 
 the Rome plan gives its Greek pairs. Until then, write the card this collection needs: `ru-706` is
 about a Soviet decision and a Soviet retreat, not about thirteen days in Washington.
 
+One pair already exists: **`ru-274 Treaty of Nerchinsk` and `cnh-546 Treaty of Nerchinsk`** in
+`docs/china-card-plan.md` — Russia's first treaty with China and the limit of its Amur expansion on one
+side, the Kangxi settlement of a frontier the Qing had just secured on the other.
+
 ## Cross-listing
 
 A card may belong to several decks; `subtreeCardIds` dedupes with a `Set` at every branch, so the

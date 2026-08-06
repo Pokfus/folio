@@ -296,7 +296,7 @@ window.COLLECTION_TREE = {
           "children": [
             {
               "id": "col-2",
-              "title": "Xia",
+              "title": "Neolithic China and the Xia",
               "placeholder": false,
               "cardIds": [],
               "i18n": {
@@ -413,23 +413,6 @@ window.COLLECTION_TREE = {
                 "ar": "تشين",
                 "zh": "秦",
                 "ja": "秦"
-              }
-            },
-            {
-              "id": "col-9",
-              "title": "Xin",
-              "placeholder": false,
-              "cardIds": [],
-              "i18n": {
-                "es": "Xin",
-                "fr": "Xin",
-                "de": "Xin",
-                "it": "Xin",
-                "nl": "Xin",
-                "ru": "Синь",
-                "ar": "شين",
-                "zh": "新",
-                "ja": "新"
               }
             },
             {
@@ -743,7 +726,7 @@ window.COLLECTION_TREE = {
             },
             {
               "id": "col-30",
-              "title": "Jin",
+              "title": "Jurchen Jin",
               "placeholder": false,
               "cardIds": [],
               "i18n": {
@@ -924,6 +907,81 @@ window.COLLECTION_TREE = {
             "zh": "近现代",
             "ja": "近現代"
           }
+        },
+        {
+          "id": "cn-state",
+          "title": "State, Society and Economy",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "cn-government",
+              "title": "The imperial state",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "cn-society",
+              "title": "Society and everyday life",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "cn-peoples",
+              "title": "The peoples and frontiers of China",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "cn-economy",
+              "title": "Land, trade and money",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "cn-belief",
+          "title": "Thought and Religion",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "cn-thought",
+              "title": "Chinese philosophy",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "cn-religion",
+              "title": "Religion and ritual",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "cn-culture",
+          "title": "Learning, Arts and Invention",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "cn-language",
+              "title": "Language and literature",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "cn-arts",
+              "title": "Art, architecture and music",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "cn-science",
+              "title": "Science, technology and medicine",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
         }
       ],
       "i18n": {
