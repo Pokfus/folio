@@ -308,3 +308,37 @@ alongside Spartolus — rather than padded.
 `gr-167`'s doubt about whether the feel of hand-making is recoverable from patchy evidence; `gr-175`'s
 dispute over what citizenship rested on. The arguer goes, the argument stays.
 
+
+### F3 — `gr-010` `gr-017` `gr-019` `gr-020` `gr-022` `gr-023` `gr-024` `gr-031` (2026-08-06) — SHIPPED
+
+The Evans cluster, all eight off Rule 1, and with them **Rule 2 is now clear across every Ancient Greece
+card** — the only card left over the historiography bar anywhere in the corpus is `wh-061`, which is F5's.
+Nine questions rewritten, two abstracts rebuilt, two date lines cut.
+
+**A cluster is cheaper than its size suggests.** Six of the eight needed nothing but the name lifting out of
+one clue — "Evans found them all empty" becomes "every one was found empty", "Evans set out a signary of 135
+signs" becomes "the signary runs to 135 signs" — because the sentence was already about the thing and only
+its subject was wrong. Only `gr-023` and `gr-024` were *about* Evans, and they were the two the measure had
+already flagged on both rules.
+
+**The freed sentences came out of works already in each card's own list.** Rutter's lessons 14 and 15 were
+re-read for this batch and carried the replacements: for the bull-leaping fresco, that bull-leaping and
+bull-catching were painted flat and modelled in stucco relief at several sizes and that the Ayia Triada
+boxer rhyton shows the jumper gored; for the figurines, what else the Temple Repositories held and how the
+four cists were stacked. **No new source was needed and none was dropped** — which is the argument for
+re-reading a card's own citations before going looking.
+
+**Part one's date-line rule bit on the same two cards.** `Found 1901, at Knossos` and `Found 1903, at
+Knossos` are the dates of the dig, not of the fresco or the figurines, and both rows are gone. The sort year
+was checked before and after and does not move — the deep date wins in `cardYears` either way — but the dig
+year was in the parsed list, and now it is not.
+
+**THE BATCH FOUND A FAULT NOBODY WAS LOOKING FOR, and it is worth a measure of its own.** Reading the two
+rewritten cards on the rendered page showed a clue restating a background sentence almost word for word.
+Counting the longest run of words a question shares with its own abstract put `gr-023`'s shipped first
+phrasing at **14 words** and one of this batch's own new clues at 11, against 6–9 for every honest one — so
+a card was offering three phrasings of which one was the background quoted back, which teaches nothing the
+other two don't. The line goes at **10**: a clue is *drawn* from the background by design, and some shared
+phrasing is healthy; a whole sentence lifted is not. All eight of the batch's cards now measure 10 or under.
+**Run the overlap count on any card whose questions are rewritten** — it is three lines of code and no other
+check in the workflow can see it.
