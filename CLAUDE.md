@@ -3634,12 +3634,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     control sits on a screen is a fact about that screen) and **clamped on every apply and on resize**, so a
     position saved on a wide window cannot strand the marker off the edge of a narrow one. With nothing
     stored the inline styles are cleared, which is what lets `.on-atlas` and `body.grading`'s offsets take
-  · **HOLDING the marker puts the pen up** (`wbWireHoldToRelease` / `WB_HOLD_MS` / `wbHeld`, Aug 2026, on
+  · **HOLDING the marker TOGGLES the pen** (`wbWireHoldToRelease` / `WB_HOLD_MS` / `wbHeld`, Aug 2026, on
     request). The toggle already carried a tap (open/shut the tools) and a drag (move them); a hold is the
     third gesture it had left, and it is the same one the deck rows and the review banner use one level up.
-    It is deliberately **one-directional and a NO-OP when nothing is selected**: a hold that turned drawing
-    ON would make the gesture mean opposite things depending on a state the shut panel barely shows, and the
-    tap already turns it on. Three things it has to get right, all about not firing twice — the click that
+    It was **one-directional for a fortnight** — a hold put the pen up and a hold with nothing selected did
+    nothing at all — on the reasoning that a gesture meaning opposite things depending on a state the shut
+    panel barely shows is one nobody can predict. **That reasoning is backwards once you hold the thing**
+    (changed on request): a control that answers on one press and is inert on the next reads as broken, and
+    the state IS shown — the button carries `.on` while the pen is down, panel open or shut. So it toggles,
+    and the **toast says which way it went**, which settles the ambiguity the one-way rule was avoiding.
+    Turning it back on **restores the tool and colour last drawn with** rather than resetting to the default
+    pen (a hold is a way back to what you were doing), which is why `ensureWBTools` now also exposes
+    **`wbRenderColors`** beside `wbRefreshTools` — `applyWBState` re-marks the tool but does not rebuild the
+    swatch row, whose selected colour follows it. Three things it has to get right, all about not firing twice — the click that
     follows a fired hold is swallowed through `wbHeld` exactly as a drag's is through `wbDragged`; a press
     that becomes a DRAG cancels the pending hold; and `contextmenu` is suppressed on the handle, or a long
     press on a phone raises the browser's own menu over the gesture.
@@ -3684,16 +3691,39 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     reader annotating with a stylus could not scroll the card they were annotating without first putting
     the pen up, drawing on it and undoing that. Once a stylus has been seen on this device,
     `pointerType === "pen"` draws and `"touch"` is handed back to the browser to scroll with.
-    · **BOTH HALVES ARE NEEDED and they are in different files.** `touch-action:pan-y pinch-zoom` (the
-      `wb-pen-only` class) is what lets the browser take a finger drag at all — the canvas declares `none`
-      normally, which is right when the finger IS the pen — and the JS half must stop calling
-      `preventDefault` on that pointerdown to match, since a prevented pointerdown cancels the scroll
-      whatever the CSS says. Change one and the other does nothing.
+    · **THE SCROLL IS PERFORMED, NOT PERMITTED, AND THAT IS THE WHOLE OF IT** (`scrollerUnder` / `panFling`
+      in `setupWhiteboard`; Aug 2026, on a bug report — "the stylus only draws a line for a tiny bit and
+      then switches to moving the page"). It was done through CSS for a fortnight —
+      `.draw-canvas.wb-pen-only{touch-action:pan-y pinch-zoom}` — and **that is what was broken**, because
+      `touch-action` is a property of the ELEMENT and cannot tell a pen from a finger: the permission
+      written for the finger applied to the stylus too, so the scroller claimed the pen's drag the moment
+      it passed the pan slop, fired `pointercancel` at the canvas and scrolled the page out from under a
+      half-drawn stroke. **No amount of `preventDefault` fixes it** — once a permitted pan has begun the
+      browser stops listening, which is why the earlier note here saying the two halves had to agree about
+      preventDefault was solving the wrong problem.
+      So the canvas keeps **`touch-action:none` in every state** (a drawing surface never gives a gesture
+      away) and a finger's scroll is done by hand: `scrollerUnder` finds what the finger is over by the
+      same `elementFromPoint` hit-test the ink uses to find a control — so a gloss popup's body and the
+      Atlas panel's columns are covered without a list of selectors kept in step by hand — and
+      `pointermove` moves its `scrollTop`. **Vertical only**, which is what the CSS it replaces permitted.
+      · **The momentum is not a flourish.** This replaces a native scroll, and one that stops dead on the
+        lift reads as a page that has snagged; `panFling` continues under friction, clamps the velocity
+        (one stray sample must not launch the page), is caught by the next finger down, and gates on
+        `prefersReducedMotion()` like every other movement on the site. `WB._panStop` lets the next
+        `setupWhiteboard` kill a fling still running over the card it is replacing.
+      · **The cost, stated:** pinch-zoom over the canvas goes with `pan-y pinch-zoom`. Putting the marker
+        up gives it back, and it was not worth keeping a rule that loses every stylus stroke.
+      · This is also **where Anki makes the decision** — per gesture, by the tool that started it: a stylus
+        event is consumed by the whiteboard and a finger event passed down to the scroller beneath. There
+        is nothing to pass down to here, so the scroll is performed instead of delegated.
+      · **`.wb-pen-only` carries no style now** and is still set: it is the state written where it can be
+        read. A rule added back there would be the wrong fix twice over.
     · **A finger in stylus mode still reaches the CONTROLS under the ink** — it runs the same
       `controlUnder` pass-through as the pen, and pointerup activates the control if the finger is still on
-      it. With one difference: nothing was preventDefault'd, so a finger that MOVED more than `WB_TAP_SLOP`
-      has scrolled rather than tapped, and firing a button the reader was only using to push the page along
-      is the one way this can be worse than what it replaced.
+      it. A finger that MOVED more than `WB_TAP_SLOP` has scrolled rather than tapped, and firing a button
+      the reader was only using to push the page along is the one way this can be worse than what it
+      replaced. (The press IS `preventDefault`'d now — with `touch-action:none` there is no scroll left to
+      cancel, and it keeps the compatibility click off the canvas.)
     · **`stylusSeen` and `penOnly` are separate on purpose**: the first is a fact about the hardware and
       only ever goes true, the second is the reader's answer to it and defaults to yes. Both are
       device-local (`folio_wb_stylus_v1`), like where the marker sits — a pen that has touched this screen
@@ -3944,10 +3974,38 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   popup is therefore NOT in the `.atlas-game` hide list — it is the game's learning surface; `gameShowRound` closes it
   per round. `pulseCol` resets to gold wherever pulses fire outside the game (`pulseChanges` does). Scoring: first-try
   finds; `won` needs `n >= 5` AND all first-try; `gameEnd` → `markGamePlayed("findit", …)` + `save()` +
-  `checkAchievements()`. **Anti-cheat gating**: `.atlas-game` CSS hides search/legend/hover-chip/hint, game mode
-  **forces `citiesOn`/`majorCitiesOn`/`countryNamesOn` false** (a capital label on the board IS the answer), the timebar
-  is **`inert`** (not just pointer-events:none — buttons stay keyboard-focusable otherwise) + `stepYear`/`playTick`
-  carry GAME guards, and the whiteboard never mounts. **Same-day replays are PRACTICE** (`gamePractice` — playable,
+  `checkAchievements()`.
+  · **A PULSE CANNOT CARRY AN ANSWER, AND FOR A FORTNIGHT IT WAS ASKED TO** (`gameMarks` / `gamePin` /
+    `drawGameMarks` / `TINT_MISS` / `TINT_FOUND` / `TINT_ANSWER`, Aug 2026, on a bug report). The pulse is a
+    1.6-second throb and then nothing, which is right for "these territories changed hands on that step" and
+    wrong for an answer: a reader who missed twice was told "It was here." and looked up to find the flash
+    already over and the map exactly as it had been — the answer announced and then withdrawn before it could
+    be read. The wrong guess had the same fault the other way round, flashing red at the one moment the reader
+    is looking at their own finger rather than at the map. So both are now **PAINTED and stay painted until
+    `gameShowRound` clears them**: a LIST, since a round can hold two wrong guesses in red with the answer's
+    gold over them. A revealed CAPITAL gets `gamePin` instead — a dot with its name beside it, drawn like
+    `focusPoint` — because a city on a coastline of a thousand others cannot be shown by a ring that fades.
+    · **Deliberately NOT `selSet`.** That is the map's gold, and `drawSelectionOverlay` caches it into `selCv`
+      under a key made of its MEMBERS alone, so two marks wanting different colours would blit whichever was
+      cached first. `drawGameMarks` paints direct instead, which costs nothing here: a mark lives for one
+      round, there are never more than a handful, and the reveal is followed by a `flyTo`, so the frames it
+      appears on are moving frames the cache would be rebuilding for anyway.
+    · **`paintFillGroups` / `strokeCoastClipped` take an optional TINT** (`{rgb, fillA, line, glow}`, default
+      `TINT_SEL`) so the game's three colours reuse the painter's exact edge-tracing — mask-aware, coast-clipped
+      — rather than a second outline routine that would trace the era polygon's own offset shore. `TINT_SEL`
+      writes `line` and `glow` out in full so the shipped gold selection is unchanged: its outline is a
+      LIGHTER amber than its fill, which deriving them from one triple would have quietly flattened.
+  **Anti-cheat gating**: `.atlas-game` CSS hides search/legend/hover-chip/hint, game mode
+  **forces `citiesOn`/`majorCitiesOn`/`countryNamesOn` false** (a capital label on the board IS the answer),
+  **the timebar is GONE** — `.atlas-game{--timebar-h:0px}` plus `display:none` on the bar, Aug 2026 on request.
+  It used to be left on screen `inert` and slightly dimmed so the board would still look like the Atlas, but the
+  round names its own year in the question, the rail cannot be touched and stepping years is precisely what the
+  game must not allow, so it was a fifth of a phone screen spent on a control with nothing to say. **Setting the
+  variable on `.atlas-game` rather than `:root` is what gives that height back**: `.globe-stage` is a descendant,
+  so it inherits the zero and grows into the space, and every other rule written against `--timebar-h` is left
+  describing the ordinary Atlas. The markup stays (hidden, so out of the tab order too), so `paintYear`,
+  `renderMapYearMarks` and `layoutTicks` need no game branch — the last returns early on a zero `clientWidth`.
+  `stepYear`/`playTick` keep their GAME guards, and the whiteboard never mounts. **Same-day replays are PRACTICE** (`gamePractice` — playable,
   never records: the rounds are deterministic and every answer was revealed). The Atlas also gained **first-visit coach
   marks** (`#atlasHelp` overlay, auto-shown once via `localStorage["folio_atlas_tour_v1"]`, reopened by the `#gzHelp`
   "?" button) and **keyboard navigation** (canvas `tabindex=0`: arrows rotate, Enter selects/answers at the disk
