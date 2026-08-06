@@ -14,9 +14,17 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.21", released: "2026-08-05T19:32Z" };
+window.FOLIO_VERSION = { v: "1.22", released: "2026-08-06T03:45Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-08-06",
+    t: "A stylus that keeps drawing, and a clearer Find it",
+    items: [
+      "Drawing with a stylus works properly now. It used to draw for a moment and then hand the page over to scrolling half way through a stroke; a stylus keeps the whole stroke, and your finger still scrolls the page underneath it. Holding the marker button also works both ways now — it puts the pen down and picks it back up, returning to the colour and tool you were last drawing with, instead of only ever putting it away.",
+      "Find it gives the map the whole screen: the timeline at the bottom is gone, since the round says which year it is on and there was nothing there to use. A wrong guess now stays red until the next round rather than flashing once, and when the answer is revealed the place stays lit — so “It was here” shows you where, instead of blinking and leaving the map as it was.",
+    ],
+  },
   {
     d: "2026-08-05",
     t: "Eleven more books in the Library, notes in the margins, and new Ancient Greece cards",

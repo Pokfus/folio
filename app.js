@@ -6447,18 +6447,26 @@
     document.addEventListener("pointerdown", on, true);
     document.addEventListener("pointerover", on, true);
   })();
-  /* The CSS half, and it is the load-bearing half: `touch-action` is what decides whether the browser may
-     scroll under a finger at all. The canvas declares `none` normally — a drawing surface must not have its
-     strokes stolen by the scroller — and `pan-y pinch-zoom` in stylus mode, which hands vertical drags and
-     pinches back while leaving horizontal ones (nothing scrolls sideways under the card) alone. The JS half
-     is in setupWhiteboard's pointerdown, and BOTH are needed: preventDefault on a pointerdown cancels the
-     scroll whatever touch-action says. */
+  /* This used to hand the browser the scroll through CSS — `touch-action:pan-y pinch-zoom` on the canvas —
+     and that was the bug, reported as "the stylus draws a line for a tiny bit and then the page moves".
+     `touch-action` is a property of the ELEMENT, not of the gesture, and it cannot tell a pen from a finger:
+     the permission written for the finger applied to the stylus too, so the scroller claimed the pen's drag
+     the moment it passed the pan slop, fired `pointercancel` at the canvas and scrolled the page out from
+     under a half-drawn stroke. No amount of preventDefault fixes it — once a permitted pan has begun the
+     browser stops listening.
+     So the canvas keeps `touch-action:none` in every state (a drawing surface never gives a gesture away)
+     and the finger is scrolled BY HAND in setupWhiteboard. That is also where Anki makes the same decision:
+     per gesture, by the tool that started it — a stylus event is consumed by the whiteboard and a finger
+     event is passed down to the scroller. Here there is nothing to pass down to, so the scroll is performed
+     rather than delegated.
+     The class stays: it carries no style now, but it is this state written where it can be read. */
   function wbApplyStylusMode() {
     if (WB.canvas) WB.canvas.classList.toggle("wb-pen-only", wbPenOnly());
   }
   const WB_TAP_SLOP = 8;   // px a finger may wander in stylus mode and still count as a tap on the control under it
   let wbToolsRef = null;
   let wbRefreshTools = null;   // set by ensureWBTools — re-marks the selected tool from WB.enabled/WB.mode
+  let wbRenderColors = null;   // ditto — rebuilds the swatch row, whose selected colour follows the active tool
   /* The custom colour beside the five presets. It is device-local and NOT in S: a marker colour is a fact
      about this device's screen, like where the marker sits. One per palette — a highlighter yellow chosen
      for marking is not a pen colour — kept in a single record so both survive a reload. */
@@ -6568,16 +6576,21 @@
     window.addEventListener("resize", () => wbApplyPos(el));
   }
 
-  /* ---- HOLDING the marker puts the pen up (Aug 2026, on request) ----
+  /* ---- HOLDING the marker TOGGLES the pen (Aug 2026, on request) ----
      The toggle already carried two meanings — a tap opens and shuts the tools, a drag moves them — and
      the one thing it could not do was the thing a reader with a tool selected most often wants: stop
      drawing without first finding the panel and unselecting the tool inside it. A hold is the third
      gesture the button had left, and it is the same one the deck rows and the review banner use one
      level up, so it is not a new idea to learn.
 
-     It is deliberately a NO-OP when nothing is selected. A hold that turned drawing ON would make the
-     gesture mean opposite things depending on a state the shut panel barely shows, and the tap already
-     turns it on. So this only ever puts the pen down again — one direction, always safe.
+     It was ONE-DIRECTIONAL for a fortnight — a hold put the pen up and a hold with nothing selected did
+     nothing at all — on the reasoning that a gesture meaning opposite things depending on a state the
+     shut panel barely shows is a gesture nobody can predict. That reasoning is backwards once you hold
+     the thing: a control that answers on one press and is inert on the next reads as broken, and the
+     state IS shown — the button carries `.on` while the pen is down, with the panel shut or open. So it
+     toggles, and the toast says which way it went, which is what settles the ambiguity the one-way rule
+     was avoiding. Turning the pen back on restores the tool and colour the reader last drew with rather
+     than resetting to the default pen, since a hold is a way back to what you were doing.
 
      Three things it has to get right, all of them about not firing twice:
        · a hold that has fired swallows the click that follows it (`wbHeld`), exactly as a drag does
@@ -6598,10 +6611,17 @@
       clearTimeout(t);
       t = setTimeout(() => {
         t = 0;
-        if (wbDragged || !WB.enabled) return;   // moving the marker, or nothing to put away
+        if (wbDragged) return;   // the reader is moving the marker, not answering a question about the tool
         wbHeld = true;
-        wbSetEnabled(false);
-        toast("Marker off");
+        if (WB.enabled) wbSetEnabled(false);
+        else {
+          // back to the tool and colour last drawn with — a hold is a way back to what you were doing
+          if (!WB.mode) WB.mode = "pen";
+          if (WB.mode !== "erase") WB.color = WB.mode === "hl" ? WB.hlColor : WB.penColor;
+          wbSetEnabled(true);
+          if (wbRenderColors) wbRenderColors();   // the swatch row's selected colour follows the tool
+        }
+        toast(WB.enabled ? "Marker on" : "Marker off");
         try { if (navigator.vibrate) navigator.vibrate(12); } catch (x) {}
       }, WB_HOLD_MS);
     });
@@ -6676,6 +6696,8 @@
       sbtn.title = WB.penOnly ? "Your finger scrolls the page; the stylus draws" : "Your finger draws too";
     };
     wbRefreshTools = refreshModes;
+    // exposed for the hold gesture, which turns the pen back on from outside this closure
+    wbRenderColors = () => renderColors();
     const useColor = (c) => {
       if (WB.mode === "erase") WB.mode = "pen";
       if (WB.mode === "hl") WB.hlColor = c; else WB.penColor = c;
@@ -6998,6 +7020,7 @@
     const o = opts || {};
     // remove any prior overlay (e.g. from the previous card) and start fresh
     if (WB.canvas && WB.canvas.parentNode) WB.canvas.parentNode.removeChild(WB.canvas);
+    if (WB._panStop) { WB._panStop(); WB._panStop = null; }   // a fling from the previous card would keep scrolling this one
     if (WB._onResize) { window.removeEventListener("resize", WB._onResize); WB._onResize = null; }
     if (WB.ro) { WB.ro.disconnect(); WB.ro = null; }
     WB.fixed = !!o.fixed;
@@ -7036,19 +7059,59 @@
       const ctl = el && el.closest ? el.closest(CTL_SEL) : null;
       return ctl && ctl !== canvas ? ctl : null;
     };
+    /* ---- the finger's scroll, performed rather than permitted (stylus mode) ----
+       See wbApplyStylusMode for why CSS cannot do this. `scrollerUnder` finds what the finger is actually
+       over — the document under a card, but a gloss popup's body or the Atlas panel's columns are their own
+       scrollports — by the same hit-test the ink uses to find a control, so it needs no list of selectors
+       kept in step by hand. Vertical only, which is what the CSS it replaces permitted: nothing under a card
+       scrolls sideways, and a horizontal drag inside a nested scroller is that scroller's own business.
+       The MOMENTUM is not a flourish. A scroll that stops dead on the lift reads as a page that has snagged,
+       and this replaces a native scroll that had it — so a fling continues under friction, and lands on the
+       reader's motion setting like every other movement on the site. */
+    const scrollerUnder = (e) => {
+      const prev = canvas.style.pointerEvents;
+      canvas.style.pointerEvents = "none";
+      let el = document.elementFromPoint(e.clientX, e.clientY);
+      canvas.style.pointerEvents = prev;
+      const doc = document.scrollingElement || document.documentElement;
+      while (el && el !== document.body && el !== document.documentElement) {
+        const oy = getComputedStyle(el).overflowY;
+        if ((oy === "auto" || oy === "scroll" || oy === "overlay") && el.scrollHeight > el.clientHeight + 1) return el;
+        el = el.parentElement;
+      }
+      return doc;
+    };
+    let panEl = null, panLast = 0, panAt = 0, panV = 0, panRAF = 0;
+    const panStop = () => { if (panRAF) cancelAnimationFrame(panRAF); panRAF = 0; };
+    WB._panStop = () => { panStop(); panEl = null; };   // so a rebuild (the next card) can kill a fling still running
+    const panFling = () => {
+      panStop();
+      const el = panEl; panEl = null;
+      if (!el || prefersReducedMotion() || Math.abs(panV) < 0.08) return;   // px/ms — below this it was a hold, not a throw
+      let v = Math.max(-6, Math.min(6, panV));   // a wild velocity from one stray sample must not launch the page
+      const step = () => {
+        v *= 0.94;
+        el.scrollTop -= v * 16;
+        if (Math.abs(v) < 0.02) { panRAF = 0; return; }
+        panRAF = requestAnimationFrame(step);
+      };
+      panRAF = requestAnimationFrame(step);
+    };
     let passCtl = null, passScroll = false, sx = 0, sy = 0, strokePts = null;
     canvas.addEventListener("pointerdown", (e) => {
       if (!WB.enabled) return;
       if (e.pointerType === "pen") wbNoteStylus();    // the first stroke of a stylus is what usually teaches us
       sx = e.clientX; sy = e.clientY;
-      /* A FINGER IN STYLUS MODE IS NOT A STROKE — it is a scroll, and possibly a tap on a control. So the
-         press is neither drawn nor preventDefault'd: `touch-action:pan-y pinch-zoom` (the .wb-pen-only
-         class) is what lets the browser take it, and preventDefault here would cancel that whatever the
-         CSS says. What still has to be done by hand is the control underneath — a tap must reach Show
-         answer exactly as it does with the pen up — so the same pass-through the ink already uses runs,
-         and pointerup activates the control if the finger is still on it. */
+      /* A FINGER IN STYLUS MODE IS NOT A STROKE — it is a scroll, and possibly a tap on a control. Both are
+         done by hand: the scroll above, and the control underneath through the same pass-through the ink
+         already uses (a tap must reach Show answer exactly as it does with the pen up), activated on
+         pointerup if the finger is still on it. */
       if (wbPenOnly() && e.pointerType === "touch") {
+        panStop();                                    // a second finger down mid-fling catches the page, as a scroller does
         passCtl = controlUnder(e); passScroll = true;
+        panEl = scrollerUnder(e); panLast = e.clientY; panAt = e.timeStamp || performance.now(); panV = 0;
+        try { canvas.setPointerCapture(e.pointerId); } catch (x) {}
+        e.preventDefault();                           // no compatibility click — pointerup activates the control itself
         return;
       }
       passScroll = false;
@@ -7066,6 +7129,14 @@
       e.preventDefault();
     });
     canvas.addEventListener("pointermove", (e) => {
+      if (passScroll) {   // stylus mode, finger down: this gesture is the page's, not the ink's
+        if (!panEl) return;
+        const now = e.timeStamp || performance.now(), dy = e.clientY - panLast, dt = now - panAt;
+        panEl.scrollTop -= dy;
+        if (dt > 0) panV = dy / dt;   // px/ms, the last sample only — a mean lags the flick the reader just made
+        panLast = e.clientY; panAt = now;
+        return;
+      }
       if (!WB.enabled || !WB.drawing) return;
       WB.dirtied = true;   // an actual stroke happened → snapshot it on pointerup (for undo)
       const p = posOf(e), ctx = WB.ctx, dpr = window.devicePixelRatio || 1;
@@ -7110,11 +7181,13 @@
     };
     canvas.addEventListener("pointerup", (e) => {
       const ctl = passCtl, scrolled = passScroll; passCtl = null; passScroll = false;
+      if (scrolled) panFling();
       if (ctl) {
         /* Released on the same control it was pressed on → activate it, the way the click we suppressed
-           would have. In stylus mode nothing was suppressed (the press had to stay scrollable), so a
-           finger that MOVED has scrolled the page rather than tapped, and activating anything then would
-           fire a button the reader was only using to push the page along. */
+           would have. In stylus mode a finger that MOVED has scrolled the page rather than tapped, and
+           activating anything then would fire a button the reader was only using to push the page along —
+           which is why the slop test is on `scrolled` and not on the pen's path, where any movement at all
+           is a stroke and the control was never a candidate. */
         const moved = scrolled && (Math.abs(e.clientX - sx) > WB_TAP_SLOP || Math.abs(e.clientY - sy) > WB_TAP_SLOP);
         if (!moved && controlUnder(e) === ctl) {
           if (/^(INPUT|TEXTAREA|SELECT)$/.test(ctl.tagName)) { try { ctl.focus(); } catch (x) {} }
@@ -7124,7 +7197,7 @@
       }
       end();
     });
-    canvas.addEventListener("pointercancel", () => { passCtl = null; passScroll = false; end(); });
+    canvas.addEventListener("pointercancel", () => { passCtl = null; passScroll = false; panEl = null; panStop(); end(); });
     if (WB._onResize) window.removeEventListener("resize", WB._onResize);
     WB._onResize = () => wbResize(true);
     window.addEventListener("resize", WB._onResize);
@@ -14718,6 +14791,14 @@
       for (let i = 0; i < GRAT.length; i++) { ctx.beginPath(); addClipped(GRAT[i], false); ctx.stroke(); }
       ctx.restore();
     }
+    /* A highlight's colours, derived from one rgb triple so a second one costs a line rather than a fork of
+       the painter. The map has exactly one — its gold — until the Find-it game, which has to say three
+       different things on the same map (here is the answer · here is where you went · you found it) and
+       cannot say them all in one colour. `line` and `glow` are written out on the gold so the shipped
+       selection stays exactly as it was: its outline is a LIGHTER amber than its fill, not the same value
+       at full alpha, which is what deriving them would have quietly made it. */
+    const TINT_SEL = { rgb: "255,178,46", fillA: 0.24, line: "rgba(255,192,74,1)", glow: "rgba(255,184,60,0.75)" };
+    const tintOf = (rgb, fillA) => ({ rgb: rgb, fillA: fillA, line: "rgba(" + rgb + ",1)", glow: "rgba(" + rgb + ",0.75)" });
     // paint a country with its stable matte colour (clipped to the country) when hovered / selected
     function paintFill(idx, selected) {
       const ht = histTerr(), terr = ht || GEO;
@@ -14738,8 +14819,9 @@
     // two full Gaussian shadowBlur passes PER TERRITORY, every frame. That made dragging with a colonial empire
     // selected roughly four times the cost of dragging with nothing selected: the single most expensive thing on the
     // map. Batched, the whole selection shares one clip, one stroke path and one coast pass.
-    function paintFillGroups(groups, selected, hidden, clipCoast) {
+    function paintFillGroups(groups, selected, hidden, clipCoast, tint) {
       if (!groups.length) return;
+      const T = tint || TINT_SEL;
       // cohesive amber highlight: a subtle warm tint (lets the map read through) + a crisp bright outline, with a soft glow when selected
       ctx.save();
       // On a historical era, clip the FILL to the present-day world.js land so the gold follows the DRAWN coastline
@@ -14749,12 +14831,12 @@
         ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.clip();
         ctx.beginPath(); for (let g = 0; g < GEO.length; g++) { const b = BBOX[g]; if (b[2] < x0 || b[0] > x1 || b[3] < y0 || b[1] > y1) continue; if (cullHidden(g)) continue; const gr = GEO[g].p; for (let r = 0; r < gr.length; r++) addClipped(gr[r], true); } ctx.clip("evenodd");   // horizon/viewport cull too: a world-spanning empire's bbox otherwise drags every country on the far side of the globe into the clip mask
       }
-      ctx.fillStyle = selected ? "rgba(255,178,46,0.24)" : "rgba(255,178,46,0.12)";
+      ctx.fillStyle = "rgba(" + T.rgb + "," + (selected ? T.fillA : 0.12) + ")";
       for (const g of groups) { ctx.beginPath(); const rings = g.p; for (let r = 0; r < rings.length; r++) addClipped(rings[r], true); ctx.fill("evenodd"); }   // per entity, so a ring hole stays a hole
       ctx.restore();
       ctx.save();
-      if (selected && !moving) { ctx.shadowColor = "rgba(255,184,60,0.75)"; ctx.shadowBlur = 9; }   // shadowBlur is a full Gaussian pass per stroke — invisible mid-drag, so motion frames skip it
-      ctx.lineWidth = selected ? 2.6 : 1.5; ctx.strokeStyle = selected ? "rgba(255,192,74,1)" : "rgba(255,178,46,0.82)";
+      if (selected && !moving) { ctx.shadowColor = T.glow; ctx.shadowBlur = 9; }   // shadowBlur is a full Gaussian pass per stroke — invisible mid-drag, so motion frames skip it
+      ctx.lineWidth = selected ? 2.6 : 1.5; ctx.strokeStyle = selected ? T.line : "rgba(" + T.rgb + ",0.82)";
       ctx.beginPath();
       const seg = [0, 0];
       for (const g of groups) {
@@ -14773,7 +14855,7 @@
       // its border outline, and gains the coast back on release — the same bargain motion frames already make for the glow.
       if (clipCoast && selected && !moving) {
         const all = []; for (const g of groups) for (const ring of g.p) all.push(ring);
-        strokeCoastClipped(all, selected);
+        strokeCoastClipped(all, selected, T);
       }
     }
     const _rnd1e3 = (v) => Math.round(v * 1e3) / 1e3;
@@ -14795,12 +14877,13 @@
       }
       return _coastCaps;
     }
-    function strokeCoastClipped(rings, selected) {   // stroke the present-day coastline (coastEdges), clipped to `rings`, in the gold highlight style
+    function strokeCoastClipped(rings, selected, tint) {   // stroke the present-day coastline (coastEdges), clipped to `rings`, in the highlight style
+      const T = tint || TINT_SEL;
       let x0 = 180, y0 = 90, x1 = -180, y1 = -90; for (const ring of rings) for (const p of ring) { if (p[0] < x0) x0 = p[0]; if (p[0] > x1) x1 = p[0]; if (p[1] < y0) y0 = p[1]; if (p[1] > y1) y1 = p[1]; }
       const ce = coastEdges(), bb = coastBBoxes(), cc = coastCaps();
       ctx.save();
-      if (selected && !moving) { ctx.shadowColor = "rgba(255,184,60,0.75)"; ctx.shadowBlur = 7; }   // no Gaussian passes mid-drag
-      ctx.lineWidth = selected ? 2.2 : 1.3; ctx.strokeStyle = selected ? "rgba(255,192,74,1)" : "rgba(255,178,46,0.82)";
+      if (selected && !moving) { ctx.shadowColor = T.glow; ctx.shadowBlur = 7; }   // no Gaussian passes mid-drag
+      ctx.lineWidth = selected ? 2.2 : 1.3; ctx.strokeStyle = selected ? T.line : "rgba(" + T.rgb + ",0.82)";
       ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.clip();
       ctx.beginPath(); for (let r = 0; r < rings.length; r++) addClipped(rings[r], true); ctx.clip("evenodd");
       ctx.beginPath();
@@ -15283,6 +15366,18 @@
       for (let u = 0; u < subSelUK.length; u++) { const ui = subSelUK[u]; if (ui >= 0 && ui < UK.length) uk.push({ p: UK[ui].p, c: UK[ui].c }); }   // drilled UK constituent(s): internal '0' borders + present-day coast clipped to them
       paintFillGroups(uk, true, null, true);
     }
+    /* Painted direct on every frame rather than cached like the selection: a mark lives for one round, the
+       game never has more than a handful of entities marked, and the reveal is followed by a flyTo — so the
+       frames it appears on are moving frames, which the cache would be rebuilt for anyway. */
+    function drawGameMarks() {
+      if (!gameMarks.length) return;
+      const ht = histTerr(), terr = ht || GEO;
+      for (const m of gameMarks) {
+        const groups = [];
+        for (const i of m.idxs) if (i >= 0 && i < terr.length) groups.push({ p: terr[i].p, c: ht ? terr[i].c : null });
+        paintFillGroups(groups, true, null, !!ht, m.tint);   // `selected` — a mark is an assertion, not a hover
+      }
+    }
     function drawSelectionOverlay() {
       if (!selSet.size && subSelGeo < 0 && !subSelUK.length) {
         if (selCv.width) { selCv.width = 0; selCv.height = 0; selKey = ""; }   // nothing selected — release the backing
@@ -15307,6 +15402,22 @@
     // change pulse: territory indices (of the CURRENT map) that changed hands vs the era just stepped away from
     let pulseSet = null, pulseT0 = 0, _lastPulseAt = 0;
     let pulsePin = null;   // [lon, lat] — an expanding-ring marker (the game's capital reveal; survives a cancelled fly)
+    /* ---- the Find-it game's PERSISTENT marks (Aug 2026, on a bug report) ----
+       The pulse is a 1.6-second throb and then nothing, which is exactly right for "these territories
+       changed hands on that step" and exactly wrong for an answer. A reader who guessed wrong twice was
+       told "It was here." and looked up to find the flash already over and the map precisely as it had
+       been — the answer announced and then withdrawn before it could be read. Same for the wrong guess:
+       it flashed red at the moment of the tap, which is the one moment the reader is looking at their own
+       finger rather than at the map.
+       So both are PAINTED and stay painted until the next round clears them. A round can hold several —
+       two wrong guesses in red and the answer over them — hence a list rather than a slot.
+       Deliberately NOT selSet: that is the map's gold, and it is cached into selCv under a key made of its
+       members alone, so two marks wanting different colours would blit whichever was drawn first. */
+    let gameMarks = [];    // [{ idxs, tint }] — a wrong guess, or the revealed answer
+    let gamePin = null;    // { lon, lat, name, tint } — a revealed capital, which a ring that fades cannot show
+    const TINT_MISS = tintOf("224,68,56", 0.34);    // where you went — the game red
+    const TINT_FOUND = tintOf("46,164,90", 0.34);   // you found it — the game green
+    const TINT_ANSWER = tintOf("255,178,46", 0.38); // where it was — the map's own gold, laid on harder
     /* A place the reader arrived at from a glossary popup's map marker, or picked out of the search box
        (Aug 2026, on request). A POINT focus is drawn as a gold dot with its name beside it — and ONLY while
        it is focused: most of these places (a cave, a gorge, a dig site) are not cities and have no business
@@ -15544,6 +15655,7 @@
       ctx.save(); ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.clip(); ctx.lineJoin = "round"; ctx.lineCap = "round";
       if (fillsOn) {   // clickable countries (present-day) or era territories (historical) — hover + selection fills
         drawSelectionOverlay();   // selection (cached offscreen while settled — pulse/fade animation frames blit instead of re-blurring dozens of territories)
+        drawGameMarks();          // the game's own marks, over the selection and under the borders, as the selection is
         if (hoverIdx >= 0 && !selSet.has(hoverIdx)) paintFill(hoverIdx, false);
       }
       drawStrokes();
@@ -15580,6 +15692,22 @@
           const nm = placeName(focusPoint.name);
           ctx.lineWidth = 3.5; ctx.strokeStyle = LBL_HALO; ctx.strokeText(nm, x + 10, y);
           ctx.fillStyle = LBL_TEXT; ctx.fillText(nm, x + 10, y);
+          ctx.restore();
+        }
+      }
+      /* the game's revealed capital, kept on the map. The expanding ring below says "look here" and is gone
+         in 1.6s; a city named on a coastline of a thousand others has to stay named until the next round. */
+      if (gamePin) {
+        proj(gamePin.lon, gamePin.lat);
+        if (PV >= 0) {
+          const x = PX, y = PY;
+          ctx.save();
+          ctx.beginPath(); ctx.arc(x, y, 5.5, 0, TAU); ctx.fillStyle = gamePin.tint.line; ctx.fill();
+          ctx.lineWidth = 1.6; ctx.strokeStyle = "rgba(30,20,0,.7)"; ctx.stroke();
+          ctx.font = "600 " + clamp(11 + (zoom - 2) * 0.9, 11, 14) + "px " + labelFont;
+          ctx.textAlign = "left"; ctx.textBaseline = "middle";
+          ctx.lineWidth = 3.5; ctx.strokeStyle = LBL_HALO; ctx.strokeText(gamePin.name, x + 10, y);
+          ctx.fillStyle = LBL_TEXT; ctx.fillText(gamePin.name, x + 10, y);
           ctx.restore();
         }
       }
@@ -16494,22 +16622,27 @@
       mgScoreEl.textContent = gameFirstTry + (gameFirstTry === 1 ? " point" : " points");
       mgQEl.innerHTML = (r.kind === "capital" ? "Find the city of <b>" + esc(r.n) + "</b>" : "Find <b>" + esc(r.n) + "</b>") + (r.year >= MAXY ? " on today's map" : " — in " + fmtYearG(r.year));
       mgFeedbackEl.hidden = true; mgNextEl.hidden = true;
-      selSet.clear(); subSelGeo = -1; subSelUK = []; pulseSet = null; scheduleDraw();
+      selSet.clear(); subSelGeo = -1; subSelUK = []; pulseSet = null;
+      gameMarks = []; gamePin = null;   // last round's wrong guesses and its answer come off the board with it
+      scheduleDraw();
     }
     function gameReveal(r, ok) {
       gameLock = true;
       const tgt = gameTargetLL(r);
+      const tint = ok ? TINT_FOUND : TINT_ANSWER;
       pulseCol = ok ? GAME_GREEN : "rgba(255,178,46,1)";   // green = you found it; gold = "here's the one you missed"
       if (r.kind !== "capital") {   // flash ALL same-named polygons via the pulse machinery (the 1900 map has 35 "Fiji" pieces)
         const terr = histTerr() || GEO, k = r.n.toLowerCase(), idxs = [];
         for (let i = 0; i < terr.length; i++) if ((terr[i].n || "").toLowerCase() === k) idxs.push(i);
         if (idxs.length) {
           pulseSet = idxs; pulseT0 = performance.now();
+          gameMarks.push({ idxs: idxs, tint: tint });   // …and it STAYS lit, which is what "It was here" promises
           if (tgt) popPointLL = [tgt[0], tgt[1]];
           showCountryPopup(idxs[0]);   // the answer's info panel — the round ends on something learned
         }
       } else {   // capitals: a geo-anchored ring marker (the fly alone is cancellable — the marker isn't) + the owning state's panel
         pulsePin = [r.lon, r.lat]; pulseT0 = performance.now();
+        gamePin = { lon: r.lon, lat: r.lat, name: r.n, tint: tint };   // the ring fades; the named dot does not
         const oi = ownerIdxAt(activeEra(year), r.lon, r.lat);
         if (oi >= 0) { popPointLL = [r.lon, r.lat]; showCountryPopup(oi); }
       }
@@ -16538,7 +16671,14 @@
         if (gameTries === 0) gameFirstTry++;
         sfx("good");
         gameReveal(r, true);
-      } else if (gameTries === 0) {
+        return;
+      }
+      /* A wrong pick STAYS red for the rest of the round (Aug 2026, on request). It used to flash and fade,
+         which is the one moment the reader is looking at their own finger rather than at the map — and by
+         the reveal there was nothing left to say where they had been. Both guesses are marked, so the
+         second try can see where the first went, and the answer's own mark lands over them. */
+      if (clickedIdx >= 0 && !gameMarks.some((m) => m.idxs[0] === clickedIdx)) gameMarks.push({ idxs: [clickedIdx], tint: TINT_MISS });
+      if (gameTries === 0) {
         gameTries = 1; sfx("bad");
         if (clickedIdx >= 0) {   // the wrong pick flashes red and its info panel opens — a miss still teaches something
           pulseSet = [clickedIdx]; pulseCol = GAME_RED; pulseT0 = performance.now();

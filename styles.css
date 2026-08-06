@@ -1908,7 +1908,14 @@ body.night .lu-badge{color:#E6C765;}
 /* "Find it" game mode: the globe is the board — everything that would reveal answers hides, the timebar locks.
    The country info panel STAYS available: it opens on every guess (right or wrong) so the game still teaches. */
 .atlas-game .globe-search, .atlas-game .globe-legend, .atlas-game .globe-hovername, .atlas-game .globe-hint{display:none !important;}
-.atlas-game .atlas-timebar{pointer-events:none; opacity:.8;}
+/* The timebar goes ENTIRELY (Aug 2026, on request). It was left on screen, inert and slightly dimmed, so the
+   board would look like the Atlas the reader knows — but the round names its own year in the question, the
+   rail cannot be touched and stepping years is exactly what the game must not allow, so it was a fifth of a
+   phone screen spent on a control with nothing to say. Setting --timebar-h to 0 HERE rather than on :root is
+   what gives that height back: .globe-stage is a descendant, so it inherits the zero and grows into the
+   space, and every other rule written against the variable is left describing the ordinary Atlas. */
+.atlas-game{--timebar-h:0px;}
+.atlas-game .atlas-timebar{display:none;}
 .map-game{position:absolute; top:14px; left:50%; transform:translateX(-50%); z-index:8; width:min(430px, calc(100% - 28px));}
 .map-game[hidden]{display:none;}
 .mg-card{background:var(--card); border:1px solid var(--rule); border-radius:13px; padding:13px 18px 14px; box-shadow:0 12px 32px -14px rgba(0,0,0,.5); display:flex; flex-direction:column; gap:7px;}
@@ -2323,12 +2330,17 @@ body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, va
 .draw-canvas.wb-fixed{position:fixed;}
 .draw-canvas.on{pointer-events:auto; cursor:crosshair;}
 /* ---- a stylus takes the pen, and fingers go back to scrolling (Aug 2026, on request) ----
-   `touch-action` is what decides whether the browser may scroll under a finger at all, and it is half the
-   feature: with `none` the drawing surface keeps every gesture, which is right when the finger IS the pen
-   and wrong the moment a stylus is doing the drawing. `pan-y pinch-zoom` hands vertical drags and pinches
-   back — nothing under a card scrolls sideways — and the JS half (setupWhiteboard's pointerdown) must stop
-   calling preventDefault to match, since a prevented pointerdown cancels the scroll whatever this says. */
-.draw-canvas.wb-pen-only{touch-action:pan-y pinch-zoom;}
+   There is deliberately NO `touch-action` override here, and that is the fix rather than an omission. This
+   rule used to say `pan-y pinch-zoom` so the browser would scroll under a finger — but `touch-action` is
+   CSS and CSS cannot tell a pen from a finger, so the same permission handed the browser the STYLUS's drag
+   as well: a stroke drew for the length of the pan slop, the scroller claimed the gesture, `pointercancel`
+   killed the stroke and the page moved under it. The canvas therefore keeps `touch-action:none` in every
+   state, and the finger's scroll is done by hand in setupWhiteboard — which is also where the decision
+   belongs, being the one place that can make it per gesture, by the tool that started it.
+   The `.wb-pen-only` class is still set on the canvas: it carries no style now, but it is the state written
+   where it can be read — in the DOM — and a rule added here later would be the wrong fix twice over.
+   Nor is the CURSOR touched: in this mode a mouse still draws (only `pointerType === "touch"` is handed
+   back), so the crosshair `.draw-canvas.on` sets is still telling the truth. */
 /* The marker is DRAGGABLE anywhere on the screen (see wbMakeDraggable in app.js), which is why the box is
    exactly the toggle button and the panel hangs off it absolutely rather than sharing a flex column. Two
    things follow from that. The element is positioned by right/bottom, so the corner the drag moves is the
