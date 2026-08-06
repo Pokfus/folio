@@ -3711,6 +3711,201 @@ const BOOKS = {
         "it and because it is genuinely part of what the ancient scribes handed down.",
     ],
   },
+
+  "bhagavad-gita": {
+    title: "The Bhagavad Gita",
+    /* The edition's own title page reads "The Bhagavad-Gita" with the hyphen, which is where the
+       `edition` string keeps it. The shelf drops it, that being the spelling a reader will type. */
+    author: "Vyasa",
+    /* THE ATTRIBUTION IS TRADITIONAL AND THE FRONT MATTER SAYS SO. Vyasa is the sage to whom Indian
+       tradition ascribes the compilation of the Mahabharata, of which the Gita is a part, and both
+       Wikisource's header and this edition name him. He is not an author in the sense Seneca or
+       Machiavelli are, and a reader should be told so on the book's own page rather than left to
+       find it out; what is NOT done is to quietly file one of the most famous books in the world
+       under "Anonymous" against the naming of the edition it is taken from. */
+    translator: "Annie Besant",
+    edition:
+      "The Bhagavad-Gita, with Samskrit text and English translation, 4th edition, " +
+      "G. A. Natesan & Co., Madras, 1922",
+    written: "c. 2nd century BCE – 2nd century CE",
+    /* The Gita is dated by argument rather than by any statement of its own, and the range above is
+       the conventional scholarly span for its composition. The sort key takes the middle of it. As
+       with the Song of Roland and Gilgamesh, how loose the figure is is said on the book's page. */
+    year: -50,
+
+    /* ---------- THE LICENCE — two layers, and one of them needs a limit stated ----------
+       The poem is ancient and free everywhere. The only modern layer is Besant's English.
+
+       Annie Besant lived 1 October 1847 – 20 September 1933 — dates looked up on Wikidata rather
+       than recalled, for the Hugo Magnus reason, that being the mistake this file exists not to
+       repeat. Her translation first appeared in 1895 and this printing is the fourth edition of
+       1922. So it is public domain in the United States, where a work published before 1929 has
+       expired, and out of copyright wherever the term is the author's life plus seventy, which
+       expired at the start of 2004.
+
+       IT IS THEREFORE THE SIXTH BOOK HERE TO STATE A LIMIT AS WELL AS A GROUND, after the Art of
+       War (Giles, 2029), the Nicomachean Ethics (Ross, 2042), the Song of Roland (both columns,
+       2031 and 2039), the Medea (Murray, 2028) and Gilgamesh (Thompson, 2042): where the term is
+       life plus a hundred it runs until the start of 2034.
+
+       WHAT IS AND IS NOT TAKEN. The eighteen discourses, in both columns, with Besant's footnotes.
+       G. A. Natesan's publisher's note of 1907 is left behind, as Thompson's preface, the Republic's
+       added introduction and the Song of Roland's Chesterton essay were — it is quoted from in the
+       front matter below, where it earns its place as evidence of what the edition was for, and is
+       not reproduced as part of the book.
+
+       THE SANSKRIT COLUMN NAMES NO EDITOR, AND THAT IS SAID RATHER THAN PAPERED OVER. The scan's
+       index page leaves the Editor field empty; Natesan's note says only that he set out to print
+       "the text in Devanagari" beside Besant's English. This is the received text of the poem, which
+       is ancient and free on any reading, and no modern editor is credited anywhere in the volume —
+       so none is asserted here. That is the Lucretius judgement in a second book: claim less, and
+       put on the page what cannot be said.
+
+       The modern translations a reader is likeliest to own are all firmly in copyright and are named
+       so that nobody reaches for one later: Juan Mascaró's Penguin of 1962, Eknath Easwaran's of
+       1985, Barbara Stoler Miller's of 1986 and Laurie Patton's Penguin of 2008. */
+    rights:
+      "Public domain, with one limit worth stating. The poem itself is some two thousand years old " +
+      "and the Sanskrit has been free for as long as copyright has existed; the volume credits no " +
+      "modern editor for it, and none is claimed here. The only modern layer is the translation: " +
+      "Annie Besant lived from 1847 to 1933, her English version first appeared in 1895, and this is " +
+      "the fourth edition, printed at Madras in 1922. It is therefore public domain in the United " +
+      "States, where the term for a work published before 1929 has expired, and out of copyright " +
+      "wherever the term is the author's life plus seventy years, which expired at the start of " +
+      "2004. In the few countries where the term is life plus a hundred it remains in copyright " +
+      "until 2034. The publisher's own note of 1907 is not reproduced here; what is taken is the " +
+      "eighteen discourses and Besant's notes on them. (The modern translations by Juan Mascaró, " +
+      "1962, Eknath Easwaran, 1985, Barbara Stoler Miller, 1986, and Laurie Patton, 2008, are still " +
+      "in copyright and are not used here.)",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Bhagavad-Gita_(Besant_4th)",
+
+    /* ---------- THE SHAPE — the ninth layout, and the reasoning is above extractShloka ----------
+       A facing-page edition transcribed as one interleaved column, like the Analects, but numbered
+       on the ORIGINAL's side rather than the translation's — which is why it needed a reader of its
+       own rather than `interleaved`. The short version: the Sanskrit carries a complete set of verse
+       numerals and the English is missing eight of them, so the cut is made at the Sanskrit and the
+       English numerals are used to check it.
+
+       THE CHECK EARNED ITS KEEP ON THE SEVENTEENTH DISCOURSE, which is worth recording because it
+       is the one place the two columns genuinely disagree rather than the English merely being
+       damaged. Its printed English numerals run …17, 18, 20, 20, 21… — nineteen absent and twenty
+       set twice — against a clean Sanskrit 1–28. Measured on the source page rather than inferred
+       from the warning, which is what separates a printing slip from an off-by-one in this
+       extractor: had the cut been wrong, every verse from 19 on would have disagreed, and instead
+       the two columns re-agree at 21 and stay agreed to the end. So it is the 1922 printing that
+       skips a number, the structural cut stands, and the reader is shown the Sanskrit's numbering,
+       which is correct. Nothing is owed to the front matter here — unlike the Song of Roland's
+       malformed laisse numerals, the figures a reader actually sees on this page are right.
+
+       696 of the 701 printed English numerals agree with the place the Sanskrit puts them, and the
+       five that do not are reported on every run, in two kinds. On 10.31, 11.8 and 18.32 the page
+       prints no numeral at all. On 17.19 and 18.14 it prints the NEXT verse's, a numeral having been
+       dropped and the sequence re-syncing immediately after by repeating the following one on its
+       own verse; those two are removed, since this reader strips the printed numeral from all 701
+       verses anyway and leaving them would set a figure beside a verse contradicting the number
+       Folio shows. Measured over the whole book: those are the only five, and nothing else in the
+       prose is touched, the rule being anchored to the end of a verse where a verse numeral sits.
+
+       Both columns come out of ONE fetch of each discourse's page, so the original costs no extra
+       requests, exactly as the Art of War's Chinese does. */
+    layout: "shloka",
+    page: (n) => "Bhagavad-Gita_(Besant_4th)/Discourse_" + n,
+    chapters: Array.from({ length: 18 }, (_, i) => i + 1),
+    chapterWord: "Discourse",
+    /* NO `titleOf`, and no `indexPage`. This edition names its discourses in its own closing
+       formula — "…the first discourse, entitled: THE DESPONDENCY OF ARJUNA." — and all eighteen
+       carry one, checked before it was relied on. extractShloka reads them off the text, which makes
+       this the second book here to take its titles from the text itself rather than from a contents
+       page or from a table in this file, after Gilgamesh. The capitals are the printed page's; they
+       are kept for the reason Aesop's are, that the case is unrecoverable and titleCase() is the
+       thing that entry records trying and rejecting.
+
+       One of the eighteen is misspelt on the page — the eighth reads "INDESCTRUCTIBLE" — and it is
+       kept as printed. Transcribing a title means transcribing it; a silent correction to somebody
+       else's page is the thing this file refuses to make, and it is recorded here so that it cannot
+       later be mistaken for a fault in the import.
+
+       No `parts`: the edition divides the poem into eighteen discourses and nothing above them, so
+       the Contents panel falls back to a single unlabelled group, as the Meditations', the
+       Republic's, the Art of War's, Aesop's, the Song of Roland's and Gilgamesh's do.
+
+       The default `minChars` floor of 200 stands: a verse is a couplet and the shortest discourse
+       here is the twelfth, at twenty verses, which is still thousands of characters of English. */
+
+    original: {
+      lang: "sa",
+      langName: "Sanskrit",
+      edition:
+        "The Devanagari text as printed facing Besant's translation, G. A. Natesan & Co., Madras, 1922",
+      rights:
+        "Public domain. The Sanskrit of the Bhagavad Gita is some two thousand years old and is free " +
+        "everywhere; this is the received text as the 1922 Madras edition prints it, and that volume " +
+        "credits no modern editor for it.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Bhagavad-Gita_(Besant_4th)",
+    },
+
+    /* ---------- THE FRONT MATTER — chapter 0 ----------
+       What a reader needs before they start: what the book is and where it sits inside a far larger
+       one; who Vyasa is and is not; what actually happens in it, since the setting is the whole
+       difficulty; what it argues; this translation and who made it, which is a stranger story than
+       most on this shelf; and last the two things a reader meets on the page itself — the Sanskrit
+       column and the verse numbers. */
+    about: [
+      "<b>The Bhagavad Gita</b> — the Song of the Lord — is seven hundred verses of dialogue set on a " +
+        "battlefield at the moment before the fighting starts. It is not quite a book in its own right " +
+        "so much as an episode inside one: it sits in the sixth book of the <i>Mahabharata</i>, the " +
+        "enormous Sanskrit epic of a war between two branches of a single royal family, and it is by a " +
+        "wide margin the part of that epic which has been read, translated and argued over most. It " +
+        "has been detached and printed on its own for centuries, which is how almost everyone meets " +
+        "it, and how it is printed here.",
+      "Tradition ascribes it, with the rest of the <i>Mahabharata</i>, to <b>Vyasa</b> — a sage who " +
+        "appears inside the epic as a character as well as standing behind it as its author, and whose " +
+        "name means something close to 'the compiler'. That attribution is why this book is shelved " +
+        "under his name, and it should be taken for what it is. Scholars read the Gita as a composite " +
+        "text assembled somewhere between the second century BCE and the second century CE, later " +
+        "than much of the epic around it and probably not the work of a single hand. Nobody knows who " +
+        "wrote it.",
+      "The situation is the whole of the difficulty. Two armies are drawn up facing one another, and " +
+        "Arjuna, the finest archer of his age, asks his charioteer to drive him into the open ground " +
+        "between them so that he can see who he is about to fight. What he sees is his own family — " +
+        "cousins, teachers, the grandfather who raised him. He puts down his bow and says he will not " +
+        "do it: that no kingdom is worth this, and that he would sooner be killed unresisting. His " +
+        "charioteer is Krishna, who is God, and the rest of the book is Krishna's answer. It is a " +
+        "conversation between one man's refusal and the universe's reply, and it never leaves that " +
+        "patch of ground between the armies.",
+      "What Krishna offers is not one argument but several laid over each other, which is part of why " +
+        "the book has been claimed by so many traditions since. He argues that the self is not the " +
+        "body and cannot be killed; that a person's duty is their own and cannot be exchanged for " +
+        "somebody else's, however much more attractive that other one looks; and that the way out of " +
+        "the trap is not to stop acting but to stop acting <i>for what the action will get you</i> — " +
+        "to do what is yours to do and let go of the fruits of it. Then, in the eleventh discourse, " +
+        "the argument stops altogether and Arjuna is shown what he has been talking to, in a vision " +
+        "of a form containing all worlds and all time that frightens him badly enough to beg for the " +
+        "familiar face back.",
+      "The translation is <b>Annie Besant's</b>, and her presence in this book is worth a word. An " +
+        "Englishwoman born in 1847, she was in turn a clergyman's estranged wife, a secularist, a " +
+        "birth-control campaigner prosecuted for it, a socialist organiser of the London matchgirls' " +
+        "strike of 1888, and then — after 1889 — a Theosophist who moved to India, learned Sanskrit, " +
+        "campaigned for Indian home rule and in 1917 was elected president of the Indian National " +
+        "Congress. Her Gita first appeared in 1895. It is a devotional translation by someone who " +
+        "believed the book, in a formal English that is a century old now, and it deliberately leaves " +
+        "a good deal of the Sanskrit untranslated — <i>yoga</i>, <i>dharma</i>, <i>Brahman</i>, the " +
+        "names of the three qualities — explaining each in her own footnotes as it arrives. There are " +
+        "several hundred of those notes and they are part of what this edition is for.",
+      "Two things about the page itself. The <b>Sanskrit is printed beside the English</b>, verse by " +
+        "verse, because that is precisely what this edition was made to do: the publisher G. A. " +
+        "Natesan wrote in 1907 that his ambition was to place a cheap edition of the Gita, with the " +
+        "text in Devanagari and an English translation of the same, within reach of ordinary readers, " +
+        "and Besant granted him the use of her translation for it. And the <b>verses are numbered</b> " +
+        "— the figure between the double strokes ॥ in the Sanskrit, and the same number in the " +
+        "English — which is the system every edition of the Gita in every language shares, so that " +
+        "2.47, the most quoted line in the book, means the same passage here as anywhere else. This " +
+        "edition numbers 701 verses where the traditional count is 700; the difference is one opening " +
+        "verse of the thirteenth discourse which some recensions of the text carry and others do not.",
+    ],
+  },
 };
 
 /* ---------- args ---------- */
@@ -4855,10 +5050,253 @@ function extractInterleaved(h, book, warn) {
   return { html, notes: [], orig, count: enNums.length, origCount: zhNums.length };
 }
 
+/* ============================================================
+   A VERSE-NUMBERED PARALLEL TEXT — the ninth shape, and the first CUT AT THE ORIGINAL'S OWN MARKS
+   ============================================================
+   The Bhagavad Gita is the third facing-page edition on this shelf, after the Art of War's
+   two-cell tables and the Analects' interleaved column, and it needed its own reader for a
+   reason worth stating: THE PRINTED NUMERALS ARE ON THE SIDE THIS SITE DOES NOT NORMALLY CUT AT.
+
+   Every earlier parallel book takes its structure from the English. Giles's section numbers open
+   an English list item; Legge's chapters are marked in both columns and the English is walked.
+   Here the Sanskrit carries a complete, unbroken set of verse numerals — the traditional ॥ २ ॥
+   between double dandas — and the ENGLISH IS THE DAMAGED COLUMN. Measured over all eighteen
+   discourses before any of this was written: 702 Sanskrit numerals against 694 English ones, and
+   the eight the English is missing are not missing verses. Four are a closing parenthesis dropped
+   by the printer or the transcriber, so the marker reads "(42" where the sequence wants "(42)"
+   (3.42, 6.23, 8.20, 9.14); four carry no numeral at all (10.31, 11.8, 18.14, 18.32). In every
+   one of the eight the translation itself is present and complete on the page.
+
+   So this cuts at the SANSKRIT, which is the Song of Roland's rule arrived at from the other
+   side — cut at the separator the edition actually carries, not at the numerals that happen to be
+   damaged — and the English numerals become a CHECK rather than the mechanism. 694 of them then
+   AGREE with the position the cut gives them, which is what turns eight inferences into the only
+   reading consistent with the other 694 rather than into eight guesses.
+
+   THE ALTERNATION IS THE STRUCTURE, and it was verified rather than assumed: every Sanskrit verse
+   on these pages is followed by its own translation before the next Sanskrit verse begins. Over
+   the whole book, 702 verse-following segments and NOT ONE with an empty English side. That is
+   the assumption the Analects entry warns about ("THEY DO NOT ALTERNATE ONE FOR ONE, and assuming
+   they do is the trap") — true there, false here, and the difference is measured per book. */
+const DEV_DIGIT = "०१२३४५६७८९";
+function devNum(s) {
+  const t = String(s).trim();
+  if (!t) return null;
+  let v = 0;
+  for (const ch of t) {
+    const i = DEV_DIGIT.indexOf(ch);
+    if (i < 0) return null;
+    v = v * 10 + i;
+  }
+  return v;
+}
+
+/* The two languages IN READING ORDER, which is what separates this from splitInterleaved. That one
+   returns the Chinese as one array and the English as one string, because the Analects' columns do
+   not alternate reliably and are re-paired afterwards on their chapter marks. Here the alternation
+   IS the pairing, so the order has to survive the split — a segment list, not two piles.
+
+   Same wrapper as the Analects, which is why no new markup rule was needed: every run of Sanskrit
+   on these pages sits in a `wst-lang` element and nothing else on the page does. `blockEnd` walks
+   the nesting rather than matching the next closing tag, so the centring and sizing divs Wikisource
+   wraps a verse in cannot end the block early. */
+function splitAlternating(h) {
+  const out = [];
+  const rx = /<(span|div)[^>]*class="[^"]*wst-lang[^"]*"[^>]*>/g;
+  let i = 0;
+  for (;;) {
+    rx.lastIndex = i;
+    const m = rx.exec(h);
+    if (!m) break;
+    const e = blockEnd(h, m.index, m[1]);
+    if (e < 0) break;
+    if (m.index > i) out.push({ lang: "en", html: h.slice(i, m.index) });
+    out.push({ lang: "sa", html: h.slice(m.index + m[0].length, e).replace(/<\/(?:span|div)>\s*$/, "") });
+    i = e;
+  }
+  if (i < h.length) out.push({ lang: "en", html: h.slice(i) });
+  return out;
+}
+
+/* Sanskrit is written with word spaces, unlike the classical Chinese cnPlain has to rejoin, so this
+   is an ordinary tag strip. The dandas are kept: they are the verse's own punctuation and a reader
+   of this column expects them. */
+const saPlain = (s) =>
+  stripWikiCSS(s)
+    .replace(/<[^>]*>/g, " ")
+    .replace(/&#160;|&nbsp;/g, " ")
+    .replace(/&#8203;/g, "")
+    .replace(/&amp;/g, "&")
+    .replace(/\s+/g, " ")
+    .trim();
+
+function extractShloka(h, book, warn) {
+  const { notes, ids } = notesOf(h);
+
+  /* The body is everything before the footnote list. Besant annotates heavily — 381 notes over the
+     eighteen discourses — and they are ordinary Wikisource references, so the markers are resolved
+     against their TARGETS rather than numbered by reading order, for the reason the Seneca entry
+     gives at length: this edition cites one note from more than one place, and a marker numbered by
+     position would point one entry too far from the first repeat onwards. */
+  let body = h.split(/<div class="reflist|<div class="mw-heading[^"]*"><h2 id="Footnotes"/)[0];
+  body = body.replace(/<sup id="cite[^"]*" class="reference">\s*<a href="#([^"]*)"[\s\S]*?<\/sup>/g, (m, tgt) => {
+    const i = ids.indexOf(tgt.replace(/&#95;/g, "_"));
+    return i < 0 ? '<sup class="fn"></sup>' : '<sup class="fn" data-fn="' + (i + 1) + '"></sup>';
+  });
+  body = body.replace(/<sup id="cite[^"]*" class="reference">[\s\S]*?<\/sup>/g, '<sup class="fn"></sup>');
+
+  const segs = splitAlternating(body);
+
+  /* ---- the walk ----
+     THE SANSKRIT IS CUT AS ONE CONTINUOUS STREAM, NOT BLOCK BY BLOCK, and that distinction is the
+     whole of this walk. A verse's Devanagari does not always sit in one `wst-lang` element: where
+     the scan's page breaks inside a verse the transcription opens a fresh element, so the second
+     discourse alone carries 76 blocks for its 72 verses, four of them holding no numeral at all.
+     Reading a block as a verse therefore puts the OPENING OF THE NEXT VERSE at the end of the one
+     before it — which is what shipped for an hour, and which is invisible to every count this file
+     runs: the verse count is right, the two columns pair, the numbering is a clean 1–N, and only
+     reading the rendered page beside the printed one shows it. It was found by looking at the page.
+
+     So the numeral closes a verse rather than the element doing it: Sanskrit accumulates until a
+     ॥ N ॥ arrives, and everything gathered up to that point is verse N however many elements it
+     came in. The English then attaches to the verse the numeral just closed, which is where the
+     printed page puts it. */
+  const verses = [];
+  let cur = null, saBuf = "";
+  for (const s of segs) {
+    if (s.lang === "sa") {
+      const t = saPlain(s.html);
+      if (t) saBuf += (saBuf ? " " : "") + t;
+      const m = /॥\s*([०-९]{1,3})\s*॥\s*$/.exec(saBuf);
+      const n = m ? devNum(m[1]) : null;
+      if (n === null) continue;                       // a verse carried on into the next element
+      if (!cur || n > cur.n) {
+        if (n > (cur ? cur.n : 0) + 1) warn("verse numbering jumps from " + (cur ? cur.n : 0) + " to " + n);
+        cur = { n, sa: saBuf, en: [] };
+        verses.push(cur);
+      } else if (cur) {
+        /* A numeral that does not move the sequence on is the closing colophon — the eighteenth
+           discourse's is numbered ॥ १८ ॥, the CHAPTER's number, standing after verse 78. Read as a
+           verse it would overwrite the real eighteenth; it belongs to the verse it follows, which is
+           where the printed page puts it. Measured: that is the only such numeral in the book. */
+        cur.sa += " " + saBuf;
+      }
+      saBuf = "";
+      continue;
+    }
+    /* English before the first verse is the running head — "SECOND DISCOURSE." — which is not part
+       of the text and which Folio prints as the chapter's own title anyway. */
+    if (cur) cur.en.push(s.html);
+  }
+  /* Sanskrit left over after the last numeral is the unnumbered tail of the closing formula. */
+  if (saBuf && cur) cur.sa += " " + saBuf;
+  if (!verses.length) throw new Error("no verses found — the page's markup has changed");
+
+  /* ---- the title, transcribed and never composed ----
+     This edition names each discourse in its own English, in the colophon: "…the first discourse,
+     entitled: THE DESPONDENCY OF ARJUNA." All eighteen carry one — checked before it was relied on.
+     The capitals are the printed page's and are kept, as Aesop's are: the case is unrecoverable, and
+     titleCase() is the thing that entry records trying and rejecting. */
+  const tail = verses.length ? saPlain(verses[verses.length - 1].en.join(" ")) : "";
+  const tm = /entitled\s*:?\s*([^.]{3,90})\./i.exec(tail);
+  const t = tm ? tm[1].trim().replace(/\s+/g, " ") : "";
+  if (!t) warn("no colophon title found — the tab will fall back to the chapter word");
+
+  /* ---- the English column ----
+     The verse's own numeral is taken OFF the prose and re-emitted as the bk-n marker app.js pairs
+     on, exactly as every other book here does; leaving it in would print the number twice. The
+     forms accepted are the printed one and the damaged one, and nothing looser: a bare "(42" is
+     taken only at the end of the verse it closes, which is where the eight damaged markers sit. */
+  let checked = 0, absent = [], offBy = [];
+  const html = verses
+    .map((v) => {
+      /* A VERSE IS ONE PARAGRAPH, and building it that way is what keeps the markup balanced.
+         cleanBody's div→blockquote pass cannot be borrowed here: it is written for a whole page,
+         and these segments are FRAGMENTS cut out of the middle of one, so a wrapper opened before
+         the fragment begins closes inside it and one opened inside it closes after it ends. Mapped
+         to blockquotes that way, the first discourse alone came out with 207 openers against 114
+         closers — the Song of Roland's lesson exactly ("strip the whole unit before splitting it"),
+         met from the other direction, and caught by counting a tag against its closer over the
+         shipped data, which is the sweep this file prescribes after any stripTags-adjacent change.
+
+         So the block furniture — Wikisource's centring and sizing wrappers, which carry no meaning
+         here — is dropped outright rather than converted, and each verse is emitted as a single
+         paragraph, which is what the printed page shows. Only the inline formatting and the footnote
+         markers survive. */
+      let b = stripWikiCSS(v.en.join(" ")).replace(/<!--[\s\S]*?-->/g, "");
+      b = b.replace(/<\/?(?:div|p|blockquote|dl|dd|dt|table|tbody|tr|td|th|ul|ol|li|h[1-6])\b[^>]*>/g, " ");
+      b = stripTags(b)
+        .replace(/&#160;|&nbsp;/g, " ")
+        .replace(/&#8203;/g, "")
+        .replace(/&#32;/g, " ")
+        .replace(/[ \t]+/g, " ");
+      /* stripTags' stack discards a closing tag it never saw opened, which is the half of the
+         problem it can solve on its own; an OPENER left over at the end of a fragment is the other
+         half, and it is closed here so a stray <i> cannot italicise the rest of the discourse. */
+      for (const tag of ["i", "b", "em", "strong", "q", "span"]) {
+        const open = (b.match(new RegExp("<" + tag + "\\b[^>]*>", "g")) || []).length;
+        const close = (b.match(new RegExp("</" + tag + ">", "g")) || []).length;
+        for (let k = 0; k < open - close; k++) b += "</" + tag + ">";
+      }
+      /* The check the whole design rests on: does the printed English numeral agree with the place
+         the Sanskrit put this verse? Where it does, it is removed. Where it is absent or damaged,
+         that is recorded and the structural position stands. */
+      const rx = new RegExp("\\(\\s*" + v.n + "\\s*\\)?(?=[^\\d]|$)");
+      if (rx.test(b)) { b = b.replace(rx, ""); checked++; }
+      else {
+        /* THE NUMERAL PRINTED ONE AHEAD. Twice in the book the printer drops a verse number and the
+           next one lands a verse early, repeating on its own verse immediately after so that the
+           sequence re-syncs — 17.19 carries (20) and 18.14 carries (15), measured over the whole
+           book and nowhere else. The numeral is furniture this reader strips from every one of the
+           701 verses anyway, so leaving these two behind would not be preserving anything: it would
+           print a figure beside a verse contradicting the number Folio shows, which is drawn from
+           the Sanskrit and is right. Taken only at the very END of the verse, which is the one place
+           a verse numeral sits, so a number inside the prose cannot be caught by it. */
+        const ahead = new RegExp("\\(\\s*" + (v.n + 1) + "\\s*\\)?\\s*$");
+        if (ahead.test(b)) { b = b.replace(ahead, ""); offBy.push(v.n); }
+        else absent.push(v.n);
+      }
+      b = b.replace(/\s+([.,;:!?])/g, "$1").replace(/\s{2,}/g, " ").trim();
+      const mark = '<span class="bk-n">' + v.n + "</span> ";
+      return "<p>" + mark + b + "</p>";
+    })
+    .join("\n");
+
+  const orig = verses
+    .map((v) => {
+      /* The trailing ॥ N ॥ goes the same way as the English "(N)", and for the same reason. The
+         dandas that open the line and separate the half-verses stay — they are the verse, not a
+         number. */
+      const txt = v.sa.replace(/॥\s*[०-९]{1,3}\s*॥\s*$/, "॥").replace(/\s{2,}/g, " ").trim();
+      return '<p><span class="bk-n">' + v.n + "</span> " + txt + "</p>";
+    })
+    .join("\n");
+
+  /* The two kinds are reported apart, because they say different things about the printed page: one
+     is a numeral the printer left out, the other a numeral he set against the wrong verse. Both are
+     recorded rather than smoothed away, and in both the translation itself is present and is placed
+     by the Sanskrit, which is complete. */
+  if (absent.length)
+    warn("no English numeral printed on verse(s) " + absent.join(", ") +
+         " — the translation is present and is placed by the Sanskrit numbering");
+  if (offBy.length)
+    warn("the English numeral is printed one verse ahead on verse(s) " + offBy.join(", ") +
+         " — dropped, since the Sanskrit numbering is complete and is what the page shows");
+  if (absent.length || offBy.length)
+    warn(checked + " of " + verses.length + " printed English numerals agree with the Sanskrit");
+
+  const nums = verses.map((v) => v.n);
+  if (nums.some((v, i) => v !== i + 1))
+    warn("the verses are not a clean 1–N run (" + nums.length + " of them, highest " + nums[nums.length - 1] + ")");
+
+  return { html, notes, orig, count: verses.length, origCount: verses.length, t };
+}
+
 /* A facing-page edition, whichever way it is transcribed. One choke point, so the two callers that
    want both columns — the English walk and the original's read-back out of its cache — can never
    come to disagree about which extractor a book uses. */
 function bothColumns(h, book, warn) {
+  if (book.layout === "shloka") return extractShloka(h, book, warn);
   return book.layout === "interleaved" ? extractInterleaved(h, book, warn) : extractParallel(h, book, warn);
 }
 
@@ -6641,14 +7079,19 @@ async function fetchEnglish() {
     }
     const h = await api(BOOK.page(n));
     const warn = (m) => warnings.push(BOOK.chapterWord + " " + n + ": " + m);
-    let html, notes, orig = "";
-    if (BOOK.layout === "parallel" || BOOK.layout === "interleaved") {
+    let html, notes, orig = "", tFromText = "";
+    if (BOOK.layout === "parallel" || BOOK.layout === "interleaved" || BOOK.layout === "shloka") {
       /* Both columns come off this one page, so the original is extracted here too and cached beside
          the translation — fetchOriginal then costs no requests at all. The two shapes a facing-page
          edition is transcribed in take different extractors; see the Analects entry for what
          separates them. */
       const got = bothColumns(h, BOOK, warn);
       html = got.html; notes = got.notes; orig = got.orig;
+      /* A title the EXTRACTOR read off the text, for an edition that names its chapters in its own
+         closing formula rather than on a contents page. It yields to `titles[n]`, so a title stated
+         in this file still wins; see the Gita entry, and `titleOf` in the Meditations' for the rule
+         that a title is transcribed and never composed. */
+      tFromText = got.t || "";
     } else {
       const got = notesOf(h);
       const keep = endnotes && got.notes.length ? resolveEndnotes(got, endnotes, warn) : null;
@@ -6670,7 +7113,7 @@ async function fetchEnglish() {
        need it, so the book that needs a different one says so and the default is unchanged. */
     const floor = BOOK.minChars || 200;
     if (html.length < floor) throw new Error("chapter " + n + " came back short (" + html.length + " chars)");
-    const rec = { n, t: titles[n] || chapterTitle(n), p: partOf(n), html, notes };
+    const rec = { n, t: titles[n] || tFromText || chapterTitle(n), p: partOf(n), html, notes };
     if (orig) rec.orig = orig;
     fs.writeFileSync(cf, JSON.stringify(rec));
     chapters.push(rec);
@@ -6759,7 +7202,7 @@ async function fetchOriginal() {
      facing half of the same page and was extracted when the translation was. This reads it back out
      of that cache, and fetches a chapter only where the cache has none — which is what an
      --only-original run on a clean checkout looks like. */
-  if (BOOK.layout === "parallel" || BOOK.layout === "interleaved") {
+  if (BOOK.layout === "parallel" || BOOK.layout === "interleaved" || BOOK.layout === "shloka") {
     console.log("\nReading the " + O.langName + " original out of the parallel text — " +
       BOOK.chapters.length + " chapters");
     for (const n of BOOK.chapters) {

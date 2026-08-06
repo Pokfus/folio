@@ -4842,6 +4842,24 @@
        separation, the accessibility figure decides. The tone is right on its own terms as well —
        bitumen and dark clay, for a poem read off clay tablets. */
     "epic-of-gilgamesh": "#484B00",
+    /* Measured the same way, and the finding is that the palette is now genuinely full: with
+       nineteen colours on the shelf, NOTHING anywhere in its lightness and chroma band clears 25 of
+       its nearest neighbour, where the Song of Roland could still find 24.5 and Euripides 23.8. The
+       best number available at any hue is a saturated green at 24.4 from Lucretius — and it was
+       REJECTED for the reason the Analects' row already records, that green is where Lucretius and
+       Aesop both sit and the only greens that clear them are bright enough to glow beside eighteen
+       muted colours. It also sits at the very top of the band's chroma, which is what "glow" means
+       here.
+
+       This deep saffron-brown is the best colour in a family that asserts no false kinship, which is
+       the Euripides test rather than the raw number: it clears Caesar's burnt orange and Sun Tzu's
+       rust by 22.6, Confucius by 22.7 and Suetonius by 23.4 — evenly, so it reads as its own colour
+       against all four rather than as a near-miss of one — against the shelf's own tightest pair at
+       20.4. It reads 5.29:1 on the tightest of the sixteen light papers. On the dark papers it reads
+       1.7–2.3, as every shipped colour on this shelf does. Saffron is also simply the right colour
+       for the book, which is worth saying only because it did not have to be traded against
+       anything: it happens to be where the numbers led. */
+    "Vyasa": "#743C00",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -5948,6 +5966,62 @@
          War's, Aesop's and the Song of Roland's do. And no titles in this file — the tablets DO have
          names here, and they are read off the edition's own headings by the importer rather than
          composed, which no other book on the shelf does. */
+    },
+    {
+      id: "bhagavad-gita",
+      title: "The Bhagavad Gita",
+      /* No subtitle. The 1922 title page hyphenates it "The Bhagavad-Gita" and the `edition` string
+         keeps the hyphen; the shelf drops it, that being what a reader will type. */
+      author: "Vyasa",
+      /* The attribution is TRADITIONAL, and the book's own front matter says so at length rather than
+         leaving a reader to discover it. Vyasa is the sage to whom Indian tradition ascribes the
+         compilation of the Mahabharata, of which the Gita is one episode; this edition and Wikisource
+         both name him, and scholars read the poem as a composite text by no single hand. Naming him
+         here is following the edition, not making a claim about who held the pen — and it is better
+         than filing one of the most famous books in the world under "Anonymous" against the naming of
+         every edition of it. */
+      written: "c. 2nd century BCE – 2nd century CE",
+      /* Dated by argument rather than by any statement of its own, so the sort key takes the middle of
+         the conventional span. How loose it is is said on the book's own page, as the Song of Roland's
+         and Gilgamesh's are. */
+      year: -50,
+      translator: "Annie Besant",
+      edition: "G. A. Natesan & Co., Madras, 4th edition, 1922",
+      /* THE SIXTH BOOK HERE TO STATE A LIMIT AS WELL AS A GROUND, after the Art of War (Giles, 2029),
+         the Nicomachean Ethics (Ross, 2042), the Song of Roland (both columns, 2031 and 2039), the
+         Medea (Murray, 2028) and Gilgamesh (Thompson, 2042). Dates looked up rather than recalled,
+         for the Hugo Magnus reason: Besant 1847–1933. */
+      rights:
+        "Public domain, with one limit worth stating. The poem itself is some two thousand years old " +
+        "and the Sanskrit has been free for as long as copyright has existed; the volume credits no " +
+        "modern editor for it, and none is claimed here. The only modern layer is the translation: " +
+        "Annie Besant lived from 1847 to 1933, her English version first appeared in 1895, and this " +
+        "is the fourth edition, printed at Madras in 1922. It is therefore public domain in the " +
+        "United States, where the term for a work published before 1929 has expired, and out of " +
+        "copyright wherever the term is the author's life plus seventy years, which expired at the " +
+        "start of 2004. In the few countries where the term is life plus a hundred it remains in " +
+        "copyright until 2034. The publisher's own note of 1907 is not reproduced here; what is taken " +
+        "is the eighteen discourses and Besant's notes on them.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Bhagavad-Gita_(Besant_4th)",
+      /* THE THIRD FACING-PAGE BOOK ON THE SHELF, after the Art of War and the Analects, and the first
+         whose verse numbers are complete on the ORIGINAL's side and damaged on the translation's —
+         which is why the importer needed a ninth layout for it rather than reusing the Analects'. See
+         `extractShloka` in .claude/fetch-book.js. Both columns come out of one fetch of each
+         discourse, so the Sanskrit costs no extra requests, exactly as Sun Tzu's Chinese does. */
+      origLang: "sa",
+      origName: "Sanskrit",
+      chapterWord: "Discourse",
+      /* All eighteen, and every one of the 701 verses, both columns. The traditional count is 700; the
+         difference is one opening verse of the thirteenth discourse that some recensions of the text
+         carry and others do not, and the front matter says so. */
+      count: 18,
+      total: 18,
+      /* No `parts`: the edition divides the poem into eighteen discourses and nothing above them, so
+         the Contents panel falls back to a single unlabelled group. And no titles in this file — this
+         edition NAMES each discourse in its own closing formula ("…the first discourse, entitled: THE
+         DESPONDENCY OF ARJUNA"), and the importer reads all eighteen off the text rather than
+         composing them, which only Gilgamesh does otherwise. */
     },
   ];
   const BOOK_BY_ID = {};
