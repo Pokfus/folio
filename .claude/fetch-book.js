@@ -155,56 +155,73 @@ const CAESAR_WORK = (n) => "abo0" + (10 + n);
 /* ---------- THE DIALOGUES, and this table IS the book ----------
    Every other multi-part book here is divided by its own edition into things that share a name and a
    numbering — 124 letters, 12 books, 12 lives — so a chapter is addressed by arithmetic. Plato's
-   dialogues share neither: each has its own name, its own page on Wikisource, its own Perseus work
-   id and its own Stephanus range, and nothing about "Crito" can be derived from the fact that it is
-   chapter 11. So both halves of the book are addressed through this one table, as Suetonius's two
-   are through CAESAR_TITLES and CAESAR_WORK.
+   dialogues share neither: each has its own name, its own Perseus work id and its own Stephanus
+   range, and nothing about "Crito" can be derived from the fact that it is chapter 3. So both halves
+   of the book are addressed through this one table, as Suetonius's two are through CAESAR_TITLES and
+   CAESAR_WORK.
 
-   THE ORDER IS THE EDITION'S OWN, walked off the volume contents pages rather than composed here —
-   Volume I runs Charmides, Lysis, Laches, Protagoras, Euthydemus, Cratylus, Phaedrus, Ion,
-   Symposium; Volume II runs Meno, Euthyphro, Apology, Crito, Phaedo, Gorgias and then the appendix
-   pieces. Jowett arranged his volumes on his own reading of Plato's development, and it is not the
-   order any modern edition uses; it is what this printing states, which is what the house rule asks
-   for. `vol` records which volume each came out of, and that is what the reader's Contents panel
-   groups by.
+   THE ORDER IS THRASYLLUS'S NINE TETRALOGIES, which is not an arrangement composed here: it is the
+   ancient ordering of Plato recorded by Diogenes Laertius, and Perseus's own work numbering follows
+   it exactly — tlg001–004 are Euthyphro, Apology, Crito, Phaedo, and so on in fours to tlg036. That
+   correspondence was checked across all thirty-six before it was relied on, so `tet` is read off the
+   work id rather than stored twice, and the reader's Contents panel groups by it.
 
-   WHICH TEN ARE ABSENT AND WHY, since a reader who knows Plato will look for them. Wikisource's
-   transcription of this edition is unfinished, and the missing dialogues are missing THERE, not
-   here: measured page by page against Perseus's own section counts, Gorgias carries 1 of its 81
-   Stephanus pages, Phaedrus 2 of 53, Alcibiades I 2 of 33, Cratylus 24 of 58, Phaedo 26 of 62, and
-   Alcibiades II, Eryxias, Lesser Hippias and Menexenus 1 apiece. Each of those pages renders the
-   untranscribed leaves as visible "Page:The Dialogues of Plato v. N.djvu/NNN" red-link text, which
-   is the structural test to re-run before adding any of them — a count of section markers alone
-   cannot tell a short dialogue from a truncated one. The Parmenides page is a bare header with no
-   text at all. The Republic is inside this edition too and is an index of red links, which is why
-   it ships here from a different printing as its own book.
+   THE REPUBLIC IS THE ONE GAP, and it is a LICENCE gap rather than a textual one. Perseus's English
+   Republic is Paul Shorey's, published 1935–37, which is not in the public domain in the United
+   States and cannot be shelved here — where every other work in this table was published between
+   1914 and 1929. It is in the library already as a book of its own, in Jowett's translation from a
+   different printing, so nothing is actually missing from the shelf; it is missing from THIS book,
+   and its slot in Tetralogy VIII is simply left out. That is also why `total` is 36 against a
+   `count` of 35.
 
-   The eleven below are whole: no red-link leaves anywhere in them, and their marginal Stephanus
-   numbers run the full range Burnet's Greek states for the same dialogue. Four are short of a
-   marker or two against the Greek — see the note at the foot of the entry, which says which and
-   what they are. */
+   Five of the works are of disputed authorship and were so in antiquity — Alcibiades II, Hipparchus,
+   Rival Lovers, Theages, Minos, and the Epinomis and Letters are argued over too. They are kept
+   because Thrasyllus's arrangement keeps them and because the Loeb edition prints them; that is a
+   fact about the transmission rather than a claim about who wrote them, and the front matter says so
+   rather than letting a reader assume the shelf is asserting authorship. */
 const DIALOGUES = [
-  { t: "Charmides",  vol: 1, w: "tlg018" },
-  { t: "Lysis",      vol: 1, w: "tlg020" },
-  { t: "Laches",     vol: 1, w: "tlg019" },
-  { t: "Protagoras", vol: 1, w: "tlg022" },
-  { t: "Euthydemus", vol: 1, w: "tlg021" },
-  { t: "Ion",        vol: 1, w: "tlg027" },
-  { t: "Symposium",  vol: 1, w: "tlg011" },
-  { t: "Meno",       vol: 2, w: "tlg024" },
-  /* THE ONE FILE PERSEUS ENCODES DIFFERENTLY, and it is worth stating rather than hiding in a
-     ternary. Ten of the eleven are `perseus-grc2` editions; the Euthyphro has no grc2 at all and
-     its grc1 file is the older encoding, which spells its divisions `resp n subtype` where the
-     newer ones spell them `n subtype`. teiSections already reads a division's attributes
-     independently of their order — the lesson Suetonius taught it — so this costs nothing at read
-     time; what it costs is the URL, which is why the suffix is a field. A probe that fixes the
-     attribute order reports this dialogue as having no sections whatever, which is exactly how it
-     was first measured here. */
-  { t: "Euthyphro",  vol: 2, w: "tlg001", grc: "grc1" },
-  { t: "Apology",    vol: 2, w: "tlg002" },
-  { t: "Crito",      vol: 2, w: "tlg003" },
+  { t: "Euthyphro",       w: "tlg001", grc: "grc1" },
+  { t: "Apology",         w: "tlg002" },
+  { t: "Crito",           w: "tlg003" },
+  { t: "Phaedo",          w: "tlg004" },
+  { t: "Cratylus",        w: "tlg005" },
+  { t: "Theaetetus",      w: "tlg006" },
+  { t: "Sophist",         w: "tlg007" },
+  { t: "Statesman",       w: "tlg008" },
+  { t: "Parmenides",      w: "tlg009" },
+  { t: "Philebus",        w: "tlg010" },
+  { t: "Symposium",       w: "tlg011" },
+  { t: "Phaedrus",        w: "tlg012" },
+  { t: "Alcibiades I",    w: "tlg013" },
+  { t: "Alcibiades II",   w: "tlg014" },
+  { t: "Hipparchus",      w: "tlg015" },
+  { t: "Rival Lovers",    w: "tlg016" },
+  { t: "Theages",         w: "tlg017" },
+  { t: "Charmides",       w: "tlg018" },
+  { t: "Laches",          w: "tlg019" },
+  { t: "Lysis",           w: "tlg020" },
+  { t: "Euthydemus",      w: "tlg021" },
+  { t: "Protagoras",      w: "tlg022" },
+  { t: "Gorgias",         w: "tlg023" },
+  { t: "Meno",            w: "tlg024" },
+  { t: "Greater Hippias", w: "tlg025" },
+  { t: "Lesser Hippias",  w: "tlg026" },
+  { t: "Ion",             w: "tlg027" },
+  { t: "Menexenus",       w: "tlg028" },
+  { t: "Cleitophon",      w: "tlg029" },
+  /* tlg030 is the Republic — see the note above. */
+  { t: "Timaeus",         w: "tlg031" },
+  { t: "Critias",         w: "tlg032" },
+  { t: "Minos",           w: "tlg033" },
+  { t: "Laws",            w: "tlg034" },
+  { t: "Epinomis",        w: "tlg035" },
+  { t: "Letters",         w: "tlg036" },
 ];
 const DIALOGUE = (n) => DIALOGUES[n - 1];
+/* The tetralogy a work belongs to, derived from Perseus's work id rather than stored beside it — the
+   numbering IS the tetralogical order, so a second copy could only ever drift out of step with it. */
+const TETRALOGY = (d) => Math.ceil(parseInt(d.w.slice(3), 10) / 4);
+const TET_ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"];
 
 /* ---------- THE 313 FABLES, IN THE ORDER THIS EDITION PRINTS THEM ----------
    A table rather than arithmetic, because there is no arithmetic to do: the fables are reached by
@@ -863,194 +880,164 @@ const BOOKS = {
 
   "plato-dialogues": {
     title: "The Dialogues",
-    // the volumes' own half-title, which is what this edition calls the collection
-    subtitle: "Translated into English",
+    // descriptive rather than transcribed: this gathering is Folio's, so it does not borrow a title page
+    subtitle: "Thirty-five Works in Nine Tetralogies",
     author: "Plato",
-    translator: "Benjamin Jowett",
-    edition: "Third edition, Clarendon Press, Oxford, 1892",
-    /* The span of the eleven dialogues actually here, not of Plato's writing life: these are the
-       early Socratic group and the two middle works that grew out of it. Deliberately vaguer than
-       the Symposium's own entry used to be, because a collection cannot honestly carry one date. */
-    written: "c. 399–370 BCE",
+    translator: "Harold North Fowler, W. R. M. Lamb and R. G. Bury",
+    edition: "Loeb Classical Library, Harvard University Press, 1914–1929",
+    written: "c. 399–347 BCE",
 
-    /* ---------- THE LICENCE, and it is the easiest kind, twice over ----------
-       Jowett died in 1893 and this is his third edition of 1892, so the translation is out of
-       copyright on every rule anyone applies: pre-1929 publication, life plus seventy, life plus a
-       hundred. It needs no limit stated, as Giles's (2029) and Ross's (2042) do.
+    /* ---------- THE LICENCE, and it has THREE grounds and one thing it declines to claim ----------
+       WHY NOT JOWETT, since this book shipped in his translation first. Jowett's copyright is the
+       easiest on the shelf and the reason for leaving him is not licensing at all: Wikisource's
+       transcription of his edition is unfinished, and measured page by page it carries only eleven
+       of the dialogues whole. The Loeb set is complete, and choosing it is the Thucydides trade made
+       in the other direction — there the cleanest text to import (Hobbes, 1629) was refused because
+       the Library is a reading room, and here the complete text and the readable one are the same
+       text, so nothing is given up.
 
-       The Greek beside it is Burnet's, and it clears the same bar twice over — the Oxford Classical
-       Texts these eleven come from were printed between 1903 and 1910 and Burnet died in 1928, so
-       life-plus-seventy expired in 1998. The DATE IS A RANGE HERE WHERE THE SYMPOSIUM'S ENTRY GAVE
-       ONE YEAR, and that is a correction rather than a loosening: Burnet published the dialogues
-       across five volumes, and these eleven come from three of them. Read off each file's own
-       imprint rather than assumed — 1903 for the seven of Volume I plus the Meno, 1905 for the
-       Euthyphro, Apology and Crito, 1910 for the Symposium. Claiming "1910" for all eleven would
-       have been the Hugo Magnus mistake in miniature: a checkable fact stated wrongly to keep a
-       sentence tidy.
+       THE ENGLISH rests on the date of publication and on nothing else. These translations were
+       published between 1914 and 1929, so their United States copyright has expired: thirty of the
+       thirty-five are pre-1929 outright, and the five in the Loeb volume of 1929 — Menexenus,
+       Cleitophon, Timaeus, Critias and the Letters — reached the public domain on 1 January 2025,
+       when the 95-year term for that year's publications ran out. That is a longer sentence than the
+       other books here need and it is stated in full rather than rounded into "before 1929", which
+       is the shorthand the rest of the shelf uses and which these five do not satisfy.
 
-       What is NOT merely an expired copyright is the DIGITAL edition of the Greek: Perseus releases
-       canonical-greekLit under CC BY-SA 4.0, verified in the repository itself rather than carried
-       over on the strength of the Symposium's entry. That is the same knowing departure from the
-       expired-copyright-only rule recorded for the Meditations, and it is credited on the book's own
-       page and in both `rights` strings. The English has no such layer — it comes from Wikisource,
-       not Perseus — so the obligation attaches to one column only.
+       WHAT IS NOT CLAIMED is a life-plus-seventy term for two of the three translators. R. G. Bury's
+       dates are established (1869–1951), so his work clears that rule too. Harold North Fowler's and
+       W. R. M. Lamb's death years are in nothing openable from here — no Wikidata entity for either
+       — and a joint edition's term runs from the last surviving author, so no such claim is made for
+       this translation anywhere. It is the Caesar entry's position exactly: half a byline that
+       cannot be pinned down, publication date stated instead, and the gap named on the book's own
+       page rather than rounded up. Do not fill these in from memory; the Hugo Magnus note under the
+       Metamorphoses is what that costs.
+
+       THE GREEK is Burnet's Oxford Classical Text, printed between 1903 and 1910, and Burnet died in
+       1928 — so it clears the publication rule and life-plus-seventy alike, with nothing to qualify.
+
+       AND BOTH COLUMNS NOW CARRY THE PERSEUS LAYER, which is new for this book and is why the
+       disclosure moved into the book's own `rights` rather than sitting only in the original's. The
+       English used to come from Wikisource and the Greek from Perseus; both now come from Perseus,
+       whose digital editions are released under CC BY-SA 4.0 — verified in the canonical-greekLit
+       repository itself. That is the Metamorphoses' position, not the Symposium's.
 
        The modern translations a reader is likeliest to own — the Hackett Complete Works edited by
-       John Cooper (1997), Walter Hamilton's and Robin Waterfield's Penguins, Christopher Rowe's
-       Oxford versions — are all firmly in copyright, and are named here for the reason Campbell,
-       Hays, Griffith and Lee are named above: so that nobody reaches for one later. */
+       John Cooper (1997) and the Penguin and Oxford versions by Walter Hamilton, Robin Waterfield
+       and Christopher Rowe — are all firmly in copyright, and are named here for the reason
+       Campbell, Hays, Griffith and Lee are named above: so that nobody reaches for one later. */
     rights:
-      "Public domain worldwide: Benjamin Jowett died in 1893 and this third edition of his " +
-      "translation was printed in 1892, so its copyright has expired everywhere — on the pre-1929 " +
-      "publication rule and on the author's-life rule alike. The Greek it is printed beside is John " +
-      "Burnet's Oxford Classical Text, printed between 1903 and 1910, and Burnet died in 1928, so " +
-      "that too is public domain on both rules. The dialogues themselves are some twenty-four " +
-      "centuries old. (The modern translations — the Hackett Complete Works edited by John Cooper, " +
-      "1997, and the Penguin and Oxford versions by Walter Hamilton, Robin Waterfield and " +
+      "Public domain in the United States, on the date of publication. These Loeb Classical Library " +
+      "translations were published between 1914 and 1929: thirty of the thirty-five works here were " +
+      "published before 1929, and the five from the volume of 1929 — Menexenus, Cleitophon, " +
+      "Timaeus, Critias and the Letters — entered the public domain on 1 January 2025, when the " +
+      "95-year term for that year's publications expired. R. G. Bury died in 1951, so his share also " +
+      "clears the author's-life rule; no such claim is made for Harold North Fowler's or W. R. M. " +
+      "Lamb's share, because their dates could not be established here and a term running from the " +
+      "last surviving translator cannot honestly be asserted without them. The Greek is John " +
+      "Burnet's Oxford Classical Text, printed between 1903 and 1910, and Burnet died in 1928, so it " +
+      "is public domain on both rules. Both texts are taken from the Perseus Digital Library, whose " +
+      "digital editions are released under a Creative Commons Attribution-ShareAlike 4.0 " +
+      "International licence. (The modern translations — the Hackett Complete Works edited by John " +
+      "Cooper, 1997, and the Penguin and Oxford versions by Walter Hamilton, Robin Waterfield and " +
       "Christopher Rowe — are still in copyright and are not used here.)",
-    sourceName: "Wikisource",
-    sourceUrl: "https://en.wikisource.org/wiki/The_Dialogues_of_Plato_(Jowett)",
+    sourceName: "Perseus Digital Library",
+    sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0059/",
 
     /* THE FRONT MATTER — chapter 0, authored here for the reasons the Seneca entry sets out above.
-       Four things a reader arriving at this book should be told rather than discover late: what a
-       Platonic dialogue is and who is talking, which eleven are here and why not the rest, that
-       Jowett is a Victorian with a manner, and what the numbers in the margin are for. */
+       Five things a reader arriving at this book should be told rather than discover late: what a
+       Platonic dialogue is and who is talking, how the thirty-five are arranged and why in that
+       order, that several of them are probably not by Plato, where the Republic went, and what the
+       numbers in the margin are for. */
     about: [
       "<b>The Dialogues</b> are the whole of Plato's surviving work, and they are conversations " +
         "rather than treatises. Plato wrote no lectures and argues nothing in his own voice; he " +
         "wrote scenes, with a time and a place and people who interrupt each other, and the " +
-        "philosophy happens inside them. In almost all of these the questioner is Socrates, who " +
-        "wrote nothing himself and was put to death by Athens in 399 BCE, and who here does what he " +
-        "was famous for doing in life — asking men who are confident that they know what courage or " +
-        "friendship or virtue is to say what it is, and taking their answers apart. How much of the " +
-        "Socrates in these pages is the historical man and how much is Plato has been argued about " +
-        "for two thousand years and is not going to be settled.",
+        "philosophy happens inside them. In most of them the questioner is Socrates, who wrote " +
+        "nothing himself and was put to death by Athens in 399 BCE, and who here does what he was " +
+        "famous for doing in life — asking men confident that they know what courage or friendship " +
+        "or justice is to say what it is, and taking their answers apart. How much of the Socrates " +
+        "in these pages is the historical man and how much is Plato has been argued about for two " +
+        "thousand years and is not going to be settled.",
       "Plato was born in Athens around 428 BCE, into a family close to the city's politics, and " +
         "lived through its defeat by Sparta, the brief and violent oligarchy that followed, and the " +
         "restored democracy that killed his teacher. He founded the Academy in the 380s and taught " +
-        "there until he died around 348. The dialogues are usually sorted into an early group that " +
+        "there until he died around 348. Readers usually sort the dialogues into an early group that " +
         "stays close to Socrates and ends without an answer, a middle group where Plato's own " +
-        "doctrines arrive, and late works of a drier kind. That ordering is a modern reconstruction " +
-        "and every part of it is disputed.",
-      "Eleven dialogues are here, in the order this edition prints them. Seven come from its first " +
-        "volume — <i>Charmides</i> on temperance, <i>Lysis</i> on friendship, <i>Laches</i> on " +
-        "courage, <i>Protagoras</i> and <i>Euthydemus</i> on whether virtue can be taught and on " +
-        "what sophists actually do, <i>Ion</i> on whether a poet knows anything, and the " +
-        "<i>Symposium</i>, the dialogue on love — and four from its second: <i>Meno</i>, where a " +
-        "slave boy is walked through a geometrical proof to show that learning is recollection, and " +
-        "then <i>Euthyphro</i>, <i>Apology</i> and <i>Crito</i>, which run consecutively through the " +
-        "last weeks of Socrates' life, from the steps of the court to the condemned cell. Those " +
-        "three are the reason many people read Plato at all, and they are short.",
-      "Benjamin Jowett was Regius Professor of Greek at Oxford and Master of Balliol, and his Plato " +
-        "of 1871, revised through the rest of his life, made these dialogues English for several " +
-        "generations of readers. This is his third edition of 1892, the last he saw through the " +
-        "press. It is a translation with a manner: fluent, dignified, Victorian, and freer with the " +
-        "Greek than a modern version would be, smoothing Plato's abruptness and occasionally saying " +
-        "in one graceful sentence what the original says in two awkward ones. It is read for its " +
-        "English rather than for close construing, and where a dialogue turns on desire between men " +
-        "— the Symposium and the Lysis both do — it handles the subject with a reticence the Greek " +
-        "does not have. Anyone reading for what Plato says, rather than for Jowett's prose, should " +
-        "check a passage against a literal modern text.",
+        "doctrines arrive, and late works of a drier and more technical kind. That ordering is a " +
+        "modern reconstruction and every part of it is disputed.",
+      "They are arranged here in <i>tetralogies</i> — nine groups of four, the order in which Plato " +
+        "was arranged in antiquity, credited to the scholar Thrasyllus in the first century CE and " +
+        "still the order the standard reference numbering follows. It is not a chronology and was " +
+        "never meant as one; the first group is a sequence of a different sort, running straight " +
+        "through the end of Socrates' life — <i>Euthyphro</i> on the way in to court, the " +
+        "<i>Apology</i> being his defence to the jury that condemned him, <i>Crito</i> in the cell " +
+        "where he refuses to escape, and <i>Phaedo</i> on the last afternoon. Those four are where " +
+        "most readers start, and they are short.",
+      "Not everything here is certainly by Plato, and that was already being said in antiquity. " +
+        "<i>Alcibiades II</i>, <i>Hipparchus</i>, <i>Rival Lovers</i>, <i>Theages</i> and " +
+        "<i>Minos</i> are widely judged to be by someone else, the <i>Epinomis</i> is usually given " +
+        "to a pupil, and the <i>Letters</i> are argued over one by one. They are kept because the " +
+        "ancient arrangement keeps them and the edition prints them — this is what was transmitted " +
+        "under Plato's name — and saying so is better than quietly dropping them or quietly passing " +
+        "them off. <i>The Republic</i> is the one work of Plato's missing from this book, and only " +
+        "because the English of it in this edition is still in copyright; it is in this library " +
+        "already, in Benjamin Jowett's translation, as a book of its own.",
       "The numbers in the margin are <i>Stephanus numbers</i> — the pages of Henri Estienne's " +
         "edition of 1578, by which Plato has been cited in every language ever since, so that a " +
         "reference like 'Symposium 189c' means the same passage in any edition. Because both texts " +
-        "here state those numbers, the Greek can be set beside the English and paired on them " +
-        "exactly; the Greek is John Burnet's Oxford text. The rest of the edition — the " +
-        "<i>Republic</i>, which is in this library as a book of its own from another printing, and " +
-        "the <i>Gorgias</i>, <i>Phaedo</i>, <i>Phaedrus</i>, <i>Cratylus</i> and the shorter pieces " +
-        "— is not yet fully transcribed at the source these come from, so it is not here. The " +
-        "numbered notes folded under each dialogue are the translator's own.",
+        "here carry them, the Greek can be set beside the English and paired on them exactly, and " +
+        "every one of the thirty-five works pairs without a single gap on either side. The Greek is " +
+        "John Burnet's Oxford text; the English is the Loeb Classical Library translation, by Harold " +
+        "North Fowler, W. R. M. Lamb and R. G. Bury. The numbered notes folded under each dialogue " +
+        "are the translators' own.",
     ],
 
-    /* A CHAPTER IS A WHOLE DIALOGUE, which is a division the edition states rather than one composed
-       here: these are eleven separate works that Jowett prints one after another, each starting on
-       its own page under its own name. The Symposium shipped alone for a fortnight and its entry
-       argued at length against cutting it into its seven speeches, because a speech boundary would
-       be a judgement made here; nothing about that has changed, and no dialogue is subdivided. The
-       Stephanus sections carry all the internal structure the text has, and they are what the two
-       columns pair on. */
+    /* A CHAPTER IS A WHOLE DIALOGUE — a division the transmission states rather than one composed
+       here, these being thirty-five separate works. Nothing is subdivided, not even the Laws, which
+       is much the longest and which the edition splits across two volumes: its 327 Stephanus
+       sections carry its twelve books' worth of structure, and cutting it further would mean
+       composing boundaries. The sections are what the two columns pair on. */
     chapterWord: "Dialogue",
-    /* The edition's own volumes, and they have to be stated HERE as well as in app.js's registry —
-       the registry's `parts` label the Contents panel's groups, while these are what `partOf` stamps
-       on each chapter as it is written, and a book that declares them in one place only files every
-       chapter under Volume I without complaining. Derived from the DIALOGUES table rather than
-       written out, so the two can never disagree about which volume a dialogue came out of. */
-    parts: [
-      { n: 1, label: "Volume I", from: 1, to: DIALOGUES.filter((d) => d.vol === 1).length },
-      { n: 2, label: "Volume II", from: DIALOGUES.filter((d) => d.vol === 1).length + 1, to: DIALOGUES.length },
-    ],
-    // TRANSCRIBED, never composed — these are the names the edition files them under. See DIALOGUES.
+    // TRANSCRIBED, never composed — the names the edition files them under. See DIALOGUES.
     titleOf: (n) => DIALOGUE(n).t,
     chapters: DIALOGUES.map((_, i) => i + 1),
-    page: (n) => "The Dialogues of Plato (Jowett)/" + DIALOGUE(n).t,
+    /* The nine tetralogies, DERIVED from the table rather than written out beside it, so the groups
+       and the order cannot come to disagree. Tetralogy VIII has three members here and not four,
+       the Republic being absent — see the note above the table. */
+    parts: TET_ROMAN.map((r, i) => {
+      const idx = DIALOGUES.map((d, k) => (TETRALOGY(d) === i + 1 ? k + 1 : 0)).filter(Boolean);
+      return { n: i + 1, label: "Tetralogy " + r, from: idx[0], to: idx[idx.length - 1] };
+    }),
 
-    /* THE SECTION NUMBERS ARE MARGINAL FLOATS — see the note in cleanBody, where this is the third
-       of the five forms a section marker takes across this library. Gummere's are a raised bold
-       numeral in the line and Haines's are plain text at the head of a paragraph; Jowett's sit in
-       the outer margin as `wst-verse wst-verse-float`, and the first marker of a dialogue is often
-       labelled ("Steph. 172") where the rest are bare figures, which is why that pass strips the
-       inner tags and takes the TRAILING number. Unchanged from the Symposium's own entry, and it
-       reads all eleven the same way. */
-    sections: "float",
-    /* The volume's running heads. Each dialogue's own title stands above its first page, and every
-       one of the eleven is listed rather than matched by a wildcard: dropHeads tests the TEXT of a
-       leading block, so a pattern loose enough to catch any capitalised line would eventually eat a
-       dramatis personae or an opening stage direction. Anchored to the start of a chapter, as every
-       other book's are, so only a head can go.
+    /* BOTH COLUMNS ARE TEI NOW, one file per dialogue, which is what the whole of this rewrite buys.
+       The book used to walk Wikisource for its English and read Perseus for its Greek, and the two
+       had to be measured against each other afterwards. Here they are the same encoding of the same
+       citation scheme from the same publisher, so the pairing is exact BY CONSTRUCTION rather than
+       by luck — measured anyway, over all thirty-five, and it is 1,486 sections on each side with
+       identical numbers in identical order and not one exception. That is better than the Art of
+       War's facing page, which is the only other book here that pairs by construction.
 
-       THREE OF THE HEADS CARRY A SUBTITLE the contents page does not — the pages of the Charmides,
-       Lysis and Laches are headed "CHARMIDES, OR TEMPERANCE", "LYSIS, OR FRIENDSHIP" and "LACHES,
-       OR COURAGE", where the volume's own table of contents lists all three by the bare name. Both
-       forms are the edition's, so using either as the chapter title is transcription rather than
-       composition; the short one is used, for the eleven tabs of a chapter bar and because a book
-       whose tabs read "Ion" and "Charmides, or Temperance" side by side looks like two different
-       conventions. Nothing is lost by it — what those three dialogues are about is said in the
-       front matter above, which is where a reader choosing one will look. */
-    dropHeads: [
-      /^(CHARMIDES|LYSIS|LACHES|PROTAGORAS|EUTHYDEMUS|ION|SYMPOSIUM|MENO|EUTHYPHRO|APOLOGY|CRITO)(,? OR [A-Z]+)?\.?$/i,
-      /^THE (APOLOGY|SYMPOSIUM)\.?$/i,
-      /^PERSONS OF THE DIALOGUE\.?$/i,
-    ],
+       `subtype: "section"` is declared once and used by BOTH sides: teiSections defaults to
+       "chapter" for Suetonius, and Burnet and the Loeb both say "section". */
+    source: "tei",
+    perChapter: true,
+    subtype: "section",
+    url: (n) =>
+      "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0059/" +
+      DIALOGUE(n).w + "/tlg0059." + DIALOGUE(n).w + ".perseus-eng2.xml",
 
-    /* ---------- THE GREEK, one file per dialogue ----------
-       The Symposium's entry established that Plato CAN have a Greek column where the Republic
-       cannot, and the reason is the printing rather than the author: the columns pair on the
-       section numbers a text states about itself, the Colonial Press Republic states none, and this
-       edition sets the Stephanus pages in the margin throughout. All eleven dialogues here do.
-
-       What is new is that a chapter is a whole WORK, so the original is eleven separate Perseus
-       files rather than one — the `perChapter` shape Suetonius introduced, with the work id coming
-       from the DIALOGUES table because nothing about tlg018 is derivable from "chapter 1". Burnet's
-       divisions are flat `subtype="section"` with no book level above them, which is exactly what
-       teiSections reads.
-
-       MEASURED BEFORE IT WAS BELIEVED, both columns, all eleven — and the honest summary is that
-       seven pair exactly and four are short a marker on the ENGLISH side:
-
-         Charmides   24 / 24     Lysis       21 / 21     Laches      24 / 24
-         Ion         13 / 13     Symposium   52 / 52     Apology     26 / 26
-         Euthyphro   15 / 15
-         Protagoras  52 / 54     Euthydemus  36 / 37     Meno        30 / 31
-         Crito       11 / 12
-
-       THE FOUR ARE MISSING A NUMBER, NOT A PASSAGE, and that distinction is the whole of it. Each
-       page was checked for untranscribed leaves and has none; the prose runs unbroken through the
-       gap, and what is absent is the marginal figure beside it — Crito's 52, Meno's opening 70,
-       Euthydemus's 292, Protagoras's 336 and 362. The transcription simply does not carry those
-       five marks. (Read off the two SHIPPED files rather than predicted from the pages: the same
-       measurement made from the wiki HTML beforehand guessed Protagoras's first gap at 335, one
-       page out. The check to re-run after any refetch is the diff of the two columns' marker sets,
-       not a count of either.) So the Greek section draws beside an empty English cell in five places out of 297,
-       which is the honest rendering and reads as one, exactly as Herodotus's bracketed 6.122 and the
-       Meditations' 12.18 do. Repairing them would mean deciding by eye where a Stephanus page begins
-       in Jowett's English, which is the apparatus abandoned for the Meditations' Greek and refused
-       for the Republic. Recorded rather than repaired. */
     original: {
       lang: "grc",
       langName: "Greek",
       source: "tei",
       perChapter: true,
       subtype: "section",
+      /* Ten of the eleven originally shipped dialogues were `perseus-grc2` and the Euthyphro was
+         not; that holds across all thirty-five. Its grc1 file is the older encoding, whose divisions
+         read `resp n subtype` where the newer ones read `n subtype` — inert, because teiSections
+         reads a division's attributes independently of their order, but a probe that fixes the order
+         reports that dialogue as having no sections whatever, which is how it was first measured. */
       url: (n) =>
         "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0059/" +
         DIALOGUE(n).w + "/tlg0059." + DIALOGUE(n).w + ".perseus-" + (DIALOGUE(n).grc || "grc2") + ".xml",
@@ -5263,7 +5250,14 @@ async function fetchEnglish() {
       let xml;
       if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
       else { xml = await fetchText(BOOK.url(n)); fs.writeFileSync(cf, xml); await sleep(500); }
-      const got = teiSections(xml, { renumber: (s) => (BOOK.renumber ? BOOK.renumber(s, n) : s) }, warn);
+      /* `subtype` is threaded through here for the same reason the ORIGINAL side already threads it
+         (see the note in teiSections): which word an edition uses for its numbered unit is the
+         edition's business, and Suetonius says `chapter` where Burnet's and the Loeb Plato say
+         `section`. It defaults to "chapter" inside teiSections, so the twelve lives are untouched. */
+      const got = teiSections(xml, {
+        subtype: BOOK.subtype,
+        renumber: (s) => (BOOK.renumber ? BOOK.renumber(s, n) : s),
+      }, warn);
       if (got.html.length < 200) throw new Error("chapter " + n + " came back short (" + got.html.length + " chars)");
       /* Say what was left out, every run. The appended "Remarks on …" essay is skipped deliberately
          (see the BOOKS entry) and a silent skip is how a deliberate omission turns into a forgotten

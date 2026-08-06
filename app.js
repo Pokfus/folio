@@ -1131,10 +1131,15 @@
   /* THE SYMPOSIUM BECAME A CHAPTER OF THE DIALOGUES (Aug 2026), and both registers that remember a
      book are keyed by its id — so without this a reader who had the dialogue open, or had starred
      it, would find their place and their star simply gone, with nothing on screen to say why. The
-     book is the same text (the chapter is byte-identical to what shipped standalone), so the place
-     is still meaningful: it was chapter 1 of a one-chapter book and is chapter 7 of this one, and
-     `y` is a fraction of the chapter's own height, which is unchanged. Chapter 0 was the front
-     matter and still is, so it maps to itself.
+     book still contains that dialogue, so the place is still meaningful: it was chapter 1 of a
+     one-chapter book and is chapter 11 here — its position in Thrasyllus's tetralogies — and `y` is
+     a fraction of the chapter's own height, so it survives the change of translation. Chapter 0 was
+     the front matter and still is, so it maps to itself.
+
+     THE CHAPTER NUMBER IS NOT A CONSTANT AND MUST BE RE-DERIVED, which is the one thing to check if
+     this book is ever re-ordered: it was 7 while the book was Jowett's eleven in his volumes' order,
+     and became 11 when the book was rebuilt from the complete Loeb set in the ancient order. A stale
+     number here does not throw — it just opens a reader on the wrong dialogue.
 
      The old keys are dropped whichever way the branch goes, so this cannot run twice and cannot
      leave a dead entry behind; and it defers to an existing `plato-dialogues` entry rather than
@@ -1145,7 +1150,7 @@
     const OLD = "plato-symposium", NEW = "plato-dialogues";
     if (S.reading && S.reading[OLD]) {
       const r = S.reading[OLD];
-      if (!S.reading[NEW]) S.reading[NEW] = { ch: r.ch === 0 ? 0 : 7, y: r.y, at: r.at };
+      if (!S.reading[NEW]) S.reading[NEW] = { ch: r.ch === 0 ? 0 : 11, y: r.y, at: r.at };
       delete S.reading[OLD];
     }
     if (S.bookFavs && S.bookFavs[OLD]) {
@@ -1812,6 +1817,15 @@
     return dayKeyOfDate(d);
   }
   const todayStr = () => dayKey();
+  /* The same day, counted rather than named — what a date-seeded daily pick needs. It goes through the
+     calendar components dayKeyOfDate reads, NOT through the shifted timestamp divided by DAY: local
+     midnight is not a multiple of DAY, so dividing it leans on a rounding that a DST shift can tip either
+     way, where Date.UTC of the three components is an exact ordinal that moves by exactly one per day. */
+  function dayIndex(ts) {
+    const d = new Date(ts == null ? Date.now() : ts);
+    d.setMinutes(d.getMinutes() - dayEndMin());   // before the cut-off it is still yesterday
+    return Math.floor(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / DAY);
+  }
   const dayEndHHMM = () => pad2(Math.floor(dayEndMin() / 60)) + ":" + pad2(dayEndMin() % 60);
   // the instant today ends — what "due by the end of the day" means once the boundary is the reader's
   function dayEndTs() {
@@ -4800,85 +4814,89 @@
     {
       id: "plato-dialogues",
       title: "The Dialogues",
-      // the volumes' own half-title, which is what this edition calls the collection
-      subtitle: "Translated into English",
+      // descriptive rather than transcribed: this gathering is Folio's, so it borrows no title page
+      subtitle: "Thirty-five Works in Nine Tetralogies",
       author: "Plato",
-      /* The span of the eleven dialogues here rather than of Plato's writing life — these are the
-         early Socratic group and the two middle works that grew out of it. A collection cannot
-         honestly carry one date, so this one is deliberately vaguer than the Symposium's was. */
-      written: "c. 399–370 BCE",
-      year: -390,
-      translator: "Benjamin Jowett",
-      edition: "Third edition, Clarendon Press, Oxford, 1892",
-      /* The easiest licence on the shelf, and easy on both sides — the Republic's position exactly.
-         Jowett died in 1893 and this is his third edition of 1892, so it clears the pre-1929 rule,
-         life-plus-seventy and life-plus-a-hundred alike, with no limit to state as Giles (2029) and
-         Ross (2042) need. Burnet's Greek was printed between 1903 and 1910 and Burnet died in 1928,
-         so it clears both rules too. THE RANGE OF YEARS IS A CORRECTION rather than a loosening:
-         the Symposium's entry gave 1910 for its one dialogue, and these eleven come from three
-         different Oxford Classical Text volumes, read off each file's own imprint. The Perseus
-         digital edition of the Greek carries a CC BY-SA 4.0 layer on top of that expired copyright,
-         credited here, in the original's own `rights` and on the book's page — the same knowing
-         departure recorded for the Meditations. The English has no such layer: it comes from
-         Wikisource, not Perseus. */
+      // Plato's writing life, now that the whole surviving corpus but one work is here
+      written: "c. 399–347 BCE",
+      year: -380,
+      translator: "Harold North Fowler, W. R. M. Lamb and R. G. Bury",
+      edition: "Loeb Classical Library, Harvard University Press, 1914–1929",
+      /* THREE GROUNDS AND ONE REFUSAL, which is why this `rights` is the longest on the shelf.
+         The English rests on the date of publication alone: thirty of the thirty-five works were
+         published before 1929, the shorthand the rest of the shelf uses, and the five in the Loeb
+         volume of 1929 — Menexenus, Cleitophon, Timaeus, Critias and the Letters — reached the
+         public domain on 1 January 2025, when the 95-year term for that year ran out. Those five do
+         NOT satisfy the pre-1929 wording, so the wording is spelled out rather than rounded.
+         What is refused is a life-plus-seventy claim. Bury's dates are established (1869–1951);
+         Fowler's and Lamb's are in nothing openable here, and a joint edition's term runs from the
+         last surviving author, so no such term is asserted for this translation anywhere. That is
+         the Caesar entry's position — half a byline that cannot be pinned down, publication date
+         stated instead, and the gap named on the book's own page rather than quietly rounded up.
+         The Greek is Burnet's Oxford text of 1903–1910 and he died in 1928, so it clears both rules
+         with nothing to qualify. AND BOTH COLUMNS NOW CARRY THE PERSEUS CC BY-SA LAYER, which is new
+         for this book: the English used to come from Wikisource, and both halves now come from
+         Perseus, so the obligation attaches to the whole book — the Metamorphoses' position rather
+         than the Symposium's, and stated here rather than only in the original's own rights. */
       rights:
-        "Public domain worldwide: Benjamin Jowett died in 1893 and this third edition of his " +
-        "translation was printed in 1892 — so its copyright has expired everywhere, on the pre-1929 " +
-        "publication rule and on the author's-life rule alike. The Greek it is printed beside is " +
+        "Public domain in the United States, on the date of publication. These Loeb Classical " +
+        "Library translations were published between 1914 and 1929: thirty of the thirty-five works " +
+        "here appeared before 1929, and the five from the volume of 1929 — Menexenus, Cleitophon, " +
+        "Timaeus, Critias and the Letters — entered the public domain on 1 January 2025, when the " +
+        "95-year term for that year's publications expired. R. G. Bury died in 1951, so his share " +
+        "also clears the author's-life rule; no such claim is made for Harold North Fowler's or " +
+        "W. R. M. Lamb's share, because their dates could not be established here and a term running " +
+        "from the last surviving translator cannot honestly be asserted without them. The Greek is " +
         "John Burnet's Oxford Classical Text, printed between 1903 and 1910, and Burnet died in " +
-        "1928, so that too is public domain on both rules; the digital edition of it is released by " +
-        "the Perseus Digital Library under a Creative Commons Attribution-ShareAlike 4.0 " +
-        "International licence. The modern translations — the Hackett Complete Works edited by John " +
-        "Cooper (1997) and the Penguin and Oxford versions by Walter Hamilton, Robin Waterfield and " +
-        "Christopher Rowe — are still in copyright and are deliberately not used here.",
-      sourceName: "Wikisource",
-      sourceUrl: "https://en.wikisource.org/wiki/The_Dialogues_of_Plato_(Jowett)",
+        "1928, so it is public domain on both rules. Both texts come from the Perseus Digital " +
+        "Library, whose digital editions are released under a Creative Commons " +
+        "Attribution-ShareAlike 4.0 International licence. (The modern translations — the Hackett " +
+        "Complete Works edited by John Cooper, 1997, and the Penguin and Oxford versions by Walter " +
+        "Hamilton, Robin Waterfield and Christopher Rowe — are still in copyright and are not used " +
+        "here.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0059/",
       /* AN `origLang` WHERE THE REPUBLIC HAS NONE, and the difference is the PRINTING rather than
-         the author. The entry above concludes that Plato cannot have a Greek column; it is right
-         about the Republic and wrong as a general rule, which is worth saying here because this is
-         the book that disproves it.
+         the author. The Republic entry above concludes that Plato cannot have a Greek column; it is
+         right about that printing and wrong as a general rule, which is worth saying because this is
+         the book that disproves it — the columns pair on section numbers a text states about itself,
+         the Colonial Press Republic states none, and every text here states all of them.
 
-         The columns pair on section numbers a text states about itself. The Colonial Press Republic
-         of 1901 states none — measured over all ten books — so it has no second column. This is a
-         different press setting the same translator, and it prints the Stephanus pages in the
-         margin throughout. Measured over both columns of all eleven dialogues before it was
-         believed: 304 marginal numbers against Burnet's 309, nothing on the English side that is
-         not on the Greek, and seven of the eleven pairing exactly. The five gaps are a missing
-         MARK rather than a missing passage — the prose runs unbroken through each — so those rows
-         draw the Greek beside an empty English cell, as Herodotus's bracketed 6.122 does. See
-         .claude/fetch-book.js for which five and why they are recorded rather than repaired. */
+         THE CLEANEST PAIRING IN THE LIBRARY, and the first that is exact BY CONSTRUCTION rather than
+         by measurement: both columns are the same TEI encoding of the same citation scheme from the
+         same publisher. Measured anyway, over all thirty-five works — 1,484 sections on each side,
+         identical numbers in identical order, not one exception in either direction. Only the Art of
+         War's facing page comes close, and it covers thirteen chapters against these thirty-five.
+         The Letters repeat ten Stephanus numbers, a page spanning the join between one letter and
+         the next, and BOTH columns repeat exactly the same ten in the same places — checked, since
+         a duplicate on one side only is what would quietly merge two passages into one row. */
       origLang: "grc",
-      /* A CHAPTER IS A WHOLE DIALOGUE — a division the edition states rather than one composed here,
-         these being eleven separate works printed one after another, each under its own name. No
-         dialogue is subdivided: the Symposium shipped alone for a fortnight and argued at length
-         against cutting itself into its seven speeches, since a speech boundary would be a
-         judgement made here rather than a division the page states, and that reasoning holds for
-         all eleven. The Stephanus sections carry the internal structure, and they are what the two
-         columns pair on. */
+      /* A CHAPTER IS A WHOLE DIALOGUE, a division the transmission states rather than one composed
+         here. Nothing is subdivided, not even the Laws, which is much the longest and which the
+         edition splits over two volumes: its 327 Stephanus sections carry its twelve books' worth of
+         structure, and cutting it further would mean composing boundaries. */
       chapterWord: "Dialogue",
-      /* ELEVEN OF THE TWENTY-NINE, and the shortfall is the SOURCE's rather than a choice made here,
-         which is why `total` is not 11. Wikisource's transcription of this edition is unfinished:
-         measured page by page against Perseus's own section counts, the Gorgias carries one of its
-         81 Stephanus pages, the Phaedrus two of 53, the Phaedo 26 of 62, and the Cratylus, both
-         Alcibiades, the Menexenus, the Lesser Hippias and the Eryxias are partial too. Those pages
-         render their untranscribed leaves as visible red-link text, which is the test to re-run
-         before adding any of them.
-
-         `total` IS COUNTED OFF THIS EDITION'S OWN CONTENTS, not off a catalogue of Plato: 29 works
-         across Jowett's five volumes, the canon plus the pieces he judged spurious and filed in his
-         two appendices. It was briefly 36, which is how many Plato texts Perseus catalogues — a
-         number about a different thing entirely, and the sort of borrowed precision this file's
-         history keeps warning about. The Republic is one of the 29 and is in this library already,
-         from another printing, as a book of its own; the Laws is another, and is one of the
-         untranscribed. */
-      count: 11,
-      total: 29,
-      /* The edition's own volumes, walked off its contents pages. Only two are represented, because
-         only two have transcribed dialogues in them — Volume III is the Republic and Volumes IV and
-         V are not transcribed at all. */
+      /* THIRTY-FIVE OF THE THIRTY-SIX, and the one gap is a LICENCE gap rather than a textual one:
+         Perseus's English Republic is Paul Shorey's of 1935–37, which is not in the public domain
+         and cannot be shelved. It is in this library already, in Jowett's translation from a
+         different printing, as a book of its own — so nothing is missing from the shelf, only from
+         this book, and its slot in Tetralogy VIII is simply left out. `total` counts the surviving
+         works transmitted under Plato's name, which is what this book is a gathering of. */
+      count: 35,
+      total: 36,
+      /* Thrasyllus's nine tetralogies — the ancient arrangement of Plato, which Perseus's own work
+         numbering follows exactly, so this is the source's order rather than one chosen here.
+         Tetralogy VIII has three members and not four, the Republic being absent. */
       parts: [
-        { n: 1, label: "Volume I", note: "Charmides – Symposium" },
-        { n: 2, label: "Volume II", note: "Meno – Crito" },
+        { n: 1, label: "Tetralogy I", note: "Euthyphro – Phaedo" },
+        { n: 2, label: "Tetralogy II", note: "Cratylus – Statesman" },
+        { n: 3, label: "Tetralogy III", note: "Parmenides – Phaedrus" },
+        { n: 4, label: "Tetralogy IV", note: "Alcibiades I – Rival Lovers" },
+        { n: 5, label: "Tetralogy V", note: "Theages – Lysis" },
+        { n: 6, label: "Tetralogy VI", note: "Euthydemus – Meno" },
+        { n: 7, label: "Tetralogy VII", note: "Greater Hippias – Menexenus" },
+        { n: 8, label: "Tetralogy VIII", note: "Cleitophon – Critias" },
+        { n: 9, label: "Tetralogy IX", note: "Minos – Letters" },
       ],
     },
     {
@@ -7951,7 +7969,12 @@
       o: { lang: "la", t: "Nescire autem quid ante quam natus sis acciderit, id est semper esse puerum.", a: "Marcus Tullius Cicero", s: "Orator 34.120" } },
     { t: "The life of the dead is set in the memory of the living.", a: "Cicero", s: "Philippics 9.5",
       o: { lang: "la", t: "Vita enim mortuorum in memoria est posita vivorum.", a: "Marcus Tullius Cicero", s: "Philippicae IX.5" } },
-    { t: "Look back over the past, with its changing empires that rose and fell, and you can foresee the future too.", a: "Marcus Aurelius", s: "Meditations VII.49" },
+    { t: "Look back over the past, with its changing empires that rose and fell, and you can foresee the future too.", a: "Marcus Aurelius", s: "Meditations VII.49",
+      // The one quote whose Greek could not be verified when this pool was written, and it can be now:
+      // the Library ships Leopold's Teubner text (1908) beside Haines, so 7.49 is read out of the
+      // project's own books/marcus-aurelius-meditations.grc.js rather than set down from memory. The
+      // English above is a free rendering of the section's opening two clauses; those are the clauses here.
+      o: { lang: "grc", t: "Τὰ προγεγονότα ἀναθεωρεῖν, τὰς τοσαύτας τῶν ἡγεμονιῶν μεταβολάς· ἔξεστι καὶ τὰ ἐσόμενα προεφορᾶν.", a: "Μᾶρκος Αὐρήλιος", s: "Τὰ εἰς ἑαυτόν Ζ΄.49" } },
     { t: "Knowledge which is acquired under compulsion obtains no hold on the mind.", a: "Plato", s: "Republic VII, 536e",
       o: { lang: "grc", t: "ψυχῇ δὲ βίαιον οὐδὲν ἔμμονον μάθημα.", a: "Πλάτων", s: "Πολιτεία Ζ΄, 536e" } },
     { t: "It is impossible for a man to learn what he thinks he already knows.", a: "Epictetus", s: "Discourses II.17",
@@ -8094,7 +8117,7 @@
   // thing on the page the i18n engine must leave alone, or a Spanish reader would click through to
   // Spanish. A quote with no verified original is rendered exactly as before — no cursor, no handler.
   function dailyQuoteHTML() {
-    const q = QUOTES[QUOTE_ORDER[Math.floor(Date.now() / DAY) % QUOTE_ORDER.length]];
+    const q = QUOTES[QUOTE_ORDER[dayIndex() % QUOTE_ORDER.length]];
     const o = q.o;
     const pair = (en, orig) =>
       '<span class="dq-live">' + esc(en) + "</span>" +
