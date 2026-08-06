@@ -4663,7 +4663,15 @@
        reader pairs a French chanson de geste with Herodotus, Aristotle, Machiavelli or Seneca. The
        tone is right on its own terms as well: dark, cold and grave, which is iron, and this is a poem
        about armour. */
-    "Anonymous": "#42426F",
+    /* KEYED BY THE BOOK RATHER THAN BY THE AUTHOR, and it had to change the moment a SECOND anonymous
+       work reached the shelf (Aug 2026, adding the Epic of Gilgamesh). "Anonymous" is the absence of
+       an author, not one that two poems share, so keying on it painted a Babylonian epic and a French
+       chanson de geste the same colour — which is precisely the false KINSHIP Thucydides' and
+       Euripides' entries above are about, and worse than the crowding they refuse, since two books in
+       one colour reads as one writer. bookColor therefore looks an anonymous book up by its id.
+       Everything else is untouched: a book with a named author still keys on the author, which is what
+       keeps Plato's two books one colour. */
+    "song-of-roland": "#42426F",
     /* Measured as the six above were, and this is the first time the best NUMBER was rejected outright
        on the shelf's own grammar rather than on tone. Searched over the shelf's lightness and chroma
        band, the best-separated colour left anywhere in it is a crimson at 24.0 — and it is a red for
@@ -4682,8 +4690,22 @@
        sixteen papers, where the crimson scrapes 4.66 against a bar of 4.5 — and the tone is right on
        its own terms, this being a play whose instrument of revenge is a royal robe. */
     "Euripides": "#72187F",
+    /* Measured as the eight above were, and the raw number lost again — for the Caesar entry's reason
+       this time rather than for Euripides' grammatical one. The best-separated colour left in the
+       shelf's own lightness and chroma band is a crimson at 24.0, which is a FOURTH red landing 24.0
+       from Ovid and 24.8 from Sun Tzu, and it reads 4.66:1 against the tightest of the light papers.
+       This dark olive is 23.7 from Suetonius' ochre and 24.3 from Aesop's green — three tenths of a
+       point behind the crimson, and still comfortably above the shelf's own tightest pair at 20.4 —
+       and it reads 5.54:1, which is most of a point of headroom over the 4.5 bar test-a11y.js holds
+       the site to. Caesar's entry settled that tie the same way: where two candidates are level on
+       separation, the accessibility figure decides. The tone is right on its own terms as well —
+       bitumen and dark clay, for a poem read off clay tablets. */
+    "epic-of-gilgamesh": "#484B00",
   };
-  const bookColor = (b) => BOOK_AUTHOR_COLOR[b.author] || "var(--indigo)";
+  /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
+     row above for why — "Anonymous" is not an author two books can share. */
+  const bookColor = (b) =>
+    BOOK_AUTHOR_COLOR[b.author === "Anonymous" ? b.id : b.author] || "var(--indigo)";
 
   const BOOKS = [
     {
@@ -5725,6 +5747,66 @@
          read "Laisse 1", "Laisse 2" and so on, which is the whole of what the editions state about
          them — composing 291 descriptive headings for a poet who gave none is the line the
          Meditations' entry draws. */
+    },
+    {
+      id: "epic-of-gilgamesh",
+      title: "The Epic of Gilgamesh",
+      /* No subtitle. Thompson's title page spells the name "Gilgamish" and the entry keeps his
+         spelling wherever it quotes his edition, but the book is shelved under the spelling a reader
+         will look for. Both are on its own first page. */
+      author: "Anonymous",
+      written: "c. 1200 BCE",
+      /* The twelve-tablet version translated here was assembled around 1200 BCE out of Sumerian poems
+         already six or seven centuries older, and the copies it is read from were written later
+         still. No date is stated by the text; this is the conventional figure for the version in
+         front of the reader and the only one the shelf can honestly sort on, which is the Song of
+         Roland's position exactly. How loose it is is said on the book's own page. It is by a long way
+         the OLDEST book here — the next is the Analects, eight hundred years later. */
+      year: -1200,
+      translator: "R. Campbell Thompson",
+      edition: "Luzac & Co., London, 1928",
+      /* THE FIFTH BOOK HERE TO STATE A LIMIT AS WELL AS A GROUND, after the Art of War (Giles, 2029),
+         the Nicomachean Ethics (Ross, 2042), the Song of Roland (both columns, 2031 and 2039) and the
+         Medea (Murray, 2028). Dates looked up rather than recalled, for the Hugo Magnus reason:
+         Thompson 1876–1941. */
+      rights:
+        "Public domain, with one limit worth stating. The poem itself is Babylonian and some three " +
+        "thousand years old, so the words behind this book have been free for as long as copyright " +
+        "has existed. The only modern layer is the translation: R. Campbell Thompson published it in " +
+        "London in 1928 and lived from 1876 to 1941. It is therefore public domain in the United " +
+        "States, where the term for a work published in 1928 expired at the start of 2024, and out of " +
+        "copyright wherever the term is the author's life plus seventy years, which expired at the " +
+        "start of 2012. In the few countries where the term is life plus a hundred it remains in " +
+        "copyright until 2042. Thompson's own preface is not reproduced here; what is taken is the " +
+        "twelve tablets.",
+      /* THE FIRST BOOK HERE FROM NEITHER WIKISOURCE NOR PERSEUS. Both of the shelf's usual sources
+         hold about a sixth of this poem between them — Wikisource has only one-tablet editions of the
+         Old Babylonian version, and Perseus is Greek and Latin — so a third source was needed to ship
+         the epic rather than a fragment of it. See the block above extractTablets in
+         .claude/fetch-book.js for what was measured before this one was chosen, including why the
+         Internet Archive's scan of the 1928 volume could not be used. */
+      sourceName: "Global Grey",
+      sourceUrl: "https://www.globalgreyebooks.com/epic-of-gilgamesh-ebook.html",
+      /* NO `origLang`, and the reason is not the usual one. Every other book here without a facing
+         original fails the shelf's test — does the text state which section each passage is? The
+         Republic's Jowett prints no Stephanus numbers; neither of Aesop's collections numbers
+         anything. Gilgamesh fails a step earlier: there is no settled original text to face. What
+         scholars read is a transliteration pieced together from broken fragments, the piecing-together
+         is itself modern scholarship, and every such edition is either in copyright or licensed in a
+         way this site cannot build on. The book's own front matter says so, so a reader who goes
+         looking for the Akkadian meets the reason rather than the absence. */
+      chapterWord: "Tablet",
+      /* Twelve, and the whole poem is here. The Twelfth is an appendix rather than a continuation —
+         a partial translation of a separate Sumerian poem that the ancient scribes attached to the
+         epic, and which contradicts the ending of the Eleventh. It is counted because this edition
+         carries it, and the front matter explains what it is. */
+      count: 12,
+      total: 12,
+      /* No `parts`: the edition divides the poem into tablets and nothing above them, so the Contents
+         panel falls back to a single unlabelled group, as the Meditations', the Republic's, the Art of
+         War's, Aesop's and the Song of Roland's do. And no titles in this file — the tablets DO have
+         names here, and they are read off the edition's own headings by the importer rather than
+         composed, which no other book on the shelf does. */
     },
   ];
   const BOOK_BY_ID = {};
