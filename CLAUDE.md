@@ -1329,6 +1329,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   see the "ANCIENT ROME" bullet under "Generating cards & glossary entries". **No card has been written
   yet**: the plan and the tree shipped together on 2026-08-06 and the collection starts at `rm-001`. Not
   part of the site.
+- `docs/russia-card-plan.md` — the **1000-card running order for the Russia collection** (`col-42`): every
+  card's number, topic and deck, fixed in advance across 9 decks and 29 leaf decks, so the collection can be
+  grown one card at a time over many sessions. The fourth of the planned collections and used exactly like
+  the others — the next card to write is the lowest `ru-NNN` not yet in `data.js` — see the "RUSSIA" bullet
+  under "Generating cards & glossary entries". **No card has been written yet**: the plan and the tree
+  shipped together on 2026-08-06 and the collection starts at `ru-001`. It is the first plan that has to
+  set **date, name and transliteration conventions** (the Julian/Gregorian gap, Kyiv against Kiev), and the
+  first whose subject reaches the present day — read its "History, not archaeology" and "Sourcing" sections
+  before writing anything after 1917. Not part of the site.
 - `docs/history-focus-plan.md` — the rule that **Folio is a history site, not an archaeology site**, the measure that
   finds cards written the other way round (24 of 119 flagged, measured before the 2026-08-04 renumbering — the
   flags travel with the cards, the ids in its table do not), and the six rewrite batches. Opened Aug 2026 on request
@@ -1497,8 +1506,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   entries" below). **The old single `wh-prehistory` deck and the empty `col-44`…`col-64` period decks
   are gone** (2026-08-04) — World History's tree is now the one in `docs/world-history-card-plan.md`,
   and card ids follow that plan's numbering. **`col-40` Ancient Rome gained its 7 decks and 25 leaf
-  subdecks on 2026-08-06** from `docs/rome-card-plan.md`, all empty; it stays under "Coming soon" until
-  its first card ships, since a collection with no cards is coming-soon whatever its `placeholder` says.
+  subdecks, and `col-42` Russia its 9 decks and 29 leaf decks, on 2026-08-06** from
+  `docs/rome-card-plan.md` and `docs/russia-card-plan.md`, all empty; both stay under "Coming soon" until
+  their first card ships, since a collection with no cards is coming-soon whatever its `placeholder` says.
 - `glossary.js` — `window.GLOSSARY` plus `window.GLOSSARY_DATES`, `GLOSSARY_TITLES`, `GLOSSARY_ALIASES`,
   `GLOSSARY_CASESENSITIVE`, `GLOSSARY_TAGS` (per-term category tags — the admin glossary's left-bar
   filter), `GLOSSARY_IMAGES` (per-term illustration — see the "Glossary image" bullet below) and
@@ -5058,6 +5068,34 @@ institutions in `rm-kings` and `rm-early-republic`, and `rm-religion` gets the c
 tales. And **the eastern empire is a three-card coda**, not a deck — the reader going onward is served
 by `wh-byzantium`. The Roman glossary starts from nothing (of 671 terms only `Latin` and `Italy`), so
 write its terms **cited from the start** at the `GLOSS_SRC_TARGET` bar rather than opening a backlog.
+
+**RUSSIA (`col-42`) is planned and not yet started (Aug 2026).** Its 9 decks and 29 leaf decks are laid
+out in `data.js` and its full 1000-card running order is `docs/russia-card-plan.md`, written to the same
+rules as the other three plans and used the same way: **"Generate the next Russia card" means take the
+lowest `ru-NNN` not yet in `data.js`, read its topic and deck from that plan, research it, and add it**
+with `node .claude/add-card.js <card.json> <deckId>` — always passing the deck id. The next number is:
+`node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='ru-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"`
+(the padding is right for every id but `ru-1000`). **It is the first collection whose subject is
+contested in the present**, and four things in that plan are decisions rather than lists. **Rus' is
+covered as the polity it was and is never called "early Russia"** — it is the shared inheritance of
+Russia, Ukraine and Belarus, and the modern claim on it is `ru-090`, a card, rather than an assumption
+in the ninety before it. **`ru-peoples` is the largest subdeck in the collection at 50** and the
+mechanisms get cards as well as the peoples (the *yasak*, the Pale, Russification, *korenizatsiya*, the
+deportations), because Russia has been a multinational empire for longer than it has been anything else.
+**Events that happened to other people are in it** — the Circassian expulsions, the Holodomor, Katyn, the
+deportations, Hungary, Prague, Chechnya, Ukraine — written from the scholarship, as neither achievement
+nor indictment. And **no state's account of its own actions is repeated as established fact**, Russia's
+or its opponents'. The plan also fixes the **date, name and transliteration conventions** the collection
+needs (Julian dates run behind Western ones, so the October Revolution happened in November; both are
+given for 1917) and carries three sourcing warnings — Soviet statistics are artefacts rather than
+measurements, many Russian archives have closed since 2022, and twentieth-century casualty figures have
+live scholarly ranges that must be given as ranges. The glossary starts with a head start no other
+collection had: **all eighteen post-Soviet successor states are already cited terms** from Phase 3 of the
+citation pass, and everything historical (`Rus'`, `Tsar`, `Serfdom`, `Boyar`, `Bolshevik`) is open ground
+— write those **cited from the start** at the `GLOSS_SRC_TARGET` bar. Mind two glossary traps it names: a
+term whose surface is an ordinary English word (`Soviet`, `Duma`, `Thaw`, `Terror`) needs
+`GLOSSARY_CASESENSITIVE` or a narrower head word, and a term with a well-known variant spelling needs its
+alias the day it ships.
 
 **ENGLISH ONLY (Aug 2026, on request): a new card or glossary term does NOT need its nine translations.**
 The site ships in English while the work is on making the English as good as it can be, so put the effort

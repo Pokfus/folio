@@ -1922,7 +1922,238 @@ window.COLLECTION_TREE = {
       "title": "Russia",
       "total": 0,
       "placeholder": false,
-      "cardIds": [],
+      "children": [
+        {
+          "id": "ru-rus",
+          "title": "Rus'",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "ru-before",
+              "title": "Before Rus'",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-kievan",
+              "title": "Kievan Rus'",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-horde",
+              "title": "The Mongol conquest and the Golden Horde",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-moscow-rise",
+              "title": "The rise of Moscow",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ru-muscovy",
+          "title": "Muscovy",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "ru-ivan-iii",
+              "title": "Ivan III and Vasily III",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-ivan-iv",
+              "title": "Ivan the Terrible",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-troubles",
+              "title": "The Time of Troubles",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-first-romanovs",
+              "title": "The first Romanovs",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ru-empire",
+          "title": "The Russian Empire",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "ru-peter",
+              "title": "Peter the Great",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-empresses",
+              "title": "From Peter to Catherine",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-catherine",
+              "title": "Catherine the Great",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ru-nineteenth",
+          "title": "The Nineteenth Century",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "ru-alexander-i",
+              "title": "Alexander I and the war with Napoleon",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-nicholas-i",
+              "title": "Nicholas I",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-reforms",
+              "title": "The Great Reforms",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ru-end-empire",
+          "title": "The End of the Empire",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "ru-late-empire",
+              "title": "Late imperial Russia",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-last-years",
+              "title": "1905 and the fall of the monarchy",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ru-soviet",
+          "title": "Revolution and the Soviet Union",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "ru-revolution",
+              "title": "1917",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-civil-war",
+              "title": "The Civil War and the making of the USSR",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-stalin",
+              "title": "Stalin",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-great-patriotic-war",
+              "title": "The Great Patriotic War",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-after-stalin",
+              "title": "The Soviet Union after Stalin",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ru-federation",
+          "title": "Russia since 1985",
+          "placeholder": false,
+          "cardIds": []
+        },
+        {
+          "id": "ru-land-peoples",
+          "title": "Land, Peoples and Faith",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "ru-land",
+              "title": "The Russian land",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-peoples",
+              "title": "The peoples of Russia",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-church",
+              "title": "The Orthodox Church",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ru-culture",
+          "title": "Society, Ideas and Culture",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "ru-society",
+              "title": "Society and everyday life",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-thought",
+              "title": "Russian thought",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-literature",
+              "title": "Russian literature",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "ru-arts",
+              "title": "Art, architecture and music",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        }
+      ],
       "i18n": {
         "es": "Rusia",
         "fr": "Russie",
