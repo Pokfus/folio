@@ -1037,9 +1037,25 @@ async function studyEasy(page, base, n) {
       check("...and a pile at zero is grey, not coloured",
         z.every((p) => !nz.some((q) => q.col === p.col)), JSON.stringify(piles.stats));
     }
-    check("...and the same three, unlabelled, open each added deck's row in the same colours",
-      piles.row.length === 3 && piles.row.map((r) => r.col).join("|") === piles.stats.map((p) => p.col).join("|"),
-      JSON.stringify({ row: piles.row, banner: piles.stats.map((p) => p.col) }));
+    /* …and the same three, unlabelled, open EVERY added deck's row in the same colours. This used to
+       assert `row.length === 3`, i.e. exactly one added row; since Aug 2026 adding a collection brings its
+       decks and subdecks in with it, so there are as many rows as the reader added things. The CLAIM is
+       unchanged and is now stated for any number of them: every row carries three counts, a count of zero
+       is grey wherever it appears, and each of the three positions keeps one colour of its own across the
+       banner and every row — which is what "the same colours" meant. */
+    {
+      const grey = piles.stats.concat(piles.row).filter((p) => p.n === 0).map((p) => p.col);
+      const greySet = new Set(grey);
+      const byPos = [0, 1, 2].map((i) =>
+        [...new Set(piles.stats.filter((_, j) => j === i).concat(piles.row.filter((_, j) => j % 3 === i))
+          .filter((p) => p.n > 0).map((p) => p.col))]);
+      check("...and the same three, unlabelled, open each added deck's row in the same colours",
+        piles.row.length >= 3 && piles.row.length % 3 === 0 &&
+        greySet.size <= 1 &&                                   // one grey, whichever pile happens to be empty
+        byPos.every((c) => c.length <= 1) &&                   // each position keeps ONE colour of its own…
+        new Set(byPos.flat()).size === byPos.filter((c) => c.length).length,   // …and no two positions share it
+        JSON.stringify({ rows: piles.row.length / 3, byPos, greys: [...greySet] }));
+    }
     check("...naming themselves only in the row's tooltip", /\S/.test(piles.rowLabels), piles.rowLabels);
     check("...each figure centred over its own label", piles.centred.every((d) => d <= 1), JSON.stringify(piles.centred));
     check("...and the three of them on the button's own line", piles.onCtaRow);
@@ -1176,6 +1192,8 @@ async function studyEasy(page, base, n) {
         about: !!document.querySelector(".home-about"),
         // Collections left the top bar with the tile row; the lip is the only way to it now
         decksTab: !!document.querySelector('.topbar [data-route="decks"]'),
+        // …and About left it a fortnight later, so the home page's own line is the only way there too
+        aboutTab: !!document.querySelector('.topbar [data-route="mission"]'),
       };
     });
     check("[desktop] the home page is the phone's page now: no discovery row",
@@ -1186,7 +1204,13 @@ async function studyEasy(page, base, n) {
     check("[desktop] ...under a Minigames heading, under the review", /minigames/i.test(d.mgHead) && d.order[0] < d.order[1] && d.order[1] < d.order[2], JSON.stringify(d.order));
     check("[desktop] ...with the Add decks lip on the review group", /add decks/i.test(d.lip) && d.lipLast, JSON.stringify({ lip: d.lip, last: d.lipLast }));
     check("[desktop] ...and Collections gone from the top bar, the lip being the way to it", !d.decksTab);
-    check("[desktop] ...and still no About link: the top bar carries that tab", !d.about);
+    /* About left the DESKTOP's top bar too (Aug 2026, on request), a fortnight after Collections did and
+       for the same reason: the two bars now name the same destinations, and the home page's own line is
+       the only route to the page at every width. This assertion was the opposite way round while the tab
+       existed — it is the pair of them that matters, since a link removed from both places would leave
+       #mission reachable only by typing it. */
+    check("[desktop] ...and About reached from the home page's line, its tab having left the top bar too",
+      d.about && !d.aboutTab, JSON.stringify({ line: d.about, tab: d.aboutTab }));
     check("[desktop] ...but #decks itself still resolves — every shared link points at it", await page.evaluate(async () => {
       location.hash = "decks";
       await new Promise((r) => setTimeout(r, 700));
