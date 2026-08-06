@@ -219,9 +219,17 @@ const SETTINGS = {
     await page.waitForTimeout(300);
     const dl = await page.evaluate(() => {
       const ov = document.querySelector(".deck-menu");
-      return ov ? { where: (ov.querySelector(".dm-where") || {}).textContent || "", n: (ov.querySelector("#dlNew") || {}).value } : null;
+      return ov ? {
+        where: (ov.querySelector(".dm-where") || {}).textContent || "",
+        n: (ov.querySelector("#dlNew") || {}).value,
+        // the banner's own heading, read off the page rather than written down here: this assertion is
+        // "the sheet opened on the REVIEW and not on a deck", and hard-coding the title made it fail on
+        // the Aug 2026 rename ("Daily review" → "Daily study") while the behaviour was perfectly correct
+        title: (document.querySelector(".review-title") || {}).textContent || "",
+      } : null;
     });
-    check("the review's Daily limits opens on the review, not a deck", dl && /daily review/i.test(dl.where), JSON.stringify(dl));
+    check("the review's Daily limits opens on the review, not a deck",
+      dl && !!dl.title.trim() && dl.where.trim() === dl.title.trim(), JSON.stringify(dl));
     check("...showing the allowance it is actually using", dl && dl.n === "5", JSON.stringify(dl));
     await page.evaluate(() => {
       document.querySelector("#dlNew").value = "2";
@@ -366,6 +374,95 @@ const SETTINGS = {
     });
     check("at level 1 the review takes one deck", capped.added.length === 1, JSON.stringify(capped.added));
     check("...and says so rather than doing nothing", /level/i.test(capped.toast), capped.toast);
+    await page.close();
+  }
+
+  /* ================= 6. the learning steps, in a real session (Aug 2026) =================
+     The bug this pins: a new card answered Good jumped straight to tomorrow, so the reader met each card
+     once and never again that day. Anki's ladder is 1m then 10m — the first Good sends the card to the
+     BACK of the day's queue, the second graduates it. `test-scheduler.js` pins the arithmetic; this pins
+     the thing the reader actually experiences, which is the card coming back. */
+  {
+    const page = await newPage({ active: [deckA], settings: SETTINGS, cards: {} });
+    await page.goto(base + "#home", { waitUntil: "load" });
+    await page.reload({ waitUntil: "load" });
+    await page.waitForTimeout(1400);
+
+    // what the buttons PROMISE, on a brand-new card, before anything is graded
+    await page.evaluate(() => document.querySelector("#b-review").click());
+    await page.waitForTimeout(900);
+    await page.evaluate(() => document.querySelector("#reveal-btn").click());
+    await page.waitForTimeout(300);
+    const labels = await page.evaluate(() => {
+      const g = (c) => ((document.querySelector(".grade." + c + " .gi") || {}).textContent || "").trim();
+      return { again: g("again"), hard: g("hard"), good: g("good"), easy: g("easy"), id: window.__folioCurrentCard };
+    });
+    check("a new card's Good button offers MINUTES, not a day", /m$/.test(labels.good) && labels.good !== labels.again,
+      JSON.stringify(labels));
+    check("...and the four buttons are four different answers",
+      new Set([labels.again, labels.hard, labels.good, labels.easy]).size === 4, JSON.stringify(labels));
+
+    /* Grade the first card Good and prove the SAME card comes back later in the session. It is tracked by
+       its ID, out of the session record the study page keeps — NOT by the question on screen, which is a
+       different one of the card's three phrasings each time it is shown, so comparing the prose reports a
+       card that never returned when it returned wearing another sentence. */
+    const cur = () => page.evaluate((k) => (JSON.parse(sessionStorage.getItem(k) || "{}")).id || null, "folio_study_v1");
+    const first = await cur();
+    check("the study session records which card is on screen", !!first, JSON.stringify(first));
+    await page.evaluate(() => document.querySelector(".grade.good").click());
+    await page.waitForTimeout(500);
+    const rec = await page.evaluate(() => {
+      const S = JSON.parse(localStorage.getItem("folio_v1"));
+      const ids = Object.keys(S.cards);
+      const c = S.cards[ids[0]];
+      return { n: ids.length, status: c.status, step: c.step, mins: Math.round((c.due - Date.now()) / 60000) };
+    });
+    check("one Good leaves the card LEARNING, not scheduled for tomorrow",
+      rec.status === "learning" && rec.mins > 0 && rec.mins <= 20, JSON.stringify(rec));
+    check("...standing on the second learning step", rec.step === 1, JSON.stringify(rec));
+
+    // walk the rest of the day's queue; the graded card must reappear before the session ends
+    let seenAgain = false;
+    for (let i = 0; i < 24 && !seenAgain; i++) {
+      const alive = await page.evaluate(() => !!document.querySelector("#reveal-btn"));
+      if (!alive) break;
+      if ((await cur()) === first) { seenAgain = true; break; }
+      await page.evaluate(() => document.querySelector("#reveal-btn").click());
+      await page.waitForTimeout(200);
+      await page.evaluate(() => { const g = document.querySelector(".grade.good"); if (g) g.click(); });
+      await page.waitForTimeout(260);
+    }
+    check("the card comes BACK later in the same session — the whole bug report", seenAgain);
+
+    // …and a second Good finishes it for the day
+    if (seenAgain) {
+      await page.evaluate(() => document.querySelector("#reveal-btn").click());
+      await page.waitForTimeout(220);
+      await page.evaluate(() => document.querySelector(".grade.good").click());
+      await page.waitForTimeout(500);
+      const rec2 = await page.evaluate(() => {
+        const S = JSON.parse(localStorage.getItem("folio_v1"));
+        const ids = Object.keys(S.cards).filter((k) => S.cards[k].status === "review");
+        return { graduated: ids.length, days: ids.length ? Math.round((S.cards[ids[0]].due - Date.now()) / 864e5) : null };
+      });
+      check("a SECOND Good graduates it to tomorrow", rec2.graduated >= 1 && rec2.days === 1, JSON.stringify(rec2));
+    }
+    await page.close();
+  }
+
+  /* ================= 7. the banner's button (Aug 2026, renamed on request) =================
+     Asserted on a reader who has studied before: with no cards graded at all the banner is the first-run
+     HERO, whose button is a different control saying something else entirely. */
+  {
+    const page = await newPage(seeded);
+    await page.goto(base + "#home", { waitUntil: "load" });
+    await page.reload({ waitUntil: "load" });
+    await page.waitForTimeout(1400);
+    const cta = await page.evaluate(() => {
+      const b = document.querySelector("#b-review .cta .btn");
+      return { txt: b ? b.textContent.trim() : null, hero: !!document.querySelector(".review-hero") };
+    });
+    check("the review's button reads 'Start'", cta.txt === "Start", JSON.stringify(cta));
     await page.close();
   }
 
