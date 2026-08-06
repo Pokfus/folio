@@ -3548,6 +3548,169 @@ const BOOKS = {
       url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0011/tlg002/tlg0011.tlg002.perseus-grc2.xml",
     },
   },
+
+  "epic-of-gilgamesh": {
+    title: "The Epic of Gilgamesh",
+    /* No subtitle. Thompson's title page reads "The Epic of Gilgamish", with his transliteration of
+       the name, and the entry keeps his spelling wherever it quotes his edition — but the book is
+       shelved under the spelling every reader will look for. Both are on its own first page. */
+    author: "Anonymous",
+    translator: "R. Campbell Thompson",
+    edition:
+      "The Epic of Gilgamish: A New Translation from a Collation of the Cuneiform Tablets in the " +
+      "British Museum, Rendered Literally into English Hexameters, Luzac & Co., London, 1928",
+    written: "c. 1200 BCE",
+    /* The standard twelve-tablet version Thompson translates was put together somewhere around
+       1200 BCE out of poems already six or seven centuries old, and the copies we read it from were
+       written later still. No date is stated anywhere by the text; this is the conventional figure
+       for the version in front of the reader and the only one the shelf can honestly sort on, which
+       is the Song of Roland's position exactly. How loose it is is said on the book's own page. */
+    year: -1200,
+
+    /* ---------- THE LICENCE — one layer, and it needs a limit stated ----------
+       The poem is between three and four thousand years old and free everywhere; the only modern
+       layer is Thompson's translation. Published in London in 1928 and Thompson lived 1876–1941 —
+       dates looked up on Wikidata rather than recalled, for the Hugo Magnus reason.
+
+       SO IT IS THE FIFTH BOOK HERE TO STATE A LIMIT AS WELL AS A GROUND, after the Art of War
+       (Giles, 2029), the Nicomachean Ethics (Ross, 2042), the Song of Roland (both columns, 2031 and
+       2039) and the Medea (Murray, 2028). It is public domain in the United States — a foreign work
+       published in 1928, whose 95-year term expired at the start of 2024 — and out of copyright
+       wherever the term is the author's life plus seventy, which expired at the start of 2012. Where
+       the term is life plus a hundred it runs until 2042.
+
+       WHAT IS AND IS NOT TAKEN. The twelve tablets. Thompson's own preface is left behind, as the
+       Republic's added introduction and the Song of Roland's Chesterton essay were — what the reader
+       needs before starting is said in the book's own front matter, in Folio's voice, and a 1928
+       preface addressed to Assyriologists is not that.
+
+       The modern translations a reader is likeliest to own — Nancy Sandars's Penguin of 1960, Maureen
+       Gallery Kovacs's of 1989, Andrew George's Penguin of 1999, Benjamin Foster's Norton of 2001 and
+       Stephen Mitchell's version of 2004 — are all firmly in copyright and are named here for the
+       reason Campbell, Hays, Griffith, Lee, Humphries, de Sélincourt, Handford, Warner and the rest
+       are named above: so that nobody reaches for one later. George's is the standard scholarly text
+       and is the one to buy; it is not one to copy. */
+    rights:
+      "Public domain, with one limit worth stating. The poem itself is Babylonian and some three " +
+      "thousand years old, so the words behind this book have been free for as long as copyright has " +
+      "existed. The only modern layer is the translation: R. Campbell Thompson published it in London " +
+      "in 1928 and lived from 1876 to 1941. It is therefore public domain in the United States, where " +
+      "the term for a work published in 1928 expired at the start of 2024, and out of copyright " +
+      "wherever the term is the author's life plus seventy years, which expired at the start of 2012. " +
+      "In the few countries where the term is life plus a hundred it remains in copyright until 2042. " +
+      "Thompson's own preface is not reproduced here; what is taken is the twelve tablets. (The modern " +
+      "translations by N. K. Sandars, 1960, Maureen Gallery Kovacs, 1989, Andrew George, 1999, " +
+      "Benjamin Foster, 2001, and Stephen Mitchell, 2004, are still in copyright and are not used.)",
+    /* THE FIRST BOOK HERE FROM NEITHER WIKISOURCE NOR PERSEUS, and the block above extractTablets is
+       where the reasoning lives: both of the shelf's usual sources hold about a sixth of this poem
+       between them, and the Internet Archive's scan of the 1928 volume has an OCR layer missing a
+       third of it. The transcriber is named because a transcription is work, and because a reader
+       who wants to check this text against the printed page should be told which copy they are
+       reading. */
+    sourceName: "Global Grey",
+    sourceUrl: "https://www.globalgreyebooks.com/epic-of-gilgamesh-ebook.html",
+    source: "html",
+    layout: "tablets",
+    url: "https://www.globalgreyebooks.com/online-ebooks/reginald-campbell-thompson_epic-of-gilgamesh_complete-text.html",
+    chapterWord: "Tablet",
+    chapters: Array.from({ length: 12 }, (_, i) => i + 1),
+    /* The tablets have names in this edition — Thompson heads each with a line saying what happens in
+       it — so the tabs carry them and nothing is composed here. `titleOf` is therefore absent: the
+       titles are read off the headings by extractTablets, which is the only book on the shelf that
+       takes them from the text itself rather than from a contents page or an entry in this file.
+
+       No `parts`. The edition divides the poem into tablets and nothing above them, so the Contents
+       panel falls back to a single unlabelled group, as the Meditations', the Republic's, the Art of
+       War's, Aesop's and the Song of Roland's do.
+
+       The floor stays at the default 200: the shortest tablet here is the Eighth, and even that runs
+       to several thousand characters, so nothing about this book needs the lower guard Aesop and the
+       Song of Roland set. */
+
+    /* ---------- NO ORIGINAL COLUMN, AND THE REASON IS NOT THE USUAL ONE ----------
+       Every other book without a facing original fails the shelf's own test — does the text say which
+       section each passage is? The Republic's Jowett states no Stephanus numbers; neither of Aesop's
+       two collections numbers anything at all. Gilgamesh fails one step earlier, and it is worth
+       being precise about where.
+
+       The original is Akkadian written in cuneiform on tablets that are broken. There is no edition
+       of it in the sense the rest of this shelf means: what exists is a transliteration assembled
+       from dozens of fragments, and the assembling is itself the scholarship. The standard one is
+       Andrew George's of 2003 and it is in copyright. The Electronic Text Corpus of Sumerian
+       Literature carries the five SUMERIAN Gilgamesh poems, which are a different and older set of
+       texts rather than this poem in its original words. The electronic Babylonian Library carries
+       the Akkadian and licenses it for non-commercial use, which is not a licence this site can build
+       on and, more to the point, is not an expired copyright.
+
+       So a book that is one of the two or three most famous poems in the world ships in translation
+       alone, and its own front matter says why — a reader who goes looking for the Akkadian should
+       find the reason rather than the absence, which is the Republic's judgement in a harder case. */
+
+    /* ---------- THE FRONT MATTER — chapter 0 ----------
+       What a reader needs before they start. The poem first and at length, because most people
+       arriving here know the name and one anecdote; then the thing that makes it unlike anything else
+       on this shelf, which is that it was lost for two and a half thousand years and had to be dug
+       up; then how broken it is, which governs every page they are about to read; then this
+       translation, its age, and what its brackets and dots mean; and last the two absences a reader
+       will notice — no Akkadian column and no twelfth-tablet continuity. */
+    about: [
+      "<b>The Epic of Gilgamesh</b> is the oldest great poem in the world. It was written in " +
+        "Akkadian, the language of Babylon and Assyria, on clay tablets in cuneiform, and the version " +
+        "translated here was assembled around 1200 BCE out of Sumerian poems already six or seven " +
+        "hundred years older. That makes it older than the <i>Iliad</i> by something like five " +
+        "centuries and older than the Hebrew Bible by more. It tells of Gilgamesh, king of Uruk, a " +
+        "tyrant two-thirds divine whom the gods check by creating his equal — Enkidu, a wild man of " +
+        "the steppe who lives among the animals until a woman brings him into the human world. The two " +
+        "fight, become inseparable, and go together to kill the guardian of the cedar forest and then " +
+        "the Bull of Heaven. For that the gods take Enkidu's life, and the second half of the poem is " +
+        "about what his death does to the man left behind.",
+      "It is, in the end, a poem about refusing to accept mortality and having to accept it anyway. " +
+        "Gilgamesh goes out to the ends of the earth looking for Uta-Napishtim, the one man granted " +
+        "eternal life, and what he is given is not a cure but a story: the account of the Flood, which " +
+        "stands in the Eleventh Tablet and is the most famous passage in the book. A god warns one " +
+        "man, who builds a boat, loads it with his family and the animals, rides out a deluge that " +
+        "drowns the world, grounds on a mountain and sends out birds to find dry land. It was read for " +
+        "the first time in the modern world in 1872, and the resemblance to Noah was immediately " +
+        "obvious to everyone who heard it — a discovery that changed how the Book of Genesis was read " +
+        "and has been argued about ever since.",
+      "That date matters, because this poem's history is unlike that of anything else on this shelf. " +
+        "Homer, Plato and Herodotus were copied by hand in an unbroken line from antiquity to the " +
+        "printing press and have never once been out of the world's hands. Gilgamesh was. Its language " +
+        "died, its script became unreadable, and the poem was completely lost for something like two " +
+        "and a half thousand years — until the palace library of Ashurbanipal at Nineveh was excavated " +
+        "in the 1850s and its tablets shipped to the British Museum, where George Smith, a former " +
+        "banknote engraver who had taught himself cuneiform, recognised the Flood story among them. " +
+        "Everything in this book has been recovered within the last hundred and seventy years, and " +
+        "fragments are still being identified now.",
+      "Which is why it is full of holes, and a reader should know that before opening it rather than " +
+        "be puzzled by it. The tablets are broken. Lines are chipped away, whole columns are missing, " +
+        "and some of the joins between one episode and the next are simply gone. Thompson prints what " +
+        "the clay carries and marks everything else: rows of dots are lacunae, words in square " +
+        "brackets are his restorations of damaged text, a bracketed question mark means he is not sure " +
+        "of a reading, and the notes in round brackets between passages tell you roughly how much is " +
+        "lost and what is thought to have stood there. None of this is damage to the edition — it is " +
+        "the edition being honest, and reading around the gaps is part of reading this poem at all.",
+      "The translation is R. Campbell Thompson's of 1928, the first complete scholarly English " +
+        "version, made directly from the tablets in the British Museum and set out in long verse " +
+        "lines. It is nearly a century old, and that shows in two ways worth knowing. Its English is " +
+        "of its period — 'twas, hallow'd, thou — and it renders names in the older forms Gilgamish and " +
+        "Uta-Napishtim where a modern book writes Gilgamesh and Utnapishtim. And a great deal of clay " +
+        "has been found since: Andrew George's edition of 2003 is fuller and more accurate, and is the " +
+        "translation to buy if you want the current state of the text. What Thompson offers is a " +
+        "complete, careful, public-domain rendering by a scholar working from the originals, and the " +
+        "poem's power survives the archaisms easily.",
+      "Two absences to explain. There is no facing Akkadian column here, unlike most books on this " +
+        "shelf, and the reason is not that the original is unavailable but that it barely exists as a " +
+        "settled text: what scholars work from is a transliteration pieced together from scattered " +
+        "fragments, the piecing-together is itself modern scholarship, and every such edition is " +
+        "either in copyright or licensed in a way this site cannot build on. And the Twelfth Tablet " +
+        "does not continue the story — it is a partial translation of a separate Sumerian poem, " +
+        "appended to the epic in antiquity, in which Enkidu is alive again and describes the " +
+        "underworld. It contradicts the ending of the Eleventh Tablet, most modern editions print it " +
+        "as an appendix for that reason, and it is included here because Thompson's edition includes " +
+        "it and because it is genuinely part of what the ancient scribes handed down.",
+    ],
+  },
 };
 
 /* ---------- args ---------- */
@@ -4875,6 +5038,228 @@ function extractLaissesFr(pages, warn) {
 
    The row is the structure the page actually means, and it is also the more robust reading: it needs
    the numeral's href alone, and survives the title link being wrong, absent or pointed anywhere. */
+
+/* ---------- A WHOLE BOOK ON ONE PAGE THAT IS NOT A WIKI PAGE ----------
+   (Aug 2026, adding the Epic of Gilgamesh — the twentieth book, the ninth layout, and the FIRST from
+   a host that is neither Wikisource nor Perseus.)
+
+   WHY THE SHELF'S TWO USUAL SOURCES BOTH FAIL HERE, because that is the whole justification for a
+   third one. Wikisource carries exactly two Gilgamesh editions and BOTH are one-tablet editions of
+   the Old Babylonian version — Langdon's Pennsylvania tablet of 1917 and Jastrow & Clay's
+   Pennsylvania and Yale tablets of 1920. Project Gutenberg carries the second of those and nothing
+   else. Perseus is Greek and Latin. So the obvious sources between them hold perhaps a sixth of the
+   poem, and building on one would have shipped a book that is correct about everything it contains
+   and is not the Epic of Gilgamesh — which is the Dialogues' lesson exactly: ASK WHAT THE SOURCE IS
+   MISSING BEFORE BUILDING ON IT.
+
+   THE COMPLETE PUBLIC-DOMAIN TRANSLATION IS THOMPSON'S OF 1928 and it is reachable in two places,
+   one of which is unusable. sacred-texts.com is behind a Cloudflare challenge from here (the bot
+   wall the citation batches record on hal.science). The Internet Archive's scan of the 1928 volume
+   has a full-text layer, and it was MEASURED rather than assumed: 13,838 words against the clean
+   transcription's 21,600, so it is missing about a third of the poem outright — the Twelfth Tablet's
+   first column arrives as bare line numbers with the verse gone — and what survives has the marginal
+   line numbers fused into the words ("1He who"), the footnote digits welded onto the names beside
+   them, the running heads inline, and the quotation marks mangled throughout. On a LITERAL
+   translation that last part is not untidiness: Thompson's brackets, parentheses and question marks
+   are the apparatus that says which words are restored and which are guessed, and an OCR that
+   corrupts them makes the text claim things the translator did not. There is no cleaning pass that
+   fixes it without inventing text, so it was rejected.
+
+   What is used instead is Global Grey's transcription, which is complete, hand-made and clean, and
+   which was CHECKED AGAINST THE 1928 SCAN rather than trusted: sampled eight-word runs out of it are
+   found in the scan's own OCR, it is the longer of the two by a third, and the apparatus is all
+   there — 1,099 square brackets, 179 (?) marks, 439 lacuna dot-runs and the six "lines wanting"
+   notes. The transcriber is credited on the book's own page beside the edition, exactly as
+   Wikisource and Perseus are.
+
+   THE MARKUP IS A GIFT compared with a wiki page, and the extractor is correspondingly small: an
+   <article> holding an <h2> per chapter, verse in <p> blocks with <br> between the lines, the
+   column headings as their own one-line paragraph, and a <footer class="footnotes"> of
+   <div id="_ftnN"> definitions that the in-text <a href="#_ftnN"> markers point at. Four things have
+   to be done to it and each is below.
+
+   ONE REQUEST FOR THE WHOLE BOOK, cached like a TEI file — so --from/--to cost nothing, a re-extract
+   needs no network, and the site the text comes from is asked once rather than twenty times. */
+
+/* The apparatus, read off the footer. Returns note number -> text, cleaned to the small tag set a
+   note may carry by the same noteText the wiki books use, so a note is cleaned identically wherever
+   the edition printed it. The number is the BOOK's own continuous numbering, 1 to 166; the mapping
+   onto each chapter's own list is done in extractTablets, where the markers are. */
+function tabletNotes(h, warn) {
+  const m = h.match(/<footer[^>]*class="footnotes"[\s\S]*$/);
+  if (!m) { warn("no footnote section found"); return {}; }
+  const out = {};
+  const rx = /<div id="_ftn(\d+)"[^>]*>([\s\S]*?)<\/div>/g;
+  let x;
+  while ((x = rx.exec(m[0]))) {
+    /* The definition opens with its own back-link ("[12]") — the marker, not the note.
+       The nbsp is normalised to its named form FIRST, because noteText knows `&#160;` and `&nbsp;`
+       and not the hex `&#xa0;` this host writes: left alone, 32 of the 166 notes ship with the raw
+       entity showing in the fold. Done here rather than by widening noteText, which fourteen other
+       books share and none of them needs changed. */
+    const body = x[2]
+      .replace(/<a href="#_ftnref\d+"[^>]*>[\s\S]*?<\/a>/, "")
+      .replace(/&#xa0;/gi, "&nbsp;");
+    const t = noteText(body);
+    if (t) out[x[1]] = t;
+  }
+  return out;
+}
+
+/* THOMPSON'S MARGINAL LINE NUMBERS, which are the citation apparatus and arrive fused to the verse.
+   The printed edition numbers every fifth line down the margin; the transcription sets each number
+   at the head of its own line with no space after the point ("5.He 'twas discovered..."), so this
+   runs over a chapter AFTER the lines have been split and turns each one into the <span class="bk-n">
+   marker the reader page draws.
+
+   THE COUNT RESTARTS PER COLUMN, NOT PER TABLET, and that is the thing to get right rather than
+   assume — a guard that simply ran forward through a tablet found 138 of the book's 325 numbers and
+   threw the rest away as going backwards. A cuneiform tablet is written in columns and each column
+   is numbered from its own first line, so the sequence legitimately falls back to 5 every time a new
+   column opens. Hence the reset here, driven by the column headings the caller has just marked.
+
+   AND IT CAN RESTART MID-COLUMN TOO. Measured over the whole book rather than reasoned about: six
+   numbers fall back inside a column, always to a low one (First Tablet column I, Fourth column I,
+   Tenth column IV among them), which is what a column made of two separated fragments looks like.
+   So a number is accepted when it moves the count FORWARD — the Analects' and the Song of Roland's
+   rule — or when it is a plausible RESTART, meaning it goes backwards to somewhere near the top of a
+   column. Everything else is left as the text it is and reported.
+
+   OVER THE WHOLE BOOK THAT ACCEPTS 324 OF 325 CANDIDATES, and the single rejection is a real
+   irregularity worth naming rather than smoothing away: the Eleventh Tablet runs
+   ... 170, 175, 150, 185, 190 ..., where every other number in the run is a multiple of five in
+   order, so the 150 stands exactly where 180 belongs. Whether the slip is the 1928 printing's or the
+   transcriber's could NOT be settled — the Internet Archive's text layer has dropped the marginal
+   numbers in that column altogether — so nothing is asserted about its cause and the number is not
+   quietly rewritten to 180, which would be composing an apparatus. The guard drops the marker, that
+   one line of the Flood goes unnumbered, and the run says so every time.
+
+   The separator matters and is easy to miss: the number is welded to the word after it, so a marker
+   emitted without one leaves "5He" on the page. A remainder that already opens on punctuation (a
+   lacuna's dots) keeps its own spacing. */
+const LINE_RESTART_MAX = 15;
+function markTabletLines(html, warn, where) {
+  let last = 0, n = 0, restarts = 0;
+  /* A LINE STARTS AFTER A <br> AND ALSO AT THE HEAD OF A PARAGRAPH, which is not a quibble: this
+     edition opens a fresh <p> at every gap in the clay, so 61 of the book's 325 marginal numbers sit
+     at the top of a paragraph rather than after a line break, and splitting on <br> alone silently
+     left every one of them as text. The column-heading alternative has to come FIRST in the
+     alternation — it contains a <p> of its own, and a bare <p> matching earlier would cut the
+     heading in half and stop the reset below from ever firing. */
+  const out = html.split(/(<p>(?:<sup[^>]*><\/sup>)?<b>Column[^<]*<\/b><\/p>|<br>|<\/?p>)/).map((piece) => {
+    if (/^<p>(?:<sup[^>]*><\/sup>)?<b>Column/.test(piece)) { last = 0; return piece; }   // a new column starts again at its own line 1
+    if (piece === "<br>") return piece;
+    return piece.replace(/^(\s*)(?:<sup class="fn"[^>]*><\/sup>)?(\d{1,3})\.(?!\d)/, (all, sp, num) => {
+      const v = parseInt(num, 10);
+      const forward = v > last;
+      const restart = v < last && v <= LINE_RESTART_MAX;   // a column built from two broken fragments
+      if (!forward && !restart) {
+        warn(where + ": line number " + v + " goes backwards after " + last + " — left as text");
+        return all;
+      }
+      if (restart) restarts++;
+      last = v; n++;
+      return all.slice(0, all.length - (num.length + 1)) + '<span class="bk-n">' + v + "</span> ";
+    });
+  }).join("");
+  if (!n) warn(where + ": no line numbers found");
+  return out;
+}
+
+/* One page, cut into its chapters and cleaned. Returns [{ n, t, html, notes }] in tablet order.
+
+   The chapter is found by its HEADING rather than by counting <h2>s, because the page carries
+   Thompson's own Preface as an <h2> too and the footer carries another. A heading that does not name
+   a tablet is skipped and reported, so a transcription that grows a section cannot quietly shift the
+   numbering — the failure this file keeps meeting is the silent one.
+
+   THE NOTES ARE RENUMBERED PER CHAPTER, which is the Seneca `data-fn` lesson in a new coat. The
+   edition numbers its 166 notes straight through the book while a Folio chapter carries its own
+   list, so each marker is rewritten to point at this chapter's index — and a note cited twice keeps
+   ONE entry and both markers point at it, rather than the list gaining a duplicate. */
+function extractTablets(h, book, warn) {
+  /* CRLF, NORMALISED AT THE DOOR, and it is worth a line because of how it fails. This host serves
+     the page with Windows line endings; every other source on the shelf does not, so `esc` — which
+     escapes a backslash, a quote and a newline — has never had to think about a carriage return and
+     passes one straight through into the generated string literal, where it IS a line terminator and
+     the file will not parse. The failure is at least loud (the importer's own re-parse catches it),
+     but it is a property of this transcription's line endings rather than of its content, so it is
+     stripped here rather than by widening a helper fourteen other books depend on. */
+  h = h.replace(/\r\n?/g, "\n");
+  const notes = tabletNotes(h, warn);
+  const body = h.replace(/<footer[^>]*class="footnotes"[\s\S]*$/, "");
+  const art = body.match(/<article[^>]*class="reading-body"[\s\S]*$/);
+  if (!art) throw new Error("no <article class=\"reading-body\"> — the page's markup has changed");
+
+  const secs = art[0].split(/<h2[^>]*>/).slice(1);
+  const want = book.chapters.length;
+  const out = [];
+  const seenHead = [];
+
+  secs.forEach((sec) => {
+    const cut = sec.indexOf("</h2>");
+    const title = noteText(sec.slice(0, cut)).replace(/\s+/g, " ").trim();
+    const rest = sec.slice(cut + 5);
+    const m = title.match(/^The\s+(\w+)\s+Tablet\s*[:.]?\s*(.*)$/i);
+    seenHead.push(title);
+    if (!m) return;                                   // the Preface, and anything else added later
+    const n = ORDINAL_WORD[m[1].toLowerCase()];
+    if (!n) { warn('heading names a tablet this entry cannot number: "' + title + '"'); return; }
+
+    /* The chapter's own notes, in the order their markers appear. Built while the markers are
+       rewritten so the list and the numbers cannot come apart. */
+    const local = [], byNum = {};
+    let html = rest.replace(
+      /(?:&#xa0;|&nbsp;| )*<a name="_ftnref(\d+)"[^>]*>\s*<\/a>\s*<a href="#_ftn\1"[^>]*>[\s\S]*?<\/a>(?:&#xa0;|&nbsp;| )*/g,
+      (all, num) => {
+        if (!notes[num]) { warn("tablet " + n + ": marker [" + num + "] points at no note"); return ""; }
+        if (!byNum[num]) { local.push(notes[num]); byNum[num] = local.length; }
+        return '<sup class="fn" data-fn="' + byNum[num] + '"></sup>';
+      }
+    );
+
+    /* The column headings. Each is a paragraph whose whole text is "Column IV." — the edition's own
+       division inside a tablet, and the coarse half of how the poem is cited. Bolded so it reads as
+       the heading it is; nothing else about it is changed, and no heading is composed where the
+       edition gives none.
+
+       THE OPTIONAL <sup> IS NOT DECORATION. One heading in the book — the Second Tablet's Column II —
+       carries a footnote marker in the same paragraph, and the marker has already been rewritten by
+       the pass above by the time this runs. Anchored hard to `<p>`, this rule missed that one, which
+       cost the tablet a column heading AND, because markTabletLines resets its count at these
+       headings, left the whole of that column's numbering to be judged against the column before it.
+       A single unmatched heading is the quiet kind of failure this file keeps meeting: nothing
+       throws, no word is lost, and the only symptom is a column of missing marginal numbers. */
+    let cols = 0;
+    html = html.replace(
+      /<p>\s*(<sup class="fn"[^>]*><\/sup>)?\s*(Column\s+[IVXL]+)\.?\s*<\/p>/gi,
+      (all, sup, c) => { cols++; return "<p>" + (sup || "") + "<b>" + c + ".</b></p>"; }
+    );
+
+    html = stripTags(html)
+      .replace(/&#xa0;|&nbsp;| /g, " ")
+      .replace(/<p>\s*<\/p>/g, "")
+      .replace(/[ \t]+/g, " ")
+      .replace(/\s+<br>/g, "<br>")
+      .replace(/\n+/g, "\n")
+      .trim();
+    html = markTabletLines(html, warn, "tablet " + n);
+
+    out.push({ n, t: m[2] ? m[2].trim() : book.chapterWord + " " + n, html, notes: local, cols });
+  });
+
+  if (out.length !== want)
+    warn("the edition carries " + out.length + " tablets; the entry expects " + want +
+         " (headings seen: " + seenHead.length + ")");
+  out.sort((a, b) => a.n - b.n);
+  return out;
+}
+
+const ORDINAL_WORD = {
+  first: 1, second: 2, third: 3, fourth: 4, fifth: 5, sixth: 6,
+  seventh: 7, eighth: 8, ninth: 9, tenth: 10, eleventh: 11, twelfth: 12,
+};
+
 async function chapterTitles() {
   /* A book need not have chapter titles at all, and the Meditations does not: its twelve books are
      headed "BOOK I" … "BOOK XII" on its own contents page and nowhere given names. `titleOf` is how
@@ -6196,6 +6581,34 @@ async function fetchEnglish() {
     });
     const lines = chapters.reduce((a, c) => a + (c.html.match(/<br>/g) || []).length + 1, 0);
     console.log("  " + chapters.length + " laisses, " + lines + " lines");
+    return writeEnglish(chapters, warnings);
+  }
+
+  /* A WHOLE BOOK ON ONE PAGE FROM A HOST THAT IS NOT A WIKI — see the block above extractTablets for
+     why this book needs a third source at all and what was measured before it was chosen. One
+     request for the lot, cached exactly as a TEI file is: --from/--to cost nothing, a re-extract
+     needs no network, and the site is asked once rather than once per tablet. */
+  if (BOOK.layout === "tablets") {
+    const warn = (m) => warnings.push(m);
+    const cf = path.join(CACHE, "en-page.html");
+    let h;
+    if (!FORCE && fs.existsSync(cf)) h = fs.readFileSync(cf, "utf8");
+    else { h = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, h); }
+    const got = extractTablets(h, BOOK, warn);
+    let notes = 0, cols = 0, marks = 0;
+    got.forEach((c) => {
+      if (c.n < FROM || c.n > TO) return;
+      if (c.html.length < (BOOK.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + c.n + " came back short (" + c.html.length + " chars)");
+      notes += c.notes.length; cols += c.cols;
+      marks += (c.html.match(/class="bk-n"/g) || []).length;
+      chapters.push({ n: c.n, t: titles[c.n] || c.t, p: partOf(c.n), html: c.html, notes: c.notes });
+      console.log("  " + BOOK.chapterWord + " " + c.n + " — " + c.t +
+        " (" + c.html.length + " chars, " + c.cols + " columns, " + c.notes.length + " notes)");
+    });
+    const lines = chapters.reduce((a, c) => a + (c.html.match(/<br>/g) || []).length + 1, 0);
+    console.log("  " + chapters.length + " tablets, " + lines + " lines, " +
+      cols + " columns, " + marks + " line numbers, " + notes + " notes");
     return writeEnglish(chapters, warnings);
   }
 
