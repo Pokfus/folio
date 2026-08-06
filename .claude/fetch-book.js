@@ -3154,6 +3154,186 @@ const BOOKS = {
       ],
     },
   },
+
+  "euripides-medea": {
+    title: "Medea",
+    // the play's own Greek title, which is what its Greek column is an edition of — the pattern
+    // Lucretius set and the Oedipus Rex followed
+    subtitle: "Μήδεια",
+    author: "Euripides",
+    translator: "Edward P. Coleridge",
+    edition: "The Plays of Euripides, Volume 1, George Bell and Sons, London, 1906",
+    written: "431 BCE",
+
+    /* ---------- THE LICENCE, and it is the THIRD here to state a limit as well as a ground ----------
+       The Art of War states one for Giles (in copyright where the term is life plus seventy until
+       2029) and the Nicomachean Ethics for Ross (until 2042). This is the third, and the limit falls
+       on the GREEK rather than on the English, which is a first — everywhere else on the shelf the
+       original is the older and easier half.
+
+       Both columns are public domain in the United States on the ground the shelf uses most: Edward
+       Coleridge's translation was published by George Bell and Sons in 1906 and Gilbert Murray's
+       Oxford Classical Text at the Clarendon Press in 1902, both long before 1929. Where they part
+       company is on the author's-life rules. Coleridge died in 1936, so his English has been public
+       domain on life-plus-seventy since 2007. MURRAY DIED IN 1957, so his Greek remains in copyright
+       where the term is life plus seventy — the United Kingdom and the European Union among them —
+       until 2028, and where it is life plus a hundred until 2058. Coleridge's own hundred-year term
+       runs to 2037.
+
+       BOTH DATES WERE CHECKED RATHER THAN RECALLED, against Wikisource's author pages, which give
+       Coleridge 1863–1936 and Murray 1866–1957: the Ovid entry's Hugo Magnus mistake was precisely a
+       death year asserted from memory to hold up a licence, and Murray's is the year the whole of this
+       paragraph turns on. It is said outright in `rights` and on the book's own front matter rather
+       than smoothed into the easier sentence the Oedipus Rex can honestly use, which is the judgement
+       Lucretius's entry states: claim less, and put on the page what cannot be said.
+
+       THERE WAS NO CLEANER GREEK TO REACH FOR, which is worth recording because the Ethics' entry
+       makes the opposite choice look available. There it was a real trade — Chase's 1847 English is
+       free everywhere and pairs on 18 of 181 pages, Ross's is limited and pairs on 173 of 173 — so the
+       licence question and the pairing question were decided together. Here Perseus carries exactly
+       one Greek Medea, Murray's; the older grc1 file does not exist. So the choice is this text or no
+       original at all, and a second column that pairs on 500 of the translation's 502 sections is
+       worth a stated limit that expires in two years.
+
+       The translations a reader is likeliest to own — Rex Warner's of 1944, Philip Vellacott's Penguin
+       of 1963 and Diane Arnson Svarlien's of 2008 — are all firmly in copyright, and are named here
+       for the reason Campbell, Hays, Griffith, Lee, Humphries, Melville, Brown, Fagles and de
+       Sélincourt are named above: so that nobody reaches for one. */
+    rights:
+      "Public domain in the United States, with one limit stated. Edward Coleridge's translation was " +
+      "published in London in 1906 and Gilbert Murray's Greek text at Oxford in 1902, both before " +
+      "1929, so the copyright in both has expired in the United States. Coleridge died in 1936, so " +
+      "his English is also public domain everywhere the term is the author's life plus seventy years " +
+      "or less. Murray, however, died in 1957, so the Greek beside it remains in copyright where the " +
+      "term is life plus seventy — including the United Kingdom and the European Union — until 2028. " +
+      "Euripides wrote the play in Athens some twenty-five centuries ago. The digital editions of " +
+      "both texts are prepared by the Perseus Digital Library at Tufts University and are released " +
+      "under a Creative Commons Attribution-ShareAlike 4.0 International licence. (The modern " +
+      "translations by Rex Warner, 1944, Philip Vellacott, 1963, and Diane Arnson Svarlien, 2008, are " +
+      "still in copyright and are not used here.)",
+    sourceName: "Perseus Digital Library",
+    sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0006.tlg003/",
+
+    /* THE FRONT MATTER — chapter 0. Five things a reader should be told before they start rather than
+       work out late: what happens and how little of the play is the thing it is famous for, what
+       Euripides appears to have changed and why the argument about it is still live, what the parts
+       and the chorus are, what is known about the first performance, and what the two columns, the
+       small figures and the notes running through them are. */
+    about: [
+      "<b>Medea</b> was staged in Athens in 431 BCE, and it is the Greek tragedy that modern readers " +
+        "argue about most. Jason has brought Medea back from the far edge of the Black Sea, where she " +
+        "betrayed her father and killed her brother to win him the Golden Fleece; the two have been " +
+        "living as exiles in Corinth with their two sons. The play opens on the morning after Jason " +
+        "has married the Corinthian king's daughter. Medea is to be banished the same day, and she " +
+        "asks for one more, which she is given. What she does with it is the play. The famous part of " +
+        "the story occupies a few minutes at the end; almost all of what comes before is argument — " +
+        "with the king, with Jason, with a visiting king of Athens, with the chorus, and at the " +
+        "centre of it a long speech in which she argues with herself.",
+      "Euripides seems to have made the worst of it up, and the ancient evidence for that is thin " +
+        "enough to keep the question open. Older versions of the story have the children killed by " +
+        "the Corinthians or dying by accident; commentators in antiquity say Euripides was the one " +
+        "who had their mother do it deliberately, and some of them add that Corinth paid him to shift " +
+        "the blame. What is not in doubt is what the play does with the act. Medea is given the " +
+        "clearest arguments in it, and she uses them on her own position — she is a foreigner nobody " +
+        "will shelter, a wife discarded once her usefulness ended, and she says so in a speech about " +
+        "the lives of women that is quoted far more often than anything else in the play. The chorus " +
+        "hears her plan and does not stop her. She is neither punished nor forgiven at the end, which " +
+        "is the part that unsettles people.",
+      "It is written in the shape every Athenian tragedy uses, and this edition marks it: spoken " +
+        "scenes alternating with odes sung and danced by a chorus, here of Corinthian women, who are " +
+        "characters in the story as well as commentators on it. Folio's parts follow the edition's " +
+        "own divisions and its own labels for them — a spoken part is an <i>episode</i> and a sung " +
+        "one a <i>choral ode</i>, thirteen in all. Elsewhere you will meet a more precise set of " +
+        "names for the same divisions: prologue for the opening scene, parodos for the chorus's " +
+        "entrance song, stasimon for each ode after it, and exodos for the final scene. Those are the " +
+        "standard analysis and they are worth knowing, but they are not the words this edition uses, " +
+        "so they are not used here.",
+      "Unusually for a Greek play, the date of the first performance is recorded rather than " +
+        "reconstructed: the spring of 431 BCE, at the festival of Dionysus, a few months before the " +
+        "war between Athens and Sparta began. It came third of three, which is last. Euripides lived " +
+        "from about 480 to 406 BCE and wrote some ninety plays, of which about nineteen survive whole " +
+        "— far more than either of the other two great tragedians, largely because a volume of them " +
+        "seems to have come through the Middle Ages by luck rather than by choice. He won the first " +
+        "prize only a handful of times in his life and became the most read and most performed of the " +
+        "three within a generation of his death.",
+      "The translation here is Edward Coleridge's of 1906 and the Greek beside it is Gilbert Murray's " +
+        "Oxford text of 1902. The small raised figures running through both columns are LINE numbers " +
+        "of the Greek, which is how any passage of a tragedy is cited in any language: Coleridge " +
+        "translates into prose and numbers the line each block of it begins at, while Murray's verse " +
+        "numbers every line, and a figure appearing in both columns marks the same place in the play. " +
+        "Three things about the page are differences between the editions rather than faults in it. " +
+        "The italic stage directions are the English edition's: the ancient text records none, and " +
+        "every one printed in a modern edition is its editor's inference from what the characters " +
+        "say, which is why the Greek column beside them is blank. The numbered notes are the English " +
+        "edition's too — Coleridge's own, on the manuscript readings he follows, and Perseus's, on " +
+        "the handful of places where this translation parts company with Murray's Greek over who " +
+        "speaks a line. And two of the five hundred and two English passages draw beside an empty " +
+        "Greek cell, both in Part 12, where the children are heard crying out inside the house: " +
+        "Murray runs those lines together and gives them to the two boys speaking at once, so the " +
+        "numbers beside them do not stand alone on his side. The notes on those lines say so, which " +
+        "is the tidiest answer this shelf has yet had to a blank cell.",
+    ],
+
+    /* ---------- A PLAY: the same shape as the Oedipus Rex, and it needed no new reader ----------
+       The second play here, and the Gallic War's lesson repeated one layout along: a shape already met
+       costs nothing to meet again. Both of these files divide the work with `subtype="episode"` and
+       `subtype="choral"` at the top level and nest everything else — the strophe, antistrophe,
+       anapests and epode of each ode — inside them, which is exactly what teiDramaDivisions selects.
+
+       MEASURED OVER THE WHOLE PLAY BEFORE ANY OF IT WAS BELIEVED: 13 divisions on each side, of the
+       same kinds, in the same order, opening at the same 13 lines; 502 English sections, of which 500
+       draw Greek beside them and 2 do not; and no number in the Greek that the English has not got,
+       which is the direction that would signal a misread. All of it is re-checked against the files on
+       every run rather than resting on this comment.
+
+       THE TWO EMPTY CELLS ARE EXPLAINED BY THE EDITION'S OWN NOTES, which is a first here and worth
+       saying. The Oedipus Rex's three unpaired lines are simply places where Jebb constitutes the text
+       differently from Storr, recorded and left alone; these two — 1271 and 1273, both in Part 12, at
+       the moment the children are heard from inside the house — are places where Murray's Greek runs
+       two of the translation's lines together and gives them to both children speaking at once, so
+       neither number stands alone on that side. Perseus's notes on those very lines say so, and the
+       notes now ship, so a reader who meets the blank cell finds the reason a marker away.
+
+       WHAT IS NEW IS THE APPARATUS, and it is why the drama reader changed. The Oedipus Rex prints no
+       notes; this edition prints 38, and the reader was stripping them. See dramaNotes for the lift,
+       for the empty marker carrying its own target, and for the seven of them that stand between two
+       lines and had to be attached to the line before.
+
+       AND <del> IS LIVE HERE AND CHANGES NOTHING, which is the thing Lucretius's entry says to measure
+       rather than assume. The English carries two and the Greek eleven, and — unlike the Oedipus Rex's
+       single one, which wrapped a whole line and took the English from 684 sections to 683 — not one
+       of these thirteen wraps a whole line. Every one sits inside a line, so dropping them with their
+       words shortens thirteen lines and removes no section from either column. */
+    source: "tei",
+    url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0006/tlg003/tlg0006.tlg003.perseus-eng2.xml",
+    layout: "drama",
+    /* "Part" is Folio's own neutral word for a division, as it is for the Oedipus Rex: this edition
+       numbers its divisions not at all, and an act is a later theatre's unit a Greek tragedy has not
+       got. The number is Folio's; the NAME of each part is the edition's. */
+    chapterWord: "Part",
+    // thirteen is what the edition divides the play into, and is checked against the file on every run
+    chapters: Array.from({ length: 13 }, (_, i) => i + 1),
+
+    original: {
+      lang: "grc",
+      langName: "Greek",
+      source: "tei",
+      layout: "drama",
+      edition: "Gilbert Murray, Euripidis Fabulae, Volume 1, Clarendon Press, Oxford, 1902",
+      rights:
+        "Two layers, and the first of them carries a limit. Euripides wrote the play in Greek in the " +
+        "fifth century BCE, so the words themselves are in the public domain everywhere. The text " +
+        "printed here is Gilbert Murray's of 1902, published well before 1929 and so public domain in " +
+        "the United States — but Murray died in 1957, so his edition remains in copyright where the " +
+        "term is the author's life plus seventy years, including the United Kingdom and the European " +
+        "Union, until 2028. The digital edition is prepared by the Perseus Digital Library at Tufts " +
+        "University and is released under a Creative Commons Attribution-ShareAlike 4.0 " +
+        "International licence.",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0006.tlg003/",
+      url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0006/tlg003/tlg0006.tlg003.perseus-grc2.xml",
+    },
+  },
 };
 
 /* ---------- args ---------- */
@@ -5379,22 +5559,75 @@ function lineSortKey(n) {
 function dramaText(s) {
   return s
     .replace(/<stage\b[^>]*>([\s\S]*?)<\/stage>/g, (m, t) => "<i>" + t.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim() + "</i>")
-    .replace(/<(?!\/?i\b)[^>]*>/g, "")
+    /* `sup` joins `i` in the keep list for the footnote marker dramaNotes has already put in — the
+       whole point of lifting a note is that something is left behind pointing at it, and the sweep
+       below would take the marker out again. TEI has no `<sup>` of its own, so nothing else can come
+       through this door; measured over both columns of both plays, the only ones present are ours. */
+    .replace(/<(?!\/?(?:i|sup)\b)[^>]*>/g, "")
     .replace(/&#160;|&nbsp;/g, " ")
     .replace(/\s+/g, " ")
     .trim();
 }
 const dramaPlain = (s) => s.replace(/<[^>]*>/g, "").replace(/&#160;|&nbsp;/g, " ").replace(/\s+/g, " ").trim();
 
+/* ONE DIVISION'S NOTES, LIFTED OUT INTO THE FOLD — added Aug 2026 with the Medea, the second play
+   here and the first whose edition annotates itself.
+
+   The Oedipus Rex prints no notes at all, so the drama reader was written to STRIP them, with a line
+   saying the rule stayed because the next edition's might not. It did: Coleridge's Medea carries 38,
+   of which 37 stand inside the play's own divisions, and stripping them would have discarded the
+   whole apparatus of a text that needs one — 29 are the translator's own notes on where he departs
+   from the manuscripts and which conjecture he follows, and 8 are Perseus's on where this English
+   parts company with the Greek's line numbering or its attribution of a line to a speaker. That is
+   exactly the quiet fault this file keeps meeting: nothing throws, every line of the play is present,
+   the counts all read as healthy, and only the notes are gone.
+
+   THE MARKER IS EMPTY AND CARRIES ITS TARGET, which is the rule teiSectionProse sets out at length:
+   the digit a reader sees is written by app.js from the list at render time, so re-ordering the notes
+   can never strand a stale number in a line, and `data-fn` says which entry this one opens rather
+   than trusting its position in reading order.
+
+   A MARKER STANDING BETWEEN TWO LINES BELONGS TO THE LINE BEFORE IT, and without that rule seven of
+   the 37 would be lifted into the fold with nothing left pointing at them. teiDramaBlocks walks the
+   `<stage>` and `<l>` elements inside a speech and nothing else, so a note sitting in the gap after a
+   `</l>` — which is where Perseus puts all seven of its own, each being about the line it follows —
+   has its marker dropped on the floor while its text still reaches the list. The note would then be
+   unreferenced, which app.js renders as an entry no sentence opens: the mirror of the dead marker the
+   apparatus already refuses to draw. Measured over the whole play before this was written: all seven
+   sit immediately after a closing line tag and none anywhere else, so the move is as narrow as the
+   evidence, and teiDramaDivisions reports any note it still cannot find a marker for. */
+function dramaNotes(raw, notes) {
+  const out = raw.replace(/<note\b([^>]*)>([\s\S]*?)<\/note>/g, (whole, attrs, inner) => {
+    const t = teiInline(inner);
+    if (!t) return "";
+    /* A note marked place="inline" is not a footnote — TEI's `place` says where the printed page puts
+       it, and `inline` means the flow of the text rather than the foot of it. Lifting one into the
+       fold would move it off the page it belongs on. The rule teiSectionProse learned on Suetonius;
+       this play's one such note is its cast list, which stands ahead of the first division and is
+       never reached, so the rule is here for the edition after this one. */
+    if (/place="inline"/.test(attrs)) return " <i>" + t + "</i> ";
+    notes.push(t);
+    return '<sup class="fn" data-fn="' + notes.length + '"></sup>';
+  });
+  return out.replace(/<\/l>(\s*)(<sup class="fn" data-fn="\d+"><\/sup>)/g, "$2</l>$1");
+}
+
 /* The play's own divisions. This encoding marks a spoken scene `subtype="episode"` and a sung one
    `subtype="choral"`, and nests everything else INSIDE those — the strophe and antistrophe of each
    ode, and in the Greek two further marks the English does not carry. So selecting the two top-level
-   names is the whole of the depth question, and needs no bracket counting. */
-function teiDramaDivisions(xml, warn) {
+   names is the whole of the depth question, and needs no bracket counting.
+
+   `opts.notes` lifts each division's notes into its own list rather than dropping them; see
+   dramaNotes. It is off by default, which is what keeps the Oedipus Rex byte-identical and is also
+   right for every ORIGINAL column: Folio folds notes under the translation alone, so a note lifted
+   out of the Greek would have nowhere to go. The count dropped that way is reported rather than
+   passed over, as the chaptered branch reports Herodotus's 83. */
+function teiDramaDivisions(xml, warn, opts) {
+  const O = opts || {};
   const body = xml.slice(xml.indexOf("<body"));
   if (body.length < 1000) throw new Error("no <body> in the TEI file");
-  // this edition prints no notes and no heads; the rule stays because the next one's may not
-  let b = body.replace(/<note\b[^>]*>[\s\S]*?<\/note>/g, "");
+  let b = body;
+  if (!O.notes) b = b.replace(/<note\b[^>]*>[\s\S]*?<\/note>/g, "");
   // the editor's mark of spurious text, dropped with its words — the judgement teiProse and
   // teiVerseBooks both make, and for the same reason: what ships is the text the edition constitutes
   b = b.replace(/<del\b[^>]*>[\s\S]*?<\/del>/g, "");
@@ -5406,12 +5639,24 @@ function teiDramaDivisions(xml, warn) {
   while ((m = rx.exec(b))) marks.push({ kind: m[1].toLowerCase(), index: m.index });
   if (!marks.length) throw new Error("no episode or choral divisions in the TEI file");
   return marks.map((d, i) => {
-    const raw = b.slice(d.index, i + 1 < marks.length ? marks[i + 1].index : b.length);
+    let raw = b.slice(d.index, i + 1 < marks.length ? marks[i + 1].index : b.length);
+    const notes = [];
+    if (O.notes) raw = dramaNotes(raw, notes);
     const blocks = teiDramaBlocks(raw, warn);
     const nums = [];
     blocks.forEach((x) => x.kind === "sp" && x.lines.forEach((l) => l.n && nums.push(l.n)));
     if (!nums.length) warn("a " + d.kind + " division carries no numbered line");
-    return { kind: d.kind, blocks: blocks, from: nums[0] || null, last: nums[nums.length - 1] || null };
+    /* A note that reached the list with no marker left pointing at it. app.js draws that as an entry
+       nothing opens — the mirror of the dead marker the apparatus already refuses to draw — so it is
+       reported here rather than shipped. See the note-position rule in dramaNotes. */
+    if (notes.length) {
+      const seen = new Set();
+      blocks.forEach((x) => x.kind === "sp" && x.lines.forEach((l) =>
+        [...String(l.text).matchAll(/data-fn="(\d+)"/g)].forEach((m) => seen.add(+m[1]))));
+      const lost = notes.map((t, k) => k + 1).filter((k) => !seen.has(k));
+      if (lost.length) warn("note " + lost.join(", ") + " of this division has no marker in the text");
+    }
+    return { kind: d.kind, blocks: blocks, notes: notes, from: nums[0] || null, last: nums[nums.length - 1] || null };
   });
 }
 
@@ -5637,7 +5882,10 @@ async function fetchEnglish() {
     let xml;
     if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
     else { xml = await fetchText(BOOK.url); fs.writeFileSync(cf, xml); }
-    const divs = teiDramaDivisions(xml, warn);
+    /* Notes are LIFTED on the translation side, which is the only side Folio can fold them under.
+       The Oedipus Rex's edition prints none, so this changes nothing there; Coleridge's Medea prints
+       38 and would otherwise lose the lot in silence. See dramaNotes. */
+    const divs = teiDramaDivisions(xml, warn, { notes: true });
     if (divs.length !== BOOK.chapters.length)
       warn("the edition divides the play into " + divs.length + " parts; the entry expects " + BOOK.chapters.length);
     divs.forEach((d, i) => {
@@ -5660,10 +5908,11 @@ async function fetchEnglish() {
       const t = (d.kind === "choral" ? "Choral ode" : "Episode") + ", lines " + d.from + "–" + to;
       const marks = secs.filter((s) => s.kind === "sec").length;
       const stage = secs.filter((s) => s.kind === "stage").length;
-      chapters.push({ n: n, t: t, p: partOf(n), html: html, notes: [] });
+      chapters.push({ n: n, t: t, p: partOf(n), html: html, notes: d.notes });
       console.log("  Part " + n + " — " + t + ": " + marks + " sections, " +
         secs.filter((s) => s.kind === "sec").reduce((a, s) => a + s.lines.length, 0) + " lines, " +
-        stage + " stage direction(s) (" + (html.length / 1024).toFixed(0) + " KB)");
+        stage + " stage direction(s), " + d.notes.length + " note(s) (" +
+        (html.length / 1024).toFixed(0) + " KB)");
     });
     return writeEnglish(chapters, warnings);
   }
@@ -5967,8 +6216,16 @@ async function fetchOriginal() {
       let enXml;
       if (fs.existsSync(enCache)) enXml = fs.readFileSync(enCache, "utf8");
       else { enXml = await fetchText(BOOK.url); fs.writeFileSync(enCache, enXml); }
+      /* Neither call lifts notes. On the English side only the line NUMBERS are read here — the
+         boundaries the Greek is cut against — and the text that ships was written by the English pass,
+         which does lift them. On the Greek side there is nowhere to put one: Folio folds notes under
+         the translation alone, so the original's are dropped, and the count is printed rather than
+         passed over in silence, exactly as the chaptered branch prints Herodotus's 83. */
       const en = teiDramaDivisions(enXml, warn);
       const or = teiDramaDivisions(xml, warn);
+      const orNotes = (xml.slice(xml.indexOf("<body")).match(/<note\b/g) || []).length;
+      if (orNotes) console.log("  dropped " + orNotes + " note(s) from the " + O.langName +
+        " — the reader folds notes under the translation alone");
       if (en.length !== or.length)
         warn("the two editions divide the play differently — " + en.length + " parts against " + or.length);
       /* The divisions must open on the SAME LINE on both sides, or the two columns are being paired
