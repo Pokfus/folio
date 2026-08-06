@@ -14,9 +14,16 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.21", released: "2026-08-05T19:32Z" };
+window.FOLIO_VERSION = { v: "1.22", released: "2026-08-06T03:17Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-08-06",
+    t: "Plato’s dialogues gathered into one book",
+    items: [
+      "Plato’s <i>The Dialogues</i> joins the Library, and the <i>Symposium</i> that shipped yesterday is now a chapter of it rather than a book of its own — the same text, at the same place you left it. Eleven are here, each with the Greek beside the English. Three run straight through the end of Socrates’ life and are best read in order: <i>Euthyphro</i>, on the way in to court; the <i>Apology</i>, his defence to the jury that condemned him; and <i>Crito</i>, in the cell, refusing to escape. Most of the rest are short arguments that end without an answer — what courage is, whether virtue can be taught. Benjamin Jowett’s translation of 1892 is out of copyright everywhere, as is John Burnet’s Greek. The numbers in the margin are the ones Plato has been quoted by since 1578, and they are what hold the two columns level. The others are missing because the transcription these come from is unfinished — the <i>Gorgias</i>, <i>Phaedo</i> and <i>Phaedrus</i> break off part way, so they are left out rather than shown with holes in them. <i>The Republic</i> is on the shelf already, as its own book.",
+    ],
+  },
   {
     d: "2026-08-05",
     t: "Eleven more books in the Library, notes in the margins, and new Ancient Greece cards",

@@ -95,8 +95,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `sun-tzu-art-of-war` (~379 KB, all 13 chapters, 385 section numbers in 383 rows, 608 notes),
   `plato-republic` (~666 KB, all 10 books, **no section numbers at all**, 117 translator notes — the
   first book here with none, which is why it has no original; see the `<id>.<lang>.js` bullet below),
-  `plato-symposium` (~131 KB, the whole dialogue as ONE chapter, 52 Stephanus sections, 22 notes — the
-  edition divides it nowhere, so composing speech boundaries and titles for it was declined),
+  `plato-dialogues` (~780 KB, **eleven dialogues as eleven chapters**, 304 Stephanus sections, 63 notes —
+  the first book here whose chapter is a whole separate WORK rather than a division of one, so both
+  columns are addressed through a table (`DIALOGUES` in the importer) instead of by arithmetic; it
+  **absorbed the standalone `plato-symposium`** on 2026-08-06, whose chapter is byte-identical to what
+  shipped alone, and a `S.reading` / `S.bookFavs` migration in app.js carries the reader's place and star
+  across the id change. Eleven of the edition's thirty-six because Wikisource's transcription is
+  unfinished — the Gorgias carries 1 of its 81 Stephanus pages, the Phaedrus 2 of 53, the Phaedo 26 of 62
+  — and **the test for that is the visible `Page:…djvu/NNN` red-link text an untranscribed leaf leaves in
+  the rendered page**, never a count of section markers, which cannot tell a short dialogue from a
+  truncated one),
   `ovid-metamorphoses` (~813 KB, all 15 books, 156 section numbers, **0 notes** — the first book
   here whose edition carries none, so its chapters render with no note fold at all, which is correct
   and not a wiring fault), `suetonius-twelve-caesars` (~952 KB, all 12 lives, 551 chapter numbers,
@@ -137,7 +145,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   lines of hexameter), `suetonius-twelve-caesars.la.js` (~530 KB, all 12 lives, 541 chapters) and
   `lucretius-nature-of-things.la.js` (~352 KB, all 6 books, 213 cards, 7,382 lines of hexameter) and
   `aristotle-nicomachean-ethics.grc.js` (~335 KB, all 10 books, 181 Bekker pages) and
-  `plato-symposium.grc.js` (~106 KB, the whole dialogue, 52 Stephanus sections) and
+  `plato-dialogues.grc.js` (~620 KB, all eleven dialogues, 309 Stephanus sections — Burnet's Oxford
+  Classical Text, and the FIRST original assembled from a file PER CHAPTER of a multi-work book, one
+  Perseus work id each. Ten are `perseus-grc2`; the Euthyphro has no grc2 at all and its grc1 is the
+  older encoding, whose divisions read `resp n subtype` where the newer ones read `n subtype` — inert,
+  because `teiSections` reads a division's attributes independently of their order, but a probe that
+  fixes the order reports that dialogue as having no sections whatever) and
   `sophocles-oedipus-rex.grc.js` (~123 KB, the whole play, 691 line numbers) and
   `herodotus-histories.grc.js` (~1.26 MB, all 9 books, 1,577 of the translation's 1,578 chapters) and
   `confucius-analects.zh.js` (~44 KB, all 20 books, all 499 chapters — the smallest original on the
@@ -5611,9 +5624,14 @@ dead code (never rendered).
     Collections page.**
     **A shared-extractor change needs the byte-for-byte check as well as this suite**, since the suite
     walks the SHIPPED files and cannot see that an extractor would now produce something different:
-    re-run one wiki book and one TEI book (the Symposium is both and takes a minute) and diff the
-    generated files against the committed ones. That is what proved the `data-n` carry inert on the
-    seven books that predate it.
+    re-run one wiki book and one TEI book and diff the generated files against the committed ones.
+    That is what proved the `data-n` carry inert on the seven books that predate it. **`plato-dialogues`
+    is both at once** and is the cheapest single check (eleven wiki pages, eleven TEI files); a change to
+    `cleanBody`'s `dropHeads` pass additionally needs the four OTHER books that declare `dropHeads` —
+    `marcus-aurelius-meditations`, `plato-republic`, `aristotle-nicomachean-ethics`, `machiavelli-prince`
+    — which is how the 2026-08-06 leading-furniture fix was shown inert (all four byte-identical). Run
+    them with `--force --skip-original`: `--force` is what re-runs the EXTRACTOR, and the original is on
+    a different path and need not be refetched to prove an English-side change.
     Two things it now pins that are new (Aug 2026, on request) and both fail silently. **The SORT**: the
     select must carry no direction in its labels (a reverse button beside "Title (A – Z)" makes the two
     controls contradict each other), the reverse must actually reverse, and the pair must survive a full
