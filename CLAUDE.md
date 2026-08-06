@@ -1322,6 +1322,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   prehistory cards were renumbered into their planned slots and **20 were retired**, and that file has
   the old→new table every earlier document's `wh-NNN` references must be read through. Not part of the
   site.
+- `docs/rome-card-plan.md` — the **1000-card running order for the Ancient Rome collection** (`col-40`):
+  every card's number, topic and deck, fixed in advance across 7 decks and 25 leaf subdecks, so the
+  collection can be grown one card at a time over many sessions. The third of the planned collections and
+  used exactly like the other two — the next card to write is the lowest `rm-NNN` not yet in `data.js` —
+  see the "ANCIENT ROME" bullet under "Generating cards & glossary entries". **No card has been written
+  yet**: the plan and the tree shipped together on 2026-08-06 and the collection starts at `rm-001`. Not
+  part of the site.
 - `docs/history-focus-plan.md` — the rule that **Folio is a history site, not an archaeology site**, the measure that
   finds cards written the other way round (24 of 119 flagged, measured before the 2026-08-04 renumbering — the
   flags travel with the cards, the ids in its table do not), and the six rewrite batches. Opened Aug 2026 on request
@@ -1489,7 +1496,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   canonical format); both collections are grown one card at a time (see "Generating cards & glossary
   entries" below). **The old single `wh-prehistory` deck and the empty `col-44`…`col-64` period decks
   are gone** (2026-08-04) — World History's tree is now the one in `docs/world-history-card-plan.md`,
-  and card ids follow that plan's numbering.
+  and card ids follow that plan's numbering. **`col-40` Ancient Rome gained its 7 decks and 25 leaf
+  subdecks on 2026-08-06** from `docs/rome-card-plan.md`, all empty; it stays under "Coming soon" until
+  its first card ships, since a collection with no cards is coming-soon whatever its `placeholder` says.
 - `glossary.js` — `window.GLOSSARY` plus `window.GLOSSARY_DATES`, `GLOSSARY_TITLES`, `GLOSSARY_ALIASES`,
   `GLOSSARY_CASESENSITIVE`, `GLOSSARY_TAGS` (per-term category tags — the admin glossary's left-bar
   filter), `GLOSSARY_IMAGES` (per-term illustration — see the "Glossary image" bullet below) and
@@ -5030,6 +5039,24 @@ planned, and the next card is whatever falls between them, so the two can never 
 the work had got to. A plan line is a **subject to research, not a fact to assert**, and not always the
 finished answer term: rename, split or drop a line when the research says so, in the same commit as the
 card. The Greek glossary starts from nothing (of 401 terms only `Greece` and `North_Macedonia`), so
+write its terms **cited from the start** at the `GLOSS_SRC_TARGET` bar rather than opening a backlog.
+
+**ANCIENT ROME (`col-40`) is planned and not yet started (Aug 2026).** Its 7 decks and 25 leaf subdecks
+are laid out in `data.js` and its full 1000-card running order is `docs/rome-card-plan.md`, written to
+the same rules as the Greece and World History plans and used the same way: **"Generate the next Ancient
+Rome card" means take the lowest `rm-NNN` not yet in `data.js`, read its topic and deck from that plan,
+research it, and add it** with `node .claude/add-card.js <card.json> <deckId>` — always passing the deck
+id. The next number is:
+`node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='rm-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"`
+(the padding is right for every id but `rm-1000`). Four things in that plan are decisions rather than
+lists, and re-arguing them card by card is how a plan stops being one. **A monument lives with its
+builder** — the Colosseum under the Flavians, the Pantheon under Hadrian — while `rm-arts` carries the
+techniques nobody's reign owns, which is the rule Greece uses for the Parthenon. **Latin literature is
+ONE subdeck** where Greece has three period ones, because Latin literature is read as a single canon.
+**There is no Rome myth deck**: Rome's legends explain institutions, so they sit beside those
+institutions in `rm-kings` and `rm-early-republic`, and `rm-religion` gets the cult rather than the
+tales. And **the eastern empire is a three-card coda**, not a deck — the reader going onward is served
+by `wh-byzantium`. The Roman glossary starts from nothing (of 671 terms only `Latin` and `Italy`), so
 write its terms **cited from the start** at the `GLOSS_SRC_TARGET` bar rather than opening a backlog.
 
 **ENGLISH ONLY (Aug 2026, on request): a new card or glossary term does NOT need its nine translations.**

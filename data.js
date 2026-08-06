@@ -1686,7 +1686,207 @@ window.COLLECTION_TREE = {
       "title": "Ancient Rome",
       "total": 0,
       "placeholder": false,
-      "cardIds": [],
+      "children": [
+        {
+          "id": "rm-early",
+          "title": "Early Rome",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "rm-italy",
+              "title": "Italy before Rome",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "rm-kings",
+              "title": "Rome under the kings",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "rm-republic",
+          "title": "The Roman Republic",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "rm-early-republic",
+              "title": "The early Republic",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "rm-conquest-italy",
+              "title": "The conquest of Italy",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "rm-punic-wars",
+              "title": "The Punic Wars",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "rm-mediterranean",
+              "title": "Rome and the Mediterranean",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "rm-crisis",
+              "title": "The Republic in crisis",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "rm-fall-republic",
+              "title": "The fall of the Republic",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "rm-principate",
+          "title": "The Principate",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "rm-augustus",
+              "title": "Augustus",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "rm-julio-claudians",
+              "title": "The Julio-Claudians",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "rm-flavians",
+              "title": "Civil war and the Flavians",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "rm-high-empire",
+              "title": "The high empire",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "rm-third-century",
+              "title": "The Severans and the third-century crisis",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "rm-late-antiquity",
+          "title": "Late Antiquity",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "rm-dominate",
+              "title": "Diocletian and Constantine",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "rm-christian-empire",
+              "title": "The Christian empire",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "rm-fall-west",
+              "title": "The end of the western empire",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "rm-institutions",
+          "title": "How Rome Worked",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "rm-army",
+              "title": "The Roman army",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "rm-government",
+              "title": "Government, law and citizenship",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "rm-provinces",
+              "title": "Provinces and frontiers",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "rm-life",
+          "title": "Roman Life",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "rm-society",
+              "title": "Family, household and slavery",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "rm-daily-life",
+              "title": "The Roman city and daily life",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "rm-spectacle",
+              "title": "Spectacle and leisure",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "rm-culture",
+          "title": "Religion, Letters and the Arts",
+          "placeholder": false,
+          "children": [
+            {
+              "id": "rm-religion",
+              "title": "Roman religion and myth",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "rm-literature",
+              "title": "Latin literature and thought",
+              "placeholder": false,
+              "cardIds": []
+            },
+            {
+              "id": "rm-arts",
+              "title": "Art, architecture and engineering",
+              "placeholder": false,
+              "cardIds": []
+            }
+          ]
+        }
+      ],
       "i18n": {
         "es": "Antigua Roma",
         "fr": "Rome antique",

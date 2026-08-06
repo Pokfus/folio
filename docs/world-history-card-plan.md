@@ -136,8 +136,9 @@ story has already lost the plot of the imperialism deck that follows it.
 ## Living beside the other collections
 
 Folio has, or plans, separate collections for **Ancient Greece** (`col-13`, being written now),
-**Ancient Rome** (`col-40`), the **United States** (`col-41`), **Russia** (`col-42`), **India**
-(`col-43`) and **China** (`china`). World History overlaps all six, on purpose, and the rule is:
+**Ancient Rome** (`col-40`, planned in `docs/rome-card-plan.md` and not yet started), the **United
+States** (`col-41`), **Russia** (`col-42`), **India** (`col-43`) and **China** (`china`). World History
+overlaps all six, on purpose, and the rule is:
 
 **World History is written at survey altitude and never waits for another collection.** Greece gets 25
 cards here against 1000 in `col-13`; Rome gets 40. A World History card on the Peloponnesian War is

@@ -156,6 +156,15 @@ second home at writing time where it genuinely earns one — the obvious cases:
 
 Do not cross-list wholesale. A deck that contains everything relevant is a deck nobody finishes.
 
+## Greece and Rome meet in `gr-under-rome`
+
+`docs/rome-card-plan.md` plans the same events from the Roman side, and its "Living beside the other
+collections" section names the five pairs — Pyrrhus, Cynoscephalae, the sack of Corinth, Actium,
+Cleopatra. **Read that table before writing anything in `gr-846`–`gr-880`.** These are not duplicates to
+be avoided but the same afternoons written twice on purpose: Cynoscephalae is the end of Macedonian
+independence here and the beginning of Rome's government of the East there. Write the card this
+collection needs.
+
 ## Glossary
 
 The glossary has essentially nothing Greek — of 401 terms only `Greece` (the modern country) and
