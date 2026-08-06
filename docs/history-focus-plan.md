@@ -283,3 +283,28 @@ unified nobility existed at all still "doubted". Losing the arguer is not losing
 **Tooling note:** `add-questions.js` refuses a batch without all nine translations; under the `MULTILANG`
 gate these cards are English-only, so `--partial` is the correct flag and not a shortcut.
 
+### F2 — `gr-167` `gr-168` `gr-173` `gr-175` `gr-180` (2026-08-06) — SHIPPED
+
+All five off both lists. The corpus goes from **40 cards needing revision to 35**, and — the number worth
+watching — from seven cards over the historiography bar to **three**, all of which are F3/F5 work. Seven
+questions rewritten, five abstracts rebuilt, no source dropped and no marker stranded.
+
+**F1's finding held, and one card shows why the bar is 3 rather than 5.** `gr-175` scored 3/10 and was
+inside the bar, but read as *Blok makes it X, Duplouy a Y, Giangiulio a Z* — the measure undercounts here
+because Blok, Duplouy and Giangiulio are contributors to an edited volume and never appear in the citation
+itself, so no name reaches the list. It was rewritten anyway. **The measure sees the citation's authors, not
+everyone the prose can name**, and a card that is obviously a literature review should be fixed whatever its
+score says.
+
+**`gr-168` needed no question work at all** — its three clues were already about tripods rather than about
+the people who write on tripods — and only its abstract's first block had to move. Worth noting because it
+is the first card in this pass where the rule bit on one half only.
+
+**Two cards got longer again.** `gr-180` fell to 262 words with the attribution gone and was filled from the
+same sources — the muscle cuirass exaggerating chest and stomach, the Chalcidaean win at Megara in 458 BCE
+alongside Spartolus — rather than padded.
+
+**Kept:** the tripod's symbolic reading with the warning against theoretical overreach still attached;
+`gr-167`'s doubt about whether the feel of hand-making is recoverable from patchy evidence; `gr-175`'s
+dispute over what citizenship rested on. The arguer goes, the argument stays.
+
