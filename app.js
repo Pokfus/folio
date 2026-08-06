@@ -4804,7 +4804,15 @@
        reader pairs a French chanson de geste with Herodotus, Aristotle, Machiavelli or Seneca. The
        tone is right on its own terms as well: dark, cold and grave, which is iron, and this is a poem
        about armour. */
-    "Anonymous": "#42426F",
+    /* KEYED BY THE BOOK RATHER THAN BY THE AUTHOR, and it had to change the moment a SECOND anonymous
+       work reached the shelf (Aug 2026, adding the Epic of Gilgamesh). "Anonymous" is the absence of
+       an author, not one that two poems share, so keying on it painted a Babylonian epic and a French
+       chanson de geste the same colour — which is precisely the false KINSHIP Thucydides' and
+       Euripides' entries above are about, and worse than the crowding they refuse, since two books in
+       one colour reads as one writer. bookColor therefore looks an anonymous book up by its id.
+       Everything else is untouched: a book with a named author still keys on the author, which is what
+       keeps Plato's two books one colour. */
+    "song-of-roland": "#42426F",
     /* Measured as the six above were, and this is the first time the best NUMBER was rejected outright
        on the shelf's own grammar rather than on tone. Searched over the shelf's lightness and chroma
        band, the best-separated colour left anywhere in it is a crimson at 24.0 — and it is a red for
@@ -4823,8 +4831,22 @@
        sixteen papers, where the crimson scrapes 4.66 against a bar of 4.5 — and the tone is right on
        its own terms, this being a play whose instrument of revenge is a royal robe. */
     "Euripides": "#72187F",
+    /* Measured as the eight above were, and the raw number lost again — for the Caesar entry's reason
+       this time rather than for Euripides' grammatical one. The best-separated colour left in the
+       shelf's own lightness and chroma band is a crimson at 24.0, which is a FOURTH red landing 24.0
+       from Ovid and 24.8 from Sun Tzu, and it reads 4.66:1 against the tightest of the light papers.
+       This dark olive is 23.7 from Suetonius' ochre and 24.3 from Aesop's green — three tenths of a
+       point behind the crimson, and still comfortably above the shelf's own tightest pair at 20.4 —
+       and it reads 5.54:1, which is most of a point of headroom over the 4.5 bar test-a11y.js holds
+       the site to. Caesar's entry settled that tie the same way: where two candidates are level on
+       separation, the accessibility figure decides. The tone is right on its own terms as well —
+       bitumen and dark clay, for a poem read off clay tablets. */
+    "epic-of-gilgamesh": "#484B00",
   };
-  const bookColor = (b) => BOOK_AUTHOR_COLOR[b.author] || "var(--indigo)";
+  /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
+     row above for why — "Anonymous" is not an author two books can share. */
+  const bookColor = (b) =>
+    BOOK_AUTHOR_COLOR[b.author === "Anonymous" ? b.id : b.author] || "var(--indigo)";
 
   const BOOKS = [
     {
@@ -5299,22 +5321,33 @@
       year: -429,
       translator: "Richard Jebb",
       edition: "Sophocles: The Plays and Fragments, Cambridge University Press, 1887",
-      /* THE EASIEST LICENCE ON THIS SHELF, and the only one that is easy on BOTH columns. The
-         Republic's was the first to need no qualification at all; this one matches it twice over.
-         Jebb published in 1887 and died in 1905; Storr's Greek was published in 1912 and Storr died
-         in 1919. So both clear the pre-1929 publication rule AND life-plus-seventy AND life-plus-a-
-         hundred, and neither needs the limit the Art of War states for Giles (2029) or the
-         Nicomachean Ethics for Ross (2042). Both death years were checked against Wikisource's author
-         pages rather than recalled — the Ovid entry's Hugo Magnus mistake was precisely a death year
-         asserted from memory to hold up a licence. See .claude/fetch-book.js. */
+      /* THE EXPIRIES ARE THE EASIEST ON THIS SHELF AND THERE IS A THIRD LAYER UNDER THEM — corrected
+         Aug 2026, when the Antigone was added and the same check was run across all three plays
+         rather than only over the book being added. Jebb published in 1887 and died in 1905; Storr's
+         Greek was published in 1912 and Storr died in 1919. So both clear the pre-1929 publication
+         rule AND life-plus-seventy AND life-plus-a-hundred, and neither needs the limit the Art of
+         War states for Giles (2029) or the Nicomachean Ethics for Ross (2042). Both death years were
+         checked against Wikisource's author pages rather than recalled — the Ovid entry's Hugo Magnus
+         mistake was precisely a death year asserted from memory to hold up a licence.
+
+         WHAT THIS ENTRY USED TO LEAVE OUT is that Perseus has edited the PROSE as well as digitising
+         it: the English served here is Jebb modernized to remove archaisms, by Alex Sens in 1988 and
+         reviewed by John Gibert, which the source file states in its own header and which this string
+         called "public domain on every ground" without mentioning. That is a recent derivative work
+         carried by CC BY-SA 4.0 rather than by an expiry — the Histories' case, which its own entry
+         sets out at length — so it is now stated here as it is on the Antigone. (Coleridge's Medea
+         carries no such note; checked, not assumed.) See .claude/fetch-book.js. */
       rights:
-        "Public domain on every ground, in both columns. Richard Jebb's translation was published at " +
-        "Cambridge in 1887 and Jebb died in 1905; the Greek beside it is Francis Storr's text of " +
-        "1912, and Storr died in 1919. Both are therefore public domain in the United States on the " +
-        "pre-1929 publication rule and everywhere that the term is the author's life plus a hundred " +
-        "years or less. Sophocles wrote the play in Athens some twenty-four centuries ago. The " +
-        "digital editions of both texts are prepared by the Perseus Digital Library at Tufts " +
-        "University and are released under a Creative Commons Attribution-ShareAlike 4.0 " +
+        "Public domain in both columns, with one addition stated. Richard Jebb's translation was " +
+        "published at Cambridge in 1887 and Jebb died in 1905; the Greek beside it is Francis Storr's " +
+        "text of 1912, and Storr died in 1919. Both are therefore public domain in the United States " +
+        "on the pre-1929 publication rule and everywhere that the term is the author's life plus a " +
+        "hundred years or less. Sophocles wrote the play in Athens some twenty-four centuries ago. " +
+        "The English printed here is not quite Jebb's page, however: it is his translation modernized " +
+        "to remove archaisms, by Alex Sens in 1988 and reviewed by John Gibert, which the source file " +
+        "records in its own header. That editing is a recent work rather than an expired one, and it " +
+        "— with the digital editions of both texts — is prepared by the Perseus Digital Library at " +
+        "Tufts University and released under a Creative Commons Attribution-ShareAlike 4.0 " +
         "International licence. (The modern translations by David Grene, 1942, Dudley Fitts and " +
         "Robert Fitzgerald, 1949, and Robert Fagles, 1982, are still in copyright and are not used " +
         "here.)",
@@ -5393,6 +5426,70 @@
       count: 13,
       total: 13,
       /* No `parts`: a single play, and its edition divides it no further than the thirteen. */
+    },
+    {
+      id: "sophocles-antigone",
+      title: "Antigone",
+      // the play's own Greek title, which is what its Greek column is an edition of — the pattern
+      // Lucretius set and both earlier plays followed
+      subtitle: "Ἀντιγόνη",
+      author: "Sophocles",
+      /* The date is not recorded. About 441 BCE is the usual estimate and the argument for it is an
+         ancient note saying the play won Sophocles election as general — a story told about the play
+         rather than a record of its performance — so the front matter carries the doubt rather than
+         letting the `c.` do all of it, as the Oedipus Rex's does. */
+      written: "c. 441 BCE",
+      year: -441,
+      translator: "Richard Jebb",
+      /* NOT the Oedipus Rex's volume: that is Jebb's volume 1 of 1887 and this his volume 3 of 1891,
+         the same series a few years on. A second book by an author already on the shelf is exactly
+         where an edition line gets copied across by hand and quietly made wrong. */
+      edition: "Sophocles: The Plays and Fragments, Volume 3, Cambridge University Press, 1891",
+      /* THE OEDIPUS REX'S LICENCE PLUS A THIRD LAYER, which is the Histories' case a second time and
+         the reason this entry is longer than its sibling's. The two printed editions are the easy
+         ones: Jebb published in 1891 and died in 1905, Storr's Greek is the 1912 Loeb — the same
+         volume the Oedipus Rex takes its Greek from — and Storr died in 1919, so both clear the
+         pre-1929 rule AND life-plus-seventy AND life-plus-a-hundred, needing none of the limits the
+         Art of War (2029), the Nicomachean Ethics (2042) or the Medea (2028) state. Both years were
+         checked against Wikisource's author pages rather than recalled, for the Hugo Magnus reason.
+         What is NOT easy is that Perseus has edited the prose as well as digitising it: this English
+         is Jebb modernized to remove archaisms, by Pierre Habel in 1988 and reviewed by John Gibert,
+         which the source file states in its own header. That is a recent derivative work carried by
+         CC BY-SA 4.0 rather than by an expiry, so it is said in `rights`, on the book's own front
+         matter and in .claude/fetch-book.js — a reader who goes looking for the 1891 printing must
+         not be surprised by what they find. */
+      rights:
+        "Public domain in both columns, with one addition stated. Richard Jebb's translation was " +
+        "published at Cambridge in 1891 and Jebb died in 1905; the Greek beside it is Francis " +
+        "Storr's text of 1912, and Storr died in 1919. Both are therefore public domain in the " +
+        "United States on the pre-1929 publication rule and everywhere that the term is the author's " +
+        "life plus a hundred years or less. Sophocles wrote the play in Athens some twenty-five " +
+        "centuries ago. The English printed here is not quite Jebb's page, however: it is his " +
+        "translation modernized to remove archaisms, by Pierre Habel in 1988 and reviewed by John " +
+        "Gibert, which the source file records in its own header. That editing is a recent work " +
+        "rather than an expired one, and it — with the digital editions of both texts — is prepared " +
+        "by the Perseus Digital Library at Tufts University and released under a Creative Commons " +
+        "Attribution-ShareAlike 4.0 International licence. (The modern translations by Dudley Fitts " +
+        "and Robert Fitzgerald, 1939, Elizabeth Wyckoff, 1954, and Robert Fagles, 1982, are still in " +
+        "copyright and are not used here.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0011.tlg002/",
+      /* Paired on the LINE NUMBER, like both earlier plays, and this is the cleanest of the three:
+         513 of 513 sections pair and not one draws an empty Greek cell, where the Oedipus Rex leaves
+         three of 683 and the Medea two of 502. The lettered lines are on the GREEK side alone here
+         (161b, 323a, 1048a, 1261a, 1284a) and none is in the English, so the explicit `data-n` sort
+         key the Bekker pages introduced is doing its work on the original column: 323 and 323a are
+         two different places, and parseInt would collapse them into one row. */
+      origLang: "grc",
+      origName: "Greek",
+      /* Folio's own neutral word for a division, as for both earlier plays: this edition numbers its
+         divisions not at all, and an act is a later theatre's unit a Greek tragedy has not got. The
+         number is Folio's; the name of each part is the edition's own. */
+      chapterWord: "Part",
+      // the whole play — the edition divides it into sixteen and there is no more of it
+      count: 16,
+      total: 16,
+      /* No `parts`: a single play, and its edition divides it no further than the sixteen. */
     },
     {
       id: "herodotus-histories",
@@ -5791,6 +5888,66 @@
          read "Laisse 1", "Laisse 2" and so on, which is the whole of what the editions state about
          them — composing 291 descriptive headings for a poet who gave none is the line the
          Meditations' entry draws. */
+    },
+    {
+      id: "epic-of-gilgamesh",
+      title: "The Epic of Gilgamesh",
+      /* No subtitle. Thompson's title page spells the name "Gilgamish" and the entry keeps his
+         spelling wherever it quotes his edition, but the book is shelved under the spelling a reader
+         will look for. Both are on its own first page. */
+      author: "Anonymous",
+      written: "c. 1200 BCE",
+      /* The twelve-tablet version translated here was assembled around 1200 BCE out of Sumerian poems
+         already six or seven centuries older, and the copies it is read from were written later
+         still. No date is stated by the text; this is the conventional figure for the version in
+         front of the reader and the only one the shelf can honestly sort on, which is the Song of
+         Roland's position exactly. How loose it is is said on the book's own page. It is by a long way
+         the OLDEST book here — the next is the Analects, eight hundred years later. */
+      year: -1200,
+      translator: "R. Campbell Thompson",
+      edition: "Luzac & Co., London, 1928",
+      /* THE FIFTH BOOK HERE TO STATE A LIMIT AS WELL AS A GROUND, after the Art of War (Giles, 2029),
+         the Nicomachean Ethics (Ross, 2042), the Song of Roland (both columns, 2031 and 2039) and the
+         Medea (Murray, 2028). Dates looked up rather than recalled, for the Hugo Magnus reason:
+         Thompson 1876–1941. */
+      rights:
+        "Public domain, with one limit worth stating. The poem itself is Babylonian and some three " +
+        "thousand years old, so the words behind this book have been free for as long as copyright " +
+        "has existed. The only modern layer is the translation: R. Campbell Thompson published it in " +
+        "London in 1928 and lived from 1876 to 1941. It is therefore public domain in the United " +
+        "States, where the term for a work published in 1928 expired at the start of 2024, and out of " +
+        "copyright wherever the term is the author's life plus seventy years, which expired at the " +
+        "start of 2012. In the few countries where the term is life plus a hundred it remains in " +
+        "copyright until 2042. Thompson's own preface is not reproduced here; what is taken is the " +
+        "twelve tablets.",
+      /* THE FIRST BOOK HERE FROM NEITHER WIKISOURCE NOR PERSEUS. Both of the shelf's usual sources
+         hold about a sixth of this poem between them — Wikisource has only one-tablet editions of the
+         Old Babylonian version, and Perseus is Greek and Latin — so a third source was needed to ship
+         the epic rather than a fragment of it. See the block above extractTablets in
+         .claude/fetch-book.js for what was measured before this one was chosen, including why the
+         Internet Archive's scan of the 1928 volume could not be used. */
+      sourceName: "Global Grey",
+      sourceUrl: "https://www.globalgreyebooks.com/epic-of-gilgamesh-ebook.html",
+      /* NO `origLang`, and the reason is not the usual one. Every other book here without a facing
+         original fails the shelf's test — does the text state which section each passage is? The
+         Republic's Jowett prints no Stephanus numbers; neither of Aesop's collections numbers
+         anything. Gilgamesh fails a step earlier: there is no settled original text to face. What
+         scholars read is a transliteration pieced together from broken fragments, the piecing-together
+         is itself modern scholarship, and every such edition is either in copyright or licensed in a
+         way this site cannot build on. The book's own front matter says so, so a reader who goes
+         looking for the Akkadian meets the reason rather than the absence. */
+      chapterWord: "Tablet",
+      /* Twelve, and the whole poem is here. The Twelfth is an appendix rather than a continuation —
+         a partial translation of a separate Sumerian poem that the ancient scribes attached to the
+         epic, and which contradicts the ending of the Eleventh. It is counted because this edition
+         carries it, and the front matter explains what it is. */
+      count: 12,
+      total: 12,
+      /* No `parts`: the edition divides the poem into tablets and nothing above them, so the Contents
+         panel falls back to a single unlabelled group, as the Meditations', the Republic's, the Art of
+         War's, Aesop's and the Song of Roland's do. And no titles in this file — the tablets DO have
+         names here, and they are read off the edition's own headings by the importer rather than
+         composed, which no other book on the shelf does. */
     },
   ];
   const BOOK_BY_ID = {};
@@ -18147,7 +18304,7 @@
             <li><a href="https://www.naturalearthdata.com" target="_blank" rel="noopener">Natural Earth</a> <span class="cr-lic">public domain</span> — coastlines, borders, lakes, rivers and cities on the globe.</li>
             <li><a href="https://github.com/aourednik/historical-basemaps" target="_blank" rel="noopener">historical-basemaps</a> <span class="cr-lic">CC BY-SA 4.0</span> — the historical border eras on the Atlas timeline.</li>
             <li><a href="https://en.wikisource.org" target="_blank" rel="noopener">Wikisource</a> <span class="cr-lic">public domain</span> — the Library's texts: Gummere's Seneca, Haines's Marcus Aurelius, Giles's Sun Tzu, Jowett's Plato and Ross's Aristotle, with Seneca's Latin and Sun Tzu's Chinese.</li>
-            <li><a href="https://scaife.perseus.org/library/" target="_blank" rel="noopener">Perseus Digital Library</a> <span class="cr-lic">CC BY-SA 4.0</span> — the Greek of the <i>Meditations</i> (Jan Hendrik Leopold's edition of 1908), of the <i>Symposium</i> (John Burnet) and of the <i>Nicomachean Ethics</i> (Ingram Bywater); and both halves of the <i>Metamorphoses</i> (Brookes More's translation of 1922, with Hugo Magnus's Latin), <i>The Twelve Caesars</i> (Alexander Thomson's translation, with Maximilian Ihm's Latin of 1908), <i>On the Nature of Things</i> (William Ellery Leonard's verse of 1916), <i>Oedipus Rex</i> (Richard Jebb's translation of 1887, with Francis Storr's Greek of 1912) and <i>The Histories</i> (A. D. Godley's translation of 1920–1925 with his facing Greek — the English modernized by Perseus to remove archaisms, a revision by Steven Ott reviewed by John Marincola).</li>
+            <li><a href="https://scaife.perseus.org/library/" target="_blank" rel="noopener">Perseus Digital Library</a> <span class="cr-lic">CC BY-SA 4.0</span> — the Greek of the <i>Meditations</i> (Jan Hendrik Leopold's edition of 1908), of the <i>Symposium</i> (John Burnet) and of the <i>Nicomachean Ethics</i> (Ingram Bywater); and both halves of the <i>Metamorphoses</i> (Brookes More's translation of 1922, with Hugo Magnus's Latin), <i>The Twelve Caesars</i> (Alexander Thomson's translation, with Maximilian Ihm's Latin of 1908), <i>On the Nature of Things</i> (William Ellery Leonard's verse of 1916), <i>Oedipus Rex</i> (Richard Jebb's translation of 1887) and <i>Antigone</i> (Jebb's of 1891), both with Francis Storr's Greek of 1912 and both Englished from Jebb by way of Perseus's 1988 modernization to remove archaisms — Alex Sens on the <i>Oedipus Rex</i> and Pierre Habel on the <i>Antigone</i>, each reviewed by John Gibert; and <i>The Histories</i> (A. D. Godley's translation of 1920–1925 with his facing Greek — the English likewise modernized, a revision by Steven Ott reviewed by John Marincola).</li>
             <li><a href="https://registry.opendata.aws/terrain-tiles/" target="_blank" rel="noopener">Terrain Tiles on AWS</a> — terrain relief, from open elevation data by NASA (SRTM), USGS (GMTED2010), NOAA (ETOPO1) and the EU (EU-DEM), among others.</li>
             <li><a href="https://github.com/rhasspy/piper" target="_blank" rel="noopener">Piper</a> <span class="cr-lic">MIT</span> — the card narration voices, trained on <a href="https://www.openslr.org/141/" target="_blank" rel="noopener">LibriTTS-R</a> <span class="cr-lic">CC BY 4.0</span> and <a href="https://datashare.ed.ac.uk/handle/10283/3443" target="_blank" rel="noopener">VCTK</a> <span class="cr-lic">CC BY 4.0</span>.</li>
             <li><a href="https://fonts.google.com" target="_blank" rel="noopener">Google Fonts</a> <span class="cr-lic">OFL / Apache</span> — Fraunces, Newsreader, Inter, IBM Plex Mono, Noto Sans SC and the theme faces.</li>
