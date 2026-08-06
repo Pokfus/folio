@@ -28,6 +28,10 @@ const REQUIRE_TRANSLATIONS = false;
 const I18N_FIELDS = ["question","answer","answerDate","abstract","answerText"];
 // A question is ONE short clue — about 28 words (see CLAUDE.md "Add a card"). The blank counts as a word.
 const Q_MIN = 20, Q_MAX = 34;
+/* The background is about 300 words and always within 270–330 (CLAUDE.md calls it a hard target). It was
+   never checked here, which is how several cards reached 331–342 unremarked; the ceiling is easy to pass
+   by a word or two while trimming for something else, and nothing else in the pipeline measures it. */
+const A_MIN = 270, A_MAX = 330;
 // Translations are checked loosely: Chinese/Japanese by character, the rest by word, both generous enough
 // that only a question that was never shortened trips them.
 const Q_TR_MAX_WORDS = 40, Q_TR_MAX_CHARS = 95;
@@ -79,6 +83,32 @@ for (const [qi, q] of [card.question, ...card.questions].entries()) {
     process.exit(1);
   }
 }
+/* THE ANSWER TERM CARRIES NO ARTICLE (Aug 2026, on request). "the polis" is a phrase in a sentence;
+   what the reader is being asked to recall is `polis`. The article belongs to the question and to the
+   background, where the grammar needs it, and never to the term itself — which is also what keeps the
+   answer matching its glossary key, its `answerText` and the way a reader would say it aloud. */
+for (const f of ["answer", "answerText"]) {
+  if (/^(the|a|an)\s/i.test(card[f] || "")) {
+    console.error("ERROR: card." + f + " begins with an article: " + JSON.stringify(card[f]) + "\n" +
+      "       Drop it — the answer term is the bare term. Put the article in front of the blank in each\n" +
+      "       question instead (\"... in the <span class=\\\"blank\\\">_____</span>, which ...\") and outside the\n" +
+      "       <b> in the background (\"The <b>polis</b> is ...\", not \"<b>The polis</b> is ...\").");
+    process.exit(1);
+  }
+}
+if (/^<b>(the|a|an)\s/i.test(card.abstract || "")) {
+  console.error("ERROR: the background bolds the article. The bold is the answer term alone:\n" +
+    "       write \"The <b>polis</b> is ...\", not \"<b>The polis</b> is ...\".");
+  process.exit(1);
+}
+
+const aWords = qWords(card.abstract);
+if (aWords < A_MIN || aWords > A_MAX) {
+  console.error("ERROR: the background is " + aWords + " words — it must be " + A_MIN + "–" + A_MAX +
+    " (aim for ~300, in two blocks of five sentences; see CLAUDE.md).");
+  process.exit(1);
+}
+
 /* The date line is a LIST OF DATES, not a summary — the dates worth memorising beside the answer term,
    or nothing at all where the term has none. It is shared with set-date-line.js so a card written by
    hand and a card converted by that pass cannot end up in different shapes. */

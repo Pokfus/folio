@@ -5002,7 +5002,9 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   sentence. **Deep spans are written in the compact notation** — `115,000 – 11,700 BP`, `c. 4.2 – 2 Mya`,
   `c. 2.6 Mya – 9700 BCE` — all of which `cardYears` parses, which is what keeps the deck in
   chronological order (see the "Deep time" bullet).
-- `abstract` (the background) — **exactly 10 sentences and about 300 words** (keep within 270–330), as two
+- `abstract` (the background) — **exactly 10 sentences and about 300 words** (keep within 270–330, which
+  `add-card.js` has ENFORCED since 2026-08-06 — it never measured the abstract before, which is how seven
+  cards reached 331–342 unremarked; they are recorded in the changelog and left as they are), as two
   blocks of 5 split by ` <br><br> `: sentences 1–5 give the general meaning/context, 6–10 the meaning in this
   card's question. Information-heavy and precise, at the 17-year-old register set out above. **The only `<b>` bold is the answer term, at its first mention
   opening the background**; use `<i>` for titles (and foreign terms). **No parenthetical asides** —
@@ -5049,6 +5051,19 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   the same claims in all 9 translated abstracts, or that language silently loses the apparatus
   (`add-card.js` warns when the counts differ). Escape hatch: `"skipSources": true`, only for a
   deliberate maintenance edit of a card written before citations existed.
+- `answer` / `answerText` — **the answer term NEVER carries an article** (Aug 2026, on request): it is
+  `polis`, `Iliad`, `rhapsode`, `cist grave`, not "the polis" or "a cist grave". What the reader is being
+  asked to recall is the term; "the" is a fact about the sentence around it, so it belongs to the QUESTION
+  (`... ran together in the <span class="blank">_____</span>, of which ...`) and to the BACKGROUND
+  (`The <b>polis</b> is ...`, with the article **outside** the `<b>`, never `<b>The polis</b>`). Keeping it
+  out is also what keeps the answer matching its glossary key and the way a reader would say it aloud.
+  **53 cards were fixed on 2026-08-06** — 52 with "the" and one with "a" — and `add-card.js` refuses a new
+  one, checking `answer`, `answerText` and the opening `<b>` of the abstract. Two things that pass came out
+  of that sweep and are the shape to watch for: a question whose surrounding words ALREADY supply the
+  article reads "the first the rhapsode" once the term keeps its own (so `gr-134` gets no insertion), and a
+  plural subject can be left with a singular complement ("17 of the 34 tombs are a cist grave"), which the
+  article was hiding. Read every phrasing back after the change; the length rule bites too, since inserting
+  the article costs a word.
 - `answerText` — the answer as plain text, no HTML.
 - `image` / `video` (optional, one or the other) — `{ src, title, desc, credit }`. **`credit` is required**:
   `add-card.js` refuses a `src` with no source line, matching the editors' media gate.

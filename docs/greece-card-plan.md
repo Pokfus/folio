@@ -335,7 +335,7 @@ out-of-copyright Loebs are all open.
     gr-155  Return of the Heracleidae
     gr-156  Greek dialects
     gr-157  Arcadocypriot
-    gr-158  Cyprus in the Early Iron Age
+    gr-158  The Cypriot city-kingdoms †  (was: Cyprus in the Early Iron Age)
     gr-159  The Cypriot syllabary
     gr-160  Synoecism
     gr-161  Rise of the polis
