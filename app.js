@@ -4664,6 +4664,24 @@
        tone is right on its own terms as well: dark, cold and grave, which is iron, and this is a poem
        about armour. */
     "Anonymous": "#42426F",
+    /* Measured as the six above were, and this is the first time the best NUMBER was rejected outright
+       on the shelf's own grammar rather than on tone. Searched over the shelf's lightness and chroma
+       band, the best-separated colour left anywhere in it is a crimson at 24.0 — and it is a red for
+       the second Athenian tragedian, landing 27.7 from Sophocles' dark brick. That is the pairing
+       Thucydides' entry was written about: what a crowded quarter must never do is assert a KINSHIP
+       the shelf does not mean, and Euripides and Sophocles are read against each other more constantly
+       than any other two writers here. A red beside his would say they are a set. So the rule that
+       kept Thucydides out of the sober blues beside Herodotus keeps Euripides out of the reds beside
+       Sophocles, and it costs almost nothing to obey: this deep magenta-purple clears its nearest
+       neighbours — Thucydides' mulberry and Seneca's violet — by 23.8 and 24.0 against the shelf's own
+       tightest pair at 20.4, which is two tenths of a point behind the crimson, and it stands 57.7 from
+       Sophocles, where no reading of the two as a pair is possible.
+       It is a fourth colour in the violet quarter, and the warning does not bite for the reason the
+       Song of Roland's did not: nobody pairs a Greek tragedian with a Roman Stoic, a Greek historian
+       or Plato. The accessibility figure is the better one too — 5.87:1 against the tightest of the
+       sixteen papers, where the crimson scrapes 4.66 against a bar of 4.5 — and the tone is right on
+       its own terms, this being a play whose instrument of revenge is a royal robe. */
+    "Euripides": "#72187F",
   };
   const bookColor = (b) => BOOK_AUTHOR_COLOR[b.author] || "var(--indigo)";
 
@@ -5177,6 +5195,63 @@
       count: 15,
       total: 15,
       /* No `parts`: a single play, and its edition divides it no further than the fifteen. */
+    },
+    {
+      id: "euripides-medea",
+      title: "Medea",
+      // the play's own Greek title, which is what its Greek column is an edition of — the pattern
+      // Lucretius set and the Oedipus Rex followed
+      subtitle: "Μήδεια",
+      author: "Euripides",
+      /* Unusually for a Greek play the date is recorded rather than reconstructed — the spring of 431
+         BCE, where the Oedipus Rex's "c. 429" is an inference from the plague it describes — so this
+         one carries no `c.` and the front matter says why it need not. */
+      written: "431 BCE",
+      year: -431,
+      translator: "Edward P. Coleridge",
+      edition: "The Plays of Euripides, Volume 1, George Bell and Sons, 1906",
+      /* THE THIRD LICENCE HERE TO STATE A LIMIT AS WELL AS A GROUND, after the Art of War (Giles,
+         2029) and the Nicomachean Ethics (Ross, 2042) — and the first where the limit falls on the
+         GREEK rather than on the English, the original being the older and easier half everywhere else
+         on the shelf. Both columns were published well before 1929, so both are public domain in the
+         United States. Coleridge died in 1936, so his translation is public domain on life-plus-seventy
+         as well; Murray died in 1957, so his Greek stays in copyright where the term is life plus
+         seventy — the United Kingdom and the European Union among them — until 2028. Said outright
+         rather than smoothed into the easier sentence the Oedipus Rex can honestly use, which is
+         Lucretius's judgement: claim less, and put on the page what cannot be said. Both death years
+         were checked against Wikisource's author pages rather than recalled, for the Hugo Magnus
+         reason, and Murray's is the year the whole licence turns on. There was no cleaner Greek to
+         reach for — Perseus carries exactly one Medea and this is it. See .claude/fetch-book.js. */
+      rights:
+        "Public domain in the United States, with one limit stated. Edward Coleridge's translation " +
+        "was published in London in 1906 and Gilbert Murray's Greek text at Oxford in 1902, both " +
+        "before 1929, so the copyright in both has expired in the United States. Coleridge died in " +
+        "1936, so his English is also public domain everywhere the term is the author's life plus " +
+        "seventy years or less. Murray, however, died in 1957, so the Greek beside it remains in " +
+        "copyright where the term is life plus seventy — including the United Kingdom and the " +
+        "European Union — until 2028. Euripides wrote the play in Athens some twenty-five centuries " +
+        "ago. The digital editions of both texts are prepared by the Perseus Digital Library at Tufts " +
+        "University and are released under a Creative Commons Attribution-ShareAlike 4.0 " +
+        "International licence. (The modern translations by Rex Warner, 1944, Philip Vellacott, 1963, " +
+        "and Diane Arnson Svarlien, 2008, are still in copyright and are not used here.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0006.tlg003/",
+      /* Paired on the LINE NUMBER, as the Oedipus Rex is and for the same reason: it is how any
+         passage of a Greek tragedy is cited in any language, both editions state it, and they state it
+         at different grain — Coleridge translates into prose and numbers the line each block begins
+         at, while Murray's verse numbers every line. Its markers carry the same explicit `data-n` sort
+         key, since a tragedy's text has lettered lines (1005a, 1270a) and reading one as a number
+         collapses it onto its neighbour. */
+      origLang: "grc",
+      origName: "Greek",
+      /* Folio's own neutral word for a division, as for the Oedipus Rex: this edition numbers its
+         divisions not at all, and an act is a later theatre's unit a Greek tragedy has not got. The
+         number is Folio's; the name of each part is the edition's own. */
+      chapterWord: "Part",
+      // the whole play — the edition divides it into thirteen and there is no more of it
+      count: 13,
+      total: 13,
+      /* No `parts`: a single play, and its edition divides it no further than the thirteen. */
     },
     {
       id: "herodotus-histories",
