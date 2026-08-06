@@ -14,15 +14,16 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.22", released: "2026-08-06T03:45Z" };
+window.FOLIO_VERSION = { v: "1.23", released: "2026-08-06T04:47Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-06",
-    t: "A stylus that keeps drawing, and a clearer Find it",
+    t: "Plato’s dialogues gathered into one book, a stylus that keeps drawing, and a clearer Find it",
     items: [
       "Drawing with a stylus works properly now. It used to draw for a moment and then hand the page over to scrolling half way through a stroke; a stylus keeps the whole stroke, and your finger still scrolls the page underneath it. Holding the marker button also works both ways now — it puts the pen down and picks it back up, returning to the colour and tool you were last drawing with, instead of only ever putting it away.",
       "Find it gives the map the whole screen: the timeline at the bottom is gone, since the round says which year it is on and there was nothing there to use. A wrong guess now stays red until the next round rather than flashing once, and when the answer is revealed the place stays lit — so “It was here” shows you where, instead of blinking and leaving the map as it was.",
+      "Plato’s <i>The Dialogues</i> joins the Library, and the <i>Symposium</i> that shipped yesterday is now a chapter of it rather than a book of its own — the same text, at the same place you left it. Eleven are here, each with the Greek beside the English. Three run straight through the end of Socrates’ life and are best read in order: <i>Euthyphro</i>, on the way in to court; the <i>Apology</i>, his defence to the jury that condemned him; and <i>Crito</i>, in the cell, refusing to escape. Most of the rest are short arguments that end without an answer — what courage is, whether virtue can be taught. Benjamin Jowett’s translation of 1892 is out of copyright everywhere, as is John Burnet’s Greek. The numbers in the margin are the ones Plato has been quoted by since 1578, and they are what hold the two columns level. The others are missing because the transcription these come from is unfinished — the <i>Gorgias</i>, <i>Phaedo</i> and <i>Phaedrus</i> break off part way, so they are left out rather than shown with holes in them. <i>The Republic</i> is on the shelf already, as its own book.",
     ],
   },
   {
