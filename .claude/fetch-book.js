@@ -2956,6 +2956,204 @@ const BOOKS = {
        it is Jowett who states none; here neither edition states anything, so there is not even a
        column to align badly. The whole finding is in the front matter, where the reader can see it. */
   },
+
+  "song-of-roland": {
+    title: "The Song of Roland",
+    /* No subtitle. The volume's title page carries none, and the work has no second name — the two
+       words are what it has been called in every language for nine hundred years. */
+    author: "Anonymous",
+    translator: "Charles Kenneth Scott Moncrieff",
+    edition: "The Song of Roland, translated by Charles Scott Moncrieff, Chapman & Hall, London, 1919",
+    written: "c. 1100",
+    /* The Oxford manuscript is dated on its handwriting to somewhere in the middle of the twelfth
+       century and the poem it copies is generally put around 1100 — a date argued from its language
+       and from what it seems to know of the First Crusade, not from anything the poem states. 1100
+       is the conventional figure and is the only one the shelf can honestly sort on; the front
+       matter says how loose it is. */
+    year: 1100,
+
+    /* ---------- THE LICENCE — three layers, and the middle one is the only one to think about ----------
+       The poem is around nine hundred years old and free everywhere. Bédier's constitution of the Old
+       French, which is the original column, was published 1920–1922 and he lived 1864–1938 — dates
+       looked up on Wikidata rather than recalled, for the Hugo Magnus reason. Scott Moncrieff's
+       English was published in 1919 and he lived 1889–1930, likewise checked.
+
+       SO IT IS THE THIRD BOOK HERE THAT MUST STATE A LIMIT AS WELL AS A GROUND, after the Art of War
+       (Giles, in copyright in life-plus-seventy countries until 2029) and the Nicomachean Ethics
+       (Ross, until 2042) — and the FIRST where the limit falls on BOTH columns rather than on one.
+       Both halves are public domain in the United States under the pre-1929 publication rule and
+       both are out of copyright wherever the term is the author's life plus seventy, which expired
+       in 2001 for Scott Moncrieff and in 2009 for Bédier. Neither has yet cleared life plus a
+       hundred, which runs to 2031 and 2039. The site's bar is that the copyright has expired and the
+       ground the rest of the shelf is served on is US publication before 1929; this meets that bar
+       on that ground, and the limit is said outright rather than smoothed into the sentence the
+       easier books use.
+
+       WHAT IS AND IS NOT TAKEN FROM THE VOLUME. Only the poem. Scott Moncrieff's 1919 book also
+       carries an introduction by G. K. Chesterton, who died in 1936, and a note on technique by
+       George Saintsbury, who died in 1933 — both later works by other hands, and neither is imported.
+       That is the Republic's precedent, where the 1901 printing's added introduction and its engraved
+       plates were left behind and what was taken was the translation.
+
+       The modern translations a reader is likeliest to own — Dorothy L. Sayers's Penguin of 1957,
+       Robert Harrison's of 1970, Frederick Goldin's of 1978, Gerard Brault's of 1978 and Glyn
+       Burgess's Penguin of 1990 — are all firmly in copyright and are named here for the reason
+       Campbell, Hays, Griffith, Lee, Humphries, de Sélincourt, Handford, Warner and the rest are
+       named above: so that nobody reaches for one later. */
+    rights:
+      "Public domain, with one limit worth stating. The poem itself is Old French and around nine " +
+      "hundred years old, so the words behind this book have been free for as long as copyright has " +
+      "existed. Charles Scott Moncrieff's translation was published in 1919 and he lived from 1889 " +
+      "to 1930; the Old French column is Joseph Bédier's text, published in 1920–1922, and he lived " +
+      "from 1864 to 1938. Both are therefore public domain in the United States under the pre-1929 " +
+      "publication rule, and both are out of copyright wherever the term is the author's life plus " +
+      "seventy years — which expired in 2001 for Scott Moncrieff and in 2009 for Bédier. In the few " +
+      "countries where the term is life plus a hundred they remain in copyright until 2031 and 2039. " +
+      "The volume's introduction by G. K. Chesterton and its note on technique by George Saintsbury " +
+      "are later works by other hands and are not reproduced here; what is taken is the poem. (The " +
+      "modern translations by Dorothy L. Sayers, 1957, Robert Harrison, 1970, Frederick Goldin, " +
+      "1978, Gerard Brault, 1978, and Glyn Burgess, 1990, are still in copyright and are not used.)",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/The_Song_of_Roland",
+
+    /* ---------- THE FRONT MATTER — chapter 0 ----------
+       What a reader needs before they start, and here the first thing is that the battle in the poem
+       did not happen the way the poem has it. Then: what a chanson de geste is and how this one was
+       performed, the manuscript and the name at the end of it, what the poem is remembered for, how
+       it portrays its enemies — which cannot be left unsaid — and finally what this edition is,
+       including the two misprinted numerals and why the tabs read the way they do. */
+    about: [
+      "<b>The Song of Roland</b> is the oldest major work of French literature and the finest of the " +
+        "<i>chansons de geste</i>, the songs of deeds that were sung in France from the eleventh " +
+        "century onwards. It tells how Charlemagne's rearguard, commanded by his nephew Roland, is " +
+        "betrayed to a Saracen army in a pass of the Pyrenees, how Roland refuses to sound his horn " +
+        "for help until it is too late, how he and every man with him is killed, and how the emperor " +
+        "returns to avenge them and to try the traitor. It is about four thousand lines long and it " +
+        "is, before anything else, a poem about loyalty — what a man owes his lord, his companions " +
+        "and his own name, and what it costs him to pay it.",
+      "The battle behind it was real and almost nothing else is. On 15 August 778 Charlemagne's army " +
+        "was withdrawing from a campaign in Spain when its rearguard was ambushed in the Pyrenees and " +
+        "destroyed. Einhard, writing the emperor's life some fifty years later, names three of the " +
+        "dead, among them a <i>Hruodlandus</i> who was warden of the Breton March — one line, and it " +
+        "is the whole of what history knows of Roland. The attackers in Einhard's account are " +
+        "Basques, Christian mountain people defending their own country, and the raid was a small " +
+        "disaster in a campaign that had gone badly. Three centuries later the poem has turned the " +
+        "Basques into a Saracen host of hundreds of thousands, the skirmish into a holy war, and a " +
+        "dead margrave into the emperor's nephew and the greatest knight in the world. Watching an " +
+        "ambush become an epic is one of the best-documented cases we have of how legend works on " +
+        "fact.",
+      "It was made to be performed rather than read, and its shape is the shape of performance. The " +
+        "lines are decasyllables, and they are grouped into <i>laisses</i> — stanzas of anything from " +
+        "half a dozen lines to thirty-odd — which are held together not by rhyme but by " +
+        "<b>assonance</b>: every line in a laisse ends on the same stressed vowel, and the next " +
+        "laisse takes a new one. A singer could hold a stanza as long as the sense wanted and change " +
+        "vowel when he turned to something new, and a listener heard each stanza as a block of sound. " +
+        "The poet also uses the form to do something a modern narrative would not dare: he tells the " +
+        "same moment two or three times over in successive laisses, each on a different vowel, " +
+        "circling a death or a decision rather than moving past it. Those are called <i>laisses " +
+        "similaires</i>, and they are not repetition by accident. Many laisses in the manuscript end " +
+        "with the letters <b>AOI</b>, whose meaning nobody has established in two hundred years of " +
+        "trying.",
+      "The poem survives in several versions and the one everybody means is the Oxford manuscript, " +
+        "Bodleian Digby 23 — an unassuming twelfth-century copy in Anglo-Norman, the oldest, the " +
+        "shortest and much the best. It is the only one in assonance; the later versions rhyme, and " +
+        "pad. Its last line says that here ends the <i>geste</i> that <b>Turoldus</b> " +
+        "<i>declinet</i> — a verb that might mean composed, or recited, or copied out, of a man about " +
+        "whom nothing else is known. Whether Turoldus wrote the poem, performed it or merely wrote it " +
+        "down is the oldest unsettled question in French literature, and it is why this book is " +
+        "shelved as anonymous. What can be said is that the Oxford text is the work of someone with a " +
+        "very sure ear, and that the poem was famous early: a Norman chronicler writing about a " +
+        "century after Hastings says a <i>cantilena Rollandi</i> was sung before the army as it " +
+        "advanced.",
+      "What people remember from it: Oliver seeing the Saracen host from the hill and begging Roland " +
+        "to blow the oliphant, and Roland refusing three times; the line that sums the two of them up, " +
+        "that Roland is brave and Oliver is wise; Archbishop Turpin absolving the whole rearguard and " +
+        "then fighting beside them; Roland blowing the horn at last so hard that he bursts the veins " +
+        "of his temple; his attempt to break his sword Durendal on the rock so that no pagan shall " +
+        "have it, and the stone splitting instead of the blade; his death on the hill facing Spain, " +
+        "having offered his glove up to God; Charlemagne holding back the sun to finish the pursuit; " +
+        "and Aude, who is Oliver's sister and Roland's betrothed, being offered the emperor's own son " +
+        "instead and falling dead at his feet without another word. The poem ends not in triumph but " +
+        "with an exhausted old emperor called to yet another war, weeping and pulling his beard.",
+      "One thing has to be said plainly, because a reader meets it in the first hundred lines. The " +
+        "poem's Saracens are not Muslims as Muslims are or were: they worship an idolatrous trinity " +
+        "of Mahumet, Tervagant and Apollin, they keep images in a crypt and beat them when they lose, " +
+        "and they exist to be killed or converted. That is not a report of Islam but a Christian " +
+        "fantasy of it, composed in the years around the First Crusade by someone who had almost " +
+        "certainly never met a Muslim, and it sits at the centre of a poem of real moral seriousness " +
+        "about courage, friendship and the cost of pride. Both things are true of it at once, and " +
+        "reading it well means holding them together rather than choosing one — it is a document of " +
+        "how medieval Christian Europe imagined its enemies, and it is one of the great poems.",
+      "This edition is Charles Scott Moncrieff's, published by Chapman & Hall in 1919 — the same " +
+        "translator who would shortly begin the English Proust. He renders the poem line for line and " +
+        "keeps the assonance, which almost nobody attempts, and the result is strange and stiff and " +
+        "much closer to the sound of the original than a smoother version would be. Beside it is the " +
+        "Old French, in Joseph Bédier's text of 1920–1922, the standard edition for a century and a " +
+        "conservative one — Bédier set out to print what the Oxford scribe wrote rather than to " +
+        "reconstruct what the poet might have. The two are paired on the <b>laisse number</b>, which " +
+        "is how any passage of the poem is cited in any language, and they agree on all <b>291</b> of " +
+        "them. Two numerals are misprinted and both are left visible in this note rather than " +
+        "corrected in silence: Scott Moncrieff's page 87 prints laisse 135 as CXXXXV, an X too many, " +
+        "and Bédier's laisse 286 appears as CCXXXVI, having lost an L. Each is read as the place the " +
+        "sequence puts it. Neither edition divides the poem above the laisse — there are no parts, " +
+        "books or cantos in either — so the laisse is what the tabs here count, and a chapter is " +
+        "therefore short, a median of thirteen lines. That is the poem's own unit and not a " +
+        "convenience: a chanson de geste was sung one laisse at a time, and stopping at the end of " +
+        "one is what it was built for.",
+    ],
+
+    /* ---------- ONE PAGE, 291 CHAPTERS — the shape that is new here ----------
+       Every other wiki book on the shelf is a walk of pages, one per chapter. Both halves of this one
+       are transcribed whole onto a single page per language, so the chapters are cut rather than
+       fetched — see the LAISSES block above for how, and for why the French is cut at its <hr>
+       separators rather than at its numerals. */
+    source: "wiki",
+    layout: "laisses",
+    onePage: "The Song of Roland/The Song of Roland",
+    chapterWord: "Laisse",
+    chapters: Array.from({ length: 291 }, (_, i) => i + 1),
+    /* The second book after Aesop to lower the short-chapter guard, and for the same reason: the
+       guard catches an extraction that has returned wiki furniture instead of text, and 200
+       characters is a broken chapter only where a chapter is a book of Herodotus. The shortest
+       laisse in this translation is four lines and 230 characters of prose — measured over all 291,
+       not assumed — and its Old French is 206. 150 sits below both and far above anything a failed
+       extraction produces, which is a handful of characters or none. */
+    minChars: 150,
+    /* No `titleOf` and no `indexPage`: the laisses have no names in either edition, so the tabs read
+       "Laisse 1", "Laisse 2" and so on, which is the whole of what the editions state about them.
+       Composing 291 descriptive headings for a poet who gave none is the line the Meditations' entry
+       draws. No `parts` either — neither edition divides the poem above the laisse, so app.js falls
+       back to a single unlabelled group, as the Meditations, the Republic and the Art of War do. */
+
+    original: {
+      lang: "fro",
+      langName: "Old French",
+      edition: "La Chanson de Roland, edited by Joseph Bédier, L'Édition d'Art H. Piazza, Paris, 1920–1922",
+      rights:
+        "The poem is Old French and around nine hundred years old. Joseph Bédier's edition of it was " +
+        "published in 1920–1922 and he lived from 1864 to 1938, so his text is public domain in the " +
+        "United States under the pre-1929 publication rule and out of copyright wherever the term is " +
+        "life plus seventy years, which expired in 2009; where the term is life plus a hundred it " +
+        "runs until 2039. Bédier's own facing modern-French translation is not reproduced here — what " +
+        "is taken is his Old French text.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://fr.wikisource.org/wiki/La_Chanson_de_Roland/Joseph_B%C3%A9dier",
+      wiki: "fr.wikisource.org",
+      layout: "laisses",
+      /* Bédier's own bilingual presentation, in the six pages Wikisource divides it into. Those
+         divisions are the wiki's, not the edition's, and they are used only to fetch: the laisses are
+         cut at the <hr> between one and the next and numbered straight through 1–291, so where the
+         page boundaries fall makes no difference to what is written out. */
+      pages: [
+        "La Chanson de Roland/Joseph Bédier/La Chanson de Roland/Sequence/001-050",
+        "La Chanson de Roland/Joseph Bédier/La Chanson de Roland/Sequence/051-100",
+        "La Chanson de Roland/Joseph Bédier/La Chanson de Roland/Sequence/101-150",
+        "La Chanson de Roland/Joseph Bédier/La Chanson de Roland/Sequence/151-200",
+        "La Chanson de Roland/Joseph Bédier/La Chanson de Roland/Sequence/201-250",
+        "La Chanson de Roland/Joseph Bédier/La Chanson de Roland/Sequence/251-291",
+      ],
+    },
+  },
 };
 
 /* ---------- args ---------- */
@@ -4105,6 +4303,169 @@ function extractInterleaved(h, book, warn) {
    come to disagree about which extractor a book uses. */
 function bothColumns(h, book, warn) {
   return book.layout === "interleaved" ? extractInterleaved(h, book, warn) : extractParallel(h, book, warn);
+}
+
+/* ============================================================
+   A POEM IN LAISSES — the eighth shape, and the first where ONE PAGE HOLDS EVERY CHAPTER
+   ============================================================
+   Every wiki book above walks a page per chapter: a page per letter of Seneca, per book of the
+   Republic, per fable of Aesop. The Song of Roland is transcribed whole onto a single page in each
+   language, so the chapters are not fetched, they are CUT — and what they are cut at is the poem's
+   own laisse numbering, the assonant stanza by which any passage of the poem is cited in any
+   language.
+
+   THE LAISSE IS THE CHAPTER *AND* THE SECTION HERE, which is new and follows from the editions
+   rather than from a choice made here. Neither of the two prints any division above the laisse —
+   measured, not assumed: Scott Moncrieff's volume carries no part, book or canto heading anywhere in
+   its 291 stanzas, and Bédier's carries none either. Composing some would be exactly the apparatus
+   the Meditations' entry refuses to invent, so the smallest unit the editions DO state is what the
+   reader navigates by, as Aesop's fable is. The consequence worth knowing is that a chapter is short
+   — a median of 13 lines — and that is what the poem is: a chanson de geste was sung one laisse at a
+   time, each on a single vowel, and stopping at the end of one is what it is built for.
+
+   BOTH COLUMNS NUMBER FORWARD-ONLY, AND EACH EDITION NEEDS THE REPAIR EXACTLY ONCE. The rule is the
+   Analects' — a numeral is taken where it carries the count on by one and replaced by the expected
+   number where it does not, with a warning naming the book and both numbers on every run — and here
+   it is unusually well checked, because the two editions are independent and agree on 291 laisses.
+   Scott Moncrieff's page 87 prints CXXXXV where the sequence demands CXXXV: an extra X, and it is in
+   the SCAN and not in the transcription, read off the page image rather than guessed at. Bédier's
+   prints CCXXXVI at laisse 286, where a dropped L turns CCLXXXVI into a numeral 50 lower. Neither is
+   composed away in silence; both are reported every run and recorded in the front matter.
+
+   THE FRENCH IS CUT AT ITS OWN SEPARATOR RATHER THAN AT ITS NUMERALS, and that is the whole reason
+   the original could be paired at all. Bédier's presentation drops six of its 291 numerals (188, 238,
+   278, 283, 287, 288) — they are simply not in the transcription — so a cut made at the numerals
+   would lose six laisses and shift everything after them. What it does carry, exactly 291 times
+   across the six pages, is an <hr> between one laisse and the next, and inside each of those a first
+   margin block holding the Old French and a second holding Bédier's modern French. So the cut is
+   structural and the numbering is read into it: 285 of the 291 printed numerals then AGREE with the
+   position the cut gives them, which is what turns the six inferences from a guess into the only
+   reading consistent with the other 285. */
+
+/* Every laisse of both editions is set as verse, and both wrap a second numbering around it — the
+   running line-count of the poem, printed every fifth line in the margin. It is not the citation
+   unit and it is not what the columns pair on, and left alone it survives the tag strip as a bare
+   figure sitting inside a line of verse, which reads as a footnote marker opening nothing. That is
+   the Nicomachean Ethics' Bekker-line fault on a third edition, so it gets the Ethics' answer: the
+   gadget is removed outright, and because the two editions build it quite differently — Wikisource's
+   own `wst-pline` float in the English, a `visibility:hidden` nest of four spans in the French — it
+   is removed by BALANCED span-matching rather than by a non-greedy pattern that would stop at the
+   first inner closer and leave the rest of the nest standing in the verse. */
+function dropLineNumbers(b) {
+  const marks = [/<span[^>]*class="[^"]*\bwst-pline\b[^"]*"[^>]*>/, /<span style="visibility:hidden">/];
+  for (const rx of marks) {
+    for (let k = 0; k < 4000; k++) {
+      const m = rx.exec(b);
+      if (!m) break;
+      const end = blockEnd(b, m.index, "span");
+      if (end < 0) break;
+      b = b.slice(0, m.index) + b.slice(end);
+    }
+  }
+  // the stylesheet links MediaWiki de-duplicates alongside them are furniture too
+  return b.replace(/<link\b[^>]*>/g, "");
+}
+
+/* One laisse's verse, as the single paragraph the shelf's other verse books use: the citation number
+   in a .bk-n marker, then the lines separated by <br>. Ovid and Lucretius emit exactly this shape, so
+   a poem in laisses needs no styling of its own and renders beside its original the way they do. */
+/* STRIP THE WHOLE LAISSE BEFORE SPLITTING IT, never line by line. stripTags balances opening tags
+   against closing ones on a stack, so a fragment holding a <p> whose </p> lives in the next fragment
+   is unbalanced ON ITS OWN and the opener survives into the output. Splitting first therefore emitted
+   a stray <p> in most laisses of the poem — the quiet failure this file keeps meeting: nothing throws,
+   not one word is lost, every line is present and in order, and only counting a tag against its closer
+   over the shipped data shows it. The paragraph tags are then dropped outright, because a laisse is
+   emitted as ONE paragraph with its lines separated by <br>, which is the shape Ovid and Lucretius
+   already use and the shape the reader's verse styling expects. */
+function laisseHtml(n, body, warn, where) {
+  const lines = stripTags(dropLineNumbers(body))
+    .replace(/<\/?p\b[^>]*>/g, "<br>")
+    .split(/<br\s*\/?>/)
+    .map((s) => s.replace(/\s+/g, " ").trim())
+    .filter(Boolean)
+    /* ONE LINE NUMBER IS TYPED AS ORDINARY TEXT rather than set in the template the other 800-odd
+       use, so no amount of span-matching above can see it: the transcriber simply keyed the figure
+       into the verse. The test is deliberately as narrow as the evidence — a run of digits at the
+       very head of a line, a multiple of five (which is how often this edition numbers), and inside
+       the poem's own line range — because a verse line could in principle open on a number and
+       throwing away the first word of a line is not a repair. Measured over both cached editions
+       before it was written: exactly one line in the whole poem matches, laisse 231's 3210. It is
+       reported rather than dropped in silence, so a second one cannot appear unnoticed. */
+    .map((s) => {
+      const m = /^(\d{1,5})\s+(?=\S)/.exec(s);
+      if (!m || +m[1] % 5 || +m[1] < 1 || +m[1] > 4200) return s;
+      warn(where + ": a bare line number (" + m[1] + ") was typed into the verse and has been removed");
+      return s.slice(m[0].length);
+    });
+  if (!lines.length) warn(where + " came through with no lines");
+  return '<p><span class="bk-n">' + n + "</span> " + lines.join("<br>") + "</p>";
+}
+
+/* Read a numeral off a marker and carry the count forward — the shared half of both cuts below. */
+function laisseNumber(raw, expect, warn, side) {
+  const v = raw ? roman(raw) : 0;
+  if (v === expect) return expect;
+  if (raw) {
+    warn(side + " laisse " + expect + " is numbered " + raw + " (" + v + ") in the edition; " +
+      "read as " + expect + ", which is where the sequence puts it");
+  }
+  return expect;
+}
+
+/* THE ENGLISH: cut one transcribed page into its 291 laisses at the centred numerals that head them.
+   The slice and the furniture removal are cleanBody's, deliberately — this book is a proofread
+   transcription like every other wiki book here, and only its DIVISION is unusual — but the body
+   itself is not run through cleanBody's generic div→blockquote pass, which exists for prose and would
+   turn each of the centred numeral blocks into a quotation of its own number. */
+function extractLaisses(h, book, warn) {
+  let b = h.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<!--[\s\S]*?-->/g, "");
+  for (let k = 0; k < 8; k++) {
+    const m = /<div class="[^"]*\bws-noexport\b[^"]*"[^>]*>/.exec(b);
+    if (!m) break;
+    const end = blockEnd(b, m.index, "div");
+    if (end < 0) break;
+    b = b.slice(0, m.index) + b.slice(end);
+  }
+  const i = b.indexOf('<div class="prp-pages-output"');
+  if (i < 0) throw new Error("no body");
+  b = b.slice(i);
+
+  const rx = /<div class="wst-center[^"]*"[^>]*>\s*<p>([^<]{1,14})<\/p>\s*<\/div>/g;
+  const hits = [];
+  let m;
+  while ((m = rx.exec(b))) {
+    const t = m[1].trim();
+    if (/^[IVXLC]+$/.test(t)) hits.push({ raw: t, at: m.index, end: rx.lastIndex });
+  }
+  if (!hits.length) throw new Error("no laisse numerals found");
+
+  return hits.map((x, k) => {
+    const n = laisseNumber(x.raw, k + 1, warn, "English");
+    const body = b.slice(x.end, k + 1 < hits.length ? hits[k + 1].at : b.length);
+    return { n: n, html: laisseHtml(n, body, warn, "English laisse " + n) };
+  });
+}
+
+/* THE OLD FRENCH: six pages of Bédier's own bilingual presentation, each laisse an <hr>-separated
+   unit whose FIRST margin block is the Old French and whose second is his modern French. Only the
+   first is taken; the modern French is a second translation and this shelf already carries one. */
+function extractLaissesFr(pages, warn) {
+  const out = [];
+  pages.forEach((h) => {
+    const b = h.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<!--[\s\S]*?-->/g, "");
+    const units = b.split(/<hr\s*\/?>/);
+    units.shift();                        // everything before the first rule is the page's own header
+    units.forEach((u) => {
+      const divs = [...u.matchAll(/<div style="margin-left:\d+%; margin-right:\d+%;">/g)];
+      const of = divs.length ? u.slice(divs[0].index, divs.length > 1 ? divs[1].index : u.length) : u;
+      const mm = /<div style="text-align:center[^"]*">\s*([IVXLC]{1,8})\s*<\/div>/.exec(of);
+      const n = laisseNumber(mm ? mm[1] : null, out.length + 1, warn, "Old French");
+      if (!mm) warn("Old French laisse " + n + " carries no numeral in the transcription; " +
+        "numbered from its place in the sequence");
+      out.push({ n: n, html: laisseHtml(n, of.replace(/<div style="text-align:center[^"]*">\s*[IVXLC]{1,8}\s*<\/div>/, ""), warn, "Old French laisse " + n) });
+    });
+  });
+  return out;
 }
 
 /* ---------- the chapter titles, from the book's own contents page ---------- */
@@ -5351,6 +5712,30 @@ async function fetchEnglish() {
     return writeEnglish(chapters, warnings);
   }
 
+  /* A POEM IN LAISSES — one transcribed page holding every chapter, cut rather than walked. The page
+     is cached whole, exactly as a TEI file is, so --from/--to cost nothing and a re-extract needs no
+     network at all; --force refetches it. `chapters` is filtered afterwards rather than before,
+     because the cut has to see the whole sequence to number it. */
+  if (BOOK.layout === "laisses") {
+    const warn = (m) => warnings.push(m);
+    const cf = path.join(CACHE, "en-page.html");
+    let h;
+    if (!FORCE && fs.existsSync(cf)) h = fs.readFileSync(cf, "utf8");
+    else { h = await api(BOOK.onePage); fs.writeFileSync(cf, h); }
+    const got = extractLaisses(h, BOOK, warn);
+    if (got.length !== BOOK.chapters.length)
+      warn("the edition carries " + got.length + " laisses; the entry expects " + BOOK.chapters.length);
+    got.forEach((c) => {
+      if (c.n < FROM || c.n > TO) return;
+      if (c.html.length < (BOOK.minChars || 200))
+        throw new Error("laisse " + c.n + " came back short (" + c.html.length + " chars)");
+      chapters.push({ n: c.n, t: titles[c.n] || chapterTitle(c.n), p: partOf(c.n), html: c.html, notes: [] });
+    });
+    const lines = chapters.reduce((a, c) => a + (c.html.match(/<br>/g) || []).length + 1, 0);
+    console.log("  " + chapters.length + " laisses, " + lines + " lines");
+    return writeEnglish(chapters, warnings);
+  }
+
   /* The endnote table, fetched ONCE for the whole book rather than per chapter — it is one page at the
      back of the volume and every chapter's markers point into it. Cached beside the chapters, so a
      resumed or a --from/--to run costs no extra request; --force refetches it with everything else. */
@@ -5718,6 +6103,59 @@ async function fetchOriginal() {
       byNum[n] = rec.html;
       console.log("  " + BOOK.chapterWord + " " + n + " — " + (rec.html.length / 1024).toFixed(1) +
         " KB" + (rec.head ? " — " + rec.head : ""));
+    }
+    return writeOriginal(byNum, warnings);
+  }
+
+  /* A POEM IN LAISSES on the original side too. The six pages are fetched and cached as raw HTML and
+     then cut as ONE sequence, because the numbering runs straight through them and six pages cut
+     independently could not carry a count across a page boundary — which is exactly what the six
+     unnumbered laisses need. Cached per page all the same, so a rate-limited run resumes. */
+  if (O.layout === "laisses") {
+    console.log("\nFetching the " + O.langName + " original — " + O.pages.length + " pages from " + O.wiki);
+    const raw = [];
+    for (const page of O.pages) {
+      const cf = path.join(cacheDir, page.replace(/[^\w.-]+/g, "_") + ".html");
+      if (!FORCE && fs.existsSync(cf)) raw.push(fs.readFileSync(cf, "utf8"));
+      else {
+        const h = await api(page, O.wiki);
+        fs.writeFileSync(cf, h);
+        raw.push(h);
+        await sleep(1200);   // this wiki rate-limits a fast walk harder than the English one
+      }
+      console.log("  " + page.split("/").pop() + " fetched");
+    }
+    const got = extractLaissesFr(raw, warn);
+    got.forEach((c) => { byNum[c.n] = c.html; });
+    const lines = got.reduce((a, c) => a + (c.html.match(/<br>/g) || []).length + 1, 0);
+    console.log("  " + got.length + " laisses, " + lines + " lines");
+
+    /* THE PAIRING, CHECKED AGAINST THE FILE THAT SHIPPED rather than asserted from this entry — the
+       discipline the verse, drama and TEI branches share. The English is read back out of its own
+       cached page and cut again, so what is compared is what the two columns actually contain. */
+    const enCache = path.join(CACHE, "en-page.html");
+    if (fs.existsSync(enCache)) {
+      const en = extractLaisses(fs.readFileSync(enCache, "utf8"), BOOK, () => {});
+      const ours = new Set(got.map((c) => c.n));
+      const theirs = new Set(en.map((c) => c.n));
+      const missing = en.filter((c) => !ours.has(c.n)).map((c) => c.n);
+      const extra = got.filter((c) => !theirs.has(c.n)).map((c) => c.n);
+      if (missing.length) warn("laisse(s) in the translation with no original: " + missing.join(", "));
+      if (extra.length) warn("laisse(s) in the original with no translation: " + extra.join(", "));
+      /* Counts agreeing is not passages agreeing, so the two columns' LENGTHS are correlated as well:
+         a real alignment tracks closely and a column shifted by one laisse does not. Both figures are
+         printed, because the shifted control is what makes the first number mean anything. */
+      const lens = (a) => a.map((c) => (c.html.match(/<br>/g) || []).length + 1);
+      const A = lens(en), B = lens(got);
+      const r = (x, y) => {
+        const n = Math.min(x.length, y.length);
+        const mx = x.slice(0, n).reduce((s, v) => s + v, 0) / n, my = y.slice(0, n).reduce((s, v) => s + v, 0) / n;
+        let num = 0, dx = 0, dy = 0;
+        for (let i = 0; i < n; i++) { num += (x[i] - mx) * (y[i] - my); dx += (x[i] - mx) ** 2; dy += (y[i] - my) ** 2; }
+        return num / Math.sqrt(dx * dy);
+      };
+      console.log("  line-count correlation " + r(A, B).toFixed(4) +
+        " (shifted by one laisse: " + r(A.slice(1), B).toFixed(4) + ")");
     }
     return writeOriginal(byNum, warnings);
   }
