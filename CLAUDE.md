@@ -2543,12 +2543,48 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     replaced. The Settings row says "this device's clock" outright.
   · **`scheduleDayRoll()`** re-arms itself and repaints ONLY the home page, which is where everything dated
     lives; a repaint under a reader mid-card would take the card away.
-- **Scheduling (`grade()`):** SM-2-ish with Anki-style learning steps. A **new card graded "Good"** becomes a `learning` step
-  (`interval 1/144`, `due = now + 10 min`) that **re-appears the same session/day** — grade() returns `{requeue: due-now < 11 min}`
-  and the study session does `queue.shift(); if (requeue) queue.push(id)` — and only **graduates to `review` (due tomorrow) on the
-  next "Good"** (Anki-like; before this it jumped straight to tomorrow). "Again"/"Hard" on a new/learning card also requeue
-  (1 min / 6 min); "Easy" graduates immediately (4 days). `S.intro.count` (the daily new-card cap via `newRemainingToday`) is
-  incremented only on a card's FIRST grade (`fresh`), so a requeued learning card is never re-counted.
+- **THE SCHEDULER — Anki's SM-2, ported (Aug 2026, on request).** The `THE SCHEDULER` block in app.js, just above the SRS
+  helpers. It replaced an approximation of Anki with the thing itself, on the request to "copy the entire spaced interval
+  system exactly from Anki".
+  · **The whole of it is PURE** — `schedAnswer(card, grade, t, seed)` returns a NEW record and reads no global, no DOM and
+    no clock beyond its `t`. That is what lets `.claude/test-scheduler.js` walk every path as arithmetic rather than
+    through a browser, and it is also what keeps the undo snapshot valid (the caller's record is never mutated).
+    `grade()` is now only the bookkeeping around it: the review log, the streak, the day's new-card count, level-ups.
+  · **`SCHED` holds Anki's defaults in one place** — learning steps `1m 10m`, relearning `10m`, graduating 1 day, easy
+    4 days, starting ease 2.5 (floor 1.3), hard ×1.2, easy bonus ×1.35, lapse ×0 with a 1-day minimum, max 36500 days,
+    leech at 8 lapses. There is deliberately **no UI for these** — the request was for Anki's schedule, not Anki's deck
+    options — but they are a config object rather than scattered literals so a per-deck override is a small change.
+  · **A new card WALKS THE STEPS, which is the reported bug.** The first Good sends it to the 10-minute step and the back
+    of the day's queue; only the second graduates it to a day. `Hard` on the first step is the **midpoint of the two
+    steps** (5.5m), or Again and Hard would both mean one minute and the button would be a lie.
+  · **A lapse RELEARNS rather than resetting** — status `"relearn"`, ease −0.20, and the interval it returns to is
+    computed at the moment it lapses and carried on the card as **`lapseIv`**. The record gains **`step`** too. Both
+    back-fill by their own absence, so **nothing migrates**: an older single-step learning card reads as standing on
+    step 1 and takes one more Good, which is the intended new behaviour anyway.
+  · **`status` gains `"relearn"` beside new / learning / review.** Every counter that used to test `=== "learning"` calls
+    **`schedIsLearning()`** now — a lapsed card is being learned again and Anki files it in the same pile — so reach for
+    that helper rather than adding a third comparison.
+  · **THE FUZZ IS SEEDED BY THE CARD, NOT THE CLOCK**, and that is what makes the grade buttons honest: `schedPreview`
+    and `schedAnswer` compute the same number, so a button reading "12d" schedules 12 days. **Both take the same `t`** —
+    a preview that read `Date.now()` while the grade took the passed time previewed one interval and scheduled another
+    on any overdue card (caught by the test, not by eye).
+  · **`fmtInterval` renders real minutes.** It answered `<10m` for everything under an hour and then labelled HOURS as
+    minutes, so both rungs of the ladder read the same and neither read correctly.
+  · **The requeue rule is the DAY BOUNDARY**, not a fixed window: `{requeue: schedIsLearning(status) && (due < dayEndTs()
+    || due - now <= SCHED_AHEAD_MS)}`. The old 11-minute window silently stopped requeuing the moment a step ran longer
+    than it; the learn-ahead allowance is Anki's, and is what stops the last card of a late-night session being stranded
+    a few minutes the wrong side of the cut-off.
+  · `S.intro.count` (the daily new-card cap via `newRemainingToday`) is still incremented only on a card's FIRST grade
+    (`fresh`), so a requeued learning card is never re-counted.
+  · **Guarded by `.claude/test-scheduler.js` (62 assertions, no browser, no dependencies)** — including the ordering
+    guarantee Hard < Good < Easy over 1,600 interval/ease combinations, that preview and grade agree over 360 cases,
+    that nothing is ever scheduled into the past, and that old records back-fill. Its two most useful finds were both
+    invisible on the page: the ordering floor walking Easy past the maximum interval, and the preview/grade clock
+    mismatch above. `.claude/test-review-decks.js` section 6 pins the same thing end to end in a real session — and
+    **tracks the card by ID out of the session record, never by the question on screen**, which is a different one of
+    its three phrasings each time it is shown.
+  · **Re-run both after touching `SCHED` / `schedAnswer` / `schedPreview` / `schedPass` / `schedFuzz` / `schedIsLearning`
+    / `fmtInterval`, or the requeue line in `grade()`.**
 - **Undoing a grade (Aug 2026, on request)** — `undoStack` / `undoSnapshot` / `undoGrade` inside `PAGES.study`,
   reached by the `#undoGrade` button in the study bar (rendered only when there is something to undo), by
   **Ctrl/Cmd+Z**, and by "Undo the last card" on the completion screen (where the queue is empty and there is no
@@ -5558,9 +5594,10 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Twenty-four committed regression tests** (in `.claude/`, not loaded by the site): twenty-one drive a real browser with
-  Playwright; `test-daily-quote.js`, `test-discovery.js` and `test-date-line.js` are plain Node with no dependencies at
-  all (`test-card-types.js` is half and half — its XP, CSS-scoper and template-engine assertions need no browser).
+- **Twenty-five committed regression tests** (in `.claude/`, not loaded by the site): twenty-one drive a real browser with
+  Playwright; `test-daily-quote.js`, `test-discovery.js`, `test-date-line.js` and `test-scheduler.js` are plain Node with
+  no dependencies at all (`test-card-types.js` is half and half — its XP, CSS-scoper and template-engine assertions need
+  no browser).
   Each slices what it tests out of the real `app.js`/`_headers` by text, so they can't drift from what ships.
   **Gotcha when writing more of them:** `page.goto()` to a URL that differs only in the `#fragment` is a
   same-document navigation — the app keeps running and its module state survives. Use `page.reload()` when
@@ -5770,6 +5807,20 @@ dead code (never rendered).
     browser and no dependencies** — the pieces are sliced out of `app.js` and run in a `new Function`.
     The rule is a property of the ARRANGEMENT, so it breaks silently: **re-run after adding or removing
     quotes** (a fifth Confucius line tightens the pool) as well as after touching `quoteRunningOrder`.
+  · `node .claude/test-scheduler.js` — 62 assertions on **the schedule itself**, which is the thing a study site is
+    most worth getting right and the thing that fails most silently: a wrong interval is still a number on a button,
+    and a card that graduates a step early looks exactly like a card being studied. Nobody reports it; they just learn
+    less. So it is pinned as ARITHMETIC — the pure `THE SCHEDULER` block is sliced out of app.js by text and run in a
+    `new Function`, the way `test-daily-quote.js` takes `quoteRunningOrder`. **No browser and no dependencies.** It
+    covers the learning ladder (a new card's Good is 10 minutes, not a day; the second Good graduates; Hard is the
+    midpoint of the first two steps), the review formulas, the ordering guarantee **Hard < Good < Easy over 1,600
+    interval/ease combinations**, days-late credit, lapses and relearning, that **every button shows exactly the
+    interval grading it will apply** (360 cases — the property the card-seeded fuzz exists to give), that older records
+    back-fill, that the block is pure and reads no global, and that **no state × grade is ever scheduled into the
+    past** (24 cases). Its two finds were both invisible on the page: the Hard<Good<Easy floor walking Easy past the
+    maximum interval, and a preview that read the live clock while the grade took the passed one, so an overdue card
+    previewed one interval and scheduled another. **Re-run after touching anything named `sched*`, `SCHED`, or
+    `fmtInterval`** — and note that the end-to-end half lives in `test-review-decks.js` section 6.
   · `node .claude/test-date-line.js` — 13 assertions on the card date line, run against the real `data.js`:
     that every shipped card's `answerDate` is still a LIST OF DATES and not the paragraph it replaced
     (the check is content-aware, since an old date line wore exactly the same tags), that the limits in
@@ -5798,10 +5849,19 @@ dead code (never rendered).
     default is the WIDEST deck's rather than a global figure (two decks at 5 draw 5, from the ten between
     them), and an explicit limit set there caps the pooled draw **without changing what a deck offers when
     tapped on its own** — which is the distinction the whole design turns on and which nothing on screen
-    states. **Re-run after
+    states. **Section 6 (Aug 2026) pins THE LEARNING STEPS end to end**, in a real session, where
+    `test-scheduler.js` pins their arithmetic: a new card's Good button offers minutes rather than a day and
+    the four buttons are four different answers (on the old scheduler three of them read `<10m`), one Good
+    leaves the card learning on its second step, **the same card comes BACK later in the session**, and a
+    second Good graduates it to tomorrow. Two things it must keep doing: **track the card by ID out of the
+    session record**, never by the question on screen — that is a different one of the card's three phrasings
+    each time it is shown, so comparing the prose reports a card that never returned when it returned wearing
+    another sentence — and assert the banner's **"Start"** button on a reader who has STUDIED, since with no
+    cards graded at all the banner is the first-run hero and its button says something else entirely.
+    **Re-run after
     touching `reviewQueue` / `reviewLimits` / `REVIEW_ENTRY` / `deckLimits` / `deckDoneToday` / `entryPiles` /
-    `openDeckMenu` / `addActive` / `maxActiveDecks` / `STUDY_KEY` / `qIdx`, or `buildSession`'s per-deck
-    allowances.**
+    `openDeckMenu` / `addActive` / `maxActiveDecks` / `STUDY_KEY` / `qIdx`, `buildSession`'s per-deck
+    allowances, or anything named `sched*`.**
   · `node .claude/test-atlas-places.js` — the Atlas's label crowding, its heightmap strength slider, and a
     glossary term's way onto the map (Aug 2026). All three fail silently: a map that quietly writes forty
     overlapping names looks like a map, a slider that does nothing looks like a slider, and a marker that

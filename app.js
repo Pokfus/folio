@@ -2012,9 +2012,14 @@
     }
     return n == null ? a : a.slice(0, n);
   }
+  /* A grade button's next interval. Sub-day values are real MINUTES now that the learning steps differ
+     from each other (1m then 10m): it used to answer "<10m" for anything under an hour and then label
+     HOURS as minutes, so both steps of the ladder read the same and neither read correctly. */
   function fmtInterval(days) {
-    if (days < 1 / 24) return "<10m";
-    if (days < 1) return Math.max(1, Math.round(days * 24)) + "m";
+    if (days < 1) {
+      const m = Math.max(1, Math.round(days * 1440));
+      return m < 60 ? m + "m" : Math.round(days * 24) + "h";
+    }
     if (days < 30) return Math.round(days) + "d";
     if (days < 365) return Math.round(days / 30) + "mo";
     return (days / 365).toFixed(1) + "y";
@@ -2787,7 +2792,202 @@
     return (name || "S").trim().charAt(0).toUpperCase() || "S";
   }
 
-  /* ---------- SRS (simplified SM-2) ---------- */
+  /* ================= THE SCHEDULER — Anki's SM-2, ported =================
+
+     What a reader gets wrong about a study app is usually the schedule, so this follows Anki's rather
+     than approximating it. The whole of it is PURE: schedAnswer() takes a card record and a grade and
+     returns the next record, touching no global and no DOM, which is what lets `test-scheduler.js`
+     walk every path as string-in/string-out comparisons rather than through a browser. grade() below
+     is the bookkeeping around it (the review log, the streak, the day's new-card count, level-ups).
+
+     THE PART THIS EXISTS TO FIX (Aug 2026, on a bug report): a new card answered Good used to jump
+     straight to tomorrow. It now walks the LEARNING STEPS — 1 minute, then 10 minutes — so the first
+     Good sends it to the back of the day's queue and only the second graduates it to a day. That is
+     Anki's default `1m 10m`, and it is the difference between meeting a card once and learning it.
+
+     A card record grows two fields, both back-filled by their own absence:
+       · `step`    — how far along the steps a learning/relearning card is (missing → 0, which is what
+                     an older single-step learning card should become: one more Good to graduate).
+       · `lapseIv` — the interval a lapsed card returns to once it finishes relearning, computed at the
+                     moment it lapsed, exactly as Anki does.
+     `status` gains "relearn" beside new / learning / review. Every counter that used to test
+     `=== "learning"` tests both now — a lapsed card is being learned again, and Anki files it in the
+     same pile — so search for `isLearning` rather than adding a third comparison. */
+  const SCHED = {
+    learnSteps: [1, 10],     // minutes; a new card's ladder. Anki's default is `1m 10m`
+    relearnSteps: [10],      // minutes; where a lapsed review card goes. Anki's default is `10m`
+    graduateIv: 1,           // days — Good on the last learning step
+    easyIv: 4,               // days — Easy on a card still in learning
+    startEase: 2.5,          // the ease a card graduates with
+    minEase: 1.3,            // Anki's floor; below this a card would never grow
+    hardMult: 1.2,
+    easyBonus: 1.35,
+    lapseMult: 0,            // a lapse multiplies the old interval by this…
+    minLapseIv: 1,           // …and never returns below a day
+    ivMult: 1,               // a thumb on the scale for every review interval
+    maxIv: 36500,            // a hundred years, Anki's ceiling
+    leech: 8,                // lapses before a card is called a leech
+  };
+  const MIN_MS = 60 * 1000;
+  const SCHED_AHEAD_MS = 20 * MIN_MS;   // Anki's learn-ahead limit: how far into the future a learning step may be pulled
+  const schedIsLearning = (st) => st === "learning" || st === "relearn";
+  const schedSteps = (c, cfg) => (c.status === "relearn" ? cfg.relearnSteps : cfg.learnSteps);
+  /* Which step a learning card is standing on, clamped — a record written before `step` existed, or one
+     whose deck has since been given fewer steps, must land somewhere real rather than off the end. */
+  function schedStep(c, steps) {
+    if (c.status === "new") return 0;
+    const i = Math.floor(Number(c.step) || 0);
+    return Math.max(0, Math.min(i, Math.max(steps.length - 1, 0)));
+  }
+  /* Hard on a learning card repeats the step it is on. The exception is the FIRST step of a multi-step
+     ladder, where Anki uses the midpoint between it and the next: without that, Hard and Again would
+     both mean "one minute" and the button would be a lie. A single-step ladder stretches by half. */
+  function schedHardDelay(steps, i) {
+    if (!steps.length) return 1;
+    if (i === 0 && steps.length > 1) return (steps[0] + steps[1]) / 2;
+    return steps[Math.min(i, steps.length - 1)] * (steps.length === 1 ? 1.5 : 1);
+  }
+  /* Anki fuzzes every review interval by a few percent so that cards learned on the same day do not
+     come back on the same day for ever. The spread widens with the interval: about a day either side
+     at 2.5 days, ±15% out to a week, then ±10%, then ±5%.
+     THE SEED IS THE CARD, NOT THE CLOCK, and that is what makes the grade buttons honest: the preview
+     and the grade that follows it compute the same number, so a button reading "12d" schedules 12 days.
+     A clock-seeded fuzz would show one figure and apply another, which is worse than no fuzz at all. */
+  function schedFuzzRand(seed) {
+    let h = 2166136261;
+    const s = String(seed);
+    for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
+    return ((h >>> 0) % 100000) / 100000;
+  }
+  function schedFuzz(iv, seed) {
+    if (!(iv >= 2.5)) return iv;
+    const d = 1
+      + Math.max(0, Math.min(iv, 7) - 2.5) * 0.15
+      + Math.max(0, Math.min(iv, 20) - 7) * 0.1
+      + Math.max(0, iv - 20) * 0.05;
+    const lo = Math.max(1, Math.round(iv - d)), hi = Math.max(lo, Math.round(iv + d));
+    return lo + Math.floor(schedFuzzRand(seed) * (hi - lo + 1));
+  }
+  /* A passing interval: fuzzed, never below its floor (which is what keeps Hard < Good < Easy), capped.
+     The cap is applied LAST, after the floor — the other order lets the "one day longer than the button
+     to my left" rule walk Easy past the ceiling on a card already sitting at it. At the ceiling the three
+     buttons converge, which is correct and is the only place the ordering does not hold. */
+  function schedPass(iv, floor, cfg, seed) {
+    const v = Math.round(schedFuzz(iv * cfg.ivMult, seed));
+    return Math.min(cfg.maxIv, Math.max(floor, Math.max(1, v)));
+  }
+  /* The three passing intervals of a REVIEW card, in days. Days LATE are credited back — a card
+     answered a week after it was due has plainly survived that week, so Anki counts a quarter of the
+     overdue days into Hard, half into Good and all of them into Easy. */
+  function schedReviewIvs(c, cfg, seed, late) {
+    const iv = Math.max(1, Number(c.interval) || 1);
+    const ease = Math.max(cfg.minEase, Number(c.ease) || cfg.startEase);
+    const od = Math.max(0, Number(late) || 0);
+    const hard = schedPass((iv + od / 4) * cfg.hardMult, 1, cfg, seed + ":h");
+    const good = schedPass((iv + od / 2) * ease, hard + 1, cfg, seed + ":g");
+    const easy = schedPass((iv + od) * (ease + 0.15) * cfg.easyBonus, good + 1, cfg, seed + ":e");
+    return { hard: hard, good: good, easy: easy };
+  }
+  const schedBlank = () => ({ reps: 0, lapses: 0, ease: SCHED.startEase, interval: 0, due: Date.now(), status: "new", last: 0, step: 0 });
+  /* Answer a card. Returns a NEW record — the caller's is untouched, so the undo snapshot taken before
+     this runs stays valid whatever happens in here. `seed` should be the card id: see schedFuzz. */
+  function schedAnswer(card, g, t, seed, cfg) {
+    cfg = cfg || SCHED;
+    const c = Object.assign({}, card || schedBlank());
+    const relearn = c.status === "relearn";
+    c.ease = Math.max(cfg.minEase, Number(c.ease) || cfg.startEase);
+
+    if (c.status === "new" || schedIsLearning(c.status)) {
+      const steps = schedSteps(c, cfg);
+      const step = schedStep(c, steps);
+      const stay = relearn ? "relearn" : "learning";
+      if (g === "again") {
+        c.status = stay;
+        c.step = 0;
+        c.due = t + (steps[0] || 1) * MIN_MS;
+      } else if (g === "hard") {
+        c.status = stay;
+        c.step = step;
+        c.due = t + schedHardDelay(steps, step) * MIN_MS;
+      } else if (g === "good" && step + 1 < steps.length) {
+        c.status = stay;                       // one rung up the ladder — back of today's queue, not tomorrow
+        c.step = step + 1;
+        c.due = t + steps[step + 1] * MIN_MS;
+      } else {
+        /* Graduating. A card that got here by lapsing returns to the interval its lapse computed
+           (Easy adds a day, as Anki does); one that has never been a review card takes the deck's
+           graduating or easy interval. */
+        const base = relearn
+          ? Math.max(cfg.minLapseIv, Number(c.lapseIv) || cfg.minLapseIv) + (g === "easy" ? 1 : 0)
+          : (g === "easy" ? cfg.easyIv : cfg.graduateIv);
+        c.status = "review";
+        c.step = 0;
+        c.interval = Math.min(cfg.maxIv, Math.max(1, Math.round(base)));
+        c.due = t + c.interval * DAY;
+        c.reps = (c.reps || 0) + 1;
+        delete c.lapseIv;
+      }
+    } else {
+      const late = (t - (Number(c.due) || t)) / DAY;
+      if (g === "again") {
+        // a lapse: the ease drops, the interval collapses, and the card is learned again
+        c.lapses = (c.lapses || 0) + 1;
+        c.ease = Math.max(cfg.minEase, c.ease - 0.2);
+        const back = Math.min(cfg.maxIv, Math.max(cfg.minLapseIv, Math.round((Number(c.interval) || 1) * cfg.lapseMult)));
+        if (cfg.relearnSteps.length) {
+          c.status = "relearn";
+          c.step = 0;
+          c.lapseIv = back;                    // where it returns to once the relearning steps are done
+          c.due = t + cfg.relearnSteps[0] * MIN_MS;
+        } else {
+          c.status = "review";                 // no relearning steps configured: straight back to a day
+          c.interval = back;
+          c.due = t + c.interval * DAY;
+        }
+        if (c.lapses >= cfg.leech) c.leech = true;   // recorded, never acted on — Folio does not auto-suspend
+      } else {
+        const ivs = schedReviewIvs(c, cfg, String(seed) + ":" + (c.reps || 0), late);
+        if (g === "hard") c.ease = Math.max(cfg.minEase, c.ease - 0.15);
+        else if (g === "easy") c.ease = c.ease + 0.15;
+        c.status = "review";
+        c.step = 0;
+        c.interval = ivs[g] || ivs.good;
+        c.due = t + c.interval * DAY;
+        c.reps = (c.reps || 0) + 1;
+      }
+    }
+    c.last = t;
+    return c;
+  }
+  /* What each button will do, in DAYS, computed the same way the grade itself will be — see schedFuzz.
+     A learning delay comes back as a fraction of a day, which is what fmtInterval renders in minutes. */
+  function schedPreview(card, seed, t, cfg) {
+    cfg = cfg || SCHED;
+    const c = card || schedBlank();
+    if (t == null) t = Date.now();   // …but it must be the SAME instant schedAnswer will use, or an overdue
+    const day = (m) => m / 1440;     // card previews one interval and schedules another (caught by the test)
+    if (c.status === "new" || schedIsLearning(c.status)) {
+      const steps = schedSteps(c, cfg);
+      const step = schedStep(c, steps);
+      const relearn = c.status === "relearn";
+      const graduate = relearn
+        ? Math.max(cfg.minLapseIv, Number(c.lapseIv) || cfg.minLapseIv)
+        : cfg.graduateIv;
+      return {
+        again: day(steps[0] || 1),
+        hard: day(schedHardDelay(steps, step)),
+        good: step + 1 < steps.length ? day(steps[step + 1]) : graduate,
+        easy: relearn ? graduate + 1 : cfg.easyIv,
+      };
+    }
+    const ivs = schedReviewIvs(c, cfg, String(seed) + ":" + (c.reps || 0), (t - (Number(c.due) || t)) / DAY);
+    const again = cfg.relearnSteps.length
+      ? day(cfg.relearnSteps[0])
+      : Math.max(cfg.minLapseIv, Math.round((Number(c.interval) || 1) * cfg.lapseMult));
+    return { again: again, hard: ivs.hard, good: ivs.good, easy: ivs.easy };
+  }
+
+  /* ---------- SRS ---------- */
   function cardState(id) {
     return S.cards[id] || null;
   }
@@ -2799,86 +2999,22 @@
   }
   function isDueNow(id) {
     const c = S.cards[id];
-    return c && (c.status === "review" || c.status === "learning") && c.due <= now();
+    return c && (c.status === "review" || schedIsLearning(c.status)) && c.due <= now();
   }
   // preview next intervals (in days) for a grade, given current card
   function preview(id) {
-    const c = S.cards[id];
-    if (!c) return { again: 1 / 144, hard: 1 / 144, good: 1 / 144, easy: 4 }; // new: Good is a same-day learning step (grade() re-shows it), Easy graduates
-    if (c.status === "learning") return { again: 1 / 144, hard: 1 / 144, good: 1, easy: 3 };   // learning: Good now graduates to 1 day
-    const ease = c.ease;
-    return {
-      again: 1 / 144,
-      hard: Math.max(1, c.interval * 1.2),
-      good: Math.max(1, c.interval * ease),
-      easy: Math.max(1, c.interval * ease * 1.35),
-    };
+    return schedPreview(S.cards[id], id);
   }
   // apply a grade; returns {requeue: bool} for in-session relearning
   function grade(id, g) {
     const fresh = !S.cards[id];
-    let c =
-      S.cards[id] ||
-      { reps: 0, lapses: 0, ease: 2.5, interval: 0, due: now(), status: "new", last: 0 };
+    let c = S.cards[id] || schedBlank();
     const preStatus = c.status;   // captured before the scheduler rewrites it — the retention rate counts only cards that were genuinely due for recall
     // the card's FIRST attempt today (c.last is still the previous review) — only a first attempt can decide
     // "right first try", since a learning card comes back later in the same session
     const firstToday = !c.last || dayKey(c.last) !== todayStr();
 
-    if (c.status === "new" || c.status === "learning") {
-      if (g === "again") {
-        c.status = "learning";
-        c.interval = 1 / 144;
-        c.due = now() + 60 * 1000;
-      } else if (g === "hard") {
-        c.status = "learning";
-        c.interval = 1 / 144;
-        c.due = now() + 6 * 60 * 1000;
-      } else if (g === "good") {
-        if (c.status === "new") {
-          // Anki-style learning step: a new card graded Good re-appears the same session/day (its due is within the
-          // ~11-min requeue window below) before graduating on the next Good — instead of jumping straight to tomorrow.
-          c.status = "learning";
-          c.interval = 1 / 144;
-          c.due = now() + 10 * 60 * 1000;
-        } else {
-          // a learning card completing its step graduates to review (due tomorrow)
-          c.status = "review";
-          c.interval = 1;
-          c.reps += 1;
-          c.due = now() + DAY;
-        }
-      } else {
-        c.status = "review";
-        c.interval = 4;
-        c.reps += 1;
-        c.due = now() + 4 * DAY;
-      }
-    } else {
-      // review card
-      if (g === "again") {
-        c.lapses += 1;
-        c.ease = Math.max(1.3, c.ease - 0.2);
-        c.status = "learning";
-        c.interval = 1 / 144;
-        c.due = now() + 10 * 60 * 1000;
-      } else if (g === "hard") {
-        c.ease = Math.max(1.3, c.ease - 0.15);
-        c.interval = Math.max(1, c.interval * 1.2);
-        c.due = now() + c.interval * DAY;
-        c.reps += 1;
-      } else if (g === "good") {
-        c.interval = Math.max(1, c.interval * c.ease);
-        c.due = now() + c.interval * DAY;
-        c.reps += 1;
-      } else {
-        c.ease = c.ease + 0.15;
-        c.interval = Math.max(1, c.interval * c.ease * 1.35);
-        c.due = now() + c.interval * DAY;
-        c.reps += 1;
-      }
-    }
-    c.last = now();
+    c = schedAnswer(c, g, now(), id);   // the whole of the schedule — see THE SCHEDULER above
     S.cards[id] = c;
     logReview(preStatus === "review", g !== "again");
     logReviewDay(firstToday, g !== "again");
@@ -2896,8 +3032,13 @@
     bumpStreak();
     save();
     checkAchievements();   // unlock study / streak / deck milestones (toasts any new badge)
-    // requeue within session if it will be due again very soon (learning step)
-    return { requeue: c.due - now() < 11 * 60 * 1000 };
+    /* Does this card come back in THIS session? Anki's rule, and the reader-visible half of the whole
+       block above: a card still walking its learning steps is unfinished work for today, so it goes to
+       the back of the queue. The test is the DAY BOUNDARY rather than a fixed window (11 minutes, once,
+       which quietly stopped requeuing the moment a step ran longer than it) — plus Anki's learn-ahead
+       allowance, so the last card of a late-night session is still finishable rather than stranded a
+       few minutes the wrong side of the cut-off. */
+    return { requeue: schedIsLearning(c.status) && (c.due < dayEndTs() || c.due - now() <= SCHED_AHEAD_MS) };
   }
   /* ---------- review history ----------
      S.reviewLog is the only record of what happened on a PAST day: a card keeps just its latest
@@ -3207,7 +3348,7 @@
     ids.forEach((cid) => {
       const c = S.cards[cid];
       if (!c) { unseen++; return; }
-      if (c.status === "learning") lr++;
+      if (schedIsLearning(c.status)) lr++;
       else if (isDueNow(cid)) rv++;
     });
     return { nw: Math.min(deckNewRemaining(id), unseen), lr: lr, rv: Math.min(rv, deckReviewRemaining(id)), skip: false };
@@ -8418,7 +8559,7 @@
         // ten-minute step has come round yet — the pile is what is still being learned, not what is playable
         // this second, and a count that emptied while the card was on its timer would say the work was done
         if (!c) { if (freshSet.has(id)) nw++; }
-        else if (c.status === "learning") lr++;
+        else if (schedIsLearning(c.status)) lr++;
         else if (dueSet.has(id)) rv++;
       });
       return { nw, lr, rv };
@@ -8661,7 +8802,7 @@
                     next level rather than as a bare number. */""}
               ${streakChip}
               <span class="cta"><span class="btn ${dueN + newN ? "" : "ghost"}">${
-          dueN + newN ? "Start review" : "Browse collections"
+          dueN + newN ? "Start" : "Browse collections"
         }</span></span>
             </div>
           </div>
@@ -12109,7 +12250,7 @@
       queue.forEach((id) => {
         const c = S.cards[id];
         if (!c) nw++;
-        else if (c.status === "learning") lr++;
+        else if (schedIsLearning(c.status)) lr++;
         else rv++;
       });
       return { nw, lr, rv };
