@@ -7596,12 +7596,17 @@
        this is a control being put down, not a ball.
      · It is gated on prefersReducedMotion(), like every other movement on the site, and it stops the
        moment a new press lands, so a marker still coasting is caught by the finger that reaches for it. */
-  const WB_FLING_FRICTION = 0.93;   // velocity kept per ~16ms frame
+  /* The numbers are tuned so the throw reads as WEIGHT rather than as a launch. Travel is roughly
+     v × 16 / (1 − friction), so the cap and the friction between them set how far the hardest flick can
+     ever carry: about 210px here, against the ~500 the first cut allowed — which on a 390px phone was the
+     whole screen, and made a quick drag feel like the marker had been fired out of the reader's hand
+     rather than moved by it. A typical throw carries 60–100px, which is a nudge you can see. */
+  const WB_FLING_FRICTION = 0.90;   // velocity kept per ~16ms frame
   const WB_FLING_WINDOW = 110;      // ms of pointer history the throw's speed is measured across
   const WB_FLING_MIN_DT = 14;       // ms — a window shorter than this cannot be timed, so it is not a throw
   const WB_FLING_IDLE = 90;         // ms — moved longer ago than this and the finger had already stopped
   const WB_FLING_MIN = 0.05;        // px/ms — below this the release was a set-down, not a throw
-  const WB_FLING_MAX = 2.2;         // px/ms — a hard human flick, and a ceiling on how far a throw can carry
+  const WB_FLING_MAX = 1.3;         // px/ms — the ceiling on a flick, and so on how far one can carry
   const WB_FLING_STOP = 0.02;       // px/ms — coasting slower than this is finished
   let wbFlingRAF = 0;
   function wbStopFling() { if (wbFlingRAF) cancelAnimationFrame(wbFlingRAF); wbFlingRAF = 0; }

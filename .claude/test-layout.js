@@ -474,7 +474,13 @@ async function studyEasy(page, base, n) {
      drawing, past it it moves the marker and the click that follows pointerup must be swallowed. Both
      failures are silent and opposite — a marker that cannot be moved, or one that turns drawing on every
      time you move it. The panel is anchored to the button rather than sharing a flex column with it, so
-     the button must not jump when the panel opens, and the panel must open on the side there is room on. */
+     the button must not jump when the panel opens, and the panel must open on the side there is room on.
+
+     THE MARKER HAS MOMENTUM SINCE AUG 2026, so a drag has to end the way a reader ending one does — by
+     coming to rest before letting go. Released still moving, it is a THROW and carries on past the
+     pointer, which is the whole point of the feature; this section's "follows the pointer" therefore
+     pauses before the lift, and the throw is asserted separately below. Both directions matter: a drag
+     that overshoots where it was put is as wrong as a throw that stops dead. */
   for (const vp of [PHONE, DESKTOP]) {
     const page = await browser.newPage({ viewport: vp, hasTouch: vp === PHONE });
     watch(page);
@@ -494,16 +500,44 @@ async function studyEasy(page, base, n) {
       await page.mouse.down();
       await page.mouse.move(at.x - 30, at.y - 30, { steps: 5 });
       await page.mouse.move(target.x, target.y, { steps: 10 });
+      await page.waitForTimeout(220);   // come to rest before letting go — this is a PLACEMENT, not a throw
       await page.mouse.up();
-      await page.waitForTimeout(300);
-      const moved = await page.evaluate(() => {
+      await page.waitForTimeout(400);   // long enough that any fling would have finished
+      const pos = () => page.evaluate(() => {
         const t = document.querySelector(".wb-tools"), b = t.getBoundingClientRect();
         return { x: Math.round(b.left + b.width / 2), y: Math.round(b.top + b.height / 2), l: Math.round(b.left), t: Math.round(b.top),
           drawing: t.classList.contains("active"), stored: !!localStorage.getItem("folio_wb_pos_v1") };
       });
+      const moved = await pos();
       check("[" + tag + "] dragging it follows the pointer", Math.abs(moved.x - target.x) <= 3 && Math.abs(moved.y - target.y) <= 3, JSON.stringify(moved));
       check("[" + tag + "] ...without the drag also switching drawing on", !moved.drawing);
       check("[" + tag + "] ...and where it was put is remembered", moved.stored);
+      /* …and released STILL MOVING it is a throw, which must carry on past the pointer and still come to
+         rest on screen. Two failures this catches, and they are opposite: a fling that never fires (the
+         marker stops dead, which is the behaviour the momentum request replaced) and one that fires too
+         hard (the first cut could carry ~500px, which on a 390px phone is the whole screen — a drag felt
+         like the marker had been fired out of the reader's hand). */
+      await page.mouse.move(moved.x, moved.y);
+      await page.mouse.down();
+      for (let i = 1; i <= 6; i++) { await page.mouse.move(moved.x + i * 13, moved.y + i * 4); await page.waitForTimeout(14); }
+      const atLift = await pos();
+      await page.mouse.up();
+      await page.waitForTimeout(700);
+      const flung = await pos();
+      const carried = Math.hypot(flung.x - atLift.x, flung.y - atLift.y);
+      check("[" + tag + "] ...and a throw carries on past the release", carried > 6,
+        JSON.stringify({ carried: Math.round(carried), atLift: [atLift.x, atLift.y], flung: [flung.x, flung.y] }));
+      check("[" + tag + "] ...but never off the screen, or further than a screen's worth",
+        flung.l >= 4 && flung.t >= 4 && flung.l <= vp.width - 40 && flung.t <= vp.height - 40 && carried < 260,
+        JSON.stringify({ carried: Math.round(carried), l: flung.l, t: flung.t, vp: [vp.width, vp.height] }));
+      // put it back where the rest of this section expects to find it
+      await page.mouse.move(flung.x, flung.y);
+      await page.mouse.down();
+      await page.mouse.move(target.x, target.y, { steps: 8 });
+      await page.waitForTimeout(220);
+      await page.mouse.up();
+      await page.waitForTimeout(300);
+      Object.assign(moved, await pos());
       await page.mouse.click(moved.x, moved.y);
       await page.waitForTimeout(250);
       const opened = await page.evaluate(() => {
