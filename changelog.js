@@ -14,7 +14,7 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.37", released: "2026-08-06T19:53Z" };
+window.FOLIO_VERSION = { v: "1.38", released: "2026-08-06T21:20Z" };
 
 window.CHANGELOG = [
   {
@@ -38,6 +38,16 @@ window.CHANGELOG = [
       "Plato’s <i>The Dialogues</i> joins the Library — everything of his that survives bar one, thirty-five works, each with the Greek beside the English. They are in the order Plato was arranged in antiquity, opening with the four that run through the end of Socrates’ life: <i>Euthyphro</i> on the way in to court, the <i>Apology</i>, his defence to the jury that condemned him, <i>Crito</i> in the cell where he refuses to escape, and <i>Phaedo</i> on the last afternoon. The <i>Symposium</i>, <i>Gorgias</i>, <i>Meno</i>, <i>Phaedrus</i>, the <i>Timaeus</i> that gave us Atlantis and the <i>Laws</i> are all here too. Several are probably not by Plato, which was already being said in antiquity; they are kept because that is what came down under his name, and the book’s first page says which. The translations are the Loeb ones by Fowler, Lamb and Bury, published 1914–1929 and long out of copyright in the United States. Every one of the thirty-five lines up against the Greek without a gap on either side. <i>The Republic</i> is the exception, its English here still being in copyright — it is on the shelf already, in Jowett’s translation, as a book of its own.",
       "The answer on a card is now the term by itself. Where a card used to answer “the polis” or “a cist grave”, it answers “polis” and “cist grave”; the “the” has moved into the question and the background, where the sentence needs it. Fifty-three cards changed, and reading them all back turned up two sentences that the article had been hiding: one that said “the first the rhapsode” and one that had thirty-four tombs being a single grave.",
       "One card in the Ancient Greece deck closed its period around 1200 BCE in the background while the dates beside the answer ran it on to about 1050. The palaces burned at the earlier date and the age went on for another century and a half, which is what the card now says, and the third way of asking the question said the same wrong thing and has been corrected with it.",
+      "The answer on a card now always opens on a capital letter, however the question and the background happen to write it — it is the name of the thing there, not a word in a sentence.",
+      "Holding the daily study banner, or any deck under it, now offers <b>question variety</b>. Every card carries three ways of asking the same thing and one is picked at random each time, which is what makes you learn the idea rather than one sentence; turn it off and a card always asks the first. The ordered/random choice in the same menu is a switch now instead of two rows to pick between.",
+      "Adding a collection to your daily study now brings its decks and subdecks in with it, each as a row of its own — so you can tap straight into one, hold it for its own options, or drop just that one and keep the rest. Removing a deck takes its collection out with it and leaves the others where they were, and a collection's decks no longer count against the number of decks your level allows.",
+      "On the collections page, a deck now says how many cards are in it, the way the collection above it already did, instead of the years its cards happen to cover.",
+      "Books on the shelf carry their author's colour across the whole banner rather than only on the spine, so a long shelf reads as a shelf. Sorting by <b>Written</b> is now called <b>Date</b>.",
+      "Each book's opening pages now stand on their own. Several of them explained a point about the edition by comparing it with another book on the shelf — how Seneca's notes are laid out, how the Meditations' Greek was handled — which meant nothing unless you had read that one too.",
+      "The little numbers pointing at a translator's note in a book now have a colour of their own, rather than the red Folio uses for the sources under a card.",
+      "A game you have finished today is marked with a small green tick in the corner instead of a green banner reading “Done”. A perfect score keeps its gold ribbon.",
+      "On a phone the marker you draw with can be thrown rather than only dragged: let go while moving it and it carries on and slows to a stop, and catches against the edge of the screen.",
+      "About has left the top bar on desktop, as it did on phones, and is reached from the line at the foot of the home page — so the site now offers the same handful of destinations whatever you are reading it on.",
     ],
   },
   {

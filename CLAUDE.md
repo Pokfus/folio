@@ -1494,6 +1494,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `GLOSSARY_CASESENSITIVE`, `GLOSSARY_TAGS` (per-term category tags — the admin glossary's left-bar
   filter), `GLOSSARY_IMAGES` (per-term illustration — see the "Glossary image" bullet below) and
   `GLOSSARY_SOURCES` (per-term citations — see the "Source footnotes" bullet).
+  **A DATE LINE MAY RUN TO SEVERAL LINES** (`glossDatesHTML` / `glossDatesFlat`, Aug 2026, on request). It
+  was written into the popup with `textContent`, so a term wanting a birth on one line and a death on the
+  next had no way to say so — a typed `<br>` printed as the characters and a typed newline collapsed to a
+  space. Two entry forms mean the same thing now, an explicit `<br>` and a plain newline, and the result
+  goes through `sanitizeHTML` exactly as a description does, since the popup writes it with `innerHTML`.
+  **`glossDatesFlat` is the single-line reading, and everything that is NOT the popup wants that one**: the
+  "By date" sort's year parser (`glossStartYear`), the discovered-terms list (one row, one line), the
+  `stripDupDates` comparison against a parenthetical in the prose, and the read-aloud text — none has
+  anywhere to put a break and all would otherwise be handed markup. Both editors' date boxes are
+  `<textarea>`s (`.af-glossdates`) so a plain Enter can be typed; `el.value` reads the same either way, so
+  the Studio's `data-gf` wiring needed no change.
   **`add-sources.js` and `add-glossary.js` REBUILD this file from a fixed list of tables**, so a
   `window.GLOSSARY_*` table neither of them carries is silently dropped on the next content batch — which is
   what happened to `GLOSSARY_PLACES`/`GLOSSARY_MAP_COUNTRY` the day they were added. **Add a new table to
@@ -2106,6 +2117,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     wear their number (a "0" beside 1, 2, 3 reads as a chapter the author did not write, and on a phone the
     titles are hidden and the number is all there is) and is **`position:sticky` at the left of the
     scroller**, or the way back to it is sixty tabs behind wherever the reader has got to.
+    **A BOOK'S FRONT MATTER STANDS ON ITS OWN AND NAMES NO OTHER BOOK ON THE SHELF** (Aug 2026, on
+    request). Fifteen of the twenty-three intros explained a point about their own edition by comparing it
+    with a neighbour — how Seneca's notes are laid out, what was abandoned for the Meditations' Greek,
+    which other books print a facing original, "the most cleanly paired text on these shelves" — and every
+    one of those sentences is useless to a reader who has not opened the book being compared with, which is
+    most readers. The FACT each was making is kept and restated without the comparison ("so there is no
+    fold of them under each chapter"; "as exact a pairing as two independently edited texts manage").
+    **The edit has to be made in BOTH places**: `.claude/fetch-book.js`'s `about` is the source, and
+    `books/<id>.js`'s `intro` is what ships, and a fix to only one of them either never reaches a reader or
+    is destroyed by the next import. Note that the importer's prose is a JS concatenation broken across
+    lines while the shipped text is contiguous, so the two need different find-strings — assert every
+    replacement lands on exactly one match on each side, and re-read the two against each other afterwards.
     **The split is the part to keep**: the ESSAY travels with the text (authored in `.claude/fetch-book.js`'s
     `about`, emitted as `intro` into the generated file) and the LICENCE half is built in app.js from the
     registry's own `rights` / `edition` / `sourceUrl`. The essay cannot live in the eager `BOOKS` registry
@@ -2135,9 +2158,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
       Confucius's walnut is 26 from its nearest neighbour. The obvious green for the Analects was
       measured and REJECTED: every green that sits inside this palette lands 12–17 from Lucretius, and
       the only greens clearing that are bright enough to glow beside ten muted colours.
+    **The banner carries its book's colour as a WASH, not only on the spine** (Aug 2026, on request —
+    "similar to the collection banners"). It is the collection banner's own bookplate treatment written
+    the way `.active-deck` writes it: a gradient of the accent laid OVER `var(--card)` rather than mixed
+    into it, so the fade target is whatever paper the theme is using and no theme needs a rule of its own
+    (night takes a weaker mix, for the reason the collection pair does). The accent is `--tile`, which
+    `bookColor` sets from the AUTHOR — so two books by one hand wash the same, exactly as their spines do.
     A **sort picker** (`BOOK_SORTS`, shared `sortPickerHTML` with the glossary record) ships whatever the
     shelf holds, one book included: it was asked for outright, and a control that appears the day a second
-    book lands is one nobody knows to look for.
+    book lands is one nobody knows to look for. Its `written` row is **labelled "Date"** (renamed from
+    "Written" on request, Aug 2026 — the key is untouched, so no stored preference migrates).
     · **EVERY ORDER REVERSES, and the choice is REMEMBERED** (`sortDirHTML` / `setBookSort` /
       `bookSortKey()` / `bookSortRev()`, Aug 2026, on request). Both halves changed how the control is
       written. A `BOOK_SORTS` row is now `[key, field, forward, reverse]`: the **select names the FIELD**
@@ -2559,12 +2589,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **It is chosen by HOLDING THE BANNER** (`openReviewMenu` → `openDeckMenu(REVIEW_ENTRY)`, Aug 2026, on request),
   plus the Settings page's own "Random review order" switch. **The banner's sheet IS the deck sheet now** (Aug 2026,
   on request: "the same menu, without the delete option"): Custom study, Daily limits and Skip today above it, no
-  Remove — there is nothing to take the review out OF — and the Ordered/Random pair kept, being a property of the
+  Remove — there is nothing to take the review out OF — and the order kept, being a property of the
   pooled session and of nothing else. It was a `.review-order` pill absolutely positioned in the banner's top-right
   corner: a permanent control, in the corner of the one block on the home page that has something to say, for a
   setting almost nobody changes twice. The sheet is the same `deckSheet` shell the deck rows use one level down,
-  so the gesture is the same one step up the hierarchy, and the rows are `.dm-choice` — a SET, with the current
-  one ticked, rather than commands. **The long-press wiring is `wireHoldMenu(el, onHold, onTap)`** (beside
+  so the gesture is the same one step up the hierarchy.
+  **IT IS A SWITCH, NOT A PAIR OF ROWS** (`swRow` / `.dm-switch`, Aug 2026, on request). It was two
+  `.dm-choice` rows one of which carried a tick — two rows for one bit of state, and on a phone a third of
+  the sheet spent saying what one line says. The row's LABEL under the title states what the switch is
+  currently doing rather than what it could be changed to, so it reads as a sentence in both positions.
+  Three things about the shape are load-bearing and apply to **question variety** beside it too: the row is
+  a `<div>` (it CONTAINS a `role="switch"`, and a control inside a button is invalid and unreachable by
+  keyboard); a click anywhere on the row throws it, while the switch itself takes the tab stop and the
+  keys; and **throwing one must NOT close the sheet and must NOT repaint** — `render()` closes this very
+  sheet through `closeDeckMenu`, so a switch that repainted would dismiss itself on every flip, and there
+  is nothing on the page behind that either setting changes (both decide what a SESSION deals out).
+  `.dm-choice` survives for the book shelf's own favourite row. **The long-press wiring is `wireHoldMenu(el, onHold, onTap)`** (beside
   `openDeckMenu`), shared with the deck rows. Its one subtlety: the click that follows a hold is swallowed by a
   **document-level CAPTURE listener** keyed off `_holdUntil`, not by a flag the element's own handler checks —
   the banner already had a click listener before this ran, and listener order on one element is registration
@@ -2628,6 +2668,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the whiteboard marker's drag — a finger that moves more than `AD_SLOP` is scrolling, not holding — and
     `contextmenu` plus the ContextMenu key give a mouse and a keyboard the same way in. The sheet lives on
     `document.body`, so **`render()` closes it** (`closeDeckMenu`).
+  · **QUESTION VARIETY** (`deckVariety` / `setDeckVariety` / `scopeEntryId` / `S.settings.questionVariety`,
+    Aug 2026, on request). Whether a card asks one of its three phrasings at random or always the first.
+    It is **PER ENTRY with a global default**, exactly like the daily limits and for the same reason: this
+    sheet is opened on a deck's own row as well as on the pooled review, and a setting that silently
+    answered for every deck when thrown from one of them is the one thing a reader could not predict.
+    `S.deckOpts[id].variety` is written only where the switch has actually been thrown; everything else
+    follows `S.settings.questionVariety` (default true), so **nothing migrates**. `scopeEntryId(scope)` is
+    what a study session resolves its scope to — a deck's own for a `deck`/`udeck` scope, the review's for
+    everything else — and `PAGES.study` reads it ONCE per session, since the setting is changed from the
+    home page and a card requeued ten minutes later must not suddenly be asked a different way.
+    **The pool is CUT rather than the index pinned** (`cardQuestions(base).slice(0, 1)`): the ‹ › chevrons
+    and the "1 / 3" counter are drawn from `pool.length`, so they simply do not appear, and there is no
+    second state in which the counter says 1 / 3 and the arrows do nothing. The daily GAMES are untouched
+    — they draw from every card and are not deck-scoped, so a per-deck setting has no business there.
   · **The N/N STUDIED figure lives in the sheet's head, not on the row** (`.dm-studied`, Aug 2026, on request).
     It sat at the right of the row, where on a 390px line it competed with the deck's own name — the one part
     of the row with a shorter form, so the name is what gave way. The **bar stays on the row** and says the
@@ -2651,6 +2705,26 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   would otherwise make that button silently stop working), and **`countedActiveEntries` skips an entry with no
   available cards** — the shipped default `S.active` is a deck of the China collection, which is set aside as coming
   soon, and counting it would have left a brand-new reader at their cap before choosing anything.
+- **ADDING A COLLECTION ADDS WHAT IS INSIDE IT** (`nodeSubtreeIds` / `nodeAncestorIds` / `addActive` /
+  `removeActive` / `refreshAddButtons`, Aug 2026, on request). A collection used to enter the review as a
+  single entry with its decks showing under the banner as greyed CONTEXT rows — present, but not something
+  you could tap into, hold for options, or drop one of. Adding one now adds the collection **and every deck
+  and subdeck beneath it**, so each arrives as a row of its own. Three things follow, and each is the part
+  that would otherwise bite:
+  · **The CAP counts choices, not entries.** `countedActiveEntries` skips a node with an active ANCESTOR —
+    it is in `S.active` because the collection is — or a level-1 reader adding a collection of four decks
+    would instantly be five decks over their cap and unable to add anything at all. `addActive` therefore
+    tests the cap ONCE, against the thing the reader actually pressed.
+  · **Removing takes the node, its subtree AND its ancestors**, because an ancestor left active would go on
+    offering the very cards just removed and its + button would still read "added". What must not go with
+    the ancestor is its OTHER branches, so each is re-added explicitly first. Usually they are already
+    there (the cascade put them there); the exception is what makes it necessary — a save written before
+    this existed, where only the collection is listed and its decks are implied by it.
+  · **`wireAddButton` re-reads EVERY + on the page** (`refreshAddButtons`), not just the one pressed: one
+    press can change a dozen of them further down, and updating only the one clicked leaves the rest
+    showing what they meant a moment ago, which reads as the tick landing on the wrong row. It is a sweep
+    of the buttons rather than a `render()` because the collections page is a tree the reader has expanded
+    by hand, and rebuilding it would fold that back up.
 - **THE DAY BOUNDARY** (`dayKey` / `dayKeyOfDate` / `dayEndMin` / `dayEndTs` / `scheduleDayRoll`, Aug 2026,
   on a bug report: "the daily quote doesn't always change exactly at midnight"). A day used to be a UTC day
   (`new Date().toISOString().slice(0,10)`), so the quote, the card of the day, the streak, the review's
@@ -2912,6 +2986,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   card background; may carry `ttip` glossary links, but newly generated cards omit them),
   `citation, answerText`. (The legacy `citation` string is **not** the footnote system — see the next bullet;
   it predates it, is not in the editor, and is empty on every current card.)
+  **THE ANSWER ALWAYS OPENS ON A CAPITAL, and it is done in CSS** (`.answer .val::first-letter`, Aug 2026,
+  on request) — even where the question and the background write the term lower-case, since in the answer
+  box it is a heading naming the thing rather than a word in a sentence. Deliberately NOT a pass in
+  `buildBack`: the stored `answer` is HTML that may open on a `<b>` or an `<a>`, so an uppercasing pass in
+  JS would have to walk into the markup to find the first letter — and the same term is read aloud, typed
+  against in the cloze box and matched by the glossary, none of which must see a capital the data has not
+  got. `::first-letter` changes what is painted and nothing else; it reaches the letter through inline
+  descendants, and on a hanzi answer it is simply inert.
 - **Source footnotes (July 2026)** — the `SOURCE FOOTNOTES` block in app.js, just above `buildBack`. Three surfaces
   say things about the past — a card's background, a glossary description, an Atlas place panel — and each can now
   name the scholarship behind them. Each carries a **`sources` list of Chicago note-form citations** (card:
@@ -2956,6 +3038,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     attributes, with `wireSourceLinks` in a try/catch: the links are decoration over text this code didn't
     write, the numbering is the join between the prose and the list, and one must not be able to take the
     other down.
+  · **IN A BOOK THE MARKERS TAKE `--bknote`, NOT THE CARD'S VERMILION** (Aug 2026, on request). A card's
+    marker points at a work Folio is citing in support of a claim it makes; a book's points at the
+    TRANSLATOR's own note on the line in front of you, which is a different kind of thing, and on a page of
+    continuous prose a run of vermilion superscripts reads as a page full of corrections. **Every
+    neighbouring token was already spoken for** — `--zh` is the card's marker and the answer term,
+    `--indigo` a glossary link, `--ochre` a glossary term not yet opened, `--good` completion — so it is a
+    NEW token rather than a borrowed one, declared in `:root` and in the `body.night` block only: every
+    theme inherits it unless it says otherwise, and a per-theme dark variant that does not declare it still
+    picks up the night value (`body.night` outranks `:root` on the element they both target). The teal sits
+    ~186° round the wheel against `--good`'s ~152°, far enough to read as another thing rather than a shade
+    of the same one. Scoped to `.bk-page` — the markers, the entry numbers a marker points at, and both
+    hover washes together, so the two ends of a jump keep saying they are one thing.
   · **A card's, the Atlas panel's and a BOOK's folds are OPEN by default; a GLOSS POPUP's is always SHUT.** On
     the big surfaces a citation the reader has to go looking for is one they will not check, and checking is the
     whole point of shipping the apparatus (July 2026, on request — they were collapsed before; the book's notes
@@ -3734,7 +3828,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   n/c days" preference that is what makes the spread even rather than merely legal; seeded retries when a seating
   gets stuck. It rebuilds at load, so **adding quotes needs no thought here** — but the pool must stay solvable:
   an author with more than `2n/7` lines (5 of 20 today) cannot be spread by any arrangement, and the fallback is
-  the best attempt, not a guarantee. Guarded by `.claude/test-daily-quote.js`) → review banner (+ the "+ Add decks"
+  the best attempt, not a guarantee. Guarded by `.claude/test-daily-quote.js`, which slices `SHIPPED_QUOTES`
+  — the literal, before any one editor's overlay — since the rule has to hold for what every reader gets.
+  **THE POOL IS `SHIPPED_QUOTES` + THE ADMIN'S OVERLAY** (`quotesMerged` / `refreshQuotes` / `setQuoteEdit`
+  / `revertQuote`, Aug 2026, on request, for the Admin → Quotes tab). It lives in app.js, which the app
+  must never rewrite, so **the overlay IS the storage**: `ADMIN_EDITS.quotes` is applied over the literal
+  exactly as the glossary's deltas are applied over glossary.js, and a signed-in admin's overlay reaches
+  every reader through `content_overrides` with no deploy. The **key is a quote's shipped English text,
+  never its index** — an index moves the moment a quote is inserted above it and every earlier edit would
+  then point at somebody else's words, which is why the two daily-game pools are keyed by their English
+  `q` too; `null` retires a shipped quote, and a key matching nothing shipped is one the admin added.
+  `QUOTES` and `QUOTE_ORDER` are therefore both `let` and both DERIVED: the order is a property of the
+  whole pool, so adding or retiring one quote re-solves the lot. **Any writer calls `refreshQuotes()`**,
+  and `reapplyAdminOverlay` does too (undo, and a cloud-adopted overlay)) → review banner (+ the "+ Add decks"
   lip) → (first-run only) a 3-step how-it-works strip → a **Minigames** heading over the game tiles. That is the
   whole page, at every width.
   **THE DISCOVERY ROW IS GONE** (`.explore-grid`, and with it the **Card of the day** flip tile, the **Term of the
@@ -3749,16 +3855,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   (`S.cards` empty) the banner is a **first-run hero**: purpose sentence + "Study your first cards", which sets
   `S.active = ["china"]` (replacing the bare `cn-qing` default) and routes straight into a session; the level badge,
   xp bar, stats, review-order toggle and active-deck list appear only after that. The banner shows a **🔥 day-streak
-  chip** (`S.streak`, shown at 2+ when the run is alive). **Completion is a RIBBON, not a filled tile**
-  (`.gt-ribbon`, Aug 2026, on request — the banner and every game tile used to FILL with their colour once
-  played and turn gold on a perfect score, which was a lot of surface to change for one fact and fought every
-  theme's own treatment of the card). A small diagonal band crosses the TOP-RIGHT corner instead — the tile's
-  own hue reading "Played" / "Done", the same shining gold (`gt-gold-shine`) reading "Perfect" — over a surface
-  left exactly as it was. It carries a WORD rather than being a bare colour: an unlabelled band says nothing to
-  a screen reader and little more to the eye. `.done` / `.won` stay on the element (they are what the tests and
-  the achievements read); all they do now is carry the ribbon. The green `.gt-done` check circle went with the
-  fill, as did the earned fill that used to run down the added decks (`rv-done` / `rv-won` are still set on
-  `.review-group`, and nothing styles them). It reads `S.reviewDay = { d, n, miss }` (in
+  chip** (`S.streak`, shown at 2+ when the run is alive). **Completion is a MARK in the top-right corner, and
+  it comes in TWO SHAPES** (`doneMarkHTML` in `PAGES.home`; Aug 2026). The tile used to FILL with its colour
+  once played and turn gold on a perfect score, which was a lot of surface to change for one fact and fought
+  every theme's own treatment of the card; that became a diagonal **ribbon**, and the ribbon then split in
+  two on a second request. A **perfect** score keeps it — the shining gold (`.gt-ribbon.gr-gold`,
+  `gt-gold-shine`) reading "Perfect!". Merely **having played** is a small green circled check
+  (`.gt-check`, `--good`) instead of a green band reading "Done!": a ribbon is a lot of tile for a fact that
+  only says "you have been here today", and six of them across the grid read as six announcements rather
+  than six ticked-off games. **Both still carry a NAME** — the ribbon its word, the circle an `aria-label` —
+  because an unlabelled patch of colour says nothing to a screen reader and little more to the eye, which is
+  the reasoning the ribbon was built on and is not weakened by the mark getting smaller. `.done` / `.won`
+  stay on the element (they are what the tests and the achievements read); all they do now is carry the mark.
+  The earned fill that used to run down the added decks went with the original change (`rv-done` / `rv-won`
+  are still set on `.review-group`, and nothing styles them). It reads `S.reviewDay = { d, n, miss }` (in
   `defaultState` + `PROGRESS_FIELDS`), written by **`logReviewDay`** from `grade()`: only a card's FIRST attempt
   of the day counts (`firstToday`, from the pre-grade `c.last`), since a learning card is graded again ten minutes
   later; correct = anything but Again, as in `logReview`. `reviewLog` can't answer this — it counts every grade
@@ -3796,16 +3906,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   The button is **CENTRED against them** (`align-items:center`, Aug 2026, on request): a figure over a label is a
   two-line column, and the `flex-end` this rule used to carry put a one-line button on its baseline, reading as
   having slipped down.
-- **The home page is ONE COLUMN and, since Aug 2026, ONE PAGE at every width** (`const phone = phoneHome()` at
-  the top of `PAGES.home`). It was three swiped panes for a week (`.home-pager` / `.hp-pane` / `#homeDots` — all
+- **The home page is ONE COLUMN and, since Aug 2026, LITERALLY THE SAME PAGE at every width** (`PAGES.home`).
+  It was three swiped panes for a week (`.home-pager` / `.hp-pane` / `#homeDots` — all
   gone, along with their ≤640px rules), then one column on a phone and a longer page on a desktop, and is now the
   same page on both: quote → review group (+ the lip, + the first-run how-it-works strip) → a **Minigames**
-  heading over the game grid → (phone only) the About line, in `.banners`, which is the flex column the pager
-  used to be. **`phone` now gates exactly ONE thing — the About line** — because a desktop still has a top bar
-  with an About tab in it; everything else it used to gate has been removed for everyone.
-  · **Crossing the breakpoint still RE-RENDERS** (`_homeResize`, one listener ever — `render()` re-enters
-    `PAGES.home`, so a per-render listener would pile up for the session). The About line is BUILT on a phone
-    and not on a desktop, which is a difference CSS cannot make; don't "simplify" this away.
+  heading over the game grid → the About line, in `.banners`, which is the flex column the pager used to be.
+  · **THERE IS NO `phone` FLAG AND NO RESIZE LISTENER ANY MORE** (Aug 2026). The retreat ran: the swiped
+    panes, then the discovery row, then the lip to the collections, and finally the About line, each brought
+    into line on request and always in the direction of what the phone already showed. With the desktop's
+    About tab gone the line ships at both widths, and nothing here is BUILT at one width and not the other —
+    so `const phone = phoneHome()` and `_homeResize` (which existed only to rebuild the page on a breakpoint
+    cross, since that is a difference CSS cannot make) are both retired. `_homeResize` is still torn DOWN on
+    the way in, so a listener installed by an older build in the same session goes with it. What still
+    differs is layout, and the stylesheet answers for that alone.
   · **The games are 3 × 2 on a phone and 3-wide on a desktop, under a `.games-head` heading that now ships at
     EVERY width** (Aug 2026, on request — it was phone-only, and with the discovery row gone the grid is the
     last thing on the page, so six coloured squares under nothing at all do not say what they are). The heading
@@ -3833,8 +3946,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     only route to the collections down here, and paper-on-paper it read as part of the card's own edge. The
     blue is the site's primary-button indigo, so it matches Start review directly above it.
   · **`.home-about`** — a centred grey "About Folio" line (`#b-about` → `route("mission")`) at the foot, from
-    when About left the tab bar. Phone-only on the same terms as the lip, and, like it, **rendered only on a
-    phone** rather than hidden above the breakpoint. Its `20px 0 16px` padding is the whole of its separation
+    when About left the tab bar. It was phone-only for a fortnight and now ships at **EVERY width** (Aug
+    2026, on request), the About tab having left the DESKTOP's top bar too: this is the only route to the
+    page anywhere on the site, so it must not be gated on a breakpoint — exactly the rule the `.rv-lip`
+    already follows for the collections. The `#mission` ROUTE is untouched and must stay so: every link ever
+    shared points at it, and `setActiveTab` already handles a route with no tab (nothing lights). Its
+    `20px 0 16px` padding is the whole of its separation
     from the games above it (Aug 2026, on request — it was `4px 0 2px`, leaving it crowded against the grid).
     Guarded by `test-layout.js`.
 - **Home minigames** (game-grid tiles → `PAGES.*`): **Multiple Choice** (`PAGES.challenge`, formerly "Daily Challenge" — the
@@ -3907,6 +4024,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   the collections still being written far outnumber the finished ones (currently 6 to 1), and listing them flat made
   the Library read as empty. A live collection's banner also carries a **card count** (`.collection-count`, from
   `subtreeCardIds`) — the one number that says there is something to study here.
+  **A DECK ROW SAYS HOW MANY CARDS IT HOLDS, not what years they cover** (`.node-count`, Aug 2026, on
+  request). The banner one level up had said this all along, and the two rows disagreeing about what the
+  small grey figure on the right MEANS is the whole reason to change it. What is dropped is the
+  AUTO-DERIVED span (`nodeSpanText` → the earliest and latest datable card inside); a date an editor has set
+  BY HAND on the node still shows, exactly as it does on a collection, since that is a fact about the deck
+  rather than a summary of its contents. An empty deck says so, for the reason the banner does — "0 cards"
+  reads as a figure that failed to load. `nodeSpanText` is still what the admin editor's date field reads.
   (The first group was labelled "All decks" until Aug 2026, which contradicted both the hierarchy —
   collection → deck → subdeck — and the page's own title.)
   **A coming-soon collection shows its name and the pill, and nothing else** (Aug 2026): it used to carry a
@@ -3966,11 +4090,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `test-layout.js` now measures every tab's icon centre against its label's, active included.
   Every tab is labelled here (the top bar's labels unfold on hover, and a phone has no hover). Hidden while
   `body.grading`: the grade bar owns that edge, and a session is a place you finish rather than browse from.
-  **The editor's way in is `showAdminEditBtn(cardId)`** (`.admin-edit-fab`), a button on the page rather
+  **The admin area's way in is `showAdminEditBtn(cardId)`** (`.admin-edit-fab`), a button on the page rather
   than a nav tab. Called with a card id from the study page — it opens THAT card in the editor — and with
-  `null` from the home page, where it just opens the editor; the plain variant carries `.aef-plain` and is
-  **phone-only**, since above the breakpoint the top bar's Edit tab is still there and a second way in
-  beside it is clutter. On a phone both sit **top-right** (`right:12px`, `top:10px + safe-area-inset-top`);
+  `null` from the home page, where it just opens the admin area; the plain variant carries `.aef-plain` and is
+  **phone-only**, since above the breakpoint the top bar's Admin tab is still there and a second way in
+  beside it is clutter. **The card variant says "Edit" and the plain one says "Admin"** (Aug 2026, when the
+  page was renamed): the tab names the PLACE and this names what pressing it does to the card in front of
+  you, and "Admin" on a study card would be the wrong half to state on the one control an editor presses a
+  hundred times a day. On a phone both sit **top-right** (`right:12px`, `top:10px + safe-area-inset-top`);
   on a desktop the study card's copy stays bottom-left as it always has.
   Two things bit here. It is **admin-gated inside the function**, not by the caller — it used to be built
   unconditionally on every study card, so a signed-out reader got an Edit button that bounced them home.
@@ -3996,6 +4123,32 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `enabled` → the button's `.on` (visible with the panel shut) plus the canvas; **`wbSetEnabled` is the
     one place `enabled` changes**, because the Atlas owns its own cursor / hover / spin state and has to be
     told through `WB.onToggle` the moment the pen goes down or up.
+  · **IT HAS WEIGHT: it can be THROWN** (`WB_FLING_*` / `wbStopFling` / `wbClampPos`, Aug 2026, on request).
+    It used to stop dead on the lift, which on a phone reads as the thing being stuck to the finger rather
+    than being moved by it; it now keeps the velocity it was released at and coasts to a stop under
+    friction. The shape is deliberately `panFling`'s — the hand-rolled scroll the ink layer does for a
+    finger in stylus mode — since two things that coast on one page must coast the same way. Three things
+    are decisions rather than arithmetic. **THE VELOCITY IS MEASURED ACROSS A WINDOW OF SAMPLES, NEVER FROM
+    ONE MOVE** (`WB_FLING_WINDOW` / `WB_FLING_MIN_DT` / `WB_FLING_IDLE`), and this is the whole of the
+    difficulty — a per-event `delta / dt` is wrong in BOTH directions. A pointer stream ends with a sample
+    or two of near-zero movement as the finger settles to lift, so read raw a hard throw dies on release
+    exactly like the behaviour it replaces; and **a burst of moves arriving within a millisecond of each
+    other divides a large delta by a clamped `dt` of 1 and reports a velocity nothing could produce**,
+    which sent the marker into the far corner of the screen. That second one shipped and `test-layout.js`
+    caught it ("dragging it follows the pointer" — the marker was at 6,7 having been dragged to 29,30), and
+    it is worth knowing that a SYNTHETIC drag is the case that exposes it: a test's moves land closer
+    together than a hand can move. So the last `WB_FLING_WINDOW` ms of samples are kept, the velocity is
+    the distance across that window over its own span, and a window shorter than `WB_FLING_MIN_DT` is not
+    flung at all — a movement the browser cannot time is not a throw. A finger that **paused before
+    lifting** (`WB_FLING_IDLE`) is setting the marker down, not throwing it.
+    **It DIES AT THE WALL** — `wbClampPos` now clamps the STORED position (it used to clamp only the inline
+    style, which is harmless while the value is only re-read on the next apply and wrong while a fling is
+    integrating against it) and returns which edges were hit, so that axis's velocity is zeroed and the
+    marker stops against the edge instead of grinding along it. No bounce: this is a control being put down.
+    And it is gated on `prefersReducedMotion()` like every other movement, stops the moment a new press
+    lands, and **saves only once it has come to rest** — where it landed, not where it left.
+    `.wb-flinging` joins `.wb-dragging` in killing the `bottom` transition, which would otherwise fight the
+    fling frame for frame.
   · **The handle is the toggle button itself** — there is nothing else to grab — so every press has to be
     classified: under `WB_DRAG_SLOP` (5px) it stays a click and toggles drawing, past it the drag takes over
     and the click that pointerup fires afterwards is swallowed by the `wbDragged` flag, which the toggle's own
@@ -4853,7 +5006,32 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     editor.
   · `adminState.tab === "accounts"` is a **retired value**: `restoreAdminUI` drops it so a session saved
     before this change opens on the editor's default tab rather than one that no longer exists.
-- **Edit → Dashboard: Folio in numbers (Aug 2026, on request).** The editor's FIRST tab and the one a fresh
+- **THE EDIT PAGE IS THE ADMIN PAGE (Aug 2026, on request).** The top bar's tab and the route's `PAGE_META`
+  title say **Admin**; the route, the hash (`#admin`), `adminState` and every internal name are untouched, so
+  nothing shared or stored moves. **The per-card button KEEPS saying "Edit"** — `showAdminEditBtn(cardId)`
+  labels itself "Edit" with a card and "Admin" without one, because the two are answering different
+  questions: the tab names the PLACE, and the button on a study card names what pressing it does to the card
+  in front of you. Prose in this file and in app.js says "Admin → Feedback" / "Admin → Timeline" to match;
+  the per-item Edit actions (a glossary term's pencil, a deck's Edit in the Studio) are unchanged, being the
+  same kind of label as the card button.
+- **Admin → Quotes: the home page's daily quote, seen, edited and PLANNED (Aug 2026, on request).**
+  `adminRenderQuotes`, a fifth tab taking over the admin area the way Feedback, Timeline and the Dashboard
+  do (`.quotes-mode`, the same hide list). The data layer is the `SHIPPED_QUOTES` + overlay design described
+  under the Home page bullet; three things about the TAB are decisions rather than plumbing.
+  · **It lists in RUNNING ORDER, not array order, and dates every row.** The order is solved from the pool
+    (no author two days running, none more than twice a week), so where a quote sits in the source says
+    nothing about when a reader will meet it — and when they will meet it is exactly what an editor adding
+    a fifth Confucius line needs to know. Today's is marked; the rest carry "tomorrow", "in N days" and the
+    date. That is the whole of what "plan" means here, and it is a question nothing else on the site answers.
+  · **The form covers the English AND the original-language block** (`o`: lang, text, speaker, source),
+    which is what a reader actually flips the quote over to see. An `o` is written only when the language
+    and the words are both filled in — an empty one would make the home page offer a flip that turns the
+    quote into nothing. The nine-language chrome translations are not editable here: they are `chrome.exact`
+    rows managed by `.claude/add-lang.js`, and the site is English-only behind `MULTILANG` anyway.
+  · **"Copy as JS" hands the whole pool back as the `SHIPPED_QUOTES` literal**, for pasting into app.js when
+    a batch is settled. It is the bake path this tab has instead of `autoSaveFiles`, which writes data files
+    and must never be pointed at app.js.
+- **Admin → Dashboard: Folio in numbers (Aug 2026, on request).** The editor's FIRST tab and the one a fresh
   session opens on (`adminState.tab` defaults to `"dashboard"`; a session interrupted mid-edit still comes back
   to the card it was on — `restoreAdminUI` exists because auto-save can live-reload the page between
   keystrokes, and losing that would be a worse regression than gaining this). It takes over the admin area the
