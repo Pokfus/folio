@@ -14,9 +14,17 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.33", released: "2026-08-05T18:16Z" };
+window.FOLIO_VERSION = { v: "1.34", released: "2026-08-06T15:20Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-08-06",
+    t: "Answers without “the” in front of them, and a date put right",
+    items: [
+      "The answer on a card is now the term by itself. Where a card used to answer “the polis” or “a cist grave”, it answers “polis” and “cist grave”; the “the” has moved into the question and the background, where the sentence needs it. Fifty-three cards changed, and reading them all back turned up two sentences that the article had been hiding: one that said “the first the rhapsode” and one that had thirty-four tombs being a single grave.",
+      "One card in the Ancient Greece deck closed its period around 1200 BCE in the background while the dates beside the answer ran it on to about 1050. The palaces burned at the earlier date and the age went on for another century and a half, which is what the card now says, and the third way of asking the question said the same wrong thing and has been corrected with it.",
+    ],
+  },
   {
     d: "2026-08-05",
     t: "Five more books in the Library, notes in the margins, and new Ancient Greece cards",
