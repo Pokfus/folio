@@ -5158,22 +5158,33 @@
       year: -429,
       translator: "Richard Jebb",
       edition: "Sophocles: The Plays and Fragments, Cambridge University Press, 1887",
-      /* THE EASIEST LICENCE ON THIS SHELF, and the only one that is easy on BOTH columns. The
-         Republic's was the first to need no qualification at all; this one matches it twice over.
-         Jebb published in 1887 and died in 1905; Storr's Greek was published in 1912 and Storr died
-         in 1919. So both clear the pre-1929 publication rule AND life-plus-seventy AND life-plus-a-
-         hundred, and neither needs the limit the Art of War states for Giles (2029) or the
-         Nicomachean Ethics for Ross (2042). Both death years were checked against Wikisource's author
-         pages rather than recalled — the Ovid entry's Hugo Magnus mistake was precisely a death year
-         asserted from memory to hold up a licence. See .claude/fetch-book.js. */
+      /* THE EXPIRIES ARE THE EASIEST ON THIS SHELF AND THERE IS A THIRD LAYER UNDER THEM — corrected
+         Aug 2026, when the Antigone was added and the same check was run across all three plays
+         rather than only over the book being added. Jebb published in 1887 and died in 1905; Storr's
+         Greek was published in 1912 and Storr died in 1919. So both clear the pre-1929 publication
+         rule AND life-plus-seventy AND life-plus-a-hundred, and neither needs the limit the Art of
+         War states for Giles (2029) or the Nicomachean Ethics for Ross (2042). Both death years were
+         checked against Wikisource's author pages rather than recalled — the Ovid entry's Hugo Magnus
+         mistake was precisely a death year asserted from memory to hold up a licence.
+
+         WHAT THIS ENTRY USED TO LEAVE OUT is that Perseus has edited the PROSE as well as digitising
+         it: the English served here is Jebb modernized to remove archaisms, by Alex Sens in 1988 and
+         reviewed by John Gibert, which the source file states in its own header and which this string
+         called "public domain on every ground" without mentioning. That is a recent derivative work
+         carried by CC BY-SA 4.0 rather than by an expiry — the Histories' case, which its own entry
+         sets out at length — so it is now stated here as it is on the Antigone. (Coleridge's Medea
+         carries no such note; checked, not assumed.) See .claude/fetch-book.js. */
       rights:
-        "Public domain on every ground, in both columns. Richard Jebb's translation was published at " +
-        "Cambridge in 1887 and Jebb died in 1905; the Greek beside it is Francis Storr's text of " +
-        "1912, and Storr died in 1919. Both are therefore public domain in the United States on the " +
-        "pre-1929 publication rule and everywhere that the term is the author's life plus a hundred " +
-        "years or less. Sophocles wrote the play in Athens some twenty-four centuries ago. The " +
-        "digital editions of both texts are prepared by the Perseus Digital Library at Tufts " +
-        "University and are released under a Creative Commons Attribution-ShareAlike 4.0 " +
+        "Public domain in both columns, with one addition stated. Richard Jebb's translation was " +
+        "published at Cambridge in 1887 and Jebb died in 1905; the Greek beside it is Francis Storr's " +
+        "text of 1912, and Storr died in 1919. Both are therefore public domain in the United States " +
+        "on the pre-1929 publication rule and everywhere that the term is the author's life plus a " +
+        "hundred years or less. Sophocles wrote the play in Athens some twenty-four centuries ago. " +
+        "The English printed here is not quite Jebb's page, however: it is his translation modernized " +
+        "to remove archaisms, by Alex Sens in 1988 and reviewed by John Gibert, which the source file " +
+        "records in its own header. That editing is a recent work rather than an expired one, and it " +
+        "— with the digital editions of both texts — is prepared by the Perseus Digital Library at " +
+        "Tufts University and released under a Creative Commons Attribution-ShareAlike 4.0 " +
         "International licence. (The modern translations by David Grene, 1942, Dudley Fitts and " +
         "Robert Fitzgerald, 1949, and Robert Fagles, 1982, are still in copyright and are not used " +
         "here.)",
@@ -5252,6 +5263,70 @@
       count: 13,
       total: 13,
       /* No `parts`: a single play, and its edition divides it no further than the thirteen. */
+    },
+    {
+      id: "sophocles-antigone",
+      title: "Antigone",
+      // the play's own Greek title, which is what its Greek column is an edition of — the pattern
+      // Lucretius set and both earlier plays followed
+      subtitle: "Ἀντιγόνη",
+      author: "Sophocles",
+      /* The date is not recorded. About 441 BCE is the usual estimate and the argument for it is an
+         ancient note saying the play won Sophocles election as general — a story told about the play
+         rather than a record of its performance — so the front matter carries the doubt rather than
+         letting the `c.` do all of it, as the Oedipus Rex's does. */
+      written: "c. 441 BCE",
+      year: -441,
+      translator: "Richard Jebb",
+      /* NOT the Oedipus Rex's volume: that is Jebb's volume 1 of 1887 and this his volume 3 of 1891,
+         the same series a few years on. A second book by an author already on the shelf is exactly
+         where an edition line gets copied across by hand and quietly made wrong. */
+      edition: "Sophocles: The Plays and Fragments, Volume 3, Cambridge University Press, 1891",
+      /* THE OEDIPUS REX'S LICENCE PLUS A THIRD LAYER, which is the Histories' case a second time and
+         the reason this entry is longer than its sibling's. The two printed editions are the easy
+         ones: Jebb published in 1891 and died in 1905, Storr's Greek is the 1912 Loeb — the same
+         volume the Oedipus Rex takes its Greek from — and Storr died in 1919, so both clear the
+         pre-1929 rule AND life-plus-seventy AND life-plus-a-hundred, needing none of the limits the
+         Art of War (2029), the Nicomachean Ethics (2042) or the Medea (2028) state. Both years were
+         checked against Wikisource's author pages rather than recalled, for the Hugo Magnus reason.
+         What is NOT easy is that Perseus has edited the prose as well as digitising it: this English
+         is Jebb modernized to remove archaisms, by Pierre Habel in 1988 and reviewed by John Gibert,
+         which the source file states in its own header. That is a recent derivative work carried by
+         CC BY-SA 4.0 rather than by an expiry, so it is said in `rights`, on the book's own front
+         matter and in .claude/fetch-book.js — a reader who goes looking for the 1891 printing must
+         not be surprised by what they find. */
+      rights:
+        "Public domain in both columns, with one addition stated. Richard Jebb's translation was " +
+        "published at Cambridge in 1891 and Jebb died in 1905; the Greek beside it is Francis " +
+        "Storr's text of 1912, and Storr died in 1919. Both are therefore public domain in the " +
+        "United States on the pre-1929 publication rule and everywhere that the term is the author's " +
+        "life plus a hundred years or less. Sophocles wrote the play in Athens some twenty-five " +
+        "centuries ago. The English printed here is not quite Jebb's page, however: it is his " +
+        "translation modernized to remove archaisms, by Pierre Habel in 1988 and reviewed by John " +
+        "Gibert, which the source file records in its own header. That editing is a recent work " +
+        "rather than an expired one, and it — with the digital editions of both texts — is prepared " +
+        "by the Perseus Digital Library at Tufts University and released under a Creative Commons " +
+        "Attribution-ShareAlike 4.0 International licence. (The modern translations by Dudley Fitts " +
+        "and Robert Fitzgerald, 1939, Elizabeth Wyckoff, 1954, and Robert Fagles, 1982, are still in " +
+        "copyright and are not used here.)",
+      sourceName: "Perseus Digital Library",
+      sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0011.tlg002/",
+      /* Paired on the LINE NUMBER, like both earlier plays, and this is the cleanest of the three:
+         513 of 513 sections pair and not one draws an empty Greek cell, where the Oedipus Rex leaves
+         three of 683 and the Medea two of 502. The lettered lines are on the GREEK side alone here
+         (161b, 323a, 1048a, 1261a, 1284a) and none is in the English, so the explicit `data-n` sort
+         key the Bekker pages introduced is doing its work on the original column: 323 and 323a are
+         two different places, and parseInt would collapse them into one row. */
+      origLang: "grc",
+      origName: "Greek",
+      /* Folio's own neutral word for a division, as for both earlier plays: this edition numbers its
+         divisions not at all, and an act is a later theatre's unit a Greek tragedy has not got. The
+         number is Folio's; the name of each part is the edition's own. */
+      chapterWord: "Part",
+      // the whole play — the edition divides it into sixteen and there is no more of it
+      count: 16,
+      total: 16,
+      /* No `parts`: a single play, and its edition divides it no further than the sixteen. */
     },
     {
       id: "herodotus-histories",
@@ -18006,7 +18081,7 @@
             <li><a href="https://www.naturalearthdata.com" target="_blank" rel="noopener">Natural Earth</a> <span class="cr-lic">public domain</span> — coastlines, borders, lakes, rivers and cities on the globe.</li>
             <li><a href="https://github.com/aourednik/historical-basemaps" target="_blank" rel="noopener">historical-basemaps</a> <span class="cr-lic">CC BY-SA 4.0</span> — the historical border eras on the Atlas timeline.</li>
             <li><a href="https://en.wikisource.org" target="_blank" rel="noopener">Wikisource</a> <span class="cr-lic">public domain</span> — the Library's texts: Gummere's Seneca, Haines's Marcus Aurelius, Giles's Sun Tzu, Jowett's Plato and Ross's Aristotle, with Seneca's Latin and Sun Tzu's Chinese.</li>
-            <li><a href="https://scaife.perseus.org/library/" target="_blank" rel="noopener">Perseus Digital Library</a> <span class="cr-lic">CC BY-SA 4.0</span> — the Greek of the <i>Meditations</i> (Jan Hendrik Leopold's edition of 1908), of the <i>Symposium</i> (John Burnet) and of the <i>Nicomachean Ethics</i> (Ingram Bywater); and both halves of the <i>Metamorphoses</i> (Brookes More's translation of 1922, with Hugo Magnus's Latin), <i>The Twelve Caesars</i> (Alexander Thomson's translation, with Maximilian Ihm's Latin of 1908), <i>On the Nature of Things</i> (William Ellery Leonard's verse of 1916), <i>Oedipus Rex</i> (Richard Jebb's translation of 1887, with Francis Storr's Greek of 1912) and <i>The Histories</i> (A. D. Godley's translation of 1920–1925 with his facing Greek — the English modernized by Perseus to remove archaisms, a revision by Steven Ott reviewed by John Marincola).</li>
+            <li><a href="https://scaife.perseus.org/library/" target="_blank" rel="noopener">Perseus Digital Library</a> <span class="cr-lic">CC BY-SA 4.0</span> — the Greek of the <i>Meditations</i> (Jan Hendrik Leopold's edition of 1908), of the <i>Symposium</i> (John Burnet) and of the <i>Nicomachean Ethics</i> (Ingram Bywater); and both halves of the <i>Metamorphoses</i> (Brookes More's translation of 1922, with Hugo Magnus's Latin), <i>The Twelve Caesars</i> (Alexander Thomson's translation, with Maximilian Ihm's Latin of 1908), <i>On the Nature of Things</i> (William Ellery Leonard's verse of 1916), <i>Oedipus Rex</i> (Richard Jebb's translation of 1887) and <i>Antigone</i> (Jebb's of 1891), both with Francis Storr's Greek of 1912 and both Englished from Jebb by way of Perseus's 1988 modernization to remove archaisms — Alex Sens on the <i>Oedipus Rex</i> and Pierre Habel on the <i>Antigone</i>, each reviewed by John Gibert; and <i>The Histories</i> (A. D. Godley's translation of 1920–1925 with his facing Greek — the English likewise modernized, a revision by Steven Ott reviewed by John Marincola).</li>
             <li><a href="https://registry.opendata.aws/terrain-tiles/" target="_blank" rel="noopener">Terrain Tiles on AWS</a> — terrain relief, from open elevation data by NASA (SRTM), USGS (GMTED2010), NOAA (ETOPO1) and the EU (EU-DEM), among others.</li>
             <li><a href="https://github.com/rhasspy/piper" target="_blank" rel="noopener">Piper</a> <span class="cr-lic">MIT</span> — the card narration voices, trained on <a href="https://www.openslr.org/141/" target="_blank" rel="noopener">LibriTTS-R</a> <span class="cr-lic">CC BY 4.0</span> and <a href="https://datashare.ed.ac.uk/handle/10283/3443" target="_blank" rel="noopener">VCTK</a> <span class="cr-lic">CC BY 4.0</span>.</li>
             <li><a href="https://fonts.google.com" target="_blank" rel="noopener">Google Fonts</a> <span class="cr-lic">OFL / Apache</span> — Fraunces, Newsreader, Inter, IBM Plex Mono, Noto Sans SC and the theme faces.</li>
