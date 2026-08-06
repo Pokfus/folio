@@ -135,10 +135,14 @@ rather than wonder at the gap. `gr-045` moved a second time when it was written:
 and not an answer term, and the aftermath of the eruption is in any case largely the story of its ash,
 so the card ships as *Theran tephra* — with the Cretan destructions and the Mycenaean takeover left to
 `gr-050` and `gr-051`, which is what kept it from eating them.
-Two more were recast without changing subject and carry no dagger:
-`gr-075` from *Michael Ventris* to the decipherment itself, and `gr-102` from *Troy at Hisarlik* to
+Three more were recast without changing subject and carry no dagger:
+`gr-075` from *Michael Ventris* to the decipherment itself, `gr-102` from *Troy at Hisarlik* to
 plain *Troy*, since naming the mound the Victorians dug is the archaeology and the city is the
-history. `gr-104`'s first draft was *The Trojan War in Greek tradition*, which `gr-944 The Trojan War
+history, and `gr-172` from *Astu and chora* to plain *Chora* — a pair is not an answer term, and a
+blank cannot be filled with two words joined by *and*. The card still teaches both halves, defining
+the astu against the chora in its second sentence; what changed is which of the two the reader is
+asked to recall, and the sources decided that, the territory being what the scholarship turns on and
+the town being covered again by `gr-173` and `gr-174`. `gr-104`'s first draft was *The Trojan War in Greek tradition*, which `gr-944 The Trojan War
 in myth` already covers — **check the myth decks before filling a Bronze Age slot**, since they carry
 the same names for different subjects.
 
@@ -366,7 +370,7 @@ out-of-copyright Loebs are all open.
 ### Polis and colonisation — `gr-polis`
 
     gr-171  Dreros †  (was: Polis)
-    gr-172  Astu and chora
+    gr-172  Chora
     gr-173  Acropolis
     gr-174  Agora
     gr-175  Polites
