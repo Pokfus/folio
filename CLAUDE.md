@@ -95,16 +95,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `sun-tzu-art-of-war` (~379 KB, all 13 chapters, 385 section numbers in 383 rows, 608 notes),
   `plato-republic` (~666 KB, all 10 books, **no section numbers at all**, 117 translator notes — the
   first book here with none, which is why it has no original; see the `<id>.<lang>.js` bullet below),
-  `plato-dialogues` (~780 KB, **eleven dialogues as eleven chapters**, 304 Stephanus sections, 63 notes —
-  the first book here whose chapter is a whole separate WORK rather than a division of one, so both
-  columns are addressed through a table (`DIALOGUES` in the importer) instead of by arithmetic; it
-  **absorbed the standalone `plato-symposium`** on 2026-08-06, whose chapter is byte-identical to what
-  shipped alone, and a `S.reading` / `S.bookFavs` migration in app.js carries the reader's place and star
-  across the id change. Eleven of the edition's thirty-six because Wikisource's transcription is
-  unfinished — the Gorgias carries 1 of its 81 Stephanus pages, the Phaedrus 2 of 53, the Phaedo 26 of 62
-  — and **the test for that is the visible `Page:…djvu/NNN` red-link text an untranscribed leaf leaves in
-  the rendered page**, never a count of section markers, which cannot tell a short dialogue from a
-  truncated one),
+  `plato-dialogues` (**~3.9 MB, much the largest book on the shelf** — **thirty-five whole WORKS as
+  thirty-five chapters**, 1,484 Stephanus sections, 1,627 notes. The first book here whose chapter is a
+  separate work rather than a division of one, so both columns are addressed through a table
+  (`DIALOGUES` in the importer) instead of by arithmetic. It **absorbed the standalone
+  `plato-symposium`** on 2026-08-06 — a `S.reading` / `S.bookFavs` migration in app.js carries the
+  reader's place and star across the id change, and **its chapter number is re-derived, not constant**
+  (7 while the book was Jowett's eleven, 11 once it was rebuilt in the ancient order; a stale number
+  there does not throw, it just opens a reader on the wrong dialogue).
+  **IT SHIPPED TWICE IN ONE DAY AND THE SECOND SHAPE IS THE LESSON.** It was first built from
+  Wikisource's Jowett, which is the obvious source and is UNFINISHED: measured against Perseus's own
+  section counts, the Gorgias carried 1 of its 81 Stephanus pages, the Phaedrus 2 of 53, the Phaedo 26
+  of 62, and ten works were unusable — **the test being the visible `Page:…djvu/NNN` red-link text an
+  untranscribed leaf leaves in the rendered page**, never a count of section markers, which cannot tell
+  a short dialogue from a truncated one. Rebuilt on request from the **Loeb** translations on Perseus,
+  which are complete, it went from eleven dialogues to thirty-five. **Ask what the source is MISSING
+  before building on it**: the first shape was correct about everything it contained and was a third of
+  the book.
+  Thirty-five of thirty-six because Perseus's English Republic is Shorey's of 1935–37 and still in
+  copyright — a LICENCE gap, not a textual one; the Republic is on the shelf from another printing),
   `ovid-metamorphoses` (~813 KB, all 15 books, 156 section numbers, **0 notes** — the first book
   here whose edition carries none, so its chapters render with no note fold at all, which is correct
   and not a wiring fault), `suetonius-twelve-caesars` (~952 KB, all 12 lives, 551 chapter numbers,
@@ -145,12 +154,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   lines of hexameter), `suetonius-twelve-caesars.la.js` (~530 KB, all 12 lives, 541 chapters) and
   `lucretius-nature-of-things.la.js` (~352 KB, all 6 books, 213 cards, 7,382 lines of hexameter) and
   `aristotle-nicomachean-ethics.grc.js` (~335 KB, all 10 books, 181 Bekker pages) and
-  `plato-dialogues.grc.js` (~620 KB, all eleven dialogues, 309 Stephanus sections — Burnet's Oxford
-  Classical Text, and the FIRST original assembled from a file PER CHAPTER of a multi-work book, one
-  Perseus work id each. Ten are `perseus-grc2`; the Euthyphro has no grc2 at all and its grc1 is the
-  older encoding, whose divisions read `resp n subtype` where the newer ones read `n subtype` — inert,
-  because `teiSections` reads a division's attributes independently of their order, but a probe that
-  fixes the order reports that dialogue as having no sections whatever) and
+  `plato-dialogues.grc.js` (**~5.6 MB, much the largest file in the project** — all thirty-five works,
+  1,484 Stephanus sections. Burnet's Oxford Classical Text, and the FIRST original assembled from a
+  file PER CHAPTER of a multi-work book, one Perseus work id each. Thirty-four are `perseus-grc2`; the
+  Euthyphro has no grc2 at all and its grc1 is the older encoding, whose divisions read
+  `resp n subtype` where the newer ones read `n subtype` — inert, because `teiSections` reads a
+  division's attributes independently of their order, but a probe that fixes the order reports that
+  dialogue as having no sections whatever, which is how it was first measured here.
+  **THE ONLY PAIRING IN THE LIBRARY THAT IS EXACT BY CONSTRUCTION AT SCALE**: both columns are the
+  same TEI encoding of the same citation scheme from the same publisher, so they cannot drift.
+  Measured anyway, all 35 works — 1,484 sections a side, identical numbers in identical order, no
+  exception either way. **The Letters repeat ten Stephanus numbers** (a page spanning the join between
+  one letter and the next) **and both columns repeat the same ten in the same places** — worth checking
+  rather than assuming, since a duplicate on ONE side only is what would quietly merge two passages
+  into one row) and
   `sophocles-oedipus-rex.grc.js` (~123 KB, the whole play, 691 line numbers) and
   `herodotus-histories.grc.js` (~1.26 MB, all 9 books, 1,577 of the translation's 1,578 chapters) and
   `confucius-analects.zh.js` (~44 KB, all 20 books, all 499 chapters — the smallest original on the
