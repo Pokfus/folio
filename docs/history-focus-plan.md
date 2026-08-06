@@ -132,3 +132,125 @@ this to bite in H3 and H4, where one species or one site is far better published
 - **Do not invent history to replace excavation history.** If a site's Bronze Age occupation genuinely is
   not documented in anything openable, the card says less rather than more, and the gap is recorded in
   `.claude/sources-register.md` — the same rule the citation pass runs on.
+
+---
+
+# Part two: and not a historiography site either
+
+*Opened 2026-08-06, on request: "ensure that in all current and future cards, the card's main focus is on
+the answer term's history, and not its historiography or archaeology. Briefly touching on them in the
+background section is fine, but they should never be the primary focus (unless the answer term is
+specifically a modern historiographic theory or debate). The questions in all cards should never name any
+specific researchers or scholars (although mentioning theories is fine)."*
+
+Part one was written about the people who DUG the past up. It binds equally on the people who ARGUE about
+it, and the two fail in exactly the same way: the reader is taught the state of a modern literature
+instead of the past that literature is about. The rule is now in CLAUDE.md; what follows is the measure,
+the verified list and the batches.
+
+## The two rules
+
+**1. A question may never name a researcher or scholar.** Absolute. Not *"Hans van Wees calls…"*, not
+*"Lambert argues that…"*, not *"Evans noted in a footnote…"*. A clue built on who said a thing can be
+answered by someone who knows the modern bibliography and nothing whatever about Greece — the exact
+inversion of what a study card is for.
+
+Naming the **theory** is fine and usually better. The fix is nearly always to keep the claim and drop the
+name, which costs the card nothing and buys back two or three words:
+
+| before | after |
+|---|---|
+| *Oliver Grote argues that each `___` began as a band of settlers…* | *One account has each `___` beginning as a band of settlers…* |
+| *Hans van Wees calls the middle-class army of the `___` a myth…* | *The middle-class army of the `___` is now called a myth…* |
+| *Evans noted in a footnote that the left forearm of the larger of the `___` was restored…* | *The left forearm of the larger of the `___` is a modern restoration, and so is the head of its snake…* |
+
+**An ancient author is not a researcher.** Herodotus, Pausanias, Strabo, Plutarch and Thucydides are
+sources *for* the past; a question naming one is teaching history and should stay. The line is the modern
+arguer, not the ancient witness — and the measure knows the difference (`ANCIENT` in the script).
+
+**2. Historiography may not be the primary focus of an abstract.** At most **3 of 10 sentences**. Briefly
+touching on it is not merely allowed but often required — a contested date, a term whose meaning was
+overturned, a dissent the hedging rules demand — but a background running *A argues, B answers, A's
+reviewer is unpersuaded* for six sentences is a literature review with a Greek word on top.
+
+**The exemption:** a card whose ANSWER TERM is itself a modern theory, debate, method or scholar. `gr-007`
+Arthur Evans, `gr-075` the decipherment of Linear B, `wh-006` the three-age system, `wh-064` the Toba
+catastrophe theory, `wh-106` the Blytt–Sernander scheme. There the modern argument IS the subject. The
+list lives in the measure and every entry carries its reason; keep it short.
+
+## The measure
+
+    node .claude/card-focus.js [--prefix=gr-] [--all] [--card=gr-176]
+
+A researcher is detected from **the card's own source list**, parsing each citation's author positions —
+the reviewer before `, review of`, the authors after `, by ` / `, ed. ` — with titles stripped first. The
+first cut swept every capitalised word out of the citations instead and flagged **187 of 269** cards,
+because place names, period names and ancient authors all leak out of a title: *Morocco*, *Oldowan* and
+*Homer* were being read as scholars. Two further leaks were found by reading flagged questions and finding
+no scholar in them (`Hohle` from Hohle Fels, `Agora` from a monograph series); those live in
+`NOT_A_SURNAME`. A second, weaker pass catches attribution with the name filed off — *his reviewer*,
+*modern scholarship*, *scholars divide* — which is historiography in disguise.
+
+**3 of 10 is not a taste; it is where the corpus breaks.** Over the 269 shipped cards the historiography
+count is 0 or 1 for 206, 2 for 37 and 3 for 12, and then jumps to a tail of twelve cards at 4 and above.
+
+**It is a proxy, not a verdict. Read the card before rewriting it.**
+
+## What it found — 45 cards
+
+**44 break the question rule; 12 are majority-historiography; 11 do both.**
+
+The twelve worst are the ones to note, because six of them were written *in the session that produced this
+rule* and nothing complained at the time:
+
+| card | answer | historiography | question names |
+|---|---|---|---|
+| `gr-177` | phratry | 7/10 | Lambert, Jones |
+| `gr-179` | archaic aristocracy | 7/10 | Fisher, Duplouy, Wecowski |
+| `gr-174` | agora | 6/10 | Murray |
+| `gr-176` | phyle | 6/10 | Grote, Crowley |
+| `gr-178` | genos | 6/10 | Lambert |
+| `gr-180` | hoplite | 5/10 | van Wees, Schwartz |
+| `gr-023` | Bull-leaping fresco | 4/10 | Evans ×2 |
+| `gr-024` | Snake Goddess figurines | 4/10 | Evans ×2 |
+| `gr-167` | votive dedication | 4/10 | Day, Whitley |
+| `gr-168` | bronze tripod cauldrons | 4/10 | — |
+| `gr-173` | acropolis | 4/10 | Maher |
+| `wh-061` | Behavioural modernity | 4/10 | Brooks, Klein |
+
+**Question-rule only** (the abstract is fine; only the clue names somebody):
+`gr-010` `gr-017` `gr-019` `gr-020` `gr-021` `gr-022` `gr-025` `gr-031` `gr-054` `gr-088` `gr-112`
+`gr-139` `gr-141` `gr-145` `gr-153` `gr-154` `gr-156` `gr-158` `gr-161` `gr-162` `gr-175`
+`wh-014` `wh-025` `wh-035` `wh-037` `wh-041` `wh-042` `wh-043` `wh-046` `wh-059` `wh-093` `wh-094` `wh-100`
+
+Two patterns in that list are worth naming. The **Evans cluster** — eight Minoan cards whose questions lean
+on Arthur Evans — is part one's problem showing up in part two's measure, since Evans is both excavator and
+arguer. And the **eponym cases** (`wh-042` Linnaeus, `wh-046` Lubbock, `wh-100` Frank Roberts) are the
+softest: the naming of the term genuinely is a fact about the term. They are still fixed, because *"coined
+in 1865 from the Greek for 'old stone'"* teaches the same fact without the name.
+
+## The batches
+
+Each batch: re-run the measure first, rewrite, re-run, then the standard checks. **A rewritten question
+must still be 20–34 words with a mid-sentence blank and must still be answerable from that card's own
+abstract** — the commonest way to break a question here is to cut the scholar and leave a claim the
+background no longer supports. Patch extras with `add-questions.js` and the main `question` with
+`fix-field.js`; an abstract rewrite goes through `add-sources.js` so the markers are re-checked.
+
+| batch | cards | work |
+|---|---|---|
+| **F1** | `gr-174` `gr-176` `gr-177` `gr-178` `gr-179` | The five worst, and the ones this session wrote. Both rules: the second block of each abstract is largely *A argues / B answers* and needs replacing with what the term meant and did. Keep one dissent apiece — the hedging rules require it — and drop the rest. |
+| **F2** | `gr-167` `gr-168` `gr-173` `gr-175` `gr-180` | The remaining 4–5/10 cards plus two question-only strays from the same run. Lighter: usually two sentences to re-point and one or two questions to rename. |
+| **F3** | `gr-010` `gr-017` `gr-019` `gr-020` `gr-022` `gr-023` `gr-024` `gr-031` | The Evans cluster. Questions only, except `gr-023` and `gr-024`, which are also 4/10. Watch the date lines while here — part one's rule applies to the same eight cards. |
+| **F4** | `gr-021` `gr-025` `gr-054` `gr-088` `gr-112` `gr-139` `gr-141` `gr-145` `gr-153` `gr-154` `gr-156` `gr-158` `gr-161` `gr-162` | Greek Bronze/Iron Age, questions only. Fourteen cards, one or two clues each; the fastest batch per card. |
+| **F5** | `wh-014` `wh-025` `wh-035` `wh-037` `wh-041` `wh-042` `wh-043` `wh-046` `wh-059` `wh-061` `wh-093` `wh-094` `wh-100` | World History, questions only except `wh-061` (4/10). Holds the three eponym cases, which need the most care to keep the fact while losing the name. |
+
+## Two things this pass must not do
+
+- **Do not cut a hedge to lose a name.** *"which is not universally accepted"* survives losing the scholar
+  who is not accepted; *"probably"* and *"scholars still disagree"* stay. Accuracy is a golden rule and
+  outranks this one.
+- **Do not strand a footnote marker.** A marked sentence rewritten to drop a name must still carry a claim
+  the work behind that marker supports, and `add-sources.js` cannot see the difference — it checks that
+  every source is referenced, not that the reference is apt. This is the L7 lesson from the glossary
+  length pass, and it is the likeliest way F1 does damage.

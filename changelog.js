@@ -14,7 +14,7 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.45", released: "2026-08-06T20:26Z" };
+window.FOLIO_VERSION = { v: "1.46", released: "2026-08-06T20:38Z" };
 
 window.CHANGELOG = [
   {
@@ -35,6 +35,7 @@ window.CHANGELOG = [
       "Plato’s <i>The Dialogues</i> joins the Library — everything of his that survives bar one, thirty-five works, each with the Greek beside the English. They are in the order Plato was arranged in antiquity, opening with the four that run through the end of Socrates’ life: <i>Euthyphro</i> on the way in to court, the <i>Apology</i>, his defence to the jury that condemned him, <i>Crito</i> in the cell where he refuses to escape, and <i>Phaedo</i> on the last afternoon. The <i>Symposium</i>, <i>Gorgias</i>, <i>Meno</i>, <i>Phaedrus</i>, the <i>Timaeus</i> that gave us Atlantis and the <i>Laws</i> are all here too. Several are probably not by Plato, which was already being said in antiquity; they are kept because that is what came down under his name, and the book’s first page says which. The translations are the Loeb ones by Fowler, Lamb and Bury, published 1914–1929 and long out of copyright in the United States. Every one of the thirty-five lines up against the Greek without a gap on either side. <i>The Republic</i> is the exception, its English here still being in copyright — it is on the shelf already, in Jowett’s translation, as a book of its own.",
       "The answer on a card is now the term by itself. Where a card used to answer “the polis” or “a cist grave”, it answers “polis” and “cist grave”; the “the” has moved into the question and the background, where the sentence needs it. Fifty-three cards changed, and reading them all back turned up two sentences that the article had been hiding: one that said “the first the rhapsode” and one that had thirty-four tombs being a single grave.",
       "Ten new cards in the Ancient Greece deck, each with a glossary entry to go with it. They open the collection's fourth deck, which had been empty until now.",
+      "Cards are being checked so that each one teaches the history of its subject rather than the modern argument about it. Questions will no longer name the scholars behind a claim — the claim itself is what you are being asked to recall — and a background that had turned into a run of who-argued-what is being rewritten. Forty-five cards are queued for this; the sources at the foot of each card are untouched.",
       "One card in the Ancient Greece deck closed its period around 1200 BCE in the background while the dates beside the answer ran it on to about 1050. The palaces burned at the earlier date and the age went on for another century and a half, which is what the card now says, and the third way of asking the question said the same wrong thing and has been corrected with it.",
     ],
   },
