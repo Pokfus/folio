@@ -342,3 +342,48 @@ other two don't. The line goes at **10**: a clue is *drawn* from the background 
 phrasing is healthy; a whole sentence lifted is not. All eight of the batch's cards now measure 10 or under.
 **Run the overlap count on any card whose questions are rewritten** — it is three lines of code and no other
 check in the workflow can see it.
+
+### F4 — `gr-021` `gr-025` `gr-054` `gr-088` `gr-112` `gr-139` `gr-141` `gr-145` `gr-153` `gr-154` `gr-156` `gr-158` `gr-161` `gr-162` (2026-08-06) — SHIPPED
+
+**Rule 1 and Rule 2 are now BOTH at zero across every Ancient Greece card.** Nineteen clues rewritten, four
+abstracts rebuilt, one date line cut. The corpus goes from 27 cards needing revision to 13, all of them F5's.
+
+**The plan called this batch "questions only" and it was wrong, in two different directions.**
+
+**Three of its abstracts are literature reviews the measure cannot see** — F2's `gr-175` finding at scale.
+`gr-158` ran *Iacovou finds, Petit argues, on his reading, Kassianidou reads, Kearns takes*; `gr-161` named
+Hansen, Snodgrass, Morris and Hall over six of its ten sentences; `gr-162` named Mackil, Beck, Mili and
+Blome. The measure scored them 1, 2 and 3, because **a scholar named in the prose whose work is not in the
+card's own source list is invisible to it** — these cards cite BMCR reviews, so the reviewer and the
+reviewed author reach the name list and everyone they discuss does not. A one-line scan for *a capitalised
+name before a verb of assertion* found all three in seconds and is the thing to run before planning any
+batch: `gr-161` scored 7/10 on it against the measure's 2.
+
+**And `gr-021` is a PART ONE case that part one's own measure could not see.** Four of its ten sentences
+were findspot — the room, the depth, the tablet a few centimetres away, the 1900 trial trench — and its
+date line read `Found 3 July 1908, at Phaistos`. Part one scores a sentence on whether it **carries a
+modern year**, and a findspot description carries none, so a card whose background is a quarter excavation
+report sat under the bar. Its three findspot sentences are now one, the freed slots filled from works
+already in its own list (Rutter's Middle Minoan lesson for how the signs are grouped and read, the Catania
+Phaistos page for the palace's two lives and its 50-hectare settlement), and the dig year is off the date
+line. **Both measures score PROSE SHAPE, and a card can break the rule in a shape neither was written to
+see; read a batch's abstracts before trusting either.**
+
+**The eleven remaining cards were as cheap as the plan promised** — one clue each, the name lifted out and
+the claim kept. *Ruppenstein sorted the Attic pottery into four stages* becomes *the Attic pottery sorts
+into four stages*; *Barry Powell would rather call it a consonantal syllabary* becomes *it has been proposed
+that it is better called one*. Nothing was lost but the attribution.
+
+**F3's overlap count earned its keep and needs one qualification.** It caught two more prose lifts —
+`gr-054`'s first clue was its own ninth sentence with the front clipped, and `gr-088`'s third was half of
+sentences 8 and 9 run together — and both were rewritten. It also fired on two clues that are **fine**:
+`gr-156`'s fourfold sorting of the dialects is a list of proper nouns, and `gr-088`'s "one of the oldest
+complete suits of armour from the European Bronze Age" is the term's own defining clause. **A clue may
+legitimately restate a name list or a definition**, so the count is enforced on a rewritten clue and
+reported on a shipped one — a proxy to read, not a rule to obey.
+
+**One fault was found only by reading the rendered page**, which is where F3 found its own. With `gr-021`'s
+findspot compressed, two clauses ended up side by side saying the inscription "coils outward from the
+centre" and is "read from the outside inward" — geometry and reading direction, two different facts, and
+nothing on the page saying so. Reworded to spiral "between rim and centre". Neither the word count, the
+marker check, the split nor the style pass can see a sentence that contradicts its neighbour.
