@@ -1817,6 +1817,15 @@
     return dayKeyOfDate(d);
   }
   const todayStr = () => dayKey();
+  /* The same day, counted rather than named — what a date-seeded daily pick needs. It goes through the
+     calendar components dayKeyOfDate reads, NOT through the shifted timestamp divided by DAY: local
+     midnight is not a multiple of DAY, so dividing it leans on a rounding that a DST shift can tip either
+     way, where Date.UTC of the three components is an exact ordinal that moves by exactly one per day. */
+  function dayIndex(ts) {
+    const d = new Date(ts == null ? Date.now() : ts);
+    d.setMinutes(d.getMinutes() - dayEndMin());   // before the cut-off it is still yesterday
+    return Math.floor(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / DAY);
+  }
   const dayEndHHMM = () => pad2(Math.floor(dayEndMin() / 60)) + ":" + pad2(dayEndMin() % 60);
   // the instant today ends — what "due by the end of the day" means once the boundary is the reader's
   function dayEndTs() {
@@ -7898,7 +7907,12 @@
       o: { lang: "la", t: "Nescire autem quid ante quam natus sis acciderit, id est semper esse puerum.", a: "Marcus Tullius Cicero", s: "Orator 34.120" } },
     { t: "The life of the dead is set in the memory of the living.", a: "Cicero", s: "Philippics 9.5",
       o: { lang: "la", t: "Vita enim mortuorum in memoria est posita vivorum.", a: "Marcus Tullius Cicero", s: "Philippicae IX.5" } },
-    { t: "Look back over the past, with its changing empires that rose and fell, and you can foresee the future too.", a: "Marcus Aurelius", s: "Meditations VII.49" },
+    { t: "Look back over the past, with its changing empires that rose and fell, and you can foresee the future too.", a: "Marcus Aurelius", s: "Meditations VII.49",
+      // The one quote whose Greek could not be verified when this pool was written, and it can be now:
+      // the Library ships Leopold's Teubner text (1908) beside Haines, so 7.49 is read out of the
+      // project's own books/marcus-aurelius-meditations.grc.js rather than set down from memory. The
+      // English above is a free rendering of the section's opening two clauses; those are the clauses here.
+      o: { lang: "grc", t: "Τὰ προγεγονότα ἀναθεωρεῖν, τὰς τοσαύτας τῶν ἡγεμονιῶν μεταβολάς· ἔξεστι καὶ τὰ ἐσόμενα προεφορᾶν.", a: "Μᾶρκος Αὐρήλιος", s: "Τὰ εἰς ἑαυτόν Ζ΄.49" } },
     { t: "Knowledge which is acquired under compulsion obtains no hold on the mind.", a: "Plato", s: "Republic VII, 536e",
       o: { lang: "grc", t: "ψυχῇ δὲ βίαιον οὐδὲν ἔμμονον μάθημα.", a: "Πλάτων", s: "Πολιτεία Ζ΄, 536e" } },
     { t: "It is impossible for a man to learn what he thinks he already knows.", a: "Epictetus", s: "Discourses II.17",
@@ -8041,7 +8055,7 @@
   // thing on the page the i18n engine must leave alone, or a Spanish reader would click through to
   // Spanish. A quote with no verified original is rendered exactly as before — no cursor, no handler.
   function dailyQuoteHTML() {
-    const q = QUOTES[QUOTE_ORDER[Math.floor(Date.now() / DAY) % QUOTE_ORDER.length]];
+    const q = QUOTES[QUOTE_ORDER[dayIndex() % QUOTE_ORDER.length]];
     const o = q.o;
     const pair = (en, orig) =>
       '<span class="dq-live">' + esc(en) + "</span>" +
