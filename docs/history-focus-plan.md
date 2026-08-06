@@ -254,3 +254,32 @@ background no longer supports. Patch extras with `add-questions.js` and the main
   the work behind that marker supports, and `add-sources.js` cannot see the difference — it checks that
   every source is referenced, not that the reference is apt. This is the L7 lesson from the glossary
   length pass, and it is the likeliest way F1 does damage.
+
+## Batch log
+
+### F1 — `gr-174` `gr-176` `gr-177` `gr-178` `gr-179` (2026-08-06) — SHIPPED
+
+All five off both lists: the corpus goes from **45 cards needing revision to 40**, and from twelve cards
+over the historiography bar to seven. Fifteen questions rewritten, five abstracts rebuilt, **no source
+dropped and no marker stranded**.
+
+**The material was there all along, which is the finding.** These cards were built from BMCR reviews and
+had come out as reviews-of-reviews, but the reviews are full of the past — the number of phylai at Kyrene,
+Korinth and Argos; Megara Hyblaia's reserved ground and its 61 hectares; the Athenian agora's wells full of
+workshop waste; the six ways an archaic elite made itself recognised. Almost every historiographical
+sentence had a factual one hiding inside it. `gr-179` lost three named scholars from its questions and
+gained nothing but clarity; `gr-178` was rebuilt around what a genos DID — transmit a priestly office —
+with the modern revision moved to the second block where it belongs.
+
+**Two sentences got longer, not shorter.** `gr-177` and `gr-178` came in at 244 and 257 words once the
+attribution was stripped, under the 270 floor, because *"Lambert argues that…"* is four words of nothing.
+They were filled with more of what the same sources say — deme groups absorbing phratry cults, the Dekeleis
+question, priestly office passing down among members — rather than padded.
+
+**What the rewrite deliberately kept.** One hedge or live disagreement per card, as the golden rules
+require: the phyle's origin is still "disputed", the phratry's universality still "unsettled", whether a
+unified nobility existed at all still "doubted". Losing the arguer is not losing the argument.
+
+**Tooling note:** `add-questions.js` refuses a batch without all nine translations; under the `MULTILANG`
+gate these cards are English-only, so `--partial` is the correct flag and not a shortcut.
+
