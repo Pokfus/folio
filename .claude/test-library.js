@@ -153,8 +153,23 @@ function shippedBookLeaks() {
       blurb: (document.querySelector(".page-head p") || {}).textContent || "",
     }));
     check("the shelf shows a tile per book", d.tiles.length >= 1, JSON.stringify(d.tiles.map((t) => t.id)));
-    check("...naming the work and its author", /Letters from a Stoic/i.test(d.tiles[0].title) && /Seneca/i.test(d.tiles[0].author), JSON.stringify(d.tiles[0]));
-    check("...saying how long it is", /\d+\s+letters/i.test(d.tiles[0].meta), d.tiles[0].meta);
+    /* WHAT A BANNER HAS TO SAY, asserted over EVERY book rather than over whichever one the shelf
+       puts first. These two used to read tiles[0] and so quietly meant "Seneca", which held only
+       while he led the shelf and broke when Aesop's Fables was added (Aug 2026) — reporting a
+       missing Stoic on a page where nothing was wrong. Checking every banner is both order-proof
+       and a stronger claim: a book added later with no author or no length now fails here, which
+       is exactly the mistake this pair exists to catch. The named anchor is kept beside it, since
+       a generic shape check would pass on a shelf of blanks. */
+    const seneca = d.tiles.find((t) => t.id === "seneca-letters");
+    const nameless = d.tiles.filter((t) => !/\S/.test(t.title) || !/\S/.test(t.author));
+    check("...naming the work and its author",
+      !nameless.length && seneca && /Letters from a Stoic/i.test(seneca.title) && /Seneca/i.test(seneca.author),
+      JSON.stringify(nameless.length ? nameless : seneca));
+    // "124 letters", "313 fables", "8 books" — a figure and the unit that book counts in
+    const lengthless = d.tiles.filter((t) => !/\d+\s+\S+/.test(t.meta));
+    check("...saying how long it is",
+      !lengthless.length && /\d+\s+letters/i.test(seneca.meta),
+      JSON.stringify(lengthless.length ? lengthless.map((t) => t.id + ":" + t.meta) : seneca.meta));
     check("...each with its coloured spine", d.tiles.every((t) => t.spine));
     /* The tile is SMALL (Aug 2026, on request), and the two halves of that are asserted separately
        because they fail in opposite ways: the blurb creeping back would make it tall again, and the
@@ -268,7 +283,19 @@ function shippedBookLeaks() {
     check("the shelf says what it holds, in one line", /public domain/i.test(d.blurb) && /free to read/i.test(d.blurb), d.blurb.slice(0, 90));
     check("...and no longer carries the licence paragraph", !d.note, d.note.slice(0, 90));
     check("...and STILL no book text has been fetched", !asked.some((u) => u.startsWith("/books/")), asked.filter((u) => u.startsWith("/books/")).join(","));
-    bookHref = d.tiles[0].id;
+    /* SECTIONS 3–6 READ SENECA SPECIFICALLY, so they name him rather than taking whatever the shelf
+       happens to put first. This used to be `d.tiles[0].id`, which worked only for as long as Seneca
+       led the shelf under the "recent" sort with nothing yet read — and stopped the day Aesop's
+       Fables was added (Aug 2026). The failure is a confusing one rather than a useful one: every
+       Seneca assertion below fails at once, reporting Gummere missing, no Latin control and four
+       proper nouns nobody recognises, none of which is a fault in the book being opened. Two of
+       those checks can ONLY pass on Seneca — the four common nouns that mean something else in him,
+       and the original-language control, which Aesop deliberately has not got — so the target is
+       pinned here in the same way lines further down already pin `#book/seneca-letters`. That the
+       first tile opens at all is asserted separately, in the shelf and search sections above. */
+    bookHref = "seneca-letters";
+    check("...and the shelf still holds the book sections 3–6 are about",
+      d.tiles.some((t) => t.id === bookHref), d.tiles.map((t) => t.id).join(","));
     /* THE SEARCH BOX (Aug 2026, on request). Three of these fail silently. A filter that quietly loses the
        favourites split, or one whose repainted banners have no listener on them, both leave a shelf that
        LOOKS right — the second only bites when a reader tries to open the book they just searched for, and

@@ -4614,6 +4614,20 @@
        is the single pairing to avoid here. A colour that cannot be mistaken for his is worth more
        than four points of separation. */
     "Thucydides": "#AE3688",
+    /* Measured the same way as the four above, and for once the best number and the right tone were
+       the same colour. Searched over the shelf's own lightness and chroma band, the best-separated
+       colour left anywhere in it is this dark olive at 26.1 — comfortably clear of the shelf's own
+       tightest pair at 20.4, and better separated than any of the last four entries managed. It
+       reads 5.88:1 against the tightest of the sixteen papers, where Caesar's burnt orange manages
+       4.61 and the best warm candidate here scraped 4.51.
+       IT IS THE THIRD GREEN, which is the one thing worth defending. The rule Thucydides' entry set
+       is that a crowded quarter is only a problem where the crowding would assert a kinship the
+       shelf does not mean — the reason his mulberry avoided the sober blues was that a fourth blue
+       beside Herodotus would tie the two Greek historians together. There is no such pairing here.
+       Marcus Aurelius's green is a teal and Lucretius's a bright leaf, and nobody reads Aesop
+       against either; the hue is simply where the empty space is, and it happens to suit a book of
+       animals, hedgerows and country roads better than the crimson or the navy that came next. */
+    "Aesop": "#324A2C",
   };
   const bookColor = (b) => BOOK_AUTHOR_COLOR[b.author] || "var(--indigo)";
 
@@ -5414,6 +5428,54 @@
          further. The Sicilian expedition of books six and seven is the movement every reader
          remembers, but grouping the books under headings of that kind would be a modern reader's
          arrangement rather than a division the edition prints — the Gallic War's position exactly. */
+    },
+    {
+      id: "aesop-fables",
+      title: "Aesop's Fables",
+      // the edition's own title page, which promises three hundred and prints 313
+      subtitle: "Three Hundred Æsop's Fables",
+      author: "Aesop",
+      /* Deliberately vaguer than any other line on the shelf, because the thing being dated is not a
+         book. The tradition puts Aesop in the sixth century BCE; the collection carrying his name
+         was assembled, lost, versified and rearranged for the two thousand years after that, and no
+         single date is true of it. The front matter says so at length. */
+      written: "c. 6th century BCE, collected later",
+      year: -550,
+      translator: "George Fyler Townsend",
+      edition: "George Routledge and Sons, London, 1867",
+      /* The fourth licence here that needs no qualification at all, after the Republic, the Analects
+         and the Peloponnesian War — and the shortest, because both layers are long gone and neither
+         carries a modern editorial layer of the kind the Histories and the Meditations' Greek do. */
+      rights:
+        "Public domain worldwide: George Fyler Townsend lived from 1814 to 1900 and his translation " +
+        "was published in 1867 — so its copyright has expired everywhere, on the pre-1929 " +
+        "publication rule and on the translator's-life rule alike. The Greek fables behind it are " +
+        "some twenty-five centuries old. The modern translations by S. A. Handford (1954), Olivia " +
+        "and Robert Temple (1998) and Laura Gibbs (2002) are still in copyright and are " +
+        "deliberately not used here.",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Three_Hundred_%C3%86sop%27s_Fables",
+      /* NO `origLang`, and this is the second book here to go without one after the Republic — but
+         the first whose answer is no on BOTH sides at once. The Republic's Greek states Stephanus
+         numbers and it is Jowett who states none, so the pairing fails on one column. Here neither
+         edition states anything a column could be hung on: Townsend numbers nothing, and the Greek
+         collections number nothing either — Chambry's standard text lists its 359 fables
+         alphabetically by their Greek titles. Two unnumbered collections of different sizes in
+         different orders have nothing to pair on at all, and matching them fable by fable would be
+         several hundred judgements made by eye, which is the work abandoned for the Meditations'
+         Greek. Said to the reader in the book's own front matter rather than left to be noticed. */
+      chapterWord: "Fable",
+      /* 313, and the two agree because the whole edition is here. Note that `total` is this BOOK's
+         count and not the corpus's: there is no total for Aesop, which is rather the point of him —
+         Perry's index of 1952 runs past 700 and every collection draws a different line. */
+      count: 313,
+      total: 313,
+      /* No `parts`. The fables are printed in one undivided run with no volumes, sections or
+         headings of any kind, so the Contents panel falls back to a single unlabelled group, as the
+         Meditations', the Republic's and the Art of War's do. The tab figures are the printed ORDER
+         rather than any numbering the edition carries — it carries none, and its own index files
+         alphabetically by title — which is stated on the book's first page rather than left to look
+         like a citation system it does not have. */
     },
   ];
   const BOOK_BY_ID = {};
