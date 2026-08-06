@@ -4859,7 +4859,36 @@
        1.7–2.3, as every shipped colour on this shelf does. Saffron is also simply the right colour
        for the book, which is worth saying only because it did not have to be traded against
        anything: it happens to be where the numbers led. */
-    "Vyasa": "#743C00",
+    /* THE PREDICTION IN VYASA'S ROW HAS COME TRUE, and this row is what it said to do: say so rather
+       than quietly ship a colour nobody can tell from its neighbour. With nineteen colours down,
+       NOTHING anywhere in the shelf's own lightness and chroma band clears 25 of its nearest
+       neighbour, and only three places in it clear the shelf's own tightest pair at 20.4 at all — a
+       crimson at 24.0, and two greens at 22.2 and 20.1.
+
+       BOTH GREENS WERE REJECTED for the reason Vyasa's row already records: green is where Lucretius
+       and Aesop sit, and the only greens that clear them sit at the very top of the band's chroma,
+       which is what "bright enough to glow" means. A glowing green beside nineteen muted colours is a
+       failure every reader can see.
+
+       SO THE CRIMSON QUARTER IT IS, AND THAT NEEDS ANSWERING, because Euripides's row rejected a
+       crimson at exactly this separation. Its reason was specific and does not transfer: a red for the
+       SECOND ATHENIAN TRAGEDIAN, beside Sophocles's brick, would say the two of them are a set, and
+       Euripides and Sophocles are read against each other more constantly than any other two writers
+       here. Aristophanes is the comic poet — the one writer on this shelf whose whole point is that he
+       is not a tragedian — so the kinship that ruled it out for Euripides is the very thing a reader
+       would be right to reject here, and Euripides's own magenta-purple sits between the two reds in
+       any case, breaking the reading.
+
+       The exact swatch is then chosen for the ACCESSIBILITY margin rather than for the last tenth of a
+       point, which is the trade Caesar's row makes: the best-separated crimson reads 4.66:1 on the
+       tightest of the sixteen light papers, and this one gives up 0.1 of separation for 4.79. It
+       clears Sun Tzu's rust, Ovid's crimson and Sophocles's brick at 23.9, 24.4 and 26.9 — evenly
+       enough to read as its own colour against all three rather than as a near-miss of one.
+
+       THE NEXT BOOK AFTER THIS ONE WILL HAVE TO WIDEN THE BAND. Measured: widening the lightness band
+       upward is shut off by the 4.5:1 bar test-a11y.js holds the site to, so the room that is left is
+       darker and duller than anything here. Say that out loud then, as this row does now. */
+    "Aristophanes": "#A50030",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -5508,6 +5537,71 @@
       count: 16,
       total: 16,
       /* No `parts`: a single play, and its edition divides it no further than the sixteen. */
+    },
+    {
+      id: "aristophanes-lysistrata",
+      title: "Lysistrata",
+      /* No subtitle, and deliberately not the Greek one. The three tragedies each carry their play's
+         Greek title there because that is what their Greek COLUMN is an edition of; this book has no
+         Greek column, so a Greek subtitle would advertise a second text that is not on the page. */
+      author: "Aristophanes",
+      /* One of the firmer dates in Greek drama — the year of the oligarchic coup at Athens, with the
+         war twenty-one years old — so no `c.`. Which of the two festivals it was staged at is not
+         recorded, and the front matter says so rather than the date line pretending to know. */
+      written: "411 BCE",
+      year: -411,
+      /* The volume names no translator: it was printed for the Athenian Society and published
+         anonymously. That is a fact about the edition rather than a gap in the record, and it is what
+         makes this the simplest licence on the shelf — there is no death year for it to depend on. */
+      translator: "The Athenian Society",
+      edition: "Aristophanes: The Eleven Comedies, Volume 1, printed for the Athenian Society, London, 1912",
+      /* THE SIMPLEST LICENCE HERE, and the only one resting on no person's dates at all. An anonymous
+         work printed in London in 1912 is public domain in the United States on the pre-1929
+         publication rule, and under the seventy-years-from-publication term an anonymous work is given
+         it has been free everywhere since 1983 — so unlike the Art of War (2029), the Nicomachean
+         Ethics (2042), the Song of Roland (2031/2039) and the Medea (2028) there is no limit to state.
+         THE OSCAR WILDE ATTRIBUTION IS NOT RELIED ON: Wikisource's index page presumes it, Wilde died
+         in 1900 — twelve years before the book appeared — and nothing openable establishes it, so the
+         book is shelved as what its title page says it is. Asserting it would be the Hugo Magnus
+         mistake with a better-known name attached. It changes nothing either way: a 1912 anonymous
+         printing is public domain on its date, and so is anything by a man who died in 1900. */
+      rights:
+        "Public domain, and the simplest case on this shelf. This translation was printed for the " +
+        "Athenian Society in London in 1912 and published anonymously, so its United States copyright " +
+        "expired under the pre-1929 publication rule, and under the seventy-years-from-publication " +
+        "term an anonymous work is given it has been free everywhere since 1983 — there is no " +
+        "translator's death year for it to depend on, and so no limit to state. Aristophanes staged " +
+        "the play in Athens some twenty-four centuries ago. The volume is sometimes said to be the " +
+        "work of Oscar Wilde; he died in 1900, twelve years before it appeared, nothing establishes " +
+        "the attribution, and it is not relied on here. The volume's general foreword and its list of " +
+        "authorities belong to all eleven comedies rather than to this one and are not reproduced; " +
+        "what is taken is the play and the introduction printed with it. (The modern translations by " +
+        "Dudley Fitts, 1954, Douglass Parker, 1964, Alan Sommerstein, 1973, Jeffrey Henderson, 2000, " +
+        "and Sarah Ruden, 2003, are still in copyright and are not used here.)",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/Aristophanes:_The_Eleven_Comedies/Lysistrata",
+      /* NO `origLang`, and this is the Republic's case reached from the other side — the proof, a
+         second time, that the field is genuinely optional. The rule the shelf pairs on is not "does a
+         text of the original exist?" but "does that text say which section each passage is?", and here
+         the GREEK is the ready half: Hall and Geldart's Oxford text of 1907 sits on Perseus in the same
+         encoding the three tragedies use, with all 1,443 of its lines numbered. What is missing is the
+         numbers on the ENGLISH — this translation is prose and prints none — and pairing on the order
+         of speeches instead was refused for the reason the Seneca entry gives, with the measurement to
+         match: this English divides the play into 634 speaker labels against the Greek's 565 speeches,
+         so the two columns disagree about where a speech begins some seventy times before any question
+         of drift arises. The free English that IS numbered, Rogers's verse, has 52 of its scan leaves
+         untranscribed on Wikisource — the Jowett Dialogues' red links exactly — and Perseus carries no
+         English Lysistrata at all. So the book ships in one column and its own front matter says why.
+         The day a numbered transcription appears, an `original` block and an `origLang` are the whole
+         of the work. */
+      /* Folio's own neutral word, as for the three tragedies: this edition numbers its divisions not
+         at all, and an act is a later theatre's unit a Greek comedy has not got. */
+      chapterWord: "Part",
+      /* The whole play, and the tabs count what the EDITION separates — its introduction and the
+         comedy — because it divides the comedy itself into no acts or scenes whatever. Aesop's rule:
+         state the order the book actually has rather than invent a structure it has not got. */
+      count: 2,
+      total: 2,
     },
     {
       id: "herodotus-histories",

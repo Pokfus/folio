@@ -3906,6 +3906,192 @@ const BOOKS = {
         "verse of the thirteenth discourse which some recensions of the text carry and others do not.",
     ],
   },
+
+  "aristophanes-lysistrata": {
+    title: "Lysistrata",
+    /* No subtitle, and deliberately not the Greek one. The three tragedies each carry their play's
+       Greek title there because that is what their Greek COLUMN is an edition of; this book has no
+       Greek column (see the licence and pairing notes below), so a Greek subtitle would advertise a
+       second text that is not on the page. The volume's own half-title for the play is the single
+       word, and that is what the shelf shows. */
+    author: "Aristophanes",
+    /* The volume names no translator. Wikisource credits "The Athenian Society", which is the body
+       that printed it rather than a person, and that is the most this edition will honestly support
+       — see the licence note on the Wilde attribution. */
+    translator: "The Athenian Society",
+    edition: "Aristophanes: The Eleven Comedies, Volume 1, printed for the Athenian Society, London, 1912",
+    written: "411 BCE",
+    year: -411,
+
+    /* ---------- THE LICENCE — the simplest on the shelf, and for an unusual reason ----------
+       Every other book here rests on a named person's death year as well as on a publication date,
+       and four of them have to state a limit because of it (the Art of War to 2029, the Nicomachean
+       Ethics to 2042, the Song of Roland to 2031/2039, the Medea to 2028). This one has no named
+       translator at all. The volume was printed for the Athenian Society in London in 1912 and the
+       translation is anonymous, so it is public domain in the United States under the pre-1929
+       publication rule, and under the term an anonymous work gets — seventy years from publication —
+       it has been free everywhere since 1983. The comedy underneath is some twenty-four centuries
+       old. There is no limit to state and no death year to look up.
+
+       THE WILDE ATTRIBUTION IS NOT REPEATED HERE, and that is a deliberate refusal rather than an
+       oversight. Wikisource's own index page for the volume says the translations "are presumed to be
+       the work of Oscar Wilde"; Wilde died in 1900, twelve years before the book appeared, and the
+       Athenian Society was a private subscription press of exactly the kind that sold unexpurgated
+       classics on the strength of a famous name. Nothing openable establishes it. Asserting it in the
+       front matter would be the Hugo Magnus mistake with a better-known name attached — a biography
+       taken on trust and then used to dress a book — so the book is shelved as anonymous, which is
+       what the title page says, and the front matter tells the reader the attribution exists and that
+       it is not supported. It changes nothing about the licence either way: an anonymous 1912 London
+       printing is public domain on its date, and so is anything by a man who died in 1900.
+
+       WHAT IS AND IS NOT TAKEN. The play and the translator's introduction to it, both from the same
+       1912 volume. The volume's general Translator's Foreword and its list of authorities belong to
+       the eleven comedies together rather than to this one, and are not imported — the Republic's
+       precedent, where the 1901 printing's added introduction and plates were left behind.
+
+       The translations a reader is likeliest to own — Dudley Fitts's of 1954, Douglass Parker's of
+       1964, Alan Sommerstein's Penguin of 1973, Jeffrey Henderson's Loeb of 2000 and Sarah Ruden's of
+       2003 — are all firmly in copyright, and are named here for the reason Campbell, Hays, Griffith,
+       Lee, Humphries, Warner, de Sélincourt and the rest are named above: so that nobody reaches for
+       one later. Benjamin Bickley Rogers's verse translation, which IS free (he died in 1919), is the
+       one a scholar would expect to find here and is discussed under the pairing note below. */
+    rights:
+      "Public domain, and the shelf's simplest case. This translation was printed for the Athenian " +
+      "Society in London in 1912 and published anonymously, so its United States copyright expired " +
+      "under the pre-1929 publication rule, and under the seventy-years-from-publication term an " +
+      "anonymous work is given it has been free everywhere since 1983 — there is no translator's " +
+      "death year for it to depend on, and so no limit to state. Aristophanes staged the play in " +
+      "Athens some twenty-four centuries ago. The volume is sometimes said to be the work of Oscar " +
+      "Wilde; he died in 1900, twelve years before it appeared, nothing establishes the attribution, " +
+      "and it is not relied on here. The volume's general foreword and its list of authorities belong " +
+      "to all eleven comedies rather than to this one and are not reproduced; what is taken is the " +
+      "play and the introduction printed with it. (The modern translations by Dudley Fitts, 1954, " +
+      "Douglass Parker, 1964, Alan Sommerstein, 1973, Jeffrey Henderson, 2000, and Sarah Ruden, 2003, " +
+      "are still in copyright and are not used here.)",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Aristophanes:_The_Eleven_Comedies/Lysistrata",
+
+    /* ---------- WHY THERE IS NO GREEK COLUMN: the Republic's answer, reached from the other side ----
+       The rule this shelf pairs on is the one the Republic's entry states — not "does a text of the
+       original exist?" but "does that text say which section each passage is?" — and for the first
+       time the two halves of that question come apart in the opposite direction from usual.
+
+       THE GREEK IS READY AND IS NOT THE PROBLEM. Hall and Geldart's Oxford text of 1907 sits on
+       Perseus in the same TEI/CTS encoding the three tragedies' Greek comes from, and it is BETTER
+       numbered than any of them: 1,443 <l> elements, every one carrying its line number, speeches
+       marked as elements, and the play divided into fifty-six named divisions. It was fetched and
+       measured before any of this was concluded.
+
+       WHAT IS MISSING IS THE NUMBERS ON THE ENGLISH. This translation is prose and prints no line
+       numbers anywhere — measured over the whole play, not assumed — so there is no key on which a
+       row of one column could be set beside a row of the other. Pairing the nth speech with the nth
+       was considered and refused for the reason the Seneca entry gives: it looks right on one screen
+       and drifts thereafter. Here it would not even look right on one screen, and the measurement
+       says so outright — this English divides the play into 634 speaker labels where the Greek
+       carries 565 speeches, so the two columns disagree about where a speech begins some seventy
+       times over before any question of drift arises.
+
+       AND THE NUMBERED ENGLISH THAT EXISTS CANNOT BE USED, which is the Dialogues' rule biting a
+       second time: ASK WHAT THE SOURCE IS MISSING BEFORE BUILDING ON IT. Benjamin Bickley Rogers's
+       verse translation is the obvious answer — it is free (he died in 1919), it is the standard
+       English Aristophanes, and it prints the Greek line numbers in its margin. Wikisource carries
+       it, at "The Lysistrata (Rogers 1946)", and that transcription is barely begun: 52 of its scan
+       leaves are untranscribed, which the rendered page shows as red "Page:…djvu/NNN" links exactly
+       as the Jowett Dialogues did. Building on it would have shipped a fragment. Perseus carries no
+       English Lysistrata at all — its own catalogue file for the work lists the Greek edition and
+       nothing else — the Complete Greek Drama translation it once served being a 1938 work still in
+       copyright. So the choice was this complete unnumbered English or no complete English, and the
+       book ships in one column with the reason on its own front matter, exactly as the Republic does.
+       The day a numbered transcription appears, an `original` block and an `origLang` are the whole
+       of the work. */
+
+    /* ---------- THE FRONT MATTER — chapter 0 ----------
+       What a reader needs before they start: what happens and what the play is actually arguing,
+       what Old Comedy is and how unlike a tragedy it is, when it was staged and against what, what
+       this edition is and why it is the frank one, and — because the shelf's other three plays have
+       a second column and this one does not — why the Greek is absent and what the tabs count. */
+    about: [
+      "<b>Lysistrata</b> was staged in Athens in 411 BCE, in the twenty-first year of a war Athens " +
+        "was losing, and it is the most performed Greek comedy in the world. An Athenian woman named " +
+        "Lysistrata calls the women of every Greek city to a meeting and puts a proposal to them: " +
+        "until their husbands make peace, the women will refuse them. The younger women agree with " +
+        "great reluctance and the older ones seize the Acropolis, where the treasury that pays for " +
+        "the war is kept, so that the two halves of the plan squeeze the men from opposite " +
+        "directions. What follows is a siege, a shouting match between a chorus of old men and a " +
+        "chorus of women, a magistrate lectured on how to run a city as one would card wool, several " +
+        "attempted desertions, one very long scene in which a wife torments her husband, and an " +
+        "armistice.",
+      "Underneath the farce there is a real argument, and it is put by the people least entitled to " +
+        "make it in that city. Athenian women had no vote, no office and no standing to speak in " +
+        "public; the joke of the play is that they take the city anyway, and the sting of it is that " +
+        "they are obviously right. Lysistrata's case is that the war has been run by men who cannot " +
+        "stop because stopping would mean admitting they were wrong, that the Greeks are destroying " +
+        "one another while foreign powers watch, and that the people who bear the losses have no say " +
+        "in whether they continue. None of that is undercut by the comedy around it. Whether the " +
+        "play should be read as being about women at all, or whether they are a device for saying " +
+        "something about the war that could not be said straight, is argued about still.",
+      "It is an <i>Old Comedy</i>, and that is a different animal from the tragedies on this shelf. " +
+        "A tragedy is set in the mythical past and keeps its distance; Old Comedy is set in the " +
+        "audience's own city, names living people, insults the men sitting in the front rows, breaks " +
+        "off in the middle so the chorus can address the audience directly about the poet's " +
+        "grievances, and is obscene as a matter of course rather than by accident. The chorus here is " +
+        "split in two — old men and old women, who spend the first half of the play fighting each " +
+        "other — which is unusual and is the engine of several scenes. Characters from other Greek " +
+        "cities speak in their own dialects, and the Spartans' broad Doric is a running joke that no " +
+        "translation into English can carry without inventing an accent for them.",
+      "The date is one of the few in Greek drama that is close to fixed: 411 BCE, the year of an " +
+        "oligarchic coup at Athens, two years after the Sicilian expedition had destroyed a fleet and " +
+        "an army and with the war twenty-one years old. Which of the two festivals it was staged at " +
+        "is not recorded and is argued both ways. Aristophanes lived from about 446 to about 386 BCE " +
+        "and wrote perhaps forty plays, of which eleven survive whole — far more than any other comic " +
+        "poet of his time, and the only complete Old Comedies anyone has. He had been arguing for " +
+        "peace on the Athenian stage since he was a young man, and had been prosecuted at least once " +
+        "for what he put in a play.",
+      "The translation here was printed for the Athenian Society in London in 1912 and its title page " +
+        "claims to be the first complete and literal English version — which is the reason to use it " +
+        "and the thing to know before starting. Nineteenth-century translators cut this play heavily " +
+        "or buried what they could not print in Latin footnotes; this one does not, and a reader " +
+        "expecting a decorous classic will be surprised in the first five minutes. It is anonymous. " +
+        "The volume is sometimes attributed to Oscar Wilde, who died twelve years before it was " +
+        "printed and whose authorship nothing establishes, so Folio shelves it as what it says it is. " +
+        "The numbered notes are the translator's own.",
+      "One thing this book has not got, and it is worth saying rather than leaving a reader to " +
+        "wonder. The shelf's other three plays print the Greek beside the English, paired on the line " +
+        "numbers both editions state. This one has no Greek column, because this translation prints " +
+        "no line numbers — and Folio pairs two texts on the numbers they share, never on the order of " +
+        "their paragraphs, which looks right on one screen and drifts thereafter. The Greek exists " +
+        "and is well numbered; the free English that carries line numbers, Benjamin Bickley Rogers's " +
+        "verse of a century ago, has never been more than a quarter transcribed anywhere Folio can " +
+        "reach. So the play is here in English alone. For the same reason the tabs count only what " +
+        "this edition itself separates — its introduction and the play — since it divides the comedy " +
+        "into no acts or scenes at all, and Folio does not invent divisions an edition has not got.",
+    ],
+
+    /* ---------- A PLAY FROM A WIKI PAGE: the tenth layout ----------
+       See extractPlay for the reader and for what separates a speaker's line from a running head in
+       this transcription. The whole work is on one page, so it is cut rather than walked — the Song
+       of Roland's shape — and what it is cut at is the edition's own front matter, because the
+       edition divides the play itself not at all. */
+    layout: "play",
+    onePage: "Aristophanes: The Eleven Comedies/Lysistrata",
+    /* "Part" is Folio's own neutral word, as it is for the three tragedies: this edition numbers its
+       divisions not at all, and an act is a later theatre's unit a Greek comedy has not got. */
+    chapterWord: "Part",
+    chapters: [1, 2],
+    /* The cut points, each the whole text of a centred line the edition prints for itself. The
+       introduction is the translator's own and is part of this edition of this play; the play proper
+       opens on the cast list, which is where the second cut falls. */
+    cuts: [
+      { t: "Introduction", from: "INTRODUCTION" },
+      { t: "Lysistrata", from: "DRAMATIS PERSONÆ" },
+    ],
+    /* The scan's running head and the play's half-title, which are not part of the text — matched on
+       the block's WHOLE text and anchored, as dropHeads is everywhere else, so a word worth deleting
+       in this edition cannot delete prose in another. Regexes, like every other book's: cleanBody
+       reads this list too, where it strips a LEADING block only, and extractPlay reuses the same
+       patterns for the four that stand mid-page. */
+    dropHeads: [/^LYSISTRATA$/i],
+  },
 };
 
 /* ---------- args ---------- */
@@ -5463,6 +5649,209 @@ function extractLaissesFr(pages, warn) {
   return out;
 }
 
+/* ---------- A PLAY ON A WIKI PAGE: the tenth layout, and the first drama NOT from a TEI file ----------
+   Aug 2026, adding Lysistrata — the fourth play here and the first comedy. The three tragedies before
+   it are Perseus TEI, where the speaker of each speech is an element (`<sp>`/`<speaker>`) and the
+   divisions are structure. This edition is a Wikisource transcription of a printed page, so the same
+   two facts are TYPOGRAPHY: a speaker is a centred line and a division is a page's worth of white
+   space. teiDramaDivisions cannot see either, and the ordinary wiki path is worse than useless here —
+   cleanBody turns every centred div into a <blockquote>, so every speaker label arrives as an indented
+   QUOTATION of the character's name with the speech left as body text beneath. That is the
+   Meditations' running-head fault multiplied by five hundred, and it is the loud kind for once: the
+   book is unreadable rather than quietly wrong.
+
+   WHAT SEPARATES A SPEAKER FROM A RUNNING HEAD IS THE SPAN INSIDE, NOT THE DIV, and it is worth
+   stating because both are the same centred div. A speaker's name is set in SMALL CAPITALS
+   (`<span class="smallcaps">`); the running head at the top of every scan page and the two half-titles
+   are set in a larger size (`<span style="font-size:…">`) and carry no smallcaps at all. The counts
+   are printed on every run rather than assumed, so a transcription that ever changed its mind would
+   announce itself as a number instead of as a silently unreadable book, and a centred line carrying
+   BOTH — which would mean the test no longer separates them — is warned about explicitly.
+
+   THE MARK HAS TO SURVIVE THE TAG STRIP, so it is a control character in a TEXT node rather than a
+   class on an element: stripTags keeps text and drops attributes it does not allowlist, so a class
+   would be gone by the time the assembly pass ran. \u0001 opens a speaker's name and \u0002 closes it.
+
+   AND THE CLEANING IS THE SHARED ONE. The pre-pass below only MARKS; cleanBody then does the wrapper,
+   the ws-noexport furniture, the reflist cut, the footnote ids and the tag strip exactly as it does
+   for every other wiki book, and the assembly pass runs on its clean, balanced output. That is the
+   Song of Roland's rule met from the other side — strip the whole unit before splitting it — and it
+   is why this reader needs no tag balancing of its own. */
+const PLAY_WHO_OPEN = "\u0001", PLAY_WHO_CLOSE = "\u0002";
+
+/* Mark the speaker labels and count what was seen. Returns the marked html and the two counts. */
+function markPlaySpeakers(b, warn) {
+  let speakers = 0, heads = 0, both = 0;
+  let out = "", i = 0;
+  for (;;) {
+    const m = /<div class="[^"]*\bwst-center\b[^"]*"[^>]*>/.exec(b.slice(i));
+    if (!m) { out += b.slice(i); break; }
+    const at = i + m.index;
+    const end = blockEnd(b, at, "div");
+    if (end < 0) { out += b.slice(i); break; }
+    const inner = b.slice(at + m[0].length, end).replace(/<\/div>\s*$/, "");
+    out += b.slice(i, at);
+    const hasSC = /class="smallcaps"/.test(inner);
+    const hasFS = /style="font-size:/.test(inner);
+    if (hasSC && hasFS) both++;
+    if (hasSC) {
+      /* The label is the whole centred line, not just the name: this edition prints the character's
+         entrance and manner inside it — a name followed by an italic parenthesis — and that is part
+         of the label rather than of the speech. The trailing full stop goes, the reader's own styling
+         supplying the separation. */
+      const label = inner.replace(/<\/?p[^>]*>/g, " ").replace(/\s+/g, " ").trim().replace(/\.\s*$/, "");
+      out += "<p>" + PLAY_WHO_OPEN + label + PLAY_WHO_CLOSE + "</p>\n";
+      speakers++;
+    } else {
+      /* A running head, a half-title or the line that heads the cast list. UNWRAPPED rather than kept
+         as a div, and that is what makes the cut below possible at all: cleanBody turns a surviving
+         div into a <blockquote>, and this edition prints the play's half-title and its "DRAMATIS
+         PERSONÆ" line inside ONE centred div — so the sentinel the second chapter begins at would sit
+         nested inside a quotation, where cutting would leave both halves unbalanced. Unwrapped, each
+         line is a top-level paragraph, which is both what a centred head should render as and a
+         boundary a cut can safely fall on. */
+      heads++;
+      out += "\n" + inner
+        .replace(/<br\s*\/?>/gi, " ")
+        // one line per paragraph: these arrive run together, and the cut below falls BETWEEN two of
+        // them (the play's half-title and the line heading its cast list share a single centred div)
+        .replace(/<\/p>\s*<p(?=[\s>])/gi, "</p>\n<p") + "\n";
+    }
+    i = end;
+  }
+  if (both) warn(both + " centred line(s) carry both a small-caps name and a font size — the test that "
+    + "tells a speaker from a running head no longer separates them cleanly");
+  if (!speakers) throw new Error("no speaker labels found — the transcription's markup has moved");
+  return { html: out, speakers: speakers, heads: heads };
+}
+
+/* The cleaned html as WHOLE top-level blocks. A naive split at every newline before a <p> tears a
+   blockquote into pieces — this edition's cast list is one blockquote of seventeen paragraphs, and
+   split that way its opener, its contents and its closer become three separate "blocks", after which
+   the speech assembly below reads sixteen character names as continuations of a speech. So the depth
+   is tracked and a chunk that opens a blockquote keeps swallowing until it closes again. */
+function topBlocks(s) {
+  const out = [];
+  let buf = null, depth = 0;
+  s.split(/\n(?=<p>|<blockquote>)/).forEach((chunk) => {
+    const d = (chunk.match(/<blockquote>/g) || []).length - (chunk.match(/<\/blockquote>/g) || []).length;
+    buf = buf === null ? chunk : buf + "\n" + chunk;
+    depth += d;
+    if (depth <= 0) { out.push(buf.trim()); buf = null; depth = 0; }
+  });
+  if (buf !== null) out.push(buf.trim());
+  return out.filter(Boolean);
+}
+
+/* Assemble the cleaned blocks into speeches, in the same markup the three TEI plays already use, so
+   all four read identically. A speech is its label plus every paragraph up to the next label; the
+   first paragraph wears the name and the rest are `.bk-cont` continuations, which is exactly what
+   dramaHtml does and is why a long speech does not read as nobody speaking.
+
+   NO `bk-n` MARKERS ARE WRITTEN, and that is a fact about this edition rather than an omission: it
+   prints no line numbers anywhere (see the BOOKS entry for why that costs the book its Greek column).
+   app.js's bookSections reads a block with no marker as unnumbered and renders it as prose, which is
+   the right and only honest rendering of a text that states no numbers. */
+function playHtml(b) {
+  const blocks = topBlocks(b);
+  const parts = [];
+  let inSpeech = false;
+  const whoRx = new RegExp("^<p>" + PLAY_WHO_OPEN + "([\\s\\S]*?)" + PLAY_WHO_CLOSE + "</p>$");
+  blocks.forEach((blk) => {
+    const who = whoRx.exec(blk);
+    if (who) { parts.push({ who: who[1] }); inSpeech = true; return; }
+    // a blockquote is the edition's own set-off matter — the cast list, the scene note — and is
+    // neither a speech nor part of one, so it ends whatever speech was open and stands on its own
+    if (/^<blockquote>/.test(blk)) { parts.push({ raw: blk }); inSpeech = false; return; }
+    const m = /^<p>([\s\S]*)<\/p>$/.exec(blk);
+    const text = (m ? m[1] : blk).trim();
+    if (!text) return;
+    parts.push(inSpeech ? { cont: text } : { raw: blk });
+  });
+  const html = [];
+  parts.forEach((x) => {
+    if (x.raw !== undefined) { html.push(x.raw); return; }
+    if (x.who !== undefined) { html.push('<p class="bk-sp"><b class="bk-who">' + x.who + "</b> "); return; }
+    // the first paragraph completes the block the speaker's name opened; any after it are indented
+    // continuations of the same speech
+    const last = html[html.length - 1];
+    if (last !== undefined && last.endsWith("</b> ")) html[html.length - 1] = last + x.cont + "</p>";
+    else html.push('<p class="bk-sp bk-cont">' + x.cont + "</p>");
+  });
+  // a label with no speech under it would leave an unclosed block; close it rather than emit one
+  return html.map((s) => (s.endsWith("</b> ") ? s + "</p>" : s)).join("\n");
+}
+
+/* THE WHOLE PLAY IS ON ONE PAGE and is cut rather than walked — the Song of Roland's shape, for the
+   same reason: the transcription is one page per work. What it is cut AT is the edition's own front
+   matter, because this edition divides the play itself not at all (measured: no act, no scene and no
+   part heading anywhere in it, the only structural rules on the page being the running heads and the
+   FINIS). So the tabs count what the edition actually separates — its introduction and its play — and
+   the front matter says so outright, exactly as Aesop's says that its figures are the printed order
+   rather than a citation system the book has not got. */
+function extractPlay(h, book, warn) {
+  const got = notesOf(h);
+  const marked = markPlaySpeakers(h, warn);
+  console.log("  " + marked.speakers + " speaker labels, " + marked.heads + " running heads/half-titles");
+  const clean = cleanBody(marked.html, got.ids, book, warn);
+
+  /* EVERYTHING BELOW WORKS ON WHOLE TOP-LEVEL BLOCKS, never on character offsets into the html, and
+     that is the Song of Roland's rule again: cleanBody hands back balanced markup, so a cut made at a
+     block boundary leaves both sides balanced, where a cut made at a matched string can fall inside a
+     blockquote and leave an opener on one side and its closer on the other. */
+  const blocks = topBlocks(clean.replace(/<p>\s*(?:<br>\s*)*<\/p>/g, ""));   // and the blank-line spacers
+  const textOf = (s) => s.replace(/<[^>]+>/g, " ").replace(/&#160;|&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+
+  // the running heads and half-titles: matched on the block's WHOLE text and declared by the book, so
+  // a word worth deleting in this edition cannot delete prose in another
+  const heads = book.dropHeads || [];
+  const kept = blocks.filter((blk) => !(/^<p>/.test(blk) && heads.some((r) => r.test(textOf(blk)))));
+  const dropped = blocks.length - kept.length;
+  if (heads.length && !dropped) warn("no running head matched — the transcription may have moved");
+  console.log("  " + dropped + " running head(s)/half-title(s) dropped");
+
+  const cuts = book.cuts || [];
+  const at = cuts.map((c) => {
+    const i = kept.findIndex((blk) => textOf(blk).toUpperCase() === c.from.toUpperCase());
+    if (i < 0) throw new Error("could not find the cut '" + c.from + "' — the transcription has moved");
+    return i;
+  });
+  at.forEach((x, k) => {
+    if (k && x <= at[k - 1]) throw new Error("the cuts are out of order at '" + cuts[k].from + "'");
+  });
+
+  /* THE NOTES ARE RENUMBERED PER CHAPTER — the Seneca `data-fn` lesson in the coat Gilgamesh's
+     extractTablets already wears. cleanBody has just numbered every marker against the list for the
+     WHOLE PAGE, because the page is the unit it was handed; a Folio chapter carries its own list, so
+     each marker is rewritten to point at this chapter's index and the list is built in marker order
+     as it goes, which is what stops the two coming apart. A note cited twice keeps ONE entry with
+     both markers on it, and a marker pointing at nothing is dropped rather than left claiming a
+     citation the reader cannot follow — the rule app.js's wireFootnotes enforces at the other end.
+
+     Getting this wrong is the silent failure the Medea's entry warns about: the edition prints these
+     notes, and a reader that quietly dropped them would lose the lot with every count still healthy. */
+  const seen = new Set();
+  const out = cuts.map((c, k) => {
+    const local = [], byNum = {};
+    const slice = kept.slice(at[k], k + 1 < at.length ? at[k + 1] : kept.length).join("\n");
+    const html = playHtml(slice).replace(
+      /<sup class="fn" data-fn="(\d+)"><\/sup>/g,
+      (all, num) => {
+        const note = got.notes[+num - 1];
+        if (note === undefined) { warn(c.t + ": a marker points at note " + num + ", which the page has not got"); return ""; }
+        seen.add(num);
+        if (!byNum[num]) { local.push(note); byNum[num] = local.length; }
+        return '<sup class="fn" data-fn="' + byNum[num] + '"></sup>';
+      }
+    );
+    return { n: k + 1, t: c.t, html: html, notes: local };
+  });
+  if (seen.size !== got.notes.length)
+    warn("the page carries " + got.notes.length + " notes and " + seen.size + " are cited — " +
+         (got.notes.length - seen.size) + " reached no chapter");
+  return out;
+}
+
 /* ---------- the chapter titles, from the book's own contents page ---------- */
 /* ---------- the chapter titles, from the book's own contents page ----------
    Read ROW BY ROW, pairing the numeral cell with the title cell beside it, rather than trusting the
@@ -6995,6 +7384,30 @@ async function fetchEnglish() {
       console.log("  " + BOOK.chapterWord + " " + n + " — " + cards.length + " sections, " +
         cards.reduce((a, c) => a + c.lines, 0) + " lines (" + (html.length / 1024).toFixed(0) + " KB)");
     }
+    return writeEnglish(chapters, warnings);
+  }
+
+  /* A PLAY ON ONE TRANSCRIBED PAGE — the Song of Roland's caching exactly, and for the same reason:
+     one page holds the whole work, so it is cached whole and --from/--to cost nothing. See
+     extractPlay for why a wiki drama needs a reader of its own. */
+  if (BOOK.layout === "play") {
+    const warn = (m) => warnings.push(m);
+    const cf = path.join(CACHE, "en-page.html");
+    let h;
+    if (!FORCE && fs.existsSync(cf)) h = fs.readFileSync(cf, "utf8");
+    else { h = await api(BOOK.onePage); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, h); }
+    const got = extractPlay(h, BOOK, warn);
+    if (got.length !== BOOK.chapters.length)
+      warn("the cut yields " + got.length + " parts; the entry expects " + BOOK.chapters.length);
+    got.forEach((c) => {
+      if (c.n < FROM || c.n > TO) return;
+      if (c.html.length < (BOOK.minChars || 200))
+        throw new Error(BOOK.chapterWord + " " + c.n + " came back short (" + c.html.length + " chars)");
+      chapters.push({ n: c.n, t: titles[c.n] || c.t, p: partOf(c.n), html: c.html, notes: c.notes });
+      console.log("  " + BOOK.chapterWord + " " + c.n + " — " + c.t + ": " +
+        (c.html.match(/class="bk-who"/g) || []).length + " speeches, " + c.notes.length + " notes (" +
+        (c.html.length / 1024).toFixed(0) + " KB)");
+    });
     return writeEnglish(chapters, warnings);
   }
 
