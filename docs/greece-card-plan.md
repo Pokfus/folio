@@ -142,6 +142,18 @@ history. `gr-104`'s first draft was *The Trojan War in Greek tradition*, which `
 in myth` already covers — **check the myth decks before filling a Bronze Age slot**, since they carry
 the same names for different subjects.
 
+`gr-171` carries a dagger for a different reason, and it is the one to expect again: **a slot can be
+eaten by the card written for the slot before it.** The plan gave `gr-161` *Rise of the polis* and
+`gr-171` *Polis*, which read as two subjects and are one — the card written at `gr-161` took *polis*
+as its answer term and covered both what a polis is and the argument about when it arose, and the
+glossary gained `Polis` with it. So `gr-171` ships as *Dreros*, the Cretan city whose temple wall
+carries the oldest surviving Greek law and the first written appearance of the word. That fills a real
+gap rather than papering over one: outside `gr-284 Draco's homicide law` the plan had no card anywhere
+for early Greek written law, and none for Crete's part in it. **Read the neighbouring slot's shipped
+card, not the plan line, before writing** — the plan says what was intended and `data.js` says what
+exists, and where a topic is a near-synonym of its neighbour the second one to be written is the one
+that finds out.
+
 ## Cross-listing
 
 A card may belong to several decks; `subtreeCardIds` dedupes with a `Set` at every branch, so the
@@ -353,7 +365,7 @@ out-of-copyright Loebs are all open.
 
 ### Polis and colonisation — `gr-polis`
 
-    gr-171  Polis
+    gr-171  Dreros †  (was: Polis)
     gr-172  Astu and chora
     gr-173  Acropolis
     gr-174  Agora
