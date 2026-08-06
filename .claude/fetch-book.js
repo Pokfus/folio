@@ -4092,6 +4092,243 @@ const BOOKS = {
        patterns for the four that stand mid-page. */
     dropHeads: [/^LYSISTRATA$/i],
   },
+
+  "kalidasa-shakuntala": {
+    title: "Sacontala",
+    /* The edition's own title, spelling and all. "Shakuntala" is what a reader will type and what the
+       shelf's search folds to, but the title page says Sacontala, and Jones's transliteration is not
+       a mistake to be tidied away — it is how the heroine's name reached Europe, and the front matter
+       explains it. The subtitle is the edition's too. */
+    subtitle: "or, The Fatal Ring",
+    author: "Kalidasa",
+    translator: "William Jones",
+    edition: "Sacontala; or, The Fatal Ring, reprinted from the translation of Sir William Jones, Charlton Tucker, London, 1870",
+    /* Kalidasa is dated by argument alone — no document fixes him, and the range scholars work with
+       runs across the Gupta period. The conventional placing is the 4th to 5th century CE and that is
+       what is stated, with the doubt carried in the front matter rather than left to the `c.` to do
+       on its own, as the Song of Roland's and Gilgamesh's entries do. The sort key takes the middle. */
+    written: "c. 4th–5th century CE",
+    year: 400,
+
+    /* ---------- THE LICENCE — the shelf's easiest, and the only one clear by a full century ----------
+       Three layers and not one of them is close.
+
+       The play is some sixteen centuries old. William Jones lived 1746–1794 — dates read off
+       Wikisource's own author page rather than recalled, for the Hugo Magnus reason — so his
+       translation has been out of copyright on every term anyone applies for well over a century: it
+       cleared life-plus-seventy in 1864 and life-plus-a-hundred in 1894. It was first published at
+       Calcutta in 1789 and this is an 1870 London reprint of the third edition of 1792, so it clears
+       the pre-1929 publication rule several times over. Wikisource's own tag on the work says public
+       domain worldwide on the ground that the author died at least a hundred years ago.
+
+       So there is NO LIMIT TO STATE, unlike the Art of War (Giles, 2029), the Nicomachean Ethics
+       (Ross, 2042), the Song of Roland (2031 and 2039), the Medea (Murray, 2028), Gilgamesh
+       (Thompson, 2042) and the Bhagavad Gita (Besant, 2034) — and no modern editorial layer either,
+       unlike the Histories, the Antigone, the Oedipus Rex and the Meditations' Greek, whose Perseus
+       texts carry a CC BY-SA revision on top of an expired copyright. It is simply free, everywhere,
+       on every ground, and this transcription is a volunteer proofreading of a scan.
+
+       WHAT IS AND IS NOT TAKEN. Jones's own preface, the prologue and the seven acts. The 1870
+       printing's cast list is not imported as a chapter — it sits on the volume's contents page
+       rather than on any of the nine transcribed subpages, and chapter 0 names the people who matter
+       in prose written for a reader now, which is more use than a table of twenty names in Jones's
+       transliteration. The printer's trade imprint at the foot of the last act is not text; see
+       `dropTail`.
+
+       The translations a reader is likeliest to meet — Arthur Ryder's of 1912, Michael Coulson's of
+       1981, Chandra Rajan's of 1989, Barbara Stoler Miller's of 1984 and Somadeva Vasudeva's of 2006
+       — are named here for the reason Campbell, Hays, Griffith, Lee, Humphries, Warner, Sayers and
+       the rest are named above: so that nobody reaches for one later. Ryder's is itself free (he died
+       in 1938, and it was published in 1912), and it is the one a scholar would expect to find here;
+       why it is not is under the pairing note below. */
+    rights:
+      "Public domain worldwide, and the simplest licence on this shelf. Kalidasa wrote the play some " +
+      "sixteen centuries ago. Sir William Jones lived from 1746 to 1794, so his translation cleared " +
+      "the life-plus-seventy term in 1864 and the life-plus-a-hundred term in 1894 — there is no " +
+      "limit anywhere that has not long since expired, and so, unlike the Art of War, the Nicomachean " +
+      "Ethics, the Song of Roland, the Medea, Gilgamesh and the Bhagavad Gita, nothing here needs a " +
+      "date stating. The translation was first published at Calcutta in 1789; this is an 1870 London " +
+      "reprint of the third edition of 1792, published by Charlton Tucker, so it is also public " +
+      "domain in the United States under the pre-1929 publication rule. Nothing in the text carries a " +
+      "modern editorial layer: the transcription is a volunteer proofreading of the 1870 scan. What " +
+      "is reproduced is Jones's preface, the prologue and the seven acts. (The later translations by " +
+      "Arthur Ryder, 1912, Michael Coulson, 1981, Barbara Stoler Miller, 1984, Chandra Rajan, 1989, " +
+      "and Somadeva Vasudeva, 2006, are not used here.)",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Sacontala_(Jones_1870)",
+
+    /* ---------- WHY THERE IS NO SANSKRIT COLUMN: three independent grounds ----------
+       The rule this shelf pairs on is the Republic's — not "does a text of the original exist?" but
+       "does that text say which section each passage is?" Here the answer is no three times over, and
+       the three are worth keeping apart, because only the first is the usual one.
+
+       ONE: THE ENGLISH STATES NO NUMBERS. Measured over the whole play rather than assumed — all nine
+       pages fetched and swept — this transcription carries zero `wst-verse` spans, zero `<sup>`
+       elements and not one standalone numeral. Jones set the play as continuous prose with the verses
+       run in, and numbered nothing below the act. So the finest key both editions could share is the
+       ACT, of which there are seven; a row would be a whole act, some four thousand words of English
+       against a column of Sanskrit, and a reader would scroll a chapter to find the sentence facing
+       them. That is not a pairing, it is two texts in the same table.
+
+       TWO: THE TWO COLUMNS WOULD BE DIFFERENT RECENSIONS OF THE PLAY, which no other book here has had
+       to weigh. Wikisource states outright that Jones translated the BENGALI recension; the standard
+       printed Sanskrit, and what Sanskrit Wikisource carries, is Devanagari. These are not variant
+       spellings of one text — they differ in whole verses and in readings, and which is the earlier is
+       an argument that has run since Monier Williams claimed the Devanagari as the older and purer in
+       the 1850s. Modern textual work counts four or five regional recensions rather than two. So even
+       act by act the columns would be set beside passages that are genuinely not each other.
+
+       THREE: THE SANSKRIT SOURCE NAMES NOTHING. The Sanskrit Wikisource text gives no editor, no
+       edition, no publisher, no date and no recension — it is seven act subpages and a category. That
+       is the Lucretius problem in a sharper form: there the Latin named no editor and the poem's age
+       still carried the licence, whereas here nothing can honestly be said about WHICH text it is,
+       which is the very question grounds one and two turn on. Naming a recension for it would be the
+       Hugo Magnus mistake with a text instead of a man.
+
+       AND THE NUMBERED ENGLISH THAT EXISTS CANNOT BE USED, which is the Dialogues' rule biting again:
+       ask what the source is MISSING before building on it. Monier Williams's translation is the
+       obvious answer — it is free (he died in 1899), it is the standard Victorian rendering, and it is
+       made from the Devanagari recension the Sanskrit text carries. Wikisource's transcription of it,
+       at Index:Sakoontala (Williams 1872).djvu, is barely begun: of roughly 300 leaves, five are
+       proofread and the mainspace page does not exist at all. Building on it would have shipped a
+       fragment, exactly as Wikisource's Jowett Dialogues and its Rogers Lysistrata would have. Ryder's
+       1912 verse translation is not on Wikisource in any form — only his Little Clay Cart is — and
+       Perseus, which carries the Greek and Latin originals for eleven books here, has no Sanskrit at
+       all. So the choice was this complete English or no complete English, and the book ships in one
+       column with the reason on its own front matter, as the Republic, Aesop and Lysistrata do. The
+       day a numbered transcription of a Devanagari-based translation appears, an `original` block and
+       an `origLang` are the whole of the work. */
+
+    /* ---------- THE FRONT MATTER — chapter 0 ----------
+       What a reader needs before starting: what happens, where the story comes from and what Kalidasa
+       did to it, what a Sanskrit play IS and how unlike a Greek one it is, who Kalidasa was and how
+       little is known, what this translation is and what it did to Europe — and, because it is a
+       free eighteenth-century rendering with its author's attitudes in it, what to expect of it. */
+    about: [
+      "<b>Sacontala</b> — <i>Abhijñānaśākuntalam</i>, \"the recognition of Shakuntala\" — is the most " +
+        "famous play in Sanskrit and the work by which Indian drama first became known outside India. " +
+        "King Dushmanta, hunting in a forest, comes to a hermitage and falls in love with Sacontalá, " +
+        "the foster-daughter of the sage who keeps it. They marry there, privately, by the form of " +
+        "marriage that needs no ceremony but consent, and he returns to his capital leaving her his " +
+        "ring. A visiting ascetic, slighted because she is too absorbed in her husband to notice him, " +
+        "curses her: the man she is thinking of will forget her until he sees the token he gave her. " +
+        "She loses the ring in a river on the way to court, and is disowned by a king who cannot " +
+        "remember her. A fisherman finds it inside a fish. What follows is remorse, and a reunion " +
+        "years later, in which the king meets a small boy prising open a lion cub's mouth to count its " +
+        "teeth and slowly works out whose son he is.",
+      "The story is not Kalidasa's. It is told in the <i>Mahabharata</i>, where Shakuntala is a much " +
+        "harder figure: the king there simply denies her to her face, she argues him down in public, " +
+        "and a voice from the sky settles it. The curse is Kalidasa's invention, and it changes the " +
+        "whole moral weather of the piece — the king is no longer a man breaking his word but a man " +
+        "who has had his memory taken from him, so that what the play is about becomes loss and " +
+        "recognition rather than betrayal and vindication. Whether that is a deepening or an evasion " +
+        "is one of the things people have argued about ever since; the son, Bharata, is in both " +
+        "versions the ancestor after whom India is named in Sanskrit.",
+      "It is worth knowing what a Sanskrit play is before starting, because it is not built like a " +
+        "Greek one. It opens with a benediction and then a <i>prologue</i> in which the stage manager " +
+        "and an actress step out and discuss the play they are about to perform — a convention Goethe " +
+        "borrowed for <i>Faust</i>. There are seven acts and no scene divisions, the action moving " +
+        "wherever the words say it is. Verse and prose alternate constantly, the verses carrying " +
+        "description and feeling and the prose carrying business. In the original the characters do " +
+        "not all speak the same language: the king and the sages speak Sanskrit, while the women and " +
+        "the servants speak Prakrit, the vernaculars — a social register no translation into English " +
+        "can show, and one this one does not attempt. And there is no tragedy in the Greek sense: the " +
+        "form does not permit a disastrous ending, so the suspense is never about whether things will " +
+        "come right but about what it costs to get there.",
+      "Almost nothing is known about Kalidasa. He is the poet Sanskrit tradition puts first, the " +
+        "author of two other surviving plays and of long poems including the <i>Meghaduta</i>, and no " +
+        "document fixes his dates: he is placed by the language he writes, by whom he seems to know " +
+        "and by whom seems to know him. The usual placing is the fourth or fifth century CE, at or " +
+        "near the Gupta court, and estimates outside that range have been argued seriously. The " +
+        "legends that grew up around him — that he began as an illiterate herdsman, that he was one of " +
+        "nine jewels at a king's court — are legends, and are worth exactly as much as the stories " +
+        "told about Homer.",
+      "The translation is Sir William Jones's, made in Bengal and published at Calcutta in 1789, and " +
+        "it is a historical document in its own right. Jones was a judge of the Supreme Court at Fort " +
+        "William, the founder of the Asiatic Society, and the man who first argued in public that " +
+        "Sanskrit, Greek and Latin had sprung from a common source — the proposal from which " +
+        "comparative linguistics grew. His preface, which is the first chapter here, tells the story " +
+        "of how he came to the play, and it is the reason the translation matters as much as the " +
+        "quality of it. Georg Forster turned his English into German in 1791; Goethe read that and " +
+        "wrote a four-line epigram in praise of it that became famous, Herder took the epigram as a " +
+        "motto, and within a few years Schiller, the Schlegels and Humboldt had all had something to " +
+        "say. Sanskrit literature entered Europe through this book.",
+      "Two things to expect of it, since neither is a fault in the transcription. It is an " +
+        "eighteenth-century translation and it reads like one — courtly, latinate, and free where a " +
+        "modern version would be close; Jones softened what he thought his readers could not take, and " +
+        "his preface carries the confidence about India, and the contempt for its conquerors, of an " +
+        "Englishman writing in Bengal in 1789. It is printed here as he wrote it. And he worked from " +
+        "the Bengali recension of the play, which is not the Sanskrit text usually printed today: the " +
+        "play survives in several regional versions differing in whole verses, and which is closest to " +
+        "Kalidasa is unsettled. That is also why this book has no Sanskrit column beside the English, " +
+        "where most books on this shelf have one — Folio pairs two texts on the numbers they share, " +
+        "this translation prints none below the act, and the Sanskrit that is freely available is a " +
+        "different recension whose edition names no editor at all. The tabs therefore count what this " +
+        "edition itself separates: the preface, the prologue and the seven acts.",
+    ],
+
+    /* ---------- AN ORDINARY WIKI WALK ----------
+       A page per division, like Seneca's letters and Aesop's fables, and no new reader at all: the
+       play arrives as nine proofread transclusions in the ordinary `prp-pages-output` shape, so
+       `cleanBody` reads it unchanged. It needs neither `layout: "play"` (which exists because
+       Lysistrata is one page and has to be CUT) nor `layout: "drama"` (which is the Perseus TEI
+       reader). The centred stage directions this edition sets become blockquotes under the generic
+       div pass, which is the right rendering and not a fault — an indented centred line is what a
+       stage direction looks like on a printed page. */
+    source: "wiki",
+    /* Folio's own neutral word, as for the four plays already here, and for a reason peculiar to this
+       book: the edition numbers SOME of its divisions and not others. The seven acts carry numerals;
+       the preface and the prologue do not, and both are part of what this volume prints. No single
+       scheme can call all nine an act, so the running order is Part 1–9 and the tab titles carry the
+       edition's own names. Aesop's rule again — state the order the book actually has rather than
+       invent a structure it has not got. */
+    chapterWord: "Part",
+    page: (n) => "Sacontala (Jones 1870)/" + ["Preface", "Prologue", "Act 1", "Act 2", "Act 3",
+                                              "Act 4", "Act 5", "Act 6", "Act 7"][n - 1],
+    titleOf: (n) => ["Preface", "The Prologue", "Act I", "Act II", "Act III",
+                     "Act IV", "Act V", "Act VI", "Act VII"][n - 1],
+    chapters: Array.from({ length: 9 }, (_, i) => i + 1),
+    /* No `indexPage`: titleOf carries the edition's own names, read off its contents page once. No
+       `parts` either — Wikisource groups the nine as "Front matter" and "Acts of the Play" and says on
+       its own page that neither heading is in the original, so adopting them would be presenting a
+       modern editor's grouping as the edition's. Nine tabs need no grouping to be navigable, and
+       app.js falls back to a single unlabelled group as it does for the Meditations and the Republic. */
+
+    /* THE SCAN'S OWN HEADS, and this list is narrow ON PURPOSE. Every chapter opens on a centred block
+       the printing sets for itself — "PREFACE.", "THE PROLOGUE.", "ACT I." — which by the time
+       dropHeads runs has become a blockquote, so left alone each of the nine chapters would open on a
+       quotation of the title Folio has just printed above it: the Meditations' running-head fault nine
+       times over.
+
+       What makes this book different from every other dropHeads here is that the centred block is
+       ALSO how this edition sets its stage directions. "Scene—A Forest.", "Enter a Hermit and his
+       Pupil.", "Mátali enters." are centred exactly as the act heads are, they immediately follow
+       them, and they are the play. Aesop's rule — match anything wholly in capitals — would delete
+       them; so would anything keyed on the block being centred. So the patterns name the three things
+       the printing actually repeats and nothing else, and each is anchored at both ends. The loop
+       peels leading blocks one at a time, so after "ACT I." goes it looks at "Scene—A Forest." next
+       and correctly leaves it alone. */
+    dropHeads: [/^PREFACE\s*\.?$/i, /^THE\s+PROLOGUE\s*\.?$/i, /^ACT\s+[IVX]+\s*\.?$/i],
+
+    /* AND THE FURNITURE AT THE FOOT OF THE LAST ACT — the first book here to need it; see the note on
+       dropTail in cleanBody. The seventh act ends with two more centred blocks: the printing's "THE
+       END." and the trade imprint of the London printer who set the type. The imprint is plainly not
+       Kalidasa, and "THE END." is the printer's furniture too — rendered as an indented quotation
+       under the last line of the play it reads as a stray fragment of text rather than as a closing
+       flourish, and the reader can see the chapter has ended. Both are named exactly rather than
+       matched by shape, so nothing else can fall to them. */
+    dropTail: [/^THE\s+END\s*\.?$/i, /^FOSTER,\s*OLD\s+STYLE\s+PRINTER,\s*LONDON\s*\.?$/i],
+
+    /* No `sections`. There are no section numbers to find — see the pairing note above — so
+       cleanBody's marker rules are all left off and the chapters render with no <span class="bk-n">
+       at all, which is correct and not a wiring fault, exactly as for Aesop and Lysistrata.
+
+       No `notesOf` work either: this printing carries NO footnotes anywhere, measured over all nine
+       pages — zero reflist divs, zero Footnotes headings, zero reference marks. Jones annotated his
+       first edition; this popular reprint drops the apparatus. So the book renders with no note fold,
+       as Ovid, Lucretius, the Analects, the Oedipus Rex and the Antigone do. notesOf is still called
+       and will warn if one ever appears. */
+  },
 };
 
 /* ---------- args ---------- */
@@ -4653,6 +4890,48 @@ function cleanBody(h, noteIds, book, warn) {
     }
     // the line break the head used to sit above, now opening the first paragraph on a blank line
     b = b.replace(/^<p>\s*(?:<br>\s*)+/, "<p>");
+  }
+  /* THE FURNITURE AT THE OTHER END OF THE CHAPTER (Aug 2026, adding Shakuntala — the first book here
+     whose last page carries the printer's imprint inside the transcluded slice).
+
+     dropHeads is anchored to position 0, deliberately and for a good reason: only a head can go, so
+     it can never reach into prose. That leaves the FOOT of a chapter unguarded, and until now nothing
+     needed it — every earlier book's closing furniture falls outside the slice, or is the footnote
+     apparatus, which the reflist split above already cuts off. Jones's Sacontala ends its seventh act
+     with two centred blocks the 1870 printing sets for itself: "THE END." and the trade imprint of
+     the London printer who set the type. Neither is Kalidasa. Left alone they arrive as two indented
+     quotations under the last line of the play — this file's usual quiet failure, since nothing
+     throws, no prose is lost and the chapter is exactly the right length.
+
+     It is the MIRROR of dropHeads and shares its whole discipline rather than relaxing it: the same
+     blockquote shapes, anchored to the end instead of the start; the same test, that a block goes
+     only when its WHOLE text matches a pattern the book itself declares; the same loop, so a run of
+     trailing blocks is peeled one at a time; and the same per-book gate. That gate is what makes this
+     provably inert on all twenty books already shipped — none of them declares `dropTail`, so the
+     branch cannot execute for any of them, which is the argument `body: "plain"` and `dropHeadings`
+     rest on too.
+
+     Anchoring to the END is what keeps it as safe as its twin. A pattern loose enough to eat prose
+     still cannot, because it has to match a whole trailing block and the loop stops the moment one
+     fails — so the worst a bad pattern can do is stop early, never run on into the play. */
+  if (book && book.dropTail) {
+    const TAIL_SHAPES = [
+      /\s*<blockquote>\s*<p>([\s\S]*?)<\/p>\s*<\/blockquote>\s*$/,
+      /\s*<blockquote>\s*([^<][\s\S]*?)\s*<\/blockquote>\s*$/,
+      /\s*<blockquote>\s*((?:(?!<\/?blockquote>)[\s\S])*?)<\/blockquote>\s*$/,
+    ];
+    for (let k = 0; k < 8; k++) {
+      const before = b;
+      // the blank line a trailing block sat under, peeled inside the loop as dropHeads peels its own
+      b = b.replace(/\s*<p>\s*(?:<br>\s*)*<\/p>\s*$/, "");
+      for (const shape of TAIL_SHAPES) {
+        b = b.replace(shape, (m, inner) => {
+          const t = inner.replace(/<[^>]*>/g, " ").replace(/&#\d+;|&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+          return book.dropTail.some((rx) => rx.test(t)) ? "" : m;
+        });
+      }
+      if (b === before) break;
+    }
   }
   if (book && book.sections === "leading") b = markLeadingSections(b, warn);
   return b;
