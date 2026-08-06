@@ -223,6 +223,131 @@ const DIALOGUE = (n) => DIALOGUES[n - 1];
 const TETRALOGY = (d) => Math.ceil(parseInt(d.w.slice(3), 10) / 4);
 const TET_ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"];
 
+/* ---------- THE 313 FABLES, IN THE ORDER THIS EDITION PRINTS THEM ----------
+   A table rather than arithmetic, because there is no arithmetic to do: the fables are reached by
+   NAME, one Wikisource subpage each, and the only thing that says what order they come in is the
+   edition's own contents. Read off that contents list once and written down here, so that page(n)
+   and titleOf(n) are the same fact stated twice and cannot drift apart.
+
+   THE TITLES ARE THE TRANSCRIPTION'S OWN, VERBATIM, and that is a decision rather than laziness.
+   The printed page sets every fable's title in CAPITALS, so its capitalisation is not recoverable
+   from the book at all — a case has to be chosen by somebody. titleCase() is already in this file
+   and is what Seneca's contents page goes through for exactly that reason, and it was tried here
+   and rejected: it would rewrite 57 of the 313, and its damage is on the hyphenated compounds this
+   collection is full of — "The Charcoal-Burner and the Fuller", "The Walnut-Tree", "The Old Woman
+   and the Wine-Jar". Wikisource's forms are mildly inconsistent about "his" and "her" and right
+   about the hyphens; they are also the names the subpages actually carry, so a reader who goes
+   looking for one finds it. Inconsistency somebody else introduced beats damage introduced here.
+
+   FIVE TITLES OCCUR TWICE, and they are five genuinely different fables that Townsend gave the same
+   name — The Kid and the Wolf, The Fox and the Monkey, The Wolf and the Lion, The Two Frogs and The
+   Fox and the Lion, each printed once in the first half of the book and once in the second. The
+   "(1)" and "(2)" here are Wikisource's disambiguation of its own page names, not the book's, so
+   they are stripped for display by AESOP_TITLE below: the tab bar shows two tabs reading The Two
+   Frogs, which is what the edition does, and the fable number beside each is the only thing that
+   tells them apart. It is the sharpest argument for numbering the tabs at all. */
+const AESOP_FABLES = [
+  "The Lion and the Mouse", "The Wolf and the Lamb", "The Ass and the Grasshopper",
+  "The Wolf and the Crane", "The Father and his Sons", "The Bat and the Weasels", "The Cock and the Jewel",
+  "The Swallow and the Crow", "The Kingdom of the Lion", "The Traveller and his Dog",
+  "The Ants and the Grasshopper", "The Hare and the Tortoise", "The Charcoal-burner and the Fuller",
+  "The Boy hunting Locusts", "The Fisherman Piping", "The Dog and the Shadow", "Hercules and the Waggoner",
+  "The Mole and his Mother", "The Herdsman and the lost Bull", "The Fawn and his Mother",
+  "The Ass, the Fox, and the Lion", "The Flies and the Honey Pot", "The Lioness",
+  "The Farmer and the Snake", "The Man and the Lion", "The Pomegranate, Apple-tree, and Bramble",
+  "The Farmer and the Stork", "The Mountain in Labour", "The Bear and the Fox",
+  "The Tortoise and the Eagle", "The Fox and the Goat", "The Raven and the Swan", "The Thirsty Pigeon",
+  "The Dog in the Manger", "The Oxen and the Axle-trees", "The Farmer and the Cranes", "The Sick Lion",
+  "The Bear and the Two Travellers", "The Fox who had lost his Tail", "The Cat and the Cock",
+  "The Wolf in Sheep's Clothing", "The Goat and the Goatherd", "The Boasting Traveller", "The Lion in Love",
+  "The Miser", "The Porker, the Sheep, and the Goat", "The Boy and the Filberts",
+  "The Frogs asking for a King", "The Labourer and the Snake", "The Lion, the Mouse, and the Fox",
+  "The Horse and Groom", "The Ass and the Mule", "The Ass and the Lap-dog", "The Oxen and the Butchers",
+  "The Shepherd's Boy and the Wolf", "The Boys and the Frogs", "The Salt Merchant and his Ass",
+  "The Mischievous Dog", "The Goatherd and the Wild Goats", "The Man and his Two Sweethearts",
+  "The Sick Stag", "The Boy and the Nettles", "The Astronomer", "The Wolves and the Sheep",
+  "The Cat and the Birds", "The Vain Jackdaw", "The Kid and the Wolf (1)",
+  "The Old Woman and the Physician", "The Ox and the Frog", "The Farmer and his Sons",
+  "The Heifer and the Ox", "The Fighting Cocks and the Eagle", "The Charger and the Miller",
+  "The Fox and the Monkey (1)", "The Horse and his Rider", "The Belly and the Members",
+  "The Widow and her Little Maidens", "The Vine and the Goat", "Jupiter and the Monkey",
+  "The Hawk, the Kite, and the Pigeons", "The Dolphins, the Whales, and the Sprat",
+  "The Swallow, the Serpent, and the Court of Justice", "The Two Pots", "The Shepherd and the Wolf",
+  "The Crab and its Mother", "The Father and his Two Daughters", "The Thief and his Mother",
+  "The Old Man and Death", "The Fir Tree and the Bramble", "The Æthiop",
+  "The Mouse, the Frog, and the Hawk", "The Fisherman and his Nets", "The Wolf and the Sheep",
+  "The Old Woman and the Wine-jar", "The Man bitten by a Dog", "The Huntsman and the Fisherman",
+  "The Fox and the Crow", "The Widow and the Sheep", "The Playful Ass", "The Stag in the Ox-stall",
+  "The Two Dogs", "The Wild Ass and the Lion", "The Lion and the Dolphin", "The Eagle and the Arrow",
+  "The Sick Kite", "The Lion and the Boar", "The Mice in Council", "The One-eyed Doe",
+  "The Mice and the Weasels", "The Shepherd and the Sea", "The Ass, the Cock, and the Lion",
+  "The Rivers and the Sea", "The Wild Boar and the Fox", "The Milkwoman and her Pail",
+  "The Bee and Jupiter", "The Wolf and the House-dog", "The Three Tradesmen", "The Ass carrying the Image",
+  "The Master and his Dogs", "The Old Hound", "The Two Travellers and the Axe", "The Old Lion",
+  "The Wolf and the Shepherds", "The Seaside Travellers", "The Ass and his Shadow",
+  "The Ass and his Masters", "Mercury and the Sculptor", "The Fox and the Wood-cutter",
+  "The Oak and the Reeds", "The Lion in a Farmyard", "The Wolf and the Lion (1)",
+  "The Birdcatcher, the Partridge, and the Cock", "The Ant and the Dove", "The Hares and the Frogs",
+  "The Monkey and the Fishermen", "The Swan and the Goose", "The Doe and the Lion",
+  "The Fisherman and the Little Fish", "The Hunter and the Woodman", "The Swollen Fox", "The Two Frogs (1)",
+  "The Lamp", "The Camel and the Arab", "The Miller, his Son, and their Ass", "The Cat and the Mice",
+  "The Mouse and the Bull", "The Dog and the Cook", "The Thieves and the Cock", "The Dancing Monkeys",
+  "The Farmer and the Fox", "The Traveller and Fortune", "The Sea-gull and the Kite",
+  "The Lion, the Bear, and the Fox", "The Philosopher, the Ants, and Mercury", "The Peasant and the Eagle",
+  "The Fox and the Leopard", "The Lion and the Hare", "The Image of Mercury and the Carpenter",
+  "The Lion, the Fox, and the Ass", "The Bull and the Goat", "The Bald Knight", "The Oaks and Jupiter",
+  "The Monkeys and their Mother", "The Hare and the Hound", "The Shepherd and the Dog",
+  "The Oak and the Wood-cutters", "The Wasp and the Snake", "The Peacock and the Crane",
+  "The Hen and the Golden Eggs", "The Ass and the Frogs", "The Crow and the Raven", "The Trees and the Axe",
+  "The Wolves and the Sheep-dogs", "The Bull, the Lioness, and the Wild-Boar Hunter", "The Bowman and Lion",
+  "The Camel", "The Crab and the Fox", "The Ass and the Old Shepherd", "The Fox and the Hedgehog",
+  "The Woman and her Hen", "The Kites and the Swans", "The Dog and the Hare", "The Hares and the Foxes",
+  "The Bull and the Calf", "The Stag, the Wolf, and the Sheep", "The Eagle, the Cat, and the Wild Sow",
+  "The Wolf and the Fox", "The Mule", "The Prophet", "The Two Frogs (2)", "The Serpent and the Eagle",
+  "The Crow and the Pitcher", "The Thief and the Innkeeper", "The Hart and the Vine",
+  "The Gnat and the Lion", "The Fox and the Grapes", "The Walnut-tree", "The Kid and the Wolf (2)",
+  "The Monkey and the Dolphin", "The Horse and the Stag", "The Jackdaw and the Doves",
+  "The Fox and the Monkey (2)", "The Man and his Wife", "The Man, the Horse, the Ox, and the Dog",
+  "The Thief and the House-Dog", "The Apes and the Two Travellers", "The Fox and the Lion (1)",
+  "The Weasel and the the Mice", "The Boy Bathing", "The Peacock and Juno", "The Wolf and the Shepherd",
+  "The Hares and the Lions", "The Seller of Images", "The Hawk and the Nightingale",
+  "The Lark and her Young Ones", "The Dog, the Cock, and the Fox", "The Geese and the Cranes",
+  "The Ass and the Wolf", "The Goat and the Ass", "The Lion and the Bull", "The Fox and the Mask",
+  "The Grasshopper and the Owl", "The Fowler and the Viper", "The Horse and the Ass",
+  "The Lion and the Three Bulls", "The Wolf and the Goat", "The Fly and the Draught-mule", "The Fishermen",
+  "The Town Mouse and the Country Mouse", "The Wolf, the Fox, and the Ape",
+  "The Wasps, the Partridges, and the Farmer", "The Brother and the Sister", "The Dogs and the Fox",
+  "The Blind Man and the Whelp", "The Cobbler turned Doctor", "The Wolf and the Horse",
+  "The Two Men who were Enemies", "The Game-cocks and the Partridge", "The Fox and the Lion (2)",
+  "The Quack Frog", "The Lion, the Wolf, and the Fox", "The Dog's House", "The North Wind and the Sun",
+  "The Crow and Mercury", "The Fox and the Crane", "The Wolf and the Lion (2)",
+  "The Birds, the Beasts, and the Bat", "The Spendthrift and the Swallow", "The Trumpeter taken Prisoner",
+  "The Owl and the Birds", "The Goods and the Ills", "The Ass in the Lion's Skin",
+  "The Sparrow and the Hare", "The Flea and the Ox", "The Ass and his Purchaser", "The Dove and the Crow",
+  "The Man and the Satyr", "Jupiter, Neptune, Minerva, and Momus", "The Eagle and the Jackdaw",
+  "The Eagle and the Fox", "The Two Bags", "The Bitch and her Whelps", "The Stag at the Pool",
+  "The Lark burying its Father", "The Gnat and the Bull", "The Monkey and the Camel",
+  "The Dogs and the Hides", "The Jackdaw and the Fox", "Mercury and the Workmen",
+  "The Peasant and the Apple-tree", "The Two Soldiers and the Robber", "The Shepherd and the Sheep",
+  "The Trees under the protection of the Gods", "The Flea and the Wrestler", "The Lion and the Fox",
+  "Truth and the Traveller", "The Manslayer", "The Lion and the Eagle", "The Ass and the Driver",
+  "The Thrush and the Fowler", "The Mother and the Wolf", "The Hen and the Swallow",
+  "The Rose and the Amaranth", "The Travellers and the Plane-tree", "The Ass and the Horse",
+  "The Crow and the Sheep", "The Fox and the Bramble", "The Ass and the Charger",
+  "The Lion, Jupiter, and the Elephant", "The Dog and the Oyster", "The Mules and the Robbers",
+  "The Lamb and the Wolf", "The Partridge and the Fowler", "The Flea and the Man",
+  "The Rich Man and the Tanner", "The Viper and the File", "The Lion and the Shepherd",
+  "The Camel and Jupiter", "The Panther and the Shepherds", "The Eagle and the Kite",
+  "The Eagle and his Captor", "The King's Son and the Painted Lion", "The Cat and Venus",
+  "The Eagle and the Beetle", "The She-goats and their Beards", "The Bald Man and the Fly",
+  "The Shipwrecked Man and the Sea", "The Buffoon and the Countryman", "The Crow and the Serpent",
+  "The Hunter and the Horseman", "The Olive-tree and the Fig-tree", "The Frogs' complaint against the Sun",
+  "The Brazier and his Dog",
+];
+/* The subpage name is the display title plus Wikisource's disambiguator, and nothing else — asserted
+   over all 313 when the table was built, not assumed. */
+const AESOP_TITLE = (s) => s.replace(/\s*\(\d+\)$/, "");
+
 const BOOKS = {
   "seneca-letters": {
     title: "Letters from a Stoic",
@@ -2631,6 +2756,206 @@ const BOOKS = {
       url: "https://raw.githubusercontent.com/PerseusDL/canonical-greekLit/master/data/tlg0003/tlg001/tlg0003.tlg001.perseus-grc2.xml",
     },
   },
+  "aesop-fables": {
+    title: "Aesop's Fables",
+    /* The edition's own title page, which claims three hundred and prints three hundred and
+       thirteen. Kept as the subtitle because it is what the book calls itself and what its spine
+       says; the count is corrected in the front matter rather than in the title, where correcting
+       it would mean retitling somebody else's book. */
+    subtitle: "Three Hundred Æsop's Fables",
+    author: "Aesop",
+    translator: "George Fyler Townsend",
+    edition: "Three Hundred Æsop's Fables, translated by George Fyler Townsend, George Routledge and Sons, London, 1867",
+    written: "c. 6th century BCE, collected later",
+    /* Negative, and vaguer than any other sort key on the shelf, because the thing being dated is
+       not a book. Aesop is placed in the sixth century BCE by the ancient tradition; the collection
+       that carries his name was assembled and reassembled for the next two thousand years. -550
+       files him where the tradition puts the man, which is the only date the shelf can honestly
+       sort on. */
+    year: -550,
+
+    /* ---------- THE LICENCE, and it is the easiest class on the shelf ----------
+       The fourth book here needing no qualification of any kind, after the Republic, the Analects
+       and the Peloponnesian War. Both layers are long gone: the Greek is some twenty-five centuries
+       old, and Townsend published in 1867 and lived from 1814 to 1900 — dates looked up on Wikidata
+       rather than recalled, for the Hugo Magnus reason — so the translation clears the pre-1929
+       publication rule, life-plus-seventy (expired 1970) and life-plus-a-hundred (expired 2000)
+       alike. There is no limit to state as Giles's entry (in copyright in life-plus-seventy
+       countries until 2029) and Ross's (until 2042) have to, and no modern editorial layer as the
+       Histories and the Meditations' Greek carry: this is a scan of the printed book and nothing
+       has been added to it.
+
+       ONE FIGURE LOOKS LIKE A DISAGREEMENT AND IS NOT. The Wikisource header dates the translation
+       1867 and the scan's own index page gives the printing as 1887. Routledge reprinted Townsend
+       for decades and both are true of different objects — the translation's date and this copy's.
+       The date relied on is 1867 and the reprint is not asserted as anything else; either is
+       comfortably pre-1929 and the translator's death settles it in any case.
+
+       The modern translations a reader is likeliest to own — S. A. Handford's Penguin (1954), the
+       Temples' Penguin (1998) and Laura Gibbs's Oxford World's Classics (2002) — are all firmly in
+       copyright and are named here for the reason Campbell, Hays, Griffith, Lee, Humphries, de
+       Sélincourt, Handford and Warner are named above: so that nobody reaches for one later. */
+    rights:
+      "Public domain on every ground, with nothing left to qualify. The fables themselves are Greek " +
+      "and some twenty-five centuries old, so the words behind this book have been out of copyright " +
+      "for as long as copyright has existed. George Fyler Townsend's translation was published in " +
+      "1867 by George Routledge and Sons, and Townsend lived from 1814 to 1900 — so it is out of " +
+      "copyright under the pre-1929 publication rule, wherever the term is the translator's life " +
+      "plus seventy years, and wherever it is life plus a hundred. The scan this text is taken from " +
+      "is a Routledge reprint its own index page dates to 1887; the translation is the 1867 one " +
+      "either way. (The modern translations by S. A. Handford, 1954, Olivia and Robert Temple, 1998, " +
+      "and Laura Gibbs, 2002, are still in copyright and are not used here.)",
+    sourceName: "Wikisource",
+    sourceUrl: "https://en.wikisource.org/wiki/Three_Hundred_%C3%86sop%27s_Fables",
+
+    /* ---------- THE FRONT MATTER — chapter 0 ----------
+       What a reader should be told before they start, and here that is more than usual, because the
+       thing they have opened is not what its cover implies. It is not a book by an author; it is a
+       corpus, and the single most useful thing the front matter can do is say so. Then: who Aesop
+       was and how little of that is known, how the fables actually came down, what the morals are
+       and why they should be read with some suspicion, and finally what THIS edition is — the count
+       it gets wrong, the numbers it does not have, and why there is no Greek column. */
+    about: [
+      "<b>Aesop's Fables</b> is not a book somebody wrote. It is a collection — a few hundred very " +
+        "short stories, most of them about animals who talk, that were told in Greek for centuries " +
+        "before anyone gathered them up, and that have been gathered up differently by every editor " +
+        "since. No two collections contain quite the same fables in quite the same order, and none " +
+        "of them goes back to a manuscript by Aesop, because there was never one to go back to. " +
+        "What a reader is holding is one Victorian translator's arrangement of that corpus, which " +
+        "is the only kind of Aesop there is.",
+      "About Aesop himself almost nothing can be said with confidence. The ancient tradition makes " +
+        "him a slave in the sixth century BCE, ugly and clever, and has him killed by the people of " +
+        "Delphi. The earliest surviving mention is in Herodotus, who is also on this shelf: at 2.134 " +
+        "he calls Aesop a story-writer and a fellow-slave of the courtesan Rhodopis under a Samian " +
+        "master named Iadmon, and reports that the Delphians later paid compensation for killing " +
+        "him. That is roughly a century after Aesop is supposed to have lived, and it is the best " +
+        "evidence there is. A long comic <i>Life of Aesop</i> circulated in later antiquity and is " +
+        "plainly a folk tale rather than a biography. Scholars differ on whether there was a real " +
+        "man at the bottom of it or whether \"Aesop\" was simply the name Greeks attached to any " +
+        "fable, much as jokes attach themselves to whoever is famous; the question is open and this " +
+        "edition's own preface, written in 1867, takes a more confident view of it than the evidence " +
+        "now supports.",
+      "How the fables came down is worth knowing, because it explains why the collection has the " +
+        "shape it does. They began as things people said — a fable is an argument in disguise, and " +
+        "the ancient ones are quoted in court speeches and political rows rather than read for " +
+        "pleasure. Around 300 BCE Demetrius of Phalerum made a collection in Athens, which is lost. " +
+        "In the first century CE Phaedrus put fables into Latin verse and in the second Babrius put " +
+        "them into Greek verse, and both added and invented freely. Prose collections went on being " +
+        "copied and rearranged through the Byzantine centuries, one of them associated with the " +
+        "scholar Maximus Planudes around 1300. Caxton printed an English Aesop in 1484, La Fontaine " +
+        "turned the material into French verse in the seventeenth century, and translators have been " +
+        "reshuffling it ever since. Modern scholarship refers to a fable by its number in the index " +
+        "Ben Edwin Perry published in 1952, which is the first thing resembling a stable catalogue " +
+        "the corpus has ever had — and which came eighty-five years too late for this edition.",
+      "The morals deserve a word of warning. Most fables here end with a sentence telling you what " +
+        "they mean, and those sentences are not part of the story in the way the story is. Some are " +
+        "ancient, some were added by later editors, some are the translator's, and a good many fit " +
+        "the tale they are attached to only loosely — the moral of the fox and the grapes has been " +
+        "stated four different ways in four different centuries. They are also flatter than the " +
+        "fables. A fable works by leaving the reader to do the last step, and an appended moral does " +
+        "that step for them. Read them as part of the tradition rather than as the point of it, and " +
+        "notice how often the story is cannier than the lesson bolted to its end.",
+      "What people remember from it: the tortoise beating the hare, the fox deciding the grapes were " +
+        "sour, the boy who cried wolf, the ant and the grasshopper, the lion spared by a mouse and " +
+        "repaid, the dog that lost its dinner to its own reflection, the town mouse and the country " +
+        "mouse, the goose that laid golden eggs, the wolf in sheep's clothing. Several have become " +
+        "ordinary English idiom, which is the strongest thing that can be said about a book — that " +
+        "people use it without knowing they are quoting. They are very short and they are meant to " +
+        "be read a few at a time rather than straight through; a fable is a thing to stop after.",
+      "This edition is George Fyler Townsend's, published by Routledge in 1867 and, in his own words " +
+        "on the title page, literally translated from the Greek. Two things about it a reader should " +
+        "know. It is called <i>Three Hundred Æsop's Fables</i> and it prints <b>313</b>, counted " +
+        "here rather than taken on trust. And it numbers nothing at all: every fable is headed by " +
+        "its title and by nothing else, and the book's own index at the back files them " +
+        "alphabetically by title with a page number beside each. So the figures on the tabs here are " +
+        "simply the order the fables are printed in, supplied so that they can be navigated and " +
+        "cited — they are Folio's, not Townsend's. They earn their place chiefly because he gave " +
+        "five pairs of quite different fables the same name, so that two tabs read The Two Frogs and " +
+        "only the number tells them apart. There is no Greek column, and unlike every other book " +
+        "here that lacks one the reason lies on both sides at once: this English states no section " +
+        "numbers, and the Greek collections state none either — the standard text on Greek " +
+        "Wikisource is Émile Chambry's of 1927, which lists 359 fables alphabetically by their Greek " +
+        "titles with no numbering anywhere. Two unnumbered collections of different sizes in " +
+        "different orders have nothing to pair on, and matching them fable by fable would mean " +
+        "several hundred judgements made by eye, which is exactly the work that was tried and " +
+        "abandoned for the Meditations' Greek. Better to say so than to guess three hundred times.",
+    ],
+
+    /* ---------- ONE FABLE, ONE CHAPTER — 313 of them, the most on the shelf ----------
+       This is the Dialogues' shape taken to its limit: a chapter here is a whole separate WORK
+       rather than a division of one, and where Plato's volumes gave eleven of those, Townsend's
+       gives 313. It is also Seneca's shape — a collection of short independent pieces, each with
+       its own title, reached by tab — at two and a half times Seneca's 124, which the chapter
+       scroller was built for and handles.
+
+       IT WAS WEIGHED AGAINST GROUPING THEM, which is the obvious alternative and is wrong twice
+       over. Twenty-five fables to a chapter would give a tidy dozen tabs and a chapter you can read
+       in one sitting — but the divisions would be composed here, and this file's standing rule is
+       that a title is transcribed and never composed; and it would bury 313 titles inside twelve,
+       so that the one thing a reader of Aesop actually wants to do — find the one about the fox and
+       the grapes — could not be done from the contents at all. The fable is the unit the edition
+       itself uses, it is the unit the book's own index uses, and it is the unit a reader's saved
+       place should be measured in: "you were on The Fox and the Grapes" says something, where "38%
+       of the way through chapter 5" does not.
+
+       THE NUMBERS ARE OURS AND THE FRONT MATTER SAYS SO. The edition numbers nothing — measured, not
+       assumed: the fables carry titles and no figures, and the index at the back is alphabetical
+       with page numbers. What is written on the tabs is the ORDER the fables are printed in, which
+       is a fact about the edition rather than an invention about it, and it is stated as such on the
+       book's own first page. Below 640px the tab bar shows numbers alone, so a book of 313 chapters
+       cannot go without them; and Townsend's five repeated titles mean the number is the only thing
+       distinguishing two tabs even on a wide screen.
+
+       THE EDITION'S OWN FRONT MATTER IS NOT IMPORTED — its Preface, its Life of Æsop and its list of
+       illustrations. That is the Republic's precedent, where the 1901 printing's added introduction
+       was left behind and what was taken was the translation; here the ground is the same and one
+       more besides, that chapter 0 already covers the history in prose written for a reader now, and
+       Townsend's preface is confident about Aesop's biography in a way the evidence does not support.
+       Leaving it out costs the reader nothing and saves them being told something untrue. */
+    source: "wiki",
+    chapterWord: "Fable",
+    /* The only book here that has to lower the short-chapter guard, and the reason is simply that a
+       chapter is one paragraph. The shortest fable in the collection is 191 characters — fable 123,
+       The Wolf and the Shepherds, read against its own source page to be sure it was complete and
+       not truncated — where the shortest chapter in every other book on the shelf runs to
+       thousands. 120 sits below the shortest real fable and far above anything a failed extraction
+       produces, which is a handful of characters or none. */
+    minChars: 120,
+    page: (n) => "Three Hundred Æsop's Fables/" + AESOP_FABLES[n - 1],
+    titleOf: (n) => AESOP_TITLE(AESOP_FABLES[n - 1]),
+    chapters: Array.from({ length: AESOP_FABLES.length }, (_, i) => i + 1),
+    /* No `indexPage`: titleOf reads the table above, which was built from the contents page once.
+       No `parts` either — the edition prints the fables in one undivided run and gives them no
+       volumes, so app.js falls back to a single unlabelled group, as the Meditations, the Republic
+       and the Art of War do. */
+
+    /* THE SCAN'S OWN HEADS. Every fable page opens with the fable's title set in capitals, which by
+       the time dropHeads runs has become a <blockquote> — so left alone each of the 313 chapters
+       would open on a quotation of the title Folio has just printed above it, which is the
+       Meditations' running-head fault 313 times over. The first page carries two more, the
+       collection's half-title and the caption under its frontispiece, both in the same centred
+       block.
+
+       Matched on being ALL CAPITALS rather than on any particular wording, and that is the only
+       shape that can work here: the heads are 313 different strings, one per fable, so a list of
+       them would be the fable table written out a second time and free to fall out of step with it.
+       Capitals are safe in this edition because its prose is not set in them — Townsend's opening
+       words are small capitals, which arrive as ordinary case — and the pattern requires the WHOLE
+       block to be capitals, so a sentence merely beginning on a shout cannot match. Gated per book,
+       like every other dropHeads, so no shipped book can be touched by it. */
+    dropHeads: [/^[A-ZÆŒ][A-ZÆŒ0-9'’.,;:!?()\-— ]*$/],
+
+    /* No `sections`. There are no section numbers to find — see the front matter — so cleanBody's
+       marker rules are all left off and the chapters render with no <span class="bk-n"> at all,
+       which is correct and not a wiring fault. It is the first book here where that is true of the
+       ENGLISH: the Republic has no original either, but its English still carries Jowett's
+       paragraphs and this one carries nothing to number.
+
+       No `original`, and this is the second book on the shelf without one after the Republic — but
+       the first whose answer is no on BOTH sides. The Republic's Greek states Stephanus numbers and
+       it is Jowett who states none; here neither edition states anything, so there is not even a
+       column to align badly. The whole finding is in the front matter, where the reader can see it. */
+  },
 };
 
 /* ---------- args ---------- */
@@ -2713,6 +3038,10 @@ async function fetchText(url) {
    something it does not own). */
 const ALLOWED = new Set(["p", "i", "b", "em", "strong", "br", "blockquote", "sup", "span", "q", "cite"]);
 
+/* The HTML elements that never carry a closing tag. `br` is handled a line or two below on its own,
+   because it is the one void element this extractor KEEPS. */
+const VOID_TAGS = new Set(["area", "base", "col", "embed", "hr", "img", "input",
+                           "link", "meta", "param", "source", "track", "wbr"]);
 function stripTags(b) {
   const out = [];
   const stack = [];
@@ -2724,6 +3053,28 @@ function stripTags(b) {
     pos = rx.lastIndex;
     const closing = !!m[1], name = m[2].toLowerCase(), attrs = m[3] || "";
     if (name === "br") { if (!closing) out.push("<br>"); continue; }
+    /* A VOID ELEMENT HAS NO CLOSER, AND PUSHING ONE ONTO THE STACK EATS SOMEBODY ELSE'S (Aug 2026,
+       adding Aesop's Fables — the first book here whose illustrations survive as far as this pass).
+       Everything not in ALLOWED is unwrapped by pushing a kept:false frame and waiting for the
+       matching closer; an <img> or an <hr> never sends one, so its frame sits on top of the stack
+       for the rest of the chapter and every subsequent closer is compared against IT, matches
+       nothing, and is DROPPED. Townsend's frontispiece is an <img> inside a <p> inside the centred
+       block that heads his first fable, so the </p> went, then the </div> that closed the block —
+       and the whole of fable 1 rendered inside a <blockquote> that never closed.
+
+       It fails the quiet way this file keeps meeting: nothing throws, not one word is lost, the
+       chapter is exactly the right length, and only the indent gives it away. `br` was already
+       special-cased above, which is why no earlier book met it.
+
+       MEASURED BEFORE IT WAS FIXED, over every shipped chapter of all fifteen books and all
+       fourteen originals: <p>, <blockquote>, <i>, <b> and <q> balance exactly everywhere, and the
+       only imbalance anywhere on the shelf was this one chapter. So no shipped file can change —
+       which was then confirmed byte-for-byte rather than left as an argument, the extractor being
+       shared and the check this file's own history prescribes.
+
+       Both tests are needed and neither implies the other: XHTML-style `<img ... />` announces
+       itself with the slash, while MediaWiki emits a bare `<hr class="...">` with none. */
+    if (!closing && (VOID_TAGS.has(name) || /\/>$/.test(m[0]))) continue;
     if (closing) {
       if (stack.length && stack[stack.length - 1].name === name) {
         const kept = stack.pop().kept;
@@ -3118,9 +3469,22 @@ function cleanBody(h, noteIds, book, warn) {
        the title standing underneath — a quotation of the chapter's own name, directly below the
        heading Folio has already printed. The bare form is required to open on a non-tag character, so
        it can never swallow a nested block's opening tag and take the rest of the chapter with it. */
+    /* A THIRD SHAPE: a centred head of SEVERAL paragraphs (Aug 2026, adding Aesop's Fables). The
+       first fable opens on one centred block holding the collection's half-title, the rules under
+       it, the frontispiece and its caption — four paragraphs in one <blockquote>, where shape one
+       wants exactly one <p> and shape two wants no tags at all, so neither can see it and the book
+       began on a quotation of its own title page.
+
+       It is not a loosening: the test applied to what it matches is the same one, so a block is
+       still removed only when its whole text matches a pattern the book itself declares, and
+       dropHeads is per book. Matching to the FIRST </blockquote> rather than the last is deliberate
+       — a leading block that contains a nested one yields a partial text, which will simply fail
+       the test and be left alone, where a greedy match could swallow real prose. It is listed last
+       so the two older shapes keep first refusal and go on behaving exactly as they did. */
     const HEAD_SHAPES = [
       /^<blockquote>\s*<p>([\s\S]*?)<\/p>\s*<\/blockquote>\s*/,
       /^<blockquote>\s*([^<][\s\S]*?)\s*<\/blockquote>\s*/,
+      /^<blockquote>\s*((?:(?!<\/?blockquote>)[\s\S])*?)<\/blockquote>\s*/,
     ];
     /* THE FURNITURE A DROPPED HEAD LEAVES BEHIND HAS TO GO ROUND THE LOOP TOO, or the SECOND head
        is unreachable (Aug 2026, adding The Dialogues). Every shape here is anchored to position 0,
@@ -5035,7 +5399,16 @@ async function fetchEnglish() {
       html = cleanBody(h, got.ids, BOOK, warn);
       if (keep) html = pruneNotes(html, keep);
     }
-    if (html.length < 200) throw new Error("chapter " + n + " came back short (" + html.length + " chars)");
+    /* THE FLOOR IS PER BOOK, because 200 characters is a broken chapter in every book here except
+       one (Aug 2026, adding Aesop's Fables). This guard is what catches an extraction that has
+       quietly returned the wiki furniture instead of the text, and 200 has been a safe floor while
+       a chapter meant a book of Herodotus or a letter of Seneca. A fable is one paragraph: fable
+       123, The Wolf and the Shepherds, is 191 characters and is complete — checked against the
+       source page rather than assumed, since a short chapter is exactly what a truncation looks
+       like. Lowering the floor for everybody would blunt the guard on the fourteen books that
+       need it, so the book that needs a different one says so and the default is unchanged. */
+    const floor = BOOK.minChars || 200;
+    if (html.length < floor) throw new Error("chapter " + n + " came back short (" + html.length + " chars)");
     const rec = { n, t: titles[n] || chapterTitle(n), p: partOf(n), html, notes };
     if (orig) rec.orig = orig;
     fs.writeFileSync(cf, JSON.stringify(rec));

@@ -14,13 +14,14 @@
    the work was finished, in UTC; the page prints it in the reader's own clock, like every other time on
    the site. It is deliberately NOT sw.js's VERSION, which is a cache generation: bumping that one throws
    away every cached file and costs each reader ~1.4 MB, so the two are counted separately. */
-window.FOLIO_VERSION = { v: "1.24", released: "2026-08-06T07:11Z" };
+window.FOLIO_VERSION = { v: "1.25", released: "2026-08-06T07:54Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-06",
-    t: "Plato’s dialogues gathered into one book, a stylus that keeps drawing, and a clearer Find it",
+    t: "Aesop and Plato join the shelf, a stylus that keeps drawing, and a clearer Find it",
     items: [
+      "<i>Aesop’s Fables</i> joins the Library — all 313 of them, each its own chapter, in George Fyler Townsend’s translation of 1867, which is out of copyright everywhere. They are very short and meant to be read a few at a time: the tortoise beating the hare, the fox deciding the grapes were sour, the boy who cried wolf. Two things the opening page explains, because both are easy to misread. The book is called <i>Three Hundred Æsop’s Fables</i> and actually prints 313. And the numbers on the tabs are simply the order the fables come in — this edition numbers nothing at all, and files its own index alphabetically by title — so they are there to navigate by rather than to cite. There is no Greek column beside this one: neither the English nor the standard Greek collections number their fables, and they hold different fables in a different order, so there is nothing to line the two up on.",
       "The daily quote on the home page turns over to its original language when you click it, and today’s — Marcus Aurelius, on reading the past to see the shape of what is coming — was one of the few with nothing to turn over to. Its Greek was on the shelf in the Library all along, so it has it now. The quote also changes over at midnight on your own clock rather than at midnight in Greenwich, which is what everything else dated on the page already did.",
       "Drawing with a stylus works properly now. It used to draw for a moment and then hand the page over to scrolling half way through a stroke; a stylus keeps the whole stroke, and your finger still scrolls the page underneath it. Holding the marker button also works both ways now — it puts the pen down and picks it back up, returning to the colour and tool you were last drawing with, instead of only ever putting it away.",
       "Find it gives the map the whole screen: the timeline at the bottom is gone, since the round says which year it is on and there was nothing there to use. A wrong guess now stays red until the next round rather than flashing once, and when the answer is revealed the place stays lit — so “It was here” shows you where, instead of blinking and leaving the map as it was.",
