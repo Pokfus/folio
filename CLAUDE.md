@@ -3861,7 +3861,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   darkest of the three papers, so it clears the bar on all three.
   **One failure was NOT left to the mode**: in night mode `.btn` was `#FFF` on the light-lavender `--indigo`
   at **2.29:1**, and that is a primary control rather than a caption, so `body.night .btn{color:var(--paper)}`
-  fixes it for everybody at 7.9:1. Guarded by `.claude/test-a11y.js`, which measures every text node's
+  fixes it for everybody at 7.9:1. **…and that fix then broke every GHOST button in dark mode for a
+  fortnight** (found Aug 2026 while adding Common Thread, whose Shuffle and Clear are ghosts): the ink is
+  right for a FILLED button and a `.btn.ghost` is transparent, so it put near-black on the dark card and the
+  label vanished outright — on the True or False and Timeline results' "Home" too, which is how long a
+  control that is *invisible rather than merely low-contrast* can sit there unreported. The rule is
+  `body.night .btn:not(.ghost)` now; **the `:hover` line beneath it had carried that `:not(.ghost)` all
+  along**, so the exemption was always intended and was simply missed on the base rule. A ghost keeps
+  `.btn.ghost`'s own `var(--indigo)` — the same light lavender, on the card rather than behind the text —
+  which reads 7.9:1. **Note that `test-a11y.js` could not see it**: it compares a text colour against its
+  background, and near-black on near-black is a contrast failure it *would* have caught — but only on a page
+  it visits, and no game's results screen is in its route list. Guarded by `.claude/test-a11y.js`, which measures every text node's
   computed colour against the background it actually renders on and demands that NOTHING falls short with
   the mode on.
 - **Light / dark FOLLOWS THE DEVICE by default** (**Settings → Appearance → Match my device**,
@@ -4242,9 +4252,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `transition` on it (the row would lag the finger by its own duration); it lifts with shadow and z-index
   instead. The ‹ › arrows FLIP the same way, or they would be the one remaining way to reorder with a cut),
   **True or False** (`truefalse`),
-  **Who said it?** (`whosaid`, from `quotes.js`), and **Find it** (`findit`, renamed from "Find it on the map" Aug 2026 on request — see the Atlas game-mode bullet
-  below; 5 date-seeded locate-on-the-globe rounds, score = first-try finds). `BOTS`/`drawRace`/podium are now dead code.
-  Each of the 5 games records a per-day result in `S.games[key] = { date, played, won }` (`markGamePlayed(key, won)` at each
+  **Who said it?** (`whosaid`, from `quotes.js`), **Find it** (`findit`, renamed from "Find it on the map" Aug 2026 on request — see the Atlas game-mode bullet
+  below; 5 date-seeded locate-on-the-globe rounds, score = first-try finds), and **Common Thread**
+  (`thread` — see its own bullet below). `BOTS`/`drawRace`/podium are now dead code.
+  Each of the 6 games records a per-day result in `S.games[key] = { date, played, won }` (`markGamePlayed(key, won)` at each
   game's end; `won` = a perfect run, or `solved` for Timeline). The home tile has **three daily states** (state classes set by
   `tile()`) — playing EARNS the colour: **unplayed** = a whisper of the tile's hue (a ~10% wash + hue-tinted title,
   theme colour only in the left bar, faint corner icon — `button.game-tile:not(.done):not(.won)`); **played today** (`done`, via
@@ -4255,16 +4266,49 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   darkened far corner (`body:not(.night)` override). A played tile's tagline becomes **today's best score** ("4/5 correct!",
   chrono: "in order!") — `markGamePlayed(key, won, score, total)` stores `{s, n}` per day, `gameSub()` renders it. The
   Daily-review banner's CTA sits at the **bottom-left inside `.body`** (below the full-width xp bar), on mobile too. The **"Clean Sweep" achievement**
-  (`sweep`, 🎯) unlocks when **all five are `won` on the same day** (`DAILY_GAMES` includes `findit`;
+  (`sweep`, 🎯) unlocks when **all six are `won` on the same day** (`DAILY_GAMES` includes `findit` and `thread`;
   `allGamesWonToday` → `progStats().dailySweep`). A perfect Multiple-choices run also increments `S.daily.wins`, which **revived
   the previously-dead `win1`/`win10` (Victor/Champion) badges** (`wins` was never written after the bot race was removed).
   `S.games` is in `defaultState()` (back-fills old saves) and `PROGRESS_FIELDS` (mirrors to the account).
-  The grid's **sixth slot** (`blankTile`) reads "Coming soon / More games / Another one is being written"; it
-  used to be "Coming soon / —", which names nothing and looks like a tile that failed to load. Below 430px the
+  The grid's sixth slot is **Common Thread** since Aug 2026; **`blankTile` survives unused** (the grid is 3 × 2,
+  so a seventh game would leave a hole again) and reads "Coming soon / More games", having once been
+  "Coming soon / —", which names nothing and looks like a tile that failed to load. Below 430px the
   tile type shrinks, or "Multiple Choice" breaks across two lines and its tagline across two more. The **Card-of-the-day tile carries the card's DECK** in its head
   row (`.cod-where` ← `cardLeaves(id)[0]` → `nodeWhere`) — the tile is a fixed height, so a short question left
   a band of nothing under it. Deliberately the deck and **not** the era: on a prehistory card the era is most
   of the answer.
+- **COMMON THREAD — the sixth daily game, and the first built on the GLOSSARY** (`PAGES.thread` at `#thread`,
+  the `PAGE: COMMON THREAD` block in app.js; Aug 2026, on request). Sixteen glossary terms in a 4×4 grid,
+  four hidden groups of four, four mistakes to spare. It fills two gaps at once: the glossary is ~680 cited
+  terms and was the largest curated body of content on the site that no game touched, and CATEGORISATION is
+  the one study task the other five (recall, ordering, judgement, attribution, place) leave out.
+  · **The puzzle is GENERATED from `GLOSSARY_TAGS`, so the game ships no content of its own** — and a tag set
+    that groups well for the editor's filter bar does NOT automatically make a solvable puzzle. Three of the
+    four rules exist because the naive version produced puzzles that cannot be solved while every group was,
+    on the data, correct. **The broad tags cannot be groups** (`THREAD_BROAD` — `history` is on 427 terms and
+    `place` on 314; a group indistinguishable from the rest of the grid is not a group). **One tag per family**
+    (`THREAD_FAMILY`) — the first version paired an `africa` group with a `tanzania` one, which are disjoint
+    tags and an unsolvable puzzle, because Laetoli is in Tanzania which is in Africa and nothing tells a
+    solver which group wants it: **disjoint is not the same as distinguishable**, and only geography and
+    period nest that way, which is why those are the two families declared. **A term may not be its own group
+    label** (`Africa` inside `africa` gives the row away). **No two terms may share a word stem**
+    (`threadStems`) — `Swabia` beside `Swabian Jura` reads as a pair whatever groups they are in.
+  · **The disjointness is CHECKED, not assumed**: a term joins a group only if it carries none of the other
+    three groups' tags, so all sixteen provably belong to exactly one group. Measured over 365 days before it
+    shipped — **0 days fail to generate, 31 distinct group tags across the year, no duplicate or ambiguous
+    term in any puzzle**. Re-run that sweep after a batch of glossary terms or a tag rename: the pool is
+    derived, so new content silently changes what the game can build.
+  · **A term needs ≥2 tags to enter the pool.** One with a single tag can be a red herring for nothing, and a
+    grid of those is four obvious rows.
+  · **Both the groups AND the grid order are date-seeded** (`hashStr`/`mulberry32`/`seededShuffle`, as the
+    other games seed their rounds), so a reload cannot reshuffle a puzzle the reader is half way through.
+    Shuffle is the reader's own control and is deliberately unseeded.
+  · **A solved term opens its glossary popup.** The reader has just been shown a word they may not know, and
+    the definition is the point of playing on the glossary — which also means playing genuinely counts terms
+    towards the account page's "Glossary terms opened" meter, since `openGlossWin` marks them seen.
+  · **"One away"** is counted over the four submitted, so it can only ever report a genuine 3-of-4. Without it
+    a wrong guess teaches nothing, which is most of the texture of a grouping puzzle.
+  · `won` (the gold tile) is **solved with NO mistakes**; `score` is groups found, out of 4.
 - **Settings and Account fill the stage** (Aug 2026). Both were a narrow column hard-LEFT inside the 800px
   stage — the settings cards stopped 180px short of a heading that spanned the whole width, and the signed-out
   sign-in form 340px short — so each page read as half-drawn on a laptop. `.settings` is now a grid that fills
