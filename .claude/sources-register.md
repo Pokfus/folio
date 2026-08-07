@@ -11936,3 +11936,57 @@ checked on the rendered page for self-linking, which is correctly suppressed on 
 Both cards measure **historio 0 of 10** with no researcher named in any of their six questions. `wh-011`
 keeps its one discovery sentence (the 1976 prints) in the abstract and never in a question, which is the
 `docs/history-focus-plan.md` allowance rather than an exception to it.
+
+## Batch W7 — `wh-012` Taung Child (2026-08-07)
+
+**No new glossary term**: `Taung_Child` already exists with four citations at the bar. Three siblings own
+the neighbouring ground and the card was written to stay off it — `Raymond_Dart` owns the man and his
+career, `Australopithecus_africanus` the species, `Taung` the town and the quarry. The card owns the
+**specimen and the child**, which is why Dart is not named in it at all.
+
+### Newly opened
+
+- Lee R. Berger and W. Scott McGraw, "Further Evidence for Eagle Predation of, and Feeding Damage on, the Taung Child," <i>South African Journal of Science</i> 103, nos. 11–12 (2007): 496–98, https://scielo.org.za/scielo.php?script=sci_arttext&pid=S0038-23532007000600013. [Open access]
+  - opened: 2026-08-07 · full text on SciELO South Africa, which serves the article as HTML and is
+    reachable from here — worth noting as a host, since it carries a great deal of southern African
+    palaeoanthropology that is closed elsewhere
+  - supports: "gouges and punctures in the orbits of the fossil"; "scratches across the frontal area,
+    around the orbits, and in other areas of the skull" matching damage on monkeys taken by modern crowned
+    eagles; and that raptor marks "can be readily distinguished from the highly patterned, closely spaced,
+    grooves that result from rodent gnawing"
+  - used by: wh-012
+
+### Reused, for the claims the register already records
+- `si-taung-child` — Taung, 1924, "About 2.8 million years old", the forward foramen magnum as the first
+  evidence of hominin bipedality, and the eagle reading with the eye-socket punctures, the eggshells and
+  the small-animal assemblage.
+- `falk-2012` — the Taung cranial capacity "between 382–407 cm³" and a brain "within the range for great
+  apes".
+- `rowan-wood-2024` — the 1925 announcement, Taung as the type specimen of *A. africanus*, and its standing
+  as "the first fossil evidence supporting Charles Darwin's 1871 prediction that Africa was where the human
+  lineage originated".
+- `si-africanus` — "About 3.3 to 2.1 million years ago", southern Africa, and the bipedal pelvis and foot
+  against shoulder and hand bones "also adapted for climbing".
+
+### A SOURCE DIVERGENCE, recorded rather than resolved
+The Australian Museum's *A. africanus* page was opened for this batch and is **not cited**, because three
+of its figures disagree with what the site already carries from the Smithsonian and from Falk:
+
+| claim | Australian Museum | what the card uses | source |
+|---|---|---|---|
+| age of the Taung specimen | ~2.3 Ma | **c. 2.8 Ma** | `si-taung-child` |
+| species span | 3.2 – 2 Ma | **3.3 – 2.1 Ma** | `si-africanus` |
+| species mean brain | ~480 cc | **382–407 cm³ for Taung itself** | `falk-2012` |
+
+None of these is a contradiction in the sense that one party is wrong — Taung has no good radiometric
+control and published estimates genuinely range over that half-million years — but **the site must not
+carry two figures for one thing on neighbouring surfaces**, and `Taung_Child` (glossary) already says
+2.8 Mya. The rule applied is C1's, one continent over: read both, then follow sibling consistency rather
+than the most recently opened page. The divergence is written down here so a later batch meeting the 2.3
+Ma figure knows it was seen and set aside, not missed.
+
+### Focus check
+`historio` 0 of 10, no researcher named in any of the three questions. The card carries **one** sentence
+of discovery history (the 1925 description making the skull a type specimen) and mentions **Darwin**,
+which is not a breach: the rule forbids naming a modern researcher, and Darwin's 1871 prediction is the
+historical claim the fossil bears on rather than a modern scholar's argument about it.
