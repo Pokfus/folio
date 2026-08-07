@@ -286,14 +286,15 @@ synthesis for what it establishes rather than the dig for what it found.
 (`wh-396`–`wh-415`), East Asia 25 in the post-classical deck and Ming and Qing China 15 in the early
 modern one. Ten sentences on the Tang is a different card from ten sentences on the two-tax system.
 
-**Three pairs already exist in other plans and should be written deliberately differently:**
+**Five pairs already exist in other plans and should be written deliberately differently:**
 
 | event | elsewhere | here |
 |---|---|---|
 | Treaty of Nerchinsk | `ru-274` — Russia's first treaty with China and the limit of its Amur expansion | `cnh-546` — the Kangxi settlement of a frontier the Qing had just secured |
 | the transmission of Buddhism | `in-812` — a religion leaving India | `cnh-883` — a foreign religion arriving in China, and what it had to become to stay |
 | Xuanzang | `in-199` — a visitor whose account is a source for Gupta-age India | `cnh-388` — a Tang monk's journey and the translations it produced |
-| the war with Japan | `ww2-401`–`ww2-435` — the war's largest and longest land theatre | `cnh-631`–`cnh-655` — eight years that reshaped China and set up its civil war |
+| the war with Japan | `ww2-401`–`ww2-435` — the war's largest and longest land theatre; `jp-728`–`jp-734` — what the army did and what it could not win | `cnh-631`–`cnh-655` — eight years that reshaped China and set up its civil war |
+| the tally trade | `jp-263`, `jp-264` — Ashikaga Japan buying a place in the Ming order | `cnh` Ming cards — the tribute system working as designed |
 
 Write the card this collection needs.
 

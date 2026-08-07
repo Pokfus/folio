@@ -454,6 +454,9 @@ html[dir="rtl"] .site-ver{text-align:right;}
 body.night .banner .lb-num, body.night .collection-row .lb-num{color:#E6C765;}   /* brighter gold so it reads over the dark card/wash */
 /* China's level shows a Chinese numeral — render it in the Han font */
 .level-badge.zh .lb-num{font-family:var(--han); font-weight:600; font-size:calc(40px * var(--fs));}
+/* Japan counts in the same kanji, at the same size — but deliberately WITHOUT var(--han), which is a
+   Simplified Chinese face; this falls through to the reader's own system CJK font, as Japanese text does. */
+.level-badge.num-ja .lb-num{font-weight:600; font-size:calc(40px * var(--fs));}
 /* the other civilisations count in their own script too — letter numerals sit a touch smaller than digits */
 .level-badge.num-roman .lb-num{font-size:calc(36px * var(--fs)); letter-spacing:0;}
 .level-badge.num-greek .lb-num, .level-badge.num-cyrillic .lb-num{font-size:calc(38px * var(--fs));}
@@ -1876,6 +1879,7 @@ body.night .ph-lvl{color:#F3E3B2; background:#4A3B10; border-color:#E6C765;}
 .lu-row{display:flex; align-items:center; gap:12px; text-align:left; border:1px solid var(--rule); border-radius:10px; padding:9px 12px;}
 .lu-badge{flex:none; min-width:38px; height:38px; display:flex; align-items:center; justify-content:center; border-radius:9px; background:var(--paper); border:1px solid var(--rule); font-family:var(--display); font-weight:600; font-size:calc(22px * var(--fs)); color:#C39A2E;}
 .lu-badge.zh{font-family:var(--han); font-size:calc(19px * var(--fs));}
+.lu-badge.num-ja{font-size:calc(19px * var(--fs));}
 .lu-text{font-family:var(--serif); font-size:calc(14px * var(--fs)); line-height:1.35; color:var(--ink-soft);}
 .lu-text b{color:var(--ink); font-weight:600;}
 .lu-hint{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint);}

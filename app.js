@@ -8526,9 +8526,13 @@
     return s.slice(0, i) + "҃" + s.slice(i);
   }
   // each civilisation's collection counts its level in its own script (Library banner badge)
-  const COLLECTION_NUMERALS = { china: "zh", "col-40": "roman", "col-13": "greek", "col-43": "devanagari", "col-42": "cyrillic" };
+  const COLLECTION_NUMERALS = { china: "zh", "col-40": "roman", "col-13": "greek", "col-43": "devanagari", "col-42": "cyrillic", japan: "ja" };
   function numeralIn(sys, n) {
-    if (sys === "zh") return cnNumeral(n);
+    // Japanese counts in the same kanji Chinese does, so the numerals are shared and there is only one
+    // implementation — but "ja" must stay a separate KEY, because "zh" also puts the badge in var(--han),
+    // which is Noto Sans SC. That face is kept out of the body chain precisely so it can't impose Chinese
+    // glyph forms on Japanese text; .num-ja therefore falls through to the reader's own system CJK font.
+    if (sys === "zh" || sys === "ja") return cnNumeral(n);
     if (sys === "roman") return romanNumeral(n);
     if (sys === "greek") return greekNumeral(n);
     if (sys === "devanagari") return devanagariNumeral(n);
@@ -9727,6 +9731,7 @@
     "col-43": { bg: "#C2701E" }, // saffron (India)
     egypt:    { bg: "#1F6F5C" }, // malachite (Ancient Egypt)
     ww2:      { bg: "#4A4038" }, // dark iron (The Second World War)
+    japan:    { bg: "#8A2E5C" }, // kuwazome red-purple (Japan)
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were

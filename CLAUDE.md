@@ -1362,6 +1362,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   its tree and its `COLL_THEME` hue ship with the plan. The next card to write is the lowest `eg-NNN` not
   yet in `data.js`; see the "ANCIENT EGYPT" bullet under "Generating cards & glossary entries". **No card
   has been written yet.** Not part of the site.
+- `docs/japan-card-plan.md` — the **1000-card running order for the Japan collection** (`japan`): every
+  card's number, topic and deck, fixed in advance across 9 decks and 34 leaf decks. The tenth of the
+  planned collections and the third (after Egypt and the Second World War) to **create its own
+  collection** — node, tree, `COLL_THEME` hue and numeral system ship with the plan. It is the **first
+  collection since China to get a `COLLECTION_NUMERALS` entry**, `"ja"`, and the reasoning is in the
+  plan: Japanese counts in the same kanji so `cnNumeral()` is reused, but the `"zh"` KEY must not be,
+  since it also selects `var(--han)` — a Simplified Chinese face. The next card to write is the lowest
+  `jp-NNN` not yet in `data.js`; see the "JAPAN" bullet under "Generating cards & glossary entries".
+  **No card has been written yet.** Not part of the site.
 - `docs/us-card-plan.md` — the **1000-card running order for the United States collection** (`col-41`):
   every card's number, topic and deck, fixed in advance across 9 decks and 33 leaf decks. The ninth of the
   planned collections, and the one that starts furthest ahead — **all 45 presidents are already cited
@@ -1557,7 +1566,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   the only two collections a plan has had to bring into existence. **`col-41` United States gained its 9
   decks and 33 leaf decks on 2026-08-07** from `docs/us-card-plan.md` — it was a leaf node with an empty
   `cardIds` and is now a branch, keeping its `total`, its `placeholder` and its nine translated titles.
-  **`china` was the one
+  **`japan` is new the same day** from `docs/japan-card-plan.md`, with 9 decks and 34 leaf decks, its own
+  `COLL_THEME` row and the first new `COLLECTION_NUMERALS` entry since China; it, Egypt and the Second
+  World War are the three collections a plan has had to bring into existence. **`china` was the one
   collection that already had a tree**, and on the same day `docs/china-card-plan.md` made four changes to
   it — dropping the duplicate `col-9 Xin`, retitling `col-30 Jin` → `Jurchen Jin` and `col-2 Xia` →
   `Neolithic China and the Xia`, and adding the `cn-state` / `cn-belief` / `cn-culture` thematic decks —
@@ -5258,6 +5269,70 @@ that this collection's short terms are the worst on the site for auto-linking: `
 whose names are ordinary English words, and `Ba` and `Ka` are two-letter surfaces that would match
 inside other words entirely, so prefer a fuller head word and let the short form be an alias only if it
 can be made safe.
+
+**JAPAN (`japan`) is planned and not yet started (Aug 2026).** Its 9 decks and 34 leaf decks are in
+`data.js` and its full 1000-card running order is `docs/japan-card-plan.md`: **"Generate the next Japan
+card" means take the lowest `jp-NNN` not yet in `data.js`, read its topic and deck from that plan,
+research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`. The next number is:
+`node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='jp-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"`
+(the padding is right for every id but `jp-1000`). It is the **third plan to CREATE its collection**,
+after Egypt and the Second World War: the id is **`japan`** (the readable-id precedent), the prefix
+**`jp-`**, the hue **`#8A2E5C`** — *kuwazome*, a deep red-purple, **measured rather than picked** at 35.9
+from its nearest neighbour against a tightest existing pair of 12.9. **The two obvious Japanese colours
+are both taken and were measured before being abandoned**: a *kachi* indigo lands 8.3 from the United
+States' navy and a *sumi* charcoal 7.8 from the war's dark iron, each inside the shelf's tightest pair.
+**IT IS THE FIRST NEW `COLLECTION_NUMERALS` ENTRY SINCE CHINA, AND THE KEY MATTERS**: Japanese counts in
+the same kanji, so `numeralIn` reuses `cnNumeral()` and there is one implementation — but `"ja"` must
+stay a separate key from `"zh"`, because that one ALSO puts the badge in `var(--han)`, which is **Noto
+Sans SC, a Simplified Chinese face**. CLAUDE.md keeps that font out of the body chain precisely so it
+cannot impose Chinese glyph forms on Japanese text, so `.level-badge.num-ja` / `.lu-badge.num-ja` repeat
+`.zh`'s sizes **without** the font override and fall through to the reader's own system CJK font.
+**Three scope decisions to read first.** **The Ainu and the Ryukyuans get 30 cards each**, and the
+load-bearing part is that **the annexations are carded in THOSE decks, not in `jp-meiji-empire`** —
+Hokkaido was colonised from 1869 by an office set up for it and the Ryukyu Kingdom was a sovereign
+tributary state until 1879, and both are events in those peoples' histories before they are two lines in
+somebody else's expansion. "Japan is ethnically homogeneous" is a Meiji nation-building claim before it
+is a fact. **The empire and the war are carded from the outside as well as the inside** — most of
+`jp-colonial`'s 35 are Taiwan, Korea, Manchuria and China rather than Tokyo — under the Russia plan's
+rule that **no state's account of its own actions is repeated as established fact**, which cuts in every
+direction here. And **`jp-memory` is a subdeck of 20**: the textbook controversies, the Yasukuni visits,
+the apology statements and the forced-labour rulings are live diplomacy between four countries, carded
+as history rather than adjudicated.
+Four more decisions are arguments rather than lists. **Tokugawa Japan is the largest chronological deck
+at 130**, because the Edo period is where the explanation for 1868 has to come from and a collection
+treating it as a pause cannot explain the Meiji one. **The Heian court gets 90 with 35 on literature and
+art**, this being the one place on the site where a court's writing is why the period is studied and
+where most of it was written by women. **There is no "samurai" deck** — it would span seven centuries
+and three different social positions, so the warriors are carded where they were, and `jp-514`/`jp-515`
+card *bushidō* as the largely late construction it is. **Buddhism and Shinto are carded twice, by period
+and thematically, and that is not duplication**: the period decks carry what a school's arrival DID, the
+thematic deck what the practices ARE.
+**The four pulls** are romance (the samurai/ninja/bushidō literature — carded accurately, with the
+invention carded as its own subject at `jp-333`/`jp-334`), **essentialism** (*Nihonjinron*; the test is
+the tense — a card saying the Japanese *are* something has adopted the claim, where one saying a practice
+began at a datable moment has described one), **the isolation story** (*sakoku* is substantially revised
+— four gateways ran continuously, and the word is a 19th-c. coinage back-applied; `jp-433`–`jp-435`), and
+live political use, where the collection **declines to treat a settled historical question as open
+because it is politically contested**. Scholars are capped at two and it spends none.
+Conventions: **family name first** (Tokugawa Ieyasu, Ōe Kenzaburō) — the scholarly standard and the
+Japanese government's own policy since 2019; **macrons on Japanese words, not on established English
+place names** (*shōgun*, *daimyō*, *Ryūkyū*, but Tokyo, Osaka, Kyoto, Honshu); era names given with the
+Western year; and **the calendar changes on 1 January 1873**, Japan's smaller version of the Russia
+plan's Julian/Gregorian problem, so an exact day before then says which calendar it is. Two contested
+figure sets are carded so a reader meets the argument — **the dead at Nanjing** (`jp-731`, estimates
+ranging over an order of magnitude on different definitions of area and period) and **Japan's own war
+dead** — under the standing rule: give the range, name whose it is. Sourcing is very well served in
+English, with three hazards: **the popular literature on premodern Japan is heavily romanticised** and
+much of it is old enough to be free online, which is why it ranks first (Nitobe's *Bushidō* was written
+in English, for Americans, in 1900); **war-history material is contested and some is denialist**, from
+more than one direction; and **survivor testimony is evidence needing handling as such**. The glossary
+has `Japan` and nothing else Japanese, so write those **cited from the start** — and mind four traps:
+**a macron is an alias problem in both directions** (`Daimyo`/*daimyō*, `Shōgun`/*shogun*), this
+collection having more of them than any other; **a Japanese word that has entered English keeps its
+English sense too** (`Zen`, `Samurai`, `Tycoon`, `Futon`, `Bonsai`), needing `GLOSSARY_CASESENSITIVE` or
+a narrower head word; the same for ordinary-English surfaces (`Occupation`, `Restoration`, `Bubble`);
+and the war and colonial terms need drafting from institutional definitions rather than the first
+summary to hand.
 
 **THE UNITED STATES (`col-41`) is planned and not yet started (Aug 2026).** Its 9 decks and 33 leaf
 decks are in `data.js` and its full 1000-card running order is `docs/us-card-plan.md`: **"Generate the

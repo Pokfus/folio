@@ -331,13 +331,14 @@ treaties should get the table the Rome plan gives its Greek pairs". Here it is:
 
 Neither collection carries the other's card. Write the one this collection needs.
 
-**Three more pairs already exist**, and two of them are with collections planned this month:
+**Four more pairs already exist**, and three of them are with collections planned this month:
 
 | subject | elsewhere | here |
 |---|---|---|
 | Pearl Harbor and the Pacific | `ww2-441`–`ww2-470`, `ww2-471`–`ww2-510` — the theatre and the campaign | `us-828`, `us-843`–`us-846` — what the war did to a country that had been arguing about staying out |
 | the atomic bomb | `ww2-909`–`ww2-912`, `ww2-936`–`ww2-946` — the project and the decision, from the war's side | `us-840`–`us-842`, `us-851`–`us-853` — the project as an American undertaking and the argument Americans have had about it since |
 | Japanese American internment | `ww2-508` — one of the war's civilian internments | `us-833`, `us-834` — a constitutional question the Supreme Court got wrong and said so fifty years later |
+| the Occupation of Japan | `jp-771`–`jp-800` — six years that rewrote a country's constitution, land ownership and schools, from inside it | `us-846`-range and the Cold War deck — an American undertaking that became a Cold War asset |
 
 **And one collection that does not exist yet.** The British side of the imperial crisis, the Revolution
 and the War of 1812 belongs to a Britain collection Folio has not planned. `docs/india-card-plan.md`

@@ -142,8 +142,9 @@ planned in `docs/russia-card-plan.md` and not yet started),
 **India** (`col-43`, planned in `docs/india-card-plan.md` and not yet started) and **China** (`china`,
 planned in `docs/china-card-plan.md`, set aside and not yet started). There is also **Ancient Egypt**
 (`egypt`, planned in `docs/egypt-card-plan.md` and not yet started), which the plan created, and **the
-Second World War** (`ww2`, planned in `docs/ww2-card-plan.md` and not yet started), which the plan
-likewise created. World History overlaps all eight, on purpose, and the rule is:
+Second World War** (`ww2`, planned in `docs/ww2-card-plan.md` and not yet started) and **Japan**
+(`japan`, planned in `docs/japan-card-plan.md` and not yet started), both of which the plan likewise
+created. World History overlaps all nine, on purpose, and the rule is:
 
 **World History is written at survey altitude and never waits for another collection.** Greece gets 25
 cards here against 1000 in `col-13`; Rome gets 40. A World History card on the Peloponnesian War is

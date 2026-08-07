@@ -3223,6 +3223,280 @@ window.COLLECTION_TREE = {
           ]
         }
       ]
+    },
+    {
+      "id": "japan",
+      "title": "Japan",
+      "total": 1000,
+      "children": [
+        {
+          "id": "jp-early",
+          "title": "Early Japan",
+          "total": 110,
+          "children": [
+            {
+              "id": "jp-jomon",
+              "title": "Jōmon Japan",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "jp-yayoi",
+              "title": "Yayoi and Kofun",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "jp-asuka",
+              "title": "Asuka: the state and Buddhism",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "jp-nara",
+              "title": "Nara Japan",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "jp-heian",
+          "title": "The Heian Court",
+          "total": 90,
+          "children": [
+            {
+              "id": "jp-heian-court",
+              "title": "The court and the Fujiwara",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "jp-heian-culture",
+              "title": "Heian literature and art",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "jp-heian-provinces",
+              "title": "The provinces and the rise of the warriors",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "jp-warrior",
+          "title": "The Warrior Age",
+          "total": 110,
+          "children": [
+            {
+              "id": "jp-kamakura",
+              "title": "The Kamakura shogunate",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "jp-mongol",
+              "title": "The Mongol invasions",
+              "total": 15,
+              "cardIds": []
+            },
+            {
+              "id": "jp-muromachi",
+              "title": "The Muromachi shogunate",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "jp-medieval-culture",
+              "title": "Medieval religion and culture",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "jp-unification",
+          "title": "Unification",
+          "total": 100,
+          "children": [
+            {
+              "id": "jp-sengoku",
+              "title": "The Sengoku age",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "jp-nanban",
+              "title": "The Europeans and Christianity",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "jp-unifiers",
+              "title": "The three unifiers",
+              "total": 40,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "jp-tokugawa",
+          "title": "Tokugawa Japan",
+          "total": 130,
+          "children": [
+            {
+              "id": "jp-bakufu",
+              "title": "The Tokugawa order",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "jp-edo-society",
+              "title": "Edo society and the economy",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "jp-edo-culture",
+              "title": "Edo culture",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "jp-late-tokugawa",
+              "title": "The end of the shogunate",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "jp-meiji",
+          "title": "Meiji Japan",
+          "total": 110,
+          "children": [
+            {
+              "id": "jp-restoration",
+              "title": "The Meiji Restoration",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "jp-meiji-state",
+              "title": "Building the modern state",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "jp-meiji-society",
+              "title": "Society, industry and culture",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "jp-meiji-empire",
+              "title": "The road to empire",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "jp-empire",
+          "title": "Empire and War",
+          "total": 120,
+          "children": [
+            {
+              "id": "jp-taisho",
+              "title": "Taishō Japan",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "jp-militarism",
+              "title": "The turn to militarism",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "jp-colonial",
+              "title": "The Japanese empire",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "jp-war",
+              "title": "The war and its end",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "jp-postwar",
+          "title": "Postwar Japan",
+          "total": 110,
+          "children": [
+            {
+              "id": "jp-occupation",
+              "title": "The Occupation",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "jp-miracle",
+              "title": "The economic miracle",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "jp-contemporary",
+              "title": "Japan since 1973",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "jp-memory",
+              "title": "The war in Japanese memory",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "jp-peoples",
+          "title": "Peoples, Belief and the Arts",
+          "total": 120,
+          "children": [
+            {
+              "id": "jp-ainu",
+              "title": "The Ainu and Hokkaido",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "jp-ryukyu",
+              "title": "Ryūkyū and Okinawa",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "jp-religion",
+              "title": "Shinto, Buddhism and belief",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "jp-arts",
+              "title": "Language, letters and the arts",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        }
+      ]
     }
   ]
 };

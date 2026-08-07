@@ -284,14 +284,15 @@ the record. Cite them as what they are.
 (`wh-916`–`wh-945`) against 1000 here, at survey altitude, and the interwar and Cold War decks sit
 either side of it.
 
-**Five collections already card these same events, and the pairs should be written deliberately
+**Six collections already card these same events, and the pairs should be written deliberately
 differently:**
 
 | subject | elsewhere | here |
 |---|---|---|
 | the Eastern Front | `ru-656`–`ru-690` — the Great Patriotic War, a Soviet national experience and its memory | `ww2-261`–`ww2-400` — the theatre where the European war was decided |
 | Katyn | `ru-658` — a Soviet crime and a Soviet lie maintained for fifty years | `ww2-155`, `ww2-326` — an atrocity, and the discovery that broke the Allied coalition's Polish policy |
-| the war in China | `cnh-631`–`cnh-655` — eight years that reshaped China and set up its civil war | `ww2-401`–`ww2-435` — the war's largest and longest land theatre |
+| the war in China | `cnh-631`–`cnh-655` — eight years that reshaped China and set up its civil war; `jp-728`–`jp-734` — what the army did and what it could not win | `ww2-401`–`ww2-435` — the war's largest and longest land theatre |
+| the defeat of Japan | `jp-741`–`jp-770`, `jp-771`–`jp-800` — a war Japan's own planners did not expect to win, and the occupation that followed | `ww2-931`–`ww2-960` — the last campaign of the Pacific war |
 | the atomic bombings | `us-840`–`us-842`, `us-851`–`us-853` — an American undertaking, and the argument Americans have had about it since | `ww2-938`, `ww2-939`, `ww2-945`, `ww2-946` — the event, and the two arguments about it |
 | Pearl Harbor and the Pacific | `us-828`, `us-843`–`us-846` — what the war did to a country that had been arguing about staying out | `ww2-441`–`ww2-510` — the theatre and the campaign |
 | Japanese American internment | `us-833`, `us-834` — a constitutional question the Supreme Court got wrong and said so fifty years later | `ww2-508` — one of the war's civilian internments |
