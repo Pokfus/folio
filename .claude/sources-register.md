@@ -11827,3 +11827,61 @@ tradition's word for a neighbouring thing — so they are safe where "Late Stone
 was not. Measured after adding: four shipped cards (`wh-004`, `wh-005`, `wh-009`, `wh-018`) now link the
 term, every one a genuine use. The answer-term suppression was checked **on the rendered page** and covers
 the aliases as well as the key, which is the `byAnySurface` path.
+
+## Batch W5 — `wh-008` Ardipithecus, and the GENUS term beside two species terms (2026-08-07)
+
+### The shape decision
+The glossary already held `Ardipithecus_ramidus` and `Ardipithecus_kadabba` and **not the genus**, which
+is the card's answer term. A third term was written rather than pointing the card at one of the species,
+because the pattern is already established one genus along: `Australopithecus` sits beside
+`Australopithecus_afarensis` and `Australopithecus_africanus`, and it is that term's shape the new one
+follows — define the group, name its species in a clause each, then give the group-level facts.
+
+**L9's duplication check was run BEFORE adding, and it fired.** The draft shared one eight-word run with
+`Ardipithecus_kadabba` ("close to the time the human and chimpanzee"). Re-registered rather than deleted,
+in L10's manner: the kadabba term keeps that phrasing and the genus term says the same thing in its own
+words ("straddle the presumed parting"). Measured after: **0 shared runs against all three siblings**, and
+the trim took the term from 111 words to 107, inside the bar.
+
+### Newly opened
+
+- Tim D. White et al., "Neither Chimpanzee nor Human, <i>Ardipithecus</i> Reveals the Surprising Ancestry of Both," <i>Proceedings of the National Academy of Sciences</i> 112, no. 16 (2015): 4877–84, https://pmc.ncbi.nlm.nih.gov/articles/PMC4413341/. [Open access]
+  - opened: 2026-08-07 · full text via PMC. The PMCID was resolved through the Europe PMC search endpoint
+    rather than guessed (N1's rule). Europe PMC reports it free-to-read while the publisher DOI is gated —
+    the PMC copy is the link written into the citation, being the one actually opened
+  - supports: "The remains of well over 100 additional individuals from Ardi's species confirm that her
+    critical morphologies are not idiosyncratic but characteristic of the species"; that "*Ar. ramidus*
+    combined versatile but deliberate climbing … with a previously unknown form of bipedality"; and the
+    discoverers' central claim, that the common ancestor was a generalized African ape without the derived
+    features of chimpanzees or gorillas
+  - **this is the discoverers' own synthesis, and the card says so** — "its discoverers argue" — so the
+    claim is attributed rather than stated flat, with the dissent beside it
+  - used by: wh-008
+- Australian Museum, "<i>Ardipithecus ramidus</i>," accessed 7 August 2026, https://australian.museum/learn/science/human-evolution/ardipithecus-ramidus/. [Open access]
+  - opened: 2026-08-07 · the museum's species page
+  - supports: the name, "'Ardi' means 'ground' or 'floor' and 'pithecus' is Latinised Greek for 'ape'";
+    brain "about 300-350cc, similar in size to modern female chimpanzees and bonobos"; canines "less
+    projecting and smaller than those of all other known apes" with "no evidence of honing"; the grasping
+    abducted toe; and the pelvis's "mix of features useful for both climbing and upright walking"
+  - used by: wh-008, Ardipithecus (glossary)
+
+### Reused, for the claims the register already records
+- `si-ramidus` — 4.4 Ma, first reported 1994, Ardi announced 2009, "over 100 fossil specimens", the
+  divergent large toe, and the pelvis combining tree-climbing and bipedal activity.
+- `si-kadabba` — 5.8–5.2 Ma, the Middle Awash, the hand, foot and arm bones, and the 5.2 Ma toe bone with
+  "features of bipedal walking".
+- `prang-2019` — the dissenting reading, that the precursor of hominin bipedalism "was African ape-like
+  terrestrial quadrupedalism and climbing".
+
+### Two counts that are NOT the same figure
+The card states "over 100 specimens" (`si-ramidus`) and "well over 100 further individuals"
+(`white-2015`) in adjacent sentences. These are **different counts of different things** — specimens
+against individuals — and the first draft set them side by side in a way that read as one number stated
+twice. Reworded so the second is plainly a later, separate confirmation. Worth recording because the
+temptation on re-reading is to "fix" it by deleting one.
+
+### Sibling separation
+`Ardipithecus` owns the genus, its two species and the argument about the shared ancestor;
+`Ardipithecus_ramidus` owns Ardi and the naming history; `Ardipithecus_kadabba` owns the small sample and
+the honing canines. Checked on the rendered page: the card's answer term is suppressed while **both
+species terms link**, which is the wanted behaviour and not a self-link fault.
