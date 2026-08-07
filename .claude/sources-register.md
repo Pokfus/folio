@@ -11579,3 +11579,1702 @@ adding it** — N12's casing probe alone would have passed this one.
 flow, the 46 ka flooding record and the migration route. `Asia` owns the continent and its figures;
 `East_Asia` owns the M49 composition, the appearance of Chinese writing and the Movius Line. Neither
 pair shares an eight-word run.
+
+## Batch W1 — `wh-004` human evolution, written cited (2026-08-07)
+
+The first World History card written under the post-renumbering plan, with its paired glossary term
+`Human_evolution` in the same commit. Four works were newly opened; three were reused from the register
+unread, for the claims it already records (G6 applied as written — no claim was stretched past what the
+entry says the work supports).
+
+### Newly opened
+
+- Smithsonian National Museum of Natural History, Human Origins Program, "Introduction to Human Evolution," accessed 7 August 2026, https://humanorigins.si.edu/education/introduction-human-evolution. [Open access]
+  - opened: 2026-08-07 · full page
+  - supports: "Human evolution is the lengthy process of change by which people originated from apelike
+    ancestors"; that humans and the great apes of Africa "share a common ancestor that lived between 8 and
+    6 million years ago"; "Humans first evolved in Africa, and much of human evolution occurred on that
+    continent"; that bipedalism "evolved over 4 million years ago" while "a large and complex brain …
+    developed more recently" — which is the card's mosaic assembly, stated by the source as a sequence
+    rather than as a package; and "Most scientists currently recognize some 15 to 20 different species of
+    early humans"
+  - used by: wh-004, Human_evolution
+- Smithsonian National Museum of Natural History, Human Origins Program, "Walking Upright," accessed 7 August 2026, https://humanorigins.si.edu/human-characteristics/walking. [Open access]
+  - opened: 2026-08-07 · full page
+  - supports: "From at least 6 to 3 million years ago, early humans combined apelike and humanlike ways of
+    moving around"; *A. anamensis* at 4.1 Ma "walked upright"; *A. afarensis* "walk upright most of the
+    time" by 4 million years ago — the card's "by about 4 million years ago Australopithecus was doing it
+    habitually"
+  - note: the page does **not** state in so many words that bipedalism preceded larger brains; that
+    ordering is carried by the Introduction page above and by the *afarensis* brain figure below, and the
+    card's markers are placed accordingly rather than all on this one
+  - used by: wh-004, Human_evolution
+- Smithsonian National Museum of Natural History, Human Origins Program, "<i>Australopithecus afarensis</i>," accessed 7 August 2026, https://humanorigins.si.edu/evidence/human-fossils/species/australopithecus-afarensis. [Open access]
+  - opened: 2026-08-07 · full page (already in the glossary's own list for `Australopithecus`; re-read here
+    for the brain figure, which that entry had not recorded)
+  - supports: "small brain, usually less than 500 cubic centimeters -- about 1/3 the size of a modern human
+    brain"; the species range "Between about 3.85 and 2.95 million years ago"
+  - used by: wh-004
+- Thomas A. Püschel et al., "Hominin Brain Size Increase Has Emerged from within-Species Encephalization," <i>Proceedings of the National Academy of Sciences</i> 121, no. 49 (2024): e2409542121, https://pmc.ncbi.nlm.nih.gov/articles/PMC11626186/. [Open access]
+  - opened: 2026-08-07 · full text via PMC (`pnas.org` itself is 403 here, as N1 recorded)
+  - supports: that "relative brain size increase across ~7 My of hominin evolution arose from increases
+    within individual species" rather than at speciation events, and "an overall pattern of accelerating
+    relative brain size increase through time" — the card's "ran within species rather than in jumps
+    between them and … quickened towards the present"
+  - used by: wh-004
+
+### Reused from the register, unread, for the claims already recorded
+
+- Smithsonian, "<i>Homo sapiens</i>" (already in the glossary's lists) — 300,000 years ago in Africa; an
+  average brain "approximately 1300 cubic centimeters". Re-read on 2026-08-07 for the brain figure.
+- `green-2010` — interbreeding between Neanderthals and the ancestors of non-Africans. The card claims
+  only that the last of the other human species interbred with ours, which is exactly what the entry
+  records; the 1–4 % figure was **not** used, since the register flags it as sitting in the body.
+- `braun-2019` — "the systematic production of sharp-edged stone tools is unknown before the 2.58–2.55 Ma
+  Oldowan assemblages from Gona, Ethiopia", which is the card's "from about 2.6 million years ago".
+
+### Not cited, and why
+
+- The human–chimpanzee split has a **wider molecular range** than the Smithsonian's 8–6 Ma (published
+  estimates run roughly 5–9.3 Ma on different calibrations). The obvious second source, Moorjani et al.
+  2016 in *PNAS*, **could not be opened** — `pnas.org` is 403 from here and the paper has no PMC copy —
+  so no range and no hedge was asserted beyond what the one openable source states. The card gives 8–6 Ma
+  and attributes it; **the wider range is recorded here rather than composed into the prose.**
+
+### Sibling separation, checked before drafting
+`Hominini` already owns what a hominin *is* and where the group's boundary falls; `Homo` owns the genus
+and its diagnostic features; `Australopithecus` owns that genus and its species. `Human_evolution` was
+written to own the **process and the discipline** — the ape split, Africa as the setting, the evidence
+base, and the bush-not-ladder shape. No pair shares an eight-word run.
+
+## Batch W2 — `wh-005` hominin, and a WRONG MARKER found in `wh-004` (2026-08-07)
+
+### The correction, and how it was found
+`wh-004` shipped earlier the same day with its closing sentence — "some 15 to 20 early human species are
+recognised, several were alive at the same time, and the last of them interbred with ours before dying
+out" — marked to the Smithsonian's *Introduction to Human Evolution* and to `green-2010`. Those two carry
+the first and third clauses. **Neither carries the second.** The Introduction page states the 15–20 figure
+and says nothing whatever about temporal overlap; it was assumed to, because a page that counts the species
+feels as though it must.
+
+It was caught while researching THIS card, by re-opening that page for a different claim — which is batch
+23's finding arriving again: **a marker is only ever checked when somebody goes back to the source for
+another reason.** Fixed by adding the Smithsonian's *Homo erectus* record as an eighth source and marking
+the clause to it; that page states the overlap outright and names the species. The clause was **re-sourced
+rather than withdrawn**, because it is true and easily sourced — the fault was in the pointer, not the prose.
+
+- Smithsonian National Museum of Natural History, Human Origins Program, "<i>Homo erectus</i>," accessed 7 August 2026, https://humanorigins.si.edu/evidence/human-fossils/species/homo-erectus. [Open access]
+  - opened: 2026-08-07 · full page
+  - supports: "At the beginning of its time range, around 1.9 Mya, *H. erectus* coexisted in East Africa
+    with several other early human species including *Homo rudolfensis, Homo habilis,* and *Paranthropus
+    boisei*"; "Sometimes they were even found at the same fossil sites"; and the later overlap, "around
+    143,000 years ago, it coexisted with *Homo sapiens* and possibly *Homo floresiensis* in Indonesia"
+  - used by: wh-004, wh-005
+
+### Newly opened for `wh-005`
+
+- Morris Goodman and Kirstin N. Sterner, "Phylogenomic Evidence of Adaptive Evolution in the Ancestry of Humans," <i>Proceedings of the National Academy of Sciences</i> 107, suppl. 2 (2010): 8918–23, https://pmc.ncbi.nlm.nih.gov/articles/PMC3024020/. [Open access]
+  - opened: 2026-08-07 · full text via PMC (`pnas.org` is 403 here)
+  - supports: the molecular finding of "humans, chimpanzees, and gorillas to be highly similar and more
+    closely related to one another than to orangutans", which is what moved the African apes into
+    Hominidae and so forced a narrower word for the human branch alone
+  - **note the limit**: the card claims only this grouping. It does **not** claim the sharper "chimpanzees
+    are closer to humans than to gorillas", which the search summaries offer freely and which this
+    paper's openable text does not state in those terms
+  - used by: wh-005
+- Smithsonian National Museum of Natural History, Human Origins Program, "<i>Sahelanthropus tchadensis</i>," accessed 7 August 2026, https://humanorigins.si.edu/evidence/human-fossils/species/sahelanthropus-tchadensis. [Open access]
+  - opened: 2026-08-07 · the museum's species record
+  - supports: "Sometime between 7 and 6 million years ago"; "West-Central Africa (Chad)"; "a small brain
+    (even slightly smaller than a chimpanzee's)"; and the foramen magnum "located further forward (on the
+    underside of the cranium) than in apes or any other primate except humans"
+  - **does NOT support** any statement that the species' hominin status is disputed — the page presents it
+    as established. The card's hedge ("the oldest **claimed**", and *incertae sedis*) is carried by
+    `cela-conde-ayala-2003` instead, and the two markers are placed accordingly
+  - used by: wh-005
+
+### Reused, and one re-read
+- `austmus-hominin` — the definitions, the genera list, the tribe rank, and that "The term 'hominid' used
+  to have the same meaning that 'hominin' now has". Exactly what the register records; no re-read needed.
+- `cela-conde-ayala-2003` — **re-read on 2026-08-07 for claims the register had not recorded** (G6 applied
+  as written): "habitual upright bipedalism as the chief method of locomotion and teeth that are
+  essentially human in form" as the criteria; "The subsequent increase from three to seven hominid genera
+  in the few years from 1995 to the present"; and *Sahelanthropus* placed *incertae sedis*. The register's
+  existing entry covers only the *ergaster*/*habilis* material, so none of this could have been taken from it.
+- Smithsonian "Introduction to Human Evolution" — the 15–20 figure only, which is what it states.
+
+### Sibling separation, checked before drafting
+`wh-004` owns the **process** — the ape split, Africa, the evidence base, bipedalism-before-brains, the
+shape of the tree. `wh-005` owns the **category**: what the tribe is, why the word is new, what diagnoses
+membership, and where the boundary is argued. The overlap is one figure, the 15–20 species, which each
+card uses to a different end. The glossary's `Hominini` already existed and is cited at the bar, so **no
+new term was written** — the card's answer resolves to it through its `hominin` alias, and the
+answer-term suppression was checked on the rendered page rather than assumed.
+
+## Batch W3 — `wh-006` Sahelanthropus, and a STALE ID in `card-focus.js` (2026-08-07)
+
+### The card
+The first card on this shelf whose subject is genuinely unresolved, so the honest version says so rather
+than asserting bipedalism. `card-focus.js` measures it at **historio 0 of 10** and no researcher named in
+any of its three questions — the dispute is carried as a fact about the FOSSIL ("the limb bones sit closest
+to chimpanzees"), never as a roll-call of who argues what.
+
+### Newly opened
+
+- Australian Museum, "<i>Sahelanthropus tchadensis</i>," accessed 7 August 2026, https://australian.museum/learn/science/human-evolution/sahelanthropus-tchadensis/. [Open access]
+  - opened: 2026-08-07 · the museum's species page
+  - supports: named and announced in 2002; the nickname "Toumaï" meaning "hope of life"; the genus name
+    from "Sahel" plus Greek *anthropus*, the species name for Chad; "All fossils come from Toros-Menalla
+    in Chad's Djurab desert"; "Brain size is estimated at about 320-380cc (similar to that of a
+    chimpanzee)"; "relatively small canine and incisor teeth"; "a large brow ridge (a presumed male
+    trait) unlike any of those in the australopithecines"; and — the hedge the card needs — "This species
+    position is highly debated. Does it belong on our family tree or is it an ancestor of a gorilla or
+    chimpanzee?"
+  - used by: wh-006, Sahelanthropus (glossary)
+- Anne-Elisabeth Lebatard et al., "Cosmogenic Nuclide Dating of <i>Sahelanthropus tchadensis</i> and <i>Australopithecus bahrelghazali</i>: Mio-Pliocene Hominids from Chad," <i>Proceedings of the National Academy of Sciences</i> 105, no. 9 (2008): 3226–31, https://pmc.ncbi.nlm.nih.gov/articles/PMC2265126/. [Open access]
+  - opened: 2026-08-07 · full text via PMC (`pnas.org` is 403 here, as N1 recorded). **The PMCID was
+    resolved through the Europe PMC search endpoint rather than guessed** — N1's rule, after a guessed one
+    returned a paper on stress in mice
+  - supports: "28 10Be/9Be ages obtained within the anthracotheriid unit containing Toumaï" bracketing "the
+    age of *Sahelanthropus tchadensis* to lie between 6.8 and 7.2 Ma"; the weighted mean "7.04 ± 0.18 Ma";
+    the TM 266 locality in "the Toros-Menalla fossiliferous area"
+  - used by: wh-006, Sahelanthropus (glossary)
+- Scott A. Williams et al., "Earliest Evidence of Hominin Bipedalism in <i>Sahelanthropus tchadensis</i>," <i>Science Advances</i> 12, no. 1 (2026): eadv0130, https://pmc.ncbi.nlm.nih.gov/articles/PMC12758524/. [Open access]
+  - opened: 2026-08-07 · full text via PMC, and then **opened a SECOND time with a sharper question**,
+    because the first read could not separate what these authors conclude from what they attribute to the
+    2022 describers. That distinction is the whole value of the paper here and would have been easy to get
+    backwards
+  - supports, in the authors' own voice: "Our results suggest that *Sahelanthropus* was an early biped
+    that evolved from a *Pan*-like Miocene ape ancestor"; "Both limb bones are most similar in size and
+    geometric morphometric shape to chimpanzees (genus *Pan*)"; and the state of the field — "polarized
+    and somewhat contradictory, with one team promoting limited evidence for bipedalism and probable
+    status as the earliest hominin, while another camp has dismissed the evidence for bipedalism and
+    questioned the hominin status of *Sahelanthropus*"
+  - attributes to others (NOT this paper's own finding): the gluteal-complex, shaft-shape and femoral-neck
+    readings, which are the 2022 describers'. The card credits neither team by name and claims only that
+    the femur "has been read as" showing a walker's hip and knee
+  - used by: wh-006, Sahelanthropus (glossary)
+
+### Reused
+- `si-sahelanthropus` (opened in W2) — the forward foramen magnum, 7–6 Ma, Chad, the chimp-sized brain.
+- `cela-conde-ayala-2003` — *Sahelanthropus* placed *incertae sedis*, re-read in W2 and used here for the
+  same claim the W2 entry records.
+
+### Not cited, and why
+- **Daver et al. 2022** (*Nature*) is the primary description of the femur and ulnae and would be the
+  landmark citation, but `nature.com` is 403 here (N1) and no open deposit was found. The Williams 2026
+  paper carries what the card needs, in an openable venue, **and characterises the dispute from outside
+  it** — which is better for a card that must not take a side.
+- **Macchiarelli / Cazenave et al.** on the other side of the argument: `hal.science` is Anubis-walled on
+  both the record and the file path (N1, and batch 21 before it), and `researchgate.net` is not a source.
+  The card therefore states the *existence* and *shape* of the disagreement from Williams 2026's own
+  summary of it, rather than citing one camp and not the other.
+
+### The tooling fix
+`.claude/card-focus.js`'s `EXEMPT` list was keyed **`wh-006`: "the three-age system"** — that card's id
+BEFORE the 2026-08-04 renumbering, which moved the three-age system to `wh-002` and handed `wh-006` to
+Sahelanthropus. So it exempted the wrong card in both directions. It changed no verdict today (`wh-002`
+measures historio 1 and passes on its own), which is exactly why it could sit there unnoticed.
+**The register is a LOG and is deliberately left in the old numbering; `card-focus.js` is a LIVE MEASURE
+and is not** — a stale id there silently exempts whatever card inherits the number. `wh-064` and `wh-106`
+were checked at the same time and are correct. Whole-deck sweep after the fix: 92 cards, 0 failing either
+rule.
+
+## Batch W4 — `wh-007` bipedalism, with its glossary term (2026-08-07)
+
+The card owns what its three neighbours deliberately left out. `wh-004` says upright walking came before
+big brains; `wh-005` says it is what diagnoses a hominin; `wh-006` reports one skull's forward foramen
+magnum. None of them says what the change COST the skeleton, what the direct evidence is, or why it might
+have begun — which is this card.
+
+### Newly opened
+
+- Michael D. Sockol, David A. Raichlen, and Herman Pontzer, "Chimpanzee Locomotor Energetics and the Origin of Human Bipedalism," <i>Proceedings of the National Academy of Sciences</i> 104, no. 30 (2007): 12265–69, https://pmc.ncbi.nlm.nih.gov/articles/PMC1941460/. [Open access]
+  - opened: 2026-08-07 · full text via PMC (`pnas.org` is 403 here, as N1 recorded)
+  - supports: "human walking is ≈75% less costly than both quadrupedal and bipedal walking in chimpanzees";
+    and the mechanism the card is careful to keep — that bipedal walking is **not** significantly cheaper
+    than knuckle-walking in modern adult chimpanzees, while longer hindlimbs and an extended hip posture
+    made some individuals cheaper on two legs, so "improved locomotor economy may have accrued very early
+    within the hominin lineage"
+  - **the nuance is the point, and flattening it would be the easy error.** "Upright walking is cheaper"
+    is not what this paper shows; it shows that the two gaits cost a chimpanzee about the same, and that
+    variation in anatomy is what gave selection something to act on. The card states both halves
+  - used by: wh-007
+
+### Reused, and one re-read
+- `si-walking` (opened in W1 for the bipedalism dates) — **re-read on 2026-08-07** for claims the W1 entry
+  did not record (G6 applied as written): "The curve of your lower back absorbs shock when you walk. It is
+  uniquely human"; the *Homo erectus* hip bones "showing that this early human species had given up
+  climbing for walking"; the long thigh bones and the knee "enabling this early human to regularly support
+  its weight on one leg at a time"; and the advantages — hands "freeing … for carrying food, tools, or
+  babies", reaching "fruits and other food from low-lying branches", and appearing "larger and more
+  intimidating".
+- `si-laetoli` — the trail, "almost 27 m (88 ft) long" with "about 70 early human footprints", "big toes in
+  line with the rest of their foot", and the heel-strike-then-toe-off gait. Exactly what the register
+  records. **Note the card says 27 metres (89 feet) where this source says 88 ft**; the metric figure is
+  the source's and the bracket is Folio's own conversion, per the units rule, which rounds to 89.
+- Smithsonian "Introduction to Human Evolution" — bipedalism "evolved over 4 million years ago" and the
+  other traits "developed more recently".
+- `si-sahelanthropus` — the forward foramen magnum, for the anatomy rather than for the species.
+
+### Not claimed
+The **costs** of bipedalism — the narrowed birth canal, the back and knee trouble — are the obvious tenth
+sentence and are **not in the card**, because nothing opened for this batch states them. They are worth a
+source when one turns up rather than a confident sentence now.
+
+### Aliases, checked against N2's rule
+`bipedal`, `upright walking` and `walking upright` are the same concept in the same scheme, not another
+tradition's word for a neighbouring thing — so they are safe where "Late Stone Age" on `Upper_Paleolithic`
+was not. Measured after adding: four shipped cards (`wh-004`, `wh-005`, `wh-009`, `wh-018`) now link the
+term, every one a genuine use. The answer-term suppression was checked **on the rendered page** and covers
+the aliases as well as the key, which is the `byAnySurface` path.
+
+## Batch W5 — `wh-008` Ardipithecus, and the GENUS term beside two species terms (2026-08-07)
+
+### The shape decision
+The glossary already held `Ardipithecus_ramidus` and `Ardipithecus_kadabba` and **not the genus**, which
+is the card's answer term. A third term was written rather than pointing the card at one of the species,
+because the pattern is already established one genus along: `Australopithecus` sits beside
+`Australopithecus_afarensis` and `Australopithecus_africanus`, and it is that term's shape the new one
+follows — define the group, name its species in a clause each, then give the group-level facts.
+
+**L9's duplication check was run BEFORE adding, and it fired.** The draft shared one eight-word run with
+`Ardipithecus_kadabba` ("close to the time the human and chimpanzee"). Re-registered rather than deleted,
+in L10's manner: the kadabba term keeps that phrasing and the genus term says the same thing in its own
+words ("straddle the presumed parting"). Measured after: **0 shared runs against all three siblings**, and
+the trim took the term from 111 words to 107, inside the bar.
+
+### Newly opened
+
+- Tim D. White et al., "Neither Chimpanzee nor Human, <i>Ardipithecus</i> Reveals the Surprising Ancestry of Both," <i>Proceedings of the National Academy of Sciences</i> 112, no. 16 (2015): 4877–84, https://pmc.ncbi.nlm.nih.gov/articles/PMC4413341/. [Open access]
+  - opened: 2026-08-07 · full text via PMC. The PMCID was resolved through the Europe PMC search endpoint
+    rather than guessed (N1's rule). Europe PMC reports it free-to-read while the publisher DOI is gated —
+    the PMC copy is the link written into the citation, being the one actually opened
+  - supports: "The remains of well over 100 additional individuals from Ardi's species confirm that her
+    critical morphologies are not idiosyncratic but characteristic of the species"; that "*Ar. ramidus*
+    combined versatile but deliberate climbing … with a previously unknown form of bipedality"; and the
+    discoverers' central claim, that the common ancestor was a generalized African ape without the derived
+    features of chimpanzees or gorillas
+  - **this is the discoverers' own synthesis, and the card says so** — "its discoverers argue" — so the
+    claim is attributed rather than stated flat, with the dissent beside it
+  - used by: wh-008
+- Australian Museum, "<i>Ardipithecus ramidus</i>," accessed 7 August 2026, https://australian.museum/learn/science/human-evolution/ardipithecus-ramidus/. [Open access]
+  - opened: 2026-08-07 · the museum's species page
+  - supports: the name, "'Ardi' means 'ground' or 'floor' and 'pithecus' is Latinised Greek for 'ape'";
+    brain "about 300-350cc, similar in size to modern female chimpanzees and bonobos"; canines "less
+    projecting and smaller than those of all other known apes" with "no evidence of honing"; the grasping
+    abducted toe; and the pelvis's "mix of features useful for both climbing and upright walking"
+  - used by: wh-008, Ardipithecus (glossary)
+
+### Reused, for the claims the register already records
+- `si-ramidus` — 4.4 Ma, first reported 1994, Ardi announced 2009, "over 100 fossil specimens", the
+  divergent large toe, and the pelvis combining tree-climbing and bipedal activity.
+- `si-kadabba` — 5.8–5.2 Ma, the Middle Awash, the hand, foot and arm bones, and the 5.2 Ma toe bone with
+  "features of bipedal walking".
+- `prang-2019` — the dissenting reading, that the precursor of hominin bipedalism "was African ape-like
+  terrestrial quadrupedalism and climbing".
+
+### Two counts that are NOT the same figure
+The card states "over 100 specimens" (`si-ramidus`) and "well over 100 further individuals"
+(`white-2015`) in adjacent sentences. These are **different counts of different things** — specimens
+against individuals — and the first draft set them side by side in a way that read as one number stated
+twice. Reworded so the second is plainly a later, separate confirmation. Worth recording because the
+temptation on re-reading is to "fix" it by deleting one.
+
+### Sibling separation
+`Ardipithecus` owns the genus, its two species and the argument about the shared ancestor;
+`Ardipithecus_ramidus` owns Ardi and the naming history; `Ardipithecus_kadabba` owns the small sample and
+the honing canines. Checked on the rendered page: the card's answer term is suppressed while **both
+species terms link**, which is the wanted behaviour and not a self-link fault.
+
+## Batch W6 — `wh-010` Lucy and `wh-011` Laetoli footprints (2026-08-07)
+
+Two cards, **no new glossary terms**: `Lucy_(Australopithecus)` and `Laetoli_footprints` both already exist
+and are cited at the bar, so the pairing rule is satisfied without writing anything. The answer terms
+resolve to them — `Lucy` through the key's own head word, `Laetoli footprints` likewise — and both were
+checked on the rendered page for self-linking, which is correctly suppressed on each.
+
+### Newly opened
+
+- Australian Museum, "<i>Australopithecus afarensis</i>," accessed 7 August 2026, https://australian.museum/learn/science/human-evolution/australopithecus-afarensis/. [Open access]
+  - opened: 2026-08-07 · the museum's species page
+  - supports: the retained climbing anatomy, "powerful arms with long forearms" and "long, curved finger
+    and toe bones"; and that the Laetoli prints are "presumed" to have been made by this species — the
+    hedge `wh-011` needs, since the attribution rests on association
+  - **NOT used for two figures it also carries**, because siblings already state them from other sources:
+    it gives the species span as 3.9–2.8 Ma against the Smithsonian's 3.85–2.95 Ma, and the brain as
+    "approximately 430 cubic centimetres" against Tattersall's tabulated mean of 446. Neither is a
+    contradiction — different samples, different roundings — and the rule applied is **sibling
+    consistency**: `Australopithecus_afarensis` (glossary) already says 446, so `wh-010` says 446 too
+  - used by: wh-010, wh-011
+
+### Reused, for the claims the register already records
+- `si-al-288-1` — Hadar, 1974, Johanson and Maurice Taieb, "About 3.2 million years old", the short broad
+  pelvis and in-angled thigh bones, and both names. **Note the register's own warning on this entry**: it
+  does NOT support any completeness percentage, so the widely-quoted "40 per cent" is absent from the card,
+  which says "several hundred fragments" and "one of the most complete" instead.
+- `wiseman-2023` — AL 288-1 as "one of the most complete hominin skeletons" and "approximately 1.05 m tall".
+- `tattersall-2023` — *A. afarensis* mean endocranial volume 446 ml (table 1).
+- `si-afarensis` — the species span, the plant diet, possible ancestry to later *Australopithecus*,
+  *Paranthropus* and *Homo*, and the upright-walking body.
+- `masao-2016` — the 3.66 Ma surface; **re-read on 2026-08-07** for two claims the register had not
+  recorded (G6 applied as written): S1's stature at about 165 cm, and the reading of the size range as
+  marked difference between the sexes.
+- `mcnutt-2021` — the site A prints, first noticed in 1976, the cross-stepping gait, and the argument for
+  a second hominin on the same landscape.
+- `si-laetoli` — **re-read for the preservation mechanism**, which the register entry did not carry: "three
+  early humans walked through wet volcanic ash. When the nearby volcano erupted again, subsequent layers of
+  ash covered and preserved" them; also the short-legs-short-strides inference from the print spacing.
+
+### Not cited, and why
+- **How Lucy died.** Kappelman et al. 2016 (*Nature*) argue a fall from a tall tree; Charlier et al. 2018
+  (*Medico-Legal Journal*) answer with mudslide and animal attack; Kappelman replied in 2019. `nature.com`
+  is 403 here and the SAGE journal is gated, so **none of the three could be opened**. It is also modern
+  forensic argument rather than the fossil itself — a `docs/history-focus-plan.md` matter — so the card
+  says nothing about her death rather than reporting one side of a live dispute from a press release.
+
+### Focus check
+Both cards measure **historio 0 of 10** with no researcher named in any of their six questions. `wh-011`
+keeps its one discovery sentence (the 1976 prints) in the abstract and never in a question, which is the
+`docs/history-focus-plan.md` allowance rather than an exception to it.
+
+## Batch W7 — `wh-012` Taung Child (2026-08-07)
+
+**No new glossary term**: `Taung_Child` already exists with four citations at the bar. Three siblings own
+the neighbouring ground and the card was written to stay off it — `Raymond_Dart` owns the man and his
+career, `Australopithecus_africanus` the species, `Taung` the town and the quarry. The card owns the
+**specimen and the child**, which is why Dart is not named in it at all.
+
+### Newly opened
+
+- Lee R. Berger and W. Scott McGraw, "Further Evidence for Eagle Predation of, and Feeding Damage on, the Taung Child," <i>South African Journal of Science</i> 103, nos. 11–12 (2007): 496–98, https://scielo.org.za/scielo.php?script=sci_arttext&pid=S0038-23532007000600013. [Open access]
+  - opened: 2026-08-07 · full text on SciELO South Africa, which serves the article as HTML and is
+    reachable from here — worth noting as a host, since it carries a great deal of southern African
+    palaeoanthropology that is closed elsewhere
+  - supports: "gouges and punctures in the orbits of the fossil"; "scratches across the frontal area,
+    around the orbits, and in other areas of the skull" matching damage on monkeys taken by modern crowned
+    eagles; and that raptor marks "can be readily distinguished from the highly patterned, closely spaced,
+    grooves that result from rodent gnawing"
+  - used by: wh-012
+
+### Reused, for the claims the register already records
+- `si-taung-child` — Taung, 1924, "About 2.8 million years old", the forward foramen magnum as the first
+  evidence of hominin bipedality, and the eagle reading with the eye-socket punctures, the eggshells and
+  the small-animal assemblage.
+- `falk-2012` — the Taung cranial capacity "between 382–407 cm³" and a brain "within the range for great
+  apes".
+- `rowan-wood-2024` — the 1925 announcement, Taung as the type specimen of *A. africanus*, and its standing
+  as "the first fossil evidence supporting Charles Darwin's 1871 prediction that Africa was where the human
+  lineage originated".
+- `si-africanus` — "About 3.3 to 2.1 million years ago", southern Africa, and the bipedal pelvis and foot
+  against shoulder and hand bones "also adapted for climbing".
+
+### A SOURCE DIVERGENCE, recorded rather than resolved
+The Australian Museum's *A. africanus* page was opened for this batch and is **not cited**, because three
+of its figures disagree with what the site already carries from the Smithsonian and from Falk:
+
+| claim | Australian Museum | what the card uses | source |
+|---|---|---|---|
+| age of the Taung specimen | ~2.3 Ma | **c. 2.8 Ma** | `si-taung-child` |
+| species span | 3.2 – 2 Ma | **3.3 – 2.1 Ma** | `si-africanus` |
+| species mean brain | ~480 cc | **382–407 cm³ for Taung itself** | `falk-2012` |
+
+None of these is a contradiction in the sense that one party is wrong — Taung has no good radiometric
+control and published estimates genuinely range over that half-million years — but **the site must not
+carry two figures for one thing on neighbouring surfaces**, and `Taung_Child` (glossary) already says
+2.8 Mya. The rule applied is C1's, one continent over: read both, then follow sibling consistency rather
+than the most recently opened page. The divergence is written down here so a later batch meeting the 2.3
+Ma figure knows it was seen and set aside, not missed.
+
+### Focus check
+`historio` 0 of 10, no researcher named in any of the three questions. The card carries **one** sentence
+of discovery history (the 1925 description making the skull a type specimen) and mentions **Darwin**,
+which is not a breach: the rule forbids naming a modern researcher, and Darwin's 1871 prediction is the
+historical claim the fossil bears on rather than a modern scholar's argument about it.
+
+## Batch W8 — `wh-013` Paranthropus and `wh-022` Out of Africa I (2026-08-07)
+
+`Paranthropus` already existed as a glossary term at the bar; `Out_of_Africa_I` is new and ships cited.
+
+### Newly opened
+
+- Thure E. Cerling et al., "Diet of <i>Paranthropus boisei</i> in the Early Pleistocene of East Africa," <i>Proceedings of the National Academy of Sciences</i> 108, no. 23 (2011): 9337–41, https://www.ebi.ac.uk/europepmc/webservices/rest/PMC3111323/fullTextXML. [Open access]
+  - opened: 2026-08-07 · Europe PMC REST route; PMCID resolved through the search endpoint, not guessed
+  - supports: a diet "dominated by C4 biomass such as grasses or sedges", sustained "over a wide range of
+    time (> 0.5 Ma) and space (Turkana, Baringo, Natron, and Olduvai regions)", more C4 than "any other
+    hominin studied to date", and explicitly "inconsistent with the notion that *P. boisei* ate nuts or
+    hard fruits preponderantly"
+  - used by: wh-013
+- Rhonda L. Quinn and Christopher J. Lepre, "Contracting Eastern African C4 Grasslands during the Extinction of <i>Paranthropus boisei</i>," <i>Scientific Reports</i> 11 (2021): 7164, https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8009881/fullTextXML. [Open access]
+  - opened: 2026-08-07 · full text (CC BY)
+  - supports: extinction "estimated to just before 1 Ma"; a "transient but significant increase in C3
+    vegetation" peaking around 1 Ma; and the authors' reading that "The contraction of C4 grasslands
+    escalated dietary competition amongst the abundant C4-feeders, likely influencing *P. boisei*'s demise"
+  - **this is what makes the card close rather than stop**: the specialisation that defines the genus is
+    also the best candidate for what finished it. The card keeps the paper's hedge ("may have been undone")
+  - used by: wh-013
+- Smithsonian, "<i>Paranthropus aethiopicus</i>" / "<i>Paranthropus robustus</i>" / "OH 5" — the three
+  species records and the type skull, opened 2026-08-07. Between them: the 2.7–2.3 Ma and 1.8–1.2 Ma spans,
+  the Black Skull KNM-WT 17000, the 1938 naming and the meaning "beside man", the sagittal crest and
+  zygomatic arches, "megadont cheek teeth… four times the size of our own", and OH 5's nickname.
+  - used by: wh-013
+
+### Reused
+- `si-boisei` — 2.3–1.2 Ma, body sizes, "the thickest dental enamel of any known early human", and the
+  microwear that "are more similar to living fruit-eaters", with hard foods as fallbacks.
+- `curran-2025`, `si-erectus`, `rizal-2020`, `anton-2016`, `torre-2016`, `si-sapiens` for `wh-022`, each
+  for the claim the register already records.
+  - **note the URL swap**: `curran-2025` is recorded here with a `doi.org` link resolving to nature.com,
+    which is 403 from this sandbox. A PMC copy (PMC11747263) is already shipped on another card and is what
+    `wh-022` cites — the openable copy, per the standing rule that the link is the one a reader can follow.
+
+### An ALIAS deliberately NOT added
+`Out_of_Africa_I` takes `Out of Africa 1` and `first hominin dispersal`. It does **not** take the bare
+**"Out of Africa"**, and that is N2's same-scheme test applied before the fact rather than after: unqualified,
+that phrase far more often means the *later* dispersal of *Homo sapiens*, so an alias would capture prose
+about a different event entirely — the "Late Stone Age" mistake with the two halves swapped. If a card on
+the modern-human dispersal is written later, the bare phrase belongs to it, or to neither.
+
+### One inference, flagged
+`wh-022` says the Acheulean "appears in Africa only around 1.76 million years ago, by which time hominins
+were already at Dmanisi." That is an arithmetic comparison of two separately cited dates (`torre-2016` and
+`curran-2025`) rather than a claim either paper makes, and both markers sit on the sentence so a reader can
+check the join. It is the kind of step worth recording, since it is exactly where a card can slide from
+reporting into arguing.
+
+### Focus check
+Both cards measure historio 0 of 10, no researcher named in any of their six questions. `wh-013` names
+Nutcracker Man and OH 5 but no excavator, and the reversal of the hard-object reading is carried as
+evidence about the teeth rather than as a history of who thought what.
+
+## Batch W9 — `wh-031` cooking hypothesis, with its glossary term (2026-08-07)
+
+The card had to be written AGAINST an existing one. `wh-029` control of fire already carries the
+hypothesis in a single sentence — corrected in batch 23, which caught the pass's first wrong marker there
+(the Wrangham claim pointing at Berna's Wonderwerk microstratigraphy, which says nothing about cooking)
+and moved the date from 1.9 to 1.7 Ma on Gowlett. So `wh-031` owns the MECHANISM and the ARGUMENT, and
+`wh-029` keeps the fire evidence and the attribution.
+
+### A REGISTER GAP, found and closed
+**`gowlett-2016` is cited on the shipped `wh-029` and was not in this file at all.** It went in through a
+batch that did not record it, which means a later batch reusing it had no entry to check against and would
+have had to re-read from scratch — the exact cost the register exists to avoid. Its entry is below.
+
+- John A. J. Gowlett, "The Discovery of Fire by Humans: A Long and Convoluted Process," <i>Philosophical Transactions of the Royal Society B</i> 371, no. 1696 (2016): 20150164, under "Fire and the Cooking Hypothesis," https://pmc.ncbi.nlm.nih.gov/articles/PMC4874402/. [Open access]
+  - opened: 2026-08-07 (and earlier, unrecorded, for wh-029) · full text via PMC
+  - supports: the cooking hypothesis as it bears on early Homo, and **the 1.7 Ma date** — which is the
+    correction batch 23 applied against the card's former 1.9 Ma
+  - used by: wh-029, wh-031, Cooking_hypothesis (glossary)
+
+### Newly opened
+
+- Miki Ben-Dor and Ran Barkai, "A Bioenergetic Approach Favors the Preservation and Protection of Prey, Not Cooking, as the Drivers of Early Fire," <i>Frontiers in Nutrition</i> 12 (2025): 1585182, https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12122349/fullTextXML. [Open access]
+  - opened: 2026-08-07 · full text via the Europe PMC REST route
+  - supports: the hypothesis as these authors state it — that fire for cooking "was a driving force behind
+    crucial adaptations in *Homo erectus*", reduced gut and increased brain; the objection, that cooking
+    meat yields "approximately 8%, or around 1,200 ca/h" in digestibility and cooked plants a few hundred
+    calories an hour, both "insufficient to offset the caloric cost of maintaining a fire"; and the
+    alternative, that "meat and fat preservation, and predator protection were more likely the initial
+    motivations"
+  - used by: wh-031, Cooking_hypothesis (glossary)
+- Justin A. Ledogar et al., "Bite Force Production and the Origin of <i>Homo</i>," <i>Royal Society Open Science</i> 12, no. 4 (2025): 241879, https://www.ebi.ac.uk/europepmc/webservices/rest/PMC12014231/fullTextXML. [Open access]
+  - opened: 2026-08-07 · full text via the Europe PMC REST route
+  - supports: that "selection on skeletal traits favouring forceful postcanine processing was relaxed by
+    the earliest stages in the evolution of our genus, implying that dietary or food processing changes
+    played an important role in the emergence of *Homo*", with *H. habilis* showing a "decreased ability to
+    generate molar bite force" against australopiths
+  - **the card uses this for BOTH sides**, which is the point of it: the jaws show a processing change at
+    the origin of the genus, and they cannot distinguish fire from cutting and pounding. Citing it only for
+    the supporting half would misrepresent what it establishes
+  - used by: wh-031
+
+### Reused
+`roebroeks-villa-2011` (habitual fire only from ~400 ka), `berna-2012` (in-place burning at Wonderwerk
+~1 Ma) and `si-erectus` — each for the claim the register records.
+
+### No EXEMPT entry, deliberately
+`docs/history-focus-plan.md` exempts cards whose answer term IS a modern theory, and `wh-064` Toba is on
+that list. This card would have qualified, and **it does not need to**: measured, it comes out at
+historio 0 of 10 with no researcher named in any question, because it is written about the claim and the
+evidence rather than about who argued what. Wrangham is not named — `wh-029` carries the attribution. The
+exemption list stays at three, which is what "keep this list SHORT" asks for.
+
+### A tooling note worth having
+**`add-glossary.js` does not check description length.** `Cooking_hypothesis` was written at 115 words,
+five over the bar, and went in; it was caught only by running `gloss-length.js` afterwards and was trimmed
+to 107 and re-added. CLAUDE.md already says to re-run that measure after `add-glossary.js`; this is the
+first batch in this run where it actually bit.
+
+## Batch W10 — `wh-056` Later Stone Age (2026-08-07)
+
+**No new glossary term**: `Late_Stone_Age` already exists with three citations at the bar, and the card's
+answer "Later Stone Age" resolves to it through that term's own alias. Checked on the rendered page.
+
+### A HEAD-WORD INCONSISTENCY, found and NOT fixed — flagged instead
+The glossary key is **`Late_Stone_Age`** and its description opens "The Late Stone Age is…". Everything
+else on the site uses **"Later"**:
+
+- the plan line is `wh-056 Later Stone Age`;
+- the corpus spells it **"Later Stone Age" 6 times against "Late Stone Age" once** — the once being that
+  term's own opening sentence;
+- its sibling `Middle_Stone_Age` says the scheme sets out "an Earlier, a Middle and a **Later** Stone Age
+  for Africa";
+- **one of the term's own three citations** is titled "…among **Later** Stone Age Hunter-Gatherers at
+  Taforalt"; and
+- N2's entry in this register, which created the term, calls it "the **Later** Stone Age" in prose.
+
+So the head word is the odd one out, and "Later Stone Age" is the form Goodwin's scheme actually uses.
+**Two fixes were considered and both were rejected as out of scope for a card batch**, which is why this
+is written down rather than done:
+
+1. **Rename the key** to `Later_Stone_Age`, keeping `Late Stone Age` as an alias. Correct, but it changes
+   a shipped slug, and a slug is what the admin overlay, the i18n gloss files and any stored `glossSeen`
+   record are keyed by.
+2. **Add a `GLOSSARY_TITLES` override.** The mechanism exists and is wired end to end in app.js — and
+   **neither `add-glossary.js` nor `add-sources.js` carries that table**, so an entry would be silently
+   destroyed by the next content batch. That is the `GLOSSARY_PLACES` fault CLAUDE.md already records,
+   waiting to happen again. Using it safely means teaching both serializers about the table first.
+
+The card meanwhile says "Later Stone Age" throughout and links correctly, so nothing is broken for a
+reader; the popup simply opens under the older head word.
+
+### Newly opened
+
+- Moustapha Ndiaye et al., "Two New Later Stone Age Sites from the Final Pleistocene in the Falémé Valley, Eastern Senegal," <i>PLOS ONE</i> 19, no. 3 (2024): e0294346, https://pmc.ncbi.nlm.nih.gov/articles/PMC10977785/. [Open access]
+  - opened: 2026-08-07 · full text via the Europe PMC REST route
+  - supports: OSL ages of 17 ± 1 to 16 ± 1 ka and 13 ± 1 to 12 ± 1.1 ka; "chaînes opératoires of core
+    reduction mainly producing flakes and bladelets as well as blades and laminar flakes. Segments dominate
+    the toolkits but a few backed bladelets and end-scrapers"; that these "are the oldest known in Senegal
+    so far and add to the small number of sites known in West Africa"; and the finding the card closes on —
+    "a juxtaposition of the contemporaneous use of MSA and LSA technologies by separate populations"
+  - used by: wh-056
+
+### A WRONG PMCID, caught before it was cited
+A Europe PMC keyword search returned **PMC12317744** for Goldstein et al. 2025 on Kakapel Rockshelter.
+Fetching it returned **a bioinformatics tool paper on DNA damage profiles** — a different work entirely.
+That is N1's warning arriving on a search result rather than on a guess: the id came from a listing, not
+from thin air, and was still wrong. The paper was dropped rather than cited, and the fifth source was
+resolved instead through `search?query=DOI:"…"`, which returns the id, the author string and the
+pagination together and can be checked against the title. **Resolve by DOI; verify the fetched text is
+the paper you asked for.**
+
+### Reused
+`hallinan-2026` (the divisions and the chronological table), `malan-1957` (Goodwin's naming, and that the
+African terms were chosen so as not to be read as the European ones), `moubtahij-2024` (Taforalt, plant
+reliance at 15–13 ka) and `villa-2012` (the 44–42 ka technological change at Border Cave). The last is
+**this card's only paywalled source**, cited from its abstract as the landmark defining paper, exactly as
+its register entry records; the list is 4 open to 1.
+
+### A stale "used by" line, noted not corrected
+`villa-2012`'s entry says "used by: wh-054". Under the current numbering `wh-054` is *Hunter-gatherer* and
+carries none of it — the line is pre-renumbering, which is what this file is deliberately left in. Recorded
+so the next reader does not take it for a fault.
+
+## Batch W11 — `wh-062` shell beads, and TWO GLOSSARY MIS-LINKS FOUND (2026-08-07)
+
+### The card
+`Shell_bead` is new and ships cited. Five citations, four open to one paywalled. Its spine is the
+Misliya/Qafzeh contrast, which is what turns "the oldest ornament" into an argument: at Misliya the shells
+carry no trace of handling at all, so they were gathered; at Qafzeh they are pierced and show the polish of
+one valve rubbing against the next on a string, so they were worn.
+
+### Newly opened
+- Daniella E. Bar-Yosef Mayer et al., "On Holes and Strings: Earliest Displays of Human Adornment in the Middle Palaeolithic," <i>PLOS ONE</i> 15, no. 7 (2020): e0234924, https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0234924. [Open access]
+  - opened: 2026-08-07 · publisher HTML (the register's own entry already carries this URL because N1
+    guessed a PMCID for this very paper and got one about stress in mice)
+  - supports: Misliya "dated to between ca. 240,000 and 160,000 years ago" with "no traces that reflect
+    human manipulation"; Qafzeh's "fine striations near the hole" and "polish patches produced by
+    valve-to-valve contact… arranged on a string"; *Glycymeris*; and the argument the card opens on — that
+    shells "must not only have a symbolic meaning understood among different groups, they must also be
+    displayed in a way that is clearly visible to others"
+  - used by: wh-062, Shell_bead (glossary)
+
+Reused for the claims the register records: `bouzouggar-2007` (Taforalt, 82 ka, suspension wear, red
+ochre), `derrico-backwell-2016` (the Border Cave infant and its perforated *Conus*, the card's only
+paywalled source), `campmas-2026` (Aterian *Tritia* beads) and `derrico-2021` (the Zhoukoudian Upper Cave
+ornaments, and the three badger canines sewn onto clothing).
+
+## TWO MIS-LINKS, and the trap behind them
+
+Reading the rendered card turned up **"polish" linking to POLAND** — the noun meaning sheen, matched
+against the country's `Polish` alias. Sweeping for the same shape then turned up a **live one on already
+shipped content**: the Greek word *laos*, "people", in `gr-079 Lawagetas` and in the `Lawagetas` glossary
+term, **linking to Laos in Southeast Asia**. Both are fixed by adding the country to
+`GLOSSARY_CASESENSITIVE`, which is exactly what that table is for and where `Turkey` already sits.
+
+**The trap is in `isProperCS`**, which decides whether a surface matches case-sensitively:
+
+    function isProperCS(surface) { return /[A-Z]/.test(String(surface || "").slice(1)); }
+
+It tests for a capital **after the first character**, so it catches `Border Cave` and `Homo erectus` and
+does **not** catch a single capitalised word. Every one-word proper noun is therefore matched
+case-insensitively unless it is flagged by hand — which is why `Turkey` and `Boreal` are already on the
+list, and why this class of fault recurs rather than being fixed once.
+
+**What the fix does and does not cost**, measured on the page rather than assumed:
+
+| surface | before | after |
+|---|---|---|
+| `polish` (sheen) | linked to Poland | no link |
+| `Polish` (of Poland — `Latvia`, "after Polish, Swedish and Russian rule") | linked | **still links** |
+| `Polish` inside "Polish-Lithuanian Commonwealth" (`Belarus`) | linked | no link — correct, it is a fragment of a compound name |
+| `laos` (Greek) | linked to Laos | no link |
+| `Laos` (the country) | linked | still links |
+
+**A mechanical sweep cannot find the rest of this class.** Running one over every single-word surface whose
+lowercase form appears in shipped prose returns **64 terms, and the overwhelming majority are correct** —
+`ochre`, `bronze`, `flint`, `knapping`, `genus`, `mammoth` are common nouns whose keys are capitalised only
+because slugs are, and linking them lowercase is the wanted behaviour. Only a HOMOGRAPH is a fault, and
+telling the two apart is a judgement about meaning. So the honest statement is: two found, two fixed, and
+the list stays hand-maintained. **The way they surface is reading a rendered card's link list** — which is
+the golden rule's "it isn't finished until it's been looked at" earning its keep for the second time in
+this run.
+
+## Batch W12 — `wh-063` Paleolithic burial (2026-08-07)
+
+`Paleolithic_burial` is new and ships cited. Five citations, four open to one paywalled. The plan's slot
+was filled from the retired `Sungir` card's reading list, which is exactly what the renumbering note said
+to do — the retired card is the obvious place to start when a slot's research rests on its site.
+
+### A SPELLING DECIDED BY THE CORPUS, against the plan
+The plan line reads `wh-063 Palaeolithic burial`, and the card answers **"Paleolithic burial"**. Measured
+before choosing: the corpus writes **Paleolithic 31 times against Palaeolithic 5**, all three sibling cards
+answer "Paleolithic" / "Middle Paleolithic" / "Upper Paleolithic", and every glossary slug is
+`*_Paleolithic`. The plan is a subject to research, not a spelling to enforce, and a fourth sibling
+answering with the other spelling would be the inconsistency. `Palaeolithic burial` is carried as an alias,
+which is what `Upper_Paleolithic` already does. (The DECK is titled "The Palaeolithic", so the two
+spellings do coexist on the site; this batch did not widen that, and did not narrow it either.)
+
+### Reused, all from the register
+`derrico-backwell-2016` (the Border Cave infant, 74 ± 4 ka, the perforated *Conus*), `trinkaus-buzhilova-2018`
+(Sungir at c. 34,000 cal BP, "the most elaborate Upper Palaeolithic burial currently known", the ~3,000
+beads, twelve pierced fox canines and 25 arm bands), `nowell-2020` (the two adolescents head to head, 13,000
+beads in all, "more than 2500 person hours"), `sikora-2017` (all genetically male; **none closely related**,
+which is the register's own recorded correction and is what the card's closing sentence rests on) and
+`lbova-2021` (the Mal'ta children, the slab-lined structure, the ochre floor, the ivory tiara, the
+120-bead necklace and the bird carving).
+
+### A CLAIM NOT MADE, and why
+The card does **not** say what the oldest African burial is. `derrico-backwell-2016` calls Border Cave "the
+oldest instance of modern human burial from Africa", and that was superseded in 2021 by Panga ya Saidi at
+~78 ka — which this register's own note on that entry already flags, and which is why the card says
+"**the oldest in Africa known to include an ornament**" instead. Citing the 2016 wording flat would have
+shipped a claim its own field has moved past.
+
+**Martinón-Torres et al. 2021, "Earliest Known Human Burial in Africa" (*Nature* 593: 95–100), could not be
+opened**: `nature.com` is 403 here, Europe PMC lists no PMCID, and `api.crossref.org` — the batch-22 route
+that has rescued paywalled abstracts before — **returns metadata for this DOI with no abstract field at
+all**. What a fetch of that record produces is a summary assembled from the reference list, not the paper's
+own words, which is precisely the shape N4 warns about. So the Panga ya Saidi date is **absent from the
+card** rather than cited from something that merely reads like the paper. It is the obvious first thing to
+add when an openable copy appears; the glossary term's date line was dropped for the same reason rather
+than asserting a span this batch cannot source.
+
+---
+
+## Batch W13 — `wh-080` Paleolithic music (2026-08-07)
+
+### Newly opened for this batch
+
+**`urmu-gaensegeierfloete`** — Urgeschichtliches Museum Blaubeuren, "Gänsegeierflöte", Digitale Sammlung,
+inv. no. 1977-0119-0089-9000. [Open access]
+The museum's own object record for the Hohle Fels flute. Carries the length (21.7 cm), the species (griffon
+vulture, *Gyps fulvus*) and the element (wing bone / radius), the **four surviving finger holes with the
+lower end broken away at what would have been a fifth**, the **bevelled notch cut into the shaft as a
+mouthpiece**, the 2008 excavation, and the 35,000–40,000-year age. This is batch 8b's museum-catalogue rule
+paying again on a Swabian Jura object, exactly as it did for the Lion Man and the earlier Hohle Fels flute:
+the institution holding the thing publishes the measurements a journal article assumes its readers know.
+
+**`urmu-hohle-fels`** — Urgeschichtliches Museum Blaubeuren, "Hohle Fels", Welterbe-Fundstellen.
+[Open access]
+The site record, used for the one claim the object record does not make: that the flute came from the **same
+cave and the same years** as the small ivory female figure. Both were lifted in 2008 from the same Aurignacian
+horizon.
+
+**`iceageart-welterbe`** — Welterbe Höhlen und Eiszeitkunst der Schwäbischen Alb, "UNESCO-Welterbe".
+[Open access]
+The property's own portal — the route batch 8b found when `whc.unesco.org` proved 403, and it is still 403.
+Carries the **2017 inscription**, the **six caves in two valleys** (Ach and Lone), and the grounds: the
+oldest portable art and musical instruments of humankind. Also the general statement that sound leaves
+nothing behind and the instruments are what survives.
+
+**`turk-turk-otte-2020`** — Matija Turk, Ivan Turk and Marcel Otte, "The Neanderthal Musical Instrument from
+Divje Babe I Cave (Slovenia): A Critical Review of the Discussion", *Applied Sciences* 10, no. 4 (2020):
+1226. [Open access]
+The finders' own review of two decades of objection. Carries the cave bear cub femur, its ~11 cm surviving
+length, the **two clean round holes in a line**, the layer at 60,000–50,000 years, the Neanderthal
+attribution (in Europe at that date there is nobody else), and their central answer to the carnivore
+argument — that a bite does not **align** holes down a shaft.
+
+**`diedrich-2015`** — Cajus G. Diedrich, "'Neanderthal Bone Flutes': Simply Products of Ice Age Spotted
+Hyena Scavenging Activities on Cave Bear Cubs in European Cave Bear Dens", *Royal Society Open Science* 2,
+no. 4 (2015): 140022. [Open access]
+The standing objection, cited as the objection rather than as the answer: a carnivore's canine punches a
+neat round hole through thin bone, and this piece reads as a bear cub gnawed by spotted hyenas in a cave
+bear den. Reached through the PMC mirror; the RS landing page is fine too.
+
+**`nms-neanderthal-flute`** — National Museum of Slovenia, "Neanderthal Flute", Collection Highlights,
+inv. no. D. b. 652. [Open access]
+The holding institution's record, used for what the object record can say and a paper cannot: that the
+museum **displays it as the oldest musical instrument in the world**. That is a fact about the state of the
+claim, which is what the card's last sentence needs — the museum's position, the objection, and the question
+left open.
+
+### THE FINDING — a contested claim is dated by the SECURE end, not the spectacular one
+The date line carries **one** labelled row, `Oldest secure — c. 40,000–35,000 BP`, and deliberately not the
+Divje Babe span. `cardYears` reads the date line to place the card in the deck's chronological order, so
+giving the contested 60 ka claim the date line would sort this card 20,000 years earlier **on the strength
+of the thing the card itself says is unsettled**. The Divje Babe dates are in the abstract, marked, with the
+objection beside them. The general rule: where a card narrates a dispute, the date line states what is
+agreed and the prose states what is argued.
+
+### A CLAIM NOT MADE, and why
+The card does **not** say how many notes the Hohle Fels flute can play, or what scale it produces. Replicas
+have been made and played and the recordings circulate widely, but the pitch depends on reconstructing the
+broken lower end and the missing fifth hole, which is exactly the part that is gone — so any note count is a
+property of somebody's replica rather than of the object. Neither museum record states one. It is left out
+rather than sourced to a reconstruction.
+
+### `card-focus.js` reads a FALSE POSITIVE here
+The measure flags Q3 for naming "Slovenia". That is a country in a paper's title reaching the name parser
+through an author position, not a researcher named in a question — the rule in `docs/history-focus-plan.md`
+forbids the modern arguer, and a place is not one. Historiography measures **2 of 10**, inside the bar of 3;
+the two sentences are the objection and the finders' answer, which is the dispute itself rather than
+commentary on it. No EXEMPT entry was added: the card passes on its own merits and the list should stay
+short.
+
+---
+
+## Batch W14 — `wh-086` Recent African origin of modern humans (2026-08-07)
+
+### A HOUSE-STYLE DECISION, made by the site's owner, and what it moved
+Asked which form the site should use, the answer was **"Late Stone Age"** over "Later Stone Age". The
+glossary head word was already `Late_Stone_Age`; the **prose was the half that disagreed**, in nine places
+across four cards and two terms — including `wh-056`, whose **answer term** was "Later Stone Age". All nine
+are now "Late Stone Age", and **"Later Stone Age" is kept as an alias**, which matters more than the choice
+itself: the scholarly literature predominantly writes *Later* Stone Age (LSA), so every citation on those
+cards says "Later" while the card says "Late", and the alias is what keeps a reader meeting the standard
+form landing on the right entry.
+
+**The N2 distinction is untouched and must stay so.** What N2 forbade was `Upper_Paleolithic` carrying
+"Late Stone Age" as an alias, because the African division is not the European one. That is a
+scheme-boundary rule; Late-versus-Later is a spelling choice *inside* the African scheme. The term still
+says outright that it is the last of the three divisions of the **African** Stone Age.
+
+`fix-field.js` replaces **one occurrence per run**, so a card with the phrase twice needs two passes — two
+of the four did, and the second pass was only run because the corpus was re-grepped afterwards rather than
+the first run's "patched 4 cards" being taken as done.
+
+### Reused, all from the register, nothing newly opened
+`bae-wu-2024` (both models stated outright, and the synthesis), `cann-1987` (147 people, one woman, about
+200,000 years ago, probably in Africa), `harvati-2022` (Jebel Irhoud "recently dated to ca. 300 ka" as the
+earliest recognised members of our lineage), `scerri-2018` (the morphological diversity and geographical
+spread, the subdivided populations connected by sporadic gene flow, and the phrase "African
+multiregionalism"), `green-2010` (Neanderthals sharing more variants with Eurasians than with sub-Saharan
+Africans, hence gene flow into the ancestors of those who left).
+
+### THE FINDING — batch 24's rule a second time, and it is the strongest case of it yet
+**Where a card's subject is a DEBATE, one review can carry the debate's whole shape.** `bae-wu-2024` is
+nominally about eastern Asian hominin variability and states, in two consecutive paragraphs, the
+multiregional model ("*H. erectus* was considered to have evolved *in situ* into archaic *H. sapiens*…
+modern Chinese people today could trace their ancestry directly back to at least Zhoukoudian Locality 1"),
+its rival ("the 'Out of Africa' or the 'replacement' model posits that modern humans dispersed out of
+Africa and replaced all indigenous populations with no genetic contribution to living peoples"), and the
+current reading ("a combination of both models is the most parsimonious… dispersals and introgression
+events" rather than "a single dispersal and complete replacement event"). **Four of the card's ten
+sentences rest on that one open paper**, and it was found by asking what the register already held rather
+than by searching.
+
+### AN ACCESS NOTE THAT CORRECTS TWO REGISTER ENTRIES
+`stringer-2016` and `nielsen-2017` are both recorded here as **[Open access]**, "full text via PMC". The
+Europe PMC REST full-text route now **404s for both** while working normally on the same run for
+`PMC4448875` and `PMC6092560` — so the route is not broken and these two simply have **no deposited full
+text**. Europe PMC's own record for Stringer gives `isOpenAccess: N` with `inEPMC: Y`. Neither entry is
+relabelled here, because the earlier batch recorded reading them and this batch has only the abstracts;
+what is recorded is that **a re-read of either is not currently possible by that route**, which matters
+under N5's rule — a source reused for a *new* claim needs a re-read, and for these two that re-read cannot
+presently be done. **Neither is cited on this card.** Stringer's abstract *was* read directly and does
+state the Omo Kibish / Herto / Skhul / Qafzeh fossil basis, but the card was built from five sources that
+could be opened in full, which was the better answer than leaning on an abstract.
+
+### A CLAIM NOT MADE, and why
+The card gives **no date for the main dispersal out of Africa** — no "about 60,000 years ago". It is the
+figure a reader most expects here and nothing opened for this batch states it: `bae-wu-2024`'s 67–50 ka is
+the age range of *Homo luzonensis*, not of the dispersal, and reading it as the latter would be the batch-23
+wrong-marker fault made deliberately. The dispersal timing belongs to `wh-088` (Southern dispersal route),
+which can source it properly.
+
+### An alias deliberately NOT taken
+`Recent_African_origin_of_modern_humans` takes **"Out of Africa"** — which `Out_of_Africa_I` was
+deliberately left free of in batch W8, so the two do not collide, and `wh-022` was re-rendered to confirm
+the longest-surface-first rule still gives "Out of Africa I" to the older card. It does **not** take
+**"multiregional evolution"**, which is the RIVAL model and not a synonym: N2's test is that an alias must
+mean the same thing, and an alias there would send a reader looking up multiregionalism to the page arguing
+against it.
+
+### A ttip worth recording as ACCEPTABLE rather than fixed
+"sub-Saharan Africa" links **"Saharan"** to `Sahara`, the alias firing on the second half of the compound.
+Unlike the polish→Poland and laos→Laos cases, this is **semantically correct** — the Sahara is precisely
+what "sub-Saharan" is measured against — and eight shipped glossary terms already carry the phrase, so the
+behaviour predates this card. Left alone; recorded so a later reader does not take it for a new fault.
+
+---
+
+## Batch W15 — `wh-088` Southern dispersal route (2026-08-07)
+
+### Newly opened for this batch
+
+**`beyer-2021`** — Robert M. Beyer, Mario Krapp, Anders Eriksson and Andrea Manica, "Climatic Windows for
+Human Migration out of Africa in the Past 300,000 Years", *Nature Communications* 12 (2021): 4889.
+[Open access, CC BY]
+- opened: 2026-08-07 · full text via the Europe PMC REST route
+- supports: the two routes named as such — "two possible routes into Eurasia, through the
+  Nile-Sinai-Land Bridge and the Strait of Bab-el-Mandeb, commonly denoted the northern and southern
+  route"; that precipitation and aridity are "the ecologically limiting factors", the constraint being
+  the ability to hunt, gather and find drinking water along the way; the window at roughly 65 ka, which
+  "marks both the point shortly after which the northern route last was open before a period of 40k
+  years of unsuitable climate, and the point at which the southern route first reopened for an extended
+  period since the last interglacial period"; and the southern route's distinctive obstacle, the Red Sea
+  crossing, which "remains a subject of debate given the very limited archaeological support"
+- **this is the source the previous batch said wh-088 would need.** W14 deliberately withheld a dispersal
+  date from `wh-086` on the grounds that it belonged here and could be sourced properly; it was, and the
+  card carries it.
+
+**`shipton-2026`** — Ceri Shipton, "Lithic Miniaturization Provides a Signature of an MIS4-3 Southern
+Dispersal of *Homo sapiens*", *Evolutionary Anthropology* 35, no. 1 (2026): e70027. [Open access, CC BY]
+- opened: 2026-08-07 · full text via the Europe PMC REST route
+- supports: the genetic brackets — "genetic estimates for *H. sapiens* dispersal 55–45 ka" into Eurasia,
+  Wallacea and Sahul, and "genetic estimates for an out-of-Africa migration event 75–55 ka"; the backed
+  microlith hypothesis and its **refutation** ("a repeatedly reinvented tool type … likely convergent in
+  these regions, with their presence in-between being discontinuous … not found east of India in MIS3 and
+  so cannot provide a universal signature of a southern dispersal"); and the miniaturization proposal
+  tracked west to east from Panga ya Saidi through Fa Hien Lena, Sri Lanka, to Asitau Kuru, Timor-Leste
+- **it places Panga ya Saidi "on the Kenyan coast" in its own words**, which is why the card says so; the
+  first draft was going to be softened to "east African coast" on the assumption that the paper only said
+  east Africa, and the softening was **dropped after grepping the file** rather than applied on a guess.
+  Checking cost one command; guessing would have made the card vaguer than its source.
+
+### Reused, from the register
+`blinkhorn-2021` (MIS 5 as 130–71 ka; the Levantine finds "often considered to represent a 'failed' and
+geographically restricted dispersal"; "multiple potential waves of expansions out of Africa"),
+`groucutt-2019` (Skhul at ~130–100 ka and Qafzeh beginning ~110–90 ka — the card's "roughly 130,000 to
+90,000 years ago"), `bae-wu-2024` (several waves with introgression rather than a single dispersal).
+
+### A REGISTER ENTRY THAT WAS OPEN BUT UNUSABLE AS WRITTEN
+`blinkhorn-2021` was listed in batch 16's source list as [Open access] but has **no `### entry` with
+`supports:` lines** — it appears only as a bibliography row. Under N5's rule a source reused for a new
+claim needs a re-read, and a bibliography row records no claim at all, so it was fetched and read before
+being used. **A source listed in a batch roll-up is not the same as a source entered in the register**;
+the roll-up says a card cited it, the entry says what it will bear.
+
+### THE FINDING — the tidy narrative was the one the sources refuse
+The obvious card here is "the coastal route: people followed the shore from the Red Sea to Australia,
+living on shellfish". Nothing opened supports that as established. What the sources actually give is a
+**negative**: the one artefact type long offered as the route's signature does not work, on three separate
+grounds, and its replacement is a proposal rather than a result. So the card's second block is built
+around a case that **failed**, and the closing sentence gives miniaturization as "the proposal now"
+rather than as the answer. A dispersal route is a hypothesis about a path, and the card says so; writing
+it as a story would have been the more readable and the less true version.
+
+### A CLAIM NOT MADE
+The card gives no figure for sea level at Bab-el-Mandeb and no width for the crossing. `beyer-2021`
+models "the minimum distance needed to continuously cover on water to reach the Arabian Peninsula from
+Africa" as a band on a figure rather than stating a number in the text, and reading a value off a plotted
+grey shade would be inventing a precision the paper declines to print.
+
+---
+
+## Batch W16 — `wh-089` Archaic human admixture (2026-08-07)
+
+### Nothing newly opened — the register carried the whole card
+`green-2010` (Neanderthals sharing more variants with Eurasians than with sub-Saharan Africans, hence gene
+flow into the ancestors of those who left), `reich-2010` (the Denisova finger bone, a group sharing a common
+origin with Neanderthals, "4–6% of its genetic material to the genomes of present-day Melanesians", and the
+suggestion the group "may have been widespread in Asia"), `slon-2018` (Denisova 11, "a Neandertal mother and
+a Denisovan father", the two populations "separated from each other more than 390,000 years ago", the
+paper's working age of ~90 kya), `huerta-sánchez-2014` (EPAS1 as explicable only "by introgression of DNA
+from Denisovans or Denisovan-related individuals", found in Denisovans and Tibetans and almost nowhere
+else), `harvati-reyes-centeno-2022` (the Denisovans designated "without formal attribution to taxon", most
+assigned specimens "isolated teeth or undiagnostic bone fragments").
+
+**Five sources, all five open.** This is the second batch running to need no new reading, and both times the
+reason was the same: a card about a well-argued question inherits the sources its neighbours already opened.
+
+### THE SIBLING CHECK RAN FIRST AND FIXED THE FIGURES BEFORE DRAFTING
+Two proportions on this card already exist elsewhere on the site, and the draft was written to them rather
+than to the sources' own phrasing: **"a per cent or two"** for the Neanderthal share (`wh-035`, and the
+`Neanderthal` term's "a small proportion") and **"4 to 6 per cent"** for the Denisovan share in Melanesians
+(`wh-038`, and the `Denisovan` term). Green's body gives 1–4%; writing that here would have set two live
+cards against each other on the same number for no gain, since both are the same claim at different
+roundings. **Grep the corpus for the figure before drafting, not after** — this is the third batch where it
+was cheaper to match an existing wording than to correct one later.
+
+### THE DATE LINE NAMES AN INDIVIDUAL, NOT THE PROCESS, AND THAT WAS THE HARD CHOICE
+Admixture is a process with no crisp date this batch can source, and the field's temptations both had to be
+refused. The **390,000-year split** is sourced and would have sorted the card before `wh-086` at 300,000 BP
+— a Peopling-the-planet card filed among the origins ones, because the figure describes the *lineages*
+rather than the *meeting*. The **2010 publication** is the other trap, the Atapuerca failure mode
+(`docs/history-focus-plan.md`, and `test-date-line.js`'s own assertion): a card whose prose carries a modern
+year and no deep one sorts by the year it was worked out. So the line carries **Denisova 11 at c. 90,000
+BP** — the one individual who *is* the phenomenon, a first-generation hybrid — which dates the meeting
+rather than the split or the discovery, and drops the card where it belongs in the sequence. The 390,000
+figure stays in the prose, where it is context rather than a sort key.
+
+### An alias deliberately NOT taken, twice
+`Archaic_human_admixture` takes "archaic admixture" and "archaic introgression" and refuses two more.
+**"introgression"** bare is a general term in genetics that has nothing to do with humans, and would fire on
+any future card about gene flow in any organism. **"Neanderthal admixture"** is a *subset* of this term, not
+a synonym — N2's test is that an alias must mean the same thing — and taking it would also foreclose a
+future term of its own. Both are the `Late_Stone_Age` lesson from W14 read forward instead of backward:
+decide what a surface means before claiming it.
+
+### A CLAIM NOT MADE
+The card gives **no date for the interbreeding itself**. The genetic brackets `wh-088` carries (75–55 ka out
+of Africa, 55–45 ka into Eurasia) bound it, but no source opened in this batch or the last states when the
+admixture happened, and inferring it from two other numbers would be composing a result rather than
+reporting one.
+
+---
+
+## Batch W17 — `wh-090` Ancient DNA (2026-08-07)
+
+### Newly opened for this batch
+
+**`silverstein-chapman-2026`** — Jodie Silverstein and Amy Chapman, "Recovery and Analysis of Ancient DNA:
+Challenges, Methods, and Applications in Forensic and Archaeological Science", *Journal of Genetic
+Engineering and Biotechnology* 24, no. 2 (2026): 100702. [Open access, CC BY-NC-ND]
+- opened: 2026-08-07 · full text via the Europe PMC REST route
+- supports: aDNA as "characteristically fragmented, chemically modified, and present in low copy numbers";
+  the degradation modes — hydrolytic cleavage of the phosphodiester bonds, oxidative damage, cytosine
+  deamination; usable fragment lengths of "30–100 bp"; **authentication by the damage itself**, "cytosine
+  deamination, C → T transitions at 5′ ends … used to differentiate ancient from modern DNA"; the
+  contamination regime of "cleanrooms, bleach and UV sterilisation, dedicated reagents, and negative
+  controls"; that early mummy work was "compromised by self-contamination"; the **petrous bone** as "the
+  densest in the human skeleton", giving endogenous human DNA "up to 100 times more than long bones"; and
+  the method shift from PCR, "prone to contamination and artefacts", to next-generation sequencing, which
+  "enabled whole genome analysis from severely fragmented DNA", with single-stranded library preparation
+  improving "recovery from ultra-short fragments"
+- **seven of the card's ten sentences rest on this one paper**, which is proper for a methods card and is
+  the reason the card needed a methods source at all rather than more applications.
+
+### A SECOND ROLL-UP-ONLY ENTRY RE-READ BEFORE USE — the same fault as last batch
+`gelabert-2025` (El Mirón sedaDNA) was listed in batch 16's bibliography as [Open access] with **no `###`
+entry and no `supports:` lines**, exactly as `blinkhorn-2021` was in W15. Re-read; it states that analysis
+of ancient DNA from sediment "can provide additional insights by identifying the presence of animal species
+or human groups in archaeological sites and recovering their DNA even without visible skeletal remains",
+which is the card's closing clause. **Two batches running have hit this, so it is a pattern rather than an
+oversight**: a roll-up line records that a card cited a work, not what the work will bear, and there are
+more of them in this file.
+
+### Reused, from the register
+`green-2010` (the 2010 draft genome and the interbreeding), `reich-2010` (the Denisova finger bone and a
+population "that shares a common origin with Neanderthals"), `welker-2020` (that ancient DNA degrades where
+"the analysis of ancient proteins can address this challenge" — the card's hard limit).
+**Five sources, all five open.**
+
+### THE DATE LINE IS MODERN ON PURPOSE, and `wh-002` is the precedent
+Every other card in this deck is dated in BP and W16 went to some trouble to keep `wh-089` out of the
+modern range. This one goes the other way, and the difference is the subject: **ancient DNA is a modern
+method, not a prehistoric thing**, so it belongs with `wh-002` (the three-age system, "Established
+1810s–1820s … Published 1836") rather than with its deck-mates. `wh-045` shows the third pattern, carrying
+both a deep date and a modern one with the deep date leading so it sorts deep. The rule the three of them
+imply: **date the card by what its answer term IS, and let the sort follow** — a methods card sorting at the
+end of a prehistory deck is correct, not a fault.
+
+### NO `EXEMPT` ENTRY ADDED, though it would qualify
+`docs/history-focus-plan.md` exempts a card "whose ANSWER TERM is itself a modern theory, debate, method or
+scholar", and ancient DNA is squarely a modern method. The entry was **not** added, because the card
+measures **historio 0 of 10 with no researcher named in any question** and passes both rules on its own
+merits — the same call made for `wh-031`. The exemption list buys nothing here and every entry on it is a
+check that stops being run.
+
+### A CLAIM NOT MADE, and an alias not taken
+The card states **no upper age limit for DNA survival** — no "about a million years". The figure is much
+quoted and moves with each new result, and nothing opened for this batch states one; what the card says
+instead is the shape of the limit, that beyond DNA's survival only proteins speak, which `welker-2020`
+does carry. And `Ancient_DNA` takes **"aDNA"** and not **"palaeogenetics"**: the field and the material
+are two different things, and N2's test is that an alias must mean the same thing.
+
+---
+
+## Batch W18 — `wh-092` Sahul, and a mis-link fixed (2026-08-07)
+
+### Newly opened for this batch
+
+**`bird-2019`** — Michael I. Bird et al., "Early Human Settlement of Sahul Was Not an Accident",
+*Scientific Reports* 9 (2019): 8220. [Open access, CC BY]
+- opened: 2026-08-07 · full text via the Europe PMC REST route
+- supports: Sahul as "Australia, New Guinea and the Aru Islands joined at lower sea levels"; that reaching
+  it "required multiple maritime crossings through Wallacea, with at least one approaching 100 km"; the
+  drift-and-viewshed result that "the probability of randomly reaching Sahul by any route is <5% until ≥40
+  adults are 'washed off' an island"; and the conclusion that "accidental human arrival on Sahul is
+  implausible", a viable population requiring "multiple, coordinated voyages by hundreds of individuals
+  over a relatively short time frame of several centuries"
+
+**`gandini-2025`** — Francesca Gandini et al., "Genomic Evidence Supports the 'Long Chronology' for the
+Peopling of Sahul", *Science Advances* 11 (2025): eady9493. [Open access]
+- opened: 2026-08-07 · full text via the Europe PMC REST route
+- supports: the fullest definition on the shelf — Sahul as "the Pleistocene landmass formed by present-day
+  New Guinea, Australia, and Tasmania that existed until ~9000 years ago"; that the timing "remains highly
+  contentious"; and **both named positions**, the "long chronology" at "~60 to 65 ka" against the "short
+  chronology" at "47 to 51 ka"; and its own result, an analysis of 2,456 mitogenomes favouring the long side
+
+### AN ACCESS LABEL CORRECTED IN THE HARDER DIRECTION
+`o'connell-2018` is recorded in batch 6's roll-up as **[Open access]** on a PMC link. It is **not readable
+from here now**: the REST full-text route 404s, Europe PMC's record gives `isOpenAccess: N`, and fetching
+the PMC article page returns a **browser challenge** rather than the paper — which is exactly what CLAUDE.md
+records for batch 24 ("PMC's browser check now covers the article HTML as well as search"). So it is cited
+**[Paywalled]**, from its abstract, which was read directly off the Europe PMC record and states the claim
+used ("an age estimate of >50 ka for this site is unlikely to be valid"). It qualifies as the landmark
+statement of the short chronology, and the card's list is 4 open of 5.
+**This is the second stale [Open access] label found in two batches** (W17 recorded the same for
+`stringer-2016` and `nielsen-2017` without relabelling, having only abstracts). The rule the three of them
+make: **a label records reachability on the day it was checked, and PMC's protections have tightened since
+July** — re-fetch before reusing a PMC-hosted label, in both directions.
+
+**Two labels that HELD, checked the same way**: `clarkson-2017` and `malaspinas-2016` both read
+`isOpenAccess: N` at Europe PMC and are both genuinely open — their citations point at green deposits
+(a Washington faculty PDF and an MPG one) which fetched at 200. **The publisher's status is not the
+question; the URL in the citation is.**
+
+### THE MIS-LINK — "New Guinea" was opening the entry for GUINEA
+Found by reading the rendered card's ttip list, which is now the third time that check has caught one after
+polish→Poland and laos→Laos. There was no `New_Guinea` key, so the longest matching surface was **Guinea**,
+the West African country, and every mention on the site pointed there. It was **already live on `wh-038`
+(Denisovans) and on four glossary terms** — `Neolithic_Revolution`, `Indonesia`, `Papua_New_Guinea`,
+`Oceania` — so this card surfaced it rather than causing it.
+**The fix is a term, not an alias, and the wrong fix was available and tempting**: adding "New Guinea" as
+an alias of `Papua_New_Guinea` would have silenced it in one line and been **factually wrong**, since the
+island's western half is Indonesian. `New_Guinea` now ships as its own cited term and the
+longest-surface-first rule gives it the whole phrase; verified by re-rendering `wh-038` as well as
+`wh-092`. The Commonwealth Secretariat's PNG page was re-fetched to confirm it states the eastern-half
+split rather than reusing the claim on the strength of the corpus already carrying it.
+
+### A CLAIM NOT MADE
+The card does **not** say Sahul's peopling is the earliest evidence for seafaring anywhere. It is often
+put that way, `bird-2019` does not assert it, and the claim would have to survive comparison with earlier
+island records this batch has not examined.
+
+---
+
+## Batch W19 — `wh-095` Peopling of Europe (2026-08-07)
+
+### Newly opened for this batch
+
+**`hajdinjak-2021`** — Mateja Hajdinjak et al., "Initial Upper Palaeolithic Humans in Europe Had Recent
+Neanderthal Ancestry", *Nature* 592, no. 7853 (2021): 253–57. [Open access]
+- opened: 2026-08-07 · full text via the Europe PMC REST route (`isOpenAccess: Y`)
+- supports: that "modern humans appeared in Europe by at least 45,000 years ago" and Neanderthals
+  "disappeared by about 40,000 years ago"; the three Bacho Kiro Cave individuals "dated to between 45,930
+  and 42,580 years ago", "the earliest Late Pleistocene modern humans known to have been recovered in
+  Europe so far", found with an Initial Upper Palaeolithic assemblage; and — the card's fourth sentence —
+  that individuals of similar age from Romania and Siberia "did not contribute detectably to later
+  populations"
+
+**`lazaridis-2014`** — Iosif Lazaridis et al., "Ancient Human Genomes Suggest Three Ancestral Populations
+for Present-Day Europeans", *Nature* 513, no. 7518 (2014): 409–13. [Open access]
+- opened: 2026-08-07 · full text via the Europe PMC REST route
+- supports: the card's closing claim in the paper's own terms — "most present-day Europeans derive from at
+  least three highly differentiated populations: west European hunter-gatherers … ancient north Eurasians
+  related to Upper Palaeolithic Siberians … and early European farmers, who were mainly of Near Eastern
+  origin"
+
+**`fu-2016-europe`** — Qiaomei Fu et al., "The Genetic History of Ice Age Europe", *Nature* 534, no. 7606
+(2016): 200–205. [Paywalled]
+- opened: 2026-08-07 · **abstract only**, read directly off the Europe PMC record; the REST full-text route
+  404s and the PMC article page returns a browser challenge
+- supports: Neanderthal ancestry falling "from 3-6% to around 2%", "consistent with natural selection
+  against Neanderthal variants"; and that "all individuals between ~37,000 and ~14,000 years ago descended
+  from a single founder population which forms part of the ancestry of present-day Europeans"
+
+**`haak-2015`** — Wolfgang Haak et al., "Massive Migration from the Steppe…", *Nature* 522, no. 7555 (2015):
+207–11. [Paywalled] · **abstract only**, same reason
+- supports: early farmers appearing "in Germany, Hungary and Spain" at "∼8,000-7,000 years ago", "different
+  from indigenous hunter-gatherers"; and that "the Late Neolithic Corded Ware people from Germany traced
+  ∼75% of their ancestry to the Yamnaya", ∼4,500 years ago, that steppe ancestry being "ubiquitous in
+  present-day Europeans"
+
+### THE STALE-LABEL PATTERN IS NOW A STANDING RULE — three batches, five works
+`haak-2015` is recorded in batch 6's roll-up as **[Open access]** on a PMC link and is **not readable from
+here**: REST 404, and the article page serves a browser challenge. With `o'connell-2018` (W18) and
+`stringer-2016` / `nielsen-2017` (W17) that is **five PMC-hosted works whose recorded label no longer
+holds**, all found the same way. **Re-fetch a PMC label before reusing it.** The counter-check matters as
+much and was run again here: `hajdinjak-2021` and `lazaridis-2014` both came back readable in full, and
+W18's `clarkson-2017` / `malaspinas-2016` are open at green deposits while Europe PMC calls them closed.
+The status field is not the question; the URL in the citation is.
+
+### THE CARD IS THREE LAYERS, WHICH IS WHAT KEPT IT FROM DUPLICATING ITS NEIGHBOURS
+`wh-049`, `wh-067` and `wh-068` already cover the first arrival, the Aurignacian and the Cro-Magnons. This
+card is therefore built as the **whole sequence** — first arrivals who mostly left no descendants, the
+founder population of 37–14 ka, the glacial refuges, the Anatolian farmers, the steppe herders — so it says
+what none of them says: that European ancestry is a stack rather than a beginning. Checked against
+`wh-035` and `wh-089` before drafting: "around 2 per cent" of Neanderthal DNA today agrees with their "a per
+cent or two".
+
+### A STYLE VIOLATION I INTRODUCED AND CAUGHT
+The draft wrote "over some forty-five thousand years" and `check-style.js` went from its standing **18 to
+19**. Fixed to "45,000". The baseline number is the point: it is stable across batches, so a card that
+raises it has broken a rule, and the check is worth running as a *diff* rather than for its absolute value.
+
+### A CLAIM NOT MADE, and a source list trimmed for the rule
+The glossary term was drafted with four sources and shipped with **three**, because two of the four were
+paywalled and 2-of-4 is not a majority. The Fu 2016 founder-population clause was rewritten rather than
+padded with a fifth source — **the honest fix for a failing open-ratio is to drop a claim, not to add a
+citation to outvote it** (N3's rule on `Solutrean`, met from the other side).
+
+---
+
+## Batch W20 — `wh-109` Star Carr (2026-08-07)
+
+### Newly opened for this batch
+
+**`milner-2016-pendant`** — Nicky Milner et al., "A Unique Engraved Shale Pendant from the Site of Star
+Carr: The Oldest Mesolithic Art in Britain", *Internet Archaeology* 40 (2016). [Open access]
+- opened: 2026-08-07 · the journal's section pages, read one at a time (`/journal/issue40/8/1.html`,
+  `/3.html` …). **The summary and contents pages are boilerplate shells of ~5 KB and carry no argument** —
+  the substance is only on the numbered section pages, which is worth knowing before writing this journal off.
+- supports: that during the 2015 season "a shale pendant with lines engraved into it was found in the lake
+  edge deposits", first taken for a natural stone because "the perforation was full of sediment and the
+  engravings were not visible"; the dimensions, "sub-triangular in shape, measuring about 31mm by 35mm and
+  3mm thick", with shale confirmed by ED-XRF and a perforation "made by drilling through from the engraved
+  side"; that "an engraved pendant is unique for Britain"; and that "no other Mesolithic engraved pendants
+  from Europe are made of shale: the predominant material used being amber, antler and bone"
+
+**`milner-conneller-taylor-2018-vol1`** — Nicky Milner, Chantal Conneller and Barry Taylor, eds., *Star Carr
+Volume 1: A Persistent Place in a Changing World* (York: White Rose University Press, 2018). [Open access,
+CC BY-NC 4.0]
+- opened: 2026-08-07 · **the publisher's book page only** — editors, year, licence and chapter DOIs verified
+  there directly. **The chapter PDFs could not be read**: the publisher 403s a plain fetch (as the register
+  already recorded for Volume 2), WebFetch reaches the chapter pages but those carry metadata alone, and the
+  chapter PDF itself **exceeds the fetch size limit**. Stated here rather than implied.
+- supports: only what that page states — the site "in use for around 800 years", "large wooden platforms
+  along the edge of the lake", and that wood of this age "is rarely preserved archaeologically". The card
+  marks it to exactly those two sentences and to nothing else.
+- **the 800 years is corroborated arithmetic, not a lone claim**: `bates-2024`'s independently sourced
+  9300–8500 cal BC is an 800-year span, so the two agree without either being derived from the other.
+
+### Reused, from the register with its own `supports:` lines
+`bates-2024` (Star Carr as "an Early Mesolithic site (c. 9300–8500 cal BC) situated on a palaeolake in North
+Yorkshire", and "the central platform; a lake-edge platform made from large split timbers"),
+`elliott-knight-little-2018` (Clark's 21 frontlets, the 12 recovered 2004–2015, and "nine of 33" pierced),
+`little-2016` (the construction). **Five sources, all five open.**
+
+### A CLAIM I WROTE, CHECKED, AND HAD TO SHARPEN
+The draft said the antlers were "thinned and shortened" — which the register's recorded supports for
+`little-2016` do NOT carry. Fetched the full text rather than shipping it: the paper describes "reduction
+of the antlers via groove-and-splinter technique and the subsequent hollowing out of the remaining beams
+and tines", so the card now says cut down by grooving and splintering and hollowed out. The same fetch
+corrected a second word: the paper says "**more than** 90%", where the draft had "roughly". **A phrase that
+sounds like a paraphrase of a registered support may still be a new claim** — N5's rule biting on wording
+rather than on a figure.
+
+### THE SITE CARD STAYED A SITE CARD
+`docs/history-focus-plan.md` allows about two of ten sentences of discovery history and the card spends
+exactly two — the excavation counts, which are what make the 33 meaningful, and the 2015 find, which is
+what makes the pendant a story. `card-focus.js` measures **historio 1 of 10** with no researcher named in
+any question, and the date line carries the dates of the THING (in use c. 9300–8500 BCE) rather than of the
+dig, which is the rule that card would most easily have broken.
+
+### THE STYLE BASELINE CAUGHT ME A SECOND TIME
+`check-style.js` went 18 → 19 on "Twenty-one came from the original excavations"; 21 is above twenty and
+not round, so it wants numerals. Fixed, back to 18. **Second batch running that the baseline diff has
+caught a violation I introduced** — reading that number as a change rather than as an absolute is now
+earning its keep, since the eighteen standing hits are all citation titles and would hide a new one.
+
+### A CLAIM NOT MADE
+The card does not call the headdresses shamanic costume, though the cited paper's own title does. What is
+demonstrable is the manufacture and the wear; the ritual reading is an interpretation, and the card
+describes what was made and leaves the meaning open.
+
+---
+
+## Batch W21 — `wh-110` Bhimbetka rock shelters: ATTEMPTED AND HELD BACK (2026-08-07)
+
+**The card was not written.** One authoritative source was found and read in full; the 5-source bar could
+not be reached, and the list was not padded with works that were never opened. Recorded here so the next
+session starts from the routes already tried rather than repeating them.
+
+### THE ONE SOURCE THAT WORKS, and it is a good one
+**Archaeological Survey of India, *Rock Shelters of Bhimbetka: Continuity through Antiquity, Art and
+Environment* (2003)** — the ASI's own **nomination dossier for the World Heritage List**, scanned with OCR
+on the Internet Archive, https://archive.org/details/ArchaeologicalSurveyOfIndiaRockSheltersOfBhimbetka2003.
+[Open access]
+- opened: 2026-08-07 · 378 KB of OCR text, read in full
+- supports: the location (Madhya Pradesh, District Raisen, Tehsil Goharganj), "the foothills of the Vindhyan
+  Mountains on the southern edge of the central Indian plateau"; "five clusters of natural rock shelters"
+  in "massive sandstone outcrops, above comparatively dense forest"; paintings that "date from the
+  Mesolithic Period right through to the historical period"; "over 700 shelters distributed over the site",
+  and that on Bhimbetka hill alone "of the 243 shelters discovered and numbered so far, 133 are painted";
+  a "continuous sequence of Stone Age cultures from the Late Acheulian to the Late Mesolithic"; the
+  Auditorium cave trench at III F preserved for public viewing; the twenty-one adjacent villages whose
+  traditions "bear a strong resemblance to those represented in the rock paintings"; and the core zone of
+  1,892 hectares against a buffer of 10,280
+- **this is batch 18's rule paying again** — for a site card, ask the body responsible before looking for a
+  paper — with the twist that the body's own website did not serve it and the Internet Archive did.
+
+### THE ROUTES THAT FAILED, all of them measured rather than assumed
+- **`whc.unesco.org` is 403 to curl AND to WebFetch.** C7 recorded the 403; this batch adds that WebFetch
+  does not get round it, which it does for some other publishers.
+- **`asi.nic.in/bhimbetka/` returns 200 and redirects to the ASI homepage** — a 200 that carries none of the
+  content asked for, which is the same trap as the 200-status error documents recorded in P3 and C0.
+- **Europe PMC has nothing**: it is a life-sciences index, and a query on "cupule" returns botanical seed
+  structures. **Do not use it for archaeology that is not palaeogenomics.**
+- **Crossref** returns mostly unrelated book chapters and no abstracts for any of them.
+- **Misra 1979** (*Bulletin of the Indo-Pacific Prehistory Association* 1, "The Acheulian industry of rock
+  shelter IIIF-23 at Bhimbetka") is genuinely open — the article page resolves and the 7.5 MB PDF downloads
+  — but **it could not be read**: there is no `pdftotext` or python PDF library in this sandbox, and WebFetch
+  returned 502 on the file. It is therefore **not cited**, though its claim is corroborated by the dossier.
+- **MDPI 403s**; both *Ancient Asia* DOIs (10.5334/aa.198, aa.202) **404**.
+- **`Indian Archaeology — A Review`** volumes are on the Internet Archive and are the obvious primary
+  excavation record; the 1975–76 volume was read in full and **does not mention Bhimbetka once**, and the
+  1973–74 item has no OCR text file. Other years remain untried and are the best next lead.
+
+### THE TOOLING NOTE WORTH KEEPING
+The dossier's file name contains parentheses — `…Bhimbetka (2003)_djvu.txt` — and **`SRC_URL_RX` stops at a
+closing parenthesis**, so that URL can never be a citation. The citation points at the item's `details`
+page instead, which has none. Fetching the file needs `urllib.parse.quote` on the name; `archive.org/stream/…`
+returns the item page wrapper rather than the text, and `archive.org/download/<id>/<id>_djvu.txt` 404s when
+the real file name differs from the identifier — **read `archive.org/metadata/<id>` for the true file name
+first.**
+
+---
+
+## Batch W22 — `wh-111` Neolithic (2026-08-07)
+
+### Nothing newly opened — five registered sources, all open, all with their own `supports:` lines
+`lubbock-1865` (the coinage, "This we may call the 'Neolithic' period", in a four-epoch scheme with no
+Mesolithic, and the author's own caveat "for the present, I only apply this classification to Europe"),
+`larson-2014` (domestication "began globally 12,000–11,000 y ago at the end of the most recent ice age",
+in at least 11 independent centres), `fuller-stevens-2019` (early villages "in the hundreds", settlements
+"in the thousands" later, and "land ownership and rights of tenure associated with emergent elite bodies"),
+`watkins-2017` (Childe's 1936 naming and the analogy with the industrial revolution, and the slow-transition
+reading resting on an Epi-palaeolithic of 23,000–12,000 years ago), `schulz-paulsson-2019` (megalithic
+graves as dolmens, passage and gallery graves, reopened "for repeated burials" from the last third of the
+5th millennium).
+
+**This is the third batch running to need no new reading**, and the reason is the same each time: a card
+that summarises a period inherits the sources its own glossary term and its neighbours already opened.
+Batch 12's finding — that a definitional card is mostly a mapping job — with a fourth confirmation.
+
+### THE HISTORIOGRAPHY BUDGET SHAPED THE CARD, and it is worth recording how
+A period card is the easiest place to break the ≤3-of-10 rule, because the interesting things about a
+period name are who coined it and how the reading has changed. A first outline had **four** such
+sentences — Lubbock's coinage, Lubbock's Europe caveat, Childe's naming, and the modern slow reading — and
+was restructured before drafting: the two Lubbock sentences were merged into one, and the Epipalaeolithic
+sentence was rewritten from "it is now read as slow" (a claim about scholars) to "the changes did not start
+with the period itself" (a claim about the past). `card-focus.js` measures **1 of 10** on the result. The
+lesson is that **the same fact can be written as historiography or as history, and which one it is depends
+on the subject of the sentence.**
+
+### THE STYLE BASELINE CAUGHT ME A THIRD TIME
+18 → 19 on "the last third of the **fifth** millennium BCE"; the house rule numbers centuries and millennia
+without exception. Fixed to "5th", back to 18. Three batches, three catches, and all three were different
+rules (a spelled thousand, a spelled 21, a spelled millennium) — which is the argument for running the
+count as a **diff on every card** rather than at the end of a session.
+
+### A SANDBOX LIMIT worth recording for the next batch
+`pip install pypdf` **succeeds and then the import panics** (`pyo3_runtime.PanicException` out of the
+cryptography rust bindings), so there is still no way to read a PDF locally here. That is what blocked
+`wh-110` in W21 and it is not fixable by installing a package. The routes that do work on a PDF are
+WebFetch (under ~10 MB, and it 502'd on the one file tried) and an Internet Archive item's `_djvu.txt`.
+
+---
+
+## Batch W23 — `wh-112` Neolithic Revolution (2026-08-07)
+
+### Nothing newly opened — five registered sources, all open, all with `supports:` lines
+`watkins-2017` (the transformation as "social, economic and technological", and that the Epi-palaeolithic
+"between 23,000 and 12,000 years ago, saw the emergence and development of many of the characteristics that
+we think of as Neolithic"), `maher-2011` (the Natufian at "c. 14,500–11,600 cal BP" with "sedentism,
+cemeteries, architecture, food production, including animal domestication", and the woman buried with a
+juvenile domestic dog at 'Ain Mallaha with a second from Hayonim Terrace), `larson-2014` (domestication
+"began globally 12,000–11,000 y ago at the end of the most recent ice age", at least 11 independent
+centres), `fuller-stevens-2019` (villages "in the hundreds", later "in the thousands", and land tenure with
+"emergent elite bodies"), `lhote-2024` (the speciation of *B. melitensis* from the cattle-infecting
+*B. abortus* "to approximately 9800 years Before Present … coinciding with a period of consolidation and
+dispersal of livestock economies", and the mechanism — penning and confinement, suboptimal hygiene, denser
+herds, "the mixing of previously allopatric species").
+
+**Fourth batch running with no new reading.**
+
+### A SOURCE REFUSED FOR A CLAIM IT DOES NOT MAKE
+The obvious tenth sentence was the health cost of farming, and the obvious source was
+`winther-johannsen-2024`, which the register records as supporting "The commonness of dental caries in LN
+individuals from Southern Sweden … as carbohydrate intake … correlates with the incidence of dental
+caries". **That is a Late Neolithic Scandinavian result (2350–1700 BCE), not a statement about the
+transition** — using it for a general claim about what farming cost the first farmers would be exactly
+G6's fault, a source stretched from the claim the register records to a neighbouring one. The sentence was
+dropped and the disease material carried the cost instead. **The register's `supports:` line is a boundary,
+not a summary of the paper's topic.**
+
+### WRITING AROUND THE NEIGHBOUR
+`wh-111` had shipped an hour earlier and covers the period: the coinage, the villages, the tenure, Childe.
+This card is the transition, and it was structured to lead on what `wh-111` does not have — **sedentism
+arriving BEFORE farming** (the Natufian, and its dog), and **the price**, which is the disease half. Childe
+is deliberately absent: naming him again would have duplicated the neighbour and spent historiography
+budget on a fact already told. Result: **historio 0 of 10, modern 0 of 10, no researcher in any question.**
+Four sentences still share ground with `wh-111` (the 12–11 ka timing, the eleven centres, the villages, the
+tenure), which is accepted rather than trimmed — the eleven centres in particular IS the concept, and a
+transition card that omitted it to avoid overlap would be avoiding its own subject.
+
+### The word floor bit for the first time this session
+The draft came in at **255 words against a 270 floor** — every earlier card this session has run long, not
+short, and a card built to avoid a neighbour's ground is the shape that runs short. It was lengthened from
+the sources rather than padded: the Natufian's own food production and the Hayonim Terrace dog from
+`maher-2011`, and the Old World scope of the village figure from `fuller-stevens-2019`. 283 on the re-count.
+
+---
+
+## Batch W24 — `wh-115` Fertile Crescent (2026-08-07)
+
+### Nothing newly opened — five registered sources, three still open
+`breasted-robinson-1914` (the geography in the coiner's own words: a borderland between desert and
+mountains, "a fertile crescent having the mountains on one side and the desert on the other", an
+approximate semicircle with the west end at the southeast corner of the Mediterranean, the centre directly
+north of Arabia and the east end at the head of the Persian Gulf — and the phrase's first appearance,
+lower-case), `breasted-1916` (the same passage capitalised throughout, with the footnote that no name
+"either geographical or political" covers the whole semicircle), `maher-2011` (the Epipalaeolithic at
+"ca. 23–11.6 ka cal BP" and the Natufian at "c. 14,500–11,600 cal BP" with sedentism, cemeteries and
+architecture), `larson-2014` (domestication "began globally 12,000–11,000 y ago", at least 11 independent
+centres), `lazaridis-2016` (44 ancient Near Easterners "ranging in time between ~12,000 and 1,400 bc, from
+Natufian hunter-gatherers to Bronze Age farmers", and that the first farmers of the southern Levant and the
+Zagros "each descended from local hunter-gatherers").
+
+### TWO MORE STALE [Open access] LABELS — six and seven, and the pattern now has a shape
+`larson-2014` and `lazaridis-2016` are both recorded here as **[Open access] read via PMC**, and **neither
+is reachable now**: the REST full-text route 404s for both and the PMC article pages serve the browser
+challenge. Both are cited **[Paywalled]**, from the claims this register already records, which is what
+G6's rule permits — reuse for the claim recorded, not for a neighbouring one. Running total across W17–W24:
+**seven PMC-hosted works whose recorded label no longer holds** (`stringer-2016`, `nielsen-2017`,
+`o'connell-2018`, `haak-2015`, `fu-2016-europe`, `larson-2014`, `lazaridis-2016`).
+**The shape is now clear enough to act on: a PMC label recorded before August 2026 should be treated as
+unverified until re-fetched.** The counter-check ran again and still matters — `maher-2011` came back with
+107 KB of full text on the same run — so this is not "PMC is closed", it is "PMC is no longer uniform".
+**The two Breasted volumes are on the Internet Archive and are unaffected**, which is the practical lesson:
+a citation pointing at archive.org has held every time this session, where PMC has moved seven times.
+
+### THE HISTORIOGRAPHY BUDGET, AND WHY THE NAMING IS ONE SENTENCE AND NOT THREE
+Two of the five sources are the books that coined the phrase, so the pull towards a card about Breasted was
+strong — and `docs/history-focus-plan.md` would have been broken by it. The naming is compressed into a
+single sentence carrying both sources, and the two sentences of geography are drawn from the same 1914
+passage but written as **facts about the land** rather than as facts about a book. `card-focus.js` measures
+**0 of 10** historiography with no researcher in any question. The register's own correction is preserved in
+that one sentence: the phrase is in print **lower-case in 1914** and capitalised in 1916, so the card says
+both rather than repeating the once-common "named in 1916".
+
+### A CLAIM NOT MADE
+The card gives **no list of the crops and animals domesticated there** — no wheat, barley, lentils, sheep,
+goats. The `Fertile_Crescent` glossary term states it, but **no source in this batch's list carries it**:
+`larson-2014`'s recorded support is the timing and the count of centres, and its full text is no longer
+reachable to check for more. Adding the list from memory would be the N4 fault. It is the obvious first
+thing to source when an openable copy appears.
+
+---
+
+## Batch W25 — `wh-116` Natufian culture, and the term it needed (2026-08-07)
+
+### Nothing newly opened — five registered sources, all five open, all with `supports:` lines
+`maher-2011` (the Natufian at "c. 14,500–11,600 cal BP" with "sedentism, cemeteries, architecture, food
+production, including animal domestication"), `davin-2026` (the "Late Epipaleolithic Natufian culture
+(15,000 to 11,650 cal yr B.P.)", "a unique transitional entity … [that] marked the beginning of the
+transformation from mobile foraging Paleolithic bands"), `haklay-gopher-2015` ('Ain Mallaha "spanning some
+3,000 years (from ca. 15,000 to 12,000 cal years BP)", "about 2,000 sq m", "a population of 50–100 people",
+and "semi-subterranean curvilinear structures … made of undressed limestone … cutting into the slope and
+building retaining walls"), `groman-yaroslavski-2026` (use-wear on sickle blades from el-Wad Terrace and
+Salibiya I showing "the harvest of semi-ripe and ripe cereals" and "a protracted harvest that begins in
+mid-spring … and continues to the very late spring", ~4.5 millennia before domestication), `santana-2021`
+("straightforward evidence of occupation continuity and growing sedentarization … at 'Ain Mallaha/Eynan",
+with finds stretching from the late Natufian into the Neolithic).
+
+**Fifth batch running with no new reading**, and the deepest yet: six Natufian entries were already in the
+register, enough to choose from rather than merely to fill a list.
+
+### THE TERM DID NOT EXIST, AND THREE SHIPPED CARDS HAD BEEN NAMING IT
+`Natufian_culture` is new. `wh-112` and `wh-115` both shipped earlier today using the word, and **neither
+linked**, because there was nothing to link to — the same silent gap as `New_Guinea` in W18, found the same
+way, by reading the rendered ttip list. Both were re-rendered after the term was added and both now resolve;
+`wh-116` correctly does not link its own answer.
+
+### THE DATE BRACKET DISAGREES BETWEEN SOURCES AND THE CARD SAYS SO
+`maher-2011` gives the Natufian as c. 14,500–11,600 cal BP and `davin-2026` gives 15,000–11,650; the
+'Ain Mallaha occupation runs 15,000–12,000 on `haklay-gopher-2015`. The card leads with **14,500–11,600**
+to match `wh-112` and `wh-115`, which already shipped with it, and **states the wider bracket in the prose
+as one study's** rather than silently averaging them or quietly switching. That is C1's read-both rule in a
+new place: **two open sources differing by a few centuries is a fact about the field, not an error to
+resolve**, and the sibling that shipped first sets the headline figure.
+
+### WRITING PAST TWO NEIGHBOURS AGAIN
+`wh-112` and `wh-115` had each already used the Natufian's sedentism-before-farming, and `wh-112` has the
+'Ain Mallaha dog. So this card spends its length on what neither has: **the village itself** — its size,
+its population estimate and how its houses were built — and **the sickles**, which are the sharpest single
+fact in the whole Neolithic-transition run: cereals reaped through a worked spring some 4,500 years before
+those cereals were domesticated. The dog is deliberately absent for the second batch running.
+
+### The word floor again, and the same cause
+264 against a 270 floor on the first count — **second batch running, and both were cards written to avoid a
+neighbour's ground.** Lengthened from the sources: the two sickle sites from `groman-yaroslavski-2026` and
+the divergent bracket from `davin-2026`, which is a real fact the card was better for stating. 285 after.
+
+---
+
+## Batch W26 — `wh-117` Domestication, and the term it needed (2026-08-07)
+
+### Newly opened for this batch — the first new reading in six batches
+
+**`wilkins-2014`** — Adam S. Wilkins, Richard W. Wrangham and W. Tecumseh Fitch, "The 'Domestication
+Syndrome' in Mammals: A Unified Explanation Based on Neural Crest Cell Behavior and Genetics",
+*Genetics* 197, no. 3 (2014): 795–808. [Open access]
+- opened: 2026-08-07 · full text via the Europe PMC REST route (`isOpenAccess: Y`)
+- supports: that domesticated mammals possess "a distinctive and unusual suite of heritable traits not seen
+  in their wild progenitors", noticed by Darwin; the trait list — "increased docility and tameness, coat
+  color changes, reductions in tooth size, changes in craniofacial morphology, alterations in ear and tail
+  form (e.g., floppy ears), more frequent and nonseasonal estrus cycles … prolongations in juvenile
+  behavior, and reductions in both total brain size and of particular brain regions"; and that domesticated
+  birds and fish "share some components of this spectrum", which is why the suite is read as a property of
+  the process rather than of a lineage
+- **the neural-crest hypothesis the paper is FOR is deliberately not on the card**: it is the authors'
+  proposal, not an established result, and the card uses only the pattern it sets out to explain.
+
+**`cao-2026`** — Yu Cao, Jianbing Yan, Jeffrey Ross-Ibarra and Ning Yang, "Plant Domestication Revisited:
+Genomic Insights into Origins, Mechanisms, and Convergent Evolution", *iScience* 29, no. 1 (2026): 114062.
+[Open access]
+- opened: 2026-08-07 · full text via the Europe PMC REST route
+- supports: that domestication "is typically a protracted process, shaped more by unconscious selection
+  than intentional breeding"; the estimate of "1,000–2,500 semi- and fully domesticated plant species from
+  about 120 to 160 taxonomic families"; the plant syndrome — "loss of seed shattering, increased seed size,
+  reduced branching, diminished outcrossing, decreased seed dormancy, altered flowering time, and improved
+  harvestability"; and that crops "from geographically and genetically distinct centers" share that suite,
+  with similar genes underlying convergent evolution
+
+### THE SEARCH THAT NEARLY FAILED, and what fixed it
+A keyword search on "domestication syndrome" in Europe PMC returns **twenty papers on the genomics of
+individual species** — Yantai black pigs, ponies, common carp, budding yeast — and not one general
+treatment. Europe PMC is a life-sciences index and ranks by recency and match, so a CONCEPT card searched
+by keyword gets the field's current output rather than its foundations. What worked was **searching by the
+exact title of the paper you already expect to exist**: three tried, two resolved. `zeder-2015` ("Core
+questions in domestication research") is the third and its full text **404s**. The general lesson for
+concept cards: **name the canonical work and look it up; do not describe the subject and hope.**
+
+### Reused, from the register
+`larson-2014` (the 12,000–11,000 timing and the eleven centres — cited **[Paywalled]** again, per W24),
+`groman-yaroslavski-2026` (cereals reaped ~4.5 millennia before domestication, which is the card's evidence
+that using and altering a species are separated by millennia), `fuller-stevens-2019` (where it led).
+
+### THE CARD IS THE CONCEPT, BECAUSE THE NEXT FOUR CARDS ARE THE INSTANCES
+`wh-118` founder crops, `wh-119` cereals, `wh-120` animals, `wh-121` the dog all follow. So this card
+carries only what is true of domestication AS SUCH — that it is protracted, unconscious, convergent, and
+leaves the same marks on unrelated organisms — and names no individual species being domesticated. That
+restraint is what leaves the next four cards anything to say.
+
+### An alias worth watching
+`Domestication` takes **"domesticated"**, which fires on the adjective throughout the corpus. Checked by
+re-rendering: `wh-111` and `wh-116` now link it correctly, and `wh-117` suppresses it as its own answer.
+It is a wide alias and it is right — every occurrence means this concept — but it is the kind that should
+be re-checked if a future term ever wants the word.
+
+---
+
+## Batch W27 — `wh-118` Neolithic founder crops, and the term it needed (2026-08-07)
+
+### Newly opened for this batch — all three open, all read in full via the Europe PMC REST route
+
+**`gregorio-de-souza-2022`** — Jonas Gregorio de Souza, Javier Ruiz-Pérez, Carla Lancelotti and Marco
+Madella, "Environmental Effects on the Spread of the Neolithic Crop Package to South Asia", *PLOS ONE* 17,
+no. 7 (2022): e0268482. [Open access]
+- supports: the package framing itself — "founder crops" such as wheat and barley spreading eastward as a
+  set; that "emmer and einkorn wheat most likely originate from southeast Turkey, in the Karaca Dağ range,
+  although emmer may have a second domestication event in the southern Levant"; that a "polyphyletic origin
+  for domesticated barley is possible, with domestication centres in the Fertile Crescent and the Iranian
+  Plateau"; and the winter pulses, "lentils and peas", forming a package with the cereals
+
+**`fu-2025-flax`** — Yong-Bi Fu, "Flax Domestication Processes as Inferred from Genome-Wide SNP Data",
+*Scientific Reports* 15, no. 1 (2025): 8731. [Open access]
+- supports: flax as a founder crop "domesticated for oil and fiber uses in the Near-Eastern Fertile
+  Crescent" roughly 10,000 years BP; pale flax as the wild progenitor; and that it "was domesticated first
+  for oil, rather" than fibre
+
+**`trneny-2018`** — Oldřich Trněný et al., "Molecular Evidence for Two Domestication Events in the Pea
+Crop", *Genes* 9, no. 11 (2018): 535. [Open access]
+- supports: the pea as "one of the founder crops from the Near East" with two wild species, *Pisum sativum*
+  subsp. *elatius* "with a wide distribution centered in the Mediterranean" and *P. fulvum*, "restricted to
+  Syria, Lebanon, Israel, Palestine and Jordan"
+
+### THE CARD DOES NOT SAY "THE EIGHT FOUNDER CROPS", AND THAT IS THE FINDING
+The familiar formulation is a set of eight, and **no source opened for this batch enumerates them**. Four
+searches were run — the phrase in titles, the phrase in abstracts beside individual crop names, the concept
+paired with the Fertile Crescent — and what came back was **the genomics of single species**: flax, pea,
+barley, wheat, each calling itself "one of the founder crops" in its first sentence and none listing the
+rest. Europe PMC's skew towards current species-level output, recorded in W26, holds for this subject too.
+So the card says **"the small group of plants"** and names only the members its sources name. That is the
+better card as well as the honest one: the number is genuinely argued over, and a card asserting eight
+would have been repeating a textbook convention that the works it cites do not use.
+
+### THE ORIGINS ARE PLURAL AND THE CARD LEADS ON IT
+`gregorio-de-souza-2022` carries three separate hedges in one passage — emmer possibly domesticated twice,
+barley possibly polyphyletic across two regions, einkorn and emmer from the Karaca Dağ — and the card spends
+two of its ten sentences on them, closing block 1 with the point they add up to: the package is "not one
+event in one valley but a set of overlapping ones". A founder-crops card written from the textbook shape
+would have said the opposite.
+
+### Reused, from the register
+`cao-2026` (the three wheats domesticated in the Fertile Crescent by the early Neolithic — einkorn diploid,
+emmer tetraploid, bread wheat hexaploid), `groman-yaroslavski-2026` (cereals reaped for ~4.5 millennia
+before any was altered, which is the card's closing point that the package did not appear from nothing).
+**Five sources, all five open** — the first card in four batches with no paywalled entry.
+
+---
+
+## Batch W28 — `wh-119` Cereal domestication, and the term it needed (2026-08-07)
+
+### Newly opened for this batch, both read in full via the Europe PMC REST route
+
+**`pourkheirandish-komatsuda-2022`** — Mohammad Pourkheirandish and Takao Komatsuda, "Grain Disarticulation
+in Wild Wheat and Barley", *Plant and Cell Physiology* 63, no. 11 (2022): 1584–91. [Open access]
+- supports: that "perhaps the most critical event in the process of cereal domestication was the loss of
+  the natural mode of grain dispersal"; that grains of wild wheat and barley "progressively break off along
+  the inflorescence structure, the spike, and scatter on the ground as the plant senesces"; that *Brittle
+  rachis 1* and *Brittle rachis 2* "are major genes responsible for grain disarticulation in the wild
+  progenitors of wheat and barley that were the target of mutations during domestication"; and that the two
+  "are only found in the Triticeae tribe and are hypothesized to have evolved by a duplication followed by
+  neo-functionalization"
+
+**`kabukcu-2021`** — Ceren Kabukcu, Eleni Asouti, Nadja Pöllath, Joris Peters and Necmi Karul, "Pathways to
+Plant Domestication in Southeast Anatolia Based on New Data from Aceramic Neolithic Gusir Höyük",
+*Scientific Reports* 11, no. 1 (2021): 2112. [Open access]
+- supports: that "early wheat domestication in southeast Anatolia occurred at a faster pace than predicted
+  by current hypotheses for a protracted transition to farming in Southwest Asia", on "a multivariate
+  evaluation of wheat grain metrics alongside botanical and radiometric data"; that the PPNA evidence there
+  "does not support a protracted 'pre-domestication cultivation' stage"; and the authors' proposed
+  explanation, the increasing importance of cereals "in feasting at southeast Anatolian sites characterised
+  by increasing architectural complexity and elaboration during the 11th millennium cal BP"
+
+### A CARD THAT CARRIES A LIVE DISAGREEMENT WITH ITS OWN SIBLINGS, AND MEASURES 0 HISTORIOGRAPHY
+`wh-117` and `wh-118` both state, from `cao-2026`, that domestication is typically protracted and
+unconscious. `kabukcu-2021` argues one region does not fit. **The two are compatible and the card says so
+without hedging either into mush**: block 2 gives the slow picture, then gives the exception as a finding
+about the past rather than as a dispute between scholars. The phrasing is what does that work — "one region
+does not fit the slow picture … wheat there changed faster, with no long stage of cultivating it wild
+beforehand", not "researchers have challenged the protracted model". `card-focus.js` measures **0 of 10**.
+**A card can carry a genuine scholarly argument at zero historiography cost if the sentences are about the
+world rather than about the literature** — the W22 lesson stated more sharply, since here the disagreement
+is the point of the second block rather than an aside.
+
+### Reused, from the register
+`cao-2026` (the protracted, unconscious character of the process, and the plant syndrome traits),
+`groman-yaroslavski-2026` (the ~4,500 years of reaping before anything changed, which is what makes
+harvesting the selecting agent), `gregorio-de-souza-2022` (einkorn and emmer from the Karaca Dağ, barley
+possibly with a second origin on the Iranian plateau).
+**Five sources, all five open — the second card running with no paywalled entry.**
+
+### The mechanism, and why it is the card
+`wh-117` is the concept and `wh-118` the crop set, so this card had one job left: **what actually changed
+in the plant.** The answer is unusually crisp for this subject — two named genes in one tribe of grasses,
+mutated so that the spike no longer breaks up — and it carries the fact worth remembering, that a
+domesticated cereal cannot sow itself and depends on being harvested and resown. The date line names the
+two genes for that reason rather than a second date.
+
+---
+
+## Batch W29 — `wh-120` Animal domestication (2026-08-07)
+
+### Newly opened
+`cucchi-2021` — Thomas Cucchi and Benjamin Arbuckle, "Animal Domestication: From Distant Past to Current
+Development and Issues," *Animal Frontiers* 11, no. 3 (2021): 6–9. PMC8214435. **[Open access, verified
+by fetch]**
+- supports: three independent cradles of livestock domestication, inside sedentary early-farming
+  communities — "the domestication of globally important livestock animals occurred within sedentary
+  communities engaged in early agriculture in three independent cradles."
+- supports: Southwest Asia oldest, and the animals follow the plants — "The oldest of these is located in
+  Southwest Asia where cereals (wheat, barley), legumes (pulse, peas, lentils), and fruits (figs) were
+  domesticated between 12,000 and 10,000 BP, followed by sheep, goat, pigs, and cattle between 10,500 and
+  10,000 BP."
+- supports: China as second cradle, pigs after the grains — "The second cradle is located in China where
+  domesticated millets and rice were cultivated in the Yellow and Yangtze River valleys by 10,000 BP. This
+  was followed relatively rapidly by pig domestication in the Yellow River valley."
+- supports: the Andes, and the turkey — "The last major center of ungulate domestication is located in the
+  Andes … between 9000 and 8000 BP along with South American camelids, llamas and alpacas"; "North America,
+  also contributed to global animal domestication with the turkey by 2000 BP."
+- supports: the later labour wave — "a later series of animal domestications focused on the use of animal
+  labor, with the domestic forms of donkey, horse, and camel emerging between 5000 and 2000 BP. These
+  animals revolutionized human economies and transportation, boosting the power of states, empires and the
+  scale of warfare."
+
+`stiner-2022` — Mary C. Stiner, Natalie D. Munro, Hijlke Buitenhuis, Güneş Duru, and Mihriban Özbaşaran,
+"An Endemic Pathway to Sheep and Goat Domestication at Aşıklı Höyük (Central Anatolia, Turkey)," *PNAS*
+119, no. 4 (2022): e2110930119. PMC8795544. **[Open access, verified by fetch]**
+- supports: a millennium of management in three stages — "Beginning ca. 10,400 y ago, caprine management
+  segued through a series of viable systems over the next 1,000 y. The earliest stage simply involved
+  capturing wild lambs and kids and growing them on site … Soon, low-level breeding began within the
+  settlement … By the end of the archaeological sequence, large numbers of animals were produced from
+  captive herds, which gave rise to early domesticated forms."
+- supports: **and no body-size reduction across the whole of it** — "Despite clear indications of
+  human-imposed selection and manipulation of caprines over many centuries at AH, there was little if any
+  body size reduction in the sheep and goats from Levels 5 through 2"; "There is, however, no statistically
+  significant diminution trend for either species within the millennium-long history of AH."
+
+`daly-2021` — Kevin G. Daly et al., "Herded and Hunted Goat Genomes from the Dawn of Domestication in the
+Zagros Mountains," *PNAS* 118, no. 25 (2021): e2100901118. PMC8237664. **[Open access, verified by fetch]**
+- supports: the age/sex signature of herding — "Herd management should therefore be reflected in
+  archaeological assemblages composed of the bones of young males and older adult females."
+- supports: the Ganj Dareh figures — "a strong emphasis on the harvest of younger animals, with only around
+  20% surviving beyond 4 y of age"; "between 60% and 70% of males from all five building levels had been
+  harvested before they reached 2.5 y of age, while between 60% and 70% of females survived beyond this age."
+- supports: the lag, and the superlative — "management and husbandry by circa 8200 cal BC, with detectable
+  morphological change appearing ∼1,000 y later"; "represent the oldest to-this-date reported livestock
+  genomes."
+- supports: the wild ancestor is the bezoar goat (*Capra aegagrus*), and that managed goats were already
+  "genetically distinct from wild goats at this early horizon."
+
+`arbuckle-2021` — Benjamin S. Arbuckle and Theo M. Kassebaum, "Management and Domestication of Cattle
+(*Bos taurus*) in Neolithic Southwest Asia," *Animal Frontiers* 11, no. 3 (2021): 10–19. PMC8214434.
+**[Open access, verified by fetch]**
+- supports: the ancestor and the two lineages — "Domestic cattle (*B. taurus*) are thought to derive from
+  the extinct aurochs (*Bos primigenius*)"; "two lineages of domestic cattle: the first represented by
+  taurine cattle whose ancestry is thought to lie primarily in Neolithic SW Asia, and the second by zebu
+  cattle (*Bos indicus*), which can be traced back to a South Asian population of aurochsen."
+
+`wang-2025` — Jiajing Wang et al., "Early Evidence for Pig Domestication (8,000 cal. BP) in the Lower
+Yangtze, South China," *PNAS* 122, no. 24 (2025): e2507123122. PMC12184640. **[Open access, verified by
+fetch]**
+- supports: the commensal route, at two named sites — "pig dental calculus from two early Neolithic sites
+  in the Lower Yangtze River region: Jingtoushan (8,300 to 7,800 cal. BP) and Kuahuqiao (8,200 to 7,000
+  cal. BP)"; "pigs consumed human-associated foods and waste, including cooked starchy plants and human
+  whipworm (*Trichuris trichiura*) eggs"; "Early domestication likely followed both commensal and prey
+  pathways, involving pigs scavenging anthropogenic waste."
+
+**Five sources, all five open — the third card running with no paywalled entry.**
+
+### Claims deliberately NOT made
+- **The dog is left alone.** `cucchi-2021` gives it (~23,000 BP terminus post quem, and within
+  hunter–gatherer societies rather than farming ones) and it would have been the most arresting fact
+  available. It is `wh-121`'s whole subject, so the card takes the livestock and says nothing about it.
+- **The biomass fact** — that domestic animals are about two thirds of terrestrial vertebrate biomass and
+  wild animals 3–5% — was drafted as a closer and cut. `cucchi-2021` carries it citing Smil 2003, which is
+  a secondhand attribution, and the card is about a Neolithic process rather than about the present.
+- **Zeder's three pathways** (commensal, predation, directed) are named in `cucchi-2021` as a model. The
+  card uses "commensal" and "prey" as descriptions of what happened at the sites rather than naming the
+  scheme, keeping the sentence about animals instead of about a framework.
+- **`arbuckle-2021`'s central argument** — that ninth-millennium domestic cattle are "largely a mirage" and
+  the phenotype appears a millennium later — was left out even though it is the paper's point and agrees
+  with the card's spine. It is a critique of a narrative, i.e. historiography, and the lag is already
+  carried twice by evidence (Zagros genomes, Aşıklı body sizes). The paper is cited for the aurochs and the
+  two lineages instead.
+
+### The finding: three independent lines saying the bones lag the relationship
+The card's spine came out of the sources agreeing across methods that had no reason to agree. `daly-2021`
+gets it from **genomes** (distinct by 8200 cal BC, morphology ~1,000 y later), `stiner-2022` from
+**osteometry** (a millennium of demonstrable management, no significant diminution), `arbuckle-2021` from
+**biometry plus aDNA** on a different animal in a different region. Three species, three techniques, the
+same interval. That is what makes it a fact about the process rather than a quirk of one site — and it is
+why the card's first question is about the dating problem rather than about a date.
+
+### Historiography and focus
+`card-focus.js` measures **0 of 10** and no researcher is named in any of the three phrasings. The near
+miss was `arbuckle-2021`: writing the lag as "the traditional ninth-millennium date has been critiqued"
+would have been one sentence about the literature. Written as what the evidence shows at named sites, it
+is a sentence about the past. **W28's rule applied a second time.**
+
+### On `Animal_domestication` the glossary term
+Three sentences, 108 words, two sources (`cucchi-2021`, `daly-2021`), both open. **No aliases were
+written**, and the temptation was "livestock domestication" — which is NOT a synonym but a **subset**,
+since animal domestication also covers the dog, the cat and the later pets. N2's rule: before adding a
+synonym alias, ask whether the two names belong to the same scheme. They do not.
