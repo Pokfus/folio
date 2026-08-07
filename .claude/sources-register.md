@@ -11885,3 +11885,54 @@ temptation on re-reading is to "fix" it by deleting one.
 `Ardipithecus_ramidus` owns Ardi and the naming history; `Ardipithecus_kadabba` owns the small sample and
 the honing canines. Checked on the rendered page: the card's answer term is suppressed while **both
 species terms link**, which is the wanted behaviour and not a self-link fault.
+
+## Batch W6 — `wh-010` Lucy and `wh-011` Laetoli footprints (2026-08-07)
+
+Two cards, **no new glossary terms**: `Lucy_(Australopithecus)` and `Laetoli_footprints` both already exist
+and are cited at the bar, so the pairing rule is satisfied without writing anything. The answer terms
+resolve to them — `Lucy` through the key's own head word, `Laetoli footprints` likewise — and both were
+checked on the rendered page for self-linking, which is correctly suppressed on each.
+
+### Newly opened
+
+- Australian Museum, "<i>Australopithecus afarensis</i>," accessed 7 August 2026, https://australian.museum/learn/science/human-evolution/australopithecus-afarensis/. [Open access]
+  - opened: 2026-08-07 · the museum's species page
+  - supports: the retained climbing anatomy, "powerful arms with long forearms" and "long, curved finger
+    and toe bones"; and that the Laetoli prints are "presumed" to have been made by this species — the
+    hedge `wh-011` needs, since the attribution rests on association
+  - **NOT used for two figures it also carries**, because siblings already state them from other sources:
+    it gives the species span as 3.9–2.8 Ma against the Smithsonian's 3.85–2.95 Ma, and the brain as
+    "approximately 430 cubic centimetres" against Tattersall's tabulated mean of 446. Neither is a
+    contradiction — different samples, different roundings — and the rule applied is **sibling
+    consistency**: `Australopithecus_afarensis` (glossary) already says 446, so `wh-010` says 446 too
+  - used by: wh-010, wh-011
+
+### Reused, for the claims the register already records
+- `si-al-288-1` — Hadar, 1974, Johanson and Maurice Taieb, "About 3.2 million years old", the short broad
+  pelvis and in-angled thigh bones, and both names. **Note the register's own warning on this entry**: it
+  does NOT support any completeness percentage, so the widely-quoted "40 per cent" is absent from the card,
+  which says "several hundred fragments" and "one of the most complete" instead.
+- `wiseman-2023` — AL 288-1 as "one of the most complete hominin skeletons" and "approximately 1.05 m tall".
+- `tattersall-2023` — *A. afarensis* mean endocranial volume 446 ml (table 1).
+- `si-afarensis` — the species span, the plant diet, possible ancestry to later *Australopithecus*,
+  *Paranthropus* and *Homo*, and the upright-walking body.
+- `masao-2016` — the 3.66 Ma surface; **re-read on 2026-08-07** for two claims the register had not
+  recorded (G6 applied as written): S1's stature at about 165 cm, and the reading of the size range as
+  marked difference between the sexes.
+- `mcnutt-2021` — the site A prints, first noticed in 1976, the cross-stepping gait, and the argument for
+  a second hominin on the same landscape.
+- `si-laetoli` — **re-read for the preservation mechanism**, which the register entry did not carry: "three
+  early humans walked through wet volcanic ash. When the nearby volcano erupted again, subsequent layers of
+  ash covered and preserved" them; also the short-legs-short-strides inference from the print spacing.
+
+### Not cited, and why
+- **How Lucy died.** Kappelman et al. 2016 (*Nature*) argue a fall from a tall tree; Charlier et al. 2018
+  (*Medico-Legal Journal*) answer with mudslide and animal attack; Kappelman replied in 2019. `nature.com`
+  is 403 here and the SAGE journal is gated, so **none of the three could be opened**. It is also modern
+  forensic argument rather than the fossil itself — a `docs/history-focus-plan.md` matter — so the card
+  says nothing about her death rather than reporting one side of a live dispute from a press release.
+
+### Focus check
+Both cards measure **historio 0 of 10** with no researcher named in any of their six questions. `wh-011`
+keeps its one discovery sentence (the 1976 prints) in the abstract and never in a question, which is the
+`docs/history-focus-plan.md` allowance rather than an exception to it.
