@@ -5145,6 +5145,22 @@
        costs: darker still loses saturation until the swatches stop being colours at all. There is
        perhaps one more step of room. Say so then. */
     "Snorri Sturluson": "#401A5C",
+    /* Measured the same way, and the band the Beowulf row called full really is: with twenty-five
+       colours placed, the best-separated colour anywhere inside the shelf's own lightness and chroma
+       band clears its nearest neighbour by 21.3 — against a shelf whose own tightest pair is 18.2.
+       THE BEST NUMBER WAS REJECTED FOR THE SECOND TIME, and the Euripides test did the work again.
+       That 21.3 is a dark crimson whose four nearest neighbours are Plato, Ovid, BEOWULF at 22.9 and
+       Sophocles — and Beowulf is the one book on this shelf a reader genuinely reads against these
+       poems, both being Germanic heroic verse and sharing the Sigurd material outright, so a colour
+       sitting that close to his oxblood would say the two are a set. The Prose Edda is the same
+       objection a second time, its violet being what any reader reaches for next.
+       This deep blood-red costs six tenths of a point — 20.7 from Sun Tzu's rust, still wider than
+       the shelf's own tightest pair — and buys 67.1 from the Prose Edda and 42.6 from Beowulf, which
+       is a colour that cannot be read as either book's relative. Its other neighbours are Sophocles
+       at 21.4 and Aristophanes at 21.9, and nobody reads Greek tragedy or comedy against the Edda.
+       It reads 7.37:1 on the tightest of the twelve light papers, against a bar of 4.5.
+       Keyed by id, the poems being anonymous. */
+    "poetic-edda": "#720000",
   };
   /* An ANONYMOUS book keys on its own id; everything else keys on its author. See the song-of-roland
      row above for why — "Anonymous" is not an author two books can share. */
@@ -6681,6 +6697,81 @@
       chapterWord: "Part",
       count: 3,
       total: 4,
+    },
+    {
+      id: "poetic-edda",
+      title: "The Poetic Edda",
+      /* No subtitle. It is also called the Elder Edda and, still occasionally, the Sæmundar Edda;
+         putting either on the banner would assert a name the book never had — the second being an
+         attribution to a twelfth-century priest that no modern editor defends. Both are explained in
+         the front matter, which is where a naming quarrel belongs. */
+      author: "Anonymous",
+      /* THE DATE IS THIRTY-FIVE OPEN QUESTIONS RATHER THAN ONE, which is worse than the usual case of
+         a single undated work: a collection is only as datable as its parts, and these were made by
+         different hands over something like three centuries. The one fixed point is the manuscript,
+         written in Iceland about 1270. 900 is the early end of the range the poems are argued into
+         and is the only figure the shelf can honestly sort on; the front matter carries the doubt
+         rather than leaving the `c.` to do all the work. */
+      written: "c. 900–1250",
+      year: 900,
+      translator: "Henry Adams Bellows",
+      edition:
+        "The Poetic Edda, translated by Henry Adams Bellows, " +
+        "The American-Scandinavian Foundation, New York, 1923",
+      /* A LICENCE THAT STATES A LIMIT, and much the smallest limit on the shelf. The poems are
+         anonymous and medieval, so the work is free everywhere; Bellows's translation is public
+         domain in the United States on the pre-1929 publication rule, and he died in 1939, so it
+         cleared life plus seventy at the start of 2010 as well. What is left is life plus a hundred,
+         which runs to 2040 — a real limit and a narrow one, said outright rather than smoothed away.
+         His dates are unusually well corroborated for this shelf: Wikidata carries both at DAY
+         precision and Wikisource's own PD/US tag gives 1939 independently, so this is not the lone
+         unverified figure some translators here come down to. */
+      rights:
+        "Public domain in the United States and in life-plus-seventy countries, with one limit left " +
+        "to state. The poems are anonymous and medieval, so the work itself is free everywhere. " +
+        "Henry Adams Bellows's translation was published in 1923 — before 1929, so its United States " +
+        "copyright has expired — and he lived from 1885 to 1939, so it cleared life plus seventy at " +
+        "the start of 2010; where the term runs for the author's life plus a hundred years it stays " +
+        "in copyright until 2040. Bellows's General Introduction and his Pronouncing Index are not " +
+        "reproduced here; what is taken is the thirty-five poems with the introductory note and the " +
+        "footnotes he gave to each. There is no Old Norse column, and the reason is that no complete " +
+        "edition is transcribed anywhere reachable rather than that any of them is shut — see the " +
+        "front matter. (The translations by Lee M. Hollander, 1928, Carolyne Larrington, 1996, and " +
+        "Jackson Crawford, 2015, are still in copyright and are not used here.)",
+      sourceName: "Wikisource",
+      sourceUrl: "https://en.wikisource.org/wiki/The_Poetic_Edda_(tr._Bellows)",
+      /* THE CHAPTER IS A WHOLE POEM and the printed stanza number is the SECTION, and neither is a
+         compromise — which is unusual enough here to be worth saying. The collection is made of
+         poems and its own contents page lists them, so the poem is what a tab should be; and
+         "Voluspo 21" is how any passage is addressed in every edition and every reference work, so
+         the stanza is what a section should be. Measured over all thirty-five pages before it was
+         believed: 1,564 stanza numbers, every verse poem running a clean 1..N with no gap and no
+         duplicate, and not one leaf of the scan untranscribed.
+
+         TWO OF THE THIRTY-FIVE CARRY NO SECTION NUMBER AT ALL, and that is the edition rather than
+         the extractor: Fra Dautha Sinfjotla and Drap Niflunga are the manuscript's prose bridges
+         rather than poems, so they have nothing to number and render as one block apiece. They are
+         declared as prose in the importer, so the unnumbered-chapter warning still means something
+         when it fires on anything else.
+
+         NO `origLang`, and the reason is COVERAGE rather than the licence that keeps the Old Norse
+         off its prose companion. An edition whose copyright has expired exists and is transcribed —
+         Sophus Bugge's of 1867, and he died in 1907 — but only three of the thirty-five poems have
+         been transcribed from it and one of those numbers no stanzas, so there is nothing to pair
+         against on nine tenths of the book. Checked on the Icelandic, Norwegian, Danish, Swedish,
+         German and multilingual Wikisources; Old Norse has no wiki of its own. The numbers are
+         already there on both sides, which is the hard part, so a fuller transcription would need
+         only an `original` block. */
+      chapterWord: "Poem",
+      count: 35,
+      total: 35,
+      /* The edition's own two divisions, read off its contents page rather than inferred from the
+         subject matter — the gods stop and the heroes begin at Völundarkvitha, which is where
+         Bellows puts the break and where the manuscript puts it too. */
+      parts: [
+        { n: 1, label: "Lays of the Gods", note: "14 poems" },
+        { n: 2, label: "Lays of the Heroes", note: "21 poems" },
+      ],
     },
   ];
   const BOOK_BY_ID = {};
