@@ -13171,3 +13171,110 @@ in the plant.** The answer is unusually crisp for this subject — two named gen
 mutated so that the spike no longer breaks up — and it carries the fact worth remembering, that a
 domesticated cereal cannot sow itself and depends on being harvested and resown. The date line names the
 two genes for that reason rather than a second date.
+
+---
+
+## Batch W29 — `wh-120` Animal domestication (2026-08-07)
+
+### Newly opened
+`cucchi-2021` — Thomas Cucchi and Benjamin Arbuckle, "Animal Domestication: From Distant Past to Current
+Development and Issues," *Animal Frontiers* 11, no. 3 (2021): 6–9. PMC8214435. **[Open access, verified
+by fetch]**
+- supports: three independent cradles of livestock domestication, inside sedentary early-farming
+  communities — "the domestication of globally important livestock animals occurred within sedentary
+  communities engaged in early agriculture in three independent cradles."
+- supports: Southwest Asia oldest, and the animals follow the plants — "The oldest of these is located in
+  Southwest Asia where cereals (wheat, barley), legumes (pulse, peas, lentils), and fruits (figs) were
+  domesticated between 12,000 and 10,000 BP, followed by sheep, goat, pigs, and cattle between 10,500 and
+  10,000 BP."
+- supports: China as second cradle, pigs after the grains — "The second cradle is located in China where
+  domesticated millets and rice were cultivated in the Yellow and Yangtze River valleys by 10,000 BP. This
+  was followed relatively rapidly by pig domestication in the Yellow River valley."
+- supports: the Andes, and the turkey — "The last major center of ungulate domestication is located in the
+  Andes … between 9000 and 8000 BP along with South American camelids, llamas and alpacas"; "North America,
+  also contributed to global animal domestication with the turkey by 2000 BP."
+- supports: the later labour wave — "a later series of animal domestications focused on the use of animal
+  labor, with the domestic forms of donkey, horse, and camel emerging between 5000 and 2000 BP. These
+  animals revolutionized human economies and transportation, boosting the power of states, empires and the
+  scale of warfare."
+
+`stiner-2022` — Mary C. Stiner, Natalie D. Munro, Hijlke Buitenhuis, Güneş Duru, and Mihriban Özbaşaran,
+"An Endemic Pathway to Sheep and Goat Domestication at Aşıklı Höyük (Central Anatolia, Turkey)," *PNAS*
+119, no. 4 (2022): e2110930119. PMC8795544. **[Open access, verified by fetch]**
+- supports: a millennium of management in three stages — "Beginning ca. 10,400 y ago, caprine management
+  segued through a series of viable systems over the next 1,000 y. The earliest stage simply involved
+  capturing wild lambs and kids and growing them on site … Soon, low-level breeding began within the
+  settlement … By the end of the archaeological sequence, large numbers of animals were produced from
+  captive herds, which gave rise to early domesticated forms."
+- supports: **and no body-size reduction across the whole of it** — "Despite clear indications of
+  human-imposed selection and manipulation of caprines over many centuries at AH, there was little if any
+  body size reduction in the sheep and goats from Levels 5 through 2"; "There is, however, no statistically
+  significant diminution trend for either species within the millennium-long history of AH."
+
+`daly-2021` — Kevin G. Daly et al., "Herded and Hunted Goat Genomes from the Dawn of Domestication in the
+Zagros Mountains," *PNAS* 118, no. 25 (2021): e2100901118. PMC8237664. **[Open access, verified by fetch]**
+- supports: the age/sex signature of herding — "Herd management should therefore be reflected in
+  archaeological assemblages composed of the bones of young males and older adult females."
+- supports: the Ganj Dareh figures — "a strong emphasis on the harvest of younger animals, with only around
+  20% surviving beyond 4 y of age"; "between 60% and 70% of males from all five building levels had been
+  harvested before they reached 2.5 y of age, while between 60% and 70% of females survived beyond this age."
+- supports: the lag, and the superlative — "management and husbandry by circa 8200 cal BC, with detectable
+  morphological change appearing ∼1,000 y later"; "represent the oldest to-this-date reported livestock
+  genomes."
+- supports: the wild ancestor is the bezoar goat (*Capra aegagrus*), and that managed goats were already
+  "genetically distinct from wild goats at this early horizon."
+
+`arbuckle-2021` — Benjamin S. Arbuckle and Theo M. Kassebaum, "Management and Domestication of Cattle
+(*Bos taurus*) in Neolithic Southwest Asia," *Animal Frontiers* 11, no. 3 (2021): 10–19. PMC8214434.
+**[Open access, verified by fetch]**
+- supports: the ancestor and the two lineages — "Domestic cattle (*B. taurus*) are thought to derive from
+  the extinct aurochs (*Bos primigenius*)"; "two lineages of domestic cattle: the first represented by
+  taurine cattle whose ancestry is thought to lie primarily in Neolithic SW Asia, and the second by zebu
+  cattle (*Bos indicus*), which can be traced back to a South Asian population of aurochsen."
+
+`wang-2025` — Jiajing Wang et al., "Early Evidence for Pig Domestication (8,000 cal. BP) in the Lower
+Yangtze, South China," *PNAS* 122, no. 24 (2025): e2507123122. PMC12184640. **[Open access, verified by
+fetch]**
+- supports: the commensal route, at two named sites — "pig dental calculus from two early Neolithic sites
+  in the Lower Yangtze River region: Jingtoushan (8,300 to 7,800 cal. BP) and Kuahuqiao (8,200 to 7,000
+  cal. BP)"; "pigs consumed human-associated foods and waste, including cooked starchy plants and human
+  whipworm (*Trichuris trichiura*) eggs"; "Early domestication likely followed both commensal and prey
+  pathways, involving pigs scavenging anthropogenic waste."
+
+**Five sources, all five open — the third card running with no paywalled entry.**
+
+### Claims deliberately NOT made
+- **The dog is left alone.** `cucchi-2021` gives it (~23,000 BP terminus post quem, and within
+  hunter–gatherer societies rather than farming ones) and it would have been the most arresting fact
+  available. It is `wh-121`'s whole subject, so the card takes the livestock and says nothing about it.
+- **The biomass fact** — that domestic animals are about two thirds of terrestrial vertebrate biomass and
+  wild animals 3–5% — was drafted as a closer and cut. `cucchi-2021` carries it citing Smil 2003, which is
+  a secondhand attribution, and the card is about a Neolithic process rather than about the present.
+- **Zeder's three pathways** (commensal, predation, directed) are named in `cucchi-2021` as a model. The
+  card uses "commensal" and "prey" as descriptions of what happened at the sites rather than naming the
+  scheme, keeping the sentence about animals instead of about a framework.
+- **`arbuckle-2021`'s central argument** — that ninth-millennium domestic cattle are "largely a mirage" and
+  the phenotype appears a millennium later — was left out even though it is the paper's point and agrees
+  with the card's spine. It is a critique of a narrative, i.e. historiography, and the lag is already
+  carried twice by evidence (Zagros genomes, Aşıklı body sizes). The paper is cited for the aurochs and the
+  two lineages instead.
+
+### The finding: three independent lines saying the bones lag the relationship
+The card's spine came out of the sources agreeing across methods that had no reason to agree. `daly-2021`
+gets it from **genomes** (distinct by 8200 cal BC, morphology ~1,000 y later), `stiner-2022` from
+**osteometry** (a millennium of demonstrable management, no significant diminution), `arbuckle-2021` from
+**biometry plus aDNA** on a different animal in a different region. Three species, three techniques, the
+same interval. That is what makes it a fact about the process rather than a quirk of one site — and it is
+why the card's first question is about the dating problem rather than about a date.
+
+### Historiography and focus
+`card-focus.js` measures **0 of 10** and no researcher is named in any of the three phrasings. The near
+miss was `arbuckle-2021`: writing the lag as "the traditional ninth-millennium date has been critiqued"
+would have been one sentence about the literature. Written as what the evidence shows at named sites, it
+is a sentence about the past. **W28's rule applied a second time.**
+
+### On `Animal_domestication` the glossary term
+Three sentences, 108 words, two sources (`cucchi-2021`, `daly-2021`), both open. **No aliases were
+written**, and the temptation was "livestock domestication" — which is NOT a synonym but a **subset**,
+since animal domestication also covers the dog, the cat and the later pets. N2's rule: before adding a
+synonym alias, ask whether the two names belong to the same scheme. They do not.
